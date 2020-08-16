@@ -12,7 +12,14 @@ body {
 .katex {
 	font-size: 100% !important;
 	macros: {
-	    "\\RR": "\\mathbb{R}"
+		"\\ker": "\\operatorname{ker}"
+		"\\ran": "\\operatorname{ran}"
+		"\\span": "\\operatorname{span}"
+		"\\Re": "\\operatorname{Re}"
+		"\\CC": "\\bm{C}"
+		"\\FF": "\\bm{F}"
+		"\\RR": "\\bm{R}"
+		"\\NN": "\\bm{N}"
 	  }
 }
 .katex-display {

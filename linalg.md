@@ -6,14 +6,6 @@ classoption: fleqn
 fleqn: true
 ---
 
-\renewcommand{\ker}{\operatorname{ker}}
-\renewcommand{\ran}{\operatorname{ran}}
-\renewcommand{\span}{\operatorname{span}}
-\renewcommand{\Re}{\operatorname{Re}}
-\renewcommand{\CC}{\bm{C}}
-\renewcommand{\FF}{\bm{F}}
-\renewcommand{\RR}{\bm{R}}
-\renewcommand{\NN}{\bm{N}}
 
 This is not a beginners guide to linear algebra. It is a breviloquent
 collection of pertinent facts about vector spaces and the linear
