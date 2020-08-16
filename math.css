@@ -1,0 +1,30 @@
+html {
+	margin: 0 2em 0 2em;
+	padding: 1em;
+}
+body {
+	font-family: Cambria, "Lucida Bright", "Segoe UI", Georgia, 'Vesper Libre', serif;
+	font-size: large;
+	background: #F8F8F8;
+	/*background: linear-gradient(to right, #FFF, #F0F0F0);*/
+	color: #565656;
+}
+.katex {
+	font-size: 100% !important;
+	macros: {
+	    "\\RR": "\\mathbb{R}"
+	  }
+}
+.katex-display {
+	margin-left: 2em !important;
+}
+#kalx {
+    font-family: "Courier";
+    font-weight: bold;
+    opacity: 20%;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+    color: blue;
+}
