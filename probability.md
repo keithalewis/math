@@ -314,7 +314,6 @@ $F(x_1,\ldots,x_n) = P(X_1\le x_1,\ldots, X_n\le x_n$).
 
 
 
-<!--
 
 ### Moments
 
@@ -568,6 +567,7 @@ with parameter $a_j$, then
 $$
 \kappa(s) = \mu s + \sigma s^2/2 + \sum_j \alpha_j (e^{a_j s} - 1) - \alpha_j s
 $$
+<!--
 -->
 
 <!--

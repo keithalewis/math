@@ -23,13 +23,12 @@ FLAGS +=  -M date="$(shell date "+%B %e, %Y")"
 #FLAGS += -H katex.html
 #FLAGS += -A footer.html
 #FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
-#FLAGS += --bibliography epst.json
 
 $(HTML): %.html: %.md $(CSS)
 	pandoc $(FLAGS) $< -o $@
 
 $(PDF): %.pdf: %.md
-	pandoc $< -o $@
+	pandoc  $< -o $@
 
 $(DOCX): %.docx: %.md
 	pandoc $< -o $@
