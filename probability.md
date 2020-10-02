@@ -12,10 +12,10 @@ abstract: |
 
 In order to understand statistics one must first understand _probability theory_.
 
-A _sample space_ is a set of _outcomes_ that can occur. Subsets of a
+A _sample space_ is a set of _outcomes_. Subsets of a
 sample space are _events_. A _probability measure_ assigns  a number
 between 0 and 1 to events that represents a degree of belief that an outcome
-of a random trial will belong to the event.
+of a random sample will belong to the event.
 Partial information is modeled by a _partition_ of the sample space.
 
 ## Sample Space
@@ -29,7 +29,7 @@ where the outcome $H$ indicates heads and $T$ indicates tails.
 Of course any two element set could be used for this.
 
 A sample space for flipping a coin twice can be modeled by the set $\{HH,
-HT, TH, TT\}$ where the outcome specifies the individual outcomes of
+HT, TH, TT\}$ where each outcome specifies the individual outcomes of
 the first and second flip.  The event 'the first flip was heads' is the
 subset $\{HH, HT\}$.  The partition $\{\{HH, HT\},\{TH, TT\}\}$ represents
 the partial information of knowing the outcome of the first coin flip.
@@ -107,9 +107,10 @@ $\mu(E\cap F) + \mu(E\cap F') = \mu((E\cap F)\cup(E\cap F') = \mu(E)$.
 
 ## Probability Measure
 
-A _probability measure_ $P$ on the set $\Omega$ is a measure taking values in the interval $[0,1]$
-with $P(\Omega) = 1$. The _probability_ $P(E)$ for $E\subseteq\Omega$ represents a degree
-of belief that a random outcome will belong to the event $E$.
+A _probability measure_ $P$ on the sample space $\Omega$ is a measure
+taking values in the interval $[0,1]$ with $P(\Omega) = 1$. The
+_probability_ $P(E)$ for $E\subseteq\Omega$ represents a _degree of belief_
+that a random outcome will belong to the event $E$.
 
 __Exercise__. _Show $P(E\cup F) \le P(E) + P(F)$
 for any events $E$ and $F$ when $P$ is a probabilty measure_.
@@ -126,7 +127,7 @@ $E = \{\omega_i:i\in I\}$ is $P(E) = \sum_{i\in I} p_i$.
 __Exercise__. _Show this defines a probability measure._
 
 For the two coin flip model (assuming the coin is fair) we 
-assign equal probability to the each oucome. The probability of
+assign probability of $1/4$ to each oucome. The probability of
 the first flip being heads is $P(\{HH,HT\})
 = P(\{HH\} \cup \{HT\}) = P(\{HH\} + P(\{HT\}) = 1/4 + 1/4 = 1/2$.
 
@@ -159,22 +160,28 @@ every atom of $\mathcal{A}$ is a union of atoms in $\mathcal{B}$. In this case w
 $\mathcal{B}$ is a _refinement_ of $\mathcal{A}$ and $\mathcal{B}$ is _finer_ than $\mathcal{A}$
 or $\mathcal{A}$ is _coarser_ than $\mathcal{B}$.
 
+Recall a partial ordering is _reflexive_: $\mathcal{A}\preceq\mathcal{A}$ and
+_transitive_:$\mathcal{A}\preceq\mathcal{B}$ and $\mathcal{B}\preceq\mathcal{C}$
+imply $\mathcal{A}\preceq\mathcal{C}$ for $A,B,C\subseteq\Omega$.
+
+__Excercise__. _Show refinement is a partial ordering._
+
 ### Algebra of Sets
 
 More advanced texts use an _algebra_ of sets instead of a partition.
 An algebra of sets is a collection of subsets closed under complement and union
 that also contains the empty set.
 
-Since algebras are closed under complement $\Omega = \emptyset^c =
-\Omega\setminus\emptyset = \{\omega\in\Omega:\omega\not\in\emptyset\}$
+Since algebras are closed under complement $\Omega = \emptyset' =
+\Omega\setminus\emptyset$
 is also in the algebra.
 
 By [De Morgan's Laws](https://en.wikipedia.org/wiki/De_Morgan's_laws)
 an algebra is also closed under intersection since
-$A\cap B = (A^c\cup B^c)^c$.
+$A\cap B = (A'\cup B')'$.
 
 If $E$ and $F$ are elements of an algebra we can use plain English to
-talk about 'not $E$' ($E^c = \Omega\setminus E$), '$E$ or $F$' ($E\cup F$), and
+talk about 'not $E$' ($E'= \Omega\setminus E$), '$E$ or $F$' ($E\cup F$), and
 '$E$ and $F$' ($E\cap F$). The phrases '$E$ implies $F$' and 'if $E$ then $F$'
 correspond to $E\subseteq F$.
 
