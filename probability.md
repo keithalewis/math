@@ -12,32 +12,26 @@ abstract: |
 
 In order to understand statistics one must first understand _probability theory_.
 
-Events are assigned a probability between 0 and 1 representing a degree of
-belief that an outcome of a random trial will belong to an event. Random
-variables are variables in the sense that they are symbols that can be
-used in place of a number in equations and inequalities with additional
-information about the probability of the values it can have.
-
-A _probability model_ specifies a _sample space_ and a _probability
-measure_ for the possible _outcomes_. A _partition_ of the sample space
-into _events_ represents partial information. A _random variable_ is
-a function on the sample space.
+A _sample space_ is a set of _outcomes_ that can occur. Subsets of a
+sample space are _events_. A _probability measure_ assigns  a number
+between 0 and 1 to events that represents a degree of belief that an outcome
+of a random trial will belong to the event.
+Partial information is modeled by a _partition_ of the sample space.
 
 ## Sample Space
 
-A _sample space_ is the set of what can happen in a model.
+A _sample space_ is a set of what can happen in a probability model.
 An _outcome_ is an element of a sample space.
 An _event_ is a subset of a sample space.
 
-A sample space for flipping a coin can be modelled by $\{H,T\}$
-where $H$ indicates heads and $T$ indicates tails.
+A sample space for flipping a coin can be modeled by the set $\{H,T\}$
+where the outcome $H$ indicates heads and $T$ indicates tails.
 Of course any two element set could be used for this.
 
-A sample space for flipping a coin twice is $\{HH, HT, TH, TT\}$
-where the outcome specifies the individual outcomes of the first
-and second flip. 
-The event 'the first flip was heads' is the subset $\{HH, HT\}$.
-The partition $\{\{HH, HT\},\{TH, TT\}\}$ represents
+A sample space for flipping a coin twice can be modeled by the set $\{HH,
+HT, TH, TT\}$ where the outcome specifies the individual outcomes of
+the first and second flip.  The event 'the first flip was heads' is the
+subset $\{HH, HT\}$.  The partition $\{\{HH, HT\},\{TH, TT\}\}$ represents
 the partial information of knowing the outcome of the first coin flip.
 The first event in the partition indicates the first flip was heads.
 The second event in the partition indicates the first flip was tails.
@@ -69,32 +63,58 @@ The second step is to assign probabilities to the outcomes.
 Monte Hall problem
 -->
 
+## Measure
+
+A _measure_ $\mu$ on a set $S$ assigns numbers to subsets of $S$ and satisfies
+$$
+\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)
+$$
+for any subsets $E,F\subseteq S$ and $\mu(\emptyset) = 0$. Measures do not count twice.
+
+__Exercise__. _Show if $\nu(E\cup F) = \nu(E) + \nu(F) - \nu(E\cap F)$ for $E,F\subseteq S$
+then $\mu = \nu - \nu(\emptyset)$ is measure_.
+<details>
+<summary>Solution</summary>
+<blockquote>
+By $\mu = \nu - \nu(\emptyset)$ we mean $\mu(E) = \nu(E) - \nu(\emptyset)$ for any
+subset $E\subseteq S$. Clearly $\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)$
+for any $E,F\subseteq S$. Since $\mu(\emptyset) = \nu(\emptyset) - \nu(\emptyset) = 0$,
+$\mu$ is a measure.
+</blockquote>
+</details>
+
+__Exercise__. _Show if $\mu$ is a measure then $\mu(E\cup F) = \mu(E) + \mu(F)$
+for any subsets $E$ and $F$ with empty intersection $E\cap F = \emptyset$_.
+<details>
+<summary>Solution</summary>
+<blockquote>
+Since $\mu(\emptyset) = 0$, $\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)
+= \mu(E) + \mu(F) - \mu(\emptyset) = \mu(E) + \mu(F)$.
+</blockquote>
+</details>
+
+__Exercise__. _Show if $\mu$ is a measure then $\mu(E) = \mu(E\cap F) + \mu(E\cap F')$
+for any subsets $E$ and $F$ where $F' = S\setminus F = \{x\in S:x\not\in F\}$
+is the _complement_ of $F$ in $S$_.
+<details>
+<summary>Solution</summary>
+<blockquote>
+Note $(E\cap F)\cup(E\cap F') = E\cap(F\cup F') = E\cap S = E$
+and $(E\cap F)\cap(E\cap F') = E\cap(F\cap F') = E\cap\emptyset = \emptyset$ so
+$\mu(E\cap F) + \mu(E\cap F') = \mu((E\cap F)\cup(E\cap F') = \mu(E)$.
+</blockquote>
+</details>
 
 ## Probability Measure
 
-A _probability measure_ assigns a number between 0 and 1 to events.
-If $\Omega$ is a sample space and $P$ is a probability measure then
-the measure of the union of sets is the sum of the measure of each set
-minus the measure of the intersection
-$$
-P(E\cup F) = P(E) + P(F) - P(E\cap F)
-$$
-for any events $E$ and $F$. 
-This is the mathematical way of expressing the requirement that measures do not double count.
-A probability measure must also satisfy
-$$
-P(\emptyset) = 0 \ \mathrm{and}\ P(\Omega) = 1
-$$
-where $\emptyset$ is the _empty set_ that contains no elements.
-This implies $P(E\cup F) = P(E) + P(F)$ if $E$ and $F$ are _disjoint_ ($E\cap F = \emptyset$) events.
-
-__Exercise__. _If $Q$ is a measure with $Q(\emptyset) = a$ and $Q(\Omega) = b$
-where $a \not= b$ show $(Q - a)/(b - a)$ is a probability measure._
+A _probability measure_ $P$ on the set $\Omega$ is a measure taking values in the interval $[0,1]$
+with $P(\Omega) = 1$. The _probability_ $P(E)$ for $E\subseteq\Omega$ represents a degree
+of belief that a random outcome will belong to the event $E$.
 
 __Exercise__. _Show $P(E\cup F) \le P(E) + P(F)$
 for any events $E$ and $F$ when $P$ is a probabilty measure_.
 
-__Exercise__. _Show $P(\cup_{i E_i) \le \sum_i P(E_i)$
+__Exercise__. _Show $P(\cup_i E_i) \le \sum_i P(E_i)$
 for any events $(E_i)$ when $P$ is a probabilty measure_.
 
 If $\Omega$ consists of a finite number of elements $\{\omega_1,\ldots,\omega_n\}$
