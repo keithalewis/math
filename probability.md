@@ -156,7 +156,7 @@ The probabilities must satisfy $p_i \ge0$ and $\sum_i p_i = 1$.
 
 A _continuously distributed random variable_ is defined by a _density function_ $f$ where
 $P(a < X\le b) = \int_a^b f(x)\,dx$.
-The density must satisfy $f\ge 0$ and $\int_\bm{R} f(x)\,dx = 1$.
+The density must satisfy $f\ge 0$ and $\int_\mathbf{R} f(x)\,dx = 1$.
 
 ### Cumulative Distribution Function
 
