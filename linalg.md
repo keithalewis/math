@@ -12,13 +12,13 @@ collection of pertinent facts about vector spaces and the linear
 transformations between them.  Although it is complete and self-contained
 you should already be familiar with basic linear algebra before reading
 this. Statements and proofs are brief, so read them twice.  Do the
-exercises to confirm your understanding.  Think of it like the Tao
-Te Ching: this is not an instruction manual, it enables the consolidation and
-verification of your pre-existing partial knowledge of linear algebra.
+exercises to confirm your understanding.
 
 I make no apologies for the shamelessly mathematical exposition and hope
 it engenders an appeciation for the thrill of literally 'doing the math'
 to unequivocally establish absolute truth.
+
+## Introduction
 
 Vector spaces occupy a sweet spot in the menagerie of mathematical
 structures.  They are completely classified up to _isomorphism_ by their
@@ -26,16 +26,21 @@ _dimension_.  A _vector space_ is an _abelian group_ with a _scalar
 multiplication_ that satisfies a _distributive law_ with respect
 to the vector addition. A vector is
 not just a list of numbers, it is a mathematical object that satisfies
-certain axioms. Vectors can be anything with an addition and scalar
-multiplication that satisfy these axioms.  For example, _functions_
+these axioms.
+For example, _functions_
 are vectors and _linear transformations_ between vector spaces are
 also vectors.
 
+A linear transformation is a function between vector spaces that preserves
+the vector space structure. They are completely classified up to _similarity_
+by their _eigenvalues_ and the _multiplicity_ of each eigenvalue.
+
+<!--
 Linear transformations from a finite dimensional vector space to
 itself are categorized up to _similariy_ by a list of _eigenvalues_
 together with their _multiplicities_. Each eigenvalue and multiplicity
 is associated with an _invariant subspace_ having dimension equal to
-the multipicity.  If the multiplicity is 1 then $Tv = \lambda v$ where
+the multiplicity.  If the multiplicity is 1 then $Tv = \lambda v$ where
 $v$ is an eigenvector corresponding to the eigenvalue $\lambda$.  We can
 write this as $(T - \lambda I)v = 0$ where $I$ is the _identity operator_.
 The associated invariant subspace is spanned by $v$.  If the multiplicity
@@ -46,6 +51,7 @@ subspace is spanned by $v$, $Tv$, \ldots, $T^{m-1}v$.
 This probably makes no sense to you at this point, but it describes the
 Jordan canonical form of a linear transformation. After you master the
 following material these statements will become completely obvious.
+-->
 
 ## Vector Space
 
@@ -64,20 +70,12 @@ _Identity_
 _Inverse_
   ~ Every vector has an additive inverse $-x$ with $x + (-x) = 0$.  
 
-A vector space also specifies a _field_ of _scalars_ $\FF$ (usually
-the real $\RR$ or complex $\CC$ numbers) and a scalar
+A vector space also specifies a _field_ of _scalars_ $\bm{F}$ (usually
+the real $\bm{R}$ or complex $\bm{C}$ numbers) and a scalar
 multiplication that satisfies the _distributive law_ 
 $$
-	\alpha (x + y) = \alpha x + \alpha y, \mathrm{\ for\ } \alpha\in\FF \mathrm{\ and\ } x,y\in V.
+	\alpha (x + y) = \alpha x + \alpha y, \mathrm{\ for\ } \alpha\in\bm{F} \mathrm{\ and\ } x,y\in V.
 $$
-
-To prove '$A$ implies $B$' ($A\Rightarrow B$) start by writing down $A$. On succeeding lines
-write the result of applying an axiom to any previous lines followed
-by the axiom used.
-If a proof contains a line $C$ and a line $C\Rightarrow D$ then you can
-write $D$ using _modus ponens_.
-If the last line is $B$ then you have proved '$A$ implies $B$'.
-The statement 'if $A$ then $B$' is equivalent to '$A$ implies $B$'.
 
 __Lemma__. _For any vector $x$, $x + x = x$ implies $x = 0$_.
 $$
@@ -104,114 +102,147 @@ used for any group, abelian or not.
 
 __Exercise__. _Show for $x\in V$ that $(-1)x = -x$_.
 
-_Hint_. The left hand side is the scalar multiplication of $-1\in\FF$ by $x$.
+_Hint_. The left hand side is the scalar multiplication of $-1\in\bm{F}$ by $x$.
 The right hand side is the additive inverse of $x$. You need to show
 $x + (-1)x = 0$. Use the distributed law.
 
 __Exercise__. _Show for $x\in V$ that $-(-x) = x$_.
 
+## Linear Transformation
+
+When studying mathematical objects it is useful to study functions
+between them that preserve the structure of the objects.
+
+If $V$ and $W$ are vector spaces over the same field $\bm{F}$ then
+a function $T\colon V\to W$ is a _linear transformation_ if $T(\alpha x + y)
+= \alpha Tx + T y$ for $\alpha \in\bm{F}$ and $x,y\in V$.
+Note the addition and scalar multiplicate on the left-hand side of the equality
+are those of $V$ and on the right-hand side are those of $W$.
+Linear transformations are functions that preserve the vector space structure.
+
+__Exercise__. _Show $T(\alpha x + \beta y) = \alpha Tx + \beta T y$
+for $\alpha,\beta \in\bm{F}$ and $x,y\in V$_.
+
+The set of all linear transformations from $V$ to $W$ is
+denoted $\mathcal{L}(V,W)$. If $W = V$ we write $\mathcal{L}(V)$
+and call the tranformations _endomorphisms_ of $V$.
+The sum of $T,S\in \mathcal{L}(V,W)$ is defined by
+$(T + S)v = Tv + Sv$ for $v\in V$. If $\alpha\in\bm{F}$ define
+$\alpha T$ by $(\alpha T)v = \alpha(T v)$ for $v\in V$.
+
+__Exercise__. _Show $\mathcal{L}(V,W)$ is a vector space_.
+
+The _kernel_ of a linear transformation $T\colon V\to W$ is
+$\ker T = \{v\in V:Tv = 0\}$. 
+
+__Exercise__. _Show the kernel of a linear transformation is a vector space_.
+
+The _range_ of a linear transformation $T\colon V\to W$ is
+$\ran T = \{Tv\in W:v\in V\}$.
+
+__Exercise__. _Show the range of a linear transformation is a vector space_.
+
+If $T$ is an endomorphism on $V$ and $Tv = \lambda v$ for some $v\in V$ and
+$\lambda\in\bm{F}$ then $v$ is an _eigenvector_ of $T$ with _eigenvalue_ $\lambda$.
+These completely determine how $T$ acts on the one-dimensional subspace
+$\bm{F}v = \{\alpha v:\alpha\in\bm{F}\}$.
+
+__Exercise__. _Show $\bm{F}v$ is a subspace and $Tu = \lambda u$ for any $u\in\bm{F}v$_.
+
+A subset of a vector space that is a also a vector space is called a _subspace_.
+If $U\subseteq V$ is a subspace and $T$ is an endomorphism on $V$ then $U$ is
+an _invariant subspace_ of $T$ if $TU\subseteq U$. We have just shown eigenvectors
+determine one-dimensional invariant subspaces.
+
 ### Subspace
 
 Just as factoring an integer into its prime factors can provide useful
-information about the integer, vector spaces can be usefully broken down into
-smaller subspaces.
+information about the integer, vector spaces can be usefully factored down into
+smaller _subspaces_.
 
-A subset $U$ of a vector space $V$ is a _subspace_ if it is also a vector space.
+A subset $U$ of a vector space $V$ is a subspace if it is also a vector space.
 
 __Exercise__. _Show $U\subseteq V$ is a subspace if and only if $U + U\subseteq U$ and
-$\FF U\subseteq U$_.
+$\bm{F} U\subseteq U$_.
 
 We use the notation $U + U = \{x + y:x\in U, y\in U\}$
-and $\FF U = \{\alpha x:\alpha \in\FF, x\in U\}$.
+and $\bm{F} U = \{\alpha x:\alpha \in\bm{F}, x\in U\}$.
 
 __Exercise__. _If $U$ and $W$ are subspaces then $U + W$ and $U\cap W$ are also subspaces_.
 
 Subspaces of a vector space form a _lattice_ where $+$ is the _join_ and $\cap$ is the _meet_.
+Since $U + V = V$ for all subspaces $U$, $V$ is the identity element of the join.
+Since $U \cap \{0\} = \{0\}$ for all subspaces $U$, $\{0\}$ is the identity element of the meet.
 
-__Exercise__. (Absorbtion laws) _If $U$ and $W$ are subspacs then $U + (U \cap W) = U$ and $U\cap(U + W) = U$_.
+__Exercise__. (Absorbtion laws) _If $U$ and $W$ are subspaces then $U + (U \cap W) = U$ and $U\cap(U + W) = U$_.
 
-The lattice is also _distributive_.
+The lattice of subspaces is also _distributive_.
 
 __Exercise__. (Distributive laws) _If $U$, $V$, and $W$ are subspaces then
 $U \cap (V + W) = (U \cap V) + (U \cap W)$ and $U + (V\cap W) = (U + V)\cap(U + W)$_.
 
 Either of these implies the other in any lattice. [cite??]
 
-It is also a _bounded lattice_ with _top element_ $V$ and _bottom element_ $\{0\}$.
-$V$ is the identity for the join and $\{0\}$ is the identity element for the meet
-since $U + V = V$ and $U\cap\{0\} = \{0\}$ for any subspace $U\subseteq V$.
+Subspaces of $V$ form a _bounded lattice_ with _top element_ $V$ and _bottom element_ $\{0\}$.
 
-[Applications???]
+The lattice structure of subspaces is used in Quantum Mechanics. [cite?]
 
 ### Span
 
-If $v\in V$ then $\FF\{v\} = \{\alpha v:\alpha \in\FF\}$ is a subspace.
-It is the one-dimensional subspace _spanned_ by $v$.
+If $x\in V$ then $\bm{F}\{x\} = \{\alpha x:\alpha \in\bm{F}\}$ is 
+the one-dimensional subspace _spanned_ by $x$.
+
+__Exercise__. _Show $\bm{F}\{x\}$ is the smallest subspace of $V$ containing $x$_.
 
 More generally, let $X$ be any collection of vectors in $V$.
-The _span_ of the collection is 
-$$
-	\span X = \vee X = \{\sum_{x\in X} \alpha_x x\},
-$$
-where the sum is over any $\{\alpha_x\}_{x\in X}$ where $\alpha_x\in \FF$.
+The _span_ of the collection is the smallest subspace of $V$
+containing $X$ and is denoted $\span X$ or $\vee X$.
 
-We could say $X = \{x_i\}_{i\in I}$ where $x_i\in V$ for all $i\in I$
-but it is simpler to say $X = \{x\}_{x\in X}$ where $x\in V$ without
-dragging in an index set $I$.
+A _linear combination_ of vectors is a finite sum $\sum_j \alpha_j x_j$
+where $\alpha_j\in\bm{F}$ and $x_j\in V$.
 
-__Exercise__. _Show the span of $X$ is the smallest subspace of $V$ containing $X$_.
+__Exercise__. _Show the span of $X$ is the set of all linear combinations
+of vectors from $X$_.
 
 ### Independent
 
 A key property of a collection of vectors is _independence_.  A collection
-of vectors $X\subseteq V$ are independent if every _linear combination_
-$\sum_{x\in X} \alpha_x x = 0$ implies $\alpha_x = 0$ for all $x\in X$.
-Note that the empty set is independent.
-If $\alpha_x\not = 0$ for some $x$ then
-$x = -(1/\alpha_x)\sum_{y\not = x} \alpha_y y$ is a linear combination
-of vectors in $X\setminus \{x\}$.
-In this case $X$ is _linearly dependent_ and $X\setminus\{x\}$
-has the same span. We use _reverse solidus_ for $A\setminus B = \{x\in A: x\notin B\}$.
+of vectors $X$ in the vector space $V$ are independent if every linear combination
+$\sum_j \alpha_j x_j = 0$ where $\alpha_j\in\bm{F}$ and $x_j\in X$
+implies $\alpha_j = 0$ for all $j$. Note that the empty set is independent.
 
-If $X\subseteq V$ is independent but its span is not $V$ we can find $y\in V$
-such that $X\cup\{y\}$ is independent by choosing any $y\in V$ not in the span.
+__Exercise__. _If $X$ is independent and $\sum_j \alpha_j x_j = \sum_j \beta_j x_j$
+where $x_j\in X$ show $\alpha_j = \beta_j$ for all $j$_.
+
+Independence ensures unique representations of linear combinations.
+
+If $\sum_j \alpha_j x_j = 0$ and $\alpha_k\not = 0$ for some $k$ then
+$x_k = -(1/\alpha_k)\sum_{j\not=k} \alpha_j x_j$ is a linear combination
+of vectors in $X\setminus \{x_k\}$.
+In this case $X$ is _linearly dependent_ and $X\setminus\{x_k\}$
+has the same span as $X$. We use _reverse solidus_ for $A\setminus B = \{x\in A: x\notin B\}$.
 
 __Exercise__. _If $X\subseteq V$ is independent and $y\not\in\vee X$ show $X\cup\{y\}$ is independent_.
 
-__Exercise__. _Every $X\subseteq V$ contains a subset $Y\subseteq X$
-that is independent_.
+Let $\mathcal{C}$ be a collection of independent subsets of $V$ that is totally ordered by inclusion,
+given $X,Y\in\mathcal{C}$ either $X\subseteq Y$ or $Y\subseteq X$.
 
-_Hint_. Zorn's lemma using $Y\preceq X$ if and only if $X\subseteq Y$.
+__Exercise__. _Show $\cup\mathcal{C} = \cup_{X\in\mathcal{C}} X$ is independent_.
 
-Independence ensures unique representations.
-
-__Exercise__. _If $X$ are independent and $\sum_{x\in X}\alpha_x x
-= \sum_{x\in X}\beta_x x$ then $\alpha_x = \beta_x$ for all $x\in X$_.
-
-### Basis
-
-A collection of vectors $X\subseteq V$ is a _basis_
-of $V$ if they are independent and their span is $V$.
-
-__Exercise__. _If $X$ is a basis show every vector $v\in V$ can be
-uniquely written as $v = \sum_{x\in X}\alpha_x x$ for some $\alpha_x\in\FF$_.
-
-Every independent set of vectors can be extended to a basis.  If $X$ is
-independent let $\mathcal{P}$ be the collection of supersets of $X$
-that are independent.  If $\mathcal{C}\subseteq\mathcal{P}$ is totally
-order by inclusion then $Y = \cup\mathcal{C}$ is also independent.
-
-Starting with $X = \emptyset$ this shows every vector space has a basis.
-If $U$ is a subspace and $X$ is a basis of $U$
+A _basis_ of a vector space is an independent subset that spans the space.
+The above exercise and Zorn's Lemma shows every vector space has a basis.
 
 ### Dimension
 
-The _dimension_ of $V$ is the cardinality of a basis $X$. The
-fundamental fact about vector spaces is that every basis has the same
+The _dimension_ of $V$ is the cardinality of a basis $X$.
+A fundamental fact about vector spaces is that every basis has the same
 cardinality. This shows the definition of dimension is well-defined.
 Classical texts prove this for finite dimensional vector spaces
-using the Steinitz exchange lemma. We prove this below for
+using the Steinitz exchange lemma. We prove this for
 vector spaces of any dimension.
+
+The Cantor-Bernstein lemma states that if $f\colon A\to B$ is one-to-one
+and $g\colon B\to A$ is one-to-one, then $A$ and $B$ have the same cardinality.
 
 ### Quotient Space
 
@@ -245,7 +276,7 @@ Quotient spaces split vector spaces into two _complementary_ vector spaces.
 The _external sum_ of vector spaces $U$ and $W$, $U\oplus W$, is the set $U\times W$
 with addition $(u,w) + (x, y) = (u + x, w + y)$, where $u,x\in U$
 and $w,y\in W$, and scalar multiplication $\alpha (u, w) = (\alpha u,
-\alpha w)$ for $\alpha \in\FF$.  The external sum addition and scalar
+\alpha w)$ for $\alpha \in\bm{F}$.  The external sum addition and scalar
 multiplication on the left-hand sides are defined in terms of those for $U$
 and $W$ in the first and second elements (respectively) of the pairs on
 the right-hand sides.
@@ -281,9 +312,9 @@ Internal sums do not require the notion of isomorphic linear transformations.
 When studying mathematical objects it is useful to study functions
 between them that preserve the structure of the objects.
 
-If $V$ and $W$ are vector spaces over the same field $\FF$ then
+If $V$ and $W$ are vector spaces over the same field $\bm{F}$ then
 a function $T\colon V\to W$ is a _linear transformation_ if $T(\alpha x + y)
-= \alpha Tx + T y$ for $\alpha \in\FF$ and $x,y\in V$.  Note $Tx$ and $Ty$
+= \alpha Tx + T y$ for $\alpha \in\bm{F}$ and $x,y\in V$.  Note $Tx$ and $Ty$
 are in $W$. The set of all linear transformations from $V$ to $W$ is
 denoted $\mathcal{L}(V,W)$. If $W = V$ we write $\mathcal{L}(V)$
 and call the elements _endomorphisms_ of $V$.
@@ -292,12 +323,12 @@ If $U$ is a subpace of $V$ and $T\in\mathcal{L}(V)$ we say $U$
 is an _invariant subspace_ if $TU\subseteq U$. In this case
 the restriction of $T$ to $U$ is in $T\in\mathcal{L}(U)$.
 
-If $U$ is a one-dimensional invariant subspace, $U = \FF\{u\}$ for some
+If $U$ is a one-dimensional invariant subspace, $U = \bm{F}\{u\}$ for some
 non-zero vector $u$, we say $u$ is an _eigenvector_ of $T$. We have $Tu =
-\lambda u$ for some $\lambda\in\FF$ and call $\lambda$ the _eigenvalue_
+\lambda u$ for some $\lambda\in\bm{F}$ and call $\lambda$ the _eigenvalue_
 corresponding to the eigenvector $u$.
 
-__Exercise__. _If $w\in U = \FF\{u\}$ and $Tu = \lambda u$ show $Tw = \lambda w$_.
+__Exercise__. _If $w\in U = \bm{F}\{u\}$ and $Tu = \lambda u$ show $Tw = \lambda w$_.
 
 This shows $T$ is completely determined by an eigenvector and
 its corresponding eigenvalue on one-dimensional invariant subspaces.
@@ -308,19 +339,19 @@ _Hint_: The $0$ on the left-hand side is the additive identity of $V$
 and the $0$ on the right-hand side is the additive identity of $W$.
 Use $x + x = x$ implies $x = 0$.
 
-__Exercise__. _Show $T(\alpha x) = \alpha (Tx)$ for $\alpha \in\FF$ and $x\in V$.
+__Exercise__. _Show $T(\alpha x) = \alpha (Tx)$ for $\alpha \in\bm{F}$ and $x\in V$.
 and $v,w\in V$_.
 
 _Hint_: Use $T(0) = 0$.
 
 __Exercise__. _Show $T(\alpha x + \beta y) = \alpha (Tx) + \beta (Ty)$
-for $\alpha ,\beta \in\FF$ and $x,y\in V$_.
+for $\alpha ,\beta \in\bm{F}$ and $x,y\in V$_.
 
 _Hint_: You don't need a hint if you have solved the previous exercises.
 
 If $T,S\in\mathcal{L}(V,W)$
 define addition $T + S$ by $(T + S)x = Tx + Sx$ and scalar
-multiplication by $(\alpha T)x = \alpha (Tx)$ for $\alpha \in\FF$ and
+multiplication by $(\alpha T)x = \alpha (Tx)$ for $\alpha \in\bm{F}$ and
 $x\in V$.  The left-hand sides are defined in terms of vector addition
 and scalar multiplication in $W$ on the right-hand sides.
 
@@ -430,11 +461,11 @@ $Ix = x$ for $x\in V$, and the distibutive law follows from linearity
 $R(S+T)x = R(Sx + Tx) = RSx + RTx = (RS + TS)x$.
 
 The integers are the prototypical example of a ring. The set of polynomials
-in one variable $\FF[t] = \{p(t) = \sum_{n\ge0} \alpha_n t^n\}$, where $\alpha
-_n\in\FF$ is a ring.
+in one variable $\bm{F}[t] = \{p(t) = \sum_{n\ge0} \alpha_n t^n\}$, where $\alpha
+_n\in\bm{F}$ is a ring.
 
 For any endomorphism $T\in\mathcal{V}$ there is a _functional calculus_
-$\Phi_T\colon\FF[t]\to\mathcal{F}(V)$ defined by $p(t)\mapsto p(T)$
+$\Phi_T\colon\bm{F}[t]\to\mathcal{F}(V)$ defined by $p(t)\mapsto p(T)$
 that preserves the ring structure.
 
 Note: If we replace the requirement that the scalars are a field by
@@ -444,9 +475,9 @@ Modules are not (by a long shot) characterized by their dimension.
 ### Dual Space
 
 The _dual vector space_ of the vector space $V$ is the space of
-_linear functionals_ $V^* = \mathcal{L}(V,\FF)$.
+_linear functionals_ $V^* = \mathcal{L}(V,\bm{F})$.
 For $v\in V$ and $v^*\in V^*$ we write the _dual pairing_
-$\langle v, v^*\rangle = v^*(v)\in\FF$.
+$\langle v, v^*\rangle = v^*(v)\in\bm{F}$.
 
 Obviously, if $x^*,y^*\in V^*$ then $\langle v,x^*\rangle = \langle v,y^*\rangle$
 for all $v\in V$ implies $x^* = y^*$.
@@ -478,7 +509,7 @@ for $v\in V$ and $w^*\in W^*$.
 
 A _normed vector space_ is a vector space with a _norm_ $\|.\|\colon V\to [0,\infty)$
 where $\|x + y\| \le \|x\| + \|y\|$, $\|\alpha x\| = |\alpha|\|x\|$,
-and $\|x\| = 0$ implies $x = 0$, $\alpha\in\FF$, $x,y\in V$.
+and $\|x\| = 0$ implies $x = 0$, $\alpha\in\bm{F}$, $x,y\in V$.
 It provides a _metric_ on $V$ by $d(x,y) = \|x - y\|$.
 
 __Exercies__. _Show $d$ is a metric_.
@@ -549,17 +580,17 @@ __Theorem__. (Closed Graph Theorem) _An operator is continuous if and only if it
 
 ### Examples
 
-For any set $I$ the set of all functions from $I$ to a field $\FF$
-is $\FF^I = \{x\colon I\to\FF\}$. It is a vector space, the _free vector space_ on
+For any set $I$ the set of all functions from $I$ to a field $\bm{F}$
+is $\bm{F}^I = \{x\colon I\to\bm{F}\}$. It is a vector space, the _free vector space_ on
 $I$, and has a basis $\{e_i\}_{i\in I}$ where $e_i(i) = 1$ and $e_i(j) = 0$ for $j\not=i$.
 This is not a normed space.
 
-The vectors $x\in\FF^I$ with $\|x\|_\infty = \sup_{i\in I}|x(i)| < \infty$
+The vectors $x\in\bm{F}^I$ with $\|x\|_\infty = \sup_{i\in I}|x(i)| < \infty$
 are the Banach space $\mathcal{l}^\infty(I)$.
 
 If $I$ is totally ordered (or a net) define the Banach spaces
-$c(I) = \{x\in\FF^I:\lim_i x(i) \mathrm{\ exists}\}$
-and $c_0(I) = \{x\in\FF^I:\lim_i x(i) = 0\}$.
+$c(I) = \{x\in\bm{F}^I:\lim_i x(i) \mathrm{\ exists}\}$
+and $c_0(I) = \{x\in\bm{F}^I:\lim_i x(i) = 0\}$.
 
 Clearly $c_0 \subseteq c \subseteq \mathcal{l}^\infty$.
 
@@ -577,9 +608,9 @@ The case when $p = 2$ is special.
 
 ## Inner Product Space
 
-A function $(.,.)\colon V\times V\to\FF$ with $y\mapsto (x,y)$
+A function $(.,.)\colon V\times V\to\bm{F}$ with $y\mapsto (x,y)$
 and $y\mapsto (y,x)$ linear in $y$ for each $x\in V$ is a _bilinear_
-function. If also $(\alpha x,y) = (x, \bar{\alpha } y)$ for $\alpha \in\FF$ and
+function. If also $(\alpha x,y) = (x, \bar{\alpha } y)$ for $\alpha \in\bm{F}$ and
 $x,y\in V$ it is _sesquilinear_. 
 An _inner product_ on a vector space V is a _sesquilinear_ form
 that is also _non-singular_, $(x, x) = 0$ implies $x = 0$.
@@ -653,7 +684,7 @@ __Theorem__. If $V$ is finite dimensional every operator in $\mathcal{L}(V)$ has
 
 If $T\in\mathcal{L}(V)$ and $Tx = 0$ for some $x\in V$ then $x$ is an eigenvector with eigenvalue $0$
 
-If $(x,y) = \|x\| \|y\|$ then $\alpha x = y$ for some $\alpha \in\FF$.
+If $(x,y) = \|x\| \|y\|$ then $\alpha x = y$ for some $\alpha \in\bm{F}$.
 
 There exists $x^*$ such that $\|x*\| \ge \|T e\|$ for $\|e\| = 1$.
 
@@ -661,8 +692,8 @@ There exists $x^*$ such that $\|x*\| \ge \|T e\|$ for $\|e\| = 1$.
 
 ## Polynomial Functional Calculus
 
-Let $\FF[t]$ be the _ring_ of polynomials in the variable $t$ over the
-scalar field $\FF$. Define $\Phi\FF[t]\to \mathcal{L}(V)$
+Let $\bm{F}[t]$ be the _ring_ of polynomials in the variable $t$ over the
+scalar field $\bm{F}$. Define $\Phi\bm{F}[t]\to \mathcal{L}(V)$
 by $\Phi(p) = p(T)$ where $p(t) = \sum_{n\ge0} \alpha_n t^n$.
 
 __Exercise__. _Show $\Phi$ is a ring homomorphism_.
@@ -671,10 +702,10 @@ __Exercise__. _Show $\Phi$ is a ring homomorphism_.
 
 $I\supset R$, $R' = R$, $R^2\subseteq R$.
 
-Infinite sums. What does $\sum_{x\in X} \alpha_x x$ for $\alpha_x\in\FF$ mean?
-Define $+\colon \FF^I\times V^I\to V$ for any $I$ as follows: ...
+Infinite sums. What does $\sum_{x\in X} \alpha_x x$ for $\alpha_x\in\bm{F}$ mean?
+Define $+\colon \bm{F}^I\times V^I\to V$ for any $I$ as follows: ...
 We introduce $I$ since the scalars and vectors must be indexed by the same set.
-We are really defining $+\colon 2^V\times\FF^I\times V^I\to V$...
+We are really defining $+\colon 2^V\times\bm{F}^I\times V^I\to V$...
 
 
 [Grobner basis...]
