@@ -6,6 +6,8 @@ classoption: fleqn
 fleqn: true
 ---
 
+\newcommand\ran{\operatorname{ran}}
+
 
 This is not a beginners guide to linear algebra. It is a breviloquent
 collection of pertinent facts about vector spaces and the linear
@@ -72,10 +74,10 @@ _Inverse_
 
 A vector space also specifies a _field_ of _scalars_ $\bm{F}$ (usually
 the real $\bm{R}$ or complex $\bm{C}$ numbers) and a scalar
-multiplication that satisfies the _distributive law_ 
-$$
-	\alpha (x + y) = \alpha x + \alpha y, \mathrm{\ for\ } \alpha\in\bm{F} \mathrm{\ and\ } x,y\in V.
-$$
+multiplication that satisfies
+
+_Distributive_
+  ~ $\alpha (x + y) = \alpha x + \alpha y$, for $\alpha\in\bm{F}$ and $x,y\in V$.
 
 __Lemma__. _For any vector $x$, $x + x = x$ implies $x = 0$_.
 $$
@@ -92,7 +94,7 @@ By _substitution_ we mean that if $P(x)$ is a logical statement
 containing the symbol $x$ we can replace each occurence of $x$ by any other
 symbol $y$, $x\mapsto y$, as long as $y$ does not occur in $P(x)$.
 Using the true statement $a = b \Rightarrow a + c = b + c$ we make the
-substitutions $a \mapsto x + x$, $b \mapsto x$, and $c \mapsto -x$
+substitutions $a \mapsto x + x$, $b \mapsto x$, and $c \mapsto (-x)$
 then use modus ponens.
 
 __Exercise__. _Show the additive identity is unique_.
@@ -137,22 +139,31 @@ $\ker T = \{v\in V:Tv = 0\}$.
 
 __Exercise__. _Show the kernel of a linear transformation is a vector space_.
 
+__Exercise__. _Show a linear transformation is injective if and only if its kernel is $\{0\}$_.
+
+_Injective_ means $Tx = Ty$ implies $x = y$.
+
 The _range_ of a linear transformation $T\colon V\to W$ is
-$\ran T = \{Tv\in W:v\in V\}$.
+$\ran T = \{Tv\in W:v\in V\}$. If $\ran T = W$ we say $T$ is _surjective_.
 
 __Exercise__. _Show the range of a linear transformation is a vector space_.
 
+An operator that is injective and surjective (bijective) is an _isomorphism_
+from $V$ to $W$. 
+
+<!--
 If $T$ is an endomorphism on $V$ and $Tv = \lambda v$ for some $v\in V$ and
 $\lambda\in\bm{F}$ then $v$ is an _eigenvector_ of $T$ with _eigenvalue_ $\lambda$.
 These completely determine how $T$ acts on the one-dimensional subspace
 $\bm{F}v = \{\alpha v:\alpha\in\bm{F}\}$.
 
 __Exercise__. _Show $\bm{F}v$ is a subspace and $Tu = \lambda u$ for any $u\in\bm{F}v$_.
+-->
 
-A subset of a vector space that is a also a vector space is called a _subspace_.
-If $U\subseteq V$ is a subspace and $T$ is an endomorphism on $V$ then $U$ is
-an _invariant subspace_ of $T$ if $TU\subseteq U$. We have just shown eigenvectors
-determine one-dimensional invariant subspaces.
+If $U\subseteq V$ and $T$ is an endomorphism on $V$ then $U$ is
+_invariant_ for $T$ if $TU\subseteq U$.
+
+__Exercise__. _Show the kernal and range of an endomorphism are invariant_.
 
 ### Subspace
 
@@ -160,7 +171,7 @@ Just as factoring an integer into its prime factors can provide useful
 information about the integer, vector spaces can be usefully factored down into
 smaller _subspaces_.
 
-A subset $U$ of a vector space $V$ is a subspace if it is also a vector space.
+A subset $U$ of a vector space $V$ is a subspace if $U$ is also a vector space.
 
 __Exercise__. _Show $U\subseteq V$ is a subspace if and only if $U + U\subseteq U$ and
 $\bm{F} U\subseteq U$_.
@@ -212,7 +223,7 @@ $\sum_j \alpha_j x_j = 0$ where $\alpha_j\in\bm{F}$ and $x_j\in X$
 implies $\alpha_j = 0$ for all $j$. Note that the empty set is independent.
 
 __Exercise__. _If $X$ is independent and $\sum_j \alpha_j x_j = \sum_j \beta_j x_j$
-where $x_j\in X$ show $\alpha_j = \beta_j$ for all $j$_.
+where $\alpha_j,\beta_j\in\bm{F}$ and $x_j\in X$ show $\alpha_j = \beta_j$ for all $j$_.
 
 Independence ensures unique representations of linear combinations.
 
