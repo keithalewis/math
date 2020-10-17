@@ -9,9 +9,16 @@ fleqn: true
 \renewcommand{\dom}{\operatorname{dom}}
 \renewcommand{\cod}{\operatorname{cod}}
 
-Given the cartesian product of two sets $X\times Y = \{(x,y):x\in X, y\in Y\}$
-the _left projection_ is $\lambda\colon X\times Y\to X$ by $\lambda(x,y) = x$
-and the _right projection_ is $\rho\colon X\times Y\to Y$ by $\rho(x,y) = y$.
+The notion of a _relation_ is a fundamental concept of mathematics. Given
+two things are they equivalent in some sense even if they are not
+equal?  Is one "bigger" than the other? Is it even possible to compare
+them? Relations provide a systematic way to get insights into these questions.
+Partial functions are special cases of relations and Functions are
+special cases of partial functions.
+
+Given two things in the cartesian product $X\times Y = \{(x,y):x\in X, y\in Y\}$
+the _left projection_ is the first thing $\lambda\colon X\times Y\to X$ by $\lambda(x,y) = x$
+and the _right projection_ is the second thing $\rho\colon X\times Y\to Y$ by $\rho(x,y) = y$.
 
 __Exercise__. _If $l\colon Z\to X$ and $r\colon Z\to Y$ are functions
 show there exists a function $t\colon Z\to X\times Y$ with
@@ -19,35 +26,50 @@ $\lambda(t(z)) = l(z)$ and $\rho(t(z)) = r(z)$ for $z\in Z$_.
 <details>
 <summary>Solution</summary>
 Define $t(z) = (l(z),r(z))\in X\times Y$ for $z\in Z$.
+Any set having this property is in one-to-one correspondence with the cartesian product of $X$ and $Y$.
 </details>
 
-A _relation_ on a sets $X$ and $Y$ is a subset $R\subseteq X\times Y$.
-We write $xRy$ for $(x,y)\in R$.
-The _domain_ of a relation is $\dom R = \lambda(R) = \{\lambda(x,y):(x,y)\in R\}$.
-The _codomain_, or _range_, of a relation is $\cod R = \rho(R) = \{\rho(x,y):(x,y)\in R\}$.
-The _right coset_ of $x\in\dom R$ is $xR = \{y\in Y: xRy\}$
-and the _left coset_ of $y\in\cod R$ is $Ry = \{x\in X: xRy\}$.
+A _relation_ between sets $X$ and $Y$ is a subset $R\subseteq X\times Y$ and
+we write $xRy$ for $(x,y)\in R$.
+The _domain_ of a relation is $\dom R = \lambda(R) = \{\lambda(x,y):(x,y)\in R\}$
+and the _codomain_, or _range_, of a relation is $\cod R = \rho(R) = \{\rho(x,y):(x,y)\in R\}$.
 
-__Exercise__. _Show $xR = ?$ and $Ry = ?$_.
-
-The _product_ of the relation $R\subseteq X\times Y$ and the relation
+The _product_, or _composition_, of the relation $R\subseteq X\times Y$ and the relation
 $S\subseteq Y\times Z$ is defined by $x(RS)z$ if and only if there exists
 $y\in Y$ with $xRy$ and $ySz$.
 
-__Exercise__. _Show $x(RS)z$ if and only if the intersection of $xR$ and $Sz$ is nonempty_.
+The _right coset_ of $x\in\dom R$ is $xR = \{y\in Y: xRy\}$
+and the _left coset_ of $y\in\cod R$ is $Ry = \{x\in X: xRy\}$.
+
+__Exercise__. _Show $x(RS)z$ if and only if the intersection of the cosets $xR$ and $Sz$ is nonempty_.
 
 Let $I_Z = \{(z,z):z\in Z\}\subseteq Z\times Z$ be the _identity_, or _diagonal_, relation on $Z$.
 
 __Exercise__. _Show for any relation $R\subseteq X\times Y$ that
 $I_XR = R$ and $RI_Y = R$_.
 
+The identity element for composition is $I$.
+
+__Exercise__. _Show if $J\subseteq X\times X$ and $JR = R$ for all $R\in X\times Y$
+then $J = I_X$_.
+
+__Exercise__. _Show if $J\subseteq Y\times Y$ and $RJ = R$ for all $R\in X\times Y$
+then $J = I_Y$_.
+
+The identity element is unique.
+
+__Exercise__. _Show for any relations $R\subseteq X\times Y$, $S\subseteq Y\times Z$,
+and $T\subseteq Z\times W$ that $(RS)T = R(ST)$_.
+
+Composition is associative. Relations are a _category_.
 
 The _transpose_, or _converse_, of the relation $R\subseteq X\times Y$
 is the relation $R' = \{(y,x):(x,y)\in R\} \subseteq Y\times X$.
 Obviously $\dom R' = \cod R$ and $\cod R' = \dom R$.
 
 __Exercise__. _Show for any relation $R\subseteq X\times Y$ that
-$I_{\dom R} \subseteq RR'$ and $I_{\cod R} \subseteq R'R$_.
+$I_{\dom R} \subseteq RR'$ and
+$I_{\cod R} \subseteq R'R$_.
 
 <details>
 <summary>Solution</summary>
@@ -55,9 +77,38 @@ If $x\in\dom R$ then $(x,y)\in R$ for some $y\in Y$ so $(y,x)\in R'$ and $(x,x)\
 A similar argument applies to $y\in\cod R$.
 </details>
 
-A _partial function_ is a relation $R$ with $xR$ having exactly one
-element $y$ when $x\in\dom R$ so we can write $R(x) = y$.  If $\dom R =
-X$ then $R$ is a _function_. Every partial function can be extended
+A relation $S\subseteq Y\times X$ is a
+_right partial inverse_, or _partial section_ of $R$ if $I_{\dom R} = RS$
+and a _left partial inverse_, or _partial retract_, of $R$ if $I_{\cod R} = SR$
+
+A _partial function_ is a relation $R$ where $xR$ has exactly one
+element $y\in Y$ when $x\in\dom R$ so we can unambiguously write $R(x) = y$
+for $xRy$.
+
+__Exercise__. _If $R$ is a partial function having a partial retract $S$
+then $R(x) = R(x')$ implies $x = x'$ for $x,x'\in\dom R$_.
+<details>
+<summary>Solution</summary>
+If $R(x) = R(x')$ for $x,x'\in X$ then $x = SR(x) = SR(x') = x'$.
+</details>
+
+A partial function is _injective_ if R(x) = R(x')$ implies $x = x'$ for $x,x'\in\dom R$.
+Injective partial functions don't send different things to the same thing.
+
+__Exercise__. If $R\subseteq X\times Y$ is an injective partial function then it has a partial retract_.
+<details>
+<summary>Solution</summary>
+Let $S = \{(R(x), x):x\in\dom R\}\subseteq Y\times X$.
+Claim: SR = I_domR$.
+
+(x',x) in SR iff x'Sy and yRx for some y.
+ySx iff y = R(x)
+</details>
+
+
+
+
+If $\dom R = X$ then $R$ is a _function_. Every partial function can be extended
 to a function by introducing an element $\bot\not\in Y$ and defining
 $\overline{R} = R\cup\{(x',\bot):x'\not\in\dom R\}\subseteq X\times
 (Y\cup\{\bot\})$.
@@ -69,10 +120,26 @@ If $x\in\dom R$ then $x\overline{R} = xR$ has one element. If $x\not\in\dom R$
 then $x\overline{R} = \{\bot\}$ has one element.
 </details>
 
-A relation $S\subseteq Y\times X$ is a _right inverse_ of $R$ if $RS = I_X$
-and a _left inverse_ of $R$ if $SR = I_Y$.
 
-A relation is _injective_, or _one-to-one_, if 
+__Exercise__. _If a partial function $R\subseteq X\times Y$ has a partial left inverse show
+$R(x) = R(x')$ for $x, x'\in\dom R$ implies $x = x'$_.
+<details>
+<summary>Solution</summary>
+If $R$ has partial left inverse $S$ then $SR = I_{\dom R}$ and $R(x) = R(x')$ implies $x = SR(x) = SR(x') = x'$
+for $x,x'\in\dom R$.
+</details>
+
+__Exercise__. _If a partial function $R\subseteq X\times Y$ has a partial right inverse show
+for every $y\in\cod R$ there exists $x\in\dom R$ with $R(x) = y$_.
+<details>
+<summary>Solution</summary>
+If $R$ has partial right inverse $S$ then $RS = I_{\cod R}$ and $y(RS)y$ for $y\in\cod R$
+and there exists $x\in X$ with $yRx$ and $xSy$.
+</details>
+
+A partial function is _injective_, or _one-to-one_, if $R(x) = R(x')$ implies $x = x'$.
+
+__Exercise__. _Show every injective partial function has a left inverse_.
 
 A relation is a _function_ if for every $x\in X$ there exists exactly one $y\in Y$ with $xRy$.
 In this case $\dom R = X$ and we write $xRy$ as $R(x) = y$. A function is
