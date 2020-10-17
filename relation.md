@@ -36,19 +36,20 @@ and the _codomain_, or _range_, of a relation is $\cod R = \rho(R) = \{\rho(x,y)
 The _product_, or _composition_, of the relation $R\subseteq X\times Y$
 and the relation $S\subseteq Y\times Z$ is $RS\subseteq X\times Z$ defined
 by $x(RS)z$ if and only if there exists $y\in Y$ with $xRy$ and $ySz$.
-Let $I_Z = \{(z,z):z\in Z\}\subseteq Z\times Z$ be the _identity_, or _diagonal_, relation on $Z$.
 
 The _right coset_ of $x\in\dom R$ is $xR = \{y\in Y: xRy\}$
 and the _left coset_ of $y\in\cod R$ is $Ry = \{x\in X: xRy\}$.
 
 __Exercise__. _Show $x(RS)z$ if and only if the intersection of the cosets $xR$ and $Sz$ is nonempty_.
 
+Let $I_Z = \{(z,z):z\in Z\}\subseteq Z\times Z$ be the _identity_, or _diagonal_, relation on $Z$.
+
 __Exercise__. _Show for any relation $R\subseteq X\times Y$ that
 $I_XR = R$ and $RI_Y = R$_.
 
 The identity element for composition is $I$.
 
-__Exercise__. _Show if $J\subseteq X\times X$ and $JR = R$ for all $R\in X\times Y$
+__Exercise__. _Show if $J\subseteq X\times X$ and $JR = R$ for all $R\subseteq X\times Y$
 then $J = I_X$_.
 <details>
 <summary>Solution</summary>
@@ -63,7 +64,8 @@ The identity element is unique.
 __Exercise__. _Show for any relations $R\subseteq X\times Y$, $S\subseteq Y\times Z$,
 and $T\subseteq Z\times W$ that $(RS)T = R(ST)$_.
 
-Composition is associative. Relations are a _category_.
+Composition is associative. The above shows relations are a _category_ with objects being sets
+and arrows being relations.
 
 The _transpose_, or _converse_, of the relation $R\subseteq X\times Y$
 is the relation $R' = \{(y,x):(x,y)\in R\} \subseteq Y\times X$.
@@ -79,38 +81,35 @@ If $x\in\dom R$ then $(x,y)\in R$ for some $y\in Y$ so $(y,x)\in R'$ and $(x,x)\
 A similar argument applies to $y\in\cod R$.
 </details>
 
-A relation $S\subseteq Y\times X$ is a
-_right partial inverse_, or _partial section_ of $R$ if $I_{\dom R} = RS$
-and a _left partial inverse_, or _partial retract_, of $R$ if $I_{\cod R} = SR$
+If $RS = I$ then $R$ is a _left inverse_, or _retract_, of $S$
+and $S$ is a _right inverse_, or _section_, of $R$.
 
-A _partial function_ is a relation $R$ where $xR$ has exactly one
-element $y\in Y$ when $x\in\dom R$ so we can unambiguously write $R(x) = y$
-for $xRy$.
+__Exercise__. _If $R\subseteq X\times Y$ has a section show $UR = VR$ implies $U = V$ for any $U,V\in Z\times X$_.
 
-__Exercise__. _If $R$ is a partial function having a partial retract $S$
-then $R(x) = R(x')$ implies $x = x'$ for $x,x'\in\dom R$_.
+A relation satifying right cancellation is caled _mono_.
+
+__Exercise__. _Find a relation that is mono but does not have a section_.
+
+__Exercise__. _If $S\subseteq Y\times Z$ has a retract show $SU = SV$ implies $U = V$ for any $U,V\in Z\times X$_.
+
+A relation satifying _left cancellation_ is caled _epi_.
+
+__Exercise__. _Find a relation that is epi but does not have a retract_.
+
+If $RS = I$ and $SR = I$ then $R$ is _invertible_ with _inverse_ $S$. Likewise, $S$ is
+invertible with inverse $R$. A relation that is both epi and mono is called _iso_.
+
+__Exercise__. _Show inverses are unique_.
 <details>
 <summary>Solution</summary>
-If $R(x) = R(x')$ for $x,x'\in X$ then $x = SR(x) = SR(x') = x'$.
+If $S$ and $T$ are inverses of $R$ then $S = S(RT) = (SR)T = T$. 
 </details>
 
-A partial function is _injective_ if R(x) = R(x')$ implies $x = x'$ for $x,x'\in\dom R$.
-Injective partial functions don't send different things to the same thing.
+A _partial function_ is a relation $R\subseteq X\time Y$ where $xR$ has exactly one
+element $y\in Y$ when $x\in\dom R$ so we can unambiguously write $R(x) = y$ for $xRy$.
+A _function_ is a partial function with $\dom R = X$.
 
-__Exercise__. If $R\subseteq X\times Y$ is an injective partial function then it has a partial retract_.
-<details>
-<summary>Solution</summary>
-Let $S = \{(R(x), x):x\in\dom R\}\subseteq Y\times X$.
-Claim: SR = I_domR$.
-
-(x',x) in SR iff x'Sy and yRx for some y.
-ySx iff y = R(x)
-</details>
-
-
-
-
-If $\dom R = X$ then $R$ is a _function_. Every partial function can be extended
+Every partial function can be extended
 to a function by introducing an element $\bot\not\in Y$ and defining
 $\overline{R} = R\cup\{(x',\bot):x'\not\in\dom R\}\subseteq X\times
 (Y\cup\{\bot\})$.
@@ -122,46 +121,10 @@ If $x\in\dom R$ then $x\overline{R} = xR$ has one element. If $x\not\in\dom R$
 then $x\overline{R} = \{\bot\}$ has one element.
 </details>
 
-
-__Exercise__. _If a partial function $R\subseteq X\times Y$ has a partial left inverse show
-$R(x) = R(x')$ for $x, x'\in\dom R$ implies $x = x'$_.
-<details>
-<summary>Solution</summary>
-If $R$ has partial left inverse $S$ then $SR = I_{\dom R}$ and $R(x) = R(x')$ implies $x = SR(x) = SR(x') = x'$
-for $x,x'\in\dom R$.
-</details>
-
-__Exercise__. _If a partial function $R\subseteq X\times Y$ has a partial right inverse show
-for every $y\in\cod R$ there exists $x\in\dom R$ with $R(x) = y$_.
-<details>
-<summary>Solution</summary>
-If $R$ has partial right inverse $S$ then $RS = I_{\cod R}$ and $y(RS)y$ for $y\in\cod R$
-and there exists $x\in X$ with $yRx$ and $xSy$.
-</details>
-
-A partial function is _injective_, or _one-to-one_, if $R(x) = R(x')$ implies $x = x'$.
-
-__Exercise__. _Show every injective partial function has a left inverse_.
-
-A relation is a _function_ if for every $x\in X$ there exists exactly one $y\in Y$ with $xRy$.
-In this case $\dom R = X$ and we write $xRy$ as $R(x) = y$. A function is
-_injective_, or _one-to-one_, if $R(x) = R(x')$ imples $x = x'$, for $x,x'\in X$.
-A function is _surjective_, or _onto_, if for all $y\in Y$ there exists $x\in X$ with $R(x) = y$.
-A function is _bijective_ if it is both injective and surjective.
-
-A relation is a _partial function_ if for every $x\in X$ there exists
-at most one $y\in Y$ with $xRy$.  In this case we write $xRy$ as $R(x)
-= y$ when $x\in\dom R$.  We can turn partial functions into functions
-by introducing a special symbol $\bot\not\in Y$, called _bottom_,
-and extending $Y$ to $\overline{Y} = Y\cup\{\perp\}$.
-Define $\overline{R}(x) = y$ if $(x,y)\in R$ and $\overline{R}(x) = \perp$ when $x\not\in\dom R$.
-
-__Exercise__. _Show $\overline{R}\subseteq X\times \overline{Y}$ is a
-function if $R\subseteq X\times Y$ is a partial function_.
-
-
 __Exercise__. If $R$ and $S$ are (partial) functions show $(x,z)\in RS$ if and only if $S(R(x)) = z$.
 
+A mono (partial) function is called _injective_, or _one-to-one_,
+and an epi (partial) function is called _surjective_, or _onto_.
 
 __Exercise__. _Show a function has a left inverse if and only if it is injective_.
 <details>
@@ -192,6 +155,14 @@ __Exercise__. _Find a symmetric relation that is not reflexive_.
 
 __Exercise__. _If $R$ is both symmetric and antisymmetric then $R = I$_.
 
+__Exercise__. _If $R$ is transitive then $R\cup I$ is also transitive_.
+<details>
+<summary>Solution</summary>
+Is $(R\cup S)T = RT\cup ST$?
+It is true $(R\cup S)T \supseteq RT\cup ST$?
+</details>
+
+A transitive relation is called an _ordering_.
 The most common categories of relations are
 
 _Preorder_
