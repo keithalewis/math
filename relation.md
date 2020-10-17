@@ -13,7 +13,7 @@ The notion of a _relation_ is a fundamental concept of mathematics. Given
 two things are they equivalent in some sense even if they are not
 equal?  Is one "bigger" than the other? Is it even possible to compare
 them? Relations provide a systematic way to get insights into these questions.
-Partial functions are special cases of relations and Functions are
+Partial functions are special cases of relations and functions are
 special cases of partial functions.
 
 Given two things in the cartesian product $X\times Y = \{(x,y):x\in X, y\in Y\}$
@@ -26,24 +26,22 @@ $\lambda(t(z)) = l(z)$ and $\rho(t(z)) = r(z)$ for $z\in Z$_.
 <details>
 <summary>Solution</summary>
 Define $t(z) = (l(z),r(z))\in X\times Y$ for $z\in Z$.
-Any set having this property is in one-to-one correspondence with the cartesian product of $X$ and $Y$.
+Any set for which such $t$ exists is in one-to-one correspondence with the cartesian product of $X$ and $Y$.
 </details>
 
 A _relation_ between sets $X$ and $Y$ is a subset $R\subseteq X\times Y$ and
 we write $xRy$ for $(x,y)\in R$.
 The _domain_ of a relation is $\dom R = \lambda(R) = \{\lambda(x,y):(x,y)\in R\}$
 and the _codomain_, or _range_, of a relation is $\cod R = \rho(R) = \{\rho(x,y):(x,y)\in R\}$.
-
-The _product_, or _composition_, of the relation $R\subseteq X\times Y$ and the relation
-$S\subseteq Y\times Z$ is defined by $x(RS)z$ if and only if there exists
-$y\in Y$ with $xRy$ and $ySz$.
+The _product_, or _composition_, of the relation $R\subseteq X\times Y$
+and the relation $S\subseteq Y\times Z$ is $RS\subseteq X\times Z$ defined
+by $x(RS)z$ if and only if there exists $y\in Y$ with $xRy$ and $ySz$.
+Let $I_Z = \{(z,z):z\in Z\}\subseteq Z\times Z$ be the _identity_, or _diagonal_, relation on $Z$.
 
 The _right coset_ of $x\in\dom R$ is $xR = \{y\in Y: xRy\}$
 and the _left coset_ of $y\in\cod R$ is $Ry = \{x\in X: xRy\}$.
 
 __Exercise__. _Show $x(RS)z$ if and only if the intersection of the cosets $xR$ and $Sz$ is nonempty_.
-
-Let $I_Z = \{(z,z):z\in Z\}\subseteq Z\times Z$ be the _identity_, or _diagonal_, relation on $Z$.
 
 __Exercise__. _Show for any relation $R\subseteq X\times Y$ that
 $I_XR = R$ and $RI_Y = R$_.
@@ -52,6 +50,10 @@ The identity element for composition is $I$.
 
 __Exercise__. _Show if $J\subseteq X\times X$ and $JR = R$ for all $R\in X\times Y$
 then $J = I_X$_.
+<details>
+<summary>Solution</summary>
+If $R = I_Y$ then $J = JI_Y = I_Y$.
+</details>
 
 __Exercise__. _Show if $J\subseteq Y\times Y$ and $RJ = R$ for all $R\in X\times Y$
 then $J = I_Y$_.
