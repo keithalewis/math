@@ -11,8 +11,7 @@ fleqn: true
 
 Given the cartesian product of two sets $X\times Y = \{(x,y):x\in X, y\in Y\}$
 the _left projection_ is $\lambda\colon X\times Y\to X$ by $\lambda(x,y) = x$
-and the _right projection_ is $\rho\colon X\times Y\to Y$ by $\rho(x,y) = y$
-for $x\in X$, $y\in Y$.
+and the _right projection_ is $\rho\colon X\times Y\to Y$ by $\rho(x,y) = y$.
 
 __Exercise__. _If $l\colon Z\to X$ and $r\colon Z\to Y$ are functions
 show there exists a function $t\colon Z\to X\times Y$ with
