@@ -7,6 +7,7 @@ fleqn: true
 ---
 
 \newcommand\ran{\operatorname{ran}}
+\newcommand\span{\operatorname{span}}
 
 
 This is not a beginners guide to linear algebra. It is a breviloquent
@@ -35,7 +36,8 @@ also vectors.
 
 A linear transformation is a function between vector spaces that preserves
 the vector space structure. They are completely classified up to _similarity_
-by their _eigenvalues_ and the _multiplicity_ of each eigenvalue.
+by their _eigenvalues_ and the _multiplicity_ of each eigenvalue for
+finite dimensional vector spaces.
 
 <!--
 Linear transformations from a finite dimensional vector space to
@@ -110,6 +112,22 @@ $x + (-1)x = 0$. Use the distributed law.
 
 __Exercise__. _Show for $x\in V$ that $-(-x) = x$_.
 
+If $\bm{F}^X = \{f\colon X\to \bm{F}\}$ is the set of all functions from $X$ to $\bm{F}$
+we can define $(f + g)(x) = f(x) + g(x)$ and $(\alpha f)(x) = \alpha f(x)$ for
+$f,g\in\bm{F}^X$ and $\alpha\in\bm{F}$. It is customary to write $c(X)$ for this space.
+
+__Exercise__. _Show $c(X)$ is a vector space_.
+
+The functions in $c(X)$ that are zero except at a
+finite number of elements of $X$ is customarily wriitten $c_{00}(X)$.
+
+__Exercise__. _Show $c_{00}(X)$ is a vector space_.
+
+If $X = \bm{N}$ is the set of _natural numbers_ define $c_0(\bm{N}) = c_0$
+to be the functions $f\in c(\bm{N})$ such that $\lim_{n\to\infty} f(n) = 0$.
+
+__Exercise__. _Show $c_0$ is a vector space_.
+
 ## Linear Transformation
 
 When studying mathematical objects it is useful to study functions
@@ -126,8 +144,7 @@ __Exercise__. _Show $T(\alpha x + \beta y) = \alpha Tx + \beta T y$
 for $\alpha,\beta \in\bm{F}$ and $x,y\in V$_.
 
 The set of all linear transformations from $V$ to $W$ is
-denoted $\mathcal{L}(V,W)$. If $W = V$ we write $\mathcal{L}(V)$
-and call the tranformations _endomorphisms_ of $V$.
+denoted $\mathcal{L}(V,W)$.
 The sum of $T,S\in \mathcal{L}(V,W)$ is defined by
 $(T + S)v = Tv + Sv$ for $v\in V$. If $\alpha\in\bm{F}$ define
 $\alpha T$ by $(\alpha T)v = \alpha(T v)$ for $v\in V$.
@@ -149,7 +166,40 @@ $\ran T = \{Tv\in W:v\in V\}$. If $\ran T = W$ we say $T$ is _surjective_.
 __Exercise__. _Show the range of a linear transformation is a vector space_.
 
 An operator that is injective and surjective (bijective) is an _isomorphism_
-from $V$ to $W$. 
+from $V$ to $W$. We write $V\cong W$ if such an operator exists and say
+$V$ is isomorphic to $W$.
+
+Recall a relation $R$ on a set $X$ is a subset of the product $X\times X$.
+We write $xRy$ if $(x,y)\in R$ for $(x,y)\in X\times X$.
+The _identity_ relation is $I = I_X = \{(x,x):x\in X\}$.
+The relation $R$ is _reflexive_ if $I\subseteq R$.
+The _transpose_ of a relation $R$ is $R' = \{(y,x):(x,y)\in R\}$.
+A relation is _symmetric_ if $R = R'$.
+The product of the relations $R$ and $S$ is defined by $x(RS)z$
+if and only if there exists $y\in X$ with $xRy$ and $ySz$.
+A relation is _transitive_ if $RR \subseteq R$.
+An _equivalence relation_ satisfies these three properties.
+
+The _coset_ of $x\in X$ for the relation $R$ is $x/R = \{y\in X:xRy\}$.
+The _quotient_ of a set $X$ by a relation $R$ is the set of cosets.
+The quotient is a subset of the _power set_
+$\mathcal{P}(X) = \{A:A\subseteq X\}$ of $X$.
+
+__Exercise__. _Show if $R$ is an equivalence relation on $X$ then
+either $x/R = y/R$ or $x/R \cap y/R = \emptyset$ for $x,y\in R$.
+
+In this case the cosets are called _atoms_.
+
+__Exercise__. _The cosets of an equivalence relation $R$ form a partition of $X$_.
+
+This means cosets are pairwise disjoint and their union is $X$.
+
+__Exercise__. _Show if $R$ is an equivalence relations then
+$xRy$ if and only if $x/R = y/R$_.
+
+Equivalence is eqaulity in the quotient space.
+
+__Exercise__. _Show $\cong$ is an equivalence relation on vector spaces_.
 
 <!--
 If $T$ is an endomorphism on $V$ and $Tv = \lambda v$ for some $v\in V$ and
@@ -160,10 +210,19 @@ $\bm{F}v = \{\alpha v:\alpha\in\bm{F}\}$.
 __Exercise__. _Show $\bm{F}v$ is a subspace and $Tu = \lambda u$ for any $u\in\bm{F}v$_.
 -->
 
+If $W = V$ we write $\mathcal{L}(V)$ for $\mathcal{L}(V,V)$
+and call the tranformations _endomorphisms_ of $V$.
 If $U\subseteq V$ and $T$ is an endomorphism on $V$ then $U$ is
 _invariant_ for $T$ if $TU\subseteq U$.
 
 __Exercise__. _Show the kernal and range of an endomorphism are invariant_.
+
+Two endomorphisms $R,T$ on $V$ are _similar_ if there exists an isomorphism
+$S$ with $R = S^{-1}TS$. We write $R\simeq T$ if so.
+
+__Exercise__. _Show similarity is an equivlence relation on endomorphisms_.
+
+Hint: $S_0^{-1}S_1 = (S_1^{-1}S_0)^{-1}$ if $S_0$ and $S_1$ are isomorphisms.
 
 ### Subspace
 
@@ -181,6 +240,19 @@ and $\bm{F} U = \{\alpha x:\alpha \in\bm{F}, x\in U\}$.
 
 __Exercise__. _If $U$ and $W$ are subspaces then $U + W$ and $U\cap W$ are also subspaces_.
 
+If $U\cap W = \{0\}$ then $U + W$ is called an _interal sum_.
+
+__Exercise__. _Let $U$ and $W$ be subspaces of $V$ with $U\cap W = \{0\}$.
+If $u + w = u' + w'$ with $u,u'\in U$ and $w,w'\in W$ show
+$u = u'$ and $w = w'$_.
+
+_Hint_. $u - u'\in U$ and $w' - w\in W$.
+
+This shows every vector $v\in U + W$ has a unique decomposition $v = u + w$
+with $u\in U$ and $w\in W$ whenever $U\cap W = \{0\}$.
+
+#### Lattice of Subspaces
+
 Subspaces of a vector space form a _lattice_ where $+$ is the _join_ and $\cap$ is the _meet_.
 Since $U + V = V$ for all subspaces $U$, $V$ is the identity element of the join.
 Since $U \cap \{0\} = \{0\}$ for all subspaces $U$, $\{0\}$ is the identity element of the meet.
@@ -192,7 +264,8 @@ The lattice of subspaces is also _distributive_.
 __Exercise__. (Distributive laws) _If $U$, $V$, and $W$ are subspaces then
 $U \cap (V + W) = (U \cap V) + (U \cap W)$ and $U + (V\cap W) = (U + V)\cap(U + W)$_.
 
-Either of these implies the other in any lattice. [cite??]
+Either of these implies the other in any lattice. This was not
+noticed until some time after the the invention of lattice theory. [cite??]
 
 Subspaces of $V$ form a _bounded lattice_ with _top element_ $V$ and _bottom element_ $\{0\}$.
 
@@ -215,6 +288,12 @@ where $\alpha_j\in\bm{F}$ and $x_j\in V$.
 __Exercise__. _Show the span of $X$ is the set of all linear combinations
 of vectors from $X$_.
 
+Given a set $X$ define $\delta_x\in c(X)$ by $\delta_x(y) = 1$ if $y = x$ and
+$\delta_x(y) = 0$ if $y \not= x$.
+
+__Exercise__. _Show the span of $\{\delta_x:x\in X\}$ is $c_{00}(X)$.
+
+
 ### Independent
 
 A key property of a collection of vectors is _independence_.  A collection
@@ -231,7 +310,8 @@ If $\sum_j \alpha_j x_j = 0$ and $\alpha_k\not = 0$ for some $k$ then
 $x_k = -(1/\alpha_k)\sum_{j\not=k} \alpha_j x_j$ is a linear combination
 of vectors in $X\setminus \{x_k\}$.
 In this case $X$ is _linearly dependent_ and $X\setminus\{x_k\}$
-has the same span as $X$. We use _reverse solidus_ for $A\setminus B = \{x\in A: x\notin B\}$.
+has the same span as $X$. We use _reverse solidus_ for $A\setminus B = \{x\in A: x\notin B\}$
+for _set difference_.
 
 __Exercise__. _If $X\subseteq V$ is independent and $y\not\in\vee X$ show $X\cup\{y\}$ is independent_.
 
@@ -240,25 +320,62 @@ given $X,Y\in\mathcal{C}$ either $X\subseteq Y$ or $Y\subseteq X$.
 
 __Exercise__. _Show $\cup\mathcal{C} = \cup_{X\in\mathcal{C}} X$ is independent_.
 
-A _basis_ of a vector space is an independent subset that spans the space.
-The above exercise and Zorn's Lemma shows every vector space has a basis.
+A _basis_ of $V$ is an independent set $X\subseteq V$ that spans $V$.
+
+__Exercise___. _Prove every vector space has a basis_.
+
+Hint: Use the previous exercises and Zorn's lemma.
 
 ### Dimension
 
-The _dimension_ of $V$ is the cardinality of a basis $X$.
+The _dimension_ of $V$ is the cardinality of a basis $X$ for $V$.
 A fundamental fact about vector spaces is that every basis has the same
-cardinality. This shows the definition of dimension is well-defined.
-Classical texts prove this for finite dimensional vector spaces
-using the Steinitz exchange lemma. We prove this for
-vector spaces of any dimension.
+cardinality. This is necessary to show the definition of dimension is well-defined.
 
-The Cantor-Bernstein lemma states that if $f\colon A\to B$ is one-to-one
-and $g\colon B\to A$ is one-to-one, then $A$ and $B$ have the same cardinality.
+If $X\subseteq V$ is a basis of $V$ then every $v\in V$ can be uniquely written as
+a finite linear combination $v = \sum_j \alpha_j x_j$ for some
+$\alpha_j\in\bm{F}$ and $x_j\in X$. This defines a map
+$J_X\colon V\to c_{00}(X)$ where $J_X v(x) = \alpha_j$ if and only if $x = x_j$.
+
+__Exercise__. _Show $J_X$_ is an isomorphism if $X$ is a basis_.
+
+This shows for any basis $X$ of $V$ that $V\cong c_{00}(X)$.
+
+If $s\colon X\to Y$ is any function from the set $X$ to the set $Y$
+define $S\colon c_{00}(X)\to c_{00}(Y)$ by $S(\sum_j \alpha_j x_j)
+= \sum_j \alpha_j s(x_j)$.
+
+__Exercise__. _Show $S$ is linear for any function $s$_.
+
+__Exercise__. _Show $S$ is injective if and only if $s$ is injective_.
+
+__Exercise__. _Show $S$ is surjective if and only if $s$ is surjective_.
+
+__Exercise__. _Show $S$ is an isomorphism if and only if $X$ and $Y$ have the same cardinality_.
+
+This shows that if $X$ and $Y$ are basis' of $V$ then
+$c_{00}(X) \cong V \cong c_{00}(Y)$. We conclude $X$ and $Y$ have the same cardinality
+so dimension is well-defined.
+
+In classical linear algebra texts this fact is proved using the Steinitz exchange
+lemma when the vector spaces are finite dimensional. The proof above works for
+vector spaces of any dimension.
 
 ### Quotient Space
 
-If $U\subseteq V$ is a subspace we define the _quotient space_
-$V/U = \{x + U:x\in V\}$ where the _coset_ $x + U = \{x + u:u\in U\}$. 
+Every subspace $U$ of $V$ determines an equivalence relation on $V$
+by $x\sim y$ if and only if $x - y\in U$.
+
+__Exercise__. _Show $\sim$ is an equivalence relation_.
+
+For any $x\in V$ let $x + U = \{x + u:u\in U\}$.
+
+__Exercise__. _Show $x + U = y + U$ if and only if $x\sim y$ for $x,y\in V$_.
+
+This shows $x + U$ can be identified with the coset of $x$ under this equivalence relation.
+
+If $U$ is a subspace of $V$ we define the _quotient space_
+$V/U = \{x + U:x\in V\}$.
 
 Define quotient space addition by $(x + U) + (y + U) = (x + y) + U$
 and scalar multiplication by $\alpha (x + U) = \alpha x + U$.
@@ -266,19 +383,6 @@ and scalar multiplication by $\alpha (x + U) = \alpha x + U$.
 __Exercise__. _Show quotient space addition and scalar multiplication are well-defined_.
 
 __Exercise__. _Show the quotient space is a vector space_.
-
-The relation $x\sim y$ if and only if $x - y\in U$ is an _equivalence relation_.
-
-__Exercise__. _Show $x \sim x$, if $x \sim y$ then $y \sim x$, and
-if $x \sim y$ and $y \sim z$ then $x \sim z$_.
-
-__Exercise__. _Show $x\sim y$ if and only if $x + U = y + U$_.
-
-__Exercise__. _If $(x + U)\cap (y + U)$ is not empty then $x + U = y + U$_.
-
-Cosets form _partition_ of $V$.
-Every equivalence relation determines a partition and every partition
-determines an equivalence relation. (Exercise or more exposition???)
 
 Quotient spaces split vector spaces into two _complementary_ vector spaces.
 
@@ -317,79 +421,6 @@ This shows every vector $v\in U + W$ has a unique decomposition $v = u + w$
 with $u\in U$ and $w\in W$ when $U\cap W = \{0\}$.
 
 Internal sums do not require the notion of isomorphic linear transformations.
-
-## Linear Transformation
-
-When studying mathematical objects it is useful to study functions
-between them that preserve the structure of the objects.
-
-If $V$ and $W$ are vector spaces over the same field $\bm{F}$ then
-a function $T\colon V\to W$ is a _linear transformation_ if $T(\alpha x + y)
-= \alpha Tx + T y$ for $\alpha \in\bm{F}$ and $x,y\in V$.  Note $Tx$ and $Ty$
-are in $W$. The set of all linear transformations from $V$ to $W$ is
-denoted $\mathcal{L}(V,W)$. If $W = V$ we write $\mathcal{L}(V)$
-and call the elements _endomorphisms_ of $V$.
-
-If $U$ is a subpace of $V$ and $T\in\mathcal{L}(V)$ we say $U$
-is an _invariant subspace_ if $TU\subseteq U$. In this case
-the restriction of $T$ to $U$ is in $T\in\mathcal{L}(U)$.
-
-If $U$ is a one-dimensional invariant subspace, $U = \bm{F}\{u\}$ for some
-non-zero vector $u$, we say $u$ is an _eigenvector_ of $T$. We have $Tu =
-\lambda u$ for some $\lambda\in\bm{F}$ and call $\lambda$ the _eigenvalue_
-corresponding to the eigenvector $u$.
-
-__Exercise__. _If $w\in U = \bm{F}\{u\}$ and $Tu = \lambda u$ show $Tw = \lambda w$_.
-
-This shows $T$ is completely determined by an eigenvector and
-its corresponding eigenvalue on one-dimensional invariant subspaces.
-
-__Exercise__. _Show $T(0) = 0$ for $T\in\mathcal{L}(V,W)$_.
-
-_Hint_: The $0$ on the left-hand side is the additive identity of $V$
-and the $0$ on the right-hand side is the additive identity of $W$.
-Use $x + x = x$ implies $x = 0$.
-
-__Exercise__. _Show $T(\alpha x) = \alpha (Tx)$ for $\alpha \in\bm{F}$ and $x\in V$.
-and $v,w\in V$_.
-
-_Hint_: Use $T(0) = 0$.
-
-__Exercise__. _Show $T(\alpha x + \beta y) = \alpha (Tx) + \beta (Ty)$
-for $\alpha ,\beta \in\bm{F}$ and $x,y\in V$_.
-
-_Hint_: You don't need a hint if you have solved the previous exercises.
-
-If $T,S\in\mathcal{L}(V,W)$
-define addition $T + S$ by $(T + S)x = Tx + Sx$ and scalar
-multiplication by $(\alpha T)x = \alpha (Tx)$ for $\alpha \in\bm{F}$ and
-$x\in V$.  The left-hand sides are defined in terms of vector addition
-and scalar multiplication in $W$ on the right-hand sides.
-
-__Exercise__. _Show $\mathcal{L}(V,W)$ is a vector space_.
-
-The _kernel_ of a linear transformation $T\in\mathcal{L}(V,W)$ is
-$$
-	\ker T = \{x\in V:Tx = 0\}\subseteq V
-$$
-and its _range_ is 
-$$
-	\ran T = \{Tx:x\in V\}\subseteq W.
-$$
-If $\ker T = \{0\}$ then $T$ is _one-to-one_, or _injective_.
-If $\ran T = W$ then $T$ is _onto_, or _surjective_.
-
-__Exercise__. _Show $\ker T$ is a subspace of $V$ and $\ran T$
-is a subspace of $W$ for any $T\in\mathcal{L}(V,W)$_.
-
-__Exercise__. _Show the kernel and range of a linear tranformation are invariant subspaces
-of the linear transformation_. 
-
-__Exercise__. _If $T$ is injective show $Tx = Ty$ implies $x = y$ for all $x,y\in V$_.
-
-_Hint_: The definition of injective for any function $f$ is usually defined by
-$f(x) = f(y)$ implies $x = y$. Your job is to show this follows from $\ker T = \{0\}$
-when $T$ is a linear transformation. 
 
 __Exercise__. _If $X\subseteq V$ is independent and $T\in\mathcal{L}(V,W)$ is injective
 then $TU\subseteq W$ is independent_.
@@ -698,8 +729,6 @@ If $T\in\mathcal{L}(V)$ and $Tx = 0$ for some $x\in V$ then $x$ is an eigenvecto
 If $(x,y) = \|x\| \|y\|$ then $\alpha x = y$ for some $\alpha \in\bm{F}$.
 
 There exists $x^*$ such that $\|x*\| \ge \|T e\|$ for $\|e\| = 1$.
-
-
 
 ## Polynomial Functional Calculus
 
