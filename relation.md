@@ -40,6 +40,11 @@ by $x(RS)z$ if and only if there exists $y\in Y$ with $xRy$ and $ySz$.
 The _right coset_ of $x\in\dom R$ is $xR = \{y\in Y: xRy\}$
 and the _left coset_ of $y\in\cod R$ is $Ry = \{x\in X: xRy\}$.
 
+Where to introduce ker/coker???
+
+The _kernel_ of a relation is $\ker R = \{(x,x')\in X\times X:xR = x'R\}\subseteq X\times X$.
+The _cokernel_ of a relation is $\coker R = \{(y,y')\in Y\times Y:Ry = Ry'\}\subseteq Y\times Y$.
+
 __Exercise__. _Show $x(RS)z$ if and only if the intersection of the cosets $xR$ and $Sz$ is nonempty_.
 
 Let $I_Z = \{(z,z):z\in Z\}\subseteq Z\times Z$ be the _identity_, or _diagonal_, relation on $Z$.
