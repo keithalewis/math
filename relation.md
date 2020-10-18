@@ -64,8 +64,9 @@ The identity element is unique.
 __Exercise__. _Show for any relations $R\subseteq X\times Y$, $S\subseteq Y\times Z$,
 and $T\subseteq Z\times W$ that $(RS)T = R(ST)$_.
 
-Composition is associative. The above shows relations are a _category_ with objects being sets
-and arrows being relations.
+Composition is associative. 
+
+_Rel_ is the category where the objects are sets and the arrows are relations.
 
 The _transpose_, or _converse_, of the relation $R\subseteq X\times Y$
 is the relation $R' = \{(y,x):(x,y)\in R\} \subseteq Y\times X$.
@@ -154,6 +155,10 @@ __Exercise__. _An antisymmetric relation is reflexive_.
 __Exercise__. _Find a symmetric relation that is not reflexive_.
 
 __Exercise__. _If $R$ is both symmetric and antisymmetric then $R = I$_.
+
+__Exercise__. _If $R,S\subseteq X\times X$ then $(R\cup I)S = (RS)\cup I = R(I\cup S)$
+
+Adding the diagonal to any relation makes it reflexive.
 
 __Exercise__. _If $R$ is transitive then $R\cup I$ is also transitive_.
 <details>
