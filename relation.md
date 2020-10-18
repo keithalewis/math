@@ -12,7 +12,7 @@ fleqn: true
 The notion of a _relation_ is a fundamental concept of mathematics. Given
 two things are they equivalent in some sense even if they are not
 equal?  Is one "bigger" than the other? Is it even possible to compare
-them? Relations provide a systematic way to get insights into these questions.
+them? Relations provide a systematic way to get insight into these questions.
 Partial functions are special cases of relations and functions are
 special cases of partial functions.
 
@@ -58,7 +58,7 @@ __Exercise__. _Show if $J\subseteq X\times X$ and $JR = R$ for all $R\subseteq X
 then $J = I_X$_.
 <details>
 <summary>Solution</summary>
-If $R = I_Y$ then $J = JI_Y = I_Y$.
+If $R = I_X$ then $J = JI_X = I_X$.
 </details>
 
 __Exercise__. _Show if $J\subseteq Y\times Y$ and $RJ = R$ for all $R\in X\times Y$
@@ -71,7 +71,7 @@ and $T\subseteq Z\times W$ that $(RS)T = R(ST)$_.
 
 Composition is associative. 
 
-_Rel_ is the category where the objects are sets and the arrows are relations.
+_Rel_ is a _category_ where the objects are sets and the arrows are relations.
 
 The _transpose_, or _converse_, of the relation $R\subseteq X\times Y$
 is the relation $R' = \{(y,x):(x,y)\in R\} \subseteq Y\times X$.
@@ -92,13 +92,13 @@ and $S$ is a _right inverse_, or _section_, of $R$.
 
 __Exercise__. _If $R\subseteq X\times Y$ has a section show $UR = VR$ implies $U = V$ for any $U,V\in Z\times X$_.
 
-A relation satifying right cancellation is caled _mono_.
+A relation satifying right cancellation is called _mono_.
 
 __Exercise__. _Find a relation that is mono but does not have a section_.
 
 __Exercise__. _If $S\subseteq Y\times Z$ has a retract show $SU = SV$ implies $U = V$ for any $U,V\in Z\times X$_.
 
-A relation satifying _left cancellation_ is caled _epi_.
+A relation satifying _left cancellation_ is called _epi_.
 
 __Exercise__. _Find a relation that is epi but does not have a retract_.
 
@@ -168,15 +168,10 @@ Adding the diagonal to any relation makes it reflexive.
 __Exercise__. _If $R$ is transitive then $R\cup I$ is also transitive_.
 <details>
 <summary>Solution</summary>
-Is $(R\cup S)T = RT\cup ST$?
-It is true $(R\cup S)T \supseteq RT\cup ST$?
+We have $(R\cup I)(R\sup I) = (R(R\cup I)\cup I$ = (RR)\cup I\subseteq R\cup I$.
 </details>
 
-A transitive relation is called an _ordering_.
-The most common categories of relations are
-
-_Preorder_
-  ~ reflexive and transitive
+A relation that is transitive and reflexive is called a _preorder_.
  
 _Weak Partial Order_
   ~ antisymmetric and transitive

@@ -169,37 +169,10 @@ An operator that is injective and surjective (bijective) is an _isomorphism_
 from $V$ to $W$. We write $V\cong W$ if such an operator exists and say
 $V$ is isomorphic to $W$.
 
-Recall a relation $R$ on a set $X$ is a subset of the product $X\times X$.
-We write $xRy$ if $(x,y)\in R$ for $(x,y)\in X\times X$.
-The _identity_ relation is $I = I_X = \{(x,x):x\in X\}$.
-The relation $R$ is _reflexive_ if $I\subseteq R$.
-The _transpose_ of a relation $R$ is $R' = \{(y,x):(x,y)\in R\}$.
-A relation is _symmetric_ if $R = R'$.
-The product of the relations $R$ and $S$ is defined by $x(RS)z$
-if and only if there exists $y\in X$ with $xRy$ and $ySz$.
-A relation is _transitive_ if $RR \subseteq R$.
-An _equivalence relation_ satisfies these three properties.
-
-The _coset_ of $x\in X$ for the relation $R$ is $x/R = \{y\in X:xRy\}$.
-The _quotient_ of a set $X$ by a relation $R$ is the set of cosets.
-The quotient is a subset of the _power set_
-$\mathcal{P}(X) = \{A:A\subseteq X\}$ of $X$.
-
-__Exercise__. _Show if $R$ is an equivalence relation on $X$ then
-either $x/R = y/R$ or $x/R \cap y/R = \emptyset$ for $x,y\in R$.
-
-In this case the cosets are called _atoms_.
-
-__Exercise__. _The cosets of an equivalence relation $R$ form a partition of $X$_.
-
-This means cosets are pairwise disjoint and their union is $X$.
-
-__Exercise__. _Show if $R$ is an equivalence relations then
-$xRy$ if and only if $x/R = y/R$_.
-
-Equivalence is eqaulity in the quotient space.
-
 __Exercise__. _Show $\cong$ is an equivalence relation on vector spaces_.
+
+This means $V\cong V$, $V\cong W$ implies $W\cong V$, and
+$U\cong V$ and $V\cong W$ implies $U\cong W$ for vector spaces $U$, $V$, and $W$.
 
 <!--
 If $T$ is an endomorphism on $V$ and $Tv = \lambda v$ for some $v\in V$ and
@@ -291,7 +264,7 @@ of vectors from $X$_.
 Given a set $X$ define $\delta_x\in c(X)$ by $\delta_x(y) = 1$ if $y = x$ and
 $\delta_x(y) = 0$ if $y \not= x$.
 
-__Exercise__. _Show the span of $\{\delta_x:x\in X\}$ is $c_{00}(X)$.
+__Exercise__. _Show the span of $\{\delta_x:x\in X\}$ is $c_{00}(X)$_.
 
 
 ### Independent
@@ -322,7 +295,7 @@ __Exercise__. _Show $\cup\mathcal{C} = \cup_{X\in\mathcal{C}} X$ is independent_
 
 A _basis_ of $V$ is an independent set $X\subseteq V$ that spans $V$.
 
-__Exercise___. _Prove every vector space has a basis_.
+__Exercise__. _Prove every vector space has a basis_.
 
 Hint: Use the previous exercises and Zorn's lemma.
 
@@ -337,7 +310,7 @@ a finite linear combination $v = \sum_j \alpha_j x_j$ for some
 $\alpha_j\in\bm{F}$ and $x_j\in X$. This defines a map
 $J_X\colon V\to c_{00}(X)$ where $J_X v(x) = \alpha_j$ if and only if $x = x_j$.
 
-__Exercise__. _Show $J_X$_ is an isomorphism if $X$ is a basis_.
+__Exercise__. _Show $J_X$ is an isomorphism if $X$ is a basis_.
 
 This shows for any basis $X$ of $V$ that $V\cong c_{00}(X)$.
 
@@ -423,10 +396,10 @@ with $u\in U$ and $w\in W$ when $U\cap W = \{0\}$.
 Internal sums do not require the notion of isomorphic linear transformations.
 
 __Exercise__. _If $X\subseteq V$ is independent and $T\in\mathcal{L}(V,W)$ is injective
-then $TU\subseteq W$ is independent_.
+then $TX\subseteq W$ is independent_.
 
 __Exercise__. _If $T$ is surjective and the span of $X\subseteq V$ is $V$
-show the span of $TX = \{Tx:x\in X\}$ is $W$_.
+show the span of $TX$ is $W$_.
 
 If $T$ is both one-to-one and onto (injective and surjective) it is an
 _isomorphism_ between $V$ and $W$. Its _inverse_ is $T^{-1}\colon W\to V$
@@ -463,16 +436,7 @@ __Exercise__. _Show second map $V/\ker T\to\ran T$ is surjective_.
 
 This show $V/\ker T \cong \ran T$.
 
-Two transformations $R,T\in\mathcal{L}(V)$ are _similar_ if there exists
-an isomorphism $S\in\mathcal{L}(V)$ with $R = S^{-1}TS$.
-
-__Exercise__. _Show similarity is an equivalence relation on linear transformations_.
-
-_Hint_. $T$ is similar to itself via $S = I$, the identity transformation,
-where $Ix = x$ for $x\in V$. The other two equivalence relation conditions follow from
-isomorphism being invertible.
-
-We can now show $V$ is isomorphic to the external sum of $U$ and $V/U$ for
+???We can now show $V$ is isomorphic to the external sum of $U$ and $V/U$ for
 any subspace $U\subseteq V$.
 
 For $v\in V$ and $u\in U$ $v = u + (v - u)$. Define $J$ by...
@@ -482,7 +446,7 @@ __Exercise__. _Show $J$ is surjective_.
 __Exercise__. _Show $J$ is injective_.
 
 
-### Ring of Endomorphisms
+### Endomorphisms
 
 The endomorphisms $\mathcal{L}(V)$ are more than just a vector space.
 They have a _product_ defined by composition $(ST)x = S(Tx)$ for
@@ -513,6 +477,13 @@ that preserves the ring structure.
 Note: If we replace the requirement that the scalars are a field by
 the requirement they are a ring we have a _module_ instead of a vector space.
 Modules are not (by a long shot) characterized by their dimension.
+
+If $R\in\mathcal{L}(c_{00}(X), c_{00}(Y))$
+and $S\in\mathcal{L}(c_{00}(Y), c_{00}(Z))$, then $SR\in\mathcal{L}(c_{00}(X), c_{00}(Z))$.
+
+__Exercise__. _Show $(SR)(\delta_x) = \sum_{y\in Y} R(\delta_x) S(\delta_j)$_.
+
+Composition is matrix multiplication.
 
 ### Dual Space
 
