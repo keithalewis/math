@@ -6,7 +6,7 @@ DOCX = $(MKDN:.md=.docx)
 KATEX=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/
 CSS = math.css
 
-FLAGS  = -f markdown+definition_lists+raw_html
+FLAGS  = -f markdown+definition_lists+raw_html+pipe_tables
 FLAGS += -t html5
 FLAGS += -s # smart quotes
 FLAGS += --katex=$(KATEX)

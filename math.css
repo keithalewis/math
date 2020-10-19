@@ -9,6 +9,21 @@ body {
 	/*background: linear-gradient(to right, #FFF, #F0F0F0);*/
 	color: #565656;
 }
+table {
+    border-collapse: collapse;
+}
+th {
+	border-bottom: 1px solid black;
+}
+th:nth-child(3) {
+	border-left: 1px solid black;
+}
+td:nth-child(3) {
+	border-left: 1px solid black;
+}
+tbody caption:child tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
 .katex {
 	font-size: 100% !important;
 	macros: {
