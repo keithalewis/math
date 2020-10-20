@@ -14,7 +14,7 @@ This is not a beginners guide to linear algebra. It is a breviloquent
 collection of pertinent facts about vector spaces and the linear
 transformations between them.  Although it is complete and self-contained
 you should already be familiar with basic linear algebra before reading
-this. Statements and proofs are brief, so read them twice.  Do the
+this. Statements and proofs are concise, so read them twice.  Do the
 exercises to confirm your understanding.
 
 I make no apologies for the shamelessly mathematical exposition and hope
@@ -35,9 +35,10 @@ are vectors and _linear transformations_ between vector spaces are
 also vectors.
 
 A linear transformation is a function between vector spaces that preserves
-the vector space structure. They are completely classified up to _similarity_
-by their _eigenvalues_ and the _multiplicity_ of each eigenvalue for
-finite dimensional vector spaces.
+the vector space structure. They are completely classified 
+up to _similarity_
+for finite dimensional vector spaces
+by their _eigenvalues_ and the _multiplicity_ of each eigenvalue
 
 <!--
 Linear transformations from a finite dimensional vector space to
@@ -156,9 +157,9 @@ $\ker T = \{v\in V:Tv = 0\}$.
 
 __Exercise__. _Show the kernel of a linear transformation is a vector space_.
 
-__Exercise__. _Show a linear transformation is injective if and only if its kernel is $\{0\}$_.
+A linear transformation is _injective_ if $Tx = Ty$ implies $x = y$.
 
-_Injective_ means $Tx = Ty$ implies $x = y$.
+__Exercise__. _Show a linear transformation is injective if and only if its kernel is $\{0\}$_.
 
 The _range_ of a linear transformation $T\colon V\to W$ is
 $\ran T = \{Tv\in W:v\in V\}$. If $\ran T = W$ we say $T$ is _surjective_.
@@ -289,7 +290,7 @@ for _set difference_.
 __Exercise__. _If $X\subseteq V$ is independent and $y\not\in\vee X$ show $X\cup\{y\}$ is independent_.
 
 Let $\mathcal{C}$ be a collection of independent subsets of $V$ that is totally ordered by inclusion,
-given $X,Y\in\mathcal{C}$ either $X\subseteq Y$ or $Y\subseteq X$.
+that is, given $X,Y\in\mathcal{C}$ either $X\subseteq Y$ or $Y\subseteq X$.
 
 __Exercise__. _Show $\cup\mathcal{C} = \cup_{X\in\mathcal{C}} X$ is independent_.
 
@@ -319,6 +320,9 @@ define $S\colon c_{00}(X)\to c_{00}(Y)$ by $S(\sum_j \alpha_j x_j)
 = \sum_j \alpha_j s(x_j)$.
 
 __Exercise__. _Show $S$ is linear for any function $s$_.
+
+Every linear transformation $S\colon c_{00}(X)\to c_{00}(Y)$ induces a
+function $s\colon X\to Y$ by $s(x) = S(\delta_x) = ???$.
 
 __Exercise__. _Show $S$ is injective if and only if $s$ is injective_.
 
@@ -357,7 +361,15 @@ __Exercise__. _Show quotient space addition and scalar multiplication are well-d
 
 __Exercise__. _Show the quotient space is a vector space_.
 
+???
+
 Quotient spaces split vector spaces into two _complementary_ vector spaces.
+
+For $U$ a subspace of $V$ define $J:U\to V$ by inclusion, $Ju = u$, so $\ran J = U$.
+
+$v = u + w$ where $u\in U$.
+
+$u\mapsto u \oplus (v  - u) + U$
 
 #### External Sum
 
