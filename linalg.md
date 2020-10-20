@@ -371,7 +371,7 @@ $v = u + w$ where $u\in U$.
 
 $u\mapsto u \oplus (v  - u) + U$
 
-#### External Sum
+#### Sum
 
 The _external sum_ of vector spaces $U$ and $W$, $U\oplus W$, is the set $U\times W$
 with addition $(u,w) + (x, y) = (u + x, w + y)$, where $u,x\in U$
@@ -391,7 +391,17 @@ Every vector space $V$ is _isomorphic_ to the external sum of $U$ and
 $V/U$ for any subspace $U\subseteq V$, but we have to define isomorphic
 in terms of invertible _linear transformations_ between vector spaces.
 
-#### Internal Sum
+If $U\subseteq V$ is a subspace then $V\cong U\oplus V/U$.
+Define $I_U\colon U\oplus V/U\to V$ by $u\oplus v+U\mapsto u + v$.
+
+__Exercise__. _Show this is well-defined_.
+<details>
+<summary>Solution</summary>
+If $I_U u \oplus v + U = u' \oplus v' + U$ then $u + v = u' + v'$.
+Since $v - v' = u' - u\in U$ we have $v + U = v' + U$.
+</details>
+
+#### Internal
 
 If $U$ and $W$ are subspaces of $V$ then $U + W$ is also as subspace of $V$.
 If $U\cap W = \{0\}$ it is called an _interal sum_.
