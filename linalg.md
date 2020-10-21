@@ -397,8 +397,8 @@ Define $I_U\colon U\oplus V/U\to V$ by $u\oplus v+U\mapsto u + v$.
 __Exercise__. _Show this is well-defined_.
 <details>
 <summary>Solution</summary>
-If $I_U u \oplus v + U = u' \oplus v' + U$ then $u + v = u' + v'$.
-Since $v - v' = u' - u\in U$ we have $v + U = v' + U$.
+If $I_U u \oplus v + U = 0$ then $u + v = 0$.
+Since $v = -u\in U$ we have $v + U = 0 + U$.
 </details>
 
 #### Internal
@@ -415,7 +415,6 @@ _Hint_. $u - u'\in U$ and $w' - w\in W$.
 This shows every vector $v\in U + W$ has a unique decomposition $v = u + w$
 with $u\in U$ and $w\in W$ when $U\cap W = \{0\}$.
 
-Internal sums do not require the notion of isomorphic linear transformations.
 
 __Exercise__. _If $X\subseteq V$ is independent and $T\in\mathcal{L}(V,W)$ is injective
 then $TX\subseteq W$ is independent_.
