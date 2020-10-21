@@ -11,7 +11,7 @@ fleqn: true
 
 The notion of a _relation_ is a fundamental concept of mathematics. Given
 two things are they equivalent in some sense even if they are not
-equal?  Is one "bigger" than the other? Is it even possible to compare
+equal?  Is one bigger than the other? Is it even possible to compare
 them? Relations provide a systematic way to get insight into these questions.
 Partial functions are special cases of relations and functions are
 special cases of partial functions.
@@ -71,7 +71,7 @@ and $T\subseteq Z\times W$ that $(RS)T = R(ST)$_.
 
 Composition is associative. 
 
-_Rel_ is a _category_ where the objects are sets and the arrows are relations.
+_Rel_ is the _category_ where the objects are sets and the arrows are relations.
 
 The _transpose_, or _converse_, of the relation $R\subseteq X\times Y$
 is the relation $R' = \{(y,x):(x,y)\in R\} \subseteq Y\times X$.
