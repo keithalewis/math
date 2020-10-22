@@ -40,7 +40,7 @@
 <p class="author">Keith A. Lewis</p>
 <p class="date">October 22, 2020</p>
 </header>
-<p>The notion of a <em>relation</em> is a fundamental concept of mathematics. Given two things are they equivalent in some sense even if they are not equal? Is one “bigger” than the other? Is it even possible to compare them? Relations provide a systematic way to get insight into these questions. Partial functions are special cases of relations and functions are special cases of partial functions.</p>
+<p>The notion of a <em>relation</em> is a fundamental concept of mathematics. Given two things are they equivalent in some sense even if they are not equal? Is one bigger than the other? Is it even possible to compare them? Relations provide a systematic way to get insight into these questions. Partial functions are special cases of relations and functions are special cases of partial functions.</p>
 <p>Given two things in the cartesian product <span class="math inline">X\times Y = \{(x,y):x\in X, y\in Y\}</span> the <em>left projection</em> is the first thing <span class="math inline">\lambda\colon X\times Y\to X</span> by <span class="math inline">\lambda(x,y) = x</span> and the <em>right projection</em> is the second thing <span class="math inline">\rho\colon X\times Y\to Y</span> by <span class="math inline">\rho(x,y) = y</span>.</p>
 <strong>Exercise</strong>. <em>If <span class="math inline">l\colon Z\to X</span> and <span class="math inline">r\colon Z\to Y</span> are functions show there exists a function <span class="math inline">t\colon Z\to X\times Y</span> with <span class="math inline">\lambda(t(z)) = l(z)</span> and <span class="math inline">\rho(t(z)) = r(z)</span> for <span class="math inline">z\in Z</span></em>.
 <details>
@@ -62,7 +62,7 @@
 <p>The identity element is unique.</p>
 <p><strong>Exercise</strong>. <em>Show for any relations <span class="math inline">R\subseteq X\times Y</span>, <span class="math inline">S\subseteq Y\times Z</span>, and <span class="math inline">T\subseteq Z\times W</span> that <span class="math inline">(RS)T = R(ST)</span></em>.</p>
 <p>Composition is associative.</p>
-<p><em>Rel</em> is a <em>category</em> where the objects are sets and the arrows are relations.</p>
+<p><em>Rel</em> is the <em>category</em> where the objects are sets and the arrows are relations.</p>
 <p>The <em>transpose</em>, or <em>converse</em>, of the relation <span class="math inline">R\subseteq X\times Y</span> is the relation <span class="math inline">R&#39; = \{(y,x):(x,y)\in R\} \subseteq Y\times X</span>. Obviously <span class="math inline">\operatorname{dom}R&#39; = \operatorname{cod}R</span> and <span class="math inline">\operatorname{cod}R&#39; = \operatorname{dom}R</span>.</p>
 <p><strong>Exercise</strong>. <em>Show for any relation <span class="math inline">R\subseteq X\times Y</span> that <span class="math inline">I_{\operatorname{dom}R} \subseteq RR&#39;</span> and <span class="math inline">I_{\operatorname{cod}R} \subseteq R&#39;R</span></em>.</p>
 <details>

@@ -1,4 +1,4 @@
-MKDN = $(wildcard *.md)
+MKDN = $(wildcard [a-z]*.md)
 HTML = $(MKDN:.md=.html)
 PDF  = $(MKDN:.md=.pdf)
 DOCX = $(MKDN:.md=.docx)

@@ -47,7 +47,9 @@
 <p>A value is a label, function, or nil.</p>
 <p>A <em>store</em> is a mapping from variables and labels to values. <span class="math inline">\theta\colon\mathit{variables}\cup\mathit{labels}\to\mathit{values}</span></p>
 <p>An <em>evaluation context</em> is used to specify evaluaton of <em>expressions</em>.</p>
-<p><span class="math inline">C \to \emptyset\mid e C\mid C v\mid x := C\mid C\,?\,e : e\mid e = C\mid C = v</span>.</p>
+<p><span class="math display">
+C \to \emptyset\mid e C\mid C v\mid x := C\mid  C\,?\,e : e\mid e = C\mid C = v
+</span></p>
 <p>A context and a store is evaluated to a value. <span class="math display">
 \begin{aligned}
     \langle C[x],\theta\rangle &amp;\Rightarrow \langle C[\theta(x)],\theta\rangle \\
@@ -60,6 +62,8 @@
 \end{aligned}
 </span></p>
 <p>Expressions can be labeled and used in coroutine operators.</p>
-<p><span class="math inline">e \to \dots\mid l:e\mid \mathbf{create} e\mid \mathbr{resume}\,e\,e\mid \mathbf{yield}\,e</span></p>
+<p><span class="math display">
+e \to \dots\mid l:e\mid \mathbf{create}\,e\mid \mathbf{resume}\,e\,e\mid \mathbf{yield}\,e
+</span></p>
 </body>
 </html>

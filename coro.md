@@ -31,7 +31,9 @@ $\theta\colon\mathit{variables}\cup\mathit{labels}\to\mathit{values}$
 
 An _evaluation context_ is used to specify evaluaton of _expressions_.
 
-$C \to \emptyset\mid e C\mid C v\mid x := C\mid  C\,?\,e : e\mid e = C\mid C = v$.
+$$
+C \to \emptyset\mid e C\mid C v\mid x := C\mid  C\,?\,e : e\mid e = C\mid C = v
+$$
 
 A context and a store is evaluated to a value.
 $$
@@ -48,4 +50,6 @@ $$
 
 Expressions can be labeled and used in coroutine operators.
 
-$e \to \dots\mid l:e\mid \mathbf{create} e\mid \mathbr{resume}\,e\,e\mid \mathbf{yield}\,e$
+$$
+e \to \dots\mid l:e\mid \mathbf{create}\,e\mid \mathbf{resume}\,e\,e\mid \mathbf{yield}\,e
+$$
