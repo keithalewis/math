@@ -121,14 +121,28 @@ $f,g\in\bm{F}^X$ and $\alpha\in\bm{F}$. It is customary to write $c(X)$ for this
 __Exercise__. _Show $c(X)$ is a vector space_.
 
 The functions in $c(X)$ that are zero except at a
-finite number of elements of $X$ is customarily wriitten $c_{00}(X)$.
+finite number of elements of $X$ is customarily written $c_{00}(X)$.
 
 __Exercise__. _Show $c_{00}(X)$ is a vector space_.
 
 If $X = \bm{N}$ is the set of _natural numbers_ define $c_0(\bm{N}) = c_0$
-to be the functions $f\in c(\bm{N})$ such that $\lim_{n\to\infty} f(n) = 0$.
+to be the functions $v\in c(\bm{N})$ such that $\lim_{n\to\infty} v(n) = 0$.
 
 __Exercise__. _Show $c_0$ is a vector space_.
+
+The vector space $c_{00}(X)$ has an _inner product_ defined by
+$v\cdot w = \sum_{x\in X} v(x) w(x) = \sum_{x\in X} v_x w_x$ for $v,w\in c_{00}(X)$.
+Since multiplication in $\bm{F}$ is commutative $v\cdot w = w\cdot v$.
+
+__Exercise__. _Show $(\alpha u + \beta v)\cdot w = \alpha(u\cdot w) + \beta(v\cdot w)$
+for $\alpha, \beta\in\bm{F}$ and $u,v,w\in c_{00}(X)$_.
+
+__Exercise__. _Show $v\cdot v = 0$ implies $v = 0$ for $v\in c_{00}(X)$_.
+
+Define the _Kronecker delta function_ $\delta_x\in c_{00}(X)$ by $\delta_x(y) = 1$ if $y = x$
+and $\delta_x(y) = 0$ if $y \not= x$.
+
+__Exercise__. _Show $v = \sum_{x\in X} (v\cdot\delta_x) \delta_x$ for $v\in c_{00}(X)$_.
 
 ## Linear Transformation
 
@@ -153,6 +167,13 @@ $\alpha T$ by $(\alpha T)v = \alpha(T v)$ for $v\in V$.
 
 __Exercise__. _Show $\mathcal{L}(V,W)$ is a vector space_.
 
+If $T\in\mathcal{L}(c_{00}(X), c_{00}(Y))$ then $T\delta_x = \sum_{y\in Y} t_{xy} \delta_y$
+for some $t_{xy}\in\bm{F}$ where $\{y\in Y:t_{xy}\not=0\}$ is finite.
+If $S\in\mathcal{L}(c_{00}(Y), c_{00}(Z))$ then $S\delta_y = \sum_{z\in Z} s_{yz} \delta_z$
+for some $s_{yz}\in\bm{F}$ where $\{z\in Z:s_{yz}\not=0\}$ is finite.
+
+__Exercise__. _Show $(ST)\delta_x = \sum_{z\in Z}(\sum_{y\in Y} t_{xy} s_{yz})\delta_z$_.
+
 The _kernel_ of a linear transformation $T\colon V\to W$ is
 $\ker T = \{v\in V:Tv = 0\}$. 
 
@@ -167,7 +188,7 @@ $\ran T = \{Tv\in W:v\in V\}$. If $\ran T = W$ we say $T$ is _surjective_.
 
 __Exercise__. _Show the range of a linear transformation is a vector space_.
 
-An operator that is injective and surjective (bijective) is an _isomorphism_
+An linear transformation that is _bijective_ (injective and surjective) is an _isomorphism_
 from $V$ to $W$. We write $V\cong W$ if such an operator exists and say
 $V$ is isomorphic to $W$.
 
