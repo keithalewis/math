@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2020-10-22" />
+  <title>Logic</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Logic</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">October 22, 2020</p>
+</header>
+<p>It may come as a surprise that there are a number of different logical systems for mathematics, however they all have in common that they use <em>propositions</em>, statements that are either true or false, and <em>rules of inference</em>, ways of combining true propositions into other true propositions.</p>
+<p>Mathematicians prove <em>theorems</em>. Typically they have the form ‘if <span class="math inline">A</span> is true then <span class="math inline">B</span> is true’ where <span class="math inline">A</span> and <span class="math inline">B</span> are propositions. This statement is equivalent to ‘if <span class="math inline">A</span> then <span class="math inline">B</span>’ and ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’. Every logical system has <em>axioms</em>: propositions that are assumed to be true. The fundamental rule of inference is <em>modus ponens</em>: if a proof has the statement ‘<span class="math inline">A</span>’ and the statement ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’ then the statement ‘<span class="math inline">B</span>’ can be included in the proof.</p>
+<p>A proof of ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’ consists of a sequence of true statements starting with <span class="math inline">A</span>. The following statements in the sequence are either axioms or a statement using rules of inference applied to previous statements. If the last statement is <span class="math inline">B</span> then the theorem is proved, QED: “quod erat demonstrandum”, meaning “what was to be shown”. The difficult part of a proof is figuring out which axioms to use and when to apply inference.</p>
+<h2 id="propositional-calculus">Propositional Calculus</h2>
+<p>The <em>propositional calculus</em> specifies <em>logical connectives</em> <span class="math inline">\neg</span>, <span class="math inline">\wedge</span>, <span class="math inline">\vee</span>, and <span class="math inline">\Rightarrow</span> based on the common English usage of the words, ‘not’, ‘and’, ‘or’, and ‘implies’.</p>
+<dl>
+<dt><em>Not</em></dt>
+<dd>If <span class="math inline">P</span> is a proposition then <span class="math inline">\neg P</span> is the proposition that is true if <span class="math inline">P</span> is false and false if <span class="math inline">P</span> is true.
+</dd>
+<dt><em>And</em></dt>
+<dd>If <span class="math inline">P</span> and <span class="math inline">Q</span> are propositons then <span class="math inline">P\wedge Q</span> is true when both <span class="math inline">P</span> and <span class="math inline">Q</span> are true, and false otherwise.
+</dd>
+<dt><em>Or</em></dt>
+<dd>If <span class="math inline">P</span> and <span class="math inline">Q</span> are propositons then <span class="math inline">P\vee Q</span> is true when either <span class="math inline">P</span> or <span class="math inline">Q</span> are true, and false otherwise.
+</dd>
+<dt><em>Implies</em></dt>
+<dd>If <span class="math inline">P</span> and <span class="math inline">Q</span> are propositons then <span class="math inline">P\Rightarrow Q</span> is false only when <span class="math inline">P</span> is true and <span class="math inline">Q</span> is false.
+</dd>
+</dl>
+<p>Every <em>well-formed</em> proposition can be built up from <em>atomic propositions</em>, <span class="math inline">P</span>, <span class="math inline">Q</span>, …, and connectives. The <em>grammar</em> of propositional calculus is <span class="math display">
+    \mathit{Prop}\to\mathit{Atom}
+    \mid(\neg\mathit{Prop})
+    \mid(\mathit{Prop}\wedge\mathit{Prop})
+    \mid(\mathit{Prop}\vee\mathit{Prop})
+    \mid(\mathit{Prop}\Rightarrow\mathit{Prop})
+</span> This is a <em>production rule</em> indicating how to generate all well-formed propostions from atoms and other well-formed propositions. The vertical bar ‘<span class="math inline">\mid</span>’ indicates alternative rules and is not part of the grammar. Parentheses ‘()’ are used to indicate the order in which rules are applied. These are part of the grammar.</p>
+<p>The first rule is that every atomic proposition is a well-formed proposition. If we apply the second rule twice to the atomic propostion <span class="math inline">P</span> we get <span class="math inline">(\neg(\neg P))</span>. The step-by-step production is <span class="math inline">P\to(\neg P)\to(\neg(\neg P))</span>. More explicitly</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Prop</th>
+<th style="text-align: left;">Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">P</span></td>
+<td style="text-align: left;"><span class="math inline">\mathit{Prop}\to\mathit{Atom}</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">(\neg P)</span></td>
+<td style="text-align: left;"><span class="math inline">\mathit{Prop}\to(\neg\mathit{Prop})</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">(\neg(\neg P))</span></td>
+<td style="text-align: left;"><span class="math inline">\mathit{Prop}\to(\neg\mathit{Prop})</span></td>
+</tr>
+</tbody>
+</table>
+<p>One approach to propositional calculus is through <em>truth tables</em>.</p>
+<table style="width:79%;">
+<caption>Logical Connectives</caption>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 19%" />
+<col style="width: 16%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">P</span></th>
+<th style="text-align: center;"><span class="math inline">Q</span></th>
+<th style="text-align: center;"><span class="math inline">P\wedge Q</span></th>
+<th style="text-align: center;"><span class="math inline">P\vee Q</span></th>
+<th style="text-align: center;"><span class="math inline">P\Rightarrow Q</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+</tr>
+</tbody>
+</table>
+<p>Binary connectives are functions from <span class="math inline">\{F,T\}^2\to\{F,T\}</span>. The first row indicates <span class="math inline">\wedge(F,F) = F</span>, <span class="math inline">\vee(F,F) = F</span>, and <span class="math inline">\Rightarrow(F,F) = T</span>.</p>
+<h2 id="history">History</h2>
+<p>Although lost in prehistory, the imputus for logic must have been liars. The earliest evidence we have indicates primative societies always had a special class people who survived by making up stories in order to deceive others into providing them with the fruits of their labor. One way to get rid of these freeloaders was to find plausible arguments to demonstrate their stories were a sham.</p>
+<p>Euclid was the first person (if he existed) to document this type of reasoning and the books he wrote are the second best sellers in history next to the bible. Devine truth only requires belief, mathematical truth requires considerable intellectual effort to comprehend.</p>
+<p>While Euclid only considered geometry, Aristotle applied these methods to speech (logos)</p>
+<p>(323–283 BC). euc 384–322 BC) aris</p>
+<p>One early example of different logical systems involves Euclid’s fifth postulate: “There is at most one line that can be drawn parallel to another given one through an external point.” An astounding amount of intellectual effort was expendend over a 2000 year period to prove this from Euclid’s first four postulates until Carl Gauss found examples in 1810 of geometries that satisfied the first four postulates but not the fifth. In 1829 Nicolai Lobachevsky published examples of non-Euclidian geometries where there were no parallel lines and geometries where there were an infinite number of “parallel” lines with no intersection.</p>
+<p>This was also an early example of how complicated mathematics can become if you just follow your nose while trying to think rigourously.</p>
+<p>In 1854 George Boole published <em>The Laws of Thought</em> where he showed how to reduce Aristotle’s logical reasoning to a calculation. He introduced algebraic axioms that propositions and their <em>logicial connectives</em> must satisfy.</p>
+<!--
+Euclid postulate vs axiom
+"If a line segment intersects two straight lines forming two interior
+angles on the same side that sum to less than two right angles, then
+the two lines, if extended indefinitely, meet on that side on which the
+angles sum to less than two right angles."
+
+Playfair. What a name!
+-->
+</body>
+</html>

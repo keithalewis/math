@@ -4,7 +4,8 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
----
+abstract: Logic &ndash; the foundations of mathematics.
+...
 
 It may come as a surprise that there are a number of different
 logical systems for mathematics, however they all have in common that

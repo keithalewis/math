@@ -1,41 +1,52 @@
----
-title: Probability
-author: Keith A. Lewis
-institution: KALX, LLC
-email: kal@kalx.net
-classoption: fleqn
-fleqn: true
-abstract: Probability &ndash; the foundation of statistics.
-...
-
-# Probability Theory
-
-In order to understand statistics one must first understand _probability theory_.
-
-A _sample space_ is a set of _outcomes_. Subsets of a
-sample space are _events_. A _probability measure_ assigns  a number
-between 0 and 1 to events that represents a _degree of belief_ that an outcome
-of a random sample will belong to the event.
-_Partial information_ is modeled by a _partition_ of the sample space.
-
-## Sample Space
-
-A _sample space_ is a set of what can happen in a probability model.
-An _outcome_ is an element of a sample space.
-An _event_ is a subset of a sample space.
-
-A sample space for flipping a coin can be modeled by the set $\{H,T\}$
-where the outcome $H$ indicates heads and $T$ indicates tails.
-Of course any two element set could be used for this.
-
-A sample space for flipping a coin twice can be modeled by the set $\{HH,
-HT, TH, TT\}$ where each outcome specifies the individual outcomes of
-the first and second flip.  The event 'the first flip was heads' is the
-subset $\{HH, HT\}$.  The partition $\{\{HH, HT\},\{TH, TT\}\}$ represents
-the partial information of knowing the outcome of the first coin flip.
-The first event in the partition indicates the first flip was heads.
-The second event in the partition indicates the first flip was tails.
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2020-10-22" />
+  <title>Probability</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Probability</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">October 22, 2020</p>
+</header>
+<h1 id="probability-theory">Probability Theory</h1>
+<p>In order to understand statistics one must first understand <em>probability theory</em>.</p>
+<p>A <em>sample space</em> is a set of <em>outcomes</em>. Subsets of a sample space are <em>events</em>. A <em>probability measure</em> assigns a number between 0 and 1 to events that represents a <em>degree of belief</em> that an outcome of a random sample will belong to the event. <em>Partial information</em> is modeled by a <em>partition</em> of the sample space.</p>
+<h2 id="sample-space">Sample Space</h2>
+<p>A <em>sample space</em> is a set of what can happen in a probability model. An <em>outcome</em> is an element of a sample space. An <em>event</em> is a subset of a sample space.</p>
+<p>A sample space for flipping a coin can be modeled by the set <span class="math inline">\{H,T\}</span> where the outcome <span class="math inline">H</span> indicates heads and <span class="math inline">T</span> indicates tails. Of course any two element set could be used for this.</p>
+<p>A sample space for flipping a coin twice can be modeled by the set <span class="math inline">\{HH, HT, TH, TT\}</span> where each outcome specifies the individual outcomes of the first and second flip. The event ‘the first flip was heads’ is the subset <span class="math inline">\{HH, HT\}</span>. The partition <span class="math inline">\{\{HH, HT\},\{TH, TT\}\}</span> represents the partial information of knowing the outcome of the first coin flip. The first event in the partition indicates the first flip was heads. The second event in the partition indicates the first flip was tails.</p>
 <!--
 heads or tails as the outcome of a coin toss, the integers from 1 to
 6 as the outcomes of rolling a single die, the set of all sequences of
@@ -54,158 +65,66 @@ People seem to be surprised probabilities are modeled using sets.
 Sets have no structure, they are just a bag of things (_elements_). 
 People also seem to be rather cavalier about specifying sample spaces.
 -->
-The first step in any probability model is to specify the possible outcomes.
-The second step is to assign probabilities to the outcomes.
-
-
+<p>The first step in any probability model is to specify the possible outcomes. The second step is to assign probabilities to the outcomes.</p>
 <!--
 [^monte-hall]
 Monte Hall problem
 It must be modeled as a Markov Decision Process.
 -->
-
-## Measure
-
-A _measure_ $\mu$ on a set $S$ assigns numbers to subsets of $S$ and satisfies
-$$
+<h2 id="measure">Measure</h2>
+<p>A <em>measure</em> <span class="math inline">\mu</span> on a set <span class="math inline">S</span> assigns numbers to subsets of <span class="math inline">S</span> and satisfies <span class="math display">
 \mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)
-$$
-for any subsets $E,F\subseteq S$ and $\mu(\emptyset) = 0$. Measures do not count twice.
-
-__Exercise__. _Show if $\nu(E\cup F) = \nu(E) + \nu(F) - \nu(E\cap F)$ for $E,F\subseteq S$
-then $\mu = \nu - \nu(\emptyset)$ is measure_.
+</span> for any subsets <span class="math inline">E,F\subseteq S</span> and <span class="math inline">\mu(\emptyset) = 0</span>. Measures do not count twice.</p>
+<strong>Exercise</strong>. <em>Show if <span class="math inline">\nu(E\cup F) = \nu(E) + \nu(F) - \nu(E\cap F)</span> for <span class="math inline">E,F\subseteq S</span> then <span class="math inline">\mu = \nu - \nu(\emptyset)</span> is measure</em>.
 <details>
 <summary>Solution</summary>
 <blockquote>
-By $\mu = \nu - \nu(\emptyset)$ we mean $\mu(E) = \nu(E) - \nu(\emptyset)$ for any
-subset $E\subseteq S$. Clearly $\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)$
-for any $E,F\subseteq S$. Since $\mu(\emptyset) = \nu(\emptyset) - \nu(\emptyset) = 0$,
-$\mu$ is a measure.
+By <span class="math inline">\mu = \nu - \nu(\emptyset)</span> we mean <span class="math inline">\mu(E) = \nu(E) - \nu(\emptyset)</span> for any subset <span class="math inline">E\subseteq S</span>. Clearly <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)</span> for any <span class="math inline">E,F\subseteq S</span>. Since <span class="math inline">\mu(\emptyset) = \nu(\emptyset) - \nu(\emptyset) = 0</span>, <span class="math inline">\mu</span> is a measure.
 </blockquote>
 </details>
-
-__Exercise__. _Show if $\mu$ is a measure then $\mu(E\cup F) = \mu(E) + \mu(F)$
-for any subsets $E$ and $F$ with empty intersection $E\cap F = \emptyset$_.
+<strong>Exercise</strong>. <em>Show if <span class="math inline">\mu</span> is a measure then <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F)</span> for any subsets <span class="math inline">E</span> and <span class="math inline">F</span> with empty intersection <span class="math inline">E\cap F = \emptyset</span></em>.
 <details>
 <summary>Solution</summary>
 <blockquote>
-Since $\mu(\emptyset) = 0$, $\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)
-= \mu(E) + \mu(F) - \mu(\emptyset) = \mu(E) + \mu(F)$.
+Since <span class="math inline">\mu(\emptyset) = 0</span>, <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F) = \mu(E) + \mu(F) - \mu(\emptyset) = \mu(E) + \mu(F)</span>.
 </blockquote>
 </details>
-
-__Exercise__. _Show if $\mu$ is a measure then $\mu(E) = \mu(E\cap F) + \mu(E\cap F')$
-for any subsets $E$ and $F$ where $F' = S\setminus F = \{x\in S:x\not\in F\}$
-is the _complement_ of $F$ in $S$_.
+<strong>Exercise</strong>. <em>Show if <span class="math inline">\mu</span> is a measure then <span class="math inline">\mu(E) = \mu(E\cap F) + \mu(E\cap F&#39;)</span> for any subsets <span class="math inline">E</span> and <span class="math inline">F</span> where <span class="math inline">F&#39; = S\setminus F = \{x\in S:x\not\in F\}</span> is the <em>complement</em> of <span class="math inline">F</span> in <span class="math inline">S</span></em>.
 <details>
 <summary>Solution</summary>
 <blockquote>
-Note $(E\cap F)\cup(E\cap F') = E\cap(F\cup F') = E\cap S = E$
-and $(E\cap F)\cap(E\cap F') = E\cap(F\cap F') = E\cap\emptyset = \emptyset$ so
-$\mu(E\cap F) + \mu(E\cap F') = \mu((E\cap F)\cup(E\cap F') = \mu(E)$.
+Note <span class="math inline">(E\cap F)\cup(E\cap F&#39;) = E\cap(F\cup F&#39;) = E\cap S = E</span> and <span class="math inline">(E\cap F)\cap(E\cap F&#39;) = E\cap(F\cap F&#39;) = E\cap\emptyset = \emptyset</span> so <span class="math inline">\mu(E\cap F) + \mu(E\cap F&#39;) = \mu((E\cap F)\cup(E\cap F&#39;) = \mu(E)</span>.
 </blockquote>
 </details>
-
-## Probability Measure
-
-A _probability measure_ $P$ on the sample space $\Omega$ is a measure
-taking values in the interval $[0,1]$ with $P(\Omega) = 1$. The
-_probability_ $P(E)$ for $E\subseteq\Omega$ represents a _degree of belief_
-that a random outcome will belong to the event $E$.
-This is a somewhat nebulous and controversial notion. How do "random outcomes"
-occur?
-
-Probability theory originated with games of chance. One way to interpret
-this is "How much money would you wager on an outcome involving rolling dice
-or selecting cards from a deck?" Probability theory can also be used to
-figure out if the dice are weighted or the cards are marked.
-
-__Exercise__. _Show $P(E\cup F) \le P(E) + P(F)$
-for any events $E$ and $F$ when $P$ is a probability measure_.
-
-__Exercise__. _Show $P(\cup_i E_i) \le \sum_i P(E_i)$
-for any events $(E_i)$ when $P$ is a probability measure_.
-
-If $\Omega$ consists of a finite number of elements
-$\{\omega_1,\ldots,\omega_n\}$ we can define a probability measure
-by $P(\{\omega_i\}) = p_i$ where $0 \le p_i \le 1$ and $\sum_i
-p_i = 1$. Every subset of $\Omega$ corresponds to a subset
-$I\subseteq\{1,\ldots,n\}$. The probability of the event $E =
-\{\omega_i:i\in I\}$ is $P(E) = \sum_{i\in I} p_i$.
-
-__Exercise__. _Show this defines a probability measure._
-
-For the two coin flip model (assuming the coin is fair) we 
-assign probability of $1/4$ to each outcome. The probability of
-the first flip being heads is $P(\{HH,HT\})
-= P(\{HH\} \cup \{HT\}) = P(\{HH\} + P(\{HT\}) = 1/4 + 1/4 = 1/2$.
-
-## Random Variable
-
-A _random variable_ is a symbol that can be used in place of a number when
-manipulating equations and inequalities with with additional information
-about the probability of the values it can take on.
-
-### Discrete Random Variable
-
-A _discretely distributed random variable_ is defined by the values it can take $(x_i)$
-together with the probabilities $(p_i)$ that it takes those values $P(X = x_i) = p_i$.
-The probabilities must satisfy $p_i \ge0$ and $\sum_i p_i = 1$.
-
-### Continuous Random Variable
-
-A _continuously distributed random variable_ is defined by a _density function_ $f$ where
-$P(a < X\le b) = \int_a^b f(x)\,dx$.
-The density must satisfy $f\ge 0$ and $\int_\mathbf{R} f(x)\,dx = 1$.
-
-### Cumulative Distribution Function
-
-There are random variables that are neither discrete nor continuous, however all random
-variables can be defined using a _cumulative distribution function_.
-The cdf of the random variable $X$ is $F_X(x) = F(x) = P(X\le x)$.
-It tells you everything there is to know about $X$. For example,
-$P(a < X \le b) = F(b) - F(a)$. 
-
-__Exercise__. _Show $P(a\le X\le b) = \lim_{x\uparrow a} F(b) - F(x)$_.
-
-_Hint_: $[a,b] = \cap_n (a - 1/n, b]$.
-
-In general $P(X\in A) = \int_A dF(x)$
-for sufficiently nice subsets $A\subset\mathbf{R}$ where we are using
-[Riemann–Stieltjes](https://mathworld.wolfram.com/StieltjesIntegral.html)
-integration.
-
-__Exercise__: _Show for any cumulative distribution function $F$ that
-$F(x) \le F(y)$ if $x < y$, $\lim_{x\to -\infty} F(x) = 0$,
-$\lim_{x\to\infty} F(x) = 1$, and $F$ is right continuous with left limits_.
-
-_Hint_: For right continuity use $(-\infty, x] = \cap_n (-\infty, x + 1/n]$.
-
-The cdf $F(x) = \max\{0,\min\{1,x\}\}$ defines the uniformly distributed
-random variable, $U$, on the interval $[0,1]$.  For $0\le a < b\le 1$,
-$P(a < U \le b) = P(U\in (a,b]) = b - a$ and $P(U < 0) = 0 = P(U > 1)$.
-
-Two random variables, $X$ and $Y$, have the same _law_ if they have the same cdf.
-
-__Exercise__. _If $X$ has cdf $F$, then $X$ and $F^{-1}(U)$ have the same law_.
-
-__Exercise__. _If $X$ has cdf $F$, then $F(X)$ and $U$ have the same law_.
-
-This shows a uniformly distributed random variable has sufficient randomness to
-generate any random variable. There are no random, random variables.
-
-The mathematical definition of a random variable is that it is
-a function $X\colon\Omega\to\mathbf{R}$. Its cumulative
-distribution function is $F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})$.
-
-Given a cdf $F$ we can define a random variable having that distribution by
-$X\colon\mathbf{R}\to\mathbf{R}$ to be the
-identity function, $X(x) = x$ and let $P$ be the probability measure on $\mathbf{R}$ defined by
-$P(A) = \int_A dF(x)$. 
-
-The mathematical definition is more flexible than defining a random variable by its
-cumulative distribution function.
-
+<h2 id="probability-measure">Probability Measure</h2>
+<p>A <em>probability measure</em> <span class="math inline">P</span> on the sample space <span class="math inline">\Omega</span> is a measure taking values in the interval <span class="math inline">[0,1]</span> with <span class="math inline">P(\Omega) = 1</span>. The <em>probability</em> <span class="math inline">P(E)</span> for <span class="math inline">E\subseteq\Omega</span> represents a <em>degree of belief</em> that a random outcome will belong to the event <span class="math inline">E</span>. This is a somewhat nebulous and controversial notion. How do “random outcomes” occur?</p>
+<p>Probability theory originated with games of chance. One way to interpret this is “How much money would you wager on an outcome involving rolling dice or selecting cards from a deck?” Probability theory can also be used to figure out if the dice are weighted or the cards are marked.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(E\cup F) \le P(E) + P(F)</span> for any events <span class="math inline">E</span> and <span class="math inline">F</span> when <span class="math inline">P</span> is a probability measure</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(\cup_i E_i) \le \sum_i P(E_i)</span> for any events <span class="math inline">(E_i)</span> when <span class="math inline">P</span> is a probability measure</em>.</p>
+<p>If <span class="math inline">\Omega</span> consists of a finite number of elements <span class="math inline">\{\omega_1,\ldots,\omega_n\}</span> we can define a probability measure by <span class="math inline">P(\{\omega_i\}) = p_i</span> where <span class="math inline">0 \le p_i \le 1</span> and <span class="math inline">\sum_i p_i = 1</span>. Every subset of <span class="math inline">\Omega</span> corresponds to a subset <span class="math inline">I\subseteq\{1,\ldots,n\}</span>. The probability of the event <span class="math inline">E = \{\omega_i:i\in I\}</span> is <span class="math inline">P(E) = \sum_{i\in I} p_i</span>.</p>
+<p><strong>Exercise</strong>. <em>Show this defines a probability measure.</em></p>
+<p>For the two coin flip model (assuming the coin is fair) we assign probability of <span class="math inline">1/4</span> to each outcome. The probability of the first flip being heads is <span class="math inline">P(\{HH,HT\}) = P(\{HH\} \cup \{HT\}) = P(\{HH\} + P(\{HT\}) = 1/4 + 1/4 = 1/2</span>.</p>
+<h2 id="random-variable">Random Variable</h2>
+<p>A <em>random variable</em> is a symbol that can be used in place of a number when manipulating equations and inequalities with with additional information about the probability of the values it can take on.</p>
+<h3 id="discrete-random-variable">Discrete Random Variable</h3>
+<p>A <em>discretely distributed random variable</em> is defined by the values it can take <span class="math inline">(x_i)</span> together with the probabilities <span class="math inline">(p_i)</span> that it takes those values <span class="math inline">P(X = x_i) = p_i</span>. The probabilities must satisfy <span class="math inline">p_i \ge0</span> and <span class="math inline">\sum_i p_i = 1</span>.</p>
+<h3 id="continuous-random-variable">Continuous Random Variable</h3>
+<p>A <em>continuously distributed random variable</em> is defined by a <em>density function</em> <span class="math inline">f</span> where <span class="math inline">P(a &lt; X\le b) = \int_a^b f(x)\,dx</span>. The density must satisfy <span class="math inline">f\ge 0</span> and <span class="math inline">\int_\mathbf{R} f(x)\,dx = 1</span>.</p>
+<h3 id="cumulative-distribution-function">Cumulative Distribution Function</h3>
+<p>There are random variables that are neither discrete nor continuous, however all random variables can be defined using a <em>cumulative distribution function</em>. The cdf of the random variable <span class="math inline">X</span> is <span class="math inline">F_X(x) = F(x) = P(X\le x)</span>. It tells you everything there is to know about <span class="math inline">X</span>. For example, <span class="math inline">P(a &lt; X \le b) = F(b) - F(a)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(a\le X\le b) = \lim_{x\uparrow a} F(b) - F(x)</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">[a,b] = \cap_n (a - 1/n, b]</span>.</p>
+<p>In general <span class="math inline">P(X\in A) = \int_A dF(x)</span> for sufficiently nice subsets <span class="math inline">A\subset\mathbf{R}</span> where we are using <a href="https://mathworld.wolfram.com/StieltjesIntegral.html">Riemann–Stieltjes</a> integration.</p>
+<p><strong>Exercise</strong>: <em>Show for any cumulative distribution function <span class="math inline">F</span> that <span class="math inline">F(x) \le F(y)</span> if <span class="math inline">x &lt; y</span>, <span class="math inline">\lim_{x\to -\infty} F(x) = 0</span>, <span class="math inline">\lim_{x\to\infty} F(x) = 1</span>, and <span class="math inline">F</span> is right continuous with left limits</em>.</p>
+<p><em>Hint</em>: For right continuity use <span class="math inline">(-\infty, x] = \cap_n (-\infty, x + 1/n]</span>.</p>
+<p>The cdf <span class="math inline">F(x) = \max\{0,\min\{1,x\}\}</span> defines the uniformly distributed random variable, <span class="math inline">U</span>, on the interval <span class="math inline">[0,1]</span>. For <span class="math inline">0\le a &lt; b\le 1</span>, <span class="math inline">P(a &lt; U \le b) = P(U\in (a,b]) = b - a</span> and <span class="math inline">P(U &lt; 0) = 0 = P(U &gt; 1)</span>.</p>
+<p>Two random variables, <span class="math inline">X</span> and <span class="math inline">Y</span>, have the same <em>law</em> if they have the same cdf.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> has cdf <span class="math inline">F</span>, then <span class="math inline">X</span> and <span class="math inline">F^{-1}(U)</span> have the same law</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> has cdf <span class="math inline">F</span>, then <span class="math inline">F(X)</span> and <span class="math inline">U</span> have the same law</em>.</p>
+<p>This shows a uniformly distributed random variable has sufficient randomness to generate any random variable. There are no random, random variables.</p>
+<p>The mathematical definition of a random variable is that it is a function <span class="math inline">X\colon\Omega\to\mathbf{R}</span>. Its cumulative distribution function is <span class="math inline">F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})</span>.</p>
+<p>Given a cdf <span class="math inline">F</span> we can define a random variable having that distribution by <span class="math inline">X\colon\mathbf{R}\to\mathbf{R}</span> to be the identity function, <span class="math inline">X(x) = x</span> and let <span class="math inline">P</span> be the probability measure on <span class="math inline">\mathbf{R}</span> defined by <span class="math inline">P(A) = \int_A dF(x)</span>.</p>
+<p>The mathematical definition is more flexible than defining a random variable by its cumulative distribution function.</p>
 <!--
 
 ## Examples
@@ -456,9 +375,9 @@ $$
 \begin{aligned}
 E[e^N] &= E[e^{\mu + \sigma Z}] \\
        &= \int_{-\infty}^\infty e^{\mu + \sigma z} e^{-z^2/2}\,dz/\sqrt{2\pi}\\
-	   &= e^{\mu + \sigma^2/2} \int_{-\infty}^\infty e^{-(z - \sigma)^2/2}\,dz/\sqrt{2\pi}\\
-	   &= e^{\mu + \sigma^2/2} \int_{-\infty}^\infty e^{-z^2/2}\,dz/\sqrt{2\pi}\\
-	   &= e^{\mu + \sigma^2/2}
+       &= e^{\mu + \sigma^2/2} \int_{-\infty}^\infty e^{-(z - \sigma)^2/2}\,dz/\sqrt{2\pi}\\
+       &= e^{\mu + \sigma^2/2} \int_{-\infty}^\infty e^{-z^2/2}\,dz/\sqrt{2\pi}\\
+       &= e^{\mu + \sigma^2/2}
 \end{aligned}
 $$
 
@@ -479,7 +398,7 @@ $$
 \begin{aligned}
 Ee^{sX} &= \sum_{k=0}^\infty e^{sk} e^{-\lambda}\lambda^k/k!\\
         &= \sum_{k=0}^\infty  (e^s\lambda)^ke^{-\lambda}/k!\\
-		&= \exp(\lambda(e^s - 1))
+        &= \exp(\lambda(e^s - 1))
 \end{aligned}
 $$
 so $\kappa(s) = \lambda(e^s - 1)$ and $\kappa_n = \lambda$ for all $n$.
@@ -644,3 +563,5 @@ For any $\epsilon > 0$ there exists $n$ such that $\sum_{k > n} P(E_k) < \epsilo
 since the infinite sum converges to a finite value. 
 
 -->
+</body>
+</html>

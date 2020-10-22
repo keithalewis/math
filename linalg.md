@@ -4,7 +4,8 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
----
+abstract: A guide to Linear Algebra.
+...
 
 \newcommand\ran{\operatorname{ran}}
 \newcommand\span{\operatorname{span}}

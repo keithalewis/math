@@ -4,7 +4,8 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
----
+abstract: Relation &ndash; comparing two things.
+...
 
 \renewcommand{\dom}{\operatorname{dom}}
 \renewcommand{\cod}{\operatorname{cod}}
