@@ -122,6 +122,9 @@ __Exercise__. _Show $c(X)$ is a vector space_.
 
 The functions in $c(X)$ that are zero except at a
 finite number of elements of $X$ is customarily written $c_{00}(X)$.
+If $X$ is finite then $\bm{F}^X = c_{00}(X)$. If $X$ has $n$
+elements it is customary to write
+$\bm{F}^n = \{(x_1,\ldots,x_n):x_j\in\bm{F}, 1\le j\le n\}$.
 
 __Exercise__. _Show $c_{00}(X)$ is a vector space_.
 
