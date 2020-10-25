@@ -15,7 +15,7 @@ true propositions.
 
 Mathematicians prove _theorems_. Typically they have the form 'if
 $A$ is true then $B$ is true' where $A$ and $B$ are propositions.
-This statement is equivalent to 'if $A$ then $B$' and '$A$ implies $B$'.
+This is equivalent to 'if $A$ then $B$' and '$A$ implies $B$'.
 Every logical system has _axioms_: propositions that are assumed to be
 true. The fundamental rule of inference is _modus ponens_: if a proof
 has the statement '$A$' and the statement '$A$ implies $B$' then the
@@ -27,11 +27,11 @@ are either axioms or a statement using rules of inference applied to
 previous statements. If the last statement is $B$ then the theorem is
 proved, QED: "quod erat demonstrandum", meaning "what was to be shown".
 The difficult part of a proof is figuring out which axioms to use and
-when to apply inference.
+when to apply the rules of inference.
 
 ## Propositional Calculus
 
-The _propositional calculus_ specifies _logical connectives_
+The _propositional calculus_ has _logical connectives_
 $\neg$, $\wedge$, $\vee$, and $\Rightarrow$ based on the
 common English usage of the words, 'not', 'and', 'or', and 'implies'.
 

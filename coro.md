@@ -9,7 +9,7 @@ abstract: Coroutines are functions and a continuation point.
 
 A _full asymmetric coroutine_ has three operations: _create_, _resume_, and _yield_.
 Create takes a coroutine body and instanciates it in a suspended state.
-The _continuation point_ is set to the beginning of the body. Resume cause the
+The _continuation point_ is set to the beginning of the body. Resume cause a
 coroutine to execute from its continuation point until it either yields
 at a new continuation point or terminates. A terminated coroutine cannot be resumed.
 
