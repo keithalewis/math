@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2020-10-22" />
+  <meta name="dcterms.date" content="2020-10-25" />
   <title>Logic</title>
   <style>
     code{white-space: pre-wrap;}
@@ -38,13 +38,13 @@
 <header id="title-block-header">
 <h1 class="title">Logic</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 22, 2020</p>
+<p class="date">October 25, 2020</p>
 </header>
 <p>It may come as a surprise that there are a number of different logical systems for mathematics, however they all have in common that they use <em>propositions</em>, statements that are either true or false, and <em>rules of inference</em>, ways of combining true propositions into other true propositions.</p>
-<p>Mathematicians prove <em>theorems</em>. Typically they have the form ‘if <span class="math inline">A</span> is true then <span class="math inline">B</span> is true’ where <span class="math inline">A</span> and <span class="math inline">B</span> are propositions. This statement is equivalent to ‘if <span class="math inline">A</span> then <span class="math inline">B</span>’ and ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’. Every logical system has <em>axioms</em>: propositions that are assumed to be true. The fundamental rule of inference is <em>modus ponens</em>: if a proof has the statement ‘<span class="math inline">A</span>’ and the statement ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’ then the statement ‘<span class="math inline">B</span>’ can be included in the proof.</p>
-<p>A proof of ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’ consists of a sequence of true statements starting with <span class="math inline">A</span>. The following statements in the sequence are either axioms or a statement using rules of inference applied to previous statements. If the last statement is <span class="math inline">B</span> then the theorem is proved, QED: “quod erat demonstrandum”, meaning “what was to be shown”. The difficult part of a proof is figuring out which axioms to use and when to apply inference.</p>
+<p>Mathematicians prove <em>theorems</em>. Typically they have the form ‘if <span class="math inline">A</span> is true then <span class="math inline">B</span> is true’ where <span class="math inline">A</span> and <span class="math inline">B</span> are propositions. This is equivalent to ‘if <span class="math inline">A</span> then <span class="math inline">B</span>’ and ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’. Every logical system has <em>axioms</em>: propositions that are assumed to be true. The fundamental rule of inference is <em>modus ponens</em>: if a proof has the statement ‘<span class="math inline">A</span>’ and the statement ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’ then the statement ‘<span class="math inline">B</span>’ can be included in the proof.</p>
+<p>A proof of ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’ consists of a sequence of true statements starting with <span class="math inline">A</span>. The following statements in the sequence are either axioms or a statement using rules of inference applied to previous statements. If the last statement is <span class="math inline">B</span> then the theorem is proved, QED: “quod erat demonstrandum”, meaning “what was to be shown”. The difficult part of a proof is figuring out which axioms to use and when to apply the rules of inference.</p>
 <h2 id="propositional-calculus">Propositional Calculus</h2>
-<p>The <em>propositional calculus</em> specifies <em>logical connectives</em> <span class="math inline">\neg</span>, <span class="math inline">\wedge</span>, <span class="math inline">\vee</span>, and <span class="math inline">\Rightarrow</span> based on the common English usage of the words, ‘not’, ‘and’, ‘or’, and ‘implies’.</p>
+<p>The <em>propositional calculus</em> has <em>logical connectives</em> <span class="math inline">\neg</span>, <span class="math inline">\wedge</span>, <span class="math inline">\vee</span>, and <span class="math inline">\Rightarrow</span> based on the common English usage of the words, ‘not’, ‘and’, ‘or’, and ‘implies’.</p>
 <dl>
 <dt><em>Not</em></dt>
 <dd>If <span class="math inline">P</span> is a proposition then <span class="math inline">\neg P</span> is the proposition that is true if <span class="math inline">P</span> is false and false if <span class="math inline">P</span> is true.
@@ -59,6 +59,21 @@
 <dd>If <span class="math inline">P</span> and <span class="math inline">Q</span> are propositons then <span class="math inline">P\Rightarrow Q</span> is false only when <span class="math inline">P</span> is true and <span class="math inline">Q</span> is false.
 </dd>
 </dl>
+<p>Note that if <span class="math inline">P</span> is false then <span class="math inline">P\Rightarrow Q</span> is true no matter if <span class="math inline">Q</span> is true or false. If you think it is peculiar that ‘false implies true’ is a true statement then you and I agree on that.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\neg(\neg P)</span> always has the same truth value as <span class="math inline">P</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P\vee\neg P</span> is always true</em>.</p>
+<p>A <em>tautology</em> is a statement that is always true no matter the truth values of the propositions they contain. This leads to another connective.</p>
+<dl>
+<dt><em>Equivalent</em></dt>
+<dd>If <span class="math inline">P</span> and <span class="math inline">Q</span> are propositions then <span class="math inline">P\equiv Q</span> is true when <span class="math inline">P</span> and <span class="math inline">Q</span> have the same truth value and false if they have different truth values.
+</dd>
+</dl>
+<p>The exercises show <span class="math inline">\neg(\neg P)\equiv P</span> and <span class="math inline">P\vee\neg P</span> is a tautology.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P\equiv Q</span> is equivalent to <span class="math inline">(P\wedge Q)\vee(\neg P\wedge\neg Q)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P\Rightarrow Q</span> and <span class="math inline">\neg P\vee Q</span> are equivalent</em>.</p>
+<details>
+<summary>Solution</summary> If <span class="math inline">P</span> is false then <span class="math inline">P\Rightarrow Q</span> is true, as we’ve just seen. Since <span class="math inline">\neg P</span> is true in this case <span class="math inline">\neg P\vee Q</span> is true. If <span class="math inline">P</span> is true and <span class="math inline">Q</span> is false then <span class="math inline">P\Rightarrow Q</span> is false and so is <span class="math inline">\neg P\vee Q</span> since both <span class="math inline">\neg P</span> and <span class="math inline">Q</span> are false. If <span class="math inline">P</span> is true and <span class="math inline">Q</span> is true then <span class="math inline">P\Rightarrow Q</span> is true and so is <span class="math inline">\neg P\vee Q</span> since <span class="math inline">Q</span> is true.
+</details>
 <p>Every <em>well-formed</em> proposition can be built up from <em>atomic propositions</em>, <span class="math inline">P</span>, <span class="math inline">Q</span>, …, and connectives. The <em>grammar</em> of propositional calculus is <span class="math display">
     \mathit{Prop}\to\mathit{Atom}
     \mid(\neg\mathit{Prop})

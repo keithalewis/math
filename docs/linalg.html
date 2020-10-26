@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2020-10-22" />
+  <meta name="dcterms.date" content="2020-10-25" />
   <title>Linear Algebra</title>
   <style>
     code{white-space: pre-wrap;}
@@ -38,7 +38,7 @@
 <header id="title-block-header">
 <h1 class="title">Linear Algebra</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 22, 2020</p>
+<p class="date">October 25, 2020</p>
 </header>
 <p>This is not a beginners guide to linear algebra. It is a breviloquent collection of pertinent facts about vector spaces and the linear transformations between them. Although it is complete and self-contained you should already be familiar with basic linear algebra before reading this. Statements and proofs are concise, so read them twice. Do the exercises to confirm your understanding.</p>
 <p>I make no apologies for the shamelessly mathematical exposition and hope it engenders an appeciation for the thrill of literally ‘doing the math’ to unequivocally establish absolute truth.</p>
@@ -101,7 +101,7 @@ following material these statements will become completely obvious.
 <p><strong>Exercise</strong>. <em>Show for <span class="math inline">x\in V</span> that <span class="math inline">-(-x) = x</span></em>.</p>
 <p>If <span class="math inline">\bm{F}^X = \{f\colon X\to \bm{F}\}</span> is the set of all functions from <span class="math inline">X</span> to <span class="math inline">\bm{F}</span> we can define <span class="math inline">(f + g)(x) = f(x) + g(x)</span> and <span class="math inline">(\alpha f)(x) = \alpha f(x)</span> for <span class="math inline">f,g\in\bm{F}^X</span> and <span class="math inline">\alpha\in\bm{F}</span>. It is customary to write <span class="math inline">c(X)</span> for this space.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">c(X)</span> is a vector space</em>.</p>
-<p>The functions in <span class="math inline">c(X)</span> that are zero except at a finite number of elements of <span class="math inline">X</span> is customarily written <span class="math inline">c_{00}(X)</span>.</p>
+<p>The functions in <span class="math inline">c(X)</span> that are zero except at a finite number of elements of <span class="math inline">X</span> is customarily written <span class="math inline">c_{00}(X)</span>. If <span class="math inline">X</span> is finite then <span class="math inline">\bm{F}^X = c_{00}(X)</span>. If <span class="math inline">X</span> has <span class="math inline">n</span> elements it is customary to write <span class="math inline">\bm{F}^n = \{(x_1,\ldots,x_n):x_j\in\bm{F}, 1\le j\le n\}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">c_{00}(X)</span> is a vector space</em>.</p>
 <p>If <span class="math inline">X = \bm{N}</span> is the set of <em>natural numbers</em> define <span class="math inline">c_0(\bm{N}) = c_0</span> to be the functions <span class="math inline">v\in c(\bm{N})</span> such that <span class="math inline">\lim_{n\to\infty} v(n) = 0</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">c_0</span> is a vector space</em>.</p>
