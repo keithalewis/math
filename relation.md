@@ -26,8 +26,10 @@ show there exists a function $t\colon Z\to X\times Y$ with
 $\lambda(t(z)) = l(z)$ and $\rho(t(z)) = r(z)$ for $z\in Z$_.
 <details>
 <summary>Solution</summary>
-Define $t(z) = (l(z),r(z))\in X\times Y$ for $z\in Z$.
+
+> Define $t(z) = (l(z),r(z))\in X\times Y$ for $z\in Z$.
 Any set for which such $t$ exists is in one-to-one correspondence with the cartesian product of $X$ and $Y$.
+
 </details>
 
 A _relation_ between sets $X$ and $Y$ is a subset $R\subseteq X\times Y$ and
@@ -59,7 +61,9 @@ __Exercise__. _Show if $J\subseteq X\times X$ and $JR = R$ for all $R\subseteq X
 then $J = I_X$_.
 <details>
 <summary>Solution</summary>
-If $R = I_X$ then $J = JI_X = I_X$.
+
+> If $R = I_X$ then $J = JI_X = I_X$.
+
 </details>
 
 __Exercise__. _Show if $J\subseteq Y\times Y$ and $RJ = R$ for all $R\in X\times Y$
@@ -84,8 +88,10 @@ $I_{\cod R} \subseteq R'R$_.
 
 <details>
 <summary>Solution</summary>
-If $x\in\dom R$ then $(x,y)\in R$ for some $y\in Y$ so $(y,x)\in R'$ and $(x,x)\in RR'$.
+
+> If $x\in\dom R$ then $(x,y)\in R$ for some $y\in Y$ so $(y,x)\in R'$ and $(x,x)\in RR'$.
 A similar argument applies to $y\in\cod R$.
+
 </details>
 
 If $RS = I$ then $R$ is a _left inverse_, or _retract_, of $S$
@@ -109,7 +115,9 @@ invertible with inverse $R$. A relation that is both epi and mono is called _iso
 __Exercise__. _Show inverses are unique_.
 <details>
 <summary>Solution</summary>
-If $S$ and $T$ are inverses of $R$ then $S = S(RT) = (SR)T = T$. 
+
+> If $S$ and $T$ are inverses of $R$ then $S = S(RT) = (SR)T = T$. 
+
 </details>
 
 A _partial function_ is a relation $R\subseteq X\time Y$ where $xR$ has exactly one
@@ -124,8 +132,10 @@ $\overline{R} = R\cup\{(x',\bot):x'\not\in\dom R\}\subseteq X\times
 __Exercise__. _Show if $R$ is a partial function then $\overline{R}$ is a function_.
 <details>
 <summary>Solution</summary>
-If $x\in\dom R$ then $x\overline{R} = xR$ has one element. If $x\not\in\dom R$
+
+> If $x\in\dom R$ then $x\overline{R} = xR$ has one element. If $x\not\in\dom R$
 then $x\overline{R} = \{\bot\}$ has one element.
+
 </details>
 
 __Exercise__. If $R$ and $S$ are (partial) functions show $(x,z)\in RS$ if and only if $S(R(x)) = z$.
@@ -136,14 +146,18 @@ and an epi (partial) function is called _surjective_, or _onto_.
 __Exercise__. _Show a function has a left inverse if and only if it is injective_.
 <details>
 <summary>Solution</summary>
-If $R$ has a left inverse $S$ then $SR = I$. If $R(x) = R(x')$ then $x = SR(x) = SR(x') = x'$.
+
+> If $R$ has a left inverse $S$ then $SR = I$. If $R(x) = R(x')$ then $x = SR(x) = SR(x') = x'$.
 If $R$ is injective then $R'$ is a left inverse.
+
 </details>
 
 __Exercise__. _Show a function has a right inverse if and only if it is surjective_.
 <details>
 <summary>Solution</summary>
-If $R$ has a left inverse $S$ then $SR = I$. If $R(x) = R(x')$ then $x = SR(x) = SR(x') = x'$.
+
+> If $R$ has a left inverse $S$ then $SR = I$. If $R(x) = R(x')$ then $x = SR(x) = SR(x') = x'$.
+
 </details>
 
 A relation $R$ on $X\times X$ is _reflexive_
@@ -169,7 +183,9 @@ Adding the diagonal to any relation makes it reflexive.
 __Exercise__. _If $R$ is transitive then $R\cup I$ is also transitive_.
 <details>
 <summary>Solution</summary>
-We have $(R\cup I)(R\sup I) = (R(R\cup I)\cup I$ = (RR)\cup I\subseteq R\cup I$.
+
+> We have $(R\cup I)(R\sup I) = (R(R\cup I)\cup I$ = (RR)\cup I\subseteq R\cup I$.
+
 </details>
 
 A relation that is transitive and reflexive is called a _preorder_.

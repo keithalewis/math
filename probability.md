@@ -76,11 +76,12 @@ __Exercise__. _Show if $\nu(E\cup F) = \nu(E) + \nu(F) - \nu(E\cap F)$ for $E,F\
 then $\mu = \nu - \nu(\emptyset)$ is measure_.
 <details>
 <summary>Solution</summary>
-<blockquote>
-By $\mu = \nu - \nu(\emptyset)$ we mean $\mu(E) = \nu(E) - \nu(\emptyset)$ for any
+
+> By $\mu = \nu - \nu(\emptyset)$ we mean $\mu(E) = \nu(E) - \nu(\emptyset)$ for any
 subset $E\subseteq S$. Clearly $\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)$
 for any $E,F\subseteq S$. Since $\mu(\emptyset) = \nu(\emptyset) - \nu(\emptyset) = 0$,
 $\mu$ is a measure.
+
 </blockquote>
 </details>
 
@@ -88,10 +89,10 @@ __Exercise__. _Show if $\mu$ is a measure then $\mu(E\cup F) = \mu(E) + \mu(F)$
 for any subsets $E$ and $F$ with empty intersection $E\cap F = \emptyset$_.
 <details>
 <summary>Solution</summary>
-<blockquote>
-Since $\mu(\emptyset) = 0$, $\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)
+
+> Since $\mu(\emptyset) = 0$, $\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)
 = \mu(E) + \mu(F) - \mu(\emptyset) = \mu(E) + \mu(F)$.
-</blockquote>
+
 </details>
 
 __Exercise__. _Show if $\mu$ is a measure then $\mu(E) = \mu(E\cap F) + \mu(E\cap F')$
@@ -99,11 +100,11 @@ for any subsets $E$ and $F$ where $F' = S\setminus F = \{x\in S:x\not\in F\}$
 is the _complement_ of $F$ in $S$_.
 <details>
 <summary>Solution</summary>
-<blockquote>
-Note $(E\cap F)\cup(E\cap F') = E\cap(F\cup F') = E\cap S = E$
+
+> Note $(E\cap F)\cup(E\cap F') = E\cap(F\cup F') = E\cap S = E$
 and $(E\cap F)\cap(E\cap F') = E\cap(F\cap F') = E\cap\emptyset = \emptyset$ so
 $\mu(E\cap F) + \mu(E\cap F') = \mu((E\cap F)\cup(E\cap F') = \mu(E)$.
-</blockquote>
+
 </details>
 
 ## Probability Measure

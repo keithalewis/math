@@ -422,8 +422,10 @@ Define $I_U\colon U\oplus V/U\to V$ by $u\oplus v+U\mapsto u + v$.
 __Exercise__. _Show this is well-defined_.
 <details>
 <summary>Solution</summary>
-If $I_U u \oplus v + U = 0$ then $u + v = 0$.
+
+> If $I_U u \oplus v + U = 0$ then $u + v = 0$.
 Since $v = -u\in U$ we have $v + U = 0 + U$.
+
 </details>
 
 #### Internal
