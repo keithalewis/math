@@ -8,9 +8,14 @@ abstract: Logic &ndash; the foundations of mathematics.
 ...
 
 It may come as a surprise that there are a number of different
-logical systems for mathematics, however they all have in common that
-they use _propositions_, statements that are either true or false, and
-_rules of inference_, ways of combining true propositions into other
+logical systems for mathematics that are logically contradictory.
+The most famous examples are in non-Euclidean geometry where
+it is possible to have no, or infinitely many, "parallel" lines
+through a point not on a line.
+
+However one thing logical systems all have in common that
+they use _propositions_; statements that are either _true_ or _false_, and
+_rules of inference_; ways of combining true propositions into other
 true propositions.
 
 Mathematicians prove _theorems_. Typically they have the form 'if
@@ -22,7 +27,7 @@ has the statement '$A$' and the statement '$A$ implies $B$' then the
 statement '$B$' can be included in the proof.
 
 A proof of '$A$ implies $B$' consists of a sequence of
-true statements starting with $A$. The following statements in the sequence
+statements starting with $A$. The following statements in the sequence
 are either axioms or a statement using rules of inference applied to
 previous statements. If the last statement is $B$ then the theorem is
 proved, QED: "quod erat demonstrandum", meaning "what was to be shown".
@@ -31,9 +36,9 @@ when to apply the rules of inference.
 
 ## Propositional Calculus
 
-The _propositional calculus_ has _logical connectives_
-$\neg$, $\wedge$, $\vee$, and $\Rightarrow$ based on the
-common English usage of the words, 'not', 'and', 'or', and 'implies'.
+The _propositional calculus_ is based on the common English usage of
+the words, 'not', 'and', 'or', and 'implies'.  These are represented
+by _logical connectives_ $\neg$, $\wedge$, $\vee$, and $\supset$.
 
 _Not_
   ~ If $P$ is a proposition then $\neg P$ is the proposition that is true
@@ -48,16 +53,30 @@ _Or_
   $Q$ are true, and false otherwise.
 
 _Implies_
-  ~ If $P$ and $Q$ are propositons then $P\Rightarrow Q$ is false only when
+  ~ If $P$ and $Q$ are propositons then $P\supset Q$ is false only when
   $P$ is true and $Q$ is false.
 
-Note that if $P$ is false then $P\Rightarrow Q$ is true no matter if $Q$
+Note that if $P$ is false then $P\supset Q$ is true no matter if $Q$
 is true or false. If you think it is peculiar that 'false implies true'
 is a true statement then you and I agree on that.
 
 __Exercise__. _Show $\neg(\neg P)$ always has the same truth value as $P$_.
+<details>
+<summary>Solution</summary>
+
+> If $P$ is true then $\neg P$ is false so $\neg(\neg P)$ is true.
+If $P$ is false then $\neg P$ is true so $\neg(\neg P)$ is false.
+
+</details>
 
 __Exercise__. _Show $P\vee\neg P$ is always true_.
+<details>
+<summary>Solution</summary>
+
+> If $P$ is true then $P\vee\neg P$ is true. 
+If $P$ is false then $P\vee\neg P$ is true. 
+
+</details>
 
 A _tautology_ is a statement that is always true no matter
 the truth values of the propositions they contain. This leads to another
@@ -71,16 +90,18 @@ The exercises show $\neg(\neg P)\equiv P$ and $P\vee\neg P$ is a tautology.
 
 __Exercise__. _Show $P\equiv Q$ is equivalent to $(P\wedge Q)\vee(\neg P\wedge\neg Q)$_.
 
-__Exercise__. _Show $P\Rightarrow Q$ and $\neg P\vee Q$ are equivalent_.
+__Exercise__. _Show $P\supset Q$ and $\neg P\vee Q$ are equivalent_.
 
 <details>
 <summary>Solution</summary>
-If $P$ is false then $P\Rightarrow Q$ is true, as we've just seen.
+
+> If $P$ is false then $P\supset Q$ is true, as we've just seen.
 Since $\neg P$ is true in this case $\neg P\vee Q$ is true.
 If $P$ is true and $Q$ is false then
-$P\Rightarrow Q$ is false and so is $\neg P\vee Q$ since both $\neg P$
+$P\supset Q$ is false and so is $\neg P\vee Q$ since both $\neg P$
 and $Q$ are false. If $P$ is true and $Q$ is true then
-$P\Rightarrow Q$ is true and so is $\neg P\vee Q$ since $Q$ is true.
+$P\supset Q$ is true and so is $\neg P\vee Q$ since $Q$ is true.
+
 </details>
 
 Every _well-formed_ proposition can be built up from _atomic propositions_,
@@ -90,7 +111,7 @@ $$
 	\mid(\neg\mathit{Prop})
 	\mid(\mathit{Prop}\wedge\mathit{Prop})
 	\mid(\mathit{Prop}\vee\mathit{Prop})
-	\mid(\mathit{Prop}\Rightarrow\mathit{Prop})
+	\mid(\mathit{Prop}\supset\mathit{Prop})
 $$
 This is a _production rule_ indicating how to generate all well-formed propostions
 from atoms and other well-formed propositions. The vertical bar '$\mid$'
@@ -110,7 +131,7 @@ The step-by-step production is $P\to(\neg P)\to(\neg(\neg P))$. More explicitly
 One approach to propositional calculus is through _truth tables_.
 
 +-----+-----+-------------+-----------+------------------+
-| $P$ | $Q$ | $P\wedge Q$ | $P\vee Q$ | $P\Rightarrow Q$ |
+| $P$ | $Q$ | $P\wedge Q$ | $P\vee Q$ | $P\supset Q$ |
 +:===:+:===:+:===========:+:=========:+:================:+
 | $F$ | $F$ | $F$         | $F$       | $T$              |
 +-----+-----+-------------+-----------+------------------+
@@ -124,7 +145,7 @@ One approach to propositional calculus is through _truth tables_.
 Table: Logical Connectives
 
 Binary connectives are functions from $\{F,T\}^2\to\{F,T\}$. The first row
-indicates $\wedge(F,F) = F$, $\vee(F,F) = F$, and $\Rightarrow(F,F) = T$.
+indicates $\wedge(F,F) = F$, $\vee(F,F) = F$, and $\supset(F,F) = T$.
 
 ## History
 
