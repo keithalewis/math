@@ -15,7 +15,7 @@ true propositions.
 
 Mathematicians prove _theorems_. Typically they have the form 'if
 $A$ is true then $B$ is true' where $A$ and $B$ are propositions.
-This statement is equivalent to 'if $A$ then $B$' and '$A$ implies $B$'.
+This is equivalent to 'if $A$ then $B$' and '$A$ implies $B$'.
 Every logical system has _axioms_: propositions that are assumed to be
 true. The fundamental rule of inference is _modus ponens_: if a proof
 has the statement '$A$' and the statement '$A$ implies $B$' then the
@@ -27,11 +27,11 @@ are either axioms or a statement using rules of inference applied to
 previous statements. If the last statement is $B$ then the theorem is
 proved, QED: "quod erat demonstrandum", meaning "what was to be shown".
 The difficult part of a proof is figuring out which axioms to use and
-when to apply inference.
+when to apply the rules of inference.
 
 ## Propositional Calculus
 
-The _propositional calculus_ specifies _logical connectives_
+The _propositional calculus_ has _logical connectives_
 $\neg$, $\wedge$, $\vee$, and $\Rightarrow$ based on the
 common English usage of the words, 'not', 'and', 'or', and 'implies'.
 
@@ -50,6 +50,38 @@ _Or_
 _Implies_
   ~ If $P$ and $Q$ are propositons then $P\Rightarrow Q$ is false only when
   $P$ is true and $Q$ is false.
+
+Note that if $P$ is false then $P\Rightarrow Q$ is true no matter if $Q$
+is true or false. If you think it is peculiar that 'false implies true'
+is a true statement then you and I agree on that.
+
+__Exercise__. _Show $\neg(\neg P)$ always has the same truth value as $P$_.
+
+__Exercise__. _Show $P\vee\neg P$ is always true_.
+
+A _tautology_ is a statement that is always true no matter
+the truth values of the propositions they contain. This leads to another
+connective.
+
+_Equivalent_
+  ~ If $P$ and $Q$ are propositions then $P\equiv Q$ is true when $P$ and $Q$
+  have the same truth value and false if they have different truth values.
+
+The exercises show $\neg(\neg P)\equiv P$ and $P\vee\neg P$ is a tautology.
+
+__Exercise__. _Show $P\equiv Q$ is equivalent to $(P\wedge Q)\vee(\neg P\wedge\neg Q)$_.
+
+__Exercise__. _Show $P\Rightarrow Q$ and $\neg P\vee Q$ are equivalent_.
+
+<details>
+<summary>Solution</summary>
+If $P$ is false then $P\Rightarrow Q$ is true, as we've just seen.
+Since $\neg P$ is true in this case $\neg P\vee Q$ is true.
+If $P$ is true and $Q$ is false then
+$P\Rightarrow Q$ is false and so is $\neg P\vee Q$ since both $\neg P$
+and $Q$ are false. If $P$ is true and $Q$ is true then
+$P\Rightarrow Q$ is true and so is $\neg P\vee Q$ since $Q$ is true.
+</details>
 
 Every _well-formed_ proposition can be built up from _atomic propositions_,
 $P$, $Q$, ..., and connectives. The _grammar_ of propositional calculus is
