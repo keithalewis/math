@@ -90,14 +90,15 @@
 <p>If <span class="math inline">P</span> is false then <span class="math inline">P\supset Q</span> is true, as we’ve just seen. Since <span class="math inline">\neg P</span> is true in this case <span class="math inline">\neg P\vee Q</span> is true. If <span class="math inline">P</span> is true and <span class="math inline">Q</span> is false then <span class="math inline">P\supset Q</span> is false and so is <span class="math inline">\neg P\vee Q</span> since both <span class="math inline">\neg P</span> and <span class="math inline">Q</span> are false. If <span class="math inline">P</span> is true and <span class="math inline">Q</span> is true then <span class="math inline">P\supset Q</span> is true and so is <span class="math inline">\neg P\vee Q</span> since <span class="math inline">Q</span> is true.</p>
 </blockquote>
 </details>
-<p>Every <em>well-formed</em> proposition can be built up from <em>atomic propositions</em>, <span class="math inline">P</span>, <span class="math inline">Q</span>, …, and connectives. The <em>grammar</em> of propositional calculus is <span class="math display">
-    \mathit{Prop}\to\mathit{Atom}
+<p>Every <em>well-formed</em> proposition can be built up from <em>propositional variables</em>, <span class="math inline">P</span>, <span class="math inline">Q</span>, …, and connectives. The <em>grammar</em> of propositional calculus is <span class="math display">
+    \mathit{Prop}\to\mathit{Var}
     \mid(\neg\mathit{Prop})
     \mid(\mathit{Prop}\wedge\mathit{Prop})
     \mid(\mathit{Prop}\vee\mathit{Prop})
     \mid(\mathit{Prop}\supset\mathit{Prop})
 </span> This is a <em>production rule</em> indicating how to generate all well-formed propostions from atoms and other well-formed propositions. The vertical bar ‘<span class="math inline">\mid</span>’ indicates alternative rules and is not part of the grammar. Parentheses ‘()’ are used to indicate the order in which rules are applied. These are part of the grammar.</p>
 <p>The first rule is that every atomic proposition is a well-formed proposition. If we apply the second rule twice to the atomic propostion <span class="math inline">P</span> we get <span class="math inline">(\neg(\neg P))</span>. The step-by-step production is <span class="math inline">P\to(\neg P)\to(\neg(\neg P))</span>. More explicitly</p>
+<div id="proof">
 <table>
 <thead>
 <tr class="header">
@@ -108,7 +109,7 @@
 <tbody>
 <tr class="odd">
 <td style="text-align: center;"><span class="math inline">P</span></td>
-<td style="text-align: left;"><span class="math inline">\mathit{Prop}\to\mathit{Atom}</span></td>
+<td style="text-align: left;"><span class="math inline">\mathit{Prop}\to\mathit{Var}</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><span class="math inline">(\neg P)</span></td>
@@ -120,9 +121,10 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>One approach to propositional calculus is through <em>truth tables</em>.</p>
+<div class="truth">
 <table style="width:79%;">
-<caption>Logical Connectives</caption>
 <colgroup>
 <col style="width: 8%" />
 <col style="width: 8%" />
@@ -170,6 +172,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>Binary connectives are functions from <span class="math inline">\{F,T\}^2\to\{F,T\}</span>. The first row indicates <span class="math inline">\wedge(F,F) = F</span>, <span class="math inline">\vee(F,F) = F</span>, and <span class="math inline">\supset(F,F) = T</span>.</p>
 <h2 id="history">History</h2>
 <p>Although lost in prehistory, the imputus for logic must have been liars. The earliest evidence we have indicates primative societies always had a special class people who survived by making up stories in order to deceive others into providing them with the fruits of their labor. One way to get rid of these freeloaders was to find plausible arguments to demonstrate their stories were a sham.</p>
