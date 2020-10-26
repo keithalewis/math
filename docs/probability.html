@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2020-10-25" />
+  <meta name="dcterms.date" content="2020-10-26" />
   <title>Probability</title>
   <style>
     code{white-space: pre-wrap;}
@@ -38,7 +38,7 @@
 <header id="title-block-header">
 <h1 class="title">Probability</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 25, 2020</p>
+<p class="date">October 26, 2020</p>
 </header>
 <h1 id="probability-theory">Probability Theory</h1>
 <p>In order to understand statistics one must first understand <em>probability theory</em>.</p>
@@ -77,23 +77,24 @@ It must be modeled as a Markov Decision Process.
 </span> for any subsets <span class="math inline">E,F\subseteq S</span> and <span class="math inline">\mu(\emptyset) = 0</span>. Measures do not count twice.</p>
 <strong>Exercise</strong>. <em>Show if <span class="math inline">\nu(E\cup F) = \nu(E) + \nu(F) - \nu(E\cap F)</span> for <span class="math inline">E,F\subseteq S</span> then <span class="math inline">\mu = \nu - \nu(\emptyset)</span> is measure</em>.
 <details>
-<summary>Solution</summary>
+<p><summary>Solution</summary></p>
 <blockquote>
-By <span class="math inline">\mu = \nu - \nu(\emptyset)</span> we mean <span class="math inline">\mu(E) = \nu(E) - \nu(\emptyset)</span> for any subset <span class="math inline">E\subseteq S</span>. Clearly <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)</span> for any <span class="math inline">E,F\subseteq S</span>. Since <span class="math inline">\mu(\emptyset) = \nu(\emptyset) - \nu(\emptyset) = 0</span>, <span class="math inline">\mu</span> is a measure.
+<p>By <span class="math inline">\mu = \nu - \nu(\emptyset)</span> we mean <span class="math inline">\mu(E) = \nu(E) - \nu(\emptyset)</span> for any subset <span class="math inline">E\subseteq S</span>. Clearly <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)</span> for any <span class="math inline">E,F\subseteq S</span>. Since <span class="math inline">\mu(\emptyset) = \nu(\emptyset) - \nu(\emptyset) = 0</span>, <span class="math inline">\mu</span> is a measure.</p>
+</blockquote>
 </blockquote>
 </details>
 <strong>Exercise</strong>. <em>Show if <span class="math inline">\mu</span> is a measure then <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F)</span> for any subsets <span class="math inline">E</span> and <span class="math inline">F</span> with empty intersection <span class="math inline">E\cap F = \emptyset</span></em>.
 <details>
-<summary>Solution</summary>
+<p><summary>Solution</summary></p>
 <blockquote>
-Since <span class="math inline">\mu(\emptyset) = 0</span>, <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F) = \mu(E) + \mu(F) - \mu(\emptyset) = \mu(E) + \mu(F)</span>.
+<p>Since <span class="math inline">\mu(\emptyset) = 0</span>, <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F) = \mu(E) + \mu(F) - \mu(\emptyset) = \mu(E) + \mu(F)</span>.</p>
 </blockquote>
 </details>
 <strong>Exercise</strong>. <em>Show if <span class="math inline">\mu</span> is a measure then <span class="math inline">\mu(E) = \mu(E\cap F) + \mu(E\cap F&#39;)</span> for any subsets <span class="math inline">E</span> and <span class="math inline">F</span> where <span class="math inline">F&#39; = S\setminus F = \{x\in S:x\not\in F\}</span> is the <em>complement</em> of <span class="math inline">F</span> in <span class="math inline">S</span></em>.
 <details>
-<summary>Solution</summary>
+<p><summary>Solution</summary></p>
 <blockquote>
-Note <span class="math inline">(E\cap F)\cup(E\cap F&#39;) = E\cap(F\cup F&#39;) = E\cap S = E</span> and <span class="math inline">(E\cap F)\cap(E\cap F&#39;) = E\cap(F\cap F&#39;) = E\cap\emptyset = \emptyset</span> so <span class="math inline">\mu(E\cap F) + \mu(E\cap F&#39;) = \mu((E\cap F)\cup(E\cap F&#39;) = \mu(E)</span>.
+<p>Note <span class="math inline">(E\cap F)\cup(E\cap F&#39;) = E\cap(F\cup F&#39;) = E\cap S = E</span> and <span class="math inline">(E\cap F)\cap(E\cap F&#39;) = E\cap(F\cap F&#39;) = E\cap\emptyset = \emptyset</span> so <span class="math inline">\mu(E\cap F) + \mu(E\cap F&#39;) = \mu((E\cap F)\cup(E\cap F&#39;) = \mu(E)</span>.</p>
 </blockquote>
 </details>
 <h2 id="probability-measure">Probability Measure</h2>

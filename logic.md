@@ -104,10 +104,10 @@ $P\supset Q$ is true and so is $\neg P\vee Q$ since $Q$ is true.
 
 </details>
 
-Every _well-formed_ proposition can be built up from _atomic propositions_,
+Every _well-formed_ proposition can be built up from _propositional variables_,
 $P$, $Q$, ..., and connectives. The _grammar_ of propositional calculus is
 $$
-	\mathit{Prop}\to\mathit{Atom}
+	\mathit{Prop}\to\mathit{Var}
 	\mid(\neg\mathit{Prop})
 	\mid(\mathit{Prop}\wedge\mathit{Prop})
 	\mid(\mathit{Prop}\vee\mathit{Prop})
@@ -122,13 +122,17 @@ The first rule is that every atomic proposition is a well-formed proposition.
 If we apply the second rule twice to the atomic propostion $P$ we get $(\neg(\neg P))$.
 The step-by-step production is $P\to(\neg P)\to(\neg(\neg P))$. More explicitly
 
+<div id="proof">
 | Prop | Rule |
 | :--: | :--- |
-| $P$ | $\mathit{Prop}\to\mathit{Atom}$ |
+| $P$ | $\mathit{Prop}\to\mathit{Var}$ |
 | $(\neg P)$ | $\mathit{Prop}\to(\neg\mathit{Prop})$ |
 | $(\neg(\neg P))$ | $\mathit{Prop}\to(\neg\mathit{Prop})$ |
+</div>
 
 One approach to propositional calculus is through _truth tables_.
+
+<div class="truth" class="striped">
 
 +-----+-----+-------------+-----------+------------------+
 | $P$ | $Q$ | $P\wedge Q$ | $P\vee Q$ | $P\supset Q$ |
@@ -142,7 +146,7 @@ One approach to propositional calculus is through _truth tables_.
 | $T$ | $T$ | $T$         | $T$       | $T$              |
 +-----+-----+-------------+-----------+------------------+
 
-Table: Logical Connectives
+</div>
 
 Binary connectives are functions from $\{F,T\}^2\to\{F,T\}$. The first row
 indicates $\wedge(F,F) = F$, $\vee(F,F) = F$, and $\supset(F,F) = T$.

@@ -22,12 +22,16 @@ th {
 th:nth-child(3) {
 	border-left: 1px solid black;
 }
-td:nth-child(3) {
-	border-left: 1px solid black;
-}
-tbody caption:child tr:nth-child(odd) {
+.truth tbody tr:nth-child(odd) {
     background-color: #f2f2f2;
 }
+details {
+	margin-left: 1em;
+}
+blockquote,summary {
+    color: #00008F;
+}
+
 .katex {
 	font-size: 100% !important;
 	macros: {
