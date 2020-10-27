@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2020-10-26" />
+  <meta name="dcterms.date" content="2020-10-27" />
   <title>Coroutines</title>
   <style>
     code{white-space: pre-wrap;}
@@ -38,7 +38,7 @@
 <header id="title-block-header">
 <h1 class="title">Coroutines</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 26, 2020</p>
+<p class="date">October 27, 2020</p>
 </header>
 <p>A <em>full asymmetric coroutine</em> has three operations: <em>create</em>, <em>resume</em>, and <em>yield</em>. Create takes a coroutine body and instanciates it in a suspended state. The <em>continuation point</em> is set to the beginning of the body. Resume cause a coroutine to execute from its continuation point until it either yields at a new continuation point or terminates. A terminated coroutine cannot be resumed.</p>
 <p>The first call to resume specifies the coroutine parameters. In subsequent calls to resume these become the result of yield. When a coroutine suspends the arguments to yield become the result of the resume that activated the coroutine. When a coroutine terminates the values returned by the body become the result of the last reactivation.</p>

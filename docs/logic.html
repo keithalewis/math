@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2020-10-26" />
+  <meta name="dcterms.date" content="2020-10-27" />
   <title>Logic</title>
   <style>
     code{white-space: pre-wrap;}
@@ -38,7 +38,7 @@
 <header id="title-block-header">
 <h1 class="title">Logic</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 26, 2020</p>
+<p class="date">October 27, 2020</p>
 </header>
 <p>It may come as a surprise that there are a number of different logical systems for mathematics that are logically contradictory. The most famous examples are in non-Euclidean geometry where it is possible to have no, or infinitely many, “parallel” lines through a point not on a line.</p>
 <p>However one thing logical systems all have in common that they use <em>propositions</em>; statements that are either <em>true</em> or <em>false</em>, and <em>rules of inference</em>; ways of combining true propositions into other true propositions.</p>
@@ -90,39 +90,7 @@
 <p>If <span class="math inline">P</span> is false then <span class="math inline">P\supset Q</span> is true, as we’ve just seen. Since <span class="math inline">\neg P</span> is true in this case <span class="math inline">\neg P\vee Q</span> is true. If <span class="math inline">P</span> is true and <span class="math inline">Q</span> is false then <span class="math inline">P\supset Q</span> is false and so is <span class="math inline">\neg P\vee Q</span> since both <span class="math inline">\neg P</span> and <span class="math inline">Q</span> are false. If <span class="math inline">P</span> is true and <span class="math inline">Q</span> is true then <span class="math inline">P\supset Q</span> is true and so is <span class="math inline">\neg P\vee Q</span> since <span class="math inline">Q</span> is true.</p>
 </blockquote>
 </details>
-<p>Every <em>well-formed</em> proposition can be built up from <em>propositional variables</em>, <span class="math inline">P</span>, <span class="math inline">Q</span>, …, and connectives. The <em>grammar</em> of propositional calculus is <span class="math display">
-    \mathit{Prop}\to\mathit{Var}
-    \mid(\neg\mathit{Prop})
-    \mid(\mathit{Prop}\wedge\mathit{Prop})
-    \mid(\mathit{Prop}\vee\mathit{Prop})
-    \mid(\mathit{Prop}\supset\mathit{Prop})
-</span> This is a <em>production rule</em> indicating how to generate all well-formed propostions from atoms and other well-formed propositions. The vertical bar ‘<span class="math inline">\mid</span>’ indicates alternative rules and is not part of the grammar. Parentheses ‘()’ are used to indicate the order in which rules are applied. These are part of the grammar.</p>
-<p>The first rule is that every atomic proposition is a well-formed proposition. If we apply the second rule twice to the atomic propostion <span class="math inline">P</span> we get <span class="math inline">(\neg(\neg P))</span>. The step-by-step production is <span class="math inline">P\to(\neg P)\to(\neg(\neg P))</span>. More explicitly</p>
-<div id="proof">
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Prop</th>
-<th style="text-align: left;">Rule</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">P</span></td>
-<td style="text-align: left;"><span class="math inline">\mathit{Prop}\to\mathit{Var}</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">(\neg P)</span></td>
-<td style="text-align: left;"><span class="math inline">\mathit{Prop}\to(\neg\mathit{Prop})</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">(\neg(\neg P))</span></td>
-<td style="text-align: left;"><span class="math inline">\mathit{Prop}\to(\neg\mathit{Prop})</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>One approach to propositional calculus is through <em>truth tables</em>.</p>
+<p>We can reduce the amount of prose by using <em>truth tables</em>. The first columns of the table contain all possible values for the variables occuring in the statements to be evaluated in the remaining columns. Here is the truth table for ‘and’, ‘or’, and ‘implies’</p>
 <div class="truth">
 <table style="width:79%;">
 <colgroup>
@@ -173,7 +141,85 @@
 </tbody>
 </table>
 </div>
-<p>Binary connectives are functions from <span class="math inline">\{F,T\}^2\to\{F,T\}</span>. The first row indicates <span class="math inline">\wedge(F,F) = F</span>, <span class="math inline">\vee(F,F) = F</span>, and <span class="math inline">\supset(F,F) = T</span>.</p>
+<p>Binary connectives are <em>functions</em> from <span class="math inline">\{F,T\}^2</span> to <span class="math inline">\{F,T\}</span>. The third column above for ‘and’ indicates <span class="math inline">F\wedge F = \wedge(F,F) = F</span>, <span class="math inline">\wedge(F,T) = F</span>, <span class="math inline">\wedge(T,F) = F</span>, and <span class="math inline">\wedge(T,T) = T</span>. More generally, any proposition corresponds to a function <span class="math inline">\{F,T\}^n\to\{F,T\}</span> where <span class="math inline">n</span> is the number of variables in the proposition. A proposition is a tautology if and only if the <em>range</em> of its corresponding function is <span class="math inline">\{T\}</span>.</p>
+<p>The truth table for <span class="math inline">P\supset(Q\supset P)</span> is</p>
+<div class="truth">
+<table style="width:72%;">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 20%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">P</span></th>
+<th style="text-align: center;"><span class="math inline">Q</span></th>
+<th style="text-align: center;"><span class="math inline">Q\supset P</span></th>
+<th style="text-align: center;"><span class="math inline">P\supset(Q\supset P)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>where we have added a column for the subexpression <span class="math inline">Q\supset P</span> to facilitate the evaluation. This shows <span class="math inline">P\supset(Q\supset P)</span> is a tautology.</p>
+<p>Every <em>well-formed</em> proposition can be built up from <em>propositional variables</em>, <span class="math inline">P</span>, <span class="math inline">Q</span>, …, and connectives. The <em>grammar</em> of propositional calculus is <span class="math display">
+    \mathit{Prop}\to\mathit{Var}
+    \mid(\neg\mathit{Prop})
+    \mid(\mathit{Prop}\wedge\mathit{Prop})
+    \mid(\mathit{Prop}\vee\mathit{Prop})
+    \mid(\mathit{Prop}\supset\mathit{Prop})
+</span> This is a <em>production rule</em> indicating how to generate all well-formed propostions from atoms and other well-formed propositions. The vertical bar ‘<span class="math inline">\mid</span>’ indicates alternative rules and is not part of the grammar. Parentheses ‘()’ are used to indicate the order in which rules are applied. These are part of the grammar.</p>
+<p>The first rule is that every atomic proposition is a well-formed proposition. If we apply the second rule twice to the atomic propostion <span class="math inline">P</span> we get <span class="math inline">(\neg(\neg P))</span>. The step-by-step production is <span class="math inline">P\to(\neg P)\to(\neg(\neg P))</span>. More explicitly</p>
+<div id="proof">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Prop</th>
+<th style="text-align: left;">Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">P</span></td>
+<td style="text-align: left;"><span class="math inline">\mathit{Prop}\to\mathit{Var}</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">(\neg P)</span></td>
+<td style="text-align: left;"><span class="math inline">\mathit{Prop}\to(\neg\mathit{Prop})</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">(\neg(\neg P))</span></td>
+<td style="text-align: left;"><span class="math inline">\mathit{Prop}\to(\neg\mathit{Prop})</span></td>
+</tr>
+</tbody>
+</table>
+</div>
 <h2 id="history">History</h2>
 <p>Although lost in prehistory, the imputus for logic must have been liars. The earliest evidence we have indicates primative societies always had a special class people who survived by making up stories in order to deceive others into providing them with the fruits of their labor. One way to get rid of these freeloaders was to find plausible arguments to demonstrate their stories were a sham.</p>
 <p>Euclid was the first person (if he existed) to document this type of reasoning and the books he wrote are the second best sellers in history next to the bible. Devine truth only requires belief, mathematical truth requires considerable intellectual effort to comprehend.</p>
