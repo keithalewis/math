@@ -105,12 +105,15 @@ $P\supset Q$ is true and so is $\neg P\vee Q$ since $Q$ is true.
 </details>
 
 We can reduce the amount of prose by using _truth tables_.
-The first columns contain all possible values...
+The first columns of the table contain all possible values
+for the variables occuring in the statements to be evaluated
+in the remaining columns. Here is the truth table for
+'and', 'or', and 'implies'
 
 <div class="truth" class="striped">
 
 +-----+-----+-------------+-----------+------------------+
-| $P$ | $Q$ | $P\wedge Q$ | $P\vee Q$ | $P\supset Q$ |
+| $P$ | $Q$ | $P\wedge Q$ | $P\vee Q$ | $P\supset Q$     |
 +:===:+:===:+:===========:+:=========:+:================:+
 | $F$ | $F$ | $F$         | $F$       | $T$              |
 +-----+-----+-------------+-----------+------------------+
@@ -123,8 +126,34 @@ The first columns contain all possible values...
 
 </div>
 
-Binary connectives are functions from $\{F,T\}^2\to\{F,T\}$. The first row
-indicates $\wedge(F,F) = F$, $\vee(F,F) = F$, and $\supset(F,F) = T$.
+Binary connectives are _functions_ from $\{F,T\}^2$ to $\{F,T\}$. The
+third column above for 'and' indicates $F\wedge F = \wedge(F,F) = F$,
+$\wedge(F,T) = F$, $\wedge(T,F) = F$, and $\wedge(T,T) = T$. 
+More generally, any proposition corresponds to a function
+$\{F,T\}^n\to\{F,T\}$ where $n$ is the number of variables in the
+proposition. A proposition is a tautology if and only if the _range_
+of its corresponding function is $\{T\}$.
+
+The truth table for $P\supset(Q\supset P)$ is
+
+<div class="truth" class="striped">
+
++-----+-----+--------------+------------------------+
+| $P$ | $Q$ | $Q\supset P$ | $P\supset(Q\supset P)$ |
++:===:+:===:+:============:+:======================:+
+| $F$ | $F$ | $T$          | $T$                    |
++-----+-----+--------------+------------------------+
+| $F$ | $T$ | $F$          | $T$                    |
++-----+-----+--------------+------------------------+
+| $T$ | $F$ | $T$          | $T$                    |
++-----+-----+--------------+------------------------+
+| $T$ | $T$ | $T$          | $T$                    |
++-----+-----+--------------+------------------------+
+
+</div>
+
+where we have added a column for the subexpression $Q\supset P$
+to facilitate the evaluation. This shows $P\supset(Q\supset P)$ is a tautology.
 
 Every _well-formed_ proposition can be built up from _propositional variables_,
 $P$, $Q$, ..., and connectives. The _grammar_ of propositional calculus is
