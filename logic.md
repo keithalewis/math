@@ -104,6 +104,28 @@ $P\supset Q$ is true and so is $\neg P\vee Q$ since $Q$ is true.
 
 </details>
 
+We can reduce the amount of prose by using _truth tables_.
+The first columns contain all possible values...
+
+<div class="truth" class="striped">
+
++-----+-----+-------------+-----------+------------------+
+| $P$ | $Q$ | $P\wedge Q$ | $P\vee Q$ | $P\supset Q$ |
++:===:+:===:+:===========:+:=========:+:================:+
+| $F$ | $F$ | $F$         | $F$       | $T$              |
++-----+-----+-------------+-----------+------------------+
+| $F$ | $T$ | $F$         | $T$       | $T$              |
++-----+-----+-------------+-----------+------------------+
+| $T$ | $F$ | $F$         | $T$       | $F$              |
++-----+-----+-------------+-----------+------------------+
+| $T$ | $T$ | $T$         | $T$       | $T$              |
++-----+-----+-------------+-----------+------------------+
+
+</div>
+
+Binary connectives are functions from $\{F,T\}^2\to\{F,T\}$. The first row
+indicates $\wedge(F,F) = F$, $\vee(F,F) = F$, and $\supset(F,F) = T$.
+
 Every _well-formed_ proposition can be built up from _propositional variables_,
 $P$, $Q$, ..., and connectives. The _grammar_ of propositional calculus is
 $$
@@ -129,27 +151,6 @@ The step-by-step production is $P\to(\neg P)\to(\neg(\neg P))$. More explicitly
 | $(\neg P)$ | $\mathit{Prop}\to(\neg\mathit{Prop})$ |
 | $(\neg(\neg P))$ | $\mathit{Prop}\to(\neg\mathit{Prop})$ |
 </div>
-
-One approach to propositional calculus is through _truth tables_.
-
-<div class="truth" class="striped">
-
-+-----+-----+-------------+-----------+------------------+
-| $P$ | $Q$ | $P\wedge Q$ | $P\vee Q$ | $P\supset Q$ |
-+:===:+:===:+:===========:+:=========:+:================:+
-| $F$ | $F$ | $F$         | $F$       | $T$              |
-+-----+-----+-------------+-----------+------------------+
-| $F$ | $T$ | $F$         | $T$       | $T$              |
-+-----+-----+-------------+-----------+------------------+
-| $T$ | $F$ | $F$         | $T$       | $F$              |
-+-----+-----+-------------+-----------+------------------+
-| $T$ | $T$ | $T$         | $T$       | $T$              |
-+-----+-----+-------------+-----------+------------------+
-
-</div>
-
-Binary connectives are functions from $\{F,T\}^2\to\{F,T\}$. The first row
-indicates $\wedge(F,F) = F$, $\vee(F,F) = F$, and $\supset(F,F) = T$.
 
 ## History
 
