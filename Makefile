@@ -37,7 +37,7 @@ index: $(MKDN)
 	./index.sh $(MKDN) > docs/index.html
 
 docs: $(HTML) index
-	cp *.html docs
+	cp *.html math.css docs
 
 rsync:
 	rcp $(HTML) $(CSS) kal@web626.webfaction.com:webapps/kalx/math
