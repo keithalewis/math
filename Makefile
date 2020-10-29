@@ -11,7 +11,7 @@ FLAGS += -t html5
 FLAGS += -s # smart quotes
 FLAGS += --katex=$(KATEX)
 FLAGS += --css $(CSS)
-FLAGS +=  -M date="$(shell date "+%B %e, %Y")"
+#FLAGS +=  -M date="$(shell date "+%B %e, %Y")"
 #FLAGS += --toc
 #FLAGS += -B katex.tex
 #FLAGS += --reference-location=block
