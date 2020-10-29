@@ -5,7 +5,7 @@ the $T_j$ are sets called the _column types_ of the database. The contents of th
 database are _rows_ $r_i\in T_J$ with $R = \{r_i\}$.
 If $I\subseteq J$ the _projection_ $\pi_I\colon T_J\to T_I$
 selects the subset of column types belonging to the index set $I$.
-We write $r_I$ for $\pi_I(r)$ and $R_I = \{r_I:r\in R\}$ for the
+We write $r_I = \pi_I(r)$ and $R_I = \{r_I:r\in R\}$ for the
 _projection_ of $R$ on $I$.
 
 A predicate on a set $S$ is a subset $P\subseteq S$. The _restriction_
@@ -16,9 +16,9 @@ The _join_ of two database consists of a cartesian product, a restriction,
 and a projection. The join of $R\subseteq T_J$ and $R'\subseteq T'_{J'}$
 on $I\subseteq J$ and $I'\subseteq J'$
 starts with the cartesian product $R\times R'$. This is restricted
-to rows $(r,r') satisfying $r_I = r'_{I'}$. The result is
-projected on $J\cup (J'\setminus I')$ (or $(J\setminus I)\cup J')
-to remove duplicates.
+to rows $(r,r')$ satisfying $r_I = r'_{I'}$. The result is
+projected on $J\cup (J'\setminus I')$ (or $(J\setminus I)\cup J'$)
+to remove redundant data.
 
 _Dimensions_ $D$ and _values_ $V$ are sets.
 The set $V^D = \{f\colon D\to V\}$ is the set of all functions from $D$ to $V$.
@@ -40,6 +40,12 @@ from $\mathcal{P}(D)$ to $W$.
 The aggregator _count_ takes a set to its cardinality.
 If $V$ is an abelian group the aggregator _sum_ adds all elements of any subset.
 If $V$ has an ordering then _max_ and _min_ are aggregators.
+
+If $\beta\colon V\times V\to V$ is any binary function that is
+commutative and associative with identity element $\nu\in V$ then
+$\hat{\beta}\colon\mathcal{P}(V)\to V$ can be defined by
+$\hat{\beta}(\emptyset) = \nu$ and $\hat{\beta}(\{u\}\cup U) = \beta(u, \hat{\beta}(U))$
+for $u\in V$ and $U\subseteq V$.
 
 A _partition_ $\Delta$ of a set $D$ is a collection of subsets of $D$ satisfying
 $D = \cup \Delta$ (for every $a\in D$ there exists $A\in\Delta$ with $a\in A$)
