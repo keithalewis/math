@@ -1,4 +1,5 @@
 % Cubes
+% abstract: The mathematical foundations of pivot tables.
 
 A _database_ is a _relation_ $R\subseteq \Pi_{j\in J} T_j = T_J$ where
 the $T_j$ are sets called the _column types_ of the database. The contents of the

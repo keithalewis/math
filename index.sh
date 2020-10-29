@@ -26,7 +26,7 @@ EoH
 
 for f in "$@"
 do
-	d=$(egrep '^abstract:' $f | sed 's/^abstract:\s*//')
+	d=$(egrep 'abstract:' $f | sed 's/.*abstract:\s*//')
 	b=$(basename -s .md $f)
 	cat << EoB
 <tr>

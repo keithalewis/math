@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="abstract: The mathematical foundations of pivot tables." />
   <title>Cubes</title>
   <style>
     code{white-space: pre-wrap;}
@@ -35,6 +36,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Cubes</h1>
+<p class="author">abstract: The mathematical foundations of pivot tables.</p>
 </header>
 <p>A <em>database</em> is a <em>relation</em> <span class="math inline">R\subseteq \Pi_{j\in J} T_j = T_J</span> where the <span class="math inline">T_j</span> are sets called the <em>column types</em> of the database. The contents of the database are <em>rows</em> <span class="math inline">r_i\in T_J</span> with <span class="math inline">R = \{r_i\}</span>. If <span class="math inline">I\subseteq J</span> the <em>projection</em> <span class="math inline">\pi_I\colon T_J\to T_I</span> selects the subset of column types belonging to the index set <span class="math inline">I</span>. We write <span class="math inline">r_I = \pi_I(r)</span> and <span class="math inline">R_I = \{r_I:r\in R\}</span> for the <em>projection</em> of <span class="math inline">R</span> on <span class="math inline">I</span>.</p>
 <p>A predicate on a set <span class="math inline">S</span> is a subset <span class="math inline">P\subseteq S</span>. The <em>restriction</em> of a database given a predicate <span class="math inline">P\subseteq T_J</span> is the set <span class="math inline">\{r\in R:r\in P\}</span>.</p>
