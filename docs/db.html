@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="abstract: Databases from a mathematical perspective." />
+  <title>Database</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Database</h1>
+<p class="author">abstract: Databases from a mathematical perspective.</p>
+</header>
+<p>A <em>database</em> is a subset of a cartesian product of columns <span class="math inline">R\subseteq \Pi_{j\in J} T_j = T_J</span> where the <span class="math inline">T_j</span>. The contents of the database are <em>rows</em> <span class="math inline">r_i\in T_J</span> with <span class="math inline">R = \{r_i\}</span>. If <span class="math inline">I\subseteq J</span> the <em>projection</em> <span class="math inline">\pi_I\colon T_J\to T_I</span> selects the subset of column types belonging to the index set <span class="math inline">I</span>. We write <span class="math inline">r_I = \pi_I(r)</span> and <span class="math inline">R_I = \{r_I:r\in R\}</span> for the <em>projection</em> of <span class="math inline">R</span> on <span class="math inline">I</span>.</p>
+<p>A predicate on a set <span class="math inline">S</span> is a subset <span class="math inline">P\subseteq S</span>. The <em>restriction</em> of a database given a predicate <span class="math inline">P\subseteq T_J</span> is the set <span class="math inline">\{r\in R:r\in P\}</span>.</p>
+<p>The <em>join</em> of two database consists of a cartesian product, a restriction, and a projection. The join of <span class="math inline">R\subseteq T_J</span> and <span class="math inline">R&#39;\subseteq T&#39;_{J&#39;}</span> on <span class="math inline">I\subseteq J</span> and <span class="math inline">I&#39;\subseteq J&#39;</span> starts with the cartesian product <span class="math inline">R\times R&#39;</span>. This is restricted to rows <span class="math inline">(r,r&#39;)</span> satisfying <span class="math inline">r_I = r&#39;_{I&#39;}</span>. The result is projected on <span class="math inline">J\cup (J&#39;\setminus I&#39;)</span> (or <span class="math inline">(J\setminus I)\cup J&#39;</span>) to remove redundant data.</p>
+</body>
+</html>
