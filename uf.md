@@ -45,11 +45,11 @@ The buyer decides the amount and instruments to exchange based on the seller's p
 (among other considerations).
 
 The transaction $(t;i,a,e;i',a',e')$ changes the holdings of the buyer and seller
-at time $t$. The holding $(i,a,e)$ of the buyer becomes $('i,a',e)$ and
+at time $t$. The holding $(i,a,e)$ of the buyer becomes $(i',a',e)$ and
 the holding $(i',a',e')$ of the seller becomes $(i,a,e')$.
 We assume instruments are _divisible_ so a holding $(i,a_1,e)$ can be
 split into $(i,a_1-a_0,e)$ and $(i,a_0,e)$ for any amount $a_0$ at no cost
-if needed. If $0 < a_0 < a_1$ this is usually very close to being true.
+if needed. If $0 < a_0 < a_1$ this is close to being true.
 
 As an example, suppose a buyer $b$ holds 16 dollars $(\$, 16, b)$ and
 a seller $s$ holds two shares of Ford stock $(F, 2, s)$. If the seller
@@ -144,7 +144,7 @@ as anyone with poor credit will find when attempting to take out a loan.
 ## Trading
 
 A _trading strategy_ is an increasing sequence of _stopping times_[^2] $(\tau_j)$
-and trades $\Gamma_j\colon I\times E\times I\times E\to\mathbf{R}$ indicating the
+and trades $\Gamma_j\colon I\times E\times I\times E\to A$ indicating the
 amount to trade at time $\tau_j$ in two instruments between two entities.
 Each trade results in a transaction $(\tau_j;\Gamma_j,i,e;\Gamma_j X_j, i', e')$
 where $\Gamma_j = \Gamma_j(i, e, i', e')$ and $X_j = X_{\tau_j}(i,\Gamma_j,e,i',e')$.
@@ -205,9 +205,14 @@ proxies for cash flows and prices. A derivative security is a contract
 between counterparties for an exchange of future amounts.  If a trading
 strategy that produces those amounts exists then its initial value should
 be in the neighborhood of what a sell side trader quotes to customers.
+A quant's job is to help traders figure out when ($\tau_j$) and how much ($\Gamma_j$)
+to trade in order to satisfy the contract.[^3]
 
 When the position $\Delta_t = 0$ we say the trading strategy is _closed
-out_ at $t$. If a trading strategy has $A_{\tau_0} > 0$, $A_t \ge 0$
+out_ at $t$. If no trades are executed after that then future values and amounts
+will be zero.
+
+If a trading strategy has $A_{\tau_0} > 0$, $A_t \ge 0$
 for $t > \tau_0$, and eventually closes out, then _arbitrage_ exists: it is
 possible to make money on the initial trade and never lose money over the
 life of the trading strategy.  It is important to note this definition
@@ -217,21 +222,25 @@ of arbitrage depends on the model used for cash flows and prices.
 
 ## Remarks
 
-The financial world is still waiting for its Werner Heisenberg. The
-price of a transaction is a number: the amount the buyer gave to the
-seller divided by the amount the seller gave to the buyer.  Price is
-more nebulous prior to completing a transaction.  The difference between
-a quoted price and the actual price is lumped into the term _slippage_.
+The financial world is still waiting for its Werner Heisenberg. The price
+of a transaction after it has been executed is a number: the amount
+the buyer gave to the seller divided by the amount the seller gave to
+the buyer. The price prior to completing a transaction is more nebulous.
+The difference between a quoted price and the actual price is lumped
+into the term _slippage_.
 
-Modeling that uncertainty is an unsolved problem.
+Modeling that uncertainty is an ongoing puzzle.
 
 For trades on an exchange the order book can tell you exactly what the
 slippage will be, but only rough details of the order book are available
-to exchange clients. Other clients and liquidity providers for the
-exchange can affect the order book before a trade gets executed.
+to exchange clients. Other clients and liquidity providers
+can affect the order book before a trade gets executed.
 
 [^1]: Adhering to the trader aphorism, "Don't be a dick for a tick," can help prevent this.
 
 [^2]: A _stopping time_ is a random variable taking values in $T$ that
 depends only on prior information, for example when the price of a stock
 achieves a certain level.
+
+[^3]: The trader aphorism, "Hedge when you can, not when you have to," is only a rough guide to solving
+this difficult problem.
