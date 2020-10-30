@@ -8,10 +8,10 @@ abstract: Unified Finance &ndash; holdings, transactions, and trading.
 ...
 
 There is a unified way to organize the foundations of finance.
-A _holding_ is the _amount_ of an _instrument_ held by a legal _entity_.
+A _holding_ is the _amount_ of an _instrument_ held by a _legal entity_.
 A _transaction_ is the exchange of holdings at a given _time_.
-Instruments have _prices_ and _cash flows_ that determine the _values_
-and _amounts_ involved with _trading_.
+Instruments have _cash flows_ and _prices_ that determine the _amounts_
+and _values_ involved with _trading_.
 
 ## Holding
 
@@ -30,7 +30,7 @@ N(i,e) = \sum_j \{a_j : i_j = i, e_j = e\}.
 $$
 The _net position_ is
 $\cup_j \{(i_j, N(i_j,e_j), e_j)\}$. (Note if $i_j = i_k$ and $e_j = e_k$ for some $j,k$
-then $(i_j, N(i_j,e_j), e_j) = (i_k, N(i_k,e_k), e_k)$ so this is the standard mathematical
+then $(i_j, N(i_j,e_j), e_j) = (i_k, N(i_k,e_k), e_k)$ so this is standard mathematical
 set union.)
 
 ## Transaction
@@ -72,7 +72,7 @@ to be included in the position of $e$ at $t$.  Usually $i'$ is the native
 currency associated with instrument $i$ and is omitted.  Specifying $i'$
 allows for _payment-in-kind_ cash flows.
 
-Note that cash flows are zero except at a discrete number of times. Stocks and
+Cash flows are zero except at a discrete number of times. Stocks and
 bonds typically pay dividends and coupons quarterly or semi-annually. Futures
 margin accounts are usually adjusted once per day.
 
@@ -150,7 +150,9 @@ Each trade results in a transaction $(\tau_j;\Gamma_j,i,e;\Gamma_j X_j, i', e')$
 where $\Gamma_j = \Gamma_j(i, e, i', e')$ and $X_j = X_{\tau_j}(i,\Gamma_j,e,i',e')$.
 
 Most models do not specify the seller $e'$; traders assume there is an aggregate
-market of _liquidity providers_ for $i'$.
+market of _liquidity providers_ for $i'$. They also limit $e$ to a single
+entity executing the trades. If you are running a hedge fund you will have
+a set of $e$'s called program managers to deal with.
 
 <!--
 The mathematical finance literature customarily assumes a "_money market_"
@@ -171,11 +173,11 @@ otherwise, this becomes $\Delta_t = \sum_{s < t} \Gamma_s$.  Note the
 strict inequality. A trade executed at time $t$ is not included in the
 position at $t$; it takes some time for a trade to settle.
 
-We will fix the funding currency $i = i_0$ and write $\Gamma_t(i_0, i) = \Gamma_t(i)$
+Fix the funding currency $i = i_0$ and write $\Gamma_t(i_0, i) = \Gamma_t(i)$
 and $X_t(i_0, i) = X_t(i)$.
 The _cost_ of the initial trade in terms of $i_0$ is
 is $V_0 = \sum_{i\in I}\Gamma_0(i) X_{\tau_0}(i)$; buying
-$\Gamma$ shares at price $X$ costs $\Gamma X$. This amount will be
+amount $\Gamma$ at price $X$ costs $\Gamma X$. This amount will be
 deducted from the trader's account and reported as the value of
 the position to risk management.
 
@@ -202,14 +204,14 @@ and the cost of trades just executed are debited. Note $A_{\tau_0} = -V_{\tau_0}
 
 Trading strategies create synthetic instruments. Amounts and values are
 proxies for cash flows and prices. A derivative security is a contract
-between counterparties for an exchange of future amounts.  If a trading
+between counter-parties for exchanges of future amounts.  If a trading
 strategy that produces those amounts exists then its initial value should
 be in the neighborhood of what a sell side trader quotes to customers.
 A quant's job is to help traders figure out when ($\tau_j$) and how much ($\Gamma_j$)
-to trade in order to satisfy the contract.[^3]
+to trade in order to satisfy the contract obligations.[^3]
 
-When the position $\Delta_t = 0$ we say the trading strategy is _closed
-out_ at $t$. If no trades are executed after that then future values and amounts
+When $\Delta_t + \Gamma_t = 0$ we say the trading strategy is _closed
+out_ at $t$. If no trades are executed after that then future amounts and values
 will be zero.
 
 If a trading strategy has $A_{\tau_0} > 0$, $A_t \ge 0$
@@ -231,16 +233,16 @@ into the term _slippage_.
 
 Modeling that uncertainty is an ongoing puzzle.
 
-For trades on an exchange the order book can tell you exactly what the
-slippage will be, but only rough details of the order book are available
-to exchange clients. Other clients and liquidity providers
-can affect the order book before a trade gets executed.
+For trades on an exchange the order book can give you a better handle
+on what the slippage might be, but only rough details are available
+to exchange clients. Other clients and liquidity providers can cause
+changes to the order book before a trade gets executed.
 
 [^1]: Adhering to the trader aphorism, "Don't be a dick for a tick," can help prevent this.
 
 [^2]: A _stopping time_ is a random variable taking values in $T$ that
 depends only on prior information, for example when the price of a stock
-achieves a certain level.
+hits a certain level.
 
 [^3]: The trader aphorism, "Hedge when you can, not when you have to," is only a rough guide to solving
 this difficult problem.

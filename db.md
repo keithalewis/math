@@ -36,12 +36,13 @@ The order in which rows are presented to a user as a result of a query does matt
 If a column has an ordering it can be used to sort the data returned by a query.
 This is called ORDER BY in SQL.
 
-Columns can, and often do, contain duplicate values. The unique values can be
-used to partition the results of a query. All rows containing the same column
-value can be grouped by unique values. This is called GROUP BY in SQL.
+Columns can, and often do, contain duplicate values. The unique values
+of a column can be used to partition the results of a query. All rows
+containing the same column value can be grouped by unique values. This
+is called GROUP BY in SQL.
 
 To maintain the mathematical illusion that database rows are merely a set,
 software implmentations resort to _indicies_ to improve performance. For
 example, if one of the columns is a time value then the data can be
-scanned to compute a permutation of the physical row postion that would
-preserve the time ordering.
+scanned to compute a permutation of the physical row postion that
+preserves the time ordering.
