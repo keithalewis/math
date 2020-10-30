@@ -13,7 +13,7 @@ The continuation point keeps track of where the coroutine was last suspended.
 
 Coroutines make it far easier to write concurrent code than using threads.
 Unlike threads, coroutines are suspended at function statements instead
-of being preempted between some obscure machine instruction by the system thread scheduler.
+of being preempted between some recondite machine instruction by the system thread scheduler.
 There is no need to orchestrate the creation and collection of threads and then
 sprinkle the code with mutexes or semaphores in the hopes of ensuring correct
 program execution.
@@ -51,6 +51,23 @@ pass through the loop sets the yield statement as the continuation point
 and returns 0.  Then next time it is resumed execution starts from the
 yield stament and the counter is incremented. The second pass through
 the loop sets a new continuation point and returns 1. Rinse and repeat.
+
+## The Life of a Coroutine
+
+When a coroutine is created the continuation point is set to the beginning
+of the routine and it is put in a suspended state. Calling the coroutine
+with its arguments resumes exectution from the beginning. If the function
+contains a yield statement then the continuation point is set to the
+next statement in the function and execution is suspended. The arguments
+to yield become the result of the resume that activated the coroutine.
+Subsequent calls of the coroutine resume execution at the coninuation
+point and the arguments of the call become available to the coroutine.
+Execution continues until the next yield statement and the above is
+repeated or until the function terminates and the retun values
+become the result of the last reactivation. At that point the
+coroutine can no longer be resumed.
+
+## Theory
 
 A _full asymmetric coroutine_ has three operations: _create_, _resume_, and _yield_.
 Create takes a coroutine body and instanciates it in a suspended state.
