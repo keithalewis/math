@@ -1,9 +1,7 @@
 # README
 
-Use [pandoc](https://pandoc.org/) markdown to create html and pdf files.
+[Pandoc](https://pandoc.org/) is used to create html and pdf files from Markdown.
 
-Makefile knows `make file.html` and `make file.pdf` to generate from `file.md`
+The Makefile has targets `make file.html` and `make file.pdf` to generate from `file.md`
 
-Use `make docs` to create html docs for GitHub pages.
-
-Pretty documentation [here](https://keithalewis.github.io/math/).
+Use `make docs` to create html docs for GitHub pages that can be found [here](https://keithalewis.github.io/math/).
