@@ -15,7 +15,7 @@ Coroutines make it far easier to write concurrent code than using threads.
 Unlike threads, coroutines are suspended at function statements instead
 of being preempted between some recondite machine instruction by the system thread scheduler.
 There is no need to orchestrate the creation and collection of threads and then
-sprinkle the code with mutexes or semaphores in the hopes of ensuring correct
+sprinkle the code with mutexes or semaphores in the hope of ensuring correct
 program execution.
 
 Like functions, coroutines can stand on their own. What they add is the ability
@@ -46,11 +46,11 @@ coroutine iota
 		yield i
 		i = i + 1
 ```
-The first time the coroutine is called a counter is set to 0 and the first
-pass through the loop sets the yield statement as the continuation point
-and returns 0.  Then next time it is resumed execution starts from the
-yield stament and the counter is incremented. The second pass through
-the loop sets a new continuation point and returns 1. Rinse and repeat.
+The first time the coroutine is called a counter is set to 0.
+The first pass through the loop sets the statement after yield as the
+continuation point and returns 0.  Then next time it is resumed the
+counter is incremented and the second pass through the loop sets a new
+continuation point and returns 1. Rinse and repeat.
 
 ## The Life of a Coroutine
 
