@@ -173,11 +173,11 @@ otherwise, this becomes $\Delta_t = \sum_{s < t} \Gamma_s$.  Note the
 strict inequality. A trade executed at time $t$ is not included in the
 position at $t$; it takes some time for a trade to settle.
 
-We will fix the funding currency $i = i_0$ and write $\Gamma_t(i_0, i) = \Gamma_t(i)$
+Fix the funding currency $i = i_0$ and write $\Gamma_t(i_0, i) = \Gamma_t(i)$
 and $X_t(i_0, i) = X_t(i)$.
 The _cost_ of the initial trade in terms of $i_0$ is
 is $V_0 = \sum_{i\in I}\Gamma_0(i) X_{\tau_0}(i)$; buying
-$\Gamma$ shares at price $X$ costs $\Gamma X$. This amount will be
+amount $\Gamma$ at price $X$ costs $\Gamma X$. This amount will be
 deducted from the trader's account and reported as the value of
 the position to risk management.
 
@@ -204,7 +204,7 @@ and the cost of trades just executed are debited. Note $A_{\tau_0} = -V_{\tau_0}
 
 Trading strategies create synthetic instruments. Amounts and values are
 proxies for cash flows and prices. A derivative security is a contract
-between counterparties for exchanges of future amounts.  If a trading
+between counter-parties for exchanges of future amounts.  If a trading
 strategy that produces those amounts exists then its initial value should
 be in the neighborhood of what a sell side trader quotes to customers.
 A quant's job is to help traders figure out when ($\tau_j$) and how much ($\Gamma_j$)
@@ -233,16 +233,16 @@ into the term _slippage_.
 
 Modeling that uncertainty is an ongoing puzzle.
 
-For trades on an exchange the order book can tell you what the
-slippage might be, but only rough details of the order book are available
-to exchange clients. Other clients and liquidity providers
-can cause changes to the order book before a trade gets executed.
+For trades on an exchange the order book can give you a better handle
+on what the slippage might be, but only rough details are available
+to exchange clients. Other clients and liquidity providers can cause
+changes to the order book before a trade gets executed.
 
 [^1]: Adhering to the trader aphorism, "Don't be a dick for a tick," can help prevent this.
 
 [^2]: A _stopping time_ is a random variable taking values in $T$ that
 depends only on prior information, for example when the price of a stock
-achieves a certain level.
+hits a certain level.
 
 [^3]: The trader aphorism, "Hedge when you can, not when you have to," is only a rough guide to solving
 this difficult problem.
