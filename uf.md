@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: Unified finance &ndash; holdings and transactions.
+abstract: Unified Finance &ndash; holdings, transactions, and trading.
 ...
 
 There is a unified way to organize the foundations of finance.

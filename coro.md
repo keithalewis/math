@@ -7,6 +7,51 @@ fleqn: true
 abstract: Coroutines are functions and a continuation point.
 ...
 
+A _coroutine_ is a function and a _continuation point_. Unlike functions,
+coroutines can suspend execution and resume at a later time.
+The continuation point keeps track of where the coroutine was last suspended.
+
+Coroutines make it far easier to write concurrent code than using threads.
+Unlike threads, coroutines are suspended at function statements instead
+of being preempted between some obscure machine instruction by the system thread scheduler.
+There is no need to orchestrate the creation and collection of threads and then
+sprinkle the code with mutexes or semaphores in the hopes of ensuring correct
+program execution.
+
+Like functions, coroutines can stand on their own. What they add is the ability
+to cooperate with other coroutines to share the task of code execution.
+
+Producer and consumer coroutines can cooperate to send items through a queue.
+```
+coroutine produce
+	loop
+		while queue not full
+			add items to queue
+		yield to consume
+
+coroutine consume
+	loop
+		while queue not empty
+			remove items from queue
+		yield to produce
+```
+There is no need for multiple theads; yield can jump directly from one
+coroutine to another.
+
+Another common use is to generate unbounded streams of data.
+```
+coroutine iota
+	i = 0
+	loop
+		yield i
+		i = i + 1
+```
+The first time the coroutine is called a counter is set to 0 and the first
+pass through the loop sets the yield statement as the continuation point
+and returns 0.  Then next time it is resumed execution starts from the
+yield stament and the counter is incremented. The second pass through
+the loop sets a new continuation point and returns 1. Rinse and repeat.
+
 A _full asymmetric coroutine_ has three operations: _create_, _resume_, and _yield_.
 Create takes a coroutine body and instanciates it in a suspended state.
 The _continuation point_ is set to the beginning of the body. Resume cause a
@@ -14,9 +59,9 @@ coroutine to execute from its continuation point until it either yields
 at a new continuation point or terminates. A terminated coroutine cannot be resumed.
 
 The first call to resume specifies the coroutine parameters. In subsequent calls to
-resume these become the result of yield. When a coroutine suspends the arguments
+resume these become the result of yield. When a coroutine suspends, the arguments
 to yield become the result of the resume that activated the coroutine.
-When a coroutine terminates the values returned by the body become the result
+When a coroutine terminates, the values returned by the body become the result
 of the last reactivation.
 
 An _expression_ is a _lable_, _variable_, _function_, _application_, variable assignment, _conditional_,
