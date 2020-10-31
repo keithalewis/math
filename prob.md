@@ -147,6 +147,13 @@ A _random variable_ is a symbol that can be used in place of a number when
 manipulating equations and inequalities with with additional information
 about the probability of the values it can take on.
 
+The mathematical definition of a random variable is that it is
+a function $X\colon\Omega\to\mathbf{R}$. Its _cumulative
+distribution function_ is $F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})$.
+More generally, given a subset $A\subseteq\mathbm{R}$ the probability that
+$X$ takes a value in $X$ is $P(X\in A) = P(\{\omega\in\Omega\}: X(\omega\in A))\}$.
+
+
 ### Discrete Random Variable
 
 A _discretely distributed random variable_ is defined by the values it can take $(x_i)$
@@ -195,9 +202,6 @@ __Exercise__. _If $X$ has cdf $F$, then $F(X)$ and $U$ have the same law_.
 This shows a uniformly distributed random variable has sufficient randomness to
 generate any random variable. There are no random, random variables.
 
-The mathematical definition of a random variable is that it is
-a function $X\colon\Omega\to\mathbf{R}$. Its cumulative
-distribution function is $F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})$.
 
 Given a cdf $F$ we can define a random variable having that distribution by
 $X\colon\mathbf{R}\to\mathbf{R}$ to be the
