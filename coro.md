@@ -63,7 +63,7 @@ to yield become the result of the resume that activated the coroutine.
 Subsequent calls of the coroutine resume execution at the coninuation
 point and the arguments of the call become available to the coroutine.
 Execution continues until the next yield statement and the above is
-repeated or until the function terminates and the retun values
+repeated or until the function terminates and the return values
 become the result of the last reactivation. At that point the
 coroutine can no longer be resumed.
 
