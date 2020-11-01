@@ -14,8 +14,8 @@ In order to understand statistics one must first understand _probability theory_
 
 A _sample space_ is a set of _outcomes_. Subsets of a
 sample space are _events_. A _probability measure_ assigns  a number
-between 0 and 1 to events that represents a _degree of belief_ that an outcome
-of a random sample will belong to the event.
+between 0 and 1 to events that represents a _degree of belief_ an outcome
+will belong to the event.
 _Partial information_ is modeled by a _partition_ of the sample space.
 
 ## Sample Space
@@ -28,8 +28,8 @@ A sample space for flipping a coin can be modeled by the set $\{H,T\}$
 where the outcome $H$ indicates heads and $T$ indicates tails.
 Of course any two element set could be used for this.
 
-A sample space for flipping a coin twice can be modeled by the set $\{HH,
-HT, TH, TT\}$ where each outcome specifies the individual outcomes of
+A sample space for flipping a coin twice can be modeled by the set
+$\{HH, HT, TH, TT\}$ where each outcome specifies the individual outcomes of
 the first and second flip.  The event 'the first flip was heads' is the
 subset $\{HH, HT\}$.  The partition $\{\{HH, HT\},\{TH, TT\}\}$ represents
 the partial information of knowing the outcome of the first coin flip.
@@ -118,8 +118,7 @@ occur?
 
 Probability theory originated with games of chance. One way to interpret
 this is "How much money would you wager on an outcome involving rolling dice
-or selecting cards from a deck?" Probability theory can also be used to
-figure out if the dice are weighted or the cards are marked.
+or selecting cards from a deck?"
 
 __Exercise__. _Show $P(E\cup F) \le P(E) + P(F)$
 for any events $E$ and $F$ when $P$ is a probability measure_.
@@ -127,14 +126,11 @@ for any events $E$ and $F$ when $P$ is a probability measure_.
 __Exercise__. _Show $P(\cup_i E_i) \le \sum_i P(E_i)$
 for any events $(E_i)$ when $P$ is a probability measure_.
 
-If $\Omega$ consists of a finite number of elements
-$\{\omega_1,\ldots,\omega_n\}$ we can define a probability measure
-by $P(\{\omega_i\}) = p_i$ where $0 \le p_i \le 1$ and $\sum_i
-p_i = 1$. Every subset of $\Omega$ corresponds to a subset
-$I\subseteq\{1,\ldots,n\}$. The probability of the event $E =
-\{\omega_i:i\in I\}$ is $P(E) = \sum_{i\in I} p_i$.
-
-__Exercise__. _Show this defines a probability measure._
+If $\Omega$ has a finite number of outcomes,
+we can define a probability measure by specifying $p_\omega = P(\{\omega\})$
+for $\omega\in\Omega$. Note $p_\omega\ge 0$ and $\sum_{\omega\in\Omega} = 1$.
+The probability of the event $E\subseteq\Omega$
+is $P(E) = sum_{\omega\in E} p_\omega$.
 
 For the two coin flip model (assuming the coin is fair) we 
 assign probability of $1/4$ to each outcome. The probability of
@@ -147,32 +143,16 @@ A _random variable_ is a symbol that can be used in place of a number when
 manipulating equations and inequalities with with additional information
 about the probability of the values it can take on.
 
-The mathematical definition of a random variable is that it is
+The mathematical definition of a random variable is
 a function $X\colon\Omega\to\mathbf{R}$. Its _cumulative
 distribution function_ is $F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})$.
 More generally, given a subset $A\subseteq\mathbm{R}$ the probability that
 $X$ takes a value in $X$ is $P(X\in A) = P(\{\omega\in\Omega\}: X(\omega\in A))\}$.
 
+Two random variables have the same _law_ if they have the same cdf.
 
-### Discrete Random Variable
-
-A _discretely distributed random variable_ is defined by the values it can take $(x_i)$
-together with the probabilities $(p_i)$ that it takes those values $P(X = x_i) = p_i$.
-The probabilities must satisfy $p_i \ge0$ and $\sum_i p_i = 1$.
-
-### Continuous Random Variable
-
-A _continuously distributed random variable_ is defined by a _density function_ $f$ where
-$P(a < X\le b) = \int_a^b f(x)\,dx$.
-The density must satisfy $f\ge 0$ and $\int_\mathbf{R} f(x)\,dx = 1$.
-
-### Cumulative Distribution Function
-
-There are random variables that are neither discrete nor continuous, however all random
-variables can be defined using a _cumulative distribution function_.
-The cdf of the random variable $X$ is $F_X(x) = F(x) = P(X\le x)$.
-It tells you everything there is to know about $X$. For example,
-$P(a < X \le b) = F(b) - F(a)$. 
+The cdf tells you everything there is to know about the probability of
+the values the random variable can take on. For example, $P(a < X \le b) = F(b) - F(a)$. 
 
 __Exercise__. _Show $P(a\le X\le b) = \lim_{x\uparrow a} F(b) - F(x)$_.
 
@@ -193,8 +173,6 @@ The cdf $F(x) = \max\{0,\min\{1,x\}\}$ defines the uniformly distributed
 random variable, $U$, on the interval $[0,1]$.  For $0\le a < b\le 1$,
 $P(a < U \le b) = P(U\in (a,b]) = b - a$ and $P(U < 0) = 0 = P(U > 1)$.
 
-Two random variables, $X$ and $Y$, have the same _law_ if they have the same cdf.
-
 __Exercise__. _If $X$ has cdf $F$, then $X$ and $F^{-1}(U)$ have the same law_.
 
 __Exercise__. _If $X$ has cdf $F$, then $F(X)$ and $U$ have the same law_.
@@ -202,26 +180,58 @@ __Exercise__. _If $X$ has cdf $F$, then $F(X)$ and $U$ have the same law_.
 This shows a uniformly distributed random variable has sufficient randomness to
 generate any random variable. There are no random, random variables.
 
-
-Given a cdf $F$ we can define a random variable having that distribution by
-$X\colon\mathbf{R}\to\mathbf{R}$ to be the
-identity function, $X(x) = x$ and let $P$ be the probability measure on $\mathbf{R}$ defined by
+Given a cdf $F$ we can define a random variable having that distribution 
+using the identity function $X\colon\mathbf{R}\to\mathbf{R}$, where $X(x) = x$.
+Let $P$ be the probability measure on $\mathbf{R}$ defined by
 $P(A) = \int_A dF(x)$. 
 
 The mathematical definition is more flexible than defining a random variable by its
 cumulative distribution function.
 
+### Continuous Random Variable
+
+If $F(x) = \int_{-\infty}^x F'(u)\,du$ we say the random variable
+is _continuously distributed_. The _density function_ is
+$f = F'$.
+Any function satisfying $f\ge 0$ and $\int_\mathbf{R} f(x)\,dx = 1$ is a density function
+for a random variable.
+
+### Discrete Random Variable
+
+If $dF = \sum_{\omega\in\Omega} p_\omega \delta_\omega$ where $\Omega\subseteq\mathbf{R}$ is countable
+we say the random variable is _discretely distributed_. Here $\delta_\omega$ is the _delta function_
+with unit mass at $\omega$ defined by $\int_{\mathbf{R}} f(x) \delta_\omega\,dx = f(\omega)$
+when $f$ is continuous at $\omega$.
+
+__Exercise__. _Show if $H_\omega(x) = 0$ for $\omega < x$ and $H_\omega(x) = 1$ for $\omega\ge x$
+then $f(\omega) = \int_{\mathbf{R}} f(x)\,dH_\omega(x)$ when $f$ is continuous_.
+
+Using this more precise notation, $F = \sum_{\omega\in\Omega} p_\omega H_\omega$.
+
+
 <!--
 
 ## Examples
 
+See ...
+
 ### Uniform
 
-We have already seen the example of a random variable uniformly distributed in the range $[0,1]$.
 A random variable is uniformly distributed on the interval $[a, b]$ has density function
 $f(x) = (x - a)/(b - a)$ if $a \le x \le b$ and $f(x) = 0$ if $x < a$ or $x > b$.
 
-### Normal
+__Exercise__. _Show if $U$ is uniformly distributed on $[0,1]$ then $a(1 - U) + bU$
+is uniformly distributed on $[a, b]$_.
+
+### Cantor
+
+Let's define a function on the interval $[0,1]$ as follows.
+Every $x\in[0,1]$ can be written $x = \sum_{j>0} x_j/3^j$ where $x_j\in\{0,1,2\}$
+The digits $(x_j)$ are the base 3 representaton of $x$. Define $F(x) = ???$
+
+We have $F(0) = 0$, $F(1) = 1$, and $F$ is continuous...
+
+The measure of the set where $F' = 0$ is 1.
 
 ### Measurable
 

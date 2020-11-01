@@ -40,7 +40,7 @@
 </header>
 <h1 id="probability-theory">Probability Theory</h1>
 <p>In order to understand statistics one must first understand <em>probability theory</em>.</p>
-<p>A <em>sample space</em> is a set of <em>outcomes</em>. Subsets of a sample space are <em>events</em>. A <em>probability measure</em> assigns a number between 0 and 1 to events that represents a <em>degree of belief</em> that an outcome of a random sample will belong to the event. <em>Partial information</em> is modeled by a <em>partition</em> of the sample space.</p>
+<p>A <em>sample space</em> is a set of <em>outcomes</em>. Subsets of a sample space are <em>events</em>. A <em>probability measure</em> assigns a number between 0 and 1 to events that represents a <em>degree of belief</em> an outcome will belong to the event. <em>Partial information</em> is modeled by a <em>partition</em> of the sample space.</p>
 <h2 id="sample-space">Sample Space</h2>
 <p>A <em>sample space</em> is a set of what can happen in a probability model. An <em>outcome</em> is an element of a sample space. An <em>event</em> is a subset of a sample space.</p>
 <p>A sample space for flipping a coin can be modeled by the set <span class="math inline">\{H,T\}</span> where the outcome <span class="math inline">H</span> indicates heads and <span class="math inline">T</span> indicates tails. Of course any two element set could be used for this.</p>
@@ -97,44 +97,56 @@ It must be modeled as a Markov Decision Process.
 </details>
 <h2 id="probability-measure">Probability Measure</h2>
 <p>A <em>probability measure</em> <span class="math inline">P</span> on the sample space <span class="math inline">\Omega</span> is a measure taking values in the interval <span class="math inline">[0,1]</span> with <span class="math inline">P(\Omega) = 1</span>. The <em>probability</em> <span class="math inline">P(E)</span> for <span class="math inline">E\subseteq\Omega</span> represents a <em>degree of belief</em> that a random outcome will belong to the event <span class="math inline">E</span>. This is a somewhat nebulous and controversial notion. How do “random outcomes” occur?</p>
-<p>Probability theory originated with games of chance. One way to interpret this is “How much money would you wager on an outcome involving rolling dice or selecting cards from a deck?” Probability theory can also be used to figure out if the dice are weighted or the cards are marked.</p>
+<p>Probability theory originated with games of chance. One way to interpret this is “How much money would you wager on an outcome involving rolling dice or selecting cards from a deck?”</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">P(E\cup F) \le P(E) + P(F)</span> for any events <span class="math inline">E</span> and <span class="math inline">F</span> when <span class="math inline">P</span> is a probability measure</em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">P(\cup_i E_i) \le \sum_i P(E_i)</span> for any events <span class="math inline">(E_i)</span> when <span class="math inline">P</span> is a probability measure</em>.</p>
-<p>If <span class="math inline">\Omega</span> consists of a finite number of elements <span class="math inline">\{\omega_1,\ldots,\omega_n\}</span> we can define a probability measure by <span class="math inline">P(\{\omega_i\}) = p_i</span> where <span class="math inline">0 \le p_i \le 1</span> and <span class="math inline">\sum_i p_i = 1</span>. Every subset of <span class="math inline">\Omega</span> corresponds to a subset <span class="math inline">I\subseteq\{1,\ldots,n\}</span>. The probability of the event <span class="math inline">E = \{\omega_i:i\in I\}</span> is <span class="math inline">P(E) = \sum_{i\in I} p_i</span>.</p>
-<p><strong>Exercise</strong>. <em>Show this defines a probability measure.</em></p>
+<p>If <span class="math inline">\Omega</span> has a finite number of outcomes, we can define a probability measure by specifying <span class="math inline">p_\omega = P(\{\omega\})</span> for <span class="math inline">\omega\in\Omega</span>. Note <span class="math inline">p_\omega\ge 0</span> and <span class="math inline">\sum_{\omega\in\Omega} = 1</span>. The probability of the event <span class="math inline">E\subseteq\Omega</span> is <span class="math inline">P(E) = sum_{\omega\in E} p_\omega</span>.</p>
 <p>For the two coin flip model (assuming the coin is fair) we assign probability of <span class="math inline">1/4</span> to each outcome. The probability of the first flip being heads is <span class="math inline">P(\{HH,HT\}) = P(\{HH\} \cup \{HT\}) = P(\{HH\} + P(\{HT\}) = 1/4 + 1/4 = 1/2</span>.</p>
 <h2 id="random-variable">Random Variable</h2>
 <p>A <em>random variable</em> is a symbol that can be used in place of a number when manipulating equations and inequalities with with additional information about the probability of the values it can take on.</p>
-<p>The mathematical definition of a random variable is that it is a function <span class="math inline">X\colon\Omega\to\mathbf{R}</span>. Its <em>cumulative distribution function</em> is <span class="math inline">F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})</span>. More generally, given a subset <span class="math inline">A\subseteq\mathbm{R}</span> the probability that <span class="math inline">X</span> takes a value in <span class="math inline">X</span> is <span class="math inline">P(X\in A) = P(\{\omega\in\Omega\}: X(\omega\in A))\}</span>.</p>
-<h3 id="discrete-random-variable">Discrete Random Variable</h3>
-<p>A <em>discretely distributed random variable</em> is defined by the values it can take <span class="math inline">(x_i)</span> together with the probabilities <span class="math inline">(p_i)</span> that it takes those values <span class="math inline">P(X = x_i) = p_i</span>. The probabilities must satisfy <span class="math inline">p_i \ge0</span> and <span class="math inline">\sum_i p_i = 1</span>.</p>
-<h3 id="continuous-random-variable">Continuous Random Variable</h3>
-<p>A <em>continuously distributed random variable</em> is defined by a <em>density function</em> <span class="math inline">f</span> where <span class="math inline">P(a &lt; X\le b) = \int_a^b f(x)\,dx</span>. The density must satisfy <span class="math inline">f\ge 0</span> and <span class="math inline">\int_\mathbf{R} f(x)\,dx = 1</span>.</p>
-<h3 id="cumulative-distribution-function">Cumulative Distribution Function</h3>
-<p>There are random variables that are neither discrete nor continuous, however all random variables can be defined using a <em>cumulative distribution function</em>. The cdf of the random variable <span class="math inline">X</span> is <span class="math inline">F_X(x) = F(x) = P(X\le x)</span>. It tells you everything there is to know about <span class="math inline">X</span>. For example, <span class="math inline">P(a &lt; X \le b) = F(b) - F(a)</span>.</p>
+<p>The mathematical definition of a random variable is a function <span class="math inline">X\colon\Omega\to\mathbf{R}</span>. Its <em>cumulative distribution function</em> is <span class="math inline">F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})</span>. More generally, given a subset <span class="math inline">A\subseteq\mathbm{R}</span> the probability that <span class="math inline">X</span> takes a value in <span class="math inline">X</span> is <span class="math inline">P(X\in A) = P(\{\omega\in\Omega\}: X(\omega\in A))\}</span>.</p>
+<p>Two random variables have the same <em>law</em> if they have the same cdf.</p>
+<p>The cdf tells you everything there is to know about the probability of the values the random variable can take on. For example, <span class="math inline">P(a &lt; X \le b) = F(b) - F(a)</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">P(a\le X\le b) = \lim_{x\uparrow a} F(b) - F(x)</span></em>.</p>
 <p><em>Hint</em>: <span class="math inline">[a,b] = \cap_n (a - 1/n, b]</span>.</p>
 <p>In general <span class="math inline">P(X\in A) = \int_A dF(x)</span> for sufficiently nice subsets <span class="math inline">A\subset\mathbf{R}</span> where we are using <a href="https://mathworld.wolfram.com/StieltjesIntegral.html">Riemann–Stieltjes</a> integration.</p>
 <p><strong>Exercise</strong>: <em>Show for any cumulative distribution function <span class="math inline">F</span> that <span class="math inline">F(x) \le F(y)</span> if <span class="math inline">x &lt; y</span>, <span class="math inline">\lim_{x\to -\infty} F(x) = 0</span>, <span class="math inline">\lim_{x\to\infty} F(x) = 1</span>, and <span class="math inline">F</span> is right continuous with left limits</em>.</p>
 <p><em>Hint</em>: For right continuity use <span class="math inline">(-\infty, x] = \cap_n (-\infty, x + 1/n]</span>.</p>
 <p>The cdf <span class="math inline">F(x) = \max\{0,\min\{1,x\}\}</span> defines the uniformly distributed random variable, <span class="math inline">U</span>, on the interval <span class="math inline">[0,1]</span>. For <span class="math inline">0\le a &lt; b\le 1</span>, <span class="math inline">P(a &lt; U \le b) = P(U\in (a,b]) = b - a</span> and <span class="math inline">P(U &lt; 0) = 0 = P(U &gt; 1)</span>.</p>
-<p>Two random variables, <span class="math inline">X</span> and <span class="math inline">Y</span>, have the same <em>law</em> if they have the same cdf.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> has cdf <span class="math inline">F</span>, then <span class="math inline">X</span> and <span class="math inline">F^{-1}(U)</span> have the same law</em>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> has cdf <span class="math inline">F</span>, then <span class="math inline">F(X)</span> and <span class="math inline">U</span> have the same law</em>.</p>
 <p>This shows a uniformly distributed random variable has sufficient randomness to generate any random variable. There are no random, random variables.</p>
-<p>Given a cdf <span class="math inline">F</span> we can define a random variable having that distribution by <span class="math inline">X\colon\mathbf{R}\to\mathbf{R}</span> to be the identity function, <span class="math inline">X(x) = x</span> and let <span class="math inline">P</span> be the probability measure on <span class="math inline">\mathbf{R}</span> defined by <span class="math inline">P(A) = \int_A dF(x)</span>.</p>
+<p>Given a cdf <span class="math inline">F</span> we can define a random variable having that distribution using the identity function <span class="math inline">X\colon\mathbf{R}\to\mathbf{R}</span>, where <span class="math inline">X(x) = x</span>. Let <span class="math inline">P</span> be the probability measure on <span class="math inline">\mathbf{R}</span> defined by <span class="math inline">P(A) = \int_A dF(x)</span>.</p>
 <p>The mathematical definition is more flexible than defining a random variable by its cumulative distribution function.</p>
+<h3 id="continuous-random-variable">Continuous Random Variable</h3>
+<p>If <span class="math inline">F(x) = \int_{-\infty}^x F&#39;(u)\,du</span> we say the random variable is <em>continuously distributed</em>. The <em>density function</em> is <span class="math inline">f = F&#39;</span>. Any function satisfying <span class="math inline">f\ge 0</span> and <span class="math inline">\int_\mathbf{R} f(x)\,dx = 1</span> is a density function for a random variable.</p>
+<h3 id="discrete-random-variable">Discrete Random Variable</h3>
+<p>If <span class="math inline">dF = \sum_{\omega\in\Omega} p_\omega \delta_\omega</span> where <span class="math inline">\Omega\subseteq\mathbf{R}</span> is countable we say the random variable is <em>discretely distributed</em>. Here <span class="math inline">\delta_\omega</span> is the <em>delta function</em> with unit mass at <span class="math inline">\omega</span> defined by <span class="math inline">\int_{\mathbf{R}} f(x) \delta_\omega\,dx = f(\omega)</span> when <span class="math inline">f</span> is continuous at <span class="math inline">\omega</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">H_\omega(x) = 0</span> for <span class="math inline">\omega &lt; x</span> and <span class="math inline">H_\omega(x) = 1</span> for <span class="math inline">\omega\ge x</span> then <span class="math inline">f(\omega) = \int_{\mathbf{R}} f(x)\,dH_\omega(x)</span> when <span class="math inline">f</span> is continuous</em>.</p>
+<p>Using this more precise notation, <span class="math inline">F = \sum_{\omega\in\Omega} p_\omega H_\omega</span>.</p>
 <!--
 
 ## Examples
 
+See ...
+
 ### Uniform
 
-We have already seen the example of a random variable uniformly distributed in the range $[0,1]$.
 A random variable is uniformly distributed on the interval $[a, b]$ has density function
 $f(x) = (x - a)/(b - a)$ if $a \le x \le b$ and $f(x) = 0$ if $x < a$ or $x > b$.
 
-### Normal
+__Exercise__. _Show if $U$ is uniformly distributed on $[0,1]$ then $a(1 - U) + bU$
+is uniformly distributed on $[a, b]$_.
+
+### Cantor
+
+Let's define a function on the interval $[0,1]$ as follows.
+Every $x\in[0,1]$ can be written $x = \sum_{j>0} x_j/3^j$ where $x_j\in\{0,1,2\}$
+The digits $(x_j)$ are the base 3 representaton of $x$. Define $F(x) = ???$
+
+We have $F(0) = 0$, $F(1) = 1$, and $F$ is continuous...
+
+The measure of the set where $F' = 0$ is 1.
 
 ### Measurable
 
