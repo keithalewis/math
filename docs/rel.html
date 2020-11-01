@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Relation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Relation</h1>
+<p class="author">Keith A. Lewis</p>
+</header>
+<p>The notion of a <em>relation</em> is a fundamental concept of mathematics. Given two things are they equivalent in some sense even if they are not equal? Is one bigger than the other? Is it even possible to compare them? Relations provide a systematic way to get insight into these questions. Partial functions are special cases of relations and functions are special cases of partial functions.</p>
+<p>Given two things in the cartesian product <span class="math inline">X\times Y = \{(x,y):x\in X, y\in Y\}</span> the <em>left projection</em> is the first thing <span class="math inline">\lambda\colon X\times Y\to X</span> by <span class="math inline">\lambda(x,y) = x</span> and the <em>right projection</em> is the second thing <span class="math inline">\rho\colon X\times Y\to Y</span> by <span class="math inline">\rho(x,y) = y</span>.</p>
+<strong>Exercise</strong>. <em>If <span class="math inline">l\colon Z\to X</span> and <span class="math inline">r\colon Z\to Y</span> are functions show there exists a function <span class="math inline">t\colon Z\to X\times Y</span> with <span class="math inline">\lambda(t(z)) = l(z)</span> and <span class="math inline">\rho(t(z)) = r(z)</span> for <span class="math inline">z\in Z</span></em>.
+<details>
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>Define <span class="math inline">t(z) = (l(z),r(z))\in X\times Y</span> for <span class="math inline">z\in Z</span>. Any set for which such <span class="math inline">t</span> exists is in one-to-one correspondence with the cartesian product of <span class="math inline">X</span> and <span class="math inline">Y</span>.</p>
+</blockquote>
+</details>
+<p>A <em>relation</em> between sets <span class="math inline">X</span> and <span class="math inline">Y</span> is a subset <span class="math inline">R\subseteq X\times Y</span> and we write <span class="math inline">xRy</span> for <span class="math inline">(x,y)\in R</span>. The <em>domain</em> of a relation is <span class="math inline">\operatorname{dom}R = \lambda(R) = \{\lambda(x,y):(x,y)\in R\}</span> and the <em>codomain</em>, or <em>range</em>, of a relation is <span class="math inline">\operatorname{cod}R = \rho(R) = \{\rho(x,y):(x,y)\in R\}</span>. The <em>product</em>, or <em>composition</em>, of the relation <span class="math inline">R\subseteq X\times Y</span> and the relation <span class="math inline">S\subseteq Y\times Z</span> is <span class="math inline">RS\subseteq X\times Z</span> defined by <span class="math inline">x(RS)z</span> if and only if there exists <span class="math inline">y\in Y</span> with <span class="math inline">xRy</span> and <span class="math inline">ySz</span>.</p>
+<p>The <em>right coset</em> of <span class="math inline">x\in\operatorname{dom}R</span> is <span class="math inline">xR = \{y\in Y: xRy\}</span> and the <em>left coset</em> of <span class="math inline">y\in\operatorname{cod}R</span> is <span class="math inline">Ry = \{x\in X: xRy\}</span>.</p>
+<p>Where to introduce ker/coker???</p>
+<p>The <em>kernel</em> of a relation is <span class="math inline">\ker R = \{(x,x&#39;)\in X\times X:xR = x&#39;R\}\subseteq X\times X</span>. The <em>cokernel</em> of a relation is <span class="math inline">\coker R = \{(y,y&#39;)\in Y\times Y:Ry = Ry&#39;\}\subseteq Y\times Y</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x(RS)z</span> if and only if the intersection of the cosets <span class="math inline">xR</span> and <span class="math inline">Sz</span> is nonempty</em>.</p>
+<p>Let <span class="math inline">I_Z = \{(z,z):z\in Z\}\subseteq Z\times Z</span> be the <em>identity</em>, or <em>diagonal</em>, relation on <span class="math inline">Z</span>.</p>
+<p><strong>Exercise</strong>. <em>Show for any relation <span class="math inline">R\subseteq X\times Y</span> that <span class="math inline">I_XR = R</span> and <span class="math inline">RI_Y = R</span></em>.</p>
+<p>The identity element for composition is <span class="math inline">I</span>.</p>
+<strong>Exercise</strong>. <em>Show if <span class="math inline">J\subseteq X\times X</span> and <span class="math inline">JR = R</span> for all <span class="math inline">R\subseteq X\times Y</span> then <span class="math inline">J = I_X</span></em>.
+<details>
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>If <span class="math inline">R = I_X</span> then <span class="math inline">J = JI_X = I_X</span>.</p>
+</blockquote>
+</details>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">J\subseteq Y\times Y</span> and <span class="math inline">RJ = R</span> for all <span class="math inline">R\in X\times Y</span> then <span class="math inline">J = I_Y</span></em>.</p>
+<p>The identity element is unique.</p>
+<p><strong>Exercise</strong>. <em>Show for any relations <span class="math inline">R\subseteq X\times Y</span>, <span class="math inline">S\subseteq Y\times Z</span>, and <span class="math inline">T\subseteq Z\times W</span> that <span class="math inline">(RS)T = R(ST)</span></em>.</p>
+<p>Composition is associative.</p>
+<p><em>Rel</em> is the <em>category</em> where the objects are sets and the arrows are relations.</p>
+<p>The <em>transpose</em>, or <em>converse</em>, of the relation <span class="math inline">R\subseteq X\times Y</span> is the relation <span class="math inline">R&#39; = \{(y,x):(x,y)\in R\} \subseteq Y\times X</span>. Obviously <span class="math inline">\operatorname{dom}R&#39; = \operatorname{cod}R</span> and <span class="math inline">\operatorname{cod}R&#39; = \operatorname{dom}R</span>.</p>
+<p><strong>Exercise</strong>. <em>Show for any relation <span class="math inline">R\subseteq X\times Y</span> that <span class="math inline">I_{\operatorname{dom}R} \subseteq RR&#39;</span> and <span class="math inline">I_{\operatorname{cod}R} \subseteq R&#39;R</span></em>.</p>
+<details>
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>If <span class="math inline">x\in\operatorname{dom}R</span> then <span class="math inline">(x,y)\in R</span> for some <span class="math inline">y\in Y</span> so <span class="math inline">(y,x)\in R&#39;</span> and <span class="math inline">(x,x)\in RR&#39;</span>. A similar argument applies to <span class="math inline">y\in\operatorname{cod}R</span>.</p>
+</blockquote>
+</details>
+<p>If <span class="math inline">RS = I</span> then <span class="math inline">R</span> is a <em>left inverse</em>, or <em>retract</em>, of <span class="math inline">S</span> and <span class="math inline">S</span> is a <em>right inverse</em>, or <em>section</em>, of <span class="math inline">R</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">R\subseteq X\times Y</span> has a section show <span class="math inline">UR = VR</span> implies <span class="math inline">U = V</span> for any <span class="math inline">U,V\in Z\times X</span></em>.</p>
+<p>A relation satifying right cancellation is called <em>mono</em>.</p>
+<p><strong>Exercise</strong>. <em>Find a relation that is mono but does not have a section</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">S\subseteq Y\times Z</span> has a retract show <span class="math inline">SU = SV</span> implies <span class="math inline">U = V</span> for any <span class="math inline">U,V\in Z\times X</span></em>.</p>
+<p>A relation satifying <em>left cancellation</em> is called <em>epi</em>.</p>
+<p><strong>Exercise</strong>. <em>Find a relation that is epi but does not have a retract</em>.</p>
+<p>If <span class="math inline">RS = I</span> and <span class="math inline">SR = I</span> then <span class="math inline">R</span> is <em>invertible</em> with <em>inverse</em> <span class="math inline">S</span>. Likewise, <span class="math inline">S</span> is invertible with inverse <span class="math inline">R</span>. A relation that is both epi and mono is called <em>iso</em>.</p>
+<strong>Exercise</strong>. <em>Show inverses are unique</em>.
+<details>
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>If <span class="math inline">S</span> and <span class="math inline">T</span> are inverses of <span class="math inline">R</span> then <span class="math inline">S = S(RT) = (SR)T = T</span>.</p>
+</blockquote>
+</details>
+<p>A <em>partial function</em> is a relation <span class="math inline">R\subseteq X\time Y</span> where <span class="math inline">xR</span> has exactly one element <span class="math inline">y\in Y</span> when <span class="math inline">x\in\operatorname{dom}R</span> so we can unambiguously write <span class="math inline">R(x) = y</span> for <span class="math inline">xRy</span>. A <em>function</em> is a partial function with <span class="math inline">\operatorname{dom}R = X</span>.</p>
+<p>Every partial function can be extended to a function by introducing an element <span class="math inline">\bot\not\in Y</span> and defining <span class="math inline">\overline{R} = R\cup\{(x&#39;,\bot):x&#39;\not\in\operatorname{dom}R\}\subseteq X\times (Y\cup\{\bot\})</span>.</p>
+<strong>Exercise</strong>. <em>Show if <span class="math inline">R</span> is a partial function then <span class="math inline">\overline{R}</span> is a function</em>.
+<details>
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>If <span class="math inline">x\in\operatorname{dom}R</span> then <span class="math inline">x\overline{R} = xR</span> has one element. If <span class="math inline">x\not\in\operatorname{dom}R</span> then <span class="math inline">x\overline{R} = \{\bot\}</span> has one element.</p>
+</blockquote>
+</details>
+<p><strong>Exercise</strong>. If <span class="math inline">R</span> and <span class="math inline">S</span> are (partial) functions show <span class="math inline">(x,z)\in RS</span> if and only if <span class="math inline">S(R(x)) = z</span>.</p>
+<p>A mono (partial) function is called <em>injective</em>, or <em>one-to-one</em>, and an epi (partial) function is called <em>surjective</em>, or <em>onto</em>.</p>
+<strong>Exercise</strong>. <em>Show a function has a left inverse if and only if it is injective</em>.
+<details>
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>If <span class="math inline">R</span> has a left inverse <span class="math inline">S</span> then <span class="math inline">SR = I</span>. If <span class="math inline">R(x) = R(x&#39;)</span> then <span class="math inline">x = SR(x) = SR(x&#39;) = x&#39;</span>. If <span class="math inline">R</span> is injective then <span class="math inline">R&#39;</span> is a left inverse.</p>
+</blockquote>
+</details>
+<strong>Exercise</strong>. <em>Show a function has a right inverse if and only if it is surjective</em>.
+<details>
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>If <span class="math inline">R</span> has a left inverse <span class="math inline">S</span> then <span class="math inline">SR = I</span>. If <span class="math inline">R(x) = R(x&#39;)</span> then <span class="math inline">x = SR(x) = SR(x&#39;) = x&#39;</span>.</p>
+</blockquote>
+</details>
+<p>A relation <span class="math inline">R</span> on <span class="math inline">X\times X</span> is <em>reflexive</em> if <span class="math inline">xRx</span> for <span class="math inline">x\in X</span>, <em>symmetric</em> if <span class="math inline">xRy</span> implies <span class="math inline">yRx</span> for <span class="math inline">x,y\in X</span>, <em>antisymmetric</em> if <span class="math inline">xRy</span> and <span class="math inline">yRx</span> imply <span class="math inline">x = y</span> for <span class="math inline">x,y\in X</span>, and <em>transitive</em> if <span class="math inline">xRy</span> and <span class="math inline">yRz</span> imply <span class="math inline">xRz</span></p>
+<p><strong>Exercise</strong>. <em>Show a relation <span class="math inline">R</span> is reflexive if <span class="math inline">I\subseteq R</span>, symmetric if <span class="math inline">R&#39; = R</span>, antisymetric if <span class="math inline">R\cap R&#39; = I</span>, and transitive if <span class="math inline">RR \subseteq R</span></em>.</p>
+<p><strong>Exercise</strong>. <em>An antisymmetric relation is reflexive</em>.</p>
+<p><strong>Exercise</strong>. <em>Find a symmetric relation that is not reflexive</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">R</span> is both symmetric and antisymmetric then <span class="math inline">R = I</span></em>.</p>
+<p><strong>Exercise</strong>. _If <span class="math inline">R,S\subseteq X\times X</span> then <span class="math inline">(R\cup I)S = (RS)\cup I = R(I\cup S)</span></p>
+<p>Adding the diagonal to any relation makes it reflexive.</p>
+<strong>Exercise</strong>. <em>If <span class="math inline">R</span> is transitive then <span class="math inline">R\cup I</span> is also transitive</em>.
+<details>
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>We have <span class="math inline">(R\cup I)(R\sup I) = (R(R\cup I)\cup I</span> = (RR)IRI$.</p>
+</blockquote>
+</details>
+<p>A relation that is transitive and reflexive is called a <em>preorder</em>.</p>
+<dl>
+<dt><em>Weak Partial Order</em></dt>
+<dd>antisymmetric and transitive
+</dd>
+<dt><em>Partial Order</em> (poset)</dt>
+<dd>reflexive, antisymmetric, and transitive
+</dd>
+</dl>
+<p>The common theme here is transitive. It’s what makes an order an order. The <em>transitive closure</em> of any relation <span class="math inline">R</span> is <span class="math inline">R^*</span> where <span class="math inline">xR^*y</span> if and only if <span class="math inline">xR^ny</span> for some positive integer <span class="math inline">n</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the transitive closure of any relation is transitive</em>.</p>
+<dl>
+<dt><em>Equivalence Relation</em></dt>
+<dd>reflexive, symmetric, and transitive
+</dd>
+</dl>
+<p>A relation is <em>total</em> either <span class="math inline">xRy</span> or <span class="math inline">yRx</span> for all <span class="math inline">x,y\in X</span>.</p>
+<p><strong>Exercise</strong>. <em>Show a total relation satisfies <span class="math inline">R\cup R&#39; = X\times X</span></em>.</p>
+<p>A relation is <em>directed</em> if for every <span class="math inline">x,y\in X</span> there exists <span class="math inline">z\in X</span> with <span class="math inline">xRz</span> and <span class="math inline">yRz</span>.</p>
+<p><strong>Exercise</strong>. <em>Total orders are directed</em>.</p>
+<p>A <em>net</em> is a directed poset.</p>
+<p>An <em>equivalence relation</em> partitions the set <span class="math inline">X</span> into <em>cosets</em> <span class="math inline">x/R = \{y\in X:xRy\}</span> and we write <span class="math inline">X/R</span> (<span class="math inline">X</span> <em>modulo</em> <span class="math inline">R</span>) for the collection of all cosets. The union of all cosets is <span class="math inline">X</span> and cosets are pairwise disjoint.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x\in x/R</span> for every <span class="math inline">x\in X</span></em>.</p>
+<p><strong>Exercise</strong>. _Show if <span class="math inline">x/R\cap y/R\not=\emptyset</span> then <span class="math inline">x/R = y/R</span>.</p>
+<h1 id="remarks">Remarks</h1>
+<p>Partial functions show up often without getting the recognition they deserve. For example, <span class="math inline">f(x) = 1/x</span> where <span class="math inline">x</span> is a real number is a partial function with domain <span class="math inline">x \not= 0</span>.</p>
+Return to <a href="index.html">index</a>.
+</body>
+</html>
