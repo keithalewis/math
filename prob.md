@@ -12,6 +12,49 @@ abstract: Probability &ndash; the foundation of statistics.
 
 In order to understand statistics one must first understand _probability theory_.
 
+## Chevalier de Méré
+
+A cubical die has six faces: &#9856;, &#9857;, &#9858;, &#9859;, &#9860;,
+and &#9861;.  Each time a die is rolled the top face is the result
+of the roll.  If the die is _fair_ each face has an equal probability
+of occuring.
+
+If a die is rolled twice then a &#9856; occurs in
+exacty $11 = 6 + 6 - 1$ of the $36 = 6^2$ possible outcomes.[^1]
+In $6$ cases it occurs on the first roll
+and in $6$ cases it occurs on the second roll but
+rolling &#9856; twice is included in both the first and second cases
+and should only be counted once.
+
+[^1]: The _cartesian product of sets $A$ and $B$ is the set of _pairs_
+$A\times B = \{(a,b):a\in A, b\in B\}$.
+The number of elements in $A\times B$ is the number of elements in $A$
+times the number of elements in $B$.
+
+If a die is rolled three times then the number cases involving a &#9856; in
+the $216 = 6^3$ possible outcomes is a more difficult counting problem.
+It is easier to count the number of cases where a &#9856; does **not** occur: $125 = 5^3$.
+The number of times &#9856; **does** show up is therefor $91 = 216 - 125.
+Note this can be used for the solution of the two roll case: $11 = 36 - 25$.
+It is not a coincidence that $91 = 3\times 6^2 - 3\times 6 + 1\times 1$.
+This is closely related to the formula $(6 - 1)^3 = 6^3  - 3\times 6^2 + 3\times 6 - 1%.
+
+If a die is rolled $n$ times then number cases involving a &#9856; is $6^n - 5^n$.
+The _probability_ of this happening is $(6^n - 5^n)/6^n = 1 - (5/6)^n$.
+Note that this tends to $1$ as $n$ tends to infinity; you will eventually roll
+a &#9856; if you roll long enough.
+
+Chevalier de Méréwas concerned with the problem of how to divide the
+wagers if the game was interupted part way thorough. (Vingt-deux, voilà
+les flics!)  Suppose the odds are $91$ will get you $125$ in the three
+roll game and the first roll is not a &#9856;. The odds of winning went
+down since there are only two rolls remaining to get a &#9856;. If the
+game stops there the first player should get back something less than
+$91$ and the second player should get back more than $215$, but what is
+a fair division?
+
+...
+
 A _sample space_ is a set of _outcomes_. Subsets of a
 sample space are _events_. A _probability measure_ assigns  a number
 between 0 and 1 to events that represents a _degree of belief_ an outcome
@@ -146,7 +189,7 @@ about the probability of the values it can take on.
 The mathematical definition of a random variable is
 a function $X\colon\Omega\to\mathbf{R}$. Its _cumulative
 distribution function_ is $F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})$.
-More generally, given a subset $A\subseteq\mathbm{R}$ the probability that
+More generally, given a subset $A\subseteq\mathbf{R}$ the probability that
 $X$ takes a value in $X$ is $P(X\in A) = P(\{\omega\in\Omega\}: X(\omega\in A))\}$.
 
 Two random variables have the same _law_ if they have the same cdf.
