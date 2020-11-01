@@ -231,8 +231,8 @@ of arbitrage depends on the model used for cash flows and prices.
 
 ## Remarks
 
-In the real world trades often involve the exchange of more than two holdings.
-For example a fee or commission to a broker or market maker that enabled the trade.
+Trades often involve the exchange of more than two holdings,
+for example a fee or commission to a broker or market maker that enabled the trade.
 These are accommodated by including the associated transactions as trades with
 the third parties involved.
 
@@ -246,12 +246,12 @@ price after settlement is lumped into the term _slippage_.
 Modeling that uncertainty is an ongoing puzzle.
 
 For trades on an exchange the order book can give a better handle on
-what the slippage might be. Some exchanges report the net amount of limit
-orders they have near the current market level. If your market order is
-not too large you can determine the levels of the limit orders it will
-match. However, other customers and liquidity providers can cause changes
-to the order book before your trade gets executed to cause uncertainty
-in the exact amount at each level.
+what the slippage might be. Some exchanges report the net amount of
+limit orders they have near the current market level. If a market order
+is not too large then the levels of the limit orders it will match can
+be determined. However, other customers and liquidity providers can
+cause changes to the order book before your trade gets executed to cause
+uncertainty in the exact amount at each level.
 
 The future of Mathematical Finance is developing more accurate models
 of trading and taking advantage of advances in computing power to
