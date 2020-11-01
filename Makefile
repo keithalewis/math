@@ -44,4 +44,4 @@ rsync:
 	rcp $(HTML) $(CSS) kal@web626.webfaction.com:webapps/kalx/math
 
 clean:
-	rm -f *.html docs/*
+	rm -f *.html docs/*.html
