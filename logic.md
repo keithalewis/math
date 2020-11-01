@@ -8,14 +8,14 @@ abstract: Logic &ndash; the foundations of mathematics.
 ...
 
 It may come as a surprise that there are a number of different
-logical systems for mathematics that are logically contradictory.
+logical systems for mathematics that are contradictory.
 The most famous examples are in non-Euclidean geometry where
 it is possible to have no, or infinitely many, "parallel" lines
 through a point not on a line.
 
 However one thing logical systems all have in common that
-they use _propositions_; statements that are either _true_ or _false_, and
-_rules of inference_; ways of combining true propositions into other
+they use _propositions_: statements that are either _true_ or _false_, and
+_rules of inference_: ways of combining true propositions into other
 true propositions.
 
 Mathematicians prove _theorems_. Typically they have the form 'if
@@ -27,7 +27,7 @@ has the statement '$A$' and the statement '$A$ implies $B$' then the
 statement '$B$' can be included in the proof.
 
 A proof of '$A$ implies $B$' consists of a sequence of
-statements starting with $A$. The following statements in the sequence
+statements starting with $A$. The following statements
 are either axioms or a statement using rules of inference applied to
 previous statements. If the last statement is $B$ then the theorem is
 proved, QED: "quod erat demonstrandum", meaning "what was to be shown".
@@ -78,8 +78,8 @@ If $P$ is false then $P\vee\neg P$ is true.
 
 </details>
 
-A _tautology_ is a statement that is always true no matter
-the truth values of the propositions they contain. This leads to another
+A _tautology_ is a proposition that is true for all
+truth values of the propositions it contain. This leads to another
 connective.
 
 _Equivalent_
@@ -105,7 +105,7 @@ $P\supset Q$ is true and so is $\neg P\vee Q$ since $Q$ is true.
 </details>
 
 We can reduce the amount of prose by using _truth tables_.
-The first columns of the table contain all possible values
+The first columns of the table contain all possible truth values
 for the variables occuring in the statements to be evaluated
 in the remaining columns. Here is the truth table for
 'and', 'or', and 'implies'
@@ -154,6 +154,28 @@ The truth table for $P\supset(Q\supset P)$ is
 
 where we have added a column for the subexpression $Q\supset P$
 to facilitate the evaluation. This shows $P\supset(Q\supset P)$ is a tautology.
+
+As the number of variables in a proposition increase, the number of
+cases to evaluate increases exponentially. If there are $n$ variables, then there
+are $2^n$ cases to consider.
+
+## Deduction
+
+A more compact way of determining if a proposition is a tautology is
+to start from a small set of tautologies and apply _modus ponens_: if
+the propositions $P\supset Q$ and $P$ are tautologies then $Q$ is a tautology.
+
+that can be used to deduce any tautology,
+assuming that is possible. A _proof_ of a tautology is a sequence of propositions
+that are either axioms or a result
+
+For example, we can use $P\supset(Q\supset P)$ to deduce $P\supset P$.
+
+We will soon see that this is indeed possible using the _axioms_
+$$
+	P\supset (Q\supset P)
+	(P\supset(Q\supset R))\supset
+$$
 
 Every _well-formed_ proposition can be built up from _propositional variables_,
 $P$, $Q$, ..., and connectives. The _grammar_ of propositional calculus is

@@ -38,10 +38,10 @@
 <h1 class="title">Logic</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<p>It may come as a surprise that there are a number of different logical systems for mathematics that are logically contradictory. The most famous examples are in non-Euclidean geometry where it is possible to have no, or infinitely many, “parallel” lines through a point not on a line.</p>
-<p>However one thing logical systems all have in common that they use <em>propositions</em>; statements that are either <em>true</em> or <em>false</em>, and <em>rules of inference</em>; ways of combining true propositions into other true propositions.</p>
+<p>It may come as a surprise that there are a number of different logical systems for mathematics that are contradictory. The most famous examples are in non-Euclidean geometry where it is possible to have no, or infinitely many, “parallel” lines through a point not on a line.</p>
+<p>However one thing logical systems all have in common that they use <em>propositions</em>: statements that are either <em>true</em> or <em>false</em>, and <em>rules of inference</em>: ways of combining true propositions into other true propositions.</p>
 <p>Mathematicians prove <em>theorems</em>. Typically they have the form ‘if <span class="math inline">A</span> is true then <span class="math inline">B</span> is true’ where <span class="math inline">A</span> and <span class="math inline">B</span> are propositions. This is equivalent to ‘if <span class="math inline">A</span> then <span class="math inline">B</span>’ and ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’. Every logical system has <em>axioms</em>: propositions that are assumed to be true. The fundamental rule of inference is <em>modus ponens</em>: if a proof has the statement ‘<span class="math inline">A</span>’ and the statement ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’ then the statement ‘<span class="math inline">B</span>’ can be included in the proof.</p>
-<p>A proof of ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’ consists of a sequence of statements starting with <span class="math inline">A</span>. The following statements in the sequence are either axioms or a statement using rules of inference applied to previous statements. If the last statement is <span class="math inline">B</span> then the theorem is proved, QED: “quod erat demonstrandum”, meaning “what was to be shown”. The difficult part of a proof is figuring out which axioms to use and when to apply the rules of inference.</p>
+<p>A proof of ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’ consists of a sequence of statements starting with <span class="math inline">A</span>. The following statements are either axioms or a statement using rules of inference applied to previous statements. If the last statement is <span class="math inline">B</span> then the theorem is proved, QED: “quod erat demonstrandum”, meaning “what was to be shown”. The difficult part of a proof is figuring out which axioms to use and when to apply the rules of inference.</p>
 <h2 id="propositional-calculus">Propositional Calculus</h2>
 <p>The <em>propositional calculus</em> is based on the common English usage of the words, ‘not’, ‘and’, ‘or’, and ‘implies’. These are represented by <em>logical connectives</em> <span class="math inline">\neg</span>, <span class="math inline">\wedge</span>, <span class="math inline">\vee</span>, and <span class="math inline">\supset</span>.</p>
 <dl>
@@ -73,7 +73,7 @@
 <p>If <span class="math inline">P</span> is true then <span class="math inline">P\vee\neg P</span> is true. If <span class="math inline">P</span> is false then <span class="math inline">P\vee\neg P</span> is true.</p>
 </blockquote>
 </details>
-<p>A <em>tautology</em> is a statement that is always true no matter the truth values of the propositions they contain. This leads to another connective.</p>
+<p>A <em>tautology</em> is a proposition that is true for all truth values of the propositions it contain. This leads to another connective.</p>
 <dl>
 <dt><em>Equivalent</em></dt>
 <dd>If <span class="math inline">P</span> and <span class="math inline">Q</span> are propositions then <span class="math inline">P\equiv Q</span> is true when <span class="math inline">P</span> and <span class="math inline">Q</span> have the same truth value and false if they have different truth values.
@@ -88,7 +88,7 @@
 <p>If <span class="math inline">P</span> is false then <span class="math inline">P\supset Q</span> is true, as we’ve just seen. Since <span class="math inline">\neg P</span> is true in this case <span class="math inline">\neg P\vee Q</span> is true. If <span class="math inline">P</span> is true and <span class="math inline">Q</span> is false then <span class="math inline">P\supset Q</span> is false and so is <span class="math inline">\neg P\vee Q</span> since both <span class="math inline">\neg P</span> and <span class="math inline">Q</span> are false. If <span class="math inline">P</span> is true and <span class="math inline">Q</span> is true then <span class="math inline">P\supset Q</span> is true and so is <span class="math inline">\neg P\vee Q</span> since <span class="math inline">Q</span> is true.</p>
 </blockquote>
 </details>
-<p>We can reduce the amount of prose by using <em>truth tables</em>. The first columns of the table contain all possible values for the variables occuring in the statements to be evaluated in the remaining columns. Here is the truth table for ‘and’, ‘or’, and ‘implies’</p>
+<p>We can reduce the amount of prose by using <em>truth tables</em>. The first columns of the table contain all possible truth values for the variables occuring in the statements to be evaluated in the remaining columns. Here is the truth table for ‘and’, ‘or’, and ‘implies’</p>
 <div class="truth">
 <table style="width:79%;">
 <colgroup>
@@ -186,6 +186,15 @@
 </table>
 </div>
 <p>where we have added a column for the subexpression <span class="math inline">Q\supset P</span> to facilitate the evaluation. This shows <span class="math inline">P\supset(Q\supset P)</span> is a tautology.</p>
+<p>As the number of variables in a proposition increase, the number of cases to evaluate increases exponentially. If there are <span class="math inline">n</span> variables, then there are <span class="math inline">2^n</span> cases to consider.</p>
+<h2 id="deduction">Deduction</h2>
+<p>A more compact way of determining if a proposition is a tautology is to start from a small set of tautologies and apply <em>modus ponens</em>: if the propositions <span class="math inline">P\supset Q</span> and <span class="math inline">P</span> are tautologies then <span class="math inline">Q</span> is a tautology.</p>
+<p>that can be used to deduce any tautology, assuming that is possible. A <em>proof</em> of a tautology is a sequence of propositions that are either axioms or a result</p>
+<p>For example, we can use <span class="math inline">P\supset(Q\supset P)</span> to deduce <span class="math inline">P\supset P</span>.</p>
+<p>We will soon see that this is indeed possible using the <em>axioms</em> <span class="math display">
+    P\supset (Q\supset P)
+    (P\supset(Q\supset R))\supset
+</span></p>
 <p>Every <em>well-formed</em> proposition can be built up from <em>propositional variables</em>, <span class="math inline">P</span>, <span class="math inline">Q</span>, …, and connectives. The <em>grammar</em> of propositional calculus is <span class="math display">
     \mathit{Prop}\to\mathit{Var}
     \mid(\neg\mathit{Prop})

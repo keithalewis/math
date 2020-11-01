@@ -8,19 +8,21 @@ abstract: Unified Finance &ndash; holdings, transactions, and trading.
 ...
 
 There is a unified way to organize the foundations of finance.
-A _holding_ is the _amount_ of an _instrument_ held by a _legal entity_.
-A _transaction_ is the exchange of holdings at a given _time_.
-Instruments have _cash flows_ and _prices_ that determine the _amounts_
-and _values_ involved with _trading_.
+The atoms of finance are _holdings_: an _instrument_, _amount_, and
+a _legal entity_.  They interact via _transactions_: the exchange of
+holdings at a given _time_.  Instruments have _cash flows_ and _prices_
+that determine the _amounts_ and _values_ involved with _trading_. All
+market instruments can be placed on equal footing to get a complete
+picture of the value and risk of any position.
 
 ## Holding
 
-A holding is an _instrument_, _amount_, and _legal entity_.
-Examples of instruments are: stocks, bonds, futures, currencies, commodities, etc.
-They are held by _legal entities_ in some amount: shares, notional, contracts,
-units, and physical quantity respectively.
-A legal entity is an individual or corporation.
-The holding $(i,a,e)$ indicates entity $e$ owns amount $a$ of instrument $i$.
+A holding is an _instrument_, _amount_, and _legal entity_.  Examples of
+instruments are: stocks, bonds, futures, currencies, commodities, etc.
+They are traded in some amount: shares, notional, contracts, units,
+and physical quantity respectively.  A legal entity is an individual or
+corporation.  The holding $(i,a,e)$ indicates entity $e$ owns amount $a$
+of instrument $i$.
 
 A _position_ is a set of holdings $\{(i_j,a_j,e_j)\}$.
 Assuming each instrument is _fungible_ we can aggregate amounts.
@@ -212,7 +214,7 @@ to trade in order to satisfy the contract obligations.[^3]
 
 When $\Delta_t + \Gamma_t = 0$ we say the trading strategy is _closed
 out_ at $t$. If no trades are executed after that then future amounts and values
-will be zero.
+are zero.
 
 If a trading strategy has $A_{\tau_0} > 0$, $A_t \ge 0$
 for $t > \tau_0$, and eventually closes out, then _arbitrage_ exists: it is
@@ -225,18 +227,25 @@ of arbitrage depends on the model used for cash flows and prices.
 ## Remarks
 
 The financial world is still waiting for its Werner Heisenberg. The price
-of a transaction after it has been executed is a number: the amount
-the buyer gave to the seller divided by the amount the seller gave to
-the buyer. The price prior to completing a transaction is more nebulous.
-The difference between a quoted price and the actual price is lumped
-into the term _slippage_.
+of a transaction after it has been executed is a number: the amount the
+seller gave to the buyer divided by the amount the buyer gave to the
+seller. The price prior to completing a transaction is more nebulous.
+The difference between a price quoted prior to a trade and the realized
+price after settlement is lumped into the term _slippage_.
 
 Modeling that uncertainty is an ongoing puzzle.
 
-For trades on an exchange the order book can give you a better handle
-on what the slippage might be, but only rough details are available
-to exchange clients. Other clients and liquidity providers can cause
-changes to the order book before a trade gets executed.
+For trades on an exchange the order book can give a better handle on
+what the slippage might be. Some exchanges report the net amount of limit
+orders they have near the current market level. If your market order is
+not too large you can determine the levels of the limit orders it will
+match. However, other customers and liquidity providers can cause changes
+to the order book before your trade gets executed to cause uncertainty
+in the exact amount at each level.
+
+The future of Mathematical Finance is developing more accurate models of
+transactions and taking advantage of the advances in computing power
+to provide people running their business answers to questions they find relevant.
 
 [^1]: Adhering to the trader aphorism, "Don't be a dick for a tick," can help prevent this.
 
