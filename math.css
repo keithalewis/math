@@ -1,5 +1,5 @@
 html {
-	margin: 0 1in 0 1in;
+	margin: 1in 1.5in 0 1.5in;
 	padding: 1em;
 }
 body {
@@ -8,6 +8,9 @@ body {
 	background: #F8F8F8;
 	/*background: linear-gradient(to right, #FFF, #F0F0F0);*/
 	color: #565656;
+}
+h1, p.author {
+	text-align: center;
 }
 p {
 	text-align: justify;

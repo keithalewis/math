@@ -233,12 +233,50 @@ of arbitrage depends on the model used for cash flows and prices.
 
 [The Fundamental Theorem of Asset Pricing](https://kalx.net/um.pdf) describes all arbitrage-free models.
 
+
+## Risk
+
+The basic problem with most measures of risk is that they do not take
+hedging into account.  _Value at risk_ (VaR) is defined using a time period
+and a probability $p$.  The probability of the value of a portfolio at the
+end of the period being less than VaR equals $p$, assuming no trades occur
+over the period. As the length of the period increases the probability
+of a portfolio manager being fired for not doing their job approaches 1.
+
+VaR can be turned into a useful measure by incorporating the trading
+strategy for hedging it as described above. Different trading strategies
+can be compared for their effectiveness. Of course drawup and drawdown
+should also be considered instead of just the value of the portfolio
+and hedge at one point in time.
+
+Similarly, CVA fails to take into account hedging. The CVA of a portfolio
+is $\int_T \max\{E[V_t], 0\} h(t)\,dt$ where $V_t$ is the value of the
+portfolio at $t$ and $h$ is a given _haircut_. The term $\max\{V_t, 0\}$ is
+called the _exposure_ of the portfolio holder. Holders are not exposed
+to counterparty risk if they owe money. This technique has been common
+in the insurance industry to calculate premiums long before it was
+used in the financial world.
+
+It is common for swaps to have unwind agreements that will be exercised if
+the market moves against them. This is an example of a hedging strategy
+that can be applied to a portfolio to get a more accurate estimate of
+counterparty risk.  The CVA haircut should not be applied to trades
+after they no longer belong to the portfolio.
+
+DVA is just the CVA of the party on the other side of the trades.
+The menagerie of XVA measures are attempts to incorporate special
+case hedging strategies or cash flows due to taxes or regulatory
+capital requirements. They can all be replaced by explicitly
+incorporating the trading strategy and cash flows involved
+when applying the CVA formula.
+
 ## Remarks
 
 Trades often involve the exchange of more than two holdings,
 for example a fee or commission to a broker or market maker that enabled the trade.
 These are accommodated by including the associated transactions as trades with
-the third parties involved.
+the third parties involved. Perhaps these should be called the _molecules_
+of finance.
 
 The financial world is still waiting for its Werner Heisenberg. The price
 of a trade after it has been executed is a number: the amount the
@@ -249,17 +287,17 @@ price after settlement is lumped into the term _slippage_.
 
 Modeling that uncertainty is an ongoing puzzle.
 
-For trades on an exchange the order book can give a better handle on
-what the slippage might be. Some exchanges report the net amount of
-limit orders they have near the current market level. If a market order
-is not too large then the levels of the limit orders it will match can
-be determined. However, other customers and liquidity providers can
-cause changes to the order book before your trade gets executed to cause
-uncertainty in the exact amount at each level.
+For trades on an exchange the order book can give a better handle on what
+the slippage might be. Some exchanges report the net amount of limit
+orders they have near the current market level. If a market order is
+not too large then the levels of the limit orders it will match can be
+determined. However, other customers and liquidity providers can cause
+changes to the order book before market orders are executed to cause
+uncertainty in the exact amount of limit orders at each level.
 
 The future of Mathematical Finance is developing more accurate models
 of trading and taking advantage of advances in computing power to
-provide people running their business better answers to
+provide people running their business timely and detailed answers to
 questions they find relevant.
 
 [^1]: Adhering to the trader aphorism, "Don't be a dick for a tick," can help prevent this.
