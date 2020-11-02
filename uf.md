@@ -104,6 +104,10 @@ of the price at time $t$, $X_t(i_0,i)$, of each instrument $i$ in terms of $i_0$
 All holdings $(i,a,e)$ are converted to $(i_0, aX(i_0,i), e)$ then netted
 to report the P&amp;L in terms of $i_0$.
 
+Other relevant quantities can be computed similarly. For example the
+_drawdown_ over $[t, u]$ is $N_u(i,e) - \min_{t\le s \le u} N_s(i,e)$
+and the _drawup_ is $\max_{t\le s\le u} N_s(i,e) - N_u(i,e)$.
+
 Any instrument could be used instead of a native currency.
 A subset of instruments could also be chosen to break P&amp;L reporting
 into components.  The set of all currencies involved in a position is

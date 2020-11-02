@@ -60,6 +60,7 @@ N(i,e) = \sum_j \{a_j : i_j = i, e_j = e\}.
 <p>Holdings and trades lead to some bean counting over time.</p>
 <p>Given a position at time <span class="math inline">t</span>, all trades and cash flows between <span class="math inline">t</span> and <span class="math inline">u</span> determine the position at time <span class="math inline">u</span> as described above. The change in net amounts is called <em>profit and loss</em>. If <span class="math inline">N_t</span> is the net amount defined above then <span class="math inline">N_u(i,e) - N_t(i,e)</span> is the P&amp;L of entity <span class="math inline">e</span> in instrument <span class="math inline">i</span> over the period from <span class="math inline">t</span> to <span class="math inline">u</span>.</p>
 <p>Holdings can be converted into a native currency <span class="math inline">i_0</span> for reporting purposes. This does not involve actual trades, only a best guess of the price at time <span class="math inline">t</span>, <span class="math inline">X_t(i_0,i)</span>, of each instrument <span class="math inline">i</span> in terms of <span class="math inline">i_0</span>. All holdings <span class="math inline">(i,a,e)</span> are converted to <span class="math inline">(i_0, aX(i_0,i), e)</span> then netted to report the P&amp;L in terms of <span class="math inline">i_0</span>.</p>
+<p>Other relevant quantities can be computed similarly. For example the <em>drawdown</em> over <span class="math inline">[t, u]</span> is <span class="math inline">N_u(i,e) - \min_{t\le s \le u} N_s(i,e)</span> and the <em>drawup</em> is <span class="math inline">\max_{t\le s\le u} N_s(i,e) - N_u(i,e)</span>.</p>
 <p>Any instrument could be used instead of a native currency. A subset of instruments could also be chosen to break P&amp;L reporting into components. The set of all currencies involved in a position is a common choice.</p>
 <h2 id="model">Model</h2>
 <p>There is no question about the cash flows received or the prices of trades after the fact. Mathematics can be used to <em>model</em> possible cash flows and prices in the future.</p>
@@ -111,6 +112,8 @@ The unified model for finance allows these to be easily integrated.
 <li id="fn3" role="doc-endnote"><p>The trader aphorism, “Hedge when you can, not when you have to,” is only a rough guide to solving this difficult problem.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
+<footer>
 Return to <a href="index.html">index</a>.
+</footer>
 </body>
 </html>
