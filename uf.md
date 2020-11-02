@@ -243,10 +243,10 @@ end of the period being less than VaR equals $p$, assuming no trades occur
 over the period. As the length of the period increases the probability
 of a portfolio manager being fired for not doing their job approaches 1.
 
-VaR can be turned into a useful measure by incorporating the trading
-strategy for hedging it as described above. Different trading strategies
+VaR can be turned into a more useful measure by incorporating the
+hedging strategy. Different hedging strategies
 can be compared for their effectiveness. Of course drawup and drawdown
-should also be considered instead of just the value of the portfolio
+should also be considered instead of only the value of the portfolio
 and hedge at one point in time.
 
 Similarly, CVA fails to take into account hedging. The CVA of a portfolio
@@ -306,5 +306,5 @@ questions they find relevant.
 depends only on prior information, for example when the price of a stock
 hits a certain level.
 
-[^3]: The trader aphorism, "Hedge when you can, not when you have to," is only a rough guide to solving
-this difficult problem.
+[^3]: The trader aphorism, "Hedge when you can, not when you have to,"
+is only a rough guide to solving this difficult problem.
