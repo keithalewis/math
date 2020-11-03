@@ -252,7 +252,7 @@ and hedge at one point in time.
 Similarly, CVA fails to take into account hedging. The CVA of a portfolio
 is $\int_T \max\{E[V_t], 0\} h(t)\,dt$ where $V_t$ is the value of the
 portfolio at $t$ and $h$ is a given _haircut_. The term $\max\{V_t, 0\}$ is
-called the _exposure_ of the portfolio holder. Holders are not exposed
+the _exposure_ of the portfolio holder.[^4] Holders are not exposed
 to counterparty risk if they owe money. This technique has been common
 in the insurance industry to calculate premiums long before it was
 used in the financial world.
@@ -308,3 +308,7 @@ hits a certain level.
 
 [^3]: The trader aphorism, "Hedge when you can, not when you have to,"
 is only a rough guide to solving this difficult problem.
+
+[^4]: The formula for CVA should use $E[\max\{V_t,0\}]$ and not $\max\{E[V_t], 0\}$
+but that is computationally more difficult. Jensen's inequality implies
+$E[\max\{V_t,0\}] \ge\max\{E[V_t], 0\}$ so CVA underestimates the risk.
