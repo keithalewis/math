@@ -135,12 +135,12 @@ seller and may consist of the empty set for some buyers.[^1]
 A mathematical model for cash flows is a function $C_t:I\times I\to A$.
 At time $t$ instrument $i$ has cash flow amount $C_t(i,i')$ in instrument $i'$.
 
-A mathematical model for prices is a (partial) function
-$X_t\colon I\times A\times E\times I\times E\to\mathbf{R}$.
-At time $t$ the trade $(t;a,i,e;a X_t(i,a,e,i',e'),i',e')$
-is available to buyer $e$ from seller $e'$. Price is determined by
-the amount of $i$ the buyer must give the seller for $i'$ at time $t$.
-It is possible there are no quoted prices so $X_t$ is only a partial function.
+A mathematical model for prices is a (partial) function $X_t\colon
+I\times A\times E\times I\times E\to\mathbf{R}$.  At time $t$ the trade
+$(t;a,i,e;a X_t(i,a,e,i',e'),i',e')$ is available to buyer $e$ from
+seller $e'$. Price is determined by the amount of $i$ the buyer must
+give the seller for amount $aX_t$ of $i'$ at time $t$.  It is possible
+there are no quoted prices so $X_t$ is only a partial function.
 
 Most models of price in the financial literature do not depend on $a$,
 $e$, or $e'$.  Anyone who has traded knows there are different prices
