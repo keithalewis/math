@@ -216,8 +216,8 @@ and the cost of trades just executed are debited. Note $A_{\tau_0} = -V_{\tau_0}
 Trading strategies create synthetic instruments. Amounts and values are
 proxies for cash flows and prices. A derivative security is a contract
 between counter-parties for exchanges of future amounts.  If a trading
-strategy that produces those amounts exists then its initial value should
-be in the neighborhood of what a sell side trader quotes to customers.
+strategy that produces those amounts exists then its initial value, plus vigorish,
+is what a sell side trader quotes to customers.
 A quants job is to help traders figure out when ($\tau_j$) and how much ($\Gamma_j$)
 to trade in order to satisfy the contract obligations.[^3]
 
