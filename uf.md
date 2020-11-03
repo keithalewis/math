@@ -122,15 +122,15 @@ possible cash flows and prices in the future.
 Let $T$ be the set of trading times, $I$ be the set of instruments, $A$
 be the set of amounts, and $E$ be the set of entities.
 
+All models have shortcomings to keep in mind when being applied.
 Trading times depend on the instrument and the seller. If an instrument
 is listed on an exchange then it can only be traded during market
 hours. Every seller gets to determine when the instruments they offer
 can be traded.
-
 Amounts are constrained by the instrument, time, and seller.  Instruments
 trade in finite increments and sometimes cannot be shorted ($a < 0$
 is not allowed). The amount available is also at the discretion of the
-seller and may consist of the empty set for some buyers.[^1]
+seller and may consist of the empty set for certain buyers.[^1]
 
 A mathematical model for cash flows is a function $C_t:I\times I\to A$.
 At time $t$ instrument $i$ has cash flow amount $C_t(i,i')$ in instrument $i'$.
@@ -142,13 +142,13 @@ seller $e'$. Price is determined by the amount of $i$ the buyer must
 give the seller for amount $aX_t$ of $i'$ at time $t$.  It is possible
 there are no quoted prices so $X_t$ is only a partial function.
 
-Most models of price in the financial literature do not depend on $a$,
-$e$, or $e'$.  Anyone who has traded knows there are different prices
+Most models of price in the financial literature do not depend on the amount
+traded, $a$, or the counterparties $e$, or $e'$.  Anyone who has traded knows there are different prices
 depending on whether you are buying ($a > 0$) or selling ($a < 0$) &ndash;
 the ask and the bid price, respectively.
 Anyone who has traded large amounts also knows the
 bid/ask spread widens as the amount becomes large.
-The price can also depend on the counter-parties in the trade,
+The price can also depend on the counterparties in the trade,
 as anyone with poor credit will find when attempting to take out a loan.
 
 ## Trading
@@ -215,7 +215,7 @@ and the cost of trades just executed are debited. Note $A_{\tau_0} = -V_{\tau_0}
 
 Trading strategies create synthetic instruments. Amounts and values are
 proxies for cash flows and prices. A derivative security is a contract
-between counter-parties for exchanges of future amounts.  If a trading
+between counterparties for exchanges of future amounts.  If a trading
 strategy that produces those amounts exists then its initial value, plus vigorish,
 is what a sell side trader quotes to customers.
 A quants job is to help traders figure out when ($\tau_j$) and how much ($\Gamma_j$)
@@ -244,10 +244,9 @@ over the period. As the length of the period increases the probability
 of a portfolio manager being fired for not doing their job approaches 1.
 
 VaR can be turned into a more useful measure by incorporating the
-hedging strategy. Different hedging strategies
-can be compared for their effectiveness. Of course drawup and drawdown
-should also be considered instead of only the value of the portfolio
-and hedge at one point in time.
+hedging strategy. Different hedging strategies can be compared for their
+effectiveness. Of course drawup and drawdown should also be considered
+instead of only the value of the hedged portfolio at one point in time.
 
 Similarly, CVA fails to take into account hedging. The CVA of a portfolio
 is $\int_T \max\{E[V_t], 0\} h(t)\,dt$ where $V_t$ is the value of the
