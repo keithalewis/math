@@ -37,6 +37,10 @@ details {
 		margin: 1em 1.5em 0 1.5em;
 		padding: 1em;
 	}
+	p {
+		text-align: left;
+		text-justify: none;
+	}
 }
 
 .katex {
