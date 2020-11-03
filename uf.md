@@ -293,7 +293,7 @@ orders they have near the current market level. If a market order is
 not too large then the levels of the limit orders it will match can be
 determined. However, other customers and liquidity providers can cause
 changes to the order book before market orders are executed to cause
-uncertainty in the exact amount of limit orders at each level.
+uncertainty in the exact amounts of matching limit orders at each level.
 
 The future of Mathematical Finance is developing more accurate models
 of trading and taking advantage of advances in computing power to
