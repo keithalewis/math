@@ -104,6 +104,10 @@ of the price at time $t$, $X_t(i_0,i)$, of each instrument $i$ in terms of $i_0$
 All holdings $(i,a,e)$ are converted to $(i_0, aX(i_0,i), e)$ then netted
 to report the P&amp;L in terms of $i_0$.
 
+Other relevant quantities can be computed similarly. For example the
+_drawdown_ over $[t, u]$ is $N_u(i,e) - \min_{t\le s \le u} N_s(i,e)$
+and the _drawup_ is $\max_{t\le s\le u} N_s(i,e) - N_u(i,e)$.
+
 Any instrument could be used instead of a native currency.
 A subset of instruments could also be chosen to break P&amp;L reporting
 into components.  The set of all currencies involved in a position is
@@ -131,12 +135,12 @@ seller and may consist of the empty set for certain buyers.[^1]
 A mathematical model for cash flows is a function $C_t:I\times I\to A$.
 At time $t$ instrument $i$ has cash flow amount $C_t(i,i')$ in instrument $i'$.
 
-A mathematical model for prices is a (partial) function
-$X_t\colon I\times A\times E\times I\times E\to\mathbf{R}$.
-At time $t$ the trade $(t;a,i,e;a X_t(i,a,e,i',e'),i',e')$
-is available to buyer $e$ from seller $e'$. Price is determined by
-the amount of $i$ the buyer must give the seller for $i'$ at time $t$.
-It is possible there are no quoted prices so $X_t$ is only a partial function.
+A mathematical model for prices is a (partial) function $X_t\colon
+I\times A\times E\times I\times E\to\mathbf{R}$.  At time $t$ the trade
+$(t;a,i,e;a X_t(i,a,e,i',e'),i',e')$ is available to buyer $e$ from
+seller $e'$. Price is determined by the amount of $i$ the buyer must
+give the seller for amount $aX_t$ of $i'$ at time $t$.  It is possible
+there are no quoted prices so $X_t$ is only a partial function.
 
 Most models of price in the financial literature do not depend on the amount
 traded, $a$, or the counterparties $e$, or $e'$.  Anyone who has traded knows there are different prices
@@ -212,8 +216,8 @@ and the cost of trades just executed are debited. Note $A_{\tau_0} = -V_{\tau_0}
 Trading strategies create synthetic instruments. Amounts and values are
 proxies for cash flows and prices. A derivative security is a contract
 between counterparties for exchanges of future amounts.  If a trading
-strategy that produces those amounts exists then its initial value should
-be in the neighborhood of what a sell side trader quotes to customers.
+strategy that produces those amounts exists then its initial value, plus vigorish,
+is what a sell side trader quotes to customers.
 A quants job is to help traders figure out when ($\tau_j$) and how much ($\Gamma_j$)
 to trade in order to satisfy the contract obligations.[^3]
 
@@ -229,12 +233,49 @@ of arbitrage depends on the model used for cash flows and prices.
 
 [The Fundamental Theorem of Asset Pricing](https://kalx.net/um.pdf) describes all arbitrage-free models.
 
+
+## Risk
+
+The basic problem with most measures of risk is that they do not take
+hedging into account.  _Value at risk_ (VaR) is defined using a time period
+and a probability $p$.  The probability of the value of a portfolio at the
+end of the period being less than VaR equals $p$, assuming no trades occur
+over the period. As the length of the period increases the probability
+of a portfolio manager being fired for not doing their job approaches 1.
+
+VaR can be turned into a more useful measure by incorporating the
+hedging strategy. Different hedging strategies can be compared for their
+effectiveness. Of course drawup and drawdown should also be considered
+instead of only the value of the hedged portfolio at one point in time.
+
+Similarly, CVA fails to take into account hedging. The CVA of a portfolio
+is $\int_T \max\{E[V_t], 0\} h(t)\,dt$ where $V_t$ is the value of the
+portfolio at $t$ and $h$ is a given _haircut_. The term $\max\{V_t, 0\}$ is
+the _exposure_ of the portfolio holder.[^4] Holders are not exposed
+to counterparty risk if they owe money. This technique has been common
+in the insurance industry to calculate premiums long before it was
+used in the financial world.
+
+It is common for swaps to have unwind agreements that will be exercised if
+the market moves against them. This is an example of a hedging strategy
+that can be applied to a portfolio to get a more accurate estimate of
+counterparty risk.  The CVA haircut should not be applied to trades
+after they no longer belong to the portfolio.
+
+DVA is just the CVA of the party on the other side of the trades.
+The menagerie of XVA measures are attempts to incorporate special
+case hedging strategies or cash flows due to taxes or regulatory
+capital requirements. They can all be replaced by explicitly
+incorporating the trading strategy and cash flows involved
+when applying the CVA formula.
+
 ## Remarks
 
 Trades often involve the exchange of more than two holdings,
 for example a fee or commission to a broker or market maker that enabled the trade.
 These are accommodated by including the associated transactions as trades with
-the third parties involved.
+the third parties involved. Perhaps these should be called the _molecules_
+of finance.
 
 The financial world is still waiting for its Werner Heisenberg. The price
 of a trade after it has been executed is a number: the amount the
@@ -245,17 +286,17 @@ price after settlement is lumped into the term _slippage_.
 
 Modeling that uncertainty is an ongoing puzzle.
 
-For trades on an exchange the order book can give a better handle on
-what the slippage might be. Some exchanges report the net amount of
-limit orders they have near the current market level. If a market order
-is not too large then the levels of the limit orders it will match can
-be determined. However, other customers and liquidity providers can
-cause changes to the order book before your trade gets executed to cause
-uncertainty in the exact amount at each level.
+For trades on an exchange the order book can give a better handle on what
+the slippage might be. Some exchanges report the net amount of limit
+orders they have near the current market level. If a market order is
+not too large then the levels of the limit orders it will match can be
+determined. However, other customers and liquidity providers can cause
+changes to the order book before market orders are executed to cause
+uncertainty in the exact amounts of matching limit orders at each level.
 
 The future of Mathematical Finance is developing more accurate models
 of trading and taking advantage of advances in computing power to
-provide people running their business better answers to
+provide people running their business timely and detailed answers to
 questions they find relevant.
 
 [^1]: Adhering to the trader aphorism, "Don't be a dick for a tick," can help prevent this.
@@ -264,5 +305,9 @@ questions they find relevant.
 depends only on prior information, for example when the price of a stock
 hits a certain level.
 
-[^3]: The trader aphorism, "Hedge when you can, not when you have to," is only a rough guide to solving
-this difficult problem.
+[^3]: The trader aphorism, "Hedge when you can, not when you have to,"
+is only a rough guide to solving this difficult problem.
+
+[^4]: The formula for CVA should use $E[\max\{V_t,0\}]$ and not $\max\{E[V_t], 0\}$
+but that is computationally more difficult. Jensen's inequality implies
+$E[\max\{V_t,0\}] \ge\max\{E[V_t], 0\}$ so CVA underestimates the risk.
