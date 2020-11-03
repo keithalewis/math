@@ -198,7 +198,7 @@ deducted from the trader's account and reported as the value of
 the position to risk management.
 
 If more than one instrument is traded then
-$V_0 = \sum_{i\in I}\Gamma_0(i) X_{\tau_0}(i)$ where $\Gamma__0(i)$.
+$V_0 = \sum_{i\in I}\Gamma_0(i) X_{\tau_0}(i)$.
 The sum is over all instruments, but $\Gamma_0(i) = 0$ if $i$ is not traded.
 If we represent trades and prices as vectors indexed by instruments
 this can be written as $V_0 = \Gamma_0\cdot X_{\tau_0}$ where
