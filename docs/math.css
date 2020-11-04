@@ -32,6 +32,16 @@ details {
 	margin-left: 1em;
     color: #00008F;
 }
+@media only screen and (max-device-width: 480px) {
+	html {
+		margin: 1em 1.5em 0 1.5em;
+		padding: 1em;
+	}
+	p {
+		text-align: left;
+		text-justify: none;
+	}
+}
 
 .katex {
 	font-size: 100% !important;
@@ -59,3 +69,4 @@ details {
     padding: 10px;
     color: blue;
 }
+

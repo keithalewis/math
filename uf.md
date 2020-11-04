@@ -46,22 +46,24 @@ A _trade_ involves a pair of holdings and a _trade time_.
 The trade $(t; i, a, e; i', a', e')$ indicates
 _buyer_ $e$ exchanged amount $a$ of instrument $i$ for amount $a'$ of instrument $i'$
 with seller $e'$ at time $t$.
-The _price_ for the trade is $X = a'/a$.
+The _price_ for the trade is the quotient of the buyer and seller amounts, $X = a/a'$.
 Prices are determined by the seller.
 The buyer decides the amount and instruments to exchange based on the seller's price
 (among other considerations).
 
-The trade $(t;i,a,e;i',a',e')$ changes the holdings of the buyer and seller
-at time $t$. The holding $(i,a,e)$ of the buyer becomes $(i',a',e)$ and
-the holding $(i',a',e')$ of the seller becomes $(i,a,e')$.
-We assume instruments are _divisible_ so a holding $(i,a_1,e)$ can be
-split into $(i,a_1-a_0,e)$ and $(i,a_0,e)$ for any amount $a_0$ at no cost
-if needed. If $0 < a_0 < a_1$ this is close to being true.
+The trade $(t;i,a,e;i',a',e') = (t;i,a'Xa,e;i',a',e')$ changes the
+holdings of the buyer and seller at time $t$. The holding $(i,a,e)$
+of the buyer becomes $(i',a',e)$ and the holding $(i',a',e')$ of the
+seller becomes $(i,a,e') = (i,a'X,e')$.  We assume instruments are _divisible_ so a
+holding $(i,a_1,e)$ can be split into $(i,a_1-a_0,e)$ and $(i,a_0,e)$
+for any amount $a_0$ at no cost if needed. If $0 < a_0 < a_1$ this is
+close to being true.
 
-As an example, suppose a buyer holds 16 dollars $(\$, 16)$ and
+As an example, suppose a buyer holds 100 dollars $(\$, 100)$ and
 a seller holds two shares of Ford stock $(F, 2)$. If the seller
 quotes a price of 8 dollars per share
-then the buyer can obtain $(F, 2)$ by giving the seller $(\$, 16)$.
+then the buyer can obtain $(F, 2)$ by giving the seller $(\$, 2\times 8)$
+and now holds $(\$,100-16) = (\$, 84)$.
 
 Foreign exchange is not a special case. If the USD/JPY exchange rate is 100 then
 $(\$, a)$ can be exchanged for $($&yen;$,100a)$. If we write &dollar;1 = &yen;100
@@ -74,7 +76,7 @@ Similarly, commodities are also not special. This model can be used for **all** 
 Instruments entail _cash flows_; stocks pay dividends, bonds pays
 coupons, futures have margin adjustments. These cause changes to positions.
 If instrument $i$ pays cash flow $C_t(i,i')$ per share of $i$ in instrument
-$i'$ at time $t$ then holding $(i,a,e)$ at time $t$ will cause $(i',aC_t(i,i'),e)$
+$i'$ at time $t$ then holding $(i,a,e)$ at time $t$ will cause $(i',a C_t(i,i'),e)$
 to be included in the position of $e$ at $t$.  Usually $i'$ is the native
 currency associated with instrument $i$ and is omitted.  Specifying $i'$
 allows for _payment-in-kind_ cash flows.
@@ -132,32 +134,35 @@ trade in finite increments and sometimes cannot be shorted ($a < 0$
 is not allowed). The amount available is also at the discretion of the
 seller and may consist of the empty set for certain buyers.[^1]
 
-A mathematical model for cash flows is a function $C_t:I\times I\to A$.
+A mathematical model for cash flows is a function[^x] $C_t:I\times I\to A$.
 At time $t$ instrument $i$ has cash flow amount $C_t(i,i')$ in instrument $i'$.
 
 A mathematical model for prices is a (partial) function $X_t\colon
-I\times A\times E\times I\times E\to\mathbf{R}$.  At time $t$ the trade
-$(t;a,i,e;a X_t(i,a,e,i',e'),i',e')$ is available to buyer $e$ from
-seller $e'$. Price is determined by the amount of $i$ the buyer must
-give the seller for amount $aX_t$ of $i'$ at time $t$.  It is possible
-there are no quoted prices so $X_t$ is only a partial function.
+I\times E\times I\times A\times E\to\mathbf{R}$.  At time $t$ the trade
+$(t;i, a'X_t, e;i', a', e')$ is available to buyer $e$ from
+seller $e'$ at price $X_t = X_t(i,e,i',a',e')$.
+Price determines the amount of $i$ the buyer must
+give the seller for amount $a'$ of $i'$ at time $t$.
+It is possible there are no quoted prices so $X_t$ is only a partial function.
 
-Most models of price in the financial literature do not depend on the amount
-traded, $a$, or the counterparties $e$, or $e'$.  Anyone who has traded knows there are different prices
-depending on whether you are buying ($a > 0$) or selling ($a < 0$) &ndash;
-the ask and the bid price, respectively.
-Anyone who has traded large amounts also knows the
-bid/ask spread widens as the amount becomes large.
-The price can also depend on the counterparties in the trade,
-as anyone with poor credit will find when attempting to take out a loan.
+Most models of price in the financial literature do not depend on the
+amount traded, $a$, or the counterparties $e$, or $e'$.  Anyone who
+has traded knows there are different prices depending on whether you
+are buying ($a > 0$) or selling ($a < 0$) &ndash; the ask and the bid
+price, respectively.  Anyone who has traded large amounts also knows the
+bid/ask spread widens as the amount gets larger.  The price can also
+depend on the counterparties in the trade, as anyone with poor credit
+will find when attempting to take out a loan.
 
 ## Trading
 
 A _trading strategy_ is an increasing sequence of _stopping times_[^2] $(\tau_j)$
-and trades $\Gamma_j\colon I\times E\times I\times E\to A$ indicating the
-amount to trade at time $\tau_j$ in two instruments between two entities.
-A trading strategy results in the trades $(\tau_j;\Gamma_j,i,e;\Gamma_j X_j, i', e')$
-where $\Gamma_j = \Gamma_j(i, e, i', e')$ and $X_j = X_{\tau_j}(i,\Gamma_j,e,i',e')$.
+and amounts $\Gamma_j\colon I\times E\times I\times E\to A$ 
+to trade at time $\tau_j$ in two instruments between two entities.
+The trades are $(\tau_j;i,\Gamma_j X_j,e;i', \Gamma_j, e')$
+where $\Gamma_j = \Gamma_j(i, e, i', e')$ and $X_j = X_{\tau_j}(i,e,i',\Gamma_j,e')$.
+After the trade the buyer $e$ hold amount $\Gamma_j$ of $i'$ and the
+seller holds amount $\Gamma_j X_j$ of $i$ in exchange for that.
 
 Most models do not specify the seller $e'$; traders assume there is an aggregate
 market of _liquidity providers_ for $i'$. Usually $e$ is assumed to be
@@ -184,14 +189,17 @@ otherwise, this becomes $\Delta_t = \sum_{s < t} \Gamma_s$.  Note the
 strict inequality. A trade executed at time $t$ is not included in the
 position at $t$; it takes some time for a trade to settle.
 
-Fix the funding currency $i = i_0$ and write $\Gamma_t(i_0, i) = \Gamma_t(i)$
+Fix the funding currency $i_0$ and write $\Gamma_t(i_0, i) = \Gamma_t(i)$
 and $X_t(i_0, i) = X_t(i)$.
 The _cost_ of the initial trade in terms of $i_0$ is
-$V_0 = \sum_{i\in I}\Gamma_0(i) X_{\tau_0}(i)$; buying
+$V_0 = \Gamma_0(i) X_{\tau_0}(i)$; buying
 amount $\Gamma$ at price $X$ costs $\Gamma X$. This amount will be
 deducted from the trader's account and reported as the value of
 the position to risk management.
 
+If more than one instrument is traded then
+$V_0 = \sum_{i\in I}\Gamma_0(i) X_{\tau_0}(i)$.
+The sum is over all instruments, but $\Gamma_0(i) = 0$ if $i$ is not traded.
 If we represent trades and prices as vectors indexed by instruments
 this can be written as $V_0 = \Gamma_0\cdot X_{\tau_0}$ where
 dot indicates the _inner product_ of vectors.
@@ -201,7 +209,7 @@ $$
 	V_t = (\Delta_t + \Gamma_t)\cdot X_t.
 $$
 This is the amount the trader would get from unwinding the existing position
-and the trades just executed at the prevailing market price, assuming
+and trades just executed at the prevailing market price, assuming
 that were possible. Note $V_{\tau_0} = \Gamma_0\cdot X_{\tau_0}$ is
 the cost of the initial trade.
 
@@ -279,12 +287,12 @@ of finance.
 
 The financial world is still waiting for its Werner Heisenberg. The price
 of a trade after it has been executed is a number: the amount the
-seller gave to the buyer divided by the amount the buyer gave to the
-seller. The price prior to completing a trade is more nebulous.
+buyer gave to the seller divided by the amount the seller gave to the
+buyer. The price prior to completing a trade is more nebulous.
 The difference between a price quoted prior to a trade and the realized
 price after settlement is lumped into the term _slippage_.
 
-Modeling that uncertainty is an ongoing puzzle.
+Accurately modeling that uncertainty is an ongoing puzzle.
 
 For trades on an exchange the order book can give a better handle on what
 the slippage might be. Some exchanges report the net amount of limit
@@ -294,12 +302,21 @@ determined. However, other customers and liquidity providers can cause
 changes to the order book before market orders are executed to cause
 uncertainty in the exact amounts of matching limit orders at each level.
 
-The future of Mathematical Finance is developing more accurate models
-of trading and taking advantage of advances in computing power to
-provide people running their business timely and detailed answers to
-questions they find relevant.
+There is a clear trajectory in Mathematical Finance starting from the
+Black-Scholes/Merton model of a single option parameterized by a constant
+volatility to portfolios of instruments using increasingly sophisticated
+models that can be parameterized to fit all available market data.
+
+The future of Mathematical Finance is developing more accurate models,
+incorporating potential trading strategies, that can be used across
+all asset classes.
 
 [^1]: Adhering to the trader aphorism, "Don't be a dick for a tick," can help prevent this.
+
+[^x]: Cash flows and prices are modeled using _random variables_: a
+variable together with the probabilities of the values it can have. The
+mathematical definition is that a random variable is a function from a
+_sample space_ to the real numbers.
 
 [^2]: A _stopping time_ is a random variable taking values in $T$ that
 depends only on prior information, for example when the price of a stock
