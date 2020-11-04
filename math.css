@@ -34,8 +34,8 @@ details {
 }
 @media only screen and (max-device-width: 480px) {
 	html {
-		margin: 1em 1.5em 0 1.5em;
-		padding: 1em;
+		margin: auto
+		padding: 0;
 	}
 	p {
 		text-align: left;
