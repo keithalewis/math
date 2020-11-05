@@ -7,24 +7,26 @@ fleqn: true
 abstract: Unified Finance &ndash; holdings and trades determine profit and loss.
 ...
 
-There is a unified way to organize the foundations of finance.
+The financial world is a big, messy affair but its core involves trading
+and bean counting. Who traded how much of what when and accounting
+for that over time.
 
 The atoms of finance are _holdings_: an _instrument_, _amount_, and _legal entity_.
 Holdings interact via _trades_: the exchange of two holdings at a given _time_. 
 Instruments have _cash flows_ and _prices_ that determine
 the _amounts_ and _values_ involved with trading.
 Given a collection of holdings and
-a sequence of trades the associated amounts and values determine the
-_profit and loss_.
+a sequence of trades the associated amounts and values determine
+the _profit and loss_, among other quantities relevant to managing a portfolio.
 
 To properly assess the risk of a position it is necessary to include
 how it will be hedged over time. A simple example of this is Carr2020...
-Different hedging strategies can, and should, be used to better understand
-future risk.
+Various hedging strategies can, and should, be used to better understand
+risk.
 
 This model highlights that both cash flows and prices must be specified
-by mathematical models. All instruments are placed on equal footing to
-get a complete picture of risk across all asset classes.
+by mathematical models. It also places all instruments on equal footing to
+get a complete picture of risk across asset classes.
 
 ## Holding
 
@@ -52,15 +54,16 @@ A _trade_ involves a pair of holdings and a _trade time_.
 The trade $(t; i, a, e; i', a', e')$ indicates
 _buyer_ $e$ exchanged amount $a$ of instrument $i$ for amount $a'$ of instrument $i'$
 with seller $e'$ at time $t$.
-The _price_ for the trade is the quotient of the buyer and seller amounts, $X = a/a'$.
+The _price_ for the trade is the quotient of the buyer and seller amounts,
+$X = a/a'$ so the trade is $(t; i, a'X, e; i', a', e')$
 Prices are determined by the seller.
 The buyer decides the amount and instruments to exchange based on the seller's price
 (among other considerations).
 
-The trade $(t;i,a,e;i',a',e') = (t;i,a'Xa,e;i',a',e')$ changes the
+The trade $(t;i,a,e;i',a',e')$ changes the
 holdings of the buyer and seller at time $t$. The holding $(i,a,e)$
 of the buyer becomes $(i',a',e)$ and the holding $(i',a',e')$ of the
-seller becomes $(i,a,e') = (i,a'X,e')$.  We assume instruments are _divisible_ so a
+seller becomes $(i,a,e')$.  We assume instruments are _divisible_ so a
 holding $(i,a_1,e)$ can be split into $(i,a_1-a_0,e)$ and $(i,a_0,e)$
 for any amount $a_0$ at no cost if needed. If $0 < a_0 < a_1$ this is
 close to being true.
@@ -123,7 +126,7 @@ a common choice.
 
 ## Model
 
-There is no question about the cash flows received or the prices
+There is no question about cash flows received or prices
 of trades after the fact.  Mathematics can be used to _model_
 possible cash flows and prices in the future.
 
@@ -250,12 +253,14 @@ of arbitrage depends on the model used for cash flows and prices.
 
 ## Risk
 
-The basic problem with most measures of risk is that they do not take
-hedging into account.  _Value at risk_ (VaR) is defined using a time period
+The basic problem with most measures of risk is that they fail to take
+hedging into account.
+
+_Value at risk_ (VaR) is defined using a time period
 and a probability $p$.  The probability of the value of a portfolio at the
 end of the period being less than VaR equals $p$, assuming no trades occur
 over the period. As the length of the period increases the probability
-of a portfolio manager being fired for not doing their job approaches 1.
+of a portfolio manager being fired for not hedging it approaches 1.
 
 VaR can be turned into a more useful measure by incorporating the
 hedging strategy. Different hedging strategies can be compared for their
@@ -310,12 +315,13 @@ uncertainty in the exact amounts of matching limit orders at each level.
 
 There is a clear trajectory in Mathematical Finance starting from the
 Black-Scholes/Merton model of a single option parameterized by a constant
-volatility to portfolios of instruments using increasingly sophisticated
+volatility to portfolios of instruments belonging to the same asset class
+using increasingly sophisticated
 models that can be parameterized to fit all available market data.
 
-The future of Mathematical Finance is developing more accurate models,
-incorporating potential trading strategies, that can be used across
-all asset classes.
+The future of Mathematical Finance is developing more accurate models
+that allow incorporating potential trading strategies and extending
+the set of instruments to all asset classes.
 
 [^1]: Adhering to the trader aphorism, "Don't be a dick for a tick," can help prevent this.
 
