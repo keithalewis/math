@@ -17,8 +17,14 @@ Given a collection of holdings and
 a sequence of trades the associated amounts and values determine the
 _profit and loss_.
 
-All instruments are placed on equal footing to get a complete
-picture of profit and loss over time.
+To properly assess the risk of a position it is necessary to include
+how it will be hedged over time. A simple example of this is Carr2020...
+Different hedging strategies can, and should, be used to better understand
+future risk.
+
+This model highlights that both cash flows and prices must be specified
+by mathematical models. All instruments are placed on equal footing to
+get a complete picture of risk across all asset classes.
 
 ## Holding
 
