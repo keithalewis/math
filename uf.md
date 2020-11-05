@@ -4,11 +4,11 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: Unified Finance &ndash; holdings and trades determine profit and loss.
+abstract: Unified Finance &ndash; holdings, trades, and managing risk
 ...
 
 The financial world is a big, messy affair but its core involves trading
-and bean counting. Who traded how much of what when and accounting
+and bean counting: who traded how much of what when and accounting
 for that over time.
 
 The atoms of finance are _holdings_: an _instrument_, _amount_, and _legal entity_.
@@ -20,7 +20,7 @@ a sequence of trades the associated amounts and values determine
 the _profit and loss_, among other quantities relevant to managing a portfolio.
 
 To properly assess the risk of a position it is necessary to include
-how it will be hedged over time. A simple example of this is Carr2020...
+how it will be hedged over time. A key example of this is Carr2020...
 Various hedging strategies can, and should, be used to better understand
 risk.
 
@@ -293,7 +293,7 @@ when applying the CVA formula.
 Trades often involve the exchange of more than two holdings,
 for example a fee or commission to a broker or market maker that enabled the trade.
 These are accommodated by including the associated transactions as trades with
-the third parties involved. Perhaps these should be called the _molecules_
+the third parties involved. Perhaps these should be called the molecules
 of finance.
 
 The financial world is still waiting for its Werner Heisenberg. The price
@@ -315,12 +315,12 @@ uncertainty in the exact amounts of matching limit orders at each level.
 
 There is a clear trajectory in Mathematical Finance starting from the
 Black-Scholes/Merton model of a single option parameterized by a constant
-volatility to portfolios of instruments belonging to the same asset class
-using increasingly sophisticated
-models that can be parameterized to fit all available market data.
+volatility to portfolios of instruments belonging to the same asset
+class using increasingly sophisticated models that can be parameterized
+to fit all available market data.
 
 The future of Mathematical Finance is developing more accurate models
-that allow incorporating potential trading strategies and extending
+that allow for incorporating potential trading strategies and extending
 the set of instruments to all asset classes.
 
 [^1]: Adhering to the trader aphorism, "Don't be a dick for a tick," can help prevent this.
