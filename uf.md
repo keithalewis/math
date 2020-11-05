@@ -139,7 +139,7 @@ is listed on an exchange then it can only be traded during market
 hours. Every seller gets to determine when the instruments they offer
 can be traded.
 Amounts are constrained by the instrument, time, and seller.  Instruments
-trade in finite increments and sometimes cannot be shorted ($a < 0$
+trade in finite increments and sometimes cannot be shorted ($a' < 0$
 is not allowed). The amount available is also at the discretion of the
 seller and may consist of the empty set for certain buyers.[^1]
 
@@ -155,9 +155,9 @@ give the seller for amount $a'$ of $i'$ at time $t$.
 It is possible there are no quoted prices so $X_t$ is only a partial function.
 
 Most models of price in the financial literature do not depend on the
-amount traded, $a$, or the counterparties $e$, or $e'$.  Anyone who
+amount traded, $a'$, or the counterparties $e$, or $e'$.  Anyone who
 has traded knows there are different prices depending on whether you
-are buying ($a > 0$) or selling ($a < 0$) &ndash; the ask and the bid
+are buying ($a' > 0$) or selling ($a' < 0$) &ndash; the ask and the bid
 price, respectively.  Anyone who has traded large amounts also knows the
 bid/ask spread widens as the amount gets larger.  The price can also
 depend on the counterparties in the trade, as anyone with poor credit
@@ -243,7 +243,7 @@ out_ at $t$. If no trades are executed after that then future amounts and values
 are zero.
 
 If a trading strategy has $A_{\tau_0} > 0$, $A_t \ge 0$
-for $t > \tau_0$, and eventually closes out, then _arbitrage_ exists: it is
+for $t > \tau_0$, and eventually closes out then _arbitrage_ exists: it is
 possible to make money on the initial trade and never lose money over the
 life of the trading strategy.  It is important to note this definition
 of arbitrage depends on the model used for cash flows and prices.
@@ -271,9 +271,9 @@ Similarly, CVA fails to take into account hedging. The CVA of a portfolio
 is $\int_T \max\{E[V_t], 0\} h(t)\,dt$ where $V_t$ is the value of the
 portfolio at $t$ and $h$ is a given _haircut_. The term $\max\{V_t, 0\}$ is
 the _exposure_ of the portfolio holder.[^4] Holders are not exposed
-to counterparty risk if they owe money. This technique has been common
-in the insurance industry to calculate premiums long before it was
-used in the financial world.
+to counterparty risk if they owe money. The insurance industry
+has been using this to calculate premiums long before it showed
+up in the financial world.
 
 It is common for swaps to have unwind agreements that will be exercised if
 the market moves against them. This is an example of a hedging strategy
