@@ -48,7 +48,7 @@ coroutine iota
 ```
 The first time the coroutine is called a counter is set to 0.
 The first pass through the loop sets the statement after yield as the
-continuation point and returns 0.  Then next time it is resumed the
+continuation point and returns 0.  The next time it is resumed the
 counter is incremented and the second pass through the loop sets a new
 continuation point and returns 1. Rinse and repeat.
 
