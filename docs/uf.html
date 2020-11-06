@@ -38,10 +38,15 @@
 <h1 class="title">Unified Finance</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<p>The financial world is a big, messy affair but its core involves trading and bean counting. Who traded how much of what when and accounting for that over time.</p>
+<p>The financial world is a big, messy affair but its core involves trading and bean counting: who traded how much of what when and accounting for that over time.</p>
 <p>The atoms of finance are <em>holdings</em>: an <em>instrument</em>, <em>amount</em>, and <em>legal entity</em>. Holdings interact via <em>trades</em>: the exchange of two holdings at a given <em>time</em>. Instruments have <em>cash flows</em> and <em>prices</em> that determine the <em>amounts</em> and <em>values</em> involved with trading. Given a collection of holdings and a sequence of trades the associated amounts and values determine the <em>profit and loss</em>, among other quantities relevant to managing a portfolio.</p>
+<<<<<<< HEAD
 <p>To properly assess the risk of a position it is necessary to include how it will be hedged over time. A cannonical example of this is Carr2020… Various hedging strategies can, and should, be used to better understand risk.</p>
 <p>This model highlights that both cash flows and prices must be specified by mathematical models to determine the amounts and values associated with a trading strategy. It also places instruments on equal footing to get a complete picture of risk across <strong>all</strong> asset classes.</p>
+=======
+<p>To properly assess the risk of a position it is necessary to include how it will be hedged over time. A key example of this is Carr2020… Various hedging strategies can, and should, be used to better understand risk.</p>
+<p>This model highlights that both cash flows and prices must be specified by mathematical models. It also places all instruments on equal footing to get a complete picture of risk across asset classes.</p>
+>>>>>>> b3885004d8bc50313596fa542ae6ad4ad5d95ccf
 <h2 id="holding">Holding</h2>
 <p>A holding is an <em>instrument</em>, <em>amount</em>, and <em>legal entity</em>. Examples of instruments are: stocks, bonds, futures, currencies, commodities, etc. They are traded in some amount: shares, notional, contracts, units, and physical quantity respectively. A legal entity is an individual or corporation. The holding <span class="math inline">(i,a,e)</span> indicates entity <span class="math inline">e</span> owns amount <span class="math inline">a</span> of instrument <span class="math inline">i</span>.</p>
 <p>A <em>position</em> is a set of holdings <span class="math inline">\{(i_j,a_j,e_j)\}</span>. Assuming each instrument is <em>fungible</em> we can aggregate amounts. The <em>net amount</em> in instrument <span class="math inline">i</span> held by entity <span class="math inline">e</span> is <span class="math display">
@@ -106,12 +111,12 @@ The unified model for finance allows these to be easily integrated.
 <p>It is common for swaps to have unwind agreements that will be exercised if the market moves against them. This is an example of a hedging strategy that can be applied to a portfolio to get a more accurate estimate of counterparty risk. The CVA haircut should not be applied to holdings that no longer belong to the portfolio.</p>
 <p>DVA is just the CVA of the party on the other side of the trades. The menagerie of XVA measures are attempts to incorporate special case hedging strategies or cash flows due to taxes or regulatory capital requirements. They can all be replaced by explicitly incorporating the trading strategy and cash flows involved when applying the CVA formula.</p>
 <h2 id="remarks">Remarks</h2>
-<p>Trades often involve the exchange of more than two holdings, for example a fee or commission to a broker or market maker that enabled the trade. These are accommodated by including the associated transactions as trades with the third parties involved. Perhaps these should be called the <em>molecules</em> of finance.</p>
+<p>Trades often involve the exchange of more than two holdings, for example a fee or commission to a broker or market maker that enabled the trade. These are accommodated by including the associated transactions as trades with the third parties involved. Perhaps these should be called the molecules of finance.</p>
 <p>The financial world is still waiting for its Werner Heisenberg. The price of a trade after it has been executed is a number: the amount the buyer gave to the seller divided by the amount the seller gave to the buyer. The price prior to completing a trade is more nebulous. The difference between a price quoted prior to a trade and the realized price after settlement is lumped into the term <em>slippage</em>.</p>
 <p>Accurately modeling that uncertainty is an ongoing puzzle.</p>
 <p>For trades on an exchange the order book can give a better handle on what the slippage might be. Some exchanges report the net amount of limit orders they have near the current market level. If a market order is not too large then the levels of the limit orders it will match can be determined. However, other customers and liquidity providers can cause changes to the order book before market orders are executed to cause uncertainty in the exact amounts of matching limit orders at each level.</p>
 <p>There is a clear trajectory in Mathematical Finance starting from the Black-Scholes/Merton model of a single option parameterized by a constant volatility to portfolios of instruments belonging to the same asset class using increasingly sophisticated models that can be parameterized to fit all available market data.</p>
-<p>The future of Mathematical Finance is developing more accurate models that allow incorporating potential trading strategies and extending the set of instruments to all asset classes.</p>
+<p>The future of Mathematical Finance is developing more accurate models that allow for incorporating potential trading strategies and extending the set of instruments to all asset classes.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
