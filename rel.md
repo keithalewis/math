@@ -24,10 +24,11 @@ and the _right projection_ is the second thing $\rho\colon X\times Y\to Y$ by $\
 __Exercise__. _If $l\colon Z\to X$ and $r\colon Z\to Y$ are functions
 show there exists a function $t\colon Z\to X\times Y$ with
 $\lambda(t(z)) = l(z)$ and $\rho(t(z)) = r(z)$ for $z\in Z$_.
+
 <details>
 <summary>Solution</summary>
 
-> Define $t(z) = (l(z),r(z))\in X\times Y$ for $z\in Z$.
+Define $t(z) = (l(z),r(z))\in X\times Y$ for $z\in Z$.
 Any set for which such $t$ exists is in one-to-one correspondence with the cartesian product of $X$ and $Y$.
 
 </details>
@@ -37,18 +38,16 @@ we write $xRy$ for $(x,y)\in R$.
 The _domain_ of a relation is $\dom R = \lambda(R) = \{\lambda(x,y):(x,y)\in R\}$
 and the _codomain_, or _range_, of a relation is $\cod R = \rho(R) = \{\rho(x,y):(x,y)\in R\}$.
 The _product_, or _composition_, of the relation $R\subseteq X\times Y$
-and the relation $S\subseteq Y\times Z$ is $RS\subseteq X\times Z$ defined
-by $x(RS)z$ if and only if there exists $y\in Y$ with $xRy$ and $ySz$.
+and the relation $S\subseteq Y\times Z$ is $SR\subseteq X\times Z$ defined
+by $x(SR)z$ if and only if there exists $y\in Y$ with $xRy$ and $ySz$.
 
 The _right coset_ of $x\in\dom R$ is $xR = \{y\in Y: xRy\}$
 and the _left coset_ of $y\in\cod R$ is $Ry = \{x\in X: xRy\}$.
 
-Where to introduce ker/coker???
-
 The _kernel_ of a relation is $\ker R = \{(x,x')\in X\times X:xR = x'R\}\subseteq X\times X$.
 The _cokernel_ of a relation is $\coker R = \{(y,y')\in Y\times Y:Ry = Ry'\}\subseteq Y\times Y$.
 
-__Exercise__. _Show $x(RS)z$ if and only if the intersection of the cosets $xR$ and $Sz$ is nonempty_.
+__Exercise__. _Show $x(SR)z$ if and only if the intersection of the cosets $xR$ and $Sz$ is nonempty_.
 
 Let $I_Z = \{(z,z):z\in Z\}\subseteq Z\times Z$ be the _identity_, or _diagonal_, relation on $Z$.
 
@@ -62,7 +61,7 @@ then $J = I_X$_.
 <details>
 <summary>Solution</summary>
 
-> If $R = I_X$ then $J = JI_X = I_X$.
+If $R = I_X$ then $J = JI_X = I_X$.
 
 </details>
 
@@ -72,7 +71,7 @@ then $J = I_Y$_.
 The identity element is unique.
 
 __Exercise__. _Show for any relations $R\subseteq X\times Y$, $S\subseteq Y\times Z$,
-and $T\subseteq Z\times W$ that $(RS)T = R(ST)$_.
+and $T\subseteq Z\times W$ that $(TS)R = T(SR)$_.
 
 Composition is associative. 
 
@@ -83,13 +82,13 @@ is the relation $R' = \{(y,x):(x,y)\in R\} \subseteq Y\times X$.
 Obviously $\dom R' = \cod R$ and $\cod R' = \dom R$.
 
 __Exercise__. _Show for any relation $R\subseteq X\times Y$ that
-$I_{\dom R} \subseteq RR'$ and
-$I_{\cod R} \subseteq R'R$_.
+$I_{\dom R} \subseteq R'R$ and
+$I_{\cod R} \subseteq RR'$_.
 
 <details>
 <summary>Solution</summary>
 
-> If $x\in\dom R$ then $(x,y)\in R$ for some $y\in Y$ so $(y,x)\in R'$ and $(x,x)\in RR'$.
+If $x\in\dom R$ then $(x,y)\in R$ for some $y\in Y$ so $(y,x)\in R'$ and $(x,x)\in RR'$.
 A similar argument applies to $y\in\cod R$.
 
 </details>
@@ -116,7 +115,7 @@ __Exercise__. _Show inverses are unique_.
 <details>
 <summary>Solution</summary>
 
-> If $S$ and $T$ are inverses of $R$ then $S = S(RT) = (SR)T = T$. 
+If $S$ and $T$ are inverses of $R$ then $S = S(RT) = (SR)T = T$. 
 
 </details>
 
@@ -133,7 +132,7 @@ __Exercise__. _Show if $R$ is a partial function then $\overline{R}$ is a functi
 <details>
 <summary>Solution</summary>
 
-> If $x\in\dom R$ then $x\overline{R} = xR$ has one element. If $x\not\in\dom R$
+If $x\in\dom R$ then $x\overline{R} = xR$ has one element. If $x\not\in\dom R$
 then $x\overline{R} = \{\bot\}$ has one element.
 
 </details>
@@ -147,7 +146,7 @@ __Exercise__. _Show a function has a left inverse if and only if it is injective
 <details>
 <summary>Solution</summary>
 
-> If $R$ has a left inverse $S$ then $SR = I$. If $R(x) = R(x')$ then $x = SR(x) = SR(x') = x'$.
+If $R$ has a left inverse $S$ then $SR = I$. If $R(x) = R(x')$ then $x = SR(x) = SR(x') = x'$.
 If $R$ is injective then $R'$ is a left inverse.
 
 </details>
@@ -156,7 +155,7 @@ __Exercise__. _Show a function has a right inverse if and only if it is surjecti
 <details>
 <summary>Solution</summary>
 
-> If $R$ has a left inverse $S$ then $SR = I$. If $R(x) = R(x')$ then $x = SR(x) = SR(x') = x'$.
+If $R$ has a left inverse $S$ then $SR = I$. If $R(x) = R(x')$ then $x = SR(x) = SR(x') = x'$.
 
 </details>
 
@@ -184,7 +183,7 @@ __Exercise__. _If $R$ is transitive then $R\cup I$ is also transitive_.
 <details>
 <summary>Solution</summary>
 
-> We have $(R\cup I)(R\sup I) = (R(R\cup I)\cup I$ = (RR)\cup I\subseteq R\cup I$.
+We have $(R\cup I)(R\sup I) = (R(R\cup I)\cup I$ = (RR)\cup I\subseteq R\cup I$.
 
 </details>
 
@@ -215,7 +214,12 @@ with $xRz$ and $yRz$.
 
 __Exercise__. _Total orders are directed_.
 
-A _net_ is a directed poset.
+A _net_ is a directed poset. They can be used to define limits.
+
+If $N$ is a net and $f_\nu\colon X\to X$ where $X$ is any topological space
+then $\lim_{\nu\in N} f_\nu(x) = y$ if and only if for every neighborhood $U$
+of $y$ there exists $\nu_0\in N$ such that
+$f_\nu(x)\in U$ when $\nu\ge\nu_0$.
 
 An _equivalence relation_ partitions the set $X$ into
 _cosets_ $x/R = \{y\in X:xRy\}$ and we write $X/R$ ($X$ _modulo_ $R$)

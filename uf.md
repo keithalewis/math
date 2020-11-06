@@ -58,8 +58,8 @@ with seller $e'$ at time $t$.
 The _price_ for the trade is the quotient of the buyer and seller amounts,
 $X = a/a'$, so the trade is $(t; i, a'X, e; i', a', e')$
 Prices are determined by the seller.
-The buyer decides the amount and instruments to exchange based on the seller's price
-(among other considerations).
+The buyer decides the amount and instruments to exchange based on the seller's price,
+among other considerations.
 
 The trade $(t;i,a,e;i',a',e')$ changes the
 holdings of the buyer and seller at time $t$. The holding $(i,a,e)$
@@ -115,7 +115,6 @@ purposes.  This does not involve actual trades, only a best guess
 of the price at time $t$, $X_t(i_0,i)$, of each instrument $i$ in terms of $i_0$.
 All holdings $(i,a,e)$ are converted to $(i_0, aX(i_0,i), e)$ then netted
 to report the P&amp;L in terms of $i_0$.
-
 Other relevant quantities can be computed similarly. For example the
 _drawdown_ over $[t, u]$ is $N_u(i,e) - \min_{t\le s \le u} N_s(i,e)$
 and the _drawup_ is $\max_{t\le s\le u} N_s(i,e) - N_u(i,e)$.
@@ -276,7 +275,7 @@ to counterparty risk if they owe money. The insurance industry
 has been using this to calculate premiums long before it showed
 up in the financial world.
 
-It is common for swaps to have unwind agreements that will be exercised if
+It is common for swaps to have unwind provisions that will be exercised if
 the market moves against them. This is an example of a hedging strategy
 that can be applied to a portfolio to get a more accurate estimate of
 counterparty risk.  The CVA haircut should not be applied to holdings
