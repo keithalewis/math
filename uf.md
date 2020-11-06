@@ -56,7 +56,7 @@ The trade $(t; i, a, e; i', a', e')$ indicates
 _buyer_ $e$ exchanged amount $a$ of instrument $i$ for amount $a'$ of instrument $i'$
 with seller $e'$ at time $t$.
 The _price_ for the trade is the quotient of the buyer and seller amounts,
-$X = a/a'$ so the trade is $(t; i, a'X, e; i', a', e')$
+$X = a/a'$, so the trade is $(t; i, a'X, e; i', a', e')$
 Prices are determined by the seller.
 The buyer decides the amount and instruments to exchange based on the seller's price
 (among other considerations).
