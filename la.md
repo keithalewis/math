@@ -147,95 +147,36 @@ and $\delta_x(y) = 0$ if $y \not= x$.
 
 __Exercise__. _Show $v = \sum_{x\in X} (v\cdot\delta_x) \delta_x$ for $v\in c_{00}(X)$_.
 
-## Linear Transformation
+This shows the set $\{\delta_x:x\in X\}$ _spans_ $c_{00}(X)$.
 
-When studying mathematical objects it is useful to study functions
-between them that preserve the structure of the objects.
+### Span
 
-If $V$ and $W$ are vector spaces over the same field $\bm{F}$ then
-a function $T\colon V\to W$ is a _linear transformation_ if $T(\alpha x + y)
-= \alpha Tx + T y$ for $\alpha \in\bm{F}$ and $x,y\in V$.
-Note the addition and scalar multiplicate on the left-hand side of the equality
-are those of $V$ and on the right-hand side are those of $W$.
-Linear transformations are functions that preserve the vector space structure.
+If $x\in V$ then $\bm{F}\{x\} = \{\alpha x:\alpha \in\bm{F}\}$ is 
+the one-dimensional subspace _spanned_ by $x$.
 
-__Exercise__. _Show $T(\alpha x + \beta y) = \alpha Tx + \beta T y$
-for $\alpha,\beta \in\bm{F}$ and $x,y\in V$_.
+__Exercise__. _Show $\bm{F}\{x\}$ is the smallest subspace of $V$ containing $x$_.
 
-The set of all linear transformations from $V$ to $W$ is
-denoted $\mathcal{L}(V,W)$.
-The sum of $T,S\in \mathcal{L}(V,W)$ is defined by
-$(T + S)v = Tv + Sv$ for $v\in V$. If $\alpha\in\bm{F}$ define
-$\alpha T$ by $(\alpha T)v = \alpha(T v)$ for $v\in V$.
+More generally, let $X$ be any collection of vectors in $V$.
+The _span_ of the collection is the smallest subspace of $V$
+containing $X$ and is denoted $\span X$ or $\vee X$.
 
-__Exercise__. _Show $\mathcal{L}(V,W)$ is a vector space_.
+A _linear combination_ of vectors is a finite sum $\sum_j \alpha_j x_j$
+where $\alpha_j\in\bm{F}$ and $x_j\in V$.
 
-If $T\in\mathcal{L}(c_{00}(X), c_{00}(Y))$ then $T\delta_x = \sum_{y\in Y} t_{xy} \delta_y$
-for some $t_{xy}\in\bm{F}$ where $\{y\in Y:t_{xy}\not=0\}$ is finite.
-If $S\in\mathcal{L}(c_{00}(Y), c_{00}(Z))$ then $S\delta_y = \sum_{z\in Z} s_{yz} \delta_z$
-for some $s_{yz}\in\bm{F}$ where $\{z\in Z:s_{yz}\not=0\}$ is finite.
+__Exercise__. _Show the span of $X$ is the set of all linear combinations
+of vectors from $X$_.
 
-__Exercise__. _Show $(ST)\delta_x = \sum_{z\in Z}(\sum_{y\in Y} t_{xy} s_{yz})\delta_z$_.
-
-The _kernel_ of a linear transformation $T\colon V\to W$ is
-$\ker T = \{v\in V:Tv = 0\}$. 
-
-__Exercise__. _Show the kernel of a linear transformation is a vector space_.
-
-A linear transformation is _injective_ if $Tx = Ty$ implies $x = y$.
-
-__Exercise__. _Show a linear transformation is injective if and only if its kernel is $\{0\}$_.
-
-The _range_ of a linear transformation $T\colon V\to W$ is
-$\ran T = \{Tv\in W:v\in V\}$. If $\ran T = W$ we say $T$ is _surjective_.
-
-__Exercise__. _Show the range of a linear transformation is a vector space_.
-
-An linear transformation that is _bijective_ (injective and surjective) is an _isomorphism_
-from $V$ to $W$. We write $V\cong W$ if such an operator exists and say
-$V$ is isomorphic to $W$.
-
-__Exercise__. _Show $\cong$ is an equivalence relation on vector spaces_.
-
-This means $V\cong V$, $V\cong W$ implies $W\cong V$, and
-$U\cong V$ and $V\cong W$ implies $U\cong W$ for vector spaces $U$, $V$, and $W$.
-
-<!--
-If $T$ is an endomorphism on $V$ and $Tv = \lambda v$ for some $v\in V$ and
-$\lambda\in\bm{F}$ then $v$ is an _eigenvector_ of $T$ with _eigenvalue_ $\lambda$.
-These completely determine how $T$ acts on the one-dimensional subspace
-$\bm{F}v = \{\alpha v:\alpha\in\bm{F}\}$.
-
-__Exercise__. _Show $\bm{F}v$ is a subspace and $Tu = \lambda u$ for any $u\in\bm{F}v$_.
--->
-
-If $W = V$ we write $\mathcal{L}(V)$ for $\mathcal{L}(V,V)$
-and call the tranformations _endomorphisms_ of $V$.
-If $U\subseteq V$ and $T$ is an endomorphism on $V$ then $U$ is
-_invariant_ for $T$ if $TU\subseteq U$.
-
-__Exercise__. _Show the kernal and range of an endomorphism are invariant_.
-
-Two endomorphisms $R,T$ on $V$ are _similar_ if there exists an isomorphism
-$S$ with $R = S^{-1}TS$. We write $R\simeq T$ if so.
-
-__Exercise__. _Show similarity is an equivlence relation on endomorphisms_.
-
-Hint: $S_0^{-1}S_1 = (S_1^{-1}S_0)^{-1}$ if $S_0$ and $S_1$ are isomorphisms.
+__Exercise__. _Show the span of $X$ is a vector space_.
 
 ### Subspace
 
-Just as factoring an integer into its prime factors can provide useful
-information about the integer, vector spaces can be usefully factored down into
-smaller _subspaces_.
-
 A subset $U$ of a vector space $V$ is a subspace if $U$ is also a vector space.
 
-__Exercise__. _Show $U\subseteq V$ is a subspace if and only if $U + U\subseteq U$ and
-$\bm{F} U\subseteq U$_.
+__Exercise__. _Show $U\subseteq V$ is a subspace if and only if
+$\bm{F} U\subseteq U$ and $U + U\subseteq U$_.
 
-We use the notation $U + U = \{x + y:x\in U, y\in U\}$
-and $\bm{F} U = \{\alpha x:\alpha \in\bm{F}, x\in U\}$.
+We use the notation $\bm{F} U = \{\alpha x:\alpha \in\bm{F}, x\in U\}$ and
+$U + U = \{x + y:x\in U, y\in U\}$.
 
 __Exercise__. _If $U$ and $W$ are subspaces then $U + W$ and $U\cap W$ are also subspaces_.
 
@@ -270,29 +211,6 @@ Subspaces of $V$ form a _bounded lattice_ with _top element_ $V$ and _bottom ele
 
 The lattice structure of subspaces is used in Quantum Mechanics. [cite?]
 
-### Span
-
-If $x\in V$ then $\bm{F}\{x\} = \{\alpha x:\alpha \in\bm{F}\}$ is 
-the one-dimensional subspace _spanned_ by $x$.
-
-__Exercise__. _Show $\bm{F}\{x\}$ is the smallest subspace of $V$ containing $x$_.
-
-More generally, let $X$ be any collection of vectors in $V$.
-The _span_ of the collection is the smallest subspace of $V$
-containing $X$ and is denoted $\span X$ or $\vee X$.
-
-A _linear combination_ of vectors is a finite sum $\sum_j \alpha_j x_j$
-where $\alpha_j\in\bm{F}$ and $x_j\in V$.
-
-__Exercise__. _Show the span of $X$ is the set of all linear combinations
-of vectors from $X$_.
-
-Given a set $X$ define $\delta_x\in c(X)$ by $\delta_x(y) = 1$ if $y = x$ and
-$\delta_x(y) = 0$ if $y \not= x$.
-
-__Exercise__. _Show the span of $\{\delta_x:x\in X\}$ is $c_{00}(X)$_.
-
-
 ### Independent
 
 A key property of a collection of vectors is _independence_.  A collection
@@ -309,21 +227,134 @@ If $\sum_j \alpha_j x_j = 0$ and $\alpha_k\not = 0$ for some $k$ then
 $x_k = -(1/\alpha_k)\sum_{j\not=k} \alpha_j x_j$ is a linear combination
 of vectors in $X\setminus \{x_k\}$.
 In this case $X$ is _linearly dependent_ and $X\setminus\{x_k\}$
-has the same span as $X$. We use _reverse solidus_ for $A\setminus B = \{x\in A: x\notin B\}$
-for _set difference_.
+has the same span as $X$. We use _reverse solidus_ for $A\setminus B = \{x\in A: x\notin B\}$,
+the _set difference_.
+
+### Basis
+
+A _basis_ of $V$ is an independent set $X\subseteq V$ that spans $V$.
+Every vector space has a basis. In fact, they have lots of basis'.
+The cardinality of the basis is the _dimension_ of the vector space.
+To show dimension is well-defined we must show the
+cardinality of any two basis' are equal. Neither of these facts are trivial.
+
+__Exercise__. _Show $\{\delta_x:x\in X\}$ is a basis of $c_{00}(X)$_.
 
 __Exercise__. _If $X\subseteq V$ is independent and $y\not\in\vee X$ show $X\cup\{y\}$ is independent_.
 
+If an independent set does not span a vector space we can always add an element to 
+the set to get a larger independent set. This process eventually stops if the
+vector space is finite dimensional. The proof for (possibly) infinite dimensional
+spaces requires more machinery.
+
 Let $\mathcal{C}$ be a collection of independent subsets of $V$ that is totally ordered by inclusion,
-that is, given $X,Y\in\mathcal{C}$ either $X\subseteq Y$ or $Y\subseteq X$.
+that is, given $X,Y\in\mathcal{C}$ either $X\subseteq Y$ or $Y\subseteq X$. Any such collection
+is a _chain_.
 
-__Exercise__. _Show $\cup\mathcal{C} = \cup_{X\in\mathcal{C}} X$ is independent_.
-
-A _basis_ of $V$ is an independent set $X\subseteq V$ that spans $V$.
+__Exercise__. _Show for any chain $\mathcal{C}$ that $\cup\mathcal{C} = \cup_{X\in\mathcal{C}} X$ is independent_.
 
 __Exercise__. _Prove every vector space has a basis_.
 
 Hint: Use the previous exercises and Zorn's lemma.
+
+To prove any two basis' have the same cardinality we need _linear transformations_.
+
+## Linear Transformation
+
+A _linear tranformation_ is a function from a vector space to a vector space
+that preserves the vector space structure.
+
+If $V$ and $W$ are vector spaces over the same field $\bm{F}$ then
+a function $T\colon V\to W$ is a linear transformation if $T(\alpha x + y)
+= \alpha Tx + T y$ for $\alpha \in\bm{F}$ and $x,y\in V$.
+Note the addition and scalar multiplicate on the left-hand side of the equality
+are those of $V$ and on the right-hand side are those of $W$.
+
+__Exercise__. _Show $T(\alpha x + \beta y) = \alpha Tx + \beta T y$
+for $\alpha,\beta \in\bm{F}$ and $x,y\in V$_.
+
+The set of all linear transformations from $V$ to $W$ is
+denoted $\mathcal{L}(V,W)$.
+The sum of $T,S\in \mathcal{L}(V,W)$ is defined by
+$(T + S)v = Tv + Sv$ for $v\in V$. If $\alpha\in\bm{F}$ define
+$\alpha T$ by $(\alpha T)v = \alpha(T v)$ for $v\in V$.
+
+__Exercise__. _Show $\mathcal{L}(V,W)$ is a vector space_.
+
+If $T\in\mathcal{L}(c_{00}(X), c_{00}(Y))$ then $T\delta_x = \sum_{y\in Y} t_{xy} \delta_y$
+for some $t_{xy}\in\bm{F}$ where $\{y\in Y:t_{xy}\not=0\}$ is finite.
+If $S\in\mathcal{L}(c_{00}(Y), c_{00}(Z))$ then $S\delta_y = \sum_{z\in Z} s_{yz} \delta_z$
+for some $s_{yz}\in\bm{F}$ where $\{z\in Z:s_{yz}\not=0\}$ is finite.
+
+__Exercise__. _Show $(ST)\delta_x = \sum_{z\in Z}(\sum_{y\in Y} t_{xy} s_{yz})\delta_z$_.
+
+This shows if $R = ST$ then $\sum_{y\in Y} t_{xy} s_{yz} = r_{xz}$.
+Matrix multiplication calculates composition of linear transformations.
+
+The _kernel_ of a linear transformation $T\colon V\to W$ is
+$\ker T = \{v\in V:Tv = 0\}$. 
+
+__Exercise__. _Show the kernel of a linear transformation is a vector space_.
+
+A linear transformation is _injective_ if $Tx = Ty$ implies $x = y$.
+
+__Exercise__. _Show a linear transformation is injective if and only if its kernel is $\{0\}$_.
+
+The _range_ of a linear transformation $T\colon V\to W$ is
+$\ran T = \{Tv\in W:v\in V\}$. If $\ran T = W$ we say $T$ is _surjective_.
+
+__Exercise__. _Show the range of a linear transformation is a vector space_.
+
+A linear transformation that is _bijective_ (injective and surjective) is an _isomorphism_
+from $V$ to $W$. We write $V\cong W$ if such an operator exists and say
+$V$ is isomorphic to $W$.
+
+__Exercise__. _Show $\cong$ is an equivalence relation on vector spaces_.
+
+This means $V\cong V$, $V\cong W$ implies $W\cong V$, and
+$U\cong V$ and $V\cong W$ implies $U\cong W$ for vector spaces $U$, $V$, and $W$.
+
+<!--
+If $T$ is an endomorphism on $V$ and $Tv = \lambda v$ for some $v\in V$ and
+$\lambda\in\bm{F}$ then $v$ is an _eigenvector_ of $T$ with _eigenvalue_ $\lambda$.
+These completely determine how $T$ acts on the one-dimensional subspace
+$\bm{F}v = \{\alpha v:\alpha\in\bm{F}\}$.
+
+__Exercise__. _Show $\bm{F}v$ is a subspace and $Tu = \lambda u$ for any $u\in\bm{F}v$_.
+-->
+
+If $W = V$ we write $\mathcal{L}(V)$ for $\mathcal{L}(V,V)$
+and call the tranformations _endomorphisms_ of $V$.
+If $U\subseteq V$ and $T$ is an endomorphism on $V$ then $U$ is
+_invariant_ for $T$ if $TU\subseteq U$.
+
+__Exercise__. _Show the kernal and range of an endomorphism are invariant_.
+
+__Exercise__. _Show for any linear transformation $T\colon V\to V$ with $T^2 = T$
+that $\ker T + \ran T = V$ and $\ker T\cap\ran T = \{0\}$_.
+
+Hint: $v = (v - Tv) + Tv$ for all $v\in V$.
+
+An endomorphism $T$ with $T^2 = T$ is a _projection_. Every vector space is
+the internal sum of the kernel and range of any projection.
+
+__Exercise__. _Every subspace is the range of a projection_.
+
+Hint: Let $X$ be a basis of $U$ and $Y\supseteq X$ be a basis of $V$. Every
+vector in $v$ can be written $v = \sum_{x\in X}\alpha_x x + \sum_{y\in Y\setminus X} \beta_y y$.
+Define $Pv = \sum_{x\in X}\alpha_x x$. Show $U$ is the range of $P$ and $P^2 = P$.
+
+__Exercise__. _If $J\colon U\to V$ is inclusion and $P\colon V\to U$ is a projection,
+show $PJ$ is the identity operator on $U$_.
+
+Two endomorphisms $R,T$ on $V$ are _similar_ if there exists an isomorphism
+$S$ with $R = S^{-1}TS$. We write $R\simeq T$ if so.
+
+__Exercise__. _Show similarity is an equivlence relation on endomorphisms_.
+
+Hint: $S_0^{-1}S_1 = (S_1^{-1}S_0)^{-1}$ if $S_0$ and $S_1$ are isomorphisms.
+
+<!--
 
 ### Dimension
 
@@ -768,3 +799,4 @@ We are really defining $+\colon 2^V\times\bm{F}^I\times V^I\to V$...
 
 
 [Grobner basis...]
+-->
