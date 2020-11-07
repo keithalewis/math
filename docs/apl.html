@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>APL</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">APL</h1>
+<p class="author">Keith A. Lewis</p>
+</header>
+<p>The programming language <em>APL</em> was invented by Ken E. Iverson, a mathematician unsatisfied by the limited expressiveness of FORTRAN when it came to manipulating multidimensional arrays. What follows is a mathematical description of the objects and operations on them he invented to scratch that itch.</p>
+<p>If <span class="math inline">A</span> and <span class="math inline">B</span> are sets then the <em>exponential</em> <span class="math inline">A^B = \{f\colon B\to A\}</span> is the set of all functions from <span class="math inline">B</span> to <span class="math inline">A</span>. We use <span class="math inline">n</span> for the set <span class="math inline">\{1,\ldots, n\}</span> so <span class="math inline">A^n = \{(a_1,\ldots,a_n)\colon a_i\in A, 1\le i\le n\}</span> represents the functions <span class="math inline">a\colon n\to A</span> where <span class="math inline">a(i) = a_i</span>.</p>
+<p>A <em>data type</em> is a set <span class="math inline">X</span>. We assume <span class="math inline">X</span> is finite in what follows since we are concerned with computer implementation. Given data types from some index set <span class="math inline">X_i</span>, <span class="math inline">i\in I</span>, their cartesian product is <span class="math inline">X_I = \Pi_{i\in I}X_i</span>.</p>
+<p>A <em>table</em> is an element <span class="math inline">R\in X_I^n</span> with <em>rows</em> <span class="math inline">R = (r_j)</span>, <span class="math inline">j\in n</span>. When we don’t care about the order of the rows it is convenient to consider <span class="math inline">R</span> to be a subset of <span class="math inline">X^I</span>, <span class="math inline">\{r_j:j\in n\}</span>. If the <span class="math inline">r_j</span> are not distinct we use the <em>disjoint union</em> of the rows <span class="math inline">\{(j,r_j):j\in n\}\subseteq n\times R^I</span> to identify the row a particular <span class="math inline">r_j</span> belongs to.</p>
+<p>If <span class="math inline">J\subseteq I</span> let <span class="math inline">\pi_{J}\colon X_I\to X_J</span> be the <em>projection</em> that selects elements of <span class="math inline">J</span>. If <span class="math inline">I = n</span> we write <span class="math inline">\pi_j</span> instead of <span class="math inline">\pi_{\{j\}}</span> for <span class="math inline">j\in n</span>. A <em>pointed set</em> is a set <span class="math inline">X</span> with a special element <span class="math inline">\star\in X</span>. If the <span class="math inline">X_i</span> are pointed sets we can define the <em>injection</em> <span class="math inline">\nu{J}\colon X_J\to X_I</span> by replacing missing indices with the <span class="math inline">\star</span> for <span class="math inline">X_i</span>, <span class="math inline">i\not\in J</span>. In APL this is written using the <em>backslash</em> operator <span class="math inline">J\setminus = \nu</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\pi_{J}\nu{J}\colon X_J\to X_J</span> is the identity function on <span class="math inline">X_J</span></em>.</p>
+<p>If <span class="math inline">P\subseteq X_I</span> the <em>restriction</em> of <span class="math inline">R</span> to <span class="math inline">P</span> is <span class="math inline">\{r\in R:r\in P\}</span> and written <span class="math inline">R|P</span>. When <span class="math inline">P</span> is specified by relations involving the components of <span class="math inline">X_I</span> we can replace <span class="math inline">P</span> by those relations. For example R|x_i &gt; 1$ are all rows with <span class="math inline">x_i &gt; a</span>.</p>
+<h2 id="one-dimension">One Dimension</h2>
+<p>A table <span class="math inline">R\in X^n</span> is <em>one dimensional</em>. The projections <span class="math inline">\pi_i</span> select elements from <span class="math inline">R</span>. In APL <span class="math inline">\pi_i x = x_i</span> is written <span class="math inline">x[i]</span>. Elements of <span class="math inline">R</span> can be <em>taken</em> from the front or back using projections. The table <span class="math inline">R|_{m} = (x_1,\ldots,x_m</span> is the pro</p>
+<h2 id="application">Application</h2>
+<p>Given functions <span class="math inline">f_i\colon X_i\to Y_i</span> define <em>componentwise application</em> by <span class="math inline">f_I\colon X_I\to Y_I</span> where <span class="math inline">f_I(x)(i) = f_i(x_i)</span>. More generally, if <span class="math inline">\sigma\colon I\to J</span> and <span class="math inline">f_i\colon X_i\to Y_{\sigma(i)}</span> then <span class="math inline">f_{I,\sigma}\colon X_I\to Y_{\sigma(I)}</span> by <span class="math inline">f_{I,\sigma}(x)(\sigma(i)) = f_i(x_i)</span>.</p>
+<p>If we want to be more careful about notation, as Iverson was, we should distinguish between a function <span class="math inline">f\colon A\to B</span> and its <em>push forward</em> <span class="math inline">f^*\colon\mathcal{P}(A)\to\mathcal{P}(B)</span> defined by <span class="math inline">f^*(S) = \{f(s):s\in S\}\subseteq B</span> for <span class="math inline">S\subseteq A</span> where the <em>power set</em> of <span class="math inline">A</span> is the set of all subsets of <span class="math inline">A</span>, <span class="math inline">\mathcal{P}(A) = \{S\subseteq A\}</span>. Similarly, the <em>pull back</em> of <span class="math inline">f</span> is <span class="math inline">f_*\colon\mathcal{P}(B)\to\mathcal{P}(A)</span> defined by <span class="math inline">f_*(T) = \{s\in A:f(s)\in T\}\subseteq A</span> for <span class="math inline">T\subseteq B</span>.</p>
+<p>If all <span class="math inline">X_i</span> have the common data type <span class="math inline">X</span> and <span class="math inline">f\colon X\to Y</span> we can apply the single function <span class="math inline">f</span> to all components <span class="math inline">f_\_\colon X_I\to Y_I</span> so <span class="math inline">f_\_(x)(i) = f(x_i)</span>. In APL this is written using diaeresis <span class="math inline">f_\_ = f¨</span>.</p>
+<h1 id="reduce">Reduce</h1>
+<p>If a data type <span class="math inline">X</span> is an <em>abelian monoid</em> then we can define a measure on the <span class="math inline">\mathcal{P}(X)</span> by <span class="math inline">\oplus(\{x_j\}) = \oplus_j x_j</span> where <span class="math inline">\oplus</span> is the binary monoid operation and <span class="math inline">\oplus(\emptyset) = 0</span> is the identity element of the monoid. Monoids are pointed sets with their identity being the special element.</p>
+<p>Every abelian group is a moniod if we ignore the condition that groups are required to have inverses. Monoids are only required to have an associative and commutative binary operation, and an identity element. Addition and multiplication of numbers are abelian groups. The set <span class="math inline">[-\infty,\infty)</span> with binary operation <span class="math inline">x\vee y = \max\{x,y\}</span> is an abelian monoid with identity <span class="math inline">-\infty</span>. Similarly, <span class="math inline">(-\infty,\infty]</span> with <span class="math inline">x\wedge y = \min\{x,y\}</span> and identity <span class="math inline">\infty</span> is an abelian monoid.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\oplus(\{s_j\}) = \oplus_j s_j</span> is a well-defined measure on <span class="math inline">X</span></em>.</p>
+<p>Technically we should write this as <span class="math inline">\oplus(\{(j, s_j)\}) = \oplus_j s_j</span> to avoid collapsing set elements.</p>
+<p>Hint: Since monoid operations are associative and commutative <span class="math inline">\oplus(\{x_1,\ldots,x_n\}) = x_1\oplus\cdots\oplus x_n</span> is well-defined. You need to show <span class="math inline">\oplus(U\cup V) = (\oplus(U))\oplus(\oplus(V))</span> if <span class="math inline">U\cap V = \emptyset</span> for <span class="math inline">U,V\subseteq X</span>. Start with <span class="math inline">\oplus(U\cup \emptyset) = \oplus(U) = (\oplus(U))\oplus 0 = (\oplus(U))\oplus(\oplus\emptyset)</span> and use induction on the number of elements of <span class="math inline">V</span>.</p>
+<p>If <span class="math inline">R\in X^n</span> then <span class="math inline">\oplus R</span> is an element of <span class="math inline">X</span>. If <span class="math inline">R\in X_I^n</span> is a table and <span class="math inline">X_i</span> is an abelian monoid we can apply its operation at index <span class="math inline">i</span> to get <span class="math inline">\oplus_i R\in X_I^n</span> where the rows of <span class="math inline">R</span> have their <span class="math inline">i-th</span> component replaced by the constant value <span class="math inline">\oplus R_{\{i\}}</span>. This is called <em>reduction</em> along column <span class="math inline">i</span> and in APL it is written using the <em>forward slash</em> operator <span class="math inline">\oplus_i/R</span>.</p>
+<h2 id="expand">Expand</h2>
+<p>If an abelian monoid has a total ordering that is discrete with elements $0 = x_0 &lt; x_1 &lt; $ define $<span class="math inline">X^\infty</span> by <span class="math inline">\iota n = (x_0,\ldots,x_n)</span>.</p>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>
