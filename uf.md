@@ -17,12 +17,12 @@ Instruments have _cash flows_ and _prices_ that determine
 the _amounts_ and _values_ involved with trading.
 Given a collection of holdings and
 a sequence of trades the associated amounts and values determine
-the _profit and loss_, among other quantities relevant to managing a portfolio.
+the _profit and loss_, among other quantities, relevant to managing a portfolio.
 
-To properly assess the risk of a position it is necessary to include
-how it will be hedged over time. A cannonical example of this is Carr2020...
-Various hedging strategies can, and should, be used to better understand
-risk.
+To properly assess risk it is necessary to include how a position
+will be hedged over time. A cannonical example of this is Carr2020...
+Various hedging strategies can, and should, be used for insight on
+the uncertainties involved.
 
 This model highlights that both cash flows and prices must be specified
 by mathematical models to determine the amounts and values associated
@@ -35,7 +35,8 @@ A holding is an _instrument_, _amount_, and _legal entity_.  Examples of
 instruments are: stocks, bonds, futures, currencies, commodities, etc.
 They are traded in some amount: shares, notional, contracts, units,
 and physical quantity respectively.  A legal entity is an individual or
-corporation.  The holding $(i,a,e)$ indicates entity $e$ owns amount $a$
+a corporation. Corporations can subdivide holdings by individual employees
+or trading groups. The holding $(i,a,e)$ indicates entity $e$ owns amount $a$
 of instrument $i$.
 
 A _position_ is a set of holdings $\{(i_j,a_j,e_j)\}$.
@@ -328,7 +329,8 @@ the set of instruments to all asset classes.
 [^x]: Cash flows and prices are modeled using _random variables_: a
 variable together with the probabilities of the values it can have. The
 mathematical definition is that a random variable is a function from a
-_sample space_ to the real numbers.
+_sample space_ to the real numbers. Preprend the sample space to
+the cartesian products involved to make them mathematically correct.
 
 [^2]: A _stopping time_ is a random variable taking values in $T$ that
 depends only on prior information, for example when the price of a stock
