@@ -4,6 +4,7 @@ PDF  = $(MKDN:.md=.pdf)
 DOCX = $(MKDN:.md=.docx)
 
 KATEX=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/
+
 CSS = math.css
 
 FLAGS  = -f markdown+definition_lists+raw_html+pipe_tables
@@ -12,7 +13,6 @@ FLAGS += -s # smart quotes
 FLAGS += --katex=$(KATEX)
 FLAGS += --css math.css
 FLAGS += -A FOOTER.md
---pdf-engine=xelatex
 #FLAGS +=  -M date="$(shell date "+%B %e, %Y")"
 #FLAGS += --toc
 #FLAGS += -B katex.tex
@@ -21,7 +21,7 @@ FLAGS += -A FOOTER.md
 #FLAGS += --mathjax
 #FLAGS += --css capm.css
 #FLAGS += --section-divs
-#FLAGS += -H header.html
+FLAGS += -B header.md
 #FLAGS += -H katex.html
 #FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
 TEXFLAGS = --pdf-engine=xelatex
