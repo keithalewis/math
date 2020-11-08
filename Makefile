@@ -12,7 +12,6 @@ FLAGS += -s # smart quotes
 FLAGS += --katex=$(KATEX)
 FLAGS += --css math.css
 FLAGS += -A FOOTER.md
---pdf-engine=xelatex
 #FLAGS +=  -M date="$(shell date "+%B %e, %Y")"
 #FLAGS += --toc
 #FLAGS += -B katex.tex
@@ -24,7 +23,8 @@ FLAGS += -A FOOTER.md
 #FLAGS += -H header.html
 #FLAGS += -H katex.html
 #FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
-TEXFLAGS = --pdf-engine=xelatex
+TEXFLAGS = 
+#TEXFLAGS = --pdf-engine=xelatex
 
 $(HTML): %.html: %.md $(CSS)
 	pandoc $(FLAGS) $< -o $@
