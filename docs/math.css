@@ -46,9 +46,12 @@ details {
 .katex {
 	font-size: 100% !important;
 	macros: {
+		"\\dom": "\\operatorname{dom}"
+		"\\cod": "\\operatorname{cod}"
 		"\\ker": "\\operatorname{ker}"
 		"\\ran": "\\operatorname{ran}"
 		"\\span": "\\operatorname{span}"
+		"\\hom": "\\operatorname{hom}"
 		"\\Re": "\\operatorname{Re}"
 		"\\CC": "\\mathbf{C}"
 		"\\FF": "\\mathbf{F}"
