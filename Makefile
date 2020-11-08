@@ -24,7 +24,8 @@ FLAGS += -A FOOTER.md
 FLAGS += -B header.md
 #FLAGS += -H katex.html
 #FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
-TEXFLAGS = --pdf-engine=xelatex
+TEXFLAGS =
+#TEXFLAGS = --pdf-engine=xelatex
 
 $(HTML): %.html: %.md $(CSS)
 	pandoc $(FLAGS) $< -o $@

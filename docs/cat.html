@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Category Theory</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+
+<header id="title-block-header">
+<h1 class="title">Category Theory</h1>
+<p class="author">Keith A. Lewis</p>
+</header>
+<blockquote>
+<p><em>Besides it is an error to believe that rigour is the enemy of simplicity. On the contrary we find it confirmed by numerous examples that the rigorous method is at the same time the simpler and the more easily comprehended. The very effort for rigor forces us to find out simpler methods of proof. — David Hilbert</em></p>
+</blockquote>
+<p>A <em>category</em> consists of <em>objects</em> and <em>arrows</em> that can sometimes be <em>composed</em>. Arrows that can be composed are <em>associative</em>. Every object has an <em>identity arrow</em>.</p>
+<h2 id="objects-and-arrows">Objects and Arrows</h2>
+<p>An <em>arrow</em> <span class="math inline">f</span> from <em>object</em> <span class="math inline">A</span> to object <span class="math inline">B</span> is written <span class="math inline">f\colon A\to B</span>.</p>
+<p>The <em>domain</em> of <span class="math inline">f</span> is <span class="math inline">\operatorname{dom}f = A</span> and the <em>codomain</em> of <span class="math inline">f</span> is <span class="math inline">\operatorname{cod}f = B</span> The codomain is also called <em>range</em>, <em>target</em>, or <em>but</em> if you parlez Français.</p>
+<p>We could do away with objects use the domain and codomain of arrows, just as it is possible to use nand to define all other logical operators, but why make things more difficult?</p>
+<p>The “set” of arrows from <span class="math inline">A</span> to <span class="math inline">B</span> is called <span class="math inline">\hom(A,B)</span>. The scare quotes indicate this is not necessarily a set but standard terminology for this is <em>homset</em>.</p>
+<h2 id="composition">Composition</h2>
+<p>If <span class="math inline">f\colon A\to B</span> and <span class="math inline">g\colon B\to C</span> then there exists an arrow <span class="math inline">g \circ f\colon A\to C</span>, the <em>composition</em> of <span class="math inline">g</span> with <span class="math inline">f</span>. One of the axioms of Category Theory is that if the codomain of <span class="math inline">f</span> equals the domain of <span class="math inline">g</span>, then the composition exists.</p>
+<p>Since we will be doing a lot of composing we just write <span class="math inline">gf</span> instead of <span class="math inline">g \circ f</span>. Some people prefer to use <span class="math inline">f;g</span> instead of <span class="math inline">gf</span>. In this notation <span class="math inline">f\colon A\to B</span> and <span class="math inline">g\colon B\to C</span> compose to <span class="math inline">f;g\colon A\to C</span> keeping the arrow names in order. If this sort of trifling is a concern you can just write the arrows backwards: <span class="math inline">g\colon C\leftarrow B</span> and <span class="math inline">\colon\colon B\leftarrow A</span> so <span class="math inline">gf\colon C\leftarrow A</span>.</p>
+<h2 id="identity-arrow">Identity Arrow</h2>
+<p>On to more interesting things. Every object has an <em>identity arrow</em>. If <span class="math inline">f\colon A\to B</span> then the identity arrows <span class="math inline">1_A\colon A\to A</span> and <span class="math inline">1_B\colon B\to B</span> satisfy <span class="math inline">f 1_A = f = 1_B f</span>. Or maybe only somewhat more interesing. You can always throw in identity arrows if they don’t exist.</p>
+<h3 id="exercises">Exercises</h3>
+<p><strong>Excercise</strong>. <em>If <span class="math inline">e\colon A\to A</span> has the property <span class="math inline">fe = f</span> for all <span class="math inline">f\colon A\to B</span> then <span class="math inline">e = 1_A</span></em>.</p>
+<p><strong>Excercise</strong>. <em>If <span class="math inline">e\colon B\to B</span> has the property <span class="math inline">ef = f</span> for all <span class="math inline">f\colon A\to B</span> then <span class="math inline">e = 1_B</span></em>.</p>
+<h2 id="associative-law">Associative Law</h2>
+<p>If <span class="math inline">f\colon A\to B</span>, <span class="math inline">g\colon B\to C</span>, and <span class="math inline">h\colon C\to D</span> then we have arrows <span class="math inline">gf</span>, <span class="math inline">hg</span>, <span class="math inline">h(gf)</span>, and <span class="math inline">(hg)f</span>. The <em>associative law</em> states <span class="math inline">(hg)f = h(gf)</span> so <span class="math inline">hgf</span> is unambiguous in category theory.</p>
+<p>A collection of objects and arrow satisfying these laws is a <em>category</em>.</p>
+<h2 id="examples">Examples</h2>
+<p>It is impossible to understand Category Theory without understanding examples of categories. They are its raison d’être. Many seemingly disparate constructs can be unified.</p>
+<p>The canonical example of a category is <span class="math inline">\mathbf{Set}</span>. The objects are sets and the arrows are functions. People tried to come up with a purely category theory notion of <span class="math inline">\mathbf{Set}</span> and ended up with <em>topos theory</em>. One does not simply consider ‘elements’ of a ‘set’. Composition is standared function composition, which is associative. The identity arrows are the identity functions <span class="math inline">1_A\colon A\to A</span> by <span class="math inline">1_A(a) = a</span> for <span class="math inline">a\in A</span>.</p>
+<p>Then there is <span class="math inline">\mathbf{Par}</span>, the category of partial functions. It does not get the respect it deserves. Most functions are actually partial functions. The function <span class="math inline">x\mapsto 1/x</span> is only a partial function from the real numbers to the real numbers. The partial functions <span class="math inline">f\colon A\to B</span> and <span class="math inline">g\colon B\to C</span> can be composed using <span class="math inline">gf(a) = c</span> if and only if there exists <span class="math inline">b\in B</span> with <span class="math inline">f(a) = b</span> and <span class="math inline">g(b) = c</span>. It has the same identity arrows as <span class="math inline">\mathbf{Set}</span>.</p>
+<p>A case could be made that <span class="math inline">\mathbf{Set}</span> should be called <span class="math inline">\mathbf{Fun}</span>.</p>
+<p><span class="math inline">\mathbf{Rel}</span> is the category of relations. It generalizes <span class="math inline">\mathbf{Set}</span> and <span class="math inline">\mathbf{Par}</span>. Given sets <span class="math inline">A</span> and <span class="math inline">B</span>, a <em>relation</em> is a subset of the cartesian product <span class="math inline">A\times B</span>. We write <span class="math inline">aRb</span> for <span class="math inline">(a,b)\in R</span>. The <em>left coset</em> of <span class="math inline">b\in B</span> is <span class="math inline">Rb = \{a\in A:aRb\}\subseteq A</span> and the <em>right coset</em> of <span class="math inline">a\in A</span> is <span class="math inline">aR = \{b\in B:aRb\}\subseteq B</span>. The left are right cosets are also call the domain and range of <span class="math inline">R</span> but these can be different from category <span class="math inline">\operatorname{dom}R</span> and <span class="math inline">\operatorname{cod}R</span>.</p>
+<p>A function <span class="math inline">f</span> is a relation with the property that for every <span class="math inline">a\in A</span> there exists a unique <span class="math inline">b</span> in <span class="math inline">B</span> such that <span class="math inline">(a,b)\in f</span>; the cardinality of the right coset <span class="math inline">af</span> is exactly one. We write <span class="math inline">f(a) = b</span> instead of <span class="math inline">afb</span> where <span class="math inline">b</span> is the unique element of the right coset.</p>
+<p>A partial function <span class="math inline">g</span> is a relation with the property that for every <span class="math inline">a\in A</span> there exists at most one <span class="math inline">b\in B</span> such that <span class="math inline">(a,b)\in g</span>; the cardinality of the right coset <span class="math inline">ag</span> is at moste one. We write <span class="math inline">g(a) = b</span> instead of <span class="math inline">agb</span> when <span class="math inline">b</span> belongs to the right coset.</p>
+<p>Composition of the relation <span class="math inline">R\subseteq A\times B</span>, and the relation <span class="math inline">S\subseteq B\times C</span> is <span class="math inline">SR = \{(a,c)\in A\times C:aRb \text{ and }bSc\text{ for some }b\in B\}\subseteq A\times C</span>.</p>
+<p><strong>Excercise</strong>. <em>Show the identity arrows of <span class="math inline">\mathbf{Rel}</span> are <span class="math inline">1_A = \{(a,a)\in A\times A : a\in A\}</span></em>.</p>
+<p><strong>Excercise</strong>. <em>Show that composition is associative in Set</em>.</p>
+<p>The <em>transpose</em> or <em>conjugate</em> of a relation <span class="math inline">R\subseteq A\times B</span> is <span class="math inline">R&#39; = \{(b,a)\in B\times A:aRb\}</span>.</p>
+<p>A relation <span class="math inline">R\subseteq A\times A</span> is <em>reflexive</em> if <span class="math inline">1_A\subseteq R</span>, that is, <span class="math inline">aRa</span> for all <span class="math inline">a\in A</span>. It is transitive if <span class="math inline">R^2 = RR\subseteq R</span>, that is, <span class="math inline">aRb</span> and <span class="math inline">bRc</span> imply <span class="math inline">aRc</span>. Such relations are called <em>preorders</em>. If we define a category with objects being elements of <span class="math inline">A</span> and arrows <span class="math inline">a\to b</span> if and only if <span class="math inline">aRb</span> then the poset requirements show this is indeed a category. On the flip side, every category where homsets contain at most one arrow are preorders. The ordering is <span class="math inline">A\preculyeq B</span> whenever there is an arrow <span class="math inline">A\to B</span>.</p>
+<p>A relation is <em>antisymmetric</em> if <span class="math inline">R\cap R&#39; \subseteq 1_A</span>, that is <span class="math inline">aRb</span> and <span class="math inline">bRa</span> imply <span class="math inline">a = b</span>. Antisymmetric preorders are <em>partial orders</em>.</p>
+<p>A relation is <em>symmetric</em> if <span class="math inline">R \subseteq R&#39;</span>, that is, <span class="math inline">aRb</span> implies <span class="math inline">bRa</span>. Symmetric preorders are <em>equivalence relations</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">R\subseteq R&#39;</span> implies <span class="math inline">R = R&#39;</span></em>.</p>
+<p>Equivalence relations show up all over the place. They let you express the notion of two things being ‘the same’ even if they are not equal. Two things <span class="math inline">a</span>, <span class="math inline">b</span> are <em>equivalent</em> if <span class="math inline">aRb</span>.</p>
+<h3 id="sets-with-structure">Sets with Structure</h3>
+<p>There are a slew of examples of categories where the objects are sets ‘with structure’ and the arrows are functions that preserve that structure.</p>
+<p><span class="math inline">\mathbf{Grp}</span> is the category of groups; the objects are groups and the arrows are <em>homomorphisms</em> (functions) that preserve the group structure.</p>
+<p><span class="math inline">\mathbf{Vec}</span> is the category of vector spaces; the objects are vector spaces and the arrows are linear transformations.</p>
+<p>Rings, fields, and algebras provide more examples. The theme of category theory is to provide a unified treatment of various mathematical areas.</p>
+<p>All of these examples satisfy a lemma of the form every arrow <span class="math inline">f\colon A\to B</span> is a composition of arrows <span class="math inline">\pi\colon A\to A/\operatorname{ker}f</span>, <span class="math inline">\nu\colon A/\operatorname{ker}f\to \operatorname{ran}B</span>, and <span class="math inline">i\colon \operatorname{ran}B\to B</span> where <span class="math inline">\pi</span> is ‘onto’ and <span class="math inline">\nu</span> is ‘one-to-one’ for appropriate definitions of <span class="math inline">\operatorname{ker}</span>, <span class="math inline">\operatorname{ran}</span>, quotient <span class="math inline">/</span>, onto, and one-to-one. Arrows can be used to factor objects into smaller objects <span class="math inline">A/\operatorname{ker}f</span> and <span class="math inline">\operatorname{ran}f</span>. This is similar to factoring a number into primes.</p>
+<h3 id="orders">Orders</h3>
+<p>A <em>Preset</em> is a set wtih a relation <span class="math inline">&lt;=</span> that is reflexive and transitive. The relation is called a <em>preorder</em>. The notion predates Category Theory, but this maps perfectly into the the definition of a category. The objects are elements of the set and there is an arrow <span class="math inline">x\to y</span> if and only if <span class="math inline">x &lt;= y</span>.</p>
+<p>The identity arrow is the relexive property and composition is the transitive law. Preorders have the property that homsets have at most one arrow.</p>
+<p>The category with arrows <span class="math inline">f\colon A\to B</span> if <span class="math inline">A</span> is a subset of <span class="math inline">B</span> is a preorder. It is also a <em>Poset</em>a preorder that is <em>anti-symmetric</em>. If <span class="math inline">x &lt;= y</span> and <span class="math inline">y &lt;= x</span> then <span class="math inline">x = y</span>. The relation is called a <em>partial order</em>. The category <em>Set</em> can be viewed as a preset. The objects are sets and the arrows are <span class="math inline">f\colon A\to B</span> if <span class="math inline">A</span> is a subset of <span class="math inline">B</span>. It is also a <em>Poset</em>a preorder that is <em>anti-symmetric</em>. If <span class="math inline">x &lt;= y</span> and <span class="math inline">y &lt;= x</span> then <span class="math inline">x = y</span>. The relation is called a <em>partial order</em>.</p>
+<p>A preorder satisfying <span class="math inline">x &lt;= y</span> implies <span class="math inline">y &lt;= x</span> is an <em>equivalence relation</em>. It is more common to use the notation <span class="math inline">x ~ y</span> for equivalence relations and say <span class="math inline">x</span> and <span class="math inline">y</span> belong to the same <em>equivalence class</em>.</p>
+<p>For any relation <span class="math inline">R:A\to B</span> define <span class="math inline">R*:B\to A</span> by <span class="math inline">(b, a)\in R*</span> if and only if <span class="math inline">(a, b)\in R</span>.</p>
+<p>In the following exercises, let <span class="math inline">R:A\to A</span> be a relation.</p>
+<p><strong>Excercise</strong>. 5. Show <span class="math inline">R</span> is reflexive if and only if <span class="math inline">1_A</span> is a subset of <span class="math inline">R</span>_.</p>
+<p><strong>Excercise</strong>. 6. Show <span class="math inline">R</span> is transitive if and only if <span class="math inline">RR</span> is a subset of <span class="math inline">R</span>_.</p>
+<p><strong>Excercise</strong>. 7. Show <span class="math inline">R</span> is anti-symmetric if and only if the intersection of <span class="math inline">R</span> and <span class="math inline">R*</span> is contained in <span class="math inline">1_A</span>_.</p>
+<p>A <em>partition</em> of a set is a collection of disjoint subsets whos union equals the set.</p>
+<p><strong>Excercise</strong>. 8. If <span class="math inline">R</span> is an equivalence relation, then the equivalence classes form a partion of <span class="math inline">A</span>_.</p>
+<h3 id="the-category-mathbfcat">The Category <span class="math inline">\mathbf{Cat}</span></h3>
+<p>A <em>functor</em> from category <span class="math inline">C</span> to category <span class="math inline">D</span> takes objects of <span class="math inline">C</span> to objects of <span class="math inline">D</span> and arrows of <span class="math inline">C</span> to arrows of <span class="math inline">D</span> and preserves the category structure:</p>
+<ol type="i">
+<li>If <span class="math inline">f\colon A\to B</span> in <span class="math inline">C</span> then <span class="math inline">F(f)\colon F(A)\to F(B)</span> in <span class="math inline">D</span>.<br />
+</li>
+<li>If <span class="math inline">g\colon A\to B</span> and <span class="math inline">h\colon B\to C</span> in <span class="math inline">C</span> then <span class="math inline">F(hg) = F(h)F(g)</span> in <span class="math inline">D</span>.</li>
+</ol>
+<p>The category <span class="math inline">\mathbf{Cat}</span> has categories as objects and functors as arrows.</p>
+<p><strong>Excercise</strong>. <em>What is the identity functor?</em></p>
+<p><strong>Excercise</strong>. <em>Show composition of functors is associative</em>.</p>
+<p>You may now be wondering is there is a category of category of categories. There is. The objects are functors and the arrows are <em>natural transformations</em>. It is called <span class="math inline">2-\mathbf{Cat}</span>. Are there categories of categories of …? Yep. They are called <span class="math inline">n-\mathbf{Cat}</span>.</p>
+<h4 id="some-properties-of-mathbfset">Some Properties of <span class="math inline">\mathbf{Set}</span></h4>
+<p>Every function in <span class="math inline">\mathbf{Set}</span> <span class="math inline">f\colon A\to B</span> determines an equivalence relation on <span class="math inline">A</span>. For <span class="math inline">x, y\in A</span>, define <span class="math inline">x \sim y</span> iff <span class="math inline">f(x) = f(y)</span>. The function <span class="math inline">f/\sim</span> takes elements of <span class="math inline">A</span> to the equivalence class it belongs to <span class="math inline">(f/\sim)(x) = x/\sim = {y\in A : y \sim x}</span>.</p>
+<p><strong>Excercise</strong>. <em>Show <span class="math inline">f/\sim</span> is a function</em>.</p>
+<p>There exists a function <span class="math inline">g:A/\sim\to B</span> defined by <span class="math inline">g(x/\sim) = f(x)</span>.</p>
+<p><strong>Excercise</strong>. <em>Show <span class="math inline">g</span> is a function</em>.</p>
+<p>The function <span class="math inline">f/\sim</span> is <em>onto</em>, or <em>surjective</em>. For every element in its codomain there exists an element in its domain that the function maps to.</p>
+<p>The function <span class="math inline">g</span> is <em>one-to-one</em>, or <em>injective</em>. No two elements in the domain get mapped to the same element in the codomain.</p>
+<p>Functions that satisfy both properties are called one-to-one and onto in the old school, and <em>bijective</em> by <a href="https://en.wikipedia.org/wiki/Nicolas_Bourbaki">Nicolas Bourbaki</a>.</p>
+<h3 id="properties-of-arrows">Properties of Arrows</h3>
+<p>It is not always the case that arrows in a category can be factored in a similar way.</p>
+<p>A <em>surjective</em> function, <span class="math inline">f\colon A\to B</span> has the property that for any functions <span class="math inline">g,h\colon B\to C</span> if <span class="math inline">fg = fh</span> then <span class="math inline">g = h</span>. In category theory such arrows are called <em>epimorphisms</em>, or <em>epi</em>.</p>
+<p>An <em>injective</em> function, <span class="math inline">f\colon A\to B</span> has the property that for any functions <span class="math inline">g,h\colon C\to A</span> if <span class="math inline">gf = hf</span> then <span class="math inline">g = h</span>. In category theory such arrows are called <em>monomorphisms</em>, or <em>mono</em>.</p>
+<p>A function that is both injective and surjective is call <em>bijective</em>. An arrow that is both mono and epi is an <em>isomorphism</em>, or <em>iso</em>.</p>
+<p><strong>Exercise</strong>. <em>Show bijection and isomorphism are different concepts.</em></p>
+<h2 id="arrow-vocabulary">Arrow Vocabulary</h2>
+<h2 id="answers-to-exercises">Answers to Exercises</h2>
+<p><strong>Excercise</strong>. 1. If <span class="math inline">e\colon A\to A</span> has the property <span class="math inline">fe = f</span> for all <span class="math inline">f\colon A\to B</span> then <span class="math inline">e = 1_A</span>_.</p>
+<p><strong>Solution.</strong> Taking <span class="math inline">f = 1_A</span>, <span class="math inline">1_A e = 1_A</span>. By the definition of <span class="math inline">1_A</span>, <span class="math inline">1_A e = e</span>, hence <span class="math inline">1_A = e</span>.</p>
+<p><strong>Excercise</strong>. 2. If <span class="math inline">e\colon B\to B</span> has the property <span class="math inline">ef = f</span> for all <span class="math inline">f\colon A\to B</span> then <span class="math inline">e = 1_B</span>_.</p>
+<p><strong>Solution</strong> Taking <span class="math inline">f = 1_B</span>, <span class="math inline">e 1_B = 1_B</span>. By the definition of <span class="math inline">1_B</span>, <span class="math inline">e 1_B = e</span>, hence <span class="math inline">1_B = e</span>.</p>
+<p><strong>Excercise</strong>. 3. Show the identity arrows of_ Set <em>are <span class="math inline">1_A = {(a,a)\in A\times A \colon a\in A}</span></em>.</p>
+<p><strong>Solution</strong> Let <span class="math inline">R\colon A\to B</span> be a relation. The following are equivalent: &gt; <span class="math inline">(a, b)\in 1_A R</span><br />
+&gt; There exists <span class="math inline">a&#39; in A</span> with <span class="math inline">(a, a&#39;)\in 1_A</span> and <span class="math inline">(a&#39;, b)\in R</span>.<br />
+&gt; <span class="math inline">(a, a)\in 1_A</span> and <span class="math inline">(a, b)\in R</span><br />
+&gt; <span class="math inline">(a, b)\in R</span><br />
+The proof of <span class="math inline">R 1_B = R</span> is similar.</p>
+<p><strong>Excercise</strong>. 4. Show that composition is associative in_ Set.</p>
+<p><strong>Solution</strong> Let <span class="math inline">R\colon A\to B</span>, <span class="math inline">S\colon B\to C</span> and <span class="math inline">T:C\to D</span>. The following are equivalent: &gt; <span class="math inline">(a, d)\in (TS)R</span>.<br />
+&gt; There exists <span class="math inline">b\in B</span> with <span class="math inline">(a, b)\in R</span> and <span class="math inline">(b, d)\in (TS)</span>.<br />
+&gt; There exists <span class="math inline">b\in B</span> with <span class="math inline">(a, b)\in R</span> and there exists <span class="math inline">c\in C</span> with <span class="math inline">(b, c)\in S</span> and <span class="math inline">(c, d)\in T</span>.<br />
+&gt; There exists <span class="math inline">b\in B</span> and there exists <span class="math inline">c\in C</span> with <span class="math inline">(a, b)\in R</span> and <span class="math inline">(b, c)\in S</span> and <span class="math inline">(c, d)\in T</span>.<br />
+&gt; There exists <span class="math inline">c\in C</span> and there exists <span class="math inline">b\in B</span> with <span class="math inline">(a, b)\in R</span> and <span class="math inline">(b, c)\in S</span> and <span class="math inline">(c, d)\in T</span>.<br />
+&gt; There exists <span class="math inline">c\in C</span> with <span class="math inline">(a, c)\in SR</span> and <span class="math inline">(c, d)\in T</span>.<br />
+&gt; <span class="math inline">(a, d)\in T(SR)</span>.</p>
+<p><strong>Excercise</strong>. 5. Show <span class="math inline">R</span> is reflexive if and only if <span class="math inline">1_A</span> is a subset of <span class="math inline">R</span>_.</p>
+<p><strong>Solution</strong> The following statements are equivalent &gt; <span class="math inline">R</span> is reflexive<br />
+&gt; <span class="math inline">a &lt;= a</span> for all <span class="math inline">a\in A</span><br />
+&gt; <span class="math inline">(a, a)\in R</span> for all <span class="math inline">a\in A</span><br />
+&gt; <span class="math inline">1_A</span> is a subset of <span class="math inline">R</span></p>
+<p><strong>Excercise</strong>. 6. Show <span class="math inline">R</span> is transitive if and only if <span class="math inline">RR</span> is a subset of <span class="math inline">R</span>_.</p>
+<p><strong>Solution</strong> The following statements are equivalent &gt; <span class="math inline">R</span> is transitive<br />
+&gt; <span class="math inline">a &lt;= b</span> and <span class="math inline">b &lt;= c</span> imply <span class="math inline">a &lt;= c</span><br />
+&gt; <span class="math inline">(a, b)\in R</span> and <span class="math inline">(b, c)\in R</span> imply <span class="math inline">(a, c)\in R</span><br />
+&gt; <span class="math inline">(a, c)\in RR</span> implies <span class="math inline">(a, c)\in R</span><br />
+&gt; <span class="math inline">RR</span> is a subset of <span class="math inline">R</span></p>
+<p><strong>Excercise</strong>. 7. Show <span class="math inline">R</span> is anti-symmetric if and only if the intersection of <span class="math inline">R</span> and <span class="math inline">R*</span> is contained in <span class="math inline">1_A</span>_.</p>
+<p><strong>Solution</strong> The following statements are equivalent &gt; <span class="math inline">R</span> is anti-symmetric<br />
+&gt; <span class="math inline">a &lt;= b</span> and <span class="math inline">b &lt;= a</span> imply <span class="math inline">a = b</span><br />
+&gt; <span class="math inline">(a, b)\in R</span> and <span class="math inline">(b, a)\in R</span> imply <span class="math inline">a = b</span><br />
+&gt; <span class="math inline">(a, b)\in R</span> and <span class="math inline">(a, b)\in R*</span> imply <span class="math inline">a = b</span><br />
+&gt; <span class="math inline">(a, b)\in R intersect R*</span> imply <span class="math inline">(a, b)\in 1_A</span><br />
+&gt; The intersection of <span class="math inline">R</span> and <span class="math inline">R*</span> is contained in <span class="math inline">1_A</span></p>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

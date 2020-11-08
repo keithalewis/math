@@ -7,13 +7,21 @@ fleqn: true
 abstract: A Programming Language
 ...
 
+\newcommand\dom{\operatorname{dom}}
+\newcommand\cod{\operatorname{cod}}
+
 
 The programming language _APL_ was invented by Ken E. Iverson, a mathematician
 unsatisfied by the limited expressiveness of FORTRAN when it came to manipulating
 multidimensional arrays. What follows is a mathematical description of
-the objects and operations on them he invented to scratch that itch.
+the objects and operations on them he created to scratch that itch.
 It is simply a matter of giving explicit names to the operations that can be
 performed on collections of data; what Iverson called "tools of thought."
+
+We put on our Category Theory glasses to clarify the fundamental data
+structures and transformations between them. The
+Curry-Howard-Lambek equivalence show certain classes of proofs and programs,
+are identical cartesian closed cateories.
 
 ## Preliminaries
 
@@ -33,14 +41,14 @@ The push forward of $X\subseteq A$ is written $R(X)$ if $R$ is a function.
 
 If all right cosets are singletons or empty we call $R$ a _partial function_.
 Every partial function can be augmented to a function by adding a special
-element $\bot\not\in B$ to $B$ and defining $\hat{R}\colon A\to B\cup\{\bot\}$
-by $\hat{R}(a) = R(a)$ if $a\in\dom R$ and $\hat{R}(a') = \bot$ if $a'\not\in\dom R$.
+element $\bot\not\in B$ to $B$ and defining $\underline{R}\colon A\to B\cup\{\bot\}$
+by $\underline{R}(a) = R(a)$ if $a\in\dom R$ and $\underline{R}(a') = \bot$ if $a'\not\in\dom R$.
 
 ## Exponential
 
 If $A$ and $B$ are sets then the _exponential_ is the set of all functions
 from $B$ to $A$, $A^B = \{f\colon B\to A\}$.
-If $n\in\bm{N}$ is a natural numbers we identify it with the set $\{0,\ldots, n - 1\}$
+If $n\in\mathbf{N}$ is a natural numbers we identify it with the set $\{0,\ldots, n - 1\}$
 so $A^n = \{(a_1,\ldots,a_n)\colon a_i\in A, 1\le i\le n\}$ represents the
 functions $a\colon n\to A$ where $a(i) = a_i$.
 
@@ -54,28 +62,115 @@ _projections_ $\pi_0\colon A_0\times A_1\to A_0$ where $\pi_0((a_0,a_1)) = a_0$
 and $\pi_1\colon A_0\times A_0\to A_1$ where $\pi_1((a_0,a_1)) = a_1$.
 
 __Exercise__. _Show if $p_0\colon B\to A_0$ and $p_1\colon B\to A_1$ are functions
-then there exists a function $t\colon B\to A_0\times A_1$ with $p_0 = \pi_0 t$
-and $p_1 = \pi_1 t$_.
+then there exists a function $p\colon B\to A_0\times A_1$ with $p_0 = \pi_0 p$
+and $p_1 = \pi_1 p$_.
 
 Any set having this property can be identified with $A_0\times A_1$.
 
+## Union
+
+The _union_ of the sets $A_0$ and $A_1$ is the collection of elements belonging to either
+$A_0$ or $A_1$, $A_0\cup A_1 = \{a:a\in A_0 \text{ or } a\in A_1\}$.
+The _disjoint union_ is similar to the union but includes
+information about where elements in the union originated.
+$A_0\sqcup A_1 = (\{0\}\times A_0)\cup (\{1\}\times A_1)$.
+It is equipped with two _inclusions_ $\nu_0\colon A_0\to A_0\sqcup A_1$ by
+$\nu_0(a_0) = (0,a_0)$ and $\nu_1\colon A_1\to A_0\sqcup A_1$ by
+$\nu_1(a_1) = (1,a_1)$.
+Note $A_i$ is in one-to-one correspondence with $\{i\}\times A_i$
+via $a_i \leftrightarrow (i, a_i)$ for $a_i\in A_i$, $i = 0,1$.
+
+__Exercise__. _Show if $n_0\colon A_0\to B$ and $n_1\colon A_1\to B$ are functions
+then there exists a function $n\colon A_0\sqcup A_1\to B$ with $n_0 = n\nu_0$
+and $n_1 = n\nu_1$_.
+
+Any set having this property can be identified with $A_0\sqcup A_1$.
+
+__Exercise__. _Show $a\in A_0\cap A_1$ if and only if $(0,a)$ and $(1,a)$ belong to $A_0\sqcup A_1$_.
+
+Note $A_0\sqcup A_1\subseteq 2\times (A_0\cup A_1)$ where $2 = \{0,1\}$ so the disjoint
+union is a relation with $\cod A_0\sqcup A_1 = A_0\cup A_1$.
+The left coset of $a\in A_0\cup A_1$ is the set
+$(A_0\sqcup A_1)a = \{i\in 2:(i,a)\in A_0\sqcup A_1\}$ so $a\in A_0\cap A_1$
+if and only if $(A_0\sqcup A_1)a = 2$.
+
+The disjoint union defines a function $A_0\cup A_1\to\mathcal{P}(2)$
+by $a\mapsto (A_0\sqcup A_1)a$. The intersection is the pull back of
+$2 = \{0,1\}\in\mathcal{P}(2)$.
+
+## Pair
+
+A _pair_ in $A_0\times A_1$ can be identified with an element $a\in (A_0\sqcup A_1)^2$.
+The pair $a = (a_0,a_1)$  corresponds to the function with $a(0) = (0,a_0)$
+and $a(1) = (1,a_1)$. Note that not every function in $(A_0\sqcup A_1)^2$
+corresponds to a pair. The function $a\in(A_0\sqcup A_1)^2$ comes from a pair
+if and only if $a(0)\in \{0\}\times A_0$ and $a(1)\in \{1\}\times A_1$.
+
+If $A_0 = A_1 = A$ then $A\times A$ is in one-to-one correspondence with $A^2$.
+The pair $(a_0,a_1)$ corresponds to the function $a\in A^2$ defined by
+$a(0) = a_0$ and $a(1) = a_1$.
+
+It is not the case $A\times A$ is in one-to-one correspondence with $(A\sqcup A)^2$.
+
+__Exercise__. _Show $A\sqcup A = 2\times A$_.
+
+## Tuple
+
 Products and unions can be defined for any collection of sets $X_i$, $i\in I$.
 The product $\Pi X_I = \Pi_{i\in I} X_i$ has projections $\pi_i\colon \Pi X_I\to X_i$
-where $\pi_i(x) = x_i$.
+where $\pi_i(x) = x_i$, $i\in I$.  The elements of a cartesian product are called _tuples_.
 
-Given $\sigma\colon I\to I$ define $x\sigma\in\Pi X_{\sigma(I)}$ by
-$(x\sigma)_i = x_{\sigma(i)}$.
+__Exercise__. _Show if $p_i\colon Y\to X_i$, $i\in I$, are functions then there exists a function
+$p\colon Y\to\Pi X_I$ with $p_i = \pi_i p$_.
 
-__Exercise__. _Show if $\sigma$ is bijective then so is $\Sigma$.
+If $f_i\colon X_i\to X_i$, $i\in I$, then $\Pi_{i\in I} = \Pi f_I\colon \Pi X_I\to \Pi X_I$
+by $(x_i)\mapsto (f_i(x_i))$, $i\in I$. In terms of projections $\pi_i\Pi f_I = f_i\pi_i$.
 
-The function $\sigma\colon\{0,1}\}\to \{0,1\}$ were $\sigma(0) = 1$
-and $\sigma(1) = 0$ shows $A_0\times A_1$ is isomorphic to $A_1\times A_0$.
+More generally, if $Y_j$, $j\in J$ is another collection of sets and $\sigma\colon I\to J$
+then we get a map $\Pi f_{I,\sigma}\colon \Pi X_I\to \Pi Y_J$
+by $x\mapsto x\sigma$ where $(x_i)\mapsto (y_{\sigma(i})$.
+In terms of projections this is $\pi_j^Y x\sigma = 
 
-Show $A_0\times(A_1\times A_2)$ is isomorphic to $(A_0\times A_1)\times A_2$.
+Every function $\sigma\colon I\to I$ induces a map $\Pi X_I\to \Pi X_{\sigma(I)}$
+by $x\mapsto x\sigma$ where $(x_i)\mapsto (x_{\sigma(i)}$).
+
+__Exercise__. _If $\sigma$ is bijective then $\Pi X_I$ and $\Pi X_{\sigma(I)}$
+are isomorphic_.
+
+In particular $X_0\times X_1$ is isomorphic to $X_1\times X_0$. We say
+cartesian products are commutative up to isomorphism.
+
+
+
+
+We can define projections $\pi_J\colon \Pi X_I\to \Pi X_J$ for $J\subseteq I$
+by $\pi_J = \Pi_{j\in J}\pi_j$.
+
+It is also the case $X_0\times(X_1\times X_2)$ and $(X_0\times X_1)\times X_2$
+are isomorphic to $X_0\times X_1\times X_2$. We say cartesian products are
+associative up to isomorphism. This can be proved using the properties of projections.
+
+If $p_i\colon Y\to X_i$, $i = 0,1,2$, there exists a map $q\colon Y\to X_1\times X_2$
+with $p_i = \pi_i q$, $q = 1,2$,
+hence there also exists a map $r\colon Y\to X_0\times(X_1\times X_2)$
+with $pi_0 = \pi_0 r$ and $r = \pi_{12) r$ where $\pi_{12}$ is the projection
+for the se
+This shows $X_0\times(X_1\times X_2)$ is isomorphic to $X_0\times X_1\times X_2$.
+
+We can identify $\Pi X_I$ with a subset of $(\sqcup X_I)^I$
+via $x\leftrightarrow\underline{x}$ where $\underline{x}(i) = (i,\pi_i x)$.
+If $\sigma\colon I\to I$ then the composition $\underline{x}\sigma$
+belongs to $(\sqcup X_I)^I$.
+Since $(\underline{x}\sigma)(i) = (\sigma(i),\pi_{\sigma(i)} x)$ this
+restricts to a mapping $\Pi X_I\to \Pi X_{\sigma(I)}$.
+
+The disjoint union is $\sqcup X_I = \cup_{i\in I} \{i\}\times X_i$ with inclusions
+$\nu_i\colon X_i\to\sqcup X_I$ where $\nu_i(x_i) = (i, x_i)$, $i\in I$.
+
+__Exercise__. _Show if $n_i\colon X_i\to Y$, $i\in I$, are functions then there exists a function
+$n\colon\sqcup X_I\to Y$ with $n_i = n\nu_i$_.
 
 Cartesian product is commutative and associative-ish.
-
-Given collections $X_i$, $i\in I$ and $Y_j$, $j\in J$
 
 ## Curry
 
@@ -115,32 +210,6 @@ function $f$ to all components $f_\_\colon X_I\to Y_I$ so $f_\_(x)(i) = f(x_i)$.
 In APL this is written using diaeresis $f_\_ = f¨$.
 
 
-## Union
-
-The _union_ of the sets $A_0$ and $A_1$ is the collection of elements belonging to either
-$A_0$ or $A_1$, $A_0\cup A_1 = \{b:b\in A_0 \text{ or } b\in A_1\}$.
-The _disjoint union_ is similar to the union but includes
-information about where elements in the union originated.
-$A_0\sqcup A_1 = (\{0\}\times A_0)\cup (\{1\}\times A_1)$.
-It is equipped with two _inclusions_ $\nu_0\colon A_0\to A_0\sqcup A_1$ by
-$\nu_0(a_0) = (0,a_0)$ and $\nu_1\colon A_1\to A_0\sqcup A_1$ by
-$\nu_1(a_1) = (1,a_1)$.
-Note $A_i$ is in one-to-one correspondence with $\{i\}\times A_i$
-via $a_i \leftrightarrow (i, a_i)$ for $a_i\in A_i$ for $i = 0,1$.
-
-__Exercise__. _Show if $n_0\colon A_0\to B$ and $n_1\colon A_1\to B$ are functions
-then there exists a function $i\colon A_0\sqcup A_1\to B$ with $n_0 = i\nu_0$
-and $n_1 = i\nu_1$_.
-
-Any set having this property can be identified with $A_0\sqcup A_1$.
-
-A _pair_ can be identified with an element $a\in (A_0\sqcup A_1)^2$.
-The pair $a = (a_0,a_1)$  corresponds to the function with $a(0) = (0,a_0)$
-and $a(1) = (1,a_1)$. Note that not every function in $(A_0\sqcup A_1)^2$
-corresponds to a pair unless $A_0 = A_1$.
-
-__Exercise__. _Show $A^2$ is in one-to-one correspondence with $A\times A$_.
-
 The disjoint union $\sqcup X_I = \sqcup_{i\in I}(\{i\}\times X_i)$
 has inclusions $\nu_i\colon X_i\to \sqcup X_I$ where $\nu_i(x_i) = (i, x_i)$.
 
@@ -173,7 +242,7 @@ $x\in X_I$.
 
 ### Sequence
 
-The set of all sequences from $X$ is $X^* = \cup_{n\in \bm{N}} X^n$.
+The set of all sequences from $X$ is $X^* = \cup_{n\in \mathbf{N}} X^n$.
 Each element has the form $(x_0,\ldots,x_{n-1})$ for $x_i\in X$ but
 it does not necessarily mean all elements are stored somewhere.
 The unary operator `?:X^* -> bool` tests if a seqence is not empty.
@@ -193,12 +262,9 @@ Let `s:N -> N`, then `xs` is `xs(i) = x(s(i))`.
 We have been using the convention that the natural number $n$ represents the
 set $\{0,1,\ldots,n-1\}$. In APL this is given the name $\iota n$.
 
-The function _take_ is $\uparrow \bm{N}\times X^{\iota n}\to X
+<!--
+The function _take_ is $\uparrow \mathbf{N}\times X^{\iota n}\to X
 
-A table $R\in X^n$ is _one dimensional_. The projections $\pi_i$ select elements
-from $R$. In APL $\pi_i x = x_i$ is written $x[i]$. Elements of $R$ can be
-_taken_ from the front or back using projections. The table $R|_{m} = (x_1,\ldots,x_m$
-is the pro
 
 # Reduce
 
@@ -240,7 +306,7 @@ the _forward slash_ operator $\oplus_i/R$.
 ## Expand
 
 If an abelian monoid has a total ordering that is discrete with elements
-$0 = x_0 < x_1 < \cdots $ define $\iota\colon \bm{N}\to $X^\infty$
+$0 = x_0 < x_1 < \cdots $ define $\iota\colon \mathbf{N}\to $X^\infty$
 by $\iota n = (x_0,\ldots,x_n)$.
 
 ## Notation
@@ -294,3 +360,4 @@ and $a'p\colon C\to T$ we have $ap = a'p$. Likewise $bq = b'q$.
 
 
 ...product as terminal object...
+-->
