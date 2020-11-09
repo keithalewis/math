@@ -7,9 +7,13 @@ fleqn: true
 abstract: A Programming Language
 ...
 
+\newcommand\RR{\bm{R}}
+\newcommand\NN{\bm{N}}
+\newcommand\ZZ{\bm{Z}}
 \newcommand\dom{\operatorname{dom}}
 \newcommand\cod{\operatorname{cod}}
 \newcommand\hom{\operatorname{hom}}
+\newcommand\ran{\operatorname{ran}}
 \newcommand\Set{\mathbf{Set}}
 
 
@@ -22,7 +26,7 @@ performed on collections of data; what Iverson called "tools of thought."
 
 We put on our Category Theory glasses to clarify the fundamental data
 structures and transformations between them. The
-Curry-Howard-Lambek equivalence show certain classes of proofs and the $\lambda$-calculus,
+Curry-Howard-Lambek equivalence shows certain classes of proofs and the $\lambda$-calculus,
 are identical to _cartesian closed cateories_.
 
 A CCC has a _product_ and _exponential_. The product behaves like the cartesion product
@@ -30,7 +34,7 @@ of sets and the exponential represents functions between sets. Every object $Y$ 
 adjoint functors $F_Y(X) = X\times Y$ and $G_Y(Z) = Z^Y$ that are related by
 $\hom(F_Y(X), Z)\cong \hom(X, G_Y(Z))$ which is natural in both $X$ and $Z$.
 In plainer language, the functions $X\times Y\to Z$ are in one-to-one correspondence
-with the functions $X\to (Z\to Y)$. The _counit_ of this adjunction is the
+with the functions $X\to (Y\to Z)$. The _counit_ of this adjunction is the
 _evaluation map_ $e_{Y,Z}\colon Z^Y\times Y\to Z$.
 
 We only consider the category $\Set$ of sets
@@ -43,12 +47,45 @@ produce $h(y)\in Z$.
 If $f\colon X\to Y$ we can define $f^Z\colon X^Z\to Y^Z$ and $f_Z\colon Z^Y\to Z^X$
 for any set $Z$ by $(f^Z(x))z = f(x(z))$ where $x\colon Z\to Y$
 and $(f_Z(y))x = y(f(x))$ where $y\colon Y\to Z$. This brings composition down
-to the level of a function call.
+to the level of a function.
 
-APL is concerned with products and functions between them. Currying lets you reduce
-functions on a product to functions of one variable. Exponents allow you to express
-functions between objects as another object. This is the core of any language
-with first-class functions.
+APL is concerned with products and functions between them (exponentials).
+Currying lets you reduce functions on a product to functions of one variable.
+Exponents allow you to express functions between objects as another object.
+This is the core of any language with first-class functions.
+
+### Examples
+
+In APL $\iota$ (iota) is used to produce sequences. If $\NN$ is the
+set of natural numbers $\iota n = (0, 1, \ldots n-1)$. 
+It is a function from $\NN$ to $\NN^* = \cup_{n\ge 0}\NN^n$, the
+set of all finite sequences of natural numbers.
+The set $n\times n$ can be identified with $n^2$. This is a special
+case of currying. Let $1$ be a set with a single element (a singleton).
+The exponential $A^1$ is isomorphic to $A$. Each function $a\colon 1\to A$
+picks an element $\ran a\in A$. Currying $n\times n = (n\times n)^1$
+gives us $n\to n^1$.
+
+...
+
+Using the notation above, the $n\times n$ identity matrix can be
+written as $=^{n\times N}(n\times n)$. Assume $A$ is a set containing the
+Natural numbers and $=\colon A^2\to A$ is equality $=(a,b) = 1$ if $a = b$
+and $=(a,b) = 0$ if $a\not= b$ where $A^n$ is the $n$-fold cartesian product of $A$.
+We use the convention $n = (0,\ldots,n-1)\in A^n$. In APL this is called $\iota n$.
+Since $=\colon A^2\to A$, $=^Z\colon (A^2)^Z\to A^Z$ hence $=^{n\timesn}(n\times n)
+= \delta$.
+
+
+Let $\RR$ be the real numbers, or their computer approximation: 64-bit IEEE floating point numbers.
+Let $\NN$ be the natural numbers and $\ZZ$ be the integers. These are represented by unsigned
+and signed integers respectively on a computer. They can be categorized by the number of bits
+used in their computer implementation. The cartesian product of $n$ copies of $A$ is
+$\{(a_0,\ldots,a_{n-1}):a_j\in A,0\le j < n\}$, $n\in\NN$.
+It can be identified with $A^n = \{n\to A\}$ where $n = (0,\ldots,n-1) \in \NN^n$
+via $(a_0,\ldots,a_{n-1})\leftrightarrow a$ where $a(i) = a_i$, $i\in n$.
+Define _equal_ by $=\colon A\times A\to A$ by $=(a,b) = 1$ if $a = b$ and
+$=(a,b) = 0$ if $a\not= b$.
 
 ## Preliminaries
 
