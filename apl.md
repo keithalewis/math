@@ -9,6 +9,8 @@ abstract: A Programming Language
 
 \newcommand\dom{\operatorname{dom}}
 \newcommand\cod{\operatorname{cod}}
+\newcommand\hom{\operatorname{hom}}
+\newcommand\Set{\mathbf{Set}}
 
 
 The programming language _APL_ was invented by Ken E. Iverson, a mathematician
@@ -20,8 +22,33 @@ performed on collections of data; what Iverson called "tools of thought."
 
 We put on our Category Theory glasses to clarify the fundamental data
 structures and transformations between them. The
-Curry-Howard-Lambek equivalence show certain classes of proofs and programs,
-are identical cartesian closed cateories.
+Curry-Howard-Lambek equivalence show certain classes of proofs and the $\lambda$-calculus,
+are identical to _cartesian closed cateories_.
+
+A CCC has a _product_ and _exponential_. The product behaves like the cartesion product
+of sets and the exponential represents functions between sets. Every object $Y$ defines
+adjoint functors $F_Y(X) = X\times Y$ and $G_Y(Z) = Z^Y$ that are related by
+$\hom(F_Y(X), Z)\cong \hom(X, G_Y(Z))$ which is natural in both $X$ and $Z$.
+In plainer language, the functions $X\times Y\to Z$ are in one-to-one correspondence
+with the functions $X\to (Z\to Y)$. The _counit_ of this adjunction is the
+_evaluation map_ $e_{Y,Z}\colon Z^Y\times Y\to Z$.
+
+We only consider the category $\Set$ of sets
+and functions, which is a CCC, and this expresses _currying_.
+The function $f\colon X\times Y\to Z$ corresponds to the function $g\colon X\to (Y\to Z)$
+via $f(x,y) = z$ if and only if $g(x)y = (g(x))(y) = z$. The evaluation function
+takes a function $h\colon Y\to Z$ and a value $y\in Y$ to
+produce $h(y)\in Z$.
+
+If $f\colon X\to Y$ we can define $f^Z\colon X^Z\to Y^Z$ and $f_Z\colon Z^Y\to Z^X$
+for any set $Z$ by $(f^Z(x))z = f(x(z))$ where $x\colon Z\to Y$
+and $(f_Z(y))x = y(f(x))$ where $y\colon Y\to Z$. This brings composition down
+to the level of a function call.
+
+APL is concerned with products and functions between them. Currying lets you reduce
+functions on a product to functions of one variable. Exponents allow you to express
+functions between objects as another object. This is the core of any language
+with first-class functions.
 
 ## Preliminaries
 
