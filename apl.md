@@ -15,16 +15,32 @@ abstract: A Programming Language
 \newcommand\hom{\operatorname{hom}}
 \newcommand\ran{\operatorname{ran}}
 \newcommand\Set{\mathbf{Set}}
+\newcommand\eq{\text{$=$}}
 
 
 The programming language _APL_ was invented by Ken E. Iverson, a mathematician
 unsatisfied by the limited expressiveness of FORTRAN when it came to manipulating
 multidimensional arrays. What follows is a mathematical description of
-the objects and operations on them he created to scratch that itch.
+the objects and operations on them he envisioned to scratch that itch.
 It is simply a matter of giving explicit names to the operations that can be
 performed on collections of data; what Iverson called "tools of thought."
 
-## Category
+There have been many languages inspired by APL and this writeup takes
+liberties with the classical language. Just as with more modern versions
+of APL, we index arrays from 0, as in the C language, instead of from
+1, like FORTRAN. Our approach is informed by advances in mathematics
+and best practices for implmementing functional languages on current
+computer architectures. Don't be scared off by the Category Theory,
+we only use a small subset of that to aid organization of the menagerie
+of APL functions and operators. We take a purely functional view 
+so no side effects are allowed and data cannot be mutated. This can
+be expensive in terms of computer hardware but using lazy evaluation,
+lenses, zippers and other implementation techniques is well understood now.
+
+Dijkstra called APT "a mistake carried through to perfection."
+I've chosen to ignore the first part of Edsger W's claim.
+
+## Category Theory
 
 We put on our Category Theory glasses to clarify the fundamental data
 structures and transformations between them. The
@@ -40,72 +56,119 @@ Going from the left to the right form is _currying_. Going from the right to the
 form is _uncurrying_.
 
 The _counit_ of this adjunction is the
-_evaluation map_ $e_{Y,Z}\colon Z^Y\times Y\to Z$.
-It can be used to define composition using arrows. If $f\colon X\to Y$ then for
-any object $Z$ define $f^Z\colon X^Z\to Y^Z$ to be the curried form
-of evaluation $e_{}\colon \colon X^Z\times Y\to Z
-nd $f_Z\colon Z^Y\to Z^X$
-by $f^Z = 
+_evaluation map_ $e\colon Z^Y\times Y\to Z$.
 
-for any set $Z$ by $(f^Z(x))z = f(x(z))$ where $x\colon Z\to Y$
-and $(f_Z(y))x = y(f(x))$ where $y\colon Y\to Z$. This brings composition down
-to the level of a function.
+We can use currying to define composition using arrows.
+If $f\colon X\to Y$ then for any object $Z$
+define $f^Z\colon X^Z\to Y^Z$ to be the curried form of $(X^Z \times Z)\to Y$
+and $f_Z\colon Z^Y\to Z^X$ to be the curried form of $(Z^Y\times X)\to Z$.
 
-In plainer language, the functions $X\times Y\to Z$ are in one-to-one correspondence
-with the functions $X\to (Y\to Z)$.
+### Set
 
-We only consider the category $\Set$ of sets
-and functions, which is a CCC, and this expresses _currying_.
-The function $f\colon X\times Y\to Z$ corresponds to the function $g\colon X\to (Y\to Z)$
-via $f(x,y) = z$ if and only if $g(x)y = (g(x))(y) = z$. The evaluation function
-takes a function $h\colon Y\to Z$ and a value $y\in Y$ to
-produce $h(y)\in Z$.
+We only consider the category $\Set$ of sets and functions, which is
+a CCC, as we will now prove.  The function $f\colon (X\times Y)\to Z$
+corresponds to the function $g\colon X\to (Y\to Z)$ via $f(x,y) = z$
+if and only if $g(x)y = (g(x))(y) = z$.  The evaluation function takes
+a function $h\colon Y\to Z$ and a value $y\in Y$ to produce $h(y)\in Z$.
 
-If $f\colon X\to Y$ we can define $f^Z\colon X^Z\to Y^Z$ and $f_Z\colon Z^Y\to Z^X$
-for any set $Z$ by $(f^Z(x))z = f(x(z))$ where $x\colon Z\to Y$
-and $(f_Z(y))x = y(f(x))$ where $y\colon Y\to Z$. This brings composition down
-to the level of a function.
-
-__Exercise__. _Use currying to express $\circ: X^Z\times Y^X\to Y^Z$
-and $\circ\colon Z^X\times Y^X\to Z^Y$_.
+If $f\colon X\to Y$ then for any set $Z$, $(f^Z(x))z = f(x(z))$ where
+$x\colon Z\to X$ and $(f_Z(y))x = y(f(x))$ where $y\colon Y\to Z$.
+We can fly first class and write this as $f^Zx = fx$ and $f_Zy = yf$
+to see that composition on either the left or the right can indeed be
+expressed as a function.
 
 APL is concerned with products and functions between them (exponentials).
-Currying lets you reduce functions on a product to functions of one variable.
-Exponents allow you to express functions between objects as another object.
-This is the core of any language with first-class functions.
+Currying lets us reduce functions on a product to functions of one variable.
+Exponents allows us to express functions between objects as another object.
+This is the core of any language with first-class functions that can
+be passed to other functions as data.
+
+A key relationship between products and exponentials is that $A\times A$
+can be identified with $A^2$ where $2 = \{0,1\}$.
+The pair $(a_0, a_1)$ corresponds to the function $a(0) = a_0$ and $a(1)
+= a_1$.  For any natural number $n\in\NN$, $\Pi_n A$ can be identified
+with $A^n$, where $\Pi_n A$ is the $n$-fold cartesian product of $A$. The
+correspondence is $(a_i)\in \Pi_n A$ corresponds to $a\in A^n$ via $a(i)
+= a_i$, $i\in n = \{0,\ldots,n-1\}$.
+
+__Exercise__. _Show $A$ is in one-to-one correspondence with $A^1$_.
+
+The elements of $A^n$ are
+called (one dimensional) _arrays_.  They are sometimes called
+vectors, but that collides with the term for elements of a vector space.
+
+APL is quite handy for dealing with linear algebra. An element
+of $A^{n\times n}$ corresponds to an $n\times n$ matrix taking
+values in $A$. The matrix $(a_{i,j})$, $a_{i,j}\in A$, $0\le i,j < n$,
+corresponds to the
+function $a\colon n\times n\to A$ via $a(i,j) = a_{i,j}$.
+
+It is even handier when dealing with higher dimensional data.
+An $n_0\times\cdots$ dimensional cube taking values in $A$
+is just an element of $A^{n_0\times\cdots}$. APL provides
+primitives for slicing and dicing along any dimensions.
 
 ### Examples
 
-In APL $\iota$ (iota) is used to produce sequences. If $\NN$ is the
-set of natural numbers $\iota n = (0, 1, \ldots n-1)$. 
+APL lets you turn a number into a lot of numbers.
+The function $\iota$ (iota) is used to produce sequences. If $n\in \NN$ then
+$\iota n = (0, 1, \ldots n-1)$. 
 It is a function from $\NN$ to $\NN^* = \cup_{n\ge 0}\NN^n$, the
 set of all finite sequences of natural numbers.
-The set $n\times n$ can be identified with $n^2$. This is a special
-case of currying. Let $1$ be a set with a single element (a singleton).
-The exponential $A^1$ is isomorphic to $A$. Each function $a\colon 1\to A$
-picks an element $\ran a\in A$. Currying $n\times n = (n\times n)^1$
-gives us $n\to n^1$.
+In what follows I will usually forget to write $\iota n$ and just write $n$.
 
-...
+Using the notation above, the $n\times n$ identity matrix can be written
+as $\delta^{n\times n}n\times n$ where $\delta\colon\NN\times\NN\to\NN$
+is $\delta(i,j) = 1$ if $i = j$ and $\delta(i,j) = 0$ if $i\not= j$.
+This can be defined for any set $\delta\colon A^2\to A$ as long
+as $a = b$ can be interpreted as an element of $A$.
+For any set $Z$, $\delta^Z\colon (A\times A)^Z\to A^Z$. Taking $Z = n\times n$
+and $A = n$
+gives $\delta^{\n\times n}(n\times n) \in n^{n\times n}$. This is
+an $n\times n$ matrix taking values $\delta(i,j)$, aka the identity matrix.
+APL is parsed right-to-left so we drop the right parentheses to
+read $ab$ as $a(b)$. This is natural in a functional language
+where statements are chains of function calls.
 
-Using the notation above, the $n\times n$ identity matrix can be
-written as $=^{n\times N}(n\times n)$. Assume $A$ is a set containing the
-Natural numbers and $=\colon A^2\to A$ is equality $=(a,b) = 1$ if $a = b$
-and $=(a,b) = 0$ if $a\not= b$ where $A^n$ is the $n$-fold cartesian product of $A$.
-We use the convention $n = (0,\ldots,n-1)\in A^n$. In APL this is called $\iota n$.
-Since $=\colon A^2\to A$, $=^Z\colon (A^2)^Z\to A^Z$ hence $=^{n\timesn}(n\times n)
-= \delta$.
+APL doesn't pussyfoot around and uses $\eq$ instead of $\delta$.
 
+But wait, that's not all! This can be written more succinctly
+as $\eq n^2$. Recall $n^2$ is the same as $n\times n$.
+If $f\colon X\to Y$ we can
+leave out the $Z$ in $f^Z$ if the value of $Z$ can be deduced
+from the function arguments. In this case $\delta^{n^2}\colon (A^2)^{n^2}\to A^{n^2}$
+and we know $\delta\colon A^2\to A$ so we must have $Z = n^2$.
+
+We can extend $\eq\colon A^k\to A$ by $\eq(a_0,\ldots) = 1$ if all $a_j$ are
+equal and 0 otherwise.
+The $k$-dimensional identity matrix is $\eq n^k$. If we
+define $\wedge(A, B) = A\wedge B = A^B$,
+then $\eq n\wedge$ is
+a function from $\NN$ to identity matrices having the dimension of the argument.
+Further, $\eq\wedge$ allows us to parameterize over $n$ too since
+$\eq(\wedge(n,k)) = \eq(n^k) = \eq n^k$.
+
+Never play code golf with an APLer.
+
+## Data and Operators
 
 Let $\RR$ be the real numbers, or their computer approximation: 64-bit IEEE floating point numbers.
 Let $\NN$ be the natural numbers and $\ZZ$ be the integers. These are represented by unsigned
 and signed integers respectively on a computer. They can be categorized by the number of bits
-used in their computer implementation. The cartesian product of $n$ copies of $A$ is
-$\{(a_0,\ldots,a_{n-1}):a_j\in A,0\le j < n\}$, $n\in\NN$.
-It can be identified with $A^n = \{n\to A\}$ where $n = (0,\ldots,n-1) \in \NN^n$
-via $(a_0,\ldots,a_{n-1})\leftrightarrow a$ where $a(i) = a_i$, $i\in n$.
-Define _equal_ by $=\colon A\times A\to A$ by $=(a,b) = 1$ if $a = b$ and
-$=(a,b) = 0$ if $a\not= b$.
+used in their computer representation. Mathematically, $\NN\subseteq\ZZ\subseteq\RR$ but
+it gets more complicated when considering computer implimentations. APL, like most computer
+languages, _implicitly promotes_ types to their smallest common type. This leads to problems
+like the fact that while 32-bit integers can be exactly represented by 64-bit floating point
+numbers, 64-bit integers cannot. We will ignore these problems
+and assume all numeric values are real numbers.
+
+The basic data type in APL is a multidimensional array in $\RR^{\times n*}$ where
+$n^*\in\NN^* = \cup_{n\ge0}\NN$ is a finite sequence of natural numbers
+and $\times$ is the cartesian product. If $X$ is a monoid with binary operator
+$\otimes$ and identity $1$ we can extend $\otimes\colon X^2\to X$ to
+$\otimes\colon X^*\to X$ by defining $\otimes(x_0\ldots, x_n) =
+= x_0\otimes\cdots\otimes x_n$.
+
 
 ## Preliminaries
 

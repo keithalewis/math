@@ -20,7 +20,7 @@ a sequence of trades the associated amounts and values determine
 the _profit and loss_, among other quantities, relevant to managing a portfolio.
 
 To properly assess risk it is necessary to include how a position
-will be hedged over time. A cannonical example of this is Carr2020...
+will be hedged over time, as pointed out in special cases by many authors.
 Various hedging strategies can, and should, be used for insight on
 the uncertainties involved.
 
@@ -28,6 +28,10 @@ This model highlights that both cash flows and prices must be specified
 by mathematical models to determine the amounts and values associated
 with a trading strategy. It also places instruments on equal footing to
 get a complete picture of risk across **all** asset classes.
+
+It does not solve any particular problem in finance but it does specify
+a mathematical notation to rigorously describe all problems involved in
+trading instruments.
 
 ## Holding
 
@@ -92,6 +96,10 @@ to be included in the position of $e$ at $t$.  Usually $i'$ is the native
 currency associated with instrument $i$ and is omitted.  Specifying $i'$
 allows for _payment-in-kind_ cash flows.
 
+In the Ford example above, when holding $\{(\$, 86),(F,2)\}$ and
+the stock pays a dividend of $(\$,0.15)$ per share then the holdings
+become $\{(\$, 2\times 0.15),(\$, 86),(F,2)\}$
+
 Cash flows are zero except at a discrete number of times. Stocks and
 bonds typically pay dividends and coupons quarterly or semi-annually. Futures
 margin accounts are usually adjusted once per day.
@@ -116,6 +124,13 @@ purposes.  This does not involve actual trades, only a best guess
 of the price at time $t$, $X_t(i_0,i)$, of each instrument $i$ in terms of $i_0$.
 All holdings $(i,a,e)$ are converted to $(i_0, aX(i_0,i), e)$ then netted
 to report the P&amp;L in terms of $i_0$.
+
+It is quite common for entities to have different "best guesses" of
+$X_t(i_0,i)$. Accountants might use "book", "market", "liquidation",
+or "going concern" values. This model does not suggest which is the
+most appropriate in any given situation, it only makes that
+choice explicit.
+
 Other relevant quantities can be computed similarly. For example the
 _drawdown_ over $[t, u]$ is $N_u(i,e) - \min_{t\le s \le u} N_s(i,e)$
 and the _drawup_ is $\max_{t\le s\le u} N_s(i,e) - N_u(i,e)$.
@@ -198,6 +213,13 @@ If we write $\Gamma_t = \Gamma_j$ if $t = \tau_j$ and $\Gamma_t = 0$
 otherwise, this becomes $\Delta_t = \sum_{s < t} \Gamma_s$.  Note the
 strict inequality. A trade executed at time $t$ is not included in the
 position at $t$; it takes some time for a trade to settle.
+
+Note trading strategies do not explicitly involve cash flows and
+the definition of $\Delta$ above does not take those into account.
+The formula for _amount_ below is used to do that. Cash flows
+are typically paid in the native currency and currencies do not have cash flows.
+This may explain why cash flows seem to get short shrift in mathematical
+finance literature.
 
 Fix the funding currency $i_0$ and write $\Gamma_t(i_0, i) = \Gamma_t(i)$
 and $X_t(i_0, i) = X_t(i)$.
@@ -289,18 +311,56 @@ capital requirements. They can all be replaced by explicitly
 incorporating the trading strategy and cash flows involved
 when applying the CVA formula.
 
+## Model Risk
+
+The two fundamental problems of risk management are that there is no
+clear definition of risk and it is impossible to manage something that
+is not defined.  The term _model risk_ is doubly unclear.
+
+One universal property is that when a new model is introduced there is
+always a P&amp;L hit.  Trades undervalued by the old model were executed
+by counterparties who recognized that and trades overvalued by the old
+model found no takers.
+
+In lieu of a proper theory of risk management the best that can be
+accomplished is to make implicit assumptions explicit and provide
+multiple models and more efficient reporting tools to allow risk
+managers to quickly and easily assess the effects of the assumptions
+they make.
+
+Capturing every holding and transaction in a database turns historical
+reporting into a well understood technology problem.  When decorated
+with appropriate partitions for dimensions and measures, risk managers
+can use off-the-shelf tools to create dynamic reports allowing them to
+summarize data and drill down to individual holdings and trades to their
+heart's content. It is no longer necessary to have technologists spend time
+developing custom reports.
+
+Models can be used to generate scenarios for future cash flows and
+prices. Trading strategies use these to determine possible future holdings
+and transactions. The same queries designed for historical reporting can
+be reused to give a probability distribution for any values of interest.
+
+The future of risk management is to use Monte Carlo methods to generate
+scenarios given a model and trading strategy.
+Existing models can be leveraged to do this. Off-the-shelf
+tools can already report mean, standard deviation, and quantiles
+for probability distributions. The only hurdle is computing power,
+but we have Moore's Law on our side. Any software built for this
+today does not need to be rewritten in the future.
+
 ## Remarks
 
-Trades often involve the exchange of more than two holdings,
-for example a fee or commission to a broker or market maker that enabled the trade.
-These are accommodated by including the associated transactions as trades with
-the third parties involved. Perhaps these should be called the molecules
-of finance.
+Trades often involve the exchange of more than two holdings, for example
+a fee or commission to a broker or market maker that enabled the trade.
+These are accommodated by including the associated transactions as
+trades with the third parties involved. Perhaps these should be called
+the molecules of finance.
 
-The financial world is still waiting for its Werner Heisenberg. The price
-of a trade after it has been executed is a number: the amount the
-buyer gave to the seller divided by the amount the seller gave to the
-buyer. The price prior to completing a trade is more nebulous.
+The financial world is still waiting for its Werner Heisenberg. The
+price of a trade after it has been executed is a number: the amount
+the buyer gave to the seller divided by the amount the seller gave
+to the buyer. The price prior to completing a trade is more nebulous.
 The difference between a price quoted prior to a trade and the realized
 price after settlement is lumped into the term _slippage_.
 
@@ -329,7 +389,7 @@ the set of instruments to all asset classes.
 [^x]: Cash flows and prices are modeled using _random variables_: a
 variable together with the probabilities of the values it can have. The
 mathematical definition is that a random variable is a function from a
-_sample space_ to the real numbers. Preprend the sample space to
+_sample space_ to the real numbers. Prepend the sample space to
 the cartesian products involved to make them mathematically correct.
 
 [^2]: A _stopping time_ is a random variable taking values in $T$ that
