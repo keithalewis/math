@@ -24,6 +24,8 @@ the objects and operations on them he created to scratch that itch.
 It is simply a matter of giving explicit names to the operations that can be
 performed on collections of data; what Iverson called "tools of thought."
 
+## Category
+
 We put on our Category Theory glasses to clarify the fundamental data
 structures and transformations between them. The
 Curry-Howard-Lambek equivalence shows certain classes of proofs and the $\lambda$-calculus,
@@ -32,10 +34,25 @@ are identical to _cartesian closed cateories_.
 A CCC has a _product_ and _exponential_. The product behaves like the cartesion product
 of sets and the exponential represents functions between sets. Every object $Y$ defines
 adjoint functors $F_Y(X) = X\times Y$ and $G_Y(Z) = Z^Y$ that are related by
-$\hom(F_Y(X), Z)\cong \hom(X, G_Y(Z))$ which is natural in both $X$ and $Z$.
-In plainer language, the functions $X\times Y\to Z$ are in one-to-one correspondence
-with the functions $X\to (Y\to Z)$. The _counit_ of this adjunction is the
+$\hom(F_Y(X), Z)\cong \hom(X, G_Y(Z))$, which is natural in both $X$ and $Z$.
+We write the explict correspondence as $(X\times Y)\to Z\leftrightarrow X\to(Y\to Z)$.
+Going from the left to the right form is _currying_. Going from the right to the left
+form is _uncurrying_.
+
+The _counit_ of this adjunction is the
 _evaluation map_ $e_{Y,Z}\colon Z^Y\times Y\to Z$.
+It can be used to define composition using arrows. If $f\colon X\to Y$ then for
+any object $Z$ define $f^Z\colon X^Z\to Y^Z$ to be the curried form
+of evaluation $e_{}\colon \colon X^Z\times Y\to Z
+nd $f_Z\colon Z^Y\to Z^X$
+by $f^Z = 
+
+for any set $Z$ by $(f^Z(x))z = f(x(z))$ where $x\colon Z\to Y$
+and $(f_Z(y))x = y(f(x))$ where $y\colon Y\to Z$. This brings composition down
+to the level of a function.
+
+In plainer language, the functions $X\times Y\to Z$ are in one-to-one correspondence
+with the functions $X\to (Y\to Z)$.
 
 We only consider the category $\Set$ of sets
 and functions, which is a CCC, and this expresses _currying_.
