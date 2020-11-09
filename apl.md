@@ -49,6 +49,9 @@ for any set $Z$ by $(f^Z(x))z = f(x(z))$ where $x\colon Z\to Y$
 and $(f_Z(y))x = y(f(x))$ where $y\colon Y\to Z$. This brings composition down
 to the level of a function.
 
+__Exercise__. _Use currying to express $\circ: X^Z\times Y^X\to Y^Z$
+and $\circ\colon Z^X\times Y^X\to Z^Y$_.
+
 APL is concerned with products and functions between them (exponentials).
 Currying lets you reduce functions on a product to functions of one variable.
 Exponents allow you to express functions between objects as another object.
