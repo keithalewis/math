@@ -37,8 +37,8 @@ so no side effects are allowed and data cannot be mutated. This can
 be expensive in terms of computer hardware but using lazy evaluation,
 lenses, zippers and other implementation techniques is well understood now.
 
-Dijkstra called APT "a mistake carried through to perfection."
-I've chosen to ignore the first part of Edsger W's claim.
+Dijkstra called APL "a mistake carried through to perfection,"
+but let's ignore the first part of Edsger W's claim.
 
 ## Category Theory
 
@@ -56,12 +56,41 @@ Going from the left to the right form is _currying_. Going from the right to the
 form is _uncurrying_.
 
 The _counit_ of this adjunction is the
-_evaluation map_ $e\colon Z^Y\times Y\to Z$.
+_evaluation map_ $e_{Y,Z}\colon Z^Y\times Y\to Z$.
 
-We can use currying to define composition using arrows.
-If $f\colon X\to Y$ then for any object $Z$
-define $f^Z\colon X^Z\to Y^Z$ to be the curried form of $(X^Z \times Z)\to Y$
-and $f_Z\colon Z^Y\to Z^X$ to be the curried form of $(Z^Y\times X)\to Z$.
+We can use the evaluation map and currying to define composition using arrows.
+If $f\colon X\to Y$ then for any for any object $Z$,
+$fe_{X,Z}\colon X^Z \times Z)\to Y$
+and $f^Z\colon X^Z\to Y^Z$ is the curried form.
+Since $A\times B$ is isomorphic to $B\times A$
+we can write $e_{Y,Z}\colon Y\times Z^Y\to Z$
+Its curried form is $Y\to (Z^Y)^Z$ so $fe_{Y,Z}\colon X\to (Z^Y)^Z$.
+uncurrying give $X\times Z^Y\to Z$ and $X^Z$ ???
+
+In category theory the product of two objects $A_0$ and $A_1$,
+$A_0\times A_1$, is defined by two arrows $\pi_0 A_0\times A_1\to A_0$
+and $\pi_1\colon A_0\times A_1\to A_1$ that satisfy the property: if
+$p_0\colon B\to A_0$ and $p_1\colon B\to A_1$ then there exists an arrow
+$p\colon B\to A_0\times A_1$ with $p_0 = \pi_0 p$ and $p_1 \pi_1 p$.
+
+Any object $A'$ with arrows $\pi_0'\colon A'\to A_0$ and $\pi_1'\colon A'\to A_1$
+satisfying this property is isomorphic to the product $A_0\times A_1$.
+Arrows satisfying this property are called _projections_.
+
+In a CCC the homsets can be identified with an object in the category,
+$\hom(A,B)$ can be identified with the exponential $B^A$.
+This is the key to functional programming using first-class functions.
+
+The product of $A_0$ and $A_1$ can be written $\Pi_{i\in\{0,1\}} A_i$.
+This can be generalized to a product over any index set $I$.
+The product $\Pi A_I = \Pi_{i\in I} A_i$ is an object having projections
+$\pi_i\colon\Pi A_I\to A_i$.
+
+We can also define products for a single object. Let $\Pi_B A$ be ....
+In a CCC $A^B$ is isomorphic to $\Pi_B A$. This generalizes[^1]
+the notion $A^B = A\times\cdots\times A$ $B$ times.
+
+[^1] Out the wazoo.
 
 ### Set
 
@@ -168,6 +197,21 @@ and $\times$ is the cartesian product. If $X$ is a monoid with binary operator
 $\otimes$ and identity $1$ we can extend $\otimes\colon X^2\to X$ to
 $\otimes\colon X^*\to X$ by defining $\otimes(x_0\ldots, x_n) =
 = x_0\otimes\cdots\otimes x_n$.
+
+### Shape
+
+The exponential $Y^X$ is the set of all functions from $X\to Y$.
+The domain of $f\in Y^X$ is $X$ and its codomain is $Y$.
+In APL the _monadic_ $\rho$ operator takes an exponential to its domain.
+A better name might be $\log$ since $\rho Y^X = X$.
+Note $\rho$ is not a function from $Y^X$ to $X$, it is a functions
+from exponentials to sets. For every $f\in Y^X$ we have $\rho f = X$.
+
+...
+
+Given $f\in Y^X$ and $g\in X^W$ the composition $fg\in Y^W$.
+
+composition gives an element $fg\in Y^W$.
 
 
 ## Preliminaries
