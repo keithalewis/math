@@ -144,16 +144,14 @@ The function $\iota$ (iota) is used to produce sequences. If $n\in \NN$ then
 $\iota n = (0, 1, \ldots n-1)$. 
 It is a function from $\NN$ to $\NN^* = \cup_{n\ge 0}\NN^n$, the
 set of all finite sequences of natural numbers.
-In what follows I will usually forget to write $\iota n$ and just write $n$.
+In what follows I will habitually forget to write $\iota n$ and just write $n$.
 
 Using the notation above, the $n\times n$ identity matrix can be written
-as $\delta^{n\times n}n\times n$ where $\delta\colon\NN\times\NN\to\NN$
+as $\delta^{n\times n}(n\times n)$ where $\delta\colon\NN\times\NN\to\NN$
 is $\delta(i,j) = 1$ if $i = j$ and $\delta(i,j) = 0$ if $i\not= j$.
-This can be defined for any set $\delta\colon A^2\to A$ as long
-as $a = b$ can be interpreted as an element of $A$.
 For any set $Z$, $\delta^Z\colon (A\times A)^Z\to A^Z$. Taking $Z = n\times n$
 and $A = n$
-gives $\delta^{\n\times n}(n\times n) \in n^{n\times n}$. This is
+gives $\delta^{n\times n}(n\times n) \in n^{n\times n}$. This is
 an $n\times n$ matrix taking values $\delta(i,j)$, aka the identity matrix.
 APL is parsed right-to-left so we drop the right parentheses to
 read $ab$ as $a(b)$. This is natural in a functional language
