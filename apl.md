@@ -16,9 +16,9 @@ abstract: A Programming Language
 \newcommand\ran{\operatorname{ran}}
 \newcommand\Set{\mathbf{Set}}
 \newcommand\eq{\text{$=$}}
+\newcommand\from{\hat{\ }}
 
-
-The programming language _APL_ was invented by Ken E. Iverson, a mathematician
+A Programming Language _APL_ was invented by Ken E. Iverson, a mathematician
 unsatisfied by the limited expressiveness of FORTRAN when it came to manipulating
 multidimensional arrays. What follows is a mathematical description of
 the objects and operations on them he envisioned to scratch that itch.
@@ -26,23 +26,92 @@ It is simply a matter of giving explicit names to the operations that can be
 performed on collections of data; what Iverson called "tools of thought."
 
 There have been many languages inspired by APL and this writeup takes
-liberties with the classical language. Just as with more modern versions
-of APL, we index arrays from 0, as in the C language, instead of from
-1, like FORTRAN. Our approach is informed by advances in mathematics
-and best practices for implmementing functional languages on current
-computer architectures. Don't be scared off by the Category Theory,
-we only use a small subset of that to aid organization of the menagerie
-of APL functions and operators. We take a purely functional view 
-so no side effects are allowed and data cannot be mutated. This can
-be expensive in terms of computer hardware but using lazy evaluation,
-lenses, zippers and other implementation techniques is well understood now.
+liberties with the classical language.  Our approach is informed by
+advances in mathematics and best practices for implmementing functional
+languages on current computer architectures. 
+We take a purely functional view so no side effects are allowed and data cannot
+be mutated.  Similar to Everett's many-world interpretation, this makes
+it easy to reason about programs mathematically, but can be hard on
+computers computationally.  Using lazy evaluation, lenses, zippers and
+other implementation techniques can help with that.
 
 Dijkstra called APL "a mistake carried through to perfection,"
 but let's ignore the first part of Edsger W's claim.
 
+## Data
+
+Given a function $f\colon X\to Y$ we write $f(x)$ as $fx$.
+If $g\colon Y\to Z$ we write the composition $g(f(x))$ as $gfx$.
+Right to left association is natural in functional languages
+to chain application.
+
+## Product
+
+The _cartesian product_ of the sets $X_0$ and $X_1$
+is equipped with two _projections_ $\pi_i\colon X_0\times X_1\to X_i$, $i=0,1$.
+For $x\in X_0\times X_1$ we write $x = (\pi_0 x, \pi_1 x) = (x_0, x_1)$.
+
+__Exercise__. _Show if $p_0\colon Y\to X_0$ and $p_1\colon Y\to X_1$ are functions
+then there exists a function $p\colon Y\to X_0\times X_1$ with $p_0 = \pi_0 p$
+and $p_1 = \pi_1 p$_.
+
+Hint: Define $p$ by $py = (p_0y, p_1y)$, $y\in Y$.
+
+Any set having this property can be identified with $X_0\times X_1$.
+Functions having this property are _projections_.
+
+__Exercise__. _If $X$ is a set with projection $p_0\colon X\to X_0$ and
+$p_1\colon X\to X_1$ show $X\cong X_0\times X_1$_.
+
+Hint: There exist functions $p\colon X\to X_0\times X_1$ with $p_0 = \pi_0p$
+and $p_1 = \pi_1p$ and $q\colon X_0\times X_1\to X$ with $\pi_0 = p_0q$
+and $\pi_1 = p_1q$. Show $pq$ is the identity function on $X_0\times X_1$
+and $qp$ is the identity function on $X$.
+
+$qpx = q(p_0x, p_1x) \in X$. 
+
+This can be generalized to any collection of indexed sets $X_i$, $i\in I$.
+The product $\Pi X_I = \Pi_{i\in I} X_i$ has projections $\pi_i\colon \Pi X_I\to X_i$, $i\in I$.
+For $x\in \Pi X_I$ we write $x = (\pi_i x) = (x_i)$, $i\in I$.
+
+__Exercise__. _Show if $p_i\colon Y\to X_i$, $i\in I$ are functions
+then there exists a function $p\colon Y\to \Pi X_I$ with $p_i = \pi_i p$, $i\in I$_.
+
+Any set having this property can be identified with $\Pi X_I$.
+
+## Exponential
+
+If $X$ and $Y$ are sets then the _exponential_ is the set of all functions
+from $X$ to $Y$, $Y^X = \{f\colon X\to Y\}$. If $X$ and $Y$ are sets
+then $\Pi Y_X$ is isomorphic to $Y^X$.
+
+__Exercise__. _Show $\Pi Y_X\cong Y^X$_.
+
+Hint: Given $p_y\colon Y^X\to Y$, $y\in Y$,
+define $p\colon Y^X\to \Pi Y_X$ by $\pi_y(px) = p_yx$, $x\in Y^X$.
+Define $q\colon\Pi Y_X\to Y^X$ by $(qy)x = yx$, $y\in Y^X$, $x\in X$.
+Show $pq$ is the identity on $\Pi Y_X$ and $qp$ is the identity on $Y^X$.
+
+Given any sets $X$, $Y$, and $Z$, $Z^{X\times Y}$ is isomorphic to $Z^{Y^X}$
+via $f(x,y) = z$, $f\in Z^{X\times Y}, if and only if $(gx)y = z$, $g\in Z^{Y^X}$
+for $x\in X$, $y\in Y$, $z\in Z$.
+We write this correspondence as $(X\times Y)\to Z \cong X\to(Y\to Z)$.
+Going from left to right is _currying_ and going from right to left
+is _uncurrying_.
+
+Given $f\colon X\to Y$ and any set $Z$
+define $f^Z\colon X^Z\to Y^Z$ by $(f^Zx)z = fxz\in Y$ for $x\in X^Z$, $z\in Z$
+and $f_Z\colon Z^Y\to Z^X$ by $(f_Zy)x = yfx\in Z$ for $y\in Z^Y$, $x\in X$.
+We can write these more succinctly as $f^Zx = fx$ and $f_Zy = yf$ to
+clarify that left and right composition can be express as functions.
+
+<!--
+
+The 
+
 ## Category Theory
 
-We put on our Category Theory glasses to clarify the fundamental data
+We put on our Category Theory spectacles to clarify the fundamental data
 structures and transformations between them. The
 Curry-Howard-Lambek equivalence shows certain classes of proofs and the $\lambda$-calculus,
 are identical to _cartesian closed cateories_.
@@ -56,7 +125,8 @@ Going from the left to the right form is _currying_. Going from the right to the
 form is _uncurrying_.
 
 The _counit_ of this adjunction is the
-_evaluation map_ $e_{Y,Z}\colon Z^Y\times Y\to Z$.
+_evaluation map_ $e_{Y,Z}\colon Z^Y\times Y\to Z$. It takes a function and
+evaluates it at a value in categories that have functions and values.
 
 We can use the evaluation map and currying to define composition using arrows.
 If $f\colon X\to Y$ then for any for any object $Z$,
@@ -169,11 +239,11 @@ and we know $\delta\colon A^2\to A$ so we must have $Z = n^2$.
 We can extend $\eq\colon A^k\to A$ by $\eq(a_0,\ldots) = 1$ if all $a_j$ are
 equal and 0 otherwise.
 The $k$-dimensional identity matrix is $\eq n^k$. If we
-define $\wedge(A, B) = A\wedge B = A^B$,
-then $\eq n\wedge$ is
+define $\hat{\ }(A, B) = A\hat{\ } B = A^B$,
+then $\eq n\hat{\ }$ is
 a function from $\NN$ to identity matrices having the dimension of the argument.
-Further, $\eq\wedge$ allows us to parameterize over $n$ too since
-$\eq(\wedge(n,k)) = \eq(n^k) = \eq n^k$.
+Further, $\eq\hat{\ }$ allows us to parameterize over $n$ too since
+$\eq(\hat{\ }(n,k)) = \eq(n^k) = \eq n^k$.
 
 Never play code golf with an APLer.
 
@@ -451,7 +521,6 @@ Let `s:N -> N`, then `xs` is `xs(i) = x(s(i))`.
 We have been using the convention that the natural number $n$ represents the
 set $\{0,1,\ldots,n-1\}$. In APL this is given the name $\iota n$.
 
-<!--
 The function _take_ is $\uparrow \mathbf{N}\times X^{\iota n}\to X
 
 
