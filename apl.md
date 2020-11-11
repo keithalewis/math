@@ -38,12 +38,94 @@ other implementation techniques can help with that.
 Dijkstra called APL "a mistake carried through to perfection,"
 but let's ignore the first part of Edsger W's claim.
 
-## Data
+## Set
 
 Given a function $f\colon X\to Y$ we write $f(x)$ as $fx$.
 If $g\colon Y\to Z$ we write the composition $g(f(x))$ as $gfx$.
 Right to left association is natural in functional languages
-to chain application.
+to chain application. If $h\colon Z\to W$ then $h(gf) = (hg)f$
+so writing $hgf$ is unambiguous. The identity function of a
+set $X$ is $1_X\colon X\to X$ with $1_X(x) = x$, $x\in X$
+and $f1_X = f = 1_Yf$ whenever $f\colon X\to Y$.
+Sets and functions are the objects and arrows of a category
+called $\Set$.
+
+This category is _cartesian closed_; it has products and exponetials.
+The product of sets $X$ and $Y$ is the cartesian product
+$X\times Y = \{(x,y):x\in X, y\in Y\}$ is the set of all pairs from each set
+and the exponential $Y^X = \{f\colon X\to Y\}$ is the set of functions
+from $X$ to $Y$. They are related by $Z^{X\times Y}$ is in one-to-one
+correspondence with $Z^{Y^X}$. Every $f\in Z^{X\times Y}$ corresponds
+to $g\in Z^{Y^X}$ via $f(x,y) = z$ if and only if $g(x)(y) = (gx)y = z$,
+$x\in X$, $y\in Y$, $z\in Z$.
+This can be written $(X\times Y)\to Z \leftrightarrow X\to(Y\to Z)$.[^1]
+Going from left to right is _currying_ and going from right to left
+is _uncurrying_. Given $f\colon X\times Y\to Z$ we write $fx\colon Y\to Z$
+for _partial application_ instead of $g(x)$.
+
+[^1]: In fancy pants category theory language this is expressed as
+the product functor $F_Y(X) = X\times Y$ and the exponential functor
+$G_Y(Z) = Z^Y$ are adjoint: $\hom(F_Y(X),Z)\cong\hom(X,G_Y(Z))$.
+
+The cartesian product of a set $X$ with itself $n$ times, $X^n$, can be identified
+with the set of functions $n\to X$ if we use the convention 
+$n = \{0,\ldots,n-1\}$. The element $x = (x_0,\ldots,n-1)$ of the
+cartesian product corresponds to the function $x\colon n\to X$ via $x(i) = a_i$, $i\in n$.
+
+If $f\colon X\to Y$ and $x\colon Z\to X$ then $fx\colon Z\to Y$.
+This can be viewed as a function $f^Z\colon X^Z\to Y^Z$ that is
+call _application_, or _map_ in some languages.
+
+induces a function $X^Z\to Y^Z$ for any set $Z$.
+The function $x\in X^Z$ is sent to $y\in Y^Z$ by $y(z) = f(y(z)$.
+
+The stuff and substance of APL are $m$-_dimensional arrays_ of $X$,
+elements of $X^{n_0\times\cdots\n_{m-1}}$, and giving names to the
+functions operating on those. Most often $X$ is $\RR$, the set of
+real numbers, but $X$ can also be a set of characters.
+
+## Example
+
+APL lets you turn a number into a lot of numbers.
+The function $\iota$ (iota) is used to produce sequences. If $n\in \NN$ then
+$\iota n = (0, 1, \ldots n-1)$ where $\NN$ is the set of natural numbers. 
+It gives a name related to our convention $n = \{0,\ldots, n-1\}$ but there
+is a difference: $\iota n$ is not a set, it is a function from $n\to\NN^n$.
+Note $(\iota n)_i = i$, $i\in n$ so $\iota n$ is the identity function
+when we think of $\NN^n$ as functions from $n\to\NN$.
+
+In two dimensions the identity matrix is $(\delta_{ij})$
+where $\delta_{ij} = 1$ if $i = j$ and $\delta_{ij} = 0$ if $i \not= j$.
+We can define $\delta\colon X^n\to X$ for any $n$, not just $n = 2$,
+by $\delta(x_0,\ldots,x_n-1) = 1$ if all $x_i$ are equal and $0$ otherwise.
+In APL we use $\eq$ instead of pussyfooting around with $\delta$.
+We should probably use `true` and `false` instead of $1$ and $0$,
+but we don't. If we wanted to we could compose with the function
+$\{$`true`$,$`false`$\}\to X$ where `true`$\mapsto 1$ and `false`$\mapsto 0$.
+
+The two dimensional $n\times n$ identity matrix is $\eq n\times n$.
+=:X^2 X nxn = n^2:2 -> n  =nxn : 2->nxn
+
+f:X->Y f:X^Z->X^Y
+
+But wait, that's not all! This can be written more succinctly
+as $\eq n^2$. Recall $n^2$ is the same as $n\times n$.
+If $f\colon X\to Y$ we can
+leave out the $Z$ in $f^Z$ if the value of $Z$ can be deduced
+from the function arguments. In this case $\delta^{n^2}\colon (A^2)^{n^2}\to A^{n^2}$
+and we know $\delta\colon A^2\to A$ so we must have $Z = n^2$.
+
+We can extend $\eq\colon A^k\to A$ by $\eq(a_0,\ldots) = 1$ if all $a_j$ are
+equal and 0 otherwise.
+The $k$-dimensional identity matrix is $\eq n^k$. If we
+define $\hat{\ }(A, B) = A\hat{\ } B = A^B$,
+then $\eq n\hat{\ }$ is
+a function from $\NN$ to identity matrices having the dimension of the argument.
+Further, $\eq\hat{\ }$ allows us to parameterize over $n$ too since
+$\eq(\hat{\ }(n,k)) = \eq(n^k) = \eq n^k$.
+
+Never play code golf with an APLer.
+
 
 ## Product
 
@@ -96,8 +178,6 @@ Given any sets $X$, $Y$, and $Z$, $Z^{X\times Y}$ is isomorphic to $Z^{Y^X}$
 via $f(x,y) = z$, $f\in Z^{X\times Y}, if and only if $(gx)y = z$, $g\in Z^{Y^X}$
 for $x\in X$, $y\in Y$, $z\in Z$.
 We write this correspondence as $(X\times Y)\to Z \cong X\to(Y\to Z)$.
-Going from left to right is _currying_ and going from right to left
-is _uncurrying_.
 
 Given $f\colon X\to Y$ and any set $Z$
 define $f^Z\colon X^Z\to Y^Z$ by $(f^Zx)z = fxz\in Y$ for $x\in X^Z$, $z\in Z$
@@ -206,46 +286,6 @@ It is even handier when dealing with higher dimensional data.
 An $n_0\times\cdots$ dimensional cube taking values in $A$
 is just an element of $A^{n_0\times\cdots}$. APL provides
 primitives for slicing and dicing along any dimensions.
-
-### Examples
-
-APL lets you turn a number into a lot of numbers.
-The function $\iota$ (iota) is used to produce sequences. If $n\in \NN$ then
-$\iota n = (0, 1, \ldots n-1)$. 
-It is a function from $\NN$ to $\NN^* = \cup_{n\ge 0}\NN^n$, the
-set of all finite sequences of natural numbers.
-In what follows I will habitually forget to write $\iota n$ and just write $n$.
-
-Using the notation above, the $n\times n$ identity matrix can be written
-as $\delta^{n\times n}(n\times n)$ where $\delta\colon\NN\times\NN\to\NN$
-is $\delta(i,j) = 1$ if $i = j$ and $\delta(i,j) = 0$ if $i\not= j$.
-For any set $Z$, $\delta^Z\colon (A\times A)^Z\to A^Z$. Taking $Z = n\times n$
-and $A = n$
-gives $\delta^{n\times n}(n\times n) \in n^{n\times n}$. This is
-an $n\times n$ matrix taking values $\delta(i,j)$, aka the identity matrix.
-APL is parsed right-to-left so we drop the right parentheses to
-read $ab$ as $a(b)$. This is natural in a functional language
-where statements are chains of function calls.
-
-APL doesn't pussyfoot around and uses $\eq$ instead of $\delta$.
-
-But wait, that's not all! This can be written more succinctly
-as $\eq n^2$. Recall $n^2$ is the same as $n\times n$.
-If $f\colon X\to Y$ we can
-leave out the $Z$ in $f^Z$ if the value of $Z$ can be deduced
-from the function arguments. In this case $\delta^{n^2}\colon (A^2)^{n^2}\to A^{n^2}$
-and we know $\delta\colon A^2\to A$ so we must have $Z = n^2$.
-
-We can extend $\eq\colon A^k\to A$ by $\eq(a_0,\ldots) = 1$ if all $a_j$ are
-equal and 0 otherwise.
-The $k$-dimensional identity matrix is $\eq n^k$. If we
-define $\hat{\ }(A, B) = A\hat{\ } B = A^B$,
-then $\eq n\hat{\ }$ is
-a function from $\NN$ to identity matrices having the dimension of the argument.
-Further, $\eq\hat{\ }$ allows us to parameterize over $n$ too since
-$\eq(\hat{\ }(n,k)) = \eq(n^k) = \eq n^k$.
-
-Never play code golf with an APLer.
 
 ## Data and Operators
 
