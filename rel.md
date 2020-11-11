@@ -22,8 +22,8 @@ the _left projection_ is the first thing $\lambda\colon X\times Y\to X$ by $\lam
 and the _right projection_ is the second thing $\rho\colon X\times Y\to Y$ by $\rho(x,y) = y$.
 
 __Exercise__. _If $l\colon Z\to X$ and $r\colon Z\to Y$ are functions
-show there exists a function $t\colon Z\to X\times Y$ with
-$\lambda(t(z)) = l(z)$ and $\rho(t(z)) = r(z)$ for $z\in Z$_.
+show there exists a function $p\colon Z\to X\times Y$ with
+$\lambda(p(z)) = l(z)$ and $\rho(p(z)) = r(z)$ for $z\in Z$_.
 
 <details>
 <summary>Solution</summary>
@@ -35,14 +35,14 @@ Any set for which such $t$ exists is in one-to-one correspondence with the carte
 
 A _relation_ between sets $X$ and $Y$ is a subset $R\subseteq X\times Y$ and
 we write $xRy$ for $(x,y)\in R$.
-The _domain_ of a relation is $\dom R = \lambda(R) = \{\lambda(x,y):(x,y)\in R\}$
-and the _codomain_, or _range_, of a relation is $\cod R = \rho(R) = \{\rho(x,y):(x,y)\in R\}$.
+The _domain_ of a relation is $\dom R = X$ and the _codomain_ of a relation is $\cod R = Y$.
+
 The _product_, or _composition_, of the relation $R\subseteq X\times Y$
 and the relation $S\subseteq Y\times Z$ is $SR\subseteq X\times Z$ defined
 by $x(SR)z$ if and only if there exists $y\in Y$ with $xRy$ and $ySz$.
 
-The _right coset_ of $x\in\dom R$ is $xR = \{y\in Y: xRy\}$
-and the _left coset_ of $y\in\cod R$ is $Ry = \{x\in X: xRy\}$.
+The _right coset_ of $x\in X$ is $xR = \{y\in Y: xRy\}$
+and the _left coset_ of $y\in Y$ is $Ry = \{x\in X: xRy\}$.
 
 The _kernel_ of a relation is $\ker R = \{(x,x')\in X\times X:xR = x'R\}\subseteq X\times X$.
 The _cokernel_ of a relation is $\coker R = \{(y,y')\in Y\times Y:Ry = Ry'\}\subseteq Y\times Y$.
@@ -82,18 +82,18 @@ is the relation $R' = \{(y,x):(x,y)\in R\} \subseteq Y\times X$.
 Obviously $\dom R' = \cod R$ and $\cod R' = \dom R$.
 
 __Exercise__. _Show for any relation $R\subseteq X\times Y$ that
-$I_{\dom R} \subseteq R'R$ and
-$I_{\cod R} \subseteq RR'$_.
+$I_{RY} \subseteq R'R$ and
+$I_{XR} \subseteq RR'$_.
 
 <details>
 <summary>Solution</summary>
 
-If $x\in\dom R$ then $(x,y)\in R$ for some $y\in Y$ so $(y,x)\in R'$ and $(x,x)\in RR'$.
-A similar argument applies to $y\in\cod R$.
+If $x\in RY$ then $(x,y)\in R$ for some $y\in Y$ so $(y,x)\in R'$ and $(x,x)\in RR'$.
+A similar argument applies to $y\in XR$.
 
 </details>
 
-If $RS = I$ then $R$ is a _left inverse_, or _retract_, of $S$
+If $RS = I_S$ then $R$ is a _left inverse_, or _retract_, of $S$
 and $S$ is a _right inverse_, or _section_, of $R$.
 
 __Exercise__. _If $R\subseteq X\times Y$ has a section show $UR = VR$ implies $U = V$ for any $U,V\in Z\times X$_.
@@ -108,7 +108,7 @@ A relation satifying _left cancellation_ is called _epi_.
 
 __Exercise__. _Find a relation that is epi but does not have a retract_.
 
-If $RS = I$ and $SR = I$ then $R$ is _invertible_ with _inverse_ $S$. Likewise, $S$ is
+If $RS = I_S$ and $SR = I_R$ then $R$ is _invertible_ with _inverse_ $S$. Likewise, $S$ is
 invertible with inverse $R$. A relation that is both epi and mono is called _iso_.
 
 __Exercise__. _Show inverses are unique_.
@@ -119,20 +119,20 @@ If $S$ and $T$ are inverses of $R$ then $S = S(RT) = (SR)T = T$.
 
 </details>
 
-A _partial function_ is a relation $R\subseteq X\time Y$ where $xR$ has exactly one
-element $y\in Y$ when $x\in\dom R$ so we can unambiguously write $R(x) = y$ for $xRy$.
-A _function_ is a partial function with $\dom R = X$.
+A _partial function_ is a relation $R\subseteq X\times Y$ where $xR$ has exactly one
+element $y\in Y$ when $x\in RY$ so we can unambiguously write $R(x) = y$ for $xRy$.
+Partial functions use $R\colon X\hookrightarrow Y$ instead of $R\subseteq X\times Y.
+A _function_ is a partial function with $RY = X$ and we write $R\colon X\to Y$.
 
-Every partial function can be extended
-to a function by introducing an element $\bot\not\in Y$ and defining
-$\overline{R} = R\cup\{(x',\bot):x'\not\in\dom R\}\subseteq X\times
-(Y\cup\{\bot\})$.
+Every partial function can be extended to a function by introducing an
+element $\bot\not\in Y$ and defining
+$\underline{R} = R\cup((X\setminus RY)\times \{\bot\})\subseteq R\times (S\cup\{\bot\})$.
 
-__Exercise__. _Show if $R$ is a partial function then $\overline{R}$ is a function_.
+__Exercise__. _Show if $R$ is a partial function then $\underline{R}$ is a function_.
 <details>
 <summary>Solution</summary>
 
-If $x\in\dom R$ then $x\overline{R} = xR$ has one element. If $x\not\in\dom R$
+If $x\in RY$ then $x\overline{R} = xR$ has one element. If $x\not\in RY$
 then $x\overline{R} = \{\bot\}$ has one element.
 
 </details>
@@ -158,6 +158,28 @@ __Exercise__. _Show a function has a right inverse if and only if it is surjecti
 If $R$ has a left inverse $S$ then $SR = I$. If $R(x) = R(x')$ then $x = SR(x) = SR(x') = x'$.
 
 </details>
+
+
+### Lattice Structure
+
+Relations on $X\times X$ are ordered by set inclusion. If $R\subset S$
+then $RT\subset ST$ and $TR\subset TS$ for any $T\subseteq X\times X$.
+This shows $(R\cap S)T \subseteq RT\cap ST$ and $T(R\cap S) \subseteq TR\cap TS$.
+Similarly $(R\cup S)T \supseteq RT\cup ST$ and $T(R\cup S) \supseteq TR\cup TS$.
+
+This shows $(R\cap I)S \subseteq RS \cap S$ and $(R\cup I)S \supset RS\cup R$
+so $(R\cup I)R\supseteq R^2\cup R$.
+
+If $R,S,T\subseteq X\times X$ then $(R\cup S)T \subseteq RT\cup ST$
+since $(R\cup S)T \supseteq RT$ and $(R\cup T)\supset
+
+A relation $R\subseteq X\times X$ is _transitive_ if $R^2\subseteq R$, that is,
+$xRy$ and $yRz$ imply $xRz$ for $x,y,z\in X$.
+
+A relation $R\subseteq X\times X$ is _reflexive_ if $I_X\subseteq R$, that is,
+$xRx$ for all $x\in X$.
+
+__Exercise__. _If $R,S\subseteq X\times X$ then $(R\cup I)S = (RS)\cup I = R(I\cup S)$_.
 
 A relation $R$ on $X\times X$ is _reflexive_
 if $xRx$ for $x\in X$, _symmetric_ if $xRy$ implies $yRx$ for $x,y\in X$,

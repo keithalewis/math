@@ -126,6 +126,59 @@ $\eq(\hat{\ }(n,k)) = \eq(n^k) = \eq n^k$.
 
 Never play code golf with an APLer.
 
+=======
+to chain application. Define $gf\colon X\to Z$ by $(gf)x = gfx$.
+
+__Exercise__. _If $f\colon X\to Y$, $g\colon Y\to Z$, and $h\colon Z\to W$
+show $h(gf) = (hg)f$_.
+
+Function composition is _associative_.
+
+For any set $X$ define the _identity function_ $1_X\colon X\to X$ by $1_X(x) = x$, $x\in X$.
+
+__Exercise__. _If $f\colon X\to Y$ show $f1_X = f$ and $1_Yf = f$_.
+
+A function $f\colon X\to Y$ has a _left inverse_ if there exists
+$g\colon Y\to X$ with $gf = 1_X$. If $fx_0 = fx_1$ then
+$x_0 = gfx_0 = gfx_1 = x_1$.
+A function is _injective_ if $fx_0 = fx_1$ implies $x_0 = x_1$.
+Functions with left inverses are injective.
+
+__Exercise__. _Show if $f$ is injective then it has a left inverse_.
+
+Hint: Define $g\colon Y\to X$ by $g(fx) = x$ and $g(y)$ arbitrarily
+for $y$ not in the range of $f$.
+
+A function $f\colon X\to Y$ has a _right inverse_ if there exists
+$g\colon Y\to X$ with $fg = 1_Y$. If $y\in Y$ then $y = f(gy)$ and $gy\in X$.
+A function is _surjective_ if for every $y\in Y$ there exists $x\in X$ with $fx = y$.
+Functions with right inverses are surjective.
+
+__Exercise__. _Show if $f$ is surjective then it has a right inverse_.
+
+Hint: Define $h\colon Y\to X$ by $hy = x$ for arbitrary $x\in X$ with $fx = y$.
+
+The left and right inverse of injective and surjective functions are not necessarily unique.
+If $f\colon X\to Y$ has left inverse $g$ and right inverse $h$ then $f$ is _invertible_.
+A function is _bijective_ if it is injective and surjective.
+
+__Exercise__. _If $f$ is bijective show the left and right inverse are unique_.
+
+Hint: If $g'$ is a left inverse of $f$ then $g'fx = gfx$ for all $x\in X$.
+Since $fx = y$ for some $y\in Y$ we have $g' = g$.
+
+If $f\colon X\to Y$ is bijective we write $f^{-1}\colon Y\to X$ for the unique inverse.
+
+__Exercise__. _Show $ff^{-1} = 1_Y$ and $f^{-1}f = 1_X$_.
+
+Define an _equivalence relation_ on sets by $X\sim Y$ if and only if
+there is a bijection $f\colon X\to Y$.
+
+__Exercise__. _Show $\sim$ is an equivalence relation_.
+
+Hint: Show $X\sim X$, $X\sim Y$ implies $Y\sim X$, and $X\sim Y$, $Y\sim Z$ imply $X\sim Z$
+for sets $X$, $Y$, $Z$.
+>>>>>>> 9f6e21cdaa0eab42d71d928b4294ea6a773a1ee9
 
 ## Product
 
@@ -139,18 +192,16 @@ and $p_1 = \pi_1 p$_.
 
 Hint: Define $p$ by $py = (p_0y, p_1y)$, $y\in Y$.
 
-Any set having this property can be identified with $X_0\times X_1$.
-Functions having this property are _projections_.
+Functions having this property are called _projections_.
+Any set having two projections can be identified with $X_0\times X_1$.
 
 __Exercise__. _If $X$ is a set with projection $p_0\colon X\to X_0$ and
-$p_1\colon X\to X_1$ show $X\cong X_0\times X_1$_.
+$p_1\colon X\to X_1$ show $X\sim X_0\times X_1$_.
 
 Hint: There exist functions $p\colon X\to X_0\times X_1$ with $p_0 = \pi_0p$
 and $p_1 = \pi_1p$ and $q\colon X_0\times X_1\to X$ with $\pi_0 = p_0q$
 and $\pi_1 = p_1q$. Show $pq$ is the identity function on $X_0\times X_1$
 and $qp$ is the identity function on $X$.
-
-$qpx = q(p_0x, p_1x) \in X$. 
 
 This can be generalized to any collection of indexed sets $X_i$, $i\in I$.
 The product $\Pi X_I = \Pi_{i\in I} X_i$ has projections $\pi_i\colon \Pi X_I\to X_i$, $i\in I$.
@@ -159,31 +210,128 @@ For $x\in \Pi X_I$ we write $x = (\pi_i x) = (x_i)$, $i\in I$.
 __Exercise__. _Show if $p_i\colon Y\to X_i$, $i\in I$ are functions
 then there exists a function $p\colon Y\to \Pi X_I$ with $p_i = \pi_i p$, $i\in I$_.
 
-Any set having this property can be identified with $\Pi X_I$.
+Any set having projections indexed by $I$ can be identified with $\Pi X_I$.
 
 ## Exponential
 
-If $X$ and $Y$ are sets then the _exponential_ is the set of all functions
-from $X$ to $Y$, $Y^X = \{f\colon X\to Y\}$. If $X$ and $Y$ are sets
-then $\Pi Y_X$ is isomorphic to $Y^X$.
+If $X$ and $Y$ are sets then the _exponential_ $Y^X$ is the set of all functions
+from $X$ to $Y$, $\{f\colon X\to Y\}$. If $X$ and $Y$ are sets
+then $\Pi Y_X\sim Y^X$ in a natural way. Every $y\in\Pi Y_X$ determines
+a function $y'\colon X\to Y$ by $y'x = \pi_x y$ and every $y\in Y^X$ determines
+an element $y'\in\Pi Y_X$ by $\pi_x y' = yx$.
 
-__Exercise__. _Show $\Pi Y_X\cong Y^X$_.
+The $n$-fold cartesian product of the set $Y$ is usually written $Y^n$.
+We use the convention $n=\{0,1,\ldots,n-1\}$ to turn $n$ into a set.
+APL gives names to things and calls this $\iota n$.
+Elements of $X^n$ are called (one-dimensional) arrays and
+have the form $x = (x_0,\ldots,x_n-1})$ when $X^n$ is a product
+and $x = (x(0),\ldots,x(n-1))$ when $X^n$ is an exponent.
 
-Hint: Given $p_y\colon Y^X\to Y$, $y\in Y$,
-define $p\colon Y^X\to \Pi Y_X$ by $\pi_y(px) = p_yx$, $x\in Y^X$.
-Define $q\colon\Pi Y_X\to Y^X$ by $(qy)x = yx$, $y\in Y^X$, $x\in X$.
-Show $pq$ is the identity on $\Pi Y_X$ and $qp$ is the identity on $Y^X$.
+### Each
 
 Given any sets $X$, $Y$, and $Z$, $Z^{X\times Y}$ is isomorphic to $Z^{Y^X}$
 via $f(x,y) = z$, $f\in Z^{X\times Y}, if and only if $(gx)y = z$, $g\in Z^{Y^X}$
 for $x\in X$, $y\in Y$, $z\in Z$.
-We write this correspondence as $(X\times Y)\to Z \cong X\to(Y\to Z)$.
+Given $f\colon X\to Y$ and any set $Z$
+define $f^Z\colon X^Z\to Y^Z$ by $(f^Zx)z = fxz\in Y$ for $x\in X^Z$, $z\in Z$.
+We can write this more succinctly as $f^Zx = fx$ to clarify
+that left composition can be expressed as a function.
+
+This is called _each_ in APL. Other languages call it _map_ or _appy_.
+It acts on arrays by applying $f$ to each
+element of the array and we drop the superscript $Z = n$ to get
+$f(x_1,\ldots) = (f(x_1),\ldots)$ for $x\in X^n$.
+If $x\colon n\to X$ then this is just composition on the left with $f$
+
+### Projection
+>>>>>>> 9f6e21cdaa0eab42d71d928b4294ea6a773a1ee9
 
 Given $f\colon X\to Y$ and any set $Z$
-define $f^Z\colon X^Z\to Y^Z$ by $(f^Zx)z = fxz\in Y$ for $x\in X^Z$, $z\in Z$
-and $f_Z\colon Z^Y\to Z^X$ by $(f_Zy)x = yfx\in Z$ for $y\in Z^Y$, $x\in X$.
-We can write these more succinctly as $f^Zx = fx$ and $f_Zy = yf$ to
-clarify that left and right composition can be express as functions.
+define $f_Z\colon Z^Y\to Z^X$ by $(f_Zy)x = yfx\in Z$ for $y\in Z^Y$, $x\in X$.
+We can write this more succinctly as $f_Zy = yf$ to
+clarify that right composition can be expressed as a functions.
+This function maps the index set $X$ to a new index set $Y$. 
+If $X = Y$ this map is the projection on the indices $f(X)$.
+
+__Exercise__. _If $f\colon X\to Y$ is bijective, so is $f_Z$_.
+
+If $X = n$ and Y = n$ then $f\colon n\to m$ is defined by $f(i)$, $i\in n$.
+We can use function values as the name of the function.
+Such function are identified by enclosing the list in square brackets
+so, for example, $[2 1](x_0, x_1, x_2) = (x_2, x_1)$, but that looks funny.
+In APL the functions on the left are reversed to get the normal
+looking $(x_0, x_1, x_3)[2 1] = (x_2, x_1)$
+
+### Curry
+
+For sets $X$, $Y$, and $Z$ we can identify $Z^{X\times Y}$ with $Z^{Y^X}$.
+A function $f\in Z^{X\times Y}$ corresponds to $f'\in Z^{Y^X}$
+via $f(x,y) = z$ if and only if $(f'x)y = z$, $x\in X$, $y\in Y$, $z\in Z$.
+We write this correspondence as $(X\times Y)\to Z \leftrightarrow X\to(Y\to Z)$.
+Going from left to right is _currying_ and going from right to left
+is _uncurrying_. Currying makes it possible to reduce functions of
+multiple variables to functions of a single variable.
+
+## Examples
+
+Let $\RR$ be the real numbers, or their computer approximation: 64-bit
+IEEE floating point numbers.  Let $\NN$ be the natural numbers and
+$\ZZ$ be the integers. These are represented by unsigned and signed
+integers respectively on a computer. They can be categorized by the
+number of bits used in their computer representation. Mathematically,
+$\NN\subseteq\ZZ\subseteq\RR$ but it gets more complicated when
+considering computer implimentations. APL, like most computer languages,
+_implicitly promotes_ types to a common type. This leads
+to problems like the fact that while 32-bit integers (and even 53-bit
+integers) can be exactly represented by 64-bit floating point numbers,
+64-bit integers cannot. We will ignore these problems and assume all
+numeric values are real numbers.
+
+APL lets you turn a number into a lot of numbers.
+The function $\iota$ (iota) is used to produce sequences. If $n\in \NN$ then
+$\iota n = (0, 1, \ldots n-1)$.
+
+It is a function from $\NN$ to $\NN^* = \cup_{n\ge 0}\NN^n$, the
+set of all finite sequences of natural numbers.
+In what follows I will habitually forget to write $\iota n$ and just write $n$.
+
+Using the notation above, the $n\times n$ identity matrix can be written
+as $\delta^{n\times n}(n\times n)$ where $\delta\colon\NN\times\NN\to\NN$
+is $\delta(i,j) = 1$ if $i = j$ and $\delta(i,j) = 0$ if $i\not= j$.
+For any set $Z$, $\delta^Z\colon (A\times A)^Z\to A^Z$. Taking $Z = n\times n$
+and $A = n$
+gives $\delta^{n\times n}(n\times n) \in n^{n\times n}$. This is
+an $n\times n$ matrix taking values $\delta(i,j)$, aka the identity matrix.
+APL is parsed right-to-left so we drop the right parentheses to
+read $ab$ as $a(b)$. This is natural in a functional language
+where statements are chains of function calls.
+
+APL doesn't pussyfoot around and uses $\eq$ instead of $\delta$.
+
+But wait, that's not all! This can be written more succinctly
+as $\eq n^2$. Recall $n^2$ is the same as $n\times n$.
+If $f\colon X\to Y$ we can
+leave out the $Z$ in $f^Z$ if the value of $Z$ can be deduced
+from the function arguments. In this case $\delta^{n^2}\colon (A^2)^{n^2}\to A^{n^2}$
+and we know $\delta\colon A^2\to A$ so we must have $Z = n^2$.
+
+We can extend $\eq\colon A^k\to A$ by $\eq(a_0,\ldots) = 1$ if all $a_j$ are
+equal and 0 otherwise.
+The $k$-dimensional identity matrix is $\eq n^k$. If we
+define $\hat{\ }(A, B) = A\hat{\ } B = A^B$,
+then $\eq n\hat{\ }$ is
+a function from $\NN$ to identity matrices having the dimension of the argument.
+Further, $\eq\hat{\ }$ allows us to parameterize over $n$ too since
+$\eq(\hat{\ }(n,k)) = \eq(n^k) = \eq n^k$.
+
+Never play code golf with an APLer.
+
+The basic data type in APL is a multidimensional array in $\RR^{\times n*}$ where
+$n^*\in\NN^* = \cup_{n\ge0}\NN$ is a finite sequence of natural numbers
+and $\times$ is the cartesian product. If $X$ is a monoid with binary operator
+$\otimes$ and identity $1$ we can extend $\otimes\colon X^2\to X$ to
+$\otimes\colon X^*\to X$ by defining $\otimes(x_0\ldots, x_n) =
+= x_0\otimes\cdots\otimes x_n$.
 
 <!--
 
@@ -288,24 +436,6 @@ is just an element of $A^{n_0\times\cdots}$. APL provides
 primitives for slicing and dicing along any dimensions.
 
 ## Data and Operators
-
-Let $\RR$ be the real numbers, or their computer approximation: 64-bit IEEE floating point numbers.
-Let $\NN$ be the natural numbers and $\ZZ$ be the integers. These are represented by unsigned
-and signed integers respectively on a computer. They can be categorized by the number of bits
-used in their computer representation. Mathematically, $\NN\subseteq\ZZ\subseteq\RR$ but
-it gets more complicated when considering computer implimentations. APL, like most computer
-languages, _implicitly promotes_ types to their smallest common type. This leads to problems
-like the fact that while 32-bit integers can be exactly represented by 64-bit floating point
-numbers, 64-bit integers cannot. We will ignore these problems
-and assume all numeric values are real numbers.
-
-The basic data type in APL is a multidimensional array in $\RR^{\times n*}$ where
-$n^*\in\NN^* = \cup_{n\ge0}\NN$ is a finite sequence of natural numbers
-and $\times$ is the cartesian product. If $X$ is a monoid with binary operator
-$\otimes$ and identity $1$ we can extend $\otimes\colon X^2\to X$ to
-$\otimes\colon X^*\to X$ by defining $\otimes(x_0\ldots, x_n) =
-= x_0\otimes\cdots\otimes x_n$.
-
 ### Shape
 
 The exponential $Y^X$ is the set of all functions from $X\to Y$.
