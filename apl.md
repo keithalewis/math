@@ -162,7 +162,7 @@ call this _fold_.
 
 Any binary operator $\bullet\colon X\times X\to X$ can
 be extended to
-$\bullet/\colon X^n\colon X$ for $n > 2$
+$\bullet/\colon X^n\to X$ for $n > 2$
 inductively by $\bullet/(x_0, x_1, \ldots) = x_0 \bullet (\bullet/(x_1, \dots))$.
 This is called _right reduce_. If the array is finite then
 then _left reduce_ is $/\bullet(x_0,\ldots,x_n) = (/\bullet(x_0,\ldots,x_{n-1}))\bullet x_n$.
