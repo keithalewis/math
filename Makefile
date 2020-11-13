@@ -10,8 +10,8 @@ CSS = math.css
 FLAGS  = -f markdown+definition_lists+raw_html+pipe_tables
 FLAGS += -t html5
 FLAGS += -s # smart quotes
-#FLAGS += --katex=$(KATEX)
-FLAGS += --katex=katex/
+FLAGS += --katex=$(KATEX)
+#FLAGS += --katex=katex/
 FLAGS += --css math.css
 FLAGS += -A FOOTER.md
 #FLAGS +=  -M date="$(shell date "+%B %e, %Y")"
