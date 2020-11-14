@@ -121,7 +121,7 @@ show $\mu'|_\Delta$ is a measure on any coarser partition $\Delta$_.
 <details>
 <summary>Solution</summary>
 
-With $\mu = \mu'|_\Delta$, we must show $\mu(\emptyset) = 0$ and $\mu(E\cup F) = \mu(E)\oplus\mu(F)$
+> With $\mu = \mu'|_\Delta$, we must show $\mu(\emptyset) = 0$ and $\mu(E\cup F) = \mu(E)\oplus\mu(F)$
 when $E\cap F = \emptyset$ for $E,F\in\Delta$. Since $\Delta'|\emptyset = \emptyset$
 we have $\mu(\emptyset) = \mu'(\emptyset) = 0$. If $E,F\in\Delta$ are disjoint then
 so are $\Delta'|E$ and $\Delta'|F$ hence $\mu(E\cup F) = \mu'(\Delta'|(E\cup F))
@@ -156,7 +156,7 @@ __Exercise__. _If $S$ is finite show $\mu(\{s_1,\ldots,s_n\})
 <details>
 <summary>Solution</summary>
 
-This follows from $V$ being an abelian monoid. By associativity
+> This follows from $V$ being an abelian monoid. By associativity
 $\mu(\{s_1\})\oplus\cdots\oplus\mu(\{s_n\})$ is well-defined.
 Any permutation of $(s_j)$ in the left-hand side set results in the same set.
 Commutativity shows the right hand side is unchanged by any permutation.
@@ -191,7 +191,7 @@ __Exercise__. _Show $\hat{\alpha}(\{u\}) = u$ for $u\in V$_.
 <details>
 <summary>Solution</summary>
 
-By the definition of $\hat{\alpha}$ and $\iota$ being the identity element
+> By the definition of $\hat{\alpha}$ and $\iota$ being the identity element
 $\hat{\alpha}(\{u\}) = \hat{\alpha}(\{u\}\cup\emptyset)
 = \alpha(u, \hat{\alpha}(\emptyset)) = \alpha(u, \iota) = u$.
 </details>
@@ -203,7 +203,7 @@ if $\sigma$ is a permutation of $\{1,\ldots,n\}$_.
 <details>
 <summary>Solution</summary>
 
-We prove this by induction on $n$. The previous exercise shows this
+> We prove this by induction on $n$. The previous exercise shows this
 it true if $n = 1$. Assume the statement is true for $n$. We have
 $$
 \begin{aligned}

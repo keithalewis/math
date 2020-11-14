@@ -236,12 +236,14 @@ __Exercise__. _Show $T^{**}\iota_V = \iota_W T$_.
 
 <details>
 <summary>Solution</summary>
-For $v\in V$ and $w^*\in W^*$,
+
+> For $v\in V$ and $w^*\in W^*$,
 $\langle T^{**}\iota_V v,w^*\rangle
 =\langle \iota_V v,T^*w^*\rangle
 =\langle v,T^*w^*\rangle
 =\langle Tv,w^*\rangle
 =\langle \iota_W Tv,w^*\rangle$.
+
 </details>
 
 Are there categories of categories of ...?
@@ -271,7 +273,9 @@ __Exercise__. _If $f$ has right inverse $g$ and left inverse $g'$ show $g = g'$_
 
 <details>
 <summary>Solution</summary>
-We have $g' = g'1_B = g'(fg) = (g'f)g = 1_Ag = g$.
+
+> We have $g' = g'1_B = g'(fg) = (g'f)g = 1_Ag = g$.
+
 </details>
 
 This shows an arrow with both a right and left inverse is an isomorphism.

@@ -108,7 +108,10 @@ into primes.
 <p>The prototypical example of natural transformation arises in the category <span class="math inline">\mathbf{Vec}</span>. The <em>dual</em> of a vector space is <span class="math inline">V^* = \hom(V,\mathbf{F})</span> where <span class="math inline">\mathbf{F}</span> is the underlying field of the vector space. The <em>dual pairing</em> between <span class="math inline">V</span> and <span class="math inline">V^*</span> is <span class="math inline">\langle v,v^*\rangle = v^*(v)</span>. If <span class="math inline">T\colon V\to W</span> is a linear transformation then <span class="math inline">T^*\colon W^*\to V^*</span> via <span class="math inline">\langle Tv,w^*\rangle = \langle v,T^*w^*\rangle</span>. Note <span class="math inline">T^{**}\colon V^{**}\to W^{**}</span> and gives rise to a functor <span class="math inline">D</span> in <span class="math inline">\mathbf{Vec}</span> via <span class="math inline">V\mapsto V^{**}</span> and <span class="math inline">T\mapsto T^{**}</span>. There is a natural inclusion <span class="math inline">\iota_V\colon V\to V^{**}</span> by <span class="math inline">\langle \iota_V v,v^*\rangle = \langle v, v^*\rangle</span>. The property <span class="math inline">T^{**}\iota_V = \iota_W T</span> says <span class="math inline">\iota\colon I\to D</span> is a natural transformation where <span class="math inline">I</span> is the identity functor of <span class="math inline">\mathbf{Vec}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">T^{**}\iota_V = \iota_W T</span></em>.</p>
 <details>
-<summary>Solution</summary> For <span class="math inline">v\in V</span> and <span class="math inline">w^*\in W^*</span>, <span class="math inline">\langle T^{**}\iota_V v,w^*\rangle =\langle \iota_V v,T^*w^*\rangle =\langle v,T^*w^*\rangle =\langle Tv,w^*\rangle =\langle \iota_W Tv,w^*\rangle</span>.
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>For <span class="math inline">v\in V</span> and <span class="math inline">w^*\in W^*</span>, <span class="math inline">\langle T^{**}\iota_V v,w^*\rangle =\langle \iota_V v,T^*w^*\rangle =\langle v,T^*w^*\rangle =\langle Tv,w^*\rangle =\langle \iota_W Tv,w^*\rangle</span>.</p>
+</blockquote>
 </details>
 <p>Are there categories of categories of …? Yep. They are called <span class="math inline">n</span>-<span class="math inline">\mathbf{Cat}</span>. It’s categories all the way down.</p>
 <h2 id="arrows">Arrows</h2>
@@ -116,7 +119,10 @@ into primes.
 <p>We have already seen how to use arrows to define isomorphisms. If <span class="math inline">A</span> and <span class="math inline">B</span> are isomorphic then there are arrows <span class="math inline">f\colon A\to B</span> and <span class="math inline">g\colon B\to A</span> with <span class="math inline">fg = 1_B</span> and <span class="math inline">gf = 1_A</span>. We say <span class="math inline">f\colon A\to B</span> has <em>right inverse</em> <span class="math inline">g\colon B\to A</span> when <span class="math inline">fg = 1_B</span> and <span class="math inline">f</span> has <em>left inverse</em> <span class="math inline">g</span> when <span class="math inline">gf = 1_A</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">f</span> has right inverse <span class="math inline">g</span> and left inverse <span class="math inline">g&#39;</span> show <span class="math inline">g = g&#39;</span></em>.</p>
 <details>
-<summary>Solution</summary> We have <span class="math inline">g&#39; = g&#39;1_B = g&#39;(fg) = (g&#39;f)g = 1_Ag = g</span>.
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>We have <span class="math inline">g&#39; = g&#39;1_B = g&#39;(fg) = (g&#39;f)g = 1_Ag = g</span>.</p>
+</blockquote>
 </details>
 <p>This shows an arrow with both a right and left inverse is an isomorphism.</p>
 <p>If <span class="math inline">fh = fk</span> implies <span class="math inline">h = k</span> then <span class="math inline">f</span> is called <em>mono</em>. If <span class="math inline">f</span> has a right inverse and <span class="math inline">h,k\colon B\to C</span> satisfy <span class="math inline">hf = kf</span> then <span class="math inline">h = h1_B = hfg = kfg = k1_B = k</span>. Arrows having a right inverse are mono.</p>

@@ -8,52 +8,65 @@ fleqn: true
 abstract: Probability &ndash; the foundation of statistics.
 ...
 
+\newcommand{\one}{⚀}
+\newcommand{\two}{⚁}
+\newcommand{\three}{⚂}
+\newcommand{\four}{⚃}
+\newcommand{\five}{⚄}
+\newcommand{\six}{⚅}
+
 # Probability Theory
 
 In order to understand statistics one must first understand _probability theory_.
 
 ## Chevalier de Méré
 
-A cubical die has six faces: &#9856;, &#9857;, &#9858;, &#9859;, &#9860;,
-and &#9861;.  Each time a die is rolled the top face is the result
+(Not his real name.) A cubical die has six faces: $\one$, $\two$, $\three$, $\four$, $\five$,
+and $\six$.  Each time a die is rolled the top face is the result
 of the roll.  If the die is _fair_ each face has an equal probability
-of occuring.
+of occuring. The probability of rolling a $\six$ in one roll is $1/6$.
 
-If a die is rolled twice then a &#9856; occurs in
+If a die is rolled twice then a $\six$ occurs in
 exacty $11 = 6 + 6 - 1$ of the $36 = 6^2$ possible outcomes.[^1]
 In $6$ cases it occurs on the first roll
 and in $6$ cases it occurs on the second roll but
-rolling &#9856; twice is included in both the first and second cases
-and should only be counted once.
+rolling $\six$ twice is included in both the first and second cases
+and should only be counted once. The probability of rolling a $\six$
+in two rolls is $11/36$.
 
 [^1]: The _cartesian product of sets $A$ and $B$ is the set of _pairs_
 $A\times B = \{(a,b):a\in A, b\in B\}$.
 The number of elements in $A\times B$ is the number of elements in $A$
 times the number of elements in $B$.
 
-If a die is rolled three times then the number cases involving a &#9856; in
+If a die is rolled three times then the number cases involving a $\six$ in
 the $216 = 6^3$ possible outcomes is a more difficult counting problem.
-It is easier to count the number of cases where a &#9856; does **not** occur: $125 = 5^3$.
-The number of times &#9856; **does** show up is therefor $91 = 216 - 125.
+It is easier to count the number of cases where a $\six$ does **not** occur: $125 = 5^3$.
+The number of times $\six$ **does** show up is therefor $91 = 216 - 125.
+The probability of rolling a $\six$ in three rolls is $91/216$.
 Note this can be used for the solution of the two roll case: $11 = 36 - 25$.
 It is not a coincidence that $91 = 3\times 6^2 - 3\times 6 + 1\times 1$.
-This is closely related to the formula $(6 - 1)^3 = 6^3  - 3\times 6^2 + 3\times 6 - 1%.
+This is closely related to the formula $(6 - 1)^3 = 6^3  - 3\times 6^2 + 3\times 6 - 1$.
 
-If a die is rolled $n$ times then number cases involving a &#9856; is $6^n - 5^n$.
+If a die is rolled $n$ times then the number cases involving a $\six$ is $6^n - 5^n$.
 The _probability_ of this happening is $(6^n - 5^n)/6^n = 1 - (5/6)^n$.
 Note that this tends to $1$ as $n$ tends to infinity; you will eventually roll
-a &#9856; if you roll long enough.
+a $\six$ if you roll long enough.
 
-Chevalier de Méréwas concerned with the problem of how to divide the
+Chevalier de Méré was concerned with the problem of how to divide the
 wagers if the game was interupted part way thorough. (Vingt-deux, voilà
-les flics!)  Suppose the odds are $91$ will get you $125$ in the three
-roll game and the first roll is not a &#9856;. The odds of winning went
-down since there are only two rolls remaining to get a &#9856;. If the
-game stops there the first player should get back something less than
-$91$ and the second player should get back more than $215$, but what is
-a fair division?
+les flics!)  The initial odds are $91$ will get you $125$ in the three
+roll game. If the first roll is not a $\six$ the odds of winning went
+down since there are only two rolls remaining to get a $\six$. If the
+game stops after the first roll how should the bet be fairly divided?
 
-...
+Antoine Gombaud (his real name) asked his salon friends Blaise Pascal
+and Pierre de Fermat about this puzzle. They came up with a complete
+solution of how to count with partial information.
+
+Read on.
+
+## Probabilty Space
 
 A _sample space_ is a set of _outcomes_. Subsets of a
 sample space are _events_. A _probability measure_ assigns  a number
@@ -61,7 +74,7 @@ between 0 and 1 to events that represents a _degree of belief_ an outcome
 will belong to the event.
 _Partial information_ is modeled by a _partition_ of the sample space.
 
-## Sample Space
+### Sample Space
 
 A _sample space_ is a set of what can happen in a probability model.
 An _outcome_ is an element of a sample space.
@@ -107,7 +120,7 @@ Monte Hall problem
 It must be modeled as a Markov Decision Process.
 -->
 
-## Measure
+### Measure
 
 A _measure_ $\mu$ on a set $S$ assigns numbers to subsets of $S$ and satisfies
 $$
@@ -125,7 +138,6 @@ subset $E\subseteq S$. Clearly $\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)$
 for any $E,F\subseteq S$. Since $\mu(\emptyset) = \nu(\emptyset) - \nu(\emptyset) = 0$,
 $\mu$ is a measure.
 
-</blockquote>
 </details>
 
 __Exercise__. _Show if $\mu$ is a measure then $\mu(E\cup F) = \mu(E) + \mu(F)$
@@ -149,6 +161,23 @@ and $(E\cap F)\cap(E\cap F') = E\cap(F\cap F') = E\cap\emptyset = \emptyset$ so
 $\mu(E\cap F) + \mu(E\cap F') = \mu((E\cap F)\cup(E\cap F') = \mu(E)$.
 
 </details>
+
+### Partition
+
+A _partition_ splits a sample space into disjoint subsets with union
+equal to the sample space. Partitions are how _partial information_
+is represented.  The events in the partition are called _atoms_. The
+way they represent partial information is you only know what atom an
+outcome belongs to, not the actual outcome.
+
+Partitions define an _equivalence relation_ on outcomes. We say $\omega\sim\omega'$
+if and only if they belong to the same atom.
+
+__Exercise__. _Show $\omega\sim\omega$, $\omega\sim\omega'$ implies $\omega'\sim\omega$,
+and $\omega\sim\omega'$, $\omega'\sim\omega''$ implies $\omega\sim\omega''$_.
+
+This is the definition of an equivalence relation. It is the mathematical way
+of saying two things are the "same" even if they are not equal.
 
 ## Probability Measure
 

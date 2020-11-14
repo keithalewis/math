@@ -315,11 +315,12 @@ when applying the CVA formula.
 
 The two fundamental problems of risk management are that there is no
 clear definition of risk and it is impossible to manage something that
-is not defined.  The term _model risk_ is doubly unclear.
+is not clearly defined.  The term _model risk_ is doubly unclear:
+exactly what models are under consideration?
 
 One universal property is that when a new model is introduced there is
 always a P&amp;L hit.  Trades undervalued by the old model were executed
-by counterparties who recognized that and trades overvalued by the old
+by counterparties who recognized that, and trades overvalued by the old
 model found no takers.
 
 In lieu of a proper theory of risk management the best that can be
@@ -346,7 +347,7 @@ scenarios given a model and trading strategy.
 Existing models can be leveraged to do this. Off-the-shelf
 tools can already report mean, standard deviation, and quantiles
 for probability distributions. The only hurdle is computing power,
-but we have Moore's Law on our side. Any software built for this
+but we have Moore's Law on our side. Any software built
 today does not need to be rewritten in the future.
 
 ## Remarks
