@@ -25,6 +25,8 @@ in terms of homsets of $\cat{Set}$:
 $\cat{C}(A,B)\cong \int_X \cat{Set}(\cat{C}(B,X), \cat{C}(A,X))$.
 If $\cat{C}$ is $\cat{Set}$ this is analogous to Cayley's theorem
 that every group can be respresented by a permutation group.
+This may have stunted the development of group theory by
+hiding the abstract axioms in a much richer and concrete representation.
 
 If $\cat{C}$ is a category we write $\cat{C}(A,B)$ for all arrows in
 $\cat{C}$ from object $A\in\cat{C}$ to object $B\in\cat{C}$.  If $\cat{C}$
