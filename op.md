@@ -7,7 +7,7 @@ fleqn: true
 abstract: European option pricing
 ...
 
-\renewcommand{\Var}{\operatorname{Var}}
+\newcommand{\Var}{\operatorname{Var}}
 
 European _option valuation_ involves calculating the expected value of
 the _option payoff_ at _expiration_. Greeks are derivatives of the value.
@@ -59,6 +59,7 @@ Since $dc/df = dp/df + 1$ call gamma is $d^2c/df^2 = d^2p/df^2$.
 
 ## Discrete
 
+The cdf is $cdf(x) = \sum_{x_i\le x} p_i$. The pdf returns infinity at $x_i$.
 The cumulant is $κ(s) = \log(\sum_i exp(s*x_i) p_i) = \log e(s)$ so
 $κ'(s) = e'(s)/e(s)$ and $κ''(s) = (e(s) e''(s) - e'(s)^2)/e(s)^2$.
 Note $e^{(n)}(s) = \sum_i exp(s*x_i) x_i^n p_i)$ for $n \ge 0$.
