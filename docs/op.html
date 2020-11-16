@@ -57,7 +57,28 @@
 <dd><span class="math inline">\(d^2p/df^2 = E^s[δ_k(F)] = ...\)</span>
 </dd>
 </dl>
+<<<<<<< HEAD
 <p>Since <span class="math inline">\(dc/df = dp/df + 1\)</span> call gamma is <span class="math inline">\(d^2c/df^2 = d^2p/df^2\)</span>.</p>
+=======
+<p>Since <span class="math inline">dc/df = dp/df + 1</span> call gamma is <span class="math inline">d^2c/df^2 = d^2p/df^2</span>.</p>
+<h2 id="discrete">Discrete</h2>
+<p>The cumulant is <span class="math inline">κ(s) = \log(\sum_i exp(s*x_i) p_i) = \log e(s)</span> so <span class="math inline">κ&#39;(s) = e&#39;(s)/e(s)</span> and <span class="math inline">κ&#39;&#39;(s) = (e(s) e&#39;&#39;(s) - e&#39;(s)^2)/e(s)^2</span>. Note <span class="math inline">e^{(n)}(s) = \sum_i exp(s*x_i) x_i^n p_i)</span> for <span class="math inline">n \ge 0</span>.</p>
+<h2 id="trinomial">Trinomial</h2>
+<p>Define <span class="math inline">X</span> by <span class="math inline">P(x = -a) = p</span>, <span class="math inline">P(X = b) = q</span>, and <span class="math inline">P(X = 0) = 1 - p - q</span>, <span class="math inline">a,b\ge 0</span>. If <span class="math inline">0 = E[X] = -ap + bq</span> and <span class="math inline">\operatorname{Var}(X) = E[X^2] = a^2p + b^2 q</span> then <span class="math inline">p = 1/a(a + b)</span> and <span class="math inline">q = 1/b(a+b)</span>. The condition <span class="math inline">p + q \le 1</span> is <span class="math inline">ab \ge 1</span>. We parameterize this by <span class="math inline">a = e^\alpha</span>, <span class="math inline">b = e^\beta</span> where <span class="math inline">\alpha + \beta\ge 0</span> so <span class="math inline">p = 1/e^{\alpha}(e^\alpha + e^\beta)</span> and <span class="math inline">q = 1/e^{\beta}(e^\alpha + e^\beta)</span>. Note <span class="math inline">a,b\ge0</span> for all <span class="math inline">\alpha,\beta</span>.</p>
+<p>The cumulant is</p>
+<p><span class="math display">
+\begin{aligned}
+κ(s) &amp;= \log E[\exp(sX)] \\
+     &amp;= \log(p\exp(-sa) + (1 - p - q) + q\exp(sb)) \\
+     &amp;= \log(
+            \exp(-se^\alpha)/e^{\alpha}(e^\alpha + e^\beta)
+            + (1 - 1/e^{\alpha}(e^\alpha + e^\beta) - 1/e^\beta(e^\alpha + e^\beta))
+            + \exp(se^\beta)/e^{\beta}(e^\alpha + e^\beta)) \\
+\end{aligned}
+</span></p>
+<!--
+-->
+>>>>>>> 86ad5bd6b888519f30829ab467d0a74936fe3363
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

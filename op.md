@@ -56,3 +56,34 @@ _Put Gamma_
   ~ $d^2p/df^2 = E^s[δ_k(F)] = ...$
 
 Since $dc/df = dp/df + 1$ call gamma is $d^2c/df^2 = d^2p/df^2$.
+
+## Discrete
+
+The cumulant is $κ(s) = \log(\sum_i exp(s*x_i) p_i) = \log e(s)$ so
+$κ'(s) = e'(s)/e(s)$ and $κ''(s) = (e(s) e''(s) - e'(s)^2)/e(s)^2$.
+Note $e^{(n)}(s) = \sum_i exp(s*x_i) x_i^n p_i)$ for $n \ge 0$.
+
+## Trinomial
+
+Define $X$ by $P(x = -a) = p$, $P(X = b) = q$, and $P(X = 0) = 1 - p - q$, $a,b\ge 0$.
+If $0 = E[X] = -ap + bq$ and $\Var(X) = E[X^2] = a^2p + b^2 q$ then
+$p = 1/a(a + b)$ and $q = 1/b(a+b)$. The condition $p + q \le 1$
+is $ab \ge 1$. We parameterize this by $a = e^\alpha$, $b = e^\beta$
+where $\alpha + \beta\ge 0$ so $p = 1/e^{\alpha}(e^\alpha + e^\beta)$
+and $q = 1/e^{\beta}(e^\alpha + e^\beta)$. Note $a,b\ge0$ for all $\alpha,\beta$.
+
+The cumulant is 
+
+$$
+\begin{aligned}
+κ(s) &= \log E[\exp(sX)] \\
+     &= \log(p\exp(-sa) + (1 - p - q) + q\exp(sb)) \\
+     &= \log(
+	 		\exp(-se^\alpha)/e^{\alpha}(e^\alpha + e^\beta)
+			+ (1 - 1/e^{\alpha}(e^\alpha + e^\beta) - 1/e^\beta(e^\alpha + e^\beta))
+			+ \exp(se^\beta)/e^{\beta}(e^\alpha + e^\beta)) \\
+\end{aligned}
+$$
+
+<!--
+-->
