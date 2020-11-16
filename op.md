@@ -7,11 +7,11 @@ fleqn: true
 abstract: European option pricing
 ...
 
-\renewcommand{\Var}{\operatorname{Var}}
+\newcommand{\Var}{\operatorname{Var}}
 
 European _option valuation_ involves calculating the expected value of
-the _option payoff_ at _expiration_. Greeks are derivatives of the value.
-Payoff is a function of the _underlying_ at expiration.
+the _option payoff_ as a function of the _underlying_ at _expiration_.
+_Greeks_ are derivatives of the _value_ with respect to _model parameters_.
 
 Let $F$ be the (random) value of the underlying at option expiration.
 Any positive random variable $F$ can be parameterized by
@@ -22,6 +22,8 @@ For example, the Black model takes $X$ to be standard normal and  _vol_
 $s = σ \sqrt{t}$ where $σ$ is the Black-Scholes/Merton volatilty and $t$ is time in years to expiration.
 
 The (forward) value of an option paying $π(F)$ at expiration is $v = E[π(F)]$.
+Define $P^s$ by $dP^s/dP = \exp(s X - κ(s))$ and $E^s[π(F)] = E[π(F)\exp(s X - κ(s))]$
+to be expected value with respect to $P^s$.
 
 _Delta_ 
   ~ $dv/df = E[π'(F) dF/df] = E[π'(F)\exp(s X - κ(s))] = E^s[π'(F)]$
@@ -38,6 +40,7 @@ A _put option_ pays $\max\{k - F,0\}$ at expiration and has value $p = E[\max\{k
 A _call option_ pays $\max\{F - k, 0\}$ at expiration and has value $c = E[\max\{F - k, 0\}]$.
 Note $\max\{F - k, 0\} - \max\{k - F,0\} = F - k$ is a _forward_ with _strike_ $k$ so
 $c - p = f - k$ and is called _put-call parity_. 
+Call delta is $dc/df = dp/df + 1$ and call gamma is $d^2c/df^2 = d^2p/df^2$.
 
 Define _moneyness_ $x$ by $F = k$ iff $X = x = (\log(k/F) + κ(s))/s$.
 The value of a put is
@@ -52,13 +55,14 @@ _Put Delta_
 
 Since $c = p + f - k$ call delta is $dc/df = dp/df + 1$.
 
-_Put Gamma_
+_Gamma_
   ~ $d^2p/df^2 = E^s[δ_k(F)] = ...$
 
 Since $dc/df = dp/df + 1$ call gamma is $d^2c/df^2 = d^2p/df^2$.
 
 ## Discrete
 
+The cdf is $cdf(x) = \sum_{x_i\le x} p_i$. The pdf returns infinity at $x_i$.
 The cumulant is $κ(s) = \log(\sum_i exp(s*x_i) p_i) = \log e(s)$ so
 $κ'(s) = e'(s)/e(s)$ and $κ''(s) = (e(s) e''(s) - e'(s)^2)/e(s)^2$.
 Note $e^{(n)}(s) = \sum_i exp(s*x_i) x_i^n p_i)$ for $n \ge 0$.
@@ -85,5 +89,12 @@ $$
 \end{aligned}
 $$
 
-<!--
--->
+## Remarks
+
+If the cumulative distribution function of $X$ is $Phi$, that is $P(X\le x) = \Phi(x)$,
+and $g$ is invertible then the cdf of $Y = g(X)$ is $\Psi = \Phi\circ g^{-1}$. For example,
+if $X$ has mean $0$ and variance $1$ and $g(x) = \mu + \sigma x$ then $Y = g(X)$ has mean
+$\mu$, variance $\sigma^2$, and $\Psi(y) = P(Y\le y) = \Phi((y - \mu)/\sigma)$.
+
+The probability density function of $Y = g(X)$ is $\psi(y) = \Psi'(y) = (\phi\circ g^{-1})g^{-1}'(y)$.
+Recall $g^{-1}'(y) = 1/g'\circ g^{-1}(y)$.
