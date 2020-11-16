@@ -13,13 +13,13 @@ European _option valuation_ involves calculating the expected value of
 the _option payoff_ at _expiration_. Greeks are derivatives of the value.
 Payoff is a function of the _underlying_ at expiration.
 
-Let $F > 0$ be the value of the underlying at option expiration.
+Let $F$ be the (random) value of the underlying at option expiration.
 Any positive random variable $F$ can be parameterized by
 $F = f \exp(s X - κ(s))$, where $κ(s) = \log E[s X]$ is the cumulant of $X$.
 Note $E[F] = f$ is the _forward_ and $\Var(\log F) = s^2$ is the variance
 if $E[X] = 0$ and $E[X^2] = 1$, which we can, and do, assume.
 For example, the Black model takes $X$ to be standard normal and  _vol_ 
-$s = σ \sqrt{t}$ where $σ$ is the volatilty and $t$ is time in years to expiration.
+$s = σ \sqrt{t}$ where $σ$ is the Black-Scholes/Merton volatilty and $t$ is time in years to expiration.
 
 The (forward) value of an option paying $π(F)$ at expiration is $v = E[π(F)]$.
 
@@ -27,7 +27,7 @@ _Delta_
   ~ $dv/df = E[π'(F) dF/df] = E[π'(F)\exp(s X - κ(s))] = E^s[π'(F)]$
 
 _Gamma_ 
-~ $d^2v/df^2 = E[π''(F)\exp(s X - κ(s))^2] = e^{κ(2s) - 2κ(s)}E^{2s}[π''(F)]$ 
+  ~ $d^2v/df^2 = E[π''(F)\exp(s X - κ(s))^2] = e^{κ(2s) - 2κ(s)}E^{2s}[π''(F)]$ 
 
 _Vega_
   ~ $dv/ds = E[π'(F) dF/ds] = E[π'(F)F(X - κ'(s))]$.
