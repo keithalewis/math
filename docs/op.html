@@ -39,20 +39,21 @@
 <p class="author">Keith A. Lewis</p>
 </header>
 <p>European <em>option valuation</em> involves calculating the expected value of the <em>option payoff</em> as a function of the <em>underlying</em> at <em>expiration</em>. <em>Greeks</em> are derivatives of the <em>value</em> with respect to <em>model parameters</em>.</p>
-<p>Let <span class="math inline">F &gt; 0</span> be the value of the underlying at option expiration. Any positive random variable <span class="math inline">F</span> can be parameterized by <span class="math inline">F = f \exp(s X - κ(s))</span>, where <span class="math inline">κ(s) = \log E[s X]</span> is the cumulant of <span class="math inline">X</span>. Note <span class="math inline">E[F] = f</span> is the <em>forward</em> and <span class="math inline">\operatorname{Var}(\log F) = s^2</span> is the variance if <span class="math inline">E[X] = 0</span> and <span class="math inline">E[X^2] = 1</span>, which we can, and do, assume. For example, the Black model takes <span class="math inline">X</span> to be standard normal and <em>vol</em> <span class="math inline">s = σ \sqrt{t}</span> where <span class="math inline">σ</span> is the volatilty and <span class="math inline">t</span> is time in years to expiration.</p>
-<p>The (forward) value of an option paying <span class="math inline">π(F)</span> at expiration is <span class="math inline">v = E[π(F)]</span>. Define <span class="math inline">P^s</span> by <span class="math inline">dP^s/dP = \exp(s X - κ(s))</span> and <span class="math inline">E^s[π(F)] = E[π(F)\exp(s X - κ(s))]</span> to be expected value with respect to <span class="math inline">P^s</span>.</p>
+<p>Let <span class="math inline">F &gt; 0</span> be the value of the underlying at option expiration. Any positive random variable <span class="math inline">F</span> can be parameterized by <span class="math inline">F = f \exp(s X - κ(s))</span>, where <span class="math inline">κ(s) = \log E[s X]</span> is the cumulant of <span class="math inline">X</span>. Note <span class="math inline">E[F] = f</span> is the <em>forward</em> and <span class="math inline">\operatorname{Var}(\log F) = s^2</span> is the variance if <span class="math inline">E[X] = 0</span> and <span class="math inline">E[X^2] = 1</span>, which we can, and do, assume.</p>
+<p>For example, the Black model takes <span class="math inline">X</span> to be standard normal and <em>vol</em> <span class="math inline">s = σ \sqrt{t}</span> where <span class="math inline">σ</span> is the volatilty and <span class="math inline">t</span> is time in years to expiration. In what follows we will call <span class="math inline">s</span> vol and <span class="math inline">σ</span> volatility.</p>
+<p>The (forward) value of an option paying <span class="math inline">π(F)</span> at expiration is <span class="math inline">v = E[π(F)]</span>. Define Esscher transform <span class="math inline">P^s</span> by <span class="math inline">dP^s/dP = \exp(s X - κ(s))</span> so <span class="math inline">E^s[π(F)] = E[π(F)\exp(s X - κ(s))]</span>. Note <span class="math inline">E^s[1] = 1</span> so <span class="math inline">P^s</span> is a probability measure.</p>
 <dl>
 <dt><em>Delta</em></dt>
 <dd><span class="math inline">dv/df = E[π&#39;(F) dF/df] = E[π&#39;(F)\exp(s X - κ(s))] = E^s[π&#39;(F)]</span>
 </dd>
 <dt><em>Gamma</em></dt>
-<dd><span class="math inline">d^2v/df^2 = E[π&#39;&#39;(F)\exp(s X - κ(s))^2] = e^{κ(2s) - 2κ(s)}E^{2s}[π&#39;&#39;(F)]</span>
+<dd><span class="math inline">d^2v/df^2 = E[π&#39;&#39;(F)\exp(s X - κ(s))^2] = E^s[π&#39;&#39;(F)\exp(s X - κ(s))]</span>
 </dd>
 <dt><em>Vega</em></dt>
-<dd><span class="math inline">dv/ds = E[π&#39;(F) dF/ds] = E[π&#39;(F)F(X - κ&#39;(s))]</span>.
+<dd><span class="math inline">dv/ds = E[π&#39;(F) dF/ds] = E[π&#39;(F)F(X - κ&#39;(s))] = fE^s[π&#39;(F)(X - κ&#39;(s))]</span>.
 </dd>
 </dl>
-<p>The inverse of value as a function of vol is the <em>implied volatility</em>.</p>
+<p>The inverse of option value as a function of vol is the <em>implied vol</em>.</p>
 <p>A <em>put option</em> pays <span class="math inline">\max\{k - F,0\}</span> at expiration and has value <span class="math inline">p = E[\max\{k - F,0\}]</span>. A <em>call option</em> pays <span class="math inline">\max\{F - k, 0\}</span> at expiration and has value <span class="math inline">c = E[\max\{F - k, 0\}]</span>. Note <span class="math inline">\max\{F - k, 0\} - \max\{k - F,0\} = F - k</span> is a <em>forward</em> with <em>strike</em> <span class="math inline">k</span> so <span class="math inline">c - p = f - k</span> and is called <em>put-call parity</em>. Call delta is <span class="math inline">dc/df = dp/df + 1</span> and call gamma is <span class="math inline">d^2c/df^2 = d^2p/df^2</span>.</p>
 <p>Define <em>moneyness</em> <span class="math inline">x</span> by <span class="math inline">F = k</span> iff <span class="math inline">X = x = (\log(k/F) + κ(s))/s</span>. The value of a put is</p>
 <dl>
@@ -65,14 +66,16 @@
 <dt><em>Put Delta</em></dt>
 <dd><span class="math inline">dp/df = E[1(F \le k)\exp(s X - κ(s))] = P^s(X \le x)</span>
 </dd>
-</dl>
-<p>Since <span class="math inline">c = p + f - k</span> call delta is <span class="math inline">dc/df = dp/df + 1</span>.</p>
-<dl>
 <dt><em>Gamma</em></dt>
-<dd><span class="math inline">d^2p/df^2 = E^s[δ_k(F)] = ...</span>
+<dd><span class="math inline">d^2p/df^2 = E^s[δ_k(F)] = P^s(F = k)</span>
 </dd>
 </dl>
-<p>Since <span class="math inline">dc/df = dp/df + 1</span> call gamma is <span class="math inline">d^2c/df^2 = d^2p/df^2</span>.</p>
+<p>If <span class="math inline">X</span> is standard normal then <span class="math inline">E[\exp(\mu + \sigma X)] = \exp(\mu + \sigma^2/2)</span> and <span class="math inline">E[g(X)\exp(s X - κ(s))] = E[g(X + s)]</span> for any <span class="math inline">g</span>. These formulas imply the cumulant of a standard normal is <span class="math inline">κ(s) = s^2/2</span> and <span class="math inline">P^s(X\le x) = P(X + s \le x)</span>. If we let <span class="math inline">\Phi</span> be the cumulative distribution function of <span class="math inline">X</span> then the put value is <span class="math inline">k \Phi((\log(k/f) + s^2/2)/s) - f \Phi((\log(k/f) - s^2/2)/s) = k \Phi(x) - f \Phi(x - s)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(\log(k/f) + s^2/2)/s = -d_2</span> and <span class="math inline">(\log(k/f) - s^2/2)/s = -d_1</span></em>.</p>
+<p>Hint: Recall <span class="math inline">d_1 = (log(f/k) + s^2/2)/s</span> and <span class="math inline">d_2 = d_1 - s</span> in the classical Black-Scholes/Merton formula.</p>
+<p>Let <span class="math inline">\Psi(y) = \Phi((\log(y/f) + κ(s))/s) = \Phi(x)</span> be the cdf of <span class="math inline">F</span> where <span class="math inline">y = f\exp(s x - κ(s))</span>. Note <span class="math inline">dy/dx = y s</span> so the probability density function of <span class="math inline">Y</span> is <span class="math inline">\psi(y) = \Psi&#39;(y) = \phi(x) dx/dy = \phi(x)/y s</span>. The same argument applies to <span class="math inline">\Psi^s</span> so <span class="math inline">\psi^s(y) = \phi^s(x)/y s = \exp(s x - κ(s))\phi(x)/ys = \phi(x)/fs</span> since <span class="math inline">\exp(s x - κ(s)) = y/f</span>. The formula for gamma is <span class="math inline">d^2p/df^2 = \psi^s(k) = \phi(x)/fs</span> where <span class="math inline">x = (\log(k/f) + κ(s))/s</span>.</p>
+<p>We know <span class="math inline">E[g(X)\exp(s X - κ(s))] = E[g(X + s)]</span> for any <span class="math inline">g</span>. Taking a deriviative with respect to <span class="math inline">s</span> gives <span class="math inline">E[g(X)\exp(s X - κ(s))(X - κ&#39;(s)] = E[g&#39;(X + s)]</span>. Using this and noting <span class="math inline">F = f\exp(s X - κ(s))</span> yields <span class="math inline">dp/ds = E[1(F \le k)F(X - κ&#39;(s))] = fE[\delta_k(X + s)] = f\psi(x + s)</span>.</p>
+<p>The formula for vega is <span class="math inline">dp/ds = E[π&#39;(F) dF/ds] = E[1(F\le k)F(X - κ&#39;(s))]</span>.</p>
 <h2 id="discrete">Discrete</h2>
 <p>The cdf is <span class="math inline">cdf(x) = \sum_{x_i\le x} p_i</span>. The pdf returns infinity at <span class="math inline">x_i</span>. The cumulant is <span class="math inline">κ(s) = \log(\sum_i exp(s*x_i) p_i) = \log e(s)</span> so <span class="math inline">κ&#39;(s) = e&#39;(s)/e(s)</span> and <span class="math inline">κ&#39;&#39;(s) = (e(s) e&#39;&#39;(s) - e&#39;(s)^2)/e(s)^2</span>. Note <span class="math inline">e^{(n)}(s) = \sum_i exp(s*x_i) x_i^n p_i)</span> for <span class="math inline">n \ge 0</span>.</p>
 <h2 id="trinomial">Trinomial</h2>
@@ -89,8 +92,8 @@
 \end{aligned}
 </span></p>
 <h2 id="remarks">Remarks</h2>
-<p>If the cumulative distribution function of <span class="math inline">X</span> is <span class="math inline">Phi</span>, that is <span class="math inline">P(X\le x) = \Phi(x)</span>, and <span class="math inline">g</span> is invertible then the cdf of <span class="math inline">Y = g(X)</span> is <span class="math inline">\Psi = \Phi\circ g^{-1}</span>. For example, if <span class="math inline">X</span> has mean <span class="math inline">0</span> and variance <span class="math inline">1</span> and <span class="math inline">g(x) = \mu + \sigma x</span> then <span class="math inline">Y = g(X)</span> has mean <span class="math inline">\mu</span>, variance <span class="math inline">\sigma^2</span>, and <span class="math inline">\Psi(y) = P(Y\le y) = \Phi((y - \mu)/\sigma)</span>.</p>
-<p>The probability density function of <span class="math inline">Y = g(X)</span> is <span class="math inline">\psi(y) = \Psi&#39;(y) = (\phi\circ g^{-1})g^{-1}&#39;(y)</span>. Recall <span class="math inline">g^{-1}&#39;(y) = 1/g&#39;\circ g^{-1}(y)</span>.</p>
+<p>If the cumulative distribution function of <span class="math inline">X</span> is <span class="math inline">\Phi</span>, that is <span class="math inline">P(X\le x) = \Phi(x)</span>, and <span class="math inline">g</span> is invertible then the cdf of <span class="math inline">Y = g(X)</span> is <span class="math inline">\Psi = \Phi\circ g^{-1}</span>. For example, if <span class="math inline">X</span> has mean <span class="math inline">0</span> and variance <span class="math inline">1</span> and <span class="math inline">g(x) = \mu + \sigma x</span> then <span class="math inline">Y = g(X)</span> has mean <span class="math inline">\mu</span>, variance <span class="math inline">\sigma^2</span>, and <span class="math inline">\Psi(y) = P(Y\le y) = \Phi((y - \mu)/\sigma)</span>.</p>
+<p>The probability density function of <span class="math inline">Y = g(X)</span> is <span class="math inline">\psi(y) = \Psi&#39;(y) = (\phi\circ g^{-1}(y))(g^{-1})&#39;(y)</span>. Recall <span class="math inline">(g^{-1})&#39;(y) = 1/g&#39;\circ g^{-1}(y)</span> so <span class="math inline">\psi(y) = (\phi(g^{-1}(y))/g&#39;(g^{-1}(y)) = \phi(x)/g&#39;(x)</span> if <span class="math inline">g(x) = y</span>.</p>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

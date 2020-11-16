@@ -18,23 +18,25 @@ Any positive random variable $F$ can be parameterized by
 $F = f \exp(s X - κ(s))$, where $κ(s) = \log E[s X]$ is the cumulant of $X$.
 Note $E[F] = f$ is the _forward_ and $\Var(\log F) = s^2$ is the variance
 if $E[X] = 0$ and $E[X^2] = 1$, which we can, and do, assume.
+
 For example, the Black model takes $X$ to be standard normal and  _vol_ 
 $s = σ \sqrt{t}$ where $σ$ is the volatilty and $t$ is time in years to expiration.
+In what follows we will call $s$ vol and $σ$ volatility.
 
 The (forward) value of an option paying $π(F)$ at expiration is $v = E[π(F)]$.
-Define $P^s$ by $dP^s/dP = \exp(s X - κ(s))$ and $E^s[π(F)] = E[π(F)\exp(s X - κ(s))]$
-to be expected value with respect to $P^s$.
+Define Esscher transform $P^s$ by $dP^s/dP = \exp(s X - κ(s))$ 
+so $E^s[π(F)] = E[π(F)\exp(s X - κ(s))]$. Note $E^s[1] = 1$ so $P^s$ is a probability measure.
 
 _Delta_ 
   ~ $dv/df = E[π'(F) dF/df] = E[π'(F)\exp(s X - κ(s))] = E^s[π'(F)]$
 
 _Gamma_ 
-  ~ $d^2v/df^2 = E[π''(F)\exp(s X - κ(s))^2] = e^{κ(2s) - 2κ(s)}E^{2s}[π''(F)]$ 
+  ~ $d^2v/df^2 = E[π''(F)\exp(s X - κ(s))^2] = E^s[π''(F)\exp(s X - κ(s))]$ 
 
 _Vega_
-  ~ $dv/ds = E[π'(F) dF/ds] = E[π'(F)F(X - κ'(s))]$.
+  ~ $dv/ds = E[π'(F) dF/ds] = E[π'(F)F(X - κ'(s))] = fE^s[π'(F)(X - κ'(s))]$.
 
-The inverse of value as a function of vol is the _implied volatility_.
+The inverse of option value as a function of vol is the _implied vol_.
 
 A _put option_ pays $\max\{k - F,0\}$ at expiration and has value $p = E[\max\{k - F,0\}]$.
 A _call option_ pays $\max\{F - k, 0\}$ at expiration and has value $c = E[\max\{F - k, 0\}]$.
@@ -53,12 +55,37 @@ where $dP^s/dP = \exp(s X - κ(s))$.
 _Put Delta_
   ~ $dp/df = E[1(F \le k)\exp(s X - κ(s))] = P^s(X \le x)$ 
 
-Since $c = p + f - k$ call delta is $dc/df = dp/df + 1$.
-
 _Gamma_
-  ~ $d^2p/df^2 = E^s[δ_k(F)] = ...$
+  ~ $d^2p/df^2 = E^s[δ_k(F)] = P^s(F = k)$
 
-Since $dc/df = dp/df + 1$ call gamma is $d^2c/df^2 = d^2p/df^2$.
+If $X$ is standard normal then $E[\exp(\mu + \sigma X)] = \exp(\mu + \sigma^2/2)$
+and $E[g(X)\exp(s X - κ(s))] = E[g(X + s)]$ for any $g$.
+These formulas imply the cumulant of a standard normal is $κ(s) = s^2/2$
+and $P^s(X\le x) = P(X + s \le x)$.
+If we let $\Phi$ be the cumulative distribution function of $X$ then
+the put value is $k \Phi((\log(k/f) + s^2/2)/s) - f \Phi((\log(k/f) - s^2/2)/s)
+= k \Phi(x) - f \Phi(x - s)$.
+
+__Exercise__. _Show $(\log(k/f) + s^2/2)/s = -d_2$ and $(\log(k/f) - s^2/2)/s = -d_1$_.
+
+Hint: Recall $d_1 = (log(f/k) + s^2/2)/s$ and $d_2 = d_1 - s$ in the classical
+Black-Scholes/Merton formula.
+
+Let $\Psi(y) = \Phi((\log(y/f) + κ(s))/s) = \Phi(x)$
+be the cdf of $F$ where $y = f\exp(s x - κ(s))$. 
+Note $dy/dx = y s$ so the probability density function of $Y$ is 
+$\psi(y) = \Psi'(y) = \phi(x) dx/dy = \phi(x)/y s$. 
+The same argument applies to $\Psi^s$ so 
+$\psi^s(y) = \phi^s(x)/y s = \exp(s x - κ(s))\phi(x)/ys = \phi(x)/fs$ since $\exp(s x - κ(s)) = y/f$.
+The formula for gamma is $d^2p/df^2 = \psi^s(k) = \phi(x)/fs$ where $x = (\log(k/f) + κ(s))/s$.
+
+We know $E[g(X)\exp(s X - κ(s))] = E[g(X + s)]$ for any $g$. Taking
+a deriviative with respect to $s$ gives 
+$E[g(X)\exp(s X - κ(s))(X - κ'(s)] = E[g'(X + s)]$. 
+Using this and noting $F = f\exp(s X - κ(s))$ 
+yields $dp/ds = E[1(F \le k)F(X - κ'(s))] = fE[\delta_k(X + s)] = f\psi(x + s)$.
+
+The formula for vega is $dp/ds = E[π'(F) dF/ds] = E[1(F\le k)F(X - κ'(s))]$.
 
 ## Discrete
 
@@ -91,10 +118,12 @@ $$
 
 ## Remarks
 
-If the cumulative distribution function of $X$ is $Phi$, that is $P(X\le x) = \Phi(x)$,
+If the cumulative distribution function of $X$ is $\Phi$, that is $P(X\le x) = \Phi(x)$,
 and $g$ is invertible then the cdf of $Y = g(X)$ is $\Psi = \Phi\circ g^{-1}$. For example,
 if $X$ has mean $0$ and variance $1$ and $g(x) = \mu + \sigma x$ then $Y = g(X)$ has mean
 $\mu$, variance $\sigma^2$, and $\Psi(y) = P(Y\le y) = \Phi((y - \mu)/\sigma)$.
 
-The probability density function of $Y = g(X)$ is $\psi(y) = \Psi'(y) = (\phi\circ g^{-1})g^{-1}'(y)$.
-Recall $g^{-1}'(y) = 1/g'\circ g^{-1}(y)$.
+The probability density function of $Y = g(X)$ is $\psi(y) = \Psi'(y) =
+(\phi\circ g^{-1}(y))(g^{-1})'(y)$.  Recall $(g^{-1})'(y) = 1/g'\circ
+g^{-1}(y)$ so  $\psi(y) = (\phi(g^{-1}(y))/g'(g^{-1}(y)) = \phi(x)/g'(x)$
+if $g(x) = y$.

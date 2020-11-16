@@ -49,10 +49,9 @@ The _net amount_ in instrument $i$ held by entity $e$ is
 $$
 N(i,e) = \sum_j \{a_j : i_j = i, e_j = e\}.
 $$
-The _net position_ is
-$\cup_j \{(i_j, N(i_j,e_j), e_j)\}$. (Note if $i_j = i_k$ and $e_j = e_k$ for some $j,k$
-then $(i_j, N(i_j,e_j), e_j) = (i_k, N(i_k,e_k), e_k)$ so this is standard mathematical
-set union.)
+The _net position_ is $\cup_j \{(i_j, N(i_j,e_j), e_j)\}$. 
+(Note if $i_j = i_k$ and $e_j = e_k$ for some $j,k$
+then $N(i_j,e_j) = N(i_k,e_k)$ so this is standard mathematical set union.)
 
 ## Trade
 
@@ -63,7 +62,7 @@ with seller $e'$ at time $t$.
 The _price_ for the trade is the quotient of the buyer and seller amounts,
 $X = a/a'$, so the trade is $(t; i, a'X, e; i', a', e')$
 Prices are determined by the seller.
-The buyer decides the amount and instruments to exchange based on the seller's price,
+The buyer decides the amount and instrument to exchange based on the seller's price,
 among other considerations.
 
 The trade $(t;i,a,e;i',a',e')$ changes the
@@ -98,9 +97,10 @@ allows for _payment-in-kind_ cash flows.
 
 In the Ford example above, when holding $\{(\$, 86),(F,2)\}$ and
 the stock pays a dividend of $(\$,0.15)$ per share then the holdings
-become $\{(\$, 2\times 0.15),(\$, 86),(F,2)\}$
+become $\{(\$, 86), (F,2), (\$, 2\times 0.15)\}$ and net to
+$\{(\$, 86.30),(F,2)\}$
 
-Cash flows are zero except at a discrete number of times. Stocks and
+Cash flows are zero except at a discrete times. Stocks and
 bonds typically pay dividends and coupons quarterly or semi-annually. Futures
 margin accounts are usually adjusted once per day.
 
@@ -132,7 +132,7 @@ most appropriate in any given situation, it only makes that
 choice explicit.
 
 Other relevant quantities can be computed similarly. For example the
-_drawdown_ over $[t, u]$ is $N_u(i,e) - \min_{t\le s \le u} N_s(i,e)$
+_drawdown_ over the period is $N_u(i,e) - \min_{t\le s \le u} N_s(i,e)$
 and the _drawup_ is $\max_{t\le s\le u} N_s(i,e) - N_u(i,e)$.
 
 Any instrument could be used instead of a native currency.
@@ -159,7 +159,7 @@ trade in finite increments and sometimes cannot be shorted ($a' < 0$
 is not allowed). The amount available is also at the discretion of the
 seller and may consist of the empty set for certain buyers.[^1]
 
-A mathematical model for cash flows is a function[^x] $C_t:I\times I\to A$.
+A mathematical model for cash flows is a function[^2] $C_t:I\times I\to A$.
 At time $t$ instrument $i$ has cash flow amount $C_t(i,i')$ in instrument $i'$.
 
 A mathematical model for prices is a (partial) function $X_t\colon
@@ -181,7 +181,7 @@ will find when attempting to take out a loan.
 
 ## Trading
 
-A _trading strategy_ is an increasing sequence of _stopping times_[^2] $(\tau_j)$
+A _trading strategy_ is an increasing sequence of _stopping times_[^3] $(\tau_j)$
 and amounts $\Gamma_j\colon I\times E\times I\times E\to A$ 
 to trade at time $\tau_j$ in two instruments between two entities.
 The trades are $(\tau_j;i,\Gamma_j X_j,e;i', \Gamma_j, e')$
@@ -257,9 +257,11 @@ Trading strategies create synthetic instruments. Amounts and values are
 proxies for cash flows and prices. A derivative security is a contract
 between counterparties for exchanges of future amounts.  If a trading
 strategy that produces those amounts exists then its initial value, plus vigorish,
-is what a sell side trader quotes to customers.
+is what a sell-side trader quotes to buy-side customers.
 A quants job is to help traders figure out when ($\tau_j$) and how much ($\Gamma_j$)
-to trade in order to satisfy the contract obligations.[^3]
+to trade in order to satisfy the contract obligations.[^4]
+Note the term _self-financing_ means satisfying the obligation to pay 0 on
+non-payment dates.
 
 When $\Delta_t + \Gamma_t = 0$ we say the trading strategy is _closed
 out_ at $t$. If no trades are executed after that then future amounts and values
@@ -293,9 +295,9 @@ instead of only the value of the hedged portfolio at one point in time.
 Similarly, CVA fails to take into account hedging. The CVA of a portfolio
 is $\int_T \max\{E[V_t], 0\} h(t)\,dt$ where $V_t$ is the value of the
 portfolio at $t$ and $h$ is a given _haircut_. The term $\max\{V_t, 0\}$ is
-the _exposure_ of the portfolio holder.[^4] Holders are not exposed
+the _exposure_ of the portfolio holder.[^5] Holders are not exposed
 to counterparty risk if they owe money. The insurance industry
-has been using this to calculate premiums long before it showed
+has been using this formula to calculate premiums long before it showed
 up in the financial world.
 
 It is common for swaps to have unwind provisions that will be exercised if
@@ -308,7 +310,7 @@ DVA is just the CVA of the party on the other side of the trades.
 The menagerie of XVA measures are attempts to incorporate special
 case hedging strategies or cash flows due to taxes or regulatory
 capital requirements. They can all be replaced by explicitly
-incorporating the trading strategy and cash flows involved
+incorporating the appropriate trading strategy and cash flows involved
 when applying the CVA formula.
 
 ## Model Risk
@@ -321,7 +323,7 @@ exactly what models are under consideration?
 One universal property is that when a new model is introduced there is
 always a P&amp;L hit.  Trades undervalued by the old model were executed
 by counterparties who recognized that, and trades overvalued by the old
-model found no takers.
+model found few takers.
 
 In lieu of a proper theory of risk management the best that can be
 accomplished is to make implicit assumptions explicit and provide
@@ -333,7 +335,7 @@ Capturing every holding and transaction in a database turns historical
 reporting into a well understood technology problem.  When decorated
 with appropriate partitions for dimensions and measures, risk managers
 can use off-the-shelf tools to create dynamic reports allowing them to
-summarize data and drill down to individual holdings and trades to their
+summarize data and drill down to individual holdings and transactions to their
 heart's content. It is no longer necessary to have technologists spend time
 developing custom reports.
 
@@ -351,6 +353,19 @@ but we have Moore's Law on our side. Any software built
 today does not need to be rewritten in the future.
 
 ## Remarks
+
+A _funding account_ is more complicated than it might seem at first blush.
+A _funding desk_ provides a liquid market in a native currency to
+traders for _funding_ their trades. One way to think of it is as a
+perpetual bond; for unit notional you get a daily stream of
+coupons. The coupons are not constant but they are known at
+the beginning of each period[^6] and are usually tied to
+short term market rates. A trading strategy involves many
+transactions in the market account and it is common to implicitly
+assume all holdings are reinvested in the account. 
+A funding desk typically uses the _repurchase agreement_ market
+to supply the account. There are many individual transactions
+involved with funding accounts once you pull out your microscope.
 
 Trades often involve the exchange of more than two holdings, for example
 a fee or commission to a broker or market maker that enabled the trade.
@@ -387,19 +402,23 @@ the set of instruments to all asset classes.
 
 [^1]: Adhering to the trader aphorism, "Don't be a dick for a tick," can help prevent this.
 
-[^x]: Cash flows and prices are modeled using _random variables_: a
+[^2]: Cash flows and prices are modeled using _random variables_: a
 variable together with the probabilities of the values it can have. The
 mathematical definition is that a random variable is a function from a
 _sample space_ to the real numbers. Prepend the sample space to
 the cartesian products involved to make them mathematically correct.
 
-[^2]: A _stopping time_ is a random variable taking values in $T$ that
+[^3]: A _stopping time_ is a random variable taking values in $T$ that
 depends only on prior information, for example when the price of a stock
 hits a certain level.
 
-[^3]: The trader aphorism, "Hedge when you can, not when you have to,"
+[^4]: The trader aphorism, "Hedge when you can, not when you have to,"
 is only a rough guide to solving this difficult problem.
 
-[^4]: The formula for CVA should use $E[\max\{V_t,0\}]$ and not $\max\{E[V_t], 0\}$
+[^5]: The coupons are a stochastic process that is called _predictable_
+in the math literature. It means that it is a little better than
+being merely _adapted_ to a _filtration_.
+
+[^6]: The formula for CVA should use $E[\max\{V_t,0\}]$ and not $\max\{E[V_t], 0\}$
 but that is computationally more difficult. Jensen's inequality implies
 $E[\max\{V_t,0\}] \ge\max\{E[V_t], 0\}$ so CVA underestimates the risk.
