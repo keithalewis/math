@@ -13,7 +13,7 @@ European _option valuation_ involves calculating the expected value of
 the _option payoff_ as a function of the _underlying_ at _expiration_.
 _Greeks_ are derivatives of the _value_ with respect to _model parameters_.
 
-Let $F > 0$ be the value of the underlying at option expiration.
+Let $F$ be the value of the underlying at option expiration.
 Any positive random variable $F$ can be parameterized by
 $F = f \exp(s X - κ(s))$, where $κ(s) = \log E[s X]$ is the cumulant of $X$.
 Note $E[F] = f$ is the _forward_ and $\Var(\log F) = s^2$ is the variance
@@ -23,20 +23,24 @@ For example, the Black model takes $X$ to be standard normal and  _vol_
 $s = σ \sqrt{t}$ where $σ$ is the volatilty and $t$ is time in years to expiration.
 In what follows we will call $s$ vol and $σ$ volatility.
 
+## Value and Greeks
+
 The (forward) value of an option paying $π(F)$ at expiration is $v = E[π(F)]$.
-Define Esscher transform $P^s$ by $dP^s/dP = \exp(s X - κ(s))$ 
+Define the Esscher transform $P^s$ by $dP^s/dP = \exp(s X - κ(s))$ 
 so $E^s[π(F)] = E[π(F)\exp(s X - κ(s))]$. Note $E^s[1] = 1$ so $P^s$ is a probability measure.
 
 _Delta_ 
   ~ $dv/df = E[π'(F) dF/df] = E[π'(F)\exp(s X - κ(s))] = E^s[π'(F)]$
 
 _Gamma_ 
-  ~ $d^2v/df^2 = E[π''(F)\exp(s X - κ(s))^2] = E^s[π''(F)\exp(s X - κ(s))]$ 
+  ~ $d^2v/df^2 = d(dv/df)/df = E^s[π''(F)\exp(s X - κ(s))]$ 
 
 _Vega_
   ~ $dv/ds = E[π'(F) dF/ds] = E[π'(F)F(X - κ'(s))] = fE^s[π'(F)(X - κ'(s))]$.
 
 The inverse of option value as a function of vol is the _implied vol_.
+
+## Put and Call
 
 A _put option_ pays $\max\{k - F,0\}$ at expiration and has value $p = E[\max\{k - F,0\}]$.
 A _call option_ pays $\max\{F - k, 0\}$ at expiration and has value $c = E[\max\{F - k, 0\}]$.
@@ -50,23 +54,23 @@ The value of a put is
 _Put_
   ~ $p = E[(k - F)1(F\le k)] = k P(X \le x) - f P^s(X \le x)$
 
-where $dP^s/dP = \exp(s X - κ(s))$.
-
 _Put Delta_
-  ~ $dp/df = E[1(F \le k)\exp(s X - κ(s))] = P^s(X \le x)$ 
+  ~ $dp/df = E[1(F \le k)\exp(s X - κ(s))] = -P^s(X \le x)$ 
 
 _Gamma_
-  ~ $d^2p/df^2 = E^s[δ_k(F)] = P^s(F = k)$
+  ~ $d^2p/df^2 = E^s[δ_k(F)\exp(s X - κ(s))]$
+
+## Black Model
 
 If $X$ is standard normal then $E[\exp(\mu + \sigma X)] = \exp(\mu + \sigma^2/2)$
 and $E[g(X)\exp(s X - κ(s))] = E[g(X + s)]$ for any $g$.
 These formulas imply the cumulant of a standard normal is $κ(s) = s^2/2$
-and $P^s(X\le x) = P(X + s \le x)$.
+and $P^s(X\le x) = E[1(X\le x)\exp(s X - κ(s))] = P(X + s \le x)$.
 If we let $\Phi$ be the cumulative distribution function of $X$ then
-the put value is $k \Phi((\log(k/f) + s^2/2)/s) - f \Phi((\log(k/f) - s^2/2)/s)
-= k \Phi(x) - f \Phi(x - s)$.
+$\Phi^s(x) = \Phi(x - s)$ and the put value is 
+$p = k \Phi(x) - f \Phi(x - s) = k \Phi(\log(k/f)/s + s/2) - f \Phi(\log(k/f)/s - s/2)$.
 
-__Exercise__. _Show $(\log(k/f) + s^2/2)/s = -d_2$ and $(\log(k/f) - s^2/2)/s = -d_1$_.
+__Exercise__. _Show $\log(k/f)/s + s/2 = -d_2$ and $\log(k/f)/s - s/2 = -d_1$_.
 
 Hint: Recall $d_1 = (log(f/k) + s^2/2)/s$ and $d_2 = d_1 - s$ in the classical
 Black-Scholes/Merton formula.
@@ -78,6 +82,8 @@ $\psi(y) = \Psi'(y) = \phi(x) dx/dy = \phi(x)/y s$.
 The same argument applies to $\Psi^s$ so 
 $\psi^s(y) = \phi^s(x)/y s = \exp(s x - κ(s))\phi(x)/ys = \phi(x)/fs$ since $\exp(s x - κ(s)) = y/f$.
 The formula for gamma is $d^2p/df^2 = \psi^s(k) = \phi(x)/fs$ where $x = (\log(k/f) + κ(s))/s$.
+
+The formula for gamma is $d^2p/df^2 = E^s[\delta_k(F)\exp(s X - κ(s))]$ 
 
 We know $E[g(X)\exp(s X - κ(s))] = E[g(X + s)]$ for any $g$. Taking
 a deriviative with respect to $s$ gives 
