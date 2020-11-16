@@ -6,73 +6,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Option Pricing</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      fleqn: true
-     });
-  }}});
-  </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body);
+  });</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
-<header id="title-block-header">
+<header>
 <h1 class="title">Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
+
 <p>European <em>option valuation</em> involves calculating the expected value of the <em>option payoff</em> at <em>expiration</em>. Greeks are derivatives of the value. Payoff is a function of the <em>underlying</em> at expiration.</p>
-<p>Let <span class="math inline">F &gt; 0</span> be the value of the underlying at option expiration. Any positive random variable <span class="math inline">F</span> can be parameterized by <span class="math inline">F = f \exp(s X - κ(s))</span>, where <span class="math inline">κ(s) = \log E[s X]</span> is the cumulant of <span class="math inline">X</span>. Note <span class="math inline">E[F] = f</span> is the <em>forward</em> and <span class="math inline">\operatorname{Var}(\log F) = s^2</span> is the variance if <span class="math inline">E[X] = 0</span> and <span class="math inline">E[X^2] = 1</span>, which we can, and do, assume. For example, the Black model takes <span class="math inline">X</span> to be standard normal and <em>vol</em> <span class="math inline">s = σ \sqrt{t}</span> where <span class="math inline">σ</span> is the volatilty and <span class="math inline">t</span> is time in years to expiration.</p>
-<p>The (forward) value of an option paying <span class="math inline">π(F)</span> at expiration is <span class="math inline">v = E[π(F)]</span>.</p>
+<p>Let <span class="math inline">\(F &gt; 0\)</span> be the value of the underlying at option expiration. Any positive random variable <span class="math inline">\(F\)</span> can be parameterized by <span class="math inline">\(F = f \exp(s X - κ(s))\)</span>, where <span class="math inline">\(κ(s) = \log E[s X]\)</span> is the cumulant of <span class="math inline">\(X\)</span>. Note <span class="math inline">\(E[F] = f\)</span> is the <em>forward</em> and <span class="math inline">\(\operatorname{Var}(\log F) = s^2\)</span> is the variance if <span class="math inline">\(E[X] = 0\)</span> and <span class="math inline">\(E[X^2] = 1\)</span>, which we can, and do, assume. For example, the Black model takes <span class="math inline">\(X\)</span> to be standard normal and <em>vol</em> <span class="math inline">\(s = σ \sqrt{t}\)</span> where <span class="math inline">\(σ\)</span> is the volatilty and <span class="math inline">\(t\)</span> is time in years to expiration.</p>
+<p>The (forward) value of an option paying <span class="math inline">\(π(F)\)</span> at expiration is <span class="math inline">\(v = E[π(F)]\)</span>.</p>
 <dl>
 <dt><em>Delta</em></dt>
-<dd><span class="math inline">dv/df = E[π&#39;(F) dF/df] = E[π&#39;(F)\exp(s X - κ(s))] = E^s[π&#39;(F)]</span>
+<dd><span class="math inline">\(dv/df = E[π&#39;(F) dF/df] = E[π&#39;(F)\exp(s X - κ(s))] = E^s[π&#39;(F)]\)</span>
 </dd>
 <dt><em>Gamma</em></dt>
-<dd><span class="math inline">d^2v/df^2 = E[π&#39;&#39;(F)\exp(s X - κ(s))^2] = e^{κ(2s) - 2κ(s)}E^{2s}[π&#39;&#39;(F)]</span>
+<dd><span class="math inline">\(d^2v/df^2 = E[π&#39;&#39;(F)\exp(s X - κ(s))^2] = e^{κ(2s) - 2κ(s)}E^{2s}[π&#39;&#39;(F)]\)</span>
 </dd>
 <dt><em>Vega</em></dt>
-<dd><span class="math inline">dv/ds = E[π&#39;(F) dF/ds] = E[π&#39;(F)F(X - κ&#39;(s))]</span>.
+<dd><span class="math inline">\(dv/ds = E[π&#39;(F) dF/ds] = E[π&#39;(F)F(X - κ&#39;(s))]\)</span>.
 </dd>
 </dl>
 <p>The inverse of value as a function of vol is the <em>implied volatility</em>.</p>
-<p>A <em>put option</em> pays <span class="math inline">\max\{k - F,0\}</span> at expiration and has value <span class="math inline">p = E[\max\{k - F,0\}]</span>. A <em>call option</em> pays <span class="math inline">\max\{F - k, 0\}</span> at expiration and has value <span class="math inline">c = E[\max\{F - k, 0\}]</span>. Note <span class="math inline">\max\{F - k, 0\} - \max\{k - F,0\} = F - k</span> is a <em>forward</em> with <em>strike</em> <span class="math inline">k</span> so <span class="math inline">c - p = f - k</span> and is called <em>put-call parity</em>.</p>
-<p>Define <em>moneyness</em> <span class="math inline">x</span> by <span class="math inline">F = k</span> iff <span class="math inline">X = x = (\log(k/F) + κ(s))/s</span>. The value of a put is</p>
+<p>A <em>put option</em> pays <span class="math inline">\(\max\{k - F,0\}\)</span> at expiration and has value <span class="math inline">\(p = E[\max\{k - F,0\}]\)</span>. A <em>call option</em> pays <span class="math inline">\(\max\{F - k, 0\}\)</span> at expiration and has value <span class="math inline">\(c = E[\max\{F - k, 0\}]\)</span>. Note <span class="math inline">\(\max\{F - k, 0\} - \max\{k - F,0\} = F - k\)</span> is a <em>forward</em> with <em>strike</em> <span class="math inline">\(k\)</span> so <span class="math inline">\(c - p = f - k\)</span> and is called <em>put-call parity</em>.</p>
+<p>Define <em>moneyness</em> <span class="math inline">\(x\)</span> by <span class="math inline">\(F = k\)</span> iff <span class="math inline">\(X = x = (\log(k/F) + κ(s))/s\)</span>. The value of a put is</p>
 <dl>
 <dt><em>Put</em></dt>
-<dd><span class="math inline">p = E[(k - F)1(F\le k)] = k P(X \le x) - f P^s(X \le x)</span>
+<dd><span class="math inline">\(p = E[(k - F)1(F\le k)] = k P(X \le x) - f P^s(X \le x)\)</span>
 </dd>
 </dl>
-<p>where <span class="math inline">dP^s/dP = \exp(s X - κ(s))</span>.</p>
+<p>where <span class="math inline">\(dP^s/dP = \exp(s X - κ(s))\)</span>.</p>
 <dl>
 <dt><em>Put Delta</em></dt>
-<dd><span class="math inline">dp/df = E[1(F \le k)\exp(s X - κ(s))] = P^s(X \le x)</span>
+<dd><span class="math inline">\(dp/df = E[1(F \le k)\exp(s X - κ(s))] = P^s(X \le x)\)</span>
 </dd>
 </dl>
-<p>Since <span class="math inline">c = p + f - k</span> call delta is <span class="math inline">dc/df = dp/df + 1</span>.</p>
+<p>Since <span class="math inline">\(c = p + f - k\)</span> call delta is <span class="math inline">\(dc/df = dp/df + 1\)</span>.</p>
 <dl>
 <dt><em>Put Gamma</em></dt>
-<dd><span class="math inline">d^2p/df^2 = E^s[δ_k(F)] = ...</span>
+<dd><span class="math inline">\(d^2p/df^2 = E^s[δ_k(F)] = ...\)</span>
 </dd>
 </dl>
-<p>Since <span class="math inline">dc/df = dp/df + 1</span> call gamma is <span class="math inline">d^2c/df^2 = d^2p/df^2</span>.</p>
+<p>Since <span class="math inline">\(dc/df = dp/df + 1\)</span> call gamma is <span class="math inline">\(d^2c/df^2 = d^2p/df^2\)</span>.</p>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

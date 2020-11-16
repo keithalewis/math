@@ -6,35 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Coroutines</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      fleqn: true
-     });
-  }}});
-  </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body);
+  });</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
-<header id="title-block-header">
+<header>
 <h1 class="title">Coroutines</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
@@ -67,14 +51,14 @@ coroutine consume
 <p>A <em>full asymmetric coroutine</em> has three operations: <em>create</em>, <em>resume</em>, and <em>yield</em>. Create takes a coroutine body and instanciates it in a suspended state. The <em>continuation point</em> is set to the beginning of the body. Resume cause a coroutine to execute from its continuation point until it either yields at a new continuation point or terminates. A terminated coroutine cannot be resumed.</p>
 <p>The first call to resume specifies the coroutine parameters. In subsequent calls to resume these become the result of yield. When a coroutine suspends, the arguments to yield become the result of the resume that activated the coroutine. When a coroutine terminates, the values returned by the body become the result of the last reactivation.</p>
 <p>An <em>expression</em> is a <em>lable</em>, <em>variable</em>, <em>function</em>, <em>application</em>, variable assignment, <em>conditional</em>, equality operator for labels, or a <em>nil</em> value.</p>
-<p><span class="math inline">e \to l\mid v\mid x\mapsto e\mid e\,e\mid x := e\mid e\,?\,e : e\mid e = e\mid \bot</span></p>
+<p><span class="math inline">\(e \to l\mid v\mid x\mapsto e\mid e\,e\mid x := e\mid e\,?\,e : e\mid e = e\mid \bot\)</span></p>
 <p>A value is a label, function, or nil.</p>
-<p>A <em>store</em> is a mapping from variables and labels to values. <span class="math inline">\theta\colon\mathit{variables}\cup\mathit{labels}\to\mathit{values}</span></p>
+<p>A <em>store</em> is a mapping from variables and labels to values. <span class="math inline">\(\theta\colon\mathit{variables}\cup\mathit{labels}\to\mathit{values}\)</span></p>
 <p>An <em>evaluation context</em> is used to specify evaluaton of <em>expressions</em>.</p>
-<p><span class="math display">
+<p><span class="math display">\[
 C \to \emptyset\mid e C\mid C v\mid x := C\mid  C\,?\,e : e\mid e = C\mid C = v
-</span></p>
-<p>A context and a store is evaluated to a value. <span class="math display">
+\]</span></p>
+<p>A context and a store is evaluated to a value. <span class="math display">\[
 \begin{aligned}
     \langle C[x],\theta\rangle &amp;\Rightarrow \langle C[\theta(x)],\theta\rangle \\
     \langle C[(x\mapsto e)v],\theta\rangle &amp;\Rightarrow \langle C[e[z/x]],\theta[z\leftarrow v]\rangle \\
@@ -84,11 +68,11 @@ C \to \emptyset\mid e C\mid C v\mid x := C\mid  C\,?\,e : e\mid e = C\mid C = v
     \langle C[l = l],\theta\rangle &amp;\Rightarrow \langle C[l],\theta\rangle \\
     \langle C[l_1 = l_2],\theta\rangle &amp;\Rightarrow \langle C[\bot],\theta\rangle \\
 \end{aligned}
-</span></p>
+\]</span></p>
 <p>Expressions can be labeled and used in coroutine operators.</p>
-<p><span class="math display">
+<p><span class="math display">\[
 e \to \dots\mid l:e\mid \mathbf{create}\,e\mid \mathbf{resume}\,e\,e\mid \mathbf{yield}\,e
-</span></p>
+\]</span></p>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>
