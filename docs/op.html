@@ -57,51 +57,89 @@
 </span></p>
 <p>The inverse of option value as a function of vol is the <em>implied vol</em>.</p>
 <h2 id="put-and-call">Put and Call</h2>
-<p>A <em>put option</em> pays <span class="math inline">\max\{k - F,0\}</span> at expiration and has value <span class="math inline">p = E[\max\{k - F,0\}]</span>. A <em>call option</em> pays <span class="math inline">\max\{F - k, 0\}</span> at expiration and has value <span class="math inline">c = E[\max\{F - k, 0\}]</span>. Note <span class="math inline">\max\{F - k, 0\} - \max\{k - F,0\} = F - k</span> is a <em>forward</em> with <em>strike</em> <span class="math inline">k</span> so all models satisfy <em>put-call parity</em>: <span class="math inline">c - p = f - k</span>. Call delta is <span class="math inline">dc/df = dp/df + 1</span> and call gamma is <span class="math inline">d^2c/df^2 = d^2p/df^2</span>.</p>
-<p>Define <em>moneyness</em> <span class="math inline">x = x(f,s,k) = (\log(k/f) + κ(s))/s</span> and note <span class="math inline">F \le k</span> iff <span class="math inline">X \le x</span>. The value of a put is</p>
-<p><span class="math display">
-  p = E[(k - F)1(F\le k)] = k P(X \le x) - f P^s(X \le x).
-</span></p>
+<p>A <em>put option</em> pays <span class="math inline">\max\{k - F,0\}</span> at expiration and has value <span class="math inline">p = E[\max\{k - F,0\}]</span>. A <em>call option</em> pays <span class="math inline">\max\{F - k, 0\}</span> at expiration and has value <span class="math inline">c = E[\max\{F - k, 0\}]</span>. Note <span class="math inline">\max\{F - k, 0\} - \max\{k - F,0\} = F - k</span> is a <em>forward</em> with <em>strike</em> <span class="math inline">k</span> so all models satisfy <em>put-call parity</em>: <span class="math inline">c - p = f - k</span>. Call delta is <span class="math inline">dc/df = dp/df + 1</span> and call gamma equals put gamma <span class="math inline">d^2c/df^2 = d^2p/df^2</span>. We also have <span class="math inline">dc/ds - dp/ds = 0</span> so call vega equals put vega.</p>
+<p>Define <em>moneyness</em> <span class="math inline">x = x(f,s,k) = (\log(k/f) + κ(s))/s</span> and note <span class="math inline">F \le k</span> iff <span class="math inline">X \le x</span>. The value of a put is <span class="math display">
+  p = E[(k - F)1(F\le k)] = k P(X \le x) - P(F 1(F \le k) = k P(X \le x) - f P^s(X \le x).
+</span> since <span class="math inline">E[Fg(F)] = E[f\exp(s X - κ(s))g(F)] = fE^s[g(F)]</span> for any function <span class="math inline">g</span>.</p>
 <p>Put delta is <span class="math display">
     dp/df = -P^s(X \le x). 
 </span></p>
 <p>Gamma for either a put or call is <span class="math display">
     d^2p/df^2 = E^s[δ_k(F)F]/f.
 </span></p>
-<p>Put vega <span class="math display">
-    dv/ds = fE^s[1(F\le k)(X - κ&#39;(s))].
+<p>Call vega is <span class="math display">
+    dv/ds = E[1(F &gt; k)F(X - s)].
 </span></p>
-<p>Let <span class="math inline">\Psi(y) = \Phi(x)</span> be the cumulative distribution functions of <span class="math inline">F</span> and <span class="math inline">X</span> where <span class="math inline">y = y(x) = f\exp(sx - κ(s))</span> and <span class="math inline">x = x(y) = (\log(y/f) + κ(s))/s</span>. The probability density function of <span class="math inline">Y</span> is <span class="math inline">\psi(y) = \Phi&#39;(x)dx/dy = \phi(x)/ys</span> since <span class="math inline">dy/dx = ys</span>. The same reasoning gives <span class="math inline">\psi^s(y) = \phi^s(x)/ys</span> so <span class="math inline">E^s[δ_k(F)F]/f = \psi^s(k)k/f = (\phi^s(x(k))/ks)k/f = \phi^s(x(k))/fs</span> and we have <span class="math display">
+<p>Let <span class="math inline">\Psi(y) = \Phi(x)</span> be the cumulative distribution functions of <span class="math inline">F</span> and <span class="math inline">X</span> where <span class="math inline">y = y(x) = f\exp(sx - κ(s))</span> and <span class="math inline">x = x(y) = (\log(y/f) + κ(s))/s</span>. In terms of the distribution function put value is <span class="math inline">p = k\Phi(x) - f\Phi^s(x)</span> and put delta is <span class="math inline">dp/df = -\Phi^s(x)</span> where <span class="math inline">x = x(k) = (\log(k/f) + κ(s))/s</span>.</p>
+<p>The probability density function of <span class="math inline">Y</span> is <span class="math inline">\psi(y) = \Phi&#39;(x)dx/dy = \phi(x)/ys</span> since <span class="math inline">dy/dx = ys</span>. The same reasoning gives <span class="math inline">\psi^s(y) = \phi^s(x)/ys</span> so <span class="math inline">E^s[δ_k(F)F]/f = \psi^s(k)k/f = (\phi^s(x(k))/ks)k/f = \phi^s(x(k))/fs</span> and we have <span class="math display">
     d^2p/df^2 = \phi^s(x(k))/fs.
-</span></p>
-<p>Using <span class="math inline">\phi^s(x) = \phi(x)\exp(s x - κ(s)) = \phi(x)y(x)/f</span> we also have the formula <span class="math display">
+</span> Using <span class="math inline">\phi^s(x) = \phi(x)\exp(s x - κ(s)) = \phi(x)y/f</span> we also have the formula <span class="math display">
     d^2p/df^2 = \phi(x(k))k/f^2s
-</span> since <span class="math inline">y(x) = k</span> when <span class="math inline">x = x(k)</span>.</p>
+</span> since <span class="math inline">y = y(x(k)) = k</span>.</p>
 <h2 id="black-model">Black Model</h2>
-<p>If <span class="math inline">X</span> is standard normal then <span class="math inline">E[\exp(μ + σ X)] = \exp(μ + σ^2/2)</span> and <span class="math inline">E[g(X)\exp(s X - κ(s))] = E[g(X + s)]</span> for any <span class="math inline">g</span>. These formulas imply the cumulant of a standard normal is <span class="math inline">κ(s) = s^2/2</span> and <span class="math inline">P^s(X\le x) = E[1(X\le x)\exp(s X - κ(s))] = P(X + s \le x)</span>. If we let <span class="math inline">Φ</span> be the cumulative distribution function of <span class="math inline">X</span> then <span class="math inline">Φ^s(x) = Φ(x - s)</span> and the put value is <span class="math inline">p = k Φ(x) - f Φ(x - s) = k Φ(\log(k/f)/s + s/2) - f Φ(\log(k/f)/s - s/2)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\log(k/f)/s + s/2 = -d_2</span> and <span class="math inline">\log(k/f)/s - s/2 = -d_1</span></em>.</p>
+<p>If <span class="math inline">X</span> is standard normal then <span class="math inline">E[\exp(μ + σ X)] = \exp(μ + σ^2/2)</span> and <span class="math inline">E[g(X)\exp(s X - s^2/2)] = E[g(X + s)]</span> for any <span class="math inline">g</span>. These formulas imply the cumulant of a standard normal is <span class="math inline">κ(s) = s^2/2</span> and <span class="math inline">P^s(X\le x) = E[1(X\le x)\exp(s X - κ(s))] = P(X + s \le x) = Φ(x - s)</span>. The put value is <span class="math display">
+    p = k Φ(x) - f Φ(x - s)
+</span> where <span class="math inline">x = \log(k/f)/s + s/2</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x = \log(k/f)/s + s/2 = -d_2</span> and <span class="math inline">x - s = \log(k/f)/s - s/2 = -d_1</span></em>.</p>
 <p>Hint: Recall <span class="math inline">d_1 = (\log(f/k) + s^2/2)/s</span> and <span class="math inline">d_2 = d_1 - s</span> in the classical Black-Scholes/Merton formula.</p>
-<p>Let <span class="math inline">Ψ(y) = P(F\le y) = Φ((\log(y/f) + κ(s))/s) = Φ(x)</span> be the cdf of <span class="math inline">F</span>. Since <span class="math inline">y = f\exp(s x - κ(s))</span> we have <span class="math inline">dy/dx = y s</span> so the probability density function of <span class="math inline">Y</span> is <span class="math inline">ψ(y) = Ψ&#39;(y) = φ(x) dx/dy = φ(x)/y s</span>. The same argument applies to <span class="math inline">Ψ^s</span> so <span class="math inline">ψ^s(y) = φ^s(x)/y s = φ(x) \exp(s x - κ(s))/ys = φ(x)/fs</span> since <span class="math inline">\exp(s x - κ(s)) = y/f</span>. The formula for gamma is <span class="math inline">d^2p/df^2 = E^s[δ_k(F)\exp(s X - κ(s))] = \phi(x)k/f s</span>.</p>
-<p>We know <span class="math inline">E[g(X)\exp(s X - κ(s))] = E[g(X + s)]</span> for any <span class="math inline">g</span>. Taking a deriviative with respect to <span class="math inline">s</span> gives <span class="math inline">E[g(X)\exp(s X - κ(s))(X - κ&#39;(s)] = E[g&#39;(X + s)]</span>. Using this and noting <span class="math inline">F = f\exp(s X - κ(s))</span> yields <span class="math inline">dp/ds = E[1(F \le k)F(X - κ&#39;(s))] = fE[δ_k(X + s)] = fψ(x + s)</span>.</p>
-<p>The formula for vega is <span class="math inline">dp/ds = E[π&#39;(F) dF/ds] = E[1(F\le k)F(X - κ&#39;(s))]</span>.</p>
-<h2 id="discrete">Discrete</h2>
-<p>A <em>discrete</em> random variable has values <span class="math inline">(x_i)</span> with probabilities <span class="math inline">(p_i)</span> where <span class="math inline">p_i \ge 0</span> and <span class="math inline">\sum_i p_i = 1</span>. Its cdf is <span class="math inline">P(X\le x) = \sum_i 1(x_i\le x) p_i</span> and pdf is <span class="math inline">\sum_i δ_{x_i} p_i</span>. The cumulant is <span class="math inline">κ(s) = \log(\sum_ie^{s x_i} p_i) = \log e(s)</span> so <span class="math inline">κ&#39;(s) = e&#39;(s)/e(s)</span> and <span class="math inline">κ&#39;&#39;(s) = (e(s) e&#39;&#39;(s) - e&#39;(s)^2)/e(s)^2</span>. Note <span class="math inline">e^{(n)}(s) = \sum_i e^{s x_i} x_i^n p_i)</span> for <span class="math inline">n \ge 0</span>.</p>
-<h2 id="trinomial">Trinomial</h2>
-<p>Define <span class="math inline">X</span> by <span class="math inline">P(x = -a) = p</span>, <span class="math inline">P(X = b) = q</span>, and <span class="math inline">P(X = 0) = 1 - p - q</span>, <span class="math inline">a,b\ge 0</span>. If <span class="math inline">0 = E[X] = -ap + bq</span> and <span class="math inline">\operatorname{Var}(X) = E[X^2] = a^2p + b^2 q</span> then <span class="math inline">p = 1/a(a + b)</span> and <span class="math inline">q = 1/b(a+b)</span>. The condition <span class="math inline">p + q \le 1</span> is <span class="math inline">ab \ge 1</span>. We parameterize this by <span class="math inline">a = e^α</span>, <span class="math inline">b = e^β</span> where <span class="math inline">α + β\ge 0</span> so <span class="math inline">p = 1/e^{α}(e^α + e^β)</span> and <span class="math inline">q = 1/e^{β}(e^α + e^β)</span>. Note <span class="math inline">a,b\ge0</span> for all <span class="math inline">α,β</span>.</p>
-<p>The cumulant is</p>
-<p><span class="math display">
+<p>The formula for delta is <span class="math display">
+    dp/df = -Φ^s(x) = -Φ(x - s).
+</span></p>
+<p>Since <span class="math inline">Φ^s(x) = Φ(x - s)</span> we have <span class="math inline">\phi^s(x) = \phi(x - s)</span> and the formula for gamma is <span class="math display">
+    d^2p/df^2 = \phi^s(x)/fs = \phi(x - s)/fs
+</span> We also have the formula <span class="math inline">d^2p/df^2 = \phi(x)k/f^2s</span>.</p>
+<p>Taking the deriviative of <span class="math inline">E[g(X)\exp(s X - s^2/2)] = E[g(X + s)]</span> with respect to <span class="math inline">s</span> gives <span class="math inline">E[g(X)\exp(s X - s^2/2)(X - s)] = E[g&#39;(X + s)]</span>. Multiplying both sides by <span class="math inline">f</span> yields <span class="math inline">E[g(X)F(X - s)] = f E[g&#39;(X + s)]</span> The formula for call vega is <span class="math display">
 \begin{aligned}
-κ(s) &amp;= \log E[\exp(sX)] \\
-     &amp;= \log(p\exp(-sa) + (1 - p - q) + q\exp(sb)) \\
-     &amp;= \log(
+dv/ds &amp;= E[1(F\ge k)F(X - s)] \\
+      &amp;= E[1(X\ge x)F(X - s)] \\
+      &amp;= fE[\delta_x(X + s)] \\
+      &amp;= f\phi(x + s)] \\
+\end{aligned}
+</span></p>
+<!--
+## Discrete
+
+A _discrete_ random variable has values $(x_i)$ with probabilities $(p_i)$ where
+$p_i \ge 0$ and $\sum_i p_i = 1$.
+Its cdf is $P(X\le x) = \sum_i 1(x_i\le x) p_i$ and pdf is $\sum_i δ_{x_i} p_i$.
+The cumulant is $κ(s) = \log(\sum_ie^{s x_i} p_i) = \log e(s)$ so
+$κ'(s) = e'(s)/e(s)$ and $κ''(s) = (e(s) e''(s) - e'(s)^2)/e(s)^2$.
+Note $e^{(n)}(s) = \sum_i e^{s x_i} x_i^n p_i$ for $n \ge 0$.
+
+## Trinomial
+
+Define $X$ by $P(x = -a) = p$, $P(X = b) = q$, and $P(X = 0) = 1 - p - q$, $a,b\ge 0$.
+If $0 = E[X] = -ap + bq$ and $\Var(X) = E[X^2] = a^2p + b^2 q$ then
+$p = 1/a(a + b)$ and $q = 1/b(a+b)$. The condition $p + q \le 1$
+is $ab \ge 1$. We parameterize this by $a = e^α$, $b = e^β$
+where $α + β\ge 0$ so $p = 1/e^{α}(e^α + e^β)$
+and $q = 1/e^{β}(e^α + e^β)$. Note $a,b\ge0$ for all $α,β$.
+
+The cumulant is 
+
+$$
+\begin{aligned}
+κ(s) &= \log E[\exp(sX)] \\
+     &= \log(p\exp(-sa) + (1 - p - q) + q\exp(sb)) \\
+     &= \log(
             \exp(-se^α)/e^{α}(e^α + e^β)
             + (1 - 1/e^{α}(e^α + e^β) - 1/e^β(e^α + e^β))
             + \exp(se^β)/e^{β}(e^α + e^β)) \\
 \end{aligned}
-</span></p>
-<h2 id="remarks">Remarks</h2>
-<p>If the cumulative distribution function of <span class="math inline">X</span> is <span class="math inline">Φ</span>, that is <span class="math inline">P(X\le x) = Φ(x)</span>, and <span class="math inline">g</span> is invertible then the cdf of <span class="math inline">Y = g(X)</span> is <span class="math inline">Ψ = Φ\circ g^{-1}</span>. For example, if <span class="math inline">X</span> has mean <span class="math inline">0</span> and variance <span class="math inline">1</span> and <span class="math inline">g(x) = μ + σ x</span> then <span class="math inline">Y = g(X)</span> has mean <span class="math inline">μ</span>, variance <span class="math inline">σ^2</span>, and <span class="math inline">Ψ(y) = P(Y\le y) = Φ((y - μ)/σ)</span>.</p>
-<p>The probability density function of <span class="math inline">Y = g(X)</span> is <span class="math inline">ψ(y) = Ψ&#39;(y) = (φ\circ g^{-1}(y))(g^{-1})&#39;(y)</span>. Recall <span class="math inline">(g^{-1})&#39;(y) = 1/g&#39;\circ g^{-1}(y)</span> so <span class="math inline">ψ(y) = (φ(g^{-1}(y))/g&#39;(g^{-1}(y)) = φ(x)/g&#39;(x)</span> if <span class="math inline">g(x) = y</span>.</p>
+$$
+
+## Remarks
+
+If the cumulative distribution function of $X$ is $Φ$, that is $P(X\le x) = Φ(x)$,
+and $g$ is invertible then the cdf of $Y = g(X)$ is $Ψ = Φ\circ g^{-1}$. For example,
+if $X$ has mean $0$ and variance $1$ and $g(x) = μ + σ x$ then $Y = g(X)$ has mean
+$μ$, variance $σ^2$, and $Ψ(y) = P(Y\le y) = Φ((y - μ)/σ)$.
+
+The probability density function of $Y = g(X)$ is $ψ(y) = Ψ'(y) =
+(φ\circ g^{-1}(y))(g^{-1})'(y)$.  Recall $(g^{-1})'(y) = 1/g'\circ
+g^{-1}(y)$ so  $ψ(y) = (φ(g^{-1}(y))/g'(g^{-1}(y)) = φ(x)/g'(x)$
+if $g(x) = y$.
+-->
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>
