@@ -23,6 +23,7 @@ if $E[X] = 0$ and $E[X^2] = 1$, which we can, and do, assume.
 
 For example, the Black model takes $X$ to be standard normal and _vol_
 $s = σ \sqrt{t}$ where $σ$ is the volatilty and $t$ is time in years to expiration.
+In this case $F = f\exp(σ \sqrt{t} X - σ^2t/2)$.
 In what follows we will call $s$ vol and $σ$ volatility.
 
 ## Value and Greeks
