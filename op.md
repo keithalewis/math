@@ -12,6 +12,8 @@ abstract: European option pricing
 European _option valuation_ involves calculating the expected value of
 the _option payoff_ as a function of the _underlying_ at _expiration_.
 _Greeks_ are derivatives of the _value_ with respect to _model parameters_.
+This short note derives formulas for these using any underlying distribution
+that is positive.
 
 Let $F$ be the value of the underlying at option expiration.
 Any positive random variable $F$ can be parameterized by
@@ -37,6 +39,7 @@ $$
 _Gamma_ is the second derivative of value with respect to the forward
 $$
 	\frac{d^2v}{df^2} = \frac{d}{df}\left(\frac{dv}{df}\right) = E^s[π''(F)\exp(s X - κ(s))] 
+	= E^s[π''(F)F]/f.
 $$
 
 _Vega_ is  the derivative of value with respect to the vol
@@ -68,8 +71,28 @@ $$
 
 Gamma for either a put or call is
 $$
-	d^2p/df^2 = E^s[δ_k(F)\exp(s X - κ(s))].
+	d^2p/df^2 = E^s[δ_k(F)F]/f.
 $$
+
+Put vega
+$$
+	dv/ds = fE^s[1(F\le k)(X - κ'(s))].
+$$
+
+Let $\Psi(y) = \Phi(x)$ be the cumulative distribution functions of $F$ and $X$
+where $y = y(x) = f\exp(sx -  κ(s))$ and $x = x(y) = (\log(y/f) + κ(s))/s$. The probability
+density function of $Y$ is $\psi(y) = \Phi'(x)dx/dy = \phi(x)/ys$
+since $dy/dx = ys$. The same reasoning gives $\psi^s(y) = \phi^s(x)/ys$
+so $E^s[δ_k(F)F]/f = \psi^s(k)k/f = (\phi^s(x(k))/ks)k/f = \phi^s(x(k))/fs$ and we have
+$$
+	d^2p/df^2 = \phi^s(x(k))/fs.
+$$
+
+Using $\phi^s(x) = \phi(x)\exp(s x -  κ(s)) = \phi(x)y(x)/f$ we also have the formula
+$$
+	d^2p/df^2 = \phi(x(k))k/f^2s
+$$
+since $y(x) = k$ when $x = x(k)$.
 
 ## Black Model
 

@@ -40,7 +40,7 @@
 <h1 class="title">Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<p>European <em>option valuation</em> involves calculating the expected value of the <em>option payoff</em> as a function of the <em>underlying</em> at <em>expiration</em>. <em>Greeks</em> are derivatives of the <em>value</em> with respect to <em>model parameters</em>.</p>
+<p>European <em>option valuation</em> involves calculating the expected value of the <em>option payoff</em> as a function of the <em>underlying</em> at <em>expiration</em>. <em>Greeks</em> are derivatives of the <em>value</em> with respect to <em>model parameters</em>. This short note derives formulas for these using any underlying distribution that is positive.</p>
 <p>Let <span class="math inline">F</span> be the value of the underlying at option expiration. Any positive random variable <span class="math inline">F</span> can be parameterized by <span class="math inline">F = f \exp(s X - κ(s))</span>, where <span class="math inline">κ(s) = \log E[\exp(s X)]</span> is the cumulant of <span class="math inline">X</span>. Note <span class="math inline">E[F] = f</span> is the <em>forward</em> and <span class="math inline">\operatorname{Var}(\log F) = s^2</span> is the variance if <span class="math inline">E[X] = 0</span> and <span class="math inline">E[X^2] = 1</span>, which we can, and do, assume.</p>
 <p>For example, the Black model takes <span class="math inline">X</span> to be standard normal and <em>vol</em> <span class="math inline">s = σ \sqrt{t}</span> where <span class="math inline">σ</span> is the volatilty and <span class="math inline">t</span> is time in years to expiration. In what follows we will call <span class="math inline">s</span> vol and <span class="math inline">σ</span> volatility.</p>
 <h2 id="value-and-greeks">Value and Greeks</h2>
@@ -50,6 +50,7 @@
 </span></p>
 <p><em>Gamma</em> is the second derivative of value with respect to the forward <span class="math display">
     \frac{d^2v}{df^2} = \frac{d}{df}\left(\frac{dv}{df}\right) = E^s[π&#39;&#39;(F)\exp(s X - κ(s))] 
+    = E^s[π&#39;&#39;(F)F]/f.
 </span></p>
 <p><em>Vega</em> is the derivative of value with respect to the vol <span class="math display">
     dv/ds = E[π&#39;(F) dF/ds] = E[π&#39;(F)F(X - κ&#39;(s))] = fE^s[π&#39;(F)(X - κ&#39;(s))].
@@ -65,8 +66,17 @@
     dp/df = -P^s(X \le x). 
 </span></p>
 <p>Gamma for either a put or call is <span class="math display">
-    d^2p/df^2 = E^s[δ_k(F)\exp(s X - κ(s))].
+    d^2p/df^2 = E^s[δ_k(F)F]/f.
 </span></p>
+<p>Put vega <span class="math display">
+    dv/ds = fE^s[1(F\le k)(X - κ&#39;(s))].
+</span></p>
+<p>Let <span class="math inline">\Psi(y) = \Phi(x)</span> be the cumulative distribution functions of <span class="math inline">F</span> and <span class="math inline">X</span> where <span class="math inline">y = y(x) = f\exp(sx - κ(s))</span> and <span class="math inline">x = x(y) = (\log(y/f) + κ(s))/s</span>. The probability density function of <span class="math inline">Y</span> is <span class="math inline">\psi(y) = \Phi&#39;(x)dx/dy = \phi(x)/ys</span> since <span class="math inline">dy/dx = ys</span>. The same reasoning gives <span class="math inline">\psi^s(y) = \phi^s(x)/ys</span> so <span class="math inline">E^s[δ_k(F)F]/f = \psi^s(k)k/f = (\phi^s(x(k))/ks)k/f = \phi^s(x(k))/fs</span> and we have <span class="math display">
+    d^2p/df^2 = \phi^s(x(k))/fs.
+</span></p>
+<p>Using <span class="math inline">\phi^s(x) = \phi(x)\exp(s x - κ(s)) = \phi(x)y(x)/f</span> we also have the formula <span class="math display">
+    d^2p/df^2 = \phi(x(k))k/f^2s
+</span> since <span class="math inline">y(x) = k</span> when <span class="math inline">x = x(k)</span>.</p>
 <h2 id="black-model">Black Model</h2>
 <p>If <span class="math inline">X</span> is standard normal then <span class="math inline">E[\exp(μ + σ X)] = \exp(μ + σ^2/2)</span> and <span class="math inline">E[g(X)\exp(s X - κ(s))] = E[g(X + s)]</span> for any <span class="math inline">g</span>. These formulas imply the cumulant of a standard normal is <span class="math inline">κ(s) = s^2/2</span> and <span class="math inline">P^s(X\le x) = E[1(X\le x)\exp(s X - κ(s))] = P(X + s \le x)</span>. If we let <span class="math inline">Φ</span> be the cumulative distribution function of <span class="math inline">X</span> then <span class="math inline">Φ^s(x) = Φ(x - s)</span> and the put value is <span class="math inline">p = k Φ(x) - f Φ(x - s) = k Φ(\log(k/f)/s + s/2) - f Φ(\log(k/f)/s - s/2)</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">\log(k/f)/s + s/2 = -d_2</span> and <span class="math inline">\log(k/f)/s - s/2 = -d_1</span></em>.</p>
