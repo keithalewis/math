@@ -41,8 +41,8 @@
 <p class="author">Keith A. Lewis</p>
 </header>
 <p>European <em>option valuation</em> involves calculating the expected value of the <em>option payoff</em> as a function of the <em>underlying</em> at <em>expiration</em>. <em>Greeks</em> are derivatives of the <em>value</em> with respect to <em>model parameters</em>. This short note derives formulas for these using any underlying distribution that is positive.</p>
-<p>Let <span class="math inline">F</span> be the value of the underlying at option expiration. Any positive random variable <span class="math inline">F</span> can be parameterized by <span class="math inline">F = f \exp(s X - κ(s))</span>, where <span class="math inline">κ(s) = \log E[\exp(s X)]</span> is the cumulant of <span class="math inline">X</span>. Note <span class="math inline">E[F] = f</span> is the <em>forward</em> and <span class="math inline">\operatorname{Var}(\log F) = s^2</span> is the variance if <span class="math inline">E[X] = 0</span> and <span class="math inline">E[X^2] = 1</span>, which we can, and do, assume.</p>
-<p>For example, the Black model takes <span class="math inline">X</span> to be standard normal and <em>vol</em> <span class="math inline">s = σ \sqrt{t}</span> where <span class="math inline">σ</span> is the volatilty and <span class="math inline">t</span> is time in years to expiration. In this case <span class="math inline">F = f\exp(σ \sqrt{t} X - σ^2t/2)</span>. In what follows we will call <span class="math inline">s</span> vol and <span class="math inline">σ</span> volatility.</p>
+<p>Let <span class="math inline">F</span> be the value of the underlying at option expiration. Any positive random variable <span class="math inline">F</span> can be parameterized by <span class="math inline">F = f \exp(s X - κ(s))</span>, where <span class="math inline">κ(s) = \log E[\exp(s X)]</span> is the cumulant of <span class="math inline">X</span>. Note <span class="math inline">E[F] = f</span> is the <em>forward</em> and <span class="math inline">\operatorname{Var}(\log F) = s^2</span> is the variance if <span class="math inline">E[X] = 0</span> and <span class="math inline">E[X^2] = 1</span>, which we can, and do, assume. We call <span class="math inline">s</span> <em>vol</em> and use <em>volatility</em> for the Black-Scholes/Merton model parameter.</p>
+<p>For example, the Black model takes <span class="math inline">X</span> to be standard normal and <em>vol</em> <span class="math inline">s = σ \sqrt{t}</span> where <span class="math inline">σ</span> is the volatilty and <span class="math inline">t</span> is time in years to expiration. In this case <span class="math inline">F = f\exp(σ \sqrt{t} X - σ^2t/2)</span>.</p>
 <h2 id="value-and-greeks">Value and Greeks</h2>
 <p>The (forward) value of an option paying <span class="math inline">π(F)</span> at expiration is <span class="math inline">v = E[π(F)]</span>. Define the Esscher transform <span class="math inline">P^s</span> by <span class="math inline">dP^s/dP = \exp(s X - κ(s))</span> so <span class="math inline">E^s[π(F)] = E[π(F)\exp(s X - κ(s))]</span>. Note <span class="math inline">E^s[1] = 1</span> so <span class="math inline">P^s</span> is a probability measure.</p>
 <p><em>Delta</em> is the derivative of value with respect to the forward <span class="math display">
@@ -70,11 +70,11 @@
 <p>Call vega is <span class="math display">
     dv/ds = E[1(F &gt; k)F(X - s)].
 </span></p>
-<p>Let <span class="math inline">\Psi(y) = \Phi(x)</span> be the cumulative distribution functions of <span class="math inline">F</span> and <span class="math inline">X</span> where <span class="math inline">y = y(x) = f\exp(sx - κ(s))</span> and <span class="math inline">x = x(y) = (\log(y/f) + κ(s))/s</span>. In terms of the distribution function put value is <span class="math inline">p = k\Phi(x) - f\Phi^s(x)</span> and put delta is <span class="math inline">dp/df = -\Phi^s(x)</span> where <span class="math inline">x = x(k) = (\log(k/f) + κ(s))/s</span>.</p>
-<p>The probability density function of <span class="math inline">Y</span> is <span class="math inline">\psi(y) = \Phi&#39;(x)dx/dy = \phi(x)/ys</span> since <span class="math inline">dy/dx = ys</span>. The same reasoning gives <span class="math inline">\psi^s(y) = \phi^s(x)/ys</span> so <span class="math inline">E^s[δ_k(F)F]/f = \psi^s(k)k/f = (\phi^s(x(k))/ks)k/f = \phi^s(x(k))/fs</span> and we have <span class="math display">
-    d^2p/df^2 = \phi^s(x(k))/fs.
-</span> Using <span class="math inline">\phi^s(x) = \phi(x)\exp(s x - κ(s)) = \phi(x)y/f</span> we also have the formula <span class="math display">
-    d^2p/df^2 = \phi(x(k))k/f^2s
+<p>Let <span class="math inline">Ψ(y) = Φ(x)</span> be the cumulative distribution functions of <span class="math inline">F</span> and <span class="math inline">X</span> where <span class="math inline">y = y(x) = f\exp(sx - κ(s))</span> and <span class="math inline">x = x(y) = (\log(y/f) + κ(s))/s</span>. In terms of the distribution function put value is <span class="math inline">p = kΦ(x) - fΦ^s(x)</span> and put delta is <span class="math inline">dp/df = -Φ^s(x)</span> where <span class="math inline">x = x(k) = (\log(k/f) + κ(s))/s</span>.</p>
+<p>The probability density function of <span class="math inline">Y</span> is <span class="math inline">ψ(y) = Φ&#39;(x)dx/dy = φ(x)/ys</span> since <span class="math inline">dy/dx = ys</span>. The same reasoning gives <span class="math inline">ψ^s(y) = φ^s(x)/ys</span> so <span class="math inline">E^s[δ_k(F)F]/f = ψ^s(k)k/f = (φ^s(x(k))/ks)k/f = φ^s(x(k))/fs</span> and we have <span class="math display">
+    d^2p/df^2 = φ^s(x(k))/fs.
+</span> Using <span class="math inline">φ^s(x) = φ(x)\exp(s x - κ(s)) = φ(x)y/f</span> we also have the formula <span class="math display">
+    d^2p/df^2 = φ(x(k))k/f^2s
 </span> since <span class="math inline">y = y(x(k)) = k</span>.</p>
 <h2 id="black-model">Black Model</h2>
 <p>If <span class="math inline">X</span> is standard normal then <span class="math inline">E[\exp(μ + σ X)] = \exp(μ + σ^2/2)</span> and <span class="math inline">E[g(X)\exp(s X - s^2/2)] = E[g(X + s)]</span> for any <span class="math inline">g</span>. These formulas imply the cumulant of a standard normal is <span class="math inline">κ(s) = s^2/2</span> and <span class="math inline">P^s(X\le x) = E[1(X\le x)\exp(s X - κ(s))] = P(X + s \le x) = Φ(x - s)</span>. The put value is <span class="math display">
@@ -85,15 +85,17 @@
 <p>The formula for delta is <span class="math display">
     dp/df = -Φ^s(x) = -Φ(x - s).
 </span></p>
-<p>Since <span class="math inline">Φ^s(x) = Φ(x - s)</span> we have <span class="math inline">\phi^s(x) = \phi(x - s)</span> and the formula for gamma is <span class="math display">
-    d^2p/df^2 = \phi^s(x)/fs = \phi(x - s)/fs
-</span> We also have the formula <span class="math inline">d^2p/df^2 = \phi(x)k/f^2s</span>.</p>
-<p>Taking the deriviative of <span class="math inline">E[g(X)\exp(s X - s^2/2)] = E[g(X + s)]</span> with respect to <span class="math inline">s</span> gives <span class="math inline">E[g(X)\exp(s X - s^2/2)(X - s)] = E[g&#39;(X + s)]</span>. Multiplying both sides by <span class="math inline">f</span> yields <span class="math inline">E[g(X)F(X - s)] = f E[g&#39;(X + s)]</span> The formula for call vega is <span class="math display">
+<p>Since <span class="math inline">Φ^s(x) = Φ(x - s)</span> we have <span class="math inline">φ^s(x) = φ(x - s)</span> and the formula for gamma is <span class="math display">
+    d^2p/df^2 = φ^s(x)/fs = φ(x - s)/fs
+</span> We also have the formula <span class="math inline">d^2p/df^2 = φ(x)k/f^2s</span>.</p>
+<p>Taking the deriviative of <span class="math inline">E[g(X)\exp(s X - s^2/2)] = E[g(X + s)]</span> with respect to <span class="math inline">s</span> gives <span class="math display">
+    E[g(X)\exp(s X - s^2/2)(X - s)] = E[g&#39;(X + s)].
+</span> Multiplying both sides by <span class="math inline">f</span> yields <span class="math inline">E[g(X)F(X - s)] = f E[g&#39;(X + s)]</span> The formula for call vega is <span class="math display">
 \begin{aligned}
 dv/ds &amp;= E[1(F\ge k)F(X - s)] \\
       &amp;= E[1(X\ge x)F(X - s)] \\
       &amp;= fE[\delta_x(X + s)] \\
-      &amp;= f\phi(x + s)] \\
+      &amp;= fφ(x + s)] \\
 \end{aligned}
 </span></p>
 <!--

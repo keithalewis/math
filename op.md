@@ -20,11 +20,11 @@ Any positive random variable $F$ can be parameterized by
 $F = f \exp(s X - κ(s))$, where $κ(s) = \log E[\exp(s X)]$ is the cumulant of $X$.
 Note $E[F] = f$ is the _forward_ and $\Var(\log F) = s^2$ is the variance
 if $E[X] = 0$ and $E[X^2] = 1$, which we can, and do, assume.
+We call $s$ _vol_ and use _volatility_ for the Black-Scholes/Merton model parameter.
 
 For example, the Black model takes $X$ to be standard normal and _vol_
 $s = σ \sqrt{t}$ where $σ$ is the volatilty and $t$ is time in years to expiration.
 In this case $F = f\exp(σ \sqrt{t} X - σ^2t/2)$.
-In what follows we will call $s$ vol and $σ$ volatility.
 
 ## Value and Greeks
 
@@ -81,20 +81,20 @@ $$
 	dv/ds = E[1(F > k)F(X - s)].
 $$
 
-Let $\Psi(y) = \Phi(x)$ be the cumulative distribution functions of $F$ and $X$
+Let $Ψ(y) = Φ(x)$ be the cumulative distribution functions of $F$ and $X$
 where $y = y(x) = f\exp(sx -  κ(s))$ and $x = x(y) = (\log(y/f) + κ(s))/s$.
-In terms of the distribution function put value is $p = k\Phi(x) - f\Phi^s(x)$
-and put delta is $dp/df = -\Phi^s(x)$ where $x = x(k) = (\log(k/f) + κ(s))/s$.
+In terms of the distribution function put value is $p = kΦ(x) - fΦ^s(x)$
+and put delta is $dp/df = -Φ^s(x)$ where $x = x(k) = (\log(k/f) + κ(s))/s$.
 
-The probability density function of $Y$ is $\psi(y) = \Phi'(x)dx/dy = \phi(x)/ys$
-since $dy/dx = ys$. The same reasoning gives $\psi^s(y) = \phi^s(x)/ys$
-so $E^s[δ_k(F)F]/f = \psi^s(k)k/f = (\phi^s(x(k))/ks)k/f = \phi^s(x(k))/fs$ and we have
+The probability density function of $Y$ is $ψ(y) = Φ'(x)dx/dy = φ(x)/ys$
+since $dy/dx = ys$. The same reasoning gives $ψ^s(y) = φ^s(x)/ys$
+so $E^s[δ_k(F)F]/f = ψ^s(k)k/f = (φ^s(x(k))/ks)k/f = φ^s(x(k))/fs$ and we have
 $$
-	d^2p/df^2 = \phi^s(x(k))/fs.
+	d^2p/df^2 = φ^s(x(k))/fs.
 $$
-Using $\phi^s(x) = \phi(x)\exp(s x -  κ(s)) = \phi(x)y/f$ we also have the formula
+Using $φ^s(x) = φ(x)\exp(s x -  κ(s)) = φ(x)y/f$ we also have the formula
 $$
-	d^2p/df^2 = \phi(x(k))k/f^2s
+	d^2p/df^2 = φ(x(k))k/f^2s
 $$
 since $y = y(x(k)) = k$.
 
@@ -120,15 +120,18 @@ $$
 	dp/df = -Φ^s(x) = -Φ(x - s).
 $$
 
-Since $Φ^s(x) = Φ(x - s)$ we have $\phi^s(x) = \phi(x - s)$
+Since $Φ^s(x) = Φ(x - s)$ we have $φ^s(x) = φ(x - s)$
 and the formula for gamma is
 $$
-	d^2p/df^2 = \phi^s(x)/fs = \phi(x - s)/fs
+	d^2p/df^2 = φ^s(x)/fs = φ(x - s)/fs
 $$
-We also have the formula $d^2p/df^2 = \phi(x)k/f^2s$.
+We also have the formula $d^2p/df^2 = φ(x)k/f^2s$.
 
 Taking the deriviative of $E[g(X)\exp(s X - s^2/2)] = E[g(X + s)]$ with
-respect to $s$ gives $E[g(X)\exp(s X - s^2/2)(X - s)] = E[g'(X + s)]$.
+respect to $s$ gives
+$$
+	E[g(X)\exp(s X - s^2/2)(X - s)] = E[g'(X + s)].
+$$
 Multiplying both sides by $f$ yields $E[g(X)F(X - s)] = f E[g'(X + s)]$
 The formula for call vega is
 $$
@@ -136,7 +139,7 @@ $$
 dv/ds &= E[1(F\ge k)F(X - s)] \\
       &= E[1(X\ge x)F(X - s)] \\
 	  &= fE[\delta_x(X + s)] \\
-	  &= f\phi(x + s)] \\
+	  &= fφ(x + s)] \\
 \end{aligned}
 $$
 

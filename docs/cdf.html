@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Cumulative Distribution Functions</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Cumulative Distribution Functions</h1>
+<p class="author">Keith A. Lewis</p>
+</header>
+<p>The <em>cumulative distribution function</em> of a random variable <span class="math inline">X</span> is <span class="math inline">F^X(x) = F(x) = P(X\le x)</span>. It tells you everything there is to know about the distribution of <span class="math inline">X</span>. For example <span class="math inline">P(X\in E) = E[1_E(X)] = \int_E dF(x)</span> where <span class="math inline">1_E(x) = 1</span> if <span class="math inline">x\in E</span>, <span class="math inline">1_E(x) = 0</span> if <span class="math inline">x\not\in E</span> and we use Riemann-Stieltjes integration.</p>
+<p>Every cdf is non-decreasing, continuous from the right, has left limits, and <span class="math inline">\lim_{x\to-\infty}F(x) = 0</span>, <span class="math inline">\lim_{x\to+\infty}F(x) = 1</span>. Any function with these properties is the cdf of a random variable.</p>
+<p><strong>Exercise</strong>. <em>Prove right continuity using <span class="math inline">\cap_n (-\infty, x + 1/n] = (-\infty, x]</span></em>.</p>
+<p>Note <span class="math inline">\cup_n (-\infty,x - 1/n] = (-\infty,x) \not= (-\infty,x]</span>. The sequence <span class="math inline">F(x - 1/n)</span> is non-decreasing so it has a limit, but not necessarily <span class="math inline">F(x)</span>.</p>
+<p>The distribution of a <em>uniformly distributed</em> random variable on <span class="math inline">[0,1]</span>, <span class="math inline">U</span>, is <span class="math inline">F(x) = x</span> if <span class="math inline">0\le x\le 1</span>, <span class="math inline">F(x) = 0</span> if <span class="math inline">x &lt; 0</span>, and <span class="math inline">F(x) = 1</span> if <span class="math inline">x &gt; 1</span>. In this case <span class="math inline">P(X\in(a, b]) = b - a</span> for <span class="math inline">0\le a &lt; b\le 1</span>.</p>
+<p><strong>Exercise</strong> <em>If <span class="math inline">X</span> has cdf <span class="math inline">F</span>, show <span class="math inline">F^{-1}(U)</span> has the same distribution as <span class="math inline">X</span> and <span class="math inline">F(X)</span> has the same distribution as <span class="math inline">U</span></em>.</p>
+<p>If <span class="math inline">F(x)</span> jumps from <span class="math inline">a</span> to <span class="math inline">b</span> at <span class="math inline">x = c</span> we define <span class="math inline">F^{-1}(u) = c</span> for <span class="math inline">a \le u &lt; b</span>.</p>
+<h2 id="continuous-and-discrete">Continuous and Discrete</h2>
+<p>A random variable is <em>continuously distributed</em> if <span class="math inline">F = \int F&#39;</span> and we call <span class="math inline">f = F&#39;</span> the <em>probability density function</em> of <span class="math inline">X</span>. If <span class="math inline">X</span> is discrete with <span class="math inline">P(X = x_j) = p_j</span> then <span class="math inline">F(x) = \sum_j 1(x\le x_j) p_j</span> and <span class="math inline">f(x) = \sum_j δ_{x_j} p_j</span> where <span class="math inline">δ_c</span> is the <em>delta function</em>, or <em>point mass</em>, at <span class="math inline">c</span>. A delta function is not a function but we can define <span class="math inline">\int \delta_a(x) g(x)\dx = \int g(x) d1(x \ge a) = g(a)</span> using Riemann-Stieltjes integration.</p>
+<h2 id="cumulant">Cumulant</h2>
+<p>The <em>cumulant</em> of the random variable <span class="math inline">X</span> is <span class="math inline">\kappa^X(s) = \kappa(s) = \log E[\exp(s X)]</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\kappa^{c + X}(s) = cs + \kappa^X(s)</span> if <span class="math inline">c</span> is a constant</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\kappa^{cX}(s) = \kappa^X(cs)</span> if <span class="math inline">c</span> is a constant</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\kappa^{X + Y}(s) = \kappa^X(s) + \kappa^Y(s)</span> if <span class="math inline">X</span> and <span class="math inline">y</span> are independent</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\kappa(0) = 0</span>, <span class="math inline">\kappa&#39;(0) = E[X]</span>, and <span class="math inline">\kappa&#39;&#39;(0) = \operatorname{Var}(X)</span></em>.</p>
+<p>The <em>cumulants</em>, <span class="math inline">(\kappa_n)</span>, are the coefficients of the Taylor series expansion of the cumulant <span class="math inline">\kappa(s) = \sum_{n &gt; 0} \kappa_n s^n/n!</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\kappa_1^{c + X} = c + \kappa_1^X</span> and <span class="math inline">\kappa_n^{c + X} = \kappa_n^X</span> if <span class="math inline">n &gt; 1</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\kappa_n^{cX} = c^n\kappa_n</span> for all <span class="math inline">n</span></em>.</p>
+<p>The <em>moments</em> of <span class="math inline">X</span>, <span class="math inline">\mu_n = E[X^n]</span> are related to the cumulants via complete Bell polynomials <span class="math inline">(B_n)</span>. <span class="math display">
+    E[e^{sX}] = \sum_{n\ge0} \mu_n s^n/n! = e^{\kappa(s)} = e^{\sum_{n&gt;0} \kappa_n s^n/n!}
+    = \sum_{n\ge0} B_n(\kappa_1,\ldots,\kappa_n) s^n/n!
+</span> Taking a derivative with respect to <span class="math inline">s</span> of the last equality gives the recurrence formula <span class="math display">
+    B_0 = 1, B_{n+1}(\kappa_1,\ldots,\kappa_{n+1})
+        = \sum_{k = 0}^n \binom{n}{k} B_{n - k}(\kappa_1,\ldots,\kappa_{n-k})\kappa_{k + 1}, n &gt; 0.
+</span> <!--
+The cumulates can be expressed in terms of moments by
+$$
+    \kappa_n = \sum_{k=0}^{n-1} (-1)^k k! B_{n,k+1}(\mu_1,\ldots,\mu_{n - k})
+$$
+where $(B_{n,k})$ are partial Bell polynomials satisfying the recurrence
+$$
+    B_{n,k}(x_1,\ldots,x_{n - k + 1})
+        = \sum_{j=0}^{n-k}\binom{n-1}{j} B_{n-j+1,k-1}(x_1,\ldots,x_{j+1})x_{j+1}
+$$
+--></p>
+<h2 id="distributions">Distributions</h2>
+<h3 id="normal">Normal</h3>
+<p>The standard normal random variable <span class="math inline">Z</span> has density is <span class="math inline">\phi(z) = \exp(-z^2/2)/\sqrt{2\pi}</span> and cumulative distribution <span class="math inline">\Phi(z) = \int_{-\infty}^z \exp(-t^2/2)\, dt/\sqrt{2\pi}</span>. Note <span class="math display">
+\begin{aligned}
+E[e^{\mu + \sigma Z}] &amp;= \int_{-\infty}^\infty e^{\mu + \sigma z} e^{-z^2/2}\, dz/\sqrt{2\pi} \\
+    &amp;= \int_{-\infty}^\infty e^{\mu + \sigma^2/2} e^{-(z - \sigma)^2/2}\, dz/\sqrt{2\pi} \\
+    &amp;= e^{\mu + \sigma^2/2} \\
+\end{aligned}
+</span> so <span class="math inline">E[\exp(N)] = \exp(E[N] + \operatorname{Var}(N)/2)</span> for any normally distributed random variable <span class="math inline">N</span>,</p>
+<p>Also <span class="math display">
+\begin{aligned}
+E[g(Z) e^{sZ}] &amp;= \int_{-\infty}^\infty g(z) e^{sz} e^{-z^2/2}\, dz/\sqrt{2\pi} \\
+    &amp;= \int_{-\infty}^\infty g(z) e^{s^2/2} e^{-(z - s)^2/2}\, dz/\sqrt{2\pi} \\
+    &amp;= E[e^{sZ}] E(g(Z - s)]. \\
+\end{aligned}
+</span> More generally, if <span class="math inline">N</span>, <span class="math inline">N_1, \ldots</span> are jointly normal then <span class="math inline">E[\exp(N)g(N_1,\ldots)] = E[\exp(N)] E[g(N_1 + \operatorname{Cov}(N, N_1), \ldots)]</span>. In particular <span class="math display">
+    E[\exp(s X - s^2/2)g(X)] = E[g(X + s)].
+</span> Taking derivatives with respect to <span class="math inline">s</span> shows <span class="math display">
+    E[\exp(s X - s^2/2)(X - s)g(X)] = E[g&#39;(X + s)].
+</span> so <span class="math inline">E[X g(X)] = E[g&#39;(X)]</span> for <span class="math inline">s = 0</span>.</p>
+<p>This can be used to calculate the moments of <span class="math inline">X</span> by <span class="math inline">E[X^n] = E[X X^{n-1}] = (n - 1)E[X^{n - 2}]</span> starting from <span class="math inline">E[X^0] = 1</span> and <span class="math inline">E[X^1] = 0</span>. The odd moments are zero and the even moments are <span class="math inline">E[X^{2n}] = (2n - 1)(2n - 3)\cdots 1</span>.</p>
+<p>The cumulant is <span class="math inline">\kappa(s) = \log E[\exp(sZ)] = s^2/2</span> so <span class="math inline">\kappa_2 = 1</span> and all other cumulants are zero.</p>
+<h3 id="logistic">Logistic</h3>
+<p>A logistic random variate has cumulative distribution <span class="math inline">F(x) = 1/(1 + e^{-x})</span>, <span class="math inline">x\in\mathbf{R}</span>. It’s density function is <span class="math inline">f(x) = e^{-x}/(1 + e^{-x})^2</span>. Note <span class="math inline">f(x) = \int_0^\infty e^{-x} e^{-\alpha e^{-x}} e^{-\alpha}\,d\alpha</span>.</p>
+<p>The quantile function is <span class="math inline">Q(u) = F^{-1}(u) = \log u/(1-u)</span>.</p>
+<p>The moment generating function is <span class="math inline">M_X(t) = E e^{tX} = \Gamma(1 - t)\Gamma(1 + t)</span>, <span class="math inline">-1 &lt; t &lt; 1</span>.</p>
+<p>Using <span class="math inline">u = F(x) = 1/(1 + e^{-x})</span>, so <span class="math inline">e^x = u/(1 - u)</span> <span class="math display">
+\begin{aligned}
+E e^{tX} &amp;= \int_{-\infty}^\infty e^{tx} e^{-x}/(1 + e^{-x})^2\,dx \\
+    &amp;= \int_0^1 u^t(1 - u)^{-t}\,du \\
+    &amp;= B(1 + t, 1 - t) \\
+    &amp;= \Gamma(1 + t)\Gamma(1 - t)/\Gamma(2) \\
+    &amp;= \Gamma(1 + t)\Gamma(1 - t)
+\end{aligned}
+</span></p>
+<p>Using <span class="math inline">u = F(x) = 1/(1 + e^{-x})</span>, so <span class="math inline">e^x = u/(1 - u)</span> <span class="math display">
+\begin{aligned}
+\int_{-\infty}^a e^{tx} dF(x)
+    &amp;= \int_0^{F(a)} u^t(1 - u)^{-t}\,du \\
+    &amp;= B(F(a); 1 + t, 1 - t) \\
+\end{aligned}
+</span></p>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>
