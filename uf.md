@@ -19,35 +19,33 @@ Given a collection of holdings and
 a sequence of trades the associated amounts and values determine
 the _profit and loss_, among other quantities, relevant to managing a portfolio.
 
-To properly assess risk it is necessary to include how a position
-will be hedged over time, as pointed out in special cases by many authors.
-Various hedging strategies can, and should, be used for insight on
-the uncertainties involved.
+To properly assess risk it is necessary to include how a position will
+be hedged over time, as pointed out in special cases by many authors.
+Various hedging strategies can, and should, be used for insight on the
+uncertainties involved.
 
 This model highlights that both cash flows and prices must be specified
 by mathematical models to determine the amounts and values associated
 with a trading strategy. It also places instruments on equal footing to
-get a complete picture of risk across **all** asset classes.
-
-It does not solve any particular problem in finance but it does specify
-a mathematical notation to rigorously describe all problems involved in
-trading instruments.
+get a complete picture of risk across **all** asset classes.  It does not
+solve any particular problem in finance but it does specify a mathematical
+notation to rigorously describe all aspects of instrument trading.
 
 ## Holding
 
 A holding is an _instrument_, _amount_, and _legal entity_.  Examples of
 instruments are: stocks, bonds, futures, currencies, commodities, etc.
 They are traded in some amount: shares, notional, contracts, units,
-and physical quantity respectively.  A legal entity is an individual or
-a corporation. Corporations can subdivide holdings by individual employees
-or trading groups. The holding $(i,a,e)$ indicates entity $e$ owns amount $a$
-of instrument $i$.
+and physical quantity respectively.  A legal entity is an individual
+or a corporation. Corporations can subdivide holdings by individual
+employees or trading groups. The holding $(i,a,e)$ indicates entity $e$
+owns amount $a$ of instrument $i$.
 
 A _position_ is a set of holdings $\{(i_j,a_j,e_j)\}$.
 Assuming each instrument is _fungible_ we can aggregate amounts.
 The _net amount_ in instrument $i$ held by entity $e$ is
 $$
-N(i,e) = \sum_j \{a_j : i_j = i, e_j = e\}.
+	N(i,e) = \sum_j \{a_j : i_j = i, e_j = e\}.
 $$
 The _net position_ is $\cup_j \{(i_j, N(i_j,e_j), e_j)\}$. 
 (Note if $i_j = i_k$ and $e_j = e_k$ for some $j,k$
@@ -56,21 +54,20 @@ then $N(i_j,e_j) = N(i_k,e_k)$ so this is standard mathematical set union.)
 ## Trade
 
 A _trade_ involves a pair of holdings and a _trade time_.
-The trade $(t; i, a, e; i', a', e')$ indicates
-_buyer_ $e$ exchanged amount $a$ of instrument $i$ for amount $a'$ of instrument $i'$
-with seller $e'$ at time $t$.
-The _price_ for the trade is the quotient of the buyer and seller amounts,
-$X = a/a'$, so the trade is $(t; i, a'X, e; i', a', e')$
-Prices are determined by the seller.
-The buyer decides the amount and instrument to exchange based on the seller's price,
-among other considerations.
+The trade $(t; i, a, e; i', a', e')$ indicates _buyer_ $e$ exchanged
+amount $a$ of instrument $i$ for amount $a'$ of instrument $i'$ with
+seller $e'$ at time $t$.  The _price_ for the trade is the quotient of
+the buyer and seller amounts, $X = a/a'$, so the trade is
+$(t; i, a'X, e; i', a', e')$. Prices are determined by the seller.
+The buyer decides the amount and instrument to exchange based on the
+seller's price, among other considerations.
 
 The trade $(t;i,a,e;i',a',e')$ changes the
 holdings of the buyer and seller at time $t$. The holding $(i,a,e)$
 of the buyer becomes $(i',a',e)$ and the holding $(i',a',e')$ of the
 seller becomes $(i,a,e')$.  We assume instruments are _divisible_ so a
 holding $(i,a_1,e)$ can be split into $(i,a_1-a_0,e)$ and $(i,a_0,e)$
-for any amount $a_0$ at no cost if needed. If $0 < a_0 < a_1$ this is
+for any amount $a_0$ at no cost. If $0 < a_0 < a_1$ this is
 close to being true.
 
 As an example, suppose a buyer holds 100 dollars $(\$, 100)$ and
@@ -92,7 +89,7 @@ coupons, futures have margin adjustments. These cause changes to positions.
 If instrument $i$ pays cash flow $C_t(i,i')$ per share of $i$ in instrument
 $i'$ at time $t$ then holding $(i,a,e)$ at time $t$ will cause $(i',a C_t(i,i'),e)$
 to be included in the position of $e$ at $t$.  Usually $i'$ is the native
-currency associated with instrument $i$ and is omitted.  Specifying $i'$
+currency associated with instrument $i$.  Specifying $i'$
 allows for _payment-in-kind_ cash flows.
 
 In the Ford example above, when holding $\{(\$, 86),(F,2)\}$ and
@@ -125,7 +122,7 @@ of the price at time $t$, $X_t(i_0,i)$, of each instrument $i$ in terms of $i_0$
 All holdings $(i,a,e)$ are converted to $(i_0, aX(i_0,i), e)$ then netted
 to report the P&amp;L in terms of $i_0$.
 
-It is quite common for entities to have different "best guesses" of
+It is quite common for entities to have different best guesses of
 $X_t(i_0,i)$. Accountants might use "book", "market", "liquidation",
 or "going concern" values. This model does not suggest which is the
 most appropriate in any given situation, it only makes that
@@ -232,7 +229,7 @@ the position to risk management.
 If more than one instrument is traded then
 $V_0 = \sum_{i\in I}\Gamma_0(i) X_{\tau_0}(i)$.
 The sum is over all instruments, but $\Gamma_0(i) = 0$ if $i$ is not traded.
-If we represent trades and prices as vectors indexed by instruments
+If we represent trade amounts and prices as vectors indexed by instruments
 this can be written as $V_0 = \Gamma_0\cdot X_{\tau_0}$ where
 dot indicates the _inner product_ of vectors.
 
@@ -260,7 +257,7 @@ strategy that produces those amounts exists then its initial value, plus vigoris
 is what a sell-side trader quotes to buy-side customers.
 A quants job is to help traders figure out when ($\tau_j$) and how much ($\Gamma_j$)
 to trade in order to satisfy the contract obligations.[^4]
-Note the term _self-financing_ means satisfying the obligation to pay 0 on
+The term _self-financing_ means satisfying the obligation to pay 0 on
 non-payment dates.
 
 When $\Delta_t + \Gamma_t = 0$ we say the trading strategy is _closed
@@ -270,11 +267,10 @@ are zero.
 If a trading strategy has $A_{\tau_0} > 0$, $A_t \ge 0$
 for $t > \tau_0$, and eventually closes out then _arbitrage_ exists: it is
 possible to make money on the initial trade and never lose money over the
-life of the trading strategy.  It is important to note this definition
+life of the trading strategy.  This definition
 of arbitrage depends on the model used for cash flows and prices.
 
 [The Fundamental Theorem of Asset Pricing](https://kalx.net/um.pdf) describes all arbitrage-free models.
-
 
 ## Risk
 
@@ -306,7 +302,7 @@ that can be applied to a portfolio to get a more accurate estimate of
 counterparty risk.  The CVA haircut should not be applied to holdings
 that no longer belong to the portfolio.
 
-DVA is just the CVA of the party on the other side of the trades.
+DVA is just the CVA of the entity on the other side of the trades.
 The menagerie of XVA measures are attempts to incorporate special
 case hedging strategies or cash flows due to taxes or regulatory
 capital requirements. They can all be replaced by explicitly
@@ -317,7 +313,7 @@ when applying the CVA formula.
 
 The two fundamental problems of risk management are that there is no
 clear definition of risk and it is impossible to manage something that
-is not clearly defined.  The term _model risk_ is doubly unclear:
+is not clearly defined.  The term _model risk_ is even more unclear &ndash;
 exactly what models are under consideration?
 
 One universal property is that when a new model is introduced there is
