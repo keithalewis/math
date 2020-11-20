@@ -59,10 +59,10 @@ all models satisfy _put-call parity_: $c - p = f - k$.
 Call delta is $dc/df = dp/df + 1$ and call gamma equals put gamma $d^2c/df^2 = d^2p/df^2$.
 We also have $dc/ds - dp/ds = 0$ so call vega equals put vega.
 
-Define _moneyness_ $x(k) = x(f,s,k) = (\log(k/f) + κ(s))/s$ and note $F \le k$ iff $X \le x(k)$. 
+Define _moneyness_ $x(k) = (\log(k/f) + κ(s))/s$ and note $F \le k$ iff $X \le x(k)$. 
 The value of a put is
 $$
-  p = E[(k - F)1(F\le k)] = k P(X \le x(k)) - P(F 1(F \le k) = k P(X \le x(k)) - f P^s(X \le x(k)).
+  p = E[(k - F)1(F\le k)] = k P(X \le x(k)) - P(F 1(F \le k)) = k P(X \le x(k)) - f P^s(X \le x(k))
 $$
 since $E[Fg(F)] = E[f\exp(s X - κ(s))g(F)] = fE^s[g(F)]$ for any function $g$.
 
@@ -94,7 +94,7 @@ $$
 since $y = y(x(k)) = k$.
 
 Vega? Is there some $h$ with $E[g(X)\exp(s X - k(s))] = E[g(h(X,s))]$?
-If $X$ is standard normal then $h(X,s) = X + s = X + k'(s)$.
+If $X$ is standard normal then $h(X,s) = X + s = X + \kappa'(s)$.
 
 ## Black Model
 
@@ -103,12 +103,12 @@ for value and greeks. In the Black model $F = f\exp(σB_t - σ^2t/2)$ where
 $f$ is the forward, $σ$ is the volatility, and
 $B_t$ is Brownian motion at time $t$. There is really no need to drag
 in Brownian motion to compute an option value, we only use the fact
-$B_t$ is normally distributed with variance $t$. There is really no need
+$B_t$ is normally distributed with mean $0$ and variance $t$. There is really no need
 to drag in $t$ either, let $s = σ\sqrt{t}$ and $X$ be standard normal
 so $F = f\exp(sX - s^2/2)$ has the same distribution.
 
 The Black model uses forward values but it is straightforward to
-use those to get spot values. In the Black-Merton/Scholes model
+use those to get spot values. In the Black-Scholes/Merton model
 the underlying at expiration is
 $U = u\exp(rt + σB_t - σ^2t/2)$ and the spot value is $v_0 = \exp(-rt)E[\pi(U)]$. 
 The spot delta is $dv_0/du = \exp(-rt)E[\pi'(U)\exp(rt + σB_t - σ^2t/2)]
