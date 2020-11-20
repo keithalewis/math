@@ -77,7 +77,7 @@ $$
 --></p>
 <h2 id="distributions">Distributions</h2>
 <h3 id="normal">Normal</h3>
-<p>The standard normal random variable <span class="math inline">Z</span> has density is <span class="math inline">\phi(z) = \exp(-z^2/2)/\sqrt{2\pi}</span> and cumulative distribution <span class="math inline">\Phi(z) = \int_{-\infty}^z \exp(-t^2/2)\, dt/\sqrt{2\pi}</span>. Note <span class="math display">
+<p>The standard normal random variable <span class="math inline">Z</span> has density <span class="math inline">\phi(z) = \exp(-z^2/2)/\sqrt{2\pi}</span>, <span class="math inline">-\infty &lt; z &lt; \infty</span>, and cumulative distribution <span class="math inline">\Phi(z) = \int_{-\infty}^z \exp(-t^2/2)\, dt/\sqrt{2\pi}</span>. Note <span class="math display">
 \begin{aligned}
 E[e^{\mu + \sigma Z}] &amp;= \int_{-\infty}^\infty e^{\mu + \sigma z} e^{-z^2/2}\, dz/\sqrt{2\pi} \\
     &amp;= \int_{-\infty}^\infty e^{\mu + \sigma^2/2} e^{-(z - \sigma)^2/2}\, dz/\sqrt{2\pi} \\
@@ -94,7 +94,7 @@ E[g(Z) e^{sZ}] &amp;= \int_{-\infty}^\infty g(z) e^{sz} e^{-z^2/2}\, dz/\sqrt{2\
     E[\exp(s X - s^2/2)g(X)] = E[g(X + s)].
 </span> Taking derivatives with respect to <span class="math inline">s</span> shows <span class="math display">
     E[\exp(s X - s^2/2)(X - s)g(X)] = E[g&#39;(X + s)].
-</span> so <span class="math inline">E[X g(X)] = E[g&#39;(X)]</span> for <span class="math inline">s = 0</span>.</p>
+</span> so <span class="math inline">E[X g(X)] = E[g&#39;(X)]</span> when <span class="math inline">s = 0</span>.</p>
 <p>This can be used to calculate the moments of <span class="math inline">X</span> by <span class="math inline">E[X^n] = E[X X^{n-1}] = (n - 1)E[X^{n - 2}]</span> starting from <span class="math inline">E[X^0] = 1</span> and <span class="math inline">E[X^1] = 0</span>. The odd moments are zero and the even moments are <span class="math inline">E[X^{2n}] = (2n - 1)(2n - 3)\cdots 1</span>.</p>
 <p>The cumulant is <span class="math inline">\kappa(s) = \log E[\exp(sZ)] = s^2/2</span> so <span class="math inline">\kappa_2 = 1</span> and all other cumulants are zero.</p>
 <h3 id="logistic">Logistic</h3>

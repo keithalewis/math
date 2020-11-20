@@ -59,16 +59,16 @@ all models satisfy _put-call parity_: $c - p = f - k$.
 Call delta is $dc/df = dp/df + 1$ and call gamma equals put gamma $d^2c/df^2 = d^2p/df^2$.
 We also have $dc/ds - dp/ds = 0$ so call vega equals put vega.
 
-Define _moneyness_ $x = x(f,s,k) = (\log(k/f) + κ(s))/s$ and note $F \le k$ iff $X \le x$. 
+Define _moneyness_ $x(k) = x(f,s,k) = (\log(k/f) + κ(s))/s$ and note $F \le k$ iff $X \le x(k)$. 
 The value of a put is
 $$
-  p = E[(k - F)1(F\le k)] = k P(X \le x) - P(F 1(F \le k) = k P(X \le x) - f P^s(X \le x).
+  p = E[(k - F)1(F\le k)] = k P(X \le x(k)) - P(F 1(F \le k) = k P(X \le x(k)) - f P^s(X \le x(k)).
 $$
 since $E[Fg(F)] = E[f\exp(s X - κ(s))g(F)] = fE^s[g(F)]$ for any function $g$.
 
 Put delta is
 $$
-	dp/df = -P^s(X \le x). 
+	dp/df = -P^s(X \le x(k)). 
 $$
 
 Gamma for either a put or call is
@@ -76,72 +76,92 @@ $$
 	d^2p/df^2 = E^s[δ_k(F)F]/f.
 $$
 
-Call vega is
-$$
-	dv/ds = E[1(F > k)F(X - s)].
-$$
-
 Let $Ψ(y) = Φ(x)$ be the cumulative distribution functions of $F$ and $X$
 where $y = y(x) = f\exp(sx -  κ(s))$ and $x = x(y) = (\log(y/f) + κ(s))/s$.
-In terms of the distribution function put value is $p = kΦ(x) - fΦ^s(x)$
-and put delta is $dp/df = -Φ^s(x)$ where $x = x(k) = (\log(k/f) + κ(s))/s$.
+In terms of the distribution function put value is $p = kΦ(x(k)) - fΦ^s(x(k))$
+and put delta is $dp/df = -Φ^s(x(k))$
 
-The probability density function of $Y$ is $ψ(y) = Φ'(x)dx/dy = φ(x)/ys$
-since $dy/dx = ys$. The same reasoning gives $ψ^s(y) = φ^s(x)/ys$
+The probability density function of $Y$ is $ψ(y) = dΨ(y)/dy = Φ'(x)dx/dy = φ(x)/ys$
+since $dy/dx = ys$. The same reasoning gives $ψ^s(y) = φ^s(x(y))/ys$
 so $E^s[δ_k(F)F]/f = ψ^s(k)k/f = (φ^s(x(k))/ks)k/f = φ^s(x(k))/fs$ and we have
 $$
 	d^2p/df^2 = φ^s(x(k))/fs.
 $$
-Using $φ^s(x) = φ(x)\exp(s x -  κ(s)) = φ(x)y/f$ we also have the formula
+Using $φ^s(x) = φ(x)\exp(s x -  κ(s)) = φ(x)y(x)/f$ we also have the formula
 $$
 	d^2p/df^2 = φ(x(k))k/f^2s
 $$
 since $y = y(x(k)) = k$.
 
+Vega? Is there some $h$ with $E[g(X)\exp(s X - k(s))] = E[g(h(X,s))]$?
+If $X$ is standard normal then $h(X,s) = X + s = X + k'(s)$.
+
 ## Black Model
 
-If $X$ is standard normal then $E[\exp(μ + σ X)] = \exp(μ + σ^2/2)$
+We use the above to derive the standard Black-Scholes/Merton formulas
+for value and greeks. In the Black model $F = f\exp(σB_t - σ^2t/2)$ where
+$f$ is the forward, $σ$ is the volatility, and
+$B_t$ is Brownian motion at time $t$. There is really no need to drag
+in Brownian motion to compute an option value, we only use the fact
+$B_t$ is normally distributed with variance $t$. There is really no need
+to drag in $t$ either, let $s = σ\sqrt{t}$ and $X$ be standard normal
+so $F = f\exp(sX - s^2/2)$ has the same distribution.
+
+The Black model uses forward values but it is straightforward to
+use those to get spot values. In the Black-Merton/Scholes model
+the underlying at expiration is
+$U = u\exp(rt + σB_t - σ^2t/2)$ and the spot value is $v_0 = \exp(-rt)E[\pi(U)]$. 
+The spot delta is $dv_0/du = \exp(-rt)E[\pi'(U)\exp(rt + σB_t - σ^2t/2)]
+= E[\pi'(F)\exp(s X - s^2/2)] = dv/df$ where $v = E[\pi(F)]$ and $f = u\exp(rt)$.
+The spot and forward delta are equal but
+the spot gamma is $d^2v_0/du^2 = d(dv/df)/du = (d^2v/df^2) df/du = \exp(rt) d^2v/df^2$.
+
+[Recall](cdf.html#normal) if $X$ is standard normal then $E[\exp(μ + σ X)] = \exp(μ + σ^2/2)$
 and $E[g(X)\exp(s X - s^2/2)] = E[g(X + s)]$ for any $g$.
 These formulas imply the cumulant of a standard normal is $κ(s) = s^2/2$
-and $P^s(X\le x) = E[1(X\le x)\exp(s X - κ(s))] = P(X + s \le x) = Φ(x - s)$.
+and $Φ^s(x) = P^s(X\le x) = E[1(X\le x)\exp(s X - κ(s))] = P(X + s \le x) = Φ(x - s)$.
+Note $φ^s(x) = φ(x - s)$.
+
 The put value is 
 $$
-	p = k Φ(x) - f Φ(x - s)
+	p = k Φ(x(k)) - f Φ(x(k) - s)
 $$
-where $x = \log(k/f)/s + s/2$.
+where $x(k) = \log(k/f)/s + s/2$.
 
-__Exercise__. _Show $x = \log(k/f)/s + s/2 = -d_2$ and $x - s = \log(k/f)/s - s/2 = -d_1$_.
+__Exercise__. _Show $x(k) = \log(k/f)/s + s/2 = -d_2$ and $x(k) - s = \log(k/f)/s - s/2 = -d_1$_.
 
-Hint: Recall $d_1 = (\log(f/k) + s^2/2)/s$ and $d_2 = d_1 - s$ in the classical
+Hint: Recall $d_1 = (\log(f/k) + s^2/2)/s$ and $d_2 = d_1 - s$ in the
 Black-Scholes/Merton formula.
 
 The formula for delta is
 $$
-	dp/df = -Φ^s(x) = -Φ(x - s).
+	dp/df = -Φ^s(x(k)) = -Φ(x(k) - s).
 $$
 
-Since $Φ^s(x) = Φ(x - s)$ we have $φ^s(x) = φ(x - s)$
-and the formula for gamma is
+The formula for gamma is
 $$
-	d^2p/df^2 = φ^s(x)/fs = φ(x - s)/fs
+	d^2p/df^2 = φ^s(x(k))/fs = φ(x(k) - s)/fs
 $$
-We also have the formula $d^2p/df^2 = φ(x)k/f^2s$.
+We also have the formula $d^2p/df^2 = φ(x(k))k/f^2s$.
 
 Taking the deriviative of $E[g(X)\exp(s X - s^2/2)] = E[g(X + s)]$ with
 respect to $s$ gives
 $$
 	E[g(X)\exp(s X - s^2/2)(X - s)] = E[g'(X + s)].
 $$
-Multiplying both sides by $f$ yields $E[g(X)F(X - s)] = f E[g'(X + s)]$
-The formula for call vega is
+The formula for vega is $dv/ds = E[\pi'(F)F(X - s)] = f E[\pi'(F)\exp(s X - s^2/2)(X - s)]$.
+Taking $g(x) = \pi'(f\exp(s x - s^2/2))$ we have $g'(x) = \pi''(f\exp(s x - s^2/2))f\exp(s x - s^2/2)s$
+and using $\pi'' = \delta_k$ for either a put or a call
 $$
 \begin{aligned}
-dv/ds &= E[1(F\ge k)F(X - s)] \\
-      &= E[1(X\ge x)F(X - s)] \\
-	  &= fE[\delta_x(X + s)] \\
-	  &= fφ(x + s)] \\
+dv/ds &= f E[g'(X + s)] \\
+      &= f E[\delta_k(f\exp(s (X + s) - s^2/2))f\exp(s (X + s) - s^2/2)s] \\
+      &= f^2 s E^s[\delta_k(f\exp(s X - s^2/2))] \\
+      &= f^2 s \phi^s(x(k))/ks \\
+      &= f^2 \phi(x(k) - s)/k \\
 \end{aligned}
 $$
+where we use the general fact $E[\delta_a(h(X))] = \phi(h(a))/h'(a)$.
 
 <!--
 ## Discrete
