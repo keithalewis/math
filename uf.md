@@ -34,7 +34,7 @@ notation to rigorously discuss all aspects of instrument trading.
 ## Holding
 
 A holding is an _instrument_, _amount_, and _legal entity_.  Examples of
-instruments are: stocks, bonds, futures, currencies, commodities.
+instruments are: stocks, bonds, futures, currencies, and commodities.
 They are traded in some amount: shares, notional, contracts, units,
 and physical quantity respectively.  A legal entity is an individual
 or a corporation. Corporations can subdivide holdings by individual
