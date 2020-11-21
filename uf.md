@@ -94,7 +94,7 @@ allows for _payment-in-kind_ cash flows.
 
 In the Ford example above, when holding $\{(\$, 86),(F,2)\}$ and
 the stock pays a dividend of $(\$,0.15)$ per share then the holdings
-becomes $\{(\$, 86), (F,2), (\$, 2\times 0.15)\}$ and nets to
+become $\{(\$, 86), (F,2), (\$, 2\times 0.15)\}$ and net to
 $\{(\$, 86.30),(F,2)\}$
 
 Cash flows are zero except at a discrete times. Stocks and
