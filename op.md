@@ -120,7 +120,7 @@ If $X$ is standard normal then $h(X,s) = X + s = X + \kappa'(s)$.
 A _digital put_ has payoff $\pi(x) = 1(x \le k)$ and a _digital call_ has payoff $\pi(x) = 1(X > k)$
 with values $p = P(F \le k) = \Phi(x(k))$ and $c = P(F > k) = 1 - \Phi(x(k))$.
 Since $p + c = 1$ we have $d^np/df^n = -d^nc/df^n$ for all $n$.
-The call delta is $dc/df = E_s[\delta_k(F)] = \psi_s(k) = \phi_s(x(k))/fs = \phi(x(k))k/f^2s$.
+he call delta is $dc/df = E_s[\delta_k(F)] = \psi_s(k) = \phi_s(x(k))/fs = \phi(x(k))k/f^2s$.
 
 ## Black Model
 

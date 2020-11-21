@@ -293,27 +293,30 @@ is $\int_T \max\{E[V_t], 0\} h(t)\,dt$ where $V_t$ is the value of the
 portfolio at $t$ and $h$ is a given _haircut_. The term $\max\{V_t, 0\}$ is
 the _exposure_ of the portfolio holder.[^5] Holders are not exposed
 to counterparty risk if they owe money. The insurance industry
-has been using this formula to calculate premiums long before it showed
-up in the financial world.
+had been using this formula to calculate premiums long before it showed
+up in the financial world. The 1933 Glass-Steagal Act prohibited investment
+banks from participating in the insurance industry, but after the
+merger of Citicorp with Travelers the Gramm-Leach-Bliley Act allowed
+them into the party after 1999.
 
 It is common for swaps to have unwind provisions that will be exercised if
 the market moves against them. This is an example of a hedging strategy
 that can be applied to a portfolio to get a more accurate estimate of
-counterparty risk.  The CVA haircut should not be applied to holdings
+counterparty risk.  The CVA haircut should not be applied to a holding
 that no longer belong to the portfolio.
 
 DVA is just the CVA of the entity on the other side of the trades.
-The menagerie of XVA measures are attempts to incorporate special
-case hedging strategies or cash flows due to taxes or regulatory
-capital requirements. They can all be replaced by explicitly
-incorporating the appropriate trading strategy and cash flows involved
-when applying the CVA formula.
+The menagerie of XVA measures are attempts to incorporate special case
+hedging strategies or cash flows due to taxes or regulatory capital
+requirements. They can all be replaced by explicitly incorporating the
+appropriate trading strategy and cash flows involved when applying the
+CVA formula.
 
 ## Model Risk
 
 The two fundamental problems of risk management are that there is no
-clear definition of risk and it is impossible to manage something that
-is not clearly defined.  The term _model risk_ is even more unclear &ndash;
+clear definition of risk and it is impossible to manage something that is
+not clearly defined.  The term _model risk_ is even more unclear &ndash;
 exactly what models are under consideration?
 
 One universal property is that when a new model is introduced there is
@@ -331,13 +334,13 @@ Capturing every holding and transaction in a database turns historical
 reporting into a well understood technology problem.  When decorated
 with appropriate partitions for dimensions and measures, risk managers
 can use off-the-shelf tools to create dynamic reports allowing them to
-summarize data and drill down to individual holdings and transactions to their
-heart's content. It is no longer necessary to have technologists spend time
-developing custom reports.
+summarize data and drill down to individual holdings and transactions to
+their heart's content. It is no longer necessary to have technologists
+spend time developing custom reports.
 
 Models can be used to generate scenarios for future cash flows and
-prices. Trading strategies use these to determine possible future holdings
-and transactions. The same queries designed for historical reporting can
+prices. Trading strategies use these to determine holdings over time.
+The same queries designed for historical reporting can
 be reused to give a probability distribution for any values of interest.
 
 The future of risk management is to use Monte Carlo methods to generate
@@ -345,8 +348,8 @@ scenarios given a model and trading strategy.
 Existing models can be leveraged to do this. Off-the-shelf
 tools can already report mean, standard deviation, and quantiles
 for probability distributions. The only hurdle is computing power,
-but we have Moore's Law on our side. Any software built
-today does not need to be rewritten in the future.
+but we have Moore's Law on our side. Software built
+today can be used without change to give better and faster answers in the future.
 
 ## Remarks
 

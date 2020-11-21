@@ -54,6 +54,10 @@ $X\times Y = \{(x,y):x\in X, y\in Y\}$ is the set of all pairs from each set
 and the exponential $Y^X = \{f\colon X\to Y\}$ is the set of functions
 from $X$ to $Y$.
 
+The _evaluation map_ is $e\colon Y^X \times X\to Y$ defined by
+$e(f,x) = f(x)$, $f\in Y^X$, $x\in X$. It is just an explicit
+name for _function application_.
+
 Products and exponentials are related by $Z^{X\times Y}$ is in one-to-one
 correspondence with $Z^{Y^X}$.[^1] Every $f\in Z^{X\times Y}$ corresponds
 to $g\in Z^{Y^X}$ via $f(x,y) = z$ if and only if $g(x)(y) = (gx)y = z$,
@@ -65,8 +69,11 @@ $$
 Going from left to right is _currying_ and going from right to left
 is _uncurrying_. Given $f\colon X\times Y\to Z$ we write $fx\colon Y\to Z$
 for _partial application_ instead of $g(x)$.
+Given $g\in Z^(Y^X)$, $f(x,y) = e(g(x),y)$ and
+we write  ??? $(x,y)\mapsto (g(x),y)\mapsto g(x)y$.
+Maybe $eg@0$??? _Partial map_???
 
-Given $f\in Z^{Y^X}$ we write ???
+We need a language for specifying what dimenstions a function acts on!!!
 
 ### Product
 
