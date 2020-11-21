@@ -35,7 +35,7 @@ languages on current computer architectures.
 We take a purely functional view so no side effects are allowed and data cannot
 be mutated.  Similar to Everett's many-world interpretation, this makes
 it easy to reason about programs mathematically, but can be hard on
-computers computationally.  Using lazy evaluation, lenses, and
+computers computationally.  Using lazy evaluation, [optics](optics.html), and
 other implementation techniques can help with that.
 
 ## Set
@@ -54,7 +54,7 @@ $X\times Y = \{(x,y):x\in X, y\in Y\}$ is the set of all pairs from each set
 and the exponential $Y^X = \{f\colon X\to Y\}$ is the set of functions
 from $X$ to $Y$.
 
-The _evaluation map_ is $e\colon Y^X \times X\to Y$ defined by
+The _evaluation map_ $e\colon Y^X \times X\to Y$ is defined by
 $e(f,x) = f(x)$, $f\in Y^X$, $x\in X$. It is just an explicit
 name for _function application_.
 
