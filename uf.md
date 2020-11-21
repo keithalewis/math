@@ -48,8 +48,8 @@ $$
 	N(i,e) = \sum_j \{a_j : i_j = i, e_j = e\}.
 $$
 The _net position_ is $\cup_j \{(i_j, N(i_j,e_j), e_j)\}$. 
-(Note if $i_j = i_k$ and $e_j = e_k$ for some $j,k$
-then $N(i_j,e_j) = N(i_k,e_k)$ so this is standard mathematical set union.)
+If $i_j = i_k$ and $e_j = e_k$ then $N(i_j,e_j) = N(i_k,e_k)$ so this
+is standard mathematical set union.
 
 ## Trade
 
