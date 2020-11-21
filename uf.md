@@ -56,7 +56,7 @@ is standard mathematical set union.
 A _trade_ involves a pair of holdings and a _trade time_.
 The trade $(t; i, a, e; i', a', e')$ indicates _buyer_ $e$ exchanged
 amount $a$ of instrument $i$ for amount $a'$ of instrument $i'$ with
-seller $e'$ at time $t$.  The _price_ for the trade is the quotient of
+seller $e'$ at time $t$.  The _price_ of the trade is the quotient of
 the buyer and seller amounts, $X = a/a'$, so the trade is
 $(t; i, a'X, e; i', a', e')$. Prices are determined by the seller.
 The buyer decides the amount and instrument to exchange based on the
