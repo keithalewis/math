@@ -29,16 +29,16 @@ by mathematical models to determine the amounts and values associated
 with a trading strategy. It also places instruments on equal footing to
 get a complete picture of risk across **all** asset classes.  It does not
 solve any particular problem in finance but it does specify a mathematical
-notation to rigorously describe all aspects of instrument trading.
+notation to rigorously discuss all aspects of instrument trading.
 
 ## Holding
 
 A holding is an _instrument_, _amount_, and _legal entity_.  Examples of
-instruments are: stocks, bonds, futures, currencies, commodities, etc.
+instruments are: stocks, bonds, futures, currencies, commodities.
 They are traded in some amount: shares, notional, contracts, units,
 and physical quantity respectively.  A legal entity is an individual
 or a corporation. Corporations can subdivide holdings by individual
-employees or trading groups. The holding $(i,a,e)$ indicates entity $e$
+traders. The holding $(i,a,e)$ indicates entity $e$
 owns amount $a$ of instrument $i$.
 
 A _position_ is a set of holdings $\{(i_j,a_j,e_j)\}$.
