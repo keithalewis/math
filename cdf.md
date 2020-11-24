@@ -52,9 +52,9 @@ The _cumulant_ of the random variable $X$ is $\kappa_X(s) = \kappa(s) = \log E[\
 
 __Exercise__. _Show if $c$ is a constant then $\kappa_{c + X}(s) = cs + \kappa_X(s)$_.
 
-__Exercise__. _Show if $c$ is a constant then $\kappa_{cX}(s) = \kappa_X(cs)$ if $c$_.
+__Exercise__. _Show if $c$ is a constant then $\kappa_{cX}(s) = \kappa_X(cs)$_.
 
-__Exercise__. _Show if $X$ and $y$ are independent then $\kappa_{X + Y}(s) = \kappa_X(s) + \kappa_Y(s)$_.
+__Exercise__. _Show if $X$ and $Y$ are independent then $\kappa_{X + Y}(s) = \kappa_X(s) + \kappa_Y(s)$_.
 
 __Exercise__. _Show $\kappa_X(0) = 0$, $\kappa_X'(0) = E[X]$, and $\kappa_X''(0) = \Var(X)$_.
 
@@ -94,6 +94,15 @@ $$
 If $e_X(s) = E[\exp(sX)]$ then $e_X^{(n)}(s) = E[X^n\exp(sX)]$ and
 $\kappa_X^{(n)}(s) = ...$.
 
+### Esscher Transform
+
+The Esscher transform of a random variable has density $f_s(x) = \exp(s x - \kappa(s))f(x)$
+and we write $E_s$ for expectation under the transform.
+Since $E[\exp(sX)] = \exp(\kappa(s))$ this is a probability density.
+
+Note $E_sE_t = E_{s + t}$ and $f_s^{(n)}(x) = \exp(s x - \kappa(s)) \sum_{k=0}^n \binom{n}{k} s^k f^{(k)}(x)$.
+The cumulative distribution ???
+
 ## Distributions
 
 We gather some facts about the distribution and cumulant of random variables.
@@ -102,7 +111,14 @@ We gather some facts about the distribution and cumulant of random variables.
 
 Let $P(X = x_j) = p_j$, $p_j\ge 0$, $\sum_j p_j = 1$.
 The cdf is $F(X\le x) = \sum_j 1(x\le x_j) p_j$ and pdf is $f(x) = \sum_j \delta_{x_j} \_j$.
-The cumulant is $\kappa(s) = \log E[\sum_j \exp(sx_j) p_j$].
+The cumulant is $\kappa(s) = \log E[\sum_j \exp(sx_j) p_j]$.
+
+## Exponential
+
+The density of an exponential with parameter $\lambda$ is $f(x) = \lambda\exp(-\lambda x)$, $x\ge 0$.
+Since $E[\exp sX] = \int_0^\infty \exp(sx)  \lambda\exp(-\lambda x)\,dx = \lambda/(\lambda - s)$
+The cumulant is $\kappa(s) = -\log(1 - s/\lambda)$ so $\kappa'(s) = (1 - s/\lambda)^{-1}$
+and $\kappa^{(n)}(s) = (1 - s/\lambda)^{-n}(n - 1)!/\lambda^{n-1}$
 
 ### Normal
 
@@ -113,7 +129,6 @@ and cumulative distribution $\Phi(z) = \int_{-\infty}^z \exp(-t^2/2)\, dt/\sqrt{
 The derivatives of $\phi$ are $\phi^{(n)}(x) = (-1)^n\phi(x)H_n(x)$ where $H_n$ are the
 Hermite polynomials. They satisfy the recurrence $H_0(x) = 1$, $H_1(x) = x$ and
 $H_{n+1}(x) = x H_n(x) - n H_{n-1}(x)$, $n\ge 1$.
-
 
 Note 
 $$
@@ -155,14 +170,16 @@ cumulants are zero.
 ### Logistic
 
 A logistic random variate has cumulative distribution $F(x) = 1/(1 + e^{-x})$,
-$x\in\mathbf{R}$.
-It's density function is $f(x) = e^{-x}/(1 + e^{-x})^2$. Note
-$f(x) = \int_0^\infty e^{-x} e^{-\alpha e^{-x}} e^{-\alpha}\,d\alpha$.
-
+$-\infty < x < \infty$ and
+density function $f(x) = e^{-x}/(1 + e^{-x})^2$.
 The quantile function is $Q(u) = F^{-1}(u) = \log u/(1-u)$.
 
-The moment generating function is $M_X(t) = E e^{tX}
-= \Gamma(1 - t)\Gamma(1 + t)$, $-1 < t < 1$.
+Note
+$f(x) = \int_0^\infty e^{-x} e^{-\alpha e^{-x}} e^{-\alpha}\,d\alpha$.
+
+The moment generating function is $M_X(s) = E e^{sX}
+= \Gamma(1 + s)\Gamma(1 - s)$, $-1 < s < 1$
+so its cumulant is $\kappa(s) = \log\Gamma(1 + s) + \log\Gamma(1 - s)$.
 
 Using $u = F(x) = 1/(1 + e^{-x})$, so $e^x = u/(1 - u)$
 $$
@@ -175,12 +192,22 @@ E e^{tX} &= \int_{-\infty}^\infty e^{tx} e^{-x}/(1 + e^{-x})^2\,dx \\
 \end{aligned}
 $$
 
-Using $u = F(x) = 1/(1 + e^{-x})$, so $e^x = u/(1 - u)$
+The _digamma_ function is the derivative of the log of the Gamma function
+$\psi(s) = \Gamma'(s)/\Gamma(s)$. Its Taylor series at $1$ is
+$\psi(s + 1) = -\gamma - \sum_{k\ge 1} \zeta(k+1)(-s)^k$ where
+$\gamma$ is the Euler-Mascheroni constant and $\zeta(s) = \sum_{k\ge 1} n^{-s}$
+is the zeta function.
+
+The first derivative of the cumulant is $\kappa'(s) = \psi(1 + s) - \psi(1 - s)
+= 2\sum_{k\ge 1} \zeta(2k)s^{2k - 1}$.
+The variance of the logistic is $\kappa_2 = \kappa''(0) = 2\zeta(2) = \phi^2/3$.
+
+The Esscher transformed cumulative distribution is
 $$
 \begin{aligned}
-\int_{-\infty}^a e^{tx} dF(x)
-    &= \int_0^{F(a)} u^t(1 - u)^{-t}\,du \\
-    &= B(F(a); 1 + t, 1 - t) \\
+F_s(x) &= \int_{-\infty}^x e^{st - \kappa(s)} dF(t) \\
+    &= \int_0^{F(x)} u^s(1 - u)^{-s}\,du/e^{\kappa(s)} \\
+    &= B(F(x); 1 + s, 1 - s)/B(1 + s, 1 - s)\\
 \end{aligned}
 $$
 where $B(u;\alpha,\beta) = \int_0^u t^{\alpha-1}(1 - t)^{\beta - 1}\,dt$ is
