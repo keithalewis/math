@@ -7,19 +7,22 @@ fleqn: true
 abstract: A Programming Language
 ...
 
-\newcommand\RR{\bm{R}}
+\newcommand\FF{\bm{F}}
 \newcommand\NN{\bm{N}}
+\newcommand\RR{\bm{R}}
 \newcommand\ZZ{\bm{Z}}
 \newcommand\dom{\operatorname{dom}}
 \newcommand\cod{\operatorname{cod}}
 \newcommand\hom{\operatorname{hom}}
 \newcommand\ran{\operatorname{ran}}
-\newcommand\Set{\mathbf{Set}}
+\newcommand\cat[1]{\mathbf{#1}}
 \newcommand\eq{\text{$=$}}
 \newcommand\from{\widehat{\phantom{x}}}
 
 
 > _APL is a mistake carried through to perfection_ &mdash; Edsgar W. Dijkstra
+
+> _As if that were a bad thing_ &mdash; Me
 
 A Programming Language _APL_ was invented by Ken E. Iverson, a mathematician
 unsatisfied by the limited expressiveness of FORTRAN when it came to manipulating
@@ -30,29 +33,75 @@ performed on collections of data; what Iverson called "tools of thought."
 
 There have been many languages inspired by APL and this writeup takes
 liberties with the classical language.  Our approach is informed by
-advances in mathematics and best practices for implmementing functional
+category theory and best practices for implmementing functional
 languages on current computer architectures. 
 We take a purely functional view so no side effects are allowed and data cannot
 be mutated.  Similar to Everett's many-world interpretation, this makes
 it easy to reason about programs mathematically, but can be hard on
-computers computationally.  Using lazy evaluation, lenses, and
+computers computationally.  Using lazy evaluation, [optics](optics.html), and
 other implementation techniques can help with that.
+
+The two main ideas are composition and (vector space) duality.
+Let $Y^X = \{f\colon X\to Y\}$ be the set of all functions from $X$
+to $Y$.  Given $f\in Y^X$ define $f^Z\colon X^Z\to Y^Z$ by $(f^Zx)z =
+f(xz) = fxz\in Y$, $x\in X^Z$, $z\in Z$ and $f_Z\colon Z^Y\to Z^X$ by $(f_Zy)x =
+y(fx) = yfx\in Z$, $y\in Z^Y$, $x\in X$.
+Right to left association is natural in functional languages to chain application.
+Note $f^Z\in (Y^Z)^{X^Z}$ and $f_Z\in
+(Z^X)^{Z^Y}$ are left and right composition by $f$ respectively.
+
+Matrix multiplication is just composition of linear transformations.
+Likewise, inner, outer, and tensor products can be expressed as
+composition.  If $V$ is a vector space its _dual_ $V^*$ is the set of
+all linear functions from $V$ to its underlying scalar field $\FF$. If
+$v\in V$ and $v^*\in V^*$ then the _dual pairing_ $\langle v, v^*\rangle =
+v^*v\in\FF$ acts like an "inner" product and avoids the 2-dimensionally
+biased distinction between "row" and "column" vectors. Also, $vv^*\colon
+V\to V$ by $(vv^*)w = v(v^*w) \in V$, $w\in V$, is the "tensor"
+product of $v$ and $v^*$. There is no need for any sort of "adjective"
+product; all of the various products are simply composition of functions.
+
+If $V = \FF^n$ then $V^*\cong\FF^n$ via the identity function.
+We write $v^*\in V^*$ for the image of $v\in V$ and note $v\cdot w = v^*w$. 
+
+!!! Move below
+
+If $V$ and $W$ are vector spaces we let $W^V$ be the set of functions from
+$V$ to $W$ that preserve the vector space structure. This is commonly called
+$\mathcal{L}(V,W)$ or $\hom_{\cat{Vec}}(V,W)$, the space of _linear transformations_ from $V$ to $W$.
+Note $V^* = FF^V$.
+
+To disambiguate linear transformations $\hom_{\cat{Vec}}(V,W)$ from
+the set $\hom_{\cat{Set}}(V,W)$ of all functions from $V$ to $W$ we can
+use the _forgetful functor_ $\cat{S}\colon\cat{Vec}\to\cat{Set}$ that
+takes a vector space to the set of elements in the vector space. The
+functor $\cat{V}\colon\cat{Set}\to\cat{Vec}$ with $\cat{V}(S) = \FF^S$
+and $\cat{V}(f)$ the linear extension from $f(S)$ to $\cat{V}(S)$ is
+a _left adjoint_ of $\cat{S}$
+since $\hom_{\cat{Vec}}(\cat{S}(S), V)
+\cong \hom_{\cat{Set}}(S, \cat{V}(V))$ where $S\to V$ in $\cat{Set}$
+corresponds to its unique linear extension $\FF^S\to V$ in $\cat{Vec}$.
+
+??? is this correct ???
 
 ## Set
 
 Given a function $f\colon X\to Y$ we write $f(x)$ as $fx$.  If $g\colon
-Y\to Z$ we write the composition $g(f(x))$ as $gfx$.  Right to left
-association is natural in functional languages to chain application. If
-$h\colon Z\to W$ then $h(gf) = (hg)f$ so writing $hgf$ is unambiguous. The
-identity function of a set $X$ is $1_X\colon X\to X$ with $1_X(x) =
-x$, $x\in X$ and $f1_X = f = 1_Yf$ whenever $f\colon X\to Y$.  Sets and
-functions are the objects and arrows of the category $\Set$.
+Y\to Z$ we write the composition $g(f(x))$ as $gfx$.  If $h\colon Z\to
+W$ then $h(gf) = (hg)f$ so writing $hgf$ is unambiguous. The identity
+function of a set $X$ is $1_X\colon X\to X$ with $1_X(x) = x$, $x\in X$
+and $f1_X = f = 1_Yf$ whenever $f\colon X\to Y$.  Sets and functions
+are the objects and arrows of the category $\cat{Set}$.
 
-$\Set$ is _cartesian closed_ &ndash; it has products and exponentials.
+$\cat{Set}$ is _cartesian closed_ &ndash; it has products and exponentials.
 The product of sets $X$ and $Y$ is the cartesian product
 $X\times Y = \{(x,y):x\in X, y\in Y\}$ is the set of all pairs from each set
 and the exponential $Y^X = \{f\colon X\to Y\}$ is the set of functions
 from $X$ to $Y$.
+
+The _evaluation map_ $e\colon Y^X \times X\to Y$ is defined by
+$e(f,x) = f(x)$, $f\in Y^X$, $x\in X$. It is just an explicit
+name for _function application_.
 
 Products and exponentials are related by $Z^{X\times Y}$ is in one-to-one
 correspondence with $Z^{Y^X}$.[^1] Every $f\in Z^{X\times Y}$ corresponds
@@ -60,13 +109,16 @@ to $g\in Z^{Y^X}$ via $f(x,y) = z$ if and only if $g(x)(y) = (gx)y = z$,
 $x\in X$, $y\in Y$, $z\in Z$.
 This correspondence can be written
 $$
-	(X\times Y)\to Z \leftrightarrow X\to(Y\to Z)
+	(X\times Y)\to Z \cong X\to(Y\to Z)
 $$
 Going from left to right is _currying_ and going from right to left
 is _uncurrying_. Given $f\colon X\times Y\to Z$ we write $fx\colon Y\to Z$
 for _partial application_ instead of $g(x)$.
+Given $g\in Z^(Y^X)$, $f(x,y) = e(g(x),y)$ and
+we write  ??? $(x,y)\mapsto (g(x),y)\mapsto g(x)y$.
+Maybe $eg@0$??? _Partial map_???
 
-Given $f\in Z^{Y^X}$ we write ???
+We need a language for specifying what dimenstions a function acts on!!!
 
 ### Product
 
