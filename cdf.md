@@ -107,18 +107,11 @@ The cumulative distribution ???
 
 We gather some facts about the distribution and cumulant of random variables.
 
-## Discrete
+### Discrete
 
 Let $P(X = x_j) = p_j$, $p_j\ge 0$, $\sum_j p_j = 1$.
-The cdf is $F(X\le x) = \sum_j 1(x\le x_j) p_j$ and pdf is $f(x) = \sum_j \delta_{x_j} \_j$.
+The cdf is $F(X\le x) = \sum_j 1(x\le x_j) p_j$ and pdf is $f(x) = \sum_j \delta_{x_j} p_j$.
 The cumulant is $\kappa(s) = \log E[\sum_j \exp(sx_j) p_j]$.
-
-## Exponential
-
-The density of an exponential with parameter $\lambda$ is $f(x) = \lambda\exp(-\lambda x)$, $x\ge 0$.
-Since $E[\exp sX] = \int_0^\infty \exp(sx)  \lambda\exp(-\lambda x)\,dx = \lambda/(\lambda - s)$
-The cumulant is $\kappa(s) = -\log(1 - s/\lambda)$ so $\kappa'(s) = (1 - s/\lambda)^{-1}$
-and $\kappa^{(n)}(s) = (1 - s/\lambda)^{-n}(n - 1)!/\lambda^{n-1}$
 
 ### Normal
 
@@ -166,6 +159,20 @@ The odd moments are zero and the even moments are $E[X^{2n}] = (2n - 1)(2n - 3)\
 
 The cumulant is $\kappa(s) = \log E[\exp(sZ)] = s^2/2$ so $\kappa_2 = 1$ and all other
 cumulants are zero.
+
+### Poisson
+
+The Poisson distribution with parameter $\lambda$ has density $P(X = n) = e^{-\lambda}\lambda^n/n!$, $n\ge 0$.
+Since $E[\exp(s X)] = \sum_{n\ge 0} \exp(sn) e^{-\lambda}\lambda^n/n! 
+\exp(-\lambda)\exp(\exp(s)\lambda) = \exp(\lambda(\exp(s) - 1))$
+we have $\kappa(s) = \lambda(\exp(s) - 1)$ and $\kappa_n = \lambda$, $n\ge 1$.
+
+### Exponential
+
+The density of an exponential with parameter $\lambda$ is $f(x) = \lambda\exp(-\lambda x)$, $x\ge 0$.
+Since $E[\exp sX] = \int_0^\infty \exp(sx)  \lambda\exp(-\lambda x)\,dx = \lambda/(\lambda - s)$
+The cumulant is $\kappa(s) = -\log(1 - s/\lambda)$ so $\kappa'(s) = (1 - s/\lambda)^{-1}$
+and $\kappa^{(n)}(s) = (1 - s/\lambda)^{-n}(n - 1)!/\lambda^{n-1}$
 
 ### Logistic
 
