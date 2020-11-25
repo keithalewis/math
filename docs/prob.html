@@ -6,39 +6,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Probability</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body);
-  });</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
 </head>
 <body>
-<header>
+<header id="title-block-header">
 <h1 class="title">Probability</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-
 <h1 id="probability-theory">Probability Theory</h1>
 <p>In order to understand statistics one must first understand <em>probability theory</em>.</p>
 <h2 id="chevalier-de-méré">Chevalier de Méré</h2>
-<p>(Not his real name.) A cubical die has six faces: <span class="math inline">\(⚀\)</span>, <span class="math inline">\(⚁\)</span>, <span class="math inline">\(⚂\)</span>, <span class="math inline">\(⚃\)</span>, <span class="math inline">\(⚄\)</span>, and <span class="math inline">\(⚅\)</span>. Each time a die is rolled the top face is the result of the roll. If the die is <em>fair</em> each face has an equal probability of occuring. The probability of rolling a <span class="math inline">\(⚅\)</span> in one roll is <span class="math inline">\(1/6\)</span>.</p>
-<p>If a die is rolled twice then a <span class="math inline">\(⚅\)</span> occurs in exacty <span class="math inline">\(11 = 6 + 6 - 1\)</span> of the <span class="math inline">\(36 = 6^2\)</span> possible outcomes.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> In <span class="math inline">\(6\)</span> cases it occurs on the first roll and in <span class="math inline">\(6\)</span> cases it occurs on the second roll but rolling <span class="math inline">\(⚅\)</span> twice is included in both the first and second cases and should only be counted once. The probability of rolling a <span class="math inline">\(⚅\)</span> in two rolls is <span class="math inline">\(11/36\)</span>.</p>
-<p>If a die is rolled three times then the number cases involving a <span class="math inline">\(⚅\)</span> in the <span class="math inline">\(216 = 6^3\)</span> possible outcomes is a more difficult counting problem. It is easier to count the number of cases where a <span class="math inline">\(⚅\)</span> does <strong>not</strong> occur: <span class="math inline">\(125 = 5^3\)</span>. The number of times <span class="math inline">\(⚅\)</span> <strong>does</strong> show up is therefor $91 = 216 - 125. The probability of rolling a <span class="math inline">\(⚅\)</span> in three rolls is <span class="math inline">\(91/216\)</span>. Note this can be used for the solution of the two roll case: <span class="math inline">\(11 = 36 - 25\)</span>. It is not a coincidence that <span class="math inline">\(91 = 3\times 6^2 - 3\times 6 + 1\times 1\)</span>. This is closely related to the formula <span class="math inline">\((6 - 1)^3 = 6^3 - 3\times 6^2 + 3\times 6 - 1\)</span>.</p>
-<p>If a die is rolled <span class="math inline">\(n\)</span> times then the number cases involving a <span class="math inline">\(⚅\)</span> is <span class="math inline">\(6^n - 5^n\)</span>. The <em>probability</em> of this happening is <span class="math inline">\((6^n - 5^n)/6^n = 1 - (5/6)^n\)</span>. Note that this tends to <span class="math inline">\(1\)</span> as <span class="math inline">\(n\)</span> tends to infinity; you will eventually roll a <span class="math inline">\(⚅\)</span> if you roll long enough.</p>
-<p>Chevalier de Méré was concerned with the problem of how to divide the wagers if the game was interupted part way thorough. (Vingt-deux, voilà les flics!) The initial odds are <span class="math inline">\(91\)</span> will get you <span class="math inline">\(125\)</span> in the three roll game. If the first roll is not a <span class="math inline">\(⚅\)</span> the odds of winning went down since there are only two rolls remaining to get a <span class="math inline">\(⚅\)</span>. If the game stops after the first roll how should the bet be fairly divided?</p>
+<p>A cubical die has six faces: <span class="math inline">⚀</span>, <span class="math inline">⚁</span>, <span class="math inline">⚂</span>, <span class="math inline">⚃</span>, <span class="math inline">⚄</span>, and <span class="math inline">⚅</span>. Each time a die is rolled the top face is the result of the roll. If the die is <em>fair</em> each face has an equal probability of occuring. The probability of rolling a <span class="math inline">⚅</span> in one roll is <span class="math inline">1/6</span>.</p>
+<p>If a die is rolled twice then a <span class="math inline">⚅</span> occurs in exacty <span class="math inline">11 = 6 + 6 - 1</span> of the <span class="math inline">36 = 6^2</span> possible outcomes.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> In <span class="math inline">6</span> cases it occurs on the first roll and in <span class="math inline">6</span> cases it occurs on the second roll but rolling <span class="math inline">⚅</span> twice is included in both the first and second cases and should only be counted once. The probability of rolling a <span class="math inline">⚅</span> in two rolls is <span class="math inline">11/36</span>.</p>
+<p>If a die is rolled three times then the number of cases involving a <span class="math inline">⚅</span> in the <span class="math inline">216 = 6^3</span> possible outcomes is a more difficult counting problem. It is easier to count the number of cases where a <span class="math inline">⚅</span> does <strong>not</strong> occur: <span class="math inline">125 = 5^3</span>. The number of times <span class="math inline">⚅</span> <strong>does</strong> show up is therefor $91 = 216 - 125. The probability of rolling a <span class="math inline">⚅</span> in three rolls is <span class="math inline">91/216</span>. Note this can be used for the solution of the two roll case: <span class="math inline">11 = 36 - 25</span>. It is not a coincidence that <span class="math inline">91 = 3\times 6^2 - 3\times 6 + 1\times 1</span>. This is closely related to the formula <span class="math inline">(6 - 1)^3 = 6^3 - 3\times 6^2 + 3\times 6 - 1</span>.</p>
+<p>If a die is rolled <span class="math inline">n</span> times then the number cases involving a <span class="math inline">⚅</span> is <span class="math inline">6^n - 5^n</span>. The <em>probability</em> of this happening is <span class="math inline">(6^n - 5^n)/6^n = 1 - (5/6)^n</span>. Note that this tends to <span class="math inline">1</span> as <span class="math inline">n</span> tends to infinity; you will eventually roll a <span class="math inline">⚅</span> if you roll long enough.</p>
+<p>Chevalier de Méré was concerned with the problem of how to divide the wagers if the game was interupted part way thorough. (Vingt-deux, voilà les flics!) The initial odds are <span class="math inline">91</span> will get you <span class="math inline">125</span> in the three roll game. If the first roll is not a <span class="math inline">⚅</span> the odds of winning went down since there are only two rolls remaining to get a <span class="math inline">⚅</span>. If the game stops after the first roll how should the bet be fairly divided?</p>
 <p>Antoine Gombaud (his real name) asked his salon friends Blaise Pascal and Pierre de Fermat about this puzzle. They came up with a complete solution of how to count with partial information.</p>
 <p>Read on.</p>
 <h2 id="probabilty-space">Probabilty Space</h2>
 <p>A <em>sample space</em> is a set of <em>outcomes</em>. Subsets of a sample space are <em>events</em>. A <em>probability measure</em> assigns a number between 0 and 1 to events that represents a <em>degree of belief</em> an outcome will belong to the event. <em>Partial information</em> is modeled by a <em>partition</em> of the sample space.</p>
 <h3 id="sample-space">Sample Space</h3>
 <p>A <em>sample space</em> is a set of what can happen in a probability model. An <em>outcome</em> is an element of a sample space. An <em>event</em> is a subset of a sample space.</p>
-<p>A sample space for flipping a coin can be modeled by the set <span class="math inline">\(\{H,T\}\)</span> where the outcome <span class="math inline">\(H\)</span> indicates heads and <span class="math inline">\(T\)</span> indicates tails. Of course any two element set could be used for this.</p>
-<p>A sample space for flipping a coin twice can be modeled by the set <span class="math inline">\(\{HH, HT, TH, TT\}\)</span> where each outcome specifies the individual outcomes of the first and second flip. The event ‘the first flip was heads’ is the subset <span class="math inline">\(\{HH, HT\}\)</span>. The partition <span class="math inline">\(\{\{HH, HT\},\{TH, TT\}\}\)</span> represents the partial information of knowing the outcome of the first coin flip. The first event in the partition indicates the first flip was heads. The second event in the partition indicates the first flip was tails.</p>
+<p>A sample space for flipping a coin can be modeled by the set <span class="math inline">\{H,T\}</span> where the outcome <span class="math inline">H</span> indicates heads and <span class="math inline">T</span> indicates tails. Of course any two element set could be used for this.</p>
+<p>A sample space for flipping a coin twice can be modeled by the set <span class="math inline">\{HH, HT, TH, TT\}</span> where each outcome specifies the individual outcomes of the first and second flip. The event ‘the first flip was heads’ is the subset <span class="math inline">\{HH, HT\}</span>. The partition <span class="math inline">\{\{HH, HT\},\{TH, TT\}\}</span> represents the partial information of knowing the outcome of the first coin flip. The first event in the partition indicates the first flip was heads. The second event in the partition indicates the first flip was tails.</p>
 <!--
 heads or tails as the outcome of a coin toss, the integers from 1 to
 6 as the outcomes of rolling a single die, the set of all sequences of
@@ -64,64 +81,64 @@ Monte Hall problem
 It must be modeled as a Markov Decision Process.
 -->
 <h3 id="measure">Measure</h3>
-<p>A <em>measure</em> <span class="math inline">\(\mu\)</span> on a set <span class="math inline">\(S\)</span> assigns numbers to subsets of <span class="math inline">\(S\)</span> and satisfies <span class="math display">\[
+<p>A <em>measure</em> <span class="math inline">\mu</span> on a set <span class="math inline">S</span> assigns numbers to subsets of <span class="math inline">S</span> and satisfies <span class="math display">
 \mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)
-\]</span> for any subsets <span class="math inline">\(E,F\subseteq S\)</span> and <span class="math inline">\(\mu(\emptyset) = 0\)</span>. Measures do not count twice.</p>
-<strong>Exercise</strong>. <em>Show if <span class="math inline">\(\nu(E\cup F) = \nu(E) + \nu(F) - \nu(E\cap F)\)</span> for <span class="math inline">\(E,F\subseteq S\)</span> then <span class="math inline">\(\mu = \nu - \nu(\emptyset)\)</span> is measure</em>.
+</span> for any subsets <span class="math inline">E,F\subseteq S</span> and <span class="math inline">\mu(\emptyset) = 0</span>. Measures do not count twice.</p>
+<strong>Exercise</strong>. <em>Show if <span class="math inline">\nu(E\cup F) = \nu(E) + \nu(F) - \nu(E\cap F)</span> for <span class="math inline">E,F\subseteq S</span> then <span class="math inline">\mu = \nu - \nu(\emptyset)</span> is measure</em>.
 <details>
 <p><summary>Solution</summary></p>
 <blockquote>
-<p>By <span class="math inline">\(\mu = \nu - \nu(\emptyset)\)</span> we mean <span class="math inline">\(\mu(E) = \nu(E) - \nu(\emptyset)\)</span> for any subset <span class="math inline">\(E\subseteq S\)</span>. Clearly <span class="math inline">\(\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)\)</span> for any <span class="math inline">\(E,F\subseteq S\)</span>. Since <span class="math inline">\(\mu(\emptyset) = \nu(\emptyset) - \nu(\emptyset) = 0\)</span>, <span class="math inline">\(\mu\)</span> is a measure.</p>
+<p>By <span class="math inline">\mu = \nu - \nu(\emptyset)</span> we mean <span class="math inline">\mu(E) = \nu(E) - \nu(\emptyset)</span> for any subset <span class="math inline">E\subseteq S</span>. Clearly <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)</span> for any <span class="math inline">E,F\subseteq S</span>. Since <span class="math inline">\mu(\emptyset) = \nu(\emptyset) - \nu(\emptyset) = 0</span>, <span class="math inline">\mu</span> is a measure.</p>
 </blockquote>
 </details>
-<strong>Exercise</strong>. <em>Show if <span class="math inline">\(\mu\)</span> is a measure then <span class="math inline">\(\mu(E\cup F) = \mu(E) + \mu(F)\)</span> for any subsets <span class="math inline">\(E\)</span> and <span class="math inline">\(F\)</span> with empty intersection <span class="math inline">\(E\cap F = \emptyset\)</span></em>.
+<strong>Exercise</strong>. <em>Show if <span class="math inline">\mu</span> is a measure then <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F)</span> for any subsets <span class="math inline">E</span> and <span class="math inline">F</span> with empty intersection <span class="math inline">E\cap F = \emptyset</span></em>.
 <details>
 <p><summary>Solution</summary></p>
 <blockquote>
-<p>Since <span class="math inline">\(\mu(\emptyset) = 0\)</span>, <span class="math inline">\(\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F) = \mu(E) + \mu(F) - \mu(\emptyset) = \mu(E) + \mu(F)\)</span>.</p>
+<p>Since <span class="math inline">\mu(\emptyset) = 0</span>, <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F) = \mu(E) + \mu(F) - \mu(\emptyset) = \mu(E) + \mu(F)</span>.</p>
 </blockquote>
 </details>
-<strong>Exercise</strong>. <em>Show if <span class="math inline">\(\mu\)</span> is a measure then <span class="math inline">\(\mu(E) = \mu(E\cap F) + \mu(E\cap F&#39;)\)</span> for any subsets <span class="math inline">\(E\)</span> and <span class="math inline">\(F\)</span> where <span class="math inline">\(F&#39; = S\setminus F = \{x\in S:x\not\in F\}\)</span> is the <em>complement</em> of <span class="math inline">\(F\)</span> in <span class="math inline">\(S\)</span></em>.
+<strong>Exercise</strong>. <em>Show if <span class="math inline">\mu</span> is a measure then <span class="math inline">\mu(E) = \mu(E\cap F) + \mu(E\cap F&#39;)</span> for any subsets <span class="math inline">E</span> and <span class="math inline">F</span> where <span class="math inline">F&#39; = S\setminus F = \{x\in S:x\not\in F\}</span> is the <em>complement</em> of <span class="math inline">F</span> in <span class="math inline">S</span></em>.
 <details>
 <p><summary>Solution</summary></p>
 <blockquote>
-<p>Note <span class="math inline">\((E\cap F)\cup(E\cap F&#39;) = E\cap(F\cup F&#39;) = E\cap S = E\)</span> and <span class="math inline">\((E\cap F)\cap(E\cap F&#39;) = E\cap(F\cap F&#39;) = E\cap\emptyset = \emptyset\)</span> so <span class="math inline">\(\mu(E\cap F) + \mu(E\cap F&#39;) = \mu((E\cap F)\cup(E\cap F&#39;) = \mu(E)\)</span>.</p>
+<p>Note <span class="math inline">(E\cap F)\cup(E\cap F&#39;) = E\cap(F\cup F&#39;) = E\cap S = E</span> and <span class="math inline">(E\cap F)\cap(E\cap F&#39;) = E\cap(F\cap F&#39;) = E\cap\emptyset = \emptyset</span> so <span class="math inline">\mu(E\cap F) + \mu(E\cap F&#39;) = \mu((E\cap F)\cup(E\cap F&#39;) = \mu(E)</span>.</p>
 </blockquote>
 </details>
 <h3 id="partition">Partition</h3>
 <p>A <em>partition</em> splits a sample space into disjoint subsets with union equal to the sample space. Partitions are how <em>partial information</em> is represented. The events in the partition are called <em>atoms</em>. The way they represent partial information is you only know what atom an outcome belongs to, not the actual outcome.</p>
-<p>Partitions define an <em>equivalence relation</em> on outcomes. We say <span class="math inline">\(\omega\sim\omega&#39;\)</span> if and only if they belong to the same atom.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\(\omega\sim\omega\)</span>, <span class="math inline">\(\omega\sim\omega&#39;\)</span> implies <span class="math inline">\(\omega&#39;\sim\omega\)</span>, and <span class="math inline">\(\omega\sim\omega&#39;\)</span>, <span class="math inline">\(\omega&#39;\sim\omega&#39;&#39;\)</span> implies <span class="math inline">\(\omega\sim\omega&#39;&#39;\)</span></em>.</p>
+<p>Partitions define an <em>equivalence relation</em> on outcomes. We say <span class="math inline">\omega\sim\omega&#39;</span> if and only if they belong to the same atom.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\omega\sim\omega</span>, <span class="math inline">\omega\sim\omega&#39;</span> implies <span class="math inline">\omega&#39;\sim\omega</span>, and <span class="math inline">\omega\sim\omega&#39;</span>, <span class="math inline">\omega&#39;\sim\omega&#39;&#39;</span> implies <span class="math inline">\omega\sim\omega&#39;&#39;</span></em>.</p>
 <p>This is the definition of an equivalence relation. It is the mathematical way of saying two things are the “same” even if they are not equal.</p>
 <h2 id="probability-measure">Probability Measure</h2>
-<p>A <em>probability measure</em> <span class="math inline">\(P\)</span> on the sample space <span class="math inline">\(\Omega\)</span> is a measure taking values in the interval <span class="math inline">\([0,1]\)</span> with <span class="math inline">\(P(\Omega) = 1\)</span>. The <em>probability</em> <span class="math inline">\(P(E)\)</span> for <span class="math inline">\(E\subseteq\Omega\)</span> represents a <em>degree of belief</em> that a random outcome will belong to the event <span class="math inline">\(E\)</span>. This is a somewhat nebulous and controversial notion. How do “random outcomes” occur?</p>
+<p>A <em>probability measure</em> <span class="math inline">P</span> on the sample space <span class="math inline">\Omega</span> is a measure taking values in the interval <span class="math inline">[0,1]</span> with <span class="math inline">P(\Omega) = 1</span>. The <em>probability</em> <span class="math inline">P(E)</span> for <span class="math inline">E\subseteq\Omega</span> represents a <em>degree of belief</em> that a random outcome will belong to the event <span class="math inline">E</span>. This is a somewhat nebulous and controversial notion. How do “random outcomes” occur?</p>
 <p>Probability theory originated with games of chance. One way to interpret this is “How much money would you wager on an outcome involving rolling dice or selecting cards from a deck?”</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\(P(E\cup F) \le P(E) + P(F)\)</span> for any events <span class="math inline">\(E\)</span> and <span class="math inline">\(F\)</span> when <span class="math inline">\(P\)</span> is a probability measure</em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\(P(\cup_i E_i) \le \sum_i P(E_i)\)</span> for any events <span class="math inline">\((E_i)\)</span> when <span class="math inline">\(P\)</span> is a probability measure</em>.</p>
-<p>If <span class="math inline">\(\Omega\)</span> has a finite number of outcomes, we can define a probability measure by specifying <span class="math inline">\(p_\omega = P(\{\omega\})\)</span> for <span class="math inline">\(\omega\in\Omega\)</span>. Note <span class="math inline">\(p_\omega\ge 0\)</span> and <span class="math inline">\(\sum_{\omega\in\Omega} = 1\)</span>. The probability of the event <span class="math inline">\(E\subseteq\Omega\)</span> is <span class="math inline">\(P(E) = sum_{\omega\in E} p_\omega\)</span>.</p>
-<p>For the two coin flip model (assuming the coin is fair) we assign probability of <span class="math inline">\(1/4\)</span> to each outcome. The probability of the first flip being heads is <span class="math inline">\(P(\{HH,HT\}) = P(\{HH\} \cup \{HT\}) = P(\{HH\} + P(\{HT\}) = 1/4 + 1/4 = 1/2\)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(E\cup F) \le P(E) + P(F)</span> for any events <span class="math inline">E</span> and <span class="math inline">F</span> when <span class="math inline">P</span> is a probability measure</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(\cup_i E_i) \le \sum_i P(E_i)</span> for any events <span class="math inline">(E_i)</span> when <span class="math inline">P</span> is a probability measure</em>.</p>
+<p>If <span class="math inline">\Omega</span> has a finite number of outcomes, we can define a probability measure by specifying <span class="math inline">p_\omega = P(\{\omega\})</span> for <span class="math inline">\omega\in\Omega</span>. Note <span class="math inline">p_\omega\ge 0</span> and <span class="math inline">\sum_{\omega\in\Omega} = 1</span>. The probability of the event <span class="math inline">E\subseteq\Omega</span> is <span class="math inline">P(E) = sum_{\omega\in E} p_\omega</span>.</p>
+<p>For the two coin flip model (assuming the coin is fair) we assign probability of <span class="math inline">1/4</span> to each outcome. The probability of the first flip being heads is <span class="math inline">P(\{HH,HT\}) = P(\{HH\} \cup \{HT\}) = P(\{HH\} + P(\{HT\}) = 1/4 + 1/4 = 1/2</span>.</p>
 <h2 id="random-variable">Random Variable</h2>
 <p>A <em>random variable</em> is a symbol that can be used in place of a number when manipulating equations and inequalities with with additional information about the probability of the values it can take on.</p>
-<p>The mathematical definition of a random variable is a function <span class="math inline">\(X\colon\Omega\to\mathbf{R}\)</span>. Its <em>cumulative distribution function</em> is <span class="math inline">\(F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})\)</span>. More generally, given a subset <span class="math inline">\(A\subseteq\mathbf{R}\)</span> the probability that <span class="math inline">\(X\)</span> takes a value in <span class="math inline">\(X\)</span> is <span class="math inline">\(P(X\in A) = P(\{\omega\in\Omega\}: X(\omega\in A))\}\)</span>.</p>
+<p>The mathematical definition of a random variable is a function <span class="math inline">X\colon\Omega\to\mathbf{R}</span>. Its <em>cumulative distribution function</em> is <span class="math inline">F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})</span>. More generally, given a subset <span class="math inline">A\subseteq\mathbf{R}</span> the probability that <span class="math inline">X</span> takes a value in <span class="math inline">X</span> is <span class="math inline">P(X\in A) = P(\{\omega\in\Omega\}: X(\omega\in A))\}</span>.</p>
 <p>Two random variables have the same <em>law</em> if they have the same cdf.</p>
-<p>The cdf tells you everything there is to know about the probability of the values the random variable can take on. For example, <span class="math inline">\(P(a &lt; X \le b) = F(b) - F(a)\)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\(P(a\le X\le b) = \lim_{x\uparrow a} F(b) - F(x)\)</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">\([a,b] = \cap_n (a - 1/n, b]\)</span>.</p>
-<p>In general <span class="math inline">\(P(X\in A) = \int_A dF(x)\)</span> for sufficiently nice subsets <span class="math inline">\(A\subset\mathbf{R}\)</span> where we are using <a href="https://mathworld.wolfram.com/StieltjesIntegral.html">Riemann–Stieltjes</a> integration.</p>
-<p><strong>Exercise</strong>: <em>Show for any cumulative distribution function <span class="math inline">\(F\)</span> that <span class="math inline">\(F(x) \le F(y)\)</span> if <span class="math inline">\(x &lt; y\)</span>, <span class="math inline">\(\lim_{x\to -\infty} F(x) = 0\)</span>, <span class="math inline">\(\lim_{x\to\infty} F(x) = 1\)</span>, and <span class="math inline">\(F\)</span> is right continuous with left limits</em>.</p>
-<p><em>Hint</em>: For right continuity use <span class="math inline">\((-\infty, x] = \cap_n (-\infty, x + 1/n]\)</span>.</p>
-<p>The cdf <span class="math inline">\(F(x) = \max\{0,\min\{1,x\}\}\)</span> defines the uniformly distributed random variable, <span class="math inline">\(U\)</span>, on the interval <span class="math inline">\([0,1]\)</span>. For <span class="math inline">\(0\le a &lt; b\le 1\)</span>, <span class="math inline">\(P(a &lt; U \le b) = P(U\in (a,b]) = b - a\)</span> and <span class="math inline">\(P(U &lt; 0) = 0 = P(U &gt; 1)\)</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">\(X\)</span> has cdf <span class="math inline">\(F\)</span>, then <span class="math inline">\(X\)</span> and <span class="math inline">\(F^{-1}(U)\)</span> have the same law</em>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">\(X\)</span> has cdf <span class="math inline">\(F\)</span>, then <span class="math inline">\(F(X)\)</span> and <span class="math inline">\(U\)</span> have the same law</em>.</p>
+<p>The cdf tells you everything there is to know about the probability of the values the random variable can take on. For example, <span class="math inline">P(a &lt; X \le b) = F(b) - F(a)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(a\le X\le b) = \lim_{x\uparrow a} F(b) - F(x)</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">[a,b] = \cap_n (a - 1/n, b]</span>.</p>
+<p>In general <span class="math inline">P(X\in A) = \int_A dF(x)</span> for sufficiently nice subsets <span class="math inline">A\subset\mathbf{R}</span> where we are using <a href="https://mathworld.wolfram.com/StieltjesIntegral.html">Riemann–Stieltjes</a> integration.</p>
+<p><strong>Exercise</strong>: <em>Show for any cumulative distribution function <span class="math inline">F</span> that <span class="math inline">F(x) \le F(y)</span> if <span class="math inline">x &lt; y</span>, <span class="math inline">\lim_{x\to -\infty} F(x) = 0</span>, <span class="math inline">\lim_{x\to\infty} F(x) = 1</span>, and <span class="math inline">F</span> is right continuous with left limits</em>.</p>
+<p><em>Hint</em>: For right continuity use <span class="math inline">(-\infty, x] = \cap_n (-\infty, x + 1/n]</span>.</p>
+<p>The cdf <span class="math inline">F(x) = \max\{0,\min\{1,x\}\}</span> defines the uniformly distributed random variable, <span class="math inline">U</span>, on the interval <span class="math inline">[0,1]</span>. For <span class="math inline">0\le a &lt; b\le 1</span>, <span class="math inline">P(a &lt; U \le b) = P(U\in (a,b]) = b - a</span> and <span class="math inline">P(U &lt; 0) = 0 = P(U &gt; 1)</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> has cdf <span class="math inline">F</span>, then <span class="math inline">X</span> and <span class="math inline">F^{-1}(U)</span> have the same law</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> has cdf <span class="math inline">F</span>, then <span class="math inline">F(X)</span> and <span class="math inline">U</span> have the same law</em>.</p>
 <p>This shows a uniformly distributed random variable has sufficient randomness to generate any random variable. There are no random, random variables.</p>
-<p>Given a cdf <span class="math inline">\(F\)</span> we can define a random variable having that distribution using the identity function <span class="math inline">\(X\colon\mathbf{R}\to\mathbf{R}\)</span>, where <span class="math inline">\(X(x) = x\)</span>. Let <span class="math inline">\(P\)</span> be the probability measure on <span class="math inline">\(\mathbf{R}\)</span> defined by <span class="math inline">\(P(A) = \int_A dF(x)\)</span>.</p>
+<p>Given a cdf <span class="math inline">F</span> we can define a random variable having that distribution using the identity function <span class="math inline">X\colon\mathbf{R}\to\mathbf{R}</span>, where <span class="math inline">X(x) = x</span>. Let <span class="math inline">P</span> be the probability measure on <span class="math inline">\mathbf{R}</span> defined by <span class="math inline">P(A) = \int_A dF(x)</span>.</p>
 <p>The mathematical definition is more flexible than defining a random variable by its cumulative distribution function.</p>
 <h3 id="continuous-random-variable">Continuous Random Variable</h3>
-<p>If <span class="math inline">\(F(x) = \int_{-\infty}^x F&#39;(u)\,du\)</span> we say the random variable is <em>continuously distributed</em>. The <em>density function</em> is <span class="math inline">\(f = F&#39;\)</span>. Any function satisfying <span class="math inline">\(f\ge 0\)</span> and <span class="math inline">\(\int_\mathbf{R} f(x)\,dx = 1\)</span> is a density function for a random variable.</p>
+<p>If <span class="math inline">F(x) = \int_{-\infty}^x F&#39;(u)\,du</span> we say the random variable is <em>continuously distributed</em>. The <em>density function</em> is <span class="math inline">f = F&#39;</span>. Any function satisfying <span class="math inline">f\ge 0</span> and <span class="math inline">\int_\mathbf{R} f(x)\,dx = 1</span> is a density function for a random variable.</p>
 <h3 id="discrete-random-variable">Discrete Random Variable</h3>
-<p>If <span class="math inline">\(dF = \sum_{\omega\in\Omega} p_\omega \delta_\omega\)</span> where <span class="math inline">\(\Omega\subseteq\mathbf{R}\)</span> is countable we say the random variable is <em>discretely distributed</em>. Here <span class="math inline">\(\delta_\omega\)</span> is the <em>delta function</em> with unit mass at <span class="math inline">\(\omega\)</span> defined by <span class="math inline">\(\int_{\mathbf{R}} f(x) \delta_\omega\,dx = f(\omega)\)</span> when <span class="math inline">\(f\)</span> is continuous at <span class="math inline">\(\omega\)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">\(H_\omega(x) = 0\)</span> for <span class="math inline">\(\omega &lt; x\)</span> and <span class="math inline">\(H_\omega(x) = 1\)</span> for <span class="math inline">\(\omega\ge x\)</span> then <span class="math inline">\(f(\omega) = \int_{\mathbf{R}} f(x)\,dH_\omega(x)\)</span> when <span class="math inline">\(f\)</span> is continuous</em>.</p>
-<p>Using this more precise notation, <span class="math inline">\(F = \sum_{\omega\in\Omega} p_\omega H_\omega\)</span>.</p>
+<p>If <span class="math inline">dF = \sum_{\omega\in\Omega} p_\omega \delta_\omega</span> where <span class="math inline">\Omega\subseteq\mathbf{R}</span> is countable we say the random variable is <em>discretely distributed</em>. Here <span class="math inline">\delta_\omega</span> is the <em>delta function</em> with unit mass at <span class="math inline">\omega</span> defined by <span class="math inline">\int_{\mathbf{R}} f(x) \delta_\omega\,dx = f(\omega)</span> when <span class="math inline">f</span> is continuous at <span class="math inline">\omega</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">H_\omega(x) = 0</span> for <span class="math inline">\omega &lt; x</span> and <span class="math inline">H_\omega(x) = 1</span> for <span class="math inline">\omega\ge x</span> then <span class="math inline">f(\omega) = \int_{\mathbf{R}} f(x)\,dH_\omega(x)</span> when <span class="math inline">f</span> is continuous</em>.</p>
+<p>Using this more precise notation, <span class="math inline">F = \sum_{\omega\in\Omega} p_\omega H_\omega</span>.</p>
 <!--
 
 ## Examples
@@ -572,10 +589,10 @@ For any $\epsilon > 0$ there exists $n$ such that $\sum_{k > n} P(E_k) < \epsilo
 since the infinite sum converges to a finite value. 
 
 -->
-<section class="footnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>The _cartesian product of sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> is the set of <em>pairs</em> <span class="math inline">\(A\times B = \{(a,b):a\in A, b\in B\}\)</span>. The number of elements in <span class="math inline">\(A\times B\)</span> is the number of elements in <span class="math inline">\(A\)</span> times the number of elements in <span class="math inline">\(B\)</span>.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>The _cartesian product of sets <span class="math inline">A</span> and <span class="math inline">B</span> is the set of <em>pairs</em> <span class="math inline">A\times B = \{(a,b):a\in A, b\in B\}</span>. The number of elements in <span class="math inline">A\times B</span> is the number of elements in <span class="math inline">A</span> times the number of elements in <span class="math inline">B</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <footer>

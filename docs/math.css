@@ -3,8 +3,9 @@ html {
 	padding: 1em;
 }
 body {
-	font-family: Calisto, Cambria, "Lucida Bright", "Segoe UI", Georgia, 'Vesper Libre', serif;
+	font-family: 'Literata', 'Calisto', 'Cambria', "Lucida Bright", "Segoe UI", Georgia, 'Vesper Libre', serif;
 	font-size: large;
+	font-weight: 500;
 	background: #F8F8F8;
 	/*background: linear-gradient(to right, #FFF, #F0F0F0);*/
 	color: #565656;
@@ -15,6 +16,7 @@ h1, p.author {
 p {
 	text-align: justify;
 	text-justify: inter-word;
+	line-height: 120%; 
 }
 table {
     border-collapse: collapse;
