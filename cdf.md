@@ -36,16 +36,6 @@ $F(X)$ has the same distribution as $U$_.
 
 If $F(x)$ jumps from $a$ to $b$ at $x = c$ we define $F^{-1}(u) = c$ for $a \le u < b$.
 
-## Continuous and Discrete
-
-A random variable is _continuously distributed_ if $F = \int F'$
-and we call $f = F'$ the _probability density function_ of $X$.
-If $X$ is discrete with $P(X = x_j) = p_j$ then
-$F(x) = \sum_j 1(x\le x_j) p_j$ and $f(x) = \sum_j δ_{x_j} p_j$
-where $δ_c$ is the _delta function_, or _point mass_, at $c$.
-A delta function is not a function but we can define
-$\int_{\bm{R}} g(x) \delta_a(x) \,dx = \int_{\bm{R}} g(x) d1(x \ge a) = g(a)$ using Riemann-Stieltjes integration.
-
 ## Cumulant
 
 The _cumulant_ of the random variable $X$ is $\kappa_X(s) = \kappa(s) = \log E[\exp(s X)]$.
@@ -88,11 +78,8 @@ where $(B_{n,k})$ are partial Bell polynomials satisfying the recurrence
 $B_{0,0} = 1$, $B_{n,0} = 0$ for $n > 0$, $B_{0,k} = 0$ for $k > 0$ and
 $$
 	B_{n,k}(x_1,\ldots,x_{n - k + 1})
-		= \sum_{j=0}^{n-k}\binom{n-1}{j} B_{n-j+1,k-1}(x_1,\ldots,x_{j+1})x_{j+1}
+		= \sum_{i=1}^{n-k+1}\binom{n-1}{i - 1} B_{n-i,k-1}(x_1,\ldots,x_{n - i - k + 2})x_i
 $$
-
-If $e_X(s) = E[\exp(sX)]$ then $e_X^{(n)}(s) = E[X^n\exp(sX)]$ and
-$\kappa_X^{(n)}(s) = ...$.
 
 ### Esscher Transform
 
@@ -100,17 +87,25 @@ The Esscher transform of a random variable has density $f_s(x) = \exp(s x - \kap
 and we write $E_s$ for expectation under the transform.
 Since $E[\exp(sX)] = \exp(\kappa(s))$ this is a probability density.
 
-Note $E_sE_t = E_{s + t}$ and $f_s^{(n)}(x) = \exp(s x - \kappa(s)) \sum_{k=0}^n \binom{n}{k} s^k f^{(k)}(x)$.
-The cumulative distribution ???
+We have $(d/ds)E[g(X)\exp(s X - \kappa(s))] = E[g(X)\exp(s X - \kappa(s))(X - \kappa'(s))]
+= E_s[g(X)(X - \kappa'(s))]$. Since $1 = 1(X\le x) + 1(X > x)$ we have
+$0 = E_s[1(X\le x)(X - \kappa'(s))] + E_s[1(X > x)(X - \kappa'(s))]$
+
+$0 = E_s[1(X\le x)(X - \kappa'(s))] + E_s[(1 - 1(X \le x)(X - \kappa'(s))]$
+
+$E_s[X] = \kappa'(s)$
 
 ## Distributions
 
-We gather some facts about the distribution and cumulant of random variables.
+We gather some facts about the distributions and cumulants of particular random variables.
 
 ### Discrete
 
-Let $P(X = x_j) = p_j$, $p_j\ge 0$, $\sum_j p_j = 1$.
-The cdf is $F(X\le x) = \sum_j 1(x\le x_j) p_j$ and pdf is $f(x) = \sum_j \delta_{x_j} p_j$.
+If $X$ is discrete with $P(X = x_j) = p_j$ then
+$F(x) = \sum_j 1(x\le x_j) p_j$ and $f(x) = \sum_j δ_{x_j} p_j$
+where $δ_c$ is the _delta function_, or _point mass_, at $c$.
+A delta function is not a function but we can define
+$\int_{\bm{R}} g(x) \delta_a(x) \,dx = \int_{\bm{R}} g(x) d1(x \ge a) = g(a)$ using Riemann-Stieltjes integration.
 The cumulant is $\kappa(s) = \log E[\sum_j \exp(sx_j) p_j]$.
 
 ### Normal
@@ -162,10 +157,21 @@ cumulants are zero.
 
 ### Poisson
 
-The Poisson distribution with parameter $\lambda$ has density $P(X = n) = e^{-\lambda}\lambda^n/n!$, $n\ge 0$.
+The Poisson distribution with parameter $\lambda$ has density $P(X_\lambda = n) = e^{-\lambda}\lambda^n/n!$, $n\ge 0$.
 Since $E[\exp(s X)] = \sum_{n\ge 0} \exp(sn) e^{-\lambda}\lambda^n/n! 
-\exp(-\lambda)\exp(\exp(s)\lambda) = \exp(\lambda(\exp(s) - 1))$
-we have $\kappa(s) = \lambda(\exp(s) - 1)$ and $\kappa_n = \lambda$, $n\ge 1$.
+= e^{-\lambda}\exp(e^s\lambda) = \exp(\lambda(e^s - 1))$
+we have $\kappa(s) = \lambda(e^s - 1)$ and $\kappa_n = \lambda$, $n\ge 1$.
+
+$$
+\begin{aligned}
+	E[g(X_\lambda)\exp(s X - \kappa(s))] &= \sum_{n\ge0} g(n)\exp(sn - \lambda(e^s - 1))e^{-\lambda}\lambda^n/n! \\
+	&= \exp(-\lambda e^s)\sum_{n\ge0} g(n) (\lambda e^s)^n/n! \\
+	&= E[g(X_{\lambda e^s})]
+\end{aligned}
+$$
+
+and $(d/ds)E[g(X_\lambda)\exp(s X - \kappa(s))] = E[h(X_{\lambda e^s})]$
+where $h(n) = g(n)(n - \lambda e^s)$.
 
 ### Exponential
 
