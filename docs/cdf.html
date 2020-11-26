@@ -47,13 +47,11 @@
 <p>The distribution of a <em>uniformly distributed</em> random variable on <span class="math inline">[0,1]</span>, <span class="math inline">U</span>, is <span class="math inline">F(x) = x</span> if <span class="math inline">0\le x\le 1</span>, <span class="math inline">F(x) = 0</span> if <span class="math inline">x &lt; 0</span>, and <span class="math inline">F(x) = 1</span> if <span class="math inline">x &gt; 1</span>. In this case <span class="math inline">P(X\in(a, b]) = b - a</span> for <span class="math inline">0\le a &lt; b\le 1</span>.</p>
 <p><strong>Exercise</strong> <em>If <span class="math inline">X</span> has cdf <span class="math inline">F</span>, show <span class="math inline">F^{-1}(U)</span> has the same distribution as <span class="math inline">X</span> and <span class="math inline">F(X)</span> has the same distribution as <span class="math inline">U</span></em>.</p>
 <p>If <span class="math inline">F(x)</span> jumps from <span class="math inline">a</span> to <span class="math inline">b</span> at <span class="math inline">x = c</span> we define <span class="math inline">F^{-1}(u) = c</span> for <span class="math inline">a \le u &lt; b</span>.</p>
-<h2 id="continuous-and-discrete">Continuous and Discrete</h2>
-<p>A random variable is <em>continuously distributed</em> if <span class="math inline">F = \int F&#39;</span> and we call <span class="math inline">f = F&#39;</span> the <em>probability density function</em> of <span class="math inline">X</span>. If <span class="math inline">X</span> is discrete with <span class="math inline">P(X = x_j) = p_j</span> then <span class="math inline">F(x) = \sum_j 1(x\le x_j) p_j</span> and <span class="math inline">f(x) = \sum_j δ_{x_j} p_j</span> where <span class="math inline">δ_c</span> is the <em>delta function</em>, or <em>point mass</em>, at <span class="math inline">c</span>. A delta function is not a function but we can define <span class="math inline">\int_{\bm{R}} g(x) \delta_a(x) \,dx = \int_{\bm{R}} g(x) d1(x \ge a) = g(a)</span> using Riemann-Stieltjes integration.</p>
 <h2 id="cumulant">Cumulant</h2>
 <p>The <em>cumulant</em> of the random variable <span class="math inline">X</span> is <span class="math inline">\kappa_X(s) = \kappa(s) = \log E[\exp(s X)]</span>.</p>
 <p><strong>Exercise</strong>. <em>Show if <span class="math inline">c</span> is a constant then <span class="math inline">\kappa_{c + X}(s) = cs + \kappa_X(s)</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">c</span> is a constant then <span class="math inline">\kappa_{cX}(s) = \kappa_X(cs)</span> if <span class="math inline">c</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">X</span> and <span class="math inline">y</span> are independent then <span class="math inline">\kappa_{X + Y}(s) = \kappa_X(s) + \kappa_Y(s)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">c</span> is a constant then <span class="math inline">\kappa_{cX}(s) = \kappa_X(cs)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">X</span> and <span class="math inline">Y</span> are independent then <span class="math inline">\kappa_{X + Y}(s) = \kappa_X(s) + \kappa_Y(s)</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">\kappa_X(0) = 0</span>, <span class="math inline">\kappa_X&#39;(0) = E[X]</span>, and <span class="math inline">\kappa_X&#39;&#39;(0) = \operatorname{Var}(X)</span></em>.</p>
 <p>The <em>cumulants</em>, <span class="math inline">(\kappa_n(X))</span>, are the coefficients of the Taylor series expansion of the cumulant <span class="math inline">\kappa(s) = \sum_{n &gt; 0} \kappa_n s^n/n!</span>. Note <span class="math inline">\kappa_n = \kappa^{(n)}(0)</span> if <span class="math inline">\kappa</span> is sufficiently differentiable.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">\kappa_1(c + X) = c + \kappa_1(X)</span> and <span class="math inline">\kappa_n(c + X) = \kappa_n(X)</span> if <span class="math inline">n &gt; 1</span></em>.</p>
@@ -70,13 +68,17 @@
     \kappa_n = \sum_{k=0}^{n-1} (-1)^k k! B_{n,k+1}(\mu_1,\ldots,\mu_{n - k})
 </span> where <span class="math inline">(B_{n,k})</span> are partial Bell polynomials satisfying the recurrence <span class="math inline">B_{0,0} = 1</span>, <span class="math inline">B_{n,0} = 0</span> for <span class="math inline">n &gt; 0</span>, <span class="math inline">B_{0,k} = 0</span> for <span class="math inline">k &gt; 0</span> and <span class="math display">
     B_{n,k}(x_1,\ldots,x_{n - k + 1})
-        = \sum_{j=0}^{n-k}\binom{n-1}{j} B_{n-j+1,k-1}(x_1,\ldots,x_{j+1})x_{j+1}
+        = \sum_{i=1}^{n-k+1}\binom{n-1}{i - 1} B_{n-i,k-1}(x_1,\ldots,x_{n - i - k + 2})x_i
 </span></p>
-<p>If <span class="math inline">e_X(s) = E[\exp(sX)]</span> then <span class="math inline">e_X^{(n)}(s) = E[X^n\exp(sX)]</span> and <span class="math inline">\kappa_X^{(n)}(s) = ...</span>.</p>
+<h3 id="esscher-transform">Esscher Transform</h3>
+<p>The Esscher transform of a random variable has density <span class="math inline">f_s(x) = \exp(s x - \kappa(s))f(x)</span> and we write <span class="math inline">E_s</span> for expectation under the transform. Since <span class="math inline">E[\exp(sX)] = \exp(\kappa(s))</span> this is a probability density.</p>
+<p>We have <span class="math inline">(d/ds)E[g(X)\exp(s X - \kappa(s))] = E[g(X)\exp(s X - \kappa(s))(X - \kappa&#39;(s))] = E_s[g(X)(X - \kappa&#39;(s))]</span>. Since <span class="math inline">1 = 1(X\le x) + 1(X &gt; x)</span> we have <span class="math inline">0 = E_s[1(X\le x)(X - \kappa&#39;(s))] + E_s[1(X &gt; x)(X - \kappa&#39;(s))]</span></p>
+<p><span class="math inline">0 = E_s[1(X\le x)(X - \kappa&#39;(s))] + E_s[(1 - 1(X \le x)(X - \kappa&#39;(s))]</span></p>
+<p><span class="math inline">E_s[X] = \kappa&#39;(s)</span></p>
 <h2 id="distributions">Distributions</h2>
-<p>We gather some facts about the distribution and cumulant of random variables.</p>
-<h2 id="discrete">Discrete</h2>
-<p>Let <span class="math inline">P(X = x_j) = p_j</span>, <span class="math inline">p_j\ge 0</span>, <span class="math inline">\sum_j p_j = 1</span>. The cdf is <span class="math inline">F(X\le x) = \sum_j 1(x\le x_j) p_j</span> and pdf is <span class="math inline">f(x) = \sum_j \delta_{x_j} \_j</span>. The cumulant is <span class="math inline">\kappa(s) = \log E[\sum_j \exp(sx_j) p_j</span>].</p>
+<p>We gather some facts about the distributions and cumulants of particular random variables.</p>
+<h3 id="discrete">Discrete</h3>
+<p>If <span class="math inline">X</span> is discrete with <span class="math inline">P(X = x_j) = p_j</span> then <span class="math inline">F(x) = \sum_j 1(x\le x_j) p_j</span> and <span class="math inline">f(x) = \sum_j δ_{x_j} p_j</span> where <span class="math inline">δ_c</span> is the <em>delta function</em>, or <em>point mass</em>, at <span class="math inline">c</span>. A delta function is not a function but we can define <span class="math inline">\int_{\bm{R}} g(x) \delta_a(x) \,dx = \int_{\bm{R}} g(x) d1(x \ge a) = g(a)</span> using Riemann-Stieltjes integration. The cumulant is <span class="math inline">\kappa(s) = \log E[\sum_j \exp(sx_j) p_j]</span>.</p>
 <h3 id="normal">Normal</h3>
 <p>The standard normal random variable <span class="math inline">Z</span> has density <span class="math inline">\phi(z) = \exp(-z^2/2)/\sqrt{2\pi}</span>, <span class="math inline">-\infty &lt; z &lt; \infty</span>, and cumulative distribution <span class="math inline">\Phi(z) = \int_{-\infty}^z \exp(-t^2/2)\, dt/\sqrt{2\pi}</span>.</p>
 <p>The derivatives of <span class="math inline">\phi</span> are <span class="math inline">\phi^{(n)}(x) = (-1)^n\phi(x)H_n(x)</span> where <span class="math inline">H_n</span> are the Hermite polynomials. They satisfy the recurrence <span class="math inline">H_0(x) = 1</span>, <span class="math inline">H_1(x) = x</span> and <span class="math inline">H_{n+1}(x) = x H_n(x) - n H_{n-1}(x)</span>, <span class="math inline">n\ge 1</span>.</p>
@@ -100,10 +102,22 @@ E[g(Z) e^{sZ}] &amp;= \int_{-\infty}^\infty g(z) e^{sz} e^{-z^2/2}\, dz/\sqrt{2\
 </span> so <span class="math inline">E[X g(X)] = E[g&#39;(X)]</span> when <span class="math inline">s = 0</span>.</p>
 <p>The moments of <span class="math inline">X</span> can be calculated using <span class="math inline">E[X^n] = E[X X^{n-1}] = (n - 1)E[X^{n - 2}]</span>, <span class="math inline">E[X^0] = 1</span>, and <span class="math inline">E[X^1] = 0</span>. The odd moments are zero and the even moments are <span class="math inline">E[X^{2n}] = (2n - 1)(2n - 3)\cdots 1 = (2n - 1)!!</span>.</p>
 <p>The cumulant is <span class="math inline">\kappa(s) = \log E[\exp(sZ)] = s^2/2</span> so <span class="math inline">\kappa_2 = 1</span> and all other cumulants are zero.</p>
+<h3 id="poisson">Poisson</h3>
+<p>The Poisson distribution with parameter <span class="math inline">\lambda</span> has density <span class="math inline">P(X_\lambda = n) = e^{-\lambda}\lambda^n/n!</span>, <span class="math inline">n\ge 0</span>. Since <span class="math inline">E[\exp(s X)] = \sum_{n\ge 0} \exp(sn) e^{-\lambda}\lambda^n/n! = e^{-\lambda}\exp(e^s\lambda) = \exp(\lambda(e^s - 1))</span> we have <span class="math inline">\kappa(s) = \lambda(e^s - 1)</span> and <span class="math inline">\kappa_n = \lambda</span>, <span class="math inline">n\ge 1</span>.</p>
+<p><span class="math display">
+\begin{aligned}
+    E[g(X_\lambda)\exp(s X - \kappa(s))] &amp;= \sum_{n\ge0} g(n)\exp(sn - \lambda(e^s - 1))e^{-\lambda}\lambda^n/n! \\
+    &amp;= \exp(-\lambda e^s)\sum_{n\ge0} g(n) (\lambda e^s)^n/n! \\
+    &amp;= E[g(X_{\lambda e^s})]
+\end{aligned}
+</span></p>
+<p>and <span class="math inline">(d/ds)E[g(X_\lambda)\exp(s X - \kappa(s))] = E[h(X_{\lambda e^s})]</span> where <span class="math inline">h(n) = g(n)(n - \lambda e^s)</span>.</p>
+<h3 id="exponential">Exponential</h3>
+<p>The density of an exponential with parameter <span class="math inline">\lambda</span> is <span class="math inline">f(x) = \lambda\exp(-\lambda x)</span>, <span class="math inline">x\ge 0</span>. Since <span class="math inline">E[\exp sX] = \int_0^\infty \exp(sx) \lambda\exp(-\lambda x)\,dx = \lambda/(\lambda - s)</span> The cumulant is <span class="math inline">\kappa(s) = -\log(1 - s/\lambda)</span> so <span class="math inline">\kappa&#39;(s) = (1 - s/\lambda)^{-1}</span> and <span class="math inline">\kappa^{(n)}(s) = (1 - s/\lambda)^{-n}(n - 1)!/\lambda^{n-1}</span></p>
 <h3 id="logistic">Logistic</h3>
-<p>A logistic random variate has cumulative distribution <span class="math inline">F(x) = 1/(1 + e^{-x})</span>, <span class="math inline">x\in\mathbf{R}</span>. It’s density function is <span class="math inline">f(x) = e^{-x}/(1 + e^{-x})^2</span>. Note <span class="math inline">f(x) = \int_0^\infty e^{-x} e^{-\alpha e^{-x}} e^{-\alpha}\,d\alpha</span>.</p>
-<p>The quantile function is <span class="math inline">Q(u) = F^{-1}(u) = \log u/(1-u)</span>.</p>
-<p>The moment generating function is <span class="math inline">M_X(t) = E e^{tX} = \Gamma(1 - t)\Gamma(1 + t)</span>, <span class="math inline">-1 &lt; t &lt; 1</span>.</p>
+<p>A logistic random variate has cumulative distribution <span class="math inline">F(x) = 1/(1 + e^{-x})</span>, <span class="math inline">-\infty &lt; x &lt; \infty</span> and density function <span class="math inline">f(x) = e^{-x}/(1 + e^{-x})^2</span>. The quantile function is <span class="math inline">Q(u) = F^{-1}(u) = \log u/(1-u)</span>.</p>
+<p>Note <span class="math inline">f(x) = \int_0^\infty e^{-x} e^{-\alpha e^{-x}} e^{-\alpha}\,d\alpha</span>.</p>
+<p>The moment generating function is <span class="math inline">M_X(s) = E e^{sX} = \Gamma(1 + s)\Gamma(1 - s)</span>, <span class="math inline">-1 &lt; s &lt; 1</span> so its cumulant is <span class="math inline">\kappa(s) = \log\Gamma(1 + s) + \log\Gamma(1 - s)</span>.</p>
 <p>Using <span class="math inline">u = F(x) = 1/(1 + e^{-x})</span>, so <span class="math inline">e^x = u/(1 - u)</span> <span class="math display">
 \begin{aligned}
 E e^{tX} &amp;= \int_{-\infty}^\infty e^{tx} e^{-x}/(1 + e^{-x})^2\,dx \\
@@ -113,11 +127,13 @@ E e^{tX} &amp;= \int_{-\infty}^\infty e^{tx} e^{-x}/(1 + e^{-x})^2\,dx \\
     &amp;= \Gamma(1 + t)\Gamma(1 - t)
 \end{aligned}
 </span></p>
-<p>Using <span class="math inline">u = F(x) = 1/(1 + e^{-x})</span>, so <span class="math inline">e^x = u/(1 - u)</span> <span class="math display">
+<p>The <em>digamma</em> function is the derivative of the log of the Gamma function <span class="math inline">\psi(s) = \Gamma&#39;(s)/\Gamma(s)</span>. Its Taylor series at <span class="math inline">1</span> is <span class="math inline">\psi(s + 1) = -\gamma - \sum_{k\ge 1} \zeta(k+1)(-s)^k</span> where <span class="math inline">\gamma</span> is the Euler-Mascheroni constant and <span class="math inline">\zeta(s) = \sum_{k\ge 1} n^{-s}</span> is the zeta function.</p>
+<p>The first derivative of the cumulant is <span class="math inline">\kappa&#39;(s) = \psi(1 + s) - \psi(1 - s) = 2\sum_{k\ge 1} \zeta(2k)s^{2k - 1}</span>. The variance of the logistic is <span class="math inline">\kappa_2 = \kappa&#39;&#39;(0) = 2\zeta(2) = \phi^2/3</span>.</p>
+<p>The Esscher transformed cumulative distribution is <span class="math display">
 \begin{aligned}
-\int_{-\infty}^a e^{tx} dF(x)
-    &amp;= \int_0^{F(a)} u^t(1 - u)^{-t}\,du \\
-    &amp;= B(F(a); 1 + t, 1 - t) \\
+F_s(x) &amp;= \int_{-\infty}^x e^{st - \kappa(s)} dF(t) \\
+    &amp;= \int_0^{F(x)} u^s(1 - u)^{-s}\,du/e^{\kappa(s)} \\
+    &amp;= B(F(x); 1 + s, 1 - s)/B(1 + s, 1 - s)\\
 \end{aligned}
 </span> where <span class="math inline">B(u;\alpha,\beta) = \int_0^u t^{\alpha-1}(1 - t)^{\beta - 1}\,dt</span> is the partial beta function.</p>
 <h2 id="scratch">Scratch</h2>
