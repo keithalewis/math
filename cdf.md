@@ -100,8 +100,8 @@ The Esscher transform of a random variable has density $f_s(x) = \exp(s x - \kap
 and we write $E_s$ for expectation under the transform.
 Since $E[\exp(sX)] = \exp(\kappa(s))$ this is a probability density.
 
-Note $E_sE_t = E_{s + t}$ and $f_s^{(n)}(x) = \exp(s x - \kappa(s)) \sum_{k=0}^n \binom{n}{k} s^k f^{(k)}(x)$.
-The cumulative distribution ???
+Note $(d/ds) E[g(X)\exp(s X - \kappa(s))] =  E[g(X)\exp(s X - \kappa(s))(X - \kappa'(s))]$
+so $(d/ds)E_s[g(X)] = E_s[g(X)(X - \kappa'(s))]
 
 ## Distributions
 

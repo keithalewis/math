@@ -226,12 +226,43 @@ to sets defined by $\rho X^Y = Y$.
 Every $f\in X^Y$ is a function $f\colon X\to Y$ so $\rho$ is a constant function,
 $\rho f = Y$ for all $f\in X^Y$.
 
-### Lens
+## Remarks
 
-A _lens_ has a getter and a setter. 
+$\Pi X_I = \Pi_{i\in I} X_i$, $\pi_i\colon\Pi X_I\to X_i$, $\pi_i(x) = x_i$  projections.
 
-set(get(y,x), x) = y,  set(get(set(get(y,x)),z) = set(get(y,z),z).
+If $X = X_i$, $i\in I$ then $X_I = \Pi X_I \cong X^I$ via $x_i = \pi_i(x) = x(i)$. 
+
+If $f\colon X\to Y$ then $f^Z\colon X^Z\to Y^Z$ via $f^Zx = fx$
+and $f_Z\colon Z^Y\to Z^X$ via $f_Zy = yf$.
+
+Indices:  If $\sigma\colon m\to n^k$ we have $(f\colon X_1\times\cdots\times X_n\to Y) \mapsto 
+(f\sigma\colon X_{\sigma(1)}\times\cdots\times X_{\sigma(k)}\to Y)$.
 
 
 
+$f\colon\Pi X_n\to Y$ 
+
+If $J\subseteq I$ and $[J]\colon J\to I$ is inclusion then $y[J]\in X_J$ projects $y\in X_I$ to $X_J$.
+
+Currying: $X\times Y\to Z\cong (Z^Y)^X$ via $f(x,y) = z$ iff $(fx)y = z$.
+
+Currying: $f\colon X_I\to Z$ and $J\subseteq I$ then $f(x[J], x[I\setminus J]) = z$
+iff $fx[I] = z$.
+
+Currying: $f\colon X_I\to Z$ and $\sigma\colon J\to I$ where $J\subseteq I$
+then $f(\sigma J)\colon (I\setminus \sigma$ J)\to Z$,
+
+Array: $x\colon X^{n_0\times ...}\to X$, $x\in X^{n_0\times ...}$
+
+Diagonal map: $(x,y)\mapsto f(x,y)$, $x\mapsto f(x,x)$. $(0)\mapsto (0,0)$.
+
+Enlist: $x\in X \mapsto (x)\in X^1$. $0\mapsto (0)$
+
+Transpose: $f(x,y)\mapsto f(y,x)$. $(0,1)\mapsto (1,0)$.
+
+Indices: $(f\colon X^n\to Y)\mapsto(\bar{f}\colon X^m\to Y)$.
+$\bar{f}(x_1,\ldots,x_m) = f(\sigma_1(x),\ldots,\sigma_n(x))$, $\sigma_j\colon X^n\to X^{j}$.
+
+$\sigma\colon n^m\to n^k$, $\bar{f}\colon X^m\to (X^k \to Y)$.
+$\bar{f}(x_1,\ldots,x_m)\mapsto f(x_{\sigma(1)},\ldots, x_{\sigma(n)})$.
 
