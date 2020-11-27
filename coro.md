@@ -22,7 +22,21 @@ program execution.
 Like functions, coroutines can stand on their own. What they add is the ability
 to cooperate with other coroutines to share the task of code execution.
 
-Producer and consumer coroutines can cooperate to send items through a queue.
+Coroutines can _generate_ unbounded streams of data.
+```
+coroutine iota
+	i = 0
+	loop
+		yield i
+		i = i + 1
+```
+The first time the coroutine is called a counter is set to 0.
+The first pass through the loop sets the statement after yield as the
+continuation point and returns 0.  The next time it is resumed the
+counter is incremented and the second pass through the loop sets a new
+continuation point and returns 1. Rinse and repeat.
+
+_Producer_ and _consumer_ coroutines can cooperate to send items through a queue.
 ```
 coroutine produce
 	loop
@@ -39,19 +53,6 @@ coroutine consume
 There is no need for multiple theads; yield can jump directly from one
 coroutine to another.
 
-Another common use is to generate unbounded streams of data.
-```
-coroutine iota
-	i = 0
-	loop
-		yield i
-		i = i + 1
-```
-The first time the coroutine is called a counter is set to 0.
-The first pass through the loop sets the statement after yield as the
-continuation point and returns 0.  The next time it is resumed the
-counter is incremented and the second pass through the loop sets a new
-continuation point and returns 1. Rinse and repeat.
 
 ## The Life of a Coroutine
 
