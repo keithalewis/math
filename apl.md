@@ -22,7 +22,11 @@ abstract: A Programming Language
 
 > _APL is a mistake carried through to perfection_ &mdash; Edsgar W. Dijkstra
 
-> _As if that were a bad thing_ &mdash; Me
+> _Besides it is an error to believe that rigour is the enemy of simplicity. 
+> On the contrary we find it confirmed by numerous examples that the rigorous 
+> method is at the same time the simpler and the more easily comprehended. 
+> The very effort for rigor forces us to find out simpler methods of proof_. 
+> &mdash; David Hilbert
 
 A Programming Language _APL_ was invented by Ken E. Iverson, a mathematician
 unsatisfied by the limited expressiveness of FORTRAN when it came to manipulating
@@ -37,8 +41,8 @@ category theory and best practices for implmementing functional
 languages on current computer architectures. 
 We take a purely functional view so no side effects are allowed and data cannot
 be mutated.  Similar to Everett's many-world interpretation, this makes
-it easy to reason about programs mathematically, but can be hard on
-computers computationally.  Using lazy evaluation, [optics](optics.html), and
+it easy to reason about programs mathematically, but can be computationally hard on
+computers.  Using lazy evaluation, [optics](optics.html), and
 other implementation techniques can help with that.
 
 The two main ideas are composition and (vector space) duality.
@@ -51,13 +55,13 @@ Note $f^Z\in (Y^Z)^{X^Z}$ and $f_Z\in
 (Z^X)^{Z^Y}$ are left and right composition by $f$ respectively.
 
 Matrix multiplication is just composition of linear transformations.
-Likewise, inner, outer, and tensor products can be expressed as
+Likewise, inner and outer products can be expressed as
 composition.  If $V$ is a vector space its _dual_ $V^*$ is the set of
 all linear functions from $V$ to its underlying scalar field $\FF$. If
 $v\in V$ and $v^*\in V^*$ then the _dual pairing_ $\langle v, v^*\rangle =
 v^*v\in\FF$ acts like an "inner" product and avoids the 2-dimensionally
 biased distinction between "row" and "column" vectors. Also, $vv^*\colon
-V\to V$ by $(vv^*)w = v(v^*w) \in V$, $w\in V$, is the "tensor"
+V\to V$ by $(vv^*)w = v(v^*w) \in V$, $w\in V$, is the  "outer"/"tensor"
 product of $v$ and $v^*$. There is no need for any sort of "adjective"
 product; all of the various products are simply composition of functions.
 
@@ -112,7 +116,12 @@ $$
 	(X\times Y)\to Z \cong X\to(Y\to Z)
 $$
 Going from left to right is _currying_ and going from right to left
-is _uncurrying_. Given $f\colon X\times Y\to Z$ we write $fx\colon Y\to Z$
+is _uncurrying_.
+
+Products and disjoint union are related by $\Pi_i X^{I_i}\cong X^{\sqcup_i I_i}$
+via $\pi_i x\in X^{I_i}$ corresponds to $\hat{x}(j_i) = x_i(j_i)$.
+
+Given $f\colon X\times Y\to Z$ we write $fx\colon Y\to Z$
 for _partial application_ instead of $g(x)$.
 Given $g\in Z^(Y^X)$, $f(x,y) = e(g(x),y)$ and
 we write  ??? $(x,y)\mapsto (g(x),y)\mapsto g(x)y$.
@@ -230,12 +239,16 @@ $\rho f = Y$ for all $f\in X^Y$.
 
 $\Pi X_I = \Pi_{i\in I} X_i$, $\pi_i\colon\Pi X_I\to X_i$, $\pi_i(x) = x_i$  projections.
 
-If $X = X_i$, $i\in I$ then $X_I = \Pi X_I \cong X^I$ via $x_i = \pi_i(x) = x(i)$. 
+If $X = X_i$, $i\in I$ then $X_I = \Pi X_I = \Pi_{i\in I} X\cong X^I$
+via $x = (x_i)\in \Pi X_I$ correspoinds to $\hat{x}\in X^I$ via $x_i = \hat{x}(i)$. 
+More generally, $\Pi_{i\in I} X_{I_i}\cong X^{\sqcup_{i\in I} I_i}$
+via $x = (x_i)\in \Pi_I X_{I_i}$ correspoinds to $\hat{x}\in X^I$ via $x_i = \hat{x}(i)$. 
+via $x_{i_j}} = x(i_j)$, $i_j\in I_j$
+shows the fundamental relationship between product and disjoint sum.
 
 If $f\colon X\to Y$ then $f^Z\colon X^Z\to Y^Z$ via $f^Zx = fx$
 and $f_Z\colon Z^Y\to Z^X$ via $f_Zy = yf$.
 
-$\Pi_j X_{I_j}\cong X^{\sqcup_j I_j}$
 via $(x_j)\leftrightarrow x$ for $x_j\in X^{I_j}$ where $x(i_j) = x_j(i)$, for $i_j = (j,i)\in \sqcup_j I_j$.
 
 Indices: If $\sigma\colon m\to n$ then $\sigma_X\colon X^n\to X^m$ via
@@ -255,24 +268,4 @@ $f\colon\Pi X_n\to Y$
 If $J\subseteq I$ and $[J]\colon J\to I$ is inclusion then $y[J]\in X_J$ projects $y\in X_I$ to $X_J$.
 
 Currying: $X\times Y\to Z\cong (Z^Y)^X$ via $f(x,y) = z$ iff $(fx)y = z$.
-
-Currying: $f\colon X_I\to Z$ and $J\subseteq I$ then $f(x[J], x[I\setminus J]) = z$
-iff $fx[I] = z$.
-
-Currying: $f\colon X_I\to Z$ and $\sigma\colon J\to I$ where $J\subseteq I$
-then $f(\sigma J)\colon (I\setminus \sigma$ J)\to Z$,
-
-Array: $x\colon X^{n_0\times ...}\to X$, $x\in X^{n_0\times ...}$
-
-Diagonal map: $(x,y)\mapsto f(x,y)$, $x\mapsto f(x,x)$. $(0)\mapsto (0,0)$.
-
-Enlist: $x\in X \mapsto (x)\in X^1$. $0\mapsto (0)$
-
-Transpose: $f(x,y)\mapsto f(y,x)$. $(0,1)\mapsto (1,0)$.
-
-Indices: $(f\colon X^n\to Y)\mapsto(\bar{f}\colon X^m\to Y)$.
-$\bar{f}(x_1,\ldots,x_m) = f(\sigma_1(x),\ldots,\sigma_n(x))$, $\sigma_j\colon X^n\to X^{j}$.
-
-$\sigma\colon n^m\to n^k$, $\bar{f}\colon X^m\to (X^k \to Y)$.
-$\bar{f}(x_1,\ldots,x_m)\mapsto f(x_{\sigma(1)},\ldots, x_{\sigma(n)})$.
 
