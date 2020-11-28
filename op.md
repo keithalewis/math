@@ -181,8 +181,8 @@ $$
 dv/ds &= f E[g'(X + s)] \\
       &= f E[\delta_k(f\exp(s (X + s) - s^2/2))f\exp(s (X + s) - s^2/2)s] \\
       &= f^2 s E_s[\delta_k(f\exp(s X - s^2/2))] \\
-      &= f^2 s \phi_s(x(k))/ks \\
-      &= f^2 \phi(x(k) - s)/k \\
+      &= f^2 \phi_s(x(k))/k \\
+      &= f^2 \phi(x(k - s)/k \\
 \end{aligned}
 $$
 where we use the general fact $E[\delta_a(h(X))] = \phi(h(a))/h'(a)$.

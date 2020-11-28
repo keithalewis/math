@@ -11,7 +11,7 @@ abstract: Facts about cumulative distribution functions
 \newcommand{\Cov}{\operatorname{Cov}}
 
 The _cumulative distribution function_ of a random variable $X$ is
-$F_X(x) = F(x) = P(X\le x)$. It tells you everything there is to know
+$F^X(x) = F(x) = P(X\le x)$. It tells you everything there is to know
 about the distribution of $X$.
 For example $P(X\in E) = E[1_E(X)] = \int_E dF(x)$
 where $1_E(x) = 1$ if $x\in E$, $1_E(x) = 0$ if $x\not\in E$ and we
@@ -86,6 +86,8 @@ $$
 The Esscher transform of a random variable has density $f_s(x) = \exp(s x - \kappa(s))f(x)$
 and we write $E_s$ for expectation under the transform.
 Since $E[\exp(sX)] = \exp(\kappa(s))$ this is a probability density.
+We write $X_s$ for the Esscher transform of $X$ so $F^{X_s)(x) = P(X_s\le x) = P_s(X\le X)$
+and $E[g(X_s)] = E_s[g(X)]$.
 
 Note $(d/ds) E[g(X)\exp(s X - \kappa(s))] =  E[g(X)\exp(s X - \kappa(s))(X - \kappa'(s))]$
 so $(d/ds)E_s[g(X)] = E_s[g(X)(X - \kappa'(s))]

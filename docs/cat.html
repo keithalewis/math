@@ -55,9 +55,14 @@
 <p>Since we will be doing a lot of composing we just write <span class="math inline">gf</span> instead of <span class="math inline">g \circ f</span>. Some people prefer to use <span class="math inline">f;g</span> instead of <span class="math inline">gf</span>. In this notation <span class="math inline">f\colon A\to B</span> and <span class="math inline">g\colon B\to C</span> compose to <span class="math inline">f;g\colon A\to C</span> keeping the arrow names in order. If this sort of trifling is a concern you can just write the arrows backwards: <span class="math inline">g\colon C\leftarrow B</span> and <span class="math inline">\colon\colon B\leftarrow A</span> so <span class="math inline">gf\colon C\leftarrow A</span>.</p>
 <h2 id="identity-arrow">Identity Arrow</h2>
 <p>On to more interesting things. Every object has an <em>identity arrow</em>. If <span class="math inline">f\colon A\to B</span> then the identity arrows <span class="math inline">1_A\colon A\to A</span> and <span class="math inline">1_B\colon B\to B</span> satisfy <span class="math inline">f 1_A = f = 1_B f</span>. Or maybe only somewhat more interesing. You can always throw in identity arrows if they don’t exist.</p>
-<h3 id="exercises">Exercises</h3>
-<p><strong>Excercise</strong>. <em>If <span class="math inline">e\colon A\to A</span> has the property <span class="math inline">fe = f</span> for all <span class="math inline">f\colon A\to B</span> then <span class="math inline">e = 1_A</span></em>.</p>
-<p><strong>Excercise</strong>. <em>If <span class="math inline">e\colon B\to B</span> has the property <span class="math inline">ef = f</span> for all <span class="math inline">f\colon A\to B</span> then <span class="math inline">e = 1_B</span></em>.</p>
+<strong>Exercise</strong>. <em>If <span class="math inline">e\colon A\to A</span> has the property <span class="math inline">fe = f</span> for all <span class="math inline">f\colon A\to B</span> then <span class="math inline">e = 1_A</span></em>.
+<details>
+<summary>Solution</summary> Taking <span class="math inline">f = 1_A</span>, <span class="math inline">1_A e = 1_A</span>. By the definition of <span class="math inline">1_A</span>, <span class="math inline">1_A e = e</span>, hence <span class="math inline">1_A = e</span>.
+</details>
+<strong>Exercise</strong>. <em>If <span class="math inline">e\colon B\to B</span> has the property <span class="math inline">ef = f</span> for all <span class="math inline">f\colon A\to B</span> then <span class="math inline">e = 1_B</span></em>.
+<details>
+<summary>Solution</summary> Taking <span class="math inline">f = 1_B</span>, <span class="math inline">e 1_B = 1_B</span>. By the definition of <span class="math inline">1_B</span>, <span class="math inline">e 1_B = e</span>, hence <span class="math inline">1_B = e</span>.
+</details>
 <h2 id="associative-law">Associative Law</h2>
 <p>If <span class="math inline">f\colon A\to B</span>, <span class="math inline">g\colon B\to C</span>, and <span class="math inline">h\colon C\to D</span> then we have arrows <span class="math inline">gf</span>, <span class="math inline">hg</span>, <span class="math inline">h(gf)</span>, and <span class="math inline">(hg)f</span>. The <em>associative law</em> states <span class="math inline">(hg)f = h(gf)</span> so <span class="math inline">hgf</span> is unambiguous in category theory.</p>
 <p>A collection of objects and arrow satisfying these laws is a <em>category</em>.</p>
@@ -68,7 +73,8 @@
 <p>Think of equivalence as a weakened form of equality. In the case of <span class="math inline">\mathbf{Set}</span> it is a very weakened form. Adding structure to sets by reducing the number of functions creates finer grained equivalence relations.</p>
 <p>We call <span class="math inline">f,g</span> an <em>isomorphism pair</em> for <span class="math inline">A,B</span>. If <span class="math inline">f,g</span> and <span class="math inline">f,g&#39;</span> are isomporphims pairs for <span class="math inline">A,B</span> then <span class="math inline">g = g&#39;</span> since <span class="math inline">g = g1_B = g(fg&#39;) = (gf)g&#39; = 1_Ag&#39; = g&#39;</span>. We write <span class="math inline">g = f^{-1}</span> and, mutatis mutandis, <span class="math inline">f = g^{-1}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show two sets in <span class="math inline">\mathbf{Set}</span> are isomorphic if and only if they have the same cardinality</em>.</p>
-<p>This also shows isomorphism pairs are not, in general, unique.</p>
+<p>This also shows isomorphism pairs are not, in general, unique. We can define an equivalence relation on isomorphism pairs by <span class="math inline">(f,g)\tilde (f&#39;,g&#39;)</span> if and only if they are isomorphism pairs for some <span class="math inline">A</span>, <span class="math inline">B</span>.</p>
+<p><strong>Exercise</strong>. <em>Show this is an equivalence relation</em>.</p>
 <h2 id="examples">Examples</h2>
 <p>It is impossible to understand category theory without understanding examples of categories. They are its raison d’être. Many seemingly disparate constructs can be unified.</p>
 <p>The canonical example of a category is <span class="math inline">\mathbf{Set}</span>. The objects are sets and the arrows are functions. People tried to come up with a purely category theory notion of <span class="math inline">\mathbf{Set}</span> and ended up with <em>topos theory</em>. One does not simply consider ‘elements’ of a ‘set’. Composition is standared function composition, which is associative. The identity arrows are the identity functions <span class="math inline">1_A\colon A\to A</span> by <span class="math inline">1_A(a) = a</span> for <span class="math inline">a\in A</span>.</p>
@@ -103,8 +109,8 @@ into primes.
 </li>
 <li>If <span class="math inline">g\colon A\to B</span> and <span class="math inline">h\colon B\to C</span> in <span class="math inline">C</span> then <span class="math inline">F(hg) = F(h)F(g)</span> in <span class="math inline">D</span>.</li>
 </ol>
-<p><strong>Excercise</strong>. <em>What is the identity functor?</em></p>
-<p><strong>Excercise</strong>. <em>Show composition of functors is associative</em>.</p>
+<p><strong>Exercise</strong>. <em>What is the identity functor?</em></p>
+<p><strong>Exercise</strong>. <em>Show composition of functors is associative</em>.</p>
 <p>You may now be wondering if there is a category of category of categories. There is and it is called <span class="math inline">2</span>-<span class="math inline">\mathbf{Cat}</span>. The objects are functors and the arrows are <em>natural transformations</em>.</p>
 <p>A natural transformation, <span class="math inline">\eta\colon F\to G</span>, of functors <span class="math inline">F,G\colon\mathbf{C}\to\mathbf{D}</span> takes objects of <span class="math inline">\mathbf{C}</span> to arrows of <span class="math inline">\mathbf{D}</span>. If <span class="math inline">h\colon A\to B</span> in <span class="math inline">\mathbf{C}</span> then <span class="math inline">F(h)\colon F(A)\to F(B)</span> and <span class="math inline">G(h)\colon G(A)\to G(B)</span> in <span class="math inline">\mathbf{D}</span>. The arrows <span class="math inline">\eta_A\colon F(A)\to G(A)</span> and <span class="math inline">\eta_B\colon G(A)\to G(B)</span> in <span class="math inline">\mathbf{D}</span> satisfy <span class="math inline">\eta_A F(h) = G(h)\eta_B</span>.</p>
 <p>The prototypical example of natural transformation arises in the category <span class="math inline">\mathbf{Vec}</span>. The <em>dual</em> of a vector space is <span class="math inline">V^* = \hom(V,\mathbf{F})</span> where <span class="math inline">\mathbf{F}</span> is the underlying field of the vector space. The <em>dual pairing</em> between <span class="math inline">V</span> and <span class="math inline">V^*</span> is <span class="math inline">\langle v,v^*\rangle = v^*(v)</span>. If <span class="math inline">T\colon V\to W</span> is a linear transformation then <span class="math inline">T^*\colon W^*\to V^*</span> via <span class="math inline">\langle Tv,w^*\rangle = \langle v,T^*w^*\rangle</span>. Note <span class="math inline">T^{**}\colon V^{**}\to W^{**}</span> and gives rise to a functor <span class="math inline">D</span> in <span class="math inline">\mathbf{Vec}</span> via <span class="math inline">V\mapsto V^{**}</span> and <span class="math inline">T\mapsto T^{**}</span>. There is a natural inclusion <span class="math inline">\iota_V\colon V\to V^{**}</span> by <span class="math inline">\langle \iota_V v,v^*\rangle = \langle v, v^*\rangle</span>. The property <span class="math inline">T^{**}\iota_V = \iota_W T</span> says <span class="math inline">\iota\colon I\to D</span> is a natural transformation where <span class="math inline">I</span> is the identity functor of <span class="math inline">\mathbf{Vec}</span>.</p>
@@ -131,19 +137,18 @@ into primes.
 <p>If <span class="math inline">hf = kf</span> implies <span class="math inline">h = k</span> then <span class="math inline">f</span> is called <em>epi</em>. If <span class="math inline">f</span> has a left inverse and <span class="math inline">h,k\colon C\to A</span> satisfy <span class="math inline">fh = fk</span> then <span class="math inline">h = 1_Ah = gfh = gfk = 1_Ak = k</span>. Arrows having a left inverse are epi.</p>
 <p>In <span class="math inline">\mathbf{Set}</span> mono arrows have a left inverse and epi arrows have a right inverse, but this is not true for every category.</p>
 <p>An arrow that is both mono and epi is called <em>iso</em>.</p>
-<p>!!!</p>
+<h3 id="product">Product</h3>
+<p>The cartesian product of a set <span class="math inline">X</span> with itself <span class="math inline">Y</span> times, <span class="math inline">\Pi X_Y = \Pi_{y\in Y} X</span>, can be defined for any set <span class="math inline">Y</span>. It can be identified with <span class="math inline">X^Y</span> and has <em>projections</em> <span class="math inline">\pi_y\colon \Pi X_y\to X</span> defined by <span class="math inline">\pi_y x = x(y)</span>, <span class="math inline">x\in X^Y</span>, $yY. We write <span class="math inline">\pi_y x = x_y</span> and <span class="math inline">x = (x_y)</span> <em>as an array</em> in the product for <span class="math inline">x</span> <em>as a function</em> in the exponential.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">u,v\in\Pi X_Y</span> and <span class="math inline">\pi_y u = \pi_y v</span> for all <span class="math inline">y\in Y</span> then <span class="math inline">u = v</span> as functions in <span class="math inline">Y^X</span></em>.</p>
+<h3 id="sum">Sum</h3>
 <h2 id="answers-to-exercises">Answers to Exercises</h2>
-<p><strong>Excercise</strong>. 1. If <span class="math inline">e\colon A\to A</span> has the property <span class="math inline">fe = f</span> for all <span class="math inline">f\colon A\to B</span> then <span class="math inline">e = 1_A</span>_.</p>
-<p><strong>Solution.</strong> Taking <span class="math inline">f = 1_A</span>, <span class="math inline">1_A e = 1_A</span>. By the definition of <span class="math inline">1_A</span>, <span class="math inline">1_A e = e</span>, hence <span class="math inline">1_A = e</span>.</p>
-<p><strong>Excercise</strong>. 2. If <span class="math inline">e\colon B\to B</span> has the property <span class="math inline">ef = f</span> for all <span class="math inline">f\colon A\to B</span> then <span class="math inline">e = 1_B</span>_.</p>
-<p><strong>Solution</strong> Taking <span class="math inline">f = 1_B</span>, <span class="math inline">e 1_B = 1_B</span>. By the definition of <span class="math inline">1_B</span>, <span class="math inline">e 1_B = e</span>, hence <span class="math inline">1_B = e</span>.</p>
-<p><strong>Excercise</strong>. 3. Show the identity arrows of_ Set <em>are <span class="math inline">1_A = {(a,a)\in A\times A \colon a\in A}</span></em>.</p>
+<p><strong>Exercise</strong>. 3. Show the identity arrows of_ Set <em>are <span class="math inline">1_A = {(a,a)\in A\times A \colon a\in A}</span></em>.</p>
 <p><strong>Solution</strong> Let <span class="math inline">R\colon A\to B</span> be a relation. The following are equivalent: &gt; <span class="math inline">(a, b)\in 1_A R</span><br />
 &gt; There exists <span class="math inline">a&#39; in A</span> with <span class="math inline">(a, a&#39;)\in 1_A</span> and <span class="math inline">(a&#39;, b)\in R</span>.<br />
 &gt; <span class="math inline">(a, a)\in 1_A</span> and <span class="math inline">(a, b)\in R</span><br />
 &gt; <span class="math inline">(a, b)\in R</span><br />
 The proof of <span class="math inline">R 1_B = R</span> is similar.</p>
-<p><strong>Excercise</strong>. 4. Show that composition is associative in_ Set.</p>
+<p><strong>Exercise</strong>. 4. Show that composition is associative in_ Set.</p>
 <p><strong>Solution</strong> Let <span class="math inline">R\colon A\to B</span>, <span class="math inline">S\colon B\to C</span> and <span class="math inline">T:C\to D</span>. The following are equivalent: &gt; <span class="math inline">(a, d)\in (TS)R</span>.<br />
 &gt; There exists <span class="math inline">b\in B</span> with <span class="math inline">(a, b)\in R</span> and <span class="math inline">(b, d)\in (TS)</span>.<br />
 &gt; There exists <span class="math inline">b\in B</span> with <span class="math inline">(a, b)\in R</span> and there exists <span class="math inline">c\in C</span> with <span class="math inline">(b, c)\in S</span> and <span class="math inline">(c, d)\in T</span>.<br />
@@ -151,18 +156,18 @@ The proof of <span class="math inline">R 1_B = R</span> is similar.</p>
 &gt; There exists <span class="math inline">c\in C</span> and there exists <span class="math inline">b\in B</span> with <span class="math inline">(a, b)\in R</span> and <span class="math inline">(b, c)\in S</span> and <span class="math inline">(c, d)\in T</span>.<br />
 &gt; There exists <span class="math inline">c\in C</span> with <span class="math inline">(a, c)\in SR</span> and <span class="math inline">(c, d)\in T</span>.<br />
 &gt; <span class="math inline">(a, d)\in T(SR)</span>.</p>
-<p><strong>Excercise</strong>. 5. Show <span class="math inline">R</span> is reflexive if and only if <span class="math inline">1_A</span> is a subset of <span class="math inline">R</span>_.</p>
+<p><strong>Exercise</strong>. 5. Show <span class="math inline">R</span> is reflexive if and only if <span class="math inline">1_A</span> is a subset of <span class="math inline">R</span>_.</p>
 <p><strong>Solution</strong> The following statements are equivalent &gt; <span class="math inline">R</span> is reflexive<br />
 &gt; <span class="math inline">a &lt;= a</span> for all <span class="math inline">a\in A</span><br />
 &gt; <span class="math inline">(a, a)\in R</span> for all <span class="math inline">a\in A</span><br />
 &gt; <span class="math inline">1_A</span> is a subset of <span class="math inline">R</span></p>
-<p><strong>Excercise</strong>. 6. Show <span class="math inline">R</span> is transitive if and only if <span class="math inline">RR</span> is a subset of <span class="math inline">R</span>_.</p>
+<p><strong>Exercise</strong>. 6. Show <span class="math inline">R</span> is transitive if and only if <span class="math inline">RR</span> is a subset of <span class="math inline">R</span>_.</p>
 <p><strong>Solution</strong> The following statements are equivalent &gt; <span class="math inline">R</span> is transitive<br />
 &gt; <span class="math inline">a &lt;= b</span> and <span class="math inline">b &lt;= c</span> imply <span class="math inline">a &lt;= c</span><br />
 &gt; <span class="math inline">(a, b)\in R</span> and <span class="math inline">(b, c)\in R</span> imply <span class="math inline">(a, c)\in R</span><br />
 &gt; <span class="math inline">(a, c)\in RR</span> implies <span class="math inline">(a, c)\in R</span><br />
 &gt; <span class="math inline">RR</span> is a subset of <span class="math inline">R</span></p>
-<p><strong>Excercise</strong>. 7. Show <span class="math inline">R</span> is anti-symmetric if and only if the intersection of <span class="math inline">R</span> and <span class="math inline">R*</span> is contained in <span class="math inline">1_A</span>_.</p>
+<p><strong>Exercise</strong>. 7. Show <span class="math inline">R</span> is anti-symmetric if and only if the intersection of <span class="math inline">R</span> and <span class="math inline">R*</span> is contained in <span class="math inline">1_A</span>_.</p>
 <p><strong>Solution</strong> The following statements are equivalent &gt; <span class="math inline">R</span> is anti-symmetric<br />
 &gt; <span class="math inline">a &lt;= b</span> and <span class="math inline">b &lt;= a</span> imply <span class="math inline">a = b</span><br />
 &gt; <span class="math inline">(a, b)\in R</span> and <span class="math inline">(b, a)\in R</span> imply <span class="math inline">a = b</span><br />

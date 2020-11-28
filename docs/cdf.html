@@ -40,7 +40,7 @@
 <h1 class="title">Cumulative Distribution Functions</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<p>The <em>cumulative distribution function</em> of a random variable <span class="math inline">X</span> is <span class="math inline">F_X(x) = F(x) = P(X\le x)</span>. It tells you everything there is to know about the distribution of <span class="math inline">X</span>. For example <span class="math inline">P(X\in E) = E[1_E(X)] = \int_E dF(x)</span> where <span class="math inline">1_E(x) = 1</span> if <span class="math inline">x\in E</span>, <span class="math inline">1_E(x) = 0</span> if <span class="math inline">x\not\in E</span> and we use Riemann-Stieltjes integration.</p>
+<p>The <em>cumulative distribution function</em> of a random variable <span class="math inline">X</span> is <span class="math inline">F^X(x) = F(x) = P(X\le x)</span>. It tells you everything there is to know about the distribution of <span class="math inline">X</span>. For example <span class="math inline">P(X\in E) = E[1_E(X)] = \int_E dF(x)</span> where <span class="math inline">1_E(x) = 1</span> if <span class="math inline">x\in E</span>, <span class="math inline">1_E(x) = 0</span> if <span class="math inline">x\not\in E</span> and we use Riemann-Stieltjes integration.</p>
 <p>Every cdf is non-decreasing, continuous from the right, has left limits, and <span class="math inline">\lim_{x\to-\infty}F(x) = 0</span>, <span class="math inline">\lim_{x\to+\infty}F(x) = 1</span>. Any function with these properties is the cdf of a random variable.</p>
 <p><strong>Exercise</strong>. <em>Prove right continuity using <span class="math inline">\cap_n (-\infty, x + 1/n] = (-\infty, x]</span></em>.</p>
 <p>Note <span class="math inline">\cup_n (-\infty,x - 1/n] = (-\infty,x) \not= (-\infty,x]</span>. The sequence <span class="math inline">F(x - 1/n)</span> is non-decreasing so it has a limit, but not necessarily <span class="math inline">F(x)</span>.</p>
@@ -71,7 +71,7 @@
         = \sum_{i=1}^{n-k+1}\binom{n-1}{i - 1} B_{n-i,k-1}(x_1,\ldots,x_{n - i - k + 2})x_i
 </span></p>
 <h3 id="esscher-transform">Esscher Transform</h3>
-<p>The Esscher transform of a random variable has density <span class="math inline">f_s(x) = \exp(s x - \kappa(s))f(x)</span> and we write <span class="math inline">E_s</span> for expectation under the transform. Since <span class="math inline">E[\exp(sX)] = \exp(\kappa(s))</span> this is a probability density.</p>
+<p>The Esscher transform of a random variable has density <span class="math inline">f_s(x) = \exp(s x - \kappa(s))f(x)</span> and we write <span class="math inline">E_s</span> for expectation under the transform. Since <span class="math inline">E[\exp(sX)] = \exp(\kappa(s))</span> this is a probability density. We write <span class="math inline">X_s</span> for the Esscher transform of <span class="math inline">X</span> so <span class="math inline">F^{X_s)(x) = P(X_s\le x) = P_s(X\le X)</span> and <span class="math inline">E[g(X_s)] = E_s[g(X)]</span>.</p>
 <p>Note <span class="math inline">(d/ds) E[g(X)\exp(s X - \kappa(s))] = E[g(X)\exp(s X - \kappa(s))(X - \kappa&#39;(s))]</span> so $(d/ds)E_s[g(X)] = E_s[g(X)(X - ’(s))]</p>
 <h2 id="distributions">Distributions</h2>
 <p>We gather some facts about the distributions and cumulants of particular random variables.</p>

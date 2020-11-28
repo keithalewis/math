@@ -71,13 +71,19 @@ If $f\colon A\to B$ then the identity arrows $1_A\colon A\to A$ and $1_B\colon B
 satisfy $f 1_A = f = 1_B f$. Or maybe only somewhat more interesing.
 You can always throw in identity arrows if they don't exist.
 
-### Exercises
-
-__Excercise__. _If $e\colon A\to A$ has the property $fe = f$ for all $f\colon A\to B$
+__Exercise__. _If $e\colon A\to A$ has the property $fe = f$ for all $f\colon A\to B$
 then $e = 1_A$_.
+<details>
+<summary>Solution</summary>
+Taking $f = 1_A$, $1_A e = 1_A$. By the definition of $1_A$, $1_A e = e$, hence $1_A = e$.
+</details>
 
-__Excercise__. _If $e\colon B\to B$ has the property $ef = f$ for all $f\colon A\to B$
+__Exercise__. _If $e\colon B\to B$ has the property $ef = f$ for all $f\colon A\to B$
 then $e = 1_B$_.
+<details>
+<summary>Solution</summary>
+Taking $f = 1_B$, $e 1_B = 1_B$. By the definition of $1_B$, $e 1_B = e$, hence $1_B = e$.
+</details>
 
 ## Associative Law
 
@@ -114,6 +120,11 @@ __Exercise__. _Show two sets in $\cat{Set}$ are isomorphic if and only
 if they have the same cardinality_.
 
 This also shows isomorphism pairs are not, in general, unique.
+We can define an equivalence relation on isomorphism pairs by
+$(f,g)\tilde (f',g')$ if and only if they are isomorphism
+pairs for some $A$, $B$.
+
+__Exercise__. _Show this is an equivalence relation_.
 
 ## Examples
 
@@ -206,9 +217,9 @@ the category structure:
   i. If $f\colon A\to B$ in $C$ then $F(f)\colon F(A)\to F(B)$ in $D$.   
  ii. If $g\colon A\to B$ and $h\colon B\to C$ in $C$ then $F(hg) = F(h)F(g)$ in $D$.  
  
-__Excercise__. _What is the identity functor?_
+__Exercise__. _What is the identity functor?_
 
-__Excercise__. _Show composition of functors is associative_.
+__Exercise__. _Show composition of functors is associative_.
 
 You may now be wondering if there is a category of category
 of categories. There is and it is called $2$-$\cat{Cat}$.
@@ -295,22 +306,24 @@ but this is not true for every category.
 
 An arrow that is both mono and epi is called _iso_.
 
-!!!
+### Product
 
+The cartesian product of a set $X$ with itself $Y$ times,
+$\Pi X_Y = \Pi_{y\in Y} X$, can be defined for any set $Y$.
+It can be identified with $X^Y$ and has
+_projections_ $\pi_y\colon \Pi X_y\to X$
+defined by $\pi_y x = x(y)$, $x\in X^Y$, $y\in Y. We write $\pi_y x = x_y$
+and $x = (x_y)$ _as an array_ in the product for $x$ _as a function_
+in the exponential.
+
+__Exercise__. _If $u,v\in\Pi X_Y$ and $\pi_y u = \pi_y v$ for
+all $y\in Y$ then $u = v$ as functions in $Y^X$_.
+
+### Sum
 
 ## Answers to Exercises
 
-__Excercise__. 1. If $e\colon A\to A$ has the property $fe = f$ for all $f\colon A\to B$
-then $e = 1_A$_.
-
-**Solution.** Taking $f = 1_A$, $1_A e = 1_A$. By the definition of $1_A$, $1_A e = e$, hence $1_A = e$.
-
-__Excercise__. 2. If $e\colon B\to B$ has the property $ef = f$ for all $f\colon A\to B$
-then $e = 1_B$_.
-
-**Solution** Taking $f = 1_B$, $e 1_B = 1_B$. By the definition of $1_B$, $e 1_B = e$, hence $1_B = e$.
-
-__Excercise__. 3. Show the identity arrows of_ Set _are $1_A = {(a,a)\in A\times A \colon a\in A}$_.
+__Exercise__. 3. Show the identity arrows of_ Set _are $1_A = {(a,a)\in A\times A \colon a\in A}$_.
 
 **Solution** Let $R\colon A\to B$ be a relation. The following are equivalent:
 > $(a, b)\in 1_A R$  
@@ -319,7 +332,7 @@ __Excercise__. 3. Show the identity arrows of_ Set _are $1_A = {(a,a)\in A\times
 > $(a, b)\in R$  
 The proof of $R 1_B = R$ is similar.
 
-__Excercise__. 4. Show that composition is associative in_ Set.
+__Exercise__. 4. Show that composition is associative in_ Set.
 
 **Solution** Let $R\colon A\to B$, $S\colon B\to C$ and $T:C\to D$. The following
 are equivalent:
@@ -331,7 +344,7 @@ are equivalent:
 > There exists $c\in C$ with $(a, c)\in SR$ and $(c, d)\in T$.    
 > $(a, d)\in T(SR)$.
 
-__Excercise__. 5. Show $R$ is reflexive if and only if $1_A$ is a subset of $R$_.
+__Exercise__. 5. Show $R$ is reflexive if and only if $1_A$ is a subset of $R$_.
 
 **Solution** The following statements are equivalent\colon  
 > $R$ is reflexive  
@@ -339,7 +352,7 @@ __Excercise__. 5. Show $R$ is reflexive if and only if $1_A$ is a subset of $R$_
 > $(a, a)\in R$ for all $a\in A$  
 > $1_A$ is a subset of $R$  
 
-__Excercise__. 6. Show $R$ is transitive if and only if $RR$ is a subset of $R$_.
+__Exercise__. 6. Show $R$ is transitive if and only if $RR$ is a subset of $R$_.
 
 **Solution** The following statements are equivalent\colon  
 > $R$ is transitive  
@@ -348,7 +361,7 @@ __Excercise__. 6. Show $R$ is transitive if and only if $RR$ is a subset of $R$_
 > $(a, c)\in RR$ implies $(a, c)\in R$  
 > $RR$ is a subset of $R$  
 
-__Excercise__. 7. Show $R$ is anti-symmetric if and only if the intersection of
+__Exercise__. 7. Show $R$ is anti-symmetric if and only if the intersection of
 $R$ and $R*$ is contained in $1_A$_.
 
 **Solution** The following statements are equivalent\colon  

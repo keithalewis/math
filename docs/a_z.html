@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <title>A=…=Z</title>
+  <title>A=···=Z</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -37,15 +37,15 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">A=…=Z</h1>
+<h1 class="title">A=···=Z</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
 <p><span class="math inline">E[\underline{(X - E[X])^2}]</span></p>
-<p><span class="math inline">\qquad\{ \overline{(a - b)^2} = \underline{a^2 - 2ab + b^2} \}\mid a\leftarrow X, b\leftarrow E[X]</span></p>
+<p><span class="math inline">\qquad\{ \overline{(a - b)^2} = \underline{a^2 - 2ab + b^2} \mid a\leftarrow X, b\leftarrow E[X] \}</span></p>
 <p><span class="math inline">= \underline{E[\overline{X^2 - 2XE[X] + E[X]^2}]}</span></p>
-<p><span class="math inline">\qquad\{\overline{E[A - B + C]} = \underline{E[A]} - \underline{\underline{E[B]}} + \underline{\underline{\underline{E[C]}}}\}\mid A\leftarrow X^2, B\leftarrow 2XE[X], C\leftarrow E[X]^2</span></p>
-<p><span class="math inline">= \overline{E[X^2]} - \overline{\overline{\underline{E[2XE[X]]}}} + \overline{\overline{\overline{E[E[X]^2]]}}}</span></p>
-<p><span class="math inline">\qquad\{\overline{E[cA]} = \underline{cE[A]}, E[E[B]] = E[B]\}\mid c\it 2E[X], A\leftarrow X, B\leftarrow E[X]^2</span></p>
+<p><span class="math inline">\qquad\{\overline{E[A - B + C]} = \underline{E[A]} - \underline{\underline{E[B]}} + \underline{\underline{\underline{E[C]}}}\mid A\leftarrow X^2, B\leftarrow 2XE[X], C\leftarrow E[X]^2\}</span></p>
+<p><span class="math inline">= \overline{E[X^2]} - \overline{\overline{\underline{E[2XE[X]]}}} + \overline{\overline{\overline{\underline{\underline{E[E[X]^2]]}}}}}</span></p>
+<p><span class="math inline">\qquad\{\overline{E[cA]} = \underline{cE[A]}, \overline{\overline{E[E[B]]}} = E[B]\mid c\leftarrow 2E[X], A\leftarrow X, B\leftarrow E[X]^2\}</span></p>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

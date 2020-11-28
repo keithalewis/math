@@ -54,7 +54,7 @@ Right to left association is natural in functional languages to chain applicatio
 Note $f^Z\in (Y^Z)^{X^Z}$ and $f_Z\in
 (Z^X)^{Z^Y}$ are left and right composition by $f$ respectively.
 
-Matrix multiplication is just composition of linear transformations.
+Matrix multiplication is composition of linear transformations.
 Likewise, inner and outer products can be expressed as
 composition.  If $V$ is a vector space its _dual_ $V^*$ is the set of
 all linear functions from $V$ to its underlying scalar field $\FF$. If
@@ -62,11 +62,14 @@ $v\in V$ and $v^*\in V^*$ then the _dual pairing_ $\langle v, v^*\rangle =
 v^*v\in\FF$ acts like an "inner" product and avoids the 2-dimensionally
 biased distinction between "row" and "column" vectors. Also, $vv^*\colon
 V\to V$ by $(vv^*)w = v(v^*w) \in V$, $w\in V$, is the  "outer"/"tensor"
-product of $v$ and $v^*$. There is no need for any sort of "adjective"
-product; all of the various products are simply composition of functions.
+product of $v$ and $v^*$.
+If $V = \FF^n$ is the $n$-dimensional vector space on the field $\FF$
+then $V^*\cong\FF^n$ via the identity function.  We write $v^*\in V^*$
+for the image of $v\in V$ and note $v\cdot w = v^*w$.  There is no need
+for any sort of "adjective" product &ndash; all products are simply composition
+of functions.
 
-If $V = \FF^n$ then $V^*\cong\FF^n$ via the identity function.
-We write $v^*\in V^*$ for the image of $v\in V$ and note $v\cdot w = v^*w$. 
+<!--
 
 !!! Move below
 
@@ -88,6 +91,8 @@ corresponds to its unique linear extension $\FF^S\to V$ in $\cat{Vec}$.
 
 ??? is this correct ???
 
+-->
+
 ## Set
 
 Given a function $f\colon X\to Y$ we write $f(x)$ as $fx$.  If $g\colon
@@ -103,7 +108,7 @@ $X\times Y = \{(x,y):x\in X, y\in Y\}$ is the set of all pairs from each set
 and the exponential $Y^X = \{f\colon X\to Y\}$ is the set of functions
 from $X$ to $Y$.
 
-The _evaluation map_ $e\colon Y^X \times X\to Y$ is defined by
+The _evaluation map_ $e_{X,Y} = e\colon Y^X \times X\to Y$ is defined by
 $e(f,x) = f(x)$, $f\in Y^X$, $x\in X$. It is just an explicit
 name for _function application_.
 
@@ -118,33 +123,21 @@ $$
 Going from left to right is _currying_ and going from right to left
 is _uncurrying_.
 
-Products and disjoint union are related by $\Pi_i X^{I_i}\cong X^{\sqcup_i I_i}$
-via $\pi_i x\in X^{I_i}$ corresponds to $\hat{x}(j_i) = x_i(j_i)$.
-
-Given $f\colon X\times Y\to Z$ we write $fx\colon Y\to Z$
-for _partial application_ instead of $g(x)$.
-Given $g\in Z^(Y^X)$, $f(x,y) = e(g(x),y)$ and
-we write  ??? $(x,y)\mapsto (g(x),y)\mapsto g(x)y$.
-Maybe $eg@0$??? _Partial map_???
-
-We need a language for specifying what dimenstions a function acts on!!!
-
-### Product
-
-The cartesian product of a set $X$ with itself $Y$ times,
-$\Pi X_Y = \Pi_{y\in Y} X$, can be defined for any set $Y$.
-It can be identified with $X^Y$ and has
-_projections_ $\pi_y\colon \Pi X_y\to X$
-defined by $\pi_y x = x(y)$, $x\in X^Y$, $y\in Y. We write $\pi_y x = x_y$
-and $x = (x_y)$ _as an array_ in the product for $x$ _as a function_
-in the exponential.
-
-__Exercise__. _If $u,v\in\Pi X_Y$ and $\pi_y u = \pi_y v$ for
-all $y\in Y$ then $u = v$ as functions in $Y^X$_.
-
 [^1]: In fancy pants category theory language this is expressed as
 the product functor $F_Y(X) = X\times Y$ and the exponential functor
 $G_Y(Z) = Z^Y$ are adjoint: $\hom(F_Y(X),Z)\cong\hom(X,G_Y(Z))$.
+
+Product and disjoint union are related by $\Pi_{j\in J} X^{I_j}\cong X^{\sqcup_{j\in J} I_j}$
+where $X$ is any set and $(I_j)_{j\in J}$ is any indexed collection of sets
+&endash; the product of exponentials is the exponential of the sum.
+The element $x\in\Pi_{j\in J} X^{I_j}$ corresponds to $\hat{x}\in  X^{\sqcup_{j\in J} I_j}$
+via $\pi_j x = \hat{x}\nu_j$ where $\pi_j\colon\Pi_{j\in J}\to X_j$ are the projection
+defining the product and $\nu_j\colon X_j\to\sqcup_{j\in J}$ are the injections defining
+the disjoint sum.
+If $I_j = \{j\}$, $j\in J$, this becomes $\Pi_{j\in J} X = X_J\cong X^J$.
+The element $x = (x_j)\in X_J$ corresponds to $\hat{x}\in X^J$
+via $x_j = \hat{x}(j)$, $j\in J$.
+
 
 ### Each
 
