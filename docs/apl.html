@@ -84,9 +84,24 @@
 <p>If the binary operation is commutative then changing the order of the array elements does not alter the result.</p>
 <h3 id="dimension">Dimension</h3>
 <p>The main datatype in APL is a <em>multi-dimensional array</em> <span class="math inline">X^{n_0\times\cdots n_{m-1}}</span>. The <em>shape</em> of the array is <span class="math inline">n_0\times\cdots n_{m-1}</span>. It is a function from exponentials to sets defined by <span class="math inline">\rho X^Y = Y</span>. Every <span class="math inline">f\in X^Y</span> is a function <span class="math inline">f\colon X\to Y</span> so <span class="math inline">\rho</span> is a constant function, <span class="math inline">\rho f = Y</span> for all <span class="math inline">f\in X^Y</span>.</p>
-<h3 id="lens">Lens</h3>
-<p>A <em>lens</em> has a getter and a setter.</p>
-<p>set(get(y,x), x) = y, set(get(set(get(y,x)),z) = set(get(y,z),z).</p>
+<h2 id="remarks">Remarks</h2>
+<p><span class="math inline">\Pi X_I = \Pi_{i\in I} X_i</span>, <span class="math inline">\pi_i\colon\Pi X_I\to X_i</span>, <span class="math inline">\pi_i(x) = x_i</span> projections.</p>
+<p>If <span class="math inline">X = X_i</span>, <span class="math inline">i\in I</span> then <span class="math inline">X_I = \Pi X_I \cong X^I</span> via <span class="math inline">x_i = \pi_i(x) = x(i)</span>.</p>
+<p>If <span class="math inline">f\colon X\to Y</span> then <span class="math inline">f^Z\colon X^Z\to Y^Z</span> via <span class="math inline">f^Zx = fx</span> and <span class="math inline">f_Z\colon Z^Y\to Z^X</span> via <span class="math inline">f_Zy = yf</span>.</p>
+<p>Indices: If <span class="math inline">\sigma\colon m\to n</span> then <span class="math inline">\sigma_X\colon X^n\to X^m</span> via <span class="math inline">x\in X^n\mapsto x\sigma\in X^m</span>. We write <span class="math inline">\sigma = (\sigma_i)</span> where <span class="math inline">\sigma(i) = \sigma_i\in n</span> for <span class="math inline">i\in m</span>.</p>
+<p>For example, if <span class="math inline">f\colon X^2\to Y</span> then <span class="math inline">f(1,0)\colon X^2\to Y</span> via <span class="math inline">f(0,1)(x_0,x_1) = f(x_1,x_0)</span>. If <span class="math inline">f\colon X^2\to Y</span> then <span class="math inline">f(0,0)\colon X\to Y</span> via <span class="math inline">f(0,0)(x) = f(x, x)</span>.</p>
+<p>Currying: If <span class="math inline">f\colon X^I\to Y</span> and <span class="math inline">J\subseteq I</span> define <span class="math inline">?\colon I\to I</span> by <span class="math inline">X^{I\setminus J}\times X^J\to X^I</span></p>
+<p><span class="math inline">f\colon\Pi X_n\to Y</span></p>
+<p>If <span class="math inline">J\subseteq I</span> and <span class="math inline">[J]\colon J\to I</span> is inclusion then <span class="math inline">y[J]\in X_J</span> projects <span class="math inline">y\in X_I</span> to <span class="math inline">X_J</span>.</p>
+<p>Currying: <span class="math inline">X\times Y\to Z\cong (Z^Y)^X</span> via <span class="math inline">f(x,y) = z</span> iff <span class="math inline">(fx)y = z</span>.</p>
+<p>Currying: <span class="math inline">f\colon X_I\to Z</span> and <span class="math inline">J\subseteq I</span> then <span class="math inline">f(x[J], x[I\setminus J]) = z</span> iff <span class="math inline">fx[I] = z</span>.</p>
+<p>Currying: <span class="math inline">f\colon X_I\to Z</span> and <span class="math inline">\sigma\colon J\to I</span> where <span class="math inline">J\subseteq I</span> then <span class="math inline">f(\sigma J)\colon (I\setminus \sigma</span> J)Z$,</p>
+<p>Array: <span class="math inline">x\colon X^{n_0\times ...}\to X</span>, <span class="math inline">x\in X^{n_0\times ...}</span></p>
+<p>Diagonal map: <span class="math inline">(x,y)\mapsto f(x,y)</span>, <span class="math inline">x\mapsto f(x,x)</span>. <span class="math inline">(0)\mapsto (0,0)</span>.</p>
+<p>Enlist: <span class="math inline">x\in X \mapsto (x)\in X^1</span>. <span class="math inline">0\mapsto (0)</span></p>
+<p>Transpose: <span class="math inline">f(x,y)\mapsto f(y,x)</span>. <span class="math inline">(0,1)\mapsto (1,0)</span>.</p>
+<p>Indices: <span class="math inline">(f\colon X^n\to Y)\mapsto(\bar{f}\colon X^m\to Y)</span>. <span class="math inline">\bar{f}(x_1,\ldots,x_m) = f(\sigma_1(x),\ldots,\sigma_n(x))</span>, <span class="math inline">\sigma_j\colon X^n\to X^{j}</span>.</p>
+<p><span class="math inline">\sigma\colon n^m\to n^k</span>, <span class="math inline">\bar{f}\colon X^m\to (X^k \to Y)</span>. <span class="math inline">\bar{f}(x_1,\ldots,x_m)\mapsto f(x_{\sigma(1)},\ldots, x_{\sigma(n)})</span>.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>

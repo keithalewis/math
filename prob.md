@@ -202,7 +202,7 @@ If $\Omega$ has a finite number of outcomes,
 we can define a probability measure by specifying $p_\omega = P(\{\omega\})$
 for $\omega\in\Omega$. Note $p_\omega\ge 0$ and $\sum_{\omega\in\Omega} = 1$.
 The probability of the event $E\subseteq\Omega$
-is $P(E) = sum_{\omega\in E} p_\omega$.
+is $P(E) = \sum_{\omega\in E} p_\omega$.
 
 For the two coin flip model (assuming the coin is fair) we 
 assign probability of $1/4$ to each outcome. The probability of

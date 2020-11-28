@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>A=…=Z</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">A=…=Z</h1>
+<p class="author">Keith A. Lewis</p>
+</header>
+<p><span class="math inline">E[\underline{(X - E[X])^2}]</span></p>
+<p><span class="math inline">\qquad\{ \overline{(a - b)^2} = \underline{a^2 - 2ab + b^2} \}\mid a\leftarrow X, b\leftarrow E[X]</span></p>
+<p><span class="math inline">= \underline{E[\overline{X^2 - 2XE[X] + E[X]^2}]}</span></p>
+<p><span class="math inline">\qquad\{\overline{E[A - B + C]} = \underline{E[A]} - \underline{\underline{E[B]}} + \underline{\underline{\underline{E[C]}}}\}\mid A\leftarrow X^2, B\leftarrow 2XE[X], C\leftarrow E[X]^2</span></p>
+<p><span class="math inline">= \overline{E[X^2]} - \overline{\overline{\underline{E[2XE[X]]}}} + \overline{\overline{\overline{E[E[X]^2]]}}}</span></p>
+<p><span class="math inline">\qquad\{\overline{E[cA]} = \underline{cE[A]}, E[E[B]] = E[B]\}\mid c\it 2E[X], A\leftarrow X, B\leftarrow E[X]^2</span></p>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

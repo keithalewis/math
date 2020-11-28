@@ -72,9 +72,7 @@
 </span></p>
 <h3 id="esscher-transform">Esscher Transform</h3>
 <p>The Esscher transform of a random variable has density <span class="math inline">f_s(x) = \exp(s x - \kappa(s))f(x)</span> and we write <span class="math inline">E_s</span> for expectation under the transform. Since <span class="math inline">E[\exp(sX)] = \exp(\kappa(s))</span> this is a probability density.</p>
-<p>We have <span class="math inline">(d/ds)E[g(X)\exp(s X - \kappa(s))] = E[g(X)\exp(s X - \kappa(s))(X - \kappa&#39;(s))] = E_s[g(X)(X - \kappa&#39;(s))]</span>. Since <span class="math inline">1 = 1(X\le x) + 1(X &gt; x)</span> we have <span class="math inline">0 = E_s[1(X\le x)(X - \kappa&#39;(s))] + E_s[1(X &gt; x)(X - \kappa&#39;(s))]</span></p>
-<p><span class="math inline">0 = E_s[1(X\le x)(X - \kappa&#39;(s))] + E_s[(1 - 1(X \le x)(X - \kappa&#39;(s))]</span></p>
-<p><span class="math inline">E_s[X] = \kappa&#39;(s)</span></p>
+<p>Note <span class="math inline">(d/ds) E[g(X)\exp(s X - \kappa(s))] = E[g(X)\exp(s X - \kappa(s))(X - \kappa&#39;(s))]</span> so $(d/ds)E_s[g(X)] = E_s[g(X)(X - ’(s))]</p>
 <h2 id="distributions">Distributions</h2>
 <p>We gather some facts about the distributions and cumulants of particular random variables.</p>
 <h3 id="discrete">Discrete</h3>

@@ -40,10 +40,17 @@
 <h1 class="title">Coroutines</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<p>A <em>coroutine</em> is a function and a <em>continuation point</em>. Unlike functions, coroutines can suspend execution and resume at a later time. The continuation point keeps track of where the coroutine was last suspended.</p>
+<p>A <em>coroutine</em> is a function and a <em>continuation point</em>. Unlike functions, coroutines can suspend execution (_yield) and resume at a later time. The continuation point keeps track of where the coroutine was last suspended. Use <em>await</em> to resume a coroutine and capture the results it yields.</p>
 <p>Coroutines make it far easier to write concurrent code than using threads. Unlike threads, coroutines are suspended at function statements instead of being preempted between some recondite machine instruction by the system thread scheduler. There is no need to orchestrate the creation and collection of threads and then sprinkle the code with mutexes or semaphores in the hope of ensuring correct program execution.</p>
 <p>Like functions, coroutines can stand on their own. What they add is the ability to cooperate with other coroutines to share the task of code execution.</p>
-<p>Producer and consumer coroutines can cooperate to send items through a queue.</p>
+<p>Coroutines can <em>generate</em> unbounded streams of data.</p>
+<pre><code>coroutine iota
+    i = 0
+    loop
+        yield i
+        i = i + 1</code></pre>
+<p>The first time the coroutine is called a counter is set to 0. The first pass through the loop sets the statement after yield as the continuation point and returns 0. The next time it is resumed the counter is incremented and the second pass through the loop sets a new continuation point and returns 1. Rinse and repeat.</p>
+<p><em>Producer</em> and <em>consumer</em> coroutines can cooperate to send items through a queue.</p>
 <pre><code>coroutine produce
     loop
         while queue not full
@@ -56,13 +63,6 @@ coroutine consume
             remove items from queue
         yield to produce</code></pre>
 <p>There is no need for multiple theads; yield can jump directly from one coroutine to another.</p>
-<p>Another common use is to generate unbounded streams of data.</p>
-<pre><code>coroutine iota
-    i = 0
-    loop
-        yield i
-        i = i + 1</code></pre>
-<p>The first time the coroutine is called a counter is set to 0. The first pass through the loop sets the statement after yield as the continuation point and returns 0. The next time it is resumed the counter is incremented and the second pass through the loop sets a new continuation point and returns 1. Rinse and repeat.</p>
 <h2 id="the-life-of-a-coroutine">The Life of a Coroutine</h2>
 <p>When a coroutine is created the continuation point is set to the beginning of the routine and it is put in a suspended state. Calling the coroutine with its arguments resumes exectution from the beginning. If the function contains a yield statement then the continuation point is set to the next statement in the function and execution is suspended. The arguments to yield become the result of the resume that activated the coroutine. Subsequent calls of the coroutine resume execution at the coninuation point and the arguments of the call become available to the coroutine. Execution continues until the next yield statement and the above is repeated or until the function terminates and the return values become the result of the last reactivation. At that point the coroutine can no longer be resumed.</p>
 <h2 id="theory">Theory</h2>
