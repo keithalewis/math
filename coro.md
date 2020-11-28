@@ -8,8 +8,9 @@ abstract: Coroutines are functions and a continuation point.
 ...
 
 A _coroutine_ is a function and a _continuation point_. Unlike functions,
-coroutines can suspend execution and resume at a later time.
+coroutines can suspend execution (_yield) and resume at a later time.
 The continuation point keeps track of where the coroutine was last suspended.
+Use _await_ to resume a coroutine and capture the results it yields.
 
 Coroutines make it far easier to write concurrent code than using threads.
 Unlike threads, coroutines are suspended at function statements instead
@@ -21,7 +22,21 @@ program execution.
 Like functions, coroutines can stand on their own. What they add is the ability
 to cooperate with other coroutines to share the task of code execution.
 
-Producer and consumer coroutines can cooperate to send items through a queue.
+Coroutines can _generate_ unbounded streams of data.
+```
+coroutine iota
+	i = 0
+	loop
+		yield i
+		i = i + 1
+```
+The first time the coroutine is called a counter is set to 0.
+The first pass through the loop sets the statement after yield as the
+continuation point and returns 0.  The next time it is resumed the
+counter is incremented and the second pass through the loop sets a new
+continuation point and returns 1. Rinse and repeat.
+
+_Producer_ and _consumer_ coroutines can cooperate to send items through a queue.
 ```
 coroutine produce
 	loop
@@ -38,19 +53,6 @@ coroutine consume
 There is no need for multiple theads; yield can jump directly from one
 coroutine to another.
 
-Another common use is to generate unbounded streams of data.
-```
-coroutine iota
-	i = 0
-	loop
-		yield i
-		i = i + 1
-```
-The first time the coroutine is called a counter is set to 0.
-The first pass through the loop sets the statement after yield as the
-continuation point and returns 0.  The next time it is resumed the
-counter is incremented and the second pass through the loop sets a new
-continuation point and returns 1. Rinse and repeat.
 
 ## The Life of a Coroutine
 
