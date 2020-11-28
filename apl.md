@@ -235,7 +235,10 @@ If $X = X_i$, $i\in I$ then $X_I = \Pi X_I \cong X^I$ via $x_i = \pi_i(x) = x(i)
 If $f\colon X\to Y$ then $f^Z\colon X^Z\to Y^Z$ via $f^Zx = fx$
 and $f_Z\colon Z^Y\to Z^X$ via $f_Zy = yf$.
 
-Indices:  If $\sigma\colon m\to n$ then $\sigma_X\colon X^n\to X^m$ via
+$\Pi_j X_{I_j}\cong X^{\sqcup_j I_j}$
+via $(x_j)\leftrightarrow x$ for $x_j\in X^{I_j}$ where $x(i_j) = x_j(i)$, for $i_j = (j,i)\in \sqcup_j I_j$.
+
+Indices: If $\sigma\colon m\to n$ then $\sigma_X\colon X^n\to X^m$ via
 $x\in X^n\mapsto x\sigma\in X^m$. We write $\sigma = (\sigma_i)$
 where $\sigma(i) = \sigma_i\in n$ for $i\in m$.
 
