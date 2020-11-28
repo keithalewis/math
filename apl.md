@@ -235,9 +235,16 @@ If $X = X_i$, $i\in I$ then $X_I = \Pi X_I \cong X^I$ via $x_i = \pi_i(x) = x(i)
 If $f\colon X\to Y$ then $f^Z\colon X^Z\to Y^Z$ via $f^Zx = fx$
 and $f_Z\colon Z^Y\to Z^X$ via $f_Zy = yf$.
 
-Indices:  If $\sigma\colon m\to n^k$ we have $(f\colon X_1\times\cdots\times X_n\to Y) \mapsto 
-(f\sigma\colon X_{\sigma(1)}\times\cdots\times X_{\sigma(k)}\to Y)$.
+Indices:  If $\sigma\colon m\to n$ then $\sigma_X\colon X^n\to X^m$ via
+$x\in X^n\mapsto x\sigma\in X^m$. We write $\sigma = (\sigma_i)$
+where $\sigma(i) = \sigma_i\in n$ for $i\in m$.
 
+For example, if $f\colon X^2\to Y$ then $f(1,0)\colon X^2\to Y$ via
+$f(0,1)(x_0,x_1) = f(x_1,x_0)$. If $f\colon X^2\to Y$ then $f(0,0)\colon X\to Y$
+via $f(0,0)(x) = f(x, x)$.
+
+Currying: If $f\colon X^I\to Y$ and $J\subseteq I$ define
+$?\colon I\to I$ by $X^{I\setminus J}\times X^J\to X^I$
 
 
 $f\colon\Pi X_n\to Y$ 
