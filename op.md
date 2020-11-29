@@ -15,54 +15,56 @@ _Greeks_ are derivatives of the _value_ with respect to _model parameters_.
 This short note derives formulas for these using any underlying distribution
 that is positive.
 
-Let $F$ be the (random) value of the underlying at option expiration.
-Any positive random variable $F$ can be parameterized by
-$F = f \exp(s X - κ(s))$, where $κ(s) = \log E[\exp(s X)]$ is the cumulant of $X$.
-Note $E[F] = f$ is the _forward_ and $\Var(\log F) = s^2$ is the variance
+Let $Y$ be the (random) value of the underlying at option expiration.
+Any positive random variable $Y$ can be parameterized using the _forward_ $f$
+and _vol_ $s$ by
+$Y = f \exp(s X - κ(s))$, where $κ(s) = \log E[\exp(s X)]$ is the cumulant of $X$.
+Note $E[Y] = f$ is the forward and $\Var(\log Y) = s^2$ is the vol squared
 if $E[X] = 0$ and $E[X^2] = 1$, which we can, and do, assume.
 
-For example, the Black model takes $X$ to be standard normal and _vol_
-$s = σ \sqrt{t}$ where $σ$ is the volatilty and $t$ is time in years to expiration.
-In this case $F = f\exp(σ \sqrt{t} X - σ^2t/2)$.
+__Exercise__. _If $E[X] = 0$, $\Var(X) = 1$, and $Y = \exp(aX + b)$
+show $E[Y] = \exp(\kappa(a) + b)$ and $\Var(\log Y) = a^2$.
+Solve $f = \exp(\kappa(a) + b)$ and $s^2 = a^2$ for $a$ and $b$
+to show $Y = f\exp(sX - \kappa(s))$_.
+
+For example, the Black model takes $X$ to be standard normal and vol
+$s = σ \sqrt{t}$ where $σ$ is the _volatilty_ and $t$ is time in years to expiration.
+In this case $Y = f\exp(σ \sqrt{t} X - σ^2t/2)$.
 
 ## Value and Greeks
 
-The (forward) value of an option paying $π(F)$ at expiration is $v = E[π(F)]$.
-Define the Esscher transform $P_s$ by $dP_s/dP = \exp(s X - κ(s))$ 
-so $E_s[π(F)] = E[π(F)\exp(s X - κ(s))]$. Note $E_s[1] = 1$ so $P_s$ is a probability measure.
-If $X$ has probability density $φ$ we can write $dP = φ(x)\,dx$
-and $dP_s = φ(x)\exp(s x -  κ(s))\,dx$.
+Let $X$ be any random variable with mean 0 and variance 1 and define
+$Y = fε_s(X)$ where $ε_s(x) = \exp(sX - κ(s))$ so 
+the cumulant of $X$ is $\log E[ε_s(X)]$. The _Esscher transform_ $X_s$
+of $X$ is defined by $P(X_s\le x) = E[1(X\le x)ε_s(X)]$
+so $E[g(X_s)] = E_s[g(X)] = E[g(X)ε_s(X)]$ for any measurable function $g$.
+The cumlant of $X_s$ is  $\kappa_s(u) = \log E[\exp(uX_s)]$ and
+$E[\exp(uX_s)] = E[\exp(uX_s)\exp(sX - \kappa(s))]$
+so $\kappa_s(u) = \kappa(u + s) - \kappa(s)$.
 
-_Delta_ is the derivative of value with respect to the forward
-$$
-  \frac{dv}{df} = E[π'(F) dF/df] = E[π'(F)\exp(s X - κ(s))] = E_s[π'(F)].
-$$
+Note $dY/df = ε_s(X)$ and $dY/ds = Y(X - κ'(s)) = fε_s(X)(X - κ'(s))$.
 
-_Gamma_ is the second derivative of value with respect to the forward
-$$
-	\frac{d^2v}{df^2} = \frac{d}{df}\left(\frac{dv}{df}\right) = E_s[π''(F)\exp(s X - κ(s))] 
-	= E_s[π''(F)F]/f.
-$$
-
-_Vega_ is  the derivative of value with respect to the vol
-$$
-	dv/ds = E[π'(F) dF/ds] = E[π'(F)F(X - κ'(s))] = fE_s[π'(F)(X - κ'(s))].
-$$
+The (forward) value of an option paying $ν(Y)$ at expiration is
+$v = E[ν(Y)]$.  Note $dv/df = E[ν'(Y)dY/df] = Eν'(Y)ε_s(X)]$ and
+$dε_s(X)/df = 0$ so $d^nv/df^n = E[ν^{(n)}(Y)ε_s^n(X)]
+= e^{κ(ns) - nκ(s)} E_{ns}[ν^{(n)}(Y)]$ and $dv/ds =
+E[ν'(Y)dY/ds] = E[ν'(Y)Y(X - κ'(s))] = fE_s[ν'(Y)(X - κ'(s))]$.
 
 The inverse of option value as a function of vol is the _implied vol_.
 
-Let $Ψ(y) = Φ(x)$ be the cumulative distribution functions of $F$ and $X$
-where $y = y(x) = f\exp(sx -  κ(s))$ and $x = x(y) = (\log(y/f) + κ(s))/s$.
+If $Φ(x)$ is the cumulative distribution functions of $X$ then the cumulative
+distribution of $Y$ is $Ψ(y) = Φ(x)$ where $y = y(x) = fε_s(x)$
+and _moneyness_ $x = x(y) = ε_s^{-1}(y/f) = (\log(y/f) + κ(s))/s$.
 Let $ψ(y)$ and $φ(x)$ be the corresponding density functions so
 $ψ(y) = dΨ(y)/dy = dΦ(x(y))/dy = Φ'(x(y))dx/dy = φ(x(y))/ys$
 since $dy/dx = ys$. Likewise, $ψ_s(y) = φ_s(x(y))/ys$.
-Using $φ_s(x) = φ(x)\exp(s x -  κ(s))$ and $\exp(sx -  κ(s)) = y(x)/f$
+Using $φ_s(x) = φ(x)ε_s(x)$ and $ε_s(x) = y(x)/f$
 shows $φ_s(x) = φ(x)y(x)/f$. We collect these for easy reference:
 $$
 \begin{aligned}
-	y &= y(x) = f\exp(sx -  κ(s)) \\
-	x &= x(y) = (\log(y/f) + κ(s))/s \\
-	φ_s(x) &= φ(x)\exp(sx -  κ(s)) = φ(x)y/f \\
+	y &= y(x) = fε_s(x)\\
+	x &= x(y) = ε_s^{-1}(y/f) \\
+	φ_s(x) &= φ(x)ε_s(x) = φ(x)y/f \\
 	ψ(y) &= φ(x)/ys \\
 	ψ_s(y) &= φ_s(x)/ys = φ(x)/fs \\
 \end{aligned}
@@ -72,72 +74,63 @@ These are used in the formulas for put and call option values and their greeks.
 
 ## Put and Call
 
-A _put option_ pays $\max\{k - F,0\}$ at expiration and has value $p = E[\max\{k - F,0\}]$.
-A _call option_ pays $\max\{F - k, 0\}$ at expiration and has value $c = E[\max\{F - k, 0\}]$.
-Note $\max\{F - k, 0\} - \max\{k - F,0\} = F - k$ is a _forward_ with _strike_ $k$ so
+A _put option_ pays $\nu(Y) = \max\{k - Y,0\}$ at expiration and has value $p = E[\max\{k - Y,0\}]$.
+A _call option_ pays $\nu(Y) = \max\{Y - k, 0\}$ at expiration and has value $c = E[\max\{Y - k, 0\}]$.
+Note $\max\{Y - k, 0\} - \max\{k - Y,0\} = Y - k$ is a _forward_ with _strike_ $k$ so
 all models satisfy _put-call parity_: $c - p = f - k$.
 Call delta is $dc/df = dp/df + 1$ and call gamma equals put gamma $d^2c/df^2 = d^2p/df^2$.
 We also have $dc/ds - dp/ds = 0$ so call vega equals put vega.
 
-Define _moneyness_ $x(k) = (\log(k/f) + κ(s))/s$ and note $F \le k$ iff $X \le x(k)$. 
+Note $Y \le y(x)$ iff $X \le x(y)$ so $ψ(y(x)) = Φ(x(y))$.
 The value of a put is
 $$
-  p = E[(k - F)1(F\le k)] = k P(X \le x(k)) - P(F 1(F \le k)) = k P(X \le x(k)) - f P_s(X \le x(k))
+  p = E[(k - Y)1(Y\le k)] = k P(X \le x(k)) - P(Y 1(Y \le k)) = k Φ(x(k)) - f Φ_s(x(k)).
 $$
-since $E[Fg(F)] = E[f\exp(s X - κ(s))g(F)] = fE_s[g(F)]$ for any function $g$.
 
 Put delta is
 $$
-	dp/df = -P_s(X \le x(k)). 
+	dp/df = -Φ_s(x(k)). 
 $$
 
 Gamma for either a put or call is
 $$
-	d^2p/df^2 = E_s[δ_k(F)F]/f.
+	d^2p/df^2 = E_s[δ_k(Y)Y]/f = \psi_s(k)k/f = \phi_s(x(k))/fs = φ(x(k))k/f^2s.
 $$
 
-In terms of distribution functions put value is
+Vega for either a put or call is
 $$
-	p = kΦ(x(k)) - fΦ_s(x(k))
-$$
-put delta is 
-$$
-	dp/df = -Φ_s(x(k)).
-$$
-and gamma is
-$$
-	d^2p/df^2 = E_s[δ_k(F)F]/f = ψ_s(k)k/f = (φ_s(x(k))/ks)k/f = φ_s(x(k))/fs
-$$
-since $y = y(x(k)) = k$.  Using $φ_s(x) = φ(x)y(x)/f$ we also have the formula
-$d^2p/df^2 = φ(x(k))k/f^2s$
+	dv/ds = E[ν'(Y) dY/ds] = E[ν'(Y)Y(X - κ'(s))] = fE_s[ν'(Y)(X - κ'(s))].
+$$ 
+Note $1 = E[\epsilon_s(X)]$ so $0 = E[\epsilon_s(X)(X - \kappa'(s)] = E_s[X - κ'(s)]$
+so $E_s[1(Y\le y)(X - κ'(s))] = -E_s[1(Y > y)(X - κ'(s))]$.
 
-Vega? Is there some $h$ with $E[g(X)\exp(s X - k(s))] = E[g(h(X,s))]$?
-If $X$ is standard normal then $h(X,s) = X + s = X + \kappa'(s)$.
+Vega? Is there some $h$ with $E_s[g(X)] = E[g(h(X,s))]$?
+If $X$ is standard normal then $h(X,s) = X + s = X + κ'(s)$.
 
 ## Digital
 
-A _digital put_ has payoff $\pi(x) = 1(x \le k)$ and a _digital call_ has payoff $\pi(x) = 1(X > k)$
-with values $p = P(F \le k) = \Phi(x(k))$ and $c = P(F > k) = 1 - \Phi(x(k))$.
+A _digital put_ has payoff $ν(Y) = 1(Y \le k)$ and a _digital call_ has payoff $ν(Y) = 1(Y > k)$
+with values $p = P(Y \le k) = \Phi(x(k))$ and $c = P(Y > k) = 1 - \Phi(x(k))$.
 Since $p + c = 1$ we have $d^np/df^n = -d^nc/df^n$ for all $n$.
-he call delta is $dc/df = E_s[\delta_k(F)] = \psi_s(k) = \phi_s(x(k))/fs = \phi(x(k))k/f^2s$.
+The put delta is $dp/df = ?$
 
 ## Black Model
 
 We use the above to derive the standard Black-Scholes/Merton formulas
-for value and greeks. In the Black model $F = f\exp(σB_t - σ^2t/2)$ where
+for value and greeks. In the Black model $Y = f\exp(σB_t - σ^2t/2)$ where
 $f$ is the forward, $σ$ is the volatility, and
 $B_t$ is Brownian motion at time $t$. There is really no need to drag
 in Brownian motion to compute an option value, we only use the fact
 $B_t$ is normally distributed with mean $0$ and variance $t$. There is really no need
 to drag in $t$ either, let $s = σ\sqrt{t}$ and $X$ be standard normal
-so $F = f\exp(sX - s^2/2)$ has the same distribution.
+so $Y = f\exp(sX - s^2/2)$ has the same distribution.
 
 The Black model uses forward values but it is straightforward to
 use those to get spot values. In the Black-Scholes/Merton model
 the underlying at expiration is
-$U = u\exp(rt + σB_t - σ^2t/2)$ and the spot value is $v_0 = \exp(-rt)E[\pi(U)]$. 
-The spot delta is $dv_0/du = \exp(-rt)E[\pi'(U)\exp(rt + σB_t - σ^2t/2)]
-= E[\pi'(F)\exp(s X - s^2/2)] = dv/df$ where $v = E[\pi(F)]$ and $f = u\exp(rt)$.
+$U = u\exp(rt + σB_t - σ^2t/2)$ and the spot value is $v_0 = \exp(-rt)E[ν(U)]$. 
+The spot delta is $dv_0/du = \exp(-rt)E[ν'(U)\exp(rt + σB_t - σ^2t/2)]
+= E[ν'(Y)\exp(s X - s^2/2)] = dv/df$ where $v = E[ν(Y)]$ and $f = u\exp(rt)$.
 The spot and forward delta are equal but
 the spot gamma is $d^2v_0/du^2 = d(dv/df)/du = (d^2v/df^2) df/du = \exp(rt) d^2v/df^2$.
 
@@ -146,6 +139,8 @@ and $E[g(X)\exp(s X - s^2/2)] = E[g(X + s)]$ for any $g$.
 These formulas imply the cumulant of a standard normal is $κ(s) = s^2/2$
 and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)\exp(s X - κ(s))] = P(X + s \le x) = Φ(x - s)$.
 Note $φ_s(x) = φ(x - s)$.
+
+### Value
 
 The put value is 
 $$
@@ -157,35 +152,59 @@ __Exercise__. _Show $x(k) = \log(k/f)/s + s/2 = -d_2$ and $x(k) - s = \log(k/f)/
 
 Hint: The Black-Scholes/Merton formulas use $d_1 = (\log(f/k) + s^2/2)/s$ and $d_2 = d_1 - s$.
 
+### Delta
+
 The formula for delta is
 $$
 	dp/df = -Φ_s(x(k)) = -Φ(x(k) - s).
 $$
 
+### Gamma
+
 The formula for gamma is
 $$
 	d^2p/df^2 = φ_s(x(k))/fs = φ(x(k) - s)/fs
 $$
-We also have the formula $d^2p/df^2 = φ(x(k))k/f^2s$.
+We also have the formula $d^2p/df^2 = φ(x(k))k/f^2s$
+using $\phi_s(x(k)) = \phi(x(k))k/f$.
 
-Taking the deriviative of $E[g(X)\exp(s X - s^2/2)] = E[g(X + s)]$ with
+### Vega
+
+Taking the deriviative of $E_s[g(X)] = E[g(X)\exp(s X - s^2/2)] = E[g(X + s)]$ with
 respect to $s$ gives
 $$
-	E[g(X)\exp(s X - s^2/2)(X - s)] = E[g'(X + s)].
+	E[g(X)\exp(s X - s^2/2)(X - s)] = E[g'(X + s)]
 $$
-The formula for vega is $dv/ds = E[\pi'(F)F(X - s)] = f E[\pi'(F)\exp(s X - s^2/2)(X - s)]$.
-Taking $g(x) = \pi'(f\exp(s x - s^2/2))$ we have $g'(x) = \pi''(f\exp(s x - s^2/2))f\exp(s x - s^2/2)s$
-and using $\pi'' = \delta_k$ for either a put or a call
+so $E_s[g(X)(X - s)] = E_s[g'(X)]$.
+
+The formula for vega is
 $$
 \begin{aligned}
-dv/ds &= f E[g'(X + s)] \\
-      &= f E[\delta_k(f\exp(s (X + s) - s^2/2))f\exp(s (X + s) - s^2/2)s] \\
-      &= f^2 s E_s[\delta_k(f\exp(s X - s^2/2))] \\
+$dv/ds &= E[ν'(Y)Y(X - s)] = f E_s[ν'(Y)(X - s)]\\
+	&= f E_s[\delta_k(Y)] \\
+	&= f \psi_s(k) \\
+	&= f^2 \phi_s(x(k))k \\
+
       &= f^2 \phi_s(x(k))/k \\
-      &= f^2 \phi(x(k - s))/k \\
+      &= f^2 \phi(x(k) - s)/k \\
 \end{aligned}
 $$
 where we use the general fact $E[\delta_a(h(X))] = \phi(h(a))/h'(a)$.
+
+## Fourier Transform
+
+$\hat{\phi}(\xi) = E[\exp(-2\pi i\xi X)] = \exp(\kappa(-2\pi i \xi))$
+
+$\check{h}(x) = \int h(\xi)\exp(2\pi i x\xi)\,dx$.
+
+$\hat{\phi_s}(\xi) = E_s[\exp(-2\pi i \xi X)]
+= E[\exp(-2\pi i \xi X)\exp(sX - \kappa(s))]
+= E[\exp((s -2\pi i \xi) X)\exp(-\kappa(s))]
+= \exp(\kappa(s - 2\pi i\xi) - \kappa(s))$
+
+$E[g(X)] = \int_{-\infty}^\infty g(x)\phi(x)\,dx
+= \int_{-\infty}^\infty \hat{g}(\xi)\hat{\phi}(\xi)\,d\xi
+= \int_{-\infty}^\infty \hat{g}(\xi)\exp(\kappa(-2\pi i\xi))\,d\xi$
 
 <!--
 ## Discrete

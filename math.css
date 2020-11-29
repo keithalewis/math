@@ -14,7 +14,7 @@ h1, p.author {
 	text-align: center;
 }
 p {
-	text-align: justify;
+	/*text-align: justify;*/
 	text-justify: inter-word;
 	line-height: 120%; 
 }
