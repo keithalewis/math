@@ -69,6 +69,14 @@ for the image of $v\in V$ and note $v\cdot w = v^*w$.  There is no need
 for any sort of "adjective" product &ndash; all products are simply composition
 of functions.
 
+$X^{n0\times n1\times\cdots} \cong X^{n0^{n1^{\cdots}}}$.
+
+${n_0\times n_1\times\cdots}\to X \cong n_0\to n_1\to\cdots\to X$.
+
+$n_0\to n_1\to\cdots\to X$.
+
+$n_0\to (n_1\times\cdots)\to X$.
+
 <!--
 
 !!! Move below

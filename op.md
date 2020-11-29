@@ -18,28 +18,28 @@ that is positive.
 Let $Y$ be the (random) value of the underlying at option expiration.
 Any positive random variable $Y$ can be parameterized using the _forward_ $f$
 and _vol_ $s$ by
-$Y = f \exp(s X - κ(s))$, where $κ(s) = \log E[\exp(s X)]$ is the cumulant of $X$.
+$Y = f e^{s X - κ(s)}$, where $κ(s) = \log E[e^{s X}]$ is the cumulant of $X$.
 Note $E[Y] = f$ is the forward and $\Var(\log Y) = s^2$ is the vol squared
 if $E[X] = 0$ and $E[X^2] = 1$, which we can, and do, assume.
 
-__Exercise__. _If $E[X] = 0$, $\Var(X) = 1$, and $Y = \exp(aX + b)$
-show $E[Y] = \exp(\kappa(a) + b)$ and $\Var(\log Y) = a^2$.
-Solve $f = \exp(\kappa(a) + b)$ and $s^2 = a^2$ for $a$ and $b$
-to show $Y = f\exp(sX - \kappa(s))$_.
+__Exercise__. _If $E[X] = 0$, $\Var(X) = 1$, and $Y = e^{aX + b}$
+show $E[Y] = e^{\kappa(a) + b}$ and $\Var(\log Y) = a^2$.
+Solve $f = e^{\kappa(a) + b}$ and $s^2 = a^2$ for $a$ and $b$
+to show $Y = fe^{sX - \kappa(s)}$_.
 
 For example, the Black model takes $X$ to be standard normal and vol
 $s = σ \sqrt{t}$ where $σ$ is the _volatilty_ and $t$ is time in years to expiration.
-In this case $Y = f\exp(σ \sqrt{t} X - σ^2t/2)$.
+In this case $Y = fe^{σ \sqrt{t} X - σ^2t/2}$.
 
 ## Value and Greeks
 
 Let $X$ be any random variable with mean 0 and variance 1 and define
-$Y = fε_s(X)$ where $ε_s(x) = \exp(sX - κ(s))$ so 
+$Y = fε_s(X)$ where $ε_s(x) = e^{sX - κ(s)}$ so 
 the cumulant of $X$ is $\log E[ε_s(X)]$. The _Esscher transform_ $X_s$
 of $X$ is defined by $P(X_s\le x) = E[1(X\le x)ε_s(X)]$
 so $E[g(X_s)] = E_s[g(X)] = E[g(X)ε_s(X)]$ for any measurable function $g$.
-The cumlant of $X_s$ is  $\kappa_s(u) = \log E[\exp(uX_s)]$ and
-$E[\exp(uX_s)] = E[\exp(uX_s)\exp(sX - \kappa(s))]$
+The cumlant of $X_s$ is  $\kappa_s(u) = \log E[e^{uX_s}]$ and
+$E[e^{uX_s}] = E[e^{uX_s}e^{sX - \kappa(s)}]$
 so $\kappa_s(u) = \kappa(u + s) - \kappa(s)$.
 
 Note $dY/df = ε_s(X)$ and $dY/ds = Y(X - κ'(s)) = fε_s(X)(X - κ'(s))$.
@@ -117,27 +117,27 @@ The put delta is $dp/df = ?$
 ## Black Model
 
 We use the above to derive the standard Black-Scholes/Merton formulas
-for value and greeks. In the Black model $Y = f\exp(σB_t - σ^2t/2)$ where
+for value and greeks. In the Black model $Y = fe^{σB_t - σ^2t/2}$ where
 $f$ is the forward, $σ$ is the volatility, and
 $B_t$ is Brownian motion at time $t$. There is really no need to drag
 in Brownian motion to compute an option value, we only use the fact
 $B_t$ is normally distributed with mean $0$ and variance $t$. There is really no need
 to drag in $t$ either, let $s = σ\sqrt{t}$ and $X$ be standard normal
-so $Y = f\exp(sX - s^2/2)$ has the same distribution.
+so $Y = fe^{sX - s^2/2}$ has the same distribution.
 
 The Black model uses forward values but it is straightforward to
 use those to get spot values. In the Black-Scholes/Merton model
 the underlying at expiration is
-$U = u\exp(rt + σB_t - σ^2t/2)$ and the spot value is $v_0 = \exp(-rt)E[ν(U)]$. 
-The spot delta is $dv_0/du = \exp(-rt)E[ν'(U)\exp(rt + σB_t - σ^2t/2)]
-= E[ν'(Y)\exp(s X - s^2/2)] = dv/df$ where $v = E[ν(Y)]$ and $f = u\exp(rt)$.
+$U = ue^{rt + σB_t - σ^2t/2}$ and the spot value is $v_0 = e^{-rt}E[ν(U)]$. 
+The spot delta is $dv_0/du = e^{-rt}E[ν'(U)e^{rt + σB_t - σ^2t/2}]
+= E[ν'(Y)e^{s X - s^2/2}] = dv/df$ where $v = E[ν(Y)]$ and $f = ue^{rt}$.
 The spot and forward delta are equal but
-the spot gamma is $d^2v_0/du^2 = d(dv/df)/du = (d^2v/df^2) df/du = \exp(rt) d^2v/df^2$.
+the spot gamma is $d^2v_0/du^2 = d(dv/df)/du = (d^2v/df^2) df/du = e^{rt} d^2v/df^2$.
 
-[Recall](cdf.html#normal) if $X$ is standard normal then $E[\exp(μ + σ X)] = \exp(μ + σ^2/2)$
-and $E[g(X)\exp(s X - s^2/2)] = E[g(X + s)]$ for any $g$.
+[Recall](cdf.html#normal) if $X$ is standard normal then $E[e^{μ + σ X}] = e^{μ + σ^2/2}$
+and $E[g(X)e^{s X - s^2/2}] = E[g(X + s)]$ for any $g$.
 These formulas imply the cumulant of a standard normal is $κ(s) = s^2/2$
-and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)\exp(s X - κ(s))] = P(X + s \le x) = Φ(x - s)$.
+and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - κ(s)}] = P(X + s \le x) = Φ(x - s)$.
 Note $φ_s(x) = φ(x - s)$.
 
 ### Value
@@ -170,49 +170,47 @@ using $\phi_s(x(k)) = \phi(x(k))k/f$.
 
 ### Vega
 
-Taking the deriviative of $E_s[g(X)] = E[g(X)\exp(s X - s^2/2)] = E[g(X + s)]$ with
+Taking the deriviative of $E_s[g(X)] = E[g(X)e^{s X - s^2/2}] = E[g(X + s)]$ with
 respect to $s$ gives
 $$
-	E[g(X)\exp(s X - s^2/2)(X - s)] = E[g'(X + s)]
+	E[g(X)e^{s X - s^2/2}(X - s)] = E[g'(X + s)]
 $$
 so $E_s[g(X)(X - s)] = E_s[g'(X)]$.
 
 The formula for vega is
 $$
 \begin{aligned}
-$dv/ds &= E[ν'(Y)Y(X - s)] = f E_s[ν'(Y)(X - s)]\\
+dv/ds &= E[ν'(Y)Y(X - s)] \\
+	&= f E_s[ν'(Y)(X - s)] \\
 	&= f E_s[\delta_k(Y)] \\
 	&= f \psi_s(k) \\
 	&= f^2 \phi_s(x(k))k \\
-
-      &= f^2 \phi_s(x(k))/k \\
-      &= f^2 \phi(x(k) - s)/k \\
+    &= f^2 \phi(x(k) - s)/k \\
 \end{aligned}
 $$
-where we use the general fact $E[\delta_a(h(X))] = \phi(h(a))/h'(a)$.
 
+<!--
 ## Fourier Transform
 
-$\hat{\phi}(\xi) = E[\exp(-2\pi i\xi X)] = \exp(\kappa(-2\pi i \xi))$
+$\hat{\phi}(\xi) = E[e^{-2\pi i\xi X}] = e^{\kappa(-2\pi i \xi)}$
 
-$\check{h}(x) = \int h(\xi)\exp(2\pi i x\xi)\,dx$.
+$\check{h}(x) = \int h(\xi)e^{2\pi i x\xi}\,dx$.
 
-$\hat{\phi_s}(\xi) = E_s[\exp(-2\pi i \xi X)]
-= E[\exp(-2\pi i \xi X)\exp(sX - \kappa(s))]
-= E[\exp((s -2\pi i \xi) X)\exp(-\kappa(s))]
-= \exp(\kappa(s - 2\pi i\xi) - \kappa(s))$
+$\hat{\phi_s}(\xi) = E_s[e^{-2\pi i \xi X}]
+= E[e^{-2\pi i \xi X}e^{sX - \kappa(s)}]
+= E[e^{(s -2\pi i \xi) X}e^{-\kappa(s)}]
+= e^{\kappa(s - 2\pi i\xi} - \kappa(s))$
 
 $E[g(X)] = \int_{-\infty}^\infty g(x)\phi(x)\,dx
 = \int_{-\infty}^\infty \hat{g}(\xi)\hat{\phi}(\xi)\,d\xi
-= \int_{-\infty}^\infty \hat{g}(\xi)\exp(\kappa(-2\pi i\xi))\,d\xi$
+= \int_{-\infty}^\infty \hat{g}(\xi)e^{\kappa(-2\pi i\xi)}\,d\xi$
 
-<!--
 ## Discrete
 
 A _discrete_ random variable has values $(x_i)$ with probabilities $(p_i)$ where
 $p_i \ge 0$ and $\sum_i p_i = 1$.
 Its cdf is $P(X\le x) = \sum_i 1(x_i\le x) p_i$ and pdf is $\sum_i δ_{x_i} p_i$.
-The cumulant is $κ(s) = \log(\sum_ie^{s x_i} p_i) = \log e(s)$ so
+The cumulant is $κ(s) = \log(\sum_ie^{s x_i} p_i} = \log e(s)$ so
 $κ'(s) = e'(s)/e(s)$ and $κ''(s) = (e(s) e''(s) - e'(s)^2)/e(s)^2$.
 Note $e^{(n)}(s) = \sum_i e^{s x_i} x_i^n p_i$ for $n \ge 0$.
 
@@ -229,12 +227,12 @@ The cumulant is
 
 $$
 \begin{aligned}
-κ(s) &= \log E[\exp(sX)] \\
-     &= \log(p\exp(-sa) + (1 - p - q) + q\exp(sb)) \\
+κ(s) &= \log E[e^{sX)] \\
+     &= \log(pe^{-sa) + (1 - p - q) + qe^{sb)) \\
      &= \log(
-	 		\exp(-se^α)/e^{α}(e^α + e^β)
+	 		e^{-se^α)/e^{α}(e^α + e^β)
 			+ (1 - 1/e^{α}(e^α + e^β) - 1/e^β(e^α + e^β))
-			+ \exp(se^β)/e^{β}(e^α + e^β)) \\
+			+ e^{se^β)/e^{β}(e^α + e^β)) \\
 \end{aligned}
 $$
 
