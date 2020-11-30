@@ -16,6 +16,7 @@ abstract: A Programming Language
 \newcommand\hom{\operatorname{hom}}
 \newcommand\ran{\operatorname{ran}}
 \newcommand\cat[1]{\mathbf{#1}}
+\newcommand\o[1]{\overline{#1}}
 \newcommand\eq{\text{$=$}}
 \newcommand\from{\widehat{\phantom{x}}}
 \newcommand\To{\Rightarrow}
@@ -47,7 +48,11 @@ be mutated.  Similar to Everett's many-world interpretation, this makes
 it easy to reason about programs mathematically, but can be computationally hard on
 computers.  Using lazy evaluation, [optics](optics.html), and
 other implementation techniques can help with that.
-The two main ideas are composition and (vector space) duality.
+
+The main concepts are composition and (vector space) duality
+together with a language to manipulate sums, products, and exponentials.
+
+<!--
 
 ## Composition
 
@@ -84,7 +89,6 @@ $n_0\to n_1\to\cdots\to X$.
 
 $n_0\to (n_1\times\cdots)\to X$.
 
-<!--
 
 !!! Move below
 
@@ -117,15 +121,13 @@ function of a set $X$ is $1_X\colon X\to X$ with $1_X(x) = x$, $x\in X$
 and $f1_X = f = 1_Yf$ whenever $f\colon X\to Y$.  Sets and functions
 are the objects and arrows of the category $\cat{Set}$.
 
-$\cat{Set}$ is _cartesian closed_ &ndash; it has products and exponentials.
-The product of sets $X$ and $Y$ is the cartesian product
-$X\times Y = \{(x,y):x\in X, y\in Y\}$ is the set of all pairs from each set
-and the exponential $Y^X = \{f\colon X\to Y\}$ is the set of functions
+$\cat{Set}$ is _cartesian closed_ &ndash; It has products and exponentials
+that satisfy $Z^{X\times Y}\cong Z^{Y^X}$. 
+The _cartesian product_ of sets $X$ and $Y$
+$X\times Y = \{(x,y):x\in X, y\in Y\}$ is the set of all pairs of elements from each set.
+The _exponential_ $Y^X = \{f\colon X\to Y\}$ is the set of functions
 from $X$ to $Y$. We write $Y^X$ in linear notation as $X\to Y$ or $Y\leftarrow X$.
 
-The _evaluation map_ $e_{X,Y} = e\colon Y^X \times X\to Y$ is defined by
-$e(f,x) = f(x)$, $f\in Y^X$, $x\in X$. It is just an explicit
-name for _function application_.
 
 Products and exponentials are related by $Z^{X\times Y}$ is in one-to-one
 correspondence with $Z^{Y^X}$.[^1] Every $f\in Z^{X\times Y}$ corresponds
@@ -138,52 +140,93 @@ $$
 Going from left to right is _currying_ and going from right to left
 is _uncurrying_.
 
+The _evaluation map_ $e_{X,Y} = e\colon Y^X \times X\to Y$ is defined by
+$e(f,x) = f(x)$, $f\in Y^X$, $x\in X$. It is just an explicit
+name for _function application_. The curried form of the evaluation
+map identifies $Y^X$ with $X\to Y$.
+
 [^1]: In fancy pants category theory language this is expressed as
 the product functor $F_Y(X) = X\times Y$ and the exponential functor
 $G_Y(Z) = Z^Y$ are adjoint: $\hom(F_Y(X),Z)\cong\hom(X,G_Y(Z))$.
 
 Product and disjoint union are related by $\Pi_{j\in J} X^{I_j}\cong X^{\sqcup_{j\in J} I_j}$
 where $X$ is any set and $(I_j)_{j\in J}$ is any indexed collection of sets
-&endash; the product of exponentials is the exponential of the sum.
-The element $x\in\Pi_{j\in J} X^{I_j}$ corresponds to $\hat{x}\in  X^{\sqcup_{j\in J} I_j}$
-via $\pi_j x = \hat{x}\nu_j$ where $\pi_j\colon\Pi_{j\in J}\to X_j$ are the projection
+&ndash; the product of exponentials is the exponential of the sum.
+The element $x\in\Pi_{j\in J} X^{I_j}$ corresponds to $\o{x}\in  X^{\sqcup_{j\in J} I_j}$
+via $\pi_j x = \o{x}\nu_j$ where $\pi_j\colon\Pi_{j\in J}\to X_j$ are the projection
 defining the product and $\nu_j\colon X_j\to\sqcup_{j\in J}$ are the injections defining
 the disjoint sum.
-If $I_j = \{j\}$, $j\in J$, this becomes $\Pi_{j\in J} X = X_J\cong X^J$.
-The element $x = (x_j)\in X_J$ corresponds to $\hat{x}\in X^J$
-via $x_j = \hat{x}(j)$, $j\in J$.
+If $I_j = \{j\}$, $j\in J$, this becomes $X_J = \Pi_{j\in J} X\cong X^J$.
+The element $x = (x_j)\in X_J$ corresponds to $\o{x}\in X^J$
+via $x_j = \o{x}(j)$, $j\in J$.
 
 ### Vec
 
-Vector spaces and linear tranformations are the objects and arrows of the category $\cat{Vec}$.
-The identies are written $I_V$ instead of $1_V$. It is also a cartesian closed category
-with products $V\otimes W$ and arrows functions preserving the vector space
-structure. We write $V\To W$ or $W\From V$ for the arrows in $W^V$ that are
-_homomorphisms_.[^2]
+Vector spaces and linear tranformations are the objects and arrows of
+the category $\cat{Vec}$.  The identities are written $I_V$ instead of
+$1_V$. We write  $V\To W$ for the arrows in $W^V$ that
+preserve the vector space structure.[^2] This is also written
+$\mathcal{L}(V,W)$ or $\hom_{\cat{Vec}}(V, W)$ and the elements
+are called _homomorphisms_. Note $V\To W$ is also a vector space
+where addition and scalar multiplication are defined pointwise.
 
 [^2]: If $T\colon V\To W$ is a linear transformation in $\cat{Vec}$ we write $\{T\}\colon \{V\}\to\{W\}$
 in $\cat{Set}$ for the corresponding function on the underlying sets of the vector spaces.
 This is the _forgetful functor_ $\{\}\colon\cat{Vec}\to\cat{Set}$.
 
-The _tensor product_ $V\otimes W^*$ is the smallest subspace of $W\To V$ containing
-$v\otimes w^* = vw^*\colon W\to V$, $v\in V$, $w^*\in W^*$.
+The _dual_ of the vector space $V$, $V^*$, is $V\To \FF$ where $\FF$ is the
+one-dimensional vector space consisting of the underlying field.
+The _dual pairing_ is $\langle v,v^*\rangle = v^*v\in\FF$, $v\in V$, $v^*\in V^*$.
+A linear transformation $T\colon V\To W$ has a dual $T^*\colon W^*\To V^*$ defined by
+$\langle Tv, w^*\rangle = \langle v, T^*w^\rangle$.
+This defines a _functor_ on $\cat{Vec}$.
 
-If $T\colon(V\otimes W^*)\To U^*$ define $\hat{T}\colon V\To (W^*\To U^*)$
-by $((\hat{T}v)w^*)u = T(v\otimes w^*)u$, $v\in V$, $w^*\in W^*$, $u\in U$.
-If $\hat{T}\colon V\To (W^*\To U^*)$ define $\hat{\hat{T}}\colon (V\otimes W^*)\To U^*$
-by $\hat{\hat{T}}(v\otimes w^*)u = ((\hat{T}v)w^*)u$.
+__Exercise__. _What is the dual of $V\To W$_?
 
-__Exercise__. _Show $T\to\hat{T}\in ((V\otimes W^*)\To U^*)\to (V\To (W^*\To U^*))$
+There is a natural injection $\nu_V = \nu\colon V\To V^{**}$ defined by 
+$\langle \nu v, v^*\rangle = \langle v, v^*\rangle$. 
+If $V$ is finite dimensional then $\nu$ is an isomorphism.
+
+__Exercise__ _If $T\colon V\To W$ show $T^{**}\nu_V = \nu_W T$_.
+
+If $V = \FF^n$ then $V^*$ is isomorphic to $V = \FF^n$ via the identity map with the
+dual pairing $\langle v, w^*\rangle = v\cdot w^*$ where $w^*$ is the image of $w$
+considered as an element of $V^*$.
+We eschew the 2-dimensionally biased notion of "row" and "column" vectors
+since duality allows us to generalize to any number of dimensions.
+As we will soon see, inner, outer, matrix, etc. products 
+are simply composition of linear operators.
+
+The _tensor product_ of vectors $v\in V$ and $w\in W$ is $v\otimes w\colon W^*\To V$
+defined by $(v\otimes w)w^* = v\langle w,w^*\rangle = (w^*w)v\in V$, $w^*\in W^*$.
+
+The _tensor product_ of vector spaces $V$ and $W$, $V\otimes W$, is
+the smallest subspace of $W\To V$ containing $v\otimes w\colon
+W\To V$, $v\in V$, $w\in W$. In fact, $V\otimes W^* = (W\to V)$.
+
+__Exercise__. _What is the dual of $V\otimes W$_?
+
+$\cat{Vec}$ is cartesian closed: $(V\otimes W)\To U\cong V\To(W\To U)$.
+If $T\colon(V\otimes W)\To U$ define $\o{T}\colon V\To (W\To U)$
+by $((\o{T}v)w)u^* = T(v\otimes w)u^*$, $v\in V$, $w\in W$, $u^*\in U^*$.
+If $\o{T}\colon V\To (W\To U)$ define $\o{\o{T}}\colon (V\otimes W)\To U$
+by $\o{\o{T}}(v\otimes w)u^* = ((\o{T}v)w)u^*$.
+
+__Exercise__. _Show $T\to\o{T}\in ((V\otimes W)\To U)\to (V\To (W\To U))$
 is well-defined and linear_.
 
-__Exercise__. _Show $\hat{T}\to\hat{\hat{T}}\in (V\To (W^*\To U^*))\to ((V\otimes W^*)\To U^*)$
+__Exercise__. _Show $\o{T}\to\o{\o{T}}\in (V\To (W\To U))\to ((V\otimes W)\To U)$
 is well-defined and linear_.
 
-__Exercise__. _Show $T\to\hat{T}$ and $\hat{T}\to\hat{\hat{T}}$ are inverses_.
+__Exercise__. _Show $T\to\o{T}$ and $\o{T}\to\o{\o{T}}$ are inverses_.
 
-$\hat{\hat{T}}...$
+Hint: Show $\o{\o{T}} = T$ and $\o{\o{\o{T}}} = \o{T}$.
 
-A _tensor_ (over $X$) is a multi-dimensional array $a\in X^{\Pi_j n_j}$, $n_j\in\NN$.
+Taking $U = \FF$ shows $(V\otimes W)^*\cong (V\To W^*)$.
+
+## Tensor
+
+A _tensor_ (over the vector space $V$) is a multi-dimensional array $a\in X^{\Pi_j n_j}$, $n_j\in\NN$.
 
 
 ### Each
