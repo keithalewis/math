@@ -18,6 +18,9 @@ abstract: A Programming Language
 \newcommand\cat[1]{\mathbf{#1}}
 \newcommand\eq{\text{$=$}}
 \newcommand\from{\widehat{\phantom{x}}}
+\newcommand\To{\Rightarrow}
+\newcommand\From{\Leftarrow}
+
 
 
 > _APL is a mistake carried through to perfection_ &mdash; Edsgar W. Dijkstra
@@ -44,8 +47,10 @@ be mutated.  Similar to Everett's many-world interpretation, this makes
 it easy to reason about programs mathematically, but can be computationally hard on
 computers.  Using lazy evaluation, [optics](optics.html), and
 other implementation techniques can help with that.
-
 The two main ideas are composition and (vector space) duality.
+
+## Composition
+
 Let $Y^X = \{f\colon X\to Y\}$ be the set of all functions from $X$
 to $Y$.  Given $f\in Y^X$ define $f^Z\colon X^Z\to Y^Z$ by $(f^Zx)z =
 f(xz) = fxz\in Y$, $x\in X^Z$, $z\in Z$ and $f_Z\colon Z^Y\to Z^X$ by $(f_Zy)x =
@@ -53,6 +58,8 @@ y(fx) = yfx\in Z$, $y\in Z^Y$, $x\in X$.
 Right to left association is natural in functional languages to chain application.
 Note $f^Z\in (Y^Z)^{X^Z}$ and $f_Z\in
 (Z^X)^{Z^Y}$ are left and right composition by $f$ respectively.
+
+## Duality
 
 Matrix multiplication is composition of linear transformations.
 Likewise, inner and outer products can be expressed as
@@ -114,7 +121,7 @@ $\cat{Set}$ is _cartesian closed_ &ndash; it has products and exponentials.
 The product of sets $X$ and $Y$ is the cartesian product
 $X\times Y = \{(x,y):x\in X, y\in Y\}$ is the set of all pairs from each set
 and the exponential $Y^X = \{f\colon X\to Y\}$ is the set of functions
-from $X$ to $Y$.
+from $X$ to $Y$. We write $Y^X$ in linear notation as $X\to Y$ or $Y\leftarrow X$.
 
 The _evaluation map_ $e_{X,Y} = e\colon Y^X \times X\to Y$ is defined by
 $e(f,x) = f(x)$, $f\in Y^X$, $x\in X$. It is just an explicit
@@ -145,6 +152,38 @@ the disjoint sum.
 If $I_j = \{j\}$, $j\in J$, this becomes $\Pi_{j\in J} X = X_J\cong X^J$.
 The element $x = (x_j)\in X_J$ corresponds to $\hat{x}\in X^J$
 via $x_j = \hat{x}(j)$, $j\in J$.
+
+### Vec
+
+Vector spaces and linear tranformations are the objects and arrows of the category $\cat{Vec}$.
+The identies are written $I_V$ instead of $1_V$. It is also a cartesian closed category
+with products $V\otimes W$ and arrows functions preserving the vector space
+structure. We write $V\To W$ or $W\From V$ for the arrows in $W^V$ that are
+_homomorphisms_.[^2]
+
+[^2]: If $T\colon V\To W$ is a linear transformation in $\cat{Vec}$ we write $\{T\}\colon \{V\}\to\{W\}$
+in $\cat{Set}$ for the corresponding function on the underlying sets of the vector spaces.
+This is the _forgetful functor_ $\{\}\colon\cat{Vec}\to\cat{Set}$.
+
+The _tensor product_ $V\otimes W^*$ is the smallest subspace of $W\To V$ containing
+$v\otimes w^* = vw^*\colon W\to V$, $v\in V$, $w^*\in W^*$.
+
+If $T\colon(V\otimes W^*)\To U^*$ define $\hat{T}\colon V\To (W^*\To U^*)$
+by $((\hat{T}v)w^*)u = T(v\otimes w^*)u$, $v\in V$, $w^*\in W^*$, $u\in U$.
+If $\hat{T}\colon V\To (W^*\To U^*)$ define $\hat{\hat{T}}\colon (V\otimes W^*)\To U^*$
+by $\hat{\hat{T}}(v\otimes w^*)u = ((\hat{T}v)w^*)u$.
+
+__Exercise__. _Show $T\to\hat{T}\in ((V\otimes W^*)\To U^*)\to (V\To (W^*\To U^*))$
+is well-defined and linear_.
+
+__Exercise__. _Show $\hat{T}\to\hat{\hat{T}}\in (V\To (W^*\To U^*))\to ((V\otimes W^*)\To U^*)$
+is well-defined and linear_.
+
+__Exercise__. _Show $T\to\hat{T}$ and $\hat{T}\to\hat{\hat{T}}$ are inverses_.
+
+$\hat{\hat{T}}...$
+
+A _tensor_ (over $X$) is a multi-dimensional array $a\in X^{\Pi_j n_j}$, $n_j\in\NN$.
 
 
 ### Each
@@ -241,7 +280,7 @@ $\rho f = Y$ for all $f\in X^Y$.
 $\Pi X_I = \Pi_{i\in I} X_i$, $\pi_i\colon\Pi X_I\to X_i$, $\pi_i(x) = x_i$  projections.
 
 If $X = X_i$, $i\in I$ then $X_I = \Pi X_I = \Pi_{i\in I} X\cong X^I$
-via $x = (x_i)\in \Pi X_I$ correspoinds to $\hat{x}\in X^I$ via $x_i = \hat{x}(i)$. 
+via $x = (x_i)\in \Pi X_I$ corresponds to $\hat{x}\in X^I$ via $x_i = \hat{x}(i)$. 
 More generally, $\Pi_{i\in I} X_{I_i}\cong X^{\sqcup_{i\in I} I_i}$
 via $x = (x_i)\in \Pi_I X_{I_i}$ correspoinds to $\hat{x}\in X^I$ via $x_i = \hat{x}(i)$. 
 via $x_{i_j}} = x(i_j)$, $i_j\in I_j$
