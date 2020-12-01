@@ -218,7 +218,7 @@ is the zeta function.
 
 The first derivative of the cumulant is $κ'(s) = \psi(1 + s) - \psi(1 - s)
 = 2\sum_{k\ge 1} \zeta(2k)s^{2k - 1}$.
-The variance of the logistic is $κ_2 = κ''(0) = 2\zeta(2) = \phi^2/3$.
+The variance of the logistic is $κ_2 = κ''(0) = 2\zeta(2) = \pi^2/3$.
 
 The Esscher transformed cumulative distribution is
 $$
@@ -226,6 +226,10 @@ $$
 	= \frac{e^{u(1 + s)}(1 + s - (1 + e^u) s\,_2F_1(1, 1 + s; 2 + s; -e^u)}
 	{Γ(1 + s)Γ(1 - s)(1 + e^u)(1 + s)}, s > -1.
 $$
+where $\,_2F_1(a,b;c;x) = \sum_{n=0}^\infty\frac{(a)_n (b)_n}{(c)_n} x^n/n!$
+is the Gaussian hypergeometric function.
+
+<!--
 Using
 $$
 \begin{aligned}
@@ -293,3 +297,5 @@ $E[X^2e^{s X - κ(s)}(X - κ'(s))]
 =E[X^3e^{s X - κ(s)} - κ'(s)X^2e^{s X - κ(s)}]
 =κ'''(s) + 3κ''(s)κ'(s) + κ'(s)^3 - κ'(s)(κ''(s) + κ'(s)^2)
 =κ'''(s) + 2κ''(s)κ'(s) - κ'(s)^3$.
+
+-->

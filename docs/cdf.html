@@ -130,41 +130,82 @@ E e^{sX} &amp;= \int_{-\infty}^\infty e^{sx} e^{-x}/(1 + e^{-x})^2\,dx \\
 \end{aligned}
 </span> we have the cumulant of the logistic is <span class="math inline">κ(s) = \logΓ(1 + s) + \logΓ(1 - s)</span>.</p>
 <p>The <em>digamma</em> function is the derivative of the log of the Gamma function <span class="math inline">\psi(s) = Γ&#39;(s)/Γ(s)</span>. Its Taylor series at <span class="math inline">1</span> is <span class="math inline">\psi(1 + s) = -\gamma - \sum_{k\ge 1} \zeta(k+1)(-s)^k</span> where <span class="math inline">\gamma</span> is the Euler-Mascheroni constant and <span class="math inline">\zeta(s) = \sum_{k\ge 1} n^{-s}</span> is the zeta function.</p>
-<p>The first derivative of the cumulant is <span class="math inline">κ&#39;(s) = \psi(1 + s) - \psi(1 - s) = 2\sum_{k\ge 1} \zeta(2k)s^{2k - 1}</span>. The variance of the logistic is <span class="math inline">κ_2 = κ&#39;&#39;(0) = 2\zeta(2) = \phi^2/3</span>.</p>
+<p>The first derivative of the cumulant is <span class="math inline">κ&#39;(s) = \psi(1 + s) - \psi(1 - s) = 2\sum_{k\ge 1} \zeta(2k)s^{2k - 1}</span>. The variance of the logistic is <span class="math inline">κ_2 = κ&#39;&#39;(0) = 2\zeta(2) = \pi^2/3</span>.</p>
 <p>The Esscher transformed cumulative distribution is <span class="math display">
     L_s(u) = \int_{-\infty}^u e^{sx - κ(s)} dF(x)
     = \frac{e^{u(1 + s)}(1 + s - (1 + e^u) s\,_2F_1(1, 1 + s; 2 + s; -e^u)}
     {Γ(1 + s)Γ(1 - s)(1 + e^u)(1 + s)}, s &gt; -1.
-</span> Using <span class="math display">
+</span> where <span class="math inline">\,_2F_1(a,b;c;x) = \sum_{n=0}^\infty\frac{(a)_n (b)_n}{(c)_n} x^n/n!</span> is the Gaussian hypergeometric function.</p>
+<!--
+Using
+$$
 \begin{aligned}
-    \,_2F_1(a,b;c;x) &amp;= (-x)^{-a}\frac{Γ(c)Γ(b - a)}{Γ(b)Γ(c - a)}\,_2F_1(a, a - c + 1; a - b + 1;1/x) \\
-        &amp;\quad + (-x)^{-b}\frac{Γ(c)Γ(a - b)}{Γ(a)Γ(c - b)}\,_2F_1(b - c + 1, b; b - a + 1;1/x)
+    \,_2F_1(a,b;c;x) &= (-x)^{-a}\frac{Γ(c)Γ(b - a)}{Γ(b)Γ(c - a)}\,_2F_1(a, a - c + 1; a - b + 1;1/x) \\
+        &\quad + (-x)^{-b}\frac{Γ(c)Γ(a - b)}{Γ(a)Γ(c - b)}\,_2F_1(b - c + 1, b; b - a + 1;1/x)
 \end{aligned}
-</span> so <span class="math display">
+$$
+so
+$$
 \begin{aligned}
     \,_2F_1(1,1+s;2+s;-e^u) 
-        &amp;= e^{-au}\frac{Γ(2 + s)Γ(s)}{Γ(1 + s)Γ(1 + s)}\,_2F_1(1, -s; 1 - s;-e^{-u}) \\
-        &amp;\quad + e^{-bu}\frac{Γ(2 + s)Γ(-s)}{Γ(1 + s)Γ(1)}\,_2F_1(0, 1 + s; 1 + s;-e^{-u}) \\
-        &amp;= e^{-au}\frac{Γ(2 + s)Γ(s)}{Γ(1 + s)^2}\,_2F_1(1, -s; 1 - s;-e^{-u}) \\
-        &amp;\quad + e^{-bu}\frac{Γ(2 + s)Γ(-s)}{Γ(1 + s)}\,_2F_1(0, 1 + s; 1 + s;-e^{-u}) \\
+        &= e^{-au}\frac{Γ(2 + s)Γ(s)}{Γ(1 + s)Γ(1 + s)}\,_2F_1(1, -s; 1 - s;-e^{-u}) \\
+        &\quad + e^{-bu}\frac{Γ(2 + s)Γ(-s)}{Γ(1 + s)Γ(1)}\,_2F_1(0, 1 + s; 1 + s;-e^{-u}) \\
+        &= e^{-au}\frac{Γ(2 + s)Γ(s)}{Γ(1 + s)^2}\,_2F_1(1, -s; 1 - s;-e^{-u}) \\
+        &\quad + e^{-bu}\frac{Γ(2 + s)Γ(-s)}{Γ(1 + s)}\,_2F_1(0, 1 + s; 1 + s;-e^{-u}) \\
 \end{aligned}
-</span></p>
-<h2 id="scratch">Scratch</h2>
-<p><span class="math inline">E[g(X)e^{s X - κ(s)}] = E[g(h(X,s))]</span> for some <span class="math inline">h</span>? <span class="math inline">h(X,s) = X + s</span> if <span class="math inline">X</span> std normal.</p>
-<p><span class="math inline">E[g(X)e^{s X - κ(s)}(X - κ&#39;(s)] = E[g&#39;(h(X,s))dh(X,s)/ds]</span>.</p>
-<p>Note <span class="math inline">E[X^ne^{sX}] = (d/ds)^s E[e^{sX}] = e^{κ(s)}\sum_{k=0}^n B_{n,k}(κ&#39;(s), \ldots, κ^{(n-k+1)}(s))</span>.</p>
-<p>Note <span class="math inline">E[g(X)e^{sX - κ(s)}] = E[\sum_{n\ge 0} g^{(n)}(0) X^n/n! e^{sX - κ(s)}] = \sum_{n\ge 0} g^{(n)}(0)/n! \sum_{k=0}^n B_{n,k}(κ&#39;(s), \ldots, κ^{(n-k+1)}(s)) = \sum_{k\ge 0} \sum_{n\ge k} D^ng(0)/n! B_{n,k}(κ&#39;(s), \ldots, κ^{(n-k+1)}(s))</span></p>
-<p><span class="math inline">1 = E[e^{sX - κ(s)}]</span>.</p>
-<p><span class="math inline">0 = E[e^{s X - κ(s)}(X - κ&#39;(s))]</span>.</p>
-<p><span class="math inline">e^{κ(s)} = E[e^{sX}]</span>.</p>
-<p><span class="math inline">e^{κ(s)}κ&#39;(s) = E[Xe^{sX}]</span>.</p>
-<p><span class="math inline">e^{κ(s)}(κ&#39;&#39;(s) + κ&#39;(s)^2) = E[X^2e^{sX}]</span></p>
-<p><span class="math inline">e^{κ(s)}(κ&#39;&#39;&#39;(s) + 2κ&#39;(s)κ&#39;&#39;(s) + κ&#39;(s)((κ&#39;&#39;(x) + κ&#39;(s)^2)) = e^{κ(s)}(κ&#39;&#39;&#39;(s) + 3κ&#39;&#39;(s)κ&#39;(s) + κ&#39;(s)^3) = E[X^3e^{sX}]</span></p>
-<p><span class="math inline">\sum_{k=1}^n B_{n,k}(κ&#39;(s), \ldots, κ^{(n-k+1)}(s)) = E[X^ne^{sX - κ(s)}]</span>.</p>
-<p><span class="math inline">B_{n,k}(x_1,\ldots,x_{n-k+1}) = \sum_{j=0}^{n-k}\binom{n-1}{j}B_{n-j+1,k-1}(x_1,\ldots,x_{n-j+1})x_{j+1}</span>, <span class="math inline">B_{0,0} = 1</span>, <span class="math inline">B_{n,0} = 0</span>, <span class="math inline">B_{0,k} = 0</span>.</p>
-<p>$ E[g(X) e^{sX - κ(s)}] E[_n g^{(n)}(0) X^n/n! e^{sX - κ(s)}] = <em>n g^{(n)}(0)/n! </em>{k=1}^n B_{n,k}(κ’(s), , κ^{(n-k+1)}(s)) = <em>{k=1}^</em>{n=k}^a_n t^n/n! B_{n,k}(κ’(s), , κ^{(n-k+1)}(s)) =~ _{k=1}<sup>(<em>{m=1}<sup>κ</sup>{(m)}(s)t<sup>m/m!)</sup>k =~ </em>{k=1}</sup>(kappa(s + t))^k $</p>
-<p><span class="math inline">E[Xe^{s X - κ(s)}(X - κ&#39;(s))] =E[X^2e^{s X - κ(s)} - κ&#39;(s)Xe^{s X - κ(s)}] =κ&#39;&#39;(s) + κ&#39;(s)^2 - κ&#39;(s)κ&#39;(s) = κ&#39;&#39;(s) = (d/ds)κ&#39;(s) = (d/ds)(X + κ&#39;(s))</span></p>
-<p><span class="math inline">E[X^2e^{s X - κ(s)}(X - κ&#39;(s))] =E[X^3e^{s X - κ(s)} - κ&#39;(s)X^2e^{s X - κ(s)}] =κ&#39;&#39;&#39;(s) + 3κ&#39;&#39;(s)κ&#39;(s) + κ&#39;(s)^3 - κ&#39;(s)(κ&#39;&#39;(s) + κ&#39;(s)^2) =κ&#39;&#39;&#39;(s) + 2κ&#39;&#39;(s)κ&#39;(s) - κ&#39;(s)^3</span>.</p>
+$$
+
+## Scratch
+
+$E[g(X)e^{s X - κ(s)}] = E[g(h(X,s))]$ for some $h$? $h(X,s) = X + s$ if $X$ std normal.
+
+$E[g(X)e^{s X - κ(s)}(X - κ'(s)] = E[g'(h(X,s))dh(X,s)/ds]$.
+
+Note $E[X^ne^{sX}] = (d/ds)^s E[e^{sX}]
+= e^{κ(s)}\sum_{k=0}^n B_{n,k}(κ'(s), \ldots, κ^{(n-k+1)}(s))$.
+
+Note $E[g(X)e^{sX - κ(s)}] = E[\sum_{n\ge 0} g^{(n)}(0) X^n/n! e^{sX - κ(s)}]
+= \sum_{n\ge 0} g^{(n)}(0)/n! \sum_{k=0}^n B_{n,k}(κ'(s), \ldots, κ^{(n-k+1)}(s))
+= \sum_{k\ge 0} \sum_{n\ge k} D^ng(0)/n! B_{n,k}(κ'(s), \ldots, κ^{(n-k+1)}(s))$
+
+$1 = E[e^{sX - κ(s)}]$.
+
+$0 = E[e^{s X - κ(s)}(X - κ'(s))]$.
+
+$e^{κ(s)} = E[e^{sX}]$.
+
+$e^{κ(s)}κ'(s) = E[Xe^{sX}]$.
+
+$e^{κ(s)}(κ''(s) + κ'(s)^2) = E[X^2e^{sX}]$
+
+$e^{κ(s)}(κ'''(s) + 2κ'(s)κ''(s) + κ'(s)((κ''(x) + κ'(s)^2))
+= e^{κ(s)}(κ'''(s) + 3κ''(s)κ'(s) + κ'(s)^3) = E[X^3e^{sX}]$
+
+$\sum_{k=1}^n B_{n,k}(κ'(s), \ldots, κ^{(n-k+1)}(s)) = E[X^ne^{sX - κ(s)}]$.
+
+$B_{n,k}(x_1,\ldots,x_{n-k+1}) = \sum_{j=0}^{n-k}\binom{n-1}{j}B_{n-j+1,k-1}(x_1,\ldots,x_{n-j+1})x_{j+1}$,
+$B_{0,0} = 1$, $B_{n,0} = 0$, $B_{0,k} = 0$.
+
+$
+E[g(X) e^{sX - κ(s)}]
+E[\sum_n g^{(n)}(0) X^n/n! e^{sX - κ(s)}]
+= \sum_n  g^{(n)}(0)/n! \sum_{k=1}^n B_{n,k}(κ'(s), \ldots, κ^{(n-k+1)}(s))
+= \sum_{k=1}^\infty \sum_{n=k}^\infty a_n t^n/n!  B_{n,k}(κ'(s), \ldots, κ^{(n-k+1)}(s))
+=~ \sum_{k=1}^\infty (\sum_{m=1}^\infty κ^{(m)}(s)t^m/m!)^k
+=~ \sum_{k=1}^\infty (kappa(s + t))^k
+$
+
+
+$E[Xe^{s X - κ(s)}(X - κ'(s))]
+=E[X^2e^{s X - κ(s)} - κ'(s)Xe^{s X - κ(s)}]
+=κ''(s) + κ'(s)^2 - κ'(s)κ'(s) = κ''(s) = (d/ds)κ'(s) = (d/ds)(X + κ'(s))$
+
+$E[X^2e^{s X - κ(s)}(X - κ'(s))]
+=E[X^3e^{s X - κ(s)} - κ'(s)X^2e^{s X - κ(s)}]
+=κ'''(s) + 3κ''(s)κ'(s) + κ'(s)^3 - κ'(s)(κ''(s) + κ'(s)^2)
+=κ'''(s) + 2κ''(s)κ'(s) - κ'(s)^3$.
+
+-->
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>
