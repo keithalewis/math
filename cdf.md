@@ -83,18 +83,30 @@ $$
 
 ### Esscher Transform
 
-The Esscher transform of a random variable has density $f_s(x) = \exp(s x - κ(s))f(x)$
+The Esscher transform of a random variable has density $f_s(x) = f(x)e^{s x - κ(s)}$
 and we write $E_s$ for expectation under the transform.
 Since $E[\exp(sX)] = \exp(κ(s))$ this is a probability density.
-We write $X_s$ for the Esscher transform of $X$ so $F^{X_s)(x) = P(X_s\le x) = P_s(X\le X)$
-and $E[g(X_s)] = E_s[g(X)]$.
+We write $X_s$ for the Esscher transform of $X$ so $F^{X_s}(x) = P(X_s\le x) = P_s(X\le X) = F_s^X(x)$
+where $dP_s/dP = e^{s x - κ(s)} = ε_s(x)$ and $E[g(X_s)] = E_s[g(X)]$.
 
-Note $(d/ds) E[g(X)\exp(s X - κ(s))] =  E[g(X)\exp(s X - κ(s))(X - κ'(s))]$
-so $(d/ds)E_s[g(X)] = E_s[g(X)(X - κ'(s))]
+We have $(d/dx)^nε_s(x) = ε_s(x)s^n$, $n\ge0$, and $dε_s(x)/ds = ε_s(x)(x - κ'(s)$ so
+$$
+	\frac{d}{ds}E_s[g(X)] = E_s[g(X)(X - κ'(s))].
+$$
 
 ## Distributions
 
 We gather some facts about the distributions and cumulants of particular random variables.
+
+## Bernoulli
+
+Let $X$ be the discrete random variable defined by $P(X = 1) = p$, $P(X = 0) = 1 - p$
+where $0\le p\le 1$ is the Bernoulli parameter.
+The cumulant is $κ(s) = \log(e^s p + (1 - p)) = \log(1 + p(e^s - 1))$.
+The Esscher transform is Bernoulli with parameter $p_s = p/(p + e^{-s}(1 - p))$
+so $1 - p_s = (1 - p)/(e^sp + (1 - p))$.
+
+Note $κ'(s) = p/(p + e^{-s}(1 - p))$ and $κ''(s) = 1/(p + e^{-s)(1 - p))$
 
 ### Discrete
 

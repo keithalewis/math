@@ -7,10 +7,13 @@ fleqn: true
 abstract: A Programming Language
 ...
 
+\newcommand\BB{\bm{B}}
+\newcommand\CC{\bm{C}}
 \newcommand\FF{\bm{F}}
 \newcommand\NN{\bm{N}}
 \newcommand\RR{\bm{R}}
 \newcommand\ZZ{\bm{Z}}
+\newcommand\span{\operatorname{span}}
 \newcommand\dom{\operatorname{dom}}
 \newcommand\cod{\operatorname{cod}}
 \newcommand\hom{\operatorname{hom}}
@@ -40,86 +43,82 @@ It is simply a matter of giving explicit names to the operations that can be
 performed on collections of data; what Iverson called "tools of thought."
 
 There have been many languages inspired by APL and this writeup takes
-liberties with the classical language.  Our approach is informed by
-category theory and best practices for implmementing functional
-languages on current computer architectures. 
-We take a purely functional view so no side effects are allowed and data cannot
-be mutated.  Similar to Everett's many-world interpretation, this makes
-it easy to reason about programs mathematically, but can be computationally hard on
-computers.  Using lazy evaluation, [optics](optics.html), and
-other implementation techniques can help with that.
+liberties with the classical language. Let's agree to call it TPL,
+This Programming Languge.  Our approach is informed by category theory
+and best practices for implmementing functional languages on current
+computer architectures.  We take a purely functional view so no side
+effects are allowed and data cannot be mutated.  Similar to Everett's
+many-world interpretation, this makes it easy to reason about programs
+mathematically, but can be computationally hard on computers.  Using lazy
+evaluation, [optics](optics.html), and other implementation techniques
+can help with that.
 
-The main concepts are composition and (vector space) duality
-together with a language to manipulate sums, products, and exponentials.
+The _primitive types_ are booleans $\BB = \{f,t\},
+natural numbers $\NN$, integers $\ZZ$, 
+real numbers $RR$, and characters $\CC$.
+The _types_ in TPL are [_categories_](cat.html) constructed
+from primitive types using (disjoint) union and cartesian product.
 
-<!--
+Note the real numbers $\RR$ form a one dimensional vector space.
+_Strings_ are zero or more characters $\CC^*$ are a monoid under the
+binary operation of concatenation with the empty string as identty.
 
-## Composition
+The two main concepts of TPL are composition and (vector space) duality.
+It is just a matter of providing a language to manipulate sums, products,
+and exponentials in the appropriate category.
 
-Let $Y^X = \{f\colon X\to Y\}$ be the set of all functions from $X$
-to $Y$.  Given $f\in Y^X$ define $f^Z\colon X^Z\to Y^Z$ by $(f^Zx)z =
-f(xz) = fxz\in Y$, $x\in X^Z$, $z\in Z$ and $f_Z\colon Z^Y\to Z^X$ by $(f_Zy)x =
-y(fx) = yfx\in Z$, $y\in Z^Y$, $x\in X$.
-Right to left association is natural in functional languages to chain application.
-Note $f^Z\in (Y^Z)^{X^Z}$ and $f_Z\in
-(Z^X)^{Z^Y}$ are left and right composition by $f$ respectively.
+Now is a good time to remind yourself about [catogories](cat.html) and
+[vector spaces](la.html).
 
-## Duality
+## Categories
 
-Matrix multiplication is composition of linear transformations.
-Likewise, inner and outer products can be expressed as
-composition.  If $V$ is a vector space its _dual_ $V^*$ is the set of
-all linear functions from $V$ to its underlying scalar field $\FF$. If
-$v\in V$ and $v^*\in V^*$ then the _dual pairing_ $\langle v, v^*\rangle =
-v^*v\in\FF$ acts like an "inner" product and avoids the 2-dimensionally
-biased distinction between "row" and "column" vectors. Also, $vv^*\colon
-V\to V$ by $(vv^*)w = v(v^*w) \in V$, $w\in V$, is the  "outer"/"tensor"
-product of $v$ and $v^*$.
-If $V = \FF^n$ is the $n$-dimensional vector space on the field $\FF$
-then $V^*\cong\FF^n$ via the identity function.  We write $v^*\in V^*$
-for the image of $v\in V$ and note $v\cdot w = v^*w$.  There is no need
-for any sort of "adjective" product &ndash; all products are simply composition
-of functions.
+Categories have _objects_ and _arrows_. An arrow $f$ from object $X$
+to object $Y$ is denoted $f\colon X\to Y$.
+The _domain_ of $f$ is $X = \dom f$ and the _codomain_ of $f$ is $Y = \cod f$.
+If $f\colon X\to Y$ and $g\colon Y\to Z$ then there exists a
+a unique arrow $gf\colon X\to Z$ called the _composition_
+of $f$ followed by $g$.
 
-$X^{n0\times n1\times\cdots} \cong X^{n0^{n1^{\cdots}}}$.
+Arrows are _associative_, $(fg)h = f(gh)$, so $fgh$ is unambiguous.
+Every object $Y$ has an _identity_ arrow $1_Y\colon Y\to Y$ with
+$1_Yf = f$ for all $f\colon X\to Y$ and $g1_y = g$ for all $g\colon Y\to Z$.
 
-${n_0\times n_1\times\cdots}\to X \cong n_0\to n_1\to\cdots\to X$.
+The arrows from the object $X$ to the object $Y$ are denoted $(X\to Y)$.
+This is also called the _homset_ $\hom(X,Y)$.
 
-$n_0\to n_1\to\cdots\to X$.
+Given an arrow $f\colon X\to Y$ and an object $Z$
+define _left composition_ $f^Z\colon (Z\to X)\to (Z\to Y)$ by
+$f^Zx = fx\in (Z\to Y)$ for $x\in (X\to Z)$
+and _right composition_ $f_Z\colon (Y\to Z)\to (X\to Z)$ by
+$f_Zy = yf\in (X\to Z)$ for $y\in (Z\to Y)$.
 
-$n_0\to (n_1\times\cdots)\to X$.
+### Sum
 
+$\sqcup_{i\in I} X \cong I\times X$.
 
-!!! Move below
+How to identify $I\times X$ with $X$?
 
-If $V$ and $W$ are vector spaces we let $W^V$ be the set of functions from
-$V$ to $W$ that preserve the vector space structure. This is commonly called
-$\mathcal{L}(V,W)$ or $\hom_{\cat{Vec}}(V,W)$, the space of _linear transformations_ from $V$ to $W$.
-Note $V^* = FF^V$.
+### Product
 
-To disambiguate linear transformations $\hom_{\cat{Vec}}(V,W)$ from
-the set $\hom_{\cat{Set}}(V,W)$ of all functions from $V$ to $W$ we can
-use the _forgetful functor_ $\cat{S}\colon\cat{Vec}\to\cat{Set}$ that
-takes a vector space to the set of elements in the vector space. The
-functor $\cat{V}\colon\cat{Set}\to\cat{Vec}$ with $\cat{V}(S) = \FF^S$
-and $\cat{V}(f)$ the linear extension from $f(S)$ to $\cat{V}(S)$ is
-a _left adjoint_ of $\cat{S}$
-since $\hom_{\cat{Vec}}(\cat{S}(S), V)
-\cong \hom_{\cat{Set}}(S, \cat{V}(V))$ where $S\to V$ in $\cat{Set}$
-corresponds to its unique linear extension $\FF^S\to V$ in $\cat{Vec}$.
+$\Pi_{i\in I} X \cong X^I$.
 
-??? is this correct ???
+### Exponential
 
--->
+If a category has binary products the _exponential_ of $Z$ to the $Y$
+is an object $Z^Y$ and an arrow $e\colon Z^Y\times Y\to Z$
+that satisfies the condition if
+$f\colon X\times Y\to Z$ then
+
+$X\times Y\to Z\cong X\to Z^Y)$.
+
 
 ## Set
 
-Given a function $f\colon X\to Y$ we write $f(x)$ as $fx$.  If $g\colon
-Y\to Z$ we write the composition $g(f(x))$ as $gfx$.  If $h\colon Z\to
-W$ then $h(gf) = (hg)f$ so writing $hgf$ is unambiguous. The identity
-function of a set $X$ is $1_X\colon X\to X$ with $1_X(x) = x$, $x\in X$
-and $f1_X = f = 1_Yf$ whenever $f\colon X\to Y$.  Sets and functions
-are the objects and arrows of the category $\cat{Set}$.
+We use the convention that applying a function to an element of a set
+is right associative so $f(x)$ can be written $fx$.
+This in natural in languages where composition means function application.
+Applying a function to an element of a set causes a slight problem.
+$fgh(x) = f(g(h(x))$ but $(fg)(h(x))\not= f(g(h(x)))$.
 
 $\cat{Set}$ is _cartesian closed_ &ndash; It has products and exponentials
 that satisfy $Z^{X\times Y}\cong Z^{Y^X}$. 
@@ -127,7 +126,6 @@ The _cartesian product_ of sets $X$ and $Y$
 $X\times Y = \{(x,y):x\in X, y\in Y\}$ is the set of all pairs of elements from each set.
 The _exponential_ $Y^X = \{f\colon X\to Y\}$ is the set of functions
 from $X$ to $Y$. We write $Y^X$ in linear notation as $X\to Y$ or $Y\leftarrow X$.
-
 
 Products and exponentials are related by $Z^{X\times Y}$ is in one-to-one
 correspondence with $Z^{Y^X}$.[^1] Every $f\in Z^{X\times Y}$ corresponds
@@ -140,7 +138,6 @@ $$
 Going from left to right is _currying_ and going from right to left
 is _uncurrying_.
 
-The _evaluation map_ $e_{X,Y} = e\colon Y^X \times X\to Y$ is defined by
 $e(f,x) = f(x)$, $f\in Y^X$, $x\in X$. It is just an explicit
 name for _function application_. The curried form of the evaluation
 map identifies $Y^X$ with $X\to Y$.
@@ -160,6 +157,17 @@ If $I_j = \{j\}$, $j\in J$, this becomes $X_J = \Pi_{j\in J} X\cong X^J$.
 The element $x = (x_j)\in X_J$ corresponds to $\o{x}\in X^J$
 via $x_j = \o{x}(j)$, $j\in J$.
 
+We use $n\in\NN$ for the set $\{0,1,\ldots,n-1\}$. From above, we
+can identify $x\colon n\to X$ with an element of $X^n$.
+A function $\xi\colon X\to n$ corresponds to a _partition_ of $X$ into $n$
+_atoms_ $X_i = \{x\in X: \xi(x) = i\}$, $i\in n$. This partition is also called
+the _kernel_ of $\xi$.
+
+__Exercise__. _Show $X_i\cap X_j = \emptyset$ if $i\not= j$ and $\cup_i X_i = X$_.
+
+A function $s\colon X\to\BB$ determines a subset of $X$ (and its complement)
+by $S = \{x\inX:s(x) = t\}$ so $X\setminus S = \{x\inX:s(x) = f\}$.
+
 ### Vec
 
 Vector spaces and linear tranformations are the objects and arrows of
@@ -168,13 +176,26 @@ $1_V$. We write  $V\To W$ for the arrows in $W^V$ that
 preserve the vector space structure.[^2] This is also written
 $\mathcal{L}(V,W)$ or $\hom_{\cat{Vec}}(V, W)$ and the elements
 are called _homomorphisms_. Note $V\To W$ is also a vector space
-where addition and scalar multiplication are defined pointwise.
+where addition and scalar multiplication are defined pointwise;
+if $S,T\colon V\To W$ then
+$(S + T)v = Sv + Tv\in W$ and $a(S + T)v = a(Sv) + a(Tv)\in W$, $v\in V$, $a\in\FF$.
 
-[^2]: If $T\colon V\To W$ is a linear transformation in $\cat{Vec}$ we write $\{T\}\colon \{V\}\to\{W\}$
-in $\cat{Set}$ for the corresponding function on the underlying sets of the vector spaces.
-This is the _forgetful functor_ $\{\}\colon\cat{Vec}\to\cat{Set}$.
+[^2]: If $T\colon V\To W$ is a linear transformation in $\cat{Vec}$ we
+write $\{T\}\colon \{V\}\to\{W\}$ in $\cat{Set}$ for the corresponding
+function on the underlying sets of the vector spaces.  This is the
+_forgetful functor_ $\{\}\colon\cat{Vec}\to\cat{Set}$.  There is
+also the _free functor_ $\langle\rangle\colon\cat{Set}\to\cat{Vec}$
+defined by $X\subseteq V\mapsto \langle X\rangle = \span\{\delta_x:x\in
+X\}\subseteq B(X)$ where $B(X)$ is the vector space of bounded functions
+on $X$ and $\delta_x(y) = 1$ if $y = x$ and $\delta_x(y) = 0$ if $y\not=
+x$, $x,y\in X$. A function on sets $t\colon X\to Y$ can be extended to
+$\langle t\rangle\colon \langle X\rangle\to\langle Y\rangle$ by extending
+it linearly. Since $\{\delta_x:x\in X\}\subseteq B(X)$ are independent
+this extension is well-defined.
+Show $\{V\}\To X\cong V\To\langle X\rangle$ for $V$ a vector
+space and $X$ a set.
 
-The _dual_ of the vector space $V$, $V^*$, is $V\To \FF$ where $\FF$ is the
+The _dual_ $V^*$ of the vector space $V$ is $V\To \FF$ where $\FF$ is the
 one-dimensional vector space consisting of the underlying field.
 The _dual pairing_ is $\langle v,v^*\rangle = v^*v\in\FF$, $v\in V$, $v^*\in V^*$.
 A linear transformation $T\colon V\To W$ has a dual $T^*\colon W^*\To V^*$ defined by
@@ -201,8 +222,7 @@ The _tensor product_ of vectors $v\in V$ and $w\in W$ is $v\otimes w\colon W^*\T
 defined by $(v\otimes w)w^* = v\langle w,w^*\rangle = (w^*w)v\in V$, $w^*\in W^*$.
 
 The _tensor product_ of vector spaces $V$ and $W$, $V\otimes W$, is
-the smallest subspace of $W\To V$ containing $v\otimes w\colon
-W\To V$, $v\in V$, $w\in W$. In fact, $V\otimes W^* = (W\to V)$.
+the smallest subspace of $W\To V$ containing $v\otimes w$, $v\in V$, $w\in W$.
 
 __Exercise__. _What is the dual of $V\otimes W$_?
 
@@ -218,15 +238,35 @@ is well-defined and linear_.
 __Exercise__. _Show $\o{T}\to\o{\o{T}}\in (V\To (W\To U))\to ((V\otimes W)\To U)$
 is well-defined and linear_.
 
-__Exercise__. _Show $T\to\o{T}$ and $\o{T}\to\o{\o{T}}$ are inverses_.
-
-Hint: Show $\o{\o{T}} = T$ and $\o{\o{\o{T}}} = \o{T}$.
+__Exercise__. _Show $\o{\o{T}} = T$ and $\o{\o{\o{T}}} = \o{T}$_.
 
 Taking $U = \FF$ shows $(V\otimes W)^*\cong (V\To W^*)$.
 
 ## Tensor
 
 A _tensor_ (over the vector space $V$) is a multi-dimensional array $a\in X^{\Pi_j n_j}$, $n_j\in\NN$.
+
+## Computer
+
+A _program_ takes a stream of characters and outputs a stream of characters.
+It can give names to types appended to a read only store and use names to produce output.
+We only assume that there is an encoding and decoding from and to characters for
+all primitive types. We use $t > s$ to encode the primatve $t$ and give it the name $s$
+and $t < s$ retrieve the name $s$ into the type $t$.
+
+Encoding is a function $E\colon T\times\CC^*\to T$.
+For example, $E(\RR, "1.23") = 1.23$ and write `R"1.23"` for the left-hand side.
+E.g., `N"123"` is $123\in\NN$ and `S("ab\"c")` is $('a', 'b', '"', 'c')\in\CC^*$.
+
+We assume unique string representations for all types.
+
+Decoding is a function $D\colon T\to\CC^*$.
+for example $D(1.23)$ is `"1.23"`.
+
+A type is either a primitive type, a (disjoint) sum of types, or a product of types.
+A sum of types is a _variant_.
+A product of types is a _tuple_. Tuples with two elements are _pairs_.
+A _dictionary_ is a sum of pairs having the same type with distinct first elements.
 
 
 ### Each
@@ -254,6 +294,8 @@ Most often $X$ is $\RR$, the set of real numbers,
 but $X$ can also be a set of characters.
 
 ## Example
+
+The identity function $1_X$ is written '=' in APL.
 
 APL lets you turn a number into a lot of numbers.  The function $\iota$
 (iota) is used to produce sequences. If $n\in \NN$ then $\iota n = (0,

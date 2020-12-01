@@ -7,10 +7,17 @@ fleqn: true
 abstract: Coroutines are functions and a continuation point.
 ...
 
+Acknowledgements: [Lewis Baker](https://lewissbaker.github.io/)
+and [Raymond Chen](https://devblogs.microsoft.com/oldnewthing/20191209-00).
+
 A _coroutine_ is a function and a _continuation point_. Unlike functions,
-coroutines can suspend execution (_yield) and resume at a later time.
+coroutines can suspend execution (_yield_) and resume at a later time.
 The continuation point keeps track of where the coroutine was last suspended.
-Use _await_ to resume a coroutine and capture the results it yields.
+A coroutine can call another coroutine exactly as if it were a function.
+Use _await_ to suspend execution and resume a live coroutine.
+Both yield and await set a continuation point and suspend execution.
+Yield is used to return results, await is used to call a coroutine
+then capture the results it yields.
 
 Coroutines make it far easier to write concurrent code than using threads.
 Unlike threads, coroutines are suspended at function statements instead
@@ -21,6 +28,7 @@ program execution.
 
 Like functions, coroutines can stand on their own. What they add is the ability
 to cooperate with other coroutines to share the task of code execution.
+You still have to worry about deadlocks and race conditions however.
 
 Coroutines can _generate_ unbounded streams of data.
 ```
@@ -52,6 +60,32 @@ coroutine consume
 ```
 There is no need for multiple theads; yield can jump directly from one
 coroutine to another.
+
+### Handles
+
+A handle is an object representing a coroutine.
+
+### Await
+
+Calling `await x` results in `x` being called and returns an _awaiter_.
+Awaiters can _suspend_ a coroutine and _resume_ to get the result of the coroutine.
+Awaiters are usually temporary objects and the destructor cleans up everything
+associated with it.
+
+Coroutines returning an awaitable object: struct with well-known functions.
+
+### [Symmetric transfer](https://devblogs.microsoft.com/cppblog/c-coroutines-in-visual-studio-2019-version-16-8/#symmetric-transfer-and-no-op-coroutines)
+
+With symmetric transfer a coroutine can indicate a coroutine handle for
+another coroutine to immediately resume when suspending.
+This suspend-and-resume operation works without introducing another frame onto the call stack.
+
+```C++
+std::coroutine_handle<> await_suspend(std::coroutine_handle<promise_type> h) noexcept {
+    return h.promise().continuation ? *continuation : std::noop_coroutine();
+}
+```
+
 
 
 ## The Life of a Coroutine
