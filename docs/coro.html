@@ -13,6 +13,68 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
@@ -40,9 +102,10 @@
 <h1 class="title">Coroutines</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<p>A <em>coroutine</em> is a function and a <em>continuation point</em>. Unlike functions, coroutines can suspend execution (_yield) and resume at a later time. The continuation point keeps track of where the coroutine was last suspended. Use <em>await</em> to resume a coroutine and capture the results it yields.</p>
+<p>Acknowledgements: <a href="https://lewissbaker.github.io/">Lewis Baker</a> and <a href="https://devblogs.microsoft.com/oldnewthing/20191209-00">Raymond Chen</a>.</p>
+<p>A <em>coroutine</em> is a function and a <em>continuation point</em>. Unlike functions, coroutines can suspend execution (<em>yield</em>) and resume at a later time. The continuation point keeps track of where the coroutine was last suspended. A coroutine can call another coroutine exactly as if it were a function. Use <em>await</em> to suspend execution and resume a live coroutine. Both yield and await set a continuation point and suspend execution. Yield is used to return results, await is used to call a coroutine then capture the results it yields.</p>
 <p>Coroutines make it far easier to write concurrent code than using threads. Unlike threads, coroutines are suspended at function statements instead of being preempted between some recondite machine instruction by the system thread scheduler. There is no need to orchestrate the creation and collection of threads and then sprinkle the code with mutexes or semaphores in the hope of ensuring correct program execution.</p>
-<p>Like functions, coroutines can stand on their own. What they add is the ability to cooperate with other coroutines to share the task of code execution.</p>
+<p>Like functions, coroutines can stand on their own. What they add is the ability to cooperate with other coroutines to share the task of code execution. You still have to worry about deadlocks and race conditions however.</p>
 <p>Coroutines can <em>generate</em> unbounded streams of data.</p>
 <pre><code>coroutine iota
     i = 0
@@ -63,6 +126,16 @@ coroutine consume
             remove items from queue
         yield to produce</code></pre>
 <p>There is no need for multiple theads; yield can jump directly from one coroutine to another.</p>
+<h3 id="handles">Handles</h3>
+<p>A handle is an object representing a coroutine.</p>
+<h3 id="await">Await</h3>
+<p>Calling <code>await x</code> results in <code>x</code> being called and returns an <em>awaiter</em>. Awaiters can <em>suspend</em> a coroutine and <em>resume</em> to get the result of the coroutine. Awaiters are usually temporary objects and the destructor cleans up everything associated with it.</p>
+<p>Coroutines returning an awaitable object: struct with well-known functions.</p>
+<h3 id="symmetric-transfer"><a href="https://devblogs.microsoft.com/cppblog/c-coroutines-in-visual-studio-2019-version-16-8/#symmetric-transfer-and-no-op-coroutines">Symmetric transfer</a></h3>
+<p>With symmetric transfer a coroutine can indicate a coroutine handle for another coroutine to immediately resume when suspending. This suspend-and-resume operation works without introducing another frame onto the call stack.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="bu">std::</span>coroutine_handle&lt;&gt; await_suspend(<span class="bu">std::</span>coroutine_handle&lt;<span class="dt">promise_type</span>&gt; h) <span class="kw">noexcept</span> {</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="cf">return</span> h.promise().continuation ? *continuation : <span class="bu">std::</span>noop_coroutine();</span>
+<span id="cb3-3"><a href="#cb3-3"></a>}</span></code></pre></div>
 <h2 id="the-life-of-a-coroutine">The Life of a Coroutine</h2>
 <p>When a coroutine is created the continuation point is set to the beginning of the routine and it is put in a suspended state. Calling the coroutine with its arguments resumes exectution from the beginning. If the function contains a yield statement then the continuation point is set to the next statement in the function and execution is suspended. The arguments to yield become the result of the resume that activated the coroutine. Subsequent calls of the coroutine resume execution at the coninuation point and the arguments of the call become available to the coroutine. Execution continues until the next yield statement and the above is repeated or until the function terminates and the return values become the result of the last reactivation. At that point the coroutine can no longer be resumed.</p>
 <h2 id="theory">Theory</h2>

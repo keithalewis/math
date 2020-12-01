@@ -40,32 +40,31 @@ unsatisfied by the limited expressiveness of FORTRAN when it came to manipulatin
 multidimensional arrays. What follows is a mathematical description of
 the objects and operations on them he envisioned to scratch that itch.
 It is simply a matter of giving explicit names to the operations that can be
-performed on collections of data; what Iverson called "tools of thought."
+performed on collections of data, what Iverson called "tools of thought."
 
 There have been many languages inspired by APL and this writeup takes
-liberties with the classical language. Let's agree to call it TPL,
-This Programming Languge.  Our approach is informed by category theory
-and best practices for implmementing functional languages on current
-computer architectures.  We take a purely functional view so no side
-effects are allowed and data cannot be mutated.  Similar to Everett's
-many-world interpretation, this makes it easy to reason about programs
-mathematically, but can be computationally hard on computers.  Using lazy
-evaluation, [optics](optics.html), and other implementation techniques
-can help with that.
+liberties with the classical language. Let's agree to call it TPL, This
+Programming Languge.  Our approach is informed by category theory and
+best practices for implmementing functional languages on current computer
+architectures.  We take a purely functional view so no side effects are
+allowed and data cannot be mutated.  Similar to Everett's many-worlds
+interpretation of quantum mechanics, this makes it easy to reason about
+programs mathematically, but can be computationally expensive on computers.
+Using lazy evaluation, [optics](optics.html), and other implementation
+techniques can help with that.
 
-The _primitive types_ are booleans $\BB = \{f,t\},
-natural numbers $\NN$, integers $\ZZ$, 
-real numbers $RR$, and characters $\CC$.
-The _types_ in TPL are [_categories_](cat.html) constructed
-from primitive types using (disjoint) union and cartesian product.
+The _primitive types_ are booleans, natural numbers, integers, real
+numbers, and characters$.  The _types_ in TPL are [_categories_](cat.html)
+constructed from primitive types using (disjoint) union and cartesian
+product.
 
 Note the real numbers $\RR$ form a one dimensional vector space.
-_Strings_ are zero or more characters $\CC^*$ are a monoid under the
+_Strings_ are zero or more characters are a monoid under the
 binary operation of concatenation with the empty string as identty.
 
 The two main concepts of TPL are composition and (vector space) duality.
 It is just a matter of providing a language to manipulate sums, products,
-and exponentials in the appropriate category.
+and exponentials in the appropriate categories.
 
 Now is a good time to remind yourself about [catogories](cat.html) and
 [vector spaces](la.html).
