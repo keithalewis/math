@@ -5,29 +5,128 @@ institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
 fleqn: true
-abstract: Random Variables
+abstract: Probability &ndash; the foundation of statistics.
 ...
 
-\newcommand\RR{\bm{R}}
+\newcommand{\one}{⚀}
+\newcommand{\two}{⚁}
+\newcommand{\three}{⚂}
+\newcommand{\four}{⚃}
+\newcommand{\five}{⚄}
+\newcommand{\six}{⚅}
 
 # Probability Theory
 
-A _random variable_ is a function on a _probability space_.  A probability
-space is a set _outcomes_, $\Omega$, and a set function $P$ from
-_events_, subsets of $\Omega$, to numbers between 0 and 1 that satisfies
-$P(E\cup F) = P(E) + P(F) - P(E\cap F)$ for $E,F\subseteq\Omega$
-and $P(\emptyset) = 0$.
+In order to understand statistics one must first understand _probability theory_.
 
-## Measure
+## Chevalier de Méré
 
-A _measure_ is a set function on subets of $S$ taking values in the real numbers
-$\mu\colon\mathcal{P}(S)\to\RR$ that satisfies
-$\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)$ for $E,F\subseteq\Omega$
-and $\mu(\emptyset) = 0$ where $\mathcal{P}(S) = \{E\subseteq S\}$
-is the set of all subsets of $S$.
+A cubical die has six faces: $\one$, $\two$, $\three$, $\four$, $\five$,
+and $\six$.  Each time a die is rolled the top face is the result
+of the roll.  If the die is _fair_ each face has an equal probability
+of occuring. The probability of rolling a $\six$ in one roll is $1/6$.
 
-Measures don't count things twice and the measure of
-nothing is 0.
+If a die is rolled twice then a $\six$ occurs in
+exacty $11 = 6 + 6 - 1$ of the $36 = 6^2$ possible outcomes.[^1]
+In $6$ cases it occurs on the first roll
+and in $6$ cases it occurs on the second roll but
+rolling $\six$ twice is included in both the first and second cases
+and should only be counted once. The probability of rolling a $\six$
+in two rolls is $11/36$.
+
+[^1]: The _cartesian product of sets $A$ and $B$ is the set of _pairs_
+$A\times B = \{(a,b):a\in A, b\in B\}$.
+The number of elements in $A\times B$ is the number of elements in $A$
+times the number of elements in $B$.
+
+If a die is rolled three times then the number of cases involving a $\six$ in
+the $216 = 6^3$ possible outcomes is a more difficult counting problem.
+It is easier to count the number of cases where a $\six$ does **not** occur: $125 = 5^3$.
+The number of times $\six$ **does** show up is therefor $91 = 216 - 125.
+The probability of rolling a $\six$ in three rolls is $91/216$.
+Note this can be used for the solution of the two roll case: $11 = 36 - 25$.
+It is not a coincidence that $91 = 3\times 6^2 - 3\times 6 + 1\times 1$.
+This is closely related to the formula $(6 - 1)^3 = 6^3  - 3\times 6^2 + 3\times 6 - 1$.
+
+If a die is rolled $n$ times then the number cases involving a $\six$ is $6^n - 5^n$.
+The _probability_ of this happening is $(6^n - 5^n)/6^n = 1 - (5/6)^n$.
+Note that this tends to $1$ as $n$ tends to infinity; you will eventually roll
+a $\six$ if you roll long enough.
+
+Chevalier de Méré was concerned with the problem of how to divide the
+wagers if the game was interupted part way thorough. (Vingt-deux, voilà
+les flics!)  The initial odds are $91$ will get you $125$ in the three
+roll game. If the first roll is not a $\six$ the odds of winning went
+down since there are only two rolls remaining to get a $\six$. If the
+game stops after the first roll how should the bet be fairly divided?
+
+Antoine Gombaud (his real name) asked his salon friends Blaise Pascal
+and Pierre de Fermat about this puzzle. They came up with a complete
+solution of how to count with partial information.
+
+Read on.
+
+## Probabilty Space
+
+A _sample space_ is a set of _outcomes_. Subsets of a
+sample space are _events_. A _probability measure_ assigns a number
+between 0 and 1 to events that represents a _degree of belief_ an outcome
+will belong to the event.
+_Partial information_ is modeled by a _partition_ of the sample space.
+
+### Sample Space
+
+A _sample space_ is a set of what can happen in a probability model.
+An _outcome_ is an element of a sample space.
+An _event_ is a subset of a sample space.
+
+A sample space for flipping a coin can be modeled by the set $\{H,T\}$
+where the outcome $H$ indicates heads and $T$ indicates tails.
+Of course any two element set could be used for this.
+
+A sample space for flipping a coin twice can be modeled by the set
+$\{HH, HT, TH, TT\}$ where each outcome specifies the individual outcomes of
+the first and second flip.  The event 'the first flip was heads' is the
+subset $\{HH, HT\}$.  The partition $\{\{HH, HT\},\{TH, TT\}\}$ represents
+the partial information of knowing the outcome of the first coin flip.
+The first event in the partition indicates the first flip was heads.
+The second event in the partition indicates the first flip was tails.
+
+<!--
+heads or tails as the outcome of a coin toss, the integers from 1 to
+6 as the outcomes of rolling a single die, the set of all sequences of
+not more than 280 characters as a model of possible Twitter tweets.
+
+Assuming the characters are upper and lower case letters, space, and
+3 punctuation marks then there are $30^280$ possible messages. This
+is approximately $10^1374$. The number of elementary particles in the
+universe has been estimated to be $10^80$.  The world population is a
+bit under 8 billion. Assuming everyone posts a Trumpian 10 tweets a day
+and uses all of their 280 character allotment, that comes to $8\times
+10^9 \times 10 \times 280 = 2.24\times 10^44$. The universe is 14 billion years.
+That means...
+
+People seem to be surprised probabilities are modeled using sets.
+Sets have no structure, they are just a bag of things (_elements_). 
+People also seem to be rather cavalier about specifying sample spaces.
+-->
+The first step in any probability model is to specify the possible outcomes.
+The second step is to assign probabilities to the outcomes.
+
+
+<!--
+[^monte-hall]
+Monte Hall problem
+It must be modeled as a Markov Decision Process.
+-->
+
+### Measure
+
+A _measure_ $\mu$ on a set $S$ assigns numbers to subsets of $S$ and satisfies
+$$
+\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)
+$$
+for any subsets $E,F\subseteq S$ and $\mu(\emptyset) = 0$. Measures do not count twice.
 
 __Exercise__. _Show if $\nu(E\cup F) = \nu(E) + \nu(F) - \nu(E\cap F)$ for $E,F\subseteq S$
 then $\mu = \nu - \nu(\emptyset)$ is measure_.
@@ -51,21 +150,8 @@ for any subsets $E$ and $F$ with empty intersection $E\cap F = \emptyset$_.
 
 </details>
 
-__Exercise__. _Show if $\mu$ is a set function with $\mu(E\cup F) = \mu(E) + \mu(F)$
-for any subsets $E$ and $F$ having empty intersection then $\mu$ is a measure_.
-<details>
-<summary>Solution</summary>
-
-> $\mu(E\cup F) = \mu(E\setminus F) + \mu(E\cap F) + \mu(F\setminus E)$,
-$\mu(E) = \mu(E\setminus F) + \mu(E\cap F)$, and $\mu(F) = \mu(F\setminus E) + \mu(F\cap E)$
-so $\mu(E\cup F) - \mu(E) - \mu(F) = -\mu(E\cap F)$. Also
-$\mu(\emptyset) = \mu(\emptyset\cup\emptyset)
-= \mu(\emptyset) + \mu(\emptyset)$ so $\mu(\emptyset) = 0$.
-
-</details>
-
 __Exercise__. _Show if $\mu$ is a measure then $\mu(E) = \mu(E\cap F) + \mu(E\cap F')$
-for any subsets $E$ and $F$ where $F' = S\setminus F = \{x\in S\mid x\not\in F\}$
+for any subsets $E$ and $F$ where $F' = S\setminus F = \{x\in S:x\not\in F\}$
 is the _complement_ of $F$ in $S$_.
 <details>
 <summary>Solution</summary>
@@ -76,45 +162,13 @@ $\mu(E\cap F) + \mu(E\cap F') = \mu((E\cap F)\cup(E\cap F') = \mu(E)$.
 
 </details>
 
-The space of all measures on $S$ is denoted $ba(S)$.
-Let $B(S)$ be the vector space of all bounded functions
-on $S$. It has norm $\|f\| = \sup_{x\in S}|f(x)|$.
-Vector space norms define a _metric_ $d\colon B(S)\times B(S)\to\RR$
-by $d(f,g) = \|f - g\|$.
-
-__Exercise__. _Show $d$ is a metric_.
-
-Hint: Show $d(f,g) = 0$ implies $f = g$, $d(f,g) = d(g,f)$, and
-$d(f,h) \le d(f,g) + d(g, h)$ for $f,g,h\in B(\Omega)$.
-Note $d(f,f) \le 2d(f,f)$ so $0\le d(f,f)$ for all $f$.
-
-The norm is _complete_ so $B(S)$ is a _Banach space_.
-
-__Exercise__. _Show if $(f_n)$ is Cauchy then there exists $f\in B(\Omega)$
-with $\lim_n \|f_n - f\| = 0$_.
-
-The (vector space) dual of $B(S)$ is $ba(S).
-Give $M\in B(S)^*$ define $\mu(E) = M1_E$ and given
-$\mu\in ba(S)$ define $M(\sum_j a_j 1_{E_j}) = \sum_j a_j\mu(E_j)$.
-
-
-## Probability Measure
-
-A _probability measure_ is a measure taking values in the interval $[0,1]$.
-
-If $\Omega$ is finite
-we can define a probability measure by specifying $p_\omega = P(\{\omega\})$
-for $\omega\in\Omega$. Note $p_\omega\ge 0$ and $\sum_{\omega\in\Omega} = 1$.
-The probability of the event $E\subseteq\Omega$
-is $P(E) = \sum_{\omega\in E} p_\omega$.
-
 ### Partition
 
 A _partition_ splits a sample space into disjoint subsets with union
 equal to the sample space. Partitions are how _partial information_
-is represented.  The elements of the partition are called _atoms_. The
+is represented.  The events in the partition are called _atoms_. The
 way they represent partial information is you only know what atom an
-outcome belongs to, not the exact outcome.
+outcome belongs to, not the actual outcome.
 
 Partitions define an _equivalence relation_ on outcomes. We say $\omega\sim\omega'$
 if and only if they belong to the same atom.
@@ -125,6 +179,36 @@ and $\omega\sim\omega'$, $\omega'\sim\omega''$ implies $\omega\sim\omega''$_.
 This is the definition of an equivalence relation. It is the mathematical way
 of saying two things are the "same" even if they are not equal.
 
+## Probability Measure
+
+A _probability measure_ $P$ on the sample space $\Omega$ is a measure
+taking values in the interval $[0,1]$ with $P(\Omega) = 1$. The
+_probability_ $P(E)$ for $E\subseteq\Omega$ represents a _degree of belief_
+that a random outcome will belong to the event $E$.
+This is a somewhat nebulous and controversial notion. How do "random outcomes"
+occur?
+
+Probability theory originated with games of chance. One way to interpret
+this is "How much money would you wager on an outcome involving rolling dice
+or selecting cards from a deck?" Putting your money where your mouth is
+is a way to clarify thinking.
+
+__Exercise__. _Show $P(E\cup F) \le P(E) + P(F)$
+for any events $E$ and $F$ when $P$ is a probability measure_.
+
+__Exercise__. _Show $P(\cup_i E_i) \le \sum_i P(E_i)$
+for any events $(E_i)$ when $P$ is a probability measure_.
+
+If $\Omega$ has a finite number of outcomes,
+we can define a probability measure by specifying $p_\omega = P(\{\omega\})$
+for $\omega\in\Omega$. Note $p_\omega\ge 0$ and $\sum_{\omega\in\Omega} = 1$.
+The probability of the event $E\subseteq\Omega$
+is $P(E) = \sum_{\omega\in E} p_\omega$.
+
+For the two coin flip model (assuming the coin is fair) we 
+assign probability of $1/4$ to each outcome. The probability of
+the first flip being heads is $P(\{HH,HT\})
+= P(\{HH\} \cup \{HT\}) = P(\{HH\} + P(\{HT\}) = 1/4 + 1/4 = 1/2$.
 
 ## Random Variable
 
@@ -136,7 +220,7 @@ The mathematical definition of a random variable is
 a function $X\colon\Omega\to\mathbf{R}$. Its _cumulative
 distribution function_ is $F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})$.
 More generally, given a subset $A\subseteq\mathbf{R}$ the probability that
-$X$ takes a value in $X$ is $P(X\in A) = P(\{\omega\in\Omega\}\mid X(\omega\in A))\}$.
+$X$ takes a value in $X$ is $P(X\in A) = P(\{\omega\in\Omega\}: X(\omega\in A))\}$.
 
 Two random variables have the same _law_ if they have the same cdf.
 
@@ -274,6 +358,9 @@ where $F$ and $G$ are the cumulative distributions of $X$ and $Y$ respectively.
 
 In general, the joint distribution of $X_1$, \ldots, $X_n$ is
 $F(x_1,\ldots,x_n) = P(X_1\le x_1,\ldots, X_n\le x_n$).
+
+
+
 
 ### Moments
 
