@@ -13,7 +13,7 @@ abstract: Facts about cumulative distribution functions
 The _cumulative distribution function_ of a random variable $X$ is
 $F^X(x) = F(x) = P(X\le x)$. It tells you everything there is to know
 about the distribution of $X$.
-For example $P(X\in E) = E[1_E(X)] = \int_E dF(x)$
+For example $P(X\in E) = E[1_E(X)] = \int_{x\in E} dF(x)$
 where $1_E(x) = 1$ if $x\in E$, $1_E(x) = 0$ if $x\not\in E$ and we
 use Riemann-Stieltjes integration.
 
@@ -24,8 +24,8 @@ Any function with these properties is the cdf of a random variable.
 __Exercise__. _Prove right continuity using $\cap_n (-\infty, x + 1/n] = (-\infty, x]$_.
 
 Note $\cup_n (-\infty,x - 1/n] = (-\infty,x) \not= (-\infty,x]$.
-The sequence $F(x - 1/n)$ is non-decreasing so it has a limit, but not
-necessarily $F(x)$.
+The sequence $F(x - 1/n)$ is non-decreasing and bounded by $F(x)$ so it
+has a limit, but not necessarily $F(x)$.
 
 The distribution of a _uniformly distributed_ random variable on $[0,1]$, $U$,
 is $F(x) = x$ if $0\le x\le 1$, $F(x) = 0$ if $x < 0$, and $F(x) = 1$ if $x > 1$.
@@ -98,16 +98,6 @@ $$
 
 We gather some facts about the distributions and cumulants of particular random variables.
 
-## Bernoulli
-
-Let $X$ be the discrete random variable defined by $P(X = 1) = p$, $P(X = 0) = 1 - p$
-where $0\le p\le 1$ is the Bernoulli parameter.
-The cumulant is $κ(s) = \log(e^s p + (1 - p)) = \log(1 + p(e^s - 1))$.
-The Esscher transform is Bernoulli with parameter $p_s = p/(p + e^{-s}(1 - p))$
-so $1 - p_s = (1 - p)/(e^sp + (1 - p))$.
-
-Note $κ'(s) = p/(p + e^{-s}(1 - p))$ and $κ''(s) = 1/(p + e^{-s)(1 - p))$
-
 ### Discrete
 
 If $X$ is discrete with $P(X = x_j) = p_j$ then
@@ -116,6 +106,7 @@ where $δ_c$ is the _delta function_, or _point mass_, at $c$.
 A delta function is not a function but we can define
 $\int_{\bm{R}} g(x) \delta_a(x) \,dx = \int_{\bm{R}} g(x) d1(x \ge a) = g(a)$ using Riemann-Stieltjes integration.
 The cumulant is $κ(s) = \log E[\sum_j \exp(sx_j) p_j]$.
+The derivatives of $\exp(κ(s)) are the moments and $E[\sum_j \exp(sx_j) x_j^n p_j]$
 
 ### Normal
 
@@ -217,13 +208,13 @@ $\gamma$ is the Euler-Mascheroni constant and $\zeta(s) = \sum_{k\ge 1} n^{-s}$
 is the zeta function.
 
 The first derivative of the cumulant is $κ'(s) = \psi(1 + s) - \psi(1 - s)
-= 2\sum_{k\ge 1} \zeta(2k)s^{2k - 1}$.
+= 2\sum_{k\ge 1} \zeta(2k)s^{2k  - 1}$.
 The variance of the logistic is $κ_2 = κ''(0) = 2\zeta(2) = \pi^2/3$.
 
 The Esscher transformed cumulative distribution is
 $$
 	L_s(u) = \int_{-\infty}^u e^{sx - κ(s)} dF(x)
-	= \frac{e^{u(1 + s)}(1 + s - (1 + e^u) s\,_2F_1(1, 1 + s; 2 + s; -e^u)}
+	= \frac{e^{u(1 + s)}\bigl(1 + s - s(1 + e^u)\,_2F_1(1, 1 + s; 2 + s; -e^u)\bigr)}
 	{Γ(1 + s)Γ(1 - s)(1 + e^u)(1 + s)}, s > -1.
 $$
 where $\,_2F_1(a,b;c;x) = \sum_{n=0}^\infty\frac{(a)_n (b)_n}{(c)_n} x^n/n!$

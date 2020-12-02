@@ -23,9 +23,9 @@ Note $E[Y] = f$ is the forward and $\Var(\log Y) = s^2$ is the vol squared
 if $E[X] = 0$ and $E[X^2] = 1$, which we can, and do, assume.
 
 __Exercise__. _If $E[X] = 0$, $\Var(X) = 1$, and $Y = e^{aX + b}$
-show $E[Y] = e^{\kappa(a) + b}$ and $\Var(\log Y) = a^2$.
-Solve $f = e^{\kappa(a) + b}$ and $s^2 = a^2$ for $a$ and $b$
-to show $Y = fe^{sX - \kappa(s)}$_.
+show $E[Y] = e^{κ(a) + b}$ and $\Var(\log Y) = a^2$.
+Solve $f = e^{κ(a) + b}$ and $s^2 = a^2$ for $a$ and $b$
+to show $Y = fe^{sX - κ(s)}$_.
 
 For example, the Black model takes $X$ to be standard normal and vol
 $s = σ \sqrt{t}$ where $σ$ is the _volatilty_ and $t$ is time in years to expiration.
@@ -34,15 +34,12 @@ In this case $Y = fe^{σ \sqrt{t} X - σ^2t/2}$.
 ## Value and Greeks
 
 Let $X$ be any random variable with mean 0 and variance 1 and define
-$Y = fε_s(X)$ where $ε_s(x) = e^{sX - κ(s)}$ so 
-the cumulant of $X$ is $\log E[ε_s(X)]$. The _Esscher transform_ $X_s$
+$Y = fε_s(X)$ where $ε_s(x) = e^{sx - κ(s)}$
+and $κ(u) = \log E[ε_s(X)]$. The _Esscher transform_ $X_s$
 of $X$ is defined by $P(X_s\le x) = E[1(X\le x)ε_s(X)]$
 so $E[g(X_s)] = E_s[g(X)] = E[g(X)ε_s(X)]$ for any measurable function $g$.
-The cumlant of $X_s$ is  $\kappa_s(u) = \log E[e^{uX_s}]$ and
-$E[e^{uX_s}] = E[e^{uX_s}e^{sX - \kappa(s)}]$
-so $\kappa_s(u) = \kappa(u + s) - \kappa(s)$.
 
-Note $dY/df = ε_s(X)$ and $dY/ds = Y(X - κ'(s)) = fε_s(X)(X - κ'(s))$.
+Note $dY/df = ε_s(X) = Y/f$ and $dY/ds = Y(X - κ'(s)) = fε_s(X)(X - κ'(s))$.
 
 The (forward) value of an option paying $ν(Y)$ at expiration is
 $v = E[ν(Y)]$.  Note $dv/df = E[ν'(Y)dY/df] = Eν'(Y)ε_s(X)]$ and
@@ -56,10 +53,10 @@ If $Φ(x)$ is the cumulative distribution functions of $X$ then the cumulative
 distribution of $Y$ is $Ψ(y) = Φ(x)$ where $y = y(x) = fε_s(x)$
 and _moneyness_ $x = x(y) = ε_s^{-1}(y/f) = (\log(y/f) + κ(s))/s$.
 Let $ψ(y)$ and $φ(x)$ be the corresponding density functions so
-$ψ(y) = dΨ(y)/dy = dΦ(x(y))/dy = Φ'(x(y))dx/dy = φ(x(y))/ys$
-since $dy/dx = ys$. Likewise, $ψ_s(y) = φ_s(x(y))/ys$.
-Using $φ_s(x) = φ(x)ε_s(x)$ and $ε_s(x) = y(x)/f$
-shows $φ_s(x) = φ(x)y(x)/f$. We collect these for easy reference:
+$ψ(y) = Ψ'(y) = Φ'(x)dx/dy = φ(x)/ys$
+since $dy/dx = ys$. Similarly, $ψ_s(y) = φ_s(x(y))/ys$.
+Note $φ_s(x) = φ(x)ε_s(x) = φ(x)y/f$.
+We collect these for easy reference:
 $$
 \begin{aligned}
 	y &= y(x) = fε_s(x)\\
@@ -81,7 +78,7 @@ all models satisfy _put-call parity_: $c - p = f - k$.
 Call delta is $dc/df = dp/df + 1$ and call gamma equals put gamma $d^2c/df^2 = d^2p/df^2$.
 We also have $dc/ds - dp/ds = 0$ so call vega equals put vega.
 
-Note $Y \le y(x)$ iff $X \le x(y)$ so $ψ(y(x)) = Φ(x(y))$.
+Note $Y \le y(x)$ iff $X \le x(y)$ since $dε_s(x)/dx > 0$.
 The value of a put is
 $$
   p = E[(k - Y)1(Y\le k)] = k P(X \le x(k)) - P(Y 1(Y \le k)) = k Φ(x(k)) - f Φ_s(x(k)).
@@ -101,7 +98,7 @@ Vega for either a put or call is
 $$
 	dv/ds = E[ν'(Y) dY/ds] = E[ν'(Y)Y(X - κ'(s))] = fE_s[ν'(Y)(X - κ'(s))].
 $$ 
-Note $1 = E[\epsilon_s(X)]$ so $0 = E[\epsilon_s(X)(X - \kappa'(s)] = E_s[X - κ'(s)]$
+Note $1 = E[\epsilon_s(X)]$ so $0 = E[\epsilon_s(X)(X - κ'(s)] = E_s[X - κ'(s)]$
 so $E_s[1(Y\le y)(X - κ'(s))] = -E_s[1(Y > y)(X - κ'(s))]$.
 
 Vega? Is there some $h$ with $E_s[g(X)] = E[g(h(X,s))]$?
@@ -177,33 +174,34 @@ $$
 $$
 so $E_s[g(X)(X - s)] = E_s[g'(X)]$.
 
-The formula for vega is
+If $g(x) = \nu'(fe^{sx - κ(s)})$ then $g'(x) = \nu''(fe^{sx - κ(s)})fe^{sx - κ(s)}s$
+so the formula for vega is
 $$
 \begin{aligned}
-dv/ds &= E[ν'(Y)Y(X - s)] \\
+\frac{d}{ds}E[ν(Y)] &= E[ν'(Y)dY/ds] \\
+	&= E[ν'(Y)Y(X - s)] \\
 	&= f E_s[ν'(Y)(X - s)] \\
-	&= f E_s[\delta_k(Y)] \\
-	&= f \psi_s(k) \\
-	&= f^2 \phi_s(x(k))k \\
-    &= f^2 \phi(x(k) - s)/k \\
+	&= f E_s[\delta_k(Y)Ys] \\
+	&= f \psi_s(k)ks \\
+	&= f(\phi(x(k))/fs)ks \\
 \end{aligned}
 $$
 
 <!--
 ## Fourier Transform
 
-$\hat{\phi}(\xi) = E[e^{-2\pi i\xi X}] = e^{\kappa(-2\pi i \xi)}$
+$\hat{\phi}(\xi) = E[e^{-2\pi i\xi X}] = e^{κ(-2\pi i \xi)}$
 
 $\check{h}(x) = \int h(\xi)e^{2\pi i x\xi}\,dx$.
 
 $\hat{\phi_s}(\xi) = E_s[e^{-2\pi i \xi X}]
-= E[e^{-2\pi i \xi X}e^{sX - \kappa(s)}]
-= E[e^{(s -2\pi i \xi) X}e^{-\kappa(s)}]
-= e^{\kappa(s - 2\pi i\xi} - \kappa(s))$
+= E[e^{-2\pi i \xi X}e^{sX - κ(s)}]
+= E[e^{(s -2\pi i \xi) X}e^{-κ(s)}]
+= e^{κ(s - 2\pi i\xi} - κ(s))$
 
 $E[g(X)] = \int_{-\infty}^\infty g(x)\phi(x)\,dx
 = \int_{-\infty}^\infty \hat{g}(\xi)\hat{\phi}(\xi)\,d\xi
-= \int_{-\infty}^\infty \hat{g}(\xi)e^{\kappa(-2\pi i\xi)}\,d\xi$
+= \int_{-\infty}^\infty \hat{g}(\xi)e^{κ(-2\pi i\xi)}\,d\xi$
 
 ## Discrete
 

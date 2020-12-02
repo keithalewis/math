@@ -24,6 +24,8 @@ abstract: A Programming Language
 \newcommand\from{\widehat{\phantom{x}}}
 \newcommand\To{\Rightarrow}
 \newcommand\From{\Leftarrow}
+\newcommand\fold{/}
+\newcommand\scan{\backslash}
 
 
 
@@ -109,7 +111,6 @@ that satisfies the condition if
 $f\colon X\times Y\to Z$ then
 
 $X\times Y\to Z\cong X\to Z^Y)$.
-
 
 ## Set
 
@@ -267,6 +268,14 @@ A sum of types is a _variant_.
 A product of types is a _tuple_. Tuples with two elements are _pairs_.
 A _dictionary_ is a sum of pairs having the same type with distinct first elements.
 
+### Reshape
+
+Convert $x\in X^n$ to $\bar{x}\in X^{n_0\times n_1\cdots}$ where $n = n_0 n_1 \ldots$.
+
+Note $x\colon n\to X$ and $\times\fold\colon n_0\times n_1\cdots \to n$ so
+$\bar{x} = x(\times/)$.
+
+How to go from $n\to n_0\times n_1\cdots$? $n_0\times n_1\cdots\times\scan n$?
 
 ### Each
 
