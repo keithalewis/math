@@ -69,7 +69,7 @@ Read on.
 ## Probabilty Space
 
 A _sample space_ is a set of _outcomes_. Subsets of a
-sample space are _events_. A _probability measure_ assigns  a number
+sample space are _events_. A _probability measure_ assigns a number
 between 0 and 1 to events that represents a _degree of belief_ an outcome
 will belong to the event.
 _Partial information_ is modeled by a _partition_ of the sample space.
@@ -190,7 +190,8 @@ occur?
 
 Probability theory originated with games of chance. One way to interpret
 this is "How much money would you wager on an outcome involving rolling dice
-or selecting cards from a deck?"
+or selecting cards from a deck?" Putting your money where your mouth is
+is a way to clarify thinking.
 
 __Exercise__. _Show $P(E\cup F) \le P(E) + P(F)$
 for any events $E$ and $F$ when $P$ is a probability measure_.
@@ -380,41 +381,55 @@ random variable might not be unique.
  
 ### Cumulant
 
-The _cumulant_ of a random variable, $X$, is $\kappa(s) = \kappa^X(s) = \log E\exp(sX)$.
-The _cumulants_, $(\kappa_n)$, are the coefficients of the power series expansion
+The _cumulant_ of the random variable $X$ is $\kappa(s) = \kappa_X(s) = \log E\exp(sX)$.
+
+__Exercise__. _Show $κ_X(0) = 0$, $κ_X'(0) = E[X]$, and $κ_X''(0) = \Var(X)$_.
+
+__Exercise__. _Show if $c$ is a constant then $κ_{c + X}(s) = cs + κ_X(s)$_.
+
+__Exercise__. _Show if $c$ is a constant then $κ_{cX}(s) = κ_X(cs)$_.
+
+__Exercise__. _Show if $X$ and $Y$ are independent then $κ_{X + Y}(s) = κ_X(s) + κ_Y(s)$_.
+
+The _cumulants_ $(\kappa_n)$ are the coefficients of the power series expansion
 $\kappa(s) = \sum_{n>0}\kappa_n s^n/n!$.
 
-It is easy to see $\kappa_1 = E[X]$ and $\kappa_2 = \mathrm{Var}(X)$. The third and fourth cumulants
-are related to skew and kurtosis. We will see the exact relationship below.
+__Exercise__. _Show $\kappa_1 = E[X]$ and $\kappa_2 = \mathrm{Var}(X)$_.
 
-If $c$ is a constant then $\kappa^{cX}(s) = \kappa^X(cs)$ so
-$\kappa^{cX}_n = c^n\kappa^X_n$.  If $X$ and $Y$ satisfy $Ee^{sX}e^{sY}
-= Ee^{sX}E^{sY}$ then $\kappa^{X + Y}(s) = \kappa^X(s) + \kappa^Y(s)$
-and $\kappa^{X + Y}_n = \kappa^X_n + \kappa^Y_n$$
-
-#### Bell Polynomial
-
-The relationship between moments and cumulants is given by _Bell
-polynomials_.  They are defined by $\exp(\sum_{n=1}^\infty a_n s^n/n!) =
-\sum_0^\infty B_n(a_1,\ldots,a_n) s^n/n!$.  Taking the derivative
-with respect to $s$ and equating powers of $s$ shows $B_0 =
-1$ and $B_{n+1}(a_1,\ldots,a_{n+1} = \sum_{k=0}^n \binom{n}{k}
-B_{n-k}(a_1,\ldots,a_{n-k}) a_{k+1}$.
-
-Bell polynomials connect moments and cumulants of a random variable.
-Since $E \exp(sX) = \sum_0^\infty E X^n s^n/n! =
-\sum_0^\infty m_n s^n/n!$ where $m_n$ is the $n$-th moment and $E \exp(sX)
-= \exp(\kappa(s)) = \exp(\sum_{n=1}^\infty \kappa_n s^n/n!)$.
-
-__Exercise__: Show $m_n = \sum_{k=1}^n B_k(\kappa_1,\ldots,\kappa_n)$.
-
-__Exercise__: Find the first five Bell polynomials.
-
-In particular $m_1 = \kappa_1$ and $m_2 = \kappa_1^2 + \kappa_2$ so
-$\kappa_1$ is the mean and $\kappa_2$ is the variance. If the mean is 0 and
-the variance is 1, then $\kappa_3$ is the skew and $\kappa_4$ is the
+The third and fourth cumulants are related to skew and kurtosis.
+If the variance is 1, then $\kappa_3$ is the skew and $\kappa_4$ is the
 [excess kurtosis](https://en.wikipedia.org/wiki/Kurtosis#Excess_kurtosis).
 
+__Exercise__. _Show $κ_1(c + X) = c + κ_1(X)$ and  $κ_n(c + X) = κ_n(X)$ if $n > 1$_.
+
+__Exercise__. _Show $κ_n(cX) = c^nκ_n(X)$ for all $n$_.
+
+__Exercise__. _Show if $X$ and $Y$ are independent $κ_n(X + Y) = κ_n(X) + κ_n(Y)$ for all $n$_.
+
+The _moments_ of $X$, $\mu_n = E[X^n]$ are related
+to the cumulants via complete Bell polynomials $B_n(\kappa_1,\ldots,\kappa_n)$.
+$$
+	E[e^{sX}] = \sum_{n\ge0} \mu_n s^n/n! = e^{κ(s)} = e^{\sum_{n>0} κ_n s^n/n!}
+	= \sum_{n\ge0} B_n(κ_1,\ldots,κ_n) s^n/n!
+$$
+Taking a derivative with respect to $s$ of the last equality gives the recurrence formula
+$$
+	B_0 = 1, B_{n+1}(κ_1,\ldots,κ_{n+1})
+		= \sum_{k = 0}^n \binom{n}{k} B_{n - k}(κ_1,\ldots,κ_{n-k})κ_{k + 1}, n > 0.
+$$
+
+The cumulants are related to the moments via partial Bell polynomials $B_{n,k}(\mu_1,\ldots,\mu_{n - k - 1}$
+$$
+	κ_n = \sum_{k=0}^{n-1} (-1)^k k! B_{n,k+1}(\mu_1,\ldots,\mu_{n - k})
+$$
+where $(B_{n,k})$ are partial Bell polynomials satisfying the recurrence
+$B_{0,0} = 1$, $B_{n,0} = 0$ for $n > 0$, $B_{0,k} = 0$ for $k > 0$ and
+$$
+	B_{n,k}(x_1,\ldots,x_{n - k + 1})
+		= \sum_{i=1}^{n-k+1}\binom{n-1}{i - 1} B_{n-i,k-1}(x_1,\ldots,x_{n - i - k + 2})x_i
+$$
+
+!!! use more recent recurrence
 
 %Exercise. (Inclusion-Exclusion principal) Let $S$ be a finite set and
 %let $f$ be any function defined on subsets of $S$.

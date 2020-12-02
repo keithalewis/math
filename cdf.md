@@ -7,15 +7,20 @@ fleqn: true
 abstract: Facts about cumulative distribution functions
 ...
 
+\newcommand{\RR}{\bm{R}}
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
-The _cumulative distribution function_ of a random variable $X$ is
-$F^X(x) = F(x) = P(X\le x)$. It tells you everything there is to know
-about the distribution of $X$.
-For example $P(X\in E) = E[1_E(X)] = \int_E dF(x)$
-where $1_E(x) = 1$ if $x\in E$, $1_E(x) = 0$ if $x\not\in E$ and we
-use Riemann-Stieltjes integration.
+The _cumulative distribution function_ of a random variable $X$ tells you
+the probability of the random variable being less than or equal to $x$
+&ndash; $F^X(x) = F(x) = P(X\le x)$. It tells you everything there is
+to know about the random variable.  For example, $P(a < X \le b) = F(b)
+- F(a)$.  Although $F$ is a function it is more accurate to think of it
+as a function on sets.  $P(X\in (a, b]) = \int_{(a,b]} dF = \int_{x =
+a}^b dF(x) = F(b) - F(a)$ using Riemann-Stieltjes integration.
+
+More generally for $E\subseteq\RR$, $P(X\in E) = E[1_E(X)] = \int 1_E(x) dF(x)$
+where $1_E(x) = 1$ if $x\in E$, $1_E(x) = 0$ if $x\not\in E$.
 
 Every cdf is non-decreasing, continuous from the right, has left limits, and
 $\lim_{x\to-\infty}F(x) = 0$, $\lim_{x\to+\infty}F(x) = 1$.
@@ -39,51 +44,12 @@ If $F(x)$ jumps from $a$ to $b$ at $x = c$ we define $F^{-1}(u) = c$ for $a \le 
 ## Cumulant
 
 The _cumulant_ of the random variable $X$ is $κ_X(s) = κ(s) = \log E[\exp(s X)]$.
-
-__Exercise__. _Show if $c$ is a constant then $κ_{c + X}(s) = cs + κ_X(s)$_.
-
-__Exercise__. _Show if $c$ is a constant then $κ_{cX}(s) = κ_X(cs)$_.
-
-__Exercise__. _Show if $X$ and $Y$ are independent then $κ_{X + Y}(s) = κ_X(s) + κ_Y(s)$_.
-
-__Exercise__. _Show $κ_X(0) = 0$, $κ_X'(0) = E[X]$, and $κ_X''(0) = \Var(X)$_.
-
-The _cumulants_, $(κ_n(X))$, are the coefficients of the Taylor series expansion of the cumulant
-$κ(s) = \sum_{n > 0} κ_n s^n/n!$. Note $κ_n = κ^{(n)}(0)$ if $κ$ is
-sufficiently differentiable.
-
-__Exercise__. _Show $κ_1(c + X) = c + κ_1(X)$ and  $κ_n(c + X) = κ_n(X)$ if $n > 1$_.
-
-__Exercise__. _Show $κ_n(cX) = c^nκ_n(X)$ for all $n$_.
-
-__Exercise__. _Show if $X$ and $Y$ are independent $κ_n(X + Y) = κ_n(X) + κ_n(Y)$ for all $n$_.
-
-The _moments_ of $X$, $\mu_n = E[X^n]$ are related
-to the cumulants via complete Bell polynomials $(B_n)$.
-$$
-	E[e^{sX}] = \sum_{n\ge0} \mu_n s^n/n! = e^{κ(s)} = e^{\sum_{n>0} κ_n s^n/n!}
-	= \sum_{n\ge0} B_n(κ_1,\ldots,κ_n) s^n/n!
-$$
-Taking a derivative with respect to $s$ of the last equality gives the recurrence formula
-$$
-	B_0 = 1, B_{n+1}(κ_1,\ldots,κ_{n+1})
-		= \sum_{k = 0}^n \binom{n}{k} B_{n - k}(κ_1,\ldots,κ_{n-k})κ_{k + 1}, n > 0.
-$$
-
-The cumulants can be expressed in terms of moments by
-$$
-	κ_n = \sum_{k=0}^{n-1} (-1)^k k! B_{n,k+1}(\mu_1,\ldots,\mu_{n - k})
-$$
-where $(B_{n,k})$ are partial Bell polynomials satisfying the recurrence
-$B_{0,0} = 1$, $B_{n,0} = 0$ for $n > 0$, $B_{0,k} = 0$ for $k > 0$ and
-$$
-	B_{n,k}(x_1,\ldots,x_{n - k + 1})
-		= \sum_{i=1}^{n-k+1}\binom{n-1}{i - 1} B_{n-i,k-1}(x_1,\ldots,x_{n - i - k + 2})x_i
-$$
+Since $(d/ds)^nE[\exp(s X)] = E[\exp(s X)X^n]$ the Faà di Bruno formula 
+yields $\kappa^{(n)}(s) = ...$.
 
 ### Esscher Transform
 
-The Esscher transform of a random variable has density $f_s(x) = f(x)e^{s x - κ(s)}$
+The Esscher transform of a random variable $X$ with density $f$ has density $f_s(x) = f(x)e^{s x - κ(s)}$
 and we write $E_s$ for expectation under the transform.
 Since $E[\exp(sX)] = \exp(κ(s))$ this is a probability density.
 We write $X_s$ for the Esscher transform of $X$ so $F^{X_s}(x) = P(X_s\le x) = P_s(X\le X) = F_s^X(x)$
@@ -98,16 +64,6 @@ $$
 
 We gather some facts about the distributions and cumulants of particular random variables.
 
-## Bernoulli
-
-Let $X$ be the discrete random variable defined by $P(X = 1) = p$, $P(X = 0) = 1 - p$
-where $0\le p\le 1$ is the Bernoulli parameter.
-The cumulant is $κ(s) = \log(e^s p + (1 - p)) = \log(1 + p(e^s - 1))$.
-The Esscher transform is Bernoulli with parameter $p_s = p/(p + e^{-s}(1 - p))$
-so $1 - p_s = (1 - p)/(e^sp + (1 - p))$.
-
-Note $κ'(s) = p/(p + e^{-s}(1 - p))$ and $κ''(s) = 1/(p + e^{-s)(1 - p))$
-
 ### Discrete
 
 If $X$ is discrete with $P(X = x_j) = p_j$ then
@@ -115,6 +71,7 @@ $F(x) = \sum_j 1(x\le x_j) p_j$ and $f(x) = \sum_j δ_{x_j} p_j$
 where $δ_c$ is the _delta function_, or _point mass_, at $c$.
 A delta function is not a function but we can define
 $\int_{\bm{R}} g(x) \delta_a(x) \,dx = \int_{\bm{R}} g(x) d1(x \ge a) = g(a)$ using Riemann-Stieltjes integration.
+
 The cumulant is $κ(s) = \log E[\sum_j \exp(sx_j) p_j]$.
 
 ### Normal
