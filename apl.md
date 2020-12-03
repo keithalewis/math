@@ -277,6 +277,10 @@ $\bar{x} = x(\times/)$.
 
 How to go from $n\to n_0\times n_1\cdots$? $n_0\times n_1\cdots\times\scan n$?
 
+### Fork
+
+Same as $S$ combinator? $Sxyz = xz(yx)$ using left association.
+
 ### Each
 
 If $f\colon X\to Y$ and $x\colon Z\to X$ then $fx\colon Z\to Y$.

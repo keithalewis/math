@@ -12,8 +12,7 @@ abstract: European option pricing
 European _option valuation_ involves calculating the expected value of
 the _option payoff_ as a function of the _underlying_ at _expiration_.
 _Greeks_ are derivatives of the _value_ with respect to _model parameters_.
-This short note derives formulas for these using any underlying distribution
-that is positive.
+This short note derives formulas for these using any positive underlying distribution.
 
 Let $Y$ be the (random) value of the underlying at option expiration.
 Any positive random variable $Y$ can be parameterized using the _forward_ $f$
@@ -28,24 +27,38 @@ Solve $f = e^{κ(a) + b}$ and $s^2 = a^2$ for $a$ and $b$
 to show $Y = fe^{sX - κ(s)}$_.
 
 For example, the Black model takes $X$ to be standard normal and vol
-$s = σ \sqrt{t}$ where $σ$ is the _volatilty_ and $t$ is time in years to expiration.
+$s = σ \sqrt{t}$ where $σ$ is the _volatilty_ and $t$ is _time_ in years to expiration.
 In this case $Y = fe^{σ \sqrt{t} X - σ^2t/2}$.
 
 ## Value and Greeks
 
 Let $X$ be any random variable with mean 0 and variance 1 and define
-$Y = fε_s(X)$ where $ε_s(x) = e^{sx - κ(s)}$
-and $κ(u) = \log E[ε_s(X)]$. The _Esscher transform_ $X_s$
+$Y = fε_s(X)$ where $ε_s(x) = e^{sx - κ(s)}$.
+The _Esscher transform_ $X_s$
 of $X$ is defined by $P(X_s\le x) = E[1(X\le x)ε_s(X)]$
 so $E[g(X_s)] = E_s[g(X)] = E[g(X)ε_s(X)]$ for any measurable function $g$.
 
-Note $dY/df = ε_s(X) = Y/f$ and $dY/ds = Y(X - κ'(s)) = fε_s(X)(X - κ'(s))$.
+The (forward) _value_ of an option paying $ν(Y)$ at expiration is
+$$
+v = E[ν(Y)].
+$$
 
-The (forward) value of an option paying $ν(Y)$ at expiration is
-$v = E[ν(Y)]$.  Note $dv/df = E[ν'(Y)dY/df] = Eν'(Y)ε_s(X)]$ and
-$dε_s(X)/df = 0$ so $d^nv/df^n = E[ν^{(n)}(Y)ε_s^n(X)]
-= e^{κ(ns) - nκ(s)} E_{ns}[ν^{(n)}(Y)]$ and $dv/ds =
-E[ν'(Y)dY/ds] = E[ν'(Y)Y(X - κ'(s))] = fE_s[ν'(Y)(X - κ'(s))]$.
+_Delta_ is the derivative of value with respect to forward
+$$
+	\frac{dv}{df} = E[ν'(Y)dY/df] = E[ν'(Y)ε_s(X)] = E_s[ν'(Y)].
+$$
+
+_Gamma_ is the second derivative of value with respect to forward
+$$
+	\frac{d^2v}{df^2} = \frac{d}{df} E[ν'(Y)ε_s(X)] = E[ν''(Y)ε_s^2(X)] = e^{κ(2s) - 2κ(s)}E_{2s}[ν''(Y)].
+$$
+
+__Exercise__. _Show $d^nv/df^n = e^{κ(ns) - nκ(s)}E_{ns}[ν^{(n)}(Y)]$_.
+
+_Vega_ is the derivative of value with respect to vol
+$$
+	\frac{dv}{ds} = E[ν'(Y)dY/ds] = E[ν'(Y)Y(X - κ'(s))] = fE_s[ν'(Y)(X - κ'(s))].
+$$
 
 The inverse of option value as a function of vol is the _implied vol_.
 
@@ -53,10 +66,10 @@ If $Φ(x)$ is the cumulative distribution functions of $X$ then the cumulative
 distribution of $Y$ is $Ψ(y) = Φ(x)$ where $y = y(x) = fε_s(x)$
 and _moneyness_ $x = x(y) = ε_s^{-1}(y/f) = (\log(y/f) + κ(s))/s$.
 Let $ψ(y)$ and $φ(x)$ be the corresponding density functions so
-$ψ(y) = Ψ'(y) = Φ'(x)dx/dy = φ(x)/ys$
-since $dy/dx = ys$. Similarly, $ψ_s(y) = φ_s(x(y))/ys$.
+$ψ(y) = φ(x)dx/dy = φ(x)/ys$ since $dy/dx = ys$.
+Likewise, $ψ_s(y) = φ_s(x)/ys$.
 Note $φ_s(x) = φ(x)ε_s(x) = φ(x)y/f$.
-We collect these for easy reference:
+We collect these formulas for easy reference:
 $$
 \begin{aligned}
 	y &= y(x) = fε_s(x)\\
@@ -71,9 +84,10 @@ These are used in the formulas for put and call option values and their greeks.
 
 ## Put and Call
 
-A _put option_ pays $\nu(Y) = \max\{k - Y,0\}$ at expiration and has value $p = E[\max\{k - Y,0\}]$.
-A _call option_ pays $\nu(Y) = \max\{Y - k, 0\}$ at expiration and has value $c = E[\max\{Y - k, 0\}]$.
-Note $\max\{Y - k, 0\} - \max\{k - Y,0\} = Y - k$ is a _forward_ with _strike_ $k$ so
+A _put option_ pays $\nu(Y) = (k - Y)^+ = \max\{k - Y,0\}$ at expiration and has value
+$p = E[(k - Y)^+]$.
+A _call option_ pays $\nu(Y) = (Y - k)^+$ at expiration and has value $c = E[(Y - k)^+]$.
+Note $(Y - k)^+ - (k - Y)^+ = Y - k$ is a _forward_ with _strike_ $k$ so
 all models satisfy _put-call parity_: $c - p = f - k$.
 Call delta is $dc/df = dp/df + 1$ and call gamma equals put gamma $d^2c/df^2 = d^2p/df^2$.
 We also have $dc/ds - dp/ds = 0$ so call vega equals put vega.
@@ -86,12 +100,12 @@ $$
 
 Put delta is
 $$
-	dp/df = -Φ_s(x(k)). 
+	\frac{dp}{df} = -Φ_s(x(k)). 
 $$
 
 Gamma for either a put or call is
 $$
-	d^2p/df^2 = E_s[δ_k(Y)Y]/f = \psi_s(k)k/f = \phi_s(x(k))/fs = φ(x(k))k/f^2s.
+	\frac{d^2p}{df^2} = E_s[δ_k(Y)Y]/f = \psi_s(k)k/f = \phi_s(x(k))/fs = φ(x(k))k/f^2s.
 $$
 
 Vega for either a put or call is
@@ -186,6 +200,9 @@ $$
 	&= f(\phi(x(k))/fs)ks \\
 \end{aligned}
 $$
+
+## Discrete
+
 
 <!--
 ## Fourier Transform

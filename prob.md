@@ -13,7 +13,7 @@ abstract: Random Variables
 # Probability Theory
 
 A _random variable_ is a function on a _probability space_.  A probability
-space is a set _outcomes_, $\Omega$, and a set function $P$ from
+space is a set of _outcomes_, $\Omega$, and a set function $P$ from
 _events_, subsets of $\Omega$, to numbers between 0 and 1 that satisfies
 $P(E\cup F) = P(E) + P(F) - P(E\cap F)$ for $E,F\subseteq\Omega$
 and $P(\emptyset) = 0$.

@@ -39,7 +39,7 @@ $(DOCX): %.docx: %.md
 	pandoc $< -o $@
 
 index: $(MKDN)
-	./index.sh [a-z]*.md > docs/index.html
+	./index.sh [a-z]*.md > index.html
 
 docs: $(HTML) index
 	cp *.html math.css docs
