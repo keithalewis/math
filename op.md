@@ -204,8 +204,6 @@ These formulas imply the cumulant of a standard normal is $κ(s) = s^2/2$
 so $Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)$
 and $φ_s(x) = φ(x - s)$.
 
-### Value
-
 Put value is 
 $$
 	p = k Φ(x(k)) - f Φ(x(k) - s)
@@ -216,14 +214,10 @@ __Exercise__. _Show $x(k) = \log(k/f)/s + s/2 = -d_2$ and $x(k) - s = \log(k/f)/
 
 Hint: The Black-Scholes/Merton formulas use $d_1 = (\log(f/k) + s^2/2)/s$ and $d_2 = d_1 - s$.
 
-### Delta
-
-Delta is
+Put delta is
 $$
 	\frac{dp}{df} = -Φ_s(x(k)) = -Φ(x(k) - s).
 $$
-
-### Gamma
 
 Gamma is
 $$
@@ -231,8 +225,6 @@ $$
 $$
 We also have the formula $d^2p/df^2 = φ(x(k))k/f^2s$
 using $φ_s(x(k)) = φ(x(k))k/f$.
-
-### Vega
 
 Vega is
 $$
