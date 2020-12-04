@@ -202,7 +202,7 @@ so $Y = fe^{sX - s^2/2}$ has the same distribution.
 and $E[g(X)e^{s X - s^2/2}] = E[g(X + s)]$ for any function $g$ and $s\in\RR$.
 These formulas imply the cumulant of a standard normal is $κ(s) = s^2/2$
 so $Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)$
-and $φ_s(x) = φ(x - s)$.
+and $φ_s(x) = φ(x - s)$. Note $dΦ_s(x)/ds = -φ(x - s)$.
 
 Put value is 
 $$
