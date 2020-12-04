@@ -41,6 +41,9 @@
 <h1 class="title">Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
+<blockquote>
+<p><em>Besides it is an error to believe that rigour is the enemy of simplicity. On the contrary we find it confirmed by numerous examples that the rigorous method is at the same time the simpler and the more easily comprehended. The very effort for rigor forces us to find out simpler methods of proof. — David Hilbert</em></p>
+</blockquote>
 <p>European <em>option valuation</em> involves calculating the expected value of the <em>option payoff</em> as a function of the <em>underlying</em> at <em>expiration</em>. <em>Greeks</em> are derivatives of the <em>value</em> with respect to <em>model parameters</em>. This short note derives formulas for these using any positive underlying distribution.</p>
 <p>Let <span class="math inline">Y</span> be the (random) value of the underlying at option expiration. Any positive random variable <span class="math inline">Y</span> can be parameterized using the <em>forward</em> <span class="math inline">f</span> and <em>vol</em> <span class="math inline">s</span> by <span class="math inline">Y = f e^{s X - κ(s)}</span>, where <span class="math inline">κ(s) = \log E[e^{s X}]</span> is the cumulant of <span class="math inline">X</span>. Note <span class="math inline">E[Y] = f</span> is the forward and <span class="math inline">\operatorname{Var}(\log Y) = s^2</span> is the vol squared if <span class="math inline">E[X] = 0</span> and <span class="math inline">E[X^2] = 1</span>, which we can, and do, assume.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">E[X] = 0</span>, <span class="math inline">\operatorname{Var}(X) = 1</span>, and <span class="math inline">Y = e^{aX + b}</span> show <span class="math inline">E[Y] = e^{κ(a) + b}</span> and <span class="math inline">\operatorname{Var}(\log Y) = a^2</span>. Solve <span class="math inline">f = e^{κ(a) + b}</span> and <span class="math inline">s^2 = a^2</span> for <span class="math inline">a</span> and <span class="math inline">b</span> to show <span class="math inline">Y = fe^{sX - κ(s)}</span></em>.</p>
@@ -54,19 +57,20 @@ v = E[ν(Y)].
     \frac{dv}{df} = E[ν&#39;(Y)dY/df] = E[ν&#39;(Y)Y/f] = E_s[ν&#39;(Y)].
 </span></p>
 <p><em>Gamma</em> is the second derivative of value with respect to forward <span class="math display">
-    \frac{d^2v}{df^2} = \frac{d}{df} E[ν&#39;(Y)Y/f] = E[ν&#39;&#39;(Y)(Y/f)^2] = E_s[ν&#39;&#39;(Y)Y]/f.
+    \frac{d^2v}{df^2} = \frac{d}{df} E[ν&#39;(Y)Y/f] = E[ν&#39;&#39;(Y)(Y/f)^2] = E_s[ν&#39;&#39;(Y)Y]/f
 </span> since <span class="math inline">d(Y/f)/df = 0</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">d^nv/df^n = E[ν^{(n)}(Y)(Y/f)^n] = E_s[ν^{(n)}(Y)Y^{n-1}]/f^{n-1}</span></em>.</p>
 <p><em>Vega</em> is the derivative of value with respect to vol <span class="math display">
     \frac{dv}{ds} = E[ν&#39;(Y)dY/ds] = E[ν&#39;(Y)Y(X - κ&#39;(s))] = fE_s[ν&#39;(Y)(X - κ&#39;(s))].
 </span></p>
 <p>The inverse of option value as a function of vol is the <em>implied vol</em>.</p>
+<h3 id="spot">Spot</h3>
 <p>It is straightforward to convert these formulas to spot values and corresponding greeks. If the <em>spot price</em> of the underlying is <span class="math inline">u</span> the forward is <span class="math inline">f = e^{rt}u</span> where <span class="math inline">r</span> is the risk-free continuously compounded interest rate and <span class="math inline">t</span> is the time in years to expiration. The underlying at expiration is <span class="math inline">U = Y</span>.</p>
-<p>The <em>spot value</em> is <span class="math inline">v_0 = e^{-rt}E[ν(U)]</span> and <em>spot delta</em> is <span class="math inline">dv_0/du = e^{-rt}E[ν&#39;(U) dU/du] = e^{-rt}E[ν&#39;(F) dY/df df/du] = e^{-rt}E[ν&#39;(F) dY/df e^{rt}] = dv/df</span>.</p>
+<p>The <em>spot value</em> is <span class="math inline">v_0 = e^{-rt}E[ν(U)]</span> and <em>spot delta</em> is <span class="math inline">dv_0/du = e^{-rt}E[ν&#39;(U) dU/du] = e^{-rt}E[ν&#39;(F) (dY/df) df/du] = e^{-rt}E[ν&#39;(F) (dY/df) e^{rt}] = dv/df</span>.</p>
 <p>The spot and forward delta are equal but the spot gamma is <span class="math inline">d^2v_0/du^2 = d(dv/df)/du = (d^2v/df^2) df/du = e^{rt} d^2v/df^2</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">d^nv_0/du^n = e^{(n-1)rt}d^nv/df^n</span></em>.</p>
-<p>??? check</p>
 <p>The spot vega is <span class="math inline">dv_0/ds = e^{-rt}E[ν&#39;(U) dU/ds] = e^{-rt}E[ν&#39;(Y) dY/ds] = e^{-rt}dv/ds</span>.</p>
+<h3 id="distribution">Distribution</h3>
 <p>If <span class="math inline">Φ(x)</span> is the cumulative distribution functions of <span class="math inline">X</span> then the cumulative distribution of <span class="math inline">Y</span> is <span class="math inline">Ψ(y) = Φ(x)</span> where <span class="math inline">y = y(x) = fε_s(x)</span> and <em>moneyness</em> <span class="math inline">x = x(y) = ε_s^{-1}(y/f) = (\log(y/f) + κ(s))/s</span>. Let <span class="math inline">ψ(y)</span> and <span class="math inline">φ(x)</span> be the corresponding density functions so <span class="math inline">ψ(y) = φ(x)dx/dy = φ(x)/ys</span> since <span class="math inline">dy/dx = ys</span>. Likewise, <span class="math inline">ψ_s(y) = φ_s(x)/ys</span>. Note <span class="math inline">φ_s(x) = φ(x)ε_s(x) = φ(x)y/f</span>. We collect these formulas for easy reference: <span class="math display">
 \begin{aligned}
     y &amp;= y(x) = fε_s(x)\\
@@ -76,9 +80,12 @@ v = E[ν(Y)].
     ψ_s(y) &amp;= φ_s(x)/ys = φ(x)/fs \\
 \end{aligned}
 </span></p>
-<p>Note $dΦ(x) These are used in the formulas for put and call option values and their greeks.</p>
+<p>We will also need the formula <span class="math display">
+\frac{d}{ds}Φ_s(x) = \frac{d}{ds}E[1(X \le x)ε_s(X)] = E[1(X \le x)ε_s(X)(X - κ&#39;(s))]
+</span> since <span class="math inline">dε_s(x)/ds = ε_s(x)(x - κ&#39;(s))</span>.</p>
+<p>These are used in the formulas for put and call option values and their greeks.</p>
 <h2 id="put-and-call">Put and Call</h2>
-<p>A <em>put option</em> pays <span class="math inline">\nu(Y) = (k - Y)^+ = \max\{k - Y,0\}</span> at expiration and has value <span class="math inline">p = E[(k - Y)^+]</span>. A <em>call option</em> pays <span class="math inline">\nu(Y) = (Y - k)^+</span> at expiration and has value <span class="math inline">c = E[(Y - k)^+]</span>. Note <span class="math inline">(Y - k)^+ - (k - Y)^+ = Y - k</span> is a <em>forward</em> with <em>strike</em> <span class="math inline">k</span> so all models satisfy <em>put-call parity</em>: <span class="math inline">c - p = f - k</span>. Call delta is <span class="math inline">dc/df = dp/df + 1</span> and call gamma equals put gamma <span class="math inline">d^2c/df^2 = d^2p/df^2</span>. We also have <span class="math inline">dc/ds - dp/ds = 0</span> so call vega equals put vega.</p>
+<p>A <em>put option</em> pays <span class="math inline">ν(Y) = (k - Y)^+ = \max\{k - Y,0\}</span> at expiration and has value <span class="math inline">p = E[(k - Y)^+]</span>. A <em>call option</em> pays <span class="math inline">ν(Y) = (Y - k)^+</span> at expiration and has value <span class="math inline">c = E[(Y - k)^+]</span>. Note <span class="math inline">(Y - k)^+ - (k - Y)^+ = Y - k</span> is a <em>forward</em> with <em>strike</em> <span class="math inline">k</span> so all models satisfy <em>put-call parity</em>: <span class="math inline">c - p = f - k</span>. Call delta is <span class="math inline">dc/df = dp/df + 1</span> and call gamma equals put gamma <span class="math inline">d^2c/df^2 = d^2p/df^2</span>. We also have <span class="math inline">dc/ds - dp/ds = 0</span> so call vega equals put vega.</p>
 <p>Note <span class="math inline">Y \le y(x)</span> iff <span class="math inline">X \le x(y)</span> since <span class="math inline">dε_s(x)/dx &gt; 0</span>. The value of a put is <span class="math display">
 \begin{aligned}
 p &amp;= E[(k - Y)^+] \\
@@ -95,14 +102,31 @@ p &amp;= E[(k - Y)^+] \\
     \frac{d^2p}{df^2} = E[δ_k(Y)(Y/f)^2] = ψ(k)(k/f)^2 = φ(x(k))k/f^2s = φ_s(x(k))/fs.
 </span></p>
 <p>Vega for a put is <span class="math display">
-    dv/ds = -E[1(Y\le k)Y(X - κ&#39;(s))] = -f\frac{d}{ds}Φ_s(x(k)).
-</span> since <span class="math inline">dΦ_s(x)/ds = (d/ds)E[1(X \le x)e^{sX - κ(s)}] = E[1(X \le x)e^{sX - κ(s)}](X - κ&#39;(s))]</span>.</p>
-<p>Vega? Is there some <span class="math inline">h</span> with <span class="math inline">E_s[g(X)] = E[g(h(X,s))]</span>? If <span class="math inline">X</span> is standard normal then <span class="math inline">h(X,s) = X + s = X + κ&#39;(s)</span>.</p>
+    \frac{dp}{ds} = -E[1(Y\le k)Y(X - κ&#39;(s))] = -f\frac{d}{ds}Φ_s(x(k)).
+</span></p>
 <h2 id="digital">Digital</h2>
-<p>A <em>digital put</em> has payoff <span class="math inline">ν(Y) = 1(Y \le k)</span> and a <em>digital call</em> has payoff <span class="math inline">ν(Y) = 1(Y &gt; k)</span> with values <span class="math inline">p = P(Y \le k) = \Phi(x(k))</span> and <span class="math inline">c = P(Y &gt; k) = 1 - \Phi(x(k))</span>. Since <span class="math inline">p + c = 1</span> we have <span class="math inline">d^np/df^n = -d^nc/df^n</span> for all <span class="math inline">n</span>. The put delta is <span class="math inline">dp/df = ?</span></p>
+<p>A <em>digital put</em> has payoff <span class="math inline">ν(Y) = 1(Y \le k)</span> and a <em>digital call</em> has payoff <span class="math inline">ν(Y) = 1(Y &gt; k)</span> with values <span class="math display">
+    p = P(Y \le k) = Φ(x(k)), c = P(Y &gt; k) = 1 - Φ(x(k)).
+</span></p>
+<p>Digital put delta <span class="math display">
+    \frac{dp}{df} = -E[\delta_k(Y)(Y/f)] = -\psi(k)k/f = -\phi(x(k))/fs = -\phi_s(x(k))k/f^2s.
+</span></p>
+<p>Digital gamma is <span class="math display">
+    \frac{d^2p}{df^2} = -E_s[\delta_k&#39;(Y)Y]/f = -\psi_s&#39;(k)k/f = -\phi&#39;(x(k))/f^2s^2
+</span> where we use <span class="math inline">\psi_s(y) = \phi(x)/fs</span> so <span class="math inline">\psi_s&#39;(y) = \phi&#39;(x)/fks^2</span>.</p>
+<p>Digital put vega is <span class="math display">
+\begin{aligned}
+\frac{dp}{ds} &amp;= E[-\delta_k(Y)Y(X - κ&#39;(s))] \\
+    &amp;= -\psi_s(k)k(x(k) - κ&#39;(s)) \\
+    &amp;= -(\phi_s(x(k))/ks) k(x(k) - κ&#39;(s)) \\
+    &amp;= -\phi_s(x(k))(x(k) - κ&#39;(s))/s.\\
+\end{aligned}
+</span></p>
+<p>Since <span class="math inline">p + c = 1</span> we have <span class="math inline">d^nc/df^n = -d^np/df^n</span> and <span class="math inline">d^nc/ds^n = -d^np/ds^n</span> for all <span class="math inline">n &gt; 0</span>.</p>
 <h2 id="black-model">Black Model</h2>
 <p>We use the above to derive the standard Black-Scholes/Merton formulas for value and greeks. In the Black model <span class="math inline">Y = fe^{σB_t - σ^2t/2}</span> where <span class="math inline">f</span> is the forward, <span class="math inline">σ</span> is the volatility, and <span class="math inline">B_t</span> is Brownian motion at time <span class="math inline">t</span>. There is really no need to drag in Brownian motion to compute an option value, we only use the fact <span class="math inline">B_t</span> is normally distributed with mean <span class="math inline">0</span> and variance <span class="math inline">t</span>. There is also no need to drag in <span class="math inline">t</span> either, let <span class="math inline">s = σ\sqrt{t}</span> and <span class="math inline">X</span> be standard normal so <span class="math inline">Y = fe^{sX - s^2/2}</span> has the same distribution.</p>
-<p><a href="cdf.html#normal">Recall</a> if <span class="math inline">X</span> is standard normal then <span class="math inline">E[e^{μ + σ X}] = e^{μ + σ^2/2}</span> and <span class="math inline">E[g(X)e^{s X - s^2/2}] = E[g(X + s)]</span> for any function <span class="math inline">g</span> and <span class="math inline">s\in\RR</span>. These formulas imply the cumulant of a standard normal is <span class="math inline">κ(s) = s^2/2</span> so <span class="math inline">Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)</span> and <span class="math inline">φ_s(x) = φ(x - s)</span>. ### Value</p>
+<p><a href="cdf.html#normal">Recall</a> if <span class="math inline">X</span> is standard normal then <span class="math inline">E[e^{μ + σ X}] = e^{μ + σ^2/2}</span> and <span class="math inline">E[g(X)e^{s X - s^2/2}] = E[g(X + s)]</span> for any function <span class="math inline">g</span> and <span class="math inline">s\in\bm{R}</span>. These formulas imply the cumulant of a standard normal is <span class="math inline">κ(s) = s^2/2</span> so <span class="math inline">Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)</span> and <span class="math inline">φ_s(x) = φ(x - s)</span>.</p>
+<h3 id="value">Value</h3>
 <p>Put value is <span class="math display">
     p = k Φ(x(k)) - f Φ(x(k) - s)
 </span> where <span class="math inline">x(k) = \log(k/f)/s + s/2</span>.</p>
@@ -110,90 +134,16 @@ p &amp;= E[(k - Y)^+] \\
 <p>Hint: The Black-Scholes/Merton formulas use <span class="math inline">d_1 = (\log(f/k) + s^2/2)/s</span> and <span class="math inline">d_2 = d_1 - s</span>.</p>
 <h3 id="delta">Delta</h3>
 <p>Delta is <span class="math display">
-    dp/df = -Φ_s(x(k)) = -Φ(x(k) - s).
+    \frac{dp}{df} = -Φ_s(x(k)) = -Φ(x(k) - s).
 </span></p>
 <h3 id="gamma">Gamma</h3>
 <p>Gamma is <span class="math display">
-    d^2p/df^2 = φ_s(x(k))/fs = φ(x(k) - s)/fs
+    \frac{d^2p}{df^2} = φ_s(x(k))/fs = φ(x(k) - s)/fs
 </span> We also have the formula <span class="math inline">d^2p/df^2 = φ(x(k))k/f^2s</span> using <span class="math inline">φ_s(x(k)) = φ(x(k))k/f</span>.</p>
 <h3 id="vega">Vega</h3>
 <p>Vega is <span class="math display">
-    dv/ds = -E[1(Y\le k)Y(X - s)] = f φ(x - s).
+    \frac{dv}{ds} = -E[1(Y\le k)Y(X - s)] = -f\frac{d}{ds}dΦ_s(x(k)) = fφ(x(k) - s).
 </span></p>
-<p>so <span class="math inline">dΦ_s(x)/ds = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s)</span>.</p>
-<p>Taking the deriviative of <span class="math inline">E_s[g(X)] = E[g(X)e^{s X - s^2/2}] = E[g(X + s)]</span> with respect to <span class="math inline">s</span> gives <span class="math display">
-    E[g(X)e^{s X - s^2/2}(X - s)] = E[g&#39;(X + s)]
-</span> so <span class="math inline">E_s[g(X)(X - s)] = E_s[g&#39;(X)]</span>.</p>
-<p>If <span class="math inline">g(x) = \nu&#39;(fe^{sx - κ(s)})</span> then <span class="math inline">g&#39;(x) = \nu&#39;&#39;(fe^{sx - κ(s)})fe^{sx - κ(s)}s</span> so the formula for vega is <span class="math display">
-\begin{aligned}
-\frac{d}{ds}E[ν(Y)] &amp;= E[ν&#39;(Y)dY/ds] \\
-    &amp;= E[ν&#39;(Y)Y(X - s)] \\
-    &amp;= f E_s[ν&#39;(Y)(X - s)] \\
-    &amp;= f E_s[\delta_k(Y)Ys] \\
-    &amp;= f ψ_s(k)ks \\
-    &amp;= f(φ(x(k))/fs)ks \\
-\end{aligned}
-</span></p>
-<h2 id="discrete">Discrete</h2>
-<!--
-## Fourier Transform
-
-$\hat{φ}(\xi) = E[e^{-2\pi i\xi X}] = e^{κ(-2\pi i \xi)}$
-
-$\check{h}(x) = \int h(\xi)e^{2\pi i x\xi}\,dx$.
-
-$\hat{φ_s}(\xi) = E_s[e^{-2\pi i \xi X}]
-= E[e^{-2\pi i \xi X}e^{sX - κ(s)}]
-= E[e^{(s -2\pi i \xi) X}e^{-κ(s)}]
-= e^{κ(s - 2\pi i\xi} - κ(s))$
-
-$E[g(X)] = \int_{-\infty}^\infty g(x)φ(x)\,dx
-= \int_{-\infty}^\infty \hat{g}(\xi)\hat{φ}(\xi)\,d\xi
-= \int_{-\infty}^\infty \hat{g}(\xi)e^{κ(-2\pi i\xi)}\,d\xi$
-
-## Discrete
-
-A _discrete_ random variable has values $(x_i)$ with probabilities $(p_i)$ where
-$p_i \ge 0$ and $\sum_i p_i = 1$.
-Its cdf is $P(X\le x) = \sum_i 1(x_i\le x) p_i$ and pdf is $\sum_i δ_{x_i} p_i$.
-The cumulant is $κ(s) = \log(\sum_ie^{s x_i} p_i} = \log e(s)$ so
-$κ'(s) = e'(s)/e(s)$ and $κ''(s) = (e(s) e''(s) - e'(s)^2)/e(s)^2$.
-Note $e^{(n)}(s) = \sum_i e^{s x_i} x_i^n p_i$ for $n \ge 0$.
-
-## Trinomial
-
-Define $X$ by $P(x = -a) = p$, $P(X = b) = q$, and $P(X = 0) = 1 - p - q$, $a,b\ge 0$.
-If $0 = E[X] = -ap + bq$ and $\Var(X) = E[X^2] = a^2p + b^2 q$ then
-$p = 1/a(a + b)$ and $q = 1/b(a+b)$. The condition $p + q \le 1$
-is $ab \ge 1$. We parameterize this by $a = e^α$, $b = e^β$
-where $α + β\ge 0$ so $p = 1/e^{α}(e^α + e^β)$
-and $q = 1/e^{β}(e^α + e^β)$. Note $a,b\ge0$ for all $α,β$.
-
-The cumulant is 
-
-$$
-\begin{aligned}
-κ(s) &= \log E[e^{sX)] \\
-     &= \log(pe^{-sa) + (1 - p - q) + qe^{sb)) \\
-     &= \log(
-            e^{-se^α)/e^{α}(e^α + e^β)
-            + (1 - 1/e^{α}(e^α + e^β) - 1/e^β(e^α + e^β))
-            + e^{se^β)/e^{β}(e^α + e^β)) \\
-\end{aligned}
-$$
-
-## Remarks
-
-If the cumulative distribution function of $X$ is $Φ$, that is $P(X\le x) = Φ(x)$,
-and $g$ is invertible then the cdf of $Y = g(X)$ is $Ψ = Φ\circ g^{-1}$. For example,
-if $X$ has mean $0$ and variance $1$ and $g(x) = μ + σ x$ then $Y = g(X)$ has mean
-$μ$, variance $σ^2$, and $Ψ(y) = P(Y\le y) = Φ((y - μ)/σ)$.
-
-The probability density function of $Y = g(X)$ is $ψ(y) = Ψ'(y) =
-(φ\circ g^{-1}(y))(g^{-1})'(y)$.  Recall $(g^{-1})'(y) = 1/g'\circ
-g^{-1}(y)$ so  $ψ(y) = (φ(g^{-1}(y))/g'(g^{-1}(y)) = φ(x)/g'(x)$
-if $g(x) = y$.
--->
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

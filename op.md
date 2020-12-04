@@ -8,6 +8,13 @@ abstract: European option pricing
 ...
 
 \newcommand{\Var}{\operatorname{Var}}
+\newcommand{\RR}{\bm{R}}
+
+> _Besides it is an error to believe that rigour is the enemy of simplicity. 
+> On the contrary we find it confirmed by numerous examples that the rigorous 
+> method is at the same time the simpler and the more easily comprehended. 
+> The very effort for rigor forces us to find out simpler methods of proof. 
+> &mdash; David Hilbert_
 
 European _option valuation_ involves calculating the expected value of
 the _option payoff_ as a function of the _underlying_ at _expiration_.
@@ -50,7 +57,7 @@ $$
 
 _Gamma_ is the second derivative of value with respect to forward
 $$
-	\frac{d^2v}{df^2} = \frac{d}{df} E[ν'(Y)Y/f] = E[ν''(Y)(Y/f)^2] = E_s[ν''(Y)Y]/f.
+	\frac{d^2v}{df^2} = \frac{d}{df} E[ν'(Y)Y/f] = E[ν''(Y)(Y/f)^2] = E_s[ν''(Y)Y]/f
 $$
 since $d(Y/f)/df = 0$.
 
@@ -62,6 +69,8 @@ $$
 $$
 
 The inverse of option value as a function of vol is the _implied vol_.
+
+### Spot
 
 It is straightforward to convert these formulas to spot values and corresponding greeks.
 If the _spot price_ of the underlying is $u$ the forward is $f = e^{rt}u$
@@ -79,9 +88,10 @@ d(dv/df)/du = (d^2v/df^2) df/du = e^{rt} d^2v/df^2$.
 
 __Exercise__. _Show $d^nv_0/du^n = e^{(n-1)rt}d^nv/df^n$_.
 
-??? check
-
 The spot vega is $dv_0/ds = e^{-rt}E[ν'(U) dU/ds] = e^{-rt}E[ν'(Y) dY/ds] = e^{-rt}dv/ds$.
+
+
+### Distribution
 
 If $Φ(x)$ is the cumulative distribution functions of $X$ then the cumulative
 distribution of $Y$ is $Ψ(y) = Φ(x)$ where $y = y(x) = fε_s(x)$
@@ -101,14 +111,19 @@ $$
 \end{aligned}
 $$
 
-Note $dΦ(x)
+We will also need the formula
+$$
+\frac{d}{ds}Φ_s(x) = \frac{d}{ds}E[1(X \le x)ε_s(X)] = E[1(X \le x)ε_s(X)(X - κ'(s))]
+$$
+since $dε_s(x)/ds = ε_s(x)(x - κ'(s))$.
+
 These are used in the formulas for put and call option values and their greeks.
 
 ## Put and Call
 
-A _put option_ pays $\nu(Y) = (k - Y)^+ = \max\{k - Y,0\}$ at expiration and has value
+A _put option_ pays $ν(Y) = (k - Y)^+ = \max\{k - Y,0\}$ at expiration and has value
 $p = E[(k - Y)^+]$.
-A _call option_ pays $\nu(Y) = (Y - k)^+$ at expiration and has value $c = E[(Y - k)^+]$.
+A _call option_ pays $ν(Y) = (Y - k)^+$ at expiration and has value $c = E[(Y - k)^+]$.
 Note $(Y - k)^+ - (k - Y)^+ = Y - k$ is a _forward_ with _strike_ $k$ so
 all models satisfy _put-call parity_: $c - p = f - k$.
 Call delta is $dc/df = dp/df + 1$ and call gamma equals put gamma $d^2c/df^2 = d^2p/df^2$.
@@ -138,20 +153,39 @@ $$
 
 Vega for a put is
 $$
-	dv/ds = -E[1(Y\le k)Y(X - κ'(s))] = -f\frac{d}{ds}Φ_s(x(k)).
+	\frac{dp}{ds} = -E[1(Y\le k)Y(X - κ'(s))] = -f\frac{d}{ds}Φ_s(x(k)).
 $$ 
-since $dΦ_s(x)/ds = (d/ds)E[1(X \le x)e^{sX - κ(s)}] = E[1(X \le x)e^{sX - κ(s)}](X - κ'(s))]$.
-
-
-Vega? Is there some $h$ with $E_s[g(X)] = E[g(h(X,s))]$?
-If $X$ is standard normal then $h(X,s) = X + s = X + κ'(s)$.
 
 ## Digital
 
-A _digital put_ has payoff $ν(Y) = 1(Y \le k)$ and a _digital call_ has payoff $ν(Y) = 1(Y > k)$
-with values $p = P(Y \le k) = \Phi(x(k))$ and $c = P(Y > k) = 1 - \Phi(x(k))$.
-Since $p + c = 1$ we have $d^np/df^n = -d^nc/df^n$ for all $n$.
-The put delta is $dp/df = ?$
+A _digital put_ has payoff $ν(Y) = 1(Y \le k)$ and
+a _digital call_ has payoff $ν(Y) = 1(Y > k)$ with values
+$$
+	p = P(Y \le k) = Φ(x(k)), c = P(Y > k) = 1 - Φ(x(k)).
+$$
+
+Digital put delta 
+$$
+	\frac{dp}{df} = -E[\delta_k(Y)(Y/f)] = -\psi(k)k/f = -\phi(x(k))/fs = -\phi_s(x(k))k/f^2s.
+$$
+
+Digital gamma is 
+$$
+	\frac{d^2p}{df^2} = -E_s[\delta_k'(Y)Y]/f = -\psi_s'(k)k/f = -\phi'(x(k))/f^2s^2
+$$
+where we use $\psi_s(y) = \phi(x)/fs$ so $\psi_s'(y) = \phi'(x)/fks^2$.
+
+Digital put vega is 
+$$
+\begin{aligned}
+\frac{dp}{ds} &= E[-\delta_k(Y)Y(X - κ'(s))] \\
+	&= -\psi_s(k)k(x(k) - κ'(s)) \\
+	&= -(\phi_s(x(k))/ks) k(x(k) - κ'(s)) \\
+	&= -\phi_s(x(k))(x(k) - κ'(s))/s.\\
+\end{aligned}
+$$
+
+Since $p + c = 1$ we have $d^nc/df^n = -d^np/df^n$ and $d^nc/ds^n = -d^np/ds^n$ for all $n > 0$.
 
 ## Black Model
 
@@ -169,6 +203,7 @@ and $E[g(X)e^{s X - s^2/2}] = E[g(X + s)]$ for any function $g$ and $s\in\RR$.
 These formulas imply the cumulant of a standard normal is $κ(s) = s^2/2$
 so $Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)$
 and $φ_s(x) = φ(x - s)$.
+
 ### Value
 
 Put value is 
@@ -185,14 +220,14 @@ Hint: The Black-Scholes/Merton formulas use $d_1 = (\log(f/k) + s^2/2)/s$ and $d
 
 Delta is
 $$
-	dp/df = -Φ_s(x(k)) = -Φ(x(k) - s).
+	\frac{dp}{df} = -Φ_s(x(k)) = -Φ(x(k) - s).
 $$
 
 ### Gamma
 
 Gamma is
 $$
-	d^2p/df^2 = φ_s(x(k))/fs = φ(x(k) - s)/fs
+	\frac{d^2p}{df^2} = φ_s(x(k))/fs = φ(x(k) - s)/fs
 $$
 We also have the formula $d^2p/df^2 = φ(x(k))k/f^2s$
 using $φ_s(x(k)) = φ(x(k))k/f$.
@@ -201,90 +236,5 @@ using $φ_s(x(k)) = φ(x(k))k/f$.
 
 Vega is
 $$
-	dv/ds = -E[1(Y\le k)Y(X - s)] = f φ(x - s).
+	\frac{dv}{ds} = -E[1(Y\le k)Y(X - s)] = -f\frac{d}{ds}dΦ_s(x(k)) = fφ(x(k) - s).
 $$
-
-so $dΦ_s(x)/ds = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s)$.
-
-Taking the deriviative of $E_s[g(X)] = E[g(X)e^{s X - s^2/2}] = E[g(X + s)]$ with
-respect to $s$ gives
-$$
-	E[g(X)e^{s X - s^2/2}(X - s)] = E[g'(X + s)]
-$$
-so $E_s[g(X)(X - s)] = E_s[g'(X)]$.
-
-If $g(x) = \nu'(fe^{sx - κ(s)})$ then $g'(x) = \nu''(fe^{sx - κ(s)})fe^{sx - κ(s)}s$
-so the formula for vega is
-$$
-\begin{aligned}
-\frac{d}{ds}E[ν(Y)] &= E[ν'(Y)dY/ds] \\
-	&= E[ν'(Y)Y(X - s)] \\
-	&= f E_s[ν'(Y)(X - s)] \\
-	&= f E_s[\delta_k(Y)Ys] \\
-	&= f ψ_s(k)ks \\
-	&= f(φ(x(k))/fs)ks \\
-\end{aligned}
-$$
-
-## Discrete
-
-
-<!--
-## Fourier Transform
-
-$\hat{φ}(\xi) = E[e^{-2\pi i\xi X}] = e^{κ(-2\pi i \xi)}$
-
-$\check{h}(x) = \int h(\xi)e^{2\pi i x\xi}\,dx$.
-
-$\hat{φ_s}(\xi) = E_s[e^{-2\pi i \xi X}]
-= E[e^{-2\pi i \xi X}e^{sX - κ(s)}]
-= E[e^{(s -2\pi i \xi) X}e^{-κ(s)}]
-= e^{κ(s - 2\pi i\xi} - κ(s))$
-
-$E[g(X)] = \int_{-\infty}^\infty g(x)φ(x)\,dx
-= \int_{-\infty}^\infty \hat{g}(\xi)\hat{φ}(\xi)\,d\xi
-= \int_{-\infty}^\infty \hat{g}(\xi)e^{κ(-2\pi i\xi)}\,d\xi$
-
-## Discrete
-
-A _discrete_ random variable has values $(x_i)$ with probabilities $(p_i)$ where
-$p_i \ge 0$ and $\sum_i p_i = 1$.
-Its cdf is $P(X\le x) = \sum_i 1(x_i\le x) p_i$ and pdf is $\sum_i δ_{x_i} p_i$.
-The cumulant is $κ(s) = \log(\sum_ie^{s x_i} p_i} = \log e(s)$ so
-$κ'(s) = e'(s)/e(s)$ and $κ''(s) = (e(s) e''(s) - e'(s)^2)/e(s)^2$.
-Note $e^{(n)}(s) = \sum_i e^{s x_i} x_i^n p_i$ for $n \ge 0$.
-
-## Trinomial
-
-Define $X$ by $P(x = -a) = p$, $P(X = b) = q$, and $P(X = 0) = 1 - p - q$, $a,b\ge 0$.
-If $0 = E[X] = -ap + bq$ and $\Var(X) = E[X^2] = a^2p + b^2 q$ then
-$p = 1/a(a + b)$ and $q = 1/b(a+b)$. The condition $p + q \le 1$
-is $ab \ge 1$. We parameterize this by $a = e^α$, $b = e^β$
-where $α + β\ge 0$ so $p = 1/e^{α}(e^α + e^β)$
-and $q = 1/e^{β}(e^α + e^β)$. Note $a,b\ge0$ for all $α,β$.
-
-The cumulant is 
-
-$$
-\begin{aligned}
-κ(s) &= \log E[e^{sX)] \\
-     &= \log(pe^{-sa) + (1 - p - q) + qe^{sb)) \\
-     &= \log(
-	 		e^{-se^α)/e^{α}(e^α + e^β)
-			+ (1 - 1/e^{α}(e^α + e^β) - 1/e^β(e^α + e^β))
-			+ e^{se^β)/e^{β}(e^α + e^β)) \\
-\end{aligned}
-$$
-
-## Remarks
-
-If the cumulative distribution function of $X$ is $Φ$, that is $P(X\le x) = Φ(x)$,
-and $g$ is invertible then the cdf of $Y = g(X)$ is $Ψ = Φ\circ g^{-1}$. For example,
-if $X$ has mean $0$ and variance $1$ and $g(x) = μ + σ x$ then $Y = g(X)$ has mean
-$μ$, variance $σ^2$, and $Ψ(y) = P(Y\le y) = Φ((y - μ)/σ)$.
-
-The probability density function of $Y = g(X)$ is $ψ(y) = Ψ'(y) =
-(φ\circ g^{-1}(y))(g^{-1})'(y)$.  Recall $(g^{-1})'(y) = 1/g'\circ
-g^{-1}(y)$ so  $ψ(y) = (φ(g^{-1}(y))/g'(g^{-1}(y)) = φ(x)/g'(x)$
-if $g(x) = y$.
--->
