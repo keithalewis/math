@@ -34,6 +34,7 @@
   <![endif]-->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
 </head>
 <body>
 <header id="title-block-header">
@@ -99,6 +100,19 @@
 <p>We assume unique string representations for all types.</p>
 <p>Decoding is a function <span class="math inline">D\colon T\to\bm{C}^*</span>. for example <span class="math inline">D(1.23)</span> is <code>"1.23"</code>.</p>
 <p>A type is either a primitive type, a (disjoint) sum of types, or a product of types. A sum of types is a <em>variant</em>. A product of types is a <em>tuple</em>. Tuples with two elements are <em>pairs</em>. A <em>dictionary</em> is a sum of pairs having the same type with distinct first elements.</p>
+<h3 id="reshape">Reshape</h3>
+<p><span class="math inline">n\in\bm{N}</span> and <span class="math inline">\iota n = \{0, 1, \ldots, n-1\}</span>.</p>
+<p><span class="math inline">X^n = X\times X\times\dots</span> and <span class="math inline">X^{\iota n} = \iota n\to X</span>.</p>
+<p>Reshape converts <span class="math inline">X^n</span> to <span class="math inline">X^{n_0\times n_1\cdots}</span> where <span class="math inline">n = n_0 n_1 \cdots</span>.</p>
+<p>Note <span class="math inline">x\colon \iota n\to X</span> and <span class="math inline">\times/\colon \bm{N}^* \to \bm{N}</span> so</p>
+<p><span class="math inline">\times/\colon(n_0, n_1, \ldots) = n_0 n_1\cdots</span>.</p>
+<p><span class="math inline">?\colon\iota n_0\times\cdots\to\iota n</span>.</p>
+<p><span class="math inline">(i_0, i_1,\ldots)\mapsto i_0 + n_0 i_1 + n_0 n_1 i_2 + \cdots</span>.</p>
+<p>$#to <span class="math inline">\bm{N}</span>, <span class="math inline">\SS</span> all finite sets.</p>
+<p><span class="math inline">\#^n\colon \SS^n to \bm{N}^n</span>.</p>
+<p>How to go from <span class="math inline">n\to n_0\times n_1\cdots</span>? <span class="math inline">n_0\times n_1\cdots\times\backslash n</span>?</p>
+<h3 id="fork">Fork</h3>
+<p>Same as <span class="math inline">S</span> combinator? <span class="math inline">Sxyz = xz(yx)</span> using left association.</p>
 <h3 id="each">Each</h3>
 <p>If <span class="math inline">f\colon X\to Y</span> and <span class="math inline">x\colon Z\to X</span> then <span class="math inline">fx\colon Z\to Y</span>. This can be viewed as a function <span class="math inline">f^Z\colon X^Z\to Y^Z</span>. It is common to call this <em>apply</em> or <em>map</em> or <em>fmap</em>, but in APL it is called <em>each</em>. With <span class="math inline">X^Z</span> and <span class="math inline">Y^Z</span> as products, <span class="math inline">x\mapsto fx</span> where <span class="math inline">(fx)_z = f(x_z)</span></p>
 <h3 id="index">Index</h3>

@@ -12,6 +12,7 @@ abstract: A Programming Language
 \newcommand\FF{\bm{F}}
 \newcommand\NN{\bm{N}}
 \newcommand\RR{\bm{R}}
+\newcommand\RR{\bm{S}}
 \newcommand\ZZ{\bm{Z}}
 \newcommand\span{\operatorname{span}}
 \newcommand\dom{\operatorname{dom}}
@@ -270,10 +271,23 @@ A _dictionary_ is a sum of pairs having the same type with distinct first elemen
 
 ### Reshape
 
-Convert $x\in X^n$ to $\bar{x}\in X^{n_0\times n_1\cdots}$ where $n = n_0 n_1 \ldots$.
+$n\in\NN$ and $\iota n = \{0, 1, \ldots, n-1\}$.
 
-Note $x\colon n\to X$ and $\times\fold\colon n_0\times n_1\cdots \to n$ so
-$\bar{x} = x(\times/)$.
+$X^n = X\times X\times\dots$ and $X^{\iota n} = \iota n\to X$.
+
+Reshape converts $X^n$ to $X^{n_0\times n_1\cdots}$ where $n = n_0 n_1 \cdots$.
+
+Note $x\colon \iota n\to X$ and $\times\fold\colon \NN^* \to \NN$ so
+
+$\times\fold\colon(n_0, n_1, \ldots) = n_0 n_1\cdots$.
+
+$?\colon\iota n_0\times\cdots\to\iota n$.
+
+$(i_0, i_1,\ldots)\mapsto i_0 + n_0 i_1 + n_0 n_1 i_2 + \cdots$.
+
+$\#\colons\SS to $\NN$, $\SS$ all finite sets.
+
+$\#^n\colon \SS^n to \NN^n$.
 
 How to go from $n\to n_0\times n_1\cdots$? $n_0\times n_1\cdots\times\scan n$?
 

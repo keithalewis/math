@@ -45,15 +45,16 @@ $$
 
 _Delta_ is the derivative of value with respect to forward
 $$
-	\frac{dv}{df} = E[ν'(Y)dY/df] = E[ν'(Y)ε_s(X)] = E_s[ν'(Y)].
+	\frac{dv}{df} = E[ν'(Y)dY/df] = E[ν'(Y)Y/f] = E_s[ν'(Y)].
 $$
 
 _Gamma_ is the second derivative of value with respect to forward
 $$
-	\frac{d^2v}{df^2} = \frac{d}{df} E[ν'(Y)ε_s(X)] = E[ν''(Y)ε_s^2(X)] = e^{κ(2s) - 2κ(s)}E_{2s}[ν''(Y)].
+	\frac{d^2v}{df^2} = \frac{d}{df} E[ν'(Y)Y/f] = E[ν''(Y)(Y/f)^2] = E_s[ν''(Y)Y]/f.
 $$
+since $d(Y/f)/df = 0$.
 
-__Exercise__. _Show $d^nv/df^n = e^{κ(ns) - nκ(s)}E_{ns}[ν^{(n)}(Y)]$_.
+__Exercise__. _Show $d^nv/df^n = E[ν^{(n)}(Y)(Y/f)^n] = E_s[ν^{(n)}(Y)Y^{n-1}]/f^{n-1}$_.
 
 _Vega_ is the derivative of value with respect to vol
 $$
@@ -61,6 +62,26 @@ $$
 $$
 
 The inverse of option value as a function of vol is the _implied vol_.
+
+It is straightforward to convert these formulas to spot values and corresponding greeks.
+If the _spot price_ of the underlying is $u$ the forward is $f = e^{rt}u$
+where $r$ is the risk-free continuously compounded interest rate and $t$ is
+the time in years to expiration. The underlying at expiration is $U = Y$.
+
+The _spot value_ is $v_0 = e^{-rt}E[ν(U)]$ and _spot delta_ is
+$dv_0/du = e^{-rt}E[ν'(U) dU/du]
+= e^{-rt}E[ν'(F) (dY/df) df/du]
+= e^{-rt}E[ν'(F) (dY/df) e^{rt}]
+= dv/df$.
+
+The spot and forward delta are equal but the spot gamma is $d^2v_0/du^2 =
+d(dv/df)/du = (d^2v/df^2) df/du = e^{rt} d^2v/df^2$.
+
+__Exercise__. _Show $d^nv_0/du^n = e^{(n-1)rt}d^nv/df^n$_.
+
+??? check
+
+The spot vega is $dv_0/ds = e^{-rt}E[ν'(U) dU/ds] = e^{-rt}E[ν'(Y) dY/ds] = e^{-rt}dv/ds$.
 
 If $Φ(x)$ is the cumulative distribution functions of $X$ then the cumulative
 distribution of $Y$ is $Ψ(y) = Φ(x)$ where $y = y(x) = fε_s(x)$
@@ -80,6 +101,7 @@ $$
 \end{aligned}
 $$
 
+Note $dΦ(x)
 These are used in the formulas for put and call option values and their greeks.
 
 ## Put and Call
@@ -95,7 +117,13 @@ We also have $dc/ds - dp/ds = 0$ so call vega equals put vega.
 Note $Y \le y(x)$ iff $X \le x(y)$ since $dε_s(x)/dx > 0$.
 The value of a put is
 $$
-  p = E[(k - Y)1(Y\le k)] = k P(X \le x(k)) - P(Y 1(Y \le k)) = k Φ(x(k)) - f Φ_s(x(k)).
+\begin{aligned}
+p &= E[(k - Y)^+] \\
+  &= E[(k - Y)1(Y\le k)] \\
+  &= k P(Y \le k) - E[Y 1(Y \le k)] \\
+  &= k P(Y \le k) - fP_s(Y \le k) \\
+  &= k Φ(x(k)) - f Φ_s(x(k)). \\
+\end{aligned}
 $$
 
 Put delta is
@@ -105,15 +133,15 @@ $$
 
 Gamma for either a put or call is
 $$
-	\frac{d^2p}{df^2} = E_s[δ_k(Y)Y]/f = \psi_s(k)k/f = \phi_s(x(k))/fs = φ(x(k))k/f^2s.
+	\frac{d^2p}{df^2} = E[δ_k(Y)(Y/f)^2] = ψ(k)(k/f)^2 = φ(x(k))k/f^2s = φ_s(x(k))/fs.
 $$
 
-Vega for either a put or call is
+Vega for a put is
 $$
-	dv/ds = E[ν'(Y) dY/ds] = E[ν'(Y)Y(X - κ'(s))] = fE_s[ν'(Y)(X - κ'(s))].
+	dv/ds = -E[1(Y\le k)Y(X - κ'(s))] = -f\frac{d}{ds}Φ_s(x(k)).
 $$ 
-Note $1 = E[\epsilon_s(X)]$ so $0 = E[\epsilon_s(X)(X - κ'(s)] = E_s[X - κ'(s)]$
-so $E_s[1(Y\le y)(X - κ'(s))] = -E_s[1(Y > y)(X - κ'(s))]$.
+since $dΦ_s(x)/ds = (d/ds)E[1(X \le x)e^{sX - κ(s)}] = E[1(X \le x)e^{sX - κ(s)}](X - κ'(s))]$.
+
 
 Vega? Is there some $h$ with $E_s[g(X)] = E[g(h(X,s))]$?
 If $X$ is standard normal then $h(X,s) = X + s = X + κ'(s)$.
@@ -132,28 +160,18 @@ for value and greeks. In the Black model $Y = fe^{σB_t - σ^2t/2}$ where
 $f$ is the forward, $σ$ is the volatility, and
 $B_t$ is Brownian motion at time $t$. There is really no need to drag
 in Brownian motion to compute an option value, we only use the fact
-$B_t$ is normally distributed with mean $0$ and variance $t$. There is really no need
+$B_t$ is normally distributed with mean $0$ and variance $t$. There is also no need
 to drag in $t$ either, let $s = σ\sqrt{t}$ and $X$ be standard normal
 so $Y = fe^{sX - s^2/2}$ has the same distribution.
 
-The Black model uses forward values but it is straightforward to
-use those to get spot values. In the Black-Scholes/Merton model
-the underlying at expiration is
-$U = ue^{rt + σB_t - σ^2t/2}$ and the spot value is $v_0 = e^{-rt}E[ν(U)]$. 
-The spot delta is $dv_0/du = e^{-rt}E[ν'(U)e^{rt + σB_t - σ^2t/2}]
-= E[ν'(Y)e^{s X - s^2/2}] = dv/df$ where $v = E[ν(Y)]$ and $f = ue^{rt}$.
-The spot and forward delta are equal but
-the spot gamma is $d^2v_0/du^2 = d(dv/df)/du = (d^2v/df^2) df/du = e^{rt} d^2v/df^2$.
-
 [Recall](cdf.html#normal) if $X$ is standard normal then $E[e^{μ + σ X}] = e^{μ + σ^2/2}$
-and $E[g(X)e^{s X - s^2/2}] = E[g(X + s)]$ for any $g$.
+and $E[g(X)e^{s X - s^2/2}] = E[g(X + s)]$ for any function $g$ and $s\in\RR$.
 These formulas imply the cumulant of a standard normal is $κ(s) = s^2/2$
-and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - κ(s)}] = P(X + s \le x) = Φ(x - s)$.
-Note $φ_s(x) = φ(x - s)$.
-
+so $Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)$
+and $φ_s(x) = φ(x - s)$.
 ### Value
 
-The put value is 
+Put value is 
 $$
 	p = k Φ(x(k)) - f Φ(x(k) - s)
 $$
@@ -165,21 +183,28 @@ Hint: The Black-Scholes/Merton formulas use $d_1 = (\log(f/k) + s^2/2)/s$ and $d
 
 ### Delta
 
-The formula for delta is
+Delta is
 $$
 	dp/df = -Φ_s(x(k)) = -Φ(x(k) - s).
 $$
 
 ### Gamma
 
-The formula for gamma is
+Gamma is
 $$
 	d^2p/df^2 = φ_s(x(k))/fs = φ(x(k) - s)/fs
 $$
 We also have the formula $d^2p/df^2 = φ(x(k))k/f^2s$
-using $\phi_s(x(k)) = \phi(x(k))k/f$.
+using $φ_s(x(k)) = φ(x(k))k/f$.
 
 ### Vega
+
+Vega is
+$$
+	dv/ds = -E[1(Y\le k)Y(X - s)] = f φ(x - s).
+$$
+
+so $dΦ_s(x)/ds = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s)$.
 
 Taking the deriviative of $E_s[g(X)] = E[g(X)e^{s X - s^2/2}] = E[g(X + s)]$ with
 respect to $s$ gives
@@ -196,8 +221,8 @@ $$
 	&= E[ν'(Y)Y(X - s)] \\
 	&= f E_s[ν'(Y)(X - s)] \\
 	&= f E_s[\delta_k(Y)Ys] \\
-	&= f \psi_s(k)ks \\
-	&= f(\phi(x(k))/fs)ks \\
+	&= f ψ_s(k)ks \\
+	&= f(φ(x(k))/fs)ks \\
 \end{aligned}
 $$
 
@@ -207,17 +232,17 @@ $$
 <!--
 ## Fourier Transform
 
-$\hat{\phi}(\xi) = E[e^{-2\pi i\xi X}] = e^{κ(-2\pi i \xi)}$
+$\hat{φ}(\xi) = E[e^{-2\pi i\xi X}] = e^{κ(-2\pi i \xi)}$
 
 $\check{h}(x) = \int h(\xi)e^{2\pi i x\xi}\,dx$.
 
-$\hat{\phi_s}(\xi) = E_s[e^{-2\pi i \xi X}]
+$\hat{φ_s}(\xi) = E_s[e^{-2\pi i \xi X}]
 = E[e^{-2\pi i \xi X}e^{sX - κ(s)}]
 = E[e^{(s -2\pi i \xi) X}e^{-κ(s)}]
 = e^{κ(s - 2\pi i\xi} - κ(s))$
 
-$E[g(X)] = \int_{-\infty}^\infty g(x)\phi(x)\,dx
-= \int_{-\infty}^\infty \hat{g}(\xi)\hat{\phi}(\xi)\,d\xi
+$E[g(X)] = \int_{-\infty}^\infty g(x)φ(x)\,dx
+= \int_{-\infty}^\infty \hat{g}(\xi)\hat{φ}(\xi)\,d\xi
 = \int_{-\infty}^\infty \hat{g}(\xi)e^{κ(-2\pi i\xi)}\,d\xi$
 
 ## Discrete

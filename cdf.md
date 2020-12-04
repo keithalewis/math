@@ -11,13 +11,14 @@ abstract: Facts about cumulative distribution functions
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
-The _cumulative distribution function_ of a random variable $X$ tells you
-the probability of the random variable being less than or equal to $x$
+The _cumulative distribution function_ of a random variable $X$ is
+the probability that the random variable is less than or equal to $x$
 &ndash; $F^X(x) = F(x) = P(X\le x)$. It tells you everything there is
-to know about the random variable.  For example, $P(a < X \le b) = F(b)
-- F(a)$.  Although $F$ is a function it is more accurate to think of it
-as a function on sets.  $P(X\in (a, b]) = \int_a^b dF = 
-F(b) - F(a)$ using Riemann-Stieltjes integration.
+to know about the random variable. 
+For example, $P(a < X \le b) = F(b) - F(a)$. 
+Although $F$ is a function it is more accurate to think of it
+as a function on sets &ndash;
+$P(X\in (a, b]) = \int_a^b dF = F(b) - F(a)$ using Riemann-Stieltjes integration.
 
 More generally for $E\subseteq\RR$, $P(X\in E) = E[1_E(X)] = \int 1_E(x) dF(x)$
 where $1_E(x) = 1$ if $x\in E$, $1_E(x) = 0$ if $x\not\in E$.
@@ -44,16 +45,17 @@ If $F(x)$ jumps from $a$ to $b$ at $x = c$ we define $F^{-1}(u) = c$ for $a \le 
 ## Cumulant
 
 The _cumulant_ of the random variable $X$ is $κ_X(s) = κ(s) = \log E[\exp(s X)]$.
-
-### Esscher Transform
-
-The Esscher transform of a random variable $X$ with density $f$ has density $f_s(x) = f(x)e^{s x - κ(s)}$
-and we write $E_s$ for expectation under the transform.
+The Esscher transform $X_s$, $s\in\RR$, of a random variable $X$
+with density $f$ has density $f_s(x) = f(x)e^{s x - κ(s)}$
+and we write $E_s$ for expectation using density $f_s$.
 Since $E[\exp(sX)] = \exp(κ(s))$ this is a probability density.
+
 Note $(d/ds)E[g(X)e^{s X - κ(s)}] = E[g(X)e^{s X - κ(s)}(X - κ'(s))]$ so
 $$
 	\frac{d}{ds}E_s[g(X)] = E_s[g(X)(X - κ'(s))].
 $$
+The cdf of $X_s$ is $F_s(x) = P_s(X\le x) = E[1(X\le x) e^{s X - κ(s)}]$
+so $dF_s(x)/ds =  E[1(X\le x) e^{s X - κ(s)}(X - κ'(s))]$.
 
 ## Distributions
 
@@ -62,28 +64,28 @@ We gather some facts about the distributions and cumulants of particular random 
 ### Discrete
 
 If $X$ is discrete with $P(X = x_j) = p_j$ then
-$F(x) = \sum_j 1(x\le x_j) p_j$ and $f(x) = \sum_j δ_{x_j} p_j$
-where $δ_c$ is the _delta function_, or _point mass_, at $c$.
+$F(x) = \sum_j 1(x\le x_j) p_j$ and $f(x) = \sum_j δ_{x_j}(x) p_j$
+where $δ_a$ is the _delta function_, or _point mass_, at $a$.
+In general, $F^{(n)}(x) = \sum_j δ_{x_j}^{(n-1)}(x) p_j$ where $\int_{\RR} g(x) δ_{a}^{(k)}\,dx = g^{(k)}(a)$.
 A delta function is not a function but we can define
 $\int_{\bm{R}} g(x) \delta_a(x) \,dx = \int_{\bm{R}} g(x) d1(x \ge a) = g(a)$ using Riemann-Stieltjes integration.
 
 The cumulant is $κ(s) = \log E[\sum_j \exp(sx_j) p_j]$.
-The derivatives of $\exp(κ(s)) are the moments and $E[\sum_j \exp(sx_j) x_j^n p_j]$
 
 ### Normal
 
-The standard normal random variable $Z$ has density $\phi(z) = \exp(-z^2/2)/\sqrt{2\pi}$,
-$-\infty < z < \infty$,
-and cumulative distribution $\Phi(z) = \int_{-\infty}^z \exp(-t^2/2)\, dt/\sqrt{2\pi}$.
+The standard normal random variable $X$ has density $φ(x) = \exp(-x^2/2)/\sqrt{2\pi}$,
+$-\infty < x < \infty$,
+and cumulative distribution $Φ(x) = \int_{-\infty}^x \exp(-ξ^2/2)\, dξ/\sqrt{2\pi}$.
 
-The derivatives of $\phi$ are $\phi^{(n)}(x) = (-1)^n\phi(x)H_n(x)$ where $H_n$ are the
+The derivatives of the density are $φ^{(n)}(x) = (-1)^nφ(x)H_n(x)$ where $H_n$ are the
 Hermite polynomials. They satisfy the recurrence $H_0(x) = 1$, $H_1(x) = x$ and
 $H_{n+1}(x) = x H_n(x) - n H_{n-1}(x)$, $n\ge 1$.
 
-Note 
+Some useful properties are 
 $$
 \begin{aligned}
-E[e^{\mu + \sigma Z}] &= \int_{-\infty}^\infty e^{\mu + \sigma z} e^{-z^2/2}\, dz/\sqrt{2\pi} \\
+E[e^{\mu + \sigma X}] &= \int_{-\infty}^\infty e^{\mu + \sigma z} e^{-z^2/2}\, dz/\sqrt{2\pi} \\
 	&= \int_{-\infty}^\infty e^{\mu + \sigma^2/2} e^{-(z - \sigma)^2/2}\, dz/\sqrt{2\pi} \\
 	&= e^{\mu + \sigma^2/2} \\
 \end{aligned}
@@ -93,13 +95,27 @@ so $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ for any normally distributed random var
 Also
 $$
 \begin{aligned}
-E[g(Z) e^{sZ}] &= \int_{-\infty}^\infty g(z) e^{sz} e^{-z^2/2}\, dz/\sqrt{2\pi} \\
+E[g(X) e^{sX}] &= \int_{-\infty}^\infty g(z) e^{sz} e^{-z^2/2}\, dz/\sqrt{2\pi} \\
 	&= \int_{-\infty}^\infty g(z) e^{s^2/2} e^{-(z - s)^2/2}\, dz/\sqrt{2\pi} \\
-	&= E[e^{sZ}] E(g(Z - s)]. \\
+	&= E[e^{sX}] E(g(X - s)]. \\
 \end{aligned}
 $$
 More generally, if $N$, $N_1, \ldots$ are jointly normal then
 $E[\exp(N)g(N_1,\ldots)] = E[\exp(N)] E[g(N_1 + \Cov(N, N_1), \ldots)]$.
+This is an elementary form of Girsanov's Theorem.
+
+__Exercise__. _Prove this_.
+
+Hint: $N_1, \ldots$ are jointly normal if and only if 
+they are linear combinations of independent standard normals.
+
+The cumulant is $κ(s) = \log E[\exp(sX)] = s^2/2$ so $κ_2 = 1$ and all other
+cumulants are zero. The transformed cdf is
+$Φ_s(x) = P_s(X\le x) = E[1(X\le x) e^{sX - s^2/2}] = P(X + s\le x) = Φ(x - s)$
+so $dΦ_s(x)/ds = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s)$.
+
+???
+
 In particular
 $$
 	E[\exp(s X - s^2/2)g(X)] = E[g(X + s)].
@@ -110,37 +126,47 @@ $$
 $$
 so $E[X g(X)] = E[g'(X)]$ when $s = 0$.
 
-The moments of $X$ can be calculated using
-$E[X^n] = E[X X^{n-1}] = (n - 1)E[X^{n - 2}]$, $E[X^0] = 1$, and $E[X^1] = 0$.
-The odd moments are zero and the even moments are $E[X^{2n}] = (2n - 1)(2n - 3)\cdots 1 = (2n - 1)!!$.
-
-The cumulant is $κ(s) = \log E[\exp(sZ)] = s^2/2$ so $κ_2 = 1$ and all other
-cumulants are zero.
-
 ### Poisson
 
-The Poisson distribution with parameter $\lambda$ has density $P(X_\lambda = n) = e^{-\lambda}\lambda^n/n!$, $n\ge 0$.
-Since $E[\exp(s X)] = \sum_{n\ge 0} \exp(sn) e^{-\lambda}\lambda^n/n! 
-= e^{-\lambda}\exp(e^s\lambda) = \exp(\lambda(e^s - 1))$
-we have $κ(s) = \lambda(e^s - 1)$ and $κ_n = \lambda$, $n\ge 1$.
+The Poisson distribution with parameter $λ$ has density
+$P(X_λ = n) = e^{-λ}λ^n/n!$, $n\ge 0$.
+Since $E[e^{s X}] = \sum_{n\ge 0} e^{sn} e^{-λ}λ^n/n! 
+= e^{-λ}\exp(e^sλ) = \exp(λ(e^s - 1))$
+we have
+$$
+κ(s) = λ(e^s - 1), κ_n = λ, n\ge 1.
+$$
+
+The Esscher transform a Poisson distribution with parameter $λ$
+is Poisson with parameter $λe^s$.
 
 $$
 \begin{aligned}
-	E[g(X_\lambda)\exp(s X - κ(s))] &= \sum_{n\ge0} g(n)\exp(sn - \lambda(e^s - 1))e^{-\lambda}\lambda^n/n! \\
-	&= \exp(-\lambda e^s)\sum_{n\ge0} g(n) (\lambda e^s)^n/n! \\
-	&= E[g(X_{\lambda e^s})]
+	E[g(X_λ)e^{s X - κ(s)}]
+	&= \sum_{n\ge0} g(n)e^{sn - λ(e^s - 1)}e^{-λ}λ^n/n! \\
+	&= \sum_{n\ge0} g(n)e^{-λ e^s} (λ e^s)^n/n! \\
+	&= E[g(X_{λ e^s})] \\
 \end{aligned}
 $$
-
-and $(d/ds)E[g(X_\lambda)\exp(s X - κ(s))] = E[h(X_{\lambda e^s})]$
-where $h(n) = g(n)(n - \lambda e^s)$.
+so $E_s[g(X_λ)] = E[g(X_{λ e^s})]$.
+Taking a derivative with respect to $s$
+$$
+\begin{aligned}
+	\frac{d}{ds} E[g(X_λ)e^{s X - κ(s)}]
+	&= \sum_{n\ge0} g(n)\frac{d}{ds}\bigl(e^{-λ e^s} (λ e^s)^n\bigr)/n! \\
+	&= \sum_{n\ge0} g(n)\bigl(e^{-λ e^s} n(λ e^s)^{n-1}λ e^s - e^{-λ e^s}λ e^s (λ e^s)^n\bigr)/n! \\
+	&= \sum_{n\ge0} g(n)λ e^se^{-λ e^s} \bigl((λ e^s)^{n-1}/(n-1)! - (λ e^s)^n/n!\bigr) \\
+	&= λ e^s E_s[g(X_{λ e^s} + 1) - g(X_{λ e^s})] \\
+\end{aligned}
+$$
+so $(d/ds)E_s[g(X_λ)] = λ e^s E_s[g(X_{λ e^s} + 1) - g(X_{λ e^s})]$.
 
 ### Exponential
 
-The density of an exponential with parameter $\lambda$ is $f(x) = \lambda\exp(-\lambda x)$, $x\ge 0$.
-Since $E[\exp sX] = \int_0^\infty \exp(sx)  \lambda\exp(-\lambda x)\,dx = \lambda/(\lambda - s)$
-The cumulant is $κ(s) = -\log(1 - s/\lambda)$ so $κ'(s) = (1 - s/\lambda)^{-1}$
-and $κ^{(n)}(s) = (1 - s/\lambda)^{-n}(n - 1)!/\lambda^{n-1}$
+The density of an exponential with parameter $λ$ is $f(x) = λ\exp(-λ x)$, $x\ge 0$.
+Since $E[\exp sX] = \int_0^\infty \exp(sx)  λ\exp(-λ x)\,dx = λ/(λ - s)$
+The cumulant is $κ(s) = -\log(1 - s/λ)$ so $κ'(s) = (1 - s/λ)^{-1}$
+and $κ^{(n)}(s) = (1 - s/λ)^{-n}(n - 1)!/λ^{n-1}$
 
 ### Logistic
 
@@ -170,12 +196,13 @@ $\gamma$ is the Euler-Mascheroni constant and $\zeta(s) = \sum_{k\ge 1} n^{-s}$
 is the zeta function.
 
 The first derivative of the cumulant is $κ'(s) = \psi(1 + s) - \psi(1 - s)
-= 2\sum_{k\ge 1} \zeta(2k)s^{2k  - 1}$.
-The variance of the logistic is $κ_2 = κ''(0) = 2\zeta(2) = \pi^2/3$.
+= 2\sum_{k\ge 1} \zeta(2k)s^{2k  - 1}$
+so $κ_{2k-1} = 0$ and $κ_{2k} = 2\zeta(2k)(2k-1)!$, $k\ge1$.
+In particular, the variance of the logistic is $κ_2 = 2\zeta(2) = \pi^2/3$.
 
 The Esscher transformed cumulative distribution is
 $$
-	L_s(u) = \int_{-\infty}^u e^{sx - κ(s)} dF(x)
+	F_s(u) = \int_{-\infty}^u e^{sx - κ(s)} dF(x)
 	= \frac{e^{u(1 + s)}\bigl(1 + s - s(1 + e^u)\,_2F_1(1, 1 + s; 2 + s; -e^u)\bigr)}
 	{Γ(1 + s)Γ(1 - s)(1 + e^u)(1 + s)}, s > -1.
 $$
