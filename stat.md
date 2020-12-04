@@ -5,7 +5,7 @@ institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
 fleqn: true
-abstract: Properties of random variables
+abstract: Observations of outcomes
 ...
 
 \newcommand\RR{\bm{R}}
