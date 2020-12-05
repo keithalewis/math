@@ -107,7 +107,7 @@ The sequence $\|f_n\|$ is also Cauchy so it too has a limit
 that is an upper bound for $|f(x)]$, $x\in S$.
 </details>
 
-The (vector space) dual of $B(S)$ is $ba(S).
+The (vector space) dual of $B(S)$ is $ba(S)$.
 Given $M\in B(S)^*$ define $\mu(E) = M1_E$ and given
 $\mu\in ba(S)$ define $M(\sum_j a_j 1_{E_j}) = \sum_j a_j\mu(E_j)$.
 
@@ -135,7 +135,7 @@ A _probability measure_ is a measure taking values in the interval $[0,1]$.
 
 If $\Omega$ is finite we can define a probability measure by specifying
 $p_\omega = P(\{\omega\})$ for $\omega\in\Omega$. Note $p_\omega\ge
-0$ and $\sum_{\omega\in\Omega} = 1$.  The probability of the event
+0$ and $\sum_{\omega\in\Omega} p_\omega = 1$.  The probability of the event
 $E\subseteq\Omega$ is $P(E) = \sum_{\omega\in E} p_\omega$.
 
 ### Partition
@@ -143,8 +143,11 @@ $E\subseteq\Omega$ is $P(E) = \sum_{\omega\in E} p_\omega$.
 A _partition_ splits a sample space into disjoint subsets with union
 equal to the sample space. Partitions are how _partial information_
 is represented.  The elements of the partition are called _atoms_. The
-way they represent partial information is you only know what atom an
+way paritions represent partial information is you only know what atom an
 outcome belongs to, not the exact outcome.
+Complete information corresponds to the _finest_ partiion of singletons
+$\{\{\omega\}\mid \omega\in\Omega\}$.
+No information corresponds to the _coarsest_ partition $\{\Omega\}$.
 
 Partitions define an _equivalence relation_ on outcomes. We say $\omega\sim\omega'$
 if and only if they belong to the same atom.
