@@ -195,14 +195,14 @@ $f$ is the forward, $σ$ is the volatility, and
 $B_t$ is Brownian motion at time $t$. There is really no need to drag
 in Brownian motion to compute an option value, we only use the fact
 $B_t$ is normally distributed with mean $0$ and variance $t$. There is also no need
-to drag in $t$ either, let $s = σ\sqrt{t}$ and $X$ be standard normal
+to drag in $t$, let $s = σ\sqrt{t}$ and $X$ be standard normal
 so $Y = fe^{sX - s^2/2}$ has the same distribution.
 
 [Recall](cdf.html#normal) if $X$ is standard normal then $E[e^{μ + σ X}] = e^{μ + σ^2/2}$
 and $E[g(X)e^{s X - s^2/2}] = E[g(X + s)]$ for any function $g$ and $s\in\RR$.
 These formulas imply the cumulant of a standard normal is $κ(s) = s^2/2$
 so $Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)$
-and $φ_s(x) = φ(x - s)$. Note $dΦ_s(x)/ds = -φ(x - s)$.
+and $φ_s(x) = φ(x - s)$. Note $dΦ_s(x)/ds = -φ(x - s) = -φ_s(x)$.
 
 Put value is 
 $$
@@ -221,12 +221,16 @@ $$
 
 Gamma is
 $$
-	\frac{d^2p}{df^2} = φ_s(x(k))/fs = φ(x(k) - s)/fs
+	\frac{d^2p}{df^2} = φ_s(x(k))/fs = φ(x(k))k/f^2s
 $$
 We also have the formula $d^2p/df^2 = φ(x(k))k/f^2s$
 using $φ_s(x(k)) = φ(x(k))k/f$.
 
 Vega is
 $$
-	\frac{dv}{ds} = -E[1(Y\le k)Y(X - s)] = -f\frac{d}{ds}dΦ_s(x(k)) = fφ(x(k) - s).
+\begin{aligned}
+	\frac{dv}{ds} &= -E[1(Y\le k)Y(X - s)] \\
+	&= -f\frac{d}{ds}Φ_s(x(k)) \\
+	&= f(x(k) - s) = fφ_s(x(k)).
+\end{aligned}
 $$
