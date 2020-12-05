@@ -9,6 +9,7 @@ abstract: Random Variables
 ...
 
 \newcommand\RR{\bm{R}}
+\newcommand{\Var}{\operatorname{Var}}
 
 # Probability Theory
 
@@ -76,7 +77,13 @@ $\mu(E\cap F) + \mu(E\cap F') = \mu((E\cap F)\cup(E\cap F') = \mu(E)$.
 
 </details>
 
-The space of all measures on $S$ is denoted $ba(S)$.
+The space of all (finitely additive) measures on $S$ is denoted $ba(S)$.
+Note $ba(S)$ is a vector space with $(a\mu)(E) = a\mu(E)$
+and $(\mu + \nu)(E) = \mu(E) + \nu(E)$, $a\in\RR$, $E\subseteq S$.
+The _norm_ of a measure $\mu\in ba(S)$ is
+$\|\mu\| = \sup_{(E_j)} \sum_j |\mu(E_j)|$ where $(E_j)$
+is any finite collection of pairwise disjoint subsets of $S$.
+
 Let $B(S)$ be the vector space of all bounded functions
 on $S$. It has norm $\|f\| = \sup_{x\in S}|f(x)|$.
 Vector space norms define a _metric_ $d\colon B(S)\times B(S)\to\RR$
@@ -92,21 +99,44 @@ The norm is _complete_ so $B(S)$ is a _Banach space_.
 
 __Exercise__. _Show if $(f_n)$ is Cauchy then there exists $f\in B(\Omega)$
 with $\lim_n \|f_n - f\| = 0$_.
+<details>
+<summary>Solution</summary>
+
+> Since $f_n(x)$ is Cauchy so it has a limit $f(x)$.
+The sequence $\|f_n\|$ is also Cauchy so it too has a limit
+that is an upper bound for $|f(x)]$, $x\in S$.
+</details>
 
 The (vector space) dual of $B(S)$ is $ba(S).
-Give $M\in B(S)^*$ define $\mu(E) = M1_E$ and given
+Given $M\in B(S)^*$ define $\mu(E) = M1_E$ and given
 $\mu\in ba(S)$ define $M(\sum_j a_j 1_{E_j}) = \sum_j a_j\mu(E_j)$.
 
+__Exercise__. _Show $\mu\mapsto M$ is well-defined_.
+<details>
+<summary>Solution</summary>
+
+> Every finite sum of the form $\sum_j a_j 1_{E_j}$ is equal to a function
+$\sum_k b_k 1_{F_k}$ where the $(F_k)$ are pairwise disjoint.
+Such functions are uniformly dense in $B(S)$.
+</details>
+
+The dual pairing defines the integral $\int_S f\,d\mu = \langle f,\mu\rangle$,
+$f\in B(\Omega)$, $\mu\in ba(\Omega)$. Finitely additive measures make
+it challenging to prove theorems of the form 'If $\lim_n f_n = f$ then
+$\lim_n \int_S f_n\,d\mu = \int f\,d\mu$.'
+
+The product of a function and a measure is a measure defined by
+$\langle f,g\mu\rangle = \langle fg,\mu\rangle$. Given measures $\mu,\nu\in ba(S)$
+we say $g$ is the _Radon-Nikodym derivative_ of $\nu$ with respect to $\mu$ if $g\mu = \nu$.
 
 ## Probability Measure
 
 A _probability measure_ is a measure taking values in the interval $[0,1]$.
 
-If $\Omega$ is finite
-we can define a probability measure by specifying $p_\omega = P(\{\omega\})$
-for $\omega\in\Omega$. Note $p_\omega\ge 0$ and $\sum_{\omega\in\Omega} = 1$.
-The probability of the event $E\subseteq\Omega$
-is $P(E) = \sum_{\omega\in E} p_\omega$.
+If $\Omega$ is finite we can define a probability measure by specifying
+$p_\omega = P(\{\omega\})$ for $\omega\in\Omega$. Note $p_\omega\ge
+0$ and $\sum_{\omega\in\Omega} = 1$.  The probability of the event
+$E\subseteq\Omega$ is $P(E) = \sum_{\omega\in E} p_\omega$.
 
 ### Partition
 
@@ -125,6 +155,24 @@ and $\omega\sim\omega'$, $\omega'\sim\omega''$ implies $\omega\sim\omega''$_.
 This is the definition of an equivalence relation. It is the mathematical way
 of saying two things are the "same" even if they are not equal.
 
+An _algebra_ of sets on $\Omega$ is a collection of subsets of $\Omega$
+that contains the empty set and is closed under complement and finite
+union. Closure under complements imples $\Omega$ belongs to the algebra
+and De Morgan's Laws imply it is also close under finite intersection.
+
+An element $A\subseteq S$ is an _atom_ of the algebra if $B\subseteq A$ and
+$B$ in the algebra imply $B$ is either the empty set or equals $A$.
+
+__Exercise__. _If an algebra is finite its atoms form a partition and the
+smallest algebra containing the partition is equal to the algebra_.
+
+A function is _measurable_ with respect to an algebra if the preimage
+of every interval belongs to the algebra.
+
+__Exercise__. _If an algebra is finite then a function is measurable if and
+only if it is constant on atoms_.
+
+In this case, it is a function on the atoms of the algebra.
 
 ## Random Variable
 
@@ -197,6 +245,43 @@ then $f(\omega) = \int_{\mathbf{R}} f(x)\,dH_\omega(x)$ when $f$ is continuous_.
 
 Using this more precise notation, $F = \sum_{\omega\in\Omega} p_\omega H_\omega$.
 
+### Expected Value
+
+The _expected value_ of a random variable is defined by
+$E[X] = \int_\Omega X\,dP$. More generally, the expected value of
+any function $f\colon\RR\to\RR$ of
+a random variable is $E[f(X)] = \int_\Omega f(X)\,dP$
+where $f(X)\colon\Omega\to\RR$ via $f(X)(\omega) = f(X(\omega))$, $\omega\in\Omega$.
+
+The _moments_ of a random variable are $m_n = E[X^n]$ where $n$ is a positive integer.
+The _moment generating function_ is $M(s) = E[e^{sX}] = \sum_{n=0}^\infty m_n s^n/n!$.
+Its natural logarithm is the _cumulant_ $\kappa(s) = \log E[e^sX]$.
+
+The _variance_ of the random variable $X$ is $\Var(X) = E[(X - E[X])^2]= E[X^2] - E[X]^2$.
+
+__Exercise__. _Show $\kappa'(0) = E[X]$ and $\kappa''(0) = \Var(X)$_.
+
+__Lemma__. (Chebyshev) _If $f$ is non-negative then $P(f(X) > \lambda) \le E[f(X)]/\lambda$_.
+
+_Proof_. We have $E[f(X)] \le E[f(X)1(f(X) > \lambda) \le \lambda P(f(X) > \lambda)$.
+
+An immediate corollaries are $P(X > \lambda) \le E[|X|]/\lambda$ and
+$P(|X - E[X]| > \lambda) \le \mathrm{Var}(X)/\lambda^2$.
+
+## Joint Distribution
+
+Two random variables, $X$ and $Y$, are defined by their _joint
+distribution_, $H(x,y) = P(X\le x, Y\le y)$.  For example, the point $(X,Y)$ is
+in the square $(a,b]\times (c,d]$ with probability
+$P(a < X \le b, c < Y \le d) = P(X \le b, Y \le d) - P(X \le a) - P(Y \le c) + P(X \le a, Y \le c)$.
+
+The _marginal distbutions_ are $F(x) = H(x,\infty)$ and $G(y) =  H(\infty,y)$,
+where $F$ and $G$ are the cumulative distributions of $X$ and $Y$ respectively.
+
+In general, the joint distribution of $X_1$, \ldots, $X_n$ is
+$F(x_1,\ldots,x_n) = P(X_1\le x_1,\ldots, X_n\le x_n$).
+
+
 
 <!--
 
@@ -232,48 +317,6 @@ when the algebra has a finite number of elements._
 
 In this case we can write $X\colon\mathcal{A}\to\mathbf{R}$ as a function on the
 atoms of $\mathcal{A}$.
-
-### Expected Value
-
-The _expected value_ of a random variable is defined by
-$E[X] = \int_{-\infty}^\infty x\,dF(x)$. The expected value of any function of
-a random variable is $E[f(X)] = \int_{-\infty}^\infty f(x)\,dF(x)$.
-
-If $X\colon\mathcal{A}\to\mathbf{R}$ we can define expected value by ...
-If $X = \sum a_i 1_{A_i}$ where $a_i\in\mathbf{R}$ and $A_i$ are events,
-the _expected value_ of $X$ is $EX = \sum_i a_i P(A_i)$.
-
-__Exercise__. Show that if $\sum_i a_i 1_{A_i} = 0$ then $\sum_i a_i P(A_i) = 0$.
-
-_Hint_: Replace the $A_i$ by disjoint $B_j$ with $\sum_i a_i 1_{A_i} = \sum_j b_j 1_{B_j}$
-so $b_j = 0$ for all $j$.
-
-This shows expected value is [well-defined](https://en.wikipedia.org/wiki/Well-defined).
-
-__Exercise__. Show $P(\cup_i A_i) = \sum_i P(A_i) - \sum_{i < j} P(A_i\cap A_j)
-+ \sum_{i < j < k} P(A_i\cap A_j\cap A_k) \cdots$.
-
-Hint: Use $(1_A - 1_{A_1})\cdots (1_A - 1_{A_n}) = 0$, where $A = \cup_{k=1}^n A_k$.
-
-For any $p > 0$ $E[|Y|^p] = \int_\Omega |Y|^p\,dP
-\ge \int_{\{|Y| > \lambda\}} |Y|^p\,dP
-\ge \int_{\{|Y| > \lambda\}} \lambda^p\,dP
-= \lambda^p P(|Y| > \lambda)$.
-Taking $Y = X - E[X]$ and $p = 2$ yields
-$P(|X - E[X]| > \lambda) \le \mathrm{Var}(X)/\lambda^2$.
-
-## Joint Distribution
-
-Two random variables, $X$ and $Y$, are defined by their _joint
-distribution_, $H(x,y) = P(X\le x, Y\le y)$.  For example, the point $(X,Y)$ is
-in the square $(a,b]\times (c,d]$ with probability
-$P(a < X \le b, c < Y \le d) = P(X \le b, Y \le d) - P(X \le a) - P(Y \le c) + P(X \le a, Y \le c)$.
-
-The _marginal distbutions_ are $F(x) = H(x,\infty)$ and $G(y) =  H(\infty,y)$,
-where $F$ and $G$ are the cumulative distributions of $X$ and $Y$ respectively.
-
-In general, the joint distribution of $X_1$, \ldots, $X_n$ is
-$F(x_1,\ldots,x_n) = P(X_1\le x_1,\ldots, X_n\le x_n$).
 
 ### Moments
 
