@@ -223,8 +223,6 @@ Gamma is
 $$
 	\frac{d^2p}{df^2} = φ_s(x(k))/fs = φ(x(k))k/f^2s
 $$
-We also have the formula $d^2p/df^2 = φ(x(k))k/f^2s$
-using $φ_s(x(k)) = φ(x(k))k/f$.
 
 Vega is
 $$
@@ -234,3 +232,5 @@ $$
 	&= f(x(k) - s) = fφ_s(x(k)).
 \end{aligned}
 $$
+
+$\langle\text{mic drop}/\rangle$
