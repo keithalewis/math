@@ -69,7 +69,7 @@ The two main concepts of TPL are composition and (vector space) duality.
 It is just a matter of providing a language to manipulate sums, products,
 and exponentials in the appropriate categories.
 
-Now is a good time to remind yourself about [catogories](cat.html) and
+Now is a good time to remind yourself about [categories](cat.html) and
 [vector spaces](la.html).
 
 ## Categories
@@ -115,9 +115,10 @@ The product of $X$ and $Y$ is denoted $X\times Y$.
 If a category has products the _exponential_ $Z^Y$ is an object $\langle
 Y\to Z\rangle$ and an _evaluation_ arrow
 $e\colon Y\times\langle Y\to Z\rangle\to Z$. 
+Note $\langle Y\to Z\rangle$ might not be the same as $(Y\to Z)$.
 The evaluation arrow satisfies the condition that any
 arrow $f\colon X\times Y\to Z$ corresponds to a unique arrow
-$f_X\colon X\to\langle Y\to Z\rangle$ with with $f(x,y) = (fx)y$.
+$f_X\colon X\to\langle Y\to Z\rangle$ via ...
 
 ## Set
 
@@ -277,25 +278,15 @@ A _dictionary_ is a sum of pairs having the same type with distinct first elemen
 
 ### Reshape
 
-$n\in\NN$ and $\iota n = \{0, 1, \ldots, n-1\}$.
+The function $\rho = \rho_{n_0,...,n_{k-1}}\colon\iota
+n_0\times\cdots\times\iota n_{k-1}\to\iota n_0\cdots n_{k-1}$ is
+defined by $\rho(i_0, i_1, \ldots, i_{k-1}) = i_0 + n_0(\rho(i_1,
+\ldots, n_{k-1}))$.
 
-$X^n = X\times X\times\dots$ and $X^{\iota n} = \iota n\to X$.
-
-Reshape converts $X^n$ to $X^{n_0\times n_1\cdots}$ where $n = n_0 n_1 \cdots$.
-
-Note $x\colon \iota n\to X$ and $\times\fold\colon \NN^* \to \NN$ so
-
-$\times\fold\colon(n_0, n_1, \ldots) = n_0 n_1\cdots$.
-
-$?\colon\iota n_0\times\cdots\to\iota n$.
-
-$(i_0, i_1,\ldots)\mapsto i_0 + n_0 i_1 + n_0 n_1 i_2 + \cdots$.
-
-$\#\colons\SS to $\NN$, $\SS$ all finite sets.
-
-$\#^n\colon \SS^n to \NN^n$.
-
-How to go from $n\to n_0\times n_1\cdots$? $n_0\times n_1\cdots\times\scan n$?
+Every element $x\in X^n$ corresponds to a function $x\colon\iota n\to X$.
+The function $x\rho\colon n_0\times\cdots\times\iota n_{k-1}\to X$
+corresponds to the element $x\in X^{n0\times\cdots n_k}$
+when $n_0\cdots n_{k-1} = n$.
 
 ### Fork
 
