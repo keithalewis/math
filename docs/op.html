@@ -81,7 +81,7 @@ v = E[ν(Y)].
     ψ(y) &amp;= φ(x)/ys \\
     ψ_s(y) &amp;= φ_s(x)/ys = φ(x)/fs \\
 \end{aligned}
-</span></p>
+</span> Note <span class="math inline">ψ_s&#39;(y) = φ&#39;(x)(dx/dy)/fs = φ&#39;(x)/yfs^2</span>.</p>
 <p>We will also need the formula <span class="math display">
 \frac{d}{ds}Φ_s(x) = \frac{d}{ds}E[1(X \le x)ε_s(X)] = E[1(X \le x)ε_s(X)(X - κ&#39;(s))]
 </span> since <span class="math inline">dε_s(x)/ds = ε_s(x)(x - κ&#39;(s))</span>.</p>
@@ -108,20 +108,31 @@ p &amp;= E[(k - Y)^+] \\
 </span></p>
 <h2 id="digital">Digital</h2>
 <p>A <em>digital put</em> has payoff <span class="math inline">ν(Y) = 1(Y \le k)</span> and a <em>digital call</em> has payoff <span class="math inline">ν(Y) = 1(Y &gt; k)</span> with values <span class="math display">
-    p = P(Y \le k) = Φ(x(k)), c = P(Y &gt; k) = 1 - Φ(x(k)).
+    p = P(Y \le k) = Φ(x(k)),
+    c = P(Y &gt; k) = 1 - Φ(x(k)).
 </span></p>
 <p>Digital put delta <span class="math display">
-    \frac{dp}{df} = -E[\delta_k(Y)(Y/f)] = -\psi(k)k/f = -\phi(x(k))/fs = -\phi_s(x(k))k/f^2s.
+\begin{aligned}
+    \frac{dp}{df} &amp;= -E[\delta_k(Y)(Y/f)] \\
+    &amp;= -\psi(k)k/f \\
+    &amp;= -(\phi(x(k)/fs)k/f \\
+    &amp;= -\phi(x(k))k/f^2s \\
+    &amp;= -\phi_s(x(k))/fs \\
+\end{aligned}
 </span></p>
 <p>Digital gamma is <span class="math display">
-    \frac{d^2p}{df^2} = -E_s[\delta_k&#39;(Y)Y]/f = -\psi_s&#39;(k)k/f = -\phi&#39;(x(k))/f^2s^2
+\begin{aligned}
+    \frac{d^2p}{df^2} &amp;= -E_s[\delta_k&#39;(Y)Y]/f \\
+    &amp;= -\psi_s&#39;(k)k/f \\
+    &amp;= -\phi&#39;(x(k))/f^2s^2
+\end{aligned}
 </span> where we use <span class="math inline">\psi_s(y) = \phi(x)/fs</span> so <span class="math inline">\psi_s&#39;(y) = \phi&#39;(x)/fks^2</span>.</p>
 <p>Digital put vega is <span class="math display">
 \begin{aligned}
-\frac{dp}{ds} &amp;= E[-\delta_k(Y)Y(X - κ&#39;(s))] \\
-    &amp;= -\psi_s(k)k(x(k) - κ&#39;(s)) \\
-    &amp;= -(\phi_s(x(k))/ks) k(x(k) - κ&#39;(s)) \\
-    &amp;= -\phi_s(x(k))(x(k) - κ&#39;(s))/s.\\
+\frac{dp}{ds} &amp;= -E_s[\delta_k(Y)Y(X - s)] \\
+    &amp;= -\psi(k)k(x(k) - s) \\ 
+    &amp;= -(\phi(x(k))/ks)k(x(k) - s) \\ 
+    &amp;= -\phi(x(k))(x(k) - s)/s \\ 
 \end{aligned}
 </span></p>
 <p>Since <span class="math inline">p + c = 1</span> we have <span class="math inline">d^nc/df^n = -d^np/df^n</span> and <span class="math inline">d^nc/ds^n = -d^np/ds^n</span> for all <span class="math inline">n &gt; 0</span>.</p>

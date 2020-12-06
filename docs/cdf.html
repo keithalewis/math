@@ -32,9 +32,11 @@
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
 </head>
 <body>
 <header id="title-block-header">
@@ -75,11 +77,12 @@ E[g(X) e^{sX}] &amp;= \int_{-\infty}^\infty g(z) e^{sz} e^{-z^2/2}\, dz/\sqrt{2\
     &amp;= \int_{-\infty}^\infty g(z) e^{s^2/2} e^{-(z - s)^2/2}\, dz/\sqrt{2\pi} \\
     &amp;= E[e^{sX}] E(g(X - s)]. \\
 \end{aligned}
-</span> More generally, if <span class="math inline">N</span>, <span class="math inline">N_1, \ldots</span> are jointly normal then <span class="math inline">E[\exp(N)g(N_1,\ldots)] = E[\exp(N)] E[g(N_1 + \operatorname{Cov}(N, N_1), \ldots)]</span>. This is an elementary form of Girsanov’s Theorem.</p>
+</span> More generally, if <span class="math inline">N</span>, <span class="math inline">N_1, \ldots</span> are jointly normal then <span class="math display">
+E[\exp(N)g(N_1,\ldots)] = E[\exp(N)] E[g(N_1 + \operatorname{Cov}(N, N_1), \ldots)].
+</span> This is an elementary form of Girsanov’s Theorem.</p>
 <p><strong>Exercise</strong>. <em>Prove this</em>.</p>
 <p>Hint: <span class="math inline">N_1, \ldots</span> are jointly normal if and only if they are linear combinations of independent standard normals.</p>
 <p>The cumulant is <span class="math inline">κ(s) = \log E[\exp(sX)] = s^2/2</span> so <span class="math inline">κ_2 = 1</span> and all other cumulants are zero. The transformed cdf is <span class="math inline">Φ_s(x) = P_s(X\le x) = E[1(X\le x) e^{sX - s^2/2}] = P(X + s\le x) = Φ(x - s)</span> so <span class="math inline">dΦ_s(x)/ds = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s)</span>.</p>
-<p>???</p>
 <p>In particular <span class="math display">
     E[\exp(s X - s^2/2)g(X)] = E[g(X + s)].
 </span> Taking derivatives with respect to <span class="math inline">s</span> shows <span class="math display">
