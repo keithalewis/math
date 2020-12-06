@@ -12,7 +12,7 @@ abstract: A Programming Language
 \newcommand\FF{\bm{F}}
 \newcommand\NN{\bm{N}}
 \newcommand\RR{\bm{R}}
-\newcommand\RR{\bm{S}}
+\newcommand\SS{\bm{S}}
 \newcommand\ZZ{\bm{Z}}
 \newcommand\span{\operatorname{span}}
 \newcommand\dom{\operatorname{dom}}
@@ -57,12 +57,12 @@ Using lazy evaluation, [optics](optics.html), and other implementation
 techniques can help with that.
 
 The _primitive types_ are booleans, natural numbers, integers, real
-numbers, and characters$.  The _types_ in TPL are [_categories_](cat.html)
-constructed from primitive types using (disjoint) union and cartesian
-product.
+numbers, and characters.  The _types_ in TPL are [_categories_](cat.html)
+constructed from primitive types using (disjoint) unions, cartesian
+products, and exponentials.
 
 Note the real numbers $\RR$ form a one dimensional vector space.
-_Strings_ are zero or more characters are a monoid under the
+_Strings_ are zero or more characters and form a _monoid_ under the
 binary operation of concatenation with the empty string as identty.
 
 The two main concepts of TPL are composition and (vector space) duality.
@@ -78,7 +78,7 @@ Categories have _objects_ and _arrows_. An arrow $f$ from object $X$
 to object $Y$ is denoted $f\colon X\to Y$.
 The _domain_ of $f$ is $X = \dom f$ and the _codomain_ of $f$ is $Y = \cod f$.
 If $f\colon X\to Y$ and $g\colon Y\to Z$ then there exists a
-a unique arrow $gf\colon X\to Z$ called the _composition_
+unique arrow $gf\colon X\to Z$ called the _composition_
 of $f$ followed by $g$.
 
 Arrows are _associative_, $(fg)h = f(gh)$, so $fgh$ is unambiguous.
@@ -96,22 +96,28 @@ $f_Zy = yf\in (X\to Z)$ for $y\in (Z\to Y)$.
 
 ### Sum
 
-$\sqcup_{i\in I} X \cong I\times X$.
-
-How to identify $I\times X$ with $X$?
+The _sum_ $\Sigma_{i\in I} X_i = \Sigma X_I$ of $X_i$, is defined by
+arrows $\nu_i\colon X_i\to\Sigma X_I$, $i\in I$. If for any arrows
+$n_i\colon X_i\to Y$ there exists an arrow
+$n\colon\Sigma X_I\to Y$ with $n\nu_i = n_i$, $i\in I$.
+The sum of $X$ and $Y$ is denoted $X + Y$.
 
 ### Product
 
-$\Pi_{i\in I} X \cong X^I$.
+The _product_ $\Pi_{i\in I} X_i = \Pi X_I$ of $X_i$ is defined by
+arrows $\pi_i\colon \Pi X_I\to X_i$, $i\in I$. If for any arrows
+$p_i\colon Y\to X_i$ there exists an arrow
+$p\colon Y\to \Pi X_I$ with $\pi_ip = p_i$, $i\in I$.
+The product of $X$ and $Y$ is denoted $X\times Y$.
 
 ### Exponential
 
-If a category has binary products the _exponential_ of $Z$ to the $Y$
-is an object $Z^Y$ and an arrow $e\colon Z^Y\times Y\to Z$
-that satisfies the condition if
-$f\colon X\times Y\to Z$ then
-
-$X\times Y\to Z\cong X\to Z^Y)$.
+If a category has products the _exponential_ $Z^Y$ is an object $\langle
+Y\to Z\rangle$ and an _evaluation_ arrow
+$e\colon Y\times\langle Y\to Z\rangle\to Z$. 
+The evaluation arrow satisfies the condition that any
+arrow $f\colon X\times Y\to Z$ corresponds to a unique arrow
+$f_X\colon X\to\langle Y\to Z\rangle$ with with $f(x,y) = (fx)y$.
 
 ## Set
 

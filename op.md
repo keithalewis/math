@@ -110,6 +110,7 @@ $$
 	ψ_s(y) &= φ_s(x)/ys = φ(x)/fs \\
 \end{aligned}
 $$
+Note $ψ_s'(y) = φ'(x)(dx/dy)/fs = φ'(x)/yfs^2$.
 
 We will also need the formula
 $$
@@ -161,27 +162,38 @@ $$
 A _digital put_ has payoff $ν(Y) = 1(Y \le k)$ and
 a _digital call_ has payoff $ν(Y) = 1(Y > k)$ with values
 $$
-	p = P(Y \le k) = Φ(x(k)), c = P(Y > k) = 1 - Φ(x(k)).
+	p = P(Y \le k) = Φ(x(k)),
+	c = P(Y > k) = 1 - Φ(x(k)).
 $$
 
 Digital put delta 
 $$
-	\frac{dp}{df} = -E[\delta_k(Y)(Y/f)] = -\psi(k)k/f = -\phi(x(k))/fs = -\phi_s(x(k))k/f^2s.
+\begin{aligned}
+	\frac{dp}{df} &= -E[\delta_k(Y)(Y/f)] \\
+	&= -\psi(k)k/f \\
+	&= -(\phi(x(k)/fs)k/f \\
+	&= -\phi(x(k))k/f^2s \\
+	&= -\phi_s(x(k))/fs \\
+\end{aligned}
 $$
 
 Digital gamma is 
 $$
-	\frac{d^2p}{df^2} = -E_s[\delta_k'(Y)Y]/f = -\psi_s'(k)k/f = -\phi'(x(k))/f^2s^2
+\begin{aligned}
+	\frac{d^2p}{df^2} &= -E_s[\delta_k'(Y)Y]/f \\
+	&= -\psi_s'(k)k/f \\
+	&= -\phi'(x(k))/f^2s^2
+\end{aligned}
 $$
 where we use $\psi_s(y) = \phi(x)/fs$ so $\psi_s'(y) = \phi'(x)/fks^2$.
 
 Digital put vega is 
 $$
 \begin{aligned}
-\frac{dp}{ds} &= E[-\delta_k(Y)Y(X - κ'(s))] \\
-	&= -\psi_s(k)k(x(k) - κ'(s)) \\
-	&= -(\phi_s(x(k))/ks) k(x(k) - κ'(s)) \\
-	&= -\phi_s(x(k))(x(k) - κ'(s))/s.\\
+\frac{dp}{ds} &= -E_s[\delta_k(Y)Y(X - s)] \\
+	&= -\psi(k)k(x(k) - s) \\ 
+	&= -(\phi(x(k))/ks)k(x(k) - s) \\ 
+	&= -\phi(x(k))(x(k) - s)/s \\ 
 \end{aligned}
 $$
 

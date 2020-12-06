@@ -101,7 +101,9 @@ E[g(X) e^{sX}] &= \int_{-\infty}^\infty g(z) e^{sz} e^{-z^2/2}\, dz/\sqrt{2\pi} 
 \end{aligned}
 $$
 More generally, if $N$, $N_1, \ldots$ are jointly normal then
-$E[\exp(N)g(N_1,\ldots)] = E[\exp(N)] E[g(N_1 + \Cov(N, N_1), \ldots)]$.
+$$
+E[\exp(N)g(N_1,\ldots)] = E[\exp(N)] E[g(N_1 + \Cov(N, N_1), \ldots)].
+$$
 This is an elementary form of Girsanov's Theorem.
 
 __Exercise__. _Prove this_.
@@ -113,8 +115,6 @@ The cumulant is $κ(s) = \log E[\exp(sX)] = s^2/2$ so $κ_2 = 1$ and all other
 cumulants are zero. The transformed cdf is
 $Φ_s(x) = P_s(X\le x) = E[1(X\le x) e^{sX - s^2/2}] = P(X + s\le x) = Φ(x - s)$
 so $dΦ_s(x)/ds = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s)$.
-
-???
 
 In particular
 $$
