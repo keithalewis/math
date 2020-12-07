@@ -32,11 +32,9 @@ abstract: A Programming Language
 
 > _APL is a mistake carried through to perfection_ &mdash; Edsgar W. Dijkstra
 
-> _Besides it is an error to believe that rigour is the enemy of simplicity. 
-> On the contrary we find it confirmed by numerous examples that the rigorous 
-> method is at the same time the simpler and the more easily comprehended. 
-> The very effort for rigor forces us to find out simpler methods of proof_. 
-> &mdash; David Hilbert
+> Such is the advantage of a well constructed language that its simplified
+> notation often becomes the source of profound theories.
+>  &mdash; Pierre-Simon Laplace
 
 A Programming Language _APL_ was invented by Ken E. Iverson, a mathematician
 unsatisfied by the limited expressiveness of FORTRAN when it came to manipulating

@@ -21,17 +21,48 @@ the _option payoff_ as a function of the _underlying_ at _expiration_.
 _Greeks_ are derivatives of the _value_ with respect to _model parameters_.
 This short note derives formulas for these using any positive underlying distribution.
 
-Let $Y$ be the (random) value of the underlying at option expiration.
-Any positive random variable $Y$ can be parameterized using the _forward_ $f$
-and _vol_ $s$ by
-$Y = f e^{s X - κ(s)}$, where $κ(s) = \log E[e^{s X}]$ is the cumulant of $X$.
-Note $E[Y] = f$ is the forward and $\Var(\log Y) = s^2$ is the vol squared
-if $E[X] = 0$ and $E[X^2] = 1$, which we can, and do, assume.
+## Share Measure
+
+Let $Y$ be the (random) value of the price of some _underlying_ instrument expiration.
+The (forward)  _value_ of an option paying $\nu(Y)$ at expiration is $E[\nu(Y)]$.
+This assumes $\nu(Y)$ is the payoff in some native currency, or _numeraire_.
+We can also consider the payoff in terms of shares of $Y$, $\nu_s(Y) = \nu(Y)Y/E[Y]$.
+If we receive $\nu_s(Y)$ shares of $Y$ at expiration we can convert those
+at price $Y$ to $\nu(Y)$ in the numeraire at expiration.
+
+Define $P_s(A) = E_s[1_A Y/E[Y]]$ to be the _share measure_.
+The value of a put option paying $\max\{k - Y,0\} = (k - Y)^+$
+is $p = E[(k - Y)^+] = kP(Y\le k) - yP_s(Y\le k)$ where $y = E[Y]$.
+We can write $Y = yM$ where $E[M] = 1$ and $dM/dy = 0$.
+
+For any payoff $\nu$ and $v = E[\nu(Y)]$ we have $dv/dy = E[\nu'(Y)dY/dy] = E_s[\nu'(Y)]$
+since $dY/dy = M = Y/y$.
+In general, $d^nv/dy^n = E[\nu'(Y)(dY/dy)^n] = E_s[\nu^{(n)}(Y)Y^{n-1}]/y^{n-1}$.
+
+The _cumulant_ of a random variable $X$ is $\kappa(s) = \log E[e^{sX}]$
+so $E[e^{sX - \kappa(s)}] = 1$. We can write $Y = ye^{sX - \kappa(s)}$ where $X$
+has mean 0 and variance 1.
 
 __Exercise__. _If $E[X] = 0$, $\Var(X) = 1$, and $Y = e^{aX + b}$
 show $E[Y] = e^{κ(a) + b}$ and $\Var(\log Y) = a^2$.
 Solve $f = e^{κ(a) + b}$ and $s^2 = a^2$ for $a$ and $b$
 to show $Y = fe^{sX - κ(s)}$_.
+
+__Exercise__. _Show $P_0 = P$_.
+
+For any payoff $\nu$ and $v = E[\nu(Y)]$ we have
+$dv/ds = E[\nu'(Y)dY/ds] = E[\nu'(Y)Y(X - \kappa'(s))] = yE_s[\nu'(Y)(X - \kappa'(s))]$
+
+The value and greeks of any option can be expressed in terms of
+derivatives of $\Psi_s(y) = P_s(Y\le y)$ and $\kappa(s)$.
+
+## Parameters
+
+Any positive random variable $Y$ can be parameterized using the _forward_ $f$
+and _vol_ $s$ by
+$Y = f e^{s X - κ(s)}$, where $κ(s) = \log E[e^{s X}]$ is the cumulant of $X$.
+Note $E[Y] = f$ is the forward and $\Var(\log Y) = s^2$ is the vol squared
+if $E[X] = 0$ and $E[X^2] = 1$, which we can, and do, assume.
 
 For example, the Black model takes $X$ to be standard normal and vol
 $s = σ \sqrt{t}$ where $σ$ is the _volatilty_ and $t$ is _time_ in years to expiration.

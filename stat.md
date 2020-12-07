@@ -16,16 +16,17 @@ Statistics is the study of finding estimates for properties of random variables.
 A _property_ is a function $\sigma\colon \mathcal{X}\to\RR$
 where $\mathcal{X}$ is a set of random variables.
 A _statistic_ is a function $s_n\colon\RR^n\to\RR$.
-Given a random variable $X\in\mathcal{X}$ and independent $(X_j)_{j=1}^\infty$ having the same law
+Given a random variable $X\in\mathcal{X}$ and independent $(X_j)$ having the same law
 as $X$ how do we find statistics $s_n$ such that
 $s_n(X_1,\ldots,X_n)$ converge to $\sigma(X)$ in some sense?
 
 For example, if $\sigma(X) = E[X]$ then the _arithmetic mean_
-$m_n(x_1,\ldots,x_n) = (x_1 + \cdots + x_n)/n$ is a statistic with $M_n =
-m_n(X_1,\ldots,X_n)$ that converges to $\sigma(X)$ in the sense $E[M_n] =
+$m_n(x_1,\ldots,x_n) = (x_1 + \cdots + x_n)/n$ is a statistic where $M_n =
+m_n(X_1,\ldots,X_n)$ converges to $\sigma(X)$ in the sense $E[M_n] =
 \sigma(X)$ and $\Var(M_n)\to 0$.  We could also use the _geometric mean_
 $g_n(x_1,\ldots,x_n) = \sqrt[n]{x_1\cdots x_n}$ or the _harmonic mean_
 $h_n(x_1,\ldots,x_n) = (n/x_1 + \cdots + n/x_n)^{-1}$.
+Some statistics are better than other statistics.
 
 ### Convergence
 

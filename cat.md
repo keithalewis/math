@@ -26,9 +26,14 @@ Arrows that can be composed are _associative_. Every
 object has an _identity arrow_.
 
 The canonical example of a category is $\cat{Set}$ with objects sets and arrows functions.
-Every _preset_ is a category in $\cat{Pre}$ with arrows $a\to b$ whenever $a\preceq b$.
-The reflexive and transitive laws corresponds to identity arrows and composition.
+
+Every _poset_ is a category with arrows $a\to b$ whenever $a\preceq b$.
+The transitive and reflexive laws of posets 
+corresponds to composition and identity arrows.
 The associative law follows from there being at most one arrow between any two objects.
+The category of all posets, $\cat{Pos}$, has objects posets and arrows
+order preserving functions.
+
 Categories with exactly one object are in $\cat{Mon}$. The identity
 and associative laws of categories correspond to the axioms of a monoid.
 
@@ -40,7 +45,7 @@ The _domain_ of $f$ is $\dom f = A$ and
 the _codomain_ of $f$ is $\cod f = B$
 The codomain is also called _range_, _target_, or _but_ if you parlez Français.
  
-We could do away with objects use the domain and codomain of arrows,
+We could do away with objects and use the domain and codomain of arrows,
 just as it is possible to use nand to define all other logical operators,
 but why make things more difficult?
 
@@ -48,12 +53,10 @@ The "set" of arrows from $A$ to $B$ is called $\hom(A,B)$.
 The scare quotes indicate this is not necessarily a set
 but standard terminology for this is _homset_.
 
-## Composition
+### Composition
 
 If $f\colon A\to B$ and $g\colon B\to C$ then there exists an arrow
-$g \circ f\colon A\to C$, the _composition_ of $g$ with $f$. One of
-the axioms of category theory is that if the codomain of $f$
-equals the domain of $g$, then the composition exists.
+$g \circ f\colon A\to C$, the _composition_ of $g$ with $f$.
 
 Since we will be doing a lot of composing we just write $gf$
 instead of $g \circ f$. 
@@ -64,12 +67,12 @@ If this sort of trifling is a concern you can just
 write the arrows backwards:
 $g\colon C\leftarrow B$ and $\colon\colon B\leftarrow A$ so $gf\colon C\leftarrow A$.
 
-## Identity Arrow
+### Identity Arrow
 
-On to more interesting things. Every object has an _identity arrow_.
+Every object has an _identity arrow_.
 If $f\colon A\to B$ then the identity arrows $1_A\colon A\to A$ and $1_B\colon B\to B$ 
-satisfy $f 1_A = f = 1_B f$. Or maybe only somewhat more interesing.
-You can always throw in identity arrows if they don't exist.
+satisfy $f 1_A = f = 1_B f$. 
+One can always throw in identity arrows if they don't exist.
 
 __Exercise__. _If $e\colon A\to A$ has the property $fe = f$ for all $f\colon A\to B$
 then $e = 1_A$_.
@@ -85,7 +88,7 @@ then $e = 1_B$_.
 Taking $f = 1_B$, $e 1_B = 1_B$. By the definition of $1_B$, $e 1_B = e$, hence $1_B = e$.
 </details>
 
-## Associative Law
+### Associative Law
 
 If $f\colon A\to B$, $g\colon B\to C$, and $h\colon C\to D$ then we have arrows
 $gf$, $hg$, $h(gf)$, and $(hg)f$.
@@ -107,7 +110,8 @@ Hint: We have shown $A\cong A$ for every object $A$. Show $A\cong B$
 implies $B\cong A$ and $A\cong B$, $B\cong C$ imply $A\cong C$.
 
 Think of equivalence as a weakened form of equality. In the case of
-$\cat{Set}$ it is a very weakened form. Adding structure to sets by
+$\cat{Set}$ it is a very weakened form; two sets are isomorphic if
+and only if they have the same cardinality. Adding structure to sets by
 reducing the number of functions creates finer grained equivalence
 relations.
 
@@ -125,6 +129,26 @@ $(f,g)\tilde (f',g')$ if and only if they are isomorphism
 pairs for some $A$, $B$.
 
 __Exercise__. _Show this is an equivalence relation_.
+
+## Functor
+
+A functor $F\colon\cat{A}\to\cat{B}$ takes objects and arrows of $\cat{A}$ to
+objects and arrows of $\cat{B}$ and respects the category structure.
+If $f\colon A\to A'$, in \cat{A}$ then
+$F(f)\colon F(A)\to F(A')$ in $\cat{B}$ with
+$F(gf) = F(g)F(f)$ and $F(1_A) = 1_{F(A)}$.
+
+The category $\cat{Cat}$ has objects categories and arrows functors.
+If $F\colon\cat{A}\to\cat{B}$ and $G\colon\cat{B}\to\cat{C}$ are
+functors then $GF\colon\cat{A}\to\cat{C}$ composition is
+$(GF)(A) = G(F(A))$. The identity functor is the identity of $\cat{Cat}$.
+
+The category $\cat{2-Cat}$ has objects functors and arrows _natural transformations_.
+If $F,G\colon\cat{A}\to\cat{B}$ are functors a natural transformation
+$\eta\colon F\to G$ takes objects $A$ of $\cat{A}$ to arrows $\eta_A$ of $\cat{B}$.
+If $h\colon A\to A'$ in $\cat{A}$ then $G(h)\eta_A = \eta_{A'}F(h)$ in $\cat{B}$.
+
+In case you are wondering, $\cat{n-Cat}$ can be defined for all positive integers $n$.
 
 ## Examples
 
@@ -281,7 +305,6 @@ We say $f\colon A\to B$ has _right inverse_ $g\colon B\to A$ when $fg = 1_B$
 and $f$ has _left inverse_ $g$ when $gf = 1_A$.
 
 __Exercise__. _If $f$ has right inverse $g$ and left inverse $g'$ show $g = g'$_.
-
 <details>
 <summary>Solution</summary>
 
@@ -308,7 +331,15 @@ An arrow that is both mono and epi is called _iso_.
 
 ### Product
 
-The cartesian product of a set $X$ with itself $Y$ times,
+The _product_ $\Pi_{i\in I} X_i = \Pi X_I$ of $X_i$ is defined by
+arrows $\pi_i\colon \Pi X_I\to X_i$, $i\in I$. If for any arrows
+$p_i\colon Y\to X_i$ there exists an arrow
+$p\colon Y\to \Pi X_I$ with $\pi_ip = p_i$, $i\in I$.
+The product of $X$ and $Y$ is denoted $X\times Y$.
+
+???
+
+The cartesian product of $X$ with itself $Y$ times,
 $\Pi X_Y = \Pi_{y\in Y} X$, can be defined for any set $Y$.
 It can be identified with $X^Y$ and has
 _projections_ $\pi_y\colon \Pi X_y\to X$
@@ -320,6 +351,34 @@ __Exercise__. _If $u,v\in\Pi X_Y$ and $\pi_y u = \pi_y v$ for
 all $y\in Y$ then $u = v$ as functions in $Y^X$_.
 
 ### Sum
+
+The _sum_ $\Sigma_{i\in I} X_i = \Sigma X_I$ of $X_i$, is defined by
+arrows $\nu_i\colon X_i\to\Sigma X_I$, $i\in I$. If for any arrows
+$n_i\colon X_i\to Y$ there exists an arrow
+$n\colon\Sigma X_I\to Y$ with $n\nu_i = n_i$, $i\in I$.
+The sum of $X$ and $Y$ is denoted $X + Y$.
+
+## Opposite
+
+It is trivial to verify that reversing all arrows in a category $\cat{A}$
+results in the _opposite_, or _dual_, category, $\cat{A}^{op}$.
+
+This is also quite useful.
+
+## Presheaf
+
+A _presheaf_ is a functor $F\colon\cat{C}^{op}\to\cat{Set}$.
+This embeds any abstract category $\cat{C}$ in 
+the concrete category $\cat{Set}$. It is similar to Cayley's theorem
+that every group is a subgroup of all permutations of the group elements.
+
+This category has many nice properties, in particular
+$$
+	F(-) = \int^{c\in\cat{C}} F(c)\times\hom_\cat{C}(-,c),
+$$
+but this requires some new notions.
+
+## Representable
 
 ## Answers to Exercises
 
