@@ -47,7 +47,7 @@
 <p><em>APL is a mistake carried through to perfection</em> — Edsgar W. Dijkstra</p>
 </blockquote>
 <blockquote>
-<p><em>Besides it is an error to believe that rigour is the enemy of simplicity. On the contrary we find it confirmed by numerous examples that the rigorous method is at the same time the simpler and the more easily comprehended. The very effort for rigor forces us to find out simpler methods of proof</em>. — David Hilbert</p>
+<p>Such is the advantage of a well constructed language that its simplified notation often becomes the source of profound theories. — Pierre-Simon Laplace</p>
 </blockquote>
 <p>A Programming Language <em>APL</em> was invented by Ken E. Iverson, a mathematician unsatisfied by the limited expressiveness of FORTRAN when it came to manipulating multidimensional arrays. What follows is a mathematical description of the objects and operations on them he envisioned to scratch that itch. It is simply a matter of giving explicit names to the operations that can be performed on collections of data, what Iverson called “tools of thought.”</p>
 <p>There have been many languages inspired by APL and this writeup takes liberties with the classical language. Let’s agree to call it TPL, This Programming Languge. Our approach is informed by category theory and best practices for implmementing functional languages on current computer architectures. We take a purely functional view so no side effects are allowed and data cannot be mutated. Similar to Everett’s many-worlds interpretation of quantum mechanics, this makes it easy to reason about programs mathematically, but can be computationally expensive on computers. Using lazy evaluation, <a href="optics.html">optics</a>, and other implementation techniques can help with that.</p>

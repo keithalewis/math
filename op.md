@@ -23,38 +23,55 @@ This short note derives formulas for these using any positive underlying distrib
 
 ## Share Measure
 
-Let $Y$ be the (random) value of the price of some _underlying_ instrument expiration.
-The (forward)  _value_ of an option paying $\nu(Y)$ at expiration is $E[\nu(Y)]$.
-This assumes $\nu(Y)$ is the payoff in some native currency, or _numeraire_.
-We can also consider the payoff in terms of shares of $Y$, $\nu_s(Y) = \nu(Y)Y/E[Y]$.
-If we receive $\nu_s(Y)$ shares of $Y$ at expiration we can convert those
-at price $Y$ to $\nu(Y)$ in the numeraire at expiration.
+Let $Y$ be the (random) price of some _underlying_ instrument
+at option expiration.  The (forward)  _value_ of an option paying $\nu(Y)$
+in some currency at expiration is $E[\nu(Y)]$.
+We can also consider the payoff
+in terms of shares of $Y$, $\nu_s(Y) = \nu(Y)Y/E[Y]$.  If we receive
+$\nu_s(Y)$ shares of $Y$ at expiration we can convert those at price $Y$
+to $\nu(Y)$ in the currency.
 
-Define $P_s(A) = E_s[1_A Y/E[Y]]$ to be the _share measure_.
-The value of a put option paying $\max\{k - Y,0\} = (k - Y)^+$
-is $p = E[(k - Y)^+] = kP(Y\le k) - yP_s(Y\le k)$ where $y = E[Y]$.
-We can write $Y = yM$ where $E[M] = 1$ and $dM/dy = 0$.
+The _share measure_ $P_s$ is defined by $dP_s/dP = Y/E[Y]$.
+For example, the value of a put option paying $\max\{k - Y,0\}$
+is $p = E[(k - Y)1(Y\le k)] = kP(Y\le k) - E[Y] P_s(Y\le k)$.
 
-For any payoff $\nu$ and $v = E[\nu(Y)]$ we have $dv/dy = E[\nu'(Y)dY/dy] = E_s[\nu'(Y)]$
-since $dY/dy = M = Y/y$.
-In general, $d^nv/dy^n = E[\nu'(Y)(dY/dy)^n] = E_s[\nu^{(n)}(Y)Y^{n-1}]/y^{n-1}$.
+### Parameters
 
-The _cumulant_ of a random variable $X$ is $\kappa(s) = \log E[e^{sX}]$
-so $E[e^{sX - \kappa(s)}] = 1$. We can write $Y = ye^{sX - \kappa(s)}$ where $X$
-has mean 0 and variance 1.
+Let the _forward_ be $y = E[Y]$ and the _vol_ squared be $s^2 = \Var(\log Y)$.
+Every positive random variable can be written $Y = e^{m + sX}$ for
+constants $m$, $s$ and $X$ with mean 0 and variance 1.  Using $y = E[Y]
+= e^m e^{sX}$ we see $e^m = y e^{-\kappa(s)}$ where
+$\kappa(s) = \log E[e^{sX}]$ is the _cumulant_ of $X$.
+The _greeks_ are the values of the derivatives of value with respect
+to forward and vol. If you prefer a different parameterization
+$y = y(z,t)$, $s = s(z,t)$ the chain rule can be applied to
+get greeks in terms of $z$ and $t$.
 
-__Exercise__. _If $E[X] = 0$, $\Var(X) = 1$, and $Y = e^{aX + b}$
-show $E[Y] = e^{κ(a) + b}$ and $\Var(\log Y) = a^2$.
-Solve $f = e^{κ(a) + b}$ and $s^2 = a^2$ for $a$ and $b$
-to show $Y = fe^{sX - κ(s)}$_.
-
-__Exercise__. _Show $P_0 = P$_.
+Define $\epsilon_s(x) = e^{s x - \kappa(s)}$ so $Y = y\epsilon_s(X)$
+and $X = \epsilon_s^{-1}(Y/y)$. The _moneyness_ of $k$ is 
+$x(k) = \epsilon_s^{-1}(k/y) = (\log k/y + \kappa(s))/s$.
+Note $\partial \epsilon_s(x)/\partial x = \epsilon_s(x)s$
+and  $\partial \epsilon_s(x)/\partial s = \epsilon_s(x)(x - \kappa'(s))$.
 
 For any payoff $\nu$ and $v = E[\nu(Y)]$ we have
-$dv/ds = E[\nu'(Y)dY/ds] = E[\nu'(Y)Y(X - \kappa'(s))] = yE_s[\nu'(Y)(X - \kappa'(s))]$
+$\partial v/\partial y = E[\nu'(Y)\partial Y/\partialy] = E_s[\nu'(Y)]$
+since $\partial Y/\partial y = \epsilon_s(X)$.
+
+__Exercise__. _Show $\partial^nv/\partial y^n = E[\nu'(Y)(\partial Y/\partial y)^n]
+= E_s[\nu^{(n)}(Y)Y^{n-1}]/y^{n-1}$_, $n\ge 1$.
+
+For any payoff $\nu$ and $v = E[\nu(Y)]$ we have
+$\partial v/\partial s = E[\nu'(Y)\partial Y/\partial s]
+= E[\nu'(Y)Y(X - \kappa'(s))] = yE_s[\nu'(Y)(X - \kappa'(s))]$
+since $\partial Y/\partial s = Y\epsilon_s(X)$.
 
 The value and greeks of any option can be expressed in terms of
-derivatives of $\Psi_s(y) = P_s(Y\le y)$ and $\kappa(s)$.
+derivatives of the cumulative distribution function $\Psi_s(y) = P_s(Y\le y)$ and
+those of $\kappa(s)$.
+
+Note $\partial \Psi_0(y)/\partial s = E[-\delta_y(Y)Y(X - \kappa'(s))] = -yE_s(\delta_y(Y)(X - \kappa'(s))]$.
+
+$\partial v/\partial s = E[\nu'(Y)Y(X - \kappa'(s))] = -E[\delta_k(Y)Y(X - \kappa'(s))]$
 
 ## Parameters
 
