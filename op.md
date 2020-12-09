@@ -10,11 +10,13 @@ abstract: European option pricing
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\RR}{\bm{R}}
 
+<!--
 > _Besides it is an error to believe that rigour is the enemy of simplicity. 
 > On the contrary we find it confirmed by numerous examples that the rigorous 
 > method is at the same time the simpler and the more easily comprehended. 
 > The very effort for rigor forces us to find out simpler methods of proof. 
 > &mdash; David Hilbert_
+-->
 
 European _option valuation_ involves calculating the expected value of
 the _option payoff_ as a function of the _underlying_ at _expiration_.
@@ -23,26 +25,28 @@ This short note derives formulas for these using any positive underlying distrib
 
 ## Share Measure
 
-Let $Y$ be the (random) price of some _underlying_ instrument
-at option expiration.  The (forward)  _value_ of an option paying $\nu(Y)$
-in some currency at expiration is $E[\nu(Y)]$.
-We can also consider the payoff
-in terms of shares of $Y$, $\nu_s(Y) = \nu(Y)Y/E[Y]$.  If we receive
-$\nu_s(Y)$ shares of $Y$ at expiration we can convert those at price $Y$
-to $\nu(Y)$ in the currency.
+Let $Y$ be the positive, random price of some _underlying_ instrument at
+option expiration.  The (forward)  _value_ of an option paying $\nu(Y)$
+in some currency at expiration is $E[\nu(Y)]$ under the probability
+measure $P$.  We can also consider the payoff in terms of shares of $Y$,
+$\nu_s(Y) = \nu(Y)Y/E[Y]$.  If we receive $\nu_s(Y)$ shares of $Y$ at
+expiration we can convert those at price $Y$ to $\nu(Y)$ in the currency.
 
-The _share measure_ $P_s$ is defined by $dP_s/dP = Y/E[Y]$.
-For example, the value of a put option paying $\max\{k - Y,0\}$
-is $p = E[(k - Y)1(Y\le k)] = kP(Y\le k) - E[Y] P_s(Y\le k)$.
+_Share measure_ $P_s$ is defined by $dP_s/dP = Y/E[Y]$.
+We write $E_s[f(Y)] = E[f(Y)Y/E[Y]$ for expectation under
+the share measure.
 
 ### Parameters
 
-Let the _forward_ be $y = E[Y]$ and the _vol_ squared be $s^2 = \Var(\log Y)$.
+The _forward_ is $y = E[Y]$ and the _vol_ squared is $s^2 = \Var(\log Y)$.
 Every positive random variable can be written $Y = e^{m + sX}$ for
-constants $m$, $s$ and $X$ with mean 0 and variance 1.  Using $y = E[Y]
-= e^m e^{sX}$ we see $e^m = y e^{-\kappa(s)}$ where
+constants $m$, $s$ and $X$ having mean 0 and variance 1.  Using $y = E[Y]
+= e^m E[e^{sX}]$ we see $e^m = y e^{-\kappa(s)}$ where
 $\kappa(s) = \log E[e^{sX}]$ is the _cumulant_ of $X$.
-The _greeks_ are the values of the derivatives of value with respect
+Hence $Y = ye^{sX - \kappa(s)}$ is parameterized by $f$, $s$,
+and a mean 0 variance 1 random variable $X$.
+
+_Greeks_ are the values of the derivatives of value with respect
 to forward and vol. If you prefer a different parameterization
 $y = y(z,t)$, $s = s(z,t)$ the chain rule can be applied to
 get greeks in terms of $z$ and $t$.
@@ -53,23 +57,35 @@ $x(k) = \epsilon_s^{-1}(k/y) = (\log k/y + \kappa(s))/s$.
 Note $\partial \epsilon_s(x)/\partial x = \epsilon_s(x)s$
 and  $\partial \epsilon_s(x)/\partial s = \epsilon_s(x)(x - \kappa'(s))$.
 
-For any payoff $\nu$ and $v = E[\nu(Y)]$ we have
-$\partial v/\partial y = E[\nu'(Y)\partial Y/\partialy] = E_s[\nu'(Y)]$
-since $\partial Y/\partial y = \epsilon_s(X)$.
+### Greeks
+
+For any payoff $\nu$ with value $v = E[\nu(Y)]$, _delta_ is the
+derivative of value with respect to the forward
+$$
+\partial v/\partial y = E[\nu'(Y)\partial Y/\partial y] = E_s[\nu'(Y)]
+$$
+since $\partial Y/\partial y = Y/y$.
 
 __Exercise__. _Show $\partial^nv/\partial y^n = E[\nu'(Y)(\partial Y/\partial y)^n]
 = E_s[\nu^{(n)}(Y)Y^{n-1}]/y^{n-1}$_, $n\ge 1$.
 
-For any payoff $\nu$ and $v = E[\nu(Y)]$ we have
-$\partial v/\partial s = E[\nu'(Y)\partial Y/\partial s]
-= E[\nu'(Y)Y(X - \kappa'(s))] = yE_s[\nu'(Y)(X - \kappa'(s))]$
+_Gamma_ is the second derivative with respect to the forward
+$$
+\partial^2 v/\partial y^2 = E_s[\nu''(Y)Y]/y.
+$$
+
+_Vega_ is  the derivative with respect to vol
+$$
+\partial v/\partial s = E[\nu'(Y)\partial Y/\partial s]
+= E[\nu'(Y)Y(X - \kappa'(s))] = yE_s[\nu'(Y)(X - \kappa'(s))]
+$$
 since $\partial Y/\partial s = Y\epsilon_s(X)$.
 
 The value and greeks of any option can be expressed in terms of
 derivatives of the cumulative distribution function $\Psi_s(y) = P_s(Y\le y)$ and
-those of $\kappa(s)$.
-
-Note $\partial \Psi_0(y)/\partial s = E[-\delta_y(Y)Y(X - \kappa'(s))] = -yE_s(\delta_y(Y)(X - \kappa'(s))]$.
+those of $\kappa(s)$. Let $\phi_s(y)$ be the corresponding density function.
+Note $\partial \Psi_0(y)/\partial s = E[-\delta_y(Y)Y(X - \kappa'(s))]
+= -yE_s(\delta_y(Y)(X - \kappa'(s))]$.
 
 $\partial v/\partial s = E[\nu'(Y)Y(X - \kappa'(s))] = -E[\delta_k(Y)Y(X - \kappa'(s))]$
 

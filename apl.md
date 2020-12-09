@@ -282,9 +282,8 @@ defined by $\rho(i_0, i_1, \ldots, i_{k-1}) = i_0 + n_0(\rho(i_1,
 \ldots, n_{k-1}))$.
 
 Every element $x\in X^n$ corresponds to a function $x\colon\iota n\to X$.
-The function $x\rho\colon n_0\times\cdots\times\iota n_{k-1}\to X$
-corresponds to the element $x\in X^{n0\times\cdots n_k}$
-when $n_0\cdots n_{k-1} = n$.
+The composition $x\rho\colon n_0\times\cdots\times\iota n_{k-1}\to X$
+reshapes $x$.
 
 ### Fork
 
@@ -383,6 +382,11 @@ $\rho f = Y$ for all $f\in X^Y$.
 
 ## Remarks
 
+Notation $x = (x_0, \ldots)$ for numeric vectors but for s = "ABC" has indices from high to low.
+
+Distinguish between an _expression_ and the result of _evaluating_ the expression.
+($e$ vs $!e$ maybe?) Need a language for the machine.
+
 $\Pi X_I = \Pi_{i\in I} X_i$, $\pi_i\colon\Pi X_I\to X_i$, $\pi_i(x) = x_i$  projections.
 
 If $X = X_i$, $i\in I$ then $X_I = \Pi X_I = \Pi_{i\in I} X\cong X^I$
@@ -407,7 +411,6 @@ via $f(0,0)(x) = f(x, x)$.
 
 Currying: If $f\colon X^I\to Y$ and $J\subseteq I$ define
 $?\colon I\to I$ by $X^{I\setminus J}\times X^J\to X^I$
-
 
 $f\colon\Pi X_n\to Y$ 
 
