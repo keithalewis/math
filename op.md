@@ -81,6 +81,35 @@ $$
 $$
 since $\partial Y/\partial s = Y\epsilon_s(X)$.
 
+### Distribution
+
+If $Φ(x)$ is the cumulative distribution functions of $X$ then the cumulative
+distribution of $Y$ is $Ψ(y) = Φ(x)$ where $y = y(x) = fε_s(x)$
+and _moneyness_ $x = x(y) = ε_s^{-1}(y/f) = (\log(y/f) + κ(s))/s$.
+Let $ψ(y)$ and $φ(x)$ be the corresponding density functions so
+$ψ(y) = φ(x)dx/dy = φ(x)/ys$ since $dy/dx = ys$.
+Likewise, $ψ_s(y) = φ_s(x)/ys$.
+Note $φ_s(x) = φ(x)ε_s(x) = φ(x)y/f$.
+We collect these formulas for easy reference:
+$$
+\begin{aligned}
+	y &= y(x) = fε_s(x)\\
+	x &= x(y) = ε_s^{-1}(y/f) \\
+	φ_s(x) &= φ(x)ε_s(x) = φ(x)y/f \\
+	ψ(y) &= φ(x)/ys \\
+	ψ_s(y) &= φ_s(x)/ys = φ(x)/fs \\
+\end{aligned}
+$$
+Note $ψ_s'(y) = φ'(x)(dx/dy)/fs = φ'(x)/yfs^2$.
+
+We will also need the formula
+$$
+\frac{d}{ds}Φ_s(x) = \frac{d}{ds}E[1(X \le x)ε_s(X)] = E[1(X \le x)ε_s(X)(X - κ'(s))]
+$$
+since $dε_s(x)/ds = ε_s(x)(x - κ'(s))$.
+
+These are used in the formulas for put and call option values and their greeks.
+
 The value and greeks of any option can be expressed in terms of
 derivatives of the cumulative distribution function $\Psi_s(y) = P_s(Y\le y)$ and
 those of $\kappa(s)$. Let $\phi_s(y)$ be the corresponding density function.
@@ -154,35 +183,6 @@ __Exercise__. _Show $d^nv_0/du^n = e^{(n-1)rt}d^nv/df^n$_.
 
 The spot vega is $dv_0/ds = e^{-rt}E[ν'(U) dU/ds] = e^{-rt}E[ν'(Y) dY/ds] = e^{-rt}dv/ds$.
 
-
-### Distribution
-
-If $Φ(x)$ is the cumulative distribution functions of $X$ then the cumulative
-distribution of $Y$ is $Ψ(y) = Φ(x)$ where $y = y(x) = fε_s(x)$
-and _moneyness_ $x = x(y) = ε_s^{-1}(y/f) = (\log(y/f) + κ(s))/s$.
-Let $ψ(y)$ and $φ(x)$ be the corresponding density functions so
-$ψ(y) = φ(x)dx/dy = φ(x)/ys$ since $dy/dx = ys$.
-Likewise, $ψ_s(y) = φ_s(x)/ys$.
-Note $φ_s(x) = φ(x)ε_s(x) = φ(x)y/f$.
-We collect these formulas for easy reference:
-$$
-\begin{aligned}
-	y &= y(x) = fε_s(x)\\
-	x &= x(y) = ε_s^{-1}(y/f) \\
-	φ_s(x) &= φ(x)ε_s(x) = φ(x)y/f \\
-	ψ(y) &= φ(x)/ys \\
-	ψ_s(y) &= φ_s(x)/ys = φ(x)/fs \\
-\end{aligned}
-$$
-Note $ψ_s'(y) = φ'(x)(dx/dy)/fs = φ'(x)/yfs^2$.
-
-We will also need the formula
-$$
-\frac{d}{ds}Φ_s(x) = \frac{d}{ds}E[1(X \le x)ε_s(X)] = E[1(X \le x)ε_s(X)(X - κ'(s))]
-$$
-since $dε_s(x)/ds = ε_s(x)(x - κ'(s))$.
-
-These are used in the formulas for put and call option values and their greeks.
 
 ## Put and Call
 
