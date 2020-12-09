@@ -21,7 +21,7 @@ abstract: European option pricing
 European _option valuation_ involves calculating the expected value of
 the _option payoff_ as a function of the _underlying_ at _expiration_.
 _Greeks_ are derivatives of the _value_ with respect to _model parameters_.
-This short note derives formulas for these using any positive underlying distribution.
+This short note derives formulas for these that can be used for any positive underlying.
 
 ## Share Measure
 
@@ -77,9 +77,9 @@ $$
 _Vega_ is  the derivative with respect to vol
 $$
 \partial v/\partial s = E[\nu'(Y)\partial Y/\partial s]
-= E[\nu'(Y)Y(X - \kappa'(s))] = yE_s[\nu'(Y)(X - \kappa'(s))]
+= yE_s[\nu'(Y)(X - \kappa'(s))]
 $$
-since $\partial Y/\partial s = Y\epsilon_s(X)$.
+since $\partial Y/\partial s = Y(X - \kappa'(s))$.
 
 ### Distribution
 
