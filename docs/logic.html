@@ -32,9 +32,11 @@
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
 </head>
 <body>
 <header id="title-block-header">
@@ -45,7 +47,8 @@
 <p>However one thing logical systems all have in common that they use <em>propositions</em>: statements that are either <em>true</em> or <em>false</em>, and <em>rules of inference</em>: ways of combining true propositions into other true propositions.</p>
 <p>Mathematicians prove <em>theorems</em>. Typically they have the form ‘if <span class="math inline">A</span> is true then <span class="math inline">B</span> is true’ where <span class="math inline">A</span> and <span class="math inline">B</span> are propositions. This is equivalent to ‘if <span class="math inline">A</span> then <span class="math inline">B</span>’ and ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’. Every logical system has <em>axioms</em>: propositions that are assumed to be true. The fundamental rule of inference is <em>modus ponens</em>: if a proof has the statement ‘<span class="math inline">A</span>’ and the statement ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’ then the statement ‘<span class="math inline">B</span>’ can be included in the proof.</p>
 <p>A proof of ‘<span class="math inline">A</span> implies <span class="math inline">B</span>’ consists of a sequence of statements starting with <span class="math inline">A</span>. The following statements are either axioms or a statement using rules of inference applied to previous statements. If the last statement is <span class="math inline">B</span> then the theorem is proved, QED: “quod erat demonstrandum”, meaning “what was to be shown”. The difficult part of a proof is figuring out which axioms to use and when to apply the rules of inference.</p>
-<h2 id="propositional-calculus">Propositional Calculus</h2>
+<section id="propositional-calculus" class="level2">
+<h2>Propositional Calculus</h2>
 <p>The <em>propositional calculus</em> is based on the common English usage of the words, ‘not’, ‘and’, ‘or’, and ‘implies’. These are represented by <em>logical connectives</em> <span class="math inline">\neg</span>, <span class="math inline">\wedge</span>, <span class="math inline">\vee</span>, and <span class="math inline">\supset</span>.</p>
 <dl>
 <dt><em>Not</em></dt>
@@ -190,7 +193,9 @@
 </div>
 <p>where we have added a column for the subexpression <span class="math inline">Q\supset P</span> to facilitate the evaluation. This shows <span class="math inline">P\supset(Q\supset P)</span> is a tautology.</p>
 <p>As the number of variables in a proposition increase, the number of cases to evaluate increases exponentially. If there are <span class="math inline">n</span> variables, then there are <span class="math inline">2^n</span> cases to consider.</p>
-<h2 id="deduction">Deduction</h2>
+</section>
+<section id="deduction" class="level2">
+<h2>Deduction</h2>
 <p>A more compact way of determining if a proposition is a tautology is to start from a small set of tautologies and apply <em>modus ponens</em>: if the propositions <span class="math inline">P\supset Q</span> and <span class="math inline">P</span> are tautologies then <span class="math inline">Q</span> is a tautology.</p>
 <p>that can be used to deduce any tautology, assuming that is possible. A <em>proof</em> of a tautology is a sequence of propositions that are either axioms or a result</p>
 <p>For example, we can use <span class="math inline">P\supset(Q\supset P)</span> to deduce <span class="math inline">P\supset P</span>.</p>
@@ -230,7 +235,9 @@
 </tbody>
 </table>
 </div>
-<h2 id="history">History</h2>
+</section>
+<section id="history" class="level2">
+<h2>History</h2>
 <p>Although lost in prehistory, the imputus for logic must have been liars. The earliest evidence we have indicates primative societies always had a special class people who survived by making up stories in order to deceive others into providing them with the fruits of their labor. One way to get rid of these freeloaders was to find plausible arguments to demonstrate their stories were a sham.</p>
 <p>Euclid was the first person (if he existed) to document this type of reasoning and the books he wrote are the second best sellers in history next to the bible. Devine truth only requires belief, mathematical truth requires considerable intellectual effort to comprehend.</p>
 <p>While Euclid only considered geometry, Aristotle applied these methods to speech (logos)</p>
@@ -247,6 +254,7 @@ angles sum to less than two right angles."
 
 Playfair. What a name!
 -->
+</section>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

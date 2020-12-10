@@ -43,26 +43,89 @@
 <h1 class="title">Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<blockquote>
-<p><em>Besides it is an error to believe that rigour is the enemy of simplicity. On the contrary we find it confirmed by numerous examples that the rigorous method is at the same time the simpler and the more easily comprehended. The very effort for rigor forces us to find out simpler methods of proof. — David Hilbert</em></p>
-</blockquote>
-<p>European <em>option valuation</em> involves calculating the expected value of the <em>option payoff</em> as a function of the <em>underlying</em> at <em>expiration</em>. <em>Greeks</em> are derivatives of the <em>value</em> with respect to <em>model parameters</em>. This short note derives formulas for these using any positive underlying distribution.</p>
-<h2 id="share-measure">Share Measure</h2>
-<p>Let <span class="math inline">Y</span> be the (random) price of some <em>underlying</em> instrument at option expiration. The (forward) <em>value</em> of an option paying <span class="math inline">\nu(Y)</span> in some currency at expiration is <span class="math inline">E[\nu(Y)]</span>. We can also consider the payoff in terms of shares of <span class="math inline">Y</span>, <span class="math inline">\nu_s(Y) = \nu(Y)Y/E[Y]</span>. If we receive <span class="math inline">\nu_s(Y)</span> shares of <span class="math inline">Y</span> at expiration we can convert those at price <span class="math inline">Y</span> to <span class="math inline">\nu(Y)</span> in the currency.</p>
-<p>The <em>share measure</em> <span class="math inline">P_s</span> is defined by <span class="math inline">dP_s/dP = Y/E[Y]</span>. For example, the value of a put option paying <span class="math inline">\max\{k - Y,0\}</span> is <span class="math inline">p = E[(k - Y)1(Y\le k)] = kP(Y\le k) - E[Y] P_s(Y\le k)</span>.</p>
-<h3 id="parameters">Parameters</h3>
-<p>Let the <em>forward</em> be <span class="math inline">y = E[Y]</span> and the <em>vol</em> squared be <span class="math inline">s^2 = \operatorname{Var}(\log Y)</span>. Every positive random variable can be written <span class="math inline">Y = e^{m + sX}</span> for constants <span class="math inline">m</span>, <span class="math inline">s</span> and <span class="math inline">X</span> with mean 0 and variance 1. Using <span class="math inline">y = E[Y] = e^m e^{sX}</span> we see <span class="math inline">e^m = y e^{-\kappa(s)}</span> where <span class="math inline">\kappa(s) = \log E[e^{sX}]</span> is the <em>cumulant</em> of <span class="math inline">X</span>. The <em>greeks</em> are the values of the derivatives of value with respect to forward and vol. If you prefer a different parameterization <span class="math inline">y = y(z,t)</span>, <span class="math inline">s = s(z,t)</span> the chain rule can be applied to get greeks in terms of <span class="math inline">z</span> and <span class="math inline">t</span>.</p>
-<p>Define <span class="math inline">\epsilon_s(x) = e^{s x - \kappa(s)}</span> so <span class="math inline">Y = y\epsilon_s(X)</span> and <span class="math inline">X = \epsilon_s^{-1}(Y/y)</span>. The <em>moneyness</em> of <span class="math inline">k</span> is <span class="math inline">x(k) = \epsilon_s^{-1}(k/y) = (\log k/y + \kappa(s))/s</span>. Note <span class="math inline">\partial \epsilon_s(x)/\partial x = \epsilon_s(x)s</span> and <span class="math inline">\partial \epsilon_s(x)/\partial s = \epsilon_s(x)(x - \kappa&#39;(s))</span>.</p>
-<p>For any payoff <span class="math inline">\nu</span> and <span class="math inline">v = E[\nu(Y)]</span> we have <span class="math inline">\partial v/\partial y = E[\nu&#39;(Y)\partial Y/\partialy] = E_s[\nu&#39;(Y)]</span> since <span class="math inline">\partial Y/\partial y = \epsilon_s(X)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\partial^nv/\partial y^n = E[\nu&#39;(Y)(\partial Y/\partial y)^n] = E_s[\nu^{(n)}(Y)Y^{n-1}]/y^{n-1}</span></em>, <span class="math inline">n\ge 1</span>.</p>
-<p>For any payoff <span class="math inline">\nu</span> and <span class="math inline">v = E[\nu(Y)]</span> we have <span class="math inline">\partial v/\partial s = E[\nu&#39;(Y)\partial Y/\partial s] = E[\nu&#39;(Y)Y(X - \kappa&#39;(s))] = yE_s[\nu&#39;(Y)(X - \kappa&#39;(s))]</span> since <span class="math inline">\partial Y/\partial s = Y\epsilon_s(X)</span>.</p>
-<p>The value and greeks of any option can be expressed in terms of derivatives of the cumulative distribution function <span class="math inline">\Psi_s(y) = P_s(Y\le y)</span> and those of <span class="math inline">\kappa(s)</span>.</p>
-<p>Note <span class="math inline">\partial \Psi_0(y)/\partial s = E[-\delta_y(Y)Y(X - \kappa&#39;(s))] = -yE_s(\delta_y(Y)(X - \kappa&#39;(s))]</span>.</p>
-<p><span class="math inline">\partial v/\partial s = E[\nu&#39;(Y)Y(X - \kappa&#39;(s))] = -E[\delta_k(Y)Y(X - \kappa&#39;(s))]</span></p>
-<h2 id="parameters-1">Parameters</h2>
+<!--
+> _Besides it is an error to believe that rigour is the enemy of simplicity. 
+> On the contrary we find it confirmed by numerous examples that the rigorous 
+> method is at the same time the simpler and the more easily comprehended. 
+> The very effort for rigor forces us to find out simpler methods of proof. 
+> &mdash; David Hilbert_
+-->
+<p>European <em>option valuation</em> involves calculating the expected value of the <em>option payoff</em> as a function of the <em>underlying</em> at <em>expiration</em>. <em>Greeks</em> are derivatives of the <em>value</em> with respect to <em>model parameters</em>. This short note derives formulas for these that can be used for any positive underlying.</p>
+<section id="share-measure" class="level2">
+<h2>Share Measure</h2>
+<p>Let <span class="math inline">Y</span> be the positive, random price of some <em>underlying</em> instrument at option expiration. The (forward) <em>value</em> of an option paying <span class="math inline">\nu(Y)</span> in some currency at expiration is <span class="math inline">E[\nu(Y)] = \int \nu(Y)\,dP</span>. We can also consider the payoff in terms of shares of <span class="math inline">Y</span>, <span class="math inline">\nu_s(Y) = \nu(Y)Y/E[Y]</span>. If we receive <span class="math inline">\nu_s(Y)</span> shares of <span class="math inline">Y</span> at expiration we can convert those at price <span class="math inline">Y</span> to <span class="math inline">\nu(Y)</span> in the currency.</p>
+<p><em>Share measure</em> <span class="math inline">P_s</span> is defined by <span class="math inline">dP_s/dP = Y/E[Y]</span>. We write <span class="math inline">E_s[f(Y)] = E[f(Y)Y/E[Y]</span> for expectation under the share measure.</p>
+<section id="parameters" class="level3">
+<h3>Parameters</h3>
+<p>The <em>forward</em> is <span class="math inline">y = E[Y]</span> and the <em>vol</em> squared is <span class="math inline">s^2 = \operatorname{Var}(\log Y)</span>. Every positive random variable can be written <span class="math inline">Y = e^{m + sX}</span> for constants <span class="math inline">m</span>, <span class="math inline">s</span> and <span class="math inline">X</span> having mean 0 and variance 1. Using <span class="math inline">y = E[Y] = e^m E[e^{sX}]</span> we see <span class="math inline">e^m = y e^{-κ(s)}</span> where <span class="math inline">κ(s) = \log E[e^{sX}]</span> is the <em>cumulant</em> of <span class="math inline">X</span>. Hence <span class="math inline">Y = ye^{sX - κ(s)}</span> is parameterized by <span class="math inline">y</span>, <span class="math inline">s</span>, and a mean 0 variance 1 random variable <span class="math inline">X</span>.</p>
+<p><em>Greeks</em> are the derivatives of value with respect to forward and vol. If you prefer a different parameterization <span class="math inline">y = y(z,t)</span>, <span class="math inline">s = s(z,t)</span> the chain rule can be applied to get greeks in terms of <span class="math inline">z</span> and <span class="math inline">t</span>. For example, the Black model takes <span class="math inline">X</span> to be standard normal and vol <span class="math inline">s = σ \sqrt{t}</span> where <span class="math inline">σ</span> is the <em>volatilty</em> and <span class="math inline">t</span> is <em>time</em> in years to expiration. In this case <span class="math inline">Y = fe^{σ \sqrt{t} X - σ^2t/2}</span> and <span class="math inline">\partial E[\nu(Y)]/\partial σ = (\partial E[\nu(Y)]/\partial s) \sqrt{t}</span>.</p>
+<p>Define <span class="math inline">ε_s(x) = e^{s x - κ(s)}</span> so <span class="math inline">Y = yε_s(X)</span> and <span class="math inline">X = ε_s^{-1}(Y/y)</span>. The <em>moneyness</em> of <span class="math inline">k</span> is <span class="math inline">x(k) = ε_s^{-1}(k/y) = (\log k/y + κ(s))/s</span>. Note <span class="math inline">\partial ε_s(x)/\partial x = ε_s(x)s</span> and <span class="math inline">\partial ε_s(x)/\partial s = ε_s(x)(x - κ&#39;(s))</span>.</p>
+</section>
+<section id="greeks" class="level3">
+<h3>Greeks</h3>
+<p>Given <span class="math inline">f</span>, <span class="math inline">s</span>, and <span class="math inline">X</span> where <span class="math inline">κ(s) = \log E[e^{sX}]</span>.</p>
+<p><span class="math inline">F = fε_s(X)</span>, <span class="math inline">ε_s(x) = e^{sx - κ(s)}</span>.</p>
+<p><span class="math inline">E_s[g(X)] = E[g(X)ε_s(X)]</span>.</p>
+<p><span class="math display">
+\begin{aligned}
+ e^{κ(u + s)} ε_{u + s}(x) &amp;= e^{(u + s)x} \\
+    &amp;= e^{ux} e^{sx} \\
+    &amp;= e^{κ(u)} ε_u(x) e^{κ(s)} ε_s(x) \\
+\end{aligned}
+</span></p>
+<p><span class="math display">
+\begin{aligned}
+e^{κ(u + s)} E_{u+s}[g(X)] &amp;= E[g(X)ε_{u + s}(X)] \\
+    &amp;= e^{κ(u) + κ(s)} E[g(X)ε_u(X) ε_s(X)] \\
+    &amp;= e^{κ(u) + κ(s)} E_u[g(X) ε_s(X)] \\
+\end{aligned}
+</span></p>
+<p>In particular <span class="math inline">E[g(X) ε_s^n(X)] = e^{κ(ns) + nκ(s)}E_{ns}[g(X)]</span>.</p>
+<p>For any payoff <span class="math inline">\nu</span> with value <span class="math inline">v = E[\nu(F)]</span>, <em>delta</em> is the derivative of value with respect to the forward <span class="math display">
+\frac{\partial v}{\partial f}
+    = E[\nu&#39;(F)\frac{\partial F}{\partial f}]
+    = E[\nu&#39;(F)ε_s(X)]
+    = E_s[\nu&#39;(F)]
+</span> since <span class="math inline">\partial F/\partial f = ε_s(X)</span>.</p>
+<p><em>Gamma</em> is the second derivative with respect to the forward <span class="math display">
+\partial^2 v/\partial f^2
+    = E[\nu&#39;&#39;(F)ε_s^2(X)]
+    = E_s[\nu&#39;&#39;(F)ε_s(X)]
+    = e^{κ(2s) - 2κ(s)}E_{2s}[\nu&#39;&#39;(F)]
+</span></p>
+<p><em>Vega</em> is the derivative with respect to vol <span class="math display">
+\partial v/\partial s = E[\nu&#39;(Y)\partial Y/\partial s]
+= E[\nu&#39;(Y)Y(X - κ&#39;(s))] = yE_s[\nu&#39;(Y)(X - κ&#39;(s))]
+</span> since <span class="math inline">\partial Y/\partial s = Y(X - κ&#39;(s))</span>.</p>
+</section>
+<section id="distribution" class="level3">
+<h3>Distribution</h3>
+<p>Let <span class="math inline">Ψ(y) = P(F\le y)</span> be the cdf of <span class="math inline">Y</span> and <span class="math inline">Ψ_s(y) = E[1(F\le y)F/f)</span> be the <em>share cdf</em> (of <span class="math inline">Y_s</span>).</p>
+<p>Note $dΨ_s(y)/ds = E[-_y(F)F/f</p>
+<p>If <span class="math inline">Φ(x)</span> is the cumulative distribution functions of <span class="math inline">X</span> then the cumulative distribution of <span class="math inline">Y</span> is <span class="math inline">Ψ(y) = Φ(x)</span> where <span class="math inline">y = y(x) = fε_s(x)</span> and <em>moneyness</em> <span class="math inline">x = x(y) = ε_s^{-1}(y/f) = (\log(y/f) + κ(s))/s</span>. Let <span class="math inline">ψ(y)</span> and <span class="math inline">φ(x)</span> be the corresponding density functions so <span class="math inline">ψ(y) = φ(x)dx/dy = φ(x)/ys</span> since <span class="math inline">dy/dx = ys</span>. Likewise, <span class="math inline">ψ_s(y) = φ_s(x)/ys</span>. Note <span class="math inline">φ_s(x) = φ(x)ε_s(x) = φ(x)y/f</span>. We collect these formulas for easy reference: <span class="math display">
+\begin{aligned}
+    y &amp;= y(x) = fε_s(x)\\
+    x &amp;= x(y) = ε_s^{-1}(y/f) \\
+    φ_s(x) &amp;= φ(x)ε_s(x) = φ(x)y/f \\
+    ψ(y) &amp;= φ(x)/ys \\
+    ψ_s(y) &amp;= φ_s(x)/ys = φ(x)/fs \\
+\end{aligned}
+</span> Note <span class="math inline">ψ_s&#39;(y) = φ&#39;(x)(dx/dy)/fs = φ&#39;(x)/yfs^2</span>.</p>
+<p>We will also need the formula <span class="math display">
+\frac{d}{ds}Φ_s(x) = \frac{d}{ds}E[1(X \le x)ε_s(X)] = E[1(X \le x)ε_s(X)(X - κ&#39;(s))]
+</span> since <span class="math inline">dε_s(x)/ds = ε_s(x)(x - κ&#39;(s))</span>.</p>
+<p>These are used in the formulas for put and call option values and their greeks.</p>
+<p>The value and greeks of any option can be expressed in terms of derivatives of the cumulative distribution function <span class="math inline">\Psi_s(y) = P_s(Y\le y)</span> and those of <span class="math inline">κ(s)</span>. Let <span class="math inline">\phi_s(y)</span> be the corresponding density function. Note <span class="math inline">\partial \Psi_0(y)/\partial s = E[-\delta_y(Y)Y(X - κ&#39;(s))] = -yE_s(\delta_y(Y)(X - κ&#39;(s))]</span>.</p>
+<p><span class="math inline">\partial v/\partial s = E[\nu&#39;(Y)Y(X - κ&#39;(s))] = -E[\delta_k(Y)Y(X - κ&#39;(s))]</span></p>
+</section>
+</section>
+<section id="parameters-1" class="level2">
+<h2>Parameters</h2>
 <p>Any positive random variable <span class="math inline">Y</span> can be parameterized using the <em>forward</em> <span class="math inline">f</span> and <em>vol</em> <span class="math inline">s</span> by <span class="math inline">Y = f e^{s X - κ(s)}</span>, where <span class="math inline">κ(s) = \log E[e^{s X}]</span> is the cumulant of <span class="math inline">X</span>. Note <span class="math inline">E[Y] = f</span> is the forward and <span class="math inline">\operatorname{Var}(\log Y) = s^2</span> is the vol squared if <span class="math inline">E[X] = 0</span> and <span class="math inline">E[X^2] = 1</span>, which we can, and do, assume.</p>
 <p>For example, the Black model takes <span class="math inline">X</span> to be standard normal and vol <span class="math inline">s = σ \sqrt{t}</span> where <span class="math inline">σ</span> is the <em>volatilty</em> and <span class="math inline">t</span> is <em>time</em> in years to expiration. In this case <span class="math inline">Y = fe^{σ \sqrt{t} X - σ^2t/2}</span>.</p>
-<h2 id="value-and-greeks">Value and Greeks</h2>
+</section>
+<section id="value-and-greeks" class="level2">
+<h2>Value and Greeks</h2>
 <p>Let <span class="math inline">X</span> be any random variable with mean 0 and variance 1 and define <span class="math inline">Y = fε_s(X)</span> where <span class="math inline">ε_s(x) = e^{sx - κ(s)}</span>. The <em>Esscher transform</em> <span class="math inline">X_s</span> of <span class="math inline">X</span> is defined by <span class="math inline">P(X_s\le x) = E[1(X\le x)ε_s(X)]</span> so <span class="math inline">E[g(X_s)] = E_s[g(X)] = E[g(X)ε_s(X)]</span> for any measurable function <span class="math inline">g</span>.</p>
 <p>The (forward) <em>value</em> of an option paying <span class="math inline">ν(Y)</span> at expiration is <span class="math display">
 v = E[ν(Y)].
@@ -78,27 +141,17 @@ v = E[ν(Y)].
     \frac{dv}{ds} = E[ν&#39;(Y)dY/ds] = E[ν&#39;(Y)Y(X - κ&#39;(s))] = fE_s[ν&#39;(Y)(X - κ&#39;(s))].
 </span></p>
 <p>The inverse of option value as a function of vol is the <em>implied vol</em>.</p>
-<h3 id="spot">Spot</h3>
+<section id="spot" class="level3">
+<h3>Spot</h3>
 <p>It is straightforward to convert these formulas to spot values and corresponding greeks. If the <em>spot price</em> of the underlying is <span class="math inline">u</span> the forward is <span class="math inline">f = e^{rt}u</span> where <span class="math inline">r</span> is the risk-free continuously compounded interest rate and <span class="math inline">t</span> is the time in years to expiration. The underlying at expiration is <span class="math inline">U = Y</span>.</p>
 <p>The <em>spot value</em> is <span class="math inline">v_0 = e^{-rt}E[ν(U)]</span> and <em>spot delta</em> is <span class="math inline">dv_0/du = e^{-rt}E[ν&#39;(U) dU/du] = e^{-rt}E[ν&#39;(F) (dY/df) df/du] = e^{-rt}E[ν&#39;(F) (dY/df) e^{rt}] = dv/df</span>.</p>
 <p>The spot and forward delta are equal but the spot gamma is <span class="math inline">d^2v_0/du^2 = d(dv/df)/du = (d^2v/df^2) df/du = e^{rt} d^2v/df^2</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">d^nv_0/du^n = e^{(n-1)rt}d^nv/df^n</span></em>.</p>
 <p>The spot vega is <span class="math inline">dv_0/ds = e^{-rt}E[ν&#39;(U) dU/ds] = e^{-rt}E[ν&#39;(Y) dY/ds] = e^{-rt}dv/ds</span>.</p>
-<h3 id="distribution">Distribution</h3>
-<p>If <span class="math inline">Φ(x)</span> is the cumulative distribution functions of <span class="math inline">X</span> then the cumulative distribution of <span class="math inline">Y</span> is <span class="math inline">Ψ(y) = Φ(x)</span> where <span class="math inline">y = y(x) = fε_s(x)</span> and <em>moneyness</em> <span class="math inline">x = x(y) = ε_s^{-1}(y/f) = (\log(y/f) + κ(s))/s</span>. Let <span class="math inline">ψ(y)</span> and <span class="math inline">φ(x)</span> be the corresponding density functions so <span class="math inline">ψ(y) = φ(x)dx/dy = φ(x)/ys</span> since <span class="math inline">dy/dx = ys</span>. Likewise, <span class="math inline">ψ_s(y) = φ_s(x)/ys</span>. Note <span class="math inline">φ_s(x) = φ(x)ε_s(x) = φ(x)y/f</span>. We collect these formulas for easy reference: <span class="math display">
-\begin{aligned}
-    y &amp;= y(x) = fε_s(x)\\
-    x &amp;= x(y) = ε_s^{-1}(y/f) \\
-    φ_s(x) &amp;= φ(x)ε_s(x) = φ(x)y/f \\
-    ψ(y) &amp;= φ(x)/ys \\
-    ψ_s(y) &amp;= φ_s(x)/ys = φ(x)/fs \\
-\end{aligned}
-</span> Note <span class="math inline">ψ_s&#39;(y) = φ&#39;(x)(dx/dy)/fs = φ&#39;(x)/yfs^2</span>.</p>
-<p>We will also need the formula <span class="math display">
-\frac{d}{ds}Φ_s(x) = \frac{d}{ds}E[1(X \le x)ε_s(X)] = E[1(X \le x)ε_s(X)(X - κ&#39;(s))]
-</span> since <span class="math inline">dε_s(x)/ds = ε_s(x)(x - κ&#39;(s))</span>.</p>
-<p>These are used in the formulas for put and call option values and their greeks.</p>
-<h2 id="put-and-call">Put and Call</h2>
+</section>
+</section>
+<section id="put-and-call" class="level2">
+<h2>Put and Call</h2>
 <p>A <em>put option</em> pays <span class="math inline">ν(Y) = (k - Y)^+ = \max\{k - Y,0\}</span> at expiration and has value <span class="math inline">p = E[(k - Y)^+]</span>. A <em>call option</em> pays <span class="math inline">ν(Y) = (Y - k)^+</span> at expiration and has value <span class="math inline">c = E[(Y - k)^+]</span>. Note <span class="math inline">(Y - k)^+ - (k - Y)^+ = Y - k</span> is a <em>forward</em> with <em>strike</em> <span class="math inline">k</span> so all models satisfy <em>put-call parity</em>: <span class="math inline">c - p = f - k</span>. Call delta is <span class="math inline">dc/df = dp/df + 1</span> and call gamma equals put gamma <span class="math inline">d^2c/df^2 = d^2p/df^2</span>. We also have <span class="math inline">dc/ds - dp/ds = 0</span> so call vega equals put vega.</p>
 <p>Note <span class="math inline">Y \le y(x)</span> iff <span class="math inline">X \le x(y)</span> since <span class="math inline">dε_s(x)/dx &gt; 0</span>. The value of a put is <span class="math display">
 \begin{aligned}
@@ -118,7 +171,9 @@ p &amp;= E[(k - Y)^+] \\
 <p>Vega for a put is <span class="math display">
     \frac{dp}{ds} = -E[1(Y\le k)Y(X - κ&#39;(s))] = -f\frac{d}{ds}Φ_s(x(k)).
 </span></p>
-<h2 id="digital">Digital</h2>
+</section>
+<section id="digital" class="level2">
+<h2>Digital</h2>
 <p>A <em>digital put</em> has payoff <span class="math inline">ν(Y) = 1(Y \le k)</span> and a <em>digital call</em> has payoff <span class="math inline">ν(Y) = 1(Y &gt; k)</span> with values <span class="math display">
     p = P(Y \le k) = Φ(x(k)),
     c = P(Y &gt; k) = 1 - Φ(x(k)).
@@ -148,9 +203,11 @@ p &amp;= E[(k - Y)^+] \\
 \end{aligned}
 </span></p>
 <p>Since <span class="math inline">p + c = 1</span> we have <span class="math inline">d^nc/df^n = -d^np/df^n</span> and <span class="math inline">d^nc/ds^n = -d^np/ds^n</span> for all <span class="math inline">n &gt; 0</span>.</p>
-<h2 id="black-model">Black Model</h2>
+</section>
+<section id="black-model" class="level2">
+<h2>Black Model</h2>
 <p>We use the above to derive the standard Black-Scholes/Merton formulas for value and greeks. In the Black model <span class="math inline">Y = fe^{σB_t - σ^2t/2}</span> where <span class="math inline">f</span> is the forward, <span class="math inline">σ</span> is the volatility, and <span class="math inline">B_t</span> is Brownian motion at time <span class="math inline">t</span>. There is really no need to drag in Brownian motion to compute an option value, we only use the fact <span class="math inline">B_t</span> is normally distributed with mean <span class="math inline">0</span> and variance <span class="math inline">t</span>. There is also no need to drag in <span class="math inline">t</span>, let <span class="math inline">s = σ\sqrt{t}</span> and <span class="math inline">X</span> be standard normal so <span class="math inline">Y = fe^{sX - s^2/2}</span> has the same distribution.</p>
-<p><a href="cdf.html#normal">Recall</a> if <span class="math inline">X</span> is standard normal then <span class="math inline">E[e^{μ + σ X}] = e^{μ + σ^2/2}</span> and <span class="math inline">E[g(X)e^{s X - s^2/2}] = E[g(X + s)]</span> for any function <span class="math inline">g</span> and <span class="math inline">s\in\bm{R}</span>. These formulas imply the cumulant of a standard normal is <span class="math inline">κ(s) = s^2/2</span> so <span class="math inline">Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)</span> and <span class="math inline">φ_s(x) = φ(x - s)</span>. Note <span class="math inline">dΦ_s(x)/ds = -φ(x - s) = -φ_s(x)</span>.</p>
+<p><a href="cdf.html#normal">Recall</a> if <span class="math inline">X</span> is standard normal then <span class="math inline">E[e^{μ + σ X}] = e^{μ + σ^2/2}</span> and <span class="math inline">E[g(X)e^{s X - s^2/2}] = E[g(X + s)]</span> for any function <span class="math inline">g</span> and <span class="math inline">s\in 𝑹</span>. These formulas imply the cumulant of a standard normal is <span class="math inline">κ(s) = s^2/2</span> so <span class="math inline">Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)</span> and <span class="math inline">φ_s(x) = φ(x - s)</span>. Note <span class="math inline">dΦ_s(x)/ds = -φ(x - s) = -φ_s(x)</span>.</p>
 <p>Put value is <span class="math display">
     p = k Φ(x(k)) - f Φ(x(k) - s)
 </span> where <span class="math inline">x(k) = \log(k/f)/s + s/2</span>.</p>
@@ -170,6 +227,7 @@ p &amp;= E[(k - Y)^+] \\
 \end{aligned}
 </span></p>
 <p><span class="math inline">\langle\text{mic drop}/\rangle</span></p>
+</section>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

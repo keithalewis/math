@@ -21,10 +21,10 @@ FLAGS += -A FOOTER.md
 #FLAGS += -t html5
 #FLAGS += --mathjax
 #FLAGS += --css capm.css
-#FLAGS += --section-divs
+FLAGS += --section-divs
 FLAGS += -H HEADER.md
 #FLAGS += -H katex.html
-#FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
+FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
 TEXFLAGS =
 #TEXFLAGS = 
 TEXFLAGS = --pdf-engine=xelatex

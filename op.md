@@ -8,7 +8,7 @@ abstract: European option pricing
 ...
 
 \newcommand{\Var}{\operatorname{Var}}
-\newcommand{\RR}{\bm{R}}
+\newcommand{\RR}{𝑹}
 
 <!--
 > _Besides it is an error to believe that rigour is the enemy of simplicity. 
@@ -27,8 +27,8 @@ This short note derives formulas for these that can be used for any positive und
 
 Let $Y$ be the positive, random price of some _underlying_ instrument at
 option expiration.  The (forward)  _value_ of an option paying $\nu(Y)$
-in some currency at expiration is $E[\nu(Y)]$ under the probability
-measure $P$.  We can also consider the payoff in terms of shares of $Y$,
+in some currency at expiration is $E[\nu(Y)] = \int \nu(Y)\,dP$.
+We can also consider the payoff in terms of shares of $Y$,
 $\nu_s(Y) = \nu(Y)Y/E[Y]$.  If we receive $\nu_s(Y)$ shares of $Y$ at
 expiration we can convert those at price $Y$ to $\nu(Y)$ in the currency.
 
@@ -41,47 +41,85 @@ the share measure.
 The _forward_ is $y = E[Y]$ and the _vol_ squared is $s^2 = \Var(\log Y)$.
 Every positive random variable can be written $Y = e^{m + sX}$ for
 constants $m$, $s$ and $X$ having mean 0 and variance 1.  Using $y = E[Y]
-= e^m E[e^{sX}]$ we see $e^m = y e^{-\kappa(s)}$ where
-$\kappa(s) = \log E[e^{sX}]$ is the _cumulant_ of $X$.
-Hence $Y = ye^{sX - \kappa(s)}$ is parameterized by $f$, $s$,
+= e^m E[e^{sX}]$ we see $e^m = y e^{-κ(s)}$ where
+$κ(s) = \log E[e^{sX}]$ is the _cumulant_ of $X$.
+Hence $Y = ye^{sX - κ(s)}$ is parameterized by $y$, $s$,
 and a mean 0 variance 1 random variable $X$.
 
-_Greeks_ are the values of the derivatives of value with respect
+_Greeks_ are the derivatives of value with respect
 to forward and vol. If you prefer a different parameterization
 $y = y(z,t)$, $s = s(z,t)$ the chain rule can be applied to
 get greeks in terms of $z$ and $t$.
+For example, the Black model takes $X$ to be standard normal and vol
+$s = σ \sqrt{t}$ where $σ$ is the _volatilty_ and $t$ is _time_ in years to expiration.
+In this case $Y = fe^{σ \sqrt{t} X - σ^2t/2}$ and $\partial E[\nu(Y)]/\partial σ =
+(\partial E[\nu(Y)]/\partial s) \sqrt{t}$.
 
-Define $\epsilon_s(x) = e^{s x - \kappa(s)}$ so $Y = y\epsilon_s(X)$
-and $X = \epsilon_s^{-1}(Y/y)$. The _moneyness_ of $k$ is 
-$x(k) = \epsilon_s^{-1}(k/y) = (\log k/y + \kappa(s))/s$.
-Note $\partial \epsilon_s(x)/\partial x = \epsilon_s(x)s$
-and  $\partial \epsilon_s(x)/\partial s = \epsilon_s(x)(x - \kappa'(s))$.
+Define $ε_s(x) = e^{s x - κ(s)}$ so $Y = yε_s(X)$
+and $X = ε_s^{-1}(Y/y)$. The _moneyness_ of $k$ is 
+$x(k) = ε_s^{-1}(k/y) = (\log k/y + κ(s))/s$.
+Note $\partial ε_s(x)/\partial x = ε_s(x)s$
+and  $\partial ε_s(x)/\partial s = ε_s(x)(x - κ'(s))$.
 
 ### Greeks
 
-For any payoff $\nu$ with value $v = E[\nu(Y)]$, _delta_ is the
+Given $f$, $s$, and $X$ where $κ(s) = \log E[e^{sX}]$.
+
+$F = fε_s(X)$, $ε_s(x) = e^{sx - κ(s)}$.
+
+$E_s[g(X)] = E[g(X)ε_s(X)]$.
+
+$$
+\begin{aligned}
+ e^{κ(u + s)} ε_{u + s}(x) &= e^{(u + s)x} \\
+	&= e^{ux} e^{sx} \\
+	&= e^{κ(u)} ε_u(x) e^{κ(s)} ε_s(x) \\
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+e^{κ(u + s)} E_{u+s}[g(X)] &= E[g(X)ε_{u + s}(X)] \\
+	&= e^{κ(u) + κ(s)} E[g(X)ε_u(X) ε_s(X)] \\
+	&= e^{κ(u) + κ(s)} E_u[g(X) ε_s(X)] \\
+\end{aligned}
+$$
+
+In particular $E[g(X) ε_s^n(X)] = e^{κ(ns) + nκ(s)}E_{ns}[g(X)]$.
+
+For any payoff $\nu$ with value $v = E[\nu(F)]$, _delta_ is the
 derivative of value with respect to the forward
 $$
-\partial v/\partial y = E[\nu'(Y)\partial Y/\partial y] = E_s[\nu'(Y)]
+\frac{\partial v}{\partial f}
+	= E[\nu'(F)\frac{\partial F}{\partial f}]
+	= E[\nu'(F)ε_s(X)]
+	= E_s[\nu'(F)]
 $$
-since $\partial Y/\partial y = Y/y$.
-
-__Exercise__. _Show $\partial^nv/\partial y^n = E[\nu'(Y)(\partial Y/\partial y)^n]
-= E_s[\nu^{(n)}(Y)Y^{n-1}]/y^{n-1}$_, $n\ge 1$.
+since $\partial F/\partial f = ε_s(X)$.
 
 _Gamma_ is the second derivative with respect to the forward
 $$
-\partial^2 v/\partial y^2 = E_s[\nu''(Y)Y]/y.
+\partial^2 v/\partial f^2
+	= E[\nu''(F)ε_s^2(X)]
+	= E_s[\nu''(F)ε_s(X)]
+	= e^{κ(2s) - 2κ(s)}E_{2s}[\nu''(F)]
 $$
+
 
 _Vega_ is  the derivative with respect to vol
 $$
 \partial v/\partial s = E[\nu'(Y)\partial Y/\partial s]
-= yE_s[\nu'(Y)(X - \kappa'(s))]
+= E[\nu'(Y)Y(X - κ'(s))] = yE_s[\nu'(Y)(X - κ'(s))]
 $$
-since $\partial Y/\partial s = Y(X - \kappa'(s))$.
+since $\partial Y/\partial s = Y(X - κ'(s))$.
 
 ### Distribution
+
+Let $Ψ(y) = P(F\le y)$ be the cdf of $Y$ and
+$Ψ_s(y) = E[1(F\le y)F/f)$ be the _share cdf_ (of $Y_s$).
+
+Note $dΨ_s(y)/ds = E[-\delta_y(F)F/f
+
 
 If $Φ(x)$ is the cumulative distribution functions of $X$ then the cumulative
 distribution of $Y$ is $Ψ(y) = Φ(x)$ where $y = y(x) = fε_s(x)$
@@ -112,11 +150,11 @@ These are used in the formulas for put and call option values and their greeks.
 
 The value and greeks of any option can be expressed in terms of
 derivatives of the cumulative distribution function $\Psi_s(y) = P_s(Y\le y)$ and
-those of $\kappa(s)$. Let $\phi_s(y)$ be the corresponding density function.
-Note $\partial \Psi_0(y)/\partial s = E[-\delta_y(Y)Y(X - \kappa'(s))]
-= -yE_s(\delta_y(Y)(X - \kappa'(s))]$.
+those of $κ(s)$. Let $\phi_s(y)$ be the corresponding density function.
+Note $\partial \Psi_0(y)/\partial s = E[-\delta_y(Y)Y(X - κ'(s))]
+= -yE_s(\delta_y(Y)(X - κ'(s))]$.
 
-$\partial v/\partial s = E[\nu'(Y)Y(X - \kappa'(s))] = -E[\delta_k(Y)Y(X - \kappa'(s))]$
+$\partial v/\partial s = E[\nu'(Y)Y(X - κ'(s))] = -E[\delta_k(Y)Y(X - κ'(s))]$
 
 ## Parameters
 

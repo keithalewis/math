@@ -32,9 +32,11 @@
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
 </head>
 <body>
 <header id="title-block-header">
@@ -43,7 +45,8 @@
 </header>
 <p>This is not a beginners guide to linear algebra. It is a breviloquent collection of pertinent facts about vector spaces and the linear transformations between them. Although it is complete and self-contained you should already be familiar with basic linear algebra before reading this. Statements and proofs are concise, so read them twice. Do the exercises to confirm your understanding.</p>
 <p>I make no apologies for the shamelessly mathematical exposition and hope it engenders an appeciation for the thrill of literally ‘doing the math’ to unequivocally establish absolute truth.</p>
-<h2 id="introduction">Introduction</h2>
+<section id="introduction" class="level2">
+<h2>Introduction</h2>
 <p>Vector spaces occupy a sweet spot in the menagerie of mathematical structures. They are completely classified up to <em>isomorphism</em> by their <em>dimension</em>. A <em>vector space</em> is an <em>abelian group</em> with a <em>scalar multiplication</em> that satisfies a <em>distributive law</em> with respect to the vector addition. A vector is not just a list of numbers, it is a mathematical object that satisfies these axioms. For example, <em>functions</em> are vectors and <em>linear transformations</em> between vector spaces are also vectors.</p>
 <p>A linear transformation is a function between vector spaces that preserves the vector space structure. They are completely classified up to <em>similarity</em> for finite dimensional vector spaces by their <em>eigenvalues</em> and the <em>multiplicity</em> of each eigenvalue</p>
 <!--
@@ -63,7 +66,9 @@ This probably makes no sense to you at this point, but it describes the
 Jordan canonical form of a linear transformation. After you master the
 following material these statements will become completely obvious.
 -->
-<h2 id="vector-space">Vector Space</h2>
+</section>
+<section id="vector-space" class="level2">
+<h2>Vector Space</h2>
 <p>The ingredients of a <em>vector space</em> are a set <span class="math inline">V</span> of vectors and a binary addition that satisfies the abelian group axioms:</p>
 <dl>
 <dt><em>Associative</em></dt>
@@ -112,14 +117,17 @@ following material these statements will become completely obvious.
 <p>Define the <em>Kronecker delta function</em> <span class="math inline">\delta_x\in c_{00}(X)</span> by <span class="math inline">\delta_x(y) = 1</span> if <span class="math inline">y = x</span> and <span class="math inline">\delta_x(y) = 0</span> if <span class="math inline">y \not= x</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">v = \sum_{x\in X} (v\cdot\delta_x) \delta_x</span> for <span class="math inline">v\in c_{00}(X)</span></em>.</p>
 <p>This shows the set <span class="math inline">\{\delta_x:x\in X\}</span> <em>spans</em> <span class="math inline">c_{00}(X)</span>.</p>
-<h3 id="span">Span</h3>
+<section id="span" class="level3">
+<h3>Span</h3>
 <p>If <span class="math inline">x\in V</span> then <span class="math inline">\bm{F}\{x\} = \{\alpha x:\alpha \in\bm{F}\}</span> is the one-dimensional subspace <em>spanned</em> by <span class="math inline">x</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">\bm{F}\{x\}</span> is the smallest subspace of <span class="math inline">V</span> containing <span class="math inline">x</span></em>.</p>
 <p>More generally, let <span class="math inline">X</span> be any collection of vectors in <span class="math inline">V</span>. The <em>span</em> of the collection is the smallest subspace of <span class="math inline">V</span> containing <span class="math inline">X</span> and is denoted <span class="math inline">\operatorname{span}X</span> or <span class="math inline">\vee X</span>.</p>
 <p>A <em>linear combination</em> of vectors is a finite sum <span class="math inline">\sum_j \alpha_j x_j</span> where <span class="math inline">\alpha_j\in\bm{F}</span> and <span class="math inline">x_j\in V</span>.</p>
 <p><strong>Exercise</strong>. <em>Show the span of <span class="math inline">X</span> is the set of all linear combinations of vectors from <span class="math inline">X</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show the span of <span class="math inline">X</span> is a vector space</em>.</p>
-<h3 id="subspace">Subspace</h3>
+</section>
+<section id="subspace" class="level3">
+<h3>Subspace</h3>
 <p>A subset <span class="math inline">U</span> of a vector space <span class="math inline">V</span> is a subspace if <span class="math inline">U</span> is also a vector space.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">U\subseteq V</span> is a subspace if and only if <span class="math inline">\bm{F} U\subseteq U</span> and <span class="math inline">U + U\subseteq U</span></em>.</p>
 <p>We use the notation <span class="math inline">\bm{F} U = \{\alpha x:\alpha \in\bm{F}, x\in U\}</span> and <span class="math inline">U + U = \{x + y:x\in U, y\in U\}</span>.</p>
@@ -128,7 +136,8 @@ following material these statements will become completely obvious.
 <p><strong>Exercise</strong>. <em>Let <span class="math inline">U</span> and <span class="math inline">W</span> be subspaces of <span class="math inline">V</span> with <span class="math inline">U\cap W = \{0\}</span>. If <span class="math inline">u + w = u&#39; + w&#39;</span> with <span class="math inline">u,u&#39;\in U</span> and <span class="math inline">w,w&#39;\in W</span> show <span class="math inline">u = u&#39;</span> and <span class="math inline">w = w&#39;</span></em>.</p>
 <p><em>Hint</em>. <span class="math inline">u - u&#39;\in U</span> and <span class="math inline">w&#39; - w\in W</span>.</p>
 <p>This shows every vector <span class="math inline">v\in U + W</span> has a unique decomposition <span class="math inline">v = u + w</span> with <span class="math inline">u\in U</span> and <span class="math inline">w\in W</span> whenever <span class="math inline">U\cap W = \{0\}</span>.</p>
-<h4 id="lattice-of-subspaces">Lattice of Subspaces</h4>
+<section id="lattice-of-subspaces" class="level4">
+<h4>Lattice of Subspaces</h4>
 <p>Subspaces of a vector space form a <em>lattice</em> where <span class="math inline">+</span> is the <em>join</em> and <span class="math inline">\cap</span> is the <em>meet</em>. Since <span class="math inline">U + V = V</span> for all subspaces <span class="math inline">U</span>, <span class="math inline">V</span> is the identity element of the join. Since <span class="math inline">U \cap \{0\} = \{0\}</span> for all subspaces <span class="math inline">U</span>, <span class="math inline">\{0\}</span> is the identity element of the meet.</p>
 <p><strong>Exercise</strong>. (Absorbtion laws) <em>If <span class="math inline">U</span> and <span class="math inline">W</span> are subspaces then <span class="math inline">U + (U \cap W) = U</span> and <span class="math inline">U\cap(U + W) = U</span></em>.</p>
 <p>The lattice of subspaces is also <em>distributive</em>.</p>
@@ -136,12 +145,17 @@ following material these statements will become completely obvious.
 <p>Either of these implies the other in any lattice. This was not noticed until some time after the the invention of lattice theory. [cite??]</p>
 <p>Subspaces of <span class="math inline">V</span> form a <em>bounded lattice</em> with <em>top element</em> <span class="math inline">V</span> and <em>bottom element</em> <span class="math inline">\{0\}</span>.</p>
 <p>The lattice structure of subspaces is used in Quantum Mechanics. [cite?]</p>
-<h3 id="independent">Independent</h3>
+</section>
+</section>
+<section id="independent" class="level3">
+<h3>Independent</h3>
 <p>A key property of a collection of vectors is <em>independence</em>. A collection of vectors <span class="math inline">X</span> in the vector space <span class="math inline">V</span> are independent if every linear combination <span class="math inline">\sum_j \alpha_j x_j = 0</span> where <span class="math inline">\alpha_j\in\bm{F}</span> and <span class="math inline">x_j\in X</span> implies <span class="math inline">\alpha_j = 0</span> for all <span class="math inline">j</span>. Note that the empty set is independent.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> is independent and <span class="math inline">\sum_j \alpha_j x_j = \sum_j \beta_j x_j</span> where <span class="math inline">\alpha_j,\beta_j\in\bm{F}</span> and <span class="math inline">x_j\in X</span> show <span class="math inline">\alpha_j = \beta_j</span> for all <span class="math inline">j</span></em>.</p>
 <p>Independence ensures unique representations of linear combinations.</p>
 <p>If <span class="math inline">\sum_j \alpha_j x_j = 0</span> and <span class="math inline">\alpha_k\not = 0</span> for some <span class="math inline">k</span> then <span class="math inline">x_k = -(1/\alpha_k)\sum_{j\not=k} \alpha_j x_j</span> is a linear combination of vectors in <span class="math inline">X\setminus \{x_k\}</span>. In this case <span class="math inline">X</span> is <em>linearly dependent</em> and <span class="math inline">X\setminus\{x_k\}</span> has the same span as <span class="math inline">X</span>. We use <em>reverse solidus</em> for <span class="math inline">A\setminus B = \{x\in A: x\notin B\}</span>, the <em>set difference</em>.</p>
-<h3 id="basis">Basis</h3>
+</section>
+<section id="basis" class="level3">
+<h3>Basis</h3>
 <p>A <em>basis</em> of <span class="math inline">V</span> is an independent set <span class="math inline">X\subseteq V</span> that spans <span class="math inline">V</span>. Every vector space has a basis. In fact, they have lots of basis’. The cardinality of the basis is the <em>dimension</em> of the vector space. To show dimension is well-defined we must show the cardinality of any two basis’ are equal. Neither of these facts are trivial.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">\{\delta_x:x\in X\}</span> is a basis of <span class="math inline">c_{00}(X)</span></em>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">X\subseteq V</span> is independent and <span class="math inline">y\not\in\vee X</span> show <span class="math inline">X\cup\{y\}</span> is independent</em>.</p>
@@ -151,7 +165,10 @@ following material these statements will become completely obvious.
 <p><strong>Exercise</strong>. <em>Prove every vector space has a basis</em>.</p>
 <p>Hint: Use the previous exercises and Zorn’s lemma.</p>
 <p>To prove any two basis’ have the same cardinality we need <em>linear transformations</em>.</p>
-<h2 id="linear-transformation">Linear Transformation</h2>
+</section>
+</section>
+<section id="linear-transformation" class="level2">
+<h2>Linear Transformation</h2>
 <p>A <em>linear tranformation</em> is a function from a vector space to a vector space that preserves the vector space structure.</p>
 <p>If <span class="math inline">V</span> and <span class="math inline">W</span> are vector spaces over the same field <span class="math inline">\bm{F}</span> then a function <span class="math inline">T\colon V\to W</span> is a linear transformation if <span class="math inline">T(\alpha x + y) = \alpha Tx + T y</span> for <span class="math inline">\alpha \in\bm{F}</span> and <span class="math inline">x,y\in V</span>. Note the addition and scalar multiplicate on the left-hand side of the equality are those of <span class="math inline">V</span> and on the right-hand side are those of <span class="math inline">W</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">T(\alpha x + \beta y) = \alpha Tx + \beta T y</span> for <span class="math inline">\alpha,\beta \in\bm{F}</span> and <span class="math inline">x,y\in V</span></em>.</p>
@@ -634,6 +651,7 @@ We are really defining $+\colon 2^V\times\bm{F}^I\times V^I\to V$...
 
 [Grobner basis...]
 -->
+</section>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

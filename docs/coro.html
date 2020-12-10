@@ -94,9 +94,11 @@
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
 </head>
 <body>
 <header id="title-block-header">
@@ -127,19 +129,28 @@ coroutine consume
             remove items from queue
         yield to produce</code></pre>
 <p>There is no need for multiple theads; yield can jump directly from one coroutine to another.</p>
-<h3 id="handles">Handles</h3>
+<section id="handles" class="level3">
+<h3>Handles</h3>
 <p>A handle is an object representing a coroutine.</p>
-<h3 id="await">Await</h3>
+</section>
+<section id="await" class="level3">
+<h3>Await</h3>
 <p>Calling <code>await x</code> results in <code>x</code> being called and returns an <em>awaiter</em>. Awaiters can <em>suspend</em> a coroutine and <em>resume</em> to get the result of the coroutine. Awaiters are usually temporary objects and the destructor cleans up everything associated with it.</p>
 <p>Coroutines returning an awaitable object: struct with well-known functions.</p>
-<h3 id="symmetric-transfer"><a href="https://devblogs.microsoft.com/cppblog/c-coroutines-in-visual-studio-2019-version-16-8/#symmetric-transfer-and-no-op-coroutines">Symmetric transfer</a></h3>
+</section>
+<section id="symmetric-transfer" class="level3">
+<h3><a href="https://devblogs.microsoft.com/cppblog/c-coroutines-in-visual-studio-2019-version-16-8/#symmetric-transfer-and-no-op-coroutines">Symmetric transfer</a></h3>
 <p>With symmetric transfer a coroutine can indicate a coroutine handle for another coroutine to immediately resume when suspending. This suspend-and-resume operation works without introducing another frame onto the call stack.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="bu">std::</span>coroutine_handle&lt;&gt; await_suspend(<span class="bu">std::</span>coroutine_handle&lt;<span class="dt">promise_type</span>&gt; h) <span class="kw">noexcept</span> {</span>
 <span id="cb3-2"><a href="#cb3-2"></a>    <span class="cf">return</span> h.promise().continuation ? *continuation : <span class="bu">std::</span>noop_coroutine();</span>
 <span id="cb3-3"><a href="#cb3-3"></a>}</span></code></pre></div>
-<h2 id="the-life-of-a-coroutine">The Life of a Coroutine</h2>
+</section>
+<section id="the-life-of-a-coroutine" class="level2">
+<h2>The Life of a Coroutine</h2>
 <p>When a coroutine is created the continuation point is set to the beginning of the routine and it is put in a suspended state. Calling the coroutine with its arguments resumes exectution from the beginning. If the function contains a yield statement then the continuation point is set to the next statement in the function and execution is suspended. The arguments to yield become the result of the resume that activated the coroutine. Subsequent calls of the coroutine resume execution at the coninuation point and the arguments of the call become available to the coroutine. Execution continues until the next yield statement and the above is repeated or until the function terminates and the return values become the result of the last reactivation. At that point the coroutine can no longer be resumed.</p>
-<h2 id="theory">Theory</h2>
+</section>
+<section id="theory" class="level2">
+<h2>Theory</h2>
 <p>A <em>full asymmetric coroutine</em> has three operations: <em>create</em>, <em>resume</em>, and <em>yield</em>. Create takes a coroutine body and instanciates it in a suspended state. The <em>continuation point</em> is set to the beginning of the body. Resume cause a coroutine to execute from its continuation point until it either yields at a new continuation point or terminates. A terminated coroutine cannot be resumed.</p>
 <p>The first call to resume specifies the coroutine parameters. In subsequent calls to resume these become the result of yield. When a coroutine suspends, the arguments to yield become the result of the resume that activated the coroutine. When a coroutine terminates, the values returned by the body become the result of the last reactivation.</p>
 <p>An <em>expression</em> is a <em>lable</em>, <em>variable</em>, <em>function</em>, <em>application</em>, variable assignment, <em>conditional</em>, equality operator for labels, or a <em>nil</em> value.</p>
@@ -165,6 +176,7 @@ C \to \emptyset\mid e C\mid C v\mid x := C\mid  C\,?\,e : e\mid e = C\mid C = v
 <p><span class="math display">
 e \to \dots\mid l:e\mid \mathbf{create}\,e\mid \mathbf{resume}\,e\,e\mid \mathbf{yield}\,e
 </span></p>
+</section>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

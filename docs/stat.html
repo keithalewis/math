@@ -46,27 +46,41 @@
 <p>Statistics is the study of finding estimates for properties of random variables.</p>
 <p>A <em>property</em> is a function <span class="math inline">\sigma\colon \mathcal{X}\to\bm{R}</span> where <span class="math inline">\mathcal{X}</span> is a set of random variables. A <em>statistic</em> is a function <span class="math inline">s_n\colon\bm{R}^n\to\bm{R}</span>. Given a random variable <span class="math inline">X\in\mathcal{X}</span> and independent <span class="math inline">(X_j)</span> having the same law as <span class="math inline">X</span> how do we find statistics <span class="math inline">s_n</span> such that <span class="math inline">s_n(X_1,\ldots,X_n)</span> converge to <span class="math inline">\sigma(X)</span> in some sense?</p>
 <p>For example, if <span class="math inline">\sigma(X) = E[X]</span> then the <em>arithmetic mean</em> <span class="math inline">m_n(x_1,\ldots,x_n) = (x_1 + \cdots + x_n)/n</span> is a statistic where <span class="math inline">M_n = m_n(X_1,\ldots,X_n)</span> converges to <span class="math inline">\sigma(X)</span> in the sense <span class="math inline">E[M_n] = \sigma(X)</span> and <span class="math inline">\operatorname{Var}(M_n)\to 0</span>. We could also use the <em>geometric mean</em> <span class="math inline">g_n(x_1,\ldots,x_n) = \sqrt[n]{x_1\cdots x_n}</span> or the <em>harmonic mean</em> <span class="math inline">h_n(x_1,\ldots,x_n) = (n/x_1 + \cdots + n/x_n)^{-1}</span>. Some statistics are better than other statistics.</p>
-<h3 id="convergence">Convergence</h3>
+<section id="convergence" class="level3">
+<h3>Convergence</h3>
 <p>Random variables <span class="math inline">X_n</span> converge to <span class="math inline">X</span> in <em>mean</em> if <span class="math inline">E[|X_n - X|]</span> converges to 0. They converges in <em>mean square</em> if <span class="math inline">\operatorname{Var}(X_n - X)</span> converges to 0. They converges <em>in probability</em> if for all <span class="math inline">\epsilon &gt; 0</span> it is evenually the case that <span class="math inline">P(|X_n - X|) &gt; \epsilon) &lt; \epsilon</span>. They converge <em>almost surely</em> if <span class="math inline">P(\lim_n X_n = X) = 1</span>.</p>
 <p><strong>Lemma</strong>. (Chebyshev) <em>For any non-negative random variable <span class="math inline">X</span>, <span class="math inline">P(X &gt; \lambda) \le E[X]/\lambda</span></em>.</p>
 <p><em>Proof</em>. <span class="math inline">E[X] \ge E[X 1(X &gt; \lambda)] \ge \lambda P(X &gt; \lambda)</span>.</p>
 <p><strong>Exercise</strong>. <em>For any non-negative random variable <span class="math inline">X</span> and any increasing function <span class="math inline">\phi</span>, <span class="math inline">P(X &gt; \lambda) \le E[\phi(X)]/\phi(\lambda)</span></em>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">X_n</span> converges in mean square then it converges in probability</em>.</p>
 <p>Hint: <span class="math inline">\phi(x) = x^2</span> is increasing for <span class="math inline">x &gt; 0</span>.</p>
-<h2 id="bias">Bias</h2>
+</section>
+<section id="bias" class="level2">
+<h2>Bias</h2>
 <p>If <span class="math inline">E[s(X_1,\ldots,X_n)] = \sigma(X)</span> we say <span class="math inline">s</span> is an <em>unbiased</em> <em>estimator</em> of <span class="math inline">\sigma</span>. The arithmetic mean is an unbiased estimator of the mean. Since <span class="math inline">E[(X_1\cdots X_n)^{1/n}] \le E[X_1\cdots X_n]^{1/n} = E[X]</span> the geometric mean is biased.</p>
-<h2 id="efficient">Efficient</h2>
+</section>
+<section id="efficient" class="level2">
+<h2>Efficient</h2>
 <p>An unbiased statistic <span class="math inline">s</span> is <em>efficient</em> if it has the smallest variance among all unbiased statistics.</p>
-<h2 id="complete">Complete</h2>
+</section>
+<section id="complete" class="level2">
+<h2>Complete</h2>
 <p>A statistic <span class="math inline">s\colon\bm{R}^n\to\bm{R}</span> is <em>complete</em> if <span class="math inline">E_\theta[g(s(X_1,\ldots,X_n))] = 0</span> for all <span class="math inline">\theta</span> implies <span class="math inline">g(s(X_1,\ldots,X_n)) = 0</span> a.s.</p>
-<h2 id="sufficient">Sufficient</h2>
+</section>
+<section id="sufficient" class="level2">
+<h2>Sufficient</h2>
 <p>A statistic <span class="math inline">s\colon\bm{R}^n\to\bm{R}</span> is <em>sufficient</em> if the <span class="math inline">n</span> conditions <span class="math inline">X_j = x_j</span>, <span class="math inline">1\le j\le n</span> can be replaced by one condition <span class="math inline">s(X_1,\ldots,X_n) = s(x_1,\ldots,x_n)</span>, i.e., <span class="math inline">E_\theta[g(X)\mid X_j = x_j] = E_\theta[g(X)\mid s(X_1,\ldots,X_n) = s(x_1,\ldots,x_n)]</span>.</p>
 <p>https://en.wikipedia.org/wiki/Lehmann%E2%80%93Scheff%C3%A9_theorem</p>
-<h2 id="power">Power</h2>
-<h2 id="jensens-inequality">Jensen’s Inequality</h2>
+</section>
+<section id="power" class="level2">
+<h2>Power</h2>
+</section>
+<section id="jensens-inequality" class="level2">
+<h2>Jensen’s Inequality</h2>
 <p>A function <span class="math inline">\phi\colon\bm{R}\to\bm{R}</span> is <em>convex</em> if <span class="math inline">\phi(x) = \sup_{\lambda\le\phi} \lambda(x)</span> and <em>concave</em> if <span class="math inline">\phi(x) = \inf_{\lambda\ge\phi} \lambda(x)</span> where <span class="math inline">\lambda</span> is linear.</p>
 <p><strong>Theorem</strong>. <em>If <span class="math inline">\phi</span> is convex then <span class="math inline">E[\phi(X)] \ge \phi(E[X])</span></em>.</p>
 <p>For <span class="math inline">\lambda\le\phi</span> linear we have <span class="math inline">E[\phi(X)] \ge E[\lambda(X)] = \lambda(E[X])</span>.</p>
+</section>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

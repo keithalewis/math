@@ -32,9 +32,11 @@
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
 </head>
 <body>
 <header id="title-block-header">
@@ -44,7 +46,8 @@
 <p>Pivot tables summarize multidimensional data values using measures. Pivot table data is a function <span class="math inline">t\colon D\to V</span> where <span class="math inline">D</span> are the <em>dimensions</em> and <span class="math inline">V</span> are the <em>values</em>. If <span class="math inline">\Delta</span> is a collection of subsets of <span class="math inline">D</span> and <span class="math inline">\mu</span> is a function from subsets of <span class="math inline">V</span> to <span class="math inline">V</span> we can define pivot table data <span class="math inline">t_{\Delta,\mu}\colon\Delta\to V</span> by <span class="math inline">t_{\Delta,\mu}(\delta) = \mu(t(\delta))</span> for <span class="math inline">\delta\in\Delta</span> where <span class="math inline">t(\delta) = \{t(d):d\in\delta\}\subseteq V</span>. Any function <span class="math inline">u\colon D&#39;\to D</span> can be be composed with <span class="math inline">t</span> to get pivot table data <span class="math inline">t\circ u\colon D&#39;\to V</span>.</p>
 <p>For example, if <span class="math inline">D</span> are dates and <span class="math inline">V</span> are prices then we can aggregate maximum or minimum prices over days, weeks, or months. If <span class="math inline">D&#39;\subseteq D</span> are the market open times then the inclusion function gives the open prices.</p>
 <p>Pivot tables become more useful when dimensions and values have more structure.</p>
-<h2 id="partition">Partition</h2>
+<section id="partition" class="level2">
+<h2>Partition</h2>
 <p>A <em>partition</em> <span class="math inline">\Delta</span> of a dimension <span class="math inline">D</span> is a collection of subsets of <span class="math inline">D</span> satisfying <span class="math inline">D = \cup \Delta</span> (for every <span class="math inline">a\in D</span> there exists <span class="math inline">A\in\Delta</span> with <span class="math inline">a\in A</span>) and for <span class="math inline">A,B\in\Delta</span> either <span class="math inline">A\cap B = \emptyset</span> or <span class="math inline">A = B</span>. The elements of a partition are called <em>atoms</em>. If <span class="math inline">\Delta = \{\delta_1,\ldots,\delta_n\}</span> is finite then it is a partition of <span class="math inline">D</span> if and only if <span class="math inline">\cup_j \detla_j = D</span> and <span class="math inline">\delta_j\cap\delta_k = \emptyset</span> if <span class="math inline">j\not= k</span>.</p>
 <!--
 The relation $a\sim b$ defined by $a$ and $b$ belong to the same atom
@@ -86,7 +89,9 @@ imply either $B = \emptyset$ or $B = A$.
 __Exercise__. _If $\mathcal{A}$ is and algebra on $D$ with a finite number of elements
 show the atoms of $\mathcal{A}$ are a partition of $D$_.
 -->
-<h2 id="measure">Measure</h2>
+</section>
+<section id="measure" class="level2">
+<h2>Measure</h2>
 <p>A <em>measure</em> on a set <span class="math inline">S</span> is a set function <span class="math inline">\mu\colon\mathcal{P}(S)\to\mathbf{R}</span> with <span class="math inline">\mu(\emptyset) = 0</span> and <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F)</span> whenever <span class="math inline">E\cap F=\emptyset</span>. We use the notation <span class="math inline">\mathcal{P}(V) = \{E\subseteq S\}</span> for the collection of all subsets and call it the <em>power set</em> of <span class="math inline">S</span>.</p>
 <p><strong>Exercise</strong>. <em>Show if <span class="math inline">\mu</span> is a measure on <span class="math inline">S</span> then <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)</span> for any subsets <span class="math inline">E,F\subseteq S</span></em>.</p>
 <p>Hint: <span class="math inline">E</span> is the disjoint union of <span class="math inline">E\setminus F</span> and <span class="math inline">E\cap F</span>. <span class="math inline">E\cup F</span> is the disjoint union of <span class="math inline">E\setminus F</span>, <span class="math inline">E\cap F</span>, and <span class="math inline">F\setminus E</span>.</p>
@@ -112,7 +117,9 @@ show the atoms of $\mathcal{A}$ are a partition of $D$_.
 <p>This follows from <span class="math inline">V</span> being an abelian monoid. By associativity <span class="math inline">\mu(\{s_1\})\oplus\cdots\oplus\mu(\{s_n\})</span> is well-defined. Any permutation of <span class="math inline">(s_j)</span> in the left-hand side set results in the same set. Commutativity shows the right hand side is unchanged by any permutation.</p>
 </blockquote>
 </details>
-<h2 id="cartesian-product">Cartesian Product</h2>
+</section>
+<section id="cartesian-product" class="level2">
+<h2>Cartesian Product</h2>
 <p>Pivot tables become more interesting when <span class="math inline">D</span> and <span class="math inline">V</span> are cartesian products.</p>
 <!--
 
@@ -183,7 +190,9 @@ Cubes together with aggregators are _pivot tables_.
 __Exercise__. _If $f\colon\Delta\to V$ is a cube and $\Delta'$ coarser than $\Delta$
 show $\alpha\circ f^*
 -->
-<h2 id="notes">Notes</h2>
+</section>
+<section id="notes" class="level2">
+<h2>Notes</h2>
 <p>Fix <span class="math inline">D</span>, <span class="math inline">V</span>, <span class="math inline">\mu</span>, and <span class="math inline">t\colon D\to V</span>. Let <span class="math inline">\{\tau\colon Delta\to V: \Delta/D\}</span> be the objects of a category. There is an arrow <span class="math inline">\tau&#39;\to\tau</span> if <span class="math inline">\Delta&#39;</span> is a refinement of <span class="math inline">\Delta</span> and <span class="math inline">\tau(\delta) = \mu(t(\Delta&#39;|\delta))</span> for <span class="math inline">\delta\in\Delta</span>. We say <span class="math inline">\tau = \tau&#39;|_\Delta</span> if this holds.</p>
 <p>The object <span class="math inline">\{\{t\}\}\colon\{\{D\}\}\to V</span> is <span class="math inline">\{\{t\}\}(\{d\}) = t(d)</span> for <span class="math inline">d\in D</span>. It is the <em>initial object</em> of the category.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">\tau(\delta) = \mu(t(\delta))</span></em>.</p>
@@ -191,6 +200,7 @@ show $\alpha\circ f^*
 <p>Since <span class="math inline">\mu(t(\Delta|\delta)) = \mu(t(\delta)) = \tau(\delta)</span> the identity function <span class="math inline">\tau\to\tau</span> is an arrow.</p>
 <p>The composition of <span class="math inline">\tau&#39;</span> and <span class="math inline">\tau</span>, <span class="math inline">\tau\tau&#39;\colon\Delta\to V</span>, is defined by $’() =</p>
 <p><strong>Exercise</strong>. <em>Show the identity function is an identity of the category</em>.</p>
+</section>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

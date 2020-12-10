@@ -43,9 +43,11 @@
 <h1 class="title">Probability</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<h1 id="probability-theory">Probability Theory</h1>
+<section id="probability-theory" class="level1">
+<h1>Probability Theory</h1>
 <p>A <em>random variable</em> is a function on a <em>probability space</em>. A probability space is a set of <em>outcomes</em>, <span class="math inline">\Omega</span>, and a set function <span class="math inline">P</span> from <em>events</em>, subsets of <span class="math inline">\Omega</span>, to numbers between 0 and 1 that satisfies <span class="math inline">P(E\cup F) = P(E) + P(F) - P(E\cap F)</span> for <span class="math inline">E,F\subseteq\Omega</span> and <span class="math inline">P(\emptyset) = 0</span>.</p>
-<h2 id="measure">Measure</h2>
+<section id="measure" class="level2">
+<h2>Measure</h2>
 <p>A <em>measure</em> is a set function on subets of <span class="math inline">S</span> taking values in the real numbers <span class="math inline">\mu\colon\mathcal{P}(S)\to\bm{R}</span> that satisfies <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)</span> for <span class="math inline">E,F\subseteq\Omega</span> and <span class="math inline">\mu(\emptyset) = 0</span> where <span class="math inline">\mathcal{P}(S) = \{E\subseteq S\}</span> is the set of all subsets of <span class="math inline">S</span>.</p>
 <p>Measures don’t count things twice and the measure of nothing is 0.</p>
 <strong>Exercise</strong>. <em>Show if <span class="math inline">\nu(E\cup F) = \nu(E) + \nu(F) - \nu(E\cap F)</span> for <span class="math inline">E,F\subseteq S</span> then <span class="math inline">\mu = \nu - \nu(\emptyset)</span> is measure</em>.
@@ -98,10 +100,13 @@
 </details>
 <p>The dual pairing defines the integral <span class="math inline">\int_S f\,d\mu = \langle f,\mu\rangle</span>, <span class="math inline">f\in B(\Omega)</span>, <span class="math inline">\mu\in ba(\Omega)</span>. Finitely additive measures make it challenging to prove theorems of the form ‘If <span class="math inline">\lim_n f_n = f</span> then <span class="math inline">\lim_n \int_S f_n\,d\mu = \int f\,d\mu</span>.’</p>
 <p>The product of a function and a measure is a measure defined by <span class="math inline">\langle f,g\mu\rangle = \langle fg,\mu\rangle</span>. Given measures <span class="math inline">\mu,\nu\in ba(S)</span> we say <span class="math inline">g</span> is the <em>Radon-Nikodym derivative</em> of <span class="math inline">\nu</span> with respect to <span class="math inline">\mu</span> if <span class="math inline">g\mu = \nu</span>.</p>
-<h2 id="probability-measure">Probability Measure</h2>
+</section>
+<section id="probability-measure" class="level2">
+<h2>Probability Measure</h2>
 <p>A <em>probability measure</em> is a measure taking values in the interval <span class="math inline">[0,1]</span>.</p>
 <p>If <span class="math inline">\Omega</span> is finite we can define a probability measure by specifying <span class="math inline">p_\omega = P(\{\omega\})</span> for <span class="math inline">\omega\in\Omega</span>. Note <span class="math inline">p_\omega\ge 0</span> and <span class="math inline">\sum_{\omega\in\Omega} p_\omega = 1</span>. The probability of the event <span class="math inline">E\subseteq\Omega</span> is <span class="math inline">P(E) = \sum_{\omega\in E} p_\omega</span>.</p>
-<h3 id="partition">Partition</h3>
+<section id="partition" class="level3">
+<h3>Partition</h3>
 <p>A <em>partition</em> splits a sample space into disjoint subsets with union equal to the sample space. Partitions are how <em>partial information</em> is represented. The elements of the partition are called <em>atoms</em>. The way paritions represent partial information is you only know what atom an outcome belongs to, not the exact outcome. Complete information corresponds to the <em>finest</em> partiion of singletons <span class="math inline">\{\{\omega\}\mid \omega\in\Omega\}</span>. No information corresponds to the <em>coarsest</em> partition <span class="math inline">\{\Omega\}</span>.</p>
 <p>Partitions define an <em>equivalence relation</em> on outcomes. We say <span class="math inline">\omega\sim\omega&#39;</span> if and only if they belong to the same atom.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">\omega\sim\omega</span>, <span class="math inline">\omega\sim\omega&#39;</span> implies <span class="math inline">\omega&#39;\sim\omega</span>, and <span class="math inline">\omega\sim\omega&#39;</span>, <span class="math inline">\omega&#39;\sim\omega&#39;&#39;</span> implies <span class="math inline">\omega\sim\omega&#39;&#39;</span></em>.</p>
@@ -112,7 +117,10 @@
 <p>A function is <em>measurable</em> with respect to an algebra if the preimage of every interval belongs to the algebra.</p>
 <p><strong>Exercise</strong>. <em>If an algebra is finite then a function is measurable if and only if it is constant on atoms</em>.</p>
 <p>In this case, it is a function on the atoms of the algebra.</p>
-<h2 id="random-variable">Random Variable</h2>
+</section>
+</section>
+<section id="random-variable" class="level2">
+<h2>Random Variable</h2>
 <p>A <em>random variable</em> is a symbol that can be used in place of a number when manipulating equations and inequalities with with additional information about the probability of the values it can take on.</p>
 <p>The mathematical definition of a random variable is a function <span class="math inline">X\colon\Omega\to\mathbf{R}</span>. Its <em>cumulative distribution function</em> is <span class="math inline">F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})</span>. More generally, given a subset <span class="math inline">A\subseteq\mathbf{R}</span> the probability that <span class="math inline">X</span> takes a value in <span class="math inline">X</span> is <span class="math inline">P(X\in A) = P(\{\omega\in\Omega\}\mid X(\omega\in A))\}</span>.</p>
 <p>Two random variables have the same <em>law</em> if they have the same cdf.</p>
@@ -128,13 +136,18 @@
 <p>This shows a uniformly distributed random variable has sufficient randomness to generate any random variable. There are no random, random variables.</p>
 <p>Given a cdf <span class="math inline">F</span> we can define a random variable having that distribution using the identity function <span class="math inline">X\colon\mathbf{R}\to\mathbf{R}</span>, where <span class="math inline">X(x) = x</span>. Let <span class="math inline">P</span> be the probability measure on <span class="math inline">\mathbf{R}</span> defined by <span class="math inline">P(A) = \int_A dF(x)</span>.</p>
 <p>The mathematical definition is more flexible than defining a random variable by its cumulative distribution function.</p>
-<h3 id="continuous-random-variable">Continuous Random Variable</h3>
+<section id="continuous-random-variable" class="level3">
+<h3>Continuous Random Variable</h3>
 <p>If <span class="math inline">F(x) = \int_{-\infty}^x F&#39;(u)\,du</span> we say the random variable is <em>continuously distributed</em>. The <em>density function</em> is <span class="math inline">f = F&#39;</span>. Any function satisfying <span class="math inline">f\ge 0</span> and <span class="math inline">\int_\mathbf{R} f(x)\,dx = 1</span> is a density function for a random variable.</p>
-<h3 id="discrete-random-variable">Discrete Random Variable</h3>
+</section>
+<section id="discrete-random-variable" class="level3">
+<h3>Discrete Random Variable</h3>
 <p>If <span class="math inline">dF = \sum_{\omega\in\Omega} p_\omega \delta_\omega</span> where <span class="math inline">\Omega\subseteq\mathbf{R}</span> is countable we say the random variable is <em>discretely distributed</em>. Here <span class="math inline">\delta_\omega</span> is the <em>delta function</em> with unit mass at <span class="math inline">\omega</span> defined by <span class="math inline">\int_{\mathbf{R}} f(x) \delta_\omega\,dx = f(\omega)</span> when <span class="math inline">f</span> is continuous at <span class="math inline">\omega</span>.</p>
 <p><strong>Exercise</strong>. <em>Show if <span class="math inline">H_\omega(x) = 0</span> for <span class="math inline">\omega &lt; x</span> and <span class="math inline">H_\omega(x) = 1</span> for <span class="math inline">\omega\ge x</span> then <span class="math inline">f(\omega) = \int_{\mathbf{R}} f(x)\,dH_\omega(x)</span> when <span class="math inline">f</span> is continuous</em>.</p>
 <p>Using this more precise notation, <span class="math inline">F = \sum_{\omega\in\Omega} p_\omega H_\omega</span>.</p>
-<h3 id="expected-value">Expected Value</h3>
+</section>
+<section id="expected-value" class="level3">
+<h3>Expected Value</h3>
 <p>The <em>expected value</em> of a random variable is defined by <span class="math inline">E[X] = \int_\Omega X\,dP</span>. More generally, the expected value of any function <span class="math inline">f\colon\bm{R}\to\bm{R}</span> of a random variable is <span class="math inline">E[f(X)] = \int_\Omega f(X)\,dP</span> where <span class="math inline">f(X)\colon\Omega\to\bm{R}</span> via <span class="math inline">f(X)(\omega) = f(X(\omega))</span>, <span class="math inline">\omega\in\Omega</span>.</p>
 <p>The <em>moments</em> of a random variable are <span class="math inline">m_n = E[X^n]</span> where <span class="math inline">n</span> is a positive integer. The <em>moment generating function</em> is <span class="math inline">M(s) = E[e^{sX}] = \sum_{n=0}^\infty m_n s^n/n!</span>. Its natural logarithm is the <em>cumulant</em> <span class="math inline">\kappa(s) = \log E[e^sX]</span>.</p>
 <p>The <em>variance</em> of the random variable <span class="math inline">X</span> is <span class="math inline">\operatorname{Var}(X) = E[(X - E[X])^2]= E[X^2] - E[X]^2</span>.</p>
@@ -142,7 +155,10 @@
 <p><strong>Lemma</strong>. (Chebyshev) <em>If <span class="math inline">f</span> is non-negative then <span class="math inline">P(f(X) &gt; \lambda) \le E[f(X)]/\lambda</span></em>.</p>
 <p><em>Proof</em>. We have <span class="math inline">E[f(X)] \le E[f(X)1(f(X) &gt; \lambda) \le \lambda P(f(X) &gt; \lambda)</span>.</p>
 <p>An immediate corollaries are <span class="math inline">P(X &gt; \lambda) \le E[|X|]/\lambda</span> and <span class="math inline">P(|X - E[X]| &gt; \lambda) \le \mathrm{Var}(X)/\lambda^2</span>.</p>
-<h2 id="joint-distribution">Joint Distribution</h2>
+</section>
+</section>
+<section id="joint-distribution" class="level2">
+<h2>Joint Distribution</h2>
 <p>Two random variables, <span class="math inline">X</span> and <span class="math inline">Y</span>, are defined by their <em>joint distribution</em>, <span class="math inline">H(x,y) = P(X\le x, Y\le y)</span>. For example, the point <span class="math inline">(X,Y)</span> is in the square <span class="math inline">(a,b]\times (c,d]</span> with probability <span class="math inline">P(a &lt; X \le b, c &lt; Y \le d) = P(X \le b, Y \le d) - P(X \le a) - P(Y \le c) + P(X \le a, Y \le c)</span>.</p>
 <p>The <em>marginal distbutions</em> are <span class="math inline">F(x) = H(x,\infty)</span> and <span class="math inline">G(y) = H(\infty,y)</span>, where <span class="math inline">F</span> and <span class="math inline">G</span> are the cumulative distributions of <span class="math inline">X</span> and <span class="math inline">Y</span> respectively.</p>
 <p>In general, the joint distribution of <span class="math inline">X_1</span>, , <span class="math inline">X_n</span> is <span class="math inline">F(x_1,\ldots,x_n) = P(X_1\le x_1,\ldots, X_n\le x_n</span>).</p>
@@ -565,6 +581,8 @@ For any $\epsilon > 0$ there exists $n$ such that $\sum_{k > n} P(E_k) < \epsilo
 since the infinite sum converges to a finite value. 
 
 -->
+</section>
+</section>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

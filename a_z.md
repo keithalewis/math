@@ -35,11 +35,11 @@ $\given{\text{modus ponens}}$
 
 $x + \u{x + (-x)} = \u{x + (-x)}$
 
-$\given{\u{a + (-a)} = \o{0}\mid a\is x}$ (inverse)
+$\given{\o{a + (-a)} = \u{0}\mid a\is x}$ (inverse)
 
 $\u{x + \o{0}} = \o{0}$
 
-$\given{\u{a + 0} = \o{a}\mid a\is x}$ (identity)
+$\given{\o{a + 0} = \u{a}\mid a\is x}$ (identity)
 
 $\o{x} = 0$
 
@@ -52,20 +52,20 @@ The equality is established when the last statement is $=Z$.
 
 $E[\u{(X - E[X])^2}]$
 
-$\given{\u{(a - b)^2} = \o{a^2 - 2ab + b^2} \mid a\is X, b\is E[X]}$
+$\given{\o{(a - b)^2} = \u{a^2 - 2ab + b^2} \mid a\is X, b\is E[X]}$
 
 $= \u{E[\o{X^2 - 2XE[X] + E[X]^2}]}$
 
-$\given{\u{E[A - B + C]} = \o{E[A]} - \o{\o{E[B]}} + \o{\o{\o{E[C]}}}\mid A\is X^2, B\is 2XE[X], C\is E[X]^2}$
+$\given{\o{E[A - B + C]} = \u{E[A]} - \u{\u{E[B]}} + \u{\u{\u{E[C]}}}\mid A\is X^2, B\is 2XE[X], C\is E[X]^2}$
 
 $= \o{E[X^2]} - \o{\o{\u{E[2XE[X]]}}} + \o{\o{\o{\u{\u{E[E[X]^2]]}}}}}$
 
-$\given{\u{E[cA]} = \o{cE[A]}, \u{\u{E[b]}} = \o{\o{b}}\mid c\is 2E[X], A\is X, b\is E[X]}$
+$\given{\o{E[cA]} = \u{cE[A]}, \o{\o{E[b]}} = \u{\u{b}}\mid c\is 2E[X], A\is X, b\is E[X]^2}$
 (using $XE[X] = E[X]X$)
 
 $= E[X^2] - \o{2\u{E[X]E[X]}} + \o{\o{E[X]^2]}}$
 
-$\given{\u{aa} = \o{a^2}}$ (exponent)
+$\given{\o{aa} = \u{a^2}}$ (exponent)
 
 $= E[X^2] - 2\o{E[X]^2} + E[X]^2$
 

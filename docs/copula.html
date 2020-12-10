@@ -32,9 +32,11 @@
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
 </head>
 <body>
 <header id="title-block-header">
@@ -48,12 +50,14 @@
 <p>This shows how to use the copula and marginal distributions to recover the joint distribution.</p>
 <p>An equivalent definition is a copula is that it is a probability measure on <span class="math inline">[0,1]^2</span> with uniform marginals.</p>
 <p><strong>Exercise</strong>: <em>Prove this</em>.</p>
-<h2 id="fréchet-hoeffding-inequality">Fréchet-Hoeffding Inequality</h2>
+<section id="fréchet-hoeffding-inequality" class="level2">
+<h2>Fréchet-Hoeffding Inequality</h2>
 <p>If <span class="math inline">U</span> and <span class="math inline">V</span> are independent, uniformly distributed random variables on the unit interval then <span class="math inline">C(u,v) = uv</span>.</p>
 <p>If <span class="math inline">V=U</span> then their joint distribution is <span class="math inline">C(u,v) = P(U\le u, V\le v) = P(U\le u, U\le v) = P(U\le \min\{u, v\}) = \min\{u,v\} = M(u,v)</span>.</p>
 <p>If <span class="math inline">V=1-U</span> then their joint distribution is <span class="math inline">C(u,v) = P(U\le u, V\le v) = P(U\le u, 1-U\le v) = P(1-v\le U\le u) = \max\{u - (1 -v), 0\} = \max\{u + v - 1, 0\} = W(u,v)</span></p>
 <p><strong>Exercise</strong>: (Fréchet-Hoeffding) For every copula, <span class="math inline">C</span>, <span class="math inline">W \le C \le M</span>.</p>
 <p>Hint: For the upper bound use <span class="math inline">H(x,y) \le F(x)</span> and <span class="math inline">H(x,y) \le G(y)</span>. For the lower bound note <span class="math inline">0\le C(u_1,v_1) - C(u_1, v_2) - C(u_2, v_1) + C(u_2, v_2)</span> for <span class="math inline">u_1 \ge u_2</span> and <span class="math inline">v_1 \ge v_2</span>.</p>
+</section>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>
