@@ -35,7 +35,7 @@ details {
     color: #00008F;
 }
 @media only screen and (max-device-width: 480px) {
-	html {
+	body {
 		margin: .1in .15in 0 .15in;
 		padding: 0em;
 	}

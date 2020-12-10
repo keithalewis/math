@@ -32,9 +32,11 @@
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
 </head>
 <body>
 <header id="title-block-header">
@@ -49,20 +51,20 @@
 <p><span class="math inline">x + x = x\Rightarrow x + x + (-x) = x + (-x)</span></p>
 <p><span class="math inline">\qquad\{\text{modus ponens}\}</span></p>
 <p><span class="math inline">x + \underline{x + (-x)} = \underline{x + (-x)}</span></p>
-<p><span class="math inline">\qquad\{\underline{a + (-a)} = \overline{0}\mid a\leftarrow x\}</span> (inverse)</p>
+<p><span class="math inline">\qquad\{\overline{a + (-a)} = \underline{0}\mid a\leftarrow x\}</span> (inverse)</p>
 <p><span class="math inline">\underline{x + \overline{0}} = \overline{0}</span></p>
-<p><span class="math inline">\qquad\{\underline{a + 0} = \overline{a}\mid a\leftarrow x\}</span> (identity)</p>
+<p><span class="math inline">\qquad\{\overline{a + 0} = \underline{a}\mid a\leftarrow x\}</span> (identity)</p>
 <p><span class="math inline">\overline{x} = 0</span></p>
 <p>QED (quod erat demonstrandum)</p>
 <p>To prove ‘<span class="math inline">A = \cdots = Z</span>’ write down <span class="math inline">A</span>. Below that write a true statement and the substitutions to apply to get the next statement <span class="math inline">=B</span>. The equality is established when the last statement is <span class="math inline">=Z</span>.</p>
 <p><span class="math inline">E[\underline{(X - E[X])^2}]</span></p>
-<p><span class="math inline">\qquad\{\underline{(a - b)^2} = \overline{a^2 - 2ab + b^2} \mid a\leftarrow X, b\leftarrow E[X]\}</span></p>
+<p><span class="math inline">\qquad\{\overline{(a - b)^2} = \underline{a^2 - 2ab + b^2} \mid a\leftarrow X, b\leftarrow E[X]\}</span></p>
 <p><span class="math inline">= \underline{E[\overline{X^2 - 2XE[X] + E[X]^2}]}</span></p>
-<p><span class="math inline">\qquad\{\underline{E[A - B + C]} = \overline{E[A]} - \overline{\overline{E[B]}} + \overline{\overline{\overline{E[C]}}}\mid A\leftarrow X^2, B\leftarrow 2XE[X], C\leftarrow E[X]^2\}</span></p>
+<p><span class="math inline">\qquad\{\overline{E[A - B + C]} = \underline{E[A]} - \underline{\underline{E[B]}} + \underline{\underline{\underline{E[C]}}}\mid A\leftarrow X^2, B\leftarrow 2XE[X], C\leftarrow E[X]^2\}</span></p>
 <p><span class="math inline">= \overline{E[X^2]} - \overline{\overline{\underline{E[2XE[X]]}}} + \overline{\overline{\overline{\underline{\underline{E[E[X]^2]]}}}}}</span></p>
-<p><span class="math inline">\qquad\{\underline{E[cA]} = \overline{cE[A]}, \underline{\underline{E[b]}} = \overline{\overline{b}}\mid c\leftarrow 2E[X], A\leftarrow X, b\leftarrow E[X]\}</span> (using <span class="math inline">XE[X] = E[X]X</span>)</p>
+<p><span class="math inline">\qquad\{\overline{E[cA]} = \underline{cE[A]}, \overline{\overline{E[b]}} = \underline{\underline{b}}\mid c\leftarrow 2E[X], A\leftarrow X, b\leftarrow E[X]^2\}</span> (using <span class="math inline">XE[X] = E[X]X</span>)</p>
 <p><span class="math inline">= E[X^2] - \overline{2\underline{E[X]E[X]}} + \overline{\overline{E[X]^2]}}</span></p>
-<p><span class="math inline">\qquad\{\underline{aa} = \overline{a^2}\}</span> (exponent)</p>
+<p><span class="math inline">\qquad\{\overline{aa} = \underline{a^2}\}</span> (exponent)</p>
 <p><span class="math inline">= E[X^2] - 2\overline{E[X]^2} + E[X]^2</span></p>
 <p><span class="math inline">\qquad\{ac + bc = (a + b)c\}</span> (distributive)</p>
 <p><span class="math inline">= E[X^2] + (-2 + 1)E[X]^2</span></p>

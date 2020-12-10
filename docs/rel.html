@@ -32,9 +32,11 @@
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
 </head>
 <body>
 <header id="title-block-header">
@@ -104,7 +106,8 @@
 <p><summary>Solution</summary></p>
 <p>If <span class="math inline">R</span> has a left inverse <span class="math inline">S</span> then <span class="math inline">SR = I</span>. If <span class="math inline">R(x) = R(x&#39;)</span> then <span class="math inline">x = SR(x) = SR(x&#39;) = x&#39;</span>.</p>
 </details>
-<h3 id="lattice-structure">Lattice Structure</h3>
+<section id="lattice-structure" class="level3">
+<h3>Lattice Structure</h3>
 <p>Relations on <span class="math inline">X\times X</span> are ordered by set inclusion. If <span class="math inline">R\subset S</span> then <span class="math inline">RT\subset ST</span> and <span class="math inline">TR\subset TS</span> for any <span class="math inline">T\subseteq X\times X</span>. This shows <span class="math inline">(R\cap S)T \subseteq RT\cap ST</span> and <span class="math inline">T(R\cap S) \subseteq TR\cap TS</span>. Similarly <span class="math inline">(R\cup S)T \supseteq RT\cup ST</span> and <span class="math inline">T(R\cup S) \supseteq TR\cup TS</span>.</p>
 <p>This shows <span class="math inline">(R\cap I)S \subseteq RS \cap S</span> and <span class="math inline">(R\cup I)S \supset RS\cup R</span> so <span class="math inline">(R\cup I)R\supseteq R^2\cup R</span>.</p>
 <p>If <span class="math inline">R,S,T\subseteq X\times X</span> then <span class="math inline">(R\cup S)T \subseteq RT\cup ST</span> since <span class="math inline">(R\cup S)T \supseteq RT</span> and $(RT)</p>
@@ -148,8 +151,11 @@
 <p>An <em>equivalence relation</em> partitions the set <span class="math inline">X</span> into <em>cosets</em> <span class="math inline">x/R = \{y\in X:xRy\}</span> and we write <span class="math inline">X/R</span> (<span class="math inline">X</span> <em>modulo</em> <span class="math inline">R</span>) for the collection of all cosets. The union of all cosets is <span class="math inline">X</span> and cosets are pairwise disjoint.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">x\in x/R</span> for every <span class="math inline">x\in X</span></em>.</p>
 <p><strong>Exercise</strong>. _Show if <span class="math inline">x/R\cap y/R\not=\emptyset</span> then <span class="math inline">x/R = y/R</span>.</p>
-<h1 id="remarks">Remarks</h1>
+</section>
+<section id="remarks" class="level1">
+<h1>Remarks</h1>
 <p>Partial functions show up often without getting the recognition they deserve. For example, <span class="math inline">f(x) = 1/x</span> where <span class="math inline">x</span> is a real number is a partial function with domain <span class="math inline">x \not= 0</span>.</p>
+</section>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

@@ -51,17 +51,23 @@
 <p>The distribution of a <em>uniformly distributed</em> random variable on <span class="math inline">[0,1]</span>, <span class="math inline">U</span>, is <span class="math inline">F(x) = x</span> if <span class="math inline">0\le x\le 1</span>, <span class="math inline">F(x) = 0</span> if <span class="math inline">x &lt; 0</span>, and <span class="math inline">F(x) = 1</span> if <span class="math inline">x &gt; 1</span>. In this case <span class="math inline">P(X\in(a, b]) = b - a</span> for <span class="math inline">0\le a &lt; b\le 1</span>.</p>
 <p><strong>Exercise</strong> <em>If <span class="math inline">X</span> has cdf <span class="math inline">F</span>, show <span class="math inline">F^{-1}(U)</span> has the same distribution as <span class="math inline">X</span> and <span class="math inline">F(X)</span> has the same distribution as <span class="math inline">U</span></em>.</p>
 <p>If <span class="math inline">F(x)</span> jumps from <span class="math inline">a</span> to <span class="math inline">b</span> at <span class="math inline">x = c</span> we define <span class="math inline">F^{-1}(u) = c</span> for <span class="math inline">a \le u &lt; b</span>.</p>
-<h2 id="cumulant">Cumulant</h2>
+<section id="cumulant" class="level2">
+<h2>Cumulant</h2>
 <p>The <em>cumulant</em> of the random variable <span class="math inline">X</span> is <span class="math inline">κ_X(s) = κ(s) = \log E[\exp(s X)]</span>. The Esscher transform <span class="math inline">X_s</span>, <span class="math inline">s\in\bm{R}</span>, of a random variable <span class="math inline">X</span> with density <span class="math inline">f</span> has density <span class="math inline">f_s(x) = f(x)e^{s x - κ(s)}</span> and we write <span class="math inline">E_s</span> for expectation using density <span class="math inline">f_s</span>. Since <span class="math inline">E[\exp(sX)] = \exp(κ(s))</span> this is a probability density.</p>
 <p>Note <span class="math inline">(d/ds)E[g(X)e^{s X - κ(s)}] = E[g(X)e^{s X - κ(s)}(X - κ&#39;(s))]</span> so <span class="math display">
     \frac{d}{ds}E_s[g(X)] = E_s[g(X)(X - κ&#39;(s))].
 </span> The cdf of <span class="math inline">X_s</span> is <span class="math inline">F_s(x) = P_s(X\le x) = E[1(X\le x) e^{s X - κ(s)}]</span> so <span class="math inline">dF_s(x)/ds = E[1(X\le x) e^{s X - κ(s)}(X - κ&#39;(s))]</span>.</p>
-<h2 id="distributions">Distributions</h2>
+</section>
+<section id="distributions" class="level2">
+<h2>Distributions</h2>
 <p>We gather some facts about the distributions and cumulants of particular random variables.</p>
-<h3 id="discrete">Discrete</h3>
+<section id="discrete" class="level3">
+<h3>Discrete</h3>
 <p>If <span class="math inline">X</span> is discrete with <span class="math inline">P(X = x_j) = p_j</span> then <span class="math inline">F(x) = \sum_j 1(x\le x_j) p_j</span> and <span class="math inline">f(x) = \sum_j δ_{x_j}(x) p_j</span> where <span class="math inline">δ_a</span> is the <em>delta function</em>, or <em>point mass</em>, at <span class="math inline">a</span>. In general, <span class="math inline">F^{(n)}(x) = \sum_j δ_{x_j}^{(n-1)}(x) p_j</span> where <span class="math inline">\int_{\bm{R}} g(x) δ_{a}^{(k)}\,dx = g^{(k)}(a)</span>. A delta function is not a function but we can define <span class="math inline">\int_{\bm{R}} g(x) \delta_a(x) \,dx = \int_{\bm{R}} g(x) d1(x \ge a) = g(a)</span> using Riemann-Stieltjes integration.</p>
 <p>The cumulant is <span class="math inline">κ(s) = \log E[\sum_j \exp(sx_j) p_j]</span>.</p>
-<h3 id="normal">Normal</h3>
+</section>
+<section id="normal" class="level3">
+<h3>Normal</h3>
 <p>The standard normal random variable <span class="math inline">X</span> has density <span class="math inline">φ(x) = \exp(-x^2/2)/\sqrt{2\pi}</span>, <span class="math inline">-\infty &lt; x &lt; \infty</span>, and cumulative distribution <span class="math inline">Φ(x) = \int_{-\infty}^x \exp(-ξ^2/2)\, dξ/\sqrt{2\pi}</span>.</p>
 <p>The derivatives of the density are <span class="math inline">φ^{(n)}(x) = (-1)^nφ(x)H_n(x)</span> where <span class="math inline">H_n</span> are the Hermite polynomials. They satisfy the recurrence <span class="math inline">H_0(x) = 1</span>, <span class="math inline">H_1(x) = x</span> and <span class="math inline">H_{n+1}(x) = x H_n(x) - n H_{n-1}(x)</span>, <span class="math inline">n\ge 1</span>.</p>
 <p>Some useful properties are <span class="math display">
@@ -88,7 +94,9 @@ E[\exp(N)g(N_1,\ldots)] = E[\exp(N)] E[g(N_1 + \operatorname{Cov}(N, N_1), \ldot
 </span> Taking derivatives with respect to <span class="math inline">s</span> shows <span class="math display">
     E[\exp(s X - s^2/2)(X - s)g(X)] = E[g&#39;(X + s)].
 </span> so <span class="math inline">E[X g(X)] = E[g&#39;(X)]</span> when <span class="math inline">s = 0</span>.</p>
-<h3 id="poisson">Poisson</h3>
+</section>
+<section id="poisson" class="level3">
+<h3>Poisson</h3>
 <p>The Poisson distribution with parameter <span class="math inline">λ</span> has density <span class="math inline">P(X_λ = n) = e^{-λ}λ^n/n!</span>, <span class="math inline">n\ge 0</span>. Since <span class="math inline">E[e^{s X}] = \sum_{n\ge 0} e^{sn} e^{-λ}λ^n/n! = e^{-λ}\exp(e^sλ) = \exp(λ(e^s - 1))</span> we have <span class="math display">
 κ(s) = λ(e^s - 1), κ_n = λ, n\ge 1.
 </span></p>
@@ -109,9 +117,13 @@ E[\exp(N)g(N_1,\ldots)] = E[\exp(N)] E[g(N_1 + \operatorname{Cov}(N, N_1), \ldot
     &amp;= λ e^s E_s[g(X_{λ e^s} + 1) - g(X_{λ e^s})] \\
 \end{aligned}
 </span> so <span class="math inline">(d/ds)E_s[g(X_λ)] = λ e^s E_s[g(X_{λ e^s} + 1) - g(X_{λ e^s})]</span>.</p>
-<h3 id="exponential">Exponential</h3>
+</section>
+<section id="exponential" class="level3">
+<h3>Exponential</h3>
 <p>The density of an exponential with parameter <span class="math inline">λ</span> is <span class="math inline">f(x) = λ\exp(-λ x)</span>, <span class="math inline">x\ge 0</span>. Since <span class="math inline">E[\exp sX] = \int_0^\infty \exp(sx) λ\exp(-λ x)\,dx = λ/(λ - s)</span> The cumulant is <span class="math inline">κ(s) = -\log(1 - s/λ)</span> so <span class="math inline">κ&#39;(s) = (1 - s/λ)^{-1}</span> and <span class="math inline">κ^{(n)}(s) = (1 - s/λ)^{-n}(n - 1)!/λ^{n-1}</span></p>
-<h3 id="logistic">Logistic</h3>
+</section>
+<section id="logistic" class="level3">
+<h3>Logistic</h3>
 <p>A logistic random variate has cumulative distribution <span class="math inline">F(x) = 1/(1 + e^{-x})</span>, <span class="math inline">-\infty &lt; x &lt; \infty</span> and density function <span class="math inline">f(x) = e^{-x}/(1 + e^{-x})^2</span>. The quantile function is <span class="math inline">Q(u) = F^{-1}(u) = \log u/(1-u)</span>.</p>
 <p>Aside: <span class="math inline">f(x) = \int_0^\infty e^{-x} e^{-\alpha e^{-x}} e^{-\alpha}\,d\alpha</span>.</p>
 <p>Using <span class="math inline">u = F(x) = 1/(1 + e^{-x})</span>, so <span class="math inline">e^x = u/(1 - u)</span> and <span class="math display">
@@ -200,6 +212,8 @@ $E[X^2e^{s X - κ(s)}(X - κ'(s))]
 =κ'''(s) + 2κ''(s)κ'(s) - κ'(s)^3$.
 
 -->
+</section>
+</section>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>
