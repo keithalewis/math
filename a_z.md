@@ -46,7 +46,8 @@ $\given{\o{a} = \u{1a}\mid a\is x}$
 $=\o{1x} + \o{1x}$.
 
 Underbar and overbar match what is being substituted with the
-result of the substitution. It is a mechanical operation that
+result of the substitution. In this case we substituted the
+same expression two times. Substitution is a mechanical operation that
 even a dumb computer could do, but it is also a useful
 technique that can help you with more complicated derivations.
 
@@ -59,7 +60,7 @@ $\given{\o{a}\o{\o{\o{c}}} + \o{\o{b}}\o{\o{\o{c}}} =
 
 $= (\o{1} + \o{\o{1}})\o{\o{\o{x}}}$
 
-Using $\o{1 + 1} = \u{2}$
+$\given{\o{1 + 1} = \u{2}$}
 
 $=\o{2}x$
 
@@ -126,40 +127,11 @@ As your math skills improve you won't need such low level derivations.
 If you get into trouble skipping steps you can always fall back to this
 to be confident what you write is mathematically true.
 
-## Proof
+Here is a more interesting example from probability theory where $X$ is
+a _random variable_ and $E[X]$ is its _expected value_. Behind the
+scenes $X$ is a function and expectation is an integral.
 
-
-__Theorem__. _If $x + x = x$ then $x = 0$_.
-
-_Proof_:
-
-$x + x = x$
-
-$\given{a = b \implies a + c = b + c\mid a\is x + x, b\is x, c\is (-x)}$
-
-$x + x = x\implies x + x + (-x) = x + (-x)$
-
-$\given{\text{modus ponens}}$
-
-$x + \u{x + (-x)} = \u{x + (-x)}$
-
-$\given{\o{a + (-a)} = \u{0}\mid a\is x}$ (inverse)
-
-$\u{x + \o{0}} = \o{0}$
-
-$\given{\o{a + 0} = \u{a}\mid a\is x}$ (identity)
-
-$\o{x} = 0$
-
-
-If the statements $P$ and
-$P\implies Q$ occur in the derivation then the statement $Q$ can be
-written (modus ponens).
-To prove '$A = \cdots = Z$' write
-down $A$.  Below that write a true statement and the substitutions
-to apply to get the next statement $=B$.
-&ndash;
-QED (quod erat demonstrandum).
+Derive $E[\u{(X - E[X])^2}] = E[X^2] - E[X]^2$.
 
 $E[\u{(X - E[X])^2}]$
 
@@ -187,3 +159,40 @@ $= E[X^2] + (-2 + 1)E[X]^2$
 $= E[X^2] - E[X]^2$.
 
 This establishes $E[(X - E[X])^2] = E[X^2] - E[X]^2$.
+
+## Proof
+
+To prove '_if $A$ then $Z$_' or, equivalently, '$A\implies B$' write
+down $A$.  Below that write a true statement and the substitutions
+to apply to get the next statement $B$. If the statements $P$ and
+$P\implies Q$ occur in the derivation then the statement $Q$ can be
+written (modus ponens).
+The proof is done when the last statement is $Z$
+&ndash;
+QED (quod erat demonstrandum).
+
+__Theorem__. _If $x + x = x$ then $x = 0$_.
+
+_Proof_: Start by writing down $A$.
+
+$x + x = x$
+
+$\given{a = b \implies a + c = b + c\mid a\is x + x, b\is x, c\is (-x)}$
+
+$x + x = x\implies x + x + (-x) = x + (-x)$
+
+$\given{\text{modus ponens}}$
+
+$x + \u{x + (-x)} = \u{x + (-x)}$
+
+$\given{\o{a + (-a)} = \u{0}\mid a\is x}$ (inverse)
+
+$\u{x + \o{0}} = \o{0}$
+
+$\given{\o{a + 0} = \u{a}\mid a\is x}$ (identity)
+
+$\o{x} = 0$
+
+This shows $x + x = x$ implies $x = 0$.
+
+It is good form to explicitly state when a proof has been completed.
