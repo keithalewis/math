@@ -43,27 +43,21 @@
 <h1 class="title">Cumulative Distribution Functions</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<p>The <em>cumulative distribution function</em> of a random variable <span class="math inline">X</span> is the probability that the random variable is less than or equal to <span class="math inline">x</span> – <span class="math inline">F^X(x) = F(x) = P(X\le x)</span>. It tells you everything there is to know about the random variable. For example, <span class="math inline">P(a &lt; X \le b) = F(b) - F(a)</span>. Although <span class="math inline">F</span> is a function it is more accurate to think of it as a function on sets – <span class="math inline">P(X\in (a, b]) = \int_a^b dF = F(b) - F(a)</span> using Riemann-Stieltjes integration.</p>
-<p>More generally for <span class="math inline">E\subseteq\bm{R}</span>, <span class="math inline">P(X\in E) = E[1_E(X)] = \int 1_E(x) dF(x)</span> where <span class="math inline">1_E(x) = 1</span> if <span class="math inline">x\in E</span>, <span class="math inline">1_E(x) = 0</span> if <span class="math inline">x\not\in E</span>.</p>
-<p>Every cdf is non-decreasing, continuous from the right, has left limits, and <span class="math inline">\lim_{x\to-\infty}F(x) = 0</span>, <span class="math inline">\lim_{x\to+\infty}F(x) = 1</span>. Any function with these properties is the cdf of a random variable.</p>
-<p><strong>Exercise</strong>. <em>Prove right continuity using <span class="math inline">\cap_n (-\infty, x + 1/n] = (-\infty, x]</span></em>.</p>
-<p>Note <span class="math inline">\cup_n (-\infty,x - 1/n] = (-\infty,x) \not= (-\infty,x]</span>. The sequence <span class="math inline">F(x - 1/n)</span> is non-decreasing and bounded by <span class="math inline">F(x)</span> so it has a limit, but not necessarily <span class="math inline">F(x)</span>.</p>
-<p>The distribution of a <em>uniformly distributed</em> random variable on <span class="math inline">[0,1]</span>, <span class="math inline">U</span>, is <span class="math inline">F(x) = x</span> if <span class="math inline">0\le x\le 1</span>, <span class="math inline">F(x) = 0</span> if <span class="math inline">x &lt; 0</span>, and <span class="math inline">F(x) = 1</span> if <span class="math inline">x &gt; 1</span>. In this case <span class="math inline">P(X\in(a, b]) = b - a</span> for <span class="math inline">0\le a &lt; b\le 1</span>.</p>
-<p><strong>Exercise</strong> <em>If <span class="math inline">X</span> has cdf <span class="math inline">F</span>, show <span class="math inline">F^{-1}(U)</span> has the same distribution as <span class="math inline">X</span> and <span class="math inline">F(X)</span> has the same distribution as <span class="math inline">U</span></em>.</p>
-<p>If <span class="math inline">F(x)</span> jumps from <span class="math inline">a</span> to <span class="math inline">b</span> at <span class="math inline">x = c</span> we define <span class="math inline">F^{-1}(u) = c</span> for <span class="math inline">a \le u &lt; b</span>.</p>
-<section id="cumulant" class="level2">
-<h2>Cumulant</h2>
-<p>The <em>cumulant</em> of the random variable <span class="math inline">X</span> is <span class="math inline">κ_X(s) = κ(s) = \log E[\exp(s X)]</span>. The Esscher transform <span class="math inline">X_s</span>, <span class="math inline">s\in\bm{R}</span>, of a random variable <span class="math inline">X</span> with density <span class="math inline">f</span> has density <span class="math inline">f_s(x) = f(x)e^{s x - κ(s)}</span> and we write <span class="math inline">E_s</span> for expectation using density <span class="math inline">f_s</span>. Since <span class="math inline">E[\exp(sX)] = \exp(κ(s))</span> this is a probability density.</p>
-<p>Note <span class="math inline">(d/ds)E[g(X)e^{s X - κ(s)}] = E[g(X)e^{s X - κ(s)}(X - κ&#39;(s))]</span> so <span class="math display">
-    \frac{d}{ds}E_s[g(X)] = E_s[g(X)(X - κ&#39;(s))].
-</span> The cdf of <span class="math inline">X_s</span> is <span class="math inline">F_s(x) = P_s(X\le x) = E[1(X\le x) e^{s X - κ(s)}]</span> so <span class="math inline">dF_s(x)/ds = E[1(X\le x) e^{s X - κ(s)}(X - κ&#39;(s))]</span>.</p>
+<p>We collect some facts about <a href="prob.html#random-variable"><em>random variables</em></a>, their <a href="prob.html#cumulant"><em>cumulants</em></a>, and deriatives associated with these. These are useful for <a href="op.html">option pricing</a>.</p>
+<section id="esscher" class="level2">
+<h2>Esscher</h2>
+<p>The Esscher transform <span class="math inline">X_s</span>, <span class="math inline">s\in\bm{R}</span>, of a random variable <span class="math inline">X</span> has cdf <span class="math inline">F_s(x) = E[1(X\le x)ε_s(X)]</span>, where <span class="math inline">ε_s(x) = e^{s x - κ(s)}</span>, whenever the expected value exists. Note <span class="math inline">E[ε_s(X)] = 1</span> so <span class="math inline">F_s</span> is a cdf and <span class="math inline">X_0</span> and <span class="math inline">X</span> have the same law.</p>
+<p>We write <span class="math inline">P_s(X\in A) = E[1_A(X)ε_s(X)] = E_s[1_A(X)]</span>. For any function <span class="math inline">g</span> we have <span class="math inline">E_s[g(X)] = E[g(X)ε_s(X)]</span>.</p>
+<p>Note <span class="math inline">(∂/∂s)E[g(X)ε_s(X)] = E[g(X)ε_s(X) (X - κ&#39;(s))]</span> so <span class="math display">
+    \frac{∂}{∂s}E_s[g(X)] = E_s[g(X)(X - κ&#39;(s))].
+</span> In particular, <span class="math inline">∂F_s(x)/∂s = E_s[1(X\le x) (X - κ&#39;(s))]</span>.</p>
 </section>
 <section id="distributions" class="level2">
 <h2>Distributions</h2>
 <p>We gather some facts about the distributions and cumulants of particular random variables.</p>
 <section id="discrete" class="level3">
 <h3>Discrete</h3>
-<p>If <span class="math inline">X</span> is discrete with <span class="math inline">P(X = x_j) = p_j</span> then <span class="math inline">F(x) = \sum_j 1(x\le x_j) p_j</span> and <span class="math inline">f(x) = \sum_j δ_{x_j}(x) p_j</span> where <span class="math inline">δ_a</span> is the <em>delta function</em>, or <em>point mass</em>, at <span class="math inline">a</span>. In general, <span class="math inline">F^{(n)}(x) = \sum_j δ_{x_j}^{(n-1)}(x) p_j</span> where <span class="math inline">\int_{\bm{R}} g(x) δ_{a}^{(k)}\,dx = g^{(k)}(a)</span>. A delta function is not a function but we can define <span class="math inline">\int_{\bm{R}} g(x) \delta_a(x) \,dx = \int_{\bm{R}} g(x) d1(x \ge a) = g(a)</span> using Riemann-Stieltjes integration.</p>
+<p>If <span class="math inline">X</span> is discrete with <span class="math inline">P(X = x_j) = p_j</span> then <span class="math inline">F(x) = \sum_j 1(x\le x_j) p_j</span> and <span class="math inline">f(x) = \sum_j δ_{x_j}(x) p_j</span> where <span class="math inline">δ_a</span> is the <em>delta function</em>, or <em>point mass</em>, at <span class="math inline">a</span>. In general, <span class="math inline">F^{(n)}(x) = \sum_j δ_{x_j}^{(n-1)}(x) p_j</span> where <span class="math inline">\int_{\bm{R}} g(x) δ_{a}^{(k)}\,dx = g^{(k)}(a)</span>.</p>
 <p>The cumulant is <span class="math inline">κ(s) = \log E[\sum_j \exp(sx_j) p_j]</span>.</p>
 </section>
 <section id="normal" class="level3">
@@ -88,12 +82,12 @@ E[\exp(N)g(N_1,\ldots)] = E[\exp(N)] E[g(N_1 + \operatorname{Cov}(N, N_1), \ldot
 </span> This is an elementary form of Girsanov’s Theorem.</p>
 <p><strong>Exercise</strong>. <em>Prove this</em>.</p>
 <p>Hint: <span class="math inline">N_1, \ldots</span> are jointly normal if and only if they are linear combinations of independent standard normals.</p>
-<p>The cumulant is <span class="math inline">κ(s) = \log E[\exp(sX)] = s^2/2</span> so <span class="math inline">κ_2 = 1</span> and all other cumulants are zero. The transformed cdf is <span class="math inline">Φ_s(x) = P_s(X\le x) = E[1(X\le x) e^{sX - s^2/2}] = P(X + s\le x) = Φ(x - s)</span> so <span class="math inline">dΦ_s(x)/ds = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s)</span>.</p>
-<p>In particular <span class="math display">
+<p>The cumulant is <span class="math inline">κ(s) = \log E[\exp(sX)] = s^2/2</span> so <span class="math inline">κ_2 = 1</span> and all other cumulants are zero. We also have <span class="math display">
     E[\exp(s X - s^2/2)g(X)] = E[g(X + s)].
 </span> Taking derivatives with respect to <span class="math inline">s</span> shows <span class="math display">
     E[\exp(s X - s^2/2)(X - s)g(X)] = E[g&#39;(X + s)].
 </span> so <span class="math inline">E[X g(X)] = E[g&#39;(X)]</span> when <span class="math inline">s = 0</span>.</p>
+<p>The transformed cdf is <span class="math inline">Φ_s(x) = P_s(X\le x) = E[1(X\le x) e^{sX - s^2/2}] = P(X + s\le x) = Φ(x - s)</span> so <span class="math inline">∂Φ_s(x)/∂s = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s)</span>.</p>
 </section>
 <section id="poisson" class="level3">
 <h3>Poisson</h3>

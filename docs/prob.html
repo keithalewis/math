@@ -45,11 +45,11 @@
 </header>
 <section id="probability-theory" class="level1">
 <h1>Probability Theory</h1>
-<p>A <em>random variable</em> is a function on a <em>probability space</em>. A probability space is a set of <em>outcomes</em>, <span class="math inline">\Omega</span>, and a set function <span class="math inline">P</span> from <em>events</em>, subsets of <span class="math inline">\Omega</span>, to numbers between 0 and 1 that satisfies <span class="math inline">P(E\cup F) = P(E) + P(F) - P(E\cap F)</span> for <span class="math inline">E,F\subseteq\Omega</span> and <span class="math inline">P(\emptyset) = 0</span>.</p>
+<p>A <em>random variable</em> is a function on a <em>probability space</em>. A probability space is a set of <em>outcomes</em>, <span class="math inline">\Omega</span>, and a <em>probability measure</em> on <span class="math inline">\Omega</span>.</p>
 <section id="measure" class="level2">
 <h2>Measure</h2>
-<p>A <em>measure</em> is a set function on subets of <span class="math inline">S</span> taking values in the real numbers <span class="math inline">\mu\colon\mathcal{P}(S)\to\bm{R}</span> that satisfies <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)</span> for <span class="math inline">E,F\subseteq\Omega</span> and <span class="math inline">\mu(\emptyset) = 0</span> where <span class="math inline">\mathcal{P}(S) = \{E\subseteq S\}</span> is the set of all subsets of <span class="math inline">S</span>.</p>
-<p>Measures don’t count things twice and the measure of nothing is 0.</p>
+<p>A <em>measure</em> on a set <span class="math inline">S</span> is a set function from subsets of <span class="math inline">S</span> to real numbers <span class="math inline">\mu\colon\mathcal{P}(S)\to\bm{R}</span>, where <span class="math inline">\mathcal{P}(S) = \{E\subseteq S\}</span> is the set of all subsets of <span class="math inline">S</span>, that satisfies <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)</span> for <span class="math inline">E,F\subseteq\Omega</span> and <span class="math inline">\mu(\emptyset) = 0</span></p>
+<p>Measures don’t count things twice and the measure of nothing is zero.</p>
 <strong>Exercise</strong>. <em>Show if <span class="math inline">\nu(E\cup F) = \nu(E) + \nu(F) - \nu(E\cap F)</span> for <span class="math inline">E,F\subseteq S</span> then <span class="math inline">\mu = \nu - \nu(\emptyset)</span> is measure</em>.
 <details>
 <p><summary>Solution</summary></p>
@@ -78,7 +78,7 @@
 <p>Note <span class="math inline">(E\cap F)\cup(E\cap F&#39;) = E\cap(F\cup F&#39;) = E\cap S = E</span> and <span class="math inline">(E\cap F)\cap(E\cap F&#39;) = E\cap(F\cap F&#39;) = E\cap\emptyset = \emptyset</span> so <span class="math inline">\mu(E\cap F) + \mu(E\cap F&#39;) = \mu((E\cap F)\cup(E\cap F&#39;) = \mu(E)</span>.</p>
 </blockquote>
 </details>
-<p>The space of all (finitely additive) measures on <span class="math inline">S</span> is denoted <span class="math inline">ba(S)</span>. Note <span class="math inline">ba(S)</span> is a vector space with <span class="math inline">(a\mu)(E) = a\mu(E)</span> and <span class="math inline">(\mu + \nu)(E) = \mu(E) + \nu(E)</span>, <span class="math inline">a\in\bm{R}</span>, <span class="math inline">E\subseteq S</span>. The <em>norm</em> of a measure <span class="math inline">\mu\in ba(S)</span> is <span class="math inline">\|\mu\| = \sup_{(E_j)} \sum_j |\mu(E_j)|</span> where <span class="math inline">(E_j)</span> is any finite collection of pairwise disjoint subsets of <span class="math inline">S</span>.</p>
+<p>The space of all (finitely additive) measures on <span class="math inline">S</span> is denoted <span class="math inline">ba(S)</span>. Note <span class="math inline">ba(S)</span> is a vector space with <span class="math inline">(a\mu)(E) = a\mu(E)</span> and <span class="math inline">(\mu + \nu)(E) = \mu(E) + \nu(E)</span>, <span class="math inline">a\in\bm{R}</span>, <span class="math inline">E\subseteq S</span>. The <em>norm</em> of a measure <span class="math inline">\mu\in ba(S)</span> is <span class="math inline">\|\mu\| = \sup_{\{E_j\}} \sum_j |\mu(E_j)|</span> where <span class="math inline">\{E_j\}</span> is any finite collection of pairwise disjoint subsets of <span class="math inline">S</span>.</p>
 <p>Let <span class="math inline">B(S)</span> be the vector space of all bounded functions on <span class="math inline">S</span>. It has norm <span class="math inline">\|f\| = \sup_{x\in S}|f(x)|</span>. Vector space norms define a <em>metric</em> <span class="math inline">d\colon B(S)\times B(S)\to\bm{R}</span> by <span class="math inline">d(f,g) = \|f - g\|</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">d</span> is a metric</em>.</p>
 <p>Hint: Show <span class="math inline">d(f,g) = 0</span> implies <span class="math inline">f = g</span>, <span class="math inline">d(f,g) = d(g,f)</span>, and <span class="math inline">d(f,h) \le d(f,g) + d(g, h)</span> for <span class="math inline">f,g,h\in B(\Omega)</span>. Note <span class="math inline">d(f,f) \le 2d(f,f)</span> so <span class="math inline">0\le d(f,f)</span> for all <span class="math inline">f</span>.</p>
@@ -98,71 +98,138 @@
 <p>Every finite sum of the form <span class="math inline">\sum_j a_j 1_{E_j}</span> is equal to a function <span class="math inline">\sum_k b_k 1_{F_k}</span> where the <span class="math inline">(F_k)</span> are pairwise disjoint. Such functions are uniformly dense in <span class="math inline">B(S)</span>.</p>
 </blockquote>
 </details>
-<p>The dual pairing defines the integral <span class="math inline">\int_S f\,d\mu = \langle f,\mu\rangle</span>, <span class="math inline">f\in B(\Omega)</span>, <span class="math inline">\mu\in ba(\Omega)</span>. Finitely additive measures make it challenging to prove theorems of the form ‘If <span class="math inline">\lim_n f_n = f</span> then <span class="math inline">\lim_n \int_S f_n\,d\mu = \int f\,d\mu</span>.’</p>
+<p>The dual pairing defines the integral <span class="math inline">\int_S f\,d\mu = \langle f,\mu\rangle</span>, <span class="math inline">f\in B(\Omega)</span>, <span class="math inline">\mu\in ba(\Omega)</span>. Finitely additive measures make it challenging to prove theorems of the form ‘If <span class="math inline">\lim_n f_n = f</span> then <span class="math inline">\lim_n \int_S f_n\,d\mu = \int f\,d\mu</span>.’ However, Fatou’s Lemma does hold for positive finitely additive measures.</p>
 <p>The product of a function and a measure is a measure defined by <span class="math inline">\langle f,g\mu\rangle = \langle fg,\mu\rangle</span>. Given measures <span class="math inline">\mu,\nu\in ba(S)</span> we say <span class="math inline">g</span> is the <em>Radon-Nikodym derivative</em> of <span class="math inline">\nu</span> with respect to <span class="math inline">\mu</span> if <span class="math inline">g\mu = \nu</span>.</p>
 </section>
 <section id="probability-measure" class="level2">
 <h2>Probability Measure</h2>
-<p>A <em>probability measure</em> is a measure taking values in the interval <span class="math inline">[0,1]</span>.</p>
-<p>If <span class="math inline">\Omega</span> is finite we can define a probability measure by specifying <span class="math inline">p_\omega = P(\{\omega\})</span> for <span class="math inline">\omega\in\Omega</span>. Note <span class="math inline">p_\omega\ge 0</span> and <span class="math inline">\sum_{\omega\in\Omega} p_\omega = 1</span>. The probability of the event <span class="math inline">E\subseteq\Omega</span> is <span class="math inline">P(E) = \sum_{\omega\in E} p_\omega</span>.</p>
-<section id="partition" class="level3">
-<h3>Partition</h3>
-<p>A <em>partition</em> splits a sample space into disjoint subsets with union equal to the sample space. Partitions are how <em>partial information</em> is represented. The elements of the partition are called <em>atoms</em>. The way paritions represent partial information is you only know what atom an outcome belongs to, not the exact outcome. Complete information corresponds to the <em>finest</em> partiion of singletons <span class="math inline">\{\{\omega\}\mid \omega\in\Omega\}</span>. No information corresponds to the <em>coarsest</em> partition <span class="math inline">\{\Omega\}</span>.</p>
-<p>Partitions define an <em>equivalence relation</em> on outcomes. We say <span class="math inline">\omega\sim\omega&#39;</span> if and only if they belong to the same atom.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\omega\sim\omega</span>, <span class="math inline">\omega\sim\omega&#39;</span> implies <span class="math inline">\omega&#39;\sim\omega</span>, and <span class="math inline">\omega\sim\omega&#39;</span>, <span class="math inline">\omega&#39;\sim\omega&#39;&#39;</span> implies <span class="math inline">\omega\sim\omega&#39;&#39;</span></em>.</p>
-<p>This is the definition of an equivalence relation. It is the mathematical way of saying two things are the “same” even if they are not equal.</p>
-<p>An <em>algebra</em> of sets on <span class="math inline">\Omega</span> is a collection of subsets of <span class="math inline">\Omega</span> that contains the empty set and is closed under complement and finite union. Closure under complements imples <span class="math inline">\Omega</span> belongs to the algebra and De Morgan’s Laws imply it is also close under finite intersection.</p>
-<p>An element <span class="math inline">A\subseteq S</span> is an <em>atom</em> of the algebra if <span class="math inline">B\subseteq A</span> and <span class="math inline">B</span> in the algebra imply <span class="math inline">B</span> is either the empty set or equals <span class="math inline">A</span>.</p>
-<p><strong>Exercise</strong>. <em>If an algebra is finite its atoms form a partition and the smallest algebra containing the partition is equal to the algebra</em>.</p>
-<p>A function is <em>measurable</em> with respect to an algebra if the preimage of every interval belongs to the algebra.</p>
-<p><strong>Exercise</strong>. <em>If an algebra is finite then a function is measurable if and only if it is constant on atoms</em>.</p>
-<p>In this case, it is a function on the atoms of the algebra.</p>
-</section>
+<p>A <em>probability measure</em> is a measure <span class="math inline">P</span> on a set <span class="math inline">\Omega</span> with <span class="math inline">P(E)\ge0</span>, <span class="math inline">E\subseteq\Omega</span>, and <span class="math inline">P(\Omega) = 1</span>.</p>
+<p>If <span class="math inline">\Omega</span> is countable we can define a probability measure by specifying <span class="math inline">p_\omega = P(\{\omega\})</span> for <span class="math inline">\omega\in\Omega</span>. Note <span class="math inline">p_\omega\ge 0</span> and <span class="math inline">\sum_{\omega\in\Omega} p_\omega = 1</span>. The probability of the event <span class="math inline">E\subseteq\Omega</span> is <span class="math inline">P(E) = \sum_{\omega\in E} p_\omega</span>.</p>
 </section>
 <section id="random-variable" class="level2">
 <h2>Random Variable</h2>
-<p>A <em>random variable</em> is a symbol that can be used in place of a number when manipulating equations and inequalities with with additional information about the probability of the values it can take on.</p>
-<p>The mathematical definition of a random variable is a function <span class="math inline">X\colon\Omega\to\mathbf{R}</span>. Its <em>cumulative distribution function</em> is <span class="math inline">F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})</span>. More generally, given a subset <span class="math inline">A\subseteq\mathbf{R}</span> the probability that <span class="math inline">X</span> takes a value in <span class="math inline">X</span> is <span class="math inline">P(X\in A) = P(\{\omega\in\Omega\}\mid X(\omega\in A))\}</span>.</p>
-<p>Two random variables have the same <em>law</em> if they have the same cdf.</p>
+<p>A <em>random variable</em> on a probability space <span class="math inline">\langle\Omega,P\rangle</span> is a function <span class="math inline">X\colon\Omega\to\mathbf{R}</span>. Its <em>cumulative distribution function</em> is <span class="math inline">F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})</span>. More generally, given a subset <span class="math inline">A\subseteq\mathbf{R}</span> the probability that <span class="math inline">X</span> takes a value in <span class="math inline">X</span> is <span class="math inline">P(X\in A) = P(\{\omega\in\Omega\}\mid X(\omega\in A))\}</span>. Two random variables have the same <em>law</em> if they have the same cdf.</p>
+<p>Random variables are symbols that can be used in place of a number when manipulating equations and inequalities with with additional information about the probability of the values it can take on.</p>
 <p>The cdf tells you everything there is to know about the probability of the values the random variable can take on. For example, <span class="math inline">P(a &lt; X \le b) = F(b) - F(a)</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">P(a\le X\le b) = \lim_{x\uparrow a} F(b) - F(x)</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">[a,b] = \cap_n (a - 1/n, b]</span>.</p>
+<p><em>Hint</em>: <span class="math inline">[a,b] = \cap_n (a - 1/n, b]</span>. Note <span class="math inline">\cup_n (-\infty,x - 1/n] = (-\infty,x) \not= (-\infty,x]</span>. The sequence <span class="math inline">F(x - 1/n)</span> is non-decreasing and bounded by <span class="math inline">F(x)</span> so it has a limit, but not necessarily <span class="math inline">F(x)</span>.</p>
 <p>In general <span class="math inline">P(X\in A) = \int_A dF(x)</span> for sufficiently nice subsets <span class="math inline">A\subset\mathbf{R}</span> where we are using <a href="https://mathworld.wolfram.com/StieltjesIntegral.html">Riemann–Stieltjes</a> integration.</p>
+<p>Every cdf is non-decreasing, continuous from the right, has left limits, and <span class="math inline">\lim_{x\to-\infty}F(x) = 0</span>, <span class="math inline">\lim_{x\to+\infty}F(x) = 1</span>. Any function with these properties is the cdf of a random variable.</p>
 <p><strong>Exercise</strong>: <em>Show for any cumulative distribution function <span class="math inline">F</span> that <span class="math inline">F(x) \le F(y)</span> if <span class="math inline">x &lt; y</span>, <span class="math inline">\lim_{x\to -\infty} F(x) = 0</span>, <span class="math inline">\lim_{x\to\infty} F(x) = 1</span>, and <span class="math inline">F</span> is right continuous with left limits</em>.</p>
 <p><em>Hint</em>: For right continuity use <span class="math inline">(-\infty, x] = \cap_n (-\infty, x + 1/n]</span>.</p>
-<p>The cdf <span class="math inline">F(x) = \max\{0,\min\{1,x\}\}</span> defines the uniformly distributed random variable, <span class="math inline">U</span>, on the interval <span class="math inline">[0,1]</span>. For <span class="math inline">0\le a &lt; b\le 1</span>, <span class="math inline">P(a &lt; U \le b) = P(U\in (a,b]) = b - a</span> and <span class="math inline">P(U &lt; 0) = 0 = P(U &gt; 1)</span>.</p>
+<p>The distribution of a <em>uniformly distributed</em> random variable on <span class="math inline">[0,1]</span>, <span class="math inline">U</span>, is <span class="math inline">F(x) = x</span> if <span class="math inline">0\le x\le 1</span>, <span class="math inline">F(x) = 0</span> if <span class="math inline">x &lt; 0</span>, and <span class="math inline">F(x) = 1</span> if <span class="math inline">x &gt; 1</span>. In this case <span class="math inline">P(X\in(a, b]) = b - a</span> for <span class="math inline">0\le a \le b\le 1</span> and <span class="math inline">P(U &lt; 0) = 0 = P(U &gt; 1)</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> has cdf <span class="math inline">F</span>, then <span class="math inline">X</span> and <span class="math inline">F^{-1}(U)</span> have the same law</em>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> has cdf <span class="math inline">F</span>, then <span class="math inline">F(X)</span> and <span class="math inline">U</span> have the same law</em>.</p>
+<p>If <span class="math inline">F(x)</span> jumps from <span class="math inline">a</span> to <span class="math inline">b</span> at <span class="math inline">x = c</span> we define <span class="math inline">F^{-1}(u) = c</span> for <span class="math inline">a \le u &lt; b</span>.</p>
 <p>This shows a uniformly distributed random variable has sufficient randomness to generate any random variable. There are no random, random variables.</p>
 <p>Given a cdf <span class="math inline">F</span> we can define a random variable having that distribution using the identity function <span class="math inline">X\colon\mathbf{R}\to\mathbf{R}</span>, where <span class="math inline">X(x) = x</span>. Let <span class="math inline">P</span> be the probability measure on <span class="math inline">\mathbf{R}</span> defined by <span class="math inline">P(A) = \int_A dF(x)</span>.</p>
 <p>The mathematical definition is more flexible than defining a random variable by its cumulative distribution function.</p>
 <section id="continuous-random-variable" class="level3">
 <h3>Continuous Random Variable</h3>
-<p>If <span class="math inline">F(x) = \int_{-\infty}^x F&#39;(u)\,du</span> we say the random variable is <em>continuously distributed</em>. The <em>density function</em> is <span class="math inline">f = F&#39;</span>. Any function satisfying <span class="math inline">f\ge 0</span> and <span class="math inline">\int_\mathbf{R} f(x)\,dx = 1</span> is a density function for a random variable.</p>
+<p>If the cdf satisfies <span class="math inline">F(x) = \int_{-\infty}^x F&#39;(u)\,du</span> we say the random variable is <em>continuously distributed</em>. The <em>density function</em> is <span class="math inline">f = F&#39;</span>. Any function satisfying <span class="math inline">f\ge 0</span> and <span class="math inline">\int_\mathbf{R} f(x)\,dx = 1</span> is a density function for a random variable.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> is continuously distributed show <span class="math inline">P(a &lt; X \le b) = P(a \le X \le b) = P(a \le X &lt; b) = P(a \le X \le b)</span></em>.</p>
 </section>
 <section id="discrete-random-variable" class="level3">
 <h3>Discrete Random Variable</h3>
-<p>If <span class="math inline">dF = \sum_{\omega\in\Omega} p_\omega \delta_\omega</span> where <span class="math inline">\Omega\subseteq\mathbf{R}</span> is countable we say the random variable is <em>discretely distributed</em>. Here <span class="math inline">\delta_\omega</span> is the <em>delta function</em> with unit mass at <span class="math inline">\omega</span> defined by <span class="math inline">\int_{\mathbf{R}} f(x) \delta_\omega\,dx = f(\omega)</span> when <span class="math inline">f</span> is continuous at <span class="math inline">\omega</span>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">H_\omega(x) = 0</span> for <span class="math inline">\omega &lt; x</span> and <span class="math inline">H_\omega(x) = 1</span> for <span class="math inline">\omega\ge x</span> then <span class="math inline">f(\omega) = \int_{\mathbf{R}} f(x)\,dH_\omega(x)</span> when <span class="math inline">f</span> is continuous</em>.</p>
-<p>Using this more precise notation, <span class="math inline">F = \sum_{\omega\in\Omega} p_\omega H_\omega</span>.</p>
+<p>If the set <span class="math inline">\{\omega\in\Omega\mid X(\omega) \not= 0, P(\{\omega\}) \not=0\}</span> is countable then <span class="math inline">X</span> is <em>discretely distributed</em>. If the non-zero values are <span class="math inline">\{x_j\}</span> occuring at <span class="math inline">\{\omega_j\}</span> then <span class="math inline">p_j = P(\{\omega_j\})</span> determine <span class="math inline">X</span>.</p>
 </section>
 <section id="expected-value" class="level3">
 <h3>Expected Value</h3>
-<p>The <em>expected value</em> of a random variable is defined by <span class="math inline">E[X] = \int_\Omega X\,dP</span>. More generally, the expected value of any function <span class="math inline">f\colon\bm{R}\to\bm{R}</span> of a random variable is <span class="math inline">E[f(X)] = \int_\Omega f(X)\,dP</span> where <span class="math inline">f(X)\colon\Omega\to\bm{R}</span> via <span class="math inline">f(X)(\omega) = f(X(\omega))</span>, <span class="math inline">\omega\in\Omega</span>.</p>
-<p>The <em>moments</em> of a random variable are <span class="math inline">m_n = E[X^n]</span> where <span class="math inline">n</span> is a positive integer. The <em>moment generating function</em> is <span class="math inline">M(s) = E[e^{sX}] = \sum_{n=0}^\infty m_n s^n/n!</span>. Its natural logarithm is the <em>cumulant</em> <span class="math inline">\kappa(s) = \log E[e^sX]</span>.</p>
-<p>The <em>variance</em> of the random variable <span class="math inline">X</span> is <span class="math inline">\operatorname{Var}(X) = E[(X - E[X])^2]= E[X^2] - E[X]^2</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\kappa&#39;(0) = E[X]</span> and <span class="math inline">\kappa&#39;&#39;(0) = \operatorname{Var}(X)</span></em>.</p>
+<p>The <em>expected value</em> of a random variable is defined by <span class="math inline">E[X] = \int_\Omega X\,dP</span>. More generally, the expected value of a function <span class="math inline">f\colon\bm{R}\to\bm{R}</span> of a random variable is <span class="math inline">E[f(X)] = \int_\Omega f(X)\,dP</span> where <span class="math inline">f(X)\colon\Omega\to\bm{R}</span> via <span class="math inline">f(X)(\omega) = f(X(\omega))</span>, <span class="math inline">\omega\in\Omega</span>.</p>
+<p>The <em>variance</em> of a random variable <span class="math inline">X</span> is <span class="math inline">\operatorname{Var}(X) = E[(X - E[X])^2]= E[X^2] - E[X]^2</span>.</p>
 <p><strong>Lemma</strong>. (Chebyshev) <em>If <span class="math inline">f</span> is non-negative then <span class="math inline">P(f(X) &gt; \lambda) \le E[f(X)]/\lambda</span></em>.</p>
 <p><em>Proof</em>. We have <span class="math inline">E[f(X)] \le E[f(X)1(f(X) &gt; \lambda) \le \lambda P(f(X) &gt; \lambda)</span>.</p>
-<p>An immediate corollaries are <span class="math inline">P(X &gt; \lambda) \le E[|X|]/\lambda</span> and <span class="math inline">P(|X - E[X]| &gt; \lambda) \le \mathrm{Var}(X)/\lambda^2</span>.</p>
+<p>An immediate corollaries are <span class="math inline">P(|X| &gt; \lambda) \le E[|X|]/\lambda</span> and <span class="math inline">P(|X - E[X]| &gt; \lambda) \le \mathrm{Var}(X)/\lambda^2</span>.</p>
 </section>
+<section id="moments" class="level3">
+<h3>Moments</h3>
+<p>The <em>moments</em> of a random variable are <span class="math inline">m_n = E[X^n]</span> where <span class="math inline">n</span> is a non-negative integer. The <em>moment generating function</em> is <span class="math inline">M(s) = E[e^{sX}] = \sum_{n=0}^\infty m_n s^n/n!</span>. Note <span class="math inline">M^{(n)}(0) = m_n</span>.</p>
+<p>Moments don’t necessarily exist for all <span class="math inline">n</span>, except for <span class="math inline">n = 0</span>. They also cannot be an arbitrary sequence of values.</p>
+<p>Suppose all moments of <span class="math inline">X</span> exist, then for any complex numbers, <span class="math inline">(c_i)</span>, <span class="math inline">0 \le E|\sum_i c_i X^i|^2 = E\sum_{j,k} c_j\bar{c_k} X^{j+k} = \sum_{j,k} c_j \bar{c_k} m_{j+k}</span>. This says the Hankel matrix, <span class="math inline">M = [m_{j+k}]_{j,k}</span>, is positive definite. The converse is also true: if the Hankel matrix is positive definite there exists a random variable with the corresponding moments. This is not a trivial result and the random variable might not be unique.</p>
+<p>% Dunford Schwartz Volume 2 pg 1251. % Extending unbounded symmetric operators. Deficiency index.</p>
 </section>
-<section id="joint-distribution" class="level2">
-<h2>Joint Distribution</h2>
-<p>Two random variables, <span class="math inline">X</span> and <span class="math inline">Y</span>, are defined by their <em>joint distribution</em>, <span class="math inline">H(x,y) = P(X\le x, Y\le y)</span>. For example, the point <span class="math inline">(X,Y)</span> is in the square <span class="math inline">(a,b]\times (c,d]</span> with probability <span class="math inline">P(a &lt; X \le b, c &lt; Y \le d) = P(X \le b, Y \le d) - P(X \le a) - P(Y \le c) + P(X \le a, Y \le c)</span>.</p>
-<p>The <em>marginal distbutions</em> are <span class="math inline">F(x) = H(x,\infty)</span> and <span class="math inline">G(y) = H(\infty,y)</span>, where <span class="math inline">F</span> and <span class="math inline">G</span> are the cumulative distributions of <span class="math inline">X</span> and <span class="math inline">Y</span> respectively.</p>
-<p>In general, the joint distribution of <span class="math inline">X_1</span>, , <span class="math inline">X_n</span> is <span class="math inline">F(x_1,\ldots,x_n) = P(X_1\le x_1,\ldots, X_n\le x_n</span>).</p>
+<section id="cumulant" class="level3">
+<h3>Cumulant</h3>
+<p>The <em>cumulant</em> of <span class="math inline">X</span> is the natural logarithm of its moment generating function <span class="math inline">\kappa(s) = \log E[e^sX]</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">κ_X(0) = 0</span>, <span class="math inline">κ_X&#39;(0) = E[X]</span>, and <span class="math inline">κ_X&#39;&#39;(0) = \operatorname{Var}(X)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">c</span> is a constant then <span class="math inline">κ_{c + X}(s) = cs + κ_X(s)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">c</span> is a constant then <span class="math inline">κ_{cX}(s) = κ_X(cs)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">X</span> and <span class="math inline">Y</span> are independent then <span class="math inline">κ_{X + Y}(s) = κ_X(s) + κ_Y(s)</span></em>.</p>
+<p>The <em>cumulants</em> <span class="math inline">(κ_n)</span> are the coefficients of the power series expansion <span class="math inline">κ(s) = \sum_{n&gt;0}κ_n s^n/n!</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">κ_1 = E[X]</span> and <span class="math inline">κ_2 = \mathrm{Var}(X)</span></em>.</p>
+<p>The third and fourth cumulants are related to skew and kurtosis. If the variance is 1, then <span class="math inline">κ_3</span> is the skew and <span class="math inline">κ_4</span> is the <a href="https://en.wikipedia.org/wiki/Kurtosis#Excess_kurtosis">excess kurtosis</a>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">κ_1(c + X) = c + κ_1(X)</span> and <span class="math inline">κ_n(c + X) = κ_n(X)</span>, <span class="math inline">n \ge 2</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">κ_n(cX) = c^n κ_n(X)</span> for all <span class="math inline">n</span></em>, <span class="math inline">n\ge 1</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">X</span> and <span class="math inline">Y</span> are independent <span class="math inline">κ_n(X + Y) = κ_n(X) + κ_n(Y)</span> for all <span class="math inline">n</span></em>.</p>
+<p>The moments of <span class="math inline">X</span>, <span class="math inline">\mu_n = E[X^n]</span> are related to the cumulants via complete Bell polynomials <span class="math inline">B_n(κ_1,\ldots,κ_n)</span>. <span class="math display">
+    E[e^{sX}] = \sum_{n\ge0} \mu_n s^n/n! = e^{κ(s)} = e^{\sum_{n&gt;0} κ_n s^n/n!}
+    = \sum_{n\ge0} B_n(κ_1,\ldots,κ_n) s^n/n!
+</span> Taking a derivative with respect to <span class="math inline">s</span> of the last equality gives the recurrence formula <span class="math display">
+    B_0 = 1, B_{n+1}(κ_1,\ldots,κ_{n+1})
+        = \sum_{k = 0}^n \binom{n}{k} B_{n - k}(κ_1,\ldots,κ_{n-k})κ_{k + 1}, n &gt; 0.
+</span></p>
+<p>The cumulants are related to the moments via partial Bell polynomials <span class="math inline">B_{n,k}(\mu_1,\ldots,\mu_{n - k - 1}</span> <span class="math display">
+    κ_n = \sum_{k=0}^{n-1} (-1)^k k! B_{n,k+1}(\mu_1,\ldots,\mu_{n - k})
+</span> where <span class="math inline">(B_{n,k})</span> are partial Bell polynomials satisfying the recurrence <span class="math inline">B_{0,0} = 1</span>, <span class="math inline">B_{n,0} = 0</span> for <span class="math inline">n &gt; 0</span>, <span class="math inline">B_{0,k} = 0</span> for <span class="math inline">k &gt; 0</span> and <span class="math display">
+    B_{n,k}(x_1,\ldots,x_{n - k + 1})
+        = \sum_{i=1}^{n-k+1}\binom{n-1}{i - 1} B_{n-i,k-1}(x_1,\ldots,x_{n - i - k + 2})x_i
+</span></p>
 <!--
+
+## Joint Distribution
+
+Two random variables, $X$ and $Y$, are defined by their _joint
+distribution_, $H(x,y) = P(X\le x, Y\le y)$.  For example, the point $(X,Y)$ is
+in the square $(a,b]\times (c,d]$ with probability
+$P(a < X \le b, c < Y \le d) = P(X \le b, Y \le d) - P(X \le a) - P(Y \le c) + P(X \le a, Y \le c)$.
+
+The _marginal distbutions_ are $F(x) = H(x,\infty)$ and $G(y) =  H(\infty,y)$,
+where $F$ and $G$ are the cumulative distributions of $X$ and $Y$ respectively.
+
+In general, the joint distribution of $X_1$, \ldots, $X_n$ is
+$F(x_1,\ldots,x_n) = P(X_1\le x_1,\ldots, X_n\le x_n$).
+
+
+### Partition
+
+A _partition_ splits a sample space into disjoint subsets with union
+equal to the sample space. Partitions are how _partial information_
+is represented.  The elements of the partition are called _atoms_. The
+way paritions represent partial information is you only know what atom an
+outcome belongs to, not the exact outcome.
+Complete information corresponds to the _finest_ partiion of singletons
+$\{\{\omega\}\mid \omega\in\Omega\}$.
+No information corresponds to the _coarsest_ partition $\{\Omega\}$.
+
+Partitions define an _equivalence relation_ on outcomes. We say $\omega\sim\omega'$
+if and only if they belong to the same atom.
+
+__Exercise__. _Show $\omega\sim\omega$, $\omega\sim\omega'$ implies $\omega'\sim\omega$,
+and $\omega\sim\omega'$, $\omega'\sim\omega''$ implies $\omega\sim\omega''$_.
+
+This is the definition of an equivalence relation. It is the mathematical way
+of saying two things are the "same" even if they are not equal.
+
+An _algebra_ of sets on $\Omega$ is a collection of subsets of $\Omega$
+that contains the empty set and is closed under complement and finite
+union. Closure under complements imples $\Omega$ belongs to the algebra
+and De Morgan's Laws imply it is also close under finite intersection.
+
+An element $A\subseteq S$ is an _atom_ of the algebra if $B\subseteq A$ and
+$B$ in the algebra imply $B$ is either the empty set or equals $A$.
+
+__Exercise__. _If an algebra is finite its atoms form a partition and the
+smallest algebra containing the partition is equal to the algebra_.
+
+A function is _measurable_ with respect to an algebra if the preimage
+of every interval belongs to the algebra.
+
+__Exercise__. _If an algebra is finite then a function is measurable if and
+only if it is constant on atoms_.
+
+In this case, it is a function on the atoms of the algebra.
+
+
 
 ## Examples
 
@@ -196,73 +263,6 @@ when the algebra has a finite number of elements._
 
 In this case we can write $X\colon\mathcal{A}\to\mathbf{R}$ as a function on the
 atoms of $\mathcal{A}$.
-
-### Moments
-
-The _moments_ of a random variable, $X$, are $m_n = E[X^n]$, $n = 0,1,2,\ldots$.
-They don't necessarily exist for all $n$, except for $n = 0$.
-They also cannot be an arbitrary sequence of values.
-
-Suppose all moments of $X$ exist, then for any complex numbers,
-$(c_i)$, $0 \le E|\sum_i c_i X^i|^2 = E\sum_{j,k} c_j\bar{c_k} X^{j+k}
-= \sum_{j,k} c_j \bar{c_k} m_{j+k}$.  This says the Hankel matrix, $M =
-[m_{j+k}]_{j,k}$, is positive definite.  The converse is also true: if
-the Hankel matrix is positive definite there exists a random variable
-with the corresponding moments.  This is not a trivial result and the
-random variable might not be unique.
-
-% Dunford Schwartz Volume 2 pg 1251.
-% Extending unbounded symmetric operators. Deficiency index.
- 
-### Cumulant
-
-The _cumulant_ of the random variable $X$ is $κ(s) = κ_X(s) = \log E\exp(sX)$.
-
-__Exercise__. _Show $κ_X(0) = 0$, $κ_X'(0) = E[X]$, and $κ_X''(0) = \Var(X)$_.
-
-__Exercise__. _Show if $c$ is a constant then $κ_{c + X}(s) = cs + κ_X(s)$_.
-
-__Exercise__. _Show if $c$ is a constant then $κ_{cX}(s) = κ_X(cs)$_.
-
-__Exercise__. _Show if $X$ and $Y$ are independent then $κ_{X + Y}(s) = κ_X(s) + κ_Y(s)$_.
-
-The _cumulants_ $(κ_n)$ are the coefficients of the power series expansion
-$κ(s) = \sum_{n>0}κ_n s^n/n!$.
-
-__Exercise__. _Show $κ_1 = E[X]$ and $κ_2 = \mathrm{Var}(X)$_.
-
-The third and fourth cumulants are related to skew and kurtosis.
-If the variance is 1, then $κ_3$ is the skew and $κ_4$ is the
-[excess kurtosis](https://en.wikipedia.org/wiki/Kurtosis#Excess_kurtosis).
-
-__Exercise__. _Show $κ_1(c + X) = c + κ_1(X)$ and  $κ_n(c + X) = κ_n(X)$, $n \ge 2$_.
-
-__Exercise__. _Show $κ_n(cX) = c^n κ_n(X)$ for all $n$_, $n\ge 1$.
-
-__Exercise__. _Show if $X$ and $Y$ are independent $κ_n(X + Y) = κ_n(X) + κ_n(Y)$ for all $n$_.
-
-The _moments_ of $X$, $\mu_n = E[X^n]$ are related
-to the cumulants via complete Bell polynomials $B_n(κ_1,\ldots,κ_n)$.
-$$
-    E[e^{sX}] = \sum_{n\ge0} \mu_n s^n/n! = e^{κ(s)} = e^{\sum_{n>0} κ_n s^n/n!}
-    = \sum_{n\ge0} B_n(κ_1,\ldots,κ_n) s^n/n!
-$$
-Taking a derivative with respect to $s$ of the last equality gives the recurrence formula
-$$
-    B_0 = 1, B_{n+1}(κ_1,\ldots,κ_{n+1})
-        = \sum_{k = 0}^n \binom{n}{k} B_{n - k}(κ_1,\ldots,κ_{n-k})κ_{k + 1}, n > 0.
-$$
-
-The cumulants are related to the moments via partial Bell polynomials $B_{n,k}(\mu_1,\ldots,\mu_{n - k - 1}$
-$$
-    κ_n = \sum_{k=0}^{n-1} (-1)^k k! B_{n,k+1}(\mu_1,\ldots,\mu_{n - k})
-$$
-where $(B_{n,k})$ are partial Bell polynomials satisfying the recurrence
-$B_{0,0} = 1$, $B_{n,0} = 0$ for $n > 0$, $B_{0,k} = 0$ for $k > 0$ and
-$$
-    B_{n,k}(x_1,\ldots,x_{n - k + 1})
-        = \sum_{i=1}^{n-k+1}\binom{n-1}{i - 1} B_{n-i,k-1}(x_1,\ldots,x_{n - i - k + 2})x_i
-$$
 
 !!! use more recent recurrence
 
@@ -581,6 +581,7 @@ For any $\epsilon > 0$ there exists $n$ such that $\sum_{k > n} P(E_k) < \epsilo
 since the infinite sum converges to a finite value. 
 
 -->
+</section>
 </section>
 </section>
 <footer>

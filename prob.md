@@ -5,7 +5,7 @@ institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
 fleqn: true
-abstract: Random Variables
+abstract: Probability Theory
 ...
 
 \newcommand\RR{\bm{R}}
@@ -14,21 +14,19 @@ abstract: Random Variables
 # Probability Theory
 
 A _random variable_ is a function on a _probability space_.  A probability
-space is a set of _outcomes_, $\Omega$, and a set function $P$ from
-_events_, subsets of $\Omega$, to numbers between 0 and 1 that satisfies
-$P(E\cup F) = P(E) + P(F) - P(E\cap F)$ for $E,F\subseteq\Omega$
-and $P(\emptyset) = 0$.
+space is a set of _outcomes_, $\Omega$, and a _probability measure_
+on $\Omega$.
 
 ## Measure
 
-A _measure_ is a set function on subets of $S$ taking values in the real numbers
-$\mu\colon\mathcal{P}(S)\to\RR$ that satisfies
-$\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)$ for $E,F\subseteq\Omega$
-and $\mu(\emptyset) = 0$ where $\mathcal{P}(S) = \{E\subseteq S\}$
-is the set of all subsets of $S$.
+A _measure_ on a set $S$ is a set function from subsets of $S$ to real numbers
+$\mu\colon\mathcal{P}(S)\to\RR$, where $\mathcal{P}(S) = \{E\subseteq S\}$
+is the set of all subsets of $S$,
+that satisfies $\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)$ for $E,F\subseteq\Omega$
+and $\mu(\emptyset) = 0$
 
 Measures don't count things twice and the measure of
-nothing is 0.
+nothing is zero.
 
 __Exercise__. _Show if $\nu(E\cup F) = \nu(E) + \nu(F) - \nu(E\cap F)$ for $E,F\subseteq S$
 then $\mu = \nu - \nu(\emptyset)$ is measure_.
@@ -81,7 +79,7 @@ The space of all (finitely additive) measures on $S$ is denoted $ba(S)$.
 Note $ba(S)$ is a vector space with $(a\mu)(E) = a\mu(E)$
 and $(\mu + \nu)(E) = \mu(E) + \nu(E)$, $a\in\RR$, $E\subseteq S$.
 The _norm_ of a measure $\mu\in ba(S)$ is
-$\|\mu\| = \sup_{(E_j)} \sum_j |\mu(E_j)|$ where $(E_j)$
+$\|\mu\| = \sup_{\{E_j\}} \sum_j |\mu(E_j)|$ where $\{E_j\}$
 is any finite collection of pairwise disjoint subsets of $S$.
 
 Let $B(S)$ be the vector space of all bounded functions
@@ -123,7 +121,8 @@ Such functions are uniformly dense in $B(S)$.
 The dual pairing defines the integral $\int_S f\,d\mu = \langle f,\mu\rangle$,
 $f\in B(\Omega)$, $\mu\in ba(\Omega)$. Finitely additive measures make
 it challenging to prove theorems of the form 'If $\lim_n f_n = f$ then
-$\lim_n \int_S f_n\,d\mu = \int f\,d\mu$.'
+$\lim_n \int_S f_n\,d\mu = \int f\,d\mu$.' However, Fatou's Lemma
+does hold for positive finitely additive measures.
 
 The product of a function and a measure is a measure defined by
 $\langle f,g\mu\rangle = \langle fg,\mu\rangle$. Given measures $\mu,\nu\in ba(S)$
@@ -131,12 +130,194 @@ we say $g$ is the _Radon-Nikodym derivative_ of $\nu$ with respect to $\mu$ if $
 
 ## Probability Measure
 
-A _probability measure_ is a measure taking values in the interval $[0,1]$.
+A _probability measure_ is a measure $P$ on a set $\Omega$ with
+$P(E)\ge0$, $E\subseteq\Omega$, and $P(\Omega) = 1$.
 
-If $\Omega$ is finite we can define a probability measure by specifying
+If $\Omega$ is countable we can define a probability measure by specifying
 $p_\omega = P(\{\omega\})$ for $\omega\in\Omega$. Note $p_\omega\ge
 0$ and $\sum_{\omega\in\Omega} p_\omega = 1$.  The probability of the event
 $E\subseteq\Omega$ is $P(E) = \sum_{\omega\in E} p_\omega$.
+
+## Random Variable
+
+A _random variable_ on a probability space $\langle\Omega,P\rangle$ is
+a function $X\colon\Omega\to\mathbf{R}$. Its _cumulative
+distribution function_ is $F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})$.
+More generally, given a subset $A\subseteq\mathbf{R}$ the probability that
+$X$ takes a value in $X$ is $P(X\in A) = P(\{\omega\in\Omega\}\mid X(\omega\in A))\}$.
+Two random variables have the same _law_ if they have the same cdf.
+
+Random variables are symbols that can be used in place of a number when
+manipulating equations and inequalities with with additional information
+about the probability of the values it can take on.
+
+The cdf tells you everything there is to know about the probability of
+the values the random variable can take on. For example, $P(a < X \le b) = F(b) - F(a)$. 
+
+__Exercise__. _Show $P(a\le X\le b) = \lim_{x\uparrow a} F(b) - F(x)$_.
+
+_Hint_: $[a,b] = \cap_n (a - 1/n, b]$.
+Note $\cup_n (-\infty,x - 1/n] = (-\infty,x) \not= (-\infty,x]$.
+The sequence $F(x - 1/n)$ is non-decreasing and bounded by $F(x)$ so it
+has a limit, but not necessarily $F(x)$.
+
+In general $P(X\in A) = \int_A dF(x)$
+for sufficiently nice subsets $A\subset\mathbf{R}$ where we are using
+[Riemann–Stieltjes](https://mathworld.wolfram.com/StieltjesIntegral.html)
+integration.
+
+Every cdf is non-decreasing, continuous from the right, has left limits, and
+$\lim_{x\to-\infty}F(x) = 0$, $\lim_{x\to+\infty}F(x) = 1$.
+Any function with these properties is the cdf of a random variable.
+
+__Exercise__: _Show for any cumulative distribution function $F$ that
+$F(x) \le F(y)$ if $x < y$, $\lim_{x\to -\infty} F(x) = 0$,
+$\lim_{x\to\infty} F(x) = 1$, and $F$ is right continuous with left limits_.
+
+_Hint_: For right continuity use $(-\infty, x] = \cap_n (-\infty, x + 1/n]$.
+
+The distribution of a _uniformly distributed_ random variable on $[0,1]$, $U$,
+is $F(x) = x$ if $0\le x\le 1$, $F(x) = 0$ if $x < 0$, and $F(x) = 1$ if $x > 1$.
+In this case $P(X\in(a, b]) = b - a$ for $0\le a \le b\le 1$ and
+$P(U < 0) = 0 = P(U > 1)$.
+
+__Exercise__. _If $X$ has cdf $F$, then $X$ and $F^{-1}(U)$ have the same law_.
+
+__Exercise__. _If $X$ has cdf $F$, then $F(X)$ and $U$ have the same law_.
+
+If $F(x)$ jumps from $a$ to $b$ at $x = c$ we define $F^{-1}(u) = c$ for $a \le u < b$.
+
+This shows a uniformly distributed random variable has sufficient randomness to
+generate any random variable. There are no random, random variables.
+
+Given a cdf $F$ we can define a random variable having that distribution 
+using the identity function $X\colon\mathbf{R}\to\mathbf{R}$, where $X(x) = x$.
+Let $P$ be the probability measure on $\mathbf{R}$ defined by
+$P(A) = \int_A dF(x)$. 
+
+The mathematical definition is more flexible than defining a random variable by its
+cumulative distribution function.
+
+### Continuous Random Variable
+
+If the cdf satisfies $F(x) = \int_{-\infty}^x F'(u)\,du$ we say the random variable
+is _continuously distributed_. The _density function_ is $f = F'$.
+Any function satisfying $f\ge 0$ and $\int_\mathbf{R} f(x)\,dx = 1$
+is a density function for a random variable.
+
+__Exercise__. _If $X$ is continuously distributed show
+$P(a < X \le b) = P(a \le X \le b) = P(a \le X < b) = P(a \le X \le b)$_.
+
+### Discrete Random Variable
+
+If the set $\{\omega\in\Omega\mid X(\omega) \not= 0, P(\{\omega\}) \not=0\}$ is countable then
+$X$ is _discretely distributed_. If the non-zero values are
+$\{x_j\}$ occuring at $\{\omega_j\}$ then $p_j = P(\{\omega_j\})$ determine $X$.
+
+### Expected Value
+
+The _expected value_ of a random variable is defined by
+$E[X] = \int_\Omega X\,dP$. More generally, the expected value of
+a function $f\colon\RR\to\RR$ of
+a random variable is $E[f(X)] = \int_\Omega f(X)\,dP$
+where $f(X)\colon\Omega\to\RR$ via $f(X)(\omega) = f(X(\omega))$, $\omega\in\Omega$.
+
+The _variance_ of a random variable $X$ is $\Var(X) = E[(X - E[X])^2]= E[X^2] - E[X]^2$.
+
+
+__Lemma__. (Chebyshev) _If $f$ is non-negative then $P(f(X) > \lambda) \le E[f(X)]/\lambda$_.
+
+_Proof_. We have $E[f(X)] \le E[f(X)1(f(X) > \lambda) \le \lambda P(f(X) > \lambda)$.
+
+An immediate corollaries are $P(|X| > \lambda) \le E[|X|]/\lambda$ and
+$P(|X - E[X]| > \lambda) \le \mathrm{Var}(X)/\lambda^2$.
+
+### Moments
+
+The _moments_ of a random variable are $m_n = E[X^n]$ where $n$ is a non-negative integer.
+The _moment generating function_ is $M(s) = E[e^{sX}] = \sum_{n=0}^\infty m_n s^n/n!$.
+Note $M^{(n)}(0) = m_n$.
+
+Moments don't necessarily exist for all $n$, except for $n = 0$.
+They also cannot be an arbitrary sequence of values.
+
+Suppose all moments of $X$ exist, then for any complex numbers,
+$(c_i)$, $0 \le E|\sum_i c_i X^i|^2 = E\sum_{j,k} c_j\bar{c_k} X^{j+k}
+= \sum_{j,k} c_j \bar{c_k} m_{j+k}$.  This says the Hankel matrix, $M =
+[m_{j+k}]_{j,k}$, is positive definite.  The converse is also true: if
+the Hankel matrix is positive definite there exists a random variable
+with the corresponding moments.  This is not a trivial result and the
+random variable might not be unique.
+
+% Dunford Schwartz Volume 2 pg 1251.
+% Extending unbounded symmetric operators. Deficiency index.
+ 
+### Cumulant
+
+The _cumulant_ of $X$ is the natural logarithm of its moment
+generating function $\kappa(s) = \log E[e^sX]$.
+
+__Exercise__. _Show $κ_X(0) = 0$, $κ_X'(0) = E[X]$, and $κ_X''(0) = \Var(X)$_.
+
+__Exercise__. _Show if $c$ is a constant then $κ_{c + X}(s) = cs + κ_X(s)$_.
+
+__Exercise__. _Show if $c$ is a constant then $κ_{cX}(s) = κ_X(cs)$_.
+
+__Exercise__. _Show if $X$ and $Y$ are independent then $κ_{X + Y}(s) = κ_X(s) + κ_Y(s)$_.
+
+The _cumulants_ $(κ_n)$ are the coefficients of the power series expansion
+$κ(s) = \sum_{n>0}κ_n s^n/n!$.
+
+__Exercise__. _Show $κ_1 = E[X]$ and $κ_2 = \mathrm{Var}(X)$_.
+
+The third and fourth cumulants are related to skew and kurtosis.
+If the variance is 1, then $κ_3$ is the skew and $κ_4$ is the
+[excess kurtosis](https://en.wikipedia.org/wiki/Kurtosis#Excess_kurtosis).
+
+__Exercise__. _Show $κ_1(c + X) = c + κ_1(X)$ and  $κ_n(c + X) = κ_n(X)$, $n \ge 2$_.
+
+__Exercise__. _Show $κ_n(cX) = c^n κ_n(X)$ for all $n$_, $n\ge 1$.
+
+__Exercise__. _Show if $X$ and $Y$ are independent $κ_n(X + Y) = κ_n(X) + κ_n(Y)$ for all $n$_.
+
+The moments of $X$, $\mu_n = E[X^n]$ are related
+to the cumulants via complete Bell polynomials $B_n(κ_1,\ldots,κ_n)$.
+$$
+	E[e^{sX}] = \sum_{n\ge0} \mu_n s^n/n! = e^{κ(s)} = e^{\sum_{n>0} κ_n s^n/n!}
+	= \sum_{n\ge0} B_n(κ_1,\ldots,κ_n) s^n/n!
+$$
+Taking a derivative with respect to $s$ of the last equality gives the recurrence formula
+$$
+	B_0 = 1, B_{n+1}(κ_1,\ldots,κ_{n+1})
+		= \sum_{k = 0}^n \binom{n}{k} B_{n - k}(κ_1,\ldots,κ_{n-k})κ_{k + 1}, n > 0.
+$$
+
+The cumulants are related to the moments via partial Bell polynomials $B_{n,k}(\mu_1,\ldots,\mu_{n - k - 1}$
+$$
+	κ_n = \sum_{k=0}^{n-1} (-1)^k k! B_{n,k+1}(\mu_1,\ldots,\mu_{n - k})
+$$
+where $(B_{n,k})$ are partial Bell polynomials satisfying the recurrence
+$B_{0,0} = 1$, $B_{n,0} = 0$ for $n > 0$, $B_{0,k} = 0$ for $k > 0$ and
+$$
+	B_{n,k}(x_1,\ldots,x_{n - k + 1})
+		= \sum_{i=1}^{n-k+1}\binom{n-1}{i - 1} B_{n-i,k-1}(x_1,\ldots,x_{n - i - k + 2})x_i
+$$
+
+<!--
+
+## Joint Distribution
+
+Two random variables, $X$ and $Y$, are defined by their _joint
+distribution_, $H(x,y) = P(X\le x, Y\le y)$.  For example, the point $(X,Y)$ is
+in the square $(a,b]\times (c,d]$ with probability
+$P(a < X \le b, c < Y \le d) = P(X \le b, Y \le d) - P(X \le a) - P(Y \le c) + P(X \le a, Y \le c)$.
+
+The _marginal distbutions_ are $F(x) = H(x,\infty)$ and $G(y) =  H(\infty,y)$,
+where $F$ and $G$ are the cumulative distributions of $X$ and $Y$ respectively.
+
+In general, the joint distribution of $X_1$, \ldots, $X_n$ is
+$F(x_1,\ldots,x_n) = P(X_1\le x_1,\ldots, X_n\le x_n$).
+
 
 ### Partition
 
@@ -177,116 +358,7 @@ only if it is constant on atoms_.
 
 In this case, it is a function on the atoms of the algebra.
 
-## Random Variable
 
-A _random variable_ is a symbol that can be used in place of a number when
-manipulating equations and inequalities with with additional information
-about the probability of the values it can take on.
-
-The mathematical definition of a random variable is
-a function $X\colon\Omega\to\mathbf{R}$. Its _cumulative
-distribution function_ is $F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})$.
-More generally, given a subset $A\subseteq\mathbf{R}$ the probability that
-$X$ takes a value in $X$ is $P(X\in A) = P(\{\omega\in\Omega\}\mid X(\omega\in A))\}$.
-
-Two random variables have the same _law_ if they have the same cdf.
-
-The cdf tells you everything there is to know about the probability of
-the values the random variable can take on. For example, $P(a < X \le b) = F(b) - F(a)$. 
-
-__Exercise__. _Show $P(a\le X\le b) = \lim_{x\uparrow a} F(b) - F(x)$_.
-
-_Hint_: $[a,b] = \cap_n (a - 1/n, b]$.
-
-In general $P(X\in A) = \int_A dF(x)$
-for sufficiently nice subsets $A\subset\mathbf{R}$ where we are using
-[Riemann–Stieltjes](https://mathworld.wolfram.com/StieltjesIntegral.html)
-integration.
-
-__Exercise__: _Show for any cumulative distribution function $F$ that
-$F(x) \le F(y)$ if $x < y$, $\lim_{x\to -\infty} F(x) = 0$,
-$\lim_{x\to\infty} F(x) = 1$, and $F$ is right continuous with left limits_.
-
-_Hint_: For right continuity use $(-\infty, x] = \cap_n (-\infty, x + 1/n]$.
-
-The cdf $F(x) = \max\{0,\min\{1,x\}\}$ defines the uniformly distributed
-random variable, $U$, on the interval $[0,1]$.  For $0\le a < b\le 1$,
-$P(a < U \le b) = P(U\in (a,b]) = b - a$ and $P(U < 0) = 0 = P(U > 1)$.
-
-__Exercise__. _If $X$ has cdf $F$, then $X$ and $F^{-1}(U)$ have the same law_.
-
-__Exercise__. _If $X$ has cdf $F$, then $F(X)$ and $U$ have the same law_.
-
-This shows a uniformly distributed random variable has sufficient randomness to
-generate any random variable. There are no random, random variables.
-
-Given a cdf $F$ we can define a random variable having that distribution 
-using the identity function $X\colon\mathbf{R}\to\mathbf{R}$, where $X(x) = x$.
-Let $P$ be the probability measure on $\mathbf{R}$ defined by
-$P(A) = \int_A dF(x)$. 
-
-The mathematical definition is more flexible than defining a random variable by its
-cumulative distribution function.
-
-### Continuous Random Variable
-
-If $F(x) = \int_{-\infty}^x F'(u)\,du$ we say the random variable
-is _continuously distributed_. The _density function_ is
-$f = F'$.
-Any function satisfying $f\ge 0$ and $\int_\mathbf{R} f(x)\,dx = 1$ is a density function
-for a random variable.
-
-### Discrete Random Variable
-
-If $dF = \sum_{\omega\in\Omega} p_\omega \delta_\omega$ where $\Omega\subseteq\mathbf{R}$ is countable
-we say the random variable is _discretely distributed_. Here $\delta_\omega$ is the _delta function_
-with unit mass at $\omega$ defined by $\int_{\mathbf{R}} f(x) \delta_\omega\,dx = f(\omega)$
-when $f$ is continuous at $\omega$.
-
-__Exercise__. _Show if $H_\omega(x) = 0$ for $\omega < x$ and $H_\omega(x) = 1$ for $\omega\ge x$
-then $f(\omega) = \int_{\mathbf{R}} f(x)\,dH_\omega(x)$ when $f$ is continuous_.
-
-Using this more precise notation, $F = \sum_{\omega\in\Omega} p_\omega H_\omega$.
-
-### Expected Value
-
-The _expected value_ of a random variable is defined by
-$E[X] = \int_\Omega X\,dP$. More generally, the expected value of
-any function $f\colon\RR\to\RR$ of
-a random variable is $E[f(X)] = \int_\Omega f(X)\,dP$
-where $f(X)\colon\Omega\to\RR$ via $f(X)(\omega) = f(X(\omega))$, $\omega\in\Omega$.
-
-The _moments_ of a random variable are $m_n = E[X^n]$ where $n$ is a positive integer.
-The _moment generating function_ is $M(s) = E[e^{sX}] = \sum_{n=0}^\infty m_n s^n/n!$.
-Its natural logarithm is the _cumulant_ $\kappa(s) = \log E[e^sX]$.
-
-The _variance_ of the random variable $X$ is $\Var(X) = E[(X - E[X])^2]= E[X^2] - E[X]^2$.
-
-__Exercise__. _Show $\kappa'(0) = E[X]$ and $\kappa''(0) = \Var(X)$_.
-
-__Lemma__. (Chebyshev) _If $f$ is non-negative then $P(f(X) > \lambda) \le E[f(X)]/\lambda$_.
-
-_Proof_. We have $E[f(X)] \le E[f(X)1(f(X) > \lambda) \le \lambda P(f(X) > \lambda)$.
-
-An immediate corollaries are $P(X > \lambda) \le E[|X|]/\lambda$ and
-$P(|X - E[X]| > \lambda) \le \mathrm{Var}(X)/\lambda^2$.
-
-## Joint Distribution
-
-Two random variables, $X$ and $Y$, are defined by their _joint
-distribution_, $H(x,y) = P(X\le x, Y\le y)$.  For example, the point $(X,Y)$ is
-in the square $(a,b]\times (c,d]$ with probability
-$P(a < X \le b, c < Y \le d) = P(X \le b, Y \le d) - P(X \le a) - P(Y \le c) + P(X \le a, Y \le c)$.
-
-The _marginal distbutions_ are $F(x) = H(x,\infty)$ and $G(y) =  H(\infty,y)$,
-where $F$ and $G$ are the cumulative distributions of $X$ and $Y$ respectively.
-
-In general, the joint distribution of $X_1$, \ldots, $X_n$ is
-$F(x_1,\ldots,x_n) = P(X_1\le x_1,\ldots, X_n\le x_n$).
-
-
-
-<!--
 
 ## Examples
 
@@ -320,73 +392,6 @@ when the algebra has a finite number of elements._
 
 In this case we can write $X\colon\mathcal{A}\to\mathbf{R}$ as a function on the
 atoms of $\mathcal{A}$.
-
-### Moments
-
-The _moments_ of a random variable, $X$, are $m_n = E[X^n]$, $n = 0,1,2,\ldots$.
-They don't necessarily exist for all $n$, except for $n = 0$.
-They also cannot be an arbitrary sequence of values.
-
-Suppose all moments of $X$ exist, then for any complex numbers,
-$(c_i)$, $0 \le E|\sum_i c_i X^i|^2 = E\sum_{j,k} c_j\bar{c_k} X^{j+k}
-= \sum_{j,k} c_j \bar{c_k} m_{j+k}$.  This says the Hankel matrix, $M =
-[m_{j+k}]_{j,k}$, is positive definite.  The converse is also true: if
-the Hankel matrix is positive definite there exists a random variable
-with the corresponding moments.  This is not a trivial result and the
-random variable might not be unique.
-
-% Dunford Schwartz Volume 2 pg 1251.
-% Extending unbounded symmetric operators. Deficiency index.
- 
-### Cumulant
-
-The _cumulant_ of the random variable $X$ is $κ(s) = κ_X(s) = \log E\exp(sX)$.
-
-__Exercise__. _Show $κ_X(0) = 0$, $κ_X'(0) = E[X]$, and $κ_X''(0) = \Var(X)$_.
-
-__Exercise__. _Show if $c$ is a constant then $κ_{c + X}(s) = cs + κ_X(s)$_.
-
-__Exercise__. _Show if $c$ is a constant then $κ_{cX}(s) = κ_X(cs)$_.
-
-__Exercise__. _Show if $X$ and $Y$ are independent then $κ_{X + Y}(s) = κ_X(s) + κ_Y(s)$_.
-
-The _cumulants_ $(κ_n)$ are the coefficients of the power series expansion
-$κ(s) = \sum_{n>0}κ_n s^n/n!$.
-
-__Exercise__. _Show $κ_1 = E[X]$ and $κ_2 = \mathrm{Var}(X)$_.
-
-The third and fourth cumulants are related to skew and kurtosis.
-If the variance is 1, then $κ_3$ is the skew and $κ_4$ is the
-[excess kurtosis](https://en.wikipedia.org/wiki/Kurtosis#Excess_kurtosis).
-
-__Exercise__. _Show $κ_1(c + X) = c + κ_1(X)$ and  $κ_n(c + X) = κ_n(X)$, $n \ge 2$_.
-
-__Exercise__. _Show $κ_n(cX) = c^n κ_n(X)$ for all $n$_, $n\ge 1$.
-
-__Exercise__. _Show if $X$ and $Y$ are independent $κ_n(X + Y) = κ_n(X) + κ_n(Y)$ for all $n$_.
-
-The _moments_ of $X$, $\mu_n = E[X^n]$ are related
-to the cumulants via complete Bell polynomials $B_n(κ_1,\ldots,κ_n)$.
-$$
-	E[e^{sX}] = \sum_{n\ge0} \mu_n s^n/n! = e^{κ(s)} = e^{\sum_{n>0} κ_n s^n/n!}
-	= \sum_{n\ge0} B_n(κ_1,\ldots,κ_n) s^n/n!
-$$
-Taking a derivative with respect to $s$ of the last equality gives the recurrence formula
-$$
-	B_0 = 1, B_{n+1}(κ_1,\ldots,κ_{n+1})
-		= \sum_{k = 0}^n \binom{n}{k} B_{n - k}(κ_1,\ldots,κ_{n-k})κ_{k + 1}, n > 0.
-$$
-
-The cumulants are related to the moments via partial Bell polynomials $B_{n,k}(\mu_1,\ldots,\mu_{n - k - 1}$
-$$
-	κ_n = \sum_{k=0}^{n-1} (-1)^k k! B_{n,k+1}(\mu_1,\ldots,\mu_{n - k})
-$$
-where $(B_{n,k})$ are partial Bell polynomials satisfying the recurrence
-$B_{0,0} = 1$, $B_{n,0} = 0$ for $n > 0$, $B_{0,k} = 0$ for $k > 0$ and
-$$
-	B_{n,k}(x_1,\ldots,x_{n - k + 1})
-		= \sum_{i=1}^{n-k+1}\binom{n-1}{i - 1} B_{n-i,k-1}(x_1,\ldots,x_{n - i - k + 2})x_i
-$$
 
 !!! use more recent recurrence
 

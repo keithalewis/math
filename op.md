@@ -34,8 +34,8 @@ $\nu_s(F) = \nu(F)F/E[F]$.  If we receive $\nu_s(F)$ shares of $F$ at
 expiration we can convert those at price $F$ to $\nu(F)$ in the currency.
 
 _Share measure_ $P_s$ is defined by $dP_s/dP = F/E[F]$.
-We write $E_s[f(F)] = E[f(F)F/E[F]]$ for expectation under
-the share measure.
+We write $E_s$ for expectation under the share measure.
+Note $E_s[1] = 1$ so share measure is a probability measure.
 
 ## Parameters
 
@@ -49,23 +49,17 @@ and a mean 0 variance 1 random variable $X$.
 _Greeks_ are the derivatives of value with respect
 to forward and vol.
 
-If you prefer a different parameterization $f = f(g,t)$, $s = s(g,t)$
-the chain rule can be applied to get greeks in terms of $g$ and $t$.
+If you prefer a different parameterization, say $f = f(u,t)$, $s = s(u,t)$,
+the chain rule can be applied to get greeks in terms of $u$ and $t$.
 For example, the Black model takes $X$ to be standard normal and vol
 $s = σ \sqrt{t}$ where $σ$ is the _volatilty_ and $t$ is _time_ in
 years to expiration.  In this case $F = fe^{σ \sqrt{t} X - σ^2t/2}$
 and $∂E[\nu(F)]/∂σ = (∂E[\nu(F)]/∂s)(∂s/∂σ) = (∂E[\nu(F)]/∂s)\sqrt{t}$.
 
-### Spot
-
-It is straightforward to convert these formulas to spot values and corresponding
-spot greeks.
-If the _spot price_ of the underlying is $u$ the forward is $f = e^{rt}u$
-where $r$ is the risk-free continuously compounded interest rate and $t$ is
-the time in years to expiration. Let's let $R = e^{rt}$ so $∂f/∂u = R$.
-The underlying at expiration is $U = F$.
-
-The _spot value_ of the option is $v_0 = (1/R)E[ν(U)]$ and _spot delta_ is
+The Black-Merton/Scholes model uses _spot_ prices instead of forward.
+If a risk-free bond has realized return $R$ over the period the value of the underlying
+at expiration is $U = Rue^{sX - κ(s)}$. Since $F = U$ we have $f = Ru$.
+The _spot_ value of the option is $v_0 = (1/R)E[\nu(U)]$. We have
 $$
 \frac{∂v_0}{∂u} = \frac{1}{R} E[ν'(U)\frac{∂U}{∂u}]
 = \frac{1}{R} E[ν'(F) \frac{∂F}{∂f} \frac{∂f}{∂u}]
@@ -87,10 +81,8 @@ so $∂ε_s(x)/∂x = ε_s(x)s$
 and $∂ε_s(x)/∂s = ε_s(x)(x - κ'(s))$.
 Let $y = y(x) = fε_s(x)$. 
 The _moneyness_ of $y$ is $x = x(y) = ε_s^{-1}(y/f)
-= (\log y/f + κ(s))/s$.
-
-Using epsilon $F = fε_s(X)$ and $E_s[g(X)] = E[g(X)ε_s(X)]$
-for any measurable function $g$.
+= (\log y/f + κ(s))/s$. Note
+$F = fε_s(X)$ and $dP_s =  ε_s(X)\,dP$ is share measure.
 
 For any payoff $\nu$ the _value_ is $v = E[\nu(F)]$ and
 _delta_ is the derivative of value with respect to the forward
@@ -250,8 +242,8 @@ so $F = fe^{sX - s^2/2}$ has the same distribution.
 [Recall](cdf.html#normal) if $X$ is standard normal then $E[e^{μ + σ X}] = e^{μ + σ^2/2}$
 and $E[g(X)e^{s X - s^2/2}] = E[g(X + s)]$ for any function $g$ and $s\in\RR$.
 These formulas imply the cumulant of a standard normal is $κ(s) = s^2/2$
-so $Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)$
-and $φ_s(x) = φ(x - s)$. Note $dΦ_s(x)/ds = -φ(x - s) = -φ_s(x)$.
+and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)$.
+Note $φ_s(x) = φ(x - s)$ and $dΦ_s(x)/ds = -φ(x - s) = -φ_s(x)$.
 
 Put value is 
 $$

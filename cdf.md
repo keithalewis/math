@@ -11,51 +11,25 @@ abstract: Facts about cumulative distribution functions
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
-The _cumulative distribution function_ of a random variable $X$ is
-the probability that the random variable is less than or equal to $x$
-&ndash; $F^X(x) = F(x) = P(X\le x)$. It tells you everything there is
-to know about the random variable. 
-For example, $P(a < X \le b) = F(b) - F(a)$. 
-Although $F$ is a function it is more accurate to think of it
-as a function on sets &ndash;
-$P(X\in (a, b]) = \int_a^b dF = F(b) - F(a)$ using Riemann-Stieltjes integration.
+We collect some facts about [_random variables_](prob.html#random-variable),
+their [_cumulants_](prob.html#cumulant), and deriatives associated with these.
+These are useful for [option pricing](op.html).
 
-More generally for $E\subseteq\RR$, $P(X\in E) = E[1_E(X)] = \int 1_E(x) dF(x)$
-where $1_E(x) = 1$ if $x\in E$, $1_E(x) = 0$ if $x\not\in E$.
+## Esscher
 
-Every cdf is non-decreasing, continuous from the right, has left limits, and
-$\lim_{x\to-\infty}F(x) = 0$, $\lim_{x\to+\infty}F(x) = 1$.
-Any function with these properties is the cdf of a random variable.
-
-__Exercise__. _Prove right continuity using $\cap_n (-\infty, x + 1/n] = (-\infty, x]$_.
-
-Note $\cup_n (-\infty,x - 1/n] = (-\infty,x) \not= (-\infty,x]$.
-The sequence $F(x - 1/n)$ is non-decreasing and bounded by $F(x)$ so it
-has a limit, but not necessarily $F(x)$.
-
-The distribution of a _uniformly distributed_ random variable on $[0,1]$, $U$,
-is $F(x) = x$ if $0\le x\le 1$, $F(x) = 0$ if $x < 0$, and $F(x) = 1$ if $x > 1$.
-In this case $P(X\in(a, b]) = b - a$ for $0\le a < b\le 1$.
-
-__Exercise__ _If $X$ has cdf $F$, show $F^{-1}(U)$ has the same distribution as $X$ and
-$F(X)$ has the same distribution as $U$_.
-
-If $F(x)$ jumps from $a$ to $b$ at $x = c$ we define $F^{-1}(u) = c$ for $a \le u < b$.
-
-## Cumulant
-
-The _cumulant_ of the random variable $X$ is $κ_X(s) = κ(s) = \log E[\exp(s X)]$.
 The Esscher transform $X_s$, $s\in\RR$, of a random variable $X$
-with density $f$ has density $f_s(x) = f(x)e^{s x - κ(s)}$
-and we write $E_s$ for expectation using density $f_s$.
-Since $E[\exp(sX)] = \exp(κ(s))$ this is a probability density.
+has cdf $F_s(x) = E[1(X\le x)ε_s(X)]$, where $ε_s(x) = e^{s x - κ(s)}$,
+whenever the expected value exists.
+Note $E[ε_s(X)] = 1$ so $F_s$ is a cdf and $X_0$ and $X$ have the same law.
 
-Note $(d/ds)E[g(X)e^{s X - κ(s)}] = E[g(X)e^{s X - κ(s)}(X - κ'(s))]$ so
+We write $P_s(X\in A) = E[1_A(X)ε_s(X)] = E_s[1_A(X)]$.
+For any function $g$ we have $E_s[g(X)] = E[g(X)ε_s(X)]$.
+
+Note $(∂/∂s)E[g(X)ε_s(X)] = E[g(X)ε_s(X) (X - κ'(s))]$ so
 $$
-	\frac{d}{ds}E_s[g(X)] = E_s[g(X)(X - κ'(s))].
+	\frac{∂}{∂s}E_s[g(X)] = E_s[g(X)(X - κ'(s))].
 $$
-The cdf of $X_s$ is $F_s(x) = P_s(X\le x) = E[1(X\le x) e^{s X - κ(s)}]$
-so $dF_s(x)/ds =  E[1(X\le x) e^{s X - κ(s)}(X - κ'(s))]$.
+In particular, $∂F_s(x)/∂s =  E_s[1(X\le x) (X - κ'(s))]$.
 
 ## Distributions
 
@@ -67,8 +41,6 @@ If $X$ is discrete with $P(X = x_j) = p_j$ then
 $F(x) = \sum_j 1(x\le x_j) p_j$ and $f(x) = \sum_j δ_{x_j}(x) p_j$
 where $δ_a$ is the _delta function_, or _point mass_, at $a$.
 In general, $F^{(n)}(x) = \sum_j δ_{x_j}^{(n-1)}(x) p_j$ where $\int_{\RR} g(x) δ_{a}^{(k)}\,dx = g^{(k)}(a)$.
-A delta function is not a function but we can define
-$\int_{\bm{R}} g(x) \delta_a(x) \,dx = \int_{\bm{R}} g(x) d1(x \ge a) = g(a)$ using Riemann-Stieltjes integration.
 
 The cumulant is $κ(s) = \log E[\sum_j \exp(sx_j) p_j]$.
 
@@ -112,11 +84,7 @@ Hint: $N_1, \ldots$ are jointly normal if and only if
 they are linear combinations of independent standard normals.
 
 The cumulant is $κ(s) = \log E[\exp(sX)] = s^2/2$ so $κ_2 = 1$ and all other
-cumulants are zero. The transformed cdf is
-$Φ_s(x) = P_s(X\le x) = E[1(X\le x) e^{sX - s^2/2}] = P(X + s\le x) = Φ(x - s)$
-so $dΦ_s(x)/ds = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s)$.
-
-In particular
+cumulants are zero. We also have
 $$
 	E[\exp(s X - s^2/2)g(X)] = E[g(X + s)].
 $$
@@ -125,6 +93,10 @@ $$
 	E[\exp(s X - s^2/2)(X - s)g(X)] = E[g'(X + s)].
 $$
 so $E[X g(X)] = E[g'(X)]$ when $s = 0$.
+
+The transformed cdf is
+$Φ_s(x) = P_s(X\le x) = E[1(X\le x) e^{sX - s^2/2}] = P(X + s\le x) = Φ(x - s)$
+so $∂Φ_s(x)/∂s = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s)$.
 
 ### Poisson
 
