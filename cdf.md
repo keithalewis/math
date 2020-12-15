@@ -37,8 +37,11 @@ We gather some facts about the distributions and cumulants of particular random 
 
 ### Discrete
 
-If $X$ is discrete with $P(X = x_j) = p_j$ then
-$F(x) = \sum_j 1(x\le x_j) p_j$ and $f(x) = \sum_j δ_{x_j}(x) p_j$
+A discrete random variable is defined by the values it can have, $\{x_j\}$, and
+the probability it takes on those values, $P(X = x_j) = p_j$,
+where $p_j > 0$ and $\sum_j p_j = 1$.
+
+It has cdf $F(x) = \sum_j 1(x\le x_j) p_j$ and density $f(x) = \sum_j δ_{x_j}(x) p_j$
 where $δ_a$ is the _delta function_, or _point mass_, at $a$.
 In general, $F^{(n)}(x) = \sum_j δ_{x_j}^{(n-1)}(x) p_j$ where $\int_{\RR} g(x) δ_{a}^{(k)}\,dx = g^{(k)}(a)$.
 
@@ -47,8 +50,7 @@ The cumulant is $κ(s) = \log E[\sum_j \exp(sx_j) p_j]$.
 ### Normal
 
 The standard normal random variable $X$ has density $φ(x) = \exp(-x^2/2)/\sqrt{2\pi}$,
-$-\infty < x < \infty$,
-and cumulative distribution $Φ(x) = \int_{-\infty}^x \exp(-ξ^2/2)\, dξ/\sqrt{2\pi}$.
+$-\infty < x < \infty$.
 
 The derivatives of the density are $φ^{(n)}(x) = (-1)^nφ(x)H_n(x)$ where $H_n$ are the
 Hermite polynomials. They satisfy the recurrence $H_0(x) = 1$, $H_1(x) = x$ and

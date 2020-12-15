@@ -173,7 +173,7 @@ p &amp;= E[(k - F)^+] \\
 <section id="black-model" class="level2">
 <h2>Black Model</h2>
 <p>We use the above to derive the standard Black-Scholes/Merton formulas for value and greeks. In the Black model <span class="math inline">F = fe^{σB_t - σ^2t/2}</span> where <span class="math inline">f</span> is the forward, <span class="math inline">σ</span> is the volatility, and <span class="math inline">B_t</span> is Brownian motion at time <span class="math inline">t</span>. There is really no need to drag in Brownian motion to compute an option value, we only use the fact <span class="math inline">B_t</span> is normally distributed with mean <span class="math inline">0</span> and variance <span class="math inline">t</span>. There is also no need to drag in <span class="math inline">t</span>, let <span class="math inline">s = σ\sqrt{t}</span> and <span class="math inline">X</span> be standard normal so <span class="math inline">F = fe^{sX - s^2/2}</span> has the same distribution.</p>
-<p><a href="cdf.html#normal">Recall</a> if <span class="math inline">X</span> is standard normal then <span class="math inline">E[e^{μ + σ X}] = e^{μ + σ^2/2}</span> and <span class="math inline">E[g(X)e^{s X - s^2/2}] = E[g(X + s)]</span> for any function <span class="math inline">g</span> and <span class="math inline">s\in 𝑹</span>. These formulas imply the cumulant of a standard normal is <span class="math inline">κ(s) = s^2/2</span> and <span class="math inline">Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)</span>. Note <span class="math inline">φ_s(x) = φ(x - s)</span> and <span class="math inline">dΦ_s(x)/ds = -φ(x - s) = -φ_s(x)</span>.</p>
+<p><a href="cdf.html#normal">Recall</a> if <span class="math inline">X</span> is standard normal then <span class="math inline">E[e^{μ + σ X}] = e^{μ + σ^2/2}</span> and <span class="math inline">E[g(X)e^{s X - s^2/2}] = E[g(X + s)]</span> for any function <span class="math inline">g</span> and <span class="math inline">s\in 𝑹</span>. These formulas imply the cumulant of a standard normal is <span class="math inline">κ(s) = s^2/2</span> and <span class="math inline">Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)</span>. Note <span class="math inline">φ_s(x) = φ(x - s)</span> and <span class="math inline">∂Φ_s(x)/∂s = -φ(x - s) = -φ_s(x)</span>.</p>
 <p>Put value is <span class="math display">
     p = k Φ(x(k)) - f Φ(x(k) - s)
 </span> where <span class="math inline">x(k) = \log(k/f)/s + s/2</span>.</p>
@@ -188,7 +188,7 @@ p &amp;= E[(k - F)^+] \\
 <p>Vega is <span class="math display">
 \begin{aligned}
     \frac{∂v}{∂s} &amp;= -f\frac{∂}{∂s}Φ_s(x(k)) \\
-    &amp;= f(x(k) - s) = fφ_s(x(k)).
+    &amp;= fφ(x(k) - s) = fφ_s(x(k)).
 \end{aligned}
 </span></p>
 </section>

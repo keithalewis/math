@@ -57,12 +57,13 @@
 <p>We gather some facts about the distributions and cumulants of particular random variables.</p>
 <section id="discrete" class="level3">
 <h3>Discrete</h3>
-<p>If <span class="math inline">X</span> is discrete with <span class="math inline">P(X = x_j) = p_j</span> then <span class="math inline">F(x) = \sum_j 1(x\le x_j) p_j</span> and <span class="math inline">f(x) = \sum_j δ_{x_j}(x) p_j</span> where <span class="math inline">δ_a</span> is the <em>delta function</em>, or <em>point mass</em>, at <span class="math inline">a</span>. In general, <span class="math inline">F^{(n)}(x) = \sum_j δ_{x_j}^{(n-1)}(x) p_j</span> where <span class="math inline">\int_{\bm{R}} g(x) δ_{a}^{(k)}\,dx = g^{(k)}(a)</span>.</p>
+<p>A discrete random variable is defined by the values it can have, <span class="math inline">\{x_j\}</span>, and the probability it takes on those values, <span class="math inline">P(X = x_j) = p_j</span>, where <span class="math inline">p_j &gt; 0</span> and <span class="math inline">\sum_j p_j = 1</span>.</p>
+<p>It has cdf <span class="math inline">F(x) = \sum_j 1(x\le x_j) p_j</span> and density <span class="math inline">f(x) = \sum_j δ_{x_j}(x) p_j</span> where <span class="math inline">δ_a</span> is the <em>delta function</em>, or <em>point mass</em>, at <span class="math inline">a</span>. In general, <span class="math inline">F^{(n)}(x) = \sum_j δ_{x_j}^{(n-1)}(x) p_j</span> where <span class="math inline">\int_{\bm{R}} g(x) δ_{a}^{(k)}\,dx = g^{(k)}(a)</span>.</p>
 <p>The cumulant is <span class="math inline">κ(s) = \log E[\sum_j \exp(sx_j) p_j]</span>.</p>
 </section>
 <section id="normal" class="level3">
 <h3>Normal</h3>
-<p>The standard normal random variable <span class="math inline">X</span> has density <span class="math inline">φ(x) = \exp(-x^2/2)/\sqrt{2\pi}</span>, <span class="math inline">-\infty &lt; x &lt; \infty</span>, and cumulative distribution <span class="math inline">Φ(x) = \int_{-\infty}^x \exp(-ξ^2/2)\, dξ/\sqrt{2\pi}</span>.</p>
+<p>The standard normal random variable <span class="math inline">X</span> has density <span class="math inline">φ(x) = \exp(-x^2/2)/\sqrt{2\pi}</span>, <span class="math inline">-\infty &lt; x &lt; \infty</span>.</p>
 <p>The derivatives of the density are <span class="math inline">φ^{(n)}(x) = (-1)^nφ(x)H_n(x)</span> where <span class="math inline">H_n</span> are the Hermite polynomials. They satisfy the recurrence <span class="math inline">H_0(x) = 1</span>, <span class="math inline">H_1(x) = x</span> and <span class="math inline">H_{n+1}(x) = x H_n(x) - n H_{n-1}(x)</span>, <span class="math inline">n\ge 1</span>.</p>
 <p>Some useful properties are <span class="math display">
 \begin{aligned}

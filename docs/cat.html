@@ -46,10 +46,13 @@
 <blockquote>
 <p><em>Besides it is an error to believe that rigour is the enemy of simplicity. On the contrary we find it confirmed by numerous examples that the rigorous method is at the same time the simpler and the more easily comprehended. The very effort for rigor forces us to find out simpler methods of proof. — David Hilbert</em></p>
 </blockquote>
-<p>A <em>category</em> consists of <em>objects</em> and <em>arrows</em> that can sometimes be <em>composed</em>. Arrows that can be composed are <em>associative</em>. Every object has an <em>identity arrow</em>.</p>
-<p>The canonical example of a category is <span class="math inline">\mathbf{Set}</span> with objects sets and arrows functions.</p>
-<p>Every <em>poset</em> is a category with arrows <span class="math inline">a\to b</span> whenever <span class="math inline">a\preceq b</span>. The transitive and reflexive laws of posets corresponds to composition and identity arrows. The associative law follows from there being at most one arrow between any two objects. The category of all posets, <span class="math inline">\mathbf{Pos}</span>, has objects posets and arrows order preserving functions.</p>
-<p>Categories with exactly one object are in <span class="math inline">\mathbf{Mon}</span>. The identity and associative laws of categories correspond to the axioms of a monoid.</p>
+<p>A <em>category</em> consists of <em>objects</em> and <em>arrows</em> that can sometimes be <em>composed</em>. Arrows that can be composed are <em>associative</em>. Every object has an <em>identity arrow</em>. In category theory everything is defined in terms of objects and arrows.</p>
+<p>The canonical example of a category is <span class="math inline">\mathbf{Set}</span>. The objects are sets and the arrows are functions from one set to another. If <span class="math inline">f\colon A\to B</span> and <span class="math inline">g\colon B\to C</span> are functions then the composition of <span class="math inline">f</span> and <span class="math inline">g</span> is <span class="math inline">g\circ f\colon A\to C</span> where <span class="math inline">g\circ f(a) = g(f(a))</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">f\colon A\to B</span>, <span class="math inline">g\colon B\to C</span>, and <span class="math inline">h\colon C\to D</span> then <span class="math inline">h\circ(g\circ f) = (h\circ g)\circ f</span></em>.</p>
+<p>This makes writing <span class="math inline">h\circ g\circ f</span> unambiguous.</p>
+<p>The identity function for a set <span class="math inline">A</span> is <span class="math inline">1_A(a) = a</span> for <span class="math inline">a\in A</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">f\colon A\to B</span> then <span class="math inline">f\circ 1_A = f = 1_B\circ f</span></em>.</p>
+<p>You will need to disabuse yourself of the notion that arrows are functions. Arrow are more general. Arrows and objects impose a rigour that clarifies the essential nature of a particular mathematical theory under consideraton.</p>
 <section id="objects-and-arrows" class="level2">
 <h2>Objects and Arrows</h2>
 <p>An <em>arrow</em> <span class="math inline">f</span> from <em>object</em> <span class="math inline">A</span> to object <span class="math inline">B</span> is written <span class="math inline">f\colon A\to B</span>.</p>
@@ -59,18 +62,24 @@
 <section id="composition" class="level3">
 <h3>Composition</h3>
 <p>If <span class="math inline">f\colon A\to B</span> and <span class="math inline">g\colon B\to C</span> then there exists an arrow <span class="math inline">g \circ f\colon A\to C</span>, the <em>composition</em> of <span class="math inline">g</span> with <span class="math inline">f</span>.</p>
-<p>Since we will be doing a lot of composing we just write <span class="math inline">gf</span> instead of <span class="math inline">g \circ f</span>. Some people prefer to use <span class="math inline">f;g</span> instead of <span class="math inline">gf</span>. In this notation <span class="math inline">f\colon A\to B</span> and <span class="math inline">g\colon B\to C</span> compose to <span class="math inline">f;g\colon A\to C</span> keeping the arrow names in order. If this sort of trifling is a concern you can just write the arrows backwards: <span class="math inline">g\colon C\leftarrow B</span> and <span class="math inline">\colon\colon B\leftarrow A</span> so <span class="math inline">gf\colon C\leftarrow A</span>.</p>
+<p>Since we will be doing a lot of composing we just write <span class="math inline">gf</span> instead of <span class="math inline">g \circ f</span>. Some people prefer to use <span class="math inline">f;g</span> instead of <span class="math inline">gf</span>. In this notation <span class="math inline">f\colon A\to B</span> and <span class="math inline">g\colon B\to C</span> compose to <span class="math inline">f;g\colon A\to C</span> keeping the arrow names in order. If this sort of trifling is a concern you can just write the arrows backwards: <span class="math inline">g\colon C\leftarrow B</span> and <span class="math inline">f\colon B\leftarrow A</span> so <span class="math inline">gf\colon C\leftarrow A</span>.</p>
 </section>
 <section id="identity-arrow" class="level3">
 <h3>Identity Arrow</h3>
 <p>Every object has an <em>identity arrow</em>. If <span class="math inline">f\colon A\to B</span> then the identity arrows <span class="math inline">1_A\colon A\to A</span> and <span class="math inline">1_B\colon B\to B</span> satisfy <span class="math inline">f 1_A = f = 1_B f</span>. One can always throw in identity arrows if they don’t exist.</p>
 <strong>Exercise</strong>. <em>If <span class="math inline">e\colon A\to A</span> has the property <span class="math inline">fe = f</span> for all <span class="math inline">f\colon A\to B</span> then <span class="math inline">e = 1_A</span></em>.
 <details>
-<summary>Solution</summary> Taking <span class="math inline">f = 1_A</span>, <span class="math inline">1_A e = 1_A</span>. By the definition of <span class="math inline">1_A</span>, <span class="math inline">1_A e = e</span>, hence <span class="math inline">1_A = e</span>.
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>Taking <span class="math inline">f = 1_A</span>, <span class="math inline">1_A e = 1_A</span>. By the definition of <span class="math inline">1_A</span>, <span class="math inline">1_A e = e</span>, hence <span class="math inline">1_A = e</span>.</p>
+</blockquote>
 </details>
 <strong>Exercise</strong>. <em>If <span class="math inline">e\colon B\to B</span> has the property <span class="math inline">ef = f</span> for all <span class="math inline">f\colon A\to B</span> then <span class="math inline">e = 1_B</span></em>.
 <details>
-<summary>Solution</summary> Taking <span class="math inline">f = 1_B</span>, <span class="math inline">e 1_B = 1_B</span>. By the definition of <span class="math inline">1_B</span>, <span class="math inline">e 1_B = e</span>, hence <span class="math inline">1_B = e</span>.
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>Taking <span class="math inline">f = 1_B</span>, <span class="math inline">e 1_B = 1_B</span>. By the definition of <span class="math inline">1_B</span>, <span class="math inline">e 1_B = e</span>, hence <span class="math inline">1_B = e</span>.</p>
+</blockquote>
 </details>
 </section>
 <section id="associative-law" class="level3">
@@ -78,6 +87,11 @@
 <p>If <span class="math inline">f\colon A\to B</span>, <span class="math inline">g\colon B\to C</span>, and <span class="math inline">h\colon C\to D</span> then we have arrows <span class="math inline">gf</span>, <span class="math inline">hg</span>, <span class="math inline">h(gf)</span>, and <span class="math inline">(hg)f</span>. The <em>associative law</em> states <span class="math inline">(hg)f = h(gf)</span> so <span class="math inline">hgf</span> is unambiguous in category theory.</p>
 <p>A collection of objects and arrow satisfying these laws is a <em>category</em>.</p>
 </section>
+</section>
+<section id="category" class="level2">
+<h2>Category</h2>
+<p>A category consists of objects and arrows. Every arrow <span class="math inline">f</span> has two objects associated with it, its domain <span class="math inline">\operatorname{dom}{f}</span> and its codomain <span class="math inline">\operatorname{cod}{f}</span>. We write <span class="math inline">f\colon A\to B</span> when <span class="math inline">A</span> is the domain of <span class="math inline">f</span> and <span class="math inline">B</span> is the codomain of <span class="math inline">f</span>. If <span class="math inline">f\colon A\to B</span> and <span class="math inline">g\colon B\to C</span> then <span class="math inline">gf\colon A\to C</span> exists. If <span class="math inline">f\colon A\to B</span>, <span class="math inline">g\colon B\to C</span>, and <span class="math inline">h\colon C\to D</span> then <span class="math inline">gf\colon A\to C</span> and <span class="math inline">hg\colon C\to D</span> exist and <span class="math inline">h(gf) = (hg)f</span>.</p>
+<p>Every object <span class="math inline">A</span> has an identity arrow <span class="math inline">1_A</span>. If <span class="math inline">f\colon A\to B</span> then <span class="math inline">f1_A = f = 1_B f</span>.</p>
 </section>
 <section id="isomorphic" class="level2">
 <h2>Isomorphic</h2>

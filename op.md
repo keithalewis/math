@@ -243,7 +243,7 @@ so $F = fe^{sX - s^2/2}$ has the same distribution.
 and $E[g(X)e^{s X - s^2/2}] = E[g(X + s)]$ for any function $g$ and $s\in\RR$.
 These formulas imply the cumulant of a standard normal is $κ(s) = s^2/2$
 and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)$.
-Note $φ_s(x) = φ(x - s)$ and $dΦ_s(x)/ds = -φ(x - s) = -φ_s(x)$.
+Note $φ_s(x) = φ(x - s)$ and $∂Φ_s(x)/∂s = -φ(x - s) = -φ_s(x)$.
 
 Put value is 
 $$
@@ -269,6 +269,6 @@ Vega is
 $$
 \begin{aligned}
 	\frac{∂v}{∂s} &= -f\frac{∂}{∂s}Φ_s(x(k)) \\
-	&= f(x(k) - s) = fφ_s(x(k)).
+	&= fφ(x(k) - s) = fφ_s(x(k)).
 \end{aligned}
 $$

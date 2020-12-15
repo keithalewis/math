@@ -23,19 +23,28 @@ abstract: Objects and Arrow
 
 A _category_ consists of _objects_ and _arrows_ that can sometimes be _composed_.
 Arrows that can be composed are _associative_. Every
-object has an _identity arrow_.
+object has an _identity arrow_. In category theory
+everything is defined in terms of objects and arrows.
 
-The canonical example of a category is $\cat{Set}$ with objects sets and arrows functions.
+The canonical example of a category is $\cat{Set}$.
+The objects are sets and the arrows are functions from
+one set to another. If $f\colon A\to B$ and $g\colon B\to C$
+are functions then the composition of $f$ and $g$ is
+$g\circ f\colon A\to C$ where $g\circ f(a) = g(f(a))$.
 
-Every _poset_ is a category with arrows $a\to b$ whenever $a\preceq b$.
-The transitive and reflexive laws of posets 
-corresponds to composition and identity arrows.
-The associative law follows from there being at most one arrow between any two objects.
-The category of all posets, $\cat{Pos}$, has objects posets and arrows
-order preserving functions.
+__Exercise__. _Show if $f\colon A\to B$, $g\colon B\to C$, and $h\colon C\to D$
+then $h\circ(g\circ f) = (h\circ g)\circ f$_.
 
-Categories with exactly one object are in $\cat{Mon}$. The identity
-and associative laws of categories correspond to the axioms of a monoid.
+This makes writing $h\circ g\circ f$ unambiguous.
+
+The identity function for a set $A$ is $1_A(a) = a$ for $a\in A$.
+
+__Exercise__. _Show if $f\colon A\to B$ then $f\circ 1_A = f = 1_B\circ f$_.
+
+You will need to disabuse yourself of the notion that arrows are
+functions.  Arrow are more general. Arrows and objects impose a rigour
+that clarifies the essential nature of a particular mathematical theory
+under consideraton. 
 
 ## Objects and Arrows
 
@@ -58,34 +67,35 @@ but standard terminology for this is _homset_.
 If $f\colon A\to B$ and $g\colon B\to C$ then there exists an arrow
 $g \circ f\colon A\to C$, the _composition_ of $g$ with $f$.
 
-Since we will be doing a lot of composing we just write $gf$
-instead of $g \circ f$. 
-Some people prefer to use $f;g$ instead of $gf$.
-In this notation $f\colon A\to B$ and $g\colon B\to C$
-compose to $f;g\colon A\to C$ keeping the arrow names in order.
-If this sort of trifling is a concern you can just
-write the arrows backwards:
-$g\colon C\leftarrow B$ and $\colon\colon B\leftarrow A$ so $gf\colon C\leftarrow A$.
+Since we will be doing a lot of composing we just write $gf$ instead of
+$g \circ f$.  Some people prefer to use $f;g$ instead of $gf$.  In this
+notation $f\colon A\to B$ and $g\colon B\to C$ compose to $f;g\colon
+A\to C$ keeping the arrow names in order.  If this sort of trifling is a
+concern you can just write the arrows backwards: $g\colon C\leftarrow B$
+and $f\colon B\leftarrow A$ so $gf\colon C\leftarrow A$.
 
 ### Identity Arrow
 
-Every object has an _identity arrow_.
-If $f\colon A\to B$ then the identity arrows $1_A\colon A\to A$ and $1_B\colon B\to B$ 
-satisfy $f 1_A = f = 1_B f$. 
-One can always throw in identity arrows if they don't exist.
+Every object has an _identity arrow_.  If $f\colon A\to B$ then the
+identity arrows $1_A\colon A\to A$ and $1_B\colon B\to B$ satisfy $f 1_A =
+f = 1_B f$.  One can always throw in identity arrows if they don't exist.
 
 __Exercise__. _If $e\colon A\to A$ has the property $fe = f$ for all $f\colon A\to B$
 then $e = 1_A$_.
 <details>
 <summary>Solution</summary>
-Taking $f = 1_A$, $1_A e = 1_A$. By the definition of $1_A$, $1_A e = e$, hence $1_A = e$.
+
+> Taking $f = 1_A$, $1_A e = 1_A$. By the definition of $1_A$, $1_A e = e$, hence $1_A = e$.
+
 </details>
 
 __Exercise__. _If $e\colon B\to B$ has the property $ef = f$ for all $f\colon A\to B$
 then $e = 1_B$_.
 <details>
 <summary>Solution</summary>
-Taking $f = 1_B$, $e 1_B = 1_B$. By the definition of $1_B$, $e 1_B = e$, hence $1_B = e$.
+
+> Taking $f = 1_B$, $e 1_B = 1_B$. By the definition of $1_B$, $e 1_B = e$, hence $1_B = e$.
+
 </details>
 
 ### Associative Law
@@ -96,6 +106,19 @@ The _associative law_ states $(hg)f = h(gf)$
 so $hgf$ is unambiguous in category theory.
 
 A collection of objects and arrow satisfying these laws is a _category_.
+
+## Category
+
+A category consists of objects and arrows.
+Every arrow $f$ has two objects associated with it, its domain $\dom{f}$
+and its codomain $\cod{f}$.  We write $f\colon A\to B$ when $A$ is the domain
+of $f$ and $B$ is the codomain of $f$.  If $f\colon A\to B$ and $g\colon
+B\to C$ then $gf\colon A\to C$ exists.  If $f\colon A\to B$, $g\colon
+B\to C$, and $h\colon C\to D$ then $gf\colon A\to C$ and $hg\colon C\to
+D$ exist and $h(gf) = (hg)f$.
+
+Every object $A$ has an identity arrow $1_A$. If $f\colon A\to B$ then
+$f1_A = f = 1_B f$.
 
 ## Isomorphic
 

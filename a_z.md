@@ -131,7 +131,7 @@ Here is a more interesting example from probability theory where $X$ is
 a _random variable_ and $E[X]$ is its _expected value_. Behind the
 scenes $X$ is a function and expectation is an integral.
 
-Derive $E[\u{(X - E[X])^2}] = E[X^2] - E[X]^2$.
+Derive $E[(X - E[X])^2] = E[X^2] - E[X]^2$.
 
 $E[\u{(X - E[X])^2}]$
 
@@ -167,9 +167,7 @@ down $A$.  Below that write a true statement and the substitutions
 to apply to get the next statement $B$. If the statements $P$ and
 $P\implies Q$ occur in the derivation then the statement $Q$ can be
 written (modus ponens).
-The proof is done when the last statement is $Z$
-&ndash;
-QED (quod erat demonstrandum).
+The proof is done when the last statement is $Z$ &ndash; QED (quod erat demonstrandum).
 
 __Theorem__. _If $x + x = x$ then $x = 0$_.
 
