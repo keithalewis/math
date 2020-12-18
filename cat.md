@@ -20,12 +20,10 @@ abstract: Objects and Arrow
 > The very effort for rigor forces us to find out simpler methods of proof. 
 > &mdash; David Hilbert_
 
-
-A _category_ consists of _objects_ and _arrows_ that can sometimes be _composed_.
-Arrows that can be composed are _associative_. Every
-object has an _identity arrow_. In category theory
-everything is defined in terms of objects and arrows.
-
+In classical mathematics everything is a set. Logicians like to say "the
+language of Set Theory is epsilon", meaning only the symbol $\in$ is
+used in specifying the axioms to indicate set _membership_. _Category Theory_
+provides an alternate way of doing math using _objects_ and _arrows_.
 The canonical example of a category is $\cat{Set}$.
 The objects are sets and the arrows are functions from
 one set to another. If $f\colon A\to B$ and $g\colon B\to C$
@@ -36,15 +34,17 @@ __Exercise__. _Show if $f\colon A\to B$, $g\colon B\to C$, and $h\colon C\to D$
 then $h\circ(g\circ f) = (h\circ g)\circ f$_.
 
 This makes writing $h\circ g\circ f$ unambiguous.
-
 The identity function for a set $A$ is $1_A(a) = a$ for $a\in A$.
 
 __Exercise__. _Show if $f\colon A\to B$ then $f\circ 1_A = f = 1_B\circ f$_.
 
-You will need to disabuse yourself of the notion that arrows are
-functions.  Arrow are more general. Arrows and objects impose a rigour
-that clarifies the essential nature of a particular mathematical theory
-under consideraton. 
+A category consists of objects and arrows that can sometimes be
+_composed_.  Arrows that can be composed are _associative_. Every object
+has an _identity arrow_. In category theory everything is defined in
+terms of objects and arrows.  You will need to disabuse yourself of the
+notion that arrows are functions and objects have elements.  Arrow are
+more general and impose a rigour that clarifies the essential nature
+mathematical objects.
 
 ## Objects and Arrows
 
@@ -58,9 +58,14 @@ We could do away with objects and use the domain and codomain of arrows,
 just as it is possible to use nand to define all other logical operators,
 but why make things more difficult?
 
-The "set" of arrows from $A$ to $B$ is called $\hom(A,B)$. 
+The "set" of arrows from $A$ to $B$ is called $\hom(A,B)$,
+or $\hom_{\cat{C}}(A,B)$ to indicate they come from category $\cat{C}$.
 The scare quotes indicate this is not necessarily a set
-but standard terminology for this is _homset_.
+but standard terminology for this is _homset_. Hom is short for
+_homomorphism_ indicating arrows preserve the structure of objects.
+Homsets are also written $\cat{C}[A,B]$. We will use the non-standard but
+more suggestive notation $\{A\to B\}$ or $\{A\to B\}_{\cat{C}}$
+when indicating the category is necessary.
 
 ### Composition
 

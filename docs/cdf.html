@@ -48,9 +48,10 @@
 <h2>Esscher</h2>
 <p>The Esscher transform <span class="math inline">X_s</span>, <span class="math inline">s\in\bm{R}</span>, of a random variable <span class="math inline">X</span> has cdf <span class="math inline">F_s(x) = E[1(X\le x)ε_s(X)]</span>, where <span class="math inline">ε_s(x) = e^{s x - κ(s)}</span>, whenever the expected value exists. Note <span class="math inline">E[ε_s(X)] = 1</span> so <span class="math inline">F_s</span> is a cdf and <span class="math inline">X_0</span> and <span class="math inline">X</span> have the same law.</p>
 <p>We write <span class="math inline">P_s(X\in A) = E[1_A(X)ε_s(X)] = E_s[1_A(X)]</span>. For any function <span class="math inline">g</span> we have <span class="math inline">E_s[g(X)] = E[g(X)ε_s(X)]</span>.</p>
-<p>Note <span class="math inline">(∂/∂s)E[g(X)ε_s(X)] = E[g(X)ε_s(X) (X - κ&#39;(s))]</span> so <span class="math display">
-    \frac{∂}{∂s}E_s[g(X)] = E_s[g(X)(X - κ&#39;(s))].
-</span> In particular, <span class="math inline">∂F_s(x)/∂s = E_s[1(X\le x) (X - κ&#39;(s))]</span>.</p>
+<p>The transformed density is <span class="math inline">F&#39;_s(x) = f_s(x) = f(x)ε_s(x)</span>. By Leibniz rule <span class="math inline">f_s^(n)(x) = ε_s(x) \sum_{k=0}^n \binom{n}{k} s^k f^{(n - k)}(x)</span>.</p>
+<p>Note <span class="math inline">(∂/∂s)E[g(X) ε_s(X)] = E[g(X) ε_s(X) (X - κ&#39;(s))]</span> so <span class="math display">
+    \frac{∂}{∂s}E_s[g(X)] = E_s[g(X) (X - κ&#39;(s))].
+</span> In particular, <span class="math inline">∂F_s(x)/∂s = E[1(X\le x) ε_s(X) (X - κ&#39;(s))] = E_s[1(X\le x) (X - κ&#39;(s))]</span>.</p>
 </section>
 <section id="distributions" class="level2">
 <h2>Distributions</h2>
@@ -119,24 +120,36 @@ E[\exp(N)g(N_1,\ldots)] = E[\exp(N)] E[g(N_1 + \operatorname{Cov}(N, N_1), \ldot
 </section>
 <section id="logistic" class="level3">
 <h3>Logistic</h3>
-<p>A logistic random variate has cumulative distribution <span class="math inline">F(x) = 1/(1 + e^{-x})</span>, <span class="math inline">-\infty &lt; x &lt; \infty</span> and density function <span class="math inline">f(x) = e^{-x}/(1 + e^{-x})^2</span>. The quantile function is <span class="math inline">Q(u) = F^{-1}(u) = \log u/(1-u)</span>.</p>
+<p>A logistic random variate has cumulative distribution <span class="math inline">F(x) = 1/(1 + e^{-x})</span>, <span class="math inline">-\infty &lt; x &lt; \infty</span>. Its quantile function is <span class="math inline">Q(u) = F^{-1}(u) = \log u/(1-u)</span>.</p>
 <p>Aside: <span class="math inline">f(x) = \int_0^\infty e^{-x} e^{-\alpha e^{-x}} e^{-\alpha}\,d\alpha</span>.</p>
-<p>Using <span class="math inline">u = F(x) = 1/(1 + e^{-x})</span>, so <span class="math inline">e^x = u/(1 - u)</span> and <span class="math display">
+<p>Using <span class="math inline">u = F(x) = 1/(1 + e^{-x})</span>, so <span class="math inline">e^x = u/(1 - u)</span> <span class="math display">
 \begin{aligned}
-E e^{sX} &amp;= \int_{-\infty}^\infty e^{sx} e^{-x}/(1 + e^{-x})^2\,dx \\
+E[e^{sX}] &amp;= \int_{-\infty}^\infty e^{sx}\, d(1/(1 + e^{-x})) \\
+    &amp;= \int_0^1 (u/(1 - u))^{s}\,du \\
     &amp;= \int_0^1 u^s(1 - u)^{-s}\,du \\
     &amp;= B(1 + s, 1 - s) \\
-    &amp;= Γ(1 + s)Γ(1 - s)/Γ(2) \\
-    &amp;= Γ(1 + s)Γ(1 - s)
 \end{aligned}
-</span> we have the cumulant of the logistic is <span class="math inline">κ(s) = \logΓ(1 + s) + \logΓ(1 - s)</span>.</p>
-<p>The <em>digamma</em> function is the derivative of the log of the Gamma function <span class="math inline">\psi(s) = Γ&#39;(s)/Γ(s)</span>. Its Taylor series at <span class="math inline">1</span> is <span class="math inline">\psi(1 + s) = -\gamma - \sum_{k\ge 1} \zeta(k+1)(-s)^k</span> where <span class="math inline">\gamma</span> is the Euler-Mascheroni constant and <span class="math inline">\zeta(s) = \sum_{k\ge 1} n^{-s}</span> is the zeta function.</p>
+</span> so the cumulant of the logistic is <span class="math inline">κ(s) = \log B(1 + s, 1 - s)</span> where <span class="math inline">B(\alpha,\beta)</span> is the Beta function.</p>
+<p>Since <span class="math inline">B(\alpha,\beta) = \Gamma(\alpha)\Gamma(\beta)/\Gamma(\alpha + \beta)</span> we have <span class="math inline">κ(s) = \log \Gamma(1 + s) + \log \Gamma(1 - s)</span>. The <em>digamma</em> function is the derivative of the log of the Gamma function <span class="math inline">\psi(s) = Γ&#39;(s)/Γ(s)</span>. Its Taylor series at <span class="math inline">1</span> is <span class="math inline">\psi(1 + s) = -\gamma - \sum_{k\ge 1} \zeta(k+1)(-s)^k</span> where <span class="math inline">\gamma</span> is the Euler-Mascheroni constant and <span class="math inline">\zeta(s) = \sum_{k\ge 1} n^{-s}</span> is the zeta function.</p>
 <p>The first derivative of the cumulant is <span class="math inline">κ&#39;(s) = \psi(1 + s) - \psi(1 - s) = 2\sum_{k\ge 1} \zeta(2k)s^{2k - 1}</span> so <span class="math inline">κ_{2k-1} = 0</span> and <span class="math inline">κ_{2k} = 2\zeta(2k)(2k-1)!</span>, <span class="math inline">k\ge1</span>. In particular, the variance of the logistic is <span class="math inline">κ_2 = 2\zeta(2) = \pi^2/3</span>.</p>
 <p>The Esscher transformed cumulative distribution is <span class="math display">
+\begin{aligned}
+F_s(x) &amp;= \int_{-\infty}^x e^{s\xi - κ(s)}\,d(1/(1 + e^{-\xi}))\,d\xi \\
+    &amp;= e^{- κ(s)}\int_0^{F(t)} u^s(1 - u)^{-s}\,du \\
+    &amp;= B(F(x); 1 + s, 1 - s)/B(1 + s, 1 - s) \\
+    &amp;= I_{F(x)}(1 + s, 1 - s) \\
+\end{aligned}
+</span> where <span class="math inline">I_u(\alpha,\beta)</span> is the regularized incomplete Beta function. Note <span class="math inline">\partial/\partial x F_s(x) = e^{sx - κ(s)}e^{-x}/(1 + e^{-x})^2</span></p>
+<!--
+The Esscher transformed cumulative distribution is
+$$
     F_s(u) = \int_{-\infty}^u e^{sx - κ(s)} dF(x)
     = \frac{e^{u(1 + s)}\bigl(1 + s - s(1 + e^u)\,_2F_1(1, 1 + s; 2 + s; -e^u)\bigr)}
-    {Γ(1 + s)Γ(1 - s)(1 + e^u)(1 + s)}, s &gt; -1.
-</span> where <span class="math inline">\,_2F_1(a,b;c;x) = \sum_{n=0}^\infty\frac{(a)_n (b)_n}{(c)_n} x^n/n!</span> is the Gaussian hypergeometric function.</p>
+    {Γ(1 + s)Γ(1 - s)(1 + e^u)(1 + s)}, s > -1.
+$$
+where $\,_2F_1(a,b;c;x) = \sum_{n=0}^\infty\frac{(a)_n (b)_n}{(c)_n} x^n/n!$
+is the Gaussian hypergeometric function.
+-->
 <!--
 Using
 $$

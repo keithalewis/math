@@ -25,11 +25,14 @@ Note $E[ε_s(X)] = 1$ so $F_s$ is a cdf and $X_0$ and $X$ have the same law.
 We write $P_s(X\in A) = E[1_A(X)ε_s(X)] = E_s[1_A(X)]$.
 For any function $g$ we have $E_s[g(X)] = E[g(X)ε_s(X)]$.
 
-Note $(∂/∂s)E[g(X)ε_s(X)] = E[g(X)ε_s(X) (X - κ'(s))]$ so
+The transformed density is $F'_s(x) = f_s(x) = f(x)ε_s(x)$.
+By Leibniz rule $f_s^(n)(x) = ε_s(x) \sum_{k=0}^n \binom{n}{k} s^k f^{(n - k)}(x)$.
+
+Note $(∂/∂s)E[g(X) ε_s(X)] = E[g(X) ε_s(X) (X - κ'(s))]$ so
 $$
-	\frac{∂}{∂s}E_s[g(X)] = E_s[g(X)(X - κ'(s))].
+	\frac{∂}{∂s}E_s[g(X)] = E_s[g(X) (X - κ'(s))].
 $$
-In particular, $∂F_s(x)/∂s =  E_s[1(X\le x) (X - κ'(s))]$.
+In particular, $∂F_s(x)/∂s = E[1(X\le x) ε_s(X) (X - κ'(s))] = E_s[1(X\le x) (X - κ'(s))]$.
 
 ## Distributions
 
@@ -144,25 +147,25 @@ and $κ^{(n)}(s) = (1 - s/λ)^{-n}(n - 1)!/λ^{n-1}$
 
 ### Logistic
 
-A logistic random variate has cumulative distribution $F(x) = 1/(1 + e^{-x})$,
-$-\infty < x < \infty$ and
-density function $f(x) = e^{-x}/(1 + e^{-x})^2$.
-The quantile function is $Q(u) = F^{-1}(u) = \log u/(1-u)$.
+A logistic random variate has cumulative distribution $F(x) = 1/(1 + e^{-x})$, $-\infty < x < \infty$.
+Its quantile function is $Q(u) = F^{-1}(u) = \log u/(1-u)$.
 
 Aside: $f(x) = \int_0^\infty e^{-x} e^{-\alpha e^{-x}} e^{-\alpha}\,d\alpha$.
 
-Using $u = F(x) = 1/(1 + e^{-x})$, so $e^x = u/(1 - u)$ and
+Using $u = F(x) = 1/(1 + e^{-x})$, so $e^x = u/(1 - u)$
 $$
 \begin{aligned}
-E e^{sX} &= \int_{-\infty}^\infty e^{sx} e^{-x}/(1 + e^{-x})^2\,dx \\
+E[e^{sX}] &= \int_{-\infty}^\infty e^{sx}\, d(1/(1 + e^{-x})) \\
+    &= \int_0^1 (u/(1 - u))^{s}\,du \\
     &= \int_0^1 u^s(1 - u)^{-s}\,du \\
     &= B(1 + s, 1 - s) \\
-    &= Γ(1 + s)Γ(1 - s)/Γ(2) \\
-    &= Γ(1 + s)Γ(1 - s)
 \end{aligned}
 $$
-we have the cumulant of the logistic is $κ(s) = \logΓ(1 + s) + \logΓ(1 - s)$.
+so the cumulant of the logistic is $κ(s) = \log B(1 + s, 1 - s)$
+where $B(\alpha,\beta)$ is the Beta function.
 
+Since $B(\alpha,\beta) = \Gamma(\alpha)\Gamma(\beta)/\Gamma(\alpha + \beta)$
+we have $κ(s) = \log \Gamma(1 + s) + \log \Gamma(1 - s)$.
 The _digamma_ function is the derivative of the log of the Gamma function
 $\psi(s) = Γ'(s)/Γ(s)$. Its Taylor series at $1$ is
 $\psi(1 + s) = -\gamma - \sum_{k\ge 1} \zeta(k+1)(-s)^k$ where
@@ -176,12 +179,27 @@ In particular, the variance of the logistic is $κ_2 = 2\zeta(2) = \pi^2/3$.
 
 The Esscher transformed cumulative distribution is
 $$
+\begin{aligned}
+F_s(x) &= \int_{-\infty}^x e^{s\xi - κ(s)}\,d(1/(1 + e^{-\xi}))\,d\xi \\
+    &= e^{- κ(s)}\int_0^{F(t)} u^s(1 - u)^{-s}\,du \\
+    &= B(F(x); 1 + s, 1 - s)/B(1 + s, 1 - s) \\
+    &= I_{F(x)}(1 + s, 1 - s) \\
+\end{aligned}
+$$
+where $I_u(\alpha,\beta)$ is the regularized incomplete Beta function.
+Note $\partial/\partial x F_s(x) = e^{sx - κ(s)}e^{-x}/(1 + e^{-x})^2$
+
+<!--
+The Esscher transformed cumulative distribution is
+$$
 	F_s(u) = \int_{-\infty}^u e^{sx - κ(s)} dF(x)
 	= \frac{e^{u(1 + s)}\bigl(1 + s - s(1 + e^u)\,_2F_1(1, 1 + s; 2 + s; -e^u)\bigr)}
 	{Γ(1 + s)Γ(1 - s)(1 + e^u)(1 + s)}, s > -1.
 $$
 where $\,_2F_1(a,b;c;x) = \sum_{n=0}^\infty\frac{(a)_n (b)_n}{(c)_n} x^n/n!$
 is the Gaussian hypergeometric function.
+-->
+
 
 <!--
 Using
