@@ -18,15 +18,16 @@ These are useful for [option pricing](op.html).
 ## Esscher
 
 The Esscher transform $X_s$, $s\in\RR$, of a random variable $X$
-has cdf $F_s(x) = E[1(X\le x)ε_s(X)]$, where $ε_s(x) = e^{s x - κ(s)}$,
-whenever the expected value exists.
+has cdf $F_s(x) = E[1(X\le x)ε_s(X)]$, where $ε_s(x) = e^{s x - κ(s)}$
+and $κ(s) = \log E[e^{sX}]$ is the cumulant of $X$.
 Note $E[ε_s(X)] = 1$ so $F_s$ is a cdf and $X_0$ and $X$ have the same law.
 
 We write $P_s(X\in A) = E[1_A(X)ε_s(X)] = E_s[1_A(X)]$.
 For any function $g$ we have $E_s[g(X)] = E[g(X)ε_s(X)]$.
 
 The transformed density is $F'_s(x) = f_s(x) = f(x)ε_s(x)$.
-By Leibniz rule $f_s^(n)(x) = ε_s(x) \sum_{k=0}^n \binom{n}{k} s^k f^{(n - k)}(x)$.
+By Leibniz rule $f_s^{(n)}(x) = ε_s(x) \sum_{k=0}^n \binom{n}{k} s^k f^{(n - k)}(x)$
+since $ε_s^{(n)}(x) = ε_s^(x) s^n$.
 
 Note $(∂/∂s)E[g(X) ε_s(X)] = E[g(X) ε_s(X) (X - κ'(s))]$ so
 $$
@@ -150,7 +151,7 @@ and $κ^{(n)}(s) = (1 - s/λ)^{-n}(n - 1)!/λ^{n-1}$
 A logistic random variate has cumulative distribution $F(x) = 1/(1 + e^{-x})$, $-\infty < x < \infty$.
 Its quantile function is $Q(u) = F^{-1}(u) = \log u/(1-u)$.
 
-Aside: $f(x) = \int_0^\infty e^{-x} e^{-\alpha e^{-x}} e^{-\alpha}\,d\alpha$.
+Aside: $f(x) = \int_0^\infty e^{-x} e^{-α e^{-x}} e^{-α}\,dα$.
 
 Using $u = F(x) = 1/(1 + e^{-x})$, so $e^x = u/(1 - u)$
 $$
@@ -158,36 +159,70 @@ $$
 E[e^{sX}] &= \int_{-\infty}^\infty e^{sx}\, d(1/(1 + e^{-x})) \\
     &= \int_0^1 (u/(1 - u))^{s}\,du \\
     &= \int_0^1 u^s(1 - u)^{-s}\,du \\
-    &= B(1 + s, 1 - s) \\
+    &= B(s + 1, 1 - s) \\
 \end{aligned}
 $$
-so the cumulant of the logistic is $κ(s) = \log B(1 + s, 1 - s)$
-where $B(\alpha,\beta)$ is the Beta function.
-
-Since $B(\alpha,\beta) = \Gamma(\alpha)\Gamma(\beta)/\Gamma(\alpha + \beta)$
-we have $κ(s) = \log \Gamma(1 + s) + \log \Gamma(1 - s)$.
-The _digamma_ function is the derivative of the log of the Gamma function
-$\psi(s) = Γ'(s)/Γ(s)$. Its Taylor series at $1$ is
-$\psi(1 + s) = -\gamma - \sum_{k\ge 1} \zeta(k+1)(-s)^k$ where
-$\gamma$ is the Euler-Mascheroni constant and $\zeta(s) = \sum_{k\ge 1} n^{-s}$
-is the zeta function.
-
-The first derivative of the cumulant is $κ'(s) = \psi(1 + s) - \psi(1 - s)
-= 2\sum_{k\ge 1} \zeta(2k)s^{2k  - 1}$
-so $κ_{2k-1} = 0$ and $κ_{2k} = 2\zeta(2k)(2k-1)!$, $k\ge1$.
-In particular, the variance of the logistic is $κ_2 = 2\zeta(2) = \pi^2/3$.
+where $B(α,β)$ is the Beta function.
+The cumulant of the logistic is $κ(s) = \log B(s + 1, 1 - s)$
 
 The Esscher transformed cumulative distribution is
 $$
 \begin{aligned}
 F_s(x) &= \int_{-\infty}^x e^{s\xi - κ(s)}\,d(1/(1 + e^{-\xi}))\,d\xi \\
-    &= e^{- κ(s)}\int_0^{F(t)} u^s(1 - u)^{-s}\,du \\
-    &= B(F(x); 1 + s, 1 - s)/B(1 + s, 1 - s) \\
-    &= I_{F(x)}(1 + s, 1 - s) \\
+    &= e^{- κ(s)}\int_0^{F(x)} u^s(1 - u)^{-s}\,du \\
+    &= B(F(x); s + 1, 1 - s)/B(s + 1, 1 - s) \\
+    &= I_{F(x)}(s + 1, 1 - s) \\
 \end{aligned}
 $$
-where $I_u(\alpha,\beta)$ is the regularized incomplete Beta function.
-Note $\partial/\partial x F_s(x) = e^{sx - κ(s)}e^{-x}/(1 + e^{-x})^2$
+where $I_u(α,β)$ is the regularized incomplete Beta function.
+Using
+$$
+I_u(α,β) = \frac{u^α}{α B(α,β)}\,_2F_1(α, 1 - β, α + 1;x).
+$$
+where $\,_2F_1(a,b;c;x) = \sum_{n=0}^\infty\frac{(a)_n (b)_n}{(c)_n} x^n/n!$
+is the Gaussian hypergeometric function gives
+$$
+F_s(x) = \frac{u^{s + 1}}{(s + 1) B(s + 1, 1 - s)}\,_2F_1(s + 1, s, s + 2;x).
+$$
+
+The derivatives of the hypergeometic function are
+$$
+\frac{d^n}{dx^n}\,_2F_1(a, b; c; x) = \frac{(a)_n (b)_n}{(c)_n}\,_2F_1(a + n, b + n; c + n;x).
+$$
+so
+$$
+\begin{aligned}
+F_s^{(n)}(x)
+	&= \frac{u^{s + 1}}{(s + 1) B(s + 1, 1 - s)}\frac{(s + 1)_n (s)_n}{(s + 2)_n}
+	\,_2F_1(s + 1 + n, s + n, s + 2 + n;x) \\
+	&= \frac{u^{s + 1}}{(s + 1) B(s + 1, 1 - s)}\frac{(s + 1)(s)_n}{s + 1 + n}
+	\,_2F_1(s + 1 + n, s + n, s + 2 + n;x) \\
+	&= \frac{u^{s + 1} (s)_n}{s + 1 + n} B(s + 1, 1 - s)
+	\,_2F_1(s + 1 + n, s + n, s + 2 + n;x) \\
+\end{aligned}
+$$
+
+Since $B(α,β) = \Gamma(α)\Gamma(β)/\Gamma(α + β)$
+we have $κ(s) = \log \Gamma(s + 1) + \log \Gamma(1 - s)$.
+The _digamma_ function is the derivative of the log of the Gamma function
+$\psi(s) = Γ'(s)/Γ(s)$. Its Taylor series at $1$ is
+$\psi(1 + s) = -γ - \sum_{n\ge 1} (-1)^n ζ(n+1) s^n$ where
+$γ$ is the Euler-Mascheroni constant and $ζ(s) = \sum_{n\ge 1} n^{-s}$
+is the zeta function.
+
+The first derivative of the cumulant is $κ'(s) = \psi(1 + s) - \psi(1 - s)
+= -\sum_{n\ge 1} (-1)^n ζ(n+1)(s^n - (-s)^n)$
+so $κ_n = 0$ if $n$ is odd and $κ_n = 2ζ(n)(n-1)!$ if $n$ is even;
+In particular, the variance of the logistic is $κ_2 = 2ζ(2) = \pi^2/3$.
+
+Finally we compute the Esscher density $(∂/∂ s)F_s(x)$ using
+$(∂/∂α) B(α,β) = B(α,β) (\psi(α) - \psi(α + β))$
+$$
+\begin{aligned}
+(∂/∂ s)F_s(x) &= E[1(X\le x) ε_s(X) (X - \kappa'(s))]\\
+&= ?\\
+\end{aligned}
+$$
 
 <!--
 The Esscher transformed cumulative distribution is

@@ -46,9 +46,9 @@
 <p>We collect some facts about <a href="prob.html#random-variable"><em>random variables</em></a>, their <a href="prob.html#cumulant"><em>cumulants</em></a>, and deriatives associated with these. These are useful for <a href="op.html">option pricing</a>.</p>
 <section id="esscher" class="level2">
 <h2>Esscher</h2>
-<p>The Esscher transform <span class="math inline">X_s</span>, <span class="math inline">s\in\bm{R}</span>, of a random variable <span class="math inline">X</span> has cdf <span class="math inline">F_s(x) = E[1(X\le x)ε_s(X)]</span>, where <span class="math inline">ε_s(x) = e^{s x - κ(s)}</span>, whenever the expected value exists. Note <span class="math inline">E[ε_s(X)] = 1</span> so <span class="math inline">F_s</span> is a cdf and <span class="math inline">X_0</span> and <span class="math inline">X</span> have the same law.</p>
+<p>The Esscher transform <span class="math inline">X_s</span>, <span class="math inline">s\in\bm{R}</span>, of a random variable <span class="math inline">X</span> has cdf <span class="math inline">F_s(x) = E[1(X\le x)ε_s(X)]</span>, where <span class="math inline">ε_s(x) = e^{s x - κ(s)}</span> and <span class="math inline">κ(s) = \log E[e^{sX}]</span> is the cumulant of <span class="math inline">X</span>. Note <span class="math inline">E[ε_s(X)] = 1</span> so <span class="math inline">F_s</span> is a cdf and <span class="math inline">X_0</span> and <span class="math inline">X</span> have the same law.</p>
 <p>We write <span class="math inline">P_s(X\in A) = E[1_A(X)ε_s(X)] = E_s[1_A(X)]</span>. For any function <span class="math inline">g</span> we have <span class="math inline">E_s[g(X)] = E[g(X)ε_s(X)]</span>.</p>
-<p>The transformed density is <span class="math inline">F&#39;_s(x) = f_s(x) = f(x)ε_s(x)</span>. By Leibniz rule <span class="math inline">f_s^(n)(x) = ε_s(x) \sum_{k=0}^n \binom{n}{k} s^k f^{(n - k)}(x)</span>.</p>
+<p>The transformed density is <span class="math inline">F&#39;_s(x) = f_s(x) = f(x)ε_s(x)</span>. By Leibniz rule <span class="math inline">f_s^{(n)}(x) = ε_s(x) \sum_{k=0}^n \binom{n}{k} s^k f^{(n - k)}(x)</span> since <span class="math inline">ε_s^{(n)}(x) = ε_s^(x) s^n</span>.</p>
 <p>Note <span class="math inline">(∂/∂s)E[g(X) ε_s(X)] = E[g(X) ε_s(X) (X - κ&#39;(s))]</span> so <span class="math display">
     \frac{∂}{∂s}E_s[g(X)] = E_s[g(X) (X - κ&#39;(s))].
 </span> In particular, <span class="math inline">∂F_s(x)/∂s = E[1(X\le x) ε_s(X) (X - κ&#39;(s))] = E_s[1(X\le x) (X - κ&#39;(s))]</span>.</p>
@@ -121,25 +121,48 @@ E[\exp(N)g(N_1,\ldots)] = E[\exp(N)] E[g(N_1 + \operatorname{Cov}(N, N_1), \ldot
 <section id="logistic" class="level3">
 <h3>Logistic</h3>
 <p>A logistic random variate has cumulative distribution <span class="math inline">F(x) = 1/(1 + e^{-x})</span>, <span class="math inline">-\infty &lt; x &lt; \infty</span>. Its quantile function is <span class="math inline">Q(u) = F^{-1}(u) = \log u/(1-u)</span>.</p>
-<p>Aside: <span class="math inline">f(x) = \int_0^\infty e^{-x} e^{-\alpha e^{-x}} e^{-\alpha}\,d\alpha</span>.</p>
+<p>Aside: <span class="math inline">f(x) = \int_0^\infty e^{-x} e^{-α e^{-x}} e^{-α}\,dα</span>.</p>
 <p>Using <span class="math inline">u = F(x) = 1/(1 + e^{-x})</span>, so <span class="math inline">e^x = u/(1 - u)</span> <span class="math display">
 \begin{aligned}
 E[e^{sX}] &amp;= \int_{-\infty}^\infty e^{sx}\, d(1/(1 + e^{-x})) \\
     &amp;= \int_0^1 (u/(1 - u))^{s}\,du \\
     &amp;= \int_0^1 u^s(1 - u)^{-s}\,du \\
-    &amp;= B(1 + s, 1 - s) \\
+    &amp;= B(s + 1, 1 - s) \\
 \end{aligned}
-</span> so the cumulant of the logistic is <span class="math inline">κ(s) = \log B(1 + s, 1 - s)</span> where <span class="math inline">B(\alpha,\beta)</span> is the Beta function.</p>
-<p>Since <span class="math inline">B(\alpha,\beta) = \Gamma(\alpha)\Gamma(\beta)/\Gamma(\alpha + \beta)</span> we have <span class="math inline">κ(s) = \log \Gamma(1 + s) + \log \Gamma(1 - s)</span>. The <em>digamma</em> function is the derivative of the log of the Gamma function <span class="math inline">\psi(s) = Γ&#39;(s)/Γ(s)</span>. Its Taylor series at <span class="math inline">1</span> is <span class="math inline">\psi(1 + s) = -\gamma - \sum_{k\ge 1} \zeta(k+1)(-s)^k</span> where <span class="math inline">\gamma</span> is the Euler-Mascheroni constant and <span class="math inline">\zeta(s) = \sum_{k\ge 1} n^{-s}</span> is the zeta function.</p>
-<p>The first derivative of the cumulant is <span class="math inline">κ&#39;(s) = \psi(1 + s) - \psi(1 - s) = 2\sum_{k\ge 1} \zeta(2k)s^{2k - 1}</span> so <span class="math inline">κ_{2k-1} = 0</span> and <span class="math inline">κ_{2k} = 2\zeta(2k)(2k-1)!</span>, <span class="math inline">k\ge1</span>. In particular, the variance of the logistic is <span class="math inline">κ_2 = 2\zeta(2) = \pi^2/3</span>.</p>
+</span> where <span class="math inline">B(α,β)</span> is the Beta function. The cumulant of the logistic is <span class="math inline">κ(s) = \log B(s + 1, 1 - s)</span></p>
 <p>The Esscher transformed cumulative distribution is <span class="math display">
 \begin{aligned}
 F_s(x) &amp;= \int_{-\infty}^x e^{s\xi - κ(s)}\,d(1/(1 + e^{-\xi}))\,d\xi \\
-    &amp;= e^{- κ(s)}\int_0^{F(t)} u^s(1 - u)^{-s}\,du \\
-    &amp;= B(F(x); 1 + s, 1 - s)/B(1 + s, 1 - s) \\
-    &amp;= I_{F(x)}(1 + s, 1 - s) \\
+    &amp;= e^{- κ(s)}\int_0^{F(x)} u^s(1 - u)^{-s}\,du \\
+    &amp;= B(F(x); s + 1, 1 - s)/B(s + 1, 1 - s) \\
+    &amp;= I_{F(x)}(s + 1, 1 - s) \\
 \end{aligned}
-</span> where <span class="math inline">I_u(\alpha,\beta)</span> is the regularized incomplete Beta function. Note <span class="math inline">\partial/\partial x F_s(x) = e^{sx - κ(s)}e^{-x}/(1 + e^{-x})^2</span></p>
+</span> where <span class="math inline">I_u(α,β)</span> is the regularized incomplete Beta function. Using <span class="math display">
+I_u(α,β) = \frac{u^α}{α B(α,β)}\,_2F_1(α, 1 - β, α + 1;x).
+</span> where <span class="math inline">\,_2F_1(a,b;c;x) = \sum_{n=0}^\infty\frac{(a)_n (b)_n}{(c)_n} x^n/n!</span> is the Gaussian hypergeometric function gives <span class="math display">
+F_s(x) = \frac{u^{s + 1}}{(s + 1) B(s + 1, 1 - s)}\,_2F_1(s + 1, s, s + 2;x).
+</span></p>
+<p>The derivatives of the hypergeometic function are <span class="math display">
+\frac{d^n}{dx^n}\,_2F_1(a, b; c; x) = \frac{(a)_n (b)_n}{(c)_n}\,_2F_1(a + n, b + n; c + n;x).
+</span> so <span class="math display">
+\begin{aligned}
+F_s^{(n)}(x)
+    &amp;= \frac{u^{s + 1}}{(s + 1) B(s + 1, 1 - s)}\frac{(s + 1)_n (s)_n}{(s + 2)_n}
+    \,_2F_1(s + 1 + n, s + n, s + 2 + n;x) \\
+    &amp;= \frac{u^{s + 1}}{(s + 1) B(s + 1, 1 - s)}\frac{(s + 1)(s)_n}{s + 1 + n}
+    \,_2F_1(s + 1 + n, s + n, s + 2 + n;x) \\
+    &amp;= \frac{u^{s + 1} (s)_n}{s + 1 + n} B(s + 1, 1 - s)
+    \,_2F_1(s + 1 + n, s + n, s + 2 + n;x) \\
+\end{aligned}
+</span></p>
+<p>Since <span class="math inline">B(α,β) = \Gamma(α)\Gamma(β)/\Gamma(α + β)</span> we have <span class="math inline">κ(s) = \log \Gamma(s + 1) + \log \Gamma(1 - s)</span>. The <em>digamma</em> function is the derivative of the log of the Gamma function <span class="math inline">\psi(s) = Γ&#39;(s)/Γ(s)</span>. Its Taylor series at <span class="math inline">1</span> is <span class="math inline">\psi(1 + s) = -γ - \sum_{n\ge 1} (-1)^n ζ(n+1) s^n</span> where <span class="math inline">γ</span> is the Euler-Mascheroni constant and <span class="math inline">ζ(s) = \sum_{n\ge 1} n^{-s}</span> is the zeta function.</p>
+<p>The first derivative of the cumulant is <span class="math inline">κ&#39;(s) = \psi(1 + s) - \psi(1 - s) = -\sum_{n\ge 1} (-1)^n ζ(n+1)(s^n - (-s)^n)</span> so <span class="math inline">κ_n = 0</span> if <span class="math inline">n</span> is odd and <span class="math inline">κ_n = 2ζ(n)(n-1)!</span> if <span class="math inline">n</span> is even; In particular, the variance of the logistic is <span class="math inline">κ_2 = 2ζ(2) = \pi^2/3</span>.</p>
+<p>Finally we compute the Esscher density <span class="math inline">(∂/∂ s)F_s(x)</span> using <span class="math inline">(∂/∂α) B(α,β) = B(α,β) (\psi(α) - \psi(α + β))</span> <span class="math display">
+\begin{aligned}
+(∂/∂ s)F_s(x) &amp;= E[1(X\le x) ε_s(X) (X - \kappa&#39;(s))]\\
+&amp;= ?\\
+\end{aligned}
+</span></p>
 <!--
 The Esscher transformed cumulative distribution is
 $$
