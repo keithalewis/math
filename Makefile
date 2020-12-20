@@ -29,7 +29,7 @@ TEXFLAGS =
 #TEXFLAGS = 
 TEXFLAGS = --pdf-engine=xelatex
 
-$(HTML): %.html: %.md $(CSS)
+%.html: %.md $(CSS)
 	pandoc $(FLAGS) $< -o $@
 
 $(PDF): %.pdf: %.md
