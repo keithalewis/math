@@ -1,3 +1,12 @@
+---
+title: APL
+author: Keith A. Lewis
+institute: KALX, LLC
+classoption: fleqn
+fleqn: true
+abstract: A Programming Language
+...
+
 # Notation
 
 \newcommand\NN{\bm{N}}
@@ -71,3 +80,8 @@ _Fold_ is $f \fold a b \ldots$ is $f(a,f(b,\ldots))$.
 $K$ is the constant function $K\colon X\to\{X\to X\}$ where $K x y = x$.
 
 Use $!$ for evaluation. 
+
+_Array_ $X^{\iota n}$. $\[ x_0 x_1 \ldots\colon \iota n\to X$ by $i\mapsto x_i$.
+
+_Tuple_ $\sqcap_{i\in I} X_i$
+
