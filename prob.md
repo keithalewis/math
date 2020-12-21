@@ -303,6 +303,42 @@ $$
 		= \sum_{i=1}^{n-k+1}\binom{n-1}{i - 1} B_{n-i,k-1}(x_1,\ldots,x_{n - i - k + 2})x_i
 $$
 
+## Jensen's Inequality
+
+A function $\phi\colon\RR\to\RR$ is _convex_ if $\phi(x) = \sup_{\lambda\le\phi} \lambda(x)$
+and _concave_ if $\phi(x) = \inf_{\lambda\ge\phi} \lambda(x)$
+where $\lambda$ is linear.
+
+__Exercise__. _If $\phi$ is convex then $\phi(tx + (1 - t)x') \le t\phi(x) + (1 - t)\phi(x')$
+if $0\le t\le 1$_.
+
+Hint: $\lambda(x) = \phi(x^*) + m(x - x^*) \le \phi(x)$ where $x^* = t\phi(x) + (1 - t)\phi(x')$
+and $m = (\phi(x') - \phi(x))/(x' - x)$.
+
+__Theorem__. _If $\phi$ is convex then $E[\phi(X)] \ge \phi(E[X])$_.
+
+For $\lambda\le\phi$ linear we have $E[\phi(X)] \ge E[\lambda(X)] = \lambda(E[X])$.
+
+### Convergence
+
+Random variables $X_n$ converge to $X$ in _mean_ if
+$E[|X_n - X|]$ converges to 0. They converges in _mean square_ if
+$\Var(X_n - X)$ converges to 0.
+They converges _in probability_ if for all $\epsilon > 0$ it is evenually
+the case that $P(|X_n - X|) > \epsilon) < \epsilon$.
+They converge _almost surely_ if $P(\lim_n X_n = X) = 1$.
+
+__Lemma__. (Chebyshev) _For any non-negative random variable $X$, $P(X > \lambda) \le E[X]/\lambda$_.
+
+_Proof_. $E[X] \ge E[X 1(X > \lambda)] \ge \lambda P(X > \lambda)$.
+
+__Exercise__. _For any non-negative random variable $X$ and any increasing function $\phi$,
+$P(X > \lambda) \le E[\phi(X)]/\phi(\lambda)$_.
+
+__Exercise__. _If $X_n$ converges in mean square then it converges in probability_.
+
+Hint: $\phi(x) = x^2$ is increasing for $x > 0$.
+
 <!--
 
 ## Joint Distribution

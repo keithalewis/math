@@ -13,6 +13,12 @@ abstract: A Programming Language
 \newcommand\st{\mid}
 \newcommand\each{\backslash}
 \newcommand\fold{/}
+\newcommand\add{+}
+\newcommand\sub{-}
+\newcommand\mul{×}
+\newcommand\div{÷}
+\newcommand\exec{!}
+\newcommand\stop{'}
 
 Let's give names to things.
 
@@ -56,14 +62,29 @@ $(\gamma(f)x)y = f(x,y)\in Z$, $f\in \{X\times Y\to Z\}$, $x\in X$, $y\in Y$.
 The _uncurry function_ $\gamma^*\colon \{X\to\{Y\to Z\}\}\to \{X\times Y\to Z\}$
 is $\gamma^*(f)(x,y) = f(x,y)\in Z$, $f\in \{X\to\{Y\to Z\}\}$.
 
+## Reshape
+
+The _reshape_ function $\rho = \rho_{n_0,...,n_{k-1}}\colon\iota
+n_0\times\cdots\times\iota n_{k-1}\to\iota n_0\cdots n_{k-1}$
+is defined by $\rho(i_0, i_1, \ldots, i_{k-1}) = i_0 + n_0(\rho(i_1,
+\ldots, n_{k-1}))$.
+
+Every element $x\in X^{\iota n}$ corresponds to a function $x\colon\iota n\to X$.
+The composition $x\rho\colon n_0\times\cdots\times\iota n_{k-1}\to X$
+reshapes $x$.
+
+## Partition
+
+A function $p\colon I\to J$ determines a _partition_ on $I$ where $i\sim i'$ iff $p(i) = p(i')$.
+
+## Remarks
+
 Natural numbers $\NN = \{0, 1, \ldots\}$.
 
 $\iota n = \{0, \ldots, n - 1\}$, $n\in\NN$.
 
-$\iota\colon\NN\to\NN^*$ where $\NN^* = \sqcup_{n\ge0}\NN^n$.
+$\iota\colon\NN\to\NN^*$ where $\NN^* = \sqcup_{n\ge0}\NN^n$.  
 $\iota n\in\NN^n$.
-
-## Remarks
 
 Every expression is a list of data or functions in Polish notation.
 
@@ -73,15 +94,18 @@ Data is pushed on the call stack.
 
 Functions know what is on the call stack.
 
-_Each_ is $f \each x y \ldots$ is $f x, f y, \ldots$. $f g\each x$ is $f x, g x$.
+_Each_ is $f␣\each␣x␣y␣\ldots$ is $f␣x␣f␣y␣\ldots$, $f␣g\each ␣x$ is $f␣x␣g␣x$.
 
-_Fold_ is $f \fold a b \ldots$ is $f(a,f(b,\ldots))$.
+_Fold_ is $f \fold a␣b \ldots$ is $f␣a␣f␣b␣\ldots))$.
 
-$K$ is the constant function $K\colon X\to\{X\to X\}$ where $K x y = x$.
+$K$ is the constant function $K\colon X\to\{Y\to X\}$ where $Kxy = x$.
 
 Use $!$ for evaluation. 
 
-_Array_ $X^{\iota n}$. $\[ x_0 x_1 \ldots\colon \iota n\to X$ by $i\mapsto x_i$.
+_Array_ $X^{\iota n}$, $[␣x_0␣x_1␣\ldots\colon \iota n\to X$ by $i\mapsto x_i$.
 
-_Tuple_ $\sqcap_{i\in I} X_i$
+_Tuple_ $\sqcap_{i\in I} X_i$, $\langle␣x_0␣x_1␣\ldots\colon I\to\sqcup_{i\in I}X_i$ by $i\mapsto (i, x_i)$.
 
+## Examples
+
+_Average_ $\div␣\stop␣\add\fold␣\add\fold K 1\each␣x_0␣x_1␣\ldots$
