@@ -13,7 +13,7 @@ abstract: Facts about cumulative distribution functions
 
 We collect some facts about [_random variables_](prob.html#random-variable),
 their [_cumulants_](prob.html#cumulant), and deriatives associated with these.
-These are useful for [option pricing](op.html).
+These are used for [option pricing](op.html).
 
 ## Esscher
 
@@ -26,14 +26,13 @@ We write $P_s(X\in A) = E[1_A(X)ε_s(X)] = E_s[1_A(X)]$.
 For any function $g$ we have $E_s[g(X)] = E[g(X)ε_s(X)]$.
 
 The transformed density is $F'_s(x) = f_s(x) = f(x)ε_s(x)$.
-By Leibniz rule $f_s^{(n)}(x) = ε_s(x) \sum_{k=0}^n \binom{n}{k} s^k f^{(n - k)}(x)$
-since $ε_s^{(n)}(x) = ε_s^(x) s^n$.
+By Leibniz rule $(∂/∂x)^n f_s(x) = ε_s(x) \sum_{k=0}^n \binom{n}{k} f^{(n - k)}(x) s^k$
+since $(∂/∂x)^n ε_s(x) = ε_s(x) s^n$.
 
-Note $(∂/∂s)E[g(X) ε_s(X)] = E[g(X) ε_s(X) (X - κ'(s))]$ so
+Note $(∂/∂s)E[g(X) ε_s(X)] = E[g(X) ε_s(X) (X - κ'(s))] = E_s[g(X) (X - κ'(s))]$ so
 $$
-	\frac{∂}{∂s}E_s[g(X)] = E_s[g(X) (X - κ'(s))].
+	\frac{∂F_s(x)}{∂s} = E[1(X\le x) ε_s(X) (X - κ'(s))] = E_s[1(X\le x) (X - κ'(s))].
 $$
-In particular, $∂F_s(x)/∂s = E[1(X\le x) ε_s(X) (X - κ'(s))] = E_s[1(X\le x) (X - κ'(s))]$.
 
 ## Distributions
 
@@ -102,7 +101,10 @@ so $E[X g(X)] = E[g'(X)]$ when $s = 0$.
 
 The transformed cdf is
 $Φ_s(x) = P_s(X\le x) = E[1(X\le x) e^{sX - s^2/2}] = P(X + s\le x) = Φ(x - s)$
-so $∂Φ_s(x)/∂s = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s)$.
+so 
+$$
+∂Φ_s(x)/∂s = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s).
+$$
 
 ### Poisson
 
@@ -117,27 +119,38 @@ $$
 
 The Esscher transform a Poisson distribution with parameter $λ$
 is Poisson with parameter $λe^s$.
-
 $$
 \begin{aligned}
-	E[g(X_λ)e^{s X - κ(s)}]
+	E_s[g(X_λ)] &= E[g(X_λ)e^{s X - κ(s)}] \\
 	&= \sum_{n\ge0} g(n)e^{sn - λ(e^s - 1)}e^{-λ}λ^n/n! \\
 	&= \sum_{n\ge0} g(n)e^{-λ e^s} (λ e^s)^n/n! \\
-	&= E[g(X_{λ e^s})] \\
+	&= E[g(X_{λ e^s})]. \\
 \end{aligned}
 $$
-so $E_s[g(X_λ)] = E[g(X_{λ e^s})]$.
-Taking a derivative with respect to $s$
+Taking a derivative with respect to $s$ we have
+$(∂/∂s)E_s[g(X_λ)]] = λ e^s E[g(X_{λ e^s} + 1) - g(X_{λ e^s})]$ so
+<!--
 $$
 \begin{aligned}
-	\frac{d}{ds} E[g(X_λ)e^{s X - κ(s)}]
-	&= \sum_{n\ge0} g(n)\frac{d}{ds}\bigl(e^{-λ e^s} (λ e^s)^n\bigr)/n! \\
-	&= \sum_{n\ge0} g(n)\bigl(e^{-λ e^s} n(λ e^s)^{n-1}λ e^s - e^{-λ e^s}λ e^s (λ e^s)^n\bigr)/n! \\
-	&= \sum_{n\ge0} g(n)λ e^se^{-λ e^s} \bigl((λ e^s)^{n-1}/(n-1)! - (λ e^s)^n/n!\bigr) \\
-	&= λ e^s E_s[g(X_{λ e^s} + 1) - g(X_{λ e^s})] \\
+	\frac{d}{ds} E_s[g(X_λ)] &= \frac{d}{ds} E[g(X_λ)e^{s X - κ(s)}] \\
+	&= \sum_{n\ge0} g(n)\frac{d}{ds}\bigl(e^{s n - λ(e^s - 1)}\bigr)e^{-λ}λ^n/n! \\
+	&= \sum_{n\ge0} g(n)\bigl(e^{s n - λ(e^s - 1)}(n -  λe^s)\bigr)e^{-λ}λ^n/n! \\
+	&= \sum_{n\ge0} g(n)\bigl(e^{s n - λe^s}(n -  λe^s)\bigr) λ^n/n! \\
+	&= \sum_{n\ge0} g(n) \bigl(e^{s n}(n -  λe^s)\bigr) e^{-λ e^s} λ^n/n! \\
+	&= \sum_{n\ge0} g(n) e^{s n} (n - λe^s) e^{-λ e^s} λ^n/n!) \\
+	&= \sum_{n\ge0} g(n) (n - λe^s) e^{-λ e^s} (λe^s)^n/n!) \\
+	&= \sum_{n\ge0} g(n) n e^{-λ e^s} (λe^s)^n/n! - λe^s  e^{-λ e^s} (λe^s)^n/n! \\
+	&= \sum_{n\ge0} g(n) λe^s e^{-λ e^s} (λe^s)^{n-1}/(n-1)! - λe^s  e^{-λ e^s} (λe^s)^n/n! \\
+	&= \sum_{n\ge0} g(n+1) λe^s e^{-λ e^s} (λe^s)^n/n! - \sum_{n\ge0} g(n) λe^s  e^{-λ e^s} (λe^s)^n/n! \\
+	&= λ e^s E[g(X_{λ e^s} + 1) - g(X_{λ e^s})] \\
 \end{aligned}
 $$
-so $(d/ds)E_s[g(X_λ)] = λ e^s E_s[g(X_{λ e^s} + 1) - g(X_{λ e^s})]$.
+-->
+so 
+$$
+(∂/∂s)E_s[1(X_λ \le x)] = λ e^s e^{-λ e^s} (λe^s)^n/n!
+$$
+where $λ e^s < n \le λ e^s + 1$.
 
 ### Exponential
 

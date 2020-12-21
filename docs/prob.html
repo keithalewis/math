@@ -174,6 +174,23 @@
     B_{n,k}(x_1,\ldots,x_{n - k + 1})
         = \sum_{i=1}^{n-k+1}\binom{n-1}{i - 1} B_{n-i,k-1}(x_1,\ldots,x_{n - i - k + 2})x_i
 </span></p>
+</section>
+</section>
+<section id="jensens-inequality" class="level2">
+<h2>Jensen’s Inequality</h2>
+<p>A function <span class="math inline">\phi\colon\bm{R}\to\bm{R}</span> is <em>convex</em> if <span class="math inline">\phi(x) = \sup_{\lambda\le\phi} \lambda(x)</span> and <em>concave</em> if <span class="math inline">\phi(x) = \inf_{\lambda\ge\phi} \lambda(x)</span> where <span class="math inline">\lambda</span> is linear.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">\phi</span> is convex then <span class="math inline">\phi(tx + (1 - t)x&#39;) \le t\phi(x) + (1 - t)\phi(x&#39;)</span> if <span class="math inline">0\le t\le 1</span></em>.</p>
+<p>Hint: <span class="math inline">\lambda(x) = \phi(x^*) + m(x - x^*) \le \phi(x)</span> where <span class="math inline">x^* = t\phi(x) + (1 - t)\phi(x&#39;)</span> and <span class="math inline">m = (\phi(x&#39;) - \phi(x))/(x&#39; - x)</span>.</p>
+<p><strong>Theorem</strong>. <em>If <span class="math inline">\phi</span> is convex then <span class="math inline">E[\phi(X)] \ge \phi(E[X])</span></em>.</p>
+<p>For <span class="math inline">\lambda\le\phi</span> linear we have <span class="math inline">E[\phi(X)] \ge E[\lambda(X)] = \lambda(E[X])</span>.</p>
+<section id="convergence" class="level3">
+<h3>Convergence</h3>
+<p>Random variables <span class="math inline">X_n</span> converge to <span class="math inline">X</span> in <em>mean</em> if <span class="math inline">E[|X_n - X|]</span> converges to 0. They converges in <em>mean square</em> if <span class="math inline">\operatorname{Var}(X_n - X)</span> converges to 0. They converges <em>in probability</em> if for all <span class="math inline">\epsilon &gt; 0</span> it is evenually the case that <span class="math inline">P(|X_n - X|) &gt; \epsilon) &lt; \epsilon</span>. They converge <em>almost surely</em> if <span class="math inline">P(\lim_n X_n = X) = 1</span>.</p>
+<p><strong>Lemma</strong>. (Chebyshev) <em>For any non-negative random variable <span class="math inline">X</span>, <span class="math inline">P(X &gt; \lambda) \le E[X]/\lambda</span></em>.</p>
+<p><em>Proof</em>. <span class="math inline">E[X] \ge E[X 1(X &gt; \lambda)] \ge \lambda P(X &gt; \lambda)</span>.</p>
+<p><strong>Exercise</strong>. <em>For any non-negative random variable <span class="math inline">X</span> and any increasing function <span class="math inline">\phi</span>, <span class="math inline">P(X &gt; \lambda) \le E[\phi(X)]/\phi(\lambda)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X_n</span> converges in mean square then it converges in probability</em>.</p>
+<p>Hint: <span class="math inline">\phi(x) = x^2</span> is increasing for <span class="math inline">x &gt; 0</span>.</p>
 <!--
 
 ## Joint Distribution

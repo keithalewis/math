@@ -43,43 +43,51 @@
 <h1 class="title">Statistics</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<p>Statistics is the study of finding estimates for properties of random variables.</p>
-<p>A <em>property</em> is a function <span class="math inline">\sigma\colon \mathcal{X}\to\bm{R}</span> where <span class="math inline">\mathcal{X}</span> is a set of random variables. A <em>statistic</em> is a function <span class="math inline">s_n\colon\bm{R}^n\to\bm{R}</span>. Given a random variable <span class="math inline">X\in\mathcal{X}</span> and independent <span class="math inline">(X_j)</span> having the same law as <span class="math inline">X</span> how do we find statistics <span class="math inline">s_n</span> such that <span class="math inline">s_n(X_1,\ldots,X_n)</span> converge to <span class="math inline">\sigma(X)</span> in some sense?</p>
-<p>For example, if <span class="math inline">\sigma(X) = E[X]</span> then the <em>arithmetic mean</em> <span class="math inline">m_n(x_1,\ldots,x_n) = (x_1 + \cdots + x_n)/n</span> is a statistic where <span class="math inline">M_n = m_n(X_1,\ldots,X_n)</span> converges to <span class="math inline">\sigma(X)</span> in the sense <span class="math inline">E[M_n] = \sigma(X)</span> and <span class="math inline">\operatorname{Var}(M_n)\to 0</span>. We could also use the <em>geometric mean</em> <span class="math inline">g_n(x_1,\ldots,x_n) = \sqrt[n]{x_1\cdots x_n}</span> or the <em>harmonic mean</em> <span class="math inline">h_n(x_1,\ldots,x_n) = (n/x_1 + \cdots + n/x_n)^{-1}</span>. Some statistics are better than other statistics.</p>
-<section id="convergence" class="level3">
-<h3>Convergence</h3>
-<p>Random variables <span class="math inline">X_n</span> converge to <span class="math inline">X</span> in <em>mean</em> if <span class="math inline">E[|X_n - X|]</span> converges to 0. They converges in <em>mean square</em> if <span class="math inline">\operatorname{Var}(X_n - X)</span> converges to 0. They converges <em>in probability</em> if for all <span class="math inline">\epsilon &gt; 0</span> it is evenually the case that <span class="math inline">P(|X_n - X|) &gt; \epsilon) &lt; \epsilon</span>. They converge <em>almost surely</em> if <span class="math inline">P(\lim_n X_n = X) = 1</span>.</p>
-<p><strong>Lemma</strong>. (Chebyshev) <em>For any non-negative random variable <span class="math inline">X</span>, <span class="math inline">P(X &gt; \lambda) \le E[X]/\lambda</span></em>.</p>
-<p><em>Proof</em>. <span class="math inline">E[X] \ge E[X 1(X &gt; \lambda)] \ge \lambda P(X &gt; \lambda)</span>.</p>
-<p><strong>Exercise</strong>. <em>For any non-negative random variable <span class="math inline">X</span> and any increasing function <span class="math inline">\phi</span>, <span class="math inline">P(X &gt; \lambda) \le E[\phi(X)]/\phi(\lambda)</span></em>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">X_n</span> converges in mean square then it converges in probability</em>.</p>
-<p>Hint: <span class="math inline">\phi(x) = x^2</span> is increasing for <span class="math inline">x &gt; 0</span>.</p>
+<blockquote>
+Probability all the things!
+</blockquote>
+<section id="statistics" class="level2">
+<h2>Statistics</h2>
+<p><em>Statistics</em> is the study of finding estimates for properties of random variables.</p>
+<p>A <em>property</em> is a number <span class="math inline">\sigma\in\bm{R}</span> associated with a random variable <span class="math inline">X</span>. A <em>statistic</em> is a function <span class="math inline">s_n\colon\bm{R}^n\to\bm{R}</span>. Given independent <span class="math inline">(X_1,\ldots, X_n)</span> having the same law as <span class="math inline">X</span> how do we find statistics <span class="math inline">s_n</span> such that <span class="math inline">s_n(X_1,\ldots,X_n)</span> approximate <span class="math inline">\sigma</span> as <span class="math inline">n</span> gets large?</p>
+<p>For example, if <span class="math inline">\sigma = E[X]</span> then the <em>arithmetic mean</em> <span class="math inline">m_n(x_1,\ldots,x_n) = (x_1 + \cdots + x_n)/n</span> is a statistic where <span class="math inline">M_n = m_n(X_1,\ldots,X_n)</span> converges to <span class="math inline">\sigma(X)</span> in the sense <span class="math inline">E[M_n] = \sigma</span> and <span class="math inline">\operatorname{Var}(M_n)\to 0</span>. We could also use the <em>geometric mean</em> <span class="math inline">g_n(x_1,\ldots,x_n) = \sqrt[n]{x_1\cdots x_n}</span> or the <em>harmonic mean</em> <span class="math inline">h_n(x_1,\ldots,x_n) = (n/x_1 + \cdots + n/x_n)^{-1}</span>. Some statistics are better than other statistics.</p>
+<section id="bias" class="level3">
+<h3>Bias</h3>
+<p>If <span class="math inline">E[s_n(X_1,\ldots,X_n)] = \sigma</span> we say <span class="math inline">s_n</span> is an <em>unbiased</em> <em>estimator</em> of <span class="math inline">\sigma</span>. The arithmetic mean is an unbiased estimator of the mean. Since <span class="math inline">E[(X_1\cdots X_n)^{1/n}] \le E[X_1\cdots X_n]^{1/n} = E[X]</span> the geometric mean is biased.</p>
 </section>
-<section id="bias" class="level2">
-<h2>Bias</h2>
-<p>If <span class="math inline">E[s(X_1,\ldots,X_n)] = \sigma(X)</span> we say <span class="math inline">s</span> is an <em>unbiased</em> <em>estimator</em> of <span class="math inline">\sigma</span>. The arithmetic mean is an unbiased estimator of the mean. Since <span class="math inline">E[(X_1\cdots X_n)^{1/n}] \le E[X_1\cdots X_n]^{1/n} = E[X]</span> the geometric mean is biased.</p>
+<section id="efficient" class="level3">
+<h3>Efficient</h3>
+<p>An unbiased statistic <span class="math inline">s_n</span> is <em>efficient</em> if it has the smallest variance among all unbiased statistics. This leaves open the possibility of biased statistics that have lower variance than efficient statistics.</p>
 </section>
-<section id="efficient" class="level2">
-<h2>Efficient</h2>
-<p>An unbiased statistic <span class="math inline">s</span> is <em>efficient</em> if it has the smallest variance among all unbiased statistics.</p>
-</section>
-<section id="complete" class="level2">
-<h2>Complete</h2>
+<section id="complete" class="level3">
+<h3>Complete</h3>
 <p>A statistic <span class="math inline">s\colon\bm{R}^n\to\bm{R}</span> is <em>complete</em> if <span class="math inline">E_\theta[g(s(X_1,\ldots,X_n))] = 0</span> for all <span class="math inline">\theta</span> implies <span class="math inline">g(s(X_1,\ldots,X_n)) = 0</span> a.s.</p>
 </section>
-<section id="sufficient" class="level2">
-<h2>Sufficient</h2>
-<p>A statistic <span class="math inline">s\colon\bm{R}^n\to\bm{R}</span> is <em>sufficient</em> if the <span class="math inline">n</span> conditions <span class="math inline">X_j = x_j</span>, <span class="math inline">1\le j\le n</span> can be replaced by one condition <span class="math inline">s(X_1,\ldots,X_n) = s(x_1,\ldots,x_n)</span>, i.e., <span class="math inline">E_\theta[g(X)\mid X_j = x_j] = E_\theta[g(X)\mid s(X_1,\ldots,X_n) = s(x_1,\ldots,x_n)]</span>.</p>
-<p>https://en.wikipedia.org/wiki/Lehmann%E2%80%93Scheff%C3%A9_theorem</p>
+<section id="sufficient" class="level3">
+<h3>Sufficient</h3>
+<p>A statistic <span class="math inline">t\colon\bm{R}^n\to\bm{R}</span> is <em>sufficient</em> if the <span class="math inline">n</span> conditions <span class="math inline">X_j = x_j</span>, <span class="math inline">1\le j\le n</span> can be replaced by one condition <span class="math inline">t(X_1,\ldots,X_n) = t(x_1,\ldots,x_n)</span>, i.e., <span class="math inline">E_\theta[g(X)\mid X_j = x_j] = E_\theta[g(X)\mid s(X_1,\ldots,X_n) = s(x_1,\ldots,x_n)]</span>.</p>
 </section>
-<section id="power" class="level2">
-<h2>Power</h2>
 </section>
-<section id="jensens-inequality" class="level2">
-<h2>Jensen’s Inequality</h2>
-<p>A function <span class="math inline">\phi\colon\bm{R}\to\bm{R}</span> is <em>convex</em> if <span class="math inline">\phi(x) = \sup_{\lambda\le\phi} \lambda(x)</span> and <em>concave</em> if <span class="math inline">\phi(x) = \inf_{\lambda\ge\phi} \lambda(x)</span> where <span class="math inline">\lambda</span> is linear.</p>
-<p><strong>Theorem</strong>. <em>If <span class="math inline">\phi</span> is convex then <span class="math inline">E[\phi(X)] \ge \phi(E[X])</span></em>.</p>
-<p>For <span class="math inline">\lambda\le\phi</span> linear we have <span class="math inline">E[\phi(X)] \ge E[\lambda(X)] = \lambda(E[X])</span>.</p>
+<section id="statistic" class="level2">
+<h2>Statistic</h2>
+<p>Given two statistics <span class="math inline">s</span> and <span class="math inline">t</span> for <span class="math inline">\sigma</span> where <span class="math inline">t</span> is sufficient let <span class="math inline">\delta(X) = E[s(X)\given t(X)]</span> be the <em>improved estimator</em>.</p>
+<p><strong>Theorem</strong>. (Rao–Blackwell–Kolmogorov) <em><span class="math inline">E[(\delta(X) - \sigma)^2] \le E[(s(X) - \sigma)^2]</span></em>.</p>
+<p><em>Proof</em>. We have $</p>
+<p><strong>Theorem</strong>. (Lehmann–Scheffé) <em>If …</em>.</p>
+<p>See <a href="https://en.wikipedia.org/wiki/Lehmann%E2%80%93Scheff%C3%A9_theorem">Lehmann–Scheffé Theorem</a></p>
+</section>
+<section id="population" class="level2">
+<h2>Population</h2>
+<p>Sampling from a <em>population</em> is not special. One always does this.</p>
+</section>
+<section id="hypothesis-testing" class="level2">
+<h2>Hypothesis Testing</h2>
+<p>Given random variables <span class="math inline">X_\theta</span>, <span class="math inline">\theta\in\Theta</span>, and a partion <span class="math inline">\{\Theta_0,\Theta_1\}</span> of <span class="math inline">\Theta</span> how can we decide if <span class="math inline">\theta\in\Theta_0</span> (<em>null hypothesis</em>) or <span class="math inline">\theta\in\Theta_1</span> (<em>alternate hypothesis</em>)?</p>
+<p>This is done by designing <em>tests</em> and collecting <em>data samples</em>. A test is a subset <span class="math inline">\delta_0\subseteq \bm{R}^n</span> and is called the <em>critical region</em>. A data sample is a collection of numbers <span class="math inline">x = (x_1,\ldots,x_n)\in\bm{R}^n</span>. We <em>accept</em> the null hypothesis if the sample belongs to this set.</p>
+<p>Let <span class="math inline">X = (X_1,\ldots,X_n)</span> be iid random variables with the same law as <span class="math inline">X_\theta</span>. The <em>power function</em> of a test <span class="math inline">\delta_0</span> is <span class="math inline">\pi(\theta) = P(X\in\delta\mid\theta)</span>. If <span class="math inline">\pi = 1_{\Theta_1}</span> then the test determines whether or not <span class="math inline">\theta\in\Theta_0</span> with probability 1.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">\pi = 1_{\Theta_1}</span> then <span class="math inline">x\in\delta_0</span> implies <span class="math inline">P(\theta\in\Theta_0) = 1</span></em>.</p>
+<p>Hint: If <span class="math inline">x\in\delta_0</span> then $</p>
+<p>This is usually not possible so we look for tests that approximate the indicator function of <span class="math inline">\Theta_1</span>. The <em>size</em> of a test <span class="math inline">\delta</span> is <span class="math inline">\alpha = \sup_{\theta\in\Theta_0} \pi(\theta)</span>.</p>
 </section>
 <footer>
 Return to <a href="index.html">index</a>.

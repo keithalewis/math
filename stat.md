@@ -11,36 +11,40 @@ abstract: Observations of outcomes
 \newcommand\RR{\bm{R}}
 \newcommand{\Var}{\operatorname{Var}}
 
-## Estimation
+<blockquote>
+Probability all the things!
+</blockquote>
 
-_Estimation_ is the study of finding estimates for properties of random variables.
+## Statistics
 
-A _property_ is a function $\sigma\colon \mathcal{X}\to\RR$
-where $\mathcal{X}$ is a set of random variables.
+_Statistics_ is the study of finding estimates for properties of random variables.
+
+A _property_ is a number $\sigma\in\RR$ associated with a random variable $X$.
 A _statistic_ is a function $s_n\colon\RR^n\to\RR$.
-Given a random variable $X\in\mathcal{X}$ and independent $(X_j)$ having the same law
+Given independent $(X_1,\ldots, X_n)$ having the same law
 as $X$ how do we find statistics $s_n$ such that
-$s_n(X_1,\ldots,X_n)$ [converge](prob.html#convergence) to $\sigma(X)$ in some sense?
+$s_n(X_1,\ldots,X_n)$ approximate $\sigma$ as $n$ gets large?
 
-For example, if $\sigma(X) = E[X]$ then the _arithmetic mean_
+For example, if $\sigma = E[X]$ then the _arithmetic mean_
 $m_n(x_1,\ldots,x_n) = (x_1 + \cdots + x_n)/n$ is a statistic where $M_n =
 m_n(X_1,\ldots,X_n)$ converges to $\sigma(X)$ in the sense $E[M_n] =
-\sigma(X)$ and $\Var(M_n)\to 0$.  We could also use the _geometric mean_
+\sigma$ and $\Var(M_n)\to 0$.  We could also use the _geometric mean_
 $g_n(x_1,\ldots,x_n) = \sqrt[n]{x_1\cdots x_n}$ or the _harmonic mean_
 $h_n(x_1,\ldots,x_n) = (n/x_1 + \cdots + n/x_n)^{-1}$.
 Some statistics are better than other statistics.
 
 ### Bias
 
-If $E[s(X_1,\ldots,X_n)] = \sigma(X)$ we say $s$ is an _unbiased_
+If $E[s_n(X_1,\ldots,X_n)] = \sigma$ we say $s_n$ is an _unbiased_
 _estimator_ of $\sigma$. The arithmetic mean is an unbiased estimator of the mean.
 Since $E[(X_1\cdots X_n)^{1/n}] \le E[X_1\cdots X_n]^{1/n} = E[X]$ the geometric
 mean is biased.
 
 ### Efficient
 
-An unbiased statistic $s$ is _efficient_ if it has the smallest variance
-among all unbiased statistics.
+An unbiased statistic $s_n$ is _efficient_ if it has the smallest variance
+among all unbiased statistics. This leaves open the possibility of
+biased statistics that have lower variance than efficient statistics.
 
 ### Complete
 
@@ -49,11 +53,26 @@ $E_\theta[g(s(X_1,\ldots,X_n))] = 0$ for all $\theta$ implies $g(s(X_1,\ldots,X_
 
 ### Sufficient
 
-A statistic $s\colon\RR^n\to\RR$ is _sufficient_ if the $n$ conditions $X_j = x_j$, $1\le j\le n$
-can be replaced by one condition $s(X_1,\ldots,X_n) = s(x_1,\ldots,x_n)$, i.e.,
+A statistic $t\colon\RR^n\to\RR$ is _sufficient_ if the $n$ conditions $X_j = x_j$, $1\le j\le n$
+can be replaced by one condition $t(X_1,\ldots,X_n) = t(x_1,\ldots,x_n)$, i.e.,
 $E_\theta[g(X)\mid X_j = x_j] = E_\theta[g(X)\mid s(X_1,\ldots,X_n) = s(x_1,\ldots,x_n)]$.
 
-https://en.wikipedia.org/wiki/Lehmann%E2%80%93Scheff%C3%A9_theorem
+## Statistic
+
+Given two statistics $s$ and $t$ for $\sigma$ where $t$ is sufficient let $\delta(X) = E[s(X)\given t(X)]$
+be the _improved estimator_.
+
+__Theorem__. (Rao–Blackwell–Kolmogorov) _$E[(\delta(X) - \sigma)^2] \le E[(s(X) - \sigma)^2]$_.
+
+_Proof_. We have $\Var
+
+__Theorem__. (Lehmann–Scheffé) _If ..._.
+
+See [Lehmann–Scheffé Theorem](https://en.wikipedia.org/wiki/Lehmann%E2%80%93Scheff%C3%A9_theorem)
+
+## Population
+
+Sampling from a _population_ is not special. One always does this.
 
 ## Hypothesis Testing
 

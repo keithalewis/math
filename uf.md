@@ -183,7 +183,7 @@ and amounts $\Gamma_j\colon I\times E\times I\times E\to A$
 to trade at time $\tau_j$ in two instruments between two entities.
 The trades are $(\tau_j;i,\Gamma_j X_j,e;i', \Gamma_j, e')$
 where $\Gamma_j = \Gamma_j(i, e, i', e')$ and $X_j = X_{\tau_j}(i,e,i',\Gamma_j,e')$.
-After the trade the buyer $e$ hold amount $\Gamma_j$ of $i'$ and the
+After the trade the buyer $e$ holds amount $\Gamma_j$ of $i'$ and the
 seller holds amount $\Gamma_j X_j$ of $i$ in exchange for that.
 
 Most models do not specify the seller $e'$; traders assume there is an aggregate
@@ -271,6 +271,7 @@ life of the trading strategy.  This definition
 of arbitrage depends on the model used for cash flows and prices.
 
 [The Fundamental Theorem of Asset Pricing](https://kalx.net/um.pdf) describes all arbitrage-free models.
+It also shows $\Delta$ is delta and $\Gamma$ is gamma.
 
 ## Risk
 
