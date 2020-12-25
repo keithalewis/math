@@ -29,7 +29,8 @@ by mathematical models to determine the amounts and values associated
 with a trading strategy. It also places instruments on equal footing to
 get a complete picture of risk across **all** asset classes.  It does not
 solve any particular problem in finance but it does specify a mathematical
-notation to rigorously discuss all aspects of instrument trading.
+notation to rigorously discuss all aspects of trading instruments using
+realistic assumptions.
 
 ## Holding
 

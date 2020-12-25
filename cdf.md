@@ -164,7 +164,16 @@ and $κ^{(n)}(s) = (1 - s/λ)^{-n}(n - 1)!/λ^{n-1}$
 A logistic random variate has cumulative distribution $F(x) = 1/(1 + e^{-x})$, $-\infty < x < \infty$.
 Its quantile function is $Q(u) = F^{-1}(u) = \log u/(1-u)$.
 
+The derivatives of the cdf are
+$$
+	\left(\frac{∂}{∂x}\right)^n \frac{1}{1 + e^{-x}} = \sum_{k=1}^n A_{n,k}\frac{e^{-kx}}{(1 + e^{-x})^{k + 1}}
+$$
+where $A_{n,k} = k(A_{n-1,k-1} - A_{n-1,k})$ and $A_{1,1} = 1$,
+assuming $A_{n,k} = 0$ if $k > n$.
+
+<!--
 Aside: $f(x) = \int_0^\infty e^{-x} e^{-α e^{-x}} e^{-α}\,dα$.
+-->
 
 Using $u = F(x) = 1/(1 + e^{-x})$, so $e^x = u/(1 - u)$
 $$
@@ -172,27 +181,67 @@ $$
 E[e^{sX}] &= \int_{-\infty}^\infty e^{sx}\, d(1/(1 + e^{-x})) \\
     &= \int_0^1 (u/(1 - u))^{s}\,du \\
     &= \int_0^1 u^s(1 - u)^{-s}\,du \\
-    &= B(s + 1, 1 - s) \\
+    &= B(1 + s, 1 - s) \\
 \end{aligned}
 $$
 where $B(α,β)$ is the Beta function.
-The cumulant of the logistic is $κ(s) = \log B(s + 1, 1 - s)$
+
+The cumulant of the logistic is $κ(s) = \log B(1 + s, 1 - s)$.
+Since $B(α,β) = Γ(α)Γ(β)/Γ(α + β)$ and $Γ(2) = 1$
+we have $κ(s) = \log Γ(1 + s) + \log Γ(1 - s)$.
+The _digamma_ function is the derivative of the log of the Gamma function
+$\psi(s) = Γ'(s)/Γ(s)$. Its Taylor series at $1$ is
+$\psi(1 + s) = -γ - \sum_{n\ge 1} ζ(n+1) (-s)^n$ where
+$γ$ is the Euler-Mascheroni constant and $ζ(s) = \sum_{n\ge 1} n^{-s}$
+is the zeta function.
+
+The first derivative of the cumulant is $κ'(s) = \psi(1 + s) - \psi(1 - s)
+= -\sum_{n\ge 1} ζ(n+1)((-s)^n - s^n)$
+so $κ_n = 0$ if $n$ is odd and $κ_n = 2ζ(n)(n-1)!$ if $n$ is even;
+In particular, the variance of the logistic is $κ_2 = 2ζ(2) = \pi^2/3$.
 
 The Esscher transformed cumulative distribution is
 $$
 \begin{aligned}
 F_s(x) &= \int_{-\infty}^x e^{s\xi - κ(s)}\,d(1/(1 + e^{-\xi}))\,d\xi \\
-    &= e^{- κ(s)}\int_0^{F(x)} u^s(1 - u)^{-s}\,du \\
-    &= B(F(x); s + 1, 1 - s)/B(s + 1, 1 - s) \\
-    &= I_{F(x)}(s + 1, 1 - s) \\
+    &= \int_0^{F(x)} u^s(1 - u)^{-s}\,du/e^{κ(s)} \\
+    &= B(F(x); 1 + s, 1 - s)/B(1 + s, 1 - s) \\
+    &= I_{F(x)}(1 + s, 1 - s) \\
 \end{aligned}
 $$
 where $I_u(α,β)$ is the regularized incomplete Beta function.
+
+Recall
+$$
+\frac{∂}{∂α} I_u(α,β) = (\log u - \psi(α) + \psi(α + β))I_u(α,β)
+$$
+so using $I_u(α,β) = 1 - I_{1 - u}(β,α)$
+$$
+\frac{∂}{∂β} I_u(α,β) = -(\log (1 - u) - \psi(β) + \psi(β + α))I_{1 - u}(β, α)
+$$
+and we have
+$$
+\begin{aligned}
+\frac{∂}{∂s} I_u(1 + s,1 - s) &=  (\log u - \psi(1 + s) + \psi(2))I_u(1 + s, 1 - s) \\
+	 &\ -(\log (1 - u) - \psi(1 - s) + \psi(2))I_{1 - u}(1 - s, 1 + s) \\
+	&=  (\log u - \psi(1 + s) + \psi(2))I_u(1 + s, 1 - s) \\
+	 &\ -(\log (1 - u) - \psi(1 - s) + \psi(2))\bigl(1 - I_u(1 + s, 1 - s)\bigr) \\
+	&=  (\log u(1 - u) - \psi(1 + s) - \psi(1 - s) + 2(1 - \gamma))I_u(1 + s, 1 - s) \\
+	 &\ -(\log (1 - u) - \psi(1 - s) + 1 - \gamma) \\
+\end{aligned}
+$$
+
+
 Using
 $$
 I_u(α,β) = \frac{u^α}{α B(α,β)}\,_2F_1(α, 1 - β, α + 1;x).
 $$
 where $\,_2F_1(a,b;c;x) = \sum_{n=0}^\infty\frac{(a)_n (b)_n}{(c)_n} x^n/n!$
+and
+$$
+I_u(a,b) (\psi ^{(0)}(a+b)-\psi^{(0)}(a)+\log (u))
+	-\frac{u^a \Gamma (a)^2 _3\tilde{F}_2(a,a,1-b;a+1,a+1;u)}{B(a,b)}
+$$
 is the Gaussian hypergeometric function gives
 $$
 F_s(x) = \frac{u^{s + 1}}{(s + 1) B(s + 1, 1 - s)}\,_2F_1(s + 1, s, s + 2;x).
@@ -215,27 +264,23 @@ F_s^{(n)}(x)
 \end{aligned}
 $$
 
-Since $B(α,β) = \Gamma(α)\Gamma(β)/\Gamma(α + β)$
-we have $κ(s) = \log \Gamma(s + 1) + \log \Gamma(1 - s)$.
-The _digamma_ function is the derivative of the log of the Gamma function
-$\psi(s) = Γ'(s)/Γ(s)$. Its Taylor series at $1$ is
-$\psi(1 + s) = -γ - \sum_{n\ge 1} (-1)^n ζ(n+1) s^n$ where
-$γ$ is the Euler-Mascheroni constant and $ζ(s) = \sum_{n\ge 1} n^{-s}$
-is the zeta function.
 
-The first derivative of the cumulant is $κ'(s) = \psi(1 + s) - \psi(1 - s)
-= -\sum_{n\ge 1} (-1)^n ζ(n+1)(s^n - (-s)^n)$
-so $κ_n = 0$ if $n$ is odd and $κ_n = 2ζ(n)(n-1)!$ if $n$ is even;
-In particular, the variance of the logistic is $κ_2 = 2ζ(2) = \pi^2/3$.
-
-Finally we compute the Esscher density $(∂/∂ s)F_s(x)$ using
-$(∂/∂α) B(α,β) = B(α,β) (\psi(α) - \psi(α + β))$
+The Esscher density is
 $$
 \begin{aligned}
-(∂/∂ s)F_s(x) &= E[1(X\le x) ε_s(X) (X - \kappa'(s))]\\
-&= ?\\
+\frac{∂}{∂ s}F_s(x) = &-\frac{
+	u^{s+1} \Gamma (s+1)^2 \left(\frac{_2\tilde{F}_1(s,s+1;s+2;u)}{\Gamma (s+1)}-s 
+	    _3\tilde{F}_2(s+1,s+1,s+1;s+2,s+2;u)\right)}{B(s+1,1-s)} \\
+	&-\frac{(1-u)^{1-s} \Gamma (1-s)^2 \left(s \, _3\tilde{F}_2(1-s,1-s,1-s;2-s,2-s;1-u)+\frac{
+		_2\tilde{F}_1(1-s,-s;2-s;1-u)}{\Gamma (1-s)}\right)+B_{1-u}(1-s,s+1) (\psi
+		^{(0)}(1-s)-\log (1-u)+\gamma -1)}{B(s+1,1-s)} \\
+	&+I_u(s+1,1-s) (-\psi^{(0)}(s+1)+\log (u)-\gamma +1)
 \end{aligned}
 $$
+<!--
+
+$$
+-->
 
 <!--
 The Esscher transformed cumulative distribution is
@@ -246,10 +291,7 @@ $$
 $$
 where $\,_2F_1(a,b;c;x) = \sum_{n=0}^\infty\frac{(a)_n (b)_n}{(c)_n} x^n/n!$
 is the Gaussian hypergeometric function.
--->
 
-
-<!--
 Using
 $$
 \begin{aligned}
@@ -319,3 +361,8 @@ $E[X^2e^{s X - κ(s)}(X - κ'(s))]
 =κ'''(s) + 2κ''(s)κ'(s) - κ'(s)^3$.
 
 -->
+
+## Acknowledgements
+
+The author thanks Peter Carr and Bill Goff for their helpful comments and insightful suggestions. 
+Any errors or omissions are due to the author.
