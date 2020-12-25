@@ -210,6 +210,13 @@ F_s(x) &= \int_{-\infty}^x e^{s\xi - κ(s)}\,d(1/(1 + e^{-\xi}))\,d\xi \\
 \end{aligned}
 $$
 where $I_u(α,β)$ is the regularized incomplete Beta function.
+Note $(∂/∂x)F_s(x) = e^{s x - κ(s)} F'_0(x)$ so
+$$
+\begin{aligned}
+(\frac{∂}{∂x})^{n + 1}F_s(x) &= \sum_{k=0}^n \binom{n}{k}\epsilon_s^{(k)}(x) F_0^{(n - k + 1)}(x) \\
+	&= \epsilon_s(x)\sum_{k=0}^n \binom{n}{k} s^k F_0^{(n - k + 1)}(x) \\
+\end{aligned}
+$$
 
 Recall
 $$
