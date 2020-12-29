@@ -12,7 +12,7 @@ abstract: Facts about cumulative distribution functions
 \newcommand{\Cov}{\operatorname{Cov}}
 
 We collect some facts about [_random variables_](prob.html#random-variable),
-their [_cumulants_](prob.html#cumulant), and deriatives associated with these.
+their [_cumulants_](prob.html#cumulant), and their deriatives.
 These are used for [option pricing](op.html).
 
 ## Esscher
@@ -20,14 +20,17 @@ These are used for [option pricing](op.html).
 The Esscher transform $X_s$, $s\in\RR$, of a random variable $X$
 has cdf $F_s(x) = E[1(X\le x)ε_s(X)]$, where $ε_s(x) = e^{s x - κ(s)}$
 and $κ(s) = \log E[e^{sX}]$ is the cumulant of $X$.
-Note $E[ε_s(X)] = 1$ so $F_s$ is a cdf and $X_0$ and $X$ have the same law.
+Note $E[ε_s(X)] = 1$ so $F_s$ is a cdf. Clearly $X_0$ and $X$ have the same law.
 
-We write $P_s(X\in A) = E[1_A(X)ε_s(X)] = E_s[1_A(X)]$.
+We write $P(X_s\in A) = P_s(X\in A) = E[1_A(X)ε_s(X)] = E_s[1_A(X)]$.
 For any function $g$ we have $E_s[g(X)] = E[g(X)ε_s(X)]$.
 
 The transformed density is $F'_s(x) = f_s(x) = f(x)ε_s(x)$.
-By Leibniz rule $(∂/∂x)^n f_s(x) = ε_s(x) \sum_{k=0}^n \binom{n}{k} f^{(n - k)}(x) s^k$
-since $(∂/∂x)^n ε_s(x) = ε_s(x) s^n$.
+By Leibniz rule 
+$$
+	f_s^{(n)}(x) = ε_s(x) \sum_{k=0}^n \binom{n}{k} f^{(n - k)}(x) s^k
+$$
+since $ε_s^{(n)}(x) = ε_s(x) s^n$.
 
 Note $(∂/∂s)E[g(X) ε_s(X)] = E[g(X) ε_s(X) (X - κ'(s))] = E_s[g(X) (X - κ'(s))]$ so
 $$
@@ -62,19 +65,19 @@ $H_{n+1}(x) = x H_n(x) - n H_{n-1}(x)$, $n\ge 1$.
 Some useful properties are 
 $$
 \begin{aligned}
-E[e^{\mu + \sigma X}] &= \int_{-\infty}^\infty e^{\mu + \sigma z} e^{-z^2/2}\, dz/\sqrt{2\pi} \\
-	&= \int_{-\infty}^\infty e^{\mu + \sigma^2/2} e^{-(z - \sigma)^2/2}\, dz/\sqrt{2\pi} \\
+E[e^{\mu + \sigma X}] &= \int_{-\infty}^\infty e^{\mu + \sigma x} e^{-x^2/2}\, dx/\sqrt{2\pi} \\
+	&= \int_{-\infty}^\infty e^{\mu + \sigma^2/2} e^{-(x - \sigma)^2/2}\, dx/\sqrt{2\pi} \\
 	&= e^{\mu + \sigma^2/2} \\
 \end{aligned}
 $$
-so $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ for any normally distributed random variable $N$,
+so $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ for any normally distributed random variable $N$.
 
 Also
 $$
 \begin{aligned}
-E[g(X) e^{sX}] &= \int_{-\infty}^\infty g(z) e^{sz} e^{-z^2/2}\, dz/\sqrt{2\pi} \\
-	&= \int_{-\infty}^\infty g(z) e^{s^2/2} e^{-(z - s)^2/2}\, dz/\sqrt{2\pi} \\
-	&= E[e^{sX}] E(g(X - s)]. \\
+E[g(X) e^{sX}] &= \int_{-\infty}^\infty g(x) e^{sx} e^{-x^2/2}\, dx/\sqrt{2\pi} \\
+	&= \int_{-\infty}^\infty g(x) e^{s^2/2} e^{-(x - s)^2/2}\, dx/\sqrt{2\pi} \\
+	&= E[e^{sX}] E(g(X + s)]. \\
 \end{aligned}
 $$
 More generally, if $N$, $N_1, \ldots$ are jointly normal then
@@ -85,7 +88,7 @@ This is an elementary form of Girsanov's Theorem.
 
 __Exercise__. _Prove this_.
 
-Hint: $N_1, \ldots$ are jointly normal if and only if 
+Hint: $N, N_1, \ldots$ are jointly normal if and only if 
 they are linear combinations of independent standard normals.
 
 The cumulant is $κ(s) = \log E[\exp(sX)] = s^2/2$ so $κ_2 = 1$ and all other
@@ -129,6 +132,10 @@ $$
 $$
 Taking a derivative with respect to $s$ we have
 $(∂/∂s)E_s[g(X_λ)]] = λ e^s E[g(X_{λ e^s} + 1) - g(X_{λ e^s})]$ so
+$$
+(∂/∂s)E_s[1(X_λ \le x)] = λ e^s e^{-λ e^s} (λe^s)^n/n!
+$$
+where $λ e^s < n \le λ e^s + 1$.
 <!--
 $$
 \begin{aligned}
@@ -146,11 +153,6 @@ $$
 \end{aligned}
 $$
 -->
-so 
-$$
-(∂/∂s)E_s[1(X_λ \le x)] = λ e^s e^{-λ e^s} (λe^s)^n/n!
-$$
-where $λ e^s < n \le λ e^s + 1$.
 
 ### Exponential
 
@@ -166,7 +168,7 @@ Its quantile function is $Q(u) = F^{-1}(u) = \log u/(1-u)$.
 
 The derivatives of the cdf are
 $$
-	\left(\frac{∂}{∂x}\right)^n \frac{1}{1 + e^{-x}} = \sum_{k=1}^n A_{n,k}\frac{e^{-kx}}{(1 + e^{-x})^{k + 1}}
+	\frac{∂^n}{∂x^n} \frac{1}{1 + e^{-x}} = \sum_{k=1}^n A_{n,k}\frac{e^{-kx}}{(1 + e^{-x})^{k + 1}}
 $$
 where $A_{n,k} = k(A_{n-1,k-1} - A_{n-1,k})$ and $A_{1,1} = 1$,
 assuming $A_{n,k} = 0$ if $k > n$.
@@ -197,7 +199,8 @@ is the zeta function.
 
 The first derivative of the cumulant is $κ'(s) = \psi(1 + s) - \psi(1 - s)
 = -\sum_{n\ge 1} ζ(n+1)((-s)^n - s^n)$
-so $κ_n = 0$ if $n$ is odd and $κ_n = 2ζ(n)(n-1)!$ if $n$ is even;
+so $κ_n = 0$ and $κ_{n+1} = 2ζ(n + 1)n!$
+if $n$ is odd.
 In particular, the variance of the logistic is $κ_2 = 2ζ(2) = \pi^2/3$.
 
 The Esscher transformed cumulative distribution is
@@ -213,32 +216,33 @@ where $I_u(α,β)$ is the regularized incomplete Beta function.
 Note $(∂/∂x)F_s(x) = e^{s x - κ(s)} F'_0(x)$ so
 $$
 \begin{aligned}
-(\frac{∂}{∂x})^{n + 1}F_s(x) &= \sum_{k=0}^n \binom{n}{k}\epsilon_s^{(k)}(x) F_0^{(n - k + 1)}(x) \\
+\frac{∂^{n+1}}{∂x^{n + 1}} F_s(x) &= \sum_{k=0}^n \binom{n}{k}\epsilon_s^{(k)}(x) F_0^{(n - k + 1)}(x) \\
 	&= \epsilon_s(x)\sum_{k=0}^n \binom{n}{k} s^k F_0^{(n - k + 1)}(x) \\
 \end{aligned}
 $$
 
-Recall
+Recall $(∂/∂α) I_u(α,β) = (\log u - \psi(α) + \psi(α + β))I_u(α,β)$ so
 $$
-\frac{∂}{∂α} I_u(α,β) = (\log u - \psi(α) + \psi(α + β))I_u(α,β)
+	\frac{∂}{∂s} I_u(1 + s,β) = (\log u - \psi(1 + s) + \psi(1 + s + β))I_u(1 + s,β).
 $$
-so using $I_u(α,β) = 1 - I_{1 - u}(β,α)$
+Using $I_u(α,β) = 1 - I_{1 - u}(β,α)$ so
+$(∂/∂β) I_u(α,β) = -(\log (1 - u) - \psi(β) + \psi(β + α))I_{1 - u}(β,α)$ and
 $$
-\frac{∂}{∂β} I_u(α,β) = -(\log (1 - u) - \psi(β) + \psi(β + α))I_{1 - u}(β, α)
+\frac{∂}{∂s} I_u(α,1 - s) = -(\log (1 - u) - \psi(1 - s) + \psi(1 - s + α))(1 - I_u(α, 1 - s)).
 $$
-and we have
+Since $(∂/∂s) I_u(1 + s, 1 - s) = (∂/∂α) I_u(1 + s, 1 - s) - (∂/∂β) I_u(1 + s, 1 - s)$
+and $\psi(2) = 1 - \gamma$ we have
 $$
 \begin{aligned}
-\frac{∂}{∂s} I_u(1 + s,1 - s) &=  (\log u - \psi(1 + s) + \psi(2))I_u(1 + s, 1 - s) \\
-	 &\ -(\log (1 - u) - \psi(1 - s) + \psi(2))I_{1 - u}(1 - s, 1 + s) \\
-	&=  (\log u - \psi(1 + s) + \psi(2))I_u(1 + s, 1 - s) \\
-	 &\ -(\log (1 - u) - \psi(1 - s) + \psi(2))\bigl(1 - I_u(1 + s, 1 - s)\bigr) \\
-	&=  (\log u(1 - u) - \psi(1 + s) - \psi(1 - s) + 2(1 - \gamma))I_u(1 + s, 1 - s) \\
-	 &\ -(\log (1 - u) - \psi(1 - s) + 1 - \gamma) \\
+\frac{∂}{∂s} F_s(x)
+	&=  (\log u - \psi(1 + s) + 1 - \gamma) F_s(x) 
+	  + (\log (1 - u) - \psi(1 - s) + 1 - \gamma)(1 - F_s(x)) \\
+	&=  (\log \frac{F(x)}{1 - F(x)} - \kappa'(s)) F_s(x) 
+	  + \log (1 - F(x)) - \psi(1 - s) + 1 - \gamma \\
 \end{aligned}
 $$
 
-
+<!--
 Using
 $$
 I_u(α,β) = \frac{u^α}{α B(α,β)}\,_2F_1(α, 1 - β, α + 1;x).
@@ -284,7 +288,6 @@ $$
 	&+I_u(s+1,1-s) (-\psi^{(0)}(s+1)+\log (u)-\gamma +1)
 \end{aligned}
 $$
-<!--
 
 $$
 -->
