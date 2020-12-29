@@ -276,7 +276,7 @@ $$
 $$
 Spot and forward delta are equal but the spot gamma is
 $$
-∂_u^2 v_0 = ∂_u ∂_f v = ∂_f^2 v ∂_uf = ∂_f^2 v R.
+∂_u^2 v_0 = ∂_u ∂_f v = ∂_f^2 v ∂_u f = ∂_f^2 v R.
 $$
 Spot vega is 
 $$
