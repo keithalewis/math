@@ -12,7 +12,7 @@ abstract: Facts about cumulative distribution functions
 \newcommand{\Cov}{\operatorname{Cov}}
 
 We collect some facts about [_random variables_](prob.html#random-variable),
-their [_cumulants_](prob.html#cumulant), and deriatives associated with these.
+their [_cumulants_](prob.html#cumulant), and their deriatives.
 These are used for [option pricing](op.html).
 
 ## Esscher
@@ -20,14 +20,17 @@ These are used for [option pricing](op.html).
 The Esscher transform $X_s$, $s\in\RR$, of a random variable $X$
 has cdf $F_s(x) = E[1(X\le x)ε_s(X)]$, where $ε_s(x) = e^{s x - κ(s)}$
 and $κ(s) = \log E[e^{sX}]$ is the cumulant of $X$.
-Note $E[ε_s(X)] = 1$ so $F_s$ is a cdf and $X_0$ and $X$ have the same law.
+Note $E[ε_s(X)] = 1$ so $F_s$ is a cdf. Clearly $X_0$ and $X$ have the same law.
 
-We write $P_s(X\in A) = E[1_A(X)ε_s(X)] = E_s[1_A(X)]$.
+We write $P(X_s\in A) = P_s(X\in A) = E[1_A(X)ε_s(X)] = E_s[1_A(X)]$.
 For any function $g$ we have $E_s[g(X)] = E[g(X)ε_s(X)]$.
 
 The transformed density is $F'_s(x) = f_s(x) = f(x)ε_s(x)$.
-By Leibniz rule $(∂/∂x)^n f_s(x) = ε_s(x) \sum_{k=0}^n \binom{n}{k} f^{(n - k)}(x) s^k$
-since $(∂/∂x)^n ε_s(x) = ε_s(x) s^n$.
+By Leibniz rule 
+$$
+	f_s^{(n)}(x) = ε_s(x) \sum_{k=0}^n \binom{n}{k} f^{(n - k)}(x) s^k
+$$
+since $ε_s^{(n)}(x) = ε_s(x) s^n$.
 
 Note $(∂/∂s)E[g(X) ε_s(X)] = E[g(X) ε_s(X) (X - κ'(s))] = E_s[g(X) (X - κ'(s))]$ so
 $$
@@ -62,8 +65,8 @@ $H_{n+1}(x) = x H_n(x) - n H_{n-1}(x)$, $n\ge 1$.
 Some useful properties are 
 $$
 \begin{aligned}
-E[e^{\mu + \sigma X}] &= \int_{-\infty}^\infty e^{\mu + \sigma z} e^{-z^2/2}\, dz/\sqrt{2\pi} \\
-	&= \int_{-\infty}^\infty e^{\mu + \sigma^2/2} e^{-(z - \sigma)^2/2}\, dz/\sqrt{2\pi} \\
+E[e^{\mu + \sigma X}] &= \int_{-\infty}^\infty e^{\mu + \sigma x} e^{-x^2/2}\, dx/\sqrt{2\pi} \\
+	&= \int_{-\infty}^\infty e^{\mu + \sigma^2/2} e^{-(x - \sigma)^2/2}\, dx/\sqrt{2\pi} \\
 	&= e^{\mu + \sigma^2/2} \\
 \end{aligned}
 $$
@@ -72,9 +75,9 @@ so $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ for any normally distributed random var
 Also
 $$
 \begin{aligned}
-E[g(X) e^{sX}] &= \int_{-\infty}^\infty g(z) e^{sz} e^{-z^2/2}\, dz/\sqrt{2\pi} \\
-	&= \int_{-\infty}^\infty g(z) e^{s^2/2} e^{-(z - s)^2/2}\, dz/\sqrt{2\pi} \\
-	&= E[e^{sX}] E(g(X - s)]. \\
+E[g(X) e^{sX}] &= \int_{-\infty}^\infty g(x) e^{sx} e^{-x^2/2}\, dx/\sqrt{2\pi} \\
+	&= \int_{-\infty}^\infty g(x) e^{s^2/2} e^{-(x - s)^2/2}\, dx/\sqrt{2\pi} \\
+	&= E[e^{sX}] E(g(X + s)]. \\
 \end{aligned}
 $$
 More generally, if $N$, $N_1, \ldots$ are jointly normal then
@@ -129,6 +132,10 @@ $$
 $$
 Taking a derivative with respect to $s$ we have
 $(∂/∂s)E_s[g(X_λ)]] = λ e^s E[g(X_{λ e^s} + 1) - g(X_{λ e^s})]$ so
+$$
+(∂/∂s)E_s[1(X_λ \le x)] = λ e^s e^{-λ e^s} (λe^s)^n/n!
+$$
+where $λ e^s < n \le λ e^s + 1$.
 <!--
 $$
 \begin{aligned}
@@ -146,11 +153,6 @@ $$
 \end{aligned}
 $$
 -->
-so 
-$$
-(∂/∂s)E_s[1(X_λ \le x)] = λ e^s e^{-λ e^s} (λe^s)^n/n!
-$$
-where $λ e^s < n \le λ e^s + 1$.
 
 ### Exponential
 
@@ -230,11 +232,11 @@ and we have
 $$
 \begin{aligned}
 \frac{∂}{∂s} I_u(1 + s,1 - s) &=  (\log u - \psi(1 + s) + \psi(2))I_u(1 + s, 1 - s) \\
-	 &\ -(\log (1 - u) - \psi(1 - s) + \psi(2))I_{1 - u}(1 - s, 1 + s) \\
+	 &\quad -(\log (1 - u) - \psi(1 - s) + \psi(2))I_{1 - u}(1 - s, 1 + s) \\
 	&=  (\log u - \psi(1 + s) + \psi(2))I_u(1 + s, 1 - s) \\
-	 &\ -(\log (1 - u) - \psi(1 - s) + \psi(2))\bigl(1 - I_u(1 + s, 1 - s)\bigr) \\
+	 &\quad -(\log (1 - u) - \psi(1 - s) + \psi(2))\bigl(1 - I_u(1 + s, 1 - s)\bigr) \\
 	&=  (\log u(1 - u) - \psi(1 + s) - \psi(1 - s) + 2(1 - \gamma))I_u(1 + s, 1 - s) \\
-	 &\ -(\log (1 - u) - \psi(1 - s) + 1 - \gamma) \\
+	 &\quad -(\log (1 - u) - \psi(1 - s) + 1 - \gamma) \\
 \end{aligned}
 $$
 
