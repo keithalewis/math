@@ -24,18 +24,26 @@ the _option payoff_ as a function of the _underlying_ at _expiration_.
 _Greeks_ are derivatives of the _value_ with respect to _model parameters_.
 This short note derives formulas for these that can be used for any positive underlying.
 
+Every positive random variable $F$ can be parameterized as $F = fe^{sX - \kappa(s)}$
+where $f = E[F]$ is the _forward_, $s^2 = \Var[\log F]$ is the _vol_ squared, and
+$\kappa(s) = \log E[e^{sX}]$ is the _cumulant_ of $X$.
+If $Ψ_s(x) = E[1(X\le x)e^{sX - \kappa(s)}]$ is the _share_ cumulative distribution
+function then call and put values and greeks can be expressed in terms of
+$Ψ_s(x)$, $(∂/∂x)Ψ_s(x)$, and $(∂/∂s)Ψ_s(x)$. The formula for digital gamma
+requires $(∂/∂x)^2 Ψ_s(x)$.
+
 ## Share Measure
 
 Let $F$ be the positive, random price of some _underlying_ instrument at
-option expiration.  The (forward)  _value_ of an option paying $\nu(F)$
-in some currency at expiration is $E[\nu(F)] = \int \nu(F)\,dP$.
+option expiration.  The (forward)  _value_ of an option paying $ν(F)$
+in some currency at expiration is $E[ν(F)] = \int ν(F)\,dP$.
 We can also consider the payoff in terms of shares of $F$,
-$\nu_s(F) = \nu(F)F/E[F]$.  If we receive $\nu_s(F)$ shares of $F$ at
-expiration we can convert those at price $F$ to $\nu(F)$ in the currency.
+$ν_s(F) = ν(F)F/E[F]$.  If we receive $ν_s(F)$ shares of $F$ at
+expiration we can convert those at price $F$ to $ν(F)$ in the currency.
 
 _Share measure_ $P_s$ is defined by $dP_s/dP = F/E[F]$.
 We write $E_s$ for expectation under the share measure.
-Note $E_s[1] = 1$ so share measure is a probability measure.
+Note $F > 0$ and $E_s[1] = 1$ so share measure is a probability measure.
 
 ## Parameters
 
@@ -53,61 +61,43 @@ If you prefer a different parameterization, say $f = f(u,t)$, $s = s(u,t)$,
 the chain rule can be applied to get greeks in terms of $u$ and $t$.
 For example, the Black model takes $X$ to be standard normal and vol
 $s = σ \sqrt{t}$ where $σ$ is the _volatilty_ and $t$ is _time_ in
-years to expiration.  In this case $F = fe^{σ \sqrt{t} X - σ^2t/2}$
-and $∂E[\nu(F)]/∂σ = (∂E[\nu(F)]/∂s)(∂s/∂σ) = (∂E[\nu(F)]/∂s)\sqrt{t}$.
-
-The Black-Merton/Scholes model uses _spot_ prices instead of forward.
-If a risk-free bond has realized return $R$ over the period the value of the underlying
-at expiration is $U = Rue^{sX - κ(s)}$. Since $F = U$ we have $f = Ru$.
-The _spot_ value of the option is $v_0 = (1/R)E[\nu(U)]$. We have
-$$
-\frac{∂v_0}{∂u} = \frac{1}{R} E[ν'(U)\frac{∂U}{∂u}]
-= \frac{1}{R} E[ν'(F) \frac{∂F}{∂f} \frac{∂f}{∂u}]
-= \frac{1}{R} E[ν'(F) \frac{∂F}{∂f} R] = \frac{∂v}{∂f}.
-$$
-Spot and forward delta are equal but the spot gamma is
-$$
-\frac{∂^2v_0}{∂u^2} = \frac{∂}{∂u}\frac{∂v}{∂f} = \frac{∂^2v}{∂f^2}\frac{∂f}{∂u} = R \frac{∂^2v}{∂f^2}.
-$$
-Spot vega is 
-$$
-\frac{∂v_0}{∂s} = \frac{1}{R} E[ν'(U) \frac{∂U}{∂s}] = \frac{1}{R} E[ν'(F) \frac{∂F}{∂s} = \frac{1}{R}\frac{∂v}{∂s}.
-$$
+years to expiration.  In this case $F = fe^{σ\sqrt{t} X - σ^2t/2}$
+and $∂_σ E[ν(F)] = ∂_sE[ν(F)] ∂s/∂σ = ∂_sE[ν(F)]\sqrt{t}$.
 
 ## Greeks
 
 Define $ε_s(x) = e^{s x - κ(s)}$
-so $∂ε_s(x)/∂x = ε_s(x)s$
-and $∂ε_s(x)/∂s = ε_s(x)(x - κ'(s))$.
+so $∂_x ε_s(x) = ε_s(x)s$
+and $∂_s ε_s(x) = ε_s(x)(x - κ'(s))$.
 Let $y = y(x) = fε_s(x)$. 
 The _moneyness_ of $y$ is $x = x(y) = ε_s^{-1}(y/f)
 = (\log y/f + κ(s))/s$. Note
 $F = fε_s(X)$ and $dP_s =  ε_s(X)\,dP$ is share measure.
 
-For any payoff $\nu$ the _value_ is $v = E[\nu(F)]$ and
+For any payoff $ν$ the _value_ is $v = E[ν(F)]$ and
 _delta_ is the derivative of value with respect to the forward
 $$
-\frac{∂v}{∂f}
-	= E[\nu'(F)\frac{∂F}{∂f}]
-	= E[\nu'(F)\frac{F}{f}]
-	= E[\nu'(F)ε_s(X)]
-	= E_s[\nu'(F)]
+∂_f v
+	= E[ν'(F) ∂_f F]
+	= E[ν'(F) F/f]
+	= E[ν'(F)ε_s(X)]
+	= E_s[ν'(F)]
 $$
-since $∂F/∂f = F/f = ε_s(X)$.
+since $∂_f F = F/f = ε_s(X)$.
 
 _Gamma_ is the second derivative with respect to the forward
 $$
-\frac{∂^2v}{∂f^2} = E[\nu''(F)ε_s^2(X)] = E_s[\nu''(F)ε_s(X)]
+∂_f^2 v = E[ν''(F)ε_s^2(X)] = E_s[ν''(F)ε_s(X)]
 $$
 <!--
-	= e^{κ(2s) - 2κ(s)}E_{2s}[\nu''(F)]
+	= e^{κ(2s) - 2κ(s)}E_{2s}[ν''(F)]
 -->
 
 _Vega_ is  the derivative with respect to vol
 $$
-\frac{∂v}{∂s} = E[\nu'(F)\frac{∂F}{∂s}] = E[\nu'(F)F(X - κ'(s))] = f E_s[\nu'(F)(X - κ'(s))]
+∂_s v = E[ν'(F) ∂_s F] = E[ν'(F)F(X - κ'(s))] = f E_s[ν'(F)(X - κ'(s))]
 $$
-since $∂F/∂s = F(X - κ'(s))$.
+since $∂_s F = F(X - κ'(s))$.
 
 The inverse of option value as a function of vol is the _implied vol_.
 
@@ -118,13 +108,13 @@ and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)ε_s(X)]$ be the _share_ cdf where
 $ε_s(x) = e^{sx - κ(s)}$.
 Note $φ_s(x) = Φ_s'(x) = φ(x) ε_s(x)$ and
 $$
-\frac{∂Φ_s(x)}{∂s} = E[1(X\le x)ε_s(X)(X - κ'(s))].
+∂_s Φ_s(x) = E[1(X\le x)ε_s(X)(X - κ'(s))].
 $$
 
 Let $y = y(x) = fε_s(x)$ and $F = fε_s(X)$.
 We have $F \le y(x)$ if and only if $X \le x(y)$,
 where $x = x(y) = ε_s^{-1}(y/f)$,
-since $∂ε_s(x)/∂x > 0$ (assuming $s > 0$).
+since $∂_x ε_s(x) > 0$ (assuming $s > 0$).
 The cumulative distribution of $F$ is 
 $Ψ(y) = P(F\le y) = P(X\le x) = Φ(x)$ and
 the density function of $F$ is $ψ(y) = Ψ'(y) = Φ'(x) dx/dy = φ(x)/ys$ since $dy/dx = ys$.
@@ -174,17 +164,17 @@ $$
 
 Put delta is
 $$
-	\frac{∂p}{∂f} = E[-1(F\le k)ε_s(X)] = -P_s(X\le x(k)) = -Φ_s(x(k)). 
+	∂_f p = E[-1(F\le k)ε_s(X)] = -P_s(X\le x(k)) = -Φ_s(x(k)). 
 $$
 
 Gamma for either a put or call is
 $$
-	\frac{∂^2p}{∂f^2} = E[δ_k(F)(F/f)^2] = ψ(k)(k/f)^2 = φ(x(k))k/f^2s = φ_s(x(k))/fs.
+	∂_f^2 p = E[δ_k(F)(F/f)^2] = ψ(k)(k/f)^2 = φ(x(k))k/f^2s = φ_s(x(k))/fs.
 $$
 
 Vega for a put is
 $$
-	\frac{∂p}{∂s} = -E[1(F\le k)F(X - κ'(s))] = -f\frac{∂}{∂s}Φ_s(x(k)).
+	∂_s p = -E[1(F\le k)F(X - κ'(s))] = -f ∂_s Φ_s(x(k)).
 $$ 
 
 ## Digital
@@ -199,19 +189,19 @@ $$
 Digital put delta 
 $$
 \begin{aligned}
-	\frac{∂p}{∂f} &= -E[\delta_k(F)(F/f)] \\
-	&= -\psi(k)k/f \\
-	&= -(\phi(x(k)/ks)k/f \\
-	&= -\phi(x(k))/fs \\
-	&= -\phi_s(x(k))/ks \\
+	∂_f p &= -E[\delta_k(F)(F/f)] \\
+	&= -ψ(k)k/f \\
+	&= -(φ(x(k)/ks)k/f \\
+	&= -φ(x(k))/fs \\
+	&= -φ_s(x(k))/ks \\
 \end{aligned}
 $$
 
 Digital gamma is 
 $$
 \begin{aligned}
-	\frac{∂^2p}{∂f^2} &= -E[\delta_k'(F)(F/f)^2] \\
-	&= -\psi'(k)(k/f)^2 \\
+	∂_f^2 p &= -E[\delta_k'(F)(F/f)^2] \\
+	&= -ψ'(k)(k/f)^2 \\
 	&= -((φ'(x(k)) - φ(x(k))s)/k^2s^2))(k/f)^2 \\
 	&= -(φ'(x(k)) - φ(x(k))s)/f^2s^2) \\
 \end{aligned}
@@ -220,10 +210,10 @@ $$
 Digital put vega is 
 $$
 \begin{aligned}
-\frac{∂p}{∂s} &= -E_s[\delta_k(F)F(X - s)] \\
-	&= -\psi(k)k(x(k) - s) \\ 
-	&= -(\phi(x(k))/ks)k(x(k) - s) \\ 
-	&= -\phi(x(k))(x(k) - s)/s \\ 
+∂_s p &= -E_s[\delta_k(F)F(X - s)] \\
+	&= -ψ(k)k(x(k) - s) \\ 
+	&= -(φ(x(k))/ks)k(x(k) - s) \\ 
+	&= -φ(x(k))(x(k) - s)/s \\ 
 \end{aligned}
 $$
 
@@ -257,18 +247,39 @@ Hint: The Black-Scholes/Merton formulas use $d_1 = (\log(f/k) + s^2/2)/s$ and $d
 
 Put delta is
 $$
-	\frac{∂p}{∂f} = -Φ_s(x(k)) = -Φ(x(k) - s).
+	∂_f p = -Φ_s(x(k)) = -Φ(x(k) - s).
 $$
 
 Gamma is
 $$
-	\frac{∂^2p}{∂f^2} = φ(x(k))k/f^2s = φ_s(x(k))/fs.
+	∂_f^2 p = φ(x(k))k/f^2s = φ_s(x(k))/fs.
 $$
 
 Vega is
 $$
 \begin{aligned}
-	\frac{∂v}{∂s} &= -f\frac{∂}{∂s}Φ_s(x(k)) \\
+	∂_s v &= -f ∂_s Φ_s(x(k)) \\
 	&= fφ(x(k) - s) = fφ_s(x(k)).
 \end{aligned}
 $$
+
+# Spot
+
+The Black-Merton/Scholes model uses _spot_ prices instead of forward.
+If a risk-free bond has realized return $R$ over the period the value of the underlying
+at expiration is $U = Rue^{sX - κ(s)}$. Since $F = U$ we have $f = Ru$.
+The _spot_ value of the option is $v_0 = E[ν(U)]/R$. We have
+$$
+∂_u v_0 = E[ν'(U) ∂_u U]/R
+= E[ν'(F) ∂_f F ∂_u f]/R
+= E[ν'(F) ∂_f F R]/R = ∂_f v.
+$$
+Spot and forward delta are equal but the spot gamma is
+$$
+∂_u^2 v_0 = ∂_u ∂_f v = ∂_f^2 v ∂_uf = ∂_f^2 v R.
+$$
+Spot vega is 
+$$
+∂_s v_0 = E[ν'(U) ∂_s U]/R = E[ν'(F) ∂_s F/R = ∂_s v/R.
+$$
+
