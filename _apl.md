@@ -36,7 +36,7 @@ Let's give names to things.
 
 ## Types
 
-Types are classified by mathematical objects: monoids, groups, rings, fields.
+Types are classified by mathematical objects: set, monoid, group, ring, field.
 
 _Primitive types_ are _boolean_ (field), _natural number_ (monoid),
 _integer_ (abelian group, ring), _real number_ (field), _string_ (monoid).
