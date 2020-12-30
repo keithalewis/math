@@ -49,6 +49,10 @@ Arrays are written $(x_i)$, $x_i \in X$.
 A _tuple_ is a product of not necessarily homogenous types.
 Tuples are written $\langle x_i\rangle$, $x_i\in X_i$.
 
+A coproduct is a _variant type_ that can take on distinguished values.
+It is a _dijoint union_ of types that is a union plus information
+of which set an element belongs to.
+
 An _exponential_ is the set of all functions from one type to another
 that preserves the types.
 
