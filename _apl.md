@@ -9,9 +9,18 @@ abstract: A Programming Language
 
 # Notation
 
+\newcommand\BB{\bm{B}}
+\newcommand\CC{\bm{C}}
 \newcommand\NN{\bm{N}}
+\newcommand\RR{\bm{R}
+\newcommand\ZZ{\bm{Z}}
+
+\newcommand\MM{\bm{M}}
+\newcommand\SS{\bm{S}}
+\newcommand\FF{\bm{R}}
+
 \newcommand\st{\mid}
-\newcommand\each{\backslash}
+\newcommand\scan{\backslash}
 \newcommand\fold{/}
 \newcommand\add{+}
 \newcommand\sub{-}
@@ -19,8 +28,19 @@ abstract: A Programming Language
 \newcommand\div{÷}
 \newcommand\exec{!}
 \newcommand\stop{'}
+\newcommand\uniq{ν}
+\newcommand{\f}{0}
+\newcommand{\t}{1}
 
 Let's give names to things.
+
+## Types
+
+The _primitive types_ are boolean $\BB$
+
+A _type_ is a set with certain operations. Compound types can be formed from
+products and coproducts.
+
 
 ## Product
 
@@ -32,6 +52,10 @@ $\pi_1\colon X\times Y\to Y$ where $\pi_1(x,y) = y$
 characterize the cartesian product.
 If $p_0\colon Z\to X$ and $p_1\colon Z\to Y$ there exists
 $p\colon Z\to X\times Y$ with $\pi_0p = p_0$ and $\pi_1p = p_1$.
+
+_Array_: $x\in\Pi_i X$ is written $x = (x_i)$.
+
+_Tuple_: $x\in\Pi_i X_i$ is written $x = \langle x_i\rangle $.
 
 ## Union
 
@@ -61,7 +85,6 @@ $(\gamma(f)x)y = f(x,y)\in Z$, $f\in \{X\times Y\to Z\}$, $x\in X$, $y\in Y$.
 
 The _uncurry function_ $\gamma^*\colon \{X\to\{Y\to Z\}\}\to \{X\times Y\to Z\}$
 is $\gamma^*(f)(x,y) = f(x,y)\in Z$, $f\in \{X\to\{Y\to Z\}\}$.
-
 ## Reshape
 
 The _reshape_ function $\rho = \rho_{n_0,...,n_{k-1}}\colon\iota
@@ -76,6 +99,13 @@ reshapes $x$.
 ## Partition
 
 A function $p\colon I\to J$ determines a _partition_ on $I$ where $i\sim i'$ iff $p(i) = p(i')$.
+If $J = \iota n$ we say the partition is _canonical_.
+
+Example: s = "a,bc,def" is a string in $\CC^{\iota 8}$. Using cyclic arrays
+$= "," s$ is $\f\t\f\f\t\f\f\f$ so $\add\scan = "," s$ is $0111222$.
+
+Define $\uniq\colon X^n\to X^m$ by $\uniq x_0 x_1 \ldots = x_0 \nu x_2 \ldots$
+if $x1 = x0$ and $\uniq x_0 x_1 \ldots = x_0 \nu x_1 \ldots$ if $x_1 \not= x_0$.
 
 ## Remarks
 
@@ -94,7 +124,7 @@ Data is pushed on the call stack.
 
 Functions know what is on the call stack.
 
-_Each_ is $f␣\each␣x␣y␣\ldots$ is $f␣x␣f␣y␣\ldots$, $f␣g\each ␣x$ is $f␣x␣g␣x$.
+_Each_ is $f␣\scan␣x␣y␣\ldots$ is $f␣x␣f␣y␣\ldots$, $f␣g\scan ␣x$ is $f␣x␣g␣x$.
 
 _Fold_ is $f \fold a␣b \ldots$ is $f␣a␣f␣b␣\ldots))$.
 
@@ -108,4 +138,4 @@ _Tuple_ $\sqcap_{i\in I} X_i$, $\langle␣x_0␣x_1␣\ldots\colon I\to\sqcup_{i
 
 ## Examples
 
-_Average_ $\div␣\stop␣\add\fold␣\add\fold K 1\each␣x_0␣x_1␣\ldots$
+_Average_ $\div␣\stop␣\add\fold␣\add\fold K 1\scan␣x_0␣x_1␣\ldots$
