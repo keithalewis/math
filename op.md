@@ -26,11 +26,10 @@ This short note derives formulas for these that can be used for any positive und
 
 Every positive random variable $F$ can be parameterized as $F = fe^{sX - \kappa(s)}$
 where $f = E[F]$ is the _forward_, $s^2 = \Var[\log F]$ is the _vol_ squared, and
-$\kappa(s) = \log E[e^{sX}]$ is the _cumulant_ of $X$.
-If $Ψ_s(x) = E[1(X\le x)e^{sX - \kappa(s)}]$ is the _share_ cumulative distribution
-function then call and put values and greeks can be expressed in terms of
-$Ψ_s(x)$, $(∂/∂x)Ψ_s(x)$, and $(∂/∂s)Ψ_s(x)$. The formula for digital gamma
-requires $(∂/∂x)^2 Ψ_s(x)$.
+$κ(s) = \log E[e^{sX}]$ is the _cumulant_ of $X$.
+Define the _partial cumulant_ $κ(x,s) = \log E[1(X\le x) e^{sX}]$.
+Call and put values and their greeks can be expressed in terms of
+the partial cumulant and its derivatives.
 
 ## Share Measure
 
@@ -69,29 +68,21 @@ and $∂_σ E[ν(F)] = ∂_sE[ν(F)] ∂s/∂σ = ∂_sE[ν(F)]\sqrt{t}$.
 Define $ε_s(x) = e^{s x - κ(s)}$
 so $∂_x ε_s(x) = ε_s(x)s$
 and $∂_s ε_s(x) = ε_s(x)(x - κ'(s))$.
-Let $y = y(x) = fε_s(x)$. 
-The _moneyness_ of $y$ is $x = x(y) = ε_s^{-1}(y/f)
-= (\log y/f + κ(s))/s$. Note
-$F = fε_s(X)$ and $dP_s =  ε_s(X)\,dP$ is share measure.
 
 For any payoff $ν$ the _value_ is $v = E[ν(F)]$ and
 _delta_ is the derivative of value with respect to the forward
 $$
 ∂_f v
 	= E[ν'(F) ∂_f F]
-	= E[ν'(F) F/f]
 	= E[ν'(F)ε_s(X)]
 	= E_s[ν'(F)]
 $$
-since $∂_f F = F/f = ε_s(X)$.
+since $∂_f F = ε_s(X)$.
 
 _Gamma_ is the second derivative with respect to the forward
 $$
 ∂_f^2 v = E[ν''(F)ε_s^2(X)] = E_s[ν''(F)ε_s(X)]
 $$
-<!--
-	= e^{κ(2s) - 2κ(s)}E_{2s}[ν''(F)]
--->
 
 _Vega_ is  the derivative with respect to vol
 $$
@@ -105,22 +96,26 @@ The inverse of option value as a function of vol is the _implied vol_.
 
 Let $Φ(x) = P(X\le x)$ be the cumulative distribution functions of $X$
 and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)ε_s(X)]$ be the _share_ cdf where
-$ε_s(x) = e^{sx - κ(s)}$.
-Note $φ_s(x) = Φ_s'(x) = φ(x) ε_s(x)$ and
+$ε_s(x) = e^{sx - κ(s)}$. Note $Φ_s(x) = \exp(κ(x,s))$ can be written
+in terms of the partial cumulant.
+Since $φ_s(x) = Φ_s'(x) = φ(x) ε_s(x)$ we have
 $$
 ∂_s Φ_s(x) = E[1(X\le x)ε_s(X)(X - κ'(s))].
 $$
 
-Let $y = y(x) = fε_s(x)$ and $F = fε_s(X)$.
-We have $F \le y(x)$ if and only if $X \le x(y)$,
-where $x = x(y) = ε_s^{-1}(y/f)$,
-since $∂_x ε_s(x) > 0$ (assuming $s > 0$).
-The cumulative distribution of $F$ is 
-$Ψ(y) = P(F\le y) = P(X\le x) = Φ(x)$ and
-the density function of $F$ is $ψ(y) = Ψ'(y) = Φ'(x) dx/dy = φ(x)/ys$ since $dy/dx = ys$.
+Let $y = y(x) = fε_s(x)$. 
+The _moneyness_ of $y$ is $x = x(y) = ε_s^{-1}(y/f)
+= (\log y/f + κ(s))/s$. Note
+$F = fε_s(X)$ and $dP_s =  ε_s(X)\,dP$ is share measure.
+
+We have $F \le y(x)$ if and only if $X \le x(y)$, where
+$x = x(y) = ε_s^{-1}(y/f)$, since $∂_x ε_s(x) > 0$ (assuming $s > 0$).
+The cumulative distribution of $F$ is $Ψ(y) = P(F\le y) = P(X\le x)
+= Φ(x)$ and the density function of $F$ is $ψ(y) = Ψ'(y) = Φ'(x)
+dx/dy = φ(x)/ys$ since $dy/dx = ys$. 
 Note
 $$
-ψ'(y) = \frac{φ'(x) - φ(x)s}{y^2s^2}.
+	ψ'(y) = \frac{φ'(x) - φ(x)s}{y^2s^2}. 
 $$
 
 <!--
@@ -217,7 +212,6 @@ $$
 \end{aligned}
 $$
 
-
 ## Black Model
 
 We use the above to derive the standard Black-Scholes/Merton formulas
@@ -263,7 +257,7 @@ $$
 \end{aligned}
 $$
 
-# Spot
+## Spot
 
 The Black-Merton/Scholes model uses _spot_ prices instead of forward.
 If a risk-free bond has realized return $R$ over the period the value of the underlying
@@ -283,3 +277,52 @@ $$
 ∂_s v_0 = E[ν'(U) ∂_s U]/R = E[ν'(F) ∂_s F/R = ∂_s v/R.
 $$
 
+## Remarks
+
+Let $X$ have cdf $Φ(x) = P(X\le x)$ and pdf $φ(x) = Φ'(x)$.
+$$
+	K(s,x) = E[1(X\le x) e^{sX}], K(s) = E[e^{sX}]
+$$
+be the partial, moment generating function and $κ(s,x) = \log K(s,x)$,
+$κ(s) = \log K(s)$ be the partial, cumulant generating function of $X$.
+
+Let $ε_s(x) = e^{sx}/K(s) = e^{sx - κ(s)}$.
+
+If $X$ is standard normal $K(s,x) = e^{s^2/2}Φ(x - s)$ and $K(s) = e^{s^2/2}$.
+
+$Φ_s(x) = K(s,x)/K(s)$. If $X$ is standard normal $Φ_s(x) = Φ(x - s)$.
+
+$∂_x K(s,x) = E[δ_x(X) e^{sX}] = e^{sx} φ(x)$
+
+$∂_x Φ_s(x) = e^{sx} φ(x)/K(s) = e^{sx - κ(s)} φ(x)$.
+
+$∂_x^{n+1} Φ_s(x) = e^{sx - κ(s)}\sum_{k=0}^n \binom{n}{k} φ^{(n - k)}(x) s^k$.
+
+$∂_s^n K(s,x) = E[1(X\le x) e^{sX} X^n]$, $∂_s^n K(s) = E[e^{sX} X^n]$.
+
+$∂_s Φ_s(x) = (K(s)∂_s K(s, x) - ∂_s K(s) K(s, x))/K(s)^2$.
+
+$$
+\begin{aligned}
+∂_x^2 K(s,x) &= s(sK(s,x) + e^{sx} φ(x)) + e^{sx}s φ(x) + e^{sx}φ'(x) \\
+	&= s^2 K(s,x) + e^{sx} (2s φ(x) + φ'(x)\\
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+∂_x^3 K(s,x) &= s^2 (s K(s,x) + e^{sx}φ(x)) + e^{sx}s(2 φ(x) + φ'(x)) + e^{sx}(2 φ'(x) + φ''(x))\\
+	&= s^3 K(s,x) + e^{sx} (3s^2 φ(x) + 3φ'(x) + φ''(x))\\
+\end{aligned}
+$$
+
+and $K(x, s) = \exp(κ(x,s)) = Φ_s(x)$.
+We have $φ_s(x) = ∂_x Φ_s(x) = K_x(x, s) = K(x, s)∂_x κ(x,s)$.
+
+$$
+\begin{aligned}
+κ_{a + bX}(x,s) &= \log E[1(a + bX \le x) e^{s(a + bX)}] \\
+	&= \log e^{as} E[1(X \le (x - a)/b) e^{sbX}] \\
+	&= as + κ_X((x - a)/b, bs) \\
+\end{aligned}
+$$

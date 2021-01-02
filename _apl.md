@@ -41,17 +41,19 @@ Types are classified by mathematical objects: set, monoid, group, ring, field.
 _Primitive types_ are _boolean_ (field), _natural number_ (monoid),
 _integer_ (abelian group, ring), _real number_ (field), _string_ (monoid).
 
-_Types_ are either primitive types, _products_ of types, or _coproducts_ of types.
+_Types_ are either primitive types, _products_ of types, _coproducts_ of types,
+or _exponentials_.
 
 An _array_ is a product of homogenous types.
-Arrays are written $(x_i)$, $x_i \in X$.
+Arrays are written $x = (x^i)$, $\pi_i x = x^i \in X$.
 
 A _tuple_ is a product of not necessarily homogenous types.
-Tuples are written $\langle x_i\rangle$, $x_i\in X_i$.
+Tuples are written $x = \langle x^i\rangle$, $\pi_i x = x^i\in X_i$.
 
 A coproduct is a _variant type_ that can take on distinguished values.
 It is a _dijoint union_ of types that is a union plus information
 of which set an element belongs to.
+Coproducts are written $x = [x_i]$, $ν_i x_i = x$.
 
 An _exponential_ is the set of all functions from one type to another
 that preserves the types.
@@ -67,20 +69,22 @@ characterize the cartesian product.
 If $p_0\colon Z\to X$ and $p_1\colon Z\to Y$ there exists
 $p\colon Z\to X\prod Y$ with $\pi_0p = p_0$ and $\pi_1p = p_1$.
 
-_Array_: $x\in\prod_i X$ is written $x = (x_i)$.
+_Array_: $x\in\prod_i X$ is written $x = (x^i)$ where $π_i x = x^i$.
 
-_Tuple_: $x\in\prod_i X_i$ is written $x = \langle x_i\rangle$.
+_Tuple_: $x\in\prod_i X_i$ is written $x = \langle x^i\rangle$ where $π_i x = x^i$
 
 ## Coproduct
 
-If $X$ and $Y$ are sets then $X\coprod Y = \{(i,z)\st \text{where }z\in X, i = 0 \text{ or } z\in Y, i = 1\}$
+If $X$ and $Y$ are sets then $X\coprod Y = \{(z,i)\st \text{where }z\in X, i = 0 \text{ or } z\in Y, i = 1\}$
 is the _coproduct_ of $X$ and $Y$.
 
-The _inclusions_ $\nu_0\colon X\to X\sqcup Y$ where $\nu_0(x) = (0,x)$ and
-$\nu_1\colon Y\to X\sqcup Y$ where $\nu_0(y) = (1,y)$ 
+The _inclusions_ $\nu_0\colon X\to X\coprod Y$ where $\nu_0(x) = (x, 0)$ and
+$\nu_1\colon Y\to X\coprod Y$ where $\nu_0(y) = (y, 1)$ 
 characterize the coproduct.
 If $n_0\colon X\to Z$ and $n_1\colon Y\to Z$ there exists
-$n\colon X\sqcup Y\to Z$ with $n\nu_0 = n_0$ and $n\nu_1 = n_1$.
+$n\colon X\coprod Y\to Z$ with $n\nu_0 = n_0$ and $n\nu_1 = n_1$.
+
+_Variant_: $x\in\coprod_i X_i$ is written $x = [x_i]$ where $ν_i x_i = x$.
 
 ## Exponential
 
@@ -126,7 +130,7 @@ Natural numbers $\NN = \{0, 1, \ldots\}$.
 
 $\iota n = \{0, \ldots, n - 1\}$, $n\in\NN$.
 
-$\iota\colon\NN\to\NN^*$ where $\NN^* = \sqcup_{n\ge0}\NN^n$.  
+$\iota\colon\NN\to\NN^*$ where $\NN^* = \coprod{n\ge0}\NN^n$.  
 $\iota n\in\NN^n$.
 
 Every expression is a list of data or functions in Polish notation.
@@ -147,7 +151,7 @@ Use $!$ for evaluation.
 
 _Array_ $X^{\iota n}$, $[␣x_0␣x_1␣\ldots\colon \iota n\to X$ by $i\mapsto x_i$.
 
-_Tuple_ $\sqcap_{i\in I} X_i$, $\langle␣x_0␣x_1␣\ldots\colon I\to\sqcup_{i\in I}X_i$ by $i\mapsto (i, x_i)$.
+_Tuple_ $\sqcap_{i\in I} X_i$, $\langle␣x_0␣x_1␣\ldots\colon I\to\coprod{i\in I}X_i$ by $i\mapsto (i, x_i)$.
 
 ## Examples
 
@@ -157,3 +161,7 @@ _Average_ $\div␣\stop␣\add\fold␣\add\fold K 1\scan␣x_0␣x_1␣\ldots$
 
 A _string_ is a utf-8 string that is a monoid with identity the empty string
 and product concatenation. The _characters_ of the string are _code points_.
+
+Generic duality? $Z$ an object, $\hat{}Z$ is a functor $X\mapsto X^Z$ and
+$(f\colon X\to Y)\mapsto (X^Z\to Y^Z)$. The functor $Z\,\hat{}$ maps $Y\mapsto Z^Y$
+and $g\colon X\to Y\mapsto (Z^Y\to Z^X)$.
