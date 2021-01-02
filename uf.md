@@ -12,24 +12,23 @@ and bean counting: who traded how much of what when and accounting
 for that over time.
 
 The atoms of finance are _holdings_: an _instrument_, _amount_, and _legal entity_.
-Holdings interact via _trades_: the exchange of two holdings at a given _time_. 
+Holdings interact via _trades_: the exchange of holdings between two entities at a given _time_. 
 Instruments have _cash flows_ and _prices_ that determine
 the _amounts_ and _values_ involved with trading.
 Given a collection of holdings and
 a sequence of trades the associated amounts and values determine
-the _profit and loss_, among other quantities, relevant to managing a portfolio.
+the _profit and loss_, among other quantities, relevant to managing portfolios.
 
 To properly assess risk it is necessary to include how a position will
-be hedged over time, as pointed out in special cases by many authors.
-Various hedging strategies can, and should, be used for insight on the
-uncertainties involved.
+be hedged over time.  Various hedging strategies can, and should, be
+used for insight on the uncertainties involved.
 
 This model highlights that both cash flows and prices must be specified
 by mathematical models to determine the amounts and values associated
 with a trading strategy. It also places instruments on equal footing to
 get a complete picture of risk across **all** asset classes.  It does not
 solve any particular problem in finance but it does specify a mathematical
-notation to rigorously discuss all aspects of trading instruments using
+notation to rigorously discuss all aspects of trading and hedging using
 realistic assumptions.
 
 ## Holding
@@ -38,7 +37,7 @@ A holding is an _instrument_, _amount_, and _legal entity_.  Examples of
 instruments are: stocks, bonds, futures, currencies, and commodities.
 They are traded in some amount: shares, notional, contracts, units,
 and physical quantity respectively.  A legal entity is an individual
-or a corporation. Corporations can subdivide holdings by individual
+or a corporation. Corporations can subdivide holdings by groups or individual
 traders. The holding $(i,a,e)$ indicates entity $e$
 owns amount $a$ of instrument $i$.
 
@@ -75,7 +74,7 @@ As an example, suppose a buyer holds 100 dollars $(\$, 100)$ and
 a seller holds two shares of Ford stock $(F, 2)$. If the seller
 quotes a price of 8 dollars per share
 then the buyer can obtain $(F, 2)$ by giving the seller $(\$, 2\times 8)$
-and now holds $(\$,100-16) = (\$, 84)$.
+and now holds two shares for stock and $(\$,100-16) = (\$, 84)$.
 
 Foreign exchange is not a special case. If the USD/JPY exchange rate is 100 then
 $(\$, a)$ can be exchanged for $($&yen;$,100a)$. If we write &dollar;1 = &yen;100
@@ -86,7 +85,10 @@ Similarly, commodities are also not special. This model can be used for **all** 
 ## Cash Flow
 
 Instruments entail _cash flows_; stocks pay dividends, bonds pays
-coupons, futures have margin adjustments. These cause changes to positions.
+coupons, futures have margin adjustments. Currencies and commodities do
+not have cash flows, but they may involve third party payments to exchange
+or store them.
+Cash flows cause changes to positions.
 If instrument $i$ pays cash flow $C_t(i,i')$ per share of $i$ in instrument
 $i'$ at time $t$ then holding $(i,a,e)$ at time $t$ will cause $(i',a C_t(i,i'),e)$
 to be included in the position of $e$ at $t$.  Usually $i'$ is the native
