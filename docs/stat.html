@@ -44,13 +44,17 @@
 <p class="author">Keith A. Lewis</p>
 </header>
 <blockquote>
-Probability all the things!
+<em>Probability all the things</em>!
 </blockquote>
 <section id="statistics" class="level2">
 <h2>Statistics</h2>
-<p><em>Statistics</em> is the study of finding estimates for properties of random variables.</p>
-<p>A <em>property</em> is a number <span class="math inline">\sigma\in\bm{R}</span> associated with a random variable <span class="math inline">X</span>. A <em>statistic</em> is a function <span class="math inline">s_n\colon\bm{R}^n\to\bm{R}</span>. Given independent <span class="math inline">(X_1,\ldots, X_n)</span> having the same law as <span class="math inline">X</span> how do we find statistics <span class="math inline">s_n</span> such that <span class="math inline">s_n(X_1,\ldots,X_n)</span> approximate <span class="math inline">\sigma</span> as <span class="math inline">n</span> gets large?</p>
-<p>For example, if <span class="math inline">\sigma = E[X]</span> then the <em>arithmetic mean</em> <span class="math inline">m_n(x_1,\ldots,x_n) = (x_1 + \cdots + x_n)/n</span> is a statistic where <span class="math inline">M_n = m_n(X_1,\ldots,X_n)</span> converges to <span class="math inline">\sigma(X)</span> in the sense <span class="math inline">E[M_n] = \sigma</span> and <span class="math inline">\operatorname{Var}(M_n)\to 0</span>. We could also use the <em>geometric mean</em> <span class="math inline">g_n(x_1,\ldots,x_n) = \sqrt[n]{x_1\cdots x_n}</span> or the <em>harmonic mean</em> <span class="math inline">h_n(x_1,\ldots,x_n) = (n/x_1 + \cdots + n/x_n)^{-1}</span>. Some statistics are better than other statistics.</p>
+<p>Statistics is the study of finding <em>estimators</em> for a <em>statistic</em>.</p>
+<p>A statistic is a function <span class="math inline">s</span> from random variables to the real numbers <span class="math inline">\bm{R}</span>. Estimators are collection of functions <span class="math inline">s_n\colon\bm{R}^n\to\bm{R}</span>, where <span class="math inline">n\in\bm{N}</span> is a natural number. Given independent <span class="math inline">(X_1,\ldots, X_n)</span> having the same law as <span class="math inline">X</span> how do we find estimators <span class="math inline">s_n</span> such that the random variable <span class="math inline">s_n(X_1,\ldots,X_n)</span> approximates the number <span class="math inline">s(X)</span> as <span class="math inline">n</span> gets large?</p>
+<p>For example, if <span class="math inline">s(X) = E[X]</span> is the expected value of <span class="math inline">X</span>, then the <em>arithmetic means</em> <span class="math inline">m_n(x_1,\ldots,x_n) = (x_1 + \cdots + x_n)/n</span> are estimators. If <span class="math inline">M_n = m_n(X_1,\ldots,X_n)</span> then <span class="math inline">E[M_n] = E[X]</span> and <span class="math inline">\operatorname{Var}(M_n) = \operatorname{Var}(X)/n\to 0</span> as <span class="math inline">n\to\infty</span>. We say the random variables <span class="math inline">S_n</span> converge to the number <span class="math inline">s</span> in <em>mean squared</em> when <span class="math inline">\lim_{n\to\infty}E[(S_n - s)^2] = 0</span>.</p>
+<p>If <span class="math inline">s_n</span> are estimators let <span class="math inline">S_n = s_n(X_1,\ldots,X_n)</span>. Estimators with the property <span class="math inline">E[S_n] = s(X)</span>, <span class="math inline">n\in\bm{N}</span>, are <em>unbiased</em>.</p>
+<p>We could also use the <em>geometric means</em> <span class="math inline">g_n(x_1,\ldots,x_n) = \sqrt[n]{x_1\cdots x_n}</span> as estimators for <span class="math inline">E[X]</span> if <span class="math inline">X</span> is positive. By <a href="prob.html#jensens-inequality%22">Jensen’s Inequality</a> <span class="math inline">E[\sqrt[n]{X_1\cdots X_n}] \le E[X]</span> so the geometric means are not unbiased.</p>
+<p>Clearly <span class="math inline">E[M_n\mid X_1 = x_1, \ldots, X_n = x_n] = E[M_n\mid M_n = m_n(x_1, \ldots, x_n)]</span> since both are equal to <span class="math inline">m_n(x_1, \ldots, x_n)</span>. If <span class="math inline">s_n</span> and <span class="math inline">t_n</span> are estimators with the property <span class="math inline">E[S_n\mid X_1 = x_1, \ldots, X_n = x_n] = E[S_n\mid S_n = t_n(x_1,\ldots,x_n)]</span> then <span class="math inline">t_n</span> are <em>sufficient</em> for <span class="math inline">s_n</span>.</p>
+<p>Some statistics are better than other statistics.</p>
 <section id="bias" class="level3">
 <h3>Bias</h3>
 <p>If <span class="math inline">E[s_n(X_1,\ldots,X_n)] = \sigma</span> we say <span class="math inline">s_n</span> is an <em>unbiased</em> <em>estimator</em> of <span class="math inline">\sigma</span>. The arithmetic mean is an unbiased estimator of the mean. Since <span class="math inline">E[(X_1\cdots X_n)^{1/n}] \le E[X_1\cdots X_n]^{1/n} = E[X]</span> the geometric mean is biased.</p>
@@ -70,7 +74,7 @@ Probability all the things!
 </section>
 <section id="statistic" class="level2">
 <h2>Statistic</h2>
-<p>Given two statistics <span class="math inline">s</span> and <span class="math inline">t</span> for <span class="math inline">\sigma</span> where <span class="math inline">t</span> is sufficient let <span class="math inline">\delta(X) = E[s(X)\given t(X)]</span> be the <em>improved estimator</em>.</p>
+<p>Given two statistics <span class="math inline">s</span> and <span class="math inline">t</span> for <span class="math inline">\sigma</span> where <span class="math inline">t</span> is sufficient let <span class="math inline">\delta(X) = E[s(X)\mid t(X)]</span> be the <em>improved estimator</em>. The following theorem justifies this name.</p>
 <p><strong>Theorem</strong>. (Rao–Blackwell–Kolmogorov) <em><span class="math inline">E[(\delta(X) - \sigma)^2] \le E[(s(X) - \sigma)^2]</span></em>.</p>
 <p><em>Proof</em>. We have $</p>
 <p><strong>Theorem</strong>. (Lehmann–Scheffé) <em>If …</em>.</p>
