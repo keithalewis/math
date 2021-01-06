@@ -32,9 +32,9 @@ $$
 $$
 since $ε_s^{(n)}(x) = ε_s(x) s^n$.
 
-Note $(∂/∂s)E[g(X) ε_s(X)] = E[g(X) ε_s(X) (X - κ'(s))] = E_s[g(X) (X - κ'(s))]$ so
+Note $∂_s E[g(X) ε_s(X)] = E[g(X) ε_s(X) (X - κ'(s))] = E_s[g(X) (X - κ'(s))]$ so
 $$
-	\frac{∂F_s(x)}{∂s} = E[1(X\le x) ε_s(X) (X - κ'(s))] = E_s[1(X\le x) (X - κ'(s))].
+	∂_s F_s(x) = E[1(X\le x) ε_s(X) (X - κ'(s))] = E_s[1(X\le x) (X - κ'(s))].
 $$
 
 ## Distributions
@@ -106,7 +106,7 @@ The transformed cdf is
 $Φ_s(x) = P_s(X\le x) = E[1(X\le x) e^{sX - s^2/2}] = P(X + s\le x) = Φ(x - s)$
 so 
 $$
-∂Φ_s(x)/∂s = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s).
+∂_s Φ_s(x) = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s).
 $$
 
 ### Poisson
@@ -131,9 +131,9 @@ $$
 \end{aligned}
 $$
 Taking a derivative with respect to $s$ we have
-$(∂/∂s)E_s[g(X_λ)]] = λ e^s E[g(X_{λ e^s} + 1) - g(X_{λ e^s})]$ so
+$∂_s E_s[g(X_λ)]] = λ e^s E[g(X_{λ e^s} + 1) - g(X_{λ e^s})]$ so
 $$
-(∂/∂s)E_s[1(X_λ \le x)] = λ e^s e^{-λ e^s} (λe^s)^n/n!
+∂_s E_s[1(X_λ \le x)] = λ e^s e^{-λ e^s} (λe^s)^n/n!
 $$
 where $λ e^s < n \le λ e^s + 1$.
 <!--
@@ -163,12 +163,14 @@ and $κ^{(n)}(s) = (1 - s/λ)^{-n}(n - 1)!/λ^{n-1}$
 
 ### Logistic
 
-A logistic random variate has cumulative distribution $F(x) = 1/(1 + e^{-x})$, $-\infty < x < \infty$.
+A logistic random variate has cumulative distribution $F(x) = 1/(1 + e^{-x})$, $-\infty < x < \infty$
+and probability density function $f(x) = e^{-x}/(1 + e^{-x})^2$.
+
 Its quantile function is $Q(u) = F^{-1}(u) = \log u/(1-u)$.
 
-The derivatives of the cdf are
+The derivatives of the cdf for $n > 0$ are
 $$
-	\frac{∂^n}{∂x^n} \frac{1}{1 + e^{-x}} = \sum_{k=1}^n A_{n,k}\frac{e^{-kx}}{(1 + e^{-x})^{k + 1}}
+	∂_x^n F(x) = \sum_{k=1}^n A_{n,k}\frac{e^{-kx}}{(1 + e^{-x})^{k + 1}}
 $$
 where $A_{n,k} = k(A_{n-1,k-1} - A_{n-1,k})$ and $A_{1,1} = 1$,
 assuming $A_{n,k} = 0$ if $k > n$.
@@ -191,8 +193,9 @@ where $B(α,β)$ is the Beta function.
 The cumulant of the logistic is $κ(s) = \log B(1 + s, 1 - s)$.
 Since $B(α,β) = Γ(α)Γ(β)/Γ(α + β)$ and $Γ(2) = 1$
 we have $κ(s) = \log Γ(1 + s) + \log Γ(1 - s)$.
-The _digamma_ function is the derivative of the log of the Gamma function
-$\psi(s) = Γ'(s)/Γ(s)$. Its Taylor series at $1$ is
+The _digamma_ function $\psi(s) = Γ'(s)/Γ(s)$
+is the derivative of the log of the Gamma function.
+Its Taylor series at $1$ is
 $\psi(1 + s) = -γ - \sum_{n\ge 1} ζ(n+1) (-s)^n$ where
 $γ$ is the Euler-Mascheroni constant and $ζ(s) = \sum_{n\ge 1} n^{-s}$
 is the zeta function.
@@ -206,35 +209,35 @@ In particular, the variance of the logistic is $κ_2 = 2ζ(2) = \pi^2/3$.
 The Esscher transformed cumulative distribution is
 $$
 \begin{aligned}
-F_s(x) &= \int_{-\infty}^x e^{s\xi - κ(s)}\,d(1/(1 + e^{-\xi}))\,d\xi \\
+F_s(x) &= \int_{-\infty}^x e^{s\xi - κ(s)}\,d(1/(1 + e^{-\xi})) \\
     &= \int_0^{F(x)} u^s(1 - u)^{-s}\,du/e^{κ(s)} \\
     &= B(F(x); 1 + s, 1 - s)/B(1 + s, 1 - s) \\
     &= I_{F(x)}(1 + s, 1 - s) \\
 \end{aligned}
 $$
 where $I_u(α,β)$ is the regularized incomplete Beta function.
-Note $(∂/∂x)F_s(x) = e^{s x - κ(s)} F'_0(x)$ so
+Note $∂_x F_s(x) = e^{s x - κ(s)} f(x)$ so
 $$
 \begin{aligned}
-\frac{∂^{n+1}}{∂x^{n + 1}} F_s(x) &= \sum_{k=0}^n \binom{n}{k}\epsilon_s^{(k)}(x) F_0^{(n - k + 1)}(x) \\
-	&= \epsilon_s(x)\sum_{k=0}^n \binom{n}{k} s^k F_0^{(n - k + 1)}(x) \\
+∂_x^n f_s(x) &= \sum_{k=0}^n \binom{n}{k}\epsilon_s^{(k)}(x) f^{(n - k)}(x) \\
+	&= \epsilon_s(x)\sum_{k=0}^n \binom{n}{k} s^k f^{(n - k)}(x) \\
 \end{aligned}
 $$
 
-Recall $(∂/∂α) I_u(α,β) = (\log u - \psi(α) + \psi(α + β))I_u(α,β)$ so
+Recall $∂_α I_u(α,β) = (\log u - \psi(α) + \psi(α + β))I_u(α,β)$ so
 $$
-	\frac{∂}{∂s} I_u(1 + s,β) = (\log u - \psi(1 + s) + \psi(1 + s + β))I_u(1 + s,β).
+	∂_s I_u(1 + s, β) = (\log u - \psi(1 + s) + \psi(1 + s + β))I_u(1 + s, β).
 $$
 Using $I_u(α,β) = 1 - I_{1 - u}(β,α)$ so
-$(∂/∂β) I_u(α,β) = -(\log (1 - u) - \psi(β) + \psi(β + α))I_{1 - u}(β,α)$ and
+$∂_β I_u(α,β) = -(\log (1 - u) - \psi(β) + \psi(β + α))I_{1 - u}(β, α)$ and
 $$
-\frac{∂}{∂s} I_u(α,1 - s) = -(\log (1 - u) - \psi(1 - s) + \psi(1 - s + α))(1 - I_u(α, 1 - s)).
+	∂_s I_u(α,1 - s) = -(\log (1 - u) - \psi(1 - s) + \psi(1 - s + α))(1 - I_u(α, 1 - s)).
 $$
-Since $(∂/∂s) I_u(1 + s, 1 - s) = (∂/∂α) I_u(1 + s, 1 - s) - (∂/∂β) I_u(1 + s, 1 - s)$
+Since $∂_s I_u(1 + s, 1 - s) = ∂_α I_u(1 + s, 1 - s) - ∂_β I_u(1 + s, 1 - s)$
 and $\psi(2) = 1 - \gamma$ we have
 $$
 \begin{aligned}
-\frac{∂}{∂s} F_s(x)
+∂_s F_s(x)
 	&=  (\log u - \psi(1 + s) + 1 - \gamma) F_s(x) 
 	  + (\log (1 - u) - \psi(1 - s) + 1 - \gamma)(1 - F_s(x)) \\
 	&=  (\log \frac{F(x)}{1 - F(x)} - \kappa'(s)) F_s(x) 
@@ -279,7 +282,7 @@ $$
 The Esscher density is
 $$
 \begin{aligned}
-\frac{∂}{∂ s}F_s(x) = &-\frac{
+∂_s F_s(x) = &-\frac{
 	u^{s+1} \Gamma (s+1)^2 \left(\frac{_2\tilde{F}_1(s,s+1;s+2;u)}{\Gamma (s+1)}-s 
 	    _3\tilde{F}_2(s+1,s+1,s+1;s+2,s+2;u)\right)}{B(s+1,1-s)} \\
 	&-\frac{(1-u)^{1-s} \Gamma (1-s)^2 \left(s \, _3\tilde{F}_2(1-s,1-s,1-s;2-s,2-s;1-u)+\frac{

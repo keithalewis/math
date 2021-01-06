@@ -46,15 +46,28 @@
 <section id="notation" class="level1">
 <h1>Notation</h1>
 <p>Let’s give names to things.</p>
+<section id="types" class="level2">
+<h2>Types</h2>
+<p>Types are classified by mathematical objects: set, monoid, group, ring, field.</p>
+<p><em>Primitive types</em> are <em>boolean</em> (field), <em>natural number</em> (monoid), <em>integer</em> (abelian group, ring), <em>real number</em> (field), <em>string</em> (monoid).</p>
+<p><em>Types</em> are either primitive types, <em>products</em> of types, <em>coproducts</em> of types, or <em>exponentials</em>.</p>
+<p>An <em>array</em> is a product of homogenous types. Arrays are written <span class="math inline">x = (x^i)</span>, <span class="math inline">\pi_i x = x^i \in X</span>.</p>
+<p>A <em>tuple</em> is a product of not necessarily homogenous types. Tuples are written <span class="math inline">x = \langle x^i\rangle</span>, <span class="math inline">\pi_i x = x^i\in X_i</span>.</p>
+<p>A coproduct is a <em>variant type</em> that can take on distinguished values. It is a <em>dijoint union</em> of types that is a union plus information of which set an element belongs to. Coproducts are written <span class="math inline">x = [x_i]</span>, <span class="math inline">ν_i x_i = x</span>.</p>
+<p>An <em>exponential</em> is the set of all functions from one type to another that preserves the types.</p>
+</section>
 <section id="product" class="level2">
 <h2>Product</h2>
-<p>If <span class="math inline">X</span> and <span class="math inline">Y</span> are sets then <span class="math inline">X\times Y = \{(x,y)\mid x\in X, y\in Y\}</span> is the <em>cartesian produce</em> of <span class="math inline">X</span> and <span class="math inline">Y</span>.</p>
-<p>The <em>projections</em> <span class="math inline">\pi_0\colon X\times Y\to X</span> where <span class="math inline">\pi_0(x,y) = a</span> and <span class="math inline">\pi_1\colon X\times Y\to Y</span> where <span class="math inline">\pi_1(x,y) = y</span> characterize the cartesian product. If <span class="math inline">p_0\colon Z\to X</span> and <span class="math inline">p_1\colon Z\to Y</span> there exists <span class="math inline">p\colon Z\to X\times Y</span> with <span class="math inline">\pi_0p = p_0</span> and <span class="math inline">\pi_1p = p_1</span>.</p>
+<p>If <span class="math inline">X</span> and <span class="math inline">Y</span> are sets then <span class="math inline">X\prod Y = \{(x,y)\mid x\in X, y\in Y\}</span> is the <em>cartesian product</em> of <span class="math inline">X</span> and <span class="math inline">Y</span>.</p>
+<p>The <em>projections</em> <span class="math inline">\pi_0\colon X\prod Y\to X</span> where <span class="math inline">\pi_0(x,y) = x</span> and <span class="math inline">\pi_1\colon X\prod Y\to Y</span> where <span class="math inline">\pi_1(x,y) = y</span> characterize the cartesian product. If <span class="math inline">p_0\colon Z\to X</span> and <span class="math inline">p_1\colon Z\to Y</span> there exists <span class="math inline">p\colon Z\to X\prod Y</span> with <span class="math inline">\pi_0p = p_0</span> and <span class="math inline">\pi_1p = p_1</span>.</p>
+<p><em>Array</em>: <span class="math inline">x\in\prod_i X</span> is written <span class="math inline">x = (x^i)</span> where <span class="math inline">π_i x = x^i</span>.</p>
+<p><em>Tuple</em>: <span class="math inline">x\in\prod_i X_i</span> is written <span class="math inline">x = \langle x^i\rangle</span> where <span class="math inline">π_i x = x^i</span></p>
 </section>
-<section id="union" class="level2">
-<h2>Union</h2>
-<p>If <span class="math inline">X</span> and <span class="math inline">Y</span> are sets then <span class="math inline">X\sqcup Y = \{(i,z)\mid\text{where }z\in X, i = 0 \text{ or } z\in Y, i = 1\}</span> is the <em>disjoint union</em> of <span class="math inline">X</span> and <span class="math inline">Y</span>.</p>
-<p>The <em>inclusions</em> <span class="math inline">\nu_0\colon X\to X\sqcup Y</span> where <span class="math inline">\nu_0(x) = (0,x)</span> and <span class="math inline">\nu_1\colon Y\to X\sqcup Y</span> where <span class="math inline">\nu_0(y) = (1,y)</span> characterize the disjoint union. If <span class="math inline">n_0\colon X\to Z</span> and <span class="math inline">n_1\colon Y\to Z</span> there exists <span class="math inline">n\colon X\sqcup Y\to Z</span> with <span class="math inline">n\nu_0 = n_0</span> and <span class="math inline">n\nu_1 = n_1</span>.</p>
+<section id="coproduct" class="level2">
+<h2>Coproduct</h2>
+<p>If <span class="math inline">X</span> and <span class="math inline">Y</span> are sets then <span class="math inline">X\coprod Y = \{(z,i)\mid\text{where }z\in X, i = 0 \text{ or } z\in Y, i = 1\}</span> is the <em>coproduct</em> of <span class="math inline">X</span> and <span class="math inline">Y</span>.</p>
+<p>The <em>inclusions</em> <span class="math inline">\nu_0\colon X\to X\coprod Y</span> where <span class="math inline">\nu_0(x) = (x, 0)</span> and <span class="math inline">\nu_1\colon Y\to X\coprod Y</span> where <span class="math inline">\nu_0(y) = (y, 1)</span> characterize the coproduct. If <span class="math inline">n_0\colon X\to Z</span> and <span class="math inline">n_1\colon Y\to Z</span> there exists <span class="math inline">n\colon X\coprod Y\to Z</span> with <span class="math inline">n\nu_0 = n_0</span> and <span class="math inline">n\nu_1 = n_1</span>.</p>
+<p><em>Variant</em>: <span class="math inline">x\in\coprod_i X_i</span> is written <span class="math inline">x = [x_i]</span> where <span class="math inline">ν_i x_i = x</span>.</p>
 </section>
 <section id="exponential" class="level2">
 <h2>Exponential</h2>
@@ -62,18 +75,27 @@
 </section>
 <section id="evaluation" class="level2">
 <h2>Evaluation</h2>
-<p>The <em>evaluation function</em> <span class="math inline">e_Y^X = e\colon Y^X\times X\to Y</span> is <span class="math inline">e(f,x) = f(x)\in Y</span>, <span class="math inline">f\in Y^X</span>, <span class="math inline">x\in X</span>.</p>
+<p>The <em>evaluation function</em> <span class="math inline">e_Y^X = e\colon Y^X\prod X\to Y</span> is <span class="math inline">e(f,x) = f(x)\in Y</span>, <span class="math inline">f\in Y^X</span>, <span class="math inline">x\in X</span>.</p>
 </section>
 <section id="curry" class="level2">
 <h2>Curry</h2>
-<p>The <em>curry function</em> <span class="math inline">\gamma\colon \{X\times Y\to Z\}\to \{X\to\{Y\to Z\}\}</span> is <span class="math inline">(\gamma(f)x)y = f(x,y)\in Z</span>, <span class="math inline">f\in \{X\times Y\to Z\}</span>, <span class="math inline">x\in X</span>, <span class="math inline">y\in Y</span>.</p>
-<p>The <em>uncurry function</em> <span class="math inline">\gamma^*\colon \{X\to\{Y\to Z\}\}\to \{X\times Y\to Z\}</span> is <span class="math inline">\gamma^*(f)(x,y) = f(x,y)\in Z</span>, <span class="math inline">f\in \{X\to\{Y\to Z\}\}</span>.</p>
-<p>Natural numbers <span class="math inline">\bm{N}= \{0, 1, \ldots\}</span>.</p>
-<p><span class="math inline">\iota n = \{0, \ldots, n - 1\}</span>, <span class="math inline">n\in\bm{N}</span>.</p>
-<p><span class="math inline">\iota\colon\bm{N}\to\bm{N}^*</span> where <span class="math inline">\bm{N}^* = \sqcup_{n\ge0}\bm{N}^n</span>. <span class="math inline">\iota n\in\bm{N}^n</span>.</p>
+<p>The <em>curry function</em> <span class="math inline">\gamma\colon \{X\prod Y\to Z\}\to \{X\to\{Y\to Z\}\}</span> is <span class="math inline">(\gamma(f)x)y = f(x,y)\in Z</span>, <span class="math inline">f\in \{X\prod Y\to Z\}</span>, <span class="math inline">x\in X</span>, <span class="math inline">y\in Y</span>.</p>
+<p>The <em>uncurry function</em> <span class="math inline">\gamma^*\colon \{X\to\{Y\to Z\}\}\to \{X\prod Y\to Z\}</span> is <span class="math inline">\gamma^*(f)(x,y) = f(x,y)\in Z</span>, <span class="math inline">f\in \{X\to\{Y\to Z\}\}</span>. ## Reshape</p>
+<p>The <em>reshape</em> function <span class="math inline">\rho = \rho_{n_0,...,n_{k-1}}\colon\iota n_0\prod\cdots\prod\iota n_{k-1}\to\iota n_0\cdots n_{k-1}</span> is defined by <span class="math inline">\rho(i_0, i_1, \ldots, i_{k-1}) = i_0 + n_0(\rho(i_1, \ldots, n_{k-1}))</span>.</p>
+<p>Every element <span class="math inline">x\in X^{\iota n}</span> corresponds to a function <span class="math inline">x\colon\iota n\to X</span>. The composition <span class="math inline">x\rho\colon n_0\prod\cdots\prod\iota n_{k-1}\to X</span> reshapes <span class="math inline">x</span>.</p>
+</section>
+<section id="partition" class="level2">
+<h2>Partition</h2>
+<p>A function <span class="math inline">p\colon X\to\iota n</span> determines a <em>partition</em> on <span class="math inline">X</span> where <span class="math inline">i\sim i&#39;</span> iff <span class="math inline">p(i) = p(i&#39;)</span>.</p>
+<p>Example: s = “a,bc,def” is a string in <span class="math inline">\bm{C}^{\iota 8}</span>. Using cyclic arrays <span class="math inline">= &quot;,&quot; s</span> is <span class="math inline">01001000</span> so <span class="math inline">+\backslash= &quot;,&quot; s</span> is <span class="math inline">0111222</span>.</p>
+<p>Define <span class="math inline">ν\colon X^n\to X^m</span> by <span class="math inline">νx_0 x_1 \ldots = x_0 \nu x_2 \ldots</span> if <span class="math inline">x1 = x0</span> and <span class="math inline">νx_0 x_1 \ldots = x_0 \nu x_1 \ldots</span> if <span class="math inline">x_1 \not= x_0</span>.</p>
 </section>
 <section id="remarks" class="level2">
 <h2>Remarks</h2>
+<p>Natural numbers <span class="math inline">\bm{N}= \{0, 1, \ldots\}</span>.</p>
+<p><span class="math inline">\iota n = \{0, \ldots, n - 1\}</span>, <span class="math inline">n\in\bm{N}</span>.</p>
+<p><span class="math inline">\iota\colon\bm{N}\to\bm{N}^*</span> where <span class="math inline">\bm{N}^* = \coprod{n\ge0}\bm{N}^n</span>.<br />
+<span class="math inline">\iota n\in\bm{N}^n</span>.</p>
 <p>Every expression is a list of data or functions in Polish notation.</p>
 <p>Expressions are parsed right to left.</p>
 <p>Data is pushed on the call stack.</p>
@@ -83,11 +105,16 @@
 <p><span class="math inline">K</span> is the constant function <span class="math inline">K\colon X\to\{Y\to X\}</span> where <span class="math inline">Kxy = x</span>.</p>
 <p>Use <span class="math inline">!</span> for evaluation.</p>
 <p><em>Array</em> <span class="math inline">X^{\iota n}</span>, <span class="math inline">[␣x_0␣x_1␣\ldots\colon \iota n\to X</span> by <span class="math inline">i\mapsto x_i</span>.</p>
-<p><em>Tuple</em> <span class="math inline">\sqcap_{i\in I} X_i</span>, <span class="math inline">\langle␣x_0␣x_1␣\ldots\colon I\to\sqcup_{i\in I}X_i</span> by <span class="math inline">i\mapsto (i, x_i)</span>.</p>
+<p><em>Tuple</em> <span class="math inline">\sqcap_{i\in I} X_i</span>, <span class="math inline">\langle␣x_0␣x_1␣\ldots\colon I\to\coprod{i\in I}X_i</span> by <span class="math inline">i\mapsto (i, x_i)</span>.</p>
 </section>
 <section id="examples" class="level2">
 <h2>Examples</h2>
 <p><em>Average</em> <span class="math inline">÷␣&#39;␣+/␣+/K 1\backslash␣x_0␣x_1␣\ldots</span></p>
+</section>
+<section id="types-1" class="level2">
+<h2>Types</h2>
+<p>A <em>string</em> is a utf-8 string that is a monoid with identity the empty string and product concatenation. The <em>characters</em> of the string are <em>code points</em>.</p>
+<p>Generic duality? <span class="math inline">Z</span> an object, <span class="math inline">\hat{}Z</span> is a functor <span class="math inline">X\mapsto X^Z</span> and <span class="math inline">(f\colon X\to Y)\mapsto (X^Z\to Y^Z)</span>. The functor <span class="math inline">Z\,\hat{}</span> maps <span class="math inline">Y\mapsto Z^Y</span> and <span class="math inline">g\colon X\to Y\mapsto (Z^Y\to Z^X)</span>.</p>
 </section>
 </section>
 <footer>
