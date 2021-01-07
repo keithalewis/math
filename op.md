@@ -24,6 +24,14 @@ the _option payoff_ as a function of the _underlying_ at _expiration_.
 _Greeks_ are derivatives of the _value_ with respect to _model parameters_.
 This short note derives formulas for these that can be used for any positive underlying.
 
+In the Nobel Prize winning theory of Black, Scholes, and Merton the value of
+an option is ...
+
+The option delta is the derivative of the value with respect to the underlying,
+$\partial_s v = ...$. The naive derivative gives the correct answer, but
+$d_1$ and $d_2$ depend on $s$ so the mathematically correct derivative
+is ...
+
 Every positive random variable $F$ can be parameterized as $F = fe^{sX - \kappa(s)}$
 where $f = E[F]$ is the _forward_, $s^2 = \Var[\log F]$ is the _vol_ squared, and
 $κ(s) = \log E[e^{sX}]$ is the _cumulant_ of $X$.

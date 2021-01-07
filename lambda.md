@@ -11,23 +11,27 @@ abstract: The lambda calculus
 \newcommand\re{\Leftarrow}
 
 The _lambda calculus_ distills the essence of computing. Every function that can be calculated
-is a $\lambda$-_expression_: a _variable_, an _abstraction_, or an _application_$.
+is a $\lambda$-_expression_: a _variable_, an _abstraction_, or an _application_.
 
 A variable is just a symbol. An abstraction is $x\ab E$ where $x$ is
 a variable and $E$ is an expression. Application is $EF$ where $E$ and $F$ are expressions.
-The usual notation for $x\ab E$ is $\lambda x.E$.
+The standard notation for $x\ab E$ is $\lambda x.E$.
 
 Expressions can be converted to equivalent expressions by _renaming_ and _replacing_.
 The abstraction $x\ab E[x]$ where $E$ is an expression involving the variable $x$ can be
 $\alpha$-converted to $y\ab E[y]$ for any variable $y$.
 The application $(x\ab E)F$ can be $\beta$-reduced to $E[x\re F]$
 where all occurences of $x$ in $E$ are replace by $F$.
+The standard notation for $E[x\re F]$ is $E[x:=F]$.
 
 For example, since the variable $x$ is also an expression, the abstraction
 $x\ab x$ is an expression.
 By $\alpha$-conversion we can write this as $y\ab y$ for any variable $y$.
 By $\beta$-reduction $(x\ab x)E$ is equivalent to $E$ for any expression $E$, 
 so $x\ab x$ is the _identity function_.
+
+The first problem we run into with $\alpha$-conversion is variable names.
+
 
 True is the expression $t = x\ab y\ab x = x\ab(y\ab x)$ 
 and false is $f = x\ab y\ab y = x\ab(y\ab y)$. If we tried alpha conversion
