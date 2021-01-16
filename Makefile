@@ -50,3 +50,6 @@ rsync:
 
 clean:
 	rm -f *.docx *.pdf *.html docs/*.html
+
+slides: uf_slides.md
+	pandoc  -t slidy -s uf_slides.md -o uf_slides.html
