@@ -32,6 +32,20 @@ abstract: A Programming Language
 \newcommand{\f}{0}
 \newcommand{\t}{1}
 
+The primitive types are real numbers $\RR$, integers $\ZZ$, booleans $\BB$,
+and characters $\CC$. The natural numbers $\NN$ are the non-negative integers.
+We have $\BB\subseteq\NN\subseteq\ZZ\subseteq\RR$ as rings.
+We also assume $u\colon\CC\to\NN$ is an encoding of the set of characters. (UTF-8?)
+
+array: same type, known size (can be on stack)
+vector: same type, runtime size
+sequence: same type, lazy
+tuple: product of different types, known size
+variant: coproduct of different types, known size
+stream: different type, lazy
+
+Storage: stack (life of function), heap (life of process), persistent (across processes), lazy generators.
+
 Let's give names to things.
 
 ## Types
@@ -39,10 +53,10 @@ Let's give names to things.
 Types are classified by mathematical objects: set, monoid, group, ring, field.
 
 _Primitive types_ are _boolean_ (field), _natural number_ (monoid),
-_integer_ (abelian group, ring), _real number_ (field), _string_ (monoid).
+_integer_ (commutative ring), _real number_ (field), _string_ (monoid).
 
-_Types_ are either primitive types, _products_ of types, _coproducts_ of types,
-or _exponentials_.
+_Types_ are either primitive types, _products_, _coproducts_,
+_exponentials_, or _streams_.
 
 An _array_ is a product of homogenous types.
 Arrays are written $x = (x^i)$, $\pi_i x = x^i \in X$.
