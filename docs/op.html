@@ -51,6 +51,8 @@
 > &mdash; David Hilbert_
 -->
 <p>European <em>option valuation</em> involves calculating the expected value of the <em>option payoff</em> as a function of the <em>underlying</em> at <em>expiration</em>. <em>Greeks</em> are derivatives of the <em>value</em> with respect to <em>model parameters</em>. This short note derives formulas for these that can be used for any positive underlying.</p>
+<p>In the Nobel Prize winning theory of Black, Scholes, and Merton the value of an option is …</p>
+<p>The option delta is the derivative of the value with respect to the underlying, <span class="math inline">\partial_s v = ...</span>. The naive derivative gives the correct answer, but <span class="math inline">d_1</span> and <span class="math inline">d_2</span> depend on <span class="math inline">s</span> so the mathematically correct derivative is …</p>
 <p>Every positive random variable <span class="math inline">F</span> can be parameterized as <span class="math inline">F = fe^{sX - \kappa(s)}</span> where <span class="math inline">f = E[F]</span> is the <em>forward</em>, <span class="math inline">s^2 = \operatorname{Var}[\log F]</span> is the <em>vol</em> squared, and <span class="math inline">κ(s) = \log E[e^{sX}]</span> is the <em>cumulant</em> of <span class="math inline">X</span>. Define the <em>partial cumulant</em> <span class="math inline">κ(x,s) = \log E[1(X\le x) e^{sX}]</span>. Call and put values and their greeks can be expressed in terms of the partial cumulant and its derivatives.</p>
 <section id="share-measure" class="level2">
 <h2>Share Measure</h2>

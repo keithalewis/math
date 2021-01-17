@@ -21,19 +21,28 @@ that are useful for [option pricing](op.html).
 
 Recall the moment generating function of a random variable $X$ is
 $M(s) = E[e^{sX}]$ and its cumulant is $κ(s) = \log M(s)$.
-Let $M(s, x) = E[1(X\le x) e^{sX}]$ be the _incomplete moment
-generating function_.
+Let 
+$$
+	M(s, x) = E[1(X\le x) e^{sX}]
+$$
+be the _incomplete moment generating function_.
 
 The Esscher transform of the random variable $X$ with parameter $s$ has cumulative
-distribution function $F_s(x) = M(s, x)/M(s) = E[1(X\le x) e^{s X - κ(s)}]$.
-Let $ε_s(x) = e^{s x - κ(s)}$ and note $E[ε_s(X)] = 1$ so $F_s$
-is a cdf.
+distribution function 
+$$
+	F_s(x) = M(s, x)/M(s) = E[1(X\le x) e^{s X - κ(s)}].
+$$
+Let $ε_s(x) = e^{s x - κ(s)}$ and note $E[ε_s(X)] = 1$ so $F_s$ is a cdf.
 
 Write $E_s$ for the Esscher transformed measure so for any reasonable
-function $g$ we have $E[g(X)ε_s(X)] = E_s[g(X)]$ so
-$∂_s E[g(X) ε_s(X)] = E[g(X) ε_s(X) (X - κ'(s))] = E_s[g(X) (X - κ'(s))]$ and
+function $g$ we have $E_s[g(X)] = E[g(X)ε_s(X)]$ so 
 $$
-	∂_s F_s(x) = E[1(X\le x) ε_s(X) (X - κ'(s))] = E_s[1(X\le x) (X - κ'(s))].
+	∂_s E_s[g(X)] = ∂_s E[g(X) ε_s(X)] = E[g(X) ε_s(X) (X - κ'(s))] = E_s[g(X) (X - κ'(s))]
+$$
+since $∂_s ε_s(x) = ε_s(x) (x - κ'(s))$. Define the _partial cumulant_ by
+$κ(s, x) = \log M(s,x)$ so
+$$
+	∂_s F_s(x) = ∂_s e^{κ(s, x) - κ(s)} = F_s(x) (κ'(s, x) - κ'(s)).
 $$
 
 ## Distributions
@@ -47,18 +56,22 @@ the probability it takes on those values, $P(X = x_j) = p_j$,
 where $p_j > 0$ and $\sum_j p_j = 1$.
 It has cdf $F(x) = \sum_j 1(x\le x_j) p_j$ and density $f(x) = \sum_j δ_{x_j}(x) p_j$
 where $δ_a$ is the _delta function_, or _point mass_, at $a$.
-The Esscher transform of a discrete random variable takes the same values with $P(X_s = x_j) ε_s(x_j) p_j$.
+The Esscher transform of a discrete random variable is discrete and
+takes the same values with $P(X_s = x_j) ε_s(x_j) p_j$.
 
 ### Normal
 
 The standard normal random variable $X$ has density $φ(x) = \exp(-x^2/2)/\sqrt{2\pi}$,
 $-\infty < x < \infty$. The cdf can be expressed in terms of _error functions_
 as $Φ(x) = (1 + \erf(x/\sqrt{2}))/2 = 1 - \erfc(x/\sqrt{2})/2$.
+Since $\exp(sx - s^2/2) \exp(-x^2/2) = \exp(-(x - s)^2/2)$ the Esscher transformed
+density is $φ_s(x) = φ(x - s)$.
 
 The derivatives of the density are $φ^{(n)}(x) = (-1)^nφ(x)H_n(x)$ where $H_n$ are the
 Hermite polynomials. They satisfy the recurrence $H_0(x) = 1$, $H_1(x) = x$ and
 $H_{n+1}(x) = x H_n(x) - n H_{n-1}(x)$, $n\ge 1$.
 
+<!--
 Some useful properties are 
 $$
 \begin{aligned}
@@ -87,7 +100,6 @@ __Exercise__. _Prove this_.
 
 Hint: $N, N_1, \ldots$ are jointly normal if and only if 
 they are linear combinations of independent standard normals.
-
 The cumulant is $κ(s) = \log E[\exp(sX)] = s^2/2$ so $κ_2 = 1$ and all other
 cumulants are zero. We also have
 $$
@@ -108,21 +120,16 @@ so
 $$
 ∂_s Φ_s(x) = E[1(X\le x) e^{sX - s^2/2}(X - s)] = -φ(x - s).
 $$
+-->
 
 ### Poisson
 
 The Poisson distribution with parameter $λ$ has density
 $P(X = n) = e^{-λ}λ^n/n!$, $n\ge 0$ and moment generating function
 $M(s) = E[e^{s X}] = \exp(λ(e^s - 1))$, $s < λ$.
+Since $\exp(sn - λ(e^s - 1)) e^{-λ}λ^n = \exp(-λe^s) (λ e^s)^n$ the
+Esscher transformed distribution is also Poisson with parameter $λe^s$.
 
-The Esscher transform of a Poisson distribution with parameter $λ$
-is Poisson with parameter $λe^s$ since
-$$
-\begin{aligned}
-	E[e^{sX} g(X)] &= \sum_{n\ge0} g(n)e^{sn - λ(e^s - 1)}e^{-λ}λ^n/n! \\
-	&= \sum_{n\ge0} g(n)e^{-λ e^s} (λ e^s)^n/n! \\
-\end{aligned}
-$$
 Taking a derivative with respect to $s$ we have
 $∂_s E_s[g(X_λ)]] = λ e^s E[g(X_{λ e^s} + 1) - g(X_{λ e^s})]$ so
 $$
@@ -160,7 +167,7 @@ with parameter $λ - s$.
 
 A generalized logistic random variate has probability density function
 $f(α,b;x) = c e^{-βx}/(1 + e^{-x})^{α + β}$, $-\infty < x < \infty$,
-where $c = 1/B(α,β)$ is the beta function. If $α = 1$ and $β = 1$
+where $c = 1/B(α,β)$ is the Beta function. If $α = 1$ and $β = 1$
 this is the standard logistic function.  The Esscher transformed density
 is also a generalized logistic with parameters $α + s$, $β - s$.
 
@@ -182,7 +189,7 @@ A similar calculation shows the incomplete moment generating function is
 $$
 	M(s,x) = B(α + s, β - s; u)/B(α, β) = I_u(α + s, β - s)
 $$
-where $u = 1/(1 + e^{-x})$, $B(α, β; u)$ is the incomplete beta function,
+where $u = 1/(1 + e^{-x})$, $B(α, β; u)$ is the incomplete Beta function,
 and $I_u(α, β)$ is the regularized incomplete Beta function.
 
 The Esscher transformed cumulative distribution function is
@@ -217,19 +224,37 @@ $$
 for $n > 0$ and $A_{0,0} = 1$.
 
 The cumulant of the generalized logistic is $κ(s) = \log B(α + s, β - s)/B(α, β)
-= \log Γ(α + s) - \log Γ(α) + \log Γ(β - s) - \log Γ(β)$.
+= \log Γ(α + s) - \log Γ(α) + \log Γ(β - s) - \log Γ(β)$ using the fact
+$B(α,β) = Γ(α)Γ(β)/Γ(α + β)$
+
+<!--
+
+For the incomplete cumulant we use $y = wt$, $z = w(1 - t)$ so
+$w = y + z$, $t = y/(y + z)$, and $dy\,dz = w dt\,dw$. We have
+$$
+\begin{aligned}
+Γ(α;a) Γ(β;b) &= \int_0^a y^{α - 1} e^{-y}\,dy \int_0^b z^{β - 1} e^{-z}\,dz \\
+	&= \int_0^b \int_0^a y^{α - 1} z^{β - 1} e^{-y-z}\,dy\,dz \\
+	&= (\int_0^a \int_0^1 + \int_a^{2a} \int_{1-a/w}^{a/w} )
+	(wt)^{α - 1} (w(1 - t))^{β - 1} e^{-w} w\,dt\,dw \\
+	&= (\int_0^a \int_0^1 + \int_a^{2a} \int_{1-a/w}^{a/w} )
+	w^{α + β - 1} e^{-w} t^{α - 1} (1 - t)^{β - 1} dt\,dw \\
+\end{aligned}
+$$
+
+-->
 
 Recall the _digamma_ function $ψ(s) = Γ'(s)/Γ(s)$ is the derivative of the log of the Gamma function
 so $κ^{(n+1)}(s) = ψ^{(n)}(α + s) - (-1)^n ψ^{(n)}(β - s)$ for $n\ge 0$.
 In particular the mean is $κ'(0) = ψ(α) - ψ(β)$ and variance is
 $κ''(0) =  ψ'(α) + ψ'(β)$.
 
-Let $B_1 = ∂_α B$ and $B_2 = ∂_β B$ be partial derivatives with respect to the first
+Let the subscripts 1 and 2 indicate the partial derivatives with respect to the first
 and second parameter respectively. Recall
 $$
-	B_1(α,β;u) = (\log u - ψ(α) + ψ(α + β))B(α,β;u)
+	B_1(α,β;u) = B(α,β;u)\log u - u^a\;_3F_2(α, α, 1 - β; α + 1, α + 1; u)
 $$
-so $B_1(u)/B(u) - B_1/B = \log u$.
+so $B_1(u)/B(u) - B_1/B = \log u$ omitting the parameters $α$ and $β$.
 
 Using $B(α,β;u) = 1 - B(β,α;1 - u)$ we have
 $$
