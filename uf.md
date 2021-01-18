@@ -20,10 +20,10 @@ a sequence of trades the associated amounts and values determine
 the _profit and loss_, among other quantities, relevant to managing portfolios.
 
 To properly assess risk it is necessary to include how a position will
-be hedged over time.  Various hedging strategies can, and should, be
+be hedged over time.  Various hedging strategies can and should be
 used for insight on the uncertainties involved.
 
-This model highlights that both cash flows and prices must be specified
+Both cash flows and prices must be specified
 by mathematical models to determine the amounts and values associated
 with a trading strategy. It also places instruments on equal footing to
 get a complete picture of risk across **all** asset classes.  It does not
@@ -41,14 +41,14 @@ or a corporation. Corporations can subdivide holdings by groups or individual
 traders. The holding $(i,a,e)$ indicates entity $e$
 owns amount $a$ of instrument $i$.
 
-A _position_ is a set of holdings $\{(i_j,a_j,e_j)\}$.
+A _position_ is a set of holdings $\{(i_j,a_j,e_j)\}$. where j ...!!!
 Assuming each instrument is _fungible_ we can aggregate amounts.
 The _net amount_ in instrument $i$ held by entity $e$ is
 $$
 	N(i,e) = \sum_j \{a_j : i_j = i, e_j = e\}.
 $$
 The _net position_ is $\cup_j \{(i_j, N(i_j,e_j), e_j)\}$. 
-If $i_j = i_k$ and $e_j = e_k$ then $N(i_j,e_j) = N(i_k,e_k)$ so this
+If $i_j = i_k$ and $e_j = e_k$, then $N(i_j,e_j) = N(i_k,e_k)$; this
 is standard mathematical set union.
 
 ## Trade
@@ -68,13 +68,13 @@ of the buyer becomes $(i',a',e)$ and the holding $(i',a',e')$ of the
 seller becomes $(i,a,e')$.  We assume instruments are _divisible_ so a
 holding $(i,a_1,e)$ can be split into $(i,a_1-a_0,e)$ and $(i,a_0,e)$
 for any amount $a_0$ at no cost. If $0 < a_0 < a_1$ this is
-close to being true.
+close to being true. What is "this"??? ??? "then splitting..."
 
 As an example, suppose a buyer holds 100 dollars $(\$, 100)$ and
 a seller holds two shares of Ford stock $(F, 2)$. If the seller
 quotes a price of 8 dollars per share
 then the buyer can obtain $(F, 2)$ by giving the seller $(\$, 2\times 8)$
-and now holds two shares for stock and $(\$,100-16) = (\$, 84)$.
+and now holds two shares of stock and $(\$,100-16) = (\$, 84)$.
 
 Foreign exchange is not a special case. If the USD/JPY exchange rate is 100 then
 $(\$, a)$ can be exchanged for $($&yen;$,100a)$. If we write &dollar;1 = &yen;100
@@ -85,8 +85,8 @@ Similarly, commodities are also not special. This model can be used for **all** 
 ## Cash Flow
 
 Instruments entail _cash flows_; stocks pay dividends, bonds pays
-coupons, futures have margin adjustments. Currencies and commodities do
-not have cash flows, but they may involve third party payments to exchange
+coupons, and futures have margin adjustments. Currencies and commodities do
+not have cash flows, but they may involve third-party payments to exchange
 or store them.
 Cash flows cause changes to positions.
 If instrument $i$ pays cash flow $C_t(i,i')$ per share of $i$ in instrument
@@ -100,7 +100,7 @@ the stock pays a dividend of $(\$,0.15)$ per share then the holdings
 become $\{(\$, 86), (F,2), (\$, 2\times 0.15)\}$ and net to
 $\{(\$, 86.30),(F,2)\}$
 
-Cash flows are zero except at a discrete times. Stocks and
+Cash flows are zero except at discrete times. Stocks and
 bonds typically pay dividends and coupons quarterly or semi-annually. Futures
 margin accounts are usually adjusted once per day.
 
@@ -114,7 +114,7 @@ Holdings and trades lead to some bean counting over time.
 
 Given a position at time $t$, all trades and cash flows between $t$
 and $u$ determine the position at time $u$ as described above.
-The change in net amounts is called _profit and loss_.
+The change in net amounts is called _profit and loss_ (P&amp;L).
 If $N_t$ is the net amount defined above
 then $N_u(i,e) - N_t(i,e)$ is the P&amp;L of entity $e$ in instrument $i$
 over the period from $t$ to $u$.
@@ -126,9 +126,9 @@ All holdings $(i,a,e)$ are converted to $(i_0, aX(i_0,i), e)$ then netted
 to report the P&amp;L in terms of $i_0$.
 
 It is quite common for entities to have different best guesses of
-$X_t(i_0,i)$. Accountants might use "book", "market", "liquidation",
+$X_t(i_0,i)$. Accountants might use "book," "market," "liquidation,"
 or "going concern" values. This model does not suggest which is the
-most appropriate in any given situation, it only makes that
+most appropriate in any given situation; it only makes that
 choice explicit.
 
 Other relevant quantities can be computed similarly. For example the
@@ -151,7 +151,7 @@ be the set of amounts, and $E$ be the set of entities.
 
 All models have shortcomings to keep in mind when being applied.
 Trading times depend on the instrument and the seller. If an instrument
-is listed on an exchange then it can only be traded during market
+is listed on an exchange, then it can only be traded during market
 hours. Every seller gets to determine when the instruments they offer
 can be traded.
 Amounts are constrained by the instrument, time, and seller.  Instruments
@@ -174,7 +174,7 @@ Most models of price in the financial literature do not depend on the
 amount traded, $a'$, or the counterparties $e$, or $e'$.  Anyone who
 has traded knows there are different prices depending on whether you
 are buying ($a' > 0$) or selling ($a' < 0$) &ndash; the ask and the bid
-price, respectively.  Anyone who has traded large amounts also knows the
+price respectively.  Anyone who has traded large amounts also knows the
 bid/ask spread widens as the amount gets larger.  The price can also
 depend on the counterparties in the trade, as anyone with poor credit
 will find when attempting to take out a loan.
@@ -186,12 +186,12 @@ and amounts $\Gamma_j\colon I\times E\times I\times E\to A$
 to trade at time $\tau_j$ in two instruments between two entities.
 The trades are $(\tau_j;i,\Gamma_j X_j,e;i', \Gamma_j, e')$
 where $\Gamma_j = \Gamma_j(i, e, i', e')$ and $X_j = X_{\tau_j}(i,e,i',\Gamma_j,e')$.
-After the trade the buyer $e$ holds amount $\Gamma_j$ of $i'$ and the
+After the trade, the buyer $e$ holds amount $\Gamma_j$ of $i'$ and the
 seller holds amount $\Gamma_j X_j$ of $i$ in exchange for that.
 
 Most models do not specify the seller $e'$; traders assume there is an aggregate
 market of _liquidity providers_ for $i'$. Usually $e$ is assumed to be
-a single entity executing the strategy, however
+a single entity executing the strategy; however,
 if you are running a hedge fund you will have
 a set of $e$'s called program managers to reckon with.
 
@@ -232,7 +232,7 @@ the position to risk management.
 If more than one instrument is traded then
 $V_0 = \sum_{i\in I}\Gamma_0(i) X_{\tau_0}(i)$.
 The sum is over all instruments, but $\Gamma_0(i) = 0$ if $i$ is not traded.
-If we represent trade amounts and prices as vectors indexed by instruments
+If we represent trade amounts and prices as vectors indexed by instruments,
 this can be written as $V_0 = \Gamma_0\cdot X_{\tau_0}$ where
 dot indicates the _inner product_ of vectors.
 
@@ -250,25 +250,25 @@ the trader's account:
 $$
 	A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t.
 $$
-At time $t$ cash flows proportional the the existing position are credited
+At time $t$, cash flows proportional the existing position are credited
 and the cost of trades just executed are debited. Note $A_{\tau_0} = -V_{\tau_0}$.
 
 Trading strategies create synthetic instruments. Amounts and values are
 proxies for cash flows and prices. A derivative security is a contract
 between counterparties for exchanges of future amounts.  If a trading
-strategy that produces those amounts exists then its initial value, plus vigorish,
+strategy that produces those amounts exists, then its initial value, plus vigorish,
 is what a sell-side trader quotes to buy-side customers.
 A quants job is to help traders figure out when ($\tau_j$) and how much ($\Gamma_j$)
 to trade in order to satisfy the contract obligations.[^4]
 The term _self-financing_ means satisfying the obligation to pay 0 on
 non-payment dates.
 
-When $\Delta_t + \Gamma_t = 0$ we say the trading strategy is _closed
-out_ at $t$. If no trades are executed after that then future amounts and values
+When $\Delta_t + \Gamma_t = 0$, we say the trading strategy is _closed
+out_ at $t$. If no trades are executed after that, then future amounts and values
 are zero.
 
 If a trading strategy has $A_{\tau_0} > 0$, $A_t \ge 0$
-for $t > \tau_0$, and eventually closes out then _arbitrage_ exists: it is
+for $t > \tau_0$ and eventually closes out, then _arbitrage_ exists: it is
 possible to make money on the initial trade and never lose money over the
 life of the trading strategy.  This definition
 of arbitrage depends on the model used for cash flows and prices.
@@ -284,7 +284,7 @@ hedging into account.
 _Value at risk_ (VaR) is defined using a time period
 and a probability $p$.  The probability of the value of a portfolio at the
 end of the period being less than VaR equals $p$, assuming no trades occur
-over the period. As the length of the period increases the probability
+over the period. As the length of the period increases, the probability
 of a portfolio manager being fired for not hedging it approaches 1.
 
 VaR can be turned into a more useful measure by incorporating the
@@ -300,7 +300,7 @@ to counterparty risk if they owe money. The insurance industry
 had been using this formula to calculate premiums long before it showed
 up in the financial world. The 1933 Glass-Steagal Act prohibited investment
 banks from participating in the insurance industry, but after the
-merger of Citicorp with Travelers the Gramm-Leach-Bliley Act allowed
+merger of Citicorp with Travelers, the Gramm-Leach-Bliley Act allowed
 them into the party after 1999.
 
 It is common for swaps to have unwind provisions that will be exercised if
@@ -323,12 +323,12 @@ clear definition of risk and it is impossible to manage something that is
 not clearly defined.  The term _model risk_ is even more unclear &ndash;
 exactly what models are under consideration?
 
-One universal property is that when a new model is introduced there is
+One universal property is when a new model is introduced there is
 always a P&amp;L hit.  Trades undervalued by the old model were executed
 by counterparties who recognized that, and trades overvalued by the old
 model found few takers.
 
-In lieu of a proper theory of risk management the best that can be
+In lieu of a proper theory of risk management, the best that can be
 accomplished is to make implicit assumptions explicit and provide
 multiple models and more efficient reporting tools to allow risk
 managers to quickly and easily assess the effects of the assumptions
@@ -359,18 +359,18 @@ today can be used without change to give better and faster answers in the future
 
 A _funding account_ is more complicated than it might seem at first blush.
 A _funding desk_ provides a liquid market in a native currency to
-traders for _funding_ their trades. One way to think of it is as a
+traders for _funding_ their trades. One way to think of it is like a
 perpetual bond; for unit notional you get a daily stream of
 coupons. The coupons are not constant but they are known at
 the beginning of each period[^6] and are usually tied to
-short term market rates. A trading strategy involves many
+short-term market rates. A trading strategy involves many
 transactions in the market account and it is common to implicitly
 assume all holdings are reinvested in the account. 
 A funding desk typically uses the _repurchase agreement_ market
 to supply the account. There are many individual transactions
 involved with funding accounts once you pull out your microscope.
 
-Trades often involve the exchange of more than two holdings, for example
+Trades often involve the exchange of more than two holdings, for example,
 a fee or commission to a broker or market maker that enabled the trade.
 These are accommodated by including the associated transactions as
 trades with the third parties involved. Perhaps these should be called
@@ -385,18 +385,19 @@ price after settlement is lumped into the term _slippage_.
 
 Accurately modeling that uncertainty is an ongoing puzzle.
 
-For trades on an exchange the order book can give a better handle on what
+For trades on an exchange, the order book can give a better handle on what
 the slippage might be. Some exchanges report the net amount of limit
 orders they have near the current market level. If a market order is
-not too large then the levels of the limit orders it will match can be
+not too large, then the levels of the limit orders it will match can be
 determined. However, other customers and liquidity providers can cause
 changes to the order book before market orders are executed to cause
 uncertainty in the exact amounts of matching limit orders at each level.
 
+!!! punch up !!! longer story
 There is a clear trajectory in Mathematical Finance starting from the
 Black-Scholes/Merton model of a single option parameterized by a constant
 volatility to portfolios of instruments belonging to the same asset
-class using increasingly sophisticated models that can be parameterized
+class that use increasingly sophisticated models that can be parameterized
 to fit all available market data.
 
 The future of Mathematical Finance is developing more accurate models
@@ -412,7 +413,7 @@ _sample space_ to the real numbers. Prepend the sample space to
 the cartesian products involved to make them mathematically correct.
 
 [^3]: A _stopping time_ is a random variable taking values in $T$ that
-depends only on prior information, for example when the price of a stock
+depends only on prior information, for example, when the price of a stock
 hits a certain level.
 
 [^4]: The trader aphorism, "Hedge when you can, not when you have to,"

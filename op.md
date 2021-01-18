@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: European option pricing
+abstract: European option pricing and greeks
 thanks: Thank you Peter Carr and Bill Goff for your valuable feedback.
 ...
 
@@ -20,76 +20,141 @@ thanks: Thank you Peter Carr and Bill Goff for your valuable feedback.
 -->
 
 European _option valuation_ involves calculating the expected value of
-the _option payoff_ as a function of the _underlying_ at _expiration_.
+the _option payoff_ using the _underlying_ at _expiration_.
 _Greeks_ are derivatives of the _value_ with respect to _model parameters_.
 This short note derives formulas for these that can be used for any positive underlying.
 
-In the Nobel Prize winning theory of Black, Scholes, and Merton the value of
-an option is ...
+## Black-Scholes/Merton
 
-The option delta is the derivative of the value with respect to the underlying,
-$\partial_s v = ...$. The naive derivative gives the correct answer, but
-$d_1$ and $d_2$ depend on $s$ so the mathematically correct derivative
-is ...
+The classic Black-Scholes/Merton formula for the spot value of a call option is
+$$
+	v_0 = s N(d_1) - ke^{-rt} N(d_2),
+$$
+where $N$ is the standard normal cumluative distribution function, $s$
+is the spot price, $k$ is the call strike, $r$ is the risk-free
+interest rate, $t$ is the time in years to expiration, $d_1 = (\log(s/k)
++ (r + σ^2/2)t)/σ\sqrt{t}$, and $d_2 = d_1 - σ\sqrt{t}$. 
 
-Every positive random variable $F$ can be parameterized as $F = fe^{sX - \kappa(s)}$
-where $f = E[F]$ is the _forward_, $s^2 = \Var[\log F]$ is the _vol_ squared, and
-$κ(s) = \log E[e^{sX}]$ is the _cumulant_ of $X$.
-Define the _partial cumulant_ $κ(x,s) = \log E[1(X\le x) e^{sX}]$.
-Call and put values and their greeks can be expressed in terms of
-the partial cumulant and its derivatives.
+_Delta_ is the derivative of value with respect to the underlying. It is true that
+$∂_s v_0 = ∂v_0/∂s = N(d_1)$, but $d_1$ and $d_2$ involve $s$ so one needs to
+show $s ∂_s N(d_1) - ke^{-rt} ∂_s N(d_2) = 0$. Plowing through the
+calculations involved is a ritual we all perform when first learning the theory.
+
+Fischer Black simplified this formula by expressing it in terms of _forward values_.
+$$
+	v_t = f N(d_1) - k N(d_2),
+$$
+where $f = se^{rt}$ is forward price and $v_t = v_0 e^{rt}$ is the forward value of the option.
+
+Their Nobel Prize winning work showed how to replicate the payoff of
+an option by dynamically hedging it with the underlying. The value
+of an option is the cost of setting up the initial hedge. It is not
+trivial to show the value is the expectation of the option payoff under
+some probability measure. This is why Nobel Prizes are awarded.
+
+We will skip the theory of stochastic differential equations, Ito's lemma,
+self-financing portfolios, and other dainty mathematical machinery
+required to prove their result. Let's fast-forward to calculating expected
+values and derivatives with respect to model parameters.
+
+## Black Model
+
+Fischer Black's model uses forward values.
+Let $F_t = fe^{σB_t - σ^2t/2}$, where $B_t$ is standard Brownian motion,
+be the forward price of the underlying at expiraton.
+This eliminates the interest rate parameter $r$.
+The forward value of a call option is the expected value of the
+call payoff at expiration
+$$
+	v_t = E[\max\{F_t - k, 0\}]
+$$
+The expiration $t$ can be subsumed into
+the _vol_ $s = σ\sqrt{t}$ so $F_t = F = fe^{sX - s^2/2}$ where $X$
+is standard normal. The only fact we use about Brownian motion is $B_t$
+is normal with mean 0 and variance $t$.
+
+Since $\max\{F - k, 0\} = (F - k) 1(F\ge k)$,
+$$
+\begin{aligned}
+	v &= E[\max\{F - k, 0\}] \\
+	  &= E[(F - k) 1(F\ge k)] \\
+	  &= E[F 1(F\ge k)] - kE[1(F\ge k)] \\
+	  &= f E[e^{sX - s^2/2} 1(F\ge k)] - kP(F\ge k) \\
+\end{aligned}
+$$
+
+__Exercise__. _Show $F\ge k$ if and only if $-X \le d_2$_.
+
+__Exercise__. _Use $E[e^{sX - s^2/2} g(X)] = E[g(X + s)]$ to show
+$E[e^{sX - s^2/2} 1(F\ge k)] = P(Fe^{s^2}\ge k)$_.
+
+__Exercise__. _Show $Fe^{s^2}\ge k$ if and only if $-X\le d_1$_.
+
+This establishes the Black formula for the forward value of an option
+since $-X$ has the same distribution as $X$.
+
+For any differentiable function $ν$, 
+$∂_f E[ν(F)] = E[ν'(F) ∂_f F] = E[ν'(F) e^{sX - s^2/2}] = E[ν'(Fe^{s^2})]$ so
+$$
+	∂_f v = E[1(Fe^{s^2}\ge k)] = N(d_1).
+$$
+This establishes the formula for option delta without any turmoil.
+Option values and greeks for any positive underlying can be calculated
+in a similar fashion. 
+
+## Positive Underlying
+
+Every positive random variable $F$ can be parameterized
+by $F = fe^{sX - \kappa(s)}$ where $f = E[F]$ is the _forward_,
+$s^2 = \Var[\log F]$ is the vol squared,
+and $κ(s) = \log E[e^{sX}]$ is the _cumulant_ of $X$.
+Define the _partial moment generating function_ $M(s,x) = E[1(X\le x)e^{sX}]$
+and the _partial cumulant_ $κ(s,x) = \log M(s,x)$.
+Option values and their greeks can be expressed
+in terms of the partial cumulant and its derivatives.
 
 ## Share Measure
 
-Let $F$ be the positive, random price of some _underlying_ instrument at
-option expiration.  The (forward)  _value_ of an option paying $ν(F)$
-in some currency at expiration is $E[ν(F)] = \int ν(F)\,dP$.
-We can also consider the payoff in terms of shares of $F$,
-$ν_s(F) = ν(F)F/E[F]$.  If we receive $ν_s(F)$ shares of $F$ at
-expiration we can convert those at price $F$ to $ν(F)$ in the currency.
+Let $F$ be the price of the _underlying_ instrument at option expiration.
+The forward value of an option paying $ν(F)$ in some currency at
+expiration is $E[ν(F)]$.  We can also consider the payoff in terms of
+shares of $F$, $ν_s(F) = ν(F)F/E[F]$; if we receive $ν_s(F)$ shares
+of $F$ at expiration we can convert those at price $F$ to $ν(F)$ in
+the currency.
 
-_Share measure_ $P_s$ is defined by $dP_s/dP = F/E[F]$.
-We write $E_s$ for expectation under the share measure.
+_Share measure_ $E_s$ is defined by $E_s[ν(F)] = E[ν(F) F/E[F]]$.
 Note $F > 0$ and $E_s[1] = 1$ so share measure is a probability measure.
+If we let $ε_s(x) = e^{s x - κ(s)}$ this can be written
+$E_s[ν(F)] = E[ν(F) ε_s(X)]$ and we see share measure is just the Esscher transform.
+The cumulative distribution of $F$ under this measure is
+$$
+	P_s(F\le y) = P_s(X\le x) = E[1(X\le x) e^{sX - κ(s)}] = M(s,x)/M(s)
+$$
+where $m(y) = x = ε_s^{-1}(y/f) = (\log y/f + κ(s))/s$ is the _moneyness_
+of $y$.
 
 ## Parameters
 
-The _forward_ is $f = E[F]$ and the _vol_ squared is $s^2 = \Var(\log F)$.
-Every positive random variable can be written $F = e^{m + sX}$ for
-constants $m$, $s$ and $X$ having mean 0 and variance 1.  Using $f = E[F]
-= e^m E[e^{sX}]$ we see $e^m = f e^{-κ(s)}$ where
-$κ(s) = \log E[e^{sX}]$ is the _cumulant_ of $X$.
-Hence $F = fe^{sX - κ(s)}$ is parameterized by $f$, $s$,
-and a mean 0 variance 1 random variable $X$.
-_Greeks_ are the derivatives of value with respect
-to forward and vol.
-
-If you prefer a different parameterization, say $f = f(u,t)$, $s = s(u,t)$,
-the chain rule can be applied to get greeks in terms of $u$ and $t$.
-For example, the Black model takes $X$ to be standard normal and vol
-$s = σ \sqrt{t}$ where $σ$ is the _volatilty_ and $t$ is _time_ in
-years to expiration.  In this case $F = fe^{σ\sqrt{t} X - σ^2t/2}$
-and $∂_σ E[ν(F)] = ∂_sE[ν(F)] ∂s/∂σ = ∂_sE[ν(F)]\sqrt{t}$.
+The Black-Scholes/Merton values and greeks can be calculated in terms of
+the parameters $f$ and $s$ using the
+chain rule.  For example, the Black model takes $X$ to be standard normal
+and vol $s = σ \sqrt{t}$ where $σ$ is the standard Black volatilty
+and $t$ is time in years to expiration.  In this case standard vega
+is $∂_σ E[ν(F)] = ∂_s E[ν(F)] ∂_σ s = ∂_s E[ν(F)]\sqrt{t}$.
 
 ## Greeks
 
-Define $ε_s(x) = e^{s x - κ(s)}$
-so $∂_x ε_s(x) = ε_s(x)s$
-and $∂_s ε_s(x) = ε_s(x)(x - κ'(s))$.
-
-For any payoff $ν$ the _value_ is $v = E[ν(F)]$ and
-_delta_ is the derivative of value with respect to the forward
+Let $ν$ be the option payoff at expiration. The forward value of
+the option is $v = E[ν(F)]$. 
+_Delta_ is the derivative of value with respect to the forward
 $$
-∂_f v
-	= E[ν'(F) ∂_f F]
-	= E[ν'(F)ε_s(X)]
-	= E_s[ν'(F)]
+∂_f v = E[ν'(F) ∂_f F] = E[ν'(F) ε_s(X)] = E_s[ν'(F)]
 $$
 since $∂_f F = ε_s(X)$.
 
 _Gamma_ is the second derivative with respect to the forward
 $$
-∂_f^2 v = E[ν''(F)ε_s^2(X)] = E_s[ν''(F)ε_s(X)]
+∂_f^2 v = E[ν''(F)ε_s^2(X)] = e^{2κ(s) - κ(2s)} E_{2s}[ν''(F)].
 $$
 
 _Vega_ is  the derivative with respect to vol
@@ -100,31 +165,75 @@ since $∂_s F = F(X - κ'(s))$.
 
 The inverse of option value as a function of vol is the _implied vol_.
 
+## Put and Call
+
+A _put option_ pays $ν(F) = (k - F)^+ = \max\{k - F,0\}$ at expiration
+and has value $p = E[(k - F)^+]$.
+A _call option_ pays $ν(F) = (F - k)^+$ at expiration
+and has value $c = E[(F - k)^+]$.
+Note $(F - k)^+ - (k - F)^+ = F - k$ is a _forward_ with _strike_ $k$ so
+all models satisfy _put-call parity_: $c - p = f - k$.
+Call delta is $∂_f c = ∂_f p + 1$ and call gamma equals put gamma $∂_f^2 c = ∂_f^2 p.
+We also have $∂_s c - ∂_s p = 0$ so call vega equals put vega.
+
+The value of a put is
+$$
+\begin{aligned}
+p &= E[(k - F)^+] \\
+  &= E[(k - F)1(F\le k)] \\
+  &= k P(F \le k) - E[F 1(F \le k)] \\
+  &= k P(F \le k) - fP_s(F \le k) \\
+\end{aligned}
+$$
+where $P_s$ is share measure.
+
+Put delta is
+$$
+	∂_f p = E[-1(F\le k)ε_s(X)] = -P_s(F\le k).
+$$
+
+Gamma for either a put or call is
+$$
+	∂_f^2 p = E[δ_k(F)ε_s(X)^2] = e^{2κ(s) - κ(2s)} E_{2s}[δ_k(F)].
+$$
+where $δ_k$ is a point mass at $k$.
+
+Vega for a put is
+$$
+	∂_s p = -E[1(F\le k) F (X - κ'(s))] = -f E_s[1(F\le k) (X - κ'(s))].
+$$ 
+Recall$P_s(X\le x) = E[1(X\le x) e^{sX - κ(s)}]$
+so $∂_s P_s(X\le x) = E[1(X\le x) e^{sX - κ(s)}(X -  κ'(s))]$.
+
+
 ### Distribution
 
 Let $Φ(x) = P(X\le x)$ be the cumulative distribution functions of $X$
 and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)ε_s(X)]$ be the _share_ cdf where
-$ε_s(x) = e^{sx - κ(s)}$. Note $Φ_s(x) = \exp(κ(x,s))$ can be written
-in terms of the partial cumulant.
-Since $φ_s(x) = Φ_s'(x) = φ(x) ε_s(x)$ we have
+$ε_s(x) = e^{sx - κ(s)}$. Of course $Φ(x) = Φ_0(s)$.
+Since $Φ_s(x) = M(s,x)/M(s) = e^{κ(s, x) - κ(s)}$
+we have
 $$
-∂_s Φ_s(x) = E[1(X\le x)ε_s(X)(X - κ'(s))].
+∂_s Φ_s(x) = Φ_s(x) E[1(X\le x)ε_s(X)(X - κ'(s))].
 $$
+In terms of the cumulative distribution function for $X$, the formulas above are
 
-Let $y = y(x) = fε_s(x)$. 
-The _moneyness_ of $y$ is $x = x(y) = ε_s^{-1}(y/f)
-= (\log y/f + κ(s))/s$. Note
-$F = fε_s(X)$ and $dP_s =  ε_s(X)\,dP$ is share measure.
-
-We have $F \le y(x)$ if and only if $X \le x(y)$, where
-$x = x(y) = ε_s^{-1}(y/f)$, since $∂_x ε_s(x) > 0$ (assuming $s > 0$).
-The cumulative distribution of $F$ is $Ψ(y) = P(F\le y) = P(X\le x)
-= Φ(x)$ and the density function of $F$ is $ψ(y) = Ψ'(y) = Φ'(x)
-dx/dy = φ(x)/ys$ since $dy/dx = ys$. 
-Note
+Value
 $$
-	ψ'(y) = \frac{φ'(x) - φ(x)s}{y^2s^2}. 
+	v = k Φ(m(k)) - f Φ_s(m(k))
 $$
+Delta
+$$
+	∂_f v = -Φ_s(m(k))
+$$
+Gamma
+$$
+	∂_f^2 p = e^{2κ(s) - κ(2s)} ??? E_{2s}[δ_k(F)].
+$$ 
+Vega
+$$
+	∂_s p = ??? -f E_s[1(F\le k) (X - κ'(s))].
+$$ 
 
 <!--
 Let $ψ(y)$ and $φ(x)$ be the corresponding density functions so
@@ -143,42 +252,6 @@ $$
 $$
 Note $ψ_s'(y) = φ'(x)(dx/dy)/fs = φ'(x)/yfs^2$.
 -->
-
-## Put and Call
-
-A _put option_ pays $ν(F) = (k - F)^+ = \max\{k - F,0\}$ at expiration and has value
-$p = E[(k - F)^+]$.
-A _call option_ pays $ν(F) = (F - k)^+$ at expiration and has value $c = E[(F - k)^+]$.
-Note $(F - k)^+ - (k - F)^+ = F - k$ is a _forward_ with _strike_ $k$ so
-all models satisfy _put-call parity_: $c - p = f - k$.
-Call delta is $∂c/∂f = ∂p/∂f + 1$ and call gamma equals put gamma $∂^2c/∂f^2 = ∂^2p/∂f^2$.
-We also have $∂c/∂s - ∂p/∂s = 0$ so call vega equals put vega.
-
-The value of a put is
-$$
-\begin{aligned}
-p &= E[(k - F)^+] \\
-  &= E[(k - F)1(F\le k)] \\
-  &= k P(F \le k) - E[F 1(F \le k)] \\
-  &= k P(F \le k) - fP_s(F \le k) \\
-  &= k Φ(x(k)) - f Φ_s(x(k)). \\
-\end{aligned}
-$$
-
-Put delta is
-$$
-	∂_f p = E[-1(F\le k)ε_s(X)] = -P_s(X\le x(k)) = -Φ_s(x(k)). 
-$$
-
-Gamma for either a put or call is
-$$
-	∂_f^2 p = E[δ_k(F)(F/f)^2] = ψ(k)(k/f)^2 = φ(x(k))k/f^2s = φ_s(x(k))/fs.
-$$
-
-Vega for a put is
-$$
-	∂_s p = -E[1(F\le k)F(X - κ'(s))] = -f ∂_s Φ_s(x(k)).
-$$ 
 
 ## Digital
 
