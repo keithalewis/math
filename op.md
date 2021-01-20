@@ -191,10 +191,11 @@ Put delta is
 $$
 	∂_f p = E[-1(F\le k)ε_s(X)] = -P_s(F\le k).
 $$
+since $∂_f F = ε_s(X)$.
 
 Gamma for either a put or call is
 $$
-	∂_f^2 p = E[δ_k(F)ε_s(X)^2] = e^{2κ(s) - κ(2s)} E_{2s}[δ_k(F)].
+	∂_f^2 p = E[δ_k(F)ε_s(X)^2] = e^{2κ(s) - κ(2s)} E_{2s}[δ_k(F)]. = E_s[δ_k(F) ε_s(X)]
 $$
 where $δ_k$ is a point mass at $k$.
 
@@ -202,21 +203,56 @@ Vega for a put is
 $$
 	∂_s p = -E[1(F\le k) F (X - κ'(s))] = -f E_s[1(F\le k) (X - κ'(s))].
 $$ 
-Recall$P_s(X\le x) = E[1(X\le x) e^{sX - κ(s)}]$
-so $∂_s P_s(X\le x) = E[1(X\le x) e^{sX - κ(s)}(X -  κ'(s))]$.
+since $∂_s F = F (X - κ'(s)$.
 
+## Digital
+
+A _digital put_ has payoff $ν(F) = 1(F \le k)$ and
+a _digital call_ has payoff $ν(F) = 1(F > k)$ with values.
+Since $1(F \le k) + 1(F > k) = 1$ we have digital put-call parity $p + c =
+1$ where $p$ is the digital put value and $c$ is the digital call value.
+$$
+	p = P(F \le k), c = P(F > k) = 1 - p.
+$$
+
+Digital put delta is
+$$
+	∂_f p = -E[δ_k(F)ε_s(X)] = -E_s[\delta_k(F)]
+$$
+
+Digital gamma is 
+$$
+	∂_f^2 p = E[δ'_k(F)ε_s(X)^2] = e^{2κ(s) - κ(2s)} E_{2s}[δ'_k(F)]. = E_s[δ'_k(F) ε_s(X)]
+$$
+
+Digital put vega is 
+$$
+	∂_s p &= -E[\delta_k(F)F(X - s)] = -f E_s[δ_k(F) (X - κ(s))]
+$$
 
 ### Distribution
 
 Let $Φ(x) = P(X\le x)$ be the cumulative distribution functions of $X$
 and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)ε_s(X)]$ be the _share_ cdf where
 $ε_s(x) = e^{sx - κ(s)}$. Of course $Φ(x) = Φ_0(s)$.
+<!--
 Since $Φ_s(x) = M(s,x)/M(s) = e^{κ(s, x) - κ(s)}$
-we have
+-->
+We have
 $$
-∂_s Φ_s(x) = Φ_s(x) E[1(X\le x)ε_s(X)(X - κ'(s))].
+	∂_s Φ_s(x) = E[1(X\le x)ε_s(X)(X - κ'(s))] = E_s[1(X\le x) (X - κ'(s))].
 $$
-In terms of the cumulative distribution function for $X$, the formulas above are
+
+Let $Ψ(y) = P(F\le y) = P(X\le x)$ be the cumulative distribution functions of $F$
+where $y = fε_s(x)$.
+Since $∂y/∂x = ys$,
+$$
+	ψ(y) = Ψ'(y) = φ(x) ∂x/∂y = φ(x)/ys$.
+$$
+We also have 
+$$
+	ψ'(y) = φ(x) ∂^x/∂y^2 + φ'(x) ∂x/∂y = φ(x)/ys^2 + φ'(x)/ys$.
+$$
 
 Value
 $$
@@ -252,46 +288,6 @@ $$
 $$
 Note $ψ_s'(y) = φ'(x)(dx/dy)/fs = φ'(x)/yfs^2$.
 -->
-
-## Digital
-
-A _digital put_ has payoff $ν(F) = 1(F \le k)$ and
-a _digital call_ has payoff $ν(F) = 1(F > k)$ with values
-$$
-	p = P(F \le k) = Φ(x(k)),
-	c = P(F > k) = 1 - Φ(x(k)).
-$$
-
-Digital put delta 
-$$
-\begin{aligned}
-	∂_f p &= -E[\delta_k(F)(F/f)] \\
-	&= -ψ(k)k/f \\
-	&= -(φ(x(k)/ks)k/f \\
-	&= -φ(x(k))/fs \\
-	&= -φ_s(x(k))/ks \\
-\end{aligned}
-$$
-
-Digital gamma is 
-$$
-\begin{aligned}
-	∂_f^2 p &= -E[\delta_k'(F)(F/f)^2] \\
-	&= -ψ'(k)(k/f)^2 \\
-	&= -((φ'(x(k)) - φ(x(k))s)/k^2s^2))(k/f)^2 \\
-	&= -(φ'(x(k)) - φ(x(k))s)/f^2s^2) \\
-\end{aligned}
-$$
-
-Digital put vega is 
-$$
-\begin{aligned}
-∂_s p &= -E_s[\delta_k(F)F(X - s)] \\
-	&= -ψ(k)k(x(k) - s) \\ 
-	&= -(φ(x(k))/ks)k(x(k) - s) \\ 
-	&= -φ(x(k))(x(k) - s)/s \\ 
-\end{aligned}
-$$
 
 ## Black Model
 
