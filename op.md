@@ -73,7 +73,7 @@ the _vol_ $s = σ\sqrt{t}$ so $F_t = F = fe^{sX - s^2/2}$ where $X$
 is standard normal. The only fact we use about Brownian motion is $B_t$
 is normal with mean 0 and variance $t$.
 
-Since $\max\{F - k, 0\} = (F - k) 1(F\ge k)$,
+Since $(F - k)^+ = \max\{F - k, 0\} = (F - k) 1(F\ge k)$,
 $$
 \begin{aligned}
 	v &= E[\max\{F - k, 0\}] \\
@@ -124,6 +124,10 @@ the currency.
 
 _Share measure_ $E_s$ is defined by $E_s[ν(F)] = E[ν(F) F/E[F]]$.
 Note $F > 0$ and $E_s[1] = 1$ so share measure is a probability measure.
+It shows up in the formula for valuing a call
+$$
+	E[(F - k)^+] = E[(F - k)1(F\ge k)] = EF1(F\ge k) - k P(F\ge k) = fP_s(F\ge k) - k P(F\ge k).
+$$
 If we let $ε_s(x) = e^{s x - κ(s)}$ this can be written
 $E_s[ν(F)] = E[ν(F) ε_s(X)]$ and we see share measure is just the Esscher transform.
 The cumulative distribution of $F$ under this measure is
@@ -144,22 +148,22 @@ is $∂_σ E[ν(F)] = ∂_s E[ν(F)] ∂_σ s = ∂_s E[ν(F)]\sqrt{t}$.
 
 ## Greeks
 
-Let $ν$ be the option payoff at expiration. The forward value of
+Let $ν(F)$ be the option payoff at expiration. The forward value of
 the option is $v = E[ν(F)]$. 
 _Delta_ is the derivative of value with respect to the forward
 $$
-∂_f v = E[ν'(F) ∂_f F] = E[ν'(F) ε_s(X)] = E_s[ν'(F)]
+∂_f v = E[ν'(F) ∂_f F] = E[ν'(F) ε_s(X)]
 $$
 since $∂_f F = ε_s(X)$.
 
 _Gamma_ is the second derivative with respect to the forward
 $$
-∂_f^2 v = E[ν''(F)ε_s^2(X)] = e^{2κ(s) - κ(2s)} E_{2s}[ν''(F)].
+∂_f^2 v = E[ν''(F)ε_s^2(X)].
 $$
 
 _Vega_ is  the derivative with respect to vol
 $$
-∂_s v = E[ν'(F) ∂_s F] = E[ν'(F)F(X - κ'(s))] = f E_s[ν'(F)(X - κ'(s))]
+∂_s v = E[ν'(F) ∂_s F] = E[ν'(F)F(X - κ'(s))]
 $$
 since $∂_s F = F(X - κ'(s))$.
 
@@ -195,7 +199,7 @@ since $∂_f F = ε_s(X)$.
 
 Gamma for either a put or call is
 $$
-	∂_f^2 p = E[δ_k(F)ε_s(X)^2] = e^{2κ(s) - κ(2s)} E_{2s}[δ_k(F)]. = E_s[δ_k(F) ε_s(X)]
+	∂_f^2 p = E[δ_k(F)ε_s(X)^2] = E_s[δ_k(F)ε_s(X)]
 $$
 where $δ_k$ is a point mass at $k$.
 
@@ -203,7 +207,6 @@ Vega for a put is
 $$
 	∂_s p = -E[1(F\le k) F (X - κ'(s))] = -f E_s[1(F\le k) (X - κ'(s))].
 $$ 
-since $∂_s F = F (X - κ'(s)$.
 
 ## Digital
 
@@ -217,17 +220,17 @@ $$
 
 Digital put delta is
 $$
-	∂_f p = -E[δ_k(F)ε_s(X)] = -E_s[\delta_k(F)]
+	∂_f p = -E[δ_k(F)ε_s(X)] = -E_s[δ_k(F)]
 $$
 
 Digital gamma is 
 $$
-	∂_f^2 p = E[δ'_k(F)ε_s(X)^2] = e^{2κ(s) - κ(2s)} E_{2s}[δ'_k(F)]. = E_s[δ'_k(F) ε_s(X)]
+	∂_f^2 p = E[δ'_k(F)ε_s(X)^2] = E_s[δ'_k(F) ε_s(X)].
 $$
 
 Digital put vega is 
 $$
-	∂_s p = -E[\delta_k(F)F(X - s)] = -f E_s[δ_k(F) (X - κ(s))]
+	∂_s p = -E[\delta_k(F)F(X - s)] = -f E_s[δ_k(F) (X - κ(s))].
 $$
 
 ### Distribution
@@ -243,17 +246,6 @@ $$
 	∂_s Φ_s(x) = E[1(X\le x)ε_s(X)(X - κ'(s))] = E_s[1(X\le x) (X - κ'(s))].
 $$
 
-Let $Ψ(y) = P(F\le y) = P(X\le x)$ be the cumulative distribution functions of $F$
-where $y = fε_s(x)$.
-Since $∂y/∂x = ys$,
-$$
-	ψ(y) = Ψ'(y) = φ(x) ∂x/∂y = φ(x)/ys.
-$$
-We also have 
-$$
-	ψ'(y) = \frac{ys φ'(x)/ys - φ(x)s}{y^2s^2} = (φ'(x) - sφ(x))/y^2s^2.
-$$
-
 In terms of the distribution function for $X$, the value is
 $$
 	v = k Φ(m(k)) - f Φ_s(m(k)),
@@ -264,9 +256,11 @@ $$
 $$
 gamma is
 $$
-	∂_f^2 p = E_s[δ_k(F)ε_s(X)] = φ,
+	∂_f^2 p = E_s[δ_k(F)ε_s(X)] = φ_s(k) sk,
 $$ 
-and vega is
+since $E[δ_a(g(X))] = φ(g(a)) g'(a)$ when $g$ is differenctiable at $a$ 
+and $∂_x f ε_s(x) = fsε_s(x) = sk$.
+Vega is
 $$
 	∂_s p = ??? -f E_s[1(F\le k) (X - κ'(s))].
 $$ 
