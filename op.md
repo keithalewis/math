@@ -21,7 +21,7 @@ thanks: Thank you Peter Carr and Bill Goff for your valuable feedback.
 
 European _option valuation_ involves calculating the expected value of
 the _option payoff_ using the _underlying_ at _expiration_.
-_Greeks_ are derivatives of the _value_ with respect to _model parameters_.
+_Greeks_ are derivatives of the option value with respect to _model parameters_.
 This short note derives formulas for these that can be used for any positive underlying.
 
 ## Black-Scholes/Merton
@@ -40,17 +40,19 @@ $∂_s v_0 = ∂v_0/∂s = N(d_1)$, but $d_1$ and $d_2$ involve $s$ so one needs
 show $s ∂_s N(d_1) - ke^{-rt} ∂_s N(d_2) = 0$. Plowing through the
 calculations involved is a ritual we all perform when first learning the theory.
 
-Fischer Black simplified this formula by expressing it in terms of _forward values_.
-$$
-	v_t = f N(d_1) - k N(d_2),
-$$
-where $f = se^{rt}$ is forward price and $v_t = v_0 e^{rt}$ is the forward value of the option.
-
 Their Nobel Prize winning work showed how to replicate the payoff of
 an option by dynamically hedging it with the underlying. The value
 of an option is the cost of setting up the initial hedge. It is not
 trivial to show the value is the expectation of the option payoff under
 some probability measure. This is why Nobel Prizes are awarded.
+
+Fischer Black simplified this formula by expressing it in terms of _forward values_.
+$$
+	v_t = f N(d_1) - k N(d_2),
+$$
+where $f = se^{rt}$ is forward price and $v_t = v_0 e^{rt}$ is the forward value of the option.
+In this case $d_1 = (\log(f/k) + σ^2t/2)/σ\sqrt{t}$ and $d_2 = d_1 - σ\sqrt{t}$
+which eliminates the parameter $r$. Letting $s = σ\sqrt{t}$ eliminates $t$.
 
 We will skip the theory of stochastic differential equations, Ito's lemma,
 self-financing portfolios, and other dainty mathematical machinery
@@ -59,10 +61,8 @@ values and derivatives with respect to model parameters.
 
 ## Black Model
 
-Fischer Black's model uses forward values.
-Let $F_t = fe^{σB_t - σ^2t/2}$, where $B_t$ is standard Brownian motion,
-be the forward price of the underlying at expiraton.
-This eliminates the interest rate parameter $r$.
+In Black's model, the forward at expiration is $F_t = fe^{σB_t - σ^2t/2}$,
+where $B_t$ is standard Brownian motion.
 The forward value of a call option is the expected value of the
 call payoff at expiration
 $$
@@ -227,7 +227,7 @@ $$
 
 Digital put vega is 
 $$
-	∂_s p &= -E[\delta_k(F)F(X - s)] = -f E_s[δ_k(F) (X - κ(s))]
+	∂_s p = -E[\delta_k(F)F(X - s)] = -f E_s[δ_k(F) (X - κ(s))]
 $$
 
 ### Distribution
@@ -247,26 +247,26 @@ Let $Ψ(y) = P(F\le y) = P(X\le x)$ be the cumulative distribution functions of 
 where $y = fε_s(x)$.
 Since $∂y/∂x = ys$,
 $$
-	ψ(y) = Ψ'(y) = φ(x) ∂x/∂y = φ(x)/ys$.
+	ψ(y) = Ψ'(y) = φ(x) ∂x/∂y = φ(x)/ys.
 $$
 We also have 
 $$
-	ψ'(y) = φ(x) ∂^x/∂y^2 + φ'(x) ∂x/∂y = φ(x)/ys^2 + φ'(x)/ys$.
+	ψ'(y) = \frac{ys φ'(x)/ys - φ(x)s}{y^2s^2} = (φ'(x) - sφ(x))/y^2s^2.
 $$
 
-Value
+In terms of the distribution function for $X$, the value is
 $$
-	v = k Φ(m(k)) - f Φ_s(m(k))
+	v = k Φ(m(k)) - f Φ_s(m(k)),
 $$
-Delta
+delta is
 $$
-	∂_f v = -Φ_s(m(k))
+	∂_f v = -Φ_s(m(k)),
 $$
-Gamma
+gamma is
 $$
-	∂_f^2 p = e^{2κ(s) - κ(2s)} ??? E_{2s}[δ_k(F)].
+	∂_f^2 p = E_s[δ_k(F)ε_s(X)] = φ,
 $$ 
-Vega
+and vega is
 $$
 	∂_s p = ??? -f E_s[1(F\le k) (X - κ'(s))].
 $$ 
