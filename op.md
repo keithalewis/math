@@ -129,22 +129,13 @@ $$
 	E[(F - k)^+] = E[(F - k)1(F\ge k)] = EF1(F\ge k) - k P(F\ge k) = fP_s(F\ge k) - k P(F\ge k).
 $$
 If we let $ε_s(x) = e^{s x - κ(s)}$ this can be written
-$E_s[ν(F)] = E[ν(F) ε_s(X)]$ and we see share measure is just the Esscher transform.
+$E_s[ν(F)] = E[ν(F) ε_s(X)]$ and we see share measure is the Esscher transform.
 The cumulative distribution of $F$ under this measure is
 $$
 	P_s(F\le y) = P_s(X\le x) = E[1(X\le x) e^{sX - κ(s)}] = M(s,x)/M(s)
 $$
-where $m(y) = x = ε_s^{-1}(y/f) = (\log y/f + κ(s))/s$ is the _moneyness_
-of $y$.
-
-## Parameters
-
-The Black-Scholes/Merton values and greeks can be calculated in terms of
-the parameters $f$ and $s$ using the
-chain rule.  For example, the Black model takes $X$ to be standard normal
-and vol $s = σ \sqrt{t}$ where $σ$ is the standard Black volatilty
-and $t$ is time in years to expiration.  In this case standard vega
-is $∂_σ E[ν(F)] = ∂_s E[ν(F)] ∂_σ s = ∂_s E[ν(F)]\sqrt{t}$.
+where $x = x(y) = ε_s^{-1}(y/f) = (\log y/f + κ(s))/s$ is the _moneyness_
+of $y$. Note $ε_s(x(y)) = y/f$.
 
 ## Greeks
 
@@ -177,7 +168,7 @@ A _call option_ pays $ν(F) = (F - k)^+$ at expiration
 and has value $c = E[(F - k)^+]$.
 Note $(F - k)^+ - (k - F)^+ = F - k$ is a _forward_ with _strike_ $k$ so
 all models satisfy _put-call parity_: $c - p = f - k$.
-Call delta is $∂_f c = ∂_f p + 1$ and call gamma equals put gamma $∂_f^2 c = ∂_f^2 p.
+Call delta is $∂_f c = ∂_f p + 1$ and call gamma equals put gamma $∂_f^2 c = ∂_f^2 p$.
 We also have $∂_s c - ∂_s p = 0$ so call vega equals put vega.
 
 The value of a put is
@@ -208,7 +199,7 @@ $$
 	∂_s p = -E[1(F\le k) F (X - κ'(s))] = -f E_s[1(F\le k) (X - κ'(s))].
 $$ 
 
-## Digital
+## Digital move below!!!
 
 A _digital put_ has payoff $ν(F) = 1(F \le k)$ and
 a _digital call_ has payoff $ν(F) = 1(F > k)$ with values.
@@ -238,9 +229,12 @@ $$
 Let $Φ(x) = P(X\le x)$ be the cumulative distribution functions of $X$
 and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)ε_s(X)]$ be the _share_ cdf where
 $ε_s(x) = e^{sx - κ(s)}$. Of course $Φ(x) = Φ_0(s)$.
-<!--
-Since $Φ_s(x) = M(s,x)/M(s) = e^{κ(s, x) - κ(s)}$
--->
+Let $Ψ_s(y) = P_s(F\le y) = Φ_s(x)$ be the share cumulative distribution function of $F$
+where $y = fε_s(x)$. The share density function is
+$$
+	ψ_s(y) = φ_s(x) ∂x/∂y = φ_s(x)/ys
+$$
+since $∂y/∂x = ys$.
 We have
 $$
 	∂_s Φ_s(x) = E[1(X\le x)ε_s(X)(X - κ'(s))] = E_s[1(X\le x) (X - κ'(s))].
@@ -248,57 +242,28 @@ $$
 
 In terms of the distribution function for $X$, the value is
 $$
-	v = k Φ(m(k)) - f Φ_s(m(k)),
+	v = k Φ(m(k)) - f Φ_s(x(k)),
 $$
 delta is
 $$
-	∂_f v = -Φ_s(m(k)),
+	∂_f v = -Φ_s(x(k)),
 $$
 gamma is
 $$
-	∂_f^2 p = E_s[δ_k(F)ε_s(X)] = φ_s(k) sk,
+	∂_f^2 p = E_s[δ_k(F)ε_s(X)] = ψ_s(k) ε_s(x(k)) = (φ_s(x(k))/ks) (k/f) = φ_s(x(k))/fs
 $$ 
-since $E[δ_a(g(X))] = φ(g(a)) g'(a)$ when $g$ is differenctiable at $a$ 
-and $∂_x f ε_s(x) = fsε_s(x) = sk$.
 Vega is
 $$
-	∂_s p = ??? -f E_s[1(F\le k) (X - κ'(s))].
+	∂_s p = -f E_s[1(F\le k) (X - κ'(s))] = -f ∂_s Φ_s(x(k)).
 $$ 
-
-<!--
-Let $ψ(y)$ and $φ(x)$ be the corresponding density functions so
-$ψ(y) = φ(x)dx/dy = φ(x)/ys$ since $dy/dx = ys$.
-Likewise, $ψ_s(y) = φ_s(x)/ys$.
-Note $φ_s(x) = φ(x)ε_s(x) = φ(x)y/f$.
-We collect these formulas for easy reference:
-$$
-\begin{aligned}
-	y &= y(x) = fε_s(x)\\
-	x &= x(y) = ε_s^{-1}(y/f) \\
-	φ_s(x) &= φ(x)ε_s(x) = φ(x)y/f \\
-	ψ(y) &= φ(x)/ys \\
-	ψ_s(y) &= φ_s(x)/ys = φ(x)/fs \\
-\end{aligned}
-$$
-Note $ψ_s'(y) = φ'(x)(dx/dy)/fs = φ'(x)/yfs^2$.
--->
 
 ## Black Model
 
-We use the above to derive the standard Black-Scholes/Merton formulas
-for value and greeks. In the Black model $F = fe^{σB_t - σ^2t/2}$ where
-$f$ is the forward, $σ$ is the volatility, and
-$B_t$ is Brownian motion at time $t$. There is really no need to drag
-in Brownian motion to compute an option value, we only use the fact
-$B_t$ is normally distributed with mean $0$ and variance $t$. There is also no need
-to drag in $t$, let $s = σ\sqrt{t}$ and $X$ be standard normal
-so $F = fe^{sX - s^2/2}$ has the same distribution.
-
-[Recall](cdf.html#normal) if $X$ is standard normal then $E[e^{μ + σ X}] = e^{μ + σ^2/2}$
-and $E[g(X)e^{s X - s^2/2}] = E[g(X + s)]$ for any function $g$ and $s\in\RR$.
-These formulas imply the cumulant of a standard normal is $κ(s) = s^2/2$
-and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)e^{s X - s^2/2}] = P(X + s \le x) = Φ(x - s)$.
-Note $φ_s(x) = φ(x - s)$ and $∂Φ_s(x)/∂s = -φ(x - s) = -φ_s(x)$.
+In the Black modes $F = fe^{sX - s^2/2}$ where $X$ is standard normal.
+[Recall](cdf.html#normal) if $X$ is standard normal then $E[g(X) e^{sX}] = e^{s^2/2}E[g(X + s)]$.
+Using $g(x) = 1$ we see $κ(s) = s^2/2$. Using $g(X) = 1(X\le x)$
+we get $Φ_s(x) = P(X + s \le x) = Φ(x - s)$
+and $∂Φ_s(x)/∂s = -φ(x - s) = -φ_s(x)$.
 
 Put value is 
 $$
@@ -308,8 +273,6 @@ where $x(k) = \log(k/f)/s + s/2$.
 
 __Exercise__. _Show $x(k) = \log(k/f)/s + s/2 = -d_2$ and $x(k) - s = \log(k/f)/s - s/2 = -d_1$_.
 
-Hint: The Black-Scholes/Merton formulas use $d_1 = (\log(f/k) + s^2/2)/s$ and $d_2 = d_1 - s$.
-
 Put delta is
 $$
 	∂_f p = -Φ_s(x(k)) = -Φ(x(k) - s).
@@ -317,18 +280,22 @@ $$
 
 Gamma is
 $$
-	∂_f^2 p = φ(x(k))k/f^2s = φ_s(x(k))/fs.
+	∂_f^2 p = φ_s(x(k))/fs.
 $$
 
 Vega is
 $$
-\begin{aligned}
-	∂_s v &= -f ∂_s Φ_s(x(k)) \\
-	&= fφ(x(k) - s) = fφ_s(x(k)).
-\end{aligned}
+	∂_s v = -f ∂_s Φ_s(x(k)) = fφ_s(x(k)).
 $$
 
-## Spot
+## Parameters
+
+The Black-Scholes/Merton values and greeks can be calculated in terms of
+the parameters $f$ and $s$ using the
+chain rule.  For example, the Black model takes $X$ to be standard normal
+and vol $s = σ \sqrt{t}$ where $σ$ is the standard Black volatilty
+and $t$ is time in years to expiration.  In this case standard vega
+is $∂_σ E[ν(F)] = ∂_s E[ν(F)] ∂_σ s = ∂_s E[ν(F)]\sqrt{t}$.
 
 The Black-Merton/Scholes model uses _spot_ prices instead of forward.
 If a risk-free bond has realized return $R$ over the period the value of the underlying
@@ -350,50 +317,10 @@ $$
 
 ## Remarks
 
-Let $X$ have cdf $Φ(x) = P(X\le x)$ and pdf $φ(x) = Φ'(x)$.
-$$
-	K(s,x) = E[1(X\le x) e^{sX}], K(s) = E[e^{sX}]
-$$
-be the partial, moment generating function and $κ(s,x) = \log K(s,x)$,
-$κ(s) = \log K(s)$ be the partial, cumulant generating function of $X$.
-
-Let $ε_s(x) = e^{sx}/K(s) = e^{sx - κ(s)}$.
-
-If $X$ is standard normal $K(s,x) = e^{s^2/2}Φ(x - s)$ and $K(s) = e^{s^2/2}$.
-
-$Φ_s(x) = K(s,x)/K(s)$. If $X$ is standard normal $Φ_s(x) = Φ(x - s)$.
-
-$∂_x K(s,x) = E[δ_x(X) e^{sX}] = e^{sx} φ(x)$
-
-$∂_x Φ_s(x) = e^{sx} φ(x)/K(s) = e^{sx - κ(s)} φ(x)$.
-
-$∂_x^{n+1} Φ_s(x) = e^{sx - κ(s)}\sum_{k=0}^n \binom{n}{k} φ^{(n - k)}(x) s^k$.
-
-$∂_s^n K(s,x) = E[1(X\le x) e^{sX} X^n]$, $∂_s^n K(s) = E[e^{sX} X^n]$.
-
-$∂_s Φ_s(x) = (K(s)∂_s K(s, x) - ∂_s K(s) K(s, x))/K(s)^2$.
-
 $$
 \begin{aligned}
-∂_x^2 K(s,x) &= s(sK(s,x) + e^{sx} φ(x)) + e^{sx}s φ(x) + e^{sx}φ'(x) \\
-	&= s^2 K(s,x) + e^{sx} (2s φ(x) + φ'(x)\\
-\end{aligned}
-$$
-
-$$
-\begin{aligned}
-∂_x^3 K(s,x) &= s^2 (s K(s,x) + e^{sx}φ(x)) + e^{sx}s(2 φ(x) + φ'(x)) + e^{sx}(2 φ'(x) + φ''(x))\\
-	&= s^3 K(s,x) + e^{sx} (3s^2 φ(x) + 3φ'(x) + φ''(x))\\
-\end{aligned}
-$$
-
-and $K(x, s) = \exp(κ(x,s)) = Φ_s(x)$.
-We have $φ_s(x) = ∂_x Φ_s(x) = K_x(x, s) = K(x, s)∂_x κ(x,s)$.
-
-$$
-\begin{aligned}
-κ_{a + bX}(x,s) &= \log E[1(a + bX \le x) e^{s(a + bX)}] \\
+κ_{a + bX}(s,x) &= \log E[1(a + bX \le x) e^{s(a + bX)}] \\
 	&= \log e^{as} E[1(X \le (x - a)/b) e^{sbX}] \\
-	&= as + κ_X((x - a)/b, bs) \\
+	&= as + κ_X(bs, (x - a)/b) \\
 \end{aligned}
 $$
