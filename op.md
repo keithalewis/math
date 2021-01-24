@@ -102,37 +102,38 @@ This establishes the formula for option delta without any turmoil.
 Option values and greeks for any positive underlying can be calculated
 in a similar fashion. 
 
-## Positive Underlying
-
-Every positive random variable $F$ can be parameterized
-by $F = fe^{sX - \kappa(s)}$ where $f = E[F]$ is the _forward_,
-$s^2 = \Var[\log F]$ is the vol squared,
-and $κ(s) = \log E[e^{sX}]$ is the _cumulant_ of $X$.
-Define the _partial moment generating function_ $M(s,x) = E[1(X\le x)e^{sX}]$
-and the _partial cumulant_ $κ(s,x) = \log M(s,x)$.
-Option values and their greeks can be expressed
-in terms of the partial cumulant and its derivatives.
-
 ## Share Measure
 
 Let $F$ be the price of the _underlying_ instrument at option expiration.
 The forward value of an option paying $ν(F)$ in some currency at
-expiration is $E[ν(F)]$.  We can also consider the payoff in terms of
+expiration is $E[ν(F)]$. If $F$ is positive we can also consider the payoff in terms of
 shares of $F$, $ν_s(F) = ν(F)F/E[F]$; if we receive $ν_s(F)$ shares
 of $F$ at expiration we can convert those at price $F$ to $ν(F)$ in
 the currency.
 
-_Share measure_ $E_s$ is defined by $E_s[ν(F)] = E[ν(F) F/E[F]]$.
+_Share measure_ for positive underlyings $E_s$ is defined by $E_s[ν(F)] = E[ν(F) F/E[F]]$.
 Note $F > 0$ and $E_s[1] = 1$ so share measure is a probability measure.
 It shows up in the formula for valuing a call
 $$
-	E[(F - k)^+] = E[(F - k)1(F\ge k)] = EF1(F\ge k) - k P(F\ge k) = fP_s(F\ge k) - k P(F\ge k).
+\begin{aligned}
+	E[(F - k)^+] &= E[(F - k)1(F\ge k)] \\
+		&= EF1(F\ge k) - k P(F\ge k) \\
+		&= fP_s(F\ge k) - k P(F\ge k).
+\end{aligned}
 $$
-If we let $ε_s(x) = e^{s x - κ(s)}$ this can be written
+Every positive random variables $F$ can be written $F = f e^{s X - κ(s)}$
+where $X$ is a random variable with mean 0 and variance 1 and
+$κ(s) = \log E[e^{sX}]$ is the cumulant of $X$.
+Note $f = E[F]$ and $s^2 = \Var(\log F)$.
+
+__Exercise__. _Clearly $\log(F/E[F]) = m + sX$ for some random variable $X$ with mean 0 and variance 1.
+Show $E[F] = f$ implies $m = -κ(s)$_.
+
+If we let $ε_s(x) = e^{s x - κ(s)}$, so $F = fε_s(X)$, this can be written
 $E_s[ν(F)] = E[ν(F) ε_s(X)]$ and we see share measure is the Esscher transform.
 The cumulative distribution of $F$ under this measure is
 $$
-	P_s(F\le y) = P_s(X\le x) = E[1(X\le x) e^{sX - κ(s)}] = M(s,x)/M(s)
+	P_s(F\le y) = P_s(X\le x) = E[1(X\le x) e^{sX - κ(s)}]
 $$
 where $x = x(y) = ε_s^{-1}(y/f) = (\log y/f + κ(s))/s$ is the _moneyness_
 of $y$. Note $ε_s(x(y)) = y/f$.
@@ -173,14 +174,8 @@ We also have $∂_s c - ∂_s p = 0$ so call vega equals put vega.
 
 The value of a put is
 $$
-\begin{aligned}
-p &= E[(k - F)^+] \\
-  &= E[(k - F)1(F\le k)] \\
-  &= k P(F \le k) - E[F 1(F \le k)] \\
-  &= k P(F \le k) - fP_s(F \le k) \\
-\end{aligned}
+p =  E[(k - F)^+] = kP(F\le k) - f P_s(F\le k).
 $$
-where $P_s$ is share measure.
 
 Put delta is
 $$
@@ -194,35 +189,10 @@ $$
 $$
 where $δ_k$ is a point mass at $k$.
 
-Vega for a put is
+Vega for a put or call is
 $$
 	∂_s p = -E[1(F\le k) F (X - κ'(s))] = -f E_s[1(F\le k) (X - κ'(s))].
 $$ 
-
-## Digital move below!!!
-
-A _digital put_ has payoff $ν(F) = 1(F \le k)$ and
-a _digital call_ has payoff $ν(F) = 1(F > k)$ with values.
-Since $1(F \le k) + 1(F > k) = 1$ we have digital put-call parity $p + c =
-1$ where $p$ is the digital put value and $c$ is the digital call value.
-$$
-	p = P(F \le k), c = P(F > k) = 1 - p.
-$$
-
-Digital put delta is
-$$
-	∂_f p = -E[δ_k(F)ε_s(X)] = -E_s[δ_k(F)]
-$$
-
-Digital gamma is 
-$$
-	∂_f^2 p = E[δ'_k(F)ε_s(X)^2] = E_s[δ'_k(F) ε_s(X)].
-$$
-
-Digital put vega is 
-$$
-	∂_s p = -E[\delta_k(F)F(X - s)] = -f E_s[δ_k(F) (X - κ(s))].
-$$
 
 ### Distribution
 
@@ -235,24 +205,25 @@ $$
 	ψ_s(y) = φ_s(x) ∂x/∂y = φ_s(x)/ys
 $$
 since $∂y/∂x = ys$.
-We have
+We also have
 $$
 	∂_s Φ_s(x) = E[1(X\le x)ε_s(X)(X - κ'(s))] = E_s[1(X\le x) (X - κ'(s))].
 $$
 
 In terms of the distribution function for $X$, the value is
 $$
-	v = k Φ(m(k)) - f Φ_s(x(k)),
+	p = k Φ(x(k)) - f Φ_s(x(k),
 $$
-delta is
+put delta is
 $$
-	∂_f v = -Φ_s(x(k)),
+	∂_f p = -Φ_s(x(k)),
 $$
-gamma is
+put and call gamma is
 $$
-	∂_f^2 p = E_s[δ_k(F)ε_s(X)] = ψ_s(k) ε_s(x(k)) = (φ_s(x(k))/ks) (k/f) = φ_s(x(k))/fs
+	∂_f^2 p = E_s[δ_k(F)ε_s(X)] = ψ_s(k) ε_s(x(k)) = (φ_s(x(k))/ks) (k/f) = φ_s(x(k))/fs.
 $$ 
-Vega is
+Since $φ_s(x) = φ(x) ε_s(x)$ and ε_s(x(y)) = y/f$, $∂_f^2 p
+and put and call vega is
 $$
 	∂_s p = -f E_s[1(F\le k) (X - κ'(s))] = -f ∂_s Φ_s(x(k)).
 $$ 
@@ -286,6 +257,31 @@ $$
 Vega is
 $$
 	∂_s v = -f ∂_s Φ_s(x(k)) = fφ_s(x(k)).
+$$
+
+## Digital
+
+A _digital put_ has payoff $ν(F) = 1(F \le k)$ and
+a _digital call_ has payoff $ν(F) = 1(F > k)$ with values.
+Since $1(F \le k) + 1(F > k) = 1$ we have digital put-call parity $p + c =
+1$ where $p$ is the digital put value and $c$ is the digital call value.
+$$
+	p = P(F \le k), c = P(F > k) = 1 - p.
+$$
+
+Digital put delta is
+$$
+	∂_f p = -E[δ_k(F)ε_s(X)] = -E_s[δ_k(F)]
+$$
+
+Digital gamma is 
+$$
+	∂_f^2 p = E[δ'_k(F)ε_s(X)^2] = E_s[δ'_k(F) ε_s(X)].
+$$
+
+Digital put vega is 
+$$
+	∂_s p = -E[\delta_k(F)F(X - s)] = -f E_s[δ_k(F) (X - κ(s))].
 $$
 
 ## Parameters
