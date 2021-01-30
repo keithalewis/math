@@ -17,7 +17,7 @@ FLAGS += -A FOOTER.md
 #FLAGS +=  -M date="$(shell date "+%B %e, %Y")"
 #FLAGS += --toc
 #FLAGS += -B katex.tex
-#FLAGS += --reference-location=block
+FLAGS += --reference-location=block
 #FLAGS += -t html5
 #FLAGS += --mathjax
 #FLAGS += --css capm.css
