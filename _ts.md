@@ -218,19 +218,22 @@ Perhaps a better name for `when` is `until`.
 ### Scan
 
 If $T$ is a total order and $t\in T$ let $[t] = \{u\in T: u \le t\}$ be
-the initial segment determinted by $t$. The set of initial segments
+the initial segment determinded by $t$. The set of initial segments
 is denoted $[T]$ and is isomorphic to $T$ via $t\leftrightarrow [t]$.
 
 The history of a time series gets dragged along by _scan_.
 The `scan` of $s\colon T\to X$ is denoted $[s]$ and has items $([t],s|_{[t]})$. Each
-item can be written $(\langle t_0,\ldots, t_n\rangle, \langle x_0,\ldots,x_n\rangle)$
-where $(t_j, x_j) \in s$.
+item can be written $(\langle t_0,\ldots, t_n\rangle, \langle s(t_0),\ldots,s(t_n)\rangle)$.
 
 Most _trading indicators_ are transformations of scans. For example if
-$F((\langle t_j\rangle, \langle x_j\rangle)) = \sum_j x_j/\sum_j 1$ we
-get the _moving average_. It is common to weight values by their
-duration to get the _weighted moving average_ with $F([s]) = \sum_j \Delta t_j x_j/\sum_j \Delta t_j$
-where $\Delta t_j = t_{j + 1} - t_j$, or $Delta t = t' - t$.
+$MA((\langle t_j\rangle, \langle x_j\rangle)) = \sum_j x_j/\sum_j 1$
+we get the _moving average_ $[s]MA$. It is common to weight values
+by their duration to get the _weighted moving average_ with $WMA([s])
+= \sum_j x_j Δ t_j/\sum_j Δ t_j$ where $Δ t_j = t_{j + 1} - t_j$,
+or $Δ t = t' - t$. To bias towards the most recent values choose a 
+decay parameter $\alpha > 0$ and let
+$EWMA_α([s]) = \sum_{j\le n} e^{-α(t_n - t_j)} x_j Δ t_j/\sum_j Δ t_j$
+to get the _exponentially weighted moving average_.
 
 ### Step
 
@@ -249,3 +252,5 @@ $\next(s) = s'$ if $k != j + 1$ and $\next(s) = skip(u)$ if $k = j + 1$.
 
 A _range breakout_ is a signal defined by a time period $p = [t_0, t_1]$ and
 a return $R$. If $(s(t_1) - s(t_0)/s(t_0) > R$ we say a breakout occured at $t_1$.
+We also need a signal to terminate the strategy. If we always close out positions at
+the end of the trading day the strategy is $β_{p,R}^1_C$.
