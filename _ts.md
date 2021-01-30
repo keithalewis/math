@@ -217,11 +217,10 @@ Perhaps a better name for `when` is `until`.
 
 ### Scan
 
+The history of a time series gets dragged along by _scan_.
 If $T$ is a total order and $t\in T$ let $[t] = \{u\in T: u \le t\}$ be
 the initial segment determinded by $t$. The set of initial segments
 is denoted $[T]$ and is isomorphic to $T$ via $t\leftrightarrow [t]$.
-
-The history of a time series gets dragged along by _scan_.
 The `scan` of $s\colon T\to X$ is denoted $[s]$ and has items $([t],s|_{[t]})$. Each
 item can be written $(\langle t_0,\ldots, t_n\rangle, \langle s(t_0),\ldots,s(t_n)\rangle)$.
 
@@ -229,11 +228,22 @@ Most _trading indicators_ are transformations of scans. For example if
 $MA((\langle t_j\rangle, \langle x_j\rangle)) = \sum_j x_j/\sum_j 1$
 we get the _moving average_ $[s]MA$. It is common to weight values
 by their duration to get the _weighted moving average_ with $WMA([s])
-= \sum_j x_j Δ t_j/\sum_j Δ t_j$ where $Δ t_j = t_{j + 1} - t_j$,
-or $Δ t = t' - t$. To bias towards the most recent values choose a 
-decay parameter $\alpha > 0$ and let
-$EWMA_α([s]) = \sum_{j\le n} e^{-α(t_n - t_j)} x_j Δ t_j/\sum_j Δ t_j$
-to get the _exponentially weighted moving average_.
+= \sum_j x_j Δt_j/\sum_j Δt_j$ where $Δt_j = t_{j + 1} - t_j$,
+or $Δt = t' - t$. Here we assume there is a positive measure $τ$ on
+$T$ and define $u - t = τ((t, u]) = τ([u]) - τ([t])$ for $t, u\in T$.
+If $T$ is a subset of real numbers then $τ$ is typically length measure.
+
+To bias towards the most recent values choose a 
+decreasing function $\alpha(t)$ and let
+$EWMA_α([s]) = \sum_{j < n} α(t_n - t_j) x_j Δ t_j/\sum_j Δ t_j$.
+If $α(t) = e^{-at}$ we get the _exponentially weighted moving average_
+with decay parameter $a > 0$.
+
+To get _windowed_ data of size/count $c$ let $C(\langle t_j\rangle ,\langle x_j\rangle)
+= (\langle t_{n - c + 1}, \ldots, t_n\rangle, \langle x_{n - c + 1}, \ldots, x_n\rangle)$.
+To get windowed data of width $w$ let $W([s]) = s|_{(t - w, t]}$ where
+$(t, u] = [u]\setminus [t]$ for $t < u$ in $T$. Transformation can be composed
+so, for example, $(s W)MA$ would e a _windowed moving average_.
 
 ### Step
 
@@ -254,3 +264,12 @@ A _range breakout_ is a signal defined by a time period $p = [t_0, t_1]$ and
 a return $R$. If $(s(t_1) - s(t_0)/s(t_0) > R$ we say a breakout occured at $t_1$.
 We also need a signal to terminate the strategy. If we always close out positions at
 the end of the trading day the strategy is $β_{p,R}^1_C$.
+
+It may be more efficient to compute transformations by keeping a small
+amount of state.  For example, if $A([s])$ is the
+moving average then the windowed moving average of size $c$ can store
+the value $x_{n - c}$ and the last average $a_{n - 1}$ to get the next
+value of the average by $a_n = a_{n-1} + (x_n - x_{n - c})/c$
+since $c a_n = (c - 1) a_{n-1} + x_n - x_{n - c}$.
+This suggests storing time series expression as _abstract syntax trees_ so
+such optimizations become possible.
