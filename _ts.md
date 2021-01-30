@@ -135,6 +135,16 @@ __Exercise__. _Show $\skip(t) = \when([t,\omega)\times X)$_.
 
 Perhaps a better name for `when` is `until`.
 
+### Scan
+
+$\scan\colon S\subseteq T\times X\to S^* \subseteq T\times X^*$.
+
+$X^+ = X\cup X\times X^+$. $X^+ = X\cup X^2\cup \cdots$. $X^+ = \sqcup_{j>0} X^j$.
+
+$s^+ = \{(t_j,\langle x_1,\ldots, x_j\rangle)\}$.
+
+Scan $(t_j,x_j)\mapsto((t_0, x_0), (\langle t_0, t_1\rangle,\langle x_0,x_1\rangle), \ldots)$.
+
 ### Step
 
 Given time series $s_j$ in $T_j\times X_j$, $j = 1,\ldots n$,
