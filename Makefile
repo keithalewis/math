@@ -17,7 +17,7 @@ FLAGS += -A FOOTER.md
 #FLAGS +=  -M date="$(shell date "+%B %e, %Y")"
 #FLAGS += --toc
 #FLAGS += -B katex.tex
-#FLAGS += --reference-location=block
+FLAGS += --reference-location=block
 #FLAGS += -t html5
 #FLAGS += --mathjax
 #FLAGS += --css capm.css
@@ -51,5 +51,7 @@ rsync:
 clean:
 	rm -f *.docx *.pdf *.html docs/*.html
 
-slides: uf_slides.md
-	pandoc  -t slidy -s uf_slides.md -o uf_slides.html
+RJS = -V revealjs-url=https://cdn.jsdelivr.net/reveal.js/3.0.0
+
+slides: um_slides.md
+	pandoc -s  -t revealjs $(RJS) -o um_slides.html um_slides.md
