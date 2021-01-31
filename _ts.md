@@ -200,11 +200,11 @@ the time series not belonging to $p$.
 
 __Exercise__. _Show $\next(s) = \when((T\times X)\setminus\{\curr(s)\})$_.
 
-More succinctly, $s' = s\cap((T\times X)\setminus\{*s\})$.
+More succinctly, $s' = s\cap(\{*s\}^c)$ where $A^c$ denotes complement.
 
 ### Skip
 
-The transformation $\skip(n)$ for $n\ge 0$ is $\next$ applied $n$ times. 
+The transformation $\skip(n)$ for $n\ge 0$ is `next` applied $n$ times. 
 We use $\skip(t)$ for $t\in T$ to indicate `next` is called until the time of
 the current item is greater than or equal to $t$.
 
@@ -213,7 +213,7 @@ with time strictly greater than $t$_.
 
 __Exercise__. _Show $\skip(t) = \when([t,\top)\times X)$_.
 
-Perhaps a better name for `when` is `until`.
+Perhaps `until` or `filter` are better names for `when`.
 
 ### Scan
 
