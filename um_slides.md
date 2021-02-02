@@ -1,21 +1,36 @@
 ---
 title: Unified Derivatives
+subtitle: How to value, hedge, and manage the risk of any portfolio
+author: Keith A. Lewis
+date: 4 Feb 2021
 ---
 
-# H1 History
+## What Quants Do
 
-- Black-Scholes/Merton (1973)
-- - Single European option, constant volatility
+- Model future prices and cash flows.
+- Parameterize models to fit market data.
+- Compute expected values and derivatives.
+- Specify hedges.
+- Measure how good the hedge is.
 
-<div class="notes">
-notes
-</div>
+::: notes
+Not a talk about abstract math.
+Nothing new. Things every practitioners knows.
+Tie together things you already know in a bow.
+At end of talk...
+:::
 
 ---
 
-## H2 Title
+## What Quants Don't
 
-- some text
-- an item
+- Provide realistic models.
+- Specify _when_ to hedge.
+- Use parameters traders understand.
+- Manage risk.
+
+::: notes
+Continuous time is baloney. Heston model? 
+:::
 
 ---

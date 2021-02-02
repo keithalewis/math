@@ -7,6 +7,8 @@ fleqn: true
 abstract: The algebra of time series
 ...
 
+\newcommand\u[1]{\underline{#1}}
+\newcommand\o[1]{\overline{#1}}
 \newcommand{\prod}{\Pi}
 \newcommand{\coprod}{\amalg}
 \newcommand{\Var}{\operatorname{Var}}
@@ -18,53 +20,73 @@ abstract: The algebra of time series
 \newcommand{\skip}{\operatorname{skip}}
 \newcommand{\trim}{\operatorname{trim}}
 \newcommand{\when}{\operatorname{when}}
+\newcommand{\once}{\operatorname{once}}
+\newcommand{\upto}{\operatorname{upto}}
 \newcommand{\RR}{\bm{R}}
 \newcommand{\NN}{\bm{N}}
 \newcommand{\Bool}{\bm{B}}
 
-## Time Series
+# Time Series
 
-A _time series_ is (mathematically) a collection of _time_-_value_
+This note provides a mathematical definintion of _time series_ and
+fundamental operations on them.
+A _time series_ is a collection of _time_-_value_
 pairs $s = \{(t, x)\}\subseteq T\times X$.
 We require $T$ to be totally ordered[^1], but $X$ can be any set.
-For now we assume no two time-value pairs have the same time
-so the value $x = s(t)\in X$ when $(t,x)\in s$ is a function of $T$.
+We assume no two time-value pairs share the same time
+so writing $x = s(t)\in X$ when $(t,x)\in s$ is unambiguous.
 
 [^1]: An order is _total_ if it is
 _comparable_ (either $t\le u$ or $u\le t$ for $t,u\in T$),
 _antisymmetric_ ($t\le u$ and $u\le t$ imply $t = u$),
 and _transitive_ ($t\le u$ and $u\le v$ imply $t\le v$).
 All _orders_ are transitive.
-__Exercise__. _Show the first two properties imply the ordering is
+
+__Exercise__. _Show comparable and antisymmetric imply the ordering is
 reflexive_ ($t\le t$, $t\in T)$.
 
-Every total order on a finite set has a least element $t_0 = \min\{t:
-t\in T\}$. It also has a second least element $t_1 = \min\{t: t\in T,
-t \not= t_0\}$. By induction, very finite total order can be written
-$T = \{t_j\}_{0\le j\le n}$ where $t_i < t_j$ if $i < j$.  If the total
+## Time
+
+Time is modeled by a set $T$ with a total order $\le$. Since total
+orders are reflexive and antisymmetric, $t = u$ is equivalent to $t \le u$ and $u \le t$.
+Define $t < u$ by $t \le u$ and $t \not= u$. Likewise for
+other standard relations.
+
+Every non-empty finite total order $T$ has least element
+$\u{T} = \min\{t: t\in T\}$ called the _current_ element.
+Removing this element from $T$ gives the _next_ order $T' = T\setminus\{\u{T}\}$.
+Non-empty orders are called _live_.
+
+__Exercise__. _Show $\u{T} < t'$ for $t'\in T'$ and $T = \{\u{T}\}\cup T'$_.
+
+By induction, every finite total order can be written
+$T = \{t_j\}_{0\le j\le n}$ where
+$t_j = \u{T^{(j)}}$ is the current element of the $j$-th next order.
+Clearly $t_i < t_j$ if $i < j$.
+If the total
 order is countable and has a lower bound then $t_0 = \min\{t:t\in T\}$
 exists and we get an increasing sequence $T = \{t_j\}_{j\ge 0}$.
 
-Thinking operationally, we define three functions for any _discrete_
-(finite or countable) total order.
-The minimum element is called the _current_ item. Removing
-the current item results in the set of _next_ elements. An order is _live_
-if it is not empty. We define functions `curr`, `next`, and `live` on
-the order $T$ by
+Define functions `curr`, `next`, and `live` on
+the discrete total order $T$ by
 $$
 \begin{aligned}
-\curr(T) &= \min\{t:t\in T\} \\ 
-\next(T) &= T\setminus \{\curr(T)\} \\
+\curr(T) &= \min\{t:t\in T\} \in T \\ 
+\next(T) &= T\setminus \{\curr(T)\} \subseteq T \\
 \live(T)&\Leftrightarrow T\not=\emptyset \\
 \end{aligned}
 $$
-where backslash indicates set difference $A\setminus B = \{a\in A:a\not\in B\}$.
-By definition, $T = \curr(T)\cup\next(T)$. If $T$ is not live then
-it has no current item. If we let $\bot$ represent an element not in $T$
-we can make the partial function `curr` into a function by defining
-$\curr(\emptyset) = \bot$. We extend $T$ to a total order on $T\cup\{\bot\}$
-by $\bot < t$ for $t\in T$. Similarly, we let $\top$ represent an element
-not in $T$ with $t < \top$ for $t\in T$.
+where backslash denotes set difference $A\setminus B = \{a\in A:a\not\in B\}$.
+If $T$ is not live then it has no current item.
+
+Every total order can be extended by adding a _bottom_ element $α$
+and $ω$ a _top_ element not in $T$
+where $α < t$ and $t < ω$ for all $t\in T$.
+The set $(t, u] = \{v\in T:t<v,v\le u\}$, $t,u\in T\cup\{α, ω\}$,
+is an _interval_. The left or right end points are excluded when
+using parentheses and included when using square brackets. The
+bottom and top element are never included and are used for _half open_
+intervals. For example, $[t, ω) = \{u\ge t:u\in T\}$.
 
 Total orders are closed under union and intersection.
 
@@ -72,64 +94,38 @@ __Exercise__. _Show the union of subsets of a total order is total_.
 
 __Exercise__. _Show the intersection subets of a total orders is a total_.
 
-We use the shorthand notation $T' = \next(T)$ and $*T = \curr(T)$ so,
-in particular, $T = \{*T\}\cup T'$.
+## Series
 
 A _time series_ is a function on a discrete total order. As we have seen
 above, this corresponds to a function $n\to X$ where $n = \{j\in\NN:j < n\}$
-is a (strict) _initial segment_ of the extended natural numbers $\NN\cup\{\top\}$.
-In this case $\top$ is usually written $\infty$. 
+is a (strict) _initial segment_ of the extended natural numbers $\NN\cup\{\infty\}$.
 
-It is not uncommon for some items of a time series to be _missing_.
-We model this by adjoining $\bot$ to $X$ where $\bot$ is some element
-not belonging to $X$.  A _partial time series_ is a function $s\colon
-T\to X\cup\{\bot\}$ and uses $s(t) = \bot$ to indicate missing items.
+Define `curr` on time series by $\curr s = (\curr(T), s(\curr(T)))$,
+or $\u{s} = (\u{T}, s(\u{T}))$.
+Define `next` on time series by $\next(s) = s|_{\next T}$,
+or $s' = s|_{T'}$. We can define `live` by $\live(s) = \live(\dom s)$
+where $\dom s = \{t_j:(t_j, x_j)\in x\}$.
+
+It is not uncommon for some values of a time series to be _missing_.
+This is modeled by adjoining and element '`_`' to $X$ not belonging to $X$. 
 For computer implementations where $X$ is a set of IEEE floating point
-values we can use NaN (Not-a-Number) for $\bot$.
+values we can use NaN (Not-a-Number) for '`_`'.
 
-## Function
+It is often convenient to extend a time series to all of $T$. Given a
+time series $s = \{(t_j, x_j)\}$ define $\u{t} = \max\{t_j:t_j\le t\}$
+to be the largest time in the series less than or equal to $t$
+and let $\u{s}(t) = s(\u{t})$. Note $\u{s}$ is piecewise constant
+and right continuous. It is undefined for $t < t_0 = \u{\dom s}$.
 
-Let's recall some fundamental definitions concerning functions.
+__Exercise__. _Show $\u{s}(t) = s(\u{t})$, $t\ge\u{\dom s}$_.
 
-If $s\colon T\to X$ is a function (time series) and $U\subseteq T$ define
-the _restriction_ of $s$ to $U$ by
-$s|_U = \{(t,x):(t,x)\in s, t\in U\}$.
-
-__Exercise__. _Show $s|_U = s\cap(U\times X)$_.
-
-We can define `curr` on time series by $\curr s = (\curr(T), s(\curr(T)))$,
-or $*s = (*T, s(*T))$.
-We can define `next` on time series by $\next(s) = s|_{\next T}$,
-or $s' = s|_{T'}$. We can define `live` by $\live(s) = \live(T)$.
-
-Recall a _partial function_ $s\colon T\to X$ is a subset $s\subseteq T\times X$
-such that $(t,x)\in s$ and $(t,x')\in s$ imply $x = x'$. This justifies
-writing $s(t) = x$ for $(t,x)\in s$.
-
-To extend a partial function $s\colon T\to X$ to a function
-select $\bot\not\in T$
-and define $s|^T(t) = s(t)$ if $t$ is in the domain of $s$ and
-$s(t) = \bot$ otherwise.
-
-__Exercise__. _Show $s|^T = s\cup (T\setminus\dom s)\times\{\bot\}$_.
-
-Hint: The _domain_ of $s$, $\dom s$, is the set of $t\in T$ for which
-$(t,x)\in x$ for some $x\in X$.
-
-This is precisely what we did above for partial time series but it can
-be used even if $T$ is just a set. Only God can trim time but a partial
-time series taking values in $X\cup\{\bot\}$ can be _trimmed_ to a time
-series taking values in $X$ by removing all $(t,x)\in s$ with $x=\bot$.
-
-__Exercise__. _Show $\trim(s) = s\cap T\times X$_.
-
-If $\trim(s) = s$ we say the time series is _complete_.
+Given a function $x\colon T\to X$ let $x_T = \u{x|_T}$
 
 ## Apply
 
 If $f\colon X\to Y$ we can _apply_ $f$ to $s\colon T\to X$ via
 $f(s) = \{(t,f(x)):(t,x)\in s\}\subseteq T\times Y$ to get a $Y$-valued time series.
-If we define $f(\bot) = \bot$ this defines application for partial time series.
+If we define $f(\_) = \_$ this defines application for partial time series.
 We write $sf$ instead of $f(s)$ using postfix notation which gives a
 more natural left-to-right reading. Note $sf$ has the same domain as $s$.
 
@@ -139,43 +135,56 @@ We can combine time series to create a new time series.
 
 ### Product
 
-If $\{X_j\}$ is a collection of sets, their _product_ $X = Π_j X_j$ has
-projections $π_j\colon X\to X_j$ and we write $x = \langle \pi_j x\rangle
-= \langle x_j\rangle$ for $x\in X$.  The projections are defined by the
-property that if $p_j\colon Y\to X_j$ then there exists $p\colon Y\to X$
-with $π_j(p(y)) = p_j(y)$, $y\in Y$, for all $j$.  If $p$ is _bijective_
-(one-to-on and onto) then $π_j = p^{-1}p_j$ so projections are unique
+If $\{X_i\}$ is a collection of sets indexed by $i$, their _product_ $X = Π_i X_i$ has
+projections $π_i\colon X\to X_i$ and we write $x = \langle \pi_i x\rangle
+= \langle x_i\rangle$ for $x\in X$.  The projections are defined by the
+property that if $p_i\colon Y\to X_i$ then there exists $p\colon Y\to X$
+with $π_i(p(y)) = p_i(y)$, $y\in Y$, for all $i$.  If $p$ is _bijective_
+(one-to-one and onto) then $π_i = p^{-1}p_i$ so projections are unique
 up to isomorphism.
 
-If $\{s_j\}$ is a collection of time series, then their _product_
-is $\langle s_j\rangle = \cup_j \{(t,\langle x_j\rangle): (t,x_j)\in s_j\}$
-is a time series from $T = \cup_j T_jto $\Pi_j X_j$.
-We use the convention $x_k = \bot$ if $(t,x_j)\in s_j$ for
-some $j$ but $(t,x_k)\not\in s_k$ to make the product a function.
+If $s_i\colon T_i\to X_i$ are time series indexed by $i$, then their _product_
+is a time series $\langle s_i\rangle\colon\cup_i T_i\to Π_i X_i$ with elements
+$(t, x)$ where $(t, π_i x)\in s_i$ for some $i$. If $(t, x_k)\not\in s_k$
+for any $k\not= i$ we let $x_k = \_$.
 For example if $s_1 = \{(1,x),(2,y)\}$ and $s_2 = \{(0,z),(1,w)\}$
-then $s_1\times s_2 = \{(0,(\bot,z)), (1,(x,w)), (2,(y,\bot))\}$.
+then $\langle s_1, s_2\rangle = \{(0,\langle \_,z\rangle), (1,\langle x,w\rangle),
+(2,\langle y,\_\rangle)\}$.
 
-An item $(t,\langle x_j\rangle)$ is _missing_ if $x_j = \bot$ for all $j$
-and _partially missing_ if $x_j \not= \bot$ for some $j$.
+An item $(t,\langle x_i\rangle)$ is _missing_ if $x_i = \_$ for all $i$
+and _partially missing_ if $x_i \not= \_$ for some $i$.
 
-__Exercise__. _If $s_j$ is complete for some $j$ then $\langle s_j\rangle$ has
-no missing items_.
+__Exercise__. _The product $\langle s_i\rangle$ never has missing items_.
 
 ### Coproduct
 
-If $\{X_j\}$ is a collection of sets, their _coroduct_ $X = \coprod X_j
-= \cup_j X_j\times\{j\}$ has injections $ν_j\colon X_j\to X$ defined
-by $ν_j x_j = (x_j,j)$ for $x\in X$.  The injections are defined by
-the property that if $n_j\colon X_j\to Y$ then there exists $n\colon
-X\to Y$ with $n(ν_j(x_j)) = ν_j(\x_j)$, $x_j\in X_j$, for all $j$.
-If $n$ is _bijective_ then $ν_j = n_jn^{-1}$ so injections are unique
+If $\{X_i\}$ is a collection of sets indexed by $i$, their _coroduct_ $X = \coprod_i X_i
+= \cup_i X_i\times\{i\}$ has injections $ν_i\colon X_i\to X$ defined
+by $ν_i x_i = (x_i,i)$ for $x\in X$.  The injections are defined by
+the property that if $n_i\colon X_i\to Y$ then there exists $n\colon
+X\to Y$ with $n(ν_i(x_i)) = ν_i(\x_i)$, $x_i\in X_i$, for all $i$.
+If $n$ is _bijective_ then $ν_i = n_in^{-1}$ so injections are unique
 up to isomorphism.
 
-The coproduct is also called the _disjoint union_. It is the union of $\{X_j\}$
+The coproduct is also called the _disjoint union_. It is the union of $\{X_i\}$
 together with information about which index each element came from.
 
-__Exercise__. _Show $π_1\coprod_j X_j = \cup_j X_j$ where
+__Exercise__. _Show $π_1\coprod_i X_i = \cup_i X_i$ where
 $π_1$ is the projection on the first component of the coproduct_.
+
+If $s_i\colon T_i\to X_i$ are time series indexed by $i\in I$
+and $σ\colon T\to I$ selects an index at each time
+define $s_σ(t) = \{(t_j, (x_{σ(t_j)}, σ(t_j))$.
+
+then their _coproduct_
+is a time series with elements $(t_j, x_j)$ 
+$(t, ν_i x_i)$ where $(t, x_i)\in s_j$ for some $j$.
+
+$(t, π_j x)\in s_j$ for some $j$. If $(t, x_k)\not\in s_k$
+for any $k\not= j$ we let $x_k = \_$.
+For example if $s_1 = \{(1,x),(2,y)\}$ and $s_2 = \{(0,z),(1,w)\}$
+then $\langle s_1, s_2\rangle = \{(0,\langle \_,z\rangle), (1,\langle x,w\rangle),
+(2,\langle y,\_\rangle)\}$.
 
 If the domains of $\{s_j\}$ are disjoint we can identify
 the coproduct $\coprod_j s_j$ with the union $\cup_j s_j$.
@@ -185,44 +194,57 @@ If the $j$ are ordered we can also ensure the jitter preserves the order.
 
 ## Transform
 
-Let $\mathcal{S}_T$ be the collection of all time series on $T$.
+The set of time series from $T$ to $X$ is denoted $X^T$[^2]. 
+A _time series transformation_ is a function $F\colon X^T\to Y^U$
+where $T$ and $U$ are totally ordered sets and $X$ and  $Y$ are any sets.
+For example, applying $f\colon X\to Y$ is a transformation from $X^T$ to $Y^T$
+and `next` is a transformation from $X^T$ to $X^{T'}$.
 
-A _time series transformation_ is a function $F\colon \mathcal{S}_T\to \mathcal{S}_T$
-where $T$ is a fixed totally ordered set.
-For example, apply is a transformation that preserves times
-and `next` is a transformation that does not add any new values.
+__Exercise__. _Show $(f(s))(t) = f(s(t))$, $t\in T$_.
+
+[^2]: It is standard mathematical notation to define the _exponential_ of
+sets by $A^B = \{f\colon B\to A\}$, the set of all functions from $B$ to $A$.
+Note if the cardinality of $A$ is $a$ and the cardinality of $B$ is $b$ then
+the cardinality of $A^B$ is $a^b$.
 
 ### When
 
 Given a predicate $p\subseteq T\times X$ define
-$\when(p) = s\cap p$. It filters out all points in
+$s\when(p) = s\cap p$. It filters out all points in
 the time series not belonging to $p$.
 
-__Exercise__. _Show $\next(s) = \when((T\times X)\setminus\{\curr(s)\})$_.
+This is also written $s|p$ and read $s$ given $p$.
 
-More succinctly, $s' = s\cap(\{*s\}^c)$ where $A^c$ denotes complement.
+### Upto
+
+Given a predicate $p\subseteq T\times X$ let $(t_0, x_0) = *(s\cap p)$ be
+the first item in the series satisfying $p$.
+Define $s\upto(p) = s|_{(-ω, t_0]}$ to be all items in the series
+upto and including time $t_0$.
+
+This is also written $s\uparrow p$ and read $s$ until $p$ or $s$ take $p$.
 
 ### Skip
 
-The transformation $\skip(n)$ for $n\ge 0$ is `next` applied $n$ times. 
+The transformation $\skip(n)$ for $n\ge 0$ is $\next$ applied $n$ times. 
 We use $\skip(t)$ for $t\in T$ to indicate `next` is called until the time of
 the current item is greater than or equal to $t$.
 
-__Exercise__. _Show $\next(\skip(t))$ is the first item in the series
-with time strictly greater than $t$_.
+__Exercise__. _Show $\skip(t) = \when([t, ω)\times X)$_.
 
-__Exercise__. _Show $\skip(t) = \when([t,\top)\times X)$_.
-
-Perhaps `until` or `filter` are better names for `when`.
+This is also written $s\downarrow n$ or $s\downarrow t$ and read $s$ drop $n$ or $s$ after $t$
+respectively.
 
 ### Scan
 
+If $T$ is a total order and $t\in T$ let $[t] = (-ω, t] = \{u\in T: u \le t\}$ be
+the initial segment determinted by $t$. The set of all initial segments
+is denoted $[T]$ and is isomorphic to $T$ via $[t]\leftrightarrow t$.
+
 The history of a time series gets dragged along by _scan_.
-If $T$ is a total order and $t\in T$ let $[t] = \{u\in T: u \le t\}$ be
-the initial segment determinded by $t$. The set of initial segments
-is denoted $[T]$ and is isomorphic to $T$ via $t\leftrightarrow [t]$.
-The `scan` of $s\colon T\to X$ is denoted $[s]$ and has items $([t],s|_{[t]})$. Each
-item can be written $(\langle t_0,\ldots, t_n\rangle, \langle s(t_0),\ldots,s(t_n)\rangle)$.
+The `scan` of $s\colon T\to X$ has items $([t],s|_{[t]})$. Each
+item can be written $(\langle t_0,\ldots, t_n\rangle, \langle x_0,\ldots,x_n\rangle)$
+where $(t_j, x_j) \in s$.
 
 Most _trading indicators_ are transformations of scans. For example if
 $MA((\langle t_j\rangle, \langle x_j\rangle)) = \sum_j x_j/\sum_j 1$
@@ -231,7 +253,7 @@ by their duration to get the _weighted moving average_ with $WMA([s])
 = \sum_j x_j Δt_j/\sum_j Δt_j$ where $Δt_j = t_{j + 1} - t_j$,
 or $Δt = t' - t$. Here we assume there is a positive measure $τ$ on
 $T$ and define $u - t = τ((t, u]) = τ([u]) - τ([t])$ for $t, u\in T$.
-If $T$ is a subset of real numbers then $τ$ is typically length measure.
+If $T$ is a subset of real numbers then the measure is typically length measure.
 
 To bias towards the most recent values choose a 
 decreasing function $\alpha(t)$ and let
@@ -239,14 +261,16 @@ $EWMA_α([s]) = \sum_{j < n} α(t_n - t_j) x_j Δ t_j/\sum_j Δ t_j$.
 If $α(t) = e^{-at}$ we get the _exponentially weighted moving average_
 with decay parameter $a > 0$.
 
-To get _windowed_ data of size/count $c$ let $C(\langle t_j\rangle ,\langle x_j\rangle)
-= (\langle t_{n - c + 1}, \ldots, t_n\rangle, \langle x_{n - c + 1}, \ldots, x_n\rangle)$.
+To get _windowed_ data of size/count $m$ let $C(\langle t_j\rangle ,\langle x_j\rangle)
+= (\langle t_{n - m + 1}, \ldots, t_n\rangle, \langle x_{n - m + 1}, \ldots, x_n\rangle)$.
 To get windowed data of width $w$ let $W([s]) = s|_{(t - w, t]}$ where
-$(t, u] = [u]\setminus [t]$ for $t < u$ in $T$. Transformation can be composed
-so, for example, $(s W)MA$ would e a _windowed moving average_.
+$(t, u] = [u]\setminus [t]$ for $t < u$ in $T$. Transformations can be composed
+so, for example, $(s W)MA$ is a _windowed moving average_.
 
 ### Step
 
+Coproducts of time series have a function called 'step'. If the current item has
+index $j$ then 'step' is the 
 Given time series $s_j$ in $T_j\times X_j$, $j = 1,\ldots n$,
 Let $X = \sqcup X_j$ be the disjoint union of values. The elements of $X$ are pairs
 $(x, j)$ where $x\in X_j$. Unlike set union, the disjoint union keeps track of which
@@ -262,14 +286,3 @@ $\next(s) = s'$ if $k != j + 1$ and $\next(s) = skip(u)$ if $k = j + 1$.
 
 A _range breakout_ is a signal defined by a time period $p = [t_0, t_1]$ and
 a return $R$. If $(s(t_1) - s(t_0)/s(t_0) > R$ we say a breakout occured at $t_1$.
-We also need a signal to terminate the strategy. If we always close out positions at
-the end of the trading day the strategy is $β_{p,R}^1_C$.
-
-It may be more efficient to compute transformations by keeping a small
-amount of state.  For example, if $A([s])$ is the
-moving average then the windowed moving average of size $c$ can store
-the value $x_{n - c}$ and the last average $a_{n - 1}$ to get the next
-value of the average by $a_n = a_{n-1} + (x_n - x_{n - c})/c$
-since $c a_n = (c - 1) a_{n-1} + x_n - x_{n - c}$.
-This suggests storing time series expression as _abstract syntax trees_ so
-such optimizations become possible.

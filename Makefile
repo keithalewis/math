@@ -55,3 +55,4 @@ RJS = -V revealjs-url=https://cdn.jsdelivr.net/reveal.js/3.0.0
 
 slides: um_slides.md
 	pandoc -s  -t revealjs $(RJS) -o um_slides.html um_slides.md
+	pandoc -o um_slides.pptx um_slides.md
