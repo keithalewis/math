@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Keith A. Lewis">
+  <title>Unified Model</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reset.css">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Unified Model</h1>
+  <p class="subtitle">How to value, hedge, and manage the risk of <strong>any</strong> portfolio</p>
+  <p class="author">Keith A. Lewis</p>
+  <p class="date">4 Feb 2021</p>
+</section>
+
+<section id="what-quants-do" class="slide level2">
+<h2>What Quants Do</h2>
+<ul>
+<li>Model prices and cash flows.</li>
+<li>Fit model parameters to market data.</li>
+<li>Compute expected values and derivatives.</li>
+<li>Specify hedges/trading strategies.</li>
+<li>Provide measures of how good a hedge is.</li>
+</ul>
+<aside class="notes">
+<p>Not a talk about abstract math. Nothing new. Things every practitioners knows. Tie together things you already know in a bow. Stop me if anything is not perfectly clear</p>
+</aside>
+</section>
+<section id="what-quants-dont" class="slide level2">
+<h2>What Quants Don’t</h2>
+<ul>
+<li>Provide realistic models.</li>
+<li>Specify <em>when</em> to hedge.</li>
+<li>Use parameters traders understand.</li>
+<li>Manage risk.</li>
+</ul>
+<aside class="notes">
+<p>Continuous time is baloney. Heston model/Yield curves? Two fundamental problems. Double barrier option.</p>
+</aside>
+</section>
+<section id="holdings" class="slide level2">
+<h2>Holdings</h2>
+<h3 id="holdings-are-the-atoms-of-finance.">Holdings are the atoms of finance.</h3>
+<ul>
+<li>A <em>holding</em> <span class="math inline">(<em>i</em>, <em>a</em>, <em>e</em>)</span> is an <em>instrument</em>, <em>amount</em>, and <em>entity</em>.</li>
+<li>Instrument (<em>I</em>): stocks, bonds, futures, commodities, currencies, …</li>
+<li>Amount (<em>A</em>): shares, notional, contracts, physical quantity, units,…</li>
+<li>Entity (<em>E</em>): individual or corporation owning the holding</li>
+</ul>
+<aside class="notes">
+<p>Instruments and entities change slowly over time. Amount depends on things. <span class="math inline"><em>A</em>(<em>I</em>, <em>E</em>, <em>T</em>)</span></p>
+</aside>
+</section>
+<section id="trades" class="slide level2">
+<h2>Trades</h2>
+<h3 id="holdings-interact-through-trades.">Holdings interact through <em>trades</em>.</h3>
+<ul>
+<li>A trade <span class="math inline">(<em>t</em>; <em>i</em>, <em>a</em>, <em>e</em>; <em>i</em>′, <em>a</em>′, <em>e</em>′)</span> is an exchange of holdings at a time.</li>
+<li>At time <span class="math inline"><em>t</em> ∈ <em>T</em></span> buyer <span class="math inline"><em>e</em></span> exchanges <span class="math inline">(<em>i</em>, <em>a</em>)</span> for <span class="math inline">(<em>i</em>′, <em>a</em>′)</span> with seller <span class="math inline"><em>e</em>′</span>.</li>
+<li><em>Price</em> is <span class="math inline"><em>X</em> = <em>a</em>/<em>a</em>′</span> (after the trade).</li>
+<li>Buyers decide what and how much to exchange.</li>
+<li>Sellers quote a price for that.</li>
+<li>Buyer instrument is usually currency.</li>
+</ul>
+<aside class="notes">
+<p>Time depends on things. Price depends on things. <span class="math inline"><em>X</em>(<em>t</em>; <em>i</em>, <em>e</em>; <em>i</em>′, <em>a</em>′, <em>e</em>′)</span>. Heisenberg.</p>
+</aside>
+</section>
+<section id="price" class="slide level2">
+<h2>Price</h2>
+<p>Prices depend on time, the instruments, the entities, and the amount the buyer wants to acquire, among other things.</p>
+<ul>
+<li>The trade <span class="math inline">(<em>t</em>; <em>i</em>, <em>a</em>′<em>X</em>, <em>e</em>; <em>i</em>′, <em>a</em>′, <em>e</em>′)</span> is available to <span class="math inline"><em>e</em></span> from <span class="math inline"><em>e</em>′</span>, where <span class="math inline"><em>X</em> = <em>X</em>(<em>t</em>; <em>i</em>, <em>e</em>; <em>i</em>′, <em>a</em>′, <em>e</em>′)</span>.</li>
+<li>“Among other things” is denoted <span class="math inline"><em>Ω</em></span>, the sample space.</li>
+</ul>
+<aside class="notes">
+<p>The sample space can be big.</p>
+</aside>
+</section>
+<section id="cash-flow" class="slide level2">
+<h2>Cash Flow</h2>
+<p>Stocks have dividends, bonds have coupons, futures have margin adjustments, commodities have holding costs, …</p>
+<ul>
+<li>Holding <span class="math inline">(<em>i</em>, <em>a</em>)</span> at time <span class="math inline"><em>t</em></span> results in a cash flow <span class="math inline"><em>a</em><em>C</em>(<em>t</em>; <em>i</em>; <em>i</em>′)</span> of <span class="math inline"><em>i</em>′</span> at time <span class="math inline"><em>t</em></span>.</li>
+<li>Usually <span class="math inline"><em>i</em>′</span> is a currency, but payment-in-kind is possible.</li>
+<li>Cash flows are zero except at discrete times.</li>
+<li>Cash flows do not depend on entities, only on the issuer of <span class="math inline"><em>i</em></span>.</li>
+</ul>
+<aside class="notes">
+<p>Cash flows get short shrift in the MF literature. We do not model issuers</p>
+</aside>
+</section>
+<section id="market-model" class="slide level2">
+<h2>Market (Model)</h2>
+<p>A <em>market model</em> specifies possible future prices and cash flows of instruments.</p>
+<ul>
+<li>Price: <span class="math inline"><em>X</em>: <em>T</em> × <em>I</em> × <em>E</em> × <em>I</em>′ × <em>A</em>′ × <em>E</em>′( × <em>Ω</em>) → <strong>R</strong></span>.</li>
+<li>Cash Flow: <span class="math inline"><em>C</em>: <em>T</em> × <em>I</em> × <em>I</em>′( × <em>Ω</em>) → <strong>R</strong></span>.</li>
+<li>The trade <span class="math inline">(<em>t</em>, <em>i</em>, <em>a</em>′<em>X</em>(<em>t</em>; <em>i</em>, <em>e</em>; <em>i</em>′, <em>a</em>′, <em>e</em>′), <em>e</em>; <em>i</em>′, <em>a</em>′, <em>e</em>′)</span> is available to the buyer.</li>
+<li>Assuming price does not depend on amount and <span class="math inline"><em>e</em></span>, <span class="math inline"><em>e</em>′</span> are understood…</li>
+<li>… <span class="math inline"><em>X</em>(<em>t</em>; <em>i</em>, <em>e</em>; <em>i</em>′, <em>a</em>′, <em>e</em>′)</span> is a vector-valued stochastic process <span class="math inline"><em>X</em><sub><em>t</em></sub>: <em>Ω</em> → <strong>R</strong><sup><em>I</em></sup></span> indexed by instruments</li>
+</ul>
+<aside class="notes">
+<p>It’s not <em>the</em> market. See Unified Finance for details.</p>
+</aside>
+</section>
+<section id="trading" class="slide level2">
+<h2>Trading</h2>
+<p>A <em>trading strategy</em> specifies when, what, and how much to trade.</p>
+<ul>
+<li>Trading times <span class="math inline"><em>τ</em><sub>0</sub> &lt; <em>τ</em><sub>1</sub> &lt; ⋯</span>…</li>
+<li>.. and amounts <span class="math inline"><em>Γ</em><sub><em>j</em></sub>: <em>Ω</em> → <em>A</em><sup><em>I</em></sup></span>.</li>
+<li>Position: <span class="math inline"><em>Δ</em><sub><em>t</em></sub> = ∑<sub><em>τ</em><sub><em>j</em></sub> &lt; <em>t</em></sub><em>Γ</em><sub><em>j</em></sub> = ∑<sub><em>s</em> &lt; <em>t</em></sub><em>Γ</em><sub><em>s</em></sub></span>.</li>
+<li>Value: <span class="math inline"><em>V</em><sub><em>t</em></sub> = (<em>Δ</em><sub><em>t</em></sub> + <em>Γ</em><sub><em>t</em></sub>) ⋅ <em>X</em><sub><em>t</em></sub></span> is the mark-to-market.</li>
+<li>Amount: <span class="math inline"><em>A</em><sub><em>t</em></sub> = <em>Δ</em><sub><em>t</em></sub> ⋅ <em>C</em><sub><em>t</em></sub> − <em>Γ</em><sub><em>t</em></sub> ⋅ <em>X</em><sub><em>t</em></sub></span> shows up in the trade blotter.</li>
+</ul>
+<aside class="notes">
+<p>Want to get kicked off a trading floor? Trade when you can, not when you have to. Almgren, … Least Action???</p>
+</aside>
+</section>
+<section id="arbitrage" class="slide level2">
+<h2>Arbitrage</h2>
+<p>Arbitrage exists (for a model) if there exists a trading strategy that eventually closes out with <span class="math inline"><em>A</em><sub><em>τ</em><sub>0</sub></sub> &gt; 0</span> and <span class="math inline"><em>A</em><sub><em>t</em></sub> ≥ 0</span>, <span class="math inline"><em>t</em> &gt; <em>τ</em><sub>0</sub></span>.</p>
+<ul>
+<li>Make money up front and never lose money until strategy is closed.</li>
+<li><em>Closed out</em> means the position is zero after some finite time.</li>
+<li>This definition does not depend on a measure.</li>
+<li>Traders consider RoI: <span class="math inline"><em>A</em><sub>0</sub>/|<em>Γ</em><sub>0</sub>| ⋅ |<em>X</em><sub>0</sub>|</span>.</li>
+</ul>
+<aside class="notes">
+<p>Closed out is essential. Just ask Nick Leeson.</p>
+</aside>
+</section>
+<section id="ftap" class="slide level2">
+<h2>FTAP</h2>
+<p>The Fundamental Theorem of Asset Pricing. No arbitrage if and only if there exist <em>deflators</em> <span class="math inline"><em>D</em><sub><em>t</em></sub>: <em>Ω</em> → (0, ∞)</span> such that <br /><span class="math display"><em>X</em><sub><em>t</em></sub><em>D</em><sub><em>t</em></sub> = <em>E</em><sub><em>t</em></sub>[<em>X</em><sub><em>u</em></sub><em>D</em><sub><em>u</em></sub> + ∑<sub><em>t</em> &lt; <em>s</em> ≤ <em>u</em></sub><em>C</em><sub><em>s</em></sub><em>D</em><sub><em>s</em></sub>],</span><br /> where <span class="math inline"><em>E</em><sub><em>t</em></sub></span> is conditional expectation at time <span class="math inline"><em>t</em></span>.</p>
+<ul>
+<li>If <span class="math inline"><em>C</em><sub><em>t</em></sub> = 0</span>, deflated prices are a martingale.</li>
+<li>As <span class="math inline"><em>u</em> → ∞</span>, value is discounted future cash flows.</li>
+</ul>
+</section>
+<section id="lemma" class="slide level2">
+<h2>Lemma</h2>
+<p>If <br /><span class="math display"><em>X</em><sub><em>t</em></sub><em>D</em><sub><em>t</em></sub> = <em>E</em><sub><em>t</em></sub>[<em>X</em><sub><em>u</em></sub><em>D</em><sub><em>u</em></sub> + ∑<sub><em>t</em> &lt; <em>s</em> ≤ <em>u</em></sub><em>C</em><sub><em>s</em></sub><em>D</em><sub><em>s</em></sub>],</span><br /> then <br /><span class="math display"><em>V</em><sub><em>t</em></sub><em>D</em><sub><em>t</em></sub> = <em>E</em><sub><em>t</em></sub>[<em>V</em><sub><em>u</em></sub><em>D</em><sub><em>u</em></sub> + ∑<sub><em>t</em> &lt; <em>s</em> ≤ <em>u</em></sub><em>A</em><sub><em>s</em></sub><em>D</em><sub><em>s</em></sub>].</span><br /></p>
+<ul>
+<li>Price <span class="math inline">↔︎</span> value, cash flow <span class="math inline">↔︎</span> amount.</li>
+<li>Trading strategies create synthetic market instruments.</li>
+</ul>
+<aside class="notes">
+<p>Does this formula exist in the literature?</p>
+</aside>
+</section>
+<section id="ftap-1" class="slide level2">
+<h2>FTAP…</h2>
+<p>Easy direction: deflators imply no arbitrage.</p>
+<p>If <span class="math inline"><em>A</em><sub><em>t</em></sub> ≥ 0</span>, <span class="math inline"><em>t</em> &gt; 0</span>, then <br /><span class="math display"><em>V</em><sub>0</sub><em>D</em><sub>0</sub> = <em>E</em><sub>0</sub>[∑<sub><em>t</em> &gt; 0</sub><em>A</em><sub><em>t</em></sub><em>D</em><sub><em>t</em></sub>] ≥ 0.</span><br /> Since <span class="math inline"><em>V</em><sub>0</sub> = <em>Γ</em><sub>0</sub> ⋅ <em>X</em><sub>0</sub> =  − <em>A</em><sub>0</sub></span>, <span class="math inline"><em>A</em><sub>0</sub> ≤ 0</span> so there is no arbitrage.</p>
+</section>
+<section id="ftap-2" class="slide level2">
+<h2>…FTAP</h2>
+<p>Hard direction: no need to prove!</p>
+<p>Given any vector-valued martingale <span class="math inline"><em>M</em><sub><em>t</em></sub></span> and any deflator <span class="math inline"><em>D</em><sub><em>t</em></sub></span> <br /><span class="math display"><em>X</em><sub><em>t</em></sub><em>D</em><sub><em>t</em></sub> = <em>M</em><sub><em>t</em></sub> − ∑<sub><em>s</em> ≤ <em>t</em></sub><em>C</em><sub><em>s</em></sub><em>D</em><sub><em>s</em></sub></span><br /> is an arbitrage free model.</p>
+<p>Proof: More high school algebra.</p>
+<aside class="notes">
+<p>Thank goodness!</p>
+</aside>
+</section>
+<section id="canonical-deflator" class="slide level2">
+<h2>Canonical Deflator</h2>
+<p>If the market has repos then <span class="math inline"><em>D</em><sub><em>t</em></sub> = <em>e</em><sup> − ∫<sub>0</sub><sup><em>t</em></sup><em>f</em><sub><em>s</em></sub> <em>d</em><em>s</em></sup></span> where <span class="math inline"><em>f</em><sub><em>s</em></sub></span> is the repo/short rate at time <span class="math inline"><em>s</em></span>.</p>
+<ul>
+<li>The repo/short rate determines the value of all fixed income instruments.</li>
+</ul>
+<aside class="notes">
+<p>You caught me!</p>
+</aside>
+</section>
+<section id="zero" class="slide level2">
+<h2>Zero</h2>
+<p>A <em>zero coupon bond</em> <span class="math inline"><em>D</em>(<em>u</em>)</span> has <span class="math inline"><em>C</em><sub><em>u</em></sub> = 1</span>.</p>
+<ul>
+<li><span class="math inline"><em>X</em><sub><em>t</em></sub><em>D</em><sub><em>t</em></sub> = <em>E</em><sub><em>t</em></sub>[<em>D</em><sub><em>u</em></sub>]</span> so <span class="math inline"><em>X</em><sub><em>t</em></sub><em>D</em><sub><em>t</em></sub> = <em>D</em><sub><em>t</em></sub>(<em>u</em>)<em>D</em><sub><em>t</em></sub> = <em>E</em><sub><em>t</em></sub>[<em>D</em><sub><em>u</em></sub>]</span>, <br /><span class="math display"><em>X</em><sub><em>t</em></sub> = <em>D</em><sub><em>t</em></sub>(<em>u</em>) = <em>E</em><sub><em>t</em></sub>[<em>D</em><sub><em>u</em></sub>]/<em>D</em><sub><em>t</em></sub> = <em>E</em><sub><em>t</em></sub>[<em>e</em><sup> − ∫<sub><em>t</em></sub><sup><em>u</em></sup><em>f</em>(<em>s</em>) <em>d</em><em>s</em></sup>].</span><br /></li>
+<li>Risky zero <span class="math inline"><em>D</em><sup><em>R</em>, <em>T</em></sup>(<em>u</em>)</span> has cash flow <span class="math inline"><em>C</em><sub><em>u</em></sub> = 1(<em>T</em> &gt; <em>u</em>)</span> or <span class="math inline"><em>C</em><sub><em>T</em></sub> = <em>R</em>1(<em>T</em> ≤ <em>u</em>)</span>.</li>
+</ul>
+</section>
+<section id="fra" class="slide level2">
+<h2>FRA</h2>
+<p>A <em>forward rate agreement</em> <span class="math inline"><em>F</em><sup><em>δ</em></sup>(<em>t</em>, <em>u</em>)</span> has <span class="math inline"><em>C</em><sub><em>t</em></sub> =  − 1</span>, <span class="math inline"><em>C</em><sub><em>u</em></sub> = 1 + <em>f</em><em>δ</em></span>, where <span class="math inline"><em>δ</em></span> is the dcf for the interval from <span class="math inline"><em>t</em></span> to <span class="math inline"><em>u</em></span>.</p>
+<ul>
+<li><span class="math inline">0 = <em>X</em><sub>0</sub> = <em>E</em>[ − <em>D</em><sub><em>t</em></sub> + (1 + <em>f</em><em>δ</em>)<em>D</em><sub><em>u</em></sub>]</span>, so</li>
+<li><span class="math inline"><em>f</em> = (<em>D</em>(<em>t</em>)/<em>D</em>(<em>u</em>) − 1)/<em>δ</em></span>.</li>
+<li><em>Par forward</em> at <span class="math inline"><em>s</em></span> defined by <br /><span class="math display">0 = <em>X</em><sub><em>s</em></sub> = <em>E</em><sub><em>s</em></sub>[ − <em>D</em><sub><em>t</em></sub> + (1 + <em>F</em><sub><em>s</em></sub>(<em>t</em>, <em>u</em>)<em>δ</em>(<em>t</em>, <em>u</em>))<em>D</em><sub><em>u</em></sub>],</span><br /></li>
+<li>so <span class="math inline"><em>F</em><sub><em>s</em></sub>(<em>t</em>, <em>u</em>) = (<em>D</em><sub><em>s</em></sub>(<em>t</em>)/<em>D</em><sub><em>s</em></sub>(<em>u</em>) − 1)/<em>δ</em>(<em>t</em>, <em>u</em>)</span></li>
+</ul>
+</section>
+<section id="arrear" class="slide level2">
+<h2>Arrear</h2>
+<p>A FRA <span class="math inline"><em>F̄</em><sup><em>δ</em></sup>(<em>t</em>, <em>u</em>)</span> paying in <em>arrears</em> has one cash flow <span class="math inline"><em>C</em><sub><em>u</em></sub> = (<em>f</em> − <em>F</em><sub><em>t</em></sub>(<em>t</em>, <em>u</em>))<em>δ</em></span>.</p>
+<ul>
+<li>Model: <span class="math inline"><em>M</em><sub><em>t</em></sub> = (<em>E</em><sub><em>t</em></sub>[<em>D</em><sub><em>u</em></sub>])<sub><em>u</em></sub></span>, <span class="math inline"><em>u</em> ≥ <em>t</em></span>, all zeros indexed by maturity.</li>
+<li>Trades: <span class="math inline"><em>τ</em><sub>0</sub> = <em>t</em></span>, <span class="math inline"><em>Γ</em><sub><em>t</em></sub> =  + 1<sub><em>u</em></sub></span>, <span class="math inline"><em>t</em><sub>1</sub> = <em>u</em></span>, <span class="math inline"><em>Γ</em><sub><em>u</em></sub> =  − 1<sub><em>u</em></sub></span>.</li>
+<li>FRA + trades = arrears.</li>
+</ul>
+</section>
+<section id="b-ms" class="slide level2">
+<h2>B-M/S</h2>
+<p>The Black-Merton/Scholes model is <br /><span class="math display"><em>M</em><sub><em>t</em></sub> = (<em>r</em>, <em>s</em><em>e</em><sup><em>σ</em><em>B</em><sub><em>t</em></sub> − <em>σ</em><sup>2</sup><em>t</em>/2</sup>), <em>D</em><sub><em>t</em></sub> = <em>e</em><sup> − <em>ρ</em><em>t</em></sup>,</span><br /> so <span class="math inline"><em>X</em><sub><em>t</em></sub> = <em>M</em><sub><em>t</em></sub>/<em>D</em><sub><em>t</em></sub> = (<em>e</em><sup><em>ρ</em><em>t</em></sup>, <em>s</em><em>e</em><sup><em>σ</em><em>B</em><sub><em>t</em></sub> + (<em>ρ</em> − <em>σ</em><sup>2</sup>)<em>t</em>/2</sup>)</span>.</p>
+<ul>
+<li>Fixed dividends <span class="math inline"><em>C</em><sub><em>t</em><sub><em>j</em></sub></sub> = <em>d</em></span>.</li>
+<li>Proportional dividends <span class="math inline"><em>C</em><sub><em>t</em><sub><em>j</em></sub></sub> = <em>p</em><em>S</em><sub><em>t</em><sub><em>j</em></sub></sub></span>.</li>
+<li>Equilibrium arguments, self-financing portfolios, Ito’s formula not required.</li>
+</ul>
+</section>
+<section id="hedge" class="slide level2">
+<h2>Hedge</h2>
+<p>Given a set of amounts <span class="math inline"><em>A</em><sub><em>j</em></sub></span> at <span class="math inline"><em>t</em><sub><em>j</em></sub></span> how do we find a trading strategy that produces these?</p>
+<ul>
+<li><span class="math inline"><em>V</em><sub>0</sub> = <em>E</em>[∑<sub><em>j</em></sub><em>A</em><sub><em>j</em></sub><em>D</em><sub><em>t</em><sub><em>j</em></sub></sub>] = <em>Γ</em><sub>0</sub> ⋅ <em>X</em><sub>0</sub></span> so <span class="math inline"><em>D</em><sub><em>X</em><sub>0</sub></sub><em>V</em><sub>0</sub> = <em>Γ</em><sub>0</sub></span>.</li>
+<li><span class="math inline"><em>V</em><sub><em>j</em></sub> = <em>E</em><sub><em>j</em></sub>[∑<sub><em>k</em> &gt; <em>j</em></sub><em>A</em><sub><em>k</em></sub><em>D</em><sub><em>t</em><sub><em>k</em></sub></sub>] = (<em>Δ</em><sub><em>j</em></sub> + <em>Γ</em><sub><em>j</em></sub>) ⋅ <em>X</em><sub><em>j</em></sub></span> so <span class="math inline"><em>D</em><sub><em>X</em><sub><em>j</em></sub></sub><em>V</em><sub><em>j</em></sub> = <em>Δ</em><sub><em>j</em></sub> + <em>Γ</em><sub><em>j</em></sub></span> (Frechet derivative.)</li>
+<li>Note <span class="math inline"><em>Δ</em><sub><em>j</em> + 1</sub> − <em>Δ</em><sub><em>j</em></sub> = <em>Γ</em><sub><em>j</em></sub></span>, so <span class="math inline"><em>Δ</em></span> is delta and <span class="math inline"><em>Γ</em></span> is gamma.</li>
+<li>This is <em>never</em> a perfect hedge.</li>
+</ul>
+</section>
+<section id="remarks" class="slide level2">
+<h2>Remarks</h2>
+<p>Trajectory of mathematical finance is increasingly accurate models covering all instruments.</p>
+<p>Incorporate trading strategies when measuring risk.</p>
+<p>Monte Carlo all the things! We have Moore’s Law on our side and can put the ML headcount to good use.</p>
+<p>Provide real-time valuation and risk reporting across all asset classes.</p>
+</section>
+<section id="links" class="slide level2">
+<h2>Links</h2>
+<ul>
+<li><a href="https://keithalewis.github.io/math/um.html">Unified Model</a></li>
+<li><a href="https://keithalewis.github.io/math/uf.html">Unified Finance</a></li>
+<li><a href="https://xlladdins.com">Excel add-in libary</a></li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>

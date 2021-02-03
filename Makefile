@@ -46,9 +46,6 @@ docs: $(HTML) index
 	cp *.html math.css docs
 	git add docs/*
 
-rsync:
-	rcp $(HTML) $(CSS) kal@web626.webfaction.com:webapps/kalx/math
-
 clean:
 	rm -f *.docx *.pdf *.html docs/*.html
 

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Time Series</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <!--
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Time Series</h1>
+<p class="author">Keith A. Lewis</p>
+</header>
+<section id="time-series" class="level1">
+<h1>Time Series</h1>
+<p>This note provides a mathematical definintion of <em>time series</em> and fundamental operations on them. A <em>time series</em> is a collection of <em>time</em>-<em>value</em> pairs <span class="math inline">s = \{(t, x)\}\subseteq T\times X</span>. We require <span class="math inline">T</span> to be totally ordered<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, but <span class="math inline">X</span> can be any set. We assume no two time-value pairs share the same time so writing <span class="math inline">x = s(t)\in X</span> when <span class="math inline">(t,x)\in s</span> is unambiguous.</p>
+<p><strong>Exercise</strong>. <em>Show comparable and antisymmetric imply the ordering is reflexive</em> (<span class="math inline">t\le t</span>, <span class="math inline">t\in T)</span>.</p>
+<section id="time" class="level2">
+<h2>Time</h2>
+<p>Time is modeled by a set <span class="math inline">T</span> with a total order <span class="math inline">\le</span>. Since total orders are reflexive and antisymmetric, <span class="math inline">t = u</span> is equivalent to <span class="math inline">t \le u</span> and <span class="math inline">u \le t</span>. Define <span class="math inline">t &lt; u</span> by <span class="math inline">t \le u</span> and <span class="math inline">t \not= u</span>. Likewise for other standard relations.</p>
+<p>Every non-empty finite total order <span class="math inline">T</span> has least element <span class="math inline">\underline{T} = \min\{t: t\in T\}</span> called the <em>current</em> element. Removing this element from <span class="math inline">T</span> gives the <em>next</em> order <span class="math inline">T&#39; = T\setminus\{\underline{T}\}</span>. Non-empty orders are called <em>live</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\underline{T} &lt; t&#39;</span> for <span class="math inline">t&#39;\in T&#39;</span> and <span class="math inline">T = \{\underline{T}\}\cup T&#39;</span></em>.</p>
+<p>By induction, every finite total order can be written <span class="math inline">T = \{t_j\}_{0\le j\le n}</span> where <span class="math inline">t_j = \underline{T^{(j)}}</span> is the current element of the <span class="math inline">j</span>-th next order. Clearly <span class="math inline">t_i &lt; t_j</span> if <span class="math inline">i &lt; j</span>. If the total order is countable and has a lower bound then <span class="math inline">t_0 = \min\{t:t\in T\}</span> exists and we get an increasing sequence <span class="math inline">T = \{t_j\}_{j\ge 0}</span>.</p>
+<p>Define functions <code>curr</code>, <code>next</code>, and <code>live</code> on the discrete total order <span class="math inline">T</span> by <span class="math display">
+\begin{aligned}
+\operatorname{curr}(T) &amp;= \min\{t:t\in T\} \in T \\ 
+\operatorname{next}(T) &amp;= T\setminus \{\operatorname{curr}(T)\} \subseteq T \\
+\operatorname{live}(T)&amp;\Leftrightarrow T\not=\emptyset \\
+\end{aligned}
+</span> where backslash denotes set difference <span class="math inline">A\setminus B = \{a\in A:a\not\in B\}</span>. If <span class="math inline">T</span> is not live then it has no current item.</p>
+<p>Every total order can be extended by adding a <em>bottom</em> element <span class="math inline">α</span> and <span class="math inline">ω</span> a <em>top</em> element not in <span class="math inline">T</span> where <span class="math inline">α &lt; t</span> and <span class="math inline">t &lt; ω</span> for all <span class="math inline">t\in T</span>. The set <span class="math inline">(t, u] = \{v\in T:t&lt;v,v\le u\}</span>, <span class="math inline">t,u\in T\cup\{α, ω\}</span>, is an <em>interval</em>. The left or right end points are excluded when using parentheses and included when using square brackets. The bottom and top element are never included and are used for <em>half open</em> intervals. For example, <span class="math inline">[t, ω) = \{u\ge t:u\in T\}</span>.</p>
+<p>Total orders are closed under union and intersection.</p>
+<p><strong>Exercise</strong>. <em>Show the union of subsets of a total order is total</em>.</p>
+<p><strong>Exercise</strong>. <em>Show the intersection subets of a total orders is a total</em>.</p>
+</section>
+<section id="series" class="level2">
+<h2>Series</h2>
+<p>A <em>time series</em> is a function on a discrete total order. As we have seen above, this corresponds to a function <span class="math inline">n\to X</span> where <span class="math inline">n = \{j\in\bm{N}:j &lt; n\}</span> is a (strict) <em>initial segment</em> of the extended natural numbers <span class="math inline">\bm{N}\cup\{\infty\}</span>.</p>
+<p>Define <code>curr</code> on time series by <span class="math inline">\operatorname{curr}s = (\operatorname{curr}(T), s(\operatorname{curr}(T)))</span>, or <span class="math inline">\underline{s} = (\underline{T}, s(\underline{T}))</span>. Define <code>next</code> on time series by <span class="math inline">\operatorname{next}(s) = s|_{\operatorname{next}T}</span>, or <span class="math inline">s&#39; = s|_{T&#39;}</span>. We can define <code>live</code> by <span class="math inline">\operatorname{live}(s) = \operatorname{live}(\operatorname{dom}s)</span> where <span class="math inline">\operatorname{dom}s = \{t_j:(t_j, x_j)\in x\}</span>.</p>
+<p>It is not uncommon for some values of a time series to be <em>missing</em>. This is modeled by adjoining and element ‘<code>_</code>’ to <span class="math inline">X</span> not belonging to <span class="math inline">X</span>. For computer implementations where <span class="math inline">X</span> is a set of IEEE floating point values we can use NaN (Not-a-Number) for ‘<code>_</code>’.</p>
+<p>It is often convenient to extend a time series to all of <span class="math inline">T</span>. Given a time series <span class="math inline">s = \{(t_j, x_j)\}</span> define <span class="math inline">\underline{t} = \max\{t_j:t_j\le t\}</span> to be the largest time in the series less than or equal to <span class="math inline">t</span> and let <span class="math inline">\underline{s}(t) = s(\underline{t})</span>. Note <span class="math inline">\underline{s}</span> is piecewise constant and right continuous. It is undefined for <span class="math inline">t &lt; t_0 = \underline{\operatorname{dom}s}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\underline{s}(t) = s(\underline{t})</span>, <span class="math inline">t\ge\underline{\operatorname{dom}s}</span></em>.</p>
+</section>
+<section id="apply" class="level2">
+<h2>Apply</h2>
+<p>If <span class="math inline">f\colon X\to Y</span> we can <em>apply</em> <span class="math inline">f</span> to <span class="math inline">s\colon T\to X</span> via <span class="math inline">f(s) = \{(t,f(x)):(t,x)\in s\}\subseteq T\times Y</span> to get a <span class="math inline">Y</span>-valued time series. If we define <span class="math inline">f(\_) = \_</span> this defines application for partial time series. We write <span class="math inline">sf</span> instead of <span class="math inline">f(s)</span> using postfix notation which gives a more natural left-to-right reading. Note <span class="math inline">sf</span> has the same domain as <span class="math inline">s</span>.</p>
+</section>
+<section id="combine" class="level2">
+<h2>Combine</h2>
+<p>We can combine time series to create a new time series.</p>
+<section id="product" class="level3">
+<h3>Product</h3>
+<p>If <span class="math inline">\{X_i\}</span> is a collection of sets indexed by <span class="math inline">i</span>, their <em>product</em> <span class="math inline">X = Π_i X_i</span> has projections <span class="math inline">π_i\colon X\to X_i</span> and we write <span class="math inline">x = \langle \pi_i x\rangle = \langle x_i\rangle</span> for <span class="math inline">x\in X</span>. The projections are defined by the property that if <span class="math inline">p_i\colon Y\to X_i</span> then there exists <span class="math inline">p\colon Y\to X</span> with <span class="math inline">π_i(p(y)) = p_i(y)</span>, <span class="math inline">y\in Y</span>, for all <span class="math inline">i</span>. If <span class="math inline">p</span> is <em>bijective</em> (one-to-one and onto) then <span class="math inline">π_i = p^{-1}p_i</span> so projections are unique up to isomorphism.</p>
+<p>If <span class="math inline">s_i\colon T_i\to X_i</span> are time series indexed by <span class="math inline">i</span>, then their <em>product</em> is a time series <span class="math inline">\langle s_i\rangle\colon\cup_i T_i\to Π_i X_i</span> with elements <span class="math inline">(t, x)</span> where <span class="math inline">(t, π_i x)\in s_i</span> for some <span class="math inline">i</span>. If <span class="math inline">(t, x_k)\not\in s_k</span> for any <span class="math inline">k\not= i</span> we let <span class="math inline">x_k = \_</span>. For example if <span class="math inline">s_1 = \{(1,x),(2,y)\}</span> and <span class="math inline">s_2 = \{(0,z),(1,w)\}</span> then <span class="math inline">\langle s_1, s_2\rangle = \{(0,\langle \_,z\rangle), (1,\langle x,w\rangle), (2,\langle y,\_\rangle)\}</span>.</p>
+<p>An item <span class="math inline">(t,\langle x_i\rangle)</span> is <em>missing</em> if <span class="math inline">x_i = \_</span> for all <span class="math inline">i</span> and <em>partially missing</em> if <span class="math inline">x_i \not= \_</span> for some <span class="math inline">i</span>.</p>
+<p><strong>Exercise</strong>. <em>The product <span class="math inline">\langle s_i\rangle</span> never has missing items</em>.</p>
+</section>
+<section id="coproduct" class="level3">
+<h3>Coproduct</h3>
+<p>If <span class="math inline">\{X_i\}</span> is a collection of sets indexed by <span class="math inline">i</span>, their <em>coroduct</em> <span class="math inline">X = \amalg_i X_i = \cup_i X_i\times\{i\}</span> has injections <span class="math inline">ν_i\colon X_i\to X</span> defined by <span class="math inline">ν_i x_i = (x_i,i)</span> for <span class="math inline">x\in X</span>. The injections are defined by the property that if <span class="math inline">n_i\colon X_i\to Y</span> then there exists <span class="math inline">n\colon X\to Y</span> with <span class="math inline">n(ν_i(x_i)) = ν_i(\x_i)</span>, <span class="math inline">x_i\in X_i</span>, for all <span class="math inline">i</span>. If <span class="math inline">n</span> is <em>bijective</em> then <span class="math inline">ν_i = n_in^{-1}</span> so injections are unique up to isomorphism.</p>
+<p>The coproduct is also called the <em>disjoint union</em>. It is the union of <span class="math inline">\{X_i\}</span> together with information about which index each element came from.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">π_1\amalg_i X_i = \cup_i X_i</span> where <span class="math inline">π_1</span> is the projection on the first component of the coproduct</em>.</p>
+<p>If <span class="math inline">s_i\colon T_i\to X_i</span> are time series indexed by <span class="math inline">i\in I</span> and <span class="math inline">σ\colon T\to I</span> selects an index at each time define <span class="math inline">s\@σ = \{(t_j, (x_{σ(t_j)}, σ(t_j))</span>.</p>
+<p>then their <em>coproduct</em> is a time series with elements <span class="math inline">(t_j, x_j)</span> <span class="math inline">(t, ν_i x_i)</span> where <span class="math inline">(t, x_i)\in s_j</span> for some <span class="math inline">j</span>.</p>
+<p><span class="math inline">(t, π_j x)\in s_j</span> for some <span class="math inline">j</span>. If <span class="math inline">(t, x_k)\not\in s_k</span> for any <span class="math inline">k\not= j</span> we let <span class="math inline">x_k = \_</span>. For example if <span class="math inline">s_1 = \{(1,x),(2,y)\}</span> and <span class="math inline">s_2 = \{(0,z),(1,w)\}</span> then <span class="math inline">\langle s_1, s_2\rangle = \{(0,\langle \_,z\rangle), (1,\langle x,w\rangle), (2,\langle y,\_\rangle)\}</span>.</p>
+<p>If the domains of <span class="math inline">\{s_j\}</span> are disjoint we can identify the coproduct <span class="math inline">\amalg_j s_j</span> with the union <span class="math inline">\cup_j s_j</span>. In practice, we can apply arbitrarily small perturbation to each time in the collection of time series to obtain this. If the <span class="math inline">j</span> are ordered we can also ensure the jitter preserves the order.</p>
+</section>
+</section>
+<section id="transform" class="level2">
+<h2>Transform</h2>
+<p>The set of time series from <span class="math inline">T</span> to <span class="math inline">X</span> is denoted <span class="math inline">X^T</span><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. A <em>time series transformation</em> is a function <span class="math inline">F\colon X^T\to Y^U</span> where <span class="math inline">T</span> and <span class="math inline">U</span> are totally ordered sets and <span class="math inline">X</span> and <span class="math inline">Y</span> are any sets. For example, applying <span class="math inline">f\colon X\to Y</span> is a transformation from <span class="math inline">X^T</span> to <span class="math inline">Y^T</span> and <code>next</code> is a transformation from <span class="math inline">X^T</span> to <span class="math inline">X^{T&#39;}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(f(s))(t) = f(s(t))</span>, <span class="math inline">t\in T</span></em>.</p>
+<section id="when" class="level3">
+<h3>When</h3>
+<p>Given a predicate <span class="math inline">p\subseteq T\times X</span> define <span class="math inline">s\operatorname{when}(p) = s\cap p</span>. It filters out all points in the time series not belonging to <span class="math inline">p</span>.</p>
+<p>This is also written <span class="math inline">s|p</span> and read <span class="math inline">s</span> given <span class="math inline">p</span>.</p>
+</section>
+<section id="upto" class="level3">
+<h3>Upto</h3>
+<p>Given a predicate <span class="math inline">p\subseteq T\times X</span> let <span class="math inline">(t_0, x_0) = *(s\cap p)</span> be the first item in the series satisfying <span class="math inline">p</span>. Define <span class="math inline">s\operatorname{upto}(p) = s|_{(-ω, t_0]}</span> to be all items in the series upto and including time <span class="math inline">t_0</span>.</p>
+<p>This is also written <span class="math inline">s\uparrow p</span> and read <span class="math inline">s</span> until <span class="math inline">p</span> or <span class="math inline">s</span> take <span class="math inline">p</span>.</p>
+</section>
+<section id="skip" class="level3">
+<h3>Skip</h3>
+<p>The transformation <span class="math inline">\operatorname{skip}(n)</span> for <span class="math inline">n\ge 0</span> is <span class="math inline">\operatorname{next}</span> applied <span class="math inline">n</span> times. We use <span class="math inline">\operatorname{skip}(t)</span> for <span class="math inline">t\in T</span> to indicate <code>next</code> is called until the time of the current item is greater than or equal to <span class="math inline">t</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\operatorname{skip}(t) = \operatorname{when}([t, ω)\times X)</span></em>.</p>
+<p>This is also written <span class="math inline">s\downarrow n</span> or <span class="math inline">s\downarrow t</span> and read <span class="math inline">s</span> drop <span class="math inline">n</span> or <span class="math inline">s</span> after <span class="math inline">t</span> respectively.</p>
+</section>
+<section id="scan" class="level3">
+<h3>Scan</h3>
+<p>If <span class="math inline">T</span> is a total order and <span class="math inline">t\in T</span> let <span class="math inline">[t] = (-ω, t] = \{u\in T: u \le t\}</span> be the initial segment determinted by <span class="math inline">t</span>. The set of all initial segments is denoted <span class="math inline">[T]</span> and is isomorphic to <span class="math inline">T</span> via <span class="math inline">[t]\leftrightarrow t</span>.</p>
+<p>The history of a time series gets dragged along by <em>scan</em>. The <code>scan</code> of <span class="math inline">s\colon T\to X</span> has items <span class="math inline">([t],s|_{[t]})</span>. Each item can be written <span class="math inline">(\langle t_0,\ldots, t_n\rangle, \langle x_0,\ldots,x_n\rangle)</span> where <span class="math inline">(t_j, x_j) \in s</span>.</p>
+<p>Most <em>trading indicators</em> are transformations of scans. For example if <span class="math inline">MA((\langle t_j\rangle, \langle x_j\rangle)) = \sum_j x_j/\sum_j 1</span> we get the <em>moving average</em> <span class="math inline">[s]MA</span>. It is common to weight values by their duration to get the <em>weighted moving average</em> with <span class="math inline">WMA([s]) = \sum_j x_j Δt_j/\sum_j Δt_j</span> where <span class="math inline">Δt_j = t_{j + 1} - t_j</span>, or <span class="math inline">Δt = t&#39; - t</span>. Here we assume there is a positive measure <span class="math inline">τ</span> on <span class="math inline">T</span> and define <span class="math inline">u - t = τ((t, u]) = τ([u]) - τ([t])</span> for <span class="math inline">t, u\in T</span>. If <span class="math inline">T</span> is a subset of real numbers then the measure is typically length measure.</p>
+<p>To bias towards the most recent values choose a decreasing function <span class="math inline">\alpha(t)</span> and let <span class="math inline">EWMA_α([s]) = \sum_{j &lt; n} α(t_n - t_j) x_j Δ t_j/\sum_j Δ t_j</span>. If <span class="math inline">α(t) = e^{-at}</span> we get the <em>exponentially weighted moving average</em> with decay parameter <span class="math inline">a &gt; 0</span>.</p>
+<p>To get <em>windowed</em> data of size/count <span class="math inline">m</span> let <span class="math inline">C(\langle t_j\rangle ,\langle x_j\rangle) = (\langle t_{n - m + 1}, \ldots, t_n\rangle, \langle x_{n - m + 1}, \ldots, x_n\rangle)</span>. To get windowed data of width <span class="math inline">w</span> let <span class="math inline">W([s]) = s|_{(t - w, t]}</span> where <span class="math inline">(t, u] = [u]\setminus [t]</span> for <span class="math inline">t &lt; u</span> in <span class="math inline">T</span>. Transformations can be composed so, for example, <span class="math inline">(s W)MA</span> is a <em>windowed moving average</em>.</p>
+</section>
+<section id="step" class="level3">
+<h3>Step</h3>
+<p>Coproducts of time series have a function called ‘step’. If the current item has index <span class="math inline">j</span> then ‘step’ is the Given time series <span class="math inline">s_j</span> in <span class="math inline">T_j\times X_j</span>, <span class="math inline">j = 1,\ldots n</span>, Let <span class="math inline">X = \sqcup X_j</span> be the disjoint union of values. The elements of <span class="math inline">X</span> are pairs <span class="math inline">(x, j)</span> where <span class="math inline">x\in X_j</span>. Unlike set union, the disjoint union keeps track of which set in the union the elements come from. The disjoint union is defined by the <em>inclusions</em> <span class="math inline">ν_j\colon X_j\to X</span> where <span class="math inline">x_j\mapsto (x_j, j)</span>.</p>
+<p>Define <span class="math inline">s = \operatorname{step}(s_1,\ldots,s_n) = \{(t_j, ν_j(x_j)):(t_j, x_j)\in s_j\}\subseteq\cup_j T_j\times \sqcup_j X_j</span>. Both <code>curr</code> and <code>live</code> are defined as for any time series. If <span class="math inline">\operatorname{curr}(s) = (t,(x,j))</span> and <span class="math inline">\operatorname{curr}(s&#39;) = (u,(y,k))</span> where <span class="math inline">s&#39;</span> is the usual <code>next</code> then <span class="math inline">\operatorname{next}(s) = s&#39;</span> if <span class="math inline">k != j + 1</span> and <span class="math inline">\operatorname{next}(s) = skip(u)</span> if <span class="math inline">k = j + 1</span>.</p>
+</section>
+</section>
+<section id="examples" class="level2">
+<h2>Examples</h2>
+<p>A <em>range breakout</em> is a signal defined by a time period <span class="math inline">p = [t_0, t_1]</span> and a return <span class="math inline">R</span>. If <span class="math inline">(s(t_1) - s(t_0)/s(t_0) &gt; R</span> we say a breakout occured at <span class="math inline">t_1</span>.</p>
+</section>
+</section>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>An order is <em>total</em> if it is <em>comparable</em> (either <span class="math inline">t\le u</span> or <span class="math inline">u\le t</span> for <span class="math inline">t,u\in T</span>), <em>antisymmetric</em> (<span class="math inline">t\le u</span> and <span class="math inline">u\le t</span> imply <span class="math inline">t = u</span>), and <em>transitive</em> (<span class="math inline">t\le u</span> and <span class="math inline">u\le v</span> imply <span class="math inline">t\le v</span>). All <em>orders</em> are transitive.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>It is standard mathematical notation to define the <em>exponential</em> of sets by <span class="math inline">A^B = \{f\colon B\to A\}</span>, the set of all functions from <span class="math inline">B</span> to <span class="math inline">A</span>. Note if the cardinality of <span class="math inline">A</span> is <span class="math inline">a</span> and the cardinality of <span class="math inline">B</span> is <span class="math inline">b</span> then the cardinality of <span class="math inline">A^B</span> is <span class="math inline">a^b</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>
