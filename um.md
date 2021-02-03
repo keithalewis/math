@@ -4,8 +4,13 @@ author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
-abstract: |
-	Market instruments can be bought or sold at a price and ownership
+abstract: Value, hedge, and manage risk of any portfolio
+...
+
+\newcommand\RR{\bm{R}}
+\newcommand\AA{\mathcal{A}}
+
+>	Market instruments can be bought or sold at a price and ownership
 	entails cash flows. Shares of instruments can be traded based on
 	available information that accrue to positions. The mark-to-market
 	value and amounts involved with trading correspond to price
@@ -13,14 +18,13 @@ abstract: |
 	between dynamic trading and how to value, hedge, and manage the
 	risk of a derivative security.
 
-	It can be used for any portfolio of instruments.
+>	It can be used for any portfolio of instruments.
 
-	Every arbitrage-free model of prices and cash flows is
+>	Every arbitrage-free model of prices and cash flows is
 	parameterized by a vector-valued martingale whose components are
 	indexed by market instruments and a positive, adapted process
 	called a deflator. If repurchase agreements are available they
 	determine a canonical deflator.
-...
 
 A _derivative security_ is a contract between two parties: I will
 give you this on these dates if you will give me that on those dates.
@@ -93,8 +97,8 @@ if and only if there exists a _deflator_, $D_{t}:\AA_{t} \rightarrow \left(
 0,\infty \right)$, with
 
 $$
-X_{t}D_{t} = E_t\bigl[X_v D_v + \sum_{t < u \leq v} C_u D_u\bigr].\label{eq:1} \\
-$$
+X_{t}D_{t} = E_t\bigl[X_v D_v + \sum_{t < u \leq v} C_u D_u\bigr].
+$$ {#eq:1}
 
 We can assume $D_0 = 1$. If $(D_t)$ is a deflator then so is $(D_t/D_0)$.
 
@@ -107,8 +111,8 @@ Graham and Dodd valuation.
 A consequence of the above and the definition of value and amount is
 
 $$
-V_t D_t = E_t\bigl[V_v D_v + \sum_{t < u \leq v}A_u D_u\bigr].\label{eq:2} \\
-$$
+V_t D_t = E_t\bigl[V_v D_v + \sum_{t < u \leq v}A_u D_u\bigr].
+$$ {#eq:2}
 
 Note the similarity of the two displayed equations above -- value
 corresponds to price and amount corresponds to cash flow.

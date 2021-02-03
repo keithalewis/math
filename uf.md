@@ -41,7 +41,7 @@ or a corporation. Corporations can subdivide holdings by groups or individual
 traders. The holding $(i,a,e)$ indicates entity $e$
 owns amount $a$ of instrument $i$.
 
-A _position_ is a set of holdings $\{(i_j,a_j,e_j)\}$. where j ...!!!
+A _position_ is a set of holdings $\{(i_j,a_j,e_j)\}_{j\in J}$
 Assuming each instrument is _fungible_ we can aggregate amounts.
 The _net amount_ in instrument $i$ held by entity $e$ is
 $$
@@ -393,7 +393,6 @@ determined. However, other customers and liquidity providers can cause
 changes to the order book before market orders are executed to cause
 uncertainty in the exact amounts of matching limit orders at each level.
 
-!!! punch up !!! longer story
 There is a clear trajectory in Mathematical Finance starting from the
 Black-Scholes/Merton model of a single option parameterized by a constant
 volatility to portfolios of instruments belonging to the same asset
