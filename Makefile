@@ -3,7 +3,8 @@ HTML = $(MKDN:.md=.html)
 PDF  = $(MKDN:.md=.pdf)
 DOCX = $(MKDN:.md=.docx)
 
-KATEX=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/
+KATEX = https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/
+REVEAL = https://pagecdn.io/lib/reveal/4.0.2/js/reveal.min.js
 
 CSS = math.css
 
@@ -51,8 +52,8 @@ rsync:
 clean:
 	rm -f *.docx *.pdf *.html docs/*.html
 
-RJS = -V revealjs-url=https://cdn.jsdelivr.net/reveal.js/3.0.0
+RJS = -V $(REVEAL)
 
 slides: um_slides.md
-	pandoc -s  -t revealjs $(RJS) -o um_slides.html um_slides.md
+	pandoc -s -H utf8.html -t revealjs $(RJS) -o um_slides.html um_slides.md
 	pandoc -o um_slides.pptx um_slides.md
