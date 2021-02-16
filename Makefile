@@ -51,7 +51,8 @@ rsync:
 clean:
 	rm -f *.docx *.pdf *.html docs/*.html
 
-RJS = -V revealjs-url=https://cdn.jsdelivr.net/reveal.js/3.0.0
+RJS = -V theme="serif" -V revealjs-url=https://cdn.jsdelivr.net/reveal.js/3.0.0
+RJS += --katex=$(KATEX)
 
 slides: um_slides.md
 	pandoc -s  -t revealjs $(RJS) -o um_slides.html um_slides.md
