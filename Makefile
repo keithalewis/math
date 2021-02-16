@@ -3,7 +3,8 @@ HTML = $(MKDN:.md=.html)
 PDF  = $(MKDN:.md=.pdf)
 DOCX = $(MKDN:.md=.docx)
 
-KATEX=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/
+KATEX = https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/
+REVEAL = https://pagecdn.io/lib/reveal/4.0.2/js/reveal.min.js
 
 CSS = math.css
 
@@ -45,14 +46,16 @@ docs: $(HTML) index
 	cp *.html math.css docs
 	git add docs/*
 
-rsync:
-	rcp $(HTML) $(CSS) kal@web626.webfaction.com:webapps/kalx/math
-
 clean:
 	rm -f *.docx *.pdf *.html docs/*.html
 
+<<<<<<< HEAD
 RJS = -V theme="serif" -V revealjs-url=https://cdn.jsdelivr.net/reveal.js/3.0.0
 RJS += --katex=$(KATEX)
+=======
+RJS = -V $(REVEAL)
+>>>>>>> ab2c58c4b5decbe0e3688e3e1c9f864e4147c979
 
 slides: um_slides.md
-	pandoc -s  -t revealjs $(RJS) -o um_slides.html um_slides.md
+	pandoc -s -H utf8.html -t revealjs $(RJS) -o um_slides.html um_slides.md
+	pandoc -o um_slides.pptx um_slides.md
