@@ -12,10 +12,11 @@ abstract: Univeral Financial Model
 This note provides a mathematical model of finance.
 
 Motivation: There are problems with mathematical finance.
+
 ## Time
 
 Let $T$ denote the set of all times with the total order $t\le t'$ indicating $t$
-occured before or at $t'$.
+occured before or at $t'$. 
 
 ## Entity
 
@@ -29,7 +30,7 @@ that are available to entity $e$ at time $t$.
 
 ## Amount
 
-All amounts $A$ can be represented by a real number. Let
+Amounts $A$ can be represented by a real number. Let
 $A(t;i,e;i',e')\subseteq \bm{R}$ denote the set of amounts of instrument $i$ that entity $e$ can
 exchange for instrument $i'$ with entity $e'$ at time $t$. This set is determined by
 the _seller_ $e'$. The _buyer_ is $e$.
@@ -38,18 +39,18 @@ the _seller_ $e'$. The _buyer_ is $e$.
 
 A holding $(a,i,e)$ is an amount, instrument, and entity. 
 
-## Cash Flow
-
-Instruments entail _cash flows_ $C\colon T\times I\times I\to\RR$. Holding $(a,i,e)$
-at time $t$ results in an additional holding $(aC(t;i,i'), i', e)$. The cash flow
-is determined by the _issuer_ of instrument $i$.
-
 ## Trade
 
 A _trade_ $(t;a,i,e;a',i',e')$ is an exchange of holdings between a buyer and a seller.
 At time $t$ the buyer $e$ _pays_ holding $(a,i,e)$ to the seller and _receives_ holding $(a',i',e')$.
 The _price_ of the trade is $X = a/a'$. The buyer exchanges the holding $(a'X,i,e)$ for
 the holding $(i',a',e')$ with the seller.
+
+## Cash Flow
+
+Instruments entail _cash flows_ $C\colon T\times I\times I\to\RR$. Holding $(a,i,e)$
+at time $t$ results in an additional holding $(aC(t;i,i'), i', e)$. The cash flow
+is determined by the _issuer_ of instrument $i$.
 
 ## Price
 

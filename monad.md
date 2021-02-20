@@ -77,5 +77,8 @@ exceptions. There are positive or negative infinity in the case of overflow,
 there is a positve and negative 0, very small (denormalized) numbers have
 a special form that allow detection of the onset of underflow.
 
-In monad speak the wrapping up is called _unit_ and promoting the error
-returning version to work on the wrapped up type is called _map_.
+## Wrapping things up
+
+We can extend this to types other than `double`. Given a type $T$ and errors $E$
+define $M\colon T\to T\times E$ by $Mt = (t,e_0)$ where $e_0$ is the element
+of $E$ indicating no error.
