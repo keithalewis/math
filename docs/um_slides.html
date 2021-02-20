@@ -43,6 +43,12 @@
   <p class="date">4 Feb 2021</p>
 </section>
 
+<section class="slide level2">
+
+<aside class="notes">
+<p>Do not address the crucial problem of tuning the model. Only provide the knobs to turn. Admit this is ambitious, but hard problems push the theory forward.</p>
+</aside>
+</section>
 <section id="what-quants-do" class="slide level2">
 <h2>What Quants Do</h2>
 <ul>
@@ -218,12 +224,12 @@
 <ul>
 <li><span class="math inline">0 = <em>X</em><sub>0</sub> = <em>E</em>[ − <em>D</em><sub><em>t</em></sub> + (1 + <em>f</em><em>δ</em>)<em>D</em><sub><em>u</em></sub>]</span>, so</li>
 <li><span class="math inline"><em>f</em> = (<em>D</em>(<em>t</em>)/<em>D</em>(<em>u</em>) − 1)/<em>δ</em></span>.</li>
-<li><em>Par forward</em> at <span class="math inline"><em>s</em></span> defined by <br /><span class="math display">0 = <em>X</em><sub><em>s</em></sub> = <em>E</em><sub><em>s</em></sub>[ − <em>D</em><sub><em>t</em></sub> + (1 + <em>F</em><sub><em>s</em></sub>(<em>t</em>, <em>u</em>)<em>δ</em>(<em>t</em>, <em>u</em>))<em>D</em><sub><em>u</em></sub>],</span><br /></li>
+<li><em>Par forward</em> <span class="math inline"><em>F</em><sub><em>s</em></sub><sup><em>δ</em></sup>(<em>t</em>, <em>u</em>)</span> at <span class="math inline"><em>s</em></span> defined by <br /><span class="math display">0 = <em>X</em><sub><em>s</em></sub> = <em>E</em><sub><em>s</em></sub>[ − <em>D</em><sub><em>t</em></sub> + (1 + <em>F</em><sub><em>s</em></sub>(<em>t</em>, <em>u</em>)<em>δ</em>(<em>t</em>, <em>u</em>))<em>D</em><sub><em>u</em></sub>],</span><br /></li>
 <li>so <span class="math inline"><em>F</em><sub><em>s</em></sub>(<em>t</em>, <em>u</em>) = (<em>D</em><sub><em>s</em></sub>(<em>t</em>)/<em>D</em><sub><em>s</em></sub>(<em>u</em>) − 1)/<em>δ</em>(<em>t</em>, <em>u</em>)</span></li>
 </ul>
 </section>
-<section id="arrear" class="slide level2">
-<h2>Arrear</h2>
+<section id="arrears" class="slide level2">
+<h2>Arrears</h2>
 <p>A FRA <span class="math inline"><em>F̄</em><sup><em>δ</em></sup>(<em>t</em>, <em>u</em>)</span> paying in <em>arrears</em> has one cash flow <span class="math inline"><em>C</em><sub><em>u</em></sub> = (<em>f</em> − <em>F</em><sub><em>t</em></sub>(<em>t</em>, <em>u</em>))<em>δ</em></span>.</p>
 <ul>
 <li>Model: <span class="math inline"><em>M</em><sub><em>t</em></sub> = (<em>E</em><sub><em>t</em></sub>[<em>D</em><sub><em>u</em></sub>])<sub><em>u</em></sub></span>, <span class="math inline"><em>u</em> ≥ <em>t</em></span>, all zeros indexed by maturity.</li>
