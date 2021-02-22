@@ -124,6 +124,10 @@ D$ exist and $h(gf) = (hg)f$.
 Every object $A$ has an identity arrow $1_A$. If $f\colon A\to B$ then
 $f1_A = f = 1_B f$.
 
+Reversing all arrows in a catgory results in the _opposite category_ $\cat{C}^{op}$.
+
+__Exercise__. _Show $\cat{C}^{op}$ is a category_.
+
 ## Isomorphic
 
 A key concept in category theory is _isomorphism_. Two objects $A$ and
@@ -377,32 +381,21 @@ An arrow that is both mono and epi is called _iso_.
 
 ## Yoneda
 
-If $f\colon X\to Y$ and $g\colon Y\to Z$ then $gf\colon X\to Z$.
+Let $f\colon X\to Y$ be an arrow in $\cat{C}$.
+If $g\colon Y\to Z$ then $gf\colon X\to Z$.
 Right composition induces a map $f^Z\colon\{Y\to Z\}\to\{X\to Z\}$.
+Note the order of $X$ and $Y$ are reversed.
 If $g\colon Z\to X$ then $fg\colon Z\to Y$.
 Left composition induces a map $f_Z\colon\{Z\to X\}\to\{Z\to Y\}$.
+Note the order of $X$ and $Y$ are preserved.
 
+Let $Z$ be an object of category $\cat{C}$. Let $\{\_\to Z\}$ be
+the arrows in $\cat{Z}$ with codomain $Z$. 
+These are objects.
+If $g\colon Y\to Z$ and $h\colon X\to Z$ then $f^Z\colon g\to h$.
 
-In the category set $\hom(X,Y)$ is written $Y^X$.
-If $f\in Y^X$ and $g\in Y^Z$ then $fg\in X^Z$ so
-$f$ induces a map $f^Z\colon Z^Y\to Z^X$.
-
-Right and left composition induce maps.
-Given $f\colon A\to B$, right composition gives a map
-$f^C\colon \{B\to C\}\to\{A\to C\}$, $C\in\cat{C}$, via $f^Cg = gf\colon A\to C$
-for $g\colon B\to C$.
-Given $g\colon B\to C$, left composition is a map
-$g_A\colon \{A\to B\}\to\{A\to C\}$i, $A\in\cat{C}$, via $g_Af = gf\colon A\to C$
-for $f\colon A\to B$.
-
-Likewise for $f\colon X\to Y$,
-$h^Z\colon\{X\to Z\}\to\{Y\to Z\}$ via
-$h^Zf = hf\colon X\to Z$ for $f\colon X\to Y$ and
-$h_Z\colon\{Z\to Y\}\to\{Z\to X\}$ via
-$h_Zf = fh\colon X\to Z$ for $f\colon X\to Y$.
-
-Let $c$ be an object of category $\cat{C}$ and let $\hom(\_,c)$ denote all
-arrows in $\cat{C}$ with codomain $c$.
+This defines a functor
+$\cat{C}\to \{\cat{C}^{op},\cat{Set}\}$.
 
 The _dual_ of a category $\cat{C}$ has as objects all functors from $\cat{C}^{op}$
 to $\cat{Set}$ and arrows all natural transformations between such functors.
