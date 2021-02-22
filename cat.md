@@ -42,9 +42,8 @@ A category consists of objects and arrows that can sometimes be
 _composed_.  Arrows that can be composed are _associative_. Every object
 has an _identity arrow_. In category theory everything is defined in
 terms of objects and arrows.  You will need to disabuse yourself of the
-notion that arrows are functions and objects have elements.  Arrow are
-more general and impose a rigour that clarifies the essential nature
-mathematical objects.
+notion that arrows are functions and objects have elements.  Arrows are
+more general and lead to a notion of parameterized set elements (_sheafs_).
 
 ## Objects and Arrows
 
@@ -64,7 +63,7 @@ The scare quotes indicate this is not necessarily a set
 but standard terminology for this is _homset_. Hom is short for
 _homomorphism_ indicating arrows preserve the structure of objects.
 Homsets are also written $\cat{C}[A,B]$. We will use the non-standard but
-more suggestive notation $\{A\to B\}$ or $\{A\to B\}_{\cat{C}}$
+more suggestive notation $\{A\to B\}$ or $\{A\to B\in \cat{C}\}$
 when indicating the category is necessary.
 
 ### Composition
@@ -137,21 +136,21 @@ __Exercise__. _Show isomorphism is an equivalence relation_.
 Hint: We have shown $A\cong A$ for every object $A$. Show $A\cong B$
 implies $B\cong A$ and $A\cong B$, $B\cong C$ imply $A\cong C$.
 
-Think of equivalence as a weakened form of equality. In the case of
+Equivalence as a weakened form of equality. In the case of
 $\cat{Set}$ it is a very weakened form; two sets are isomorphic if
 and only if they have the same cardinality. Adding structure to sets by
 reducing the number of functions creates finer grained equivalence
 relations.
+
+__Exercise__. _Show two sets in $\cat{Set}$ are isomorphic if and only
+if they have the same cardinality_.
 
 We call $f,g$ an _isomorphism pair_ for $A,B$.  If $f,g$ and $f,g'$ are
 isomporphims pairs for $A,B$ then $g = g'$ since $g = g1_B = g(fg') =
 (gf)g' = 1_Ag' = g'$. We write $g = f^{-1}$ and, mutatis mutandis,
 $f = g^{-1}$.
 
-__Exercise__. _Show two sets in $\cat{Set}$ are isomorphic if and only
-if they have the same cardinality_.
-
-This also shows isomorphism pairs are not, in general, unique.
+Isomorphism pairs are not, in general, unique.
 We can define an equivalence relation on isomorphism pairs by
 $(f,g)\tilde (f',g')$ if and only if they are isomorphism
 pairs for some $A$, $B$.
@@ -164,25 +163,39 @@ A functor $F\colon\cat{A}\to\cat{B}$ takes objects and arrows of $\cat{A}$ to
 objects and arrows of $\cat{B}$ and respects the category structure.
 If $f\colon A\to A'$, in \cat{A}$ then
 $F(f)\colon F(A)\to F(A')$ in $\cat{B}$ with
-$F(gf) = F(g)F(f)$ and $F(1_A) = 1_{F(A)}$.
+$F(gf) = F(g)F(f)$.
+
+__Exercise__. _Show $F(gf) = F(g)F(f)$ implies $F(1_A) = 1_{F(A)}$_.
 
 The category $\cat{Cat}$ has objects categories and arrows functors.
 If $F\colon\cat{A}\to\cat{B}$ and $G\colon\cat{B}\to\cat{C}$ are
-functors then $GF\colon\cat{A}\to\cat{C}$ composition is
+functors then composition $GF\colon\cat{A}\to\cat{C}$ is
 $(GF)(A) = G(F(A))$. The identity functor is the identity of $\cat{Cat}$.
 
 The category $\cat{2-Cat}$ has objects functors and arrows _natural transformations_.
 If $F,G\colon\cat{A}\to\cat{B}$ are functors a natural transformation
 $\eta\colon F\to G$ takes objects $A$ of $\cat{A}$ to arrows $\eta_A$ of $\cat{B}$.
-If $h\colon A\to A'$ in $\cat{A}$ then $G(h)\eta_A = \eta_{A'}F(h)$ in $\cat{B}$.
+
+Natural transformations must satisfy $h\colon A\to A'$ in $\cat{A}$ then $G(h)\eta_A = \eta_{A'}F(h)$ in $\cat{B}$.
 
 In case you are wondering, $\cat{n-Cat}$ can be defined for all positive integers $n$.
 
 ## Examples
 
-It is impossible to understand category theory without understanding
+It is impossible to understand category theory without being familiar with
 examples of categories. They are its raison d'être. Many seemingly
-disparate constructs can be unified.
+disparate constructs can be unified using category theory.
+
+### Mon
+
+The category $\cat{Mon}$ is the collection of all categories having only one object.
+Any such category is a _monoid_ where the (one and only) identity arrow
+is the identity element of the monoid and composition of arrows is the
+binary operation of the moniod.
+
+__Exercise__. _Show any two arrows of a monoid can be composed_.
+
+### Set
 
 The canonical example of a category is $\cat{Set}$. The objects are sets and
 the arrows are functions. People tried to come up with a purely
@@ -204,6 +217,13 @@ as $\cat{Set}$.
 A case could be made that $\cat{Set}$ should be called $\cat{Fun}$.
 
 $\cat{Rel}$ is the category of relations. It generalizes $\cat{Set}$ and $\cat{Par}$.
+A _relation_ is a subset $R\subseteq A\times B$ of the cartesian product.
+We write $aRb$ for $(a,b)\in R$, $a\in A$, $b\in B$. The composition
+of relations $R\colon A\to B$ and $S\colon B\to C$ is
+$SR = \{(a,c): aRb\text{ and } bRc \text{ for some }b\in B\}\subseteq A\times C$.
+
+__Exercise__: _Show $1_A = \{(a,a):a\in A\}$ is the identity and
+composition of relations is associative_.
 
 ### Sets with Structure
 
@@ -221,16 +241,13 @@ and the arrows are linear transformations.
 Rings, fields, and algebras provide more examples. The theme of category
 theory is to provide a unified treatment of various mathematical areas.
 
-<!--
 All of these examples satisfy a lemma of the form every arrow
 $f\colon A\to B$ is a composition of arrows
-$\pi\colon A\to A/\ker f$, $\nu\colon A/\ker f\to \ran B$, and $i\colon \ran B\to B$
-where $\pi$ is 'onto' and $\nu$ is 'one-to-one'
+$\pi\colon A\to A/\ker f$, $\nu\colon A/\ker f\to \ran B$, and $\iota\colon \ran B\to B$
+where $\pi$ is 'onto', $\nu$ is 'one-to-one', and $\iota$ is 'inclusion'
 for appropriate definitions of $\ker$, $\ran$, quotient $/$,
-onto, and one-to-one. Arrows can be used to factor objects into smaller
-objects $A/\ker f$ and $\ran f$. This is similar to factoring a number
-into primes.
--->
+onto, one-to-one, and inclusion. Arrows can be used to factor objects into smaller
+objects $A/\ker f$ and $\ran f$.
 
 ### Orders 
 
@@ -246,7 +263,7 @@ transitive law.  Preorders have the property that homsets have at most
 one arrow.  Every category with this property is a preset.
 
 $\cat{Pos}$ is the category of _posets_.
-A _poset_ is a preset that is also _antisymmetric_ ($a\preceq b$
+A poset is a preset that is also _antisymmetric_ ($a\preceq b$
 and $b\preceq a$ imply $a = b$).
 Such relations are called _partial orders_.
 The category _Set_ can be viewed as a poset under subset inclusion.
@@ -254,7 +271,7 @@ The objects are sets and the arrows are $f\colon A\to B$ if $A\subseteq B$.
 
 $\cat{Equ}$ is the category of _equivalence relations_.
 An equivalence relations is a preorder that is also _symmetric_
-($a\preceq b$ implies $b\preceq a$). Equivalence relations
+($a\sim b$ implies $b\sim a$). Equivalence relations
 are used to classify objects.
 
 ### $\cat{Cat}$
@@ -321,10 +338,11 @@ arrows.  Attempts to express $\cat{Set}$ purely in terms of objects and
 arrows leads to $\cat{Top}$, the category of topoi. This attempt failed
 in the sense that it did not lead back to the category $\cat{Set}$. It
 was succesful at giving a better understanding of the foundations
-of mathematics. Unfortunately, as often happens in mathematics, following
+of mathematics. As often happens in mathematics, following
 your nose leads to complications. For example, a sphere is a set. The
 elements of the set are points on the sphere. In a topoi the "elements"
-of the sphere are the tangent planes to each point.
+of the sphere are the tangent planes to each point. This is an
+example of a _sheaf_.
 
 We have already seen how to use arrows to define isomorphisms. If
 $A$ and $B$ are isomorphic then there are arrows $f\colon A\to B$
@@ -356,6 +374,38 @@ In $\cat{Set}$ mono arrows have a left inverse and epi arrows have a right inver
 but this is not true for every category.
 
 An arrow that is both mono and epi is called _iso_.
+
+## Yoneda
+
+If $f\colon X\to Y$ and $g\colon Y\to Z$ then $gf\colon X\to Z$.
+Right composition induces a map $f^Z\colon\{Y\to Z\}\to\{X\to Z\}$.
+If $g\colon Z\to X$ then $fg\colon Z\to Y$.
+Left composition induces a map $f_Z\colon\{Z\to X\}\to\{Z\to Y\}$.
+
+
+In the category set $\hom(X,Y)$ is written $Y^X$.
+If $f\in Y^X$ and $g\in Y^Z$ then $fg\in X^Z$ so
+$f$ induces a map $f^Z\colon Z^Y\to Z^X$.
+
+Right and left composition induce maps.
+Given $f\colon A\to B$, right composition gives a map
+$f^C\colon \{B\to C\}\to\{A\to C\}$, $C\in\cat{C}$, via $f^Cg = gf\colon A\to C$
+for $g\colon B\to C$.
+Given $g\colon B\to C$, left composition is a map
+$g_A\colon \{A\to B\}\to\{A\to C\}$i, $A\in\cat{C}$, via $g_Af = gf\colon A\to C$
+for $f\colon A\to B$.
+
+Likewise for $f\colon X\to Y$,
+$h^Z\colon\{X\to Z\}\to\{Y\to Z\}$ via
+$h^Zf = hf\colon X\to Z$ for $f\colon X\to Y$ and
+$h_Z\colon\{Z\to Y\}\to\{Z\to X\}$ via
+$h_Zf = fh\colon X\to Z$ for $f\colon X\to Y$.
+
+Let $c$ be an object of category $\cat{C}$ and let $\hom(\_,c)$ denote all
+arrows in $\cat{C}$ with codomain $c$.
+
+The _dual_ of a category $\cat{C}$ has as objects all functors from $\cat{C}^{op}$
+to $\cat{Set}$ and arrows all natural transformations between such functors.
 
 ### Product
 

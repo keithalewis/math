@@ -284,5 +284,13 @@ $\next(s) = s'$ if $k != j + 1$ and $\next(s) = skip(u)$ if $k = j + 1$.
 
 ## Examples
 
+### Opening Range Breakout
+
 A _range breakout_ is a signal defined by a time period $p = [t_0, t_1]$ and
-a return $R$. If $(s(t_1) - s(t_0)/s(t_0) > R$ we say a breakout occured at $t_1$.
+a return $r$. If $(x(t_1) - x(t_0))/x(t_0) > r$ we say a breakout occured at $t_1$.
+
+### Stop Loss/Start Gain
+
+Buy at open if less than previous weeks close.
+Sell at close if greater than buy.
+Always sell and end of week close if long.

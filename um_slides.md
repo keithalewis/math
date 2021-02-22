@@ -239,7 +239,7 @@ where $δ$ is the dcf for the interval from $t$ to $u$.
 
 * $0 = X_0 = E[-D_t + (1 + fδ)D_u]$, so
 * $f = (D(t)/D(u) - 1)/δ$.
-* _Par forward_ at $s$ defined by
+* _Par forward_ $F^δ_s(t,u)$ at $s$ defined by
 $$
 	0 = X_s = E_s[-D_t + (1 + F_s(t,u)δ(t,u))D_u],
 $$
@@ -247,7 +247,7 @@ $$
 
 ---
 
-## Arrear
+## Arrears
 
 A FRA $\bar{F}^δ(t,u)$ paying in _arrears_ has one cash flow $C_u = (f - F_t(t,u))δ$. 
 

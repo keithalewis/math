@@ -4,7 +4,7 @@ PDF  = $(MKDN:.md=.pdf)
 DOCX = $(MKDN:.md=.docx)
 
 KATEX = https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/
-REVEAL = https://pagecdn.io/lib/reveal/4.0.2/js/reveal.min.js
+REVEAL = https://cdn.jsdelivr.net/reveal.js/3.0.0
 
 CSS = math.css
 
@@ -52,5 +52,5 @@ clean:
 RJS = -V theme="serif" -V revealjs-url=https://cdn.jsdelivr.net/reveal.js/3.0.0
 
 slides: um_slides.md
-	pandoc -s -H utf8.html -t revealjs $(RJS) -o um_slides.html um_slides.md
+	pandoc --include-in-header=revealjs.html -V theme=serif -H utf8.html -t revealjs -o um_slides.html um_slides.md
 	pandoc -o um_slides.pptx um_slides.md
