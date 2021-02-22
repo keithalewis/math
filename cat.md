@@ -397,6 +397,31 @@ If $g\colon Y\to Z$ and $h\colon X\to Z$ then $f^Z\colon g\to h$.
 This defines a functor
 $\cat{C}\to \{\cat{C}^{op},\cat{Set}\}$.
 
+These provide functors $\hat{}Z\colon\cat{C}\to\{\_,Z\}$ and $\_Z\colon\cat{C}\to\{Z,\_\}$
+where $\{\_,Z\}$ is the catgory of arrows having codomain $Z$
+and \{Z,\_\} is the catgory of arrows having domain $Z$.
+The functor $\hat{}Z$ send the object $C$ in $\cat{C}$ to $\{C\to Z\}$
+and the arrow $f$ to $f^Z$.
+
+
+
+Right and left composition induce maps.
+Given $f\colon A\to B$, right composition gives a map
+$f^C\colon \{B\to C\}\to\{A\to C\}$, $C\in\cat{C}$, via $f^Cg = gf\colon A\to C$
+for $g\colon B\to C$.
+Given $g\colon B\to C$, left composition is a map
+$g_A\colon \{A\to B\}\to\{A\to C\}$i, $A\in\cat{C}$, via $g_Af = gf\colon A\to C$
+for $f\colon A\to B$.
+
+Likewise for $f\colon X\to Y$,
+$h^Z\colon\{X\to Z\}\to\{Y\to Z\}$ via
+$h^Zf = hf\colon X\to Z$ for $f\colon X\to Y$ and
+$h_Z\colon\{Z\to Y\}\to\{Z\to X\}$ via
+$h_Zf = fh\colon X\to Z$ for $f\colon X\to Y$.
+
+Let $c$ be an object of category $\cat{C}$ and let $\hom(\_,c)$ denote all
+arrows in $\cat{C}$ with codomain $c$.
+
 The _dual_ of a category $\cat{C}$ has as objects all functors from $\cat{C}^{op}$
 to $\cat{Set}$ and arrows all natural transformations between such functors.
 
@@ -435,6 +460,8 @@ It is trivial to verify that reversing all arrows in a category $\cat{A}$
 results in the _opposite_, or _dual_, category, $\cat{A}^{op}$.
 
 This is also quite useful.
+
+A functor
 
 ## Presheaf
 
@@ -501,3 +528,5 @@ $R$ and $R*$ is contained in $1_A$_.
 > $(a, b)\in R$ and $(a, b)\in R*$ imply $a = b$  
 > $(a, b)\in R intersect R*$ imply $(a, b)\in 1_A$   
 > The intersection of $R$ and $R*$ is contained in $1_A$  
+
+## NOTES
