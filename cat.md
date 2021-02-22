@@ -382,10 +382,13 @@ Right composition induces a map $f^Z\colon\{Y\to Z\}\to\{X\to Z\}$.
 If $g\colon Z\to X$ then $fg\colon Z\to Y$.
 Left composition induces a map $f_Z\colon\{Z\to X\}\to\{Z\to Y\}$.
 
+These provide functors $\hat{}Z\colon\cat{C}\to\{\_,Z\}$ and $\_Z\colon\cat{C}\to\{Z,\_\}$
+where $\{\_,Z\}$ is the catgory of arrows having codomain $Z$
+and \{Z,\_\} is the catgory of arrows having domain $Z$.
+The functor $\hat{}Z$ send the object $C$ in $\cat{C}$ to $\{C\to Z\}$
+and the arrow $f$ to $f^Z$.
 
-In the category set $\hom(X,Y)$ is written $Y^X$.
-If $f\in Y^X$ and $g\in Y^Z$ then $fg\in X^Z$ so
-$f$ induces a map $f^Z\colon Z^Y\to Z^X$.
+
 
 Right and left composition induce maps.
 Given $f\colon A\to B$, right composition gives a map
@@ -442,6 +445,8 @@ It is trivial to verify that reversing all arrows in a category $\cat{A}$
 results in the _opposite_, or _dual_, category, $\cat{A}^{op}$.
 
 This is also quite useful.
+
+A functor
 
 ## Presheaf
 
@@ -508,3 +513,5 @@ $R$ and $R*$ is contained in $1_A$_.
 > $(a, b)\in R$ and $(a, b)\in R*$ imply $a = b$  
 > $(a, b)\in R intersect R*$ imply $(a, b)\in 1_A$   
 > The intersection of $R$ and $R*$ is contained in $1_A$  
+
+## NOTES
