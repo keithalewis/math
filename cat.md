@@ -379,19 +379,39 @@ An arrow that is both mono and epi is called _iso_.
 
 ## Yoneda
 
+Nobody understands the Yoneda Lemma. As Von Neumann said, "you don't understand
+math, you just get used to it." It is similar to Cayley's theorem that states
+every group is (isomorphic to) a subgroup of the permutaion group of the set of group elements.
+The abstract notion of a group defined in terms of axioms
+can be represented by embedded it in a more familiar structure.
+The Yoneda Lemma is different from Cayley's theorem in that it represents categories
+by embedding them in a less familiar structure.
+
 If $f\colon X\to Y$ and $g\colon Y\to Z$ then $gf\colon X\to Z$ so
-right composition induces a map $f^Z\colon\{Y\to Z\}\to\{X\to Z\}$.  
+right composition induces a map $f^Z\colon\{Y\to Z\}\to\{X\to Z\}$, $f^Zg = gf$.  
 If $g\colon Z\to X$ and $f\colon X\to Y$ then $fg\colon Z\to Y$ so
-left composition induces a map $f_Z\colon\{Z\to X\}\to\{Z\to Y\}$.
+left composition induces a map $f_Z\colon\{Z\to X\}\to\{Z\to Y\}$, $f_Zg = fg$.  
 
-Let $\{\_\to Z\}$ be the category with objects $\{Y\to Z\}$ and
-arrows $f^Z$ for $f\colon X\to Y$.  
-Let $\{Z\to \_\}$ be the category with objects $\{Z\to X\}$ and
-arrows $f_Z$ for $f\colon X\to Y$.  
+Let $\{\_\to Z\}$ be the category with 
+arrows $f^Z\colon\{Y\to Z\}\to\{X\to Z\}$ for $f\colon X\to Y$.  
+If $f\colon X\to Y$ and $g\colon U\to V$
+then $f^Z\colon\{Y\to Z\}\to\{X\to Z\}$
+and $g^Z\colon\{V\to Z\}\to\{U\to Z\}$.  
+These arrows can be composed if $X = V$, $g^Zf^Z\colon\{Y\to Z\}\to\{U\to Z\}$.
 
-The functor $\hat{}Z\colon\cat{C}\to\{\_\to Z\}$ takes $f\colon X\to Y$
+Let $\{Z\to\_\}$ be the category with 
+arrows $f_Z\colon\{Z\to X\}\to\{Z\to Y\}$ for $f\colon X\to Y$.  
+If $f\colon X\to Y$ and $g\colon U\to V$
+then $f_Z\colon\{Z\to X\}\to\{Z\to Y\}$
+and $g_Z\colon\{Z\to U\}\to\{Z\to V\}$.  
+These arrows can be composed if $Y = U$, $g_Zf_Z\colon\{Z\to X\}\to\{Z\to V\}$.
+
+Given a category $\cat{C}$, the functor $\to Z\colon\cat{C}\to\{\_\to Z\}$ takes $f\colon X\to Y$
 to $f^Z$.  
-The functor $\_Z\colon\cat{C}\to\{Z\to\_\}$ takes $f\colon X\to Y$
+If $f\colon X\to Y$ and $g\colon Y\to V$
+then $\hat{}Z(g^Zf^Z) = (\hat{}Zg^Z)(\hat{}Zf^X)$.
+
+Given a category $\cat{C}$, the functor $\_Z\colon\cat{C}\to\{Z\to\_\}$ takes $f\colon X\to Y$
 to $f_Z$.  
 
 $f: X -> Y$, $f^Z: Y -> Z$.
