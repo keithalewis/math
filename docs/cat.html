@@ -96,6 +96,8 @@ Solution
 <h2>Category</h2>
 <p>A category consists of objects and arrows. Every arrow <span class="math inline">f</span> has two objects associated with it, its domain <span class="math inline">\operatorname{dom}{f}</span> and its codomain <span class="math inline">\operatorname{cod}{f}</span>. We write <span class="math inline">f\colon A\to B</span> when <span class="math inline">A</span> is the domain of <span class="math inline">f</span> and <span class="math inline">B</span> is the codomain of <span class="math inline">f</span>. If <span class="math inline">f\colon A\to B</span> and <span class="math inline">g\colon B\to C</span> then <span class="math inline">gf\colon A\to C</span> exists. If <span class="math inline">f\colon A\to B</span>, <span class="math inline">g\colon B\to C</span>, and <span class="math inline">h\colon C\to D</span> then <span class="math inline">gf\colon A\to C</span> and <span class="math inline">hg\colon C\to D</span> exist and <span class="math inline">h(gf) = (hg)f</span>.</p>
 <p>Every object <span class="math inline">A</span> has an identity arrow <span class="math inline">1_A</span>. If <span class="math inline">f\colon A\to B</span> then <span class="math inline">f1_A = f = 1_B f</span>.</p>
+<p>Reversing all arrows in a catgory results in the <em>opposite category</em> <span class="math inline">\mathbf{C}^{op}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\mathbf{C}^{op}</span> is a category</em>.</p>
 </section>
 <section id="isomorphic" class="level2">
 <h2>Isomorphic</h2>
@@ -208,7 +210,6 @@ These arrows can be composed if <span class="math inline">Y = U</span>, <span cl
 <p>Given a category <span class="math inline">\mathbf{C}</span>, the functor <span class="math inline">\to Z\colon\mathbf{C}\to\{\_\to Z\}</span> takes <span class="math inline">f\colon X\to Y</span> to <span class="math inline">f\to Z</span>.<br />
 If <span class="math inline">f\colon X\to Y</span> and <span class="math inline">g\colon Y\to V</span> then <span class="math inline">\to Z(g\to Z)(f\to Z) = (g\to Z)(f\to Z)</span>.</p>
 <p>Given a category <span class="math inline">\mathbf{C}</span>, the functor <span class="math inline">Z\to\colon\mathbf{C}\to\{Z\to\_\}</span> takes <span class="math inline">f\colon X\to Y</span> to <span class="math inline">Z\to f</span>.</p>
-<p><span class="math inline">f: X -&gt; Y</span>, <span class="math inline">f^Z: Y -&gt; Z</span>.</p>
 <section id="product" class="level3">
 <h3>Product</h3>
 <p>The <em>product</em> <span class="math inline">\Pi_{i\in I} X_i = \Pi X_I</span> of <span class="math inline">X_i</span> is defined by arrows <span class="math inline">\pi_i\colon \Pi X_I\to X_i</span>, <span class="math inline">i\in I</span>. If for any arrows <span class="math inline">p_i\colon Y\to X_i</span> there exists an arrow <span class="math inline">p\colon Y\to \Pi X_I</span> with <span class="math inline">\pi_ip = p_i</span>, <span class="math inline">i\in I</span>. The product of <span class="math inline">X</span> and <span class="math inline">Y</span> is denoted <span class="math inline">X\times Y</span>.</p>

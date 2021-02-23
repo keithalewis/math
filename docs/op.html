@@ -18,12 +18,14 @@
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
    var mathElements = document.getElementsByClassName("math");
+   var macros = [];
    for (var i = 0; i < mathElements.length; i++) {
     var texText = mathElements[i].firstChild;
     if (mathElements[i].tagName == "SPAN") {
      katex.render(texText.data, mathElements[i], {
       displayMode: mathElements[i].classList.contains('display'),
       throwOnError: false,
+      macros: macros,
       fleqn: true
      });
   }}});
@@ -54,9 +56,9 @@
 <section id="black-scholesmerton" class="level2">
 <h2>Black-Scholes/Merton</h2>
 <p>The classic Black-Scholes/Merton formula for the spot value of a call option is <span class="math display">
-    v_0 = s N(d_1) - ke^{-rt} N(d_2),
-</span> where <span class="math inline">N</span> is the standard normal cumluative distribution function, <span class="math inline">s</span> is the spot price, <span class="math inline">k</span> is the call strike, <span class="math inline">r</span> is the risk-free interest rate, <span class="math inline">t</span> is the time in years to expiration, <span class="math inline">d_1 = (\log(s/k) + (r + σ^2/2)t)/σ\sqrt{t}</span>, and <span class="math inline">d_2 = d_1 - σ\sqrt{t}</span>.</p>
-<p><em>Delta</em> is the derivative of value with respect to the underlying. It is true that <span class="math inline">∂_s v_0 = ∂v_0/∂s = N(d_1)</span>, but <span class="math inline">d_1</span> and <span class="math inline">d_2</span> involve <span class="math inline">s</span> so one needs to show <span class="math inline">s ∂_s N(d_1) - ke^{-rt} ∂_s N(d_2) = 0</span>. Plowing through the calculations involved is a ritual we all perform when first learning the theory.</p>
+    v_0 = s N(d_1) - ke^{-rt} N(d_2)
+</span> where <span class="math inline">N</span> is the standard normal cumluative distribution function, <span class="math inline">s</span> is the spot price, <span class="math inline">k</span> is the call strike, <span class="math inline">r</span> is the risk-free continuously compounded interest rate, <span class="math inline">t</span> is the time in years to expiration, <span class="math inline">d_1 = (\log(s/k) + (r + σ^2/2)t)/σ\sqrt{t}</span>, and <span class="math inline">d_2 = d_1 - σ\sqrt{t}</span>.</p>
+<p>Option <em>delta</em> is the derivative of value with respect to the underlying. It is true that <span class="math inline">∂_s v_0 = ∂v_0/∂s = N(d_1)</span>, but <span class="math inline">d_1</span> and <span class="math inline">d_2</span> involve <span class="math inline">s</span> so one needs to show <span class="math inline">s ∂_s N(d_1) - ke^{-rt} ∂_s N(d_2) = 0</span>. Plowing through the calculations involved is a ritual we all perform when first learning the theory.</p>
 <p>Their Nobel Prize winning work showed how to replicate the payoff of an option by dynamically hedging it with the underlying. The value of an option is the cost of setting up the initial hedge. It is not trivial to show the value is the expectation of the option payoff under some probability measure. This is why Nobel Prizes are awarded.</p>
 <p>Fischer Black simplified this formula by expressing it in terms of <em>forward values</em>. <span class="math display">
     v_t = f N(d_1) - k N(d_2),
@@ -81,13 +83,13 @@
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">Fe^{s^2}\ge k</span> if and only if <span class="math inline">-X\le d_1</span></em>.</p>
 <p>This establishes the Black formula for the forward value of an option since <span class="math inline">-X</span> has the same distribution as <span class="math inline">X</span>.</p>
 <p>For any differentiable function <span class="math inline">ν</span>, <span class="math inline">∂_f E[ν(F)] = E[ν&#39;(F) ∂_f F] = E[ν&#39;(F) e^{sX - s^2/2}] = E[ν&#39;(Fe^{s^2})]</span> so <span class="math display">
-    ∂_f v = E[1(Fe^{s^2}\ge k)] = N(d_1).
+    ∂_f v = E[1(Fe^{s^2}\ge k)] = P(Fe^{s^2}\ge k) = N(d_1).
 </span> This establishes the formula for option delta without any turmoil. Option values and greeks for any positive underlying can be calculated in a similar fashion.</p>
 </section>
 <section id="share-measure" class="level2">
 <h2>Share Measure</h2>
 <p>Let <span class="math inline">F</span> be the price of the <em>underlying</em> instrument at option expiration. The forward value of an option paying <span class="math inline">ν(F)</span> in some currency at expiration is <span class="math inline">E[ν(F)]</span>. If <span class="math inline">F</span> is positive we can also consider the payoff in terms of shares of <span class="math inline">F</span>, <span class="math inline">ν_s(F) = ν(F)F/E[F]</span>; if we receive <span class="math inline">ν_s(F)</span> shares of <span class="math inline">F</span> at expiration we can convert those at price <span class="math inline">F</span> to <span class="math inline">ν(F)</span> in the currency.</p>
-<p><em>Share measure</em> for positive underlyings <span class="math inline">E_s</span> is defined by <span class="math inline">E_s[ν(F)] = E[ν(F) F/E[F]]</span>. Note <span class="math inline">F &gt; 0</span> and <span class="math inline">E_s[1] = 1</span> so share measure is a probability measure. It shows up in the formula for valuing a call <span class="math display">
+<p><em>Share measure</em> for positive underlyings is defined by <span class="math inline">E_s[ν(F)] = E[ν(F) F/E[F]]</span>. Note <span class="math inline">F &gt; 0</span> and <span class="math inline">E_s[1] = 1</span> so share measure is a probability measure. It shows up in the formula for valuing a call <span class="math display">
 \begin{aligned}
     E[(F - k)^+] &amp;= E[(F - k)1(F\ge k)] \\
         &amp;= EF1(F\ge k) - k P(F\ge k) \\
@@ -97,30 +99,30 @@
 <p><strong>Exercise</strong>. <em>Clearly <span class="math inline">\log(F/E[F]) = m + sX</span> for some random variable <span class="math inline">X</span> with mean 0 and variance 1. Show <span class="math inline">E[F] = f</span> implies <span class="math inline">m = -κ(s)</span></em>.</p>
 <p>If we let <span class="math inline">ε_s(x) = e^{s x - κ(s)}</span>, so <span class="math inline">F = fε_s(X)</span>, this can be written <span class="math inline">E_s[ν(F)] = E[ν(F) ε_s(X)]</span> and we see share measure is the Esscher transform. The cumulative distribution of <span class="math inline">F</span> under this measure is <span class="math display">
     P_s(F\le y) = P_s(X\le x) = E[1(X\le x) e^{sX - κ(s)}]
-</span> where <span class="math inline">x = x(y) = ε_s^{-1}(y/f) = (\log y/f + κ(s))/s</span> is the <em>moneyness</em> of <span class="math inline">y</span>. Note <span class="math inline">ε_s(x(y)) = y/f</span>.</p>
+</span> where <span class="math inline">x = x(y) = ε_s^{-1}(y/f) = (\log y/f + κ(s))/s</span> is the <em>moneyness</em> of <span class="math inline">y</span>. Note <span class="math inline">∂_x ε_s(x) = ε_s(x) s</span>, <span class="math inline">∂_s ε_s(x) = ε_s(x) (x - κ&#39;(s))</span>, and <span class="math inline">ε_s(x(y)) = y/f</span>.</p>
 </section>
 <section id="greeks" class="level2">
 <h2>Greeks</h2>
-<p>Let <span class="math inline">ν(F)</span> be the option payoff at expiration. The forward value of the option is <span class="math inline">v = E[ν(F)]</span>. <em>Delta</em> is the derivative of value with respect to the forward <span class="math display">
+<p>Let <span class="math inline">ν(F)</span> be the option payoff at expiration. The forward value of the option is <span class="math inline">v = E[ν(F)]</span>. Option <em>delta</em> is the derivative of value with respect to the forward <span class="math display">
 ∂_f v = E[ν&#39;(F) ∂_f F] = E[ν&#39;(F) ε_s(X)]
-</span> since <span class="math inline">∂_f F = ε_s(X)</span>.</p>
+</span> using <span class="math inline">∂_f F = ε_s(X)</span>.</p>
 <p><em>Gamma</em> is the second derivative with respect to the forward <span class="math display">
 ∂_f^2 v = E[ν&#39;&#39;(F)ε_s^2(X)].
 </span></p>
 <p><em>Vega</em> is the derivative with respect to vol <span class="math display">
-∂_s v = E[ν&#39;(F) ∂_s F] = E[ν&#39;(F)F(X - κ&#39;(s))]
-</span> since <span class="math inline">∂_s F = F(X - κ&#39;(s))</span>.</p>
+∂_s v = E[ν&#39;(F) ∂_s F] = E[ν&#39;(F)F(X - κ&#39;(s))] = fE_s[ν&#39;(F)(X - κ&#39;(s))]
+</span> using <span class="math inline">∂_s F = F(X - κ&#39;(s))</span>.</p>
 <p>The inverse of option value as a function of vol is the <em>implied vol</em>.</p>
 </section>
 <section id="put-and-call" class="level2">
 <h2>Put and Call</h2>
-<p>A <em>put option</em> pays <span class="math inline">ν(F) = (k - F)^+ = \max\{k - F,0\}</span> at expiration and has value <span class="math inline">p = E[(k - F)^+]</span>. A <em>call option</em> pays <span class="math inline">ν(F) = (F - k)^+</span> at expiration and has value <span class="math inline">c = E[(F - k)^+]</span>. Note <span class="math inline">(F - k)^+ - (k - F)^+ = F - k</span> is a <em>forward</em> with <em>strike</em> <span class="math inline">k</span> so all models satisfy <em>put-call parity</em>: <span class="math inline">c - p = f - k</span>. Call delta is <span class="math inline">∂_f c = ∂_f p + 1</span> and call gamma equals put gamma <span class="math inline">∂_f^2 c = ∂_f^2 p</span>. We also have <span class="math inline">∂_s c - ∂_s p = 0</span> so call vega equals put vega.</p>
+<p>A <em>put option</em> pays <span class="math inline">ν(F) = (k - F)^+ = \max\{k - F,0\}</span> at expiration and has value <span class="math inline">p = E[(k - F)^+]</span>. A <em>call option</em> pays <span class="math inline">ν(F) = (F - k)^+</span> at expiration and has value <span class="math inline">c = E[(F - k)^+]</span>. Note <span class="math inline">(F - k)^+ - (k - F)^+ = F - k</span> is a <em>forward</em> with <em>strike</em> <span class="math inline">k</span> so all models satisfy <em>put-call parity</em>: <span class="math inline">c - p = f - k</span>. Call delta is <span class="math inline">∂_f c = ∂_f p + 1</span> and call gamma equals put gamma <span class="math inline">∂_f^2 c = ∂_f^2 p</span>. We also have <span class="math inline">∂_s c - ∂_s p = 0</span> because forwards are independent of vol so call vega equals put vega.</p>
 <p>The value of a put is <span class="math display">
-p =  E[(k - F)^+] = kP(F\le k) - f P_s(F\le k).
+    p =  E[(k - F)^+] = kP(F\le k) - f P_s(F\le k).
 </span></p>
 <p>Put delta is <span class="math display">
     ∂_f p = E[-1(F\le k)ε_s(X)] = -P_s(F\le k).
-</span> since <span class="math inline">∂_f F = ε_s(X)</span>.</p>
+</span></p>
 <p>Gamma for either a put or call is <span class="math display">
     ∂_f^2 p = E[δ_k(F)ε_s(X)^2] = E_s[δ_k(F)ε_s(X)]
 </span> where <span class="math inline">δ_k</span> is a point mass at <span class="math inline">k</span>.</p>
@@ -129,7 +131,7 @@ p =  E[(k - F)^+] = kP(F\le k) - f P_s(F\le k).
 </span></p>
 <section id="distribution" class="level3">
 <h3>Distribution</h3>
-<p>Let <span class="math inline">Φ(x) = P(X\le x)</span> be the cumulative distribution functions of <span class="math inline">X</span> and <span class="math inline">Φ_s(x) = P_s(X\le x) = E[1(X\le x)ε_s(X)]</span> be the <em>share</em> cdf where <span class="math inline">ε_s(x) = e^{sx - κ(s)}</span>. Of course <span class="math inline">Φ(x) = Φ_0(s)</span>. Let <span class="math inline">Ψ_s(y) = P_s(F\le y) = Φ_s(x)</span> be the share cumulative distribution function of <span class="math inline">F</span> where <span class="math inline">y = fε_s(x)</span>. The share density function is <span class="math display">
+<p>Let <span class="math inline">Φ(x) = P(X\le x)</span> be the cumulative distribution functions of <span class="math inline">X</span> and <span class="math inline">Φ_s(x) = P_s(X\le x) = E[1(X\le x)ε_s(X)]</span> be the <em>share</em> cdf. Of course <span class="math inline">Φ(x) = Φ_0(s)</span>. Let <span class="math inline">Ψ_s(y) = P_s(F\le y) = Φ_s(x)</span> be the share cumulative distribution function of <span class="math inline">F</span> where <span class="math inline">y = fε_s(x)</span>. The share density function is <span class="math display">
     ψ_s(y) = φ_s(x) ∂x/∂y = φ_s(x)/ys
 </span> since <span class="math inline">∂y/∂x = ys</span>. We also have <span class="math display">
     ∂_s Φ_s(x) = E[1(X\le x)ε_s(X)(X - κ&#39;(s))] = E_s[1(X\le x) (X - κ&#39;(s))].
@@ -138,9 +140,9 @@ p =  E[(k - F)^+] = kP(F\le k) - f P_s(F\le k).
     p = k Φ(x(k)) - f Φ_s(x(k),
 </span> put delta is <span class="math display">
     ∂_f p = -Φ_s(x(k)),
-</span> put and call gamma is <span class="math display">
-    ∂_f^2 p = E_s[δ_k(F)ε_s(X)] = ψ_s(k) ε_s(x(k)) = (φ_s(x(k))/ks) (k/f) = φ_s(x(k))/fs.
-</span> Since <span class="math inline">φ_s(x) = φ(x) ε_s(x)</span> and ε_s(x(y)) = y/f$, $∂_f^2 p and put and call vega is <span class="math display">
+</span> put gamma is <span class="math display">
+    ∂_f^2 p = E_s[δ_k(F)ε_s(X)] = ψ_s(k) ε_s(x(k)) = (φ_s(x(k))/ks) (k/f) = φ_s(x(k))/fs,
+</span> and put vega is <span class="math display">
     ∂_s p = -f E_s[1(F\le k) (X - κ&#39;(s))] = -f ∂_s Φ_s(x(k)).
 </span></p>
 </section>
@@ -149,22 +151,19 @@ p =  E[(k - F)^+] = kP(F\le k) - f P_s(F\le k).
 <h2>Black Model</h2>
 <p>In the Black modes <span class="math inline">F = fe^{sX - s^2/2}</span> where <span class="math inline">X</span> is standard normal. <a href="cdf.html#normal">Recall</a> if <span class="math inline">X</span> is standard normal then <span class="math inline">E[g(X) e^{sX}] = e^{s^2/2}E[g(X + s)]</span>. Using <span class="math inline">g(x) = 1</span> we see <span class="math inline">κ(s) = s^2/2</span>. Using <span class="math inline">g(X) = 1(X\le x)</span> we get <span class="math inline">Φ_s(x) = P(X + s \le x) = Φ(x - s)</span> and <span class="math inline">∂Φ_s(x)/∂s = -φ(x - s) = -φ_s(x)</span>.</p>
 <p>Put value is <span class="math display">
-    p = k Φ(x(k)) - f Φ(x(k) - s)
+    p = k Φ(x(k)) - f Φ(x(k) - s),
 </span> where <span class="math inline">x(k) = \log(k/f)/s + s/2</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">x(k) = \log(k/f)/s + s/2 = -d_2</span> and <span class="math inline">x(k) - s = \log(k/f)/s - s/2 = -d_1</span></em>.</p>
 <p>Put delta is <span class="math display">
     ∂_f p = -Φ_s(x(k)) = -Φ(x(k) - s).
-</span></p>
-<p>Gamma is <span class="math display">
-    ∂_f^2 p = φ_s(x(k))/fs.
-</span></p>
-<p>Vega is <span class="math display">
-    ∂_s v = -f ∂_s Φ_s(x(k)) = fφ_s(x(k)).
+</span> Gamma is <span class="math display">
+    ∂_f^2 p = φ_s(x(k))/fs = φ(x(k) - s)/fs
+</span> Vega is <span class="math display">
+    ∂_s v = -f ∂_s Φ_s(x(k)) = fφ_s(x(k)) = fφ(x(k) - s).
 </span></p>
 </section>
 <section id="digital" class="level2">
 <h2>Digital</h2>
-<p>A <em>digital put</em> has payoff <span class="math inline">ν(F) = 1(F \le k)</span> and a <em>digital call</em> has payoff <span class="math inline">ν(F) = 1(F &gt; k)</span> with values. Since <span class="math inline">1(F \le k) + 1(F &gt; k) = 1</span> we have digital put-call parity <span class="math inline">p + c = 1</span> where <span class="math inline">p</span> is the digital put value and <span class="math inline">c</span> is the digital call value. <span class="math display">
+<p>A <em>digital put</em> has payoff <span class="math inline">ν(F) = 1(F \le k)</span> and a <em>digital call</em> has payoff <span class="math inline">ν(F) = 1(F &gt; k)</span>. Since <span class="math inline">1(F \le k) + 1(F &gt; k) = 1</span> we have digital put-call parity <span class="math inline">p + c = 1</span> where <span class="math inline">p</span> is the digital put value and <span class="math inline">c</span> is the digital call value: <span class="math display">
     p = P(F \le k), c = P(F &gt; k) = 1 - p.
 </span></p>
 <p>Digital put delta is <span class="math display">
@@ -173,14 +172,14 @@ p =  E[(k - F)^+] = kP(F\le k) - f P_s(F\le k).
 <p>Digital gamma is <span class="math display">
     ∂_f^2 p = E[δ&#39;_k(F)ε_s(X)^2] = E_s[δ&#39;_k(F) ε_s(X)].
 </span></p>
-<p>Digital put vega is <span class="math display">
+<p>Digital vega is <span class="math display">
     ∂_s p = -E[\delta_k(F)F(X - s)] = -f E_s[δ_k(F) (X - κ(s))].
 </span></p>
 </section>
 <section id="parameters" class="level2">
 <h2>Parameters</h2>
 <p>The Black-Scholes/Merton values and greeks can be calculated in terms of the parameters <span class="math inline">f</span> and <span class="math inline">s</span> using the chain rule. For example, the Black model takes <span class="math inline">X</span> to be standard normal and vol <span class="math inline">s = σ \sqrt{t}</span> where <span class="math inline">σ</span> is the standard Black volatilty and <span class="math inline">t</span> is time in years to expiration. In this case standard vega is <span class="math inline">∂_σ E[ν(F)] = ∂_s E[ν(F)] ∂_σ s = ∂_s E[ν(F)]\sqrt{t}</span>.</p>
-<p>The Black-Merton/Scholes model uses <em>spot</em> prices instead of forward. If a risk-free bond has realized return <span class="math inline">R</span> over the period the value of the underlying at expiration is <span class="math inline">U = Rue^{sX - κ(s)}</span>. Since <span class="math inline">F = U</span> we have <span class="math inline">f = Ru</span>. The <em>spot</em> value of the option is <span class="math inline">v_0 = E[ν(U)]/R</span>. We have <span class="math display">
+<p>The Black-Merton/Scholes model uses <em>spot</em> prices instead of forward. If a risk-free bond has realized return <span class="math inline">R = e^{rt}</span> over the period, the value of the underlying at expiration is <span class="math inline">U = Rue^{sX - κ(s)}</span>. Since <span class="math inline">F = U</span> we have <span class="math inline">f = Ru</span>. The <em>spot</em> value of the option is <span class="math inline">v_0 = E[ν(U)]/R</span>. We have <span class="math display">
 ∂_u v_0 = E[ν&#39;(U) ∂_u U]/R
 = E[ν&#39;(F) ∂_f F ∂_u f]/R
 = E[ν&#39;(F) ∂_f F R]/R = ∂_f v.
@@ -189,16 +188,17 @@ p =  E[(k - F)^+] = kP(F\le k) - f P_s(F\le k).
 </span> Spot vega is <span class="math display">
 ∂_s v_0 = E[ν&#39;(U) ∂_s U]/R = E[ν&#39;(F) ∂_s F/R = ∂_s v/R.
 </span></p>
-</section>
-<section id="remarks" class="level2">
-<h2>Remarks</h2>
-<p><span class="math display">
+<!--
+## Remarks
+
+$$
 \begin{aligned}
-κ_{a + bX}(s,x) &amp;= \log E[1(a + bX \le x) e^{s(a + bX)}] \\
-    &amp;= \log e^{as} E[1(X \le (x - a)/b) e^{sbX}] \\
-    &amp;= as + κ_X(bs, (x - a)/b) \\
+κ_{a + bX}(s,x) &= \log E[1(a + bX \le x) e^{s(a + bX)}] \\
+    &= \log e^{as} E[1(X \le (x - a)/b) e^{sbX}] \\
+    &= as + κ_X(bs, (x - a)/b) \\
 \end{aligned}
-</span></p>
+$$
+-->
 </section>
 <footer>
 Return to <a href="index.html">index</a>.
