@@ -194,3 +194,4 @@ $\o{x} = 0$
 This shows $x + x = x$ implies $x = 0$.
 
 It is good form to explicitly state when a proof has been completed.
+This proof has been completed. QED.

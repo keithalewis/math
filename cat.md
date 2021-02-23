@@ -167,6 +167,8 @@ $F(gf) = F(g)F(f)$.
 
 __Exercise__. _Show $F(gf) = F(g)F(f)$ implies $F(1_A) = 1_{F(A)}$_.
 
+This shows we only need to define a functor on arrows.
+
 The category $\cat{Cat}$ has objects categories and arrows functors.
 If $F\colon\cat{A}\to\cat{B}$ and $G\colon\cat{B}\to\cat{C}$ are
 functors then composition $GF\colon\cat{A}\to\cat{C}$ is
@@ -377,38 +379,22 @@ An arrow that is both mono and epi is called _iso_.
 
 ## Yoneda
 
-If $f\colon X\to Y$ and $g\colon Y\to Z$ then $gf\colon X\to Z$.
-Right composition induces a map $f^Z\colon\{Y\to Z\}\to\{X\to Z\}$.
-If $g\colon Z\to X$ then $fg\colon Z\to Y$.
-Left composition induces a map $f_Z\colon\{Z\to X\}\to\{Z\to Y\}$.
+If $f\colon X\to Y$ and $g\colon Y\to Z$ then $gf\colon X\to Z$ so
+right composition induces a map $f^Z\colon\{Y\to Z\}\to\{X\to Z\}$.  
+If $g\colon Z\to X$ and $f\colon X\to Y$ then $fg\colon Z\to Y$ so
+left composition induces a map $f_Z\colon\{Z\to X\}\to\{Z\to Y\}$.
 
-These provide functors $\hat{}Z\colon\cat{C}\to\{\_,Z\}$ and $\_Z\colon\cat{C}\to\{Z,\_\}$
-where $\{\_,Z\}$ is the catgory of arrows having codomain $Z$
-and \{Z,\_\} is the catgory of arrows having domain $Z$.
-The functor $\hat{}Z$ send the object $C$ in $\cat{C}$ to $\{C\to Z\}$
-and the arrow $f$ to $f^Z$.
+Let $\{\_\to Z\}$ be the category with objects $\{Y\to Z\}$ and
+arrows $f^Z$ for $f\colon X\to Y$.  
+Let $\{Z\to \_\}$ be the category with objects $\{Z\to X\}$ and
+arrows $f_Z$ for $f\colon X\to Y$.  
 
+The functor $\hat{}Z\colon\cat{C}\to\{\_\to Z\}$ takes $f\colon X\to Y$
+to $f^Z$.  
+The functor $\_Z\colon\cat{C}\to\{Z\to\_\}$ takes $f\colon X\to Y$
+to $f_Z$.  
 
-
-Right and left composition induce maps.
-Given $f\colon A\to B$, right composition gives a map
-$f^C\colon \{B\to C\}\to\{A\to C\}$, $C\in\cat{C}$, via $f^Cg = gf\colon A\to C$
-for $g\colon B\to C$.
-Given $g\colon B\to C$, left composition is a map
-$g_A\colon \{A\to B\}\to\{A\to C\}$i, $A\in\cat{C}$, via $g_Af = gf\colon A\to C$
-for $f\colon A\to B$.
-
-Likewise for $f\colon X\to Y$,
-$h^Z\colon\{X\to Z\}\to\{Y\to Z\}$ via
-$h^Zf = hf\colon X\to Z$ for $f\colon X\to Y$ and
-$h_Z\colon\{Z\to Y\}\to\{Z\to X\}$ via
-$h_Zf = fh\colon X\to Z$ for $f\colon X\to Y$.
-
-Let $c$ be an object of category $\cat{C}$ and let $\hom(\_,c)$ denote all
-arrows in $\cat{C}$ with codomain $c$.
-
-The _dual_ of a category $\cat{C}$ has as objects all functors from $\cat{C}^{op}$
-to $\cat{Set}$ and arrows all natural transformations between such functors.
+$f: X -> Y$, $f^Z: Y -> Z$.
 
 ### Product
 

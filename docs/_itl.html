@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Iterables</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <!--
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Iterables</h1>
+<p class="author">Keith A. Lewis</p>
+</header>
+<p>Let <span class="math inline">\bm{N}</span> be the natural numbers with its standard ordering and define <span class="math inline">\check{\bm{N}} = \bm{N}\cup\{\omega\}</span> to be the natural numbers augmented by infinty. An <em>initial segement</em> is a interval <span class="math inline">[0,n) = \{m\in\bm{N}: 0\le m\lt n\}</span>. The segment <span class="math inline">[0,0)</span> is empty and <span class="math inline">\bm{N}= [0,\omega)</span>.</p>
+<p>An <em>iterable</em> on <span class="math inline">T</span> is a function <span class="math inline">i\colon[0,n)\to T</span>. We write <span class="math inline">n</span> for <span class="math inline">[0,n)</span> when convenient so, for example, <span class="math inline">i = (t_0,\ldots,t_{n - 1})\in T^n</span>. The set of all iterables on <span class="math inline">T</span> is <span class="math inline">I = I\langle T\rangle = T^* = \cup_{n\ge0}T^n</span>. Define <em>more</em> by <span class="math inline">?i</span> if and only if <span class="math inline">i</span> is not empty, <em>curr</em> by <span class="math inline">*i = t_0</span>, and <em>next</em> by <span class="math inline">+i = (t_1,\ldots)</span>. Note <span class="math inline">?</span> is a function from iterables to booleans, <span class="math inline">*\colon I\langle T\rangle\to T</span> and <span class="math inline">+\colon I\langle T\rangle\to I\langle T\rangle</span>. We use the convention <span class="math inline">*i = \bot</span> and <span class="math inline">+i = i</span> if <span class="math inline">i</span> is empty, where <span class="math inline">\bot</span> denotes some unique element not in <span class="math inline">T</span>. In particlar <span class="math inline">?i</span> if and only if <span class="math inline">\star i\not=\bot</span>.</p>
+<p>An <em>iterable transformation</em> is a function <span class="math inline">f\colon I\langle T\rangle\to I\langle U\rangle</span> such that <span class="math inline">f(+i) = +(fi)</span>, <span class="math inline">i\in I\langle T\rangle</span>.</p>
+<p><strong>Exercise</strong>. _Show <span class="math inline">?(fi) = ?i</span> and <span class="math inline">*f(+i) = *(+(fi)</span>.</p>
+<p>As a special case, if <span class="math inline">f\colon T\to U</span> we write <span class="math inline">fi</span> for the compostion of <span class="math inline">i</span> with <span class="math inline">f</span>.</p>
+<p><strong>Exercise</strong>. <em>Show this is an interable transformation</em>.</p>
+<p>It is useful to consider iterables of iterables. Define <span class="math inline">\iota\colon I\langle T\rangle\to I\langle I\langle T\rangle\rangle</span> by …</p>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

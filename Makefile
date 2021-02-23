@@ -1,4 +1,4 @@
-MKDN = $(wildcard [a-z]*.md)
+MKDN = $(wildcard [a-z]*.md) # do not publish _* files
 HTML = $(MKDN:.md=.html)
 PDF  = $(MKDN:.md=.pdf)
 DOCX = $(MKDN:.md=.docx)

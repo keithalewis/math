@@ -32,8 +32,8 @@ abstract: A Programming Language
 
 > _APL is a mistake carried through to perfection_ &mdash; Edsgar W. Dijkstra
 
-> Such is the advantage of a well constructed language that its simplified
-> notation often becomes the source of profound theories.
+> _Such is the advantage of a well constructed language that its simplified
+> notation often becomes the source of profound theories_.
 >  &mdash; Pierre-Simon Laplace
 
 A Programming Language _APL_ was invented by Ken E. Iverson, a mathematician
