@@ -196,12 +196,18 @@ Solution
 </section>
 <section id="yoneda" class="level2">
 <h2>Yoneda</h2>
-<p>If <span class="math inline">f\colon X\to Y</span> and <span class="math inline">g\colon Y\to Z</span> then <span class="math inline">gf\colon X\to Z</span> so right composition induces a map <span class="math inline">f^Z\colon\{Y\to Z\}\to\{X\to Z\}</span>.<br />
-If <span class="math inline">g\colon Z\to X</span> and <span class="math inline">f\colon X\to Y</span> then <span class="math inline">fg\colon Z\to Y</span> so left composition induces a map <span class="math inline">f_Z\colon\{Z\to X\}\to\{Z\to Y\}</span>.</p>
-<p>Let <span class="math inline">\{\_\to Z\}</span> be the category with objects <span class="math inline">\{Y\to Z\}</span> and arrows <span class="math inline">f^Z</span> for <span class="math inline">f\colon X\to Y</span>.<br />
-Let <span class="math inline">\{Z\to \_\}</span> be the category with objects <span class="math inline">\{Z\to X\}</span> and arrows <span class="math inline">f_Z</span> for <span class="math inline">f\colon X\to Y</span>.</p>
-<p>The functor <span class="math inline">\hat{}Z\colon\mathbf{C}\to\{\_\to Z\}</span> takes <span class="math inline">f\colon X\to Y</span> to <span class="math inline">f^Z</span>.<br />
-The functor <span class="math inline">\_Z\colon\mathbf{C}\to\{Z\to\_\}</span> takes <span class="math inline">f\colon X\to Y</span> to <span class="math inline">f_Z</span>.</p>
+<p>Nobody understands the Yoneda Lemma. As Von Neumann said, “you don’t understand math, you just get used to it.” It is similar to Cayley’s theorem that states every group is (isomorphic to) a subgroup of the permutaion group of the set of group elements. The abstract notion of a group defined in terms of axioms can be represented by embedded it in a more familiar structure. The Yoneda Lemma is different from Cayley’s theorem in that it represents categories by embedding them in a less familiar structure.</p>
+<p>If <span class="math inline">f\colon X\to Y</span> and <span class="math inline">g\colon Y\to Z</span> then <span class="math inline">gf\colon X\to Z</span> so right composition induces a map <span class="math inline">f\to Z\colon\{Y\to Z\}\to\{X\to Z\}</span>, <span class="math inline">(f\to Z)g = gf</span>.<br />
+If <span class="math inline">g\colon Z\to X</span> and <span class="math inline">f\colon X\to Y</span> then <span class="math inline">fg\colon Z\to Y</span> so left composition induces a map <span class="math inline">Z\to f\colon\{Z\to X\}\to\{Z\to Y\}</span>, <span class="math inline">(Z\to f)g = fg</span>.</p>
+<p>Let <span class="math inline">\{\_\to Z\}</span> be the category with arrows <span class="math inline">f\to Z\colon\{Y\to Z\}\to\{X\to Z\}</span> for <span class="math inline">f\colon X\to Y</span>.<br />
+If <span class="math inline">f\colon X\to Y</span> and <span class="math inline">g\colon U\to V</span> then <span class="math inline">f\to Z\colon\{Y\to Z\}\to\{X\to Z\}</span> and <span class="math inline">g\to Z\colon\{V\to Z\}\to\{U\to Z\}</span>.<br />
+These arrows can be composed if <span class="math inline">X = V</span>, <span class="math inline">(g\to Z)(f\to Z)\colon\{Y\to Z\}\to\{U\to Z\}</span>.</p>
+<p>Let <span class="math inline">\{Z\to\_\}</span> be the category with arrows <span class="math inline">Z\to f\colon\{Z\to X\}\to\{Z\to Y\}</span> for <span class="math inline">f\colon X\to Y</span>.<br />
+If <span class="math inline">f\colon X\to Y</span> and <span class="math inline">g\colon U\to V</span> then <span class="math inline">Z\to f\colon\{Z\to X\}\to\{Z\to Y\}</span> and <span class="math inline">Z\to g\colon\{Z\to U\}\to\{Z\to V\}</span>.<br />
+These arrows can be composed if <span class="math inline">Y = U</span>, <span class="math inline">(Z\to g)(Z\to f)\colon\{Z\to X\}\to\{Z\to V\}</span>.</p>
+<p>Given a category <span class="math inline">\mathbf{C}</span>, the functor <span class="math inline">\to Z\colon\mathbf{C}\to\{\_\to Z\}</span> takes <span class="math inline">f\colon X\to Y</span> to <span class="math inline">f\to Z</span>.<br />
+If <span class="math inline">f\colon X\to Y</span> and <span class="math inline">g\colon Y\to V</span> then <span class="math inline">\to Z(g\to Z)(f\to Z) = (g\to Z)(f\to Z)</span>.</p>
+<p>Given a category <span class="math inline">\mathbf{C}</span>, the functor <span class="math inline">Z\to\colon\mathbf{C}\to\{Z\to\_\}</span> takes <span class="math inline">f\colon X\to Y</span> to <span class="math inline">Z\to f</span>.</p>
 <p><span class="math inline">f: X -&gt; Y</span>, <span class="math inline">f^Z: Y -&gt; Z</span>.</p>
 <section id="product" class="level3">
 <h3>Product</h3>

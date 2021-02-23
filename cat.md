@@ -388,31 +388,31 @@ The Yoneda Lemma is different from Cayley's theorem in that it represents catego
 by embedding them in a less familiar structure.
 
 If $f\colon X\to Y$ and $g\colon Y\to Z$ then $gf\colon X\to Z$ so
-right composition induces a map $f^Z\colon\{Y\to Z\}\to\{X\to Z\}$, $f^Zg = gf$.  
+right composition induces a map $f\to Z\colon\{Y\to Z\}\to\{X\to Z\}$, $(f\to Z)g = gf$.  
 If $g\colon Z\to X$ and $f\colon X\to Y$ then $fg\colon Z\to Y$ so
-left composition induces a map $f_Z\colon\{Z\to X\}\to\{Z\to Y\}$, $f_Zg = fg$.  
+left composition induces a map $Z\to f\colon\{Z\to X\}\to\{Z\to Y\}$, $(Z\to f)g = fg$.  
 
 Let $\{\_\to Z\}$ be the category with 
-arrows $f^Z\colon\{Y\to Z\}\to\{X\to Z\}$ for $f\colon X\to Y$.  
+arrows $f\to Z\colon\{Y\to Z\}\to\{X\to Z\}$ for $f\colon X\to Y$.  
 If $f\colon X\to Y$ and $g\colon U\to V$
-then $f^Z\colon\{Y\to Z\}\to\{X\to Z\}$
-and $g^Z\colon\{V\to Z\}\to\{U\to Z\}$.  
-These arrows can be composed if $X = V$, $g^Zf^Z\colon\{Y\to Z\}\to\{U\to Z\}$.
+then $f\to Z\colon\{Y\to Z\}\to\{X\to Z\}$
+and $g\to Z\colon\{V\to Z\}\to\{U\to Z\}$.  
+These arrows can be composed if $X = V$, $(g\to Z)(f\to Z)\colon\{Y\to Z\}\to\{U\to Z\}$.
 
 Let $\{Z\to\_\}$ be the category with 
-arrows $f_Z\colon\{Z\to X\}\to\{Z\to Y\}$ for $f\colon X\to Y$.  
+arrows $Z\to f\colon\{Z\to X\}\to\{Z\to Y\}$ for $f\colon X\to Y$.  
 If $f\colon X\to Y$ and $g\colon U\to V$
-then $f_Z\colon\{Z\to X\}\to\{Z\to Y\}$
-and $g_Z\colon\{Z\to U\}\to\{Z\to V\}$.  
-These arrows can be composed if $Y = U$, $g_Zf_Z\colon\{Z\to X\}\to\{Z\to V\}$.
+then $Z\to f\colon\{Z\to X\}\to\{Z\to Y\}$
+and $Z\to g\colon\{Z\to U\}\to\{Z\to V\}$.  
+These arrows can be composed if $Y = U$, $(Z\to g)(Z\to f)\colon\{Z\to X\}\to\{Z\to V\}$.
 
 Given a category $\cat{C}$, the functor $\to Z\colon\cat{C}\to\{\_\to Z\}$ takes $f\colon X\to Y$
-to $f^Z$.  
+to $f\to Z$.  
 If $f\colon X\to Y$ and $g\colon Y\to V$
-then $\hat{}Z(g^Zf^Z) = (\hat{}Zg^Z)(\hat{}Zf^X)$.
+then $\to Z(g\to Z)(f\to Z) = (g\to Z)(f\to Z)$.
 
-Given a category $\cat{C}$, the functor $\_Z\colon\cat{C}\to\{Z\to\_\}$ takes $f\colon X\to Y$
-to $f_Z$.  
+Given a category $\cat{C}$, the functor $Z\to\colon\cat{C}\to\{Z\to\_\}$ takes $f\colon X\to Y$
+to $Z\to f$.  
 
 $f: X -> Y$, $f^Z: Y -> Z$.
 
