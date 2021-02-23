@@ -124,6 +124,10 @@ D$ exist and $h(gf) = (hg)f$.
 Every object $A$ has an identity arrow $1_A$. If $f\colon A\to B$ then
 $f1_A = f = 1_B f$.
 
+Reversing all arrows in a catgory results in the _opposite category_ $\cat{C}^{op}$.
+
+__Exercise__. _Show $\cat{C}^{op}$ is a category_.
+
 ## Isomorphic
 
 A key concept in category theory is _isomorphism_. Two objects $A$ and
@@ -414,7 +418,6 @@ then $\to Z(g\to Z)(f\to Z) = (g\to Z)(f\to Z)$.
 Given a category $\cat{C}$, the functor $Z\to\colon\cat{C}\to\{Z\to\_\}$ takes $f\colon X\to Y$
 to $Z\to f$.  
 
-$f: X -> Y$, $f^Z: Y -> Z$.
 
 ### Product
 

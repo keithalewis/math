@@ -28,14 +28,14 @@ This short note derives formulas for these that can be used for any positive und
 
 The classic Black-Scholes/Merton formula for the spot value of a call option is
 $$
-	v_0 = s N(d_1) - ke^{-rt} N(d_2),
+	v_0 = s N(d_1) - ke^{-rt} N(d_2)
 $$
-where $N$ is the standard normal cumluative distribution function, $s$
-is the spot price, $k$ is the call strike, $r$ is the risk-free
-interest rate, $t$ is the time in years to expiration, $d_1 = (\log(s/k)
-+ (r + σ^2/2)t)/σ\sqrt{t}$, and $d_2 = d_1 - σ\sqrt{t}$. 
+where $N$ is the standard normal cumluative distribution function, $s$ is
+the spot price, $k$ is the call strike, $r$ is the risk-free continuously
+compounded interest rate, $t$ is the time in years to expiration, $d_1 =
+(\log(s/k) + (r + σ^2/2)t)/σ\sqrt{t}$, and $d_2 = d_1 - σ\sqrt{t}$.
 
-_Delta_ is the derivative of value with respect to the underlying. It is true that
+Option _delta_ is the derivative of value with respect to the underlying. It is true that
 $∂_s v_0 = ∂v_0/∂s = N(d_1)$, but $d_1$ and $d_2$ involve $s$ so one needs to
 show $s ∂_s N(d_1) - ke^{-rt} ∂_s N(d_2) = 0$. Plowing through the
 calculations involved is a ritual we all perform when first learning the theory.
@@ -96,7 +96,7 @@ since $-X$ has the same distribution as $X$.
 For any differentiable function $ν$, 
 $∂_f E[ν(F)] = E[ν'(F) ∂_f F] = E[ν'(F) e^{sX - s^2/2}] = E[ν'(Fe^{s^2})]$ so
 $$
-	∂_f v = E[1(Fe^{s^2}\ge k)] = N(d_1).
+	∂_f v = E[1(Fe^{s^2}\ge k)] = P(Fe^{s^2}\ge k) = N(d_1).
 $$
 This establishes the formula for option delta without any turmoil.
 Option values and greeks for any positive underlying can be calculated
@@ -111,7 +111,7 @@ shares of $F$, $ν_s(F) = ν(F)F/E[F]$; if we receive $ν_s(F)$ shares
 of $F$ at expiration we can convert those at price $F$ to $ν(F)$ in
 the currency.
 
-_Share measure_ for positive underlyings $E_s$ is defined by $E_s[ν(F)] = E[ν(F) F/E[F]]$.
+_Share measure_ for positive underlyings is defined by $E_s[ν(F)] = E[ν(F) F/E[F]]$.
 Note $F > 0$ and $E_s[1] = 1$ so share measure is a probability measure.
 It shows up in the formula for valuing a call
 $$
@@ -136,17 +136,18 @@ $$
 	P_s(F\le y) = P_s(X\le x) = E[1(X\le x) e^{sX - κ(s)}]
 $$
 where $x = x(y) = ε_s^{-1}(y/f) = (\log y/f + κ(s))/s$ is the _moneyness_
-of $y$. Note $ε_s(x(y)) = y/f$.
+of $y$. Note $∂_x ε_s(x) =  ε_s(x) s$, $∂_s ε_s(x) = ε_s(x) (x - κ'(s))$, 
+and $ε_s(x(y)) = y/f$.
 
 ## Greeks
 
 Let $ν(F)$ be the option payoff at expiration. The forward value of
 the option is $v = E[ν(F)]$. 
-_Delta_ is the derivative of value with respect to the forward
+Option _delta_ is the derivative of value with respect to the forward
 $$
 ∂_f v = E[ν'(F) ∂_f F] = E[ν'(F) ε_s(X)]
 $$
-since $∂_f F = ε_s(X)$.
+using $∂_f F = ε_s(X)$.
 
 _Gamma_ is the second derivative with respect to the forward
 $$
@@ -155,9 +156,9 @@ $$
 
 _Vega_ is  the derivative with respect to vol
 $$
-∂_s v = E[ν'(F) ∂_s F] = E[ν'(F)F(X - κ'(s))]
+∂_s v = E[ν'(F) ∂_s F] = E[ν'(F)F(X - κ'(s))] = fE_s[ν'(F)(X - κ'(s))]
 $$
-since $∂_s F = F(X - κ'(s))$.
+using $∂_s F = F(X - κ'(s))$.
 
 The inverse of option value as a function of vol is the _implied vol_.
 
@@ -169,19 +170,19 @@ A _call option_ pays $ν(F) = (F - k)^+$ at expiration
 and has value $c = E[(F - k)^+]$.
 Note $(F - k)^+ - (k - F)^+ = F - k$ is a _forward_ with _strike_ $k$ so
 all models satisfy _put-call parity_: $c - p = f - k$.
-Call delta is $∂_f c = ∂_f p + 1$ and call gamma equals put gamma $∂_f^2 c = ∂_f^2 p$.
-We also have $∂_s c - ∂_s p = 0$ so call vega equals put vega.
+Call delta is $∂_f c = ∂_f p + 1$ and call gamma equals put gamma
+$∂_f^2 c = ∂_f^2 p$.  We also have $∂_s c - ∂_s p = 0$ because
+forwards are independent of vol so call vega equals put vega.
 
 The value of a put is
 $$
-p =  E[(k - F)^+] = kP(F\le k) - f P_s(F\le k).
+	p =  E[(k - F)^+] = kP(F\le k) - f P_s(F\le k).
 $$
 
 Put delta is
 $$
 	∂_f p = E[-1(F\le k)ε_s(X)] = -P_s(F\le k).
 $$
-since $∂_f F = ε_s(X)$.
 
 Gamma for either a put or call is
 $$
@@ -197,8 +198,8 @@ $$
 ### Distribution
 
 Let $Φ(x) = P(X\le x)$ be the cumulative distribution functions of $X$
-and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)ε_s(X)]$ be the _share_ cdf where
-$ε_s(x) = e^{sx - κ(s)}$. Of course $Φ(x) = Φ_0(s)$.
+and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)ε_s(X)]$ be the _share_ cdf.
+Of course $Φ(x) = Φ_0(s)$.
 Let $Ψ_s(y) = P_s(F\le y) = Φ_s(x)$ be the share cumulative distribution function of $F$
 where $y = fε_s(x)$. The share density function is
 $$
@@ -218,12 +219,11 @@ put delta is
 $$
 	∂_f p = -Φ_s(x(k)),
 $$
-put and call gamma is
+put gamma is
 $$
-	∂_f^2 p = E_s[δ_k(F)ε_s(X)] = ψ_s(k) ε_s(x(k)) = (φ_s(x(k))/ks) (k/f) = φ_s(x(k))/fs.
+	∂_f^2 p = E_s[δ_k(F)ε_s(X)] = ψ_s(k) ε_s(x(k)) = (φ_s(x(k))/ks) (k/f) = φ_s(x(k))/fs,
 $$ 
-Since $φ_s(x) = φ(x) ε_s(x)$ and ε_s(x(y)) = y/f$, $∂_f^2 p
-and put and call vega is
+and put vega is
 $$
 	∂_s p = -f E_s[1(F\le k) (X - κ'(s))] = -f ∂_s Φ_s(x(k)).
 $$ 
@@ -238,33 +238,29 @@ and $∂Φ_s(x)/∂s = -φ(x - s) = -φ_s(x)$.
 
 Put value is 
 $$
-	p = k Φ(x(k)) - f Φ(x(k) - s)
+	p = k Φ(x(k)) - f Φ(x(k) - s),
 $$
 where $x(k) = \log(k/f)/s + s/2$.
-
-__Exercise__. _Show $x(k) = \log(k/f)/s + s/2 = -d_2$ and $x(k) - s = \log(k/f)/s - s/2 = -d_1$_.
 
 Put delta is
 $$
 	∂_f p = -Φ_s(x(k)) = -Φ(x(k) - s).
 $$
-
 Gamma is
 $$
-	∂_f^2 p = φ_s(x(k))/fs.
+	∂_f^2 p = φ_s(x(k))/fs = φ(x(k) - s)/fs
 $$
-
 Vega is
 $$
-	∂_s v = -f ∂_s Φ_s(x(k)) = fφ_s(x(k)).
+	∂_s v = -f ∂_s Φ_s(x(k)) = fφ_s(x(k)) = fφ(x(k) - s).
 $$
 
 ## Digital
 
 A _digital put_ has payoff $ν(F) = 1(F \le k)$ and
-a _digital call_ has payoff $ν(F) = 1(F > k)$ with values.
+a _digital call_ has payoff $ν(F) = 1(F > k)$.
 Since $1(F \le k) + 1(F > k) = 1$ we have digital put-call parity $p + c =
-1$ where $p$ is the digital put value and $c$ is the digital call value.
+1$ where $p$ is the digital put value and $c$ is the digital call value:
 $$
 	p = P(F \le k), c = P(F > k) = 1 - p.
 $$
@@ -279,7 +275,7 @@ $$
 	∂_f^2 p = E[δ'_k(F)ε_s(X)^2] = E_s[δ'_k(F) ε_s(X)].
 $$
 
-Digital put vega is 
+Digital vega is 
 $$
 	∂_s p = -E[\delta_k(F)F(X - s)] = -f E_s[δ_k(F) (X - κ(s))].
 $$
@@ -294,7 +290,7 @@ and $t$ is time in years to expiration.  In this case standard vega
 is $∂_σ E[ν(F)] = ∂_s E[ν(F)] ∂_σ s = ∂_s E[ν(F)]\sqrt{t}$.
 
 The Black-Merton/Scholes model uses _spot_ prices instead of forward.
-If a risk-free bond has realized return $R$ over the period the value of the underlying
+If a risk-free bond has realized return $R = e^{rt}$ over the period, the value of the underlying
 at expiration is $U = Rue^{sX - κ(s)}$. Since $F = U$ we have $f = Ru$.
 The _spot_ value of the option is $v_0 = E[ν(U)]/R$. We have
 $$
@@ -311,6 +307,7 @@ $$
 ∂_s v_0 = E[ν'(U) ∂_s U]/R = E[ν'(F) ∂_s F/R = ∂_s v/R.
 $$
 
+<!--
 ## Remarks
 
 $$
@@ -320,3 +317,4 @@ $$
 	&= as + κ_X(bs, (x - a)/b) \\
 \end{aligned}
 $$
+-->
