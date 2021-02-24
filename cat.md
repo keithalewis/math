@@ -171,7 +171,7 @@ $F(gf) = F(g)F(f)$.
 
 __Exercise__. _Show $F(gf) = F(g)F(f)$ implies $F(1_A) = 1_{F(A)}$_.
 
-This shows we only need to define a functor on arrows.
+This shows we only need to define a functor on arrows; objects ride along for free.
 
 The category $\cat{Cat}$ has objects categories and arrows functors.
 If $F\colon\cat{A}\to\cat{B}$ and $G\colon\cat{B}\to\cat{C}$ are
@@ -396,28 +396,26 @@ right composition induces a map $f\to Z\colon\{Y\to Z\}\to\{X\to Z\}$, $(f\to Z)
 If $g\colon Z\to X$ and $f\colon X\to Y$ then $fg\colon Z\to Y$ so
 left composition induces a map $Z\to f\colon\{Z\to X\}\to\{Z\to Y\}$, $(Z\to f)g = fg$.  
 
-Let $\{\_\to Z\}$ be the category with 
-arrows $f\to Z\colon\{Y\to Z\}\to\{X\to Z\}$ for $f\colon X\to Y$.  
+Let $\{\_\to Z\}$ be the category with arrows $f\to Z\colon\{Y\to Z\}\to\{X\to Z\}$, $f\colon X\to Y$.  
 If $f\colon X\to Y$ and $g\colon U\to V$
-then $f\to Z\colon\{Y\to Z\}\to\{X\to Z\}$
-and $g\to Z\colon\{V\to Z\}\to\{U\to Z\}$.  
-These arrows can be composed if $X = V$, $(g\to Z)(f\to Z)\colon\{Y\to Z\}\to\{U\to Z\}$.
+then $f\to Z\colon\{Y\to Z\}\to\{X\to Z\}$ and $g\to Z\colon\{V\to Z\}\to\{U\to Z\}$.  
+If $V = X$ we can compose $fg\colon U\to Y$ in $\cat{C}$ and
+$(g\to Z)(f\to Z)\colon\{Y\to Z\}\to\{U\to Z\}$ in $\{\_\to Z\}$,
 
-Let $\{Z\to\_\}$ be the category with 
-arrows $Z\to f\colon\{Z\to X\}\to\{Z\to Y\}$ for $f\colon X\to Y$.  
+__Exercise__. _Show $fg\to Z = (g\to Z)(f\to Z)$_.
+
+Let $\{Z\to\_\}$ be the category with arrows $Z\to f\colon\{Z\to X\}\to\{Z\to Y\}$, $f\colon X\to Y$.  
 If $f\colon X\to Y$ and $g\colon U\to V$
-then $Z\to f\colon\{Z\to X\}\to\{Z\to Y\}$
-and $Z\to g\colon\{Z\to U\}\to\{Z\to V\}$.  
-These arrows can be composed if $Y = U$, $(Z\to g)(Z\to f)\colon\{Z\to X\}\to\{Z\to V\}$.
+then $Z\to f\colon\{Z\to X\}\to\{Z\to Y\}$ and $Z\to g\colon\{Z\to U\}\to\{Z\to V\}$.  
+If $U = Y$ we can compose $gf\colon X\to V$ in $\cat{C}$ and
+$(Z\to g)(Z\to f)\colon\{Z\to X\}\to\{Z\to V\}$ in $\{Z\to\_\}$,
 
-Given a category $\cat{C}$, the functor $\to Z\colon\cat{C}\to\{\_\to Z\}$ takes $f\colon X\to Y$
-to $f\to Z$.  
-If $f\colon X\to Y$ and $g\colon Y\to V$
-then $\to Z(g\to Z)(f\to Z) = (g\to Z)(f\to Z)$.
+__Exercise__. _Show $Z\to gf = (Z\to g)(Z\to f)$_.
 
-Given a category $\cat{C}$, the functor $Z\to\colon\cat{C}\to\{Z\to\_\}$ takes $f\colon X\to Y$
-to $Z\to f$.  
-
+For every object $Z$ in $\cat{C}$ define the contravariant functor 
+$\to Z\colon\cat{C}\to\{\_\to Z\}$ by $f\mapsto f\to Z$.
+For every object $Z$ in $\cat{C}$ define the (covariant) functor
+$\to Z\colon\cat{C}\to\{\_\to Z\}$ by $f\mapsto Z\to F$
 
 ### Product
 
@@ -452,10 +450,6 @@ The sum of $X$ and $Y$ is denoted $X + Y$.
 
 It is trivial to verify that reversing all arrows in a category $\cat{A}$
 results in the _opposite_, or _dual_, category, $\cat{A}^{op}$.
-
-This is also quite useful.
-
-A functor
 
 ## Presheaf
 
@@ -524,3 +518,5 @@ $R$ and $R*$ is contained in $1_A$_.
 > The intersection of $R$ and $R*$ is contained in $1_A$  
 
 ## NOTES
+
+Not all Boolean algebras are isomorphic to a powerset. Stone's theorem.
