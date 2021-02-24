@@ -29,56 +29,36 @@ by embedding them in a less familiar structure.
 
 I will never understand why Cayley gets the cognomen "theorem" while Yoneda only rates a "lemma".
 The proof of Cayley's theorem is much easier to demonstrate. Recall a _monoid_ is a
-set $G$ with a binary operation that is associative and has an identity element $1$
-for that operation, $1g = g = g1$, $g\in G$.
+set $M$ with a binary operation that is associative and has an identity element $1$
+for that operation, $1m = m = m1$, $m\in M$.
 
-__Exercise__. _Show if $1'g = g = g1'$, $g\in G$ then $1 = 1'$_.
+__Exercise__. _Show if $1'm = m = m1'$, $m\in M$ then $1 = 1'$_.
 
 <details>
 <summary>Solution</summary>
-...
+We have $1'1 = 1$ from $1'm = m$ and $1' = 1'1$ from $m = m1'$.
 </details>
 
 The identity is unique.
 
-__Exercise__. _Show if $1g = g$ then $g1 = g$, $g\in G$_.
-
-<details>
-<summary>Solution</summary>
-...
-</details>
-
-A _group_ is a moniod with inverse elements. For every $g\in G$ there exists its inverse
+A _group_ $G$ is a moniod with inverse elements. For every $g\in G$ there exists an inverse
 $g^{-1}\in G$ with $gg^{-1} = 1$.
 
-__Exercise__. _Show $gg^{-1} = 1$ implies $g^{-1}g = 1$_, $g\in G$.
+__Exercise__. _Show inverses are unique_.
 
-<details>
-<summary>Solution</summary>
-...
-</details>
-
-A _permutation_ on a set $G$ is a function $\sigma\colon G\to G$ that is one-to-one and onto.
-Such functions are invertable and the collection of all permutations form a group $\Sigma(G)$
+A _permutation_ on a set $S$ is a function $\sigma\colon S\to S$ that is one-to-one and onto.
+Such functions are invertable and the collection of all permutations form a group $\Sigma(S)$
 where the binary operation is function composition.
 
-For any $g\in G$ define $L_g\colon G\to\Sigma(G)$ by $L_gh = gh$, $h\in G$.
+For any $g$ in the group $G$ define $L_g\colon G\to\Sigma(G)$ by $L_gh = gh$, $h\in G$.
 
 __Exercise__. _Show for any $g\in G$ that if $L_gh = L_gk$, $h,k\in G$, then $h = k$_.
 
-<details>
-<summary>Solution</summary>
-...
-</details>
+_Hint_: Multiply both sides on the left by $g^{-1}$.
 
 This shows $L_g$ is one-to-one, $g\in G$.
 
 __Exercise__. _Show the range of $L_g$ is a subgroup of $\Sigma(G)$_.
-
-<details>
-<summary>Solution</summary>
-...
-</details>
 
 Every one-to-one function is inverable onto its range so this establishes Cayley's theorem. 
 

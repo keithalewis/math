@@ -18,12 +18,14 @@
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
    var mathElements = document.getElementsByClassName("math");
+   var macros = [];
    for (var i = 0; i < mathElements.length; i++) {
     var texText = mathElements[i].firstChild;
     if (mathElements[i].tagName == "SPAN") {
      katex.render(texText.data, mathElements[i], {
       displayMode: mathElements[i].classList.contains('display'),
       throwOnError: false,
+      macros: macros,
       fleqn: true
      });
   }}});
@@ -52,28 +54,36 @@
 <p>Measures don’t count things twice and the measure of nothing is zero.</p>
 <strong>Exercise</strong>. <em>Show if <span class="math inline">\nu(E\cup F) = \nu(E) + \nu(F) - \nu(E\cap F)</span> for <span class="math inline">E,F\subseteq S</span> then <span class="math inline">\mu = \nu - \nu(\emptyset)</span> is measure</em>.
 <details>
-<p><summary>Solution</summary></p>
+<summary>
+Solution
+</summary>
 <blockquote>
 <p>By <span class="math inline">\mu = \nu - \nu(\emptyset)</span> we mean <span class="math inline">\mu(E) = \nu(E) - \nu(\emptyset)</span> for any subset <span class="math inline">E\subseteq S</span>. Clearly <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)</span> for any <span class="math inline">E,F\subseteq S</span>. Since <span class="math inline">\mu(\emptyset) = \nu(\emptyset) - \nu(\emptyset) = 0</span>, <span class="math inline">\mu</span> is a measure.</p>
 </blockquote>
 </details>
 <strong>Exercise</strong>. <em>Show if <span class="math inline">\mu</span> is a measure then <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F)</span> for any subsets <span class="math inline">E</span> and <span class="math inline">F</span> with empty intersection <span class="math inline">E\cap F = \emptyset</span></em>.
 <details>
-<p><summary>Solution</summary></p>
+<summary>
+Solution
+</summary>
 <blockquote>
 <p>Since <span class="math inline">\mu(\emptyset) = 0</span>, <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F) = \mu(E) + \mu(F) - \mu(\emptyset) = \mu(E) + \mu(F)</span>.</p>
 </blockquote>
 </details>
 <strong>Exercise</strong>. <em>Show if <span class="math inline">\mu</span> is a set function with <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F)</span> for any subsets <span class="math inline">E</span> and <span class="math inline">F</span> having empty intersection then <span class="math inline">\mu</span> is a measure</em>.
 <details>
-<p><summary>Solution</summary></p>
+<summary>
+Solution
+</summary>
 <blockquote>
 <p><span class="math inline">\mu(E\cup F) = \mu(E\setminus F) + \mu(E\cap F) + \mu(F\setminus E)</span>, <span class="math inline">\mu(E) = \mu(E\setminus F) + \mu(E\cap F)</span>, and <span class="math inline">\mu(F) = \mu(F\setminus E) + \mu(F\cap E)</span> so <span class="math inline">\mu(E\cup F) - \mu(E) - \mu(F) = -\mu(E\cap F)</span>. Also <span class="math inline">\mu(\emptyset) = \mu(\emptyset\cup\emptyset) = \mu(\emptyset) + \mu(\emptyset)</span> so <span class="math inline">\mu(\emptyset) = 0</span>.</p>
 </blockquote>
 </details>
 <strong>Exercise</strong>. <em>Show if <span class="math inline">\mu</span> is a measure then <span class="math inline">\mu(E) = \mu(E\cap F) + \mu(E\cap F&#39;)</span> for any subsets <span class="math inline">E</span> and <span class="math inline">F</span> where <span class="math inline">F&#39; = S\setminus F = \{x\in S\mid x\not\in F\}</span> is the <em>complement</em> of <span class="math inline">F</span> in <span class="math inline">S</span></em>.
 <details>
-<p><summary>Solution</summary></p>
+<summary>
+Solution
+</summary>
 <blockquote>
 <p>Note <span class="math inline">(E\cap F)\cup(E\cap F&#39;) = E\cap(F\cup F&#39;) = E\cap S = E</span> and <span class="math inline">(E\cap F)\cap(E\cap F&#39;) = E\cap(F\cap F&#39;) = E\cap\emptyset = \emptyset</span> so <span class="math inline">\mu(E\cap F) + \mu(E\cap F&#39;) = \mu((E\cap F)\cup(E\cap F&#39;) = \mu(E)</span>.</p>
 </blockquote>
@@ -85,7 +95,9 @@
 <p>The norm is <em>complete</em> so <span class="math inline">B(S)</span> is a <em>Banach space</em>.</p>
 <strong>Exercise</strong>. <em>Show if <span class="math inline">(f_n)</span> is Cauchy then there exists <span class="math inline">f\in B(\Omega)</span> with <span class="math inline">\lim_n \|f_n - f\| = 0</span></em>.
 <details>
-<p><summary>Solution</summary></p>
+<summary>
+Solution
+</summary>
 <blockquote>
 <p>Since <span class="math inline">f_n(x)</span> is Cauchy so it has a limit <span class="math inline">f(x)</span>. The sequence <span class="math inline">\|f_n\|</span> is also Cauchy so it too has a limit that is an upper bound for <span class="math inline">|f(x)]</span>, <span class="math inline">x\in S</span>.</p>
 </blockquote>
@@ -93,7 +105,9 @@
 <p>The (vector space) dual of <span class="math inline">B(S)</span> is <span class="math inline">ba(S)</span>. Given <span class="math inline">M\in B(S)^*</span> define <span class="math inline">\mu(E) = M1_E</span> and given <span class="math inline">\mu\in ba(S)</span> define <span class="math inline">M(\sum_j a_j 1_{E_j}) = \sum_j a_j\mu(E_j)</span>.</p>
 <strong>Exercise</strong>. <em>Show <span class="math inline">\mu\mapsto M</span> is well-defined</em>.
 <details>
-<p><summary>Solution</summary></p>
+<summary>
+Solution
+</summary>
 <blockquote>
 <p>Every finite sum of the form <span class="math inline">\sum_j a_j 1_{E_j}</span> is equal to a function <span class="math inline">\sum_k b_k 1_{F_k}</span> where the <span class="math inline">(F_k)</span> are pairwise disjoint. Such functions are uniformly dense in <span class="math inline">B(S)</span>.</p>
 </blockquote>

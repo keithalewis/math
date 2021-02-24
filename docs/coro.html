@@ -16,6 +16,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -80,12 +81,14 @@
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
    var mathElements = document.getElementsByClassName("math");
+   var macros = [];
    for (var i = 0; i < mathElements.length; i++) {
     var texText = mathElements[i].firstChild;
     if (mathElements[i].tagName == "SPAN") {
      katex.render(texText.data, mathElements[i], {
       displayMode: mathElements[i].classList.contains('display'),
       throwOnError: false,
+      macros: macros,
       fleqn: true
      });
   }}});
@@ -141,9 +144,9 @@ coroutine consume
 <section id="symmetric-transfer" class="level3">
 <h3><a href="https://devblogs.microsoft.com/cppblog/c-coroutines-in-visual-studio-2019-version-16-8/#symmetric-transfer-and-no-op-coroutines">Symmetric transfer</a></h3>
 <p>With symmetric transfer a coroutine can indicate a coroutine handle for another coroutine to immediately resume when suspending. This suspend-and-resume operation works without introducing another frame onto the call stack.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a><span class="bu">std::</span>coroutine_handle&lt;&gt; await_suspend(<span class="bu">std::</span>coroutine_handle&lt;<span class="dt">promise_type</span>&gt; h) <span class="kw">noexcept</span> {</span>
-<span id="cb3-2"><a href="#cb3-2"></a>    <span class="cf">return</span> h.promise().continuation ? *continuation : <span class="bu">std::</span>noop_coroutine();</span>
-<span id="cb3-3"><a href="#cb3-3"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>coroutine_handle&lt;&gt; await_suspend(<span class="bu">std::</span>coroutine_handle&lt;<span class="dt">promise_type</span>&gt; h) <span class="kw">noexcept</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> h.promise().continuation ? *continuation : <span class="bu">std::</span>noop_coroutine();</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </section>
 <section id="the-life-of-a-coroutine" class="level2">
 <h2>The Life of a Coroutine</h2>

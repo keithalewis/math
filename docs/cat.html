@@ -114,7 +114,7 @@ Solution
 <h2>Functor</h2>
 <p>A functor <span class="math inline">F\colon\mathbf{A}\to\mathbf{B}</span> takes objects and arrows of <span class="math inline">\mathbf{A}</span> to objects and arrows of <span class="math inline">\mathbf{B}</span> and respects the category structure. If <span class="math inline">f\colon A\to A&#39;</span>, in $ then <span class="math inline">F(f)\colon F(A)\to F(A&#39;)</span> in <span class="math inline">\mathbf{B}</span> with <span class="math inline">F(gf) = F(g)F(f)</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">F(gf) = F(g)F(f)</span> implies <span class="math inline">F(1_A) = 1_{F(A)}</span></em>.</p>
-<p>This shows we only need to define a functor on arrows.</p>
+<p>This shows we only need to define a functor on arrows; objects ride along for free.</p>
 <p>The category <span class="math inline">\mathbf{Cat}</span> has objects categories and arrows functors. If <span class="math inline">F\colon\mathbf{A}\to\mathbf{B}</span> and <span class="math inline">G\colon\mathbf{B}\to\mathbf{C}</span> are functors then composition <span class="math inline">GF\colon\mathbf{A}\to\mathbf{C}</span> is <span class="math inline">(GF)(A) = G(F(A))</span>. The identity functor is the identity of <span class="math inline">\mathbf{Cat}</span>.</p>
 <p>The category <span class="math inline">\mathbf{2-Cat}</span> has objects functors and arrows <em>natural transformations</em>. If <span class="math inline">F,G\colon\mathbf{A}\to\mathbf{B}</span> are functors a natural transformation <span class="math inline">\eta\colon F\to G</span> takes objects <span class="math inline">A</span> of <span class="math inline">\mathbf{A}</span> to arrows <span class="math inline">\eta_A</span> of <span class="math inline">\mathbf{B}</span>.</p>
 <p>Natural transformations must satisfy <span class="math inline">h\colon A\to A&#39;</span> in <span class="math inline">\mathbf{A}</span> then <span class="math inline">G(h)\eta_A = \eta_{A&#39;}F(h)</span> in <span class="math inline">\mathbf{B}</span>.</p>
@@ -201,15 +201,15 @@ Solution
 <p>Nobody understands the Yoneda Lemma. As Von Neumann said, “you don’t understand math, you just get used to it.” It is similar to Cayley’s theorem that states every group is (isomorphic to) a subgroup of the permutaion group of the set of group elements. The abstract notion of a group defined in terms of axioms can be represented by embedded it in a more familiar structure. The Yoneda Lemma is different from Cayley’s theorem in that it represents categories by embedding them in a less familiar structure.</p>
 <p>If <span class="math inline">f\colon X\to Y</span> and <span class="math inline">g\colon Y\to Z</span> then <span class="math inline">gf\colon X\to Z</span> so right composition induces a map <span class="math inline">f\to Z\colon\{Y\to Z\}\to\{X\to Z\}</span>, <span class="math inline">(f\to Z)g = gf</span>.<br />
 If <span class="math inline">g\colon Z\to X</span> and <span class="math inline">f\colon X\to Y</span> then <span class="math inline">fg\colon Z\to Y</span> so left composition induces a map <span class="math inline">Z\to f\colon\{Z\to X\}\to\{Z\to Y\}</span>, <span class="math inline">(Z\to f)g = fg</span>.</p>
-<p>Let <span class="math inline">\{\_\to Z\}</span> be the category with arrows <span class="math inline">f\to Z\colon\{Y\to Z\}\to\{X\to Z\}</span> for <span class="math inline">f\colon X\to Y</span>.<br />
+<p>Let <span class="math inline">\{\_\to Z\}</span> be the category with arrows <span class="math inline">f\to Z\colon\{Y\to Z\}\to\{X\to Z\}</span>, <span class="math inline">f\colon X\to Y</span>.<br />
 If <span class="math inline">f\colon X\to Y</span> and <span class="math inline">g\colon U\to V</span> then <span class="math inline">f\to Z\colon\{Y\to Z\}\to\{X\to Z\}</span> and <span class="math inline">g\to Z\colon\{V\to Z\}\to\{U\to Z\}</span>.<br />
-These arrows can be composed if <span class="math inline">X = V</span>, <span class="math inline">(g\to Z)(f\to Z)\colon\{Y\to Z\}\to\{U\to Z\}</span>.</p>
-<p>Let <span class="math inline">\{Z\to\_\}</span> be the category with arrows <span class="math inline">Z\to f\colon\{Z\to X\}\to\{Z\to Y\}</span> for <span class="math inline">f\colon X\to Y</span>.<br />
+If <span class="math inline">V = X</span> we can compose <span class="math inline">fg\colon U\to Y</span> in <span class="math inline">\mathbf{C}</span> and <span class="math inline">(g\to Z)(f\to Z)\colon\{Y\to Z\}\to\{U\to Z\}</span> in <span class="math inline">\{\_\to Z\}</span>,</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">fg\to Z = (g\to Z)(f\to Z)</span></em>.</p>
+<p>Let <span class="math inline">\{Z\to\_\}</span> be the category with arrows <span class="math inline">Z\to f\colon\{Z\to X\}\to\{Z\to Y\}</span>, <span class="math inline">f\colon X\to Y</span>.<br />
 If <span class="math inline">f\colon X\to Y</span> and <span class="math inline">g\colon U\to V</span> then <span class="math inline">Z\to f\colon\{Z\to X\}\to\{Z\to Y\}</span> and <span class="math inline">Z\to g\colon\{Z\to U\}\to\{Z\to V\}</span>.<br />
-These arrows can be composed if <span class="math inline">Y = U</span>, <span class="math inline">(Z\to g)(Z\to f)\colon\{Z\to X\}\to\{Z\to V\}</span>.</p>
-<p>Given a category <span class="math inline">\mathbf{C}</span>, the functor <span class="math inline">\to Z\colon\mathbf{C}\to\{\_\to Z\}</span> takes <span class="math inline">f\colon X\to Y</span> to <span class="math inline">f\to Z</span>.<br />
-If <span class="math inline">f\colon X\to Y</span> and <span class="math inline">g\colon Y\to V</span> then <span class="math inline">\to Z(g\to Z)(f\to Z) = (g\to Z)(f\to Z)</span>.</p>
-<p>Given a category <span class="math inline">\mathbf{C}</span>, the functor <span class="math inline">Z\to\colon\mathbf{C}\to\{Z\to\_\}</span> takes <span class="math inline">f\colon X\to Y</span> to <span class="math inline">Z\to f</span>.</p>
+If <span class="math inline">U = Y</span> we can compose <span class="math inline">gf\colon X\to V</span> in <span class="math inline">\mathbf{C}</span> and <span class="math inline">(Z\to g)(Z\to f)\colon\{Z\to X\}\to\{Z\to V\}</span> in <span class="math inline">\{Z\to\_\}</span>,</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">Z\to gf = (Z\to g)(Z\to f)</span></em>.</p>
+<p>For every object <span class="math inline">Z</span> in <span class="math inline">\mathbf{C}</span> define the contravariant functor <span class="math inline">\to Z\colon\mathbf{C}\to\{\_\to Z\}</span> by <span class="math inline">f\mapsto f\to Z</span>. For every object <span class="math inline">Z</span> in <span class="math inline">\mathbf{C}</span> define the (covariant) functor <span class="math inline">\to Z\colon\mathbf{C}\to\{\_\to Z\}</span> by <span class="math inline">f\mapsto Z\to F</span></p>
 <section id="product" class="level3">
 <h3>Product</h3>
 <p>The <em>product</em> <span class="math inline">\Pi_{i\in I} X_i = \Pi X_I</span> of <span class="math inline">X_i</span> is defined by arrows <span class="math inline">\pi_i\colon \Pi X_I\to X_i</span>, <span class="math inline">i\in I</span>. If for any arrows <span class="math inline">p_i\colon Y\to X_i</span> there exists an arrow <span class="math inline">p\colon Y\to \Pi X_I</span> with <span class="math inline">\pi_ip = p_i</span>, <span class="math inline">i\in I</span>. The product of <span class="math inline">X</span> and <span class="math inline">Y</span> is denoted <span class="math inline">X\times Y</span>.</p>
@@ -225,8 +225,6 @@ If <span class="math inline">f\colon X\to Y</span> and <span class="math inline"
 <section id="opposite" class="level2">
 <h2>Opposite</h2>
 <p>It is trivial to verify that reversing all arrows in a category <span class="math inline">\mathbf{A}</span> results in the <em>opposite</em>, or <em>dual</em>, category, <span class="math inline">\mathbf{A}^{op}</span>.</p>
-<p>This is also quite useful.</p>
-<p>A functor</p>
 </section>
 <section id="presheaf" class="level2">
 <h2>Presheaf</h2>
@@ -275,6 +273,7 @@ The proof of <span class="math inline">R 1_B = R</span> is similar.</p>
 </section>
 <section id="notes" class="level2">
 <h2>NOTES</h2>
+<p>Not all Boolean algebras are isomorphic to a powerset. Stone’s theorem.</p>
 </section>
 <footer>
 Return to <a href="index.html">index</a>.
