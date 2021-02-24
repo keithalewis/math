@@ -113,5 +113,10 @@ $Z$ is an(y) object of $\cat{C}$_.
 The standard terminology for a functor that is an isomorphism is that it is _full_ and _faithful_.
 
 Yoneda's lemma is quite shocking. Pick an object, any object, and you get a representation.
-Also the fact the representation is one-to-one (faithfull) follows from evaluating on the
-identity arrow (of a different object).
+Also, each arrow of $\cat{C}$ gets sent to a boatload of arrows but the
+fact the representation is one-to-one (faithfull) follows from evaluating
+on the identity arrow (of a different object).
+
+Maybe it should not be so shocking. In Cayley's theorem each group element gives both a left
+and right representaion. Also, the representation involves a permutation that can (potentially)
+shuffle every element in the group.
