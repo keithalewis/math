@@ -15,7 +15,7 @@ abstract: Representing categories
 \newcommand\mb[1]{\mathbf{#1}}
 
 Nobody understands the Yoneda lemma, where by _nobody_ I mean _I_ don't understand
-the Yoneda lemma. As Von Neumann said, "you don't understand
+the Yoneda lemma. As Von Neumann said, "You don't understand
 math, you just get used to it." This short exegesis is my attempt to get used to it.
 
 The Yoneda lemma is similar to Cayley's theorem that states
@@ -41,14 +41,14 @@ We have $1'1 = 1$ from $1'm = m$ and $1' = 1'1$ from $m = m1'$.
 
 The identity is unique.
 
-A _group_ $G$ is a moniod with inverse elements. For every $g\in G$ there exists an inverse
+A _group_ $G$ is a moniod with inverse elements: for every $g\in G$ there exists an inverse
 $g^{-1}\in G$ with $gg^{-1} = 1$.
 
 __Exercise__. _Show inverses are unique_.
 
 A _permutation_ on a set $S$ is a function $\sigma\colon S\to S$ that is one-to-one and onto.
 Such functions are invertable and the collection of all permutations form a group $\Sigma(S)$
-where the binary operation is function composition.
+where the binary operation is function composition and the identity is the identity permutation.
 
 For any $g$ in the group $G$ define $L_g\colon G\to\Sigma(G)$ by $L_gh = gh$, $h\in G$.
 
@@ -68,6 +68,7 @@ an equivalent result. Yoneda's lemma exhibits a similar chirality.
 ## Yoneda's lemma
 
 Let's start by writing down some easily verifiable statements.
+Warning: I am using some non-standard, but more suggesetive, notation below.
 
 If $f\colon X\to Y$ and $g\colon Y\to Z$ then $gf\colon X\to Z$ so
 right composition induces a map $f\to Z\colon\{Y\to Z\}\to\{X\to Z\}$, $(f\to Z)g = gf$.  
@@ -111,6 +112,7 @@ $Z$ is an(y) object of $\cat{C}$_.
 ## Remarks
 
 The standard terminology for a functor that is an isomorphism is that it is _full_ and _faithful_.
+The standard way to write $\{\_\to Z\}$ is $\hom(\_,Z)$.
 
 Yoneda's lemma is quite shocking. Pick an object, any object, and you get a representation.
 Also, each arrow of $\cat{C}$ gets sent to a boatload of arrows but the
@@ -118,5 +120,5 @@ fact the representation is one-to-one (faithfull) follows from evaluating
 on the identity arrow (of a different object).
 
 Maybe it should not be so shocking. In Cayley's theorem each group element gives both a left
-and right representaion. Also, the representation involves a permutation that can (potentially)
+and right representaion. Also, the representation involves a permutation that can
 shuffle every element in the group.

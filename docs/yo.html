@@ -45,7 +45,7 @@
 <h1 class="title">Yoneda</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<p>Nobody understands the Yoneda lemma, where by <em>nobody</em> I mean <em>I</em> don’t understand the Yoneda lemma. As Von Neumann said, “you don’t understand math, you just get used to it.” This short exegesis is my attempt to get used to it.</p>
+<p>Nobody understands the Yoneda lemma, where by <em>nobody</em> I mean <em>I</em> don’t understand the Yoneda lemma. As Von Neumann said, “You don’t understand math, you just get used to it.” This short exegesis is my attempt to get used to it.</p>
 <p>The Yoneda lemma is similar to Cayley’s theorem that states every group is (isomorphic to) a subgroup of the permutaion group of the set of group elements. The abstract notion of a group defined in terms of axioms can be represented by embedded it in a more familiar structure. The Yoneda lemma is different from Cayley’s theorem in that it represents categories by embedding them in a less familiar structure.</p>
 <section id="cayleys-theorem" class="level2">
 <h2>Cayley’s theorem</h2>
@@ -58,9 +58,9 @@ Solution
 We have <span class="math inline">1&#39;1 = 1</span> from <span class="math inline">1&#39;m = m</span> and <span class="math inline">1&#39; = 1&#39;1</span> from <span class="math inline">m = m1&#39;</span>.
 </details>
 <p>The identity is unique.</p>
-<p>A <em>group</em> <span class="math inline">G</span> is a moniod with inverse elements. For every <span class="math inline">g\in G</span> there exists an inverse <span class="math inline">g^{-1}\in G</span> with <span class="math inline">gg^{-1} = 1</span>.</p>
+<p>A <em>group</em> <span class="math inline">G</span> is a moniod with inverse elements: for every <span class="math inline">g\in G</span> there exists an inverse <span class="math inline">g^{-1}\in G</span> with <span class="math inline">gg^{-1} = 1</span>.</p>
 <p><strong>Exercise</strong>. <em>Show inverses are unique</em>.</p>
-<p>A <em>permutation</em> on a set <span class="math inline">S</span> is a function <span class="math inline">\sigma\colon S\to S</span> that is one-to-one and onto. Such functions are invertable and the collection of all permutations form a group <span class="math inline">\Sigma(S)</span> where the binary operation is function composition.</p>
+<p>A <em>permutation</em> on a set <span class="math inline">S</span> is a function <span class="math inline">\sigma\colon S\to S</span> that is one-to-one and onto. Such functions are invertable and the collection of all permutations form a group <span class="math inline">\Sigma(S)</span> where the binary operation is function composition and the identity is the identity permutation.</p>
 <p>For any <span class="math inline">g</span> in the group <span class="math inline">G</span> define <span class="math inline">L_g\colon G\to\Sigma(G)</span> by <span class="math inline">L_gh = gh</span>, <span class="math inline">h\in G</span>.</p>
 <p><strong>Exercise</strong>. <em>Show for any <span class="math inline">g\in G</span> that if <span class="math inline">L_gh = L_gk</span>, <span class="math inline">h,k\in G</span>, then <span class="math inline">h = k</span></em>.</p>
 <p><em>Hint</em>: Multiply both sides on the left by <span class="math inline">g^{-1}</span>.</p>
@@ -71,7 +71,7 @@ We have <span class="math inline">1&#39;1 = 1</span> from <span class="math inli
 </section>
 <section id="yonedas-lemma" class="level2">
 <h2>Yoneda’s lemma</h2>
-<p>Let’s start by writing down some easily verifiable statements.</p>
+<p>Let’s start by writing down some easily verifiable statements. Warning: I am using some non-standard, but more suggesetive, notation below.</p>
 <p>If <span class="math inline">f\colon X\to Y</span> and <span class="math inline">g\colon Y\to Z</span> then <span class="math inline">gf\colon X\to Z</span> so right composition induces a map <span class="math inline">f\to Z\colon\{Y\to Z\}\to\{X\to Z\}</span>, <span class="math inline">(f\to Z)g = gf</span>.<br />
 If <span class="math inline">g\colon Z\to X</span> and <span class="math inline">f\colon X\to Y</span> then <span class="math inline">fg\colon Z\to Y</span> so left composition induces a map <span class="math inline">Z\to f\colon\{Z\to X\}\to\{Z\to Y\}</span>, <span class="math inline">(Z\to f)g = fg</span>.</p>
 <p>Let <span class="math inline">\{\_\to Z\}</span> be the category with arrows <span class="math inline">f\to Z\colon\{Y\to Z\}\to\{X\to Z\}</span>, <span class="math inline">f\colon X\to Y</span>.<br />
@@ -92,9 +92,9 @@ For every object <span class="math inline">Z</span> in <span class="math inline"
 </section>
 <section id="remarks" class="level2">
 <h2>Remarks</h2>
-<p>The standard terminology for a functor that is an isomorphism is that it is <em>full</em> and <em>faithful</em>.</p>
+<p>The standard terminology for a functor that is an isomorphism is that it is <em>full</em> and <em>faithful</em>. The standard way to write <span class="math inline">\{\_\to Z\}</span> is <span class="math inline">\hom(\_,Z)</span>.</p>
 <p>Yoneda’s lemma is quite shocking. Pick an object, any object, and you get a representation. Also, each arrow of <span class="math inline">\mathbf{C}</span> gets sent to a boatload of arrows but the fact the representation is one-to-one (faithfull) follows from evaluating on the identity arrow (of a different object).</p>
-<p>Maybe it should not be so shocking. In Cayley’s theorem each group element gives both a left and right representaion. Also, the representation involves a permutation that can (potentially) shuffle every element in the group.</p>
+<p>Maybe it should not be so shocking. In Cayley’s theorem each group element gives both a left and right representaion. Also, the representation involves a permutation that can shuffle every element in the group.</p>
 </section>
 <footer>
 Return to <a href="index.html">index</a>.
