@@ -9,7 +9,7 @@ abstract: Objects and Arrow
 
 \newcommand\dom{\operatorname{dom}}
 \newcommand\cod{\operatorname{cod}}
-\newcommand\ker{\operatorname{ker}}
+\renewcommand\ker{\operatorname{ker}}
 \newcommand\ran{\operatorname{ran}}
 \newcommand\cat[1]{\mathbf{#1}}
 \newcommand\mb[1]{\mathbf{#1}}
@@ -165,7 +165,7 @@ __Exercise__. _Show this is an equivalence relation_.
 
 A functor $F\colon\cat{A}\to\cat{B}$ takes objects and arrows of $\cat{A}$ to
 objects and arrows of $\cat{B}$ and respects the category structure.
-If $f\colon A\to A'$, in \cat{A}$ then
+If $f\colon A\to A'$, in $\cat{A}$ then
 $F(f)\colon F(A)\to F(A')$ in $\cat{B}$ with
 $F(gf) = F(g)F(f)$.
 
@@ -458,14 +458,7 @@ This embeds any abstract category $\cat{C}$ in
 the concrete category $\cat{Set}$. It is similar to Cayley's theorem
 that every group is a subgroup of all permutations of the group elements.
 
-This category has many nice properties, in particular
-$$
-	F(-) = \int^{c\in\cat{C}} F(c)\times\hom_\cat{C}(-,c),
-$$
-but this requires some new notions.
-
-## Representable
-
+<!--
 ## Answers to Exercises
 
 __Exercise__. 3. Show the identity arrows of_ Set _are $1_A = {(a,a)\in A\times A \colon a\in A}$_.
@@ -516,6 +509,8 @@ $R$ and $R*$ is contained in $1_A$_.
 > $(a, b)\in R$ and $(a, b)\in R*$ imply $a = b$  
 > $(a, b)\in R intersect R*$ imply $(a, b)\in 1_A$   
 > The intersection of $R$ and $R*$ is contained in $1_A$  
+
+-->
 
 ## NOTES
 
