@@ -112,7 +112,8 @@ $Z$ is an(y) object of $\cat{C}$_.
 ## Remarks
 
 The standard terminology for a functor that is an isomorphism is that it is _full_ and _faithful_.
-The standard way to write $\{\_\to Z\}$ is $\hom(\_,Z)$.
+The standard way to write $\{\_\to Z\}$ is $\hom(\_,Z)$. If we define
+$\to Z\colon\cat{C}^{op}\to\{\_\to Z\}$ then we don't need to mention contravariant functors.
 
 Yoneda's lemma is quite shocking. Pick an object, any object, and you get a representation.
 Also, each arrow of $\cat{C}$ gets sent to a boatload of arrows but the
