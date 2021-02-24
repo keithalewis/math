@@ -94,7 +94,7 @@ __Exercise__. _Show $Z\to gf = (Z\to g)(Z\to f)$_.
 For every object $Z$ in $\cat{C}$ define the contravariant functor 
 $\to Z\colon\cat{C}\to\{\_\to Z\}$ by $f\mapsto f\to Z$.  
 For every object $Z$ in $\cat{C}$ define the (covariant) functor
-$\to Z\colon\cat{C}\to\{\_\to Z\}$ by $f\mapsto Z\to F$.  
+$\to Z\colon\cat{C}\to\{\_\to Z\}$ by $f\mapsto Z\to f$.  
 
 __Exercise__. _For any object $Z$ in $\cat{C}$ show $h\to Z = k\to Z$ implies $h = k$, where
 $h,k$ are arrows in $\cat{C}$_.
