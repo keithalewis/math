@@ -95,8 +95,8 @@ $\to Z\colon\cat{C}\to\{\_\to Z\}$ by $f\mapsto f\to Z$.
 For every object $Z$ in $\cat{C}$ define the (covariant) functor
 $\to Z\colon\cat{C}\to\{\_\to Z\}$ by $f\mapsto Z\to F$.  
 
-__Exercise__. _For any object $Z$ in $\cat{C}$ that $h\to Z = k\to Z$ implies $h = k$, where
-$h,k$ are arrows in $\cat{C}$.
+__Exercise__. _For any object $Z$ in $\cat{C}$ show $h\to Z = k\to Z$ implies $h = k$, where
+$h,k$ are arrows in $\cat{C}$_.
 
 _Hint_: If $h\colon X\to Y$ and $h\colon U\to V$ then $h\to Z$ and $k\to Z$ must have
 the same domain and codomain so $X = U$ and $Y = V$. Apply $1_Y$ to both sides.
@@ -107,3 +107,11 @@ It also establishes the Yoneda lemma
 
 __Lemma__. (Yoneda) _Every categoy $\cat{C}$ is isomorphic to $\{\_\to Z\}$ and $\{Z\to\_\}$, where
 $Z$ is an(y) object of $\cat{C}$_.
+
+## Remarks
+
+The standard terminology for a functor that is an isomorphism is that it is _full_ and _faithful_.
+
+Yoneda's lemma is quite shocking. Pick an object, any object, and you get a representation.
+Also the fact the representation is one-to-one (faithfull) follows from evaluating on the
+identity arrow (of a different object).

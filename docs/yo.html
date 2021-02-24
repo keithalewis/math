@@ -84,11 +84,16 @@ If <span class="math inline">U = Y</span> we can compose <span class="math inlin
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">Z\to gf = (Z\to g)(Z\to f)</span></em>.</p>
 <p>For every object <span class="math inline">Z</span> in <span class="math inline">\mathbf{C}</span> define the contravariant functor <span class="math inline">\to Z\colon\mathbf{C}\to\{\_\to Z\}</span> by <span class="math inline">f\mapsto f\to Z</span>.<br />
 For every object <span class="math inline">Z</span> in <span class="math inline">\mathbf{C}</span> define the (covariant) functor <span class="math inline">\to Z\colon\mathbf{C}\to\{\_\to Z\}</span> by <span class="math inline">f\mapsto Z\to F</span>.</p>
-<p><strong>Exercise</strong>. _For any object <span class="math inline">Z</span> in <span class="math inline">\mathbf{C}</span> that <span class="math inline">h\to Z = k\to Z</span> implies <span class="math inline">h = k</span>, where <span class="math inline">h,k</span> are arrows in <span class="math inline">\mathbf{C}</span>.</p>
+<p><strong>Exercise</strong>. <em>For any object <span class="math inline">Z</span> in <span class="math inline">\mathbf{C}</span> show <span class="math inline">h\to Z = k\to Z</span> implies <span class="math inline">h = k</span>, where <span class="math inline">h,k</span> are arrows in <span class="math inline">\mathbf{C}</span></em>.</p>
 <p><em>Hint</em>: If <span class="math inline">h\colon X\to Y</span> and <span class="math inline">h\colon U\to V</span> then <span class="math inline">h\to Z</span> and <span class="math inline">k\to Z</span> must have the same domain and codomain so <span class="math inline">X = U</span> and <span class="math inline">Y = V</span>. Apply <span class="math inline">1_Y</span> to both sides.</p>
 <p>This shows the functor <span class="math inline">\to Z</span> is one-to-one. Likewise, <span class="math inline">Z\to</span> is also one-to-one.</p>
 <p>It also establishes the Yoneda lemma</p>
 <p><strong>Lemma</strong>. (Yoneda) <em>Every categoy <span class="math inline">\mathbf{C}</span> is isomorphic to <span class="math inline">\{\_\to Z\}</span> and <span class="math inline">\{Z\to\_\}</span>, where <span class="math inline">Z</span> is an(y) object of <span class="math inline">\mathbf{C}</span></em>.</p>
+</section>
+<section id="remarks" class="level2">
+<h2>Remarks</h2>
+<p>The standard terminology for a functor that is an isomorphism is that it is <em>full</em> and <em>faithful</em>.</p>
+<p>Yoneda’s lemma is quite shocking. Pick an object, any object, and you get a representation. Also the fact the representation is one-to-one (faithfull) follows from evaluating on the identity arrow (of a different object).</p>
 </section>
 <footer>
 Return to <a href="index.html">index</a>.
