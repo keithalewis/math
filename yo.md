@@ -9,7 +9,6 @@ abstract: Representing categories
 
 \newcommand\dom{\operatorname{dom}}
 \newcommand\cod{\operatorname{cod}}
-\newcommand\ker{\operatorname{ker}}
 \newcommand\ran{\operatorname{ran}}
 \newcommand\cat[1]{\mathbf{#1}}
 \newcommand\mb[1]{\mathbf{#1}}
