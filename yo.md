@@ -67,22 +67,23 @@ an equivalent result. Yoneda's lemma exhibits a similar chirality.
 ## Yoneda's lemma
 
 Let's start by writing down some easily verifiable statements.
-Warning: I am using some non-standard, but more suggesetive, notation below.
 
-If $f\colon X\to Y$ and $g\colon Y\to Z$ then $gf\colon X\to Z$ so
-right composition induces a map $f\to Z\colon\{Y\to Z\}\to\{X\to Z\}$, $(f\to Z)g = gf$.  
-If $g\colon Z\to X$ and $f\colon X\to Y$ then $fg\colon Z\to Y$ so
-left composition induces a map $Z\to f\colon\{Z\to X\}\to\{Z\to Y\}$, $(Z\to f)g = fg$.  
 
-Let $\{\_\to Z\}$ be the category with arrows $f\to Z\colon\{Y\to Z\}\to\{X\to Z\}$, $f\colon X\to Y$.  
-If $f\colon X\to Y$ and $g\colon U\to V$
-then $f\to Z\colon\{Y\to Z\}\to\{X\to Z\}$ and $g\to Z\colon\{V\to Z\}\to\{U\to Z\}$.  
-If $V = X$ we can compose $fg\colon U\to Y$ in $\cat{C}$ and
-$(g\to Z)(f\to Z)\colon\{Y\to Z\}\to\{U\to Z\}$ in $\{\_\to Z\}$,
+If $g\colon X\to Y$ is an arrow in the category $\cat{C}$ then for
+any arrow $h\colon Z\to X$ define left composition $L_gh = gh\colon Z\to Y$.
 
-__Exercise__. _Show $fg\to Z = (g\to Z)(f\to Z)$_.
+If $g\colon X\to Y$ is an arrow in the category $\cat{C}$ then for
+any arrow $h\colon Y\to Z$ define right composition $R_gh = hg\colon X\to Z$.
 
-Let $\{Z\to\_\}$ be the category with arrows $Z\to f\colon\{Z\to X\}\to\{Z\to Y\}$, $f\colon X\to Y$.  
+The collection of arrows having codomain $Z$ is usually denoted $\hom(\_,Z)$
+but let's write it as $\{\_\to Z\}$ and let $\{Z\to\_\}$ be the collection
+of arrows having domain $Z$.
+Note $L_g\colon\{\_\to Z\}\to\{Z\to\_\}$ and $R_g\colon\{_\to Z\}\to\{_\to Z\}$.
+
+The arrows of $\{\_\to Z\}$ are $L_g$ where $g$ is any arrow in $\cat{C}$.
+The arrows of $\{Z\to\_\}$ are $R_g$ where $g$ is any arrow in $\cat{C}$.
+
+$Z\to f\colon\{Z\to X\}\to\{Z\to Y\}$, $f\colon X\to Y$.  
 If $f\colon X\to Y$ and $g\colon U\to V$
 then $Z\to f\colon\{Z\to X\}\to\{Z\to Y\}$ and $Z\to g\colon\{Z\to U\}\to\{Z\to V\}$.  
 If $U = Y$ we can compose $gf\colon X\to V$ in $\cat{C}$ and

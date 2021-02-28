@@ -515,3 +515,24 @@ $R$ and $R*$ is contained in $1_A$_.
 ## NOTES
 
 Not all Boolean algebras are isomorphic to a powerset. Stone's theorem.
+
+Pay homage to Frege, Russell, ... Gentzen.
+
+set <=> collection
+element <=> item
+
+A _semigroup_ is a set with an associative binary operation.
+
+A _moniod_ is a semigroup with an _identity_ element.
+Every semigroup $S$ can be turned into a monoid by adjoining an element $e$
+not in the semigroup and extending the binary operation by defining
+$se = s = es$ for $s\in S$.
+
+A _precategory_ is a collection with an associative partially defined binary operation.
+
+A _category_ is a precategory where every item has a left and a right _identity_.
+Every precategory $\cat{C}$ can be turned into a category by adjoining elements $e_c$
+and ${}_ce$ if $c$ is an item of $\cat{C}$ and extending the binary operation by defining
+$e_c c = c$ and $c{}_ce = e$.
+
+Opposite category: ...
