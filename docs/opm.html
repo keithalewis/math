@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>One Period Model</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <!--
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">One Period Model</h1>
+<p class="author">Keith A. Lewis</p>
+</header>
+<p>If <span class="math inline">A</span> and <span class="math inline">B</span> are sets then <span class="math inline">A^B = \{f\colon B\to A\}</span> is the set of functions from <span class="math inline">B</span> to <span class="math inline">A</span>.</p>
+<p><strong>Exercise</strong>. <em>The set <span class="math inline">A^B</span> has cardinality <span class="math inline">a^b</span> if <span class="math inline">A</span> has cardinality <span class="math inline">a</span> and <span class="math inline">B</span> has cardinality <span class="math inline">b</span></em>.</p>
+<section id="one-period-model" class="level2">
+<h2>One Period Model</h2>
+<p>Let <span class="math inline">I</span> be the set of <em>instruments</em> available for trading.</p>
+<p>The <em>prices</em> at the beginning of the period are <span class="math inline">x\in\bm{R}^I</span>, <span class="math inline">x(i)\in\bm{R}</span> is the initial price of instrument <span class="math inline">i\in I</span>.</p>
+<p>Let <span class="math inline">\Omega</span> be what can happen over the period.</p>
+<p>The prices at the end of the period are <span class="math inline">X\colon\Omega\to \bm{R}^I</span>, <span class="math inline">X(\omega)\in\bm{R}^I</span> are the prices if <span class="math inline">\omega\in\Omega</span> occured.</p>
+</section>
+<section id="derivative" class="level2">
+<h2>Derivative</h2>
+<p>A <em>derivative instrument</em> is a function <span class="math inline">A\colon\Omega\to\bm{R}</span> that pays some <em>amount</em> depending on what happened. If there is a <span class="math inline">\gamma\in\bm{R}^I</span> with <span class="math inline">\gamma\cdot X = A</span> then there is a <em>perfect hedge</em>. The <em>cost</em> of the hedge is <span class="math inline">\gamma\cdot x</span>.</p>
+<p>If the cardinality of what can happen is greater than the number of instruments then it is not the case perfect hedges always exist. Risk Management is the study of how well a derivative can be hedged.</p>
+</section>
+<section id="arbitrage" class="level2">
+<h2>Arbitrage</h2>
+<p>A one period model has <em>arbitrage</em> if you can take a position <span class="math inline">\gamma\in \bm{R}^I</span> with <span class="math inline">\gamma\cdot x &lt; 0</span> and <span class="math inline">\gamma\cdot X(\omega)\ge0</span>, <span class="math inline">\omega\in\Omega</span>. The cost of acquiring <span class="math inline">\gamma</span> shares of each instument at the beginning of the period is <span class="math inline">\gamma\cdot x</span>. If that is negative then you make money. At the end of the period you close the position by selling all of your shares. This results in a cash flow of <span class="math inline">\gamma\cdot X</span> to your account. If that is non-negative then you don’t lose money.</p>
+</section>
+<section id="ftap" class="level2">
+<h2>FTAP</h2>
+<p>The one-period Fundamental Theorem of Asset Pricing is that there is no arbitrage if and only if there exists a measure <span class="math inline">\Pi</span> on <span class="math inline">\Omega</span> such that <span class="math inline">\int_\Omega X\,d\Pi = x</span>. If such a measure exists and <span class="math inline">\gamma\cdot X\ge 0</span> then <span class="math inline">\gamma\cdot x \ge 0</span> so there is no arbitrage.</p>
+<p><strong>Lemma.</strong> <em>If <span class="math inline">x\in\bm{R}^n</span> and <span class="math inline">C</span> is a closed cone in <span class="math inline">\bm{R}^n</span> with <span class="math inline">x\not\in C</span> then there exists <span class="math inline">\xi\in\bm{R}^n</span> with <span class="math inline">\xi\cdot x &lt; 0</span> and <span class="math inline">\xi\cdot y \ge0</span> for <span class="math inline">y\in C</span>.</em></p>
+<p>We assume <span class="math inline">X</span> is bounded so <span class="math inline">\Pi</span> is finitely additive.</p>
+<p>Recall that a <em>cone</em> is a subset of a vector space closed under addition and multiplication by a positive scalar, that is, <span class="math inline">C + C\subseteq C</span> and <span class="math inline">tC\subseteq C</span> for <span class="math inline">t &gt; 0</span>.</p>
+<p><strong>Exercise</strong>. <em>The set of arbitrages is a cone</em>.</p>
+<p><em>Proof.</em> Since <span class="math inline">C</span> is closed and convex there exists <span class="math inline">x^*\in C</span> with <span class="math inline">0 &lt; ||x^* - x|| \le ||y - x||</span> for all <span class="math inline">y\in C</span>. Let <span class="math inline">\xi = x^* - x</span>. For any <span class="math inline">y\in C</span> and <span class="math inline">t &gt; 0</span> we have <span class="math inline">ty + x^*\in C</span> so <span class="math inline">||\xi|| \le ||ty + \xi||</span>. Simplifying gives <span class="math inline">t^2||y||^2 + 2t\xi\cdot y\ge 0</span>. Dividing by <span class="math inline">t &gt; 0</span> and letting <span class="math inline">t</span> decrease to 0 shows <span class="math inline">\xi\cdot y\ge 0</span>. Take <span class="math inline">y = x^*</span> then <span class="math inline">tx^* + x^*\in C</span> for <span class="math inline">t \ge -1</span>. By similar reasoning, letting <span class="math inline">t</span> increase to 0 shows <span class="math inline">\xi\cdot x^*\le 0</span> so <span class="math inline">\xi\cdot x^* = 0</span>. Since <span class="math inline">0 &lt; ||\xi||^2 = \xi\cdot (x^* - x) = -\xi\cdot x</span> we have <span class="math inline">\xi\cdot x &lt; 0</span>. <span class="math inline">\blacksquare</span></p>
+<p>The set of non-negative finitely additive measures is a closed cone and <span class="math inline">X\mapsto \int_\Omega X\,d\Pi</span> is positive, linear, and continuous so <span class="math inline">C = \{\int_\Omega X\,d\Pi : \Pi\ge 0\}</span> is also a closed cone. The contrapositive of the FTAP follows from the lemma.</p>
+<p>The proof also shows how to find an arbitrage when one exists.</p>
+</section>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

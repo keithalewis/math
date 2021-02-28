@@ -112,7 +112,7 @@ Solution
 </section>
 <section id="functor" class="level2">
 <h2>Functor</h2>
-<p>A functor <span class="math inline">F\colon\mathbf{A}\to\mathbf{B}</span> takes objects and arrows of <span class="math inline">\mathbf{A}</span> to objects and arrows of <span class="math inline">\mathbf{B}</span> and respects the category structure. If <span class="math inline">f\colon A\to A&#39;</span>, in $ then <span class="math inline">F(f)\colon F(A)\to F(A&#39;)</span> in <span class="math inline">\mathbf{B}</span> with <span class="math inline">F(gf) = F(g)F(f)</span>.</p>
+<p>A functor <span class="math inline">F\colon\mathbf{A}\to\mathbf{B}</span> takes objects and arrows of <span class="math inline">\mathbf{A}</span> to objects and arrows of <span class="math inline">\mathbf{B}</span> and respects the category structure. If <span class="math inline">f\colon A\to A&#39;</span>, in <span class="math inline">\mathbf{A}</span> then <span class="math inline">F(f)\colon F(A)\to F(A&#39;)</span> in <span class="math inline">\mathbf{B}</span> with <span class="math inline">F(gf) = F(g)F(f)</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">F(gf) = F(g)F(f)</span> implies <span class="math inline">F(1_A) = 1_{F(A)}</span></em>.</p>
 <p>This shows we only need to define a functor on arrows; objects ride along for free.</p>
 <p>The category <span class="math inline">\mathbf{Cat}</span> has objects categories and arrows functors. If <span class="math inline">F\colon\mathbf{A}\to\mathbf{B}</span> and <span class="math inline">G\colon\mathbf{B}\to\mathbf{C}</span> are functors then composition <span class="math inline">GF\colon\mathbf{A}\to\mathbf{C}</span> is <span class="math inline">(GF)(A) = G(F(A))</span>. The identity functor is the identity of <span class="math inline">\mathbf{Cat}</span>.</p>
@@ -229,51 +229,71 @@ If <span class="math inline">U = Y</span> we can compose <span class="math inlin
 <section id="presheaf" class="level2">
 <h2>Presheaf</h2>
 <p>A <em>presheaf</em> is a functor <span class="math inline">F\colon\mathbf{C}^{op}\to\mathbf{Set}</span>. This embeds any abstract category <span class="math inline">\mathbf{C}</span> in the concrete category <span class="math inline">\mathbf{Set}</span>. It is similar to Cayley’s theorem that every group is a subgroup of all permutations of the group elements.</p>
-<p>This category has many nice properties, in particular <span class="math display">
-    F(-) = \int^{c\in\mathbf{C}} F(c)\times\hom_\mathbf{C}(-,c),
-</span> but this requires some new notions.</p>
-</section>
-<section id="representable" class="level2">
-<h2>Representable</h2>
-</section>
-<section id="answers-to-exercises" class="level2">
-<h2>Answers to Exercises</h2>
-<p><strong>Exercise</strong>. 3. Show the identity arrows of_ Set <em>are <span class="math inline">1_A = {(a,a)\in A\times A \colon a\in A}</span></em>.</p>
-<p><strong>Solution</strong> Let <span class="math inline">R\colon A\to B</span> be a relation. The following are equivalent: &gt; <span class="math inline">(a, b)\in 1_A R</span><br />
-&gt; There exists <span class="math inline">a&#39; in A</span> with <span class="math inline">(a, a&#39;)\in 1_A</span> and <span class="math inline">(a&#39;, b)\in R</span>.<br />
-&gt; <span class="math inline">(a, a)\in 1_A</span> and <span class="math inline">(a, b)\in R</span><br />
-&gt; <span class="math inline">(a, b)\in R</span><br />
-The proof of <span class="math inline">R 1_B = R</span> is similar.</p>
-<p><strong>Exercise</strong>. 4. Show that composition is associative in_ Set.</p>
-<p><strong>Solution</strong> Let <span class="math inline">R\colon A\to B</span>, <span class="math inline">S\colon B\to C</span> and <span class="math inline">T:C\to D</span>. The following are equivalent: &gt; <span class="math inline">(a, d)\in (TS)R</span>.<br />
-&gt; There exists <span class="math inline">b\in B</span> with <span class="math inline">(a, b)\in R</span> and <span class="math inline">(b, d)\in (TS)</span>.<br />
-&gt; There exists <span class="math inline">b\in B</span> with <span class="math inline">(a, b)\in R</span> and there exists <span class="math inline">c\in C</span> with <span class="math inline">(b, c)\in S</span> and <span class="math inline">(c, d)\in T</span>.<br />
-&gt; There exists <span class="math inline">b\in B</span> and there exists <span class="math inline">c\in C</span> with <span class="math inline">(a, b)\in R</span> and <span class="math inline">(b, c)\in S</span> and <span class="math inline">(c, d)\in T</span>.<br />
-&gt; There exists <span class="math inline">c\in C</span> and there exists <span class="math inline">b\in B</span> with <span class="math inline">(a, b)\in R</span> and <span class="math inline">(b, c)\in S</span> and <span class="math inline">(c, d)\in T</span>.<br />
-&gt; There exists <span class="math inline">c\in C</span> with <span class="math inline">(a, c)\in SR</span> and <span class="math inline">(c, d)\in T</span>.<br />
-&gt; <span class="math inline">(a, d)\in T(SR)</span>.</p>
-<p><strong>Exercise</strong>. 5. Show <span class="math inline">R</span> is reflexive if and only if <span class="math inline">1_A</span> is a subset of <span class="math inline">R</span>_.</p>
-<p><strong>Solution</strong> The following statements are equivalent &gt; <span class="math inline">R</span> is reflexive<br />
-&gt; <span class="math inline">a &lt;= a</span> for all <span class="math inline">a\in A</span><br />
-&gt; <span class="math inline">(a, a)\in R</span> for all <span class="math inline">a\in A</span><br />
-&gt; <span class="math inline">1_A</span> is a subset of <span class="math inline">R</span></p>
-<p><strong>Exercise</strong>. 6. Show <span class="math inline">R</span> is transitive if and only if <span class="math inline">RR</span> is a subset of <span class="math inline">R</span>_.</p>
-<p><strong>Solution</strong> The following statements are equivalent &gt; <span class="math inline">R</span> is transitive<br />
-&gt; <span class="math inline">a &lt;= b</span> and <span class="math inline">b &lt;= c</span> imply <span class="math inline">a &lt;= c</span><br />
-&gt; <span class="math inline">(a, b)\in R</span> and <span class="math inline">(b, c)\in R</span> imply <span class="math inline">(a, c)\in R</span><br />
-&gt; <span class="math inline">(a, c)\in RR</span> implies <span class="math inline">(a, c)\in R</span><br />
-&gt; <span class="math inline">RR</span> is a subset of <span class="math inline">R</span></p>
-<p><strong>Exercise</strong>. 7. Show <span class="math inline">R</span> is anti-symmetric if and only if the intersection of <span class="math inline">R</span> and <span class="math inline">R*</span> is contained in <span class="math inline">1_A</span>_.</p>
-<p><strong>Solution</strong> The following statements are equivalent &gt; <span class="math inline">R</span> is anti-symmetric<br />
-&gt; <span class="math inline">a &lt;= b</span> and <span class="math inline">b &lt;= a</span> imply <span class="math inline">a = b</span><br />
-&gt; <span class="math inline">(a, b)\in R</span> and <span class="math inline">(b, a)\in R</span> imply <span class="math inline">a = b</span><br />
-&gt; <span class="math inline">(a, b)\in R</span> and <span class="math inline">(a, b)\in R*</span> imply <span class="math inline">a = b</span><br />
-&gt; <span class="math inline">(a, b)\in R intersect R*</span> imply <span class="math inline">(a, b)\in 1_A</span><br />
-&gt; The intersection of <span class="math inline">R</span> and <span class="math inline">R*</span> is contained in <span class="math inline">1_A</span></p>
+<!--
+## Answers to Exercises
+
+__Exercise__. 3. Show the identity arrows of_ Set _are $1_A = {(a,a)\in A\times A \colon a\in A}$_.
+
+**Solution** Let $R\colon A\to B$ be a relation. The following are equivalent:
+> $(a, b)\in 1_A R$  
+> There exists $a' in A$ with $(a, a')\in 1_A$ and $(a', b)\in R$.  
+> $(a, a)\in 1_A$ and $(a, b)\in R$  
+> $(a, b)\in R$  
+The proof of $R 1_B = R$ is similar.
+
+__Exercise__. 4. Show that composition is associative in_ Set.
+
+**Solution** Let $R\colon A\to B$, $S\colon B\to C$ and $T:C\to D$. The following
+are equivalent:
+> $(a, d)\in (TS)R$.  
+> There exists $b\in B$ with $(a, b)\in R$ and $(b, d)\in (TS)$.  
+> There exists $b\in B$ with $(a, b)\in R$ and there exists $c\in C$ with $(b, c)\in S$ and $(c, d)\in T$.  
+> There exists $b\in B$ and there exists $c\in C$ with $(a, b)\in R$ and $(b, c)\in S$ and $(c, d)\in T$.    
+> There exists $c\in C$ and there exists $b\in B$ with $(a, b)\in R$ and $(b, c)\in S$ and $(c, d)\in T$.    
+> There exists $c\in C$ with $(a, c)\in SR$ and $(c, d)\in T$.    
+> $(a, d)\in T(SR)$.
+
+__Exercise__. 5. Show $R$ is reflexive if and only if $1_A$ is a subset of $R$_.
+
+**Solution** The following statements are equivalent\colon  
+> $R$ is reflexive  
+> $a <= a$ for all $a\in A$  
+> $(a, a)\in R$ for all $a\in A$  
+> $1_A$ is a subset of $R$  
+
+__Exercise__. 6. Show $R$ is transitive if and only if $RR$ is a subset of $R$_.
+
+**Solution** The following statements are equivalent\colon  
+> $R$ is transitive  
+> $a <= b$ and $b <= c$ imply $a <= c$  
+> $(a, b)\in R$ and $(b, c)\in R$ imply $(a, c)\in R$  
+> $(a, c)\in RR$ implies $(a, c)\in R$  
+> $RR$ is a subset of $R$  
+
+__Exercise__. 7. Show $R$ is anti-symmetric if and only if the intersection of
+$R$ and $R*$ is contained in $1_A$_.
+
+**Solution** The following statements are equivalent\colon  
+> $R$ is anti-symmetric  
+> $a <= b$ and $b <= a$ imply $a = b$  
+> $(a, b)\in R$ and $(b, a)\in R$ imply $a = b$  
+> $(a, b)\in R$ and $(a, b)\in R*$ imply $a = b$  
+> $(a, b)\in R intersect R*$ imply $(a, b)\in 1_A$   
+> The intersection of $R$ and $R*$ is contained in $1_A$  
+
+-->
 </section>
 <section id="notes" class="level2">
 <h2>NOTES</h2>
 <p>Not all Boolean algebras are isomorphic to a powerset. Stone’s theorem.</p>
+<p>Pay homage to Frege, Russell, … Gentzen.</p>
+<p>set &lt;=&gt; collection<br />
+element &lt;=&gt; item</p>
+<p>A <em>semigroup</em> is a set with an associative binary operation, <span class="math inline">stu</span>, <span class="math inline">s,t,u\in S</span> is unambiguous.</p>
+<p>A <em>moniod</em> is a semigroup with an <em>identity</em> element <span class="math inline">e</span>, <span class="math inline">me = m = em</span>. Every semigroup <span class="math inline">S</span> can be turned into a monoid by adjoining an element <span class="math inline">e</span> not in the semigroup and extending the binary operation by defining <span class="math inline">se = s = es</span> for <span class="math inline">s\in S</span>.</p>
+<p>A <em>precategory</em> is a collection with an associative partially defined transitive binary operation.</p>
+<p>A <em>category</em> is a precategory where every item has a left and a right <em>identity</em>. Every precategory <span class="math inline">\mathbf{C}</span> can be turned into a category by adjoining elements <span class="math inline">e_c</span> and <span class="math inline">{}_ce</span> if <span class="math inline">c</span> is an item of <span class="math inline">\mathbf{C}</span> and extending the binary operation by defining <span class="math inline">e_c c = c</span> and <span class="math inline">c{}_ce = e</span>.</p>
+<p>Opposite category: …</p>
 </section>
 <footer>
 Return to <a href="index.html">index</a>.
