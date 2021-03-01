@@ -42,7 +42,7 @@ has _arbitrage_ if there exists $\gamma\in \RR^I$ with $\gamma\cdot x <
 ## FTAP
 
 The one-period Fundamental Theorem of Asset Pricing states that there is no
-arbitrage if and only if there exists a measure $\Pi$ on $\Omega$
+arbitrage if and only if there exists a non-negative measure $\Pi$ on $\Omega$
 such that $\int_\Omega X\,d\Pi = x$. If such a measure exists and
 $\gamma\cdot X\ge 0$ then $\gamma\cdot x \ge 0$ so there is no arbitrage.
 
