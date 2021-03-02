@@ -77,16 +77,15 @@ Note that the lemma is a purely geometric fact that does not involve measures.
 It is usually called Farkas' lemma and is a special case of the Hahn-Banach theorem
 in finite dimensional space.
 
-<!--
 ## Hedging
 
 Given a derivative payoff $A$ at the end of the period we wish to
 minimize, in some sense, $\gamma\cdot X - A$ over available hedges $\gamma\in\RR^I$.
-Fix a probability measure and let $\Xi = E[XX']^{1/2}$ so
+Fix a probability measure and let $\Sigma = E[XX']^{1/2}$ so
 $$
 \begin{aligned}
 E[(\gamma\cdot X - A)^2] &= \gamma'E[XX']\gamma - 2E[X'A]\gamma + E[A^2]\\
-	&= \|\Xi\gamma - \Xi^{-1}E[XA]\|^2 - \|\Xi^{-1}E[XA]\|^2 + E[A^2].\\
+	&= \|\Sigma\gamma - \Sigma^{-1}E[XA]\|^2 - \|\Sigma^{-1}E[XA]\|^2 + E[A^2].\\
 \end{aligned}
 $$
 This has minimum value $E[A^2] - E[X'A]E[XX']^{-1}E[XA]$ when $\gamma = E[XX']^{-1}E[XA]$.
@@ -113,4 +112,3 @@ $$
 Let $x = (r, s)$, $r,s\in\RR$ and $X = (R, S)$, $R,S\colon\Omega\to\RR$.
 We may assume $r = s = 1$. The matrix $XX'$ has eigenvectors
 $(R/S, 1)$ and $(-S/R, 1)$ with eigenvalues $R^2 + S^2$ and $0$, respectively.
--->
