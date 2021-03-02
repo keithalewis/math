@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="abstract: The mathematical foundations of pivot tables." />
+  <title>Cubes</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Cubes</h1>
+<p class="author">abstract: The mathematical foundations of pivot tables.</p>
+</header>
+<p>A <em>database</em> is a <em>relation</em> <span class="math inline">R\subseteq \Pi_{j\in J} T_j = T_J</span> where the <span class="math inline">T_j</span> are sets called the <em>column types</em> of the database. The contents of the database are <em>rows</em> <span class="math inline">r_i\in T_J</span> with <span class="math inline">R = \{r_i\}</span>. If <span class="math inline">I\subseteq J</span> the <em>projection</em> <span class="math inline">\pi_I\colon T_J\to T_I</span> selects the subset of column types belonging to the index set <span class="math inline">I</span>. We write <span class="math inline">r_I = \pi_I(r)</span> and <span class="math inline">R_I = \{r_I:r\in R\}</span> for the <em>projection</em> of <span class="math inline">R</span> on <span class="math inline">I</span>.</p>
+<p>A predicate on a set <span class="math inline">S</span> is a subset <span class="math inline">P\subseteq S</span>. The <em>restriction</em> of a database given a predicate <span class="math inline">P\subseteq T_J</span> is the set <span class="math inline">\{r\in R:r\in P\}</span>.</p>
+<p>The <em>join</em> of two database consists of a cartesian product, a restriction, and a projection. The join of <span class="math inline">R\subseteq T_J</span> and <span class="math inline">R&#39;\subseteq T&#39;_{J&#39;}</span> on <span class="math inline">I\subseteq J</span> and <span class="math inline">I&#39;\subseteq J&#39;</span> starts with the cartesian product <span class="math inline">R\times R&#39;</span>. This is restricted to rows <span class="math inline">(r,r&#39;)</span> satisfying <span class="math inline">r_I = r&#39;_{I&#39;}</span>. The result is projected on <span class="math inline">J\cup (J&#39;\setminus I&#39;)</span> (or <span class="math inline">(J\setminus I)\cup J&#39;</span>) to remove redundant data.</p>
+<p><em>Dimensions</em> <span class="math inline">D</span> and <em>values</em> <span class="math inline">V</span> are sets. The set <span class="math inline">V^D = \{f\colon D\to V\}</span> is the set of all functions from <span class="math inline">D</span> to <span class="math inline">V</span>. Given <span class="math inline">f\colon D\to V</span> define the <em>push forward</em> <span class="math inline">f^*\colon\mathcal{P}(D)\to\mathcal{P}(V)</span> by <span class="math inline">f^*(A) = \{f(a):a\in A\}\subseteq V</span> for <span class="math inline">A\subseteq D</span> where <span class="math inline">\mathcal{P}(V)</span> is the collection of all subsets of <span class="math inline">V</span>. This is called the <em>power set</em> of <span class="math inline">V</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">2 = \{0,1\}</span> show <span class="math inline">\mathcal{P}(V)</span> is in one-to-one correspondence with <span class="math inline">2^V</span></em>.</p>
+<p>Hint: Given <span class="math inline">U\subseteq V</span> define <span class="math inline">u\in 2^V</span> by <span class="math inline">u = 1_U</span>, the <em>indicator function</em> of <span class="math inline">U</span> where <span class="math inline">1_U(v) = 1</span> if <span class="math inline">v\in U</span> and <span class="math inline">1_U(v) = 0</span> if <span class="math inline">v\not\in U</span> for <span class="math inline">v\in V</span>.</p>
+<p>An <em>aggregator</em> is a function <span class="math inline">\alpha\colon\mathcal{P}(V)\to W</span> where <span class="math inline">V</span> and <span class="math inline">W</span> are values. The composition <span class="math inline">\alpha\circ f^*</span> is a function from <span class="math inline">\mathcal{P}(D)</span> to <span class="math inline">W</span>.</p>
+<p>The aggregator <em>count</em> takes a set to its cardinality. If <span class="math inline">V</span> is an abelian group the aggregator <em>sum</em> adds all elements of any subset. If <span class="math inline">V</span> has an ordering then <em>max</em> and <em>min</em> are aggregators.</p>
+<p>If <span class="math inline">\beta\colon V\times V\to V</span> is any binary function that is commutative and associative with identity element <span class="math inline">\nu\in V</span> then <span class="math inline">\hat{\beta}\colon\mathcal{P}(V)\to V</span> can be defined by <span class="math inline">\hat{\beta}(\emptyset) = \nu</span> and <span class="math inline">\hat{\beta}(\{u\}\cup U) = \beta(u, \hat{\beta}(U))</span> for <span class="math inline">u\in V</span> and <span class="math inline">U\subseteq V</span>.</p>
+<p>A <em>partition</em> <span class="math inline">\Delta</span> of a set <span class="math inline">D</span> is a collection of subsets of <span class="math inline">D</span> satisfying <span class="math inline">D = \cup \Delta</span> (for every <span class="math inline">a\in D</span> there exists <span class="math inline">A\in\Delta</span> with <span class="math inline">a\in A</span>) and for <span class="math inline">A,B\in\Delta</span> either <span class="math inline">A\cap B = \emptyset</span> or <span class="math inline">A = B</span>. The elements of a partition are called <em>atoms</em>.</p>
+<p>The relation <span class="math inline">a\sim b</span> defined by both <span class="math inline">a</span> and <span class="math inline">b</span> belong to the same atom is an <em>equivalence relation</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">a\sim a</span>, <span class="math inline">a\sim b</span> implies <span class="math inline">b\sim a</span>, and <span class="math inline">a\sim b</span>, <span class="math inline">b\sim c</span> imply <span class="math inline">a\sim c</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show every equivalence relation determines a partition</em>.</p>
+<p>Hint. The atoms are <span class="math inline">\{b\in D:b\sim a\}</span> for <span class="math inline">a\in D</span>.</p>
+<p>Since paritions are sets they can also be dimensions.</p>
+<p>It is custumary to define a <em>measure</em> <span class="math inline">\Delta</span> on a dimension <span class="math inline">D</span> to be a partition of <span class="math inline">D</span>. This word collides with another mathematical term for set functions satisfying certain properties. We will use partition instead of measure in what follows.</p>
+<p>A partition <span class="math inline">\Delta&#39;</span> is a <em>refinement</em> of the partition <span class="math inline">\Delta</span> if every atom of <span class="math inline">\Delta</span> is a union of atoms of <span class="math inline">\Delta&#39;</span>. We say <span class="math inline">\Delta&#39;</span> is <em>finer</em> than <span class="math inline">\Delta</span> and <span class="math inline">\Delta</span> is <em>coarser</em> than <span class="math inline">\Delta&#39;</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the finest partion of a set <span class="math inline">D</span> is the collection of singletons <span class="math inline">\{\{d\}:d\in D\}</span> and the coarsest partition of <span class="math inline">D</span> is the single set <span class="math inline">\{D\}</span></em>.</p>
+<p>We denote these by <span class="math inline">\{\{D\}\}</span> and <span class="math inline">\{D\}</span> respectively.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">V^D</span> is in one-to-one correspondence with <span class="math inline">V^{\{\{D\}\}}</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">(d,v)</span> and <span class="math inline">(d,v&#39;)</span> belong to the graph of a function then <span class="math inline">v = v&#39;</span></em>.</p>
+<p>Any subset of <span class="math inline">D\times V</span> with this property is a <em>partial function</em>. If the subset has the property that for every <span class="math inline">d\in D</span> there is some <span class="math inline">v\in V</span> with <span class="math inline">(d,v)</span> in the subset then it determines a function.</p>
+<h2 id="cube">Cube</h2>
+<p>A <em>cube</em> on <span class="math inline">D</span> taking values in <span class="math inline">V</span> is a function belonging to <span class="math inline">V^\Delta</span> where <span class="math inline">\Delta</span> is a partion of <span class="math inline">D</span>. Any function in <span class="math inline">V^D</span> determines a cube in <span class="math inline">V^{\{\{D\}\}</span> and vice verse.</p>
+<p>If <span class="math inline">f\colon\Delta\to V</span> is a cube and <span class="math inline">\alpha</span> is an aggregator on subsets of <span class="math inline">V</span> to <span class="math inline">W</span> then <span class="math inline">\alpha\circ f^*\colon\Delta\to W</span> is a cube on <span class="math inline">D</span> taking values in <span class="math inline">W</span>.</p>
+<p>Functions in <span class="math inline">V^D</span> are called <em>cubes</em>. This makes more sense if <span class="math inline">D=D_1\times\cdots D_n</span> and <span class="math inline">V=V_1\times\cdots V_m</span> are cartesian products. The <em>graph</em> of <span class="math inline">f</span> is the set <span class="math inline">\{(d,f(d)):d\in D\}\subseteq D\times V</span>.</p>
+<p>A <em>cube transformation</em> is a function <span class="math inline">\tau\colon V^\Delta&#39;\to W^\Delta</span> where <span class="math inline">\Delta&#39;</span> is a refinement of <span class="math inline">\Delta</span> and <span class="math inline">V</span>, <span class="math inline">W</span> are values.</p>
+<p>Cubes together with aggregators are <em>pivot tables</em>.</p>
+<p><strong>Exercise</strong>. _If <span class="math inline">f\colon\Delta\to V</span> is a cube and <span class="math inline">\Delta&#39;</span> coarser than <span class="math inline">\Delta</span> show $f^*</p>
+</body>
+</html>
