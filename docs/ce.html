@@ -6,16 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Conditional Expectation</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body);
-  });</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
@@ -23,15 +41,15 @@
   -->
 </head>
 <body>
-<header>
+<header id="title-block-header">
 <h1 class="title">Conditional Expectation</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<p>Let <span class="math inline">\(\langle \Omega, P, \mathcal{A}\rangle\)</span> be a <em>probability space</em>. The <em>conditional expectation</em> of a random variable <span class="math inline">\(X\)</span> with respect to a subalgebra <span class="math inline">\(\mathcal{B}\subseteq\mathcal{A}\)</span> is the <span class="math inline">\(\mathcal{B}\)</span> measurable random variable <span class="math inline">\(Y\)</span> satisfying <span class="math inline">\(\int_B Y\,dP = \int_B X\,dP\)</span> for all <span class="math inline">\(B\in\mathcal{B}\)</span> and we write <span class="math inline">\(Y = E[X\mid\mathcal{B}]\)</span>.</p>
-<p>Note <span class="math inline">\(XP\)</span> is a measure if <span class="math inline">\(X\)</span> is integrable. An equivalent definition of conditional expectation can be given by restricting measures to the subaglebra <span class="math inline">\(\mathcal{B}\)</span>: <span class="math inline">\(Y(P|_\mathcal{B}) = (XP)|_\mathcal{B}\)</span>. Evaluating each measure on <span class="math inline">\(B\subseteq\mathcal{B}\)</span> results in the equality of the above integrals.</p>
-<p>If <span class="math inline">\(\mathcal{A}\)</span> is finite the atoms of <span class="math inline">\(\mathcal{A}\)</span> are a partition of <span class="math inline">\(\Omega\)</span> and <span class="math inline">\(\mathcal{A}\)</span> is the smallest algebra containing the atoms. A function <span class="math inline">\(X\colon\Omega\to\bm{R}\)</span> is <span class="math inline">\(\mathcal{A}\)</span> measurable if and only if it is constant on atoms so <span class="math inline">\(X\colon\mathcal{A}\to\bm{R}\)</span> is a function on atoms.</p>
-<p>For any <span class="math inline">\(B\in\mathcal{A}\)</span> we have <span class="math inline">\((XP)(B) = \sum_{A\subseteq B} X(A)P(A)\)</span> where the sum is over atoms of <span class="math inline">\(\mathcal{A}\)</span>. If <span class="math inline">\(Y\)</span> is constant on <span class="math inline">\(B\)</span> then <span class="math inline">\(Y(B)P(B) = (XP)(B)\)</span> if and only if <span class="math inline">\(Y(B) = \sum_{A\subseteq B} X(A)P(A)/P(B)\)</span> is the average of <span class="math inline">\(X\)</span> over atoms contained in <span class="math inline">\(B\)</span>.</p>
-<p>It is useful to think of algebras as <em>partial information</em>. In the finite case the algebra is determined by its atoms. Full information is knowing which <span class="math inline">\(\omega\in\Omega\)</span> occured. Partial information is knowing only what atom <span class="math inline">\(\omega\)</span> belongs to. The partition consisting of singletons represents complete information. The partition <span class="math inline">\(\{\Omega\}\)</span> represents no information.</p>
+<p>Let <span class="math inline">\langle \Omega, P, \mathcal{A}\rangle</span> be a <em>probability space</em>. The <em>conditional expectation</em> of a random variable <span class="math inline">X</span> with respect to a subalgebra <span class="math inline">\mathcal{B}\subseteq\mathcal{A}</span> is the <span class="math inline">\mathcal{B}</span> measurable random variable <span class="math inline">Y</span> satisfying <span class="math inline">\int_B Y\,dP = \int_B X\,dP</span> for all <span class="math inline">B\in\mathcal{B}</span> and we write <span class="math inline">Y = E[X\mid\mathcal{B}]</span>.</p>
+<p>Note <span class="math inline">XP</span> is a measure if <span class="math inline">X</span> is integrable. An equivalent definition of conditional expectation can be given by restricting measures to the subaglebra <span class="math inline">\mathcal{B}</span>: <span class="math inline">Y(P|_\mathcal{B}) = (XP)|_\mathcal{B}</span>. Evaluating each measure on <span class="math inline">B\subseteq\mathcal{B}</span> results in the equality of the above integrals.</p>
+<p>If <span class="math inline">\mathcal{A}</span> is finite the atoms of <span class="math inline">\mathcal{A}</span> are a partition of <span class="math inline">\Omega</span> and <span class="math inline">\mathcal{A}</span> is the smallest algebra containing the atoms. A function <span class="math inline">X\colon\Omega\to\bm{R}</span> is <span class="math inline">\mathcal{A}</span> measurable if and only if it is constant on atoms so <span class="math inline">X\colon\mathcal{A}\to\bm{R}</span> is a function on atoms.</p>
+<p>For any <span class="math inline">B\in\mathcal{A}</span> we have <span class="math inline">(XP)(B) = \sum_{A\subseteq B} X(A)P(A)</span> where the sum is over atoms of <span class="math inline">\mathcal{A}</span>. If <span class="math inline">Y</span> is constant on <span class="math inline">B</span> then <span class="math inline">Y(B)P(B) = (XP)(B)</span> if and only if <span class="math inline">Y(B) = \sum_{A\subseteq B} X(A)P(A)/P(B)</span> is the average of <span class="math inline">X</span> over atoms contained in <span class="math inline">B</span>.</p>
+<p>It is useful to think of algebras as <em>partial information</em>. In the finite case the algebra is determined by its atoms. Full information is knowing which <span class="math inline">\omega\in\Omega</span> occured. Partial information is knowing only what atom <span class="math inline">\omega</span> belongs to. The partition consisting of singletons represents complete information. The partition <span class="math inline">\{\Omega\}</span> represents no information.</p>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

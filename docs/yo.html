@@ -6,16 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Yoneda</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body);
-  });</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
@@ -23,55 +41,57 @@
   -->
 </head>
 <body>
-<header>
+<header id="title-block-header">
 <h1 class="title">Yoneda</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-
 <p>Nobody understands the Yoneda lemma, where by <em>nobody</em> I mean <em>I</em> don’t understand the Yoneda lemma. As Von Neumann said, “You don’t understand math, you just get used to it.” This short exegesis is my attempt to get used to it.</p>
 <p>The Yoneda lemma is similar to Cayley’s theorem that states every group is (isomorphic to) a subgroup of the permutaion group of the set of group elements. The abstract notion of a group defined in terms of axioms can be represented by embedded it in a more familiar structure. The Yoneda lemma is different from Cayley’s theorem in that it represents categories by embedding them in a less familiar structure.</p>
 <section id="cayleys-theorem" class="level2">
 <h2>Cayley’s theorem</h2>
-<p>I will never understand why Cayley gets the cognomen “theorem” while Yoneda only rates a “lemma”. The proof of Cayley’s theorem is much easier to demonstrate. Recall a <em>monoid</em> is a set <span class="math inline">\(M\)</span> with a binary operation that is associative and has an identity element <span class="math inline">\(1\)</span> for that operation, <span class="math inline">\(1m = m = m1\)</span>, <span class="math inline">\(m\in M\)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">\(1&#39;m = m = m1&#39;\)</span>, <span class="math inline">\(m\in M\)</span> then <span class="math inline">\(1 = 1&#39;\)</span></em>.</p>
+<p>I will never understand why Cayley gets the cognomen “theorem” while Yoneda only rates a “lemma”. The proof of Cayley’s theorem is much easier to demonstrate. Recall a <em>monoid</em> is a set <span class="math inline">M</span> with a binary operation that is associative and has an identity element <span class="math inline">1</span> for that operation, <span class="math inline">1m = m = m1</span>, <span class="math inline">m\in M</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">1&#39;m = m = m1&#39;</span>, <span class="math inline">m\in M</span> then <span class="math inline">1 = 1&#39;</span></em>.</p>
 <details>
-<summary>Solution</summary> We have <span class="math inline">\(1&#39;1 = 1\)</span> from <span class="math inline">\(1&#39;m = m\)</span> and <span class="math inline">\(1&#39; = 1&#39;1\)</span> from <span class="math inline">\(m = m1&#39;\)</span>.
+<summary>
+Solution
+</summary>
+We have <span class="math inline">1&#39;1 = 1</span> from <span class="math inline">1&#39;m = m</span> and <span class="math inline">1&#39; = 1&#39;1</span> from <span class="math inline">m = m1&#39;</span>.
 </details>
 <p>The identity is unique.</p>
-<p>A <em>group</em> <span class="math inline">\(G\)</span> is a moniod with inverse elements: for every <span class="math inline">\(g\in G\)</span> there exists an inverse <span class="math inline">\(g^{-1}\in G\)</span> with <span class="math inline">\(gg^{-1} = 1\)</span>.</p>
+<p>A <em>group</em> <span class="math inline">G</span> is a moniod with inverse elements: for every <span class="math inline">g\in G</span> there exists an inverse <span class="math inline">g^{-1}\in G</span> with <span class="math inline">gg^{-1} = 1</span>.</p>
 <p><strong>Exercise</strong>. <em>Show inverses are unique</em>.</p>
-<p>A <em>permutation</em> on a set <span class="math inline">\(S\)</span> is a function <span class="math inline">\(\sigma\colon S\to S\)</span> that is one-to-one and onto. Such functions are invertable and the collection of all permutations form a group <span class="math inline">\(\Sigma(S)\)</span> where the binary operation is function composition and the identity is the identity permutation.</p>
-<p>For any <span class="math inline">\(g\)</span> in the group <span class="math inline">\(G\)</span> define <span class="math inline">\(L_g\colon G\to\Sigma(G)\)</span> by <span class="math inline">\(L_gh = gh\)</span>, <span class="math inline">\(h\in G\)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show for any <span class="math inline">\(g\in G\)</span> that if <span class="math inline">\(L_gh = L_gk\)</span>, <span class="math inline">\(h,k\in G\)</span>, then <span class="math inline">\(h = k\)</span></em>.</p>
-<p><em>Hint</em>: Multiply both sides on the left by <span class="math inline">\(g^{-1}\)</span>.</p>
-<p>This shows <span class="math inline">\(L_g\)</span> is one-to-one, <span class="math inline">\(g\in G\)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show the range of <span class="math inline">\(L_g\)</span> is a subgroup of <span class="math inline">\(\Sigma(G)\)</span></em>.</p>
+<p>A <em>permutation</em> on a set <span class="math inline">S</span> is a function <span class="math inline">\sigma\colon S\to S</span> that is one-to-one and onto. Such functions are invertable and the collection of all permutations form a group <span class="math inline">\Sigma(S)</span> where the binary operation is function composition and the identity is the identity permutation.</p>
+<p>For any <span class="math inline">g</span> in the group <span class="math inline">G</span> define <span class="math inline">L_g\colon G\to\Sigma(G)</span> by <span class="math inline">L_gh = gh</span>, <span class="math inline">h\in G</span>.</p>
+<p><strong>Exercise</strong>. <em>Show for any <span class="math inline">g\in G</span> that if <span class="math inline">L_gh = L_gk</span>, <span class="math inline">h,k\in G</span>, then <span class="math inline">h = k</span></em>.</p>
+<p><em>Hint</em>: Multiply both sides on the left by <span class="math inline">g^{-1}</span>.</p>
+<p>This shows <span class="math inline">L_g</span> is one-to-one, <span class="math inline">g\in G</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the range of <span class="math inline">L_g</span> is a subgroup of <span class="math inline">\Sigma(G)</span></em>.</p>
 <p>Every one-to-one function is inverable onto its range so this establishes Cayley’s theorem.</p>
-<p>We could also define <span class="math inline">\(R_g\colon G\to\Sigma(G)\)</span> by <span class="math inline">\(L_gh = hg\)</span>, <span class="math inline">\(h\in G\)</span> to get an equivalent result. Yoneda’s lemma exhibits a similar chirality.</p>
+<p>We could also define <span class="math inline">R_g\colon G\to\Sigma(G)</span> by <span class="math inline">L_gh = hg</span>, <span class="math inline">h\in G</span> to get an equivalent result. Yoneda’s lemma exhibits a similar chirality.</p>
 </section>
 <section id="yonedas-lemma" class="level2">
 <h2>Yoneda’s lemma</h2>
 <p>Let’s start by writing down some easily verifiable statements.</p>
-<p>If <span class="math inline">\(g\colon X\to Y\)</span> is an arrow in the category <span class="math inline">\(\mathbf{C}\)</span> then for any arrow <span class="math inline">\(h\colon Z\to X\)</span> define left composition <span class="math inline">\(L_gh = gh\colon Z\to Y\)</span>.</p>
-<p>If <span class="math inline">\(g\colon X\to Y\)</span> is an arrow in the category <span class="math inline">\(\mathbf{C}\)</span> then for any arrow <span class="math inline">\(h\colon Y\to Z\)</span> define right composition <span class="math inline">\(R_gh = hg\colon X\to Z\)</span>.</p>
-<p>The collection of arrows having codomain <span class="math inline">\(Z\)</span> is usually denoted <span class="math inline">\(\hom(\_,Z)\)</span> but let’s write it as <span class="math inline">\(\{\_\to Z\}\)</span> and let <span class="math inline">\(\{Z\to\_\}\)</span> be the collection of arrows having domain <span class="math inline">\(Z\)</span>. Note <span class="math inline">\(L_g\colon\{\_\to Z\}\to\{Z\to\_\}\)</span> and <span class="math inline">\(R_g\colon\{_\to Z\}\to\{_\to Z\}\)</span>.</p>
-<p>The arrows of <span class="math inline">\(\{\_\to Z\}\)</span> are <span class="math inline">\(L_g\)</span> where <span class="math inline">\(g\)</span> is any arrow in <span class="math inline">\(\mathbf{C}\)</span>. The arrows of <span class="math inline">\(\{Z\to\_\}\)</span> are <span class="math inline">\(R_g\)</span> where <span class="math inline">\(g\)</span> is any arrow in <span class="math inline">\(\mathbf{C}\)</span>.</p>
-<p><span class="math inline">\(Z\to f\colon\{Z\to X\}\to\{Z\to Y\}\)</span>, <span class="math inline">\(f\colon X\to Y\)</span>.<br />
-If <span class="math inline">\(f\colon X\to Y\)</span> and <span class="math inline">\(g\colon U\to V\)</span> then <span class="math inline">\(Z\to f\colon\{Z\to X\}\to\{Z\to Y\}\)</span> and <span class="math inline">\(Z\to g\colon\{Z\to U\}\to\{Z\to V\}\)</span>.<br />
-If <span class="math inline">\(U = Y\)</span> we can compose <span class="math inline">\(gf\colon X\to V\)</span> in <span class="math inline">\(\mathbf{C}\)</span> and <span class="math inline">\((Z\to g)(Z\to f)\colon\{Z\to X\}\to\{Z\to V\}\)</span> in <span class="math inline">\(\{Z\to\_\}\)</span>,</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\(Z\to gf = (Z\to g)(Z\to f)\)</span></em>.</p>
-<p>For every object <span class="math inline">\(Z\)</span> in <span class="math inline">\(\mathbf{C}\)</span> define the contravariant functor <span class="math inline">\(\to Z\colon\mathbf{C}\to\{\_\to Z\}\)</span> by <span class="math inline">\(f\mapsto f\to Z\)</span>.<br />
-For every object <span class="math inline">\(Z\)</span> in <span class="math inline">\(\mathbf{C}\)</span> define the (covariant) functor <span class="math inline">\(\to Z\colon\mathbf{C}\to\{\_\to Z\}\)</span> by <span class="math inline">\(f\mapsto Z\to f\)</span>.</p>
-<p><strong>Exercise</strong>. <em>For any object <span class="math inline">\(Z\)</span> in <span class="math inline">\(\mathbf{C}\)</span> show <span class="math inline">\(h\to Z = k\to Z\)</span> implies <span class="math inline">\(h = k\)</span>, where <span class="math inline">\(h,k\)</span> are arrows in <span class="math inline">\(\mathbf{C}\)</span></em>.</p>
-<p><em>Hint</em>: If <span class="math inline">\(h\colon X\to Y\)</span> and <span class="math inline">\(h\colon U\to V\)</span> then <span class="math inline">\(h\to Z\)</span> and <span class="math inline">\(k\to Z\)</span> must have the same domain and codomain so <span class="math inline">\(X = U\)</span> and <span class="math inline">\(Y = V\)</span>. Apply <span class="math inline">\(1_Y\)</span> to both sides.</p>
-<p>This shows the functor <span class="math inline">\(\to Z\)</span> is one-to-one. Likewise, <span class="math inline">\(Z\to\)</span> is also one-to-one.</p>
+<p>If <span class="math inline">g\colon X\to Y</span> is an arrow in the category <span class="math inline">\mathbf{C}</span> then for any arrow <span class="math inline">h\colon Z\to X</span> define left composition <span class="math inline">L_gh = gh\colon Z\to Y</span>.</p>
+<p>If <span class="math inline">g\colon X\to Y</span> is an arrow in the category <span class="math inline">\mathbf{C}</span> then for any arrow <span class="math inline">h\colon Y\to Z</span> define right composition <span class="math inline">R_gh = hg\colon X\to Z</span>.</p>
+<p>The collection of arrows having codomain <span class="math inline">Z</span> is usually denoted <span class="math inline">\hom(\_,Z)</span> but let’s write it as <span class="math inline">\{\_\to Z\}</span> and let <span class="math inline">\{Z\to\_\}</span> be the collection of arrows having domain <span class="math inline">Z</span>. Note <span class="math inline">L_g\colon\{\_\to Z\}\to\{Z\to\_\}</span> and <span class="math inline">R_g\colon\{_\to Z\}\to\{_\to Z\}</span>.</p>
+<p>The arrows of <span class="math inline">\{\_\to Z\}</span> are <span class="math inline">L_g</span> where <span class="math inline">g</span> is any arrow in <span class="math inline">\mathbf{C}</span>. The arrows of <span class="math inline">\{Z\to\_\}</span> are <span class="math inline">R_g</span> where <span class="math inline">g</span> is any arrow in <span class="math inline">\mathbf{C}</span>.</p>
+<p><span class="math inline">Z\to f\colon\{Z\to X\}\to\{Z\to Y\}</span>, <span class="math inline">f\colon X\to Y</span>.<br />
+If <span class="math inline">f\colon X\to Y</span> and <span class="math inline">g\colon U\to V</span> then <span class="math inline">Z\to f\colon\{Z\to X\}\to\{Z\to Y\}</span> and <span class="math inline">Z\to g\colon\{Z\to U\}\to\{Z\to V\}</span>.<br />
+If <span class="math inline">U = Y</span> we can compose <span class="math inline">gf\colon X\to V</span> in <span class="math inline">\mathbf{C}</span> and <span class="math inline">(Z\to g)(Z\to f)\colon\{Z\to X\}\to\{Z\to V\}</span> in <span class="math inline">\{Z\to\_\}</span>,</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">Z\to gf = (Z\to g)(Z\to f)</span></em>.</p>
+<p>For every object <span class="math inline">Z</span> in <span class="math inline">\mathbf{C}</span> define the contravariant functor <span class="math inline">\to Z\colon\mathbf{C}\to\{\_\to Z\}</span> by <span class="math inline">f\mapsto f\to Z</span>.<br />
+For every object <span class="math inline">Z</span> in <span class="math inline">\mathbf{C}</span> define the (covariant) functor <span class="math inline">\to Z\colon\mathbf{C}\to\{\_\to Z\}</span> by <span class="math inline">f\mapsto Z\to f</span>.</p>
+<p><strong>Exercise</strong>. <em>For any object <span class="math inline">Z</span> in <span class="math inline">\mathbf{C}</span> show <span class="math inline">h\to Z = k\to Z</span> implies <span class="math inline">h = k</span>, where <span class="math inline">h,k</span> are arrows in <span class="math inline">\mathbf{C}</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">h\colon X\to Y</span> and <span class="math inline">h\colon U\to V</span> then <span class="math inline">h\to Z</span> and <span class="math inline">k\to Z</span> must have the same domain and codomain so <span class="math inline">X = U</span> and <span class="math inline">Y = V</span>. Apply <span class="math inline">1_Y</span> to both sides.</p>
+<p>This shows the functor <span class="math inline">\to Z</span> is one-to-one. Likewise, <span class="math inline">Z\to</span> is also one-to-one.</p>
 <p>It also establishes the Yoneda lemma</p>
-<p><strong>Lemma</strong>. (Yoneda) <em>Every categoy <span class="math inline">\(\mathbf{C}\)</span> is isomorphic to <span class="math inline">\(\{\_\to Z\}\)</span> and <span class="math inline">\(\{Z\to\_\}\)</span>, where <span class="math inline">\(Z\)</span> is an(y) object of <span class="math inline">\(\mathbf{C}\)</span></em>.</p>
+<p><strong>Lemma</strong>. (Yoneda) <em>Every categoy <span class="math inline">\mathbf{C}</span> is isomorphic to <span class="math inline">\{\_\to Z\}</span> and <span class="math inline">\{Z\to\_\}</span>, where <span class="math inline">Z</span> is an(y) object of <span class="math inline">\mathbf{C}</span></em>.</p>
 </section>
 <section id="remarks" class="level2">
 <h2>Remarks</h2>
-<p>The standard terminology for a functor that is an isomorphism is that it is <em>full</em> and <em>faithful</em>. The standard way to write <span class="math inline">\(\{\_\to Z\}\)</span> is <span class="math inline">\(\hom(\_,Z)\)</span>. If we define <span class="math inline">\(\to Z\colon\mathbf{C}^{op}\to\{\_\to Z\}\)</span> then we don’t need to mention contravariant functors.</p>
-<p>Yoneda’s lemma is quite shocking. Pick an object, any object, and you get a representation. Also, each arrow of <span class="math inline">\(\mathbf{C}\)</span> gets sent to a boatload of arrows but the fact the representation is one-to-one (faithfull) follows from evaluating on the identity arrow (of a different object).</p>
+<p>The standard terminology for a functor that is an isomorphism is that it is <em>full</em> and <em>faithful</em>. The standard way to write <span class="math inline">\{\_\to Z\}</span> is <span class="math inline">\hom(\_,Z)</span>. If we define <span class="math inline">\to Z\colon\mathbf{C}^{op}\to\{\_\to Z\}</span> then we don’t need to mention contravariant functors.</p>
+<p>Yoneda’s lemma is quite shocking. Pick an object, any object, and you get a representation. Also, each arrow of <span class="math inline">\mathbf{C}</span> gets sent to a boatload of arrows but the fact the representation is one-to-one (faithfull) follows from evaluating on the identity arrow (of a different object).</p>
 <p>Maybe it should not be so shocking. In Cayley’s theorem each group element gives both a left and right representaion. Also, the representation involves a permutation that can shuffle every element in the group.</p>
 </section>
 <footer>
