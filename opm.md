@@ -93,7 +93,7 @@ $$
 \begin{aligned}
 (γ\cdot X - A)^2 &= γ'XX'γ - 2γ'XA + A^2 \\
 	&= \|Σγ - Σ^{-1}XA\|^2 - X'(XX')^{-1}X A^2 + A^2.\\
-\{aligned}
+\end{aligned}
 $$
 Since $(XX')X = X(X'X)$ the matrix $XX'$ has eigenvector $X$ with eigenvalue $\sigma^2 = X'X$.
 This implies $Σ^{-1}X = X/\sigma$ and $X'(XX')^{-1}X = 1$ hence
