@@ -102,7 +102,7 @@ $$
 $$
 
 Recall $E[(γ\cdot X - A)^2]$ is minimized when $γ - E[XX']^{-1}E[XA] = 0$
-which is analogous to $γ - XA/X'X$ being "minimized".
+which is analogous to $γ - XA/X'X$ being "minimized" over $Ω$.
 
 <!--
 
