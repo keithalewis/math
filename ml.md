@@ -16,7 +16,8 @@ abstract: Interpolation in high dimensions
 Machine learning involves interpolation. Given $(x_i)$ and $(y_i)$ we
 want to find a function $f$ with $f(x_i) \approx y_i$ for all $i$.
 If the $x_i$ and $y_i$ are real numbers then there is a well developed
-theory for this. I can highly recommend learning about _basis splines_.
+theory for this. I can highly recommend learning about [_basis splines_]
+(https://apps.dtic.mil/dtic/tr/fulltext/u2/a172773.pdf).
 
 If the $x_i$ are each several megabytes of pixels and the $y_i$ are only
 allowed the values true or false the problem becomes much more complicated.
@@ -133,7 +134,7 @@ For exponential decay the law of total probability yields
 $$
 V_π(s) = \sum_a π(a|s) \sum_{s',r'} p(s',r'|s,a)[r' + γ V_π(s')].
 $$
-We want to find $V^*(s) = \max_π V_π(s)$.
+We want to find the optimal state-value function $V^*(s) = \max_π V_π(s)$.
 $$
 V^*(s) = \max_{a\in A} \sum_{s',r'} p(s',r'|s,a)[r' + γ V^*(s')].
 $$
@@ -143,7 +144,7 @@ __Exercise__. _Show $V^*(s) \ge V_π(s)$ for any policy $π$_.
 
 The _action-value function_ for $π$ is $Q_π(s,a) = E[G_t\mid S_t = s, A_t = a]$.
 It is the state-value function for a given action.  We want
-to find $Q^*(s,a) = \max_π Q_π(s,a)$.  Note
+to find $Q^*(s,a) = \max_π Q_π(s,a)$.  Note for exponential decay
 $$
 Q^*(s,a) = E[R_{t+1} + γ V^*(S_{t+1})|S_t = s, A_t = a].
 $$
@@ -151,13 +152,13 @@ gives the optimal action-value function.
 
 ### Bandits
 
-An $n$-armed bandit is a MDP with one state and $n$ actions.
-Solutions should _explore_ the $n$ available actions and
-_exploit_ the most promising. In this case the action-value function does
-not depend on the state.  If we knew the reward distributions for each
-action then the optimal strategy would be to always select the action
-with the largest expected value. ML generates simulations in an
-attempt to determine these.
+An $n$-armed bandit is a MDP with one state and $n$ actions.  Solutions
+should _explore_ the $n$ available actions and _exploit_ the most
+promising. In this case the action-value function does not depend on
+the state.  If we knew the reward distributions for each action then the
+optimal strategy would be to always select the action with the largest
+expected value but we don't need to estimate each individual reward
+distribution in order to find the optimal policy.
 
 The _$ε$-greedy_ strategy selects the action maximizing the current
 action-value function with probability $1-ε$ and a random action
