@@ -113,7 +113,7 @@ since $σ = \|X\|$.
 
 If $Ω = \{ω\}$ is a singleton then $γ^* = X(ω)A(ω)/\{X(ω)\|^2$ is a natural choice for the
 best estimate. If the model is arbitrage free then $Rx = X(ω)$ for some $R > 0$ and
-$γ\cdot x = A(ω)/R$ is the cost of the hedge and $γ\cdot X(ω) = A(ω)$ replicates the option.
+$γ\cdot x = A(ω)/R$ is the cost of the hedge. In this case $γ\cdot X(ω) = A(ω)$ replicates the derivative.
 
 In general we can do a principle component analysis on $\{X(ω)A(ω)/\|X(ω)\|^2\mid ω\in Ω\}$ and
 choose $γ^*$ to be first principal component.
