@@ -111,7 +111,7 @@ which is analogous to $γ - XA/X'X$ being "minimized" over $Ω$.
 We can think of $XA/σ$ as a collection of unit vectors weighted by $A$
 since $σ = \|X\|$.
 
-If $Ω = \{ω\}$ is a singleton then $γ^* = X(ω)A(ω)/\{X(ω)\|^2$ is a natural choice for the
+If $Ω = \{ω\}$ is a singleton then $γ^* = X(ω)A(ω)/\|X(ω)\|^2$ is the natural choice for the
 best estimate. If the model is arbitrage free then $Rx = X(ω)$ for some $R > 0$ and
 $γ\cdot x = A(ω)/R$ is the cost of the hedge. In this case $γ\cdot X(ω) = A(ω)$ replicates the derivative.
 
