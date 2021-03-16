@@ -151,15 +151,12 @@ E[XX']^{-1} = \frac{1}{E[R^2]E[S^2] - E[RS]^2}
 $$
 The eigenvalues of $E[XX']$ are
 $$
-\frac{E[R^2] + E[S^2] - \sqrt{(E[R^2] - E[S^2])^2 + 4 E[RS]^2}}{2}
+(E[R^2] + E[S^2] \pm \sqrt{(E[R^2] - E[S^2])^2 + 4 E[RS]^2})/2
 $$
 and
+The corresponding eigenvectors are
 $$
-\frac{E[R^2] + E[S^2] + \sqrt{(E[R^2] - E[S^2])^2 + 4 E[RS]^2}}{2}
+((E[R^2] - E[S^2] \pm \sqrt{(E[R^2] - E[S^2])^2 + 4 E[RS]^2})/2E[RS], 1).
 $$
-Let $rr = E[R^2]$, $ss = E[S^2]$, $rs = E[RS]$, and $δ = \sqrt{(rr - ss)^2 + 4 (rs)^2}$ so
-the eigenvalues are $(rr + ss \mp δ)/2$.
-
-The corresponding eigenvectors are $((rr - ss \mp δ)/2rs), 1)$.
 
 $E[X^2] = E[X]^2 + Var(X)$
