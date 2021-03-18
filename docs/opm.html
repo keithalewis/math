@@ -59,27 +59,30 @@
 <h2>FTAP</h2>
 <p>The one-period Fundamental Theorem of Asset Pricing states that there is no arbitrage if and only if there exists a non-negative measure <span class="math inline">\Pi</span> on <span class="math inline">\Omega</span> such that <span class="math inline">\int_\Omega X\,d\Pi = x</span>. If such a measure exists and <span class="math inline">γ\cdot X\ge 0</span> then <span class="math inline">γ\cdot x \ge 0</span> so there is no arbitrage.</p>
 <p>We assume <span class="math inline">X</span> is bounded and <span class="math inline">\Pi</span> is finitely additive.</p>
-<p><strong>Lemma.</strong> <em>If <span class="math inline">x\in\bm{R}^n</span> and <span class="math inline">C</span> is a closed cone in <span class="math inline">\bm{R}^n</span> with <span class="math inline">x\not\in C</span> then there exists <span class="math inline">\xi\in\bm{R}^n</span> with <span class="math inline">\xi\cdot x &lt; 0</span> and <span class="math inline">\xi\cdot y \ge0</span> for <span class="math inline">y\in C</span>.</em></p>
+<p><strong>Lemma.</strong> <em>If <span class="math inline">x\in\bm{R}^n</span> and <span class="math inline">C</span> is a closed cone in <span class="math inline">\bm{R}^n</span> with <span class="math inline">x\not\in C</span> then there exists <span class="math inline">ξ\in\bm{R}^n</span> with <span class="math inline">ξ\cdot x &lt; 0</span> and <span class="math inline">ξ\cdot y \ge0</span> for <span class="math inline">y\in C</span>.</em></p>
 <p>Recall that a <em>cone</em> is a subset of a vector space closed under addition and multiplication by a positive scalar, that is, <span class="math inline">C + C\subseteq C</span> and <span class="math inline">tC\subseteq C</span> for <span class="math inline">t &gt; 0</span>. For example, the set of arbitrage positions is a cone.</p>
-<p><em>Proof.</em> Since <span class="math inline">C</span> is closed and convex there exists <span class="math inline">x^*\in C</span> with <span class="math inline">0 &lt; ||x^* - x|| \le ||y - x||</span> for all <span class="math inline">y\in C</span>. Let <span class="math inline">\xi = x^* - x</span>. For any <span class="math inline">y\in C</span> and <span class="math inline">t &gt; 0</span> we have <span class="math inline">ty + x^*\in C</span> so <span class="math inline">||\xi|| \le ||ty + \xi||</span>. Simplifying gives <span class="math inline">t^2||y||^2 + 2t\xi\cdot y\ge 0</span>. Dividing by <span class="math inline">t &gt; 0</span> and letting <span class="math inline">t</span> decrease to 0 shows <span class="math inline">\xi\cdot y\ge 0</span>. Take <span class="math inline">y = x^*</span> then <span class="math inline">tx^* + x^*\in C</span> for <span class="math inline">t \ge -1</span>. By similar reasoning, letting <span class="math inline">t</span> increase to 0 shows <span class="math inline">\xi\cdot x^*\le 0</span> so <span class="math inline">\xi\cdot x^* = 0</span>. Since <span class="math inline">0 &lt; ||\xi||^2 = \xi\cdot (x^* - x) = -\xi\cdot x</span> we have <span class="math inline">\xi\cdot x &lt; 0</span>. <span class="math inline">\blacksquare</span></p>
-<p>The set of non-negative finitely additive measures is a closed cone and <span class="math inline">X\mapsto \int_\Omega X\,d\Pi</span> is positive, linear, and continuous so <span class="math inline">C = \{\int_\Omega X\,d\Pi : \Pi\ge 0\}</span> is also a closed cone. The contrapositive of the FTAP follows from the lemma.</p>
-<p>The proof also shows how to find an arbitrage when one exists. Note that the lemma is a purely geometric fact that does not involve measures. It is usually called Farkas’ lemma and is a special case of the Hahn-Banach theorem in finite dimensional space.</p>
+<p><em>Proof.</em> Since <span class="math inline">C</span> is closed and convex there exists <span class="math inline">x^*\in C</span> with <span class="math inline">0 &lt; ||x^* - x|| \le ||y - x||</span> for all <span class="math inline">y\in C</span>. Let <span class="math inline">ξ = x^* - x</span>. For any <span class="math inline">y\in C</span> and <span class="math inline">t &gt; 0</span> we have <span class="math inline">ty + x^*\in C</span> so <span class="math inline">||ξ|| \le ||ty + ξ||</span>. Simplifying gives <span class="math inline">t^2||y||^2 + 2tξ\cdot y\ge 0</span>. Dividing by <span class="math inline">t &gt; 0</span> and letting <span class="math inline">t</span> decrease to 0 shows <span class="math inline">ξ\cdot y\ge 0</span>. Take <span class="math inline">y = x^*</span> then <span class="math inline">tx^* + x^*\in C</span> for <span class="math inline">t \ge -1</span>. By similar reasoning, letting <span class="math inline">t</span> increase to 0 shows <span class="math inline">ξ\cdot x^*\le 0</span> so <span class="math inline">ξ\cdot x^* = 0</span>. Since <span class="math inline">0 &lt; ||ξ||^2 = ξ\cdot (x^* - x) = -ξ\cdot x</span> we have <span class="math inline">ξ\cdot x &lt; 0</span>. <span class="math inline">\blacksquare</span></p>
+<p>The set of non-negative finitely additive measures is a closed cone and <span class="math inline">X\mapsto \int_\Omega X\,d\Pi</span> is positive, linear, and continuous so <span class="math inline">C = \{\int_\Omega X\,d\Pi \mid \Pi\ge 0\}</span> is also a closed cone. The contrapositive of the FTAP follows from the lemma.</p>
+<p>The proof also shows how to find an arbitrage when one exists. For example, if <span class="math inline">Ω</span> is a singleton then the cone generated by <span class="math inline">X(Ω)</span> is <span class="math inline">\{tX(ω)\mid t \ge 0\}</span> where <span class="math inline">Ω = \{ω\}</span>. The projection onto the ray is <span class="math inline">e\otimes e</span> where <span class="math inline">e = X(ω)/\|X(ω)\|</span> so <span class="math inline">ξ = (x\cdot e)e - x</span> is an arbitrage unless <span class="math inline">x</span> is a positive scalar multiple of <span class="math inline">X(ω)</span>.</p>
+<p>Note that the lemma is a purely geometric fact that does not involve measures. It is usually called Farkas’ lemma and is a special case of the Hahn-Banach theorem in finite dimensional space.</p>
 </section>
 <section id="hedging" class="level2">
 <h2>Hedging</h2>
 <p>Given a derivative payoff <span class="math inline">A</span> at the end of the period we wish to minimize, in some sense, <span class="math inline">γ\cdot X - A</span> over available hedges <span class="math inline">γ\in\bm{R}^I</span>.</p>
 <p><strong>Lemma</strong>. <em>Using the notation above <span class="math inline">(γ\cdot X - A)^2 = \|(XX&#39;)^{1/2}(γ - XA/X&#39;X)\|^2</span> on <span class="math inline">Ω</span></em>.</p>
 <p>Letting <span class="math inline">Σ = (XX&#39;)^{1/2}</span> we have <span class="math display">
-\|Σγ - Σ^{-1}XA\|^2 = γ&#39;XX&#39;γ - 2γ&#39;XA + X&#39;(XX&#39;)^{-1}X A^2
+    \|Σγ - Σ^{-1}XA\|^2 = γ&#39;XX&#39;γ - 2γ&#39;XA + X&#39;(XX&#39;)^{-1}X A^2
 </span> so <span class="math display">
 \begin{aligned}
 (γ\cdot X - A)^2 &amp;= γ&#39;XX&#39;γ - 2γ&#39;XA + A^2 \\
     &amp;= \|Σγ - Σ^{-1}XA\|^2 - X&#39;(XX&#39;)^{-1}X A^2 + A^2.\\
 \end{aligned}
 </span> Since <span class="math inline">(XX&#39;)X = X(X&#39;X)</span> the matrix <span class="math inline">XX&#39;</span> has eigenvector <span class="math inline">X</span> with eigenvalue <span class="math inline">\sigma^2 = X&#39;X</span>. This implies <span class="math inline">Σ^{-1}X = X/\sigma</span> and <span class="math inline">X&#39;(XX&#39;)^{-1}X = 1</span> hence <span class="math display">
-(γ\cdot X - A)^2 = \|Σ γ - XA/\sigma\|^2 = \|Σ(γ - XA/σ^2)\|^2.
+    (γ\cdot X - A)^2 = \|Σ γ - XA/\sigma\|^2 = \|Σ(γ - XA/σ^2)\|^2.
 </span></p>
-<p>Recall <span class="math inline">E[(γ\cdot X - A)^2]</span> is minimized when <span class="math inline">γ - E[XX&#39;]^{-1}E[XA] = 0</span> which is analogous to <span class="math inline">γ - XA/X&#39;X</span> being “minimized” over <span class="math inline">Ω</span>.</p>
+<p>Recall <span class="math inline">E[(γ\cdot X - A)^2]</span> is minimized when <span class="math inline">γ - E[XX&#39;]^{-1}E[XA] = 0</span> which is analogous to <span class="math inline">γ - XA/X&#39;X</span> being “minimized” over <span class="math inline">Ω</span>. We can think of <span class="math inline">XA/σ</span> as a collection of unit vectors weighted by <span class="math inline">A</span> since <span class="math inline">σ = \|X\|</span>.</p>
+<p>If <span class="math inline">Ω = \{ω\}</span> is a singleton then <span class="math inline">γ^* = X(ω)A(ω)/\|X(ω)\|^2</span> is the natural choice for the best estimate. If the model is arbitrage free then <span class="math inline">Rx = X(ω)</span> for some <span class="math inline">R &gt; 0</span> and <span class="math inline">γ\cdot x = A(ω)/R</span> is the cost of the hedge. In this case <span class="math inline">γ\cdot X(ω) = A(ω)</span> replicates the derivative.</p>
+<p>In general we can do a principle component analysis on <span class="math inline">\{X(ω)A(ω)/\|X(ω)\|^2\mid ω\in Ω\}</span> and choose <span class="math inline">γ^*</span> to be first principal component.</p>
 <!--
 
 Fix a probability measure and let $\Sigma = E[XX']^{1/2}$ so
@@ -94,15 +97,22 @@ The least squares minimum does not depend on initial prices $x$, but we are only
 interested in arbitrage free models. In this case we have $x = \int X\,dΠ = E[X]\|Π\|$
 where we use the probability measure $P = Π/\|Π\|$.
 
-$$
-    γ = E[XX']
-$$
-### Two Instruments
-
-Let $x = (r, s)$, $r,s\in\RR$ and $X = (R, S)$, $R,S\colon\Omega\to\RR$.
-We may assume $r = s = 1$. The matrix $XX'$ has eigenvectors
-$(R/S, 1)$ and $(-S/R, 1)$ with eigenvalues $R^2 + S^2$ and $0$, respectively.
 -->
+<section id="two-instruments" class="level3">
+<h3>Two Instruments</h3>
+<p>Let <span class="math inline">x = (r, s)</span>, <span class="math inline">r,s\in\bm{R}</span> and <span class="math inline">X = (R, S)</span>, <span class="math inline">R,S\colon\Omega\to\bm{R}</span>. We may assume <span class="math inline">r = s = 1</span>. The matrix <span class="math inline">XX&#39;</span> has eigenvectors <span class="math inline">(R/S, 1)</span> and <span class="math inline">(-S/R, 1)</span> with eigenvalues <span class="math inline">σ^2 = R^2 + S^2</span> and <span class="math inline">0</span>, respectively.</p>
+<p>We have <span class="math display">
+E[XX&#39;] = \begin{pmatrix} E[R^2] &amp; E[RS] \\ E[SR] &amp; E[S^2] \end{pmatrix}
+</span> and <span class="math display">
+E[XX&#39;]^{-1} = \frac{1}{E[R^2]E[S^2] - E[RS]^2} 
+\begin{pmatrix} E[S^2] &amp; -E[RS] \\ -E[SR] &amp; E[R^2] \end{pmatrix}
+</span> The eigenvalues of <span class="math inline">E[XX&#39;]</span> are <span class="math display">
+(E[R^2] + E[S^2] \pm \sqrt{(E[R^2] - E[S^2])^2 + 4 E[RS]^2})/2
+</span> and The corresponding eigenvectors are <span class="math display">
+((E[R^2] - E[S^2] \pm \sqrt{(E[R^2] - E[S^2])^2 + 4 E[RS]^2})/2E[RS], 1).
+</span></p>
+<p><span class="math inline">E[X^2] = E[X]^2 + Var(X)</span></p>
+</section>
 </section>
 <footer>
 Return to <a href="index.html">index</a>.

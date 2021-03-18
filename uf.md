@@ -8,16 +8,17 @@ abstract: Unified Finance &ndash; holdings, trades, and managing risk
 ...
 
 The financial world is a big, messy affair but its core involves trading
-and bean counting: who traded how much of what when and accounting
+instruments and bean counting: who traded how much of what when and accounting
 for that over time.
 
 The atoms of finance are _holdings_: an _instrument_, _amount_, and _legal entity_.
+A _position_ is a collection of holdings.
 Holdings interact via _trades_: the exchange of holdings between two entities at a given _time_. 
 Instruments have _cash flows_ and _prices_ that determine
 the _amounts_ and _values_ involved with trading.
-Given a collection of holdings and
-a sequence of trades the associated amounts and values determine
-the _profit and loss_, among other quantities, relevant to managing portfolios.
+Given a position and
+a sequence of trades, the associated amounts and values determine
+the _profit and loss_ (among other quantities) relevant to managing portfolios.
 
 To properly assess risk it is necessary to include how a position will
 be hedged over time.  Various hedging strategies can and should be
@@ -26,58 +27,59 @@ used for insight on the uncertainties involved.
 Both cash flows and prices must be specified
 by mathematical models to determine the amounts and values associated
 with a trading strategy. It also places instruments on equal footing to
-get a complete picture of risk across **all** asset classes.  It does not
+get a complete picture of risk across **all** asset classes.  The unified
+model does not
 solve any particular problem in finance but it does specify a mathematical
 notation to rigorously discuss all aspects of trading and hedging using
 realistic assumptions.
 
 ## Holding
 
-A holding is an _instrument_, _amount_, and _legal entity_.  Examples of
+A holding is an _amount_, _instrument_, and _legal entity_.  Examples of
 instruments are: stocks, bonds, futures, currencies, and commodities.
 They are traded in some amount: shares, notional, contracts, units,
 and physical quantity respectively.  A legal entity is an individual
 or a corporation. Corporations can subdivide holdings by groups or individual
-traders. The holding $(i,a,e)$ indicates entity $e$
+traders. The holding $(a,i,e)$ indicates entity $e$
 owns amount $a$ of instrument $i$.
 
-A _position_ is a set of holdings $\{(i_j,a_j,e_j)\}_{j\in J}$
+A _position_ is a set of holdings $\{(a_j,i_j,e_j)\}_{j\in J}$
 Assuming each instrument is _fungible_ we can aggregate amounts.
 The _net amount_ in instrument $i$ held by entity $e$ is
 $$
 	N(i,e) = \sum_j \{a_j : i_j = i, e_j = e\}.
 $$
-The _net position_ is $\cup_j \{(i_j, N(i_j,e_j), e_j)\}$. 
+The _net position_ is $\cup_j \{(N(i_j,e_j), i_j, e_j)\}$. 
 If $i_j = i_k$ and $e_j = e_k$, then $N(i_j,e_j) = N(i_k,e_k)$; this
 is standard mathematical set union.
 
 ## Trade
 
 A _trade_ involves a pair of holdings and a _trade time_.
-The trade $(t; i, a, e; i', a', e')$ indicates _buyer_ $e$ exchanged
+The trade $(t; a, i, e; a', i', e')$ indicates _buyer_ $e$ exchanged
 amount $a$ of instrument $i$ for amount $a'$ of instrument $i'$ with
 seller $e'$ at time $t$.  The _price_ of the trade is the quotient of
 the buyer and seller amounts, $X = a/a'$, so the trade is
-$(t; i, a'X, e; i', a', e')$. Prices are determined by the seller.
+$(t; a'X, i e; a', i', e')$. Prices are determined by the seller.
 The buyer decides the amount and instrument to exchange based on the
 seller's price, among other considerations.
 
-The trade $(t;i,a,e;i',a',e')$ changes the
-holdings of the buyer and seller at time $t$. The holding $(i,a,e)$
-of the buyer becomes $(i',a',e)$ and the holding $(i',a',e')$ of the
-seller becomes $(i,a,e')$.  We assume instruments are _divisible_ so a
-holding $(i,a_1,e)$ can be split into $(i,a_1-a_0,e)$ and $(i,a_0,e)$
-for any amount $a_0$ at no cost. If $0 < a_0 < a_1$ this is
-close to being true. What is "this"??? ??? "then splitting..."
+The trade $(t;a,i,e;a',i',e')$ changes the
+holdings of the buyer and seller at time $t$. The holding $(a,i,e)$
+of the buyer becomes $(a',i',e)$ and the holding $(a',i',e')$ of the
+seller becomes $(a,i,e')$.  We assume instruments are _divisible_ so a
+holding $(a_1,i,e)$ can be split into $(a_1-a_0,i,e)$ and $(a_0,i,e)$
+for any amount $a_0$ at no cost. If $0 < a_0 < a_1$ this assumption is
+close to being true.
 
-As an example, suppose a buyer holds 100 dollars $(\$, 100)$ and
-a seller holds two shares of Ford stock $(F, 2)$. If the seller
+As an example, suppose a buyer holds 100 dollars $(100, \$)$ and
+a seller holds two shares of Ford stock $(2, F)$. If the seller
 quotes a price of 8 dollars per share
-then the buyer can obtain $(F, 2)$ by giving the seller $(\$, 2\times 8)$
-and now holds two shares of stock and $(\$,100-16) = (\$, 84)$.
+then the buyer can obtain $(2, F)$ by giving the seller $(2\times 8, \$)$
+and now holds two shares of stock and $(100-16,\$) = (84, \$)$.
 
 Foreign exchange is not a special case. If the USD/JPY exchange rate is 100 then
-$(\$, a)$ can be exchanged for $($&yen;$,100a)$. If we write &dollar;1 = &yen;100
+$(a, \$)$ can be exchanged for $(100a, ¥)$. If we write &dollar;1 = &yen;100
 then USD/JPY is 100 where '1 = ' turns into '$/$'.
 
 Similarly, commodities are also not special. This model can be used for **all** instruments.
@@ -90,15 +92,15 @@ not have cash flows, but they may involve third-party payments to exchange
 or store them.
 Cash flows cause changes to positions.
 If instrument $i$ pays cash flow $C_t(i,i')$ per share of $i$ in instrument
-$i'$ at time $t$ then holding $(i,a,e)$ at time $t$ will cause $(i',a C_t(i,i'),e)$
+$i'$ at time $t$ then holding $(a,i,e)$ at time $t$ will cause $(a C_t(i,i'), i', e)$
 to be included in the position of $e$ at $t$.  Usually $i'$ is the native
 currency associated with instrument $i$.  Specifying $i'$
 allows for _payment-in-kind_ cash flows.
 
-In the Ford example above, when holding $\{(\$, 86),(F,2)\}$ and
-the stock pays a dividend of $(\$,0.15)$ per share then the holdings
-become $\{(\$, 86), (F,2), (\$, 2\times 0.15)\}$ and net to
-$\{(\$, 86.30),(F,2)\}$
+In the Ford example above, when holding $\{(86,\$),(2,F)\}$ and
+the stock pays a dividend of $(0.15, \$)$ per share then the holdings
+become $\{(86, \$), (2,F), (2\times 0.15, \$)\}$ and net to
+$\{(86.30, \$),(2,F)\}$
 
 Cash flows are zero except at discrete times. Stocks and
 bonds typically pay dividends and coupons quarterly or semi-annually. Futures
@@ -122,13 +124,13 @@ over the period from $t$ to $u$.
 Holdings can be converted into a native currency $i_0$ for reporting
 purposes.  This does not involve actual trades, only a best guess
 of the price at time $t$, $X_t(i_0,i)$, of each instrument $i$ in terms of $i_0$.
-All holdings $(i,a,e)$ are converted to $(i_0, aX(i_0,i), e)$ then netted
+All holdings $(a,i,e)$ are converted to $(aX(i_0,i), i_0, e)$ then netted
 to report the P&amp;L in terms of $i_0$.
 
 It is quite common for entities to have different best guesses of
 $X_t(i_0,i)$. Accountants might use "book," "market," "liquidation,"
 or "going concern" values. This model does not suggest which is the
-most appropriate in any given situation; it only makes that
+most appropriate in any given situation, it only makes that
 choice explicit.
 
 Other relevant quantities can be computed similarly. For example the
@@ -163,9 +165,9 @@ A mathematical model for cash flows is a function[^2] $C_t:I\times I\to A$.
 At time $t$ instrument $i$ has cash flow amount $C_t(i,i')$ in instrument $i'$.
 
 A mathematical model for prices is a (partial) function $X_t\colon
-I\times E\times I\times A\times E\to\mathbf{R}$.  At time $t$ the trade
-$(t;i, a'X_t, e;i', a', e')$ is available to buyer $e$ from
-seller $e'$ at price $X_t = X_t(i,e,i',a',e')$.
+I\times E\times A\times I\times E\to\mathbf{R}$.  At time $t$ the trade
+$(t;a'X_t, i, e;a', i', e')$ is available to buyer $e$ from
+seller $e'$ at price $X_t = X_t(i,e,a',i',e')$.
 Price determines the amount of $i$ the buyer must
 give the seller for amount $a'$ of $i'$ at time $t$.
 It is possible there are no quoted prices so $X_t$ is only a partial function.
@@ -184,10 +186,10 @@ will find when attempting to take out a loan.
 A _trading strategy_ is an increasing sequence of _stopping times_[^3] $(\tau_j)$
 and amounts $\Gamma_j\colon I\times E\times I\times E\to A$ 
 to trade at time $\tau_j$ in two instruments between two entities.
-The trades are $(\tau_j;i,\Gamma_j X_j,e;i', \Gamma_j, e')$
-where $\Gamma_j = \Gamma_j(i, e, i', e')$ and $X_j = X_{\tau_j}(i,e,i',\Gamma_j,e')$.
+The trades are $(\tau_j; \Gamma_j X_j, i, e; \Gamma_j, i', e')$
+where $\Gamma_j = \Gamma_j(i, e, i', e')$ and $X_j = X_{\tau_j}(i, e, \Gamma_j, i', e')$.
 After the trade, the buyer $e$ holds amount $\Gamma_j$ of $i'$ and the
-seller holds amount $\Gamma_j X_j$ of $i$ in exchange for that.
+seller holds amount $\Gamma_j X_j$ of $i$ in exchange.
 
 Most models do not specify the seller $e'$; traders assume there is an aggregate
 market of _liquidity providers_ for $i'$. Usually $e$ is assumed to be
@@ -195,7 +197,6 @@ a single entity executing the strategy; however,
 if you are running a hedge fund you will have
 a set of $e$'s called program managers to reckon with.
 
-<!--
 The mathematical finance literature customarily assumes a "_money market_"
 account is available to fund trade execution.  Funding trades actually
 involves many fixed income instruments.  Traders at Big Banks use their
@@ -204,9 +205,7 @@ charged for this.  Daily positions funded by _repurchase agreements_
 require at least as many instruments as the number of days involved in
 trading. These may not be cost effective for longer term strategies so
 forward rate agreements and swaps are often used.
-
-The unified model for finance allows these to be easily integrated.
--->
+The unified model allows these to be easily integrated.
 
 Trades accumulate into positions $\Delta_t = \sum_{\tau_j < t} \Gamma_j$.
 If we write $\Gamma_t = \Gamma_j$ if $t = \tau_j$ and $\Gamma_t = 0$
@@ -240,7 +239,7 @@ The _value_, or _mark-to-market_, of a trading strategy at time $t$ is
 $$
 	V_t = (\Delta_t + \Gamma_t)\cdot X_t.
 $$
-This is the amount the trader would get from unwinding the existing position
+It is the amount the trader would get from unwinding the existing position
 and trades just executed at the prevailing market price, assuming
 that were possible. Note $V_{\tau_0} = \Gamma_0\cdot X_{\tau_0}$ is
 the cost of the initial trade.
@@ -295,10 +294,10 @@ instead of only the value of the hedged portfolio at one point in time.
 Similarly, CVA fails to take into account hedging. The CVA of a portfolio
 is $\int_T \max\{E[V_t], 0\} h(t)\,dt$ where $V_t$ is the value of the
 portfolio at $t$ and $h$ is a given _haircut_. The term $\max\{V_t, 0\}$ is
-the _exposure_ of the portfolio holder.[^5] Holders are not exposed
+the _exposure_ of the portfolio holder.[^6] Holders are not exposed
 to counterparty risk if they owe money. The insurance industry
 had been using this formula to calculate premiums long before it showed
-up in the financial world. The 1933 Glass-Steagal Act prohibited investment
+up in the financial world. The 1933 Glass-Steagall Act prohibited investment
 banks from participating in the insurance industry, but after the
 merger of Citicorp with Travelers, the Gramm-Leach-Bliley Act allowed
 them into the party after 1999.
@@ -314,7 +313,7 @@ The menagerie of XVA measures are attempts to incorporate special case
 hedging strategies or cash flows due to taxes or regulatory capital
 requirements. They can all be replaced by explicitly incorporating the
 appropriate trading strategy and cash flows involved when applying the
-CVA formula.
+cost of insurance formula.
 
 ## Model Risk
 
@@ -336,7 +335,7 @@ they make.
 
 Capturing every holding and transaction in a database turns historical
 reporting into a well understood technology problem.  When decorated
-with appropriate partitions for dimensions and measures, risk managers
+with appropriate dimensions and measures, risk managers
 can use off-the-shelf tools to create dynamic reports allowing them to
 summarize data and drill down to individual holdings and transactions to
 their heart's content. It is no longer necessary to have technologists
@@ -359,10 +358,10 @@ today can be used without change to give better and faster answers in the future
 
 A _funding account_ is more complicated than it might seem at first blush.
 A _funding desk_ provides a liquid market in a native currency to
-traders for _funding_ their trades. One way to think of it is like a
+traders for _funding_ their trades. One way to think of it is as a
 perpetual bond; for unit notional you get a daily stream of
 coupons. The coupons are not constant but they are known at
-the beginning of each period[^6] and are usually tied to
+the beginning of each period[^5] and are usually tied to
 short-term market rates. A trading strategy involves many
 transactions in the market account and it is common to implicitly
 assume all holdings are reinvested in the account. 
@@ -382,15 +381,14 @@ the buyer gave to the seller divided by the amount the seller gave
 to the buyer. The price prior to completing a trade is more nebulous.
 The difference between a price quoted prior to a trade and the realized
 price after settlement is lumped into the term _slippage_.
-
 Accurately modeling that uncertainty is an ongoing puzzle.
 
 For trades on an exchange, the order book can give a better handle on what
 the slippage might be. Some exchanges report the net amount of limit
 orders they have near the current market level. If a market order is
-not too large, then the levels of the limit orders it will match can be
+not too large then the levels of the limit orders it will match can be
 determined. However, other customers and liquidity providers can cause
-changes to the order book before market orders are executed to cause
+changes to the order book before a market orders is executed to cause
 uncertainty in the exact amounts of matching limit orders at each level.
 
 There is a clear trajectory in Mathematical Finance starting from the
@@ -401,7 +399,18 @@ to fit all available market data.
 
 The future of Mathematical Finance is developing more accurate models
 that allow for incorporating potential trading strategies and extending
-the set of instruments to all asset classes.
+the set of instruments to all asset classes. Advances in big data and
+computation speed will eventually allow real-time interactive dashboards
+allowing traders and risk managers to get a better understanding of
+the uncertainties involved with trading.
+
+A currently intractable problem is how to rapidly tune models to fit market data.
+It is essentially an interpolation problem: given data $(x_j, y_j)$ find
+a function $f$ with $f(x_j) \approx y_j$ for all $j$. This falls under
+the purview of machine learning. It is my hope that the large ML cadre
+currently employed to tell us pictures that look like a blur to humans
+have a 95\% probability of being a stop sign can be gainfully
+redirected to more useful purposes.
 
 [^1]: Adhering to the trader aphorism, "Don't be a dick for a tick," can help prevent this.
 

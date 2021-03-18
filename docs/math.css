@@ -1,7 +1,7 @@
 html {
 }
 body {
-	margin: 0.5in 1in 0.5in 1in;
+	margin: 0.8in 1in 0.8in 1in;
 	padding: 1em;
 	font-family: 'Times New Roman', 'Calisto', 'Cambria', "Segoe UI", Georgia, serif;
 	font-size: 110%;
@@ -15,8 +15,8 @@ h1, p.author {
 	text-align: center;
 }
 p {
-	text-align: left; /*justify;*/
-	text-justify: none; /*inter-word;*/
+	text-align: /*left; */justify;
+	text-justify: /*none; */inter-word;
 }
 table {
     border-collapse: collapse;
