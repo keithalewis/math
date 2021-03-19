@@ -272,7 +272,7 @@ possible to make money on the initial trade and never lose money over the
 life of the trading strategy.  This definition
 of arbitrage depends on the model used for cash flows and prices.
 
-[The Fundamental Theorem of Asset Pricing](https://kalx.net/um.pdf) describes all arbitrage-free models.
+[The Fundamental Theorem of Asset Pricing](um.html) describes all arbitrage-free models.
 It also shows $\Delta$ is delta and $\Gamma$ is gamma.
 
 ## Risk
