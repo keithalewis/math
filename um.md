@@ -7,8 +7,8 @@ classoption: fleqn
 abstract: Value, hedge, and manage risk of any portfolio
 ...
 
-\newcommand\RR{\bm{R}}
-\newcommand\AA{\mathcal{A}}
+\newcommand\RR{\mathbf{R}}
+\renewcommand\AA{\mathcal{A}}
 
 >	Market instruments can be bought or sold at a price and ownership
 	entails cash flows. Shares of instruments can be traded based on
@@ -227,8 +227,9 @@ As we will see below, the prices of all
 ### Zero Coupon Bond
 
 A _zero coupon bond_ , $D(u)$, pays one unit at maturity $u$ so $C^{D(u)}_u = 1$ is the only cash flow.
-An arbitrage free model requires the price at time $t$, $D_t(u)$, to
-satisfy $D_t(u)D_t = E_t D_u$, so $D_t(u) = E_t D_u/D_t$. In the continuous time
+We write $D_t(u)$ for the price $X_t^{D(u)}$ of the zero coupon bond at time $t$.
+An arbitrage free model requires the price at time $t$ to
+satisfy $D_t(u)D_t = E_t D_u$ so $D_t(u) = E_t D_u/D_t$. In the continuous time
 case $D_t(u) = E_t\exp(-\int_t^u f_s\,ds)$.
 
 The forward curve, $f(u)$, is defined by $D_0(u) = \exp(-\int_0^u f(s)\,ds)$.
@@ -237,14 +238,19 @@ The forward curve at time $t$, $f_t(u)$, is defined by $D_t(u) = \exp(-\int_t^u 
 A _risky zero coupon bond_ with _recovery_ $R$ and _default time_ $T$
 has a single cash flow $C_u = 1$ if default occurs after maturity or
 $C_T = R$ if $T \le u$. It is customary to assume $R$ is constant.
-As with American options, we must expand the sample space to $Ω\times (0,\infty)$
-where $(\omega,t)$ indicates default occured at time $t$. The algebra at time $t$ for the
-default time is $\mathcal{A}_t = (t,\infty) \cup \{\{s\}:s \le t\}$. If default
-has not occured prior to $t$ we only know $T > t$. If default occured prior to
-time $t$ we know exactly when it happened.
+As with American options, we must expand the sample space to $Ω\times (0,\infty]$
+where $(\omega,t)\in Ω\times (0,\infty]$ indicates default occured at time $t$.
+The partition of $(0\infty]$ representing information available at time $t$ for the default time is
+$\{(t,\infty]\} \cup \{\{s\}:s \le t\}$. If default has
+not occured prior to $t$ we only know $T > t$. If default occured prior
+to time $t$ we know exactly when it happened.
 
-The dynamics of a risky zero, $D^{R,T}(u)$, are determined by
+We write $D_t^{R,T}(u)$ for the price $X_t^{D^{R,T}(u)}$ of the risky zero coupon bond at time $t$.
+The dynamics of a risky zero are determined by
 $D_t^{R,T}(u) D_t = E_t[R 1(T \le u) D_T + 1(T > u) D_u]$.
+The _credit spread_ $s_t = s_t^{R,T}(u)$ defined by $D_t^{R,T}(u) = D_t(u) e^{-s_t u}$
+incorporates both recovery and default.
+
 If rates are zero then $D_t = 1$ for all $t$ and this simplifies to
 $D_0^{R,T}(u) = R P(T \le u) + P(T > u)$ when $t = 0$. If $T$ is 
 exponentially distributed with hazard rate $λ$ then $P(T > t) = e^{-λ t}$
@@ -252,20 +258,24 @@ and
 $$
 	D_0^{R,T}(u) = R + (1 - R)e^{-λu}.
 $$
-If $λ = 0$ the right hand side is 1. If $λu$ is small then the approximation
-$e^x \approx 1 + x$ for small $x$ give the rule of thumb for the hazard rate
-$λu = (1 - D_0^{R,T}(u))/(1 - R)$.
+If $λ = 0$ the right hand side is 1.
+If $λu$ is small then the approximation
+$e^x \approx 1 + x$ for small $x$ gives the rule of thumb
+$s = λ(1 - R)$ where $s = s_0 = s_0^{R,T}(u)$ is the credit spread.
+If $R = 0$ the credit spread equals the hazard rate.
 
 For general $t$ we have
 $$
 	D_t^{R,T}(u) = R P(T \le u | T > t) 1(t < T \le u) + P(T > u | T > t) 1(T > u).
 $$
 
-<!--
-Unlike in
-the credit default swap market, mathematical finance literture likes to
-assume recovery is delayed until maturity.
--->
+Unlike in the credit default swap market, mathematical finance literture likes to
+assume recovery is delayed until maturity. It is also popular to make the unrealistic
+assumption that default time is independent of the deflator. Under these assumptions
+we have
+$$
+	D_t^{R,T}(u) = D_t(u)\bigl(R P(T \le u | T > t) 1(t < T \le u) + P(T > u | T > t) 1(T > u)\bigr).
+$$
 
 ### Futures
 
@@ -542,8 +552,8 @@ If $\AA$ is an algebra of sets, the
 of $X$ given
 $\AA$ is defined by $Y = E\left\lbrack X | \AA\right\rbrack$ if and only
 if $Y$ is $\AA$ measurable and $\int_A Y\,dP = \int_A X\,dP$
-for all $A\in\AA$. This is equivalent to $Y(P|_\AA)
-= (XP)|_\AA$ where the vertical bar indicates restriction of a measure.
+for all $A\in\AA$. This is equivalent to $Y(P|_{\AA})
+= (XP)|_{\AA}$ where the vertical bar indicates restriction of a measure.
 
 A _filtration_ indexed by $T\subseteq [0,\infty)$ is an increasing
 collection of algebras, $(\AA_t)_{t\in T}$.  A process

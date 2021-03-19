@@ -115,6 +115,9 @@ If $Ω = \{ω\}$ is a singleton then $γ^* = X(ω)A(ω)/\|X(ω)\|^2$ is the natu
 best estimate. If the model is arbitrage free then $Rx = X(ω)$ for some $R > 0$ and
 $γ\cdot x = A(ω)/R$ is the cost of the hedge. In this case $γ\cdot X(ω) = A(ω)$ replicates the derivative.
 
+If $Ω = \{ω_0, ω_1\}$ has two points then $XX'$ is rank two. If $u,v\in\RR^I$ then the SVD of $uu' + vv'$
+has eigenvalues  ...
+
 In general we can do a principle component analysis on $\{X(ω)A(ω)/\|X(ω)\|^2\mid ω\in Ω\}$ and
 choose $γ^*$ to be first principal component.
 
