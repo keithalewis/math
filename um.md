@@ -86,7 +86,7 @@ just executed.
 
 ## Arbitrage
 
-Arbitrage is a trading strategy with $A_{τ_0} > 0$, $A_t \geq 0$
+Arbitrage is a trading strategy with $A_{τ_0} > 0$, $A_t \ge 0$
 for $t > τ_0$ and $\sum_j Γ_j = 0}$; you make money
 on the first trade and never lose until the position is closed out.
 
@@ -94,7 +94,7 @@ The Fundamental Theorem of Asset Pricing (FTAP) states there is no arbitrage
 if and only if there exists a _deflator_, $D_t:\AA_{t} \rightarrow \left(
 0,\infty \right)$, with
 $$
-	X_t D_t = E_t\bigl[X_v D_v + \sum_{t < u \leq v} C_u D_u\bigr].
+	X_t D_t = E_t\bigl[X_v D_v + \sum_{t < u \le v} C_u D_u\bigr].
 $$
 We can assume $D_0 = 1$ since if $D_t$ is a deflator then so is $D_t/D_0$.
 
@@ -106,7 +106,7 @@ classical Graham and Dodd valuation.
 
 A consequence of the above using the definitions of value and amount is
 $$
-	V_t D_t = E_t\bigl[V_v D_v + \sum_{t < u \leq v}A_u D_u\bigr].
+	V_t D_t = E_t\bigl[V_v D_v + \sum_{t < u \le v}A_u D_u\bigr].
 $$
 Note the similarity of the two displayed equations above -- value
 corresponds to price and amount corresponds to cash flow.
@@ -127,22 +127,22 @@ where we use $Δ_u\cdot C_u =  Γ_u\cdot X_u + A_u$.
 The displayed formula above follows by induction.
 
 For a trading strategy that closes out,
-$V_{τ_0} D_{τ_0} = E_{τ_0}[\sum_{t > τ_{0}}{A_{t}D_{t}] \geq 0}$. 
+$V_{τ_0} D_{τ_0} = E_{τ_0}[\sum_{t > τ_{0}}{A_{t}D_{t}] \ge 0}$. 
 Since $V_{τ_0} = Γ_{τ_0} \cdot X_{τ_0}$, $A_{τ_0} = - Γ_{τ_0} \cdot X_{τ_0}$,
-and $D_{τ_0} > 0$ we have $A_{τ_0} \leq 0$.
+and $D_{τ_0} > 0$ we have $A_{τ_0} \le 0$.
 This proves the "easy" direction of the FTAP.
 
 There is no need to prove the "hard" direction since we have a large supply of arbitrage free models
 -- all models of the form
-$X_t D_t = M_t - \sum_{s \leq t}{C_s D_s}$ where
+$X_t D_t = M_t - \sum_{s \le t}{C_s D_s}$ where
 $M_t:\AA_t \rightarrow \RR^{I}$ is a martingale and
 $D_t:\AA_t \rightarrow (0,\infty)$ are arbitrage free.
 This is follows from substituting $X_v D_v = M_v - \sum_{u\le v} C_u D_u$
 to obtain the first displayed equation:
 $$
 \begin{aligned}
-	E_t\bigl[X_v D_v + \sum_{t < u \leq v} C_u D_u\bigr]
-		&= E_t\bigl[M_v - \sum_{u\le v} C_u D_u + \sum_{t < u \leq v} C_u D_u\bigr] \\
+	E_t\bigl[X_v D_v + \sum_{t < u \le v} C_u D_u\bigr]
+		&= E_t\bigl[M_v - \sum_{u\le v} C_u D_u + \sum_{t < u \le v} C_u D_u\bigr] \\
 		&= E_t\bigl[M_v - \sum_{u\le t} C_u D_u \bigr] \\
 		&= M_t - \sum_{u\le t} C_u D_u \\
 		&= X_t D_t \\ 
@@ -292,10 +292,10 @@ A _risky zero coupon bond_ with _recovery_ $R$ and _default time_ $T$
 has a single cash flow $C_u = 1$ if default occurs after maturity or
 $C_T = R$ if $T \le u$. It is customary to assume $R$ is constant.
 As with American options, we must expand the sample space to $Ω\times (0,\infty]$
-where $(ω,t)\in Ω\times (0,\infty]$ indicates default occured at time $t$.
-The partition of $(0\infty]$ representing information available at time $t$ for the default time is
+where $(ω,t)\in Ω\times (0,\infty]$ indicates default occurred at time $t$.
+The partition of $(0,\infty]$ representing information available at time $t$ for the default time is
 $\{(t,\infty]\} \cup \{\{s\}:s \le t\}$. If default has
-not occured prior to $t$ we only know $T > t$. If default occured prior
+not occurred prior to $t$ we only know $T > t$. If default occurred prior
 to time $t$ we know exactly when it happened.
 
 We write $D_t^{R,T}(u)$ for the price $X_t^{D^{R,T}(u)}$ of the risky zero coupon bond at time $t$.
@@ -323,7 +323,7 @@ $$
 	D_t^{R,T}(u) = R P(T \le u | T > t) 1(t < T \le u) + P(T > u | T > t) 1(T > u).
 $$
 
-Unlike in the credit default swap market, mathematical finance literture likes to
+Unlike in the credit default swap market, mathematical finance literature likes to
 assume recovery is delayed until maturity. It is also popular to make the unrealistic
 assumption that default time is independent of the deflator. Under these assumptions
 we have
@@ -343,21 +343,20 @@ whether you are buying or selling, the amount being
 purchased, and the legal entities involved.
 
 The atoms of finance are _holdings_ $(a,i,e)$ indicating
-enity $e$ owns amount $a$ of instrument $i$.
-A _trade_ involves the exchange of holdings at some time.
-Let $(t;a,i,c;a',i',c')$,
+entity $e$ owns amount $a$ of instrument $i$.
+A _trade_ involves the exchange of holdings at some time:
+$(t;a,i,c;a',i',c')$,
 where $t$ is the time of the exchange, $a$ is the amount
-of instrument $i$ the _buyer_, $c$, decides to obtain for the amount
-$a'$ in instrument $i'$ from the _seller_, $c'$.
-$a'$ in instrument $i'$ from the _seller_, $c'$.
+of instrument $i$ the _buyer_, $e$, decides to obtain for the amount
+$a'$ in instrument $i'$ from the _seller_, $e'$.
 
 We can incorporate more realistic features by defining _price_ to
-be a function $X\colon T\times A\times I\times C\times I\times C\to
+be a function $X\colon T\times A\times I\times E\times I\times E\to
 \RR$, where $T$ is the set of trading times, $A$ the set of
-amounts that can be traded, $I$ is the set of market instruments, and $C$
+amounts that can be traded, $I$ is the set of market instruments, and $E$
 is the set of legal trading entities.
-The exchanges available to the buyer at any time $t$ are
-$(t;a,i,c;aX(t;a,i;i',c'),i',c')$
+The trades available to the buyer at any time $t$ are
+$(t;a'X(t;a',i;i',c'),i,e; a',i',c')$.
 
 ## One-Period Model
 
