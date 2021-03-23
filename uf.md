@@ -11,7 +11,7 @@ The financial world is a big, messy affair but its core involves trading
 instruments and bean counting: who traded how much of what when and accounting
 for that over time.
 
-The atoms of finance are _holdings_: an _instrument_, _amount_, and _legal entity_.
+The atoms of finance are _holdings_: an _amount_, _instrument_, and _legal entity_.
 A _position_ is a collection of holdings.
 Holdings interact via _trades_: the exchange of holdings between two entities at a given _time_. 
 Instruments have _cash flows_ and _prices_ that determine
@@ -60,8 +60,8 @@ The trade $(t; a, i, e; a', i', e')$ indicates _buyer_ $e$ exchanged
 amount $a$ of instrument $i$ for amount $a'$ of instrument $i'$ with
 seller $e'$ at time $t$.  The _price_ of the trade is the quotient of
 the buyer and seller amounts, $X = a/a'$, so the trade is
-$(t; a'X, i e; a', i', e')$. Prices are determined by the seller.
-The buyer decides the amount and instrument to exchange based on the
+$(t; a'X, i, e; a', i', e')$. Prices are determined by the seller.
+The buyer decides when to exchange holdings based on the
 seller's price, among other considerations.
 
 The trade $(t;a,i,e;a',i',e')$ changes the
@@ -93,7 +93,7 @@ or store them.
 Cash flows cause changes to positions.
 If instrument $i$ pays cash flow $C_t(i,i')$ per share of $i$ in instrument
 $i'$ at time $t$ then holding $(a,i,e)$ at time $t$ will cause $(a C_t(i,i'), i', e)$
-to be included in the position of $e$ at $t$.  Usually $i'$ is the native
+to be included in the position of $e$ soon after time $t$.  Usually $i'$ is the native
 currency associated with instrument $i$.  Specifying $i'$
 allows for _payment-in-kind_ cash flows.
 
@@ -154,7 +154,7 @@ be the set of amounts, and $E$ be the set of entities.
 All models have shortcomings to keep in mind when being applied.
 Trading times depend on the instrument and the seller. If an instrument
 is listed on an exchange, then it can only be traded during market
-hours. Every seller gets to determine when the instruments they offer
+hours. Sellers determine when the instruments they offer
 can be traded.
 Amounts are constrained by the instrument, time, and seller.  Instruments
 trade in finite increments and sometimes cannot be shorted ($a' < 0$
@@ -213,7 +213,7 @@ otherwise, this becomes $\Delta_t = \sum_{s < t} \Gamma_s$.  Note the
 strict inequality. A trade executed at time $t$ is not included in the
 position at $t$; it takes some time for a trade to settle.
 
-Note trading strategies do not explicitly involve cash flows and
+Trading strategies do not explicitly involve cash flows and
 the definition of $\Delta$ above does not take those into account.
 The formula for _amount_ below is used to do that. Cash flows
 are typically paid in the native currency and currencies do not have cash flows.
@@ -226,7 +226,7 @@ The _cost_ of the initial trade in terms of $i_0$ is
 $V_0 = \Gamma_0(i) X_{\tau_0}(i)$; buying
 amount $\Gamma$ at price $X$ costs $\Gamma X$. This amount will be
 deducted from the trader's account and reported as the value of
-the position to risk management.
+the initial position to risk management.
 
 If more than one instrument is traded then
 $V_0 = \sum_{i\in I}\Gamma_0(i) X_{\tau_0}(i)$.
@@ -267,7 +267,7 @@ out_ at $t$. If no trades are executed after that, then future amounts and value
 are zero.
 
 If a trading strategy has $A_{\tau_0} > 0$, $A_t \ge 0$
-for $t > \tau_0$ and eventually closes out, then _arbitrage_ exists: it is
+for $t > \tau_0$, and eventually closes out then _arbitrage_ exists: it is
 possible to make money on the initial trade and never lose money over the
 life of the trading strategy.  This definition
 of arbitrage depends on the model used for cash flows and prices.
@@ -387,7 +387,7 @@ For trades on an exchange, the order book can give a better handle on what
 the slippage might be. Some exchanges report the net amount of limit
 orders they have near the current market level. If a market order is
 not too large then the levels of the limit orders it will match can be
-determined. However, other customers and liquidity providers can cause
+determined. However, other customers or liquidity providers can cause
 changes to the order book before a market orders is executed to cause
 uncertainty in the exact amounts of matching limit orders at each level.
 
