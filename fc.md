@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
-abstract: Apply a function to an operator
+abstract: Apply a function to a linear transformation
 ...
 
 \newcommand\RR{\bm{R}}
@@ -12,20 +12,51 @@ abstract: Apply a function to an operator
 \newcommand\ker{\operatorname{ker}}
 \newcommand\ran{\operatorname{ran}}
 
-If $T\colon V\to V$ is a linear transformation then $p(T)$ is well-defined for
-any polynomial $p$. This is the _polynomial functional calculus_.
-Recall the _spectrum_, $σ(T)$, of an operator $T$ is the set of complex numbers $λ$
-such that $T - λ I$ is invertable, where $I$ is the identity operator.
-If $v$ is an eigenvector with eigenvalue $λ$ then $λ\in σ(T)$ since
-$T - λ I$ has $v$ in its kernel.
+If $T\colon V\to V$ is a linear transformation on the vector space
+$V$ then $p(T)$ is well-defined for any polynomial $p$. This is the
+_polynomial functional calculus_.  Recall the _spectrum_ $σ(T)$ is the
+set of complex numbers $λ\in\CC$ such that $T - λ I$ is not invertable,
+where $I$ is the identity operator.  If $v$ is an eigenvector with
+eigenvalue $λ$ then $λ\in σ(T)$ since $T - λ I$ has $v \not= 0$
+in its kernel.
 
-__Exercise__. _If $V$ is finite dimensional its spectrum is the set of eigenvalues of $T$_.
+__Exercise__. _If $V$ is finite dimensional the spectrum of $T$ is the set of eigenvalues of $T$_.
 
+Scalar multiples of an eigenvector form a one-dimensional invariant subspace
+but it is not trivial to find eigenvectors.
 The polynomial functional calculus can be used to find invariant subspaces.
-For any polynomial $p$ the kernel of $p(T)$ is an invariant subspace for $T$
-since $p(T)v = 0$ implies $p(T)Tv = Tp(T) = 0$.
-If $λ\in σ(T)$ we can find a polynomial $p_λ$ with $p_λ(λ) = 1$ and $p = 0$ on the other points in the spectrum.
-If ...
+For any polynomial $p$ the kernel of $p(T)$ is an invariant subspace for $T$.
+A vector $v$ is in the kernel of $p(T)$ if and only if $p(T)v = 0$.
+Since $p(T)T = Tp(T)$ we have $p(T)Tv = Tp(T)v = 0$ so $Tv$ is in the kernel of $p(T)$.
+
+If $p(T)$ is invertible then $\ker p(T) = \{0\}$ is trivially invariant.
+The _spectral mapping theorem_ can tell us when $p(T)$ is not invertable.
+
+__Theorem__. _For any polynomial $p$, $σ(p(T)) = p(σ(T))$_.
+
+<details>
+<summary>Solution</summary>
+For any $λ\in\CC$ and any polynomial $p$ we have $p(z) - p(λ) = (z - λ)q(z)$
+for some polynomial $q$ so $p(T) - p(λ)I = (T - λI)q(T)$.
+
+If $λ\in σ(T)$ then $T - λI$ is not invertable so $p(T) - p(λ)I$ is
+not invertable. This shows $p(λ)\in σ(p(T))$.
+
+We also have $p(z) - p(λ) = (z - λ)^k q(z)$ where $q(λ)\not=0$ for some $k$
+since $p$ is a polynomial.
+
+</details>
+
+If $0\in σ(p(T))$ then $p(T)$ is not invertable and its kernel is
+an invariant subspace.
+
+For any $λ\in σ(T)$ the polynomial
+$p(z) = (z - λ)q(z)$, where $q$ is a polynomial, satisfies $p(λ) = 0$
+so $\ker p(T)$ is an invariant subspace.
+
+we can find a
+polynomial $e_λ$ with $e_λ(λ) = 1$ and $e_λ(μ) = 0$ if $μ\in σ(T)$
+and $μ \not= λ$.
 
 If $V$ has a norm we can use that to define a norm on operators $\|T\| = \sup_{\|v\| = 1}\|Tv\|$.
 

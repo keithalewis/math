@@ -43,7 +43,7 @@ has _arbitrage_ if there exists $γ\in \RR^I$ with $γ\cdot x <
 
 The one-period Fundamental Theorem of Asset Pricing states that there is no
 arbitrage if and only if there exists a non-negative measure $\Pi$ on $\Omega$
-such that $\int_\Omega X\,d\Pi = x$. If such a measure exists and
+such that $x = \int_\Omega X\,d\Pi$. If such a measure exists and
 $γ\cdot X\ge 0$ then $γ\cdot x \ge 0$ so there is no arbitrage.
 
 We assume $X$ is bounded and $\Pi$ is finitely additive.
