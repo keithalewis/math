@@ -150,7 +150,7 @@ $$
 \end{aligned}
 $$
 
-## Valuing
+## Value
 
 If a derivative security pays amounts $\bar{A}_j$ at times $\bar{τ}_j$ and there is
 a hedge, $(Γ_t)_{t\in T}$, that replicates these amounts then the value
@@ -166,7 +166,7 @@ as $E \bar{A}_T D_T = E^* \bar{A}_T E D_T$, where $E^*$ is the expected value un
 the probability measure defined by $dP^*/dP =
 D_T/E D_T$. This is called the _forward measure_ at time $T$.
 
-## Hedging
+## Hedge
 
 We can compute $V_0$ using derivative cash flows and the deflator.
 Since $Γ_0\cdot X_0 = V_0$ the initial hedge is $Γ_0 = dV_0/dX_0$.
@@ -279,15 +279,16 @@ the call can be different.
 
 ### Zero Coupon Bond
 
-A _zero coupon bond_ , $D(u)$, pays one unit at maturity $u$ so
+A _zero coupon bond_, $D(u)$, pays one unit at maturity $u$ so
 $C^{D(u)}_u = 1$ is the only cash flow.  We write $D_t(u)$ for the price
 $X_t^{D(u)}$ of the zero coupon bond at time $t$.  An arbitrage free
 model requires the price at time $t$ to satisfy $D_t(u)D_t = E_t[D_u]$
-so $D_t(u) = E_t[D_u]/D_t$. In the continuous time case
-$D_t(u) = E_t[\exp(-\int_t^u f_s\,ds)]$.
+so $D_t(u) = E_t[D_u]/D_t$.
 
-The forward curve, $f(u)$, is defined by $D_0(u) = \exp(-\int_0^u f(s)\,ds)$.
+In the continuous time case
+the forward curve, $f(u)$, is defined by $D_0(u) = \exp(-\int_0^u f(s)\,ds)$.
 The forward curve at time $t$, $f_t(u)$, is defined by $D_t(u) = \exp(-\int_t^u f_t(s)\,ds)$.
+$D_t(u) = E_t[\exp(-\int_t^u f_s\,ds)]$.
 
 A _risky zero coupon bond_ with _recovery_ $R$ and _default time_ $T$
 has a single cash flow $C_u = 1$ if default occurs after maturity or
@@ -331,34 +332,37 @@ we have
 $$
 	D_t^{R,T}(u) = D_t(u)\bigl(R P(T \le u | T > t) 1(t < T \le u) + P(T > u | T > t) 1(T > u)\bigr).
 $$
-In principal, $R$ could be random and joint distributions involving the default time
+In principal $R$ could be random and joint distributions involving the default time
 and deflators could be specified, but computations become more difficult.
 
 See [Fixed Income](fi.html) for details on how the deflator determines
-the dynamics of all such instruments.
+the dynamics of instruments.
 
 ## Remarks
 
-The price of an instrument is not a number. It depends on
-whether you are buying or selling, the amount being
-purchased, and the legal entities involved.
+The price of an instrument is not a number.
+Prior to a trade being executed, it depends on
+what instrument is being exhanged in the trade,
+the amount being purchased, and the legal entities involved.
 
 The atoms of finance are _holdings_ $(a,i,e)$ indicating
 entity $e$ owns amount $a$ of instrument $i$.
 A _trade_ involves the exchange of holdings at some time:
-$(t;a,i,c;a',i',c')$,
+$(t;a,i,c;a',i',c')$
 where $t$ is the time of the exchange, $a$ is the amount
-of instrument $i$ the _buyer_, $e$, decides to obtain for the amount
+of instrument $i$ the _buyer_, $e$, exchanges for the amount
 $a'$ in instrument $i'$ from the _seller_, $e'$.
+The _price_ of the trade is $X = a/a'$ after the fact.
 
-We can incorporate more realistic features by defining _price_ to
-be a function $X\colon T\times A\times I\times E\times I\times E\to
-\RR$, where $T$ is the set of trading times, $A$ the set of
-amounts that can be traded, $I$ is the set of market instruments, and $E$
-is the set of legal trading entities.
-<<<<<<< HEAD
-The exchanges available to the buyer at any time $t$ are
-$(t;a,i,c;aX(t;a,i;i',c'),i',c')$
+Price can be modeled more realistically as
+a function $X\colon T\times A\times I\times E\times I\times E\to \RR$,
+where $T$ is the set of trading times, $A$ is the set of amounts that can be
+traded, $I$ is the set of market instruments, and $E$ is the set of legal
+entities.  At time $t$ the trade $(t;a'X(a',i,e,i',e'),i,e;a',i',e')$
+is available to the buyer.  The seller $e'$ specifies the price $X$. The
+buyer $e$ decides when to trade.
+After the trade the buyer holds $(a', i', e)$ and the seller
+holds $(a'X, i, e')$.
 
 ### One Period Model
 
