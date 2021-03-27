@@ -7,7 +7,6 @@ fleqn: true
 abstract: A Programming Language
 ...
 
-# Notation
 
 \newcommand\BB{\bm{B}}
 \newcommand\CC{\bm{C}}
@@ -29,94 +28,81 @@ abstract: A Programming Language
 \newcommand\exec{!}
 \newcommand\stop{'}
 \newcommand\uniq{ν}
-\newcommand{\f}{0}
-\newcommand{\t}{1}
+\newcommand{\f}{f}
+\newcommand{\t}{t}
 
-The primitive types are real numbers $\RR$, integers $\ZZ$, booleans $\BB$,
-and characters $\CC$. The natural numbers $\NN$ are the non-negative integers.
-We have $\BB\subseteq\NN\subseteq\ZZ\subseteq\RR$ as rings.
-We also assume $u\colon\CC\to\NN$ is an encoding of the set of characters. (UTF-8?)
-
-array: same type, known size (can be on stack)
-vector: same type, runtime size
-sequence: same type, lazy
-tuple: product of different types, known size
-variant: coproduct of different types, known size
-stream: different type, lazy
-
-Storage: stack (life of function), heap (life of process), persistent (across processes), lazy generators.
+\newcommand{\dom}{\operatorname{dom}}
+\newcommand{\ran}{\operatorname{ran}}
+\newcommand{\ker}{\operatorname{ker}}
 
 Let's give names to things.
 
+## Primitive Types
+
+The _primitive types_ are
+booleans $\BB$,
+integers $\ZZ$,
+non-negative integers $\ZZ$,
+real numbers $\RR$, 
+and characters $\CC$.
+We have $\BB\subseteq\NN\subseteq\ZZ\subseteq\RR$ as rings.
+We assume $u\colon\CC\to\NN$ is an encoding of the set of characters. (E.g., UTF-8 codepoints)
+
+Primitive types are classified by mathematical objects: set, monoid, group, ring, field:
+boolean (field),
+integer (commutative ring),
+natural number (monoid),
+real number (field),
+character (set).
+
 ## Types
 
-Types are classified by mathematical objects: set, monoid, group, ring, field.
+If $X$, $X_i$ are types
 
-_Primitive types_ are _boolean_ (field), _natural number_ (monoid),
-_integer_ (commutative ring), _real number_ (field), _string_ (monoid).
+_array_ $x = [x_1,\ldots,x_n]\in X^n\cong n\to X$, $x[i] = x_i$.
 
-_Types_ are either primitive types, _products_, _coproducts_,
-_exponentials_, or _streams_.
+_tuple_ $x = \langle x_1,\ldots,x_n\rangle\in\prod X_{i\in\NN}$, $n\to(\prod X_i\to X_i)$,
+$n\mapsto π_i$, 
+$x\langle i\rangle = π_i(x) = x_i$.
 
-An _array_ is a product of homogenous types.
-Arrays are written $x = (x^i)$, $\pi_i x = x^i \in X$.
+_union_ $x = \{\ldots,x_i,\ldots\} = \langle i,x_i\rangle\in\coprod_{i\in n} X_i$, $n\to(X_i\to\coprod X_i)$,
+$n\mapsto ν_i$, $x\{i\} = ν_i(x) = \langle i,x_i\rangle$.
 
-A _tuple_ is a product of not necessarily homogenous types.
-Tuples are written $x = \langle x^i\rangle$, $\pi_i x = x^i\in X_i$.
+_sequence_ $x = (x,\ldots) \in X^* = \coprod_{n\in\NN} X^n$. 
+$*(x,\ldots) = x$, $+(x,\ldots) = (\ldots)$, $?(x,\ldots) = \t$, $?() = \f$,
+$x\in\dom *$ iff $?x$.
 
-A coproduct is a _variant type_ that can take on distinguished values.
-It is a _dijoint union_ of types that is a union plus information
-of which set an element belongs to.
-Coproducts are written $x = [x_i]$, $ν_i x_i = x$.
+_exponential_ $f\in Y^X = \{f\colon X\to Y\}$ is the set of all functions from $X$ to $Y$.
+We also write $X\to Y$ for $Y^X$.
 
-An _exponential_ is the set of all functions from one type to another
-that preserves the types.
+_relation_ $R\subseteq X\times Y$. Write $xRy$ for $\langle x,y\rangle\in R$
+and $R' = \{\langle y, x\rangle \st xRy\}\subseteq Y\times X$ for its _transpose_.
+The _domain_ of $R$ is $\dom R = π_X(R)\subseteq X$ and
+the _range_ is $\ran R = π_Y(R)\subseteq Y$.
+The _right coset_ $xR = \{y\in Y \st xRy\}\subseteq Y$ for $x\in X$,
+the _left coset_ $Ry = \{x\in X \st xRy\}\subseteq X$ for $y\in Y$.
+The right cosets $\{xR \st x\in X\}$
+parition $\ran R$ and the left cosets $\{Ry \st y\in Y\}$ partition $\dom R$.
 
-## Product
+The _graph_ of a function $f\in Y^X$ is
+$\{\langle x,y\rangle \st f(x) = y\}\subseteq X\times Y$. A relation $R$ is a function if the
+_right coset_ $xR$ is a singleton for all $x\in X$ and we
+write $R(x)$ for that unique element.
 
-If $X$ and $Y$ are sets then $X\prod Y = \{(x,y)\st x\in X, y\in Y\}$
-is the _cartesian product_ of $X$ and $Y$.
 
-The _projections_ $\pi_0\colon X\prod Y\to X$ where $\pi_0(x,y) = x$ and
-$\pi_1\colon X\prod Y\to Y$ where $\pi_1(x,y) = y$ 
-characterize the cartesian product.
-If $p_0\colon Z\to X$ and $p_1\colon Z\to Y$ there exists
-$p\colon Z\to X\prod Y$ with $\pi_0p = p_0$ and $\pi_1p = p_1$.
+## Operations
 
-_Array_: $x\in\prod_i X$ is written $x = (x^i)$ where $π_i x = x^i$.
+The _evaluation function_ $ε_Y^X = ε\colon (X\to Y)\times X\to Y$
+is $ε(f,x) = f(x)\in Y$, $f\in Y^X$, $x\in X$.
 
-_Tuple_: $x\in\prod_i X_i$ is written $x = \langle x^i\rangle$ where $π_i x = x^i$
+### Curry
 
-## Coproduct
+The _curry function_ $γ\colon ((X\times Y)\to Z)\to (X\to(Y\to Z))$ is
+$(γ(f)(x))(y) = f(x,y)\in Z$, $f\in X\times Y\to Z$, $x\in X$, $y\in Y$.
 
-If $X$ and $Y$ are sets then $X\coprod Y = \{(z,i)\st \text{where }z\in X, i = 0 \text{ or } z\in Y, i = 1\}$
-is the _coproduct_ of $X$ and $Y$.
+The _uncurry function_ $γ^*\colon ((X\to (Y\to Z))\to (X\times Y\to Z)$
+is $(γ^*(f))(x,y) = f(x,y)\in Z$, $f\in X\to(Y\to Z)$, $x\in X$, $y\in Y$.
 
-The _inclusions_ $\nu_0\colon X\to X\coprod Y$ where $\nu_0(x) = (x, 0)$ and
-$\nu_1\colon Y\to X\coprod Y$ where $\nu_0(y) = (y, 1)$ 
-characterize the coproduct.
-If $n_0\colon X\to Z$ and $n_1\colon Y\to Z$ there exists
-$n\colon X\coprod Y\to Z$ with $n\nu_0 = n_0$ and $n\nu_1 = n_1$.
-
-_Variant_: $x\in\coprod_i X_i$ is written $x = [x_i]$ where $ν_i x_i = x$.
-
-## Exponential
-
-If $X$ and $Y$ are sets the _exponential_ $Y^X = \{X\to Y\} = \{f\colon X\to Y\}$
-is the set of functions from $X$ to $Y$.
-
-## Evaluation
-
-The _evaluation function_ $e_Y^X = e\colon Y^X\prod X\to Y$
-is $e(f,x) = f(x)\in Y$, $f\in Y^X$, $x\in X$.
-
-## Curry
-
-The _curry function_ $\gamma\colon \{X\prod Y\to Z\}\to \{X\to\{Y\to Z\}\}$ is
-$(\gamma(f)x)y = f(x,y)\in Z$, $f\in \{X\prod Y\to Z\}$, $x\in X$, $y\in Y$.
-
-The _uncurry function_ $\gamma^*\colon \{X\to\{Y\to Z\}\}\to \{X\prod Y\to Z\}$
-is $\gamma^*(f)(x,y) = f(x,y)\in Z$, $f\in \{X\to\{Y\to Z\}\}$.
 ## Reshape
 
 The _reshape_ function $\rho = \rho_{n_0,...,n_{k-1}}\colon\iota
@@ -173,9 +159,25 @@ _Average_ $\div␣\stop␣\add\fold␣\add\fold K 1\scan␣x_0␣x_1␣\ldots$
 
 ## Types
 
-A _string_ is a utf-8 string that is a monoid with identity the empty string
-and product concatenation. The _characters_ of the string are _code points_.
+_boolean_ $\BB$.
 
-Generic duality? $Z$ an object, $\hat{}Z$ is a functor $X\mapsto X^Z$ and
-$(f\colon X\to Y)\mapsto (X^Z\to Y^Z)$. The functor $Z\,\hat{}$ maps $Y\mapsto Z^Y$
-and $g\colon X\to Y\mapsto (Z^Y\to Z^X)$.
+_integer_ $\ZZ$.
+
+_unsigned_ $\NN$.
+
+_number_ $\RR$.
+
+_character_ $\CC$ utf-8 _code points_.
+
+## Structures
+shape $ρ\colon\NN^k\to (\NN^{k-1}\to\NN)$, $ρ\mapsto(n \mapsto n)$,
+$ρ(n,\ldots)\mapsto ((i,\ldots) \mapsto i + n ρ(\ldots)(\ldots))$
+
+monoid folds $\star\colon X\times X\to X$
+
+left fold $(\star\colon X^n\to X$, $(\star(x_0,\ldots,x_n) = x_0\star(x_1\dots x_n)$
+
+right fold $)\star\colon X^n\to X$, $)\star(x_0,\ldots,x_n) = (x_0\dots x_{n-1})\star x_n$
+
+
+Storage: stack (life of function), heap (life of process), persistent (across processes), lazy generators.

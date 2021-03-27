@@ -13,11 +13,11 @@ abstract: Interpolation in high dimensions
 \newcommand\ker{\operatorname{ker}}
 \newcommand\ran{\operatorname{ran}}
 
-Machine learning involves interpolation. Given $(x_i)$ and $(y_i)$ we
+Machine learning involves interpolation. Given data $(x_i)$ and $(y_i)$ we
 want to find a function $f$ with $f(x_i) \approx y_i$ for all $i$.
 If the $x_i$ and $y_i$ are real numbers then there is a well developed
-theory for this. I can highly recommend learning about [_basis splines_]
-(https://apps.dtic.mil/dtic/tr/fulltext/u2/a172773.pdf).
+theory for this. I can highly recommend learning about
+[_basis splines_](https://apps.dtic.mil/dtic/tr/fulltext/u2/a172773.pdf).
 
 If the $x_i$ are each several megabytes of pixels and the $y_i$ are only
 allowed the values true or false the problem becomes much more complicated.
@@ -75,9 +75,11 @@ messy reality of the world we live in.
 
 The mathematical model used for reinforcement learning is a _Markov decision process_.
 A MDP is defined by states $S$, actions $A$, rewards
-$R\subseteq\bold{R}$, and transition probabilities, $p(s',r'|s,a) =
-P(S_{t+1} = s', R_{t+1} = r'\mid S_t = s, A_t = a)$: the probability
-of moving to state $s'$ and receive reward $r'$ given you are in
+$R\subseteq\bold{R}$, and transition probabilities, 
+$$
+	p(s',r'|s,a) = P(S_{t+1} = s', R_{t+1} = r'\mid S_t = s, A_t = a),
+$$
+the probability of moving to state $s'$ and receive reward $r'$ given you are in
 state $s$ and take action $a$ at time $t$.
 Some models specify $A_s\subseteq A$, for $s\in S$, the set of possible
 actions when in state $s$.

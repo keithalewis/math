@@ -9,6 +9,7 @@ abstract: A guide to Linear Algebra.
 
 \newcommand\ran{\operatorname{ran}}
 \newcommand\span{\operatorname{span}}
+\newcommand\given[1]{\qquad\{#1\}}
 
 
 This is not a beginners guide to linear algebra. It is a breviloquent
@@ -25,21 +26,18 @@ to unequivocally establish absolute truth.
 ## Introduction
 
 Vector spaces occupy a sweet spot in the menagerie of mathematical
-structures.  They are completely classified up to _isomorphism_ by their
-_dimension_.  A _vector space_ is an _abelian group_ with a _scalar
-multiplication_ that satisfies a _distributive law_ with respect
-to the vector addition. A vector is
-not just a list of numbers, it is a mathematical object that satisfies
-these axioms.
-For example, _functions_
-are vectors and _linear transformations_ between vector spaces are
-also vectors.
+structures.  They are completely classified up to _isomorphism_
+by their _dimension_.  A _vector space_ is an _abelian group_ with
+a _scalar multiplication_ that satisfies a _distributive law_ with
+respect to the vector addition. A vector is not just a list of numbers,
+it is a mathematical object that satisfies these axioms.  For example,
+_functions_ are vectors and _linear transformations_ between vector
+spaces are also vectors.
 
-A linear transformation is a function between vector spaces that preserves
-the vector space structure. They are completely classified 
-up to _similarity_
-for finite dimensional vector spaces
-by their _eigenvalues_ and the _multiplicity_ of each eigenvalue
+A linear transformation is a function between vector spaces that
+preserves the vector space structure. They are completely classified up to
+_similarity_ for finite dimensional vector spaces by their _eigenvalues_
+and the _multiplicity_ of each eigenvalue
 
 <!--
 Linear transformations from a finite dimensional vector space to
@@ -353,6 +351,18 @@ $S$ with $R = S^{-1}TS$. We write $R\simeq T$ if so.
 __Exercise__. _Show similarity is an equivlence relation on endomorphisms_.
 
 Hint: $S_0^{-1}S_1 = (S_1^{-1}S_0)^{-1}$ if $S_0$ and $S_1$ are isomorphisms.
+
+## Eigenvector
+
+If $F(x) = (Ax,Ax)$ then $DF(x) = (A + A^*)x^*$.
+
+$(A(x + h),A(x + h)) - (Ax, Ax) = (Ax,h) + (Ah,x) + (Ah,Ah) = ((A + A*)x,h) + o(\|h\|)$
+so $D_x(Ax,Ax) = (A + A^*)x'$
+
+If $V$ is finite dimensional then pick any norm and $\max_{\|e\|=1\} \|Te\|$ has a solution.
+
+Maximizing $\|Te\|^2 - λ(\|e\|^2 - 1)$ gives $(T + T^*)e^* - 2λe^* = 0$.
+If $T = T^*$ then $Te = λe$.
 
 <!--
 

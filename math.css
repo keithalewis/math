@@ -15,8 +15,8 @@ h1, p.author {
 	text-align: center;
 }
 p {
-	text-align: /*left; */justify;
-	text-justify: /*none; */inter-word;
+	text-align: left; /*justify;*/
+	text-justify: none; /*inter-word;*/
 }
 table {
     border-collapse: collapse;
