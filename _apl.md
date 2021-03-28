@@ -28,8 +28,10 @@ abstract: A Programming Language
 \newcommand\exec{!}
 \newcommand\stop{'}
 \newcommand\uniq{ν}
-\newcommand{\f}{f}
-\newcommand{\t}{t}
+\newcommand{\f}{\square}
+\newcommand{\t}{\blacksquare}
+\newcommand{\take}{\uparrow}
+\newcommand{\drop}{\downarrow}
 
 \newcommand{\dom}{\operatorname{dom}}
 \newcommand{\ran}{\operatorname{ran}}
@@ -37,7 +39,7 @@ abstract: A Programming Language
 
 Let's give names to things.
 
-## Primitive Types
+## Primitive Type
 
 The _primitive types_ are
 booleans $\BB$,
@@ -55,7 +57,9 @@ natural number (monoid),
 real number (field),
 character (set).
 
-## Types
+We write $\BB = \{\f,\t\}$ where $\f$ represents false and $\t$ represents true.
+
+## Type
 
 If $X$, $X_i$ are types
 
@@ -68,9 +72,24 @@ $x\langle i\rangle = π_i(x) = x_i$.
 _union_ $x = \{\ldots,x_i,\ldots\} = \langle i,x_i\rangle\in\coprod_{i\in n} X_i$, $n\to(X_i\to\coprod X_i)$,
 $n\mapsto ν_i$, $x\{i\} = ν_i(x) = \langle i,x_i\rangle$.
 
-_sequence_ $x = (x,\ldots) \in X^* = \coprod_{n\in\NN} X^n$. 
-$*(x,\ldots) = x$, $+(x,\ldots) = (\ldots)$, $?(x,\ldots) = \t$, $?() = \f$,
-$x\in\dom *$ iff $?x$.
+_sequence_ $x = (x_0,\ldots,x_{n-1}) \in X^* = \coprod_{n\in\NN} X^n$ and define
+$*x = x_0$,
+$+x = (x_1,\ldots,x_{n-1})$, $?x$ if and only if $n\ge 0$, i.e., $x$ is not empty.
+Note $x\in\dom *$ iff $?x$.
+Define $x = y$ if $*x = *y$ and $+x = +y$ or if $x$ and $y$ are both empty.
+
+The function _concatenate_ $,\colon X^*\times X^*\to X^*$
+written $,(x,y) = x,y$
+is defined by $*(x,y) = *x$ if $?x$ and $*y$ if not $?x$,
+$+(x,y) = (+x,y)$ if $?x$ and $(x,+y)$ if not $?x$,
+$?(x,y) = ?x\vee ?y$ where $\vee$ is logical or.
+Note $x,() = x$ and $(),y = y$ for $x,y\in X^*$ so
+sequences are a monoid under concatenation with unit the empty sequence.
+
+If $x = (x_0,\ldots,x_{n-1})$ is a sequence let
+$[x] = [x_0,\ldots,x_{n-1}]\in X^n$ be the array it determines
+and $\langle x\rangle = \langle x_0,\ldots,x_{n-1}\rangle$ be the (homogeneous) tuple
+it determines.
 
 _exponential_ $f\in Y^X = \{f\colon X\to Y\}$ is the set of all functions from $X$ to $Y$.
 We also write $X\to Y$ for $Y^X$.
@@ -89,8 +108,20 @@ $\{\langle x,y\rangle \st f(x) = y\}\subseteq X\times Y$. A relation $R$ is a fu
 _right coset_ $xR$ is a singleton for all $x\in X$ and we
 write $R(x)$ for that unique element.
 
+_itoa_ is $ι = (0,1,2,\ldots)\in\NN^*$
 
-## Operations
+## Function
+
+The function _take_ is $\take\colon\NN\times X^*\to X^*$
+defined by $\take(n,x) = (*x), \take(n - 1, +x))$, $\take(0,x) = ()$, $\take(n,()) = ()$,
+where $(x_0, ()) = x_0$.
+
+The function _drop_ is $\drop\colon\NN\times X^*\to X^*$
+defined by $\drop(n,x) = \drop(n - 1, +x)$, $\drop(0,x) = x$, $\drop(n,()) = ()$.
+
+The function _itoa_ is $ι\colon\NN\to \NN^*$ $ι\mapsto (0,\ldots,n-1)$.
+
+## Operation
 
 The _evaluation function_ $ε_Y^X = ε\colon (X\to Y)\times X\to Y$
 is $ε(f,x) = f(x)\in Y$, $f\in Y^X$, $x\in X$.
@@ -103,18 +134,12 @@ $(γ(f)(x))(y) = f(x,y)\in Z$, $f\in X\times Y\to Z$, $x\in X$, $y\in Y$.
 The _uncurry function_ $γ^*\colon ((X\to (Y\to Z))\to (X\times Y\to Z)$
 is $(γ^*(f))(x,y) = f(x,y)\in Z$, $f\in X\to(Y\to Z)$, $x\in X$, $y\in Y$.
 
-## Reshape
+## Shape
 
-The _reshape_ function $\rho = \rho_{n_0,...,n_{k-1}}\colon\iota
-n_0\prod\cdots\prod\iota n_{k-1}\to\iota n_0\cdots n_{k-1}$
-is defined by $\rho(i_0, i_1, \ldots, i_{k-1}) = i_0 + n_0(\rho(i_1,
-\ldots, n_{k-1}))$.
+The _shape_ function is $ρ\colon\NN^k\to (\NN^{k-1}\to\NN)$, $ρ\mapsto(n \mapsto n)$,
+$ρ(n,\ldots)\mapsto ((i,\ldots) \mapsto i + n ρ(\ldots)(\ldots))$
 
-Every element $x\in X^{\iota n}$ corresponds to a function $x\colon\iota n\to X$.
-The composition $x\rho\colon n_0\prod\cdots\prod\iota n_{k-1}\to X$
-reshapes $x$.
-
-## Partition
+### Partition
 
 A function $p\colon X\to\iota n$ determines a _partition_ on $X$ where $i\sim i'$ iff $p(i) = p(i')$.
 
@@ -170,8 +195,6 @@ _number_ $\RR$.
 _character_ $\CC$ utf-8 _code points_.
 
 ## Structures
-shape $ρ\colon\NN^k\to (\NN^{k-1}\to\NN)$, $ρ\mapsto(n \mapsto n)$,
-$ρ(n,\ldots)\mapsto ((i,\ldots) \mapsto i + n ρ(\ldots)(\ldots))$
 
 monoid folds $\star\colon X\times X\to X$
 
