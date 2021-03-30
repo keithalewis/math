@@ -8,6 +8,7 @@ abstract: A Programming Language
 ...
 
 
+\newcommand\bm{\mathbf}
 \newcommand\BB{\bm{B}}
 \newcommand\CC{\bm{C}}
 \newcommand\NN{\bm{N}}
@@ -15,7 +16,6 @@ abstract: A Programming Language
 \newcommand\ZZ{\bm{Z}}
 
 \newcommand\MM{\bm{M}}
-\newcommand\SS{\bm{S}}
 \newcommand\FF{\bm{R}}
 
 \newcommand\st{\mid}
@@ -24,18 +24,18 @@ abstract: A Programming Language
 \newcommand\add{+}
 \newcommand\sub{-}
 \newcommand\mul{×}
-\newcommand\div{÷}
+\renewcommand\div{÷}
 \newcommand\exec{!}
-\newcommand\stop{'}
+\renewcommand\stop{'}
 \newcommand\uniq{ν}
 \newcommand{\f}{\square}
-\newcommand{\t}{\blacksquare}
+\renewcommand{\t}{\blacksquare}
 \newcommand{\take}{\uparrow}
 \newcommand{\drop}{\downarrow}
 
 \newcommand{\dom}{\operatorname{dom}}
 \newcommand{\ran}{\operatorname{ran}}
-\newcommand{\ker}{\operatorname{ker}}
+\renewcommand{\ker}{\operatorname{ker}}
 
 Let's give names to things.
 
@@ -126,6 +126,12 @@ The function _itoa_ is $ι\colon\NN\to \NN^*$ $ι\mapsto (0,\ldots,n-1)$.
 The _evaluation function_ $ε_Y^X = ε\colon (X\to Y)\times X\to Y$
 is $ε(f,x) = f(x)\in Y$, $f\in Y^X$, $x\in X$.
 
+monoid folds $\star\colon X\times X\to X$
+
+left fold $(\star\colon X^n\to X$, $(\star(x_0,\ldots,x_n) = x_0\star(x_1\dots x_n)$
+
+right fold $)\star\colon X^n\to X$, $)\star(x_0,\ldots,x_n) = (x_0\dots x_{n-1})\star x_n$
+
 ### Curry
 
 The _curry function_ $γ\colon ((X\times Y)\to Z)\to (X\to(Y\to Z))$ is
@@ -149,6 +155,7 @@ $= "," s$ is $\f\t\f\f\t\f\f\f$ so $\add\scan = "," s$ is $0111222$.
 Define $\uniq\colon X^n\to X^m$ by $\uniq x_0 x_1 \ldots = x_0 \nu x_2 \ldots$
 if $x1 = x0$ and $\uniq x_0 x_1 \ldots = x_0 \nu x_1 \ldots$ if $x_1 \not= x_0$.
 
+<!--
 ## Remarks
 
 Natural numbers $\NN = \{0, 1, \ldots\}$.
@@ -196,11 +203,7 @@ _character_ $\CC$ utf-8 _code points_.
 
 ## Structures
 
-monoid folds $\star\colon X\times X\to X$
-
-left fold $(\star\colon X^n\to X$, $(\star(x_0,\ldots,x_n) = x_0\star(x_1\dots x_n)$
-
-right fold $)\star\colon X^n\to X$, $)\star(x_0,\ldots,x_n) = (x_0\dots x_{n-1})\star x_n$
 
 
 Storage: stack (life of function), heap (life of process), persistent (across processes), lazy generators.
+-->

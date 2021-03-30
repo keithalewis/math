@@ -9,6 +9,8 @@ REVEAL = https://cdn.jsdelivr.net/reveal.js/3.0.0
 CSS = math.css
 
 FLAGS  = -f markdown+definition_lists+raw_html+pipe_tables
+FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
+TEXFLAGS = --pdf-engine=xelatex
 FLAGS += -t html5
 FLAGS += -s # smart quotes
 FLAGS += --katex=$(KATEX)
@@ -25,15 +27,11 @@ FLAGS += --reference-location=block
 FLAGS += --section-divs
 FLAGS += -H HEADER.md
 #FLAGS += -H katex.html
-FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
-TEXFLAGS =
-#TEXFLAGS = 
-TEXFLAGS = --pdf-engine=xelatex
 
 %.html: %.md $(CSS)
 	pandoc $(FLAGS) $< -o $@
 
-$(PDF): %.pdf: %.md
+_apl.pdf $(PDF): %.pdf: %.md
 	pandoc $(TEXFLAGS) $< -o $@
 
 $(DOCX): %.docx: %.md
