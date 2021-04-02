@@ -12,13 +12,13 @@ abstract: Buy now, sell later
 Let $I$ be the set of _instruments_ available for trading.
 The _prices_ at the beginning of the period are $x\in\RR^I$ where $x_i\in\RR$ is the initial
 price of instrument $i\in I$.
-Let $\Omega$ be what can happen over the period.
-The prices at the end of the period are $X\colon\Omega\to \RR^I$ where $X(\omega)\in\RR^I$
-are the instrument prices if $\omega\in\Omega$ occurred.
+Let $Ω$ be what can happen over the period.
+The prices at the end of the period are $X\colonΩ\to \RR^I$ where $X(\omega)\in\RR^I$
+are the instrument prices if $\omega\inΩ$ occurred.
 
 ## Derivative
 
-A _derivative instrument_ is a function $A\colon\Omega\to\RR$ that pays some _amount_
+A _derivative instrument_ is a function $A\colonΩ\to\RR$ that pays some _amount_
 at the end of the period depending on what happened.
 If there is a $γ\in\RR^I$ with
 $γ\cdot X = A$ then there is a perfect hedge. The _cost_ of
@@ -39,13 +39,13 @@ At the end of the period you close the position by selling all of your
 shares.  This results in a cash flow of $γ\cdot X$ to your account.
 If that is non-negative then you don't lose money.  A one period model
 has _arbitrage_ if there exists $γ\in \RR^I$ with $γ\cdot x <
-0$ and $γ\cdot X(\omega)\ge0$, $\omega\in\Omega$.
+0$ and $γ\cdot X(\omega)\ge0$, $\omega\inΩ$.
 
 ## FTAP
 
 The one-period Fundamental Theorem of Asset Pricing states that there is no
-arbitrage if and only if there exists a non-negative measure $\Pi$ on $\Omega$
-such that $x = \int_\Omega X\,d\Pi$. If such a measure exists and
+arbitrage if and only if there exists a non-negative measure $\Pi$ on $Ω$
+such that $x = \int_Ω X\,d\Pi$. If such a measure exists and
 $γ\cdot X\ge 0$ then $γ\cdot x \ge 0$ so there is no arbitrage.
 
 We assume $X$ is bounded and $\Pi$ is finitely additive.
@@ -70,8 +70,8 @@ Since $0 < ||ξ||^2 = ξ\cdot (x^* - x) = -ξ\cdot x$ we have $ξ\cdot x < 0$.
 $\blacksquare$
 
 The set of non-negative finitely additive measures is a closed
-cone and $X\mapsto \int_\Omega X\,d\Pi$ is positive, linear, and continuous
-so $C = \{\int_\Omega X\,d\Pi \mid \Pi\ge 0\}$ is also a closed cone.
+cone and $X\mapsto \int_Ω X\,d\Pi$ is positive, linear, and continuous
+so $C = \{\int_Ω X\,d\Pi \mid \Pi\ge 0\}$ is also a closed cone.
 The contrapositive of the FTAP follows from the lemma.
 
 The proof also shows how to find an arbitrage when one exists.
@@ -118,30 +118,78 @@ best estimate. If the model is arbitrage free then $Rx = X(ω)$ for some $R > 0$
 $γ\cdot x = A(ω)/R$ is the cost of the hedge. In this case $γ\cdot X(ω) = A(ω)$ replicates the derivative
 and $X(ω)X'(ω) = R^2xx'$ so $R = \|X\|/\|x\|$.
 
-If $Ω = \{ω_0, ω_1\}$ has two points then $XX'$ is rank two. If $u,v\in\RR^I$ then the SVD of $uu' + vv'$
-has eigenvalues 
+If $Ω = \{ω_0, ω_1\}$ has two points then $XX'$ is rank two.
+If $u,v\in\RR^I$ then the SVD of $uu' + vv'$ in terms of the basis $\{u,v\}$ has eigenvalues 
 $$
-(a^2 + b^2 \pm \sqrt{(a^2 - b^2)^2 + 4 (ρab)^2})/2
+(a^2 + c^2 \pm \sqrt{(a^2 - c^2)^2 + (2b)^2})/2
 $$
-where $a^2 = u'u = \|u\|^2$, $b = ρab$, and $b^2 = v'v = \|v\|^2$ where $ρ = u'v/\|u\|\|v\|$.
+where $a^2 = u'u = \|u\|^2$,
+$c^2 = v'v = \|v\|^2$, and
+$b = u'v = v'u = ρac$.
+Note $\|u \pm v\|^2 = a^2 \pm 2b + c^2$.
 The eigenvectors are
 $$
-((a^2 - b^2 \pm \sqrt{(a^2 - b^2)^2 + 4 (ρab)^2})/2ρab), 1).
+(a^2 - c^2 \pm \sqrt{(a^2 - c^2)^2 + (2b)^2}, 2b).
 $$
 
 Using $\sqrt{d + x} \approx \sqrt{d} + x/2$ for small $x$, the eigenvalues for small $ρ$
-are ...
+are $(a^2 + c^2 \pm |a^2 - c^2| + 2b^2)/2$.
+If $a \ge c$ these are $a^2 + b^2$ and $c^2 - b^2$.
+The corresponding eigenvectors are
+$(a^2 - c^2 \pm |a^2 - c^2| + 2b^2, 2b)$.
+If $a \ge c$ these are $2(a^2 - c^2 + b^2, b)$ and $2(-b^2, b)$.
+
+<!--
+$$
+-(a^2 - c^2 + b^2)b^2 + (b+e)^2$.
+= -(a^2 - c^2 + b^2)b^2 + b^2 + 2be + e^2$
+$$
+$$
+	e = -b \pm \sqrt{b^2 + b((a^2 - c^2 + b^2)b^2}
+$$
+-->
+
+Let $d^2 = a^2 - c^2$ assuming $a \ge c$.
+$$
+\|(d \pm \sqrt{d^2 + 4b^2})u + 2bv\|^2
+$$
+$$
+= (d \pm \sqrt{d^2 + 4b^2})^2 u'u
+  + 2(d \pm \sqrt{d^2 + 4b^2})2b u'v
+  + 4b^2 v'v
+$$  
+$$  
+= (d \pm \sqrt{d^2 + 4b^2})^2 a^2
+  + 4(d \pm \sqrt{d^2 + 4b^2})b^2
+  + 4b^2 c^2
+$$
+$$
+= (d^2 \pm 2d\sqrt{d^2 + 4b^2} + d^2 + 4b^2) a^2
+  + 4(d \pm \sqrt{d^2 + 4r^2})b^2
+  + 4b^2 c^2
+$$
+$$
+= (a^2d^2 \pm 2a^2d\sqrt{d^2 + 4b^2} + a^2d^2 + 4a^2b^2)
+  + 4b^2d \pm 4b^2\sqrt{d^2 + 4r^2}
+  + 4b^2 c^2
+$$
+$$
+= 2a^2d^2 + 4a^2b^2
++ 4b^2d
++ 4b^2 c^2
+\pm (2a^2d + 4b^2)\sqrt{d^2 + 4b^2}
+$$
 
 In general we can do a principal component analysis on $\{X(ω)A(ω)/\|X(ω)\|^2\mid ω\in Ω\}$ and
 choose $γ^*$ to be first principal component.
 
 <!--
 
-Fix a probability measure and let $\Sigma = E[XX']^{1/2}$ so
+Fix a probability measure and let $Σ = E[XX']^{1/2}$ so
 $$
 \begin{aligned}
 E[(γ\cdot X - A)^2] &= γ'E[XX']γ - 2E[X'A]γ + E[A^2]\\
-	&= \|\Sigmaγ - \Sigma^{-1}E[XA]\|^2 - \|\Sigma^{-1}E[XA]\|^2 + E[A^2].\\
+	&= \|Σγ - Σ^{-1}E[XA]\|^2 - \|Σ^{-1}E[XA]\|^2 + E[A^2].\\
 \end{aligned}
 $$
 This has minimum value $E[A^2] - E[X'A]E[XX']^{-1}E[XA]$ when $γ = E[XX']^{-1}E[XA]$.
@@ -153,7 +201,7 @@ where we use the probability measure $P = Π/\|Π\|$.
 
 ### Two Instruments
 
-Let $x = (r, s)$, $r,s\in\RR$ and $X = (R, S)$, $R,S\colon\Omega\to\RR$.
+Let $x = (r, s)$, $r,s\in\RR$ and $X = (R, S)$, $R,S\colonΩ\to\RR$.
 We may assume $r = s = 1$. The matrix $XX'$ has eigenvectors
 $(R/S, 1)$ and $(-S/R, 1)$ with eigenvalues $σ^2 = R^2 + S^2$ and $0$, respectively.
 
