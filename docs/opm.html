@@ -6,34 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>One Period Model</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: true
-     });
-  }}});
-  </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body);
+  });</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
   <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
@@ -41,49 +23,55 @@
   -->
 </head>
 <body>
-<header id="title-block-header">
+<header>
 <h1 class="title">One Period Model</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<p>Let <span class="math inline">I</span> be the set of <em>instruments</em> available for trading. The <em>prices</em> at the beginning of the period are <span class="math inline">x\in\bm{R}^I</span> where <span class="math inline">x_i\in\bm{R}</span> is the initial price of instrument <span class="math inline">i\in I</span>. Let <span class="math inline">\Omega</span> be what can happen over the period. The prices at the end of the period are <span class="math inline">X\colon\Omega\to \bm{R}^I</span> where <span class="math inline">X(\omega)\in\bm{R}^I</span> are the instrument prices if <span class="math inline">\omega\in\Omega</span> occurred.</p>
+
+<p>Let <span class="math inline">\(I\)</span> be the set of <em>instruments</em> available for trading. The <em>prices</em> at the beginning of the period are <span class="math inline">\(x\in\bm{R}^I\)</span> where <span class="math inline">\(x_i\in\bm{R}\)</span> is the initial price of instrument <span class="math inline">\(i\in I\)</span>. Let <span class="math inline">\(\Omega\)</span> be what can happen over the period. The prices at the end of the period are <span class="math inline">\(X\colon\Omega\to \bm{R}^I\)</span> where <span class="math inline">\(X(\omega)\in\bm{R}^I\)</span> are the instrument prices if <span class="math inline">\(\omega\in\Omega\)</span> occurred.</p>
 <section id="derivative" class="level2">
 <h2>Derivative</h2>
-<p>A <em>derivative instrument</em> is a function <span class="math inline">A\colon\Omega\to\bm{R}</span> that pays some <em>amount</em> at the end of the period depending on what happened. If there is a <span class="math inline">γ\in\bm{R}^I</span> with <span class="math inline">γ\cdot X = A</span> then there is a perfect hedge. The <em>cost</em> of setting up the hedge at the beginning of the period is <span class="math inline">γ\cdot x</span>.</p>
-<p>If more things can happen than the number of instruments then it is not the case perfect hedges always exist. The usual case is that they do not and risk management involves the study of how well a derivative can be hedged.</p>
+<p>A <em>derivative instrument</em> is a function <span class="math inline">\(A\colon\Omega\to\bm{R}\)</span> that pays some <em>amount</em> at the end of the period depending on what happened. If there is a <span class="math inline">\(γ\in\bm{R}^I\)</span> with <span class="math inline">\(γ\cdot X = A\)</span> then there is a perfect hedge. The <em>cost</em> of setting up the hedge at the beginning of the period is <span class="math inline">\(γ\cdot x\)</span>.</p>
+<p>If more things can happen than the number of instruments then it is not the case perfect hedges always exist. The usual case is that they do not and risk management involves the study of how well a derivative can be hedged. The basic problem of one-period hedging is to find <span class="math inline">\(γ\in\bm{R}^I\)</span> such that <span class="math inline">\(γ\cdot X - A\)</span> is “minimized” in some sense.</p>
 </section>
 <section id="arbitrage" class="level2">
 <h2>Arbitrage</h2>
-<p>The cost of acquiring <span class="math inline">γ</span> shares of each instrument at the beginning of the period is <span class="math inline">γ\cdot x</span>. If that is negative then you make money. At the end of the period you close the position by selling all of your shares. This results in a cash flow of <span class="math inline">γ\cdot X</span> to your account. If that is non-negative then you don’t lose money. A one period model has <em>arbitrage</em> if there exists <span class="math inline">γ\in \bm{R}^I</span> with <span class="math inline">γ\cdot x &lt; 0</span> and <span class="math inline">γ\cdot X(\omega)\ge0</span>, <span class="math inline">\omega\in\Omega</span>.</p>
+<p>The cost of acquiring <span class="math inline">\(γ\)</span> shares of each instrument at the beginning of the period is <span class="math inline">\(γ\cdot x\)</span>. If that is negative then you make money. At the end of the period you close the position by selling all of your shares. This results in a cash flow of <span class="math inline">\(γ\cdot X\)</span> to your account. If that is non-negative then you don’t lose money. A one period model has <em>arbitrage</em> if there exists <span class="math inline">\(γ\in \bm{R}^I\)</span> with <span class="math inline">\(γ\cdot x &lt; 0\)</span> and <span class="math inline">\(γ\cdot X(\omega)\ge0\)</span>, <span class="math inline">\(\omega\in\Omega\)</span>.</p>
 </section>
 <section id="ftap" class="level2">
 <h2>FTAP</h2>
-<p>The one-period Fundamental Theorem of Asset Pricing states that there is no arbitrage if and only if there exists a non-negative measure <span class="math inline">\Pi</span> on <span class="math inline">\Omega</span> such that <span class="math inline">x = \int_\Omega X\,d\Pi</span>. If such a measure exists and <span class="math inline">γ\cdot X\ge 0</span> then <span class="math inline">γ\cdot x \ge 0</span> so there is no arbitrage.</p>
-<p>We assume <span class="math inline">X</span> is bounded and <span class="math inline">\Pi</span> is finitely additive.</p>
-<p><strong>Lemma.</strong> <em>If <span class="math inline">x\in\bm{R}^n</span> and <span class="math inline">C</span> is a closed cone in <span class="math inline">\bm{R}^n</span> with <span class="math inline">x\not\in C</span> then there exists <span class="math inline">ξ\in\bm{R}^n</span> with <span class="math inline">ξ\cdot x &lt; 0</span> and <span class="math inline">ξ\cdot y \ge0</span> for <span class="math inline">y\in C</span>.</em></p>
-<p>Recall that a <em>cone</em> is a subset of a vector space closed under addition and multiplication by a positive scalar, that is, <span class="math inline">C + C\subseteq C</span> and <span class="math inline">tC\subseteq C</span> for <span class="math inline">t &gt; 0</span>. For example, the set of arbitrage positions is a cone.</p>
-<p><em>Proof.</em> Since <span class="math inline">C</span> is closed and convex there exists <span class="math inline">x^*\in C</span> with <span class="math inline">0 &lt; ||x^* - x|| \le ||y - x||</span> for all <span class="math inline">y\in C</span>. Let <span class="math inline">ξ = x^* - x</span>. For any <span class="math inline">y\in C</span> and <span class="math inline">t &gt; 0</span> we have <span class="math inline">ty + x^*\in C</span> so <span class="math inline">||ξ|| \le ||ty + ξ||</span>. Simplifying gives <span class="math inline">t^2||y||^2 + 2tξ\cdot y\ge 0</span>. Dividing by <span class="math inline">t &gt; 0</span> and letting <span class="math inline">t</span> decrease to 0 shows <span class="math inline">ξ\cdot y\ge 0</span>. Take <span class="math inline">y = x^*</span> then <span class="math inline">tx^* + x^*\in C</span> for <span class="math inline">t \ge -1</span>. By similar reasoning, letting <span class="math inline">t</span> increase to 0 shows <span class="math inline">ξ\cdot x^*\le 0</span> so <span class="math inline">ξ\cdot x^* = 0</span>. Since <span class="math inline">0 &lt; ||ξ||^2 = ξ\cdot (x^* - x) = -ξ\cdot x</span> we have <span class="math inline">ξ\cdot x &lt; 0</span>. <span class="math inline">\blacksquare</span></p>
-<p>The set of non-negative finitely additive measures is a closed cone and <span class="math inline">X\mapsto \int_\Omega X\,d\Pi</span> is positive, linear, and continuous so <span class="math inline">C = \{\int_\Omega X\,d\Pi \mid \Pi\ge 0\}</span> is also a closed cone. The contrapositive of the FTAP follows from the lemma.</p>
-<p>The proof also shows how to find an arbitrage when one exists. For example, if <span class="math inline">Ω</span> is a singleton then the cone generated by <span class="math inline">X(Ω)</span> is <span class="math inline">\{tX(ω)\mid t \ge 0\}</span> where <span class="math inline">Ω = \{ω\}</span>. The projection onto the ray is <span class="math inline">e\otimes e</span> where <span class="math inline">e = X(ω)/\|X(ω)\|</span> so <span class="math inline">ξ = (x\cdot e)e - x</span> is an arbitrage unless <span class="math inline">x</span> is a positive scalar multiple of <span class="math inline">X(ω)</span>.</p>
+<p>The one-period Fundamental Theorem of Asset Pricing states that there is no arbitrage if and only if there exists a non-negative measure <span class="math inline">\(\Pi\)</span> on <span class="math inline">\(\Omega\)</span> such that <span class="math inline">\(x = \int_\Omega X\,d\Pi\)</span>. If such a measure exists and <span class="math inline">\(γ\cdot X\ge 0\)</span> then <span class="math inline">\(γ\cdot x \ge 0\)</span> so there is no arbitrage.</p>
+<p>We assume <span class="math inline">\(X\)</span> is bounded and <span class="math inline">\(\Pi\)</span> is finitely additive.</p>
+<p><strong>Lemma.</strong> <em>If <span class="math inline">\(x\in\bm{R}^n\)</span> and <span class="math inline">\(C\)</span> is a closed cone in <span class="math inline">\(\bm{R}^n\)</span> with <span class="math inline">\(x\not\in C\)</span> then there exists <span class="math inline">\(ξ\in\bm{R}^n\)</span> with <span class="math inline">\(ξ\cdot x &lt; 0\)</span> and <span class="math inline">\(ξ\cdot y \ge0\)</span> for <span class="math inline">\(y\in C\)</span>.</em></p>
+<p>Recall that a <em>cone</em> is a subset of a vector space closed under addition and multiplication by a positive scalar, that is, <span class="math inline">\(C + C\subseteq C\)</span> and <span class="math inline">\(tC\subseteq C\)</span> for <span class="math inline">\(t &gt; 0\)</span>. For example, the set of arbitrage positions is a cone.</p>
+<p><em>Proof.</em> Since <span class="math inline">\(C\)</span> is closed and convex there exists <span class="math inline">\(x^*\in C\)</span> with <span class="math inline">\(0 &lt; ||x^* - x|| \le ||y - x||\)</span> for all <span class="math inline">\(y\in C\)</span>. Let <span class="math inline">\(ξ = x^* - x\)</span>. For any <span class="math inline">\(y\in C\)</span> and <span class="math inline">\(t &gt; 0\)</span> we have <span class="math inline">\(ty + x^*\in C\)</span> so <span class="math inline">\(||ξ|| \le ||ty + ξ||\)</span>. Simplifying gives <span class="math inline">\(t^2||y||^2 + 2tξ\cdot y\ge 0\)</span>. Dividing by <span class="math inline">\(t &gt; 0\)</span> and letting <span class="math inline">\(t\)</span> decrease to 0 shows <span class="math inline">\(ξ\cdot y\ge 0\)</span>. Take <span class="math inline">\(y = x^*\)</span> then <span class="math inline">\(tx^* + x^*\in C\)</span> for <span class="math inline">\(t \ge -1\)</span>. By similar reasoning, letting <span class="math inline">\(t\)</span> increase to 0 shows <span class="math inline">\(ξ\cdot x^*\le 0\)</span> so <span class="math inline">\(ξ\cdot x^* = 0\)</span>. Since <span class="math inline">\(0 &lt; ||ξ||^2 = ξ\cdot (x^* - x) = -ξ\cdot x\)</span> we have <span class="math inline">\(ξ\cdot x &lt; 0\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+<p>The set of non-negative finitely additive measures is a closed cone and <span class="math inline">\(X\mapsto \int_\Omega X\,d\Pi\)</span> is positive, linear, and continuous so <span class="math inline">\(C = \{\int_\Omega X\,d\Pi \mid \Pi\ge 0\}\)</span> is also a closed cone. The contrapositive of the FTAP follows from the lemma.</p>
+<p>The proof also shows how to find an arbitrage when one exists. For example, if <span class="math inline">\(Ω\)</span> is a singleton then the cone generated by <span class="math inline">\(X(Ω)\)</span> is <span class="math inline">\(\{tX(ω)\mid t \ge 0\}\)</span> where <span class="math inline">\(Ω = \{ω\}\)</span>. The projection onto the ray is <span class="math inline">\(e\otimes e\)</span> where <span class="math inline">\(e = X(ω)/\|X(ω)\|\)</span> so <span class="math inline">\(ξ = (x\cdot e)e - x\)</span> is an arbitrage unless <span class="math inline">\(x\)</span> is a positive scalar multiple of <span class="math inline">\(X(ω)\)</span>.</p>
 <p>Note that the lemma is a purely geometric fact that does not involve measures. It is usually called Farkas’ lemma and is a special case of the Hahn-Banach theorem in finite dimensional space.</p>
 </section>
 <section id="hedging" class="level2">
 <h2>Hedging</h2>
-<p>Given a derivative payoff <span class="math inline">A</span> at the end of the period we wish to minimize, in some sense, <span class="math inline">γ\cdot X - A</span> over available hedges <span class="math inline">γ\in\bm{R}^I</span>.</p>
-<p><strong>Lemma</strong>. <em>Using the notation above <span class="math inline">(γ\cdot X - A)^2 = \|(XX&#39;)^{1/2}(γ - XA/X&#39;X)\|^2</span> on <span class="math inline">Ω</span></em>.</p>
-<p>Letting <span class="math inline">Σ = (XX&#39;)^{1/2}</span> we have <span class="math display">
+<p>Given a derivative payoff <span class="math inline">\(A\)</span> at the end of the period we wish to minimize, in some sense, <span class="math inline">\(γ\cdot X - A\)</span> over available hedges <span class="math inline">\(γ\in\bm{R}^I\)</span>.</p>
+<p><strong>Lemma</strong>. <em>Using the notation above <span class="math inline">\((γ\cdot X - A)^2 = \|(XX&#39;)^{1/2}(γ - XA/X&#39;X)\|^2\)</span> on <span class="math inline">\(Ω\)</span></em>.</p>
+<p>Letting <span class="math inline">\(Σ = (XX&#39;)^{1/2}\)</span> we have <span class="math display">\[
     \|Σγ - Σ^{-1}XA\|^2 = γ&#39;XX&#39;γ - 2γ&#39;XA + X&#39;(XX&#39;)^{-1}X A^2
-</span> so <span class="math display">
+\]</span> so <span class="math display">\[
 \begin{aligned}
 (γ\cdot X - A)^2 &amp;= γ&#39;XX&#39;γ - 2γ&#39;XA + A^2 \\
     &amp;= \|Σγ - Σ^{-1}XA\|^2 - X&#39;(XX&#39;)^{-1}X A^2 + A^2.\\
 \end{aligned}
-</span> Since <span class="math inline">(XX&#39;)X = X(X&#39;X)</span> the matrix <span class="math inline">XX&#39;</span> has eigenvector <span class="math inline">X</span> with eigenvalue <span class="math inline">\sigma^2 = X&#39;X</span>. This implies <span class="math inline">Σ^{-1}X = X/\sigma</span> and <span class="math inline">X&#39;(XX&#39;)^{-1}X = 1</span> hence <span class="math display">
+\]</span> Since <span class="math inline">\((XX&#39;)X = X(X&#39;X)\)</span> the matrix <span class="math inline">\(XX&#39;\)</span> has eigenvector <span class="math inline">\(X\)</span> with eigenvalue <span class="math inline">\(\sigma^2 = X&#39;X\)</span> as functions on <span class="math inline">\(Ω\)</span>. This implies <span class="math inline">\(Σ^{-1}X = X/\sigma\)</span> and <span class="math inline">\(X&#39;(XX&#39;)^{-1}X = 1\)</span> hence <span class="math display">\[
     (γ\cdot X - A)^2 = \|Σ γ - XA/\sigma\|^2 = \|Σ(γ - XA/σ^2)\|^2.
-</span></p>
-<p>Recall <span class="math inline">E[(γ\cdot X - A)^2]</span> is minimized when <span class="math inline">γ - E[XX&#39;]^{-1}E[XA] = 0</span> which is analogous to <span class="math inline">γ - XA/X&#39;X</span> being “minimized” over <span class="math inline">Ω</span>. We can think of <span class="math inline">XA/σ</span> as a collection of unit vectors weighted by <span class="math inline">A</span> since <span class="math inline">σ = \|X\|</span>.</p>
-<p>If <span class="math inline">Ω = \{ω\}</span> is a singleton then <span class="math inline">γ^* = X(ω)A(ω)/\|X(ω)\|^2</span> is the natural choice for the best estimate. If the model is arbitrage free then <span class="math inline">Rx = X(ω)</span> for some <span class="math inline">R &gt; 0</span> and <span class="math inline">γ\cdot x = A(ω)/R</span> is the cost of the hedge. In this case <span class="math inline">γ\cdot X(ω) = A(ω)</span> replicates the derivative.</p>
-<p>If <span class="math inline">Ω = \{ω_0, ω_1\}</span> has two points then <span class="math inline">XX&#39;</span> is rank two. If <span class="math inline">u,v\in\bm{R}^I</span> then the SVD of <span class="math inline">uu&#39; + vv&#39;</span> has eigenvalues …</p>
-<p>In general we can do a principle component analysis on <span class="math inline">\{X(ω)A(ω)/\|X(ω)\|^2\mid ω\in Ω\}</span> and choose <span class="math inline">γ^*</span> to be first principal component.</p>
+\]</span></p>
+<p>Given a probability measure on <span class="math inline">\(Ω\)</span>, <span class="math inline">\(E[(γ\cdot X - A)^2]\)</span> is minimized when <span class="math inline">\(γ - E[XX&#39;]^{-1}E[XA] = 0\)</span>. This is analogous to <span class="math inline">\(γ - XA/σ^2\)</span> being “minimized” over <span class="math inline">\(Ω\)</span>.</p>
+<p>If <span class="math inline">\(Ω = \{ω\}\)</span> is a singleton then <span class="math inline">\(γ^* = X(ω)A(ω)/\|X(ω)\|^2\)</span> is the natural choice for the best estimate. If the model is arbitrage free then <span class="math inline">\(Rx = X(ω)\)</span> for some <span class="math inline">\(R &gt; 0\)</span> and <span class="math inline">\(γ\cdot x = A(ω)/R\)</span> is the cost of the hedge. In this case <span class="math inline">\(γ\cdot X(ω) = A(ω)\)</span> replicates the derivative and <span class="math inline">\(X(ω)X&#39;(ω) = R^2xx&#39;\)</span> so <span class="math inline">\(R = \|X\|/\|x\|\)</span>.</p>
+<p>If <span class="math inline">\(Ω = \{ω_0, ω_1\}\)</span> has two points then <span class="math inline">\(XX&#39;\)</span> is rank two. If <span class="math inline">\(u,v\in\bm{R}^I\)</span> then the SVD of <span class="math inline">\(uu&#39; + vv&#39;\)</span> has eigenvalues <span class="math display">\[
+(a^2 + b^2 \pm \sqrt{(a^2 - b^2)^2 + 4 (ρab)^2})/2
+\]</span> where <span class="math inline">\(a^2 = u&#39;u = \|u\|^2\)</span>, <span class="math inline">\(b = ρab\)</span>, and <span class="math inline">\(b^2 = v&#39;v = \|v\|^2\)</span> where <span class="math inline">\(ρ = u&#39;v/\|u\|\|v\|\)</span>. The eigenvectors are <span class="math display">\[
+((a^2 - b^2 \pm \sqrt{(a^2 - b^2)^2 + 4 (ρab)^2})/2ρab), 1).
+\]</span></p>
+<p>Using <span class="math inline">\(\sqrt{d + x} \approx \sqrt{d} + x/2\)</span> for small <span class="math inline">\(x\)</span>, the eigenvalues for small <span class="math inline">\(ρ\)</span> are …</p>
+<p>In general we can do a principal component analysis on <span class="math inline">\(\{X(ω)A(ω)/\|X(ω)\|^2\mid ω\in Ω\}\)</span> and choose <span class="math inline">\(γ^*\)</span> to be first principal component.</p>
 <!--
 
 Fix a probability measure and let $\Sigma = E[XX']^{1/2}$ so
@@ -101,18 +89,18 @@ where we use the probability measure $P = Π/\|Π\|$.
 -->
 <section id="two-instruments" class="level3">
 <h3>Two Instruments</h3>
-<p>Let <span class="math inline">x = (r, s)</span>, <span class="math inline">r,s\in\bm{R}</span> and <span class="math inline">X = (R, S)</span>, <span class="math inline">R,S\colon\Omega\to\bm{R}</span>. We may assume <span class="math inline">r = s = 1</span>. The matrix <span class="math inline">XX&#39;</span> has eigenvectors <span class="math inline">(R/S, 1)</span> and <span class="math inline">(-S/R, 1)</span> with eigenvalues <span class="math inline">σ^2 = R^2 + S^2</span> and <span class="math inline">0</span>, respectively.</p>
-<p>We have <span class="math display">
+<p>Let <span class="math inline">\(x = (r, s)\)</span>, <span class="math inline">\(r,s\in\bm{R}\)</span> and <span class="math inline">\(X = (R, S)\)</span>, <span class="math inline">\(R,S\colon\Omega\to\bm{R}\)</span>. We may assume <span class="math inline">\(r = s = 1\)</span>. The matrix <span class="math inline">\(XX&#39;\)</span> has eigenvectors <span class="math inline">\((R/S, 1)\)</span> and <span class="math inline">\((-S/R, 1)\)</span> with eigenvalues <span class="math inline">\(σ^2 = R^2 + S^2\)</span> and <span class="math inline">\(0\)</span>, respectively.</p>
+<p>We have <span class="math display">\[
 E[XX&#39;] = \begin{pmatrix} E[R^2] &amp; E[RS] \\ E[SR] &amp; E[S^2] \end{pmatrix}
-</span> and <span class="math display">
+\]</span> and <span class="math display">\[
 E[XX&#39;]^{-1} = \frac{1}{E[R^2]E[S^2] - E[RS]^2} 
 \begin{pmatrix} E[S^2] &amp; -E[RS] \\ -E[SR] &amp; E[R^2] \end{pmatrix}
-</span> The eigenvalues of <span class="math inline">E[XX&#39;]</span> are <span class="math display">
+\]</span> The eigenvalues of <span class="math inline">\(E[XX&#39;]\)</span> are <span class="math display">\[
 (E[R^2] + E[S^2] \pm \sqrt{(E[R^2] - E[S^2])^2 + 4 E[RS]^2})/2
-</span> and The corresponding eigenvectors are <span class="math display">
+\]</span> and The corresponding eigenvectors are <span class="math display">\[
 ((E[R^2] - E[S^2] \pm \sqrt{(E[R^2] - E[S^2])^2 + 4 E[RS]^2})/2E[RS], 1).
-</span></p>
-<p><span class="math inline">E[X^2] = E[X]^2 + Var(X)</span></p>
+\]</span></p>
+<p><span class="math inline">\(E[X^2] = E[X]^2 + Var(X)\)</span></p>
 </section>
 </section>
 <footer>
