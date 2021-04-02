@@ -28,6 +28,8 @@ If more things can happen than the number of instruments then it is not
 the case perfect hedges always exist.  The usual case is that they do
 not and risk management involves the study of how well a derivative can
 be hedged.
+The basic problem of one-period hedging is to find $γ\in\RR^I$ such that
+$γ\cdot X - A$ is "minimized" in some sense.
 
 ## Arbitrage
 
@@ -100,25 +102,37 @@ $$
 	&= \|Σγ - Σ^{-1}XA\|^2 - X'(XX')^{-1}X A^2 + A^2.\\
 \end{aligned}
 $$
-Since $(XX')X = X(X'X)$ the matrix $XX'$ has eigenvector $X$ with eigenvalue $\sigma^2 = X'X$.
+Since $(XX')X = X(X'X)$ the matrix $XX'$ has eigenvector $X$ with eigenvalue $\sigma^2 = X'X$
+as functions on $Ω$.
 This implies $Σ^{-1}X = X/\sigma$ and $X'(XX')^{-1}X = 1$ hence
 $$
 	(γ\cdot X - A)^2 = \|Σ γ - XA/\sigma\|^2 = \|Σ(γ - XA/σ^2)\|^2.
 $$
 
-Recall $E[(γ\cdot X - A)^2]$ is minimized when $γ - E[XX']^{-1}E[XA] = 0$
-which is analogous to $γ - XA/X'X$ being "minimized" over $Ω$.
-We can think of $XA/σ$ as a collection of unit vectors weighted by $A$
-since $σ = \|X\|$.
+Given a probability measure on $Ω$, $E[(γ\cdot X - A)^2]$ is minimized
+when $γ - E[XX']^{-1}E[XA] = 0$. This is analogous to $γ - XA/σ^2$
+being "minimized" over $Ω$. 
 
 If $Ω = \{ω\}$ is a singleton then $γ^* = X(ω)A(ω)/\|X(ω)\|^2$ is the natural choice for the
 best estimate. If the model is arbitrage free then $Rx = X(ω)$ for some $R > 0$ and
-$γ\cdot x = A(ω)/R$ is the cost of the hedge. In this case $γ\cdot X(ω) = A(ω)$ replicates the derivative.
+$γ\cdot x = A(ω)/R$ is the cost of the hedge. In this case $γ\cdot X(ω) = A(ω)$ replicates the derivative
+and $X(ω)X'(ω) = R^2xx'$ so $R = \|X\|/\|x\|$.
 
 If $Ω = \{ω_0, ω_1\}$ has two points then $XX'$ is rank two. If $u,v\in\RR^I$ then the SVD of $uu' + vv'$
-has eigenvalues  ...
+has eigenvalues 
+$$
+(a^2 + b^2 \pm \sqrt{(a^2 - b^2)^2 + 4 (ρab)^2})/2
+$$
+where $a^2 = u'u = \|u\|^2$, $b = ρab$, and $b^2 = v'v = \|v\|^2$ where $ρ = u'v/\|u\|\|v\|$.
+The eigenvectors are
+$$
+((a^2 - b^2 \pm \sqrt{(a^2 - b^2)^2 + 4 (ρab)^2})/2ρab), 1).
+$$
 
-In general we can do a principle component analysis on $\{X(ω)A(ω)/\|X(ω)\|^2\mid ω\in Ω\}$ and
+Using $\sqrt{d + x} \approx \sqrt{d} + x/2$ for small $x$, the eigenvalues for small $ρ$
+are ...
+
+In general we can do a principal component analysis on $\{X(ω)A(ω)/\|X(ω)\|^2\mid ω\in Ω\}$ and
 choose $γ^*$ to be first principal component.
 
 <!--
