@@ -97,13 +97,19 @@ can exaggerate variation.
 
 ### Bootstrap
 
-The vast literature on various methods of interpolating discount curves
-should be ignored. Splining data introduces mathematical artifacts into
-the discount. A cubic Hermite tension spline can produce a forward curve
-that is pleasing to the eye, but makes it difficult to explain to a
-trader why their rho bucketing is off. It is better to add synthetic
-instruments at appropriate maturities with prices determined by an
-interpolation method that traders can understand.
+A fixed income instrument has cash flows $(c_k)$ at times $(u_k)$
+so it is simply a portfolio of zero coupon bonds. Given a
+discount $D(t)$ its value is $p = \xum_k c_k D(u_k)$.
+Given a price, its _yield_ $y$ is the constant forward rate that
+matches the price for discount $D(t) = e^{-yt}$.
+
+Given a collection of fixed income instruments ordered by increasing
+maturity and corresponding prices we can bootstrap a discount curve
+having a piecewise constant forward curve that matches each price.
+The first forward is the yield of the first instrument. Given a discount
+to time $u$ and a forward rate $f$ we can extend the discount for $t >
+u$ by $D(t) = D(u)e^{-f(t - u)}$.  This determines a piecewise constant
+forward curve that reprices every instrument in the collection.
 
 The bootstrap method is completely deterministic. It assumes the
 forward curve is piecewise constant with jumps at maturities
@@ -113,6 +119,14 @@ fixed and the new piecewise constant segment is chosen to match the
 price of the instrument being added. It is important that no two
 instruments have nearly equal maturity since the forward between
 those dates may require a large adjustment to fit the price.
+
+The vast literature on various methods of interpolating discount curves
+should be ignored. Splining data introduces mathematical artifacts into
+the discount. A cubic Hermite tension spline can produce a forward curve
+that is pleasing to the eye, but makes it difficult to explain to a
+trader why their rho bucketing is off. It is better to add synthetic
+instruments at intermediate maturities with prices determined by an
+interpolation method that traders can understand.
 
 A piecewise constant curve is determined by times $(t_j)$, $0\le j\le n$, and
 forwards $(f_j)$, $0 < j \le n$, where $f(t) = f_j$ for $t_{j-1} < t \le t_j$.
@@ -127,7 +141,30 @@ $$
 where $p$ is the instrument price. The discount $D(u)$ is determined
 for $u \le t_n$ and the forward $f$ is constant for $u > t_n$.
 This can be solved using one-dimensional root finding to produce the
-next point $(t_{n+1}, f_{n+1}) = (t, f)$ on the piecewise constant forward curve.
+next point $(t_{n+1}, f_{n+1}) = (t, f)$ of the piecewise constant forward curve
+where $t$ is the maturity of the added instument.
+
+If there is exactly one cash flow past $t_n$, $(c, u)$, then this equation has a closed
+form solution since the second sum has only one term $c D(t_n)e^{-f(u - t_n)}$.
+Denoting the first sum by $p_n$ we have
+$$
+	f = \frac{-\log((p - p_n)/c D(t_n))}{u - t_n}
+$$
+given price $p$ to produce the next point $(t_{n+1}, f_{n+1}) = (u, f)$.
+
+If we extend the curve with an instrument having exactly two cash flows
+$(c_0, u_0)$ and $(c_1, u_1)$ then there
+are also closed form solutions. Since $u_1 > t_n$ we have two cases,
+$u_0 \le t_n$ and $u_0 > t_n$. If $u_0 \le t_n$ then $D(u_0)$ is known
+and we have $p = p_n + c_0 D(u_0) + c_1 D(t_n)e^{-f(u_1 - t_n)}$ so
+$$
+	f = \frac{-\log((p - p_n - c_0 D(u_0))/c_1 D(t_n))}{u_1 - t_n}.
+$$
+If $u_0 > t_n$ we have
+$p = p_n + c_0 D(t_n)e^{-f(u_0 - t_n) + c_1 D(t_n)e^{-f(u_1 - t_n)}$ so
+$$
+	f = ...
+$$
 
 <!--
 Add zero.
