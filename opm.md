@@ -131,10 +131,12 @@ The eigenvectors are
 $$
 (a^2 - c^2 \pm \sqrt{(a^2 - c^2)^2 + (2b)^2}, 2b).
 $$
+Note these are orthogonal and if $a = c$ the eigenvalues are
+$a^2 \pm b$, and the eigenvectors are $2(\pm b, b)$
 
-Using $\sqrt{d + x} \approx \sqrt{d} + x/2$ for small $x$, the eigenvalues for small $ρ$
+Using $\sqrt{d + x} \approx \sqrt{d} + x/2\sqrt{d}$ for small $x$, the eigenvalues for small $ρ$
 are $(a^2 + c^2 \pm |a^2 - c^2| + 2b^2)/2$.
-If $a \ge c$ these are $a^2 + b^2$ and $c^2 - b^2$.
+If $a \ge c$ these are $a^2 + b^2/sqrt{a^c - c^2}$ and $c^2 - b^2/sqrt{a^c - c^2}$.
 The corresponding eigenvectors are
 $(a^2 - c^2 \pm |a^2 - c^2| + 2b^2, 2b)$.
 If $a \ge c$ these are $2(a^2 - c^2 + b^2, b)$ and $2(-b^2, b)$.

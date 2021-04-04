@@ -536,3 +536,49 @@ and ${}_ce$ if $c$ is an item of $\cat{C}$ and extending the binary operation by
 $e_c c = c$ and $c{}_ce = e$.
 
 Opposite category: ...
+
+## F-algebra
+
+An _F-algebra_ for category $\cat{C}$ is an endofunctor $F\colon\cat{C}\to\cat{C}$,
+an object $A$, and an arrow $α\colon F(A)\to A$. If $(B,β)$ is an F-algebra then
+$f\colon A\to B$ is an F-algebra homomorphism if $fα = βF(f)$.
+
+If $M$ is a moniod with identity $e\in M$ then $ea = a = ae$, $a\in M$,
+and $a(bc) = (ab)c$, $a,b,c\in M$ where $ab = m(a,b)$ is the monoid operation $m\colon M\times M\to M$.
+
+Need facts that are special to $\cat{Set}$.
+
+$B^A = \{f\colon A\to B\} = \{A\to B\}$.
+
+$(A\times B)\times C \equiv A\times(B\times C)$
+
+$\Pi_{i\in I} A \equiv A^I$, $π_i\colon \Pi_{i\in I} A\to A$, $π_i(a) = a(i)$.
+$a\in\Pi_{i\in I} A\mapsto (i\mapsto π_i(a))$.
+
+Product and exponential are adjoint functors.
+$\{(A \times B)\to C\} \equiv \{A \to \{B\to C\}\}$ $f(a,b) = c$ iff $(\underline{f}(a))(b) = c$.
+$(g(a))b = c$ iff $\overline{g}(a, b) = c$.
+
+$σ\colon I\to J$, $\ker{σ} = \{σ^{-1}(j)\mid j\in J\}$ is a partition of $I$.
+
+$M\times M\to M^2$ product to exponential, as sets
+
+$M\times M\times M\to M\times M^2$
+
+$M\times M\times M\to M^2\times M$
+
+$\NN\to M\times\cdots\times M$, $σ\colon n\to m$, $m\le n$.
+
+$M\times\cdots\times M\ to M^{σ(0)} \times M^b \times \ldots$
+
+$m(a,m(b,c)) = m(m(a,b),c)$
+
+(a,b,c) -> (a, (b,c)) -> (a, m(b,c)) -> m(a, m(b,c))
+
+m:G^2 -> G, m x m^2: G x G^2 -> 
+
+G^3-> G G^2 (a,b,c) -> (a,(b,c))
+
+G^3-> G^2 G (a,b,c) -> ((a,b),c)
+
+(a,b,c) -> (a,m(b,c)) 
