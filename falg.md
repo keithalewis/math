@@ -21,8 +21,10 @@ as $m(a,m(b,c)) = m(m(a,b),c)$, $a,b,c\in M$,
 and identity as $m(1, a) = a = m(a, 1)$,
 where $1\in M$ is the identity.
 
-These conditions are not very categoryish. How does one say $m(1,a) = a$, $a\in M$ without
+These conditions are not very categoryish. How does one say $m(1,a) = a$, $a\in M$, without
 mentioning $a$, or even $1$ for that matter? Categories are just arrows and objects.
+Define $i\colon M\to I\times M$ by $i(a) = (\star,a)$.
+
 We can define a functor on $\cat{Set}$ by $F(M) = I \times M$, for any set $M$, where $I$ is
 initial object of $\cat{Set}$, i.e., any singleton.
 Let $α\colon F(M)\to M$ be the projection on the second component $(\star,a)\mapsto a$, $a\in M$.
