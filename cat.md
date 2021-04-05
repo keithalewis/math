@@ -563,13 +563,20 @@ $f^\vdash(S) = \{x\in X\mid f(x)\in S\}\subseteq X$, $S\subseteq Y$.
 $x/\ker f = f^\vdash(\{f(x)\})$.
 
 Product $\prod_{i\in I}A_i$, $\pi_i\colon \prod_{i\in I}A_i\to A_i$ such that
-$p_i\colon C\A_i$ implies there exists $p\colon C\to\prod_{i\in I}A_i$
+$p_i\colon C\to A_i$ implies there exists $p\colon C\to\prod_{i\in I}A_i$
 with $\pi_ip = p_i$ all $i\in I$.
+
+$σ\colon J\to I$, $\Pi_{j\in J} A_{σ(j)}$. Permutaion if $σ$ is bijective.
+Projection if $J\subseteq I$.
+Reshape if $J=n_1\times\cdots$, $(j_1,\ldots)\mapsto j_1 + n_1(\cdots)$.
+
+$τ\colon I\to J$, $\Pi_{j\in J} \Pi_{i\mid σ(i) = j} A_i$.
 
 $(A\times B)\times C \equiv A\times(B\times C)$
 
 $\Pi_{i\in I} A \equiv A^I$, $π_i\colon \Pi_{i\in I} A\to A$, $π_i(a) = a(i)$.
 $a\in\Pi_{i\in I} A\mapsto (i\mapsto π_i(a))$.
+
 
 Exponential $e\colon (B^A\times A)\to B$.
 
@@ -577,7 +584,7 @@ Product, $A\to A\times B$, and exponential, $A\to B^A$, are adjoint functors.
 $\{(A \times B)\to C\} \equiv \{A \to \{B\to C\}\}$ $f(a,b) = c$ iff $(\underline{f}(a))(b) = c$.
 $(g(a))b = c$ iff $\overline{g}(a, b) = c$.
 
-$σ\colon I\to J$, $\ker{σ} = \{σ^{-1}(j)\mid j\in J\}$ is a partition of $I$.
+$σ\colon I\to J$, $σ^\vdash J\to \ker σ$.
 
 $M\times M\to M^2$ product to exponential, as sets
 
