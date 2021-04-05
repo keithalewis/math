@@ -550,12 +550,30 @@ Need facts that are special to $\cat{Set}$.
 
 $B^A = \{f\colon A\to B\} = \{A\to B\}$.
 
+If $f\colon X\to Y$ is a function, $(x,x')\in\ker f$ iff $f(x) = f(x')$ is an equivalence relation on $X$.
+
+The map $X\to X/\ker X$, $x\mapsto x/\ker f$, is surjective
+
+The map $X/\ker f\to \ran f$, $x/\ker f\mapsto f(x)$, is well-defined and bijective
+
+The map $\ran f\to Y$, $f(x)\mapsto f(x)$, is injective.
+
+$f\colon X\to Y$, $f^\vdash\colon\mathcal{P}(Y)\to\mathcal{P}(X)$,
+$f^\vdash(S) = \{x\in X\mid f(x)\in S\}\subseteq X$, $S\subseteq Y$.
+$x/\ker f = f^\vdash(\{f(x)\})$.
+
+Product $\prod_{i\in I}A_i$, $\pi_i\colon \prod_{i\in I}A_i\to A_i$ such that
+$p_i\colon C\A_i$ implies there exists $p\colon C\to\prod_{i\in I}A_i$
+with $\pi_ip = p_i$ all $i\in I$.
+
 $(A\times B)\times C \equiv A\times(B\times C)$
 
 $\Pi_{i\in I} A \equiv A^I$, $π_i\colon \Pi_{i\in I} A\to A$, $π_i(a) = a(i)$.
 $a\in\Pi_{i\in I} A\mapsto (i\mapsto π_i(a))$.
 
-Product and exponential are adjoint functors.
+Exponential $e\colon (B^A\times A)\to B$.
+
+Product, $A\to A\times B$, and exponential, $A\to B^A$, are adjoint functors.
 $\{(A \times B)\to C\} \equiv \{A \to \{B\to C\}\}$ $f(a,b) = c$ iff $(\underline{f}(a))(b) = c$.
 $(g(a))b = c$ iff $\overline{g}(a, b) = c$.
 
