@@ -71,7 +71,9 @@ $σ\colon J\to I$, $\Pi_{j\in J} A_{σ(j)}$. Permutaion if $σ$ is bijective.
 Projection if $J\subseteq I$.
 Reshape if $J=n_1\times\cdots$, $(j_1,\ldots)\mapsto j_1 + n_1(\cdots)$.
 
-$τ\colon I\to J$, $\Pi_{j\in J} \Pi_{i\mid σ(i) = j} A_i$.
+$τ\colon I\to J$, $\Pi_{j\in J} \Pi_{i\mid σ(i) = j} A_i$. Grouping.
+If $I = n$ and $τ\colon n\to m$, $m \le n$ then $I/\ker τ$ is a partition of $I$,
+$τ_{0|12}\colon X_0\times X_1\times X_2\to (X_0)\times(X_\time X_2)$.
 
 $(A\times B)\times C \equiv A\times(B\times C)$
 
