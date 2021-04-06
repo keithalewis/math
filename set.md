@@ -43,6 +43,8 @@ can only hold in trivial cases using Lawvere's definition of membership.
 The _product_ of objects $A$ and $B$ is an object $A\times B$ and two arrows
 $l\colon A\times B\to A$ and $r\colon A\times B\to B$ with the property...
 
+Given $f\colon A\to B$ and $g\colon C\to D$ define $f\times g\colon A\times C\to B\times D$...
+
 A _product_ of indexed objects $\Pi_{i\in I} A_i$ is a collection of arrows $π_i\colon \Pi_{i\in I}A_i\to A_i$
 for all $i$ in $I$
 
