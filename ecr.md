@@ -30,6 +30,10 @@ then $R1_X = R$ and $1_YR = R$.
 A relation $R\subseteq X\times X$ is _transitive_ if $RR \subseteq R$.
 A relation $R\subseteq X\times X$ is _reflexive_ if $1_X \subseteq R$.
 
+This related to $X$ being a _monoid_. A modoid is a set with
+a binary operation $m\colon X\times X\to X$ and an identity
+element $1\in X$ with $
+
 The _transpose_, or _conjugate_, of a relation $R\subseteq X\times Y$
 is $R'\subseteq Y\times X$ where $yR'x$ if and only if $xRy$, $x\in X$, $y\in Y$.
 
