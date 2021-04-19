@@ -782,6 +782,7 @@ We say $T$ is _diagonalizable_.
 
 If $T$ has only one eigenvalue... (Jordan form)
 
+
 __Theorem__. If $V$ is finite dimensional every operator in $\mathcal{L}(V)$ has an eigenvector.
 
 If $T\in\mathcal{L}(V)$ and $Tx = 0$ for some $x\in V$ then $x$ is an eigenvector with eigenvalue $0$
@@ -810,3 +811,8 @@ We are really defining $+\colon 2^V\times\bm{F}^I\times V^I\to V$...
 
 [Grobner basis...]
 -->
+
+$x = (x_1,\ldots,x_n) \in \RR^n \leftrightarrow v = x_1 v_1 + \cdots x_n v_n \in V$.
+
+
+
