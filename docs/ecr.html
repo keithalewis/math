@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Composition of Relations</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body);
+  });</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
+</head>
+<body>
+<header>
+<h1 class="title">Composition of Relations</h1>
+<p class="author">Keith A. Lewis</p>
+</header>
+
+<p>A <em>relation</em> is a subset of the cartesion product of sets. The <em>domain</em> of a relation <span class="math inline">\(R\subseteq X\times Y\)</span> is the set of <span class="math inline">\(x\in X\)</span> such that <span class="math inline">\((x,y)\in R\)</span> for some <span class="math inline">\(y\in Y\)</span>. The <em>codomain</em> is the set of <span class="math inline">\(y\in Y\)</span> such that <span class="math inline">\((x,y)\in R\)</span> for some <span class="math inline">\(x\in X\)</span>. Write <span class="math inline">\(xRy\)</span> for <span class="math inline">\((x,y)\in R\)</span>.</p>
+<p>The <em>right coset</em> <span class="math inline">\(xR\)</span> is the set of <span class="math inline">\(y\in Y\)</span> with <span class="math inline">\(xRy\)</span>. The <em>left coset</em> <span class="math inline">\(Ry\)</span> is the set of <span class="math inline">\(x\in X\)</span> with <span class="math inline">\(xRy\)</span>.</p>
+<p>If <span class="math inline">\(R\subseteq X\times Y\)</span> and <span class="math inline">\(S\subseteq Y\times Z\)</span> are relations then their <em>composition</em> is <span class="math inline">\(SR\subseteq X\times Z\)</span> where <span class="math inline">\(x(SR)z\)</span> if and only if <span class="math inline">\(xRy\)</span> and <span class="math inline">\(ySz\)</span> for some <span class="math inline">\(y\in Y\)</span>. This is equivalent to <span class="math inline">\(xR\cap Sz\not=\emptyset\)</span>.</p>
+<p>If <span class="math inline">\(1_U\)</span> is the <em>identity</em> relation <span class="math inline">\((u,u)\in 1_U\)</span>, <span class="math inline">\(u\in U\)</span>, then <span class="math inline">\(R1_X = R\)</span> and <span class="math inline">\(1_YR = R\)</span>.</p>
+<p>A relation <span class="math inline">\(R\subseteq X\times X\)</span> is <em>transitive</em> if <span class="math inline">\(RR \subseteq R\)</span>. A relation <span class="math inline">\(R\subseteq X\times X\)</span> is <em>reflexive</em> if <span class="math inline">\(1_X \subseteq R\)</span>.</p>
+<p>The <em>transpose</em>, or <em>conjugate</em>, of a relation <span class="math inline">\(R\subseteq X\times Y\)</span> is <span class="math inline">\(R&#39;\subseteq Y\times X\)</span> where <span class="math inline">\(yR&#39;x\)</span> if and only if <span class="math inline">\(xRy\)</span>, <span class="math inline">\(x\in X\)</span>, <span class="math inline">\(y\in Y\)</span>.</p>
+<p>A relation <span class="math inline">\(R\subseteq X\times X\)</span> is <em>symmetric</em> if <span class="math inline">\(R = R&#39;\)</span> and <em>antisymetric</em> if <span class="math inline">\(R\cap R&#39; = \emptyset\)</span>.</p>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

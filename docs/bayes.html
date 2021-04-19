@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Bayes Theorem</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body);
+  });</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
+</head>
+<body>
+<header>
+<h1 class="title">Bayes Theorem</h1>
+<p class="author">Keith A. Lewis</p>
+</header>
+
+<p>A <em>probability space</em> is a set <span class="math inline">\(Ω\)</span> of possible outcomes and a <em>probability measure</em> <span class="math inline">\(P\)</span> that takes subsets of <span class="math inline">\(Ω\)</span> to a number between 0 and 1. Measures satisfy <span class="math inline">\(P(E\cup F) = P(E) + P(F) - P(E\cap F)\)</span> and <span class="math inline">\(P(\emptyset) = 0\)</span>, <span class="math inline">\(E,F\subseteq Ω\)</span>. Measures don’t count things twice and the measure of nothing is zero. Subsets of a sample space are <em>events</em>.</p>
+<p><em>Frequentists</em> interpret probability as the number of times an outcome belongs to an event divided by the number of times it is sampled. This assumes it is possible to repeatedly sample identical situations. The <em>law of large numbers</em> says the frequency converges to the probablity of the event. This is fine when applied to rolling dice, dealing cards, and running other physical experiments where conditions don’t change, but it limits the use of probability.</p>
+<p><em>Bayesians</em> interpret probability as a subjective <em>degree of belief</em> based on available information. As more information becomes available it can be used to update individual degrees of belief. They are delayed satisfaction frequentists who believe individual degrees of belief will converge given sufficient common information over repeated trials.</p>
+<section id="conditional-probability" class="level2">
+<h2>Conditional Probability</h2>
+<p>The <em>conditional probability</em> of <span class="math inline">\(A\)</span> <em>given</em> <span class="math inline">\(B\)</span> is defined by <span class="math inline">\(P(A\mid B) = P(A\cap B)/P(B)\)</span>. It satifies <span class="math inline">\(P(B\mid B) = 1\)</span> and <span class="math inline">\(A\mapsto P(A\mid B)\)</span> is a <em>probability measure</em>. Since <span class="math inline">\(P(A\mid B) = P(A\cap B)/P(B)\)</span> and <span class="math inline">\(P(B\mid A) = P(B\cap A)/P(A)\)</span>, <span class="math inline">\(P(A\mid B) = P(A\cap B)/P(B) = P(B\cap A)/P(B) = P(B\mid A)P(A)/P(B)\)</span>. This is the simplest form of Bayes theorem.</p>
+<p>Cox</p>
+<p>maxplus algebras</p>
+</section>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>
