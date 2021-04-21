@@ -35,16 +35,33 @@ The _conditional probability_ of $A$ _given_ $B$ is defined by $P(A\given B) = P
 It satifies $P(B\given B) = 1$ and $A\mapsto P(A\mid B)$ is a _probability measure_.
 Since $P(A\given B) = P(A\cap B)/P(B)$ and $P(B\given A) = P(B\cap A)/P(A)$,
 $P(A\given B) = P(A\cap B)/P(B) = P(B\cap A)/P(B) = P(B\given A)P(A)/P(B)$.
-This is the simplest form of Bayes theorem.
+This formula is the basis of Baysian probabilty. It shows how to update
+probabilities given new information.
 
 ### Example
 
-Suppose we are shown a sequence of coin flips where we know the coin might
-have heads on both sides. If we ever see a tail we know the coin is two sided,
-but suppose the first flip is heads. A naive application of Bayes theorem
-is $P(fair|H_1) = P(H_1|fair)P(fair)/P(H_1)$ where $h_1$ is the event of
-heads occuring on the first flip. It is clear $P(H_1|fair) = 1/2$ but the
+A _fair_ coin has one side heads and the other side tails and each occur
+with equal probability when flipped.
+Suppose a coin may be fair or may have two heads but we cannot examine the coin directly.
+The only information we will be given is the outcomes of a series of flips.
+If we ever see a tail we know the coin is not two-headed but if every
+flip we see is heads then that provides evidence the coin is two-headed.
+
+Suppose the first flip is heads, denoted by $H_1$. A naive application of Bayes theorem
+is $P(fair|H_1) = P(H_1|fair)P(fair)/P(H_1)$.
+For a fair coin $P(H_1|fair) = 1/2$ but
 other probabilities require assumptions.
+Step one in probability theory is to specify the _sample space_ and the
+probability of _events_ (subsets of the sample space). In our case
+the sample space has two elements $Ω = \{fair,twoheads\}$. We don't
+know what the probabilies are but we have to start somewhere. Let's
+[assume](https://en.wikipedia.org/wiki/Principle_of_indifference) the
+two cases are equally likely. The probability of heads given a fair coin
+is $1/2$, the probability of the coin being fair is $1/2$ by assumption,
+and the probability of flipping heads is 1 for a two-headed coin so
+$P(H_1) = 1/2 \times 1/2 + 1 \times 1/2 = 3/4$. Using Bayes formula
+$P(fair|H_1) = (1/2 \times 1/2)/(3/4) = 1/3$. Seeing a head flipped
+on the first try provides evidence against the coin being fair.
 
 Cox
 
