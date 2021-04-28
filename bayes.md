@@ -155,15 +155,24 @@ Staying true to the earliest foundations, he considered _statements_
 and _information_. If the shaman tells you he can make it rain tomorrow
 if you give him a basket of wheat and you come back from
 a long day in the field to find him scurrying out of your hut and
-your wife has her hair mussed and won't look you in the eye, how
+your wife with her hair mussed and won't look you in the eye, how
 plausible is it that he will deliver on his promise given this information?
 
 Cox assumed plausibilty is a real number. This might not be plausible
 because real numbers are totally ordered. He was also vague on exactly
-what constitutes information. His notation for the plausibility of
-statement $S$ given statement $T$ is $S\given T$.
+what statements constitute information. His notation for the plausibility of
+statement $S$ given statement/information $T$ is $S\given T$.
 He assumes the plausibility of statements $S$ and $T$, denoted $ST$, given information $U$ is
-$ST\given U = p(S\given U, T\given TU)$ for some function $p$.
+$ST\given U = p(S\given U, T\given SU)$ for some function $p$.
+If $p(s,t) = st$ and $U$ is true this becomes $ST\given true = (S\given true)(T\given S)$.
+Cox wanted to show $P(ST) = P(S)P(T\given S)$ is a consequence of of more general assumptions.
+His original derivation was not mathematically correct, but it inspired others to
+improve his assumptions that utimately led to a precise formulation.
+
+This was really an aside to his life's work. He was an experimental physicist who,
+among other results, demontrated a parity violation for double scattering of β rays from radium
+that could not be explained by existing theory. Eventually theory caught up and
+proved him correct.
 
 <!-- how do you combine statements and information? -->
 
