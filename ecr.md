@@ -22,7 +22,7 @@ Write $xRy$ for $(x,y)\in R$. The _right coset_ of $x\in X$ is $xR = \{y\in Y\st
 and $XR = \cup_{x\in X}xR = \cod R$.  The _left coset_ of $y\in Y$ is
 $Ry = \{x\in X\st xRy\}\subseteq X$ and $RY = \cup_{y\in Y}Ry = \dom R$.
 
-If $R\subseteq X\times Y$ and $S\subseteq Y\times Z$ are relations then
+If $R\subseteq X\times Y$ and $S\subseteq Y\times Z$ are relations
 their _composition_ is $SR\subseteq X\times Z$ where
 $x(SR)z$ if and only if $xRy$ and $ySz$
 for some $y\in Y$. This is equivalent to $xR\cap Sz$ not being empty.

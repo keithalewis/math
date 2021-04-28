@@ -151,18 +151,19 @@ to true and must be replaced with the more subtle notion of _almost surely_.
 
 Richard Threlkeld Cox put conditional probabilty on firmer philosophical
 foundations by axiomatizing the notion of _plausibilty_.
-Staying true to the earliest foundations, he considered _statements_ 
+Staying true to the earliest foundations, he considered _statements_
 and _information_. If the shaman tells you he can make it rain tomorrow
-if you give him a basket of wheat you harvested and you come back from
-a long day in the field to find him having sex with your wife, how
-plausible is it that he will deliver on his promise given that information?
+if you give him a basket of wheat and you come back from
+a long day in the field to find him scurrying out of your hut and
+your wife has her hair mussed and won't look you in the eye, how
+plausible is it that he will deliver on his promise given this information?
 
 Cox assumed plausibilty is a real number. This might not be plausible
 because real numbers are totally ordered. He was also vague on exactly
 what constitutes information. His notation for the plausibility of
-statement $S$ given information $I$ is $S\given I$.
-He assumes the plausibility of statements $S$ and $T$ given information $I$:
-$ST\given I = g(S\given I, T\given TI)$.
+statement $S$ given statement $T$ is $S\given T$.
+He assumes the plausibility of statements $S$ and $T$, denoted $ST$, given information $U$ is
+$ST\given U = p(S\given U, T\given TU)$ for some function $p$.
 
 <!-- how do you combine statements and information? -->
 
