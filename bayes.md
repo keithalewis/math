@@ -130,7 +130,7 @@ mathematical statements.  Descartes and Spinoza seem to be the first
 scholars to attempt rigourous definitions of words beyond the limited
 vocabulary of _and_, _or_, _not_, and _implies_ used in Aristotelian
 logic.  Prior to his invention of a logic involving only _true_ or
-_false_ statements the main effort was directed at determining _valid_
+_false_ statements (_propositions_) the main effort was directed at determining _valid_
 methods of reasoning to arrive at _plausible_ statements.
 This most likely originated early in our prehistory when shamans
 could fool people into giving them bear skins and arrow heads
@@ -150,9 +150,13 @@ Much Ado About Nothing.  For example, probability 1 does not correspond
 to true and must be replaced with the more subtle notion of _almost surely_.
 
 Richard Threlkeld Cox put conditional probabilty on firmer philosophical
-foundations by axiomatizing the notion of _plausibilty_.
-Staying true to the earliest foundations, he considered _statements_
-and _information_. If the shaman tells you he can make it rain tomorrow
+foundations by axiomatizing the notion of _likelihood_.
+Staying true to the earliest foundations, he considered _statements_ instead
+of propositions. He denoted the likelihood of statement $A$ given statement $B$ by $A\given B$.
+Standard logical connectives can be used to make new statements and
+rules for likelihood must respect their meaning.
+
+If the shaman tells you he can make it rain tomorrow
 if you give him a basket of wheat and you come back from
 a long day in the field to find him scurrying out of your hut and
 your wife with her hair mussed and won't look you in the eye, how
