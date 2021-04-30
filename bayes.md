@@ -4,22 +4,10 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: Everything is conditional
+abstract: Conditional probability
 ...
 
 \newcommand{\given}{\mid}
-
-A _probability space_ is a set $Ω$ of possible outcomes and a _probability measure_ $P$ that
-takes subsets of $Ω$ to a number between 0 and 1.
-Measures satisfy $P(E\cup F) = P(E) + P(F) - P(E\cap F)$ and $P(\emptyset) = 0$, $E,F\subseteq Ω$.
-Measures don't count things twice and the measure of nothing is zero.
-Probability measures are non-negative and $P(Ω) = 1$.
-Subsets of a sample space are _events_.
-If the sample
-space is finite we only need to specify the probability of each outcome.
-The probability of each outcome must
-be between 0 and 1 and sum to 1. The probability of an event 
-is $P(E) = \sum_{ω \in E} P(\{ω\})$.
 
 _Frequentists_ interpret probability as the number of times an outcome
 belongs to an event divided by the number of times it is sampled. This
@@ -35,6 +23,18 @@ it can be used to update individual degrees of belief. They are delayed
 satisfaction frequentists who believe subjective degrees of belief will
 converge for all individuals given sufficient common information over
 repeated trials.
+
+## Probability Space
+
+A _probability space_ is a set $Ω$ of possible outcomes and a _probability measure_ $P$ that
+takes subsets of $Ω$ to a number between 0 and 1.
+Measures satisfy $P(E\cup F) = P(E) + P(F) - P(E\cap F)$ and $P(\emptyset) = 0$, $E,F\subseteq Ω$.
+Measures don't count things twice and the measure of nothing is zero.
+Probability measures are non-negative and $P(Ω) = 1$.
+Subsets of a sample space are _events_.
+If the sample space is finite we only need to specify the probability of each outcome.
+The probability of each outcome must be between 0 and 1 and sum to 1.
+The probability of an event is $P(E) = \sum_{ω \in E} P(\{ω\})$.
 
 ## Conditional Probability
 
@@ -180,4 +180,37 @@ proved him correct.
 
 <!-- how do you combine statements and information? -->
 
+## Unfiled
+
+Keynes A Treatise on Probability - probability is not a total order.
+
+> Is our expectation of rain, when we start out for a walk, always more likely than not, or less likely than not, or as likely as not? I am prepared to argue that on some occasions none of these alternatives hold, and that it will be an arbitrary matter to decide for or against the umbrella. If the barometer is high, but the clouds are black, it is not always rational that one should prevail over the other in our minds, or even that we should balance them, though it will be rational to allow caprice to determine us and to waste no time on the debate.
+
 maxplus algebras
+
+## Bibiliography
+
+[
+	{
+		"id": "http://zotero.org/users/6482136/items/H8KQMTYV",
+		"type": "article-journal",
+		"abstract": "By basing Bayesian probability theory on ﬁve axioms, we can give a trivial proof of Cox’s Theorem on the product rule and sum rule for conditional plausibility without assuming continuity or diﬀerentiablity of plausibility. Instead, we extend the notion of plausibility to apply to unknowns, giving them plausible values. Thus, we combine the best aspects of two approaches to Bayesian probability theory, namely the Cox-Jaynes theory and the de Finetti theory.",
+		"container-title": "Bayesian Analysis",
+		"DOI": "10.1214/09-BA422",
+		"ISSN": "1936-0975",
+		"issue": "3",
+		"journalAbbreviation": "Bayesian Anal.",
+		"language": "en",
+		"source": "DOI.org (Crossref)",
+		"title": "New axioms for rigorous Bayesian probability",
+		"URL": "https://projecteuclid.org/journals/bayesian-analysis/volume-4/issue-3/New-axioms-for-rigorous-Bayesian-probability/10.1214/09-BA422.full",
+		"volume": "4",
+		"author": [
+			{ "family": "Dupré", "given": "Maurice J." },
+			{ "family": "Tipler", "given": "Frank J." }
+		],
+		"issued": {
+			"date-parts": [ [ "2009", 9, 1 ] ]
+		}
+	}
+]

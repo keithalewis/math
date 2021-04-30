@@ -6,16 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Set</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body);
-  });</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
@@ -23,21 +41,20 @@
   -->
 </head>
 <body>
-<header>
+<header id="title-block-header">
 <h1 class="title">Set</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-
-<p>The category <span class="math inline">\(\mathbf{Set}\)</span> with objects sets and arrows functions from a set to a set is a canonnical example of a category. Properties of <span class="math inline">\(\mathbf{Set}\)</span> are often used implicitly, for example if <span class="math inline">\(m\colon M\to M\)</span> is binary operation on the set <span class="math inline">\(M\)</span> then the associative law <span class="math inline">\(m(a,m(b,c)) = m(m(a,b),c)\)</span> can be expressed by identifiying the two arrows <span class="math inline">\(M\times (M\times M)\to M\)</span>, $(a, (b,c)) <span class="math inline">\(m(a,m(b,c))\)</span> and <span class="math inline">\((M\times M)\times M\to M\)</span>, <span class="math inline">\(((a,b),c) \to m(m(a,b),c)\)</span>. This assumes sets have products and it defines things elementwise. This note teases out the implicit assumptions often used with <span class="math inline">\(\mathbf{Set}\)</span> and shows how to express them in a purely categorical ways using only objects and arrows.</p>
-<p>It has turned out that it is not so easy to give a purely categorical definition of <span class="math inline">\(\mathbf{Set}\)</span>. One line of thinking lead to topos theory, but it does not recover the standard mathematical notion of a set. As logicians are wont to say, “The lanaguage of set theory is epsilon.” This means first order logic and the symbol <span class="math inline">\(ε\)</span> can be used to express the axioms.</p>
-<p>Lawvere gave an elementary category theory approach by defining membership using arrows <span class="math inline">\(1\to A\)</span> to represent set elements. In the category <span class="math inline">\(\mathbf{Set}\)</span> every singleton is an initial object, for every set <span class="math inline">\(A\)</span> there exists an arrow <span class="math inline">\(1\to A\)</span>. As in most categories, initial objects are not unique but any two are isomorphic. This runs into problems right off the bat since <span class="math inline">\(x ε y ε z\)</span> in set theory can only hold in trivial cases using Lawvere’s definition of membership.</p>
+<p>The category <span class="math inline">\mathbf{Set}</span> with objects sets and arrows functions from a set to a set is a canonnical example of a category. Properties of <span class="math inline">\mathbf{Set}</span> are often used implicitly, for example if <span class="math inline">m\colon M\to M</span> is binary operation on the set <span class="math inline">M</span> then the associative law <span class="math inline">m(a,m(b,c)) = m(m(a,b),c)</span> can be expressed by identifiying the two arrows <span class="math inline">M\times (M\times M)\to M</span>, $(a, (b,c)) <span class="math inline">m(a,m(b,c))</span> and <span class="math inline">(M\times M)\times M\to M</span>, <span class="math inline">((a,b),c) \to m(m(a,b),c)</span>. This assumes sets have products and it defines things elementwise. This note teases out the implicit assumptions often used with <span class="math inline">\mathbf{Set}</span> and shows how to express them in a purely categorical ways using only objects and arrows.</p>
+<p>It has turned out that it is not so easy to give a purely categorical definition of <span class="math inline">\mathbf{Set}</span>. One line of thinking lead to topos theory, but it does not recover the standard mathematical notion of a set. As logicians are wont to say, “The lanaguage of set theory is epsilon.” This means first order logic and the symbol <span class="math inline">ε</span> can be used to express the axioms.</p>
+<p>Lawvere gave an elementary category theory approach by defining membership using arrows <span class="math inline">1\to A</span> to represent set elements. In the category <span class="math inline">\mathbf{Set}</span> every singleton is an initial object, for every set <span class="math inline">A</span> there exists an arrow <span class="math inline">1\to A</span>. As in most categories, initial objects are not unique but any two are isomorphic. This runs into problems right off the bat since <span class="math inline">x ε y ε z</span> in set theory can only hold in trivial cases using Lawvere’s definition of membership.</p>
 <section id="product" class="level2">
 <h2>Product</h2>
-<p>The <em>product</em> of objects <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> is an object <span class="math inline">\(A\times B\)</span> and two arrows <span class="math inline">\(l\colon A\times B\to A\)</span> and <span class="math inline">\(r\colon A\times B\to B\)</span> with the property…</p>
-<p>Given <span class="math inline">\(f\colon A\to B\)</span> and <span class="math inline">\(g\colon C\to D\)</span> define <span class="math inline">\(f\times g\colon A\times C\to B\times D\)</span>…</p>
-<p>A <em>product</em> of indexed objects <span class="math inline">\(\Pi_{i\in I} A_i\)</span> is a collection of arrows <span class="math inline">\(π_i\colon \Pi_{i\in I}A_i\to A_i\)</span> for all <span class="math inline">\(i\)</span> in <span class="math inline">\(I\)</span></p>
-<p>If <span class="math inline">\(σ\colon J\to I\)</span> define <span class="math inline">\(\Pi_σ\)</span> by <span class="math inline">\(\Pi^σ_J = \Pi_{sigma(J)}\)</span>… Permutation, projection, reshape…</p>
-<p>If <span class="math inline">\(τ\colon I\to J\)</span> define <span class="math inline">\(\Pi^τ\)</span> by <span class="math inline">\(\Pi^τ_J = \Pi_J \Pi_{τ(i) = j} A_i\)</span>. Grouping.</p>
+<p>The <em>product</em> of objects <span class="math inline">A</span> and <span class="math inline">B</span> is an object <span class="math inline">A\times B</span> and two arrows <span class="math inline">l\colon A\times B\to A</span> and <span class="math inline">r\colon A\times B\to B</span> with the property…</p>
+<p>Given <span class="math inline">f\colon A\to B</span> and <span class="math inline">g\colon C\to D</span> define <span class="math inline">f\times g\colon A\times C\to B\times D</span>…</p>
+<p>A <em>product</em> of indexed objects <span class="math inline">\Pi_{i\in I} A_i</span> is a collection of arrows <span class="math inline">π_i\colon \Pi_{i\in I}A_i\to A_i</span> for all <span class="math inline">i</span> in <span class="math inline">I</span></p>
+<p>If <span class="math inline">σ\colon J\to I</span> define <span class="math inline">\Pi_σ</span> by <span class="math inline">\Pi^σ_J = \Pi_{sigma(J)}</span>… Permutation, projection, reshape…</p>
+<p>If <span class="math inline">τ\colon I\to J</span> define <span class="math inline">\Pi^τ</span> by <span class="math inline">\Pi^τ_J = \Pi_J \Pi_{τ(i) = j} A_i</span>. Grouping.</p>
 </section>
 <section id="notes" class="level2">
 <h2>Notes</h2>
