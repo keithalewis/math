@@ -157,13 +157,16 @@ Standard logical connectives can be used to make new statements and
 rules for likelihood must respect their meaning.
 
 If the shaman tells you he can make it rain tomorrow
-if you give him a basket of wheat and you come back from
+if you give him a basket of grain and you come back from
 a long day in the field to find him scurrying out of your hut and
 your wife with her hair mussed and won't look you in the eye, how
-plausible is it that he will deliver on his promise given this information?
+likely is it that he will deliver on his promise given this information?
+If history is any guide, he will likely tell you he now needs two baskets of
+grain because you didn't give him enough.
 
-Cox assumed plausibilty is a real number. This might not be plausible
-because real numbers are totally ordered. He was also vague on exactly
+Cox assumed likelihood is a real number.
+Real numbers are totally ordered so this is a big assumption.
+He was also vague on exactly
 what statements constitute information. His notation for the plausibility of
 statement $S$ given statement/information $T$ is $S\given T$.
 He assumes the plausibility of statements $S$ and $T$, denoted $ST$, given information $U$ is
