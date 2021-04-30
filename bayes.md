@@ -119,8 +119,7 @@ This is an example of Bayesian reasoning showing subjective probabilities
 converge given sufficient information. It is important to note that
 this depends on the model. A different model could allow for the possibility
 the coin might also be two-tailed. Every model makes assumptions about
-what information is available so, in some sense, all probabilities
-are conditional.
+what information is available so all probabilities are conditional.
 
 ## Says Who?
 
@@ -152,26 +151,26 @@ to true and must be replaced with the more subtle notion of _almost surely_.
 Richard Threlkeld Cox put conditional probabilty on firmer philosophical
 foundations by axiomatizing the notion of _likelihood_.
 Staying true to the earliest foundations, he considered _statements_ instead
-of propositions. He denoted the likelihood of statement $A$ given statement $B$ by $A\given B$.
-Standard logical connectives can be used to make new statements and
-rules for likelihood must respect their meaning.
+of propositions. He denoted the likelihood of statement $A$ given statement $B$ by $A\given B$
+and required consistency with standard symbolic logic.
 
 If the shaman tells you he can make it rain tomorrow
 if you give him a basket of grain and you come back from
 a long day in the field to find him scurrying out of your hut and
 your wife with her hair mussed and won't look you in the eye, how
 likely is it that he will deliver on his promise given this information?
-If history is any guide, he will likely tell you he now needs two baskets of
-grain because you didn't give him enough.
+If history is any guide, he will likely tell you he now needs two baskets of grain.
 
 Cox assumed likelihood is a real number.
 Real numbers are totally ordered so this is a big assumption.
-He was also vague on exactly
-what statements constitute information. His notation for the plausibility of
-statement $S$ given statement/information $T$ is $S\given T$.
-He assumes the plausibility of statements $S$ and $T$, denoted $ST$, given information $U$ is
-$ST\given U = p(S\given U, T\given SU)$ for some function $p$.
-If $p(s,t) = st$ and $U$ is true this becomes $ST\given true = (S\given true)(T\given S)$.
+He was also vague on exactly what statements constitute information.
+His notation for the likelihood of
+statement $A$ given statement/information $B$ is $A\given B$.
+He assumes the likelihood of statements $A$ and $B$, denoted $AB$, given information $C$ is
+$AB\given C = p(A\given B, B\given AC)$ for some function $p$.
+It can be shown that consistency with symbolic logic requires
+$p(p(x,y),z) = p(x,p(y,z))$ for any real numbers $x$, $y$, and $z$.
+
 Cox wanted to show $P(ST) = P(S)P(T\given S)$ is a consequence of of more general assumptions.
 His original derivation was not mathematically correct, but it inspired others to
 improve his assumptions that utimately led to a precise formulation.
