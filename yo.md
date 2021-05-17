@@ -28,17 +28,8 @@ by embedding them in a less familiar structure.
 
 I will never understand why Cayley gets the cognomen "theorem" while Yoneda only rates a "lemma".
 The proof of Cayley's theorem is much easier to demonstrate. Recall a _monoid_ is a
-set $M$ with a binary operation that is associative and has an identity element $1$
-for that operation, $1m = m = m1$, $m\in M$.
-
-__Exercise__. _Show if $1'm = m = m1'$, $m\in M$ then $1 = 1'$_.
-
-<details>
-<summary>Solution</summary>
-We have $1'1 = 1$ from $1'm = m$ and $1' = 1'1$ from $m = m1'$.
-</details>
-
-The identity is unique.
+set $M$ with a binary operation that is associative and has an identity element $1$,
+$1m = m = m1$, $m\in M$.
 
 A _group_ $G$ is a moniod with inverse elements: for every $g\in G$ there exists an inverse
 $g^{-1}\in G$ with $gg^{-1} = 1$.
