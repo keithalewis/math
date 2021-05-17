@@ -306,7 +306,7 @@ It is common for swaps to have unwind provisions that will be exercised if
 the market moves against them. This is an example of a hedging strategy
 that can be applied to a portfolio to get a more accurate estimate of
 counterparty risk.  The CVA haircut should not be applied to a holding
-that no longer belong to the portfolio.
+that no longer belongs to the portfolio.
 
 DVA is just the CVA of the entity on the other side of the trades.
 The menagerie of XVA measures are attempts to incorporate special case
