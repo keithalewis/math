@@ -59,7 +59,6 @@ an equivalent result. Yoneda's lemma exhibits a similar chirality.
 
 Let's start by writing down some easily verifiable statements.
 
-
 If $g\colon X\to Y$ is an arrow in the category $\cat{C}$ then for
 any arrow $h\colon Z\to X$ define left composition $L_gh = gh\colon Z\to Y$.
 
@@ -74,7 +73,6 @@ Note $L_g\colon\{\_\to Z\}\to\{Z\to\_\}$ and $R_g\colon\{_\to Z\}\to\{_\to Z\}$.
 The arrows of $\{\_\to Z\}$ are $L_g$ where $g$ is any arrow in $\cat{C}$.
 The arrows of $\{Z\to\_\}$ are $R_g$ where $g$ is any arrow in $\cat{C}$.
 
-$Z\to f\colon\{Z\to X\}\to\{Z\to Y\}$, $f\colon X\to Y$.  
 If $f\colon X\to Y$ and $g\colon U\to V$
 then $Z\to f\colon\{Z\to X\}\to\{Z\to Y\}$ and $Z\to g\colon\{Z\to U\}\to\{Z\to V\}$.  
 If $U = Y$ we can compose $gf\colon X\to V$ in $\cat{C}$ and
