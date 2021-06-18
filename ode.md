@@ -67,15 +67,26 @@ a similar argument shows $x(t) = e^{A(t - t_0)}x(t_0)$ where $e^{At} = \sum_{n\g
 
 ## Higher Order
 
-An ODE of the form $\sum_{k = 0}^n a_k x^{(k)}(t) = 0$ is a _homogeneous ODE of order $n$_ with
-constant coefficients $a_k$, $0\le k \le n$, $a_n \not= 0$.
-Letting $x_k(t) = x^{(k)}(t)$ we can write this as
+An ODE of the form $\sum_{k = 0}^n a_k x^{(k)}(t) = 0$ is a _homogeneous
+ODE of order $n$_ with constant coefficients $a_k$, $0\le k \le n$, $a_n
+\not= 0$. Dividing by $a_n$ we can assume the ODE has the form $x^{(n)}
++ \sum_{0\le k <n} a_k x^{(k)}(t) = 0$.  Solutions of the form $x(t)
+= e^{\omega t}$ must satisfy $\sum_{k = 0}^n a_k \omega^k = 0$ since
+$x^{(k)}(t) = \omega^k x(t)$.  If the polynomial has roots $\omega_k$
+then any linear combination $\sum_k \alpha_k e^{\omega_k t}$ is a
+solution. If the roots are not distinct then this does not include all
+soltuions. For example $x''(t) = 0$ has solutions $x(t) = 1 = e^{0t}$
+and also $x(t) = t$.  The general solution is $x(t) = \sum_k \alpha_k
+\sum_{0\le j<m_k} t^j e^{\omega_k t}$ where $m_k$ is the _multiplicity_
+of the root $\omega_k$, but we don't know that yet.
+
+Letting $x_k(t) = x^{(k)}(t)$ (and $a_n = 1$) we can write this as
 $$
 \begin{aligned}
 	x_0'(t) &= x_1(t) \\
 	x_1'(t) &= x_2(t) \\
 	&\cdots \\
-	x_{(n-1)}'(t)  &= (-1/a_n)(a_0 x_0(t) + \cdots + a_{n-1} x_{n-1}(t)) \\
+	x_{(n-1)}'(t)  &= -a_0 x_0(t) - \cdots - a_{n-1} x_{n-1}(t)) \\
 \end{aligned}
 $$
 or as a matrix
@@ -108,5 +119,5 @@ Given initial conditions $x_0(0) = x(0) = c$ and $x_1(0) = x'(0) = d$ we have th
 $x(t) = c\cos t + d\sin t$.
 
 We are now in a position to solve any homogeneous ODE with constant coefficents.
-Recall every matrix can be reduces to Jordan normal form so all we need to do
+Recall every matrix can be reduced to Jordan normal form so all we need to do
 is compute $e^{At}$ where $A = \lambda I + J$ where $J$ is ...
