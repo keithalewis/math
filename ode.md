@@ -20,6 +20,8 @@ functions satisfying the constraint.  A constraints on the derivatives of
 a function of more than one variable leads to _partial differential equations_
 and finding all solutions is a much more difficult problem.
 
+# First Order
+
 If $x$ is a function of $t$ and $dx/dt = ax$, $a\in\RR$,
 then $x(t) = e^{at}$ is a solution with $x(0) = 1$. This ODE is _linear_
 so $cx(t)$ is also a solution for any constant $c\in\RR$.  Every solution of
