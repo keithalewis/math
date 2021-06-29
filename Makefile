@@ -31,12 +31,6 @@ FLAGS += -H HEADER.md
 %.html: %.md $(CSS)
 	pandoc $(FLAGS) $< -o $@
 
-_apl.pdf $(PDF): %.pdf: %.md
-	pandoc $(TEXFLAGS) $< -o $@
-
-$(DOCX): %.docx: %.md
-	pandoc $< -o $@
-
 index: $(MKDN)
 	./index.sh [a-z]*.md > index.html
 

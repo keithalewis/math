@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Monads</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Monads</h1>
+<p class="author">Keith A. Lewis</p>
+</header>
+
+<p>A <em>monad</em> is a monoid on the endofunctors of a category.</p>
+<p>A <em>monoid</em> is a set with a binary operation that is associative and has an identity element. Examples are the set of real numbers with addition and identity 0, multiplication and identity 1, maximum and identity <span class="math inline">-\infty</span>, and minimum having identity <span class="math inline">\infty</span>.</p>
+<p>A <em>binary operation</em> on a set <span class="math inline">M</span> is a function <span class="math inline">m\colon M\times M</span> to <span class="math inline">M</span>. It is <em>associative</em> if <span class="math inline">m(m(a,b),c) = m(a, m(b,c))</span>, <span class="math inline">a,b,c\in M</span>. If we write <span class="math inline">m(a,b) = (ab)</span> this says <span class="math inline">(ab)c = a(bc)</span>, dropping the unnecessary outer parentheses, so we can write <span class="math inline">abc</span> unambiguously.</p>
+<p>An <em>identity</em> <span class="math inline">e\in M</span> satisfies <span class="math inline">em = m = me</span>, <span class="math inline">m\in M</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">e&#39;\in M</span> satisfies <span class="math inline">e&#39;m = m = me&#39;</span> then <span class="math inline">e&#39; = e</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">e&#39;e = e</span>, so the identiy element of a monoid is unique.</p>
+<p>Any set with an associative binary operation (<em>semigroup</em>) can be turned into a monoid by adjoining an identity.</p>
+<p><strong>Exercise</strong>. …</p>
+<p>A <em>category</em> is a collection with a binary <em>partial</em> operation, <span class="math inline">\circ</span>, that is associative. Each <em>arrow</em> in the collection has a <em>domain</em> and <em>codomain</em> that is an <em>object</em>. Write <span class="math inline">f\colon A\to B</span> to indicate <span class="math inline">f</span> is an arrow with domain <span class="math inline">\operatorname{dom}f = A</span> and codomain <span class="math inline">\operatorname{cod}f = B</span>. If <span class="math inline">f</span> and <span class="math inline">g</span> are arrows and <span class="math inline">\operatorname{cod}f = \operatorname{dom}g</span> then the binary operation <span class="math inline">g\circ f</span> is well-defined. Every object <span class="math inline">A</span> has an <em>identity arrow</em> <span class="math inline">1_A</span> that satisfies <span class="math inline">1_{\operatorname{cod}f}\circ f = f</span> and <span class="math inline">f\circ 1_{\operatorname{dom}f} = f</span>.</p>
+<p>A <em>functor</em> <span class="math inline">F\colon\mathcal{A}\to\mathcal{B}</span> takes objects of the category <span class="math inline">\mathcal{A}</span> to objects of category <span class="math inline">\mathcal{B}</span> and arrows of the category <span class="math inline">\mathcal{A}</span> to arrows of category <span class="math inline">\mathcal{B}</span> that preserves the category sturcture. If <span class="math inline">f\colon A\to A&#39;</span> in <span class="math inline">\mathcal{A}</span> then <span class="math inline">F(f)\colon F(A)\to F(A&#39;)</span> in <span class="math inline">\mathcal{B}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">F(1_A) = 1_{F(A)}</span></em>.</p>
+<p>If <span class="math inline">\mathcal{A} = \mathcal{B}</span> then <span class="math inline">F</span> is an endofunctor. A <em>monad</em> is a monoid on the endofunctors of a category.</p>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

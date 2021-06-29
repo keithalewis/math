@@ -6,34 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Machine Learning</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: true
-     });
-  }}});
-  </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body);
+  });</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
   <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
@@ -41,12 +23,13 @@
   -->
 </head>
 <body>
-<header id="title-block-header">
+<header>
 <h1 class="title">Machine Learning</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<p>Machine learning involves interpolation. Given data <span class="math inline">(x_i)</span> and <span class="math inline">(y_i)</span> we want to find a function <span class="math inline">f</span> with <span class="math inline">f(x_i) \approx y_i</span> for all <span class="math inline">i</span>. If the <span class="math inline">x_i</span> and <span class="math inline">y_i</span> are real numbers then there is a well developed theory for this. I can highly recommend learning about <a href="https://apps.dtic.mil/dtic/tr/fulltext/u2/a172773.pdf"><em>basis splines</em></a>.</p>
-<p>If the <span class="math inline">x_i</span> are each several megabytes of pixels and the <span class="math inline">y_i</span> are only allowed the values true or false the problem becomes much more complicated. Machines identifying pictures that look like a blur to the human eye as stop signs is a well-known example indicating the difficulty.</p>
+
+<p>Machine learning involves interpolation. Given data <span class="math inline">\((x_i)\)</span> and <span class="math inline">\((y_i)\)</span> we want to find a function <span class="math inline">\(f\)</span> with <span class="math inline">\(f(x_i) \approx y_i\)</span> for all <span class="math inline">\(i\)</span>. If the <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span> are real numbers then there is a well developed theory for this. I can highly recommend learning about <a href="https://apps.dtic.mil/dtic/tr/fulltext/u2/a172773.pdf"><em>basis splines</em></a>.</p>
+<p>If the <span class="math inline">\(x_i\)</span> are each several megabytes of pixels and the <span class="math inline">\(y_i\)</span> are only allowed the values true or false the problem becomes much more complicated. Machines identifying pictures that look like a blur to the human eye as stop signs is a well-known example indicating the difficulty.</p>
 <p>Moore’s law has covered up the fact that there has been little recent advancement in the mathematical theory underpinning machine learning. Even people who never learned proper programming skills can now use a language as inefficient as Python to produce a plethora of results that are not-obviously-wrong. Maybe one day AI will help us sort the wheat from the chaff, but given the long history of false claims about its potential it is safe to say that will not be anytime soon.</p>
 <p>The human brain has evolved over the centuries to make up stories. Michael Gazzaniga’s research starting in the 70’s on people who had their corpus callousm severed brought to light that there is not merely a right hemisphere/left hemisphere phenomenon; there are thousands of independent agents simultaneously vying for the first-place prize of human consciousness. The tricky little bastards will make up any story to get that. The human brain was definitely not evolved to evaluate the validity of all the stories 7.8 billion other people’s brains cook up.</p>
 <section id="reinforcement-learning" class="level2">
@@ -56,45 +39,45 @@
 <p>There is still no canonical solution to this important and practical problem. If you are running a research group how do you allocate your budget to various teams? The composition of teams can change over time and you can use pep talks to inspire people but mathematics is limited in its ability to capture the messy reality of the world we live in.</p>
 <section id="markov-decision-process" class="level3">
 <h3>Markov Decision Process</h3>
-<p>The mathematical model used for reinforcement learning is a <em>Markov decision process</em>. A MDP is defined by states <span class="math inline">S</span>, actions <span class="math inline">A</span>, rewards <span class="math inline">R\subseteq\bold{R}</span>, and transition probabilities, <span class="math display">
+<p>The mathematical model used for reinforcement learning is a <em>Markov decision process</em>. A MDP is defined by states <span class="math inline">\(S\)</span>, actions <span class="math inline">\(A\)</span>, rewards <span class="math inline">\(R\subseteq\bold{R}\)</span>, and transition probabilities, <span class="math display">\[
     p(s&#39;,r&#39;|s,a) = P(S_{t+1} = s&#39;, R_{t+1} = r&#39;\mid S_t = s, A_t = a),
-</span> the probability of moving to state <span class="math inline">s&#39;</span> and receive reward <span class="math inline">r&#39;</span> given you are in state <span class="math inline">s</span> and take action <span class="math inline">a</span> at time <span class="math inline">t</span>. Some models specify <span class="math inline">A_s\subseteq A</span>, for <span class="math inline">s\in S</span>, the set of possible actions when in state <span class="math inline">s</span>.</p>
-<p>At time <span class="math inline">t</span> in state <span class="math inline">s</span> an action <span class="math inline">a</span> results in a new state <span class="math inline">s&#39;</span> and reward <span class="math inline">r&#39;</span> at time <span class="math inline">t+1</span> with probability <span class="math inline">p(s&#39;,r&#39;|s,a)</span>. The process is called <em>Markov</em> because the probablity does not depend on <span class="math inline">t</span>. There is no reason it couldn’t but that would make it harder to <a href="https://axispraxis.wordpress.com/2016/03/24/the-streetlight-effect-a-metaphor-for-knowledge-and-ignorance/">find your keys in a dark alley</a>.</p>
-<p>In the multi-armed bandit problem there is only one state: the set of machines to play. The action is which machine to play. This results in the reward <span class="math inline">r&#39;</span> with probability <span class="math inline">p(r&#39;|a)</span> after you drop a dollar in machine <span class="math inline">a</span>. The next round still has the same set of machines available for play.</p>
-<p>A <em>policy</em> <span class="math inline">π(a|s)</span> specifies the probability of taking action <span class="math inline">a</span> given you are in state <span class="math inline">s</span>. This results in a sequence of random variables describing possible future states and rewards: <span class="math inline">S_{t + k}</span>, <span class="math inline">R_{t + k}</span>, <span class="math inline">k &gt; 0</span>, given <span class="math inline">S_t = s</span>. A more clever approach might look at the history of the results of prior actions, but we are stumbling under Markov’s steet light for now.</p>
+\]</span> the probability of moving to state <span class="math inline">\(s&#39;\)</span> and receive reward <span class="math inline">\(r&#39;\)</span> given you are in state <span class="math inline">\(s\)</span> and take action <span class="math inline">\(a\)</span> at time <span class="math inline">\(t\)</span>. Some models specify <span class="math inline">\(A_s\subseteq A\)</span>, for <span class="math inline">\(s\in S\)</span>, the set of possible actions when in state <span class="math inline">\(s\)</span>.</p>
+<p>At time <span class="math inline">\(t\)</span> in state <span class="math inline">\(s\)</span> an action <span class="math inline">\(a\)</span> results in a new state <span class="math inline">\(s&#39;\)</span> and reward <span class="math inline">\(r&#39;\)</span> at time <span class="math inline">\(t+1\)</span> with probability <span class="math inline">\(p(s&#39;,r&#39;|s,a)\)</span>. The process is called <em>Markov</em> because the probablity does not depend on <span class="math inline">\(t\)</span>. There is no reason it couldn’t but that would make it harder to <a href="https://axispraxis.wordpress.com/2016/03/24/the-streetlight-effect-a-metaphor-for-knowledge-and-ignorance/">find your keys in a dark alley</a>.</p>
+<p>In the multi-armed bandit problem there is only one state: the set of machines to play. The action is which machine to play. This results in the reward <span class="math inline">\(r&#39;\)</span> with probability <span class="math inline">\(p(r&#39;|a)\)</span> after you drop a dollar in machine <span class="math inline">\(a\)</span>. The next round still has the same set of machines available for play.</p>
+<p>A <em>policy</em> <span class="math inline">\(π(a|s)\)</span> specifies the probability of taking action <span class="math inline">\(a\)</span> given you are in state <span class="math inline">\(s\)</span>. This results in a sequence of random variables describing possible future states and rewards: <span class="math inline">\(S_{t + k}\)</span>, <span class="math inline">\(R_{t + k}\)</span>, <span class="math inline">\(k &gt; 0\)</span>, given <span class="math inline">\(S_t = s\)</span>. A more clever approach might look at the history of the results of prior actions, but we are stumbling under Markov’s steet light for now.</p>
 <p>Reinforcement learning is the study of how to find the optimal policy, for some definition of optimal.</p>
-<p>A <em>gain</em> function is any function of future rewards, <span class="math display">
+<p>A <em>gain</em> function is any function of future rewards, <span class="math display">\[
 G_t = g_t(R_{t+1}, R_{t+2}, \ldots).
-</span> Common choices are are average future rewards over a horizon <span class="math inline">k</span> <span class="math display">
+\]</span> Common choices are are average future rewards over a horizon <span class="math inline">\(k\)</span> <span class="math display">\[
 G_t = (1/k) \sum_{j=1}^k R_{t + j}
-</span> and exponential discounting of future rewards <span class="math display">
+\]</span> and exponential discounting of future rewards <span class="math display">\[
 G_t = \sum_{k &gt; 0} γ^k R_{t + k},
-</span> where <span class="math inline">0&lt;γ&lt;1</span> is the <em>discount factor</em>.</p>
-<p>The <em>state-value function</em> for policy <span class="math inline">π</span> is <span class="math inline">V_π(s) = E[G_t\mid S_t = s]</span>, the expected gain from the policy. Reinforcement learning assumes you want a policy that maximizes this. Nobel prizes have been won by people who have demonstrated sure rewards seem to be preferred over uncertain rewards having larger expected value. People also seem to prefer uncertain losses over certain loss. (Reflection. Machina, Rappoport, Tversky, Khaneman, …) A similar problem exists in the financial world for managing a portfolio of investments. Other Nobel prizes have been awarded for systematic approaches to incorporating the risks involved.</p>
-<p>But let’s get back to our expected value street light. For exponential decay the law of total probability yields <span class="math display">
+\]</span> where <span class="math inline">\(0&lt;γ&lt;1\)</span> is the <em>discount factor</em>.</p>
+<p>The <em>state-value function</em> for policy <span class="math inline">\(π\)</span> is <span class="math inline">\(V_π(s) = E[G_t\mid S_t = s]\)</span>, the expected gain from the policy. Reinforcement learning assumes you want a policy that maximizes this. Nobel prizes have been won by people who have demonstrated sure rewards seem to be preferred over uncertain rewards having larger expected value. People also seem to prefer uncertain losses over certain loss. (Reflection. Machina, Rappoport, Tversky, Khaneman, …) A similar problem exists in the financial world for managing a portfolio of investments. Other Nobel prizes have been awarded for systematic approaches to incorporating the risks involved.</p>
+<p>But let’s get back to our expected value street light. For exponential decay the law of total probability yields <span class="math display">\[
 V_π(s) = \sum_a π(a|s) \sum_{s&#39;,r&#39;} p(s&#39;,r&#39;|s,a)[r&#39; + γ V_π(s&#39;)].
-</span> We want to find the optimal state-value function <span class="math inline">V^*(s) = \max_π V_π(s)</span>. <span class="math display">
+\]</span> We want to find the optimal state-value function <span class="math inline">\(V^*(s) = \max_π V_π(s)\)</span>. <span class="math display">\[
 V^*(s) = \max_{a\in A} \sum_{s&#39;,r&#39;} p(s&#39;,r&#39;|s,a)[r&#39; + γ V^*(s&#39;)].
-</span> is the <em>Bellman optimality equation</em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">V^*(s) \ge V_π(s)</span> for any policy <span class="math inline">π</span></em>.</p>
-<p>The <em>action-value function</em> for <span class="math inline">π</span> is <span class="math inline">Q_π(s,a) = E[G_t\mid S_t = s, A_t = a]</span>. It is the state-value function for a given action. We want to find <span class="math inline">Q^*(s,a) = \max_π Q_π(s,a)</span>. Note for exponential decay <span class="math display">
+\]</span> is the <em>Bellman optimality equation</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\(V^*(s) \ge V_π(s)\)</span> for any policy <span class="math inline">\(π\)</span></em>.</p>
+<p>The <em>action-value function</em> for <span class="math inline">\(π\)</span> is <span class="math inline">\(Q_π(s,a) = E[G_t\mid S_t = s, A_t = a]\)</span>. It is the state-value function for a given action. We want to find <span class="math inline">\(Q^*(s,a) = \max_π Q_π(s,a)\)</span>. Note for exponential decay <span class="math display">\[
 Q^*(s,a) = E[R_{t+1} + γ V^*(S_{t+1})|S_t = s, A_t = a].
-</span> gives the optimal action-value function.</p>
+\]</span> gives the optimal action-value function.</p>
 </section>
 <section id="bandits" class="level3">
 <h3>Bandits</h3>
-<p>An <span class="math inline">n</span>-armed bandit is a MDP with one state and <span class="math inline">n</span> actions. Solutions should <em>explore</em> the <span class="math inline">n</span> available actions and <em>exploit</em> the most promising. In this case the action-value function does not depend on the state. If we knew the reward distributions for each action then the optimal strategy would be to always select the action with the largest expected value but we don’t need to estimate each individual reward distribution in order to find the optimal policy.</p>
-<p>The <em><span class="math inline">ε</span>-greedy</em> strategy selects the action maximizing the current action-value function with probability <span class="math inline">1-ε</span> and a random action with probability <span class="math inline">ε</span>. The action-value function is updated based on the observed reward. Hopefully this will converge to <span class="math inline">V^*</span> and we can find a method to make this happen quickly.</p>
+<p>An <span class="math inline">\(n\)</span>-armed bandit is a MDP with one state and <span class="math inline">\(n\)</span> actions. Solutions should <em>explore</em> the <span class="math inline">\(n\)</span> available actions and <em>exploit</em> the most promising. In this case the action-value function does not depend on the state. If we knew the reward distributions for each action then the optimal strategy would be to always select the action with the largest expected value but we don’t need to estimate each individual reward distribution in order to find the optimal policy.</p>
+<p>The <em><span class="math inline">\(ε\)</span>-greedy</em> strategy selects the action maximizing the current action-value function with probability <span class="math inline">\(1-ε\)</span> and a random action with probability <span class="math inline">\(ε\)</span>. The action-value function is updated based on the observed reward. Hopefully this will converge to <span class="math inline">\(V^*\)</span> and we can find a method to make this happen quickly.</p>
 </section>
 <section id="monte-carlo-methods" class="level3">
 <h3>Monte Carlo Methods</h3>
-<p>The <em>first visit</em> Monte Carlo prediction approximates the state-value function for a given policy. Choose an initial state-value function <span class="math inline">V(s)</span> and generate actions using <span class="math inline">π</span>. For each state in the run update <span class="math inline">V(s)</span> to be the sample average of the returns.</p>
+<p>The <em>first visit</em> Monte Carlo prediction approximates the state-value function for a given policy. Choose an initial state-value function <span class="math inline">\(V(s)\)</span> and generate actions using <span class="math inline">\(π\)</span>. For each state in the run update <span class="math inline">\(V(s)\)</span> to be the sample average of the returns.</p>
 </section>
 </section>
 <section id="temporal-distance-learning" class="level2">
 <h2>Temporal Distance Learning</h2>
 <p>TDL is a model-free method that learns by bootstrapping the value function.</p>
-<p>The simplest example, <span class="math inline">TD(0)</span>, specifies a <em>learning rate</em> <span class="math inline">α</span> and updates <span class="math inline">V(s)</span> to <span class="math inline">(1 - α)V(s) + α(r + γV(s&#39;))</span>.</p>
+<p>The simplest example, <span class="math inline">\(TD(0)\)</span>, specifies a <em>learning rate</em> <span class="math inline">\(α\)</span> and updates <span class="math inline">\(V(s)\)</span> to <span class="math inline">\((1 - α)V(s) + α(r + γV(s&#39;))\)</span>.</p>
 </section>
 <footer>
 Return to <a href="index.html">index</a>.

@@ -6,34 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Monad</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: true
-     });
-  }}});
-  </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body);
+  });</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
   <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
@@ -41,19 +23,20 @@
   -->
 </head>
 <body>
-<header id="title-block-header">
+<header>
 <h1 class="title">Monad</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
+
 <blockquote>
 <p><em>A monad is a monoid in the category of endofunctors</em>.</p>
 </blockquote>
 <p>Whatever that means.</p>
 <p>It is common in numeric libraries written in C-like languages to have ‘functions’ of the form</p>
 <pre><code>    err f_e(double in, double* out);</code></pre>
-<p>that take a numeric <code>in</code>put, place the result of the function in the memory for the <code>out</code>put and return an integral <code>err</code>or code. If <span class="math inline">x</span> is the input and <span class="math inline">y</span> is the output then <span class="math inline">y = f(x)</span> after the call if there is no error, otherwise <span class="math inline">y</span> is indeterminate and the error code returned by <code>f_e</code> must be inspected to determine what went wrong. The library user must make sure memory for the output exists and must check the return code to detect problems.</p>
-<p>Aside from being tedious to use, one problem with this convention is that it is not a function in the mathematical sense. Mathematical functions don’t have arguments that can be used as output. This can be solved by making <span class="math inline">f</span> a <em>partial function</em> with domain the set of all <span class="math inline">x\in X</span> such that <code>f_e</code> returns no error. The standard way to do this is to assume a special element <span class="math inline">\bot\not\in X</span> and define <span class="math inline">f(x) = \bot</span> when <span class="math inline">x</span> is not in the domain. Now <span class="math inline">f</span> is a function in the usual mathematical sense but we’ve lost information about the error code.</p>
-<p>A better way is to define <span class="math inline">F\colon E\times X\to E\times X</span>, where <span class="math inline">E</span> is the set of error codes by <span class="math inline">F(e,\_) = (e,\_)</span> if <span class="math inline">e</span> is an error and <span class="math inline">F(\_,x) = (e,y)</span> where <span class="math inline">e</span> is the error code from <code>f_e</code> and <span class="math inline">y = f(x)</span> if there was no error. A possible implementation with <code>err_t</code> being the error type and <code>E_OK</code> indicating no error is</p>
+<p>that take a numeric <code>in</code>put, place the result of the function in the memory for the <code>out</code>put and return an integral <code>err</code>or code. If <span class="math inline">\(x\)</span> is the input and <span class="math inline">\(y\)</span> is the output then <span class="math inline">\(y = f(x)\)</span> after the call if there is no error, otherwise <span class="math inline">\(y\)</span> is indeterminate and the error code returned by <code>f_e</code> must be inspected to determine what went wrong. The library user must make sure memory for the output exists and must check the return code to detect problems.</p>
+<p>Aside from being tedious to use, one problem with this convention is that it is not a function in the mathematical sense. Mathematical functions don’t have arguments that can be used as output. This can be solved by making <span class="math inline">\(f\)</span> a <em>partial function</em> with domain the set of all <span class="math inline">\(x\in X\)</span> such that <code>f_e</code> returns no error. The standard way to do this is to assume a special element <span class="math inline">\(\bot\not\in X\)</span> and define <span class="math inline">\(f(x) = \bot\)</span> when <span class="math inline">\(x\)</span> is not in the domain. Now <span class="math inline">\(f\)</span> is a function in the usual mathematical sense but we’ve lost information about the error code.</p>
+<p>A better way is to define <span class="math inline">\(F\colon E\times X\to E\times X\)</span>, where <span class="math inline">\(E\)</span> is the set of error codes by <span class="math inline">\(F(e,\_) = (e,\_)\)</span> if <span class="math inline">\(e\)</span> is an error and <span class="math inline">\(F(\_,x) = (e,y)\)</span> where <span class="math inline">\(e\)</span> is the error code from <code>f_e</code> and <span class="math inline">\(y = f(x)\)</span> if there was no error. A possible implementation with <code>err_t</code> being the error type and <code>E_OK</code> indicating no error is</p>
 <pre><code>struct double_err {
     double x;
     err_t e;
@@ -69,11 +52,11 @@ double_err F(double_err X) {
 <p>Congratulations, you’ve just created a monad. The <code>double_err</code> struct wraps up a double and error code, and <code>F</code> acts on the wrapped up types. You can now compose such functions and the result will be the usual composition if there are no errors or else the first error encountered will be propagated to the final result.</p>
 <section id="numbers-that-are-not-numbers" class="level2">
 <h2>Numbers that are not numbers</h2>
-<p>In IEEE floating point arithmetic certain bit patterns in the representation indicate the number is not a number, a NaN. This is similar to our <span class="math inline">\bot</span> element for turning partial functions into functions. Any arithmetic operation involving a NaN results in a NaN so we get the same lousy behavior of destroying information about exactly what error occured. The IEEE standard specifies other special bit patterns for more informative exceptions. There are positive or negative infinity in the case of overflow, there is a positve and negative 0, very small (denormalized) numbers have a special form that allow detection of the onset of underflow.</p>
+<p>In IEEE floating point arithmetic certain bit patterns in the representation indicate the number is not a number, a NaN. This is similar to our <span class="math inline">\(\bot\)</span> element for turning partial functions into functions. Any arithmetic operation involving a NaN results in a NaN so we get the same lousy behavior of destroying information about exactly what error occured. The IEEE standard specifies other special bit patterns for more informative exceptions. There are positive or negative infinity in the case of overflow, there is a positve and negative 0, very small (denormalized) numbers have a special form that allow detection of the onset of underflow.</p>
 </section>
 <section id="wrapping-things-up" class="level2">
 <h2>Wrapping things up</h2>
-<p>We can extend this to types other than <code>double</code>. Given a type <span class="math inline">T</span> and errors <span class="math inline">E</span> define <span class="math inline">M\colon T\to T\times E</span> by <span class="math inline">Mt = (t,e_0)</span> where <span class="math inline">e_0</span> is the element of <span class="math inline">E</span> indicating no error.</p>
+<p>We can extend this to types other than <code>double</code>. Given a type <span class="math inline">\(T\)</span> and errors <span class="math inline">\(E\)</span> define <span class="math inline">\(M\colon T\to T\times E\)</span> by <span class="math inline">\(Mt = (t,e_0)\)</span> where <span class="math inline">\(e_0\)</span> is the element of <span class="math inline">\(E\)</span> indicating no error.</p>
 </section>
 <footer>
 Return to <a href="index.html">index</a>.
