@@ -17,8 +17,8 @@ I assume you are familiar with the vector space $\RR^n = \{(x_1,\ldots,x_n)\mid 
 where $\RR$ denotes the real numbers,
 which has the _dot product_ $x\cdot y = \sum_j x_j y_j$, $x,y\in\RR^n$.
 We also use the notation $(x,y)$ for $x\cdot y$.
-You might also see this written as $x^Ty$ where superscript $T$ indicates transpose.
-The dot product defines a _norm_ $\|x\| = \sqrt{(x,x)}$.
+You might also see this written as $x'y$ or $x^Ty$ where the superscript indicates transpose.
+The dot product defines a _norm_ $\|x\| = \sqrt{(x,x)}$, or _length_ of a vector.
 
 __Exercise__. _Show $\|x\| = 0$ if and only if $x = 0$, \|tx\| = |t|\|x\|$,
 $|(x,y)| \le \|x\| \|y\|$, and
