@@ -33,11 +33,6 @@ __Exercise__. _If $e'\in M$ satisfies $e'm = m = me'$ then $e' = e$_.
 
 _Hint_: $e'e = e$, so the identiy element of a monoid is unique.
 
-Any set with an associative binary operation (_semigroup_) can be
-turned into a monoid by adjoining an identity.
-
-__Exercise__. ...
-
 A _category_ is a collection with a binary _partial_ operation, $\circ$,
 that is associative.  Each _arrow_ in the collection has a _domain_
 and _codomain_ that is an _object_.
@@ -51,7 +46,7 @@ f}\circ f = f$ and $f\circ 1_{\dom f} = f$.
 A _functor_ $F\colon\mathcal{A}\to\mathcal{B}$ takes
 objects of the category $\mathcal{A}$ to objects of category $\mathcal{B}$ and
 arrows of the category $\mathcal{A}$ to arrows of category $\mathcal{B}$ 
-that preserves the category sturcture.
+that preserves the category structure.
 If $f\colon A\to A'$ in $\mathcal{A}$ then $F(f)\colon F(A)\to F(A')$ in $\mathcal{B}$.
 
 __Exercise__. _Show $F(1_A) = 1_{F(A)}$_.
