@@ -17,9 +17,10 @@ abstract: What a monad is
 A _monad_ is a monoid on the endofunctors of a category.
 
 A _monoid_ is a set with a binary operation that is associative and
-an identity element. Examples are addition with identity 0,
-multiplication with identity 1, maximum with identity $-\infty$,
-and minimum with identity $\infty$.
+has an identity element. Examples are the set of real numbers
+with addition and identity 0,
+multiplication and identity 1, maximum and identity $-\infty$,
+and minimum having identity $\infty$.
 
 A _binary operation_ on a set $M$ is a function $m\colon M\times M$ to $M$.
 It is _associative_ if $m(m(a,b),c) = m(a, m(b,c))$, $a,b,c\in M$.
@@ -30,7 +31,7 @@ An _identity_ $e\in M$ satisfies $em = m = me$, $m\in M$.
 
 __Exercise__. _If $e'\in M$ satisfies $e'm = m = me'$ then $e' = e$_.
 
-_Hint_: $e'e = e$.
+_Hint_: $e'e = e$, so the identiy element of a monoid is unique.
 
 Any set with an associative binary operation (_semigroup_) can be
 turned into a monoid by adjoining an identity.
@@ -50,7 +51,7 @@ f}\circ f = f$ and $f\circ 1_{\dom f} = f$.
 A _functor_ $F\colon\mathcal{A}\to\mathcal{B}$ takes
 objects of the category $\mathcal{A}$ to objects of category $\mathcal{B}$ and
 arrows of the category $\mathcal{A}$ to arrows of category $\mathcal{B}$ 
-and preserves the category sturcture.
+that preserves the category sturcture.
 If $f\colon A\to A'$ in $\mathcal{A}$ then $F(f)\colon F(A)\to F(A')$ in $\mathcal{B}$.
 
 __Exercise__. _Show $F(1_A) = 1_{F(A)}$_.
