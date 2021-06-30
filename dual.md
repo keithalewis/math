@@ -14,7 +14,13 @@ abstract: Mirror, mirror, ...
 \newcommand\ran{\operatorname{ran}}
 
 Duality shows up in many mathematical guises. One of the simplest is in
-the case of vector spaces.
+the case of vector spaces. The _dual_ of a vector space is the collection
+of all linear functionals on the vector space. It too is a vector space
+and has the same dimension as the original vector space if is finite dimensional.
+Identifying when a space is a dual help clarifies mathematical concepts.
+For example, if $F\colon V\to\RR$ is an smooth function the its derivative
+is a function $DF\colon $V\to\V^*$, where $V^*$ denotes the dual of $V$.
+There is no need for "row" or "column" vectors when using duals.
 
 ## Vector Space
 
@@ -31,8 +37,18 @@ __Exercise__. _If $\langle v,v^*\rangle = 0$ for $v^*\in V^*$ show $v = 0$_.
 
 __Exercise__. _If $\langle v,v^*\rangle = \langle w,v^*\rangle$ for $v^*\in V^*$ show $v = w$_.
 
-If $V$ is finite dimensional then $V^*$ has the same dimension so they are isomorphic as vector spaces.
-For any vector space $V$ define $ι_V\colon V\to V^{**}$ by $\langle ι_Vv, v^*\rangle = \langle v, v^*\rangle$.
+_Hint_: Use linearity and reduce to the first exercise.
+
+If $V$ is finite dimensional with basis $\{e_i\}$ then define the _dual basis_
+$e_j^*\colon V\to\RR$ by $\langle e_i, e_j^*\rangle = δ_{i,j}$, where
+$δ_{i,j}$ is the Kronecker delta,
+and extend to $V$ linearly to get $e_j^*\in V^*$.
+This determines an isomorphism $T\colon V\to V^*$ by $Ee_i = e_i^$.
+
+For any vector space $V$ define the _canonical injection_ $ι_V\colon V\to V^{**}$ by
+$\langle ι_Vv, v^*\rangle = \langle v, v^*\rangle$.
+
+__Exercise__. _Show $ι_V$ is a linear transformation_.
 
 __Exercise__. _Show $ι_Vv = 0$ if and only if $v = 0$, $v\in V$_.
 
@@ -40,6 +56,7 @@ The proof of this is trivial, unlike the proof that vector spaces of
 the same dimension are isomorphic.  That proof involves the Steinitz
 replacement theorem and introducing an arbitrary basis for each vector
 space.
+
 
 ## Linear Transformation
 
