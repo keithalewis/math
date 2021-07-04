@@ -51,8 +51,22 @@ A monad is a monoid on the endofunctors of a category.
 ## Remarks
 
 This is a complete and correct definition of a monad, if not particularly enlightening.
-The usual definition of a functor states it also takes objects of the first category
-to objects of the second.
+
+The definition of a category is similar to that of a monoid except the binary operation
+is not defined for all pairs of arrows. 
+
+__Exercise__. _If a category has one object then it is a monoid_.
+
+_Hint_: The binary operation is defined for all arrows $f$ since $\dom f$ and
+$\cod f$ are the one object.
+
+If you already know something about category theory you might think my
+definition is lacking. The usual definition states a category has
+arrows and objects, but arrows have a domain and codomain. The
+identity arrows determine the objects.
+
+The usual definition of a functor states it also
+takes objects of the first category to objects of the second.
 
 __Exercise__. _Show identity arrows are unique_.
 
@@ -60,6 +74,20 @@ _Hint_: Show if $f 1'_A = f$ and $1'_A g$ whenever $f\colon A\to B$ and $g\colon
 then $1'_A = 1_A$.
 
 __Exercise__. _If $F$ is a functor then $F(1_A) = 1_{F(A)}$_.
+
+Since identity arrows correspond to objects we also have an object mapping.
+
+The canonical example of a category is $\cat{Set}$ where the arrows
+are functions. Given a set $S$ let $S^*$ be the set of all finite
+length lists of elements of $S$. This is a monoid with binary
+operation concatenation and identity the empty list.
+This is a functor from $\cat{Set}$ to $\cat{Mon}$ ...
+
+The forGetful functor.
+
+FG and GF
+
+unit and counit
 
 Monoids are quite common. Now that you know their mathematical definition
 you, Baader, and Meinhof will start seeing them everywhere.  Examples
