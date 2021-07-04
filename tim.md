@@ -78,14 +78,19 @@ __Exercise__. _If $F$ is a functor then $F(1_A) = 1_{F(A)}$_.
 Since identity arrows correspond to objects we also have an object mapping.
 
 The canonical example of a category is $\cat{Set}$ where the arrows
-are functions. Given a set $S$ let $S^*$ be the set of all finite
-length lists of elements of $S$. This is a monoid with binary
+are functions between sets. The category $\cat{Mon}$ has objects
+monoids and arrows are _homomorphisms_, functions that preserve the monoid operation.
+
+Given a set $S$ let $S^*$ be the set of all strings, finite
+length lists, of elements of $S$. This is a monoid with binary
 operation concatenation and identity the empty list.
-This is a functor from $\cat{Set}$ to $\cat{Mon}$ ...
+This defines a functor $F\colon\cat{Set}\to\cat{Mon}$.
 
-The forGetful functor.
+The _forGetful functor_ $G\colon\cat{Mon}\to\cat{Set}$ is the
+identity functor that forgets the monoid structure.
+A monoid is a set and a monoid homomorphism is a function.
 
-FG and GF
+The endofunctor $GF\colon\cat{Set}\to\cat{Set}$ is a monad.
 
 unit and counit
 
