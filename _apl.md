@@ -140,6 +140,12 @@ $(γ(f)(x))(y) = f(x,y)\in Z$, $f\in X\times Y\to Z$, $x\in X$, $y\in Y$.
 The _uncurry function_ $γ^*\colon ((X\to (Y\to Z))\to (X\times Y\to Z)$
 is $(γ^*(f))(x,y) = f(x,y)\in Z$, $f\in X\to(Y\to Z)$, $x\in X$, $y\in Y$.
 
+Use $.$ for composition. If $f\colon X\to Y$ identify $x$ with the constant function $K_x$.
+
+Interpret $f.x$ as $f.K_x$ so $f.x(y) = f.K_x(y) = f(K_x(y)) = f(x)$ for all $y$.
+
+If $x\in X$, $y\in Y$ write $x,y$ for $(x,y)\in X\times Y$.
+
 ## Shape
 
 The _shape_ function is $ρ\colon\NN^k\to (\NN^{k-1}\to\NN)$, $ρ\mapsto(n \mapsto n)$,
