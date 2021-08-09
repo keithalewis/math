@@ -14,7 +14,7 @@ commodities have physical quantities, currencies have denominations.
 
 All instruments have _issuers_. 
 Stocks and bonds are issued by companies to raise capital. 
-Futures are created by _exchanges_ to match _liquidity providers_ with exchage customers.
+Futures are created by _exchanges_ to match _liquidity providers_ with exchange customers.
 Commodities originate from producers of the physical product. 
 Currencies are issued by governments of countries.
 
@@ -43,7 +43,7 @@ a period is the _profit and loss_ over the period.
 Profit and loss does not capture the dynamics over the period.
 Cash flows and transactions cause changes to positions.
 Instrument holders receive cash flows based on the amount held, 
-transactions involve an exchage of holdings between the buyer and seller.
+transactions involve an exchange of holdings between the buyer and seller.
 These show up the trade blotter _account_.
 Accountants call this the _cash flow statement_.
 
