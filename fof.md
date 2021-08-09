@@ -47,8 +47,8 @@ transactions involve an exchage of holdings between the buyer and seller.
 These show up the trade blotter _account_.
 Accountants call this the _cash flow statement_.
 
-Ignoring taxes and events of God, this is a complete description of 
-everything involved with finance.
+Ignoring taxes, lawyers, and events of God, this is a complete description of 
+everything involved with accounting for financial activity.
 
 
 
