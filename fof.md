@@ -7,22 +7,21 @@ fleqn: true
 abstract: Price, cash flow, trades, value, account
 ...
 
-A _holding_ is an _amount_ of an _instrument_ held by a _legal entity_. 
-Amounts have units based on the instrument: stocks have _shares_,
-bonds have _notional_, futures have _contract size_,
-commodities have physical quantities, currencies have denominations.
-
-All instruments have _issuers_. 
-Stocks and bonds are issued by companies to raise capital. 
-Futures are created by _exchanges_ to match _liquidity providers_ with exchange customers.
-Commodities originate from producers of the physical product. 
-Currencies are issued by governments of countries.
+_Issuers_ create _instruments_. A company can issue stocks or bonds to raise capital,
+exchanges create contracts to connect liquidity providers with their customers.
+Commodities originate from producers of the physical product and
+currencies are issued by governments of countries.
 
 Some instruments have _cash flows_. 
 Stocks may have dividends, bonds may have coupons, futures have periodic margin adjustments. 
 Commodities and currencies do not have cash flows.
 The _issuer_ of an instrument determines when and what amount to give
 per unit of amount to instrument holders.
+
+A _holding_ is an _amount_ of an _instrument_ held by a _legal entity_. 
+Amounts have units based on the instrument: stocks have _shares_,
+bonds have _notional_, futures have _contract size_,
+commodities have physical quantities, currencies have denominations.
 
 Holdings are _transacted_ over time.
 _Sellers_ determine what holdings they are willing to exchange with _buyers_. 
@@ -49,6 +48,3 @@ Accountants call this the _cash flow statement_.
 
 Ignoring taxes, lawyers, and events of God, this is a complete vocabulary
 for discussing everything involved with accounting for financial activity.
-
-
-
