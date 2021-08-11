@@ -20,8 +20,8 @@ per unit of amount to instrument holders.
 
 A _holding_ is an _amount_ of an _instrument_ held by a _legal entity_. 
 Amounts have units based on the instrument: stocks have _shares_,
-bonds have _notional_, futures have _contract size_,
-commodities have physical quantities, currencies have denominations.
+bonds have _notional_, futures have _contract size_.
+Commodities have physical quantities and currencies have denominations.
 
 Holdings are _transacted_ over time.
 _Sellers_ determine what holdings they are willing to exchange with _buyers_. 
@@ -43,7 +43,7 @@ Profit and loss does not capture the dynamics over the period.
 Cash flows and transactions cause changes to positions.
 Instrument holders receive cash flows based on the amount held, 
 transactions involve an exchange of holdings between the buyer and seller.
-These show up the trade blotter _account_.
+These show up in the trade blotter _account_.
 Accountants call this the _cash flow statement_.
 
 Ignoring taxes, lawyers, and events of God, this is a complete vocabulary
