@@ -33,9 +33,19 @@ We assume, as customary, this can be approximated by a lognormal.
 
 Recall if $N$ is normal then $E[e^N] = e^{E[N] + \Var(N)/2)}$
 so $E[e^{\sigma B_t - \sigma^2 t/2}] = 1$.
-Letting $F_t = S_t D_t$ and $f_j = E[F_{t_j}]$ we get
+Letting $F_t = S_t D_t$ we have
+$$
+F_t = se^{\sigma B_t - \sigma^2 t/2} - \sum_{t_j\le t} d_j F_{t_j}
+$$
+and setting $f_j = E[F_{t_j}]$ gives
 $$
 E[F_t] = s - \sum_{t_j\le t} d_j f_j.
+$$
+Note $f_0 = s - d_0 f_0$ so $f_0 = s/(1 + d_0)$.
+Taking $t = t_k$ yields $f_k = s - \sum_{j\le k} d_j f_j = f_{k-1} - d_k f_k$
+so $f_k = s/\Pi_{j=0}^k(1 + d_j)$ hence
+$$
+E[F_t] = s - \sum_{t_k\le t} d_k f_k = s(1 - \sum_{t_k\le t} d_k/\Pi_{j=0}^k(1 + d_j).
 $$
 
 If $M,N$ are jointly normal then $\Cov(e^M, e^N) = E[e^M]E[e^N](e^{\Cov(M,N)} - 1)$.
@@ -45,3 +55,6 @@ and we have
 $$
 \Var(F_t - se^{\sigma B_t - \sigma^2 t/2}) = \sum_{t_i,t_j\le t} d_i d_j f_i f_j (e^{\sigma^2\min\{t_i,t_j\}} - 1).
 $$
+Note $\Cov(se^{\sigma B_t - \sigma^2 t/2},F_t)
+= \Cov(se^{\sigma B_t - \sigma^2 t/2},se^{\sigma B_t - \sigma^2 t/2} - \sum_{t_j \le t} d_j F_{t_j})
+= s(e^{\sigma^2 t} - 1) - \sum_{t_j \le t} d_j F_{t_j})
