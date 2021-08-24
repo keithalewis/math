@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: as a category
+abstract: Sets are defined by membership
 ...
 
 \newcommand\dom{\operatorname{dom}}
@@ -13,6 +13,20 @@ abstract: as a category
 \newcommand\ran{\operatorname{ran}}
 \newcommand\cat[1]{\mathbf{#1}}
 \newcommand\mb[1]{\mathbf{#1}}
+
+Everything in (classical) mathematics is a [set](https://plato.stanford.edu/entries/set-theory/).
+Sets are defined by their _members_.
+We write $x\in S$ to indicate $x$ is a member of the set $S$. 
+A finite set can be explicitly described by specifying its members $S = \{x, y, z\}$.
+The original theory of sets due to Frege allowed sets to be defined by a rule,
+$x\in S$ if and only if $P(x)$, where $P(x)$ is a proposition that was true
+or false depending on $x$.
+
+Bertrand Russell showed Frege's theory allowed a contradiction. 
+Consider the set $S$ defined by the proposition $P(x) = x\not in x$.
+
+The _empty set_ $\emptyset$ is the set having no elements. For any set $S$, $S\not\in\emptyset$.
+
 
 The category $\cat{Set}$ with objects sets and arrows functions from a set to a set
 is a canonnical example of a category.
