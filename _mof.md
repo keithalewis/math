@@ -27,9 +27,10 @@ perpetuation of this state of affairs_. -- Василий Васильевич �
 
 
 The Nobel Prize winning work of Fischer Black, Myron Scholes, and Robert Merton
-had a profound influence on the real-world application of Mathematical Finance.
-They won the prize for showing the real-world probabilty did not matter when
-determining the value of a derivative security.
+had a profound influence on the application of Mathematical Finance
+to the valuation of financial instruments.
+They showed the probability of future prices were irrelevant to valuing
+derivatives.
 
 real-world
 

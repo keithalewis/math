@@ -192,14 +192,14 @@ where $δ_k$ is a point mass at $k$.
 
 Vega for a put or call is
 $$
-	∂_s p = -E[1(F\le k) F (X - κ'(s))] = -f E_s[1(F\le k) (X - κ'(s))].
+	∂_s p = E[-1(F\le k) F (X - κ'(s))] = -f E_s[1(F\le k) (X - κ'(s))].
 $$ 
 
 ### Distribution
 
 Let $Φ(x) = P(X\le x)$ be the cumulative distribution functions of $X$
 and $Φ_s(x) = P_s(X\le x) = E[1(X\le x)ε_s(X)]$ be the _share_ cdf.
-Of course $Φ(x) = Φ_0(s)$.
+Of course $Φ(x) = Φ_0(x)$.
 Let $Ψ_s(y) = P_s(F\le y) = Φ_s(x)$ be the share cumulative distribution function of $F$
 where $y = fε_s(x)$. The share density function is
 $$

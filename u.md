@@ -1,5 +1,5 @@
 ---
-title: A Unified Model of Derivative Securities
+title: A Simple Model of Derivative Securities
 author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
@@ -7,38 +7,65 @@ classoption: fleqn
 abstract: Value, hedge, and manage risk of any portfolio
 ...
 
-Instruments have _prices_ and _cash flows_.
-Stocks have dividends, bonds have coupons, futures have daily margin adjustments.
-An European option has a single cash flow at expiration.
-Currencies and commodities do not have cash flows.
+\renewcommand\AA{\mathcal{A}}
+\renewcommand\DD{\mathcal{D}}
+\renewcommand\RR{\mathbf{R}}
 
-Let $X_t$ denote the prices and $C_t$ denote the cash flows of all instruments at time $t$.
-Prices and cash flows are vectors indexed by the set of instruments.
-This model does not incorporate the fact that instruments have bid-ask spreads.
-The spread also depends on the amount being transacted and the credit quality of the two
-parties involved in the transaction.
-Cash flows are determined by the _issuer_ of the instrument and are usually zero.
-Transactions often involve cash flows with third parties such as broker commissions
-or borrowing costs. These will be ignored, for now.
+Instruments have _prices_ and _cash flows_. Trading instruments result
+in cash flows to the _trading account_; you buy and sell at
+prevailing prices and receive cash flows associated with
+each instrument proportional to your current position.
+The mark-to-market of a position and cash flows associated with
+trading correspond to the price and cash flows of a synthetic instrument.
 
-Every arbitrage-free model is parameterized by a vector-valued martingale $M_t$ and
-a positive _deflator_ $D_t$. Prices and cash flows satisfy
+A _derivative_ is a contract specifying cash flows. If a trading strategy
+replicates the cash flows then the value of the derivative is the cost
+of the initial hedging position. Risk management involves measuring
+how well a trading strategy replicates cash flows specified by
+the contract.
+
+A _money market_ account is assumed to be available for financing trading strategies.
+The price of the money market at time $t$ is denoted $R_t$ and has no cash flows.
+Let $D_t = 1/R_t$ be the _deflator_. 
+
+## Price and Cash Flow
+
+Given a deflator, every model is specified by a vector-valued _martingale_ $M_t$ indexed by instruments.
+Prices $X_t$ and cash flows $C_t$ must satisfy
 $$
-	X_t D_t = M_t - \sum_{s\le t}C_s D_s.
+	X_t D_t = M_t + \sum_{s\le t} C_s D_s
 $$
-For example, $M_t = (r, se^{\sigma B_t - \sigma^2 t/2})$ and $D_t = e^{-\rho t}$ is the
-Black-Scholes/Merton model where $B_t$ is standard Brownian motion.
-Note if there are no cash flows then this implies $X_t D_t$ is a martingale. 
-Multiplying $D_t$ by a non-zero constant does affect the formula
-so we can assume $D_0 = 1$.
+in any arbitrage-free model.
+Note if there are no cash flows then this implies the deflated prices, $X_t D_t$, are a martingale. 
+In general, $C_t = 0$ except at a discrete set of times.
 
-A consequence of this formula is
+For example, the Black-Scholes/Merton model has money market $R_t = e^{\rho t}$ and martingale
+$S_t = s e^{\sigma B_t - \sigma^2t/2}$ where $B_t$ is standard Brownian motion.
+
+Let $I$ be a set of instruments and $T$ be a (totally ordered) set of trading times.
+Assume the standard setup $\langle\Omega,P,(\AA_t)_{t\in T}\rangle$ where
+$\Omega$ is the sample space of all possible outcomes, $P$ is a probability
+measure on $\Omega$, and $\AA_t$ is an algebra of sets on $\Omega$ indicating the
+information available at time $t$.
+
+We use the notation $X\colon\Omega\to\AA$ to indicate $X\colon\Omega\to\RR$
+is $\AA$-measurable where $\AA$ is an algebra of sets.
+If the algebra is finite then $X$ is $\AA$-measurable if and only if it is
+constant on atoms of $\AA$ so $X$ _is_ a function from $\Omega$ to
+the atoms of $\AA$.
+
+Let $X_t^i\colon\Omega\to\AA_t$ be the price and
+$C_t^i\colon\Omega\to\AA_t$ be the cash flow of instrument $i\in I$ at time $t\in T$.
+We also write this as $X_t,C_t\colon\Omega\to\AA_t$ where $X_t$ and $C_t$
+are vectors indexed by the set of instruments when that is understood.
+
+A consequence of the formula $X_t D_t = M_t + \sum_{s\le t} C_s D_s$ is
 $$
 X_t D_t = E_t[X_u D_u + \sum_{t\le s < u}C_s D_s]
 $$
 where $E_t$ is conditional expectation at time $t$ and $u > t$.
 Note if $X_t D_t$ goes to zero as $t$ goes to infinity then
-$X_0 = E[\sum_{t \ge 0} C_t D_t]$. Price is the expected value
+$X_0 = E[\sum_{t \ge 0} C_t D_t]$. In this case price is the expected value
 of deflated future cash flows.
 
 The formula follows from
@@ -52,19 +79,145 @@ E_t[X_u D_u + \sum_{t\le s < u}C_s D_s]
 \end{aligned}
 $$
 
+## Value and Account
 
-Market participants _trade_ instruments. Let $\Gamma_t$ be the vector of amounts in
-each instrument traded by a participant at time $t$. The initial trade at time $t_0$ involves
-$A_{t_0} = -\Gamma_{t_0}\cdot X_{t_0}$ being debited from the participants _account_.
-The _value_, or _mark-to-market_ of the position at time $t > t_0$ is
-$V_t = \Gamma_{t_0}\cdot (X_t + \sum_{t_0 < s < t} C_s)$
-if no further trading occurs between $t_0$ and $t$.
+Market participants _trade_ instruments. We assume an initial position $M_0$
+in the money market instrument. A _trading strategy_ is a finite sequence
+of strictly increasing (stopping) times $\tau_j$ and vector-valued random variables
+$\Gamma_j\colon\Omega\to\AA_{\tau_j}$ of amounts amounts purchased in each instrument at these times.
+Trades accrue to a _position_ $\Delta_t = \sum_{s < t} \Gamma_s$,
+where $\Gamma_s = \Gamma_j$ if $s = \tau_j$ and is zero otherwise.
+The trades show up in the trade _account_ as cash flows
+$$
+A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t.
+$$
+You receive all cash flows in proportion to your existing position
+and pay for the trades just executed.
+Let
+$$
+V_t = (\Delta_t + \Gamma_t)\cdot X_t
+$$
+be the _value_, or _marked-to-market_, of the strategy at time $t$.
+It is the amount in terms of the money market instrument of unwinding
+the current position and trades just executed at prevailing prices.
 
-If a stock pays dividend $d$ per share at time $t$ then a cash flow of $dS_t$ in the
-native currency occurs.
+__Lemma__. _Using the definitions above_
+$$
+V_t D_t = E_t[V_u D_u + \sum_{t\le s < u}A_s D_s].
+$$
+Note how $V_t$ and $A_t$ play the role of price and cash flow respectively.
+Trading strategies create synthetic market instruments.
 
-$\Delta_t = \sum_{s < t} \Gamma_s$
+__Proof__. If $u > t$ is sufficiently small then
+$Δ_t + Γ_t = Δ_u$ is $\AA_t$-measurable.
+Since $X_t D_t = E_t[(X_u + C_u) D_u]$ we have
+$$
+\begin{aligned}
+	V_t D_t &= (Δ_t + Γ_t)\cdot X_t D_t\\
+	        &= Δ_u\cdot X_t D_t\\
+	        &= Δ_u\cdot E_t[(X_u + C_u) D_u]\\
+	        &= E_t[Δ_u\cdot(X_u + C_u) D_u]\\
+	        &= E_t[(Δ_u\cdot X_u + Γ_u\cdot X_u + A_u) D_u] \\
+	        &= E_t[(V_u + A_u)D_u],\\
+\end{aligned}
+$$
+where we use $Δ_u\cdot C_u =  Γ_u\cdot X_u + A_u$.
+The displayed formula above follows by induction.
 
-$V_t = (\Delta_t + \Gamma_t)\cdot X_t$.
+## Arbitrage
 
-$A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$.
+_Arbitrage_ exists (given $D_t$ and $M_t$) if there is a finite trading strategy $(\tau_j, \Gamma_j)$
+with $A_{\tau_0} > 0$, $A_t \ge 0$ for $t > \tau_0$, and $\sum \Gamma_j = 0$;
+you make money on the initial trade and never lose money.
+The strategy must be eventually be _closed out_, $\sum_j \Gamma_j = 0$.
+
+For a trading strategy that closes out
+$V_{τ_0} D_{τ_0} = E_{τ_0}[\sum_{t > τ_{0}}{A_{t}D_{t}] \ge 0}$. 
+Since $V_{τ_0} = Γ_{τ_0} \cdot X_{τ_0}$, $A_{τ_0} = - Γ_{τ_0} \cdot X_{τ_0}$
+and $D_{τ_0} > 0$ we have $A_{τ_0} \le 0$. This shows no arbitrage can exist
+for models where prices and cash flows satisfy $X_t D_t = M_t - \sum_{s\le t}C_s D_s$.
+
+## Hedging
+
+Given cash flows $(A_t)_{t\in T}$ does there exist a trading strategy $(\tau_j, \Gamma_j)$
+producing such $A_t$? Assume $T = \{t_j\}$ with $t_j$ increasing.
+Using $V_0 = (\Delta_0 + \Gamma_0)\cdot X_0$ and $V_0 = E[\sum_{t\ge 0}A_t D_t]$
+we have $\Delta_0 + \Gamma_0 = \DD_{X_0} E[\sum_{t\ge 0}A_t D_t]$, where
+$\DD_X$ denotes the Fréchet derivative with respect to $X$.
+Similarly, $\Delta_j + \Gamma_j = \DD_{X_j} E_{t_j}[\sum_{t\ge t_j}A_t D_t]$.
+Since $\Delta_0 = 0$ this gives necessary conditions for determining $\Gamma_j$.
+The value of a derivative is the cost of setting up the initial hedge.
+$\Delta$ is the derivative of value with respect to underlying and
+$\Gamma$ the amount by which the delta hedge must be changed.
+
+These are not sufficient conditions.
+By definition we always have $V_j = (\Delta_j + \Gamma_j)\cdot X_j$. At time $t_{j+1}$ this
+will accrue to $(\Delta_j + \Gamma_j)\cdot X_{j+1}$ but there is no guarantee
+this will equal $V_{j+1}$. The difference is the _profit and loss_ for the
+hedge over the period from $t_j$ to $t_{j + 1}$. Since $V_t$ is a function of $X_t$ and $D_t$
+we can write a Taylor expansion for $\Delta V_t = V_{t + \Delta t} - V_t$ in terms of
+powers of $\Delta X_t$ and $\Delta D_t$. Risk managers use the higher order derivatives
+to "explain" profit and loss. Traders have to deal with the fact that the imperfect
+hedge throws off their replication. Quants have not yet devised a coherent theory
+to help traders deal with the various heuristics they have invented to account for this.
+
+## Dividends
+
+Some stocks pay dividends that are determined by the issuer.
+A _cash dividend_ is a fixed amount $d_u$ paid at time $u$. 
+A _proportional dividend_ pays $\delta_u S_u$ at time $u$ where $S_u$ is the
+stock price at time $u$. Short term dividends are usually announced several months
+in advance. Longer term dividends are unknown but it is reasonable to assume
+the dividends will be larger if the stock increases in price and smaller if it decreases.
+
+A _hybrid model_ specifies both proportional and discrete dividends; the stock
+pays $\delta_u S_u + d_u$ at time $u$. A schedule can be specified to weight
+short term cash dividends higher than proportional dividends and weight
+long term proportional dividends higher than cash dividends.
+
+The stock price satisfies
+$$
+	S_j D_j = M_j + \sum_{i\le j} (\delta_i S_i + d_i)D_i
+$$
+$$
+	S_0 = M_0 + \delta_0 S_0 + d_0
+$$
+$$
+	(1 - \delta_0)S_0 - d_0 = M_0
+$$
+$$
+	E[S_j D_j] = M_0 + \sum_{i\le j} \delta_i E[S_i D_i] + d_i E[D_i]
+$$
+$f_t = E[S_t D_t]$
+$$
+	f_j = M_0 + \sum_{i\le j} \delta_i f_i + d_i D(i)
+$$
+$$
+	f_{j+1} = f_j + \delta_{j+1} f_{j+1} + d_{j+1} D({j+1})
+$$
+$$
+	(1 - \delta_{j+1})f_{j+1} = f_j + d_{j+1} D({j+1})
+$$
+$$
+	f_{j+1} = (f_j + d_{j+1} D({j+1}))/(1 - \delta_{j+1})
+$$
+$$
+	f_{j+1} = ( (f_{j-1} + d_{j} D({j}))/(1 - \delta_{j}) + d_{j+1} D({j+1}))/(1 - \delta_{j+1})
+$$
+
+## Remarks
+
+Repurchase agreements determine the deflator.
+
+Stocks have dividends, bonds have coupons, futures have daily margin adjustments.
+An European option has a single cash flow at expiration.
+Currencies and commodities do not have cash flows.
+
+This model does not incorporate bid-ask spreads.
+The spread also depends on the amount being transacted and the credit quality of the two
+parties involved in the transaction.
+Cash flows are determined by the _issuer_ of the instrument and are usually zero.
+Transactions often involve cash flows with third parties such as broker commissions
+or borrowing costs. These considerations will be ignored, for now.
+
+Conditional expectation $E[X|\AA]$ is the Radon-Nykodym derivative of $(XP)|_\AA$ with respect to $P$.
