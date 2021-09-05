@@ -111,13 +111,13 @@ shares of $F$, $ν_s(F) = ν(F)F/E[F]$; if we receive $ν_s(F)$ shares
 of $F$ at expiration we can convert those at price $F$ to $ν(F)$ in
 the currency.
 
-_Share measure_ for positive underlyings is defined by $E_s[ν(F)] = E[ν(F) F/E[F]]$.
+_Share measure_ for positive underlyings is defined by $E_s[ν(F)] = E[ν_s(F)] = E[ν(F) F/E[F]]$.
 Note $F > 0$ and $E_s[1] = 1$ so share measure is a probability measure.
 It shows up in the formula for valuing a call
 $$
 \begin{aligned}
 	E[(F - k)^+] &= E[(F - k)1(F\ge k)] \\
-		&= EF1(F\ge k) - k P(F\ge k) \\
+		&= E[F1(F\ge k)] - k P(F\ge k) \\
 		&= fP_s(F\ge k) - k P(F\ge k).
 \end{aligned}
 $$
@@ -139,13 +139,13 @@ where $x = x(y) = ε_s^{-1}(y/f) = (\log y/f + κ(s))/s$ is the _moneyness_
 of $y$. Note $∂_x ε_s(x) =  ε_s(x) s$, $∂_s ε_s(x) = ε_s(x) (x - κ'(s))$, 
 and $ε_s(x(y)) = y/f$.
 
-## Greeks
+### Greeks
 
 Let $ν(F)$ be the option payoff at expiration. The forward value of
 the option is $v = E[ν(F)]$. 
 Option _delta_ is the derivative of value with respect to the forward
 $$
-∂_f v = E[ν'(F) ∂_f F] = E[ν'(F) ε_s(X)]
+∂_f v = E[ν'(F) ∂_f F] = E[ν'(F) ε_s(X)] = E_s[v'(F)]
 $$
 using $∂_f F = ε_s(X)$.
 
