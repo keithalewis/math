@@ -114,7 +114,7 @@ This is the skeleton key for valuing derivative securities.
 It shows how dynamic trading creates synthetic market instruments.
 
 __Proof__. If $u > t$ is sufficiently small then
-$X_t D_t = E_t[(X_u + C_u) D_u]$ and $Δ_t + Γ_t = Δ_u$ give
+$X_t D_t = E_t[(X_u + C_u) D_u]$ and $Δ_t + Γ_t = Δ_u$ 
 $$
 \begin{aligned}
 	V_t D_t &= (Δ_t + Γ_t)\cdot X_t D_t\\
