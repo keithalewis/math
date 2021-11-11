@@ -24,11 +24,45 @@ abstract: The algebra of time series
 \newcommand{\upto}{\operatorname{upto}}
 \newcommand{\RR}{\bm{R}}
 \newcommand{\NN}{\bm{N}}
+\newcommand{\ZZ}{\bm{Z}}
 \newcommand{\Bool}{\bm{B}}
+
+## Discrete Time Series
+
+We consider time series $X_n$ indexed by the integers $n\in\ZZ$ or non-negative integers $n\in\NN$.
+Each $X_n$ is a random variable. Two random variables $X$ and $Y$ have the same _law_ if
+they have the same cumulative distribution function $P(X\le x) = P(Y\le x)$ for all $x\in\RR$.
+Two time series have the same law if they have the same finite joint distributions
+$P(X_{n_1}\le x_1, \ldots, X_{n_k} \le x_k) = P(Y_{n_1}\le x_1, \ldots, Y_{n_k}\le x_k)$
+for all $n_1,\ldots,n_k\in\NN$ and $x_1,\ldots,x_k\in\RR$.
+
+_White noise_ is a time series where the $X_n$ are independent and have the same law.
+In this case $P(X_{n_1}\le x_1, \ldots, X_{n_k}\le x_k) = P(X_{n_1}\le x_1) \cdots P(X_{n_k}\le x_k)$
+by independence.
+
+__Exercise__. _If $X_n$ and $Y_n$ are white noise then they have the same law if and only
+if $X_0$ and $Y_0$ have the same law_.
+
+_Hint_: This also holds if $X_k$ and $Y_k$ have the same law for some $k$.
+
+This greatly simplifies the parameterization of the time series.
+
+A time series is _stationary_ if $(X_n)_n$ and $(X_{n + k})_n$ have
+the same law for all $k$. White noise is stationary.
+
+A time series $X_n$ is _autoregessive_ (AR) of order $p$
+if $X_n = W_n + \sum_{k=1}^p a_j X_{n-j}$ where
+$W_n$ is white noise. For example, _random walk_ $X_n = W_n + \cdots + W_1$
+is autoregressive or order 1 since $X_n = W_n + X_{n-1}$, so
+
+A time series $X_n$ is a _moving average_ (MA) of order $q$
+if $X_n = W_n + \sum_{j=1}^q b_j W_{n-j}$ where
+$W_n$ is white noise and $b_j\in\RR$.
+
 
 # Time Series
 
-This note provides a mathematical definintion of _time series_ and
+This note provides a mathematical definition of _time series_ and
 fundamental operations on them.
 A _time series_ is a collection of _time_-_value_
 pairs $s = \{(t, x)\}\subseteq T\times X$.
@@ -44,6 +78,7 @@ All _orders_ are transitive.
 
 __Exercise__. _Show comparable and antisymmetric imply the ordering is
 reflexive_ ($t\le t$, $t\in T)$.
+
 
 ## Time
 
