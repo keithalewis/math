@@ -21,7 +21,7 @@ abstract: Possibly infinite streams
 \newcommand\next{+}
 \newcommand\length{\operatorname{length}}
 \newcommand\u[1]{\underline{#1}}
-\newcommand\union{\amalg}
+\newcommand\union{\sqcup}
 \newcommand\if{\operatorname{if}}
 \newcommand\then{\operatorname{then}}
 \newcommand\else{\operatorname{else}}
@@ -50,14 +50,17 @@ We write $U \square t = \{u\in U\mid u \square t\}$, $U\subseteq T$, $t\in T$.
 
 __Exercise__. _Show $\next U$ is equal to $U\neq(\curr U)$_.
 
+## Disjoint Union
+
 Recall the _disjoint union_ of sets $U_i$, $0\le i < n$, 
 is $\union_i U_i = \cup_i \{i\}\times U_i$.
 The element $(j,u)$ belongs to $\union_i U_i$ if and only if
 $u\in U_j$. Define $λ(j,u) = j$ and $ρ(j, u) = u$.
 
-Define $\curr(\union_i U_i) = (j,u)$ where $u = \min_i \curr U_i$
+The ordering is $(i, u) < (j, v)$ iff $u < v$ or $u = v$ and $i < j$.
+This implies $\curr(\union_i U_i) = (j,u)$ where $u = \min_i \curr U_i$
 and $j$ is the first index with $u = \curr U_j$.
-Define $\next(\union_i U_i) = (\union_i U_i)\setminus\{\curr (\union_i U_i)\}$
+We have $\next(\union_i U_i) = (\union_i U_i)\setminus\{\curr (\union_i U_i)\}$
 as above.
 
 __Exercise__. _Show $\{\curr\next^n(\union_i U_i)\mid n\ge 0\} = \cup_j U_j$_.
@@ -67,9 +70,13 @@ __Exercise__. _Show $\{\curr\next^n(\union_i U_i)\mid n\ge 0\} = \cup_j U_j$_.
 For $U_i\subseteq T$ with $\{\curr U_j\} \le U_i$ for all $i$,
 define $(j, \uparrow_i U_i)$ as follows:
 $\curr (j, \uparrow_i U_i) = (j, \curr U_j) = (j,u)$.
-Let $\next(j, \uparrow_i U_i) = (k, \uparrow_i (U_i > u))$,
-where $k = j$ if $\curr\next U_j \le \curr(U_{j+i} > u)$
-and $k = j + 1$ otherwise.
+Let $\next(j, \uparrow_i U_i) = (j, \next u)$ if $U_{j+1}\cap(u, \next u] = \emptyset$
+otherwise $(j+1, \curr (U_{j+1}\cap(u, \next u])$.
+
+$(i, u) < (j, v)$ iff $i < j$ or $i = j$ and $u < v$.
+
+Every $(i,u)$, $(j,v)$ is comparable. If $i = j$ then $u,v\in U_i=U_j$ are comparable.
+If $i < j$ 
 
 ## Functions
 
@@ -92,3 +99,21 @@ open or end of week then sell.
 $x > y\colon\dom x\cap\dom y\to\Bool$.
 
 $B \uparrow -(((X|_B)^\rightarrow < X|_C)\union E)\uparrow$
+
+## Total Order
+
+$T$ is totally ordered complete lattice with top and bottom.
+$U\subseteq T$, $\vee U = \sup\{u\in U\}$, $\wedge U = \inf\{u\in U\}$.
+
+Define $U\square t = \{u\in U\mid u\square t\}$, $U\subseteq T$, $t\in T$,
+where $\square$ is a relation on $T\times T$.
+
+$\curr U = \wedge U$, $\next U = U\cap(U > \curr U)$.
+We say $U$ is discrete if $u_n = \curr\plus^n U$ are strictly increasing.
+
+For $U_i\subseteq T$ let $\union_i U_i = \cup_i \{i\}\times U_i$ be the discrete union.
+
+Define $(i, u) \sqsubset (j, v)$ by $u < v$ or $u = v$ and $i < j$.
+
+Define $(i, u) \prec (j, v)$ by $i < j$ or $i = j$ and $u < v$.
+
