@@ -149,19 +149,19 @@ $$
 \end{aligned}
 $$
 
-## Value
+## Valuation
 
 If a derivative security pays amounts $\bar{A}_j$ at times $\bar{τ}_j$ and there is
-a hedge, $(Γ_t)_{t\in T}$, that replicates these amounts then the value
-of the derivative is the cost of setting up the initial hedge: $Γ_0\cdot X_0$.
+a hedge, $(\bar{Γ}_t)_{t\in T}$, that replicates these amounts then the value
+of the derivative is the cost of setting up the initial hedge: $\bar{Γ}_0\cdot X_0$.
 The hedge must satisfy $A_t = 0$ if $t ≠ \bar{τ}_j$ for all $j$ (_self financing_)
 and $A_t = \bar{A}_j$ if $t = \bar{τ}_j$ for some $j$.
 The formula $V_0 = E[\sum_j \bar{A}_j D_{\bar{τ}_j}]$ gives the
-cost of the initial hedge since $V_0 = Γ_0\cdot X_0$.
+cost of the initial hedge since $V_0 = \bar{Γ}_0\cdot X_0$.
 
 European options have a single payment, $\bar{A}_T$, at a fixed time $T$
-and have value $V_0 = E \bar{A}_T D_T$. Sometimes it is useful to compute this
-as $E \bar{A}_T D_T = E^* \bar{A}_T E D_T$, where $E^*$ is the expected value under
+and have value $V_0 = E[\bar{A}_T D_T]$. Sometimes it is useful to compute this
+as $E[\bar{A}_T D_T] = E^*[\bar{A}_T E D_T]$, where $E^*$ is the expected value under
 the probability measure defined by $dP^*/dP =
 D_T/E D_T$. This is called the _forward measure_ at time $T$.
 
