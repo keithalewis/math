@@ -132,8 +132,8 @@ Since $V_{τ_0} = Γ_{τ_0} \cdot X_{τ_0}$, $A_{τ_0} = - Γ_{τ_0} \cdot X_{τ
 and $D_{τ_0} > 0$ we have $A_{τ_0} \le 0$.
 This proves the "easy" direction of the FTAP.
 
-There is no need to prove the "hard" direction since we have a large supply of arbitrage free models
--- all models of the form
+There is no need to prove the "hard" direction since we have a large supply of arbitrage free models.
+All models of the form
 $X_t D_t = M_t - \sum_{s \le t}{C_s D_s}$ where
 $M_t:\AA_t \rightarrow \RR^{I}$ is a martingale and
 $D_t:\AA_t \rightarrow (0,\infty)$ are arbitrage free.
@@ -161,7 +161,7 @@ cost of the initial hedge since $V_0 = \bar{Γ}_0\cdot X_0$.
 
 European options have a single payment, $\bar{A}_T$, at a fixed time $T$
 and have value $V_0 = E[\bar{A}_T D_T]$. Sometimes it is useful to compute this
-as $E[\bar{A}_T D_T] = E^*[\bar{A}_T E D_T]$, where $E^*$ is the expected value under
+as $E[\bar{A}_T D_T] = E^*[\bar{A}_T] E[D_T]$, where $E^*$ is the expected value under
 the probability measure defined by $dP^*/dP =
 D_T/E D_T$. This is called the _forward measure_ at time $T$.
 
