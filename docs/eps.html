@@ -4,8 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="author" content="Keith A. Lewis" />
-  <title>Monoid</title>
+  <title>eps</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -26,7 +25,7 @@
       displayMode: mathElements[i].classList.contains('display'),
       throwOnError: false,
       macros: macros,
-      fleqn: true
+      fleqn: false
      });
   }}});
   </script>
@@ -41,12 +40,24 @@
   -->
 </head>
 <body>
-<header id="title-block-header">
-<h1 class="title">Monoid</h1>
-<p class="author">Keith A. Lewis</p>
-</header>
-<p>A moniod is a set <span class="math inline">M</span> with a binary operation <span class="math inline">M\times M\to M</span> that is associative and has an identity element <span class="math inline">e</span>. If <span class="math inline">s,t\in M</span> we write <span class="math inline">st\in M</span> for the result of the binary operation. The identity satisfies <span class="math inline">es = s = se</span>, <span class="math inline">s\in M</span>. The associative law is <span class="math inline">(st)u = s(tu)</span> so <span class="math inline">stu</span> is unambiguous.</p>
-<p>Given a function <span class="math inline">\mu\colon M\to\bm{R}</span> with <span class="math inline">\mu e = 0</span> we can define a measure on finite subsets of <span class="math inline">S\subseteq M</span> by <span class="math inline">\mu(S) = \sum_{s\in S} \mu s</span>.</p>
+<section id="epsilon" class="level1">
+<h1>Epsilon</h1>
+<p><span class="math inline">f(x + a\epsilon) = \sum_{n=0}^\infty f^{(n)}(x_0)a^n\epsilon^n/n!</span>.</p>
+<p><span class="math display">
+\begin{aligned}
+f(x + a\epsilon + b\epsilon^2)
+&amp;= f(x + (a + b\epsilon)\epsilon) \\
+&amp;= \sum_{n=0}^\infty f^{(n)}(x)(a + b\epsilon)^n\epsilon^n/n! \\
+&amp;= \sum_{n=0}^\infty f^{(n)}(x) (\sum_{k=0}^n\binom{n}{k} a^{n-k} b^k\epsilon^k)\epsilon^n/n!\\
+&amp;= \sum_{k=0}^\infty \sum_{n=k}^\infty f^{(n)}(x) (\binom{n}{k} a^{n-k} b^k\epsilon^k)\epsilon^n/n!\\
+&amp;= \sum_{k=0}^\infty \sum_{n=0}^\infty f^{(n+k)}(x) (\binom{n+k}{k} a^n b^k\epsilon^k)\epsilon^{n + k}/(n + k)!\\
+&amp;= \sum_{k=0}^\infty b^k\epsilon^{2k} \sum_{n=0}^\infty f^{(n+k)}(x) (\binom{n+k}{k} a^n)\epsilon^n/(n + k)!\\
+&amp;= \sum_{k=0}^\infty b^k\epsilon^{2k}/k! \sum_{n=0}^\infty f^{(n+k)}(x) a^n\epsilon^n/n!\\
+&amp;= \sum_{k=0}^\infty b^k\epsilon^{2k}/k! d^k/dx^k \sum_{n=0}^\infty f^{(n)}(x) a^n\epsilon^n/n!\\
+&amp;= \sum_{k=0}^\infty b^k\epsilon^{2k}/k! d^k/dx^k f(x + a\epsilon)\\
+\end{aligned}
+</span></p>
+</section>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

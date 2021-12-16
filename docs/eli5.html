@@ -4,8 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="author" content="Keith A. Lewis" />
-  <title>Monoid</title>
+  <title>eli5</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -26,7 +25,7 @@
       displayMode: mathElements[i].classList.contains('display'),
       throwOnError: false,
       macros: macros,
-      fleqn: true
+      fleqn: false
      });
   }}});
   </script>
@@ -41,12 +40,28 @@
   -->
 </head>
 <body>
-<header id="title-block-header">
-<h1 class="title">Monoid</h1>
-<p class="author">Keith A. Lewis</p>
-</header>
-<p>A moniod is a set <span class="math inline">M</span> with a binary operation <span class="math inline">M\times M\to M</span> that is associative and has an identity element <span class="math inline">e</span>. If <span class="math inline">s,t\in M</span> we write <span class="math inline">st\in M</span> for the result of the binary operation. The identity satisfies <span class="math inline">es = s = se</span>, <span class="math inline">s\in M</span>. The associative law is <span class="math inline">(st)u = s(tu)</span> so <span class="math inline">stu</span> is unambiguous.</p>
-<p>Given a function <span class="math inline">\mu\colon M\to\bm{R}</span> with <span class="math inline">\mu e = 0</span> we can define a measure on finite subsets of <span class="math inline">S\subseteq M</span> by <span class="math inline">\mu(S) = \sum_{s\in S} \mu s</span>.</p>
+<p>Start with account containing <span class="math inline">A</span>.</p>
+<p>Buy <span class="math inline">Γ_0</span> shares at price <span class="math inline">X_0</span>.</p>
+<p><span class="math inline">A_0 = A - Γ_0 X_0</span>.</p>
+<p><span class="math inline">V_0 = A_0 + Γ_0 X_0 = A - Γ_0 X_0 + Γ_0 X_0 = A</span>.</p>
+<p><span class="math inline">A_1 = A_0 - Γ_1 X_1 = A - Γ_0 X_0 - Γ_1 X_1</span>.</p>
+<p><span class="math display">
+\begin{aligned}
+V_1 &amp;= A_1 + (Γ_0 + Γ_1)X_1 \\
+    &amp;= A - Γ_0 X_0 - Γ_1 X_1 + (Γ_0 + Γ_1)X_1 \\
+    &amp;= A + Γ_0(X_1 - X_0) \\
+\end{aligned}
+</span></p>
+<p><span class="math inline">A_2 = A_1 - Γ_2 X_2 = A - Γ_0 X_0 - Γ_1 X_1 - Γ_2 X_2</span></p>
+<p>$$</p>
+<p><span class="math inline">A_n = A - \sum_{j=0}^n Γ_j X_j</span>.</p>
+<p><span class="math inline">V_n = A + \sum_{j=0}^{n-1} Γ_j(X_n - X_j)</span>.</p>
+<p><span class="math inline">0 = \sum_^n Γ_j</span>, <span class="math display">
+\begin{aligned}
+A_n &amp;= A - \sum_{j=0}^{n-1} Γ_j X_j + (\sum_{j=0}^{n-1} Γ_j) X_n \\
+    &amp;= A + \sum_{j=0}^{n-1} (X_n - X_j) \\
+\end{aligned}
+</span></p>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

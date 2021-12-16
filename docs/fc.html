@@ -6,16 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Functional Calculus</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body);
-  });</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
@@ -23,32 +41,34 @@
   -->
 </head>
 <body>
-<header>
+<header id="title-block-header">
 <h1 class="title">Functional Calculus</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-
-<p>If <span class="math inline">\(T\colon V\to V\)</span> is a linear transformation on the vector space <span class="math inline">\(V\)</span> then <span class="math inline">\(p(T)\)</span> is well-defined for any polynomial <span class="math inline">\(p\)</span>. This is the <em>polynomial functional calculus</em>. Recall the <em>spectrum</em> <span class="math inline">\(σ(T)\)</span> is the set of complex numbers <span class="math inline">\(λ\in\bm{C}\)</span> such that <span class="math inline">\(T - λ I\)</span> is not invertable, where <span class="math inline">\(I\)</span> is the identity operator. If <span class="math inline">\(v\)</span> is an eigenvector with eigenvalue <span class="math inline">\(λ\)</span> then <span class="math inline">\(λ\in σ(T)\)</span> since <span class="math inline">\(T - λ I\)</span> has <span class="math inline">\(v \not= 0\)</span> in its kernel.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">\(V\)</span> is finite dimensional the spectrum of <span class="math inline">\(T\)</span> is the set of eigenvalues of <span class="math inline">\(T\)</span></em>.</p>
-<p>Scalar multiples of an eigenvector form a one-dimensional invariant subspace but it is not trivial to find eigenvectors. The polynomial functional calculus can be used to find invariant subspaces. For any polynomial <span class="math inline">\(p\)</span> the kernel of <span class="math inline">\(p(T)\)</span> is an invariant subspace for <span class="math inline">\(T\)</span>. A vector <span class="math inline">\(v\)</span> is in the kernel of <span class="math inline">\(p(T)\)</span> if and only if <span class="math inline">\(p(T)v = 0\)</span>. Since <span class="math inline">\(p(T)T = Tp(T)\)</span> we have <span class="math inline">\(p(T)Tv = Tp(T)v = 0\)</span> so <span class="math inline">\(Tv\)</span> is in the kernel of <span class="math inline">\(p(T)\)</span>.</p>
-<p>If <span class="math inline">\(p(T)\)</span> is invertible then <span class="math inline">\(\operatorname{ker}p(T) = \{0\}\)</span> is trivially invariant. The <em>spectral mapping theorem</em> can tell us when <span class="math inline">\(p(T)\)</span> is not invertable.</p>
-<p><strong>Theorem</strong>. <em>For any polynomial <span class="math inline">\(p\)</span>, <span class="math inline">\(σ(p(T)) = p(σ(T))\)</span></em>.</p>
+<p>If <span class="math inline">T\colon V\to V</span> is a linear transformation on the vector space <span class="math inline">V</span> then <span class="math inline">p(T)</span> is well-defined for any polynomial <span class="math inline">p</span>. This is the <em>polynomial functional calculus</em>. Recall the <em>spectrum</em> <span class="math inline">σ(T)</span> is the set of complex numbers <span class="math inline">λ\in\bm{C}</span> such that <span class="math inline">T - λ I</span> is not invertable, where <span class="math inline">I</span> is the identity operator. If <span class="math inline">v</span> is an eigenvector with eigenvalue <span class="math inline">λ</span> then <span class="math inline">λ\in σ(T)</span> since <span class="math inline">T - λ I</span> has <span class="math inline">v \not= 0</span> in its kernel.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">V</span> is finite dimensional the spectrum of <span class="math inline">T</span> is the set of eigenvalues of <span class="math inline">T</span></em>.</p>
+<p>Scalar multiples of an eigenvector form a one-dimensional invariant subspace but it is not trivial to find eigenvectors. The polynomial functional calculus can be used to find invariant subspaces. For any polynomial <span class="math inline">p</span> the kernel of <span class="math inline">p(T)</span> is an invariant subspace for <span class="math inline">T</span>. A vector <span class="math inline">v</span> is in the kernel of <span class="math inline">p(T)</span> if and only if <span class="math inline">p(T)v = 0</span>. Since <span class="math inline">p(T)T = Tp(T)</span> we have <span class="math inline">p(T)Tv = Tp(T)v = 0</span> so <span class="math inline">Tv</span> is in the kernel of <span class="math inline">p(T)</span>.</p>
+<p>If <span class="math inline">p(T)</span> is invertible then <span class="math inline">\operatorname{ker}p(T) = \{0\}</span> is trivially invariant. The <em>spectral mapping theorem</em> can tell us when <span class="math inline">p(T)</span> is not invertable.</p>
+<p><strong>Theorem</strong>. <em>For any polynomial <span class="math inline">p</span>, <span class="math inline">σ(p(T)) = p(σ(T))</span></em>.</p>
 <details>
-<p><summary>Solution</summary> For any <span class="math inline">\(λ\in\bm{C}\)</span> and any polynomial <span class="math inline">\(p\)</span> we have <span class="math inline">\(p(z) - p(λ) = (z - λ)q(z)\)</span> for some polynomial <span class="math inline">\(q\)</span> so <span class="math inline">\(p(T) - p(λ)I = (T - λI)q(T)\)</span>.</p>
-<p>If <span class="math inline">\(λ\in σ(T)\)</span> then <span class="math inline">\(T - λI\)</span> is not invertable so <span class="math inline">\(p(T) - p(λ)I\)</span> is not invertable. This shows <span class="math inline">\(p(λ)\in σ(p(T))\)</span>.</p>
-<p>We also have <span class="math inline">\(p(z) - p(λ) = (z - λ)^k q(z)\)</span> where <span class="math inline">\(q(λ)\not=0\)</span> for some <span class="math inline">\(k\)</span> since <span class="math inline">\(p\)</span> is a polynomial.</p>
+<summary>
+Solution
+</summary>
+<p>For any <span class="math inline">λ\in\bm{C}</span> and any polynomial <span class="math inline">p</span> we have <span class="math inline">p(z) - p(λ) = (z - λ)q(z)</span> for some polynomial <span class="math inline">q</span> so <span class="math inline">p(T) - p(λ)I = (T - λI)q(T)</span>.</p>
+<p>If <span class="math inline">λ\in σ(T)</span> then <span class="math inline">T - λI</span> is not invertable so <span class="math inline">p(T) - p(λ)I</span> is not invertable. This shows <span class="math inline">p(λ)\in σ(p(T))</span>.</p>
+<p>We also have <span class="math inline">p(z) - p(λ) = (z - λ)^k q(z)</span> where <span class="math inline">q(λ)\not=0</span> for some <span class="math inline">k</span> since <span class="math inline">p</span> is a polynomial.</p>
 </details>
-<p>If <span class="math inline">\(0\in σ(p(T))\)</span> then <span class="math inline">\(p(T)\)</span> is not invertable and its kernel is an invariant subspace.</p>
-<p>For any <span class="math inline">\(λ\in σ(T)\)</span> the polynomial <span class="math inline">\(p(z) = (z - λ)q(z)\)</span>, where <span class="math inline">\(q\)</span> is a polynomial, satisfies <span class="math inline">\(p(λ) = 0\)</span> so <span class="math inline">\(\operatorname{ker}p(T)\)</span> is an invariant subspace.</p>
-<p>we can find a polynomial <span class="math inline">\(e_λ\)</span> with <span class="math inline">\(e_λ(λ) = 1\)</span> and <span class="math inline">\(e_λ(μ) = 0\)</span> if <span class="math inline">\(μ\in σ(T)\)</span> and <span class="math inline">\(μ \not= λ\)</span>.</p>
-<p>If <span class="math inline">\(V\)</span> has a norm we can use that to define a norm on operators <span class="math inline">\(\|T\| = \sup_{\|v\| = 1}\|Tv\|\)</span>.</p>
-<p>If <span class="math inline">\(T\)</span> is bounded then so is <span class="math inline">\(σ(T)\)</span> since <span class="math inline">\((T - λ I)^{-1} = \sum_{n\ge0} T^n/λ^{n+1}\)</span> converges if <span class="math inline">\(λ &gt; \|T\|\)</span>. Since <span class="math inline">\(λ\mapsto (T - λ I)^{-1}\)</span> is continuous the complement of the spectrum is an open set.</p>
-<p>Let <em>little ell two</em> be the vector space of square-summable sequences <span class="math inline">\(\ell^2 = \{(z_n):\sum_n |z_n|^2 &lt; \infty\}\)</span> where <span class="math inline">\(z_n\in\bm{C}\)</span> are complex numbers. This is a Hilbert space with inner product <span class="math inline">\(z·w = \sum_n z_n\overline{w_n}\)</span>. Define the <em>right shift operator</em> <span class="math inline">\(S\colon\ell^2\to\ell^2\)</span> by <span class="math inline">\(S(z_0, z_1, \ldots) = (0, z_0, z_1,\ldots)\)</span>.</p>
+<p>If <span class="math inline">0\in σ(p(T))</span> then <span class="math inline">p(T)</span> is not invertable and its kernel is an invariant subspace.</p>
+<p>For any <span class="math inline">λ\in σ(T)</span> the polynomial <span class="math inline">p(z) = (z - λ)q(z)</span>, where <span class="math inline">q</span> is a polynomial, satisfies <span class="math inline">p(λ) = 0</span> so <span class="math inline">\operatorname{ker}p(T)</span> is an invariant subspace.</p>
+<p>we can find a polynomial <span class="math inline">e_λ</span> with <span class="math inline">e_λ(λ) = 1</span> and <span class="math inline">e_λ(μ) = 0</span> if <span class="math inline">μ\in σ(T)</span> and <span class="math inline">μ \not= λ</span>.</p>
+<p>If <span class="math inline">V</span> has a norm we can use that to define a norm on operators <span class="math inline">\|T\| = \sup_{\|v\| = 1}\|Tv\|</span>.</p>
+<p>If <span class="math inline">T</span> is bounded then so is <span class="math inline">σ(T)</span> since <span class="math inline">(T - λ I)^{-1} = \sum_{n\ge0} T^n/λ^{n+1}</span> converges if <span class="math inline">λ &gt; \|T\|</span>. Since <span class="math inline">λ\mapsto (T - λ I)^{-1}</span> is continuous the complement of the spectrum is an open set.</p>
+<p>Let <em>little ell two</em> be the vector space of square-summable sequences <span class="math inline">\ell^2 = \{(z_n):\sum_n |z_n|^2 &lt; \infty\}</span> where <span class="math inline">z_n\in\bm{C}</span> are complex numbers. This is a Hilbert space with inner product <span class="math inline">z·w = \sum_n z_n\overline{w_n}</span>. Define the <em>right shift operator</em> <span class="math inline">S\colon\ell^2\to\ell^2</span> by <span class="math inline">S(z_0, z_1, \ldots) = (0, z_0, z_1,\ldots)</span>.</p>
 <p><strong>Exercise</strong>. <em>Show the right shift operator does not have any eigenvectors</em>.</p>
-<p><em>Hint</em>: If <span class="math inline">\(Sz = λz\)</span> then <span class="math inline">\(0 = λz_0\)</span>, <span class="math inline">\(z_1 = λz_0\)</span>, <span class="math inline">\(\ldots\)</span>.</p>
-<p>The <em>adjoint</em> of the right shift operator is the <em>left shift operator</em> <span class="math inline">\(S^*(z_0, z_1, \ldots) = (z_1, z_2,\ldots)\)</span>. It has lots of eigenvectors. If <span class="math inline">\(z = (λ^n)\)</span> then <span class="math inline">\(S^*z = λz\)</span> and <span class="math inline">\(z\in\ell^2\)</span> if <span class="math inline">\(|λ| &lt; 1\)</span>.</p>
+<p><em>Hint</em>: If <span class="math inline">Sz = λz</span> then <span class="math inline">0 = λz_0</span>, <span class="math inline">z_1 = λz_0</span>, <span class="math inline">\ldots</span>.</p>
+<p>The <em>adjoint</em> of the right shift operator is the <em>left shift operator</em> <span class="math inline">S^*(z_0, z_1, \ldots) = (z_1, z_2,\ldots)</span>. It has lots of eigenvectors. If <span class="math inline">z = (λ^n)</span> then <span class="math inline">S^*z = λz</span> and <span class="math inline">z\in\ell^2</span> if <span class="math inline">|λ| &lt; 1</span>.</p>
 <p>The polynomial functional calculus gives us a subspace for each point in the spectrum.</p>
-<p><strong>Lemma</strong>. (Spectral mapping theorem) <em>If <span class="math inline">\(p\)</span> is a polynomial then <span class="math inline">\(p(σ(T)) = σ(p(T))\)</span></em>.</p>
+<p><strong>Lemma</strong>. (Spectral mapping theorem) <em>If <span class="math inline">p</span> is a polynomial then <span class="math inline">p(σ(T)) = σ(p(T))</span></em>.</p>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

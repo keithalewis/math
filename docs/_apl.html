@@ -6,16 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>APL</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body);
-  });</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: true
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
@@ -23,83 +41,109 @@
   -->
 </head>
 <body>
-<header>
+<header id="title-block-header">
 <h1 class="title">APL</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<section id="notation" class="level1">
-<h1>Notation</h1>
-
-
-
 <p>Let’s give names to things.</p>
-<section id="types" class="level2">
-<h2>Types</h2>
-<p>Types are classified by mathematical objects: monoids, groups, rings, fields.</p>
-<p><em>Primitive types</em> are <em>boolean</em> (field), <em>natural number</em> (monoid), <em>integer</em> (abelian group, ring), <em>real number</em> (field), <em>string</em> (monoid).</p>
-<p><em>Types</em> are either primitive types, <em>products</em> of types, or <em>coproducts</em> of types.</p>
-<p>An <em>array</em> is a product of homogenous types. Arrays are written <span class="math inline">\((x_i)\)</span>, <span class="math inline">\(x_i \in X\)</span>.</p>
-<p>A <em>tuple</em> is a product of not necessarily homogenous types. Tuples are written <span class="math inline">\(\langle x_i\rangle\)</span>, <span class="math inline">\(x_i\in X_i\)</span>.</p>
-<p>A coproduct is a <em>variant type</em> that can take on distinguished values. It is a <em>dijoint union</em> of types that is a union plus information of which set an element belongs to.</p>
-<p>An <em>exponential</em> is the set of all functions from one type to another that preserves the types.</p>
+<section id="primitive-type" class="level2">
+<h2>Primitive Type</h2>
+<p>The <em>primitive types</em> are booleans <span class="math inline">\bm{B}</span>, integers <span class="math inline">\bm{Z}</span>, non-negative integers <span class="math inline">\bm{Z}</span>, real numbers <span class="math inline">\bm{R}</span>, and characters <span class="math inline">\bm{C}</span>. We have <span class="math inline">\bm{B}\subseteq\bm{N}\subseteq\bm{Z}\subseteq\bm{R}</span> as rings. We assume <span class="math inline">u\colon\bm{C}\to\bm{N}</span> is an encoding of the set of characters. (E.g., UTF-8 codepoints)</p>
+<p>Primitive types are classified by mathematical objects: set, monoid, group, ring, field: boolean (field), integer (commutative ring), natural number (monoid), real number (field), character (set).</p>
+<p>We write <span class="math inline">\bm{B}= \{\square,\blacksquare\}</span> where <span class="math inline">\square</span> represents false and <span class="math inline">\blacksquare</span> represents true.</p>
 </section>
-<section id="product" class="level2">
-<h2>Product</h2>
-<p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are sets then <span class="math inline">\(X\prod Y = \{(x,y)\mid x\in X, y\in Y\}\)</span> is the <em>cartesian product</em> of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
-<p>The <em>projections</em> <span class="math inline">\(\pi_0\colon X\prod Y\to X\)</span> where <span class="math inline">\(\pi_0(x,y) = x\)</span> and <span class="math inline">\(\pi_1\colon X\prod Y\to Y\)</span> where <span class="math inline">\(\pi_1(x,y) = y\)</span> characterize the cartesian product. If <span class="math inline">\(p_0\colon Z\to X\)</span> and <span class="math inline">\(p_1\colon Z\to Y\)</span> there exists <span class="math inline">\(p\colon Z\to X\prod Y\)</span> with <span class="math inline">\(\pi_0p = p_0\)</span> and <span class="math inline">\(\pi_1p = p_1\)</span>.</p>
-<p><em>Array</em>: <span class="math inline">\(x\in\prod_i X\)</span> is written <span class="math inline">\(x = (x_i)\)</span>.</p>
-<p><em>Tuple</em>: <span class="math inline">\(x\in\prod_i X_i\)</span> is written <span class="math inline">\(x = \langle x_i\rangle\)</span>.</p>
+<section id="type" class="level2">
+<h2>Type</h2>
+<p>If <span class="math inline">X</span>, <span class="math inline">X_i</span> are types</p>
+<p><em>array</em> <span class="math inline">x = [x_1,\ldots,x_n]\in X^n\cong n\to X</span>, <span class="math inline">x[i] = x_i</span>.</p>
+<p><em>tuple</em> <span class="math inline">x = \langle x_1,\ldots,x_n\rangle\in\prod X_{i\in\bm{N}}</span>, <span class="math inline">n\to(\prod X_i\to X_i)</span>, <span class="math inline">n\mapsto π_i</span>, <span class="math inline">x\langle i\rangle = π_i(x) = x_i</span>.</p>
+<p><em>union</em> <span class="math inline">x = \{\ldots,x_i,\ldots\} = \langle i,x_i\rangle\in\coprod_{i\in n} X_i</span>, <span class="math inline">n\to(X_i\to\coprod X_i)</span>, <span class="math inline">n\mapsto ν_i</span>, <span class="math inline">x\{i\} = ν_i(x) = \langle i,x_i\rangle</span>.</p>
+<p><em>sequence</em> <span class="math inline">x = (x_0,\ldots,x_{n-1}) \in X^* = \coprod_{n\in\bm{N}} X^n</span> and define <span class="math inline">*x = x_0</span>, <span class="math inline">+x = (x_1,\ldots,x_{n-1})</span>, <span class="math inline">?x</span> if and only if <span class="math inline">n\ge 0</span>, i.e., <span class="math inline">x</span> is not empty. Note <span class="math inline">x\in\operatorname{dom}*</span> iff <span class="math inline">?x</span>. Define <span class="math inline">x = y</span> if <span class="math inline">*x = *y</span> and <span class="math inline">+x = +y</span> or if <span class="math inline">x</span> and <span class="math inline">y</span> are both empty.</p>
+<p>The function <em>concatenate</em> <span class="math inline">,\colon X^*\times X^*\to X^*</span> written <span class="math inline">,(x,y) = x,y</span> is defined by <span class="math inline">*(x,y) = *x</span> if <span class="math inline">?x</span> and <span class="math inline">*y</span> if not <span class="math inline">?x</span>, <span class="math inline">+(x,y) = (+x,y)</span> if <span class="math inline">?x</span> and <span class="math inline">(x,+y)</span> if not <span class="math inline">?x</span>, <span class="math inline">?(x,y) = ?x\vee ?y</span> where <span class="math inline">\vee</span> is logical or. Note <span class="math inline">x,() = x</span> and <span class="math inline">(),y = y</span> for <span class="math inline">x,y\in X^*</span> so sequences are a monoid under concatenation with unit the empty sequence.</p>
+<p>If <span class="math inline">x = (x_0,\ldots,x_{n-1})</span> is a sequence let <span class="math inline">[x] = [x_0,\ldots,x_{n-1}]\in X^n</span> be the array it determines and <span class="math inline">\langle x\rangle = \langle x_0,\ldots,x_{n-1}\rangle</span> be the (homogeneous) tuple it determines.</p>
+<p><em>exponential</em> <span class="math inline">f\in Y^X = \{f\colon X\to Y\}</span> is the set of all functions from <span class="math inline">X</span> to <span class="math inline">Y</span>. We also write <span class="math inline">X\to Y</span> for <span class="math inline">Y^X</span>.</p>
+<p><em>relation</em> <span class="math inline">R\subseteq X\times Y</span>. Write <span class="math inline">xRy</span> for <span class="math inline">\langle x,y\rangle\in R</span> and <span class="math inline">R&#39; = \{\langle y, x\rangle \mid xRy\}\subseteq Y\times X</span> for its <em>transpose</em>. The <em>domain</em> of <span class="math inline">R</span> is <span class="math inline">\operatorname{dom}R = π_X(R)\subseteq X</span> and the <em>range</em> is <span class="math inline">\operatorname{ran}R = π_Y(R)\subseteq Y</span>. The <em>right coset</em> <span class="math inline">xR = \{y\in Y \mid xRy\}\subseteq Y</span> for <span class="math inline">x\in X</span>, the <em>left coset</em> <span class="math inline">Ry = \{x\in X \mid xRy\}\subseteq X</span> for <span class="math inline">y\in Y</span>. The right cosets <span class="math inline">\{xR \mid x\in X\}</span> parition <span class="math inline">\operatorname{ran}R</span> and the left cosets <span class="math inline">\{Ry \mid y\in Y\}</span> partition <span class="math inline">\operatorname{dom}R</span>.</p>
+<p>The <em>graph</em> of a function <span class="math inline">f\in Y^X</span> is <span class="math inline">\{\langle x,y\rangle \mid f(x) = y\}\subseteq X\times Y</span>. A relation <span class="math inline">R</span> is a function if the <em>right coset</em> <span class="math inline">xR</span> is a singleton for all <span class="math inline">x\in X</span> and we write <span class="math inline">R(x)</span> for that unique element.</p>
+<p><em>itoa</em> is <span class="math inline">ι = (0,1,2,\ldots)\in\bm{N}^*</span></p>
 </section>
-<section id="coproduct" class="level2">
-<h2>Coproduct</h2>
-<p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are sets then <span class="math inline">\(X\coprod Y = \{(i,z)\mid\text{where }z\in X, i = 0 \text{ or } z\in Y, i = 1\}\)</span> is the <em>coproduct</em> of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
-<p>The <em>inclusions</em> <span class="math inline">\(\nu_0\colon X\to X\sqcup Y\)</span> where <span class="math inline">\(\nu_0(x) = (0,x)\)</span> and <span class="math inline">\(\nu_1\colon Y\to X\sqcup Y\)</span> where <span class="math inline">\(\nu_0(y) = (1,y)\)</span> characterize the coproduct. If <span class="math inline">\(n_0\colon X\to Z\)</span> and <span class="math inline">\(n_1\colon Y\to Z\)</span> there exists <span class="math inline">\(n\colon X\sqcup Y\to Z\)</span> with <span class="math inline">\(n\nu_0 = n_0\)</span> and <span class="math inline">\(n\nu_1 = n_1\)</span>.</p>
+<section id="function" class="level2">
+<h2>Function</h2>
+<p>The function <em>take</em> is <span class="math inline">\uparrow\colon\bm{N}\times X^*\to X^*</span> defined by <span class="math inline">\uparrow(n,x) = (*x), \uparrow(n - 1, +x))</span>, <span class="math inline">\uparrow(0,x) = ()</span>, <span class="math inline">\uparrow(n,()) = ()</span>, where <span class="math inline">(x_0, ()) = x_0</span>.</p>
+<p>The function <em>drop</em> is <span class="math inline">\downarrow\colon\bm{N}\times X^*\to X^*</span> defined by <span class="math inline">\downarrow(n,x) = \downarrow(n - 1, +x)</span>, <span class="math inline">\downarrow(0,x) = x</span>, <span class="math inline">\downarrow(n,()) = ()</span>.</p>
+<p>The function <em>itoa</em> is <span class="math inline">ι\colon\bm{N}\to \bm{N}^*</span> <span class="math inline">ι\mapsto (0,\ldots,n-1)</span>.</p>
 </section>
-<section id="exponential" class="level2">
-<h2>Exponential</h2>
-<p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are sets the <em>exponential</em> <span class="math inline">\(Y^X = \{X\to Y\} = \{f\colon X\to Y\}\)</span> is the set of functions from <span class="math inline">\(X\)</span> to <span class="math inline">\(Y\)</span>.</p>
+<section id="operation" class="level2">
+<h2>Operation</h2>
+<p>The <em>evaluation function</em> <span class="math inline">ε_Y^X = ε\colon (X\to Y)\times X\to Y</span> is <span class="math inline">ε(f,x) = f(x)\in Y</span>, <span class="math inline">f\in Y^X</span>, <span class="math inline">x\in X</span>.</p>
+<p>monoid folds <span class="math inline">\star\colon X\times X\to X</span></p>
+<p>left fold <span class="math inline">(\star\colon X^n\to X</span>, <span class="math inline">(\star(x_0,\ldots,x_n) = x_0\star(x_1\dots x_n)</span></p>
+<p>right fold <span class="math inline">)\star\colon X^n\to X</span>, <span class="math inline">)\star(x_0,\ldots,x_n) = (x_0\dots x_{n-1})\star x_n</span></p>
+<section id="curry" class="level3">
+<h3>Curry</h3>
+<p>The <em>curry function</em> <span class="math inline">γ\colon ((X\times Y)\to Z)\to (X\to(Y\to Z))</span> is <span class="math inline">(γ(f)(x))(y) = f(x,y)\in Z</span>, <span class="math inline">f\in X\times Y\to Z</span>, <span class="math inline">x\in X</span>, <span class="math inline">y\in Y</span>.</p>
+<p>The <em>uncurry function</em> <span class="math inline">γ^*\colon ((X\to (Y\to Z))\to (X\times Y\to Z)</span> is <span class="math inline">(γ^*(f))(x,y) = f(x,y)\in Z</span>, <span class="math inline">f\in X\to(Y\to Z)</span>, <span class="math inline">x\in X</span>, <span class="math inline">y\in Y</span>.</p>
 </section>
-<section id="evaluation" class="level2">
-<h2>Evaluation</h2>
-<p>The <em>evaluation function</em> <span class="math inline">\(e_Y^X = e\colon Y^X\prod X\to Y\)</span> is <span class="math inline">\(e(f,x) = f(x)\in Y\)</span>, <span class="math inline">\(f\in Y^X\)</span>, <span class="math inline">\(x\in X\)</span>.</p>
 </section>
-<section id="curry" class="level2">
-<h2>Curry</h2>
-<p>The <em>curry function</em> <span class="math inline">\(\gamma\colon \{X\prod Y\to Z\}\to \{X\to\{Y\to Z\}\}\)</span> is <span class="math inline">\((\gamma(f)x)y = f(x,y)\in Z\)</span>, <span class="math inline">\(f\in \{X\prod Y\to Z\}\)</span>, <span class="math inline">\(x\in X\)</span>, <span class="math inline">\(y\in Y\)</span>.</p>
-<p>The <em>uncurry function</em> <span class="math inline">\(\gamma^*\colon \{X\to\{Y\to Z\}\}\to \{X\prod Y\to Z\}\)</span> is <span class="math inline">\(\gamma^*(f)(x,y) = f(x,y)\in Z\)</span>, <span class="math inline">\(f\in \{X\to\{Y\to Z\}\}\)</span>. ## Reshape</p>
-<p>The <em>reshape</em> function <span class="math inline">\(\rho = \rho_{n_0,...,n_{k-1}}\colon\iota n_0\prod\cdots\prod\iota n_{k-1}\to\iota n_0\cdots n_{k-1}\)</span> is defined by <span class="math inline">\(\rho(i_0, i_1, \ldots, i_{k-1}) = i_0 + n_0(\rho(i_1, \ldots, n_{k-1}))\)</span>.</p>
-<p>Every element <span class="math inline">\(x\in X^{\iota n}\)</span> corresponds to a function <span class="math inline">\(x\colon\iota n\to X\)</span>. The composition <span class="math inline">\(x\rho\colon n_0\prod\cdots\prod\iota n_{k-1}\to X\)</span> reshapes <span class="math inline">\(x\)</span>.</p>
-</section>
-<section id="partition" class="level2">
-<h2>Partition</h2>
-<p>A function <span class="math inline">\(p\colon X\to\iota n\)</span> determines a <em>partition</em> on <span class="math inline">\(X\)</span> where <span class="math inline">\(i\sim i&#39;\)</span> iff <span class="math inline">\(p(i) = p(i&#39;)\)</span>.</p>
-<p>Example: s = “a,bc,def” is a string in <span class="math inline">\(\bm{C}^{\iota 8}\)</span>. Using cyclic arrays <span class="math inline">\(= &quot;,&quot; s\)</span> is <span class="math inline">\(01001000\)</span> so <span class="math inline">\(+\backslash= &quot;,&quot; s\)</span> is <span class="math inline">\(0111222\)</span>.</p>
-<p>Define <span class="math inline">\(ν\colon X^n\to X^m\)</span> by <span class="math inline">\(νx_0 x_1 \ldots = x_0 \nu x_2 \ldots\)</span> if <span class="math inline">\(x1 = x0\)</span> and <span class="math inline">\(νx_0 x_1 \ldots = x_0 \nu x_1 \ldots\)</span> if <span class="math inline">\(x_1 \not= x_0\)</span>.</p>
-</section>
-<section id="remarks" class="level2">
-<h2>Remarks</h2>
-<p>Natural numbers <span class="math inline">\(\bm{N}= \{0, 1, \ldots\}\)</span>.</p>
-<p><span class="math inline">\(\iota n = \{0, \ldots, n - 1\}\)</span>, <span class="math inline">\(n\in\bm{N}\)</span>.</p>
-<p><span class="math inline">\(\iota\colon\bm{N}\to\bm{N}^*\)</span> where <span class="math inline">\(\bm{N}^* = \sqcup_{n\ge0}\bm{N}^n\)</span>.<br />
-<span class="math inline">\(\iota n\in\bm{N}^n\)</span>.</p>
-<p>Every expression is a list of data or functions in Polish notation.</p>
-<p>Expressions are parsed right to left.</p>
-<p>Data is pushed on the call stack.</p>
-<p>Functions know what is on the call stack.</p>
-<p><em>Each</em> is <span class="math inline">\(f␣\backslash␣x␣y␣\ldots\)</span> is <span class="math inline">\(f␣x␣f␣y␣\ldots\)</span>, <span class="math inline">\(f␣g\backslash␣x\)</span> is <span class="math inline">\(f␣x␣g␣x\)</span>.</p>
-<p><em>Fold</em> is <span class="math inline">\(f /a␣b \ldots\)</span> is <span class="math inline">\(f␣a␣f␣b␣\ldots))\)</span>.</p>
-<p><span class="math inline">\(K\)</span> is the constant function <span class="math inline">\(K\colon X\to\{Y\to X\}\)</span> where <span class="math inline">\(Kxy = x\)</span>.</p>
-<p>Use <span class="math inline">\(!\)</span> for evaluation.</p>
-<p><em>Array</em> <span class="math inline">\(X^{\iota n}\)</span>, <span class="math inline">\([␣x_0␣x_1␣\ldots\colon \iota n\to X\)</span> by <span class="math inline">\(i\mapsto x_i\)</span>.</p>
-<p><em>Tuple</em> <span class="math inline">\(\sqcap_{i\in I} X_i\)</span>, <span class="math inline">\(\langle␣x_0␣x_1␣\ldots\colon I\to\sqcup_{i\in I}X_i\)</span> by <span class="math inline">\(i\mapsto (i, x_i)\)</span>.</p>
-</section>
-<section id="examples" class="level2">
-<h2>Examples</h2>
-<p><em>Average</em> <span class="math inline">\(÷␣&#39;␣+/␣+/K 1\backslash␣x_0␣x_1␣\ldots\)</span></p>
-</section>
-<section id="types-1" class="level2">
-<h2>Types</h2>
-<p>A <em>string</em> is a utf-8 string that is a monoid with identity the empty string and product concatenation. The <em>characters</em> of the string are <em>code points</em>.</p>
+<section id="shape" class="level2">
+<h2>Shape</h2>
+<p>The <em>shape</em> function is <span class="math inline">ρ\colon\bm{N}^k\to (\bm{N}^{k-1}\to\bm{N})</span>, <span class="math inline">ρ\mapsto(n \mapsto n)</span>, <span class="math inline">ρ(n,\ldots)\mapsto ((i,\ldots) \mapsto i + n ρ(\ldots)(\ldots))</span></p>
+<section id="partition" class="level3">
+<h3>Partition</h3>
+<p>A function <span class="math inline">p\colon X\to\iota n</span> determines a <em>partition</em> on <span class="math inline">X</span> where <span class="math inline">i\sim i&#39;</span> iff <span class="math inline">p(i) = p(i&#39;)</span>.</p>
+<p>Example: s = “a,bc,def” is a string in <span class="math inline">\bm{C}^{\iota 8}</span>. Using cyclic arrays <span class="math inline">= &quot;,&quot; s</span> is <span class="math inline">\square\blacksquare\square\square\blacksquare\square\square\square</span> so <span class="math inline">+\backslash= &quot;,&quot; s</span> is <span class="math inline">0111222</span>.</p>
+<p>Define <span class="math inline">ν\colon X^n\to X^m</span> by <span class="math inline">νx_0 x_1 \ldots = x_0 \nu x_2 \ldots</span> if <span class="math inline">x1 = x0</span> and <span class="math inline">νx_0 x_1 \ldots = x_0 \nu x_1 \ldots</span> if <span class="math inline">x_1 \not= x_0</span>.</p>
+<!--
+## Remarks
+
+Natural numbers $\NN = \{0, 1, \ldots\}$.
+
+$\iota n = \{0, \ldots, n - 1\}$, $n\in\NN$.
+
+$\iota\colon\NN\to\NN^*$ where $\NN^* = \coprod{n\ge0}\NN^n$.  
+$\iota n\in\NN^n$.
+
+Every expression is a list of data or functions in Polish notation.
+
+Expressions are parsed right to left.
+
+Data is pushed on the call stack.
+
+Functions know what is on the call stack.
+
+_Each_ is $f␣\scan␣x␣y␣\ldots$ is $f␣x␣f␣y␣\ldots$, $f␣g\scan ␣x$ is $f␣x␣g␣x$.
+
+_Fold_ is $f \fold a␣b \ldots$ is $f␣a␣f␣b␣\ldots))$.
+
+$K$ is the constant function $K\colon X\to\{Y\to X\}$ where $Kxy = x$.
+
+Use $!$ for evaluation. 
+
+_Array_ $X^{\iota n}$, $[␣x_0␣x_1␣\ldots\colon \iota n\to X$ by $i\mapsto x_i$.
+
+_Tuple_ $\sqcap_{i\in I} X_i$, $\langle␣x_0␣x_1␣\ldots\colon I\to\coprod{i\in I}X_i$ by $i\mapsto (i, x_i)$.
+
+## Examples
+
+_Average_ $\div␣\stop␣\add\fold␣\add\fold K 1\scan␣x_0␣x_1␣\ldots$
+
+## Types
+
+_boolean_ $\BB$.
+
+_integer_ $\ZZ$.
+
+_unsigned_ $\NN$.
+
+_number_ $\RR$.
+
+_character_ $\CC$ utf-8 _code points_.
+
+## Structures
+
+
+
+Storage: stack (life of function), heap (life of process), persistent (across processes), lazy generators.
+-->
 </section>
 </section>
 <footer>
