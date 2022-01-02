@@ -22,7 +22,7 @@ on $\Omega$.
 A _measure_ on a set $S$ is a set function from subsets of $S$ to real numbers
 $\mu\colon\mathcal{P}(S)\to\RR$, where $\mathcal{P}(S) = \{E\subseteq S\}$
 is the set of all subsets of $S$,
-that satisfies $\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)$ for $E,F\subseteq\Omega$
+that satisfies $\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)$ for $E,F\subseteq S$
 and $\mu(\emptyset) = 0$
 
 Measures don't count things twice and the measure of
@@ -100,9 +100,8 @@ with $\lim_n \|f_n - f\| = 0$_.
 <details>
 <summary>Solution</summary>
 
-> Since $f_n(x)$ is Cauchy so it has a limit $f(x)$.
-The sequence $\|f_n\|$ is also Cauchy so it too has a limit
-that is an upper bound for $|f(x)]$, $x\in S$.
+> Since $(f_n(x))$ is also Cauchy it has a limit $f(x)$.
+Since $(\|f_n\|)$ is Cauchy it has an upper bound so $f$ is bounded.
 </details>
 
 The (vector space) dual of $B(S)$ is $ba(S)$.
@@ -227,10 +226,11 @@ The _variance_ of a random variable $X$ is $\Var(X) = E[(X - E[X])^2]= E[X^2] - 
 
 __Lemma__. (Chebyshev) _If $f$ is non-negative then $P(f(X) > \lambda) \le E[f(X)]/\lambda$_.
 
-_Proof_. We have $E[f(X)] \le E[f(X)1(f(X) > \lambda) \le \lambda P(f(X) > \lambda)$.
+_Proof_. We have $E[f(X)] \ge E[f(X)1(f(X) > \lambda) \ge \lambda P(f(X) > \lambda)$.
 
 An immediate corollaries are $P(|X| > \lambda) \le E[|X|]/\lambda$ and
-$P(|X - E[X]| > \lambda) \le \mathrm{Var}(X)/\lambda^2$.
+$P(|X - E[X]| > \lambda) \le \mathrm{Var}(X)/\lambda^2$. Note this only
+has import for large $\lambda$.
 
 ### Moments
 
