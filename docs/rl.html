@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Reinforcement Learning</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <!--
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif&display=swap" rel="stylesheet"> 
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Reinforcement Learning</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Apr 14 2019</p>
+</header>
+<section id="reinforcement-learning" class="level1">
+<h1>Reinforcement Learning</h1>
+<p>Maximizing gains for an agent interacting with a model using goal directed learning. There is always a model but there is no canonical measure of gain.</p>
+<section id="markov-decision-process" class="level2">
+<h2>Markov Decision Process</h2>
+<p>A MDP is defined by states, <span class="math inline">S</span>, actions, <span class="math inline">A</span>, rewards, <span class="math inline">R\subseteq\bold{R}</span>, and transition probabilities, <span class="math inline">p(s&#39;,r&#39;|s,a) = P(S_{t+1} = s&#39;, R_{t+1} = r&#39;\mid S_t = s, A_t = a)</span>, the probability of moving to state <span class="math inline">s&#39;</span> and receive reward <span class="math inline">r&#39;</span> given the agent is in state <span class="math inline">s</span> and takes action <span class="math inline">a</span> at time <span class="math inline">t</span>, <span class="math inline">s\stackrel{a/r&#39;}{\rightarrow}s&#39;</span>.</p>
+<p>Some models specify <span class="math inline">A_s\subseteq A</span>, for <span class="math inline">s\in S</span>, the set of possible actions when in state <span class="math inline">s</span>.</p>
+<p>At time <span class="math inline">t</span> the agent chooses an action <span class="math inline">a</span>. This results in a new state, <span class="math inline">s&#39;</span>, and reward, <span class="math inline">r&#39;</span>, at time <span class="math inline">t+1</span> according to the transition probabilities.</p>
+<p>A <em>policy</em>, <span class="math inline">\pi(a|s)</span>, specifies the probability of taking action <span class="math inline">a</span> given the agent is in state <span class="math inline">s</span>. This results in the sequence of random variables <span class="math inline">S_{t + k + 1}</span>, <span class="math inline">R_{t + k + 1}</span>, <span class="math inline">k\ge0</span>, given <span class="math inline">S_t = s</span>.</p>
+<p>Reinforcement learning is the study of how to find the optimal policy for a given definition of optimal.</p>
+<p>A <em>gain</em> (or <em>loss</em>) function is any function of future rewards, <span class="math display">
+G_t = g_t(R_{t+1}, R_{t+2}, \ldots).
+</span> Common choices are are average rewards <span class="math display">
+G_t = (1/k) \sum_{j=1}^k R_{t + j + 1}
+</span> and exponential decay <span class="math display">
+G_t = \sum_{k\ge0} \gamma^k R_{t + k + 1},
+</span> where <span class="math inline">0&lt;\gamma&lt;1</span> is the <em>discount factor</em>.</p>
+<p>The <em>state-value function</em> for policy <span class="math inline">\pi</span> is <span class="math inline">V_\pi(s) = E[G_t\mid S_t = s]</span>. (Note that, by the Markov property, it does not depend on <span class="math inline">t</span>.) We want to find <span class="math inline">V^*(s) = \max_\pi V_\pi(s)</span>. Note <span class="math display">
+V_\pi(s) = \sum_a \pi(a|s) \sum_{s&#39;,r&#39;} p(s&#39;,r&#39;|s,a)[r&#39; + \gamma V_\pi(s&#39;)]
+</span> for exponential decay and <span class="math display">
+V^*(s) = \max_{a\in A_s} \sum_{s&#39;,r&#39;} p(s&#39;,r&#39;|s,a)[r + \gamma V^*(s&#39;)],
+</span> is called the <em>Bellman optimality equation</em>.</p>
+<p>The <em>action-value function</em> for <span class="math inline">\pi</span> is <span class="math inline">Q_\pi(s,a) = E[G_t\mid S_t = s, A_t = a]</span>. We want to find <span class="math inline">Q^*(s,a) = \max_\pi Q_\pi(s,a)</span>. Note <span class="math display">
+Q^*(s,a) = E[R_{t+1} + \gamma V^*(S_{t+1})|S_t = s, A_t = a].
+</span> gives the optimal value function.</p>
+<section id="bandits" class="level3">
+<h3>Bandits</h3>
+<p>An <span class="math inline">n</span>-armed bandit is a MDP with one state and <span class="math inline">n</span> actions. The general idea behind a solution is to <em>explore</em> the <span class="math inline">n</span> available actions and <em>exploit</em> the most promising. In this case the action-value function does not depend on the state. If we knew the reward distributions for each action then the optimal strategy would be to always select the action with the largest expected value.</p>
+<p>The <em><span class="math inline">\epsilon</span>-greedy</em> strategy selects the action maximizing the current action-value function with probability <span class="math inline">1-\epsilon</span> and a random action with probability <span class="math inline">\epsilon</span>. The action-value function is updated based on the observed reward.</p>
+</section>
+<section id="monte-carlo-methods" class="level3">
+<h3>Monte Carlo Methods</h3>
+<p>The <em>first visit</em> Monte Carlo prediction approximates the state-value function for a given policy. Choose an initial state-value function <span class="math inline">V(s)</span>. Generate a run using policy <span class="math inline">\pi</span>. For each state in the run, <span class="math inline">V(s)</span> is the average of the returns following <span class="math inline">s</span>.</p>
+</section>
+</section>
+<section id="temporal-distance-learning" class="level2">
+<h2>Temporal Distance Learning</h2>
+</section>
+<section id="notes" class="level2">
+<h2>NOTES</h2>
+<p>p(a|s) only works because of the Markov property.</p>
+</section>
+</section>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>
