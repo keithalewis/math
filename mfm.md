@@ -14,12 +14,20 @@ abstract: Work remains to be done.
 \newcommand\mb[1]{\mathbf{#1}}
 
 
-Mathematical Finance has made Nobel Prize winning advances since the 1950's,
-but there is more to do.
+Mathematical Finance has made Nobel Prize winning advances but there is more work to be done.
 
 ## Review
 
-Markowitz
+Graham and Todd initiated a systematic and objective analysis of investments.
+After the market crash of 1929 people wanted a way of determining
+what stocks would provide reliable returns. Publicly traded companies
+were required to provide 
+
+Markowitz. And Roy. Maximize return, minimize variance. Depends on historical data.
+p
+Cite random variable paper.
+
+Did Graham-Todd agree that Markowitz used market prices to avoid fundamental research?
 
 Black-Merton Scholes
 
