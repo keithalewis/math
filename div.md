@@ -17,66 +17,86 @@ a positive deflator $(D_t)_{t\in T}$, where $T$ is the set of trading times.
 The prices $(X_t)_{t\in T}$ and discrete cash flows $(C_t)_{t\in T}$
 must satisfy
 $$
-	X_t D_t = M_t - \sum_{s\le t} C_s D_s, s < t.
+	X_t D_t = M_t - \sum_{s\le t} C_s D_s.
+$$
+__Exercise__. _Show_
+$$
+	X_t D_t = E_t[X_u D_u + \sum_{t < s \le u}C_s D_s], u \ge t,
+$$ 
+where $E_t$ is expected value conditioned on information available at time $t$.
+
+_Hint_. $E_t[X_u D_u] = M_t - \sum_{s\le t} C_s D_s - \sum_{t < s \le u} E_t[C_s D_s]$.
+
+We assume the model consists of two intruments, a money-market instrument $R$ and a stock $S$
+The money-market instrument pays no cash flows and its price at time $t$ is $R_t = 1/D_t$. 
+Note $R_tD_t = 1$ is a martingale. Let $D_t(u)$ be the value at time $t$ of a zero
+coupon bond paying one unit at $u$. The exercise shows it must satisfy
+$D_t(u)D_t = E_t[D_u]$ so
+$$
+	D_t(u) = E_t[D_u]/D_t.
 $$
 
-The Black-Scholes/Merton model with no dividends ($C_t = 0$) specifies
-$M_t = (r, se^{\sigma B_t - \sigma^2 t/2})$ and $D_t = e^{-\rho t}$,
-where $B_t$ is standard Brownian motion.
-The price process is $X_t = M_t/D_t = (R_t, S_t)$ where
-$R_t = re^{\rho t}$ is the _money market_
-and $S_t = se^{\rho t + \sigma B_t - \sigma^2 t/2}$ is the _stock_.
+Forwards involve an interval of time. The value at time $t$ of a forward
+contract paying $S_u - k$ at time $u \ge t$ is $E_t[(S_u - k)D_u]$.
+The forward value of $S$ at $t$ expiring at time $u$ is the value of $k$ making this zero:
+$$
+	F_t(u) = E_t[S_u D_u]/E_t[D_u].
+$$
+If $S$ has no cash flows then $E_t[S_u D_u] = S_t D_t$ and
+$F_t(u) = S_t/D_t(u)$ is the _cost of carry_ formula.
 
 ## Fixed dividends
 
-If a stock pays fixed dividends $d_j$ at times $t_j$ then $C_t = (d_j, 0)$, $t = t_j$
+If a stock pays fixed dividends $d_j$ at times $t_j$ then $C_t = (0, d_j)$ when $t = t_j$
 and is zero otherwise.
-
-In this case we have
+Let $S^d_t$ denote the price of the dividend paying stock at time $t$.
+Since $S^d_t D_t = S_t D_t - \sum_{t_j\le t} d_j D_{t_j}$, where $S_t D_t$ is a martingale
+we have
 $$
-S_t D_t = se^{\sigma B_t - \sigma^2 t/2} - \sum_{t_j\le t} d_j D_{t_j}
+	S^d_t = S_t - \sum_{t_j\le t} d_j D_{t_j}/D_t.
 $$
-so the price of the stock is a linear combination of lognormal random variables.
-We assume, as customary, this can be approximated by a lognormal.
-
-Letting $F_t = S_t D_t$ we have
-$$
-F_t = se^{\sigma B_t - \sigma^2 t/2} - \sum_{t_j\le t} d_j D_{t_j}
-$$
-and setting $f_j = E[F_{t_j}]$ gives
-$$
-E[F_t] = s - \sum_{t_j\le t} d_j D_j.
-$$
-
+Note the value of a call or put option on a fixed dividend paying stock with strike $k$
+is equal to the value of the corresponding call or put on the non-dividend paying stock with 
+strike $k + \sum_{t_j\le t} d_j D_{t_j}/D_t$.
 
 ## Proportional dividends
 
-The Black-Scholes/Merton model of a bond and a stock uses the martingale
-$M_t = (r, se^{\sigma B_t - \sigma^2 t/2})$ and deflator $D_t = e^{-\rho t}$.
-The bond is a zero coupon bond having no cash flows. If the stock pays
-dividend $d_j$ per share at $t_j$ then it has cash flows of $d_j S_{t_j}$ at $t_j$.
-In this case we have
+If a stock pays proportional dividends $p_j$ at times $t_j$ then $C_t = (0, p_jS^p_{t_j})$ when $t = t_j$
+and is zero otherwise, where
+$S^p_t$ denotes the price of the dividend paying stock at time $t$.
+Since $S^p_t D_t = S_t D_t - \sum_{t_j\le t} p_j S^p D_{t_j}$, where $S_t D_t$ is a martingale
+we have
 $$
-S_t D_t = se^{\sigma B_t - \sigma^2 t/2} - \sum_{t_j\le t} d_j S_{t_j} D_{t_j}
+	S^p_t = S_t - \sum_{t_j\le t} p_j S^p_{t_j} D_{t_j}/D_t.
 $$
-so the price of the stock is a linear combination of lognormal random variables.
-We assume, as customary, this can be approximated by a lognormal.
-
-Recall if $N$ is normal then $E[e^N] = e^{E[N] + \Var(N)/2)}$
-so $E[e^{\sigma B_t - \sigma^2 t/2}] = 1$.
-Letting $F_t = S_t D_t$ we have
+Note $S^p_0 = S_0$. At time $t_j$
 $$
-F_t = se^{\sigma B_t - \sigma^2 t/2} - \sum_{t_j\le t} d_j F_{t_j}
+	S^p_j D_j = S_j D_j - \sum_{i \le j} p_i S^p_i D_i.
 $$
-and setting $f_j = E[F_{t_j}]$ gives
+Let $M_j = S_j D_j$, $M^p_j = S^p_j D_j$.
 $$
-E[F_t] = s - \sum_{t_j\le t} d_j f_j.
+	M^p_j = M_j - \sum_{i \le j} p_i M^p_i.
 $$
-Note $f_0 = s - d_0 f_0$ so $f_0 = s/(1 + d_0)$.
-Taking $t = t_k$ yields $f_k = s - \sum_{j\le k} d_j f_j = f_{k-1} - d_k f_k$
-so $f_k = s/\Pi_{j=0}^k(1 + d_j)$ hence
 $$
-E[F_t] = s - \sum_{t_k\le t} d_k f_k = s(1 - \sum_{t_k\le t} d_k/\Pi_{j=0}^k(1 + d_j)).
+	(1 + p_j)M^p_j + \sum_{i < j} p_i M^p_i = M_j.
+$$
+$$
+	S^p_j = S_j - \sum_{i \le j} p_i S^p_i D_i/D_j.
+$$
+$$
+	S^p_j + \sum_{i \le j} p_i S^p_i D_i/D_j = S_j.
+$$
+$$
+	S^p_j(1 + p_j) + \sum_{i < j} p_i S^p_i D_i/D_j = S_j.
+$$
+$$
+	S^p_j(1 + p_j)D_j + \sum_{i < j} p_i S^p_i D_i = S_j D_j.
+$$
+$$
+	S^p_{j+1}(1 + p_{j+1})D_{j+1} = S^p_j(1 + p_j)D_j - p_j S^p_j D_j + S_{j+1} D_{j+1} - S_j D_j.
+$$
+$$
+	S^p_1(1 + p_1)D_1 = S^p_0(1 + p0) - p_0 S^p_0 D_0 + ΔM_0
 $$
 
 ## Cum-dividend
