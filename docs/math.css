@@ -2,10 +2,11 @@ html {
 }
 body {
 	max-width: 40em;
-    margin: 0 auto;
+    margin: 0;
+	margin-left: 4em;
     text-align: justify;
 	padding: 1em;
-	font-family: 'Times New Roman', 'Calisto', 'Cambria', "Segoe UI", Georgia, serif;
+	font-family: 'Cambria', "Segoe UI", 'Times New Roman', 'Calisto', Georgia, serif;
 	font-size: 110%;
 	font-weight: 500;
 	line-height: 120%; 
