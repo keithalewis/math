@@ -6,34 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Duality</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: true
-     });
-  }}});
-  </script>
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,12 +29,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
   -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Duality</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
+
 <p>Duality shows up in many mathematical guises. One of the simplest is in the case of vector spaces. The <em>dual</em> of a vector space is the collection of all linear functionals on the vector space. It too is a vector space and has the same dimension as the original vector space if is finite dimensional. Identifying when a space is a dual help clarifies mathematical concepts. For example, if <span class="math inline">F\colon V\to\bm{R}</span> is an smooth function the its derivative is a function $DF<span class="math inline">V\to\V^*</span>, where <span class="math inline">V^*</span> denotes the dual of <span class="math inline">V</span>. There is no need for “row” or “column” vectors when using duals.</p>
 <section id="vector-space" class="level2">
 <h2>Vector Space</h2>
@@ -67,10 +58,7 @@
 <p><strong>Exercise</strong>. <em>If <span class="math inline">S\colon U\to V</span> and <span class="math inline">T\colon V\to W</span> show <span class="math inline">(TS)^* = S^*T^*</span></em>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">T\colon V\to W</span> show <span class="math inline">T^{**}ι_V = ι_WT</span></em>.</p>
 <details>
-<summary>
-Solution
-</summary>
-For <span class="math inline">v\in V</span>, <span class="math inline">w^*\in W^*</span>, <span class="math inline">\langle T^{**}ι_Vv, w^*\rangle = \langle ι_Vv, T^*w^*\rangle = \langle v, T^*w^*\rangle = \langle Tv, w^*\rangle = \langle ι_W Tv, w^*\rangle</span>.
+<summary>Solution</summary> For <span class="math inline">v\in V</span>, <span class="math inline">w^*\in W^*</span>, <span class="math inline">\langle T^{**}ι_Vv, w^*\rangle = \langle ι_Vv, T^*w^*\rangle = \langle v, T^*w^*\rangle = \langle Tv, w^*\rangle = \langle ι_W Tv, w^*\rangle</span>.
 </details>
 <p>This is an example of a <em>natural transformation</em> in category theory.</p>
 </section>

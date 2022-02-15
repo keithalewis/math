@@ -6,34 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Category Theory</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: true
-     });
-  }}});
-  </script>
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,12 +29,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
   -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Category Theory</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
+
 <blockquote>
 <p><em>Besides it is an error to believe that rigour is the enemy of simplicity. On the contrary we find it confirmed by numerous examples that the rigorous method is at the same time the simpler and the more easily comprehended. The very effort for rigor forces us to find out simpler methods of proof. — David Hilbert</em></p>
 </blockquote>
@@ -72,18 +63,14 @@
 <p>Every object has an <em>identity arrow</em>. If <span class="math inline">f\colon A\to B</span> then the identity arrows <span class="math inline">1_A\colon A\to A</span> and <span class="math inline">1_B\colon B\to B</span> satisfy <span class="math inline">f 1_A = f = 1_B f</span>. One can always throw in identity arrows if they don’t exist.</p>
 <strong>Exercise</strong>. <em>If <span class="math inline">e\colon A\to A</span> has the property <span class="math inline">fe = f</span> for all <span class="math inline">f\colon A\to B</span> then <span class="math inline">e = 1_A</span></em>.
 <details>
-<summary>
-Solution
-</summary>
+<p><summary>Solution</summary></p>
 <blockquote>
 <p>Taking <span class="math inline">f = 1_A</span>, <span class="math inline">1_A e = 1_A</span>. By the definition of <span class="math inline">1_A</span>, <span class="math inline">1_A e = e</span>, hence <span class="math inline">1_A = e</span>.</p>
 </blockquote>
 </details>
 <strong>Exercise</strong>. <em>If <span class="math inline">e\colon B\to B</span> has the property <span class="math inline">ef = f</span> for all <span class="math inline">f\colon A\to B</span> then <span class="math inline">e = 1_B</span></em>.
 <details>
-<summary>
-Solution
-</summary>
+<p><summary>Solution</summary></p>
 <blockquote>
 <p>Taking <span class="math inline">f = 1_B</span>, <span class="math inline">e 1_B = 1_B</span>. By the definition of <span class="math inline">1_B</span>, <span class="math inline">e 1_B = e</span>, hence <span class="math inline">1_B = e</span>.</p>
 </blockquote>
@@ -170,9 +157,7 @@ Solution
 <p>The prototypical example of natural transformation arises in the category <span class="math inline">\mathbf{Vec}</span>. The <em>dual</em> of a vector space is <span class="math inline">V^* = \hom(V,\mathbf{F})</span> where <span class="math inline">\mathbf{F}</span> is the underlying field of the vector space. The <em>dual pairing</em> between <span class="math inline">V</span> and <span class="math inline">V^*</span> is <span class="math inline">\langle v,v^*\rangle = v^*(v)</span>. If <span class="math inline">T\colon V\to W</span> is a linear transformation then <span class="math inline">T^*\colon W^*\to V^*</span> via <span class="math inline">\langle Tv,w^*\rangle = \langle v,T^*w^*\rangle</span>. Note <span class="math inline">T^{**}\colon V^{**}\to W^{**}</span> and gives rise to a functor <span class="math inline">D</span> in <span class="math inline">\mathbf{Vec}</span> via <span class="math inline">V\mapsto V^{**}</span> and <span class="math inline">T\mapsto T^{**}</span>. There is a natural inclusion <span class="math inline">\iota_V\colon V\to V^{**}</span> by <span class="math inline">\langle \iota_V v,v^*\rangle = \langle v, v^*\rangle</span>. The property <span class="math inline">T^{**}\iota_V = \iota_W T</span> says <span class="math inline">\iota\colon I\to D</span> is a natural transformation where <span class="math inline">I</span> is the identity functor of <span class="math inline">\mathbf{Vec}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">T^{**}\iota_V = \iota_W T</span></em>.</p>
 <details>
-<summary>
-Solution
-</summary>
+<p><summary>Solution</summary></p>
 <blockquote>
 <p>For <span class="math inline">v\in V</span> and <span class="math inline">w^*\in W^*</span>, <span class="math inline">\langle T^{**}\iota_V v,w^*\rangle =\langle \iota_V v,T^*w^*\rangle =\langle v,T^*w^*\rangle =\langle Tv,w^*\rangle =\langle \iota_W Tv,w^*\rangle</span>.</p>
 </blockquote>
@@ -186,9 +171,7 @@ Solution
 <p>We have already seen how to use arrows to define isomorphisms. If <span class="math inline">A</span> and <span class="math inline">B</span> are isomorphic then there are arrows <span class="math inline">f\colon A\to B</span> and <span class="math inline">g\colon B\to A</span> with <span class="math inline">fg = 1_B</span> and <span class="math inline">gf = 1_A</span>. We say <span class="math inline">f\colon A\to B</span> has <em>right inverse</em> <span class="math inline">g\colon B\to A</span> when <span class="math inline">fg = 1_B</span> and <span class="math inline">f</span> has <em>left inverse</em> <span class="math inline">g</span> when <span class="math inline">gf = 1_A</span>.</p>
 <strong>Exercise</strong>. <em>If <span class="math inline">f</span> has right inverse <span class="math inline">g</span> and left inverse <span class="math inline">g&#39;</span> show <span class="math inline">g = g&#39;</span></em>.
 <details>
-<summary>
-Solution
-</summary>
+<p><summary>Solution</summary></p>
 <blockquote>
 <p>We have <span class="math inline">g&#39; = g&#39;1_B = g&#39;(fg) = (g&#39;f)g = 1_Ag = g</span>.</p>
 </blockquote>

@@ -6,34 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Dividends</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: true
-     });
-  }}});
-  </script>
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,39 +29,56 @@
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
   -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Dividends</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
+
 <p>This note describes how to incorporate dividends into stock valuation. Recall the <a href="um.html">Unified Model</a> shows arbitrage-free models are parameterized by a vector-valued martingale <span class="math inline">(M_t)_{t\in T}</span> and a positive deflator <span class="math inline">(D_t)_{t\in T}</span>, where <span class="math inline">T</span> is the set of trading times. The prices <span class="math inline">(X_t)_{t\in T}</span> and discrete cash flows <span class="math inline">(C_t)_{t\in T}</span> must satisfy <span class="math display">
-    X_t D_t = M_t - \sum_{s\le t} C_s D_s, s &lt; t.
+    X_t D_t = M_t - \sum_{s\le t} C_s D_s.
+</span> <strong>Exercise</strong>. <em>Show</em> <span class="math display">
+    X_t D_t = E_t[X_u D_u + \sum_{t &lt; s \le u}C_s D_s], u \ge t,
+</span> where <span class="math inline">E_t</span> is expected value conditioned on information available at time <span class="math inline">t</span>.</p>
+<p><em>Hint</em>. <span class="math inline">E_t[X_u D_u] = M_t - \sum_{s\le t} C_s D_s - \sum_{t &lt; s \le u} E_t[C_s D_s]</span>.</p>
+<p>We assume the model consists of two intruments, a money-market instrument <span class="math inline">R</span> and a stock <span class="math inline">S</span> The money-market instrument pays no cash flows and its price at time <span class="math inline">t</span> is <span class="math inline">R_t = 1/D_t</span>. Note <span class="math inline">R_tD_t = 1</span> is a martingale. Let <span class="math inline">D_t(u)</span> be the value at time <span class="math inline">t</span> of a zero coupon bond paying one unit at <span class="math inline">u</span>. The exercise shows it must satisfy <span class="math inline">D_t(u)D_t = E_t[D_u]</span> so <span class="math display">
+    D_t(u) = E_t[D_u]/D_t.
 </span></p>
-<p>The Black-Scholes/Merton model with no dividends (<span class="math inline">C_t = 0</span>) specifies <span class="math inline">M_t = (r, se^{\sigma B_t - \sigma^2 t/2})</span> and <span class="math inline">D_t = e^{-\rho t}</span>, where <span class="math inline">B_t</span> is standard Brownian motion. The price process is <span class="math inline">X_t = M_t/D_t = (R_t, S_t)</span> where <span class="math inline">R_t = re^{\rho t}</span> is the <em>money market</em> and <span class="math inline">S_t = se^{\rho t + \sigma B_t - \sigma^2 t/2}</span> is the <em>stock</em>.</p>
+<p>Forwards involve an interval of time. The value at time <span class="math inline">t</span> of a forward contract paying <span class="math inline">S_u - k</span> at time <span class="math inline">u \ge t</span> is <span class="math inline">E_t[(S_u - k)D_u]</span>. The forward value of <span class="math inline">S</span> at <span class="math inline">t</span> expiring at time <span class="math inline">u</span> is the value of <span class="math inline">k</span> making this zero: <span class="math display">
+    F_t(u) = E_t[S_u D_u]/E_t[D_u].
+</span> If <span class="math inline">S</span> has no cash flows then <span class="math inline">E_t[S_u D_u] = S_t D_t</span> and <span class="math inline">F_t(u) = S_t/D_t(u)</span> is the <em>cost of carry</em> formula.</p>
 <section id="fixed-dividends" class="level2">
 <h2>Fixed dividends</h2>
-<p>If a stock pays fixed dividends <span class="math inline">d_j</span> at times <span class="math inline">t_j</span> then <span class="math inline">C_t = (d_j, 0)</span>, <span class="math inline">t = t_j</span> and is zero otherwise.</p>
-<p>In this case we have <span class="math display">
-S_t D_t = se^{\sigma B_t - \sigma^2 t/2} - \sum_{t_j\le t} d_j D_{t_j}
-</span> so the price of the stock is a linear combination of lognormal random variables. We assume, as customary, this can be approximated by a lognormal.</p>
-<p>Letting <span class="math inline">F_t = S_t D_t</span> we have <span class="math display">
-F_t = se^{\sigma B_t - \sigma^2 t/2} - \sum_{t_j\le t} d_j D_{t_j}
-</span> and setting <span class="math inline">f_j = E[F_{t_j}]</span> gives <span class="math display">
-E[F_t] = s - \sum_{t_j\le t} d_j D_j.
-</span></p>
+<p>If a stock pays fixed dividends <span class="math inline">d_j</span> at times <span class="math inline">t_j</span> then <span class="math inline">C_t = (0, d_j)</span> when <span class="math inline">t = t_j</span> and is zero otherwise. Let <span class="math inline">S^d_t</span> denote the price of the dividend paying stock at time <span class="math inline">t</span>. Since <span class="math inline">S^d_t D_t = S_t D_t - \sum_{t_j\le t} d_j D_{t_j}</span>, where <span class="math inline">S_t D_t</span> is a martingale we have <span class="math display">
+    S^d_t = S_t - \sum_{t_j\le t} d_j D_{t_j}/D_t.
+</span> Note the value of a call or put option on a fixed dividend paying stock with strike <span class="math inline">k</span> is equal to the value of the corresponding call or put on the non-dividend paying stock with strike <span class="math inline">k + \sum_{t_j\le t} d_j D_{t_j}/D_t</span>.</p>
 </section>
 <section id="proportional-dividends" class="level2">
 <h2>Proportional dividends</h2>
-<p>The Black-Scholes/Merton model of a bond and a stock uses the martingale <span class="math inline">M_t = (r, se^{\sigma B_t - \sigma^2 t/2})</span> and deflator <span class="math inline">D_t = e^{-\rho t}</span>. The bond is a zero coupon bond having no cash flows. If the stock pays dividend <span class="math inline">d_j</span> per share at <span class="math inline">t_j</span> then it has cash flows of <span class="math inline">d_j S_{t_j}</span> at <span class="math inline">t_j</span>. In this case we have <span class="math display">
-S_t D_t = se^{\sigma B_t - \sigma^2 t/2} - \sum_{t_j\le t} d_j S_{t_j} D_{t_j}
-</span> so the price of the stock is a linear combination of lognormal random variables. We assume, as customary, this can be approximated by a lognormal.</p>
-<p>Recall if <span class="math inline">N</span> is normal then <span class="math inline">E[e^N] = e^{E[N] + \operatorname{Var}(N)/2)}</span> so <span class="math inline">E[e^{\sigma B_t - \sigma^2 t/2}] = 1</span>. Letting <span class="math inline">F_t = S_t D_t</span> we have <span class="math display">
-F_t = se^{\sigma B_t - \sigma^2 t/2} - \sum_{t_j\le t} d_j F_{t_j}
-</span> and setting <span class="math inline">f_j = E[F_{t_j}]</span> gives <span class="math display">
-E[F_t] = s - \sum_{t_j\le t} d_j f_j.
-</span> Note <span class="math inline">f_0 = s - d_0 f_0</span> so <span class="math inline">f_0 = s/(1 + d_0)</span>. Taking <span class="math inline">t = t_k</span> yields <span class="math inline">f_k = s - \sum_{j\le k} d_j f_j = f_{k-1} - d_k f_k</span> so <span class="math inline">f_k = s/\Pi_{j=0}^k(1 + d_j)</span> hence <span class="math display">
-E[F_t] = s - \sum_{t_k\le t} d_k f_k = s(1 - \sum_{t_k\le t} d_k/\Pi_{j=0}^k(1 + d_j)).
+<p>If a stock pays proportional dividends <span class="math inline">p_j</span> at times <span class="math inline">t_j</span> then <span class="math inline">C_t = (0, p_jS^p_{t_j})</span> when <span class="math inline">t = t_j</span> and is zero otherwise, where <span class="math inline">S^p_t</span> denotes the price of the dividend paying stock at time <span class="math inline">t</span>. Since <span class="math inline">S^p_t D_t = S_t D_t - \sum_{t_j\le t} p_j S^p D_{t_j}</span>, where <span class="math inline">S_t D_t</span> is a martingale we have <span class="math display">
+    S^p_t = S_t - \sum_{t_j\le t} p_j S^p_{t_j} D_{t_j}/D_t.
+</span> Note <span class="math inline">S^p_0 = S_0</span>. At time <span class="math inline">t_j</span> <span class="math display">
+    S^p_j D_j = S_j D_j - \sum_{i \le j} p_i S^p_i D_i.
+</span> Let <span class="math inline">M_j = S_j D_j</span>, <span class="math inline">M^p_j = S^p_j D_j</span>. <span class="math display">
+    M^p_j = M_j - \sum_{i \le j} p_i M^p_i.
+</span> <span class="math display">
+    (1 + p_j)M^p_j + \sum_{i &lt; j} p_i M^p_i = M_j.
+</span> <span class="math display">
+    S^p_j = S_j - \sum_{i \le j} p_i S^p_i D_i/D_j.
+</span> <span class="math display">
+    S^p_j + \sum_{i \le j} p_i S^p_i D_i/D_j = S_j.
+</span> <span class="math display">
+    S^p_j(1 + p_j) + \sum_{i &lt; j} p_i S^p_i D_i/D_j = S_j.
+</span> <span class="math display">
+    S^p_j(1 + p_j)D_j + \sum_{i &lt; j} p_i S^p_i D_i = S_j D_j.
+</span> <span class="math display">
+    S^p_{j+1}(1 + p_{j+1})D_{j+1} = S^p_j(1 + p_j)D_j - p_j S^p_j D_j + S_{j+1} D_{j+1} - S_j D_j.
+</span> <span class="math display">
+    S^p_1(1 + p_1)D_1 = S^p_0(1 + p0) - p_0 S^p_0 D_0 + ΔM_0
 </span></p>
 </section>
 <section id="cum-dividend" class="level2">

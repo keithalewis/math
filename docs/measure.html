@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Measure</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif&display=swap" rel="stylesheet"> 
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Measure</h1>
+<p class="author">Keith A. Lewis</p>
+</header>
+
+<p>A <em>finitely additive measure</em> on a set <span class="math inline">S</span> is a set function from subsets of <span class="math inline">S</span> to real numbers <span class="math inline">\mu\colon\mathcal{P}(S)\to\bm{R}</span>, where <span class="math inline">\mathcal{P}(S) = \{E\subseteq S\}</span> is the set of all subsets of <span class="math inline">S</span>, that satisfies <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)</span> for <span class="math inline">E,F\subseteq S</span> and <span class="math inline">\mu(\emptyset) = 0</span></p>
+<p>Measures don’t count things twice and the measure of nothing is zero.</p>
+<strong>Exercise</strong>. <em>Show if <span class="math inline">\nu(E\cup F) = \nu(E) + \nu(F) - \nu(E\cap F)</span> for <span class="math inline">E,F\subseteq S</span> then <span class="math inline">\mu = \nu - \nu(\emptyset)</span> is measure</em>.
+<details>
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>By <span class="math inline">\mu = \nu - \nu(\emptyset)</span> we mean <span class="math inline">\mu(E) = \nu(E) - \nu(\emptyset)</span> for any subset <span class="math inline">E\subseteq S</span>. Clearly <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)</span> for any <span class="math inline">E,F\subseteq S</span>. Since <span class="math inline">\mu(\emptyset) = \nu(\emptyset) - \nu(\emptyset) = 0</span>, <span class="math inline">\mu</span> is a measure.</p>
+</blockquote>
+</details>
+<strong>Exercise</strong>. <em>Show if <span class="math inline">\mu</span> is a measure then <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F)</span> for any subsets <span class="math inline">E</span> and <span class="math inline">F</span> with empty intersection <span class="math inline">E\cap F = \emptyset</span></em>.
+<details>
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>Since <span class="math inline">\mu(\emptyset) = 0</span>, <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F) = \mu(E) + \mu(F) - \mu(\emptyset) = \mu(E) + \mu(F)</span>.</p>
+</blockquote>
+</details>
+<strong>Exercise</strong>. <em>Show if <span class="math inline">\mu</span> is a set function with <span class="math inline">\mu(E\cup F) = \mu(E) + \mu(F)</span> for any subsets <span class="math inline">E</span> and <span class="math inline">F</span> having empty intersection then <span class="math inline">\mu</span> is a measure</em>.
+<details>
+<p><summary>Solution</summary></p>
+<blockquote>
+<p><span class="math inline">\mu(E\cup F) = \mu(E\setminus F) + \mu(E\cap F) + \mu(F\setminus E)</span>, <span class="math inline">\mu(E) = \mu(E\setminus F) + \mu(E\cap F)</span>, and <span class="math inline">\mu(F) = \mu(F\setminus E) + \mu(F\cap E)</span> so <span class="math inline">\mu(E\cup F) - \mu(E) - \mu(F) = -\mu(E\cap F)</span>. Also <span class="math inline">\mu(\emptyset) = \mu(\emptyset\cup\emptyset) = \mu(\emptyset) + \mu(\emptyset)</span> so <span class="math inline">\mu(\emptyset) = 0</span>.</p>
+</blockquote>
+</details>
+<strong>Exercise</strong>. <em>Show if <span class="math inline">\mu</span> is a measure then <span class="math inline">\mu(E) = \mu(E\cap F) + \mu(E\cap F&#39;)</span> for any subsets <span class="math inline">E</span> and <span class="math inline">F</span> where <span class="math inline">F&#39; = S\setminus F = \{x\in S\mid x\not\in F\}</span> is the <em>complement</em> of <span class="math inline">F</span> in <span class="math inline">S</span></em>.
+<details>
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>Note <span class="math inline">(E\cap F)\cup(E\cap F&#39;) = E\cap(F\cup F&#39;) = E\cap S = E</span> and <span class="math inline">(E\cap F)\cap(E\cap F&#39;) = E\cap(F\cap F&#39;) = E\cap\emptyset = \emptyset</span> so <span class="math inline">\mu(E\cap F) + \mu(E\cap F&#39;) = \mu((E\cap F)\cup(E\cap F&#39;) = \mu(E)</span>.</p>
+</blockquote>
+</details>
+<p>The space of all (finitely additive) measures on <span class="math inline">S</span> is denoted <span class="math inline">ba(S)</span>. Note <span class="math inline">ba(S)</span> is a vector space with <span class="math inline">(a\mu)(E) = a\mu(E)</span> and <span class="math inline">(\mu + \nu)(E) = \mu(E) + \nu(E)</span>, <span class="math inline">a\in\bm{R}</span>, <span class="math inline">E\subseteq S</span>. The <em>norm</em> of a measure <span class="math inline">\mu\in ba(S)</span> is <span class="math inline">\|\mu\| = \sup_{\{E_j\}} \sum_j |\mu(E_j)|</span> where <span class="math inline">\{E_j\}</span> is any finite collection of pairwise disjoint subsets of <span class="math inline">S</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\|\mu\| = 0</span> implies <span class="math inline">\mu = 0</span>, <span class="math inline">\|a\mu\| = |a|\|\mu\|</span>, and <span class="math inline">\|\mu + \nu\| \le \|\mu\| + \|\nu\|</span></em>.</p>
+<p>Let <span class="math inline">B(S)</span> be the vector space of all bounded functions on <span class="math inline">S</span>. It has norm <span class="math inline">\|f\| = \sup_{x\in S}|f(x)|</span>. Vector space norms define a <em>metric</em> <span class="math inline">d\colon B(S)\times B(S)\to\bm{R}</span> by <span class="math inline">d(f,g) = \|f - g\|</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">d</span> is a metric</em>.</p>
+<p>Hint: Show <span class="math inline">d(f,g) = 0</span> implies <span class="math inline">f = g</span>, <span class="math inline">d(f,g) = d(g,f)</span>, and <span class="math inline">d(f,h) \le d(f,g) + d(g, h)</span> for <span class="math inline">f,g,h\in B(\Omega)</span>. Note <span class="math inline">d(f,f) \le 2d(f,f)</span> so <span class="math inline">0\le d(f,f)</span> for all <span class="math inline">f</span>.</p>
+<p>The norm is <em>complete</em> so <span class="math inline">B(S)</span> is a <em>Banach space</em>.</p>
+<strong>Exercise</strong>. <em>Show if <span class="math inline">(f_n)</span> is Cauchy then there exists <span class="math inline">f\in B(\Omega)</span> with <span class="math inline">\lim_n \|f_n - f\| = 0</span></em>.
+<details>
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>Since <span class="math inline">(f_n(x))</span> is also Cauchy it has a limit <span class="math inline">f(x)</span>. Since <span class="math inline">(\|f_n\|)</span> is Cauchy it has an upper bound so <span class="math inline">f</span> is bounded.</p>
+</blockquote>
+</details>
+<p>The (vector space) dual of <span class="math inline">B(S)</span> is <span class="math inline">ba(S)</span>. Given <span class="math inline">M\in B(S)^*</span> define <span class="math inline">\mu(E) = M1_E</span> and given <span class="math inline">\mu\in ba(S)</span> define <span class="math inline">M(\sum_j a_j 1_{E_j}) = \sum_j a_j\mu(E_j)</span>.</p>
+<strong>Exercise</strong>. <em>Show <span class="math inline">\mu\mapsto M</span> is well-defined</em>.
+<details>
+<p><summary>Solution</summary></p>
+<blockquote>
+<p>Every finite sum of the form <span class="math inline">\sum_j a_j 1_{E_j}</span> is equal to a function <span class="math inline">\sum_k b_k 1_{F_k}</span> where the <span class="math inline">(F_k)</span> are pairwise disjoint. Such functions are uniformly dense in <span class="math inline">B(S)</span>.</p>
+</blockquote>
+</details>
+<p>The dual pairing defines the integral <span class="math inline">\int_S f\,d\mu = \langle f,\mu\rangle</span>, <span class="math inline">f\in B(\Omega)</span>, <span class="math inline">\mu\in ba(\Omega)</span>. Finitely additive measures make it challenging to prove theorems of the form ‘If <span class="math inline">\lim_n f_n = f</span> then <span class="math inline">\lim_n \int_S f_n\,d\mu = \int f\,d\mu</span>.’ However, Fatou’s Lemma does hold for positive finitely additive measures.</p>
+<p>The product of a function and a measure is a measure defined by <span class="math inline">\langle f,g\mu\rangle = \langle fg,\mu\rangle</span>. Given measures <span class="math inline">\mu,\nu\in ba(S)</span> we say <span class="math inline">g</span> is the <em>Radon-Nikodym derivative</em> of <span class="math inline">\nu</span> with respect to <span class="math inline">\mu</span> if <span class="math inline">g\mu = \nu</span>.</p>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

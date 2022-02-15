@@ -6,34 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Pivot Table</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: true
-     });
-  }}});
-  </script>
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,6 +29,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
   -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <header id="title-block-header">
@@ -104,9 +94,7 @@ show the atoms of $\mathcal{A}$ are a partition of $D$_.
 <p>If <span class="math inline">\mu&#39;</span> is a measure on <span class="math inline">\Delta&#39;</span> that is a refinement of <span class="math inline">\Delta</span> then we can define a measure <span class="math inline">\mu&#39;|_\Delta</span> on <span class="math inline">\Delta</span> by <span class="math inline">(\mu&#39;|_\Delta)(\delta) = \mu&#39;(\Delta&#39;|\delta)</span> for <span class="math inline">\delta\in\Delta</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">\mu&#39;</span> is a measure on a partion <span class="math inline">\Delta&#39;</span> show <span class="math inline">\mu&#39;|_\Delta</span> is a measure on any coarser partition <span class="math inline">\Delta</span></em>.</p>
 <details>
-<summary>
-Solution
-</summary>
+<p><summary>Solution</summary></p>
 <blockquote>
 <p>With <span class="math inline">\mu = \mu&#39;|_\Delta</span>, we must show <span class="math inline">\mu(\emptyset) = 0</span> and <span class="math inline">\mu(E\cup F) = \mu(E)\oplus\mu(F)</span> when <span class="math inline">E\cap F = \emptyset</span> for <span class="math inline">E,F\in\Delta</span>. Since <span class="math inline">\Delta&#39;|\emptyset = \emptyset</span> we have <span class="math inline">\mu(\emptyset) = \mu&#39;(\emptyset) = 0</span>. If <span class="math inline">E,F\in\Delta</span> are disjoint then so are <span class="math inline">\Delta&#39;|E</span> and <span class="math inline">\Delta&#39;|F</span> hence <span class="math inline">\mu(E\cup F) = \mu&#39;(\Delta&#39;|(E\cup F)) = \mu&#39;((\Delta&#39;|E)\cup(\Delta&#39;|F)) = \mu&#39;(\Delta&#39;|E)\oplus\mu&#39;(\Delta&#39;|F)) = \mu(E)\oplus\mu(F)</span>.</p>
 </blockquote>
@@ -119,9 +107,7 @@ Solution
 <p>If <span class="math inline">S</span> is finite every measure is determined by <span class="math inline">\{\mu(\{s\}): s\in S\}</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">S</span> is finite show <span class="math inline">\mu(\{s_1,\ldots,s_n\}) = \mu(\{s_1\})\oplus\cdots\oplus\mu(\{s_n\})</span> where <span class="math inline">s_j\in S</span>, <span class="math inline">1\le j\le n</span></em>.</p>
 <details>
-<summary>
-Solution
-</summary>
+<p><summary>Solution</summary></p>
 <blockquote>
 <p>This follows from <span class="math inline">V</span> being an abelian monoid. By associativity <span class="math inline">\mu(\{s_1\})\oplus\cdots\oplus\mu(\{s_n\})</span> is well-defined. Any permutation of <span class="math inline">(s_j)</span> in the left-hand side set results in the same set. Commutativity shows the right hand side is unchanged by any permutation.</p>
 </blockquote>

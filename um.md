@@ -90,6 +90,28 @@ $$
 You receive cash flows proportional to your existing position and pay for the trades 
 just executed.
 
+### Example
+
+Consider a two period model with $T = \{t_0,t_1,t_2\}$ with two instruments, a bond
+and a stock paying no dividends. Assume the bond price $R_t = 1$ and stock price $S_t = 100$ are constant
+so $X_t = (R_t, S_t) = (1, 100)$ for all $t$.
+We assume an initial position $\Delta_{t_0} = (0,0)$. Consider the trading strategy
+with $\tau_0 = t_0$, $\Gamma_0 = (-100,1)$ and $\tau_1 = t_2$, $\Gamma_1 = (100, -1)$. 
+
+We have $V_{t_0} = \Gamma_0\cdot X_{t_0} = -100\times 1 + 1\times 100 = 0$
+and $A_0 = -\Gamma_0\cdot X_0 = -V_{t_0} = 0$.
+The position at time $t_1$ is $\Delta_{t_1} = \sum{\tau_j < 1}\Gamma_j = \Gamma_0 = (-100,1)$.
+Since $\Gamma_t = \Gamma_j$ when $t = \tau_j$ we have $\Gamma_{t_1} = (0,0)$
+so $V_{t_1} = (\Delta_{t_1} + \Gamma_{t_1}\cdot X_{t_1} = 0$ and 
+A_1 = \Delta_{t_1}\cdot C_{t_1} - \Gamma_{t_1}\cdot X_{t_1} = 0$.
+Note $\Delta_{t_2} = -Gamma_{t_2}$ so $V_{t_2} = 0$ and
+$A_{t_2} = -\Gamma_{t_2}\cdot X_{t_2} = (100, -1)\cdot (1, 100) = 0$.
+
+Now suppose the stock pays a 2 dollar dividend at time $t_1$ so $C_{t_1} = (0, 2)$
+is the only nozero cash flow. As above, $V_t = 0$ and $A_t = 0$ for all $t$ except
+$A_1 = \Delta_{t_1}\cdot C_{t_1} - \Gamma_{t_1}\cdot X_{t_1} = (-100,1)\cdot (0,2) - 0 = 2$.
+This model is not arbitrage free.
+
 ## Arbitrage
 
 Arbitrage exists if there is a trading strategy with $A_{τ_0} > 0$, $A_t \ge 0$ for

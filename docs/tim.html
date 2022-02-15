@@ -6,34 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Monads</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: true
-     });
-  }}});
-  </script>
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,12 +29,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
   -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Monads</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
+
 <p>We communicate using vocabulary. Italicised words indicate terms you may not be familiar with that will be defined later. I owe you definitions for <em>monad</em>, <em>monoid</em>, <em>endofunctor</em> and <em>category</em> but that requires going a bit deeper in debt first. I am assuming you know the meaning of ‘a’, ‘is’, ‘on’, ‘the’, and ‘of’.</p>
 <p>A monoid is a set with a <em>binary operation</em> that is <em>associative</em> and has an <em>identity element</em>. A binary operation on a set <span class="math inline">M</span> is a function <span class="math inline">m\colon M\times M\to M</span>. It is associative if <span class="math inline">m(m(a,b),c) = m(a, m(b,c))</span>, <span class="math inline">a,b,c\in M</span>. If we write <span class="math inline">m(a,b)</span> as <span class="math inline">ab</span> this says <span class="math inline">(ab)c = a(bc)</span> so we can write <span class="math inline">abc</span> unambiguously. An identity element <span class="math inline">e\in M</span> satisfies <span class="math inline">em = m = me</span>, for all <span class="math inline">m\in M</span>.</p>
 <p>A category is a collection of <em>arrows</em> with a <em>partial</em> binary operation that is associative. Each arrow in the collection is associatied with two <em>objects</em>, a <em>domain</em> and <em>codomain</em>. For an arrow <span class="math inline">f</span> we write <span class="math inline">f\colon A\to B</span> where <span class="math inline">A = \operatorname{dom}f</span> is the domain and <span class="math inline">B = \operatorname{cod}f</span> is the codomain. If <span class="math inline">f</span> and <span class="math inline">g</span> are arrows and <span class="math inline">\operatorname{cod}f = \operatorname{dom}g</span> then the partial binary operation <span class="math inline">gf</span> is well-defined and called <em>composition</em>. Every object <span class="math inline">A</span> has an <em>identity arrow</em> <span class="math inline">1_A</span> that satisfies <span class="math inline">1_{\operatorname{cod}f} f = f = 1_{\operatorname{dom}f}</span>.</p>
