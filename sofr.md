@@ -4,8 +4,64 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: SOBER?
+abstract: Short Rates
 ...
+
+Unlike the equity world where the volatility of stocks drown out dainty
+considerations of interests rates, the price dynamics of fixed income
+instruments without default are completely determine by the (model of)
+repo rates.  The large notionals involved require careful attention
+to technical details involving valuation versus settlement, day count
+conventions, and payment date adjustments based on roll conventions
+and holiday calendars.
+
+Building a yield curve involves cash deposits for the short term, forward
+rate agreements/futures for the medium term, and swaps for the long term.
+The problem of finding a discount curve repricing market instruments
+is highly underdetermined. The bootstrap method assumes forward rates
+are piecewise constant to provide a unique solution where successive
+forwards correspond to the instrument maturities.
+It is popular to use splining methods to "smooth" the forward curve but
+those introduce spurious mathematical noise into the actual market prices.
+
+It is better to spline by adding synthetic market instruments.
+Adding a synthetic 6 year swap with par coupon linearly interpolated from
+market 5 and 7 year par coupons is easier to explain to a trader
+than an artifact of a cubic Hermite tension spline.
+
+Replacing LIBOR by SOFR is a significant cost to doing business.
+Lawyers have to draft new contracts and accomodate existing contracts
+that depend on deprecated LIBOR quotes. Quants must
+devise new models that can be tuned to the latest market instruments.
+Technologists need to implement these. Businesses have to allocate
+funds for this and assess the impact on current and future positions
+using the new models.
+
+## Silver Lining
+
+In spite of these disruptions, SOFR connects more closly with
+the theory of mathematical finance that has been quite successful
+in the fixed income world. Dollar denominated swap markets out to 4 years
+have been quoted to a few basis point spreads since the late 90's.
+There is a clear trajectory in mathematical finance of developing
+models that more accurately reflect the realities of trading.
+SOFR is the overnight secured lending rate. This maps directly
+to the (model of) repo rates.
+
+LIBOR was always a proxy for unsecured lending. After 2008 swaps with
+different floating rate payment frequency started trading at different
+values. This led to a cottage industry of ad hoc models.
+Intoducing a hazard rate and recovery seems to be a little known
+two parameter solution to fitting these curves.
+
+Something mathematical finance still needs to grapple with is the
+fact SOFR is far more volitile than LIBOR. It can jump more than
+bitcoin, as witnessed in September 2019.
+
+## Playbook
+
+As with any new deveopment, understanding its history and current details
+
 
 The New York Fed calculates the Effective Federal Funds Rate (EFFR) and
 Overnight Bank Funding Rate (OBFR) from daily transaction data reported
