@@ -6,35 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Iterables</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: true
-     });
-  }}});
-  </script>
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
   <!--
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif&display=swap" rel="stylesheet"> 
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
@@ -45,45 +35,28 @@
 <h1 class="title">Iterables</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-<p>Let <span class="math inline">T = \{t_j\}_{j\in\bm{N}}</span> where <span class="math inline">t_j &lt; t_k</span> if <span class="math inline">j &lt; k</span> be a totally ordered discrete set. For <span class="math inline">U\subseteq T</span> define <span class="math inline">?U</span> by <span class="math inline">U \neq \emptyset</span>. If <span class="math inline">?U</span> define <span class="math inline">*U = \min U = \min\{u\mid u\in U\}\in T</span>. Define <span class="math inline">+U = U\setminus\{*U\}</span> and <span class="math inline">+^n U = U</span>, if <span class="math inline">n = 0</span>, <span class="math inline">+^n U = +^{n-1}(+U)</span> if <span class="math inline">n &gt; 0</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">U = \{*U\}\cup(+U)</span> and <span class="math inline">\{*U\}\cap(+U) = \emptyset</span></em>.</p>
+
 <section id="iterable" class="level2">
 <h2>Iterable</h2>
-<p>The collection of iterables on <span class="math inline">T</span>, <span class="math inline">\bm{N}(T)</span>, has operations <span class="math inline">?\colon \bm{N}(I)\to\bm{B}</span>, <span class="math inline">*\colon \bm{N}(I)\to T</span>, and <span class="math inline">+\colon \bm{N}(I)\to \bm{N}(I)</span> satisfying <span class="math inline">*i &lt; *+i</span> for <span class="math inline">i\in\bm{N}(T)</span> whenever <span class="math inline">?i</span>.</p>
-<p>We write <span class="math inline">U \square V</span>, <span class="math inline">U,V\subseteq T</span>, to indicate <span class="math inline">?U</span>, <span class="math inline">?V</span>, and <span class="math inline">(*U) \square (*V)</span> for any binary relation <span class="math inline">\square</span> on <span class="math inline">T</span>.</p>
-<p>We write <span class="math inline">U \square t = \{u\in U\mid u \square t\}</span>, <span class="math inline">U\subseteq T</span>, <span class="math inline">t\in T</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">+U</span> is equal to <span class="math inline">U\neq(*U)</span></em>.</p>
+<p>An <em>iterable</em> is a generalization of a sequence. Let <span class="math inline">i</span> be a subset of a totally ordered set <span class="math inline">T</span> that has a lower bound. Define <span class="math inline">?i</span> by <span class="math inline">i\neq\emptyset</span>, <span class="math inline">*i = \inf\{t\mid t\in i\}</span> when <span class="math inline">?i</span>, and <span class="math inline">+i = i\setminus\{*i\}</span>. The set <span class="math inline">i</span> is iterable if <span class="math inline">?i</span> is false or <span class="math inline">*i\in i</span> and <span class="math inline">+i</span> is iterable. An iterable gives rise to a sequence <span class="math inline">t_0 = *i</span>, <span class="math inline">t_1 = *+i</span>, …, <span class="math inline">t_n = *+^ni</span>. It terminates when <span class="math inline">?+^ni</span> is false.</p>
+<p><strong>Exercise</strong>. <em>Every countable set <span class="math inline">i\subseteq T</span> is iterable</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">i = \{t_j\}_{j\ge0}</span> is increasing then <span class="math inline">t_n = *+^ni</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">i</span> and <span class="math inline">j</span> are iterable then so are <span class="math inline">i\cap j</span> and <span class="math inline">i\cup j</span></em>.</p>
 </section>
-<section id="disjoint-union" class="level2">
-<h2>Disjoint Union</h2>
-<p>Recall the <em>disjoint union</em> of sets <span class="math inline">U_i</span>, <span class="math inline">0\le i &lt; n</span>, is <span class="math inline">\amalg_i U_i = \cup_i \{i\}\times U_i</span>. The element <span class="math inline">(j,u)</span> belongs to <span class="math inline">\amalg_i U_i</span> if and only if <span class="math inline">u\in U_j</span>. Define <span class="math inline">λ(j,u) = j</span> and <span class="math inline">ρ(j, u) = u</span>.</p>
-<p>The ordering is <span class="math inline">(i, u) &lt; (j, v)</span> iff <span class="math inline">u &lt; v</span> or <span class="math inline">u = v</span> and <span class="math inline">i &lt; j</span>. This implies <span class="math inline">*(\amalg_i U_i) = (j,u)</span> where <span class="math inline">u = \min_i *U_i</span> and <span class="math inline">j</span> is the first index with <span class="math inline">u = *U_j</span>. We have <span class="math inline">+(\amalg_i U_i) = (\amalg_i U_i)\setminus\{*(\amalg_i U_i)\}</span> as above.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\{*+^n(\amalg_i U_i)\mid n\ge 0\} = \cup_j U_j</span></em>.</p>
-</section>
-<section id="zig" class="level2">
-<h2>Zig</h2>
-<p>For <span class="math inline">U_i\subseteq T</span> with <span class="math inline">\{*U_j\} \le U_i</span> for all <span class="math inline">i</span>, define <span class="math inline">(j, \uparrow_i U_i)</span> as follows: <span class="math inline">*(j, \uparrow_i U_i) = (j, *U_j) = (j,u)</span>. Let <span class="math inline">+(j, \uparrow_i U_i) = (j, +u)</span> if <span class="math inline">U_{j+1}\cap(u, +u] = \emptyset</span> otherwise <span class="math inline">(j+1, *(U_{j+1}\cap(u, +u])</span>.</p>
-<p><span class="math inline">(i, u) &lt; (j, v)</span> iff <span class="math inline">i &lt; j</span> or <span class="math inline">i = j</span> and <span class="math inline">u &lt; v</span>.</p>
-<p>Every <span class="math inline">(i,u)</span>, <span class="math inline">(j,v)</span> is comparable. If <span class="math inline">i = j</span> then <span class="math inline">u,v\in U_i=U_j</span> are comparable. If <span class="math inline">i &lt; j</span></p>
-</section>
-<section id="functions" class="level2">
-<h2>Functions</h2>
-<p>If <span class="math inline">f\colon T\to\bm{R}</span> define <span class="math inline">f|_U</span> to be <span class="math inline">f</span> restricted to <span class="math inline">U</span>.</p>
-<p><span class="math inline">*f|_U = (*U, f(*U))</span>. <span class="math inline">+(f|_U) = f|_{+U\}</span>.</p>
-<p>If <span class="math inline">U = \{u_j\}</span> we get {(u_j, f(u_j)}$.</p>
-<p>define <span class="math inline">f^{\rightarrow}(t) = f(u_j)</span>, <span class="math inline">u_j \le t &lt; u_{j+1}</span>.</p>
-<p><span class="math inline">T</span> is trading times. <span class="math inline">O</span> is open times. <span class="math inline">C</span> is closing times. <span class="math inline">B</span> is beginning of week. <span class="math inline">E</span> is end of week. <span class="math inline">X\colon T\to\bm{R}</span> are prices.</p>
-<p>Stop loss start gain. Buy one share at beginning of week. If close is greater than open or end of week then sell.</p>
-<p><span class="math inline">x &gt; y\colon\operatorname{dom}x\cap\operatorname{dom}y\to\bm{B}</span>.</p>
-<p><span class="math inline">B \uparrow -(((X|_B)^\rightarrow &lt; X|_C)\amalg E)\uparrow</span></p>
-</section>
-<section id="total-order" class="level2">
-<h2>Total Order</h2>
-<p><span class="math inline">T</span> is totally ordered complete lattice with top and bottom. <span class="math inline">U\subseteq T</span>, <span class="math inline">\vee U = \sup\{u\in U\}</span>, <span class="math inline">\wedge U = \inf\{u\in U\}</span>.</p>
-<p>Define <span class="math inline">U\square t = \{u\in U\mid u\square t\}</span>, <span class="math inline">U\subseteq T</span>, <span class="math inline">t\in T</span>, where <span class="math inline">\square</span> is a relation on <span class="math inline">T\times T</span>.</p>
-<p><span class="math inline">*U = \wedge U</span>, <span class="math inline">+U = U\cap(U &gt; *U)</span>. We say <span class="math inline">U</span> is discrete if <span class="math inline">u_n = *\plus^n U</span> are strictly increasing.</p>
-<p>For <span class="math inline">U_i\subseteq T</span> let <span class="math inline">\amalg_i U_i</span> be the discrete union. Define <span class="math inline">(i, u) \sqsubset (j, v)</span> by <span class="math inline">u &lt; v</span> or <span class="math inline">u = v</span> and <span class="math inline">i &lt; j</span>.</p>
-<p>Define <span class="math inline">(i, u) \prec (j, v)</span> by <span class="math inline">i &lt; j</span> or <span class="math inline">i = j</span> and <span class="math inline">u &lt; v</span>.</p>
+<section id="operations" class="level2">
+<h2>Operations</h2>
+<p>If <span class="math inline">R</span> is a relation on <span class="math inline">T</span> define <span class="math inline">i RU</span> by <span class="math inline">i = i\cap RU</span>, where <span class="math inline">RU = \{t\in T\mid tRu, \rm{ some }u\in U\}</span>. If <span class="math inline">t\in T</span> define <span class="math inline">iR t = i R \{t\}</span>.</p>
+<p>If <span class="math inline">i</span> and <span class="math inline">j</span> are iterables on <span class="math inline">T</span> define <span class="math inline">i\sqcup j</span> to be an iterable on <span class="math inline">T\sqcup T</span>, the disjoint union of <span class="math inline">T</span> with itself, by <span class="math inline">?i\sqcup j</span> if and only if <span class="math inline">?i</span> or <span class="math inline">?j</span>, <span class="math inline">*i\sqcup j</span> = {<em>i, </em>j}$</p>
+<p>Let <span class="math inline">(T,\le)</span> be a set with a preorder (reflexive, transitive: <span class="math inline">I\subseteq \le</span>, <span class="math inline">\le^2\supseteq\le</span>). For <span class="math inline">U\subseteq T</span> define <span class="math inline">\wedge U = \{v\in U\mid v\le u, u\in U\}</span>. If <span class="math inline">\wedge U = \{u\}</span> is a singleton define <span class="math inline">*U = u</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">\le</span> is a partial order then <span class="math inline">\wedge U</span> is a singleton</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">\le</span> is a partial order then <span class="math inline">u\le v</span> and <span class="math inline">v\le u</span> imply <span class="math inline">u = v</span>.</p>
+<p>Let <span class="math inline">+U = U\setminus\wedge U</span>. As usual, <span class="math inline">u\ge v</span> means <span class="math inline">v\le u</span>, <span class="math inline">u&lt;v</span> means <span class="math inline">u\le v</span> and <span class="math inline">u\neq v</span>, and <span class="math inline">u &gt; v</span> is <span class="math inline">v &lt; u</span>. For <span class="math inline">V\subseteq T</span> define <span class="math inline">U&gt;V = \{u\in U\mid u&gt;v, v\in V\}</span>. If <span class="math inline">t\in T</span> define <span class="math inline">U&gt;t = U&gt;\{t\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">+U</span> equals <span class="math inline">U&gt;\wedge U</span></em>.</p>
+<p>If <span class="math inline">U_j\subseteq T</span>, <span class="math inline">j\in J</span>, let <span class="math inline">\sqcup_{j\in J} U_j = \{(j,u_j)\mid j \in J, u_j\in U_j\}</span> be the disjoint union. The injection <span class="math inline">ν_j\colon U_j\to\sqcup_j U_j</span> is <span class="math inline">ν_j(u) = (j, u)</span>. Define left and right projections <span class="math inline">λ\colon\sqcup_j U_j\to J</span> by <span class="math inline">λ(j,u) = j</span>, <span class="math inline">ρ\colon\sqcup_j U_j\to T</span> by <span class="math inline">ρ(j,u) = u</span>. If <span class="math inline">J</span> has a partial order (antisymmetric, preorder: <span class="math inline">\le \cap \ge = I</span>) define <span class="math inline">(j,u)\sqsubseteq (k,v)</span> by <span class="math inline">j&lt;k</span> or <span class="math inline">j=k</span> and <span class="math inline">u\le v</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\wedge\sqcup_j U_j = \{(k,u_k)\mid u_k\in U_k\cap\wedge\cup_j U_j\}</span></em>.</p>
+<p>For <span class="math inline">k\in J</span> let <span class="math inline">(k, U) = (k,\sqcup_j U_j) = \{(k, u)\mid u\in U_k\} = \{u\in\sqcup_j U_j\mid λu = k\}</span>, or <span class="math inline">λU = k</span>.</p>
+<p>Define <span class="math inline">k\wedge U = \wedge(k, U)</span> and <span class="math inline">k*U = (k,u)</span> if <span class="math inline">k\wedge U = \{(k,u)\}</span>.</p>
+<p>When <span class="math inline">J = n = \{0,\ldots,n-1\}</span> and <span class="math inline">U = \sqcup_{j&lt;n} U_j</span> define <span class="math inline">(k + m, u_m) = (k + m, (k+m)*(+^mU))</span>, <span class="math inline">k\in n</span>, <span class="math inline">m\ge 0</span>, where addition is modulo <span class="math inline">n</span>. Define <span class="math inline">k + U = \sqcup_j (U_j &gt; k*U)</span>.</p>
 </section>
 <footer>
 Return to <a href="index.html">index</a>.

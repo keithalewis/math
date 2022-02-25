@@ -6,34 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Logic</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: true
-     });
-  }}});
-  </script>
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,6 +29,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
   -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <header id="title-block-header">
@@ -70,18 +60,14 @@
 <p>Note that if <span class="math inline">P</span> is false then <span class="math inline">P\supset Q</span> is true no matter if <span class="math inline">Q</span> is true or false. If you think it is peculiar that ‘false implies true’ is a true statement then you and I agree on that.</p>
 <strong>Exercise</strong>. <em>Show <span class="math inline">\neg(\neg P)</span> always has the same truth value as <span class="math inline">P</span></em>.
 <details>
-<summary>
-Solution
-</summary>
+<p><summary>Solution</summary></p>
 <blockquote>
 <p>If <span class="math inline">P</span> is true then <span class="math inline">\neg P</span> is false so <span class="math inline">\neg(\neg P)</span> is true. If <span class="math inline">P</span> is false then <span class="math inline">\neg P</span> is true so <span class="math inline">\neg(\neg P)</span> is false.</p>
 </blockquote>
 </details>
 <strong>Exercise</strong>. <em>Show <span class="math inline">P\vee\neg P</span> is always true</em>.
 <details>
-<summary>
-Solution
-</summary>
+<p><summary>Solution</summary></p>
 <blockquote>
 <p>If <span class="math inline">P</span> is true then <span class="math inline">P\vee\neg P</span> is true. If <span class="math inline">P</span> is false then <span class="math inline">P\vee\neg P</span> is true.</p>
 </blockquote>
@@ -96,9 +82,7 @@ Solution
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">P\equiv Q</span> is equivalent to <span class="math inline">(P\wedge Q)\vee(\neg P\wedge\neg Q)</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">P\supset Q</span> and <span class="math inline">\neg P\vee Q</span> are equivalent</em>.</p>
 <details>
-<summary>
-Solution
-</summary>
+<p><summary>Solution</summary></p>
 <blockquote>
 <p>If <span class="math inline">P</span> is false then <span class="math inline">P\supset Q</span> is true, as we’ve just seen. Since <span class="math inline">\neg P</span> is true in this case <span class="math inline">\neg P\vee Q</span> is true. If <span class="math inline">P</span> is true and <span class="math inline">Q</span> is false then <span class="math inline">P\supset Q</span> is false and so is <span class="math inline">\neg P\vee Q</span> since both <span class="math inline">\neg P</span> and <span class="math inline">Q</span> are false. If <span class="math inline">P</span> is true and <span class="math inline">Q</span> is true then <span class="math inline">P\supset Q</span> is true and so is <span class="math inline">\neg P\vee Q</span> since <span class="math inline">Q</span> is true.</p>
 </blockquote>

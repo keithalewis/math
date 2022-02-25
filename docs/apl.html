@@ -6,34 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>APL</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: true
-     });
-  }}});
-  </script>
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,12 +29,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
   -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">APL</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
+
 <blockquote>
 <p><em>APL is a mistake carried through to perfection</em> — Edsgar W. Dijkstra</p>
 </blockquote>
@@ -83,7 +74,7 @@
 <h2>Set</h2>
 <p>We use the convention that applying a function to an element of a set is right associative so <span class="math inline">f(x)</span> can be written <span class="math inline">fx</span>. This in natural in languages where composition means function application. Applying a function to an element of a set causes a slight problem. <span class="math inline">fgh(x) = f(g(h(x))</span> but <span class="math inline">(fg)(h(x))\not= f(g(h(x)))</span>.</p>
 <p><span class="math inline">\mathbf{Set}</span> is <em>cartesian closed</em> – It has products and exponentials that satisfy <span class="math inline">Z^{X\times Y}\cong Z^{Y^X}</span>. The <em>cartesian product</em> of sets <span class="math inline">X</span> and <span class="math inline">Y</span> <span class="math inline">X\times Y = \{(x,y):x\in X, y\in Y\}</span> is the set of all pairs of elements from each set. The <em>exponential</em> <span class="math inline">Y^X = \{f\colon X\to Y\}</span> is the set of functions from <span class="math inline">X</span> to <span class="math inline">Y</span>. We write <span class="math inline">Y^X</span> in linear notation as <span class="math inline">X\to Y</span> or <span class="math inline">Y\leftarrow X</span>.</p>
-<p>Products and exponentials are related by <span class="math inline">Z^{X\times Y}</span> is in one-to-one correspondence with <span class="math inline">Z^{Y^X}</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Every <span class="math inline">f\in Z^{X\times Y}</span> corresponds to <span class="math inline">g\in Z^{Y^X}</span> via <span class="math inline">f(x,y) = z</span> if and only if <span class="math inline">g(x)(y) = (gx)y = z</span>, <span class="math inline">x\in X</span>, <span class="math inline">y\in Y</span>, <span class="math inline">z\in Z</span>. This correspondence can be written <span class="math display">
+<p>Products and exponentials are related by <span class="math inline">Z^{X\times Y}</span> is in one-to-one correspondence with <span class="math inline">Z^{Y^X}</span>.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Every <span class="math inline">f\in Z^{X\times Y}</span> corresponds to <span class="math inline">g\in Z^{Y^X}</span> via <span class="math inline">f(x,y) = z</span> if and only if <span class="math inline">g(x)(y) = (gx)y = z</span>, <span class="math inline">x\in X</span>, <span class="math inline">y\in Y</span>, <span class="math inline">z\in Z</span>. This correspondence can be written <span class="math display">
     (X\times Y)\to Z \cong X\to(Y\to Z)
 </span> Going from left to right is <em>currying</em> and going from right to left is <em>uncurrying</em>.</p>
 <p><span class="math inline">e(f,x) = f(x)</span>, <span class="math inline">f\in Y^X</span>, <span class="math inline">x\in X</span>. It is just an explicit name for <em>function application</em>. The curried form of the evaluation map identifies <span class="math inline">Y^X</span> with <span class="math inline">X\to Y</span>.</p>
@@ -93,7 +84,7 @@
 <p>A function <span class="math inline">s\colon X\to\bm{B}</span> determines a subset of <span class="math inline">X</span> (and its complement) by <span class="math inline">S = \{x\inX:s(x) = t\}</span> so <span class="math inline">X\setminus S = \{x\inX:s(x) = f\}</span>.</p>
 <section id="vec" class="level3">
 <h3>Vec</h3>
-<p>Vector spaces and linear tranformations are the objects and arrows of the category <span class="math inline">\mathbf{Vec}</span>. The identities are written <span class="math inline">I_V</span> instead of <span class="math inline">1_V</span>. We write <span class="math inline">V\Rightarrow W</span> for the arrows in <span class="math inline">W^V</span> that preserve the vector space structure.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> This is also written <span class="math inline">\mathcal{L}(V,W)</span> or <span class="math inline">\operatorname{hom}_{\mathbf{Vec}}(V, W)</span> and the elements are called <em>homomorphisms</em>. Note <span class="math inline">V\Rightarrow W</span> is also a vector space where addition and scalar multiplication are defined pointwise; if <span class="math inline">S,T\colon V\Rightarrow W</span> then <span class="math inline">(S + T)v = Sv + Tv\in W</span> and <span class="math inline">a(S + T)v = a(Sv) + a(Tv)\in W</span>, <span class="math inline">v\in V</span>, <span class="math inline">a\in\bm{F}</span>.</p>
+<p>Vector spaces and linear tranformations are the objects and arrows of the category <span class="math inline">\mathbf{Vec}</span>. The identities are written <span class="math inline">I_V</span> instead of <span class="math inline">1_V</span>. We write <span class="math inline">V\Rightarrow W</span> for the arrows in <span class="math inline">W^V</span> that preserve the vector space structure.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> This is also written <span class="math inline">\mathcal{L}(V,W)</span> or <span class="math inline">\operatorname{hom}_{\mathbf{Vec}}(V, W)</span> and the elements are called <em>homomorphisms</em>. Note <span class="math inline">V\Rightarrow W</span> is also a vector space where addition and scalar multiplication are defined pointwise; if <span class="math inline">S,T\colon V\Rightarrow W</span> then <span class="math inline">(S + T)v = Sv + Tv\in W</span> and <span class="math inline">a(S + T)v = a(Sv) + a(Tv)\in W</span>, <span class="math inline">v\in V</span>, <span class="math inline">a\in\bm{F}</span>.</p>
 <p>The <em>dual</em> <span class="math inline">V^*</span> of the vector space <span class="math inline">V</span> is <span class="math inline">V\Rightarrow\bm{F}</span> where <span class="math inline">\bm{F}</span> is the one-dimensional vector space consisting of the underlying field. The <em>dual pairing</em> is <span class="math inline">\langle v,v^*\rangle = v^*v\in\bm{F}</span>, <span class="math inline">v\in V</span>, <span class="math inline">v^*\in V^*</span>. A linear transformation <span class="math inline">T\colon V\Rightarrow W</span> has a dual <span class="math inline">T^*\colon W^*\Rightarrow V^*</span> defined by <span class="math inline">\langle Tv, w^*\rangle = \langle v, T^*w^\rangle</span>. This defines a <em>functor</em> on <span class="math inline">\mathbf{Vec}</span>.</p>
 <p><strong>Exercise</strong>. <em>What is the dual of <span class="math inline">V\Rightarrow W</span></em>?</p>
 <p>There is a natural injection <span class="math inline">\nu_V = \nu\colon V\Rightarrow V^{**}</span> defined by <span class="math inline">\langle \nu v, v^*\rangle = \langle v, v^*\rangle</span>. If <span class="math inline">V</span> is finite dimensional then <span class="math inline">\nu</span> is an isomorphism.</p>
@@ -174,11 +165,11 @@
 <p>If <span class="math inline">J\subseteq I</span> and <span class="math inline">[J]\colon J\to I</span> is inclusion then <span class="math inline">y[J]\in X_J</span> projects <span class="math inline">y\in X_I</span> to <span class="math inline">X_J</span>.</p>
 <p>Currying: <span class="math inline">X\times Y\to Z\cong (Z^Y)^X</span> via <span class="math inline">f(x,y) = z</span> iff <span class="math inline">(fx)y = z</span>.</p>
 </section>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>In fancy pants category theory language this is expressed as the product functor <span class="math inline">F_Y(X) = X\times Y</span> and the exponential functor <span class="math inline">G_Y(Z) = Z^Y</span> are adjoint: <span class="math inline">\operatorname{hom}(F_Y(X),Z)\cong\operatorname{hom}(X,G_Y(Z))</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>If <span class="math inline">T\colon V\Rightarrow W</span> is a linear transformation in <span class="math inline">\mathbf{Vec}</span> we write <span class="math inline">\{T\}\colon \{V\}\to\{W\}</span> in <span class="math inline">\mathbf{Set}</span> for the corresponding function on the underlying sets of the vector spaces. This is the <em>forgetful functor</em> <span class="math inline">\{\}\colon\mathbf{Vec}\to\mathbf{Set}</span>. There is also the <em>free functor</em> <span class="math inline">\langle\rangle\colon\mathbf{Set}\to\mathbf{Vec}</span> defined by <span class="math inline">X\subseteq V\mapsto \langle X\rangle = \operatorname{span}\{\delta_x:x\in X\}\subseteq B(X)</span> where <span class="math inline">B(X)</span> is the vector space of bounded functions on <span class="math inline">X</span> and <span class="math inline">\delta_x(y) = 1</span> if <span class="math inline">y = x</span> and <span class="math inline">\delta_x(y) = 0</span> if <span class="math inline">y\not= x</span>, <span class="math inline">x,y\in X</span>. A function on sets <span class="math inline">t\colon X\to Y</span> can be extended to <span class="math inline">\langle t\rangle\colon \langle X\rangle\to\langle Y\rangle</span> by extending it linearly. Since <span class="math inline">\{\delta_x:x\in X\}\subseteq B(X)</span> are independent this extension is well-defined. Show <span class="math inline">\{V\}\Rightarrow X\cong V\Rightarrow\langle X\rangle</span> for <span class="math inline">V</span> a vector space and <span class="math inline">X</span> a set.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>In fancy pants category theory language this is expressed as the product functor <span class="math inline">F_Y(X) = X\times Y</span> and the exponential functor <span class="math inline">G_Y(Z) = Z^Y</span> are adjoint: <span class="math inline">\operatorname{hom}(F_Y(X),Z)\cong\operatorname{hom}(X,G_Y(Z))</span>.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>If <span class="math inline">T\colon V\Rightarrow W</span> is a linear transformation in <span class="math inline">\mathbf{Vec}</span> we write <span class="math inline">\{T\}\colon \{V\}\to\{W\}</span> in <span class="math inline">\mathbf{Set}</span> for the corresponding function on the underlying sets of the vector spaces. This is the <em>forgetful functor</em> <span class="math inline">\{\}\colon\mathbf{Vec}\to\mathbf{Set}</span>. There is also the <em>free functor</em> <span class="math inline">\langle\rangle\colon\mathbf{Set}\to\mathbf{Vec}</span> defined by <span class="math inline">X\subseteq V\mapsto \langle X\rangle = \operatorname{span}\{\delta_x:x\in X\}\subseteq B(X)</span> where <span class="math inline">B(X)</span> is the vector space of bounded functions on <span class="math inline">X</span> and <span class="math inline">\delta_x(y) = 1</span> if <span class="math inline">y = x</span> and <span class="math inline">\delta_x(y) = 0</span> if <span class="math inline">y\not= x</span>, <span class="math inline">x,y\in X</span>. A function on sets <span class="math inline">t\colon X\to Y</span> can be extended to <span class="math inline">\langle t\rangle\colon \langle X\rangle\to\langle Y\rangle</span> by extending it linearly. Since <span class="math inline">\{\delta_x:x\in X\}\subseteq B(X)</span> are independent this extension is well-defined. Show <span class="math inline">\{V\}\Rightarrow X\cong V\Rightarrow\langle X\rangle</span> for <span class="math inline">V</span> a vector space and <span class="math inline">X</span> a set.<a href="#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 <footer>

@@ -7,24 +7,6 @@ fleqn: true
 abstract: Possibly infinite streams
 ...
 
-\newcommand\dom{\operatorname{dom}}
-\newcommand\cod{\operatorname{cod}}
-\newcommand\ker{\operatorname{ker}}
-\newcommand\ran{\operatorname{ran}}
-\newcommand\cat[1]{\mathbf{#1}}
-\newcommand\mb[1]{\mathbf{#1}}
-\newcommand\Bool{\bm{B}}
-\newcommand\NN{\bm{N}}
-\newcommand\RR{\bm{R}}
-\newcommand\more{?}
-\newcommand\curr{*}
-\newcommand\next{+}
-\newcommand\length{\operatorname{length}}
-\newcommand\u[1]{\underline{#1}}
-\newcommand\union{\sqcup}
-\newcommand\if{\operatorname{if}}
-\newcommand\then{\operatorname{then}}
-\newcommand\else{\operatorname{else}}
 
 ## Iterable
 
@@ -49,9 +31,7 @@ define $iR t = i R \{t\}$.
 
 If $i$ and $j$ are iterables on $T$ define
 $i\sqcup j$ to be an iterable on $T\sqcup T$, the disjoint union of $T$ with itself,
-by $?i\sqcup j$ if and only if $?i$ or $?j$, $*i\sqcup j$ = \min\{*i, *j\}$
-
-
+by $?i\sqcup j$ if and only if $?i$ or $?j$, $*i\sqcup j = \min\{*i, *j\}$
 
 Let $(T,\le)$ be a set with a preorder (reflexive, transitive:
 $I\subseteq \le$, $\le^2\supseteq\le$).
@@ -87,3 +67,28 @@ Define $k\wedge U = \wedge(k, U)$ and $k*U = (k,u)$ if $k\wedge U = \{(k,u)\}$.
 When $J = n = \{0,\ldots,n-1\}$ and
 $U = \sqcup_{j<n} U_j$ define $(k + m, u_m) = (k + m, (k+m)*(+^mU))$, $k\in n$, $m\ge 0$,
 where addition is modulo $n$. Define $k + U = \sqcup_j (U_j > k*U)$.
+
+## Usage
+
+Consider a _stop-loss start-gain_ strategy. Given stock prices $(S_t)_{t\in T}$ and levels $L$ and $H$,
+we wish to purchase one share when the price goes below $L$ and sell one share the next time
+the price is above $H$. This can be expressed by the statement $(S < L),(S > H)$.
+At the first time the stock goes below $L$ we will get the time $(0, t_0)$. 
+The next time after $t_0$ that the stock is above $H$ we will get $(1, t_1)$.
+
+We use a trailing comma to indicate the strategy should be applied cyclicly.
+The expression $(S < L),(S > H),$ would generate a sequence $(0,t_0),(1,t_1),(0,t_2),(1,t_3),\dots$
+where the $t_j$ are increasing and $S_{t_j} < L$ if $j$ is even and $S_{t_j} > H$ if $j$ is odd.
+The first entry in the disjoint union indicate whether the stock went below $L$ or went above $H$.
+
+Now suppose we want to close out any open positions at the end of week market close.
+If $E$ is this set of times then the strategy is expressed by $(S<L),(S>H)\sqcup E,$.
+It will generate a sequence of the form $(0,t_0),(1, (j,t_1)),(0,t_2),(1,(j,t_3)),\dots$
+where $j = 0$ indicates $S > H$ occured and $j = 1$ indicates the end of week signal.
+
+If we want to do at most one trade per week let $B$ be the set of beginning of week market open times.
+Then $B,(S<L),(S>H)\sqcup E,$ expresses this strategy and produces sequences of the form
+$(0,t_0),(1,t_1),(2,(j,t_3)),(0,t_4),\dots$.
+
+Note we are only producing times and which clause signalled the corresponding times.
+These can then be fed into a trading strategy involving any other data available.
