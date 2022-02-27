@@ -10,15 +10,25 @@ abstract: Reflecting the real world in Mathematical Finance
 \newcommand\RR{\mathbf{R}}
 \renewcommand\AA{\mathcal{A}}
 
-> In Physics, a theory that does not agree with experiment is
-recognized as deficient and serious scientists get to work on a theory to address that.
-This does not seem to be the case in Mathematical Finance.
-It can't even answer questions a junior trader has the first day on
-a trading floor. This short note takes a page out of the physicsts
-playbook in an attempt to identify fundamental concepts and
-provide a rigorous mathematical framework to reason about them.
+> In Physics, a theory that does not agree with experiment is recognized
+as deficient and serious scientists get to work on improving the theory.
+Mathematical Finance seems to ignore fundamental shortcomings.
+Continuous time hedging is impossible and provides no advice to a trader on when,
+and by how much, they should adjust their hedge.
+This short note takes a page out of the
+physicsts playbook in an attempt to identify the fundamental components
+of real-world trading and provide a vocabulary for a rigorous mathematical
+framework to reason about them.
 
-A _market_ consists of _instruments_. Every instrument has a _price_
+A _market_ consists of _instruments_.
+_Stocks_ and _bonds_ come into existence by companies wanting to raise capital.
+_Commodities_ are instruments that involve growing crops, raising livestock,
+and digging things out of the ground.
+_Currencies_ are issued by nation states to facilitate transactions.
+Exchanges connect instrument
+_buyers_ and _sellers_. 
+
+Every instrument has a _price_
 at which it can be bought or sold and holding an instrument entails
 _cash flows_ to its owner.  Stocks pay dividends, or may incur borrow
 costs when shorted. Bonds pay coupons.  Futures always have price zero
@@ -43,3 +53,5 @@ Transactions are not symmetric. The buyer decides when and how much of
 an instrument they hold to bid. The seller offers a price
 $X = X(t;a,i,e;i',e')$ that the buyer can lift for the transaction
 $(t;a,i,e;aX,i'e')$, so $a' = aX$ and $X = a'/a$ is the price.
+
+
