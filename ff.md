@@ -13,20 +13,19 @@ abstract: Reflecting the real world in Mathematical Finance
 > In Physics, a theory that does not agree with experiment is recognized
 as deficient and serious scientists get to work on improving the theory.
 Mathematical Finance seems to ignore fundamental shortcomings.
-Continuous time hedging is impossible and provides no advice to a trader on when,
-and by how much, they should adjust their hedge.
+Continuous time hedging is impossible. Traders need to know when,
+and by how much, they should adjust their hedges.
 This short note takes a page out of the
 physicsts playbook in an attempt to identify the fundamental components
-of real-world trading and provide a vocabulary for a rigorous mathematical
+of real-world trading and define a vocabulary for a rigorous mathematical
 framework to reason about them.
 
 A _market_ consists of _instruments_.
 _Stocks_ and _bonds_ come into existence by companies wanting to raise capital.
 _Commodities_ are instruments that involve growing crops, raising livestock,
 and digging things out of the ground.
-_Currencies_ are issued by nation states to facilitate transactions.
-Exchanges connect instrument
-_buyers_ and _sellers_. 
+_Currencies_ are issued by nation states to facilitate trustworth transactions.
+_Exchanges_ provide a means for _buyers_ and _sellers_ to _transact_ instruments. 
 
 Every instrument has a _price_
 at which it can be bought or sold and holding an instrument entails
