@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
-abstract: Reflecting the real world in Mathematical Finance
+abstract: Evincing the real world in Mathematical Finance
 ...
 
 \newcommand\RR{\mathbf{R}}
