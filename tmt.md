@@ -57,7 +57,7 @@ __Exercise__. _Show the set of arbitrage portfolios is a cone_.
 Recall $\gamma$ is an arbitrage portfolio if and only if $\gamma'x < 0$ and $\gamma'X\ge0$.
 If $p > 0$ then $p\gamma'x < 0$ and $p\gamma'X\ge0$. If $\eta$ is another arbitrage
 portfolio then $(\gamma + \eta)'x = \gamma'x + \eta'x < 0$ and 
-(\gamma + \eta)'X = \gamma'X + \eta'X \ge 0$.
+$(\gamma + \eta)'X = \gamma'X + \eta'X \ge 0$.
 </details>
 
 The _range_ of $X$ is the set $X(\Omega) = \{X(\omega)\mid \omega\in\Omega\}$.
@@ -74,7 +74,18 @@ by the range of $X$ then there are no arbitrage portfolios.
 If $x$ is not in the cone and $x^*$ is the point in the cone closest to $x$,
 then $\gamma = x^* - x$ is an arbitrage. However, proving that involves more machinery[^2].
 
-### Example
+### Examples
+
+Consider a bond, stock, and at-the-money call option where the bond has zero
+interest rate, the stock has initial price 100 and either 90 or 110 as the final
+price, and the call option has price $c$. The one-period model for this is $x = (1, 100, c)$ and
+$X(\omega) = (1, \omega, \max\{\omega - 100, 0\})$ where $\omega\in\Omega = \{90, 110\}$.
+The range of $X$ is $X(\omega) = \{X(90), X(110)\}$ and
+the smallest cone containing the range of $X$ consists of
+$\{aX(90) + bX(110)$ where $a,b\ge 0$.
+Since $x = X(90)/2 + X(110)/2$ we must have $c = 0/2 + 10/2 = 5$ if the model is arbitrage-free.
+
+__Exercise__. (Binomial model) _Show if $x = (1, s, c)$ ... then $c = ...$_.
 
 A puzzle making the rounds a few years ago was given a bond with zero interest rate,
 a stock with initial price 100 and possible final prices of 90, 100, and 110, what
@@ -83,21 +94,24 @@ expire at either $0$ or $10$, however the
 arbitrage-free price must be between 0 and 5.
 The one period model for this is $x = (1, 100, c)$ where $c$ is the call value,
 and $X(\omega) = (1, \omega, \max\{\omega - 100,0\})$ for $\omega\in\Omega = \{90, 100, 110\}$.
-Let $A = X(90) = (1, 90, 0)$, $B = X(100) = (1, 100, 0)$,
-and $C = X(110) = (1, 110, 10)$. The set of all
+The set of all
 points in the smallest cone containg the range of $X$ is
 $$
-	\{aA + bB + cC\mid a,b,c \ge 0\}.
+	\{aX(90) + bX(110) + cX(110)\mid a,b,c \ge 0\}.
 $$
-Since $x = Ac/10 + B(1 - c/5) + Cc/10$ we must have $c\ge0$ and $1 - c/5\ge0$.
+Since $x = X(90)c/10 + X(100)(1 - c/5) + X(110)c/10$ we must have $c\ge0$ and $1 - c/5\ge0$.
 
 __Exercise__. _Assume only the stock and call are available. What is the no arbitrage
 condition for $c$_?
 
 _Hint_: It is not $0\le c\le 10$.
 
+If the call has strike $k$...
+
+## General One-Period Model
+
 If we assume $X$ is bounded on $\Omega$ then there exists a positive measure $\pi$ on $\Omega$
-with $x = \int_\Omega X\,d\pi$. The _mass_ of $\pi$ is $\|\pi\| = \int_\Omega d\pi$.
+with $x = \int_\Omega X\,d\pi$. The _mass_ of $\pi$ is $\|\pi\| = \int_\Omega 1\, d\pi$.
 Since $Q = \pi/\|pi\|$ is a probability measure we can write this as $x = E[X]/R$ where
 $R = 1/\|\pi\|$. Of course $Q$ is not the probability of anything, it is
 just a positive measure with mass 1. We call $Q$ a _risk-neutral_ measure.
@@ -121,7 +135,7 @@ The _discount_ is $D = \zeta'x = \int_\Omega 1\,d\pi = 1/R$ so we have $x = E[X]
 
 ## Multi-Period Model
 
-An $n$-period model specifies trading times $0 = t_0 < t_1 < \cdots < t_n = t$. 
+An $n$-period model specifies trading times $t_0 < t_1 < \cdots < t_n$. 
 
 A _partition_ $\mathcal{A}$ of a set $\Omega$ is used to represent partial information...
 
@@ -148,6 +162,8 @@ Let $\mathcal{G}_0$ be the collection of closed out trading strategies.
 Arbitrage exists if there is a closed out trading strategy $(\Gamma_t)_{t\in T}$
 with $A_{t_0} > 0$ and $A_{t_j}\ge0$ for $j > 0$.
 
+### One-Period Model
+
 For a one-period model $\mathcal{G}_0 = \{(\gamma,-\gamma)\mid \gamma\in\RR^I\}$. 
 In this case $A_0 = -\gamma\cdot X_0$ and $A_1 = \gamma\cdot C_1 + \gamma\cdot X_1$.
 As a warm-up for the proof of the multi-period case define
@@ -155,6 +171,8 @@ $A\colon\RR^I\to\RR^I\oplus B(\Omega)$ by
 $A\gamma = (A_0, A_1)$. The no arbitrage condition is
 the range of the operator $A$ does not intersect the cone
 $\mathcal{P} = \{(p, P)\mid p > 0, P\ge 0\}$
+
+### FTAP
 
 ## Optimization
 
