@@ -10,7 +10,13 @@ abstract: Moving fixed cash flows through time.
 \newcommand\mb[1]{\mathbf{#1}}
 
 Finance involves moving cash flows through time.
-The _realized return_, $R(t,u)$, from time $t$ to time $u$
+A _zero coupon bond_ paying 1 unit at time $t$ has price $D(t)$.
+Equivalently, 1 unit invested now has _realized return_ $R(t) = 1/D(t)$ at time $t$.
+
+The _realized return_ over the period from time $t$ to time $u$
+is denoted $R(t,u)$, so $R(0,t) = R(t)$.
+The _discount_ over the period from $t$ to $u$ is $D(t,u) = 1/R(t,u)$.
+
 indicates amount $c$ invested at $t$ yields $cR(t,u)$ at $u$.
 Taking $c = 1/R(t,u)$ we have $1/R(t,u)$ at $t$ yields $1$ at $u$,
 so $D(t,u) = 1/R(t,u)$ is the price at $t$ of a zero coupon bond maturing at $u$.
