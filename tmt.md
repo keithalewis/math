@@ -116,9 +116,10 @@ The one period model for this is $x = (1, 100, c)$ where $c$ is the call value,
 and $X(\omega) = (1, \omega, \max\{\omega - 100,0\})$ for $\omega\in\Omega = \{90, 100, 110\}$.
 The set of all points in the smallest cone containg the range of $X$ is
 $$
-	\{aX(90) + bX(110) + cX(110)\mid a,b,c \ge 0\}.
+	\{aX(90) + bX(100) + cX(110)\mid a,b,c \ge 0\}.
 $$
-Since $x = X(90)c/10 + X(100)(1 - c/5) + X(110)c/10$ we must have $c\ge0$ and $1 - c/5\ge0$.
+Since $x = X(90)c/10 + X(100)(1 - c/5) + X(110)c/10$ we must have $c\ge0$ and $1 - c/5\ge0$,
+so $0 \le c \le 5$.
 
 __Exercise__. _Assume only the stock and call are available. What is the no arbitrage
 condition for $c$_?
