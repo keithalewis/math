@@ -8,18 +8,22 @@ abstract: The mathematical foundations of pivot tables.
 ...
 
 Pivot tables summarize multidimensional data values using measures.
-Pivot table data is a function $t\colon D\to V$ where $D$
+A _pivot table_ is a function $t\colon D\to V$ where $D$
 are the _dimensions_ and $V$ are the _values_.
 If $\Delta$ is a collection of subsets of $D$ and $\mu$ is a
-function from subsets of $V$ to $V$ we can define pivot table data
+function from subsets of $V$ to $V$ we can define the pivot table 
 $t_{\Delta,\mu}\colon\Delta\to V$ by $t_{\Delta,\mu}(\delta)
 = \mu(t(\delta))$ for $\delta\in\Delta$ where $t(\delta) =
 \{t(d):d\in\delta\}\subseteq V$.  Any function $u\colon D'\to D$ can be
 be composed with $t$ to get pivot table data $t\circ u\colon D'\to V$.
 
-For example, if $D$ are dates and $V$ are prices then we can aggregate
-maximum or minimum prices over days, weeks, or months.  If $D'\subseteq D$
-are the market open times then the inclusion function gives the open prices.
+For example, if $D$ is the set of all datetimes we can partition $D$ into
+days using the equivalence relation $t_1\sim t_2$ if and only if $t_1$
+and $t_2$ belong to the same day.  If $V$ are prices then we can aggregate
+maximum or minimum prices over days to get daily high and low prices.
+
+If $D'\subseteq D$ are the market open times then the composition gives
+the open prices.
 
 Pivot tables become more useful when dimensions and values have
 more structure.
@@ -27,11 +31,11 @@ more structure.
 ## Partition
 
 A _partition_ $\Delta$ of a dimension $D$ is a collection of subsets of $D$
-satisfying $D = \cup \Delta$ (for every $a\in D$ there exists $A\in\Delta$
-with $a\in A$) and for $A,B\in\Delta$ either $A\cap B = \emptyset$ or
-$A = B$.  The elements of a partition are called _atoms_. If $\Delta =
+satisfying $D = \cup \Delta$ (for every $d\in D$ there exists $\delta\in\Delta$
+with $d\in \delta$) and for $\delta,\epsilon\in\Delta$ either $\delta\cap \epsilon = \emptyset$ or
+$\delta = \epsilon$.  The elements of a partition are called _atoms_. If $\Delta =
 \{\delta_1,\ldots,\delta_n\}$ is finite then it is a partition of $D$ if
-and only if $\cup_j \detla_j = D$ and $\delta_j\cap\delta_k = \emptyset$
+and only if $\cup_j \delta_j = D$ and $\delta_j\cap\delta_k = \emptyset$
 if $j\not= k$.
 
 <!--
@@ -62,9 +66,9 @@ and finest partion of $D$ is the collection of singletons $\{\{D\}\} = \{\{d\}:d
 Note $D$ is in
 one-to-one correspondence with $\{\{D\}\}$ by $d\leftrightarrow\{d\}$
 for $d\in D$. Any function $t\colon D\to V$ corresponds to a function
-$t\colon\{\{D\}\}\to V$ where $\{\d\}\}\mapsto t(d)$, $d\in D$.
-Above we called this function $t|_{\{\D\}\}$. Every function from $t\colon D\to V$
-is $\{\{D\}\} measurable.
+$t\colon\{\{D\}\}\to V$ where $\{\{d\}\}\mapsto t(d)$, $d\in D$.
+Above we called this function $t|_{\{\{D\}\}}$. Every function from $t\colon D\to V$
+is $\{\{D\}\}$ measurable.
 
 <!--
 An _algebra_ $\mathcal{A}$ of sets on $D$ is a subset of the powerset of $D$ that contains
@@ -98,7 +102,10 @@ A _measure_ on a set $S$ is a set function
 $\mu\colon\mathcal{P}(S)\to\mathbf{R}$ with $\mu(\emptyset) = 0$ and
 $\mu(E\cup F) = \mu(E) + \mu(F)$ whenever $E\cap F=\emptyset$.
 We use the notation $\mathcal{P}(V) = \{E\subseteq S\}$ for the collection of all
-subsets and call it the _power set_ of $S$.
+subsets and call it the _power set_ of $S$. Recall $A^B = \{f\colon B\to A\}$ is
+the set of all functions from $B$ to $A$. If $2 = \{0,1\}$ then
+the power set of $S$ can be identified with $2^S$ where $E\subseteq S$
+correponds to the characteristic function $1_S$.
 
 __Exercise__. _Show if $\mu$ is a measure on $S$ then $\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)$
 for any subsets $E,F\subseteq S$_.
@@ -109,9 +116,7 @@ $E\cup F$ is the disjoint union of $E\setminus F$, $E\cap F$, and $F\setminus E$
 Measures don't count things twice.
 The canonical example of a measure is counting the number of elements in a set.
 
-
-
-If $\mu'$ is a measure on $\Delta'$ that is a refinement of $\Delta$ then
+If $\Delta'$ is a refinement of $\Delta$ and  $\mu'$ is a measure on $\Delta'$
 we can define a measure $\mu'|_\Delta$ on $\Delta$ by
 $(\mu'|_\Delta)(\delta) = \mu'(\Delta'|\delta)$ for $\delta\in\Delta$.
 
@@ -121,16 +126,16 @@ show $\mu'|_\Delta$ is a measure on any coarser partition $\Delta$_.
 <details>
 <summary>Solution</summary>
 
-> With $\mu = \mu'|_\Delta$, we must show $\mu(\emptyset) = 0$ and $\mu(E\cup F) = \mu(E)\oplus\mu(F)$
+> With $\mu = \mu'|_\Delta$, we must show $\mu(\emptyset) = 0$ and $\mu(E\cup F) = \mu(E) + \mu(F)$
 when $E\cap F = \emptyset$ for $E,F\in\Delta$. Since $\Delta'|\emptyset = \emptyset$
 we have $\mu(\emptyset) = \mu'(\emptyset) = 0$. If $E,F\in\Delta$ are disjoint then
 so are $\Delta'|E$ and $\Delta'|F$ hence $\mu(E\cup F) = \mu'(\Delta'|(E\cup F))
-= \mu'((\Delta'|E)\cup(\Delta'|F)) = \mu'(\Delta'|E)\oplus\mu'(\Delta'|F)) = \mu(E)\oplus\mu(F)$.
+= \mu'((\Delta'|E)\cup(\Delta'|F)) = \mu'(\Delta'|E) + \mu'(\Delta'|F)) = \mu(E) + \mu(F)$.
 
 </details>
 
-If $t''\colon\Delta''\to V$
-and $\Delta''$ is finer than $\Delta'$ and $\Delta'$ is finer then $\Delta$
+If $t''\colon\Delta''\to V$,
+$\Delta''$ is finer than $\Delta'$, and $\Delta'$ is finer then $\Delta$
 then $t''|_\Delta = (t''|\Delta')|_\Delta$.
 
 We can generalize measures by replacing $\mathbf{R}$ with any abelian monoid $V$.
@@ -150,13 +155,13 @@ Similarly, $(-\infty,\infty]$ with $x\wedge y = \min\{x,y\}$ and identity $\inft
 
 If $S$ is finite every measure is determined by $\{\mu(\{s\}): s\in S\}$.
 
-__Exercise__. _If $S$ is finite show $\mu(\{s_1,\ldots,s_n\})
+__Exercise__. _If $S$ is a monoid show $\mu(\{s_1,\ldots,s_n\})
 = \mu(\{s_1\})\oplus\cdots\oplus\mu(\{s_n\})$ where $s_j\in S$, $1\le j\le n$_.
 
 <details>
 <summary>Solution</summary>
 
-> This follows from $V$ being an abelian monoid. By associativity
+This follows from $V$ being an abelian monoid. By associativity
 $\mu(\{s_1\})\oplus\cdots\oplus\mu(\{s_n\})$ is well-defined.
 Any permutation of $(s_j)$ in the left-hand side set results in the same set.
 Commutativity shows the right hand side is unchanged by any permutation.
@@ -167,6 +172,12 @@ Commutativity shows the right hand side is unchanged by any permutation.
 ## Cartesian Product
 
 Pivot tables become more interesting when $D$ and $V$ are cartesian products.
+
+## [DAX](https://docs.microsoft.com/en-us/dax/)
+
+Microsoft created the language _Data Analysis eXpressions_ for manipulating pivot tables.
+A pivot table is just a database table where some columns are _measures_.
+
 
 <!--
 
