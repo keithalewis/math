@@ -25,29 +25,16 @@ abstract: Value, hedge, and manage risk of any portfolio
 	called a deflator. If repurchase agreements are available the
 	canonical deflator is the reciprocal of the money market account.
 
-A _derivative security_ is a contract between two parties: I will
-give you this on these dates if you will give me that on those dates.
-Derivatives must have existed since before recorded history.  The Nobel
-prize winning breakthrough of Black, Scholes, and Merton was
-how to synthesize derivatives by dynamically trading market instruments
-based on the borrowing cost used to fund the hedge instead of trying to
-estimate the growth rate of the underlying securities.
-
-This paper provides a unified model for valuing, hedging, and
-managing the risk of any derivative security. It shows how they can
-be synthesized by trading market instruments and turns the spotlight on
-what may be the next Nobel prize winning problem: how should you hedge
-if you can't do it continuously?
-
-The Unified Model can be used for any portfolio of stocks, bonds,
-currencies, commodities, and even other derivatives in the portfolio.
-
 ## Market Model
+
+$X_t$ - price
+
+$C_t$ - cash flow
 
 We assume the usual setup, $\langle Ω, P, (\AA_t)_{t\in T}\rangle$,
 of a sample space $Ω$, a probability measure $P$, and an
 increasing filtration of algebras $(\AA_t)$ over the set of trading
-times $T$. If you are not familiar with this see the [Notation](#notation) section below.
+times $T$.
 
 Every _instrument_ has a _price_ $X_t$ and a _cash flow_ $C_t$ at any
 trading time $t\in T$.  Instruments are assumed to be perfectly liquid:
@@ -508,4 +495,5 @@ a _martingale_ if $M_t = E[M_u | \AA_t] = E_t[M_u]$ for $t\le u$.
 
 A _stopping time_ is a function $τ\colonΩ\to T$ such that
 $\{ω\inΩ\mid τ(ω) \le t\}$ belongs to $\AA_t$, $t\in T$.
+
 
