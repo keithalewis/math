@@ -1,11 +1,11 @@
 html {
 }
 body {
-	max-width: 40em;
+	/*max-width: 40em;*/
     margin:  4em;
     /*text-align: left;*/
 	padding: 1em;
-	font-family: 'Calisto','IBM Plex Serif', 'Cambria', "Segoe UI", Georgia, serif, 'Times New Roman';
+	font-family: "Segoe UI", 'Calisto','IBM Plex Serif', 'Cambria', Georgia, serif, 'Times New Roman';
 	font-size: 110%;
 	font-weight: 400;
 	line-height: 120%; 
