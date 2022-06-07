@@ -6,21 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>F-Algebra</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-    var mathElements = document.getElementsByClassName("math");
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
-    }}});</script>
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: true
+     });
+  }}});
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +51,6 @@
 <h1 class="title">F-Algebra</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-
 <p>Lots of categories are based on the category <span class="math inline">\mathbf{Set}</span> with structure. For example, a monoid is a set <span class="math inline">M</span> with an associative binary operation and an identity element. If <span class="math inline">m\colon M\times M\to M</span> is the binary operation we can express associativity as <span class="math inline">m(a,m(b,c)) = m(m(a,b),c)</span>, <span class="math inline">a,b,c\in M</span>, and identity as <span class="math inline">m(1, a) = a = m(a, 1)</span>, where <span class="math inline">1\in M</span> is the identity.</p>
 <p>These conditions are not very categoryish. How does one say <span class="math inline">m(1,a) = a</span>, <span class="math inline">a\in M</span>, without mentioning <span class="math inline">a</span>, or even <span class="math inline">1</span> for that matter? Categories are just arrows and objects. Define <span class="math inline">i\colon M\to I\times M</span> by <span class="math inline">i(a) = (\star,a)</span>.</p>
 <p>We can define a functor on <span class="math inline">\mathbf{Set}</span> by <span class="math inline">F(M) = I \times M</span>, for any set <span class="math inline">M</span>, where <span class="math inline">I</span> is initial object of <span class="math inline">\mathbf{Set}</span>, i.e., any singleton. Let <span class="math inline">α\colon F(M)\to M</span> be the projection on the second component <span class="math inline">(\star,a)\mapsto a</span>, <span class="math inline">a\in M</span>.</p>

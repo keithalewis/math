@@ -6,21 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Bayes Theorem</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-    var mathElements = document.getElementsByClassName("math");
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
-    }}});</script>
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: true
+     });
+  }}});
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +51,6 @@
 <h1 class="title">Bayes Theorem</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-
 <p><em>Frequentists</em> interpret probability as the number of times an outcome belongs to an event divided by the number of times it is sampled. This assumes it is possible to repeatedly sample identical situations. The <em>law of large numbers</em> says the frequency converges to the probablity of the event. This is fine when applied to flipping coins, rolling dice, or running other physical experiments where conditions don’t change, but it limits the use of probability.</p>
 <p><em>Bayesians</em> interpret probability as a subjective <em>degree of belief</em> based on available information. As more information becomes available it can be used to update individual degrees of belief. They are delayed satisfaction frequentists who believe subjective degrees of belief will converge for all individuals given sufficient common information over repeated trials.</p>
 <section id="probability-space" class="level2">
@@ -53,7 +65,7 @@
 <p>Bayesians like to belive that as more infomation becomes available subjective probabilites will converge to the same value. They haven’t come up with a general theory ensuring this, but that seems to frequently occur.</p>
 <section id="example" class="level3">
 <h3>Example</h3>
-<p>A coin is <em>fair</em> if heads and tails occur with equal probability when flipped<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Suppose a coin might be fair or might have two heads, but we cannot examine the coin directly. The only information we will be given is the outcomes of a series of flips. If we ever see tails we know the coin is not double-headed but if every flip we see is heads then that provides evidence the coin is double-headed.</p>
+<p>A coin is <em>fair</em> if heads and tails occur with equal probability when flipped<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Suppose a coin might be fair or might have two heads, but we cannot examine the coin directly. The only information we will be given is the outcomes of a series of flips. If we ever see tails we know the coin is not double-headed but if every flip we see is heads then that provides evidence the coin is double-headed.</p>
 <p>Suppose the first flip of the coin is heads, <span class="math inline">H_1</span>. A naive application of Bayes theorem is <span class="math inline">P(C|H_1) = P(H_1|C)P(C)/P(H_1)</span>, where <span class="math inline">C</span> indicates the coin is fair. For a fair coin <span class="math inline">P(H_1|C) = 1/2</span> and for a double-headed coin <span class="math inline">P(H_1|D) = 1</span>, where <span class="math inline">D</span> indicates the coin is double-headed. The other probabilities require some assumptions.</p>
 <p>Step one in probability theory is to specify the <em>sample space</em> of possible outcomes and the probability of <em>events</em> (subsets of the sample space). If the sample space is finite it is sufficient to specify the probability of each outcome.</p>
 <p>In our case the sample space has two elements <span class="math inline">Ω = \{C,D\}</span> indicating the coin is either fair or double-headed. Assume the probability that the coin is fair equals <span class="math inline">p</span> so the probability of the coin being double-headed is <span class="math inline">1 - p</span> and <span class="math inline">P(H_1) = p/2 + (1 - p) = (1 - p)/2</span>. Using Bayes formula, <span class="math inline">p_1 = P(F|H_1) = (1/2)p/((1 - p)/2) = p/(1 - p) &lt; p</span> if <span class="math inline">0 &lt; p &lt; 1</span>. Seeing a head flipped on the first try provides evidence against the coin being fair.</p>
@@ -86,10 +98,10 @@
 <h2>Bibiliography</h2>
 <p>[ { “id”: “http://zotero.org/users/6482136/items/H8KQMTYV”, “type”: “article-journal”, “abstract”: “By basing Bayesian probability theory on ﬁve axioms, we can give a trivial proof of Cox’s Theorem on the product rule and sum rule for conditional plausibility without assuming continuity or diﬀerentiablity of plausibility. Instead, we extend the notion of plausibility to apply to unknowns, giving them plausible values. Thus, we combine the best aspects of two approaches to Bayesian probability theory, namely the Cox-Jaynes theory and the de Finetti theory.”, “container-title”: “Bayesian Analysis”, “DOI”: “10.1214/09-BA422”, “ISSN”: “1936-0975”, “issue”: “3”, “journalAbbreviation”: “Bayesian Anal.”, “language”: “en”, “source”: “DOI.org (Crossref)”, “title”: “New axioms for rigorous Bayesian probability”, “URL”: “https://projecteuclid.org/journals/bayesian-analysis/volume-4/issue-3/New-axioms-for-rigorous-Bayesian-probability/10.1214/09-BA422.full”, “volume”: “4”, “author”: [ { “family”: “Dupré”, “given”: “Maurice J.” }, { “family”: “Tipler”, “given”: “Frank J.” } ], “issued”: { “date-parts”: [ [ “2009”, 9, 1 ] ] } }]</p>
 </section>
-<section class="footnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Persi Diaconis<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Persi Diaconis<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <footer>

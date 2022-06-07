@@ -5,21 +5,34 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>eli5</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-    var mathElements = document.getElementsByClassName("math");
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
-    }}});</script>
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: false
+     });
+  }}});
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,7 +59,7 @@ V_1 &amp;= A_1 + (Γ_0 + Γ_1)X_1 \\
 \end{aligned}
 </span></p>
 <p><span class="math inline">A_2 = A_1 - Γ_2 X_2 = A - Γ_0 X_0 - Γ_1 X_1 - Γ_2 X_2</span></p>
-<p>\begin{aligned} V_2 &amp;= A_2 + (Γ_0 + Γ_1 + Γ_2)X_2 \ &amp;= A - Γ_0 X_0 - Γ_1 X_1 - Γ_2 X_2 + (Γ_0 + Γ_1 + Γ_2)X_2 \ &amp;= A + Γ_0(X_2 - X_0) + Γ_1(X_2 - X_1) \ \end{aligned} $$</p>
+<p>$$</p>
 <p><span class="math inline">A_n = A - \sum_{j=0}^n Γ_j X_j</span>.</p>
 <p><span class="math inline">V_n = A + \sum_{j=0}^{n-1} Γ_j(X_n - X_j)</span>.</p>
 <p><span class="math inline">0 = \sum_^n Γ_j</span>, <span class="math display">

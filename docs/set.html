@@ -6,21 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Set</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-    var mathElements = document.getElementsByClassName("math");
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
-    }}});</script>
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: true
+     });
+  }}});
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +51,6 @@
 <h1 class="title">Set</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-
 <p>Everything in (standard) mathematics is a <a href="https://plato.stanford.edu/entries/set-theory/">set</a>. Sets are defined by their <em>members</em>. We write <span class="math inline">x\in S</span> to indicate <span class="math inline">x</span> is a member of the set <span class="math inline">S</span>. A finite set can be explicitly described by specifying its members <span class="math inline">S = \{x, y, z\}</span>. The original theory of sets due to Frege allowed sets to be defined by a rule, <span class="math inline">x\in S</span> if and only if <span class="math inline">P(x)</span>, where <span class="math inline">P(x)</span> is a proposition that was true or false depending on <span class="math inline">x</span>.</p>
 <p>Bertrand Russell showed Frege’s theory allowed a contradiction. Consider the set <span class="math inline">S</span> defined by the proposition <span class="math inline">P(x) = x\not in x</span>. Is <span class="math inline">S\in S</span>? If it is, it isn’t. If it isn’t, it is.</p>
 <p>Mathematicians had to go back to square one, or maybe square zero. The <em>empty set</em> <span class="math inline">\emptyset</span> is the set having no elements. For any set <span class="math inline">S</span>, <span class="math inline">S\not\in\emptyset</span>. The set having one member, the empty set, is <span class="math inline">\{\emptyset\}</span>. How do we represent the <em>natural numbers</em> 0, 1, 2, … as sets? We can let <span class="math inline">\emptyset</span> represent 0 and <span class="math inline">\{\emptyset\}</span> represent 1. If we can represent <span class="math inline">n</span>, what should <span class="math inline">n + 1</span> be? Peano.</p>

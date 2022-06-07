@@ -5,13 +5,29 @@ institute: KALX, LLC
 classoption: fleqn
 fleqn: true
 abstract: 
+Every arbitrage-free pricing model is parameterized by a vector-valued
+martingale and a positive adapted process.  There is no need to restrict
+models to Ito processes, use partial differential equations, or consider
+self-financing portfolios. There is also no need for utility functions or market equilibrium.
+Market participants can only execute a finite number of trades.
+It is time to banish the mathematical fiction of continuous time trading and
+focus on problems practicioners find useful: when to rehedge
+and what are the risk tradeoffs.
 ...
 
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\RR}{𝑹}
 \newcommand{\AA}{\mathcal{A}}
 
-There is a clear trajectory in mathematical finance starting from Black, Scholes, and Merton.
+There is a clear trajectory in mathematical finance starting from Black,
+Scholes, and Merton showing how to use a bond and a stock to hedge an
+option to expand the universe of instruments, incorporate credit and
+liquidity considerations, and make model assumptions explicit.
+Large banks, money management firms, and hedge funds need to consider
+cross market correlations. Risk management has recognized market
+realities involving large positions. Models must allow for the
+empirical fact that not all market participants act optimally.
+
 Scholes and Merton won a Nobel Prize for a new method of valuing derivative securities that
 did not require estimating the return on the underlying. Under the assumption that
 future stock prices could be modelled by geometric Brownian motion and it was possible

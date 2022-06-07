@@ -6,21 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>A Simple Model of Derivative Securities</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-    var mathElements = document.getElementsByClassName("math");
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
-    }}});</script>
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: true
+     });
+  }}});
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +51,6 @@
 <h1 class="title">A Simple Model of Derivative Securities</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-
 <p>Instruments have <em>prices</em> and <em>cash flows</em>. Trading instruments result in cash flows to the <em>trading account</em>; you buy and sell at prevailing prices and receive cash flows associated with each instrument proportional to your current position. The mark-to-market of a position and cash flows associated with trading correspond to the price and cash flows of a synthetic instrument.</p>
 <p>A <em>derivative</em> is a contract specifying cash flows. If a trading strategy replicates the cash flows then the value of the derivative is the cost of the initial hedging position. Risk management involves measuring how well a trading strategy replicates cash flows specified by the contract.</p>
 <p>A <em>money market</em> account is assumed to be available for financing trading strategies. The price of the money market at time <span class="math inline">t</span> is denoted <span class="math inline">R_t</span> and has no cash flows. Let <span class="math inline">D_t = 1/R_t</span> be the <em>deflator</em>.</p>

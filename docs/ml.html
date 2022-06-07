@@ -6,21 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Machine Learning</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-    var mathElements = document.getElementsByClassName("math");
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
-    }}});</script>
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: true
+     });
+  }}});
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +51,6 @@
 <h1 class="title">Machine Learning</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-
 <p>Machine learning involves interpolation. Given data <span class="math inline">(x_i)</span> and <span class="math inline">(y_i)</span> we want to find a function <span class="math inline">f</span> with <span class="math inline">f(x_i) \approx y_i</span> for all <span class="math inline">i</span>. If the <span class="math inline">x_i</span> and <span class="math inline">y_i</span> are real numbers then there is a well developed theory for this. I can highly recommend learning about <a href="https://apps.dtic.mil/dtic/tr/fulltext/u2/a172773.pdf"><em>basis splines</em></a>.</p>
 <p>If the <span class="math inline">x_i</span> are each several megabytes of pixels and the <span class="math inline">y_i</span> are only allowed the values true or false the problem becomes much more complicated. Machines identifying pictures that look like a blur to the human eye as stop signs is a well-known example indicating the difficulty.</p>
 <p>Moore’s law has covered up the fact that there has been little recent advancement in the mathematical theory underpinning machine learning. Even people who never learned proper programming skills can now use a language as inefficient as Python to produce a plethora of results that are not-obviously-wrong. Maybe one day AI will help us sort the wheat from the chaff, but given the long history of false claims about its potential it is safe to say that will not be anytime soon.</p>

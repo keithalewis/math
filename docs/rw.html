@@ -6,21 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <title>Random Walk</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-    var mathElements = document.getElementsByClassName("math");
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
-    }}});</script>
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: true
+     });
+  }}});
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +51,6 @@
 <h1 class="title">Random Walk</h1>
 <p class="author">Keith A. Lewis</p>
 </header>
-
 <p>Flip a coin and move one step right if heads or one step left if tails. Or up and down instead of right and left. Or swap the directives of heads and tails.</p>
 <p>The possible outcomes of repeatedly flipping a coin are described by the <em>sample space</em> <span class="math inline">\Omega = \{H,T\}^\bm{N}</span>, where <span class="math inline">\bm{N}= \{0, 1, 2, \ldots\}</span> is the set of <em>natural numbers</em>, consisting of all functions <span class="math inline">\omega\colon\bm{N}\to\Omega</span>. The outcome of the <span class="math inline">n</span>-th flip is <span class="math inline">\omega(n)\in\{H,T\}</span> for <span class="math inline">n\in\bm{N}</span>.</p>
 <p>Given <span class="math inline">n</span> initial flips <span class="math inline">\omega_n\in\{H,T\}^n</span> let <span class="math inline">A_{\omega_n}</span> be the elements <span class="math inline">\omega\in\Omega</span> starting with <span class="math inline">\omega_n</span>, <span class="math inline">\omega(k) = \omega_n(k)</span> for <span class="math inline">k &lt; n</span>. The probability of <span class="math inline">A_{\omega_n}</span> occuring is <span class="math inline">1/2^n</span> for each <span class="math inline">\omega_n</span>. Let <span class="math inline">\mathcal{A}_n = \{A_{\omega_n}:\omega_n\in\{H,T\}^n\}</span>.</p>
