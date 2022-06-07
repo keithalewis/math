@@ -39,7 +39,7 @@ index: $(MKDN)
 
 docs: $(HTML) index
 	cp *.html math.css docs
-	git add docs/*
+	git add -f docs/*
 
 clean:
 	rm -f *.docx *.pdf *.html docs/*.html
