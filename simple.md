@@ -17,7 +17,7 @@ and what are the risk tradeoffs.
 
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\RR}{𝑹}
-\newcommand{\AA}{\mathcal{A}}
+\renewcommand{\AA}{\mathcal{A}}
 
 There is a clear trajectory in mathematical finance starting from Black,
 Scholes, and Merton showing how to use a bond and a stock to hedge an
@@ -136,15 +136,26 @@ $$
 \end{aligned}
 $$
 
-__Lemma__. _Using $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ and $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$ we have_
+__Lemma__. _Using $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ and $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$,_
 $$
 	V_t D_t = E[V_u D_u + \sum_{t < s \le u} A_s D_s\mid\AA_t]
 $$
 
-Note this shows every trading strategy produces a synthetic instrument with "prices" $V_t$ and
+This shows every trading strategy produces a synthetic instrument with "prices" $V_t$ and
 "cash flows" $A_t$.
 
-_Proof_. Note $V_t = (\Delta_t + \Gamma_t)\cdot X_t = \Delta_u\cdot X_t$ 
+_Proof_. Note $X_t D_t = E_t[X_u D_u + C_u D_u]$ and $V_t = (\Delta_t + \Gamma_t)\cdot X_t
+= \Delta_u\cdot X_t$ for $u > t$ sufficiently small.
+$$
+\begin{aligned}
+	V_t D_t &= \Delta_u\cdot X_t D_t \\
+	&= \Delta_u \cdot E_t[X_u D_u + C_u D_u] \\
+\end{aligned}
+$$
+
+
+
+$V_t = (\Delta_t + \Gamma_t)\cdot X_t = \Delta_u\cdot X_t$ 
 and $
 and $V_t D_t = \Delta_u\cdot X_t D_t = E_t[X_u D_u + C_u D_u]$ for some $u > t$.
 Since $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$ we have
