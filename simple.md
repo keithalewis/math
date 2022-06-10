@@ -170,6 +170,8 @@ $A_{\tau_0} \le 0$ so there is no arbitrage.
 
 ## Appendix
 
+A collection of some fundamental facts everyone should be aware of.
+
 ### Algebras of Sets
 
 Algebras of sets are used to model partial information.
@@ -181,8 +183,9 @@ A sequence of coin flips can be modeled by the sample space of real numbers
 between 0 and 1, $\Omega = [0,1)$. Every number $\omega\in\Omega$ can be
 written as $\omega = \sum_{j = 1}^\infty \omega_j 2^{-j}$ where $\omega_j$
 is either 0 or 1. The digits in the base 2 representation can be 
-intrepreted as coin flips: 1 means heads and 0 means tails.
+intrepreted as coin flips: 1 means heads and 0 means tails, or vice versa.
 
 The first flip is determined by $\omega_1$. The partition $[0, 1) = [0, 1/2)\cup [1/2, 1)$
-represents knowing the first flip.
+represents knowing the first flip. If $\omega_1 = 0$ then $\omega\in[0,1/2)$.
+If $\omega_1 =1$ then $\omega\in[1/2,1)$.
 
