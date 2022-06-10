@@ -4,15 +4,18 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: 
-Every arbitrage-free pricing model is parameterized by a vector-valued
-martingale and a positive adapted process.  There is no need to restrict
-models to Ito processes, use partial differential equations, or consider
-self-financing portfolios. There is also no need for utility functions or market equilibrium.
-Market participants can only execute a finite number of trades.
-It is time to banish the mathematical fiction of continuous time trading and
-focus on problems practicioners find useful: when to rehedge
-and what are the risk tradeoffs.
+abstract: |
+ Every arbitrage-free pricing model is parameterized by a vector-valued
+ martingale and a positive adapted process.  There is no need to restrict
+ models to Ito processes, use partial differential equations, or consider
+ self-financing portfolios. There is also no need for utility functions or market equilibrium.
+ In fact, there is no need for probability measures. The Unified Model involves only geometry,
+ as was first pointed out by Stephen Ross. We do need the notion of algebras of sets
+ in order to mathematically model partial information.
+ Market participants can only execute a finite number of trades.
+ It is time to banish the mathematical fiction of continuous time trading and
+ focus on problems practicioners find useful: when to rehedge
+ and what are the risk tradeoffs.
 ...
 
 \newcommand{\Var}{\operatorname{Var}}
@@ -150,21 +153,12 @@ $$
 \begin{aligned}
 	V_t D_t &= \Delta_u\cdot X_t D_t \\
 	&= \Delta_u \cdot E_t[X_u D_u + C_u D_u] \\
+	&= E_t[(\Delta_u \cdot X_u + \Delta_u \cdot C_u) D_u] \\
+	&= E_t[(V_t - \Gamma_t\cdot X_t + A_t + \Gamma_t\cdot X_t) D_u] \\
+	&= E_t[(V_t + A_t) D_u] \\
 \end{aligned}
 $$
-
-
-
-$V_t = (\Delta_t + \Gamma_t)\cdot X_t = \Delta_u\cdot X_t$ 
-and $
-and $V_t D_t = \Delta_u\cdot X_t D_t = E_t[X_u D_u + C_u D_u]$ for some $u > t$.
-Since $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$ we have
-
-$$
-\begin{aligned}
-V_t D_t &= E_t[X_u D_u + C_u D_u]\\
-\end{aligned}
-$$
+The proof follows by induction on $u$.
 
 __Theorem__. _Every model of the form $X_t D_t = M_t - \sum_{s\le t}C_s D_s$ where $M_t$ is
 a martingale and $D_t$ is positive and adapted is arbitrage free_.
@@ -173,3 +167,22 @@ _Proof_. If $(\tau_j, \Gamma_j)$ is a closed out trading strategy with $A_t\ge0$
 then $V_{\tau_0} = E[ \sum_{t < s \le u} A_s D_s\mid\AA_{\tau_0}] \ge 0$.
 Since $V_{\tau_0} = \Gamma_0\cdot X_{\tau_0} = -A_{\tau_0}$ and $D_t$ is positive we have
 $A_{\tau_0} \le 0$ so there is no arbitrage.
+
+## Appendix
+
+### Algebras of Sets
+
+Algebras of sets are used to model partial information.
+If the slgebra is finite then the atoms form a partition.
+Complete information is knowing the element of the set,
+partial information is knowing only what atom it belongs to.
+
+A sequence of coin flips can be modeled by the sample space of real numbers
+between 0 and 1, $\Omega = [0,1)$. Every number $\omega\in\Omega$ can be
+written as $\omega = \sum_{j = 1}^\infty \omega_j 2^{-j}$ where $\omega_j$
+is either 0 or 1. The digits in the base 2 representation can be 
+intrepreted as coin flips: 1 means heads and 0 means tails.
+
+The first flip is determined by $\omega_1$. The partition $[0, 1) = [0, 1/2)\cup [1/2, 1)$
+represents knowing the first flip.
+
