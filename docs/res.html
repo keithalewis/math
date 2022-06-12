@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <title>Lipschitz Functional Calculus</title>
+  <title>Resolvents</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -50,51 +50,16 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Lipschitz Functional Calculus</h1>
+<h1 class="title">Resolvents</h1>
 <p class="author">Keith A. Lewis</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-none
-</div>
 </header>
 
-<p>Let <span class="math inline">X</span> be a compact subset of the
-complex plane <span class="math inline">\bm{C}</span>. Define <span
-class="math inline">\|f\|_\infty = \sup_{x\in X} |f(x)|</span> and <span
-class="math inline">\|f\|_d = \sup_{z\not=w}|f(z) - f(w)|/|z -
-w|\}</span>. Define the Lipschitz norm of <span
-class="math inline">f\colon X\to\bm{C}</span> by <span
-class="math inline">\|f\| = \|f\|_\infty + \|f\|_d</span> and let <span
-class="math inline">\operatorname{Lip}(X)</span> be the set of functions
-with finite Lipschitz norm. <span
-class="math inline">\operatorname{Lip}(X)</span> is a Banach algebra
-under this norm.</p>
-<p>For a real measure <span class="math inline">\mu\in M(X)</span>
-define <span class="math inline">\|\mu\|_{KR} = \int_{\mu_0\in M_0(X)}
-\|\mu_0\| + \|\mu - \mu_0\|_{TV}</span> where <span
-class="math inline">M_0(X)</span> are measures <span
-class="math inline">\mu_0</span> with <span class="math inline">\mu_0(X)
-= 0</span> and <span class="math inline">TV</span> is the total
-variation. Let <span class="math inline">AE(X)</span> be the space of
-real measures under this norm.</p>
-<p><strong>Theorem</strong>. <span class="math inline">AE(X)^*\cong
-\operatorname{Lip}(X)</span></p>
-<p>Define <span class="math inline">\phi\colon\mathcal{C}_1\to
-AE(X)</span> by <span class="math inline">\phi(L)(z) =
-\operatorname{tr}(z - T)^{-1}L</span></p>
-<p>Fix <span
-class="math inline">T\in\mathcal{B}(\mathcal{H})</span>.</p>
-<p><span class="math inline">\Phi\colon
-R(X)\to\mathcal{B}(\mathcal{H})</span>. If <span
-class="math inline">f\in H(X)</span> then <span class="math inline">f(z)
-= (1/2\pi i)\int_\gamma f(w)(w - z)^{-1}\,dw</span>.</p>
-<p><span class="math inline">f(T) = (1/2\pi i)\int_\gamma f(w)(w -
-T)^{-1}\,dw</span>.</p>
-<p><span class="math inline">\langle f(T), L\rangle = (1/2\pi
-i)\int_\gamma f(w)\operatorname{tr}(w - T)^{-1}L\,dw</span>.</p>
-<p>pqrstuvwxyz</p>
-<p><span class="math inline">\mathcal{B}(\mathcal{H})\to
-M(X)/R(X)^\perp</span></p>
+<p><span class="math inline">R_T\colon\mathcal{C}_1 \to
+H_0(\boldsymbol{C}\setminus\sigma(T))</span>, <span
+class="math inline">L\mapsto\operatorname{tr}L(z - T)^{-1}</span>.</p>
+<p><span class="math inline">R_T^*\colon
+H(\sigma(T))\to\mathcal{B}(\mathcal{H})</span> is the Riesz functional
+calculus.</p>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

@@ -15,25 +15,6 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: true
-     });
-  }}});
-  </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,27 +22,97 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
-  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
+  -->
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Zero Coupon Bonds</h1>
 <p class="author">Keith A. Lewis</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Moving fixed cash flows through time.
+</div>
 </header>
-<p>Finance involves moving cash flows through time. A <em>zero coupon bond</em> paying 1 unit at time <span class="math inline">t</span> has price <span class="math inline">D(t)</span>. Equivalently, 1 unit invested now has <em>realized return</em> <span class="math inline">R(t) = 1/D(t)</span> at time <span class="math inline">t</span>. The realized return over the period from time <span class="math inline">t</span> to time <span class="math inline">u</span> is denoted <span class="math inline">R(t,u)</span>, so <span class="math inline">R(0,t) = R(t)</span>. The <em>discount</em> over the period from <span class="math inline">t</span> to <span class="math inline">u</span> is <span class="math inline">D(t,u) = 1/R(t,u)</span>. Note <span class="math inline">R(t) = R(0,t)</span> and <span class="math inline">D(t) = D(0,t)</span>.</p>
-<p>What economists call <em>the law of one price</em> can be used to show how the realized return curve <span class="math inline">R(t,u)</span> at time <span class="math inline">t</span> in the future is determined by today’s realized return <span class="math inline">R(t) = R(0,t)</span>. Investing one unit today pays <span class="math inline">R(0,u)</span> at time <span class="math inline">u</span>. We can also invest one unit today and receive <span class="math inline">R(0,t)</span> at time <span class="math inline">t &lt; u</span>, then reinvest that at time <span class="math inline">t</span> to get <span class="math inline">R(0,t)R(t,u)</span> at time <span class="math inline">u</span>. This shows <span class="math inline">R(0,u) = R(0,t)R(t,u)</span> so <span class="math inline">R(t,u) = R(0,u)/R(0,t)</span>. In terms of discounts <span class="math inline">D(t,u) = D(0,u)/D(0,t) = D(u)/D(t)</span>.</p>
-<p>Mathematicians like to work with discounts but traders prefer to work in terms of rates. There are various ways of converting rates to discounts.</p>
-<p>The <em>spot</em> rate <span class="math inline">r(u)</span> is defined by <span class="math inline">D(u) = \exp(-ur(u))</span>.</p>
-<p>The <em>forward</em> rate <span class="math inline">f(u)</span> if defined by <span class="math inline">D(u) = \exp(-\int_0^u f(t)\,dt)</span>.</p>
-<p>Neither of these are directly quoted market rates and are called <em>continuously compounded</em> rates. The continuously compounded rates can be defined in terms of discrete compounding periods and day count conventions used in the market.</p>
-<p>The <em>forward spot</em> <span class="math inline">r(t,u)</span> is defined by <span class="math inline">D(t,u) = \exp(-(u - t)r(t,u))</span>.</p>
-<p><strong>Exercise</strong>. <em>Use <span class="math inline">D(t,u) = D(u)/D(t)</span> to show <span class="math inline">r(t,u) = (ur(u) - tr(t))/(u - t)</span></em>.</p>
-<p>The <em>forward forward</em> <span class="math inline">f(t,u)</span> is defined by <span class="math inline">D(t,u) = \exp(-\int_t^u f(s)\,ds)</span>.</p>
-<p><strong>Exercise</strong>. <em>Use <span class="math inline">D(t,u) = D(u)/D(t)</span> to show <span class="math inline">f(t,u) = f(u)</span>, <span class="math inline">u\ge t</span></em>.</p>
-<p>It is simple to convert the forward today into the forward forward at <span class="math inline">t</span>, just chop off the interval <span class="math inline">[0,t]</span>.</p>
+
+<p>Finance involves moving cash flows through time. A <em>zero coupon
+bond</em> paying 1 unit at time <span class="math inline">t</span> has
+price <span class="math inline">D(t)</span>. Equivalently, 1 unit
+invested now has <em>realized return</em> <span class="math inline">R(t)
+= 1/D(t)</span> at time <span class="math inline">t</span>. The realized
+return over the period from time <span class="math inline">t</span> to
+time <span class="math inline">u</span> is denoted <span
+class="math inline">R(t,u)</span>, so <span class="math inline">R(0,t) =
+R(t)</span>. The <em>discount</em> over the period from <span
+class="math inline">t</span> to <span class="math inline">u</span> is
+<span class="math inline">D(t,u) = 1/R(t,u)</span>. Note <span
+class="math inline">R(t) = R(0,t)</span> and <span
+class="math inline">D(t) = D(0,t)</span>.</p>
+<p>What economists call <em>the law of one price</em> can be used to
+show how the realized return curve <span
+class="math inline">R(t,u)</span> at time <span
+class="math inline">t</span> in the future is determined by today’s
+realized return <span class="math inline">R(t) = R(0,t)</span>.
+Investing one unit today pays <span class="math inline">R(0,u)</span> at
+time <span class="math inline">u</span>. We can also invest one unit
+today and receive <span class="math inline">R(0,t)</span> at time <span
+class="math inline">t &lt; u</span>, then reinvest that at time <span
+class="math inline">t</span> to get <span
+class="math inline">R(0,t)R(t,u)</span> at time <span
+class="math inline">u</span>. This shows <span
+class="math inline">R(0,u) = R(0,t)R(t,u)</span> so <span
+class="math inline">R(t,u) = R(0,u)/R(0,t)</span>. In terms of discounts
+<span class="math inline">D(t,u) = D(0,u)/D(0,t) = D(u)/D(t)</span>.</p>
+<p>Mathematicians like to work with discounts but traders prefer to work
+in terms of rates. There are various ways of converting rates to
+discounts.</p>
+<p>The <em>spot</em> rate <span class="math inline">r(u)</span> is
+defined by <span class="math inline">D(u) = \exp(-ur(u))</span>.</p>
+<p>The <em>forward</em> rate <span class="math inline">f(u)</span> if
+defined by <span class="math inline">D(u) = \exp(-\int_0^u
+f(t)\,dt)</span>.</p>
+<p>Neither of these are directly quoted market rates and are called
+<em>continuously compounded</em> rates. The continuously compounded
+rates can be defined in terms of discrete compounding periods and day
+count conventions used in the market.</p>
+<p>The <em>forward spot</em> <span class="math inline">r(t,u)</span> is
+defined by <span class="math inline">D(t,u) = \exp(-(u -
+t)r(t,u))</span>.</p>
+<p><strong>Exercise</strong>. <em>Use <span class="math inline">D(t,u) =
+D(u)/D(t)</span> to show <span class="math inline">r(t,u) = (ur(u) -
+tr(t))/(u - t)</span></em>.</p>
+<p>The <em>forward forward</em> <span class="math inline">f(t,u)</span>
+is defined by <span class="math inline">D(t,u) = \exp(-\int_t^u
+f(s)\,ds)</span>.</p>
+<p><strong>Exercise</strong>. <em>Use <span class="math inline">D(t,u) =
+D(u)/D(t)</span> to show <span class="math inline">f(t,u) = f(u)</span>,
+<span class="math inline">u\ge t</span></em>.</p>
+<p>It is simple to convert the forward today into the forward forward at
+<span class="math inline">t</span>, just chop off the interval <span
+class="math inline">[0,t]</span>.</p>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

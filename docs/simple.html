@@ -4,7 +4,8 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>simple</title>
+  <meta name="author" content="Keith A. Lewis" />
+  <title>The Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -14,25 +15,6 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: false
-     });
-  }}});
-  </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,77 +22,263 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
-  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
+  -->
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
-<hr />
-<p>title: The Unified Model author: Keith A. Lewis institute: KALX, LLC classoption: fleqn fleqn: true abstract: Every arbitrage-free pricing model is parameterized by a vector-valued martingale and a positive adapted process. There is no need to restrict models to Ito processes, use partial differential equations, or consider self-financing portfolios. There is also no need for utility functions or market equilibrium. Market participants can only execute a finite number of trades. It is time to banish the mathematical fiction of continuous time trading and focus on problems practicioners find useful: when to rehedge and what are the risk tradeoffs. …</p>
-<p>There is a clear trajectory in mathematical finance starting from Black, Scholes, and Merton showing how to use a bond and a stock to hedge an option to expand the universe of instruments, incorporate credit and liquidity considerations, and make model assumptions explicit. Large banks, money management firms, and hedge funds need to consider cross market correlations. Risk management has recognized market realities involving large positions. Models must allow for the empirical fact that not all market participants act optimally.</p>
-<p>Scholes and Merton won a Nobel Prize for a new method of valuing derivative securities that did not require estimating the return on the underlying. Under the assumption that future stock prices could be modelled by geometric Brownian motion and it was possible to trade in continuous time, all one needed to know was the volatiliy.</p>
-<p>Stephen Ross expandend the theory in the one-period case to any number of instruments. He showed the Fundamental Theorem of Asset pricing was a geometric result that could be proved using the Hahn-Banach theorem. He posited that prices of <span class="math inline">n</span> instruments at the begining of the period can be represented as a vector <span class="math inline">x\in 𝑹^n</span> and the prices at the end of the period are functions of possible outcomes <span class="math inline">X\colon\Omega\to 𝑹^n</span>. He showed this model is arbitrage-free if and only if <span class="math inline">x</span> belongs to the smallest closed cone containing the range of <span class="math inline">X</span>. This is equivalent to <span class="math display">
+<header id="title-block-header">
+<h1 class="title">The Unified Model</h1>
+<p class="author">Keith A. Lewis</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+<p>Every arbitrage-free pricing model is parameterized by a
+vector-valued martingale and a positive adapted process. There is no
+need to restrict models to Ito processes, use partial differential
+equations, or consider self-financing portfolios. There is also no need
+for utility functions or market equilibrium. In fact, there is no need
+for probability measures. The Unified Model involves only geometry, as
+was first pointed out by Stephen Ross. We do need the notion of algebras
+of sets in order to mathematically model partial information. Market
+participants can only execute a finite number of trades. It is time to
+banish the mathematical fiction of continuous time trading and focus on
+problems practicioners find useful: when to rehedge and what are the
+risk tradeoffs.</p>
+</div>
+</header>
+
+<p>There is a clear trajectory in mathematical finance starting from
+Black, Scholes, and Merton showing how to use a bond and a stock to
+hedge an option to expand the universe of instruments, incorporate
+credit and liquidity considerations, and make model assumptions
+explicit. Large banks, money management firms, and hedge funds need to
+consider cross market correlations. Risk management has recognized
+market realities involving large positions. Models must allow for the
+empirical fact that not all market participants act optimally.</p>
+<p>Scholes and Merton won a Nobel Prize for a new method of valuing
+derivative securities that did not require estimating the return on the
+underlying. Under the assumption that future stock prices could be
+modelled by geometric Brownian motion and it was possible to trade in
+continuous time, all one needed to know was the volatiliy.</p>
+<p>Stephen Ross expandend the theory in the one-period case to any
+number of instruments. He showed the Fundamental Theorem of Asset
+pricing was a geometric result that could be proved using the
+Hahn-Banach theorem. He posited that prices of <span
+class="math inline">n</span> instruments at the begining of the period
+can be represented as a vector <span class="math inline">x\in 𝑹^n</span>
+and the prices at the end of the period are functions of possible
+outcomes <span class="math inline">X\colon\Omega\to 𝑹^n</span>. He
+showed this model is arbitrage-free if and only if <span
+class="math inline">x</span> belongs to the smallest closed cone
+containing the range of <span class="math inline">X</span>. This is
+equivalent to <span class="math display">
     x = \int_\Omega X(\omega)\,d\Pi(\omega)
-</span> for some positive measure <span class="math inline">\Pi</span> on <span class="math inline">\Omega</span>.</p>
-<p>Subsequent models extended this to the multi-period case and incorporated the fact instruments can have cash flows.</p>
+</span> for some positive measure <span class="math inline">\Pi</span>
+on <span class="math inline">\Omega</span>.</p>
+<p>Subsequent models extended this to the multi-period case and
+incorporated the fact instruments can have cash flows.</p>
 <section id="unified-model" class="level2">
 <h2>Unified Model</h2>
-<p>Assume <span class="math inline">\Omega</span> is the sample space of possible outcomes, <span class="math inline">P</span> is a probability measure on <span class="math inline">\Omega</span>, and <span class="math inline">\mathcal{A}_t</span> are algebras of sets indicating the information available at each trading time <span class="math inline">t\in T</span>.</p>
+<p>Assume <span class="math inline">\Omega</span> is the sample space of
+possible outcomes, <span class="math inline">P</span> is a probability
+measure on <span class="math inline">\Omega</span>, and <span
+class="math inline">\mathcal{A}_t</span> are algebras of sets indicating
+the information available at each trading time <span
+class="math inline">t\in T</span>.</p>
 <section id="market" class="level3">
 <h3>Market</h3>
-<p>A <em>market model</em> for a set <span class="math inline">I</span> of <em>instruments</em> is specified by stochastic processes for <em>prices</em> <span class="math inline">X_t\colon\mathcal{A}_t\to 𝑹^I</span> and <em>cash flows</em> <span class="math inline">C_t\colon\mathcal{A}_t\to 𝑹^I</span>, <span class="math inline">t\in T</span>. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>We assume any amount of each instrument can be bought or sold at price <span class="math inline">X_t</span> at time <span class="math inline">t\in T</span>. Cash flows are almost always 0. Stocks pay dividends on dividend dates, bonds pay periodic coupons, European options have a single cash flow at expiration, futures have daily margin adjustments as cash flows. The price of a futures is always 0.</p>
+<p>A <em>market model</em> for a set <span class="math inline">I</span>
+of <em>instruments</em> is specified by stochastic processes for
+<em>prices</em> <span class="math inline">X_t\colon\mathcal{A}_t\to
+𝑹^I</span> and <em>cash flows</em> <span
+class="math inline">C_t\colon\mathcal{A}_t\to 𝑹^I</span>, <span
+class="math inline">t\in T</span>. <a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<section class="footnotes footnotes-end-of-block" role="doc-endnotes">
+<ol>
+<li id="fn1" role="doc-endnote"><p>If <span
+class="math inline">\mathcal{A}</span> is an <a
+href="https://en.wikipedia.org/wiki/Algebra_of_sets"><em>algebra of
+sets</em></a> on the set <span class="math inline">\Omega</span> we
+write <span class="math inline">X\colon\mathcal{A}\to 𝑹</span> to
+indicate <span class="math inline">X\colon\Omega\to 𝑹</span> is <span
+class="math inline">\mathcal{A}</span>-<a
+href="https://en.wikipedia.org/wiki/Measurable_function"><em>measurable</em></a>.
+If <span class="math inline">\mathcal{A}</span> is finite then the <a
+href="https://en.wikipedia.org/wiki/Atom_(measure_theory)"><em>atoms</em></a>
+of <span class="math inline">\mathcal{A}</span> form a <a
+href="https://en.wikipedia.org/wiki/Partition_of_a_set"><em>partition</em></a>
+of <span class="math inline">\Omega</span> and <span
+class="math inline">X</span> is <span
+class="math inline">\mathcal{A}</span>-measurable if and only if it is
+constant on atoms of <span class="math inline">\mathcal{A}</span>. In
+this case <span class="math inline">X</span> is indeed a function on the
+atoms.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<p>We assume any amount of each instrument can be bought or sold at
+price <span class="math inline">X_t</span> at time <span
+class="math inline">t\in T</span>. Cash flows are almost always 0.
+Stocks pay dividends on dividend dates, bonds pay periodic coupons,
+European options have a single cash flow at expiration, futures have
+daily margin adjustments as cash flows. The price of a futures is always
+0.</p>
 </section>
 <section id="trading" class="level3">
 <h3>Trading</h3>
-<p>A <em>trading strategy</em> is a finite, increasing set of stopping times <span class="math inline">(\tau_j)</span> and how much of each instrument to trade <span class="math inline">\Gamma_j\colon\mathcal{A}_{\tau_j}\to 𝑹^I</span>. Trades accumulate to a <em>position</em> <span class="math display">
+<p>A <em>trading strategy</em> is a finite, increasing set of stopping
+times <span class="math inline">(\tau_j)</span> and how much of each
+instrument to trade <span
+class="math inline">\Gamma_j\colon\mathcal{A}_{\tau_j}\to 𝑹^I</span>.
+Trades accumulate to a <em>position</em> <span class="math display">
     \Delta_t = \sum_{\tau_j &lt; t}\Gamma_j = \sum_{s &lt; t} \Gamma_s
-</span> where <span class="math inline">\Gamma_s = \Gamma_j</span> if <span class="math inline">\tau_j = s</span>. Note the strict inequality. This reflects the reality that it takes some time after a trade is executed for it to settle.</p>
-<p>The <em>value</em>, or <em>mark-to-market</em> of a trading strategy is <span class="math display">
+</span> where <span class="math inline">\Gamma_s = \Gamma_j</span> if
+<span class="math inline">\tau_j = s</span>. Note the strict inequality.
+This reflects the reality that it takes some time after a trade is
+executed for it to settle.</p>
+<p>The <em>value</em>, or <em>mark-to-market</em> of a trading strategy
+is <span class="math display">
     V_t = (\Delta_t + \Gamma_t)\cdot X_t.
-</span> It the the amount generated by unwinding the current position and trades just executed at the prevailing market price, assuming that is possible.</p>
-<p>Trading strategies involve cash flow <em>amounts</em> <span class="math display">
+</span> It the the amount generated by unwinding the current position
+and trades just executed at the prevailing market price, assuming that
+is possible.</p>
+<p>Trading strategies involve cash flow <em>amounts</em> <span
+class="math display">
     A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t.
-</span> At time <span class="math inline">t</span> all cash flows are received in proportion to the existing position and the trades just executed are debited from the trading account.</p>
+</span> At time <span class="math inline">t</span> all cash flows are
+received in proportion to the existing position and the trades just
+executed are debited from the trading account.</p>
 </section>
 <section id="arbitrage" class="level3">
 <h3>Arbitrage</h3>
-<p><em>Arbitrage</em> exists for a model is there exists a trading strategy <span class="math inline">(\tau_j, \Gamma_j)</span> with <span class="math inline">\sum_j \Gamma_j = 0</span>, <span class="math inline">A_{\tau_0} &gt; 0</span>, and <span class="math inline">A_t\ge0</span> for <span class="math inline">t &gt; \tau_0</span>. The strategy must close out, make money on the first trade, and never lose money thereafter.</p>
-<p>Arbitrage-free models are parameterized by a vector-valued martingale, <span class="math inline">M_t\colon\mathcal{A}_t\to 𝑹^I</span> and a positive adapted process <span class="math inline">D_t\colon\mathcal{A}_t\to (0,\infty)</span>: <span class="math display">
+<p><em>Arbitrage</em> exists for a model is there exists a trading
+strategy <span class="math inline">(\tau_j, \Gamma_j)</span> with <span
+class="math inline">\sum_j \Gamma_j = 0</span>, <span
+class="math inline">A_{\tau_0} &gt; 0</span>, and <span
+class="math inline">A_t\ge0</span> for <span class="math inline">t &gt;
+\tau_0</span>. The strategy must close out, make money on the first
+trade, and never lose money thereafter.</p>
+<p>Arbitrage-free models are parameterized by a vector-valued
+martingale, <span class="math inline">M_t\colon\mathcal{A}_t\to
+𝑹^I</span> and a positive adapted process <span
+class="math inline">D_t\colon\mathcal{A}_t\to (0,\infty)</span>: <span
+class="math display">
     X_t D_t = M_t - \sum_{s\le t}C_s D_s.
 </span></p>
-<p><strong>Lemma</strong>. <em>If <span class="math inline">X_t D_t = M_t - \sum_{s\le t}C_s D_s</span> then</em> <span class="math display">
-    X_t D_t = E[X_u D_u + \sum_{t &lt; s \le u} C_s D_s\mid\mathcal{A}_t]
+<p><strong>Lemma</strong>. <em>If <span class="math inline">X_t D_t =
+M_t - \sum_{s\le t}C_s D_s</span> then</em> <span class="math display">
+    X_t D_t = E[X_u D_u + \sum_{t &lt; s \le u} C_s
+D_s\mid\mathcal{A}_t]
 </span></p>
 <p><em>Proof</em>. We have <span class="math display">
 \begin{aligned}
     E[X_u D_u + \sum_{t &lt; s \le u} C_s D_s\mid\mathcal{A}_t]
-    &amp;= E[M_u - \sum_{s\le u}C_s D_s + \sum_{t &lt; s \le u} C_s D_s\mid\mathcal{A}_t] \\
+    &amp;= E[M_u - \sum_{s\le u}C_s D_s + \sum_{t &lt; s \le u} C_s
+D_s\mid\mathcal{A}_t] \\
     &amp;= E[M_u - \sum_{s\le t}C_s D_s \mid\mathcal{A}_t] \\
     &amp;= M_t - \sum_{s\le t}C_s D_s \\
     &amp;= X_t D_t
 \end{aligned}
 </span></p>
-<p><strong>Lemma</strong>. <em>Using <span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span> and <span class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t</span> we have</em> <span class="math display">
-    V_t D_t = E[V_u D_u + \sum_{t &lt; s \le u} A_s D_s\mid\mathcal{A}_t]
+<p><strong>Lemma</strong>. <em>Using <span class="math inline">V_t =
+(\Delta_t + \Gamma_t)\cdot X_t</span> and <span class="math inline">A_t
+= \Delta_t\cdot C_t - \Gamma_t\cdot X_t</span>,</em> <span
+class="math display">
+    V_t D_t = E[V_u D_u + \sum_{t &lt; s \le u} A_s
+D_s\mid\mathcal{A}_t]
 </span></p>
-<p>Note this shows every trading strategy produces a synthetic instrument with “prices” <span class="math inline">V_t</span> and “cash flows” <span class="math inline">A_t</span>.</p>
-<p><em>Proof</em>. Note <span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t = \Delta_u\cdot X_t</span> and $ and <span class="math inline">V_t D_t = \Delta_u\cdot X_t D_t = E_t[X_u D_u + C_u D_u]</span> for some <span class="math inline">u &gt; t</span>. Since <span class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t</span> we have</p>
-<p><span class="math display">
+<p>This shows every trading strategy produces a synthetic instrument
+with “prices” <span class="math inline">V_t</span> and “cash flows”
+<span class="math inline">A_t</span>.</p>
+<p><em>Proof</em>. Note <span class="math inline">X_t D_t = E_t[X_u D_u
++ C_u D_u]</span> and <span class="math inline">V_t = (\Delta_t +
+\Gamma_t)\cdot X_t = \Delta_u\cdot X_t</span> for <span
+class="math inline">u &gt; t</span> sufficiently small. <span
+class="math display">
 \begin{aligned}
-V_t D_t &amp;= E_t[X_u D_u + C_u D_u]\\
+    V_t D_t &amp;= \Delta_u\cdot X_t D_t \\
+    &amp;= \Delta_u \cdot E_t[X_u D_u + C_u D_u] \\
+    &amp;= E_t[(\Delta_u \cdot X_u + \Delta_u \cdot C_u) D_u] \\
+    &amp;= E_t[(V_t - \Gamma_t\cdot X_t + A_t + \Gamma_t\cdot X_t) D_u]
+\\
+    &amp;= E_t[(V_t + A_t) D_u] \\
 \end{aligned}
-</span></p>
-<p><strong>Theorem</strong>. <em>Every model of the form <span class="math inline">X_t D_t = M_t - \sum_{s\le t}C_s D_s</span> where <span class="math inline">M_t</span> is a martingale and <span class="math inline">D_t</span> is positive and adapted is arbitrage free</em>.</p>
-<p><em>Proof</em>. If <span class="math inline">(\tau_j, \Gamma_j)</span> is a closed out trading strategy with <span class="math inline">A_t\ge0</span> for <span class="math inline">t &gt; \tau_0</span> then <span class="math inline">V_{\tau_0} = E[ \sum_{t &lt; s \le u} A_s D_s\mid\mathcal{A}_{\tau_0}] \ge 0</span>. Since <span class="math inline">V_{\tau_0} = \Gamma_0\cdot X_{\tau_0} = -A_{\tau_0}</span> and <span class="math inline">D_t</span> is positive we have <span class="math inline">A_{\tau_0} \le 0</span> so there is no arbitrage.</p>
+</span> The proof follows by induction on <span
+class="math inline">u</span>.</p>
+<p><strong>Theorem</strong>. <em>Every model of the form <span
+class="math inline">X_t D_t = M_t - \sum_{s\le t}C_s D_s</span> where
+<span class="math inline">M_t</span> is a martingale and <span
+class="math inline">D_t</span> is positive and adapted is arbitrage
+free</em>.</p>
+<p><em>Proof</em>. If <span class="math inline">(\tau_j,
+\Gamma_j)</span> is a closed out trading strategy with <span
+class="math inline">A_t\ge0</span> for <span class="math inline">t &gt;
+\tau_0</span> then <span class="math inline">V_{\tau_0} = E[ \sum_{t
+&lt; s \le u} A_s D_s\mid\mathcal{A}_{\tau_0}] \ge 0</span>. Since <span
+class="math inline">V_{\tau_0} = \Gamma_0\cdot X_{\tau_0} =
+-A_{\tau_0}</span> and <span class="math inline">D_t</span> is positive
+we have <span class="math inline">A_{\tau_0} \le 0</span> so there is no
+arbitrage.</p>
 </section>
 </section>
-<section class="footnotes" role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1" role="doc-endnote"><p>If <span class="math inline">\mathcal{A}</span> is an <a href="https://en.wikipedia.org/wiki/Algebra_of_sets"><em>algebra of sets</em></a> on the set <span class="math inline">\Omega</span> we write <span class="math inline">X\colon\mathcal{A}\to 𝑹</span> to indicate <span class="math inline">X\colon\Omega\to 𝑹</span> is <span class="math inline">\mathcal{A}</span>-<a href="https://en.wikipedia.org/wiki/Measurable_function"><em>measurable</em></a>. If <span class="math inline">\mathcal{A}</span> is finite then the <a href="https://en.wikipedia.org/wiki/Atom_(measure_theory)"><em>atoms</em></a> of <span class="math inline">\mathcal{A}</span> form a <a href="https://en.wikipedia.org/wiki/Partition_of_a_set"><em>partition</em></a> of <span class="math inline">\Omega</span> and <span class="math inline">X</span> is <span class="math inline">\mathcal{A}</span>-measurable if and only if it is constant on atoms of <span class="math inline">\mathcal{A}</span>. In this case <span class="math inline">X</span> is indeed a function on the atoms.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
+<section id="appendix" class="level2">
+<h2>Appendix</h2>
+<p>A collection of some fundamental facts everyone should be aware
+of.</p>
+<section id="algebras-of-sets" class="level3">
+<h3>Algebras of Sets</h3>
+<p>Algebras of sets are used to model partial information. If the
+slgebra is finite then the atoms form a partition. Complete information
+is knowing the element of the set, partial information is knowing only
+what atom it belongs to.</p>
+<p>A sequence of coin flips can be modeled by the sample space of real
+numbers between 0 and 1, <span class="math inline">\Omega =
+[0,1)</span>. Every number <span
+class="math inline">\omega\in\Omega</span> can be written as <span
+class="math inline">\omega = \sum_{j = 1}^\infty \omega_j 2^{-j}</span>
+where <span class="math inline">\omega_j</span> is either 0 or 1. The
+digits in the base 2 representation can be intrepreted as coin flips: 1
+means heads and 0 means tails, or vice versa.</p>
+<p>The first flip is determined by <span
+class="math inline">\omega_1</span>. The partition <span
+class="math inline">\{[0, 1/2),[1/2, 1)\}</span> of <span
+class="math inline">\Omega</span> represents knowing the first flip. If
+<span class="math inline">\omega_1 = 0</span> then <span
+class="math inline">\omega\in[0,1/2)</span>. If <span
+class="math inline">\omega_1 =1</span> then <span
+class="math inline">\omega\in[1/2,1)</span>. The partition <span
+class="math inline">\mathcal{A}_n = \{[j2^{-n}, (j+1)2^{-n})\mid 0\le j
+&lt; 2^n\}</span> represents knowing the first <span
+class="math inline">n</span> flips.</p>
+<p>A subsets of a sample space <span class="math inline">\Omega</span>
+are called <em>events</em>. If we want to talk about event <span
+class="math inline">E</span> <em>not</em> happening or both event <span
+class="math inline">E</span> <em>and</em> <span
+class="math inline">F</span> happended</p>
+</section>
 </section>
 <footer>
 Return to <a href="index.html">index</a>.

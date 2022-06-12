@@ -15,25 +15,6 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: true
-     });
-  }}});
-  </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,30 +22,153 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
-  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
+  -->
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Set Functions</h1>
 <p class="author">Keith A. Lewis</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+More power to the functions
+</div>
 </header>
-<p>A real-valued function on <span class="math inline">X</span>, <span class="math inline">f\colon X\to\mathbf{R}</span>, assigns elements of the set <span class="math inline">X</span> to real numbers in <span class="math inline">\mathbf{R}</span>. A real-valued set function <span class="math inline">σ\colon \mathcal{P}(X)\to\mathbf{R}</span> assigns subsets of <span class="math inline">X</span> to real numbers in <span class="math inline">\mathbf{R}</span>, where the <em>power set</em> <span class="math inline">\mathcal{P}(X)</span> is the set of all subsets of <span class="math inline">X</span>. If <span class="math inline">σ(E\cup F) = σ(E) + σ(F) - σ(E\cap F)</span>, <span class="math inline">E,F\subseteq X</span>, and <span class="math inline">σ(\emptyset) = 0</span> then <span class="math inline">σ</span> is a <em>measure</em>. Measures don’t count things twice and the measure of nothing is zero.</p>
-<p>Newton’s fundamental theorem of calculus demonstates how finding tangent lines to the graph of a function on real numbers is related to the area underneath its graph: <span class="math inline">\int_a^b f&#39;(x)\,dx = f(b) - f(a)</span>. Special cases of finding areas bounded by curves had been solved prior to Newton but he was the first to invent a systematic treatment, aka calculus, for doing this. After a long train of brilliant mathematicians following the scent Newton layed down we now have the Generalized Stokes Theorem <span class="math display">
+
+<p>A real-valued function on <span class="math inline">X</span>, <span
+class="math inline">f\colon X\to\mathbf{R}</span>, assigns elements of
+the set <span class="math inline">X</span> to real numbers in <span
+class="math inline">\mathbf{R}</span>. A real-valued set function <span
+class="math inline">σ\colon \mathcal{P}(X)\to\mathbf{R}</span> assigns
+subsets of <span class="math inline">X</span> to real numbers in <span
+class="math inline">\mathbf{R}</span>, where the <em>power set</em>
+<span class="math inline">\mathcal{P}(X)</span> is the set of all
+subsets of <span class="math inline">X</span>. If <span
+class="math inline">σ(E\cup F) = σ(E) + σ(F) - σ(E\cap F)</span>, <span
+class="math inline">E,F\subseteq X</span>, and <span
+class="math inline">σ(\emptyset) = 0</span> then <span
+class="math inline">σ</span> is a <em>measure</em>. Measures don’t count
+things twice and the measure of nothing is zero.</p>
+<p>Newton’s fundamental theorem of calculus demonstates how finding
+tangent lines to the graph of a function on real numbers is related to
+the area underneath its graph: <span class="math inline">\int_a^b
+f&#39;(x)\,dx = f(b) - f(a)</span>. Special cases of finding areas
+bounded by curves had been solved prior to Newton but he was the first
+to invent a systematic treatment, aka calculus, for doing this. After a
+long train of brilliant mathematicians following the scent Newton layed
+down we now have the Generalized Stokes Theorem <span
+class="math display">
     \int_Ω dω = \int_{∂Ω} ω
-</span> where <span class="math inline">Ω</span> is a region of <span class="math inline">n</span>-dimensional space, <span class="math inline">ω</span> is a <em>smooth form</em> on <span class="math inline">Ω</span>, <span class="math inline">∂Ω</span> is the boundary of <span class="math inline">Ω</span>, and <span class="math inline">dω</span> is the <em>differential</em> of <span class="math inline">ω</span>.</p>
-<p>Newton’s theorem is the 1-dimensional case where <span class="math inline">Ω = [a,b]</span> and <span class="math inline">ω = f(x)</span> is differentiable function. In this case <span class="math inline">dω = f&#39;(x)\,dx</span> is a 1-form and <span class="math inline">∂[a,b] = δ_b - δ_a</span> is the difference of delta functions at the endpoints of the interval. We will not delve furthur into the defintions and conditions required for this theorem, but hopefully whet your appetite to learn more with another example.</p>
-<p>Suppose <span class="math inline">dx\,dy = -dy\,dx</span>. This implies <span class="math inline">dx\,dx = 0</span> when <span class="math inline">y = x</span> and makes it plausible that <span class="math inline">d^2x = 0</span>. Let <span class="math inline">P(x,y)</span> and <span class="math inline">Q(x,y)</span> be functions on <span class="math inline">\mathbf{R}^2</span> and write <span class="math inline">P_x = ∂P/∂x</span> for partial derivatives. If <span class="math inline">ω = P\,dx + Q\,dy</span> is a 1-form then <span class="math inline">dω = d(P\,dx + Q\,dy) = dP\,dx + dQ\,dy = (P_x\,dx + P_y\,dy)dx + (Q_x\,dx + Q_y\,dy)dy = P_y\,dy\,dx + Q_y\,dx\,dy = (Q_y - P_x)dx\,dy</span> is a 2-form. Green’s theorem is the 2-dimensional case of Stokes theorem <span class="math display">
+</span> where <span class="math inline">Ω</span> is a region of <span
+class="math inline">n</span>-dimensional space, <span
+class="math inline">ω</span> is a <em>smooth form</em> on <span
+class="math inline">Ω</span>, <span class="math inline">∂Ω</span> is the
+boundary of <span class="math inline">Ω</span>, and <span
+class="math inline">dω</span> is the <em>differential</em> of <span
+class="math inline">ω</span>.</p>
+<p>Newton’s theorem is the 1-dimensional case where <span
+class="math inline">Ω = [a,b]</span> and <span class="math inline">ω =
+f(x)</span> is differentiable function. In this case <span
+class="math inline">dω = f&#39;(x)\,dx</span> is a 1-form and <span
+class="math inline">∂[a,b] = δ_b - δ_a</span> is the difference of delta
+functions at the endpoints of the interval. We will not delve furthur
+into the defintions and conditions required for this theorem, but
+hopefully whet your appetite to learn more with another example.</p>
+<p>Suppose <span class="math inline">dx\,dy = -dy\,dx</span>. This
+implies <span class="math inline">dx\,dx = 0</span> when <span
+class="math inline">y = x</span> and makes it plausible that <span
+class="math inline">d^2x = 0</span>. Let <span
+class="math inline">P(x,y)</span> and <span
+class="math inline">Q(x,y)</span> be functions on <span
+class="math inline">\mathbf{R}^2</span> and write <span
+class="math inline">P_x = ∂P/∂x</span> for partial derivatives. If <span
+class="math inline">ω = P\,dx + Q\,dy</span> is a 1-form then <span
+class="math inline">dω = d(P\,dx + Q\,dy) = dP\,dx + dQ\,dy = (P_x\,dx +
+P_y\,dy)dx + (Q_x\,dx + Q_y\,dy)dy = P_y\,dy\,dx + Q_y\,dx\,dy = (Q_y -
+P_x)dx\,dy</span> is a 2-form. Green’s theorem is the 2-dimensional case
+of Stokes theorem <span class="math display">
     \int_Ω (Q_y - P_x)dx\,dy = \int_{∂Ω} P\,dx + Q\,dy.
 </span></p>
 <p>Further reading: Grassmann, R. C. Buck.</p>
-<p>A different train of brilliant thought led to considering how to extend the set function on intervals <span class="math inline">[a,b]\mapsto \int_a^b f</span> to all sets and for functions <span class="math inline">f</span> that might not be differentiable. This led to many complications if the set function is required to be countably additive. Integrating any bounded function over a finitely additive measure is elementary.</p>
-<p>Write <span class="math inline">Y^X</span> for the set of all functions from <span class="math inline">X</span> to <span class="math inline">Y</span>. We can identify the power set <span class="math inline">\mathcal{P}(X)</span> with <span class="math inline">2^X = \{0,1\}^X</span> where <span class="math inline">S\subseteq X</span> corresponds to the <em>characteristic function</em> <span class="math inline">1_S</span> with <span class="math inline">1_S(x) = 1</span> if <span class="math inline">x\in S</span> and <span class="math inline">1_S(x) = 0</span> if <span class="math inline">x\not\in S</span>.</p>
-<p>Real-valued functions on <span class="math inline">X</span>, <span class="math inline">\mathbf{R}^X</span>, are a vector space with pointwise addition <span class="math inline">(f + g)(x) = f(x) + g(x)</span> and scalar multiplication <span class="math inline">(af)(x) = a f(x)</span>, <span class="math inline">f,g\in\mathbf{R}^X</span>, <span class="math inline">a\in\mathbf{R}</span>. The <em>dual</em> of a vector space <span class="math inline">V</span> is the set of all functions <span class="math inline">v^*\in\mathbf{R}^V\colon V\to\mathbf{R}</span> that are linear, <span class="math inline">v^*(av + w) = av^*(v) + v^*(w)</span>, <span class="math inline">a\in\mathbf{R}</span> and <span class="math inline">v, w\in V</span>. The <em>dual pairing</em> is a function <span class="math inline">\langle , \rangle\colon V\times V^*\to\mathbf{R}</span> defined by <span class="math inline">\langle v, v^*\rangle = v^*(v)</span>, <span class="math inline">v\in V</span>, <span class="math inline">v^*\in V^*</span>.</p>
-<p>A function <span class="math inline">f</span> is <em>bounded</em> if there is a number <span class="math inline">M\in\mathbf{R}</span> with <span class="math inline">|f(x)| \le M</span> for all <span class="math inline">x\in X</span>. The smallest number satifying this is <span class="math inline">\|f\|</span>, the <em>norm</em> of <span class="math inline">f</span>. The set of bounded functions on <span class="math inline">X</span> is a <em>normed vector space</em>, <span class="math inline">B(X)</span>. A <em>norm</em> on a vector space is a function <span class="math inline">\|\cdot\|\colon V\to\mathbf{R}</span> that satisfies <span class="math inline">\|v\|\ge 0</span>, <span class="math inline">\|av\| = |a| \|v\|</span> and <span class="math inline">\|v + w\| \le \|v\| + \|w\|</span>, <span class="math inline">v,w\in V</span>, <span class="math inline">a\in\mathbf{R}</span>. Norms induce a <em>metric</em> <span class="math inline">d(v, w) = \|v - w\|</span> that provides a <em>topology</em> on <span class="math inline">V</span>. A linear transformation <span class="math inline">T\colon V\to W</span> is continuous in the metric topology if and only if it is bounded, <span class="math inline">\|Tv\| \le \|T\|\|v\|</span>.</p>
-<p>The <em>dual</em> of a normed vector space <span class="math inline">V</span> is the set of all function <span class="math inline">\mathbf{R}^V</span> that are linear and continuous/bounded.</p>
+<p>A different train of brilliant thought led to considering how to
+extend the set function on intervals <span
+class="math inline">[a,b]\mapsto \int_a^b f</span> to all sets and for
+functions <span class="math inline">f</span> that might not be
+differentiable. This led to many complications if the set function is
+required to be countably additive. Integrating any bounded function over
+a finitely additive measure is elementary.</p>
+<p>Write <span class="math inline">Y^X</span> for the set of all
+functions from <span class="math inline">X</span> to <span
+class="math inline">Y</span>. We can identify the power set <span
+class="math inline">\mathcal{P}(X)</span> with <span
+class="math inline">2^X = \{0,1\}^X</span> where <span
+class="math inline">S\subseteq X</span> corresponds to the
+<em>characteristic function</em> <span class="math inline">1_S</span>
+with <span class="math inline">1_S(x) = 1</span> if <span
+class="math inline">x\in S</span> and <span class="math inline">1_S(x) =
+0</span> if <span class="math inline">x\not\in S</span>.</p>
+<p>Real-valued functions on <span class="math inline">X</span>, <span
+class="math inline">\mathbf{R}^X</span>, are a vector space with
+pointwise addition <span class="math inline">(f + g)(x) = f(x) +
+g(x)</span> and scalar multiplication <span class="math inline">(af)(x)
+= a f(x)</span>, <span class="math inline">f,g\in\mathbf{R}^X</span>,
+<span class="math inline">a\in\mathbf{R}</span>. The <em>dual</em> of a
+vector space <span class="math inline">V</span> is the set of all
+functions <span class="math inline">v^*\in\mathbf{R}^V\colon
+V\to\mathbf{R}</span> that are linear, <span class="math inline">v^*(av
++ w) = av^*(v) + v^*(w)</span>, <span
+class="math inline">a\in\mathbf{R}</span> and <span
+class="math inline">v, w\in V</span>. The <em>dual pairing</em> is a
+function <span class="math inline">\langle , \rangle\colon V\times
+V^*\to\mathbf{R}</span> defined by <span class="math inline">\langle v,
+v^*\rangle = v^*(v)</span>, <span class="math inline">v\in V</span>,
+<span class="math inline">v^*\in V^*</span>.</p>
+<p>A function <span class="math inline">f</span> is <em>bounded</em> if
+there is a number <span class="math inline">M\in\mathbf{R}</span> with
+<span class="math inline">|f(x)| \le M</span> for all <span
+class="math inline">x\in X</span>. The smallest number satifying this is
+<span class="math inline">\|f\|</span>, the <em>norm</em> of <span
+class="math inline">f</span>. The set of bounded functions on <span
+class="math inline">X</span> is a <em>normed vector space</em>, <span
+class="math inline">B(X)</span>. A <em>norm</em> on a vector space is a
+function <span class="math inline">\|\cdot\|\colon V\to\mathbf{R}</span>
+that satisfies <span class="math inline">\|v\|\ge 0</span>, <span
+class="math inline">\|av\| = |a| \|v\|</span> and <span
+class="math inline">\|v + w\| \le \|v\| + \|w\|</span>, <span
+class="math inline">v,w\in V</span>, <span
+class="math inline">a\in\mathbf{R}</span>. Norms induce a
+<em>metric</em> <span class="math inline">d(v, w) = \|v - w\|</span>
+that provides a <em>topology</em> on <span class="math inline">V</span>.
+A linear transformation <span class="math inline">T\colon V\to W</span>
+is continuous in the metric topology if and only if it is bounded, <span
+class="math inline">\|Tv\| \le \|T\|\|v\|</span>.</p>
+<p>The <em>dual</em> of a normed vector space <span
+class="math inline">V</span> is the set of all function <span
+class="math inline">\mathbf{R}^V</span> that are linear and
+continuous/bounded.</p>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

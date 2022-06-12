@@ -18,8 +18,8 @@ the case of vector spaces. The _dual_ of a vector space is the collection
 of all linear functionals on the vector space. It too is a vector space
 and has the same dimension as the original vector space if is finite dimensional.
 Identifying when a space is a dual help clarifies mathematical concepts.
-For example, if $F\colon V\to\RR$ is an smooth function the its derivative
-is a function $DF\colon $V\to\V^*$, where $V^*$ denotes the dual of $V$.
+For example, if $F\colon V\to\RR$ is a smooth function then its derivative
+is a function $DF\colon V\to V^*$, where $V^*$ denotes the dual of $V$.
 There is no need for "row" or "column" vectors when using duals.
 
 ## Vector Space
@@ -43,7 +43,7 @@ If $V$ is finite dimensional with basis $\{e_i\}$ then define the _dual basis_
 $e_j^*\colon V\to\RR$ by $\langle e_i, e_j^*\rangle = δ_{i,j}$, where
 $δ_{i,j}$ is the Kronecker delta,
 and extend to $V$ linearly to get $e_j^*\in V^*$.
-This determines an isomorphism $T\colon V\to V^*$ by $Ee_i = e_i^$.
+This determines an isomorphism $T\colon V\to V^*$ by $Te_i = e_i^*$.
 
 For any vector space $V$ define the _canonical injection_ $ι_V\colon V\to V^{**}$ by
 $\langle ι_Vv, v^*\rangle = \langle v, v^*\rangle$.
@@ -119,24 +119,25 @@ $\lim_{n\to\infty}\int_a^b f_n(x)\,dx = \int_a^b \lim_{n\to\infty} f_n(x)\,dx$.
 Lebesgue cleaned up this mess by noticing the continuous functons on the interval $[a,b]$,
 $C[a,b]$, is a vector space and $f\mapsto \int_a^b f(x)\,dx$ is a linear functional.
 This led him to the notion of _set functions_ called _measures_ that greatly
-extend the concept of integration.
+simplify the concept of integration.
 
 ### Bounded Functions
 
-Let $Ω$ be _any_ set and define the bounded functions $B(Ω) = \{f\colon Ω\to\RR:\sup_Ω |f| < \infty\}$.
-Given a linear functional $L\in B(Ω)^*$ and any subset $E\subseteq Ω$ define
+Let $\Omega$ be _any_ set and define the bounded functions 
+$B(\Omega) = \{f\colon\Omega\to\RR:\sup_{\omega\in\Omega} |f(\omega)| < \infty\}$.
+Given a linear functional $L\in B(\Omega)^*$ and any subset $E\subseteq\Omega$ define
 $λ(E) = L(1_E)$, where $1_E(ω) = 1$ if $ω\in E$ and $1_E(ω) = 0$ if $ω\not\in E$.
-If $E$ and $F$ are disjoint subsets of $Ω$ then $1_{E\cup F} = 1_E + 1_F$ so
+If $E$ and $F$ are disjoint subsets of $\Omega$ then $1_{E\cup F} = 1_E + 1_F$ so
 $λ(E\cup F) = λ(E) + λ(F)$.
 
-__Exercise__. _Show $λ(E\cup F) = λ(E) + λ(F) - λ(E\cap F)$ for any $E,F\subseteq Ω$_.
+__Exercise__. _Show $λ(E\cup F) = λ(E) + λ(F) - λ(E\cap F)$ for any $E,F\subseteq \Omega$_.
 
-While $f$ is a function on $Ω$, $λ$ is a function on subsets of $Ω$ that satifies
-$λ(E\cup F) = λ(E) + λ(F) - λ(E\cap F)$ for any $E,F\subseteq Ω$. Such functions
+While $f$ is a function on $\Omega$, $λ$ is a function on subsets of $\Omega$ that satifies
+$λ(E\cup F) = λ(E) + λ(F) - λ(E\cap F)$ for any $E,F\subseteq \Omega$. Such functions
 are called measures. Measures don't count things twice.
 We also need $λ(\emptyset) = 0$, the measure of nothing is zero.
 
-__Exercise__. _If $λ(E\cup F) = λ(E) + λ(F) - λ(E\cap F)$, $E,F\subseteq Ω$, then
+__Exercise__. _If $λ(E\cup F) = λ(E) + λ(F) - λ(E\cap F)$, $E,F\subseteq\Omega$, then
 $μ = λ + a$ also satisfies this condition_.
 
 _Hint_. The "measure" $μ + a$ is $(μ + a)(E) = μ(E) + a$.

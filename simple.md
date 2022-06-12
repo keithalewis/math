@@ -185,7 +185,13 @@ written as $\omega = \sum_{j = 1}^\infty \omega_j 2^{-j}$ where $\omega_j$
 is either 0 or 1. The digits in the base 2 representation can be 
 intrepreted as coin flips: 1 means heads and 0 means tails, or vice versa.
 
-The first flip is determined by $\omega_1$. The partition $[0, 1) = [0, 1/2)\cup [1/2, 1)$
+The first flip is determined by $\omega_1$. The partition
+$\{[0, 1/2),[1/2, 1)\}$ of $\Omega$ 
 represents knowing the first flip. If $\omega_1 = 0$ then $\omega\in[0,1/2)$.
 If $\omega_1 =1$ then $\omega\in[1/2,1)$.
+The partition $\AA_n = \{[j2^{-n}, (j+1)2^{-n})\mid 0\le j < 2^n\}$ represents
+knowing the first $n$ flips.
 
+A subsets of a sample space $\Omega$ are called _events_. 
+If we want to talk about event $E$ _not_ happening or both 
+event $E$ _and_ $F$ happended 

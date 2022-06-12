@@ -96,7 +96,7 @@ $\given{\o{a}(\o{\o{b}} + \o{\o{\o{c}}}) = \u{a}\u{\u{b}} + \u{a}\u{\u{\u{c}}}\m
 
 $= \o{(x + y)}\o{\o{x}} + \o{(x + y)}\o{\o{\o{y}}}$
 
-Applying the distributive law again
+Applying the distributive law again twice
 
 $= \u{(x + y)x} + \u{\u{(x + y)y}}$
 
