@@ -104,7 +104,7 @@ and $A_0 = -\Gamma_0\cdot X_0 = -V_{t_0} = 0$.
 The position at time $t_1$ is $\Delta_{t_1} = \sum{\tau_j < 1}\Gamma_j = \Gamma_0 = (-100,1)$.
 Since $\Gamma_t = \Gamma_j$ when $t = \tau_j$ we have $\Gamma_{t_1} = (0,0)$
 so $V_{t_1} = (\Delta_{t_1} + \Gamma_{t_1}\cdot X_{t_1} = 0$ and 
-A_1 = \Delta_{t_1}\cdot C_{t_1} - \Gamma_{t_1}\cdot X_{t_1} = 0$.
+$A_1 = \Delta_{t_1}\cdot C_{t_1} - \Gamma_{t_1}\cdot X_{t_1} = 0$.
 Note $\Delta_{t_2} = -\Gamma_{t_2}$ so $V_{t_2} = 0$ and
 $A_{t_2} = -\Gamma_{t_2}\cdot X_{t_2} = (100, -1)\cdot (1, 100) = 0$.
 
