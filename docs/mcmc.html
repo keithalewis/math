@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Markov Chain Monte Carlo</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <!--
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif&display=swap" rel="stylesheet"> 
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
+  -->
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Markov Chain Monte Carlo</h1>
+<p class="author">Keith A. Lewis</p>
+</header>
+<p><span class="math inline">\pi\colon M(X)\to M(X)</span>, positive,
+isometric, w-star continuous.</p>
+<p>A measure <span class="math inline">\mu</span> on <span
+class="math inline">X\times Y</span> determines a linear transformaton
+<span class="math inline">M\colon B(X)\to B(Y)</span> by <span
+class="math inline">Mf(y) = \int_X f\,d\mu_y</span> where <span
+class="math inline">\mu_Y(E) = \mu(X,E)</span></p>
+<p><span class="math inline">Mf(y) = sum_x f(x) m_{x,y}</span></p>
+<p><span class="math inline">B(X\times Y)^* = M(X\times Y)</span></p>
+<p><span class="math inline">C_y\colon B(X\times Y) \to B(X)</span> by
+<span class="math inline">f\mapsto (x \to f(x,y))</span>.</p>
+<p><span class="math inline">C_y^*\colon ba(X)\to ba(X\times Y)</span>.
+$(X) =</p>
+<p>A <em>Markov chain</em> on a set <span class="math inline">X</span>
+is a positive measure <span class="math inline">\pi</span> on <span
+class="math inline">X\times X</span> where <span
+class="math inline">\pi_x(E) = \pi(X,E)</span>, <span
+class="math inline">E\subseteq X</span>, is a probability measure for
+all <span class="math inline">x\in X</span>.</p>
+<p>Define <span class="math inline">\Pi\colon B(X)\to B(X)</span> by
+<span class="math inline">\Pi(f)(x) = \int_X f\,d\pi_x</span>.</p>
+<p>A stochastic process <span class="math inline">(X_t)_{t\in T}</span>
+satisfies the <em>Markov property</em> if given <span
+class="math inline">t_0 &lt; \cdots &lt; t_n</span>, <span
+class="math inline">t_j\in T</span> then <span class="math inline">P(X_t
+\le x \mid X_{t_0} = x_0, \ldots, X_{t_n} = x_n) = P(X_t \le x \mid
+X_{t_n} = x_n)</span> whenever <span class="math inline">t \ge
+t_n</span>. Informally, the process forgets its history.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">(X_t)</span> has independent increments then it
+satisfies the Markov property</em>.</p>
+<p>If the sample space <span class="math inline">\Omega =
+\{\omega_j\}</span> is finite and <span class="math inline">T =
+\{t_0,t_1,\ldots\}</span> is discrete then …</p>
+<p>Let <span class="math inline">M\colon ba(\Omega)\to ba(\Omega)</span>
+be a positive unitary linear transformation.</p>
+<p><span class="math inline">M\delta_\omega = \sum_{\omega&#39;}
+\pi_{\omega,\omega&#39;} \delta_{\omega&#39;}</span>. <span
+class="math inline">\pi_{\omega,\omega&#39;} \ge 0</span>, <span
+class="math inline">\sum_{\omega&#39;} \pi_{\omega,\omega&#39;} =
+1</span>, <span class="math inline">\omega\in\Omega</span>.</p>
+<p><span class="math inline">\mu = \sum
+\mu_\omega\delta_\omega</span>.</p>
+<p><span class="math inline">M\mu = M(\sum \mu_\omega\delta_\omega) =
+\sum \mu_\omega \sum_{\omega&#39;} \pi_{\omega,\omega&#39;}
+\delta_{\omega&#39;}</span>.</p>
+<p><span class="math inline">(M\mu)_{\omega&#39;} = \sum \mu_\omega
+\sum_{\omega&#39;} \pi_{\omega,\omega&#39;}</span>.</p>
+<p><span class="math inline">M_\star\colon B(\Omega)\to
+B(\Omega)</span>.</p>
+<p><span class="math display">
+\begin{aligned}
+\langle M_\star X,\mu\rangle
+    &amp;= \langle X, M\mu\rangle \\
+    &amp;= \langle X,
+M\sum_{\omega\in\Omega}\mu_\omega\delta_\omega\rangle \\
+    &amp;= \langle X, \sum_{\omega\in\Omega}\mu_\omega
+M\delta_\omega\rangle \\
+    &amp;= \langle X, \sum_{\omega}\mu_\omega \sum_{\omega&#39;}
+\pi_{\omega,\omega&#39;} \delta_{\omega&#39;}\rangle \\
+    &amp;= \langle X, \sum_{\omega&#39;}\sum_{\omega}\mu_\omega
+\pi_{\omega,\omega&#39;} \delta_{\omega&#39;}\rangle \\
+    &amp;= \langle \sum_{\omega&#39;} X(\omega&#39;),
+\sum_{\omega}\mu_\omega \pi_{\omega,\omega&#39;} \rangle \\
+\end{aligned}
+</span></p>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

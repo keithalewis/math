@@ -15,25 +15,6 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: true
-     });
-  }}});
-  </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,18 +22,55 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
-  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
+  -->
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Monoid</h1>
 <p class="author">Keith A. Lewis</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Concatination
+</div>
 </header>
-<p>A moniod is a set <span class="math inline">M</span> with a binary operation <span class="math inline">M\times M\to M</span> that is associative and has an identity element <span class="math inline">e</span>. If <span class="math inline">s,t\in M</span> we write <span class="math inline">st\in M</span> for the result of the binary operation. The identity satisfies <span class="math inline">es = s = se</span>, <span class="math inline">s\in M</span>. The associative law is <span class="math inline">(st)u = s(tu)</span> so <span class="math inline">stu</span> is unambiguous.</p>
-<p>Given a function <span class="math inline">\mu\colon M\to\bm{R}</span> with <span class="math inline">\mu e = 0</span> we can define a measure on finite subsets of <span class="math inline">S\subseteq M</span> by <span class="math inline">\mu(S) = \sum_{s\in S} \mu s</span>.</p>
+<p>A moniod is a set <span class="math inline">M</span> with a binary
+operation <span class="math inline">M\times M\to M</span> that is
+associative and has an identity element <span
+class="math inline">e</span>. If <span class="math inline">s,t\in
+M</span> we write <span class="math inline">st\in M</span> for the
+result of the binary operation. The identity satisfies <span
+class="math inline">es = s = se</span>, <span class="math inline">s\in
+M</span>. The associative law is <span class="math inline">(st)u =
+s(tu)</span> so <span class="math inline">stu</span> is unambiguous.</p>
+<p>Given a function <span class="math inline">\mu\colon
+M\to\bm{R}</span> with <span class="math inline">\mu e = 0</span> we can
+define a measure on finite subsets of <span
+class="math inline">S\subseteq M</span> by <span
+class="math inline">\mu(S) = \sum_{s\in S} \mu s</span>.</p>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

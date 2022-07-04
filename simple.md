@@ -21,6 +21,7 @@ abstract: |
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\RR}{𝑹}
 \renewcommand{\AA}{\mathcal{A}}
+\newcommand\qed{\blacksquare}
 
 There is a clear trajectory in mathematical finance starting from Black,
 Scholes, and Merton showing how to use a bond and a stock to hedge an
@@ -51,13 +52,7 @@ using the Hahn-Banach theorem.  He posited that prices of $n$ instruments
 at the beginning of the period can be represented as a vector $x\in\RR^n$
 and the prices at the end of the period are functions of possible outcomes $\Omega$
 where $X\colon\Omega\to\RR^n$ indicates prices $X(\omega)$ at the end of the
-period if $\omega\in\Omega$ occurred.  He showed this model is arbitrage-free if and
-only if $x$ belongs to the smallest closed cone containing the range of
-$X$. This is equivalent to
-$$
-	x = \int_\Omega X(\omega)\,d\Pi(\omega)
-$$
-for some positive measure $\Pi$ on $\Omega$.
+period if $\omega\in\Omega$ occurred.
 
 Arbitrage exists, for this model, if there is a $\gamma\in\RR^n$
 with $\gamma\cdot x < 0$ and $\gamma\cdot X(\omega)\ge0$ for all
@@ -70,6 +65,17 @@ Selling $\gamma$ shares at the end of the period generates
 $\gamma\cdot X(\omega)$ in value if $\omega\in\Omega$ occurred.
 If this is non-negative then there is an arbitrage:
 you make money entering the trade and do not lose money when exiting.
+
+He showed the one-period model is arbitrage-free if and
+only if $x$ belongs to the smallest closed cone containing the range of
+$X$. This is equivalent to
+$$
+	x = \int_\Omega X(\omega)\,d\Pi(\omega)
+$$
+for some positive measure $\Pi$ on $\Omega$.
+If $x$ does not belong to the cone and $x^*$ is the nearest point
+in the cone to $x$ then $\xi = x^* - x$ is an arbitrage portfolio.
+
 
 The notion of $\gamma\cdot x = 0$ and $\gamma\cdot X$ being positive with
 some positive probability as a definition of arbitrage is ridiculous.
@@ -208,7 +214,7 @@ $$
 	&= E[M_u - \sum_{s\le u}C_s D_s + \sum_{t < s \le u} C_s D_s\mid\AA_t] \\
 	&= E[M_u - \sum_{s\le t}C_s D_s \mid\AA_t] \\
 	&= M_t - \sum_{s\le t}C_s D_s \\
-	&= X_t D_t
+	&= X_t D_t\quad\qed
 \end{aligned}
 $$
 
@@ -231,7 +237,7 @@ $$
 	&= E_t[(V_t + A_t) D_u] \\
 \end{aligned}
 $$
-The proof follows by induction on $u$.
+The proof follows by induction on $u$. $\qed$
 
 __Theorem__. _Every model of the form $X_t D_t = M_t - \sum_{s\le t}C_s D_s$ where $M_t$ is
 a martingale and $D_t$ is positive and adapted is arbitrage free_.
@@ -243,9 +249,28 @@ $A_{\tau_0} \le 0$ so there is no arbitrage.
 
 ## Appendix
 
+A collection of some fundamental facts everyone should be aware of.
+
 ### Algebras of Sets
 
 Algebras of sets are used to model partial information.
 If the algebra is finite then the atoms form a partition.
 Complete information is knowing the element of the set,
 partial information is knowing only what atom it belongs to.
+
+A sequence of coin flips can be modeled by the sample space of real numbers
+between 0 and 1, $\Omega = [0,1)$. Every number $\omega\in\Omega$ can be
+written as $\omega = \sum_{j = 1}^\infty \omega_j 2^{-j}$ where $\omega_j$
+is either 0 or 1. The digits in the base 2 representation can be 
+intrepreted as coin flips: 1 means heads and 0 means tails, or vice versa.
+
+The first flip is determined by $\omega_1$. The partition
+$\{[0, 1/2),[1/2, 1)\}$ of $\Omega$ 
+represents knowing the first flip. If $\omega_1 = 0$ then $\omega\in[0,1/2)$.
+If $\omega_1 =1$ then $\omega\in[1/2,1)$.
+The partition $\AA_n = \{[j2^{-n}, (j+1)2^{-n})\mid 0\le j < 2^n\}$ represents
+knowing the first $n$ flips.
+
+A subsets of a sample space $\Omega$ are called _events_. 
+If we want to talk about event $E$ _not_ happening or both 
+event $E$ _and_ $F$ happended 

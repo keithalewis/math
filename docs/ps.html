@@ -15,9 +15,6 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
   <!--
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,18 +22,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500&display=swap" rel="stylesheet"> 
-  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
+  -->
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Portable, Efficient Software</h1>
 <p class="author">Keith A. Lewis</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Writing performant code that can be used from any language
+</div>
 </header>
-<p>Almost every language provides a means of calling functions written in C. The key to high performance software is passing pointers to data from the calling language that do not require data to be copied.</p>
-<p>Garbage collected languages usually have a means to temporarily pin data while calling C functions.</p>
+<p>Almost every language provides a means of calling functions written
+in C. The key to high performance software is passing pointers to data
+from the calling language that do not require data to be copied.</p>
+<p>Garbage collected languages usually have a means to temporarily pin
+data while calling C functions.</p>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>
