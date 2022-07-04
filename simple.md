@@ -5,7 +5,7 @@ institute: KALX, LLC
 classoption: fleqn
 fleqn: true
 abstract: |
- Every arbitrage-free pricing model is parameterized by a vector-valued
+ Every arbitrage-free market model is parameterized by a vector-valued
  martingale and a positive adapted process.  There is no need to restrict
  models to Ito processes, use partial differential equations, or consider
  self-financing portfolios. There is also no need for utility functions or market equilibrium.
@@ -14,8 +14,8 @@ abstract: |
  in order to mathematically model partial information.
  Market participants can only execute a finite number of trades.
  It is time to banish the mathematical fiction of continuous time trading and
- focus on problems practicioners find useful: when to rehedge
- and what are the risk tradeoffs.
+ focus on problems practitioners find useful: when to re-hedge
+ and what are the risk trade-offs.
 ...
 
 \newcommand{\Var}{\operatorname{Var}}
@@ -24,8 +24,13 @@ abstract: |
 
 There is a clear trajectory in mathematical finance starting from Black,
 Scholes, and Merton showing how to use a bond and a stock to hedge an
-option to expand the universe of instruments, incorporate credit and
-liquidity considerations, and make model assumptions explicit.
+option. Ross showed how to extend this to any number of instruments
+in the one-period case using a not quite correct application of the
+Hahn-Banach theorem. This was fixed up and extended to multi-period
+models. Credit and liquidity considerations were eventually added.
+
+This note supplies a mathematically rigorous approach to extend this trajectory.
+and make model assumptions explicit.
 Large banks, money management firms, and hedge funds need to consider
 cross market correlations. Risk management has recognized market
 realities involving large positions. Models must allow for the
@@ -33,32 +38,100 @@ empirical fact that not all market participants act optimally.
 
 Scholes and Merton won a Nobel Prize for a new method of valuing derivative securities that
 did not require estimating the return on the underlying. Under the assumption that
-future stock prices could be modelled by geometric Brownian motion and it was possible
-to trade in continuous time, all one needed to know was the volatiliy.
+future stock prices could be modeled by geometric Brownian motion and it was possible
+to trade in continuous time, all one needed to know was the volatility.
 
-Stephen Ross expandend the theory in the one-period case to any number of instruments.
-He showed the Fundamental Theorem of Asset pricing was a geometric result that
-could be proved using the Hahn-Banach theorem. 
-He posited that prices of $n$ instruments at the begining of the period
-can be represented as a vector $x\in\RR^n$ and the prices at the end
-of the period are functions of possible outcomes $X\colon\Omega\to\RR^n$.
-He showed this model is arbitrage-free if and only if $x$ belongs to
-the smallest closed cone containing the range of $X$. This is equivalent
-to
+## Ross
+
+Stephen Ross expanded the Black, Scholes, and Merton theory to
+any number of instruments in the one-period case.
+His Fundamental
+Theorem of Asset pricing was a geometric result that could be proved
+using the Hahn-Banach theorem.  He posited that prices of $n$ instruments
+at the beginning of the period can be represented as a vector $x\in\RR^n$
+and the prices at the end of the period are functions of possible outcomes $\Omega$
+where $X\colon\Omega\to\RR^n$ indicates prices $X(\omega)$ at the end of the
+period if $\omega\in\Omega$ occurred.  He showed this model is arbitrage-free if and
+only if $x$ belongs to the smallest closed cone containing the range of
+$X$. This is equivalent to
 $$
 	x = \int_\Omega X(\omega)\,d\Pi(\omega)
 $$
 for some positive measure $\Pi$ on $\Omega$.
 
-Subsequent models extended this to the multi-period case and incorporated
-the fact instruments can have cash flows.
+Arbitrage exists, for this model, if there is a $\gamma\in\RR^n$
+with $\gamma\cdot x < 0$ and $\gamma\cdot X(\omega)\ge0$ for all
+$\omega\in\Omega$.  This corresponds to a trading strategy of purchasing
+$\gamma$ shares at the beginning of the period and selling $\gamma$
+shares at the end of the period.  The cost of acquiring $\gamma$ shares
+at the beginning of the period is $\gamma\cdot x$. If the cost is
+negative the strategy generates money on the initial trades.
+Selling $\gamma$ shares at the end of the period generates
+$\gamma\cdot X(\omega)$ in value if $\omega\in\Omega$ occurred.
+If this is non-negative then there is an arbitrage:
+you make money entering the trade and do not lose money when exiting.
 
+The notion of $\gamma\cdot x = 0$ and $\gamma\cdot X$ being positive with
+some positive probability as a definition of arbitrage is ridiculous.
+How positive will the profit be? What is the probability it will be
+realized?
+Of course any trader or risk manager would compare the initial profit
+$-\gamma\cdot x$ to the amount of capital that would be involved,
+$|\gamma|\cdot |x|$ before dragging in a probability measure.
+
+A rigorous statement of Ross' theorem is that if $X$ is bounded then
+there exists a finitely additive measure $\Pi$ such that
+$$
+	x = \int_\Omega X(\omega)\,d\Pi(\omega).
+$$
+If $B(\Omega)$ is the set of bounded functions on $\Omega$
+then its _dual_ is $B(\Omega)^* = ba(\Omega)$, the set of
+finitely additive measures on $\Omega$. Integration is
+a linear function from $B(\Omega)$ to $\RR$.
+
+Suppose there exists $\zeta\in\RR^n$ with $\zeta\cdot X = 1$.
+The market model has a zero coupon bond paying 1 unit at the end of the period.
+It costs $\zeta\cdot x$ at the beginning of the period
+to get a certain cash flow of $1$ at the end of the period.
+The _discount_ over the period is
+$$
+	D = \zeta\cdot x = \int_\Omega \zeta\cdot X\,d\Pi = \int_\Omega d\Pi = \|\Pi\|,
+$$
+where $\|\Pi\|$ is the total mass of $\Pi$ since $\Pi$ is positive.
+It is true that $P = \Pi/\|\Pi\|$ is a positive measure
+with mass 1. Technically, it is a probability measure. But that does not
+mean it represents the probability of any particular event occurring.
+It is called the _risk neutral measure_, but a more accurate name
+is _risk blind_ measure. It provides no insight into real-world probabilities.
+
+We can write $x = \int X\,d\Pi = \int X\,d(\Pi/\|\Pi\|) \|\Pi\| = E[XD]$
+under the risk neutral measure. The price at the beginning of the
+period is the expected value of the discounted price at the end of he period.
+
+Note that in any arbitrage-free model we have $x_i = E[X_iD]$, $1\le i\le n$.
+Every instrument has the same expected return
 
 ## Unified Model
+
+Let $T$ be the set of times trading can occur. 
+In the Black-Scholes/Merton model $T = [0,\infty)$ is
+the set of non-negative real numbers.
+In the real world, trades can only occur when markets are open.
+In mathematical finance the usual assumption is that a model
+is only being considered at an _epoch_.
+
+Let $I$ be the set of market instruments: bonds, stocks, convertible
+bonds.
+
 
 Assume $\Omega$ is the sample space of possible outcomes, $P$ is a probability measure
 on $\Omega$, and $\AA_t$ are algebras of sets
 indicating the information available at each trading time $t\in T$.
+As you might suspect by now, we don't need an a priori probability
+measure. We just use it as a convenience for now.
+We do need algebras of sets to model partial information.
+Keep an open mind about $\Omega$, people seem to underestimate
+how important it is to include every possibilty.
 
 ### Market
 
@@ -173,16 +246,6 @@ $A_{\tau_0} \le 0$ so there is no arbitrage.
 ### Algebras of Sets
 
 Algebras of sets are used to model partial information.
-If the slgebra is finite then the atoms form a partition.
+If the algebra is finite then the atoms form a partition.
 Complete information is knowing the element of the set,
 partial information is knowing only what atom it belongs to.
-
-A sequence of coin flips can be modeled by the sample space of real numbers
-between 0 and 1, $\Omega = [0,1)$. Every number $\omega\in\Omega$ can be
-written as $\omega = \sum_{j = 1}^\infty \omega_j 2^{-j}$ where $\omega_j$
-is either 0 or 1. The digits in the base 2 representation can be 
-intrepreted as coin flips: 1 means heads and 0 means tails.
-
-The first flip is determined by $\omega_1$. The partition $[0, 1) = [0, 1/2)\cup [1/2, 1)$
-represents knowing the first flip.
-
