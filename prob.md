@@ -5,17 +5,47 @@ institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
 fleqn: true
-abstract: Probability Theory
+abstract: | 
+  Probability Theory is an extension of the rules of logic to deal with uncertain events.
+  A probability is a number between 0 and 1 representing a frequency or a degree of belief.
+  All probabilities are conditional and can be systematically
+  updated as more information becomes available (Bayes Rule).
 ...
 
 \newcommand\RR{\bm{R}}
 \newcommand{\Var}{\operatorname{Var}}
 
-### Sample Space
+## Probability Space
 
 A _sample space_ is a set of what can happen in a probability model.
 An _outcome_ is an element of a sample space.
 An _event_ is a subset of a sample space.
+_Partial information_ is modeled by a _partition_ of a sample space.
+A _probability measure_ assigns a number
+between 0 and 1 to events that represents a _degree of belief_ an outcome
+will belong to the event.
+
+Let $\Omega$ be a sample space of all possible outcomes. A partition of
+$\Omega$ is a collection of mutually disjoint events with union $\Omega$.
+Elements of the partition are called _atoms_. 
+Paritions represent partial information by indicating which atom an
+outcome belongs to, not the exact outcome.
+Complete information corresponds to the _finest_ partiion of singletons
+$\{\{\omega\}\mid \omega\in\Omega\}$.
+No information corresponds to the _coarsest_ partition $\{\Omega\}$.
+
+### Algebra of Sets
+
+An _algebra_ of sets on $\Omega$ is a collection of subsets of $\Omega$
+that contains the empty set and is closed under complement and finite
+union. Closure under complements imples $\Omega$ belongs to the algebra
+and De Morgan's Laws imply it is also close under finite intersection.
+
+An element $A\subseteq S$ is an _atom_ of the algebra if $B\subseteq A$ and
+$B$ in the algebra imply $B$ is either the empty set or equals $A$.
+
+__Exercise__. _If an algebra is finite its atoms form a partition and the
+smallest algebra containing the partition is equal to the algebra_.
 
 # Probability Theory
 
@@ -638,5 +668,11 @@ If the outcome occurs in an infinite number of events then
 $\omega\in\cap_n \cup_{k > n} E_k$ and we say $\omega$ occurs _infinitely often_.
 For any $\epsilon > 0$ there exists $n$ such that $\sum_{k > n} P(E_k) < \epsilon$
 since the infinite sum converges to a finite value. 
+
+## Monte Hall Problem
+
+PGN PNG GPN GNP NPG NGB
+
+
 
 -->
