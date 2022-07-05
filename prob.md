@@ -11,6 +11,12 @@ abstract: Probability Theory
 \newcommand\RR{\bm{R}}
 \newcommand{\Var}{\operatorname{Var}}
 
+### Sample Space
+
+A _sample space_ is a set of what can happen in a probability model.
+An _outcome_ is an element of a sample space.
+An _event_ is a subset of a sample space.
+
 # Probability Theory
 
 A _random variable_ is a function on a _probability space_.  A probability
