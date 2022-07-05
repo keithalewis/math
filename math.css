@@ -1,5 +1,16 @@
 html {
 }
+div.abstract p {
+    margin-left:  6em;
+    margin-right:  6em;
+	font-style: italic;
+    text-align: justify;
+}
+div.abstract-title {
+    text-align: center;
+	font-style: normal !important;
+	font-weight: 700;
+}
 body {
 	/*max-width: 40em;*/
     margin:  4em;
