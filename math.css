@@ -2,9 +2,9 @@ html {
 }
 div.abstract p {
     margin-left:  1em;
-    margin-right:  1em;
+    margin-right:  2em;
 	font-style: italic;
-    text-align: justify;
+    text-align: left;
 }
 div.abstract-title {
     text-align: center;

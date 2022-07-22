@@ -8,13 +8,13 @@ abstract: |
  Every arbitrage-free pricing model is parameterized by a vector-valued
  martingale and a positive adapted process.  There is no need to restrict
  models to Ito processes, use partial differential equations, or consider
- self-financing portfolios. There is also no need for utility functions or market equilibrium.
+ self-financing portfolios. There is also no need for utility functions or
+ market equilibrium assumptions.
  In fact, there is no need for probability measures. The Unified Model involves only geometry,
  as was first pointed out by Stephen Ross. We do need the notion of algebras of sets
  in order to mathematically model partial information.
- Market participants can only execute a finite number of trades.
- It is time to banish the mathematical fiction of continuous time trading and
- focus on problems practicioners find useful: when to rehedge
+ Continuous time trading is not possible, market participants can only execute a finite number of trades.
+ The Unified model focuses on problems practitioners find useful: when to rehedge
  and what are the risk tradeoffs.
 ...
 
@@ -23,35 +23,50 @@ abstract: |
 \renewcommand{\AA}{\mathcal{A}}
 
 There is a clear trajectory in mathematical finance starting from Black,
-Scholes, and Merton showing how to use a bond and a stock to hedge an
-option to expand the universe of instruments, incorporate credit and
-liquidity considerations, and make model assumptions explicit.
-Large banks, money management firms, and hedge funds need to consider
-cross market correlations. Risk management has recognized market
-realities involving large positions. Models must allow for the
-empirical fact that not all market participants act optimally.
+Scholes, and Merton valuing
+an option to expand the universe of instruments, incorporate credit
+and liquidity considerations, and make model assumptions explicit.
+Realistic models must allow for the empirical fact that not all market participants
+act optimally.
 
 Scholes and Merton won a Nobel Prize for a new method of valuing derivative securities that
 did not require estimating the return on the underlying. Under the assumption that
-future stock prices could be modelled by geometric Brownian motion and it was possible
-to trade in continuous time, all one needed to know was the volatiliy.
+future stock prices could be modeled by geometric Brownian motion and it was possible
+to trade in continuous time, all one needed to know was the volatility.
 
-Stephen Ross expandend the theory in the one-period case to any number of instruments.
+Stephen Ross expanded the theory in the one-period case to any number of instruments.
 He showed the Fundamental Theorem of Asset pricing was a geometric result that
 could be proved using the Hahn-Banach theorem. 
-He posited that prices of $n$ instruments at the begining of the period
+He posited that prices of $n$ instruments at the beginning of the period
 can be represented as a vector $x\in\RR^n$ and the prices at the end
 of the period are functions of possible outcomes $X\colon\Omega\to\RR^n$.
 He showed this model is arbitrage-free if and only if $x$ belongs to
 the smallest closed cone containing the range of $X$. This is equivalent
 to
 $$
-	x = \int_\Omega X(\omega)\,d\Pi(\omega)
+	x = \int_\Omega X(\omega)\,dD(\omega)
 $$
-for some positive measure $\Pi$ on $\Omega$.
+for some positive measure $D$ on $\Omega$.
+The measure is only unique in the rare case of complete markets.
+
+### Examples
+
+Consider a one-period market with a bond who's value doubles over the period,
+a stock with initial price 1 that either stays the same or triples in value,
+and a call option on the stock with strike 2 and price $c$.
+This is modeled by $x = (1,1,c)$, $X(\omega) = (2,\omega,\max\{\omega - 2, 0\})$
+where $\Omega = \{1, 3\}$. For the model to be arbitrage-free there must
+exist $p,q\ge0$ with $x = X(1)p + X(3)q$.
+The constraint on the bond and stock give $1 = 2p + 2q$ and $1 = p + 3q$ respectively.
+These equations have the unique solution $p = q = 1/4$ so $c = 0\times 1/4 + 1\times 1/4 = 1/4$.
+Note $p + q = 1/2$ is the discount over the period.
 
 Subsequent models extended this to the multi-period case and incorporated
 the fact instruments can have cash flows.
+
+Breeden
+
+Interest rate models
 
 
 ## Unified Model
@@ -76,9 +91,6 @@ form a [_partition_](https://en.wikipedia.org/wiki/Partition_of_a_set)
 of $\Omega$ and $X$ is $\AA$-measurable if and only if it is constant
 on atoms of $\AA$. In this case $X$ is indeed a function on the atoms.
 
-[^2]: If $A$ and $B$ are sets then $A^B = \{f\colon B\to A\}$ is
-the set of all functions from $B$ to $A$.
-
 We assume any amount of each instrument can be bought or sold at price $X_t$ at time $t\in T$.
 Cash flows are almost always 0. Stocks pay dividends on dividend dates, bonds pay 
 periodic coupons, European options have a single cash flow at expiration, futures have
@@ -92,9 +104,12 @@ Trades accumulate to a _position_
 $$
 	\Delta_t = \sum_{\tau_j < t}\Gamma_j = \sum_{s < t} \Gamma_s
 $$
-where $\Gamma_s = \Gamma_j$ if $\tau_j = s$.
+where $\Gamma_s = \Gamma_j$ if $s = \tau_j$.
 Note the strict inequality. This reflects the reality that it takes some time
 after a trade is executed for it to settle.
+
+Note we do not assume there is a money market account available to finance
+trading, much less that the strategy is self-financing.
 
 The _value_, or _mark-to-market_ of a trading strategy is
 $$
@@ -113,7 +128,7 @@ the trades just executed are debited from the trading account.
 
 ### Arbitrage
 
-_Arbitrage_ exists for a model is there exists a trading strategy $(\tau_j, \Gamma_j)$
+_Arbitrage_ exists (for a market model) if there exists a trading strategy $(\tau_j, \Gamma_j)$
 with $\sum_j \Gamma_j = 0$, $A_{\tau_0} > 0$, and $A_t\ge0$ for $t > \tau_0$.
 The strategy must close out, make money on the first trade, and never lose money thereafter.
 
@@ -139,7 +154,8 @@ $$
 \end{aligned}
 $$
 
-__Lemma__. _Using $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ and $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$,_
+__Lemma__. _Using value $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ 
+and account $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$,_
 $$
 	V_t D_t = E[V_u D_u + \sum_{t < s \le u} A_s D_s\mid\AA_t]
 $$
@@ -168,6 +184,8 @@ then $V_{\tau_0} = E[ \sum_{t < s \le u} A_s D_s\mid\AA_{\tau_0}] \ge 0$.
 Since $V_{\tau_0} = \Gamma_0\cdot X_{\tau_0} = -A_{\tau_0}$ and $D_t$ is positive we have
 $A_{\tau_0} \le 0$ so there is no arbitrage.
 
+## Examples
+
 ## Appendix
 
 A collection of some fundamental facts everyone should be aware of.
@@ -175,7 +193,7 @@ A collection of some fundamental facts everyone should be aware of.
 ### Algebras of Sets
 
 Algebras of sets are used to model partial information.
-If the slgebra is finite then the atoms form a partition.
+If the algebra is finite then the atoms form a partition.
 Complete information is knowing the element of the set,
 partial information is knowing only what atom it belongs to.
 
@@ -183,7 +201,7 @@ A sequence of coin flips can be modeled by the sample space of real numbers
 between 0 and 1, $\Omega = [0,1)$. Every number $\omega\in\Omega$ can be
 written as $\omega = \sum_{j = 1}^\infty \omega_j 2^{-j}$ where $\omega_j$
 is either 0 or 1. The digits in the base 2 representation can be 
-intrepreted as coin flips: 1 means heads and 0 means tails, or vice versa.
+interpreted as coin flips: 1 means heads and 0 means tails, or vice versa.
 
 The first flip is determined by $\omega_1$. The partition
 $\{[0, 1/2),[1/2, 1)\}$ of $\Omega$ 
@@ -194,4 +212,4 @@ knowing the first $n$ flips.
 
 A subsets of a sample space $\Omega$ are called _events_. 
 If we want to talk about event $E$ _not_ happening or both 
-event $E$ _and_ $F$ happended 
+event $E$ _and_ $F$ happened 
