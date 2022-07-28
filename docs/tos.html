@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Totally Ordered Streams</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Totally Ordered Streams</h1>
+<p class="author">Keith A. Lewis</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Totally ordered streams.
+</div>
+</header>
+
+<p>There is a 1-1 correspondence between ordered sequences and
+<em>iterables</em>. An iterable is a subset <span
+class="math inline">S\subseteq T</span> with operations <span
+class="math inline">*\colon S\to T</span>, <span
+class="math inline">+\colon S\to S</span>, and <span
+class="math inline">?S</span> indicating <span
+class="math inline">S</span> is non-empty. It corresponds to the
+sequence <span class="math inline">(*S, *+S, *++S, \ldots)</span> of
+elements in <span class="math inline">T</span>.</p>
+<p>If <span class="math inline">T</span> is totally ordered finite
+subset of <span class="math inline">T</span> we define an iterable by
+<span class="math inline">*S = \min\{s\in S\}</span> and <span
+class="math inline">+S = S\setminus\{*S\}</span>. The corresponding
+sequence has length equal to the cardinality of <span
+class="math inline">S</span>.</p>
+<section id="filter" class="level2">
+<h2>Filter</h2>
+<p>Given a predicate <span class="math inline">P</span> on define <span
+class="math inline">S\mid P</span> by <span class="math inline">*(S\mid
+P) = *S</span> if <span class="math inline">P(*S)</span> and <span
+class="math inline">*(S\mid P) = *(+S\mid P)</span> otherwise. Define
+<span class="math inline">+(S\mid P) = +S</span> if <span
+class="math inline">P(*+S)</span> and <span class="math inline">+(S\mid
+P) = +(+S\mid P)</span> otherwise. We call this <span
+class="math inline">S</span> <em>given</em> <span
+class="math inline">P</span>, or <span class="math inline">S</span>
+<em>filter</em> <span class="math inline">P</span>.</p>
+<p><strong>Exercise</strong> <em>Show <span class="math inline">s\in
+(S\mid P)</span> if and only if <span class="math inline">s\in S</span>
+and <span class="math inline">P(s)</span></em>.</p>
+</section>
+<section id="mask" class="level2">
+<h2>Mask</h2>
+<p>If <span class="math inline">Q</span> is a boolean valued iterable we
+use the same notation for the iterable <span class="math inline">S\mid
+Q</span>. Define <span class="math inline">*(S\mid Q) = *S</span> if
+<span class="math inline">*Q</span> and <span
+class="math inline">*(S\mid Q) = *(+S\mid +Q)</span> otherwise. Define
+<span class="math inline">+(S\mid Q) = (+S\mid +Q)</span> if <span
+class="math inline">*+Q</span> and <span class="math inline">+(S\mid Q)
+= (++S\mid ++Q)</span> otherwise. We call this <span
+class="math inline">S</span> <em>mask</em> <span
+class="math inline">Q</span>.</p>
+<p><strong>Exercise</strong> <em>Show <span class="math inline">s\in
+(S\mid Q)</span> if and only if and <span class="math inline">s =
+*+^nS</span> and <span class="math inline">*+^nQ</span> for some <span
+class="math inline">n</span></em>.</p>
+</section>
+<section id="relation" class="level2">
+<h2>Relation</h2>
+<p>If <span class="math inline">R</span> is a relation on <span
+class="math inline">T\supseteq S</span> and <span
+class="math inline">t\in T</span> we write <span
+class="math inline">SRt</span> for <span class="math inline">S\mid
+P</span> where <span class="math inline">P(s) = sRt</span>, i.e., <span
+class="math inline">(s,t)\in R</span>.</p>
+<p>Recall the <em>disjoint union</em> <span
+class="math inline">S_0\sqcup S_1 = \{(i,s)\mid i\in 2, s\in
+S_i\}</span> where <span class="math inline">2 = \{0,1\}</span>. Define
+the lexicographical ordering <span class="math inline">(i,s)\le(j,
+t)</span> if <span class="math inline">i\le j</span> or <span
+class="math inline">i = j</span> and <span class="math inline">s\le
+t</span>.</p>
+<p>Let <span class="math inline">S_0,S_1 = 2\times S_0\sqcup S_1 =
+\{(i,(j,s))\mid i\in 2, j\in 2, s\in S_j\}</span></p>
+<p>Let <span class="math inline">I</span> be an ordered index set and
+<span class="math inline">S_i\subseteq T</span>.</p>
+<p><span class="math inline">I\times \sqcup_{\in I} S_i</span></p>
+<p><span class="math inline">*(j, \sqcup_i S_i) = *S_j</span></p>
+<p><span class="math inline">+(j, \sqcup_i S_i)</span></p>
+<p>Let <span class="math inline">\{0,1\}\times S_0\sqcup S_1 = \{0,1\}
+\times \{0\}\times S_0\cup \{1\}\times S_1</span></p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">(X_t)</span> is right continuouse and <span
+class="math inline">T^a = \min\{t\mid X_t \ge a\}</span> then <span
+class="math inline">1_{T\ge t}</span> is left continuous</em>.</p>
+</section>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

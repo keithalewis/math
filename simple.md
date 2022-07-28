@@ -91,7 +91,7 @@ Ross established the more difficlut result that the converse is true.
 
 ### Examples
 
-Consider a one-period market with a bond who's value doubles over the period,
+Consider a one-period market with a bond that doubles in value over the period,
 a stock with initial price 1 that either stays the same or triples in value,
 and a call option on the stock with strike 2 and price $c$.
 This is modeled by $x = (1,1,c)$, $X(\omega) = (2,\omega,\max\{\omega - 2, 0\})$
@@ -101,12 +101,21 @@ The constraint on the bond and stock give $1 = 2p + 2q$ and $1 = p + 3q$ respect
 These equations have the unique solution $p = q = 1/4$ so $c = 0\times 1/4 + 1\times 1/4 = 1/4$.
 Note $p + q = 1/2$ is the discount over the period.
 
-Subsequent models extended this to the multi-period case and incorporated
-the fact instruments can have cash flows.
+The binomial model is where a bond has realized return $R$ and the stock has
+initial price $s$ and ends at either a low price $L$ or high price $H$,
+$x = (1, s)$, $X(\omega) = (R, \omega)$ where $\omega\in\L,H\}$.
+The no arbitrage condition is $x = X(L)p + X(H)q$ for some $p,q\ge0$.
+This has a unique solution.
 
-Breeden
+__Exercise__. _Show $p = (H - Rs)/R(H - L)$ and $q = (Rs - L)/R(H - L)$_.
 
-Interest rate models
+<details>
+<summary>Solution</summary>
+The bond satifies $1 = Rp + Rq$ and the stock satisfies $s = Lp + Hq$.
+</details>
+
+Note $p,q\ge0$ if and only if $L \le Rs \le H$. Every European option
+in a binomial model is a linear function. If $\phi(X)$
 
 
 ## Unified Model

@@ -46,10 +46,53 @@
 <p class="author">Keith A. Lewis</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-Probability Theory
+<p>Probability Theory is an extension of the rules of logic to deal with
+uncertain events. A probability is a number between 0 and 1 representing
+a frequency or a degree of belief. All probabilities are conditional and
+can be systematically updated as more information becomes available
+(Bayes Rule).</p>
 </div>
 </header>
 
+<section id="probability-space" class="level2">
+<h2>Probability Space</h2>
+<p>A <em>sample space</em> is a set of what can happen in a probability
+model. An <em>outcome</em> is an element of a sample space. An
+<em>event</em> is a subset of a sample space. <em>Partial
+information</em> is modeled by a <em>partition</em> of a sample space. A
+<em>probability measure</em> assigns a number between 0 and 1 to events
+that represents a <em>degree of belief</em> an outcome will belong to
+the event.</p>
+<p>Let <span class="math inline">\Omega</span> be a sample space of all
+possible outcomes. A partition of <span
+class="math inline">\Omega</span> is a collection of mutually disjoint
+events with union <span class="math inline">\Omega</span>. Elements of
+the partition are called <em>atoms</em>. Paritions represent partial
+information by indicating which atom an outcome belongs to, not the
+exact outcome. Complete information corresponds to the <em>finest</em>
+partiion of singletons <span class="math inline">\{\{\omega\}\mid
+\omega\in\Omega\}</span>. No information corresponds to the
+<em>coarsest</em> partition <span
+class="math inline">\{\Omega\}</span>.</p>
+<section id="algebra-of-sets" class="level3">
+<h3>Algebra of Sets</h3>
+<p>An <em>algebra</em> of sets on <span
+class="math inline">\Omega</span> is a collection of subsets of <span
+class="math inline">\Omega</span> that contains the empty set and is
+closed under complement and finite union. Closure under complements
+imples <span class="math inline">\Omega</span> belongs to the algebra
+and De Morgan’s Laws imply it is also close under finite
+intersection.</p>
+<p>An element <span class="math inline">A\subseteq S</span> is an
+<em>atom</em> of the algebra if <span class="math inline">B\subseteq
+A</span> and <span class="math inline">B</span> in the algebra imply
+<span class="math inline">B</span> is either the empty set or equals
+<span class="math inline">A</span>.</p>
+<p><strong>Exercise</strong>. <em>If an algebra is finite its atoms form
+a partition and the smallest algebra containing the partition is equal
+to the algebra</em>.</p>
+</section>
+</section>
 <section id="probability-theory" class="level1">
 <h1>Probability Theory</h1>
 <p>A <em>random variable</em> is a function on a <em>probability
@@ -747,6 +790,12 @@ If the outcome occurs in an infinite number of events then
 $\omega\in\cap_n \cup_{k > n} E_k$ and we say $\omega$ occurs _infinitely often_.
 For any $\epsilon > 0$ there exists $n$ such that $\sum_{k > n} P(E_k) < \epsilon$
 since the infinite sum converges to a finite value. 
+
+## Monte Hall Problem
+
+PGN PNG GPN GNP NPG NGB
+
+
 
 -->
 </section>
