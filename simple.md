@@ -20,6 +20,7 @@ abstract: |
 ...
 
 \newcommand{\Var}{\operatorname{Var}}
+\newcommand{\cone}{\operatorname{cone}}
 \newcommand{\RR}{𝑹}
 \renewcommand{\AA}{\mathcal{A}}
 
@@ -35,6 +36,8 @@ did not require estimating the return on the underlying. Under the assumption th
 future stock prices could be modeled by geometric Brownian motion and it was possible
 to trade in continuous time, all one needed to know was the volatility.
 
+## One-Period
+
 Stephen Ross expanded the theory in the one-period case to any number of instruments.
 He showed the Fundamental Theorem of Asset pricing was a geometric result that
 could be proved using the Hahn-Banach theorem. 
@@ -42,13 +45,49 @@ He posited that prices of $n$ instruments at the beginning of the period
 can be represented as a vector $x\in\RR^n$ and the prices at the end
 of the period are functions of possible outcomes $X\colon\Omega\to\RR^n$.
 He showed this model is arbitrage-free if and only if $x$ belongs to
-the smallest closed cone containing the range of $X$. This is equivalent
+the smallest closed cone containing the range of $X$.
+If $X$ is bounded this is equivalent
 to
 $$
 	x = \int_\Omega X(\omega)\,dD(\omega)
 $$
-for some positive measure $D$ on $\Omega$.
+for some positive finitely additive measure $D$ on $\Omega$.
 The measure is only unique in the rare case of complete markets.
+
+Let $I$ be the set of market instruments. The prices at the beginning of the period are
+a vector $x\in\RR^I$.
+Recall $A^B$ is the set of all functions from the set $B$ to the set $A$.
+Each $x\in\RR^I$ is a function $x\colon I\to\RR$ where
+$x(i)$ is the price of instrument $i\in I$ at the beginning of the period.
+Note $\RR^I$ is a vector space under pointwise addition and scalar multiplication.
+If $f,g\in\RR^I$ then $f + g\in\RR^I$ is defined by $(f + g)(i) = f(i) + g(i)$
+and $tf\in\RR^I$ for $t\in\RR$ is defined by $(tf)(i) = tf(i)$, $i\in I$.
+This avoids the circumlocution of specifying $I = \{i_1,\ldots,i_n\}$ and
+specifying $x\in\RR^n$ by $x_j = x(i_j)$, $1\le j\le n$.
+
+Arbitrage exists in a one-period model if it is possible to buy a
+portfolio of instruments at negative cost and sell them at the end of the
+period without losing money.  The cost of purchasing $\gamma\in\RR^I$
+in each instrument at the beginning of the period is the dot product
+$\gamma\cdot x$. Assuming the position is unwound at the end of
+the period, it will pay $\gamma\cdot X(\omega)$ if $\omega\in\Omega$
+occurs. Arbitrage exists if there is a $\gamma\in\RR^I$ with $\gamma\cdot
+x < 0$ and $\gamma\cdot X\ge0$ as a function on $\Omega$.
+
+If $V$ is a vector space a subset $C\subseteq V$ is a _cone_ if
+$tC\subseteq C$ for $t\ge0$ and $C + C\subseteq C$, where
+$tC = \{tv\mid v\in C\}$ and $C + C = \{v + w\mid v,w\in C\}$.
+
+__Exercise__ _The set of arbitrage portfolios are a cone_.
+
+If $S\subseteq V$ then the smallest cone containing $S$, $\cone S$, is
+is the set of finite linear combinations $\sum t_j s_j$ where
+$t_j > 0$ and $s_j\in S$.
+
+Suppose $x = \sum_j X(\omega_j) D_j$ where $\omega_j\in\Omega$ and $D_j > 0$.
+If $\gamma\in\RR^I$ and $\gamma\cdot X\ge0$ then $\gamma\cdot x\ge0$.
+This shows there is no arbitrage if $x\in\cone X(\Omega)$.
+Ross established the more difficlut result that the converse is true.
 
 ### Examples
 
