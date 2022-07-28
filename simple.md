@@ -137,8 +137,9 @@ daily margin adjustments as cash flows. The price of a futures is always 0.
 
 ### Trading
 
-A _trading strategy_ is a finite, increasing set of stopping times $(\tau_j)$
-and how much of each instrument to trade $\Gamma_j\colon\AA_{\tau_j}\to\RR^I$.
+A _trading strategy_ is a finite set of increasing stopping times $(\tau_j)$
+and how much of each instrument to trade $\Gamma_j\colon\AA_{\tau_j}\to\RR^I$
+at each time.
 Trades accumulate to a _position_
 $$
 	\Delta_t = \sum_{\tau_j < t}\Gamma_j = \sum_{s < t} \Gamma_s
