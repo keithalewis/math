@@ -103,7 +103,7 @@ Note $p + q = 1/2$ is the discount over the period.
 
 The binomial model is where a bond has realized return $R$ and the stock has
 initial price $s$ and ends at either a low price $L$ or high price $H$,
-$x = (1, s)$, $X(\omega) = (R, \omega)$ where $\omega\in\L,H\}$.
+$x = (1, s)$, $X(\omega) = (R, \omega)$ where $\omega\in\{L,H\}$.
 The no arbitrage condition is $x = X(L)p + X(H)q$ for some $p,q\ge0$.
 This has a unique solution.
 
