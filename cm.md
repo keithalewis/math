@@ -40,5 +40,5 @@ $\int_a^x (x - z) f''(z)\,dz
 
 If $x > a$ then $(z - x)^+ = 0$ for $z < a$ and if $x < a$ then $(x - z)^+ = 0$ for $z > a$, hence
 $$
-	\int_a^x (z - a) f''(z)\,dz = \int_{-\infty}^a (z - x)^+ f''(z)\,dz + \int_a^\infty (x - z)^+ f''(z)\,dz.
+	\int_a^x (z - x) f''(z)\,dz = \int_{-\infty}^a (z - x)^+ f''(z)\,dz + \int_a^\infty (x - z)^+ f''(z)\,dz.
 $$
