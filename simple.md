@@ -87,23 +87,113 @@ $t_j > 0$ and $s_j\in S$.
 Suppose $x = \sum_j X(\omega_j) D_j$ where $\omega_j\in\Omega$ and $D_j > 0$.
 If $\gamma\in\RR^I$ and $\gamma\cdot X\ge0$ then $\gamma\cdot x\ge0$.
 This shows there is no arbitrage if $x\in\cone X(\Omega)$.
-Ross established the more difficlut result that the converse is true.
+Ross established the more difficult result that the converse is true.
 
 ### Examples
+
+Even the simple one-period model can provide interesting examples.
+
+#### 1-2-3 Model
 
 Consider a one-period market with a bond that doubles in value over the period,
 a stock with initial price 1 that either stays the same or triples in value,
 and a call option on the stock with strike 2 and price $c$.
 This is modeled by $x = (1,1,c)$, $X(\omega) = (2,\omega,\max\{\omega - 2, 0\})$
 where $\Omega = \{1, 3\}$. For the model to be arbitrage-free there must
-exist $p,q\ge0$ with $x = X(1)p + X(3)q$.
+exist $p,q\ge0$ with $x = X(1)p + X(3)q$ and $p,q\ge0$.
 The constraint on the bond and stock give $1 = 2p + 2q$ and $1 = p + 3q$ respectively.
+
 These equations have the unique solution $p = q = 1/4$ so $c = 0\times 1/4 + 1\times 1/4 = 1/4$.
 Note $p + q = 1/2$ is the discount over the period.
 
+#### 90-100-110 Model
+
+Consider a one-period market with a bond with zero interest over the period,
+a stock with initial price 100 that can go to 90, 100, or 110 at the end of the period,
+and a call option on the stock with strike 100 and price $c$.
+This is modeled by $x = (1,100,c)$, $X(\omega) = (1,\omega,\max\{\omega - 100, 0\})$
+where $\Omega = \{90, 100, 110\}$. For the model to be arbitrage-free there must
+exist $p,q,r\ge0$ with $x = X(90)p + X(100)q + X(110)r$.
+
+The equation for the bond, stock, and option are $1 = p + q + r$, $100 = 90p + 100q + 110r$,
+$c = 10r$.
+The first two equations can be written in matrix notation as
+$$
+\begin{bmatrix}
+1 \\
+100 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 1 \\
+90 & 100 \\
+\end{bmatrix}
+\begin{bmatrix}
+p \\
+q \\
+\end{bmatrix}
++
+\begin{bmatrix}
+r \\
+110r \\
+\end{bmatrix}
+$$
+so
+$$
+\begin{bmatrix}
+p \\
+q \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 1 \\
+90 & 100 \\
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+1 - r \\
+100 - 110r \\
+\end{bmatrix}
+=
+\frac{1}{10}
+\begin{bmatrix}
+100 & -1 \\
+-90 & 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+1 - r \\
+100 - 110r \\
+\end{bmatrix}
+=
+\frac{1}{10}
+\begin{bmatrix}
+100(1 - r) - (100 - 110r) \\
+-90(1 - r) + 100 - 110r \\
+\end{bmatrix}
+=
+\frac{1}{10}
+\begin{bmatrix}
+10 r \\
+10 - 20r \\
+\end{bmatrix}
+$$
+The conditions $p,q\ge0$ imply $r\ge0$ and $1-2r\ge0$ so $0\le r\le 1/2$.
+Since $c = 10r$ we have $0\le c\le 5$ if the model is arbitrage free.
+
+Note the option price is not unique in this example. This is the case
+for any realisitic model of what can occur in the market.
+
+__Exercise__. _If $x = (100, c)$ and $X(\omega) = (\omega, \max\{\omega - 100\})$
+for $\omega\in\{90,100,110\}$ show
+the model is arbitrage free if and only if $0\le c\le 100/11$_.
+
+If the bond is not available for trading the option price must be
+strictly less than 10 in an arbitrage free model.
+
+#### Binomial Model
+
 The binomial model is where a bond has realized return $R$ and the stock has
 initial price $s$ and ends at either a low price $L$ or high price $H$,
-$x = (1, s)$, $X(\omega) = (R, \omega)$ where $\omega\in\{L,H\}$.
+$x = (1, s)$, $X(\omega) = (R, \omega)$ where $\omega\in\Omega = \{L,H\}$.
 The no arbitrage condition is $x = X(L)p + X(H)q$ for some $p,q\ge0$.
 This has a unique solution.
 
@@ -112,10 +202,62 @@ __Exercise__. _Show $p = (H - Rs)/R(H - L)$ and $q = (Rs - L)/R(H - L)$_.
 <details>
 <summary>Solution</summary>
 The bond satifies $1 = Rp + Rq$ and the stock satisfies $s = Lp + Hq$.
+This can be written in matrix notation as
+$$
+\begin{bmatrix}
+1 \\
+s \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+R & R \\
+L & H \\
+\end{bmatrix}
+\begin{bmatrix}
+p \\
+q \\
+\end{bmatrix}
+$$
+so
+$$
+\begin{bmatrix}
+p \\
+q \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+R & R \\
+L & H \\
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+1 \\
+s \\
+\end{bmatrix}
+=
+\frac{1}{RH - LR}
+\begin{bmatrix}
+H & -R \\
+-L & R \\
+\end{bmatrix}
+\begin{bmatrix}
+1 \\
+s \\
+\end{bmatrix}
+=
+\frac{1}{R(H - L)}
+\begin{bmatrix}
+H - Rs \\
+-L + Rs \\
+\end{bmatrix}
+$$
 </details>
 
-Note $p,q\ge0$ if and only if $L \le Rs \le H$. Every European option
-in a binomial model is a linear function. If $\phi(X)$
+__Exercise__. _Show the conditions $p,q\ge0$ imply $L \le Rs \le H$_.
+
+If an option pays $\phi(\omega)$ then it pays either $\phi(L)$ or
+$\phi(H)$ at expiration.  Every European option in a binomial model
+is a linear function and its arbitrage price is determined by the no
+arbitrage condition the bond and stock satisfy.
 
 
 ## Unified Model
