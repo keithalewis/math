@@ -42,3 +42,7 @@ If $x > a$ then $(z - x)^+ = 0$ for $z < a$ and if $x < a$ then $(x - z)^+ = 0$ 
 $$
 	\int_a^x (z - x) f''(z)\,dz = \int_{-\infty}^a (z - x)^+ f''(z)\,dz + \int_a^\infty (x - z)^+ f''(z)\,dz.
 $$
+
+If $f$ is piecewise linear and continuous then $f'$ is piecewise constant and $f''$
+is a linear combination of delta functions.
+

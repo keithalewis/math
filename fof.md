@@ -31,63 +31,74 @@ Each entity decides when and how much of each instrument they wish
 to trade.  A complete model must allow for trading strategies to be
 specified by each entity.
 
-_Issuers_ create _instruments_. A company can issue stocks or bonds to
+Issuers create instruments. A company can issue stocks or bonds to
 raise capital, exchanges create contracts to connect liquidity providers
 with their customers.  Commodities originate from producers of the
 physical product and currencies are issued by governments of countries.
 
-Some instruments have _cash flows_.  Stocks may have dividends,
+Some instruments have cash flows.  Stocks may have dividends,
 bonds may have coupons, futures have periodic margin adjustments.
-Commodities and currencies do not have cash flows.  The _issuer_ of an
+Commodities and currencies do not have cash flows.  The issuer of an
 instrument determines when and how much to give per unit of amount
 to instrument holders. 
 
-A _holding_ is an _amount_ of an _instrument_ held by a _legal entity_.
-Amounts have units based on the instrument: stocks have _shares_, bonds
-have _notional_, futures have _contract size_.  Commodities have physical
+A holding is an amount of an instrument held by a legal entity.
+Amounts have units based on the instrument: stocks have shares, bonds
+have notional, futures have contract size.  Commodities have physical
 quantities and currencies have denominations. Currencies never have
 cash flows. The price of a futures is always zero.
 
-Holdings are _transacted_ over time.
-_Sellers_ determine what holdings they are willing to exchange with _buyers_. 
+Holdings are transacted over time.
+Sellers determine what holdings they are willing to exchange with buyers. 
 Buyers decide when to transact an available exchange of holdings with a seller.
-A transaction involves a _trade date_, _settlement date_, and an exchange
-of holdings between the _buyer_ and _seller_. 
-The _price_ of the transaction is the quotient of the buyer amount and the seller amount.
+A transaction involves a trade date, settlement date, and an exchange
+of holdings between the buyer and seller. 
+The price of the transaction is the quotient of the buyer amount and the seller amount.
 Ownership of holdings is transferred on the settlement date.
-The _position_ of an entity is their set of holdings at any given time.
+The position of an entity is their set of holdings at any given time.
 
-The sum of the amounts held of each instrument in a position is the _net_ position in that instrument.
+The sum of the amounts held of each instrument in a position is the net position in that instrument.
 Given prices of instruments in some currency, the net positions can be
-converted to the _value_, or _mark-to-market_, of the position in that currency.
+converted to the value, or mark-to-market, of the position in that currency.
 Determining the "price" of an illiquid instrument is problematic.
 The difference of the net value of positions at the beginning and end of
-a period is the _profit and loss_ over the period.
+a period is the profit and loss over the period.
 
 Profit and loss does not capture the dynamics over the period.
 Cash flows and transactions cause changes to positions.
 Instrument holders receive cash flows based on the amount held and
 transactions involve an exchange of holdings between the buyer and seller.
-These show up in the trade blotter _account_.
-Other measures such as drawdown and Sharpe ratio are used to mangage trading risk
+These show up in the trade blotter account.
+Other measures such as drawdown can be used to mangage trading risk
 and determine trading strategy.
 
 ## Model
 
-Let $E$ be the set of market entities.
+Let $E$ be the set of market _entities_.
 
-Let $T$ indicate the set of possible trading times.
+Let $T$ indicate the set of possible trading _times_.
 
-Let $I$ be the set of market instruments.
+Let $I$ be the set of market _instruments_.
 
-Let $A = \RR$, be the set of real numbers denote the amounts that can be traded in each instrument.
+Let $A = \RR$, be the set of real numbers indicating the _amounts_ that can be traded in each instrument.
 
-A holding is a triple $(a, i, e)\in A\times I\times E$ indicating entity $e$ hold amount $a$
+A _holding_ is a triple $(a, i, e)\in A\times I\times E$ indicating entity $e$ hold amount $a$
 of instrument $i$.
 
-A transaction is an exchange of two holdings at a time $t$.
+A _transaction_ is an exchange of two holdings between a _buyer_ and a _seller_ at a time $t$.
+Sellers offer potential transactions to buyers who decide whether or not to accept them.
+This corresponds to buy-side and sell-side firms.
 
 The market at time $t$ is the set of all holdings $\HH_t = \{(a,i,e)\}$.
+If a buyer holding $(a,i,e)$ accepts a seller's offer of $(a',i',e')$ then
+the market holdings are changed. The holdings $(a,i,e)$ and $(a',i',e')$
+become $(a',i',e)$ and $(a,i,e')$ when the transaction settles.
+The price of the transaction is $X = a'/a$.
+
+The market gets updated by _cash flows_ even if there are no transactions.
+If the holding $(a,i,e)$ recieves a cash flow $(a',i',e)$ at time $t$ that
+is added to $\HH_t$.
+
 The _net_ amount entity $e$ holds in instrument $i$ is
 $$
 	N_t(i,e) = \sum \{a' \mid (a',i',e')\in\HH_t, i' = i, e' = e\}.
