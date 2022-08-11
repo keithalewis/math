@@ -96,7 +96,7 @@ become $(a',i',e)$ and $(a,i,e')$ when the transaction settles.
 The price of the transaction is $X = a'/a$.
 
 The market gets updated by _cash flows_ even if there are no transactions.
-If the holding $(a,i,e)$ recieves a cash flow $(a',i',e)$ at time $t$ that
+If the holding $(a,i,e)$ recieves a cash flow $(b,',e)$ at time $t$ that
 is added to $\HH_t$.
 
 The _net_ amount entity $e$ holds in instrument $i$ is
@@ -107,3 +107,10 @@ The profit and loss over the period $(t, u]$ is
 $$
 	P_{t,u}(i, e) = N_u(i,e) - N_t(i,e).
 $$
+
+## Algebras
+
+The price offered by a seller to a buyer depends on the amount of the instrument
+being purchased from the seller and the amount the buyer is asking for.
+
+$X_t(i,e;a',i',e')$

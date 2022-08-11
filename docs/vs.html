@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Variance Swaps</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Variance Swaps</h1>
+<p class="author">Keith A. Lewis</p>
+</header>
+<p>A variance swap pays the sum of the squares of realized return over a
+period. It provides exposure to volatility no matter the level of the
+underlying. Unlike a call or put option it never goes
+out-of-the-money.</p>
+<p>Contracts are specified by an underlying instrument and observation
+times. If the level of the underlying is <span
+class="math inline">X_t</span> at time <span
+class="math inline">t</span> and the observation times are <span
+class="math inline">(t_j)_{0\le j\le n}</span> then the payoff on unit
+notional at time <span class="math inline">t_n</span> is <span
+class="math display">
+    \frac{c}{t_n - t_0}\sum_{0\le j &lt; n} R_j^2 - \sigma_0^2
+</span> where <span class="math inline">R_j</span> is the realized
+return over <span class="math inline">[t_j, t_{j+1}]</span>, <span
+class="math inline">\sigma_0</span> is the <em>par volatility</em>, and
+<span class="math inline">c</span> is a constant specified in the
+contract that is not far from the number 1. The par volatility makes the
+price of the contract at <span class="math inline">t_0</span> equal to
+zero.</p>
+<p>The realized return is <span class="math inline">R_j = \log
+X_{j+1}/X_j = \log X_{j+1} - \log X_j = \Delta \log X_j</span> where
+<span class="math inline">\log</span> is the natuaral logarithm with
+base <span class="math inline">e \approx 2.718281828</span>. Variance
+swap contracts actually specify this approximation. I have no idea why
+realized return is not specified as <span class="math inline">R_j =
+(X_{j+1} - X_j)/X_j = \Delta X_j/X_j</span>. It does not drag in
+logarithms and is simpler to work with.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\Delta
+\log X = (\Delta X/X) - (1/2)(\Delta X/X)^2 + O((\Delta
+X/X)^3)</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+Taylor’s formula.
+</details>
+<p>The cubic term <span class="math inline">(\Delta X/X)^3</span>
+explains the P&amp;L of a variance swap hedge, as we will see later.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(\Delta
+\log X)^2 = (\Delta X/X)^2 - (\Delta X/X)^3 + O((\Delta
+X/X)^4)</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math inline">(a - b)^2 = a^2 - 2ab + b^</span>$.
+</details>
+<p>Continuous time mathematical treatments specify the the first term of
+the payoff as <span class="math inline">(1/t)\int_0^t (d\log
+X_s)^2\,ds</span>. If <span class="math inline">X</span> is an Ito
+process satisfying <span class="math inline">dX/X = \mu\,dt +
+\sigma\,dB</span> then <span class="math inline">d\log X = dX/X -
+(1/2)(dX/X)^2 = \mu\,dt + \sigma\,dB - (1/2)\sigma^2\,dt</span> so <span
+class="math inline">(d\log X)^2 = \sigma^2\,dt</span> and <span
+class="math inline">\int_0^t (d\log X_s)^2\,d = \int_0^t
+\sigma^2\,ds</span>. Under a risk-neutral measure <span
+class="math inline">\sigma_0^2 = (1/t)E[\int_0^t (d\log
+X_s)^2\,ds]</span>.</p>
+<p>The astounding thing about variance swaps is that valuing and hedging
+them do not require any assumptions on a model for the dynamics of the
+underlying. They only require futures and options at a sufficiently wide
+range of strikes are traded on the underlying.</p>
+<p>The payoff of a variance swap can be approximately replicated by a
+<em>dynamic hedge</em> in futures and a <em>static hedge</em> in a calls
+and puts.</p>
+<p><span class="math display">
+\begin{aligned}
+f(X_n) - f(X_0) &amp;= \sum_{0\le j &lt; n} f(X_{j+1}) - f(X_j) \\
+    &amp;= \sum_{0\le j &lt; n} f&#39;(X_j)\Delta X_j + \frac{1}{2}
+f&#39;&#39;(X_j) (\Delta X_j)^2 + R_2
+\end{aligned}
+</span> where <span class="math inline">R_2 = (1/2)\int_{X_j}^{X_{j+1}}
+f&#39;&#39;&#39;(t) (t - X_j)\, dt</span>.</p>
+<p>If <span class="math inline">f&#39;&#39;(x) = 2/x^2</span> then <span
+class="math inline">f&#39;(x) = -2/x + c</span> where <span
+class="math inline">c</span> is a constant, and <span
+class="math inline">f(x) = -2\log x + cx</span>. It is convenient to
+choose <span class="math inline">c = 1/z</span> for some constant <span
+class="math inline">z</span>. <span class="math display">
+\begin{aligned}
+-2\log X_n + X_n/z + 2\log X_0 - X_0/z &amp;= \sum_{0\le j &lt; n}
+f(X_{j+1}) - f(X_j) \\
+    &amp;= \sum_{0\le j &lt; n} f&#39;(X_j)\Delta X_j + \frac{1}{2}
+f&#39;&#39;(X_j) (\Delta X_j)^2 + R_2
+\end{aligned}
+</span></p>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

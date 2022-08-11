@@ -387,11 +387,12 @@ daily margin adjustments as cash flows. The price of a futures is always
 </section>
 <section id="trading" class="level3">
 <h3>Trading</h3>
-<p>A <em>trading strategy</em> is a finite, increasing set of stopping
+<p>A <em>trading strategy</em> is a finite set of increasing stopping
 times <span class="math inline">(\tau_j)</span> and how much of each
 instrument to trade <span
-class="math inline">\Gamma_j\colon\mathcal{A}_{\tau_j}\to 𝑹^I</span>.
-Trades accumulate to a <em>position</em> <span class="math display">
+class="math inline">\Gamma_j\colon\mathcal{A}_{\tau_j}\to 𝑹^I</span> at
+each time. Trades accumulate to a <em>position</em> <span
+class="math display">
     \Delta_t = \sum_{\tau_j &lt; t}\Gamma_j = \sum_{s &lt; t} \Gamma_s
 </span> where <span class="math inline">\Gamma_s = \Gamma_j</span> if
 <span class="math inline">s = \tau_j</span>. Note the strict inequality.
