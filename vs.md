@@ -1,6 +1,10 @@
 ---
 title: Variance Swaps
 author: Keith A. Lewis
+institution: KALX, LLC
+email: kal@kalx.net
+classoption: fleqn
+abstract: Value, hedge, and manage risk of variance swaps.
 ...
 
 A variance swap pays the sum of the squares of realized return over a period.
@@ -37,7 +41,7 @@ __Exercise__. _Show $(\Delta \log X)^2 = (\Delta X/X)^2 - (\Delta X/X)^3 + O((\D
 
 <details>
 <summary>Solution</summary>
-$(a - b)^2 = a^2 - 2ab + b^$$.
+$(a - b)^2 = a^2 - 2ab + b^$.
 </details>
 
 Continuous time mathematical treatments specify the the first term of the payoff as
@@ -48,24 +52,40 @@ Under a risk-neutral measure $\sigma_0^2 = (1/t)E[\int_0^t (d\log X_s)^2\,ds]$.
 
 The astounding thing about variance swaps is that valuing and hedging them do not require
 any assumptions on a model for the dynamics of the underlying. They only require futures and
-options at a sufficiently wide range of strikes are traded on the underlying.
+options traded at a sufficiently wide range of strikes on the underlying.
 
 The payoff of a variance swap can be approximately replicated by a _dynamic hedge_ in futures
 and a _static hedge_ in a calls and puts.
 
+For any thrice differentiable function $f$ we use a telescoping sum and Taylor's theorem
+with remainder to get
 $$
 \begin{aligned}
 f(X_n) - f(X_0) &= \sum_{0\le j < n} f(X_{j+1}) - f(X_j) \\
-	&= \sum_{0\le j < n} f'(X_j)\Delta X_j + \frac{1}{2} f''(X_j) (\Delta X_j)^2 + R_2
+	&= \sum_{0\le j < n} f'(X_j)\Delta X_j + \frac{1}{2} f''(X_j) (\Delta X_j)^2 + R_j
 \end{aligned}
 $$
-where $R_2 = (1/2)\int_{X_j}^{X_{j+1}} f'''(t) (t - X_j)\, dt$.
+where $R_j = (1/2)\int_{X_j}^{X_{j+1}} f'''(t) (X_{j+1} - t)^2\, dt$.
+Note $f(X_n) - f(X_0)$ is a European option payoff and $f'(X_j) \Delta X_j$ is the cash flow
+at time $t_{j+1}$ from purchasing $f'(X_j)$ futures on $X$ at time $t_j$.
+The quadratic term can be used to replicate a variance swap payoff.
 
-If $f''(x) = 2/x^2$ then $f'(x) = -2/x + c$ where $c$ is a constant, and
-$f(x) = -2\log x + cx$. It is convenient to choose $c = 1/z$ for some constant $z$.
+If $f''(x) = 2/x^2$ then $(1/2)f''(X_j)(\Delta X_j)^2 = (\Delta X_j/X_j)^2$ is
+the square of the realized return.
+We have $f'(x) = -2/x + c$ where $c$ is a constant, and
+$f(x) = -2\log x + cx$. It is convenient to choose $c = 1/z$ for some constant $z$ so
 $$
-\begin{aligned}
--2\log X_n + X_n/z + 2\log X_0 - X_0/z &= \sum_{0\le j < n} f(X_{j+1}) - f(X_j) \\
-	&= \sum_{0\le j < n} f'(X_j)\Delta X_j + \frac{1}{2} f''(X_j) (\Delta X_j)^2 + R_2
-\end{aligned}
+-2\log X_n + X_n/z + 2\log X_0 - X_0/z
+	= \sum_{0\le j < n} (-2/X_j + 2/z)\Delta X_j + (\Delta X_j/X_j)^2 + R_j
 $$
+Rearranging terms and simplifying gives
+$$
+\sum_{0\le j < n} (\Delta X_j/X_j)^2 = -2\log X_n/X_0 + (X_n - X_0)/z + \sum_{0\le j < n} (2/X_j - 2/z)\Delta X_j - R_j
+$$
+This shows a variance swap can be replicated using a static hedge and
+a dynamic hedge using futures with error $R_j$. The static hedge can be
+approximated with puts and calls using the Carr-Madan formula. If $z =
+X_0$ then the initial furtures hedge is zero.
+
+Since $f'''(x) = -4/x^3$ the error term $R_j$ over the period $[t_j, t_{j+1}]$ is
+$R_j = (1/2)\int_{X_j}^{X_{j+1}} -4/t^3 (X_{j+1} - t)^2\, dt$.
