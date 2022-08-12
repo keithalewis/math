@@ -37,7 +37,7 @@ __Exercise__. _Show $(\Delta \log X)^2 = (\Delta X/X)^2 - (\Delta X/X)^3 + O((\D
 
 <details>
 <summary>Solution</summary>
-$(a - b)^2 = a^2 - 2ab + b^$$.
+$(a - b)^2 = a^2 - 2ab + b^$.
 </details>
 
 Continuous time mathematical treatments specify the the first term of the payoff as
