@@ -41,14 +41,14 @@ __Exercise__. _Show $(\Delta \log X)^2 = (\Delta X/X)^2 - (\Delta X/X)^3 + O((\D
 
 <details>
 <summary>Solution</summary>
-$(a - b)^2 = a^2 - 2ab + b^$.
+$(a - b)^2 = a^2 - 2ab + b^22$.
 </details>
 
 Continuous time mathematical treatments specify the the first term of the payoff as
 $(1/t)\int_0^t (d\log X_s)^2\,ds$. If $X$ is an Ito process satisfying
 $dX/X = \mu\,dt + \sigma\,dB$ then $d\log X = dX/X - (1/2)(dX/X)^2 = \mu\,dt + \sigma\,dB - (1/2)\sigma^2\,dt$
 so $(d\log X)^2 = \sigma^2\,dt$ and $\int_0^t (d\log X_s)^2\,d = \int_0^t \sigma^2\,ds$.
-Under a risk-neutral measure $\sigma_0^2 = (1/t)E[\int_0^t (d\log X_s)^2\,ds]$.
+Under a risk-neutral measure the par variance is $\sigma_0^2 = (1/t)E[\int_0^t \sigma^2\,ds]$.
 
 The astounding thing about variance swaps is that valuing and hedging them do not require
 any assumptions on a model for the dynamics of the underlying. They only require futures and
@@ -89,3 +89,12 @@ X_0$ then the initial furtures hedge is zero.
 
 Since $f'''(x) = -4/x^3$ the error term $R_j$ over the period $[t_j, t_{j+1}]$ is
 $R_j = (1/2)\int_{X_j}^{X_{j+1}} -4/t^3 (X_{j+1} - t)^2\, dt$.
+Using $t$ is between $X_j$ and $X_{j+1}$ we have
+$$
+\begin{aligned}
+	|R_j| &\le \frac{2}{\min\{X_j, X_{j+1}\}^3} \left|\int_{X_j}^{X_{j+1}} (X_{j+1} - t)^2\, dt\right| \\
+		&= \frac{2}{\min\{X_j, X_{j+1}\}^3} \frac{1}{3}|X_{j+1} - X_j|^3 \\
+		&= \frac{2}{3} \frac{|\Delta X_j|^3}{\min\{X_j, X_{j+1}\}^3}
+\end{aligned}
+$$
+This term typically describes 95% of the P&L over each period.
