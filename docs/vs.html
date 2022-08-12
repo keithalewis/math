@@ -30,7 +30,7 @@
     displayMode: mathElements[i].classList.contains('display'),
     throwOnError: false,
     macros: macros,
-    fleqn: false
+    fleqn: true
    });
 }}});
   </script>
@@ -44,6 +44,10 @@
 <header id="title-block-header">
 <h1 class="title">Variance Swaps</h1>
 <p class="author">Keith A. Lewis</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Value, hedge, and manage risk of variance swaps.
+</div>
 </header>
 <p>A variance swap pays the sum of the squares of realized return over a
 period. It provides exposure to volatility no matter the level of the
@@ -90,7 +94,7 @@ X/X)^4)</span></em>.</p>
 <summary>
 Solution
 </summary>
-<span class="math inline">(a - b)^2 = a^2 - 2ab + b^</span>$.
+<span class="math inline">(a - b)^2 = a^2 - 2ab + b^</span>.
 </details>
 <p>Continuous time mathematical treatments specify the the first term of
 the payoff as <span class="math inline">(1/t)\int_0^t (d\log
@@ -105,32 +109,54 @@ class="math inline">\sigma_0^2 = (1/t)E[\int_0^t (d\log
 X_s)^2\,ds]</span>.</p>
 <p>The astounding thing about variance swaps is that valuing and hedging
 them do not require any assumptions on a model for the dynamics of the
-underlying. They only require futures and options at a sufficiently wide
-range of strikes are traded on the underlying.</p>
+underlying. They only require futures and options traded at a
+sufficiently wide range of strikes on the underlying.</p>
 <p>The payoff of a variance swap can be approximately replicated by a
 <em>dynamic hedge</em> in futures and a <em>static hedge</em> in a calls
 and puts.</p>
-<p><span class="math display">
+<p>For any thrice differentiable function <span
+class="math inline">f</span> we use a telescoping sum and Taylor’s
+theorem with remainder to get <span class="math display">
 \begin{aligned}
 f(X_n) - f(X_0) &amp;= \sum_{0\le j &lt; n} f(X_{j+1}) - f(X_j) \\
     &amp;= \sum_{0\le j &lt; n} f&#39;(X_j)\Delta X_j + \frac{1}{2}
-f&#39;&#39;(X_j) (\Delta X_j)^2 + R_2
+f&#39;&#39;(X_j) (\Delta X_j)^2 + R_j
 \end{aligned}
-</span> where <span class="math inline">R_2 = (1/2)\int_{X_j}^{X_{j+1}}
-f&#39;&#39;&#39;(t) (t - X_j)\, dt</span>.</p>
+</span> where <span class="math inline">R_j = (1/2)\int_{X_j}^{X_{j+1}}
+f&#39;&#39;&#39;(t) (X_{j+1} - t)^2\, dt</span>. Note <span
+class="math inline">f(X_n) - f(X_0)</span> is a European option payoff
+and <span class="math inline">f&#39;(X_j) \Delta X_j</span> is the cash
+flow at time <span class="math inline">t_{j+1}</span> from purchasing
+<span class="math inline">f&#39;(X_j)</span> futures on <span
+class="math inline">X</span> at time <span
+class="math inline">t_j</span>. The quadratic term can be used to
+replicate a variance swap payoff.</p>
 <p>If <span class="math inline">f&#39;&#39;(x) = 2/x^2</span> then <span
+class="math inline">(1/2)f&#39;&#39;(X_j)(\Delta X_j)^2 = (\Delta
+X_j/X_j)^2</span> is the square of the realized return. We have <span
 class="math inline">f&#39;(x) = -2/x + c</span> where <span
 class="math inline">c</span> is a constant, and <span
 class="math inline">f(x) = -2\log x + cx</span>. It is convenient to
 choose <span class="math inline">c = 1/z</span> for some constant <span
-class="math inline">z</span>. <span class="math display">
-\begin{aligned}
--2\log X_n + X_n/z + 2\log X_0 - X_0/z &amp;= \sum_{0\le j &lt; n}
-f(X_{j+1}) - f(X_j) \\
-    &amp;= \sum_{0\le j &lt; n} f&#39;(X_j)\Delta X_j + \frac{1}{2}
-f&#39;&#39;(X_j) (\Delta X_j)^2 + R_2
-\end{aligned}
-</span></p>
+class="math inline">z</span> so <span class="math display">
+-2\log X_n + X_n/z + 2\log X_0 - X_0/z
+    = \sum_{0\le j &lt; n} (-2/X_j + 2/z)\Delta X_j + (\Delta X_j/X_j)^2
++ R_j
+</span> Rearranging terms and simplifying gives <span
+class="math display">
+\sum_{0\le j &lt; n} (\Delta X_j/X_j)^2 = -2\log X_n/X_0 + (X_n - X_0)/z
++ \sum_{0\le j &lt; n} (2/X_j - 2/z)\Delta X_j - R_j
+</span> This shows a variance swap can be replicated using a static
+hedge and a dynamic hedge using futures with error <span
+class="math inline">R_j</span>. The static hedge can be approximated
+with puts and calls using the Carr-Madan formula. If <span
+class="math inline">z = X_0</span> then the initial furtures hedge is
+zero.</p>
+<p>Since <span class="math inline">f&#39;&#39;&#39;(x) = -4/x^3</span>
+the error term <span class="math inline">R_j</span> over the period
+<span class="math inline">[t_j, t_{j+1}]</span> is <span
+class="math inline">R_j = (1/2)\int_{X_j}^{X_{j+1}} -4/t^3 (X_{j+1} -
+t)^2\, dt</span>.</p>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>
