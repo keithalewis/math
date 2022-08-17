@@ -16,7 +16,7 @@ It is customary to assume there is only one entity, the trader, involved
 in a trading strategy.  The trader/buyer decides what hedging should
 be done, but the issuer/seller sometimes also has a say. For example,
 a callable bond allows the issuer to revoke ownership from the buyer by
-providing an early principal payment. The initial transaction typically
+providing an early principal payment. The initial transaction also typically
 involves a third entity, the broker/dealer or an exchange, that receives
 a cash flow for providing liquidity. It is rare to find a model that
 accounts for taxes that must be paid due to trading activity. These can
@@ -36,11 +36,12 @@ raise capital, exchanges create contracts to connect liquidity providers
 with their customers.  Commodities originate from producers of the
 physical product and currencies are issued by governments of countries.
 
-Some instruments have cash flows.  Stocks may have dividends,
-bonds may have coupons, futures have periodic margin adjustments.
-Commodities and currencies do not have cash flows.  The issuer of an
-instrument determines when and how much to give per unit of amount
-to instrument holders. 
+Some instruments have cash flows.  Stocks may have dividends, bonds may
+have coupons, futures have periodic margin adjustments.  Commodities
+may involve holding costs.  Futures always have price zero and only
+pay margin adjustment cash flows.  Currencies do not have cash flows.
+The issuer of an instrument determines when and how much to give per
+unit of amount to instrument holders.
 
 A holding is an amount of an instrument held by a legal entity.
 Amounts have units based on the instrument: stocks have shares, bonds
@@ -57,12 +58,13 @@ The price of the transaction is the quotient of the buyer amount and the seller 
 Ownership of holdings is transferred on the settlement date.
 The position of an entity is their set of holdings at any given time.
 
-The sum of the amounts held of each instrument in a position is the net position in that instrument.
-Given prices of instruments in some currency, the net positions can be
-converted to the value, or mark-to-market, of the position in that currency.
-Determining the "price" of an illiquid instrument is problematic.
-The difference of the net value of positions at the beginning and end of
-a period is the profit and loss over the period.
+The sum of the amounts held of each instrument in a position is
+the net position in that instrument.  Given prices of instruments
+in some currency, the net positions can be converted to the value,
+or mark-to-market, of the position in that currency.  Determining the
+"price" of an illiquid instrument is problematic.  The difference of
+the net value of positions at the beginning and end of a period is the
+profit and loss over the period.
 
 Profit and loss does not capture the dynamics over the period.
 Cash flows and transactions cause changes to positions.

@@ -10,6 +10,37 @@ abstract: Value, hedge, and manage risk of variance swaps.
 A variance swap pays the sum of the squares of realized return over a period.
 It provides exposure to volatility no matter the level of the underlying.
 Unlike a call or put option it never goes out-of-the-money.
+The most remarkable fact about variance swaps is that they do not
+require a mathematical model of the underlying price, only
+futures on the underlying and puts and calls that expire at the
+maturity of the variance swap.
+
+## One Period
+
+Consider an underlying with price $x$ at the beginning of a period and price $X$
+at the end of the period. Consider an option with payoff $(X - x)^2$ at the
+end of the period having price $A$. If an option with payoff
+$X^2 - x^2$ has price $B$ and the forward paying $X - x$ has price 0 then
+$A = B$. This follows from the elementary formula
+$$
+	X^2 - x^2 = 2x(X - x) + (X - x)^2.
+$$
+Note this is Taylor's formula for $f(x) = x^2$ since cubic and higher order terms are 0.
+Either contract can be used to replicate the other using the 0 price forward contract.
+If the price of the forward is $C$ then $B = 2xC + A$.
+Note this provides a perfect hedge no matter the value of $X$.
+
+A more realistic one period model has payoff $(\log X/x)^2$, the square of the
+realized return. Recall Taylor's formula with remainder for sufficiently differentiable $f$ is
+$$
+	f(x) = \sum_{k=0}^n f^{(k)}(a) (x-a)^k/k! + \int_a^x f^{(n+1)}(t) (x - t)^n/n!\,dt
+$$
+If $f(x) = \log x$ then $f'(x) = 1/x$, $f''(x) = -1/x^2$, $f'''(x) = 2/x^3$ so
+$$
+	\log X/x = \log X - \log x = (1/x)(X - x) - (1/x^2)(X - x)^2/2 + \int_x^X 2/t^3(X - t)^2/2\,dt
+$$
+
+## Contract
 
 Contracts are specified by an underlying instrument and observation times.
 If the level of the underlying is $X_t$ at time $t$ and the observation times
@@ -41,7 +72,7 @@ __Exercise__. _Show $(\Delta \log X)^2 = (\Delta X/X)^2 - (\Delta X/X)^3 + O((\D
 
 <details>
 <summary>Solution</summary>
-$(a - b)^2 = a^2 - 2ab + b^22$.
+$(a - b)^2 = a^2 - 2ab + b^2$.
 </details>
 
 Continuous time mathematical treatments specify the the first term of the payoff as
@@ -87,6 +118,32 @@ a dynamic hedge using futures with error $R_j$. The static hedge can be
 approximated with puts and calls using the Carr-Madan formula. If $z =
 X_0$ then the initial furtures hedge is zero.
 
+## Static Hedge
+
+The static hedge is $-2\log X_n/X_0 + (X_n - X_0)/z$ can be approximately replicated
+with a cash position, a forward, and a portfolio of puts and calls.
+Recall the Carr-Madan formula for a twice differentiable function $f\colon [0, \infty)\to\RR$ is
+$$
+	f(x) = f(a) + f'(a)(x - a) + \int_0^a f''(k) (k - x)^+ \, dk + \int_a^\infty f''(k) (x - k)^+\,dk
+$$
+If puts with strikes $(L_j)$ and calls with strikes $(H_j)$ are available at $t_n$
+then given $K$
+we consider the piecewise continuous linear function $\tilde{f}$ determined by by the points
+$(L_j, f(L_j))$, $L_j < K$, and $(H_j, f(H_j))$, $H_j \ge K$. We assume linear extrapolation
+on the left using the two lowest put strikes and on the right by the two highest call strikes.
+Typically $K$ is chosen to be close to the at-the-money forward at option expiration.
+
+the Carr-Madan formula is
+$$
+	-2\log K/X_0 + (K - X_0)/z + (2/K - 2/z)(K - X_0)
+$$
+
+## Dynamic Hedge
+
+## Cubic Term
+
+The cubic term typically describes 95% of variance swap P&L over each period.
+
 Since $f'''(x) = -4/x^3$ the error term $R_j$ over the period $[t_j, t_{j+1}]$ is
 $R_j = (1/2)\int_{X_j}^{X_{j+1}} -4/t^3 (X_{j+1} - t)^2\, dt$.
 Using $t$ is between $X_j$ and $X_{j+1}$ we have
@@ -97,4 +154,3 @@ $$
 		&= \frac{2}{3} \frac{|\Delta X_j|^3}{\min\{X_j, X_{j+1}\}^3}
 \end{aligned}
 $$
-This term typically describes 95% of the P&L over each period.
