@@ -55,14 +55,13 @@ the outcome of rolling a six-sided die can be modeled by $\Omega
 The event "rolling an even number" corresponds to the subset
 $\{2,4,6\}$. _Partial information_ is modeled by a _partition_
 of $\Omega$. The partition $\{\{1,3,5\},\{2,4,6\}\}$ represent
-knowing whether the roll was odd or even.  Full information is
-knowing $\omega\in\Omega$. Partial information is knowing whether
+knowing whether the roll was odd or even. 
+Partial information is knowing whether
 $\omega\in\{1,3,5\}$ or $\omega\in\{2,4,6\}$.
 
 Full information corresponds to the partition of singletons
 $\{\{\omega\}\mid\omega\in\Omega\}$. No information corresponds
-to the partition $\{\Omega\}$.
-
+to the singleton partition $\{\Omega\}$.
 
 ### Algebra of Sets
 
@@ -83,11 +82,10 @@ then $\mathcal{A}\cap\mathcal{A}'$ is an algebra_.
 
 If $\mathcal{A}$ is an algebra let $A_\omega = \cap\{A\in\mathcal{A}\mid \omega\in A\}$.
 
-__Exercise__. _Show if $A_\omega\cap A_{\omega'}$ then either
-$A_\omega = A_{\omega'}$ or $A_\omega\cap A_{\omega'} = \emptyset$.
+__Exercise__. _Show either $A_\omega = A_{\omega'}$ or $A_\omega\cap A_{\omega'} = \emptyset$
+for $\omega,\omega'\in\Omega$_.
 
 ### Partition
-
 
 Given a set $\Omega$ let $B(\Omega)$ be the vector space of bounded
 functions on $\Omega$. A function $f\colon\Omega\to\RR$ is bounded
