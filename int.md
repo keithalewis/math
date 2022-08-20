@@ -35,75 +35,80 @@ For each of the $\#B$ elements of $B$ we have $\#A$ choices from $A$.
 
 The set $\RR^\Omega$ is a vector space of
 real-valued functions on $\Omega$ where scalar multiplication and addition
-are defined pointwise: $(af)(\omega) = af(\omega)$ and $(f + g)(\omega) =
-f(\omega) + g(\omega)$, for $a\in\RR$, $f,g\in\RR^\Omega$, $\omega\in \Omega$.
+are defined pointwise:
+$$
+\begin{aligned}
+(af)(\omega) &= af(\omega) \\
+(f + g)(\omega) &= f(\omega) + g(\omega), \\
+\end{aligned}
+$$
+for $a\in\RR$, $f,g\in\RR^\Omega$, $\omega\in \Omega$.
 We can replace $\RR$ by any field $\FF$ and get a vector space over $\FF$.
 
 ## Measure
 
-The set of all subset of a set $\Omega$ can be identified with $\{0,1\}^\Omega$.
-A set $A\subseteq\Omega$ corresponds to the _indicator funtion_
-$1_A\colon\Omega\to\RR$, where
-$1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\not\in A$.
-The set of all subsets is also written as $2^\Omega$ where $2 = \{0,1\}$.
-
-A _measure_ on a set $\Omega$ is a function on sets $\phi\colon 2^\Omega\to\RR$ satisfying
-$\phi(A\cup B) = \phi(A) + \phi(B) - \phi(A\cap B)$, $A,B\subseteq\Omega$
-and $\phi(\emptyset) = 0$. Measures do not count things twice and the
+The set of all subsets of a set $\Omega$ is $\mathcal{P}(\Omega) = \{A\mid A\subseteq\Omega\}$.
+A _measure_ on a set $\Omega$ is a function $\mu\colon \mathcal{P}(\Omega)\to\RR$ satisfying
+$\mu(A\cup B) = \mu(A) + \mu(B) - \mu(A\cap B)$, $A,B\subseteq\Omega$
+and $\mu(\emptyset) = 0$. Measures do not count things twice and the
 measure of nothing is zero.
 
-__Exercise__. _If $\Omega$ is finite show $\phi(A) = \#A$ is a measure_.
-
-__Exercise__ _If $\phi'\colon 2^\Omega\to\RR$ and
-$\phi'(A\cup B) = \phi'(A) + \phi'(B) - \phi'(A\cap B)$, $A,B\subseteq\Omega$,
-then $\phi(A) = \phi'(A) - \phi'(\emptyset)$ is a measure_.
+__Exercise__ _If $\nu\colon \mathcal{P}(\Omega)\to\RR$ and
+$\nu(A\cup B) = \nu(A) + \nu(B) - \nu(A\cap B)$, $A,B\subseteq\Omega$,
+then $\mu(A) = \nu(A) - \nu(\emptyset)$ is a measure_.
 
 _Hint_: $c = c + c - c$.
 
+__Exercise__. _If $\Omega$ is finite show $\mu(A) = \#A$ is a measure_.
+
+__Exercise__. _If $\Omega$ is finite show $\mu(A) = \sum_{\omega\in A} \mu(\{\omega\})$_.
+
+This shows measures on finite sets are determined by the meaasure of each singleton $\{\omega\}$, $\omega\in\Omega$.
+
+The set $ba(\Omega)$ of all measures on $\Omega$ is a vector space
+where scalar multiplication and addition are defined setwise:
+$$
+\begin{aligned}
+(a\mu)(A) &= a\mu(A) \\
+(\mu + \nu)(A) &= \mu(A) + \nu(A), \\
+\end{aligned}
+$$
+for $a\in\RR$, $\mu,\nu\in ba(\Omega)$, $A\subseteq\Omega$.
+
+## Integration
+
+Integration is a linear functional $M\colon\RR^\Omega\to\RR$, i.e.,
+$M(af) = aMf$ and $M(f + g) = Mf + Mg$, $a\in\RR$, $f,g\in\RR^\Omega$.
+Each linear functional $M$ determines a measure $\mu$ by
+$\mu(A) = M1_A$, where $1_A\in\RR^\Omega$ is
+the _indicator function_ defined by
+$1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\not\in A$.
+
+__Exercise__. _Show $\mu$ is a measure_.
+
+_Hint_: $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$ and $1_\emptyset = 0$.
+
 ## Partial Information
 
-Possible _outcomes_ are modeled by a set $\Omega$.  For example,
-the outcome of rolling a six-sided die can be modeled by $\Omega
-= \{1,2,3,4,5,6\}$.  Subsets of $\Omega$ are called events.
+Possible outcomes are modeled by a set $\Omega$.  For example, the
+outcome of rolling a six-sided die can be modeled by the set
+$\Omega = \{1,2,3,4,5,6\}$.  Subsets of $\Omega$ are called events.
 The event "rolling an even number" corresponds to the subset
-$\{2,4,6\}$. _Partial information_ is modeled by a _partition_
-of $\Omega$. The partition $\{\{1,3,5\},\{2,4,6\}\}$ represents
-knowing whether the roll was odd or even. 
-Partial information is knowing whether
+$\{2,4,6\}$. Partial information is modeled by a partition of $\Omega$.
+The partition $\{\{1,3,5\},\{2,4,6\}\}$ represents knowing whether
+the roll was odd or even.  Partial information is knowing only whether
 $\omega\in\{1,3,5\}$ or $\omega\in\{2,4,6\}$.
 
 Full information corresponds to the partition of singletons
 $\{\{\omega\}\mid\omega\in\Omega\}$. No information corresponds
 to the singleton partition $\{\Omega\}$.
 
-### Algebra of Sets
-
-An _algebra of sets_ on $\Omega$ is a subset
-of $2^\Omega$ closed under complement and union.
-This is necessary in order to talk about an event not
-occuring or either of two events occuring.
-
-__Exercise__. _Show algebras are closed under intersection_.
-
-_Hint_: De Morgan.
-
-If $E$ and $F$ are events in the algebra then "E and F" corresponds
-to the event $E\cap F$ in the algebra.
-
-__Exercise__. _If $\AA$ and $\AA'$ are algebras
-then $\AA\cap\AA'$ is an algebra_.
-
-If $\AA$ is an algebra let $A_\omega = \cap\{A\in\AA\mid\omega\in A\}$
-be the _atom_ containing $\omega\in\Omega$.
-
-__Exercise__. _Show either $A_\omega = A_{\omega'}$ or $A_\omega\cap A_{\omega'} = \emptyset$
-for $\omega,\omega'\in\Omega$_.
-
 ### Partition
 
 A _partition_ of a set $\Omega$ is a collection of subsets of $\Omega$ that
-are pairwise disjoint and have union $\Omega$. Given $\omega\in\Omega$ let
-$A_\omega$ be the set in the partition containing $\Omega$.
+are pairwise disjoint and have union $\Omega$. Every $\omega\in\Omega$
+belongs to a unique set, $A_\omega$, in the partition.
+We call $A_\omega$ the _atom_ containing $\omega$.
 
 __Exercise__. _Show either $A_\omega = A_{\omega'}$ or $A_\omega\cap A_{\omega'} = \emptyset$
 for $\omega,\omega'\in\Omega$_.
@@ -120,7 +125,28 @@ __Exercie__. _Show every equivalence relation determines a partition_.
 _Hint_: Let $A_\omega = \{\omega'\in\Omega\mid \omega'\sim\omega\}$ and
 show $\{A_\omega\mid\omega\in\Omega\}$ is a partition.
 
-__Exercise__. _If $\AA$ is an algebra then its atoms form a parition_.
+### Algebra of Sets
+
+An _algebra of sets_ on $\Omega$ is a subset
+of $2^\Omega$ closed under complement and union.
+This is necessary in order to talk about an event not
+occuring or either of two events occuring.
+
+__Exercise__. _Show algebras are closed under intersection_.
+
+_Hint_: De Morgan.
+
+If $E$ and $F$ are events in the algebra then "E and F" corresponds
+to the event $E\cap F$ in the algebra.
+
+__Exercise__. _If $\AA$ and $\AA'$ are algebras then $\AA\cap\AA'$ is an algebra_.
+
+If $\AA$ is an algebra let $A_\omega = \cap\{A\in\AA\mid\omega\in A\}$, $\omega\in\Omega$.
+
+__Exercise__. _Show either $A_\omega = A_{\omega'}$ or $A_\omega\cap A_{\omega'} = \emptyset$
+for $\omega,\omega'\in\Omega$_.
+
+__Exercise__. _If $\AA$ is an algebra then $\{A_\omega\mid\omega\in\Omega\}$ is a parition_.
 
 Given any collection $\BB$ of subsets of $\Omega$ let $\Alg\BB$ be
 the smallest algebra of sets on $\Omega$ containing $\BB$.
@@ -128,11 +154,17 @@ the smallest algebra of sets on $\Omega$ containing $\BB$.
 __Exercise__. _If $\AA$ is an algebra show $\AA = \Alg\{A_\omega\mid\omega\in\Omega\}$_.
 
 This shows algebras are in 1-to-1 correspondence with their partition of atoms.
+We will use $\AA$ to represent either the algebra or partition.
 
 ## Integration
 
 A _linear functional_ on a vector space $V$ is a linear transformation from $V$ to $\RR$.
 The dual $V^*$ is the set of all linear functionals on $V$.
+
+The set of all subset of a set $\Omega$ can be identified with $\{0,1\}^\Omega$.
+For $A\subseteq\Omega$ define the _indicator function_ $1_A\colon\Omega\to\RR$ by
+$1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\not\in A$.
+The set of all subsets is also written as $2^\Omega$ where $2 = \{0,1\}$.
 
 For $A\subseteq\Omega$ define the _indicator function_ $1_A$ by
 $1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\not\in A$.
@@ -143,7 +175,7 @@ by $\phi(A) = F1_A$.
 __Exercise__. _Show $\phi$ is a measure_.
 
 _Hint_: Use $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$ and $1_\emptyset = 0$ to show
-$\phi(A\cup B) = \phi(A) + \phi(B) - \phi(A\cap B)$ and $\phi(\emptyset) = 0$_.
+$\phi(A\cup B) = \phi(A) + \phi(B) - \phi(A\cap B)$ and $\phi(\emptyset) = 0$.
 
 Given a set $\Omega$ let $B(\Omega)$ be the vector space of bounded
 functions on $\Omega$. A function $f\colon\Omega\to\RR$ is bounded
