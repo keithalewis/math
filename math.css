@@ -1,12 +1,12 @@
 html {
 }
-div.abstract p {
+.abstract {
     margin-left:  1em;
     margin-right:  2em;
 	font-style: italic;
     text-align: left;
 }
-div.abstract-title {
+.abstract-title {
     text-align: center;
 	font-style: normal !important;
 	font-weight: 700;

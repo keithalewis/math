@@ -88,6 +88,9 @@ __Exercise__. _Show $\mu$ is a measure_.
 
 _Hint_: $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$ and $1_\emptyset = 0$.
 
+Every measure $\mu\in ba(\Omega)$ determines a linear functional
+on a subspace of $\RR^\Omega$. 
+
 ## Partial Information
 
 Possible outcomes are modeled by a set $\Omega$.  For example, the
