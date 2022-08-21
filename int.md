@@ -19,7 +19,7 @@ Measures are functions on subsets of the domain of the function
 that do not count things twice. They can be identified with
 the dual of the vector space of functions.
 
-## Real-valued Function
+## Function
 
 If $A$ and $B$ are sets then $A^B = \{f\colon B\to A\}$ is the set of
 all functions from $B$ to $A$.
@@ -63,7 +63,8 @@ __Exercise__. _If $\Omega$ is finite show $\mu(A) = \#A$ is a measure_.
 
 __Exercise__. _If $\Omega$ is finite show $\mu(A) = \sum_{\omega\in A} \mu(\{\omega\})$_.
 
-This shows measures on finite sets are determined by the meaasure of each singleton $\{\omega\}$, $\omega\in\Omega$.
+This shows measures on finite sets are determined by the measure of each singleton $\{\omega\}$, $\omega\in\Omega$.
+In this case a measure can be identified with an element of $\RR^\Omega$.
 
 The set $ba(\Omega)$ of all measures on $\Omega$ is a vector space
 where scalar multiplication and addition are defined setwise:
@@ -87,6 +88,108 @@ $1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\not\in A$.
 __Exercise__. _Show $\mu$ is a measure_.
 
 _Hint_: $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$ and $1_\emptyset = 0$.
+
+Each measure $\mu$ determines a linear functional on a subspace of $\RR^\Omega$.
+Functions that are finite linear combinations of indicator functions are called _elementary_.
+If $f = \sum_j a_j 1_{A_j}$, $a_j\in\RR$, $A_j\subseteq\Omega$ is elementary then
+define $Mf = \sum_j a_j \mu(A_j)$.
+For this to be well-defined we must show if $\sum_j a_j 1_{A_j} = \sum_k b_k1_{B_k}$ 
+are elementary functons then $\sum_j a_j \mu(A_j) = \sum_k b_k\mu(B_k)$.
+Since $M$ is linear this is equivalent to showing if $\sum_j a_j 1_{A_j} = 0$
+then $\sum_j a_j \mu(A_j) = 0$.
+
+__Exercise__. _If $T\colon V\to W$ is a linear transformation between vector spaces then
+$Tf = Tg$ if and only if $T(f - g) = 0$, $f,g\in V$_.
+
+_Hint_: $T(f - g) = Tf - Tg$.
+
+Every elementary function can be written as $\sum_j a_j 1_{A_j}$ where $(A_j)$ are pairwise disjoint.
+
+__Exercise__. _If $f = a_1 1_{A_1} + a_2 1_{A_2}$ show
+$f = a_1 1_{A_1\setminus A_2} + a_2 1_{A_2\setminus A_1} + (a_1 + a_2) 1_{A_1\cap A_2}$_.
+
+_Hint_: Recall the _set difference_ is defined by $A\setminus B = \{a\in A\mid a\not\in B\}$.
+
+__Exercise__. _Show $a_1\mu(A_1) + a_2\mu(A_2)
+= a_\mu(A_1\setminus A_2) + a_2\mu(A_2\setminus A_1) + (a_1 + a_2)\mu(A_1\cap A_2)$_.
+
+_Hint_: $A = (A\setminus B)\cup(A\cap B)$ is a disjoint union so
+$\mu(A) = \mu(A\setminus B) + \mu(A\cap B)$.
+
+The case for any finite linear combination can be proved by induction.
+
+__Exercise__. _If $\sum_j a_j 1_{A_j} = 0$ and $(A_j)$ are pairwise disjoint
+then $a_j = 0$ for all $j$_.
+
+_Hint_: Consider when $\omega\in A_j$.
+
+This shows $M$ is well-defined.
+
+Given a linear functional $M$ on $\RR^\Omega$ we always have a measure $\mu$ on $\Omega$
+given by $\mu(A) = M1_A$. A measure only determines a linear functional on a subspace
+of $\RR^\Omega$.
+
+## Bounded Function
+
+A function $f\in\RR^\Omega$ is _bounded_ if there exists $N\in\RR$
+with $|f(\omega)| < N$ for $\omega\in\Omega$.  The set of all bounded
+functions is denoted $B(\Omega)$.  The _norm_ of a bounded function is the
+_greatest lower bound_ (_infimum_) $\|f\| = \inf\{N\in\RR\mid |f| < N\}$,
+where $|f| < N$ is shorthand for $|f(\omega)| < N$ for all $\omega\in\Omega$.
+
+__Exercise__. _Show $\|f\| = \sup\{|f(\omega)|\mid \omega\in\Omega\}$_.
+
+__Exercise__. _Show $\|f\| = 0$ implies $f = 0$, $\|af\| = |a|\|f\|$
+and $\|f + g\| \le \|f\| + \|g\|$, $a\in\RR$, $f,g\in B(\Omega)$_.
+
+A vector space having a norm is a _normed linear space_. It is also a metric space with
+distance defined by $d(f,g) = \|f - g\|$.
+
+__Exercsie__. _Show $d(f,g) = 0$ implies $f = g$ and $d(f,g) \le d(f,h) + d(h,g)$ for $f,g,h\in B(\Omega)$_.
+
+A metric space is _complete_ if every Cauchy sequence converges to a point in the space.
+
+__Exercise__. _If $(f_n)$ is a Cauchy sequence in $B(\Omega)$ show it converges to some $f\in B(\Omega)$_.
+
+_Hint_: $(f_n(\omega))$ is a Cauchy sequence in $\RR$ for each $\omega\in\Omega$ and $\RR$ is complete.
+
+## Continuous Integral
+
+Let $B(\Omega)^*$ be the space of all linear functionals on $B(\Omega)$ that are continuous in
+the metric topology: $M\colon B(\Omega)\to\RR$ where $f_n\to f$ implies $Mf_n \to Mf$.
+Note $B(\Omega)^*$ is a vector space and we can define a norm for each $M\in B(\Omega)^*$
+by $\|M\| = \sup\{|Mf|\mid f\in B(\Omega), \|f\| \le 1\}$.
+
+__Exercise__. _Show this ia a norm_.
+
+_Hint_: Show $\|M\| = 0$ implies $M = 0$, $\|aM\| = |a| \|M\|$, and
+$\|M + N\| \le \|M\| + \|N\|$, $a\in\RR$, $M,N\in B(\Omega)^*$.
+
+As before, each $M\in B(\Omega)^*$ defines a measure $\mu\in ba(\Omega)$
+by $\mu(A) = M1_A$. Again, each measure $\mu\in ba(\Omega)$ defines a
+linear functional on the subspace of elementary functions by $M(\sum_j
+a_j 1_{A_j}) = \sum_j a_j \mu(A_j)$. This can be extended to
+all of $B(\Omega)$ by continuity.
+
+The set of elementary functions in $B(\Omega)$ is _dense_:
+given $f\in B(\Omega)$ and $\epsilon > 0$ there exists
+an elementary function $e$ with $\|f - e\| < \epsilon$.
+Suppose $\|f\| < N$ and let $-N = a_0 < a_1 < \cdots < a_n = N$, $a_j\in\RR$ be any partition
+of $[-N, N]$. Define $A_j = \{\omega\in\Omega\mid a_j \le f(\omega) < a_{j+1}\}$, $0\le j < n$.
+
+__Exercise__. _Show $\|f - \sum_j a_j 1_{A_j}\| \le \max_{0\le j < n} a_{j + 1} - a_j$_.
+
+For any $N$ and any $\epsilon > 0$ we can find a partition with $\max_{0\le j < n} a_{j + 1} - a_j < \epsilon$.
+
+This shows $B(\Omega)^*$ is in 1-to-1 correspondence with $ba(\Omega)$.
+The map $M\mapsto\mu$ is linear and continuous. We write $Mf = \int_\Omega f\,d\mu$.
+
+__Exercise__. _Show the map is isometric_.
+
+_Hint_: Show if $M\mapsto\mu$ then $\|M\| = \|\mu\|$.
+
+This establishes the fact bounded linear functionals on $B(\Omega)$ are
+isometrically isomorphic to measures on $\Omega$.
 
 ## Partial Information
 
