@@ -10,7 +10,7 @@ CSS = math.css
 
 FLAGS  = -f markdown+definition_lists+raw_html+pipe_tables
 FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
-TEXFLAGS = --pdf-engine=xelatex
+TEXFLAGS = --pdf-engine=xelatex 
 FLAGS += -t html5
 FLAGS += -s # smart quotes
 FLAGS += --katex=$(KATEX)

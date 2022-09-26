@@ -1,4 +1,9 @@
 html {
+	max-width: 80ch;
+	padding: 3em 1em;
+	margin: auto
+	line-height: 1.75;
+	font-size: 1.25em;
 }
 .abstract {
     margin-left:  1em;
@@ -12,17 +17,12 @@ html {
 	font-weight: 700;
 }
 body {
-	/*max-width: 40em;*/
-    margin:  4em;
-    /*text-align: left;*/
-	padding: 1em;
-	font-family: 'STIX Two Text', 'Noto Sans', "Segoe UI", 'Calisto','IBM Plex Serif', 'Cambria', Georgia, serif, 'Times New Roman';
-	font-size: 110%;
-	font-weight: 400;
-	line-height: 120%; 
+	font-family: 'Cambria', 'Calisto', 'Segoe UI', 'IBM Plex Serif', Georgia, serif, 'Times New Roman';
+/*
 	background: #F8F8F8;
 	background: linear-gradient(to right, #FFF, #F0F0F0);
 	color: #565656;
+*/
 }
 h1, p.author {
 	text-align: center;
@@ -46,16 +46,6 @@ th:nth-child(3) {
 details {
 	margin-left: 1em;
     color: #0000F1;
-}
-@media only screen and (max-device-width: 480px) {
-	body {
-		margin: .1in .15in 0 .15in;
-		padding: 0em;
-	}
-	p {
-		text-align: left;
-		text-justify: none;
-	}
 }
 
 .katex {
