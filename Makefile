@@ -17,7 +17,9 @@ FLAGS += --katex=$(KATEX)
 #FLAGS += --katex=katex/
 FLAGS += --css math.css
 FLAGS += -A FOOTER.md
-TEXFLAGS +=  -M date="$(shell date "+%B %e, %Y")"
+FLAGS += --metadata date="$(shell date "+%B %e, %Y")"
+TEXFLAGS += --metadata date="$(shell date "+%B %e, %Y")"
+#TEXFLAGS +=  -M date="$(shell date "+%B %e, %Y")"
 #FLAGS += --toc
 #FLAGS += -B katex.tex
 FLAGS += --reference-location=block

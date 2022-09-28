@@ -16,6 +16,9 @@ html {
 	font-style: normal !important;
 	font-weight: 700;
 }
+.date {
+	text-align: center;
+}
 body {
 	font-family: 'Cambria', 'Calisto', 'Segoe UI', 'IBM Plex Serif', Georgia, serif, 'Times New Roman';
 /*

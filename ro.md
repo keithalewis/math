@@ -76,8 +76,10 @@ with $\|\lambda\| = \sup_{\|f\|\le1} \int_S f\,d\lambda$ where
 $\int_S f\,d\lambda = Lf$.
 The linear map $L\mapsto\lambda$ is an isometric isomorphism.
 
-If $\BB\subseteq\AA$ are algebars and $\lambda\in ba(\AA)$ we write $\lambda\mid_\BB$
-to denote the restriction of $\lambda$ to $\BB$.
+If $\BB\subseteq\AA$ are algebras and $\lambda\in ba(\AA)$ we write $\lambda|_\BB$
+to denote the restriction of $\lambda$ to $\BB$. If $(\AA_t)_{t\in T}$ satisfy
+$\AA_t \subseteq \AA_u$, $t \le u$, and $(M_t)_{t\in T}$ are
+measures with $M_t = M_u|_{\AA_u}$, $t \le u$, we say $(M_t)$ is a _martingale measure_.
 
 For $g\in B(S)$ define $M_g\colon B(S)\to B(S)$ by $M_g f = fg$, $f\in
 B(S)$, to be the linear operator of multiplication by $g$, Its adjoint
@@ -141,24 +143,38 @@ The initial trade makes money and subsequent trades never lose money.
 __Theorem__. (Fundamental Theorem of Asset Pricing) _A model has no arbitrage if and only
 if there exist positive measures $(D_t)_{t\in T}$ with_
 $$
-	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)\mid_{\AA_t}.
+	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}.
 $$
 
 If a money market account exists with price $R_t$ (and no cash flows) the trading
 strategy $\Gamma_t = 1$, $\Gamma_{t+\Delta t}$ implies $R_t D_t = (R_{t+\Delta t}D_{t+\Delta t}$.
 
-__Lemma__. _For any arbitrage free model_
+__Lemma__. _For any arbitrage-free model_
 $$
-	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)\mid_{\AA_t}.
+	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}.
 $$
 Note how value and account correspond to prices and cash flows. A trading strategy
-creates a synthetic instruments.
+creates a synthetic instrument.
 
-__Lemma__. _If $(D_t)_{t\in T}$ are positive measures and $(M_t)_{t\in T}$ are $\RR^I$-valued
-measures with $M_t = M_u\mid_{\AA_t}$, $t\le u$, then_
+__Lemma__. _If $(D_t)_{t\in T}$ are positive measures and $(M_t)_{t\in T}$ is an $\RR^I$-valued
+martingale measure then_
 $$
 	X_t D_t = M_t - \sum_{s\le t} C_s D_s
 $$
-_is an arbitrage free model_.
+_is an arbitrage-free model_.
 
-When $M_t = M_u\mid_{\AA_t}$, $t\le u$ we say $(M_t)$ is a _martingale measure_.
+### Example
+
+Let $(B_t)_{t\ge0}$ be standard Brownian motion where
+$\Omega = C[0,\infty)$, $P$ is Weiner measure on $\Omega$, and $B_t(\omega) = \omega(t)$.
+The algebra $\AA_t$ is the smallest algebra for which $\{B_s\mid s \le t\}$ are measurable.
+Since $e^{-\sigma^2 t/2 + \sigma B_t}$ is a martingale,
+$e^{-\sigma^2 t/2 + \sigma B_t}P|_{\AA_t}$ is a martingale measure.
+For any $\rho\in\RR$ $e^{-\rho t}P$ is a positive measure.
+In the case of no dividends, $X_t e^{-\rho t}P|_{\AA_t} = e^{-\sigma^2 t/2 + \sigma B_t}P|_{\AA_t}$
+is an arbitrage-free model.
+
+__Exercise__. _Show $Y = E[X|\AA]$ if and only if $YP = (XP)|_\AA$_.
+
+_Hint_: $Y = E[X|\AA]$ if and only if $Y$ is $\AA$-measurable and
+$\int_A Y\,dP = \int_A X\,dP$ for all $A\in\AA$.
