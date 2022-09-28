@@ -5,6 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2022-09-28" />
   <title>Foundations of Finance</title>
   <style>
     code{white-space: pre-wrap;}
@@ -44,6 +45,7 @@
 <header id="title-block-header">
 <h1 class="title">Foundations of Finance</h1>
 <p class="author">Keith A. Lewis</p>
+<p class="date">September 28, 2022</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Entity, instrument, price, cash flow, trading, value, account
@@ -56,11 +58,11 @@ trader, involved in a trading strategy. The trader/buyer decides what
 hedging should be done, but the issuer/seller sometimes also has a say.
 For example, a callable bond allows the issuer to revoke ownership from
 the buyer by providing an early principal payment. The initial
-transaction typically involves a third entity, the broker/dealer or an
-exchange, that receives a cash flow for providing liquidity. It is rare
-to find a model that accounts for taxes that must be paid due to trading
-activity. These can amount to a significant fraction of the cash flows
-involved and depend on the entities invovled.</p>
+transaction also typically involves a third entity, the broker/dealer or
+an exchange, that receives a cash flow for providing liquidity. It is
+rare to find a model that accounts for taxes that must be paid due to
+trading activity. These can amount to a significant fraction of the cash
+flows involved and depend on the entities invovled.</p>
 <p>We outline a treatment that allows more realistic modeling. It is
 essential to identify who owns what amount in each instrument. Holding
 an instrument often involves cash flows that depend on the amount held
@@ -75,9 +77,10 @@ physical product and currencies are issued by governments of
 countries.</p>
 <p>Some instruments have cash flows. Stocks may have dividends, bonds
 may have coupons, futures have periodic margin adjustments. Commodities
-and currencies do not have cash flows. The issuer of an instrument
-determines when and how much to give per unit of amount to instrument
-holders.</p>
+may involve holding costs. Futures always have price zero and only pay
+margin adjustment cash flows. Currencies do not have cash flows. The
+issuer of an instrument determines when and how much to give per unit of
+amount to instrument holders.</p>
 <p>A holding is an amount of an instrument held by a legal entity.
 Amounts have units based on the instrument: stocks have shares, bonds
 have notional, futures have contract size. Commodities have physical

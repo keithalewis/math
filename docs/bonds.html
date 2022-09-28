@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2022-09-28" />
+  <title>Bonds</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Bonds</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">September 28, 2022</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Bonds
+</div>
+</header>
+
+<p>Bonds are <em>fixed income</em> instruments. A <em>zero coupon
+bond</em>, or <em>bullet</em> has unit cash flow at maturity <span
+class="math inline">t</span>. Its price at time 0 is <span
+class="math inline">D(t)</span>. Its price at time <span
+class="math inline">s \le t</span> is <span class="math inline">D(s,
+t)</span> so <span class="math inline">D(t) = D(0,t)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">D(s,t)
+= D(t)/D(s)</span></em>.</p>
+<p><em>Hint</em>: Replicate a zero maturing at time <span
+class="math inline">t</span> by buying <span
+class="math inline">1/D(s,t)</span> of a zero maturing at <span
+class="math inline">s</span> then use that at time <span
+class="math inline">s</span> to buy a zero at <span
+class="math inline">t</span>.</p>
+<p>A fixed income instrument has cash flows <span
+class="math inline">(c_j)</span> at times <span
+class="math inline">(t_j)</span>, <span class="math inline">0\le j\le
+n</span>. The <em>issue date</em> is <span
+class="math inline">t_0</span> and <em>maturity</em> is <span
+class="math inline">t_n</span>.</p>
+<p>For a standard bond with coupon <span class="math inline">c</span> we
+have <span class="math inline">c_0 = 0</span>, <span
+class="math inline">c_j = c\delta(t_{j-1}, t_j)</span>, <span
+class="math inline">1 &lt; j &lt; n</span>, where <span
+class="math inline">\delta</span> is the <em>day count fraction</em>
+corresponding to the <em>day count basis</em>, and <span
+class="math inline">c_n = 1 + c\delta(t_{n-1}, t_n)</span>.</p>
+<p>At time <span class="math inline">t</span> the <em>next coupon
+date</em> <span class="math inline">t\_(t) = \min\{ t_j \mid t_j &gt;
+t\}</span> and the <em>previous coupon date</em> <span
+class="math inline">\_t(t) = \max\{ t_j \mid t_j \le t\}</span>.</p>
+<p>The <em>accrued interest</em> at <span class="math inline">t</span>
+is <span class="math inline">a(t) = c_j \delta(\_t(t), t)</span>. The
+buyer must pay this to the seller since the buyer gets the full coupon
+at the next coupon date. The <em>dirty price</em> is <em>clean
+price</em> plus accrued interest. Clean price is the present value of
+future cash flows.</p>
+<p>A fixed income instrument is a portfolio of zero coupon bonds. Its
+<em>present value</em> at <em>pv date</em> <span
+class="math inline">t</span> is <span class="math inline">p(t) =
+\sum_{t_j &gt; t} c_j D(t, t_j)</span>.</p>
+<p>The continuously compounded yield <span class="math inline">y = y(t)
+= y(t,p)</span> for price <span class="math inline">p</span> quoted at
+<span class="math inline">t</span> is defined by <span
+class="math inline">p = \sum_{t_j &gt; t} c_j e^{-y(t_j - t)}</span>.
+This is never used in practice and yields involve the compounding
+frequency <span class="math inline">n</span>. The <span
+class="math inline">n</span>-th annually compounded yield <span
+class="math inline">y_n</span> is determined by <span
+class="math inline">p = \sum_{t_j &gt; t} c_j(1 + y_n/n)^{-n(t_j -
+t)}</span>. (Is this correct?)</p>
+<p>There are several types of <em>duration</em>. The <em>forward
+curve</em> <span class="math inline">f(t)</span> is defined by <span
+class="math inline">D(t) = e^{-\int_0^t f(s)\,ds}</span> so <span
+class="math inline">D(t,u) = e^{-\int_t^u f(s)\,ds}</span>. Without an
+adjective, duration is the derivative of price with respect to a
+paralell shift of the forward curve <span class="math inline">dp/df =
+-\sum_{t_j &gt; t} c_j D(t, t_j) (t_j - t)</span>, the time weighted
+average of the discounted cash flows. Typically it is quoted without the
+minus sign. <em>Macaulay duration</em> is the derivative of the
+logarithm of the price <span class="math inline">d(\log p)/df =
+(dp/df)/p</span>. <em>Modified duration</em> is the derivative of bond
+price with respect to yield, <span class="math inline">dp/dy_n =
+\sum_{t_j &gt; t} c_j(1 + y_n/n)^{-n(t_j - t) - 1}(-n(t_j - t)/n) =
+-(\sum_{t_j &gt; t} c_j(1 + y_n/n)^{-n(t_j - t)}(t_j - t))/(1 +
+y_n/n)</span>. This is approximately equal to <span
+class="math inline">(dp/df)/(1 + y_n/n)</span>.</p>
+<p>Bond issuers can make bonds cheaper by attaching a call option. The
+option is specified by a series of times and call prices, the <em>call
+schedule</em>. At each call date the issuer can pay the holder the call
+price to terminate their remaining bond cash flow obligations. They can
+also attach a put option and specify a put schedule allowing the bond
+holder pay the issuer the put price at any put date to terminate the
+bond.</p>
+<section id="tax-loss-harvesting" class="level2">
+<h2>Tax Loss Harvesting</h2>
+<p>The <em>tax basis</em> of a bond purchased at a premium is its preset
+value using the purchase date yield and cannot be deducted for tax
+purposes.</p>
+<p>Let <span class="math inline">\sigma</span> be the short term capital
+gains tax rate and <span class="math inline">\lambda</span> be the long
+term capital gains, where <span class="math inline">\sigma &gt;
+\lambda</span>.</p>
+</section>
+<section id="trading-strategy" class="level2">
+<h2>Trading Strategy</h2>
+<p>Given a set of instruments <span class="math inline">I</span>,
+trading times <span class="math inline">T</span>, and information <span
+class="math inline">\mathcal{A}_t</span> at <span
+class="math inline">t\in T</span>, let <span
+class="math inline">X_t\colon\mathcal{A}_t\to\boldsymbol{R}^I</span> be
+the prices and <span
+class="math inline">C_t\colon\mathcal{A}_t\to\boldsymbol{R}^I</span> be
+the cash flows at time <span class="math inline">t\in T</span>. A
+<em>trading strategy</em> is a finite collection of increasing stopping
+times <span class="math inline">\tau_j</span> and trades <span
+class="math inline">\Gamma_j\colon\mathcal{A}_{\tau_j}\to\boldsymbol{R}^I</span>.
+Trades accumulate to positions <span class="math inline">\Delta_t =
+\sum_{\tau_j &lt; t} \Gamma_j = \sum_{s&lt;t} \Gamma_s</span> where
+<span class="math inline">\Gamma_s(\omega) = \Gamma_j(\omega)1(s =
+\tau_j(\omega))</span>.</p>
+<p>The <em>value</em>, or <em>mark-to-market</em> at time <span
+class="math inline">t</span> of a trading strategy is <span
+class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>. It is
+the amount unwinding the current position and trades just executed at
+prevailing market prices would produce.</p>
+<p>The <em>account</em> at time <span class="math inline">t</span> is
+<span class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
+X_t</span>. The trading strategy pays cash flows proportional to the
+position and trades executed at <span class="math inline">t</span> must
+be paid for.</p>
+</section>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

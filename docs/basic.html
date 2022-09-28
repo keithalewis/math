@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <meta name="dcterms.date" content="2022-09-28" />
-  <title>Mathematical Finance Manifesto</title>
+  <title>The Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -19,46 +19,46 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Mathematical Finance Manifesto</h1>
+<h1 class="title">The Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
 <p class="date">September 28, 2022</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-Work remains to be done.
+Basic model.
 </div>
 </header>
 
-<p>Mathematical Finance has made Nobel Prize winning advances since the
-1950’s, but there is more to do.</p>
-<section id="review" class="level2">
-<h2>Review</h2>
-<p>Markowitz</p>
-<p>Black-Merton Scholes</p>
-<p>Stephen Ross</p>
-<p>Linzberger …</p>
-</section>
-<section id="critique" class="level2">
-<h2>Critique</h2>
-<p>Continuous time.</p>
-<p>Implicit assumptions. Optimization. Self-financing.</p>
-<p>Lack of knobs.</p>
-<p>Bid-ask spread.</p>
-<p>Entities.</p>
-<p>Dynamic hedging and cash flows.</p>
-</section>
-<section id="the-future" class="level2">
-<h2>The future</h2>
-<p>Clear trajectory.</p>
-<p>Monte Carlo simulation.</p>
-<p>Realtime analytics.</p>
-<p>Pivot tables. Reporting.</p>
-</section>
+<p>One component missing from many mathematial finance models is an
+indication of who owns an instrument.</p>
+<p>A <em>holding</em> is an <em>amount</em>, <em>intrument</em>, and
+<em>entity</em>. The triple <span class="math inline">(a,i,e)</span>
+indicates legal entity <span class="math inline">e</span> owns amount
+<span class="math inline">a</span> of instrument <span
+class="math inline">i</span>.</p>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>
