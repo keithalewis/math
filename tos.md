@@ -69,3 +69,41 @@ Let $\{0,1\}\times S_0\sqcup S_1 = \{0,1\} \times \{0\}\times S_0\cup \{1\}\time
 
 __Exercise__. _If $(X_t)$ is right continuouse and $T^a = \min\{t\mid X_t \ge a\}$
 then $1_{T\ge t}$ is left continuous_.
+
+```
+	template<class A = double, class I = USD>
+	struct Amount {
+		A amount;
+		I instrument;
+	};
+	struct Price : public Amount {};
+	struct CashFlow : public Amount {};
+
+	struct Market Model {
+		iterable<Time, Price, CashFlow> from(date);
+		Price price(date);
+		CashFlow cashFlow(date);
+		Information information(date);
+	};
+
+	auto s = iterable({1,2,3});
+	cout << s; // [1,2,3]
+	auto t = s|s > 1; // = s|(s > 1)
+	cout << t; // [2,3]
+	cout << t + s; // [3,5,NaN] - keep info
+
+	// stop loss start gain
+	begining_of_week bow(start);
+	end_of_week eow(start);
+	market_close close(start);
+
+	auto t = eow ^ bow ^ close || eow; // = eow ^ bow ^ (close || eow)
+	auto s = X[t]; // X market price at t
+	while (const auto& o : s) { // o is variant for the disjoint union
+		switch (v.index()) {
+			case 0: // eow
+		}
+	}
+
+	auto lwc = X[end_of_week]
+```
