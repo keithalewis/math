@@ -5,6 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2022-09-28" />
   <title>Variance Swaps</title>
   <style>
     code{white-space: pre-wrap;}
@@ -44,6 +45,7 @@
 <header id="title-block-header">
 <h1 class="title">Variance Swaps</h1>
 <p class="author">Keith A. Lewis</p>
+<p class="date">September 28, 2022</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage risk of variance swaps.
@@ -51,8 +53,49 @@ Value, hedge, and manage risk of variance swaps.
 </header>
 <p>A variance swap pays the sum of the squares of realized return over a
 period. It provides exposure to volatility no matter the level of the
-underlying. Unlike a call or put option it never goes
-out-of-the-money.</p>
+underlying. Unlike a call or put option it never goes out-of-the-money.
+The most remarkable fact about variance swaps is that they do not
+require a mathematical model of the underlying price, only futures on
+the underlying and puts and calls that expire at the maturity of the
+variance swap.</p>
+<section id="one-period" class="level2">
+<h2>One Period</h2>
+<p>Consider an underlying with price <span class="math inline">x</span>
+at the beginning of a period and price <span
+class="math inline">X</span> at the end of the period. Consider an
+option with payoff <span class="math inline">(X - x)^2</span> at the end
+of the period having price <span class="math inline">A</span>. If an
+option with payoff <span class="math inline">X^2 - x^2</span> has price
+<span class="math inline">B</span> and the forward paying <span
+class="math inline">X - x</span> has price 0 then <span
+class="math inline">A = B</span>. This follows from the elementary
+formula <span class="math display">
+    X^2 - x^2 = 2x(X - x) + (X - x)^2.
+</span> Note this is Taylor’s formula for <span class="math inline">f(x)
+= x^2</span> since cubic and higher order terms are 0. Either contract
+can be used to replicate the other using the 0 price forward contract.
+If the price of the forward is <span class="math inline">C</span> then
+<span class="math inline">B = 2xC + A</span>. Note this provides a
+perfect hedge no matter the value of <span
+class="math inline">X</span>.</p>
+<p>A more realistic one period model has payoff <span
+class="math inline">(\log X/x)^2</span>, the square of the realized
+return. Recall Taylor’s formula with remainder for sufficiently
+differentiable <span class="math inline">f</span> is <span
+class="math display">
+    f(x) = \sum_{k=0}^n f^{(k)}(a) (x-a)^k/k! + \int_a^x f^{(n+1)}(t) (x
+- t)^n/n!\,dt
+</span> If <span class="math inline">f(x) = \log x</span> then <span
+class="math inline">f&#39;(x) = 1/x</span>, <span
+class="math inline">f&#39;&#39;(x) = -1/x^2</span>, <span
+class="math inline">f&#39;&#39;&#39;(x) = 2/x^3</span> so <span
+class="math display">
+    \log X/x = \log X - \log x = (1/x)(X - x) - (1/x^2)(X - x)^2/2 +
+\int_x^X 2/t^3(X - t)^2/2\,dt
+</span></p>
+</section>
+<section id="contract" class="level2">
+<h2>Contract</h2>
 <p>Contracts are specified by an underlying instrument and observation
 times. If the level of the underlying is <span
 class="math inline">X_t</span> at time <span
@@ -94,7 +137,7 @@ X/X)^4)</span></em>.</p>
 <summary>
 Solution
 </summary>
-<span class="math inline">(a - b)^2 = a^2 - 2ab + b^</span>.
+<span class="math inline">(a - b)^2 = a^2 - 2ab + b^2</span>.
 </details>
 <p>Continuous time mathematical treatments specify the the first term of
 the payoff as <span class="math inline">(1/t)\int_0^t (d\log
@@ -104,9 +147,9 @@ process satisfying <span class="math inline">dX/X = \mu\,dt +
 (1/2)(dX/X)^2 = \mu\,dt + \sigma\,dB - (1/2)\sigma^2\,dt</span> so <span
 class="math inline">(d\log X)^2 = \sigma^2\,dt</span> and <span
 class="math inline">\int_0^t (d\log X_s)^2\,d = \int_0^t
-\sigma^2\,ds</span>. Under a risk-neutral measure <span
-class="math inline">\sigma_0^2 = (1/t)E[\int_0^t (d\log
-X_s)^2\,ds]</span>.</p>
+\sigma^2\,ds</span>. Under a risk-neutral measure the par variance is
+<span class="math inline">\sigma_0^2 = (1/t)E[\int_0^t
+\sigma^2\,ds]</span>.</p>
 <p>The astounding thing about variance swaps is that valuing and hedging
 them do not require any assumptions on a model for the dynamics of the
 underlying. They only require futures and options traded at a
@@ -152,11 +195,56 @@ class="math inline">R_j</span>. The static hedge can be approximated
 with puts and calls using the Carr-Madan formula. If <span
 class="math inline">z = X_0</span> then the initial furtures hedge is
 zero.</p>
+</section>
+<section id="static-hedge" class="level2">
+<h2>Static Hedge</h2>
+<p>The static hedge is <span class="math inline">-2\log X_n/X_0 + (X_n -
+X_0)/z</span> can be approximately replicated with a cash position, a
+forward, and a portfolio of puts and calls. Recall the Carr-Madan
+formula for a twice differentiable function <span
+class="math inline">f\colon [0, \infty)\to\RR</span> is <span
+class="math display">
+    f(x) = f(a) + f&#39;(a)(x - a) + \int_0^a f&#39;&#39;(k) (k - x)^+
+\, dk + \int_a^\infty f&#39;&#39;(k) (x - k)^+\,dk
+</span> If puts with strikes <span class="math inline">(L_j)</span> and
+calls with strikes <span class="math inline">(H_j)</span> are available
+at <span class="math inline">t_n</span> then given <span
+class="math inline">K</span> we consider the piecewise continuous linear
+function <span class="math inline">\tilde{f}</span> determined by by the
+points <span class="math inline">(L_j, f(L_j))</span>, <span
+class="math inline">L_j &lt; K</span>, and <span
+class="math inline">(H_j, f(H_j))</span>, <span class="math inline">H_j
+\ge K</span>. We assume linear extrapolation on the left using the two
+lowest put strikes and on the right by the two highest call strikes.
+Typically <span class="math inline">K</span> is chosen to be close to
+the at-the-money forward at option expiration.</p>
+<p>the Carr-Madan formula is <span class="math display">
+    -2\log K/X_0 + (K - X_0)/z + (2/K - 2/z)(K - X_0)
+</span></p>
+</section>
+<section id="dynamic-hedge" class="level2">
+<h2>Dynamic Hedge</h2>
+</section>
+<section id="cubic-term" class="level2">
+<h2>Cubic Term</h2>
+<p>The cubic term typically describes 95% of variance swap P&amp;L over
+each period.</p>
 <p>Since <span class="math inline">f&#39;&#39;&#39;(x) = -4/x^3</span>
 the error term <span class="math inline">R_j</span> over the period
 <span class="math inline">[t_j, t_{j+1}]</span> is <span
 class="math inline">R_j = (1/2)\int_{X_j}^{X_{j+1}} -4/t^3 (X_{j+1} -
-t)^2\, dt</span>.</p>
+t)^2\, dt</span>. Using <span class="math inline">t</span> is between
+<span class="math inline">X_j</span> and <span
+class="math inline">X_{j+1}</span> we have <span class="math display">
+\begin{aligned}
+    |R_j| &amp;\le \frac{2}{\min\{X_j, X_{j+1}\}^3}
+\left|\int_{X_j}^{X_{j+1}} (X_{j+1} - t)^2\, dt\right| \\
+        &amp;= \frac{2}{\min\{X_j, X_{j+1}\}^3} \frac{1}{3}|X_{j+1} -
+X_j|^3 \\
+        &amp;= \frac{2}{3} \frac{|\Delta X_j|^3}{\min\{X_j, X_{j+1}\}^3}
+\end{aligned}
+</span></p>
+</section>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

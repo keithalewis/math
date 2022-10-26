@@ -10,14 +10,16 @@ CSS = math.css
 
 FLAGS  = -f markdown+definition_lists+raw_html+pipe_tables
 FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
-TEXFLAGS = --pdf-engine=xelatex
+TEXFLAGS = --pdf-engine=xelatex 
 FLAGS += -t html5
 FLAGS += -s # smart quotes
 FLAGS += --katex=$(KATEX)
 #FLAGS += --katex=katex/
 FLAGS += --css math.css
 FLAGS += -A FOOTER.md
-TEXFLAGS +=  -M date="$(shell date "+%B %e, %Y")"
+FLAGS += --metadata date="$(shell date "+%B %e, %Y")"
+TEXFLAGS += --metadata date="$(shell date "+%B %e, %Y")"
+#TEXFLAGS +=  -M date="$(shell date "+%B %e, %Y")"
 #FLAGS += --toc
 #FLAGS += -B katex.tex
 FLAGS += --reference-location=block

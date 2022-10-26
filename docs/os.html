@@ -5,7 +5,6 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2022-09-28" />
   <title>Totally Ordered Streams</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,69 +44,52 @@
 <header id="title-block-header">
 <h1 class="title">Totally Ordered Streams</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 28, 2022</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Totally ordered streams.
 </div>
 </header>
 
-<p>There is a 1-1 correspondence between ordered sequences and
-<em>iterables</em>. An iterable is a subset <span
-class="math inline">S\subseteq T</span> with operations <span
-class="math inline">*\colon S\to T</span>, <span
-class="math inline">+\colon S\to S</span>, and <span
-class="math inline">?S</span> indicating <span
-class="math inline">S</span> is non-empty. It corresponds to the
-sequence <span class="math inline">(*S, *+S, *++S, \ldots)</span> of
-elements in <span class="math inline">T</span>.</p>
-<p>If <span class="math inline">T</span> is totally ordered finite
-subset of <span class="math inline">T</span> we define an iterable by
-<span class="math inline">*S = \min\{s\in S\}</span> and <span
-class="math inline">+S = S\setminus\{*S\}</span>. The corresponding
-sequence has length equal to the cardinality of <span
-class="math inline">S</span>.</p>
-<section id="filter" class="level2">
-<h2>Filter</h2>
-<p>Given a predicate <span class="math inline">P</span> on define <span
-class="math inline">S\mid P</span> by <span class="math inline">*(S\mid
-P) = *S</span> if <span class="math inline">P(*S)</span> and <span
-class="math inline">*(S\mid P) = *(+S\mid P)</span> otherwise. Define
-<span class="math inline">+(S\mid P) = +S</span> if <span
-class="math inline">P(*+S)</span> and <span class="math inline">+(S\mid
-P) = +(+S\mid P)</span> otherwise. We call this <span
+<p>Let <span class="math inline">\bm{N}</span> be the set of natural
+numbers and <span class="math inline">[m,n)</span> be the set of natural
+numbers <span class="math inline">\{i\in\bm{N}\mid m\le i\lt n\}</span>.
+Let <span class="math inline">[m,\infty) = \{i\in\bm{N}\mid m\le
+i\}</span>.</p>
+<p>Define <span class="math inline">&gt;_k\colon [m,n) \to [m + k, n +
+k)</span> by <span class="math inline">&gt;_k(i) = i + k</span>, <span
+class="math inline">k\ge 0</span>.</p>
+<p>Let <span class="math inline">T</span> be any set with a total order.
+For a function <span class="math inline">S\colon n\to T</span> define
+$*S For any discrete <span class="math inline">S\subseteq T</span>
+define <span class="math display">
+\begin{aligned}
+*S &amp;= \min\{s\in S\} \\
++S &amp;= S\setminus\{*S\} \\
+?S &amp;= S \not= \emptyset \\
+\end{aligned}
+</span> This allows us to identify <span class="math inline">S</span>
+with an element of <span class="math inline">T^\bm{N}=
+\{S\colon\bm{N}\to T\}</span> where <span class="math inline">S(n) =
+*+^nS</span> using right to left precedence.</p>
+<p>Given <span class="math inline">P\colon T\to\bm{\text{bool}}</span>
+define <span class="math inline">S\mid P</span> by <span
+class="math inline">*(S\mid P) = *S</span> if <span
+class="math inline">P(*S)</span> and <span class="math inline">*(S\mid
+P) = *+(S\mid P)</span> otherwise. We call this <span
 class="math inline">S</span> <em>given</em> <span
 class="math inline">P</span>, or <span class="math inline">S</span>
 <em>filter</em> <span class="math inline">P</span>.</p>
-<p><strong>Exercise</strong> <em>Show <span class="math inline">s\in
-(S\mid P)</span> if and only if <span class="math inline">s\in S</span>
-and <span class="math inline">P(s)</span></em>.</p>
-</section>
-<section id="mask" class="level2">
-<h2>Mask</h2>
-<p>If <span class="math inline">Q</span> is a boolean valued iterable we
-use the same notation for the iterable <span class="math inline">S\mid
-Q</span>. Define <span class="math inline">*(S\mid Q) = *S</span> if
-<span class="math inline">*Q</span> and <span
-class="math inline">*(S\mid Q) = *(+S\mid +Q)</span> otherwise. Define
-<span class="math inline">+(S\mid Q) = (+S\mid +Q)</span> if <span
-class="math inline">*+Q</span> and <span class="math inline">+(S\mid Q)
-= (++S\mid ++Q)</span> otherwise. We call this <span
-class="math inline">S</span> <em>mask</em> <span
-class="math inline">Q</span>.</p>
-<p><strong>Exercise</strong> <em>Show <span class="math inline">s\in
-(S\mid Q)</span> if and only if and <span class="math inline">s =
-*+^nS</span> and <span class="math inline">*+^nQ</span> for some <span
-class="math inline">n</span></em>.</p>
-</section>
-<section id="relation" class="level2">
-<h2>Relation</h2>
+<p>If <span class="math inline">Q\in\bool^*</span></p>
 <p>If <span class="math inline">R</span> is a relation on <span
-class="math inline">T\supseteq S</span> and <span
-class="math inline">t\in T</span> we write <span
-class="math inline">SRt</span> for <span class="math inline">S\mid
-P</span> where <span class="math inline">P(s) = sRt</span>, i.e., <span
-class="math inline">(s,t)\in R</span>.</p>
+class="math inline">T</span> and <span class="math inline">t\in T</span>
+we write <span class="math inline">SRt</span> for <span
+class="math inline">S\mid P</span> where <span class="math inline">P(s)
+= sRt</span>, i.e., <span class="math inline">(s,t)\in R</span>. Note
+<span class="math inline">+S = S&gt;*S</span>.</p>
+<p>For <span class="math inline">n\in N</span> define <span
+class="math inline">nS</span> by <span class="math inline">*nS = (*S,
+*+S, ..., *+^{n-1}S)</span> and <span class="math inline">+nS =
++S</span>.</p>
 <p>Recall the <em>disjoint union</em> <span
 class="math inline">S_0\sqcup S_1 = \{(i,s)\mid i\in 2, s\in
 S_i\}</span> where <span class="math inline">2 = \{0,1\}</span>. Define
@@ -128,7 +110,6 @@ t</span>.</p>
 class="math inline">(X_t)</span> is right continuouse and <span
 class="math inline">T^a = \min\{t\mid X_t \ge a\}</span> then <span
 class="math inline">1_{T\ge t}</span> is left continuous</em>.</p>
-</section>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>
