@@ -42,11 +42,11 @@ $$
 	\frac{1}{2}\Var(\xi\cdot X) - \lambda(\xi\cdot x - 1) - \mu(E[\xi\cdot X] - R)
 $$
 
-If $\Sigma = E[XX'] - E[X]E[X']$, where prime denotes transpose, then the first order condition is
+If $\Sigma = E[XX'] - E[X]E[X']$, where prime denotes transpose, then the first order conditions are
 $$
 	0 = \xi'\Sigma - \lambda x' - \mu E[X']
 $$
-where $\xi\cdot x = 1$ and $E[\xi\cdot X] = R$. Assuming $\Sigma$ is invertible
+where $0 = \xi\cdot x - 1$ and $0 = E[\xi\cdot X] - R$. Assuming $\Sigma$ is invertible
 $$
 	\xi = \Sigma^{-1}(\lambda x - \mu E[X]).
 $$
@@ -61,11 +61,11 @@ multipliers by minimizing
 $$
 	E[\xi\cdot X] - \lambda(\xi\cdot x - 1) - \frac{\mu}{2}(\Var(\xi\cdot X) - V)
 $$
-The first order condition is
+The first order conditions are
 $$
 	0 = E[X'] - \lambda x' - \mu \xi'\Sigma
 $$
-where $\xi\cdot x = 1$ and $\Var(\xi\cdot X) = V$. Assuming $\Sigma$ is invertible
+where $0 = \xi\cdot x - 1$ and $0 = \Var(\xi\cdot X) - V$. Assuming $\Sigma$ is invertible
 $$
 	\xi = \Sigma^{-1}(E[X] - \lambda x)/\mu.
 $$
@@ -105,6 +105,10 @@ The usual CAPM formula is $E[R_\xi] - R_\zeta = \beta(E[R_\mu] - R_\zeta)$
 but a much stronger result holds: there is an equality between random variables,
 not just their expectations.
 
+## Remarks
+
+If $\Sigma$ is not invertible then there are redundent market instruments.
+These can be removed to ensure $\Sigma$ is invertible.
 
 <!--
 
