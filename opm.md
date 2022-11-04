@@ -30,7 +30,7 @@ If $\xi\cdot x\not=0$ there exists $t\in\RR$ with $t\xi\cdot x = 1$
 so $R_{t\xi} = \xi\cdot X$. One unit invested proportional to $\xi$
 returns this amount.
 
-Assume $P$ is a probability measure on $\Omega$.
+Assume a probability measure on $\Omega$. This note provides no guidence on how to do that.
 
 A portfolio $\xi\in\RR^I$ is _efficient_ if $\Var(R_\xi) \le \Var(R_\eta)$
 whenever $E[R_\xi] = E[R_\eta]$, $\eta\in\RR^I$.
