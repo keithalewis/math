@@ -67,6 +67,6 @@ Note $f_t(t) = r + \sigma B_t = f_t$.
 
 __Exercise__. _Show $E[f_t] - f(t) = \sigma^2t/2$_.
 
-The difference between the futures and forward rate is called _convexity_.
+The difference between the futures quote and forward rate is called _convexity_.
 
-The argument above can be generalized to the case $r$ and $\sigma$ are functions of time.
+__Exercise__. _Find a the formula for $D_t(u)$ when $r = r(t)$ is a function of time_.
