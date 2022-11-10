@@ -78,16 +78,21 @@ for $a\in\RR$, $\mu,\nu\in ba(\Omega)$, $A\subseteq\Omega$.
 
 ## Integration
 
-Integration is a linear functional $M\colon\RR^\Omega\to\RR$, i.e.,
+Integration is a linear functional $M\colon\RR^\Omega\to\RR$:
 $M(af) = aMf$ and $M(f + g) = Mf + Mg$, $a\in\RR$, $f,g\in\RR^\Omega$.
 Each linear functional $M$ determines a measure $\mu$ by
-$\mu(A) = M1_A$, where $1_A\in\RR^\Omega$ is
+$\mu(A) = M1_A$, $A\subseteq\Omega$, where $1_A\in\RR^\Omega$ is
 the _indicator function_ defined by
 $1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\not\in A$.
 
 __Exercise__. _Show $\mu$ is a measure_.
 
 _Hint_: $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$ and $1_\emptyset = 0$.
+
+__Exercise__. _Show $\mathcal{P}(\Omega)$ can be identified with $\{0,1\}^\Omega$_.
+
+_Hint_: $A\subset\Omega$ corresponds to $1_A\in \{0,1\}^\Omega$.
+We also write $2^\Omega$ for this where $2 = \{0,1\}$.
 
 Each measure $\mu$ determines a linear functional on a subspace of $\RR^\Omega$.
 Functions that are finite linear combinations of indicator functions are called _elementary_.
@@ -126,8 +131,13 @@ _Hint_: Consider when $\omega\in A_j$.
 This shows $M$ is well-defined.
 
 Given a linear functional $M$ on $\RR^\Omega$ we always have a measure $\mu$ on $\Omega$
-given by $\mu(A) = M1_A$. A measure only determines a linear functional on a subspace
-of $\RR^\Omega$.
+given by $\mu(A) = M1_A$. A measure only determines a linear functional on the subspace
+of elementary functions in $\RR^\Omega$.
+
+If $\Omega$ is finite then every function is elementary since
+$f = \sum_{\omega\in\Omega} f(\omega) 1_{\{\omega\}}$
+
+We write $Mf = \int_\Omega f\,d\mu$.
 
 ## Bounded Function
 
@@ -182,7 +192,7 @@ __Exercise__. _Show $\|f - \sum_j a_j 1_{A_j}\| \le \max_{0\le j < n} a_{j + 1} 
 For any $N$ and any $\epsilon > 0$ we can find a partition with $\max_{0\le j < n} a_{j + 1} - a_j < \epsilon$.
 
 This shows $B(\Omega)^*$ is in 1-to-1 correspondence with $ba(\Omega)$.
-The map $M\mapsto\mu$ is linear and continuous. We write $Mf = \int_\Omega f\,d\mu$.
+The map $M\mapsto\mu$ is linear and continuous.
 
 __Exercise__. _Show the map is isometric_.
 
@@ -208,10 +218,11 @@ to the singleton partition $\{\Omega\}$.
 
 ### Partition
 
-A _partition_ of a set $\Omega$ is a collection of subsets of $\Omega$ that
-are pairwise disjoint and have union $\Omega$. Every $\omega\in\Omega$
-belongs to a unique set, $A_\omega$, in the partition.
-We call $A_\omega$ the _atom_ containing $\omega$.
+Partial information is modeled by a _partition_ of a set $\Omega$:
+a collection of subsets of $\Omega$ that are pairwise disjoint and
+have union $\Omega$. Every $\omega\in\Omega$ belongs to a unique set,
+$A_\omega$, in the partition.  We call $A_\omega$ the _atom_ containing
+$\omega$.
 
 __Exercise__. _Show either $A_\omega = A_{\omega'}$ or $A_\omega\cap A_{\omega'} = \emptyset$
 for $\omega,\omega'\in\Omega$_.
@@ -230,19 +241,28 @@ show $\{A_\omega\mid\omega\in\Omega\}$ is a partition.
 
 ### Algebra of Sets
 
-An _algebra of sets_ on $\Omega$ is a subset
-of $2^\Omega$ closed under complement and union.
-This is necessary in order to talk about an event not
-occuring or either of two events occuring.
+An _algebra of sets_ on $\Omega$ is a subset of the power set of $\Omega$
+that is closed under complement and union.  Sets in the algebra are
+called _events_.  These conditions are necessary in order to talk about
+an event not occuring or either of two events occuring.
+If $E$ is an event then "not E" corresponds to $\Omega\setminus E$.
+if $E$ and $F$ are events then "E or F" corresponds to $E\cup F$.
 
 __Exercise__. _Show algebras are closed under intersection_.
 
 _Hint_: De Morgan.
 
 If $E$ and $F$ are events in the algebra then "E and F" corresponds
-to the event $E\cap F$ in the algebra.
+to the event $E\cap F$.
 
 __Exercise__. _If $\AA$ and $\AA'$ are algebras then $\AA\cap\AA'$ is an algebra_.
+
+__Extra Credit__. _Find algebras $\AA$ and $\AA'$ where $\AA\cup\AA'$ is not an algebra_.
+
+Given any collection of subsets $\BB$ of $\Omega$ define $\Alg\BB$ to be
+the smallest algebra containing $\BB$.
+
+__Exercise__ _Show $\Alg\BB$ is the intersection of all algebras containing $\BB$_.
 
 If $\AA$ is an algebra let $A_\omega = \cap\{A\in\AA\mid\omega\in A\}$, $\omega\in\Omega$.
 
@@ -251,45 +271,30 @@ for $\omega,\omega'\in\Omega$_.
 
 __Exercise__. _If $\AA$ is an algebra then $\{A_\omega\mid\omega\in\Omega\}$ is a parition_.
 
-Given any collection $\BB$ of subsets of $\Omega$ let $\Alg\BB$ be
-the smallest algebra of sets on $\Omega$ containing $\BB$.
-
 __Exercise__. _If $\AA$ is an algebra show $\AA = \Alg\{A_\omega\mid\omega\in\Omega\}$_.
 
 This shows algebras are in 1-to-1 correspondence with their partition of atoms.
-We will use $\AA$ to represent either the algebra or partition.
+We will use $\AA$ to denote either the algebra or partition.
 
-## Integration
+## Measurable
 
-A _linear functional_ on a vector space $V$ is a linear transformation from $V$ to $\RR$.
-The dual $V^*$ is the set of all linear functionals on $V$.
+If $\AA$ is an algebra on $\Omega$ and $f\colon\Omega\to\RR$ then
+$f$ is $\AA$-measurable if $\{\omega\mid f(\omega) \le a\}$ belongs
+to $\AA$ for every $a\in\RR$.
 
-The set of all subset of a set $\Omega$ can be identified with $\{0,1\}^\Omega$.
-For $A\subseteq\Omega$ define the _indicator function_ $1_A\colon\Omega\to\RR$ by
-$1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\not\in A$.
-The set of all subsets is also written as $2^\Omega$ where $2 = \{0,1\}$.
+__Exercise__. _If $\AA$ is finite then $f\colon\Omega\to\RR$ is
+measurable if and only if $f$ is constant on the atoms of $\AA$_.
 
-For $A\subseteq\Omega$ define the _indicator function_ $1_A$ by
-$1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\not\in A$.
+This shows $f$ is measurable if and only if $f\colon\AA\to\RR$ is
+a function on the atoms of $\AA$.
 
-If $F$ is a linear functional on $\RR^\Omega$ then we can define a function from subsets of $\Omega$ to $\RR$
-by $\phi(A) = F1_A$.
+The atoms of $\AA$ are a set so the theory of integration above applies.
+$B(\AA)$ is the set of bounded $\AA$ measurable functions. Its
+dual $B(\AA)^*$ is isometrically isomorphic to $ba(\AA)$, the
+set of all measures on $\AA$.
 
-__Exercise__. _Show $\phi$ is a measure_.
 
-_Hint_: Use $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$ and $1_\emptyset = 0$ to show
-$\phi(A\cup B) = \phi(A) + \phi(B) - \phi(A\cap B)$ and $\phi(\emptyset) = 0$.
-
-Given a set $\Omega$ let $B(\Omega)$ be the vector space of bounded
-functions on $\Omega$. A function $f\colon\Omega\to\RR$ is bounded
-if there exists $M\in\RR$ with $|f(\omega)| \le M$ for all $\omega\in\Omega$.
-The _norm_ of $f\in B(\Omega)$ is $\|f\| = \sup\{|f(\omega)|\mid \omega\in\Omega\}$.
-The norm is _complete_ so $B(\Omega)$ is a Banach space.
-
-__Exercise__. _Show the set of finite linear combinations $\sum_j a_j 1_{A_j}$
-is dense in $B(\Omega)$_.
-
-_Hint_: If $f\in B(\Omega)$ and $\epsilon > 0$ ...
+<!--
 
 Every function implemented on a computer is bounded. 
 The proxy for the set of real numbers $\RR$ are floating point numbers
@@ -298,17 +303,4 @@ The largest floating point nummber that can be represented using 64 bits
 in the [IEEE 754 standard](https://www.computer.org/csdl/magazine/co/2019/12/08909942/1f8KFWxbTCU)
 is approximately `1.79769e+308`.
 
-
-If $V$ is a Banach space then $V^*$ is the set of bounded linear functional.
-
-Any function from subsets of $\Omega$ to $\RR$ satisfying these conditions
-is a _measure_. Measures do not count things twice and the measure
-of nothing is zero.  The set of measures on $\Omega$
-form a vector space under setwise scalar multiplication and addition:
-$(a\phi)(A) = a\phi(A)$ and $(\phi + \psi)(A) = \phi(A) + \psi(A)$,
-for $a\in\RR$, $\phi,\psi$ measures, $A\subseteq\Omega$.
-
-If $\phi$ is a measure on $\Omega$ we can define a linear functional on $F\colon B(\Omega)\to\RR$
-by $F(1_A) = \phi(A)$, $A\subseteq\Omega$, and extend it using linearity.
-
-__Exercise__. _Show $\sum_j a_j 1_{A_j} = \sum_k b_k 1_{B_k}$ where $\{B_k\}$ are pairwise disjoint_.
+-->
