@@ -1,59 +1,65 @@
 ---
-title: Zero Coupon Bonds
+title: Ho-Lee
 author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: Moving fixed cash flows through time.
+abstract: Normal short rate.
 ...
 
 \newcommand\mb[1]{\mathbf{#1}}
+\newcommand{\Var}{\operatorname{Var}}
 
-A _zero coupon bond_ paying 1 unit at time $t$ has _price/discount_ $D(t)$.
-Equivalently, 1 unit invested now can be redeemed at the _realized return_ $R(t) = 1/D(t)$ at time $t$.
-The _forward realized return_ over the period from time $t$ to time $u$
-is denoted $R(t,u)$, so $R(0,t) = R(t)$, $a$ units invested at $t$ can be redeemed
-for $aR(t,u)$ at time $u$.
-The _forward discount_ over the period from $t$ to $u$ is $D(t,u) = 1/R(t,u)$.
-Note $R(t) = R(0,t)$ and $D(t) = D(0,t)$.
+The Ho-Lee model assumes the stochastic short rate process is 
+$f_t = r + \sigma B_t$ where $r$ and $\sigma$ are constant
+and $B_t$ is standard Brownian motion.
 
-What economists call _the law of one price_ can be used to show
-how the realized return $R(t,u)$ at time $t$ in the future or recieving
-one unit at $u > t$ is determined
-by today's realized return $R(t) = R(0,t)$.
-Investing one unit today pays $R(u)$ at time $u$.
-We can also invest one unit today and receive $R(t)$ at time $t < u$, then reinvest that
-at time $t$ to get $R(t)R(t,u)$ at time $u$. This shows $R(u) = R(t)R(t,u)$
-so $R(t,u) = R(u)/R(t)$. In terms of discounts $D(t,u) = D(u)/D(t)$.
+The stochastic discount is $D_t = \exp(-\int_0^t f_s\,ds) = 
+\exp(-\int_0^t r + \sigma B_s\,ds) = \exp(-rt - \sigma\int_0^t B_s\,ds)$.
 
-Mathematicians like to work with discounts but traders prefer to work in terms of rates.
-There are various conventions of converting rates to discounts.
+__Exercise__. _Show $\int_0^t B_s\,ds = t B_t - \int_0^t s dB_s$_.
 
-The _spot_ rate, or _yield_, $r(t)$ is determined by $D(t) = \exp(-tr(t))$.
-It is the constant rate that recovers the price of the zero coupon bond.
+_Hint_: $d(t B_t) = B_t\,dt + t dB_t$ since $dt\,dB = 0$.
 
-The _forward_ rate $f(t)$ is determined by $D(t) = \exp(-\int_0^t f(s)\,ds)$.
+This shows $D_t = \exp(-rt - \sigma tB_t + \sigma \int_0^t s\,dB_s)$.
 
-__Exercise__. _Show $r(t) = (1/t)\int_0^t f(s)\,ds$_.
+__Exercise__. _If $dX_t/X_t = \Sigma(t)\,dB_t$ and $X_0 = 1$ then
+$X_t = \exp(-\frac{1}{2}\int_0^t \Sigma(s)^2\,ds + \int_0^t \Sigma(s)\,dB_s)$_.
 
-The spot rate is the average of the forward rate.
+_Hint_: $d\log X_t = (1/X_t)\,dX_t + \frac{1}{2}(-1/X_t^2)\,dX_t^2 = \Sigma(t)\,dB_t - \frac{1}{2}\Sigma(t)^2\,dt$
+by Ito's formula.
 
-__Exercise__. _Show $f(t) = r(t) + tr'(t)$_.
+__Exercise__. _Show $E_t[\exp(\int_t^u \Sigma(s)\,dB_s)] = \exp(\frac{1}{2}\int_t^u \Sigma(s)^2\,ds)$_.
 
-__Exercise__. _Show any one for $D(t)$, $r(t)$, and $f(t)$ determine the other two_.
+_Hint_: $X_t$ is a martingale. Note the right-hand side is not random.
 
-Note $f(t) = r(t)$ when $r'(t) = 0$. If $r(t)$ has local bumps this formula magnifies those
-when its derivative is large.
-It is better to work numerically with forward rates.
+The price at time $t$ of a zero coupon bond maturing at time $u$, $D_t(u)$,
+satisfies $D_t(u)D_t = E_t[D_u]$ so
 
-The _forward spot_ $r(t,u)$ is defined by $D(t,u) = \exp(-(u - t)r(t,u))$.
+$$
+\begin{aligned}
+D_t(u) &= E_t[D_u/D_t] \\
+	&= E_t[\exp(-r(u - t) - \sigma (u B_u - t B_t) + \int_t^u \sigma s\,dB_s)] \\
+	&= E_t[\exp(-r(u - t) - \sigma (u B_u - u B_t + u B_t - t B_t) + \int_t^u \sigma s\,dB_s)] \\
+	&= E_t[\exp(-r(u - t) - \sigma u \int_t^u\,dB_s + \sigma(u - t) B_t + \int_t^u \sigma s\,dB_s)] \\
+	&= E_t[\exp(-r(u - t) + \sigma(u - t) B_t + \int_t^u \sigma(s - u)\,dB_s)] \\
+	&= \exp(-r(u - t) + \sigma(u - t) B_t + \frac{1}{2}\int_t^u \sigma^2(s - u)^2\,ds) \\
+\end{aligned}
+$$
 
-__Exercise__. _Use $D(t,u) = D(u)/D(t)$ to show $r(t,u) = (ur(u) - tr(t))/(u - t)$_.
+__Exercise__. _Show $\int_t^u (s - u)^2\,ds = (u - t)^3/3$_.
 
-The _forward forward_ $f(t,u)$ is defined by $D(t,u) = \exp(-\int_t^u f(s)\,ds)$.
+In the Ho-Lee model the dynamics of zero coupon bond prices are
+$$
+	D_t(u) = \exp(-r(u - t) + \frac{1}{6}\sigma^2(u - t)^3 + \sigma(u - t) B_t).
+$$
+In particular, the discount to time $t$ is $D(t) = D_0(t) = \exp(-rt + \sigma^2 t^3/6)$.
 
-__Exercise__. _Use $D(t,u) = D(u)/D(t)$ to show $f(t,u) = f(u)$, $u\ge t$_.
+__Exercise__. _Show the forward curve is $f(t) = r - \sigma^2 t^2/2$_.
 
-It is simple to convert the forward today into the forward forward at $t$,
-just chop off the interval $[0,t]$.
+_Hint_: $D(t) = \exp(-\int_0^t f(s)\,ds)$.
+
+Define the _forward forward_ curve at time $t$, $f_t(u)$, by $D_t(u) = \exp(-\int_t^u f_t(s)\,ds)$.
+
+__Exercise__. _Show $f_t(u) = r - \sigma^2 (u - t)^2/2 + \sigma B_t$_.
 
