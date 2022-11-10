@@ -69,4 +69,4 @@ __Exercise__. _Show $E[f_t] - f(t) = \sigma^2t/2$_.
 
 The difference between the futures quote and forward rate is called _convexity_.
 
-__Exercise__. _Find a the formula for $D_t(u)$ when $r = r(t)$ is a function of time_.
+__Exercise__. _Find the formula for $D_t(u)$ when $r = r(t)$ is a function of time_.
