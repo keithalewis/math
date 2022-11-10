@@ -63,3 +63,10 @@ Define the _forward forward_ curve at time $t$, $f_t(u)$, by $D_t(u) = \exp(-\in
 
 __Exercise__. _Show $f_t(u) = r - \sigma^2 (u - t)^2/2 + \sigma B_t$_.
 
+Note $f_t(t) = r + \sigma B_t = f_t$.
+
+__Exercise__. _Show $E[f_t] - f(t) = \sigma^2t/2$_.
+
+The difference between the futures and forward rate is called _convexity_.
+
+The argument above can be generalized to the case $r$ and $\sigma$ are functions of time.
