@@ -66,8 +66,8 @@ just chop off the interval $[0,t]$.
 
 ## Stochastic Forward
 
-In a model with stochastic interest rates the forward rate $f(t)$ is not known at time 0.
-Let $f_t$ denote the _continuously compounded short rate_.  It is a random
+Model with stochastic interest rates are completly determined
+by the _continuously compounded short rate_, $f_t$.  It is a random
 variable that corresponds to the unknown _repurchase agreement rate_
 at time $t$. A repurchase agreement specifies a time $t$, an interval $\Delta t$,
 and a rate $r_t$ known at time $t$. One unit invested at time $t$ pays $1 + r_t\Delta t$

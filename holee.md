@@ -59,14 +59,42 @@ __Exercise__. _Show the forward curve is $f(t) = r - \sigma^2 t^2/2$_.
 
 _Hint_: $D(t) = \exp(-\int_0^t f(s)\,ds)$.
 
-Define the _forward forward_ curve at time $t$, $f_t(u)$, by $D_t(u) = \exp(-\int_t^u f_t(s)\,ds)$.
+Define the _stochastic forward_ curve at time $t$, $f_t(u)$, by $D_t(u) = \exp(-\int_t^u f_t(s)\,ds)$.
 
 __Exercise__. _Show $f_t(u) = r - \sigma^2 (u - t)^2/2 + \sigma B_t$_.
 
 Note $f_t(t) = r + \sigma B_t = f_t$.
 
-__Exercise__. _Show $E[f_t] - f(t) = \sigma^2t/2$_.
+__Exercise__. _Show $E[f_t] - f(t) = \sigma^2t^2/2$_.
 
 The difference between the futures quote and forward rate is called _convexity_.
 
 __Exercise__. _Find the formula for $D_t(u)$ when $r = r(t)$ is a function of time_.
+
+We can also allow $\sigma = \sigma(t)$ to be a function of time.
+Let $f_t = r(t) + \sigma(s) B_t$.
+Since $d(\Sigma(t)B_t) = \Sigma'(t)B_t\,dt + \Sigma(t)\,dB_t$ and
+taking $\sigma(s) = \Sigma'(s)$ we have
+$$
+\begin{aligned}
+	E_t[D_u/D_t] &= E_t[\exp(-\int_t^u r(s) + \sigma(s) B_s\,ds)] \\
+	&= E_t[\exp(-\int_t^u r(s)\,ds + d(\Sigma(s)B_s) - \Sigma(s)\,dB_s)] \\
+	&= E_t[\exp(-\int_t^u r(s)\,ds + \Sigma(u)B_u - \Sigma(t)B_t - \int_u^t \Sigma(s)\,dB_s)] \\
+	&= E_t[\exp(-\int_t^u r(s)\,ds + \Sigma(u)B_u - \Sigma(u)B_t + \Sigma(u)B_t - \Sigma(t)B_t - \int_u^t \Sigma(s)\,dB_s)] \\
+	&= E_t[\exp(-\int_t^u r(s)\,ds + \Sigma(u)\int_t^u dB_s + (\Sigma(u) - \Sigma(t))B_t - \int_u^t \Sigma(s)\,dB_s)] \\
+	&= E_t[\exp(-\int_t^u r(s)\,ds + \int_t^u \Sigma(u) - \Sigma(s)\,dB_s + (\Sigma(u) - \Sigma(t))B_t )] \\
+	&= \exp(-\int_t^u r(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) - \Sigma(s))^2\,ds + (\Sigma(u) - \Sigma(t))B_t ) \\
+\end{aligned}
+$$
+
+__Exercise__. _Show the stochastic forward curve is $f_t(u) = r(u) + (\Sigma(u) - \Sigma(s))^3/6 + \sigma(u) B_t$_.
+
+$D_t(u) = e^-int_t^u f_t(s) ds$
+
+d/du -log D_t(80 = f_t(u)
+
+d/du \int_t^u r(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) - \Sigma(s))^2\,ds + (\Sigma(u) - \Sigma(t))B_t 
+
+r(u) + (1/2) ? + sigma(u)B_t
+
+_Hint_: $f_t(u) = \int_t^u r(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) - \Sigma(s))^2\,ds + (\Sigma(u) - \Sigma(t))B_t$.
