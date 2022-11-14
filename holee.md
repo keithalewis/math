@@ -80,21 +80,55 @@ $$
 	E_t[D_u/D_t] &= E_t[\exp(-\int_t^u r(s) + \sigma(s) B_s\,ds)] \\
 	&= E_t[\exp(-\int_t^u r(s)\,ds + d(\Sigma(s)B_s) - \Sigma(s)\,dB_s)] \\
 	&= E_t[\exp(-\int_t^u r(s)\,ds + \Sigma(u)B_u - \Sigma(t)B_t - \int_u^t \Sigma(s)\,dB_s)] \\
-	&= E_t[\exp(-\int_t^u r(s)\,ds + \Sigma(u)B_u - \Sigma(u)B_t + \Sigma(u)B_t - \Sigma(t)B_t - \int_u^t \Sigma(s)\,dB_s)] \\
+	&= E_t[\exp(-\int_t^u r(s)\,ds + (\Sigma(u)B_u - \Sigma(u)B_t + \Sigma(u)B_t - \Sigma(t)B_t)
+		 - \int_u^t \Sigma(s)\,dB_s)] \\
 	&= E_t[\exp(-\int_t^u r(s)\,ds + \Sigma(u)\int_t^u dB_s + (\Sigma(u) - \Sigma(t))B_t - \int_u^t \Sigma(s)\,dB_s)] \\
 	&= E_t[\exp(-\int_t^u r(s)\,ds + \int_t^u \Sigma(u) - \Sigma(s)\,dB_s + (\Sigma(u) - \Sigma(t))B_t )] \\
 	&= \exp(-\int_t^u r(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) - \Sigma(s))^2\,ds + (\Sigma(u) - \Sigma(t))B_t ) \\
 \end{aligned}
 $$
 
-__Exercise__. _Show the stochastic forward curve is $f_t(u) = r(u) + (\Sigma(u) - \Sigma(s))^3/6 + \sigma(u) B_t$_.
+Since $\int_t^u f_t(s)\,ds = \int_t^u r(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) - \Sigma(s))^2\,ds
++ (\Sigma(u) - \Sigma(t))B_t$
+we have 
+$$
+	f_t(u) = r(u) + \sigma(u) \int_t^u (\Sigma(u) - \Sigma(s))\,ds + \sigma(u) B_t
+$$
+using $(d/dx) \int_a^x g(x,s)\,ds = g(x,x) + \int_a^x (\partial/\partial x)g(x,s)\,ds$.
 
-$D_t(u) = e^-int_t^u f_t(s) ds$
+A _forward contract_ is specified by an interval $[t,u]$, a forward rate $f$, and
+a day count basis $\delta$. It has cash flows $-1$ at $t$ and $1 + f\delta(t,u)$ at $u$
+where the day count fraction $\delta(t,u)$ is approximately equal to the time
+in years from $t$ to $u$.
 
-d/du -log D_t(80 = f_t(u)
+__Exercise__. _The price of the forward contract is zero at time $s \le t$ if and only
+if $f = (1/\delta(t,u))(D_s(t)/D_s(u) - 1)$_.
 
-d/du \int_t^u r(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) - \Sigma(s))^2\,ds + (\Sigma(u) - \Sigma(t))B_t 
+_Hint_: $0 = E_s[-D_t + (1 + f\delta)D_u]$.
 
-r(u) + (1/2) ? + sigma(u)B_t
+We call $F_s^\delta(t,u) = (1/\delta(t,u))(D_s(t)/D_s(u) - 1)$
+the _par forward_ at time $s$ over $[t,u]$ for day count basis $\delta$.
 
-_Hint_: $f_t(u) = \int_t^u r(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) - \Sigma(s))^2\,ds + (\Sigma(u) - \Sigma(t))B_t$.
+A _foward contract paying in arrears_ is also specified by an interval
+$[t,u]$, a forward rate $f$, and a day count basis $\delta$.
+It has a single cash flow $(f - F_t(t,u))\delta(t,u)$ at $u$.
+
+A _caplet_ with strike $k$ is a call option on a forward rate.
+It has cash flow $\max\{F_t^\delta(t,u) - k, 0\}$ at time $u$.
+A _floolet_ is a put option on a forward rate.
+It has cash flow $\max\{k - F_t^\delta(t,u), 0\}$ at time $u$.
+
+__Exercise__. _Find a closed form solution for the value of a caplet and floorlet in the Ho-Lee model_.
+
+_Hint_: $F - k = e^N - h$ for some normally distributed random variable $N$ and constant $h$.
+
+## Remarks
+
+An objection to the Ho-Lee model is that is allows
+[negative interest rates](https://www.investopedia.com/articles/investing/070915/how-negative-interest-rates-work.asp).
+This is not an arbitrage violation and has occured in the real world.
+
+The parameterization $f_t = r(1 + \sigma B_t)$ is closer to a lognormal model since $1 + x\approx e^x$
+for small $x$. When using this replace $\sigma$ by $r\sigma$ in the equations above.
+
+A multi-factor model can be specified using multi-dimensional Brownian motion and vector-valued volatility.
