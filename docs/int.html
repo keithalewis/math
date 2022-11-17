@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2022-09-28" />
+  <meta name="dcterms.date" content="2022-11-16" />
   <title>Integration</title>
   <style>
     code{white-space: pre-wrap;}
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -36,7 +36,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -45,7 +45,7 @@
 <header id="title-block-header">
 <h1 class="title">Integration</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 28, 2022</p>
+<p class="date">November 16, 2022</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Integration is a linear functional on a vector space of functions.
@@ -140,17 +140,17 @@ class="math inline">A\subseteq\Omega</span>.</p>
 <section id="integration" class="level2">
 <h2>Integration</h2>
 <p>Integration is a linear functional <span
-class="math inline">M\colon\mathbf{R}^\Omega\to\mathbf{R}</span>, i.e.,
-<span class="math inline">M(af) = aMf</span> and <span
-class="math inline">M(f + g) = Mf + Mg</span>, <span
-class="math inline">a\in\mathbf{R}</span>, <span
-class="math inline">f,g\in\mathbf{R}^\Omega</span>. Each linear
+class="math inline">M\colon\mathbf{R}^\Omega\to\mathbf{R}</span>: <span
+class="math inline">M(af) = aMf</span> and <span class="math inline">M(f
++ g) = Mf + Mg</span>, <span class="math inline">a\in\mathbf{R}</span>,
+<span class="math inline">f,g\in\mathbf{R}^\Omega</span>. Each linear
 functional <span class="math inline">M</span> determines a measure <span
 class="math inline">\mu</span> by <span class="math inline">\mu(A) =
-M1_A</span>, where <span
-class="math inline">1_A\in\mathbf{R}^\Omega</span> is the <em>indicator
-function</em> defined by <span class="math inline">1_A(\omega) =
-1</span> if <span class="math inline">\omega\in A</span> and <span
+M1_A</span>, <span class="math inline">A\subseteq\Omega</span>, where
+<span class="math inline">1_A\in\mathbf{R}^\Omega</span> is the
+<em>indicator function</em> defined by <span
+class="math inline">1_A(\omega) = 1</span> if <span
+class="math inline">\omega\in A</span> and <span
 class="math inline">1_A(\omega) = 0</span> if <span
 class="math inline">\omega\not\in A</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
@@ -158,6 +158,13 @@ class="math inline">\mu</span> is a measure</em>.</p>
 <p><em>Hint</em>: <span class="math inline">1_{A\cup B} = 1_A + 1_B -
 1_{A\cap B}</span> and <span class="math inline">1_\emptyset =
 0</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\mathcal{P}(\Omega)</span> can be identified with
+<span class="math inline">\{0,1\}^\Omega</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">A\subset\Omega</span>
+corresponds to <span class="math inline">1_A\in \{0,1\}^\Omega</span>.
+We also write <span class="math inline">2^\Omega</span> for this where
+<span class="math inline">2 = \{0,1\}</span>.</p>
 <p>Each measure <span class="math inline">\mu</span> determines a linear
 functional on a subspace of <span
 class="math inline">\mathbf{R}^\Omega</span>. Functions that are finite
@@ -209,8 +216,13 @@ class="math inline">\mathbf{R}^\Omega</span> we always have a measure
 <span class="math inline">\mu</span> on <span
 class="math inline">\Omega</span> given by <span
 class="math inline">\mu(A) = M1_A</span>. A measure only determines a
-linear functional on a subspace of <span
+linear functional on the subspace of elementary functions in <span
 class="math inline">\mathbf{R}^\Omega</span>.</p>
+<p>If <span class="math inline">\Omega</span> is finite then every
+function is elementary since <span class="math inline">f =
+\sum_{\omega\in\Omega} f(\omega) 1_{\{\omega\}}</span></p>
+<p>We write <span class="math inline">Mf = \int_\Omega
+f\,d\mu</span>.</p>
 </section>
 <section id="bounded-function" class="level2">
 <h2>Bounded Function</h2>
@@ -299,8 +311,8 @@ class="math inline">\epsilon &gt; 0</span> we can find a partition with
 \epsilon</span>.</p>
 <p>This shows <span class="math inline">B(\Omega)^*</span> is in 1-to-1
 correspondence with <span class="math inline">ba(\Omega)</span>. The map
-<span class="math inline">M\mapsto\mu</span> is linear and continuous.
-We write <span class="math inline">Mf = \int_\Omega f\,d\mu</span>.</p>
+<span class="math inline">M\mapsto\mu</span> is linear and
+continuous.</p>
 <p><strong>Exercise</strong>. <em>Show the map is isometric</em>.</p>
 <p><em>Hint</em>: Show if <span class="math inline">M\mapsto\mu</span>
 then <span class="math inline">\|M\| = \|\mu\|</span>.</p>
@@ -328,10 +340,10 @@ information corresponds to the singleton partition <span
 class="math inline">\{\Omega\}</span>.</p>
 <section id="partition" class="level3">
 <h3>Partition</h3>
-<p>A <em>partition</em> of a set <span class="math inline">\Omega</span>
-is a collection of subsets of <span class="math inline">\Omega</span>
-that are pairwise disjoint and have union <span
-class="math inline">\Omega</span>. Every <span
+<p>Partial information is modeled by a <em>partition</em> of a set <span
+class="math inline">\Omega</span>: a collection of subsets of <span
+class="math inline">\Omega</span> that are pairwise disjoint and have
+union <span class="math inline">\Omega</span>. Every <span
 class="math inline">\omega\in\Omega</span> belongs to a unique set,
 <span class="math inline">A_\omega</span>, in the partition. We call
 <span class="math inline">A_\omega</span> the <em>atom</em> containing
@@ -362,22 +374,41 @@ partition.</p>
 <section id="algebra-of-sets" class="level3">
 <h3>Algebra of Sets</h3>
 <p>An <em>algebra of sets</em> on <span
-class="math inline">\Omega</span> is a subset of <span
-class="math inline">2^\Omega</span> closed under complement and union.
-This is necessary in order to talk about an event not occuring or either
-of two events occuring.</p>
+class="math inline">\Omega</span> is a subset of the power set of <span
+class="math inline">\Omega</span> that is closed under complement and
+union. Sets in the algebra are called <em>events</em>. These conditions
+are necessary in order to talk about an event not occuring or either of
+two events occuring. If <span class="math inline">E</span> is an event
+then “not E” corresponds to <span class="math inline">\Omega\setminus
+E</span>. if <span class="math inline">E</span> and <span
+class="math inline">F</span> are events then “E or F” corresponds to
+<span class="math inline">E\cup F</span>.</p>
 <p><strong>Exercise</strong>. <em>Show algebras are closed under
 intersection</em>.</p>
 <p><em>Hint</em>: De Morgan.</p>
 <p>If <span class="math inline">E</span> and <span
 class="math inline">F</span> are events in the algebra then “E and F”
-corresponds to the event <span class="math inline">E\cap F</span> in the
-algebra.</p>
+corresponds to the event <span class="math inline">E\cap F</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span
 class="math inline">\mathcal{A}</span> and <span
 class="math inline">\mathcal{A}&#39;</span> are algebras then <span
 class="math inline">\mathcal{A}\cap\mathcal{A}&#39;</span> is an
 algebra</em>.</p>
+<p><strong>Extra Credit</strong>. <em>Find algebras <span
+class="math inline">\mathcal{A}</span> and <span
+class="math inline">\mathcal{A}&#39;</span> where <span
+class="math inline">\mathcal{A}\cup\mathcal{A}&#39;</span> is not an
+algebra</em>.</p>
+<p>Given any collection of subsets <span
+class="math inline">\mathcal{B}</span> of <span
+class="math inline">\Omega</span> define <span
+class="math inline">\mathop{\rm{Alg}}\mathcal{B}</span> to be the
+smallest algebra containing <span
+class="math inline">\mathcal{B}</span>.</p>
+<p><strong>Exercise</strong> <em>Show <span
+class="math inline">\mathop{\rm{Alg}}\mathcal{B}</span> is the
+intersection of all algebras containing <span
+class="math inline">\mathcal{B}</span></em>.</p>
 <p>If <span class="math inline">\mathcal{A}</span> is an algebra let
 <span class="math inline">A_\omega = \cap\{A\in\mathcal{A}\mid\omega\in
 A\}</span>, <span class="math inline">\omega\in\Omega</span>.</p>
@@ -389,104 +420,51 @@ class="math inline">A_\omega\cap A_{\omega&#39;} = \emptyset</span> for
 class="math inline">\mathcal{A}</span> is an algebra then <span
 class="math inline">\{A_\omega\mid\omega\in\Omega\}</span> is a
 parition</em>.</p>
-<p>Given any collection <span class="math inline">\mathcal{B}</span> of
-subsets of <span class="math inline">\Omega</span> let <span
-class="math inline">\mathop{\rm{Alg}}\mathcal{B}</span> be the smallest
-algebra of sets on <span class="math inline">\Omega</span> containing
-<span class="math inline">\mathcal{B}</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span
 class="math inline">\mathcal{A}</span> is an algebra show <span
 class="math inline">\mathcal{A}=
 \mathop{\rm{Alg}}\{A_\omega\mid\omega\in\Omega\}</span></em>.</p>
 <p>This shows algebras are in 1-to-1 correspondence with their partition
 of atoms. We will use <span class="math inline">\mathcal{A}</span> to
-represent either the algebra or partition.</p>
+denote either the algebra or partition.</p>
 </section>
 </section>
-<section id="integration-1" class="level2">
-<h2>Integration</h2>
-<p>A <em>linear functional</em> on a vector space <span
-class="math inline">V</span> is a linear transformation from <span
-class="math inline">V</span> to <span
-class="math inline">\mathbf{R}</span>. The dual <span
-class="math inline">V^*</span> is the set of all linear functionals on
-<span class="math inline">V</span>.</p>
-<p>The set of all subset of a set <span
-class="math inline">\Omega</span> can be identified with <span
-class="math inline">\{0,1\}^\Omega</span>. For <span
-class="math inline">A\subseteq\Omega</span> define the <em>indicator
-function</em> <span
-class="math inline">1_A\colon\Omega\to\mathbf{R}</span> by <span
-class="math inline">1_A(\omega) = 1</span> if <span
-class="math inline">\omega\in A</span> and <span
-class="math inline">1_A(\omega) = 0</span> if <span
-class="math inline">\omega\not\in A</span>. The set of all subsets is
-also written as <span class="math inline">2^\Omega</span> where <span
-class="math inline">2 = \{0,1\}</span>.</p>
-<p>For <span class="math inline">A\subseteq\Omega</span> define the
-<em>indicator function</em> <span class="math inline">1_A</span> by
-<span class="math inline">1_A(\omega) = 1</span> if <span
-class="math inline">\omega\in A</span> and <span
-class="math inline">1_A(\omega) = 0</span> if <span
-class="math inline">\omega\not\in A</span>.</p>
-<p>If <span class="math inline">F</span> is a linear functional on <span
-class="math inline">\mathbf{R}^\Omega</span> then we can define a
-function from subsets of <span class="math inline">\Omega</span> to
-<span class="math inline">\mathbf{R}</span> by <span
-class="math inline">\phi(A) = F1_A</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\phi</span> is a measure</em>.</p>
-<p><em>Hint</em>: Use <span class="math inline">1_{A\cup B} = 1_A + 1_B
-- 1_{A\cap B}</span> and <span class="math inline">1_\emptyset =
-0</span> to show <span class="math inline">\phi(A\cup B) = \phi(A) +
-\phi(B) - \phi(A\cap B)</span> and <span
-class="math inline">\phi(\emptyset) = 0</span>.</p>
-<p>Given a set <span class="math inline">\Omega</span> let <span
-class="math inline">B(\Omega)</span> be the vector space of bounded
-functions on <span class="math inline">\Omega</span>. A function <span
-class="math inline">f\colon\Omega\to\mathbf{R}</span> is bounded if
-there exists <span class="math inline">M\in\mathbf{R}</span> with <span
-class="math inline">|f(\omega)| \le M</span> for all <span
-class="math inline">\omega\in\Omega</span>. The <em>norm</em> of <span
-class="math inline">f\in B(\Omega)</span> is <span
-class="math inline">\|f\| = \sup\{|f(\omega)|\mid
-\omega\in\Omega\}</span>. The norm is <em>complete</em> so <span
-class="math inline">B(\Omega)</span> is a Banach space.</p>
-<p><strong>Exercise</strong>. <em>Show the set of finite linear
-combinations <span class="math inline">\sum_j a_j 1_{A_j}</span> is
-dense in <span class="math inline">B(\Omega)</span></em>.</p>
-<p><em>Hint</em>: If <span class="math inline">f\in B(\Omega)</span> and
-<span class="math inline">\epsilon &gt; 0</span> …</p>
-<p>Every function implemented on a computer is bounded. The proxy for
-the set of real numbers <span class="math inline">\mathbf{R}</span> are
-floating point numbers that can be represented in a finite number of
-bits. The largest floating point nummber that can be represented using
-64 bits in the <a
-href="https://www.computer.org/csdl/magazine/co/2019/12/08909942/1f8KFWxbTCU">IEEE
-754 standard</a> is approximately <code>1.79769e+308</code>.</p>
-<p>If <span class="math inline">V</span> is a Banach space then <span
-class="math inline">V^*</span> is the set of bounded linear
-functional.</p>
-<p>Any function from subsets of <span class="math inline">\Omega</span>
-to <span class="math inline">\mathbf{R}</span> satisfying these
-conditions is a <em>measure</em>. Measures do not count things twice and
-the measure of nothing is zero. The set of measures on <span
-class="math inline">\Omega</span> form a vector space under setwise
-scalar multiplication and addition: <span class="math inline">(a\phi)(A)
-= a\phi(A)</span> and <span class="math inline">(\phi + \psi)(A) =
-\phi(A) + \psi(A)</span>, for <span
-class="math inline">a\in\mathbf{R}</span>, <span
-class="math inline">\phi,\psi</span> measures, <span
-class="math inline">A\subseteq\Omega</span>.</p>
-<p>If <span class="math inline">\phi</span> is a measure on <span
-class="math inline">\Omega</span> we can define a linear functional on
-<span class="math inline">F\colon B(\Omega)\to\mathbf{R}</span> by <span
-class="math inline">F(1_A) = \phi(A)</span>, <span
-class="math inline">A\subseteq\Omega</span>, and extend it using
-linearity.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\sum_j
-a_j 1_{A_j} = \sum_k b_k 1_{B_k}</span> where <span
-class="math inline">\{B_k\}</span> are pairwise disjoint</em>.</p>
+<section id="measurable" class="level2">
+<h2>Measurable</h2>
+<p>If <span class="math inline">\mathcal{A}</span> is an algebra on
+<span class="math inline">\Omega</span> and <span
+class="math inline">f\colon\Omega\to\mathbf{R}</span> then <span
+class="math inline">f</span> is <span
+class="math inline">\mathcal{A}</span>-measurable if <span
+class="math inline">\{\omega\mid f(\omega) \le a\}</span> belongs to
+<span class="math inline">\mathcal{A}</span> for every <span
+class="math inline">a\in\mathbf{R}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\mathcal{A}</span> is finite then <span
+class="math inline">f\colon\Omega\to\mathbf{R}</span> is measurable if
+and only if <span class="math inline">f</span> is constant on the atoms
+of <span class="math inline">\mathcal{A}</span></em>.</p>
+<p>This shows <span class="math inline">f</span> is measurable if and
+only if <span class="math inline">f\colon\mathcal{A}\to\mathbf{R}</span>
+is a function on the atoms of <span
+class="math inline">\mathcal{A}</span>.</p>
+<p>The atoms of <span class="math inline">\mathcal{A}</span> are a set
+so the theory of integration above applies. <span
+class="math inline">B(\mathcal{A})</span> is the set of bounded <span
+class="math inline">\mathcal{A}</span> measurable functions. Its dual
+<span class="math inline">B(\mathcal{A})^*</span> is isometrically
+isomorphic to <span class="math inline">ba(\mathcal{A})</span>, the set
+of all measures on <span class="math inline">\mathcal{A}</span>.</p>
+<!--
+
+Every function implemented on a computer is bounded. 
+The proxy for the set of real numbers $\RR$ are floating point numbers
+that can be represented in a finite number of bits.
+The largest floating point nummber that can be represented using 64 bits
+in the [IEEE 754 standard](https://www.computer.org/csdl/magazine/co/2019/12/08909942/1f8KFWxbTCU)
+is approximately `1.79769e+308`.
+
+-->
 </section>
 <footer>
 Return to <a href="index.html">index</a>.
