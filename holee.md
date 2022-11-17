@@ -17,9 +17,18 @@ and $B_t$ is standard Brownian motion.
 The stochastic discount is $D_t = \exp(-\int_0^t f_s\,ds) = 
 \exp(-\int_0^t r + \sigma B_s\,ds) = \exp(-rt - \sigma\int_0^t B_s\,ds)$.
 
+The discount to time $t$ is $D(t) = E[D_t]$. The _forward curve_ $f(t)$
+is defined by $D(t) = \exp(-\int_0^t f(s)\,ds)$.
+
+__Exercise__. _Show $f(t) = -(d/dt)\log D(t)$_.
+
+The discount at time $t$ of a zero coupon bond maturing at $u$ is
+$D_t(u) = E_t[D_u/D_t]$. The _stochastic forward curve_ $f_t(u)$
+is defined by $D_t(u) = \exp(-\int_t^u f_t(s)\,ds)$.
+
 __Exercise__. _Show $\int_0^t B_s\,ds = -\int_0^t s dB_s + t B_t$_.
 
-_Hint_: $d(t B_t) = t dB_t + B_t\,dt$ since $dt\,dB = 0$.
+_Hint_: $d(t B_t) = t dB_t + B_t\,dt + dt\,dB_t$ and $dt\,dB_t = 0$.
 
 This shows $D_t = \exp(-rt + \sigma \int_0^t s\,dB_s - \sigma tB_t)$.
 
@@ -40,31 +49,28 @@ $$
 \begin{aligned}
 D_t(u) &= E_t[D_u/D_t] \\
 	&= E_t[\exp(-\int_t^u r + \sigma B_s\,ds)] \\
-	&= E_t[\exp(-r(t -u) - \sigma B_s\,ds)] \\
-	&= E_t[\exp(-r(u - t) - \sigma (u B_u - t B_t) + \int_t^u \sigma s\,dB_s)] \\
-	&= E_t[\exp(-r(u - t) - \sigma (u B_u - t B_t) + \int_t^u \sigma s\,dB_s)] \\
-	&= E_t[\exp(-r(u - t) - \sigma (u B_u - u B_t + u B_t - t B_t) + \int_t^u \sigma s\,dB_s)] \\
-	&= E_t[\exp(-r(u - t) - \sigma u \int_t^u\,dB_s + \sigma(u - t) B_t + \int_t^u \sigma s\,dB_s)] \\
-	&= E_t[\exp(-r(u - t) + \sigma(u - t) B_t + \int_t^u \sigma(s - u)\,dB_s)] \\
-	&= \exp(-r(u - t) + \sigma(u - t) B_t + \frac{1}{2}\int_t^u \sigma^2(s - u)^2\,ds) \\
+	&= E_t[\exp(-r(t - u) - \int_t^u \sigma B_s\,ds)] \\
+	&= E_t[\exp(-r(u - t) + \int_t^u \sigma s\,dB_s - \sigma (u B_u - t B_t))] \\
+	&= E_t[\exp(-r(u - t) + \int_t^u \sigma s\,dB_s - \sigma (u B_u - u B_t + u B_t - t B_t))] \\
+	&= E_t[\exp(-r(u - t) + \int_t^u \sigma s\,dB_s - \int_t^u \sigma u\,dB_s + \sigma(u - t) B_t)] \\
+	&= E_t[\exp(-r(u - t) - \int_t^u \sigma (u - s)\,dB_s + \sigma(u - t) B_t)] \\
+	&= E_t[\exp(-r(u - t) - \frac{1}{2}\int_t^u \sigma^2 (u - s)^2\,ds + \sigma(u - t) B_t)] \\
 \end{aligned}
 $$
+
+This show $f_t(u) = r(u - t) + \frac{1}{2}\int_t^u \sigma^2 (u - s)^2\,ds - \sigma(u - t) B_t)$.
 
 __Exercise__. _Show $\int_t^u (s - u)^2\,ds = (u - t)^3/3$_.
 
 In the Ho-Lee model the dynamics of zero coupon bond prices are
 $$
-	D_t(u) = \exp(-r(u - t) + \frac{1}{6}\sigma^2(u - t)^3 + \sigma(u - t) B_t).
+	D_t(u) = \exp(-r(u - t) + \frac{1}{6}\sigma^2(u - t)^3 - \sigma(u - t) B_t).
 $$
 In particular, the discount to time $t$ is $D(t) = D_0(t) = \exp(-rt + \sigma^2 t^3/6)$.
 
 __Exercise__. _Show the forward curve is $f(t) = r - \sigma^2 t^2/2$_.
 
-_Hint_: $D(t) = \exp(-\int_0^t f(s)\,ds)$.
-
-Define the _stochastic forward_ curve at time $t$, $f_t(u)$, by $D_t(u) = \exp(-\int_t^u f_t(s)\,ds)$.
-
-__Exercise__. _Show $f_t(u) = r - \sigma^2 (u - t)^2/2 + \sigma B_t$_.
+__Exercise__. _Show the stochastic forward curve is $f_t(u) = r - \sigma^2 (u - t)^2/2 - \sigma B_t$_.
 
 Note $f_t(t) = r + \sigma B_t = f_t$.
 
