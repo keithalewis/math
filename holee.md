@@ -17,19 +17,19 @@ and $B_t$ is standard Brownian motion.
 The stochastic discount is $D_t = \exp(-\int_0^t f_s\,ds) = 
 \exp(-\int_0^t r + \sigma B_s\,ds) = \exp(-rt - \sigma\int_0^t B_s\,ds)$.
 
-__Exercise__. _Show $\int_0^t B_s\,ds = t B_t - \int_0^t s dB_s$_.
+__Exercise__. _Show $\int_0^t B_s\,ds = -\int_0^t s dB_s + t B_t$_.
 
-_Hint_: $d(t B_t) = B_t\,dt + t dB_t$ since $dt\,dB = 0$.
+_Hint_: $d(t B_t) = t dB_t + B_t\,dt$ since $dt\,dB = 0$.
 
-This shows $D_t = \exp(-rt - \sigma tB_t + \sigma \int_0^t s\,dB_s)$.
+This shows $D_t = \exp(-rt + \sigma \int_0^t s\,dB_s - \sigma tB_t)$.
 
-__Exercise__. _If $dX_t/X_t = \Sigma(t)\,dB_t$ and $X_0 = 1$ then
-$X_t = \exp(-\frac{1}{2}\int_0^t \Sigma(s)^2\,ds + \int_0^t \Sigma(s)\,dB_s)$_.
+__Exercise__. _If $dX_t/X_t = \Lambda(t)\,dB_t$ and $X_0 = 1$ then
+$X_t = \exp(-\frac{1}{2}\int_0^t \Lambda(s)^2\,ds + \int_0^t \Lambda(s)\,dB_s)$_.
 
-_Hint_: $d\log X_t = (1/X_t)\,dX_t + \frac{1}{2}(-1/X_t^2)\,dX_t^2 = \Sigma(t)\,dB_t - \frac{1}{2}\Sigma(t)^2\,dt$
+_Hint_: $d\log X_t = (1/X_t)\,dX_t + \frac{1}{2}(-1/X_t^2)\,dX_t^2 = \Lambda(t)\,dB_t - \frac{1}{2}\Lambda(t)^2\,dt$
 by Ito's formula.
 
-__Exercise__. _Show $E_t[\exp(\int_t^u \Sigma(s)\,dB_s)] = \exp(\frac{1}{2}\int_t^u \Sigma(s)^2\,ds)$_.
+__Exercise__. _Show $E_t[\exp(\int_t^u \Lambda(s)\,dB_s)] = \exp(\frac{1}{2}\int_t^u \Lambda(s)^2\,ds)$_.
 
 _Hint_: $X_t$ is a martingale. Note the right-hand side is not random.
 
@@ -39,6 +39,9 @@ satisfies $D_t(u)D_t = E_t[D_u]$ so
 $$
 \begin{aligned}
 D_t(u) &= E_t[D_u/D_t] \\
+	&= E_t[\exp(-\int_t^u r + \sigma B_s\,ds)] \\
+	&= E_t[\exp(-r(t -u) - \sigma B_s\,ds)] \\
+	&= E_t[\exp(-r(u - t) - \sigma (u B_u - t B_t) + \int_t^u \sigma s\,dB_s)] \\
 	&= E_t[\exp(-r(u - t) - \sigma (u B_u - t B_t) + \int_t^u \sigma s\,dB_s)] \\
 	&= E_t[\exp(-r(u - t) - \sigma (u B_u - u B_t + u B_t - t B_t) + \int_t^u \sigma s\,dB_s)] \\
 	&= E_t[\exp(-r(u - t) - \sigma u \int_t^u\,dB_s + \sigma(u - t) B_t + \int_t^u \sigma s\,dB_s)] \\
@@ -71,6 +74,7 @@ The difference between the futures quote and forward rate is called _convexity_.
 
 __Exercise__. _Find the formula for $D_t(u)$ when $r = r(t)$ is a function of time_.
 
+<!--
 We can also allow $\sigma = \sigma(t)$ to be a function of time.
 Let $f_t = r(t) + \sigma(s) B_t$.
 Since $d(\Sigma(t)B_t) = \Sigma'(t)B_t\,dt + \Sigma(t)\,dB_t$ and
@@ -98,3 +102,4 @@ d/du \int_t^u r(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) - \Sigma(s))^2\,ds + (\S
 r(u) + (1/2) ? + sigma(u)B_t
 
 _Hint_: $f_t(u) = \int_t^u r(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) - \Sigma(s))^2\,ds + (\Sigma(u) - \Sigma(t))B_t$.
+-->
