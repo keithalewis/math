@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2022-11-16" />
+  <meta name="dcterms.date" content="2022-11-21" />
   <title>Variance Swaps</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,12 +45,13 @@
 <header id="title-block-header">
 <h1 class="title">Variance Swaps</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">November 16, 2022</p>
+<p class="date">November 21, 2022</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage risk of variance swaps.
 </div>
 </header>
+
 <p>A variance swap pays the sum of the squares of realized return over a
 period. It provides exposure to volatility no matter the level of the
 underlying. Unlike a call or put option it never goes out-of-the-money.
@@ -73,10 +74,12 @@ formula <span class="math display">
     X^2 - x^2 = 2x(X - x) + (X - x)^2.
 </span> Note this is Taylor’s formula for <span class="math inline">f(x)
 = x^2</span> since cubic and higher order terms are 0. Either contract
-can be used to replicate the other using the 0 price forward contract.
-If the price of the forward is <span class="math inline">C</span> then
-<span class="math inline">B = 2xC + A</span>. Note this provides a
-perfect hedge no matter the value of <span
+can be used to replicate the other using the 0 price forward
+contract.</p>
+<p><strong>Exercise</strong>. <em>If the price of the forward is <span
+class="math inline">C</span> then <span class="math inline">B = 2xC +
+A</span></em>.</p>
+<p>Note this provides a perfect hedge no matter the value of <span
 class="math inline">X</span>.</p>
 <p>A more realistic one period model has payoff <span
 class="math inline">(\log X/x)^2</span>, the square of the realized
@@ -85,11 +88,9 @@ differentiable <span class="math inline">f</span> is <span
 class="math display">
     f(x) = \sum_{k=0}^n f^{(k)}(a) (x-a)^k/k! + \int_a^x f^{(n+1)}(t) (x
 - t)^n/n!\,dt
-</span> If <span class="math inline">f(x) = \log x</span> then <span
-class="math inline">f&#39;(x) = 1/x</span>, <span
-class="math inline">f&#39;&#39;(x) = -1/x^2</span>, <span
-class="math inline">f&#39;&#39;&#39;(x) = 2/x^3</span> so <span
-class="math display">
+</span></p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f(x) =
+\log x</span> show</em> <span class="math display">
     \log X/x = \log X - \log x = (1/x)(X - x) - (1/x^2)(X - x)^2/2 +
 \int_x^X 2/t^3(X - t)^2/2\,dt
 </span></p>
@@ -103,7 +104,7 @@ class="math inline">t</span> and the observation times are <span
 class="math inline">(t_j)_{0\le j\le n}</span> then the payoff on unit
 notional at time <span class="math inline">t_n</span> is <span
 class="math display">
-    \frac{c}{t_n - t_0}\sum_{0\le j &lt; n} R_j^2 - \sigma_0^2
+    (\frac{c}{t_n - t_0}\sum_{0\le j &lt; n} R_j^2) - \sigma_0^2
 </span> where <span class="math inline">R_j</span> is the realized
 return over <span class="math inline">[t_j, t_{j+1}]</span>, <span
 class="math inline">\sigma_0</span> is the <em>par volatility</em>, and
@@ -114,11 +115,11 @@ zero.</p>
 <p>The realized return is <span class="math inline">R_j = \log
 X_{j+1}/X_j = \log X_{j+1} - \log X_j = \Delta \log X_j</span> where
 <span class="math inline">\log</span> is the natuaral logarithm with
-base <span class="math inline">e \approx 2.718281828</span>. Variance
-swap contracts actually specify this approximation. I have no idea why
-realized return is not specified as <span class="math inline">R_j =
-(X_{j+1} - X_j)/X_j = \Delta X_j/X_j</span>. It does not drag in
-logarithms and is simpler to work with.</p>
+base <span class="math inline">e \approx 2.718281828</span>. Real-world
+variance swap contracts actually specify this approximation.</p>
+<p>Another common way of specifying realized return is <span
+class="math inline">R_j = (X_{j+1} - X_j)/X_j = \Delta X_j/X_j</span>.
+It does not drag in logarithms and is simpler to work with.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">\Delta
 \log X = (\Delta X/X) - (1/2)(\Delta X/X)^2 + O((\Delta
 X/X)^3)</span></em>.</p>
@@ -126,7 +127,6 @@ X/X)^3)</span></em>.</p>
 <summary>
 Solution
 </summary>
-Taylor’s formula.
 </details>
 <p>The cubic term <span class="math inline">(\Delta X/X)^3</span>
 explains the P&amp;L of a variance swap hedge, as we will see later.</p>
@@ -137,16 +137,15 @@ X/X)^4)</span></em>.</p>
 <summary>
 Solution
 </summary>
-<span class="math inline">(a - b)^2 = a^2 - 2ab + b^2</span>.
 </details>
-<p>Continuous time mathematical treatments specify the the first term of
-the payoff as <span class="math inline">(1/t)\int_0^t (d\log
-X_s)^2\,ds</span>. If <span class="math inline">X</span> is an Ito
-process satisfying <span class="math inline">dX/X = \mu\,dt +
-\sigma\,dB</span> then <span class="math inline">d\log X = dX/X -
-(1/2)(dX/X)^2 = \mu\,dt + \sigma\,dB - (1/2)\sigma^2\,dt</span> so <span
+<p>Continuous time mathematical treatments assume the realized variance
+is <span class="math inline">(1/t)\int_0^t (d\log X_s)^2\,ds</span>. If
+<span class="math inline">X</span> is an Ito process satisfying <span
+class="math inline">dX/X = \mu\,dt + \sigma\,dB</span> then <span
+class="math inline">d\log X = dX/X - (1/2)(dX/X)^2 = \mu\,dt +
+\sigma\,dB - (1/2)\sigma^2\,dt</span> so <span
 class="math inline">(d\log X)^2 = \sigma^2\,dt</span> and <span
-class="math inline">\int_0^t (d\log X_s)^2\,d = \int_0^t
+class="math inline">\int_0^t (d\log X_s)^2\,ds = \int_0^t
 \sigma^2\,ds</span>. Under a risk-neutral measure the par variance is
 <span class="math inline">\sigma_0^2 = (1/t)E[\int_0^t
 \sigma^2\,ds]</span>.</p>
@@ -199,10 +198,10 @@ zero.</p>
 <section id="static-hedge" class="level2">
 <h2>Static Hedge</h2>
 <p>The static hedge is <span class="math inline">-2\log X_n/X_0 + (X_n -
-X_0)/z</span> can be approximately replicated with a cash position, a
-forward, and a portfolio of puts and calls. Recall the Carr-Madan
+X_0)/z</span> and can be approximately replicated with a cash position,
+a forward, and a portfolio of puts and calls. Recall the Carr-Madan
 formula for a twice differentiable function <span
-class="math inline">f\colon [0, \infty)\to\RR</span> is <span
+class="math inline">f\colon [0, \infty)\to\mathbf{R}</span> is <span
 class="math display">
     f(x) = f(a) + f&#39;(a)(x - a) + \int_0^a f&#39;&#39;(k) (k - x)^+
 \, dk + \int_a^\infty f&#39;&#39;(k) (x - k)^+\,dk
@@ -218,12 +217,6 @@ class="math inline">(H_j, f(H_j))</span>, <span class="math inline">H_j
 lowest put strikes and on the right by the two highest call strikes.
 Typically <span class="math inline">K</span> is chosen to be close to
 the at-the-money forward at option expiration.</p>
-<p>the Carr-Madan formula is <span class="math display">
-    -2\log K/X_0 + (K - X_0)/z + (2/K - 2/z)(K - X_0)
-</span></p>
-</section>
-<section id="dynamic-hedge" class="level2">
-<h2>Dynamic Hedge</h2>
 </section>
 <section id="cubic-term" class="level2">
 <h2>Cubic Term</h2>

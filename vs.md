@@ -7,6 +7,9 @@ classoption: fleqn
 abstract: Value, hedge, and manage risk of variance swaps.
 ...
 
+\newcommand\mb[1]{\mathbf{#1}}
+\newcommand\RR{\mb{R}}
+
 A variance swap pays the sum of the squares of realized return over a period.
 It provides exposure to volatility no matter the level of the underlying.
 Unlike a call or put option it never goes out-of-the-money.
@@ -27,7 +30,9 @@ $$
 $$
 Note this is Taylor's formula for $f(x) = x^2$ since cubic and higher order terms are 0.
 Either contract can be used to replicate the other using the 0 price forward contract.
-If the price of the forward is $C$ then $B = 2xC + A$.
+
+__Exercise__. _If the price of the forward is $C$ then $B = 2xC + A$_.
+
 Note this provides a perfect hedge no matter the value of $X$.
 
 A more realistic one period model has payoff $(\log X/x)^2$, the square of the
@@ -35,7 +40,8 @@ realized return. Recall Taylor's formula with remainder for sufficiently differe
 $$
 	f(x) = \sum_{k=0}^n f^{(k)}(a) (x-a)^k/k! + \int_a^x f^{(n+1)}(t) (x - t)^n/n!\,dt
 $$
-If $f(x) = \log x$ then $f'(x) = 1/x$, $f''(x) = -1/x^2$, $f'''(x) = 2/x^3$ so
+
+__Exercise__. _If $f(x) = \log x$ show_
 $$
 	\log X/x = \log X - \log x = (1/x)(X - x) - (1/x^2)(X - x)^2/2 + \int_x^X 2/t^3(X - t)^2/2\,dt
 $$
@@ -46,7 +52,7 @@ Contracts are specified by an underlying instrument and observation times.
 If the level of the underlying is $X_t$ at time $t$ and the observation times
 are $(t_j)_{0\le j\le n}$ then the payoff on unit notional at time $t_n$ is
 $$
-	\frac{c}{t_n - t_0}\sum_{0\le j < n} R_j^2 - \sigma_0^2
+	(\frac{c}{t_n - t_0}\sum_{0\le j < n} R_j^2) - \sigma_0^2
 $$
 where $R_j$ is the realized return over $[t_j, t_{j+1}]$, $\sigma_0$ is the _par volatility_,
 and $c$ is a constant specified in the contract that is not far from the number 1.
@@ -54,16 +60,17 @@ The par volatility makes the price of the contract at $t_0$ equal to zero.
 
 The realized return is $R_j = \log X_{j+1}/X_j = \log X_{j+1} - \log X_j =
 \Delta \log X_j$ where $\log$ is the natuaral logarithm
-with base $e \approx 2.718281828$. Variance swap contracts actually specify this
-approximation. I have no idea why realized return is not specified
-as $R_j = (X_{j+1} - X_j)/X_j = \Delta X_j/X_j$. It does not drag in logarithms and is simpler
-to work with. 
+with base $e \approx 2.718281828$. Real-world variance swap contracts actually specify this
+approximation.
+
+Another common way of specifying realized return is 
+$R_j = (X_{j+1} - X_j)/X_j = \Delta X_j/X_j$. It does not drag in logarithms and is simpler
+to work with.
 
 __Exercise__. _Show $\Delta \log X = (\Delta X/X) - (1/2)(\Delta X/X)^2 + O((\Delta X/X)^3)$_.
 
 <details>
 <summary>Solution</summary>
-Taylor's formula.
 </details>
 
 The cubic term $(\Delta X/X)^3$ explains the P&L of a variance swap hedge, as we will see later.
@@ -72,13 +79,12 @@ __Exercise__. _Show $(\Delta \log X)^2 = (\Delta X/X)^2 - (\Delta X/X)^3 + O((\D
 
 <details>
 <summary>Solution</summary>
-$(a - b)^2 = a^2 - 2ab + b^2$.
 </details>
 
-Continuous time mathematical treatments specify the the first term of the payoff as
+Continuous time mathematical treatments assume the realized variance is
 $(1/t)\int_0^t (d\log X_s)^2\,ds$. If $X$ is an Ito process satisfying
 $dX/X = \mu\,dt + \sigma\,dB$ then $d\log X = dX/X - (1/2)(dX/X)^2 = \mu\,dt + \sigma\,dB - (1/2)\sigma^2\,dt$
-so $(d\log X)^2 = \sigma^2\,dt$ and $\int_0^t (d\log X_s)^2\,d = \int_0^t \sigma^2\,ds$.
+so $(d\log X)^2 = \sigma^2\,dt$ and $\int_0^t (d\log X_s)^2\,ds = \int_0^t \sigma^2\,ds$.
 Under a risk-neutral measure the par variance is $\sigma_0^2 = (1/t)E[\int_0^t \sigma^2\,ds]$.
 
 The astounding thing about variance swaps is that valuing and hedging them do not require
@@ -120,7 +126,7 @@ X_0$ then the initial furtures hedge is zero.
 
 ## Static Hedge
 
-The static hedge is $-2\log X_n/X_0 + (X_n - X_0)/z$ can be approximately replicated
+The static hedge is $-2\log X_n/X_0 + (X_n - X_0)/z$ and can be approximately replicated
 with a cash position, a forward, and a portfolio of puts and calls.
 Recall the Carr-Madan formula for a twice differentiable function $f\colon [0, \infty)\to\RR$ is
 $$
@@ -132,13 +138,6 @@ we consider the piecewise continuous linear function $\tilde{f}$ determined by b
 $(L_j, f(L_j))$, $L_j < K$, and $(H_j, f(H_j))$, $H_j \ge K$. We assume linear extrapolation
 on the left using the two lowest put strikes and on the right by the two highest call strikes.
 Typically $K$ is chosen to be close to the at-the-money forward at option expiration.
-
-the Carr-Madan formula is
-$$
-	-2\log K/X_0 + (K - X_0)/z + (2/K - 2/z)(K - X_0)
-$$
-
-## Dynamic Hedge
 
 ## Cubic Term
 

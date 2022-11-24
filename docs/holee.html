@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2022-11-16" />
+  <meta name="dcterms.date" content="2022-11-23" />
   <title>Ho-Lee</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,7 +45,7 @@
 <header id="title-block-header">
 <h1 class="title">Ho-Lee</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">November 16, 2022</p>
+<p class="date">November 23, 2022</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Normal short rate.
@@ -66,6 +66,12 @@ class="math inline">D(t) = E[D_t]</span>. The <em>forward curve</em>
 class="math inline">D(t) = \exp(-\int_0^t f(s)\,ds)</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">f(t) =
 -(d/dt)\log D(t)</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math inline">-\log D(t) = \int_0^t f(s)\,ds)</span>
+</details>
 <p>The discount at time <span class="math inline">t</span> of a zero
 coupon bond maturing at <span class="math inline">u</span> is <span
 class="math inline">D_t(u) = E_t[D_u/D_t]</span>. The <em>stochastic
@@ -77,6 +83,13 @@ class="math inline">\int_0^t B_s\,ds = -\int_0^t s dB_s + t
 B_t</span></em>.</p>
 <p><em>Hint</em>: <span class="math inline">d(t B_t) = t dB_t + B_t\,dt
 + dt\,dB_t</span> and <span class="math inline">dt\,dB_t = 0</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+Integrate both sides of the hint from <span class="math inline">0</span>
+to <span class="math inline">t</span>.
+</details>
 <p>This shows <span class="math inline">D_t = \exp(-rt + \sigma \int_0^t
 s\,dB_s - \sigma tB_t)</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">dX_t/X_t
@@ -86,11 +99,28 @@ then <span class="math inline">X_t = \exp(-\frac{1}{2}\int_0^t
 <p><em>Hint</em>: <span class="math inline">d\log X_t = (1/X_t)\,dX_t +
 \frac{1}{2}(-1/X_t^2)\,dX_t^2 = \Lambda(t)\,dB_t -
 \frac{1}{2}\Lambda(t)^2\,dt</span> by Ito’s formula.</p>
+<details>
+<summary>
+Solution
+</summary>
+Integrate both sides of the hint from <span class="math inline">0</span>
+to <span class="math inline">t</span> and apply <span
+class="math inline">\exp</span>.
+</details>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">E_t[\exp(\int_t^u \Lambda(s)\,dB_s)] =
 \exp(\frac{1}{2}\int_t^u \Lambda(s)^2\,ds)</span></em>.</p>
 <p><em>Hint</em>: <span class="math inline">X_t</span> is a martingale.
 Note the right-hand side is not random.</p>
+<details>
+<summary>
+Solution
+</summary>
+<p><span class="math inline">X_t = E_t[\exp(\int_0^u \Lambda(s)\,dB_s -
+\frac{1}{2}\Lambda(s)^2\,ds)]</span></p>
+<p><span class="math inline">1= E_t[\exp(\int_t^u \Lambda(s)\,dB_s -
+\frac{1}{2}\Lambda(s)^2\,ds)]</span></p>
+</details>
 <p>The price at time <span class="math inline">t</span> of a zero coupon
 bond maturing at time <span class="math inline">u</span>, <span
 class="math inline">D_t(u)</span>, satisfies <span
@@ -115,9 +145,13 @@ s)^2\,ds + \sigma(u - t) B_t)] \\
 <p>This show <span class="math inline">f_t(u) = r(u - t) +
 \frac{1}{2}\int_t^u \sigma^2 (u - s)^2\,ds - \sigma(u - t)
 B_t)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\int_t^u (s - u)^2\,ds = (u -
-t)^3/3</span></em>.</p>
+<strong>Exercise</strong>. <em>Show <span class="math inline">\int_t^u
+(s - u)^2\,ds = (u - t)^3/3</span></em>.
+<details>
+<summary>
+Solution
+</summary>
+</details>
 <p>In the Ho-Lee model the dynamics of zero coupon bond prices are <span
 class="math display">
     D_t(u) = \exp(-r(u - t) + \frac{1}{6}\sigma^2(u - t)^3 - \sigma(u -
@@ -125,26 +159,46 @@ t) B_t).
 </span> In particular, the discount to time <span
 class="math inline">t</span> is <span class="math inline">D(t) = D_0(t)
 = \exp(-rt + \sigma^2 t^3/6)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show the forward curve is <span
-class="math inline">f(t) = r - \sigma^2 t^2/2</span></em>.</p>
+<strong>Exercise</strong>. <em>Show the forward curve is <span
+class="math inline">f(t) = r - \sigma^2 t^2/2</span></em>.
+<details>
+<summary>
+Solution
+</summary>
+</details>
 <p><strong>Exercise</strong>. <em>Show the stochastic forward curve is
 <span class="math inline">f_t(u) = r - \sigma^2 (u - t)^2/2 - \sigma
 B_t</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+</details>
 <p>Note <span class="math inline">f_t(t) = r + \sigma B_t =
 f_t</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">E[f_t]
-- f(t) = \sigma^2t^2/2</span></em>.</p>
+<strong>Exercise</strong>. <em>Show <span class="math inline">E[f_t] -
+f(t) = \sigma^2t^2/2</span></em>.
+<details>
+<summary>
+Solution
+</summary>
+</details>
 <p>The difference between the futures quote and forward rate is called
 <em>convexity</em>.</p>
-<p><strong>Exercise</strong>. <em>Find the formula for <span
+<strong>Exercise</strong>. <em>Find the formula for <span
 class="math inline">D_t(u)</span> when <span class="math inline">r =
-r(t)</span> is a function of time</em>.</p>
-<p>&lt;!– We can also allow <span class="math inline">\sigma =
-\sigma(t)</span> to be a function of time. Let <span
-class="math inline">f_t = r(t) + \sigma(s) B_t</span>. Since <span
-class="math inline">d(\Sigma(t)B_t) = \Sigma&#39;(t)B_t\,dt +
-\Sigma(t)\,dB_t</span> and taking <span class="math inline">\sigma(s) =
-\Sigma&#39;(s)</span> we have <span class="math display">
+r(t)</span> is a function of time</em>.
+<details>
+<summary>
+Solution
+</summary>
+</details>
+<p>We can also allow <span class="math inline">\sigma = \sigma(t)</span>
+to be a function of time. Let <span class="math inline">f_t = r(t) +
+\sigma(s) B_t</span>. Since <span class="math inline">d(\Sigma(t)B_t) =
+\Sigma&#39;(t)B_t\,dt + \Sigma(t)\,dB_t</span> and taking <span
+class="math inline">\sigma(s) = \Sigma&#39;(s)</span> we have <span
+class="math display">
 \begin{aligned}
     E_t[D_u/D_t] &amp;= E_t[\exp(-\int_t^u r(s) + \sigma(s) B_s\,ds)] \\
     &amp;= E_t[\exp(-\int_t^u r(s)\,ds + d(\Sigma(s)B_s) -
