@@ -16,26 +16,53 @@ abstract: Sets are defined by membership
 
 Everything in (standard) mathematics is a [set](https://plato.stanford.edu/entries/set-theory/).
 Sets are defined by their _members_.
-We write $x\in S$ to indicate $x$ is a member of the set $S$. 
+We write $x\in S$ to indicate $x$ is a member, or _element_, of the set $S$. 
 A finite set can be explicitly described by specifying its members $S = \{x, y, z\}$.
-The original theory of sets due to Frege allowed sets to be defined by a rule,
-$x\in S$ if and only if $P(x)$, where $P(x)$ is a proposition that was true
+The theory of sets proposed by Frege posited sets are defined by a rule,
+$x\in S$ if and only if $P(x)$, where $P(x)$ is a proposition that is true
 or false depending on $x$.
-
-Bertrand Russell showed Frege's theory allowed a contradiction. 
-Consider the set $S$ defined by the proposition $P(x) = x\not in x$. Is $S\in S$?
-If it is, it isn't. If it isn't, it is.
-
-Mathematicians had to go back to square one, or maybe square zero.
-The _empty set_ $\emptyset$ is the set having no elements. For any set $S$, $S\not\in\emptyset$.
-The set having one member, the empty set, is $\{\emptyset\}$.
-How do we represent the _natural numbers_ 0, 1, 2, ... as sets?
-We can let $\emptyset$ represent 0 and $\{\emptyset\}$ represent 1.
-If we can represent $n$, what should $n + 1$ be? Peano.
 
 Logicians like to say "The language of set theory is epsilon."
 They already have first order logic in their back pocket and mean
-set theory can be defined by membership.
+set theory can be defined by membership using the symbol $\in$.
+They do not have much to say about how one establishes whether
+or not $x\in S$.
+
+Bertrand Russell showed Frege's theory involved a contradiction. 
+Consider the set $S$ defined by the proposition $P(x) = x\notin x$. Is $S\in S$?
+If it is, it isn't. If it isn't, it is.
+
+One way to fix this up is to define sets by a rule restricted to previously existing
+sets: $x\in S$ if and only if $P(x)$, where $P(x)$ **and** $x\in T$, is a proposition that is true
+or false depending on $x\in T$. This theory might also involve a contradiction, but nobody
+has found one so far.
+
+<!--A modern day Russell might also find a contradiction,
+but so far that has not happened.
+-->
+
+We can use first order logic to define some binary operations on sets.
+Two sets are equal if they have the same members: $A = B$ if and only if
+$\forall x (x\in A \Leftrightarrow x\in B)$.
+The _union_ of sets $A$ and $B$ is $A\cup B = \{x\mid x\in A \vee x\in B\}$.
+The _intersecton_ of sets $A$ and $B$ is $A\cap B = \{x\mid x\in A\wedge x\in B\}$.
+The _set difference_ of sets $A$ and $B$ is $A\setminus B = \{x\mid x\in A\wedge x\notin B\}$.
+
+Mathematicians had to go back to square one, or maybe square zero, to define sets.
+How do we represent the _natural numbers_ 0, 1, 2, ... as sets?
+The _empty set_ $\emptyset = \{\}$ is the set having no elements.
+We can let $\emptyset$ represent 0. 
+If we can represent $n$, what should $n + 1$ be?
+
+One solution, due to von Neumann, is the define $n + 1 = n\cup\{n\}$.
+
+__Exercise__. _Show $n + 1 \not= n$_.
+
+The _cartesian product_ of sets $A$ and $B$ is $A\times B = \{(a, b)\mid a\in A, b\in B\}$,
+where $(a, b)$ is the _ordered pair_ of $a$ and $b$. This can be defined using sets by
+$(a,b) = \{\{a\}, \{a,b\}\}$.
+
+__Exercise__. _Show $x 
 
 
 The category $\cat{Set}$ with objects sets and arrows functions from a set to a set
