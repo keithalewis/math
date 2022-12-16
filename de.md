@@ -123,6 +123,6 @@ $$
 $$
 </details>
 
-Note $\lim_{x\to\infty} \Phi(x,s) = 1$.
+Note $\Phi(0, s) = 1 - (1 + s/\beta)/2 = (1 - s/\beta)/2$ and  $\lim_{x\to\infty} \Phi(x,s) = 1$.
 
 
