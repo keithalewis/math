@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2022-11-16" />
+  <meta name="dcterms.date" content="2022-12-15" />
   <title>Fixed Income</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,7 +45,7 @@
 <header id="title-block-header">
 <h1 class="title">Fixed Income</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">November 16, 2022</p>
+<p class="date">December 15, 2022</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Constant cash flows
@@ -191,189 +191,229 @@ class="math inline">p = p_n + c_0 D(t_n)e^{-f(u_0 - t_n)} + c_1
 D(t_n)e^{-f(u_1 - t_n)}</span>.</p>
 <p><strong>Exercise</strong>. <em>Find an explicit formula for <span
 class="math inline">f</span></em>.</p>
-<!--
-Add zero.
-Add with one cash flow after $t_n$.
-Add atm forward with one or two cash flows after $t_n$
-
-### Forward Rate Agreement
-
-A _forward rate agreement_ $F^{f,δ}(u,v)$ over the period $[u, v]$ with coupon $f$ and
-_day count basis_ $δ$ pays $-1$ unit at the
-_effective date_ $u$, and $1 + fδ(u,v)$ at the
-_termination date_ $v$, where $δ(u,v)$ is the [_day count
-fraction_](https://en.wikipedia.org/wiki/Day_count_convention) for the
-period.  The day count fraction is approximately equal to the time in years
-between $u$ and $v$ for any day count basis.
-
-The _forward par coupon_ at time $t$, $F_t^{f,δ}(u,v)$ is the coupon that makes the price at
-time $t\le u$ equal to $0$. Since $0 = E_t[-D_u + (1 + F_t^δ(u,v)δ(u,v))D_v]$
-the par coupon is
-$$
-    F_t^δ(u,v) = (D_t(u)/D_t(v) - 1)/δ(u,v).
-$$
-Writing $F_t = F_t^δ(u,v)$ and $δ = δ(u,v)$ we have
-$$
-    E_t[F_tδ D_v] = F_tδ E_t[D_v] = E_t[D_u - D_v] = D_t(u) - D_t(v)
-$$
-
-
-There are also forward rate agreements not involving the exchange of notional. A
-(fixed rate) _payer_ FRA has the single cash flow $(f - F_u^δ(u,v))δ(u,v)$ at time $v$.
-A _receiver_ FRA has the negative of this cash flow. The value at any time $t \le u$ is
-determined by
-
-
-\begin{align*}
-V_t D_t &= E_t[(f - F_u(u,v;δ))δ(u,v) D_v] \\
-        &= E_t[fδ(u,v) D_v - E_u[D_u - D_v]]  \\
-        &= E_t[fδ(u,v) D_v - D_u + D_v]  \\
-        &= E_t[-D_u + (1 + fδ(u,v)) D_v] \\
-\end{align*}
-
-which is the same as for a forward rate agreement that does exchange notional.
-These two types of FRAS's have very different risk characteristics.
-If either counter-party defaults during the time notionals are exchanged the loss can
-be much larger than when the payment is only the difference of the fixed and floating rate.
-
-### Interest Rate Swap
-
-An _interest rate swap_ $F^{c,δ}(t_0, \ldots, t_n)$ with _calculation
-dates_ $(t_j)$, coupon $c$, and day count basis $δ$ pays $-1$ unit
-at the effective date $t_0$, $cδ(t_{j-1},t_j)$ at $t_j$, $0 < j < n$,
-and $1 + cδ(t_{n-1},t_n)$ at _termination_ $t_n$.
-
-The _swap par coupon_ at time $t$, $F_t(t_0,\ldots,t_n;δ)$,
- is the coupon that makes the price at
-time $t\le {t_0}$ equal to $0$:
-$$
-0 = E_t[-D_{t_0} + \sum_{0<j<n} F_tδ(t_{j-1},t_j) D_{t_j} + (1 + F_tδ(t_{n-1},t_n) D_{t_n}].
-$$
-Hence the par coupon,
-$F_t(t_0,\ldots,t_n;δ) = (D_t(t_0) - D_t(t_n))/\sum_{0<j\le n}δ(t_{j-1},t_j) D_t(t_j)$,
-is determined by zero coupon bond prices.
-
-Note that if $n = 1$ this is identical to a forward rate agreement.
-
-There are also interest rate swaps not involving the exchange of notional. A
-(fixed rate) _payer_ has the cash flows $(c - F_{t_j}(t_{j-1},t_j;δ))δ(t_{j-1},t_j)$ at times $t_j$,
-$0 < j \le n$.
-A _receiver_ has the negative of these cash flow.
-
-As with forward rate agreements, the coupon making the value at time $t$ equal to zero is
-the swap par coupon.
-
-### Floorlet
-
-Options on FRA's are called floorlets or caplets.
-
-A _floorlet_ is a put option on an at-the-money _forward rate agreement_.
-It pays $\max\{k - F_u(u,v),0\}δ(u,v)$ at time $v$.
-Its value at time $t < u$ is determined by $V_t D_t = E_t \max\{k - F_u(u,v),0\}δ(u,v) D_u$.
-Writing $F_u = F_u(u,v)$ and $δ = δ(u,v)$ we have
-
-\begin{align*}
-V_t D_t &= E_t[\max\{k - F_u,0\}δ D_v] \\
-        &= E_t[\max\{kδ - (1/D_u(v) - 1),0\} D_v] \\
-        &= E_t[\max\{1 + kδ - 1/D_u(v),0\} D_v] \\
-        &= E^*_t[\max\{1 + kδ - 1/D_u(v),0\}] E_tD_v \\
-        &= E^*_t[\max\{1 + kδ - 1/D_u(v),0\}] D_t(v)D_t \\
-\end{align*}
-where $E_t^*$ is the expectation under the forward measure $P^*$ defined
-by $dP_t^*/dP_t = D_v/E_t D_v$.
-This shows the value at $t$ of a floorlet is
-$V_t = E^*_t[\max\{1 + kδ - 1/D_u(v),0\}] D_t(v)$.
-
-### Caplet
-
-A _caplet_ is a call option on an at-the-money _forward rate agreement_.
-It pays $\max\{F_u(u,v) - k,0\}δ(u,v)$ at time $v$.
-Its value at time $t < u$ is determined by $V_t D_t = E_t \max\{F_u(u,v) - k,0\}δ(u,v) D_u$.
-Similar to floorlets, the value at $t$ of a caplet is
-$V_t = E^*_t[\max\{1/D_u(v) - (1 + kδ),0\}] D_t(v)$
-
-### Floor, Cap
-
-A _floor_ and a _cap_ are just a sequence of back-to-back floorlets or caplets.
-
-### Swaption
-
-A _swaption_ is an option on a swap.
-It has a single cash flow $\max\{k - F_{t_0}(t_0,\ldots,t_n;δ), 0\}$ at the
-effective date of the swap, $t_0$.
-
-### LIBOR Market Model
-
-Assuming discrete times $(t_j)$, the deflator is determined by the joint distribution of
-the repo rates $F_j = F_{t_j}$ over $[t_j, t_{j+1})$. (We use capital $F$ instead of
-lower case $f$ to indicate it is a random variable.)
-
-The LIBOR Market model assumes the forwards are jointly lognormal,
-$$
-    F_j = \phi(t_j)\exp(\Sigma_j\cdot B_{t_j} - ||\Sigma_j||^2 t_j/2),
-$$
-where $\phi(t_j) = E f_j$ is the futures quote, $\sigma_j$ is a vector with norm
-equal to the at-the-money caplet volatility, and $B_t$ is vector-valued Brownian motion.
-A nice feature of this model is that the forward curve and at-the-money caplet prices
-are not affected by the individual components of the volatility vectors.
-
-A common parameteration for the volatilities is $\Sigma(t) = \sigma(t)(\cos\alpha t, \sin\alpha t)$
-for some parameter $\alpha$. Clealy $||\Sigma(t)|| = sigma(t)$. This can be used to fit, e.g., one
-swaption price. Note $\Sigma\cdot B_t = \sigma(B_t^0\cos(\alpha t) + B_t^1\sin(\alpha t)$ and
-$\Cov(B_t,B_u) = t\cos(\alpha(u-t))$ for $t < u$.
-
-The futures are determined by the forwards and volatilities; $\phi(t) = f(t) + \sigma(t)^2 t^2/2$.
-
-## Risky Bonds
-
-A _risky zero coupon bond_ with _recovery_ $R$ and _default time_ $T$
-has a single cash flow $C_u = 1$ if default occurs after maturity or
-$C_T = R$ if $T \le u$. It is customary to assume $R$ is constant.
-As with American options, we must expand the sample space to $Ω\times (0,\infty]$
-where $(ω,t)\in Ω\times (0,\infty]$ indicates default occured at time $t$.
-The partition of $(0\infty]$ representing information available at time $t$ for the default time is
-$\{(t,\infty]\} \cup \{\{s\}:s \le t\}$. If default has
-not occured prior to $t$ we only know $T > t$. If default occured prior
-to time $t$ we know exactly when it happened.
-
-We write $D_t^{R,T}(u)$ for the price $X_t^{D^{R,T}(u)}$ of the risky zero coupon bond at time $t$.
-The dynamics of a risky zero are determined by
-$$
-    D_t^{R,T}(u) D_t = E_t[R 1(T \le u) D_T + 1(T > u) D_u].
-$$
-The _credit spread_ $s_t = s_t^{R,T}(u)$ defined by $D_t^{R,T}(u) = D_t(u) e^{-u s_t}$
-incorporates both recovery and default.
-
-If rates are zero then $D_t = 1$ for all $t$ and this simplifies to
-$D_0^{R,T}(u) = R P(T \le u) + P(T > u)$ when $t = 0$. If $T$ is 
-exponentially distributed with hazard rate $λ$ then $P(T > t) = e^{-λ t}$
-and
-$$
-    D_0^{R,T}(u) = R + (1 - R)e^{-λu}.
-$$
-When $λ = 0$ the right hand side is 1.
-When $R = 0$ the credit spread equals the hazard rate.
-If $λu$ is small then the approximation
-$e^x \approx 1 + x$ for small $x$ gives the rule of thumb
-$s = λ(1 - R)$ where $s = s_0 = s_0^{R,T}(u)$ is the credit spread.
-
-For general $t$ we have
-$$
-    D_t^{R,T}(u) = R P(T \le u | T > t) 1(t < T \le u) + P(T > u | T > t) 1(T > u).
-$$
-
-Unlike in the credit default swap market, mathematical finance literture likes to
-assume recovery is delayed until maturity. It is also popular to make the unrealistic
-assumption that default time is independent of the deflator. Under these assumptions
-we have
-$$
-    D_t^{R,T}(u) = D_t(u)\bigl(R P(T \le u | T > t) 1(t < T \le u) + P(T > u | T > t) 1(T > u)\bigr).
-$$
-In principal, $R$ could be random and joint distributions involving the default time
-and deflators could be specified.
-
--->
 </section>
+<section id="forward-rate-agreement" class="level3">
+<h3>Forward Rate Agreement</h3>
+<p>A <em>forward rate agreement</em> <span
+class="math inline">F^{f,δ}(u,v)</span> over the period <span
+class="math inline">[u, v]</span> with coupon <span
+class="math inline">f</span> and <em>day count basis</em> <span
+class="math inline">δ</span> pays <span class="math inline">-1</span>
+unit at the <em>effective date</em> <span class="math inline">u</span>,
+and <span class="math inline">1 + fδ(u,v)</span> at the <em>termination
+date</em> <span class="math inline">v</span>, where <span
+class="math inline">δ(u,v)</span> is the <a
+href="https://en.wikipedia.org/wiki/Day_count_convention"><em>day count
+fraction</em></a> for the period. The day count fraction is
+approximately equal to the time in years between <span
+class="math inline">u</span> and <span class="math inline">v</span> for
+any day count basis.</p>
+<p>The <em>forward par coupon</em> at time <span
+class="math inline">t</span>, <span
+class="math inline">F_t^{f,δ}(u,v)</span> is the coupon that makes the
+price at time <span class="math inline">t\le u</span> equal to <span
+class="math inline">0</span>. Since <span class="math inline">0 =
+E_t[-D_u + (1 + F_t^δ(u,v)δ(u,v))D_v]</span> the par coupon is <span
+class="math display">
+    F_t^δ(u,v) = (D_t(u)/D_t(v) - 1)/δ(u,v).
+</span> Writing <span class="math inline">F_t = F_t^δ(u,v)</span> and
+<span class="math inline">δ = δ(u,v)</span> we have <span
+class="math display">
+    E_t[F_tδ D_v] = F_tδ E_t[D_v] = E_t[D_u - D_v] = D_t(u) - D_t(v)
+</span></p>
+<p>There are also forward rate agreements not involving the exchange of
+notional. A (fixed rate) <em>payer</em> FRA has the single cash flow
+<span class="math inline">(f - F_u^δ(u,v))δ(u,v)</span> at time <span
+class="math inline">v</span>. A <em>receiver</em> FRA has the negative
+of this cash flow. The value at any time <span class="math inline">t \le
+u</span> is determined by</p>
+<p><span class="math display">\begin{align*}
+V_t D_t &amp;= E_t[(f - F_u(u,v;δ))δ(u,v) D_v] \\
+        &amp;= E_t[fδ(u,v) D_v - E_u[D_u - D_v]]  \\
+        &amp;= E_t[fδ(u,v) D_v - D_u + D_v]  \\
+        &amp;= E_t[-D_u + (1 + fδ(u,v)) D_v] \\
+\end{align*}</span></p>
+<p>which is the same as for a forward rate agreement that does exchange
+notional. These two types of FRAS’s have very different risk
+characteristics. If either counter-party defaults during the time
+notionals are exchanged the loss can be much larger than when the
+payment is only the difference of the fixed and floating rate.</p>
+</section>
+<section id="interest-rate-swap" class="level3">
+<h3>Interest Rate Swap</h3>
+<p>An <em>interest rate swap</em> <span class="math inline">F^{c,δ}(t_0,
+\ldots, t_n)</span> with <em>calculation dates</em> <span
+class="math inline">(t_j)</span>, coupon <span
+class="math inline">c</span>, and day count basis <span
+class="math inline">δ</span> pays <span class="math inline">-1</span>
+unit at the effective date <span class="math inline">t_0</span>, <span
+class="math inline">cδ(t_{j-1},t_j)</span> at <span
+class="math inline">t_j</span>, <span class="math inline">0 &lt; j &lt;
+n</span>, and <span class="math inline">1 + cδ(t_{n-1},t_n)</span> at
+<em>termination</em> <span class="math inline">t_n</span>.</p>
+<p>The <em>swap par coupon</em> at time <span
+class="math inline">t</span>, <span
+class="math inline">F_t(t_0,\ldots,t_n;δ)</span>, is the coupon that
+makes the price at time <span class="math inline">t\le {t_0}</span>
+equal to <span class="math inline">0</span>: <span class="math display">
+0 = E_t[-D_{t_0} + \sum_{0&lt;j&lt;n} F_tδ(t_{j-1},t_j) D_{t_j} + (1 +
+F_tδ(t_{n-1},t_n) D_{t_n}].
+</span> Hence the par coupon, <span
+class="math inline">F_t(t_0,\ldots,t_n;δ) = (D_t(t_0) -
+D_t(t_n))/\sum_{0&lt;j\le n}δ(t_{j-1},t_j) D_t(t_j)</span>, is
+determined by zero coupon bond prices.</p>
+<p>Note that if <span class="math inline">n = 1</span> this is identical
+to a forward rate agreement.</p>
+<p>There are also interest rate swaps not involving the exchange of
+notional. A (fixed rate) <em>payer</em> has the cash flows <span
+class="math inline">(c - F_{t_j}(t_{j-1},t_j;δ))δ(t_{j-1},t_j)</span> at
+times <span class="math inline">t_j</span>, <span class="math inline">0
+&lt; j \le n</span>. A <em>receiver</em> has the negative of these cash
+flow.</p>
+<p>As with forward rate agreements, the coupon making the value at time
+<span class="math inline">t</span> equal to zero is the swap par
+coupon.</p>
+</section>
+<section id="floorlet" class="level3">
+<h3>Floorlet</h3>
+<p>Options on FRA’s are called floorlets or caplets.</p>
+<p>A <em>floorlet</em> is a put option on an at-the-money <em>forward
+rate agreement</em>. It pays <span class="math inline">\max\{k -
+F_u(u,v),0\}δ(u,v)</span> at time <span class="math inline">v</span>.
+Its value at time <span class="math inline">t &lt; u</span> is
+determined by <span class="math inline">V_t D_t = E_t \max\{k -
+F_u(u,v),0\}δ(u,v) D_u</span>. Writing <span class="math inline">F_u =
+F_u(u,v)</span> and <span class="math inline">δ = δ(u,v)</span> we
+have</p>
+<p><span class="math display">\begin{align*}
+V_t D_t &amp;= E_t[\max\{k - F_u,0\}δ D_v] \\
+        &amp;= E_t[\max\{kδ - (1/D_u(v) - 1),0\} D_v] \\
+        &amp;= E_t[\max\{1 + kδ - 1/D_u(v),0\} D_v] \\
+        &amp;= E^*_t[\max\{1 + kδ - 1/D_u(v),0\}] E_tD_v \\
+        &amp;= E^*_t[\max\{1 + kδ - 1/D_u(v),0\}] D_t(v)D_t \\
+\end{align*}</span> where <span class="math inline">E_t^*</span> is the
+expectation under the forward measure <span
+class="math inline">P^*</span> defined by <span
+class="math inline">dP_t^*/dP_t = D_v/E_t D_v</span>. This shows the
+value at <span class="math inline">t</span> of a floorlet is <span
+class="math inline">V_t = E^*_t[\max\{1 + kδ - 1/D_u(v),0\}]
+D_t(v)</span>.</p>
+</section>
+<section id="caplet" class="level3">
+<h3>Caplet</h3>
+<p>A <em>caplet</em> is a call option on an at-the-money <em>forward
+rate agreement</em>. It pays <span class="math inline">\max\{F_u(u,v) -
+k,0\}δ(u,v)</span> at time <span class="math inline">v</span>. Its value
+at time <span class="math inline">t &lt; u</span> is determined by <span
+class="math inline">V_t D_t = E_t \max\{F_u(u,v) - k,0\}δ(u,v)
+D_u</span>. Similar to floorlets, the value at <span
+class="math inline">t</span> of a caplet is <span
+class="math inline">V_t = E^*_t[\max\{1/D_u(v) - (1 + kδ),0\}]
+D_t(v)</span></p>
+</section>
+<section id="floor-cap" class="level3">
+<h3>Floor, Cap</h3>
+<p>A <em>floor</em> and a <em>cap</em> are just a sequence of
+back-to-back floorlets or caplets.</p>
+</section>
+<section id="swaption" class="level3">
+<h3>Swaption</h3>
+<p>A <em>swaption</em> is an option on a swap. It has a single cash flow
+<span class="math inline">\max\{k - F_{t_0}(t_0,\ldots,t_n;δ),
+0\}</span> at the effective date of the swap, <span
+class="math inline">t_0</span>.</p>
+</section>
+<section id="libor-market-model" class="level3">
+<h3>LIBOR Market Model</h3>
+<p>Assuming discrete times <span class="math inline">(t_j)</span>, the
+deflator is determined by the joint distribution of the repo rates <span
+class="math inline">F_j = F_{t_j}</span> over <span
+class="math inline">[t_j, t_{j+1})</span>. (We use capital <span
+class="math inline">F</span> instead of lower case <span
+class="math inline">f</span> to indicate it is a random variable.)</p>
+<p>The LIBOR Market model assumes the forwards are jointly lognormal,
+<span class="math display">
+    F_j = \phi(t_j)\exp(\Sigma_j\cdot B_{t_j} - ||\Sigma_j||^2 t_j/2),
+</span> where <span class="math inline">\phi(t_j) = E f_j</span> is the
+futures quote, <span class="math inline">\sigma_j</span> is a vector
+with norm equal to the at-the-money caplet volatility, and <span
+class="math inline">B_t</span> is vector-valued Brownian motion. A nice
+feature of this model is that the forward curve and at-the-money caplet
+prices are not affected by the individual components of the volatility
+vectors.</p>
+<p>A common parameteration for the volatilities is <span
+class="math inline">\Sigma(t) = \sigma(t)(\cos\alpha t, \sin\alpha
+t)</span> for some parameter <span class="math inline">\alpha</span>.
+Clealy <span class="math inline">||\Sigma(t)|| = sigma(t)</span>. This
+can be used to fit, e.g., one swaption price. Note <span
+class="math inline">\Sigma\cdot B_t = \sigma(B_t^0\cos(\alpha t) +
+B_t^1\sin(\alpha t)</span> and <span class="math inline">\Cov(B_t,B_u) =
+t\cos(\alpha(u-t))</span> for <span class="math inline">t &lt;
+u</span>.</p>
+<p>The futures are determined by the forwards and volatilities; <span
+class="math inline">\phi(t) = f(t) + \sigma(t)^2 t^2/2</span>.</p>
+</section>
+</section>
+<section id="risky-bonds" class="level2">
+<h2>Risky Bonds</h2>
+<p>A <em>risky zero coupon bond</em> with <em>recovery</em> <span
+class="math inline">R</span> and <em>default time</em> <span
+class="math inline">T</span> has a single cash flow <span
+class="math inline">C_u = 1</span> if default occurs after maturity or
+<span class="math inline">C_T = R</span> if <span class="math inline">T
+\le u</span>. It is customary to assume <span
+class="math inline">R</span> is constant. As with American options, we
+must expand the sample space to <span class="math inline">Ω\times
+(0,\infty]</span> where <span class="math inline">(ω,t)\in Ω\times
+(0,\infty]</span> indicates default occured at time <span
+class="math inline">t</span>. The partition of <span
+class="math inline">(0\infty]</span> representing information available
+at time <span class="math inline">t</span> for the default time is <span
+class="math inline">\{(t,\infty]\} \cup \{\{s\}:s \le t\}</span>. If
+default has not occured prior to <span class="math inline">t</span> we
+only know <span class="math inline">T &gt; t</span>. If default occured
+prior to time <span class="math inline">t</span> we know exactly when it
+happened.</p>
+<p>We write <span class="math inline">D_t^{R,T}(u)</span> for the price
+<span class="math inline">X_t^{D^{R,T}(u)}</span> of the risky zero
+coupon bond at time <span class="math inline">t</span>. The dynamics of
+a risky zero are determined by <span class="math display">
+    D_t^{R,T}(u) D_t = E_t[R 1(T \le u) D_T + 1(T &gt; u) D_u].
+</span> The <em>credit spread</em> <span class="math inline">s_t =
+s_t^{R,T}(u)</span> defined by <span class="math inline">D_t^{R,T}(u) =
+D_t(u) e^{-u s_t}</span> incorporates both recovery and default.</p>
+<p>If rates are zero then <span class="math inline">D_t = 1</span> for
+all <span class="math inline">t</span> and this simplifies to <span
+class="math inline">D_0^{R,T}(u) = R P(T \le u) + P(T &gt; u)</span>
+when <span class="math inline">t = 0</span>. If <span
+class="math inline">T</span> is exponentially distributed with hazard
+rate <span class="math inline">λ</span> then <span
+class="math inline">P(T &gt; t) = e^{-λ t}</span> and <span
+class="math display">
+    D_0^{R,T}(u) = R + (1 - R)e^{-λu}.
+</span> When <span class="math inline">λ = 0</span> the right hand side
+is 1. When <span class="math inline">R = 0</span> the credit spread
+equals the hazard rate. If <span class="math inline">λu</span> is small
+then the approximation <span class="math inline">e^x \approx 1 +
+x</span> for small <span class="math inline">x</span> gives the rule of
+thumb <span class="math inline">s = λ(1 - R)</span> where <span
+class="math inline">s = s_0 = s_0^{R,T}(u)</span> is the credit
+spread.</p>
+<p>For general <span class="math inline">t</span> we have <span
+class="math display">
+    D_t^{R,T}(u) = R P(T \le u | T &gt; t) 1(t &lt; T \le u) + P(T &gt;
+u | T &gt; t) 1(T &gt; u).
+</span></p>
+<p>Unlike in the credit default swap market, mathematical finance
+literture likes to assume recovery is delayed until maturity. It is also
+popular to make the unrealistic assumption that default time is
+independent of the deflator. Under these assumptions we have <span
+class="math display">
+    D_t^{R,T}(u) = D_t(u)\bigl(R P(T \le u | T &gt; t) 1(t &lt; T \le u)
++ P(T &gt; u | T &gt; t) 1(T &gt; u)\bigr).
+</span> In principal, <span class="math inline">R</span> could be random
+and joint distributions involving the default time and deflators could
+be specified.</p>
 </section>
 <footer>
 Return to <a href="index.html">index</a>.

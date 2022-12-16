@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2022-11-16" />
+  <meta name="dcterms.date" content="2022-12-15" />
   <title>Set</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,7 +45,7 @@
 <header id="title-block-header">
 <h1 class="title">Set</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">November 16, 2022</p>
+<p class="date">December 15, 2022</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Sets are defined by membership
@@ -56,33 +56,67 @@ Sets are defined by membership
 href="https://plato.stanford.edu/entries/set-theory/">set</a>. Sets are
 defined by their <em>members</em>. We write <span
 class="math inline">x\in S</span> to indicate <span
-class="math inline">x</span> is a member of the set <span
-class="math inline">S</span>. A finite set can be explicitly described
-by specifying its members <span class="math inline">S = \{x, y,
-z\}</span>. The original theory of sets due to Frege allowed sets to be
+class="math inline">x</span> is a member, or <em>element</em>, of the
+set <span class="math inline">S</span>. A finite set can be explicitly
+described by specifying its members <span class="math inline">S = \{x,
+y, z\}</span>. The theory of sets proposed by Frege posited sets are
 defined by a rule, <span class="math inline">x\in S</span> if and only
 if <span class="math inline">P(x)</span>, where <span
-class="math inline">P(x)</span> is a proposition that was true or false
+class="math inline">P(x)</span> is a proposition that is true or false
 depending on <span class="math inline">x</span>.</p>
-<p>Bertrand Russell showed Frege’s theory allowed a contradiction.
-Consider the set <span class="math inline">S</span> defined by the
-proposition <span class="math inline">P(x) = x\not in x</span>. Is <span
-class="math inline">S\in S</span>? If it is, it isn’t. If it isn’t, it
-is.</p>
-<p>Mathematicians had to go back to square one, or maybe square zero.
-The <em>empty set</em> <span class="math inline">\emptyset</span> is the
-set having no elements. For any set <span class="math inline">S</span>,
-<span class="math inline">S\not\in\emptyset</span>. The set having one
-member, the empty set, is <span
-class="math inline">\{\emptyset\}</span>. How do we represent the
-<em>natural numbers</em> 0, 1, 2, … as sets? We can let <span
-class="math inline">\emptyset</span> represent 0 and <span
-class="math inline">\{\emptyset\}</span> represent 1. If we can
-represent <span class="math inline">n</span>, what should <span
-class="math inline">n + 1</span> be? Peano.</p>
 <p>Logicians like to say “The language of set theory is epsilon.” They
 already have first order logic in their back pocket and mean set theory
-can be defined by membership.</p>
+can be defined by membership using the symbol <span
+class="math inline">\in</span>. They do not have much to say about how
+one establishes whether or not <span class="math inline">x\in
+S</span>.</p>
+<p>Bertrand Russell showed Frege’s theory involved a contradiction.
+Consider the set <span class="math inline">S</span> defined by the
+proposition <span class="math inline">P(x) = x\notin x</span>. Is <span
+class="math inline">S\in S</span>? If it is, it isn’t. If it isn’t, it
+is.</p>
+<p>One way to fix this up is to define sets by a rule restricted to
+previously existing sets: <span class="math inline">x\in S</span> if and
+only if <span class="math inline">P(x)</span>, where <span
+class="math inline">P(x)</span> <strong>and</strong> <span
+class="math inline">x\in T</span>, is a proposition that is true or
+false depending on <span class="math inline">x\in T</span>. This theory
+might also involve a contradiction, but nobody has found one so far.</p>
+<!--A modern day Russell might also find a contradiction,
+but so far that has not happened.
+-->
+<p>We can use first order logic to define some binary operations on
+sets. Two sets are equal if they have the same members: <span
+class="math inline">A = B</span> if and only if <span
+class="math inline">\forall x (x\in A \Leftrightarrow x\in B)</span>.
+The <em>union</em> of sets <span class="math inline">A</span> and <span
+class="math inline">B</span> is <span class="math inline">A\cup B =
+\{x\mid x\in A \vee x\in B\}</span>. The <em>intersecton</em> of sets
+<span class="math inline">A</span> and <span
+class="math inline">B</span> is <span class="math inline">A\cap B =
+\{x\mid x\in A\wedge x\in B\}</span>. The <em>set difference</em> of
+sets <span class="math inline">A</span> and <span
+class="math inline">B</span> is <span class="math inline">A\setminus B =
+\{x\mid x\in A\wedge x\notin B\}</span>.</p>
+<p>Mathematicians had to go back to square one, or maybe square zero, to
+define sets. How do we represent the <em>natural numbers</em> 0, 1, 2, …
+as sets? The <em>empty set</em> <span class="math inline">\emptyset =
+\{\}</span> is the set having no elements. We can let <span
+class="math inline">\emptyset</span> represent 0. If we can represent
+<span class="math inline">n</span>, what should <span
+class="math inline">n + 1</span> be?</p>
+<p>One solution, due to von Neumann, is the define <span
+class="math inline">n + 1 = n\cup\{n\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">n + 1
+\not= n</span></em>.</p>
+<p>The <em>cartesian product</em> of sets <span
+class="math inline">A</span> and <span class="math inline">B</span> is
+<span class="math inline">A\times B = \{(a, b)\mid a\in A, b\in
+B\}</span>, where <span class="math inline">(a, b)</span> is the
+<em>ordered pair</em> of <span class="math inline">a</span> and <span
+class="math inline">b</span>. This can be defined using sets by <span
+class="math inline">(a,b) = \{\{a\}, \{a,b\}\}</span>.</p>
+<p><strong>Exercise</strong>. _Show $x</p>
 <p>The category <span class="math inline">\mathbf{Set}</span> with
 objects sets and arrows functions from a set to a set is a canonnical
 example of a category. Properties of <span

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2022-12-15" />
+  <title>Why Category Theory?</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Why Category Theory?</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">December 15, 2022</p>
+</header>
+
+<p>Category theory uses <em>objects</em> and <em>arrows</em> to express
+mathematical concepts. Everything in classical mathematics is a
+<em>set</em>. Logicians are wont to say “the language of Set Theory is
+<em>epsilon</em>.” By that they mean the only additional symbol required
+in first-order logic to define the axioms for set membership is <span
+class="math inline">\epsilon</span></p>
+<p>The first attempt at defining modern Set Theory is due to Frege. He
+defined a set by giving a rule for membership. Bertrand Russell showed
+that entailed a contradiction. Let <span class="math inline">S</span> be
+the set of all sets <span class="math inline">x</span> where it is not
+the case <span class="math inline">x\in x</span>, <span
+class="math inline">S = \{x\mid x\notin x\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">S\in
+S</span> implies <span class="math inline">S\notin S</span> and <span
+class="math inline">S\notin S</span> implies <span
+class="math inline">S\in S</span></em>.</p>
+<p>When a mathematical theory has a contradiction it is useless.
+Why?</p>
+<p>It was not easy to fix up Frege’s theory. Zermelo-Fraenkel, von
+Neumann.</p>
+<p>Axioms are not the first thing you might think of.</p>
+<p>Using Category Theory to define a set turned out to be problematic.
+It was not possible to recapture the notion of set membership. Topos
+Theory identified the concept of parameterized membership as a
+<em>subobject classifier</em>. Sometimes it is more natural to consider
+the points on a sphere as the unique tangent plane to the point.</p>
+<section id="section" class="level2">
+<h2></h2>
+<p>The objects in category <span class="math inline">\mathbf{Set}</span>
+are sets and the arrows are functions from one set to another. If <span
+class="math inline">S = \{x\}</span> is a set with one element (a
+<em>singleton</em>) then for every set <span
+class="math inline">T</span> there is a unique function from <span
+class="math inline">T</span> to the singleton set <span
+class="math inline">\{x\}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">S</span>
+is a set and for every set <span class="math inline">T</span> there
+exists a unique function from <span class="math inline">T</span> to
+<span class="math inline">S</span> then <span
+class="math inline">S</span> is a singleton</em>.</p>
+<p>We can define a singleton set using only objects and arrows.</p>
+<p>The cartesian product of sets <span class="math inline">S</span> and
+<span class="math inline">T</span> is <span class="math inline">S\times
+T = \{(s,t)\mid s\in S, t\in T\}</span>. Selecting the left and right
+elements correspond to the functions <span class="math inline">l(s,t) =
+s</span> and <span class="math inline">r(s,t) = t</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\lambda\colon U\to S</span> and <span
+class="math inline">\rho\colon U\to T</span> there exists a unique
+function <span class="math inline">\pi\colon U\to S\times T</span>
+with</em> <span class="math display">
+    l\pi = \lambda, r\pi = \rho.
+</span></p>
+<p><em>Hint</em>: <span class="math inline">\pi u = (\lambda u, \rho
+u)</span>.</p>
+<p>This defines cartesian product using only objects and arrows.</p>
+<p>What is the “sum” of two sets? We could define <span
+class="math inline">S + T = S\cup T</span> to be the union, but putting
+on our category theory glasses that turns out to be not quite right.</p>
+<p>Reversing the arrows of the category definiton of product we are
+looking for functions <span class="math inline">l\colon S\to S +
+T</span> and <span class="math inline">r\colon T\to S + T</span> with
+the following property: if <span class="math inline">\lambda\colon S\to
+U</span> and <span class="math inline">\rho\colon T\to U</span> then
+there exists a unique function <span class="math inline">\sigma\colon S
++ T\to U</span> with <span class="math display">
+    \sigma l = \lambda, \sigma r = \rho.
+</span></p>
+<p>We can define <span class="math inline">l\colon S\to S\cup T</span>
+and <span class="math inline">r\colon T\to S\cup T</span> by set
+inclusion. If <span class="math inline">\lambda\colon U\to S\cup
+T</span> and <span class="math inline">\rho\colon U\to S\cup T</span>
+how do we define <span class="math inline">\sigma\colon S\cup T\to
+U</span> so <span class="math inline">\sigma l = \lambda</span> and
+<span class="math inline">\sigma r = \rho</span>?</p>
+<p>If <span class="math inline">s\in S</span> we can define <span
+class="math inline">\sigma s = \lambda s</span> and if <span
+class="math inline">t\in T</span> we can define <span
+class="math inline">\sigma t = \rho t</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">s\in
+S</span> and <span class="math inline">s\notin T</span> then <span
+class="math inline">\sigma l s = \lambda s</span>. If <span
+class="math inline">t\in T</span> and <span class="math inline">t\notin
+S</span> then <span class="math inline">\sigma l t = \rho
+t</span></em>.</p>
+<p>The problem is ensuring <span class="math inline">\sigma l =
+\lambda</span> and <span class="math inline">\sigma r = \rho</span> on
+the intersection <span class="math inline">S\cap T</span>.</p>
+<p>Computer science product and sum types.</p>
+</section>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>
