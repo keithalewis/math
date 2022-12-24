@@ -9,8 +9,7 @@ abstract:
 
 \newcommand\cat[1]{\mathbf{#1}}
 
-Category theory uses  _objects_ and _arrows_ to express mathematical
-concepts.  Everything in classical mathematics is a _set_. Logicians are
+Everything in classical mathematics is a _set_. Logicians are
 wont to say "the language of Set Theory is _epsilon_." By that they mean
 the only additional symbol required in first-order logic to define the
 axioms for set membership is $\epsilon$
@@ -22,11 +21,13 @@ it is not the case $x\in x$, $S = \{x\mid x\notin x\}$.
 
 __Exercise__. _Show $S\in S$ implies $S\notin S$ and $S\notin S$ implies $S\in S$_.
 
-When a mathematical theory has a contradiction it is useless. Why?
-
 It was not easy to fix up Frege's theory. Zermelo-Fraenkel, von Neumann.
 
-Axioms are not the first thing you might think of.
+Their axioms are not the first thing you might think of.
+
+## Category Theory
+
+Category theory uses _objects_ and _arrows_ instead of membership to express mathematical concepts. 
 
 Using Category Theory to define a set turned out to be problematic.
 It was not possible to recapture the notion of set membership.
@@ -37,26 +38,28 @@ consider the points on a sphere as the unique tangent plane to the point.
 ## \cat{Set}
 
 The objects in category $\cat{Set}$ are sets and the arrows are functions from one set to another.
-If $S = \{x\}$ is a set with one element (a _singleton_)
-then for every set $T$ there is a unique function from
-$T$ to the singleton set $\{x\}$.
+If $A = \{a\}$ is a set with one element (a _singleton_)
+then for every set $B$ there is a unique function from
+$A$ to the singleton set $\{a\}$.
 
-__Exercise__. _If $S$ is a set and for every set $T$ there exists a unique function from $T$ to $S$
-then $S$ is a singleton_.
+__Exercise__. _If $A$ is a set and for every set $B$ there exists a unique function from $A$ to $B$
+then $A$ is a singleton_.
 
 We can define a singleton set using only objects and arrows.
 
-The cartesian product of sets $S$ and $T$ is $S\times T = \{(s,t)\mid s\in S, t\in T\}$.
+The _cartesian product_ of sets $A$ and $B$ is $A\times B = \{(a,b)\mid a\in A, b\in B\}$.
 Selecting the left and right elements correspond to the functions
-$l(s,t) = s$ and $r(s,t) = t$.
+$\alpha(a,b) = a$ and $\beta(a,b) = b$.
 
-__Exercise__. _If $\lambda\colon U\to S$ and $\rho\colon U\to T$ there exists a unique
-function $\pi\colon U\to S\times T$ with_
+Note $\#(A\times B) = \#A\times \#B$.
+
+__Exercise__. _If $\alpha\colon C\to A$ and $\beta\colon C\to B$ there exists a unique
+function $\gamma\colon C\to A\times B$ with_
 $$
-	l\pi = \lambda, r\pi = \rho.
+	
 $$
 
-_Hint_: $\pi u = (\lambda u, \rho u)$.
+_Hint_: $\gamma c = (\alpha c, \beta c)$.
 
 This defines cartesian product using only objects and arrows.
 
@@ -86,3 +89,9 @@ r = \rho$ on the intersection $S\cap T$.
 
 
 Computer science product and sum types.
+
+Vector space V + W = V x W and V x W = L(V,W).
+
+#A^B = #A^#B
+
+We want #(A+B) = #A + #B
