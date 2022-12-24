@@ -25,8 +25,9 @@ It was not easy to fix up Frege's theory. Zermelo-Fraenkel, von Neumann.
 
 Their axioms are not the first thing you might think of.
 
-## Category Theory
+Every set $S$ has a _cardinality_ $\#S$, the number of elements of $S$.
 
+## Category Theory 
 Category theory uses _objects_ and _arrows_ instead of membership to express mathematical concepts. 
 
 Using Category Theory to define a set turned out to be problematic.
@@ -35,17 +36,21 @@ Topos Theory identified the concept of parameterized membership
 as a _subobject classifier_. Sometimes it is more natural to
 consider the points on a sphere as the unique tangent plane to the point.
 
-## \cat{Set}
+## Set
 
 The objects in category $\cat{Set}$ are sets and the arrows are functions from one set to another.
+
 If $A = \{a\}$ is a set with one element (a _singleton_)
 then for every set $B$ there is a unique function from
-$A$ to the singleton set $\{a\}$.
+$B$ to the singleton set $\{a\}$. Every $b\in B$ is sent to $a$.
 
-__Exercise__. _If $A$ is a set and for every set $B$ there exists a unique function from $A$ to $B$
+__Exercise__. _If $A$ is a set and for every set $B$ there exists a unique function from $B$ to $A$
 then $A$ is a singleton_.
 
 We can define a singleton set using only objects and arrows.
+We cannot define epsilon using objects an arrows.
+
+This is an example of a _terminal object_.
 
 The _cartesian product_ of sets $A$ and $B$ is $A\times B = \{(a,b)\mid a\in A, b\in B\}$.
 Selecting the left and right elements correspond to the functions
