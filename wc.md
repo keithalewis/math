@@ -9,6 +9,24 @@ abstract:
 
 \newcommand\cat[1]{\mathbf{#1}}
 
+I came across Category Theory when I was a fledgling assistant professor at Brown.
+One requirement of getting a PhD in mathematics is to take a course in Set Theory.
+If you held a gun to my head and told me to write down all the axioms
+of Zermelo-Frankel set theory, I would be a dead man.
+The simplicity of Category Theory was a revelation. I made the mistake
+of telling one of my colleagues about my interest and
+was shocked by his angry reply, "Category Theory
+doesn't **do** anything. Stop wasting your time on it!"
+
+Many people think math is abstract nonsence. Most mathematicians seem
+to regard Category Theory as generalized abstract nonsense.
+It is definitely something that is difficult to appreciate until
+you've learned a lot of mathematics. Samuel Eilenberg and
+Saunders Mac Lane invented it to unify common themes shared
+by many mathematical objects.
+
+## Set
+
 Everything in classical mathematics is a _set_. Logicians are
 wont to say "the language of Set Theory is _epsilon_." By that they mean
 the only additional symbol required in first-order logic to define the
@@ -21,11 +39,98 @@ it is not the case $x\in x$, $S = \{x\mid x\notin x\}$.
 
 __Exercise__. _Show $S\in S$ implies $S\notin S$ and $S\notin S$ implies $S\in S$_.
 
-It was not easy to fix up Frege's theory. Zermelo-Fraenkel, von Neumann.
+It was not easy to fix up Frege's theory. This led to various schemes to
+axiomatize what a set is. Zermelo-Fraenkel, von Neumann.
 
 Their axioms are not the first thing you might think of.
 
-Every set $S$ has a _cardinality_ $\#S$, the number of elements of $S$.
+A _set_ is just a bag of things (elements) with no structure.
+Two sets are _equal_ if they contain the same elements. Using epsilon and
+first order logic this is written $A = B$ if and only if
+$$
+	(\forall a\in A\ a\in B)\wedge(\forall b\in B\ b\in A).
+$$
+
+If $A = B$ then they have the same number of elements.  A weaker notion
+is two sets have the same _cardinality_ if they have the same number
+of elements. If $A$ and $B$ are infinite this becomes a bit tricky to
+define. The sets $A = \{1, 2, 3,\ldots\}$ and $B = \{2, 4, 6, \ldots\}$
+are both infinite and clearly $B\subset A$ but $B\not=A$.
+They have the same cardinality because we can associate $n\in A$
+with $2n\in B$. The function $f\colon A\to B$ defined by
+$f(n) = 2n$ is one-to-on and onto.
+
+If $A$ and $B$ are sets, their _cartesian product_ is the set
+of all pairs $A\times B = \{(a,b)\mid a\in A, b\in B\}$.
+A _relation_ is a subset $R\subseteq A\times B$.
+We write $aRb$ for $(a,b)\in R$.
+The _left coset_ of $b\in B$ is $Rb = \{a\in A\mid aRb\}$.
+The _right coset_ of $a\in A$ is $aR = \{b\in B\mid aRb\}$.
+
+A relation is a _function_ if for every $a\in A$ there exists
+a unique $b\in B$ with $(a,b)\in R$. We can write $R(a) = b$
+instead of $aRb$ since $b$ is unique.
+
+__Exercise__. _A relation $R\subseteq A\times B$ is a function if and
+only if the the right coset $aR$ contains exactly one element of $B$_.
+
+If $f$ is relation on $A\times B$ that is a function we write $f\colon A\to B$.
+A function is _one-to-one_ if $f(a) = f(b)$ implies $a = b$.
+A function is _onto_ if for every $b\in B$ there exists $a\in A$
+with $f(a) = b$. An _isomorphism_ is a function that is
+one-to-one and onto.
+
+Two sets have the same _cardinality_ if there is an isomorphism $f\colon A\to B$
+and we write $\#A = \#B$.
+
+__Exercise__. _Show $\#A = \#A$ for every set $A$_.
+
+_Hint_: Define $f\colon A\to A$ by $f(a) = a$, the _identity function_.
+
+__Exercise__. _If a function $f\colon A\to B$ is an isomorphism show there exists
+a function $g\colon B\to A$ that is also an isomorphism_.
+
+_Hint_: Define $g\colon B\to A$ by $g(b) = a$ if and only if $f(a) = b$, the
+_inverse function_ of $f$.
+
+This shows $\#A = \#B$ implies $\#B = \#A$.
+
+__Exercise__. _If $\#A = \#B$ and $\#B = \#C$ then $\#A = \#C$.
+
+_Hint_: The composition of isomorphisms is an isomorphism.
+
+This shows cardinality is an _equivalence relation_ on sets.
+
+A relation $R\subseteq A\times A$ is _reflexive_ if $aRa$ for all $a\in A$.
+The _diagonal_ of $A$ is the relation $\Delta_A = \{(a,a)\mid a\in A\}$.
+
+__Exercise__. _Show $R$ is reflexive if and only if $\Delta_A\subseteq R$_.
+
+__Exercise__. _Show $\Delta_A$ is the identity function on $A$._
+
+If $R\subseteq A\times B$ then its _transpose_ is $R^* = \{(b, a)\mid a\in A, b\in B\} \subseteq B\times A$.
+
+A relation $R\subseteq A\times A$ is _symmetric_ if and only if $R^* = R$.
+
+A relation $R\subseteq A\times A$ is _antisymmetric_ if and only if $R^*\cap R = \emptyset$.
+
+If $R\subseteq A\times B$ and $S\subseteq B\times C$ the _composition_
+$SR\subseteq A\times C$ is the set of all $(a,c)$ for which
+there exists $b\in B$ with $aRb$ and $bSc$.
+
+A relation $R\subseteq A\times A$ is _transitive_ if and only if $RR\subseteq R$.
+
+A relation $R\subseteq A\times A$ is an _equivalence relation_ if and only if
+it is reflective, symmetric, and transitive.
+
+__Exercise__. _If $R$ is an equivalence relation then $aR = Ra$ for all $a\in A$_.
+
+__Exercise__. _If $R$ is an equivalence relation then either $aR = bR$ or
+$aR\cap bR = \emptyset$ for $a,b\in A$_.
+
+__Exercise__. _Show $\{aR\mid a\in A\}$ is a partition of $A$_.
+
+
 
 ## Category Theory 
 Category theory uses _objects_ and _arrows_ instead of membership to express mathematical concepts. 
