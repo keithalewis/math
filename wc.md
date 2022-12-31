@@ -25,6 +25,30 @@ you've learned a lot of mathematics. Samuel Eilenberg and
 Saunders Mac Lane invented it to unify common themes shared
 by many mathematical objects.
 
+Category Theory involves _objects_ and _arrows_ from one object to another.
+The discipline of defining mathematical concepts using them
+clarifies classical definitions. One surprising result is that
+set membership cannot be defined using only objects and arrows.
+
+I'm sure Sammy and Saunders had no idea that Category Theory
+would become the basis for modern functional programming languages.
+Classical logic casually uses $\forall$ and $\exists$ to
+quantify over propositions that are either true of false.
+It turns out it is sometimes not possilbe to write a computer program to determine this.
+
+A truely astounding result is the Curry-Howard correspondence.
+Proofs using the axioms of Hilbert stye deduction for intuitional logic
+are the "same" as a the computational model of lambda calculus.
+
+Math true false statemts caveats. !!!
+
+"equal" is a problem
+
+"equivaltent" is better
+
+HOTT
+
+
 ## Set
 
 Everything in classical mathematics is a _set_. Logicians are
@@ -40,9 +64,13 @@ it is not the case $x\in x$, $S = \{x\mid x\notin x\}$.
 __Exercise__. _Show $S\in S$ implies $S\notin S$ and $S\notin S$ implies $S\in S$_.
 
 It was not easy to fix up Frege's theory. This led to various schemes to
-axiomatize what a set is. Zermelo-Fraenkel, von Neumann.
-
+axiomatize what a set is, e.g., Zermelo-Fraenkel, von Neumann.
 Their axioms are not the first thing you might think of.
+
+A simple solution to this is to only define subsets of an existing set
+that satisfy a rule. For any set $S$ and a predicate $P$ on $S$ we can
+stay out of trouble by defining $\{x\in S\mid P(x)\}$.  A _predicate_ is
+a function from elements of a set that returns either true or false.
 
 A _set_ is just a bag of things (elements) with no structure.
 Two sets are _equal_ if they contain the same elements. Using epsilon and
