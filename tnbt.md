@@ -27,28 +27,21 @@ into stumbling under the street light of Markov diffusions and continuous time t
 
 I'm sure you've already thought of this, but an Ito process with $dS_t/S_t =
 r\,dt + \Sigma_t\,dB$ where $\Sigma^2_t =  (1/t)\int_0^t (dS_s/S_s)\,ds
-= (1/t)\int_0^t \Sigma^2_s\,ds$, $\Sigma_0 = \sigma_0$,
+= (1/t)\int_0^t \Sigma^2_s\,ds$.
 is probably closer to how traders actually behave.
+
+If we look for solutions that are an Ito process
+$d\Sigma = \alpha\,dt + \beta\,dB$, $\Sigma_0 = \sigma$
+it seems the only solution is $\Sigma_t = \sigma$, $t\ge0$.
+Clearly $d(t\Sigma^2) = \Sigma^2\,dt$. We also have
+\begin{aligned}
+	d(t\Sigma^2) &= t(2\Sigma\,d\Sigma + (d\Sigma)^2) + \Sigma^2\,dt \\
+		&= t(2\Sigma\,d\Sigma + \beta^2\,dt) + \Sigma^2\,dt \\
+		&= t(2\Sigma(\alpha\,dt + \beta\,dB) + \beta^2\,dt) + \Sigma^2\,dt \\
+		&= (2t\alpha\Sigma + \beta^2 + \Sigma^2)\,dt + 2t\beta\Sigma\,dB \\
+\end{aligned}
+It follows $\beta = 0$ and $2t\alpha\Sigma = 0$ so $\alpha = 0$.
 
 If this makes sense to you let's keep talking.
 
 Les arbes tardif fondont le meure fruit.
-
-$dS/S = r\,dt + \Sigma\,dB$.
-
-$\Sigma^2 = (1/t)\int_0^t (dS/S)^2 = (1/t)\int_0^t \Sigma^2\,ds$.
-
-$d\Sigma = \alpha\,dt + \beta\,dB$, $\Sigma_0 = \sigma_0$.
-
-$d(t\Sigma^2) = t(2\Sigma\,d\Sigma + (d\Sigma)^2) + \Sigma^2\,dt$
-
-$= t(2\Sigma\,d\Sigma + \beta^2\,dt) + \Sigma^2\,dt$
-
-$= t(2\Sigma(\alpha\,dt + \beta\,dB) + \beta^2\,dt) + \Sigma^2\,dt$
-
-$= (2t\alpha\Sigma + \beta^2 + \Sigma^2)\,dt + 2t\beta\Sigma\,dB$
-
-$d(t\Sigma^2) = \Sigma^2\,dt$
-
-$\beta = 0$ and $2t\alpha\Sigma = 0$.
-
