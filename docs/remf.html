@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="dcterms.date" content="2023-01-09" />
-  <title>eli5</title>
+  <title>remf</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -41,39 +41,33 @@
   <![endif]-->
 </head>
 <body>
-<p>Start with account containing <span class="math inline">A</span>.</p>
-<p>Buy <span class="math inline">Γ_0</span> shares at price <span
-class="math inline">X_0</span>.</p>
-<p><span class="math inline">A_0 = A - Γ_0 X_0</span>.</p>
-<p><span class="math inline">V_0 = A_0 + Γ_0 X_0 = A - Γ_0 X_0 + Γ_0 X_0
-= A</span>.</p>
-<p><span class="math inline">A_1 = A_0 - Γ_1 X_1 = A - Γ_0 X_0 - Γ_1
-X_1</span>.</p>
-<p><span class="math display">
-\begin{aligned}
-V_1 &amp;= A_1 + (Γ_0 + Γ_1)X_1 \\
-    &amp;= A - Γ_0 X_0 - Γ_1 X_1 + (Γ_0 + Γ_1)X_1 \\
-    &amp;= A + Γ_0(X_1 - X_0) \\
-\end{aligned}
-</span></p>
-<p><span class="math inline">A_2 = A_1 - Γ_2 X_2 = A - Γ_0 X_0 - Γ_1 X_1
-- Γ_2 X_2</span></p>
-<span class="math display">\begin{aligned}
-V_2 &amp;= A_2 + (Γ_0 + Γ_1 + Γ_2)X_2 \\
-    &amp;= A - Γ_0 X_0 - Γ_1 X_1 - Γ_2 X_2 + (Γ_0 + Γ_1 + Γ_2)X_2 \\
-    &amp;= A + Γ_0(X_2 - X_0) + Γ_1(X_2 - X_1) \\
-\end{aligned}</span>
-<p>$$</p>
-<p><span class="math inline">A_n = A - \sum_{j=0}^n Γ_j X_j</span>.</p>
-<p><span class="math inline">V_n = A + \sum_{j=0}^{n-1} Γ_j(X_n -
-X_j)</span>.</p>
-<p><span class="math inline">0 = \sum_^n Γ_j</span>, <span
-class="math display">
-\begin{aligned}
-A_n &amp;= A - \sum_{j=0}^{n-1} Γ_j X_j + (\sum_{j=0}^{n-1} Γ_j) X_n \\
-    &amp;= A + \sum_{j=0}^{n-1} (X_n - X_j) \\
-\end{aligned}
-</span></p>
+
+<p>Let <span class="math inline">E</span> be the set of legal
+<em>entities</em> and <span class="math inline">I</span> be the set of
+<em>instruments</em>.</p>
+<p>For any set <span class="math inline">S</span> we define <span
+class="math inline">M(S) = \mathbf{Z}^S = \{\pi\colon
+S\to\mathbf{Z}\}</span> to be the set of all functions from <span
+class="math inline">S</span> to <span
+class="math inline">\mathbf{Z}</span>. <span
+class="math inline">M(S)</span> is a module over the ring of integers.
+Let <span class="math inline">\mathcal{L}(M(S))</span> be the space of
+all linear functions from <span class="math inline">M(S)</span> to <span
+class="math inline">M(S)</span>.</p>
+<p>Instrument <em>amounts</em> are quoted as an integer multiple of
+their smallest traded unit.</p>
+<p>A <em>position</em> is an element of the module <span
+class="math inline">M(I\times E)</span>.</p>
+<p>A <em>transaction</em> occurs when a <em>buyer</em> and a
+<em>seller</em> exchanging positions.</p>
+<p>Given a positions <span class="math inline">\pi = a_{i,e}</span> and
+<span class="math inline">\pi&#39; = a&#39;_{i&#39;,e&#39;}</span>.
+define <span class="math inline">\xi\colon M\times M\to M\times M</span>
+by <span class="math inline">\xi(\pi,\pi&#39;) = (a_{i,e&#39;},
+a&#39;_{i,e&#39;})</span>.</p>
+<p><span class="math inline">\xi\colon M\times\to M</span> by <span
+class="math inline">M - \pi + \xi\pi - \pi&#39; +
+\xi(\pi&#39;)</span></p>
 <hr/>
 <footer>
 Return to <a href="index.html">index</a>.
