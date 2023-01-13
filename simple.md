@@ -6,17 +6,21 @@ classoption: fleqn
 fleqn: true
 abstract: |
  Every arbitrage-free pricing model is parameterized by a vector-valued
- martingale and a positive adapted process.  There is no need to restrict
- models to Ito processes, use partial differential equations, or consider
- self-financing portfolios. There is also no need for utility functions or
- market equilibrium assumptions.
- In fact, there is no need for probability measures. The Unified Model involves only geometry,
- as was first pointed out by Stephen Ross. We do need the notion of algebras of sets
- in order to mathematically model partial information.
- Market participants can only execute a finite number of trades.
- It is time to banish the mathematical fiction of continuous time trading and
- focus on problems practitioners find useful: when to re-hedge
- and what are the risk trade-offs.
+ martingale and a positive adapted process. There is no need to restrict
+ models to Ito processes and use partial differential equations.  There is
+ also no need for utility functions or market equilibrium assumptions.
+ In fact, there is no need for probability measures. The Unified Model
+ involves only geometry, as was first pointed out by Stephen Ross. We
+ do need the notion of sample spaces and algebras of sets in order to
+ mathematically model partial information.
+
+
+ It is time to banish the mathematical fiction of continuous time trading.
+ should they get out of a position focus on problems practitioners
+ find useful: when to re-hedge and what are the risk trade-offs. The
+ Unified Model does not have any knobs for what even junior traders know:
+ real-world probability matters.
+
 ...
 
 \newcommand{\Var}{\operatorname{Var}}
@@ -35,6 +39,8 @@ Scholes and Merton won a Nobel Prize for a new method of valuing derivative secu
 did not require estimating the return on the underlying. Under the assumption that
 future stock prices could be modeled by geometric Brownian motion and it was possible
 to trade in continuous time, all one needed to know was the volatility.
+
+
 
 ## One-Period
 
@@ -368,40 +374,27 @@ $$
 $$
 The proof follows by induction on $u$.
 
-__Theorem__. _Every model of the form $X_t D_t = M_t - \sum_{s\le t}C_s D_s$ where $M_t$ is
-a martingale and $D_t$ is positive and adapted is arbitrage free_.
+__Theorem__. (Fundamental Theorem of Asset Pricing)
+_Every model parameterized by a vector-valued martingale
+$(M_t)_{t\in T}$ and a positive, adapted function $(D_t)_{t\in T}$
+where $X_t D_t = M_t - \sum_{s\le t}C_s D_s$ is arbitrage free_.
 
 _Proof_. If $(\tau_j, \Gamma_j)$ is a closed out trading strategy with $A_t\ge0$ for $t > \tau_0$
 then $V_{\tau_0} = E[ \sum_{t < s \le u} A_s D_s\mid\AA_{\tau_0}] \ge 0$.
 Since $V_{\tau_0} = \Gamma_0\cdot X_{\tau_0} = -A_{\tau_0}$ and $D_t$ is positive we have
 $A_{\tau_0} \le 0$ so there is no arbitrage.
 
+## Money Market Account
+
+If a money market account is available with return $R_t$, then $D_t = 1/R_t$.
+A money market account can be used to fund trading strategies to make them
+self-financing.
+
 ## Examples
 
-## Appendix
+### Black-Scholes/Merton
 
-A collection of some fundamental facts everyone should be aware of.
+Let $M_t = se^{\sigma B_t - \sigma^2t/2}$ and $D_t = e^{-\rho t}$.
 
-### Algebras of Sets
-
-Algebras of sets are used to model partial information.
-If the algebra is finite then the atoms form a partition.
-Complete information is knowing the element of the set,
-partial information is knowing only what atom it belongs to.
-
-A sequence of coin flips can be modeled by the sample space of real numbers
-between 0 and 1, $\Omega = [0,1)$. Every number $\omega\in\Omega$ can be
-written as $\omega = \sum_{j = 1}^\infty \omega_j 2^{-j}$ where $\omega_j$
-is either 0 or 1. The digits in the base 2 representation can be 
-interpreted as coin flips: 1 means heads and 0 means tails, or vice versa.
-
-The first flip is determined by $\omega_1$. The partition
-$\{[0, 1/2),[1/2, 1)\}$ of $\Omega$ 
-represents knowing the first flip. If $\omega_1 = 0$ then $\omega\in[0,1/2)$.
-If $\omega_1 =1$ then $\omega\in[1/2,1)$.
-The partition $\AA_n = \{[j2^{-n}, (j+1)2^{-n})\mid 0\le j < 2^n\}$ represents
-knowing the first $n$ flips.
-
-A subsets of a sample space $\Omega$ are called _events_. 
-If we want to talk about event $E$ _not_ happening or both 
-event $E$ _and_ $F$ happened 
+There is no need to restrict models to Ito processes, use partial
+differential equations, or consider self-financing portfolios.
