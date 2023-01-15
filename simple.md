@@ -15,11 +15,9 @@ abstract: |
  mathematically model partial information.
 
 
- It is time to banish the mathematical fiction of continuous time trading.
- should they get out of a position focus on problems practitioners
- find useful: when to re-hedge and what are the risk trade-offs. The
- Unified Model does not have any knobs for what even junior traders know:
- real-world probability matters.
+ It is time to banish the mathematical fiction of continuous time trading
+ and focus on problems practitioners find useful: when to re-hedge
+ and how well the hedge performs.
 
 ...
 
@@ -44,13 +42,11 @@ to trade in continuous time, all one needed to know was the volatility.
 
 ## One-Period
 
-Stephen Ross expanded the theory in the one-period case to any number of instruments.
-He showed the Fundamental Theorem of Asset pricing was a geometric result that
-could be proved using the Hahn-Banach theorem. 
-He posited that prices of $n$ instruments at the beginning of the period
-can be represented as a vector $x\in\RR^n$ and the prices at the end
+The prices of $n$ instruments at the beginning of the period
+can be represented by a vector $x\in\RR^n$ and the prices at the end
 of the period are functions of possible outcomes $X\colon\Omega\to\RR^n$.
-He showed this model is arbitrage-free if and only if $x$ belongs to
+The price at the end of the period is $X(\omega)$ if $\omega\in\Omega$ occured.
+A one-period model is arbitrage-free if and only if $x$ belongs to
 the smallest closed cone containing the range of $X$.
 If $X$ is bounded this is equivalent
 to
