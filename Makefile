@@ -24,7 +24,7 @@ TEXFLAGS += -V fontsize=12pt
 #TEXFLAGS +=  -M date="$(shell date "+%B %e, %Y")"
 #FLAGS += --toc
 #FLAGS += -B katex.tex
-FLAGS += --reference-location=block
+FLAGS += --reference-location=document
 #FLAGS += -t html5
 #FLAGS += --mathjax
 #FLAGS += --css capm.css

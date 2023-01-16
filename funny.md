@@ -15,20 +15,16 @@ and $(\Sigma_t)_{t\ge0}$ is an Ito process.
 
 A first guess at path-dependent $\Sigma_t$ might be
 $\Sigma^2_t =  (1/t)\int_0^t (dS_s/S_s)^2 = (1/t)\int_0^t \Sigma^2_s\,ds$,
-the average realized volatility.
+the average realized variance.
 
 __Exercise__. _Show $\Sigma_t$ is constant_. 
 
-_Hint_: If $d\Sigma = \alpha\,dt + \beta\,dB$ compute $d(t\Sigma^2)$ two ways
-to show $\alpha$ and $\beta$ must be 0.
+_Hint_: Compute $d(t\Sigma^2)$ two ways.
 
 <details><summary>Solution</summary>
 Clearly $d(t\Sigma^2) = \Sigma^2\,dt$.
-We also have $d(t\Sigma^2) = t\,d\Sigma^2 + \Sigma^2\,dt
-= t(2\Sigma\,d\Sigma + (d\Sigma)^2) + \Sigma^2\,dt$.
+We also have $d(t\Sigma^2) = t\,d\Sigma^2 + \Sigma^2\,dt$ so $d\Sigma^2 = 0$.
 
-This shows $0 = 2\Sigma\,d\Sigma + (d\Sigma)^2 = 2\Sigma(\alpha\,dt + \beta\,dB) + \beta^2\,dt$
-so $\beta = 0$ and $\alpha = 0$.
 </details>
 
 Consider the discrete time version where

@@ -61,15 +61,13 @@ range of $X$: $X(\Omega) = \{X(\omega)\mid\omega\in\Omega\}$.
 
 ### Examples
 
-Even the simple one-period model can provide interesting examples.
-
 Recall a _cone_ is a subset of a vector space that is closed under addition
 and multiplication by positive scalars.
 
 __Exercise__. _The set of arbitrage portfolios for a one-period model is a cone_.
 
-__Exercise__. _If $\{v_j\}$ is a finite collection of vectors then $\{\sum_j p_j v_j\mid p_j \ge 0\}$
-is the smallest closed cone containg the vectors_.
+__Exercise__. _The set $\{\sum_{j=1}^n p_j v_j\mid p_j \ge 0, p_j\in\RR \}$
+is the smallest closed cone containg the vectors $\{v_j\}_{j=1}^n$_.
 
 #### 1-2-3 Model
 
@@ -226,16 +224,6 @@ A _market model_  for a set $I$ of _instruments_ is specified by
 stochastic processes for _prices_ $X_t\colon\AA_t\to\RR^I$
 and _cash flows_ $C_t\colon\AA_t\to\RR^I$, $t\in T$. [^1]
 
-[^1]: If $\AA$ is an [_algebra of
-sets_](https://en.wikipedia.org/wiki/Algebra_of_sets) on the set
-$\Omega$ we write $X\colon\AA\to\RR$ to indicate $X\colon\Omega\to\RR$ is
-$\AA$-[_measurable_](https://en.wikipedia.org/wiki/Measurable_function).
-If $\AA$ is finite then the
-[_atoms_](https://en.wikipedia.org/wiki/Atom_(measure_theory)) of $\AA$
-form a [_partition_](https://en.wikipedia.org/wiki/Partition_of_a_set)
-of $\Omega$ and $X$ is $\AA$-measurable if and only if it is constant
-on atoms of $\AA$. In this case $X$ is indeed a function on the atoms.
-
 We assume any amount of each instrument can be bought or sold at price $X_t$ at time $t\in T$.
 Cash flows are almost always 0. Stocks pay dividends on dividend dates, bonds pay 
 periodic coupons, European options have a single cash flow at expiration, futures have
@@ -382,3 +370,15 @@ $D_t(u)D_t = E_t[D_u]$
 ### Risky Zero Coupon Bonds
 
 $D^{T,R}_t(u)D_t = E_t[R1(t < T \le u)D_T + 1(T > u)D_u]$
+
+## Footnotes
+
+[^1]: If $\AA$ is an [_algebra of
+sets_](https://en.wikipedia.org/wiki/Algebra_of_sets) on the set
+$\Omega$ we write $X\colon\AA\to\RR$ to indicate $X\colon\Omega\to\RR$ is
+$\AA$-[_measurable_](https://en.wikipedia.org/wiki/Measurable_function).
+If $\AA$ is finite then the
+[_atoms_](https://en.wikipedia.org/wiki/Atom_(measure_theory)) of $\AA$
+form a [_partition_](https://en.wikipedia.org/wiki/Partition_of_a_set)
+of $\Omega$ and $X$ is $\AA$-measurable if and only if it is constant
+on atoms of $\AA$. In this case $X$ is indeed a function on the atoms.
