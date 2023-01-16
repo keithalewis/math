@@ -40,64 +40,41 @@ to trade in continuous time, all one needed to know was the volatility.
 
 
 
-## One-Period
+## One-Period Model
 
 The prices of $n$ instruments at the beginning of the period
 can be represented by a vector $x\in\RR^n$ and the prices at the end
-of the period are functions of possible outcomes $X\colon\Omega\to\RR^n$.
-The price at the end of the period is $X(\omega)$ if $\omega\in\Omega$ occured.
-A one-period model is arbitrage-free if and only if $x$ belongs to
-the smallest closed cone containing the range of $X$.
-If $X$ is bounded this is equivalent
-to
-$$
-	x = \int_\Omega X(\omega)\,dD(\omega)
-$$
-for some positive finitely additive measure $D$ on $\Omega$.
-The measure is only unique in the rare case of complete markets.
-
-Let $I$ be the set of market instruments. The prices at the beginning of the period are
-a vector $x\in\RR^I$.
-Recall $A^B$ is the set of all functions from the set $B$ to the set $A$.
-Each $x\in\RR^I$ is a function $x\colon I\to\RR$ where
-$x(i)$ is the price of instrument $i\in I$ at the beginning of the period.
-Note $\RR^I$ is a vector space under pointwise addition and scalar multiplication.
-If $f,g\in\RR^I$ then $f + g\in\RR^I$ is defined by $(f + g)(i) = f(i) + g(i)$
-and $tf\in\RR^I$ for $t\in\RR$ is defined by $(tf)(i) = tf(i)$, $i\in I$.
-This avoids the circumlocution of specifying $I = \{i_1,\ldots,i_n\}$ and
-specifying $x\in\RR^n$ by $x_j = x(i_j)$, $1\le j\le n$.
+of the period are is a vector-value function of possible outcomes $X\colon\Omega\to\RR^n$.
+The prices at the end of the period are $X(\omega)$ if $\omega\in\Omega$ occured.
 
 Arbitrage exists in a one-period model if it is possible to buy a
 portfolio of instruments at negative cost and sell them at the end of the
 period without losing money.  The cost of purchasing $\gamma\in\RR^I$
 in each instrument at the beginning of the period is the dot product
-$\gamma\cdot x$. Assuming the position is unwound at the end of
-the period, it will pay $\gamma\cdot X(\omega)$ if $\omega\in\Omega$
-occurs. Arbitrage exists if there is a $\gamma\in\RR^I$ with $\gamma\cdot
-x < 0$ and $\gamma\cdot X\ge0$ as a function on $\Omega$.
+$\gamma\cdot x$. Assuming all positions are completely unwound at the end of
+the period, it will pay $\gamma\cdot X(\omega)$ if $\omega\in\Omega$ occurs.
+Arbitrage exists if there is a $\gamma\in\RR^n$ with $\gamma\cdot
+x < 0$ and $\gamma\cdot X(\omega)\ge0$ for all $\omega\in\Omega$.
 
-If $V$ is a vector space a subset $C\subseteq V$ is a _cone_ if
-$tC\subseteq C$ for $t\ge0$ and $C + C\subseteq C$, where
-$tC = \{tv\mid v\in C\}$ and $C + C = \{v + w\mid v,w\in C\}$.
-
-__Exercise__ _The set of arbitrage portfolios are a cone_.
-
-If $S\subseteq V$ then the smallest cone containing $S$, $\cone S$, is
-is the set of finite linear combinations $\sum t_j s_j$ where
-$t_j > 0$ and $s_j\in S$.
-
-Suppose $x = \sum_j X(\omega_j) D_j$ where $\omega_j\in\Omega$ and $D_j > 0$.
-If $\gamma\in\RR^I$ and $\gamma\cdot X\ge0$ then $\gamma\cdot x\ge0$.
-This shows there is no arbitrage if $x\in\cone X(\Omega)$.
-Ross established the more difficult result that the converse is true.
+Stephan Ross was the first to show a one-period model is _arbitrage-free_
+if and only if $x$ belongs to the smallest closed cone containing the
+range of $X$: $\{X(\omega)\mid\omega\in\Omega\}$.
 
 ### Examples
 
 Even the simple one-period model can provide interesting examples.
 
+Recall a _cone_ is a subset of a vector space that is closed under 
+multiplication by positive scalars and addition.
+
+__Exercise__. _The set of arbitrage portfolios for a one-period model is a cone_.
+
+__Exercise__. _If $\{v_j\}$ is a finite collection of vectors then $\{\sum_j p_j v_j\mid p_j > 0\}$
+is the smallest cone containg the vectors_.
+
 #### 1-2-3 Model
 
-Consider a one-period market with a bond that doubles in value over the period,
+Consider a one-period market having a bond that doubles in value over the period,
 a stock with initial price 1 that either stays the same or triples in value,
 and a call option on the stock with strike 2 and price $c$.
 This is modeled by $x = (1,1,c)$, $X(\omega) = (2,\omega,\max\{\omega - 2, 0\})$
@@ -110,7 +87,7 @@ Note $p + q = 1/2$ is the discount over the period.
 
 #### 90-100-110 Model
 
-Consider a one-period market with a bond with zero interest over the period,
+Consider a one-period market having a bond with zero interest over the period,
 a stock with initial price 100 that can go to 90, 100, or 110 at the end of the period,
 and a call option on the stock with strike 100 and price $c$.
 This is modeled by $x = (1,100,c)$, $X(\omega) = (1,\omega,\max\{\omega - 100, 0\})$
@@ -138,9 +115,9 @@ q \\
 \begin{bmatrix}
 r \\
 110r \\
-\end{bmatrix}
+\end{bmatrix}.
 $$
-so
+Solving for $p$ and $q$ gives
 $$
 \begin{bmatrix}
 p \\
@@ -148,48 +125,22 @@ q \\
 \end{bmatrix}
 =
 \begin{bmatrix}
-1 & 1 \\
-90 & 100 \\
-\end{bmatrix}^{-1}
-\begin{bmatrix}
-1 - r \\
-100 - 110r \\
-\end{bmatrix}
-=
-\frac{1}{10}
-\begin{bmatrix}
-100 & -1 \\
--90 & 1 \\
-\end{bmatrix}
-\begin{bmatrix}
-1 - r \\
-100 - 110r \\
-\end{bmatrix}
-=
-\frac{1}{10}
-\begin{bmatrix}
-100(1 - r) - (100 - 110r) \\
--90(1 - r) + 100 - 110r \\
-\end{bmatrix}
-=
-\frac{1}{10}
-\begin{bmatrix}
-10 r \\
-10 - 20r \\
+r \\
+1 - 2r \\
 \end{bmatrix}
 $$
 The conditions $p,q\ge0$ imply $r\ge0$ and $1-2r\ge0$ so $0\le r\le 1/2$.
-Since $c = 10r$ we have $0\le c\le 5$ if the model is arbitrage free.
+Since $c = 10r$ we have $0\le c\le 5$ if the model is arbitrage-free.
 
 Note the option price is not unique in this example. This is the case
 for any realisitic model of what can occur in the market.
 
 __Exercise__. _If $x = (100, c)$ and $X(\omega) = (\omega, \max\{\omega - 100\})$
 for $\omega\in\{90,100,110\}$ show
-the model is arbitrage free if and only if $0\le c\le 100/11$_.
+the model is arbitrage-free if and only if $0\le c\le 100/11$_.
 
 If the bond is not available for trading the option price must be
-strictly less than 10 in an arbitrage free model.
+strictly less than 10 in an arbitrage-free model.
 
 #### Binomial Model
 
@@ -258,9 +209,8 @@ __Exercise__. _Show the conditions $p,q\ge0$ imply $L \le Rs \le H$_.
 
 If an option pays $\phi(\omega)$ then it pays either $\phi(L)$ or
 $\phi(H)$ at expiration.  Every European option in a binomial model
-is a linear function and its arbitrage price is determined by the no
+is a linear function and its arbitrage-free price is determined by the no
 arbitrage condition the bond and stock satisfy.
-
 
 ## Unified Model
 
@@ -302,8 +252,8 @@ where $\Gamma_s = \Gamma_j$ if $s = \tau_j$.
 Note the strict inequality. This reflects the reality that it takes some time
 after a trade is executed for it to settle.
 
-Note we do not assume there is a money market account available to finance
-trading, much less that the strategy is self-financing.
+We do not assume there is a money market account available to finance
+trading or require a strategy to be self-financing.
 
 The _value_, or _mark-to-market_ of a trading strategy is
 $$
@@ -329,15 +279,20 @@ The strategy must close out, make money on the first trade, and never lose money
 Arbitrage-free models are parameterized by a vector-valued martingale,
 $M_t\colon\AA_t\to\RR^I$ and a positive adapted process $D_t\colon\AA_t\to (0,\infty)$:
 $$
-	X_t D_t = M_t - \sum_{s\le t}C_s D_s.
+	X_t D_t = M_t - \sum_{s\le t}C_s D_s.\tag{1}
 $$
+
+We call $D_t$ the _deflator_.
 
 __Lemma__. _If $X_t D_t = M_t - \sum_{s\le t}C_s D_s$ then_
 $$
-	X_t D_t = E[X_u D_u + \sum_{t < s \le u} C_s D_s\mid\AA_t]
+	X_t D_t = E[X_u D_u + \sum_{t < s \le u} C_s D_s\mid\AA_t].\tag{2}
 $$
 
-_Proof_. We have
+<details>
+<summary>_Proof_.</summary>
+
+We have
 $$
 \begin{aligned}
 	E[X_u D_u + \sum_{t < s \le u} C_s D_s\mid\AA_t]
@@ -347,15 +302,16 @@ $$
 	&= X_t D_t
 \end{aligned}
 $$
+</details>
 
 __Lemma__. _Using value $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ 
 and account $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$,_
 $$
-	V_t D_t = E[V_u D_u + \sum_{t < s \le u} A_s D_s\mid\AA_t]
+	V_t D_t = E[V_u D_u + \sum_{t < s \le u} A_s D_s\mid\AA_t].\tag{3}
 $$
 
-This shows every trading strategy produces a synthetic instrument with "prices" $V_t$ and
-"cash flows" $A_t$.
+<details>
+<summary>_Proof_.</summary>
 
 _Proof_. Note $X_t D_t = E_t[X_u D_u + C_u D_u]$ and $V_t = (\Delta_t + \Gamma_t)\cdot X_t
 = \Delta_u\cdot X_t$ for $u > t$ sufficiently small.
@@ -369,11 +325,16 @@ $$
 \end{aligned}
 $$
 The proof follows by induction on $u$.
+</details>
+
+Note the similarity between equation (2) and (3). Price and cash flow in (2)
+correspond to value and account in (3).
+Every trading strategy produces a synthetic derivative instrument.
 
 __Theorem__. (Fundamental Theorem of Asset Pricing)
 _Every model parameterized by a vector-valued martingale
 $(M_t)_{t\in T}$ and a positive, adapted function $(D_t)_{t\in T}$
-where $X_t D_t = M_t - \sum_{s\le t}C_s D_s$ is arbitrage free_.
+where $X_t D_t = M_t - \sum_{s\le t}C_s D_s$ is arbitrage-free_.
 
 _Proof_. If $(\tau_j, \Gamma_j)$ is a closed out trading strategy with $A_t\ge0$ for $t > \tau_0$
 then $V_{\tau_0} = E[ \sum_{t < s \le u} A_s D_s\mid\AA_{\tau_0}] \ge 0$.
@@ -383,6 +344,7 @@ $A_{\tau_0} \le 0$ so there is no arbitrage.
 ## Money Market Account
 
 If a money market account is available with return $R_t$, then $D_t = 1/R_t$.
+In this case we call $D_t$ the _stochastic discount_ instead of deflator.
 A money market account can be used to fund trading strategies to make them
 self-financing.
 
@@ -391,6 +353,20 @@ self-financing.
 ### Black-Scholes/Merton
 
 Let $M_t = se^{\sigma B_t - \sigma^2t/2}$ and $D_t = e^{-\rho t}$.
+Since $S_tD_t = se^{\sigma B_t - \sigma^2t/2}$ we have
+$$
+	S_t = se^{rt + \sigma B_t - \sigma^2t/2}.
+$$
 
 There is no need to restrict models to Ito processes, use partial
 differential equations, or consider self-financing portfolios.
+
+We can allow $\sigma$ to be a function of time and use the
+martingale $e^{\int_0^t \sigma(s)\,dB - (1/2)\int_0^t \sigma^2(s)\,ds}$.
+
+If the stock pays dividends $d_j$ at times $t_j$ then these are cash flows
+and equation (1) gives
+$$
+	S_t = se^{rt + \sigma B_t - \sigma^2t/2} - \sum_{t_j\le t} d_j e^{\rho(t - t_j)}.
+$$
+
