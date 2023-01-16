@@ -303,7 +303,7 @@ $$
 <details>
 <summary>_Proof_.</summary>
 
-_Proof_. Note $X_t D_t = E_t[X_u D_u + C_u D_u]$ and $V_t = (\Delta_t + \Gamma_t)\cdot X_t
+Note $X_t D_t = E_t[X_u D_u + C_u D_u]$ and $V_t = (\Delta_t + \Gamma_t)\cdot X_t
 = \Delta_u\cdot X_t$ for $u > t$ sufficiently small.
 $$
 \begin{aligned}
