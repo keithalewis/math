@@ -369,4 +369,6 @@ and equation (1) gives
 $$
 	S_t = se^{rt + \sigma B_t - \sigma^2t/2} - \sum_{t_j\le t} d_j e^{\rho(t - t_j)}.
 $$
-
+It is valid for any dividends $d_j$ that depend only on the information available at
+time $t_j$. For discrete dividends $d_j$ is constant. For proportional dividend
+$d_j = p_j S_{t_j}$. Tradeoff between short term and long term.
