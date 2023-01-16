@@ -28,7 +28,7 @@ abstract: |
 
 There is a clear trajectory in mathematical finance starting from Black,
 Scholes, and Merton valuing
-an option to expand the universe of instruments, incorporate credit
+an option to expanding the universe of instruments, incorporate credit
 and liquidity considerations, and make model assumptions explicit.
 Realistic models must allow for the empirical fact that not all market participants
 act optimally.
@@ -36,20 +36,19 @@ act optimally.
 Scholes and Merton won a Nobel Prize for a new method of valuing derivative securities that
 did not require estimating the return on the underlying. Under the assumption that
 future stock prices could be modeled by geometric Brownian motion and it was possible
-to trade in continuous time, all one needed to know was the volatility.
-
-
+to trade in continuous time, all one needed to know was the volatility
+and the risk-free funding rate.
 
 ## One-Period Model
 
 The prices of $n$ instruments at the beginning of the period
-can be represented by a vector $x\in\RR^n$ and the prices at the end
-of the period are is a vector-value function of possible outcomes $X\colon\Omega\to\RR^n$.
-The prices at the end of the period are $X(\omega)$ if $\omega\in\Omega$ occured.
+can be represented by a vector $x\in\RR^n$. The prices at the end
+of the period are $X(\omega)\in\RR^n$ if $\omega\in\Omega$ occured where
+$X\colon\Omega\to\RR^n$
 
 Arbitrage exists in a one-period model if it is possible to buy a
 portfolio of instruments at negative cost and sell them at the end of the
-period without losing money.  The cost of purchasing $\gamma\in\RR^I$
+period without losing money.  The cost of purchasing $\gamma\in\RR^n$
 in each instrument at the beginning of the period is the dot product
 $\gamma\cdot x$. Assuming all positions are completely unwound at the end of
 the period, it will pay $\gamma\cdot X(\omega)$ if $\omega\in\Omega$ occurs.
@@ -58,19 +57,19 @@ x < 0$ and $\gamma\cdot X(\omega)\ge0$ for all $\omega\in\Omega$.
 
 Stephan Ross was the first to show a one-period model is _arbitrage-free_
 if and only if $x$ belongs to the smallest closed cone containing the
-range of $X$: $\{X(\omega)\mid\omega\in\Omega\}$.
+range of $X$: $X(\Omega) = \{X(\omega)\mid\omega\in\Omega\}$.
 
 ### Examples
 
 Even the simple one-period model can provide interesting examples.
 
-Recall a _cone_ is a subset of a vector space that is closed under 
-multiplication by positive scalars and addition.
+Recall a _cone_ is a subset of a vector space that is closed under addition
+and multiplication by positive scalars.
 
 __Exercise__. _The set of arbitrage portfolios for a one-period model is a cone_.
 
-__Exercise__. _If $\{v_j\}$ is a finite collection of vectors then $\{\sum_j p_j v_j\mid p_j > 0\}$
-is the smallest cone containg the vectors_.
+__Exercise__. _If $\{v_j\}$ is a finite collection of vectors then $\{\sum_j p_j v_j\mid p_j \ge 0\}$
+is the smallest closed cone containg the vectors_.
 
 #### 1-2-3 Model
 
@@ -95,7 +94,7 @@ where $\Omega = \{90, 100, 110\}$. For the model to be arbitrage-free there must
 exist $p,q,r\ge0$ with $x = X(90)p + X(100)q + X(110)r$.
 
 The equation for the bond, stock, and option are $1 = p + q + r$, $100 = 90p + 100q + 110r$,
-$c = 10r$.
+and $c = 10r$.
 The first two equations can be written in matrix notation as
 $$
 \begin{bmatrix}
@@ -211,6 +210,9 @@ If an option pays $\phi(\omega)$ then it pays either $\phi(L)$ or
 $\phi(H)$ at expiration.  Every European option in a binomial model
 is a linear function and its arbitrage-free price is determined by the no
 arbitrage condition the bond and stock satisfy.
+
+__Exercise__. _If $x = (1, s, c)$ and $X(\omega) = (R, \omega, \max\{\omega - K, 0\})$
+where $\omega\in [L, H]$ what are the no-arbitrage constraints on $c$_?
 
 ## Unified Model
 
@@ -355,7 +357,7 @@ self-financing.
 Let $M_t = se^{\sigma B_t - \sigma^2t/2}$ and $D_t = e^{-\rho t}$.
 Since $S_tD_t = se^{\sigma B_t - \sigma^2t/2}$ we have
 $$
-	S_t = se^{rt + \sigma B_t - \sigma^2t/2}.
+	S_t = se^{\rho t + \sigma B_t - \sigma^2t/2}.
 $$
 
 There is no need to restrict models to Ito processes, use partial
@@ -367,8 +369,16 @@ martingale $e^{\int_0^t \sigma(s)\,dB - (1/2)\int_0^t \sigma^2(s)\,ds}$.
 If the stock pays dividends $d_j$ at times $t_j$ then these are cash flows
 and equation (1) gives
 $$
-	S_t = se^{rt + \sigma B_t - \sigma^2t/2} - \sum_{t_j\le t} d_j e^{\rho(t - t_j)}.
+	S_t = se^{\rho t + \sigma B_t - \sigma^2t/2} - \sum_{t_j\le t} d_j e^{\rho(t - t_j)}.
 $$
 It is valid for any dividends $d_j$ that depend only on the information available at
 time $t_j$. For discrete dividends $d_j$ is constant. For proportional dividend
-$d_j = p_j S_{t_j}$. Tradeoff between short term and long term.
+$d_j = p_j S_{t_j}$. 
+
+### Zero Coupon Bonds
+
+$D_t(u)D_t = E_t[D_u]$
+
+### Risky Zero Coupon Bonds
+
+$D^{T,R}_t(u)D_t = E_t[R1(t < T \le u)D_T + 1(T > u)D_u]$
