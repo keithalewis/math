@@ -365,11 +365,23 @@ $d_j = p_j S_{t_j}$.
 
 ### Zero Coupon Bonds
 
-$D_t(u)D_t = E_t[D_u]$
+A _zero coupon bond_ with maturity $u$ has a single cash flow of 1 at time $u$.
+By equation (2) we have
+$$
+D_t(u)D_t = E_t[D_u]
+$$
+where $D_t(u)$ is the price at time $t$ of the zero coupon bond.
 
 ### Risky Zero Coupon Bonds
 
-$D^{T,R}_t(u)D_t = E_t[R1(t < T \le u)D_T + 1(T > u)D_u]$
+If a zero coupon bond defaults at the random time $T$ and pays random recovery $R$
+when it defaults then by equation (2)
+$$
+D^{T,R}_t(u)D_t = E_t[R1(t < T \le u)D_T + 1(T > u)D_u]
+$$
+where $D^{T,R}_t(u)$ is the price at time $t$ of the risky zero coupon bond.
+
+__Exercise__. _If $P(T > t) = e^{-\lambda t}$ is independent of $D_t$, $t\ge 0$,..._.
 
 ## Footnotes
 
