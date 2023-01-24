@@ -5,8 +5,8 @@ institute: KALX, LLC
 classoption: fleqn
 fleqn: true
 abstract: |
- Every arbitrage-free pricing model is parameterized by a vector-valued
- martingale and a positive adapted process. There is no need to restrict
+ Every arbitrage-free model is parameterized by a positive measure process.
+ There is no need to restrict
  models to Ito processes and use partial differential equations.  There is
  also no need for utility functions or market equilibrium assumptions.
  In fact, there is no need for probability measures. The Unified Model
@@ -26,34 +26,33 @@ abstract: |
 \newcommand{\RR}{𝑹}
 \renewcommand{\AA}{\mathcal{A}}
 
-There is a clear trajectory in mathematical finance starting from Black,
-Scholes, and Merton valuing
-an option to expanding the universe of instruments, incorporate credit
-and liquidity considerations, and make model assumptions explicit.
-Realistic models must allow for the empirical fact that not all market participants
-act optimally.
+There is a clear trajectory in mathematical finance starting from
+Black, Scholes, and Merton valuing an option to expanding the universe
+of instruments, incorporate credit and liquidity considerations, and
+make model assumptions explicit.  Realistic models must allow for the
+empirical fact that not all market participants act optimally.
 
-Scholes and Merton won a Nobel Prize for a new method of valuing derivative securities that
-did not require estimating the return on the underlying. Under the assumption that
-future stock prices could be modeled by geometric Brownian motion and it was possible
-to trade in continuous time, all one needed to know was the volatility
-and the risk-free funding rate.
+Scholes and Merton won a Nobel Prize for a new method of valuing
+derivative securities that did not require estimating the return on
+the underlying. Under the assumption that stock prices can be modeled
+by geometric Brownian motion and it was possible to trade in continuous
+time, all one needed to know was the volatility and the funding rate.
 
 ## One-Period Model
 
-The prices of $n$ instruments at the beginning of the period
-can be represented by a vector $x\in\RR^n$. The prices at the end
-of the period are $X(\omega)\in\RR^n$ if $\omega\in\Omega$ occured where
+The prices of $n$ instruments at the beginning of the period can be
+represented by a vector $x\in\RR^n$. The prices at the end of the
+period are $X(\omega)\in\RR^n$ if $\omega\in\Omega$ occured where
 $X\colon\Omega\to\RR^n$
 
 Arbitrage exists in a one-period model if it is possible to buy a
 portfolio of instruments at negative cost and sell them at the end of the
 period without losing money.  The cost of purchasing $\gamma\in\RR^n$
 in each instrument at the beginning of the period is the dot product
-$\gamma\cdot x$. Assuming all positions are completely unwound at the end of
-the period, it will pay $\gamma\cdot X(\omega)$ if $\omega\in\Omega$ occurs.
-Arbitrage exists if there is a $\gamma\in\RR^n$ with $\gamma\cdot
-x < 0$ and $\gamma\cdot X(\omega)\ge0$ for all $\omega\in\Omega$.
+$\gamma\cdot x$. Assuming all positions are completely unwound at the end
+of the period, it will pay $\gamma\cdot X(\omega)$ if $\omega\in\Omega$
+occurs.  Arbitrage exists if there is a $\gamma\in\RR^n$ with
+$\gamma\cdot x < 0$ and $\gamma\cdot X(\omega)\ge0$ for all $\omega\in\Omega$.
 
 Stephan Ross was the first to show a one-period model is _arbitrage-free_
 if and only if $x$ belongs to the smallest closed cone containing the
@@ -71,12 +70,12 @@ is the smallest closed cone containg the vectors $\{v_j\}_{j=1}^n$_.
 
 #### 1-2-3 Model
 
-Consider a one-period market having a bond that doubles in value over the period,
-a stock with initial price 1 that either stays the same or triples in value,
-and a call option on the stock with strike 2 and price $c$.
+Consider a one-period market having a bond that doubles in value over the
+period, a stock with initial price 1 that either stays the same or triples
+in value, and a call option on the stock with strike 2 and price $c$.
 This is modeled by $x = (1,1,c)$, $X(\omega) = (2,\omega,\max\{\omega - 2, 0\})$
-where $\Omega = \{1, 3\}$. For the model to be arbitrage-free there must
-exist $p,q\ge0$ with $x = X(1)p + X(3)q$ and $p,q\ge0$.
+where $\Omega = \{1, 3\}$. For the model to be arbitrage-free
+there must exist $p,q\ge0$ with $x = X(1)p + X(3)q$ and $p,q\ge0$.
 The constraint on the bond and stock give $1 = 2p + 2q$ and $1 = p + 3q$ respectively.
 
 These equations have the unique solution $p = q = 1/4$ so $c = 0\times 1/4 + 1\times 1/4 = 1/4$.
@@ -84,15 +83,14 @@ Note $p + q = 1/2$ is the discount over the period.
 
 #### 90-100-110 Model
 
-Consider a one-period market having a bond with zero interest over the period,
-a stock with initial price 100 that can go to 90, 100, or 110 at the end of the period,
-and a call option on the stock with strike 100 and price $c$.
-This is modeled by $x = (1,100,c)$, $X(\omega) = (1,\omega,\max\{\omega - 100, 0\})$
-where $\Omega = \{90, 100, 110\}$. For the model to be arbitrage-free there must
-exist $p,q,r\ge0$ with $x = X(90)p + X(100)q + X(110)r$.
+Consider a one-period market having a bond with zero interest over the
+period, a stock with initial price 100 that can go to 90, 100, or 110
+at the end of the period, and a call option on the stock with strike
+100 and price $c$.  This is modeled by
+$x = (1,100,c)$, $X(\omega) = (1,\omega,\max\{\omega - 100, 0\})$ where $\Omega = \{90, 100, 110\}$.
+For the model to be arbitrage-free there must exist $p,q,r\ge0$ with $x = X(90)p + X(100)q + X(110)r$.
 
-The equation for the bond, stock, and option are $1 = p + q + r$, $100 = 90p + 100q + 110r$,
-and $c = 10r$.
+The equation for the bond, stock, and option are $1 = p + q + r$, $100 = 90p + 100q + 110r$, and $c = 10r$.
 The first two equations can be written in matrix notation as
 $$
 \begin{bmatrix}
@@ -133,10 +131,9 @@ Note the option price is not unique in this example. This is the case
 for any realisitic model of what can occur in the market.
 
 __Exercise__. _If $x = (100, c)$ and $X(\omega) = (\omega, \max\{\omega - 100\})$
-for $\omega\in\{90,100,110\}$ show
-the model is arbitrage-free if and only if $0\le c\le 100/11$_.
+for $\omega\in\{90,100,110\}$ show the model is arbitrage-free if and only if $0\le c\le 100/11$_.
 
-If the bond is not available for trading the option price must be
+Even if the bond is not available for trading the option price must be
 strictly less than 10 in an arbitrage-free model.
 
 #### Binomial Model
@@ -214,14 +211,14 @@ where $\omega\in [L, H]$ what are the no-arbitrage constraints on $c$_?
 
 ## Unified Model
 
-Assume $\Omega$ is the sample space of possible outcomes, $P$ is a probability measure
-on $\Omega$, and $\AA_t$ are algebras of sets
-indicating the information available at each trading time $t\in T$.
+Assume $\Omega$ is the sample space of possible outcomes and $\AA_t$
+is a partition of $\Omega$ representing the information available at
+each trading time $t\in T$.
 
 ### Market
 
-A _market model_  for a set $I$ of _instruments_ is specified by
-stochastic processes for _prices_ $X_t\colon\AA_t\to\RR^I$
+A _market model_ for a set $I$ of _instruments_ is specified by
+functions for _prices_ $X_t\colon\AA_t\to\RR^I$
 and _cash flows_ $C_t\colon\AA_t\to\RR^I$, $t\in T$. [^1]
 
 We assume any amount of each instrument can be bought or sold at price $X_t$ at time $t\in T$.
@@ -257,27 +254,22 @@ Trading strategies involve cash flows to the trading _account_
 $$
 	A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t.
 $$
-At time $t$ all cash flows are received in proportion to the existing position and
+At time $t$ cash flows are received in proportion to the existing position and
 the trades just executed are debited from the trading account.
 
 ### Arbitrage
 
-_Arbitrage_ exists for a model if there exists a trading strategy $(\tau_j, \Gamma_j)$
-with $\sum_j \Gamma_j = 0$, $A_{\tau_0} > 0$, and $A_t\ge0$ for $t > \tau_0$.
+_Arbitrage_ exists for a model if there is a trading strategy $(\tau_j, \Gamma_j)$
+with $\sum_j \Gamma_j = 0$, $A_{\tau_0} > 0$, $A_t\ge0$ for $t > \tau_0$.
 The strategy must close out, make money on the first trade, and never lose money thereafter.
 
-Arbitrage-free models are parameterized by a vector-valued martingale,
-$M_t\colon\AA_t\to\RR^I$ and a positive adapted process $D_t\colon\AA_t\to (0,\infty)$:
-$$
-	X_t D_t = M_t - \sum_{s\le t}C_s D_s.\tag{1}
-$$
+Arbitrage-free models are parameterized by a function $D_t\colon\AA_t\to (0,\infty)$.
+We call $D_t$ a _deflator_. If a money-market account is available to fund
+trading then $D_t = 1/R_t$ where $R_t$ is the realized return on the money-market account.
 
-We call $D_t$ the _deflator_.
+Let $M_t = X_t D_t + sum_{s\le t}C_s D_s$.
 
-__Lemma__. _If $X_t D_t = M_t - \sum_{s\le t}C_s D_s$ then_
-$$
-	X_t D_t = E[X_u D_u + \sum_{t < s \le u} C_s D_s\mid\AA_t].\tag{2}
-$$
+__Lemma__. _A model is arbitrage-free if $M_u|_{\AA_t} = M_t$_.
 
 <details>
 <summary>_Proof_.</summary>
@@ -293,6 +285,9 @@ $$
 \end{aligned}
 $$
 </details>
+
+
+__Theorem__. _A model is arbitrage-free if $M_u|_{\AA_t} = M_t$_.
 
 __Lemma__. _Using value $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ 
 and account $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$,_
