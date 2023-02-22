@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2022-09-28" />
+  <meta name="dcterms.date" content="2023-01-09" />
   <title>Fixed Income</title>
   <style>
     code{white-space: pre-wrap;}
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -36,7 +36,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -45,7 +45,7 @@
 <header id="title-block-header">
 <h1 class="title">Fixed Income</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 28, 2022</p>
+<p class="date">January 9, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Constant cash flows
@@ -63,144 +63,83 @@ class="math inline">D(u)</span> is the discount to time <span
 class="math inline">u</span>. The present value at time <span
 class="math inline">t</span> is <span class="math inline">P_t =
 \sum_{u_j &gt; t} c_j D_t(u_j)</span> where <span
-class="math inline">D_t(u)</span> is the discount at time <span
-class="math inline">t</span> to time <span
+class="math inline">D_t(u)</span> is the price at time <span
+class="math inline">t</span> of a zero coupon bond maturing at <span
 class="math inline">u</span>.</p>
 <section id="zero-coupon-bond" class="level3">
 <h3>Zero Coupon Bond</h3>
-<p>A <em>zero coupon bond</em> , <span class="math inline">D(u)</span>,
+<p>A <em>zero coupon bond</em>, <span class="math inline">D(u)</span>,
 pays one unit at maturity <span class="math inline">u</span> so <span
 class="math inline">C^{D(u)}_u = 1</span> is the only cash flow. We
 write <span class="math inline">D_t(u)</span> for the price <span
 class="math inline">X_t^{D(u)}</span> of the zero coupon bond at time
-<span class="math inline">t</span>. An arbitrage free model requires the
-price at time <span class="math inline">t</span> to satisfy <span
+<span class="math inline">t</span>. An arbitrage free model with
+deflator <span class="math inline">D_t</span> requires the price at time
+<span class="math inline">t</span> to satisfy <span
 class="math inline">D_t(u)D_t = E_t[D_u]</span> so <span
-class="math inline">D_t(u) = E_t[D_u]/D_t</span>. In the continuous time
-case <span class="math inline">D_t(u) = E_t[\exp(-\int_t^u
-f_s\,ds)]</span>.</p>
-<p>The forward curve, <span class="math inline">f(u)</span>, is defined
-by <span class="math inline">D_0(u) = \exp(-\int_0^u f(s)\,ds)</span>.
-The forward curve at time <span class="math inline">t</span>, <span
-class="math inline">f_t(u)</span>, is defined by <span
-class="math inline">D_t(u) = \exp(-\int_t^u f_t(s)\,ds)</span>.</p>
-<p>A <em>risky zero coupon bond</em> with <em>recovery</em> <span
-class="math inline">R</span> and <em>default time</em> <span
-class="math inline">T</span> has a single cash flow <span
-class="math inline">C_u = 1</span> if default occurs after maturity or
-<span class="math inline">C_T = R</span> if <span class="math inline">T
-\le u</span>. It is customary to assume <span
-class="math inline">R</span> is constant. As with American options, we
-must expand the sample space to <span class="math inline">Ω\times
-(0,\infty]</span> where <span class="math inline">(ω,t)\in Ω\times
-(0,\infty]</span> indicates default occured at time <span
-class="math inline">t</span>. The partition of <span
-class="math inline">(0\infty]</span> representing information available
-at time <span class="math inline">t</span> for the default time is <span
-class="math inline">\{(t,\infty]\} \cup \{\{s\}:s \le t\}</span>. If
-default has not occured prior to <span class="math inline">t</span> we
-only know <span class="math inline">T &gt; t</span>. If default occured
-prior to time <span class="math inline">t</span> we know exactly when it
-happened.</p>
-<p>We write <span class="math inline">D_t^{R,T}(u)</span> for the price
-<span class="math inline">X_t^{D^{R,T}(u)}</span> of the risky zero
-coupon bond at time <span class="math inline">t</span>. The dynamics of
-a risky zero are determined by <span class="math display">
-    D_t^{R,T}(u) D_t = E_t[R 1(T \le u) D_T + 1(T &gt; u) D_u].
-</span> The <em>credit spread</em> <span class="math inline">s_t =
-s_t^{R,T}(u)</span> defined by <span class="math inline">D_t^{R,T}(u) =
-D_t(u) e^{-u s_t}</span> incorporates both recovery and default.</p>
-<p>If rates are zero then <span class="math inline">D_t = 1</span> for
-all <span class="math inline">t</span> and this simplifies to <span
-class="math inline">D_0^{R,T}(u) = R P(T \le u) + P(T &gt; u)</span>
-when <span class="math inline">t = 0</span>. If <span
-class="math inline">T</span> is exponentially distributed with hazard
-rate <span class="math inline">λ</span> then <span
-class="math inline">P(T &gt; t) = e^{-λ t}</span> and <span
 class="math display">
-    D_0^{R,T}(u) = R + (1 - R)e^{-λu}.
-</span> When <span class="math inline">λ = 0</span> the right hand side
-is 1. When <span class="math inline">R = 0</span> the credit spread
-equals the hazard rate. If <span class="math inline">λu</span> is small
-then the approximation <span class="math inline">e^x \approx 1 +
-x</span> for small <span class="math inline">x</span> gives the rule of
-thumb <span class="math inline">s = λ(1 - R)</span> where <span
-class="math inline">s = s_0 = s_0^{R,T}(u)</span> is the credit
-spread.</p>
-<p>For general <span class="math inline">t</span> we have <span
-class="math display">
-    D_t^{R,T}(u) = R P(T \le u | T &gt; t) 1(t &lt; T \le u) + P(T &gt;
-u | T &gt; t) 1(T &gt; u).
+    D_t(u) = E_t[D_u]/D_t.
 </span></p>
-<p>Unlike in the credit default swap market, mathematical finance
-literture likes to assume recovery is delayed until maturity. It is also
-popular to make the unrealistic assumption that default time is
-independent of the deflator. Under these assumptions we have <span
-class="math display">
-    D_t^{R,T}(u) = D_t(u)\bigl(R P(T \le u | T &gt; t) 1(t &lt; T \le u)
-+ P(T &gt; u | T &gt; t) 1(T &gt; u)\bigr).
-</span> In principal, <span class="math inline">R</span> could be random
-and joint distributions involving the default time and deflators could
-be specified.</p>
+<p>We can write <span class="math inline">D_t = \exp(-\int_0^t
+f_s\,ds)</span> where <span class="math inline">f_t</span> is the
+<em>continuously compounded forward rate</em>, or <em>short rate</em>
+process. It corresponds to repurchase agreement rates.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">D_t(u)
+= E_t[\exp(-\int_t^u f(s)\,ds)]</span></em>.</p>
+<p>An interesting feature of fixed income is that the short rate
+determines the price dynamics of all instruments, assuming there are no
+defaults.</p>
 </section>
-<section id="discount-curve" class="level3">
-<h3>Discount Curve</h3>
+</section>
+<section id="discount-curve" class="level2">
+<h2>Discount Curve</h2>
+<p>Suppose a fixed income instrument pays cash flows <span
+class="math inline">(c_k)</span> at times <span
+class="math inline">(u_k)</span>. The <em>yield</em>, <span
+class="math inline">y(p)</span>, given a price <span
+class="math inline">p</span> is determined by <span
+class="math inline">p = \sum_k c_k e^{-y(p)u_k}</span>. It is the
+constant forward curve that reprices the fixed income instrument. It is
+a convenient proxy for price, just like Black-Scholes/Merton implied
+volatility.</p>
 <p>It is not the case zero coupon bonds of all maturities are traded.
 The <em>discount curve</em> <span class="math inline">D(t)</span> is
 used to interpolate a discount for all maturities. An instrument with
 cash flows <span class="math inline">(c_k)</span> at times <span
-class="math inline">(u_k)</span> and initial price <span
+class="math inline">(u_k)</span> and price <span
 class="math inline">p</span> <em>fits</em> the curve if <span
 class="math inline">p = \sum_k c_k D(u_k)</span>. Typically a collection
 of such intruments and prices are given and we wish to find a discount
-curve that fits them. This is a highly underdetermined problem and there
-is a vast literature on various methods of interpolation.</p>
-<p>The <em>spot</em> rate <span class="math inline">r(t)</span> and
-<em>forward rate</em> <span class="math inline">f(t)</span> are defined
-by <span class="math inline">D(t) = e^{-tr(t)} = e^{-\int_0^t
-f(s)\,ds}</span>. Since <span class="math inline">r(t) = (1/t)\int_0^t
-f(s)\,ds</span> we have <span class="math inline">f(t) = r(t) +
-tr&#39;(t)</span>. It is preferable to work with forward rates since it
-is not obvious when looking at a curve for <span
-class="math inline">r(t)</span> when it implies <span
-class="math inline">f(t) \ge 0</span> for all <span
-class="math inline">t</span>. Also, integration smooths out functions
-while differentiation can exaggerate variation.</p>
-</section>
+curve that fits all of them. This is a highly underdetermined problem
+and there is a vast literature on various methods of interpolation. The
+simplest approach is to use market data directly and avoid non-financial
+artifacts introduced by various splining methods.</p>
 <section id="bootstrap" class="level3">
 <h3>Bootstrap</h3>
-<p>A fixed income instrument has cash flows <span
-class="math inline">(c_k)</span> at times <span
-class="math inline">(u_k)</span> so it is simply a portfolio of zero
-coupon bonds. Given a discount <span class="math inline">D(t)</span> its
-value is <span class="math inline">p = \xum_k c_k D(u_k)</span>. Given a
-price, its <em>yield</em> <span class="math inline">y</span> is the
-constant forward rate that matches the price for discount <span
-class="math inline">D(t) = e^{-yt}</span>.</p>
 <p>Given a collection of fixed income instruments ordered by increasing
 maturity and corresponding prices we can bootstrap a discount curve
 having a piecewise constant forward curve that matches each price. The
 first forward is the yield of the first instrument. Given a discount to
-time <span class="math inline">u</span> and a forward rate <span
+time <span class="math inline">t</span> and a forward rate <span
 class="math inline">f</span> we can extend the discount for <span
-class="math inline">t &gt; u</span> by <span class="math inline">D(t) =
-D(u)e^{-f(t - u)}</span>. This determines a piecewise constant forward
-curve that reprices every instrument in the collection.</p>
-<p>The bootstrap method is completely deterministic. It assumes the
-forward curve is piecewise constant with jumps at maturities of
-instruments used to build the curve. As instruments of increasing
-maturity are added, the initial part of the curve is fixed and the new
-piecewise constant segment is chosen to match the price of the
-instrument being added. It is important that no two instruments have
-nearly equal maturity since the forward between those dates may require
-a large adjustment to fit the price.</p>
+class="math inline">u &gt; t</span> by <span class="math inline">D(u) =
+D(t)e^{-f(u - t)}</span>.</p>
+<p>The bootstrap method is deterministic. It assumes the forward curve
+is piecewise constant with jumps at maturities of instruments used to
+build the curve. As instruments of increasing maturity are added, the
+initial part of the curve is fixed and the new constant segment is
+chosen to match the price of the instrument being added. It is important
+that no two instruments have nearly equal maturity since the forward
+between those dates may require a large adjustment to fit the price.</p>
 <p>The vast literature on various methods of interpolating discount
-curves should be ignored. Splining data introduces mathematical
-artifacts into the discount. A cubic Hermite tension spline can produce
-a forward curve that is pleasing to the eye, but makes it difficult to
-explain to a trader why their rho bucketing is off. It is better to add
-synthetic instruments at intermediate maturities with prices determined
-by an interpolation method that traders can understand.</p>
+curves should be ignored. Splining introduces mathematical artifacts
+into the discount. A cubic Hermite tension spline can produce a forward
+curve that is pleasing to the eye, but makes it difficult to explain to
+a trader why their rho bucketing is off. It is better to add synthetic
+instruments at intermediate maturities with prices determined by an
+interpolation method that traders can understand. Curves should be
+bootstrapped with the instruments traders are using to hedge their
+position.</p>
 <p>A piecewise constant curve is determined by times <span
 class="math inline">(t_j)</span>, <span class="math inline">0\le j\le
 n</span>, and forwards <span class="math inline">(f_j)</span>, <span
@@ -212,9 +151,10 @@ class="math inline">f(t_j) = f_j</span> and the curve is undefined for
 class="math inline">t_0 = 0</span> so <span class="math inline">(t_j,
 f_j)</span>, <span class="math inline">1\le j\le n</span>, determine the
 curve.</p>
-<p>Given a forward curve and an instrument with maturity <span
-class="math inline">t &gt; t_n</span> we must find <span
-class="math inline">f</span> such that <span class="math display">
+<p>Given a forward curve to time <span class="math inline">t_n</span>
+and an instrument with maturity <span class="math inline">t &gt;
+t_n</span> we must find <span class="math inline">f</span> such that
+<span class="math display">
     p = \sum_{u_k \le t_n} c_k D(u_k) + \sum_{u_k &gt; t_n} c_k
 D(t_n)e^{-f(u_k - t_n)}
 </span> where <span class="math inline">p</span> is the instrument
@@ -247,15 +187,10 @@ class="math inline">p = p_n + c_0 D(u_0) + c_1 D(t_n)e^{-f(u_1 -
 t_n)}</span> so <span class="math display">
     f = \frac{-\log((p - p_n - c_0 D(u_0))/c_1 D(t_n))}{u_1 - t_n}.
 </span> If <span class="math inline">u_0 &gt; t_n</span> we have <span
-class="math inline">p = p_n + c_0 D(t_n)e^{-f(u_0 - t_n) + c_1
-D(t_n)e^{-f(u_1 - t_n)}</span> so <span class="math display">
-    f = ...
-</span></p>
-<!--
-Add zero.
-Add with one cash flow after $t_n$.
-Add atm forward with one or two cash flows after $t_n$
--->
+class="math inline">p = p_n + c_0 D(t_n)e^{-f(u_0 - t_n)} + c_1
+D(t_n)e^{-f(u_1 - t_n)}</span>.</p>
+<p><strong>Exercise</strong>. <em>Find an explicit formula for <span
+class="math inline">f</span></em>.</p>
 </section>
 <section id="forward-rate-agreement" class="level3">
 <h3>Forward Rate Agreement</h3>
@@ -286,18 +221,12 @@ class="math display">
 class="math display">
     E_t[F_tδ D_v] = F_tδ E_t[D_v] = E_t[D_u - D_v] = D_t(u) - D_t(v)
 </span></p>
-<!--
-Series of back-to-back forwards...
--->
 <p>There are also forward rate agreements not involving the exchange of
 notional. A (fixed rate) <em>payer</em> FRA has the single cash flow
 <span class="math inline">(f - F_u^δ(u,v))δ(u,v)</span> at time <span
 class="math inline">v</span>. A <em>receiver</em> FRA has the negative
 of this cash flow. The value at any time <span class="math inline">t \le
 u</span> is determined by</p>
-<!--
-f delta - F delta' if different day count basis
--->
 <p><span class="math display">\begin{align*}
 V_t D_t &amp;= E_t[(f - F_u(u,v;δ))δ(u,v) D_v] \\
         &amp;= E_t[fδ(u,v) D_v - E_u[D_u - D_v]]  \\
@@ -309,10 +238,6 @@ notional. These two types of FRAS’s have very different risk
 characteristics. If either counter-party defaults during the time
 notionals are exchanged the loss can be much larger than when the
 payment is only the difference of the fixed and floating rate.</p>
-<!--
-Floating leg, fixed leg.
-Allow different dcb and frequency
--->
 </section>
 <section id="interest-rate-swap" class="level3">
 <h3>Interest Rate Swap</h3>
@@ -416,16 +341,81 @@ class="math inline">B_t</span> is vector-valued Brownian motion. A nice
 feature of this model is that the forward curve and at-the-money caplet
 prices are not affected by the individual components of the volatility
 vectors.</p>
-<!--
-A common parameteration for the volatilities is $\Sigma(t) = \sigma(t)(\cos\alpha t, \sin\alpha t)$
-for some parameter $\alpha$. Clealy $||\Sigma(t)|| = sigma(t)$. This can be used to fit, e.g., one
-swaption price. Note $\Sigma\cdot B_t = \sigma(B_t^0\cos(\alpha t) + B_t^1\sin(\alpha t)$ and
-$\Cov(B_t,B_u) = t\cos(\alpha(u-t))$ for $t < u$.
-
-The futures are determined by the forwards and volatilities; $\phi(t) = f(t) + \sigma(t)^2 t^2/2$.
--->
+<p>A common parameteration for the volatilities is <span
+class="math inline">\Sigma(t) = \sigma(t)(\cos\alpha t, \sin\alpha
+t)</span> for some parameter <span class="math inline">\alpha</span>.
+Clealy <span class="math inline">||\Sigma(t)|| = sigma(t)</span>. This
+can be used to fit, e.g., one swaption price. Note <span
+class="math inline">\Sigma\cdot B_t = \sigma(B_t^0\cos(\alpha t) +
+B_t^1\sin(\alpha t)</span> and <span class="math inline">\Cov(B_t,B_u) =
+t\cos(\alpha(u-t))</span> for <span class="math inline">t &lt;
+u</span>.</p>
+<p>The futures are determined by the forwards and volatilities; <span
+class="math inline">\phi(t) = f(t) + \sigma(t)^2 t^2/2</span>.</p>
 </section>
 </section>
+<section id="risky-bonds" class="level2">
+<h2>Risky Bonds</h2>
+<p>A <em>risky zero coupon bond</em> with <em>recovery</em> <span
+class="math inline">R</span> and <em>default time</em> <span
+class="math inline">T</span> has a single cash flow <span
+class="math inline">C_u = 1</span> if default occurs after maturity or
+<span class="math inline">C_T = R</span> if <span class="math inline">T
+\le u</span>. It is customary to assume <span
+class="math inline">R</span> is constant. As with American options, we
+must expand the sample space to <span class="math inline">Ω\times
+(0,\infty]</span> where <span class="math inline">(ω,t)\in Ω\times
+(0,\infty]</span> indicates default occured at time <span
+class="math inline">t</span>. The partition of <span
+class="math inline">(0\infty]</span> representing information available
+at time <span class="math inline">t</span> for the default time is <span
+class="math inline">\{(t,\infty]\} \cup \{\{s\}:s \le t\}</span>. If
+default has not occured prior to <span class="math inline">t</span> we
+only know <span class="math inline">T &gt; t</span>. If default occured
+prior to time <span class="math inline">t</span> we know exactly when it
+happened.</p>
+<p>We write <span class="math inline">D_t^{R,T}(u)</span> for the price
+<span class="math inline">X_t^{D^{R,T}(u)}</span> of the risky zero
+coupon bond at time <span class="math inline">t</span>. The dynamics of
+a risky zero are determined by <span class="math display">
+    D_t^{R,T}(u) D_t = E_t[R 1(T \le u) D_T + 1(T &gt; u) D_u].
+</span> The <em>credit spread</em> <span class="math inline">s_t =
+s_t^{R,T}(u)</span> defined by <span class="math inline">D_t^{R,T}(u) =
+D_t(u) e^{-u s_t}</span> incorporates both recovery and default.</p>
+<p>If rates are zero then <span class="math inline">D_t = 1</span> for
+all <span class="math inline">t</span> and this simplifies to <span
+class="math inline">D_0^{R,T}(u) = R P(T \le u) + P(T &gt; u)</span>
+when <span class="math inline">t = 0</span>. If <span
+class="math inline">T</span> is exponentially distributed with hazard
+rate <span class="math inline">λ</span> then <span
+class="math inline">P(T &gt; t) = e^{-λ t}</span> and <span
+class="math display">
+    D_0^{R,T}(u) = R + (1 - R)e^{-λu}.
+</span> When <span class="math inline">λ = 0</span> the right hand side
+is 1. When <span class="math inline">R = 0</span> the credit spread
+equals the hazard rate. If <span class="math inline">λu</span> is small
+then the approximation <span class="math inline">e^x \approx 1 +
+x</span> for small <span class="math inline">x</span> gives the rule of
+thumb <span class="math inline">s = λ(1 - R)</span> where <span
+class="math inline">s = s_0 = s_0^{R,T}(u)</span> is the credit
+spread.</p>
+<p>For general <span class="math inline">t</span> we have <span
+class="math display">
+    D_t^{R,T}(u) = R P(T \le u | T &gt; t) 1(t &lt; T \le u) + P(T &gt;
+u | T &gt; t) 1(T &gt; u).
+</span></p>
+<p>Unlike in the credit default swap market, mathematical finance
+literture likes to assume recovery is delayed until maturity. It is also
+popular to make the unrealistic assumption that default time is
+independent of the deflator. Under these assumptions we have <span
+class="math display">
+    D_t^{R,T}(u) = D_t(u)\bigl(R P(T \le u | T &gt; t) 1(t &lt; T \le u)
++ P(T &gt; u | T &gt; t) 1(T &gt; u)\bigr).
+</span> In principal, <span class="math inline">R</span> could be random
+and joint distributions involving the default time and deflators could
+be specified.</p>
+</section>
+<hr/>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

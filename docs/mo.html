@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2022-09-28" />
+  <meta name="dcterms.date" content="2023-01-09" />
   <title>Monoid</title>
   <style>
     code{white-space: pre-wrap;}
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -36,7 +36,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -45,26 +45,59 @@
 <header id="title-block-header">
 <h1 class="title">Monoid</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 28, 2022</p>
+<p class="date">January 9, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Concatination
 </div>
 </header>
-<p>A moniod is a set <span class="math inline">M</span> with a binary
-operation <span class="math inline">M\times M\to M</span> that is
-associative and has an identity element <span
-class="math inline">e</span>. If <span class="math inline">s,t\in
-M</span> we write <span class="math inline">st\in M</span> for the
-result of the binary operation. The identity satisfies <span
-class="math inline">es = s = se</span>, <span class="math inline">s\in
-M</span>. The associative law is <span class="math inline">(st)u =
-s(tu)</span> so <span class="math inline">stu</span> is unambiguous.</p>
-<p>Given a function <span class="math inline">\mu\colon
-M\to\bm{R}</span> with <span class="math inline">\mu e = 0</span> we can
-define a measure on finite subsets of <span
-class="math inline">S\subseteq M</span> by <span
-class="math inline">\mu(S) = \sum_{s\in S} \mu s</span>.</p>
+<p>A <em>moniod</em> is a set <span class="math inline">M</span> with a
+binary operation <span class="math inline">m\colon M\times M\to M</span>
+that is associative and has an identity element <span
+class="math inline">e</span>.</p>
+<p>A binary operation <span class="math inline">m</span> is
+<em>associative</em> if <span class="math inline">m(m(a,b),c) =
+m(a,m(b,c))</span>, <span class="math inline">a,b,c\in M</span>. Writing
+<span class="math inline">ab</span> for <span
+class="math inline">m(a,b)</span> this means <span
+class="math inline">(ab)c = a(bc)</span>, so writing <span
+class="math inline">abc</span> in unambiguous.</p>
+<p>An <em>identity element</em> <span class="math inline">e</span>
+satisfies <span class="math inline">ea = a = ae</span> for <span
+class="math inline">a\in M</span>.</p>
+<p>If an associative binary operation lacks an identity we can define
+one.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">ea = a =
+ea</span>, <span class="math inline">a\in M</span>, then <span
+class="math inline">(ea)b = ab = e(ab)</span>, <span
+class="math inline">(ae)b = ab = a(be)</span> and <span
+class="math inline">(ab)e = ab = a(be)</span></em>.</p>
+<p>This shows adding an identiy preserves associativity.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">e&#39;\in
+M</span> satisfies <span class="math inline">e&#39;a = a =
+ae&#39;</span>, <span class="math inline">a\in M</span>, then <span
+class="math inline">e&#39; = e</span></em>.</p>
+<p>This shows the monoid identity is uniqure.</p>
+<section id="examples" class="level2">
+<h2>Examples</h2>
+<p>Multiplication is a monoid with identity element 1. Addition is a
+monoid with identity element 0. Maximum is a monoid with identity
+element <span class="math inline">-\infty</span>. Minimum is a monoid
+with identity element <span class="math inline">\infty</span>. String
+concatenation is a monoid with identity element the empty string. The
+arrows of a category with a single object form a monoid.</p>
+</section>
+<section id="rational" class="level2">
+<h2>Rational</h2>
+<p>Monoids are the basis of the map-reduce algorithm. If <span
+class="math inline">a_j</span> are elements of a monoid then the
+calculation of <span class="math inline">a_1\cdots a_n</span> can be
+partitioned into seperate calculations <span class="math inline">A_1 =
+a_1\cdots a_{k_0}</span>, <span class="math inline">A_2 = a_{k_0 +
+1}\cdots a_{k_1}</span>, <span class="math inline">\dots</span>, <span
+class="math inline">a_{k_j + 1}\cdots a_n</span>.</p>
+</section>
+<hr/>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

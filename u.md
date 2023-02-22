@@ -128,7 +128,7 @@ The displayed formula above follows by induction. $\blacksquare$
 ## Recap
 
 A model is specified by a deflator $D_t$ and a martingale $M_t$.
-The reciprocal of the deflator $R_t = 1/D_t$ is the money market insturment and has no cash flows.
+The reciprocal of the deflator $R_t = 1/D_t$ is the money market instrument and has no cash flows.
 Prices $X_t$ and cash flows $C_t$ under the model satisfy $X_t D_t = M_t - \sum_{s\le t} C_s D_s$.
 A consequence is
 $$

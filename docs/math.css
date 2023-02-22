@@ -1,5 +1,5 @@
 html {
-	max-width: 80ch;
+	max-width: 90ch;
 	padding: 3em 1em;
 	margin: auto
 	line-height: 1.75;
@@ -48,7 +48,11 @@ th:nth-child(3) {
 }
 details {
 	margin-left: 1em;
-    color: #0000F1;
+    color: teal;
+}
+details> summary {
+	margin-left: 1em;
+    color: green;
 }
 
 .katex {

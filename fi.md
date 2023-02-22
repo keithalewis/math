@@ -122,11 +122,6 @@ $p = p_n + c_0 D(t_n)e^{-f(u_0 - t_n)} + c_1 D(t_n)e^{-f(u_1 - t_n)}$.
 
 __Exercise__. _Find an explicit formula for $f$_.
 
-<!--
-Add zero.
-Add with one cash flow after $t_n$.
-Add atm forward with one or two cash flows after $t_n$
-
 ### Forward Rate Agreement
 
 A _forward rate agreement_ $F^{f,δ}(u,v)$ over the period $[u, v]$ with coupon $f$ and
@@ -302,5 +297,3 @@ $$
 $$
 In principal, $R$ could be random and joint distributions involving the default time
 and deflators could be specified.
-
--->

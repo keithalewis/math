@@ -16,25 +16,81 @@ abstract: Totally ordered streams.
 \newcommand{\skip}{\operatorname{skip}}
 \newcommand{\first}{\operatorname{first}}
 
-There is a 1-1 correspondence between ordered sequences and _iterables_.
-An iterable is a subset $S\subseteq T$ with operations
-$*\colon S\to T$, $+\colon S\to S$, and $?S$ indicating $S$ is non-empty.
-It corresponds to the sequence $(*S, *+S, *++S, \ldots)$ of elements in $T$.
+If $S$ is a finite subset of a totally ordered set $T$
+let $\wedge S = \min\{s\in S\}$ and $\vee S = \max\{s\in S\}$.
+Define
+$$
+\begin{aligned}
+	*S &= \wedge S \\
+	+S &= S\setminus\{*S\} \\
+	?S &= S \not= \emptyset \\
+\end{aligned}
+$$
 
+If $f\colon T\to U$ define $f(S)$ by
+$$
+\begin{aligned}
+	*f(S) &= f(*S) \\
+	+f(S) &= f(+S) \\ 
+	?S &= f(S) \not= \emptyset \\
+\end{aligned}
+$$
 
-If $T$ is totally ordered finite subset of $T$ we define an iterable by
-$*S = \min\{s\in S\}$ and $+S = S\setminus\{*S\}$. The corresponding sequence
-has length equal to the cardinality of $S$.
-
+__Exercise__. _Show $f(S) =\emptyset$ if and only if $S =\emptyset$_.
 
 ## Filter
 
-Given a predicate $P$ on define $S\mid P$ by
+Given a predicate $P$ on $S$ define $S\mid P$ by
 $*(S\mid P) = *S$ if $P(*S)$ and $*(S\mid P) = *(+S\mid P)$ otherwise.
-Define $+(S\mid P) = +S$ if $P(*+S)$ and $+(S\mid P) = +(+S\mid P)$ otherwise.
 We call this $S$ _given_ $P$, or $S$ _filter_ $P$.
 
 __Exercise__ _Show $s\in (S\mid P)$ if and only if $s\in S$ and $P(s)$_.
+
+If $R$ is a relation on $T$ define $SRt$ by the predicate $P(s) = sRt$.
+
+__Exercise__. _Show, e.g., $S<t = S\cap\{s\in S\mid s < t\}$_.
+
+## Disjoint Union
+
+If $\{S_j\}_{0\le j < n}$ are finite subsets of $T$ then
+$\sqcup_j S_j = \cup_j S_j\times\{j\}$.
+The lexicographical order $(s,i) < (t,j)$ by $s < t$ or
+$s = t$ and $i < j$ is a total order.
+
+```
+template<class.. Is>
+struct sqcup {
+	std::tuple<Is...> is;
+	sqcup((Is... is)
+		: is(is)
+	{}
+	// std::apply([](auto ...x){std::make_tuple(some_function(x)...);} , the_tuple);
+	operator bool() const
+	{
+		return std::apply([](auto&&... i) {
+			i.operator bool() or ...}	
+		}, is);
+	}
+	auto operator*() const
+	{
+		std::min(i.operator*());
+	}
+	sqcup& operator++()
+	{
+		const auto _i = operator*();
+		++std::get<_i.second>(is);
+		
+		return *this;
+	}
+};
+```
+
+If $\{S_j\}_{0\le j < n}$ are finite subsets of $T$ define $,S_j$ by
+$*(,S_j) = *(\sqcup_j S_j) = (s, k)$ and
+$$
+	+(,S_j) = \sqcup_j (S_j > s')).
+$$
+where $s' =  *S_{\mod(k+1,n)}$.
 
 ## Mask
 
@@ -44,6 +100,13 @@ Define $+(S\mid Q) = (+S\mid +Q)$ if $*+Q$ and $+(S\mid Q) = (++S\mid ++Q)$ othe
 We call this $S$ _mask_ $Q$.
 
 __Exercise__ _Show $s\in (S\mid Q)$ if and only if and $s = *+^nS$ and $*+^nQ$ for some $n$_.
+
+## Function
+
+If $f\colon T\to U$ is a function and $S$ is a finite subeset of $T$ define 
+$fRS\colon T\to U$ by $fRS(t) = f(*SRt)$.
+
+$S = eow$ $f(eow)
 
 ## Relation
 

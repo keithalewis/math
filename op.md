@@ -59,6 +59,36 @@ self-financing portfolios, and other dainty mathematical machinery
 required to prove their result. Let's fast-forward to calculating expected
 values and derivatives with respect to model parameters.
 
+## Put Formula
+
+The forward value of a put with strike $k$ is $v = E[\max\{k - F\}]$, where $F$
+is the random value of the underlying at expiration. We let $1_A$ denote
+the _characteristic function_ with $1_A(x) = 1$ if $x\in A$ and $1_A(x) = 0$ if $x\notin A$.
+
+$$
+\begin{aligned}
+	v &= E[\max\{k - F\}] \\
+	  &= E[(k - F)1(F \le k)] \\
+	  &= kP(F\le k) - E[F 1(F \le k)] \\
+	  &= kP(F\le k) - E[F]E[F/E[F] 1(F \le k)] \\
+	  &= kP(F\le k) - fP^s(F \le k)] \\
+\end{aligned}
+$$
+where $f = E[F]$ and $P^s$ is defined by $dP^s/dP = F/E[F]$.
+
+__Exercise__.  _If $F > 0$ then $P^s$ is a probability measure_.
+
+The (forward) value of an option paying $\nu(F)$ at expiration is $v = E[\nu(F)]$.
+If the option pays shares instead of currency its value is
+$E[F\nu(F)] = E[F]E[F/E[F] \nu(F)] = f E^s[\nu(F)]$, where
+$E^s$ is the expectation under _share measure_ $P^s$.
+
+Recall the _moment generating function_ of a random variable $X$ is $E[e^{sX}]$
+and its _cumulant_ is $\kappa(s) = \log E[e^{sX}]$.
+
+__Exercise__. _If $F > 0$ then $F = fe^{sX - \kappa(s)}$ where $s^2 = \Var(\log F)$
+and $X$ has mean 0 and variance 1_.
+
 ## Black Model
 
 In Black's model, the forward at expiration is $F_t = fe^{σB_t - σ^2t/2}$,

@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2022-09-28" />
+  <meta name="dcterms.date" content="2023-01-09" />
   <title>Option Pricing</title>
   <style>
     code{white-space: pre-wrap;}
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -36,7 +36,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -45,7 +45,7 @@
 <header id="title-block-header">
 <h1 class="title">Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 28, 2022</p>
+<p class="date">January 9, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 European option pricing and greeks
@@ -106,6 +106,47 @@ lemma, self-financing portfolios, and other dainty mathematical
 machinery required to prove their result. Let’s fast-forward to
 calculating expected values and derivatives with respect to model
 parameters.</p>
+</section>
+<section id="put-formula" class="level2">
+<h2>Put Formula</h2>
+<p>The forward value of a put with strike <span
+class="math inline">k</span> is <span class="math inline">v = E[\max\{k
+- F\}]</span>, where <span class="math inline">F</span> is the random
+value of the underlying at expiration. We let <span
+class="math inline">1_A</span> denote the <em>characteristic
+function</em> with <span class="math inline">1_A(x) = 1</span> if <span
+class="math inline">x\in A</span> and <span class="math inline">1_A(x) =
+0</span> if <span class="math inline">x\notin A</span>.</p>
+<p><span class="math display">
+\begin{aligned}
+    v &amp;= E[\max\{k - F\}] \\
+      &amp;= E[(k - F)1(F \le k)] \\
+      &amp;= kP(F\le k) - E[F 1(F \le k)] \\
+      &amp;= kP(F\le k) - E[F]E[F/E[F] 1(F \le k)] \\
+      &amp;= kP(F\le k) - fP^s(F \le k)] \\
+\end{aligned}
+</span> where <span class="math inline">f = E[F]</span> and <span
+class="math inline">P^s</span> is defined by <span
+class="math inline">dP^s/dP = F/E[F]</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">F &gt;
+0</span> then <span class="math inline">P^s</span> is a probability
+measure</em>.</p>
+<p>The (forward) value of an option paying <span
+class="math inline">\nu(F)</span> at expiration is <span
+class="math inline">v = E[\nu(F)]</span>. If the option pays shares
+instead of currency its value is <span class="math inline">E[F\nu(F)] =
+E[F]E[F/E[F] \nu(F)] = f E^s[\nu(F)]</span>, where <span
+class="math inline">E^s</span> is the expectation under <em>share
+measure</em> <span class="math inline">P^s</span>.</p>
+<p>Recall the <em>moment generating function</em> of a random variable
+<span class="math inline">X</span> is <span
+class="math inline">E[e^{sX}]</span> and its <em>cumulant</em> is <span
+class="math inline">\kappa(s) = \log E[e^{sX}]</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">F &gt;
+0</span> then <span class="math inline">F = fe^{sX - \kappa(s)}</span>
+where <span class="math inline">s^2 = \operatorname{Var}(\log F)</span>
+and <span class="math inline">X</span> has mean 0 and variance
+1</em>.</p>
 </section>
 <section id="black-model" class="level2">
 <h2>Black Model</h2>
@@ -371,6 +412,7 @@ $$
 $$
 -->
 </section>
+<hr/>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

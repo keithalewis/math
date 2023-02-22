@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-01-09" />
+  <title>Finance</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Finance</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">January 9, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Atoms of finance and their interaction.
+</div>
+</header>
+
+<section id="entity" class="level2">
+<h2>Entity</h2>
+<p>Let <span class="math inline">E</span> be a set of <em>entities</em>.
+An entitiy <span class="math inline">e\in E</span> can own intruments
+and is subject to laws and regulations of the country they are governed
+by.</p>
+</section>
+<section id="instrument" class="level2">
+<h2>Instrument</h2>
+<p>Let <span class="math inline">I</span> be a set of
+<em>instruments</em>. An <em>instrument</em> <span
+class="math inline">i\in I</span> is a tradeable asset that can be owned
+by an entity.</p>
+</section>
+<section id="amount" class="level2">
+<h2>Amount</h2>
+<p>An <em>amount</em> <span class="math inline">A</span> measures the
+quantity of an instrument. Stocks have shares…</p>
+</section>
+<section id="atom" class="level2">
+<h2>Atom</h2>
+<p>The <em>atoms</em> of finance are <em>positions</em>: <span
+class="math inline">\pi = (a, i, e)\in A\times I\times E</span>. Entity
+<span class="math inline">e</span> owns amount <span
+class="math inline">a</span> of instrument <span
+class="math inline">i</span>. Given a postion <span
+class="math inline">\pi = (a, i, e)</span> we write <span
+class="math inline">\pi.a</span>, <span
+class="math inline">\pi.i</span>, and <span
+class="math inline">\pi.e</span> for <span class="math inline">a</span>,
+<span class="math inline">e</span>, and <span
+class="math inline">i</span>.</p>
+</section>
+<section id="portfolio" class="level2">
+<h2>Portfolio</h2>
+<p>A <em>portfolio</em> is a set of positions <span
+class="math inline">\Pi \subseteq A\times I\times E</span>. It is
+convenient to aggregate portfolios into <em>net</em> amounts. Define
+<span class="math inline">N_\Pi\colon I\times E\to A</span> by <span
+class="math display">
+    N_\Pi(i, e) = \sum_{\pi\in\Pi} \{\pi.a\mid \pi.i = i, \pi.e = e\}
+</span></p>
+</section>
+<section id="transaction" class="level2">
+<h2>Transaction</h2>
+<p>A <em>transaction</em> is an exchange of positions at a time <span
+class="math inline">t</span>, <span class="math inline">\chi = (t, \pi,
+\pi&#39;)</span>. The <em>buyer</em> holding <span
+class="math inline">\pi</span> trades that with a <em>seller</em>
+holding <span class="math inline">\pi&#39;</span> at time <span
+class="math inline">t</span>.</p>
+<p>If <span class="math inline">A</span> is the set of real numbers,
+<span class="math inline">\mathbf{R}</span>, then <span
+class="math inline">N_\Pi\in\mathbf{R}^{I\times E}</span> is a vector.
+Let <span class="math inline">\delta_{i,e}\colon \mathbf{R}^{I\times
+E}\to\mathbf{R}</span> be the delta function <span
+class="math inline">\delta_{i,e}(i&#39;,e&#39;) = 1</span> if <span
+class="math inline">i = i&#39;</span> and <span class="math inline">e =
+e&#39;</span>, otherwise 0. A transaction can be represented by a vector
+<span class="math display">
+    \chi = a(\delta_{i,e&#39;} - \delta_{i,e}) +
+a&#39;(\delta_{i&#39;,e} - \delta_{i&#39;,e&#39;}).
+</span> If the net portfolio is <span class="math inline">N</span> at
+time <span class="math inline">t</span> the result of the transaction is
+<span class="math inline">N + \chi</span> when it settles. Amount <span
+class="math inline">a</span> of of instrument <span
+class="math inline">i</span> is credited to entity <span
+class="math inline">e&#39;</span> and debited from <span
+class="math inline">e</span>. Amount <span
+class="math inline">a&#39;</span> of of instrument <span
+class="math inline">i&#39;</span> is credited to entity <span
+class="math inline">e</span> and debited from <span
+class="math inline">e&#39;</span>.</p>
+</section>
+<section id="price" class="level2">
+<h2>Price</h2>
+<p>The <em>price</em> of an exchange is <span class="math inline">X =
+\pi&#39;.a/\pi.a</span></p>
+</section>
+<section id="mark-to-market" class="level2">
+<h2>Mark to Market</h2>
+<p>Given <span class="math inline">i&#39;\in I</span> and a set of
+prices <span class="math inline">X_{i,i&#39;}</span> we can mark a
+portfolio to <span class="math inline">i&#39;</span> by assuming the
+transactions <span class="math inline">(t; a&#39;X_{i,i&#39;}, i;
+a&#39;, i&#39;)</span>, <span class="math inline">a\in\mathbf{R}</span>
+are available to any entities.</p>
+<p>A single entity <span class="math inline">e</span> computes <span
+class="math inline">\sum</span>…</p>
+<p>If the USD/JPY exchange rate is <span class="math inline">123</span>
+then one dollar can be exchanged for 123 yen at the time it is
+<em>quoted</em> by the seller. It is almost true that the buyer can
+exchange <span class="math inline">a</span> dollars for <span
+class="math inline">123a</span> yen with the seller. In reality it
+depends on the sign and size of <span class="math inline">a</span>. If
+<span class="math inline">a</span> is positive then the seller will
+quote the <em>ask</em> price. If <span class="math inline">a</span> is
+negative then the seller will quote the <em>bid</em> price. The
+<em>spread</em> is the difference between the ask and bid is typically a
+positive number. As the magnitude of the amount the buyer wants to
+transact increases, the spread gets larger.</p>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

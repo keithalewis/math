@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2022-09-28" />
+  <meta name="dcterms.date" content="2023-01-09" />
   <title>Totally Ordered Streams</title>
   <style>
     code{white-space: pre-wrap;}
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -36,7 +36,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -45,7 +45,7 @@
 <header id="title-block-header">
 <h1 class="title">Totally Ordered Streams</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 28, 2022</p>
+<p class="date">January 9, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Totally ordered streams.
@@ -128,7 +128,43 @@ t</span>.</p>
 class="math inline">(X_t)</span> is right continuouse and <span
 class="math inline">T^a = \min\{t\mid X_t \ge a\}</span> then <span
 class="math inline">1_{T\ge t}</span> is left continuous</em>.</p>
+<pre><code>    template&lt;class A = double, class I = USD&gt;
+    struct Amount {
+        A amount;
+        I instrument;
+    };
+    struct Price : public Amount {};
+    struct CashFlow : public Amount {};
+
+    struct Market Model {
+        iterable&lt;Time, Price, CashFlow&gt; from(date);
+        Price price(date);
+        CashFlow cashFlow(date);
+        Information information(date);
+    };
+
+    auto s = iterable({1,2,3});
+    cout &lt;&lt; s; // [1,2,3]
+    auto t = s|s &gt; 1; // = s|(s &gt; 1)
+    cout &lt;&lt; t; // [2,3]
+    cout &lt;&lt; t + s; // [3,5,NaN] - keep info
+
+    // stop loss start gain
+    begining_of_week bow(start);
+    end_of_week eow(start);
+    market_close close(start);
+
+    auto t = eow ^ bow ^ close || eow; // = eow ^ bow ^ (close || eow)
+    auto s = X[t]; // X market price at t
+    while (const auto&amp; o : s) { // o is variant for the disjoint union
+        switch (v.index()) {
+            case 0: // eow
+        }
+    }
+
+    auto lwc = X[end_of_week]</code></pre>
 </section>
+<hr/>
 <footer>
 Return to <a href="index.html">index</a>.
 </footer>

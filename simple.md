@@ -5,18 +5,20 @@ institute: KALX, LLC
 classoption: fleqn
 fleqn: true
 abstract: |
- Every arbitrage-free pricing model is parameterized by a vector-valued
- martingale and a positive adapted process.  There is no need to restrict
- models to Ito processes, use partial differential equations, or consider
- self-financing portfolios. There is also no need for utility functions or
- market equilibrium assumptions.
- In fact, there is no need for probability measures. The Unified Model involves only geometry,
- as was first pointed out by Stephen Ross. We do need the notion of algebras of sets
- in order to mathematically model partial information.
- Market participants can only execute a finite number of trades.
- It is time to banish the mathematical fiction of continuous time trading and
- focus on problems practitioners find useful: when to re-hedge
- and what are the risk trade-offs.
+ Every arbitrage-free model is parameterized by a positive measure process.
+ There is no need to restrict
+ models to Ito processes and use partial differential equations.  There is
+ also no need for utility functions or market equilibrium assumptions.
+ In fact, there is no need for probability measures. The Unified Model
+ involves only geometry, as was first pointed out by Stephen Ross. We
+ do need the notion of sample spaces and algebras of sets in order to
+ mathematically model partial information.
+
+
+ It is time to banish the mathematical fiction of continuous time trading
+ and focus on problems practitioners find useful: when to re-hedge
+ and how well the hedge performs.
+
 ...
 
 \newcommand{\Var}{\operatorname{Var}}
@@ -24,83 +26,56 @@ abstract: |
 \newcommand{\RR}{𝑹}
 \renewcommand{\AA}{\mathcal{A}}
 
-There is a clear trajectory in mathematical finance starting from Black,
-Scholes, and Merton valuing
-an option to expand the universe of instruments, incorporate credit
-and liquidity considerations, and make model assumptions explicit.
-Realistic models must allow for the empirical fact that not all market participants
-act optimally.
+There is a clear trajectory in mathematical finance starting from
+Black, Scholes, and Merton valuing an option to expanding the universe
+of instruments, incorporate credit and liquidity considerations, and
+make model assumptions explicit.  Realistic models must allow for the
+empirical fact that not all market participants act optimally.
 
-Scholes and Merton won a Nobel Prize for a new method of valuing derivative securities that
-did not require estimating the return on the underlying. Under the assumption that
-future stock prices could be modeled by geometric Brownian motion and it was possible
-to trade in continuous time, all one needed to know was the volatility.
+Scholes and Merton won a Nobel Prize for a new method of valuing
+derivative securities that did not require estimating the return on
+the underlying. Under the assumption that stock prices can be modeled
+by geometric Brownian motion and it was possible to trade in continuous
+time, all one needed to know was the volatility and the funding rate.
 
-## One-Period
+## One-Period Model
 
-Stephen Ross expanded the theory in the one-period case to any number of instruments.
-He showed the Fundamental Theorem of Asset pricing was a geometric result that
-could be proved using the Hahn-Banach theorem. 
-He posited that prices of $n$ instruments at the beginning of the period
-can be represented as a vector $x\in\RR^n$ and the prices at the end
-of the period are functions of possible outcomes $X\colon\Omega\to\RR^n$.
-He showed this model is arbitrage-free if and only if $x$ belongs to
-the smallest closed cone containing the range of $X$.
-If $X$ is bounded this is equivalent
-to
-$$
-	x = \int_\Omega X(\omega)\,dD(\omega)
-$$
-for some positive finitely additive measure $D$ on $\Omega$.
-The measure is only unique in the rare case of complete markets.
-
-Let $I$ be the set of market instruments. The prices at the beginning of the period are
-a vector $x\in\RR^I$.
-Recall $A^B$ is the set of all functions from the set $B$ to the set $A$.
-Each $x\in\RR^I$ is a function $x\colon I\to\RR$ where
-$x(i)$ is the price of instrument $i\in I$ at the beginning of the period.
-Note $\RR^I$ is a vector space under pointwise addition and scalar multiplication.
-If $f,g\in\RR^I$ then $f + g\in\RR^I$ is defined by $(f + g)(i) = f(i) + g(i)$
-and $tf\in\RR^I$ for $t\in\RR$ is defined by $(tf)(i) = tf(i)$, $i\in I$.
-This avoids the circumlocution of specifying $I = \{i_1,\ldots,i_n\}$ and
-specifying $x\in\RR^n$ by $x_j = x(i_j)$, $1\le j\le n$.
+The prices of $n$ instruments at the beginning of the period can be
+represented by a vector $x\in\RR^n$. The prices at the end of the
+period are $X(\omega)\in\RR^n$ if $\omega\in\Omega$ occured where
+$X\colon\Omega\to\RR^n$
 
 Arbitrage exists in a one-period model if it is possible to buy a
 portfolio of instruments at negative cost and sell them at the end of the
-period without losing money.  The cost of purchasing $\gamma\in\RR^I$
+period without losing money.  The cost of purchasing $\gamma\in\RR^n$
 in each instrument at the beginning of the period is the dot product
-$\gamma\cdot x$. Assuming the position is unwound at the end of
-the period, it will pay $\gamma\cdot X(\omega)$ if $\omega\in\Omega$
-occurs. Arbitrage exists if there is a $\gamma\in\RR^I$ with $\gamma\cdot
-x < 0$ and $\gamma\cdot X\ge0$ as a function on $\Omega$.
+$\gamma\cdot x$. Assuming all positions are completely unwound at the end
+of the period, it will pay $\gamma\cdot X(\omega)$ if $\omega\in\Omega$
+occurs.  Arbitrage exists if there is a $\gamma\in\RR^n$ with
+$\gamma\cdot x < 0$ and $\gamma\cdot X(\omega)\ge0$ for all $\omega\in\Omega$.
 
-If $V$ is a vector space a subset $C\subseteq V$ is a _cone_ if
-$tC\subseteq C$ for $t\ge0$ and $C + C\subseteq C$, where
-$tC = \{tv\mid v\in C\}$ and $C + C = \{v + w\mid v,w\in C\}$.
-
-__Exercise__ _The set of arbitrage portfolios are a cone_.
-
-If $S\subseteq V$ then the smallest cone containing $S$, $\cone S$, is
-is the set of finite linear combinations $\sum t_j s_j$ where
-$t_j > 0$ and $s_j\in S$.
-
-Suppose $x = \sum_j X(\omega_j) D_j$ where $\omega_j\in\Omega$ and $D_j > 0$.
-If $\gamma\in\RR^I$ and $\gamma\cdot X\ge0$ then $\gamma\cdot x\ge0$.
-This shows there is no arbitrage if $x\in\cone X(\Omega)$.
-Ross established the more difficult result that the converse is true.
+Stephan Ross was the first to show a one-period model is _arbitrage-free_
+if and only if $x$ belongs to the smallest closed cone containing the
+range of $X$: $X(\Omega) = \{X(\omega)\mid\omega\in\Omega\}$.
 
 ### Examples
 
-Even the simple one-period model can provide interesting examples.
+Recall a _cone_ is a subset of a vector space that is closed under addition
+and multiplication by positive scalars.
+
+__Exercise__. _The set of arbitrage portfolios for a one-period model is a cone_.
+
+__Exercise__. _The set $\{\sum_{j=1}^n p_j v_j\mid p_j \ge 0, p_j\in\RR \}$
+is the smallest closed cone containg the vectors $\{v_j\}_{j=1}^n$_.
 
 #### 1-2-3 Model
 
-Consider a one-period market with a bond that doubles in value over the period,
-a stock with initial price 1 that either stays the same or triples in value,
-and a call option on the stock with strike 2 and price $c$.
+Consider a one-period market having a bond that doubles in value over the
+period, a stock with initial price 1 that either stays the same or triples
+in value, and a call option on the stock with strike 2 and price $c$.
 This is modeled by $x = (1,1,c)$, $X(\omega) = (2,\omega,\max\{\omega - 2, 0\})$
-where $\Omega = \{1, 3\}$. For the model to be arbitrage-free there must
-exist $p,q\ge0$ with $x = X(1)p + X(3)q$ and $p,q\ge0$.
+where $\Omega = \{1, 3\}$. For the model to be arbitrage-free
+there must exist $p,q\ge0$ with $x = X(1)p + X(3)q$ and $p,q\ge0$.
 The constraint on the bond and stock give $1 = 2p + 2q$ and $1 = p + 3q$ respectively.
 
 These equations have the unique solution $p = q = 1/4$ so $c = 0\times 1/4 + 1\times 1/4 = 1/4$.
@@ -108,15 +83,14 @@ Note $p + q = 1/2$ is the discount over the period.
 
 #### 90-100-110 Model
 
-Consider a one-period market with a bond with zero interest over the period,
-a stock with initial price 100 that can go to 90, 100, or 110 at the end of the period,
-and a call option on the stock with strike 100 and price $c$.
-This is modeled by $x = (1,100,c)$, $X(\omega) = (1,\omega,\max\{\omega - 100, 0\})$
-where $\Omega = \{90, 100, 110\}$. For the model to be arbitrage-free there must
-exist $p,q,r\ge0$ with $x = X(90)p + X(100)q + X(110)r$.
+Consider a one-period market having a bond with zero interest over the
+period, a stock with initial price 100 that can go to 90, 100, or 110
+at the end of the period, and a call option on the stock with strike
+100 and price $c$.  This is modeled by
+$x = (1,100,c)$, $X(\omega) = (1,\omega,\max\{\omega - 100, 0\})$ where $\Omega = \{90, 100, 110\}$.
+For the model to be arbitrage-free there must exist $p,q,r\ge0$ with $x = X(90)p + X(100)q + X(110)r$.
 
-The equation for the bond, stock, and option are $1 = p + q + r$, $100 = 90p + 100q + 110r$,
-$c = 10r$.
+The equation for the bond, stock, and option are $1 = p + q + r$, $100 = 90p + 100q + 110r$, and $c = 10r$.
 The first two equations can be written in matrix notation as
 $$
 \begin{bmatrix}
@@ -136,9 +110,9 @@ q \\
 \begin{bmatrix}
 r \\
 110r \\
-\end{bmatrix}
+\end{bmatrix}.
 $$
-so
+Solving for $p$ and $q$ gives
 $$
 \begin{bmatrix}
 p \\
@@ -146,48 +120,21 @@ q \\
 \end{bmatrix}
 =
 \begin{bmatrix}
-1 & 1 \\
-90 & 100 \\
-\end{bmatrix}^{-1}
-\begin{bmatrix}
-1 - r \\
-100 - 110r \\
-\end{bmatrix}
-=
-\frac{1}{10}
-\begin{bmatrix}
-100 & -1 \\
--90 & 1 \\
-\end{bmatrix}
-\begin{bmatrix}
-1 - r \\
-100 - 110r \\
-\end{bmatrix}
-=
-\frac{1}{10}
-\begin{bmatrix}
-100(1 - r) - (100 - 110r) \\
--90(1 - r) + 100 - 110r \\
-\end{bmatrix}
-=
-\frac{1}{10}
-\begin{bmatrix}
-10 r \\
-10 - 20r \\
+r \\
+1 - 2r \\
 \end{bmatrix}
 $$
 The conditions $p,q\ge0$ imply $r\ge0$ and $1-2r\ge0$ so $0\le r\le 1/2$.
-Since $c = 10r$ we have $0\le c\le 5$ if the model is arbitrage free.
+Since $c = 10r$ we have $0\le c\le 5$ if the model is arbitrage-free.
 
 Note the option price is not unique in this example. This is the case
 for any realisitic model of what can occur in the market.
 
 __Exercise__. _If $x = (100, c)$ and $X(\omega) = (\omega, \max\{\omega - 100\})$
-for $\omega\in\{90,100,110\}$ show
-the model is arbitrage free if and only if $0\le c\le 100/11$_.
+for $\omega\in\{90,100,110\}$ show the model is arbitrage-free if and only if $0\le c\le 100/11$_.
 
-If the bond is not available for trading the option price must be
-strictly less than 10 in an arbitrage free model.
+Even if the bond is not available for trading the option price must be
+strictly less than 10 in an arbitrage-free model.
 
 #### Binomial Model
 
@@ -256,31 +203,23 @@ __Exercise__. _Show the conditions $p,q\ge0$ imply $L \le Rs \le H$_.
 
 If an option pays $\phi(\omega)$ then it pays either $\phi(L)$ or
 $\phi(H)$ at expiration.  Every European option in a binomial model
-is a linear function and its arbitrage price is determined by the no
+is a linear function and its arbitrage-free price is determined by the no
 arbitrage condition the bond and stock satisfy.
 
+__Exercise__. _If $x = (1, s, c)$ and $X(\omega) = (R, \omega, \max\{\omega - K, 0\})$
+where $\omega\in [L, H]$ what are the no-arbitrage constraints on $c$_?
 
 ## Unified Model
 
-Assume $\Omega$ is the sample space of possible outcomes, $P$ is a probability measure
-on $\Omega$, and $\AA_t$ are algebras of sets
-indicating the information available at each trading time $t\in T$.
+Assume $\Omega$ is the sample space of possible outcomes and $\AA_t$
+is a partition of $\Omega$ representing the information available at
+each trading time $t\in T$.
 
 ### Market
 
-A _market model_  for a set $I$ of _instruments_ is specified by
-stochastic processes for _prices_ $X_t\colon\AA_t\to\RR^I$
+A _market model_ for a set $I$ of _instruments_ is specified by
+functions for _prices_ $X_t\colon\AA_t\to\RR^I$
 and _cash flows_ $C_t\colon\AA_t\to\RR^I$, $t\in T$. [^1]
-
-[^1]: If $\AA$ is an [_algebra of
-sets_](https://en.wikipedia.org/wiki/Algebra_of_sets) on the set
-$\Omega$ we write $X\colon\AA\to\RR$ to indicate $X\colon\Omega\to\RR$ is
-$\AA$-[_measurable_](https://en.wikipedia.org/wiki/Measurable_function).
-If $\AA$ is finite then the
-[_atoms_](https://en.wikipedia.org/wiki/Atom_(measure_theory)) of $\AA$
-form a [_partition_](https://en.wikipedia.org/wiki/Partition_of_a_set)
-of $\Omega$ and $X$ is $\AA$-measurable if and only if it is constant
-on atoms of $\AA$. In this case $X$ is indeed a function on the atoms.
 
 We assume any amount of each instrument can be bought or sold at price $X_t$ at time $t\in T$.
 Cash flows are almost always 0. Stocks pay dividends on dividend dates, bonds pay 
@@ -300,8 +239,8 @@ where $\Gamma_s = \Gamma_j$ if $s = \tau_j$.
 Note the strict inequality. This reflects the reality that it takes some time
 after a trade is executed for it to settle.
 
-Note we do not assume there is a money market account available to finance
-trading, much less that the strategy is self-financing.
+We do not assume there is a money market account available to finance
+trading or require a strategy to be self-financing.
 
 The _value_, or _mark-to-market_ of a trading strategy is
 $$
@@ -315,27 +254,27 @@ Trading strategies involve cash flows to the trading _account_
 $$
 	A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t.
 $$
-At time $t$ all cash flows are received in proportion to the existing position and
+At time $t$ cash flows are received in proportion to the existing position and
 the trades just executed are debited from the trading account.
 
 ### Arbitrage
 
-_Arbitrage_ exists for a model if there exists a trading strategy $(\tau_j, \Gamma_j)$
-with $\sum_j \Gamma_j = 0$, $A_{\tau_0} > 0$, and $A_t\ge0$ for $t > \tau_0$.
+_Arbitrage_ exists for a model if there is a trading strategy $(\tau_j, \Gamma_j)$
+with $\sum_j \Gamma_j = 0$, $A_{\tau_0} > 0$, $A_t\ge0$ for $t > \tau_0$.
 The strategy must close out, make money on the first trade, and never lose money thereafter.
 
-Arbitrage-free models are parameterized by a vector-valued martingale,
-$M_t\colon\AA_t\to\RR^I$ and a positive adapted process $D_t\colon\AA_t\to (0,\infty)$:
-$$
-	X_t D_t = M_t - \sum_{s\le t}C_s D_s.
-$$
+Arbitrage-free models are parameterized by a function $D_t\colon\AA_t\to (0,\infty)$.
+We call $D_t$ a _deflator_. If a money-market account is available to fund
+trading then $D_t = 1/R_t$ where $R_t$ is the realized return on the money-market account.
 
-__Lemma__. _If $X_t D_t = M_t - \sum_{s\le t}C_s D_s$ then_
-$$
-	X_t D_t = E[X_u D_u + \sum_{t < s \le u} C_s D_s\mid\AA_t]
-$$
+Let $M_t = X_t D_t + sum_{s\le t}C_s D_s$.
 
-_Proof_. We have
+__Lemma__. _A model is arbitrage-free if $M_u|_{\AA_t} = M_t$_.
+
+<details>
+<summary>_Proof_.</summary>
+
+We have
 $$
 \begin{aligned}
 	E[X_u D_u + \sum_{t < s \le u} C_s D_s\mid\AA_t]
@@ -345,17 +284,21 @@ $$
 	&= X_t D_t
 \end{aligned}
 $$
+</details>
+
+
+__Theorem__. _A model is arbitrage-free if $M_u|_{\AA_t} = M_t$_.
 
 __Lemma__. _Using value $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ 
 and account $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$,_
 $$
-	V_t D_t = E[V_u D_u + \sum_{t < s \le u} A_s D_s\mid\AA_t]
+	V_t D_t = E[V_u D_u + \sum_{t < s \le u} A_s D_s\mid\AA_t].\tag{3}
 $$
 
-This shows every trading strategy produces a synthetic instrument with "prices" $V_t$ and
-"cash flows" $A_t$.
+<details>
+<summary>_Proof_.</summary>
 
-_Proof_. Note $X_t D_t = E_t[X_u D_u + C_u D_u]$ and $V_t = (\Delta_t + \Gamma_t)\cdot X_t
+Note $X_t D_t = E_t[X_u D_u + C_u D_u]$ and $V_t = (\Delta_t + \Gamma_t)\cdot X_t
 = \Delta_u\cdot X_t$ for $u > t$ sufficiently small.
 $$
 \begin{aligned}
@@ -367,41 +310,82 @@ $$
 \end{aligned}
 $$
 The proof follows by induction on $u$.
+</details>
 
-__Theorem__. _Every model of the form $X_t D_t = M_t - \sum_{s\le t}C_s D_s$ where $M_t$ is
-a martingale and $D_t$ is positive and adapted is arbitrage free_.
+Note the similarity between equation (2) and (3). Price and cash flow in (2)
+correspond to value and account in (3).
+Every trading strategy produces a synthetic derivative instrument.
+
+__Theorem__. (Fundamental Theorem of Asset Pricing)
+_Every model parameterized by a vector-valued martingale
+$(M_t)_{t\in T}$ and a positive, adapted function $(D_t)_{t\in T}$
+where $X_t D_t = M_t - \sum_{s\le t}C_s D_s$ is arbitrage-free_.
 
 _Proof_. If $(\tau_j, \Gamma_j)$ is a closed out trading strategy with $A_t\ge0$ for $t > \tau_0$
 then $V_{\tau_0} = E[ \sum_{t < s \le u} A_s D_s\mid\AA_{\tau_0}] \ge 0$.
 Since $V_{\tau_0} = \Gamma_0\cdot X_{\tau_0} = -A_{\tau_0}$ and $D_t$ is positive we have
 $A_{\tau_0} \le 0$ so there is no arbitrage.
 
+## Money Market Account
+
+If a money market account is available with return $R_t$, then $D_t = 1/R_t$.
+In this case we call $D_t$ the _stochastic discount_ instead of deflator.
+A money market account can be used to fund trading strategies to make them
+self-financing.
+
 ## Examples
 
-## Appendix
+### Black-Scholes/Merton
 
-A collection of some fundamental facts everyone should be aware of.
+Let $M_t = se^{\sigma B_t - \sigma^2t/2}$ and $D_t = e^{-\rho t}$.
+Since $S_tD_t = se^{\sigma B_t - \sigma^2t/2}$ we have
+$$
+	S_t = se^{\rho t + \sigma B_t - \sigma^2t/2}.
+$$
 
-### Algebras of Sets
+There is no need to restrict models to Ito processes, use partial
+differential equations, or consider self-financing portfolios.
 
-Algebras of sets are used to model partial information.
-If the algebra is finite then the atoms form a partition.
-Complete information is knowing the element of the set,
-partial information is knowing only what atom it belongs to.
+We can allow $\sigma$ to be a function of time and use the
+martingale $e^{\int_0^t \sigma(s)\,dB - (1/2)\int_0^t \sigma^2(s)\,ds}$.
 
-A sequence of coin flips can be modeled by the sample space of real numbers
-between 0 and 1, $\Omega = [0,1)$. Every number $\omega\in\Omega$ can be
-written as $\omega = \sum_{j = 1}^\infty \omega_j 2^{-j}$ where $\omega_j$
-is either 0 or 1. The digits in the base 2 representation can be 
-interpreted as coin flips: 1 means heads and 0 means tails, or vice versa.
+If the stock pays dividends $d_j$ at times $t_j$ then these are cash flows
+and equation (1) gives
+$$
+	S_t = se^{\rho t + \sigma B_t - \sigma^2t/2} - \sum_{t_j\le t} d_j e^{\rho(t - t_j)}.
+$$
+It is valid for any dividends $d_j$ that depend only on the information available at
+time $t_j$. For discrete dividends $d_j$ is constant. For proportional dividend
+$d_j = p_j S_{t_j}$. 
 
-The first flip is determined by $\omega_1$. The partition
-$\{[0, 1/2),[1/2, 1)\}$ of $\Omega$ 
-represents knowing the first flip. If $\omega_1 = 0$ then $\omega\in[0,1/2)$.
-If $\omega_1 =1$ then $\omega\in[1/2,1)$.
-The partition $\AA_n = \{[j2^{-n}, (j+1)2^{-n})\mid 0\le j < 2^n\}$ represents
-knowing the first $n$ flips.
+### Zero Coupon Bonds
 
-A subsets of a sample space $\Omega$ are called _events_. 
-If we want to talk about event $E$ _not_ happening or both 
-event $E$ _and_ $F$ happened 
+A _zero coupon bond_ with maturity $u$ has a single cash flow of 1 at time $u$.
+By equation (2) we have
+$$
+D_t(u)D_t = E_t[D_u]
+$$
+where $D_t(u)$ is the price at time $t$ of the zero coupon bond.
+
+### Risky Zero Coupon Bonds
+
+If a zero coupon bond defaults at the random time $T$ and pays random recovery $R$
+when it defaults then by equation (2)
+$$
+D^{T,R}_t(u)D_t = E_t[R1(t < T \le u)D_T + 1(T > u)D_u]
+$$
+where $D^{T,R}_t(u)$ is the price at time $t$ of the risky zero coupon bond.
+
+__Exercise__. _If $P(T > t) = e^{-\lambda t}$ is independent of $D_t$, $t\ge 0$,..._.
+
+## Footnotes
+
+[^1]: If $\AA$ is an [_algebra of
+sets_](https://en.wikipedia.org/wiki/Algebra_of_sets) on the set
+$\Omega$ we write $X\colon\AA\to\RR$ to indicate $X\colon\Omega\to\RR$ is
+$\AA$-[_measurable_](https://en.wikipedia.org/wiki/Measurable_function).
+If $\AA$ is finite then the
+[_atoms_](https://en.wikipedia.org/wiki/Atom_(measure_theory)) of $\AA$
+form a [_partition_](https://en.wikipedia.org/wiki/Partition_of_a_set)
+of $\Omega$ and $X$ is $\AA$-measurable if and only if it is constant
+on atoms of $\AA$. In this case $X$ is indeed a function on the atoms.
