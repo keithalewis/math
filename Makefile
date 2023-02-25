@@ -13,8 +13,8 @@ FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
 TEXFLAGS = --pdf-engine=xelatex 
 FLAGS += -t html5
 FLAGS += -s # smart quotes
-FLAGS += --katex
-//FLAGS += --katex=$(KATEX)
+#FLAGS += --katex
+FLAGS += --katex=$(KATEX)
 #FLAGS += --katex=katex/
 FLAGS += --css math.css
 FLAGS += -A FOOTER.md
