@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-02-25" />
+  <title>n-factor Models</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title"><span class="math inline">n</span>-factor Models</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">February 25, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Are 1-factor models
+</div>
+</header>
+<p>Suppose <span class="math inline">X_t = (B^1_t, B_2_t)</span> is
+2-dimensional Brownian motion where <span class="math inline">B^1</span>
+and <span class="math inline">B^2</span> are independent standard
+Brownian motions. This process is used to define 2-factor models.</p>
+<p><strong>Lemma</strong>. <em>Every 2-factor model is parameterized by
+1-dimensional standard Brownian motion</em>.</p>
+<p><em>Proof</em>: The idea of the proof is to chop 1-dimensional
+Brownian motion into pieces over the intervals <span
+class="math inline">[n, n + 1)</span>, <span
+class="math inline">n\in\mathbf{N}</span>, and glue the even and odd
+pieces together to create two continuous paths. This creates two
+independent Brownian motions out of one.</p>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>
