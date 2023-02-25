@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-01-09" />
+  <meta name="dcterms.date" content="2023-02-25" />
   <title>Probability</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,7 +45,7 @@
 <header id="title-block-header">
 <h1 class="title">Probability</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 9, 2023</p>
+<p class="date">February 25, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 <p>Probability Theory is an extension of the rules of logic to deal with
@@ -55,7 +55,6 @@ can be systematically updated as more information becomes available
 (Bayes Rule).</p>
 </div>
 </header>
-
 <section id="probability-space" class="level2">
 <h2>Probability Space</h2>
 <p>A <em>sample space</em> is a set of what can happen in a probability
@@ -225,9 +224,10 @@ class="math inline">X</span>.</p>
 <p>The <em>expected value</em> of a random variable is defined by <span
 class="math inline">E[X] = \int_\Omega X\,dP</span>. More generally, the
 expected value of a function <span
-class="math inline">f\colon\bm{R}\to\bm{R}</span> of a random variable
-is <span class="math inline">E[f(X)] = \int_\Omega f(X)\,dP</span> where
-<span class="math inline">f(X)\colon\Omega\to\bm{R}</span> via <span
+class="math inline">f\colon\mathbf{R}\to\mathbf{R}</span> of a random
+variable is <span class="math inline">E[f(X)] = \int_\Omega
+f(X)\,dP</span> where <span
+class="math inline">f(X)\colon\Omega\to\mathbf{R}</span> via <span
 class="math inline">f(X)(\omega) = f(X(\omega))</span>, <span
 class="math inline">\omega\in\Omega</span>.</p>
 <p>The <em>variance</em> of a random variable <span
@@ -242,17 +242,18 @@ E[f(X)]/\lambda</span></em>.</p>
 E[f(X)1(f(X) &gt; \lambda) \ge \lambda P(f(X) &gt; \lambda)</span>.</p>
 <p>An immediate corollaries are <span class="math inline">P(|X| &gt;
 \lambda) \le E[|X|]/\lambda</span> and <span class="math inline">P(|X -
-E[X]| &gt; \lambda) \le \mathrm{Var}(X)/\lambda^2</span>. Note this only
-has import for large <span class="math inline">\lambda</span>.</p>
+E[X]| &gt; \lambda) \le \operatorname{Var}(X)/\lambda^2</span>. Note
+this only has import for large <span
+class="math inline">\lambda</span>.</p>
 </section>
 <section id="moments" class="level3">
 <h3>Moments</h3>
 <p>The <em>moments</em> of a random variable are <span
-class="math inline">m_n = E[X^n]</span> where <span
+class="math inline">\mu_n = E[X^n]</span> where <span
 class="math inline">n</span> is a non-negative integer. The <em>moment
-generating function</em> is <span class="math inline">M(s) = E[e^{sX}] =
-\sum_{n=0}^\infty m_n s^n/n!</span>. Note <span
-class="math inline">M^{(n)}(0) = m_n</span>.</p>
+generating function</em> is <span class="math inline">\mu(s) = E[e^{sX}]
+= \sum_{n=0}^\infty m_n s^n/n!</span>. Note <span
+class="math inline">\mu^{(n)}(0) = m_n</span>.</p>
 <p>Moments don’t necessarily exist for all <span
 class="math inline">n</span>, except for <span class="math inline">n =
 0</span>. They also cannot be an arbitrary sequence of values.</p>
@@ -341,8 +342,9 @@ B_{n-i,k-1}(x_1,\ldots,x_{n - i - k + 2})x_i
 </section>
 <section id="jensens-inequality" class="level2">
 <h2>Jensen’s Inequality</h2>
-<p>A function <span class="math inline">\phi\colon\bm{R}\to\bm{R}</span>
-is <em>convex</em> if <span class="math inline">\phi(x) =
+<p>A function <span
+class="math inline">\phi\colon\mathbf{R}\to\mathbf{R}</span> is
+<em>convex</em> if <span class="math inline">\phi(x) =
 \sup_{\lambda\le\phi} \lambda(x)</span> and <em>concave</em> if <span
 class="math inline">\phi(x) = \inf_{\lambda\ge\phi} \lambda(x)</span>
 where <span class="math inline">\lambda</span> is linear.</p>
