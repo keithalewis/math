@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-01-09" />
+  <meta name="dcterms.date" content="2023-02-22" />
   <title>Totally Ordered Streams</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,43 +45,95 @@
 <header id="title-block-header">
 <h1 class="title">Totally Ordered Streams</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 9, 2023</p>
+<p class="date">February 22, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Totally ordered streams.
 </div>
 </header>
-
-<p>There is a 1-1 correspondence between ordered sequences and
-<em>iterables</em>. An iterable is a subset <span
-class="math inline">S\subseteq T</span> with operations <span
-class="math inline">*\colon S\to T</span>, <span
-class="math inline">+\colon S\to S</span>, and <span
-class="math inline">?S</span> indicating <span
-class="math inline">S</span> is non-empty. It corresponds to the
-sequence <span class="math inline">(*S, *+S, *++S, \ldots)</span> of
-elements in <span class="math inline">T</span>.</p>
-<p>If <span class="math inline">T</span> is totally ordered finite
-subset of <span class="math inline">T</span> we define an iterable by
-<span class="math inline">*S = \min\{s\in S\}</span> and <span
-class="math inline">+S = S\setminus\{*S\}</span>. The corresponding
-sequence has length equal to the cardinality of <span
-class="math inline">S</span>.</p>
+<p>If <span class="math inline">S</span> is a finite subset of a totally
+ordered set <span class="math inline">T</span> let <span
+class="math inline">\wedge S = \min\{s\in S\}</span> and <span
+class="math inline">\vee S = \max\{s\in S\}</span>. Define <span
+class="math display">
+\begin{aligned}
+    *S &amp;= \wedge S \\
+    +S &amp;= S\setminus\{*S\} \\
+    ?S &amp;= S \not= \emptyset \\
+\end{aligned}
+</span></p>
+<p>If <span class="math inline">f\colon T\to U</span> define <span
+class="math inline">f(S)</span> by <span class="math display">
+\begin{aligned}
+    *f(S) &amp;= f(*S) \\
+    +f(S) &amp;= f(+S) \\
+    ?S &amp;= f(S) \not= \emptyset \\
+\end{aligned}
+</span></p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">f(S)
+=\emptyset</span> if and only if <span class="math inline">S
+=\emptyset</span></em>.</p>
 <section id="filter" class="level2">
 <h2>Filter</h2>
-<p>Given a predicate <span class="math inline">P</span> on define <span
-class="math inline">S\mid P</span> by <span class="math inline">*(S\mid
-P) = *S</span> if <span class="math inline">P(*S)</span> and <span
-class="math inline">*(S\mid P) = *(+S\mid P)</span> otherwise. Define
-<span class="math inline">+(S\mid P) = +S</span> if <span
-class="math inline">P(*+S)</span> and <span class="math inline">+(S\mid
-P) = +(+S\mid P)</span> otherwise. We call this <span
+<p>Given a predicate <span class="math inline">P</span> on <span
+class="math inline">S</span> define <span class="math inline">S\mid
+P</span> by <span class="math inline">*(S\mid P) = *S</span> if <span
+class="math inline">P(*S)</span> and <span class="math inline">*(S\mid
+P) = *(+S\mid P)</span> otherwise. We call this <span
 class="math inline">S</span> <em>given</em> <span
 class="math inline">P</span>, or <span class="math inline">S</span>
 <em>filter</em> <span class="math inline">P</span>.</p>
 <p><strong>Exercise</strong> <em>Show <span class="math inline">s\in
 (S\mid P)</span> if and only if <span class="math inline">s\in S</span>
 and <span class="math inline">P(s)</span></em>.</p>
+<p>If <span class="math inline">R</span> is a relation on <span
+class="math inline">T</span> define <span class="math inline">SRt</span>
+by the predicate <span class="math inline">P(s) = sRt</span>.</p>
+<p><strong>Exercise</strong>. <em>Show, e.g., <span
+class="math inline">S&lt;t = S\cap\{s\in S\mid s &lt;
+t\}</span></em>.</p>
+</section>
+<section id="disjoint-union" class="level2">
+<h2>Disjoint Union</h2>
+<p>If <span class="math inline">\{S_j\}_{0\le j &lt; n}</span> are
+finite subsets of <span class="math inline">T</span> then <span
+class="math inline">\sqcup_j S_j = \cup_j S_j\times\{j\}</span>. The
+lexicographical order <span class="math inline">(s,i) &lt; (t,j)</span>
+by <span class="math inline">s &lt; t</span> or <span
+class="math inline">s = t</span> and <span class="math inline">i &lt;
+j</span> is a total order.</p>
+<pre><code>template&lt;class.. Is&gt;
+struct sqcup {
+    std::tuple&lt;Is...&gt; is;
+    sqcup((Is... is)
+        : is(is)
+    {}
+    // std::apply([](auto ...x){std::make_tuple(some_function(x)...);} , the_tuple);
+    operator bool() const
+    {
+        return std::apply([](auto&amp;&amp;... i) {
+            i.operator bool() or ...}   
+        }, is);
+    }
+    auto operator*() const
+    {
+        std::min(i.operator*());
+    }
+    sqcup&amp; operator++()
+    {
+        const auto _i = operator*();
+        ++std::get&lt;_i.second&gt;(is);
+        
+        return *this;
+    }
+};</code></pre>
+<p>If <span class="math inline">\{S_j\}_{0\le j &lt; n}</span> are
+finite subsets of <span class="math inline">T</span> define <span
+class="math inline">,S_j</span> by <span class="math inline">*(,S_j) =
+*(\sqcup_j S_j) = (s, k)</span> and <span class="math display">
+    +(,S_j) = \sqcup_j (S_j &gt; s&#39;)).
+</span> where <span class="math inline">s&#39; =
+*S_{\mod(k+1,n)}</span>.</p>
 </section>
 <section id="mask" class="level2">
 <h2>Mask</h2>
@@ -99,6 +151,14 @@ class="math inline">Q</span>.</p>
 (S\mid Q)</span> if and only if and <span class="math inline">s =
 *+^nS</span> and <span class="math inline">*+^nQ</span> for some <span
 class="math inline">n</span></em>.</p>
+</section>
+<section id="function" class="level2">
+<h2>Function</h2>
+<p>If <span class="math inline">f\colon T\to U</span> is a function and
+<span class="math inline">S</span> is a finite subeset of <span
+class="math inline">T</span> define <span class="math inline">fRS\colon
+T\to U</span> by <span class="math inline">fRS(t) = f(*SRt)</span>.</p>
+<p><span class="math inline">S = eow</span> $f(eow)</p>
 </section>
 <section id="relation" class="level2">
 <h2>Relation</h2>

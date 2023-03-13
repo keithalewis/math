@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-01-09" />
+  <meta name="dcterms.date" content="2023-02-22" />
   <title>Unified Finance</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,7 +45,7 @@
 <header id="title-block-header">
 <h1 class="title">Unified Finance</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 9, 2023</p>
+<p class="date">February 22, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Unified Finance – holdings, trades, and managing risk
@@ -233,13 +233,6 @@ class="math inline">a&#39; &lt; 0</span> is not allowed). The amount
 available is also at the discretion of the seller and may consist of the
 empty set for certain buyers.<a href="#fn1" class="footnote-ref"
 id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<section class="footnotes footnotes-end-of-block" role="doc-endnotes">
-<ol>
-<li id="fn1" role="doc-endnote"><p>Adhering to the trader aphorism,
-“Don’t be a dick for a tick,” can help prevent this.<a href="#fnref1"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 <p>A mathematical model for cash flows is a function<a href="#fn2"
 class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>
 <span class="math inline">C_t:I\times I\to A</span>. At time <span
@@ -247,17 +240,6 @@ class="math inline">t</span> instrument <span
 class="math inline">i</span> has cash flow amount <span
 class="math inline">C_t(i,i&#39;)</span> in instrument <span
 class="math inline">i&#39;</span>.</p>
-<section class="footnotes footnotes-end-of-block" role="doc-endnotes">
-<ol start="2">
-<li id="fn2" role="doc-endnote"><p>Cash flows and prices are modeled
-using <em>random variables</em>: a variable together with the
-probabilities of the values it can have. The mathematical definition is
-that a random variable is a function from a <em>sample space</em> to the
-real numbers. Prepend the sample space to the cartesian products
-involved to make them mathematically correct.<a href="#fnref2"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 <p>A mathematical model for prices is a (partial) function <span
 class="math inline">X_t\colon I\times E\times A\times I\times
 E\to\mathbf{R}</span>. At time <span class="math inline">t</span> the
@@ -300,15 +282,6 @@ class="math inline">\Gamma_j</span> of <span
 class="math inline">i&#39;</span> and the seller holds amount <span
 class="math inline">\Gamma_j X_j</span> of <span
 class="math inline">i</span> in exchange.</p>
-<section class="footnotes footnotes-end-of-block" role="doc-endnotes">
-<ol start="3">
-<li id="fn3" role="doc-endnote"><p>A <em>stopping time</em> is a random
-variable taking values in <span class="math inline">T</span> that
-depends only on prior information, for example, when the price of a
-stock hits a certain level.<a href="#fnref3" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 <p>Most models do not specify the seller <span
 class="math inline">e&#39;</span>; traders assume there is an aggregate
 market of <em>liquidity providers</em> for <span
@@ -389,14 +362,6 @@ class="math inline">\Gamma_j</span>) to trade in order to satisfy the
 contract obligations.<a href="#fn4" class="footnote-ref" id="fnref4"
 role="doc-noteref"><sup>4</sup></a> The term <em>self-financing</em>
 means satisfying the obligation to pay 0 on non-payment dates.</p>
-<section class="footnotes footnotes-end-of-block" role="doc-endnotes">
-<ol start="4">
-<li id="fn4" role="doc-endnote"><p>The trader aphorism, “Hedge when you
-can, not when you have to,” is only a rough guide to solving this
-difficult problem.<a href="#fnref4" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 <p>When <span class="math inline">\Delta_t + \Gamma_t = 0</span>, we say
 the trading strategy is <em>closed out</em> at <span
 class="math inline">t</span>. If no trades are executed after that, then
@@ -441,17 +406,6 @@ financial world. The 1933 Glass-Steagall Act prohibited investment banks
 from participating in the insurance industry, but after the merger of
 Citicorp with Travelers, the Gramm-Leach-Bliley Act allowed them into
 the party after 1999.</p>
-<section class="footnotes footnotes-end-of-block" role="doc-endnotes">
-<ol start="5">
-<li id="fn5" role="doc-endnote"><p>The formula for CVA should use <span
-class="math inline">E[\max\{V_t,0\}]</span> and not <span
-class="math inline">\max\{E[V_t], 0\}</span> but that is computationally
-more difficult. Jensen’s inequality implies <span
-class="math inline">E[\max\{V_t,0\}] \ge\max\{E[V_t], 0\}</span> so CVA
-underestimates the risk.<a href="#fnref5" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 <p>It is common for swaps to have unwind provisions that will be
 exercised if the market moves against them. This is an example of a
 hedging strategy that can be applied to a portfolio to get a more
@@ -513,15 +467,6 @@ are reinvested in the account. A funding desk typically uses the
 <em>repurchase agreement</em> market to supply the account. There are
 many individual transactions involved with funding accounts once you
 pull out your microscope.</p>
-<section class="footnotes footnotes-end-of-block" role="doc-endnotes">
-<ol start="6">
-<li id="fn6" role="doc-endnote"><p>The coupons are a stochastic process
-that is called <em>predictable</em> in the math literature. It means
-that it is a little better than being merely <em>adapted</em> to a
-<em>filtration</em>.<a href="#fnref6" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 <p>Trades often involve the exchange of more than two holdings, for
 example, a fee or commission to a broker or market maker that enabled
 the trade. These are accommodated by including the associated
@@ -562,6 +507,43 @@ falls under the purview of machine learning. It is my hope that the
 large ML cadre currently employed to tell us pictures that look like a
 blur to humans have a 95% probability of being a stop sign can be
 gainfully redirected to more useful purposes.</p>
+</section>
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Adhering to the trader aphorism,
+“Don’t be a dick for a tick,” can help prevent this.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Cash flows and prices are modeled
+using <em>random variables</em>: a variable together with the
+probabilities of the values it can have. The mathematical definition is
+that a random variable is a function from a <em>sample space</em> to the
+real numbers. Prepend the sample space to the cartesian products
+involved to make them mathematically correct.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>A <em>stopping time</em> is a random
+variable taking values in <span class="math inline">T</span> that
+depends only on prior information, for example, when the price of a
+stock hits a certain level.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>The trader aphorism, “Hedge when you
+can, not when you have to,” is only a rough guide to solving this
+difficult problem.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>The formula for CVA should use <span
+class="math inline">E[\max\{V_t,0\}]</span> and not <span
+class="math inline">\max\{E[V_t], 0\}</span> but that is computationally
+more difficult. Jensen’s inequality implies <span
+class="math inline">E[\max\{V_t,0\}] \ge\max\{E[V_t], 0\}</span> so CVA
+underestimates the risk.<a href="#fnref5" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>The coupons are a stochastic process
+that is called <em>predictable</em> in the math literature. It means
+that it is a little better than being merely <em>adapted</em> to a
+<em>filtration</em>.<a href="#fnref6" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 <hr/>
 <footer>

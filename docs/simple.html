@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-01-16" />
+  <meta name="dcterms.date" content="2023-02-22" />
   <title>The Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,17 +45,17 @@
 <header id="title-block-header">
 <h1 class="title">The Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 16, 2023</p>
+<p class="date">February 22, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-<p>Every arbitrage-free pricing model is parameterized by a
-vector-valued martingale and a positive adapted process. There is no
-need to restrict models to Ito processes and use partial differential
-equations. There is also no need for utility functions or market
-equilibrium assumptions. In fact, there is no need for probability
-measures. The Unified Model involves only geometry, as was first pointed
-out by Stephen Ross. We do need the notion of sample spaces and algebras
-of sets in order to mathematically model partial information.</p>
+<p>Every arbitrage-free model is parameterized by a positive measure
+process. There is no need to restrict models to Ito processes and use
+partial differential equations. There is also no need for utility
+functions or market equilibrium assumptions. In fact, there is no need
+for probability measures. The Unified Model involves only geometry, as
+was first pointed out by Stephen Ross. We do need the notion of sample
+spaces and algebras of sets in order to mathematically model partial
+information.</p>
 <p>It is time to banish the mathematical fiction of continuous time
 trading and focus on problems practitioners find useful: when to
 re-hedge and how well the hedge performs.</p>
@@ -68,10 +68,10 @@ make model assumptions explicit. Realistic models must allow for the
 empirical fact that not all market participants act optimally.</p>
 <p>Scholes and Merton won a Nobel Prize for a new method of valuing
 derivative securities that did not require estimating the return on the
-underlying. Under the assumption that future stock prices could be
-modeled by geometric Brownian motion and it was possible to trade in
-continuous time, all one needed to know was the volatility and the
-risk-free funding rate.</p>
+underlying. Under the assumption that stock prices can be modeled by
+geometric Brownian motion and it was possible to trade in continuous
+time, all one needed to know was the volatility and the funding
+rate.</p>
 <section id="one-period-model" class="level2">
 <h2>One-Period Model</h2>
 <p>The prices of <span class="math inline">n</span> instruments at the
@@ -189,8 +189,8 @@ c)</span> and <span class="math inline">X(\omega) = (\omega,
 class="math inline">\omega\in\{90,100,110\}</span> show the model is
 arbitrage-free if and only if <span class="math inline">0\le c\le
 100/11</span></em>.</p>
-<p>If the bond is not available for trading the option price must be
-strictly less than 10 in an arbitrage-free model.</p>
+<p>Even if the bond is not available for trading the option price must
+be strictly less than 10 in an arbitrage-free model.</p>
 </section>
 <section id="binomial-model" class="level4">
 <h4>Binomial Model</h4>
@@ -278,20 +278,18 @@ class="math inline">c</span></em>?</p>
 <section id="unified-model" class="level2">
 <h2>Unified Model</h2>
 <p>Assume <span class="math inline">\Omega</span> is the sample space of
-possible outcomes, <span class="math inline">P</span> is a probability
-measure on <span class="math inline">\Omega</span>, and <span
-class="math inline">\mathcal{A}_t</span> are algebras of sets indicating
-the information available at each trading time <span
+possible outcomes and <span class="math inline">\mathcal{A}_t</span> is
+a partition of <span class="math inline">\Omega</span> representing the
+information available at each trading time <span
 class="math inline">t\in T</span>.</p>
 <section id="market" class="level3">
 <h3>Market</h3>
 <p>A <em>market model</em> for a set <span class="math inline">I</span>
-of <em>instruments</em> is specified by stochastic processes for
-<em>prices</em> <span class="math inline">X_t\colon\mathcal{A}_t\to
-𝑹^I</span> and <em>cash flows</em> <span
-class="math inline">C_t\colon\mathcal{A}_t\to 𝑹^I</span>, <span
-class="math inline">t\in T</span>. <a href="#fn1" class="footnote-ref"
-id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+of <em>instruments</em> is specified by functions for <em>prices</em>
+<span class="math inline">X_t\colon\mathcal{A}_t\to 𝑹^I</span> and
+<em>cash flows</em> <span class="math inline">C_t\colon\mathcal{A}_t\to
+𝑹^I</span>, <span class="math inline">t\in T</span>. <a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>We assume any amount of each instrument can be bought or sold at
 price <span class="math inline">X_t</span> at time <span
 class="math inline">t\in T</span>. Cash flows are almost always 0.
@@ -324,33 +322,30 @@ is possible.</p>
 <p>Trading strategies involve cash flows to the trading <em>account</em>
 <span class="math display">
     A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t.
-</span> At time <span class="math inline">t</span> all cash flows are
+</span> At time <span class="math inline">t</span> cash flows are
 received in proportion to the existing position and the trades just
 executed are debited from the trading account.</p>
 </section>
 <section id="arbitrage" class="level3">
 <h3>Arbitrage</h3>
-<p><em>Arbitrage</em> exists for a model if there exists a trading
-strategy <span class="math inline">(\tau_j, \Gamma_j)</span> with <span
+<p><em>Arbitrage</em> exists for a model if there is a trading strategy
+<span class="math inline">(\tau_j, \Gamma_j)</span> with <span
 class="math inline">\sum_j \Gamma_j = 0</span>, <span
-class="math inline">A_{\tau_0} &gt; 0</span>, and <span
+class="math inline">A_{\tau_0} &gt; 0</span>, <span
 class="math inline">A_t\ge0</span> for <span class="math inline">t &gt;
 \tau_0</span>. The strategy must close out, make money on the first
 trade, and never lose money thereafter.</p>
-<p>Arbitrage-free models are parameterized by a vector-valued
-martingale, <span class="math inline">M_t\colon\mathcal{A}_t\to
-𝑹^I</span> and a positive adapted process <span
-class="math inline">D_t\colon\mathcal{A}_t\to (0,\infty)</span>: <span
-class="math display">
-    X_t D_t = M_t - \sum_{s\le t}C_s D_s.\tag{1}
-</span></p>
-<p>We call <span class="math inline">D_t</span> the
-<em>deflator</em>.</p>
-<p><strong>Lemma</strong>. <em>If <span class="math inline">X_t D_t =
-M_t - \sum_{s\le t}C_s D_s</span> then</em> <span class="math display">
-    X_t D_t = E[X_u D_u + \sum_{t &lt; s \le u} C_s
-D_s\mid\mathcal{A}_t].\tag{2}
-</span></p>
+<p>Arbitrage-free models are parameterized by a function <span
+class="math inline">D_t\colon\mathcal{A}_t\to (0,\infty)</span>. We call
+<span class="math inline">D_t</span> a <em>deflator</em>. If a
+money-market account is available to fund trading then <span
+class="math inline">D_t = 1/R_t</span> where <span
+class="math inline">R_t</span> is the realized return on the
+money-market account.</p>
+<p>Let <span class="math inline">M_t = X_t D_t + sum_{s\le t}C_s
+D_s</span>.</p>
+<p><strong>Lemma</strong>. <em>A model is arbitrage-free if <span
+class="math inline">M_u|_{\mathcal{A}_t} = M_t</span></em>.</p>
 <details>
 <summary>
 <em>Proof</em>.
@@ -366,6 +361,8 @@ D_s\mid\mathcal{A}_t] \\
 \end{aligned}
 </span>
 </details>
+<p><strong>Theorem</strong>. <em>A model is arbitrage-free if <span
+class="math inline">M_u|_{\mathcal{A}_t} = M_t</span></em>.</p>
 <p><strong>Lemma</strong>. <em>Using value <span class="math inline">V_t
 = (\Delta_t + \Gamma_t)\cdot X_t</span> and account <span
 class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
@@ -450,12 +447,28 @@ S_{t_j}</span>.</p>
 </section>
 <section id="zero-coupon-bonds" class="level3">
 <h3>Zero Coupon Bonds</h3>
-<p><span class="math inline">D_t(u)D_t = E_t[D_u]</span></p>
+<p>A <em>zero coupon bond</em> with maturity <span
+class="math inline">u</span> has a single cash flow of 1 at time <span
+class="math inline">u</span>. By equation (2) we have <span
+class="math display">
+D_t(u)D_t = E_t[D_u]
+</span> where <span class="math inline">D_t(u)</span> is the price at
+time <span class="math inline">t</span> of the zero coupon bond.</p>
 </section>
 <section id="risky-zero-coupon-bonds" class="level3">
 <h3>Risky Zero Coupon Bonds</h3>
-<p><span class="math inline">D^{T,R}_t(u)D_t = E_t[R1(t &lt; T \le u)D_T
-+ 1(T &gt; u)D_u]</span></p>
+<p>If a zero coupon bond defaults at the random time <span
+class="math inline">T</span> and pays random recovery <span
+class="math inline">R</span> when it defaults then by equation (2) <span
+class="math display">
+D^{T,R}_t(u)D_t = E_t[R1(t &lt; T \le u)D_T + 1(T &gt; u)D_u]
+</span> where <span class="math inline">D^{T,R}_t(u)</span> is the price
+at time <span class="math inline">t</span> of the risky zero coupon
+bond.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">P(T &gt;
+t) = e^{-\lambda t}</span> is independent of <span
+class="math inline">D_t</span>, <span class="math inline">t\ge
+0</span>,…</em>.</p>
 </section>
 </section>
 <section id="footnotes" class="level2">

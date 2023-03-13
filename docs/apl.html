@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-01-09" />
+  <meta name="dcterms.date" content="2023-02-22" />
   <title>APL</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,13 +45,12 @@
 <header id="title-block-header">
 <h1 class="title">APL</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 9, 2023</p>
+<p class="date">February 22, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A Programming Language
 </div>
 </header>
-
 <blockquote>
 <p><em>APL is a mistake carried through to perfection</em> — Edsgar W.
 Dijkstra</p>
@@ -204,16 +203,6 @@ can be written <span class="math display">
     (X\times Y)\to Z \cong X\to(Y\to Z)
 </span> Going from left to right is <em>currying</em> and going from
 right to left is <em>uncurrying</em>.</p>
-<section class="footnotes footnotes-end-of-block" role="doc-endnotes">
-<ol>
-<li id="fn1" role="doc-endnote"><p>In fancy pants category theory
-language this is expressed as the product functor <span
-class="math inline">F_Y(X) = X\times Y</span> and the exponential
-functor <span class="math inline">G_Y(Z) = Z^Y</span> are adjoint: <span
-class="math inline">\operatorname{hom}(F_Y(X),Z)\cong\operatorname{hom}(X,G_Y(Z))</span>.<a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 <p><span class="math inline">e(f,x) = f(x)</span>, <span
 class="math inline">f\in Y^X</span>, <span class="math inline">x\in
 X</span>. It is just an explicit name for <em>function application</em>.
@@ -277,38 +266,6 @@ class="math inline">(S + T)v = Sv + Tv\in W</span> and <span
 class="math inline">a(S + T)v = a(Sv) + a(Tv)\in W</span>, <span
 class="math inline">v\in V</span>, <span
 class="math inline">a\in\bm{F}</span>.</p>
-<section class="footnotes footnotes-end-of-block" role="doc-endnotes">
-<ol start="2">
-<li id="fn2" role="doc-endnote"><p>If <span class="math inline">T\colon
-V\Rightarrow W</span> is a linear transformation in <span
-class="math inline">\mathbf{Vec}</span> we write <span
-class="math inline">\{T\}\colon \{V\}\to\{W\}</span> in <span
-class="math inline">\mathbf{Set}</span> for the corresponding function
-on the underlying sets of the vector spaces. This is the <em>forgetful
-functor</em> <span
-class="math inline">\{\}\colon\mathbf{Vec}\to\mathbf{Set}</span>. There
-is also the <em>free functor</em> <span
-class="math inline">\langle\rangle\colon\mathbf{Set}\to\mathbf{Vec}</span>
-defined by <span class="math inline">X\subseteq V\mapsto \langle
-X\rangle = \operatorname{span}\{\delta_x:x\in X\}\subseteq B(X)</span>
-where <span class="math inline">B(X)</span> is the vector space of
-bounded functions on <span class="math inline">X</span> and <span
-class="math inline">\delta_x(y) = 1</span> if <span
-class="math inline">y = x</span> and <span
-class="math inline">\delta_x(y) = 0</span> if <span
-class="math inline">y\not= x</span>, <span class="math inline">x,y\in
-X</span>. A function on sets <span class="math inline">t\colon X\to
-Y</span> can be extended to <span class="math inline">\langle
-t\rangle\colon \langle X\rangle\to\langle Y\rangle</span> by extending
-it linearly. Since <span class="math inline">\{\delta_x:x\in
-X\}\subseteq B(X)</span> are independent this extension is well-defined.
-Show <span class="math inline">\{V\}\Rightarrow X\cong
-V\Rightarrow\langle X\rangle</span> for <span
-class="math inline">V</span> a vector space and <span
-class="math inline">X</span> a set.<a href="#fnref2"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 <p>The <em>dual</em> <span class="math inline">V^*</span> of the vector
 space <span class="math inline">V</span> is <span
 class="math inline">V\Rightarrow\bm{F}</span> where <span
@@ -639,6 +596,46 @@ class="math inline">X_J</span>.</p>
 <p>Currying: <span class="math inline">X\times Y\to Z\cong
 (Z^Y)^X</span> via <span class="math inline">f(x,y) = z</span> iff <span
 class="math inline">(fx)y = z</span>.</p>
+</section>
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>In fancy pants category theory
+language this is expressed as the product functor <span
+class="math inline">F_Y(X) = X\times Y</span> and the exponential
+functor <span class="math inline">G_Y(Z) = Z^Y</span> are adjoint: <span
+class="math inline">\operatorname{hom}(F_Y(X),Z)\cong\operatorname{hom}(X,G_Y(Z))</span>.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>If <span class="math inline">T\colon
+V\Rightarrow W</span> is a linear transformation in <span
+class="math inline">\mathbf{Vec}</span> we write <span
+class="math inline">\{T\}\colon \{V\}\to\{W\}</span> in <span
+class="math inline">\mathbf{Set}</span> for the corresponding function
+on the underlying sets of the vector spaces. This is the <em>forgetful
+functor</em> <span
+class="math inline">\{\}\colon\mathbf{Vec}\to\mathbf{Set}</span>. There
+is also the <em>free functor</em> <span
+class="math inline">\langle\rangle\colon\mathbf{Set}\to\mathbf{Vec}</span>
+defined by <span class="math inline">X\subseteq V\mapsto \langle
+X\rangle = \operatorname{span}\{\delta_x:x\in X\}\subseteq B(X)</span>
+where <span class="math inline">B(X)</span> is the vector space of
+bounded functions on <span class="math inline">X</span> and <span
+class="math inline">\delta_x(y) = 1</span> if <span
+class="math inline">y = x</span> and <span
+class="math inline">\delta_x(y) = 0</span> if <span
+class="math inline">y\not= x</span>, <span class="math inline">x,y\in
+X</span>. A function on sets <span class="math inline">t\colon X\to
+Y</span> can be extended to <span class="math inline">\langle
+t\rangle\colon \langle X\rangle\to\langle Y\rangle</span> by extending
+it linearly. Since <span class="math inline">\{\delta_x:x\in
+X\}\subseteq B(X)</span> are independent this extension is well-defined.
+Show <span class="math inline">\{V\}\Rightarrow X\cong
+V\Rightarrow\langle X\rangle</span> for <span
+class="math inline">V</span> a vector space and <span
+class="math inline">X</span> a set.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 <hr/>
 <footer>

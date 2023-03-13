@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-01-09" />
+  <meta name="dcterms.date" content="2023-02-22" />
   <title>The Markowitz Tragedy</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,13 +45,12 @@
 <header id="title-block-header">
 <h1 class="title">The Markowitz Tragedy</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 9, 2023</p>
+<p class="date">February 22, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 The dominance of unimportance.
 </div>
 </header>
-
 <p>The <em>one period model</em> for a set of instruments <span
 class="math inline">I</span> is determined by a vector of initial prices
 <span class="math inline">x\in\boldsymbol{R}^I</span> <a href="#fn1"
@@ -74,21 +73,6 @@ class="math inline">\Omega^\bot = \Omega\cup\{\bot\}</span> and define
 class="math inline">\omega\in\Omega</span>, and <span
 class="math inline">X^\bot(\bot) = 0</span> modeling the notion all
 instrument prices are 0 in the event of a catastrophe.</p>
-<section class="footnotes footnotes-end-of-block" role="doc-endnotes">
-<ol>
-<li id="fn1" role="doc-endnote"><p>Recall <span class="math inline">A^B
-= \{f\colon B\to A\}</span> is the set of all functions from the set
-<span class="math inline">B</span> to the set <span
-class="math inline">A</span>. We prefer the notation <span
-class="math inline">x\in\boldsymbol{R}^I</span> to the circumloqution
-<span class="math inline">x\in\boldsymbol{R}^n</span> where <span
-class="math inline">I = {i_1,\ldots,i_n}</span> and <span
-class="math inline">x = (x_1,\ldots,x_n)\in\boldsymbol{R}^n</span>
-corresponds to <span class="math inline">x(i_j) = x_j</span> in <span
-class="math inline">\boldsymbol{R}^I</span>.<a href="#fnref1"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 <p>Note we <em>do not</em> assume a probability measure on <span
 class="math inline">\Omega</span>.</p>
 <p>The <em>cost</em> of obtaining portfolio <span
@@ -159,13 +143,6 @@ portfolios. If <span class="math inline">x</span> is not in the cone and
 class="math inline">\gamma = x^* - x</span> is an arbitrage. However,
 proving that involves more machinery<a href="#fn2" class="footnote-ref"
 id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
-<section class="footnotes footnotes-end-of-block" role="doc-endnotes">
-<ol start="2">
-<li id="fn2" role="doc-endnote"><p>The machinery being the Hahn-Banach
-theorem or its finite dimensional version due to Farkas.<a
-href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 <section id="examples" class="level3">
 <h3>Examples</h3>
 <p>Consider a bond, stock, and at-the-money call option where the bond
@@ -401,6 +378,26 @@ class="math inline">\lambda = (\tau/(n/\tau\sigma^2) - 1) = 1/n\sigma^2
 </section>
 <section id="notes" class="level2">
 <h2>NOTES</h2>
+</section>
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Recall <span class="math inline">A^B
+= \{f\colon B\to A\}</span> is the set of all functions from the set
+<span class="math inline">B</span> to the set <span
+class="math inline">A</span>. We prefer the notation <span
+class="math inline">x\in\boldsymbol{R}^I</span> to the circumloqution
+<span class="math inline">x\in\boldsymbol{R}^n</span> where <span
+class="math inline">I = {i_1,\ldots,i_n}</span> and <span
+class="math inline">x = (x_1,\ldots,x_n)\in\boldsymbol{R}^n</span>
+corresponds to <span class="math inline">x(i_j) = x_j</span> in <span
+class="math inline">\boldsymbol{R}^I</span>.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>The machinery being the Hahn-Banach
+theorem or its finite dimensional version due to Farkas.<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 <hr/>
 <footer>

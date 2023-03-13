@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <meta name="dcterms.date" content="2023-02-22" />
-  <title>Resolvents</title>
+  <title>n-factor Models</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -43,16 +43,26 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Resolvents</h1>
+<h1 class="title"><span class="math inline">n</span>-factor Models</h1>
 <p class="author">Keith A. Lewis</p>
 <p class="date">February 22, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Are 1-factor models
+</div>
 </header>
-<p><span class="math inline">R_T\colon\mathcal{C}_1 \to
-H_0(\boldsymbol{C}\setminus\sigma(T))</span>, <span
-class="math inline">L\mapsto\operatorname{tr}L(z - T)^{-1}</span>.</p>
-<p><span class="math inline">R_T^*\colon
-H(\sigma(T))\to\mathcal{B}(\mathcal{H})</span> is the Riesz functional
-calculus.</p>
+<p>Suppose <span class="math inline">X_t = (B^1_t, B_2_t)</span> is
+2-dimensional Brownian motion where <span class="math inline">B^1</span>
+and <span class="math inline">B^2</span> are independent standard
+Brownian motions. This process is used to define 2-factor models.</p>
+<p><strong>Lemma</strong>. <em>Every 2-factor model is parameterized by
+1-dimensional standard Brownian motion</em>.</p>
+<p><em>Proof</em>: The idea of the proof is to chop 1-dimensional
+Brownian motion into pieces over the intervals <span
+class="math inline">[n, n + 1)</span>, <span
+class="math inline">n\in\mathbf{N}</span>, and glue the even and odd
+pieces together to create two continuous paths. This creates two
+independent Brownian motions out of one.</p>
 <hr/>
 <footer>
 Return to <a href="index.html">index</a>.
