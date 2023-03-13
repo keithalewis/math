@@ -12,7 +12,7 @@ abstract: |
   updated as more information becomes available (Bayes Rule).
 ...
 
-\newcommand\RR{\bm{R}}
+\newcommand\RR{\mathbf{R}}
 \newcommand{\Var}{\operatorname{Var}}
 
 ## Probability Space
@@ -153,14 +153,14 @@ __Lemma__. (Chebyshev) _If $f$ is non-negative then $P(f(X) > \lambda) \le E[f(X
 _Proof_. We have $E[f(X)] \ge E[f(X)1(f(X) > \lambda) \ge \lambda P(f(X) > \lambda)$.
 
 An immediate corollaries are $P(|X| > \lambda) \le E[|X|]/\lambda$ and
-$P(|X - E[X]| > \lambda) \le \mathrm{Var}(X)/\lambda^2$. Note this only
+$P(|X - E[X]| > \lambda) \le \Var(X)/\lambda^2$. Note this only
 has import for large $\lambda$.
 
 ### Moments
 
-The _moments_ of a random variable are $m_n = E[X^n]$ where $n$ is a non-negative integer.
-The _moment generating function_ is $M(s) = E[e^{sX}] = \sum_{n=0}^\infty m_n s^n/n!$.
-Note $M^{(n)}(0) = m_n$.
+The _moments_ of a random variable are $\mu_n = E[X^n]$ where $n$ is a non-negative integer.
+The _moment generating function_ is $\mu(s) = E[e^{sX}] = \sum_{n=0}^\infty m_n s^n/n!$.
+Note $\mu^{(n)}(0) = m_n$.
 
 Moments don't necessarily exist for all $n$, except for $n = 0$.
 They also cannot be an arbitrary sequence of values.
