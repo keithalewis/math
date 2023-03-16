@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2023-03-16" />
+  <title>tcbm</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="time-change-of-brownain-motion." class="level1">
+<h1>Time Change of Brownain Motion.</h1>
+<p>Consider right continuous piecewise constant functions <span
+class="math inline">c\colon[0,\infty)\to\mathbf{N}</span>. Parameterize
+<span class="math inline">c</span> by <span
+class="math inline">\{(t_j,c_j)\}</span> where <span
+class="math inline">t_j</span> are increasing. Note <span
+class="math inline">c(t) = t_j</span> when <span
+class="math inline">t_j\le t &lt; t_{j+1}</span>.</p>
+<p>Let <span class="math inline">W_n</span> be standard random walk. Let
+<span class="math inline">V_t = c_n W_{t_n}</span> be time changed
+random walk. <span class="math inline">\Var(V_t) = c_n^2 t_n</span>. Let
+<span class="math inline">V_n = V_{t_n}</span>.</p>
+<p><span class="math inline">\Delta X_n = \mu(n, W_n)\,\Delta t_n +
+\sigma(n, W_n)\,\Delta W_n</span>.</p>
+<pre><code>// fill in tree
+template&lt;class X&gt;
+inline X E(const function&lt;X(X)&gt;&amp; f, size_t n, const X* x, X* v)
+{
+    if (n == 0) {
+        return std::numeric_limits&lt;X&gt;::quiet_NaN();
+    }
+
+    // last time in binomial tree
+    size_t t = (n * (n - 1))/2;
+    for (size_t i = 0; i &lt; n; ++i) {
+        v[t + i] = f(x[t + i]);
+    }
+    do {
+        t -= n;
+        --n;
+        for (size_t i = 0; i &lt; n; ++i) {
+            X fti = (v[t + i] + v[t + i + 1])/2;
+            v[t + i] = std::max(fti, f(x[t + i]));
+        }
+    } while (n);
+
+    return v[0];
+}</code></pre>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

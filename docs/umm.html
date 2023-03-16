@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-03-16" />
+  <title>A Unified Market Model</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">A Unified Market Model</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">March 16, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Value, hedge, and manage risk of any portfolio
+</div>
+</header>
+<p><span class="math inline">USD/JPY = 123</span> means <span
+class="math inline">a</span> USD can be exchanged for <span
+class="math inline">123a</span> JPY.</p>
+<p>Price of Ford is 8 means <span class="math inline">a</span> shares of
+can be exchanged for <span class="math inline">8a</span> dollars.</p>
+<p><span class="math inline">F/\$ = 8</span>.</p>
+<p>time</p>
+<p>amount</p>
+<p>instrument</p>
+<p>entity</p>
+<p>Time <span class="math inline">T</span>.</p>
+<p>Amount <span class="math inline">A = \mathbf{R}</span></p>
+<p>Instruments <span class="math inline">I</span> market
+instruments.</p>
+<p>Entities <span class="math inline">E</span> legal entities.</p>
+<p>A <em>holding</em> is an element <span class="math inline">h = (t, a,
+i, e)\in T\times A\times I\times E</span>. At time <span
+class="math inline">t</span> entity <span class="math inline">e</span>
+owns <span class="math inline">a</span> units of instrument <span
+class="math inline">i</span>.</p>
+<p>A <em>market</em> is a (multi-)set of holdings.</p>
+<p><em>Issuers</em> can add holdings to a market.</p>
+<p>A <em>transaction</em> is a function <span
+class="math inline">\xi</span></p>
+<p><span class="math inline">M\mapsto M + \xi</span>.</p>
+<p>Portfolios can be <em>netted</em> by measures on finite subsets of
+holdings.</p>
+<p>Define a <span class="math inline">\mathbf{R}^{I\times E}</span>
+measure on <span class="math inline">A\times I\times E</span> by <span
+class="math inline">A(\Pi)(i, e) = \sum\{ \pi.a\mid \pi\in\Pi, \pi.i =
+i, \pi.e = e\}</span>.</p>
+<p>A <em>market</em> is a subset of <span
+class="math inline">\mathbf{R}\times I\times E</span>.</p>
+<p>Define <span class="math inline">A(\Pi) = \{(A(\Pi)(i,e),i,e)\mid
+i\in I, e\in E\}</span></p>
+<p>An <em>exchange</em> is <span class="math inline">\xi = (\pi,
+\pi&#39;)</span>, where <span class="math inline">e</span> is the buyer
+and <span class="math inline">e&#39;</span> is the seller.</p>
+<p>Define <span class="math inline">\xi\colon I\times E\to
+\mathbf{R}</span> by <span class="math inline">\xi(j,f) = -a</span> if
+<span class="math inline">j = i</span> and <span class="math inline">f =
+e</span>, <span class="math inline">\xi(j,f) = a&#39;</span> if <span
+class="math inline">j = i&#39;</span> and <span class="math inline">f =
+e</span>, <span class="math inline">\xi(j,f) = a</span> if <span
+class="math inline">j = i</span> and <span class="math inline">f =
+e&#39;</span>, <span class="math inline">\xi(j,f) = -a&#39;</span> if
+<span class="math inline">j = i&#39;</span> and <span
+class="math inline">f = e&#39;</span>, and <span
+class="math inline">\Xi(j,f) = 0</span> otherwise.</p>
+<p>Exchanges act on markets by <span class="math inline">\xi\Pi = \Pi +
+\xi = \{\pi + \xi\mid \pi\in\Pi\}</span>.</p>
+<p>Prices are a function <span class="math inline">X\colon I\times
+I\to\mathbf{R}</span>. Amount <span class="math inline">a</span> of
+instrument <span class="math inline">i</span> can be exchanged for <span
+class="math inline">X(i,i&#39;)a</span> of instrument <span
+class="math inline">i&#39;</span>.</p>
+<p>A market model is a function from time to prices. <span
+class="math inline">X_t\colon\mathcal{A}_t\to R^{I\time I}</span>.</p>
+<p>A trading strategy is a finite set of increasing stopping times <span
+class="math inline">\tau_j</span> and trades <span
+class="math inline">\Gamma_j\in \mathbf{R}^{I\times E}</span>.</p>
+<p>Trades accumulate to a <em>position</em> <span
+class="math inline">\Delta_t = \sum_{\tau_j \le t} \Gamma_j</span>.</p>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

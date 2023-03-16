@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-03-16" />
+  <title>Vector Space</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Vector Space</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">March 16, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Classified by dimension
+</div>
+</header>
+<p>Let <span class="math inline">\mathit{F}</span> be a field and <span
+class="math inline">I</span> be a set. The <em>set exponential</em>
+<span class="math inline">\mathit{F}^I = \{x\colon
+I\to\mathit{R}\}</span> is a <em>vector space</em> under pointwise
+addition and scalar multiplication, <span class="math inline">(x + y)(i)
+= x(i) + y(i)</span> and <span class="math inline">(ax)(i) =
+ax(i)</span>, <span class="math inline">i\in I</span>, <span
+class="math inline">x,y\in\mathit{F}^I</span>, <span
+class="math inline">a\in\mathit{F}</span>.</p>
+<p>The <em>standard basis</em> is <span
+class="math inline">\{\delta^i\}_{i\in I}</span> where <span
+class="math inline">\delta^i\in \mathit{F}^I</span> is defined by <span
+class="math inline">\delta^i(j) = \delta_{ij}</span>, the Kronecker
+delta function, for <span class="math inline">j\in I</span>,</p>
+<p>The <em>vector space dual</em> of <span
+class="math inline">\mathit{F}^I</span> is <span
+class="math inline">\mathit{F}_I = (\mathit{F}^I)^* = \{x^*\colon
+\mathit{F}^I\to\mathit{F}\}</span>. The <em>standard dual basis</em> is
+<span class="math inline">\{\delta_i\}_{i\in I}</span> where <span
+class="math inline">\delta_i\in \mathit{F}_I</span> is defined by <span
+class="math inline">\delta_i(\delta^j) = \delta_{ij}</span>, <span
+class="math inline">j\in I</span>,</p>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

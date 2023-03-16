@@ -57,6 +57,7 @@ _Hint_. $\alpha_\Pi(i,e)$ is the right coset and $+^*S = \sum\{s\in S\}$.
 A _transaction_ is an exchange of positions at a time $t$, $\chi = (t, \pi, \pi')$.
 The _buyer_ holding $\pi$ trades that with a _seller_ holding $\pi'$ at time $t$.
 After a transaction the buyer holds $(a',i',e)$ and the seller holds $(a, i, e')$.
+The _price_ of the transaction is $X = \pi'_a/\pi_a$.
 
 Define $\delta_{i,e}(i',e') = 1$ if $i = i'$ and $e = e'$, otherwise 0.
 A transaction can be represented by a vector
@@ -69,10 +70,6 @@ Amount $a'$ of of instrument $i'$ is credited to entity $e$ and debited from $e'
 If the net portfolio is $N$ at time $t$ the result of the transaction
 is $N + X(\chi)$ when it settles.
 
-
-## Price
-
-The _price_ of an exchange is $X = \pi'.a/\pi.a$ 
 
 ## Mark to Market
 

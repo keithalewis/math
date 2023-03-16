@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-03-16" />
+  <title>Ho-Lee</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Ho-Lee</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">March 16, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Normal short rate.
+</div>
+</header>
+<p>The Ho-Lee model assumes the stochastic short rate process is <span
+class="math inline">f_t = r + \sigma B_t</span> where <span
+class="math inline">r</span> and <span class="math inline">\sigma</span>
+are constant and <span class="math inline">B_t</span> is standard
+Brownian motion.</p>
+<p>The stochastic discount is <span class="math inline">D_t =
+\exp(-\int_0^t f_s\,ds) = \exp(-\int_0^t r + \sigma B_s\,ds) = \exp(-rt
+- \sigma\int_0^t B_s\,ds)</span>.</p>
+<p>The discount to time <span class="math inline">t</span> is <span
+class="math inline">D(t) = E[D_t]</span>. The <em>forward curve</em>
+<span class="math inline">f(t)</span> is defined by <span
+class="math inline">D(t) = \exp(-\int_0^t f(s)\,ds)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">f(t) =
+-(d/dt)\log D(t)</span></em>.</p>
+<p><em>Hint</em>: Using Ito’s formula, <span class="math inline">d(t
+B_t) = B_t\,dt + t dB_t</span> since <span class="math inline">dt\,dB =
+0</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math inline">-\log D(t) = \int_0^t f(s)\,ds)</span>
+</details>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">dX_t/X_t
+= \Lambda(t)\,dB_t</span> and <span class="math inline">X_0 = 1</span>
+then <span class="math inline">X_t = \exp(-\frac{1}{2}\int_0^t
+\Lambda(s)^2\,ds + \int_0^t \Lambda(s)\,dB_s)</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">d\log X_t = (1/X_t)\,dX_t +
+\frac{1}{2}(-1/X_t^2)\,dX_t^2 = \Lambda(t)\,dB_t -
+\frac{1}{2}\Lambda(t)^2\,dt</span> using Ito’s calculus.</p>
+<p>The discount at time <span class="math inline">t</span> of a zero
+coupon bond maturing at <span class="math inline">u</span> is <span
+class="math inline">D_t(u) = E_t[D_u/D_t]</span>. The <em>stochastic
+forward curve</em> <span class="math inline">f_t(u)</span> is defined by
+<span class="math inline">D_t(u) = \exp(-\int_t^u
+f_t(s)\,ds)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\int_0^t B_s\,ds = -\int_0^t s dB_s + t
+B_t</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">d(t B_t) = t dB_t + B_t\,dt
++ dt\,dB_t</span> and <span class="math inline">dt\,dB_t = 0</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+Integrate both sides of the hint from <span class="math inline">0</span>
+to <span class="math inline">t</span>.
+</details>
+<p>This shows <span class="math inline">D_t = \exp(-rt + \sigma \int_0^t
+s\,dB_s - \sigma tB_t)</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">dX_t/X_t
+= \Lambda(t)\,dB_t</span> and <span class="math inline">X_0 = 1</span>
+then <span class="math inline">X_t = \exp(-\frac{1}{2}\int_0^t
+\Lambda(s)^2\,ds + \int_0^t \Lambda(s)\,dB_s)</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">d\log X_t = (1/X_t)\,dX_t +
+\frac{1}{2}(-1/X_t^2)\,dX_t^2 = \Lambda(t)\,dB_t -
+\frac{1}{2}\Lambda(t)^2\,dt</span> by Ito’s formula.</p>
+<details>
+<summary>
+Solution
+</summary>
+Integrate both sides of the hint from <span class="math inline">0</span>
+to <span class="math inline">t</span> and apply <span
+class="math inline">\exp</span>.
+</details>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">E_t[\exp(\int_t^u \Lambda(s)\,dB_s)] =
+\exp(\frac{1}{2}\int_t^u \Lambda(s)^2\,ds)</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">X_t</span> is a martingale.
+Note the right-hand side is not random.</p>
+<details>
+<summary>
+Solution
+</summary>
+<p><span class="math inline">X_t = E_t[\exp(\int_0^u \Lambda(s)\,dB_s -
+\frac{1}{2}\Lambda(s)^2\,ds)]</span></p>
+<p><span class="math inline">1= E_t[\exp(\int_t^u \Lambda(s)\,dB_s -
+\frac{1}{2}\Lambda(s)^2\,ds)]</span></p>
+</details>
+<p>The price at time <span class="math inline">t</span> of a zero coupon
+bond maturing at time <span class="math inline">u</span>, <span
+class="math inline">D_t(u)</span>, satisfies <span
+class="math inline">D_t(u)D_t = E_t[D_u]</span> so</p>
+<p><span class="math display">
+\begin{aligned}
+D_t(u) &amp;= E_t[D_u/D_t] \\
+    &amp;= E_t[\exp(-\int_t^u r + \sigma B_s\,ds)] \\
+    &amp;= E_t[\exp(-r(t - u) - \int_t^u \sigma B_s\,ds)] \\
+    &amp;= E_t[\exp(-r(u - t) + \int_t^u \sigma s\,dB_s - \sigma (u B_u
+- t B_t))] \\
+    &amp;= E_t[\exp(-r(u - t) + \int_t^u \sigma s\,dB_s - \sigma (u B_u
+- u B_t + u B_t - t B_t))] \\
+    &amp;= E_t[\exp(-r(u - t) + \int_t^u \sigma s\,dB_s - \int_t^u
+\sigma u\,dB_s + \sigma(u - t) B_t)] \\
+    &amp;= E_t[\exp(-r(u - t) - \int_t^u \sigma (u - s)\,dB_s + \sigma(u
+- t) B_t)] \\
+    &amp;= E_t[\exp(-r(u - t) - \frac{1}{2}\int_t^u \sigma^2 (u -
+s)^2\,ds + \sigma(u - t) B_t)] \\
+\end{aligned}
+</span></p>
+<p>This show <span class="math inline">f_t(u) = r(u - t) +
+\frac{1}{2}\int_t^u \sigma^2 (u - s)^2\,ds - \sigma(u - t)
+B_t)</span>.</p>
+<strong>Exercise</strong>. <em>Show <span class="math inline">\int_t^u
+(s - u)^2\,ds = (u - t)^3/3</span></em>.
+<details>
+<summary>
+Solution
+</summary>
+</details>
+<p>In the Ho-Lee model the dynamics of zero coupon bond prices are <span
+class="math display">
+    D_t(u) = \exp(-r(u - t) + \frac{1}{6}\sigma^2(u - t)^3 - \sigma(u -
+t) B_t).
+</span> In particular, the discount to time <span
+class="math inline">t</span> is <span class="math inline">D(t) = D_0(t)
+= \exp(-rt + \sigma^2 t^3/6)</span>.</p>
+<strong>Exercise</strong>. <em>Show the forward curve is <span
+class="math inline">f(t) = r - \sigma^2 t^2/2</span></em>.
+<details>
+<summary>
+Solution
+</summary>
+</details>
+<p><em>Hint</em>: <span class="math inline">D(t) = \exp(-\int_0^t
+f(s)\,ds)</span>.</p>
+<p>Define the <em>stochastic forward</em> curve at time <span
+class="math inline">t</span>, <span class="math inline">f_t(u)</span>,
+by <span class="math inline">D_t(u) = \exp(-\int_t^u f_t(s)\,ds)</span>.
+Note <span class="math inline">f_t(t) = f_t</span> is the stochastic
+short rate. For each <span class="math inline">t</span> there is a
+futures contract expiring at <span class="math inline">t</span> on <span
+class="math inline">f_t</span>. The futures quote at <span
+class="math inline">s</span> is <span class="math inline">\phi_s(t) =
+E_s[f_t]</span> since futures quotes are a martingale.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">f_t(u)
+= r - \sigma^2 (u - t)^2/2 + \sigma B_t</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show the stochastic forward curve is
+<span class="math inline">f_t(u) = r - \sigma^2 (u - t)^2/2 - \sigma
+B_t</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+</details>
+<p>Note <span class="math inline">f_t(t) = r + \sigma B_t =
+f_t</span>.</p>
+<strong>Exercise</strong>. <em>Show <span class="math inline">E[f_t] -
+f(t) = \sigma^2t^2/2</span></em>.
+<details>
+<summary>
+Solution
+</summary>
+</details>
+<p>The difference between the futures quote and forward rate is called
+<em>convexity</em>.</p>
+<p><strong>Exercise</strong>. <em>Derive the formula for <span
+class="math inline">D_t(u)</span> when <span class="math inline">r =
+r(t)</span> is a function of time</em>.</p>
+<strong>Exercise</strong>. <em>Find the formula for <span
+class="math inline">D_t(u)</span> when <span class="math inline">r =
+r(t)</span> is a function of time</em>.
+<details>
+<summary>
+Solution
+</summary>
+</details>
+<p>We can also allow <span class="math inline">\sigma = \sigma(t)</span>
+to be a function of time. Let <span class="math inline">f_t = r(t) +
+\sigma(s) B_t</span>. Since <span class="math inline">d(\Sigma(t)B_t) =
+\Sigma&#39;(t)B_t\,dt + \Sigma(t)\,dB_t</span> and taking <span
+class="math inline">\sigma(s) = \Sigma&#39;(s)</span> we have <span
+class="math display">
+\begin{aligned}
+    E_t[D_u/D_t] &amp;= E_t[\exp(-\int_t^u r(s) + \sigma(s) B_s\,ds)] \\
+    &amp;= E_t[\exp(-\int_t^u r(s)\,ds + d(\Sigma(s)B_s) -
+\Sigma(s)\,dB_s)] \\
+    &amp;= E_t[\exp(-\int_t^u r(s)\,ds + \Sigma(u)B_u - \Sigma(t)B_t -
+\int_u^t \Sigma(s)\,dB_s)] \\
+    &amp;= E_t[\exp(-\int_t^u r(s)\,ds + (\Sigma(u)B_u - \Sigma(u)B_t +
+\Sigma(u)B_t - \Sigma(t)B_t)
+         - \int_u^t \Sigma(s)\,dB_s)] \\
+    &amp;= E_t[\exp(-\int_t^u r(s)\,ds + \Sigma(u)\int_t^u dB_s +
+(\Sigma(u) - \Sigma(t))B_t - \int_u^t \Sigma(s)\,dB_s)] \\
+    &amp;= E_t[\exp(-\int_t^u r(s)\,ds + \int_t^u (\Sigma(u) -
+\Sigma(s))\,dB_s + (\Sigma(u) - \Sigma(t))B_t )] \\
+    &amp;= \exp(-\int_t^u r(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) -
+\Sigma(s))^2\,ds + (\Sigma(u) - \Sigma(t))B_t ) \\
+\end{aligned}
+</span></p>
+<p>Since <span class="math inline">\int_t^u f_t(s)\,ds = \int_t^u
+r(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) - \Sigma(s))^2\,ds +
+(\Sigma(u) - \Sigma(t))B_t</span> we have <span class="math display">
+    f_t(u) = r(u) + \sigma(u) \int_t^u (\Sigma(u) - \Sigma(s))\,ds +
+\sigma(u) B_t
+</span> using <span class="math inline">(d/dx) \int_a^x g(x,s)\,ds =
+g(x,x) + \int_a^x (\partial/\partial x)g(x,s)\,ds</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">\sigma(t)
+= \sigma</span> is constant then <span class="math inline">f_t(u) = r(u)
+- \sigma^2 (u - t)^2/2 + \sigma B_t</span></em>.</p>
+<!--
+The futures quote on a contract paying $f_t$ at time $t$ is $\phi_s(t) = E_s[f_t]$
+since futures are martingales.
+-->
+<p>A <em>forward contract</em> is specified by an interval <span
+class="math inline">[t,u]</span>, a forward rate <span
+class="math inline">f</span>, and a day count basis <span
+class="math inline">\delta</span>. It has cash flows <span
+class="math inline">-1</span> at <span class="math inline">t</span> and
+<span class="math inline">1 + f\delta(t,u)</span> at <span
+class="math inline">u</span> where the day count fraction <span
+class="math inline">\delta(t,u)</span> is approximately equal to the
+time in years from <span class="math inline">t</span> to <span
+class="math inline">u</span>.</p>
+<p><strong>Exercise</strong>. <em>The price of the forward contract is
+zero at time <span class="math inline">s \le t</span> if and only
+if</em> <span class="math display">
+    f = (D_s(t)/D_s(u) - 1)/\delta(t,u)
+</span></p>
+<p><em>Hint</em>: <span class="math inline">0 = E_s[-D_t + (1 +
+f\delta)D_u]</span>.</p>
+<p>We call <span class="math inline">F_s^\delta(t,u) = (D_s(t)/D_s(u) -
+1)/\delta(t,u)</span> the <em>par forward</em> at time <span
+class="math inline">s</span> over <span class="math inline">[t,u]</span>
+for day count basis <span class="math inline">\delta</span>.</p>
+<p><strong>Exercise</strong> <em>Show <span
+class="math inline">E_s[F_t(t,u))\delta(t,u)D_u]] = E_s[D_t -
+D_u]</span></em>.</p>
+<p>A <em>forward contract paying in arrears</em> is also specified by an
+interval <span class="math inline">[t,u]</span>, a forward rate <span
+class="math inline">f</span>, and a day count basis <span
+class="math inline">\delta</span>. It has a single cash flow <span
+class="math inline">(f - F_t^\delta(t,u))\delta(t,u)</span> at <span
+class="math inline">u</span>. Note <span
+class="math inline">F_t(t,u)</span> is the forward rate at <span
+class="math inline">t</span> over the interval <span
+class="math inline">[t, u]</span>. The <em>effective date</em> of the
+contract is <span class="math inline">t</span> and the <em>termination
+date</em> is <span class="math inline">u</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">E_s[-D_t + (1 + f\delta)D_u] = E_s[(f -
+F_t(t,u))\delta(t,u)D_u]</span></em>.</p>
+<p><em>Hint</em>: Use the previous exercise.</p>
+<p>Both contracts have the same risk-neutral value, but they have very
+different risk profiles.</p>
+<p>A forward contract involves the exchange of a notional amount at the
+beginning and end of the contract. We have been using unit notional, but
+real-world contracts specify a notional <span
+class="math inline">N</span> with cash flows <span
+class="math inline">-N</span> at <span class="math inline">t</span> and
+<span class="math inline">N(1 + f\delta(t,u))</span> at <span
+class="math inline">u</span>. If one counterparty defaults during the
+interval <span class="math inline">[t,u]</span> then the other
+counterparty will not get paid what they expect. If the absolute value
+of <span class="math inline">N</span> is large both counterparties have
+to pay attention to this contingency. <em>Collateral accounts</em> are
+used to mitigate this risk. These are similar to margin accounts used by
+exchanges.</p>
+<p>Forward contracts paying in arrears are less risky. The cash flow
+<span class="math inline">N(f - F_t(t,u))\delta(t,u)</span> at <span
+class="math inline">u</span> involves the difference of similar
+amounts.</p>
+<p>A <em>caplet</em> with strike <span class="math inline">k</span> is a
+call option on a forward rate. It has cash flow <span
+class="math inline">\max\{F_t^\delta(t,u) - k, 0\}</span> at time <span
+class="math inline">u</span>. A <em>floolet</em> is a put option on a
+forward rate. It has cash flow <span class="math inline">\max\{k -
+F_t^\delta(t,u), 0\}</span> at time <span
+class="math inline">u</span>.</p>
+<p><strong>Exercise</strong>. <em>Find a closed form solution for the
+value of a caplet and floorlet in the Ho-Lee model</em>.</p>
+<p><em>Hint</em>: <span class="math inline">F - k = fe^{sZ - s^2/2} -
+h</span> for some constants <span class="math inline">f, s, h</span>
+where <span class="math inline">Z</span> is standard normal. The value
+of a caplet involves the Black put formula and the value of a floorlet
+involes the Black call formula.</p>
+<section id="remarks" class="level2">
+<h2>Remarks</h2>
+<p>An objection to the Ho-Lee model is that it allows <a
+href="https://www.investopedia.com/articles/investing/070915/how-negative-interest-rates-work.asp">negative
+interest rates</a>. This is unusual, but not a violation of arbitrage
+and has occurred in the real world.</p>
+<p>The parameterization <span class="math inline">f_t = r(1 + \sigma
+B_t)</span> is closer to a lognormal model since <span
+class="math inline">1 + x\approx e^x</span> for small <span
+class="math inline">x</span>. When using this replace <span
+class="math inline">\sigma</span> by <span
+class="math inline">r\sigma</span> in the equations above.</p>
+<p>A multi-factor model can be specified using multi-dimensional
+independent Brownian motions and vector-valued volatility.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{Cov}(\sigma(t)\cdot B_t,
+\sigma(u)\cdot B_u) =
+\sigma(t)\cdot\sigma(u)\min\{t,u\}</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">\operatorname{Cov}(B_t, B_u)
+= \min\{t,u\}I</span> where <span class="math inline">I</span> is the
+identity matrix.</p>
+<p>A common choice for the 2-dimensional case is <span
+class="math inline">\sigma(t) = \sigma(\cos\alpha t, \sin\alpha
+t)</span> for some constants <span class="math inline">\sigma</span> and
+<span class="math inline">\alpha</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\sigma(t)\cdot\sigma(u) = \sigma^2\cos(\alpha(t -
+u))</span></em>.</p>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

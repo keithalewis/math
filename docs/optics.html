@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-03-16" />
+  <title>Optics</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Optics</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">March 16, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Lenses, Prisms, Grates, and Traversals
+</div>
+</header>
+<p>Optics are getters and setters for data in functional form. Let <span
+class="math inline">T_0</span> be the <em>primitive types</em>. Define
+<em>data</em> <span class="math inline">T = T_0 + \Pi T^* + \Sigma
+T^*</span>. Data are either a primitive type, products of data, or sums
+of data.</p>
+<p>A <em>lens</em> takes data <span class="math inline">T</span>, a
+<em>view</em> of the data <span class="math inline">A</span>, and an
+<em>update</em> taking <span class="math inline">T</span> and a
+replacement <span class="math inline">B</span> for the view to produce
+data <span class="math inline">U</span> with the view of <span
+class="math inline">A</span> replaced by <span
+class="math inline">B</span>, <span class="math inline">(T\to
+A)\times(S\times B)\to U</span>.</p>
+<p>A <em>prism</em> takes data <span class="math inline">T</span>, a
+<em>choice</em> of <span class="math inline">A</span> in <span
+class="math inline">T</span>, and an way to <em>build</em> <span
+class="math inline">U</span> from <span class="math inline">B</span> to
+produce data <span class="math inline">U</span>, <span
+class="math inline">(T\to A + U)\times(B\to U)</span>.</p>
+<p>The Yoneda lemma provides a way of representing homsets of any
+category in terms of homsets of <span
+class="math inline">\mathbf{Set}</span>: <span
+class="math inline">\mathbf{C}(A,B)\cong \int_X
+\mathbf{Set}(\mathbf{C}(B,X), \mathbf{C}(A,X))</span>. If <span
+class="math inline">\mathbf{C}</span> is <span
+class="math inline">\mathbf{Set}</span> this is analogous to Cayley’s
+theorem that every group can be respresented by a permutation group.
+This may have stunted the development of group theory by hiding the
+abstract axioms in a much richer and concrete representation.</p>
+<p>If <span class="math inline">\mathbf{C}</span> is a category we write
+<span class="math inline">\mathbf{C}(A,B)</span> for all arrows in <span
+class="math inline">\mathbf{C}</span> from object <span
+class="math inline">A\in\mathbf{C}</span> to object <span
+class="math inline">B\in\mathbf{C}</span>. If <span
+class="math inline">\mathbf{C}</span> and <span
+class="math inline">\mathbf{D}</span> are categories we write <span
+class="math inline">[\mathbf{C},\mathbf{D}]</span> for the <em>functor
+category</em> with objects being the functors from <span
+class="math inline">\mathbf{C}</span> to <span
+class="math inline">\cal{D}</span> and arrows being the <em>natural
+transformations</em>.</p>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>
