@@ -9,6 +9,10 @@ abstract: Atoms of finance and their interaction.
 
 \newcommand\mb[1]{\mathbf{#1}}
 \newcommand\RR{\mb{R}}
+\newcommand\ker{\operatorname{ker}}
+\newcommand\ran{\operatorname{ran}}
+\newcommand\cod{\operatorname{cod}}
+\newcommand\dom{\operatorname{dom}}
 
 What does it mean to say "Ford is trading at 8?"
 
@@ -54,43 +58,51 @@ Let $I$ be a set of _instruments_. An _instrument_ $i\in I$ is a tradeable asset
 
 ## Amount
 
-An _amount_ $A$ measures the quantity of an instrument. Stocks have shares...
+An _amount_ $A$ measures the quantity of an instrument. Each instrument has a smallest unit
+of exchange so $A$ is an integer.
 
 ## Atom
 
 The _atoms_ of finance are _positions_: $\pi = (a, i, e)\in A\times I\times E$.
 Entity $e$ owns amount $a$ of instrument $i$.
-Given a postion $\pi = (a, i, e)$ we write $\pi.a$, $\pi.i$, and $\pi.e$ for $a$, $e$, and $i$.
+Given a postion $\pi = (a, i, e)$ we write $\pi_a$, $\pi_i$, and $\pi_e$ for $a$, $e$, and $i$.
 
 ## Portfolio
 
 A _portfolio_ is a set of positions $\Pi \subseteq A\times I\times E$.
 It is convenient to aggregate portfolios into _net_ amounts.
-Define $N_\Pi\colon I\times E\to A$ by
+Define $A_\Pi\colon I\times E\to A$ by
 $$
-	N_\Pi(i, e) = \sum_{\pi\in\Pi} \{\pi.a\mid \pi.i = i, \pi.e = e\}
+	A_\Pi(i, e) = \sum_{\pi\in\Pi} \{\pi_a\mid \pi_i = i, \pi_e = e\}
 $$
+
+The _net_ portfolio of $\Pi$ is $N_\Pi = \{(A_\Pi(i, e), i, e)\mid i\in I, e\in E\}$.
+Note $N_\Pi\subseteq A^{I\times E}$.
+
+Define $\alpha_\Pi\colon \Pi\to I\times E$ by $\alpha_\Pi(a, i, e) = (i, e)$
+
+__Exercise__. _Show $A_\Pi(i,e) = +^*\alpha_\Pi(i,e)$_.
+
+_Hint_. $\alpha_\Pi(i,e)$ is the right coset and $+^*S = \sum\{s\in S\}$.
 
 ## Transaction
 
 A _transaction_ is an exchange of positions at a time $t$, $\chi = (t, \pi, \pi')$.
 The _buyer_ holding $\pi$ trades that with a _seller_ holding $\pi'$ at time $t$.
+After a transaction the buyer holds $(a',i',e)$ and the seller holds $(a, i, e')$.
+The _price_ of the transaction is $X = \pi'_a/\pi_a$.
 
-If $A$ is the set of real numbers, $\RR$, then $N_\Pi\in\RR^{I\times E}$ is a vector.
-Let $\delta_{i,e}\colon \RR^{I\times E}\to\RR$ be the delta function
-$\delta_{i,e}(i',e') = 1$ if $i = i'$ and $e = e'$, otherwise 0.
+Define $\delta_{i,e}(i',e') = 1$ if $i = i'$ and $e = e'$, otherwise 0.
 A transaction can be represented by a vector
 $$
-	\chi = a(\delta_{i,e'} - \delta_{i,e}) + a'(\delta_{i',e} - \delta_{i',e'}).
+	X(\chi) = a(\delta_{i,e'} - \delta_{i,e}) + a'(\delta_{i',e} - \delta_{i',e'}).
 $$
-If the net portfolio is $N$ at time $t$ the result of the transaction
-is $N + \chi$ when it settles.
 Amount $a$ of of instrument $i$ is credited to entity $e'$ and debited from $e$.
 Amount $a'$ of of instrument $i'$ is credited to entity $e$ and debited from $e'$.
 
-## Price
+If the net portfolio is $N$ at time $t$ the result of the transaction
+is $N + X(\chi)$ when it settles.
 
-The _price_ of an exchange is $X = \pi'.a/\pi.a$ 
 
 ## Mark to Market
 
@@ -107,3 +119,80 @@ the sign and size of $a$. If $a$ is positive then the seller will quote
 the _ask_ price. If $a$ is negative then the seller will quote the _bid_ price.
 The _spread_ is the difference between the ask and bid is typically a positive number.
 As the magnitude of the amount the buyer wants to transact increases, the spread gets larger.
+
+## Notes
+
+We assemble some basic facts about sets and relations.
+
+### Product
+
+The _cartesian product_ of sets $A$ and $B$ is the set of ordered
+pairs $A\times B = \{(a, b)\mid a\in A, b\in B\}$.
+Define _projections_ $\pi_A\colon A\times B\to A$ by $\pi_A(a, b) = a$
+and $\pi_B\colon A\times B\to B$ by $\pi_B(a, b) = b$.
+
+__Exercise__. _If $\alpha\colon C\to A$ and $\beta\colon C\to B$
+are functions, show there is a unique function $\gamma\colon C\to A\times B$
+with $\alpha(c) = \pi_A(\gamma(c))$ and $\beta(c) = \pi_B(\gamma(c))$, $c\in C$_.
+
+_Hint_. Show $\gamma(c) = (\alpha(c), \beta(c))$ is the only such function.
+
+The cartesian product can be generalized to any collection of sets $(A_i)_{i\in I}$.
+Define $\Pi_{i\in I} A_i$ by $\pi_j\colon\Pi_{i\in I} A_i\to A_j$, $j\in I$
+where given $\alpha_j\colon C\to A_j$, $j\in I$ there exists a unique
+function $\gamma\colon C\to\Pi_{i\in I} A_i$ with $\pi_j(\gamma(c)) = \alpha_j(c)$,
+$j\in I$, $c\in C$.
+
+__Exercise__. _If $A_i = A$ for all $i\in I$ then
+$\Pi_{i\in I} A = A^I = \{\alpha\colon I\to A\}$_.
+
+_Hint_. Let $\pi_j(a) = a(j)$ for $a\in A^I$.
+
+### Relation
+
+A _relation_ is a subset of the cartesian product of sets.  If $A$ and
+$B$ are sets and $R\subseteq A\times B$ we write $aRb$ for $(a,b)\in R$.
+Define $aR = \{b\in B\mid aRb\}$ and $Rb = \{a\in A\mid aRb\}$ to be
+the left and right _coset_, respectively.
+
+The _domain_ of a relation is $\dom R = \{a\in A\mid aRb\text{ for some }b\in B\}$
+and the _codomain_ is $\cod R = \{b\in B\mid aRb\text{ for some }a\in A\}$.
+
+__Exercise__. _Show $\dom R = \cup_{b\in B} Rb$ and $\cod R = \cup_{a\in A} aR$_.
+
+A _function_ is a relation when $aR$ is a singleton for every $a\in A$.
+We write $R(a) = b$ where $b$ is the unique element of the left coset.
+If the left coset is either a singleton or empty then $R$ is a _partial function_.
+
+Given a function $f\colon X\to Y$ define $\ker f = \{fb\mid b\in B\}$
+where $fb$ is the right coset of $b$ for $f$.
+The kernel of a function is a partition of its domain.
+
+__Exercise__. _Show $\cup\ker f = \cup_{b\in B} fb = A$ and if $fb = fb'$ then
+either $fb = fb'$ or $fb\cap fb' = \emptyset$._
+
+_Hint_. For $a\in A$ we have $a\in fb$ where $b = f(a)$.
+If $a\in fb\cap fb'$ then $f(a) = b$ and $f(a) = b'$ so $b = b'$ and $fb = fb'$.
+
+### Monoid
+
+A _monoid_ is an _associative_ binary operation $m\colon M\times M\to M$ with an _identity_
+element $e\in M$. Associative means $m(a, m(b, c)) = m(m(a, b), c)$ for $a,b,c\in M$.
+The identity satisfies $m(a,e) = a = m(e, a)$ for $a\in M$.
+When the binary operation is understood we write $ab$ for $m(a,b)$.
+
+__Exercise__. _Show the identity element is unique_.
+
+_Hint_: If $e'$ is another identity then $e = ee' = e'$.
+
+__Exercise__ _If $m$ is an associative binary operation on $M$ and define $ae = a = ea$, $a\in M$, then
+$M\cup\{e\}$ is a monoid_.
+
+We can extend the binary operation to all finite ordered sequences of elements from $M$.
+Let $M^* = \cup_{n\ge 0} M^n$. Define $m^*\colon M^0$ by $m^0(\emptyset) = e$.
+Given $m^n\colon M^n\to M$ define $m^{n+1}\colon M^{n+1} = M^n\times M\to M$ by
+$m^{n+1}(a,b) = m(m^n(a), b)$.
+
+### Partition
+
+$f\colon A\to M$ 

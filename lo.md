@@ -7,23 +7,31 @@ fleqn: true
 abstract: Logic &ndash; the foundations of mathematics.
 ...
 
-It may come as a surprise that there are many different
-logical systems for mathematics that are contradictory.
-The most famous examples are in non-Euclidean geometry where
-it is possible to have no, or infinitely many, "parallel" lines
-through a point not on a line.
-However one thing logical systems all have in common that
+It may come as a surprise that there are many different logical systems
+for mathematics that are contradictory. For two millenia Euclid's
+Elements were regarded as the basis for rigourous logical reasoning.
+He invented the notion we can start from axioms rational people can agree
+are true and specify how they can be used to derive more truth.
+
+
+
+The earliest examples are in non-Euclidean geometry where
+it is possible to have no, or infinitely many, "parallel" lines 
+in a plane through a point not on a given line. (Bolyai, Lobaschevsky)
+However one thing all logical systems have in common is that
 they use _propositions_: statements that are either _true_ or _false_, and
 _rules of inference_: ways of combining true propositions into other
 true propositions.
 
-Mathematicians prove _theorems_. Typically they have the form 'if
+athematicians prove _theorems_. Typically they have the form 'if
 $P$ is true then $Q$ is true' where $P$ and $Q$ are propositions.
 This is equivalent to 'if $P$ then $Q$' and '$P$ implies $Q$'.
 Every logical system has _axioms_: propositions that are assumed to be
 true. The fundamental rule of inference is _modus ponens_: if a proof
 has the statement '$P$' and the statement '$P$ implies $Q$' then the
 statement '$Q$' can be included in the proof.
+The Latin translation of modus ponens is .
+
 A proof of '$A$ implies $Z$' consists of a sequence of
 statements starting with $A$. The following statements
 are either axioms or a statement using rules of inference applied to
@@ -31,6 +39,10 @@ previous statements. If the last statement is $Z$ then the theorem is
 proved, QED: "quod erat demonstrandum", meaning "what was to be shown".
 The difficulty with proofs is figuring out which axioms to use and
 when to apply the rules of inference.
+
+Gerhard Gentzen formalized _natural deduction_. Proofs branch into
+a tree of statements. Branches can contain subproofs used in their
+parent. He was concernee with the 
 
 ## Propositional Calculus
 
@@ -127,7 +139,7 @@ in the remaining columns. Here is the truth table for
 Binary connectives are _functions_ from $\{F,T\}^2$ to $\{F,T\}$. The
 third column above for 'and' indicates $F\wedge F = \wedge(F,F) = F$,
 $\wedge(F,T) = F$, $\wedge(T,F) = F$, and $\wedge(T,T) = T$. 
-More generally, any proposition corresponds to a function
+ore generally, any proposition corresponds to a function
 $\{F,T\}^n\to\{F,T\}$ where $n$ is the number of variables in the
 proposition. A proposition is a tautology if and only if the _range_
 of its corresponding function is $\{T\}$.
@@ -223,7 +235,7 @@ to speech (logos)
 
 One early example of different logical systems involves Euclid's fifth
 postulate: "There is at most one line that can be drawn parallel to
-another given one through an external point." An astounding amount of
+a given line in a plane through an external point." An astounding amount of
 intellectual effort was expendend over a 2000 year period to prove this
 from Euclid's first four postulates until Carl Gauss found examples in
 1810 of geometries that satisfied the first four postulates but not the
