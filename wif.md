@@ -10,6 +10,39 @@ abstract: Atoms of finance and their interaction.
 \newcommand\mb[1]{\mathbf{#1}}
 \newcommand\RR{\mb{R}}
 
+What does it mean to say "Ford is trading at 8?"
+
+The first approximation is "Ford stock is trading at 8 dollars per share."
+
+This means you can pay 8 dollars to obtain 1 share of Ford stock.
+You can also get 8 dollars to take on the obligation of buying
+back one share of F at some future date.
+More generally, you can pay $8a$ dollars to obtain $a$ shares of Ford stock,
+where $a$ can be positive or negative, if you are a mathematician
+ignoring reality.
+
+In order to do this you will need to set up an account with an _exchange_
+that has legal agreements with _broker_s
+licensed to trade F, the stock symbol for Ford.  Step one is to lay down
+some money for a _margin account_ with the exchange to fund your trading
+activity.  They will provide you with software that will show you the
+"price" of F.  When their screen shows a price of 8 and you buy one
+share of F you might be surprised to find out they debited your account
+for 8.01 dollars. This is called "slippage" but the exchange calls it
+the vigorish they get for hooking you up with a broker/_liquidity provider_.
+
+Liquidity providers submit _limit orders_ to the exchange.
+They agree to buy or sell some _amount_ of the underlying at a specific _level.
+
+Broker
+
+bid/ask spread
+
+a = 8a' <-> a'
+
+(a, i, e) <-> (a', i', e') has price X = a'/a
+
+
 ## Entity
 
 Let $E$ be a set of _entities_. An entitiy $e\in E$ can own intruments and is subject to
