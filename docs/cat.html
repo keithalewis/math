@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-04-10" />
+  <title>Category Theory</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Category Theory</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">April 10, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Objects and Arrow
+</div>
+</header>
+<blockquote>
+<p><em>Besides it is an error to believe that rigour is the enemy of
+simplicity. On the contrary we find it confirmed by numerous examples
+that the rigorous method is at the same time the simpler and the more
+easily comprehended. The very effort for rigor forces us to find out
+simpler methods of proof. — David Hilbert</em></p>
+</blockquote>
+<p>In classical mathematics everything is a set. Logicians like to say
+“the language of Set Theory is epsilon”, meaning only the symbol <span
+class="math inline">\in</span> is used in specifying the axioms to
+indicate set <em>membership</em>. <em>Category Theory</em> provides an
+alternate way of doing math using <em>objects</em> and <em>arrows</em>.
+The canonical example of a category is <span
+class="math inline">\mathbf{Set}</span>. The objects are sets and the
+arrows are functions from one set to another. If <span
+class="math inline">f\colon A\to B</span> and <span
+class="math inline">g\colon B\to C</span> are functions then the
+composition of <span class="math inline">f</span> and <span
+class="math inline">g</span> is <span class="math inline">g\circ f\colon
+A\to C</span> where <span class="math inline">g\circ f(a) =
+g(f(a))</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">f\colon A\to B</span>, <span
+class="math inline">g\colon B\to C</span>, and <span
+class="math inline">h\colon C\to D</span> then <span
+class="math inline">h\circ(g\circ f) = (h\circ g)\circ
+f</span></em>.</p>
+<p>This makes writing <span class="math inline">h\circ g\circ f</span>
+unambiguous. The identity function for a set <span
+class="math inline">A</span> is <span class="math inline">1_A(a) =
+a</span> for <span class="math inline">a\in A</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">f\colon A\to B</span> then <span
+class="math inline">f\circ 1_A = f = 1_B\circ f</span></em>.</p>
+<p>A category consists of objects and arrows that can sometimes be
+<em>composed</em>. Arrows that can be composed are <em>associative</em>.
+Every object has an <em>identity arrow</em>. In category theory
+everything is defined in terms of objects and arrows. You will need to
+disabuse yourself of the notion that arrows are functions and objects
+have elements. Arrows are more general and lead to a notion of
+parameterized set elements (<em>sheafs</em>).</p>
+<section id="objects-and-arrows" class="level2">
+<h2>Objects and Arrows</h2>
+<p>An <em>arrow</em> <span class="math inline">f</span> from
+<em>object</em> <span class="math inline">A</span> to object <span
+class="math inline">B</span> is written <span
+class="math inline">f\colon A\to B</span>.</p>
+<p>The <em>domain</em> of <span class="math inline">f</span> is <span
+class="math inline">\operatorname{dom}f = A</span> and the
+<em>codomain</em> of <span class="math inline">f</span> is <span
+class="math inline">\operatorname{cod}f = B</span> The codomain is also
+called <em>range</em>, <em>target</em>, or <em>but</em> if you parlez
+Français.</p>
+<p>We could do away with objects and use the domain and codomain of
+arrows, just as it is possible to use nand to define all other logical
+operators, but why make things more difficult?</p>
+<p>The “set” of arrows from <span class="math inline">A</span> to <span
+class="math inline">B</span> is called <span
+class="math inline">\hom(A,B)</span>, or <span
+class="math inline">\hom_{\mathbf{C}}(A,B)</span> to indicate they come
+from category <span class="math inline">\mathbf{C}</span>. The scare
+quotes indicate this is not necessarily a set but standard terminology
+for this is <em>homset</em>. Hom is short for <em>homomorphism</em>
+indicating arrows preserve the structure of objects. Homsets are also
+written <span class="math inline">\mathbf{C}[A,B]</span>. We will use
+the non-standard but more suggestive notation <span
+class="math inline">\{A\to B\}</span> or <span
+class="math inline">\{A\to B\in \mathbf{C}\}</span> when indicating the
+category is necessary.</p>
+<section id="composition" class="level3">
+<h3>Composition</h3>
+<p>If <span class="math inline">f\colon A\to B</span> and <span
+class="math inline">g\colon B\to C</span> then there exists an arrow
+<span class="math inline">g \circ f\colon A\to C</span>, the
+<em>composition</em> of <span class="math inline">g</span> with <span
+class="math inline">f</span>.</p>
+<p>Since we will be doing a lot of composing we just write <span
+class="math inline">gf</span> instead of <span class="math inline">g
+\circ f</span>. Some people prefer to use <span
+class="math inline">f;g</span> instead of <span
+class="math inline">gf</span>. In this notation <span
+class="math inline">f\colon A\to B</span> and <span
+class="math inline">g\colon B\to C</span> compose to <span
+class="math inline">f;g\colon A\to C</span> keeping the arrow names in
+order. If this sort of trifling is a concern you can just write the
+arrows backwards: <span class="math inline">g\colon C\leftarrow B</span>
+and <span class="math inline">f\colon B\leftarrow A</span> so <span
+class="math inline">gf\colon C\leftarrow A</span>.</p>
+</section>
+<section id="identity-arrow" class="level3">
+<h3>Identity Arrow</h3>
+<p>Every object has an <em>identity arrow</em>. If <span
+class="math inline">f\colon A\to B</span> then the identity arrows <span
+class="math inline">1_A\colon A\to A</span> and <span
+class="math inline">1_B\colon B\to B</span> satisfy <span
+class="math inline">f 1_A = f = 1_B f</span>. One can always throw in
+identity arrows if they don’t exist.</p>
+<strong>Exercise</strong>. <em>If <span class="math inline">e\colon A\to
+A</span> has the property <span class="math inline">fe = f</span> for
+all <span class="math inline">f\colon A\to B</span> then <span
+class="math inline">e = 1_A</span></em>.
+<details>
+<summary>
+Solution
+</summary>
+<blockquote>
+<p>Taking <span class="math inline">f = 1_A</span>, <span
+class="math inline">1_A e = 1_A</span>. By the definition of <span
+class="math inline">1_A</span>, <span class="math inline">1_A e =
+e</span>, hence <span class="math inline">1_A = e</span>.</p>
+</blockquote>
+</details>
+<strong>Exercise</strong>. <em>If <span class="math inline">e\colon B\to
+B</span> has the property <span class="math inline">ef = f</span> for
+all <span class="math inline">f\colon A\to B</span> then <span
+class="math inline">e = 1_B</span></em>.
+<details>
+<summary>
+Solution
+</summary>
+<blockquote>
+<p>Taking <span class="math inline">f = 1_B</span>, <span
+class="math inline">e 1_B = 1_B</span>. By the definition of <span
+class="math inline">1_B</span>, <span class="math inline">e 1_B =
+e</span>, hence <span class="math inline">1_B = e</span>.</p>
+</blockquote>
+</details>
+</section>
+<section id="associative-law" class="level3">
+<h3>Associative Law</h3>
+<p>If <span class="math inline">f\colon A\to B</span>, <span
+class="math inline">g\colon B\to C</span>, and <span
+class="math inline">h\colon C\to D</span> then we have arrows <span
+class="math inline">gf</span>, <span class="math inline">hg</span>,
+<span class="math inline">h(gf)</span>, and <span
+class="math inline">(hg)f</span>. The <em>associative law</em> states
+<span class="math inline">(hg)f = h(gf)</span> so <span
+class="math inline">hgf</span> is unambiguous in category theory.</p>
+<p>A collection of objects and arrow satisfying these laws is a
+<em>category</em>.</p>
+</section>
+</section>
+<section id="category" class="level2">
+<h2>Category</h2>
+<p>A category consists of objects and arrows. Every arrow <span
+class="math inline">f</span> has two objects associated with it, its
+domain <span class="math inline">\operatorname{dom}{f}</span> and its
+codomain <span class="math inline">\operatorname{cod}{f}</span>. We
+write <span class="math inline">f\colon A\to B</span> when <span
+class="math inline">A</span> is the domain of <span
+class="math inline">f</span> and <span class="math inline">B</span> is
+the codomain of <span class="math inline">f</span>. If <span
+class="math inline">f\colon A\to B</span> and <span
+class="math inline">g\colon B\to C</span> then <span
+class="math inline">gf\colon A\to C</span> exists. If <span
+class="math inline">f\colon A\to B</span>, <span
+class="math inline">g\colon B\to C</span>, and <span
+class="math inline">h\colon C\to D</span> then <span
+class="math inline">gf\colon A\to C</span> and <span
+class="math inline">hg\colon C\to D</span> exist and <span
+class="math inline">h(gf) = (hg)f</span>.</p>
+<p>Every object <span class="math inline">A</span> has an identity arrow
+<span class="math inline">1_A</span>. If <span
+class="math inline">f\colon A\to B</span> then <span
+class="math inline">f1_A = f = 1_B f</span>.</p>
+<p>Reversing all arrows in a catgory results in the <em>opposite
+category</em> <span class="math inline">\mathbf{C}^{op}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\mathbf{C}^{op}</span> is a category</em>.</p>
+</section>
+<section id="isomorphic" class="level2">
+<h2>Isomorphic</h2>
+<p>A key concept in category theory is <em>isomorphism</em>. Two objects
+<span class="math inline">A</span> and <span
+class="math inline">B</span> are isomorphic if there exist arrows <span
+class="math inline">f\colon A\to B</span> and <span
+class="math inline">g\colon B\to A</span> with <span
+class="math inline">fg = 1_B</span> and <span class="math inline">gf =
+1_A</span> and we write <span class="math inline">A\cong B</span>. If
+<span class="math inline">A=B</span> then <span class="math inline">1_A
+= f = g = 1_B</span> demonstrates <span class="math inline">A</span> and
+<span class="math inline">A</span> are isomorphic.</p>
+<p><strong>Exercise</strong>. <em>Show isomorphism is an equivalence
+relation</em>.</p>
+<p>Hint: We have shown <span class="math inline">A\cong A</span> for
+every object <span class="math inline">A</span>. Show <span
+class="math inline">A\cong B</span> implies <span
+class="math inline">B\cong A</span> and <span class="math inline">A\cong
+B</span>, <span class="math inline">B\cong C</span> imply <span
+class="math inline">A\cong C</span>.</p>
+<p>Equivalence as a weakened form of equality. In the case of <span
+class="math inline">\mathbf{Set}</span> it is a very weakened form; two
+sets are isomorphic if and only if they have the same cardinality.
+Adding structure to sets by reducing the number of functions creates
+finer grained equivalence relations.</p>
+<p><strong>Exercise</strong>. <em>Show two sets in <span
+class="math inline">\mathbf{Set}</span> are isomorphic if and only if
+they have the same cardinality</em>.</p>
+<p>We call <span class="math inline">f,g</span> an <em>isomorphism
+pair</em> for <span class="math inline">A,B</span>. If <span
+class="math inline">f,g</span> and <span
+class="math inline">f,g&#39;</span> are isomporphims pairs for <span
+class="math inline">A,B</span> then <span class="math inline">g =
+g&#39;</span> since <span class="math inline">g = g1_B = g(fg&#39;) =
+(gf)g&#39; = 1_Ag&#39; = g&#39;</span>. We write <span
+class="math inline">g = f^{-1}</span> and, mutatis mutandis, <span
+class="math inline">f = g^{-1}</span>.</p>
+<p>Isomorphism pairs are not, in general, unique. We can define an
+equivalence relation on isomorphism pairs by <span
+class="math inline">(f,g)\tilde (f&#39;,g&#39;)</span> if and only if
+they are isomorphism pairs for some <span class="math inline">A</span>,
+<span class="math inline">B</span>.</p>
+<p><strong>Exercise</strong>. <em>Show this is an equivalence
+relation</em>.</p>
+</section>
+<section id="functor" class="level2">
+<h2>Functor</h2>
+<p>A functor <span
+class="math inline">F\colon\mathbf{A}\to\mathbf{B}</span> takes objects
+and arrows of <span class="math inline">\mathbf{A}</span> to objects and
+arrows of <span class="math inline">\mathbf{B}</span> and respects the
+category structure. If <span class="math inline">f\colon A\to
+A&#39;</span>, in <span class="math inline">\mathbf{A}</span> then <span
+class="math inline">F(f)\colon F(A)\to F(A&#39;)</span> in <span
+class="math inline">\mathbf{B}</span> with <span
+class="math inline">F(gf) = F(g)F(f)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">F(gf) =
+F(g)F(f)</span> implies <span class="math inline">F(1_A) =
+1_{F(A)}</span></em>.</p>
+<p>This shows we only need to define a functor on arrows; objects ride
+along for free.</p>
+<p>The category <span class="math inline">\mathbf{Cat}</span> has
+objects categories and arrows functors. If <span
+class="math inline">F\colon\mathbf{A}\to\mathbf{B}</span> and <span
+class="math inline">G\colon\mathbf{B}\to\mathbf{C}</span> are functors
+then composition <span
+class="math inline">GF\colon\mathbf{A}\to\mathbf{C}</span> is <span
+class="math inline">(GF)(A) = G(F(A))</span>. The identity functor is
+the identity of <span class="math inline">\mathbf{Cat}</span>.</p>
+<p>The category <span class="math inline">\mathbf{2-Cat}</span> has
+objects functors and arrows <em>natural transformations</em>. If <span
+class="math inline">F,G\colon\mathbf{A}\to\mathbf{B}</span> are functors
+a natural transformation <span class="math inline">\eta\colon F\to
+G</span> takes objects <span class="math inline">A</span> of <span
+class="math inline">\mathbf{A}</span> to arrows <span
+class="math inline">\eta_A</span> of <span
+class="math inline">\mathbf{B}</span>.</p>
+<p>Natural transformations must satisfy <span
+class="math inline">h\colon A\to A&#39;</span> in <span
+class="math inline">\mathbf{A}</span> then <span
+class="math inline">G(h)\eta_A = \eta_{A&#39;}F(h)</span> in <span
+class="math inline">\mathbf{B}</span>.</p>
+<p>In case you are wondering, <span
+class="math inline">\mathbf{n-Cat}</span> can be defined for all
+positive integers <span class="math inline">n</span>.</p>
+</section>
+<section id="examples" class="level2">
+<h2>Examples</h2>
+<p>It is impossible to understand category theory without being familiar
+with examples of categories. They are its raison d’être. Many seemingly
+disparate constructs can be unified using category theory.</p>
+<section id="mon" class="level3">
+<h3>Mon</h3>
+<p>The category <span class="math inline">\mathbf{Mon}</span> is the
+collection of all categories having only one object. Any such category
+is a <em>monoid</em> where the (one and only) identity arrow is the
+identity element of the monoid and composition of arrows is the binary
+operation of the moniod.</p>
+<p><strong>Exercise</strong>. <em>Show any two arrows of a monoid can be
+composed</em>.</p>
+</section>
+<section id="set" class="level3">
+<h3>Set</h3>
+<p>The canonical example of a category is <span
+class="math inline">\mathbf{Set}</span>. The objects are sets and the
+arrows are functions. People tried to come up with a purely category
+theory notion of <span class="math inline">\mathbf{Set}</span> and ended
+up with <em>topos theory</em>. One does not simply consider ‘elements’
+of a ‘set’. Composition is standared function composition, which is
+associative. The identity arrows are the identity functions <span
+class="math inline">1_A\colon A\to A</span> by <span
+class="math inline">1_A(a) = a</span> for <span class="math inline">a\in
+A</span>.</p>
+<p>Then there is <span class="math inline">\mathbf{Par}</span>, the
+category of partial functions. It does not get the respect it deserves.
+Most functions are actually partial functions. The function <span
+class="math inline">x\mapsto 1/x</span> is only a partial function from
+the real numbers to the real numbers. The partial functions <span
+class="math inline">f\colon A\to B</span> and <span
+class="math inline">g\colon B\to C</span> can be composed using <span
+class="math inline">gf(a) = c</span> if and only if there exists <span
+class="math inline">b\in B</span> with <span class="math inline">f(a) =
+b</span> and <span class="math inline">g(b) = c</span>. It has the same
+identity arrows as <span class="math inline">\mathbf{Set}</span>.</p>
+<p>A case could be made that <span
+class="math inline">\mathbf{Set}</span> should be called <span
+class="math inline">\mathbf{Fun}</span>.</p>
+<p><span class="math inline">\mathbf{Rel}</span> is the category of
+relations. It generalizes <span class="math inline">\mathbf{Set}</span>
+and <span class="math inline">\mathbf{Par}</span>. A <em>relation</em>
+is a subset <span class="math inline">R\subseteq A\times B</span> of the
+cartesian product. We write <span class="math inline">aRb</span> for
+<span class="math inline">(a,b)\in R</span>, <span
+class="math inline">a\in A</span>, <span class="math inline">b\in
+B</span>. The composition of relations <span class="math inline">R\colon
+A\to B</span> and <span class="math inline">S\colon B\to C</span> is
+<span class="math inline">SR = \{(a,c): aRb\text{ and } bRc \text{ for
+some }b\in B\}\subseteq A\times C</span>.</p>
+<p><strong>Exercise</strong>: <em>Show <span class="math inline">1_A =
+\{(a,a):a\in A\}</span> is the identity and composition of relations is
+associative</em>.</p>
+</section>
+<section id="sets-with-structure" class="level3">
+<h3>Sets with Structure</h3>
+<p>There are a slew of examples of categories where the objects are sets
+‘with structure’ and the arrows are functions that preserve that
+structure.</p>
+<p>We have already seen <span class="math inline">\mathbf{Mon}</span>,
+categories having exactly one object.</p>
+<p><span class="math inline">\mathbf{Grp}</span> is the category of
+groups; the objects are groups and the arrows are
+<em>homomorphisms</em>, functions that preserve the group structure.</p>
+<p><span class="math inline">\mathbf{Vec}</span> is the category of
+vector spaces; the objects are vector spaces and the arrows are linear
+transformations.</p>
+<p>Rings, fields, and algebras provide more examples. The theme of
+category theory is to provide a unified treatment of various
+mathematical areas.</p>
+<p>All of these examples satisfy a lemma of the form every arrow <span
+class="math inline">f\colon A\to B</span> is a composition of arrows
+<span class="math inline">\pi\colon A\to A/\operatorname{ker}f</span>,
+<span class="math inline">\nu\colon A/\operatorname{ker}f\to
+\operatorname{ran}B</span>, and <span class="math inline">\iota\colon
+\operatorname{ran}B\to B</span> where <span
+class="math inline">\pi</span> is ‘onto’, <span
+class="math inline">\nu</span> is ‘one-to-one’, and <span
+class="math inline">\iota</span> is ‘inclusion’ for appropriate
+definitions of <span class="math inline">\operatorname{ker}</span>,
+<span class="math inline">\operatorname{ran}</span>, quotient <span
+class="math inline">/</span>, onto, one-to-one, and inclusion. Arrows
+can be used to factor objects into smaller objects <span
+class="math inline">A/\operatorname{ker}f</span> and <span
+class="math inline">\operatorname{ran}f</span>.</p>
+</section>
+<section id="orders" class="level3">
+<h3>Orders</h3>
+<p><span class="math inline">\mathbf{Pre}</span> is the category of
+<em>presets</em>. A preset is a set wtih a relation <span
+class="math inline">\preceq</span> that is reflexive (<span
+class="math inline">a\preceq a</span>) and transitive (<span
+class="math inline">a\preceq b</span> and <span
+class="math inline">b\preceq c</span> imply <span
+class="math inline">a\preceq b</span>). Such relations are called
+<em>preorders</em>. Presets long predate categories, but this maps
+perfectly into the the definition of a category. The objects are
+elements of the set and there is an arrow <span class="math inline">x\to
+y</span> if and only if <span class="math inline">x \preceq y</span>.
+The identity arrow is the reflexive property and composition is the
+transitive law. Preorders have the property that homsets have at most
+one arrow. Every category with this property is a preset.</p>
+<p><span class="math inline">\mathbf{Pos}</span> is the category of
+<em>posets</em>. A poset is a preset that is also <em>antisymmetric</em>
+(<span class="math inline">a\preceq b</span> and <span
+class="math inline">b\preceq a</span> imply <span class="math inline">a
+= b</span>). Such relations are called <em>partial orders</em>. The
+category <em>Set</em> can be viewed as a poset under subset inclusion.
+The objects are sets and the arrows are <span
+class="math inline">f\colon A\to B</span> if <span
+class="math inline">A\subseteq B</span>.</p>
+<p><span class="math inline">\mathbf{Equ}</span> is the category of
+<em>equivalence relations</em>. An equivalence relations is a preorder
+that is also <em>symmetric</em> (<span class="math inline">a\sim
+b</span> implies <span class="math inline">b\sim a</span>). Equivalence
+relations are used to classify objects.</p>
+</section>
+<section id="mathbfcat" class="level3">
+<h3><span class="math inline">\mathbf{Cat}</span></h3>
+<p><span class="math inline">\mathbf{Cat}</span> is the category of
+categories. The objects are categories and the arrows are
+<em>functors</em>.</p>
+<p>A functor from category <span class="math inline">C</span> to
+category <span class="math inline">D</span> takes objects of <span
+class="math inline">C</span> to objects of <span
+class="math inline">D</span> and arrows of <span
+class="math inline">C</span> to arrows of <span
+class="math inline">D</span> and preserves the category structure:</p>
+<ol type="i">
+<li>If <span class="math inline">f\colon A\to B</span> in <span
+class="math inline">C</span> then <span class="math inline">F(f)\colon
+F(A)\to F(B)</span> in <span class="math inline">D</span>.<br />
+</li>
+<li>If <span class="math inline">g\colon A\to B</span> and <span
+class="math inline">h\colon B\to C</span> in <span
+class="math inline">C</span> then <span class="math inline">F(hg) =
+F(h)F(g)</span> in <span class="math inline">D</span>.</li>
+</ol>
+<p><strong>Exercise</strong>. <em>What is the identity functor?</em></p>
+<p><strong>Exercise</strong>. <em>Show composition of functors is
+associative</em>.</p>
+<p>You may now be wondering if there is a category of category of
+categories. There is and it is called <span
+class="math inline">2</span>-<span
+class="math inline">\mathbf{Cat}</span>. The objects are functors and
+the arrows are <em>natural transformations</em>.</p>
+<p>A natural transformation, <span class="math inline">\eta\colon F\to
+G</span>, of functors <span
+class="math inline">F,G\colon\mathbf{C}\to\mathbf{D}</span> takes
+objects of <span class="math inline">\mathbf{C}</span> to arrows of
+<span class="math inline">\mathbf{D}</span>. If <span
+class="math inline">h\colon A\to B</span> in <span
+class="math inline">\mathbf{C}</span> then <span
+class="math inline">F(h)\colon F(A)\to F(B)</span> and <span
+class="math inline">G(h)\colon G(A)\to G(B)</span> in <span
+class="math inline">\mathbf{D}</span>. The arrows <span
+class="math inline">\eta_A\colon F(A)\to G(A)</span> and <span
+class="math inline">\eta_B\colon G(A)\to G(B)</span> in <span
+class="math inline">\mathbf{D}</span> satisfy <span
+class="math inline">\eta_A F(h) = G(h)\eta_B</span>.</p>
+<p>The prototypical example of natural transformation arises in the
+category <span class="math inline">\mathbf{Vec}</span>. The
+<em>dual</em> of a vector space is <span class="math inline">V^* =
+\hom(V,\mathbf{F})</span> where <span
+class="math inline">\mathbf{F}</span> is the underlying field of the
+vector space. The <em>dual pairing</em> between <span
+class="math inline">V</span> and <span class="math inline">V^*</span> is
+<span class="math inline">\langle v,v^*\rangle = v^*(v)</span>. If <span
+class="math inline">T\colon V\to W</span> is a linear transformation
+then <span class="math inline">T^*\colon W^*\to V^*</span> via <span
+class="math inline">\langle Tv,w^*\rangle = \langle
+v,T^*w^*\rangle</span>. Note <span class="math inline">T^{**}\colon
+V^{**}\to W^{**}</span> and gives rise to a functor <span
+class="math inline">D</span> in <span
+class="math inline">\mathbf{Vec}</span> via <span
+class="math inline">V\mapsto V^{**}</span> and <span
+class="math inline">T\mapsto T^{**}</span>. There is a natural inclusion
+<span class="math inline">\iota_V\colon V\to V^{**}</span> by <span
+class="math inline">\langle \iota_V v,v^*\rangle = \langle v,
+v^*\rangle</span>. The property <span class="math inline">T^{**}\iota_V
+= \iota_W T</span> says <span class="math inline">\iota\colon I\to
+D</span> is a natural transformation where <span
+class="math inline">I</span> is the identity functor of <span
+class="math inline">\mathbf{Vec}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">T^{**}\iota_V = \iota_W T</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<blockquote>
+<p>For <span class="math inline">v\in V</span> and <span
+class="math inline">w^*\in W^*</span>, <span class="math inline">\langle
+T^{**}\iota_V v,w^*\rangle =\langle \iota_V v,T^*w^*\rangle =\langle
+v,T^*w^*\rangle =\langle Tv,w^*\rangle =\langle \iota_W
+Tv,w^*\rangle</span>.</p>
+</blockquote>
+</details>
+<p>Are there categories of categories of …? Yep. They are called <span
+class="math inline">n</span>-<span
+class="math inline">\mathbf{Cat}</span>. It’s categories all the way
+down.</p>
+</section>
+</section>
+<section id="arrows" class="level2">
+<h2>Arrows</h2>
+<p>Although <span class="math inline">\mathbf{Set}</span> is a
+prototypical example of a category you will need to disabuse yourself of
+the notion objects have elements. Everything in category theory must be
+expressed in terms of objects and arrows. Attempts to express <span
+class="math inline">\mathbf{Set}</span> purely in terms of objects and
+arrows leads to <span class="math inline">\mathbf{Top}</span>, the
+category of topoi. This attempt failed in the sense that it did not lead
+back to the category <span class="math inline">\mathbf{Set}</span>. It
+was succesful at giving a better understanding of the foundations of
+mathematics. As often happens in mathematics, following your nose leads
+to complications. For example, a sphere is a set. The elements of the
+set are points on the sphere. In a topoi the “elements” of the sphere
+are the tangent planes to each point. This is an example of a
+<em>sheaf</em>.</p>
+<p>We have already seen how to use arrows to define isomorphisms. If
+<span class="math inline">A</span> and <span
+class="math inline">B</span> are isomorphic then there are arrows <span
+class="math inline">f\colon A\to B</span> and <span
+class="math inline">g\colon B\to A</span> with <span
+class="math inline">fg = 1_B</span> and <span class="math inline">gf =
+1_A</span>. We say <span class="math inline">f\colon A\to B</span> has
+<em>right inverse</em> <span class="math inline">g\colon B\to A</span>
+when <span class="math inline">fg = 1_B</span> and <span
+class="math inline">f</span> has <em>left inverse</em> <span
+class="math inline">g</span> when <span class="math inline">gf =
+1_A</span>.</p>
+<strong>Exercise</strong>. <em>If <span class="math inline">f</span> has
+right inverse <span class="math inline">g</span> and left inverse <span
+class="math inline">g&#39;</span> show <span class="math inline">g =
+g&#39;</span></em>.
+<details>
+<summary>
+Solution
+</summary>
+<blockquote>
+<p>We have <span class="math inline">g&#39; = g&#39;1_B = g&#39;(fg) =
+(g&#39;f)g = 1_Ag = g</span>.</p>
+</blockquote>
+</details>
+<p>This shows an arrow with both a right and left inverse is an
+isomorphism.</p>
+<p>If <span class="math inline">fh = fk</span> implies <span
+class="math inline">h = k</span> then <span class="math inline">f</span>
+is called <em>mono</em>. If <span class="math inline">f</span> has a
+right inverse and <span class="math inline">h,k\colon B\to C</span>
+satisfy <span class="math inline">hf = kf</span> then <span
+class="math inline">h = h1_B = hfg = kfg = k1_B = k</span>. Arrows
+having a right inverse are mono.</p>
+<p>If <span class="math inline">hf = kf</span> implies <span
+class="math inline">h = k</span> then <span class="math inline">f</span>
+is called <em>epi</em>. If <span class="math inline">f</span> has a left
+inverse and <span class="math inline">h,k\colon C\to A</span> satisfy
+<span class="math inline">fh = fk</span> then <span
+class="math inline">h = 1_Ah = gfh = gfk = 1_Ak = k</span>. Arrows
+having a left inverse are epi.</p>
+<p>In <span class="math inline">\mathbf{Set}</span> mono arrows have a
+left inverse and epi arrows have a right inverse, but this is not true
+for every category.</p>
+<p>An arrow that is both mono and epi is called <em>iso</em>.</p>
+</section>
+<section id="yoneda" class="level2">
+<h2>Yoneda</h2>
+<p>Nobody understands the Yoneda Lemma. As Von Neumann said, “you don’t
+understand math, you just get used to it.” It is similar to Cayley’s
+theorem that states every group is (isomorphic to) a subgroup of the
+permutaion group of the set of group elements. The abstract notion of a
+group defined in terms of axioms can be represented by embedded it in a
+more familiar structure. The Yoneda Lemma is different from Cayley’s
+theorem in that it represents categories by embedding them in a less
+familiar structure.</p>
+<p>If <span class="math inline">f\colon X\to Y</span> and <span
+class="math inline">g\colon Y\to Z</span> then <span
+class="math inline">gf\colon X\to Z</span> so right composition induces
+a map <span class="math inline">f\to Z\colon\{Y\to Z\}\to\{X\to
+Z\}</span>, <span class="math inline">(f\to Z)g = gf</span>.<br />
+If <span class="math inline">g\colon Z\to X</span> and <span
+class="math inline">f\colon X\to Y</span> then <span
+class="math inline">fg\colon Z\to Y</span> so left composition induces a
+map <span class="math inline">Z\to f\colon\{Z\to X\}\to\{Z\to
+Y\}</span>, <span class="math inline">(Z\to f)g = fg</span>.</p>
+<p>Let <span class="math inline">\{\_\to Z\}</span> be the category with
+arrows <span class="math inline">f\to Z\colon\{Y\to Z\}\to\{X\to
+Z\}</span>, <span class="math inline">f\colon X\to Y</span>.<br />
+If <span class="math inline">f\colon X\to Y</span> and <span
+class="math inline">g\colon U\to V</span> then <span
+class="math inline">f\to Z\colon\{Y\to Z\}\to\{X\to Z\}</span> and <span
+class="math inline">g\to Z\colon\{V\to Z\}\to\{U\to Z\}</span>.<br />
+If <span class="math inline">V = X</span> we can compose <span
+class="math inline">fg\colon U\to Y</span> in <span
+class="math inline">\mathbf{C}</span> and <span
+class="math inline">(g\to Z)(f\to Z)\colon\{Y\to Z\}\to\{U\to Z\}</span>
+in <span class="math inline">\{\_\to Z\}</span>,</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">fg\to Z
+= (g\to Z)(f\to Z)</span></em>.</p>
+<p>Let <span class="math inline">\{Z\to\_\}</span> be the category with
+arrows <span class="math inline">Z\to f\colon\{Z\to X\}\to\{Z\to
+Y\}</span>, <span class="math inline">f\colon X\to Y</span>.<br />
+If <span class="math inline">f\colon X\to Y</span> and <span
+class="math inline">g\colon U\to V</span> then <span
+class="math inline">Z\to f\colon\{Z\to X\}\to\{Z\to Y\}</span> and <span
+class="math inline">Z\to g\colon\{Z\to U\}\to\{Z\to V\}</span>.<br />
+If <span class="math inline">U = Y</span> we can compose <span
+class="math inline">gf\colon X\to V</span> in <span
+class="math inline">\mathbf{C}</span> and <span
+class="math inline">(Z\to g)(Z\to f)\colon\{Z\to X\}\to\{Z\to V\}</span>
+in <span class="math inline">\{Z\to\_\}</span>,</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">Z\to gf
+= (Z\to g)(Z\to f)</span></em>.</p>
+<p>For every object <span class="math inline">Z</span> in <span
+class="math inline">\mathbf{C}</span> define the contravariant functor
+<span class="math inline">\to Z\colon\mathbf{C}\to\{\_\to Z\}</span> by
+<span class="math inline">f\mapsto f\to Z</span>. For every object <span
+class="math inline">Z</span> in <span
+class="math inline">\mathbf{C}</span> define the (covariant) functor
+<span class="math inline">\to Z\colon\mathbf{C}\to\{\_\to Z\}</span> by
+<span class="math inline">f\mapsto Z\to F</span></p>
+<section id="product" class="level3">
+<h3>Product</h3>
+<p>The <em>product</em> <span class="math inline">\Pi_{i\in I} X_i = \Pi
+X_I</span> of <span class="math inline">X_i</span> is defined by arrows
+<span class="math inline">\pi_i\colon \Pi X_I\to X_i</span>, <span
+class="math inline">i\in I</span>. If for any arrows <span
+class="math inline">p_i\colon Y\to X_i</span> there exists an arrow
+<span class="math inline">p\colon Y\to \Pi X_I</span> with <span
+class="math inline">\pi_ip = p_i</span>, <span class="math inline">i\in
+I</span>. The product of <span class="math inline">X</span> and <span
+class="math inline">Y</span> is denoted <span
+class="math inline">X\times Y</span>.</p>
+<p>???</p>
+<p>The cartesian product of <span class="math inline">X</span> with
+itself <span class="math inline">Y</span> times, <span
+class="math inline">\Pi X_Y = \Pi_{y\in Y} X</span>, can be defined for
+any set <span class="math inline">Y</span>. It can be identified with
+<span class="math inline">X^Y</span> and has <em>projections</em> <span
+class="math inline">\pi_y\colon \Pi X_y\to X</span> defined by <span
+class="math inline">\pi_y x = x(y)</span>, <span
+class="math inline">x\in X^Y</span>, $yY. We write <span
+class="math inline">\pi_y x = x_y</span> and <span class="math inline">x
+= (x_y)</span> <em>as an array</em> in the product for <span
+class="math inline">x</span> <em>as a function</em> in the
+exponential.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">u,v\in\Pi
+X_Y</span> and <span class="math inline">\pi_y u = \pi_y v</span> for
+all <span class="math inline">y\in Y</span> then <span
+class="math inline">u = v</span> as functions in <span
+class="math inline">Y^X</span></em>.</p>
+</section>
+<section id="sum" class="level3">
+<h3>Sum</h3>
+<p>The <em>sum</em> <span class="math inline">\Sigma_{i\in I} X_i =
+\Sigma X_I</span> of <span class="math inline">X_i</span>, is defined by
+arrows <span class="math inline">\nu_i\colon X_i\to\Sigma X_I</span>,
+<span class="math inline">i\in I</span>. If for any arrows <span
+class="math inline">n_i\colon X_i\to Y</span> there exists an arrow
+<span class="math inline">n\colon\Sigma X_I\to Y</span> with <span
+class="math inline">n\nu_i = n_i</span>, <span class="math inline">i\in
+I</span>. The sum of <span class="math inline">X</span> and <span
+class="math inline">Y</span> is denoted <span class="math inline">X +
+Y</span>.</p>
+</section>
+</section>
+<section id="opposite" class="level2">
+<h2>Opposite</h2>
+<p>It is trivial to verify that reversing all arrows in a category <span
+class="math inline">\mathbf{A}</span> results in the <em>opposite</em>,
+or <em>dual</em>, category, <span
+class="math inline">\mathbf{A}^{op}</span>.</p>
+</section>
+<section id="presheaf" class="level2">
+<h2>Presheaf</h2>
+<p>A <em>presheaf</em> is a functor <span
+class="math inline">F\colon\mathbf{C}^{op}\to\mathbf{Set}</span>. This
+embeds any abstract category <span class="math inline">\mathbf{C}</span>
+in the concrete category <span class="math inline">\mathbf{Set}</span>.
+It is similar to Cayley’s theorem that every group is a subgroup of all
+permutations of the group elements.</p>
+<!--
+## Answers to Exercises
+
+__Exercise__. 3. Show the identity arrows of_ Set _are $1_A = {(a,a)\in A\times A \colon a\in A}$_.
+
+**Solution** Let $R\colon A\to B$ be a relation. The following are equivalent:
+> $(a, b)\in 1_A R$  
+> There exists $a' in A$ with $(a, a')\in 1_A$ and $(a', b)\in R$.  
+> $(a, a)\in 1_A$ and $(a, b)\in R$  
+> $(a, b)\in R$  
+The proof of $R 1_B = R$ is similar.
+
+__Exercise__. 4. Show that composition is associative in_ Set.
+
+**Solution** Let $R\colon A\to B$, $S\colon B\to C$ and $T:C\to D$. The following
+are equivalent:
+> $(a, d)\in (TS)R$.  
+> There exists $b\in B$ with $(a, b)\in R$ and $(b, d)\in (TS)$.  
+> There exists $b\in B$ with $(a, b)\in R$ and there exists $c\in C$ with $(b, c)\in S$ and $(c, d)\in T$.  
+> There exists $b\in B$ and there exists $c\in C$ with $(a, b)\in R$ and $(b, c)\in S$ and $(c, d)\in T$.    
+> There exists $c\in C$ and there exists $b\in B$ with $(a, b)\in R$ and $(b, c)\in S$ and $(c, d)\in T$.    
+> There exists $c\in C$ with $(a, c)\in SR$ and $(c, d)\in T$.    
+> $(a, d)\in T(SR)$.
+
+__Exercise__. 5. Show $R$ is reflexive if and only if $1_A$ is a subset of $R$_.
+
+**Solution** The following statements are equivalent\colon  
+> $R$ is reflexive  
+> $a <= a$ for all $a\in A$  
+> $(a, a)\in R$ for all $a\in A$  
+> $1_A$ is a subset of $R$  
+
+__Exercise__. 6. Show $R$ is transitive if and only if $RR$ is a subset of $R$_.
+
+**Solution** The following statements are equivalent\colon  
+> $R$ is transitive  
+> $a <= b$ and $b <= c$ imply $a <= c$  
+> $(a, b)\in R$ and $(b, c)\in R$ imply $(a, c)\in R$  
+> $(a, c)\in RR$ implies $(a, c)\in R$  
+> $RR$ is a subset of $R$  
+
+__Exercise__. 7. Show $R$ is anti-symmetric if and only if the intersection of
+$R$ and $R*$ is contained in $1_A$_.
+
+**Solution** The following statements are equivalent\colon  
+> $R$ is anti-symmetric  
+> $a <= b$ and $b <= a$ imply $a = b$  
+> $(a, b)\in R$ and $(b, a)\in R$ imply $a = b$  
+> $(a, b)\in R$ and $(a, b)\in R*$ imply $a = b$  
+> $(a, b)\in R intersect R*$ imply $(a, b)\in 1_A$   
+> The intersection of $R$ and $R*$ is contained in $1_A$  
+
+-->
+</section>
+<section id="notes" class="level2">
+<h2>NOTES</h2>
+<p>Not all Boolean algebras are isomorphic to a powerset. Stone’s
+theorem.</p>
+<p>Pay homage to Frege, Russell, … Gentzen.</p>
+<p>set &lt;=&gt; collection<br />
+element &lt;=&gt; item</p>
+<p>A <em>semigroup</em> is a set with an associative binary operation,
+<span class="math inline">stu</span>, <span class="math inline">s,t,u\in
+S</span> is unambiguous.</p>
+<p>A <em>moniod</em> is a semigroup with an <em>identity</em> element
+<span class="math inline">e</span>, <span class="math inline">me = m =
+em</span>. Every semigroup <span class="math inline">S</span> can be
+turned into a monoid by adjoining an element <span
+class="math inline">e</span> not in the semigroup and extending the
+binary operation by defining <span class="math inline">se = s =
+es</span> for <span class="math inline">s\in S</span>.</p>
+<p>A <em>precategory</em> is a collection with an associative partially
+defined transitive binary operation.</p>
+<p>A <em>category</em> is a precategory where every item has a left and
+a right <em>identity</em>. Every precategory <span
+class="math inline">\mathbf{C}</span> can be turned into a category by
+adjoining elements <span class="math inline">e_c</span> and <span
+class="math inline">{}_ce</span> if <span class="math inline">c</span>
+is an item of <span class="math inline">\mathbf{C}</span> and extending
+the binary operation by defining <span class="math inline">e_c c =
+c</span> and <span class="math inline">c{}_ce = e</span>.</p>
+<p>Opposite category: …</p>
+</section>
+<section id="f-algebra" class="level2">
+<h2>F-algebra</h2>
+<p>An <em>F-algebra</em> for category <span
+class="math inline">\mathbf{C}</span> is an endofunctor <span
+class="math inline">F\colon\mathbf{C}\to\mathbf{C}</span>, an object
+<span class="math inline">A</span>, and an arrow <span
+class="math inline">α\colon F(A)\to A</span>. If <span
+class="math inline">(B,β)</span> is an F-algebra then <span
+class="math inline">f\colon A\to B</span> is an F-algebra homomorphism
+if <span class="math inline">fα = βF(f)</span>.</p>
+<p>If <span class="math inline">M</span> is a moniod with identity <span
+class="math inline">e\in M</span> then <span class="math inline">ea = a
+= ae</span>, <span class="math inline">a\in M</span>, and <span
+class="math inline">a(bc) = (ab)c</span>, <span
+class="math inline">a,b,c\in M</span> where <span class="math inline">ab
+= m(a,b)</span> is the monoid operation <span
+class="math inline">m\colon M\times M\to M</span>.</p>
+<p>Need facts that are special to <span
+class="math inline">\mathbf{Set}</span>.</p>
+<p><span class="math inline">B^A = \{f\colon A\to B\} = \{A\to
+B\}</span>.</p>
+<p>If <span class="math inline">f\colon X\to Y</span> is a function,
+<span class="math inline">(x,x&#39;)\in\operatorname{ker}f</span> iff
+<span class="math inline">f(x) = f(x&#39;)</span> is an equivalence
+relation on <span class="math inline">X</span>.</p>
+<p>The map <span class="math inline">X\to X/\operatorname{ker}X</span>,
+<span class="math inline">x\mapsto x/\operatorname{ker}f</span>, is
+surjective</p>
+<p>The map <span class="math inline">X/\operatorname{ker}f\to
+\operatorname{ran}f</span>, <span
+class="math inline">x/\operatorname{ker}f\mapsto f(x)</span>, is
+well-defined and bijective</p>
+<p>The map <span class="math inline">\operatorname{ran}f\to Y</span>,
+<span class="math inline">f(x)\mapsto f(x)</span>, is injective.</p>
+<p><span class="math inline">f\colon X\to Y</span>, <span
+class="math inline">f^\vdash\colon\mathcal{P}(Y)\to\mathcal{P}(X)</span>,
+<span class="math inline">f^\vdash(S) = \{x\in X\mid f(x)\in
+S\}\subseteq X</span>, <span class="math inline">S\subseteq Y</span>.
+<span class="math inline">x/\operatorname{ker}f =
+f^\vdash(\{f(x)\})</span>.</p>
+<p>Product <span class="math inline">\prod_{i\in I}A_i</span>, <span
+class="math inline">\pi_i\colon \prod_{i\in I}A_i\to A_i</span> such
+that <span class="math inline">p_i\colon C\to A_i</span> implies there
+exists <span class="math inline">p\colon C\to\prod_{i\in I}A_i</span>
+with <span class="math inline">\pi_ip = p_i</span> all <span
+class="math inline">i\in I</span>.</p>
+<p><span class="math inline">σ\colon J\to I</span>, <span
+class="math inline">\Pi_{j\in J} A_{σ(j)}</span>. Permutaion if <span
+class="math inline">σ</span> is bijective. Projection if <span
+class="math inline">J\subseteq I</span>. Reshape if <span
+class="math inline">J=n_1\times\cdots</span>, <span
+class="math inline">(j_1,\ldots)\mapsto j_1 + n_1(\cdots)</span>.</p>
+<p><span class="math inline">τ\colon I\to J</span>, <span
+class="math inline">\Pi_{j\in J} \Pi_{i\mid σ(i) = j} A_i</span>.</p>
+<p><span class="math inline">(A\times B)\times C \equiv A\times(B\times
+C)</span></p>
+<p><span class="math inline">\Pi_{i\in I} A \equiv A^I</span>, <span
+class="math inline">π_i\colon \Pi_{i\in I} A\to A</span>, <span
+class="math inline">π_i(a) = a(i)</span>. <span
+class="math inline">a\in\Pi_{i\in I} A\mapsto (i\mapsto
+π_i(a))</span>.</p>
+<p>Exponential <span class="math inline">e\colon (B^A\times A)\to
+B</span>.</p>
+<p>Product, <span class="math inline">A\to A\times B</span>, and
+exponential, <span class="math inline">A\to B^A</span>, are adjoint
+functors. <span class="math inline">\{(A \times B)\to C\} \equiv \{A \to
+\{B\to C\}\}</span> <span class="math inline">f(a,b) = c</span> iff
+<span class="math inline">(\underline{f}(a))(b) = c</span>. <span
+class="math inline">(g(a))b = c</span> iff <span
+class="math inline">\overline{g}(a, b) = c</span>.</p>
+<p><span class="math inline">σ\colon I\to J</span>, <span
+class="math inline">σ^\vdash J\to \operatorname{ker}σ</span>.</p>
+<p><span class="math inline">M\times M\to M^2</span> product to
+exponential, as sets</p>
+<p><span class="math inline">M\times M\times M\to M\times M^2</span></p>
+<p><span class="math inline">M\times M\times M\to M^2\times M</span></p>
+<p><span class="math inline">\NN\to M\times\cdots\times M</span>, <span
+class="math inline">σ\colon n\to m</span>, <span
+class="math inline">m\le n</span>.</p>
+<p><span class="math inline">M\times\cdots\times M\ to M^{σ(0)} \times
+M^b \times \ldots</span></p>
+<p><span class="math inline">m(a,m(b,c)) = m(m(a,b),c)</span></p>
+<p>(a,b,c) -&gt; (a, (b,c)) -&gt; (a, m(b,c)) -&gt; m(a, m(b,c))</p>
+<p>m:G^2 -&gt; G, m x m^2: G x G^2 -&gt;</p>
+<p>G^3-&gt; G G^2 (a,b,c) -&gt; (a,(b,c))</p>
+<p>G^3-&gt; G^2 G (a,b,c) -&gt; ((a,b),c)</p>
+<p>(a,b,c) -&gt; (a,m(b,c))</p>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

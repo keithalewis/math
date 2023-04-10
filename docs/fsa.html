@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2023-04-10" />
+  <title>fsa</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="file-system-analytics" class="level1">
+<h1>File System Analytics</h1>
+<section id="arrays" class="level2">
+<h2>Arrays</h2>
+<p>For <span class="math inline">n\in\mathbf{N}</span> use <span
+class="math inline">n = \{0,1,\ldots,n-1\}</span>.</p>
+<p>Define <span class="math inline">n\colon\mathbf{Z}\to n</span> by
+<span class="math inline">m\mapsto \mod(m,n)</span>.</p>
+<p><span class="math inline">x\in\mathbf{R}^n</span> is a function <span
+class="math inline">n\to\mathbf{R}</span>. <span
+class="math inline">x\%n\colon\mathbf{Z}\to\mathbf{R}</span> so <span
+class="math inline">x\%n\in\mathbf{R}^\mathbf{Z}</span>.</p>
+<p><span class="math inline">f\colon\Prod_{i\in I} X_i \to \Prod Y_{j\in
+J}</span></p>
+<p>Notation for index maps <span class="math inline">\Prod_{i\in I} X_i)
+\to \Prod Y_{j\in J}</span></p>
+<p>readdir - functions (x–), inputs (-r<em>), outputs (-</em>w)</p>
+<p>attr - functions: signature (name: type) inputs: n-dim homogeneous
+array outputs: n-dim homogeneous array determined by function and
+inputs</p>
+<pre><code>$ ls -l
+-x--       black
+--r-       forward
+--r-       vol
+--r-       strike
+--rw       value
+
+$ cat forward
+100
+$ cat vol
+$ 0.1
+$ cat strike
+100
+$ black
+$ cat value
+3.9...</code></pre>
+<p>If no ouputs use memfd_create to assign a name to the ouput.</p>
+</section>
+<section id="array" class="level2">
+<h2>Array</h2>
+<p>Layout: | n | d[0] | … | d[n-1] | x[0] | … | x[d[0] * … * d[n-1] - 1]
+|</p>
+<pre><code>// x[i0][i1]...
+size_t index(size_t n, const size_t* d, const size_t* i)
+{
+    size_t ind = 0;
+
+    if (size_t i = 0; i &lt; n; ++i) {
+        ind = d[0] + 
+    }
+
+    return ind;
+}</code></pre>
+<pre><code>// black.cpp
+double black(double f, double s, double k)
+{
+    double x = moneyness(f, s, k);
+
+    return k*P(x) - f*P(x + s);
+}
+
+int main(int ac, const char* av)
+{
+    // if forward, vol, strike not in cwd get from command line
+    // `black f - k ` looks for vol
+    
+    // if value not in cwd set up memory mapped file
+
+}</code></pre>
+</section>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

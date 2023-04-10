@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-04-10" />
+  <title>A General Formula for Option Pricing</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">A General Formula for Option Pricing</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">April 10, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Perturbation of the normal distribution
+</div>
+</header>
+<p>The forward value of a European put option having strike <span
+class="math inline">k &gt; 0</span> on underlying <span
+class="math inline">F</span> is <span class="math display">
+E[\max\{k - F, 0\}] = E[(k - F)1(F \le k)] = k P(F\le k) - E[F] P^s(F\le
+k),
+</span> where <span class="math inline">P^s</span> is <em>share
+measure</em> defined by <span class="math inline">dP^s/dP =
+F/f</span>.</p>
+<p>Every positive random variable can be written <span
+class="math inline">F = f e^{sX -\kappa(s)}</span> where <span
+class="math inline">X</span> has mean 0, variance 1 and <span
+class="math inline">\kappa(s) = \log E[e^{s X}]</span> is the
+<em>cumulant</em> of <span class="math inline">X</span>.</p>
+<p>If <span class="math inline">X</span> is standard normal and <span
+class="math inline">s = \sigma\sqrt{t}</span>, then this is the Black
+put formula. Recall <span class="math inline">E[\exp(N)] = \exp(E[N] +
+\mathop{\rm{Var}}(N)/2)</span> if <span class="math inline">N</span> is
+normal, and <span class="math inline">E[\exp(N) f(M)] = E[\exp(N)] E[f(M
++ \mathop{\rm{Cov}}(N,M))]</span> if <span class="math inline">N</span>
+and <span class="math inline">M</span> are jointly normal. We have <span
+class="math inline">\kappa(s) = \log E[\exp(sX)] = s^2/2</span> and
+<span class="math inline">E^s[f(X)] = E[\exp(sX-s^2/2) f(X)] = E[f(X +
+s)]</span>. In the usual notation, <span class="math inline">m = -d_2 =
+(\log (k/f) + \sigma^2t/2)/\sigma\sqrt{t}</span> and <span
+class="math inline">P^s(X \le m) = P(X + \sigma\sqrt{t} \le -d_2) = P(X
+\le -d_1)</span> where <span class="math inline">d_1 = d_2 +
+\sigma\sqrt{t}</span>.</p>
+<section id="cumulants" class="level2">
+<h2>Cumulants</h2>
+<p>The <em>cumulant generating function</em> of the random variable
+<span class="math inline">X</span> is <span
+class="math inline">\kappa(s) = \log E[e^{sX}]</span>. When they exist,
+the <em>cumulants</em> <span class="math inline">(\kappa_n)</span> are
+defined by <span class="math display">
+\kappa(s) = \sum_{n=1}^\infty \kappa_n \frac{s^n}{n!}
+</span> Since the <span class="math inline">n</span>-th derivative
+evaluated at <span class="math inline">0</span> satisfies <span
+class="math inline">\kappa^{(n)}(s)|_{s = 0} = \kappa_n</span> it is
+easy to work out that <span class="math inline">\kappa_1 = E[X]</span>
+and <span class="math inline">\kappa_2 = \mathop{\rm{Var}}(X)</span>.
+Higher order cumulants are less intuitive but the third and fourth are
+related to skew and kurtosis.</p>
+<p>The cumulants of a random variable plus a constant are the same
+except the first cumulant is increased by the constant. More generally,
+the cumulants of the sum of two independent random variables are the
+sums of their cumulants. They scale homogeneously, the <span
+class="math inline">n</span>-th cumulant of a constant times a random
+variable is <span class="math inline">\kappa_n(cX) =
+c^n\kappa_n(X)</span>.</p>
+<p>The exponential of the cumulant in terms of powers of <span
+class="math inline">s</span> is <span class="math display">
+E[e^{sX}] =  \exp(\sum_{n=1}^\infty \kappa_n \frac{s^n}{n!})
+= \sum_{n=0}^\infty B_n(\kappa_1,\dots,\kappa_n) \frac{s^n}{n!}
+</span> where <span
+class="math inline">B_n(\kappa_1,\dots,\kappa_n)</span> is the <span
+class="math inline">n</span>-th complete Bell polynomial. This is just a
+special case of the Fa`a di Bruno formula first proved by Louis Franois
+Antoine Arborgast in 1800. Bell polynomials satisfy the recurrence <span
+class="math inline">B_0 = 1</span> and <span class="math display">
+B_{n+1}(x_1,\dots,x_{n+1}) = \sum_{k=0}^n \binom{n}{k}
+B_{n - k}(x_1,\dots, x_{n - k}) x_{k+1}.
+</span></p>
+</section>
+<section id="edgeworth-expansion" class="level2">
+<h2>Edgeworth Expansion</h2>
+<p>Let <span class="math inline">\psi</span> be the probability density
+of a random variable, <span class="math inline">X</span>, with expected
+value 0 and mean 1. The the Fourier transform is</p>
+<p><span class="math display">
+\begin{aligned}
+E[e^{-iuX}] &amp;= e^{\sum_{n=1}^\infty \kappa_n (-iu)^n/n!}\\
+           &amp;= e^{-u^2/2} e^{\sum_{n=3}^\infty \kappa_n (-iu)^n/n!}\\
+           &amp;= e^{-u^2/2} \sum_{n=0}^\infty B_n(0, 0,
+\kappa_3,...,\kappa_n)(-iu)^n/n!.\\
+       &amp;= e^{-u^2/2} (1 + \sum_{n=3}^\infty B_n(0, 0,
+\kappa_3,...,\kappa_n)(-iu)^n/n!.\\
+\end{aligned}
+</span></p>
+<p>where <span class="math inline">(\kappa_n)</span> are the cumulants
+of <span class="math inline">X</span>.</p>
+<p>The Fourier transform, <span class="math inline">\hat{f}(u) =
+E[e^{-iuX}]</span>, of <span class="math inline">f&#39;</span> is <span
+class="math inline">iu \hat f(u)</span> so the Fourier transform of the
+<span class="math inline">n</span>-th derivative <span
+class="math inline">f^{(n)}</span> is <span
+class="math inline">(iu)^n\hat f(u)</span> hence <span
+class="math display">
+\begin{aligned}
+\hat{\psi}(u) &amp;= \hat{\phi}(u)(1 + \sum_{n=3}^\infty B_n(0,
+0,\kappa_3,...,\kappa_n) (-iu)^n/n!\\
+    &amp;= \hat{\phi}(u) + \sum_{n=3}^\infty (-1)^n B_n(0, 0,
+\kappa_3,...,\kappa_n)
+    \widehat{\phi^{(n)}}(u)/n!\\
+\end{aligned}
+</span> where <span class="math inline">\phi(x) = e^{-x^2/2}</span>.
+Note <span class="math inline">\hat{\phi}(u) = e^{-u^2/2}</span>. Taking
+inverse Fourier transforms and integrating both sides yields <span
+class="math display">
+    \Psi(x) = \Phi(x) + \sum_{n=3}^\infty (-1)^n
+B_n(0,0,\kappa_3,...,\kappa_n) \Phi^{(n)}(x)/n!.
+</span></p>
+</section>
+<section id="hermite-polynomials" class="level2">
+<h2>Hermite Polynomials</h2>
+<p>The derivatives of the standard normal density can be computed using
+Hermite polynomials pp. 793–801. One definition is <span
+class="math display">
+H_n(x) = (-1)^n e^{x^2/2}\frac{d^n}{dx^n}e^{-x^2/2}.
+</span> They satisfy the recurrence <span class="math inline">H_0(x) =
+1</span>, <span class="math inline">H_1(x) = x</span> and <span
+class="math display">
+H_{n+1}(x) = xH_n(x) - n H_{n-1}(x).
+</span> Note some authors use <span class="math inline">He_n(x)</span>
+instead of <span class="math inline">H_n(x)</span>. This shows <span
+class="math inline">\phi^{(n)}(x) = (-1)^n\phi(x) H_n(x)</span> so <span
+class="math inline">\Phi^{(n)} = (-1)^{n-1} H_{n-1}(x)</span> for <span
+class="math inline">n &gt; 0</span>.</p>
+<p>We now have an explicit formula for the cumulative distibution
+function of <span class="math inline">X</span>: <span
+class="math display">
+\Psi(x) = \Phi(x) - \phi(x)\sum_{n=1}^\infty
+B_n(\kappa_1,\dots,\kappa_n) H_{n-1}(x)/n!
+</span></p>
+</section>
+<section id="the-esscher-transform" class="level2">
+<h2>The Esscher Transform</h2>
+<p>Given any random variable, <span class="math inline">X</span>, and
+number <span class="math inline">s</span>, define <span
+class="math inline">X^s</span> by <span class="math inline">P(X^s\le x)
+= P^s(X\le x)</span> where <span class="math inline">dP^s/dP =
+e^{-\kappa(s) + sX}</span>. The cumulant of <span
+class="math inline">X^s</span> is <span class="math inline">\kappa^s(u)
+= \kappa(u + s) - \kappa(s)</span>, where <span
+class="math inline">\kappa</span> is the cumulant of <span
+class="math inline">X</span>. This follows from <span
+class="math inline">E^s[e^{uX}] = E[e^{sX - \kappa(s)} e^{uX}] =
+e^{\kappa(s + u) - \kappa(s)}</span>.</p>
+<p>It follows that the <span class="math inline">n</span>-th derivative
+satisfies <span class="math inline">\kappa^{s(n)}(u) = \kappa^{(n)}(u +
+s)</span>, for <span class="math inline">n &gt; 0</span>,<br />
+and setting <span class="math inline">u=0</span>, <span
+class="math inline">\kappa^s_n = \kappa^{s(n)}(0) =
+\kappa^{(n)}(s)</span>.</p>
+<p>The last expression can be expressed as <span
+class="math inline">\kappa^{(n)}(s) = \sum_{k=0}^\infty \kappa_{n - k}
+s^k/k!</span>, but for many random variables, we can use the closed form
+solution on the left-hand side instead of the infinite sum.</p>
+</section>
+<section id="examples" class="level2">
+<h2>Examples</h2>
+<section id="normal" class="level3">
+<h3>Normal</h3>
+<p>A normally distributed random variable, <span
+class="math inline">X</span>, has density function <span
+class="math inline">f(x) = e^{-(x -
+\mu)^2/2\sigma^2}/\sigma\sqrt{2\pi}</span>, <span
+class="math inline">-\infty&lt;x&lt;\infty</span>, with mean <span
+class="math inline">\mu</span> and variance <span
+class="math inline">\sigma^2</span>. The cumulant is <span
+class="math inline">\kappa(s) = \mu s + \sigma^2s^2/2</span> so <span
+class="math inline">\kappa_1 = \mu</span> and <span
+class="math inline">\kappa_2 = \sigma^2</span> are the only non-zero
+cumulants.</p>
+<p>Since <span class="math inline">\kappa^s(u) = \kappa(u + s) -
+\kappa(s) = (\mu + \sigma^2s)u + \sigma^2u/2</span> we see that <span
+class="math inline">\kappa^s_1 = \kappa_1 + \sigma^2</span> and <span
+class="math inline">\kappa^s_2 = \kappa_2</span>. The Esscher transform
+of a normally distributed random variable is normal with mean <span
+class="math inline">\mu^s = \mu + \sigma^2</span> and variance <span
+class="math inline">\sigma^{s2} = \sigma^2</span>.</p>
+<p>If the cumulants of a random variable vanish after some some point,
+then it must be normal (Theorem 7.3.5).</p>
+</section>
+<section id="gamma" class="level3">
+<h3>Gamma</h3>
+<p>A gamma distributed random variable, <span
+class="math inline">X</span>, has density function <span
+class="math inline">f(x) = x^{\alpha - 1}
+e^{-x/\beta}/\beta^\alpha\Gamma(\alpha)</span>, <span
+class="math inline">x &gt; 0</span>, with mean <span
+class="math inline">\alpha\beta</span> and variance <span
+class="math inline">\alpha\beta^2</span>. The cumulant is <span
+class="math inline">\kappa(s) = -\alpha\log(1 - \beta s)</span> so <span
+class="math inline">\kappa_n = \kappa^{(n)}(0) =
+(n-1)!\alpha\beta^n</span> since <span
+class="math inline">\kappa^{(n)}(s) = (n-1)!\alpha\beta^n/(1 - \beta
+s)^n</span>.</p>
+<p>Since <span class="math inline">\kappa^s(u) = \kappa(u + s) -
+\kappa(s) = -\alpha\log (1 - \beta u/(1 - \beta s)</span>, the Esscher
+transform of a gamma distributed random variable is gamma with <span
+class="math inline">\alpha^* = \alpha</span> and <span
+class="math inline">\beta^* = \beta/(1 - \beta s)</span>.</p>
+<p>Note that an exponentially distributed random variable is the special
+case when <span class="math inline">\alpha = 1</span>.</p>
+</section>
+<section id="poisson" class="level3">
+<h3>Poisson</h3>
+<p>If <span class="math inline">X</span> is Poisson with mean <span
+class="math inline">\mu</span> then <span class="math inline">\kappa(s)
+= \mu(e^s - 1)</span> so <span class="math inline">\kappa_n = \mu</span>
+for all <span class="math inline">n</span> and <span
+class="math inline">\kappa_n^* = \mu e^s</span>. <!--
+%\begin{example}[Compound Poisson]
+%If \(Y\) is Poisson with mean \(\mu\) and \(Z_j\) are
+%independent and identically distributed, define
+%\(X = \sum_{j=1}^{Y} Z_j\). The cumulants of \(X\)
+%are \(\kappa_n = ?\).
+%\end{example}
+%\begin{align*}
+%Ee^{uX} &= \sum_{k=0}^\infty Ee^{u(Z_1 + \cdots Z_k)}\mu^k/k!\,e^{-\mu}\\
+%&= \sum_{k=0}^\infty (Ee^{u Z_1})^k\mu^k/k!\,e^{-\mu}\\
+%&= \sum_{k=0}^\infty (Ee^{u Z_1}\mu)^k/k!\,e^{-\mu}\\
+%&= e^{\mu Ee^{u Z_1}}\,e^{-\mu}\\
+%&= e^{\mu (Ee^{u Z_1} - 1)}\\
+%\end{align*}
+%Define \(\lambda(u) = \log Ee^{uZ_1}\). Then
+%\(\log E e^{uX} = \mu(e^{\lambda(u)} -1)\).
+--></p>
+</section>
+<section id="variance-gamma" class="level3">
+<h3>Variance Gamma</h3>
+<p>The Variance Gamma model is the difference of independent Gamma
+distributions so <span class="math inline">\kappa_n =
+(n-1)!(\alpha\beta^n - \alpha&#39;\beta&#39;^n)</span>. In order for
+this to be a perturbation of a standard normal distribution we need
+<span class="math inline">0 = \alpha\beta - \alpha&#39;\beta&#39;</span>
+and <span class="math inline">1 = \alpha\beta^2 -
+\alpha&#39;\beta&#39;^2</span>. Using mean and standard deviation <span
+class="math inline">\mu = \mu&#39;</span> and <span
+class="math inline">\sigma^2 = 1 + \sigma&#39;^2</span>. For convergence
+we need <span class="math inline">1 &lt; \sigma^2 \lll \mu</span>.</p>
+</section>
+<section id="compound-poisson" class="level3">
+<h3>Compound Poisson</h3>
+<p>Assume <span class="math inline">Y_i</span> are independent and
+identically distributed. If <span class="math inline">N</span> is
+Poisson with parameter <span class="math inline">\lambda</span> then
+<span class="math inline">X</span> is {} if <span class="math inline">X
+= \sum_{i=0}^N Y_i</span>. The exponential of the cumulant of X is <span
+class="math display">
+\begin{aligned}
+Ee^{sX} &amp;= Ee^{s\sum_{i=0}^N Y_i}\\
+&amp;= \sum_{k=0}^\infty \frac{\lambda^k}{k!}e^{-\lambda}(Ee^{Y_i})^k\\
+&amp;= \sum_{k=0}^\infty
+\frac{\lambda^k}{k!}e^{-\lambda}(e^{\kappa^Y(s)})^k\\
+&amp;= \sum_{k=0}^\infty \frac{(\lambda
+e^{\kappa^Y(s)})^k}{k!}e^{-\lambda}\\
+&amp;= e^{\lambda(e^{\kappa(s) - 1})}
+\end{aligned}
+</span></p>
+</section>
+<section id="jump-diffusion" class="level3">
+<h3>Jump Diffusion</h3>
+<p>Merton’s jump diffusion model assumes <span class="math inline">X =
+\alpha Z + \beta\sum_{k=0}^N Y_k</span> where <span
+class="math inline">N</span> is Poisson and <span
+class="math inline">Y_k</span> are independent normal.</p>
+</section>
+<section id="double-exponential" class="level3">
+<h3>Double Exponential</h3>
+<p><span class="math inline">f(y) = p\eta_1 e^{-\eta_1 y}1(y &gt; 0) +
+(1 - p)\eta_2 e^{\eta_2 y}1(y &lt; 0)</span> <span class="math display">
+\begin{aligned}
+Ee^{sY} &amp;= \int_0^\infty e^{sx} pe^{-\eta_1 y}\,dy
++ \int_{-\infty}^0 e^{sy} (1-p)e^{\eta_2 y}\,dy\\
+&amp;= \frac{p}{1-s/\eta_1} + \frac{1-p}{1 + s/\eta_2}
+\end{aligned}
+</span></p>
+<p><span class="math inline">\kappa^Y_n = n!(\frac{p}{\eta_1^n} +
+\frac{1-p}{(-\eta_2)^n})</span></p>
+</section>
+</section>
+<section id="lévy-processes" class="level2">
+<h2>Lévy Processes</h2>
+<p>Kolmogorov’s precursor to the Lévy-Khintchine theorem states that if
+a random variable <span class="math inline">X</span> is infinitely
+divisible and has finite variance there exists a number <span
+class="math inline">\gamma</span> and a non-decreasing function <span
+class="math inline">G</span> defined on the real line such that <span
+class="math display">
+\kappa(s) = \log Ee^{sX} = \gamma s + \int_{-\infty}^\infty
+K_s(x)\,dG(x),
+</span> where <span class="math inline">K_s(x) = (e^{sx} - 1 - sx)/x^2 =
+\sum_{n=2}^\infty s^nx^{n-2}/n!</span>. Note the first cumulant of <span
+class="math inline">X</span> is <span class="math inline">\gamma</span>
+and for <span class="math inline">n\ge 2</span>, <span
+class="math inline">\kappa_n = \int_{-\infty}^\infty
+x^{n-2}\,dG(x)</span>.</p>
+<p>The Hamburger moment problem[cite?] provides the answer to what the
+allowable cumulants are: the Hankel matrix <span
+class="math inline">[\kappa_{i+j}]_{i,j\ge 2}</span> must be positive
+definite.</p>
+<p>Since <span class="math inline">K_s(0) = s^2/2</span> is the cumulant
+of the standard normal distribution and <span
+class="math inline">a^2K_s(a) + as</span> is the cumulant of a Poisson
+distribution having mean <span class="math inline">a</span>, infinitely
+divisible random variables can be approximated by a normal plus a linear
+combination of independent Poisson distributions.</p>
+<section id="remarks" class="level3">
+<h3>Remarks</h3>
+<p>The Gram-Charlier A series expands the quotients of cumulative
+distribution functions <span class="math inline">G/F</span> using
+Hermite polynomials, but does not have asymptotic convergence, whereas
+the Edgeworth expansion involves the quotient of characteristic
+functions <span class="math inline">\hat G/\hat F</span> in terms of
+cumulants and does have asymptotic convergence, ignoring some dainty
+facts .</p>
+<p>If <span class="math inline">(X_t)</span> is a Lévy process then
+<span class="math inline">X_1</span> is infinitely divisible and <span
+class="math inline">\log Ee^{sX_t} = t\kappa(s)</span>. A consequence is
+that the volatility smile at a single maturity determines the entire
+volatility surface, a fact that may indicate Lévy processes are not
+appropriate for modeling stock prices.</p>
+<!--
+\bibliographystyle{amsplain}
+\bibliography{njr}
+-->
+</section>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

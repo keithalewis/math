@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-04-10" />
+  <title>Lambda</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Lambda</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">April 10, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+The lambda calculus
+</div>
+</header>
+<p>The <em>lambda calculus</em> distills the essence of computing. Every
+function that can be calculated is a <span
+class="math inline">\lambda</span>-<em>expression</em>: a
+<em>variable</em>, an <em>abstraction</em>, or an
+<em>application</em>.</p>
+<p>A variable is just a symbol. An abstraction is <span
+class="math inline">(x\Rightarrow E)</span> where <span
+class="math inline">x</span> is a variable and <span
+class="math inline">E</span> is an expression. Application is <span
+class="math inline">(EF)</span> where <span class="math inline">E</span>
+and <span class="math inline">F</span> are expressions. The standard
+notation for <span class="math inline">x\Rightarrow E</span> is <span
+class="math inline">\lambda x.E</span>.</p>
+<p>Expressions can be converted to equivalent expressions by
+<em>renaming</em> and <em>replacing</em>. The abstraction <span
+class="math inline">x\Rightarrow E[x]</span> where <span
+class="math inline">E</span> is an expression involving the variable
+<span class="math inline">x</span> can be <span
+class="math inline">\alpha</span>-converted to <span
+class="math inline">y\Rightarrow E[y]</span> renaming all (free)
+occurences of <span class="math inline">x</span> in <span
+class="math inline">E</span> as <span class="math inline">y</span>. The
+application <span class="math inline">(x\Rightarrow E)F</span> can be
+<span class="math inline">\beta</span>-reduced to <span
+class="math inline">E[x\Leftarrow F]</span> where all (free) occurences
+of <span class="math inline">x</span> in <span
+class="math inline">E</span> are replace by <span
+class="math inline">F</span>. The standard notation for <span
+class="math inline">E[x\Leftarrow F]</span> is <span
+class="math inline">E[x:=F]</span>.</p>
+<p>For example, since the variable <span class="math inline">x</span> is
+also an expression, the abstraction <span
+class="math inline">x\Rightarrow x</span> is an expression. By <span
+class="math inline">\alpha</span>-conversion we can write this as <span
+class="math inline">y\Rightarrow y</span> for any variable <span
+class="math inline">y</span>. By <span
+class="math inline">\beta</span>-reduction <span
+class="math inline">(x\Rightarrow x)E</span> is equivalent to <span
+class="math inline">E</span> for any expression <span
+class="math inline">E</span>, so <span class="math inline">x\Rightarrow
+x</span> is the <em>identity function</em>.</p>
+<p>Variables in an expression can be either <em>bound</em> or
+<em>free</em>. For an abstraction <span class="math inline">x\Rightarrow
+E</span> we say all free occurences of <span
+class="math inline">x</span> in <span class="math inline">E</span> are
+bound. A variable is free if it is not bound. In the abstraction <span
+class="math inline">x\Rightarrow xy</span> the variable <span
+class="math inline">x</span> is bound and <span
+class="math inline">y</span> is free. If we apply <span
+class="math inline">(x\Rightarrow xy)x</span> we would get <span
+class="math inline">xx</span> if we did not require <span
+class="math inline">x</span> to be free. We must first <span
+class="math inline">\alpha</span>-convert/rename <span
+class="math inline">x\Rightarrow xy</span> to, e.g., <span
+class="math inline">z\Rightarrow zy</span> to apply <span
+class="math inline">(z\Rightarrow zy)x</span> and <span
+class="math inline">\beta</span>-reduce/replace to get the correct
+result <span class="math inline">xy</span>.</p>
+<p>True is the expression <span class="math inline">t = x\Rightarrow
+y\Rightarrow x = x\Rightarrow(y\Rightarrow x)</span> and false is <span
+class="math inline">f = x\Rightarrow y\Rightarrow y =
+x\Rightarrow(y\Rightarrow y)</span>. We assume abstraction is
+right-to-left associative to reduce the number of parentheses. Note
+<span class="math inline">t E F = E</span> and <span
+class="math inline">f E F = F</span> for any expression <span
+class="math inline">E</span> and <span class="math inline">F</span>.</p>
+<p>The natural number <span class="math inline">0</span> is <span
+class="math inline">x\Rightarrow y\Rightarrow y</span>, which is the
+same as <span class="math inline">f</span>. Successive numbers are
+defined by <span class="math inline">1 = x\Rightarrow y\Rightarrow
+xy</span>, <span class="math inline">2 = x\Rightarrow y\Rightarrow
+xxy</span>, …, <span class="math inline">n = x\Rightarrow y\Rightarrow
+x\ldots xy</span> where <span class="math inline">x\ldots x</span> is
+<span class="math inline">n</span> <span class="math inline">x</span>’s.
+This is not unlike how cavehumans may have counted by making marks on
+clay tablets equal to the count. We have advanced to using chips made of
+sand that can move electrons to do the same.</p>
+<p>Let <span class="math inline">x^n = x\ldots x</span> be <span
+class="math inline">n</span> <span class="math inline">x</span>’s.
+Clearly <span class="math inline">x^{n + 1}</span> is <span
+class="math inline">xx^n</span> but this is not a lambda expression
+since the <span class="math inline">\{}^</span> is not defined using the
+lambda calculus. Define <span class="math inline">s = n\Rightarrow
+x\Rightarrow y\Rightarrow y n x y</span> to be the <em>successor</em> of
+<span class="math inline">n</span>. We have <span class="math display">
+\begin{aligned}
+s\ 0 &amp;= (n\Rightarrow(x\Rightarrow(y\Rightarrow y n x y)))0 \\
+    &amp;= (x\Rightarrow(y\Rightarrow(y\Rightarrow y 0 x y))) \\
+\end{aligned}
+</span></p>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

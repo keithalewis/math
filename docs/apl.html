@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-04-10" />
+  <title>APL</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">APL</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">April 10, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+A Programming Language
+</div>
+</header>
+<blockquote>
+<p><em>APL is a mistake carried through to perfection</em> — Edsgar W.
+Dijkstra</p>
+</blockquote>
+<blockquote>
+<p><em>Such is the advantage of a well constructed language that its
+simplified notation often becomes the source of profound theories</em>.
+— Pierre-Simon Laplace</p>
+</blockquote>
+<p>A Programming Language <em>APL</em> was invented by Ken E. Iverson, a
+mathematician unsatisfied by the limited expressiveness of FORTRAN when
+it came to manipulating multidimensional arrays. What follows is a
+mathematical description of the objects and operations on them he
+envisioned to scratch that itch. It is simply a matter of giving
+explicit names to the operations that can be performed on collections of
+data, what Iverson called “tools of thought.”</p>
+<p>There have been many languages inspired by APL and this writeup takes
+liberties with the classical language. Let’s agree to call it TPL, This
+Programming Languge. Our approach is informed by category theory and
+best practices for implmementing functional languages on current
+computer architectures. We take a purely functional view so no side
+effects are allowed and data cannot be mutated. Similar to Everett’s
+many-worlds interpretation of quantum mechanics, this makes it easy to
+reason about programs mathematically, but can be computationally
+expensive on computers. Using lazy evaluation, <a
+href="optics.html">optics</a>, and other implementation techniques can
+help with that.</p>
+<p>The <em>primitive types</em> are booleans, natural numbers, integers,
+real numbers, and characters. The <em>types</em> in TPL are <a
+href="cat.html"><em>categories</em></a> constructed from primitive types
+using (disjoint) unions, cartesian products, and exponentials.</p>
+<p>Note the real numbers <span class="math inline">\bm{R}</span> form a
+one dimensional vector space. <em>Strings</em> are zero or more
+characters and form a <em>monoid</em> under the binary operation of
+concatenation with the empty string as identty.</p>
+<p>The two main concepts of TPL are composition and (vector space)
+duality. It is just a matter of providing a language to manipulate sums,
+products, and exponentials in the appropriate categories.</p>
+<p>Now is a good time to remind yourself about <a
+href="cat.html">categories</a> and <a href="la.html">vector
+spaces</a>.</p>
+<section id="categories" class="level2">
+<h2>Categories</h2>
+<p>Categories have <em>objects</em> and <em>arrows</em>. An arrow <span
+class="math inline">f</span> from object <span
+class="math inline">X</span> to object <span
+class="math inline">Y</span> is denoted <span
+class="math inline">f\colon X\to Y</span>. The <em>domain</em> of <span
+class="math inline">f</span> is <span class="math inline">X =
+\operatorname{dom}f</span> and the <em>codomain</em> of <span
+class="math inline">f</span> is <span class="math inline">Y =
+\operatorname{cod}f</span>. If <span class="math inline">f\colon X\to
+Y</span> and <span class="math inline">g\colon Y\to Z</span> then there
+exists a unique arrow <span class="math inline">gf\colon X\to Z</span>
+called the <em>composition</em> of <span class="math inline">f</span>
+followed by <span class="math inline">g</span>.</p>
+<p>Arrows are <em>associative</em>, <span class="math inline">(fg)h =
+f(gh)</span>, so <span class="math inline">fgh</span> is unambiguous.
+Every object <span class="math inline">Y</span> has an <em>identity</em>
+arrow <span class="math inline">1_Y\colon Y\to Y</span> with <span
+class="math inline">1_Yf = f</span> for all <span
+class="math inline">f\colon X\to Y</span> and <span
+class="math inline">g1_y = g</span> for all <span
+class="math inline">g\colon Y\to Z</span>.</p>
+<p>The arrows from the object <span class="math inline">X</span> to the
+object <span class="math inline">Y</span> are denoted <span
+class="math inline">(X\to Y)</span>. This is also called the
+<em>homset</em> <span
+class="math inline">\operatorname{hom}(X,Y)</span>.</p>
+<p>Given an arrow <span class="math inline">f\colon X\to Y</span> and an
+object <span class="math inline">Z</span> define <em>left
+composition</em> <span class="math inline">f^Z\colon (Z\to X)\to (Z\to
+Y)</span> by <span class="math inline">f^Zx = fx\in (Z\to Y)</span> for
+<span class="math inline">x\in (X\to Z)</span> and <em>right
+composition</em> <span class="math inline">f_Z\colon (Y\to Z)\to (X\to
+Z)</span> by <span class="math inline">f_Zy = yf\in (X\to Z)</span> for
+<span class="math inline">y\in (Z\to Y)</span>.</p>
+<section id="sum" class="level3">
+<h3>Sum</h3>
+<p>The <em>sum</em> <span class="math inline">\Sigma_{i\in I} X_i =
+\Sigma X_I</span> of <span class="math inline">X_i</span>, is defined by
+arrows <span class="math inline">\nu_i\colon X_i\to\Sigma X_I</span>,
+<span class="math inline">i\in I</span>. If for any arrows <span
+class="math inline">n_i\colon X_i\to Y</span> there exists an arrow
+<span class="math inline">n\colon\Sigma X_I\to Y</span> with <span
+class="math inline">n\nu_i = n_i</span>, <span class="math inline">i\in
+I</span>. The sum of <span class="math inline">X</span> and <span
+class="math inline">Y</span> is denoted <span class="math inline">X +
+Y</span>.</p>
+</section>
+<section id="product" class="level3">
+<h3>Product</h3>
+<p>The <em>product</em> <span class="math inline">\Pi_{i\in I} X_i = \Pi
+X_I</span> of <span class="math inline">X_i</span> is defined by arrows
+<span class="math inline">\pi_i\colon \Pi X_I\to X_i</span>, <span
+class="math inline">i\in I</span>. If for any arrows <span
+class="math inline">p_i\colon Y\to X_i</span> there exists an arrow
+<span class="math inline">p\colon Y\to \Pi X_I</span> with <span
+class="math inline">\pi_ip = p_i</span>, <span class="math inline">i\in
+I</span>. The product of <span class="math inline">X</span> and <span
+class="math inline">Y</span> is denoted <span
+class="math inline">X\times Y</span>.</p>
+</section>
+<section id="exponential" class="level3">
+<h3>Exponential</h3>
+<p>If a category has products the <em>exponential</em> <span
+class="math inline">Z^Y</span> is an object <span
+class="math inline">\langle Y\to Z\rangle</span> and an
+<em>evaluation</em> arrow <span class="math inline">e\colon
+Y\times\langle Y\to Z\rangle\to Z</span>. Note <span
+class="math inline">\langle Y\to Z\rangle</span> might not be the same
+as <span class="math inline">(Y\to Z)</span>. The evaluation arrow
+satisfies the condition that any arrow <span class="math inline">f\colon
+X\times Y\to Z</span> corresponds to a unique arrow <span
+class="math inline">f_X\colon X\to\langle Y\to Z\rangle</span> via …</p>
+</section>
+</section>
+<section id="set" class="level2">
+<h2>Set</h2>
+<p>We use the convention that applying a function to an element of a set
+is right associative so <span class="math inline">f(x)</span> can be
+written <span class="math inline">fx</span>. This in natural in
+languages where composition means function application. Applying a
+function to an element of a set causes a slight problem. <span
+class="math inline">fgh(x) = f(g(h(x))</span> but <span
+class="math inline">(fg)(h(x))\not= f(g(h(x)))</span>.</p>
+<p><span class="math inline">\mathbf{Set}</span> is <em>cartesian
+closed</em> – It has products and exponentials that satisfy <span
+class="math inline">Z^{X\times Y}\cong Z^{Y^X}</span>. The <em>cartesian
+product</em> of sets <span class="math inline">X</span> and <span
+class="math inline">Y</span> <span class="math inline">X\times Y =
+\{(x,y):x\in X, y\in Y\}</span> is the set of all pairs of elements from
+each set. The <em>exponential</em> <span class="math inline">Y^X =
+\{f\colon X\to Y\}</span> is the set of functions from <span
+class="math inline">X</span> to <span class="math inline">Y</span>. We
+write <span class="math inline">Y^X</span> in linear notation as <span
+class="math inline">X\to Y</span> or <span
+class="math inline">Y\leftarrow X</span>.</p>
+<p>Products and exponentials are related by <span
+class="math inline">Z^{X\times Y}</span> is in one-to-one correspondence
+with <span class="math inline">Z^{Y^X}</span>.<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+Every <span class="math inline">f\in Z^{X\times Y}</span> corresponds to
+<span class="math inline">g\in Z^{Y^X}</span> via <span
+class="math inline">f(x,y) = z</span> if and only if <span
+class="math inline">g(x)(y) = (gx)y = z</span>, <span
+class="math inline">x\in X</span>, <span class="math inline">y\in
+Y</span>, <span class="math inline">z\in Z</span>. This correspondence
+can be written <span class="math display">
+    (X\times Y)\to Z \cong X\to(Y\to Z)
+</span> Going from left to right is <em>currying</em> and going from
+right to left is <em>uncurrying</em>.</p>
+<p><span class="math inline">e(f,x) = f(x)</span>, <span
+class="math inline">f\in Y^X</span>, <span class="math inline">x\in
+X</span>. It is just an explicit name for <em>function application</em>.
+The curried form of the evaluation map identifies <span
+class="math inline">Y^X</span> with <span class="math inline">X\to
+Y</span>.</p>
+<p>Product and disjoint union are related by <span
+class="math inline">\Pi_{j\in J} X^{I_j}\cong X^{\sqcup_{j\in J}
+I_j}</span> where <span class="math inline">X</span> is any set and
+<span class="math inline">(I_j)_{j\in J}</span> is any indexed
+collection of sets – the product of exponentials is the exponential of
+the sum. The element <span class="math inline">x\in\Pi_{j\in J}
+X^{I_j}</span> corresponds to <span class="math inline">\overline{x}\in
+X^{\sqcup_{j\in J} I_j}</span> via <span class="math inline">\pi_j x =
+\overline{x}\nu_j</span> where <span
+class="math inline">\pi_j\colon\Pi_{j\in J}\to X_j</span> are the
+projection defining the product and <span
+class="math inline">\nu_j\colon X_j\to\sqcup_{j\in J}</span> are the
+injections defining the disjoint sum. If <span class="math inline">I_j =
+\{j\}</span>, <span class="math inline">j\in J</span>, this becomes
+<span class="math inline">X_J = \Pi_{j\in J} X\cong X^J</span>. The
+element <span class="math inline">x = (x_j)\in X_J</span> corresponds to
+<span class="math inline">\overline{x}\in X^J</span> via <span
+class="math inline">x_j = \overline{x}(j)</span>, <span
+class="math inline">j\in J</span>.</p>
+<p>We use <span class="math inline">n\in\bm{N}</span> for the set <span
+class="math inline">\{0,1,\ldots,n-1\}</span>. From above, we can
+identify <span class="math inline">x\colon n\to X</span> with an element
+of <span class="math inline">X^n</span>. A function <span
+class="math inline">\xi\colon X\to n</span> corresponds to a
+<em>partition</em> of <span class="math inline">X</span> into <span
+class="math inline">n</span> <em>atoms</em> <span
+class="math inline">X_i = \{x\in X: \xi(x) = i\}</span>, <span
+class="math inline">i\in n</span>. This partition is also called the
+<em>kernel</em> of <span class="math inline">\xi</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">X_i\cap
+X_j = \emptyset</span> if <span class="math inline">i\not= j</span> and
+<span class="math inline">\cup_i X_i = X</span></em>.</p>
+<p>A function <span class="math inline">s\colon X\to\bm{B}</span>
+determines a subset of <span class="math inline">X</span> (and its
+complement) by <span class="math inline">S = \{x\inX:s(x) = t\}</span>
+so <span class="math inline">X\setminus S = \{x\inX:s(x) =
+f\}</span>.</p>
+<section id="vec" class="level3">
+<h3>Vec</h3>
+<p>Vector spaces and linear tranformations are the objects and arrows of
+the category <span class="math inline">\mathbf{Vec}</span>. The
+identities are written <span class="math inline">I_V</span> instead of
+<span class="math inline">1_V</span>. We write <span
+class="math inline">V\Rightarrow W</span> for the arrows in <span
+class="math inline">W^V</span> that preserve the vector space
+structure.<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> This is also written <span
+class="math inline">\mathcal{L}(V,W)</span> or <span
+class="math inline">\operatorname{hom}_{\mathbf{Vec}}(V, W)</span> and
+the elements are called <em>homomorphisms</em>. Note <span
+class="math inline">V\Rightarrow W</span> is also a vector space where
+addition and scalar multiplication are defined pointwise; if <span
+class="math inline">S,T\colon V\Rightarrow W</span> then <span
+class="math inline">(S + T)v = Sv + Tv\in W</span> and <span
+class="math inline">a(S + T)v = a(Sv) + a(Tv)\in W</span>, <span
+class="math inline">v\in V</span>, <span
+class="math inline">a\in\bm{F}</span>.</p>
+<p>The <em>dual</em> <span class="math inline">V^*</span> of the vector
+space <span class="math inline">V</span> is <span
+class="math inline">V\Rightarrow\bm{F}</span> where <span
+class="math inline">\bm{F}</span> is the one-dimensional vector space
+consisting of the underlying field. The <em>dual pairing</em> is <span
+class="math inline">\langle v,v^*\rangle = v^*v\in\bm{F}</span>, <span
+class="math inline">v\in V</span>, <span class="math inline">v^*\in
+V^*</span>. A linear transformation <span class="math inline">T\colon
+V\Rightarrow W</span> has a dual <span class="math inline">T^*\colon
+W^*\Rightarrow V^*</span> defined by <span class="math inline">\langle
+Tv, w^*\rangle = \langle v, T^*w^\rangle</span>. This defines a
+<em>functor</em> on <span class="math inline">\mathbf{Vec}</span>.</p>
+<p><strong>Exercise</strong>. <em>What is the dual of <span
+class="math inline">V\Rightarrow W</span></em>?</p>
+<p>There is a natural injection <span class="math inline">\nu_V =
+\nu\colon V\Rightarrow V^{**}</span> defined by <span
+class="math inline">\langle \nu v, v^*\rangle = \langle v,
+v^*\rangle</span>. If <span class="math inline">V</span> is finite
+dimensional then <span class="math inline">\nu</span> is an
+isomorphism.</p>
+<p><strong>Exercise</strong> <em>If <span class="math inline">T\colon
+V\Rightarrow W</span> show <span class="math inline">T^{**}\nu_V = \nu_W
+T</span></em>.</p>
+<p>If <span class="math inline">V = \bm{F}^n</span> then <span
+class="math inline">V^*</span> is isomorphic to <span
+class="math inline">V = \bm{F}^n</span> via the identity map with the
+dual pairing <span class="math inline">\langle v, w^*\rangle = v\cdot
+w^*</span> where <span class="math inline">w^*</span> is the image of
+<span class="math inline">w</span> considered as an element of <span
+class="math inline">V^*</span>. We eschew the 2-dimensionally biased
+notion of “row” and “column” vectors since duality allows us to
+generalize to any number of dimensions. As we will soon see, inner,
+outer, matrix, etc. products are simply composition of linear
+operators.</p>
+<p>The <em>tensor product</em> of vectors <span class="math inline">v\in
+V</span> and <span class="math inline">w\in W</span> is <span
+class="math inline">v\otimes w\colon W^*\Rightarrow V</span> defined by
+<span class="math inline">(v\otimes w)w^* = v\langle w,w^*\rangle =
+(w^*w)v\in V</span>, <span class="math inline">w^*\in W^*</span>.</p>
+<p>The <em>tensor product</em> of vector spaces <span
+class="math inline">V</span> and <span class="math inline">W</span>,
+<span class="math inline">V\otimes W</span>, is the smallest subspace of
+<span class="math inline">W\Rightarrow V</span> containing <span
+class="math inline">v\otimes w</span>, <span class="math inline">v\in
+V</span>, <span class="math inline">w\in W</span>.</p>
+<p><strong>Exercise</strong>. <em>What is the dual of <span
+class="math inline">V\otimes W</span></em>?</p>
+<p><span class="math inline">\mathbf{Vec}</span> is cartesian closed:
+<span class="math inline">(V\otimes W)\Rightarrow U\cong
+V\Rightarrow(W\Rightarrow U)</span>. If <span
+class="math inline">T\colon(V\otimes W)\Rightarrow U</span> define <span
+class="math inline">\overline{T}\colon V\Rightarrow(W\Rightarrow
+U)</span> by <span class="math inline">((\overline{T}v)w)u^* =
+T(v\otimes w)u^*</span>, <span class="math inline">v\in V</span>, <span
+class="math inline">w\in W</span>, <span class="math inline">u^*\in
+U^*</span>. If <span class="math inline">\overline{T}\colon
+V\Rightarrow(W\Rightarrow U)</span> define <span
+class="math inline">\overline{\overline{T}}\colon (V\otimes
+W)\Rightarrow U</span> by <span
+class="math inline">\overline{\overline{T}}(v\otimes w)u^* =
+((\overline{T}v)w)u^*</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">T\to\overline{T}\in ((V\otimes W)\Rightarrow U)\to
+(V\Rightarrow(W\Rightarrow U))</span> is well-defined and
+linear</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\overline{T}\to\overline{\overline{T}}\in
+(V\Rightarrow(W\Rightarrow U))\to ((V\otimes W)\Rightarrow U)</span> is
+well-defined and linear</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\overline{\overline{T}} = T</span> and <span
+class="math inline">\overline{\overline{\overline{T}}} =
+\overline{T}</span></em>.</p>
+<p>Taking <span class="math inline">U = \bm{F}</span> shows <span
+class="math inline">(V\otimes W)^*\cong (V\Rightarrow W^*)</span>.</p>
+</section>
+</section>
+<section id="tensor" class="level2">
+<h2>Tensor</h2>
+<p>A <em>tensor</em> (over the vector space <span
+class="math inline">V</span>) is a multi-dimensional array <span
+class="math inline">a\in X^{\Pi_j n_j}</span>, <span
+class="math inline">n_j\in\bm{N}</span>.</p>
+</section>
+<section id="computer" class="level2">
+<h2>Computer</h2>
+<p>A <em>program</em> takes a stream of characters and outputs a stream
+of characters. It can give names to types appended to a read only store
+and use names to produce output. We only assume that there is an
+encoding and decoding from and to characters for all primitive types. We
+use <span class="math inline">t &gt; s</span> to encode the primatve
+<span class="math inline">t</span> and give it the name <span
+class="math inline">s</span> and <span class="math inline">t &lt;
+s</span> retrieve the name <span class="math inline">s</span> into the
+type <span class="math inline">t</span>.</p>
+<p>Encoding is a function <span class="math inline">E\colon
+T\times\bm{C}^*\to T</span>. For example, <span
+class="math inline">E(\bm{R}, &quot;1.23&quot;) = 1.23</span> and write
+<code>R"1.23"</code> for the left-hand side. E.g., <code>N"123"</code>
+is <span class="math inline">123\in\bm{N}</span> and
+<code>S("ab\"c")</code> is <span class="math inline">(&#39;a&#39;,
+&#39;b&#39;, &#39;&quot;&#39;, &#39;c&#39;)\in\bm{C}^*</span>.</p>
+<p>We assume unique string representations for all types.</p>
+<p>Decoding is a function <span class="math inline">D\colon
+T\to\bm{C}^*</span>. for example <span
+class="math inline">D(1.23)</span> is <code>"1.23"</code>.</p>
+<p>A type is either a primitive type, a (disjoint) sum of types, or a
+product of types. A sum of types is a <em>variant</em>. A product of
+types is a <em>tuple</em>. Tuples with two elements are <em>pairs</em>.
+A <em>dictionary</em> is a sum of pairs having the same type with
+distinct first elements.</p>
+<section id="reshape" class="level3">
+<h3>Reshape</h3>
+<p>The function <span class="math inline">\rho =
+\rho_{n_0,...,n_{k-1}}\colon\iota n_0\times\cdots\times\iota
+n_{k-1}\to\iota n_0\cdots n_{k-1}</span> is defined by <span
+class="math inline">\rho(i_0, i_1, \ldots, i_{k-1}) = i_0 +
+n_0(\rho(i_1, \ldots, n_{k-1}))</span>.</p>
+<p>Every element <span class="math inline">x\in X^n</span> corresponds
+to a function <span class="math inline">x\colon\iota n\to X</span>. The
+composition <span class="math inline">x\rho\colon
+n_0\times\cdots\times\iota n_{k-1}\to X</span> reshapes <span
+class="math inline">x</span>.</p>
+</section>
+<section id="fork" class="level3">
+<h3>Fork</h3>
+<p>Same as <span class="math inline">S</span> combinator? <span
+class="math inline">Sxyz = xz(yx)</span> using left association.</p>
+</section>
+<section id="each" class="level3">
+<h3>Each</h3>
+<p>If <span class="math inline">f\colon X\to Y</span> and <span
+class="math inline">x\colon Z\to X</span> then <span
+class="math inline">fx\colon Z\to Y</span>. This can be viewed as a
+function <span class="math inline">f^Z\colon X^Z\to Y^Z</span>. It is
+common to call this <em>apply</em> or <em>map</em> or <em>fmap</em>, but
+in APL it is called <em>each</em>. With <span
+class="math inline">X^Z</span> and <span class="math inline">Y^Z</span>
+as products, <span class="math inline">x\mapsto fx</span> where <span
+class="math inline">(fx)_z = f(x_z)</span></p>
+</section>
+<section id="index" class="level3">
+<h3>Index</h3>
+<p>If <span class="math inline">y\colon Y\to Z</span> and <span
+class="math inline">f\colon X\to Y</span> then <span
+class="math inline">yf\colon X\to Z</span>. This can be viewed as a
+function <span class="math inline">f_Z\colon Z^Y\to Z^X</span>. It is
+common to call this <em>projection</em>, but in APL it is called
+<em>index</em>. With <span class="math inline">Z^Y</span> and <span
+class="math inline">Z^X</span> as products, <span
+class="math inline">y\mapsto yf</span> where <span
+class="math inline">(yf)_x = y_{fx}</span>. If <span
+class="math inline">X\subseteq Y</span> and <span
+class="math inline">f\colon X\to Y</span> is the inclusion map then
+<span class="math inline">Z^Y\to Z^X</span> is the projection <span
+class="math inline">\Pi Z_Y\to \Pi Z_X</span>. If we write the inclusion
+map as <span class="math inline">[X]</span> then <span
+class="math inline">y[X]</span> selects the <span
+class="math inline">X</span> indices from <span class="math inline">y =
+y[Y]</span>.</p>
+<p>APL is primarily concerned with arrays <span
+class="math inline">X^{n_0\times\cdots n_{m-1}}</span> and giving names
+to the functions operating on those. Most often <span
+class="math inline">X</span> is <span class="math inline">\bm{R}</span>,
+the set of real numbers, but <span class="math inline">X</span> can also
+be a set of characters.</p>
+</section>
+</section>
+<section id="example" class="level2">
+<h2>Example</h2>
+<p>The identity function <span class="math inline">1_X</span> is written
+‘=’ in APL.</p>
+<p>APL lets you turn a number into a lot of numbers. The function <span
+class="math inline">\iota</span> (iota) is used to produce sequences. If
+<span class="math inline">n\in \bm{N}</span> then <span
+class="math inline">\iota n = (0, 1, \ldots n-1)</span> where <span
+class="math inline">\bm{N}</span> is the set of natural numbers. It is
+related to our convention <span class="math inline">n = \{0,\ldots,
+n-1\}</span> but <span class="math inline">\iota n</span> is not equal
+to <span class="math inline">n</span>, it is an element of <span
+class="math inline">\bm{N}^n</span>. Note <span
+class="math inline">(\iota n)_i = i</span>, <span
+class="math inline">i\in n</span> so <span class="math inline">\iota
+n</span> is the identity function on <span
+class="math inline">n</span>.</p>
+<p>In two dimensions the <span class="math inline">n\times n</span>
+identity matrix is <span class="math inline">(\delta_{ij})_{i,j\in n}\in
+\bm{N}^{n\times n}</span>. In APL it is <span
+class="math inline">\delta</span> applied to each element of <span
+class="math inline">n\times n</span>. The elements of <span
+class="math inline">n\times n</span> are <span
+class="math inline">\{(i,j):i,j\in n\}</span> so <span
+class="math inline">\delta n\times n = \{\delta(i,j):(i,j)\in n\times
+n\}</span>.</p>
+<p>We can define <span class="math inline">\delta\colon X^n\to X</span>
+for any <span class="math inline">n</span> by <span
+class="math inline">\delta(x_0,\ldots,x_n-1) = 1</span> if all <span
+class="math inline">x_i</span> are equal and <span
+class="math inline">0</span> otherwise. We should probably use
+<code>true</code> and <code>false</code> instead of <span
+class="math inline">1</span> and <span class="math inline">0</span>. If
+we use <span class="math inline">X</span> as the name of the <em>type
+conversion</em> function <code>true</code><span
+class="math inline">\mapsto 1</span> and <code>false</code><span
+class="math inline">\mapsto 0</span> we would write <span
+class="math inline">X(\delta)</span>, or <span
+class="math inline">X\delta</span>, instead of <span
+class="math inline">\delta</span>.</p>
+<p>In APL we use <span class="math inline">\text{$=$}</span> instead of
+pussyfooting around with <span class="math inline">\delta</span>. This
+can be written more succinctly as <span
+class="math inline">\text{$=$}n^2</span> since <span
+class="math inline">n^2</span> is equivalent to <span
+class="math inline">n\times n</span>. The <span
+class="math inline">k</span>-dimensional identity matrix is <span
+class="math inline">\text{$=$}n^k</span>. If we define <span
+class="math inline">\widehat{\phantom{x}}(A, B) =
+A\widehat{\phantom{x}}B = A^B</span>, ⍣ in APL, then <span
+class="math inline">\text{$=$}\widehat{\phantom{x}}</span> allows us to
+parameterize over <span class="math inline">n</span> too since <span
+class="math inline">\text{$=$}\widehat{\phantom{x}}(n,k)</span> is <span
+class="math inline">\text{$=$}n^k</span>.</p>
+<p>Never play code golf with an APLer.</p>
+<section id="reduce" class="level3">
+<h3>Reduce</h3>
+<p>APL also lets you turn a lot of numbers into one number. For
+instance, <span class="math inline">+/(a_0,\ldots,a_n) = a_0 + \cdots +
+a_n</span> where slash (<span class="math inline">/</span>) is called
+<em>reduce</em>. Other languages call this <em>fold</em>.</p>
+<p>Any binary operator <span class="math inline">\bullet\colon X\times
+X\to X</span> can be extended to <span
+class="math inline">\bullet/\colon X^n\to X</span> for <span
+class="math inline">n &gt; 2</span> inductively by <span
+class="math inline">\bullet/(x_0, x_1, \ldots) = x_0 \bullet
+(\bullet/(x_1, \dots))</span>. This is called <em>right reduce</em>. If
+the array is finite then then <em>left reduce</em> is <span
+class="math inline">/\bullet(x_0,\ldots,x_n) =
+(/\bullet(x_0,\ldots,x_{n-1}))\bullet x_n</span>. Here we are using
+<em>infix notation</em> <span class="math inline">\bullet(x,y) =
+x\bullet y</span>.</p>
+<p>If <span class="math inline">\bullet</span> is associative then right
+and left right reduce are equal. If we define <span
+class="math inline">\bullet/(x) = x</span> then <span
+class="math inline">\bullet/(x,y) = (\bullet/x)\bullet(\bullet/y)</span>
+where <span class="math inline">(x,y)</span> is the concatenation of
+array <span class="math inline">x</span> with array <span
+class="math inline">y</span>. Likewise for <span
+class="math inline">/\bullet</span>. If <span
+class="math inline">\bullet</span> has an <em>identity element</em>
+<span class="math inline">e\in X</span> we can define <span
+class="math inline">\bullet/\emptyset = e = /\bullet\emptyset</span> and
+this holds when <span class="math inline">x</span> or <span
+class="math inline">y</span> are empty. These conditions make <span
+class="math inline">X</span> a <em>monoid</em> under <span
+class="math inline">\bullet</span>.</p>
+<p>If the binary operation is commutative then changing the order of the
+array elements does not alter the result.</p>
+</section>
+<section id="dimension" class="level3">
+<h3>Dimension</h3>
+<p>The main datatype in APL is a <em>multi-dimensional array</em> <span
+class="math inline">X^{n_0\times\cdots n_{m-1}}</span>. The
+<em>shape</em> of the array is <span class="math inline">n_0\times\cdots
+n_{m-1}</span>. It is a function from exponentials to sets defined by
+<span class="math inline">\rho X^Y = Y</span>. Every <span
+class="math inline">f\in X^Y</span> is a function <span
+class="math inline">f\colon X\to Y</span> so <span
+class="math inline">\rho</span> is a constant function, <span
+class="math inline">\rho f = Y</span> for all <span
+class="math inline">f\in X^Y</span>.</p>
+</section>
+</section>
+<section id="remarks" class="level2">
+<h2>Remarks</h2>
+<p>Notation <span class="math inline">x = (x_0, \ldots)</span> for
+numeric vectors but for s = “ABC” has indices from high to low.</p>
+<p>Distinguish between an <em>expression</em> and the result of
+<em>evaluating</em> the expression. (<span class="math inline">e</span>
+vs <span class="math inline">!e</span> maybe?) Need a language for the
+machine.</p>
+<p><span class="math inline">\Pi X_I = \Pi_{i\in I} X_i</span>, <span
+class="math inline">\pi_i\colon\Pi X_I\to X_i</span>, <span
+class="math inline">\pi_i(x) = x_i</span> projections.</p>
+<p>If <span class="math inline">X = X_i</span>, <span
+class="math inline">i\in I</span> then <span class="math inline">X_I =
+\Pi X_I = \Pi_{i\in I} X\cong X^I</span> via <span class="math inline">x
+= (x_i)\in \Pi X_I</span> corresponds to <span
+class="math inline">\hat{x}\in X^I</span> via <span
+class="math inline">x_i = \hat{x}(i)</span>. More generally, <span
+class="math inline">\Pi_{i\in I} X_{I_i}\cong X^{\sqcup_{i\in I}
+I_i}</span> via <span class="math inline">x = (x_i)\in \Pi_I
+X_{I_i}</span> correspoinds to <span class="math inline">\hat{x}\in
+X^I</span> via <span class="math inline">x_i = \hat{x}(i)</span>. via
+<span class="math inline">x_{i_j}} = x(i_j)</span>, <span
+class="math inline">i_j\in I_j</span> shows the fundamental relationship
+between product and disjoint sum.</p>
+<p>If <span class="math inline">f\colon X\to Y</span> then <span
+class="math inline">f^Z\colon X^Z\to Y^Z</span> via <span
+class="math inline">f^Zx = fx</span> and <span
+class="math inline">f_Z\colon Z^Y\to Z^X</span> via <span
+class="math inline">f_Zy = yf</span>.</p>
+<p>via <span class="math inline">(x_j)\leftrightarrow x</span> for <span
+class="math inline">x_j\in X^{I_j}</span> where <span
+class="math inline">x(i_j) = x_j(i)</span>, for <span
+class="math inline">i_j = (j,i)\in \sqcup_j I_j</span>.</p>
+<p>Indices: If <span class="math inline">\sigma\colon m\to n</span> then
+<span class="math inline">\sigma_X\colon X^n\to X^m</span> via <span
+class="math inline">x\in X^n\mapsto x\sigma\in X^m</span>. We write
+<span class="math inline">\sigma = (\sigma_i)</span> where <span
+class="math inline">\sigma(i) = \sigma_i\in n</span> for <span
+class="math inline">i\in m</span>.</p>
+<p>For example, if <span class="math inline">f\colon X^2\to Y</span>
+then <span class="math inline">f(1,0)\colon X^2\to Y</span> via <span
+class="math inline">f(0,1)(x_0,x_1) = f(x_1,x_0)</span>. If <span
+class="math inline">f\colon X^2\to Y</span> then <span
+class="math inline">f(0,0)\colon X\to Y</span> via <span
+class="math inline">f(0,0)(x) = f(x, x)</span>.</p>
+<p>Currying: If <span class="math inline">f\colon X^I\to Y</span> and
+<span class="math inline">J\subseteq I</span> define <span
+class="math inline">?\colon I\to I</span> by <span
+class="math inline">X^{I\setminus J}\times X^J\to X^I</span></p>
+<p><span class="math inline">f\colon\Pi X_n\to Y</span></p>
+<p>If <span class="math inline">J\subseteq I</span> and <span
+class="math inline">[J]\colon J\to I</span> is inclusion then <span
+class="math inline">y[J]\in X_J</span> projects <span
+class="math inline">y\in X_I</span> to <span
+class="math inline">X_J</span>.</p>
+<p>Currying: <span class="math inline">X\times Y\to Z\cong
+(Z^Y)^X</span> via <span class="math inline">f(x,y) = z</span> iff <span
+class="math inline">(fx)y = z</span>.</p>
+</section>
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>In fancy pants category theory
+language this is expressed as the product functor <span
+class="math inline">F_Y(X) = X\times Y</span> and the exponential
+functor <span class="math inline">G_Y(Z) = Z^Y</span> are adjoint: <span
+class="math inline">\operatorname{hom}(F_Y(X),Z)\cong\operatorname{hom}(X,G_Y(Z))</span>.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>If <span class="math inline">T\colon
+V\Rightarrow W</span> is a linear transformation in <span
+class="math inline">\mathbf{Vec}</span> we write <span
+class="math inline">\{T\}\colon \{V\}\to\{W\}</span> in <span
+class="math inline">\mathbf{Set}</span> for the corresponding function
+on the underlying sets of the vector spaces. This is the <em>forgetful
+functor</em> <span
+class="math inline">\{\}\colon\mathbf{Vec}\to\mathbf{Set}</span>. There
+is also the <em>free functor</em> <span
+class="math inline">\langle\rangle\colon\mathbf{Set}\to\mathbf{Vec}</span>
+defined by <span class="math inline">X\subseteq V\mapsto \langle
+X\rangle = \operatorname{span}\{\delta_x:x\in X\}\subseteq B(X)</span>
+where <span class="math inline">B(X)</span> is the vector space of
+bounded functions on <span class="math inline">X</span> and <span
+class="math inline">\delta_x(y) = 1</span> if <span
+class="math inline">y = x</span> and <span
+class="math inline">\delta_x(y) = 0</span> if <span
+class="math inline">y\not= x</span>, <span class="math inline">x,y\in
+X</span>. A function on sets <span class="math inline">t\colon X\to
+Y</span> can be extended to <span class="math inline">\langle
+t\rangle\colon \langle X\rangle\to\langle Y\rangle</span> by extending
+it linearly. Since <span class="math inline">\{\delta_x:x\in
+X\}\subseteq B(X)</span> are independent this extension is well-defined.
+Show <span class="math inline">\{V\}\Rightarrow X\cong
+V\Rightarrow\langle X\rangle</span> for <span
+class="math inline">V</span> a vector space and <span
+class="math inline">X</span> a set.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

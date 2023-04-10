@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-04-10" />
+  <title>Double Exponential Model</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Double Exponential Model</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">April 10, 2023</p>
+</header>
+<p>The <em>exponential random variable</em> with parameter <span
+class="math inline">\beta &gt; 0</span> has density <span
+class="math inline">f(x) = \beta e^{-\beta x}</span>, <span
+class="math inline">x \ge 0</span>. Since the indefinite integral of
+<span class="math inline">e^{\gamma x}</span> is <span
+class="math inline">e^{\gamma x}/\gamma</span> we have <span
+class="math inline">\int_0^\infty e^{-\beta x}\,dx = e^{-\beta
+x}/(-\beta)\mid_0^\infty = 0 - 1/(-\beta) = 1/\beta</span>. This shows
+<span class="math inline">\int_0^\infty f(x)\,dx = 1</span> so it is a
+density function.</p>
+<p>Let <span class="math inline">f(x) = \alpha e^{-\beta|x|}</span>,
+<span class="math inline">-\infty &lt; x &lt; \infty</span>, where <span
+class="math inline">\beta &gt; 0</span>. Note <span
+class="math inline">|x| = x</span> if <span class="math inline">x \ge
+0</span> and <span class="math inline">|x| = -x</span> if <span
+class="math inline">x\le 0</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\int_{-\infty}^\infty f(x)\,dx = 1</span> implies
+<span class="math inline">\alpha = \beta/2</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">\int_{-\infty}^0 e^{\beta
+x}\,dx = \int_0^\infty e^{-\beta x}\,dx</span>.</p>
+<p>This shows <span class="math inline">f(x) =
+e^{-\beta|x|}\beta/2</span>, <span class="math inline">-\infty &lt; x
+&lt; \infty</span>, is a density function for the <em>double exponential
+random variable</em> <span class="math inline">X</span>.</p>
+<p>The moment generating function of <span class="math inline">X</span>
+is <span class="math inline">E[e^{sX}]</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">E[e^{sX}] = \beta^2/(\beta + s)(\beta - s)</span>,
+<span class="math inline">s &lt; \beta</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">\int_{-\infty}^0 e^{sx}
+e^{\beta x}\,dx = 1/(\beta + s)</span>. and <span
+class="math inline">\int_0^\infty e^{sx} e^{-\beta x}\,dx = 1/(\beta -
+s)</span>, <span class="math inline">s &lt; \beta</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math display">
+\begin{aligned}
+E[e^{sX}] &amp;= \int_{-\infty}^\infty e^{sx} e^{-\beta |x|}\beta/2\,dx
+\\
+    E[e^{sX}] &amp;= \int_{-\infty}^0 e^{sx} e^{\beta x}\beta/2\,dx
+        + \int_0^\infty e^{sx} e^{-\beta x}\beta/2\,dx \\
+    &amp;= \frac{\beta}{2}\bigl(\frac{1}{\beta + s} + \frac{1}{\beta -
+s}\bigr) \\
+    &amp;= \frac{\beta}{2}\bigl(\frac{1}{\beta + s} + \frac{1}{\beta -
+s}\bigr) \\
+    &amp;= \frac{\beta^2}{(\beta + s)(\beta - s)} \\
+\end{aligned}
+</span>
+</details>
+<p>The cumulant of <span class="math inline">X</span> is the log of the
+moment generating function <span class="math display">
+    \kappa(s) = \log E[e^{sX}] = 2\log\beta - \log (\beta + s) -
+\log(\beta - s).
+</span></p>
+<p>Note <span class="math inline">\kappa(0) = 2\log\beta - \log\beta -
+\log\beta = 0</span>, as it should.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\kappa&#39;(s) = -1/(\beta + s) + 1/(\beta -
+s)</span>, <span class="math inline">s &lt; \beta</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math display">
+\begin{aligned}
+    \kappa&#39;(s) &amp;= -1/(\beta + s) + 1/(\beta -s) \\
+        &amp;= -1/(\beta + s) + 1/(\beta - s) \\
+\end{aligned}
+</span>
+</details>
+<p>The mean of <span class="math inline">X</span> is <span
+class="math inline">\kappa&#39;(0) = -1/\beta + 1/\beta = 0</span>.</p>
+<p>The variance of <span class="math inline">X</span> is <span
+class="math inline">\kappa&#39;&#39;(0)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{Var}(X) = 2/\beta^2</span>, <span
+class="math inline">s &lt; \beta</span></em>.</p>
+<p>This shows <span class="math inline">X</span> has variance 1 if <span
+class="math inline">\beta = \sqrt{2}</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math display">
+\begin{aligned}
+    \kappa&#39;&#39;(s) &amp;= 1/(\beta + s)^2 + 1/(\beta - s)^2 \\
+\end{aligned}
+</span>
+</details>
+<p>Valuing options and their greeks with underlying <span
+class="math inline">F = fe^{sX - \kappa(s)}</span>, where <span
+class="math inline">X</span> has mean 0 and variance 1, boils down to
+computing <span class="math inline">\Phi(x,s) = E[e^{sX - \kappa(s)} 1(X
+\le x)]</span> and its derivatives with respect to <span
+class="math inline">x</span> and <span class="math inline">s</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">x \le
+0</span> then <span class="math inline">\Phi(x, s) = (1 - s/\beta) e^{(s
++ \beta)x}/2</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">\int_{-\infty}^x e^{su}
+e^{\beta u}\,du = e^{(s + \beta)x}/(s + \beta)</span> if <span
+class="math inline">x &lt; 0</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math display">
+\begin{aligned}
+    \Phi(x, s) &amp;= E[e^{sX - \kappa(s)} 1(X \le x)] \\
+        &amp;= e^{-\kappa(s)} e^{(s + \beta)x}(\beta/2)/(s + \beta) \\
+        &amp;= \frac{(\beta + s)(\beta - s)}{\beta^2} e^{(s +
+\beta)x}(\beta/2)/(s + \beta) \\
+        &amp;= \frac{(\beta - s)}{\beta} e^{(s + \beta)x}/2 \\
+        &amp;= (1 - s/\beta) e^{(s + \beta)x}/2 \\
+\end{aligned}
+</span>
+</details>
+<p>Note <span class="math inline">\Phi(0,s) = (1 -
+s/\beta)/2</span>.</p>
+<p>If <span class="math inline">x &gt; 0</span> then <span
+class="math inline">\int_0^x e^{su} e^{-\beta u}\,du = e^{(s -
+\beta)x}/(s - \beta) - 1/(s - \beta)</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">x \ge
+0</span> then <span class="math inline">\Phi(x, s) = 1 - (1 + s/\beta)
+e^{(s - \beta)x}/2</span>, <span class="math inline">s &lt;
+\beta</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math display">
+\begin{aligned}
+    \Phi(x, s) &amp;= \Phi(0, s) + \int_0^x e^{su - \kappa(s)} e^{-\beta
+u}\beta/2\,du \\
+        &amp;= \Phi(0, s) + e^{-\kappa(s)} \bigl(e^{(s - \beta)x}/(s -
+\beta) - 1/(s - \beta)\bigr)\beta/2 \\
+        &amp;= \Phi(0, s) + \frac{(\beta + s)(\beta - s)}{\beta^2}
+            \bigl(e^{(s - \beta)x}/(s - \beta) - 1/(s -
+\beta)\bigr)\beta/2 \\
+        &amp;= \Phi(0, s) - \frac{(\beta + s)}{\beta} (e^{(s - \beta)x}
+- 1)/2 \\
+        &amp;= \Phi(0, s) - (1 + s/\beta) e^{(s - \beta)x}/2 + (1 +
+s/\beta)/2 \\
+        &amp;= (1 - s/\beta)/2 - (1 + s/\beta) e^{(s - \beta)x}/2 + (1 +
+s/\beta)/2 \\
+        &amp;= 1 - (1 + s/\beta) e^{(s - \beta)x}/2 \\
+\end{aligned}
+</span>
+</details>
+<p>Note <span class="math inline">\Phi(0, s) = 1 - (1 + s/\beta)/2 = (1
+- s/\beta)/2</span> and <span class="math inline">\lim_{x\to\infty}
+\Phi(x,s) = 1</span>.</p>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

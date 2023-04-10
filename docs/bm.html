@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-04-10" />
+  <title>Brownian Motion</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Brownian Motion</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">April 10, 2023</p>
+</header>
+<p>Brownian motion is a stochastic process <span
+class="math inline">(B_t)_{t\ge0}</span>. with increments that are
+<em>stationary</em>, <em>independent</em>, and <em>normal</em>.</p>
+<dl>
+<dt><strong>stationary</strong></dt>
+<dd>
+<span class="math inline">t\mapsto B_{t + u} - B_u</span> has the same
+law as <span class="math inline">t\mapsto B_t</span>, <span
+class="math inline">u\ge0</span>.
+</dd>
+<dt><strong>independent</strong></dt>
+<dd>
+If <span class="math inline">0\le t_0 &lt; \cdots &lt; t_n</span> then
+<span class="math inline">B_{t_0}</span>, <span
+class="math inline">B_{t_1} - B_{t_0}</span>, , <span
+class="math inline">B_{t_n} - B_{t_{n-1}}</span> are independent.
+</dd>
+<dt><strong>normal</strong></dt>
+<dd>
+The increment [B_{t + u} - B_t$ is normally distributed.
+</dd>
+</dl>
+<p><em>Standard Brownian motion</em> has [B_1 = 0$ and [(B_1) = 1$.</p>
+<p><strong>Exercise</strong>. <em>A stochastic process [(X_t)$ with
+increments that are stationary, independent, and normal has the form
+[X_t = t + B_t$ for some constants [$ and [$ where <span
+class="math inline">(B_t)</span> is standard Brownian motion</em>.</p>
+<details
+<summary>Solution</summary>
+Every process that is stationary with independent increments is determined by its distribution
+at a single time.
+</details>
+<section id="reflection-principal" class="level2">
+<h2>Reflection Principal</h2>
+<p>Let [<em>t = </em>{st} B_s$ be the running maximum of Brownian motion
+and [<em>t = </em>{st} B_s$ be the running minimum.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">-_t =
+_t</span></em>.</p>
+<details
+<summary>Solution</summary>
+Use $\(-\min\{x, \ldots\} = \max\{-x, \ldots\}$.
+</details>
+<p>Fix [a $ and define [_a = {t_t &gt; a}$ to be the <em>first hitting
+time</em> at level [a<span class="math inline">. Note [B_{\tau_a} =
+a]{.math .inline} almost surely. *Brownian motion reflected at [a]{.math
+.inline}*, [B\^a_t</span>, is defined as <span
+class="math display">B^a_t =</span> Note [B^0_t = -B_t$ for all [t<span
+class="math inline">. Reflected Brownian motion switches to [-B_t</span>
+once level [a$ is hit.</p>
+<p><strong>Exercise</strong>. <em>Reflected Brownian motion is Brownian
+motion</em>.</p>
+<details
+<summary>Solution</summary>
+
+</details>
+<p><strong>Lemma</strong>. <em>For any integrable function [f$ we
+have</em> <span class="math display">
+E[f(B_t) 1(\overline{B}_t &gt; a)\] = E\[f(B_t) 1(B_t &gt; a)] +
+E[f(2a - B_t) 1(B_t &gt; a)].
+</span></p>
+<p><em>Proof</em>. Since either [B_t &gt; a$ or <span
+class="math inline">B_t a</span> <span class="math display">E<span
+class="math display">f(B_t) 1(\overline{B}_t \&gt; a)</span> = E<span
+class="math display">f(B_t) 1(B_t \&gt; a,
+\overline{B}_t \&gt; a)</span> + E<span class="math display">f(B_t)
+1(B_t \le a, \overline{B}_t \&gt;
+a)</span></span> Since [B_t &gt; a$ implies [_t &gt; a)$ we have the
+first term on the right hand side <span class="math display">E<span
+class="math display">f(B_t) 1(B_t \&gt; 0, \overline{B}_t \&gt;
+a)</span> = E<span class="math display">f(B_t) 1(B_t \&gt;
+a)</span>.</span> Since <span class="math inline">(B^a_t)</span> is
+Brownian motion <span class="math display">E<span
+class="math display">f(B_t) 1(B_t \le a, \overline{B}_t
+\&gt; a</span> = E<span class="math display">f(B\^a_t) 1(B\^a_t \le a,
+\overline{B\^a}_t \&gt; a</span>.</span> If [_t &gt; a$ we are on a
+reflected path so [B^a_t = 2a - B_t$ and <span
+class="math display"></span> Since [B_t a$ implies [_t &gt; a$ we have
+the second term on the right hand side <span class="math display">E<span
+class="math display">f(2a - B_t) 1(B_t \ge a,
+\overline{B\^a}_t \&gt; a</span> = E<span class="math display">f(2a -
+B_t) 1(B_t \ge a)</span>.</span></p>
+<p><strong>Exercise</strong>. *Show [P(_t &gt; a) = 2P(B_t &gt;
+a)]{.math</p>
+<details
+<summary>Solution</summary>
+</details>
+<p>.inline}*.</p>
+<p><strong>Exercise</strong>. <em>What are the corresponding formulas
+for [E<span class="math display">f(B_t)
+1(\overline{B}_t \le a)</span><span class="math inline">, [E\[f(B_t)
+1(\underline{B}_t \&gt; a)\]</span>, and [E<span
+class="math display">f(B_t)
+1(\underline{B}_t \le a)</span>$?</em></p>
+<details
+<summary>Solution</summary>
+</details>
+</section>
+<section id="girsanov" class="level2">
+<h2>Girsanov</h2>
+<p>If [(B_t)$ is standard Brownian motion with Wiener measure [P$ then
+<span class="math inline">B^_t = B_t - t</span>, [<span
+class="math inline">, is Brownian motion with respect to
+[P\^\alpha</span> where <span class="math inline">E_t<span
+class="math display">dP\^\alpha/dP</span> = e^{B_t - ^2t/2}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show [E<span
+class="math display">e\^{\alpha B_t - \alpha\^2t/2} g(B_{t_1} -
+\alpha t_1, \ldots)</span> = E<span class="math display">g(B_{t_1},
+\ldots)</span>$ for any integrable function [g$ and [t t_1,$</em>.</p>
+<p><em>Hint</em>. [B_t<span class="math inline">, [B_{t_1},
+\ldots</span>, are jointly normal.</p>
+<details
+<summary>Solution</summary>
+</details>
+<p><strong>Exercise</strong>. <em>If [u &gt; t$ show [E_t<span
+class="math display">E_u\[dP\^\alpha
+/dP</span>] = E_t<span class="math display">dP\^\alpha
+/dP</span>$</em>.</p>
+<p><em>Hint</em>. [e^{B_t - ^2t/2}$ is a martingale.</p>
+<details
+<summary>Solution</summary>
+</details>
+<p>Let [F_t = fe^{B_t - ^2t/2}<span class="math inline">. An *up-and-in*
+barrier option [\[@Mer75\]]{.citation cites=&quot;Mer75&quot;} with
+barrier [h</span> pays [(F_t) 1(_t &gt; h)$ at expiration for some
+payoff function <span class="math inline"></span>. Using Girsanov’s
+theorem <span class="math display">E<span class="math display">\phi(F_t)
+1(\overline{F}_t \&gt;
+h)</span> = E^<span class="math display">\phi(F\^\alpha _t)
+1(\overline{F\^\alpha }_t
+\&gt; h)</span></span> where [F^_t = f e^{ B^<em>t - ^2t/2} = f e^{(B_t
+- t) - ^2t/2}<span class="math inline">. Note [\overline{F\^\alpha }_t
+\&gt; h</span> if and only if [</em>{st} F^_s &gt; h$.</p>
+<p><strong>Exercise</strong>. *Show [<em>t &gt; h$ if and only if*
+[</em>{st} B_s - (+ /2)s &gt; ( h/f)/$.</p>
+<details
+<summary>Solution</summary>
+</details>
+<p><strong>Exercise</strong>. <em>Find a closed form solution for the
+value of an up-and-in barrier option</em>.</p>
+<p><em>Hint</em>. Use [= -/2$.</p>
+<details
+<summary>Solution</summary>
+</details>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

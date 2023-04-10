@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-04-10" />
+  <title>Linear Algebra</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Linear Algebra</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">April 10, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+A guide to Linear Algebra.
+</div>
+</header>
+<p>This is not a beginners guide to linear algebra. It is a breviloquent
+collection of pertinent facts about vector spaces and the linear
+transformations between them. Although it is complete and self-contained
+you should already be familiar with basic linear algebra before reading
+this. Statements and proofs are concise, so read them twice. Do the
+exercises to confirm your understanding.</p>
+<p>I make no apologies for the shamelessly mathematical exposition and
+hope it engenders an appeciation for the thrill of literally ‘doing the
+math’ to unequivocally establish absolute truth.</p>
+<section id="introduction" class="level2">
+<h2>Introduction</h2>
+<p>Vector spaces occupy a sweet spot in the menagerie of mathematical
+structures. They are completely classified up to <em>isomorphism</em> by
+their <em>dimension</em>. A <em>vector space</em> is an <em>abelian
+group</em> with a <em>scalar multiplication</em> that satisfies a
+<em>distributive law</em> with respect to the vector addition. A vector
+is not just a list of numbers, it is a mathematical object that
+satisfies these axioms. For example, <em>functions</em> are vectors and
+<em>linear transformations</em> between vector spaces are also
+vectors.</p>
+<p>A linear transformation is a function between vector spaces that
+preserves the vector space structure. They are completely classified up
+to <em>similarity</em> for finite dimensional vector spaces by their
+<em>eigenvalues</em> and the <em>multiplicity</em> of each
+eigenvalue</p>
+<!--
+Linear transformations from a finite dimensional vector space to
+itself are categorized up to _similariy_ by a list of _eigenvalues_
+together with their _multiplicities_. Each eigenvalue and multiplicity
+is associated with an _invariant subspace_ having dimension equal to
+the multiplicity.  If the multiplicity is 1 then $Tv = \lambda v$ where
+$v$ is an eigenvector corresponding to the eigenvalue $\lambda$.  We can
+write this as $(T - \lambda I)v = 0$ where $I$ is the _identity operator_.
+The associated invariant subspace is spanned by $v$.  If the multiplicity
+is $m$ then $(T - \lambda I)^m v = 0$ for the generalized eigenvector $v$
+and $(T - \lambda I)^k v\not= 0$ for $k < m$.  The associated invariant
+subspace is spanned by $v$, $Tv$, \ldots, $T^{m-1}v$.
+
+This probably makes no sense to you at this point, but it describes the
+Jordan canonical form of a linear transformation. After you master the
+following material these statements will become completely obvious.
+-->
+</section>
+<section id="vector-space" class="level2">
+<h2>Vector Space</h2>
+<p>The ingredients of a <em>vector space</em> are a set <span
+class="math inline">V</span> of vectors and a binary addition that
+satisfies the abelian group axioms:</p>
+<dl>
+<dt><em>Associative</em></dt>
+<dd>
+<span class="math inline">x + (y + z) = (x + y) + z</span> for <span
+class="math inline">x,y,z\in V</span>.
+</dd>
+<dt><em>Commutative</em></dt>
+<dd>
+<span class="math inline">x + y = y + x</span> for <span
+class="math inline">x,y\in V</span>.
+</dd>
+<dt><em>Identity</em></dt>
+<dd>
+There is a <span class="math inline">0\in V</span> with <span
+class="math inline">x + 0 = x</span> for <span class="math inline">x\in
+V</span>.
+</dd>
+<dt><em>Inverse</em></dt>
+<dd>
+Every vector has an additive inverse <span class="math inline">-x</span>
+with <span class="math inline">x + (-x) = 0</span>.
+</dd>
+</dl>
+<p>A vector space also specifies a <em>field</em> of <em>scalars</em>
+<span class="math inline">\bm{F}</span> (usually the real <span
+class="math inline">\bm{R}</span> or complex <span
+class="math inline">\bm{C}</span> numbers) and a scalar multiplication
+that satisfies</p>
+<dl>
+<dt><em>Distributive</em></dt>
+<dd>
+<span class="math inline">\alpha (x + y) = \alpha x + \alpha y</span>,
+for <span class="math inline">\alpha\in\bm{F}</span> and <span
+class="math inline">x,y\in V</span>.
+</dd>
+</dl>
+<p><strong>Lemma</strong>. <em>For any vector <span
+class="math inline">x</span>, <span class="math inline">x + x = x</span>
+implies <span class="math inline">x = 0</span></em>. <span
+class="math display">
+\begin{aligned}
+    x + x &amp;= x &amp; &amp; \\
+    (x + x) + (-x) &amp;= x + (-x) &amp;\mathrm{substitution} \\
+    x + (x + (-x)) &amp;= x + (-x) &amp;\mathrm{associative} \\
+    x + 0 &amp;= 0 &amp;\mathrm{inverse} \\
+    x &amp;= 0 &amp;\mathrm{identity} \\
+\end{aligned}
+</span></p>
+<p>By <em>substitution</em> we mean that if <span
+class="math inline">P(x)</span> is a logical statement containing the
+symbol <span class="math inline">x</span> we can replace each occurence
+of <span class="math inline">x</span> by any other symbol <span
+class="math inline">y</span>, <span class="math inline">x\mapsto
+y</span>, as long as <span class="math inline">y</span> does not occur
+in <span class="math inline">P(x)</span>. Using the true statement <span
+class="math inline">a = b \Rightarrow a + c = b + c</span> we make the
+substitutions <span class="math inline">a \mapsto x + x</span>, <span
+class="math inline">b \mapsto x</span>, and <span class="math inline">c
+\mapsto (-x)</span> then use modus ponens.</p>
+<p><strong>Exercise</strong>. <em>Show the additive identity is
+unique</em>.</p>
+<p><em>Hint</em>. If <span class="math inline">0&#39;</span> is another
+identity then <span class="math inline">0 = 0 + 0&#39;</span>. Your
+proof can be used for any group, abelian or not.</p>
+<p><strong>Exercise</strong>. <em>Show for <span
+class="math inline">x\in V</span> that <span class="math inline">(-1)x =
+-x</span></em>.</p>
+<p><em>Hint</em>. The left hand side is the scalar multiplication of
+<span class="math inline">-1\in\bm{F}</span> by <span
+class="math inline">x</span>. The right hand side is the additive
+inverse of <span class="math inline">x</span>. You need to show <span
+class="math inline">x + (-1)x = 0</span>. Use the distributed law.</p>
+<p><strong>Exercise</strong>. <em>Show for <span
+class="math inline">x\in V</span> that <span class="math inline">-(-x) =
+x</span></em>.</p>
+<p>If <span class="math inline">\bm{F}^X = \{f\colon X\to
+\bm{F}\}</span> is the set of all functions from <span
+class="math inline">X</span> to <span class="math inline">\bm{F}</span>
+we can define <span class="math inline">(f + g)(x) = f(x) + g(x)</span>
+and <span class="math inline">(\alpha f)(x) = \alpha f(x)</span> for
+<span class="math inline">f,g\in\bm{F}^X</span> and <span
+class="math inline">\alpha\in\bm{F}</span>. It is customary to write
+<span class="math inline">c(X)</span> for this space.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">c(X)</span> is a vector space</em>.</p>
+<p>The functions in <span class="math inline">c(X)</span> that are zero
+except at a finite number of elements of <span
+class="math inline">X</span> is customarily written <span
+class="math inline">c_{00}(X)</span>. If <span
+class="math inline">X</span> is finite then <span
+class="math inline">\bm{F}^X = c_{00}(X)</span>. If <span
+class="math inline">X</span> has <span class="math inline">n</span>
+elements it is customary to write <span class="math inline">\bm{F}^n =
+\{(x_1,\ldots,x_n):x_j\in\bm{F}, 1\le j\le n\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">c_{00}(X)</span> is a vector space</em>.</p>
+<p>If <span class="math inline">X = \bm{N}</span> is the set of
+<em>natural numbers</em> define <span class="math inline">c_0(\bm{N}) =
+c_0</span> to be the functions <span class="math inline">v\in
+c(\bm{N})</span> such that <span class="math inline">\lim_{n\to\infty}
+v(n) = 0</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">c_0</span> is a vector space</em>.</p>
+<p>The vector space <span class="math inline">c_{00}(X)</span> has an
+<em>inner product</em> defined by <span class="math inline">v\cdot w =
+\sum_{x\in X} v(x) w(x) = \sum_{x\in X} v_x w_x</span> for <span
+class="math inline">v,w\in c_{00}(X)</span>. Since multiplication in
+<span class="math inline">\bm{F}</span> is commutative <span
+class="math inline">v\cdot w = w\cdot v</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(\alpha
+u + \beta v)\cdot w = \alpha(u\cdot w) + \beta(v\cdot w)</span> for
+<span class="math inline">\alpha, \beta\in\bm{F}</span> and <span
+class="math inline">u,v,w\in c_{00}(X)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">v\cdot
+v = 0</span> implies <span class="math inline">v = 0</span> for <span
+class="math inline">v\in c_{00}(X)</span></em>.</p>
+<p>Define the <em>Kronecker delta function</em> <span
+class="math inline">\delta_x\in c_{00}(X)</span> by <span
+class="math inline">\delta_x(y) = 1</span> if <span
+class="math inline">y = x</span> and <span
+class="math inline">\delta_x(y) = 0</span> if <span
+class="math inline">y \not= x</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">v =
+\sum_{x\in X} (v\cdot\delta_x) \delta_x</span> for <span
+class="math inline">v\in c_{00}(X)</span></em>.</p>
+<p>This shows the set <span class="math inline">\{\delta_x:x\in
+X\}</span> <em>spans</em> <span
+class="math inline">c_{00}(X)</span>.</p>
+<section id="span" class="level3">
+<h3>Span</h3>
+<p>If <span class="math inline">x\in V</span> then <span
+class="math inline">\bm{F}\{x\} = \{\alpha x:\alpha \in\bm{F}\}</span>
+is the one-dimensional subspace <em>spanned</em> by <span
+class="math inline">x</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\bm{F}\{x\}</span> is the smallest subspace of <span
+class="math inline">V</span> containing <span
+class="math inline">x</span></em>.</p>
+<p>More generally, let <span class="math inline">X</span> be any
+collection of vectors in <span class="math inline">V</span>. The
+<em>span</em> of the collection is the smallest subspace of <span
+class="math inline">V</span> containing <span
+class="math inline">X</span> and is denoted <span
+class="math inline">\operatorname{span}X</span> or <span
+class="math inline">\vee X</span>.</p>
+<p>A <em>linear combination</em> of vectors is a finite sum <span
+class="math inline">\sum_j \alpha_j x_j</span> where <span
+class="math inline">\alpha_j\in\bm{F}</span> and <span
+class="math inline">x_j\in V</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the span of <span
+class="math inline">X</span> is the set of all linear combinations of
+vectors from <span class="math inline">X</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show the span of <span
+class="math inline">X</span> is a vector space</em>.</p>
+</section>
+<section id="subspace" class="level3">
+<h3>Subspace</h3>
+<p>A subset <span class="math inline">U</span> of a vector space <span
+class="math inline">V</span> is a subspace if <span
+class="math inline">U</span> is also a vector space.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">U\subseteq V</span> is a subspace if and only if
+<span class="math inline">\bm{F} U\subseteq U</span> and <span
+class="math inline">U + U\subseteq U</span></em>.</p>
+<p>We use the notation <span class="math inline">\bm{F} U = \{\alpha
+x:\alpha \in\bm{F}, x\in U\}</span> and <span class="math inline">U + U
+= \{x + y:x\in U, y\in U\}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">U</span>
+and <span class="math inline">W</span> are subspaces then <span
+class="math inline">U + W</span> and <span class="math inline">U\cap
+W</span> are also subspaces</em>.</p>
+<p>If <span class="math inline">U\cap W = \{0\}</span> then <span
+class="math inline">U + W</span> is called an <em>interal sum</em>.</p>
+<p><strong>Exercise</strong>. <em>Let <span class="math inline">U</span>
+and <span class="math inline">W</span> be subspaces of <span
+class="math inline">V</span> with <span class="math inline">U\cap W =
+\{0\}</span>. If <span class="math inline">u + w = u&#39; +
+w&#39;</span> with <span class="math inline">u,u&#39;\in U</span> and
+<span class="math inline">w,w&#39;\in W</span> show <span
+class="math inline">u = u&#39;</span> and <span class="math inline">w =
+w&#39;</span></em>.</p>
+<p><em>Hint</em>. <span class="math inline">u - u&#39;\in U</span> and
+<span class="math inline">w&#39; - w\in W</span>.</p>
+<p>This shows every vector <span class="math inline">v\in U + W</span>
+has a unique decomposition <span class="math inline">v = u + w</span>
+with <span class="math inline">u\in U</span> and <span
+class="math inline">w\in W</span> whenever <span
+class="math inline">U\cap W = \{0\}</span>.</p>
+<section id="lattice-of-subspaces" class="level4">
+<h4>Lattice of Subspaces</h4>
+<p>Subspaces of a vector space form a <em>lattice</em> where <span
+class="math inline">+</span> is the <em>join</em> and <span
+class="math inline">\cap</span> is the <em>meet</em>. Since <span
+class="math inline">U + V = V</span> for all subspaces <span
+class="math inline">U</span>, <span class="math inline">V</span> is the
+identity element of the join. Since <span class="math inline">U \cap
+\{0\} = \{0\}</span> for all subspaces <span
+class="math inline">U</span>, <span class="math inline">\{0\}</span> is
+the identity element of the meet.</p>
+<p><strong>Exercise</strong>. (Absorbtion laws) <em>If <span
+class="math inline">U</span> and <span class="math inline">W</span> are
+subspaces then <span class="math inline">U + (U \cap W) = U</span> and
+<span class="math inline">U\cap(U + W) = U</span></em>.</p>
+<p>The lattice of subspaces is also <em>distributive</em>.</p>
+<p><strong>Exercise</strong>. (Distributive laws) <em>If <span
+class="math inline">U</span>, <span class="math inline">V</span>, and
+<span class="math inline">W</span> are subspaces then <span
+class="math inline">U \cap (V + W) = (U \cap V) + (U \cap W)</span> and
+<span class="math inline">U + (V\cap W) = (U + V)\cap(U +
+W)</span></em>.</p>
+<p>Either of these implies the other in any lattice. This was not
+noticed until some time after the the invention of lattice theory.
+[cite??]</p>
+<p>Subspaces of <span class="math inline">V</span> form a <em>bounded
+lattice</em> with <em>top element</em> <span
+class="math inline">V</span> and <em>bottom element</em> <span
+class="math inline">\{0\}</span>.</p>
+<p>The lattice structure of subspaces is used in Quantum Mechanics.
+[cite?]</p>
+</section>
+</section>
+<section id="independent" class="level3">
+<h3>Independent</h3>
+<p>A key property of a collection of vectors is <em>independence</em>. A
+collection of vectors <span class="math inline">X</span> in the vector
+space <span class="math inline">V</span> are independent if every linear
+combination <span class="math inline">\sum_j \alpha_j x_j = 0</span>
+where <span class="math inline">\alpha_j\in\bm{F}</span> and <span
+class="math inline">x_j\in X</span> implies <span
+class="math inline">\alpha_j = 0</span> for all <span
+class="math inline">j</span>. Note that the empty set is
+independent.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+is independent and <span class="math inline">\sum_j \alpha_j x_j =
+\sum_j \beta_j x_j</span> where <span
+class="math inline">\alpha_j,\beta_j\in\bm{F}</span> and <span
+class="math inline">x_j\in X</span> show <span
+class="math inline">\alpha_j = \beta_j</span> for all <span
+class="math inline">j</span></em>.</p>
+<p>Independence ensures unique representations of linear
+combinations.</p>
+<p>If <span class="math inline">\sum_j \alpha_j x_j = 0</span> and <span
+class="math inline">\alpha_k\not = 0</span> for some <span
+class="math inline">k</span> then <span class="math inline">x_k =
+-(1/\alpha_k)\sum_{j\not=k} \alpha_j x_j</span> is a linear combination
+of vectors in <span class="math inline">X\setminus \{x_k\}</span>. In
+this case <span class="math inline">X</span> is <em>linearly
+dependent</em> and <span class="math inline">X\setminus\{x_k\}</span>
+has the same span as <span class="math inline">X</span>. We use
+<em>reverse solidus</em> for <span class="math inline">A\setminus B =
+\{x\in A: x\notin B\}</span>, the <em>set difference</em>.</p>
+</section>
+<section id="basis" class="level3">
+<h3>Basis</h3>
+<p>A <em>basis</em> of <span class="math inline">V</span> is an
+independent set <span class="math inline">X\subseteq V</span> that spans
+<span class="math inline">V</span>. Every vector space has a basis. In
+fact, they have lots of basis’. The cardinality of the basis is the
+<em>dimension</em> of the vector space. To show dimension is
+well-defined we must show the cardinality of any two basis’ are equal.
+Neither of these facts are trivial.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\{\delta_x:x\in X\}</span> is a basis of <span
+class="math inline">c_{00}(X)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">X\subseteq V</span> is independent and <span
+class="math inline">y\not\in\vee X</span> show <span
+class="math inline">X\cup\{y\}</span> is independent</em>.</p>
+<p>If an independent set does not span a vector space we can always add
+an element to the set to get a larger independent set. This process
+eventually stops if the vector space is finite dimensional. The proof
+for (possibly) infinite dimensional spaces requires more machinery.</p>
+<p>Let <span class="math inline">\mathcal{C}</span> be a collection of
+independent subsets of <span class="math inline">V</span> that is
+totally ordered by inclusion, that is, given <span
+class="math inline">X,Y\in\mathcal{C}</span> either <span
+class="math inline">X\subseteq Y</span> or <span
+class="math inline">Y\subseteq X</span>. Any such collection is a
+<em>chain</em>.</p>
+<p><strong>Exercise</strong>. <em>Show for any chain <span
+class="math inline">\mathcal{C}</span> that <span
+class="math inline">\cup\mathcal{C} = \cup_{X\in\mathcal{C}} X</span> is
+independent</em>.</p>
+<p><strong>Exercise</strong>. <em>Prove every vector space has a
+basis</em>.</p>
+<p>Hint: Use the previous exercises and Zorn’s lemma.</p>
+<p>To prove any two basis’ have the same cardinality we need <em>linear
+transformations</em>.</p>
+</section>
+</section>
+<section id="linear-transformation" class="level2">
+<h2>Linear Transformation</h2>
+<p>A <em>linear tranformation</em> is a function from a vector space to
+a vector space that preserves the vector space structure.</p>
+<p>If <span class="math inline">V</span> and <span
+class="math inline">W</span> are vector spaces over the same field <span
+class="math inline">\bm{F}</span> then a function <span
+class="math inline">T\colon V\to W</span> is a linear transformation if
+<span class="math inline">T(\alpha x + y) = \alpha Tx + T y</span> for
+<span class="math inline">\alpha \in\bm{F}</span> and <span
+class="math inline">x,y\in V</span>. Note the addition and scalar
+multiplicate on the left-hand side of the equality are those of <span
+class="math inline">V</span> and on the right-hand side are those of
+<span class="math inline">W</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">T(\alpha x + \beta y) = \alpha Tx + \beta T y</span>
+for <span class="math inline">\alpha,\beta \in\bm{F}</span> and <span
+class="math inline">x,y\in V</span></em>.</p>
+<p>The set of all linear transformations from <span
+class="math inline">V</span> to <span class="math inline">W</span> is
+denoted <span class="math inline">\mathcal{L}(V,W)</span>. The sum of
+<span class="math inline">T,S\in \mathcal{L}(V,W)</span> is defined by
+<span class="math inline">(T + S)v = Tv + Sv</span> for <span
+class="math inline">v\in V</span>. If <span
+class="math inline">\alpha\in\bm{F}</span> define <span
+class="math inline">\alpha T</span> by <span class="math inline">(\alpha
+T)v = \alpha(T v)</span> for <span class="math inline">v\in
+V</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\mathcal{L}(V,W)</span> is a vector space</em>.</p>
+<p>If <span class="math inline">T\in\mathcal{L}(c_{00}(X),
+c_{00}(Y))</span> then <span class="math inline">T\delta_x = \sum_{y\in
+Y} t_{xy} \delta_y</span> for some <span
+class="math inline">t_{xy}\in\bm{F}</span> where <span
+class="math inline">\{y\in Y:t_{xy}\not=0\}</span> is finite. If <span
+class="math inline">S\in\mathcal{L}(c_{00}(Y), c_{00}(Z))</span> then
+<span class="math inline">S\delta_y = \sum_{z\in Z} s_{yz}
+\delta_z</span> for some <span
+class="math inline">s_{yz}\in\bm{F}</span> where <span
+class="math inline">\{z\in Z:s_{yz}\not=0\}</span> is finite.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">(ST)\delta_x = \sum_{z\in Z}(\sum_{y\in Y} t_{xy}
+s_{yz})\delta_z</span></em>.</p>
+<p>This shows if <span class="math inline">R = ST</span> then <span
+class="math inline">\sum_{y\in Y} t_{xy} s_{yz} = r_{xz}</span>. Matrix
+multiplication calculates composition of linear transformations.</p>
+<p>The <em>kernel</em> of a linear transformation <span
+class="math inline">T\colon V\to W</span> is <span
+class="math inline">\ker T = \{v\in V:Tv = 0\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the kernel of a linear
+transformation is a vector space</em>.</p>
+<p>A linear transformation is <em>injective</em> if <span
+class="math inline">Tx = Ty</span> implies <span class="math inline">x =
+y</span>.</p>
+<p><strong>Exercise</strong>. <em>Show a linear transformation is
+injective if and only if its kernel is <span
+class="math inline">\{0\}</span></em>.</p>
+<p>The <em>range</em> of a linear transformation <span
+class="math inline">T\colon V\to W</span> is <span
+class="math inline">\operatorname{ran}T = \{Tv\in W:v\in V\}</span>. If
+<span class="math inline">\operatorname{ran}T = W</span> we say <span
+class="math inline">T</span> is <em>surjective</em>.</p>
+<p><strong>Exercise</strong>. <em>Show the range of a linear
+transformation is a vector space</em>.</p>
+<p>A linear transformation that is <em>bijective</em> (injective and
+surjective) is an <em>isomorphism</em> from <span
+class="math inline">V</span> to <span class="math inline">W</span>. We
+write <span class="math inline">V\cong W</span> if such an operator
+exists and say <span class="math inline">V</span> is isomorphic to <span
+class="math inline">W</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\cong</span> is an equivalence relation on vector
+spaces</em>.</p>
+<p>This means <span class="math inline">V\cong V</span>, <span
+class="math inline">V\cong W</span> implies <span
+class="math inline">W\cong V</span>, and <span
+class="math inline">U\cong V</span> and <span class="math inline">V\cong
+W</span> implies <span class="math inline">U\cong W</span> for vector
+spaces <span class="math inline">U</span>, <span
+class="math inline">V</span>, and <span
+class="math inline">W</span>.</p>
+<!--
+If $T$ is an endomorphism on $V$ and $Tv = \lambda v$ for some $v\in V$ and
+$\lambda\in\bm{F}$ then $v$ is an _eigenvector_ of $T$ with _eigenvalue_ $\lambda$.
+These completely determine how $T$ acts on the one-dimensional subspace
+$\bm{F}v = \{\alpha v:\alpha\in\bm{F}\}$.
+
+__Exercise__. _Show $\bm{F}v$ is a subspace and $Tu = \lambda u$ for any $u\in\bm{F}v$_.
+-->
+<p>If <span class="math inline">W = V</span> we write <span
+class="math inline">\mathcal{L}(V)</span> for <span
+class="math inline">\mathcal{L}(V,V)</span> and call the tranformations
+<em>endomorphisms</em> of <span class="math inline">V</span>. If <span
+class="math inline">U\subseteq V</span> and <span
+class="math inline">T</span> is an endomorphism on <span
+class="math inline">V</span> then <span class="math inline">U</span> is
+<em>invariant</em> for <span class="math inline">T</span> if <span
+class="math inline">TU\subseteq U</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the kernal and range of an
+endomorphism are invariant</em>.</p>
+<p><strong>Exercise</strong>. <em>Show for any linear transformation
+<span class="math inline">T\colon V\to V</span> with <span
+class="math inline">T^2 = T</span> that <span class="math inline">\ker T
++ \operatorname{ran}T = V</span> and <span class="math inline">\ker
+T\cap\operatorname{ran}T = \{0\}</span></em>.</p>
+<p>Hint: <span class="math inline">v = (v - Tv) + Tv</span> for all
+<span class="math inline">v\in V</span>.</p>
+<p>An endomorphism <span class="math inline">T</span> with <span
+class="math inline">T^2 = T</span> is a <em>projection</em>. Every
+vector space is the internal sum of the kernel and range of any
+projection.</p>
+<p><strong>Exercise</strong>. <em>Every subspace is the range of a
+projection</em>.</p>
+<p>Hint: Let <span class="math inline">X</span> be a basis of <span
+class="math inline">U</span> and <span class="math inline">Y\supseteq
+X</span> be a basis of <span class="math inline">V</span>. Every vector
+in <span class="math inline">v</span> can be written <span
+class="math inline">v = \sum_{x\in X}\alpha_x x + \sum_{y\in Y\setminus
+X} \beta_y y</span>. Define <span class="math inline">Pv = \sum_{x\in
+X}\alpha_x x</span>. Show <span class="math inline">U</span> is the
+range of <span class="math inline">P</span> and <span
+class="math inline">P^2 = P</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">J\colon
+U\to V</span> is inclusion and <span class="math inline">P\colon V\to
+U</span> is a projection, show <span class="math inline">PJ</span> is
+the identity operator on <span class="math inline">U</span></em>.</p>
+<p>Two endomorphisms <span class="math inline">R,T</span> on <span
+class="math inline">V</span> are <em>similar</em> if there exists an
+isomorphism <span class="math inline">S</span> with <span
+class="math inline">R = S^{-1}TS</span>. We write <span
+class="math inline">R\simeq T</span> if so.</p>
+<p><strong>Exercise</strong>. <em>Show similarity is an equivlence
+relation on endomorphisms</em>.</p>
+<p>Hint: <span class="math inline">S_0^{-1}S_1 =
+(S_1^{-1}S_0)^{-1}</span> if <span class="math inline">S_0</span> and
+<span class="math inline">S_1</span> are isomorphisms.</p>
+</section>
+<section id="eigenvector" class="level2">
+<h2>Eigenvector</h2>
+<p>If <span class="math inline">F(x) = (Ax,Ax)</span> then <span
+class="math inline">DF(x) = (A + A^*)x^*</span>.</p>
+<p><span class="math inline">(A(x + h),A(x + h)) - (Ax, Ax) = (Ax,h) +
+(Ah,x) + (Ah,Ah) = ((A + A*)x,h) + o(\|h\|)</span> so <span
+class="math inline">D_x(Ax,Ax) = (A + A^*)x&#39;</span></p>
+<p>If <span class="math inline">V</span> is finite dimensional then pick
+any norm and <span class="math inline">\max_{\|e\|=1\} \|Te\|</span> has
+a solution.</p>
+<p>Maximizing <span class="math inline">\|Te\|^2 - λ(\|e\|^2 - 1)</span>
+gives <span class="math inline">(T + T^*)e^* - 2λe^* = 0</span>. If
+<span class="math inline">T = T^*</span> then <span
+class="math inline">Te = λe</span>.</p>
+<!--
+
+### Dimension
+
+The _dimension_ of $V$ is the cardinality of a basis $X$ for $V$.
+A fundamental fact about vector spaces is that every basis has the same
+cardinality. This is necessary to show the definition of dimension is well-defined.
+
+If $X\subseteq V$ is a basis of $V$ then every $v\in V$ can be uniquely written as
+a finite linear combination $v = \sum_j \alpha_j x_j$ for some
+$\alpha_j\in\bm{F}$ and $x_j\in X$. This defines a map
+$J_X\colon V\to c_{00}(X)$ where $J_X v(x) = \alpha_j$ if and only if $x = x_j$.
+
+__Exercise__. _Show $J_X$ is an isomorphism if $X$ is a basis_.
+
+This shows for any basis $X$ of $V$ that $V\cong c_{00}(X)$.
+
+If $s\colon X\to Y$ is any function from the set $X$ to the set $Y$
+define $S\colon c_{00}(X)\to c_{00}(Y)$ by $S(\sum_j \alpha_j x_j)
+= \sum_j \alpha_j s(x_j)$.
+
+__Exercise__. _Show $S$ is linear for any function $s$_.
+
+Every linear transformation $S\colon c_{00}(X)\to c_{00}(Y)$ induces a
+function $s\colon X\to Y$ by $s(x) = S(\delta_x) = ???$.
+
+__Exercise__. _Show $S$ is injective if and only if $s$ is injective_.
+
+__Exercise__. _Show $S$ is surjective if and only if $s$ is surjective_.
+
+__Exercise__. _Show $S$ is an isomorphism if and only if $X$ and $Y$ have the same cardinality_.
+
+This shows that if $X$ and $Y$ are basis' of $V$ then
+$c_{00}(X) \cong V \cong c_{00}(Y)$. We conclude $X$ and $Y$ have the same cardinality
+so dimension is well-defined.
+
+In classical linear algebra texts this fact is proved using the Steinitz exchange
+lemma when the vector spaces are finite dimensional. The proof above works for
+vector spaces of any dimension.
+
+### Quotient Space
+
+Every subspace $U$ of $V$ determines an equivalence relation on $V$
+by $x\sim y$ if and only if $x - y\in U$.
+
+__Exercise__. _Show $\sim$ is an equivalence relation_.
+
+For any $x\in V$ let $x + U = \{x + u:u\in U\}$.
+
+__Exercise__. _Show $x + U = y + U$ if and only if $x\sim y$ for $x,y\in V$_.
+
+This shows $x + U$ can be identified with the coset of $x$ under this equivalence relation.
+
+If $U$ is a subspace of $V$ we define the _quotient space_
+$V/U = \{x + U:x\in V\}$.
+
+Define quotient space addition by $(x + U) + (y + U) = (x + y) + U$
+and scalar multiplication by $\alpha (x + U) = \alpha x + U$.
+
+__Exercise__. _Show quotient space addition and scalar multiplication are well-defined_.
+
+__Exercise__. _Show the quotient space is a vector space_.
+
+???
+
+Quotient spaces split vector spaces into two _complementary_ vector spaces.
+
+For $U$ a subspace of $V$ define $J:U\to V$ by inclusion, $Ju = u$, so $\ran J = U$.
+
+$v = u + w$ where $u\in U$.
+
+$u\mapsto u \oplus (v  - u) + U$
+
+#### Sum
+
+The _external sum_ of vector spaces $U$ and $W$, $U\oplus W$, is the set $U\times W$
+with addition $(u,w) + (x, y) = (u + x, w + y)$, where $u,x\in U$
+and $w,y\in W$, and scalar multiplication $\alpha (u, w) = (\alpha u,
+\alpha w)$ for $\alpha \in\bm{F}$.  The external sum addition and scalar
+multiplication on the left-hand sides are defined in terms of those for $U$
+and $W$ in the first and second elements (respectively) of the pairs on
+the right-hand sides.
+
+Instead of $(u,w)$ it is customary to write $u\oplus w$. The definitions
+above become $(u\oplus w) + (x\oplus y) = (u + x)\oplus(w + y)$ and
+$\alpha (u\oplus w) = \alpha u\oplus \alpha w$.
+
+__Exercise__. _Show the external sum is a vector space_.
+
+Every vector space $V$ is _isomorphic_ to the external sum of $U$ and
+$V/U$ for any subspace $U\subseteq V$, but we have to define isomorphic
+in terms of invertible _linear transformations_ between vector spaces.
+
+If $U\subseteq V$ is a subspace then $V\cong U\oplus V/U$.
+Define $I_U\colon U\oplus V/U\to V$ by $u\oplus v+U\mapsto u + v$.
+
+__Exercise__. _Show this is well-defined_.
+<details>
+<summary>Solution</summary>
+
+> If $I_U u \oplus v + U = 0$ then $u + v = 0$.
+Since $v = -u\in U$ we have $v + U = 0 + U$.
+
+</details>
+
+#### Internal
+
+If $U$ and $W$ are subspaces of $V$ then $U + W$ is also as subspace of $V$.
+If $U\cap W = \{0\}$ it is called an _interal sum_.
+
+__Exercise__. _Let $U$ and $W$ be subspaces of $V$ with $U\cap W = \{0\}$.
+If $u + w = u' + w'$ with $u,u'\in U$ and $w,w'\in W$ show
+$u = u'$ and $w = w'$_.
+
+_Hint_. $u - u'\in U$ and $w' - w\in W$.
+
+This shows every vector $v\in U + W$ has a unique decomposition $v = u + w$
+with $u\in U$ and $w\in W$ when $U\cap W = \{0\}$.
+
+
+__Exercise__. _If $X\subseteq V$ is independent and $T\in\mathcal{L}(V,W)$ is injective
+then $TX\subseteq W$ is independent_.
+
+__Exercise__. _If $T$ is surjective and the span of $X\subseteq V$ is $V$
+show the span of $TX$ is $W$_.
+
+If $T$ is both one-to-one and onto (injective and surjective) it is an
+_isomorphism_ between $V$ and $W$. Its _inverse_ is $T^{-1}\colon W\to V$
+where $T^{-1}w = v$ if and only if $Tv = w$ for $v\in V$ and $w\in W$.
+
+__Exercise__. _Show the inverse of a linear transformation is linear_.
+
+Isomorphisms induce an equivalence relation on vector spaces.
+We write $V\cong W$ to indicate $V$ is isomorphic to $W$.
+
+__Exercise__. Show $V\cong V$, if $V\cong W$ then $W\cong V$,
+and if $U\cong V$ and $V\cong W$ then $U\cong W$.
+
+_Hint_: Isomorphisms are invertable.
+
+Every $T\in\mathcal{L}(V,W)$ factors through $V/\ker T$ and $\ran T$.
+There are linear transformations $V\to V/\ker T\to \ran T\to W$.
+The first, $V\to V/\ker T$, sends $v\mapsto v + \ker T$,
+the second, $V/\ker T\to\ran T$, sends $v + \ker T\mapsto Tv$,
+and the third, $\ran T\to W$, is just inclusion $Tv\mapsto Tv\in W$.
+
+We already know $(x + U) + (y + U) = (x + y) + U$ and $\alpha (x + U) = \alpha x + U$
+for any subspace $U$ so the first map is linear.
+
+__Exercise__. _Show $V\to V/\ker T$ where $v\mapsto + V/\ker T$ is surjective_.
+
+__Exercise__. _Show if $x + \ker T = y + \ker T$ then $Tx = Ty$._
+
+This shows the second map is well-defined.
+
+__Exercise__. _Show second map $V/\ker T\to\ran T$ is injective_.
+
+__Exercise__. _Show second map $V/\ker T\to\ran T$ is surjective_.
+
+This show $V/\ker T \cong \ran T$.
+
+???We can now show $V$ is isomorphic to the external sum of $U$ and $V/U$ for
+any subspace $U\subseteq V$.
+
+For $v\in V$ and $u\in U$ $v = u + (v - u)$. Define $J$ by...
+
+__Exercise__. _Show $J$ is surjective_.
+
+__Exercise__. _Show $J$ is injective_.
+
+
+### Endomorphisms
+
+The endomorphisms $\mathcal{L}(V)$ are more than just a vector space.
+They have a _product_ defined by composition $(ST)x = S(Tx)$ for
+$S,T\in\mathcal{L}(V)$ and $x\in V$. This makes them a _ring_.
+Recall a ring is a vector space with a product that satisfies
+
+_Associative_
+  ~ $R(ST) = (RS)T$
+
+_Identity_
+  ~ There is a multiplicative identity $I$ with $IR = R$
+
+_Distibutive_
+  ~ $R(S + T) = RS + RT$
+
+Composition of linear transformations is associative, the identity is
+$Ix = x$ for $x\in V$, and the distibutive law follows from linearity
+$R(S+T)x = R(Sx + Tx) = RSx + RTx = (RS + TS)x$.
+
+The integers are the prototypical example of a ring. The set of polynomials
+in one variable $\bm{F}[t] = \{p(t) = \sum_{n\ge0} \alpha_n t^n\}$, where $\alpha
+_n\in\bm{F}$ is a ring.
+
+For any endomorphism $T\in\mathcal{V}$ there is a _functional calculus_
+$\Phi_T\colon\bm{F}[t]\to\mathcal{F}(V)$ defined by $p(t)\mapsto p(T)$
+that preserves the ring structure.
+
+Note: If we replace the requirement that the scalars are a field by
+the requirement they are a ring we have a _module_ instead of a vector space.
+Modules are not (by a long shot) characterized by their dimension.
+
+If $R\in\mathcal{L}(c_{00}(X), c_{00}(Y))$
+and $S\in\mathcal{L}(c_{00}(Y), c_{00}(Z))$, then $SR\in\mathcal{L}(c_{00}(X), c_{00}(Z))$.
+
+__Exercise__. _Show $(SR)(\delta_x) = \sum_{y\in Y} R(\delta_x) S(\delta_j)$_.
+
+Composition is matrix multiplication.
+
+### Dual Space
+
+The _dual vector space_ of the vector space $V$ is the space of
+_linear functionals_ $V^* = \mathcal{L}(V,\bm{F})$.
+For $v\in V$ and $v^*\in V^*$ we write the _dual pairing_
+$\langle v, v^*\rangle = v^*(v)\in\bm{F}$.
+
+Obviously, if $x^*,y^*\in V^*$ then $\langle v,x^*\rangle = \langle v,y^*\rangle$
+for all $v\in V$ implies $x^* = y^*$.
+
+__Exercise__. _Show if $x,y\in V$ and $\langle x,v^*\rangle = \langle y,v^*\rangle$
+for all $v^*\in V^*$ then $x = y$_.
+
+_Hint_. Show if $\langle v,v^*\rangle = 0$ for all $v^*\in V^*$ then $v = 0$.
+
+For any subset $X\subseteq V$ the _annihilator_ is
+$X^\perp = \{x^*\in V^*: \langle x, x^*\rangle = 0, x\in X\}\subseteq V^*$.
+
+__Exercise__. _The annihilator of any $X\subseteq V$ is a subspace of $V^*$_.
+
+For any subset $X^*\subseteq V^*$ the _preannihilator_ is
+$^\perp X^* = \{x\in V: \langle x, x^*\rangle = 0, x^*\in X^*\}\subseteq V$.
+
+__Exercise__. _The preannihilator of any $X^*\subseteq V^*$ is a subspace of $V$_.
+
+__Exercise__. _For any $X\subseteq V$ $^\perp(X^\perp)$ is the span of $X$_.
+
+__Exercise__. _For any $X^*\subseteq V^*$ $(^\perp X^*)^\perp$ is the span of $X^*$_.
+
+For $T\in\mathcal{L}(V, W)$ the _adjoint_ $T^*\in\mathcal{L}(W^*, V^*)$ is
+defined by $\langle Tv, w^*\rangle = \langle v, T^*w^*\rangle$
+for $v\in V$ and $w^*\in W^*$.
+
+## Normed Space
+
+A _normed vector space_ is a vector space with a _norm_ $\|.\|\colon V\to [0,\infty)$
+where $\|x + y\| \le \|x\| + \|y\|$, $\|\alpha x\| = |\alpha|\|x\|$,
+and $\|x\| = 0$ implies $x = 0$, $\alpha\in\bm{F}$, $x,y\in V$.
+It provides a _metric_ on $V$ by $d(x,y) = \|x - y\|$.
+
+__Exercies__. _Show $d$ is a metric_.
+
+If a normed space is _complete_ in this topology it is called a _Banach space_.
+We use $X$, $Y$, \ldots for vector spaces that are Banach spaces.
+
+If the norm on $V$ does not satisfy $\|x\| = 0$ implies $x = 0$ we say the
+norm is _singular_. We can mod out by _null_ vectors to get a non-singular norm.
+
+__Exercise__. _If $W$ is a subspace of a (possibly singular) normed space $V$
+show $\|v + W\| = \inf_{w\in W}\|v + w\|$ is a (possibly singular) norm on $V/W$_.
+
+__Exercise__. _Show $Z = \{x\in V\colon \|x\| = 0\}$ is a subspace of $V$ and
+$\|x + Z\| = 0$ implies $x + Z = 0 + Z$ in $V/Z$_.
+
+Every normed space can be _completed_ into a Banach space.
+Let $V^\NN = \{x\colon\NN\to V\} = \{(x_n)_{n\in\NN}:x_n\in V\}$ be the set of
+all sequences of vectors in $V$. Recall $(x_n)_{n\in\NN}$ is a _Cauchy sequence_
+if given $\epsilon > 0$ there exists $N\in\NN$ with
+$d(x_n, x_m) = \|x_n - x_m\| < \epsilon$
+whenever $m,n > N$.
+
+__Exercise__. _Let $C$ be the collection of Cauchy sequences in $V^\NN$ where $V$ is a normed space. Define
+$x \sim y$ if $\lim_n x_n = \lim_n y_n$, $x,y\in C$. Show this is an equivalence relation
+and $\bar{V} = C/\sim$ is a Banach space_.
+
+__Exercise__. _Let $C_V$ be the collection of constant sequences in $V^\NN$ where $V$ is a normed space.
+Show $C_V/\sim$ is dense in $C/\sim$_.
+
+The space of linear transformations between normed spaces has a norm.
+Define $\|T\| = \sup_{\|x\|\le 1}\|Tx\|$ for $\mathcal{L}(V, W)$
+if both $V$ and $W$ are normed.
+
+A linear transformation is _bounded_ if $\|T\| < \infty$ for $T\in\mathcal{L}(V,W)$.
+The bounded linear transformations are denoted $\mathcal{B}(V,W)$. In this case
+we call them _linear operators_ or simply _operators_.
+
+__Exercise__. _Show this is a norm on $\mathcal{B}(V,W)$_.
+
+__Exercise__. _Show $\mathcal{B}(V,W)$ is a subspace of $\mathcal{L}(V,W)$_.
+
+Bounded operators are continuous.
+
+__Exercise__. _Show if $T\in\mathcal{B}(V,W)$ then $Tx_n \to 0$ in $W$ as
+$x_n\to 0$ in $V$_.
+
+Continuous operators are bounded.
+
+A convenient way of showing an operator is bounded is
+
+__Exercise__. _Show if $T$ is continuous then $T$ is bounded_.
+
+__Theorem__. (Uniform Boundedness Priciple, Banach-Steinhous) _For $T_n\in\mathcal{B}(V,W)$,
+$\{\|T_nx\|\}$ is bounded all $x\in V$ implies $\{\|T_n\|\}$ is bounded_.
+
+This is a theorem because the proof is non-trivial. It relies on the Baire Category
+Theorem for complete metric spaces. (The intersection of a countable collection of
+open dense sets is dense.)
+
+__Theorem__. (Open Mapping Theorem) _The image of the unit ball under a surjective operator
+contains an open ball centered at the origin_.
+
+The _graph_ of a linear transformation $T\in\mathcal{L}(V,W)$
+is the set $\{(x, Tx):x\in V\}\subseteq V\times W$.
+
+__Theorem__. (Closed Graph Theorem) _An operator is continuous if and only if its graph is closed_.
+
+### Examples
+
+For any set $I$ the set of all functions from $I$ to a field $\bm{F}$
+is $\bm{F}^I = \{x\colon I\to\bm{F}\}$. It is a vector space, the _free vector space_ on
+$I$, and has a basis $\{e_i\}_{i\in I}$ where $e_i(i) = 1$ and $e_i(j) = 0$ for $j\not=i$.
+This is not a normed space.
+
+The vectors $x\in\bm{F}^I$ with $\|x\|_\infty = \sup_{i\in I}|x(i)| < \infty$
+are the Banach space $\mathcal{l}^\infty(I)$.
+
+If $I$ is totally ordered (or a net) define the Banach spaces
+$c(I) = \{x\in\bm{F}^I:\lim_i x(i) \mathrm{\ exists}\}$
+and $c_0(I) = \{x\in\bm{F}^I:\lim_i x(i) = 0\}$.
+
+Clearly $c_0 \subseteq c \subseteq \mathcal{l}^\infty$.
+
+The vectors with $\|x\|_1 = \sum_{i\in I}|x(i)| < \infty$ are the Banach space $\mathcal{l}^1(I)$.
+More generally vectors with $\|x\|_p = \bigl(\sum_{i\in I}|x(i)|^p\bigr)^{1/p} < \infty$ define the
+Banach space $\mathcal{l}^p(I)$, $1\le p < \infty$.
+
+__Exercise__. _Show if $x\in\mathcal{l}^\infty$ then $x\in\mathcal{l}^p$ for $1\le p < \infty$
+and $\lim_{p\to\infty}\|x\|_p = \|x\|_\infty$_.
+
+If $I$ is equipped with a positive measure $\mu$ we can similarly define $L^p(\mu)$ using
+$\|f\|_p = \bigl(\int_I |f|^p\,d\mu\bigr)^{1/p}$.
+
+The case when $p = 2$ is special.
+
+## Inner Product Space
+
+A function $(.,.)\colon V\times V\to\bm{F}$ with $y\mapsto (x,y)$
+and $y\mapsto (y,x)$ linear in $y$ for each $x\in V$ is a _bilinear_
+function. If also $(\alpha x,y) = (x, \bar{\alpha } y)$ for $\alpha \in\bm{F}$ and
+$x,y\in V$ it is _sesquilinear_. 
+An _inner product_ on a vector space V is a _sesquilinear_ form
+that is also _non-singular_, $(x, x) = 0$ implies $x = 0$.
+
+__Exercise__. _If the inner product is singular
+then $K = \{x:(x,x) = 0\}$ is a subspace of $V$. The inner product on
+$V/K$ defined by $(x + K, y + K) = (x, y)$ is well-defined
+and non-singular_.
+
+The _norm_ of a vector is $\|x\| = \sqrt{(x,x)}$. The Cauchy-Schwartz
+inequality is $|(x,y)|\le\|x\| \|y\|$ with equality if and only
+if $x$ and $y$ are linearly dependent.
+This follows from
+$0\le \|x - \lambda y\|^2 = \|x\|^2 - 2\Re \lambda (x, y) + |\lambda|^2\|y\|^2$
+and taking $\lambda = (x,y)/\|y\|^2$. Equality holds if and only
+if $x = \lambda y$.
+
+If $T\in\mathcal{L}(V,V^*)$ then $(x,y) = \langle x, Ty\rangle$ is bilinear.
+
+### Eigenvectors
+
+Every operator on a finite dimensional inner product space has an eigenvector.
+The set $\{Tx:\|x\|=1\}$ is closed and bounded so there exists
+a unit vector $e$ with $x = Te$ and $|\|Tx\|\ge\|Ty\|$ for all unit vectors $y$.
+Since $\|x|\^2 = (Te, x) \le \|Te\| \|x\| = \|x\|^2$
+we have $Te = \lambda x$ for some scalar $\lambda$ since equality holds in
+the Cauchy-Schwartz inequality.
+
+Not every operator on an infinite dimensional inner product
+space has an eigenvector.  Define the _unilateral shift operator_
+$S\colon\mathcal{l}^2\to\mathcal{l}^2$ by $S(x_0, x_1, \ldots) = (0,
+x_0, x_1, \dots)$. If $Sx = \lambda x$ then $0 = \lambda x_0$, $x_1 =
+\lambda x_0$, \ldots, so $x = 0$.
+
+The unilateral shift does have lots of invariant subspaces however.
+If the first $m$ components of $x$ are zero then the first $m+1$
+components of $Sx$ are zero so $\mathcal{M}_m = \{x\in\mathcal{l}^2:x_j =
+0, j < m\}$ are invariant for all $m$.
+
+__Exercise__. _Show $\mathcal{M}_m$ is a subspace of $\mathcal{l}^2$_.
+
+The _unilateral backward shift operator_ is the adjoint of $S$.
+
+__Exercise__. _Show $(S^*x)_j = x_{j + 1}$ for $j\ge 0$_.
+
+__Exercise__. _Show $x = (1,0,0,\ldots)$ is an eigenvector with
+eigenvalue 0_.
+
+__Exercise__. _Show $\mathcal{M}_n^\perp = \{x\in\mathcal{l}^2:x_j = 0, j \ge m\}$
+is an invariant subspace of $S^*$.
+
+All invariant subspaces of the unilateral shift operator are characterized
+by a theorem of Arne Beurling.
+
+## Eigenvector, Eigenvalue
+
+If $Tv = \lambda v$ for some $\lambda\in\F $ then $\lambda$ is
+an _eigenvalue_ of $T$ and $v$ is its corresponding _eigenvector_.
+If $I$ is the _identity operator_ defined by $Iv = v$ for all $v$
+and $\lambda$ is an eigenvalue, then $T - \lambda I$ is not invertable
+since $(T - \lambda I)v = 0$.
+
+If the eigenvectors of $T$ are independent ...
+And form a basis... 
+Then $Tv_i = \lambda_i vi_i$ and $TV = \sum \lambda_i v_i$.
+We say $T$ is _diagonalizable_.
+
+If $T$ has only one eigenvalue... (Jordan form)
+
+
+__Theorem__. If $V$ is finite dimensional every operator in $\mathcal{L}(V)$ has an eigenvector.
+
+If $T\in\mathcal{L}(V)$ and $Tx = 0$ for some $x\in V$ then $x$ is an eigenvector with eigenvalue $0$
+
+If $(x,y) = \|x\| \|y\|$ then $\alpha x = y$ for some $\alpha \in\bm{F}$.
+
+There exists $x^*$ such that $\|x*\| \ge \|T e\|$ for $\|e\| = 1$.
+
+## Polynomial Functional Calculus
+
+Let $\bm{F}[t]$ be the _ring_ of polynomials in the variable $t$ over the
+scalar field $\bm{F}$. Define $\Phi\bm{F}[t]\to \mathcal{L}(V)$
+by $\Phi(p) = p(T)$ where $p(t) = \sum_{n\ge0} \alpha_n t^n$.
+
+__Exercise__. _Show $\Phi$ is a ring homomorphism_.
+
+# Remarks
+
+$I\supset R$, $R' = R$, $R^2\subseteq R$.
+
+Infinite sums. What does $\sum_{x\in X} \alpha_x x$ for $\alpha_x\in\bm{F}$ mean?
+Define $+\colon \bm{F}^I\times V^I\to V$ for any $I$ as follows: ...
+We introduce $I$ since the scalars and vectors must be indexed by the same set.
+We are really defining $+\colon 2^V\times\bm{F}^I\times V^I\to V$...
+
+
+[Grobner basis...]
+-->
+<p><span class="math inline">x = (x_1,\ldots,x_n) \in \RR^n
+\leftrightarrow v = x_1 v_1 + \cdots x_n v_n \in V</span>.</p>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>
