@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: Moving fixed cash flows through time.
+abstract: Moving unit notional through time.
 ...
 
 \newcommand\mb[1]{\mathbf{#1}}

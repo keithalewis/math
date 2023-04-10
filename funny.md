@@ -35,5 +35,3 @@ $\Sigma^2_n = 1/(t_n - t_0)\sum_{0\le j < n} \Sigma^2_j (t_{j+1} - t_j)$.
 
 Since $\Sigma^2_1 = 1/(t_1 - t_0)\Sigma^2_0(t_1 - t_0)$ we have $\Sigma_1 = \Sigma_0$.
 Rinse and repeat until you stop laughing.
-
-The next attempt at coming up with a path dependent volatility model
