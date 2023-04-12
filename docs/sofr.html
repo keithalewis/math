@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-04-12" />
+  <title>EFFR, OBFR, SOFR</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">EFFR, OBFR, SOFR</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">April 12, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Short Rates
+</div>
+</header>
+<p>Unlike the equity world where the volatility of stocks drown out
+dainty considerations of interests rates, the price dynamics of fixed
+income instruments without default are completely determine by the
+(model of) repo rates. The large notionals involved require careful
+attention to technical details involving valuation versus settlement,
+day count conventions, and payment date adjustments based on roll
+conventions and holiday calendars.</p>
+<p>Building a yield curve involves cash deposits for the short term,
+forward rate agreements/futures for the medium term, and swaps for the
+long term. The problem of finding a discount curve repricing market
+instruments is highly underdetermined. The bootstrap method assumes
+forward rates are piecewise constant to provide a unique solution where
+successive forwards correspond to the instrument maturities. It is
+popular to use splining methods to “smooth” the forward curve but those
+introduce spurious mathematical noise into the actual market prices.</p>
+<p>It is better to spline by adding synthetic market instruments. Adding
+a synthetic 6 year swap with par coupon linearly interpolated from
+market 5 and 7 year par coupons is easier to explain to a trader than an
+artifact of a cubic Hermite tension spline.</p>
+<p>Replacing LIBOR by SOFR is a significant cost to doing business.
+Lawyers have to draft new contracts and accomodate existing contracts
+that depend on deprecated LIBOR quotes. Quants must devise new models
+that can be tuned to the latest market instruments. Technologists need
+to implement these. Businesses have to allocate funds for this and
+assess the impact on current and future positions using the new
+models.</p>
+<section id="silver-lining" class="level2">
+<h2>Silver Lining</h2>
+<p>In spite of these disruptions, SOFR connects more closly with the
+theory of mathematical finance that has been quite successful in the
+fixed income world. Dollar denominated swap markets out to 4 years have
+been quoted to a few basis point spreads since the late 90’s. There is a
+clear trajectory in mathematical finance of developing models that more
+accurately reflect the realities of trading. SOFR is the overnight
+secured lending rate. This maps directly to the (model of) repo
+rates.</p>
+<p>LIBOR was always a proxy for unsecured lending. After 2008 swaps with
+different floating rate payment frequency started trading at different
+values. This led to a cottage industry of ad hoc models. Intoducing a
+hazard rate and recovery seems to be a little known two parameter
+solution to fitting these curves.</p>
+<p>Something mathematical finance still needs to grapple with is the
+fact SOFR is far more volitile than LIBOR. It can jump more than
+bitcoin, as witnessed in September 2019.</p>
+</section>
+<section id="playbook" class="level2">
+<h2>Playbook</h2>
+<p>As with any new deveopment, understanding its history and current
+details</p>
+<p>The New York Fed calculates the Effective Federal Funds Rate (EFFR)
+and Overnight Bank Funding Rate (OBFR) from daily transaction data
+reported under the authority of the Board of Governors of the Federal
+Reserve System on the FR 2420 Report of Selected Money Market Rates.</p>
+</section>
+<section id="vocabulary" class="level2">
+<h2>Vocabulary</h2>
+<dl>
+<dt>BCGR</dt>
+<dd>
+The Broad General Collateral Rate (BGCR) is a measure of rates on
+overnight Treasury general collateral repurchase agreement (repo)
+transactions. General collateral repo transactions are those for which
+the specific securities provided as collateral are not identified until
+after other terms of the trade are agreed. The BGCR includes all trades
+in the Tri-Party General Collateral Rate plus GCF Repo transactions
+</dd>
+<dt>EFFR</dt>
+<dd>
+The federal funds market consists of domestic unsecured borrowings in
+U.S. dollars by depository institutions from other depository
+institutions and certain other entities, primarily government-sponsored
+enterprises.
+</dd>
+<dt>SOFR</dt>
+<dd>
+The Secured Overnight Financing Rate (SOFR) provides a broad measure of
+the general cost of financing Treasury securities overnight. The SOFR
+includes all trades used in the BGCR plus data on transactions cleared
+through the Fixed Income Clearing Corporation’s Delivery-versus-Payment
+(DVP) repo service. In the DVP repo market, counterparties identify
+specific securities to settle each trade, rather than a population of
+acceptable collateral as in the tri-party repo market.
+</dd>
+<dt>TCGR</dt>
+<dd>
+The Tri-Party General Collateral Rate (TGCR) is a measure of rates on
+overnight, specific-counterparty tri-party general collateral repurchase
+agreement (repo) transactions secured by Treasury securities. General
+collateral repo transactions are those for which the specific securities
+provided as collateral are not identified until after other terms of the
+trade are agreed.
+</dd>
+</dl>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

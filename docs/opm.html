@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-04-12" />
+  <title>One Period Model</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">One Period Model</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">April 12, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Buy now, sell later.
+</div>
+</header>
+<p>Let <span class="math inline">I</span> be the set of
+<em>instruments</em> available for trading over a period of time and
+<span class="math inline">Ω</span> be the set of what can happen over
+the period. The <em>prices</em> at the beginning of the period are <span
+class="math inline">x\in\mathit{R}^I</span>. The prices at the end of
+the period are <span class="math inline">X\colon\Omega\to
+\mathit{R}^I</span> where <span
+class="math inline">X(\omega)\in\mathit{R}^I</span> are the instrument
+prices if <span class="math inline">\omega\in\Omega</span> occurred.</p>
+<p>A <em>position</em> <span
+class="math inline">\xi\colon\mathit{R}^I\to\mathit{R}</span> is a
+linear function from prices to the <em>value</em> of a position. It
+corresponds to the number of shares in each instrument being purchased.
+The cost of acquiring the position is <span class="math inline">\xi
+x</span>. The value at the end of the period is <span
+class="math inline">\xi X(\omega)</span> if <span
+class="math inline">\omega\in\Omega</span> occurred. The space of
+positions is denoted <span class="math inline">\mathit{R}_I =
+(\mathit{R}^I)^*</span>.</p>
+<p>Trading account activity is modelled by <span
+class="math inline">A\colon R_I\to\mathit{R}\oplus B(\Omega)</span>
+where <span class="math inline">A\xi = -\xi x\oplus\xi X</span>. The
+initial trade <span class="math inline">\xi</span> causes <span
+class="math inline">\xi x</span> to be debited from the account at the
+beginning of the period and <span class="math inline">\xi
+X(\omega)</span> will be credited when the trade is unwound at the end
+of the period.</p>
+<p><strong>Exercise</strong>. <em>Show the adjoint <span
+class="math inline">A^*\colon \mathit{R}\oplus
+ba(\Omega)\to\mathit{R}^I</span> is <span
+class="math inline">A^*(\pi\oplus\Pi) = -x\pi + \int_\Omega
+X\,d\Pi</span></em>.</p>
+<!--
+The adjoint $A^*\colon \RR\oplus ba(\Omega)\to\RR^I$ satisfies
+$$
+\begin{aligned}
+    \langle \eta, A^*(\pi\oplus \Pi)\rangle &= \langle A\eta, \pi\oplus \Pi\rangle \\
+    &= \langle -\eta x\oplus \eta X, \pi\oplus \Pi\rangle \\
+    &= -\eta x\pi + \int_\Omega \eta X\,d\Pi \\
+    &= \eta(-x\pi + \int_\Omega  X\,d\Pi) \\
+\end{aligned}
+$$
+for $\eta\in\RR_I$, $\pi\in\RR$, $\Pi\in ba(\Omega)$ so
+$A^*(\pi\oplus\Pi) = -x\pi + \int_\Omega  X\,d\Pi$.
+-->
+<p>Arbitrage exists in a one-period model if there is a position <span
+class="math inline">\xi\in\mathit{R}_I</span> with <span
+class="math inline">\xi x &lt; 0</span> and <span
+class="math inline">\xi X(\omega)\ge0</span>, for all <span
+class="math inline">\omega\in\Omega</span>.</p>
+<p>Define a cone in <span class="math inline">\mathit{R}\oplus
+B(\Omega)</span> by <span class="math inline">\mathcal{P} = \{y\oplus
+Y\mid y &gt; 0, Y\ge0\}</span> where <span
+class="math inline">y\in\mathit{R}</span> and <span
+class="math inline">Y\in B(\Omega)</span>.</p>
+<p><strong>Exercise</strong>. <em>There is no arbitrage if and only if
+<span class="math inline">\operatorname{ran}A\cap\mathcal{P} =
+\emptyset</span></em>.</p>
+<p>There exists a hyperplane in <span
+class="math inline">\mathit{R}\oplus B(\Omega)</span> containing <span
+class="math inline">\operatorname{ran}A</span> that does not intersect
+<span class="math inline">\mathcal{P}</span>. Every hyperplane has the
+form <span class="math inline">\mathcal{H} =
+\operatorname{ker}\pi\oplus\Pi</span> for some <span
+class="math inline">\pi\in\mathit{R}</span>, <span
+class="math inline">\Pi\in B(\omega)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\mathcal{H} = \operatorname{ker}1\oplus
+\Delta</span> where <span class="math inline">\Delta =
+\Pi/\pi</span></em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">\pi\not=0</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x =
+\int_\Omega X\,d\Delta</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">\operatorname{ran}A\subseteq
+\mathcal{H}</span></p>
+<p>If <span class="math inline">\zeta X = 1</span> for some <span
+class="math inline">\zeta\in\mathit{R}_I</span> then a zero coupon bond
+is available. Its price is <span class="math inline">D = \zeta
+x</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x =
+E[X]D</span> for some probability measure</em>.</p>
+<section id="remarks" class="level2">
+<h2>Remarks</h2>
+<p>The dual of a vector space <span class="math inline">V</span> is the
+set of all linear functionals <span class="math inline">V^*</span>.</p>
+<p>For <span class="math inline">\xi\in V^*</span>, <span
+class="math inline">\operatorname{ker}\xi</span> is a hyperplane in
+<span class="math inline">V</span>.</p>
+<p>If <span class="math inline">V</span> has a topology we consider only
+continuous linear functionals.</p>
+<p><span class="math inline">V\oplus W</span>, <span
+class="math inline">(V\oplus W)^*\cong V^*\oplus W^*</span>.</p>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

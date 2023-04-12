@@ -9,18 +9,18 @@ abstract: Path dependent volatility.
 
 \newcommand\cat[1]{\mathbf{#1}}
 
-I thank Bill Goff, Ioanis Karatzis, and Jesper Peterson for giving feedback
+Thanks to Bill Goff, Ioanis Karatzis, and Jesper Andreasen for giving feedback
 that helped improve the exposition, hopefully.
 
 Consider a stochastic volatility model of stock price $(S_t)_{t\ge0}$ 
 satisfying $dS_t/S_t = r\,dt + \Sigma_t\,dB$ where $r$ is constant
 and $(\Sigma_t)_{t\ge0}$ is an Ito process.
 
-A first guess at path-dependent $\Sigma_t$ might be
+A first guess at path-dependent volatility $\Sigma_t$ might be
 $\Sigma^2_t =  (1/t)\int_0^t (dS_s/S_s)^2 = (1/t)\int_0^t \Sigma^2_s\,ds$,
 the average realized variance.
 
-__Exercise__. _Show $\Sigma_t$ is constant_. 
+__Exercise__. _Show $\Sigma_t^2$ is constant_. 
 
 _Hint_: Compute $d(t\Sigma^2)$ two ways.
 

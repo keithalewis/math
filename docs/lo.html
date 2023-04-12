@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-04-12" />
+  <title>Logic</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=STIX+Two+Text&display=swap" rel="stylesheet">
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Logic</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">April 12, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Logic – the foundations of mathematics.
+</div>
+</header>
+<p>It may come as a surprise that there are many different logical
+systems for mathematics that are contradictory. For two millenia
+Euclid’s Elements were regarded as the basis for rigourous logical
+reasoning. He invented the notion we can start from axioms rational
+people can agree are true and specify how they can be used to derive
+more truth.</p>
+<p>The earliest examples are in non-Euclidean geometry where it is
+possible to have no, or infinitely many, “parallel” lines in a plane
+through a point not on a given line. (Bolyai, Lobaschevsky) However one
+thing all logical systems have in common is that they use
+<em>propositions</em>: statements that are either <em>true</em> or
+<em>false</em>, and <em>rules of inference</em>: ways of combining true
+propositions into other true propositions.</p>
+<p>athematicians prove <em>theorems</em>. Typically they have the form
+‘if <span class="math inline">P</span> is true then <span
+class="math inline">Q</span> is true’ where <span
+class="math inline">P</span> and <span class="math inline">Q</span> are
+propositions. This is equivalent to ‘if <span
+class="math inline">P</span> then <span class="math inline">Q</span>’
+and ‘<span class="math inline">P</span> implies <span
+class="math inline">Q</span>’. Every logical system has <em>axioms</em>:
+propositions that are assumed to be true. The fundamental rule of
+inference is <em>modus ponens</em>: if a proof has the statement ‘<span
+class="math inline">P</span>’ and the statement ‘<span
+class="math inline">P</span> implies <span class="math inline">Q</span>’
+then the statement ‘<span class="math inline">Q</span>’ can be included
+in the proof. The Latin translation of modus ponens is .</p>
+<p>A proof of ‘<span class="math inline">A</span> implies <span
+class="math inline">Z</span>’ consists of a sequence of statements
+starting with <span class="math inline">A</span>. The following
+statements are either axioms or a statement using rules of inference
+applied to previous statements. If the last statement is <span
+class="math inline">Z</span> then the theorem is proved, QED: “quod erat
+demonstrandum”, meaning “what was to be shown”. The difficulty with
+proofs is figuring out which axioms to use and when to apply the rules
+of inference.</p>
+<p>Gerhard Gentzen formalized <em>natural deduction</em>. Proofs branch
+into a tree of statements. Branches can contain subproofs used in their
+parent. He was concernee with the</p>
+<section id="propositional-calculus" class="level2">
+<h2>Propositional Calculus</h2>
+<p>The <em>propositional calculus</em> is based on the common English
+usage of the words, ‘not’, ‘and’, ‘or’, and ‘implies’. These are
+represented by <em>logical connectives</em> <span
+class="math inline">\neg</span>, <span
+class="math inline">\wedge</span>, <span
+class="math inline">\vee</span>, and <span
+class="math inline">\supset</span>.</p>
+<dl>
+<dt><em>Not</em></dt>
+<dd>
+If <span class="math inline">P</span> is a proposition then <span
+class="math inline">\neg P</span> is the proposition that is true if
+<span class="math inline">P</span> is false and false if <span
+class="math inline">P</span> is true.
+</dd>
+<dt><em>And</em></dt>
+<dd>
+If <span class="math inline">P</span> and <span
+class="math inline">Q</span> are propositons then <span
+class="math inline">P\wedge Q</span> is true when both <span
+class="math inline">P</span> and <span class="math inline">Q</span> are
+true, and false otherwise.
+</dd>
+<dt><em>Or</em></dt>
+<dd>
+If <span class="math inline">P</span> and <span
+class="math inline">Q</span> are propositons then <span
+class="math inline">P\vee Q</span> is true when either <span
+class="math inline">P</span> or <span class="math inline">Q</span> are
+true, and false otherwise.
+</dd>
+<dt><em>Implies</em></dt>
+<dd>
+If <span class="math inline">P</span> and <span
+class="math inline">Q</span> are propositons then <span
+class="math inline">P\supset Q</span> is false only when <span
+class="math inline">P</span> is true and <span
+class="math inline">Q</span> is false.
+</dd>
+</dl>
+<p>Note that if <span class="math inline">P</span> is false then <span
+class="math inline">P\supset Q</span> is true no matter if <span
+class="math inline">Q</span> is true or false. If you think it is
+peculiar that ‘false implies true’ is a true statement then you and I
+agree on that.</p>
+<strong>Exercise</strong>. <em>Show <span class="math inline">\neg(\neg
+P)</span> always has the same truth value as <span
+class="math inline">P</span></em>.
+<details>
+<summary>
+Solution
+</summary>
+<blockquote>
+<p>If <span class="math inline">P</span> is true then <span
+class="math inline">\neg P</span> is false so <span
+class="math inline">\neg(\neg P)</span> is true. If <span
+class="math inline">P</span> is false then <span
+class="math inline">\neg P</span> is true so <span
+class="math inline">\neg(\neg P)</span> is false.</p>
+</blockquote>
+</details>
+<strong>Exercise</strong>. <em>Show <span class="math inline">P\vee\neg
+P</span> is always true</em>.
+<details>
+<summary>
+Solution
+</summary>
+<blockquote>
+<p>If <span class="math inline">P</span> is true then <span
+class="math inline">P\vee\neg P</span> is true. If <span
+class="math inline">P</span> is false then <span
+class="math inline">P\vee\neg P</span> is true.</p>
+</blockquote>
+</details>
+<p>A <em>tautology</em> is a proposition that is true for all truth
+values of the propositions it contain. This leads to another
+connective.</p>
+<dl>
+<dt><em>Equivalent</em></dt>
+<dd>
+If <span class="math inline">P</span> and <span
+class="math inline">Q</span> are propositions then <span
+class="math inline">P\equiv Q</span> is true when <span
+class="math inline">P</span> and <span class="math inline">Q</span> have
+the same truth value and false if they have different truth values.
+</dd>
+</dl>
+<p>The exercises show <span class="math inline">\neg(\neg P)\equiv
+P</span> and <span class="math inline">P\vee\neg P</span> is a
+tautology.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P\equiv
+Q</span> is equivalent to <span class="math inline">(P\wedge Q)\vee(\neg
+P\wedge\neg Q)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">P\supset Q</span> and <span class="math inline">\neg
+P\vee Q</span> are equivalent</em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<blockquote>
+<p>If <span class="math inline">P</span> is false then <span
+class="math inline">P\supset Q</span> is true, as we’ve just seen. Since
+<span class="math inline">\neg P</span> is true in this case <span
+class="math inline">\neg P\vee Q</span> is true. If <span
+class="math inline">P</span> is true and <span
+class="math inline">Q</span> is false then <span
+class="math inline">P\supset Q</span> is false and so is <span
+class="math inline">\neg P\vee Q</span> since both <span
+class="math inline">\neg P</span> and <span class="math inline">Q</span>
+are false. If <span class="math inline">P</span> is true and <span
+class="math inline">Q</span> is true then <span
+class="math inline">P\supset Q</span> is true and so is <span
+class="math inline">\neg P\vee Q</span> since <span
+class="math inline">Q</span> is true.</p>
+</blockquote>
+</details>
+<p>We can reduce the amount of prose by using <em>truth tables</em>. The
+first columns of the table contain all possible truth values for the
+variables occuring in the statements to be evaluated in the remaining
+columns. Here is the truth table for ‘and’, ‘or’, and ‘implies’</p>
+<div class="truth">
+<table style="width:79%;">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 19%" />
+<col style="width: 16%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">P</span></th>
+<th style="text-align: center;"><span class="math inline">Q</span></th>
+<th style="text-align: center;"><span class="math inline">P\wedge
+Q</span></th>
+<th style="text-align: center;"><span class="math inline">P\vee
+Q</span></th>
+<th style="text-align: center;"><span class="math inline">P\supset
+Q</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Binary connectives are <em>functions</em> from <span
+class="math inline">\{F,T\}^2</span> to <span
+class="math inline">\{F,T\}</span>. The third column above for ‘and’
+indicates <span class="math inline">F\wedge F = \wedge(F,F) = F</span>,
+<span class="math inline">\wedge(F,T) = F</span>, <span
+class="math inline">\wedge(T,F) = F</span>, and <span
+class="math inline">\wedge(T,T) = T</span>. ore generally, any
+proposition corresponds to a function <span
+class="math inline">\{F,T\}^n\to\{F,T\}</span> where <span
+class="math inline">n</span> is the number of variables in the
+proposition. A proposition is a tautology if and only if the
+<em>range</em> of its corresponding function is <span
+class="math inline">\{T\}</span>.</p>
+<p>The truth table for <span class="math inline">P\supset(Q\supset
+P)</span> is</p>
+<div class="truth">
+<table style="width:72%;">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 20%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">P</span></th>
+<th style="text-align: center;"><span class="math inline">Q</span></th>
+<th style="text-align: center;"><span class="math inline">Q\supset
+P</span></th>
+<th style="text-align: center;"><span
+class="math inline">P\supset(Q\supset P)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">F</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+<td style="text-align: center;"><span class="math inline">T</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>where we have added a column for the subexpression <span
+class="math inline">Q\supset P</span> to facilitate the evaluation. This
+shows <span class="math inline">P\supset(Q\supset P)</span> is a
+tautology.</p>
+<p>As the number of variables in a proposition increase, the number of
+cases to evaluate increases exponentially. If there are <span
+class="math inline">n</span> variables, then there are <span
+class="math inline">2^n</span> cases to consider.</p>
+</section>
+<section id="deduction" class="level2">
+<h2>Deduction</h2>
+<p>A more compact way of determining if a proposition is a tautology is
+to start from a small set of tautologies and apply <em>modus
+ponens</em>: if the propositions <span class="math inline">P\supset
+Q</span> and <span class="math inline">P</span> are tautologies then
+<span class="math inline">Q</span> is a tautology.</p>
+<p>that can be used to deduce any tautology, assuming that is possible.
+A <em>proof</em> of a tautology is a sequence of propositions that are
+either axioms or a result</p>
+<p>For example, we can use <span class="math inline">P\supset(Q\supset
+P)</span> to deduce <span class="math inline">P\supset P</span>.</p>
+<p>We will soon see that this is indeed possible using the
+<em>axioms</em> <span class="math display">
+    P\supset (Q\supset P)
+    (P\supset(Q\supset R))\supset
+</span></p>
+<p>Every <em>well-formed</em> proposition can be built up from
+<em>propositional variables</em>, <span class="math inline">P</span>,
+<span class="math inline">Q</span>, …, and connectives. The
+<em>grammar</em> of propositional calculus is <span
+class="math display">
+    \mathit{Prop}\to\mathit{Var}
+    \mid(\neg\mathit{Prop})
+    \mid(\mathit{Prop}\wedge\mathit{Prop})
+    \mid(\mathit{Prop}\vee\mathit{Prop})
+    \mid(\mathit{Prop}\supset\mathit{Prop})
+</span> This is a <em>production rule</em> indicating how to generate
+all well-formed propostions from atoms and other well-formed
+propositions. The vertical bar ‘<span class="math inline">\mid</span>’
+indicates alternative rules and is not part of the grammar. Parentheses
+‘()’ are used to indicate the order in which rules are applied. These
+are part of the grammar.</p>
+<p>The first rule is that every atomic proposition is a well-formed
+proposition. If we apply the second rule twice to the atomic propostion
+<span class="math inline">P</span> we get <span
+class="math inline">(\neg(\neg P))</span>. The step-by-step production
+is <span class="math inline">P\to(\neg P)\to(\neg(\neg P))</span>. More
+explicitly</p>
+<div id="proof">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Prop</th>
+<th style="text-align: left;">Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">P</span></td>
+<td style="text-align: left;"><span
+class="math inline">\mathit{Prop}\to\mathit{Var}</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">(\neg
+P)</span></td>
+<td style="text-align: left;"><span
+class="math inline">\mathit{Prop}\to(\neg\mathit{Prop})</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">(\neg(\neg
+P))</span></td>
+<td style="text-align: left;"><span
+class="math inline">\mathit{Prop}\to(\neg\mathit{Prop})</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="history" class="level2">
+<h2>History</h2>
+<p>Although lost in prehistory, the imputus for logic must have been
+liars. The earliest evidence we have indicates primative societies
+always had a special class people who survived by making up stories in
+order to deceive others into providing them with the fruits of their
+labor. One way to get rid of these freeloaders was to find plausible
+arguments to demonstrate their stories were a sham.</p>
+<p>Euclid was the first person (if he existed) to document this type of
+reasoning and the books he wrote are the second best sellers in history
+next to the bible. Devine truth only requires belief, mathematical truth
+requires considerable intellectual effort to comprehend.</p>
+<p>While Euclid only considered geometry, Aristotle applied these
+methods to speech (logos)</p>
+<p>(323–283 BC). euc 384–322 BC) aris</p>
+<p>One early example of different logical systems involves Euclid’s
+fifth postulate: “There is at most one line that can be drawn parallel
+to a given line in a plane through an external point.” An astounding
+amount of intellectual effort was expendend over a 2000 year period to
+prove this from Euclid’s first four postulates until Carl Gauss found
+examples in 1810 of geometries that satisfied the first four postulates
+but not the fifth. In 1829 Nicolai Lobachevsky published examples of
+non-Euclidian geometries where there were no parallel lines and
+geometries where there were an infinite number of “parallel” lines with
+no intersection.</p>
+<p>This was also an early example of how complicated mathematics can
+become if you just follow your nose while trying to think
+rigourously.</p>
+<p>In 1854 George Boole published <em>The Laws of Thought</em> where he
+showed how to reduce Aristotle’s logical reasoning to a calculation. He
+introduced algebraic axioms that propositions and their <em>logicial
+connectives</em> must satisfy.</p>
+<!--
+Euclid postulate vs axiom
+"If a line segment intersects two straight lines forming two interior
+angles on the same side that sum to less than two right angles, then
+the two lines, if extended indefinitely, meet on that side on which the
+angles sum to less than two right angles."
+
+Playfair. What a name!
+-->
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>
