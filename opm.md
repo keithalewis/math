@@ -7,8 +7,8 @@ classoption: fleqn
 abstract: Buy now, sell later.
 ...
 
-\newcommand\RR{\bm{R}}
-\renewcommand\ker{\operatorname{ker}}
+\newcommand\RR{\boldsymbol{R}}
+\newcommand\ran{\operatorname{ran}}
 
 Let $I$ be the set of _instruments_ available at the beginning and end
 of a time period and $\Omega$ be the set of possible outcomes.
@@ -82,7 +82,6 @@ with ${\xi\cdot x < 0}$ and ${\xi\cdot y \ge0}$ for ${y\in C}$._
 
 _Proof._ Let $x^*$ be the point in $C$ closest to $x$.
 It exists since $C$ is closed and is unique since $C$ is convex.
-We show $\xi = x^* - x$ implements an arbitrage.
 
 Since $ty + x^*\in C$ for any $t > 0$ and $y\in C$ 
 we have $\|x^* - x\| \le \|ty + x^* - x\|$.
@@ -94,7 +93,8 @@ Simplifying gives ${t^2||x^*||^2 + 2t\xi\cdot x^*\ge 0}$ for  $t > -1$.
 Dividing by $t < 0$ and letting $t$ increase to 0 shows ${\xi\cdot x^*\le 0}$ so
 ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ hence ${\xi\cdot x < 0}$.
 
-The lemma proves the "hard" direction of the FTAP.
+The lemma proves the "hard" direction of the FTAP
+and $\xi = x^* - x$ implements an arbitrage.
 
 Note the lemma is a purely geometric fact.
 It is similar to Farkas' lemma and is a special case of the Hahn-Banach theorem
