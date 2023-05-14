@@ -13,7 +13,8 @@ Thanks to Bill Goff, Ioanis Karatzis, and Jesper Andreasen for giving feedback
 that helped improve the exposition, hopefully.
 
 Consider a stochastic volatility model of stock price $(S_t)_{t\ge0}$ 
-satisfying $dS_t/S_t = r\,dt + \Sigma_t\,dB$ where $r$ is constant
+satisfying $dS_t/S_t = r\,dt + \Sigma_t\,dB_t$ where $r$ is constant,
+$B_t$ is standard Brownian motion,
 and $(\Sigma_t)_{t\ge0}$ is an Ito process.
 
 A first guess at path-dependent volatility $\Sigma_t$ might be

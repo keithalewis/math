@@ -2,21 +2,22 @@ html {
 	background-color: #E0E0E0;
 }
 body {
-    max-width: 40em;
-	word-wrap: break-word;
+	font-family: Lora;  /*"Lato"; , "Calisto", "Noto";*/
     margin:  10px auto;
 	background-color: white;
+/*'Noto Sans', "Segoe UI", 'Calisto','IBM Plex Serif', 'Cambria', Georgia, serif, 'Times New Roman','STIX Two Text';*/
+}
+@media screen and (min-width: 684px) {
+body {
+    max-width: 40em;
+	word-wrap: break-word;
     /*text-align: left;*/
 	padding: 4em 10em; 
-	font-family: Lora;  /*"Lato"; , "Calisto", "Noto";*/
-/*'Noto Sans', "Segoe UI", 'Calisto','IBM Plex Serif', 'Cambria', Georgia, serif, 'Times New Roman','STIX Two Text';*/
-/*	font-size: 110%; */
-/*	font-weight: 400;  */
+	font-size: 110%; 
+	font-weight: 400; 
 	line-height: 130%; 
-	/*background-color: #565656;*/
-	/*padding-color: yellow;*/
-	/*border-color: green;*/
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+	box-shadow: 0px 0px 1px red, 0px 0px 10px rgba(0, 0, 0, 0.7);
+}
 }
 
 @media (max-width: 684px) {
@@ -40,11 +41,11 @@ h1 {
 	color: #606060;
 }
 h2 {
-	margin-top: 1em;
-	padding-top: 1em;
+	padding-top: .5em;
 	color: #707070;
 }
 h3 { color: #808080; }
+h4 { color: #A0A0A0; }
 sup, sub { vertical-align: 0;
            position: relative; }
 sup { bottom: 1ex; }
