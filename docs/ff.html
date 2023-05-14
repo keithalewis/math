@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-05-14" />
+  <title>Fundamental Finance</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Fundamental Finance</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">May 14, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Evincing the real world in Mathematical Finance
+</div>
+</header>
+<blockquote>
+<p>In Physics, a theory that does not agree with experiment is
+recognized as deficient and serious scientists get to work on improving
+the theory. Mathematical Finance seems to ignore fundamental
+shortcomings. Continuous time hedging is impossible. Traders need to
+know when, and by how much, they should adjust their hedges. This short
+note takes a page out of the physicsts playbook in an attempt to
+identify the fundamental components of real-world trading and define a
+vocabulary for a rigorous mathematical framework to reason about
+them.</p>
+</blockquote>
+<p>A <em>market</em> consists of <em>instruments</em>. <em>Stocks</em>
+and <em>bonds</em> come into existence by companies wanting to raise
+capital. <em>Commodities</em> are instruments that involve growing
+crops, raising livestock, and digging things out of the ground.
+<em>Currencies</em> are issued by nation states to facilitate trustworth
+transactions. <em>Exchanges</em> provide a means for <em>buyers</em> and
+<em>sellers</em> to <em>transact</em> instruments.</p>
+<p>Every instrument has a <em>price</em> at which it can be bought or
+sold and holding an instrument entails <em>cash flows</em> to its owner.
+Stocks pay dividends, or may incur borrow costs when shorted. Bonds pay
+coupons. Futures always have price zero and have daily margin
+adjustements. Currencies never have cash flows.</p>
+<p>Instruments do not trade in a vacuum. Companies bring them into the
+market by issuing them and legal <em>entities</em>, companies or
+individuals, trade them. Price is typically quoted in terms of the
+<em>amount</em> that is converted to a native currency required to
+exchange ownership. Stocks trade in shares. Bonds have notionals.
+Futures have contract sizes. Exchanging one currency for another is the
+foreign exchange rate.</p>
+<p>The elementary particles of finance are <em>holdings</em>, <span
+class="math inline">(a,i,e)</span>, indicating amount <span
+class="math inline">a</span> of instrument <span
+class="math inline">i</span> is owned by entity <span
+class="math inline">e</span>. Holdings interact via
+<em>transactions</em>, <span
+class="math inline">(t;a,i,e;a&#39;,i&#39;,e&#39;)</span>, indicating
+the <em>buyer</em> <span class="math inline">e</span> transferred
+ownership of amount <span class="math inline">a</span> of instrument
+<span class="math inline">i</span> to <em>seller</em> <span
+class="math inline">e&#39;</span> in exchange for amount <span
+class="math inline">a&#39;</span> of instrument <span
+class="math inline">i&#39;</span>. This corresponds to a measurement
+indicating the price for this particular transaction of instruments
+between the entities is <span class="math inline">a&#39;/a</span>.</p>
+<p>Transactions are not symmetric. The buyer decides when and how much
+of an instrument they hold to bid. The seller offers a price <span
+class="math inline">X = X(t;a,i,e;i&#39;,e&#39;)</span> that the buyer
+can lift for the transaction <span
+class="math inline">(t;a,i,e;aX,i&#39;e&#39;)</span>, so <span
+class="math inline">a&#39; = aX</span> and <span class="math inline">X =
+a&#39;/a</span> is the price.</p>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

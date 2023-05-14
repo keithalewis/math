@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-05-14" />
+  <title>Quadratic Optimization</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Quadratic Optimization</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">May 14, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Done carefully
+</div>
+</header>
+<p>Given a positive definite matrix <span class="math inline">A</span>
+and a vector <span class="math inline">b</span> minimize <span
+class="math inline">x&#39;Ax - 2b&#39;x</span> where <span
+class="math inline">x</span> is a vector.</p>
+<p>There exists <span class="math inline">B</span> with <span
+class="math inline">B&#39; = B</span> and <span class="math inline">B^2
+= A</span>.</p>
+<p>Let <span class="math inline">A^{1/2}</span> be the square root of
+<span class="math inline">A</span> where $A^{1/2}’ = A^{1/ We have <span
+class="math inline">x&#39;Ax - 2b&#39;x = \|A^{1/2}x - A^{-1/2}b\|^2 -
+b&#39;A^{-1}b</span> so this is minimized at <span class="math inline">x
+= A^{-1}b</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\|x -
+y\|^2 = x&#39;x - 2x&#39;y + y&#39;y</span></em>.</p>
+<p><em>Hint</em>. <span class="math inline">\|z\|^2 = z&#39;z</span> and
+<span class="math inline">x&#39;y = y&#39;x</span>$.</p>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

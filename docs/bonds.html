@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-05-14" />
+  <title>Bonds</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Bonds</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">May 14, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Terminology for bonds
+</div>
+</header>
+<section id="discount" class="level2">
+<h2>Discount</h2>
+<p>A <em>zero coupon bond</em>, or <em>bullet</em> has unit cash flow at
+maturity <span class="math inline">t</span>. Its price at time 0, <span
+class="math inline">D(t)</span>, is the <em>discount</em>. Its price at
+time <span class="math inline">s \le t</span> is <span
+class="math inline">D(s, t)</span> so <span class="math inline">D(t) =
+D(0,t)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">D(s,t)
+= D(t)/D(s)</span></em>.</p>
+<p><em>Hint</em>: Buy <span class="math inline">D(s,t)</span> at time 0
+of a zero maturing at <span class="math inline">s</span>. At <span
+class="math inline">s</span> buy <span class="math inline">D(s,t)</span>
+of a zero maturing at <span class="math inline">t</span>. It costs <span
+class="math inline">D(s,t)D(s)</span> at time 0 to replicate a zero
+maturing at <span class="math inline">t</span>.</p>
+<p>The <em>forward curve</em> <span class="math inline">f(t)</span> is
+defined by <span class="math inline">D(t) = \exp(-\int_0^t
+f(s)\,ds)</span> Note <span class="math inline">D(t,u) = \exp(-\int_t^u
+f(s)\,ds)</span>. The <em>par curve</em>, or <em>yields curve</em>,
+<span class="math inline">y(t)</span> is defined by <span
+class="math inline">D(t) = \exp(-t y(t))</span>. Note the yield <span
+class="math inline">y(t) = (1/t)\int_0^t f(s)\,ds</span> is the average
+of the forward curve so <span class="math inline">ty&#39;(t) + y(t) =
+f(t)</span>. It is computationally preferable to work with the forward
+curve since integration smooths out variations.</p>
+<section id="stochastic-discount" class="level3">
+<h3>Stochastic Discount</h3>
+<p>An <em>interest rate model</em> is determined by the <em>stochastic
+forward rate</em> <span class="math inline">f_t</span>. It represents
+the (unknown) repo rate available at time <span
+class="math inline">t</span>. The <em>stochastic discount</em> is <span
+class="math inline">D_t = \exp(-\int_9^t f_s\,ds)</span>. The price at
+time <span class="math inline">s</span> of a zero coupon bond maturing
+at time <span class="math inline">t</span> is <span
+class="math inline">D_s(t) = E_s[D_t]/D_s</span>, where <span
+class="math inline">E_s</span> indicates the conditional expectation
+given information available at time <span
+class="math inline">s</span>.</p>
+</section>
+</section>
+<section id="bonds" class="level2">
+<h2>Bonds</h2>
+<p>Bonds are <em>fixed income</em> instruments. A fixed income
+instrument has cash flows <span class="math inline">(c_j)</span> at
+times <span class="math inline">(t_j)</span>, <span
+class="math inline">0\le j\le n</span>. The <em>issue date</em> is <span
+class="math inline">t_0</span> and <em>maturity date</em> is <span
+class="math inline">t_n</span>.</p>
+<p>For a standard bond with coupon <span class="math inline">c</span>
+and <em>day count basis <span class="math inline">\delta</span></em> we
+have <span class="math inline">c_0 = 0</span>, <span
+class="math inline">c_j = c\delta(t_{j-1}, t_j)</span>, <span
+class="math inline">1 &lt; j &lt; n</span>, and <span
+class="math inline">c_n = 1 + c\delta(t_{n-1}, t_n)</span>, where <span
+class="math inline">\delta(t,u)</span> is the <em>day count
+fraction</em> for the interval <span class="math inline">[t,u]</span>
+corresponding to the <em>day count basis</em>. The day count fraction is
+approximately equal to the time in years from <span
+class="math inline">t</span> to <span class="math inline">u</span>. For
+example, the Actual/360 day count basis has day count fraction equal to
+the number of days from <span class="math inline">t</span> to <span
+class="math inline">u</span> divided by 360.</p>
+<p>At time <span class="math inline">t</span> the <em>next coupon
+date</em> <span class="math inline">t\_(t) = \min\{ t_j \mid t_j &gt;
+t\}</span> and the <em>previous coupon date</em> <span
+class="math inline">\_t(t) = \max\{ t_j \mid t_j \le t\}</span>. Note if
+<span class="math inline">\_t(t) \le t_j &lt; t\_(t)</span> then <span
+class="math inline">\_t(t_j) = t_j</span> and <span
+class="math inline">t\_(t_j) = t_{j+1}</span>.</p>
+<p>The <em>accrued interest</em> at <span class="math inline">t</span>
+is <span class="math inline">a(t) = c_j \delta(\_t(t), t)</span>. The
+buyer must pay this to compensate the seller since the buyer gets the
+full coupon at the next coupon date. The <em>dirty price</em> is
+<em>clean price</em> plus accrued interest. Clean price is the present
+value of future cash flows.</p>
+<p>A fixed income instrument is a portfolio of zero coupon bonds. Its
+<em>present value</em> at <em>pv date</em> <span
+class="math inline">t</span> is <span class="math inline">p(t) =
+\sum_{t_j &gt; t} c_j D(t, t_j)</span>. For a stochastic interest rate
+model the present value at <span class="math inline">t</span> is <span
+class="math inline">p_t = \sum_{t_j &gt; t} c_j D_t(t_j)</span>.</p>
+<p>The yield <span class="math inline">y = y(t) = y(t,p)</span> for
+price <span class="math inline">p</span> quoted at <span
+class="math inline">t</span> is defined by <span class="math inline">p =
+\sum_{t_j &gt; t} c_j e^{-y(t_j - t)}</span>. This is never used in
+practice and yields involve a <em>compounding frequency</em> <span
+class="math inline">n</span>. The <span class="math inline">n</span>-th
+annually compounded yield <span class="math inline">y_n</span>, or
+<em>yield to maturity</em>, if <span class="math inline">n</span> is
+understood, is determined by <span class="math inline">p = \sum_{t_j
+&gt; t} c_j(1 + y_n/n)^{-n(t_j - t)}</span>. (Is this correct?).</p>
+<p>(<span class="math inline">ytm = (c + (face - pv/2)/2)/(face +
+pv)/2</span>?)</p>
+<p>There are several types of <em>duration</em>. Without an adjective,
+duration is the derivative of price with respect to a parallel shift of
+the forward curve <span class="math inline">dp/df = -\sum_{t_j &gt; t}
+c_j D(t, t_j) (t_j - t)</span>, the time weighted average of the
+discounted cash flows. Since price is a decreasing function of yield the
+duration is typically quoted without the minus sign.</p>
+<p><strong>Exercise</strong>. <em>The duration of a zero coupon bond is
+its maturity</em>.</p>
+<p><em>Modified duration</em> is the derivative of bond price with
+respect to yield, <span class="math display">
+\begin{aligned}
+    dp/dy_n &amp;= \sum_{t_j &gt; t} c_j(1 + y_n/n)^{-n(t_j - t) -
+1}(-n(t_j - t)/n) \\
+    &amp;= -(\sum_{t_j &gt; t} c_j(1 + y_n/n)^{-n(t_j - t)}(t_j - t))/(1
++ y_n/n) \\
+\end{aligned}
+</span> This is approximately equal to <span
+class="math inline">(dp/df)/(1 + y_n/n)</span>.</p>
+<p><em>Macaulay duration</em> is the derivative of the logarithm of the
+price <span class="math inline">d(\log p)/df = (dp/df)/p</span>.</p>
+<p>Bond issuers can make bonds cheaper by attaching a call option. The
+option is specified by a series of times and call prices, the <em>call
+schedule</em>. At each call date the issuer can pay the holder the call
+price to terminate their remaining bond cash flow obligations.</p>
+<p>They can also make a bond more valuable by attaching a put option by
+specifying a put schedule allowing the bond holder to pay the issuer the
+put price at any put date to <em>redeem</em> (Are calling and putting
+both considered redemption?) the bond.</p>
+<p>The yield to the first call date of a bond redeemed at the call price
+is the <em>yield to call</em>. The yield to the first put date redeemed
+at the put price is the <em>yield to put</em>. The <em>yield to
+worst</em> is the minimum of yield to maturity and yield to call.</p>
+</section>
+<section id="tax-loss-harvesting" class="level2">
+<h2>Tax Loss Harvesting</h2>
+<p>The <em>tax basis</em> of a bond purchased at a premium is its preset
+value using the purchase date yield and cannot be deducted for tax
+purposes.</p>
+<p>Let <span class="math inline">\sigma</span> be the short term capital
+gains tax rate and <span class="math inline">\lambda</span> be the long
+term capital gains, where <span class="math inline">\sigma &gt;
+\lambda</span>.</p>
+</section>
+<section id="vocabulary" class="level2">
+<h2>Vocabulary</h2>
+<p>refund:</p>
+<p>redeem:</p>
+</section>
+<section id="trading-strategy" class="level2">
+<h2>Trading Strategy</h2>
+<p>Given a set of instruments <span class="math inline">I</span>,
+trading times <span class="math inline">T</span>, and information <span
+class="math inline">\mathcal{A}_t</span> at <span
+class="math inline">t\in T</span>, let <span
+class="math inline">X_t\colon\mathcal{A}_t\to\boldsymbol{R}^I</span> be
+the prices and <span
+class="math inline">C_t\colon\mathcal{A}_t\to\boldsymbol{R}^I</span> be
+the cash flows at time <span class="math inline">t\in T</span>. A
+<em>trading strategy</em> is a finite collection of increasing stopping
+times <span class="math inline">\tau_j</span> and trades <span
+class="math inline">\Gamma_j\colon\mathcal{A}_{\tau_j}\to\boldsymbol{R}^I</span>.
+Trades accumulate to positions <span class="math inline">\Delta_t =
+\sum_{\tau_j &lt; t} \Gamma_j = \sum_{s&lt;t} \Gamma_s</span> where
+<span class="math inline">\Gamma_s(\omega) = \Gamma_j(\omega)1(s =
+\tau_j(\omega))</span>.</p>
+<p>The <em>value</em>, or <em>mark-to-market</em> at time <span
+class="math inline">t</span> of a trading strategy is <span
+class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>. It is
+the amount unwinding the current position and trades just executed at
+prevailing market prices would produce.</p>
+<p>The <em>account</em> at time <span class="math inline">t</span> is
+<span class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
+X_t</span>. The trading strategy pays cash flows proportional to the
+position and trades executed at <span class="math inline">t</span> must
+be paid for.</p>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

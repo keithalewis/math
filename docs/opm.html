@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-05-14" />
+  <title>One-Period Model</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">One-Period Model</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">May 14, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Buy now, sell later.
+</div>
+</header>
+<p>Let <span class="math inline">I</span> be the set of
+<em>instruments</em> available at the beginning and end of a time period
+and <span class="math inline">\Omega</span> be the set of possible
+outcomes. The <em>prices</em> at the beginning of the period are a
+vector <span class="math inline">x\in\boldsymbol{R}^I</span>. The prices
+at the end of the period are a function <span
+class="math inline">X\colon\Omega\to \boldsymbol{R}^I</span> where <span
+class="math inline">X(\omega)\in\boldsymbol{R}^I</span> are the
+instrument prices if <span class="math inline">\omega\in\Omega</span>
+occurred.</p>
+<section id="binomial-model" class="level2">
+<h2>Binomial Model</h2>
+<p>For example, the binomial model has a bond and stock where <span
+class="math inline">x = (1, s)</span> and <span
+class="math inline">X(\omega) = (R, \omega)</span> and <span
+class="math inline">\Omega = \{S^-, S^+\}</span>. The bond has realized
+return <span class="math inline">R</span> and the stock can go from
+price <span class="math inline">s</span> to either <span
+class="math inline">S^-</span> or <span class="math inline">S^+</span>.
+A more realistic model is <span class="math inline">\Omega = [S^-,
+S^+]</span> where the final stock price can be any value in the
+interval.</p>
+</section>
+<section id="position" class="level2">
+<h2>Position</h2>
+<p>A <em>position</em> <span
+class="math inline">\xi\in\boldsymbol{R}^I</span> is the number of
+shares held in each instrument. The cost of acquiring the initial
+position is <span class="math inline">\xi\cdot x</span>. The value of
+liquidating the final position is <span class="math inline">\xi\cdot
+X(\omega)</span> if <span class="math inline">\omega\in\Omega</span>
+occurred.</p>
+<p>Arbitrage exists in a one-period model if there is a position <span
+class="math inline">\xi\in\boldsymbol{R}^I</span> with <span
+class="math inline">\xi\cdot x &lt; 0</span> and <span
+class="math inline">\xi\cdot X(\omega)\ge0</span> for all <span
+class="math inline">\omega\in\Omega</span>: you make money acquiring the
+initial position and never lose money when unwinding it at the end.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">Rs\notin
+[S^-,S^+]</span> in the binomial model there is an arbitrage</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">Rs &gt; S^+</span> the
+bond is always more valuable than the stock so short the the stock and
+buy bond with <span class="math inline">\xi = (S^+, -R)</span>. If <span
+class="math inline">Rs &lt; S^-</span> the bond is always less valuable
+than the stock so short the bond and buy the stock with with <span
+class="math inline">\xi = (-S^-, R)</span>.</p>
+</section>
+<section id="cone" class="level2">
+<h2>Cone</h2>
+<p>Suppose <span class="math inline">x = \sum_i X(\omega_i) \pi_i</span>
+is a finite linear combination with <span
+class="math inline">\pi_i\in\boldsymbol{R}</span> positive, <span
+class="math inline">\omega_i\in\Omega</span>. If <span
+class="math inline">{\xi\cdot X(\omega)\ge0}</span> for <span
+class="math inline">\omega\in\Omega</span> then <span
+class="math inline">{\xi\cdot x\ge 0}</span>, so no arbitrage
+exists.</p>
+<p>A <em>cone</em> <span class="math inline">C</span> is a subset of a
+vector space closed under positive scalar multiplication and vector
+addition.</p>
+<p><strong>Exercise</strong>. <em>A cone is convex</em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">x,y\in C</span> implies
+<span class="math inline">tx + (1-t)y\in C</span> for <span
+class="math inline">0 &lt; t &lt; 1</span>.</p>
+<p><strong>Exercise</strong>. <em>The set of arbitrage positions is a
+cone</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">x</span>
+belongs to the smallest cone containing the range of <span
+class="math inline">X</span> then there is no arbitrage</em>.</p>
+<p><em>Hint</em>: The range of <span class="math inline">X</span> is
+<span class="math inline">\operatorname{ran}X =
+\{X(\omega)\mid\omega\in\Omega\}</span>. The smallest cone containing
+the range of <span class="math inline">X</span> is the set of finite
+linear combinations <span class="math inline">\sum_i X(\omega_i)
+\pi_i</span>, <span class="math inline">\pi_i &gt; 0</span>, <span
+class="math inline">\omega_i\in\Omega</span>.</p>
+</section>
+<section id="fundamental-theorem-of-asset-pricing" class="level2">
+<h2>Fundamental Theorem of Asset Pricing</h2>
+<p><strong>Theorem</strong>. <em>Arbitrage exists in the one-period
+model if and only if <span class="math inline">x</span> does not belong
+to the smallest closed cone containing the range of <span
+class="math inline">X</span></em>.</p>
+<p>If <span class="math inline">x_n\in C</span> converge to <span
+class="math inline">x</span> in norm and <span
+class="math inline">\xi\cdot x_n\ge0</span> then <span
+class="math inline">\xi\cdot x\ge0</span>. This proves the “easy”
+direction.</p>
+<p>The contrapositive follows from the</p>
+<p><strong>Lemma</strong>. <em>If <span
+class="math inline">x\in\boldsymbol{R}^n</span> and <span
+class="math inline">C</span> is a closed cone in <span
+class="math inline">\boldsymbol{R}^n</span> with <span
+class="math inline">x\not\in C</span> then there exists <span
+class="math inline">{\xi\in\boldsymbol{R}^n}</span> with <span
+class="math inline">{\xi\cdot x &lt; 0}</span> and <span
+class="math inline">{\xi\cdot y \ge0}</span> for <span
+class="math inline">{y\in C}</span>.</em></p>
+<p><em>Proof.</em> Let <span class="math inline">x^*</span> be the point
+in <span class="math inline">C</span> closest to <span
+class="math inline">x</span>. It exists since <span
+class="math inline">C</span> is closed and is unique since <span
+class="math inline">C</span> is convex. We show <span
+class="math inline">\xi = x^* - x</span> implements an arbitrage.</p>
+<p>Since <span class="math inline">ty + x^*\in C</span> for any <span
+class="math inline">t &gt; 0</span> and <span class="math inline">y\in
+C</span> we have <span class="math inline">\|x^* - x\| \le \|ty + x^* -
+x\|</span>. Simplifying gives <span class="math inline">{t^2||y||^2 +
+2t\xi\cdot y\ge 0}</span>. Dividing by <span class="math inline">t &gt;
+0</span> and letting <span class="math inline">t</span> decrease to 0
+shows <span class="math inline">{\xi\cdot y\ge 0}</span>.</p>
+<p>We also have <span class="math inline">\|x^* - x\| \le \|tx^* + x^* -
+x\|</span> for <span class="math inline">t + 1 &gt; 0</span>.
+Simplifying gives <span class="math inline">{t^2||x^*||^2 + 2t\xi\cdot
+x^*\ge 0}</span> for <span class="math inline">t &gt; -1</span>.
+Dividing by <span class="math inline">t &lt; 0</span> and letting <span
+class="math inline">t</span> increase to 0 shows <span
+class="math inline">{\xi\cdot x^*\le 0}</span> so <span
+class="math inline">{0 &lt; ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot
+x}</span> hence <span class="math inline">{\xi\cdot x &lt;
+0}</span>.</p>
+<p>The lemma proves the “hard” direction of the FTAP.</p>
+<p>Note the lemma is a purely geometric fact. It is similar to Farkas’
+lemma and is a special case of the Hahn-Banach theorem in finite
+dimensional space.</p>
+</section>
+<section id="application" class="level2">
+<h2>Application</h2>
+<p>For the binomial model the smallest closed cone containing the range
+of <span class="math inline">X</span> is <span
+class="math inline">\{X(S^-)\pi^- + X(S^+)\pi^+\mid
+\pi^-,\pi^+\ge0\}</span>. If <span class="math inline">(1, s)</span> is
+in the cone then <span class="math inline">{(1,s) = (R, S^-)\pi^- + (R,
+S^+)\pi^+}</span> for some <span
+class="math inline">\pi^-,\pi^+\ge0</span>. Solving for <span
+class="math inline">\pi^-</span> and <span
+class="math inline">\pi^+</span> gives the no arbitrage condition <span
+class="math inline">S^- \le Rs \le R^+</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\pi^- =
+(S^+ - Rs)/R(S^+ - S^-)</span> and <span class="math inline">\pi^+ = (Rs
+- S^-)/R(S^+ - S^-)</span></em>.</p>
+<p>If <span class="math inline">Rs &gt; S^+</span> then <span
+class="math inline">(R, s)</span> is above the line through the origin
+with slope <span class="math inline">R/S^+</span> so <span
+class="math inline">\xi</span> should be proportional to <span
+class="math inline">(S^+, -R)</span>. If <span class="math inline">Rs
+&lt; S^-</span> then <span class="math inline">(R, s)</span> is below
+the line through the origin with slope <span
+class="math inline">R/S^-</span> so <span class="math inline">\xi</span>
+should be proportional to <span class="math inline">(-S^-,
+R)</span>.</p>
+<p>If we add an option with payoff <span class="math inline">\nu</span>
+to the binomial model then <span class="math inline">x = (1, s,
+c)</span> and <span class="math inline">X(\omega) = (R, \omega,
+\nu(\omega))</span>, <span
+class="math inline">\omega\in\{S^-,S^+\}</span>. There is no arbitrage
+if and only if <span class="math inline">(1, s, c) = X(S^-)\pi^- +
+X(S^+)\pi^+</span> for some <span
+class="math inline">\pi^-,\pi^+\ge0</span>. The first two equations
+determine <span class="math inline">\pi^-</span> and <span
+class="math inline">\pi^+</span> as above so <span class="math inline">c
+= \nu(S^-)\pi^- + \nu(S^+)\pi^+</span>. Every option payoff is linear in
+the binomial model.</p>
+<p>A slightly more interesting model is a bond with zero interest rate,
+a stock that can go from 100 to 90, 100, or 110, and an at-the-money
+call option with price <span class="math inline">v</span>. The model is
+<span class="math inline">x = (1, 100, v)</span>, <span
+class="math inline">X(\omega) = (1, \omega, \max\{\omega - 100,
+0\})</span>, <span class="math inline">\omega\in\{90, 100, 110\}</span>.
+The smallest closed cone containing the range of <span
+class="math inline">X</span> is <span class="math inline">\{X(90) a +
+X(100) b + X(110) c\mid a,b,c\ge0\}</span>. If <span
+class="math inline">x</span> belongs to the cone then <span
+class="math display">
+\begin{aligned}
+    1 &amp;= a + b + c \\
+    100 &amp;= 90a + 100b + 110 c \\
+    v &amp;= 10c \\
+\end{aligned}
+</span> for some <span class="math inline">a,b,c\ge0</span> so <span
+class="math display">
+\begin{aligned}
+    1 - c &amp;= a + b \\
+    100 - 110c &amp;= 90a + 100b \\
+\end{aligned}
+</span></p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">a =
+c</span> and <span class="math inline">b = 1 - 2c</span></em>.</p>
+<p>The FTAP proves the model is arbitrage-free if and only if the option
+value is between <span class="math inline">0</span> and <span
+class="math inline">5</span> since <span class="math inline">v =
+10c</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the model without the bond is
+arbitrage-free if and only the option value is between <span
+class="math inline">0</span> and <span class="math inline">100/11 &lt;
+10</span></em>.</p>
+<p><em>Hint</em>: Consider <span class="math inline">\{(90, 0)a + (100,
+0)b + (110, 10)c\mid a,b,c\ge0\}</span>. The smallest closed convex cone
+is bounded below by <span class="math inline">y = 0</span> and above by
+<span class="math inline">y = (10/110)x</span>.</p>
+</section>
+<section id="reality" class="level2">
+<h2>Reality</h2>
+<p>If you are willing to assume prices are bounded, as they are in the
+real world, then the one-period model should require <span
+class="math inline">X\colon\Omega\to\boldsymbol{R}^I</span> is bounded.
+This is not the case in the Black-Scholes/Merton continuous time model
+of lognormal stock prices. Scholes and Merton won a Nobel prize “for a
+new method to determine the value of derivatives.” Their assumptions
+eliminated the need to measure the real-world return on a stock. There
+is still a Nobel prize to be won by someone who can come up with a
+generally accepted way to determine the volatility of a stock. And
+perhaps multiple future prizes for those who develop a theory not
+founded on the mathematical fictions of continuous time trading and
+unbounded prices.</p>
+</section>
+<section id="ftap" class="level2">
+<h2>FTAP</h2>
+<p>If <span class="math inline">x\in\boldsymbol{R}^I</span> and <span
+class="math inline">X\colon\Omega\to\boldsymbol{R}^I</span> is bounded
+then there is no arbitrage if and only if <span class="math inline">x =
+\int_\Omega X(\omega)\,d\Pi(\omega)</span> for some positive, bounded,
+finitely additive measure on <span class="math inline">\Omega</span>,
+but this requires a bit more math to establish.</p>
+<p>If there exists a <em>zero coupon bond</em> <span
+class="math inline">\zeta\in\boldsymbol{R}^I</span> with <span
+class="math inline">\zeta\cdot X(\omega) = 1</span> for all <span
+class="math inline">{\omega\in\Omega}</span> then <span
+class="math inline">{D = \zeta\cdot x = \int_\Omega \zeta\cdot
+X(\omega)\,d\Pi(\omega) = \Pi(\Omega)}</span> is the cost of the bond,
+aka <em>discount</em>. The measure <span class="math inline">{P =
+\Pi/D}</span> is positive and has mass 1 so <span class="math inline">{x
+= E[XD]}</span> if we pretend it is a probability measure.</p>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>
