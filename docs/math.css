@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
     max-width: 40em;
 	word-wrap: break-word;
@@ -5,11 +6,31 @@ body {
     /*text-align: left;*/
 	padding: 4em 1em; 
 	font-family: "Segoe UI";
+=======
+html {
+	background-color: #E0E0E0;
+}
+body {
+    max-width: 40em;
+	word-wrap: break-word;
+    margin:  10px auto;
+	background-color: white;
+    /*text-align: left;*/
+	padding: 4em 10em; 
+	font-family: Lora;  /*"Lato"; , "Calisto", "Noto";*/
+>>>>>>> 4b65880ce241d8a8fb16f71331fd40956a53f0b2
 /*'Noto Sans', "Segoe UI", 'Calisto','IBM Plex Serif', 'Cambria', Georgia, serif, 'Times New Roman','STIX Two Text';*/
 /*	font-size: 110%; */
 /*	font-weight: 400;  */
 	line-height: 130%; 
+<<<<<<< HEAD
 	color: #565656;
+=======
+	/*background-color: #565656;*/
+	/*padding-color: yellow;*/
+	/*border-color: green;*/
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+>>>>>>> 4b65880ce241d8a8fb16f71331fd40956a53f0b2
 }
 
 @media (max-width: 684px) {
@@ -22,7 +43,20 @@ body {
     font-size: 1.35rem;
   }
 }
+<<<<<<< HEAD
 h1 { color: #606060; }
+=======
+.author {
+    text-align: center;
+}
+.date {
+    text-align: center;
+}
+h1 {
+    text-align: center;
+	color: #606060;
+}
+>>>>>>> 4b65880ce241d8a8fb16f71331fd40956a53f0b2
 h2 {
 	margin-top: 1em;
 	padding-top: 1em;
@@ -49,6 +83,10 @@ sub { top: 0.8ex; }
 details {
     margin-left: 1em;
     color: #008080;
+<<<<<<< HEAD
+=======
+	margin-bottom: 10px;
+>>>>>>> 4b65880ce241d8a8fb16f71331fd40956a53f0b2
 }
 details > summary {
 	padding: 10px;

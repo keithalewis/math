@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
     max-width: 40em;
 	word-wrap: break-word;
@@ -10,6 +11,28 @@ body {
 /*	font-weight: 400;  */
 	line-height: 130%; 
 	color: #565656;
+=======
+html {
+	background-color: #E0E0E0;
+}
+body {
+	font-family: Lora;  /*"Lato"; , "Calisto", "Noto";*/
+    margin:  10px auto;
+	background-color: white;
+/*'Noto Sans', "Segoe UI", 'Calisto','IBM Plex Serif', 'Cambria', Georgia, serif, 'Times New Roman','STIX Two Text';*/
+}
+@media screen and (min-width: 684px) {
+body {
+    max-width: 40em;
+	word-wrap: break-word;
+    /*text-align: left;*/
+	padding: 4em 10em; 
+	font-size: 110%; 
+	font-weight: 400; 
+	line-height: 130%; 
+	box-shadow: 0px 0px 1px red, 0px 0px 10px rgba(0, 0, 0, 0.7);
+}
+>>>>>>> 4b65880ce241d8a8fb16f71331fd40956a53f0b2
 }
 
 @media (max-width: 684px) {
@@ -22,6 +45,7 @@ body {
     font-size: 1.35rem;
   }
 }
+<<<<<<< HEAD
 h1 { color: #606060; }
 h2 {
 	margin-top: 1em;
@@ -29,6 +53,24 @@ h2 {
 	color: #707070;
 }
 h3 { color: #808080; }
+=======
+.author {
+    text-align: center;
+}
+.date {
+    text-align: center;
+}
+h1 {
+    text-align: center;
+	color: #606060;
+}
+h2 {
+	padding-top: .5em;
+	color: #707070;
+}
+h3 { color: #808080; }
+h4 { color: #A0A0A0; }
+>>>>>>> 4b65880ce241d8a8fb16f71331fd40956a53f0b2
 sup, sub { vertical-align: 0;
            position: relative; }
 sup { bottom: 1ex; }
@@ -49,6 +91,10 @@ sub { top: 0.8ex; }
 details {
     margin-left: 1em;
     color: #008080;
+<<<<<<< HEAD
+=======
+	margin-bottom: 10px;
+>>>>>>> 4b65880ce241d8a8fb16f71331fd40956a53f0b2
 }
 details > summary {
 	padding: 10px;

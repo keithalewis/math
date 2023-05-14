@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: Objects and Arrow
+abstract: Objects and Arrows
 ...
 
 \newcommand\dom{\operatorname{dom}}
@@ -543,6 +543,15 @@ An _F-algebra_ for category $\cat{C}$ is an endofunctor $F\colon\cat{C}\to\cat{C
 an object $A$, and an arrow $α\colon F(A)\to A$. If $(B,β)$ is an F-algebra then
 $f\colon A\to B$ is an F-algebra homomorphism if $fα = βF(f)$.
 
+## Alternate Definition
+
+A (small) _category_ is a set $\cat{C}$ and a binary partial operation
+$\circ\colon\cat{C}\times\cat{C}\to\cat{C}$ that is associative when defined.
+If $(f,g)$ is in the domain of $\circ$ then there exists ${}_f1_g$ in $\cat{C}$
+with $f\circ{}_f1_g = f$ and $g = {}_f1_g\circ g$.
+
+<!--
+
 If $M$ is a moniod with identity $e\in M$ then $ea = a = ae$, $a\in M$,
 and $a(bc) = (ab)c$, $a,b,c\in M$ where $ab = m(a,b)$ is the monoid operation $m\colon M\times M\to M$.
 
@@ -607,3 +616,4 @@ G^3-> G G^2 (a,b,c) -> (a,(b,c))
 G^3-> G^2 G (a,b,c) -> ((a,b),c)
 
 (a,b,c) -> (a,m(b,c)) 
+-->
