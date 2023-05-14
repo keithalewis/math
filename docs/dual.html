@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-05-14" />
+  <title>Duality</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Duality</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">May 14, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Mirror, mirror, …
+</div>
+</header>
+<p>Duality shows up in many mathematical guises. One of the simplest is
+in the case of vector spaces. The <em>dual</em> of a vector space is the
+collection of all linear functionals on the vector space. It too is a
+vector space and has the same dimension as the original vector space if
+is finite dimensional. Identifying when a space is a dual help clarifies
+mathematical concepts. For example, if <span class="math inline">F\colon
+V\to\bm{R}</span> is a smooth function then its derivative is a function
+<span class="math inline">DF\colon V\to V^*</span>, where <span
+class="math inline">V^*</span> denotes the dual of <span
+class="math inline">V</span>. There is no need for “row” or “column”
+vectors when using duals.</p>
+<section id="vector-space" class="level2">
+<h2>Vector Space</h2>
+<p>If <span class="math inline">V</span> is a vector space over the real
+numbers <span class="math inline">\bm{R}</span> then its dual, <span
+class="math inline">V^*</span>, is the set of all linear functionals
+from <span class="math inline">V</span> to <span
+class="math inline">\bm{R}</span>. The dual space is also a vector space
+with scalar multiplication and vector addition defined pointwise: <span
+class="math inline">(tv^*)(u) = t(v^*(u))</span> and <span
+class="math inline">(v^* + w^*)(u) = v^*(u) + w^*(u)</span>, <span
+class="math inline">t\in\bm{R}</span>, <span class="math inline">u\in
+V</span>, <span class="math inline">v^*,w^*\in V^*</span>. The <em>dual
+pairing</em> is <span class="math inline">\langle v,v^*\rangle =
+v^*(v)</span>, <span class="math inline">v\in V</span>, <span
+class="math inline">v^*\in V^*</span>. Since <span
+class="math inline">v^*\colon V\to\bm{R}</span> is a function, if we
+know <span class="math inline">\langle v, v^*\rangle</span> for all
+<span class="math inline">v\in V</span> we know <span
+class="math inline">v^*</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">\langle
+v,v^*\rangle = 0</span> for <span class="math inline">v^*\in V^*</span>
+show <span class="math inline">v = 0</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">\langle
+v,v^*\rangle = \langle w,v^*\rangle</span> for <span
+class="math inline">v^*\in V^*</span> show <span class="math inline">v =
+w</span></em>.</p>
+<p><em>Hint</em>: Use linearity and reduce to the first exercise.</p>
+<p>If <span class="math inline">V</span> is finite dimensional with
+basis <span class="math inline">\{e_i\}</span> then define the <em>dual
+basis</em> <span class="math inline">e_j^*\colon V\to\bm{R}</span> by
+<span class="math inline">\langle e_i, e_j^*\rangle = δ_{i,j}</span>,
+where <span class="math inline">δ_{i,j}</span> is the Kronecker delta,
+and extend to <span class="math inline">V</span> linearly to get <span
+class="math inline">e_j^*\in V^*</span>. This determines an isomorphism
+<span class="math inline">T\colon V\to V^*</span> by <span
+class="math inline">Te_i = e_i^*</span>.</p>
+<p>For any vector space <span class="math inline">V</span> define the
+<em>canonical injection</em> <span class="math inline">ι_V\colon V\to
+V^{**}</span> by <span class="math inline">\langle ι_Vv, v^*\rangle =
+\langle v, v^*\rangle</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">ι_V</span> is a linear transformation</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">ι_Vv =
+0</span> if and only if <span class="math inline">v = 0</span>, <span
+class="math inline">v\in V</span></em>.</p>
+<p>The proof of this is trivial, unlike the proof that vector spaces of
+the same dimension are isomorphic. That proof involves the Steinitz
+replacement theorem and introducing an arbitrary basis for each vector
+space.</p>
+</section>
+<section id="linear-transformation" class="level2">
+<h2>Linear Transformation</h2>
+<p>Linear transformations on vector spaces <span
+class="math inline">T\colon V\to W</span> are also a vector space with
+scalar multiplication and vector addition defined pointwise. They have a
+notion of duality called <em>adjoint</em>. Define <span
+class="math inline">T^*\colon W^*\to V^*</span> by <span
+class="math inline">\langle v, T^*w^*\rangle = \langle Tv,
+w^*\rangle</span>, <span class="math inline">v\in V</span>, <span
+class="math inline">w^*\in W^*</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">S\colon
+U\to V</span> and <span class="math inline">T\colon V\to W</span> show
+<span class="math inline">(TS)^* = S^*T^*</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">T\colon
+V\to W</span> show <span class="math inline">T^{**}ι_V =
+ι_WT</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+For <span class="math inline">v\in V</span>, <span
+class="math inline">w^*\in W^*</span>, <span class="math inline">\langle
+T^{**}ι_Vv, w^*\rangle = \langle ι_Vv, T^*w^*\rangle = \langle v,
+T^*w^*\rangle = \langle Tv, w^*\rangle = \langle ι_W Tv,
+w^*\rangle</span>.
+</details>
+<p>This is an example of a <em>natural transformation</em> in category
+theory.</p>
+</section>
+<section id="integration" class="level2">
+<h2>Integration</h2>
+<p>Given a function on a finite interval <span
+class="math inline">f\colon [a,b]\to\bm{R}</span>, <span
+class="math inline">a,b\in\bm{R}</span>, and a partition of <span
+class="math inline">[a,b]</span>, <span class="math inline">Δ =
+(x_0,\ldots,x_n)</span> with <span class="math inline">a = x_0 &lt; x_1
+&lt; \cdots &lt; x_n = b</span> define <span
+class="math inline">\underline{R}_{[a,b]}f = \sum_{0\le i &lt; n}
+\underline{f_i}\,Δx_i</span> where <span
+class="math inline">\underline{f_i} = \inf_{x_i \le x &lt; x_{i+1}}
+f(x)</span> and <span class="math inline">Δx_i = x_{i + 1} - x_i</span>.
+Likewise define <span class="math inline">\overline{R}_{[a,b]}f =
+\sum_{0\le i &lt; n} \overline{f_i}\,Δx_i</span> where <span
+class="math inline">\overline{f_i} = \sup_{x_i \le x &lt; x_{i+1}}
+f(x)</span>.</p>
+<p>Define <span class="math inline">Δ\preceq Δ&#39;</span> if every
+<span class="math inline">x_i</span> in <span
+class="math inline">Δ</span> is equal to some <span
+class="math inline">x_i&#39;</span> in <span
+class="math inline">Δ&#39;</span>. This ordering is a <em>net</em> so we
+can consider the limit in both cases. Riemann showed that if <span
+class="math inline">f</span> is continuous on <span
+class="math inline">[a,b]</span> the the lower and upper limits exist
+and are equal.</p>
+<p>If <span class="math inline">F\colon [a,b]\to\bm{R}</span> is any
+non-decreasing function a similar argument goes through for sums of the
+for <span class="math inline">\sum_{0\le i &lt; n} f(x_i^*)\,(F(x_{i+1})
+- F(x_i))</span>, where <span class="math inline">x_i^*\in [x_i,
+x_{i+1}]</span>, which leads to Riemann-Stieljes integation. For
+example, if <span class="math inline">F(x) = 1_{[c,\infty)}</span> is
+the Heavyside function it can be shown <span
+class="math inline">\int_a^b f(x)\,dF(x) = f(a)</span> when <span
+class="math inline">a &lt; c &lt; b</span>.</p>
+<p><strong>Exercise</strong>. <em>Prove this</em>.</p>
+<p><em>Hint</em>: Only one term of <span class="math inline">\sum
+f(x^*)\,ΔF(x)</span> is non-zero.</p>
+<p>There are also <em>improper integrals</em> that can be defined if
+<span class="math inline">a = -\infty</span> or <span
+class="math inline">b = +\infty</span> if limits exist. If <span
+class="math inline">f</span> tends to infinity at either endpoint then
+the limits over <span class="math inline">[a + ε,b]</span> and <span
+class="math inline">[a, b - ε]</span> may exist as <span
+class="math inline">ε\to 0</span>. If <span class="math inline">f</span>
+has a countable number of jumps it is also possible to fix things
+up.</p>
+<p>Things become even more complicated when trying find conditions when
+limits can be exchanged: <span
+class="math inline">\lim_{n\to\infty}\int_a^b f_n(x)\,dx = \int_a^b
+\lim_{n\to\infty} f_n(x)\,dx</span>.</p>
+<p>Lebesgue cleaned up this mess by noticing the continuous functons on
+the interval <span class="math inline">[a,b]</span>, <span
+class="math inline">C[a,b]</span>, is a vector space and <span
+class="math inline">f\mapsto \int_a^b f(x)\,dx</span> is a linear
+functional. This led him to the notion of <em>set functions</em> called
+<em>measures</em> that greatly simplify the concept of integration.</p>
+<section id="bounded-functions" class="level3">
+<h3>Bounded Functions</h3>
+<p>Let <span class="math inline">\Omega</span> be <em>any</em> set and
+define the bounded functions <span class="math inline">B(\Omega) =
+\{f\colon\Omega\to\bm{R}:\sup_{\omega\in\Omega} |f(\omega)| &lt;
+\infty\}</span>. Given a linear functional <span
+class="math inline">L\in B(\Omega)^*</span> and any subset <span
+class="math inline">E\subseteq\Omega</span> define <span
+class="math inline">λ(E) = L(1_E)</span>, where <span
+class="math inline">1_E(ω) = 1</span> if <span class="math inline">ω\in
+E</span> and <span class="math inline">1_E(ω) = 0</span> if <span
+class="math inline">ω\not\in E</span>. If <span
+class="math inline">E</span> and <span class="math inline">F</span> are
+disjoint subsets of <span class="math inline">\Omega</span> then <span
+class="math inline">1_{E\cup F} = 1_E + 1_F</span> so <span
+class="math inline">λ(E\cup F) = λ(E) + λ(F)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">λ(E\cup
+F) = λ(E) + λ(F) - λ(E\cap F)</span> for any <span
+class="math inline">E,F\subseteq \Omega</span></em>.</p>
+<p>While <span class="math inline">f</span> is a function on <span
+class="math inline">\Omega</span>, <span class="math inline">λ</span> is
+a function on subsets of <span class="math inline">\Omega</span> that
+satifies <span class="math inline">λ(E\cup F) = λ(E) + λ(F) - λ(E\cap
+F)</span> for any <span class="math inline">E,F\subseteq \Omega</span>.
+Such functions are called measures. Measures don’t count things twice.
+We also need <span class="math inline">λ(\emptyset) = 0</span>, the
+measure of nothing is zero.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">λ(E\cup
+F) = λ(E) + λ(F) - λ(E\cap F)</span>, <span
+class="math inline">E,F\subseteq\Omega</span>, then <span
+class="math inline">μ = λ + a</span> also satisfies this
+condition</em>.</p>
+<p><em>Hint</em>. The “measure” <span class="math inline">μ + a</span>
+is <span class="math inline">(μ + a)(E) = μ(E) + a</span>.</p>
+</section>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

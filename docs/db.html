@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-05-14" />
+  <title>Database</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Database</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">May 14, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+The mathematical foundations of databases.
+</div>
+</header>
+<p>A <em>relational database</em> <span class="math inline">R</span> is
+a subset of a cartesian product of <em>columns</em> <span
+class="math inline">(T_j)_{j\in J}</span>: <span
+class="math inline">R\subseteq \Pi_{j\in J} T_j = T_J</span>. Databases
+contain <em>rows</em> <span class="math inline">r_i\in T_J</span> where
+<span class="math inline">R = \{r_i\}</span>.</p>
+<p>If <span class="math inline">I\subseteq J</span> the
+<em>projection</em> <span class="math inline">\pi_I\colon T_J\to
+T_I</span> selects the subset of columns belonging to the index set
+<span class="math inline">I</span>. We write <span
+class="math inline">r_I = \pi_I(r)</span> for <span
+class="math inline">r\in R</span> and <span class="math inline">R_I =
+\{r_I:r\in R\}</span> for the <em>projection</em> of <span
+class="math inline">R</span> on <span class="math inline">I</span>. This
+is called SELECT in SQL.</p>
+<p>A predicate on a set <span class="math inline">S</span> is a subset
+<span class="math inline">P\subseteq S</span>. The <em>restriction</em>
+of a database given a predicate <span class="math inline">P\subseteq
+T_J</span> is the set <span class="math inline">\{r\in R:r\in
+P\}</span>. One way to specify subsets of <span
+class="math inline">T_J</span> is by equations or inequalities involving
+involving row values <span class="math inline">r = (t_j)_{j\in J} \in
+T_J</span>. This is called WHERE in SQL.</p>
+<p>The <em>join</em> of two database consists of a cartesian product, a
+restriction, and a projection. The join of <span
+class="math inline">R\subseteq T_J</span> and <span
+class="math inline">R&#39;\subseteq T&#39;_{J&#39;}</span> on <span
+class="math inline">I\subseteq J</span> and <span
+class="math inline">I&#39;\subseteq J&#39;</span> starts with the
+cartesian product <span class="math inline">R\times R&#39;</span>. This
+is restricted to rows <span class="math inline">(r,r&#39;)</span>
+satisfying <span class="math inline">r_I = r&#39;_{I&#39;}</span>. The
+result is projected on columns <span class="math inline">J\cup
+(J&#39;\setminus I&#39;)</span> (or <span
+class="math inline">(J\setminus I)\cup J&#39;</span>) to remove
+redundant data. This is called JOIN in SQL.</p>
+<p>If <span class="math inline">R,R&#39;\subseteq T_J</span> are
+databases then <span class="math inline">R\cup R&#39;</span> is also a
+database. This is called UNION in SQL.</p>
+<p>The rows of a database are a set. In mathematics the order of set
+elements does not matter. The order in which rows are presented to a
+user as a result of a query does matter. If a column has an ordering it
+can be used to sort the data returned by a query. This is called ORDER
+BY in SQL.</p>
+<p>Columns can, and often do, contain duplicate values. The unique
+values of a column can be used to partition the results of a query. All
+rows having the same column value can be grouped by unique values. This
+is called GROUP BY in SQL.</p>
+<p>To maintain the mathematical illusion that database rows are merely a
+set, software implmentations resort to <em>indicies</em> to improve
+performance. For example, if one of the columns is a time value then the
+data can be scanned to compute a permutation of the physical row postion
+that preserves the time ordering.</p>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

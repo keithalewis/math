@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-05-14" />
+  <title>Integration</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Integration</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">May 14, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Integration is a linear functional on a vector space of functions.
+</div>
+</header>
+<p>A function and a measure determine an integral. Integrals are linear
+in both the function and the measure. Measures are functions on subsets
+of the domain of the function that do not count things twice. They can
+be identified with the dual of the vector space of functions.</p>
+<section id="function" class="level2">
+<h2>Function</h2>
+<p>If <span class="math inline">A</span> and <span
+class="math inline">B</span> are sets then <span class="math inline">A^B
+= \{f\colon B\to A\}</span> is the set of all functions from <span
+class="math inline">B</span> to <span class="math inline">A</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\#A</span> is the number of elements of the set
+<span class="math inline">A</span> show <span class="math inline">\#A^B
+= \#A^{\#B}</span> when <span class="math inline">A</span> and <span
+class="math inline">B</span> are finite</em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+A function <span class="math inline">f\colon B\to A</span> assigns
+elements of <span class="math inline">B</span> to elements of <span
+class="math inline">A</span>. For each of the <span
+class="math inline">\#B</span> elements of <span
+class="math inline">B</span> we have <span
+class="math inline">\#A</span> choices from <span
+class="math inline">A</span>.
+</details>
+<p>The set <span class="math inline">\mathbf{R}^\Omega</span> is a
+vector space of real-valued functions on <span
+class="math inline">\Omega</span> where scalar multiplication and
+addition are defined pointwise: <span class="math display">
+\begin{aligned}
+(af)(\omega) &amp;= af(\omega) \\
+(f + g)(\omega) &amp;= f(\omega) + g(\omega), \\
+\end{aligned}
+</span> for <span class="math inline">a\in\mathbf{R}</span>, <span
+class="math inline">f,g\in\mathbf{R}^\Omega</span>, <span
+class="math inline">\omega\in \Omega</span>. We can replace <span
+class="math inline">\mathbf{R}</span> by any field <span
+class="math inline">\mathbf{F}</span> and get a vector space over <span
+class="math inline">\mathbf{F}</span>.</p>
+</section>
+<section id="measure" class="level2">
+<h2>Measure</h2>
+<p>The set of all subsets of a set <span
+class="math inline">\Omega</span> is <span
+class="math inline">\mathcal{P}(\Omega) = \{A\mid
+A\subseteq\Omega\}</span>. A <em>measure</em> on a set <span
+class="math inline">\Omega</span> is a function <span
+class="math inline">\mu\colon \mathcal{P}(\Omega)\to\mathbf{R}</span>
+satisfying <span class="math inline">\mu(A\cup B) = \mu(A) + \mu(B) -
+\mu(A\cap B)</span>, <span class="math inline">A,B\subseteq\Omega</span>
+and <span class="math inline">\mu(\emptyset) = 0</span>. Measures do not
+count things twice and the measure of nothing is zero.</p>
+<p><strong>Exercise</strong> <em>If <span class="math inline">\nu\colon
+\mathcal{P}(\Omega)\to\mathbf{R}</span> and <span
+class="math inline">\nu(A\cup B) = \nu(A) + \nu(B) - \nu(A\cap
+B)</span>, <span class="math inline">A,B\subseteq\Omega</span>, then
+<span class="math inline">\mu(A) = \nu(A) - \nu(\emptyset)</span> is a
+measure</em>.</p>
+<p><em>Hint</em>: <span class="math inline">c = c + c - c</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\Omega</span> is finite show <span
+class="math inline">\mu(A) = \#A</span> is a measure</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\Omega</span> is finite show <span
+class="math inline">\mu(A) = \sum_{\omega\in A}
+\mu(\{\omega\})</span></em>.</p>
+<p>This shows measures on finite sets are determined by the measure of
+each singleton <span class="math inline">\{\omega\}</span>, <span
+class="math inline">\omega\in\Omega</span>. In this case a measure can
+be identified with an element of <span
+class="math inline">\mathbf{R}^\Omega</span>.</p>
+<p>The set <span class="math inline">ba(\Omega)</span> of all measures
+on <span class="math inline">\Omega</span> is a vector space where
+scalar multiplication and addition are defined setwise: <span
+class="math display">
+\begin{aligned}
+(a\mu)(A) &amp;= a\mu(A) \\
+(\mu + \nu)(A) &amp;= \mu(A) + \nu(A), \\
+\end{aligned}
+</span> for <span class="math inline">a\in\mathbf{R}</span>, <span
+class="math inline">\mu,\nu\in ba(\Omega)</span>, <span
+class="math inline">A\subseteq\Omega</span>.</p>
+</section>
+<section id="integration" class="level2">
+<h2>Integration</h2>
+<p>Integration is a linear functional <span
+class="math inline">M\colon\mathbf{R}^\Omega\to\mathbf{R}</span>: <span
+class="math inline">M(af) = aMf</span> and <span class="math inline">M(f
++ g) = Mf + Mg</span>, <span class="math inline">a\in\mathbf{R}</span>,
+<span class="math inline">f,g\in\mathbf{R}^\Omega</span>. Each linear
+functional <span class="math inline">M</span> determines a measure <span
+class="math inline">\mu</span> by <span class="math inline">\mu(A) =
+M1_A</span>, <span class="math inline">A\subseteq\Omega</span>, where
+<span class="math inline">1_A\in\mathbf{R}^\Omega</span> is the
+<em>indicator function</em> defined by <span
+class="math inline">1_A(\omega) = 1</span> if <span
+class="math inline">\omega\in A</span> and <span
+class="math inline">1_A(\omega) = 0</span> if <span
+class="math inline">\omega\not\in A</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\mu</span> is a measure</em>.</p>
+<p><em>Hint</em>: <span class="math inline">1_{A\cup B} = 1_A + 1_B -
+1_{A\cap B}</span> and <span class="math inline">1_\emptyset =
+0</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\mathcal{P}(\Omega)</span> can be identified with
+<span class="math inline">\{0,1\}^\Omega</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">A\subset\Omega</span>
+corresponds to <span class="math inline">1_A\in \{0,1\}^\Omega</span>.
+We also write <span class="math inline">2^\Omega</span> for this where
+<span class="math inline">2 = \{0,1\}</span>.</p>
+<p>Each measure <span class="math inline">\mu</span> determines a linear
+functional on a subspace of <span
+class="math inline">\mathbf{R}^\Omega</span>. Functions that are finite
+linear combinations of indicator functions are called
+<em>elementary</em>. If <span class="math inline">f = \sum_j a_j
+1_{A_j}</span>, <span class="math inline">a_j\in\mathbf{R}</span>, <span
+class="math inline">A_j\subseteq\Omega</span> is elementary then define
+<span class="math inline">Mf = \sum_j a_j \mu(A_j)</span>. For this to
+be well-defined we must show if <span class="math inline">\sum_j a_j
+1_{A_j} = \sum_k b_k1_{B_k}</span> are elementary functons then <span
+class="math inline">\sum_j a_j \mu(A_j) = \sum_k b_k\mu(B_k)</span>.
+Since <span class="math inline">M</span> is linear this is equivalent to
+showing if <span class="math inline">\sum_j a_j 1_{A_j} = 0</span> then
+<span class="math inline">\sum_j a_j \mu(A_j) = 0</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">T\colon
+V\to W</span> is a linear transformation between vector spaces then
+<span class="math inline">Tf = Tg</span> if and only if <span
+class="math inline">T(f - g) = 0</span>, <span
+class="math inline">f,g\in V</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">T(f - g) = Tf -
+Tg</span>.</p>
+<p>Every elementary function can be written as <span
+class="math inline">\sum_j a_j 1_{A_j}</span> where <span
+class="math inline">(A_j)</span> are pairwise disjoint.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f = a_1
+1_{A_1} + a_2 1_{A_2}</span> show <span class="math inline">f = a_1
+1_{A_1\setminus A_2} + a_2 1_{A_2\setminus A_1} + (a_1 + a_2) 1_{A_1\cap
+A_2}</span></em>.</p>
+<p><em>Hint</em>: Recall the <em>set difference</em> is defined by <span
+class="math inline">A\setminus B = \{a\in A\mid a\not\in B\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">a_1\mu(A_1) + a_2\mu(A_2) = a_\mu(A_1\setminus A_2)
++ a_2\mu(A_2\setminus A_1) + (a_1 + a_2)\mu(A_1\cap
+A_2)</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">A = (A\setminus B)\cup(A\cap
+B)</span> is a disjoint union so <span class="math inline">\mu(A) =
+\mu(A\setminus B) + \mu(A\cap B)</span>.</p>
+<p>The case for any finite linear combination can be proved by
+induction.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">\sum_j
+a_j 1_{A_j} = 0</span> and <span class="math inline">(A_j)</span> are
+pairwise disjoint then <span class="math inline">a_j = 0</span> for all
+<span class="math inline">j</span></em>.</p>
+<p><em>Hint</em>: Consider when <span class="math inline">\omega\in
+A_j</span>.</p>
+<p>This shows <span class="math inline">M</span> is well-defined.</p>
+<p>Given a linear functional <span class="math inline">M</span> on <span
+class="math inline">\mathbf{R}^\Omega</span> we always have a measure
+<span class="math inline">\mu</span> on <span
+class="math inline">\Omega</span> given by <span
+class="math inline">\mu(A) = M1_A</span>. A measure only determines a
+linear functional on the subspace of elementary functions in <span
+class="math inline">\mathbf{R}^\Omega</span>.</p>
+<p>If <span class="math inline">\Omega</span> is finite then every
+function is elementary since <span class="math inline">f =
+\sum_{\omega\in\Omega} f(\omega) 1_{\{\omega\}}</span></p>
+<p>We write <span class="math inline">Mf = \int_\Omega
+f\,d\mu</span>.</p>
+</section>
+<section id="bounded-function" class="level2">
+<h2>Bounded Function</h2>
+<p>A function <span class="math inline">f\in\mathbf{R}^\Omega</span> is
+<em>bounded</em> if there exists <span
+class="math inline">N\in\mathbf{R}</span> with <span
+class="math inline">|f(\omega)| &lt; N</span> for <span
+class="math inline">\omega\in\Omega</span>. The set of all bounded
+functions is denoted <span class="math inline">B(\Omega)</span>. The
+<em>norm</em> of a bounded function is the <em>greatest lower bound</em>
+(<em>infimum</em>) <span class="math inline">\|f\| =
+\inf\{N\in\mathbf{R}\mid |f| &lt; N\}</span>, where <span
+class="math inline">|f| &lt; N</span> is shorthand for <span
+class="math inline">|f(\omega)| &lt; N</span> for all <span
+class="math inline">\omega\in\Omega</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\|f\| =
+\sup\{|f(\omega)|\mid \omega\in\Omega\}</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\|f\| =
+0</span> implies <span class="math inline">f = 0</span>, <span
+class="math inline">\|af\| = |a|\|f\|</span> and <span
+class="math inline">\|f + g\| \le \|f\| + \|g\|</span>, <span
+class="math inline">a\in\mathbf{R}</span>, <span
+class="math inline">f,g\in B(\Omega)</span></em>.</p>
+<p>A vector space having a norm is a <em>normed linear space</em>. It is
+also a metric space with distance defined by <span
+class="math inline">d(f,g) = \|f - g\|</span>.</p>
+<p><strong>Exercsie</strong>. <em>Show <span class="math inline">d(f,g)
+= 0</span> implies <span class="math inline">f = g</span> and <span
+class="math inline">d(f,g) \le d(f,h) + d(h,g)</span> for <span
+class="math inline">f,g,h\in B(\Omega)</span></em>.</p>
+<p>A metric space is <em>complete</em> if every Cauchy sequence
+converges to a point in the space.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">(f_n)</span> is a Cauchy sequence in <span
+class="math inline">B(\Omega)</span> show it converges to some <span
+class="math inline">f\in B(\Omega)</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">(f_n(\omega))</span> is a
+Cauchy sequence in <span class="math inline">\mathbf{R}</span> for each
+<span class="math inline">\omega\in\Omega</span> and <span
+class="math inline">\mathbf{R}</span> is complete.</p>
+</section>
+<section id="continuous-integral" class="level2">
+<h2>Continuous Integral</h2>
+<p>Let <span class="math inline">B(\Omega)^*</span> be the space of all
+linear functionals on <span class="math inline">B(\Omega)</span> that
+are continuous in the metric topology: <span class="math inline">M\colon
+B(\Omega)\to\mathbf{R}</span> where <span class="math inline">f_n\to
+f</span> implies <span class="math inline">Mf_n \to Mf</span>. Note
+<span class="math inline">B(\Omega)^*</span> is a vector space and we
+can define a norm for each <span class="math inline">M\in
+B(\Omega)^*</span> by <span class="math inline">\|M\| = \sup\{|Mf|\mid
+f\in B(\Omega), \|f\| \le 1\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show this ia a norm</em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">\|M\| = 0</span>
+implies <span class="math inline">M = 0</span>, <span
+class="math inline">\|aM\| = |a| \|M\|</span>, and <span
+class="math inline">\|M + N\| \le \|M\| + \|N\|</span>, <span
+class="math inline">a\in\mathbf{R}</span>, <span
+class="math inline">M,N\in B(\Omega)^*</span>.</p>
+<p>As before, each <span class="math inline">M\in B(\Omega)^*</span>
+defines a measure <span class="math inline">\mu\in ba(\Omega)</span> by
+<span class="math inline">\mu(A) = M1_A</span>. Again, each measure
+<span class="math inline">\mu\in ba(\Omega)</span> defines a linear
+functional on the subspace of elementary functions by <span
+class="math inline">M(\sum_j a_j 1_{A_j}) = \sum_j a_j \mu(A_j)</span>.
+This can be extended to all of <span
+class="math inline">B(\Omega)</span> by continuity.</p>
+<p>The set of elementary functions in <span
+class="math inline">B(\Omega)</span> is <em>dense</em>: given <span
+class="math inline">f\in B(\Omega)</span> and <span
+class="math inline">\epsilon &gt; 0</span> there exists an elementary
+function <span class="math inline">e</span> with <span
+class="math inline">\|f - e\| &lt; \epsilon</span>. Suppose <span
+class="math inline">\|f\| &lt; N</span> and let <span
+class="math inline">-N = a_0 &lt; a_1 &lt; \cdots &lt; a_n = N</span>,
+<span class="math inline">a_j\in\mathbf{R}</span> be any partition of
+<span class="math inline">[-N, N]</span>. Define <span
+class="math inline">A_j = \{\omega\in\Omega\mid a_j \le f(\omega) &lt;
+a_{j+1}\}</span>, <span class="math inline">0\le j &lt; n</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\|f -
+\sum_j a_j 1_{A_j}\| \le \max_{0\le j &lt; n} a_{j + 1} -
+a_j</span></em>.</p>
+<p>For any <span class="math inline">N</span> and any <span
+class="math inline">\epsilon &gt; 0</span> we can find a partition with
+<span class="math inline">\max_{0\le j &lt; n} a_{j + 1} - a_j &lt;
+\epsilon</span>.</p>
+<p>This shows <span class="math inline">B(\Omega)^*</span> is in 1-to-1
+correspondence with <span class="math inline">ba(\Omega)</span>. The map
+<span class="math inline">M\mapsto\mu</span> is linear and
+continuous.</p>
+<p><strong>Exercise</strong>. <em>Show the map is isometric</em>.</p>
+<p><em>Hint</em>: Show if <span class="math inline">M\mapsto\mu</span>
+then <span class="math inline">\|M\| = \|\mu\|</span>.</p>
+<p>This establishes the fact bounded linear functionals on <span
+class="math inline">B(\Omega)</span> are isometrically isomorphic to
+measures on <span class="math inline">\Omega</span>.</p>
+</section>
+<section id="partial-information" class="level2">
+<h2>Partial Information</h2>
+<p>Possible outcomes are modeled by a set <span
+class="math inline">\Omega</span>. For example, the outcome of rolling a
+six-sided die can be modeled by the set <span class="math inline">\Omega
+= \{1,2,3,4,5,6\}</span>. Subsets of <span
+class="math inline">\Omega</span> are called events. The event “rolling
+an even number” corresponds to the subset <span
+class="math inline">\{2,4,6\}</span>. Partial information is modeled by
+a partition of <span class="math inline">\Omega</span>. The partition
+<span class="math inline">\{\{1,3,5\},\{2,4,6\}\}</span> represents
+knowing whether the roll was odd or even. Partial information is knowing
+only whether <span class="math inline">\omega\in\{1,3,5\}</span> or
+<span class="math inline">\omega\in\{2,4,6\}</span>.</p>
+<p>Full information corresponds to the partition of singletons <span
+class="math inline">\{\{\omega\}\mid\omega\in\Omega\}</span>. No
+information corresponds to the singleton partition <span
+class="math inline">\{\Omega\}</span>.</p>
+<section id="partition" class="level3">
+<h3>Partition</h3>
+<p>Partial information is modeled by a <em>partition</em> of a set <span
+class="math inline">\Omega</span>: a collection of subsets of <span
+class="math inline">\Omega</span> that are pairwise disjoint and have
+union <span class="math inline">\Omega</span>. Every <span
+class="math inline">\omega\in\Omega</span> belongs to a unique set,
+<span class="math inline">A_\omega</span>, in the partition. We call
+<span class="math inline">A_\omega</span> the <em>atom</em> containing
+<span class="math inline">\omega</span>.</p>
+<p><strong>Exercise</strong>. <em>Show either <span
+class="math inline">A_\omega = A_{\omega&#39;}</span> or <span
+class="math inline">A_\omega\cap A_{\omega&#39;} = \emptyset</span> for
+<span class="math inline">\omega,\omega&#39;\in\Omega</span></em>.</p>
+<p>Define a relation on <span class="math inline">\Omega</span> by <span
+class="math inline">\omega\sim\omega&#39;</span> if and only if <span
+class="math inline">A_\omega = A_{\omega&#39;}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\sim</span> is an equivalence relations</em>.</p>
+<p><em>Hint</em>: Show <span
+class="math inline">\omega\sim\omega</span>, <span
+class="math inline">\omega\sim\omega&#39;</span> imples <span
+class="math inline">\omega&#39;\sim\omega</span>, and <span
+class="math inline">\omega\sim\omega&#39;</span>, <span
+class="math inline">\omega&#39;\sim\omega&#39;&#39;</span> imply <span
+class="math inline">\omega\sim\omega&#39;&#39;</span>.</p>
+<p><strong>Exercie</strong>. <em>Show every equivalence relation
+determines a partition</em>.</p>
+<p><em>Hint</em>: Let <span class="math inline">A_\omega =
+\{\omega&#39;\in\Omega\mid \omega&#39;\sim\omega\}</span> and show <span
+class="math inline">\{A_\omega\mid\omega\in\Omega\}</span> is a
+partition.</p>
+</section>
+<section id="algebra-of-sets" class="level3">
+<h3>Algebra of Sets</h3>
+<p>An <em>algebra of sets</em> on <span
+class="math inline">\Omega</span> is a subset of the power set of <span
+class="math inline">\Omega</span> that is closed under complement and
+union. Sets in the algebra are called <em>events</em>. These conditions
+are necessary in order to talk about an event not occuring or either of
+two events occuring. If <span class="math inline">E</span> is an event
+then “not E” corresponds to <span class="math inline">\Omega\setminus
+E</span>. if <span class="math inline">E</span> and <span
+class="math inline">F</span> are events then “E or F” corresponds to
+<span class="math inline">E\cup F</span>.</p>
+<p><strong>Exercise</strong>. <em>Show algebras are closed under
+intersection</em>.</p>
+<p><em>Hint</em>: De Morgan.</p>
+<p>If <span class="math inline">E</span> and <span
+class="math inline">F</span> are events in the algebra then “E and F”
+corresponds to the event <span class="math inline">E\cap F</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\mathcal{A}</span> and <span
+class="math inline">\mathcal{A}&#39;</span> are algebras then <span
+class="math inline">\mathcal{A}\cap\mathcal{A}&#39;</span> is an
+algebra</em>.</p>
+<p><strong>Extra Credit</strong>. <em>Find algebras <span
+class="math inline">\mathcal{A}</span> and <span
+class="math inline">\mathcal{A}&#39;</span> where <span
+class="math inline">\mathcal{A}\cup\mathcal{A}&#39;</span> is not an
+algebra</em>.</p>
+<p>Given any collection of subsets <span
+class="math inline">\mathcal{B}</span> of <span
+class="math inline">\Omega</span> define <span
+class="math inline">\mathop{\rm{Alg}}\mathcal{B}</span> to be the
+smallest algebra containing <span
+class="math inline">\mathcal{B}</span>.</p>
+<p><strong>Exercise</strong> <em>Show <span
+class="math inline">\mathop{\rm{Alg}}\mathcal{B}</span> is the
+intersection of all algebras containing <span
+class="math inline">\mathcal{B}</span></em>.</p>
+<p>If <span class="math inline">\mathcal{A}</span> is an algebra let
+<span class="math inline">A_\omega = \cap\{A\in\mathcal{A}\mid\omega\in
+A\}</span>, <span class="math inline">\omega\in\Omega</span>.</p>
+<p><strong>Exercise</strong>. <em>Show either <span
+class="math inline">A_\omega = A_{\omega&#39;}</span> or <span
+class="math inline">A_\omega\cap A_{\omega&#39;} = \emptyset</span> for
+<span class="math inline">\omega,\omega&#39;\in\Omega</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\mathcal{A}</span> is an algebra then <span
+class="math inline">\{A_\omega\mid\omega\in\Omega\}</span> is a
+parition</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\mathcal{A}</span> is an algebra show <span
+class="math inline">\mathcal{A}=
+\mathop{\rm{Alg}}\{A_\omega\mid\omega\in\Omega\}</span></em>.</p>
+<p>This shows algebras are in 1-to-1 correspondence with their partition
+of atoms. We will use <span class="math inline">\mathcal{A}</span> to
+denote either the algebra or partition.</p>
+</section>
+</section>
+<section id="measurable" class="level2">
+<h2>Measurable</h2>
+<p>If <span class="math inline">\mathcal{A}</span> is an algebra on
+<span class="math inline">\Omega</span> and <span
+class="math inline">f\colon\Omega\to\mathbf{R}</span> then <span
+class="math inline">f</span> is <span
+class="math inline">\mathcal{A}</span>-measurable if <span
+class="math inline">\{\omega\mid f(\omega) \le a\}</span> belongs to
+<span class="math inline">\mathcal{A}</span> for every <span
+class="math inline">a\in\mathbf{R}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\mathcal{A}</span> is finite then <span
+class="math inline">f\colon\Omega\to\mathbf{R}</span> is measurable if
+and only if <span class="math inline">f</span> is constant on the atoms
+of <span class="math inline">\mathcal{A}</span></em>.</p>
+<p>This shows <span class="math inline">f</span> is measurable if and
+only if <span class="math inline">f\colon\mathcal{A}\to\mathbf{R}</span>
+is a function on the atoms of <span
+class="math inline">\mathcal{A}</span>.</p>
+<p>The atoms of <span class="math inline">\mathcal{A}</span> are a set
+so the theory of integration above applies. <span
+class="math inline">B(\mathcal{A})</span> is the set of bounded <span
+class="math inline">\mathcal{A}</span> measurable functions. Its dual
+<span class="math inline">B(\mathcal{A})^*</span> is isometrically
+isomorphic to <span class="math inline">ba(\mathcal{A})</span>, the set
+of all measures on <span class="math inline">\mathcal{A}</span>.</p>
+<!--
+
+Every function implemented on a computer is bounded. 
+The proxy for the set of real numbers $\RR$ are floating point numbers
+that can be represented in a finite number of bits.
+The largest floating point nummber that can be represented using 64 bits
+in the [IEEE 754 standard](https://www.computer.org/csdl/magazine/co/2019/12/08909942/1f8KFWxbTCU)
+is approximately `1.79769e+308`.
+
+-->
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

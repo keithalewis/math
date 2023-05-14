@@ -158,7 +158,7 @@ by $y = (10/110)x$.
 ## Reality
 
 If you are willing to assume prices are bounded, as they are in the real world, then
-the one-period model should require $X\colon\Omega\to R^I$ is bounded.
+the one-period model should require $X\colon\Omega\to\RR^I$ is bounded.
 This is not the case in the Black-Scholes/Merton continuous time model of lognormal stock prices.
 Scholes and Merton won a Nobel prize "for a new method to determine the value of derivatives."
 Their assumptions eliminated the need to measure the real-world return on a stock. 
