@@ -29,7 +29,7 @@ FLAGS += --reference-location=document
 #FLAGS += --mathjax
 #FLAGS += --css capm.css
 FLAGS += --section-divs
-FLAGS += -H HEADER.md
+FLAGS += -H HEADER.html
 #FLAGS += -H katex.html
 
 %.html: %.md $(CSS)
