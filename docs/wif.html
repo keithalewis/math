@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-03-16" />
+  <meta name="dcterms.date" content="2023-03-28" />
   <title>Finance</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,12 +45,39 @@
 <header id="title-block-header">
 <h1 class="title">Finance</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">March 16, 2023</p>
+<p class="date">March 28, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Atoms of finance and their interaction.
 </div>
 </header>
+<p>What does it mean to say “Ford is trading at 8?”</p>
+<p>The first approximation is “Ford stock is trading at 8 dollars per
+share.”</p>
+<p>This means you can pay 8 dollars to obtain 1 share of Ford stock. You
+can also get 8 dollars to take on the obligation of buying back one
+share of F at some future date. More generally, you can pay <span
+class="math inline">8a</span> dollars to obtain <span
+class="math inline">a</span> shares of Ford stock, where <span
+class="math inline">a</span> can be positive or negative, if you are a
+mathematician ignoring reality.</p>
+<p>In order to do this you will need to set up an account with an
+<em>exchange</em> that has legal agreements with _broker_s licensed to
+trade F, the stock symbol for Ford. Step one is to lay down some money
+for a <em>margin account</em> with the exchange to fund your trading
+activity. They will provide you with software that will show you the
+“price” of F. When their screen shows a price of 8 and you buy one share
+of F you might be surprised to find out they debited your account for
+8.01 dollars. This is called “slippage” but the exchange calls it the
+vigorish they get for hooking you up with a broker/<em>liquidity
+provider</em>.</p>
+<p>Liquidity providers submit <em>limit orders</em> to the exchange.
+They agree to buy or sell some <em>amount</em> of the underlying at a
+specific _level.</p>
+<p>Broker</p>
+<p>bid/ask spread</p>
+<p>a = 8a’ &lt;-&gt; a’</p>
+<p>(a, i, e) &lt;-&gt; (a’, i’, e’) has price X = a’/a</p>
 <section id="entity" class="level2">
 <h2>Entity</h2>
 <p>Let <span class="math inline">E</span> be a set of <em>entities</em>.

@@ -1,86 +1,61 @@
-html {
-	max-width: 90ch;
-	padding: 3em 1em;
-	margin: auto
-	line-height: 1.75;
-	font-size: 1.25em;
+body {
+    max-width: 40em;
+	word-wrap: break-word;
+    margin:  0 auto;
+    /*text-align: left;*/
+	padding: 4em 1em; 
+	font-family: "Segoe UI";
+/*'Noto Sans', "Segoe UI", 'Calisto','IBM Plex Serif', 'Cambria', Georgia, serif, 'Times New Roman','STIX Two Text';*/
+/*	font-size: 110%; */
+/*	font-weight: 400;  */
+	line-height: 130%; 
+	color: #565656;
 }
+
+@media (max-width: 684px) {
+  body {
+    font-size: 1.53rem;
+  }
+}
+@media (max-width: 382px) {
+  body {
+    font-size: 1.35rem;
+  }
+}
+h1 { color: #606060; }
+h2 {
+	margin-top: 1em;
+	padding-top: 1em;
+	color: #707070;
+}
+h3 { color: #808080; }
+sup, sub { vertical-align: 0;
+           position: relative; }
+sup { bottom: 1ex; }
+sub { top: 0.8ex; }
+
 .abstract {
     margin-left:  1em;
     margin-right:  2em;
-	font-style: italic;
+    font-style: italic;
     text-align: left;
 }
 .abstract-title {
     text-align: center;
-	font-style: normal !important;
-	font-weight: 700;
-}
-.date {
-	text-align: center;
-}
-body {
-	font-family: 'Cambria', 'Calisto', 'Segoe UI', 'IBM Plex Serif', Georgia, serif, 'Times New Roman';
-/*
-	background: #F8F8F8;
-	background: linear-gradient(to right, #FFF, #F0F0F0);
-	color: #565656;
-*/
-}
-h1, p.author {
-	text-align: center;
-}
-p {
-	text-align: left; /*justify;*/
-	text-justify: none; /*inter-word;*/
-}
-table {
-    border-collapse: collapse;
-}
-th {
-	border-bottom: 1px solid black;
-}
-th:nth-child(3) {
-	border-left: 1px solid black;
-}
-.truth tbody tr:nth-child(odd) {
-    background-color: #f2f2f2;
+    font-style: normal !important;
+    font-weight: 700;
+	margin-bottom: 1rem;
 }
 details {
-	margin-left: 1em;
-    color: teal;
+    margin-left: 1em;
+    color: #008080;
 }
-details> summary {
-	margin-left: 1em;
-    color: green;
+details > summary {
+	padding: 10px;
 }
-
 .katex {
-	font-size: 95% !important;
-	macros: {
-		"\\cod": "\\operatorname{cod}"
-		"\\ker": "\\operatorname{ker}"
-		"\\ran": "\\operatorname{ran}"
-		"\\span": "\\operatorname{span}"
-		"\\hom": "\\operatorname{hom}"
-		"\\Re": "\\operatorname{Re}"
-		"\\CC": "\\mathbf{C}"
-		"\\FF": "\\mathbf{F}"
-		"\\RR": "\\mathbf{R}"
-		"\\NN": "\\mathbf{N}"
-	  }
+    font-size: 100% !important;
 }
-.katex-display {
-	margin-left: 2em !important;
+.MathJax {
+    font-size: 90% !important;
 }
-#kalx {
-    font-family: "Courier";
-    font-weight: bold;
-    opacity: 20%;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    padding: 10px;
-    color: blue;
-}
-

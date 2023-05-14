@@ -9,8 +9,9 @@ abstract: Moving fixed cash flows through time.
 
 \newcommand\mb[1]{\mathbf{#1}}
 
-A _zero coupon bond_ paying 1 unit at time $t$, $D(t)$, has _price/discount_
-we will also denote by $D(t)$. It is the cost of moving 1 unit at $t$ back to today.
+The _zero coupon bond_ $D(u)$ pays 1 unit at time $t$
+We will also use $D(t)$ for the _price_, or _discount_, of the bond.
+It is the cost of moving 1 unit at $t$ back to today.
 Equivalently, 1 unit invested now can be redeemed at the _realized return_ $R(t) = 1/D(t)$ at time $t$.
 The _forward realized return_ over the period from time $t$ to time $u$
 is denoted $R(t,u)$, where $a$ units invested at $t$ can be redeemed
