@@ -7,8 +7,8 @@ classoption: fleqn
 abstract: Buy now, sell later.
 ...
 
-\newcommand\RR{\bm{R}}
-\renewcommand\ker{\operatorname{ker}}
+\newcommand\RR{\boldsymbol{R}}
+\newcommand\ran{\operatorname{ran}}
 
 Let $I$ be the set of _instruments_ available at the beginning and end
 of a time period and $\Omega$ be the set of possible outcomes.
@@ -20,7 +20,7 @@ $\omega\in\Omega$ occurred.
 ## Binomial Model
 
 For example, the binomial model has a bond and stock where $x = (1, s)$ and $X(\omega) = (R, \omega)$
-where $\Omega = \{S^-, S^+\}$. The bond has realized return $R$
+and $\Omega = \{S^-, S^+\}$. The bond has realized return $R$
 and the stock can go from price $s$ to either $S^-$ or $S^+$. A more realistic model
 is $\Omega = [S^-, S^+]$ where the final stock price can be any value in the interval.
 
@@ -46,7 +46,7 @@ so short the bond and buy the stock with with $\xi = (-S^-, R)$.
 
 Suppose $x = \sum_i X(\omega_i) \pi_i$ is a finite linear combination
 with $\pi_i\in\RR$ positive, $\omega_i\in\Omega$. 
-If $\xi\cdot X(\omega)\ge0$ for $\omega\in\Omega$ then $\xi\cdot x\ge 0$,
+If ${\xi\cdot X(\omega)\ge0}$ for $\omega\in\Omega$ then ${\xi\cdot x\ge 0}$,
 so no arbitrage exists.
 
 A _cone_ $C$ is a subset of a vector space closed under positive scalar
@@ -99,6 +99,8 @@ The lemma proves the "hard" direction of the FTAP.
 Note the lemma is a purely geometric fact.
 It is similar to Farkas' lemma and is a special case of the Hahn-Banach theorem
 in finite dimensional space.
+
+## Application
 
 For the binomial model the smallest closed cone containing the range of $X$
 is $\{X(S^-)\pi^- + X(S^+)\pi^+\mid \pi^-,\pi^+\ge0\}$.
