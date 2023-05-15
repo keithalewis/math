@@ -119,7 +119,7 @@ If we add an option with payoff $\nu$ to the binomial model then
 $x = (1, s, c)$ and $X(\omega) = (R, \omega, \nu(\omega))$, $\omega\in\{S^-,S^+\}$.
 There is no arbitrage if and only if $(1, s, c) = X(S^-)\pi^- + X(S^+)\pi^+$
 for some $\pi^-,\pi^+\ge0$. The first two equations determine $\pi^-$ and $\pi^+$ as
-above so $c = \nu(S^-)\pi^- + \nu(S^+)\pi^+$.
+above so $v = \nu(S^-)\pi^- + \nu(S^+)\pi^+$.
 Every option payoff is linear in the binomial model.
 
 A slightly more interesting model is a bond with zero interest rate, a stock that

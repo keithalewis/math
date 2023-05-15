@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-05-14" />
+  <meta name="dcterms.date" content="2023-05-15" />
   <title>One-Period Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -58,7 +58,7 @@
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 14, 2023</p>
+<p class="date">May 15, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Buy now, sell later.
@@ -166,8 +166,7 @@ class="math inline">{y\in C}</span>.</em></p>
 in <span class="math inline">C</span> closest to <span
 class="math inline">x</span>. It exists since <span
 class="math inline">C</span> is closed and is unique since <span
-class="math inline">C</span> is convex. We show <span
-class="math inline">\xi = x^* - x</span> implements an arbitrage.</p>
+class="math inline">C</span> is convex.</p>
 <p>Since <span class="math inline">ty + x^*\in C</span> for any <span
 class="math inline">t &gt; 0</span> and <span class="math inline">y\in
 C</span> we have <span class="math inline">\|x^* - x\| \le \|ty + x^* -
@@ -185,7 +184,8 @@ class="math inline">{\xi\cdot x^*\le 0}</span> so <span
 class="math inline">{0 &lt; ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot
 x}</span> hence <span class="math inline">{\xi\cdot x &lt;
 0}</span>.</p>
-<p>The lemma proves the “hard” direction of the FTAP.</p>
+<p>The lemma proves the “hard” direction of the FTAP and <span
+class="math inline">\xi = x^* - x</span> implements an arbitrage.</p>
 <p>Note the lemma is a purely geometric fact. It is similar to Farkas’
 lemma and is a special case of the Hahn-Banach theorem in finite
 dimensional space.</p>
@@ -224,7 +224,7 @@ if and only if <span class="math inline">(1, s, c) = X(S^-)\pi^- +
 X(S^+)\pi^+</span> for some <span
 class="math inline">\pi^-,\pi^+\ge0</span>. The first two equations
 determine <span class="math inline">\pi^-</span> and <span
-class="math inline">\pi^+</span> as above so <span class="math inline">c
+class="math inline">\pi^+</span> as above so <span class="math inline">v
 = \nu(S^-)\pi^- + \nu(S^+)\pi^+</span>. Every option payoff is linear in
 the binomial model.</p>
 <p>A slightly more interesting model is a bond with zero interest rate,
