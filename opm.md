@@ -17,20 +17,20 @@ The prices at the end of the period are a function $X\colon\Omega\to
 \RR^I$ where $X(\omega)\in\RR^I$ are the instrument prices if
 $\omega\in\Omega$ occurred.
 
-## Binomial Model
+## Example
 
-For example, the binomial model has a bond and stock where $x = (1, s)$ and $X(\omega) = (R, \omega)$
+For example, the _binomial model_ has a bond and stock where $x = (1, s)$ and $X(\omega) = (R, \omega)$
 and $\Omega = \{S^-, S^+\}$. The bond has realized return $R$
 and the stock can go from price $s$ to either $S^-$ or $S^+$. A more realistic model
 is $\Omega = [S^-, S^+]$ where the final stock price can be any value in the interval.
 
-## Position
+## Arbitrage
 
 A _position_ $\xi\in\RR^I$ is the number of shares held in each instrument.
 The cost of acquiring the initial position is $\xi\cdot x$.
 The value of liquidating the final position is $\xi\cdot X(\omega)$ if $\omega\in\Omega$ occurred.
 
-Arbitrage exists in a one-period model if there is a position $\xi\in\RR^I$
+_Arbitrage_ exists in a one-period model if there is a position $\xi\in\RR^I$
 with $\xi\cdot x < 0$ and $\xi\cdot X(\omega)\ge0$ for all $\omega\in\Omega$:
 you make money acquiring the initial position and never lose money when
 unwinding it at the end.

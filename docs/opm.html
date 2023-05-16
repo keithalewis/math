@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-05-15" />
+  <meta name="dcterms.date" content="2023-05-16" />
   <title>One-Period Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -58,7 +58,7 @@
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 15, 2023</p>
+<p class="date">May 16, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Buy now, sell later.
@@ -74,10 +74,10 @@ class="math inline">X\colon\Omega\to \boldsymbol{R}^I</span> where <span
 class="math inline">X(\omega)\in\boldsymbol{R}^I</span> are the
 instrument prices if <span class="math inline">\omega\in\Omega</span>
 occurred.</p>
-<section id="binomial-model" class="level2">
-<h2>Binomial Model</h2>
-<p>For example, the binomial model has a bond and stock where <span
-class="math inline">x = (1, s)</span> and <span
+<section id="example" class="level2">
+<h2>Example</h2>
+<p>For example, the <em>binomial model</em> has a bond and stock where
+<span class="math inline">x = (1, s)</span> and <span
 class="math inline">X(\omega) = (R, \omega)</span> and <span
 class="math inline">\Omega = \{S^-, S^+\}</span>. The bond has realized
 return <span class="math inline">R</span> and the stock can go from
@@ -87,8 +87,8 @@ A more realistic model is <span class="math inline">\Omega = [S^-,
 S^+]</span> where the final stock price can be any value in the
 interval.</p>
 </section>
-<section id="position" class="level2">
-<h2>Position</h2>
+<section id="arbitrage" class="level2">
+<h2>Arbitrage</h2>
 <p>A <em>position</em> <span
 class="math inline">\xi\in\boldsymbol{R}^I</span> is the number of
 shares held in each instrument. The cost of acquiring the initial
@@ -96,9 +96,9 @@ position is <span class="math inline">\xi\cdot x</span>. The value of
 liquidating the final position is <span class="math inline">\xi\cdot
 X(\omega)</span> if <span class="math inline">\omega\in\Omega</span>
 occurred.</p>
-<p>Arbitrage exists in a one-period model if there is a position <span
-class="math inline">\xi\in\boldsymbol{R}^I</span> with <span
-class="math inline">\xi\cdot x &lt; 0</span> and <span
+<p><em>Arbitrage</em> exists in a one-period model if there is a
+position <span class="math inline">\xi\in\boldsymbol{R}^I</span> with
+<span class="math inline">\xi\cdot x &lt; 0</span> and <span
 class="math inline">\xi\cdot X(\omega)\ge0</span> for all <span
 class="math inline">\omega\in\Omega</span>: you make money acquiring the
 initial position and never lose money when unwinding it at the end.</p>
