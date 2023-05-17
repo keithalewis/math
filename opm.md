@@ -19,10 +19,12 @@ $\omega\in\Omega$ occurred.
 
 ## Example
 
-For example, the _binomial model_ has a bond and stock where $x = (1, s)$ and $X(\omega) = (R, \omega)$
-and $\Omega = \{S^-, S^+\}$. The bond has realized return $R$
-and the stock can go from price $s$ to either $S^-$ or $S^+$. A more realistic model
-is $\Omega = [S^-, S^+]$ where the final stock price can be any value in the interval.
+For example, the _binomial model_ has a bond and stock where $x = (1, s)$,
+$X(\omega) = (R, \omega)$, and $\Omega = \{S^-, S^+\}$ where $R > 0$, and
+${S^- < S^+}$.
+The bond has realized return $R$ and the stock can go from price $s$
+to either $S^-$ or $S^+$.  A slightly more realistic model is
+${\Omega = [S^-, S^+]}$ where the final stock price can be any value in the interval.
 
 ## Arbitrage
 
@@ -35,12 +37,24 @@ with $\xi\cdot x < 0$ and $\xi\cdot X(\omega)\ge0$ for all $\omega\in\Omega$:
 you make money acquiring the initial position and never lose money when
 unwinding it at the end.
 
-__Exercise__. _If $Rs\notin [S^-,S^+]$ in the binomial model there is an arbitrage_.
+__Exercise__. _If $sR\notin [S^-,S^+]$ in the binomial model there is an arbitrage_.
 
-_Hint_: If $Rs > S^+$ the bond is always more valuable than the stock
+_Hint_: If $sR > S^+$ the bond is always more valuable than the stock
 so short the the stock and buy bond with $\xi = (S^+, -R)$.
 If $Rs < S^-$ the bond is always less valuable than the stock
 so short the bond and buy the stock with with $\xi = (-S^-, R)$.
+
+<details><summary>Solution</summary>
+In the first case, $\xi\cdot x = S^+ - sR < 0$,
+${\xi\cdot X(S^-) = S^+R - RS^- > 0}$,
+and ${\xi\cdot X(S^+) = S^+R - RS^+ = 0}$,
+so $\xi\cdot X\ge0$ on $\{S^-,S^+\}$.
+
+In the second case, $\xi\cdot x = -S^- + sR < 0$,
+${\xi\cdot X(S^-) = -S^-R + RS^- = 0}$,
+and ${\xi\cdot X(S^+) = -S^-R + RS^+ > 0}$,
+so $\xi\cdot X\ge0$ on $\{S^-,S^+\}$.
+</details>
 
 ## Cone
 
@@ -56,7 +70,17 @@ __Exercise__. _A cone is convex_.
 
 _Hint_: Show $x,y\in C$ implies $tx + (1-t)y\in C$ for $0 < t < 1$.
 
+<details><summary>Solution</summary>
+Since $t > 0$ and $1 - t > 0$ both $tx$ and $(1 - t)y$ belong to $C$,
+hence $tx + (1 - t)y\in C$.
+</details>
+
 __Exercise__. _The set of arbitrage positions is a cone_.
+
+<details><summary>Solution</summary>
+If $\xi$ is an arbitrage then $t\xi$ is an arbtrage for $t > 0$.
+If $\xi$ and $\eta$ are arbitrages then so is $\xi + \eta$.
+</details>
 
 __Exercise__. _If $x$ belongs to the smallest cone containing
 the range of $X$ then there is no arbitrage_.
@@ -65,16 +89,18 @@ _Hint_: The range of $X$ is $\ran X = \{X(\omega)\mid\omega\in\Omega\}$.
 The smallest cone containing the range of $X$ is the set of finite
 linear combinations $\sum_i X(\omega_i) \pi_i$, $\pi_i > 0$, $\omega_i\in\Omega$.
 
+<details><summary>Solution</summary>
+If $x_n\in C$ converge to $x$ in norm and $\xi\cdot x_n\ge0$ then $\xi\cdot x\ge0$.
+</details>
+
 ## Fundamental Theorem of Asset Pricing
 
 __Theorem__.  _Arbitrage exists in
 the one-period model if and only if $x$ does not belong to the smallest
 closed cone containing the range of $X$_.
 
-If $x_n\in C$ converge to $x$ in norm and $\xi\cdot x_n\ge0$ then $\xi\cdot x\ge0$.
-This proves the "easy" direction.
-
-The contrapositive follows from the 
+The previous exercise proves the "easy" direction.
+The contrapositive follows from 
 
 __Lemma__. _If $x\in\RR^n$ and $C$ is a closed cone in
 $\RR^n$ with $x\not\in C$ then there exists ${\xi\in\RR^n}$

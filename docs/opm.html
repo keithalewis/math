@@ -77,14 +77,16 @@ occurred.</p>
 <section id="example" class="level2">
 <h2>Example</h2>
 <p>For example, the <em>binomial model</em> has a bond and stock where
-<span class="math inline">x = (1, s)</span> and <span
-class="math inline">X(\omega) = (R, \omega)</span> and <span
-class="math inline">\Omega = \{S^-, S^+\}</span>. The bond has realized
-return <span class="math inline">R</span> and the stock can go from
-price <span class="math inline">s</span> to either <span
+<span class="math inline">x = (1, s)</span>, <span
+class="math inline">X(\omega) = (R, \omega)</span>, and <span
+class="math inline">\Omega = \{S^-, S^+\}</span> where <span
+class="math inline">R &gt; 0</span>, and <span class="math inline">{S^-
+&lt; S^+}</span>. The bond has realized return <span
+class="math inline">R</span> and the stock can go from price <span
+class="math inline">s</span> to either <span
 class="math inline">S^-</span> or <span class="math inline">S^+</span>.
-A more realistic model is <span class="math inline">\Omega = [S^-,
-S^+]</span> where the final stock price can be any value in the
+A slightly more realistic model is <span class="math inline">{\Omega =
+[S^-, S^+]}</span> where the final stock price can be any value in the
 interval.</p>
 </section>
 <section id="arbitrage" class="level2">
@@ -102,14 +104,29 @@ position <span class="math inline">\xi\in\boldsymbol{R}^I</span> with
 class="math inline">\xi\cdot X(\omega)\ge0</span> for all <span
 class="math inline">\omega\in\Omega</span>: you make money acquiring the
 initial position and never lose money when unwinding it at the end.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">Rs\notin
+<p><strong>Exercise</strong>. <em>If <span class="math inline">sR\notin
 [S^-,S^+]</span> in the binomial model there is an arbitrage</em>.</p>
-<p><em>Hint</em>: If <span class="math inline">Rs &gt; S^+</span> the
+<p><em>Hint</em>: If <span class="math inline">sR &gt; S^+</span> the
 bond is always more valuable than the stock so short the the stock and
 buy bond with <span class="math inline">\xi = (S^+, -R)</span>. If <span
 class="math inline">Rs &lt; S^-</span> the bond is always less valuable
 than the stock so short the bond and buy the stock with with <span
 class="math inline">\xi = (-S^-, R)</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<p>In the first case, <span class="math inline">\xi\cdot x = S^+ - sR
+&lt; 0</span>, <span class="math inline">{\xi\cdot X(S^-) = S^+R - RS^-
+&gt; 0}</span>, and <span class="math inline">{\xi\cdot X(S^+) = S^+R -
+RS^+ = 0}</span>, so <span class="math inline">\xi\cdot X\ge0</span> on
+<span class="math inline">\{S^-,S^+\}</span>.</p>
+In the second case, <span class="math inline">\xi\cdot x = -S^- + sR
+&lt; 0</span>, <span class="math inline">{\xi\cdot X(S^-) = -S^-R + RS^-
+= 0}</span>, and <span class="math inline">{\xi\cdot X(S^+) = -S^-R +
+RS^+ &gt; 0}</span>, so <span class="math inline">\xi\cdot X\ge0</span>
+on <span class="math inline">\{S^-,S^+\}</span>.
+</details>
 </section>
 <section id="cone" class="level2">
 <h2>Cone</h2>
@@ -128,8 +145,28 @@ addition.</p>
 <p><em>Hint</em>: Show <span class="math inline">x,y\in C</span> implies
 <span class="math inline">tx + (1-t)y\in C</span> for <span
 class="math inline">0 &lt; t &lt; 1</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+Since <span class="math inline">t &gt; 0</span> and <span
+class="math inline">1 - t &gt; 0</span> both <span
+class="math inline">tx</span> and <span class="math inline">(1 -
+t)y</span> belong to <span class="math inline">C</span>, hence <span
+class="math inline">tx + (1 - t)y\in C</span>.
+</details>
 <p><strong>Exercise</strong>. <em>The set of arbitrage positions is a
 cone</em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+If <span class="math inline">\xi</span> is an arbitrage then <span
+class="math inline">t\xi</span> is an arbtrage for <span
+class="math inline">t &gt; 0</span>. If <span
+class="math inline">\xi</span> and <span class="math inline">\eta</span>
+are arbitrages then so is <span class="math inline">\xi + \eta</span>.
+</details>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">x</span>
 belongs to the smallest cone containing the range of <span
 class="math inline">X</span> then there is no arbitrage</em>.</p>
@@ -140,6 +177,15 @@ the range of <span class="math inline">X</span> is the set of finite
 linear combinations <span class="math inline">\sum_i X(\omega_i)
 \pi_i</span>, <span class="math inline">\pi_i &gt; 0</span>, <span
 class="math inline">\omega_i\in\Omega</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+If <span class="math inline">x_n\in C</span> converge to <span
+class="math inline">x</span> in norm and <span
+class="math inline">\xi\cdot x_n\ge0</span> then <span
+class="math inline">\xi\cdot x\ge0</span>.
+</details>
 </section>
 <section id="fundamental-theorem-of-asset-pricing" class="level2">
 <h2>Fundamental Theorem of Asset Pricing</h2>
@@ -147,12 +193,8 @@ class="math inline">\omega_i\in\Omega</span>.</p>
 model if and only if <span class="math inline">x</span> does not belong
 to the smallest closed cone containing the range of <span
 class="math inline">X</span></em>.</p>
-<p>If <span class="math inline">x_n\in C</span> converge to <span
-class="math inline">x</span> in norm and <span
-class="math inline">\xi\cdot x_n\ge0</span> then <span
-class="math inline">\xi\cdot x\ge0</span>. This proves the “easy”
-direction.</p>
-<p>The contrapositive follows from the</p>
+<p>The previous exercise proves the “easy” direction. The contrapositive
+follows from</p>
 <p><strong>Lemma</strong>. <em>If <span
 class="math inline">x\in\boldsymbol{R}^n</span> and <span
 class="math inline">C</span> is a closed cone in <span
