@@ -164,7 +164,7 @@ Scholes and Merton won a Nobel prize "for a new method to determine the value of
 Their assumptions eliminated the need to measure the real-world return on a stock. 
 There is still a Nobel prize to be won by someone who can come up with a generally accepted
 way to determine the volatility of a stock.
-And perhaps multiple future prizes for those who develop a theory
+And perhaps multiple future prizes for those who develop theories
 not founded on the mathematical fictions of continuous time trading and unbounded prices.
 
 ## FTAP

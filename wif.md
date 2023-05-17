@@ -22,8 +22,7 @@ This means you can pay 8 dollars to obtain 1 share of Ford stock.
 You can also get 8 dollars to take on the obligation of buying
 back one share of F at some future date.
 More generally, you can pay $8a$ dollars to obtain $a$ shares of Ford stock,
-where $a$ can be positive or negative, if you are a mathematician
-ignoring reality.
+where $a$ can be positive or negative.
 
 In order to do this you will need to set up an account with an _exchange_
 that has legal agreements with _broker_s
@@ -36,7 +35,37 @@ for 8.01 dollars. This is called "slippage" but the exchange calls it
 the vigorish they get for hooking you up with a broker/_liquidity provider_.
 
 Liquidity providers submit _limit orders_ to the exchange.
-They agree to buy or sell some _amount_ of the underlying at a specific _level.
+They agree to buy or sell some _amount_ of the underlying at a specific _level_.
+
+## Price
+
+If a _buyer_ acquires amount $a$ of instrument $i$ for amount $a'$ of
+instrument $i'$ from a _seller_, the price if the transaction is $X = a'/a$.
+
+## Trading
+
+Let $X_t$ be the price of an intrument at time $t$ and consider the trading
+strategy of purchasing 1 share at time $u$ and selling 1 share at time $v$.
+The  _profit and loss_ of the trade is $X_v - X_u$ after it has _closed out_ at time $v$.
+At time $s$, where $u < s < v$, the P\&L is $X_s - X_u$ where $X_s$ is the price
+at time $s$. 
+
+at time $s$ is $X_s - X_t$ for $u\le s\le v$
+and $X_v - X_u$ after
+
+## Blotter
+
+The _blotter_ is a collection $\{(t;a,i,e;a',i',e')\}$. We assume all $t$ are distinct.
+
+Use as foreign key to attach additional transaction data.
+
+A _transaction_ is $(t'',(t,a,i,e),(t',a',i',e'))$.
+
+This adds the following to the blotter.
+
+$(t'', (t'', (t'',-a,i,e), (t'', -a', i', e'))$
+
+$(t'', (t'', (t'',a',i',e), (t'', a, i, e'))$
 
 Broker
 
