@@ -10,10 +10,8 @@ abstract: Logic &ndash; the foundations of mathematics.
 It may come as a surprise that there are many different logical systems
 for mathematics that are contradictory. For two millenia Euclid's
 Elements were regarded as the basis for rigourous logical reasoning.
-He invented the notion we can start from axioms rational people can agree
-are true and specify how they can be used to derive more truth.
-
-
+He invented the notion we can start from axioms that rational people can agree
+are true and specify how they can be used to derive more true statements.
 
 The earliest examples are in non-Euclidean geometry where
 it is possible to have no, or infinitely many, "parallel" lines 
@@ -23,14 +21,14 @@ they use _propositions_: statements that are either _true_ or _false_, and
 _rules of inference_: ways of combining true propositions into other
 true propositions.
 
-athematicians prove _theorems_. Typically they have the form 'if
+Mathematicians prove _theorems_. Typically they have the form 'if
 $P$ is true then $Q$ is true' where $P$ and $Q$ are propositions.
 This is equivalent to 'if $P$ then $Q$' and '$P$ implies $Q$'.
 Every logical system has _axioms_: propositions that are assumed to be
 true. The fundamental rule of inference is _modus ponens_: if a proof
 has the statement '$P$' and the statement '$P$ implies $Q$' then the
 statement '$Q$' can be included in the proof.
-The Latin translation of modus ponens is .
+Modus ponens means 'method of placing.'
 
 A proof of '$A$ implies $Z$' consists of a sequence of
 statements starting with $A$. The following statements
