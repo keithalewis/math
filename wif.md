@@ -24,6 +24,8 @@ back one share of F at some future date.
 More generally, you can pay $8a$ dollars to obtain $a$ shares of Ford stock,
 where $a$ can be positive or negative.
 
+## Exchange
+
 In order to do this you will need to set up an account with an _exchange_
 that has legal agreements with _broker_s
 licensed to trade F, the stock symbol for Ford.  Step one is to lay down
@@ -31,27 +33,50 @@ some money for a _margin account_ with the exchange to fund your trading
 activity.  They will provide you with software that will show you the
 "price" of F.  When their screen shows a price of 8 and you buy one
 share of F you might be surprised to find out they debited your account
-for 8.01 dollars. This is called "slippage" but the exchange calls it
-the vigorish they get for hooking you up with a broker/_liquidity provider_.
+for 8.01 dollars. This is _slippage_ is due to the exchange mechanics. 
 
-Liquidity providers submit _limit orders_ to the exchange.
-They agree to buy or sell some _amount_ of the underlying at a specific _level_.
+### Order Book
+
+Liquidity providers submit _limit orders_ to the exchange _order book_.
+They agree to buy or sell some _amount_ of an underlying at a specific _level_.
+Exchange customers can also submit limit orders.
+When a _market order_ is recieved by the exchange to buy or sell some amount
+of an instrument it is matched with existing limit orders.
+
+The limit order to sell having the lowest level is the _ask_.
+The limit order to buy having the highest level is the _bid_.
+A limit order that has not yet executed may be cancelled. 
+Typically the bid is less than the ask.
+The _depth_ of the book at each level is the sum of the amounts of limit
+orders at that level.  A market order to buy is matched with limit orders
+to sell.  If the amount of the market order is greater than the depth
+at the ask level then it will be matched with sell limit orders at the
+next higher level. This continues until the full amount of the market
+order is matched. Market orders to sell are likewise matched with
+limit orders to buy.
+
+This mechanism makes the "price" uncertain. E.g., another market order
+might hit the book or additional limit orders may arrive during the
+settlment proces. Market orders execute almost instantaneously, but the
+price is uncertain. Limit orders always execute at the specified level,
+but when they execute is uncertain.
+
+Some exchanges offer _stop orders_. When a specified market level
+is reached then a market order for a specified amount is executed.
 
 ## Price
 
 If a _buyer_ acquires amount $a$ of instrument $i$ for amount $a'$ of
 instrument $i'$ from a _seller_, the price if the transaction is $X = a'/a$.
+Typically $i'$ is dollars or the native currency.
 
 ## Trading
 
-Let $X_t$ be the price of an intrument at time $t$ and consider the trading
+Let $X_t$ be the price of an instrument at time $t$ and consider the trading
 strategy of purchasing 1 share at time $u$ and selling 1 share at time $v$.
 The  _profit and loss_ of the trade is $X_v - X_u$ after it has _closed out_ at time $v$.
 At time $s$, where $u < s < v$, the P\&L is $X_s - X_u$ where $X_s$ is the price
-at time $s$. 
-
-at time $s$ is $X_s - X_t$ for $u\le s\le v$
-and $X_v - X_u$ after
+at time $s$. This is also the definition of stochastic integration.
 
 ## Blotter
 
