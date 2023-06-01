@@ -33,12 +33,12 @@ Arbitrage exists if there is a trading strategy with $A_{\tau_0} > 0$ and $A_t \
 __Fundamental Theorem of Asset Pricing__. There is no arbitrage if there exist positive
 measures $D_t$ on $\AA_t$, $t\in T$, with
 $$
-	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}, u\ge t.
+	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}, t\le u.
 $$
 
 __Lemma__. With the above notation
 $$
-	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}, u\ge t.
+	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}, t\le u.
 $$
 
 Trading strategies create synthetic instruments where price corresponds

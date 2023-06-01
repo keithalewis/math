@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-05-17" />
+  <meta name="dcterms.date" content="2023-06-01" />
   <title>Finance</title>
   <style>
     code{white-space: pre-wrap;}
@@ -58,7 +58,7 @@
 <header id="title-block-header">
 <h1 class="title">Finance</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 17, 2023</p>
+<p class="date">June 1, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Atoms of finance and their interaction.
@@ -73,6 +73,8 @@ share of F at some future date. More generally, you can pay <span
 class="math inline">8a</span> dollars to obtain <span
 class="math inline">a</span> shares of Ford stock, where <span
 class="math inline">a</span> can be positive or negative.</p>
+<section id="exchange" class="level2">
+<h2>Exchange</h2>
 <p>In order to do this you will need to set up an account with an
 <em>exchange</em> that has legal agreements with _broker_s licensed to
 trade F, the stock symbol for Ford. Step one is to lay down some money
@@ -80,12 +82,36 @@ for a <em>margin account</em> with the exchange to fund your trading
 activity. They will provide you with software that will show you the
 “price” of F. When their screen shows a price of 8 and you buy one share
 of F you might be surprised to find out they debited your account for
-8.01 dollars. This is called “slippage” but the exchange calls it the
-vigorish they get for hooking you up with a broker/<em>liquidity
-provider</em>.</p>
-<p>Liquidity providers submit <em>limit orders</em> to the exchange.
-They agree to buy or sell some <em>amount</em> of the underlying at a
-specific <em>level</em>.</p>
+8.01 dollars. This is <em>slippage</em> is due to the exchange
+mechanics.</p>
+<section id="order-book" class="level3">
+<h3>Order Book</h3>
+<p>Liquidity providers submit <em>limit orders</em> to the exchange
+<em>order book</em>. They agree to buy or sell some <em>amount</em> of
+an underlying at a specific <em>level</em>. Exchange customers can also
+submit limit orders. When a <em>market order</em> is recieved by the
+exchange to buy or sell some amount of an instrument it is matched with
+existing limit orders.</p>
+<p>The limit order to sell having the lowest level is the <em>ask</em>.
+The limit order to buy having the highest level is the <em>bid</em>. A
+limit order that has not yet executed may be cancelled. Typically the
+bid is less than the ask. The <em>depth</em> of the book at each level
+is the sum of the amounts of limit orders at that level. A market order
+to buy is matched with limit orders to sell. If the amount of the market
+order is greater than the depth at the ask level then it will be matched
+with sell limit orders at the next higher level. This continues until
+the full amount of the market order is matched. Market orders to sell
+are likewise matched with limit orders to buy.</p>
+<p>This mechanism makes the “price” uncertain. E.g., another market
+order might hit the book or additional limit orders may arrive during
+the settlment proces. Market orders execute almost instantaneously, but
+the price is uncertain. Limit orders always execute at the specified
+level, but when they execute is uncertain.</p>
+<p>Some exchanges offer <em>stop orders</em>. When a specified market
+level is reached then a market order for a specified amount is
+executed.</p>
+</section>
+</section>
 <section id="price" class="level2">
 <h2>Price</h2>
 <p>If a <em>buyer</em> acquires amount <span
@@ -93,13 +119,15 @@ class="math inline">a</span> of instrument <span
 class="math inline">i</span> for amount <span
 class="math inline">a&#39;</span> of instrument <span
 class="math inline">i&#39;</span> from a <em>seller</em>, the price if
-the transaction is <span class="math inline">X = a&#39;/a</span>.</p>
+the transaction is <span class="math inline">X = a&#39;/a</span>.
+Typically <span class="math inline">i&#39;</span> is dollars or the
+native currency.</p>
 </section>
 <section id="trading" class="level2">
 <h2>Trading</h2>
-<p>Let <span class="math inline">X_t</span> be the price of an intrument
-at time <span class="math inline">t</span> and consider the trading
-strategy of purchasing 1 share at time <span
+<p>Let <span class="math inline">X_t</span> be the price of an
+instrument at time <span class="math inline">t</span> and consider the
+trading strategy of purchasing 1 share at time <span
 class="math inline">u</span> and selling 1 share at time <span
 class="math inline">v</span>. The <em>profit and loss</em> of the trade
 is <span class="math inline">X_v - X_u</span> after it has <em>closed
@@ -107,10 +135,8 @@ out</em> at time <span class="math inline">v</span>. At time <span
 class="math inline">s</span>, where <span class="math inline">u &lt; s
 &lt; v</span>, the P&amp;L is <span class="math inline">X_s - X_u</span>
 where <span class="math inline">X_s</span> is the price at time <span
-class="math inline">s</span>.</p>
-<p>at time <span class="math inline">s</span> is <span
-class="math inline">X_s - X_t</span> for <span class="math inline">u\le
-s\le v</span> and <span class="math inline">X_v - X_u</span> after</p>
+class="math inline">s</span>. This is also the definition of stochastic
+integration.</p>
 </section>
 <section id="blotter" class="level2">
 <h2>Blotter</h2>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2023-05-31" />
+  <meta name="dcterms.date" content="2023-06-01" />
   <title>A Unified Model of Derivative Securities</title>
   <style>
     code{white-space: pre-wrap;}
@@ -56,7 +56,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">A Unified Model of Derivative Securities</h1>
-<p class="date">May 31, 2023</p>
+<p class="date">June 1, 2023</p>
 </header>
 <p><span class="math inline">T</span> — totally ordered set of trading
 <em>times</em>.</p>
@@ -97,12 +97,12 @@ class="math inline">D_t</span> on <span
 class="math inline">\mathcal{A}_t</span>, <span class="math inline">t\in
 T</span>, with <span class="math display">
     X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
-D_s)|_{\mathcal{A}_t}, u\ge t.
+D_s)|_{\mathcal{A}_t}, t\le u.
 </span></p>
 <p><strong>Lemma</strong>. With the above notation <span
 class="math display">
     V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
-D_s)|_{\mathcal{A}_t}, u\ge t.
+D_s)|_{\mathcal{A}_t}, t\le u.
 </span></p>
 <p>Trading strategies create synthetic instruments where price
 corresponds to value and cash flow corresponds to account.</p>
