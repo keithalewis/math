@@ -15,6 +15,15 @@ abstract: Work remains to be done.
 
 
 Mathematical Finance has made Nobel Prize winning advances but there is more work to be done.
+Historical mathematical artifacts need to be replaced by a rigorous theory allowing
+more faithful modelling of what happens in the real world.
+
+
+<!-- What, who happened before. -->
+
+<!-- Why that doesn't work. -->
+
+<!-- Proposed solution. -->
 
 ## Review
 
