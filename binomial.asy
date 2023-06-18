@@ -1,0 +1,15 @@
+settings.outformat = "svg";
+size(5cm);
+real R = 2;
+real Sm = 1;
+real Sp = 2.5;
+label("Binomial Model", align=S);
+draw((0,0) -- (3,0));
+draw((0,0) -- (0,3));
+path Rtick = (R,0) -- (R,-0.1);
+Label Rlabel = Label("$R$", (R, 0), align=S);
+draw(Rtick, L=Rlabel);
+Label Smlable = Label("$S_-$", (Sm, 0), align=W);
+draw((0,Sm)--(-0.1,1), L=Smlable);
+Label Splable = Label("$S_+$", (Sp, 0), align=W);
+draw((0,Sp)--(-0.1,Sp), L=Splable);
