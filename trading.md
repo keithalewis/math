@@ -4,17 +4,17 @@ author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
-abstract: Buyers and sellers
+abstract: Buyers and sellers buy and sell
 ...
 
-Suppose some instrument has price $X_t$ at time $t$.
+Suppose an instrument has price $X_t$ at time $t$.
 The _profit and loss_ of holding one share
-of the instrument over the interval from $u$ to $v$ is
-0 until the position is entered and the difference of the
-current price and the price when the position was
-entered until that is locked in when the position is unwound.
+of the instrument over a period of time is
+0 until the the share is purchased, the difference of the
+current price and the purchse price while holding the share,
+and the difference of the selling price and the purchase price thereafter.
 
-Ignoring the details of when $t = u$ and $t = v$ for now
+If the share is bought at $u$ and sold at $v$ 
 $$
 PnL(t) = 
 \begin{cases}
@@ -23,6 +23,7 @@ X_t - X_u & u < t < v \\
 X_v - X_u & t > v \\
 \end{cases}
 $$
+ignoring $t = u$ and $t = v$ for now.
 
 If $\Delta(t) = 1_{(u,v]}(t)$ is 1 when $u < t \le v$ and 0 otherwise this is
 the _stochastic integral_
