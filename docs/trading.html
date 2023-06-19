@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-06-18" />
+  <title>Trading</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Trading</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">June 18, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Buyers and sellers
+</div>
+</header>
+<p>Suppose some instrument has price <span
+class="math inline">X_t</span> at time <span
+class="math inline">t</span>. The <em>profit and loss</em> of holding
+one share of the instrument over the interval from <span
+class="math inline">u</span> to <span class="math inline">v</span> is 0
+until the position is entered and the difference of the current price
+and the price when the position was entered until that is locked in when
+the position is unwound.</p>
+<p>Ignoring the details of when <span class="math inline">t = u</span>
+and <span class="math inline">t = v</span> for now <span
+class="math display">
+PnL(t) =
+\begin{cases}
+0 &amp; t &lt; u \\
+X_t - X_u &amp; u &lt; t &lt; v \\
+X_v - X_u &amp; t &gt; v \\
+\end{cases}
+</span></p>
+<p>If <span class="math inline">\Delta(t) = 1_{(u,v]}(t)</span> is 1
+when <span class="math inline">u &lt; t \le v</span> and 0 otherwise
+this is the <em>stochastic integral</em> <span class="math display">
+    PnL(t) = \int_0^t \Delta(s)\,dX_s.
+</span></p>
+<p>In the mathematical theory of <em>stochastic integration</em> it is
+assumed <span class="math inline">X_t</span> is <em>right
+continuous</em>: <span class="math inline">\lim_{u\downarrow t} X_u =
+X_t</span>. This corresponds to the market reality that prices can jump.
+You can observe <span class="math inline">X_t</span> over time, but when
+you enter a market order at <span class="math inline">t</span> you get
+filled at <span class="math inline">X_{t + \epsilon}</span> for some
+<span class="math inline">\epsilon &gt; 0</span>. This is called
+<em>slippage</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">1_{(u,
+v]}</span> is left continuous</em>.</p>
+<p>In the mathematical theory of <em>stochastic integration</em> it is
+assumed <span class="math inline">\Delta_t</span> is <em>left
+continuous</em>: <span class="math inline">\lim_{s\uparrow t} \Delta_s =
+\Delta_t</span>. This corresponds to the market reality that it take
+some time for orders to settle. You can put on a trade at time <span
+class="math inline">t</span>, but you don’t actually own the instrument
+until <span class="math inline">{t + \epsilon}</span> for some <span
+class="math inline">{\epsilon &gt; 0}</span>. This is called
+<em>settlement</em>.</p>
+<section id="trading-strategy" class="level2">
+<h2>Trading Strategy</h2>
+<p>Putting on the position of holding one share from time <span
+class="math inline">u</span> to time <span class="math inline">v</span>
+corresponds to the trading stragegy of buying 1 share at <span
+class="math inline">u</span> and selling one share at <span
+class="math inline">v</span>. Of course you exchange shares with someone
+other than yourself<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>. Mathematical Finance literature
+assumes there is a “market” available that provides prices <span
+class="math inline">X_t</span>. It reality, things are more complicated.
+Anyone who has ever traded knows the price depends on whether you are
+buying or selling — the bid/ask spread. That might increase depending on
+the amount you want to buy or sell. It also depends on the credit
+worthiness of the counterparties involved. We will ignore that for now
+and assume any amount can be bought or sold at exactly price <span
+class="math inline">X_t</span>.</p>
+<section id="exchange" class="level3">
+<h3>Exchange</h3>
+<p>If Ford is trading at <span class="math inline">8</span> the buyer
+can give the seller <span class="math inline">8</span> dollers to obtain
+one share of Ford stock. With the above assumptions, the buyer can give
+<span class="math inline">8a</span> dollard to obtain <span
+class="math inline">a</span> shares of F.</p>
+<p>A <em>position</em> is an amount of an instrument owned by an entity
+<span class="math inline">\pi = (a,i,e)</span>. A <em>market</em> is a
+set of positions<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>. An <em>exchange</em> is a time, a
+<em>buyer</em> position, and a <em>seller</em> position <span
+class="math inline">\chi = (t, \pi, \pi&#39;)</span>. The market <span
+class="math inline">\{\ldots,
+(a,i,e),\ldots,(a&#39;,i&#39;,e&#39;)\ldots\}</span> becomes <span
+class="math inline">\{\ldots,
+(a&#39;,i&#39;,e),\ldots,(a,i,e&#39;)\ldots\}</span> after the exchange.
+Usually <span class="math inline">i</span> is a currency and <span
+class="math inline">i&#39;</span> is some instrument. If a seller quotes
+a price <span class="math inline">X_t</span> then the exchange <span
+class="math inline">\chi = (t, (X_t a&#39;, e), (a&#39;, i&#39;,
+e&#39;))</span> is available to the buyer.</p>
+</section>
+</section>
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Unless you are doing <a
+href="https://www.investopedia.com/terms/w/washtrading.asp"><em>wash
+trading</em></a>.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Actually a multiset. In practice
+positions are associated with a position id. The position id can be used
+to associate more details about the position.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>
