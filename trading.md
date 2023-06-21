@@ -84,12 +84,11 @@ $\chi = (t, \pi, \pi')$.
 The market $\{\ldots, (a,i,e),\ldots,(a',i',e')\ldots\}$ becomes
 $\{\ldots, (a',i',e),\ldots,(a,i,e')\ldots\}$ after the exchange.
 Usually $i$ is a currency and $i'$ is some instrument.
-The _price_ of the exchange is $X_t = a/a'$ after the fact.
+The _price_ of the exchange is $X_t = a/a'$. 
+If you exchange $(16, \$) for $(2, F)$ the price is $16/2$.
 
 If a seller quotes a price $X_t$ then the exchange
 $\chi = (t, (X_t a', e), (a', i', e'))$ is available to the buyer.
-
-[^1]: Unless you are doing [_wash trading_](https://www.investopedia.com/terms/w/washtrading.asp).
 
 [^2]: Actually a multiset. In practice positions are associated with a unique position id.
 The position id can be used as a primary key to associate more details about the position
