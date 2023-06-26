@@ -21,9 +21,16 @@ there is a single thread that ties together all fixed income instrument prices.
 The _continuously compounded stochastic short rate_ $f_t$ corresponds quite closely
 to the new sheriff in town, the SOFR rate. The Secured Overnight Funding Rate
 is based on overnight repurchase agreements that have actually traded in the market.
-LIBOR was based on calling up traders and asking for their opinions.
+LIBOR was a term rate based on calling up traders and asking for their opinions.
 
-It was quite shocking in September 2019 when SOFR rates jumped from ...
+It was quite shocking in 2019 when SOFR rates jumped from 
+2.43% on 9/16 to 5.25% the next day. The intraday rate hit 10% at one point.
+One reaction to this was to move to average SOFR rates over a period
+of time to mitigate this. This is used in the Fed Funds Futures
+market where the settlment is based on an average of the
+market close of rate quotes over the previous week.
+
+## Models
 
 Every interest rate model is a special case of the LIBOR market model.
 I learned about it when I started
@@ -39,7 +46,6 @@ The LMM model used to be called the BGM model. Those are the initials
 of consultants hired at Bankers Trust who wrote a paper about what
 they saw there. Steve Heston invented his model during his time
 at BT that was used there.
-
 
 Using the mathematical fiction of continuous time trading, $f_t$ 
 is the rate at which money can be borrowed or lent over an infinitesimal time period.
@@ -76,10 +82,13 @@ by $D(t) = \exp(-\int_0^t f(s)\,ds)$.
 
 __Exercise__. _Show $f(t) = -(d/dt)\log D(t)$_.
 
-__Exercise__. _Show $0 = E[(f(t) - f_t)D_t]
+__Exercise__. _Show $0 = E[(f_t - f(t))D_t]
 
 _Hint_: Compute $(d/dt)D(t)$ two ways using $D(t) = E[\exp(-\int_0^t f_s\,ds)] = \exp(-\int_0^t f(s)\,ds)$
 
-This shows $f(t)$ is the _par coupon_ for a forward rate agreement paying $f(t) - f_t$ at time $t$.
+This shows $f(t)$ is the _par coupon_ for a forward rate agreement paying $f_t - f(t)$ at time $t$.
+
+We also have $0 = E[(f_t - f(t))D_t] = E[f_t D_t] - f(t) D(t)$ = E[f_t] D(t) + \Cove(f_t, D_t) - f(t) D(t)$
+so $E[f_t] - f(t) = -\Cov(f_t, D_t)$.
 
 $\Cov(f_t, D_t)$
