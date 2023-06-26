@@ -7,42 +7,102 @@ fleqn: true
 abstract: Relation &ndash; comparing two things.
 ...
 
-\renewcommand{\dom}{\operatorname{dom}}
-\renewcommand{\cod}{\operatorname{cod}}
+\newcommand{\dom}{\operatorname{dom}}
+\newcommand{\cod}{\operatorname{cod}}
+\newcommand{\coker}{\operatorname{coker}}
 
-The notion of a _relation_ is a fundamental concept of mathematics. Given
-two things are they equivalent in some sense even if they are not
-equal?  Is one bigger than the other? Is it even possible to compare
-them? Relations provide a systematic way to get insight into these questions.
-Partial functions are special cases of relations and functions are
-special cases of partial functions.
+When are two things equivalent in some sense even if they are
+not equal?  Is one bigger than the other? Is it even possible to
+compare them? Relations provide a systematic way to get insight into
+these questions.  Partial functions are a special case of relations and
+functions are a special case of partial functions.
 
-Given two things in the cartesian product $X\times Y = \{(x,y):x\in X, y\in Y\}$
-the _left projection_ is the first thing $\lambda\colon X\times Y\to X$ by $\lambda(x,y) = x$
-and the _right projection_ is the second thing $\rho\colon X\times Y\to Y$ by $\rho(x,y) = y$.
+## Relation
 
-__Exercise__. _If $l\colon Z\to X$ and $r\colon Z\to Y$ are functions
-show there exists a function $p\colon Z\to X\times Y$ with
-$\lambda(p(z)) = l(z)$ and $\rho(p(z)) = r(z)$ for $z\in Z$_.
+Given sets $X$ and $Y$ a _relation_ is a subset of the cartesian product
+of $X$ and $Y$, $R\subseteq X\times Y$. We write $xRy$ if $(x,y)\in R$.
+The _domain_ of a relation is $\dom R = \{x\in X\mid xRy\text{ for some }y\in Y\}$.
+The _codomain_ of a relation is $\cod R = \{y\in Y\mid xRy\text{ for some }x\in X\}$.
+The _left coset_ of $y\in Y$ is $Ry = \{x\in X: xRy\}$.
+The _right coset_ of $x\in X$ is $xR = \{y\in Y: xRy\}$.
 
-<details>
-<summary>Solution</summary>
+__Exercise__. _Show $\dom R = \cup_{y\in Y} Ry$ and $\cod R = \cup_{x\in X} xR$_.
 
-Define $t(z) = (l(z),r(z))\in X\times Y$ for $z\in Z$.
-Any set for which such $t$ exists is in one-to-one correspondence with the cartesian product of $X$ and $Y$.
+<!--
+It is equivalent to think of relations as a function $R\colon X\times Y\to\{0,1\}$
+where $R(x,y) = 0$ if $(x,y)\notin R$ and $R(x,y) = 1$ if $(x,y)\in R$.
+Writing $2$ for $\{0,1\}$, $R\colon X\times Y\to 2$.
+It is equivalent to think of a relation as a function $R,\colon X\to (Y\to 2)$
+where $R,(x)\colon Y\to 2$ by $R,(x)(y) = R(x,y)$. This is called _currying_.
+The notation $R,$ is non-standard.
+-->
 
-</details>
+### Composition
 
-A _relation_ between sets $X$ and $Y$ is a subset $R\subseteq X\times Y$ and
-we write $xRy$ for $(x,y)\in R$.
-The _domain_ of a relation is $\dom R = X$ and the _codomain_ of a relation is $\cod R = Y$.
+If $R\subseteq X\times Y$ and $Q\subseteq Y\times Z$ are relations define
+the _composition_ $QR\subseteq X\times Z$ by
+$x(QR)z$ if there exists $y\in Y$ with $xRy$ and $yQz$.
+It may seem more natural to denote the composition by $RQ$ instead
+of $QR$, and you would be right, but that is not the usual mathematical convention.
 
-The _product_, or _composition_, of the relation $R\subseteq X\times Y$
-and the relation $S\subseteq Y\times Z$ is $SR\subseteq X\times Z$ defined
-by $x(SR)z$ if and only if there exists $y\in Y$ with $xRy$ and $ySz$.
+__Exercise__. _Show $x(QR)z$ if and only if the intersection of the cosets $xR$ and $Qz$ is nonempty_.
 
-The _right coset_ of $x\in X$ is $xR = \{y\in Y: xRy\}$
-and the _left coset_ of $y\in Y$ is $Ry = \{x\in X: xRy\}$.
+### Transpose
+
+The _transpose_ of a relation $R\subseteq X\times Y$
+is $R'\subseteq Y\times X$ defined by $yR'x = xRy$, $x\in X$, $y\in Y$.
+
+__Exercise__. _If $R$ is a relation on $X\times Y$ and $Q$ is
+a relation on $Y\times Z$ then $(QP)' = P'Q'$_.
+
+### Associative
+
+Composition is _associative_.
+
+__Exercise__. _If $R\subseteq X\times Y$, $Q\subseteq Y\times Z$,
+and $P\subseteq Z\times W$ then $(PQ)R = P(QR)$_.
+
+## Properties
+
+A relation on a set $X$ is a subset $R\subseteq X\times X$.
+
+A relation on $X$ is _transitive_ if $xRy$ and $yRz$ implies $xRz$, $x,y,z\in X$.
+Transitivity is the basic notion of the overloaded word _ordering_.
+If $x$ is smaller than $y$ and $y$ is smaller then $z$ then $x$ is smaller than $z$.
+
+__Exercise__. _$R$ is transitive if and only if $R^2 = RR\subseteq R$_.
+
+Since composition is associative, the set of all transitive relations is a _semigroup_.
+
+Given a set $X$ let $I^X = \{(x,x)\mid x\in X\}$. We write $I$ for $I^X$ if $X$ is clear
+from the context.
+
+__Exercise__. _Show $I$ is transitive_.
+
+__Exercise__. _Show $RI = R = IR$ for any relation $R$_.
+
+This shows the set of transitive relations on a set $X$ is a monoid with identity $I$.
+
+A relation on $X$ is _reflexive_ if $xRx$, $x\in X$.
+
+__Exercise__. _$R$ is reflexive if and only if $I\subseteq R$_.
+
+A relation on $X$ is _symmetric_ if $xRy$ implies $yRx$, $x,y\in X$.
+
+__Exercise__. _A relation on $X$ is _symmetric_ if and only if $R' = R$_.
+
+A relation that is reflexive, symmetric, and transitive is an _equivalence_ relation.
+
+__Exercise__. _If $R$ is an equivalence relation then the left and
+right cosets ${\{xR\mid x\in X\}
+= \{Ry\mid y\in Y\}}$ are a partition of $X$._
+
+This is how to mathematically model equivalent but not equal things.
+
+_Hint_: A _partition_ of a set is a collection of pairwise disjoint
+subsets with union equal to the set.
+
+<!--
 
 The _kernel_ of a relation is $\ker R = \{(x,x')\in X\times X:xR = x'R\}\subseteq X\times X$.
 The _cokernel_ of a relation is $\coker R = \{(y,y')\in Y\times Y:Ry = Ry'\}\subseteq Y\times Y$.
@@ -70,7 +130,7 @@ then $J = I_Y$_.
 
 The identity element is unique.
 
-__Exercise__. _Show for any relations $R\subseteq X\times Y$, $S\subseteq Y\times Z$,
+__Exercise__. _Show for any relations $R\subseteq X\times Y$, $X\subseteq Y\times Z$,
 and $T\subseteq Z\times W$ that $(TS)R = T(SR)$_.
 
 Composition is associative. 
@@ -93,8 +153,8 @@ A similar argument applies to $y\in XR$.
 
 </details>
 
-If $RS = I_S$ then $R$ is a _left inverse_, or _retract_, of $S$
-and $S$ is a _right inverse_, or _section_, of $R$.
+If $RS = I_S$ then $R$ is a _left inverse_, or _retract_, of $X$
+and $X$ is a _right inverse_, or _section_, of $R$.
 
 __Exercise__. _If $R\subseteq X\times Y$ has a section show $UR = VR$ implies $U = V$ for any $U,V\in Z\times X$_.
 
@@ -257,3 +317,4 @@ __Exercise__. _Show if $x/R\cap y/R\not=\emptyset$ then $x/R = y/R$.
 Partial functions show up often without getting the recognition they
 deserve.  For example, $f(x) = 1/x$ where $x$ is a real number is a
 partial function with domain $x \not= 0$.
+-->
