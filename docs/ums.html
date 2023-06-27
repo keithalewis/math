@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2023-06-27" />
+  <title>A Unified Model of Derivative Securities</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">A Unified Model of Derivative Securities</h1>
+<p class="date">June 27, 2023</p>
+</header>
+<p><span class="math inline">T</span> — totally ordered set of trading
+<em>times</em>.</p>
+<p><span class="math inline">\Omega</span> — all possible
+<em>outcomes</em>.</p>
+<p><span class="math inline">I</span> — market <em>instruments</em>.</p>
+<p><span class="math inline">\mathcal{A}_t</span> — a partition of <span
+class="math inline">\Omega</span> indicating the <em>information</em>
+available at time <span class="math inline">t\in T</span>.</p>
+<p><span
+class="math inline">X_t\colon\mathcal{A}_t\to\boldsymbol{R}^I</span> —
+<em>prices</em> at time <span class="math inline">t</span> of market
+instruments.</p>
+<p><span
+class="math inline">C_t\colon\mathcal{A}_t\to\boldsymbol{R}^I</span> —
+<em>cash flows</em>, usually 0, at time <span
+class="math inline">t</span> of market instruments.</p>
+<p><span class="math inline">(\tau_j, \Gamma_j)</span> — a finite
+<em>trading strategy</em> of strictly increasing stopping times <span
+class="math inline">\tau_j</span> and corresponding trades <span
+class="math inline">\Gamma_j\colon\mathcal{A}_{\tau_j}\to\boldsymbol{R}^I</span>
+with <span class="math inline">\sum_j \Gamma_j = 0</span>.</p>
+<p><span class="math inline">\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j =
+\sum_{s &lt; t} \Gamma_s</span> where <span class="math inline">\Gamma_s
+= \Gamma_j 1(\tau_j = s)</span> — the <em>position</em> resulting from
+trading.</p>
+<p><span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>
+— the <em>value</em>, or mark-to-market, of the strategy.</p>
+<p><span class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
+X_t</span> — the amount showing up in the trading <em>account</em>.</p>
+<p>Arbitrage exists if there is a trading strategy with <span
+class="math inline">A_{\tau_0} &gt; 0</span> and <span
+class="math inline">A_t \ge0</span>, <span class="math inline">t &gt;
+\tau_0</span>.</p>
+<p><strong>Fundamental Theorem of Asset Pricing</strong>. There is no
+arbitrage if there exist positive measures <span
+class="math inline">D_t</span> on <span
+class="math inline">\mathcal{A}_t</span>, <span class="math inline">t\in
+T</span>, with <span class="math display">
+    X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
+D_s)|_{\mathcal{A}_t}, t\le u.
+</span></p>
+<p><strong>Lemma</strong>. With the above notation <span
+class="math display">
+    V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
+D_s)|_{\mathcal{A}_t}, t\le u.
+</span></p>
+<p>Trading strategies create synthetic instruments where price
+corresponds to value and cash flow corresponds to account.</p>
+<p>Every arbitrage free model has the form <span class="math display">
+    X_t D_t = M_t - \sum_{s\le t} C_s D_s
+</span> where <span class="math inline">M_t =
+M_u|_{\mathcal{A}_t}</span> is a <em>martingale measure</em>.</p>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>
