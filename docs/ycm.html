@@ -213,13 +213,20 @@ t^3/6}</span>.</p>
 <p>Since <span class="math inline">D(t) = \exp(-\int_0^t
 f(s)\,ds)</span> we have <span class="math inline">f(t) = \phi(t) -
 \sigma^2 t^2/2</span>.</p>
-<p><strong>Excercise</strong>. <em>Show <span
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{Cov}(N, f(M)) = E[f&#39;(M)]
+\operatorname{Cov}(N, M)</span> if <span class="math inline">N</span>
+and <span class="math inline">M</span> are jointly normal</em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">E[\exp(N) f(M)] =
+E[\exp(N)] E[f(M + \operatorname{Cov}(N,M))]</span> if <span
+class="math inline">N</span> and <span class="math inline">M</span> are
+jointly normal, differentiate <span class="math inline">E[\exp(\alpha N)
+f(M)]</span> with respect to <span class="math inline">\alpha</span>,
+and set <span class="math inline">\alpha = 0</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
 class="math inline">\operatorname{Cov}(f_t, D_t) = -D(t)\sigma^2
 t^2/2</span></em>.</p>
-<p><em>Hint</em>: Use <span class="math inline">\operatorname{Cov}(N,
-\exp(M)) = E[\exp(M)] \operatorname{Cov}(N, M)</span> if <span
-class="math inline">N</span> and <span class="math inline">M</span> are
-jointly normal.</p>
+<p><em>Hint</em>: Use the previous exercise.</p>
 <p>Note this agrees with the previous convexity calculation.</p>
 <!--
 $\Cov(f_t, D_t) = E[\exp(-\int_0^t \phi(s) + \sigma B_s\,ds)]\Cov(\sigma B_t,-\int_0^t \sigma B_s\,ds)

@@ -138,9 +138,14 @@ random variable and show ${\Var(\int_0^t B_s\,ds) = \int_0^t \int_0^t \Cov(B_s, 
 Since $D(t) = \exp(-\int_0^t f(s)\,ds)$ we have
 $f(t) = \phi(t) - \sigma^2 t^2/2$.
 
-__Excercise__. _Show $\Cov(f_t, D_t) = -D(t)\sigma^2 t^2/2$_.
+__Exercise__. _Show $\Cov(N, f(M)) = E[f'(M)] \Cov(N, M)$ if $N$ and $M$ are jointly normal_.
 
-_Hint_: Use $\Cov(N, \exp(M)) = E[\exp(M)] \Cov(N, M)$ if $N$ and $M$ are jointly normal.
+_Hint_: Use $E[\exp(N) f(M)] = E[\exp(N)] E[f(M + \Cov(N,M))]$ if $N$ and $M$ are jointly normal,
+differentiate $E[\exp(\alpha N) f(M)]$ with respect to $\alpha$, and set $\alpha = 0$.
+
+__Exercise__. _Show $\Cov(f_t, D_t) = -D(t)\sigma^2 t^2/2$_.
+
+_Hint_: Use the previous exercise.
 
 Note this agrees with the previous convexity calculation.
 
