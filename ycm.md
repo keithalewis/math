@@ -133,7 +133,7 @@ $$
 $$
 
 _Hint_: Use $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ for any normally distributed
-random variable and show ${\Var(\int_0^t B_s\,ds) = \int_0^t \int_0^t \Cov(B_s, B_u)\,ds\,du = t^3/6}$.
+random variable and show ${\Var(\int_0^t B_s\,ds) = \int_0^t \int_0^t \Cov(B_s, B_u)\,ds\,du = t^3/3}$.
 
 Since $D(t) = \exp(-\int_0^t f(s)\,ds)$ we have
 $f(t) = \phi(t) - \sigma^2 t^2/2$.
