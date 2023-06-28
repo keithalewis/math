@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
-abstract: Continuously compounded stochastic short rate
+abstract: Continuously compounded stochastic forward rate
 ...
 
 \newcommand\RR{\boldsymbol{R}}
@@ -20,7 +20,7 @@ abstract: Continuously compounded stochastic short rate
 
 Unlike the equity world where the menagerie of stock prices are like bees coming out of a hive,
 there is a single thread that ties together all fixed income instrument prices.
-The _continuously compounded stochastic short rate_ $f_t$ corresponds quite closely
+The _continuously compounded stochastic forward rate_ $f_t$ corresponds quite closely
 to the SOFR rate. The Secured Overnight Funding Rate
 is based on the large volume of overnight repurchase agreements that actually trade in the market.
 LIBOR was a term rate based on calling up traders and asking for their opinions.
