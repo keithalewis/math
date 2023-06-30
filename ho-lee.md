@@ -1,5 +1,5 @@
 ---
-title: Ho-Lee Model
+title: Ho-Lee Model[^1]
 author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
@@ -40,7 +40,7 @@ __Exercise__. _Show $0 = E_t[(f_u - f_t(u))D_u]$, $u\ge t$_.
 This shows $f_t(u)$ is the _par coupon_ at time $t$ of a forward contract paying $f_u - f_t(u)$ at $u$.
 
 The futures quote at time $t$ of a contract settling at $u$ to $f_u$ is
-$φ_t(u) = E_t[f_u]$, $u\ge t$. Futures quotes are naturally occuring martingales.
+$φ_t(u) = E_t[f_u]$, $u\ge t$. Futures quotes are naturally occurring martingales.
 We write $φ(t)$ for $φ_0(t)$.
 
 From above we have ${f(t)E[D_t] = E[f_t D_t] = E[f_t]E[D_t] + \Cov(f_t, D_t)}$ so
@@ -57,7 +57,7 @@ The Ho-Lee model assumes the stochastic forward rate is
 $f_t = φ(t) + σ(t) B_t$ where $φ(t)$ is the futures quote
 at time $t$, $σ(t)$ is the volatility,
 and $B_t$ is standard Brownian motion.
-We can also use multi-dimensional Brownian motion where $σ(t)$
+We can also use multi-dimensional Brownian motion with $σ(t)$
 vector-valued.
 
 The stochastic discount is 
@@ -83,9 +83,16 @@ $$
 \end{aligned}
 $$
 
-Let $U = u$ and $dV = 2 σ(u) (Σ(t) - Σ(u))\,du = -d(Σ(t) - Σ(u))^2$
+Integrate by parts with $U = u$ and $dV = 2 σ(u) (Σ(t) - Σ(u))\,du = -d(Σ(t) - Σ(u))^2$
 so $dU = du$ and $V = -(Σ(t) - Σ(u))^2$.
-Since $Σ(0) = 0$ we have $2 \int_0^t σ(u) (Σ(t) - Σ(u)) u \,du = \int_0^t (Σ(t) - Σ(u))^2\,du$.
+Hence
+$$
+\begin{aligned}
+2 \int_0^t σ(u) (Σ(t) - Σ(u)) u \,du 
+	&= -u(Σ(t) - Σ(u))^2|_0^t - \int_0^2 -(Σ(t) - Σ(u))^2\,ds \\
+	& = 0 + \int_0^t (Σ(t) - Σ(u))^2\,du \\
+\end{aligned}
+$$
 </details>
 
 Since the exponent is normally distributed and
@@ -95,24 +102,25 @@ $$
 	D(t) = \exp\bigl(-\int_0^t φ(s)\,ds + \int_0^t (Σ(t) - Σ(s))^2\,ds/2\bigr)
 $$
 
-__Exercise__. _Show $(\partial/\partial t) \int_0^t (Σ(t) - Σ(s))^2/2\,ds = -Σ(t)^2/2$_.
+__Exercise__. _Show $(d/dt) \int_0^t (Σ(t) - Σ(s))^2\,ds = 2σ(t) \int_0^t (Σ(t) - Σ(s))\,ds$_.
 
-_Hint_. Use $(\partial/\partial t)\int_0^t F(t,s)\,ds = F(t, t) + \int_0^t (\partial/\partial t) F(t, s)\,ds$.
+_Hint_. Use the Leibniz integral rule $(d/dt)\int_0^t F(t,s)\,ds
+= F(t, t) + \int_0^t (\partial/\partial t) F(t, s)\,ds$.
 
 <details><summary>Solution</summary>
-Let $F(t,s) = (Σ(t) - Σ(s))^2/2$ so
-$$
-\begin{aligned}
-\frac{\partial}{\partial t} \int_0^t (Σ(t) - Σ(s))^2/2\,ds
-	&= 0 + \int_0^t (Σ(t) - Σ(s)) σ(t)\,ds \\
-	&= \int_0^t d(Σ(t) - Σ(s))^2/2 \\
-	&= (Σ(t) - Σ(s))^2/2|_0^t \\
-\end{aligned}
-$$
+Let $F(t,s) = (Σ(t) - Σ(s))^2$ so $(\partial/\partial t) F(t,s) = 2(Σ(t) - Σ(s)) σ(t)$
+and
+${(d/dt) \int_0^t (Σ(t) - Σ(s))^2\,ds = 0 + \int_0^t 2(Σ(t) - Σ(s)) σ(t)\,ds}$. 
 </details>
 
-This shows the forward curve is $f(t) = φ(t) - Σ(t)^2/2$.
-If $σ$ is constant then $f(t) = φ(t) -  σ^2 t^2/2$.
+Since $D(t) = \exp(-\int_0^t f(s)\,ds)$ we have
+$$
+	f(t) = φ(t) - σ(t) \int_0^t (Σ(t) - Σ(s))\,ds.
+$$
+
+__Exercise__. _If $σ$ is constant then ${f(t) = φ(t) -  σ^2 t^2/2}$_.
+
+_Hint_: Use $Σ(t) = σt$.
 
 ## Dynamics
 
@@ -145,7 +153,8 @@ _Hint_: Use ${X_t = \exp(\int_0^t Λ(s)\,dB_s - \int_0^t Λ(s)^2\,ds/2)}$ is a m
 $1 = E_t[X_u/X_t] = E_t[\exp(\int_t^u Λ(s)\,dB_s - \int_t^u Λ(s)^2\,ds/2)]$
 </details>
 
-Note the right hand side is not random an ${E_t[\exp(-\int_t^u Λ(s)\,dB_s)] = \exp(\int_t^u Λ(s)^2\,ds/2)}$
+Note the right hand side is not random and
+${E_t[\exp(-\int_t^u Λ(s)\,dB_s)] = \exp(\int_t^u Λ(s)^2\,ds/2)}$
 by replacing $Λ$ with $-Λ$.  We use this below.
 
 The price at $t$ of a zero coupon bond maturing at $u$ in the Ho-Lee model is
@@ -163,18 +172,19 @@ $$
 D_t(u) = \exp(-\int_t^u φ(s)\,ds + σ^2(u - t)^3/6 - σ(u - t) B_t).
 $$
 
-_Hint_: Use $Σ(t) = σt$.
-
-Note $D(t) = D_0(t) = \exp(-\int_0^u φ(s)\,ds + σ^2 t^3/6)$
-so $f(t) =  φ(t) - σ^2 t^2/2$
-
-__Exercise__ _Show $(\partial/\partial u)\int_t^u (Σ(u) - Σ(s))^2\,ds/2 = \int_t^u (Σ(u) - Σ(s))σ(u)\,ds$_. 
+__Exercise__ _Show $(\partial/\partial u)\int_t^u (Σ(u) - Σ(s))^2\,ds = 2σ(u)\int_t^u (Σ(u) - Σ(s))\,ds$_. 
 
 _Hint_. Use $(\partial/\partial u)\int_t^u F(u,s)\,ds = F(u, u) + \int_t^u (\partial/\partial u) F(u, s)\,ds$.
 
+<details><summary>Solution</summary>
+Let $F(u,s) = (Σ(u) - Σ(s))^2$ so $(\partial/\partial u) F(u,s) = 2(Σ(u) - Σ(s)) σ(u)$
+and
+${(d/du) \int_t^u (Σ(u) - Σ(s))^2\,ds = 0 + \int_t^u 2(Σ(u) - Σ(s)) σ(u)\,ds}$. 
+</details>
+
 Since $D_t(u) = \exp(-\int_t^u f_t(s)\,ds)$ we have
 $$
-	f_t(u) = φ(u) - \int_t^u (Σ(u) - Σ(s))σ(u)\,ds + σ(u) B_t.
+	f_t(u) = φ(u) - σ(u)\int_t^u (Σ(u) - Σ(s))\,ds + σ(u) B_t.
 $$
 
 __Exercise__. _If $σ(t) = σ$ is constant show $f_t(u) = φ(u) - σ^2(u - t)^2/2 + σ B_t$_.
@@ -385,3 +395,10 @@ A common choice for the 2-dimensional case is $σ(t) =
 __Exercise__. _Show $σ(t)\cdotσ(u) = σ^2\cos(\alpha(t - u))$_.
 
 -->
+
+## Reference
+
+<div class="csl-bib-body" style="line-height: 1.35; margin-left: 2em; text-indent:-2em;">
+[^1]:  <div class="csl-entry">Ho, Thomas S. Y., and Sang-Bin Lee. “Term Structure Movements and Pricing Interest Rate Contingent Claims.” <i>The Journal of Finance</i> 41, no. 5 (1986): 1011–29. <a href="https://doi.org/10.2307/2328161">https://doi.org/10.2307/2328161</a>.</div>
+  <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_id=info%3Adoi%2F10.2307%2F2328161&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.atitle=Term%20Structure%20Movements%20and%20Pricing%20Interest%20Rate%20Contingent%20Claims&amp;rft.jtitle=The%20Journal%20of%20Finance&amp;rft.volume=41&amp;rft.issue=5&amp;rft.aufirst=Thomas%20S.%20Y.&amp;rft.aulast=Ho&amp;rft.au=Thomas%20S.%20Y.%20Ho&amp;rft.au=Sang-Bin%20Lee&amp;rft.date=1986&amp;rft.pages=1011-1029&amp;rft.spage=1011&amp;rft.epage=1029&amp;rft.issn=0022-1082"></span>
+</div>
