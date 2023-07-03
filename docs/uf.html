@@ -5,35 +5,28 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-05-15" />
+  <meta name="dcterms.date" content="2023-06-29" />
   <title>Unified Finance</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
+  
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -49,7 +42,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -58,7 +51,7 @@
 <header id="title-block-header">
 <h1 class="title">Unified Finance</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 15, 2023</p>
+<p class="date">June 29, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Unified Finance – holdings, trades, and managing risk
@@ -521,43 +514,42 @@ large ML cadre currently employed to tell us pictures that look like a
 blur to humans have a 95% probability of being a stop sign can be
 gainfully redirected to more useful purposes.</p>
 </section>
-<section class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Adhering to the trader aphorism,
-“Don’t be a dick for a tick,” can help prevent this.<a href="#fnref1"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Cash flows and prices are modeled
-using <em>random variables</em>: a variable together with the
-probabilities of the values it can have. The mathematical definition is
-that a random variable is a function from a <em>sample space</em> to the
-real numbers. Prepend the sample space to the cartesian products
-involved to make them mathematically correct.<a href="#fnref2"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>A <em>stopping time</em> is a random
-variable taking values in <span class="math inline">T</span> that
-depends only on prior information, for example, when the price of a
-stock hits a certain level.<a href="#fnref3" class="footnote-back"
+<li id="fn1"><p>Adhering to the trader aphorism, “Don’t be a dick for a
+tick,” can help prevent this.<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>The trader aphorism, “Hedge when you
-can, not when you have to,” is only a rough guide to solving this
-difficult problem.<a href="#fnref4" class="footnote-back"
+<li id="fn2"><p>Cash flows and prices are modeled using <em>random
+variables</em>: a variable together with the probabilities of the values
+it can have. The mathematical definition is that a random variable is a
+function from a <em>sample space</em> to the real numbers. Prepend the
+sample space to the cartesian products involved to make them
+mathematically correct.<a href="#fnref2" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>The formula for CVA should use <span
+<li id="fn3"><p>A <em>stopping time</em> is a random variable taking
+values in <span class="math inline">T</span> that depends only on prior
+information, for example, when the price of a stock hits a certain
+level.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>The trader aphorism, “Hedge when you can, not when you
+have to,” is only a rough guide to solving this difficult problem.<a
+href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>The formula for CVA should use <span
 class="math inline">E[\max\{V_t,0\}]</span> and not <span
 class="math inline">\max\{E[V_t], 0\}</span> but that is computationally
 more difficult. Jensen’s inequality implies <span
 class="math inline">E[\max\{V_t,0\}] \ge\max\{E[V_t], 0\}</span> so CVA
 underestimates the risk.<a href="#fnref5" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn6" role="doc-endnote"><p>The coupons are a stochastic process
-that is called <em>predictable</em> in the math literature. It means
-that it is a little better than being merely <em>adapted</em> to a
+<li id="fn6"><p>The coupons are a stochastic process that is called
+<em>predictable</em> in the math literature. It means that it is a
+little better than being merely <em>adapted</em> to a
 <em>filtration</em>.<a href="#fnref6" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
 <hr/>
 <footer>
 Return to <a href="index.html">index</a>.
