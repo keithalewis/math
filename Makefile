@@ -39,7 +39,7 @@ FLAGS += -H HEADER.html
 	pandoc $(TEXFLAGS) $< -o $@
 
 index: $(MKDN)
-	./index.sh [a-z]*.md > index.html
+	./index.sh $(MKDN) > index.html
 
 docs: $(HTML) index
 	cp *.html math.css docs
