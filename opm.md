@@ -10,8 +10,8 @@ abstract: Buy now, sell later.
 \newcommand\RR{\boldsymbol{R}}
 \newcommand\ran{\operatorname{ran}}
 
-Let $I$ be the set of _instruments_ available at the beginning and end
-of a time period and $\Omega$ be the set of possible outcomes.
+Let $I$ be the set of _instruments_ available over a time period
+and $\Omega$ be the set of possible outcomes.
 The _prices_ at the beginning of the period are a vector $x\in\RR^I$.
 The prices at the end of the period are a function $X\colon\Omega\to
 \RR^I$ where $X(\omega)\in\RR^I$ are the instrument prices if
@@ -171,8 +171,10 @@ $$
 
 __Exercise__. _Show $a = c$ and $b = 1 - 2c$_.
 
+_Hint_: Multiply the first equation by 90 and subtract the second. 
+
 The FTAP proves the model is arbitrage-free if and only if the option value is between $0$ and $5$
-since $v = 10c$.
+since $b\ge0$ implies $0\le c\le 1/2$ and $v = 10c$.
 
 __Exercise__. _Show the model without the bond is arbitrage-free if and only the option value
 is between $0$ and $100/11 < 10$_.

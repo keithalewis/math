@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-06-29" />
+  <meta name="dcterms.date" content="2023-07-06" />
   <title>Yield Curve Models</title>
   <style>
     code{white-space: pre-wrap;}
@@ -51,7 +51,7 @@
 <header id="title-block-header">
 <h1 class="title">Yield Curve Models</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 29, 2023</p>
+<p class="date">July 6, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Continuously compounded stochastic forward rate
@@ -62,7 +62,7 @@ bees coming out of a hive, there is a single thread that ties together
 all fixed income instrument prices. The <em>continuously compounded
 stochastic forward rate</em> <span class="math inline">f_t</span>
 corresponds quite closely to the SOFR rate. The Secured Overnight
-Funding Rate is based on the large volume of overnight repurchase
+Financing Rate is based on the large volume of overnight repurchase
 agreements that actually trade in the market. LIBOR was a term rate
 based on calling up traders and asking for their opinions.</p>
 <section id="models" class="level2">
@@ -74,13 +74,12 @@ borrowed or lent over an infinitesimal time period. Any amount <span
 class="math inline">a\in\boldsymbol{R}</span> can be invested at time
 <span class="math inline">t</span> and return <span
 class="math inline">a(1 + f_t\,dt) = a\exp(f_t dt)</span> at time <span
-class="math inline">t + dt</span>.</p>
-<p>Rolling over 1 unit invested at time 0 results in realized return
-<span class="math inline">R_t = \exp(\int_0^t f_s\,ds)</span> at time
-<span class="math inline">t</span>. It is the price of a <em>money
-market</em> account at time <span class="math inline">t</span>. The
-<em>stochastic discount</em> is <span class="math inline">D_t =
-1/R_t</span>.</p>
+class="math inline">t + dt</span>. Rolling over 1 unit invested at time
+0 results in realized return <span class="math inline">R_t =
+\exp(\int_0^t f_s\,ds)</span> at time <span
+class="math inline">t</span>. It is the price of a <em>money market</em>
+account at time <span class="math inline">t</span>. The <em>stochastic
+discount</em> is <span class="math inline">D_t = 1/R_t</span>.</p>
 <!--
 Instruments have _prices_. Continuing the mathematial fiction, we assume
 any instrument with price $X_t$ can be bought or sold at any amount
@@ -95,7 +94,7 @@ cites!!!
 <p>Holding an instrument entails <em>cash flows</em> that, unlike
 prices, are almost always 0. Stocks have dividends, bonds have coupons,
 futures have periodic cash flows in the margin account. The price of a
-futures is always 0. They are naturally occuring martingales. Money
+futures is always 0. Futures are naturally occuring martingales. Money
 market accounts have no cash flows.</p>
 <p>In every arbitrage-free model prices <span
 class="math inline">X_t</span> and cash flows <span
@@ -187,7 +186,7 @@ class="math inline">\operatorname{Cov}(f_t, D_t)</span> in the LIBOR
 market model but there is for the Ho-Lee model.</p>
 </section>
 <section id="ho-lee" class="level2">
-<h2>Ho-Lee</h2>
+<h2><a href="ho-lee.html">Ho-Lee</a></h2>
 <p>The Ho-Lee model specifies a stochastic forward rate <span
 class="math inline">f_t = \phi(t) + \Sigma(t)\cdot B_t</span> where
 <span class="math inline">\phi(t)</span> is the futures quote and <span
@@ -201,7 +200,7 @@ constant scalar volatility <span class="math inline">\sigma =
 <p><em>Hint</em>: Use <span class="math inline">E[\exp(N)] = \exp(E[N] +
 \operatorname{Var}(N)/2)</span> for any normally distributed random
 variable and show <span class="math inline">{\operatorname{Var}(\int_0^t
-B_s\,ds) = \int_0^t \int_0^t \operatorname{Cov}(B_s, B_u)\,ds\,du =
+B_s\,ds) = \int_0^t \int_0^t \operatorname{Cov}(B_u, B_v)\,du\,dv =
 t^3/3}</span>.</p>
 <p>Since <span class="math inline">D(t) = \exp(-\int_0^t
 f(s)\,ds)</span> we have <span class="math inline">f(t) = \phi(t) -

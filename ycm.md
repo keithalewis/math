@@ -21,7 +21,7 @@ abstract: Continuously compounded stochastic forward rate
 Unlike the equity world where the menagerie of stock prices are like bees coming out of a hive,
 there is a single thread that ties together all fixed income instrument prices.
 The _continuously compounded stochastic forward rate_ $f_t$ corresponds quite closely
-to the SOFR rate. The Secured Overnight Funding Rate
+to the SOFR rate. The Secured Overnight Financing Rate
 is based on the large volume of overnight repurchase agreements that actually trade in the market.
 LIBOR was a term rate based on calling up traders and asking for their opinions.
 
@@ -32,7 +32,6 @@ the continuously compounded stochastic forward rate $f_t$
 is the rate at which money can be borrowed or lent over an infinitesimal time period.
 Any amount $a\in\RR$ can be invested at time $t$ and return $a(1 + f_t\,dt) = a\exp(f_t dt)$ at
 time $t + dt$.
-
 Rolling over 1 unit invested at time 0 results in realized return $R_t = \exp(\int_0^t f_s\,ds)$ at time $t$.
 It is the price of a _money market_ account at time $t$.
 The _stochastic discount_ is $D_t = 1/R_t$.
@@ -53,7 +52,7 @@ cites!!!
 Holding an instrument entails _cash flows_ that, unlike prices, are almost always 0.
 Stocks have dividends, bonds have coupons,
 futures have periodic cash flows in the margin account.
-The price of a futures is always 0. They are naturally occuring martingales. 
+The price of a futures is always 0. Futures are naturally occuring martingales. 
 Money market accounts have no cash flows.
 
 In every arbitrage-free model prices $X_t$ and cash flows $C_t$ must satisfy
@@ -121,7 +120,7 @@ are independent of $\alpha(t)$ since $\|\Sigma(t)\| = \sigma(t)$.
 There is no closed-form formula for calculating $\Cov(f_t, D_t)$ in the LIBOR market model
 but there is for the Ho-Lee model.
 
-## Ho-Lee
+## [Ho-Lee](ho-lee.html)
 
 The Ho-Lee model specifies a stochastic forward rate
 $f_t = \phi(t) + \Sigma(t)\cdot B_t$ where $\phi(t)$ is the futures
@@ -133,7 +132,7 @@ $$
 $$
 
 _Hint_: Use $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ for any normally distributed
-random variable and show ${\Var(\int_0^t B_s\,ds) = \int_0^t \int_0^t \Cov(B_s, B_u)\,ds\,du = t^3/3}$.
+random variable and show ${\Var(\int_0^t B_s\,ds) = \int_0^t \int_0^t \Cov(B_u, B_v)\,du\,dv = t^3/3}$.
 
 Since $D(t) = \exp(-\int_0^t f(s)\,ds)$ we have
 $f(t) = \phi(t) - \sigma^2 t^2/2$.

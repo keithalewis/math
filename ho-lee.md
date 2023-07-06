@@ -172,6 +172,22 @@ $$
 D_t(u) = \exp(-\int_t^u φ(s)\,ds + σ^2(u - t)^3/6 - σ(u - t) B_t).
 $$
 
+__Exercise__. _If $σ$ is contant show_
+$$
+D_t(u) = D(u)/D(t) \exp(-σ^2 ut(u - t)/2 - σ(u - t) B_t
+$$
+
+_Hint_: Use $D(u)/D(t) = \exp(-\int_t^u φ(s)\,ds + σ^2(u^3 - t^3)/6)$.
+
+<details><summary>Solution</summary>
+Whe have
+$$
+\begin{aligned}
+	
+\end{aligned}
+$$
+</details>
+
 __Exercise__ _Show $(\partial/\partial u)\int_t^u (Σ(u) - Σ(s))^2\,ds = 2σ(u)\int_t^u (Σ(u) - Σ(s))\,ds$_. 
 
 _Hint_. Use $(\partial/\partial u)\int_t^u F(u,s)\,ds = F(u, u) + \int_t^u (\partial/\partial u) F(u, s)\,ds$.
