@@ -9,11 +9,12 @@ abstract: Constant cash flows
 
 \newcommand\RR{\mathbf{R}}
 \renewcommand\AA{\mathcal{A}}
+\newcommand{\Cov}{\operatorname{Cov}}
 
 ## Fixed Income
 
 A _fixed income_ instrument is specified by cash flows $(c_j)$ at times $(u_j)$.
-This is just a portfolio of zero coupon bonds so its _present value_ is
+It is a portfolio of zero coupon bonds and its _present value_ is
 $P = \sum_j c_j D(u_j)$ where $D(u)$ is the discount to time $u$.
 The present value at time $t$ is $P_t = \sum_{u_j > t} c_j D_t(u_j)$
 where $D_t(u)$ is the price at time $t$ of a zero coupon bond maturing at $u$.
@@ -22,7 +23,7 @@ where $D_t(u)$ is the price at time $t$ of a zero coupon bond maturing at $u$.
 
 A _zero coupon bond_, $D(u)$, pays one unit at maturity $u$ so $C^{D(u)}_u = 1$ is the only cash flow.
 We write $D_t(u)$ for the price $X_t^{D(u)}$ of the zero coupon bond at time $t$.
-An arbitrage free model with deflator $D_t$ requires the price at time $t$ to
+An arbitrage free model with stochastic discount $D_t$ requires the price at time $t$ to
 satisfy $D_t(u)D_t = E_t[D_u]$ so
 $$
 	D_t(u) = E_t[D_u]/D_t.
@@ -149,13 +150,14 @@ There are also forward rate agreements not involving the exchange of notional. A
 A _receiver_ FRA has the negative of this cash flow. The value at any time $t \le u$ is
 determined by
 
-
-\begin{align*}
+$$
+\begin{aligned}
 V_t D_t &= E_t[(f - F_u(u,v;δ))δ(u,v) D_v] \\
         &= E_t[fδ(u,v) D_v - E_u[D_u - D_v]]  \\
         &= E_t[fδ(u,v) D_v - D_u + D_v]  \\
         &= E_t[-D_u + (1 + fδ(u,v)) D_v] \\
-\end{align*}
+\end{aligned}
+$$
 
 which is the same as for a forward rate agreement that does exchange notional.
 These two types of FRAS's have very different risk characteristics.

@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-06-29" />
+  <meta name="dcterms.date" content="2023-07-06" />
   <title>Fixed Income</title>
   <style>
     code{white-space: pre-wrap;}
@@ -51,7 +51,7 @@
 <header id="title-block-header">
 <h1 class="title">Fixed Income</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 29, 2023</p>
+<p class="date">July 6, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Constant cash flows
@@ -61,14 +61,13 @@ Constant cash flows
 <h2>Fixed Income</h2>
 <p>A <em>fixed income</em> instrument is specified by cash flows <span
 class="math inline">(c_j)</span> at times <span
-class="math inline">(u_j)</span>. This is just a portfolio of zero
-coupon bonds so its <em>present value</em> is <span
-class="math inline">P = \sum_j c_j D(u_j)</span> where <span
-class="math inline">D(u)</span> is the discount to time <span
-class="math inline">u</span>. The present value at time <span
-class="math inline">t</span> is <span class="math inline">P_t =
-\sum_{u_j &gt; t} c_j D_t(u_j)</span> where <span
-class="math inline">D_t(u)</span> is the price at time <span
+class="math inline">(u_j)</span>. It is a portfolio of zero coupon bonds
+and its <em>present value</em> is <span class="math inline">P = \sum_j
+c_j D(u_j)</span> where <span class="math inline">D(u)</span> is the
+discount to time <span class="math inline">u</span>. The present value
+at time <span class="math inline">t</span> is <span
+class="math inline">P_t = \sum_{u_j &gt; t} c_j D_t(u_j)</span> where
+<span class="math inline">D_t(u)</span> is the price at time <span
 class="math inline">t</span> of a zero coupon bond maturing at <span
 class="math inline">u</span>.</p>
 <section id="zero-coupon-bond" class="level3">
@@ -79,8 +78,8 @@ class="math inline">C^{D(u)}_u = 1</span> is the only cash flow. We
 write <span class="math inline">D_t(u)</span> for the price <span
 class="math inline">X_t^{D(u)}</span> of the zero coupon bond at time
 <span class="math inline">t</span>. An arbitrage free model with
-deflator <span class="math inline">D_t</span> requires the price at time
-<span class="math inline">t</span> to satisfy <span
+stochastic discount <span class="math inline">D_t</span> requires the
+price at time <span class="math inline">t</span> to satisfy <span
 class="math inline">D_t(u)D_t = E_t[D_u]</span> so <span
 class="math display">
     D_t(u) = E_t[D_u]/D_t.
@@ -232,12 +231,14 @@ notional. A (fixed rate) <em>payer</em> FRA has the single cash flow
 class="math inline">v</span>. A <em>receiver</em> FRA has the negative
 of this cash flow. The value at any time <span class="math inline">t \le
 u</span> is determined by</p>
-<p><span class="math display">\begin{align*}
+<p><span class="math display">
+\begin{aligned}
 V_t D_t &amp;= E_t[(f - F_u(u,v;δ))δ(u,v) D_v] \\
         &amp;= E_t[fδ(u,v) D_v - E_u[D_u - D_v]]  \\
         &amp;= E_t[fδ(u,v) D_v - D_u + D_v]  \\
         &amp;= E_t[-D_u + (1 + fδ(u,v)) D_v] \\
-\end{align*}</span></p>
+\end{aligned}
+</span></p>
 <p>which is the same as for a forward rate agreement that does exchange
 notional. These two types of FRAS’s have very different risk
 characteristics. If either counter-party defaults during the time
@@ -352,7 +353,8 @@ t)</span> for some parameter <span class="math inline">\alpha</span>.
 Clealy <span class="math inline">||\Sigma(t)|| = sigma(t)</span>. This
 can be used to fit, e.g., one swaption price. Note <span
 class="math inline">\Sigma\cdot B_t = \sigma(B_t^0\cos(\alpha t) +
-B_t^1\sin(\alpha t)</span> and <span class="math inline">\Cov(B_t,B_u) =
+B_t^1\sin(\alpha t)</span> and <span
+class="math inline">\operatorname{Cov}(B_t,B_u) =
 t\cos(\alpha(u-t))</span> for <span class="math inline">t &lt;
 u</span>.</p>
 <p>The futures are determined by the forwards and volatilities; <span
