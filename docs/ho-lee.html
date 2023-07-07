@@ -92,8 +92,8 @@ with respect to <span class="math inline">t</span></p>
 coupon</em> of a forward contract paying <span class="math inline">f_t -
 f(t)</span> at <span class="math inline">t</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">0 =
-E_t[(f_u - f_t(u))D_u]</span>, <span class="math inline">u\ge
-t</span></em>.</p>
+E_t[(f_u - f_t(u))D_u]</span>, <span class="math inline">t\le
+u</span></em>.</p>
 <p>This shows <span class="math inline">f_t(u)</span> is the <em>par
 coupon</em> at time <span class="math inline">t</span> of a forward
 contract paying <span class="math inline">f_u - f_t(u)</span> at <span
@@ -124,45 +124,32 @@ the volatility, and <span class="math inline">B_t</span> is standard
 Brownian motion. We can also use multi-dimensional Brownian motion with
 <span class="math inline">σ(t)</span> vector-valued.</p>
 <p>The stochastic discount is <span class="math display">
-    D_t = \exp(-\int_0^t f_s\,ds) = \exp(-\int_0^t (φ(s) + σ(s)
-B_s)\,ds)
+    D_t = \exp(-\int_0^t f_s\,ds) = \exp(-\int_0^t φ(s) + σ(s) B_s\,ds)
 </span></p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\operatorname{Var}(\int_0^t σ(s) B_s\,ds) = \int_0^t
-(Σ(t) - Σ(s))^2\,ds</span> where <span class="math inline">{Σ(t) =
-\int_0^t σ(s)\,ds}</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">\operatorname{Var}(\sum_i
-X_i) = \sum_{i,j} \operatorname{Cov}(X_i, X_j)</span>.</p>
+<p><strong>Exercise</strong>: <em>Show <span
+class="math inline">\int_0^t σ(s) B_s\,ds = \int_0^t Σ(t) -
+Σ(s)\,dB_s</span> where <span class="math inline">{Σ(t) = \int_0^t
+σ(s)\,ds}</span></em>.</p>
+<p><em>Hint</em> Use <span class="math inline">d(Σ(t) B_t) = Σ(t)\,dB_t
++ Σ&#39;(t) B_t\,dt</span>.</p>
 <details>
 <summary>
 Solution
 </summary>
-<p>We have <span class="math display">
+We have <span class="math display">
 \begin{aligned}
-\operatorname{Var}(\int_0^t σ(s) B_s\,ds) &amp;= \int_0^t\int_0^t σ(u)
-σ(v) \operatorname{Cov}(B_u,B_v)\,du\,dv \\
-&amp;= \int_0^t\int_0^t σ(u) σ(v)\min(u,v)\,du\,dv \\
-&amp;= \int_0^t\int_0^v σ(u) σ(v) u\,du\,dv + \int_0^t\int_v^t σ(u) σ(v)
-v\,du\,dv \\
-&amp;= \int_0^t\int_u^t σ(u) σ(v) u\,dv\,du + \int_0^t\int_v^t σ(u) σ(v)
-v\,du\,dv \\
-&amp;= \int_0^t σ(u) (Σ(t) - Σ(u)) u \,du + \int_0^t (Σ(t) - Σ(v)) σ(v)
-v \,dv \\
-&amp;= 2 \int_0^t σ(u) (Σ(t) - Σ(u)) u \,du \\
-\end{aligned}
-</span></p>
-Integrate by parts with <span class="math inline">U = u</span> and <span
-class="math inline">dV = 2 σ(u) (Σ(t) - Σ(u))\,du = -d(Σ(t) -
-Σ(u))^2</span> so <span class="math inline">dU = du</span> and <span
-class="math inline">V = -(Σ(t) - Σ(u))^2</span>. Hence <span
-class="math display">
-\begin{aligned}
-2 \int_0^t σ(u) (Σ(t) - Σ(u)) u \,du
-    &amp;= -u(Σ(t) - Σ(u))^2|_0^t - \int_0^2 -(Σ(t) - Σ(u))^2\,ds \\
-    &amp; = 0 + \int_0^t (Σ(t) - Σ(u))^2\,du \\
+\int_0^t σ(s) B_s\,ds &amp;= -\int_0^t Σ(s)\,dB_s + Σ(t) B_t \\
+&amp;= \int_0^t Σ(t) - Σ(s)\,dB_s \\
 \end{aligned}
 </span>
 </details>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{Var}(\int_0^t σ(s) B_s\,ds) = \int_0^t
+(Σ(t) - Σ(s))^2\,ds</span> where <span class="math inline">{Σ(t) =
+\int_0^t σ(s)\,ds}</span></em>.</p>
+<p><em>Hint</em>: Use the Ito isometry <span
+class="math inline">E[(\int_0^t X_s\,dB_s)^2] = E[\int_0^t
+X_s^2\,ds]</span>.</p>
 <p>Since the exponent is normally distributed and <span
 class="math inline">E[\exp(N)] = \exp(E[N] +
 \operatorname{Var}(N)/2)</span> if <span class="math inline">N</span> is
@@ -170,9 +157,18 @@ normal we have <span class="math display">
     D(t) = \exp\bigl(-\int_0^t φ(s)\,ds + \int_0^t (Σ(t) -
 Σ(s))^2\,ds/2\bigr)
 </span></p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">σ</span> is constant then <span
+class="math inline">\operatorname{Var}(\int_0^t σ(s) B_s\,ds) = σ^2
+t^3/3</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">σ</span> is constant then <span
+class="math inline">D(t) = \exp\bigl(-\int_0^t φ(s)\,ds + σ^2
+t^3/6)</span></em>.</p>
+<p>Now we determine the forward curve.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">(d/dt)
-\int_0^t (Σ(t) - Σ(s))^2\,ds = 2σ(t) \int_0^t (Σ(t) -
-Σ(s))\,ds</span></em>.</p>
+\int_0^t (Σ(t) - Σ(s))^2\,ds = 2σ(t) \int_0^t Σ(t) -
+Σ(s)\,ds</span></em>.</p>
 <p><em>Hint</em>. Use the Leibniz integral rule <span
 class="math inline">(d/dt)\int_0^t F(t,s)\,ds = F(t, t) + \int_0^t
 (\partial/\partial t) F(t, s)\,ds</span>.</p>
@@ -186,8 +182,8 @@ class="math inline">(\partial/\partial t) F(t,s) = 2(Σ(t) - Σ(s))
 Σ(s))^2\,ds = 0 + \int_0^t 2(Σ(t) - Σ(s)) σ(t)\,ds}</span>.
 </details>
 <p>Since <span class="math inline">D(t) = \exp(-\int_0^t
-f(s)\,ds)</span> we have <span class="math display">
-    f(t) = φ(t) - σ(t) \int_0^t (Σ(t) - Σ(s))\,ds.
+f(s)\,ds)</span> the forward curve is <span class="math display">
+    f(t) = φ(t) - σ(t) \int_0^t Σ(t) - Σ(s)\,ds.
 </span></p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">σ</span>
 is constant then <span class="math inline">{f(t) = φ(t) - σ^2
@@ -197,10 +193,10 @@ t^2/2}</span></em>.</p>
 <section id="dynamics" class="level2">
 <h2>Dynamics</h2>
 <p>For the Ho-Lee model <span class="math inline">{D_t(u) =
-E_t[\exp(-\int_t^u (φ(s) + σ(s) B_s)\,ds)]}</span>.</p>
+E_t[\exp(-\int_t^u φ(s) + σ(s) B_s\,ds)]}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\int_t^u σ(s) B_s\,ds = \int_t^u (Σ(u) - Σ(s))\,dB_s
-+ (Σ(u) - Σ(t)) B_t</span></em> where <span class="math inline">{Σ(t) =
+class="math inline">\int_t^u σ(s) B_s\,ds = \int_t^u Σ(u) - Σ(s)\,dB_s +
+(Σ(u) - Σ(t)) B_t</span></em> where <span class="math inline">{Σ(t) =
 \int_0^t σ(s)\,ds}</span>.</p>
 <p><em>Hint</em> Use <span class="math inline">d(Σ(t) B_t) = Σ(t)\,dB_t
 + Σ&#39;(t) B_t\,dt</span>.</p>
@@ -214,10 +210,13 @@ We have <span class="math display">
 \\
 &amp;= -\int_t^u Σ(s)\,dB_s + Σ(u) B_u - Σ(u) B_t + Σ(u) B_t - B_t Σ(t)
 B_t \\
-&amp;= \int_t^u (Σ(u) - Σ(s))\,dB_s + (Σ(u) - Σ(t)) B_t \\
+&amp;= \int_t^u Σ(u) - Σ(s)\,dB_s + (Σ(u) - Σ(t)) B_t \\
 \end{aligned}
 </span>
 </details>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{Var}(\int_t^u Σ(u) - Σ(s)\,dB_s) =
+\int_t^u (Σ(u) - Σ(s))^2\,ds</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">E_t[\exp(\int_t^u Λ(s)\,dB_s)] = \exp(\int_t^u
 Λ(s)^2\,ds/2)</span></em>.</p>
@@ -239,20 +238,20 @@ maturing at <span class="math inline">u</span> in the Ho-Lee model is
 <span class="math display">
 \begin{aligned}
 D_t(u) &amp;= E_t[D_u/D_t] \\
-    &amp;= E_t[\exp(-\int_t^u (φ(s) + σ(s) B_s)\,ds)] \\
-    &amp;= E_t[\exp\bigl(-\int_t^u φ(s)\,ds - \int_t^u (Σ(u) -
-Σ(s))\,dB_s - (Σ(u) - Σ(t)) B_t\bigr)] \\
+    &amp;= E_t[\exp(-\int_t^u φ(s) + σ(s) B_s\,ds)] \\
+    &amp;= E_t[\exp\bigl(-\int_t^u φ(s)\,ds - \int_t^u Σ(u) - Σ(s)\,dB_s
+- (Σ(u) - Σ(t)) B_t\bigr)] \\
     &amp;= \exp(-\int_t^u φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2\,ds/2 -
 (Σ(u) - Σ(t)) B_t) \\
 \end{aligned}
 </span></p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">σ(t) =
-σ</span> is constant show</em> <span class="math display">
-D_t(u) = \exp(-\int_t^u φ(s)\,ds + σ^2(u - t)^3/6 - σ(u - t) B_t).
+<p><strong>Exercise</strong>. <em>If <span class="math inline">σ</span>
+is constant show</em> <span class="math display">
+    D_t(u) = \exp(-\int_t^u φ(s)\,ds + σ^2(u - t)^3/6 - σ(u - t) B_t).
 </span></p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">σ</span>
 is contant show</em> <span class="math display">
-D_t(u) = D(u)/D(t) \exp(-σ^2 ut(u - t)/2 - σ(u - t) B_t
+    D_t(u) = \exp(-σ^2 ut(u - t)/2 - σ(u - t) B_t) D(u)/D(t)
 </span></p>
 <p><em>Hint</em>: Use <span class="math inline">D(u)/D(t) =
 \exp(-\int_t^u φ(s)\,ds + σ^2(u^3 - t^3)/6)</span>.</p>
@@ -260,12 +259,10 @@ D_t(u) = D(u)/D(t) \exp(-σ^2 ut(u - t)/2 - σ(u - t) B_t
 <summary>
 Solution
 </summary>
-Whe have $$
-<span class="math display">\begin{aligned}
-    
-\end{aligned}</span>
-$$
+Note <span class="math inline">-ut(u - t)/2 + (u^3 - t^3)/6 = (u -
+t)^3/6</span>.
 </details>
+<p>Now we determine the forward curve.</p>
 <p><strong>Exercise</strong> <em>Show <span
 class="math inline">(\partial/\partial u)\int_t^u (Σ(u) - Σ(s))^2\,ds =
 2σ(u)\int_t^u (Σ(u) - Σ(s))\,ds</span></em>.</p>
@@ -283,11 +280,11 @@ class="math inline">(\partial/\partial u) F(u,s) = 2(Σ(u) - Σ(s))
 </details>
 <p>Since <span class="math inline">D_t(u) = \exp(-\int_t^u
 f_t(s)\,ds)</span> we have <span class="math display">
-    f_t(u) = φ(u) - σ(u)\int_t^u (Σ(u) - Σ(s))\,ds + σ(u) B_t.
+    f_t(u) = φ(u) - σ(u)\int_t^u Σ(u) - Σ(s)\,ds + σ(u) B_t.
 </span></p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">σ(t) =
-σ</span> is constant show <span class="math inline">f_t(u) = φ(u) -
-σ^2(u - t)^2/2 + σ B_t</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">σ</span>
+is constant show <span class="math inline">f_t(u) = φ(u) - σ^2(u -
+t)^2/2 + σ B_t</span></em>.</p>
 <p>The Ho-Lee model has a closed form solution for the dynamics of
 zero-coupon bond prices.</p>
 <!--
