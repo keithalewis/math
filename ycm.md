@@ -55,7 +55,7 @@ futures have periodic cash flows in the margin account.
 The price of a futures is always 0. Futures are naturally occuring martingales. 
 Money market accounts have no cash flows.
 
-In every arbitrage-free model prices $X_t$ and cash flows $C_t$ must satisfy
+In every [arbitrage-free model](um0.html) prices $X_t$ and cash flows $C_t$ must satisfy
 $$
 	X_t D_t = E_t[X_u D_u + \sum_{t < s \le u} C_s D_s],\quad t \le u.
 $$
