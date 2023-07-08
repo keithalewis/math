@@ -33,6 +33,12 @@ __Exercise__. _Show $0 = E[(f_t - f(t))D_t]$_.
 _Hint_. Use $E[\exp(-\int_0^ t f_s\,ds)] = \exp(-\int_0^t f(s)\,ds)$
 and compute the derivative with respect to $t$
 
+<details><summary>Solution</summary>
+We have $(d/dt)E[\exp(-\int_0^ t f_s\,ds)] = E[-D_t f_t]$ and
+$(d/dt)\exp(-\int_0^t f(s)\,ds) = -D(t) f(t)$.
+The result follows from $D(t) = E[D_t]$.
+</details>
+
 This shows $f(t)$ is the _par coupon_ of a forward contract paying $f_t - f(t)$ at $t$.
 
 __Exercise__. _Show $0 = E_t[(f_u - f_t(u))D_u]$, $t\le u$_. 
@@ -40,7 +46,7 @@ __Exercise__. _Show $0 = E_t[(f_u - f_t(u))D_u]$, $t\le u$_.
 This shows $f_t(u)$ is the _par coupon_ at time $t$ of a forward contract paying $f_u - f_t(u)$ at $u$.
 
 The futures quote at time $t$ of a contract settling at $u$ to $f_u$ is
-$φ_t(u) = E_t[f_u]$, $u\ge t$. Futures quotes are naturally occurring martingales.
+$φ_t(u) = E_t[f_u]$, $t\le u$. Futures quotes are naturally occurring martingales.
 We write $φ(t)$ for $φ_0(t)$.
 
 From above we have ${f(t)E[D_t] = E[f_t D_t] = E[f_t]E[D_t] + \Cov(f_t, D_t)}$ so
@@ -75,7 +81,7 @@ _Hint_ Use $d(Σ(t) B_t) = Σ(t)\,dB_t + Σ'(t) B_t\,dt$.
 We have 
 $$
 \begin{aligned}
-\int_0^t σ(s) B_s\,ds &= -\int_0^t Σ(s)\,dB_s + Σ(t) B_t \\
+\int_0^t σ(s) B_s\,ds &= -\int_0^t Σ(s)\,dB_s + Σ(t) B_t - Σ(0) B_0\\
 &= \int_0^t Σ(t) - Σ(s)\,dB_s \\
 \end{aligned}
 $$
@@ -90,7 +96,7 @@ Since the exponent is normally distributed and
 $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ if $N$ is normal
 we have
 $$
-	D(t) = \exp\bigl(-\int_0^t φ(s)\,ds + \int_0^t (Σ(t) - Σ(s))^2\,ds/2\bigr)
+	D(t) =  E[D_t] = \exp\bigl(-\int_0^t φ(s)\,ds + \int_0^t (Σ(t) - Σ(s))^2\,ds/2\bigr)
 $$
 
 __Exercise__. _Show if $σ$ is constant then $\Var(\int_0^t σ(s) B_s\,ds) = σ^2 t^3/3$_.
@@ -135,7 +141,8 @@ We have
 $$
 \begin{aligned}
 \int_t^u σ(s) B_s\,ds &= -\int_t^u Σ(t)\,dB_s + Σ(u) B_u - Σ(t) B_t \\
-&= -\int_t^u Σ(s)\,dB_s + Σ(u) B_u - Σ(u) B_t + Σ(u) B_t - B_t Σ(t) B_t \\
+&= -\int_t^u Σ(s)\,dB_s + Σ(u) B_u - Σ(u) B_t + Σ(u) B_t - Σ(t) B_t \\
+&= -\int_t^u Σ(s)\,dB_s + Σ(u) \int_t^u dB_s + Σ(u) B_t - Σ(t) B_t \\
 &= \int_t^u Σ(u) - Σ(s)\,dB_s + (Σ(u) - Σ(t)) B_t \\
 \end{aligned}
 $$

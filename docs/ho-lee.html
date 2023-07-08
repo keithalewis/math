@@ -5,33 +5,26 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-07-06" />
+  <meta name="dcterms.date" content="2023-07-08" />
   <title>Ho-Lee Model</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
+  
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -59,7 +52,7 @@
 <h1 class="title">Ho-Lee Model<a href="#fn1" class="footnote-ref"
 id="fnref1" role="doc-noteref"><sup>1</sup></a></h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">July 6, 2023</p>
+<p class="date">July 8, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Normal short rate.
@@ -95,6 +88,15 @@ E[(f_t - f(t))D_t]</span></em>.</p>
 <p><em>Hint</em>. Use <span class="math inline">E[\exp(-\int_0^ t
 f_s\,ds)] = \exp(-\int_0^t f(s)\,ds)</span> and compute the derivative
 with respect to <span class="math inline">t</span></p>
+<details>
+<summary>
+Solution
+</summary>
+We have <span class="math inline">(d/dt)E[\exp(-\int_0^ t f_s\,ds)] =
+E[-D_t f_t]</span> and <span class="math inline">(d/dt)\exp(-\int_0^t
+f(s)\,ds) = -D(t) f(t)</span>. The result follows from <span
+class="math inline">D(t) = E[D_t]</span>.
+</details>
 <p>This shows <span class="math inline">f(t)</span> is the <em>par
 coupon</em> of a forward contract paying <span class="math inline">f_t -
 f(t)</span> at <span class="math inline">t</span>.</p>
@@ -108,7 +110,7 @@ class="math inline">u</span>.</p>
 <p>The futures quote at time <span class="math inline">t</span> of a
 contract settling at <span class="math inline">u</span> to <span
 class="math inline">f_u</span> is <span class="math inline">φ_t(u) =
-E_t[f_u]</span>, <span class="math inline">u\ge t</span>. Futures quotes
+E_t[f_u]</span>, <span class="math inline">t\le u</span>. Futures quotes
 are naturally occurring martingales. We write <span
 class="math inline">φ(t)</span> for <span
 class="math inline">φ_0(t)</span>.</p>
@@ -145,7 +147,8 @@ Solution
 </summary>
 We have <span class="math display">
 \begin{aligned}
-\int_0^t σ(s) B_s\,ds &amp;= -\int_0^t Σ(s)\,dB_s + Σ(t) B_t \\
+\int_0^t σ(s) B_s\,ds &amp;= -\int_0^t Σ(s)\,dB_s + Σ(t) B_t - Σ(0)
+B_0\\
 &amp;= \int_0^t Σ(t) - Σ(s)\,dB_s \\
 \end{aligned}
 </span>
@@ -161,7 +164,7 @@ X_s^2\,ds]</span>.</p>
 class="math inline">E[\exp(N)] = \exp(E[N] +
 \operatorname{Var}(N)/2)</span> if <span class="math inline">N</span> is
 normal we have <span class="math display">
-    D(t) = \exp\bigl(-\int_0^t φ(s)\,ds + \int_0^t (Σ(t) -
+    D(t) =  E[D_t] = \exp\bigl(-\int_0^t φ(s)\,ds + \int_0^t (Σ(t) -
 Σ(s))^2\,ds/2\bigr)
 </span></p>
 <p><strong>Exercise</strong>. <em>Show if <span
@@ -215,8 +218,10 @@ We have <span class="math display">
 \begin{aligned}
 \int_t^u σ(s) B_s\,ds &amp;= -\int_t^u Σ(t)\,dB_s + Σ(u) B_u - Σ(t) B_t
 \\
-&amp;= -\int_t^u Σ(s)\,dB_s + Σ(u) B_u - Σ(u) B_t + Σ(u) B_t - B_t Σ(t)
-B_t \\
+&amp;= -\int_t^u Σ(s)\,dB_s + Σ(u) B_u - Σ(u) B_t + Σ(u) B_t - Σ(t) B_t
+\\
+&amp;= -\int_t^u Σ(s)\,dB_s + Σ(u) \int_t^u dB_s + Σ(u) B_t - Σ(t) B_t
+\\
 &amp;= \int_t^u Σ(u) - Σ(s)\,dB_s + (Σ(u) - Σ(t)) B_t \\
 \end{aligned}
 </span>
@@ -503,12 +508,11 @@ __Exercise__. _Show $σ(t)\cdotσ(u) = σ^2\cos(\alpha(t - u))$_.
 <h2>Reference</h2>
 <div class="csl-bib-body" style="line-height: 1.35; margin-left: 2em; text-indent:-2em;">
 </section>
-<section class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><div class="csl-entry"
-role="doc-biblioentry">
+<li id="fn1"><div class="csl-entry" role="listitem">
 Ho, Thomas S. Y., and Sang-Bin Lee. “Term Structure Movements and
 Pricing Interest Rate Contingent Claims.” <i>The Journal of Finance</i>
 41, no. 5 (1986): 1011–29.
@@ -519,7 +523,7 @@ title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzoter
 </div>
 <a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></li>
 </ol>
-</section>
+</aside>
 <hr/>
 <footer>
 Return to <a href="index.html">index</a>.
