@@ -66,10 +66,7 @@ and $B_t$ is standard Brownian motion.
 We can also use multi-dimensional Brownian motion with $σ(t)$
 vector-valued.
 
-The stochastic discount is 
-$$
-	D_t = \exp(-\int_0^t f_s\,ds) = \exp(-\int_0^t φ(s) + σ(s) B_s\,ds)
-$$
+The stochastic discount is $D_t = \exp(-\int_0^t f_s\,ds) = \exp(-\int_0^t φ(s) + σ(s) B_s\,ds)$.
 
 __Exercise__: _Show $\int_0^t σ(s) B_s\,ds = \int_0^t Σ(t) - Σ(s)\,dB_s$
 where ${Σ(t) = \int_0^t σ(s)\,ds}$_.
@@ -87,8 +84,12 @@ $$
 $$
 </details>
 
-__Exercise__. _Show $\Var(\int_0^t σ(s) B_s\,ds) = \int_0^t (Σ(t) - Σ(s))^2\,ds$
-where ${Σ(t) = \int_0^t σ(s)\,ds}$_.
+This shows
+$$
+	D_t = \exp(-\int_0^t φ(s) + \int_0^t Σ(t) - Σ(s)\,dB_s).
+$$
+
+__Exercise__. _Show $\Var(\int_0^t Σ(t) - Σ(s)\,dB_s) = \int_0^t (Σ(t) - Σ(s))^2\,ds$_.
 
 _Hint_: Use the Ito isometry $E[(\int_0^t X_s\,dB_s)^2] = E[\int_0^t X_s^2\,ds]$.
 
@@ -96,10 +97,10 @@ Since the exponent is normally distributed and
 $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ if $N$ is normal
 we have
 $$
-	D(t) =  E[D_t] = \exp\bigl(-\int_0^t φ(s)\,ds + \int_0^t (Σ(t) - Σ(s))^2\,ds/2\bigr)
+	D(t) =  E[D_t] = \exp\bigl(\int_0^t -φ(s) + (Σ(t) - Σ(s))^2/2\,ds\bigr)
 $$
 
-__Exercise__. _Show if $σ$ is constant then $\Var(\int_0^t σ(s) B_s\,ds) = σ^2 t^3/3$_.
+__Exercise__. _Show if $σ$ is constant then $\Var(\int_0^t (Σ(t) - Σ(s))^2\,ds) = σ^2 t^3/3$_.
 
 __Exercise__. _Show if $σ$ is constant then $D(t) = \exp\bigl(-\int_0^t φ(s)\,ds + σ^2 t^3/6)$_.
 
@@ -124,6 +125,24 @@ $$
 __Exercise__. _If $σ$ is constant then ${f(t) = φ(t) -  σ^2 t^2/2}$_.
 
 _Hint_: Use $Σ(t) = σt$.
+
+<!--
+Note
+$$
+\begin{aligned}
+	D_u/D_t &= \exp\bigl(-\int_t^u φ(s)\,ds + \int_0^u Σ(u) - Σ(s)\,dB_s - \int_0^t Σ(t) - Σ(s)\,dB_s\bigr) \\
+		&= \exp\bigl(-\int_t^u φ(s)\,ds
+			+ \int_t^u Σ(u) - Σ(s)\,dB_s\
+			+ \int_0^t Σ(u) - Σ(s) - (Σ(t) - Σ(s))\,dB_s\bigr) \\
+		&= \exp\bigl(-\int_t^u φ(s)\,ds
+			+ \int_t^u Σ(u) - Σ(s)\,dB_s\
+			+ (Σ(u) - Σ(t))B_t\bigr) \\
+\end{aligned}
+$$
+$$
+	D(u)/D(t) = \exp\bigl(-\int_t^u φ(s)\,ds + \int_0^u (Σ(u) - Σ(s))^2\,ds/2 - \int_0^t (Σ(t) - Σ(s))^2\,ds/2\bigr)
+$$
+-->
 
 ## Dynamics
 
@@ -173,6 +192,15 @@ D_t(u) &= E_t[D_u/D_t] \\
 \end{aligned}
 $$
 
+Note $D_t$ is lognormal with log-variance $\Var(\log D_t) =  (Σ(u) - Σ(t))^2 t$
+and expected value
+$$
+\begin{aligned}
+E[D_t(u)] &= \exp(-\int_t^u φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2\,ds/2 + (Σ(u) - Σ(t))^2t/2) \\
+\end{aligned}
+$$
+
+
 __Exercise__. _If $σ$ is constant show_
 $$
 	D_t(u) = \exp(-\int_t^u φ(s)\,ds + σ^2(u - t)^3/6 - σ(u - t) B_t).
@@ -210,18 +238,6 @@ __Exercise__. _If $σ$ is constant show $f_t(u) = φ(u) - σ^2(u - t)^2/2 + σ B
 
 The Ho-Lee model has a closed form solution for the dynamics of zero-coupon bond prices.
 
-<!--
-
-## Forward Rate Agreements
-
-The forward rate at time $t$ over $[u,v]$ with daycount basis $\delta$ is
-$F_t^\delta(u, v) = (D_t(u)/D_t(v) - 1)/\delta(u,v)$
-so
-$$
-	F_t^\delta(t, u) = \frac{1}{\delta(u,v)}\left(\frac{}{D_t(u)} - 1\right).
-$$
-
-
 ### Options
 
 A _caplet_ with strike $k$ and expiration $t$ pays ${\max\{f_t - k, 0\} = (f_t - k)^+}$
@@ -244,6 +260,18 @@ $φ = \Phi'$ is the standard normal density function.
 
 __Exercise__. _Find a closed form solution for the floorlet value $E[(k - f_t)^+ D_t]$_.
 
+Suppose a _fixed income instrument_ pays $c_j$ and $u_j$. Its value at time $t$
+is ${P_t = \sum_{u_j > t} c_j D_t(u_j)}$. We can approximate this with a
+lognormal having expected value ${E[P_t] = \sum_{u_j > t} c_j E[D_t(u_j)]}$
+and variance ${\Var(P_t) = \sum_{u_j, u_k > t} c_j c_k \Cov(D_t(u_j), D_t(u_k))}$.
+Since ${\Cov(e^N, e^M) = E[e^N] E[e^M] (\exp(\Cov(N, M)) - 1)}$ if $N$ and $M$
+are jointly normal we have
+${\Cov(D_t(u), D_t(v)) = E[D_t(u)] E[D_t(v)] (\exp((Σ(u) - Σ(t))(Σ(v) - Σ(t))t) - 1)}$ so
+$$
+	\Var(P_t) = \sum_{u_j, u_k > t} c_j c_k E[D_t(u_j)] E[D_t(u_k)] (\exp((Σ(u_k) - Σ(t))(Σ(u_k) - Σ(t))t) - 1)
+$$
+
+<!--
 
 ## Discount
 
