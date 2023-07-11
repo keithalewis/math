@@ -260,6 +260,34 @@ $φ = \Phi'$ is the standard normal density function.
 
 __Exercise__. _Find a closed form solution for the floorlet value $E[(k - f_t)^+ D_t]$_.
 
+A _forward contract_ is specified by an interval $[t,u]$, a forward rate $f$, and
+a day count basis $\delta$. It has cash flows $-1$ at $t$ and $1 + f\delta(t,u)$ at $u$
+where the day count fraction $\delta(t,u)$ is approximately equal to the time
+in years from $t$ to $u$.
+
+__Exercise__. _The price of the forward contract is zero at time $s \le t$ if and only
+if_ 
+$$
+	f = (D_s(t)/D_s(u) - 1)/\delta(t,u)
+$$
+
+_Hint_: $0 = E_s[-D_t + (1 + f\delta)D_u]$.
+
+We call $F_s^\delta(t,u) = (D_s(t)/D_s(u) - 1)/\delta(t,u)$
+the _par forward_ at time $s$ over $[t,u]$ for day count basis $\delta$.
+
+__Exercise__ _Show $E_s[F_t(t,u))\delta(t,u)D_u]] = E_s[D_t - D_u]$_.
+
+A _forward contract paying in arrears_ is also specified by an interval
+$[t,u]$, a forward rate $f$, and a day count basis $\delta$.
+It has a single cash flow $(f - F_t^\delta(t,u))\delta(t,u)$ at $u$.
+Note $F_t(t,u)$ is the forward rate at $t$ over the interval $[t, u]$.
+The _effective date_ of the contract is $t$ and the _termination date_ is $u$.
+
+__Exercise__. _Show $E_s[-D_t + (1 + f\delta)D_u] = E_s[(f - F_t(t,u))\delta(t,u)D_u]$_.
+
+_Hint_: Use the previous exercise.
+
 Suppose a _fixed income instrument_ pays $c_j$ and $u_j$. Its value at time $t$
 is ${P_t = \sum_{u_j > t} c_j D_t(u_j)}$. We can approximate this with a
 lognormal having expected value ${E[P_t] = \sum_{u_j > t} c_j E[D_t(u_j)]}$
@@ -364,34 +392,6 @@ $f_t(u) = φ(u) - σ^2 (u - t)^2/2 + σ B_t$_.
 
 The futures quote on a contract paying $f_t$ at time $t$ is $φ_s(t) = E_s[f_t]$
 since futures are martingales.
-
-A _forward contract_ is specified by an interval $[t,u]$, a forward rate $f$, and
-a day count basis $\delta$. It has cash flows $-1$ at $t$ and $1 + f\delta(t,u)$ at $u$
-where the day count fraction $\delta(t,u)$ is approximately equal to the time
-in years from $t$ to $u$.
-
-__Exercise__. _The price of the forward contract is zero at time $s \le t$ if and only
-if_ 
-$$
-	f = (D_s(t)/D_s(u) - 1)/\delta(t,u)
-$$
-
-_Hint_: $0 = E_s[-D_t + (1 + f\delta)D_u]$.
-
-We call $F_s^\delta(t,u) = (D_s(t)/D_s(u) - 1)/\delta(t,u)$
-the _par forward_ at time $s$ over $[t,u]$ for day count basis $\delta$.
-
-__Exercise__ _Show $E_s[F_t(t,u))\delta(t,u)D_u]] = E_s[D_t - D_u]$_.
-
-A _forward contract paying in arrears_ is also specified by an interval
-$[t,u]$, a forward rate $f$, and a day count basis $\delta$.
-It has a single cash flow $(f - F_t^\delta(t,u))\delta(t,u)$ at $u$.
-Note $F_t(t,u)$ is the forward rate at $t$ over the interval $[t, u]$.
-The _effective date_ of the contract is $t$ and the _termination date_ is $u$.
-
-__Exercise__. _Show $E_s[-D_t + (1 + f\delta)D_u] = E_s[(f - F_t(t,u))\delta(t,u)D_u]$_.
-
-_Hint_: Use the previous exercise.
 
 Both contracts have the same risk-neutral value, but they have very
 different risk profiles. 
