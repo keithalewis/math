@@ -5,8 +5,8 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-05-15" />
-  <title>n-factor Models</title>
+  <meta name="dcterms.date" content="2023-07-12" />
+  <title>Trading Strategies</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@
   <!-- End Matomo Code -->
 
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -49,33 +49,51 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title"><span class="math inline">n</span>-factor Models</h1>
+<h1 class="title">Trading Strategies</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 15, 2023</p>
+<p class="date">July 12, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-Are 1-factor models
+Primative operations
 </div>
 </header>
-<p>Suppose <span class="math inline">X_t = (B^1_t, B_2_t)</span> is
-2-dimensional Brownian motion where <span class="math inline">B^1</span>
-and <span class="math inline">B^2</span> are independent standard
-Brownian motions. This process is used to define 2-factor models.</p>
-<p><strong>Lemma</strong>. <em>Every 2-factor model is parameterized by
-1-dimensional standard Brownian motion</em>.</p>
-<p><em>Proof</em>: The idea of the proof is to chop 1-dimensional
-Brownian motion into pieces over the intervals <span
-class="math inline">[n, n + 1)</span>, <span
-class="math inline">n\in\mathbf{N}</span>, and glue the even and odd
-pieces together to create two continuous paths. This creates two
-independent Brownian motions out of one.</p>
+<p>The <a href="um0.html">Unified Model</a> describes prices and cash
+flows.</p>
+<p>A <em>trading strategy</em> is an increasing sequence of stopping
+times <span class="math inline">τ_j</span> and functions <span
+class="math inline">Γ_j\colon{\mathcal{A}}_{τ_j}\to\boldsymbol{R}^I</span>.
+For every <span class="math inline">ω\in Ω</span> <span
+class="math inline">(τ_j(ω))</span> is a finite, increasing sequence of
+times. We call this a <em>run</em>.</p>
+<p>If <span class="math inline">t</span> is a run let <span
+class="math inline">\{t\} = \{t_j\}</span> be the set of times in the
+run <span class="math inline">t</span>. If <span
+class="math inline">u</span> is another run let <span
+class="math inline">t\sqcup u</span> be the disjoint union of <span
+class="math inline">\{t\}</span> and <span
+class="math inline">\{u\}</span>. Elements of the disjoint union have
+the form <span class="math inline">(i, v)</span> where <span
+class="math inline">i</span> is either 0 or 1. If <span
+class="math inline">i = 0</span> then <span
+class="math inline">v\in\{t\}</span> and if <span class="math inline">i
+= 1</span> then $v{u}. The elements <span class="math inline">(0,
+v)</span> and <span class="math inline">(1, v)</span> for <span
+class="math inline">v\in \{t\}\cap\{u\}</span> are distinct.</p>
+<p>Define an order on the disjoint union. by <span
+class="math inline">(i, v) &lt; (j,w)</span> if and only if <span
+class="math inline">v &lt; w</span> or <span class="math inline">v =
+w</span> and <span class="math inline">i &lt; j</span>.</p>
+<p>Trading strategies form a vector space. If <span
+class="math inline">a\in\boldsymbol{R}</span> define <span
+class="math inline">a(τ, Γ) = (τ, aΓ)</span> to scale all trades by
+<span class="math inline">a</span>.</p>
 <hr/>
 <footer>
 Return to <a href="index.html">index</a>.
