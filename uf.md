@@ -4,16 +4,15 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: Unified Finance &ndash; holdings, trades, and managing risk
+abstract: Unified Finance &ndash; positions, exchanges, and trading strategies
 ...
 
 The financial world is a big, messy affair but its core involves trading
 instruments and bean counting: who traded how much of what when and accounting
 for that over time.
 
-The atoms of finance are _holdings_: an _amount_, _instrument_, and _legal entity_.
-A _position_ is a collection of holdings.
-Holdings interact via _trades_: the exchange of holdings between two entities at a given _time_. 
+The atoms of finance are _positions_: an _amount_, _instrument_, and _legal entity_.
+Positions interact via _exchanges_: swap the amount and instrument between two entities at a given _time_. 
 Instruments have _cash flows_ and _prices_ that determine
 the _amounts_ and _values_ involved with trading.
 Given a position and
@@ -33,17 +32,17 @@ solve any particular problem in finance but it does specify a mathematical
 notation to rigorously discuss all aspects of trading and hedging using
 realistic assumptions.
 
-## Holding
+## Position
 
-A holding is an _amount_, _instrument_, and _legal entity_.  Examples of
+A position is an _amount_, _instrument_, and _legal entity_.  Examples of
 instruments are: stocks, bonds, futures, currencies, and commodities.
 They are traded in some amount: shares, notional, contracts, units,
 and physical quantity respectively.  A legal entity is an individual
-or a corporation. Corporations can subdivide holdings by groups or individual
-traders. The holding $(a,i,e)$ indicates entity $e$
+or a corporation. Corporations can subdivide positions by groups or individual
+traders. The position $(a,i,e)$ indicates entity $e$
 owns amount $a$ of instrument $i$.
 
-A _position_ is a set of holdings $\{(a_j,i_j,e_j)\}_{j\in J}$
+A _portfolio_ is a set of positions $\{(a_j,i_j,e_j)\}_{j\in J}$
 Assuming each instrument is _fungible_ we can aggregate amounts.
 The _net amount_ in instrument $i$ held by entity $e$ is
 $$
@@ -53,22 +52,22 @@ The _net position_ is $\cup_j \{(N(i_j,e_j), i_j, e_j)\}$.
 If $i_j = i_k$ and $e_j = e_k$, then $N(i_j,e_j) = N(i_k,e_k)$; this
 is standard mathematical set union.
 
-## Trade
+## Exchange
 
-A _trade_ involves a pair of holdings and a _trade time_.
-The trade $(t; a, i, e; a', i', e')$ indicates _buyer_ $e$ exchanged
+A _exchange_ involves a pair of positions and a _trade time_.
+The exchange $(t; a, i, e; a', i', e')$ indicates _buyer_ $e$ exchanged
 amount $a$ of instrument $i$ for amount $a'$ of instrument $i'$ with
 seller $e'$ at time $t$.  The _price_ of the trade is the quotient of
 the buyer and seller amounts, $X = a/a'$, so the trade is
 $(t; a'X, i, e; a', i', e')$. Prices are determined by the seller.
-The buyer decides when to exchange holdings based on the
+The buyer decides when to exchange positions based on the
 seller's price, among other considerations.
 
-The trade $(t;a,i,e;a',i',e')$ changes the
-holdings of the buyer and seller at time $t$. The holding $(a,i,e)$
-of the buyer becomes $(a',i',e)$ and the holding $(a',i',e')$ of the
+The exchange $(t;a,i,e;a',i',e')$ changes the
+portfolios of the buyer and seller at time $t$. The position $(a,i,e)$
+of the buyer becomes $(a',i',e)$ and the position $(a',i',e')$ of the
 seller becomes $(a,i,e')$.  We assume instruments are _divisible_ so a
-holding $(a_1,i,e)$ can be split into $(a_1-a_0,i,e)$ and $(a_0,i,e)$
+position $(a_1,i,e)$ can be split into $(a_1-a_0,i,e)$ and $(a_0,i,e)$
 for any amount $a_0$ at no cost. If $0 < a_0 < a_1$ this assumption is
 close to being true.
 
@@ -98,16 +97,15 @@ currency associated with instrument $i$.  Specifying $i'$
 allows for _payment-in-kind_ cash flows.
 
 In the Ford example above, when holding $\{(86,\$),(2,F)\}$ and
-the stock pays a dividend of $(0.15, \$)$ per share then the holdings
-become $\{(86, \$), (2,F), (2\times 0.15, \$)\}$ and net to
+the stock pays a dividend of $(0.15, \$)$ per share then the portfolio
+becomes $\{(86, \$), (2,F), (2\times 0.15, \$)\}$ and net to
 $\{(86.30, \$),(2,F)\}$
 
 Cash flows are zero except at discrete times. Stocks and
 bonds typically pay dividends and coupons quarterly or semi-annually. Futures
 margin accounts are usually adjusted once per day.
 
-Cash flows do not depend on the entity holding the instrument.
-They do depend on the _issuer_ of the instrument, but that is beyond
+Cash flows depend on the _issuer_ of the instrument, but that is beyond
 the scope of this model.
 
 ## Profit and Loss
@@ -124,7 +122,7 @@ over the period from $t$ to $u$.
 Holdings can be converted into a native currency $i_0$ for reporting
 purposes.  This does not involve actual trades, only a best guess
 of the price at time $t$, $X_t(i_0,i)$, of each instrument $i$ in terms of $i_0$.
-All holdings $(a,i,e)$ are converted to $(aX(i_0,i), i_0, e)$ then netted
+All positions $(a,i,e)$ are converted to $(aX(i_0,i), i_0, e)$ then netted
 to report the P&amp;L in terms of $i_0$.
 
 It is quite common for entities to have different best guesses of
@@ -134,8 +132,8 @@ most appropriate in any given situation, it only makes that
 choice explicit.
 
 Other relevant quantities can be computed similarly. For example the
-_drawdown_ over the period is $N_u(i,e) - \min_{t\le s \le u} N_s(i,e)$
-and the _drawup_ is $\max_{t\le s\le u} N_s(i,e) - N_u(i,e)$.
+_draw-down_ over the period is $N_u(i,e) - \min_{t\le s \le u} N_s(i,e)$
+and the _draw-up_ is $\max_{t\le s\le u} N_s(i,e) - N_u(i,e)$.
 
 Any instrument could be used instead of a native currency.
 A subset of instruments could also be chosen to break P&amp;L reporting
@@ -257,7 +255,7 @@ proxies for cash flows and prices. A derivative security is a contract
 between counterparties for exchanges of future amounts.  If a trading
 strategy that produces those amounts exists, then its initial value, plus vigorish,
 is what a sell-side trader quotes to buy-side customers.
-A quants job is to help traders figure out when ($\tau_j$) and how much ($\Gamma_j$)
+A quant's job is to help traders figure out when ($\tau_j$) and how much ($\Gamma_j$)
 to trade in order to satisfy the contract obligations.[^4]
 The term _self-financing_ means satisfying the obligation to pay 0 on
 non-payment dates.
@@ -288,7 +286,7 @@ of a portfolio manager being fired for not hedging it approaches 1.
 
 VaR can be turned into a more useful measure by incorporating the
 hedging strategy. Different hedging strategies can be compared for their
-effectiveness. Of course drawup and drawdown should also be considered
+effectiveness. Of course draw-up and draw-down should also be considered
 instead of only the value of the hedged portfolio at one point in time.
 
 Similarly, CVA fails to take into account hedging. The CVA of a portfolio
@@ -305,7 +303,7 @@ them into the party after 1999.
 It is common for swaps to have unwind provisions that will be exercised if
 the market moves against them. This is an example of a hedging strategy
 that can be applied to a portfolio to get a more accurate estimate of
-counterparty risk.  The CVA haircut should not be applied to a holding
+counterparty risk.  The CVA haircut should not be applied to a position
 that no longer belongs to the portfolio.
 
 DVA is just the CVA of the entity on the other side of the trades.
@@ -333,16 +331,16 @@ multiple models and more efficient reporting tools to allow risk
 managers to quickly and easily assess the effects of the assumptions
 they make.
 
-Capturing every holding and transaction in a database turns historical
+Capturing every position and transaction in a database turns historical
 reporting into a well understood technology problem.  When decorated
 with appropriate dimensions and measures, risk managers
 can use off-the-shelf tools to create dynamic reports allowing them to
-summarize data and drill down to individual holdings and transactions to
+summarize data and drill down to individual positions and transactions to
 their heart's content. It is no longer necessary to have technologists
 spend time developing custom reports.
 
 Models can be used to generate scenarios for future cash flows and
-prices. Trading strategies use these to determine holdings over time.
+prices. Trading strategies use these to determine portfolios over time.
 The same queries designed for historical reporting can
 be reused to give a probability distribution for any values of interest.
 
@@ -364,13 +362,14 @@ coupons. The coupons are not constant but they are known at
 the beginning of each period[^5] and are usually tied to
 short-term market rates. A trading strategy involves many
 transactions in the market account and it is common to implicitly
-assume all holdings are reinvested in the account. 
+assume positions are reinvested in the account. 
 A funding desk typically uses the _repurchase agreement_ market
 to supply the account. There are many individual transactions
 involved with funding accounts once you pull out your microscope.
 
-Trades often involve the exchange of more than two holdings, for example,
-a fee or commission to a broker or market maker that enabled the trade.
+Trades often involve the exchange of more than two positions, for example,
+a fee or commission to a broker or market maker that enabled the trade
+or a tax payment.
 These are accommodated by including the associated transactions as
 trades with the third parties involved. Perhaps these should be called
 the molecules of finance.
@@ -418,7 +417,7 @@ redirected to more useful purposes.
 variable together with the probabilities of the values it can have. The
 mathematical definition is that a random variable is a function from a
 _sample space_ to the real numbers. Prepend the sample space to
-the cartesian products involved to make them mathematically correct.
+the Cartesian products involved to make them mathematically correct.
 
 [^3]: A _stopping time_ is a random variable taking values in $T$ that
 depends only on prior information, for example, when the price of a stock

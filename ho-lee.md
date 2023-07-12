@@ -142,6 +142,7 @@ $$
 $$
 	D(u)/D(t) = \exp\bigl(-\int_t^u φ(s)\,ds + \int_0^u (Σ(u) - Σ(s))^2\,ds/2 - \int_0^t (Σ(t) - Σ(s))^2\,ds/2\bigr)
 $$
+
 -->
 
 ## Dynamics
@@ -200,6 +201,29 @@ E[D_t(u)] &= \exp(-\int_t^u φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2\,ds/2 + (Σ(u
 \end{aligned}
 $$
 
+Note 
+$$
+\begin{aligned}
+D(u)/D(t) &= \exp\bigl(-\int_t^u φ(s)\,ds + \int_0^u (Σ(u) - Σ(s))^2\,ds/2 - \int_0^t (Σ(t) - Σ(s))^2\,ds/2\bigr) \\
+	&= D_t(u) \exp\bigl(\int_0^t (Σ(u) - Σ(s))^2 - (Σ(t) - Σ(s))^2\,ds/2 + (Σ(u) - Σ(t)) B_t\bigr) \\
+\end{aligned}
+$$ 
+Integration by parts with $U =  (Σ(u) - Σ(s))^2 - (Σ(t) - Σ(s))^2/2$ and $dV = ds$ so
+${dU = (-(Σ(u) - Σ(s)) σ(s) + (Σ(t) - Σ(s)) σ(s))\,ds = -(Σ(u) - Σ(t))σ(s)\,ds}$
+and $V = s$ gives.
+
+$$
+\begin{aligned}
+	&\int_0^t (Σ(u) - Σ(s))^2 - (Σ(t) - Σ(s))^2\,ds \\
+	&= ((Σ(u) - Σ(s))^2 - (Σ(t) - Σ(s))^2 s/2|_0^t + (Σ(u) - Σ(t))\int_0^t s σ(s)\,ds \\
+	&= ((Σ(u) - Σ(s))^2 t/2 + (Σ(u) - Σ(t))\int_0^t s σ(s)\,ds \\
+\end{aligned}
+$$
+so
+\begin{aligned}
+	D_t(u) &= D(u)/D(t) \exp\bigl(-(Σ(u) - Σ(t))^2t/2 + (Σ(u) - Σ(t))\int_0^t Σ(s)\,ds + (Σ(u) - Σ(t))B_t\bigr) \\
+\end{aligned}
+
 
 __Exercise__. _If $σ$ is constant show_
 $$
@@ -208,7 +232,7 @@ $$
 
 __Exercise__. _If $σ$ is contant show_
 $$
-	D_t(u) = \exp(-σ^2 ut(u - t)/2 - σ(u - t) B_t) D(u)/D(t)
+	D_t(u) = D(u)/D(t) \exp(-σ^2 ut(u - t)/2 - σ(u - t) B_t) 
 $$
 
 _Hint_: Use $D(u)/D(t) = \exp(-\int_t^u φ(s)\,ds + σ^2(u^3 - t^3)/6)$.
@@ -292,12 +316,11 @@ Suppose a _fixed income instrument_ pays $c_j$ and $u_j$. Its value at time $t$
 is ${P_t = \sum_{u_j > t} c_j D_t(u_j)}$. We can approximate this with a
 lognormal having expected value ${E[P_t] = \sum_{u_j > t} c_j E[D_t(u_j)]}$
 and variance ${\Var(P_t) = \sum_{u_j, u_k > t} c_j c_k \Cov(D_t(u_j), D_t(u_k))}$.
-Since ${\Cov(e^N, e^M) = E[e^N] E[e^M] (\exp(\Cov(N, M)) - 1)}$ if $N$ and $M$
-are jointly normal we have
-${\Cov(D_t(u), D_t(v)) = E[D_t(u)] E[D_t(v)] (\exp((Σ(u) - Σ(t))(Σ(v) - Σ(t))t) - 1)}$ so
-$$
-	\Var(P_t) = \sum_{u_j, u_k > t} c_j c_k E[D_t(u_j)] E[D_t(u_k)] (\exp((Σ(u_k) - Σ(t))(Σ(u_k) - Σ(t))t) - 1)
-$$
+A European option paying $g(P_t)$ at time $t$ has value $E[g(P_t)D_t]$.
+Note $g(P_T) = h(B_t)$ since $D(t,u)$ is a function of $B_t$.
+The option value is $E[h(B_t)D_t] = E[h(B_t + \int_0^t s σ(s)\,ds)] D(t)$.
+
+__Exercise__. _Show $\int_0^t s σ(s)\,ds = t Σ(t) - \int_0^t Σ(s)\,ds$_.
 
 <!--
 
