@@ -86,7 +86,7 @@ $$
 
 This shows
 $$
-	D_t = \exp(-\int_0^t φ(s) + \int_0^t Σ(t) - Σ(s)\,dB_s).
+	D_t = \exp(-\int_0^t φ(s)\,ds - \int_0^t Σ(t) - Σ(s)\,dB_s).
 $$
 
 __Exercise__. _Show $\Var(\int_0^t Σ(t) - Σ(s)\,dB_s) = \int_0^t (Σ(t) - Σ(s))^2\,ds$_.
@@ -97,12 +97,12 @@ Since the exponent is normally distributed and
 $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ if $N$ is normal
 we have
 $$
-	D(t) =  E[D_t] = \exp\bigl(\int_0^t -φ(s) + (Σ(t) - Σ(s))^2/2\,ds\bigr)
+	D(t) =  E[D_t] = \exp\bigl(-\int_0^t φ(s)\,ds + \int_0^t (Σ(t) - Σ(s))^2/2\,ds\bigr)
 $$
 
-__Exercise__. _Show if $σ$ is constant then $\Var(\int_0^t (Σ(t) - Σ(s))^2\,ds) = σ^2 t^3/3$_.
-
 __Exercise__. _Show if $σ$ is constant then $D(t) = \exp\bigl(-\int_0^t φ(s)\,ds + σ^2 t^3/6)$_.
+
+_Hint_: $\int_0^t (t - s)^2\,ds = t^3/3$.
 
 Now we determine the forward curve.
 
@@ -170,17 +170,17 @@ $$
 
 __Exercise__. _Show $\Var(\int_t^u Σ(u) - Σ(s)\,dB_s) = \int_t^u (Σ(u) - Σ(s))^2\,ds$_.
 
-__Exercise__. _Show $E_t[\exp(\int_t^u Λ(s)\,dB_s)] = \exp(\int_t^u Λ(s)^2\,ds/2)$_.
+__Exercise__. _Show $E_t[\exp(\int_t^u Λ(s)\,dB_s)] = \exp(\int_t^u Λ(s)^2/2\,ds)$_.
 
-_Hint_: Use ${X_t = \exp(\int_0^t Λ(s)\,dB_s - \int_0^t Λ(s)^2\,ds/2)}$ is a martingale.
+_Hint_: Use ${X_t = \exp(\int_0^t Λ(s)\,dB_s - \int_0^t Λ(s)^2/2\,ds)}$ is a martingale.
 
 <details>
 <summary>Solution</summary>
-$1 = E_t[X_u/X_t] = E_t[\exp(\int_t^u Λ(s)\,dB_s - \int_t^u Λ(s)^2\,ds/2)]$
+$1 = E_t[X_u/X_t] = E_t[\exp(\int_t^u Λ(s)\,dB_s - \int_t^u Λ(s)^2/2\,ds)]$
 </details>
 
 Note the right hand side is not random and
-${E_t[\exp(-\int_t^u Λ(s)\,dB_s)] = \exp(\int_t^u Λ(s)^2\,ds/2)}$
+${E_t[\exp(-\int_t^u Λ(s)\,dB_s)] = \exp(\int_t^u Λ(s)^2/2\,ds)}$
 by replacing $Λ$ with $-Λ$.  We use this below.
 
 The price at $t$ of a zero coupon bond maturing at $u$ in the Ho-Lee model is
@@ -189,46 +189,56 @@ $$
 D_t(u) &= E_t[D_u/D_t] \\
 	&= E_t[\exp(-\int_t^u φ(s) + σ(s) B_s\,ds)] \\
 	&= E_t[\exp\bigl(-\int_t^u φ(s)\,ds - \int_t^u Σ(u) - Σ(s)\,dB_s - (Σ(u) - Σ(t)) B_t\bigr)] \\
-	&= \exp(-\int_t^u φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2\,ds/2 - (Σ(u) - Σ(t)) B_t) \\
+	&= \exp(\int_t^u -φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2/2\,ds - (Σ(u) - Σ(t)) B_t) \\
 \end{aligned}
+$$
+
+__Exercise__. _If $σ$ is constant show_
+$$
+	D_t(u) = \exp(\int_t^u -φ(s)\,ds + σ^2(u - t)^3/6 - σ(u - t) B_t).
 $$
 
 Note $D_t$ is lognormal with log-variance $\Var(\log D_t) =  (Σ(u) - Σ(t))^2 t$
 and expected value
 $$
 \begin{aligned}
-E[D_t(u)] &= \exp(-\int_t^u φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2\,ds/2 + (Σ(u) - Σ(t))^2t/2) \\
+E[D_t(u)] &= \exp(\int_t^u -φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2/2\,ds + (Σ(u) - Σ(t))^2t/2) \\
 \end{aligned}
+$$
+
+__Exercise__. _If $σ$ is constant show_
+$$
+	E[D_t(u)] = \exp\bigl(\int_t^u -φ(s)\,ds + σ^2(u - t)^3/6 + σ^2(u - t)^2 t/2\bigr).
 $$
 
 Note 
 $$
 \begin{aligned}
-D(u)/D(t) &= \exp\bigl(-\int_t^u φ(s)\,ds + \int_0^u (Σ(u) - Σ(s))^2\,ds/2 - \int_0^t (Σ(t) - Σ(s))^2\,ds/2\bigr) \\
-	&= D_t(u) \exp\bigl(\int_0^t (Σ(u) - Σ(s))^2 - (Σ(t) - Σ(s))^2\,ds/2 + (Σ(u) - Σ(t)) B_t\bigr) \\
+\frac{D(u)}{D(t)} &= \exp\bigl(\int_t^u -φ(s)\,ds + \int_0^u (Σ(u) - Σ(s))^2/2\,ds - \int_0^t (Σ(t) - Σ(s))^2/2\,ds\bigr) \\
+	&= \exp\bigl(\int_t^u -φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2/2\,ds + \int_0^t U(s)\,ds\bigr) \\
+	&= D_t(u) \exp\bigl((Σ(u) - Σ(s)) B_t + \int_0^t U(s)/2\,ds\bigr) \\
 \end{aligned}
 $$ 
-Integration by parts with $U =  (Σ(u) - Σ(s))^2 - (Σ(t) - Σ(s))^2/2$ and $dV = ds$ so
-${dU = (-(Σ(u) - Σ(s)) σ(s) + (Σ(t) - Σ(s)) σ(s))\,ds = -(Σ(u) - Σ(t))σ(s)\,ds}$
-and $V = s$ gives.
-
+where ${U(s) = (Σ(u) - Σ(s))^2 - (Σ(t) - Σ(s))^2 = Σ(u)^2 - Σ(t)^2 - 2(Σ(u) - Σ(t))Σ(s))}$ so
+\begin{aligned}
+D_t(u) = \frac{D(u)}{D(t)} \exp\bigl(-(Σ(u) - Σ(s)) B_t - (Σ(u)^2 - Σ(t)^2)t/2 + (Σ(u) - Σ(t))\int_0^t Σ(s)\,ds\bigr) \\
+\end{aligned}
+<!--
+where $U(s) = (Σ(u) - Σ(s))^2/2 - (Σ(t) - Σ(s))^2/2$ so
+${dU = (-(Σ(u) - Σ(s)) σ(s) + (Σ(t) - Σ(s)) σ(s))\,ds = -(Σ(u) - Σ(t))σ(s)\,ds}$.
+Let $dV = ds$ so $V = s$ and integration by parts gives
 $$
 \begin{aligned}
-	&\int_0^t (Σ(u) - Σ(s))^2 - (Σ(t) - Σ(s))^2\,ds \\
-	&= ((Σ(u) - Σ(s))^2 - (Σ(t) - Σ(s))^2 s/2|_0^t + (Σ(u) - Σ(t))\int_0^t s σ(s)\,ds \\
-	&= ((Σ(u) - Σ(s))^2 t/2 + (Σ(u) - Σ(t))\int_0^t s σ(s)\,ds \\
+	\int_0^t U(s)\,dV
+	&= U(s) s|_0^t + (Σ(u) - Σ(t))\int_0^t s σ(s)\,ds \\
+	&= (Σ(u) - Σ(t))^2 t/2 - 0 + (Σ(u) - Σ(t))\int_0^t s σ(s)\,ds \\
 \end{aligned}
 $$
-so
+This shows
 \begin{aligned}
-	D_t(u) &= D(u)/D(t) \exp\bigl(-(Σ(u) - Σ(t))^2t/2 + (Σ(u) - Σ(t))\int_0^t Σ(s)\,ds + (Σ(u) - Σ(t))B_t\bigr) \\
+	D_t(u) &= D(u)/D(t) \exp\bigl(-(Σ(u) - Σ(t))^2t/2 - (Σ(u) - Σ(t))\int_0^t s σ(s)\,ds - (Σ(u) - Σ(t))B_t\bigr) \\
 \end{aligned}
-
-
-__Exercise__. _If $σ$ is constant show_
-$$
-	D_t(u) = \exp(-\int_t^u φ(s)\,ds + σ^2(u - t)^3/6 - σ(u - t) B_t).
-$$
+-->
 
 __Exercise__. _If $σ$ is contant show_
 $$
