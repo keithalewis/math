@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: Unified Finance &ndash; positions, exchanges, and trading strategies
+abstract: Unified Finance &ndash; positions, portfolios, exchanges, and trading
 ...
 
 The financial world is a big, messy affair but its core involves trading
@@ -13,22 +13,20 @@ for that over time.
 
 The atoms of finance are _positions_: an _amount_, _instrument_, and _legal entity_.
 Positions interact via _exchanges_: swap the amount and instrument between two entities at a given _time_. 
-Instruments have _cash flows_ and _prices_ that determine
-the _amounts_ and _values_ involved with trading.
-Given a position and
-a sequence of trades, the associated amounts and values determine
-the _profit and loss_ (among other quantities) relevant to managing portfolios.
+Instruments have _prices_ and _cash flows_ that determine
+the _values_ and _amounts_ involved with trading.
+Given a _portfolio_ of positions and a sequence of trades, the associated
+values and amounts determine the _profit and loss_ (among other
+quantities) relevant to managing portfolios.
 
-To properly assess risk it is necessary to include how a position will
+To properly assess risk it is necessary to include how a portfolio will
 be hedged over time.  Various hedging strategies can and should be
 used for insight on the uncertainties involved.
 
-Both cash flows and prices must be specified
-by mathematical models to determine the amounts and values associated
-with a trading strategy. It also places instruments on equal footing to
-get a complete picture of risk across **all** asset classes.  The unified
-model does not
-solve any particular problem in finance but it does specify a mathematical
+Both prices and cash flows must be specified
+to determine the values and amounts associated
+with a trading strategy. 
+The [unified model](um.html) does not solve any particular problem in finance but it does specify a mathematical
 notation to rigorously discuss all aspects of trading and hedging using
 realistic assumptions.
 
@@ -42,19 +40,16 @@ or a corporation. Corporations can subdivide positions by groups or individual
 traders. The position $(a,i,e)$ indicates entity $e$
 owns amount $a$ of instrument $i$.
 
-A _portfolio_ is a set of positions $\{(a_j,i_j,e_j)\}_{j\in J}$
+A _portfolio_ is a (multi) set of positions $\{(a_j,i_j,e_j)\}_{j\in J}$
 Assuming each instrument is _fungible_ we can aggregate amounts.
 The _net amount_ in instrument $i$ held by entity $e$ is
 $$
 	N(i,e) = \sum_j \{a_j : i_j = i, e_j = e\}.
 $$
-The _net position_ is $\cup_j \{(N(i_j,e_j), i_j, e_j)\}$. 
-If $i_j = i_k$ and $e_j = e_k$, then $N(i_j,e_j) = N(i_k,e_k)$; this
-is standard mathematical set union.
 
 ## Exchange
 
-A _exchange_ involves a pair of positions and a _trade time_.
+An _exchange_ involves a pair of positions and a _trade time_.
 The exchange $(t; a, i, e; a', i', e')$ indicates _buyer_ $e$ exchanged
 amount $a$ of instrument $i$ for amount $a'$ of instrument $i'$ with
 seller $e'$ at time $t$.  The _price_ of the trade is the quotient of
@@ -83,8 +78,6 @@ then USD/JPY is 100 where '1 = ' turns into '$/$'.
 
 Similarly, commodities are also not special. This model can be used for **all** instruments.
 
-## Cash Flow
-
 Instruments entail _cash flows_; stocks pay dividends, bonds pays
 coupons, and futures have margin adjustments. Currencies and commodities do
 not have cash flows, but they may involve third-party payments to exchange
@@ -110,9 +103,9 @@ the scope of this model.
 
 ## Profit and Loss
 
-Holdings and trades lead to some bean counting over time.
+Portfolios and trades lead to some bean counting over time.
 
-Given a position at time $t$, all trades and cash flows between $t$
+Given a portfolio at time $t$, all trades and cash flows between $t$
 and $u$ determine the position at time $u$ as described above.
 The change in net amounts is called _profit and loss_ (P&amp;L).
 If $N_t$ is the net amount defined above
@@ -142,9 +135,10 @@ a common choice.
 
 ## Model
 
-There is no question about cash flows received or prices
-of trades after the fact.  Mathematics can be used to _model_
-possible cash flows and prices in the future.
+There is no question about prices and cash flows 
+after the fact.  Mathematics can be used to _model_
+possible prices and cash flows in the future.
+The following assumes you are familiar with sets and functions.
 
 Let $T$ be the set of trading times, $I$ be the set of instruments, $A$
 be the set of amounts, and $E$ be the set of entities.
@@ -155,7 +149,7 @@ is listed on an exchange, then it can only be traded during market
 hours. Sellers determine when the instruments they offer
 can be traded.
 Amounts are constrained by the instrument, time, and seller.  Instruments
-trade in finite increments and sometimes cannot be shorted ($a' < 0$
+trade in discrete increments and sometimes cannot be shorted ($a' < 0$
 is not allowed). The amount available is also at the discretion of the
 seller and may consist of the empty set for certain buyers.[^1]
 
@@ -192,7 +186,7 @@ seller holds amount $\Gamma_j X_j$ of $i$ in exchange.
 Most models do not specify the seller $e'$; traders assume there is an aggregate
 market of _liquidity providers_ for $i'$. Usually $e$ is assumed to be
 a single entity executing the strategy; however,
-if you are running a hedge fund you will have
+if you are running a financial firm you will have
 a set of $e$'s called program managers to reckon with.
 
 The mathematical finance literature customarily assumes a "_money market_"
@@ -203,7 +197,7 @@ charged for this.  Daily positions funded by _repurchase agreements_
 require at least as many instruments as the number of days involved in
 trading. These may not be cost effective for longer term strategies so
 forward rate agreements and swaps are often used.
-The unified model allows these to be easily integrated.
+The unified model allows these to be easily accomodated.
 
 Trades accumulate into positions $\Delta_t = \sum_{\tau_j < t} \Gamma_j$.
 If we write $\Gamma_t = \Gamma_j$ if $t = \tau_j$ and $\Gamma_t = 0$
@@ -356,21 +350,21 @@ today can be used without change to give better and faster answers in the future
 
 A _funding account_ is more complicated than it might seem at first blush.
 A _funding desk_ provides a liquid market in a native currency to
-traders for _funding_ their trades. One way to think of it is as a
+traders for financing their trades. One way to think of it is as a
 perpetual bond; for unit notional you get a daily stream of
 coupons. The coupons are not constant but they are known at
 the beginning of each period[^5] and are usually tied to
-short-term market rates. A trading strategy involves many
+short-term market repo rates. A trading strategy involves many
 transactions in the market account and it is common to implicitly
 assume positions are reinvested in the account. 
 A funding desk typically uses the _repurchase agreement_ market
 to supply the account. There are many individual transactions
 involved with funding accounts once you pull out your microscope.
 
-Trades often involve the exchange of more than two positions, for example,
+Transactions often involve the exchange of more than two positions, for example,
 a fee or commission to a broker or market maker that enabled the trade
 or a tax payment.
-These are accommodated by including the associated transactions as
+These can be accommodated by including the associated transactions as
 trades with the third parties involved. Perhaps these should be called
 the molecules of finance.
 
