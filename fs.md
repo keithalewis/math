@@ -27,7 +27,7 @@ CREATE TABLE positions (
 Instruments are uniquely identified by their [FIGI](https://www.openfigi.com/).
 
 ```sql
-CREATE TABLE instrument (
+CREATE TABLE instruments (
 	id INT PRIMARY KEY,
 	FIGI CHAR(12), 
 	-- ...other metadata...
@@ -36,7 +36,7 @@ CREATE TABLE instrument (
 ```
 
 ```sql
-CREATE TABLE entities (
+CREATE TABLE holders (
 	id INT PRIMARY KEY,
 	LEI CHAR(20), -- employer of holder [LEI](https://www.iso.org/standard/59771.html)
 	-- group
@@ -49,7 +49,7 @@ CREATE TABLE entities (
 An _exchange_ is a _timestamp_, a _buyer_ position, and a _seller_ positiion.
 
 ```sql
-CREATE TABLE exchange (
+CREATE TABLE exchanges (
 	id INT PRIMARY KEY,
 	time DATETIME NOT NULL,
 	buyer INT NOT NULL,
@@ -73,6 +73,19 @@ INSERT INTO positions VALUES (
 This simplifies net position and profit-and-loss calculations.
 Just use `SUM(amount)` in the query.
 
+Split a position into smaller pieces
+
+```sql
+INSERT INTO positions VALUES (
+	(-a, instrument, holder),
+	(a', instrument, holder),
+	(a - a', instrument, holder),
+```
+Ensure $0 \le a' \le a$?
+
 ## Analytics
 
 A _model_ is parameterized (tuned) by market data.
+An _analytic_ is a function from an instrument, model, and analytic parameters.
+
+
