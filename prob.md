@@ -5,110 +5,136 @@ institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
 fleqn: true
-abstract: | 
-  Probability Theory is an extension of the rules of logic to deal with uncertain events.
-  A probability is a number between 0 and 1 representing a frequency or a degree of belief.
-  All probabilities are conditional and can be systematically
-  updated as more information becomes available (Bayes Rule).
+abstract: A calculus for uncertainty
 ...
 
 \newcommand\RR{\mathbf{R}}
+\newcommand\AA{\mathcal{A}}
 \newcommand{\Var}{\operatorname{Var}}
+
+Probability Theory is an extension of the rules of logic to deal with uncertain events.
+A probability is a number between 0 and 1 representing a degree of belief.
+All probabilities are conditional and can be systematically
+updated as more information becomes available.
 
 ## Probability Space
 
-A _sample space_ is a set of what can happen in a probability model.
-An _outcome_ is an element of a sample space.
-An _event_ is a subset of a sample space.
+A _sample space_ $Ω$ is a set of what can happen in a probability model.
+An _outcome_ $ω\in Ω$ is an element of a sample space.
+An _event_ $E\subseteq Ω$ is a subset of a sample space.
+An _algebra_ $\AA$ is collection of events that is closed under set complement and union.
+If it is also closed under countable unions of events then is it a $σ$-algebra.
+We assume the empty set belongs to each algebra.
+
+__Exercise__. _Show $Ω\in\AA$ and $\AA$ is closed under set intersection_.
+
+_Hint_: We assumed $\emptyset\in\AA$. Use De Morgan's laws.
+
+A _measure_ is a set function $μ\colon\AA\to\RR$ that
+satisfies $μ(E\cup F) = μ(E) + μ(F) - μ(E\cap F)$ for $E,F\in\AA$.
+Measures do not count things twice.
+We also assume $μ(\emptyset) = 0$. The measure of nothing is 0.
+Measures assign a set to a number.
+
+__Exercise__ _Show $μ(E\cup F) = μ(E) + μ(F)$ is $E\cap F=\emptyset$_.
+
+A _probability measure_ is a measure with $P(E)\ge0$ for all $E\in\AA$
+and $P(Ω) = 1$. If $Ω = \{ω_j\}$ is finite (or countable) we can define a probability
+measure by $P(\{ω_j\}) = p_j$ where $p_j\ge0$ and $\sum_j p_j = 1$.
+
+__Exercise__. _Show $P(E) = \sum_{ω_j\in E} p_j$_.
+
+_Hint_. $E$ is the disjoint union of singletons $\{ω_j\}$ where $ω_j\in E$.
+
 _Partial information_ is modeled by a _partition_ of a sample space.
-A _probability measure_ assigns a number
-between 0 and 1 to events that represents a _degree of belief_ an outcome
-will belong to the event.
+A partition of
+$Ω$ is a collection of pair-wise disjoint subsets with union $Ω$.
+Complete information corresponds to the _finest_ partition of singletons
+$\{\{ω\}\mid ω\in Ω\}$.
+No information corresponds to the _coarsest_ partition $\{Ω\}$.
+Partial information is knowing only which set in the partition an
+outcome belongs to.
 
-Let $\Omega$ be a sample space of all possible outcomes. A partition of
-$\Omega$ is a collection of mutually disjoint events with union $\Omega$.
-Elements of the partition are called _atoms_. 
-Paritions represent partial information by indicating which atom an
-outcome belongs to, not the exact outcome.
-Complete information corresponds to the _finest_ partiion of singletons
-$\{\{\omega\}\mid \omega\in\Omega\}$.
-No information corresponds to the _coarsest_ partition $\{\Omega\}$.
+### Coin tossing
 
-### Algebra of Sets
+We can model a sequence of random coin flips by a sequence of 0's and 1's where
+0 corresponds to heads and 1 corresponds to tails. (Or vice versa.)
+If $ω_j\in\{0,1\}$ is the $j$-th flip define
+${ω = \sum_{j=1}^\infty ω_j/2^j}$.
 
-An _algebra_ of sets on $\Omega$ is a collection of subsets of $\Omega$
-that contains the empty set and is closed under complement and finite
-union. Closure under complements imples $\Omega$ belongs to the algebra
-and De Morgan's Laws imply it is also close under finite intersection.
+__Exercise__. _Show $ω\in [0,1)$_.
 
-An element $A\subseteq S$ is an _atom_ of the algebra if $B\subseteq A$ and
-$B$ in the algebra imply $B$ is either the empty set or equals $A$.
+__Exercise__. _Show if $ω_1 = 0$ then $ω\in [0,1/2)$ and if $ω_1 = 1$ then $ω\in [1/2,1)$_.
 
-__Exercise__. _If an algebra is finite its atoms form a partition and the
-smallest algebra containing the partition is equal to the algebra_.
+This shows the partition $\AA_1 = \{[0,1/2), [1/2,1)\}$ of $[0, 1)$ represents knowing
+the first base 2 digit of $ω$. Similarly, the partition
+$\AA_2 = \{[0,1/4), [1/4, 1/2), [1/2, 3/4), [3/4,1)\}$ represents knowing the
+first two base 2 digits of $ω$.
 
-# Probability Theory
-
-A _random variable_ is a function on a _probability space_.  A probability
-space is a set of _outcomes_, $\Omega$, and a _probability measure_
-on $\Omega$.
-
-A _probability measure_ is a measure $P$ on a set $\Omega$ with
-$P(E)\ge0$, $E\subseteq\Omega$, and $P(\Omega) = 1$.
-
-If $\Omega$ is countable we can define a probability measure by specifying
-$p_\omega = P(\{\omega\})$ for $\omega\in\Omega$. Note $p_\omega\ge
-0$ and $\sum_{\omega\in\Omega} p_\omega = 1$.  The probability of the event
-$E\subseteq\Omega$ is $P(E) = \sum_{\omega\in E} p_\omega$.
+__Exercise__. _Show the partition $\AA_n = \{[j/2^n, (j + 1)/2^n)\mid 0\le j < 2^n\}$
+of $[0, 1)$ represents knowing the first $n$ base 2 digits of $ω\in [0,1)$_.
 
 ## Random Variable
 
-A _random variable_ on a probability space $\langle\Omega,P\rangle$ is
-a function $X\colon\Omega\to\mathbf{R}$. Its _cumulative
-distribution function_ is $F(x) = P(X\le x) = P(\{\omega\in\Omega\mid X(\omega) \le x\})$.
+A _random variable_ on a probability space is a function $X\colon Ω\to\RR$.
+Its _cumulative distribution function_ is ${F(x) = F^X(x) = P(X\le x) = P(\{ω\in Ω\mid X(ω) \le x\})}$.
 More generally, given a subset $A\subseteq\mathbf{R}$ the probability that
-$X$ takes a value in $X$ is $P(X\in A) = P(\{\omega\in\Omega\}\mid X(\omega\in A))\}$.
-Two random variables have the same _law_ if they have the same cdf.
+$X$ takes a value in $A$ is $P(X\in A) = P(\{ω\in Ω\mid X(ω)\in A\}$.
+The cdf corresponds to $A = (-\infty, x]$.
+Two random variables have the same _law_ when they have the same cdf.
 
 Random variables are symbols that can be used in place of a number when
 manipulating equations and inequalities with with additional information
-about the probability of the values it can take on.
+about the probability of the values they can take on.
 
 The cdf tells you everything there is to know about the probability of
-the values the random variable can take on. For example, $P(a < X \le b) = F(b) - F(a)$. 
+the values the random variable can take on.
 
-__Exercise__. _Show $P(a\le X\le b) = \lim_{x\uparrow a} F(b) - F(x)$_.
-
-_Hint_: $[a,b] = \cap_n (a - 1/n, b]$.
-Note $\cup_n (-\infty,x - 1/n] = (-\infty,x) \not= (-\infty,x]$.
-The sequence $F(x - 1/n)$ is non-decreasing and bounded by $F(x)$ so it
-has a limit, but not necessarily $F(x)$.
-
-In general $P(X\in A) = \int_A dF(x)$
-for sufficiently nice subsets $A\subset\mathbf{R}$ where we are using
-[Riemann–Stieltjes](https://mathworld.wolfram.com/StieltjesIntegral.html)
-integration.
+__Exercise__. _Show $P(a < X \le b) = F(b) - F(a)$_. 
 
 Every cdf is non-decreasing, continuous from the right, has left limits, and
 $\lim_{x\to-\infty}F(x) = 0$, $\lim_{x\to+\infty}F(x) = 1$.
 Any function with these properties is the cdf of a random variable.
 
-__Exercise__: _Show for any cumulative distribution function $F$ that
-$F(x) \le F(y)$ if $x < y$, $\lim_{x\to -\infty} F(x) = 0$,
-$\lim_{x\to\infty} F(x) = 1$, and $F$ is right continuous with left limits_.
+__Exercise__: _Show $F(x) \le F(y)$ if $x < y$_.
 
-_Hint_: For right continuity use $(-\infty, x] = \cap_n (-\infty, x + 1/n]$.
+_Hint_: $(-\infty, x] \subset (-\infty, y]$ if $x < y$ and $P(x < X \le y) \ge 0$.
 
-The distribution of a _uniformly distributed_ random variable on $[0,1]$, $U$,
+__Exercise__: _Show $\lim_{y\downarrow x} F(y) = F(x)$_.
+
+_Hint_: $\cap_{n=1}^\infty (-\infty, x + 1/n] = (-\infty, x]$.
+
+__Exercise__: _Show $\lim_{y\uparrow x} F(y) = F(x-)$ exists_.
+
+_Hint_: If $y_n$ is an increasing sequence with limit $x$
+then $F(y_n)$ is a non-decreasing sequence bounded by $F(x)$
+so $sup_n F(y_n)$ exists and is not greater than $F(x)$.
+
+__Exercise__. _Show $\lim_{x\to-\infty}F(x) = 0$_.
+
+_Hint_ $\cap_n (-\infty, -n] = \emptyset$.
+
+__Exercise__. _Show $\lim_{x\to\infty}F(x) = 1$_.
+
+_Hint_ $\cup_n (-\infty, n] = (-\infty, \infty)$.
+
+In general $P(X\in A) = \int_A dF(x)$
+for sufficiently nice subsets $A\subset\mathbf{R}$ using
+[Riemann–Stieltjes](https://mathworld.wolfram.com/StieltjesIntegral.html)
+integration.
+
+## Uniform
+
+The distribution of a _uniformly distributed_ random variable $U$ on $[0,1]$
 is $F(x) = x$ if $0\le x\le 1$, $F(x) = 0$ if $x < 0$, and $F(x) = 1$ if $x > 1$.
 In this case $P(X\in(a, b]) = b - a$ for $0\le a \le b\le 1$ and
 $P(U < 0) = 0 = P(U > 1)$.
 
 __Exercise__. _If $X$ has cdf $F$, then $X$ and $F^{-1}(U)$ have the same law_.
 
-__Exercise__. _If $X$ has cdf $F$, then $F(X)$ and $U$ have the same law_.
+_Hint_: If $F(x)$ jumps from $a$ to $b$ at $x = c$ we define $F^{-1}(u) = c$ for $a \le u < b$.
 
-If $F(x)$ jumps from $a$ to $b$ at $x = c$ we define $F^{-1}(u) = c$ for $a \le u < b$.
+__Exercise__. _If $X$ has cdf $F$, then $F(X)$ and $U$ have the same law_.
 
 This shows a uniformly distributed random variable has sufficient randomness to
 generate any random variable. There are no random, random variables.
@@ -117,9 +143,6 @@ Given a cdf $F$ we can define a random variable having that distribution
 using the identity function $X\colon\mathbf{R}\to\mathbf{R}$, where $X(x) = x$.
 Let $P$ be the probability measure on $\mathbf{R}$ defined by
 $P(A) = \int_A dF(x)$. 
-
-The mathematical definition is more flexible than defining a random variable by its
-cumulative distribution function.
 
 ### Continuous Random Variable
 
@@ -133,17 +156,17 @@ $P(a < X \le b) = P(a \le X \le b) = P(a \le X < b) = P(a \le X \le b)$_.
 
 ### Discrete Random Variable
 
-If the set $\{\omega\in\Omega\mid X(\omega) \not= 0, P(\{\omega\}) \not=0\}$ is countable then
+If the set $\{ω\in Ω\mid X(ω) \not= 0, P(\{ω\}) \not=0\}$ is countable then
 $X$ is _discretely distributed_. If the non-zero values are
-$\{x_j\}$ occuring at $\{\omega_j\}$ then $p_j = P(\{\omega_j\})$ determine $X$.
+$\{x_j\}$ occuring at $\{ω_j\}$ then $p_j = P(\{ω_j\})$ determine $X$.
 
 ### Expected Value
 
 The _expected value_ of a random variable is defined by
-$E[X] = \int_\Omega X\,dP$. More generally, the expected value of
+$E[X] = \int_ Ω X\,dP$. More generally, the expected value of
 a function $f\colon\RR\to\RR$ of
-a random variable is $E[f(X)] = \int_\Omega f(X)\,dP$
-where $f(X)\colon\Omega\to\RR$ via $f(X)(\omega) = f(X(\omega))$, $\omega\in\Omega$.
+a random variable is $E[f(X)] = \int_ Ω f(X)\,dP$
+where $f(X)\colon Ω\to\RR$ via $f(X)(ω) = f(X(ω))$, $ω\in Ω$.
 
 The _variance_ of a random variable $X$ is $\Var(X) = E[(X - E[X])^2]= E[X^2] - E[X]^2$.
 
@@ -287,21 +310,21 @@ is represented.  The elements of the partition are called _atoms_. The
 way paritions represent partial information is you only know what atom an
 outcome belongs to, not the exact outcome.
 Complete information corresponds to the _finest_ partiion of singletons
-$\{\{\omega\}\mid \omega\in\Omega\}$.
-No information corresponds to the _coarsest_ partition $\{\Omega\}$.
+$\{\{ω\}\mid ω\in Ω\}$.
+No information corresponds to the _coarsest_ partition $\{ Ω\}$.
 
-Partitions define an _equivalence relation_ on outcomes. We say $\omega\sim\omega'$
+Partitions define an _equivalence relation_ on outcomes. We say $ω\simω'$
 if and only if they belong to the same atom.
 
-__Exercise__. _Show $\omega\sim\omega$, $\omega\sim\omega'$ implies $\omega'\sim\omega$,
-and $\omega\sim\omega'$, $\omega'\sim\omega''$ implies $\omega\sim\omega''$_.
+__Exercise__. _Show $ω\simω$, $ω\simω'$ implies $ω'\simω$,
+and $ω\simω'$, $ω'\simω''$ implies $ω\simω''$_.
 
 This is the definition of an equivalence relation. It is the mathematical way
 of saying two things are the "same" even if they are not equal.
 
-An _algebra_ of sets on $\Omega$ is a collection of subsets of $\Omega$
+An _algebra_ of sets on $ Ω$ is a collection of subsets of $ Ω$
 that contains the empty set and is closed under complement and finite
-union. Closure under complements imples $\Omega$ belongs to the algebra
+union. Closure under complements imples $ Ω$ belongs to the algebra
 and De Morgan's Laws imply it is also close under finite intersection.
 
 An element $A\subseteq S$ is an _atom_ of the algebra if $B\subseteq A$ and
@@ -344,8 +367,8 @@ The measure of the set where $F' = 0$ is 1.
 
 ### Measurable
 
-A function $X\colon\Omega\to\mathbf{R}$ is _measurable_ with respect to the algebra $\mathcal{A}$
-if $\{\omega\in\Omega : X(\omega) \le a\}$ belongs to $\mathcal{A}$ for all $a\in\mathbf{R}$.
+A function $X\colon Ω\to\mathbf{R}$ is _measurable_ with respect to the algebra $\mathcal{A}$
+if $\{ω\in Ω : X(ω) \le a\}$ belongs to $\mathcal{A}$ for all $a\in\mathbf{R}$.
 
 __Exercise__. _Show $X$ is measurable if and only if it is constant on atoms of $\mathcal{A}$
 when the algebra has a finite number of elements._
@@ -467,7 +490,7 @@ $P(X = k) = \binom{n}{k}p^k(1-p)^{n-k}$, $k = 0$, \ldots, $n$.
 A _continuous uniform_ random variable on the interval $[a,b]$ has density
 $f(x) = 1_{[a,b]}/(b - a)$.
 
-A _discrete uniform_ random variable on $\Omega = \{x_1,\ldots,x_n\}$
+A _discrete uniform_ random variable on $ Ω = \{x_1,\ldots,x_n\}$
 has $P(X = x_j) = 1/n$ for $j = 1,\ldots,n$.
 
 ### Normal
@@ -593,10 +616,10 @@ UUIDs
 
 ## Partition
 
-A _partition_ of a set $\Omega$ is a collection of subsets (events)
-that are _pairwise disjoint_ with union $\Omega$.
-A partition $\mathcal{A} = \{A_i\}_{i\in I}$ satisfies $A_i\subseteq\Omega$ for all $i\in I$,
-$A_i\cap A_j = \emptyset$ if $i \not= j$, and $\cup_{i\in I} A_i = \Omega$.
+A _partition_ of a set $ Ω$ is a collection of subsets (events)
+that are _pairwise disjoint_ with union $ Ω$.
+A partition $\mathcal{A} = \{A_i\}_{i\in I}$ satisfies $A_i\subseteq Ω$ for all $i\in I$,
+$A_i\cap A_j = \emptyset$ if $i \not= j$, and $\cup_{i\in I} A_i =  Ω$.
 The elements $A_i$ of the partition $\mathcal{A}$ are called _atoms_.
 
 __Exercise__. _If $\{A_i\}$ are pairwise disjoint show $A_i\cap A_j\cap
@@ -609,11 +632,11 @@ __Exercise__. _If $\{A_i\}$ are pairwise disjoint show $\cap_{j\in J}A_j =
 \emptyset$ if $J\subseteq I$ has at least two elements._
 
 Partitions represent partial information. 
-Complete information means knowing what outcome $\omega\in\Omega$ occured.
+Complete information means knowing what outcome $ω\in Ω$ occured.
 This corresponds to the _finest_ partition consisting of singletons
-$\{\{\omega\}:\omega\in\Omega\}$.  Complete lack of information
-corresponds to the _coarsest_ partion consisting of one set $\{\Omega\}$.
-Partial information correponds to knowing what atom of a partition $\omega$ belongs to.
+$\{\{ω\}:ω\in Ω\}$.  Complete lack of information
+corresponds to the _coarsest_ partion consisting of one set $\{ Ω\}$.
+Partial information correponds to knowing what atom of a partition $ω$ belongs to.
 
 Partitions have a _partial ordering_ where $\mathcal{A}\preceq\mathcal{B}$ indicates
 every atom of $\mathcal{A}$ is a union of atoms in $\mathcal{B}$. In this case we say
@@ -622,7 +645,7 @@ or $\mathcal{A}$ is _coarser_ than $\mathcal{B}$.
 
 Recall a partial ordering is _reflexive_: $\mathcal{A}\preceq\mathcal{A}$ and
 _transitive_:$\mathcal{A}\preceq\mathcal{B}$ and $\mathcal{B}\preceq\mathcal{C}$
-imply $\mathcal{A}\preceq\mathcal{C}$ for $A,B,C\subseteq\Omega$.
+imply $\mathcal{A}\preceq\mathcal{C}$ for $A,B,C\subseteq Ω$.
 
 __Exercise__. _Show refinement is a partial ordering._
 
@@ -632,8 +655,8 @@ More advanced texts use an _algebra_ of sets instead of a partition.
 An algebra of sets is a collection of subsets closed under complement and union
 that also contains the empty set.
 
-Since algebras are closed under complement $\Omega = \emptyset' =
-\Omega\setminus\emptyset$
+Since algebras are closed under complement $ Ω = \emptyset' =
+ Ω\setminus\emptyset$
 is also in the algebra.
 
 By [De Morgan's Laws](https://en.wikipedia.org/wiki/De_Morgan's_laws)
@@ -641,7 +664,7 @@ an algebra is also closed under intersection since
 $A\cap B = (A'\cup B')'$.
 
 If $E$ and $F$ are elements of an algebra we can use plain English to
-talk about 'not $E$' ($E'= \Omega\setminus E$), '$E$ or $F$' ($E\cup F$), and
+talk about 'not $E$' ($E'=  Ω\setminus E$), '$E$ or $F$' ($E\cup F$), and
 '$E$ and $F$' ($E\cap F$). The phrases '$E$ implies $F$' and 'if $E$ then $F$'
 correspond to $E\subseteq F$.
 
@@ -651,7 +674,7 @@ or $B = A$.
 
 __Exercise__. _If an algebra is finite its atoms form a partition._
 
-_Hint_: Show $A_\omega = \cap\{B\in\mathcal{A}:\omega\in B\}$ is an atom for all $\omega\in\Omega$. 
+_Hint_: Show $A_ω = \cap\{B\in\mathcal{A}:ω\in B\}$ is an atom for all $ω\in Ω$. 
 
 If $\mathcal{A}$ is infinite then there is no guarantee the intersection above is still
 in $\mathcal{A}$. A _countably addititve measure_ guarantees the algebra is closed under
@@ -661,11 +684,11 @@ _limit theorems_ about measures.
 
 For example, The Borel-Cantelli lemma states that if $\sum_i P(E_i) <
 \infty$ for any countable collection of events $(E_i)_{i\in\mathbf{N}}$
-then none of the events can occur _infinitely often_. The outcome $\omega$ occurs
-after $k$ if $\omega\in\cup_{k > n} E_k$. If an outcome occurs a finite number
-of times then $\omega\not\in\cup_{k > n} E_k$ for sufficiently large $k$.
+then none of the events can occur _infinitely often_. The outcome $ω$ occurs
+after $k$ if $ω\in\cup_{k > n} E_k$. If an outcome occurs a finite number
+of times then $ω\not\in\cup_{k > n} E_k$ for sufficiently large $k$.
 If the outcome occurs in an infinite number of events then
-$\omega\in\cap_n \cup_{k > n} E_k$ and we say $\omega$ occurs _infinitely often_.
+$ω\in\cap_n \cup_{k > n} E_k$ and we say $ω$ occurs _infinitely often_.
 For any $\epsilon > 0$ there exists $n$ such that $\sum_{k > n} P(E_k) < \epsilon$
 since the infinite sum converges to a finite value. 
 
