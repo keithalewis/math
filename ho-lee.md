@@ -30,7 +30,7 @@ discount and forward curves.
 
 __Exercise__. _Show $0 = E[(f_t - f(t))D_t]$_.
 
-_Hint_. Use $E[\exp(-\int_0^ t f_s\,ds)] = \exp(-\int_0^t f(s)\,ds)$
+_Hint_. Use $D(t) = E[\exp(-\int_0^t f_s\,ds)] = \exp(-\int_0^t f(s)\,ds)$
 and compute the derivative with respect to $t$
 
 <details><summary>Solution</summary>
@@ -42,6 +42,9 @@ The result follows from $D(t) = E[D_t]$.
 This shows $f(t)$ is the _par coupon_ of a forward contract paying $f_t - f(t)$ at $t$.
 
 __Exercise__. _Show $0 = E_t[(f_u - f_t(u))D_u]$, $t\le u$_. 
+
+_Hint_: Use $D_t(u) = E_t[\exp(-\int_t^u f_s\,ds)] = \exp(-\int_t^u f_t(s)\,ds)$
+and compute the derivative with respect to $u$.
 
 This shows $f_t(u)$ is the _par coupon_ at time $t$ of a forward contract paying $f_u - f_t(u)$ at $u$.
 
@@ -60,71 +63,80 @@ of fixed income instruments. See [Yield Curve Model](ycm.html) for details.
 ## Model
 
 The Ho-Lee model assumes the stochastic forward rate is 
-$f_t = φ(t) + σ(t) B_t$ where $φ(t)$ is the futures quote
-at time $t$, $σ(t)$ is the volatility,
-and $B_t$ is standard Brownian motion.
-We can also use multi-dimensional Brownian motion with $σ(t)$
-vector-valued.
+$f_t = φ(t) + σ(t)\cdot B_t$ where $φ(t)$ is the futures quote
+at time $t$, $σ(t)$ is the vector-valued volatility,
+and $B_t$ is vector-valued standard Brownian motion.
 
-The stochastic discount is $D_t = \exp(-\int_0^t f_s\,ds) = \exp(-\int_0^t φ(s) + σ(s) B_s\,ds)$.
+The stochastic discount is $D_t = \exp(-\int_0^t f_s\,ds) = \exp(-\int_0^t φ(s) + σ(s)\cdot B_s\,ds)$.
 
-__Exercise__: _Show $\int_0^t σ(s) B_s\,ds = \int_0^t Σ(t) - Σ(s)\,dB_s$
+__Exercise__: _Show $\int_0^t σ(s)\cdot B_s\,ds = \int_0^t (Σ(t) - Σ(s))\cdot dB_s$
 where ${Σ(t) = \int_0^t σ(s)\,ds}$_.
 
-_Hint_ Use $d(Σ(t) B_t) = Σ(t)\,dB_t + Σ'(t) B_t\,dt$.
+_Hint_ Use $d(Σ(t)\cdot B_t) = Σ(t)\cdot dB_t + Σ'(t)\cdot B_t\,dt$.
 
 <details>
 <summary>Solution</summary>
-We have 
-$$
-\begin{aligned}
-\int_0^t σ(s) B_s\,ds &= -\int_0^t Σ(s)\,dB_s + Σ(t) B_t - Σ(0) B_0\\
-&= \int_0^t Σ(t) - Σ(s)\,dB_s \\
-\end{aligned}
-$$
+Integrating we have ${Σ(t)\cdot B_t - Σ(0)\cdot B_0 = \int_0^t Σ(s)\cdot dB_s + \int_0^t Σ'(s)\cdot B_s\,ds}$.
+The result follows from ${B_t = \int_0^t dB_s}$ and $σ(t) = Σ'(t)$.
 </details>
 
 This shows
 $$
-	D_t = \exp(-\int_0^t φ(s)\,ds - \int_0^t Σ(t) - Σ(s)\,dB_s).
+	D_t = \exp\bigl(-\int_0^t φ(s)\,ds - \int_0^t (Σ(t) - Σ(s)\cdot dB_s\bigr).
 $$
 
-__Exercise__. _Show $\Var(\int_0^t Σ(t) - Σ(s)\,dB_s) = \int_0^t (Σ(t) - Σ(s))^2\,ds$_.
+__Exercise__. _Show $\Var(\int_0^t (Σ(t) - Σ(s))\cdot dB_s) = \int_0^t \|Σ(t) - Σ(s)\|^2\,ds$_.
 
-_Hint_: Use the Ito isometry $E[(\int_0^t X_s\,dB_s)^2] = E[\int_0^t X_s^2\,ds]$.
+_Hint_: Use the Ito isometry $E[(\int_0^t X_s\cdot dB_s)^2] = E[\int_0^t \|X_s\|^2\,ds]$.
 
 Since the exponent is normally distributed and
 $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ if $N$ is normal
 we have
 $$
-	D(t) =  E[D_t] = \exp\bigl(-\int_0^t φ(s)\,ds + \int_0^t (Σ(t) - Σ(s))^2/2\,ds\bigr)
+	D(t) =  E[D_t] = \exp\bigl(-\int_0^t φ(s)\,ds + \int_0^t \|Σ(t) - Σ(s)\|^2/2\,ds\bigr)
 $$
 
-__Exercise__. _Show if $σ$ is constant then $D(t) = \exp\bigl(-\int_0^t φ(s)\,ds + σ^2 t^3/6)$_.
+__Exercise__. _Show if $σ$ is constant then $D(t) = \exp(-\int_0^t φ(s)\,ds + \|σ\|^2 t^3/6)$_.
 
 _Hint_: $\int_0^t (t - s)^2\,ds = t^3/3$.
 
 Now we determine the forward curve.
 
-__Exercise__. _Show $(d/dt) \int_0^t (Σ(t) - Σ(s))^2\,ds = 2σ(t) \int_0^t Σ(t) - Σ(s)\,ds$_.
+__Exercise__. _Show $(d/dt) \int_0^t \|Σ(t) - Σ(s)\|^2\,ds = 2σ(t)\cdot \int_0^t Σ(t) - Σ(s)\,ds$_.
 
 _Hint_. Use the Leibniz integral rule $(d/dt)\int_0^t F(t,s)\,ds
 = F(t, t) + \int_0^t (\partial/\partial t) F(t, s)\,ds$.
 
 <details><summary>Solution</summary>
-Let $F(t,s) = (Σ(t) - Σ(s))^2$ so $(\partial/\partial t) F(t,s) = 2(Σ(t) - Σ(s)) σ(t)$
+Let $F(t,s) = \|Σ(t) - Σ(s)\|^2$ so $(\partial/\partial t) F(t,s) = 2(Σ(t) - Σ(s))\cdot σ(t)$
 and
-${(d/dt) \int_0^t (Σ(t) - Σ(s))^2\,ds = 0 + \int_0^t 2(Σ(t) - Σ(s)) σ(t)\,ds}$. 
+${(d/dt) \int_0^t \|Σ(t) - Σ(s)\|^2\,ds = 0 + \int_0^t 2(Σ(t) - Σ(s))\cdot σ(t)\,ds}$. 
 </details>
 
 Since $D(t) = \exp(-\int_0^t f(s)\,ds)$ the forward curve is
 $$
-	f(t) = φ(t) - σ(t) \int_0^t Σ(t) - Σ(s)\,ds.
+	f(t) = φ(t) - σ(t)\cdot \int_0^t Σ(t) - Σ(s)\,ds.
 $$
 
-__Exercise__. _If $σ$ is constant then ${f(t) = φ(t) -  σ^2 t^2/2}$_.
+__Exercise__. _If $σ$ is constant then ${f(t) = φ(t) -  \|σ\|^2 t^2/2}$_.
 
 _Hint_: Use $Σ(t) = σt$.
+
+There is an explicit formula for convexity in the Ho-Lee model.
+
+__Exercise__. _Show $\Cov(f_t, D_t)/D(t) = -σ(t)\cdot \int_0^t sσ(s)\,ds$_.
+
+_Hint_: Use $E[f(N) \exp(M)] = E[f(N + \Cov(N,M))] E[\exp(M)]$
+if $N$ and $M$ are jointly normal to show
+$\Cov(N, \exp(M)) = \Cov(N,M) E[\exp(M)]$. Recall $\Cov(B_t, B_s) = sI$ for $s\le t$.
+
+<details><summary>Solution</summary>
+We have $\Cov(f_t, D_t) = \Cov(σ(t)\cdot B_t,-\int_0^t σ(s)\cdot dB_s) E[D_t]
+= -σ(t) \cdot \int_0^t σ(s)s\,ds\,D(t)$.
+</details>
+
+__Exercise__. _If $σ$ is constant show $\Cov(f_t, D_t)/D(t) = -\|σ\|^2 t^2/2$_.
+
 
 <!--
 Note
@@ -148,22 +160,22 @@ $$
 ## Dynamics
 
 For the Ho-Lee model
-${D_t(u) = E_t[\exp(-\int_t^u φ(s) + σ(s) B_s\,ds)]}$.
+${D_t(u) = E_t[\exp(-\int_t^u φ(s) + σ(s)\cdot B_s\,ds)]}$.
 
-__Exercise__. _Show $\int_t^u σ(s) B_s\,ds = \int_t^u Σ(u) - Σ(s)\,dB_s + (Σ(u) - Σ(t)) B_t$_
+__Exercise__. _Show $\int_t^u σ(s)\cdot B_s\,ds = \int_t^u Σ(u) - Σ(s)\cdot dB_s + (Σ(u) - Σ(t))\cdot B_t$_
 where ${Σ(t) = \int_0^t σ(s)\,ds}$.
 
-_Hint_ Use $d(Σ(t) B_t) = Σ(t)\,dB_t + Σ'(t) B_t\,dt$.
+_Hint_ Use $d(Σ(t)\cdot B_t) = Σ(t)\cdot dB_t + Σ'(t)\cdot B_t\,dt$.
 
 <details>
 <summary>Solution</summary>
 We have 
 $$
 \begin{aligned}
-\int_t^u σ(s) B_s\,ds &= -\int_t^u Σ(t)\,dB_s + Σ(u) B_u - Σ(t) B_t \\
-&= -\int_t^u Σ(s)\,dB_s + Σ(u) B_u - Σ(u) B_t + Σ(u) B_t - Σ(t) B_t \\
-&= -\int_t^u Σ(s)\,dB_s + Σ(u) \int_t^u dB_s + Σ(u) B_t - Σ(t) B_t \\
-&= \int_t^u Σ(u) - Σ(s)\,dB_s + (Σ(u) - Σ(t)) B_t \\
+\int_t^u σ(s)\cdot B_s\,ds &= -\int_t^u Σ(t)\cdot dB_s + Σ(u)\cdot B_u - Σ(t)\cdot B_t \\
+&= -\int_t^u Σ(s)\cdot dB_s + Σ(u)\cdot B_u - Σ(u)\cdot B_t + Σ(u)\cdot B_t - Σ(t)\cdot B_t \\
+&= -\int_t^u Σ(s)\cdot dB_s + Σ(u)\cdot \int_t^u dB_s + Σ(u)\cdot B_t - Σ(t)\cdot B_t \\
+&= \int_t^u Σ(u) - Σ(s)\cdot dB_s + (Σ(u) - Σ(t))\cdot B_t \\
 \end{aligned}
 $$
 </details>
@@ -183,7 +195,7 @@ Note the right hand side is not random and
 ${E_t[\exp(-\int_t^u Λ(s)\,dB_s)] = \exp(\int_t^u Λ(s)^2/2\,ds)}$
 by replacing $Λ$ with $-Λ$.  We use this below.
 
-The price at $t$ of a zero coupon bond maturing at $u$ in the Ho-Lee model is
+Using the previous two exercises, the price at $t$ of a zero coupon bond maturing at $u$ in the Ho-Lee model is
 $$
 \begin{aligned}
 D_t(u) &= E_t[D_u/D_t] \\
@@ -198,31 +210,47 @@ $$
 	D_t(u) = \exp(\int_t^u -φ(s)\,ds + σ^2(u - t)^3/6 - σ(u - t) B_t).
 $$
 
-Note $D_t$ is lognormal with log-variance $\Var(\log D_t) =  (Σ(u) - Σ(t))^2 t$
+Note $D_t(u)$ is lognormal with log-variance $\Var(\log D_t) =  (Σ(u) - Σ(t))^2 t$
 and expected value
 $$
-\begin{aligned}
-E[D_t(u)] &= \exp(\int_t^u -φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2/2\,ds + (Σ(u) - Σ(t))^2t/2) \\
-\end{aligned}
+	E[D_t(u)] = \exp(\int_t^u -φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2/2\,ds + (Σ(u) - Σ(t))^2t/2) 
 $$
 
 __Exercise__. _If $σ$ is constant show_
 $$
 	E[D_t(u)] = \exp\bigl(\int_t^u -φ(s)\,ds + σ^2(u - t)^3/6 + σ^2(u - t)^2 t/2\bigr).
 $$
+<!--
+Note
+$$
+	D_t(u)D_t = \exp\bigl(\int_0^u -φ(s)\,ds +  \int_t^u (Σ(u) - Σ(s))^2/2\,ds - \int_0^t (Σ(u) - Σ(s))\,dB_t\bigr)
+$$
+using $(Σ(u) - Σ(t)) B_t = \int_0^t (Σ(u) - Σ(t))\,dB_s$ and
+$$
+	D_t(u)D_t = D(u) \exp\bigl(-\int_0^t (Σ(u) - Σ(s))^2/2\,ds - \int_0^t (Σ(u) - Σ(s))\,dB_t\bigr)
+$$
+-->
 
 Note 
 $$
 \begin{aligned}
-\frac{D(u)}{D(t)} &= \exp\bigl(\int_t^u -φ(s)\,ds + \int_0^u (Σ(u) - Σ(s))^2/2\,ds - \int_0^t (Σ(t) - Σ(s))^2/2\,ds\bigr) \\
-	&= \exp\bigl(\int_t^u -φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2/2\,ds + \int_0^t U(s)\,ds\bigr) \\
-	&= D_t(u) \exp\bigl((Σ(u) - Σ(s)) B_t + \int_0^t U(s)/2\,ds\bigr) \\
+\frac{D(u)}{D(t)}
+	&= \exp\bigl(\int_t^u -φ(s)\,ds + \int_0^u (Σ(u) - Σ(s))^2/2\,ds - \int_0^t (Σ(t) - Σ(s))^2/2\,ds\bigr) \\
+	&= \exp\bigl(\int_t^u -φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2/2\,ds + \int_0^t U(s)/2\,ds\bigr) \\
+	&= E[D_t(u)] \exp\bigl(-(Σ(u) - Σ(t))^2t/2 + \int_0^t U(s)/2\,ds\bigr) \\
 \end{aligned}
 $$ 
-where ${U(s) = (Σ(u) - Σ(s))^2 - (Σ(t) - Σ(s))^2 = Σ(u)^2 - Σ(t)^2 - 2(Σ(u) - Σ(t))Σ(s))}$ so
+where ${U(s) = (Σ(u) - Σ(s))^2 - (Σ(t) - Σ(s))^2 = Σ(u)^2 - Σ(t)^2 - 2(Σ(u) - Σ(t))Σ(s))}$.
+We have ${\int_0^t U(s)/2\,ds = (Σ(u)^2 - Σ(t)^2)t/2 - (Σ(u) - Σ(t)) \int_0^t Σ(s)\,ds}$ so
+$$
 \begin{aligned}
-D_t(u) = \frac{D(u)}{D(t)} \exp\bigl(-(Σ(u) - Σ(s)) B_t - (Σ(u)^2 - Σ(t)^2)t/2 + (Σ(u) - Σ(t))\int_0^t Σ(s)\,ds\bigr) \\
+	E[D_t(u)] &= \frac{D(u)}{D(t)}
+		\exp\bigl(-(Σ(u) - Σ(t))^2t/2 + (Σ(u)^2 - Σ(t)^2)t/2 + (Σ(u) - Σ(t))\int_0^t Σ(s)\,ds\bigr)  \\
+	&= \frac{D(u)}{D(t)}
+		\exp\bigl((Σ(u) - Σ(t))Σ(t) + (Σ(u) - Σ(t))\int_0^t Σ(s)\,ds\bigr)  \\
 \end{aligned}
+$$
+
 <!--
 where $U(s) = (Σ(u) - Σ(s))^2/2 - (Σ(t) - Σ(s))^2/2$ so
 ${dU = (-(Σ(u) - Σ(s)) σ(s) + (Σ(t) - Σ(s)) σ(s))\,ds = -(Σ(u) - Σ(t))σ(s)\,ds}$.
@@ -244,12 +272,6 @@ __Exercise__. _If $σ$ is contant show_
 $$
 	D_t(u) = D(u)/D(t) \exp(-σ^2 ut(u - t)/2 - σ(u - t) B_t) 
 $$
-
-_Hint_: Use $D(u)/D(t) = \exp(-\int_t^u φ(s)\,ds + σ^2(u^3 - t^3)/6)$.
-
-<details><summary>Solution</summary>
-Note $-ut(u - t)/2 + (u^3 - t^3)/6 = (u - t)^3/6$.
-</details>
 
 Now we determine the forward curve.
 
@@ -322,8 +344,13 @@ __Exercise__. _Show $E_s[-D_t + (1 + f\delta)D_u] = E_s[(f - F_t(t,u))\delta(t,u
 
 _Hint_: Use the previous exercise.
 
-Suppose a _fixed income instrument_ pays $c_j$ and $u_j$. Its value at time $t$
-is ${P_t = \sum_{u_j > t} c_j D_t(u_j)}$. We can approximate this with a
+Suppose a _fixed income instrument_ pays $c_j$ at times $u_j$. Its value at time $t$
+is ${P_t = \sum_{u_j > t} c_j D_t(u_j)}$. If a European option pays
+$g(P_t)$ at time $t$ its value
+is $E[g(P_t) D_t] = E[h(\dots, D_t(u_j),\dots) D_t]$
+
+
+We can approximate this with a
 lognormal having expected value ${E[P_t] = \sum_{u_j > t} c_j E[D_t(u_j)]}$
 and variance ${\Var(P_t) = \sum_{u_j, u_k > t} c_j c_k \Cov(D_t(u_j), D_t(u_k))}$.
 A European option paying $g(P_t)$ at time $t$ has value $E[g(P_t)D_t]$.
@@ -332,149 +359,6 @@ The option value is $E[h(B_t)D_t] = E[h(B_t + \int_0^t s σ(s)\,ds)] D(t)$.
 
 __Exercise__. _Show $\int_0^t s σ(s)\,ds = t Σ(t) - \int_0^t Σ(s)\,ds$_.
 
-<!--
-
-## Discount
-
-We can fit the discount curve if we make the expected stochastic forward rate a function of time.
-Suppose $f_t = φ(t) + σ B_t$ so $E[f_t] = φ(t)$.
-
-__Exercise__. _Show $D(t) = \exp(-\int_0^t φ(s)\,ds + σ^2t^3/6)$_.
-
-<details><summary>Solution</summary>
-The discount is $D(t) = E[D_t] = E[\exp(-\int_0^t φ(s) + σ B_s\,ds)]$
-The result follows from $E[-\int_0^t φ(s) + σ B_s\,ds] =  -\int_0^t φ(s)\,ds$
-and $\Var(-\int_0^t φ(s) + σ B_s\,ds) = σ^2t^3/3$.
-</details>
-
-In this case $f(t) = φ(t) - σ^2 t^2/2$ so $φ(t)$ is determined by the discount curve
-and $σ$.
-
-__Exercise__. _Show $φ(t) = -(d/dt)\log D(t) + σ^2 t^2/2$_.
-
-_Hint_: $D(t) = \exp(-\int_0^t f(s)\,ds)$.
-
-The discount curve is determined using market instruments. These are usually cash deposits
-for the short end, forward rate agreements out to 4 years, and swaps or bonds for
-longer maturities. [Bootstrap](fi.html) is the preferred method for doing this.
-
-
-In the Ho-Lee model the dynamics of zero coupon bond prices are
-$$
-	D_t(u) = \exp(-φ(u - t) - \frac{1}{6}σ^2(u - t)^3 - σ(u - t) B_t).
-$$
-In particular, the discount to time $t$ is $D(t) = D_0(t) = \exp(-rt + σ^2 t^3/6)$.
-
-__Exercise__. _Show the forward curve is $f(t) = rt - σ^2 t^2/2$_.
-<details>
-<summary>Solution</summary>
-</details>
-
-_Hint_: $D(t) = \exp(-\int_0^t f(s)\,ds)$.
-
-Define the _stochastic forward_ curve at time $t$, $f_t(u)$, by $D_t(u) = \exp(-\int_t^u f_t(s)\,ds)$.
-Note $f_t(t) = f_t$ is the stochastic short rate.
-For each $t$ there is a futures contract expiring at $t$ on $f_t$. 
-The futures quote at $s$ is $φ_s(t) = E_s[f_t]$ since futures quotes are a martingale.
-
-__Exercise__. _Show the stochastic forward curve is $f_t(u) = φ - σ^2 (u - t)^2/2 + σ B_t$_.
-
-<details>
-<summary>Solution</summary>
-</details>
-Note $f_t(t) = φ + σ B_t = f_t$.
-
-__Exercise__. _Show $E[f_t] - f(t) = σ^2t^2/2$_.
-<details>
-<summary>Solution</summary>
-</details>
-
-The difference between the futures quote and forward rate is called _convexity_.
-
-__Exercise__. _Derive the formula for $D_t(u)$ when $φ = φ(t)$ is a function of time_.
-<details>
-<summary>Solution</summary>
-</details>
-
-We can also allow $σ = σ(t)$ to be a function of time.
-Let $f_t = φ(t) + σ(s) B_t$.
-Since $d(\Sigma(t)B_t) = \Sigma'(t)B_t\,dt + \Sigma(t)\,dB_t$ and
-taking $σ(s) = \Sigma'(s)$ we have
-$$
-\begin{aligned}
-	E_t[D_u/D_t] &= E_t[\exp(-\int_t^u φ(s) + σ(s) B_s\,ds)] \\
-	&= E_t[\exp(-\int_t^u φ(s)\,ds + d(\Sigma(s)B_s) - \Sigma(s)\,dB_s)] \\
-	&= E_t[\exp(-\int_t^u φ(s)\,ds + \Sigma(u)B_u - \Sigma(t)B_t - \int_u^t \Sigma(s)\,dB_s)] \\
-	&= E_t[\exp(-\int_t^u φ(s)\,ds + (\Sigma(u)B_u - \Sigma(u)B_t + \Sigma(u)B_t - \Sigma(t)B_t)
-		 - \int_u^t \Sigma(s)\,dB_s)] \\
-	&= E_t[\exp(-\int_t^u φ(s)\,ds + \Sigma(u)\int_t^u dB_s + (\Sigma(u) - \Sigma(t))B_t - \int_u^t \Sigma(s)\,dB_s)] \\
-	&= E_t[\exp(-\int_t^u φ(s)\,ds + \int_t^u (\Sigma(u) - \Sigma(s))\,dB_s + (\Sigma(u) - \Sigma(t))B_t )] \\
-	&= \exp(-\int_t^u φ(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) - \Sigma(s))^2\,ds + (\Sigma(u) - \Sigma(t))B_t ) \\
-\end{aligned}
-$$
-
-Since $\int_t^u f_t(s)\,ds = \int_t^u φ(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) - \Sigma(s))^2\,ds
-+ (\Sigma(u) - \Sigma(t))B_t$ we have 
-$$
-	f_t(u) = φ(u) + σ(u) \int_t^u (\Sigma(u) - \Sigma(s))\,ds + σ(u) B_t
-$$
-using $(d/dx) \int_a^x g(x,s)\,ds = g(x,x) + \int_a^x (\partial/\partial x)g(x,s)\,ds$.
-
-__Exercise__. _If $σ(t) = σ$ is constant then 
-$f_t(u) = φ(u) - σ^2 (u - t)^2/2 + σ B_t$_.
-
-The futures quote on a contract paying $f_t$ at time $t$ is $φ_s(t) = E_s[f_t]$
-since futures are martingales.
-
-Both contracts have the same risk-neutral value, but they have very
-different risk profiles. 
-
-A forward contract involves the exchange of a
-notional amount at the beginning and end of the contract. 
-We have been using unit notional, but real-world contracts specify a notional
-$N$ with cash flows $-N$ at $t$ and $N(1 + f\delta(t,u))$ at $u$. If
-one counterparty defaults during the interval $[t,u]$ then the other
-counterparty will not get paid what they expect.  If the absolute value
-of $N$ is large both counterparties have to pay attention to this contingency.
-_Collateral accounts_ are used to mitigate this risk. These are
-similar to margin accounts used by exchanges.
-
-Forward contracts paying in arrears are less risky.
-The cash flow $N(f - F_t(t,u))\delta(t,u)$ at $u$
-involves the difference of similar amounts.
-
-A _caplet_ with strike $k$ is a call option on a forward rate.
-It has cash flow $\max\{F_t^\delta(t,u) - k, 0\}$ at time $u$.
-A _floolet_ is a put option on a forward rate.
-It has cash flow $\max\{k - F_t^\delta(t,u), 0\}$ at time $u$.
-
-__Exercise__. _Find a closed form solution for the value of a caplet and floorlet in the Ho-Lee model_.
-
-_Hint_: $F - k = fe^{sZ - s^2/2} - h$ for some constants $f, s, h$ where $Z$ is standard normal.
-The value of a caplet involves the Black put formula and the value of a floorlet involes
-the Black call formula.
-
-## Remarks
-
-An objection to the Ho-Lee model is that it allows
-[negative interest rates](https://www.investopedia.com/articles/investing/070915/how-negative-interest-rates-work.asp).
-This is unusual, but not a violation of arbitrage and has occurred in the real world.
-
-The parameterization $f_t = φ(1 + σ B_t)$ is closer to a lognormal model since $1 + x\approx e^x$
-for small $x$. When using this replace $σ$ by $φσ$ in the equations above.
-
-A multi-factor model can be specified using multi-dimensional independent Brownian motions and vector-valued volatility.
-
-__Exercise__. _Show $\Cov(σ(t)\cdot B_t, σ(u)\cdot B_u) = σ(t)\cdotσ(u)\min\{t,u\}$_.
-
-_Hint_: $\Cov(B_t, B_u) = \min\{t,u\}I$ where $I$ is the identity matrix.
-
-A common choice for the 2-dimensional case is $σ(t) =
-σ(\cos\alpha t, \sin\alpha t)$ for some constants $σ$ and $\alpha$.
-
-__Exercise__. _Show $σ(t)\cdotσ(u) = σ^2\cos(\alpha(t - u))$_.
-
--->
 
 ## Reference
 
