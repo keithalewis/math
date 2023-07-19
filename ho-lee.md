@@ -157,10 +157,11 @@ $$
 
 -->
 
+<!--- checked -->
+
 ## Dynamics
 
-For the Ho-Lee model
-${D_t(u) = E_t[\exp(-\int_t^u φ(s) + σ(s)\cdot B_s\,ds)]}$.
+For the Ho-Lee model ${D_t(u) = E_t[\exp(-\int_t^u φ(s) + σ(s)\cdot B_s\,ds)]}$.
 
 __Exercise__. _Show $\int_t^u σ(s)\cdot B_s\,ds = \int_t^u Σ(u) - Σ(s)\cdot dB_s + (Σ(u) - Σ(t))\cdot B_t$_
 where ${Σ(t) = \int_0^t σ(s)\,ds}$.
