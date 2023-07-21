@@ -86,6 +86,5 @@ Ensure $0 \le a' \le a$?
 ## Analytics
 
 A _model_ is parameterized (tuned) by market data.
-An _analytic_ is a function from an instrument, model, and analytic parameters.
-
-
+An _analytic_ is a function from an instrument, model, and analytic parameters
+to a _value_.

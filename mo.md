@@ -4,9 +4,12 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: Concatination
+abstract: Associative binary operation with an identity
 ...
 
+Monoids show up everywhere. You will experience the Baader-Meinhof Phenomenon
+once you learn about them. For example, they are used in pivot tables and the map-reduce algoithm.
+The basic idea is that the associative law $a(bc) = (ab)c$ means $abc$ in unambiguous.
 
 A _moniod_ is a set $M$ with a binary operation $m\colon M\times M\to M$ that is
 associative and has an identity element $e$.
@@ -16,21 +19,18 @@ Writing $ab$ for $m(a,b)$ this means $(ab)c = a(bc)$, so writing $abc$ in unambi
 
 An _identity element_ $e$ satisfies $ea = a = ae$ for $a\in M$.
 
-If an associative binary operation lacks an identity we can define one.
-
-__Exercise__. _If $ea = a = ea$, $a\in M$, then $(ea)b = ab = e(ab)$,
-$(ae)b = ab = a(be)$ and $(ab)e = ab = a(be)$_.
-
-This shows adding an identiy preserves associativity.
-
 __Exercise__. _If $e'\in M$ satisfies $e'a = a = ae'$, $a\in M$, then $e' = e$_.
+
+<details><summary>Solution</summary>
+$e' = e'e = e$.
+</details>
 
 This shows the monoid identity is uniqure.
 
 ## Examples
 
-Multiplication is a monoid with identity element 1. Addition is a monoid with
-identity element 0. Maximum is a monoid with identity element $-\infty$.
+If $M$ is the set of real numbers then multiplication is a monoid with identity element 1.
+Addition is a monoid with identity element 0. Maximum is a monoid with identity element $-\infty$.
 Minimum is a monoid with identity element $\infty$.
 String concatenation is a monoid with identity element the empty string.
 The arrows of a category with a single object form a monoid.
