@@ -8,7 +8,8 @@ fleqn: true
 abstract: Do not count twice
 ...
 
-\newcommand\RR{\bm{R}}
+\newcommand\mb[1]{\boldsymbol{#1}}
+\newcommand\RR{\mb{R}}
 \newcommand{\Var}{\operatorname{Var}}
 
 A _finitely additive measure_ on a set $S$ is a set function from subsets of $S$ to real numbers

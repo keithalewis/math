@@ -12,8 +12,11 @@ A general framework for financial systems.
 
 ## Tables
 
-A _position_ is an _amount_, _instrument_, and _holder_.
+A _position_ is an _amount_, _instrument_, _holder_, and _role_.
 The `positions` table is append only.
+The amount is an integer multiple of the smallest traded unit of the instrument.
+The holder identifies who owns the position. The role
+can be _buyer_, _seller_, _broker_, etc.
 
 ```sql
 CREATE TABLE positions (
@@ -21,6 +24,7 @@ CREATE TABLE positions (
 	amount BIGINT,      -- multiple of smallest tradable unit
 	instrument INT,     -- unique instrument identifier (FIGI)
 	holder INT,         -- identity of who owns the position
+	role INT,           -- buyer, seller, broker, ...
 );
 ```
 
@@ -38,7 +42,7 @@ CREATE TABLE instruments (
 ```sql
 CREATE TABLE holders (
 	id INT PRIMARY KEY,
-	LEI CHAR(20), -- employer of holder [LEI](https://www.iso.org/standard/59771.html)
+	LEI CHAR(20), -- legal entity controlling holder [LEI](https://www.iso.org/standard/59771.html)
 	-- group
 	-- department
 	-- other metadata...
@@ -73,7 +77,7 @@ INSERT INTO positions VALUES (
 This simplifies net position and profit-and-loss calculations.
 Just use `SUM(amount)` in the query.
 
-Split a position into smaller pieces
+Split a position $a$ into positions $a'$ and $a - a'$.
 
 ```sql
 INSERT INTO positions VALUES (
@@ -81,11 +85,12 @@ INSERT INTO positions VALUES (
 	(a', instrument, holder),
 	(a - a', instrument, holder),
 ```
-Ensure $0 \le a' \le a$?
+Ensure $0 < a' \le a$?
 
 ## Analytics
 
-A _model_ is parameterized (tuned) by market data.
+A _model_ is parameterized (tuned) by market data. E.g., a yield curve
+bootstrapped by market instruments.
 An _analytic_ is a function from an instrument, model, and analytic parameters.
 
 
