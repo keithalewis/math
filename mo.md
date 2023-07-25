@@ -7,16 +7,20 @@ fleqn: true
 abstract: Associative binary operation with an identity
 ...
 
-Monoids show up everywhere. You will experience the Baader-Meinhof Phenomenon
-once you learn about them. For example, they are used in pivot tables and the map-reduce algoithm.
-The basic idea is that the associative law $a(bc) = (ab)c$ means $abc$ in unambiguous.
+\newcommand\cat[1]{\mathbf{#1}}
+
+If $a$, $b$, and $c$ are elements of a monoid then $(ab)c = a(bc)$
+so we can unambiguously write $abc$. This is the basis of the map-reduce
+algorithm. To compute $abcd$ we can compute $e = (ab)$ and $f = (cd)$ independently
+then $ef$ to get the final result. Monoids are also the used for pivot tables.
+The partial calculations $e$ and $f$ are summaries of the of the entire
+data set $a$, $b$, $c$, and $d$. This becomes more interesting when
+many data values are involved.
 
 A _moniod_ is a set $M$ with a binary operation $m\colon M\times M\to M$ that is
 associative and has an identity element $e$.
-
 A binary operation $m$ is _associative_ if $m(m(a,b),c) = m(a,m(b,c))$, $a,b,c\in M$.
-Writing $ab$ for $m(a,b)$ this means $(ab)c = a(bc)$, so writing $abc$ in unambiguous.
-
+Writing $ab$ for $m(a,b)$ this means $(ab)c = a(bc)$, so writing $abc$ is unambiguous.
 An _identity element_ $e$ satisfies $ea = a = ae$ for $a\in M$.
 
 __Exercise__. _If $e'\in M$ satisfies $e'a = a = ae'$, $a\in M$, then $e' = e$_.
@@ -25,19 +29,33 @@ __Exercise__. _If $e'\in M$ satisfies $e'a = a = ae'$, $a\in M$, then $e' = e$_.
 $e' = e'e = e$.
 </details>
 
-This shows the monoid identity is uniqure.
+This shows the monoid identity is unique.
+
+A monoid is _abelian_/_commutative_ if $m(a,b) = m(b,a)$ for $a,b\in M$.
+
+A _semigroup_ is a set with a binary associative operation. A semigroup can
+be turned into a monoid by adding an identity element.
+If $S$ is a semigroup let $M = S\cup\{e\}$ (where $e\notin S$)
+and define $se = s = es$ for $s\in S$.
 
 ## Examples
 
-If $M$ is the set of real numbers then multiplication is a monoid with identity element 1.
-Addition is a monoid with identity element 0. Maximum is a monoid with identity element $-\infty$.
-Minimum is a monoid with identity element $\infty$.
-String concatenation is a monoid with identity element the empty string.
-The arrows of a category with a single object form a monoid.
+Addition and multiplication are abelian with identity 0 and 1 respectivly.
 
-## Rational
+Minimum and maximum are abelian with identity $\infty$ and $-\infty$ respectively.
 
-Monoids are the basis of the map-reduce algorithm.
-If $a_j$ are elements of a monoid then the calculation of $a_1\cdots a_n$ can
-be partitioned into seperate calculations $A_1 = a_1\cdots a_{k_0}$,
-$A_2 = a_{k_0 + 1}\cdots a_{k_1}$, $\dots$, $a_{k_j + 1}\cdots a_n$.
+String concatenation is not abelian with identity element the empty string.
+
+Categories with a single object form a monoid. 
+A (small) _category_ is a partial monoid with
+left and right identities. A category $\cat{C}$ has a partial binary
+operation $\circ\colon\cat{C}\times\cat{C}\rightharpoonup\cat{C}$ and for
+every $f\in\cat{C}$ there exist left and right identities $e_f\in\cat{C}$
+with $e_f\circ f = f$ and ${}_f e\in\cat{C}$ with $f\circ {}_f e = f$.
+
+## Pivot Tables
+
+Pivot tables use monoids to summarize data. 
+
+The simplest example of a pivot table is a function from
+a set $S$ to a monoid $M$, $δ\colon S\to M$.
