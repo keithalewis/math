@@ -4,43 +4,72 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: Logic &ndash; the foundations of mathematics.
+abstract: The foundation of mathematics.
 ...
+
+Mathematics is concerned only with statements that are either true or
+false and proofs of such statements.  While we all might agree with
+Shakespeare that "The quality of mercy is not strained.  It droppeth as
+the gentle rain from heaven upon the place beneath" it is doubtful that
+a rigorous mathematical proof of that is possible.
 
 It may come as a surprise that there are many different logical systems
 for mathematics that are contradictory. For two millenia Euclid's
-Elements were regarded as the basis for rigourous logical reasoning.
+Elements were regarded as the basis for rigorous logical reasoning.
 He invented the notion we can start from axioms that rational people can agree
-are true and specify how they can be used to derive more true statements.
+are true and specify how they can be used to rigorously derive more true statements.
 
-The earliest examples are in non-Euclidean geometry where
-it is possible to have no, or infinitely many, "parallel" lines 
-in a plane through a point not on a given line. (Bolyai, Lobaschevsky)
-However one thing all logical systems have in common is that
-they use _propositions_: statements that are either _true_ or _false_, and
-_rules of inference_: ways of combining true propositions into other
-true propositions.
+"In a plane, given a line and a point not on it, at most one line parallel to the given
+line can be drawn through the point." was John Playfair's restatement of
+Euclid's fifth postulate. A prodigious amount of work was exerted over
+two millenia to prove that was a consequence of Euclids other axioms.
+It is not. One way to show a statement is not true is to provide
+a counterexample.
+
+It is possible to have no, or infinitely many, parallel "lines" 
+in a "plane" through a "point" not on a given line where
+"point", "line", and "plane" that satisfy all of Euclids other axioms.
+
+(Bolyai, Lobaschevsky)
+
+
+Logical systems specify _propositions_, statements that are either _true_
+or _false_, and _rules of inference_, ways of combining true propositions
+to _prove_ other true propositions.
 
 Mathematicians prove _theorems_. Typically they have the form 'if
 $P$ is true then $Q$ is true' where $P$ and $Q$ are propositions.
 This is equivalent to 'if $P$ then $Q$' and '$P$ implies $Q$'.
 Every logical system has _axioms_: propositions that are assumed to be
 true. The fundamental rule of inference is _modus ponens_: if a proof
-has the statement '$P$' and the statement '$P$ implies $Q$' then the
+involves the statement '$P$' and the statement '$P$ implies $Q$' then the
 statement '$Q$' can be included in the proof.
 Modus ponens means 'method of placing.'
 
-A proof of '$A$ implies $Z$' consists of a sequence of
-statements starting with $A$. The following statements
+## Natural Deduction
+
+Inspired by René Descartes' reduction of geometry to algebra, David
+Hilbert wanted to express all mathematical proofs as text. Using a ruler
+and compass to aid in constructing a geometric proofs obscured some
+implicit assumptions.  For example, Euclid neglected to specify when a
+point was "between" two points on a line. This led to the false proof
+that [all triangles are isosceles](https://www.jstor.org/stable/24927776).
+According to Hilbert, "One must be able to say at all times -
+instead of points, straight lines, and planes - tables, chairs, and beer mugs."
+
+A proof of '$A$ implies $Z$' consists of
+a sequence of statements starting with $A$. The subsequent statements
 are either axioms or a statement using rules of inference applied to
 previous statements. If the last statement is $Z$ then the theorem is
 proved, QED: "quod erat demonstrandum", meaning "what was to be shown".
-The difficulty with proofs is figuring out which axioms to use and
-when to apply the rules of inference.
+The difficulty with proofs is figuring out which axioms to use and when
+to apply the rules of inference.
 
-Gerhard Gentzen formalized _natural deduction_. Proofs branch into
-a tree of statements. Branches can contain subproofs used in their
-parent. He was concernee with the 
+Gerhard Gentzen formalized this technique as _natural deduction_ but
+ran into the problem of how to avoid unnecessary detours.
+He had to invent a different way to reason about proofs to solve this.
+
+!!! Sequent calculus, cut elimination.
 
 ## Propositional Calculus
 

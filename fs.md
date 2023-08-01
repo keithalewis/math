@@ -16,7 +16,9 @@ A _position_ is an _amount_, _instrument_, _holder_, and _role_.
 The `positions` table is append only.
 The amount is an integer multiple of the smallest traded unit of the instrument.
 The holder identifies who owns the position. The role
-can be _buyer_, _seller_, _broker_, etc.
+can be _buyer_, _seller_, _dividend_, _coupon_, _margin_, _broker_, tax, etc.
+
+### Positions
 
 ```sql
 CREATE TABLE positions (
@@ -27,6 +29,9 @@ CREATE TABLE positions (
 	role INT,           -- buyer, seller, broker, ...
 );
 ```
+
+
+### Instruments
 
 Instruments are uniquely identified by their [FIGI](https://www.openfigi.com/).
 
@@ -39,6 +44,8 @@ CREATE TABLE instruments (
 );
 ```
 
+### Holders
+
 ```sql
 CREATE TABLE holders (
 	id INT PRIMARY KEY,
@@ -49,6 +56,8 @@ CREATE TABLE holders (
 	FOREIGN KEY(id) REFERENCES positions(holder)
 );
 ```
+
+### Exchange
 
 An _exchange_ is a _timestamp_, a _buyer_ position, and a _seller_ positiion.
 
@@ -63,19 +72,24 @@ CREATE TABLE exchanges (
 );
 ```
 
+
 An exchange adds 4 entries in the positions table:
 
 ```sql
 INSERT INTO positions VALUES (
-	(-buyer.amount, buyer.instrument, buyer.holder),
-	(seller.amount, seller.instrument, buyer.holder),
-	(-seller.amount, seller.instrument, seller.holder),
-	(buyer.amount, buyer.instrument, seller.holder),
+	(-buyer.amount, buyer.instrument, buyer.holder, buyer),
+	(seller.amount, seller.instrument, buyer.holder, buyer),
+	(-seller.amount, seller.instrument, seller.holder, seller),
+	(buyer.amount, buyer.instrument, seller.holder, seller),
 );
 ```
 
 This simplifies net position and profit-and-loss calculations.
 Just use `SUM(amount)` in the query.
+
+## Transaction
+
+A _transaction_ is an exchange and a list of positions where the role is neither buyer or seller.
 
 Split a position $a$ into positions $a'$ and $a - a'$.
 
@@ -89,8 +103,7 @@ Ensure $0 < a' \le a$?
 
 ## Analytics
 
-A _model_ is parameterized (tuned) by market data. E.g., a yield curve
-bootstrapped by market instruments.
-An _analytic_ is a function from an instrument, model, and analytic parameters.
 
-
+A _model_ is parameterized (tuned) by market data.
+An _analytic_ is a function from an instrument, model, and analytic parameters
+to a _value_.
