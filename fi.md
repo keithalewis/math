@@ -4,16 +4,17 @@ author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
-abstract: Constant cash flows
+abstract: Fixed cash flows
 ...
 
 \newcommand\RR{\mathbf{R}}
 \renewcommand\AA{\mathcal{A}}
+\newcommand{\Cov}{\operatorname{Cov}}
 
 ## Fixed Income
 
 A _fixed income_ instrument is specified by cash flows $(c_j)$ at times $(u_j)$.
-This is just a portfolio of zero coupon bonds so its _present value_ is
+It is a portfolio of zero coupon bonds and its _present value_ is
 $P = \sum_j c_j D(u_j)$ where $D(u)$ is the discount to time $u$.
 The present value at time $t$ is $P_t = \sum_{u_j > t} c_j D_t(u_j)$
 where $D_t(u)$ is the price at time $t$ of a zero coupon bond maturing at $u$.
@@ -22,7 +23,7 @@ where $D_t(u)$ is the price at time $t$ of a zero coupon bond maturing at $u$.
 
 A _zero coupon bond_, $D(u)$, pays one unit at maturity $u$ so $C^{D(u)}_u = 1$ is the only cash flow.
 We write $D_t(u)$ for the price $X_t^{D(u)}$ of the zero coupon bond at time $t$.
-An arbitrage free model with deflator $D_t$ requires the price at time $t$ to
+An [arbitrage free model](ucm0.html) with stochastic discount $D_t$ requires the price at time $t$ to
 satisfy $D_t(u)D_t = E_t[D_u]$ so
 $$
 	D_t(u) = E_t[D_u]/D_t.
@@ -36,6 +37,54 @@ __Exercise__. _Show $D_t(u) = E_t[\exp(-\int_t^u f(s)\,ds)]$_.
 
 An interesting feature of fixed income is that the short rate determines the price
 dynamics of all instruments, assuming there are no defaults.
+
+### Risky Bonds
+
+A _risky zero coupon bond_ with _recovery_ $R$ and _default time_ $T$
+has a single cash flow $C_u = 1$ if default occurs after maturity or
+$C_T = R$ if $T \le u$. It is customary to assume $R$ is constant.
+We must expand the sample space to $Ω\times (0,\infty]$
+where $(ω,t)\in Ω\times (0,\infty]$ indicates default occured at time $t$.
+The partition of $(0\infty]$ representing information available at time $t$ for the default time is
+$\{(t,\infty]\} \cup \{\{s\}:s \le t\}$. If default has
+not occured prior to $t$ we only know $T > t$. If default occured prior
+to time $t$ we know exactly when it happened.
+
+We write $D_t^{R,T}(u)$ for the price $X_t^{D^{R,T}(u)}$ of the risky zero coupon bond at time $t$.
+The dynamics of a risky zero are determined by
+$$
+	D_t^{R,T}(u) D_t = E_t[R 1(T \le u) D_T + 1(T > u) D_u].
+$$
+The _credit spread_ $s_t = s_t^{R,T}(u)$ defined by $D_t^{R,T}(u) = D_t(u) e^{-u s_t}$
+incorporates both recovery and default.
+
+If rates are zero then $D_t = 1$ for all $t$ and this simplifies to
+$D_0^{R,T}(u) = R P(T \le u) + P(T > u)$ when $t = 0$. If $T$ is 
+exponentially distributed with hazard rate $λ$ then $P(T > t) = e^{-λ t}$
+and
+$$
+	D_0^{R,T}(u) = R + (1 - R)e^{-λu}.
+$$
+When $λ = 0$ the right hand side is 1.
+When $R = 0$ the credit spread equals the hazard rate.
+If $λu$ is small then the approximation
+$e^x \approx 1 + x$ for small $x$ gives the rule of thumb
+$s = λ(1 - R)$ where $s = s_0 = s_0^{R,T}(u)$ is the credit spread.
+
+For general $t$ we have
+$$
+	D_t^{R,T}(u) = R P(T \le u | T > t) 1(t < T \le u) + P(T > u | T > t) 1(T > u).
+$$
+
+Unlike in the credit default swap market, mathematical finance literture likes to
+assume recovery is delayed until maturity. It is also popular to make the unrealistic
+assumption that default time is independent of the stochastic discount. Under these assumptions
+we have
+$$
+	D_t^{R,T}(u) = D_t(u)\bigl(R P(T \le u | T > t) 1(t < T \le u) + P(T > u | T > t) 1(T > u)\bigr).
+$$
+In principal, $R$ could be random and joint distributions involving the default time
+and stochastic discount could be specified.
 
 ## Discount Curve
 
@@ -149,13 +198,14 @@ There are also forward rate agreements not involving the exchange of notional. A
 A _receiver_ FRA has the negative of this cash flow. The value at any time $t \le u$ is
 determined by
 
-
-\begin{align*}
+$$
+\begin{aligned}
 V_t D_t &= E_t[(f - F_u(u,v;δ))δ(u,v) D_v] \\
         &= E_t[fδ(u,v) D_v - E_u[D_u - D_v]]  \\
         &= E_t[fδ(u,v) D_v - D_u + D_v]  \\
         &= E_t[-D_u + (1 + fδ(u,v)) D_v] \\
-\end{align*}
+\end{aligned}
+$$
 
 which is the same as for a forward rate agreement that does exchange notional.
 These two types of FRAS's have very different risk characteristics.
@@ -228,72 +278,3 @@ A _swaption_ is an option on a swap.
 It has a single cash flow $\max\{k - F_{t_0}(t_0,\ldots,t_n;δ), 0\}$ at the
 effective date of the swap, $t_0$.
 
-### LIBOR Market Model
-
-Assuming discrete times $(t_j)$, the deflator is determined by the joint distribution of
-the repo rates $F_j = F_{t_j}$ over $[t_j, t_{j+1})$. (We use capital $F$ instead of
-lower case $f$ to indicate it is a random variable.)
-
-The LIBOR Market model assumes the forwards are jointly lognormal,
-$$
-	F_j = \phi(t_j)\exp(\Sigma_j\cdot B_{t_j} - ||\Sigma_j||^2 t_j/2),
-$$
-where $\phi(t_j) = E f_j$ is the futures quote, $\sigma_j$ is a vector with norm
-equal to the at-the-money caplet volatility, and $B_t$ is vector-valued Brownian motion.
-A nice feature of this model is that the forward curve and at-the-money caplet prices
-are not affected by the individual components of the volatility vectors.
-
-A common parameteration for the volatilities is $\Sigma(t) = \sigma(t)(\cos\alpha t, \sin\alpha t)$
-for some parameter $\alpha$. Clealy $||\Sigma(t)|| = sigma(t)$. This can be used to fit, e.g., one
-swaption price. Note $\Sigma\cdot B_t = \sigma(B_t^0\cos(\alpha t) + B_t^1\sin(\alpha t)$ and
-$\Cov(B_t,B_u) = t\cos(\alpha(u-t))$ for $t < u$.
-
-The futures are determined by the forwards and volatilities; $\phi(t) = f(t) + \sigma(t)^2 t^2/2$.
-
-## Risky Bonds
-
-A _risky zero coupon bond_ with _recovery_ $R$ and _default time_ $T$
-has a single cash flow $C_u = 1$ if default occurs after maturity or
-$C_T = R$ if $T \le u$. It is customary to assume $R$ is constant.
-As with American options, we must expand the sample space to $Ω\times (0,\infty]$
-where $(ω,t)\in Ω\times (0,\infty]$ indicates default occured at time $t$.
-The partition of $(0\infty]$ representing information available at time $t$ for the default time is
-$\{(t,\infty]\} \cup \{\{s\}:s \le t\}$. If default has
-not occured prior to $t$ we only know $T > t$. If default occured prior
-to time $t$ we know exactly when it happened.
-
-We write $D_t^{R,T}(u)$ for the price $X_t^{D^{R,T}(u)}$ of the risky zero coupon bond at time $t$.
-The dynamics of a risky zero are determined by
-$$
-	D_t^{R,T}(u) D_t = E_t[R 1(T \le u) D_T + 1(T > u) D_u].
-$$
-The _credit spread_ $s_t = s_t^{R,T}(u)$ defined by $D_t^{R,T}(u) = D_t(u) e^{-u s_t}$
-incorporates both recovery and default.
-
-If rates are zero then $D_t = 1$ for all $t$ and this simplifies to
-$D_0^{R,T}(u) = R P(T \le u) + P(T > u)$ when $t = 0$. If $T$ is 
-exponentially distributed with hazard rate $λ$ then $P(T > t) = e^{-λ t}$
-and
-$$
-	D_0^{R,T}(u) = R + (1 - R)e^{-λu}.
-$$
-When $λ = 0$ the right hand side is 1.
-When $R = 0$ the credit spread equals the hazard rate.
-If $λu$ is small then the approximation
-$e^x \approx 1 + x$ for small $x$ gives the rule of thumb
-$s = λ(1 - R)$ where $s = s_0 = s_0^{R,T}(u)$ is the credit spread.
-
-For general $t$ we have
-$$
-	D_t^{R,T}(u) = R P(T \le u | T > t) 1(t < T \le u) + P(T > u | T > t) 1(T > u).
-$$
-
-Unlike in the credit default swap market, mathematical finance literture likes to
-assume recovery is delayed until maturity. It is also popular to make the unrealistic
-assumption that default time is independent of the deflator. Under these assumptions
-we have
-$$
-	D_t^{R,T}(u) = D_t(u)\bigl(R P(T \le u | T > t) 1(t < T \le u) + P(T > u | T > t) 1(T > u)\bigr).
-$$
-In principal, $R$ could be random and joint distributions involving the default time
-and deflators could be specified.

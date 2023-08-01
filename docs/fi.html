@@ -5,35 +5,28 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-05-14" />
+  <meta name="dcterms.date" content="2023-07-14" />
   <title>Fixed Income</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
+  
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -49,7 +42,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -58,24 +51,23 @@
 <header id="title-block-header">
 <h1 class="title">Fixed Income</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 14, 2023</p>
+<p class="date">July 14, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-Constant cash flows
+Fixed cash flows
 </div>
 </header>
 <section id="fixed-income" class="level2">
 <h2>Fixed Income</h2>
 <p>A <em>fixed income</em> instrument is specified by cash flows <span
 class="math inline">(c_j)</span> at times <span
-class="math inline">(u_j)</span>. This is just a portfolio of zero
-coupon bonds so its <em>present value</em> is <span
-class="math inline">P = \sum_j c_j D(u_j)</span> where <span
-class="math inline">D(u)</span> is the discount to time <span
-class="math inline">u</span>. The present value at time <span
-class="math inline">t</span> is <span class="math inline">P_t =
-\sum_{u_j &gt; t} c_j D_t(u_j)</span> where <span
-class="math inline">D_t(u)</span> is the price at time <span
+class="math inline">(u_j)</span>. It is a portfolio of zero coupon bonds
+and its <em>present value</em> is <span class="math inline">P = \sum_j
+c_j D(u_j)</span> where <span class="math inline">D(u)</span> is the
+discount to time <span class="math inline">u</span>. The present value
+at time <span class="math inline">t</span> is <span
+class="math inline">P_t = \sum_{u_j &gt; t} c_j D_t(u_j)</span> where
+<span class="math inline">D_t(u)</span> is the price at time <span
 class="math inline">t</span> of a zero coupon bond maturing at <span
 class="math inline">u</span>.</p>
 <section id="zero-coupon-bond" class="level3">
@@ -85,9 +77,10 @@ pays one unit at maturity <span class="math inline">u</span> so <span
 class="math inline">C^{D(u)}_u = 1</span> is the only cash flow. We
 write <span class="math inline">D_t(u)</span> for the price <span
 class="math inline">X_t^{D(u)}</span> of the zero coupon bond at time
-<span class="math inline">t</span>. An arbitrage free model with
-deflator <span class="math inline">D_t</span> requires the price at time
-<span class="math inline">t</span> to satisfy <span
+<span class="math inline">t</span>. An <a href="ucm0.html">arbitrage
+free model</a> with stochastic discount <span
+class="math inline">D_t</span> requires the price at time <span
+class="math inline">t</span> to satisfy <span
 class="math inline">D_t(u)D_t = E_t[D_u]</span> so <span
 class="math display">
     D_t(u) = E_t[D_u]/D_t.
@@ -101,6 +94,66 @@ process. It corresponds to repurchase agreement rates.</p>
 <p>An interesting feature of fixed income is that the short rate
 determines the price dynamics of all instruments, assuming there are no
 defaults.</p>
+</section>
+<section id="risky-bonds" class="level3">
+<h3>Risky Bonds</h3>
+<p>A <em>risky zero coupon bond</em> with <em>recovery</em> <span
+class="math inline">R</span> and <em>default time</em> <span
+class="math inline">T</span> has a single cash flow <span
+class="math inline">C_u = 1</span> if default occurs after maturity or
+<span class="math inline">C_T = R</span> if <span class="math inline">T
+\le u</span>. It is customary to assume <span
+class="math inline">R</span> is constant. We must expand the sample
+space to <span class="math inline">Ω\times (0,\infty]</span> where <span
+class="math inline">(ω,t)\in Ω\times (0,\infty]</span> indicates default
+occured at time <span class="math inline">t</span>. The partition of
+<span class="math inline">(0\infty]</span> representing information
+available at time <span class="math inline">t</span> for the default
+time is <span class="math inline">\{(t,\infty]\} \cup \{\{s\}:s \le
+t\}</span>. If default has not occured prior to <span
+class="math inline">t</span> we only know <span class="math inline">T
+&gt; t</span>. If default occured prior to time <span
+class="math inline">t</span> we know exactly when it happened.</p>
+<p>We write <span class="math inline">D_t^{R,T}(u)</span> for the price
+<span class="math inline">X_t^{D^{R,T}(u)}</span> of the risky zero
+coupon bond at time <span class="math inline">t</span>. The dynamics of
+a risky zero are determined by <span class="math display">
+    D_t^{R,T}(u) D_t = E_t[R 1(T \le u) D_T + 1(T &gt; u) D_u].
+</span> The <em>credit spread</em> <span class="math inline">s_t =
+s_t^{R,T}(u)</span> defined by <span class="math inline">D_t^{R,T}(u) =
+D_t(u) e^{-u s_t}</span> incorporates both recovery and default.</p>
+<p>If rates are zero then <span class="math inline">D_t = 1</span> for
+all <span class="math inline">t</span> and this simplifies to <span
+class="math inline">D_0^{R,T}(u) = R P(T \le u) + P(T &gt; u)</span>
+when <span class="math inline">t = 0</span>. If <span
+class="math inline">T</span> is exponentially distributed with hazard
+rate <span class="math inline">λ</span> then <span
+class="math inline">P(T &gt; t) = e^{-λ t}</span> and <span
+class="math display">
+    D_0^{R,T}(u) = R + (1 - R)e^{-λu}.
+</span> When <span class="math inline">λ = 0</span> the right hand side
+is 1. When <span class="math inline">R = 0</span> the credit spread
+equals the hazard rate. If <span class="math inline">λu</span> is small
+then the approximation <span class="math inline">e^x \approx 1 +
+x</span> for small <span class="math inline">x</span> gives the rule of
+thumb <span class="math inline">s = λ(1 - R)</span> where <span
+class="math inline">s = s_0 = s_0^{R,T}(u)</span> is the credit
+spread.</p>
+<p>For general <span class="math inline">t</span> we have <span
+class="math display">
+    D_t^{R,T}(u) = R P(T \le u | T &gt; t) 1(t &lt; T \le u) + P(T &gt;
+u | T &gt; t) 1(T &gt; u).
+</span></p>
+<p>Unlike in the credit default swap market, mathematical finance
+literture likes to assume recovery is delayed until maturity. It is also
+popular to make the unrealistic assumption that default time is
+independent of the stochastic discount. Under these assumptions we have
+<span class="math display">
+    D_t^{R,T}(u) = D_t(u)\bigl(R P(T \le u | T &gt; t) 1(t &lt; T \le u)
++ P(T &gt; u | T &gt; t) 1(T &gt; u)\bigr).
+</span> In principal, <span class="math inline">R</span> could be random
+and joint distributions involving the default time and stochastic
+discount could be specified.</p>
 </section>
 </section>
 <section id="discount-curve" class="level2">
@@ -239,12 +292,14 @@ notional. A (fixed rate) <em>payer</em> FRA has the single cash flow
 class="math inline">v</span>. A <em>receiver</em> FRA has the negative
 of this cash flow. The value at any time <span class="math inline">t \le
 u</span> is determined by</p>
-<p><span class="math display">\begin{align*}
+<p><span class="math display">
+\begin{aligned}
 V_t D_t &amp;= E_t[(f - F_u(u,v;δ))δ(u,v) D_v] \\
         &amp;= E_t[fδ(u,v) D_v - E_u[D_u - D_v]]  \\
         &amp;= E_t[fδ(u,v) D_v - D_u + D_v]  \\
         &amp;= E_t[-D_u + (1 + fδ(u,v)) D_v] \\
-\end{align*}</span></p>
+\end{aligned}
+</span></p>
 <p>which is the same as for a forward rate agreement that does exchange
 notional. These two types of FRAS’s have very different risk
 characteristics. If either counter-party defaults during the time
@@ -335,97 +390,6 @@ back-to-back floorlets or caplets.</p>
 0\}</span> at the effective date of the swap, <span
 class="math inline">t_0</span>.</p>
 </section>
-<section id="libor-market-model" class="level3">
-<h3>LIBOR Market Model</h3>
-<p>Assuming discrete times <span class="math inline">(t_j)</span>, the
-deflator is determined by the joint distribution of the repo rates <span
-class="math inline">F_j = F_{t_j}</span> over <span
-class="math inline">[t_j, t_{j+1})</span>. (We use capital <span
-class="math inline">F</span> instead of lower case <span
-class="math inline">f</span> to indicate it is a random variable.)</p>
-<p>The LIBOR Market model assumes the forwards are jointly lognormal,
-<span class="math display">
-    F_j = \phi(t_j)\exp(\Sigma_j\cdot B_{t_j} - ||\Sigma_j||^2 t_j/2),
-</span> where <span class="math inline">\phi(t_j) = E f_j</span> is the
-futures quote, <span class="math inline">\sigma_j</span> is a vector
-with norm equal to the at-the-money caplet volatility, and <span
-class="math inline">B_t</span> is vector-valued Brownian motion. A nice
-feature of this model is that the forward curve and at-the-money caplet
-prices are not affected by the individual components of the volatility
-vectors.</p>
-<p>A common parameteration for the volatilities is <span
-class="math inline">\Sigma(t) = \sigma(t)(\cos\alpha t, \sin\alpha
-t)</span> for some parameter <span class="math inline">\alpha</span>.
-Clealy <span class="math inline">||\Sigma(t)|| = sigma(t)</span>. This
-can be used to fit, e.g., one swaption price. Note <span
-class="math inline">\Sigma\cdot B_t = \sigma(B_t^0\cos(\alpha t) +
-B_t^1\sin(\alpha t)</span> and <span class="math inline">\Cov(B_t,B_u) =
-t\cos(\alpha(u-t))</span> for <span class="math inline">t &lt;
-u</span>.</p>
-<p>The futures are determined by the forwards and volatilities; <span
-class="math inline">\phi(t) = f(t) + \sigma(t)^2 t^2/2</span>.</p>
-</section>
-</section>
-<section id="risky-bonds" class="level2">
-<h2>Risky Bonds</h2>
-<p>A <em>risky zero coupon bond</em> with <em>recovery</em> <span
-class="math inline">R</span> and <em>default time</em> <span
-class="math inline">T</span> has a single cash flow <span
-class="math inline">C_u = 1</span> if default occurs after maturity or
-<span class="math inline">C_T = R</span> if <span class="math inline">T
-\le u</span>. It is customary to assume <span
-class="math inline">R</span> is constant. As with American options, we
-must expand the sample space to <span class="math inline">Ω\times
-(0,\infty]</span> where <span class="math inline">(ω,t)\in Ω\times
-(0,\infty]</span> indicates default occured at time <span
-class="math inline">t</span>. The partition of <span
-class="math inline">(0\infty]</span> representing information available
-at time <span class="math inline">t</span> for the default time is <span
-class="math inline">\{(t,\infty]\} \cup \{\{s\}:s \le t\}</span>. If
-default has not occured prior to <span class="math inline">t</span> we
-only know <span class="math inline">T &gt; t</span>. If default occured
-prior to time <span class="math inline">t</span> we know exactly when it
-happened.</p>
-<p>We write <span class="math inline">D_t^{R,T}(u)</span> for the price
-<span class="math inline">X_t^{D^{R,T}(u)}</span> of the risky zero
-coupon bond at time <span class="math inline">t</span>. The dynamics of
-a risky zero are determined by <span class="math display">
-    D_t^{R,T}(u) D_t = E_t[R 1(T \le u) D_T + 1(T &gt; u) D_u].
-</span> The <em>credit spread</em> <span class="math inline">s_t =
-s_t^{R,T}(u)</span> defined by <span class="math inline">D_t^{R,T}(u) =
-D_t(u) e^{-u s_t}</span> incorporates both recovery and default.</p>
-<p>If rates are zero then <span class="math inline">D_t = 1</span> for
-all <span class="math inline">t</span> and this simplifies to <span
-class="math inline">D_0^{R,T}(u) = R P(T \le u) + P(T &gt; u)</span>
-when <span class="math inline">t = 0</span>. If <span
-class="math inline">T</span> is exponentially distributed with hazard
-rate <span class="math inline">λ</span> then <span
-class="math inline">P(T &gt; t) = e^{-λ t}</span> and <span
-class="math display">
-    D_0^{R,T}(u) = R + (1 - R)e^{-λu}.
-</span> When <span class="math inline">λ = 0</span> the right hand side
-is 1. When <span class="math inline">R = 0</span> the credit spread
-equals the hazard rate. If <span class="math inline">λu</span> is small
-then the approximation <span class="math inline">e^x \approx 1 +
-x</span> for small <span class="math inline">x</span> gives the rule of
-thumb <span class="math inline">s = λ(1 - R)</span> where <span
-class="math inline">s = s_0 = s_0^{R,T}(u)</span> is the credit
-spread.</p>
-<p>For general <span class="math inline">t</span> we have <span
-class="math display">
-    D_t^{R,T}(u) = R P(T \le u | T &gt; t) 1(t &lt; T \le u) + P(T &gt;
-u | T &gt; t) 1(T &gt; u).
-</span></p>
-<p>Unlike in the credit default swap market, mathematical finance
-literture likes to assume recovery is delayed until maturity. It is also
-popular to make the unrealistic assumption that default time is
-independent of the deflator. Under these assumptions we have <span
-class="math display">
-    D_t^{R,T}(u) = D_t(u)\bigl(R P(T \le u | T &gt; t) 1(t &lt; T \le u)
-+ P(T &gt; u | T &gt; t) 1(T &gt; u)\bigr).
-</span> In principal, <span class="math inline">R</span> could be random
-and joint distributions involving the default time and deflators could
-be specified.</p>
 </section>
 <hr/>
 <footer>

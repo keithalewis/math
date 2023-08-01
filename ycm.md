@@ -21,9 +21,13 @@ abstract: Continuously compounded stochastic forward rate
 Unlike the equity world where the menagerie of stock prices are like bees coming out of a hive,
 there is a single thread that ties together all fixed income instrument prices.
 The _continuously compounded stochastic forward rate_ $f_t$ corresponds quite closely
-to the SOFR rate. The Secured Overnight Funding Rate
-is based on the large volume of overnight repurchase agreements that actually trade in the market.
+to the SOFR rate. The Secured Overnight Financing Rate
+is based on the large volume of overnight repurchase agreements that actually trade in the market[^1].
 LIBOR was a term rate based on calling up traders and asking for their opinions.
+
+[^1]: On September 17, 2019 SOFR went from 2.43\% to 5.25\% and spiked to 10\% at one point
+during the trading day. This was very
+[disconcerting](https://www.federalreserve.gov/econres/notes/feds-notes/what-happened-in-money-markets-in-september-2019-20200227.html).
 
 ## Models
 
@@ -32,7 +36,6 @@ the continuously compounded stochastic forward rate $f_t$
 is the rate at which money can be borrowed or lent over an infinitesimal time period.
 Any amount $a\in\RR$ can be invested at time $t$ and return $a(1 + f_t\,dt) = a\exp(f_t dt)$ at
 time $t + dt$.
-
 Rolling over 1 unit invested at time 0 results in realized return $R_t = \exp(\int_0^t f_s\,ds)$ at time $t$.
 It is the price of a _money market_ account at time $t$.
 The _stochastic discount_ is $D_t = 1/R_t$.
@@ -53,16 +56,17 @@ cites!!!
 Holding an instrument entails _cash flows_ that, unlike prices, are almost always 0.
 Stocks have dividends, bonds have coupons,
 futures have periodic cash flows in the margin account.
-The price of a futures is always 0. They are naturally occuring martingales. 
+The price of a futures is always 0. Futures are naturally occuring martingales. 
 Money market accounts have no cash flows.
 
-In every arbitrage-free model prices $X_t$ and cash flows $C_t$ must satisfy
+In every [arbitrage-free model](um0.html) prices $X_t$ and cash flows $C_t$ must satisfy
 $$
 	X_t D_t = E_t[X_u D_u + \sum_{t < s \le u} C_s D_s],\quad t \le u.
 $$
-If an instrument has no cash flows then $X_t D_t$ is a martingale.
+If an instrument has no cash flows then $X_t D_t$ is a martingale, as
+Black, Scholes, and Merton demonstrated.
 If $X_u D_u$ goes to 0 as $u\to\infty$ then the price
-is the expected value of discounted future cash flows, just as
+is the expected value of discounted future cash flows, as
 Graham and Todd taught us.
 
 ## Zero Coupon Bond
@@ -108,32 +112,32 @@ Every fixed income model is determined by the stochastic forward rate.
 
 ## LIBOR Market Model
 
-The LIBOR market model assumes $f_t = \phi(t)\exp(\Sigma(t)\cdot B_t - \|\Sigma(t)\|^2t/2)$
-where $B_t$ is vector-valued Brownian motion and $\Sigma(t)$ is a vector valued function of time.
+The LIBOR market model assumes $f_t = \phi(t)\exp(\sigma(t)\cdot B_t - \|\sigma(t)\|^2t/2)$
+where $B_t$ is vector-valued Brownian motion and $\sigma(t)$ is a vector valued function of time.
 The futures quotes $\phi(t)$ can be observed in the market. If we have at-the-money
 call options with prices ${E[\max\{f_t - f(t), 0\}D_t]}$ then the implied volatility
-gives us $\|\Sigma(t)\|$. Swaption prices can be used to determine the convexity.
-A typical assumption is $\Sigma(t) = \sigma(t)(\cos\alpha(t), \sin\alpha(t))$ for some 
-functions $\sigma(t)$ and $\alpha(t)$. 
+gives us $\|\sigma(t)\|$. Swaption prices can be used to determine the convexity.
+A typical assumption is $\sigma(t) = s(t)(\cos\alpha(t), \sin\alpha(t))$ for some 
+functions $s(t)$ and $\alpha(t)$. 
 One felicitous feature of this parameterization is the futures quotes and options prices
-are independent of $\alpha(t)$ since $\|\Sigma(t)\| = \sigma(t)$.
+are independent of $\alpha(t)$ since $\|\sigma(t)\| = s(t)$.
 
 There is no closed-form formula for calculating $\Cov(f_t, D_t)$ in the LIBOR market model
 but there is for the Ho-Lee model.
 
-## Ho-Lee
+## [Ho-Lee](ho-lee.html)
 
 The Ho-Lee model specifies a stochastic forward rate
-$f_t = \phi(t) + \Sigma(t)\cdot B_t$ where $\phi(t)$ is the futures
-quote and $\Sigma(t)$ is the vector-valued volatility.
+$f_t = \phi(t) + \sigma(t)\cdot B_t$ where $\phi(t)$ is the futures
+quote and $\sigma(t)$ is the vector-valued volatility.
 
-__Exercise__. _Show for the Ho-Lee model with constant scalar volatility $\sigma = \Sigma(t)$_
+__Exercise__. _Show for the Ho-Lee model with constant scalar volatility $\sigma = \sigma(t)$_
 $$
 	D(t) =  \exp(-\int_0^t \phi(s)\,ds + \sigma^2 t^3/6)
 $$
 
 _Hint_: Use $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ for any normally distributed
-random variable and show ${\Var(\int_0^t B_s\,ds) = \int_0^t \int_0^t \Cov(B_s, B_u)\,ds\,du = t^3/3}$.
+random variable and show ${\Var(\int_0^t B_s\,ds) = \int_0^t \int_0^t \Cov(B_u, B_v)\,du\,dv = t^3/3}$.
 
 Since $D(t) = \exp(-\int_0^t f(s)\,ds)$ we have
 $f(t) = \phi(t) - \sigma^2 t^2/2$.

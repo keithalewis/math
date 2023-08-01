@@ -5,33 +5,26 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-06-28" />
+  <meta name="dcterms.date" content="2023-07-14" />
   <title>Yield Curve Models</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
+  
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -58,7 +51,7 @@
 <header id="title-block-header">
 <h1 class="title">Yield Curve Models</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 28, 2023</p>
+<p class="date">July 14, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Continuously compounded stochastic forward rate
@@ -69,9 +62,11 @@ bees coming out of a hive, there is a single thread that ties together
 all fixed income instrument prices. The <em>continuously compounded
 stochastic forward rate</em> <span class="math inline">f_t</span>
 corresponds quite closely to the SOFR rate. The Secured Overnight
-Funding Rate is based on the large volume of overnight repurchase
-agreements that actually trade in the market. LIBOR was a term rate
-based on calling up traders and asking for their opinions.</p>
+Financing Rate is based on the large volume of overnight repurchase
+agreements that actually trade in the market<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.
+LIBOR was a term rate based on calling up traders and asking for their
+opinions.</p>
 <section id="models" class="level2">
 <h2>Models</h2>
 <p>Using the mathematical fiction of continuous time trading, the
@@ -81,13 +76,12 @@ borrowed or lent over an infinitesimal time period. Any amount <span
 class="math inline">a\in\boldsymbol{R}</span> can be invested at time
 <span class="math inline">t</span> and return <span
 class="math inline">a(1 + f_t\,dt) = a\exp(f_t dt)</span> at time <span
-class="math inline">t + dt</span>.</p>
-<p>Rolling over 1 unit invested at time 0 results in realized return
-<span class="math inline">R_t = \exp(\int_0^t f_s\,ds)</span> at time
-<span class="math inline">t</span>. It is the price of a <em>money
-market</em> account at time <span class="math inline">t</span>. The
-<em>stochastic discount</em> is <span class="math inline">D_t =
-1/R_t</span>.</p>
+class="math inline">t + dt</span>. Rolling over 1 unit invested at time
+0 results in realized return <span class="math inline">R_t =
+\exp(\int_0^t f_s\,ds)</span> at time <span
+class="math inline">t</span>. It is the price of a <em>money market</em>
+account at time <span class="math inline">t</span>. The <em>stochastic
+discount</em> is <span class="math inline">D_t = 1/R_t</span>.</p>
 <!--
 Instruments have _prices_. Continuing the mathematial fiction, we assume
 any instrument with price $X_t$ can be bought or sold at any amount
@@ -102,19 +96,19 @@ cites!!!
 <p>Holding an instrument entails <em>cash flows</em> that, unlike
 prices, are almost always 0. Stocks have dividends, bonds have coupons,
 futures have periodic cash flows in the margin account. The price of a
-futures is always 0. They are naturally occuring martingales. Money
+futures is always 0. Futures are naturally occuring martingales. Money
 market accounts have no cash flows.</p>
-<p>In every arbitrage-free model prices <span
+<p>In every <a href="um0.html">arbitrage-free model</a> prices <span
 class="math inline">X_t</span> and cash flows <span
 class="math inline">C_t</span> must satisfy <span class="math display">
     X_t D_t = E_t[X_u D_u + \sum_{t &lt; s \le u} C_s D_s],\quad t \le
 u.
 </span> If an instrument has no cash flows then <span
-class="math inline">X_t D_t</span> is a martingale. If <span
-class="math inline">X_u D_u</span> goes to 0 as <span
-class="math inline">u\to\infty</span> then the price is the expected
-value of discounted future cash flows, just as Graham and Todd taught
-us.</p>
+class="math inline">X_t D_t</span> is a martingale, as Black, Scholes,
+and Merton demonstrated. If <span class="math inline">X_u D_u</span>
+goes to 0 as <span class="math inline">u\to\infty</span> then the price
+is the expected value of discounted future cash flows, as Graham and
+Todd taught us.</p>
 </section>
 <section id="zero-coupon-bond" class="level2">
 <h2>Zero Coupon Bond</h2>
@@ -173,42 +167,42 @@ rate.</p>
 <section id="libor-market-model" class="level2">
 <h2>LIBOR Market Model</h2>
 <p>The LIBOR market model assumes <span class="math inline">f_t =
-\phi(t)\exp(\Sigma(t)\cdot B_t - \|\Sigma(t)\|^2t/2)</span> where <span
+\phi(t)\exp(\sigma(t)\cdot B_t - \|\sigma(t)\|^2t/2)</span> where <span
 class="math inline">B_t</span> is vector-valued Brownian motion and
-<span class="math inline">\Sigma(t)</span> is a vector valued function
+<span class="math inline">\sigma(t)</span> is a vector valued function
 of time. The futures quotes <span class="math inline">\phi(t)</span> can
 be observed in the market. If we have at-the-money call options with
 prices <span class="math inline">{E[\max\{f_t - f(t), 0\}D_t]}</span>
 then the implied volatility gives us <span
-class="math inline">\|\Sigma(t)\|</span>. Swaption prices can be used to
+class="math inline">\|\sigma(t)\|</span>. Swaption prices can be used to
 determine the convexity. A typical assumption is <span
-class="math inline">\Sigma(t) = \sigma(t)(\cos\alpha(t),
+class="math inline">\sigma(t) = s(t)(\cos\alpha(t),
 \sin\alpha(t))</span> for some functions <span
-class="math inline">\sigma(t)</span> and <span
+class="math inline">s(t)</span> and <span
 class="math inline">\alpha(t)</span>. One felicitous feature of this
 parameterization is the futures quotes and options prices are
 independent of <span class="math inline">\alpha(t)</span> since <span
-class="math inline">\|\Sigma(t)\| = \sigma(t)</span>.</p>
+class="math inline">\|\sigma(t)\| = s(t)</span>.</p>
 <p>There is no closed-form formula for calculating <span
 class="math inline">\operatorname{Cov}(f_t, D_t)</span> in the LIBOR
 market model but there is for the Ho-Lee model.</p>
 </section>
 <section id="ho-lee" class="level2">
-<h2>Ho-Lee</h2>
+<h2><a href="ho-lee.html">Ho-Lee</a></h2>
 <p>The Ho-Lee model specifies a stochastic forward rate <span
-class="math inline">f_t = \phi(t) + \Sigma(t)\cdot B_t</span> where
+class="math inline">f_t = \phi(t) + \sigma(t)\cdot B_t</span> where
 <span class="math inline">\phi(t)</span> is the futures quote and <span
-class="math inline">\Sigma(t)</span> is the vector-valued
+class="math inline">\sigma(t)</span> is the vector-valued
 volatility.</p>
 <p><strong>Exercise</strong>. <em>Show for the Ho-Lee model with
 constant scalar volatility <span class="math inline">\sigma =
-\Sigma(t)</span></em> <span class="math display">
+\sigma(t)</span></em> <span class="math display">
     D(t) =  \exp(-\int_0^t \phi(s)\,ds + \sigma^2 t^3/6)
 </span></p>
 <p><em>Hint</em>: Use <span class="math inline">E[\exp(N)] = \exp(E[N] +
 \operatorname{Var}(N)/2)</span> for any normally distributed random
 variable and show <span class="math inline">{\operatorname{Var}(\int_0^t
-B_s\,ds) = \int_0^t \int_0^t \operatorname{Cov}(B_s, B_u)\,ds\,du =
+B_s\,ds) = \int_0^t \int_0^t \operatorname{Cov}(B_u, B_v)\,du\,dv =
 t^3/3}</span>.</p>
 <p>Since <span class="math inline">D(t) = \exp(-\int_0^t
 f(s)\,ds)</span> we have <span class="math inline">f(t) = \phi(t) -
@@ -233,6 +227,16 @@ $\Cov(f_t, D_t) = E[\exp(-\int_0^t \phi(s) + \sigma B_s\,ds)]\Cov(\sigma B_t,-\i
 = D(t)  \int_0^t \sigma^2 s\,ds = D(t)\sigma^2 t^2/2$.
 -->
 </section>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>On September 17, 2019 SOFR went from 2.43% to 5.25% and
+spiked to 10% at one point during the trading day. This was very <a
+href="https://www.federalreserve.gov/econres/notes/feds-notes/what-happened-in-money-markets-in-september-2019-20200227.html">disconcerting</a>.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
 <hr/>
 <footer>
 Return to <a href="index.html">index</a>.

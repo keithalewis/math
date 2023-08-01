@@ -1,4 +1,4 @@
-MKDN = $(wildcard [a-z]*.md) # do not publish _* files
+MKDN = $(sort $(wildcard [0-9a-z]*.md)) # do not publish _* files
 HTML = $(MKDN:.md=.html)
 PDF  = $(MKDN:.md=.pdf)
 DOCX = $(MKDN:.md=.docx)
@@ -39,7 +39,7 @@ FLAGS += -H HEADER.html
 	pandoc $(TEXFLAGS) $< -o $@
 
 index: $(MKDN)
-	./index.sh [a-z]*.md > index.html
+	./index.sh $(MKDN) > index.html
 
 docs: $(HTML) index
 	cp *.html math.css docs
