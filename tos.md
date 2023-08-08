@@ -16,6 +16,10 @@ abstract: Totally ordered streams.
 \newcommand{\skip}{\operatorname{skip}}
 \newcommand{\first}{\operatorname{first}}
 
+
+
+Let $\langle T,\le\rangle$ be a totally ordered set.
+
 If $S$ is a finite subset of a totally ordered set $T$
 let $\wedge S = \min\{s\in S\}$ and $\vee S = \max\{s\in S\}$.
 Define

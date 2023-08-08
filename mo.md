@@ -10,6 +10,9 @@ abstract: Associative binary operation with an identity
 \newcommand\cat[1]{\mathbf{#1}}
 \newcommand\RR{\boldsymbol{R}}
 \newcommand\o[1]{\overline{#1}}
+\newcommand\u[1]{\underline{#1}}
+\newcommand\dom{\operatorname{dom}}
+\newcommand\cod{\operatorname{cod}}
 
 If $a$, $b$, and $c$ are elements of a monoid then $(ab)c = a(bc)$
 so we can unambiguously write $abc$. This is the basis of the map-reduce
@@ -44,35 +47,43 @@ A monoid is _abelian_/_commutative_ if $m(a,b) = m(b,a)$ for $a,b\in M$.
 
 ## Examples
 
+Let $M$ be the set of real numbers $\RR$.
 Addition and multiplication are commutative with identity 0 and 1 respectivly.
-
 Minimum and maximum are commutative with identity $\infty$ and $-\infty$ respectively.
 
-Subsets of a set $S$ are a commutative monoid under union and intersection with
-identity $\emptyset$ and $S$ respectively.
+Subsets of a set $M$ are a commutative monoid under union and intersection with
+identity $\emptyset$ and $M$ respectively.
 
-String concatenation is not commutative with identity element the empty string.
+String concatenation forms a non-commutative monoid with identity element the empty string.
 
 Categories with a single object form a monoid. 
 A (small) _category_ is a partial monoid with
 left and right identities. A category $\cat{C}$ has a partial binary
 operation $\circ\colon\cat{C}\times\cat{C}\rightharpoonup\cat{C}$ and for
-every $f\in\cat{C}$ there exist left and right identities $e_f\in\cat{C}$
-with $e_f\circ f = f$ and ${}_f e\in\cat{C}$ with $f\circ {}_f e = f$.
+every $f\in\cat{C}$ there exist right and left identities
+${}_f e\in\cat{C}$ with $f\circ {}_f e = f$
+and
+$e_f\in\cat{C}$ with $e_f\circ f = f$.
+Using the usual category theory
+notation $f\colon A\to B$ where $A$ and $B$ are _objects_ with _arrow_ $f$
+we can identify ${_f}e$ with $A = \dom f$ and
+$e_f$ with $B = \cod f$. Objects are determined by arrows in category theory.
 
 ### Aggregation
 
-If $M$ is a commutative monoid define a function $m^+$ from finite subsets
-of $M$ to $M$ by $m^+(\{m_1,\ldots,m_n\}) = m_1 \cdots m_n$ when $m_j$
+If $M$ is a commutative monoid let $M^+$ be the collection of
+all finite subsets of $M$.
+Define a function $m^+\colon M^+\to M$
+by $m^+(\{m_1,\ldots,m_n\}) = m_1 \cdots m_n$ when $m_j$
 are distinct and $m^+(\emptyset) = e$, the monoid identity.
 
 __Exercise__. _Show this is well-defined_.
 
 _Hint_: This requires $M$ to be commutative.
 
-We can define a binary operation on disjoint finite subsets of $M$ to $M$ by $m^+(A,B) = m^+(A\cup B)$.
+We can define a binary operation on disjoint finite subsets of $M$ to $M$ by ${m^+(A,B) = m^+(A\cup B)}$.
 
-__Exercise__. _If $A,B\subseteq M$ are finite disjoint subsets show $m^+(A,B) = m^+(A)m^+(B)$_.
+__Exercise__. _If $A,B\subseteq M$ are finite disjoint subsets show ${m^+(A,B) = m^+(A)m^+(B)}$_.
 
 __Exercise__. _If $A,B,C\subseteq M$ are finite pairwise-disjoint subsets show
 $m^+(m^+(A, B), C) = m^+(A, m^+(B,C))$_.
@@ -87,12 +98,10 @@ m_1 \cdots m_n$ and $m^*(()) = e$, the monoid identity.
 
 __Exercise__. _Show $M^*$ is a monoid under $m^*$ with identity $(())$_.
 
-This does not require $M$ to be commutative.
-
 ### Equivalence Relation
 
 Equivalence relations are a generalization of equality.
-It is the case $a = a$, if $a = b$ then $b = a$ and if
+Equality satisfied $a = a$, if $a = b$ then $b = a$ and if
 $a = b$ and $b = c$ then $a = c$.
 
 An _equivalence relation_ on a set $S$ is a subset $R\subseteq S\times S$
@@ -104,29 +113,33 @@ if $R$ is an equivalence relation_.
 
 __Exercise__. _Show $I = \{(s,s)\mid s\in S\}$ is an equivalence relation_.
 
-_Hint_: $I$ is equality.
-
-The _equivalence class_ of $s\in S$ is $\o{s} = \{t\in S\mid sRt\}$.
-
-__Exercise__. _Show $s\in \o{s}$, $\o{s} = \o{t}$ if and only if $sRt$, and
-$\o{s}\cap\o{t} = \emptyset$ if $\o{s}\not=\o{t}$_.
+The _equivalence class_ of $s\in S$ is $\o{s} = \{s'\in S\mid sRs'\}$.
 
 __Exercise__. _Show $\o{S} = \{\o{s}\mid s\in S\}$ is a a _partition_ of $S$_.
 
 _Hint_: A partition of $S$ is a collection of pairwise disjoint sets
 whose union is $S$.
 
+__Exercise__. _If $\o{S} = \{S_i\}_{i\in I}$ is a partition of $S$
+show $sRs'$ if and only if $s,s'\in S_i$ for some $i\in I$ is
+an equivalence relation_.
+
+This shows equivalence relations on $S$ are in 1-1 correspondence with partitions of $S$. 
+
 ## Pivot Tables
 
-Pivot tables use monoids to aggregate data. Suppose we have tick data for
-stock prices $(t_j, X_j)$. This determines a function $X\colon T\to\RR$
-where $T = \{t_j\}$ are the trading times. We can partition $T$ by years,
-months, days, etc. The _high_ and _low_ price apply max and min to all stock
-prices falling in a given partition. The _open_ and _close_ price apply min
-and max to the times in a given partition and return the corresponding
-stock price.
+Pivot tables use monoids to aggregate data. Suppose we have tick data
+for stock prices $(t_j, s_j)$. 
+We can partition the trading times $\{t_j\}$
+by years, months, days, etc. The _high_ and _low_ price apply max
+and min to all stock prices falling in a given partition. The _open_
+and _close_ price apply min and max to the times in a given partition
+and return the corresponding stock price.
 
-Let $\mu\colon S\to M$ be a function where $S$ is a set and $M$ is a
-commutative monoid.
-If $\o{S}$ is a partition of $S$ define $\mu^+\colon\o{S}\to M$
-by $\mu^+(\o{s}) = $.
+The first step in creating a pivot table is to specify a function.
+For the example above define $S\colon T\to \RR$ by $S(t_j) = s_j$.
+If $\o{T}$ is a partition of $T$ and $\mu$ is a commutative binary opreration
+on $\RR$ define $\o{S}\colon \o{T}\to\RR$ by $\o{S}(\o{t}) = \mu^+(S(\o{t}))$.
+This is how high and low are defined using max and min on $\RR$ respectively.
+We can also define $\u{S}\colon \o{T}\to\RR$ by $\u{S}(\o{t}) = S(\mu^+(\o{t}))$.
+This is how open and close are defined using min and max on $T$ respectively.
