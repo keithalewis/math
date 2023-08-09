@@ -207,3 +207,22 @@ ${D = \zeta\cdot x = \int_\Omega \zeta\cdot X(\omega)\,d\Pi(\omega) = \Pi(\Omega
 is the cost of the bond, aka _discount_.  The measure ${P = \Pi/D}$ is
 positive and has mass 1 so ${x = E[XD]}$ if we pretend it is a probability
 measure.
+
+## Maximum Entropy
+
+The _entropy_ of a measure on a finite set $Ω = \{ω_j\}$ with $P(\{ω_j\}) = p_j$, $p_j \ge0$,
+is $H = -\sum_j p_j \log p_j$.
+
+$Φ = -\sum_j p_j \log p_j - λ(\sum_j p_j - 1) - μ'(E[X] - Rx)$
+
+$\partial Φ/\partial p_j = -1 - \log p_j - λp_j - μ_j X(ω_j)$
+
+$\partial Φ/\partial λ = \sum_j p_j - 1$
+
+$\partial Φ/\partial μ = E[X] - Rx$
+
+$p_j = \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+
+$1 = \sum_j p_j = \sum_j \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+
+$Rx = E[X] = \sum_j X(ω_j) \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$

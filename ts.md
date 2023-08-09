@@ -18,8 +18,8 @@ each instrument to purchase at $τ_j$.
 
 Consider the strategy of purchasing a stock when it goes below some level $L$
 then selling the stock when it goes above some level $H > L$.
-Let $(S < L) = \{(t,ω)\in Ω| S_t(ω) < L\}$ and
-$(S < H) = \{(t,ω)\in Ω| S_t(ω)\}$ where $S_t$ is the stock price at
+Let $(S < L) = \{(t,ω)\in [0,\infty)\times Ω| S_t(ω) < L\}$ and
+$(S < H) = \{(t,ω)\in [0,\infty)\times Ω| S_t(ω)\}$ where $S_t$ is the stock price at
 time $t$ and $ω$ is the outcome determining the stock trajectory.
 The first trading time is $τ_0(ω) = \inf\{t|S_t(ω) < L\}$ when we
 buy one share.
@@ -28,7 +28,7 @@ when we sell one share.
 
 If we have an increasing sequence of numbers $t_0 < t_1 < t_2 < \cdots$ let $I = \{t_j\}$.
 We can recover the sequence by defining $*I = \min\{t\in I\}$ and
-$+I = I>*I = \{t\in T\mid t > *I\}$. Clearly $t_0 = *I$, $t_1 = *(+I)$,
+$+I = I>*I = \{t\in I\mid t > *I\}$. Clearly $t_0 = *I$, $t_1 = *(+I)$,
 $t_2 = *(+(+I))$, etc.
 
 This can be generalized from a sequence of numbers to 
