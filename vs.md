@@ -11,9 +11,41 @@ abstract: Classified by dimension
 \newcommand\RR{\mb{R}}
 \newcommand\FF{\mb{F}}
 
-You are probably familiar with the vector space ${\RR^n = \{(x_1,\dots,x_n)\mid x_j\in\RR\}}$.
-It has a _scalar multiplication_ $(ax)_j = ax_j$ and _vector addition_
-$(x + y)_j = x_j + y_j$ where $a\in\RR$ and $x,y\in\RR^n$.
+If $A$ and $B$ are sets then $B^A = \{f\colon B\to A\}$ is the set of all functions from $B$ to $A$.
+
+The set of $n$-tuples of real numbers ${\RR^n = \{x = (x_1,\dots,x_n)\mid x_j\in\RR, 1\le j\le n\}}$ is 
+a _vector space_.
+Define _scalar multiplication_ $(ax)_j = ax_j$ and _vector addition_
+$(x + y)_j = x_j + y_j$ for $a\in\RR$ and $x,y\in\RR^n$.
+
+__Exercise__. _Show vector space addition is commutative and associative_.
+
+_Hint_: Show $x + y = y + x$ and $(x + y) + z = x + (y + z)$, $x,y,z\in\RR^n$
+follow from the corresponding properties of real numbers.
+
+Define $\bm{0} = (0, \ldots, 0)$.
+
+__Exercise__. _Show $x + \bm{0} = x$, $x\in\RR^n$_.
+
+This shows $\bm{0}$ is the _additive identity_.
+
+Define $-x$ by $-(x_1,\dots,x_n) = (-x_1,\ldots,-x_n)$.
+
+__Exercise__. _Show $x + (-x) = \bm{0}$, $x\in\RR^n$_.
+
+This shows $-x$ is the additive inverse of $x$.
+
+__Exercise__. _Show $1x = x$ and $a(bx) = (ab)x$, $a,b\in\RR$, $x\in\RR^n$_.
+
+__Exercise__. _Show $(a + b)x = ax + bx$ and $a(x + y) = ax + ay$, $a,b\in\RR$, $x,y\in\RR^n$_.
+
+Matrix $\RR^{n\times m}$.
+
+
+The _standard basis_ is $\{\delta^i\}_{i\in I}$ where
+$\delta^i\in \FF^I$ is defined by $\delta^i(j) = \delta_{ij}$, the Kronecker delta function,
+for $j\in I$,
+
 The _dot product_ $\cdot\colon\RR^n\times\RR^n\to\RR$ of two vectors is $x\cdot y = \sum_j x_j y_j$.
 
 __Exercise__. _Show $a(x\cdot y) = (ax)\cdot y = x\cdot(ay)$ and $(x + y)\cdot z = x\cdot z + y\cdot z$
@@ -56,10 +88,6 @@ under pointwise addition and scalar multiplication,
 $(x + y)(i) = x(i) + y(i)$ and $(ax)(i) = ax(i)$, $i\in I$, $x,y\in\FF^I$, $a\in\FF$.
 
 Dot product does not work in infinite dimensions.
-
-The _standard basis_ is $\{\delta^i\}_{i\in I}$ where
-$\delta^i\in \FF^I$ is defined by $\delta^i(j) = \delta_{ij}$, the Kronecker delta function,
-for $j\in I$,
 
 The _vector space dual_ of $\FF^I$ is $\FF_I = (\FF^I)^* = \{x^*\colon \FF^I\to\FF\}$.
 The _standard dual basis_ is $\{\delta_i\}_{i\in I}$ where
