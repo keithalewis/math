@@ -1,5 +1,5 @@
 ---
-title: Vector Space
+title: From $\bm{R}^n$ to Vector Spaces for Engineers
 author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
@@ -11,6 +11,18 @@ abstract: Classified by dimension
 \newcommand\RR{\mb{R}}
 \newcommand\FF{\mb{F}}
 
+My PhD involved infinite dimensional vector spaces so excuse me for being appalled
+by cartoon introductions to vector spaces floating around the internet these days.
+This note starts from tuples of $n$ real numbers, a.k.a $\RR^n$, that every engineer is familiar
+with and develops facts about vector spaces I have found useful in practice.
+I am deliberately ignoring the true but useless facts you find in most mathematical textbooks.
+Please don't tell my math collegues.
+
+Along the way you will pick up...
+
+dusl - X-ray
+
+tensor
 
 The set of $n$-tuples of real numbers ${\RR^n = \{x = (x_1,\dots,x_n)\mid x_j\in\RR, 1\le j\le n\}}$ is 
 a vector space.
@@ -46,7 +58,7 @@ __Exercise__. _Show $(a + b)x = ax + bx$ and $a(x + y) = ax + ay$, $a,b\in\RR$, 
 
 ## Vector Space
 
-A _vector space_ is a set $V$ with a binary operation $(x,y)\mapsto x + y$, $x,y\in V$,
+A _vector space_ is a set $V$ with a commutative group operation $(x,y)\mapsto x + y$, $x,y\in V$,
 and a scalar multiplication $(a, x)\mapsto ax$, $a\in\RR$ and $x\in V$, that satisfy the above properties.
 There are many vector spaces other than $\RR^n$.
 
@@ -54,7 +66,7 @@ __Exercise__. _Show $\RR^S$ is a vector space for any set $S$_.
 
 _Hint_: Recall if $A$ and $B$ are sets then $B^A = \{f\colon B\to A\}$ is the set of all functions from $B$ to $A$.
 
-A function $f\in\RR^S$ is _bounded_ if $\|f\| = \sup_{s\in S} |f(s)| < \infty$.
+A function $f\in\RR^S$ is _bounded_ if the _norm_ of $f$ defined by $\|f\| = \sup_{s\in S} |f(s)|$ is finite.
 
 __Exercise__. _Show the space of bounded functions on $S$, $B(S)$, is a vector space_.
 
@@ -65,7 +77,7 @@ __Exercise__. _Show the space of $n$ times differentiable functions on the inter
 is a vector space_.
 
 __Exercise__. _Show the solutions $x(t)$ of the homogeneous differential equation
-$\sum_{j=0}^n a_j x^{(j)}(t) = 0$ are a vector space_.
+$\sum_{j=0}^n a_j x^{(j)}(t) = 0$, $a_j\in\RR$, are a vector space_.
 
 __Exercise__. _Show $x + x = x$ implies $x = \bm{0}$ if $x$ is an element of a vector space_.
 
@@ -87,6 +99,8 @@ $$
 
 Note the proof uses only the vector space axioms distilled from the special case of $\RR^n$.
 Axioms are written in angle brackets and substitution in square brackets.
+This is trivial to prove for $x\in\RR^n$, but using only the vector space axioms
+allows us to consider a wider range of mathematical objects.
 
 ### Span
 
@@ -96,6 +110,22 @@ _linear combinations_ $\sum_j a_j x_j$, $a_j\in\RR$.
 __Exercise__. _Show the span of a set of vectors is a vector space_.
 
 A subset of a vector space that is also a vector space is a _subspace_.
+
+__Exercise__. _If $W$ is subspace of $V$ show $u\sim v$ defined by $u - v\in W$, $u,v\in V$,
+is an equivalence relation_.
+
+_Hint_: Show $v\sim v$, $u\sim v$ implies $v\sim u$, $u\sim v$ and $v\sim w$ imply $u\sim w$,
+$u,v,w\in V$.
+
+Translating a subspace $W$ by $v$ gives $v + W = \{v + w\mid w\in W\}$.
+
+__Exercise__. _If $W$ is subspace of $V$ show $u\sim v$ if and only if $u + W = v + W$_.
+
+The set of equvalence classes $V/W = \{v + W\mid v\in V\}$ can be made into a vectorspace.
+Define addition by $(u + W) + (v + W) = (u + v) + W$ and scalar multiplcation by
+$a(v + W) = av + W$, $a\in\RR$, $u, v\in V$.
+
+__Exercise__. _Show these definitions satisfy the vector space axioms_.
 
 ### Independent
 
@@ -108,7 +138,6 @@ then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
 ### Basis
 
 A _basis_ of a vector space $V$ is a set of vectors $\{x_i\}$ that are independent and span $V$.
-
 
 ## Matrix
 
@@ -129,9 +158,21 @@ If $V$ and $W$ are vector spaces then a _linear transformaton_ $T\colon V\to W$ 
 that preserves the vector space operations: $T(au + v) = aTu + Tv$,
 $a\in\RR$, $u,v\in V$.
 
+__Exericse__.  _If $T\colon V\to W$ is a linear transformation show $T\bm{0} = \bm{0}$_.
+
+_Hint_: Consider $T(\bm{0} + \bm{0})$ and use $v + v = v$ imples $v = \bm{0}$.
+
 __Exercise__. _The space of linear transformations from $V$ to $W$, $\mathcal{L}(V,W)$, is a vector space_.
 
 Define the _kernel_ $\ker T = \{v\in V\mid Tv = \bm{0}\}$ and _range_ $\ran T = \{Tv\mid v\in V\}$.
+
+__Exercise__. _If $T\colon V\to W$ is a linear transformation show
+$\ker T$ is a subspace of $V$ and $\ran T$ is a subspace of $W$_.
+
+__Exercise__. _If $T\colon V\to W$ is a linear transformation and $\ker T = \{\bm{o}\}$
+show $Tu = Tv$ implies $u = v$, $u,v\in V$_.
+
+_Hint_: Consider $T(u - v)$.
 
 <!--
 The _standard basis_ is $\{\delta^i\}_{i\in I}$ where
