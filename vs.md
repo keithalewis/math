@@ -4,25 +4,27 @@ author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
-abstract: Classified by dimension
+abstract: Axioms are more useful than particulars
 ...
 
 \newcommand\mb[1]{\boldsymbol{#1}}
 \newcommand\RR{\mb{R}}
 \newcommand\FF{\mb{F}}
 
+<!--
 My PhD involved infinite dimensional vector spaces so excuse me for being appalled
 by cartoon introductions to vector spaces floating around the internet these days.
-This note starts from tuples of $n$ real numbers, a.k.a $\RR^n$, that every engineer is familiar
-with and develops facts about vector spaces I have found useful in practice.
-I am deliberately ignoring the true but useless facts you find in most mathematical textbooks.
-Please don't tell my math collegues.
+-->
+This note starts from tuples of $n$ real numbers, a.k.a $\RR^n$,
+and develops facts about vector spaces engineers might find useful in practice.
+The exercises will teach you all the math you need to know. Try them
+before peeking at the solution.
 
-Along the way you will pick up...
+Along the way you will nail down some things you only have
+partial knowlege of, so far. The notion of row vector and column vector
+is a special case of the _dual_ of a vector space.
+This can be generlized to higher dimensions using _tensor_s. 
 
-dusl - X-ray
-
-tensor
 
 The set of $n$-tuples of real numbers ${\RR^n = \{x = (x_1,\dots,x_n)\mid x_j\in\RR, 1\le j\le n\}}$ is 
 a vector space.
@@ -102,6 +104,30 @@ Axioms are written in angle brackets and substitution in square brackets.
 This is trivial to prove for $x\in\RR^n$, but using only the vector space axioms
 allows us to consider a wider range of mathematical objects.
 
+### Subspace
+
+A subset of a vector space that is also a vector space is a _subspace_.
+If $W$ is a subspace of $V$ then we can factor $V$ into a sum of
+vector spaces $W$ and $V/W$ where ${V/W = \{v + W\mid v\in V\}}$
+and ${v + W = \{v + w\mid w\in W\}}$.
+
+Vector addition in $V/W$ is defined by
+by ${(u + W) + (v + W) = (u + v) + W}$ and scalar multiplcation by
+${a(v + W) = (av) + W}$, $a\in\RR$, $u, v\in V$.
+
+__Exercise__. _Show these definitions satisfy the vector space axioms_.
+
+The _outer sum_ of vector spaces $U$ and $V$ is denoted $U\oplus V$.
+Vector addition is defined by
+${(u\oplus v) + (u'\oplus v') = (u + u')\oplus(v + v')}$, $u, u'\in U$, $v, v'\in V$.
+Scalar multiplication is defined by
+${a(u\oplus v) = au \oplus av}$.
+
+__Exercise__. _Show these definitions satisfy the vector space axioms_.
+
+__Theorem__. _If $W$ is a subspace of $V$ then $V$ can be
+identified with $W\oplus V/W$_.
+
 ### Span
 
 The _span_ of a set of vectors $\{x_i\}_{i\in I}$ is the set of all finite
@@ -117,6 +143,9 @@ is an equivalence relation_.
 _Hint_: Show $v\sim v$, $u\sim v$ implies $v\sim u$, $u\sim v$ and $v\sim w$ imply $u\sim w$,
 $u,v,w\in V$.
 
+Equivalence relations pop up often. If $S$ is a set and $\sim$ is an equivalence
+relation on $S$ then the set of equivalence classes are a _partition_ of $S$.
+
 Translating a subspace $W$ by $v$ gives $v + W = \{v + w\mid w\in W\}$.
 
 __Exercise__. _If $W$ is subspace of $V$ show $u\sim v$ if and only if $u + W = v + W$_.
@@ -124,8 +153,6 @@ __Exercise__. _If $W$ is subspace of $V$ show $u\sim v$ if and only if $u + W = 
 The set of equvalence classes $V/W = \{v + W\mid v\in V\}$ can be made into a vectorspace.
 Define addition by $(u + W) + (v + W) = (u + v) + W$ and scalar multiplcation by
 $a(v + W) = av + W$, $a\in\RR$, $u, v\in V$.
-
-__Exercise__. _Show these definitions satisfy the vector space axioms_.
 
 ### Independent
 
