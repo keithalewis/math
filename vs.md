@@ -40,6 +40,12 @@ __Exercise__. _Show vector space addition is commutative and associative_.
 _Hint_: Show $x + y = y + x$ and $(x + y) + z = x + (y + z)$, $x,y,z\in\RR^n$
 follow from the corresponding properties of real numbers.
 
+<details><summary>Solution</summary>
+We have $(x + y)_j = x_j + y_j = y_j + x_j = (y + x)_j$ and
+$((x + y) + z)_j = (x + y)_j + z_j = (x_j + y_j) + z_j = x_j + (y_j + z_j) = x_j + (y + z)_j = (x + (y + z))_j$,
+$1\le j\le n$
+</details>
+
 A _semigroup_ is a binary operation that is associative.
 
 Define $\bm{0} = (0, \ldots, 0)$.
@@ -85,8 +91,8 @@ $$
 $$
 </details>
 
-Note the proof uses only the vector space axioms distilled from the special case of $\RR^n$.
 Axioms are written in angle brackets and substitution in square brackets.
+Note the proof uses only the vector space axioms distilled from the special case of $\RR^n$.
 This is trivial to prove for $x\in\RR^n$, but using only the vector space axioms
 allows us to consider a wider range of mathematical objects.
 
@@ -130,10 +136,10 @@ __Exercise__. _If $T\in\mathcal{L}(V, W)$ then $T\bm{0} = \bm{0}$_.
 
 _Hint_: Consider $T(\bm{0} + \bm{0})$ and use $v + v = v$ implies $v = 0$.
 
-
 ### Subspace
 
 A subset of a vector space that is also a vector space is a _subspace_.
+Subspaces allow us to factor a space into smaller vector spaces.
 
 For $T\in\mathcal{L}(V,W)$ define the _kernel_ $\ker T = \{v\in V\mid Tv =
 \bm{0}\}$ and _range_ $\ran T = \{Tv\mid v\in V\}$.
@@ -153,12 +159,26 @@ is an equivalence relation_.
 _Hint_: Show $v\sim v$, $u\sim v$ implies $v\sim u$, $u\sim v$ and $v\sim w$ imply $u\sim w$,
 $u,v,w\in V$.
 
+<details><summary>Solution</summary>
+Since $v - v = \bm{0}\in W$ (identity) we have $v\sim v$. If $u \sim v$ then
+${u - v\in W}$ so ${v - w = -(u - v)\in W}$ (inverse).
+If $u\sim v$ and $v\sim w$ then $u - v$ and $v - w$ belong to $W$ so
+${u - w = (u - v) + (v - w)\in W}$ (addition).
+</details>
+
 Equivalence relations pop up often. If $S$ is a set and $\sim$ is an equivalence
 relation on $S$ then the set of _equivalence classes_ are a _partition_ of $S$.
-The equivalence class of $x\in S$ is $[x] = \{y\in S\mid y\sim x\}$.
+The equivalence class of $x\in S$ is ${[x] = \{y\in S\mid y\sim x\}}$.
 
-__Exercise__. _Show $x\in [x]$ and either $[x] = [y]$ or $[x]\cap [y] = \emptyset$, $x,y\in S$_.
+__Exercise__. _Show $x\in [x]$ and for $x,y\in S$ either $[x] = [y]$ or $[x]\cap [y] = \emptyset$_.
 
+<details><summary>Solution</summary>
+Since $x\sim x$ we have $x\in [x]$.
+If $z\in [x]\cap[y]$ then $z\sim x$ and $z\sim y$ so $x\sim y$.
+If $u\in [x]$ then $u\sim x$ so $u\sim y$ and $u\in [y]$.
+Likewise, $[y]\subseteq [x]$ so $[x] = [y]$.
+
+</details>
 
 Translating a subspace $W$ by $v$ gives $v + W = \{v + w\mid w\in W\}$.
 
@@ -170,10 +190,9 @@ $a(v + W) = av + W$, $a\in\RR$, $u, v\in V$.
 
 __Exercise__. _Show $V/W$ is a vector space_.
 
-If $W$ is a subspace of $V$ then we can factor $V$ into a sum of $W$ and $V/W$.
-If $v\in V$ and $w\in W$ then $v = w + (v - w)$. 
+If $W$ is a subspace of $V$ then we can split $V$ into a sum of $W$ and $V/W$.
 
-???
+$0\to W\to V\to V/W\to 0$.
 
 ### Span
 
