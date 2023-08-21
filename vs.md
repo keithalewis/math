@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
-abstract: Axioms are more useful than particulars
+abstract: Axioms are more useful than accidents
 ...
 
 \newcommand\mb[1]{\boldsymbol{#1}}
@@ -23,8 +23,11 @@ before peeking at the solution.
 Along the way you will nail down some things you only have
 partial knowlege of, so far. The notion of row vector and column vector
 is a special case of the _dual_ of a vector space.
-This can be generlized to higher dimensions using _tensor_s. 
+This can be generlized to higher dimensions using _tensors_. 
 
+vector space, norm, inner product
+
+## $\RR^n$
 
 The set of $n$-tuples of real numbers ${\RR^n = \{x = (x_1,\dots,x_n)\mid x_j\in\RR, 1\le j\le n\}}$ is 
 a vector space.
@@ -68,9 +71,18 @@ __Exercise__. _Show $\RR^S$ is a vector space for any set $S$_.
 
 _Hint_: Recall if $A$ and $B$ are sets then $B^A = \{f\colon B\to A\}$ is the set of all functions from $B$ to $A$.
 
-A function $f\in\RR^S$ is _bounded_ if the _norm_ of $f$ defined by $\|f\| = \sup_{s\in S} |f(s)|$ is finite.
+Let $\RR^S_{00}$ be the set of functions $f\in\RR^S$ that are non-zero on a finite set of $s\in S$.
 
-__Exercise__. _Show the space of bounded functions on $S$, $B(S)$, is a vector space_.
+__Exercise__. _Show $\RR^S_{00}$ is a vector space_.
+
+A function $f\in\RR^S$ is _bounded_ if the _norm_ of $f$ defined by $\|f\| = \sup_{s\in S} |f(s)|$ is finite.
+The space of bounded functions on $S$ is $B(S) = \{f\in\RR^S\mid \|f\| < \infty\}$.
+
+__Exercise__. _Show $B(S)$, is a vector space_.
+
+The space of bounded functions $B(S)$ is a _metric space_ with distance ${d(f, g) = \|f - g\|}$.
+
+__Exercise__. _Show $d(f, g) = 0$ implies $f = g$ and $d(f,g) + d(g, h) \ge d(f, h)$, $f,g,h\in B(S)$_.
 
 __Exercise__. _Show the space of continuous functions on the interval $[a,b]$, $C([a,b])$,
 is a vector space_.
@@ -107,35 +119,6 @@ allows us to consider a wider range of mathematical objects.
 ### Subspace
 
 A subset of a vector space that is also a vector space is a _subspace_.
-If $W$ is a subspace of $V$ then we can factor $V$ into a sum of
-vector spaces $W$ and $V/W$ where ${V/W = \{v + W\mid v\in V\}}$
-and ${v + W = \{v + w\mid w\in W\}}$.
-
-Vector addition in $V/W$ is defined by
-by ${(u + W) + (v + W) = (u + v) + W}$ and scalar multiplcation by
-${a(v + W) = (av) + W}$, $a\in\RR$, $u, v\in V$.
-
-__Exercise__. _Show these definitions satisfy the vector space axioms_.
-
-The _outer sum_ of vector spaces $U$ and $V$ is denoted $U\oplus V$.
-Vector addition is defined by
-${(u\oplus v) + (u'\oplus v') = (u + u')\oplus(v + v')}$, $u, u'\in U$, $v, v'\in V$.
-Scalar multiplication is defined by
-${a(u\oplus v) = au \oplus av}$.
-
-__Exercise__. _Show these definitions satisfy the vector space axioms_.
-
-__Theorem__. _If $W$ is a subspace of $V$ then $V$ can be
-identified with $W\oplus V/W$_.
-
-### Span
-
-The _span_ of a set of vectors $\{x_i\}_{i\in I}$ is the set of all finite
-_linear combinations_ $\sum_j a_j x_j$, $a_j\in\RR$.
-
-__Exercise__. _Show the span of a set of vectors is a vector space_.
-
-A subset of a vector space that is also a vector space is a _subspace_.
 
 __Exercise__. _If $W$ is subspace of $V$ show $u\sim v$ defined by $u - v\in W$, $u,v\in V$,
 is an equivalence relation_.
@@ -144,15 +127,33 @@ _Hint_: Show $v\sim v$, $u\sim v$ implies $v\sim u$, $u\sim v$ and $v\sim w$ imp
 $u,v,w\in V$.
 
 Equivalence relations pop up often. If $S$ is a set and $\sim$ is an equivalence
-relation on $S$ then the set of equivalence classes are a _partition_ of $S$.
+relation on $S$ then the set of _equivalence classes_ are a _partition_ of $S$.
+The equivalence class of $x\in S$ is $[x] = \{y\in S\mid y\sim x\}$.
+
+__Exercise__. _Show $x\in [x]$ and either $[x] = [y]$ or $[x]\cap [y] = \emptyset$, $x,y\in S$_.
+
 
 Translating a subspace $W$ by $v$ gives $v + W = \{v + w\mid w\in W\}$.
 
 __Exercise__. _If $W$ is subspace of $V$ show $u\sim v$ if and only if $u + W = v + W$_.
 
-The set of equvalence classes $V/W = \{v + W\mid v\in V\}$ can be made into a vectorspace.
+The set of equvalence classes $V/W = \{v + W\mid v\in V\}$ can be made into a vector space.
 Define addition by $(u + W) + (v + W) = (u + v) + W$ and scalar multiplcation by
 $a(v + W) = av + W$, $a\in\RR$, $u, v\in V$.
+
+__Exercise__. _Show $V/W$ is a vector space_.
+
+If $W$ is a subspace of $V$ then we can factor $V$ into a sum of $W$ and $V/W$.
+If $v\in V$ and $w\in W$ then $v = w + (v - w)$. 
+
+???
+
+### Span
+
+The _span_ of a set of vectors $\{x_i\}_{i\in I}$ is the set of all finite
+_linear combinations_ $\sum_j a_j x_j$, $a_j\in\RR$.
+
+__Exercise__. _Show the span of a set of vectors is a vector space_.
 
 ### Independent
 
