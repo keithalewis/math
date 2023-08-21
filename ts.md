@@ -13,19 +13,43 @@ abstract: Primative operations
 The [Unified Model](um0.html) describes prices and cash flows.
 
 A _trading strategy_ is an increasing sequence of stopping times $τ_j$
-and functions $Γ_j\colon\AA_{τ_j}\to\RR^I$.
-For every $ω\in Ω$ $(τ_j(ω))$ is a finite, increasing sequence of times.
-We call this a _run_.
+and functions $Γ_j\colon\AA_{τ_j}\to\RR^I$ indicating how much of
+each instrument to purchase at $τ_j$.
 
-If $t$ is a run let $\{t\} = \{t_j\}$ be the set of times in the run $t$.
-If $u$ is another run let $t\sqcup u$ be the disjoint union of $\{t\}$ and
-$\{u\}$. Elements of the disjoint union have the form $(i, v)$ where
-$i$ is either 0 or 1. If $i = 0$ then $v\in\{t\}$ and if $i = 1$
-then $v\in\{u\}. The elements $(0, v)$ and $(1, v)$ for $v\in \{t\}\cap\{u\}$
-are distinct.
+Consider the strategy of purchasing a stock when it goes below some level $L$
+then selling the stock when it goes above some level $H > L$.
+Let $(S < L) = \{(t,ω)\in [0,\infty)\times Ω| S_t(ω) < L\}$ and
+$(S < H) = \{(t,ω)\in [0,\infty)\times Ω| S_t(ω)\}$ where $S_t$ is the stock price at
+time $t$ and $ω$ is the outcome determining the stock trajectory.
+The first trading time is $τ_0(ω) = \inf\{t|S_t(ω) < L\}$ when we
+buy one share.
+The second trading time is $τ_1(ω) = \inf\{t > τ_0(ω)|S_t(ω) > H\}$
+when we sell one share.
 
-Define an order on the disjoint union.
-by $(i, v) < (j,w)$ if and only if $v < w$ or $v = w$ and $i < j$.
+If we have an increasing sequence of numbers $t_0 < t_1 < t_2 < \cdots$ let $I = \{t_j\}$.
+We can recover the sequence by defining $*I = \min\{t\in I\}$ and
+$+I = I>*I = \{t\in I\mid t > *I\}$. Clearly $t_0 = *I$, $t_1 = *(+I)$,
+$t_2 = *(+(+I))$, etc.
 
-Trading strategies form a vector space. If $a\in\RR$ define $a(τ, Γ) = (τ, aΓ)$
-to scale all trades by $a$.
+This can be generalized from a sequence of numbers to 
+subsets of a totally ordered set. If $I$ is a subset of a totally ordered
+set define $*I = \inf\{t\in I\}$ and $+I = I > *I$. If $I$ has no
+accumulation points this determines a sequence $t_j = *(+^jI)$, $j\ge0$.
+
+Recall the _disjoint union_ of $I_0$ and $I_1$ is
+$(\{0\}\times I_0)\cup(\{1\}\times I_1)$. It has elements of the
+form $(j,i)$ where $j\in\{0,1\}$ and $i\in I_0$ if $j = 0$ and
+$i\in I_1$ if $j = 1$. If $i\in I_0\cup I_1$ then we don't know
+if $i$ belongs to $I_0$ or to $I_1$, or both.
+The disjoint union preserves this information.
+
+Let $I = (j, I_0\sqcup I_1)$, $j\in\{0,1\}$. Define $*I = (j, *I_j)$
+and 
+$$
+	+(j, I_0\sqcup I_1) = (j + 1\mod 2, (I_0 > *I_j)\sqcup (I_1 > *I_j)).
+$$
+
+Getting back to our trading example, we can define ${(S < L), (S > H)
+= (0, (S < L)\sqcup(S > H))}$.
+The first trade is determined by $(*(S < L), (S > H))(ω) = (0, τ_0(ω))$.
+The second trade is determined by $(*(+(S < L), (S > H)))(ω) = (1, τ_1(ω))$.

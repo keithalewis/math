@@ -12,7 +12,7 @@ abstract: Relation &ndash; comparing two things.
 \newcommand{\coker}{\operatorname{coker}}
 
 When are two things equivalent in some sense even if they are
-not equal?  Is one bigger than the other? Is it even possible to
+not equal?  Is one thing bigger than another? Is it even possible to
 compare them? Relations provide a systematic way to get insight into
 these questions.  Partial functions are a special case of relations and
 functions are a special case of partial functions.
@@ -39,36 +39,45 @@ The notation $R,$ is non-standard.
 
 ### Composition
 
-If $R\subseteq X\times Y$ and $Q\subseteq Y\times Z$ are relations define
-the _composition_ $QR\subseteq X\times Z$ by
-$x(QR)z$ if there exists $y\in Y$ with $xRy$ and $yQz$.
-It may seem more natural to denote the composition by $RQ$ instead
-of $QR$, and you would be right, but that is not the usual mathematical convention.
+If $R\subseteq X\times Y$ and $S\subseteq Y\times Z$ are relations define
+the _composition_ $SR\subseteq X\times Z$ by
+$x(SR)z$ if there exists $y\in Y$ with $xRy$ and $ySz$.
+It may seem more natural to denote the composition by $RS$ instead
+of $SR$, and you would be right, but that is not the usual mathematical convention.
 
-__Exercise__. _Show $x(QR)z$ if and only if the intersection of the cosets $xR$ and $Qz$ is nonempty_.
+__Exercise__. _Show $x(SR)z$ if and only if the intersection of the cosets $xR$ and $Sz$ is nonempty_.
+
+Composition is closely related to the E. F. Codd definition of the _join_ of two relations.
+The join of $R$ and $S$ on $Y$ is $\{(x,y,z)\mid xRy\text{ and } ySz\text{ for some }y\in Y\}$.
 
 ### Transpose
 
 The _transpose_ of a relation $R\subseteq X\times Y$
-is $R'\subseteq Y\times X$ defined by $yR'x = xRy$, $x\in X$, $y\in Y$.
+is the relation $R'\subseteq Y\times X$ defined by $yR'x = xRy$, $x\in X$, $y\in Y$.
 
-__Exercise__. _If $R$ is a relation on $X\times Y$ and $Q$ is
-a relation on $Y\times Z$ then $(QP)' = P'Q'$_.
+__Exercise__. _If $R$ is a relation on $X\times Y$ and $S$ is
+a relation on $Y\times Z$ then $(SR)' = R'S'$_.
 
 ### Associative
 
 Composition is _associative_.
 
-__Exercise__. _If $R\subseteq X\times Y$, $Q\subseteq Y\times Z$,
-and $P\subseteq Z\times W$ then $(PQ)R = P(QR)$_.
+__Exercise__. _If $R\subseteq X\times Y$, $S\subseteq Y\times Z$,
+and $T\subseteq Z\times W$ then $(TS)R = T(SR)$_.
+
+### Identity
+
+If $X$ is a set then the _identity_ relation is $I_X = I = \{(x,x)\mid x\in X\$}.
+
+__Exercise__. _If $R\subseteq X\times Y$ is a relation then $RI_X = R$_.
+
+__Exercise__. _If $T\subseteq W\times X$ is a relation then $I_XT = T$_.
 
 ## Properties
 
-A relation on a set $X$ is a subset $R\subseteq X\times X$.
-
+We say $R$ is a relation on $X$ if $R\subseteq X^2 = X\times X$.
 A relation on $X$ is _transitive_ if $xRy$ and $yRz$ implies $xRz$, $x,y,z\in X$.
-Transitivity is the basic notion of the overloaded word _ordering_.
-If $x$ is smaller than $y$ and $y$ is smaller then $z$ then $x$ is smaller than $z$.
+Transitivity is the basic notion of _ordering_.
 
 __Exercise__. _$R$ is transitive if and only if $R^2 = RR\subseteq R$_.
 
