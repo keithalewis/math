@@ -10,6 +10,7 @@ abstract: Axioms are more useful than accidents
 \newcommand\mb[1]{\boldsymbol{#1}}
 \newcommand\RR{\mb{R}}
 \newcommand\FF{\mb{F}}
+\newcommand\ran{\operatorname{ran}}
 
 <!--
 My PhD involved infinite dimensional vector spaces so excuse me for being appalled
@@ -65,6 +66,30 @@ __Exercise__. _Show $(a + b)x = ax + bx$ and $a(x + y) = ax + ay$, $a,b\in\RR$, 
 
 A _vector space_ is a set $V$ with a commutative group operation $(x,y)\mapsto x + y$, $x,y\in V$,
 and a scalar multiplication $(a, x)\mapsto ax$, $a\in\RR$ and $x\in V$, that satisfy the above properties.
+
+__Exercise__. _Show $x + x = x$ implies $x = \bm{0}$ if $x$ is an element of a vector space_.
+
+<details><summary>Solution</summary>
+$$
+\begin{aligned}
+	x + x &= x \\
+	&\langle a = b \text{ implies }a + c = b + c\rangle [a\leftarrow x + x, b\leftarrow x, c\leftarrow -x]\\
+	(x + x) + (-x) &= x + (-x) \\
+	&\langle (a + b) + c = a + (b + c)\rangle[a\leftarrow x, b\leftarrow x, c\leftarrow -x] \\
+	x + (x + (-x)) &= x + (-x) \\
+	&\langle a + (-a) = \bm{0}\rangle[a\leftarrow x\text{ twice}] \\
+	x + \bm{0} &= \bm{0} \\
+	&\langle a + \bm{0} = a\rangle[a\leftarrow x] \\
+	x &= \bm{0} \\
+\end{aligned}
+$$
+</details>
+
+Note the proof uses only the vector space axioms distilled from the special case of $\RR^n$.
+Axioms are written in angle brackets and substitution in square brackets.
+This is trivial to prove for $x\in\RR^n$, but using only the vector space axioms
+allows us to consider a wider range of mathematical objects.
+
 There are many vector spaces other than $\RR^n$.
 
 __Exercise__. _Show $\RR^S$ is a vector space for any set $S$_.
@@ -93,32 +118,34 @@ is a vector space_.
 __Exercise__. _Show the solutions $x(t)$ of the homogeneous differential equation
 $\sum_{j=0}^n a_j x^{(j)}(t) = 0$, $a_j\in\RR$, are a vector space_.
 
-__Exercise__. _Show $x + x = x$ implies $x = \bm{0}$ if $x$ is an element of a vector space_.
+Let $\mathcal{L}(V,W)$ be the set of all functions from the vector space $V$
+to the vector space $W$ that preserve vector space operations:
+$T(av) = a(Tv)$ and $T(u + v) = Tu + Tv$, $a\in\RR$, $u,v\in V$.
+For $S,T\in\mathcal{L}(V,W)$ define scalar multiplication $(aT)v = a(Tv)$
+and vector space addition $(S + T)v = Sv + Tv$, $a\in\RR$, $v\in V$.
 
-<details><summary>Solution</summary>
-$$
-\begin{aligned}
-	x + x &= x \\
-	&\langle a = b \text{ implies }a + c = b + c\rangle [a\leftarrow x + x, b\leftarrow x, c\leftarrow -x]\\
-	(x + x) + (-x) &= x + (-x) \\
-	&\langle (a + b) + c = a + (b + c)\rangle[a\leftarrow x, b\leftarrow x, c\leftarrow -x] \\
-	x + (x + (-x)) &= x + (-x) \\
-	&\langle a + (-a) = \bm{0}\rangle[a\leftarrow x\text{ twice}] \\
-	x + \bm{0} &= \bm{0} \\
-	&\langle a + \bm{0} = a\rangle[a\leftarrow x] \\
-	x &= \bm{0} \\
-\end{aligned}
-$$
-</details>
+__Exercise__. _Show $\mathcal{L}(V, W)$ is a vector space_.
 
-Note the proof uses only the vector space axioms distilled from the special case of $\RR^n$.
-Axioms are written in angle brackets and substitution in square brackets.
-This is trivial to prove for $x\in\RR^n$, but using only the vector space axioms
-allows us to consider a wider range of mathematical objects.
+__Exercise__. _If $T\in\mathcal{L}(V, W)$ then $T\bm{0} = \bm{0}$_.
+
+_Hint_: Consider $T(\bm{0} + \bm{0})$ and use $v + v = v$ implies $v = 0$.
+
 
 ### Subspace
 
 A subset of a vector space that is also a vector space is a _subspace_.
+
+For $T\in\mathcal{L}(V,W)$ define the _kernel_ $\ker T = \{v\in V\mid Tv =
+\bm{0}\}$ and _range_ $\ran T = \{Tv\mid v\in V\}$.
+
+__Exercise__. _Show $\ker T$ is a subspace of $V$ and $\ran T$ is a subspace of $W$_.
+
+__Exercise__. _If $T\colon V\to W$ is a linear transformation and $\ker T = \{\bm{o}\}$
+show $Tu = Tv$ implies $u = v$, $u,v\in V$_.
+
+_Hint_: Consider $T(u - v)$.
+
+In this case we say $T$ is _one-to-one_ or _injective_.
 
 __Exercise__. _If $W$ is subspace of $V$ show $u\sim v$ defined by $u - v\in W$, $u,v\in V$,
 is an equivalence relation_.
@@ -167,6 +194,7 @@ then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
 
 A _basis_ of a vector space $V$ is a set of vectors $\{x_i\}$ that are independent and span $V$.
 
+<!--
 ## Matrix
 
 A _matrix_ is an element $T\in\RR^{m\times n}$. We write $T = [t_{ij}]$, $1\le i\le m$, $1\le j\le n$
@@ -192,17 +220,6 @@ _Hint_: Consider $T(\bm{0} + \bm{0})$ and use $v + v = v$ imples $v = \bm{0}$.
 
 __Exercise__. _The space of linear transformations from $V$ to $W$, $\mathcal{L}(V,W)$, is a vector space_.
 
-Define the _kernel_ $\ker T = \{v\in V\mid Tv = \bm{0}\}$ and _range_ $\ran T = \{Tv\mid v\in V\}$.
-
-__Exercise__. _If $T\colon V\to W$ is a linear transformation show
-$\ker T$ is a subspace of $V$ and $\ran T$ is a subspace of $W$_.
-
-__Exercise__. _If $T\colon V\to W$ is a linear transformation and $\ker T = \{\bm{o}\}$
-show $Tu = Tv$ implies $u = v$, $u,v\in V$_.
-
-_Hint_: Consider $T(u - v)$.
-
-<!--
 The _standard basis_ is $\{\delta^i\}_{i\in I}$ where
 $\delta^i\in \FF^I$ is defined by $\delta^i(j) = \delta_{ij}$, the Kronecker delta function,
 for $j\in I$,
