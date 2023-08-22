@@ -7,7 +7,8 @@ classoption: fleqn
 abstract: Axioms are more useful than accidents
 ...
 
-\newcommand\mb[1]{\boldsymbol{#1}}
+%\newcommand\bm[1]{\boldsymbol{#1}}
+\newcommand\bm[1]{\mathbold{#1}}
 \newcommand\RR{\mb{R}}
 \newcommand\FF{\mb{F}}
 \newcommand\ran{\operatorname{ran}}
