@@ -19,15 +19,28 @@ by cartoon introductions to vector spaces floating around the internet these day
 -->
 This note starts from tuples of $n$ real numbers, a.k.a $\RR^n$,
 and develops facts about vector spaces engineers might find useful in practice.
+We unabashedly use mathematical proofs but keep the pesky details to a minimum.
 The exercises will teach you all the math you need to know. Try them
 before peeking at the solution.
 
 Along the way you will nail down some things you only have
 partial knowlege of, so far. The notion of row vector and column vector
 is a special case of the _dual_ of a vector space.
-This can be generlized to higher dimensions using _tensors_. 
+This can be generalized to higher dimensions using _tensors_. 
 
-vector space, norm, inner product
+A vector space is a _set_ satisfying _algebraic_ axioms.
+A _topological vector space_ is a vector space with a topology
+that defines the notion of _nearness_.
+A vector space _norm_ can be used to define a _metric_.
+If the vector space is _complete_ in this metric it is a _Banach space_.
+
+A vector space _inner product_ defines a norm and can be used to
+identify a vector space with its dual.
+If the vector space is _complete_ in this metric it is a _Hilbert space_.
+
+_Linear operators_ are functions between vector spaces preserving vector space operations.
+They are also vector spaces. 
+
 
 ## $\RR^n$
 
