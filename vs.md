@@ -1,5 +1,5 @@
 ---
-title: From $\bm{R}^n$ to Vector Spaces for Engineers
+title: From $\boldsymbol{R}^n$ to Vector Spaces for Engineers
 author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
@@ -7,8 +7,7 @@ classoption: fleqn
 abstract: Axioms are more useful than accidents
 ...
 
-%\newcommand\bm[1]{\boldsymbol{#1}}
-\newcommand\bm[1]{\mathbold{#1}}
+\newcommand\mb[1]{\boldsymbol{#1}}
 \newcommand\RR{\mb{R}}
 \newcommand\FF{\mb{F}}
 \newcommand\ran{\operatorname{ran}}
@@ -49,17 +48,17 @@ $1\le j\le n$
 
 A _semigroup_ is a binary operation that is associative.
 
-Define $\bm{0} = (0, \ldots, 0)$.
+Define $\mb{0} = (0, \ldots, 0)$.
 
-__Exercise__. _Show $x + \bm{0} = x$, $x\in\RR^n$_.
+__Exercise__. _Show $x + \mb{0} = x$, $x\in\RR^n$_.
 
-This shows $\bm{0}$ is the _additive identity_.
+This shows $\mb{0}$ is the _additive identity_.
 
 A _monoid_ is a semigroup having an identity element.
 
 Define $-x$ by $-(x_1,\dots,x_n) = (-x_1,\ldots,-x_n)$.
 
-__Exercise__. _Show $x + (-x) = \bm{0}$, $x\in\RR^n$_.
+__Exercise__. _Show $x + (-x) = \mb{0}$, $x\in\RR^n$_.
 
 This shows $-x$ is the additive inverse of $x$.
 
@@ -74,7 +73,7 @@ __Exercise__. _Show $(a + b)x = ax + bx$ and $a(x + y) = ax + ay$, $a,b\in\RR$, 
 A _vector space_ is a set $V$ with a commutative group operation $(x,y)\mapsto x + y$, $x,y\in V$,
 and a scalar multiplication $(a, x)\mapsto ax$, $a\in\RR$ and $x\in V$, that satisfy the above properties.
 
-__Exercise__. _Show $x + x = x$ implies $x = \bm{0}$ if $x$ is an element of a vector space_.
+__Exercise__. _Show $x + x = x$ implies $x = \mb{0}$ if $x$ is an element of a vector space_.
 
 <details><summary>Solution</summary>
 $$
@@ -84,10 +83,10 @@ $$
 	(x + x) + (-x) &= x + (-x) \\
 	&\langle (a + b) + c = a + (b + c)\rangle[a\leftarrow x, b\leftarrow x, c\leftarrow -x] \\
 	x + (x + (-x)) &= x + (-x) \\
-	&\langle a + (-a) = \bm{0}\rangle[a\leftarrow x\text{ twice}] \\
-	x + \bm{0} &= \bm{0} \\
-	&\langle a + \bm{0} = a\rangle[a\leftarrow x] \\
-	x &= \bm{0} \\
+	&\langle a + (-a) = \mb{0}\rangle[a\leftarrow x\text{ twice}] \\
+	x + \mb{0} &= \mb{0} \\
+	&\langle a + \mb{0} = a\rangle[a\leftarrow x] \\
+	x &= \mb{0} \\
 \end{aligned}
 $$
 </details>
@@ -133,9 +132,9 @@ and vector space addition $(S + T)v = Sv + Tv$, $a\in\RR$, $v\in V$.
 
 __Exercise__. _Show $\mathcal{L}(V, W)$ is a vector space_.
 
-__Exercise__. _If $T\in\mathcal{L}(V, W)$ then $T\bm{0} = \bm{0}$_.
+__Exercise__. _If $T\in\mathcal{L}(V, W)$ then $T\mb{0} = \mb{0}$_.
 
-_Hint_: Consider $T(\bm{0} + \bm{0})$ and use $v + v = v$ implies $v = 0$.
+_Hint_: Consider $T(\mb{0} + \mb{0})$ and use $v + v = v$ implies $v = 0$.
 
 ### Subspace
 
@@ -143,11 +142,11 @@ A subset of a vector space that is also a vector space is a _subspace_.
 Subspaces allow us to factor a space into smaller vector spaces.
 
 For $T\in\mathcal{L}(V,W)$ define the _kernel_ $\ker T = \{v\in V\mid Tv =
-\bm{0}\}$ and _range_ $\ran T = \{Tv\mid v\in V\}$.
+\mb{0}\}$ and _range_ $\ran T = \{Tv\mid v\in V\}$.
 
 __Exercise__. _Show $\ker T$ is a subspace of $V$ and $\ran T$ is a subspace of $W$_.
 
-__Exercise__. _If $T\colon V\to W$ is a linear transformation and $\ker T = \{\bm{o}\}$
+__Exercise__. _If $T\colon V\to W$ is a linear transformation and $\ker T = \{\mb{o}\}$
 show $Tu = Tv$ implies $u = v$, $u,v\in V$_.
 
 _Hint_: Consider $T(u - v)$.
@@ -161,7 +160,7 @@ _Hint_: Show $v\sim v$, $u\sim v$ implies $v\sim u$, $u\sim v$ and $v\sim w$ imp
 $u,v,w\in V$.
 
 <details><summary>Solution</summary>
-Since $v - v = \bm{0}\in W$ (identity) we have $v\sim v$. If $u \sim v$ then
+Since $v - v = \mb{0}\in W$ (identity) we have $v\sim v$. If $u \sim v$ then
 ${u - v\in W}$ so ${v - w = -(u - v)\in W}$ (inverse).
 If $u\sim v$ and $v\sim w$ then $u - v$ and $v - w$ belong to $W$ so
 ${u - w = (u - v) + (v - w)\in W}$ (addition).
@@ -205,9 +204,9 @@ __Exercise__. _Show the span of a set of vectors is a vector space_.
 ### Independent
 
 A set of vectors $\{x_i\}$ are _independent_ if for any finite _linear combination_
-$\sum_j a_j x_j = \bm{0}$, $a_j\in\RR$, we have $a_j = 0$ for all $j$.
+$\sum_j a_j x_j = \mb{0}$, $a_j\in\RR$, we have $a_j = 0$ for all $j$.
 
-__Exercise__. _If $\sum_j a_j x_j = \bm{0}$ and $a_j \not= 0$ for some $j$
+__Exercise__. _If $\sum_j a_j x_j = \mb{0}$ and $a_j \not= 0$ for some $j$
 then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
 
 ### Basis
@@ -234,9 +233,9 @@ If $V$ and $W$ are vector spaces then a _linear transformaton_ $T\colon V\to W$ 
 that preserves the vector space operations: $T(au + v) = aTu + Tv$,
 $a\in\RR$, $u,v\in V$.
 
-__Exericse__.  _If $T\colon V\to W$ is a linear transformation show $T\bm{0} = \bm{0}$_.
+__Exericse__.  _If $T\colon V\to W$ is a linear transformation show $T\mb{0} = \mb{0}$_.
 
-_Hint_: Consider $T(\bm{0} + \bm{0})$ and use $v + v = v$ imples $v = \bm{0}$.
+_Hint_: Consider $T(\mb{0} + \mb{0})$ and use $v + v = v$ imples $v = \mb{0}$.
 
 __Exercise__. _The space of linear transformations from $V$ to $W$, $\mathcal{L}(V,W)$, is a vector space_.
 
