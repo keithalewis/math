@@ -224,7 +224,8 @@ then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
 
 ### Basis
 
-A _basis_ of a vector space $V$ is a set of vectors $\{x_i\}$ that are independent and span $V$.
+A _basis_ of a vector space $V$ is a set of vectors $\{x_i\}_{i\in I}$ that are independent and span $V$.
+A basis lets us identify $V$ with $\RR^I$.
 
 <!--
 ## Matrix
