@@ -9,8 +9,8 @@ abstract: Axioms are more useful than accidents
 
 %\newcommand\bm[1]{\boldsymbol{#1}}
 \newcommand\bm[1]{\mathbold{#1}}
-\newcommand\RR{\mb{R}}
-\newcommand\FF{\mb{F}}
+\newcommand\RR{\bm{R}}
+\newcommand\FF{\bm{F}}
 \newcommand\ran{\operatorname{ran}}
 
 <!--
@@ -28,7 +28,11 @@ partial knowlege of, so far. The notion of row vector and column vector
 is a special case of the _dual_ of a vector space.
 This can be generalized to higher dimensions using _tensors_. 
 
-A vector space is a _set_ satisfying _algebraic_ axioms.
+_Linear operators_ are functions between vector spaces preserving vector space operations.
+They are also vector spaces. 
+The set of linear transformations from a vector space to $\RR$ is the _dual_
+of the vector space.
+
 A _topological vector space_ is a vector space with a topology
 that defines the notion of _nearness_.
 A vector space _norm_ can be used to define a _metric_.
@@ -38,8 +42,7 @@ A vector space _inner product_ defines a norm and can be used to
 identify a vector space with its dual.
 If the vector space is _complete_ in this metric it is a _Hilbert space_.
 
-_Linear operators_ are functions between vector spaces preserving vector space operations.
-They are also vector spaces. 
+basis, normal form
 
 
 ## $\RR^n$
@@ -304,3 +307,16 @@ The _vector space dual_ of $\FF^I$ is $\FF_I = (\FF^I)^* = \{x^*\colon \FF^I\to\
 The _standard dual basis_ is $\{\delta_i\}_{i\in I}$ where
 $\delta_i\in \FF_I$ is defined by $\delta_i(\delta^j) = \delta_{ij}$, $j\in I$,
 -->
+
+### Examples
+
+| x + a | - | x | = a, x large +
+  = 0, x large -
+
+What is the derivative of $\|x\|^p$? We assume $x\in\RR^n$
+and ${\|x\|^p = \sum_j |x_j|^p}$. We have
+$$
+\begin{aligned}
+	\|x + h\|^p - \|x\|^p &= \sum_j |x_j + h_j|^p - |x_j|^p \\
+\end{aligned}
+$$
