@@ -1,5 +1,5 @@
 ---
-title: From $\bm{R}^n$ to Vector Spaces for Engineers
+title: From $\bm{R}^n$ to Vector Spaces
 author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
@@ -7,8 +7,7 @@ classoption: fleqn
 abstract: Axioms are more useful than accidents
 ...
 
-%\newcommand\bm[1]{\boldsymbol{#1}}
-\newcommand\bm[1]{\mathbold{#1}}
+\newcommand\bm[1]{\boldsymbol{#1}}
 \newcommand\RR{\bm{R}}
 \newcommand\FF{\bm{F}}
 \newcommand\ran{\operatorname{ran}}
@@ -17,39 +16,28 @@ abstract: Axioms are more useful than accidents
 My PhD involved infinite dimensional vector spaces so excuse me for being appalled
 by cartoon introductions to vector spaces floating around the internet these days.
 -->
-This note starts from tuples of $n$ real numbers, a.k.a $\RR^n$,
-and develops facts about vector spaces engineers might find useful in practice.
-We unabashedly use mathematical proofs but keep the pesky details to a minimum.
-The exercises will teach you all the math you need to know. Try them
-before peeking at the solution.
 
-Along the way you will nail down some things you only have
-partial knowlege of, so far. The notion of row vector and column vector
-is a special case of the _dual_ of a vector space.
-This can be generalized to higher dimensions using _tensors_. 
+This note starts from tuples of $n$ real numbers, $\RR^n$, and develops
+facts about vector spaces useful in practice.
+We unabashedly use mathematical proofs but keep the pesky details
+to a minimum.  The exercises will teach you all the math you need to
+know. Try them before peeking at the solution.
 
-_Linear operators_ are functions between vector spaces preserving vector space operations.
-They are also vector spaces. 
-The set of linear transformations from a vector space to $\RR$ is the _dual_
-of the vector space.
+A vector space norm can be used to define a metric.
+If the vector space is complete under the metric it is a _Banach space_.
+A vector space inner product defines a norm.
+A _Hilbert space_ is a Banach space under the norm defined by the
+inner product.
 
-A _topological vector space_ is a vector space with a topology
-that defines the notion of _nearness_.
-A vector space _norm_ can be used to define a _metric_.
-If the vector space is _complete_ in this metric it is a _Banach space_.
-
-A vector space _inner product_ defines a norm and can be used to
-identify a vector space with its dual.
-If the vector space is _complete_ in this metric it is a _Hilbert space_.
-
-basis, normal form
-
+Linear operators are functons between vector spaces that respect
+the vector space structure. The linear operators between two
+vector spaces is also a vector space.
 
 ## $\RR^n$
 
-The set of $n$-tuples of real numbers ${\RR^n = \{x = (x_1,\dots,x_n)\mid x_j\in\RR, 1\le j\le n\}}$ is 
-a vector space.
-Define _scalar multiplication_ $(ax)_j = ax_j$ and _vector addition_
+The set of $n$-tuples of real numbers ${\RR^n = \{(x_1,\dots,x_n)\mid x_j\in\RR, 1\le j\le n\}}$ is 
+a vector space. If $x = (x_1,\dots,x_n)$ and $y = (y_1,\dots,y_n)$
+define _scalar multiplication_ $(ax)_j = ax_j$ and _vector addition_
 $(x + y)_j = x_j + y_j$ for $a\in\RR$ and $x,y\in\RR^n$.
 
 __Exercise__. _Show vector space addition is commutative and associative_.
@@ -65,7 +53,7 @@ $1\le j\le n$
 
 A _semigroup_ is a binary operation that is associative.
 
-Define $\bm{0} = (0, \ldots, 0)$.
+Define $\bm{0} = (0, \ldots, 0)\in\RR^n$.
 
 __Exercise__. _Show $x + \bm{0} = x$, $x\in\RR^n$_.
 
@@ -73,11 +61,9 @@ This shows $\bm{0}$ is the _additive identity_.
 
 A _monoid_ is a semigroup having an identity element.
 
-Define $-x$ by $-(x_1,\dots,x_n) = (-x_1,\ldots,-x_n)$.
+Define _additive inverse_ $-x$ by $-(x_1,\dots,x_n) = (-x_1,\ldots,-x_n)$.
 
 __Exercise__. _Show $x + (-x) = \bm{0}$, $x\in\RR^n$_.
-
-This shows $-x$ is the additive inverse of $x$.
 
 A _group_ is a monoid where every element has an inverse.
 
@@ -87,8 +73,12 @@ __Exercise__. _Show $(a + b)x = ax + bx$ and $a(x + y) = ax + ay$, $a,b\in\RR$, 
 
 ## Vector Space
 
-A _vector space_ is a set $V$ with a commutative group operation $(x,y)\mapsto x + y$, $x,y\in V$,
-and a scalar multiplication $(a, x)\mapsto ax$, $a\in\RR$ and $x\in V$, that satisfy the above properties.
+A _vector space_ is a set $V$ with a
+a scalar multiplication $(a, x)\mapsto ax$ and
+commutative group operation $(x,y)\mapsto x + y$, $x,y\in V$,
+$a\in\RR$ and $x\in V$, that satisfy the properties in the above exercises.
+
+This abstract definition allows us to consider vector spaces other than $\RR^n$.
 
 __Exercise__. _Show $x + x = x$ implies $x = \bm{0}$ if $x$ is an element of a vector space_.
 
@@ -109,15 +99,28 @@ $$
 </details>
 
 Axioms are written in angle brackets and substitution in square brackets.
-Note the proof uses only the vector space axioms distilled from the special case of $\RR^n$.
+Note the proof uses only the abstract vector space axioms distilled from the special case of $\RR^n$.
 This is trivial to prove for $x\in\RR^n$, but using only the vector space axioms
 allows us to consider a wider range of mathematical objects.
 
-There are many vector spaces other than $\RR^n$.
+### Examples
+
+If $A$ and $B$ are sets then the exponential $B^A = \{f\colon A\to B\}$ is the set
+of all functons from $A$ to $B$. 
+
+__Exercise__. _Show $\RR^n$ can be identified with $\RR^{\{1,\ldots,n\}}$_.
+
+_Hint_: $x = (x_1,\ldots,x_n)\in\RR^n$ can be identified with the
+function $x(i) = x_i$, $1\le i\le n$.
+
+Every finite-dimensional vector space can be identified with $\RR^I$
+where $I$ is a finite set. For $i\in I$ define $e_i\colon I\to\RR$ by
+$e_i(j) = δ_{ij}$, $i,j\in I$, where the _Kronecker delta_ $δ_{ij} = 0$
+if $i\not=j$ and $δ_{ij} = 1$ if $i=j$.
+
+__Exercise__. _Show $x\colon I\to\RR$ is $x = \sum_{i\in I} x(i) e_i$_.
 
 __Exercise__. _Show $\RR^S$ is a vector space for any set $S$_.
-
-_Hint_: Recall if $A$ and $B$ are sets then $B^A = \{f\colon B\to A\}$ is the set of all functions from $B$ to $A$.
 
 Let $\RR^S_{00}$ be the set of functions $f\in\RR^S$ that are non-zero on a finite set of $s\in S$.
 
@@ -128,18 +131,30 @@ The space of bounded functions on $S$ is $B(S) = \{f\in\RR^S\mid \|f\| < \infty\
 
 __Exercise__. _Show $B(S)$, is a vector space_.
 
-The space of bounded functions $B(S)$ is a _metric space_ with distance ${d(f, g) = \|f - g\|}$.
+__Exercise__. _Show $f\to\|f\|$ is a norm_.
 
-__Exercise__. _Show $d(f, g) = 0$ implies $f = g$ and $d(f,g) + d(g, h) \ge d(f, h)$, $f,g,h\in B(S)$_.
+_Hint_: Show $\|a f\| = |a|\|f\|$ and $\|f + g\| \le \|f\| + \|g\|$, $a\in\RR$, $f,g\in B(S)$.
+
+For any norm on a vector space we can define a metric by ${d(f, g) = \|f - g\|}$.
+
+__Exercise__. _Show $d$ is a metric_.
+
+_Hint_: Show $d(f, g) = 0$ implies $f = g$ and $d(f,g) + d(g, h) \ge d(f, h)$, $f,g,h\in B(S)$.
+
+???Banach space???
 
 __Exercise__. _Show the space of continuous functions on the interval $[a,b]$, $C([a,b])$,
 is a vector space_.
+
+__Exercise__. _Show $C([a,b])$ is contained in $B([a,b])$_.
 
 __Exercise__. _Show the space of $n$ times differentiable functions on the interval $[a,b]$, $C^{(n)}([a,b])$,
 is a vector space_.
 
 __Exercise__. _Show the solutions $x(t)$ of the homogeneous differential equation
 $\sum_{j=0}^n a_j x^{(j)}(t) = 0$, $a_j\in\RR$, are a vector space_.
+
+Note $C^{(n)}$ is contained in $C^{(n-1)}$.
 
 Let $\mathcal{L}(V,W)$ be the set of all functions from the vector space $V$
 to the vector space $W$ that preserve vector space operations:
@@ -152,6 +167,15 @@ __Exercise__. _Show $\mathcal{L}(V, W)$ is a vector space_.
 __Exercise__. _If $T\in\mathcal{L}(V, W)$ then $T\bm{0} = \bm{0}$_.
 
 _Hint_: Consider $T(\bm{0} + \bm{0})$ and use $v + v = v$ implies $v = 0$.
+
+__Exercise__. Show if $T(a u + b) = aTu + Tv$, $a\in\RR$, $u,v\in V$, then $T$ is linear_.
+
+_Hint_: Take $b = \bm{0}$ and $a = 1$.
+
+Define $T\colon C^{(n)}([a,b])\to C([a,b])$ by
+$Tx = \sum_{j=0}^n a_j x^{(j)}(t)$, where $a_j\in\RR$
+
+__Exercise__. _Show $T$ is a linear operator_.
 
 ### Subspace
 
@@ -228,14 +252,39 @@ then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
 
 ### Basis
 
-A _basis_ of a vector space $V$ is a set of vectors $\{x_i\}$ that are independent and span $V$.
+A _basis_ of a vector space $V$ is a set of vectors $\{e_i\}_{i\in I}$ in $V$ that are independent and span $V$.
+Every vector $v\in V$ can be written $v = \sum_{i\in I} a_i e_i$ for unique $a_i\in\RR$.
+
+__Exercise__. _If $\sum_{i\in I} a_i e_i = \sum_{i\in I} b_i e_i$ then $a_i = b_i$ for all $i$_.
+
+This shows we can identify $V$ with $\RR^I$.
+
+If $T\colon V\to W$ is a linear transformation, $\{e_i\}$ is a basis of $V$,
+and $\{f_j\}$ is a basis of $W$ then
+$Te_i = \sum_j t_{ij} f_f$ for unique $t_{ij}\in\RR$.
+This is the _matrix_ of $T$ under a basis for $V$ and $W$.
+
+$$
+\begin{bmatrix}
+λ_1 & 0 & \cdots & 0 \\
+0   & λ_2 & \cdots & 0 \\
+0   & 0   & \ddots & 0 \\
+0   & 0   & \cdots & λ_k \\
+\end{bmatrix}
+$$
+
+$$
+\begin{bmatrix}
+λ_1 I + J_{n_1} & 0 & \cdots & 0 \\
+0   & λ_2 I + J_{n_2} & \cdots & 0 \\
+0   & 0   & \ddots & 0 \\
+0   & 0   & \cdots & λ_k I + J_{n_k} \\
+\end{bmatrix}
+$$
 
 <!--
 ## Matrix
 
-A _matrix_ is an element $T\in\RR^{m\times n}$. We write $T = [t_{ij}]$, $1\le i\le m$, $1\le j\le n$
-for the matrix entries. If $x = (x_1,\ldots,x_n)\in\RR^n$ then
-$Tx = y = (y_1,\ldots,y_m)\in\RR^m$ where $y_i = \sum_{j=1}^n t_{ij} x_j$.
 
 __Exercise__. _Show $T(av) = a(Tv)$ and $T(v + w) = Tv + Tw$, $a\in\RR$, $v,w\in\R^n$_.
 
@@ -309,9 +358,6 @@ $\delta_i\in \FF_I$ is defined by $\delta_i(\delta^j) = \delta_{ij}$, $j\in I$,
 -->
 
 ### Examples
-
-| x + a | - | x | = a, x large +
-  = 0, x large -
 
 What is the derivative of $\|x\|^p$? We assume $x\in\RR^n$
 and ${\|x\|^p = \sum_j |x_j|^p}$. We have
