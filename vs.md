@@ -78,7 +78,8 @@ a scalar multiplication $(a, x)\mapsto ax$ and
 commutative group operation $(x,y)\mapsto x + y$, $x,y\in V$,
 $a\in\RR$ and $x\in V$, that satisfy the properties in the above exercises.
 
-This abstract definition allows us to consider vector spaces other than $\RR^n$.
+The abstract definition allows us to consider vector spaces other than $\RR^n$
+and clarify essential properties.
 
 __Exercise__. _Show $x + x = x$ implies $x = \bm{0}$ if $x$ is an element of a vector space_.
 
@@ -129,11 +130,12 @@ __Exercise__. _Show $\RR^S_{00}$ is a vector space_.
 A function $f\in\RR^S$ is _bounded_ if the _norm_ of $f$ defined by $\|f\| = \sup_{s\in S} |f(s)|$ is finite.
 The space of bounded functions on $S$ is $B(S) = \{f\in\RR^S\mid \|f\| < \infty\}$.
 
-__Exercise__. _Show $B(S)$, is a vector space_.
+__Exercise__. _Show $B(S)$ is a vector space_.
 
 __Exercise__. _Show $f\to\|f\|$ is a norm_.
 
-_Hint_: Show $\|a f\| = |a|\|f\|$ and $\|f + g\| \le \|f\| + \|g\|$, $a\in\RR$, $f,g\in B(S)$.
+_Hint_: Show $\|f\| = 0$ implies $f = 0$,
+$\|a f\| = |a|\|f\|$ and $\|f + g\| \le \|f\| + \|g\|$, $a\in\RR$, $f,g\in B(S)$.
 
 For any norm on a vector space we can define a metric by ${d(f, g) = \|f - g\|}$.
 
@@ -154,11 +156,16 @@ is a vector space_.
 __Exercise__. _Show the solutions $x(t)$ of the homogeneous differential equation
 $\sum_{j=0}^n a_j x^{(j)}(t) = 0$, $a_j\in\RR$, are a vector space_.
 
-Note $C^{(n)}$ is contained in $C^{(n-1)}$.
+Note $C^{(n)}([a,b])$ is contained in $C^{(n-1)}([a,b])$.
 
 Let $\mathcal{L}(V,W)$ be the set of all functions from the vector space $V$
 to the vector space $W$ that preserve vector space operations:
 $T(av) = a(Tv)$ and $T(u + v) = Tu + Tv$, $a\in\RR$, $u,v\in V$.
+
+__Exercise__. _Show if $T(a u + b) = aTu + Tv$, $a\in\RR$, $u,v\in V$, then $T$ is linear_.
+
+_Hint_: Take $b = \bm{0}$ and $a = 1$.
+
 For $S,T\in\mathcal{L}(V,W)$ define scalar multiplication $(aT)v = a(Tv)$
 and vector space addition $(S + T)v = Sv + Tv$, $a\in\RR$, $v\in V$.
 
@@ -168,9 +175,6 @@ __Exercise__. _If $T\in\mathcal{L}(V, W)$ then $T\bm{0} = \bm{0}$_.
 
 _Hint_: Consider $T(\bm{0} + \bm{0})$ and use $v + v = v$ implies $v = 0$.
 
-__Exercise__. Show if $T(a u + b) = aTu + Tv$, $a\in\RR$, $u,v\in V$, then $T$ is linear_.
-
-_Hint_: Take $b = \bm{0}$ and $a = 1$.
 
 Define $T\colon C^{(n)}([a,b])\to C([a,b])$ by
 $Tx = \sum_{j=0}^n a_j x^{(j)}(t)$, where $a_j\in\RR$
@@ -187,12 +191,45 @@ For $T\in\mathcal{L}(V,W)$ define the _kernel_ $\ker T = \{v\in V\mid Tv =
 
 __Exercise__. _Show $\ker T$ is a subspace of $V$ and $\ran T$ is a subspace of $W$_.
 
-__Exercise__. _If $T\colon V\to W$ is a linear transformation and $\ker T = \{\bm{o}\}$
+__Exercise__. _If $T\colon V\to W$ is a linear transformation and $\ker T = \{\bm{0}\}$
 show $Tu = Tv$ implies $u = v$, $u,v\in V$_.
 
 _Hint_: Consider $T(u - v)$.
 
 In this case we say $T$ is _one-to-one_ or _injective_.
+If $\ran T = W$ we say $T$ in _onto_ or _surjective_.
+It $T$ is both one-to-one and onto we say $T$ is an _isomorphism_ or _bijective_.
+
+Isomorphism is an _equivalence relation_ on vector spaces.
+We write $V\sim W$ if there exists an isomorphism $T\colon V\to W$.
+
+__Exercise__. _Show $V\sim V$, $V\sim W$ implies $W\sim V$,
+$U\sim V$ and $V\sim W$ imply $U\sim W$_.
+
+_Hint_: The identity map $I\colon V\to V$ is an isomorphism.
+If $T\colon V\to W$ is an isomorphism so is $T^{-1}W\to V$.
+If $S\colon U\to V$ and $T\colon V\to W$ are isomorphisms
+then the composition $TS\colon U\to W$ is an isomorphism.
+
+If $S$ is a set and $\sim$ is an equivalence
+relation on $S$ then the set of _equivalence classes_ are a _partition_ of $S$.
+The equivalence class of $x\in S$ is ${[x] = \{y\in S\mid y\sim x\}}$.
+
+__Exercise__. _Show $x\in [x]$ and for $x,y\in S$ either $[x]\cap [y] = \emptyset$
+or $[x] = [y]$_. 
+
+<details><summary>Solution</summary>
+Since $x\sim x$ we have $x\in [x]$.
+If $z\in [x]\cap[y]$ then $z\sim x$ and $z\sim y$ so $x\sim y$.
+If $u\in [x]$ then $u\sim x$ so $u\sim y$ and $u\in [y]$.
+Likewise, $[y]\subseteq [x]$ so $[x] = [y]$.
+</details>
+
+Equivalence relations are a generalization of equality.
+It might not be the case $x = y$ but $[x] = [y]$ satisfies
+the same laws as equality.
+
+A subspace of a vector space defines an equivalence relation. 
 
 __Exercise__. _If $W$ is subspace of $V$ show $u\sim v$ defined by $u - v\in W$, $u,v\in V$,
 is an equivalence relation_.
@@ -207,33 +244,18 @@ If $u\sim v$ and $v\sim w$ then $u - v$ and $v - w$ belong to $W$ so
 ${u - w = (u - v) + (v - w)\in W}$ (addition).
 </details>
 
-Equivalence relations pop up often. If $S$ is a set and $\sim$ is an equivalence
-relation on $S$ then the set of _equivalence classes_ are a _partition_ of $S$.
-The equivalence class of $x\in S$ is ${[x] = \{y\in S\mid y\sim x\}}$.
-
-__Exercise__. _Show $x\in [x]$ and for $x,y\in S$ either $[x] = [y]$ or $[x]\cap [y] = \emptyset$_.
-
-<details><summary>Solution</summary>
-Since $x\sim x$ we have $x\in [x]$.
-If $z\in [x]\cap[y]$ then $z\sim x$ and $z\sim y$ so $x\sim y$.
-If $u\in [x]$ then $u\sim x$ so $u\sim y$ and $u\in [y]$.
-Likewise, $[y]\subseteq [x]$ so $[x] = [y]$.
-
-</details>
-
 Translating a subspace $W$ by $v$ gives $v + W = \{v + w\mid w\in W\}$.
 
 __Exercise__. _If $W$ is subspace of $V$ show $u\sim v$ if and only if $u + W = v + W$_.
 
 The set of equvalence classes $V/W = \{v + W\mid v\in V\}$ can be made into a vector space.
-Define addition by $(u + W) + (v + W) = (u + v) + W$ and scalar multiplcation by
-$a(v + W) = av + W$, $a\in\RR$, $u, v\in V$.
+Define scalar multiplcation by $a(v + W) = av + W$ and
+addition by $(u + W) + (v + W) = (u + v) + W$, $a\in\RR$, $u, v\in V$.
 
 __Exercise__. _Show $V/W$ is a vector space_.
 
-If $W$ is a subspace of $V$ then we can split $V$ into a sum of $W$ and $V/W$.
-
-$0\to W\to V\to V/W\to 0$.
+If $V$ is a vector space and $W$ is a subspace then
+$V = W + V/W$ for some interpretation of $=$ and $+$.
 
 ### Span
 
