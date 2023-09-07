@@ -5,8 +5,8 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-05-15" />
-  <title>Mathematical Finance Manifesto</title>
+  <meta name="dcterms.date" content="2023-09-07" />
+  <title>Tax Loss Harvesting</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -32,45 +32,51 @@
   </script>
   <!-- End Matomo Code -->
 
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Mathematical Finance Manifesto</h1>
+<h1 class="title">Tax Loss Harvesting</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 15, 2023</p>
+<p class="date">September 7, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-Work remains to be done.
+Tax loss harvesting
 </div>
 </header>
-<p>Mathematical Finance has made Nobel Prize winning advances since the
-1950’s, but there is more to do.</p>
-<section id="review" class="level2">
-<h2>Review</h2>
-<p>Markowitz</p>
-<p>Black-Merton Scholes</p>
-<p>Stephen Ross</p>
-<p>Linzberger …</p>
-</section>
-<section id="critique" class="level2">
-<h2>Critique</h2>
-<p>Continuous time.</p>
-<p>Implicit assumptions. Optimization. Self-financing.</p>
-<p>Lack of knobs.</p>
-<p>Bid-ask spread.</p>
-<p>Entities.</p>
-<p>Dynamic hedging and cash flows.</p>
-</section>
-<section id="the-future" class="level2">
-<h2>The future</h2>
-<p>Clear trajectory.</p>
-<p>Monte Carlo simulation.</p>
-<p>Realtime analytics.</p>
-<p>Pivot tables. Reporting.</p>
-</section>
+<p>Let <span class="math inline">E_t</span> be the taxable earnings at
+time <span class="math inline">t</span>.</p>
+<p>Suppose an instrument was purchased at time <span
+class="math inline">t_0</span> at price <span
+class="math inline">P_{t_0}</span>. If it is sold at time <span
+class="math inline">t_1</span> for price <span
+class="math inline">P_{t_1}</span> the <em>gain</em> is <span
+class="math inline">P_{t_1} - P_{t_0}</span>. The tax <span
+class="math inline">\tau(\Delta t)</span>.</p>
+<p>Tax loss harvesting involves selling the instrument at time <span
+class="math inline">t_1</span> for price <span
+class="math inline">P_{t_1} &lt; P_{t_0}</span> and purchasing another
+instrument having price <span class="math inline">Q_{t_1}</span>.</p>
 <hr/>
 <footer>
 Return to <a href="index.html">index</a>.

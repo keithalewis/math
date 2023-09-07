@@ -5,26 +5,33 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-06-29" />
-  <title>Vector Space</title>
+  <meta name="dcterms.date" content="2023-09-07" />
+  <title>From \bm{R}^n to Vector Spaces</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -49,36 +56,510 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Vector Space</h1>
+<h1 class="title">From <span class="math inline">\bm{R}^n</span> to
+Vector Spaces</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 29, 2023</p>
+<p class="date">September 7, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-Classified by dimension
+Axioms are more useful than accidents
 </div>
 </header>
-<p>Let <span class="math inline">\mathit{F}</span> be a field and <span
-class="math inline">I</span> be a set. The <em>set exponential</em>
-<span class="math inline">\mathit{F}^I = \{x\colon
-I\to\mathit{R}\}</span> is a <em>vector space</em> under pointwise
-addition and scalar multiplication, <span class="math inline">(x + y)(i)
-= x(i) + y(i)</span> and <span class="math inline">(ax)(i) =
-ax(i)</span>, <span class="math inline">i\in I</span>, <span
-class="math inline">x,y\in\mathit{F}^I</span>, <span
-class="math inline">a\in\mathit{F}</span>.</p>
-<p>The <em>standard basis</em> is <span
-class="math inline">\{\delta^i\}_{i\in I}</span> where <span
-class="math inline">\delta^i\in \mathit{F}^I</span> is defined by <span
-class="math inline">\delta^i(j) = \delta_{ij}</span>, the Kronecker
-delta function, for <span class="math inline">j\in I</span>,</p>
-<p>The <em>vector space dual</em> of <span
-class="math inline">\mathit{F}^I</span> is <span
-class="math inline">\mathit{F}_I = (\mathit{F}^I)^* = \{x^*\colon
-\mathit{F}^I\to\mathit{F}\}</span>. The <em>standard dual basis</em> is
-<span class="math inline">\{\delta_i\}_{i\in I}</span> where <span
-class="math inline">\delta_i\in \mathit{F}_I</span> is defined by <span
-class="math inline">\delta_i(\delta^j) = \delta_{ij}</span>, <span
-class="math inline">j\in I</span>,</p>
+<!--
+My PhD involved infinite dimensional vector spaces so excuse me for being appalled
+by cartoon introductions to vector spaces floating around the internet these days.
+-->
+<p>This note starts from tuples of <span class="math inline">n</span>
+real numbers, <span class="math inline">\boldsymbol{R}^n</span>, and
+develops facts about vector spaces useful in practice. We unabashedly
+use mathematical proofs but keep the pesky details to a minimum. The
+exercises will teach you all the math you need to know. Try them before
+peeking at the solution.</p>
+<p>A vector space norm can be used to define a metric. If the vector
+space is complete under the metric it is a <em>Banach space</em>. A
+vector space inner product defines a norm. A <em>Hilbert space</em> is a
+Banach space under the norm defined by the inner product.</p>
+<p>Linear operators are functons between vector spaces that respect the
+vector space structure. The linear operators between two vector spaces
+is also a vector space.</p>
+<section id="boldsymbolrn" class="level2">
+<h2><span class="math inline">\boldsymbol{R}^n</span></h2>
+<p>The set of <span class="math inline">n</span>-tuples of real numbers
+<span class="math inline">{\boldsymbol{R}^n = \{(x_1,\dots,x_n)\mid
+x_j\in\boldsymbol{R}, 1\le j\le n\}}</span> is a vector space. If <span
+class="math inline">x = (x_1,\dots,x_n)</span> and <span
+class="math inline">y = (y_1,\dots,y_n)</span> define <em>scalar
+multiplication</em> <span class="math inline">(ax)_j = ax_j</span> and
+<em>vector addition</em> <span class="math inline">(x + y)_j = x_j +
+y_j</span> for <span class="math inline">a\in\boldsymbol{R}</span> and
+<span class="math inline">x,y\in\boldsymbol{R}^n</span>.</p>
+<p><strong>Exercise</strong>. <em>Show vector space addition is
+commutative and associative</em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">x + y = y + x</span>
+and <span class="math inline">(x + y) + z = x + (y + z)</span>, <span
+class="math inline">x,y,z\in\boldsymbol{R}^n</span> follow from the
+corresponding properties of real numbers.</p>
+<details>
+<summary>
+Solution
+</summary>
+We have <span class="math inline">(x + y)_j = x_j + y_j = y_j + x_j = (y
++ x)_j</span> and <span class="math inline">((x + y) + z)_j = (x + y)_j
++ z_j = (x_j + y_j) + z_j = x_j + (y_j + z_j) = x_j + (y + z)_j = (x +
+(y + z))_j</span>, <span class="math inline">1\le j\le n</span>
+</details>
+<p>A <em>semigroup</em> is a binary operation that is associative.</p>
+<p>Define <span class="math inline">\boldsymbol{0} = (0, \ldots,
+0)\in\boldsymbol{R}^n</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x +
+\boldsymbol{0} = x</span>, <span
+class="math inline">x\in\boldsymbol{R}^n</span></em>.</p>
+<p>This shows <span class="math inline">\boldsymbol{0}</span> is the
+<em>additive identity</em>.</p>
+<p>A <em>monoid</em> is a semigroup having an identity element.</p>
+<p>Define <em>additive inverse</em> <span class="math inline">-x</span>
+by <span class="math inline">-(x_1,\dots,x_n) =
+(-x_1,\ldots,-x_n)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x +
+(-x) = \boldsymbol{0}</span>, <span
+class="math inline">x\in\boldsymbol{R}^n</span></em>.</p>
+<p>A <em>group</em> is a monoid where every element has an inverse.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">1x =
+x</span> and <span class="math inline">a(bx) = (ab)x</span>, <span
+class="math inline">a,b\in\boldsymbol{R}</span>, <span
+class="math inline">x\in\boldsymbol{R}^n</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(a +
+b)x = ax + bx</span> and <span class="math inline">a(x + y) = ax +
+ay</span>, <span class="math inline">a,b\in\boldsymbol{R}</span>, <span
+class="math inline">x,y\in\boldsymbol{R}^n</span></em>.</p>
+</section>
+<section id="vector-space" class="level2">
+<h2>Vector Space</h2>
+<p>A <em>vector space</em> is a set <span class="math inline">V</span>
+with a a scalar multiplication <span class="math inline">(a, x)\mapsto
+ax</span> and commutative group operation <span
+class="math inline">(x,y)\mapsto x + y</span>, <span
+class="math inline">x,y\in V</span>, <span
+class="math inline">a\in\boldsymbol{R}</span> and <span
+class="math inline">x\in V</span>, that satisfy the properties in the
+above exercises.</p>
+<p>The abstract definition allows us to consider vector spaces other
+than <span class="math inline">\boldsymbol{R}^n</span> and clarify
+essential properties.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x + x =
+x</span> implies <span class="math inline">x = \boldsymbol{0}</span> if
+<span class="math inline">x</span> is an element of a vector
+space</em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math display">
+\begin{aligned}
+    x + x &amp;= x \\
+    &amp;\langle a = b \text{ implies }a + c = b + c\rangle [a\leftarrow
+x + x, b\leftarrow x, c\leftarrow -x]\\
+    (x + x) + (-x) &amp;= x + (-x) \\
+    &amp;\langle (a + b) + c = a + (b + c)\rangle[a\leftarrow x,
+b\leftarrow x, c\leftarrow -x] \\
+    x + (x + (-x)) &amp;= x + (-x) \\
+    &amp;\langle a + (-a) = \boldsymbol{0}\rangle[a\leftarrow x\text{
+twice}] \\
+    x + \boldsymbol{0} &amp;= \boldsymbol{0} \\
+    &amp;\langle a + \boldsymbol{0} = a\rangle[a\leftarrow x] \\
+    x &amp;= \boldsymbol{0} \\
+\end{aligned}
+</span>
+</details>
+<p>Axioms are written in angle brackets and substitution in square
+brackets. Note the proof uses only the abstract vector space axioms
+distilled from the special case of <span
+class="math inline">\boldsymbol{R}^n</span>. This is trivial to prove
+for <span class="math inline">x\in\boldsymbol{R}^n</span>, but using
+only the vector space axioms allows us to consider a wider range of
+mathematical objects.</p>
+<section id="examples" class="level3">
+<h3>Examples</h3>
+<p>If <span class="math inline">A</span> and <span
+class="math inline">B</span> are sets then the exponential <span
+class="math inline">B^A = \{f\colon A\to B\}</span> is the set of all
+functons from <span class="math inline">A</span> to <span
+class="math inline">B</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\boldsymbol{R}^n</span> can be identified with <span
+class="math inline">\boldsymbol{R}^{\{1,\ldots,n\}}</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">x =
+(x_1,\ldots,x_n)\in\boldsymbol{R}^n</span> can be identified with the
+function <span class="math inline">x(i) = x_i</span>, <span
+class="math inline">1\le i\le n</span>.</p>
+<p>Every finite-dimensional vector space can be identified with <span
+class="math inline">\boldsymbol{R}^I</span> where <span
+class="math inline">I</span> is a finite set. For <span
+class="math inline">i\in I</span> define <span
+class="math inline">e_i\colon I\to\boldsymbol{R}</span> by <span
+class="math inline">e_i(j) = δ_{ij}</span>, <span
+class="math inline">i,j\in I</span>, where the <em>Kronecker delta</em>
+<span class="math inline">δ_{ij} = 0</span> if <span
+class="math inline">i\not=j</span> and <span class="math inline">δ_{ij}
+= 1</span> if <span class="math inline">i=j</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x\colon
+I\to\boldsymbol{R}</span> is <span class="math inline">x = \sum_{i\in I}
+x(i) e_i</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\boldsymbol{R}^S</span> is a vector space for any
+set <span class="math inline">S</span></em>.</p>
+<p>Let <span class="math inline">\boldsymbol{R}^S_{00}</span> be the set
+of functions <span class="math inline">f\in\boldsymbol{R}^S</span> that
+are non-zero on a finite set of <span class="math inline">s\in
+S</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\boldsymbol{R}^S_{00}</span> is a vector
+space</em>.</p>
+<p>A function <span class="math inline">f\in\boldsymbol{R}^S</span> is
+<em>bounded</em> if the <em>norm</em> of <span
+class="math inline">f</span> defined by <span class="math inline">\|f\|
+= \sup_{s\in S} |f(s)|</span> is finite. The space of bounded functions
+on <span class="math inline">S</span> is <span class="math inline">B(S)
+= \{f\in\boldsymbol{R}^S\mid \|f\| &lt; \infty\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">B(S)</span> is a vector space</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">f\to\|f\|</span> is a norm</em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">\|f\| = 0</span>
+implies <span class="math inline">f = 0</span>, <span
+class="math inline">\|a f\| = |a|\|f\|</span> and <span
+class="math inline">\|f + g\| \le \|f\| + \|g\|</span>, <span
+class="math inline">a\in\boldsymbol{R}</span>, <span
+class="math inline">f,g\in B(S)</span>.</p>
+<p>For any norm on a vector space we can define a metric by <span
+class="math inline">{d(f, g) = \|f - g\|}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">d</span> is a metric</em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">d(f, g) = 0</span>
+implies <span class="math inline">f = g</span> and <span
+class="math inline">d(f,g) + d(g, h) \ge d(f, h)</span>, <span
+class="math inline">f,g,h\in B(S)</span>.</p>
+<p>???Banach space???</p>
+<p><strong>Exercise</strong>. <em>Show the space of continuous functions
+on the interval <span class="math inline">[a,b]</span>, <span
+class="math inline">C([a,b])</span>, is a vector space</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">C([a,b])</span> is contained in <span
+class="math inline">B([a,b])</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show the space of <span
+class="math inline">n</span> times differentiable functions on the
+interval <span class="math inline">[a,b]</span>, <span
+class="math inline">C^{(n)}([a,b])</span>, is a vector space</em>.</p>
+<p><strong>Exercise</strong>. <em>Show the solutions <span
+class="math inline">x(t)</span> of the homogeneous differential equation
+<span class="math inline">\sum_{j=0}^n a_j x^{(j)}(t) = 0</span>, <span
+class="math inline">a_j\in\boldsymbol{R}</span>, are a vector
+space</em>.</p>
+<p>Note <span class="math inline">C^{(n)}([a,b])</span> is contained in
+<span class="math inline">C^{(n-1)}([a,b])</span>.</p>
+<p>Let <span class="math inline">\mathcal{L}(V,W)</span> be the set of
+all functions from the vector space <span class="math inline">V</span>
+to the vector space <span class="math inline">W</span> that preserve
+vector space operations: <span class="math inline">T(av) = a(Tv)</span>
+and <span class="math inline">T(u + v) = Tu + Tv</span>, <span
+class="math inline">a\in\boldsymbol{R}</span>, <span
+class="math inline">u,v\in V</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">T(a
+u + b) = aTu + Tv</span>, <span
+class="math inline">a\in\boldsymbol{R}</span>, <span
+class="math inline">u,v\in V</span>, then <span
+class="math inline">T</span> is linear</em>.</p>
+<p><em>Hint</em>: Take <span class="math inline">b =
+\boldsymbol{0}</span> and <span class="math inline">a = 1</span>.</p>
+<p>For <span class="math inline">S,T\in\mathcal{L}(V,W)</span> define
+scalar multiplication <span class="math inline">(aT)v = a(Tv)</span> and
+vector space addition <span class="math inline">(S + T)v = Sv +
+Tv</span>, <span class="math inline">a\in\boldsymbol{R}</span>, <span
+class="math inline">v\in V</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\mathcal{L}(V, W)</span> is a vector space</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">T\in\mathcal{L}(V, W)</span> then <span
+class="math inline">T\boldsymbol{0} = \boldsymbol{0}</span></em>.</p>
+<p><em>Hint</em>: Consider <span class="math inline">T(\boldsymbol{0} +
+\boldsymbol{0})</span> and use <span class="math inline">v + v =
+v</span> implies <span class="math inline">v = 0</span>.</p>
+<p>Define <span class="math inline">T\colon C^{(n)}([a,b])\to
+C([a,b])</span> by <span class="math inline">Tx = \sum_{j=0}^n a_j
+x^{(j)}(t)</span>, where <span
+class="math inline">a_j\in\boldsymbol{R}</span></p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">T</span> is a linear operator</em>.</p>
+</section>
+<section id="subspace" class="level3">
+<h3>Subspace</h3>
+<p>A subset of a vector space that is also a vector space is a
+<em>subspace</em>. Subspaces allow us to factor a space into smaller
+vector spaces.</p>
+<p>For <span class="math inline">T\in\mathcal{L}(V,W)</span> define the
+<em>kernel</em> <span class="math inline">\ker T = \{v\in V\mid Tv =
+\boldsymbol{0}\}</span> and <em>range</em> <span
+class="math inline">\operatorname{ran}T = \{Tv\mid v\in V\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\ker
+T</span> is a subspace of <span class="math inline">V</span> and <span
+class="math inline">\operatorname{ran}T</span> is a subspace of <span
+class="math inline">W</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">T\colon
+V\to W</span> is a linear transformation and <span
+class="math inline">\ker T = \{\boldsymbol{0}\}</span> show <span
+class="math inline">Tu = Tv</span> implies <span class="math inline">u =
+v</span>, <span class="math inline">u,v\in V</span></em>.</p>
+<p><em>Hint</em>: Consider <span class="math inline">T(u -
+v)</span>.</p>
+<p>In this case we say <span class="math inline">T</span> is
+<em>one-to-one</em> or <em>injective</em>. If <span
+class="math inline">\operatorname{ran}T = W</span> we say <span
+class="math inline">T</span> in <em>onto</em> or <em>surjective</em>. It
+<span class="math inline">T</span> is both one-to-one and onto we say
+<span class="math inline">T</span> is an <em>isomorphism</em> or
+<em>bijective</em>.</p>
+<p>Isomorphism is an <em>equivalence relation</em> on vector spaces. We
+write <span class="math inline">V\sim W</span> if there exists an
+isomorphism <span class="math inline">T\colon V\to W</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">V\sim
+V</span>, <span class="math inline">V\sim W</span> implies <span
+class="math inline">W\sim V</span>, <span class="math inline">U\sim
+V</span> and <span class="math inline">V\sim W</span> imply <span
+class="math inline">U\sim W</span></em>.</p>
+<p><em>Hint</em>: The identity map <span class="math inline">I\colon
+V\to V</span> is an isomorphism. If <span class="math inline">T\colon
+V\to W</span> is an isomorphism so is <span
+class="math inline">T^{-1}W\to V</span>. If <span
+class="math inline">S\colon U\to V</span> and <span
+class="math inline">T\colon V\to W</span> are isomorphisms then the
+composition <span class="math inline">TS\colon U\to W</span> is an
+isomorphism.</p>
+<p>If <span class="math inline">S</span> is a set and <span
+class="math inline">\sim</span> is an equivalence relation on <span
+class="math inline">S</span> then the set of <em>equivalence
+classes</em> are a <em>partition</em> of <span
+class="math inline">S</span>. The equivalence class of <span
+class="math inline">x\in S</span> is <span class="math inline">{[x] =
+\{y\in S\mid y\sim x\}}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x\in
+[x]</span> and for <span class="math inline">x,y\in S</span> either
+<span class="math inline">[x]\cap [y] = \emptyset</span> or <span
+class="math inline">[x] = [y]</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+Since <span class="math inline">x\sim x</span> we have <span
+class="math inline">x\in [x]</span>. If <span class="math inline">z\in
+[x]\cap[y]</span> then <span class="math inline">z\sim x</span> and
+<span class="math inline">z\sim y</span> so <span
+class="math inline">x\sim y</span>. If <span class="math inline">u\in
+[x]</span> then <span class="math inline">u\sim x</span> so <span
+class="math inline">u\sim y</span> and <span class="math inline">u\in
+[y]</span>. Likewise, <span class="math inline">[y]\subseteq [x]</span>
+so <span class="math inline">[x] = [y]</span>.
+</details>
+<p>Equivalence relations are a generalization of equality. It might not
+be the case <span class="math inline">x = y</span> but <span
+class="math inline">[x] = [y]</span> satisfies the same laws as
+equality.</p>
+<p>A subspace of a vector space defines an equivalence relation.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">W</span>
+is subspace of <span class="math inline">V</span> show <span
+class="math inline">u\sim v</span> defined by <span
+class="math inline">u - v\in W</span>, <span class="math inline">u,v\in
+V</span>, is an equivalence relation</em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">v\sim v</span>, <span
+class="math inline">u\sim v</span> implies <span
+class="math inline">v\sim u</span>, <span class="math inline">u\sim
+v</span> and <span class="math inline">v\sim w</span> imply <span
+class="math inline">u\sim w</span>, <span class="math inline">u,v,w\in
+V</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+Since <span class="math inline">v - v = \boldsymbol{0}\in W</span>
+(identity) we have <span class="math inline">v\sim v</span>. If <span
+class="math inline">u \sim v</span> then <span class="math inline">{u -
+v\in W}</span> so <span class="math inline">{v - w = -(u - v)\in
+W}</span> (inverse). If <span class="math inline">u\sim v</span> and
+<span class="math inline">v\sim w</span> then <span
+class="math inline">u - v</span> and <span class="math inline">v -
+w</span> belong to <span class="math inline">W</span> so <span
+class="math inline">{u - w = (u - v) + (v - w)\in W}</span> (addition).
+</details>
+<p>Translating a subspace <span class="math inline">W</span> by <span
+class="math inline">v</span> gives <span class="math inline">v + W = \{v
++ w\mid w\in W\}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">W</span>
+is subspace of <span class="math inline">V</span> show <span
+class="math inline">u\sim v</span> if and only if <span
+class="math inline">u + W = v + W</span></em>.</p>
+<p>The set of equvalence classes <span class="math inline">V/W = \{v +
+W\mid v\in V\}</span> can be made into a vector space. Define scalar
+multiplcation by <span class="math inline">a(v + W) = av + W</span> and
+addition by <span class="math inline">(u + W) + (v + W) = (u + v) +
+W</span>, <span class="math inline">a\in\boldsymbol{R}</span>, <span
+class="math inline">u, v\in V</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">V/W</span> is a vector space</em>.</p>
+<p>If <span class="math inline">V</span> is a vector space and <span
+class="math inline">W</span> is a subspace then <span
+class="math inline">V = W + V/W</span> for some interpretation of <span
+class="math inline">=</span> and <span class="math inline">+</span>.</p>
+</section>
+<section id="span" class="level3">
+<h3>Span</h3>
+<p>The <em>span</em> of a set of vectors <span
+class="math inline">\{x_i\}_{i\in I}</span> is the set of all finite
+<em>linear combinations</em> <span class="math inline">\sum_j a_j
+x_j</span>, <span class="math inline">a_j\in\boldsymbol{R}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the span of a set of vectors is a
+vector space</em>.</p>
+</section>
+<section id="independent" class="level3">
+<h3>Independent</h3>
+<p>A set of vectors <span class="math inline">\{x_i\}</span> are
+<em>independent</em> if for any finite <em>linear combination</em> <span
+class="math inline">\sum_j a_j x_j = \boldsymbol{0}</span>, <span
+class="math inline">a_j\in\boldsymbol{R}</span>, we have <span
+class="math inline">a_j = 0</span> for all <span
+class="math inline">j</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">\sum_j
+a_j x_j = \boldsymbol{0}</span> and <span class="math inline">a_j \not=
+0</span> for some <span class="math inline">j</span> then the span of
+<span class="math inline">\{x_i\}_{i\in I}</span> equals the span of
+<span class="math inline">\{x_i\}_{i\not=j}</span></em>.</p>
+</section>
+<section id="basis" class="level3">
+<h3>Basis</h3>
+<p>A <em>basis</em> of a vector space <span class="math inline">V</span>
+is a set of vectors <span class="math inline">\{e_i\}_{i\in I}</span> in
+<span class="math inline">V</span> that are independent and span <span
+class="math inline">V</span>. Every vector <span
+class="math inline">v\in V</span> can be written <span
+class="math inline">v = \sum_{i\in I} a_i e_i</span> for unique <span
+class="math inline">a_i\in\boldsymbol{R}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\sum_{i\in I} a_i e_i = \sum_{i\in I} b_i e_i</span>
+then <span class="math inline">a_i = b_i</span> for all <span
+class="math inline">i</span></em>.</p>
+<p>This shows we can identify <span class="math inline">V</span> with
+<span class="math inline">\boldsymbol{R}^I</span>.</p>
+<p>If <span class="math inline">T\colon V\to W</span> is a linear
+transformation, <span class="math inline">\{e_i\}</span> is a basis of
+<span class="math inline">V</span>, and <span
+class="math inline">\{f_j\}</span> is a basis of <span
+class="math inline">W</span> then <span class="math inline">Te_i =
+\sum_j t_{ij} f_f</span> for unique <span
+class="math inline">t_{ij}\in\boldsymbol{R}</span>. This is the
+<em>matrix</em> of <span class="math inline">T</span> under a basis for
+<span class="math inline">V</span> and <span
+class="math inline">W</span>.</p>
+<p><span class="math display">
+\begin{bmatrix}
+λ_1 &amp; 0 &amp; \cdots &amp; 0 \\
+0   &amp; λ_2 &amp; \cdots &amp; 0 \\
+0   &amp; 0   &amp; \ddots &amp; 0 \\
+0   &amp; 0   &amp; \cdots &amp; λ_k \\
+\end{bmatrix}
+</span></p>
+<p><span class="math display">
+\begin{bmatrix}
+λ_1 I + J_{n_1} &amp; 0 &amp; \cdots &amp; 0 \\
+0   &amp; λ_2 I + J_{n_2} &amp; \cdots &amp; 0 \\
+0   &amp; 0   &amp; \ddots &amp; 0 \\
+0   &amp; 0   &amp; \cdots &amp; λ_k I + J_{n_k} \\
+\end{bmatrix}
+</span></p>
+<!--
+## Matrix
+
+
+__Exercise__. _Show $T(av) = a(Tv)$ and $T(v + w) = Tv + Tw$, $a\in\RR$, $v,w\in\R^n$_.
+
+__Exercise__. _Show $T(av + w) = aTv + Tw$, $a\in\RR$, $v,w\in\RR^n$ implies
+$T(av) = a(Tv)$ and $T(v + w) = Tv + Tw$_.
+
+ _Hint_: Take $w = 0$ and $a = 1$.
+
+## Linear Transformation
+
+If $V$ and $W$ are vector spaces then a _linear transformaton_ $T\colon V\to W$ is a function
+that preserves the vector space operations: $T(au + v) = aTu + Tv$,
+$a\in\RR$, $u,v\in V$.
+
+__Exericse__.  _If $T\colon V\to W$ is a linear transformation show $T\bm{0} = \bm{0}$_.
+
+_Hint_: Consider $T(\bm{0} + \bm{0})$ and use $v + v = v$ imples $v = \bm{0}$.
+
+__Exercise__. _The space of linear transformations from $V$ to $W$, $\mathcal{L}(V,W)$, is a vector space_.
+
+The _standard basis_ is $\{\delta^i\}_{i\in I}$ where
+$\delta^i\in \FF^I$ is defined by $\delta^i(j) = \delta_{ij}$, the Kronecker delta function,
+for $j\in I$,
+
+The _dot product_ $\cdot\colon\RR^n\times\RR^n\to\RR$ of two vectors is $x\cdot y = \sum_j x_j y_j$.
+
+__Exercise__. _Show $a(x\cdot y) = (ax)\cdot y = x\cdot(ay)$ and $(x + y)\cdot z = x\cdot z + y\cdot z$
+for $a\in\RR$ and $x,y,z\in\RR^n$_.
+
+The dot product is used to define the _norm_ of a vector $\|x\| = \sqrt{x\cdot x}$.
+
+__Exercise__ (Cauchy–Schwarz inequality) _Show $|x\cdot y| \le \|x\| \|y\|$_.
+
+_Hint_: Use $0\le \|ax - y\|^2 = a^2\|x\|^2 - 2a x\cdot y + \|y\|^2$, $a\in\RR$, $x,y\in\RR^n$.
+
+<details><summary>Solution</summary>
+We have $0\le a^2\|x\|^2 - 2a x\cdot y + \|y\|^2 = (a\|x\| - x\cdot y/\|x\|)^2 - (x\cdot y)^2/\|x\|^2 + \|y\|^2$.
+Taking ${a = (x\cdot y)/\|x\|^2}$ gives ${0\le - (x\cdot y)^2/\|x\|^2 + \|y\|^2}$
+so ${(x\cdot y)^2 \le \|x\|^2 \|y\|^2}$.
+
+Note if ${(x\cdot y)^2 = \|x\|^2 \|y\|^2}$ then $ax = y$ for some $a\in\RR$.
+</details>
+
+__Exercise__. _Show $\|ax\| = |a|\|x\|$ and $\|x + y\| \le \|x\| + \|y\|$, for $a\in\RR$, $x,y\in\RR^n$_.
+
+_Hint_: Use $2x\cdot y\le 2\|x\|\|y\|$.
+
+<details><summary>Solution</summary>
+We have $\|x + y\|^2 = \|x\|^2 + 2x\cdot y + \|y\|^2 \le \|x\|^2 + 2\|x\|\|y\| + \|y\|^2
+= (\|x\| + \|y\|)^2$.
+</details>
+
+The norm provides a _metric_ $d\colon\RR^n\times\RR^n\to [0,\infty)$
+defined by $d(x, y) = \|x - y\|$.
+
+__Exercise__. _Show $d(x,y) = d(y,x)$, $d(x,y) + d(y,z) \le d(x,z)$ and
+$d(x,x) = 0$ implies $x = 0$ for $x,y,z\in\RR^n$_.
+
+_Hint_: Use $\|u + v\| \le \|u\| + \|v\|$ for appropriate $u,v\in\RR^n$.
+
+Let $\FF$ be a field and $I$ be a set.
+The _set exponential_ $\FF^I = \{x\colon I\to\RR\}$ is a _vector space_
+under pointwise addition and scalar multiplication,
+$(x + y)(i) = x(i) + y(i)$ and $(ax)(i) = ax(i)$, $i\in I$, $x,y\in\FF^I$, $a\in\FF$.
+
+Dot product does not work in infinite dimensions.
+
+The _vector space dual_ of $\FF^I$ is $\FF_I = (\FF^I)^* = \{x^*\colon \FF^I\to\FF\}$.
+The _standard dual basis_ is $\{\delta_i\}_{i\in I}$ where
+$\delta_i\in \FF_I$ is defined by $\delta_i(\delta^j) = \delta_{ij}$, $j\in I$,
+-->
+</section>
+<section id="examples-1" class="level3">
+<h3>Examples</h3>
+<p>What is the derivative of <span class="math inline">\|x\|^p</span>?
+We assume <span class="math inline">x\in\boldsymbol{R}^n</span> and
+<span class="math inline">{\|x\|^p = \sum_j |x_j|^p}</span>. We have
+<span class="math display">
+\begin{aligned}
+    \|x + h\|^p - \|x\|^p &amp;= \sum_j |x_j + h_j|^p - |x_j|^p \\
+\end{aligned}
+</span></p>
+</section>
+</section>
 <hr/>
 <footer>
 Return to <a href="index.html">index</a>.
