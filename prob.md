@@ -12,10 +12,11 @@ abstract: A calculus for uncertainty
 \newcommand\AA{\mathcal{A}}
 \newcommand{\Var}{\operatorname{Var}}
 
-Probability Theory is an extension of the rules of logic to deal with uncertain events.
-A probability is a number between 0 and 1 representing a degree of belief.
-All probabilities are conditional and can be systematically
-updated as more information becomes available.
+Probability is an extension of the rules of logic to deal with uncertain
+events.  A probability is a number between 0 and 1 representing a degree
+of belief.  All probabilities are conditional on available information
+and can be systematically updated using Bayes' theorem as more information
+becomes available.
 
 ## Probability Space
 
@@ -23,12 +24,18 @@ A _sample space_ $Ω$ is the set of what can happen.
 An _outcome_ $ω\in Ω$ is an element of a sample space.
 An _event_ $E\subseteq Ω$ is a subset of a sample space.
 An _algebra_ $\AA$ is collection of events that is closed under set complement and union.
+We also assume the empty set belongs to the algebra.
 If it is also closed under countable unions of events then is it a $σ$-algebra.
-We assume the empty set belongs to each algebra.
 
 __Exercise__. _Show $Ω\in\AA$ and $\AA$ is closed under set intersection_.
 
 _Hint_: Use $\emptyset\in\AA$ and De Morgan's laws.
+
+<details><summary>Solution</summary>
+The set _complement_ of $A\subseteq Ω$ is $\neg A = \{ω\in Ω\mid ω\not\in A\}$
+so $\neg \emptset = Ω\in\AA$.
+Since $\neg(A\cap B) = \neg A \cup\neg B$ we have $A\cap B\in\AA$.
+</details>
 
 Algebras model _partial information_.
 
@@ -82,7 +89,6 @@ A _measure_ is a set function $μ\colon\AA\to\RR$ that
 satisfies $μ(E\cup F) = μ(E) + μ(F) - μ(E\cap F)$ for $E,F\in\AA$.
 Measures do not count things twice.
 We also assume $μ(\emptyset) = 0$. The measure of nothing is 0.
-Measures assign a set to a number.
 
 __Exercise__ _Show $μ(E\cup F) = μ(E) + μ(F)$ if $E\cap F=\emptyset$_.
 
@@ -111,25 +117,26 @@ is $F(x) = P(X \le x)$, the probability $X$ is not greater than $x$.
 The cdf tells you everything there is to know about the probability of
 the values a random variable can take on.
 
-__Exercise__. _Show if $X$ is discrete then
+__Exercise__. _If $P$ is discrete and $X$ is the identity function on $Ω$ then
 $P(X \le x) = \sum_{x_j\le x} p_j$_.
 
 Note $F$ is piecewise constant, non-decreasing, and right-continuous.
 
 __Exercise__. _If $X$ is uniformly distributed on $[0,1)$ then
-$F(x) = \max\{0,\min\{1, x\}\}$ for $0\le x\le 1$_.
+$F(x) = \max\{0,\min\{1, x\}\}$ for $-\infty < x <  \infty$_.
 
 _Hint_: If $x < 0$ then $F(x) = 0$ and if $x \ge 1$ then $F(x) = 1$.
 
 The mathematical definition of a _random variable_
 is an _$\AA$-measurable_ function $X\colon Ω\to\RR$
 on a probability space $\langle Ω, P, \AA\rangle$.
-If $\AA$ is finite we write $X\colon \AA\to\RR$.
+The function is $\AA$-measurable if
+${\{ω\in Ω\mid X(ω) \le x\}\in\AA}$, $x\in\RR$,
+and we write $X\colon\AA\to\RR$.
 
-__Exercise__. _If $\AA$ is finite then $X$ is a function on its atoms._
+__Exercise__. _If $\AA$ is finite then $X$ is constant on its atoms._
 
-_Hint_: $X\colon Ω\to\RR$ is $\AA$-measurable if and only if
-$\{ω\in Ω\mid X(ω) \le x\}\in\AA$, $x\in\RR$. Show $X$ is constant on atoms.
+Note that $X$ _is_ a function on atoms in this case.
 
 Since $X$ is an $\AA$-measurable function on $Ω$ and $P$ is a measure
 we have the integral $\int_Ω X\,dP$, the _expected value_ of $X$,
@@ -141,7 +148,29 @@ We write $F$ instead of $F_X$ if $X$ is understood.
 More generally, given a subset $A\subseteq\mathbf{R}$ the probability that
 $X$ takes a value in $A$ is $P(X\in A) = P(\{ω\in Ω\mid X(ω)\in A\}$.
 The cdf corresponds to $A = (-\infty, x]$.
-Two random variables have the same _law_ when they have the same cdf.
+Two random variables have the same _law_ if they have the same cdf.
+
+__Exercise__. _Show $U$ and $1 - U$ have the same law_.
+
+Note $U \not= 1-U$.
+
+__Exercise__. _If $X$ has cdf $F$, then $F(X)$ and $U$ have the same law_.
+
+_Hint_: If $F(x)$ jumps from $a$ to $b$ at $x = c$ we define $F^{-1}(u) = c$ for $a \le u < b$.
+
+<details><summary>Solution</summary>
+$P(F(X) \le x) = P(X\le F^{-1}(x)) = F(F^{-1}(x)) = x$ for $0\le x\le 1$.
+</details>
+
+__Exercise__. _If $X$ has cdf $F$, then $X$ and $F^{-1}(U)$ have the same law_.
+
+<details><summary>Solution</summary>
+We have $P(F^{-1}(U) \le x) = P(U\le F(x)) = F(x)$ since $0\le F(x)\le 1$.
+</details>
+
+This shows a uniformly distributed random variable has sufficient randomness to
+generate any random variable. There are no random, random variables.
+
 
 __Exercise__. _Show $P(a < X \le b) = F(b) - F(a)$_. 
 
@@ -247,18 +276,6 @@ for $u_1 \ge u_2$ and $v_1 \ge v_2$.
 
 A _uniformly distributed_ random variable $U$ on $[0,1)$
 has cdf $F(x) = x$ if $0\le x\le 1$, $F(x) = 0$ if $x < 0$, and $F(x) = 1$ if $x > 1$.
-
-__Exercise__. _If $X$ has cdf $F$, then $X$ and $F^{-1}(U)$ have the same law_.
-
-_Hint_: If $F(x)$ jumps from $a$ to $b$ at $x = c$ we define $F^{-1}(u) = c$ for $a \le u < b$.
-
-<details><summary>Solution</summary>
-We have $P(F^{-1}(U) \le x) = P(U\le F(x)) = F(x)$ since $0\le F(x)\le 1$.
-</details>
-
-This shows a uniformly distributed random variable has sufficient randomness to
-generate any random variable. There are no random, random variables.
-
 Given a cdf $F$ we can define a random variable having that law
 using the identity function $X\colon\mathbf{R}\to\mathbf{R}$, where $X(x) = x$.
 Let $P$ be the probability measure on $\mathbf{R}$ defined by

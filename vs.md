@@ -10,7 +10,11 @@ abstract: Axioms are more useful than accidents
 \newcommand\bm[1]{\boldsymbol{#1}}
 \newcommand\RR{\bm{R}}
 \newcommand\FF{\bm{F}}
+\newcommand\NN{\bm{N}}
+\newcommand\LL{\mathcal{L}}
+\newcommand\BB{\mathcal{B}}
 \newcommand\ran{\operatorname{ran}}
+\newcommand\ker{\operatorname{ker}}
 
 <!--
 My PhD involved infinite dimensional vector spaces so excuse me for being appalled
@@ -29,9 +33,12 @@ A vector space inner product defines a norm.
 A _Hilbert space_ is a Banach space under the norm defined by the
 inner product.
 
+???subspace???
+
 Linear operators are functons between vector spaces that respect
-the vector space structure. The linear operators between two
-vector spaces is also a vector space.
+the vector space structure. They are also vector spaces.
+
+???invariant subspace???
 
 ## $\RR^n$
 
@@ -79,7 +86,7 @@ commutative group operation $(x,y)\mapsto x + y$, $x,y\in V$,
 $a\in\RR$ and $x\in V$, that satisfy the properties in the above exercises.
 
 The abstract definition allows us to consider vector spaces other than $\RR^n$
-and clarify essential properties.
+and clarifies essential properties.
 
 __Exercise__. _Show $x + x = x$ implies $x = \bm{0}$ if $x$ is an element of a vector space_.
 
@@ -121,7 +128,7 @@ if $i\not=j$ and $δ_{ij} = 1$ if $i=j$.
 
 __Exercise__. _Show $x\colon I\to\RR$ is $x = \sum_{i\in I} x(i) e_i$_.
 
-__Exercise__. _Show $\RR^S$ is a vector space for any set $S$_.
+__Exercise__. _Show $\RR^S$ is a vector space for_ any _set $S$_.
 
 Let $\RR^S_{00}$ be the set of functions $f\in\RR^S$ that are non-zero on a finite set of $s\in S$.
 
@@ -143,7 +150,12 @@ __Exercise__. _Show $d$ is a metric_.
 
 _Hint_: Show $d(f, g) = 0$ implies $f = g$ and $d(f,g) + d(g, h) \ge d(f, h)$, $f,g,h\in B(S)$.
 
-???Banach space???
+A metric space is _complete_ if every _Cauchy sequence_ converges to a point in the space.
+A sequence $(f_n)_{n\in\NN}$ is Cauchy if for every $ε > 0$ there exists $N\in\NN$
+such that $d(f_n, f_m) < ε$ when $n,m > N$. The metric space is complete if there
+exists $f$ with $\lim_{n\to\infty} f_n = f$.
+
+A Banach space is a normed vector space that is complete in the metric it defines.
 
 __Exercise__. _Show the space of continuous functions on the interval $[a,b]$, $C([a,b])$,
 is a vector space_.
@@ -156,9 +168,15 @@ is a vector space_.
 __Exercise__. _Show the solutions $x(t)$ of the homogeneous differential equation
 $\sum_{j=0}^n a_j x^{(j)}(t) = 0$, $a_j\in\RR$, are a vector space_.
 
-Note $C^{(n)}([a,b])$ is contained in $C^{(n-1)}([a,b])$.
+__Exercise__. _Show polynomials are a vector space_.
 
-Let $\mathcal{L}(V,W)$ be the set of all functions from the vector space $V$
+_Hint_: A polynomial is a finite sum $p(x) = \sum_j a_j x^j$
+that can be identified with an element of $\RR_{00}^{\NN}$.
+
+
+## Linear Operator
+
+Let $\LL(V,W)$ be the set of all functions from the vector space $V$
 to the vector space $W$ that preserve vector space operations:
 $T(av) = a(Tv)$ and $T(u + v) = Tu + Tv$, $a\in\RR$, $u,v\in V$.
 
@@ -175,11 +193,37 @@ __Exercise__. _If $T\in\mathcal{L}(V, W)$ then $T\bm{0} = \bm{0}$_.
 
 _Hint_: Consider $T(\bm{0} + \bm{0})$ and use $v + v = v$ implies $v = 0$.
 
+If $T\in\mathcal{L}(V,W)$ where $V$ and $W$ are normed vector spaces
+define $\|T\| = \sup_{\|v\|\le1} \|Tv\|$.
+
+__Exercise__. _Show $T\mapsto\|T\|$ is a norm on $\mathcal{L}(V,W)$_.
 
 Define $T\colon C^{(n)}([a,b])\to C([a,b])$ by
 $Tx = \sum_{j=0}^n a_j x^{(j)}(t)$, where $a_j\in\RR$
 
 __Exercise__. _Show $T$ is a linear operator_.
+
+Integration is a linear operator. Define $T\colon C([a,b])\to\RR$ by $Tf = \int_a^b f(x)\,dx$. 
+
+__Exercise__. _Show $T$ is bounded_.
+
+_Hint_. Show $|Tf| \le (b - a)\|f\|$.
+
+Differentiation is a linear operator. Define $T\colon C^{(1)}([a,b])\to\RR$ by $Tf = f'$.
+
+__Exercise__. _Show $T$ is not bounded_.
+
+If $V = W$ we write $\LL(V)$ for $\LL(V,V)$. If $T\colon V\to V$ then
+the compostion $TT = T^2\colon V\to V$. 
+
+If $p$ is a polynomial $p(x) = \sum_j a_j x^j$ define
+$p(T)\colon V\to V$ by $p(T) = \sum_j a_j T^j$.
+This defines the _polynomial functional calculus_ from polynomials to $\LL(V)$.
+
+__Exercise__ _Show the polynomial functional calculus is a linear operator from polynomials
+to $\LL(V)$_.
+
+This functional calculus can be extended beyond polynomials.
 
 ### Subspace
 
@@ -192,7 +236,7 @@ For $T\in\mathcal{L}(V,W)$ define the _kernel_ $\ker T = \{v\in V\mid Tv =
 __Exercise__. _Show $\ker T$ is a subspace of $V$ and $\ran T$ is a subspace of $W$_.
 
 __Exercise__. _If $T\colon V\to W$ is a linear transformation and $\ker T = \{\bm{0}\}$
-show $Tu = Tv$ implies $u = v$, $u,v\in V$_.
+show $Tu = Tv$ implies $u = v$ for $u,v\in V$_.
 
 _Hint_: Consider $T(u - v)$.
 
@@ -207,7 +251,7 @@ __Exercise__. _Show $V\sim V$, $V\sim W$ implies $W\sim V$,
 $U\sim V$ and $V\sim W$ imply $U\sim W$_.
 
 _Hint_: The identity map $I\colon V\to V$ is an isomorphism.
-If $T\colon V\to W$ is an isomorphism so is $T^{-1}W\to V$.
+If $T\colon V\to W$ is an isomorphism so is $T^{-1}\colon W\to V$.
 If $S\colon U\to V$ and $T\colon V\to W$ are isomorphisms
 then the composition $TS\colon U\to W$ is an isomorphism.
 
@@ -255,14 +299,22 @@ addition by $(u + W) + (v + W) = (u + v) + W$, $a\in\RR$, $u, v\in V$.
 __Exercise__. _Show $V/W$ is a vector space_.
 
 If $V$ is a vector space and $W$ is a subspace then
-$V = W + V/W$ for some interpretation of $=$ and $+$.
+$V = W + V/W$ for some mathematically rigourous interpretation of $=$ and $+$.
+
 
 ### Span
 
 The _span_ of a set of vectors $\{x_i\}_{i\in I}$ is the set of all finite
-_linear combinations_ $\sum_j a_j x_j$, $a_j\in\RR$.
+_linear combinations_ $\vee_{i\in I} \{x_i\} = \{\sum_{i\in I} a_i x_i \mid a_i\in\RR\}$.
 
 __Exercise__. _Show the span of a set of vectors is a vector space_.
+
+If $T\colon V\to V$ and $v\in V$ then the span of $\{T^n v\}_{n\in\NN}$ is
+an _invariant subspace_ of $T$.
+
+__Exercise__. _Show the span of $\{T^n v\}_{n\in\NN}$ is the range of
+the the polynomial functional calculus_.
+
 
 ### Independent
 
@@ -286,6 +338,8 @@ and $\{f_j\}$ is a basis of $W$ then
 $Te_i = \sum_j t_{ij} f_f$ for unique $t_{ij}\in\RR$.
 This is the _matrix_ of $T$ under a basis for $V$ and $W$.
 
+<!--
+
 $$
 \begin{bmatrix}
 λ_1 & 0 & \cdots & 0 \\
@@ -304,7 +358,6 @@ $$
 \end{bmatrix}
 $$
 
-<!--
 ## Matrix
 
 
@@ -377,7 +430,6 @@ Dot product does not work in infinite dimensions.
 The _vector space dual_ of $\FF^I$ is $\FF_I = (\FF^I)^* = \{x^*\colon \FF^I\to\FF\}$.
 The _standard dual basis_ is $\{\delta_i\}_{i\in I}$ where
 $\delta_i\in \FF_I$ is defined by $\delta_i(\delta^j) = \delta_{ij}$, $j\in I$,
--->
 
 ### Examples
 
@@ -388,3 +440,4 @@ $$
 	\|x + h\|^p - \|x\|^p &= \sum_j |x_j + h_j|^p - |x_j|^p \\
 \end{aligned}
 $$
+-->

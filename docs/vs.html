@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-07" />
+  <meta name="dcterms.date" content="2023-09-10" />
   <title>From \bm{R}^n to Vector Spaces</title>
   <style>
     code{white-space: pre-wrap;}
@@ -59,7 +59,7 @@
 <h1 class="title">From <span class="math inline">\bm{R}^n</span> to
 Vector Spaces</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 7, 2023</p>
+<p class="date">September 10, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Axioms are more useful than accidents
@@ -79,9 +79,10 @@ peeking at the solution.</p>
 space is complete under the metric it is a <em>Banach space</em>. A
 vector space inner product defines a norm. A <em>Hilbert space</em> is a
 Banach space under the norm defined by the inner product.</p>
+<p>???subspace???</p>
 <p>Linear operators are functons between vector spaces that respect the
-vector space structure. The linear operators between two vector spaces
-is also a vector space.</p>
+vector space structure. They are also vector spaces.</p>
+<p>???invariant subspace???</p>
 <section id="boldsymbolrn" class="level2">
 <h2><span class="math inline">\boldsymbol{R}^n</span></h2>
 <p>The set of <span class="math inline">n</span>-tuples of real numbers
@@ -144,7 +145,7 @@ class="math inline">a\in\boldsymbol{R}</span> and <span
 class="math inline">x\in V</span>, that satisfy the properties in the
 above exercises.</p>
 <p>The abstract definition allows us to consider vector spaces other
-than <span class="math inline">\boldsymbol{R}^n</span> and clarify
+than <span class="math inline">\boldsymbol{R}^n</span> and clarifies
 essential properties.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">x + x =
 x</span> implies <span class="math inline">x = \boldsymbol{0}</span> if
@@ -206,8 +207,8 @@ class="math inline">i\not=j</span> and <span class="math inline">δ_{ij}
 I\to\boldsymbol{R}</span> is <span class="math inline">x = \sum_{i\in I}
 x(i) e_i</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\boldsymbol{R}^S</span> is a vector space for any
-set <span class="math inline">S</span></em>.</p>
+class="math inline">\boldsymbol{R}^S</span> is a vector space for</em>
+any <em>set <span class="math inline">S</span></em>.</p>
 <p>Let <span class="math inline">\boldsymbol{R}^S_{00}</span> be the set
 of functions <span class="math inline">f\in\boldsymbol{R}^S</span> that
 are non-zero on a finite set of <span class="math inline">s\in
@@ -239,7 +240,17 @@ class="math inline">d</span> is a metric</em>.</p>
 implies <span class="math inline">f = g</span> and <span
 class="math inline">d(f,g) + d(g, h) \ge d(f, h)</span>, <span
 class="math inline">f,g,h\in B(S)</span>.</p>
-<p>???Banach space???</p>
+<p>A metric space is <em>complete</em> if every <em>Cauchy sequence</em>
+converges to a point in the space. A sequence <span
+class="math inline">(f_n)_{n\in\boldsymbol{N}}</span> is Cauchy if for
+every <span class="math inline">ε &gt; 0</span> there exists <span
+class="math inline">N\in\boldsymbol{N}</span> such that <span
+class="math inline">d(f_n, f_m) &lt; ε</span> when <span
+class="math inline">n,m &gt; N</span>. The metric space is complete if
+there exists <span class="math inline">f</span> with <span
+class="math inline">\lim_{n\to\infty} f_n = f</span>.</p>
+<p>A Banach space is a normed vector space that is complete in the
+metric it defines.</p>
 <p><strong>Exercise</strong>. <em>Show the space of continuous functions
 on the interval <span class="math inline">[a,b]</span>, <span
 class="math inline">C([a,b])</span>, is a vector space</em>.</p>
@@ -255,8 +266,16 @@ class="math inline">x(t)</span> of the homogeneous differential equation
 <span class="math inline">\sum_{j=0}^n a_j x^{(j)}(t) = 0</span>, <span
 class="math inline">a_j\in\boldsymbol{R}</span>, are a vector
 space</em>.</p>
-<p>Note <span class="math inline">C^{(n)}([a,b])</span> is contained in
-<span class="math inline">C^{(n-1)}([a,b])</span>.</p>
+<p><strong>Exercise</strong>. <em>Show polynomials are a vector
+space</em>.</p>
+<p><em>Hint</em>: A polynomial is a finite sum <span
+class="math inline">p(x) = \sum_j a_j x^j</span> that can be identified
+with an element of <span
+class="math inline">\boldsymbol{R}_{00}^{\boldsymbol{N}}</span>.</p>
+</section>
+</section>
+<section id="linear-operator" class="level2">
+<h2>Linear Operator</h2>
 <p>Let <span class="math inline">\mathcal{L}(V,W)</span> be the set of
 all functions from the vector space <span class="math inline">V</span>
 to the vector space <span class="math inline">W</span> that preserve
@@ -284,31 +303,66 @@ class="math inline">T\boldsymbol{0} = \boldsymbol{0}</span></em>.</p>
 <p><em>Hint</em>: Consider <span class="math inline">T(\boldsymbol{0} +
 \boldsymbol{0})</span> and use <span class="math inline">v + v =
 v</span> implies <span class="math inline">v = 0</span>.</p>
+<p>If <span class="math inline">T\in\mathcal{L}(V,W)</span> where <span
+class="math inline">V</span> and <span class="math inline">W</span> are
+normed vector spaces define <span class="math inline">\|T\| =
+\sup_{\|v\|\le1} \|Tv\|</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">T\mapsto\|T\|</span> is a norm on <span
+class="math inline">\mathcal{L}(V,W)</span></em>.</p>
 <p>Define <span class="math inline">T\colon C^{(n)}([a,b])\to
 C([a,b])</span> by <span class="math inline">Tx = \sum_{j=0}^n a_j
 x^{(j)}(t)</span>, where <span
 class="math inline">a_j\in\boldsymbol{R}</span></p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">T</span> is a linear operator</em>.</p>
-</section>
+<p>Integration is a linear operator. Define <span
+class="math inline">T\colon C([a,b])\to\boldsymbol{R}</span> by <span
+class="math inline">Tf = \int_a^b f(x)\,dx</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">T</span> is bounded</em>.</p>
+<p><em>Hint</em>. Show <span class="math inline">|Tf| \le (b -
+a)\|f\|</span>.</p>
+<p>Differentiation is a linear operator. Define <span
+class="math inline">T\colon C^{(1)}([a,b])\to\boldsymbol{R}</span> by
+<span class="math inline">Tf = f&#39;</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">T</span> is not bounded</em>.</p>
+<p>If <span class="math inline">V = W</span> we write <span
+class="math inline">\mathcal{L}(V)</span> for <span
+class="math inline">\mathcal{L}(V,V)</span>. If <span
+class="math inline">T\colon V\to V</span> then the compostion <span
+class="math inline">TT = T^2\colon V\to V</span>.</p>
+<p>If <span class="math inline">p</span> is a polynomial <span
+class="math inline">p(x) = \sum_j a_j x^j</span> define <span
+class="math inline">p(T)\colon V\to V</span> by <span
+class="math inline">p(T) = \sum_j a_j T^j</span>. This defines the
+<em>polynomial functional calculus</em> from polynomials to <span
+class="math inline">\mathcal{L}(V)</span>.</p>
+<p><strong>Exercise</strong> <em>Show the polynomial functional calculus
+is a linear operator from polynomials to <span
+class="math inline">\mathcal{L}(V)</span></em>.</p>
+<p>This functional calculus can be extended beyond polynomials.</p>
 <section id="subspace" class="level3">
 <h3>Subspace</h3>
 <p>A subset of a vector space that is also a vector space is a
 <em>subspace</em>. Subspaces allow us to factor a space into smaller
 vector spaces.</p>
 <p>For <span class="math inline">T\in\mathcal{L}(V,W)</span> define the
-<em>kernel</em> <span class="math inline">\ker T = \{v\in V\mid Tv =
-\boldsymbol{0}\}</span> and <em>range</em> <span
+<em>kernel</em> <span class="math inline">\operatorname{ker}T = \{v\in
+V\mid Tv = \boldsymbol{0}\}</span> and <em>range</em> <span
 class="math inline">\operatorname{ran}T = \{Tv\mid v\in V\}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\ker
-T</span> is a subspace of <span class="math inline">V</span> and <span
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{ker}T</span> is a subspace of <span
+class="math inline">V</span> and <span
 class="math inline">\operatorname{ran}T</span> is a subspace of <span
 class="math inline">W</span></em>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">T\colon
 V\to W</span> is a linear transformation and <span
-class="math inline">\ker T = \{\boldsymbol{0}\}</span> show <span
-class="math inline">Tu = Tv</span> implies <span class="math inline">u =
-v</span>, <span class="math inline">u,v\in V</span></em>.</p>
+class="math inline">\operatorname{ker}T = \{\boldsymbol{0}\}</span> show
+<span class="math inline">Tu = Tv</span> implies <span
+class="math inline">u = v</span> for <span class="math inline">u,v\in
+V</span></em>.</p>
 <p><em>Hint</em>: Consider <span class="math inline">T(u -
 v)</span>.</p>
 <p>In this case we say <span class="math inline">T</span> is
@@ -329,7 +383,7 @@ class="math inline">U\sim W</span></em>.</p>
 <p><em>Hint</em>: The identity map <span class="math inline">I\colon
 V\to V</span> is an isomorphism. If <span class="math inline">T\colon
 V\to W</span> is an isomorphism so is <span
-class="math inline">T^{-1}W\to V</span>. If <span
+class="math inline">T^{-1}\colon W\to V</span>. If <span
 class="math inline">S\colon U\to V</span> and <span
 class="math inline">T\colon V\to W</span> are isomorphisms then the
 composition <span class="math inline">TS\colon U\to W</span> is an
@@ -406,17 +460,26 @@ class="math inline">u, v\in V</span>.</p>
 class="math inline">V/W</span> is a vector space</em>.</p>
 <p>If <span class="math inline">V</span> is a vector space and <span
 class="math inline">W</span> is a subspace then <span
-class="math inline">V = W + V/W</span> for some interpretation of <span
-class="math inline">=</span> and <span class="math inline">+</span>.</p>
+class="math inline">V = W + V/W</span> for some mathematically rigourous
+interpretation of <span class="math inline">=</span> and <span
+class="math inline">+</span>.</p>
 </section>
 <section id="span" class="level3">
 <h3>Span</h3>
 <p>The <em>span</em> of a set of vectors <span
 class="math inline">\{x_i\}_{i\in I}</span> is the set of all finite
-<em>linear combinations</em> <span class="math inline">\sum_j a_j
-x_j</span>, <span class="math inline">a_j\in\boldsymbol{R}</span>.</p>
+<em>linear combinations</em> <span class="math inline">\vee_{i\in I}
+\{x_i\} = \{\sum_{i\in I} a_i x_i \mid
+a_i\in\boldsymbol{R}\}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show the span of a set of vectors is a
 vector space</em>.</p>
+<p>If <span class="math inline">T\colon V\to V</span> and <span
+class="math inline">v\in V</span> then the span of <span
+class="math inline">\{T^n v\}_{n\in\boldsymbol{N}}</span> is an
+<em>invariant subspace</em> of <span class="math inline">T</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the span of <span
+class="math inline">\{T^n v\}_{n\in\boldsymbol{N}}</span> is the range
+of the the polynomial functional calculus</em>.</p>
 </section>
 <section id="independent" class="level3">
 <h3>Independent</h3>
@@ -457,23 +520,26 @@ class="math inline">t_{ij}\in\boldsymbol{R}</span>. This is the
 <em>matrix</em> of <span class="math inline">T</span> under a basis for
 <span class="math inline">V</span> and <span
 class="math inline">W</span>.</p>
-<p><span class="math display">
-\begin{bmatrix}
-λ_1 &amp; 0 &amp; \cdots &amp; 0 \\
-0   &amp; λ_2 &amp; \cdots &amp; 0 \\
-0   &amp; 0   &amp; \ddots &amp; 0 \\
-0   &amp; 0   &amp; \cdots &amp; λ_k \\
-\end{bmatrix}
-</span></p>
-<p><span class="math display">
-\begin{bmatrix}
-λ_1 I + J_{n_1} &amp; 0 &amp; \cdots &amp; 0 \\
-0   &amp; λ_2 I + J_{n_2} &amp; \cdots &amp; 0 \\
-0   &amp; 0   &amp; \ddots &amp; 0 \\
-0   &amp; 0   &amp; \cdots &amp; λ_k I + J_{n_k} \\
-\end{bmatrix}
-</span></p>
 <!--
+
+$$
+\begin{bmatrix}
+λ_1 & 0 & \cdots & 0 \\
+0   & λ_2 & \cdots & 0 \\
+0   & 0   & \ddots & 0 \\
+0   & 0   & \cdots & λ_k \\
+\end{bmatrix}
+$$
+
+$$
+\begin{bmatrix}
+λ_1 I + J_{n_1} & 0 & \cdots & 0 \\
+0   & λ_2 I + J_{n_2} & \cdots & 0 \\
+0   & 0   & \ddots & 0 \\
+0   & 0   & \cdots & λ_k I + J_{n_k} \\
+\end{bmatrix}
+$$
+
 ## Matrix
 
 
@@ -546,18 +612,17 @@ Dot product does not work in infinite dimensions.
 The _vector space dual_ of $\FF^I$ is $\FF_I = (\FF^I)^* = \{x^*\colon \FF^I\to\FF\}$.
 The _standard dual basis_ is $\{\delta_i\}_{i\in I}$ where
 $\delta_i\in \FF_I$ is defined by $\delta_i(\delta^j) = \delta_{ij}$, $j\in I$,
--->
-</section>
-<section id="examples-1" class="level3">
-<h3>Examples</h3>
-<p>What is the derivative of <span class="math inline">\|x\|^p</span>?
-We assume <span class="math inline">x\in\boldsymbol{R}^n</span> and
-<span class="math inline">{\|x\|^p = \sum_j |x_j|^p}</span>. We have
-<span class="math display">
+
+### Examples
+
+What is the derivative of $\|x\|^p$? We assume $x\in\RR^n$
+and ${\|x\|^p = \sum_j |x_j|^p}$. We have
+$$
 \begin{aligned}
-    \|x + h\|^p - \|x\|^p &amp;= \sum_j |x_j + h_j|^p - |x_j|^p \\
+    \|x + h\|^p - \|x\|^p &= \sum_j |x_j + h_j|^p - |x_j|^p \\
 \end{aligned}
-</span></p>
+$$
+-->
 </section>
 </section>
 <hr/>
