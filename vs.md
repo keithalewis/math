@@ -169,7 +169,6 @@ __Exercise__. _Show polynomials are a vector space_.
 _Hint_: A polynomial is a finite sum $p(x) = \sum_j a_j x^j$
 that can be identified with an element of $\RR_{00}^{\NN}$.
 
-
 ## Linear Operator
 
 Let $\LL(V,W)$ be the set of all functions from the vector space $V$
@@ -199,21 +198,37 @@ $Tx = \sum_{j=0}^n a_j x^{(j)}(t)$, where $a_j\in\RR$
 
 __Exercise__. _Show $T$ is a linear operator_.
 
-Integration is a linear operator. Define $T\colon C([a,b])\to\RR$ by $Tf = \int_a^b f(x)\,dx$. 
+Integration is a linear operator. Define $T\colon C([a,b])\to C([a,b])$ by $Tf(x) = \int_a^x f(u)\,du$, $a\le x\le b$. 
 
 __Exercise__. _Show $T$ is bounded_.
 
-_Hint_. Show $|Tf| \le (b - a)\|f\|$.
+_Hint_. Show $\|Tf\| \le (b - a)\|f\|$.
 
-Differentiation is a linear operator. Define $T\colon C^{(1)}([a,b])\to\RR$ by $Tf = f'$.
+Differentiation is a linear operator. Define $T\colon C^{(1)}([a,b])\to C([a,b])$ by $Tf = f'$.
 
 __Exercise__. _Show $T$ is not bounded_.
 
-If $V = W$ we write $\LL(V)$ for $\LL(V,V)$. If $T\colon V\to V$ then
-the compostion $TT = T^2\colon V\to V$. 
+### Operator Algebra
+
+If $V = W$ we write $\LL(V)$ for $\LL(V,V)$. Operator composition
+defines a product $\LL(V)\times\LL(V)\to\LL(V)$ by
+$(S,T)\mapsto ST$. This makes $\LL(V)$ into an _algebra_ of operators.   
+
+__Exercise__. _Show $(S + T)U = SU + TU$ and $S(T + U) = ST + SU$ for $S,T,U\in\LL(V)$_.
+
+Define the _identity operator_ $I\colon V\to V$ by $Iv = v$, $v\in V$.
+Clearly $IT = T = TI$ for $T\in\LL(V)$ so $I$ is the _multiplicative identity_
+for the algebra.
+
+__Exercise__. _Show $(aS)(bT) = (ab)(ST)$ for $a,b\in\RR$ and $S,T\in\LL(V)$_.
+
+If $T\colon V\to V$ and $Tv = \lambda v$ where $\lambda\in\RR$ then
+$v$ is an _eigenvector_ with _eigenvalue_ $\lambda$.
+
+__Exercise__. _Show $\RR v = \{av\mid a\in\RR\}$ is an invariant subspace_.
 
 If $p$ is a polynomial $p(x) = \sum_j a_j x^j$ define
-$p(T)\colon V\to V$ by $p(T) = \sum_j a_j T^j$.
+$p(T)\colon V\to V$ by $p(T) = \sum_j a_j T^j$ for $T\in\LL(V)$.
 This defines the _polynomial functional calculus_ from polynomials to $\LL(V)$.
 
 __Exercise__ _Show the polynomial functional calculus is a linear operator from polynomials
@@ -226,8 +241,10 @@ This functional calculus can be extended beyond polynomials.
 A subset of a vector space that is also a vector space is a _subspace_.
 Subspaces allow us to factor a space into smaller vector spaces.
 
-For $T\in\mathcal{L}(V,W)$ define the _kernel_ $\ker T = \{v\in V\mid Tv =
-\bm{0}\}$ and _range_ $\ran T = \{Tv\mid v\in V\}$.
+
+For $T\in\mathcal{L}(V,W)$ define the 
+_kernel_ $\ker T = \{v\in V\mid Tv = \bm{0}\}$ and 
+_range_ $\ran T = \{Tv\mid v\in V\}$.
 
 __Exercise__. _Show $\ker T$ is a subspace of $V$ and $\ran T$ is a subspace of $W$_.
 
@@ -297,6 +314,15 @@ __Exercise__. _Show $V/W$ is a vector space_.
 If $V$ is a vector space and $W$ is a subspace then
 $V = W + V/W$ for some mathematically rigourous interpretation of $=$ and $+$.
 
+#### Eigenvector/value
+
+If $T\colon V\to V$ and $Tv = \lambda v$ where $\lambda\in\RR$ then
+$v$ is an _eigenvector_ with _eigenvalue_ $\lambda$.
+
+__Exercise__. _Show $\RR v = \{av\mid a\in\RR\}$ is an invariant subspace_.
+
+__Exercise__. _Show $v$ is an eigenvector with eigenvalue $\lambda$ if and only
+if $v\in\ker T - \lambda I$_.
 
 ### Span
 
@@ -327,11 +353,15 @@ Every vector $v\in V$ can be written $v = \sum_{i\in I} a_i e_i$ for unique $a_i
 
 __Exercise__. _If $\sum_{i\in I} a_i e_i = \sum_{i\in I} b_i e_i$ then $a_i = b_i$ for all $i$_.
 
+_Hint_: Use $\bm{0} = sum_{i\in I} a_i e_i - \sum_{i\in I} b_i e_i$.
+
 This shows we can identify $V$ with $\RR^I$.
+
+## Matrix
 
 If $T\colon V\to W$ is a linear transformation, $\{e_i\}$ is a basis of $V$,
 and $\{f_j\}$ is a basis of $W$ then
-$Te_i = \sum_j t_{ij} f_f$ for unique $t_{ij}\in\RR$.
+$Te_i = \sum_j t_{ij} f_j$ for unique $t_{ij}\in\RR$.
 This is the _matrix_ of $T$ under a basis for $V$ and $W$.
 
 <!--
