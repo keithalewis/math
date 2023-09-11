@@ -1,0 +1,3 @@
+{
+    "pandoc.htmlOptString": "-f markdown+definition_lists+raw_html+pipe_tables -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists -t html5 -s --katex --css math.css --reference-location=document --section-divs"
+}
