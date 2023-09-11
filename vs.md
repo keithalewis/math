@@ -33,12 +33,8 @@ A vector space inner product defines a norm.
 A _Hilbert space_ is a Banach space under the norm defined by the
 inner product.
 
-???subspace???
-
 Linear operators are functons between vector spaces that respect
 the vector space structure. They are also vector spaces.
-
-???invariant subspace???
 
 ## $\RR^n$
 
