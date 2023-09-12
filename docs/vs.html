@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-10" />
+  <meta name="dcterms.date" content="2023-09-11" />
   <title>From \bm{R}^n to Vector Spaces</title>
   <style>
     code{white-space: pre-wrap;}
@@ -59,7 +59,7 @@
 <h1 class="title">From <span class="math inline">\bm{R}^n</span> to
 Vector Spaces</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 10, 2023</p>
+<p class="date">September 11, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Axioms are more useful than accidents
@@ -79,7 +79,7 @@ peeking at the solution.</p>
 space is complete under the metric it is a <em>Banach space</em>. A
 vector space inner product defines a norm. A <em>Hilbert space</em> is a
 Banach space under the norm defined by the inner product.</p>
-<p>Linear operators are functons between vector spaces that respect the
+<p>Linear operators are functions between vector spaces that respect the
 vector space structure. They are also vector spaces.</p>
 <section id="boldsymbolrn" class="level2">
 <h2><span class="math inline">\boldsymbol{R}^n</span></h2>
@@ -182,7 +182,7 @@ mathematical objects.</p>
 <p>If <span class="math inline">A</span> and <span
 class="math inline">B</span> are sets then the exponential <span
 class="math inline">B^A = \{f\colon A\to B\}</span> is the set of all
-functons from <span class="math inline">A</span> to <span
+functions from <span class="math inline">A</span> to <span
 class="math inline">B</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">\boldsymbol{R}^n</span> can be identified with <span
@@ -322,25 +322,51 @@ class="math inline">T</span> is bounded</em>.</p>
 <p><em>Hint</em>. Show <span class="math inline">|Tf| \le (b -
 a)\|f\|</span>.</p>
 <p>Differentiation is a linear operator. Define <span
-class="math inline">T\colon C^{(1)}([a,b])\to\boldsymbol{R}</span> by
-<span class="math inline">Tf = f&#39;</span>.</p>
+class="math inline">T_x\colon C^{(1)}([a,b])\to\boldsymbol{R}</span> by
+<span class="math inline">Tf = f&#39;(x)</span> where <span
+class="math inline">x\in(a,b)</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">T</span> is not bounded</em>.</p>
+class="math inline">T_x</span> is not bounded</em>.</p>
+<section id="operator-algebra" class="level3">
+<h3>Operator Algebra</h3>
 <p>If <span class="math inline">V = W</span> we write <span
 class="math inline">\mathcal{L}(V)</span> for <span
-class="math inline">\mathcal{L}(V,V)</span>. If <span
-class="math inline">T\colon V\to V</span> then the compostion <span
-class="math inline">TT = T^2\colon V\to V</span>.</p>
+class="math inline">\mathcal{L}(V,V)</span>. Operator composition
+defines a product <span
+class="math inline">\mathcal{L}(V)\times\mathcal{L}(V)\to\mathcal{L}(V)</span>
+by <span class="math inline">(S,T)\mapsto ST</span>. This makes <span
+class="math inline">\mathcal{L}(V)</span> into an <em>algebra</em> of
+operators.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(S +
+T)U = SU + TU</span> and <span class="math inline">S(T + U) = ST +
+SU</span> for <span
+class="math inline">S,T,U\in\mathcal{L}(V)</span></em>.</p>
+<p>Define the <em>identity operator</em> <span
+class="math inline">I\colon V\to V</span> by <span
+class="math inline">Iv = v</span>, <span class="math inline">v\in
+V</span>. Clearly <span class="math inline">IT = T = TI</span> for <span
+class="math inline">T\in\mathcal{L}(V)</span> so <span
+class="math inline">I</span> is the <em>multiplicative identity</em> for
+the algebra.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">(aS)(bT) = (ab)(ST)</span> for <span
+class="math inline">a,b\in\boldsymbol{R}</span> and <span
+class="math inline">S,T\in\mathcal{L}(V)</span></em>.</p>
 <p>If <span class="math inline">p</span> is a polynomial <span
 class="math inline">p(x) = \sum_j a_j x^j</span> define <span
 class="math inline">p(T)\colon V\to V</span> by <span
-class="math inline">p(T) = \sum_j a_j T^j</span>. This defines the
+class="math inline">p(T) = \sum_j a_j T^j</span> for <span
+class="math inline">T\in\mathcal{L}(V)</span>. This defines the
 <em>polynomial functional calculus</em> from polynomials to <span
 class="math inline">\mathcal{L}(V)</span>.</p>
 <p><strong>Exercise</strong> <em>Show the polynomial functional calculus
 is a linear operator from polynomials to <span
 class="math inline">\mathcal{L}(V)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(pq)(T)
+= p(T)q(T)</span> for polynomials <span class="math inline">p</span> and
+<span class="math inline">q</span></em>.</p>
 <p>This functional calculus can be extended beyond polynomials.</p>
+</section>
 <section id="subspace" class="level3">
 <h3>Subspace</h3>
 <p>A subset of a vector space that is also a vector space is a
@@ -448,19 +474,56 @@ class="math inline">v</span> gives <span class="math inline">v + W = \{v
 is subspace of <span class="math inline">V</span> show <span
 class="math inline">u\sim v</span> if and only if <span
 class="math inline">u + W = v + W</span></em>.</p>
-<p>The set of equvalence classes <span class="math inline">V/W = \{v +
+<p>The set of equivalence classes <span class="math inline">V/W = \{v +
 W\mid v\in V\}</span> can be made into a vector space. Define scalar
-multiplcation by <span class="math inline">a(v + W) = av + W</span> and
+multiplication by <span class="math inline">a(v + W) = av + W</span> and
 addition by <span class="math inline">(u + W) + (v + W) = (u + v) +
 W</span>, <span class="math inline">a\in\boldsymbol{R}</span>, <span
 class="math inline">u, v\in V</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">V/W</span> is a vector space</em>.</p>
+<p>If <span class="math inline">T\in\mathcal{L}(V,W)</span> define <span
+class="math inline">π\colon V\to V/\operatorname{ker}(T)</span> by <span
+class="math inline">π(v) = v + \operatorname{ker}T</span> and <span
+class="math inline">ν\colon V/\operatorname{ker}(T)\to W</span> by <span
+class="math inline">ν(v + \operatorname{ker}T) = Tv</span>, <span
+class="math inline">v\in V</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">π</span> is onto</em>.</p>
+<p><strong>Exercise</strong>. _Show <span class="math inline">ν</span>
+is _well-defined.</p>
+<p><em>Hint</em>: Show if <span class="math inline">v +
+\operatorname{ker}T = w + \operatorname{ker}T</span> then <span
+class="math inline">Tv = Tw</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">ν</span> is one-to-one</em>.</p>
 <p>If <span class="math inline">V</span> is a vector space and <span
-class="math inline">W</span> is a subspace then <span
-class="math inline">V = W + V/W</span> for some mathematically rigourous
-interpretation of <span class="math inline">=</span> and <span
+class="math inline">W</span> is a subspace define the <em>inclusion
+operator</em> <span class="math inline">ι\colon W\to V</span> by <span
+class="math inline">i(w) = w</span> and the <em>projection operator</em>
+<span class="math inline">p\colon V\to V/W</span> by <span
+class="math inline">p(v) = v + W</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">i</span> is one-to-one and <span
+class="math inline">p</span> is onto</em>.</p>
+<p><span class="math inline">V = W + V/W</span> for some mathematically
+rigorous interpretation of <span class="math inline">=</span> and <span
 class="math inline">+</span>.</p>
+<section id="eigenvectorvalue" class="level4">
+<h4>Eigenvector/value</h4>
+<p>If <span class="math inline">T\colon V\to V</span> and <span
+class="math inline">Tv = \lambda v</span> where <span
+class="math inline">\lambda\in\boldsymbol{R}</span> then <span
+class="math inline">v</span> is an <em>eigenvector</em> with
+<em>eigenvalue</em> <span class="math inline">\lambda</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\boldsymbol{R}v = \{av\mid
+a\in\boldsymbol{R}\}</span> is an invariant subspace</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">v</span> is an eigenvector with eigenvalue <span
+class="math inline">\lambda</span> if and only if <span
+class="math inline">v\in\operatorname{ker}T - \lambda I</span></em>.</p>
+</section>
 </section>
 <section id="span" class="level3">
 <h3>Span</h3>
@@ -506,14 +569,20 @@ class="math inline">a_i\in\boldsymbol{R}</span>.</p>
 class="math inline">\sum_{i\in I} a_i e_i = \sum_{i\in I} b_i e_i</span>
 then <span class="math inline">a_i = b_i</span> for all <span
 class="math inline">i</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">\boldsymbol{0} =
+sum_{i\in I} a_i e_i - \sum_{i\in I} b_i e_i</span>.</p>
 <p>This shows we can identify <span class="math inline">V</span> with
 <span class="math inline">\boldsymbol{R}^I</span>.</p>
+</section>
+</section>
+<section id="matrix" class="level2">
+<h2>Matrix</h2>
 <p>If <span class="math inline">T\colon V\to W</span> is a linear
 transformation, <span class="math inline">\{e_i\}</span> is a basis of
 <span class="math inline">V</span>, and <span
 class="math inline">\{f_j\}</span> is a basis of <span
 class="math inline">W</span> then <span class="math inline">Te_i =
-\sum_j t_{ij} f_f</span> for unique <span
+\sum_j t_{ij} f_j</span> for unique <span
 class="math inline">t_{ij}\in\boldsymbol{R}</span>. This is the
 <em>matrix</em> of <span class="math inline">T</span> under a basis for
 <span class="math inline">V</span> and <span
@@ -621,7 +690,6 @@ $$
 \end{aligned}
 $$
 -->
-</section>
 </section>
 <hr/>
 <footer>

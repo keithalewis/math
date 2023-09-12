@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-10" />
+  <meta name="dcterms.date" content="2023-09-11" />
   <title>Probability</title>
   <style>
     code{white-space: pre-wrap;}
@@ -58,7 +58,7 @@
 <header id="title-block-header">
 <h1 class="title">Probability</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 10, 2023</p>
+<p class="date">September 11, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A calculus for uncertainty
@@ -76,10 +76,19 @@ of what can happen. An <em>outcome</em> <span class="math inline">ω\in
 Ω</span> is an element of a sample space. An <em>event</em> <span
 class="math inline">E\subseteq Ω</span> is a subset of a sample space.
 An <em>algebra</em> <span class="math inline">\mathcal{A}</span> is
-collection of events that is closed under set complement and union. We
-also assume the empty set belongs to the algebra. If it is also closed
-under countable unions of events then is it a <span
-class="math inline">σ</span>-algebra.</p>
+collection of events that is closed under set <em>complement</em> and
+<em>union</em>.</p>
+<p>The complement of the event <span class="math inline">E\subseteq
+Ω</span>, <span class="math inline">\neg E</span>, the set of outcomes
+‘not’ in <span class="math inline">E</span>. The union of events, <span
+class="math inline">E\cup F</span>, is the set of outcomes that belong
+to <span class="math inline">E</span> ‘or’ <span
+class="math inline">F</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">\mathcal{A}</span> is closed under complement and
+union then so is <span class="math inline">\mathcal{A}\cup\{\emptyset,
+Ω\}</span></em>.</p>
+<p>It is convenient to assume the empty set belongs to the algebra.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">Ω\in\mathcal{A}</span> and <span
 class="math inline">\mathcal{A}</span> is closed under set
@@ -98,6 +107,16 @@ A\}</span> so <span class="math inline">\neg \emptset =
 \neg A \cup\neg B</span> we have <span class="math inline">A\cap
 B\in\mathcal{A}</span>.
 </details>
+<p>If an algebra is also closed under countable unions of events then is
+it a <span class="math inline">σ</span>-algebra. This means if <span
+class="math inline">E_n\in\mathcal{A}</span>, <span
+class="math inline">n\in\mathbf{N}</span>, then <span
+class="math inline">\cup_{n\in\mathbf{N}} E_n\in\mathcal{A}</span>,
+where <span class="math inline">\mathbf{N}= \{0, 1, 2, \ldots\}</span>
+is the set of <em>natural numbers</em>.</p>
+<p><strong>Exercise</strong>. <em>If an algebra is closed under
+countable unions then it is also closed under countable
+intersections</em>.</p>
 <p>Algebras model <em>partial information</em>.</p>
 <section id="partition" class="level3">
 <h3>Partition</h3>
@@ -114,7 +133,7 @@ class="math inline">\mathcal{A}</span> is finite and <span
 class="math inline">ω\in Ω</span> define <span class="math inline">{A_ω
 = \cap\{A\in\mathcal{A}\mid ω\in A\}}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">A_ω</span> is the atom of <span
+class="math inline">A_ω</span> is an atom of <span
 class="math inline">\mathcal{A}</span> containing <span
 class="math inline">ω\in Ω</span></em>.</p>
 <p><strong>Excercise</strong>. <em>Show <span
@@ -129,10 +148,10 @@ A_{ω&#39;}</span>, <span class="math inline">ω,ω&#39;\in Ω</span>.</p>
 identify it with its atoms.</p>
 <p><em>Partial information</em> is modeled by a partition of a sample
 space. Complete information corresponds to the <em>finest</em> partition
-<span class="math inline">\{\{ω\}\mid ω\in Ω\}</span>. No information
-corresponds to the <em>coarsest</em> partition <span
-class="math inline">\{Ω\}</span>. Partial information is knowing only
-which set in the partition an outcome belongs to.</p>
+of <em>singletons</em> <span class="math inline">\{\{ω\}\mid ω\in
+Ω\}</span>. No information corresponds to the <em>coarsest</em>
+partition <span class="math inline">\{Ω\}</span>. Partial information is
+knowing only which set in the partition an outcome belongs to.</p>
 <section id="coin-tossing" class="level4">
 <h4>Coin tossing</h4>
 <p>We can model a sequence of random coin flips by a sequence of 0’s and
@@ -181,8 +200,8 @@ class="math inline">P(Ω) = 1</span>.</p>
 <p>If <span class="math inline">Ω = \{ω_j\}</span> is finite (or
 countable) we can define a <em>discrete</em> probability measure by
 <span class="math inline">P(\{ω_j\}) = p_j</span> where <span
-class="math inline">p_j\ge0</span> and <span class="math inline">\sum_j
-p_j = 1</span>.</p>
+class="math inline">p_j &gt; 0</span> and <span
+class="math inline">\sum_j p_j = 1</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">P(E) =
 \sum_{ω_j\in E} p_j</span></em>.</p>
 <p><em>Hint</em>. <span class="math inline">E</span> is the disjoint
@@ -236,14 +255,12 @@ class="math inline">\mathcal{A}</span> is finite then <span
 class="math inline">X</span> is constant on its atoms.</em></p>
 <p>Note that <span class="math inline">X</span> <em>is</em> a function
 on atoms in this case.</p>
-<p>Since <span class="math inline">X</span> is an <span
-class="math inline">\mathcal{A}</span>-measurable function on <span
-class="math inline">Ω</span> and <span class="math inline">P</span> is a
-measure we have the integral <span class="math inline">\int_Ω
-X\,dP</span>, the <em>expected value</em> of <span
-class="math inline">X</span>, denoted <span
-class="math inline">E[X]</span>.</p>
-<p>The <em>cumulative distribution function</em> of a random variable is
+<p>The casual definition of The cumulative distribution function of a
+random variable as <span class="math inline">F(x) = P(X\le x)</span>
+being the probability of <span class="math inline">X</span> being less
+than or equal to <span class="math inline">x</span> leaves out the
+important problem of specifying exactly wwhat “probability” means.</p>
+<p>The rigourous mathematical definition requires a probablity measure:
 <span class="math inline">{F_X(x) = P(X\le x) = P(\{ω\in Ω\mid X(ω) \le
 x\})}</span>. We write <span class="math inline">F</span> instead of
 <span class="math inline">F_X</span> if <span
