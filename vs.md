@@ -33,7 +33,7 @@ A vector space inner product defines a norm.
 A _Hilbert space_ is a Banach space under the norm defined by the
 inner product.
 
-Linear operators are functons between vector spaces that respect
+Linear operators are functions between vector spaces that respect
 the vector space structure. They are also vector spaces.
 
 ## $\RR^n$
@@ -110,7 +110,7 @@ allows us to consider a wider range of mathematical objects.
 ### Examples
 
 If $A$ and $B$ are sets then the exponential $B^A = \{f\colon A\to B\}$ is the set
-of all functons from $A$ to $B$. 
+of all functions from $A$ to $B$. 
 
 __Exercise__. _Show $\RR^n$ can be identified with $\RR^{\{1,\ldots,n\}}$_.
 
@@ -198,15 +198,16 @@ $Tx = \sum_{j=0}^n a_j x^{(j)}(t)$, where $a_j\in\RR$
 
 __Exercise__. _Show $T$ is a linear operator_.
 
-Integration is a linear operator. Define $T\colon C([a,b])\to C([a,b])$ by $Tf(x) = \int_a^x f(u)\,du$, $a\le x\le b$. 
+Integration is a linear operator. Define $T\colon C([a,b])\to\RR$ by $Tf = \int_a^b f(x)\,dx$.
 
 __Exercise__. _Show $T$ is bounded_.
 
-_Hint_. Show $\|Tf\| \le (b - a)\|f\|$.
+_Hint_. Show $|Tf| \le (b - a)\|f\|$.
 
-Differentiation is a linear operator. Define $T\colon C^{(1)}([a,b])\to C([a,b])$ by $Tf = f'$.
+Differentiation is a linear operator. Define $T_x\colon C^{(1)}([a,b])\to\RR$ by $Tf = f'(x)$
+where $x\in(a,b)$.
 
-__Exercise__. _Show $T$ is not bounded_.
+__Exercise__. _Show $T_x$ is not bounded_.
 
 ### Operator Algebra
 
@@ -222,11 +223,6 @@ for the algebra.
 
 __Exercise__. _Show $(aS)(bT) = (ab)(ST)$ for $a,b\in\RR$ and $S,T\in\LL(V)$_.
 
-If $T\colon V\to V$ and $Tv = \lambda v$ where $\lambda\in\RR$ then
-$v$ is an _eigenvector_ with _eigenvalue_ $\lambda$.
-
-__Exercise__. _Show $\RR v = \{av\mid a\in\RR\}$ is an invariant subspace_.
-
 If $p$ is a polynomial $p(x) = \sum_j a_j x^j$ define
 $p(T)\colon V\to V$ by $p(T) = \sum_j a_j T^j$ for $T\in\LL(V)$.
 This defines the _polynomial functional calculus_ from polynomials to $\LL(V)$.
@@ -234,13 +230,14 @@ This defines the _polynomial functional calculus_ from polynomials to $\LL(V)$.
 __Exercise__ _Show the polynomial functional calculus is a linear operator from polynomials
 to $\LL(V)$_.
 
+__Exercise__. _Show $(pq)(T) = p(T)q(T)$ for polynomials $p$ and $q$_.
+
 This functional calculus can be extended beyond polynomials.
 
 ### Subspace
 
 A subset of a vector space that is also a vector space is a _subspace_.
 Subspaces allow us to factor a space into smaller vector spaces.
-
 
 For $T\in\mathcal{L}(V,W)$ define the 
 _kernel_ $\ker T = \{v\in V\mid Tv = \bm{0}\}$ and 
@@ -305,14 +302,30 @@ Translating a subspace $W$ by $v$ gives $v + W = \{v + w\mid w\in W\}$.
 
 __Exercise__. _If $W$ is subspace of $V$ show $u\sim v$ if and only if $u + W = v + W$_.
 
-The set of equvalence classes $V/W = \{v + W\mid v\in V\}$ can be made into a vector space.
-Define scalar multiplcation by $a(v + W) = av + W$ and
+The set of equivalence classes $V/W = \{v + W\mid v\in V\}$ can be made into a vector space.
+Define scalar multiplication by $a(v + W) = av + W$ and
 addition by $(u + W) + (v + W) = (u + v) + W$, $a\in\RR$, $u, v\in V$.
 
 __Exercise__. _Show $V/W$ is a vector space_.
 
-If $V$ is a vector space and $W$ is a subspace then
-$V = W + V/W$ for some mathematically rigourous interpretation of $=$ and $+$.
+If $T\in\LL(V,W)$ define $π\colon V\to V/\ker(T)$ by $π(v) = v + \ker T$
+and $ν\colon V/\ker(T)\to W$ by $ν(v + \ker T) = Tv$, $v\in V$.
+
+__Exercise__. _Show $π$ is onto_.
+
+__Exercise__. _Show $ν$ is _well-defined.
+
+_Hint_: Show if $v + \ker T = w + \ker T$ then $Tv = Tw$.
+
+__Exercise__. _Show $ν$ is one-to-one_.
+
+If $V$ is a vector space and $W$ is a subspace define
+the _inclusion operator_ $ι\colon W\to V$ by $i(w) = w$
+and the _projection operator_ $p\colon V\to V/W$ by $p(v) = v + W$.
+
+__Exercise__. _Show $i$ is one-to-one and $p$ is onto_.
+
+$V = W + V/W$ for some mathematically rigorous interpretation of $=$ and $+$.
 
 #### Eigenvector/value
 

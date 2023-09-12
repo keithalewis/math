@@ -9,6 +9,7 @@ abstract: A calculus for uncertainty
 ...
 
 \newcommand\RR{\mathbf{R}}
+\newcommand\NN{\mathbf{N}}
 \newcommand\AA{\mathcal{A}}
 \newcommand{\Var}{\operatorname{Var}}
 
@@ -23,9 +24,16 @@ becomes available.
 A _sample space_ $Ω$ is the set of what can happen.
 An _outcome_ $ω\in Ω$ is an element of a sample space.
 An _event_ $E\subseteq Ω$ is a subset of a sample space.
-An _algebra_ $\AA$ is collection of events that is closed under set complement and union.
-We also assume the empty set belongs to the algebra.
-If it is also closed under countable unions of events then is it a $σ$-algebra.
+An _algebra_ $\AA$ is collection of events that is closed under set _complement_ and _union_.
+
+The complement of the event $E\subseteq Ω$, $\neg E$,
+the set of outcomes 'not' in $E$.
+The union of events, $E\cup F$, is the set of outcomes that belong to $E$ 'or' $F$.
+
+__Exercise__. _Show if $\AA$ is closed under complement and union then
+so is $\AA\cup\{\emptyset, Ω\}$_.
+
+It is convenient to assume the empty set belongs to the algebra.
 
 __Exercise__. _Show $Ω\in\AA$ and $\AA$ is closed under set intersection_.
 
@@ -36,6 +44,13 @@ The set _complement_ of $A\subseteq Ω$ is $\neg A = \{ω\in Ω\mid ω\not\in A\
 so $\neg \emptset = Ω\in\AA$.
 Since $\neg(A\cap B) = \neg A \cup\neg B$ we have $A\cap B\in\AA$.
 </details>
+
+If an algebra is also closed under countable unions of events then is it a $σ$-algebra.
+This means if $E_n\in\AA$, $n\in\NN$, then $\cup_{n\in\NN} E_n\in\AA$, where
+$\NN = \{0, 1, 2, \ldots\}$ is the set of _natural numbers_.
+
+__Exercise__. _If an algebra is closed under countable unions then it is
+also closed under countable intersections_.
 
 Algebras model _partial information_.
 
@@ -48,7 +63,7 @@ An _atom_ is an event $A\in\AA$ where $B\subseteq A$ for some $B\in\AA$
 implies $B=\emptyset$ or $B=A$.  If $\AA$ is finite and $ω\in Ω$ define
 ${A_ω = \cap\{A\in\AA\mid ω\in A\}}$.
 
-__Exercise__. _Show $A_ω$ is the atom of $\AA$ containing $ω\in Ω$_.
+__Exercise__. _Show $A_ω$ is an atom of $\AA$ containing $ω\in Ω$_.
 
 __Excercise__. _Show $\{A_ω\mid ω\in Ω\}$ is a partition of $Ω$_.
 
@@ -59,7 +74,7 @@ If $\AA$ is finite then we can identify it with its atoms.
 
 _Partial information_ is modeled by a partition of a sample space.
 Complete information corresponds to the _finest_ partition
-$\{\{ω\}\mid ω\in Ω\}$.
+of _singletons_ $\{\{ω\}\mid ω\in Ω\}$.
 No information corresponds to the _coarsest_ partition $\{Ω\}$.
 Partial information is knowing only which set in the partition an
 outcome belongs to.
@@ -98,7 +113,7 @@ and $P(Ω) = 1$.
 #### Discrete
 
 If $Ω = \{ω_j\}$ is finite (or countable) we can define a _discrete_ probability
-measure by $P(\{ω_j\}) = p_j$ where $p_j\ge0$ and $\sum_j p_j = 1$.
+measure by $P(\{ω_j\}) = p_j$ where $p_j > 0$ and $\sum_j p_j = 1$.
 
 __Exercise__. _Show $P(E) = \sum_{ω_j\in E} p_j$_.
 
@@ -138,12 +153,14 @@ __Exercise__. _If $\AA$ is finite then $X$ is constant on its atoms._
 
 Note that $X$ _is_ a function on atoms in this case.
 
-Since $X$ is an $\AA$-measurable function on $Ω$ and $P$ is a measure
-we have the integral $\int_Ω X\,dP$, the _expected value_ of $X$,
-denoted $E[X]$.
+The casual definition of 
+The cumulative distribution function of a random variable
+as $F(x) = P(X\le x)$ being the probability of $X$ being
+less than or equal to $x$ leaves out the important problem
+of specifying exactly wwhat "probability" means.
 
-The _cumulative distribution function_ of a random variable
-is ${F_X(x) = P(X\le x) = P(\{ω\in Ω\mid X(ω) \le x\})}$.
+The rigourous mathematical definition requires a probablity measure:
+${F_X(x) = P(X\le x) = P(\{ω\in Ω\mid X(ω) \le x\})}$.
 We write $F$ instead of $F_X$ if $X$ is understood.
 More generally, given a subset $A\subseteq\mathbf{R}$ the probability that
 $X$ takes a value in $A$ is $P(X\in A) = P(\{ω\in Ω\mid X(ω)\in A\}$.
