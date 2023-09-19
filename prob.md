@@ -158,7 +158,7 @@ and male children are equally likely. If $p$ is the probabilty of a
 child being male then ${P(\{MM\}\mid B) = p^2/(p(1-p) + (1-p)p + p^2) = p/(2 - p)}$.
 If $p = 1/2$ then $p/(2- p) = 1/3$.
 
-__Exercise__. _WHat if $p = 0$ or $p = 1$?_
+__Exercise__. _What if $p = 0$ or $p = 1$?_
 
 This assumes the probability of each child being male or female is
 independent of the order of having children. This does not hold in
