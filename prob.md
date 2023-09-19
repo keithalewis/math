@@ -161,15 +161,14 @@ If $p = 1/2$ then $p/(2- p) = 1/3$.
 __Exercise__. _What if $p = 0$ or $p = 1$?_
 
 This assumes the probability of each child being male or female is
-independent of the order of having children. This does not hold in
-counties where parents kill their first child if it is female.
+independent of the order of having children. This does not hold, e.g.,
+in counties where parents kill their first child if it is female.
 
-The assumption of stumbling across a GI Joe doll implying one of the
-children is male may also not be valid.
+The assumption of stumbling across a GI Joe, or a Barbie, doll implying one of the
+children is or is not male may also not be valid.
 
 Probability Theory can still be applied, it is just a matter of extending
-the sample space to be more realistic and finding an appropriate
-probability measure.
+the sample space and finding an appropriate probability measure.
 
 ## Random Variable
 
@@ -290,9 +289,10 @@ __Exercise__. _Show the point $(X,Y)$ is
 in the square $(a,b]\times (c,d]$ with probability
 ${P(a < X \le b, c < Y \le d) = P(X \le b, Y \le d) - P(X \le a) - P(Y \le c) + P(X \le a, Y \le c)}$_.
 
-This allows computing the probability the point belongs to and set that is a countable
+This allows computing the probability the point belongs to any set that is a countable
 union of squares, a _measurable_ set.
-For example, all convex sets are measurable
+
+__Exercise__.  _All convex sets are measurable_.
 
 In general, the joint distribution of $X_1$, \ldots, $X_n$ is defined by
 $F(x_1,\ldots,x_n) = P(X_1\le x_1, \ldots, X_n\le x_n)$.
