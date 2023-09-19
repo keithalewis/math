@@ -14,10 +14,11 @@ abstract: Continuous time random walk
 \renewcommand{\u}[1]{\underline{#1}}
 
 Brownian motion is a [stochastic process](sp.html) $(B_t)_{t\ge0}$ with increments that are
-_stationary_, _independent_, and _normal_.
+_stationary_, _independent_, and _normal_. It is the continous time limit of
+a properly scaled [random walk](rw.html).
 
 __stationary__
-: $t\mapsto B_{t + u} - B_u$ has the same law as $t\mapsto B_t$, $u\ge0$.
+: $t\mapsto B_{t + u} - B_u$ has the same law as $t\mapsto B_t - B_0$, $u\ge0$.
 
 __independent__
 : If $0\le t_0  < \cdots < t_n$ then
@@ -28,11 +29,19 @@ __normal__
 
 We also require paths are right-continuous almost surely.
 
-_Standard Brownian motion_ has $B_1 = 0$ and $\Var(B_1) = 1$.
+_Standard Brownian motion_ has $E[B_1] = 0$ and $\Var(B_1) = 1$.
+
+Norbert Wiener (1923) showed if $Z_n$ are independent, standard normal random variables then
+$$
+	B_t = Z_0 t + \sqrt{2}\sum_{n=1}^\infty Z_n\frac{\sin\pi n t}{\pi n}
+$$
+satisfies these properties.
 
 __Exercise__. _A stochastic process $(X_t)$ with increments that are stationary, independent,
 and normal has the form $X_t = \mu t + \sigma B_t$ for some constants $\mu$ and $\sigma$ where
 $(B_t)$ is standard Brownian motion_.
+
+_Hint_. Define $B_t = (X_t - E[X_1])/\Var(X_1)$. Show $(B_t)$ is standard Brownian motion.
 
 ## Reflection Principal
 
@@ -45,7 +54,7 @@ __Exercise__. _Show $-\u{B}_t = \o{-B}_t$_.
 Use $-\min\{x\in X\} = \max\{-x\in X\}$ for $X\subset\RR$.
 </details>
 
-Fix $a \ge 0$ and define $\tau_a = \min \{t\ge 0\mid \o{B}_t > a\}$ to be the _first hitting time_
+Fix $a \ge 0$ and define $\tau_a = \min \{t\ge 0\mid B_t > a\}$ to be the _first hitting time_
 at level $a$. Note $B_{\tau_a} = a$ almost surely.
 _Brownian motion reflected at $a$_, $B^a_t$, is defined as
 $$
@@ -55,11 +64,12 @@ B_t, &t\le \tau_a \\
 a + (a - B_t), &t\ge \tau_a \\
 \end{cases}
 $$
-Note $B^0_t = -B_t$ for all $t$. Reflected Brownian motion switches to $-B_t$ once level $a$ is hit.
+Reflected Brownian motion switches to $-B_t$ once level $a$ is hit.
+Note $a - B_{\tau_a} = 0$.
 
 __Exercise__. _Reflected Brownian motion is Brownian motion_.
 
-__Lemma__. _For any integrable function $f$ we have_
+__Lemma__. (Reflection Principal) _For any integrable function $f$ we have_
 $$
 E[f(B_t) 1(\o{B}_t > a)] = E[f(B_t) 1(B_t > a)] + E[f(2a - B_t) 1(B_t > a)].
 $$
@@ -70,7 +80,7 @@ $$
 $$
 Since $B_t > a$ implies $\o{B}_t > a)$ we have the first term on the right hand side
 $$
-E[f(B_t) 1(B_t > 0, \o{B}_t > a)] = E[f(B_t) 1(B_t > a)].
+E[f(B_t) 1(B_t > a, \o{B}_t > a)] = E[f(B_t) 1(B_t > a)].
 $$
 Since $(B^a_t)$ is Brownian motion
 $$
@@ -137,6 +147,6 @@ _Hint_. Use $\alpha  = -\sigma /2$.
 
 <details><summary>Solution</summary>
 From above, $\o{F^\alpha }_t > h$ if and only if $\o{B_t} > (\log h/f)/\sigma$
-so we can apply the reflexion principal.
+so we can apply the reflection principal.
 </details>
 

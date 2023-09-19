@@ -12,6 +12,7 @@ abstract: A calculus for uncertainty
 \newcommand\NN{\mathbf{N}}
 \newcommand\AA{\mathcal{A}}
 \newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Var}}
 
 Probability is an extension of the rules of logic to deal with uncertain
 events.  A probability is a number between 0 and 1 representing a degree
@@ -41,7 +42,7 @@ _Hint_: Use $\emptyset\in\AA$ and De Morgan's laws.
 
 <details><summary>Solution</summary>
 The set _complement_ of $A\subseteq Ω$ is $\neg A = \{ω\in Ω\mid ω\not\in A\}$
-so $\neg \emptset = Ω\in\AA$.
+so $\neg \emptyset = Ω\in\AA$.
 Since $\neg(A\cap B) = \neg A \cup\neg B$ we have $A\cap B\in\AA$.
 </details>
 
@@ -123,6 +124,53 @@ _Hint_. $E$ is the disjoint union of singletons $\{ω_j\}$ where $ω_j\in E$.
 
 The _uniform_ measure on $Ω = [0,1)$ is defined by $λ([a,b)) = b - a$ for $0\le a\le b < 1$.
 
+## Conditional Expectation
+
+The _conditional expectation_ of an event $B$ given an event $A$ is
+${P(B\mid A) = P(B\cap A)/P(A)}$.
+
+__Exercise__. _Show $P_A(B) = P(B\cap A)/P(A)$ is a probability measure on $A$_.
+
+_Hint_: Show $P_A(A) = 1$ and $P_A(B\cup C) = P_A(B) + P_A(C) - P_A(B\cap C)$.
+
+__Exercise__. _Show $P(B\mid A) = P(B) P(A\mid B)/P(A)$_.
+
+This is the simplest form of Bayes Theorem. It shows how to update your degree
+of belief based on new information. Every probability is conditional on information.
+
+### Example
+
+Suppose a family moves in next door and you are told they have
+two children.  If you step on a GI Joe doll in their yard on your way
+to work what is the probability they are both boys?
+
+The first step is to establish the sample space and the probability
+measure. We assume $\Omega = \{FF, FM, MF, MM\}$ represents the female
+or male gender of the younger and older child and that each possibility
+is equally likely.
+
+The event "step on a GI Joe" doll corresponds to $B = \{FM, MF, MM\}$
+indicating at least one of the children is a boy.  Bayes' theorem implies
+$P(\{MM\}\mid B) = P(\{MM\})/P(B) = (1/4)/(3/4) = 1/3$, not $1/2$.
+
+As in every model, there are assumptions. It may not be the case female
+and male children are equally likely. If $p$ is the probabilty of a
+child being male then ${P(\{MM\}\mid B) = p^2/(p(1-p) + (1-p)p + p^2) = p/(2 - p)}$.
+If $p = 1/2$ then $p/(2- p) = 1/3$.
+
+__Exercise__. _WHat if $p = 0$ or $p = 1$?_
+
+This assumes the probability of each child being male or female is
+independent of the order of having children. This does not hold in
+counties where parents kill their first child if it is female.
+
+The assumption of stumbling across a GI Joe doll implying one of the
+children is male may also not be valid.
+
+Probability Theory can still be applied, it is just a matter of extending
+the sample space to be more realistic and finding an appropriate
+probability measure.
+
 ## Random Variable
 
 Random variables are symbols that can be used in place of a number when
@@ -135,7 +183,7 @@ the values a random variable can take on.
 __Exercise__. _If $P$ is discrete and $X$ is the identity function on $Ω$ then
 $P(X \le x) = \sum_{x_j\le x} p_j$_.
 
-Note $F$ is piecewise constant, non-decreasing, and right-continuous.
+Note $F$ is piece-wise constant, non-decreasing, and right-continuous.
 
 __Exercise__. _If $X$ is uniformly distributed on $[0,1)$ then
 $F(x) = \max\{0,\min\{1, x\}\}$ for $-\infty < x <  \infty$_.
@@ -154,16 +202,16 @@ __Exercise__. _If $\AA$ is finite then $X$ is constant on its atoms._
 Note that $X$ _is_ a function on atoms in this case.
 
 The casual definition of 
-The cumulative distribution function of a random variable
+the cumulative distribution function of a random variable
 as $F(x) = P(X\le x)$ being the probability of $X$ being
 less than or equal to $x$ leaves out the important problem
-of specifying exactly wwhat "probability" means.
+of specifying exactly what "probability" means.
 
-The rigourous mathematical definition requires a probablity measure:
-${F_X(x) = P(X\le x) = P(\{ω\in Ω\mid X(ω) \le x\})}$.
+The rigorous mathematical definition is
+${F_X(x) = P(\{ω\in Ω\mid X(ω) \le x\})}$ where $P$ is a probability measure.
 We write $F$ instead of $F_X$ if $X$ is understood.
 More generally, given a subset $A\subseteq\mathbf{R}$ the probability that
-$X$ takes a value in $A$ is $P(X\in A) = P(\{ω\in Ω\mid X(ω)\in A\}$.
+$X$ takes a value in $A$ is ${P(X\in A) = P(\{ω\in Ω\mid X(ω)\in A\}}$.
 The cdf corresponds to $A = (-\infty, x]$.
 Two random variables have the same _law_ if they have the same cdf.
 
@@ -223,6 +271,15 @@ In general $P(X\in A) = \int_A dF(x)$
 for sufficiently nice subsets $A\subset\mathbf{R}$ using
 [Riemann–Stieltjes](https://mathworld.wolfram.com/StieltjesIntegral.html)
 integration.
+
+Define the conditional expectation of the random variable $X$ with respect
+to the event $A$ by $E[X\mid A] = E[X 1_A]/P(A)$.  If $X = 1_B$ then
+this coincides with the definition of conditional expectation above.
+
+Define the conditional expectation of $X$ with respect to the algebra
+$\AA$, $E[X\mid \AA]:\AA\to\mathbf{R}$, by
+$E[X\mid \AA](A) = E[X\mid A]$ for $A$ an atom of $\AA$.
+
 
 ## Joint Distribution
 
@@ -335,7 +392,7 @@ It is a measure of the lopsidedness of the distribution.
 
 __Exercise__. _If $X$ and $-X$ have the same law then its skew is 0_.
 
-The _kurtosis_ of a random variable is the fourth central momeent of a standardized random variable.
+The _kurtosis_ of a random variable is the fourth central moment of a standardized random variable.
 It is a measure of how peaked a distribution is.
 
 The _moment generating function_ is $\mu(s) = E[e^{sX}] = \sum_{n=0}^\infty m_n s^n/n!$.
@@ -553,30 +610,6 @@ __Exercise__. _If $X_n$ converges in mean square then it converges in probabilit
 
 Hint: $\phi(x) = x^2$ is increasing for $x > 0$.
 
-
-## Conditional Expectation
-
-The _conditional expectation_ of an event $B$ given an event $A$ is
-${P(B\mid A) = P(B\cap A)/P(A)}$.
-
-__Exercise__. _Show $P_A(B) = P(B\cap A)/P(A)$ is a probability measure on $A$_.
-
-_Hint_: Show $P_A(A) = 1$ and $P_A(B\cup C) = P_A(B) + P_A(C) - P_A(B\cap C)$.
-
-Define $E[1_B\mid A] = P(B\mid A)$.
-
-__Exercise__. _Show $P(B\mid A) = P(B) P(A\mid B)/P(A)$_.
-
-This is the simplest form of Bayes Theorem. It shows how to update your degree
-of belief based on new information. Every probability is conditional on information.
-
-Define the conditional expectation of the random variable $X$ with respect
-to the event $A$ by $E[X\mid A] = E[X 1_A]/P(A)$.  If $X = 1_B$ then
-this coincides with the definition of conditional expectation above.
-
-Define the conditional expectation of $X$ with respect to the algebra
-$\AA$, $E[X\mid \AA]:\AA\to\mathbf{R}$, by
-$E[X\mid \AA](A) = E[X\mid A]$ for $A$ an atom of $\AA$.
 
 <!--
 

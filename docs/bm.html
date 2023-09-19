@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-16" />
+  <meta name="dcterms.date" content="2023-09-18" />
   <title>Brownian Motion</title>
   <style>
     code{white-space: pre-wrap;}
@@ -58,7 +58,7 @@
 <header id="title-block-header">
 <h1 class="title">Brownian Motion</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 16, 2023</p>
+<p class="date">September 18, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Continuous time random walk
@@ -66,12 +66,14 @@ Continuous time random walk
 </header>
 <p>Brownian motion is a <a href="sp.html">stochastic process</a> <span
 class="math inline">(B_t)_{t\ge0}</span> with increments that are
-<em>stationary</em>, <em>independent</em>, and <em>normal</em>.</p>
+<em>stationary</em>, <em>independent</em>, and <em>normal</em>. It is
+the continous time limit of a properly scaled <a href="rw.html">random
+walk</a>.</p>
 <dl>
 <dt><strong>stationary</strong></dt>
 <dd>
 <span class="math inline">t\mapsto B_{t + u} - B_u</span> has the same
-law as <span class="math inline">t\mapsto B_t</span>, <span
+law as <span class="math inline">t\mapsto B_t - B_0</span>, <span
 class="math inline">u\ge0</span>.
 </dd>
 <dt><strong>independent</strong></dt>
@@ -88,9 +90,14 @@ normally distributed.
 </dd>
 </dl>
 <p>We also require paths are right-continuous almost surely.</p>
-<p><em>Standard Brownian motion</em> has <span class="math inline">B_1 =
-0</span> and <span class="math inline">\operatorname{Var}(B_1) =
-1</span>.</p>
+<p><em>Standard Brownian motion</em> has <span
+class="math inline">E[B_1] = 0</span> and <span
+class="math inline">\operatorname{Var}(B_1) = 1</span>.</p>
+<p>Norbert Wiener (1923) showed if <span class="math inline">Z_n</span>
+are independent, standard normal random variables then <span
+class="math display">
+    B_t = Z_0 t + \sqrt{2}\sum_{n=1}^\infty Z_n\frac{\sin\pi n t}{\pi n}
+</span> satisfies these properties.</p>
 <p><strong>Exercise</strong>. <em>A stochastic process <span
 class="math inline">(X_t)</span> with increments that are stationary,
 independent, and normal has the form <span class="math inline">X_t = \mu
@@ -98,6 +105,9 @@ t + \sigma B_t</span> for some constants <span
 class="math inline">\mu</span> and <span
 class="math inline">\sigma</span> where <span
 class="math inline">(B_t)</span> is standard Brownian motion</em>.</p>
+<p><em>Hint</em>. Define <span class="math inline">B_t = (X_t -
+E[X_1])/\operatorname{Var}(X_1)</span>. Show <span
+class="math inline">(B_t)</span> is standard Brownian motion.</p>
 <section id="reflection-principal" class="level2">
 <h2>Reflection Principal</h2>
 <p>Let <span class="math inline">\overline{B}_t = \max_{s\le t}
@@ -114,8 +124,8 @@ Use <span class="math inline">-\min\{x\in X\} = \max\{-x\in X\}</span>
 for <span class="math inline">X\subset\boldsymbol{R}</span>.
 </details>
 <p>Fix <span class="math inline">a \ge 0</span> and define <span
-class="math inline">\tau_a = \min \{t\ge 0\mid \overline{B}_t &gt;
-a\}</span> to be the <em>first hitting time</em> at level <span
+class="math inline">\tau_a = \min \{t\ge 0\mid B_t &gt; a\}</span> to be
+the <em>first hitting time</em> at level <span
 class="math inline">a</span>. Note <span class="math inline">B_{\tau_a}
 = a</span> almost surely. <em>Brownian motion reflected at <span
 class="math inline">a</span></em>, <span
@@ -126,14 +136,15 @@ B^a_t =
 B_t, &amp;t\le \tau_a \\
 a + (a - B_t), &amp;t\ge \tau_a \\
 \end{cases}
-</span> Note <span class="math inline">B^0_t = -B_t</span> for all <span
-class="math inline">t</span>. Reflected Brownian motion switches to
-<span class="math inline">-B_t</span> once level <span
-class="math inline">a</span> is hit.</p>
+</span> Reflected Brownian motion switches to <span
+class="math inline">-B_t</span> once level <span
+class="math inline">a</span> is hit. Note <span class="math inline">a -
+B_{\tau_a} = 0</span>.</p>
 <p><strong>Exercise</strong>. <em>Reflected Brownian motion is Brownian
 motion</em>.</p>
-<p><strong>Lemma</strong>. <em>For any integrable function <span
-class="math inline">f</span> we have</em> <span class="math display">
+<p><strong>Lemma</strong>. (Reflection Principal) <em>For any integrable
+function <span class="math inline">f</span> we have</em> <span
+class="math display">
 E[f(B_t) 1(\overline{B}_t &gt; a)] = E[f(B_t) 1(B_t &gt; a)] + E[f(2a -
 B_t) 1(B_t &gt; a)].
 </span></p>
@@ -145,7 +156,7 @@ class="math display">
 </span> Since <span class="math inline">B_t &gt; a</span> implies <span
 class="math inline">\overline{B}_t &gt; a)</span> we have the first term
 on the right hand side <span class="math display">
-E[f(B_t) 1(B_t &gt; 0, \overline{B}_t &gt; a)] = E[f(B_t) 1(B_t &gt;
+E[f(B_t) 1(B_t &gt; a, \overline{B}_t &gt; a)] = E[f(B_t) 1(B_t &gt;
 a)].
 </span> Since <span class="math inline">(B^a_t)</span> is Brownian
 motion <span class="math display">
@@ -240,7 +251,7 @@ Solution
 </summary>
 From above, <span class="math inline">\overline{F^\alpha }_t &gt;
 h</span> if and only if <span class="math inline">\overline{B_t} &gt;
-(\log h/f)/\sigma</span> so we can apply the reflexion principal.
+(\log h/f)/\sigma</span> so we can apply the reflection principal.
 </details>
 </section>
 <hr/>
