@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-08-08" />
+  <meta name="dcterms.date" content="2023-09-20" />
   <title>Trading Strategies</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,119 +16,36 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: true
-   });
-}}});
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
   </script>
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Trading Strategies</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">August 8, 2023</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-Primative operations
-</div>
+<p class="date">September 20, 2023</p>
 </header>
-<p>The <a href="um0.html">Unified Model</a> describes prices and cash
-flows.</p>
-<p>A <em>trading strategy</em> is an increasing sequence of stopping
-times <span class="math inline">τ_j</span> and functions <span
-class="math inline">Γ_j\colon{\mathcal{A}}_{τ_j}\to\boldsymbol{R}^I</span>
-indicating how much of each instrument to purchase at <span
-class="math inline">τ_j</span>.</p>
-<p>Consider the strategy of purchasing a stock when it goes below some
-level <span class="math inline">L</span> then selling the stock when it
-goes above some level <span class="math inline">H &gt; L</span>. Let
-<span class="math inline">(S &lt; L) = \{(t,ω)\in [0,\infty)\times Ω|
-S_t(ω) &lt; L\}</span> and <span class="math inline">(S &lt; H) =
-\{(t,ω)\in [0,\infty)\times Ω| S_t(ω)\}</span> where <span
-class="math inline">S_t</span> is the stock price at time <span
-class="math inline">t</span> and <span class="math inline">ω</span> is
-the outcome determining the stock trajectory. The first trading time is
-<span class="math inline">τ_0(ω) = \inf\{t|S_t(ω) &lt; L\}</span> when
-we buy one share. The second trading time is <span
-class="math inline">τ_1(ω) = \inf\{t &gt; τ_0(ω)|S_t(ω) &gt; H\}</span>
-when we sell one share.</p>
-<p>If we have an increasing sequence of numbers <span
-class="math inline">t_0 &lt; t_1 &lt; t_2 &lt; \cdots</span> let <span
-class="math inline">I = \{t_j\}</span>. We can recover the sequence by
-defining <span class="math inline">*I = \min\{t\in I\}</span> and <span
-class="math inline">+I = I&gt;*I = \{t\in I\mid t &gt; *I\}</span>.
-Clearly <span class="math inline">t_0 = *I</span>, <span
-class="math inline">t_1 = *(+I)</span>, <span class="math inline">t_2 =
-*(+(+I))</span>, etc.</p>
-<p>This can be generalized from a sequence of numbers to subsets of a
-totally ordered set. If <span class="math inline">I</span> is a subset
-of a totally ordered set define <span class="math inline">*I =
-\inf\{t\in I\}</span> and <span class="math inline">+I = I &gt;
-*I</span>. If <span class="math inline">I</span> has no accumulation
-points this determines a sequence <span class="math inline">t_j =
-*(+^jI)</span>, <span class="math inline">j\ge0</span>.</p>
-<p>Recall the <em>disjoint union</em> of <span
-class="math inline">I_0</span> and <span class="math inline">I_1</span>
-is <span class="math inline">(\{0\}\times I_0)\cup(\{1\}\times
-I_1)</span>. It has elements of the form <span
-class="math inline">(j,i)</span> where <span
-class="math inline">j\in\{0,1\}</span> and <span
-class="math inline">i\in I_0</span> if <span class="math inline">j =
-0</span> and <span class="math inline">i\in I_1</span> if <span
-class="math inline">j = 1</span>. If <span class="math inline">i\in
-I_0\cup I_1</span> then we don’t know if <span
-class="math inline">i</span> belongs to <span
-class="math inline">I_0</span> or to <span
-class="math inline">I_1</span>, or both. The disjoint union preserves
-this information.</p>
-<p>Let <span class="math inline">I = (j, I_0\sqcup I_1)</span>, <span
-class="math inline">j\in\{0,1\}</span>. Define <span
-class="math inline">*I = (j, *I_j)</span> and <span
-class="math display">
-    +(j, I_0\sqcup I_1) = (j + 1\mod 2, (I_0 &gt; *I_j)\sqcup (I_1 &gt;
-*I_j)).
+<p>The <a href="um0.html">Unified Model</a> describes prices and cash flows.</p>
+<p>A <em>trading strategy</em> is an increasing sequence of stopping times <span class="math inline">τ_j</span> and functions <span class="math inline">Γ_j\colon{\mathcal{A}}_{τ_j}\to\boldsymbol{R}^I</span> indicating how much of each instrument to purchase at <span class="math inline">τ_j</span>.</p>
+<p>Consider the strategy of purchasing a stock when it goes below some level <span class="math inline">L</span> then selling the stock when it goes above some level <span class="math inline">H &gt; L</span>. Let <span class="math inline">(S &lt; L) = \{(t,ω)\in [0,\infty)\times Ω| S_t(ω) &lt; L\}</span> and <span class="math inline">(S &lt; H) = \{(t,ω)\in [0,\infty)\times Ω| S_t(ω)\}</span> where <span class="math inline">S_t</span> is the stock price at time <span class="math inline">t</span> and <span class="math inline">ω</span> is the outcome determining the stock trajectory. The first trading time is <span class="math inline">τ_0(ω) = \inf\{t|S_t(ω) &lt; L\}</span> when we buy one share. The second trading time is <span class="math inline">τ_1(ω) = \inf\{t &gt; τ_0(ω)|S_t(ω) &gt; H\}</span> when we sell one share.</p>
+<p>If we have an increasing sequence of numbers <span class="math inline">t_0 &lt; t_1 &lt; t_2 &lt; \cdots</span> let <span class="math inline">I = \{t_j\}</span>. We can recover the sequence by defining <span class="math inline">*I = \min\{t\in I\}</span> and <span class="math inline">+I = I&gt;*I = \{t\in I\mid t &gt; *I\}</span>. Clearly <span class="math inline">t_0 = *I</span>, <span class="math inline">t_1 = *(+I)</span>, <span class="math inline">t_2 = *(+(+I))</span>, etc.</p>
+<p>This can be generalized from a sequence of numbers to subsets of a totally ordered set. If <span class="math inline">I</span> is a subset of a totally ordered set define <span class="math inline">*I = \inf\{t\in I\}</span> and <span class="math inline">+I = I &gt; *I</span>. If <span class="math inline">I</span> has no accumulation points this determines a sequence <span class="math inline">t_j = *(+^jI)</span>, <span class="math inline">j\ge0</span>.</p>
+<p>Recall the <em>disjoint union</em> of <span class="math inline">I_0</span> and <span class="math inline">I_1</span> is <span class="math inline">(\{0\}\times I_0)\cup(\{1\}\times I_1)</span>. It has elements of the form <span class="math inline">(j,i)</span> where <span class="math inline">j\in\{0,1\}</span> and <span class="math inline">i\in I_0</span> if <span class="math inline">j = 0</span> and <span class="math inline">i\in I_1</span> if <span class="math inline">j = 1</span>. If <span class="math inline">i\in I_0\cup I_1</span> then we don’t know if <span class="math inline">i</span> belongs to <span class="math inline">I_0</span> or to <span class="math inline">I_1</span>, or both. The disjoint union preserves this information.</p>
+<p>Let <span class="math inline">I = (j, I_0\sqcup I_1)</span>, <span class="math inline">j\in\{0,1\}</span>. Define <span class="math inline">*I = (j, *I_j)</span> and <span class="math display">
+    +(j, I_0\sqcup I_1) = (j + 1\mod 2, (I_0 &gt; *I_j)\sqcup (I_1 &gt; *I_j)).
 </span></p>
-<p>Getting back to our trading example, we can define <span
-class="math inline">{(S &lt; L), (S &gt; H) = (0, (S &lt; L)\sqcup(S
-&gt; H))}</span>. The first trade is determined by <span
-class="math inline">(*(S &lt; L), (S &gt; H))(ω) = (0, τ_0(ω))</span>.
-The second trade is determined by <span class="math inline">(*(+(S &lt;
-L), (S &gt; H)))(ω) = (1, τ_1(ω))</span>.</p>
-<hr/>
-<footer>
-Return to <a href="index.html">index</a>.
-</footer>
+<p>Getting back to our trading example, we can define <span class="math inline">{(S &lt; L), (S &gt; H) = (0, (S &lt; L)\sqcup(S &gt; H))}</span>. The first trade is determined by <span class="math inline">(*(S &lt; L), (S &gt; H))(ω) = (0, τ_0(ω))</span>. The second trade is determined by <span class="math inline">(*(+(S &lt; L), (S &gt; H)))(ω) = (1, τ_1(ω))</span>.</p>
 </body>
 </html>
