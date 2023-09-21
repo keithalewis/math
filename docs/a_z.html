@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-05-15" />
+  <title>Getting from A to Z</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Getting from A to Z</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">May 15, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+How to structure a mathematical argument.
+</div>
+</header>
+<section id="derivation" class="level2">
+<h2>Derivation</h2>
+<p>To derive <span class="math inline">A = Z</span> write down <span
+class="math inline">A</span>. Below that write a true statement and the
+substitutions to apply to get the next statement <span
+class="math inline">= B</span>. The equality is established when the
+last statement is <span class="math inline">= Z</span>.</p>
+<p>To get from <span class="math inline">A</span> to <span
+class="math inline">B</span> use a <em>true statement</em> and
+<em>substitutions</em>. True statements are <em>axioms</em> of the the
+mathematical theory you are working in. Substitutions are systematically
+replacing one thing by another.</p>
+<p>Every mathematical theory has its own set of axioms. Axioms are just
+pretend true; different theories can have have contradictory axioms. For
+example, non-Euclidean geometries do not satisfy Euclid’s Fifth
+Postulate.</p>
+<p>The <em>real numbers</em> are a Dedekind complete ordered field that
+you are familiar with from high school algebra, even though you might
+not be able to write down all of its axioms off the top of your
+head.</p>
+<p>One of the axioms is the identity law for multiplication <span
+class="math inline">a = 1a</span>.</p>
+<p>This can be used to show what you might think to be the unremarkable
+fact that <span class="math inline">x + x = 2x</span>. Start with</p>
+<p><span class="math inline">\underline{x} + \underline{x}</span></p>
+<p><span class="math inline">\qquad\{\overline{a} = \underline{1a}\mid
+a\leftarrow x\}</span></p>
+<p><span class="math inline">=\overline{1x} + \overline{1x}</span>.</p>
+<p>Underbar and overbar match what is being substituted with the result
+of the substitution. In this case we substituted the same expression two
+times. Substitution is a mechanical operation that even a dumb computer
+could do, but it is also a useful technique that can help you with more
+complicated derivations.</p>
+<p>Another axiom is the distibutive law <span class="math inline">ac +
+bc = (a + b)c</span>.</p>
+<p><span
+class="math inline">=\underline{1}\underline{\underline{\underline{{x}}}}
++
+\underline{\underline{1}}\underline{\underline{\underline{x}}}</span>.</p>
+<p><span
+class="math inline">\qquad\{\overline{a}\overline{\overline{\overline{c}}}
++ \overline{\overline{b}}\overline{\overline{\overline{c}}} =
+(\underline{a} +
+\underline{\underline{b}})\underline{\underline{\underline{c}}}\mid
+a\leftarrow 1, b\leftarrow 1, c\leftarrow x\}</span></p>
+<p><span class="math inline">= (\overline{1} +
+\overline{\overline{1}})\overline{\overline{\overline{x}}}</span></p>
+<p><span class="math inline">\qquad\{\overline{1 + 1} =
+\underline{2}\}</span></p>
+<p><span class="math inline">=\overline{2}x</span></p>
+<p>This might seem to be a long-winded way of showing <span
+class="math inline">x + x = 2x</span> but it illustrates the general
+technique of showing <span class="math inline">A = Z</span>. No
+mathematician uses this clumsy over/underbar notation when deriving
+equations, but they are thinking that in their head.</p>
+<p>Let’s derive the less unremarkable fact <span class="math inline">(x
++ y)^2 = x^2 + 2xy + y^2</span> using this technique. You may have
+learned the FOIL method for this – First, Outer, Inner, Last so <span
+class="math inline">(x + y)^2 = (x + y)(x + y) = xx + xy + yx + yy = x^2
++ 2xy + y^2</span>. Mathematics uses axioms and substituion for rigorous
+derivations instead of cute mnemonics.</p>
+<p><em>Derivation</em>. Start by writing <span
+class="math inline">A</span></p>
+<p><span class="math inline">\underline{(x + y)}^2</span></p>
+<p>then write the axiom and substitutions</p>
+<p><span class="math inline">\qquad\{\overline{a}^2 = \underline{aa}\mid
+a\leftarrow(x + y)\}</span></p>
+<p>Issac Newton’s preferred way of writing <span
+class="math inline">a^2</span> was <span class="math inline">aa</span>.
+<span class="math inline">\underline{(x + y)}</span> corresponds to
+<span class="math inline">\overline{a}</span> and <span
+class="math inline">\underline{aa}</span> corresponds to</p>
+<p><span class="math inline">= \overline{(x + y)(x + y)}</span></p>
+<p>after substituting <span class="math inline">a</span> by <span
+class="math inline">(x + y)</span>. Next we apply the distributive
+law</p>
+<p><span class="math inline">= \underline{(x +
+y)}(\underline{\underline{x}} +
+\underline{\underline{\underline{y}}})</span></p>
+<p><span
+class="math inline">\qquad\{\overline{a}(\overline{\overline{b}} +
+\overline{\overline{\overline{c}}}) =
+\underline{a}\underline{\underline{b}} +
+\underline{a}\underline{\underline{\underline{c}}}\mid a\leftarrow(x+y),
+b\leftarrow x, c\leftarrow y\}</span></p>
+<p><span class="math inline">= \overline{(x + y)}\overline{\overline{x}}
++ \overline{(x + y)}\overline{\overline{\overline{y}}}</span></p>
+<p>Applying the distributive law again twice</p>
+<p><span class="math inline">= \underline{(x + y)x} +
+\underline{\underline{(x + y)y}}</span></p>
+<p><span class="math inline">\qquad\{(a + b)c = ac + bc\}</span></p>
+<p><span class="math inline">= \overline{xx + yx} +
+\overline{\overline{xy + yy}}</span></p>
+<p>where you can provide the subsitutions in your head now. The
+commutitive law for multiplication yields</p>
+<p><span class="math inline">= xx + xy + xy + yy</span></p>
+<p>Using the lemma <span class="math inline">a + a = 2a</span> from
+above <span class="math inline">xy + xy = 2xy</span> so</p>
+<p><span class="math inline">= x^2 + 2xy + y^2</span></p>
+<p>This shows <span class="math inline">(x + y)^2 = x^2 + 2xy +
+y^2</span>.</p>
+<p>To be pedantic we should write</p>
+<p><span class="math inline">= \underline{xx} + \underline{\underline{xy
++ xy}} + \underline{yy}</span></p>
+<p><span class="math inline">\qquad\{\overline{aa} = \underline{a}^2,
+\overline{\overline{b + b}} = \underline{2b}\mid a\leftarrow x,
+a\leftarrow y, b \leftarrow xy\}</span>.</p>
+<p><span class="math inline">= \overline{x}^2 + \overline{2xy} +
+\overline{y}^2</span></p>
+<p>As your math skills improve you won’t need such low level
+derivations. If you get into trouble skipping steps you can always fall
+back to this to be confident what you write is mathematically true.</p>
+<p>Here is a more interesting example from probability theory where
+<span class="math inline">X</span> is a <em>random variable</em> and
+<span class="math inline">E[X]</span> is its <em>expected value</em>.
+Behind the scenes <span class="math inline">X</span> is a function and
+expectation is an integral.</p>
+<p>Derive <span class="math inline">E[(X - E[X])^2] = E[X^2] -
+E[X]^2</span>.</p>
+<p><span class="math inline">E[\underline{(X - E[X])^2}]</span></p>
+<p><span class="math inline">\qquad\{\overline{(a - b)^2} =
+\underline{a^2 - 2ab + b^2} \mid a\leftarrow X, b\leftarrow
+E[X]\}</span></p>
+<p><span class="math inline">= \underline{E[\overline{X^2 - 2XE[X] +
+E[X]^2}]}</span></p>
+<p><span class="math inline">\qquad\{\overline{E[A - B + C]} =
+\underline{E[A]} - \underline{\underline{E[B]}} +
+\underline{\underline{\underline{E[C]}}}\mid A\leftarrow X^2,
+B\leftarrow 2XE[X], C\leftarrow E[X]^2\}</span></p>
+<p><span class="math inline">= \overline{E[X^2]} -
+\overline{\overline{\underline{E[2XE[X]]}}} +
+\overline{\overline{\overline{\underline{\underline{E[E[X]^2]]}}}}}</span></p>
+<p><span class="math inline">\qquad\{\overline{E[cA]} =
+\underline{cE[A]}, \overline{\overline{E[b]}} =
+\underline{\underline{b}}\mid c\leftarrow 2E[X], A\leftarrow X,
+b\leftarrow E[X]^2\}</span> (using <span class="math inline">XE[X] =
+E[X]X</span>)</p>
+<p><span class="math inline">= E[X^2] - \overline{2\underline{E[X]E[X]}}
++ \overline{\overline{E[X]^2]}}</span></p>
+<p><span class="math inline">\qquad\{\overline{aa} =
+\underline{a^2}\}</span> (exponent)</p>
+<p><span class="math inline">= E[X^2] - 2\overline{E[X]^2} +
+E[X]^2</span></p>
+<p><span class="math inline">\qquad\{ac + bc = (a + b)c\}</span>
+(distributive)</p>
+<p><span class="math inline">= E[X^2] + (-2 + 1)E[X]^2</span></p>
+<p><span class="math inline">= E[X^2] - E[X]^2</span>.</p>
+<p>This establishes <span class="math inline">E[(X - E[X])^2] = E[X^2] -
+E[X]^2</span>.</p>
+</section>
+<section id="proof" class="level2">
+<h2>Proof</h2>
+<p>To prove ‘<em>if <span class="math inline">A</span> then <span
+class="math inline">Z</span></em>’ or, equivalently, ‘<span
+class="math inline">A\Rightarrow B</span>’ write down <span
+class="math inline">A</span>. Below that write a true statement and the
+substitutions to apply to get the next statement <span
+class="math inline">B</span>. If the statements <span
+class="math inline">P</span> and <span class="math inline">P\Rightarrow
+Q</span> occur in the derivation then the statement <span
+class="math inline">Q</span> can be written (modus ponens). The proof is
+done when the last statement is <span class="math inline">Z</span> – QED
+(quod erat demonstrandum).</p>
+<p><strong>Theorem</strong>. <em>If <span class="math inline">x + x =
+x</span> then <span class="math inline">x = 0</span></em>.</p>
+<p><em>Proof</em>: Start by writing down <span
+class="math inline">A</span>.</p>
+<p><span class="math inline">x + x = x</span></p>
+<p><span class="math inline">\qquad\{a = b \Rightarrow a + c = b + c\mid
+a\leftarrow x + x, b\leftarrow x, c\leftarrow(-x)\}</span></p>
+<p><span class="math inline">x + x = x\Rightarrow x + x + (-x) = x +
+(-x)</span></p>
+<p><span class="math inline">\qquad\{\text{modus ponens}\}</span></p>
+<p><span class="math inline">x + \underline{x + (-x)} = \underline{x +
+(-x)}</span></p>
+<p><span class="math inline">\qquad\{\overline{a + (-a)} =
+\underline{0}\mid a\leftarrow x\}</span> (inverse)</p>
+<p><span class="math inline">\underline{x + \overline{0}} =
+\overline{0}</span></p>
+<p><span class="math inline">\qquad\{\overline{a + 0} =
+\underline{a}\mid a\leftarrow x\}</span> (identity)</p>
+<p><span class="math inline">\overline{x} = 0</span></p>
+<p>This shows <span class="math inline">x + x = x</span> implies <span
+class="math inline">x = 0</span>.</p>
+<p>It is good form to explicitly state when a proof has been completed.
+This proof has been completed. QED.</p>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

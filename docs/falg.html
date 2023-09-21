@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-05-15" />
+  <title>F-Algebra</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">F-Algebra</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">May 15, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Category with structure
+</div>
+</header>
+<p>Lots of categories are based on the category <span
+class="math inline">\mathbf{Set}</span> with structure. For example, a
+monoid is a set <span class="math inline">M</span> with an associative
+binary operation and an identity element. If <span
+class="math inline">m\colon M\times M\to M</span> is the binary
+operation we can express associativity as <span
+class="math inline">m(a,m(b,c)) = m(m(a,b),c)</span>, <span
+class="math inline">a,b,c\in M</span>, and identity as <span
+class="math inline">m(1, a) = a = m(a, 1)</span>, where <span
+class="math inline">1\in M</span> is the identity.</p>
+<p>These conditions are not very categoryish. How does one say <span
+class="math inline">m(1,a) = a</span>, <span class="math inline">a\in
+M</span>, without mentioning <span class="math inline">a</span>, or even
+<span class="math inline">1</span> for that matter? Categories are just
+arrows and objects. Define <span class="math inline">i\colon M\to
+I\times M</span> by <span class="math inline">i(a) =
+(\star,a)</span>.</p>
+<p>We can define a functor on <span
+class="math inline">\mathbf{Set}</span> by <span
+class="math inline">F(M) = I \times M</span>, for any set <span
+class="math inline">M</span>, where <span class="math inline">I</span>
+is initial object of <span class="math inline">\mathbf{Set}</span>,
+i.e., any singleton. Let <span class="math inline">α\colon F(M)\to
+M</span> be the projection on the second component <span
+class="math inline">(\star,a)\mapsto a</span>, <span
+class="math inline">a\in M</span>.</p>
+<p>If <span class="math inline">a\colon M\to N</span> is and arrow the
+<span class="math inline">F(a)\colon F(M)\to F(N)</span> by $IaM</p>
+<p>An F-algebra on a category <span
+class="math inline">\mathbf{C}</span> is a functor <span
+class="math inline">F\colon \mathbf{C}\to\mathbf{C}</span>, an object
+<span class="math inline">A</span> in <span
+class="math inline">\mathbf{C}</span> and an arrow <span
+class="math inline">α\colon F(A)\to A</span>. For a monoid the F-algebra
+has functor <span class="math inline">F(M) = I + M\times M</span> on
+<span class="math inline">\mathbf{Set}</span> and arrow <span
+class="math inline">α\colon I + M\times M\to M</span> where <span
+class="math inline">I\mapsto 1</span> and <span
+class="math inline">(a,b)\mapsto m(a,b)</span>. Here <span
+class="math inline">I</span> is an initial object of <span
+class="math inline">\mathbf{Set}</span>, i.e., any singleton.</p>
+<section id="f-algebra" class="level2">
+<h2>F-algebra</h2>
+<p>An <em>F-algebra</em> for category <span
+class="math inline">\mathbf{C}</span> is an endofunctor <span
+class="math inline">F\colon\mathbf{C}\to\mathbf{C}</span>, an object
+<span class="math inline">A</span>, and an arrow <span
+class="math inline">α\colon F(A)\to A</span>. If <span
+class="math inline">(B,β)</span> is an F-algebra then <span
+class="math inline">f\colon A\to B</span> is an F-algebra homomorphism
+if <span class="math inline">fα = βF(f)</span>.</p>
+<p>If <span class="math inline">M</span> is a moniod with identity <span
+class="math inline">e\in M</span> then <span class="math inline">ea = a
+= ae</span>, <span class="math inline">a\in M</span>, and <span
+class="math inline">a(bc) = (ab)c</span>, <span
+class="math inline">a,b,c\in M</span> where <span class="math inline">ab
+= m(a,b)</span> is the monoid operation <span
+class="math inline">m\colon M\times M\to M</span>.</p>
+<p>Need facts that are special to <span
+class="math inline">\mathbf{Set}</span>.</p>
+<p><span class="math inline">B^A = \{f\colon A\to B\} = \{A\to
+B\}</span>.</p>
+<p>If <span class="math inline">f\colon X\to Y</span> is a function,
+<span class="math inline">(x,x&#39;)\in\operatorname{ker}f</span> iff
+<span class="math inline">f(x) = f(x&#39;)</span> is an equivalence
+relation on <span class="math inline">X</span>.</p>
+<p>The map <span class="math inline">X\to X/\operatorname{ker}X</span>,
+<span class="math inline">x\mapsto x/\operatorname{ker}f</span>, is
+surjective</p>
+<p>The map <span class="math inline">X/\operatorname{ker}f\to
+\operatorname{ran}f</span>, <span
+class="math inline">x/\operatorname{ker}f\mapsto f(x)</span>, is
+well-defined and bijective</p>
+<p>The map <span class="math inline">\operatorname{ran}f\to Y</span>,
+<span class="math inline">f(x)\mapsto f(x)</span>, is injective.</p>
+<p><span class="math inline">f\colon X\to Y</span>, <span
+class="math inline">f^\vdash\colon\mathcal{P}(Y)\to\mathcal{P}(X)</span>,
+<span class="math inline">f^\vdash(S) = \{x\in X\mid f(x)\in
+S\}\subseteq X</span>, <span class="math inline">S\subseteq Y</span>.
+<span class="math inline">x/\operatorname{ker}f =
+f^\vdash(\{f(x)\})</span>.</p>
+<p>Product <span class="math inline">\prod_{i\in I}A_i</span>, <span
+class="math inline">\pi_i\colon \prod_{i\in I}A_i\to A_i</span> such
+that <span class="math inline">p_i\colon C\to A_i</span> implies there
+exists <span class="math inline">p\colon C\to\prod_{i\in I}A_i</span>
+with <span class="math inline">\pi_ip = p_i</span> all <span
+class="math inline">i\in I</span>.</p>
+<p><span class="math inline">σ\colon J\to I</span>, <span
+class="math inline">\Pi_{j\in J} A_{σ(j)}</span>. Permutaion if <span
+class="math inline">σ</span> is bijective. Projection if <span
+class="math inline">J\subseteq I</span>. Reshape if <span
+class="math inline">J=n_1\times\cdots</span>, <span
+class="math inline">(j_1,\ldots)\mapsto j_1 + n_1(\cdots)</span>.</p>
+<p><span class="math inline">τ\colon I\to J</span>, <span
+class="math inline">\Pi_{j\in J} \Pi_{i\mid σ(i) = j} A_i</span>.
+Grouping. If <span class="math inline">I = n</span> and <span
+class="math inline">τ\colon n\to m</span>, <span class="math inline">m
+\le n</span> then <span class="math inline">I/\operatorname{ker}τ</span>
+is a partition of <span class="math inline">I</span>, <span
+class="math inline">τ_{0|12}\colon X_0\times X_1\times X_2\to
+(X_0)\times(X_\time X_2)</span>.</p>
+<p><span class="math inline">(A\times B)\times C \equiv A\times(B\times
+C)</span></p>
+<p><span class="math inline">\Pi_{i\in I} A \equiv A^I</span>, <span
+class="math inline">π_i\colon \Pi_{i\in I} A\to A</span>, <span
+class="math inline">π_i(a) = a(i)</span>. <span
+class="math inline">a\in\Pi_{i\in I} A\mapsto (i\mapsto
+π_i(a))</span>.</p>
+<p>Exponential <span class="math inline">e\colon (B^A\times A)\to
+B</span>.</p>
+<p>Product, <span class="math inline">A\to A\times B</span>, and
+exponential, <span class="math inline">A\to B^A</span>, are adjoint
+functors. <span class="math inline">\{(A \times B)\to C\} \equiv \{A \to
+\{B\to C\}\}</span> <span class="math inline">f(a,b) = c</span> iff
+<span class="math inline">(\underline{f}(a))(b) = c</span>. <span
+class="math inline">(g(a))b = c</span> iff <span
+class="math inline">\overline{g}(a, b) = c</span>.</p>
+<p><span class="math inline">σ\colon I\to J</span>, <span
+class="math inline">σ^\vdash J\to \operatorname{ker}σ</span>.</p>
+<p><span class="math inline">M\times M\to M^2</span> product to
+exponential, as sets</p>
+<p><span class="math inline">M\times M\times M\to M\times M^2</span></p>
+<p><span class="math inline">M\times M\times M\to M^2\times M</span></p>
+<p><span class="math inline">\NN\to M\times\cdots\times M</span>, <span
+class="math inline">σ\colon n\to m</span>, <span
+class="math inline">m\le n</span>.</p>
+<p><span class="math inline">M\times\cdots\times M\ to M^{σ(0)} \times
+M^b \times \ldots</span></p>
+<p><span class="math inline">m(a,m(b,c)) = m(m(a,b),c)</span></p>
+<p>(a,b,c) -&gt; (a, (b,c)) -&gt; (a, m(b,c)) -&gt; m(a, m(b,c))</p>
+<p>m:G^2 -&gt; G, m x m^2: G x G^2 -&gt;</p>
+<p>G^3-&gt; G G^2 (a,b,c) -&gt; (a,(b,c))</p>
+<p>G^3-&gt; G^2 G (a,b,c) -&gt; ((a,b),c)</p>
+<p>(a,b,c) -&gt; (a,m(b,c))</p>
+</section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>

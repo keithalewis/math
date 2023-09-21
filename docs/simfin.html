@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2023-05-15" />
+  <title>simfin</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>Simple Financial Model</p>
+<p>Position: amount, instrument, (legal) entity. π = (a, i, e).</p>
+<p>Market: (multi)set of positions, M = {…, π, …, π’, …}</p>
+<p>Netting: set of positions from adding amounts having the same
+instrument and entity.</p>
+<p>Transaction: exchange of entities between two positions.</p>
+<pre><code>{ ..., (a, i, e), ..., (a&#39;, i&#39;, e&#39;), ...}</code></pre>
+<p>&lt;=&gt; {…, (a’, i’, e), …, (a, i, e’), …}</p>
+<p>Transaction (accounting) price is X = a/a’. X a &lt;=&gt; 1 a’. 16
+USD &lt;=&gt; 2 F has price 16/2 = 8.</p>
+<p>Instrument: has future (random) prices and cash flows. X_t, C_t. C_t
+= 0 almost always</p>
+<p>Present value: expected sum of future discounted cash flows. P_t =
+E_t[Σ_{u &gt; t} C_u D_u]</p>
+<p>Trading strategies are from the perspective of a single entity e
+where i is dollars or native currency. Price and cash flow are vectors
+indexed by all available instruments, i’ != i, in the market.</p>
+<p>Trading strategy: buy amounts Γ_j at stopping times τ_j, j =
+1,…,n.</p>
+<p>Holdings: sum of shares traded. Δ_t = Σ_{τ_j &lt; t} Γ_j = Σ_{s &lt;
+t} Γ_s.</p>
+<p>Value: of unwinding all holdings and last trade at current market
+price. V_t = (Δ_t + Γ_t) . X_t</p>
+<p>Account: You receive the cash flows proportional to the amount you
+hold and pay for the trades you just did. A_t = Δ_t . C_t - Γ_t .
+X_t</p>
+<p>A trading strategy creates a synthetic instrument with price V_t and
+cash flow A_t.</p>
+<p>If X_t D_t = E_t[Σ_{u &gt; t} C_u D_u] then V_t D_t = E_t[Σ_{u &gt;
+t} A_u D_u].</p>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
+</body>
+</html>
