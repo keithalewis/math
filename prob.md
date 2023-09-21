@@ -138,6 +138,14 @@ __Exercise__. _Show $P(B\mid A) = P(B) P(A\mid B)/P(A)$_.
 This is the simplest form of Bayes Theorem. It shows how to update your degree
 of belief based on new information. Every probability is conditional on information.
 
+We say $B$ is _independent_ of $A$ if $P(B\mid A) = P(B)$.
+
+__Exercise__. _Show $B$ is independent of $A$ if and only if $P(A\cap B) = P(A)P(B)$_.
+
+__Exercise__. _Show $B$ is independent of $A$ if and only if $A$ is independent of $B$_.
+
+We also say $A$ and $B$ are independent.
+
 ### Example
 
 Suppose a family moves in next door and you are told they have
@@ -294,8 +302,8 @@ union of squares, a _measurable_ set.
 
 __Exercise__.  _All convex sets are measurable_.
 
-In general, the joint distribution of $X_1$, \ldots, $X_n$ is defined by
-$F(x_1,\ldots,x_n) = P(X_1\le x_1, \ldots, X_n\le x_n)$.
+In general, the joint distribution of $X_1, \ldots, X_n$ is defined by
+${F(x_1,\ldots,x_n) = P(X_1\le x_1, \ldots, X_n\le x_n)}$.
 If $A$ is a measurable subset of $\RR^N$ we can use this to compute $P((X_1,\ldots,X_n)\in A)$.
 
 ### Independent
@@ -549,6 +557,24 @@ $$
 
 The cumulant of a standard normal random variable is $κ(s) = \log μ(s) = s^2/2$.
 This shows $Z$ has mean 0 and variance 1.
+
+#### Jointly Normal
+
+If $Z = (Z_1,\ldots,Z_n)$ are independent standard normally distributed random variables
+then the joint density function is ${φ_n(z_1,\ldots,z_n) = \prod_{j=1}^n φ(z_j)}$.
+
+__Exercise__. _If $s\in\RR^n$ show $E[\exp(s\cdot Z) f(Z)] = E[\exp(s\cdot Z)] E[f(Z + s)]$_.
+
+_Hint_: Complete the square using $|z - s|^2 = |z|^2 - 2z\cdot s + |s|^2$.
+
+We say $N = (N_1,\ldots,N_n)$ are _jointly normal_ if $a\cdot N$ is normal for every $a\in\RR^n$.
+Let $μ = E[N]$ and $Σ = \Var(N) = E[NN'] - E[N]E[N']$.
+
+__Exercise__. _Show $Z = Σ^{-1/2}(N - μ)$ are independent standard normally distributed_.
+
+_Hint_: By joint normality we know $Z$ are normal. Show $E[Z] = 0$ and $\Var(Z) = I$, the $n\times n$
+identity matrix.
+
 
 ## Concentration Inequalities
 

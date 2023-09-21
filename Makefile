@@ -13,11 +13,11 @@ FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
 TEXFLAGS = --pdf-engine=xelatex 
 FLAGS += -t html5
 FLAGS += -s # smart quotes
-FLAGS += --katex
-#FLAGS += --katex=$(KATEX)
+#FLAGS += --katex
+FLAGS += --katex=$(KATEX)
 #FLAGS += --katex=katex/
 FLAGS += --css math.css
-FLAGS += -A FOOTER.md
+#FLAGS += -A FOOTER.md
 FLAGS += --metadata date="$(shell date "+%B %e, %Y")"
 TEXFLAGS += --metadata date="$(shell date "+%B %e, %Y")"
 TEXFLAGS += -V fontsize=12pt
@@ -29,7 +29,7 @@ FLAGS += --reference-location=document
 #FLAGS += --mathjax
 #FLAGS += --css capm.css
 FLAGS += --section-divs
-FLAGS += -H HEADER.html
+#FLAGS += -H HEADER.html
 #FLAGS += -H katex.html
 
 %.html: %.md $(CSS)
