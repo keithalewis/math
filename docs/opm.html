@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-07" />
+  <meta name="dcterms.date" content="2023-09-28" />
   <title>One-Period Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,24 +16,8 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -49,7 +33,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -58,7 +42,7 @@
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 7, 2023</p>
+<p class="date">September 28, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Buy now, sell later.
@@ -342,32 +326,28 @@ X(\omega)\,d\Pi(\omega) = \Pi(\Omega)}</span> is the cost of the bond,
 aka <em>discount</em>. The measure <span class="math inline">{P =
 \Pi/D}</span> is positive and has mass 1 so <span class="math inline">{x
 = E[XD]}</span> if we pretend it is a probability measure.</p>
+<!--
+
+## Maximum Entropy
+
+The _entropy_ of a measure on a finite set $Ω = \{ω_j\}$ with $P(\{ω_j\}) = p_j$, $p_j \ge0$,
+is $H = -\sum_j p_j \log p_j$.
+
+$Φ = -\sum_j p_j \log p_j - λ(\sum_j p_j - 1) - μ'(E[X] - Rx)$
+
+$\partial Φ/\partial p_j = -1 - \log p_j - λp_j - μ_j X(ω_j)$
+
+$\partial Φ/\partial λ = \sum_j p_j - 1$
+
+$\partial Φ/\partial μ = E[X] - Rx$
+
+$p_j = \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+
+$1 = \sum_j p_j = \sum_j \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+
+$Rx = E[X] = \sum_j X(ω_j) \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+
+-->
 </section>
-<section id="maximum-entropy" class="level2">
-<h2>Maximum Entropy</h2>
-<p>The <em>entropy</em> of a measure on a finite set <span
-class="math inline">Ω = \{ω_j\}</span> with <span
-class="math inline">P(\{ω_j\}) = p_j</span>, <span
-class="math inline">p_j \ge0</span>, is <span class="math inline">H =
--\sum_j p_j \log p_j</span>.</p>
-<p><span class="math inline">Φ = -\sum_j p_j \log p_j - λ(\sum_j p_j -
-1) - μ&#39;(E[X] - Rx)</span></p>
-<p><span class="math inline">\partial Φ/\partial p_j = -1 - \log p_j -
-λp_j - μ_j X(ω_j)</span></p>
-<p><span class="math inline">\partial Φ/\partial λ = \sum_j p_j -
-1</span></p>
-<p><span class="math inline">\partial Φ/\partial μ = E[X] -
-Rx</span></p>
-<p><span class="math inline">p_j = \exp(-1 - λ(\sum_j p_j - 1) -
-μ&#39;(E[X] - Rx))</span></p>
-<p><span class="math inline">1 = \sum_j p_j = \sum_j \exp(-1 - λ(\sum_j
-p_j - 1) - μ&#39;(E[X] - Rx))</span></p>
-<p><span class="math inline">Rx = E[X] = \sum_j X(ω_j) \exp(-1 -
-λ(\sum_j p_j - 1) - μ&#39;(E[X] - Rx))</span></p>
-</section>
-<hr/>
-<footer>
-Return to <a href="index.html">index</a>.
-</footer>
 </body>
 </html>
