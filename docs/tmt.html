@@ -5,28 +5,35 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-06-29" />
+  <meta name="dcterms.date" content="2023-05-15" />
   <title>The Markowitz Tragedy</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -42,7 +49,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -51,7 +58,7 @@
 <header id="title-block-header">
 <h1 class="title">The Markowitz Tragedy</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 29, 2023</p>
+<p class="date">May 15, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 The dominance of unimportance.
@@ -385,13 +392,13 @@ class="math inline">\lambda = (\tau/(n/\tau\sigma^2) - 1) = 1/n\sigma^2
 <section id="notes" class="level2">
 <h2>NOTES</h2>
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Recall <span class="math inline">A^B = \{f\colon B\to
-A\}</span> is the set of all functions from the set <span
-class="math inline">B</span> to the set <span
+<li id="fn1" role="doc-endnote"><p>Recall <span class="math inline">A^B
+= \{f\colon B\to A\}</span> is the set of all functions from the set
+<span class="math inline">B</span> to the set <span
 class="math inline">A</span>. We prefer the notation <span
 class="math inline">x\in\boldsymbol{R}^I</span> to the circumloqution
 <span class="math inline">x\in\boldsymbol{R}^n</span> where <span
@@ -400,11 +407,11 @@ class="math inline">x = (x_1,\ldots,x_n)\in\boldsymbol{R}^n</span>
 corresponds to <span class="math inline">x(i_j) = x_j</span> in <span
 class="math inline">\boldsymbol{R}^I</span>.<a href="#fnref1"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>The machinery being the Hahn-Banach theorem or its
-finite dimensional version due to Farkas.<a href="#fnref2"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>The machinery being the Hahn-Banach
+theorem or its finite dimensional version due to Farkas.<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 <hr/>
 <footer>
 Return to <a href="index.html">index</a>.

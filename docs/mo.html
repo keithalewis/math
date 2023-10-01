@@ -5,26 +5,33 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-06-29" />
+  <meta name="dcterms.date" content="2023-09-07" />
   <title>Monoid</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -51,57 +58,209 @@
 <header id="title-block-header">
 <h1 class="title">Monoid</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 29, 2023</p>
+<p class="date">September 7, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-Concatination
+Associative binary operation with an identity
 </div>
 </header>
+<p>If <span class="math inline">a</span>, <span
+class="math inline">b</span>, and <span class="math inline">c</span> are
+elements of a monoid then <span class="math inline">(ab)c = a(bc)</span>
+so we can unambiguously write <span class="math inline">abc</span>. This
+is the basis of the map-reduce algorithm. To compute <span
+class="math inline">abcd</span> we can compute <span
+class="math inline">e = (ab)</span> and <span class="math inline">f =
+(cd)</span> independently then <span class="math inline">ef</span> to
+get the final result. Monoids are also used for pivot tables. The
+partial calculations <span class="math inline">e</span> and <span
+class="math inline">f</span> are aggregations of the of the entire data
+set <span class="math inline">a</span>, <span
+class="math inline">b</span>, <span class="math inline">c</span>, and
+<span class="math inline">d</span>. This becomes more interesting when
+many data values are involved.</p>
 <p>A <em>moniod</em> is a set <span class="math inline">M</span> with a
 binary operation <span class="math inline">m\colon M\times M\to M</span>
 that is associative and has an identity element <span
-class="math inline">e</span>.</p>
-<p>A binary operation <span class="math inline">m</span> is
-<em>associative</em> if <span class="math inline">m(m(a,b),c) =
-m(a,m(b,c))</span>, <span class="math inline">a,b,c\in M</span>. Writing
-<span class="math inline">ab</span> for <span
+class="math inline">e</span>. A binary operation <span
+class="math inline">m</span> is <em>associative</em> if <span
+class="math inline">m(m(a,b),c) = m(a,m(b,c))</span>, <span
+class="math inline">a,b,c\in M</span>. Writing <span
+class="math inline">ab</span> for <span
 class="math inline">m(a,b)</span> this means <span
 class="math inline">(ab)c = a(bc)</span>, so writing <span
-class="math inline">abc</span> in unambiguous.</p>
-<p>An <em>identity element</em> <span class="math inline">e</span>
-satisfies <span class="math inline">ea = a = ae</span> for <span
+class="math inline">abc</span> is unambiguous. An <em>identity
+element</em> <span class="math inline">e</span> satisfies <span
+class="math inline">ea = a = ae</span> for <span
 class="math inline">a\in M</span>.</p>
-<p>If an associative binary operation lacks an identity we can define
-one.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">ea = a =
-ea</span>, <span class="math inline">a\in M</span>, then <span
-class="math inline">(ea)b = ab = e(ab)</span>, <span
-class="math inline">(ae)b = ab = a(be)</span> and <span
-class="math inline">(ab)e = ab = a(be)</span></em>.</p>
-<p>This shows adding an identiy preserves associativity.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">e&#39;\in
 M</span> satisfies <span class="math inline">e&#39;a = a =
 ae&#39;</span>, <span class="math inline">a\in M</span>, then <span
 class="math inline">e&#39; = e</span></em>.</p>
-<p>This shows the monoid identity is uniqure.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math inline">e&#39; = e&#39;e = e</span>.
+</details>
+<p>This shows the monoid identity is unique.</p>
+<p>A <em>semigroup</em> is a set with a binary associative operation. A
+semigroup can be turned into a monoid by adding an identity element. If
+<span class="math inline">S</span> is a semigroup let <span
+class="math inline">M = S\cup\{e\}</span> (where <span
+class="math inline">e\notin S</span>) and define <span
+class="math inline">se = s = es</span> for <span
+class="math inline">s\in S</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">M</span> is associative</em>.</p>
+<p>A monoid is <em>abelian</em>/<em>commutative</em> if <span
+class="math inline">m(a,b) = m(b,a)</span> for <span
+class="math inline">a,b\in M</span>.</p>
 <section id="examples" class="level2">
 <h2>Examples</h2>
-<p>Multiplication is a monoid with identity element 1. Addition is a
-monoid with identity element 0. Maximum is a monoid with identity
-element <span class="math inline">-\infty</span>. Minimum is a monoid
-with identity element <span class="math inline">\infty</span>. String
-concatenation is a monoid with identity element the empty string. The
-arrows of a category with a single object form a monoid.</p>
+<p>Let <span class="math inline">M</span> be the set of real numbers
+<span class="math inline">\boldsymbol{R}</span>. Addition and
+multiplication are commutative with identity 0 and 1 respectivly.
+Minimum and maximum are commutative with identity <span
+class="math inline">\infty</span> and <span
+class="math inline">-\infty</span> respectively.</p>
+<p>Subsets of a set <span class="math inline">M</span> are a commutative
+monoid under union and intersection with identity <span
+class="math inline">\emptyset</span> and <span
+class="math inline">M</span> respectively.</p>
+<p>String concatenation forms a non-commutative monoid with identity
+element the empty string.</p>
+<p>Categories with a single object form a monoid. A (small)
+<em>category</em> is a partial monoid with left and right identities. A
+category <span class="math inline">\mathbf{C}</span> has a partial
+binary operation <span
+class="math inline">\circ\colon\mathbf{C}\times\mathbf{C}\rightharpoonup\mathbf{C}</span>
+and for every <span class="math inline">f\in\mathbf{C}</span> there
+exist right and left identities <span class="math inline">{}_f
+e\in\mathbf{C}</span> with <span class="math inline">f\circ {}_f e =
+f</span> and <span class="math inline">e_f\in\mathbf{C}</span> with
+<span class="math inline">e_f\circ f = f</span>. Using the usual
+category theory notation <span class="math inline">f\colon A\to B</span>
+where <span class="math inline">A</span> and <span
+class="math inline">B</span> are <em>objects</em> with <em>arrow</em>
+<span class="math inline">f</span> we can identify <span
+class="math inline">{_f}e</span> with <span class="math inline">A =
+\operatorname{dom}f</span> and <span class="math inline">e_f</span> with
+<span class="math inline">B = \operatorname{cod}f</span>. Objects are
+determined by arrows in category theory.</p>
+<section id="aggregation" class="level3">
+<h3>Aggregation</h3>
+<p>If <span class="math inline">M</span> is a commutative monoid let
+<span class="math inline">M^+</span> be the collection of all finite
+subsets of <span class="math inline">M</span>. Define a function <span
+class="math inline">m^+\colon M^+\to M</span> by <span
+class="math inline">m^+(\{m_1,\ldots,m_n\}) = m_1 \cdots m_n</span> when
+<span class="math inline">m_j</span> are distinct and <span
+class="math inline">m^+(\emptyset) = e</span>, the monoid identity.</p>
+<p><strong>Exercise</strong>. <em>Show this is well-defined</em>.</p>
+<p><em>Hint</em>: This requires <span class="math inline">M</span> to be
+commutative.</p>
+<p>We can define a binary operation on disjoint finite subsets of <span
+class="math inline">M</span> to <span class="math inline">M</span> by
+<span class="math inline">{m^+(A,B) = m^+(A\cup B)}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">A,B\subseteq M</span> are finite disjoint subsets
+show <span class="math inline">{m^+(A,B) =
+m^+(A)m^+(B)}</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">A,B,C\subseteq M</span> are finite pairwise-disjoint
+subsets show <span class="math inline">m^+(m^+(A, B), C) = m^+(A,
+m^+(B,C))</span></em>.</p>
+<p>Since <span class="math inline">m^+(\emptyset, A) = A = m^+(A,
+\emptyset)</span> this shows finite disjoint subsets of a monoid form a
+monoid with identity <span class="math inline">\emptyset</span>.</p>
+<p>The Kleene star of <span class="math inline">M</span> is the union of
+all finite sequences of elements of <span class="math inline">M</span>,
+<span class="math inline">M^* = \cup_{n\ge0} M^n</span> where <span
+class="math inline">M^n = \{(m_1,\dots,m_n)\mid m_j\in M\}</span>.
+Define <span class="math inline">m^*\colon M^*\to M</span> by <span
+class="math inline">m^*((m_1,\ldots,m_n)) = m_1 \cdots m_n</span> and
+<span class="math inline">m^*(()) = e</span>, the monoid identity.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">M^*</span> is a monoid under <span
+class="math inline">m^*</span> with identity <span
+class="math inline">(())</span></em>.</p>
 </section>
-<section id="rational" class="level2">
-<h2>Rational</h2>
-<p>Monoids are the basis of the map-reduce algorithm. If <span
-class="math inline">a_j</span> are elements of a monoid then the
-calculation of <span class="math inline">a_1\cdots a_n</span> can be
-partitioned into seperate calculations <span class="math inline">A_1 =
-a_1\cdots a_{k_0}</span>, <span class="math inline">A_2 = a_{k_0 +
-1}\cdots a_{k_1}</span>, <span class="math inline">\dots</span>, <span
-class="math inline">a_{k_j + 1}\cdots a_n</span>.</p>
+<section id="equivalence-relation" class="level3">
+<h3>Equivalence Relation</h3>
+<p>Equivalence relations are a generalization of equality. Equality
+satisfied <span class="math inline">a = a</span>, if <span
+class="math inline">a = b</span> then <span class="math inline">b =
+a</span> and if <span class="math inline">a = b</span> and <span
+class="math inline">b = c</span> then <span class="math inline">a =
+c</span>.</p>
+<p>An <em>equivalence relation</em> on a set <span
+class="math inline">S</span> is a subset <span
+class="math inline">R\subseteq S\times S</span> with <span
+class="math inline">(s,s)\in R</span>, <span
+class="math inline">(s,t)\in R</span> implies <span
+class="math inline">(t,s)\in R</span>, and if <span
+class="math inline">(s,t)\in R</span> and <span
+class="math inline">(t,u)\in R</span> then <span
+class="math inline">(s,u)\in R</span>. We write <span
+class="math inline">sRt</span> for <span class="math inline">(s,t)\in
+R</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">aRa</span>, <span class="math inline">aRb</span>
+implies <span class="math inline">bRa</span>, and if <span
+class="math inline">aRb</span> and <span class="math inline">bRc</span>
+then <span class="math inline">aRc</span> if <span
+class="math inline">R</span> is an equivalence relation</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">I =
+\{(s,s)\mid s\in S\}</span> is an equivalence relation</em>.</p>
+<p>The <em>equivalence class</em> of <span class="math inline">s\in
+S</span> is <span class="math inline">\overline{s} = \{s&#39;\in S\mid
+sRs&#39;\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\overline{S} = \{\overline{s}\mid s\in S\}</span> is
+a a <em>partition</em> of <span class="math inline">S</span></em>.</p>
+<p><em>Hint</em>: A partition of <span class="math inline">S</span> is a
+collection of pairwise disjoint sets whose union is <span
+class="math inline">S</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\overline{S} = \{S_i\}_{i\in I}</span> is a
+partition of <span class="math inline">S</span> show <span
+class="math inline">sRs&#39;</span> if and only if <span
+class="math inline">s,s&#39;\in S_i</span> for some <span
+class="math inline">i\in I</span> is an equivalence relation</em>.</p>
+<p>This shows equivalence relations on <span
+class="math inline">S</span> are in 1-1 correspondence with partitions
+of <span class="math inline">S</span>.</p>
+</section>
+</section>
+<section id="pivot-tables" class="level2">
+<h2>Pivot Tables</h2>
+<p>Pivot tables use monoids to aggregate data. Suppose we have tick data
+for stock prices <span class="math inline">(t_j, s_j)</span>. We can
+partition the trading times <span class="math inline">\{t_j\}</span> by
+years, months, days, etc. The <em>high</em> and <em>low</em> price apply
+max and min to all stock prices falling in a given partition. The
+<em>open</em> and <em>close</em> price apply min and max to the times in
+a given partition and return the corresponding stock price.</p>
+<p>The first step in creating a pivot table is to specify a function.
+For the example above define <span class="math inline">S\colon T\to
+\boldsymbol{R}</span> by <span class="math inline">S(t_j) = s_j</span>.
+If <span class="math inline">\overline{T}</span> is a partition of <span
+class="math inline">T</span> and <span class="math inline">\mu</span> is
+a commutative binary opreration on <span
+class="math inline">\boldsymbol{R}</span> define <span
+class="math inline">\overline{S}\colon
+\overline{T}\to\boldsymbol{R}</span> by <span
+class="math inline">\overline{S}(\overline{t}) =
+\mu^+(S(\overline{t}))</span>. This is how high and low are defined
+using max and min on <span class="math inline">\boldsymbol{R}</span>
+respectively. We can also define <span
+class="math inline">\underline{S}\colon
+\overline{T}\to\boldsymbol{R}</span> by <span
+class="math inline">\underline{S}(\overline{t}) =
+S(\mu^+(\overline{t}))</span>. This is how open and close are defined
+using min and max on <span class="math inline">T</span>
+respectively.</p>
 </section>
 <hr/>
 <footer>

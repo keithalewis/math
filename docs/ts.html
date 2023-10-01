@@ -5,26 +5,33 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-07-14" />
+  <meta name="dcterms.date" content="2023-08-08" />
   <title>Trading Strategies</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -51,7 +58,7 @@
 <header id="title-block-header">
 <h1 class="title">Trading Strategies</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">July 14, 2023</p>
+<p class="date">August 8, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Primative operations
@@ -61,32 +68,64 @@ Primative operations
 flows.</p>
 <p>A <em>trading strategy</em> is an increasing sequence of stopping
 times <span class="math inline">τ_j</span> and functions <span
-class="math inline">Γ_j\colon{\mathcal{A}}_{τ_j}\to\boldsymbol{R}^I</span>.
-For every <span class="math inline">ω\in Ω</span> <span
-class="math inline">(τ_j(ω))</span> is a finite, increasing sequence of
-times. We call this a <em>run</em>.</p>
-<p>If <span class="math inline">t</span> is a run let <span
-class="math inline">\{t\} = \{t_j\}</span> be the set of times in the
-run <span class="math inline">t</span>. If <span
-class="math inline">u</span> is another run let <span
-class="math inline">t\sqcup u</span> be the disjoint union of <span
-class="math inline">\{t\}</span> and <span
-class="math inline">\{u\}</span>. Elements of the disjoint union have
-the form <span class="math inline">(i, v)</span> where <span
-class="math inline">i</span> is either 0 or 1. If <span
-class="math inline">i = 0</span> then <span
-class="math inline">v\in\{t\}</span> and if <span class="math inline">i
-= 1</span> then $v{u}. The elements <span class="math inline">(0,
-v)</span> and <span class="math inline">(1, v)</span> for <span
-class="math inline">v\in \{t\}\cap\{u\}</span> are distinct.</p>
-<p>Define an order on the disjoint union. by <span
-class="math inline">(i, v) &lt; (j,w)</span> if and only if <span
-class="math inline">v &lt; w</span> or <span class="math inline">v =
-w</span> and <span class="math inline">i &lt; j</span>.</p>
-<p>Trading strategies form a vector space. If <span
-class="math inline">a\in\boldsymbol{R}</span> define <span
-class="math inline">a(τ, Γ) = (τ, aΓ)</span> to scale all trades by
-<span class="math inline">a</span>.</p>
+class="math inline">Γ_j\colon{\mathcal{A}}_{τ_j}\to\boldsymbol{R}^I</span>
+indicating how much of each instrument to purchase at <span
+class="math inline">τ_j</span>.</p>
+<p>Consider the strategy of purchasing a stock when it goes below some
+level <span class="math inline">L</span> then selling the stock when it
+goes above some level <span class="math inline">H &gt; L</span>. Let
+<span class="math inline">(S &lt; L) = \{(t,ω)\in [0,\infty)\times Ω|
+S_t(ω) &lt; L\}</span> and <span class="math inline">(S &lt; H) =
+\{(t,ω)\in [0,\infty)\times Ω| S_t(ω)\}</span> where <span
+class="math inline">S_t</span> is the stock price at time <span
+class="math inline">t</span> and <span class="math inline">ω</span> is
+the outcome determining the stock trajectory. The first trading time is
+<span class="math inline">τ_0(ω) = \inf\{t|S_t(ω) &lt; L\}</span> when
+we buy one share. The second trading time is <span
+class="math inline">τ_1(ω) = \inf\{t &gt; τ_0(ω)|S_t(ω) &gt; H\}</span>
+when we sell one share.</p>
+<p>If we have an increasing sequence of numbers <span
+class="math inline">t_0 &lt; t_1 &lt; t_2 &lt; \cdots</span> let <span
+class="math inline">I = \{t_j\}</span>. We can recover the sequence by
+defining <span class="math inline">*I = \min\{t\in I\}</span> and <span
+class="math inline">+I = I&gt;*I = \{t\in I\mid t &gt; *I\}</span>.
+Clearly <span class="math inline">t_0 = *I</span>, <span
+class="math inline">t_1 = *(+I)</span>, <span class="math inline">t_2 =
+*(+(+I))</span>, etc.</p>
+<p>This can be generalized from a sequence of numbers to subsets of a
+totally ordered set. If <span class="math inline">I</span> is a subset
+of a totally ordered set define <span class="math inline">*I =
+\inf\{t\in I\}</span> and <span class="math inline">+I = I &gt;
+*I</span>. If <span class="math inline">I</span> has no accumulation
+points this determines a sequence <span class="math inline">t_j =
+*(+^jI)</span>, <span class="math inline">j\ge0</span>.</p>
+<p>Recall the <em>disjoint union</em> of <span
+class="math inline">I_0</span> and <span class="math inline">I_1</span>
+is <span class="math inline">(\{0\}\times I_0)\cup(\{1\}\times
+I_1)</span>. It has elements of the form <span
+class="math inline">(j,i)</span> where <span
+class="math inline">j\in\{0,1\}</span> and <span
+class="math inline">i\in I_0</span> if <span class="math inline">j =
+0</span> and <span class="math inline">i\in I_1</span> if <span
+class="math inline">j = 1</span>. If <span class="math inline">i\in
+I_0\cup I_1</span> then we don’t know if <span
+class="math inline">i</span> belongs to <span
+class="math inline">I_0</span> or to <span
+class="math inline">I_1</span>, or both. The disjoint union preserves
+this information.</p>
+<p>Let <span class="math inline">I = (j, I_0\sqcup I_1)</span>, <span
+class="math inline">j\in\{0,1\}</span>. Define <span
+class="math inline">*I = (j, *I_j)</span> and <span
+class="math display">
+    +(j, I_0\sqcup I_1) = (j + 1\mod 2, (I_0 &gt; *I_j)\sqcup (I_1 &gt;
+*I_j)).
+</span></p>
+<p>Getting back to our trading example, we can define <span
+class="math inline">{(S &lt; L), (S &gt; H) = (0, (S &lt; L)\sqcup(S
+&gt; H))}</span>. The first trade is determined by <span
+class="math inline">(*(S &lt; L), (S &gt; H))(ω) = (0, τ_0(ω))</span>.
+The second trade is determined by <span class="math inline">(*(+(S &lt;
+L), (S &gt; H)))(ω) = (1, τ_1(ω))</span>.</p>
 <hr/>
 <footer>
 Return to <a href="index.html">index</a>.

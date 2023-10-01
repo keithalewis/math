@@ -1,8 +1,11 @@
-::: {#title-block-header}
-# Ito Processes {#ito-processes .title}
-
-Keith A. Lewis
-:::
+---
+title: Ito Processes
+author: Keith A. Lewis
+institution: KALX, LLC
+email: kal@kalx.net
+classoption: fleqn
+abstract: Brownian motion and the heat equation.
+...
 
 A large class of [stochastic
 processes](/content/enforced/201637-FA22_FRE-GY_6233_1_A/sp.html) can be

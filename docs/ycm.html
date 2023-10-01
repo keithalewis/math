@@ -5,26 +5,33 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-07-14" />
+  <meta name="dcterms.date" content="2023-07-12" />
   <title>Yield Curve Models</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -51,7 +58,7 @@
 <header id="title-block-header">
 <h1 class="title">Yield Curve Models</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">July 14, 2023</p>
+<p class="date">July 12, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Continuously compounded stochastic forward rate
@@ -227,16 +234,17 @@ $\Cov(f_t, D_t) = E[\exp(-\int_0^t \phi(s) + \sigma B_s\,ds)]\Cov(\sigma B_t,-\i
 = D(t)  \int_0^t \sigma^2 s\,ds = D(t)\sigma^2 t^2/2$.
 -->
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>On September 17, 2019 SOFR went from 2.43% to 5.25% and
-spiked to 10% at one point during the trading day. This was very <a
+<li id="fn1" role="doc-endnote"><p>On September 17, 2019 SOFR went from
+2.43% to 5.25% and spiked to 10% at one point during the trading day.
+This was very <a
 href="https://www.federalreserve.gov/econres/notes/feds-notes/what-happened-in-money-markets-in-september-2019-20200227.html">disconcerting</a>.<a
 href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 <hr/>
 <footer>
 Return to <a href="index.html">index</a>.

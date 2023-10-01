@@ -4,26 +4,34 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2023-06-29" />
-  <title>ip</title>
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-09-16" />
+  <title>Ito Processes</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -36,7 +44,7 @@
     displayMode: mathElements[i].classList.contains('display'),
     throwOnError: false,
     macros: macros,
-    fleqn: false
+    fleqn: true
    });
 }}});
   </script>
@@ -47,12 +55,15 @@
   <![endif]-->
 </head>
 <body>
-<div id="title-block-header">
-<section id="ito-processes" class="level1 title">
+<header id="title-block-header">
 <h1 class="title">Ito Processes</h1>
-<p>Keith A. Lewis</p>
-</section>
+<p class="author">Keith A. Lewis</p>
+<p class="date">September 16, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Brownian motion and the heat equation.
 </div>
+</header>
 <p>A large class of <a
 href="/content/enforced/201637-FA22_FRE-GY_6233_1_A/sp.html">stochastic
 processes</a> can be defined using standard <a

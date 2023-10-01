@@ -5,26 +5,33 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-06-29" />
+  <meta name="dcterms.date" content="2023-09-07" />
   <title>Relation</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -51,14 +58,14 @@
 <header id="title-block-header">
 <h1 class="title">Relation</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 29, 2023</p>
+<p class="date">September 7, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Relation – comparing two things.
 </div>
 </header>
 <p>When are two things equivalent in some sense even if they are not
-equal? Is one bigger than the other? Is it even possible to compare
+equal? Is one thing bigger than another? Is it even possible to compare
 them? Relations provide a systematic way to get insight into these
 questions. Partial functions are a special case of relations and
 functions are a special case of partial functions.</p>
@@ -93,58 +100,70 @@ The notation $R,$ is non-standard.
 <section id="composition" class="level3">
 <h3>Composition</h3>
 <p>If <span class="math inline">R\subseteq X\times Y</span> and <span
-class="math inline">Q\subseteq Y\times Z</span> are relations define the
-<em>composition</em> <span class="math inline">QR\subseteq X\times
-Z</span> by <span class="math inline">x(QR)z</span> if there exists
+class="math inline">S\subseteq Y\times Z</span> are relations define the
+<em>composition</em> <span class="math inline">SR\subseteq X\times
+Z</span> by <span class="math inline">x(SR)z</span> if there exists
 <span class="math inline">y\in Y</span> with <span
-class="math inline">xRy</span> and <span class="math inline">yQz</span>.
+class="math inline">xRy</span> and <span class="math inline">ySz</span>.
 It may seem more natural to denote the composition by <span
-class="math inline">RQ</span> instead of <span
-class="math inline">QR</span>, and you would be right, but that is not
+class="math inline">RS</span> instead of <span
+class="math inline">SR</span>, and you would be right, but that is not
 the usual mathematical convention.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">x(QR)z</span> if and only if the intersection of the
+class="math inline">x(SR)z</span> if and only if the intersection of the
 cosets <span class="math inline">xR</span> and <span
-class="math inline">Qz</span> is nonempty</em>.</p>
+class="math inline">Sz</span> is nonempty</em>.</p>
+<p>Composition is closely related to the E. F. Codd definition of the
+<em>join</em> of two relations. The join of <span
+class="math inline">R</span> and <span class="math inline">S</span> on
+<span class="math inline">Y</span> is <span
+class="math inline">\{(x,y,z)\mid xRy\text{ and } ySz\text{ for some
+}y\in Y\}</span>.</p>
 </section>
 <section id="transpose" class="level3">
 <h3>Transpose</h3>
 <p>The <em>transpose</em> of a relation <span
-class="math inline">R\subseteq X\times Y</span> is <span
+class="math inline">R\subseteq X\times Y</span> is the relation <span
 class="math inline">R&#39;\subseteq Y\times X</span> defined by <span
 class="math inline">yR&#39;x = xRy</span>, <span
 class="math inline">x\in X</span>, <span class="math inline">y\in
 Y</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">R</span>
 is a relation on <span class="math inline">X\times Y</span> and <span
-class="math inline">Q</span> is a relation on <span
+class="math inline">S</span> is a relation on <span
 class="math inline">Y\times Z</span> then <span
-class="math inline">(QP)&#39; = P&#39;Q&#39;</span></em>.</p>
+class="math inline">(SR)&#39; = R&#39;S&#39;</span></em>.</p>
 </section>
 <section id="associative" class="level3">
 <h3>Associative</h3>
 <p>Composition is <em>associative</em>.</p>
 <p><strong>Exercise</strong>. <em>If <span
 class="math inline">R\subseteq X\times Y</span>, <span
-class="math inline">Q\subseteq Y\times Z</span>, and <span
-class="math inline">P\subseteq Z\times W</span> then <span
-class="math inline">(PQ)R = P(QR)</span></em>.</p>
+class="math inline">S\subseteq Y\times Z</span>, and <span
+class="math inline">T\subseteq Z\times W</span> then <span
+class="math inline">(TS)R = T(SR)</span></em>.</p>
+</section>
+<section id="identity" class="level3">
+<h3>Identity</h3>
+<p>If <span class="math inline">X</span> is a set then the
+<em>identity</em> relation is $I_X = I = {(x,x)xX$}.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">R\subseteq X\times Y</span> is a relation then <span
+class="math inline">RI_X = R</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">T\subseteq W\times X</span> is a relation then <span
+class="math inline">I_XT = T</span></em>.</p>
 </section>
 </section>
 <section id="properties" class="level2">
 <h2>Properties</h2>
-<p>A relation on a set <span class="math inline">X</span> is a subset
-<span class="math inline">R\subseteq X\times X</span>.</p>
-<p>A relation on <span class="math inline">X</span> is
+<p>We say <span class="math inline">R</span> is a relation on <span
+class="math inline">X</span> if <span class="math inline">R\subseteq X^2
+= X\times X</span>. A relation on <span class="math inline">X</span> is
 <em>transitive</em> if <span class="math inline">xRy</span> and <span
 class="math inline">yRz</span> implies <span
 class="math inline">xRz</span>, <span class="math inline">x,y,z\in
-X</span>. Transitivity is the basic notion of the overloaded word
-<em>ordering</em>. If <span class="math inline">x</span> is smaller than
-<span class="math inline">y</span> and <span
-class="math inline">y</span> is smaller then <span
-class="math inline">z</span> then <span class="math inline">x</span> is
-smaller than <span class="math inline">z</span>.</p>
+X</span>. Transitivity is the basic notion of <em>ordering</em>.</p>
 <p><strong>Exercise</strong>. <em><span class="math inline">R</span> is
 transitive if and only if <span class="math inline">R^2 = RR\subseteq
 R</span></em>.</p>

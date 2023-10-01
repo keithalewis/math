@@ -5,26 +5,33 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-06-29" />
+  <meta name="dcterms.date" content="2023-09-07" />
   <title>Logic</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -51,25 +58,37 @@
 <header id="title-block-header">
 <h1 class="title">Logic</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 29, 2023</p>
+<p class="date">September 7, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-Logic – the foundations of mathematics.
+The foundation of mathematics.
 </div>
 </header>
+<p>Mathematics is concerned only with statements that are either true or
+false and proofs of such statements. While we all might agree with
+Shakespeare that “The quality of mercy is not strained. It droppeth as
+the gentle rain from heaven upon the place beneath” it is doubtful that
+a rigorous mathematical proof of that is possible.</p>
 <p>It may come as a surprise that there are many different logical
 systems for mathematics that are contradictory. For two millenia
-Euclid’s Elements were regarded as the basis for rigourous logical
+Euclid’s Elements were regarded as the basis for rigorous logical
 reasoning. He invented the notion we can start from axioms that rational
-people can agree are true and specify how they can be used to derive
-more true statements.</p>
-<p>The earliest examples are in non-Euclidean geometry where it is
-possible to have no, or infinitely many, “parallel” lines in a plane
-through a point not on a given line. (Bolyai, Lobaschevsky) However one
-thing all logical systems have in common is that they use
-<em>propositions</em>: statements that are either <em>true</em> or
-<em>false</em>, and <em>rules of inference</em>: ways of combining true
-propositions into other true propositions.</p>
+people can agree are true and specify how they can be used to rigorously
+derive more true statements.</p>
+<p>“In a plane, given a line and a point not on it, at most one line
+parallel to the given line can be drawn through the point.” was John
+Playfair’s restatement of Euclid’s fifth postulate. A prodigious amount
+of work was exerted over two millenia to prove that was a consequence of
+Euclids other axioms. It is not. One way to show a statement is not true
+is to provide a counterexample.</p>
+<p>It is possible to have no, or infinitely many, parallel “lines” in a
+“plane” through a “point” not on a given line where “point”, “line”, and
+“plane” that satisfy all of Euclids other axioms.</p>
+<p>(Bolyai, Lobaschevsky)</p>
+<p>Logical systems specify <em>propositions</em>, statements that are
+either <em>true</em> or <em>false</em>, and <em>rules of inference</em>,
+ways of combining true propositions to <em>prove</em> other true
+propositions.</p>
 <p>Mathematicians prove <em>theorems</em>. Typically they have the form
 ‘if <span class="math inline">P</span> is true then <span
 class="math inline">Q</span> is true’ where <span
@@ -79,23 +98,37 @@ class="math inline">P</span> then <span class="math inline">Q</span>’
 and ‘<span class="math inline">P</span> implies <span
 class="math inline">Q</span>’. Every logical system has <em>axioms</em>:
 propositions that are assumed to be true. The fundamental rule of
-inference is <em>modus ponens</em>: if a proof has the statement ‘<span
-class="math inline">P</span>’ and the statement ‘<span
+inference is <em>modus ponens</em>: if a proof involves the statement
+‘<span class="math inline">P</span>’ and the statement ‘<span
 class="math inline">P</span> implies <span class="math inline">Q</span>’
 then the statement ‘<span class="math inline">Q</span>’ can be included
 in the proof. Modus ponens means ‘method of placing.’</p>
+<section id="natural-deduction" class="level2">
+<h2>Natural Deduction</h2>
+<p>Inspired by René Descartes’ reduction of geometry to algebra, David
+Hilbert wanted to express all mathematical proofs as text. Using a ruler
+and compass to aid in constructing a geometric proofs obscured some
+implicit assumptions. For example, Euclid neglected to specify when a
+point was “between” two points on a line. This led to the false proof
+that <a href="https://www.jstor.org/stable/24927776">all triangles are
+isosceles</a>. According to Hilbert, “One must be able to say at all
+times - instead of points, straight lines, and planes - tables, chairs,
+and beer mugs.”</p>
 <p>A proof of ‘<span class="math inline">A</span> implies <span
 class="math inline">Z</span>’ consists of a sequence of statements
-starting with <span class="math inline">A</span>. The following
+starting with <span class="math inline">A</span>. The subsequent
 statements are either axioms or a statement using rules of inference
 applied to previous statements. If the last statement is <span
 class="math inline">Z</span> then the theorem is proved, QED: “quod erat
 demonstrandum”, meaning “what was to be shown”. The difficulty with
 proofs is figuring out which axioms to use and when to apply the rules
 of inference.</p>
-<p>Gerhard Gentzen formalized <em>natural deduction</em>. Proofs branch
-into a tree of statements. Branches can contain subproofs used in their
-parent. He was concernee with the</p>
+<p>Gerhard Gentzen formalized this technique as <em>natural
+deduction</em> but ran into the problem of how to avoid unnecessary
+detours. He had to invent a different way to reason about proofs to
+solve this.</p>
+<p>!!! Sequent calculus, cut elimination.</p>
+</section>
 <section id="propositional-calculus" class="level2">
 <h2>Propositional Calculus</h2>
 <p>The <em>propositional calculus</em> is based on the common English

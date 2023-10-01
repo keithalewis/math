@@ -5,26 +5,33 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-07-14" />
+  <meta name="dcterms.date" content="2023-09-07" />
   <title>Ho-Lee Model</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -52,7 +59,7 @@
 <h1 class="title">Ho-Lee Model<a href="#fn1" class="footnote-ref"
 id="fnref1" role="doc-noteref"><sup>1</sup></a></h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">July 14, 2023</p>
+<p class="date">September 7, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Normal short rate.
@@ -85,7 +92,7 @@ class="math inline">f_0(t)</span>, today’s discount and forward
 curves.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">0 =
 E[(f_t - f(t))D_t]</span></em>.</p>
-<p><em>Hint</em>. Use <span class="math inline">E[\exp(-\int_0^ t
+<p><em>Hint</em>. Use <span class="math inline">D(t) = E[\exp(-\int_0^t
 f_s\,ds)] = \exp(-\int_0^t f(s)\,ds)</span> and compute the derivative
 with respect to <span class="math inline">t</span></p>
 <details>
@@ -103,6 +110,10 @@ f(t)</span> at <span class="math inline">t</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">0 =
 E_t[(f_u - f_t(u))D_u]</span>, <span class="math inline">t\le
 u</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">D_t(u) =
+E_t[\exp(-\int_t^u f_s\,ds)] = \exp(-\int_t^u f_t(s)\,ds)</span> and
+compute the derivative with respect to <span
+class="math inline">u</span>.</p>
 <p>This shows <span class="math inline">f_t(u)</span> is the <em>par
 coupon</em> at time <span class="math inline">t</span> of a forward
 contract paying <span class="math inline">f_u - f_t(u)</span> at <span
@@ -126,58 +137,55 @@ Model</a> for details.</p>
 <section id="model" class="level2">
 <h2>Model</h2>
 <p>The Ho-Lee model assumes the stochastic forward rate is <span
-class="math inline">f_t = φ(t) + σ(t) B_t</span> where <span
+class="math inline">f_t = φ(t) + σ(t)\cdot B_t</span> where <span
 class="math inline">φ(t)</span> is the futures quote at time <span
 class="math inline">t</span>, <span class="math inline">σ(t)</span> is
-the volatility, and <span class="math inline">B_t</span> is standard
-Brownian motion. We can also use multi-dimensional Brownian motion with
-<span class="math inline">σ(t)</span> vector-valued.</p>
+the vector-valued volatility, and <span class="math inline">B_t</span>
+is vector-valued standard Brownian motion.</p>
 <p>The stochastic discount is <span class="math inline">D_t =
-\exp(-\int_0^t f_s\,ds) = \exp(-\int_0^t φ(s) + σ(s)
+\exp(-\int_0^t f_s\,ds) = \exp(-\int_0^t φ(s) + σ(s)\cdot
 B_s\,ds)</span>.</p>
 <p><strong>Exercise</strong>: <em>Show <span
-class="math inline">\int_0^t σ(s) B_s\,ds = \int_0^t Σ(t) -
-Σ(s)\,dB_s</span> where <span class="math inline">{Σ(t) = \int_0^t
+class="math inline">\int_0^t σ(s)\cdot B_s\,ds = \int_0^t (Σ(t) -
+Σ(s))\cdot dB_s</span> where <span class="math inline">{Σ(t) = \int_0^t
 σ(s)\,ds}</span></em>.</p>
-<p><em>Hint</em> Use <span class="math inline">d(Σ(t) B_t) = Σ(t)\,dB_t
-+ Σ&#39;(t) B_t\,dt</span>.</p>
+<p><em>Hint</em> Use <span class="math inline">d(Σ(t)\cdot B_t) =
+Σ(t)\cdot dB_t + Σ&#39;(t)\cdot B_t\,dt</span>.</p>
 <details>
 <summary>
 Solution
 </summary>
-We have <span class="math display">
-\begin{aligned}
-\int_0^t σ(s) B_s\,ds &amp;= -\int_0^t Σ(s)\,dB_s + Σ(t) B_t - Σ(0)
-B_0\\
-&amp;= \int_0^t Σ(t) - Σ(s)\,dB_s \\
-\end{aligned}
-</span>
+Integrating we have <span class="math inline">{Σ(t)\cdot B_t - Σ(0)\cdot
+B_0 = \int_0^t Σ(s)\cdot dB_s + \int_0^t Σ&#39;(s)\cdot B_s\,ds}</span>.
+The result follows from <span class="math inline">{B_t = \int_0^t
+dB_s}</span> and <span class="math inline">σ(t) = Σ&#39;(t)</span>.
 </details>
 <p>This shows <span class="math display">
-    D_t = \exp(-\int_0^t φ(s)\,ds - \int_0^t Σ(t) - Σ(s)\,dB_s).
+    D_t = \exp\bigl(-\int_0^t φ(s)\,ds - \int_0^t (Σ(t) - Σ(s)\cdot
+dB_s\bigr).
 </span></p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\operatorname{Var}(\int_0^t Σ(t) - Σ(s)\,dB_s) =
-\int_0^t (Σ(t) - Σ(s))^2\,ds</span></em>.</p>
+class="math inline">\operatorname{Var}(\int_0^t (Σ(t) - Σ(s))\cdot dB_s)
+= \int_0^t \|Σ(t) - Σ(s)\|^2\,ds</span></em>.</p>
 <p><em>Hint</em>: Use the Ito isometry <span
-class="math inline">E[(\int_0^t X_s\,dB_s)^2] = E[\int_0^t
-X_s^2\,ds]</span>.</p>
+class="math inline">E[(\int_0^t X_s\cdot dB_s)^2] = E[\int_0^t
+\|X_s\|^2\,ds]</span>.</p>
 <p>Since the exponent is normally distributed and <span
 class="math inline">E[\exp(N)] = \exp(E[N] +
 \operatorname{Var}(N)/2)</span> if <span class="math inline">N</span> is
 normal we have <span class="math display">
-    D(t) =  E[D_t] = \exp\bigl(-\int_0^t φ(s)\,ds + \int_0^t (Σ(t) -
-Σ(s))^2/2\,ds\bigr)
+    D(t) =  E[D_t] = \exp\bigl(-\int_0^t φ(s)\,ds + \int_0^t \|Σ(t) -
+Σ(s)\|^2/2\,ds\bigr)
 </span></p>
 <p><strong>Exercise</strong>. <em>Show if <span
 class="math inline">σ</span> is constant then <span
-class="math inline">D(t) = \exp\bigl(-\int_0^t φ(s)\,ds + σ^2
+class="math inline">D(t) = \exp(-\int_0^t φ(s)\,ds + \|σ\|^2
 t^3/6)</span></em>.</p>
 <p><em>Hint</em>: <span class="math inline">\int_0^t (t - s)^2\,ds =
 t^3/3</span>.</p>
 <p>Now we determine the forward curve.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">(d/dt)
-\int_0^t (Σ(t) - Σ(s))^2\,ds = 2σ(t) \int_0^t Σ(t) -
+\int_0^t \|Σ(t) - Σ(s)\|^2\,ds = 2σ(t)\cdot \int_0^t Σ(t) -
 Σ(s)\,ds</span></em>.</p>
 <p><em>Hint</em>. Use the Leibniz integral rule <span
 class="math inline">(d/dt)\int_0^t F(t,s)\,ds = F(t, t) + \int_0^t
@@ -186,19 +194,41 @@ class="math inline">(d/dt)\int_0^t F(t,s)\,ds = F(t, t) + \int_0^t
 <summary>
 Solution
 </summary>
-Let <span class="math inline">F(t,s) = (Σ(t) - Σ(s))^2</span> so <span
-class="math inline">(\partial/\partial t) F(t,s) = 2(Σ(t) - Σ(s))
-σ(t)</span> and <span class="math inline">{(d/dt) \int_0^t (Σ(t) -
-Σ(s))^2\,ds = 0 + \int_0^t 2(Σ(t) - Σ(s)) σ(t)\,ds}</span>.
+Let <span class="math inline">F(t,s) = \|Σ(t) - Σ(s)\|^2</span> so <span
+class="math inline">(\partial/\partial t) F(t,s) = 2(Σ(t) - Σ(s))\cdot
+σ(t)</span> and <span class="math inline">{(d/dt) \int_0^t \|Σ(t) -
+Σ(s)\|^2\,ds = 0 + \int_0^t 2(Σ(t) - Σ(s))\cdot σ(t)\,ds}</span>.
 </details>
 <p>Since <span class="math inline">D(t) = \exp(-\int_0^t
 f(s)\,ds)</span> the forward curve is <span class="math display">
-    f(t) = φ(t) - σ(t) \int_0^t Σ(t) - Σ(s)\,ds.
+    f(t) = φ(t) - σ(t)\cdot \int_0^t Σ(t) - Σ(s)\,ds.
 </span></p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">σ</span>
-is constant then <span class="math inline">{f(t) = φ(t) - σ^2
+is constant then <span class="math inline">{f(t) = φ(t) - \|σ\|^2
 t^2/2}</span></em>.</p>
 <p><em>Hint</em>: Use <span class="math inline">Σ(t) = σt</span>.</p>
+<p>There is an explicit formula for convexity in the Ho-Lee model.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{Cov}(f_t, D_t)/D(t) = -σ(t)\cdot
+\int_0^t sσ(s)\,ds</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">E[f(N) \exp(M)] = E[f(N
++ \operatorname{Cov}(N,M))] E[\exp(M)]</span> if <span
+class="math inline">N</span> and <span class="math inline">M</span> are
+jointly normal to show <span class="math inline">\operatorname{Cov}(N,
+\exp(M)) = \operatorname{Cov}(N,M) E[\exp(M)]</span>. Recall <span
+class="math inline">\operatorname{Cov}(B_t, B_s) = sI</span> for <span
+class="math inline">s\le t</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+We have <span class="math inline">\operatorname{Cov}(f_t, D_t) =
+\operatorname{Cov}(σ(t)\cdot B_t,-\int_0^t σ(s)\cdot dB_s) E[D_t] =
+-σ(t) \cdot \int_0^t σ(s)s\,ds\,D(t)</span>.
+</details>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">σ</span>
+is constant show <span class="math inline">\operatorname{Cov}(f_t,
+D_t)/D(t) = -\|σ\|^2 t^2/2</span></em>.</p>
 <!--
 Note
 $$
@@ -217,30 +247,31 @@ $$
 $$
 
 -->
+<!--- checked -->
 </section>
 <section id="dynamics" class="level2">
 <h2>Dynamics</h2>
 <p>For the Ho-Lee model <span class="math inline">{D_t(u) =
-E_t[\exp(-\int_t^u φ(s) + σ(s) B_s\,ds)]}</span>.</p>
+E_t[\exp(-\int_t^u φ(s) + σ(s)\cdot B_s\,ds)]}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\int_t^u σ(s) B_s\,ds = \int_t^u Σ(u) - Σ(s)\,dB_s +
-(Σ(u) - Σ(t)) B_t</span></em> where <span class="math inline">{Σ(t) =
-\int_0^t σ(s)\,ds}</span>.</p>
-<p><em>Hint</em> Use <span class="math inline">d(Σ(t) B_t) = Σ(t)\,dB_t
-+ Σ&#39;(t) B_t\,dt</span>.</p>
+class="math inline">\int_t^u σ(s)\cdot B_s\,ds = \int_t^u Σ(u) -
+Σ(s)\cdot dB_s + (Σ(u) - Σ(t))\cdot B_t</span></em> where <span
+class="math inline">{Σ(t) = \int_0^t σ(s)\,ds}</span>.</p>
+<p><em>Hint</em> Use <span class="math inline">d(Σ(t)\cdot B_t) =
+Σ(t)\cdot dB_t + Σ&#39;(t)\cdot B_t\,dt</span>.</p>
 <details>
 <summary>
 Solution
 </summary>
 We have <span class="math display">
 \begin{aligned}
-\int_t^u σ(s) B_s\,ds &amp;= -\int_t^u Σ(t)\,dB_s + Σ(u) B_u - Σ(t) B_t
-\\
-&amp;= -\int_t^u Σ(s)\,dB_s + Σ(u) B_u - Σ(u) B_t + Σ(u) B_t - Σ(t) B_t
-\\
-&amp;= -\int_t^u Σ(s)\,dB_s + Σ(u) \int_t^u dB_s + Σ(u) B_t - Σ(t) B_t
-\\
-&amp;= \int_t^u Σ(u) - Σ(s)\,dB_s + (Σ(u) - Σ(t)) B_t \\
+\int_t^u σ(s)\cdot B_s\,ds &amp;= -\int_t^u Σ(t)\cdot dB_s + Σ(u)\cdot
+B_u - Σ(t)\cdot B_t \\
+&amp;= -\int_t^u Σ(s)\cdot dB_s + Σ(u)\cdot B_u - Σ(u)\cdot B_t +
+Σ(u)\cdot B_t - Σ(t)\cdot B_t \\
+&amp;= -\int_t^u Σ(s)\cdot dB_s + Σ(u)\cdot \int_t^u dB_s + Σ(u)\cdot
+B_t - Σ(t)\cdot B_t \\
+&amp;= \int_t^u Σ(u) - Σ(s)\cdot dB_s + (Σ(u) - Σ(t))\cdot B_t \\
 \end{aligned}
 </span>
 </details>
@@ -263,9 +294,10 @@ Solution
 class="math inline">{E_t[\exp(-\int_t^u Λ(s)\,dB_s)] = \exp(\int_t^u
 Λ(s)^2/2\,ds)}</span> by replacing <span class="math inline">Λ</span>
 with <span class="math inline">-Λ</span>. We use this below.</p>
-<p>The price at <span class="math inline">t</span> of a zero coupon bond
-maturing at <span class="math inline">u</span> in the Ho-Lee model is
-<span class="math display">
+<p>Using the previous two exercises, the price at <span
+class="math inline">t</span> of a zero coupon bond maturing at <span
+class="math inline">u</span> in the Ho-Lee model is <span
+class="math display">
 \begin{aligned}
 D_t(u) &amp;= E_t[D_u/D_t] \\
     &amp;= E_t[\exp(-\int_t^u φ(s) + σ(s) B_s\,ds)] \\
@@ -279,34 +311,49 @@ D_t(u) &amp;= E_t[D_u/D_t] \\
 is constant show</em> <span class="math display">
     D_t(u) = \exp(\int_t^u -φ(s)\,ds + σ^2(u - t)^3/6 - σ(u - t) B_t).
 </span></p>
-<p>Note <span class="math inline">D_t</span> is lognormal with
+<p>Note <span class="math inline">D_t(u)</span> is lognormal with
 log-variance <span class="math inline">\operatorname{Var}(\log D_t) =
 (Σ(u) - Σ(t))^2 t</span> and expected value <span class="math display">
-\begin{aligned}
-E[D_t(u)] &amp;= \exp(\int_t^u -φ(s)\,ds + \int_t^u (Σ(u) -
-Σ(s))^2/2\,ds + (Σ(u) - Σ(t))^2t/2) \\
-\end{aligned}
+    E[D_t(u)] = \exp(\int_t^u -φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2/2\,ds
++ (Σ(u) - Σ(t))^2t/2)
 </span></p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">σ</span>
 is constant show</em> <span class="math display">
     E[D_t(u)] = \exp\bigl(\int_t^u -φ(s)\,ds + σ^2(u - t)^3/6 + σ^2(u -
 t)^2 t/2\bigr).
-</span></p>
-Note <span class="math display">
+</span> <!--
+Note
+$$
+    D_t(u)D_t = \exp\bigl(\int_0^u -φ(s)\,ds +  \int_t^u (Σ(u) - Σ(s))^2/2\,ds - \int_0^t (Σ(u) - Σ(s))\,dB_t\bigr)
+$$
+using $(Σ(u) - Σ(t)) B_t = \int_0^t (Σ(u) - Σ(t))\,dB_s$ and
+$$
+    D_t(u)D_t = D(u) \exp\bigl(-\int_0^t (Σ(u) - Σ(s))^2/2\,ds - \int_0^t (Σ(u) - Σ(s))\,dB_t\bigr)
+$$
+--></p>
+<p>Note <span class="math display">
 \begin{aligned}
-\frac{D(u)}{D(t)} &amp;= \exp\bigl(\int_t^u -φ(s)\,ds + \int_0^u (Σ(u) -
-Σ(s))^2/2\,ds - \int_0^t (Σ(t) - Σ(s))^2/2\,ds\bigr) \\
+\frac{D(u)}{D(t)}
+    &amp;= \exp\bigl(\int_t^u -φ(s)\,ds + \int_0^u (Σ(u) - Σ(s))^2/2\,ds
+- \int_0^t (Σ(t) - Σ(s))^2/2\,ds\bigr) \\
     &amp;= \exp\bigl(\int_t^u -φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2/2\,ds
-+ \int_0^t U(s)\,ds\bigr) \\
-    &amp;= D_t(u) \exp\bigl((Σ(u) - Σ(s)) B_t + \int_0^t
++ \int_0^t U(s)/2\,ds\bigr) \\
+    &amp;= E[D_t(u)] \exp\bigl(-(Σ(u) - Σ(t))^2t/2 + \int_0^t
 U(s)/2\,ds\bigr) \\
 \end{aligned}
 </span> where <span class="math inline">{U(s) = (Σ(u) - Σ(s))^2 - (Σ(t)
-- Σ(s))^2 = Σ(u)^2 - Σ(t)^2 - 2(Σ(u) - Σ(t))Σ(s))}</span> so
-<span class="math display">\begin{aligned}
-D_t(u) = \frac{D(u)}{D(t)} \exp\bigl(-(Σ(u) - Σ(s)) B_t - (Σ(u)^2 -
-Σ(t)^2)t/2 + (Σ(u) - Σ(t))\int_0^t Σ(s)\,ds\bigr) \\
-\end{aligned}</span>
+- Σ(s))^2 = Σ(u)^2 - Σ(t)^2 - 2(Σ(u) - Σ(t))Σ(s))}</span>. We have <span
+class="math inline">{\int_0^t U(s)/2\,ds = (Σ(u)^2 - Σ(t)^2)t/2 - (Σ(u)
+- Σ(t)) \int_0^t Σ(s)\,ds}</span> so <span class="math display">
+\begin{aligned}
+    E[D_t(u)] &amp;= \frac{D(u)}{D(t)}
+        \exp\bigl(-(Σ(u) - Σ(t))^2t/2 + (Σ(u)^2 - Σ(t)^2)t/2 + (Σ(u) -
+Σ(t))\int_0^t Σ(s)\,ds\bigr)  \\
+    &amp;= \frac{D(u)}{D(t)}
+        \exp\bigl((Σ(u) - Σ(t))Σ(t) + (Σ(u) - Σ(t))\int_0^t
+Σ(s)\,ds\bigr)  \\
+\end{aligned}
+</span></p>
 <!--
 where $U(s) = (Σ(u) - Σ(s))^2/2 - (Σ(t) - Σ(s))^2/2$ so
 ${dU = (-(Σ(u) - Σ(s)) σ(s) + (Σ(t) - Σ(s)) σ(s))\,ds = -(Σ(u) - Σ(t))σ(s)\,ds}$.
@@ -327,15 +374,6 @@ This shows
 is contant show</em> <span class="math display">
     D_t(u) = D(u)/D(t) \exp(-σ^2 ut(u - t)/2 - σ(u - t) B_t)
 </span></p>
-<p><em>Hint</em>: Use <span class="math inline">D(u)/D(t) =
-\exp(-\int_t^u φ(s)\,ds + σ^2(u^3 - t^3)/6)</span>.</p>
-<details>
-<summary>
-Solution
-</summary>
-Note <span class="math inline">-ut(u - t)/2 + (u^3 - t^3)/6 = (u -
-t)^3/6</span>.
-</details>
 <p>Now we determine the forward curve.</p>
 <p><strong>Exercise</strong> <em>Show <span
 class="math inline">(\partial/\partial u)\int_t^u (Σ(u) - Σ(s))^2\,ds =
@@ -434,10 +472,15 @@ class="math inline">E_s[-D_t + (1 + f\delta)D_u] = E_s[(f -
 F_t(t,u))\delta(t,u)D_u]</span></em>.</p>
 <p><em>Hint</em>: Use the previous exercise.</p>
 <p>Suppose a <em>fixed income instrument</em> pays <span
-class="math inline">c_j</span> and <span class="math inline">u_j</span>.
-Its value at time <span class="math inline">t</span> is <span
-class="math inline">{P_t = \sum_{u_j &gt; t} c_j D_t(u_j)}</span>. We
-can approximate this with a lognormal having expected value <span
+class="math inline">c_j</span> at times <span
+class="math inline">u_j</span>. Its value at time <span
+class="math inline">t</span> is <span class="math inline">{P_t =
+\sum_{u_j &gt; t} c_j D_t(u_j)}</span>. If a European option pays <span
+class="math inline">g(P_t)</span> at time <span
+class="math inline">t</span> its value is <span
+class="math inline">E[g(P_t) D_t] = E[h(\dots, D_t(u_j),\dots)
+D_t]</span></p>
+<p>We can approximate this with a lognormal having expected value <span
 class="math inline">{E[P_t] = \sum_{u_j &gt; t} c_j E[D_t(u_j)]}</span>
 and variance <span class="math inline">{\operatorname{Var}(P_t) =
 \sum_{u_j, u_k &gt; t} c_j c_k \operatorname{Cov}(D_t(u_j),
@@ -453,160 +496,18 @@ D(t)</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">\int_0^t s σ(s)\,ds = t Σ(t) - \int_0^t
 Σ(s)\,ds</span></em>.</p>
-<!--
-
-## Discount
-
-We can fit the discount curve if we make the expected stochastic forward rate a function of time.
-Suppose $f_t = φ(t) + σ B_t$ so $E[f_t] = φ(t)$.
-
-__Exercise__. _Show $D(t) = \exp(-\int_0^t φ(s)\,ds + σ^2t^3/6)$_.
-
-<details><summary>Solution</summary>
-The discount is $D(t) = E[D_t] = E[\exp(-\int_0^t φ(s) + σ B_s\,ds)]$
-The result follows from $E[-\int_0^t φ(s) + σ B_s\,ds] =  -\int_0^t φ(s)\,ds$
-and $\Var(-\int_0^t φ(s) + σ B_s\,ds) = σ^2t^3/3$.
-</details>
-
-In this case $f(t) = φ(t) - σ^2 t^2/2$ so $φ(t)$ is determined by the discount curve
-and $σ$.
-
-__Exercise__. _Show $φ(t) = -(d/dt)\log D(t) + σ^2 t^2/2$_.
-
-_Hint_: $D(t) = \exp(-\int_0^t f(s)\,ds)$.
-
-The discount curve is determined using market instruments. These are usually cash deposits
-for the short end, forward rate agreements out to 4 years, and swaps or bonds for
-longer maturities. [Bootstrap](fi.html) is the preferred method for doing this.
-
-
-In the Ho-Lee model the dynamics of zero coupon bond prices are
-$$
-    D_t(u) = \exp(-φ(u - t) - \frac{1}{6}σ^2(u - t)^3 - σ(u - t) B_t).
-$$
-In particular, the discount to time $t$ is $D(t) = D_0(t) = \exp(-rt + σ^2 t^3/6)$.
-
-__Exercise__. _Show the forward curve is $f(t) = rt - σ^2 t^2/2$_.
-<details>
-<summary>Solution</summary>
-</details>
-
-_Hint_: $D(t) = \exp(-\int_0^t f(s)\,ds)$.
-
-Define the _stochastic forward_ curve at time $t$, $f_t(u)$, by $D_t(u) = \exp(-\int_t^u f_t(s)\,ds)$.
-Note $f_t(t) = f_t$ is the stochastic short rate.
-For each $t$ there is a futures contract expiring at $t$ on $f_t$. 
-The futures quote at $s$ is $φ_s(t) = E_s[f_t]$ since futures quotes are a martingale.
-
-__Exercise__. _Show the stochastic forward curve is $f_t(u) = φ - σ^2 (u - t)^2/2 + σ B_t$_.
-
-<details>
-<summary>Solution</summary>
-</details>
-Note $f_t(t) = φ + σ B_t = f_t$.
-
-__Exercise__. _Show $E[f_t] - f(t) = σ^2t^2/2$_.
-<details>
-<summary>Solution</summary>
-</details>
-
-The difference between the futures quote and forward rate is called _convexity_.
-
-__Exercise__. _Derive the formula for $D_t(u)$ when $φ = φ(t)$ is a function of time_.
-<details>
-<summary>Solution</summary>
-</details>
-
-We can also allow $σ = σ(t)$ to be a function of time.
-Let $f_t = φ(t) + σ(s) B_t$.
-Since $d(\Sigma(t)B_t) = \Sigma'(t)B_t\,dt + \Sigma(t)\,dB_t$ and
-taking $σ(s) = \Sigma'(s)$ we have
-$$
-\begin{aligned}
-    E_t[D_u/D_t] &= E_t[\exp(-\int_t^u φ(s) + σ(s) B_s\,ds)] \\
-    &= E_t[\exp(-\int_t^u φ(s)\,ds + d(\Sigma(s)B_s) - \Sigma(s)\,dB_s)] \\
-    &= E_t[\exp(-\int_t^u φ(s)\,ds + \Sigma(u)B_u - \Sigma(t)B_t - \int_u^t \Sigma(s)\,dB_s)] \\
-    &= E_t[\exp(-\int_t^u φ(s)\,ds + (\Sigma(u)B_u - \Sigma(u)B_t + \Sigma(u)B_t - \Sigma(t)B_t)
-         - \int_u^t \Sigma(s)\,dB_s)] \\
-    &= E_t[\exp(-\int_t^u φ(s)\,ds + \Sigma(u)\int_t^u dB_s + (\Sigma(u) - \Sigma(t))B_t - \int_u^t \Sigma(s)\,dB_s)] \\
-    &= E_t[\exp(-\int_t^u φ(s)\,ds + \int_t^u (\Sigma(u) - \Sigma(s))\,dB_s + (\Sigma(u) - \Sigma(t))B_t )] \\
-    &= \exp(-\int_t^u φ(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) - \Sigma(s))^2\,ds + (\Sigma(u) - \Sigma(t))B_t ) \\
-\end{aligned}
-$$
-
-Since $\int_t^u f_t(s)\,ds = \int_t^u φ(s)\,ds + \frac{1}{2}\int_t^u (\Sigma(u) - \Sigma(s))^2\,ds
-+ (\Sigma(u) - \Sigma(t))B_t$ we have 
-$$
-    f_t(u) = φ(u) + σ(u) \int_t^u (\Sigma(u) - \Sigma(s))\,ds + σ(u) B_t
-$$
-using $(d/dx) \int_a^x g(x,s)\,ds = g(x,x) + \int_a^x (\partial/\partial x)g(x,s)\,ds$.
-
-__Exercise__. _If $σ(t) = σ$ is constant then 
-$f_t(u) = φ(u) - σ^2 (u - t)^2/2 + σ B_t$_.
-
-The futures quote on a contract paying $f_t$ at time $t$ is $φ_s(t) = E_s[f_t]$
-since futures are martingales.
-
-Both contracts have the same risk-neutral value, but they have very
-different risk profiles. 
-
-A forward contract involves the exchange of a
-notional amount at the beginning and end of the contract. 
-We have been using unit notional, but real-world contracts specify a notional
-$N$ with cash flows $-N$ at $t$ and $N(1 + f\delta(t,u))$ at $u$. If
-one counterparty defaults during the interval $[t,u]$ then the other
-counterparty will not get paid what they expect.  If the absolute value
-of $N$ is large both counterparties have to pay attention to this contingency.
-_Collateral accounts_ are used to mitigate this risk. These are
-similar to margin accounts used by exchanges.
-
-Forward contracts paying in arrears are less risky.
-The cash flow $N(f - F_t(t,u))\delta(t,u)$ at $u$
-involves the difference of similar amounts.
-
-A _caplet_ with strike $k$ is a call option on a forward rate.
-It has cash flow $\max\{F_t^\delta(t,u) - k, 0\}$ at time $u$.
-A _floolet_ is a put option on a forward rate.
-It has cash flow $\max\{k - F_t^\delta(t,u), 0\}$ at time $u$.
-
-__Exercise__. _Find a closed form solution for the value of a caplet and floorlet in the Ho-Lee model_.
-
-_Hint_: $F - k = fe^{sZ - s^2/2} - h$ for some constants $f, s, h$ where $Z$ is standard normal.
-The value of a caplet involves the Black put formula and the value of a floorlet involes
-the Black call formula.
-
-## Remarks
-
-An objection to the Ho-Lee model is that it allows
-[negative interest rates](https://www.investopedia.com/articles/investing/070915/how-negative-interest-rates-work.asp).
-This is unusual, but not a violation of arbitrage and has occurred in the real world.
-
-The parameterization $f_t = φ(1 + σ B_t)$ is closer to a lognormal model since $1 + x\approx e^x$
-for small $x$. When using this replace $σ$ by $φσ$ in the equations above.
-
-A multi-factor model can be specified using multi-dimensional independent Brownian motions and vector-valued volatility.
-
-__Exercise__. _Show $\Cov(σ(t)\cdot B_t, σ(u)\cdot B_u) = σ(t)\cdotσ(u)\min\{t,u\}$_.
-
-_Hint_: $\Cov(B_t, B_u) = \min\{t,u\}I$ where $I$ is the identity matrix.
-
-A common choice for the 2-dimensional case is $σ(t) =
-σ(\cos\alpha t, \sin\alpha t)$ for some constants $σ$ and $\alpha$.
-
-__Exercise__. _Show $σ(t)\cdotσ(u) = σ^2\cos(\alpha(t - u))$_.
-
--->
 </section>
 </section>
 <section id="reference" class="level2">
 <h2>Reference</h2>
 <div class="csl-bib-body" style="line-height: 1.35; margin-left: 2em; text-indent:-2em;">
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><div class="csl-entry" role="listitem">
+<li id="fn1" role="doc-endnote"><div class="csl-entry"
+role="doc-biblioentry">
 Ho, Thomas S. Y., and Sang-Bin Lee. “Term Structure Movements and
 Pricing Interest Rate Contingent Claims.” <i>The Journal of Finance</i>
 41, no. 5 (1986): 1011–29.
@@ -617,7 +518,7 @@ title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzoter
 </div>
 <a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></li>
 </ol>
-</aside>
+</section>
 <hr/>
 <footer>
 Return to <a href="index.html">index</a>.
