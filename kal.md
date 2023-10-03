@@ -31,7 +31,7 @@ Some KALX projects: implemented the initial variance swap pricer for
 Bloomberg, ran trade execution (3 years) for a client who figured out
 an arbitrage on the Tokyo Stock Exchange, assisted the union (1 year)
 representing United-Continental-Continental Micronesia Association of
-Flight Attendants,
+Flight Attendants, analytics for 
 
 My current work involves tax loss harvesting for municipal bonds at
 [CrossX](https://true.market/#).
