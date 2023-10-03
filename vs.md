@@ -1,5 +1,5 @@
 ---
-title: From $\bm{R}^n$ to Vector Spaces
+title: From $\boldsymbol{R}^n$ to Vector Spaces for Engineers
 author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
@@ -7,6 +7,7 @@ classoption: fleqn
 abstract: Axioms are more useful than accidents
 ...
 
+\newcommand\mb[1]{\boldsymbol{#1}}
 \newcommand\bm[1]{\boldsymbol{#1}}
 \newcommand\RR{\bm{R}}
 \newcommand\FF{\bm{F}}
@@ -58,15 +59,15 @@ A _semigroup_ is a binary operation that is associative.
 
 Define $\bm{0} = (0, \ldots, 0)\in\RR^n$.
 
-__Exercise__. _Show $x + \bm{0} = x$, $x\in\RR^n$_.
+__Exercise__. _Show $x + \mb{0} = x$, $x\in\RR^n$_.
 
-This shows $\bm{0}$ is the _additive identity_.
+This shows $\mb{0}$ is the _additive identity_.
 
 A _monoid_ is a semigroup having an identity element.
 
 Define _additive inverse_ $-x$ by $-(x_1,\dots,x_n) = (-x_1,\ldots,-x_n)$.
 
-__Exercise__. _Show $x + (-x) = \bm{0}$, $x\in\RR^n$_.
+__Exercise__. _Show $x + (-x) = \mb{0}$, $x\in\RR^n$_.
 
 A _group_ is a monoid where every element has an inverse.
 
@@ -84,7 +85,7 @@ $a\in\RR$ and $x\in V$, that satisfy the properties in the above exercises.
 The abstract definition allows us to consider vector spaces other than $\RR^n$
 and clarifies essential properties.
 
-__Exercise__. _Show $x + x = x$ implies $x = \bm{0}$ if $x$ is an element of a vector space_.
+__Exercise__. _Show $x + x = x$ implies $x = \mb{0}$ if $x$ is an element of a vector space_.
 
 <details><summary>Solution</summary>
 $$
@@ -94,10 +95,10 @@ $$
 	(x + x) + (-x) &= x + (-x) \\
 	&\langle (a + b) + c = a + (b + c)\rangle[a\leftarrow x, b\leftarrow x, c\leftarrow -x] \\
 	x + (x + (-x)) &= x + (-x) \\
-	&\langle a + (-a) = \bm{0}\rangle[a\leftarrow x\text{ twice}] \\
-	x + \bm{0} &= \bm{0} \\
-	&\langle a + \bm{0} = a\rangle[a\leftarrow x] \\
-	x &= \bm{0} \\
+	&\langle a + (-a) = \mb{0}\rangle[a\leftarrow x\text{ twice}] \\
+	x + \mb{0} &= \mb{0} \\
+	&\langle a + \mb{0} = a\rangle[a\leftarrow x] \\
+	x &= \mb{0} \\
 \end{aligned}
 $$
 </details>
@@ -184,9 +185,9 @@ and vector space addition $(S + T)v = Sv + Tv$, $a\in\RR$, $v\in V$.
 
 __Exercise__. _Show $\mathcal{L}(V, W)$ is a vector space_.
 
-__Exercise__. _If $T\in\mathcal{L}(V, W)$ then $T\bm{0} = \bm{0}$_.
+__Exercise__. _If $T\in\mathcal{L}(V, W)$ then $T\mb{0} = \mb{0}$_.
 
-_Hint_: Consider $T(\bm{0} + \bm{0})$ and use $v + v = v$ implies $v = 0$.
+_Hint_: Consider $T(\mb{0} + \mb{0})$ and use $v + v = v$ implies $v = 0$.
 
 If $T\in\mathcal{L}(V,W)$ where $V$ and $W$ are normed vector spaces
 define $\|T\| = \sup_{\|v\|\le1} \|Tv\|$.
@@ -264,6 +265,13 @@ _Hint_: The identity map $I\colon V\to V$ is an isomorphism.
 If $T\colon V\to W$ is an isomorphism so is $T^{-1}\colon W\to V$.
 If $S\colon U\to V$ and $T\colon V\to W$ are isomorphisms
 then the composition $TS\colon U\to W$ is an isomorphism.
+
+<details><summary>Solution</summary>
+Since $v - v = \mb{0}\in W$ (identity) we have $v\sim v$. If $u \sim v$ then
+${u - v\in W}$ so ${v - w = -(u - v)\in W}$ (inverse).
+If $u\sim v$ and $v\sim w$ then $u - v$ and $v - w$ belong to $W$ so
+${u - w = (u - v) + (v - w)\in W}$ (addition).
+</details>
 
 If $S$ is a set and $\sim$ is an equivalence
 relation on $S$ then the set of _equivalence classes_ are a _partition_ of $S$.
@@ -354,9 +362,9 @@ the the polynomial functional calculus_.
 ### Independent
 
 A set of vectors $\{x_i\}$ are _independent_ if for any finite _linear combination_
-$\sum_j a_j x_j = \bm{0}$, $a_j\in\RR$, we have $a_j = 0$ for all $j$.
+$\sum_j a_j x_j = \mb{0}$, $a_j\in\RR$, we have $a_j = 0$ for all $j$.
 
-__Exercise__. _If $\sum_j a_j x_j = \bm{0}$ and $a_j \not= 0$ for some $j$
+__Exercise__. _If $\sum_j a_j x_j = \mb{0}$ and $a_j \not= 0$ for some $j$
 then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
 
 ### Basis
@@ -413,9 +421,9 @@ If $V$ and $W$ are vector spaces then a _linear transformaton_ $T\colon V\to W$ 
 that preserves the vector space operations: $T(au + v) = aTu + Tv$,
 $a\in\RR$, $u,v\in V$.
 
-__Exericse__.  _If $T\colon V\to W$ is a linear transformation show $T\bm{0} = \bm{0}$_.
+__Exericse__.  _If $T\colon V\to W$ is a linear transformation show $T\mb{0} = \mb{0}$_.
 
-_Hint_: Consider $T(\bm{0} + \bm{0})$ and use $v + v = v$ imples $v = \bm{0}$.
+_Hint_: Consider $T(\mb{0} + \mb{0})$ and use $v + v = v$ imples $v = \mb{0}$.
 
 __Exercise__. _The space of linear transformations from $V$ to $W$, $\mathcal{L}(V,W)$, is a vector space_.
 
