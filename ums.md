@@ -7,9 +7,9 @@ classoption: fleqn
 
 $T$ — totally ordered set of trading _times_.
 
-$\Omega$ — all possible _outcomes_.
-
 $I$ — market _instruments_.
+
+$\Omega$ — all possible _outcomes_.
 
 $\AA_t$ — a partition of $\Omega$ indicating the _information_ available at time $t\in T$.
 
@@ -49,3 +49,18 @@ $$
 	X_t D_t = M_t - \sum_{s\le t} C_s D_s
 $$
 where $M_t = M_u|_{\AA_t}$ is a _martingale measure_.
+
+## Appendix
+
+$X,C\colon\sum_{j=0}^n B(\AA_j, \RR^I)$
+
+$A\colon\sum_{j=0}^n B(\AA_j, \RR^I)\to\sum_{j=0}^n B(\AA_j)$
+where $A(\oplus \Gamma_j) = \oplus \Delta_j\cdot C_j - \Gamma_j\cdot X_j$.
+
+$\mathcal{G}_0 = \{\oplus \Gamma_j\mid \sum_j \Gamma_j = 0\}$.
+
+$\mathcal{P} = \{\oplus A_j\mid A_0 > 0, A_j\ge 0\}$.
+
+Arbitrage if there exists $\Gamma\in\mathcal{G}_0$ with $A(\Gamma)\in\mathcal{P}$.
+
+$A^*\colon \sum_{j=0}^n ba(\AA_j)\to\sum_{j=0}^n ba(\AA_j, \RR^I)$
