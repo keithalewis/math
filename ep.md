@@ -11,6 +11,8 @@ thanks: |
 	Any remaining infelicities or omissions are my fault.
 ---
 
+\newcommand\bm[1]{\boldsymbol{#1}}
+
 Given two random realized returns on an investment, which is to
 be preferred?  This is a fundamental problem in finance that has no
 definitive solution except in the case one investment always returns
@@ -23,8 +25,7 @@ An _efficient portfolio_ has the least variance among all portfolios
 having the same expected realized return.
 
 In the one-period model every efficient portfolio belongs to a two-dimensional
-subspace of the set of all possible realized returns and is uniquely
-determined given its expected realized return.
+subspace and is uniquely determined given its expected realized return.
 We show that if $R$ is the (random) realized return of any efficient portfolio
 and $R_0$ and $R_1$ are the realized returns of any two linearly independent efficient
 portfolios then 
@@ -36,6 +37,7 @@ This generalizes the classical Capital Asset Pricing
 Model formula for the expected realized return of efficient portfolios.
 Taking expected values of both sides
 when $\operatorname{Var}(R_0) = 0$ and $R_1$ is the "market" portfolio gives
+the classic CAPM formula
 $$
 	E[R] - R_0 = \beta(E[R_1] - R_0)
 $$
