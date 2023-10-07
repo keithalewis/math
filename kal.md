@@ -23,15 +23,16 @@ accessible at the masters level so I came up with the
 the [Unified Model](https://kalx.net/um.pdf).
 It can be used to value, hedge, and
 manage the risk of portfolios containing *any* collection of instruments.
-See [Unified Finance](https://keithalewis.github.io/math/uf.html)
-Continuous time trading and perfect liquidity are a mathematical fiction.
-Every trading strategy involves a finite number of trades.
 
 Some KALX projects: implemented the initial variance swap pricer for
 Bloomberg, ran trade execution (3 years) for a client who figured out
 an arbitrage on the Tokyo Stock Exchange, assisted the union (1 year)
 representing United-Continental-Continental Micronesia Association of
-Flight Attendants, analytics for 
+Flight Attendants, analytics for advising on option trades for
+Franklin-Templeton SMA's.
+From 2015-2018 I was at Bloomberg again to help on a Management
+Committee mandated project to provide a data and compute backbone to be
+used by all business enterprise units. 
 
 My current work involves tax loss harvesting for municipal bonds at
 [CrossX](https://true.market/#).
