@@ -9,6 +9,16 @@ abstract: Buyers and sellers buy and sell
 
 \newcommand\RR{\boldsymbol{R}}
 
+$\{(\tau_j, \Gamma_j)\mid \tau_0 < \cdots < \tau_n, \Gamma_j\}$ is a vector space.
+
+$(\tau, G) + (\nu, H) = (\eta, K)$
+
+$\eta = t$ if $\tau = t$ and $\nu \not= t$ in which case $K = G$.
+
+$\eta = t$ if $\nu = t$ and $\tau \not= t$ in which case $K = H$.
+
+$\eta = t$ if $\tau = t$ and $\nu = t$ in which case $K = G + H$.
+
 <!--
 Suppose an instrument has price $X_t$ at time $t$.
 The _profit and loss_ of holding one share
