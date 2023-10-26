@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: CAPM holds for random variables
+abstract: CAPM holds as equality of random variables, not just their expected value.
 thanks: |
 	Peter Carr and David Shimko gave insightful feedback to
 	make the exposition more accessible to finance professionals.
@@ -72,24 +72,23 @@ on daily data.
 
 ## One-Period Model
 
-The one-period model is parameterized by instrument prices.
-
 Let $I$ be the set of _market instruments_ and $\Omega$ be the set of
 possible market outcomes over the period.  The _one-period model_
 specifies the initial instrument prices $x\in\R^I$[^1] and the final
 instrument prices $X\colon\Omega\to\R^I$ depending on the outcome
 $\omega\in\Omega$ that occurs.
 The one period model also specifies a probability
-measure $P$ on the space of outcomes.
+measure $P$ on the space of outcomes, by hook or by crook.
 
 [^1]: If $A$ and $B$ are sets then $B^A = \{f\colon A\to B\}$ is the set of all
-functions from $A$ to $B$.
+functions from $A$ to $B$. We can write $f_a$ for $f(a)$.
 
 A _portfolio_ $\xi\in\R^I$ is the number of shares initially purchased in each instrument.
 It costs ${\xi^T x = \sum_{i\in I} \xi_i x_i}$ to acquire the portfolio at the beginning of the period
 and returns $\xi^T X(\omega)$ when liquidated at the end of the period if $\omega\in\Omega$ occurs.
 
 The _realized return_ of $\xi$ is $R_\xi = \xi^T X/\xi^T x$ when $\xi^T x \not= 0$.
+
 Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\R$ so
 there is no loss in assuming $\xi^T x = 1$.
 In this case $R_\xi = \xi^T X$ is the realized return of the portfolio.
@@ -100,36 +99,55 @@ Since we are considering a one period model there is no need to drag $\Delta t$ 
 
 ## Efficient Portfolio
 
-A portfolio $\xi$ is _efficient_ if $\Var(R_\xi) \le
-\Var(R_\nu)$ for every portfolio $\nu$ having the same expected
+A portfolio $\xi\in\RR^I$ is _efficient_ if $\Var(R_\xi) \le
+\Var(R_\eta)$ for every portfolio $\eta$ having the same expected
 realized return as $\xi$.
 
 If $\xi^T x = 1$ then $\Var(R_\xi) = \xi^T V\xi$,
 where ${V = \Var(X) = E[XX^T] - E[X]E[X^T]}$, and ${R_\xi = \xi^T E[X]}$.
-
-Since $\Var(R_\xi)\ge0$ we have $V$ is positive semidefinite.
-
-!!! Show we can assume $X_i$ are independent.
-
 For a given expected realized return $R\in\RR$ we minimize
 $$
 	\frac{1}{2}\xi^T V\xi - \lambda(\xi^T x - 1) - \mu(\xi^T E[X] - R)
 $$
-over $\xi$, $\lambda$, and $\mu$.
+over $\xi\in\RR^I$, $\lambda\in\RR$, and $\mu\in\RR$.
+The [Appendix](#appendix) shows we may assume $V$ is invertable and
+$$
+		\xi =  \lambda V^{-1}x + \mu V^{-1} E[X] \\
+$$
+where $\lambda = (C - R B)/D$, $\mu = (-B + R A)/D$, and
+${A = x^T V^{-1}x}$, ${B = x^T V^{-1}E[X] = E[X^T]V^{-1}x}$, ${C = E[X^T]V^{-1}E[X]}$,
+where ${D = AC - B^2}$.
+Every efficient porfolio is in the span of 
+$V^{-1}x$ and $V^{-1} E[X]$.
 
-Since $\|V^{1/2}\xi - V^{-1/2}b\|^2 = \xi^T V\xi - 2\xi^t b + b^T V^{-1} b$
+Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
+$E[XX^T]$. Classical literature focuses mainly on the latter three which
+may explain why prior authors overlooked our elementary but stronger
+result.
 
-If $V$ is invertible then ${\xi = \lambda V^{-1}x + \mu V^{-1} E[X]}$
-so every efficient portfolio belongs to the subspace spanned
-by $V^{-1}x$ and $V^{-1} E[X]$.
+If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
+${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$
+since $\xi_0$ and $\xi_1$ belong to the subspace spanned by $V^{-1}x$ and $V^{-1}E[X]$.
+Assuming $\xi_j^T x = 1$ for $j = 0,1$ then $R(\xi_j) = \xi_j^T X$.
+Assuming $\xi^T x = 1$ then $R(\xi) = \xi^T X$ so ${\beta_0 + \beta_1 = 1}$ and
+${\xi = (1 - \beta)\xi_0 + \beta\xi_1}$ where ${\beta = \beta_1}$.
+Multiplying the tranpose on both sides by $X$ we have ${\xi^T X = (1 - \beta)\xi_0^T X + \beta\xi_1^T X}$ hence
+$$
+	R(\xi) - R(\xi_0) = \beta(R(\xi_1) - R(\xi_0))
+$$
+as functions on $\Omega$ where 
+$\beta = \Cov(R(\xi) - R(\xi_0), R(\xi_1) - R(\xi_0))/\Var(R(\xi_1) - R(\xi_0))$.
+The classical CAPM formula follows from taking expected values
+of both sides when $\xi_1$ is the "market portfolio" and $\xi_0$ is a
+[_riskless portfolio_](#riskless-portfolio).
 
 ### Riskless Portfolio
 
 A portfolio $\zeta$ is _riskless_ if its realized return is constant. In this case
-$0 = \Var(R(\zeta)) = \zeta'V\zeta$ assuming, as we may, $\zeta'x = 1$.
+$0 = \Var(R(\zeta)) = \zeta^T V\zeta$ assuming, as we may, $\zeta^T x = 1$.
 If another riskless portfolio exists with different realized
 return then arbitrage exists.  By removing redundant assets we can assume
-there is exactly one riskless portfolio $\zeta$ with $\zeta'x = 1$.
+there is exactly one riskless portfolio $\zeta$ with $\zeta^T x = 1$.
 
 Let $P_\parallel = \zeta\zeta'/\zeta'\zeta$. Note $P_\parallel\zeta = \zeta$ and
 $P_\parallel\xi = 0$ if $\zeta'\xi = 0$ so it is the orthogonal projection 
@@ -174,28 +192,6 @@ The variance of the efficient portfolio is
 $$
 \Var(R(\xi)) = (C - 2BR + AR^2)/D.
 $$ 
-
-If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
-they belong to the subspace spanned by $V^{-1}x$ and $V^{-1}E[X]$.
-Every efficient portfolio can be written $\xi = \beta_0\xi_0 + \beta_1\xi_1$ for some
-scalars $\beta_0$ and $\beta_1$.
-Assuming $\xi_j'x = 1$ for $j = 0,1$ then $R(\xi_j) = \xi_j'X$.
-Assuming $\xi^T x = 1$ so $R(\xi) = \xi^T X$ then $\beta_0 + \beta_1 = 1$ and
-$\xi = (1 - \beta)\xi_0 + \beta\xi_1$ where $\beta = \beta_1$.
-Multiplying both sides by $X$ we have $\xi^T X = (1 - \beta)\xi_0'X + \beta\xi_1'X$ hence
-$$
-	R(\xi) - R(\xi_0) = \beta(R(\xi_1) - R(\xi_0))
-$$
-as functions on $\Omega$ where 
-$\beta = \Cov(R(\xi) - R(\xi_0), R(\xi_1) - R(\xi_0))/\Var(R(\xi_1) - R(\xi_0))$.
-The classical CAPM formula follows from taking expected values
-of both sides when $\xi_1$ is the "market portfolio" and $\xi_0$ is a
-[_riskless portfolio_](#riskless-portfolio).
-
-Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
-$E[XX']$. Classical literature focuses mainly on the latter three which
-may explain why prior authors overlooked our elementary but stronger
-result.
 
 ## Appendix
 
