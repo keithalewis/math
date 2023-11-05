@@ -117,89 +117,43 @@ $$
 where $\lambda = (C - R B)/D$, $\mu = (-B + R A)/D$, and
 ${A = x^T V^{-1}x}$, ${B = x^T V^{-1}E[X] = E[X^T]V^{-1}x}$, ${C = E[X^T]V^{-1}E[X]}$,
 where ${D = AC - B^2}$.
-Every efficient porfolio is in the span of 
-$V^{-1}x$ and $V^{-1} E[X]$.
-
 Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
 $E[XX^T]$. Classical literature focuses mainly on the latter three which
 may explain why prior authors overlooked our elementary but stronger
 result.
 
+This shows every efficient porfolio is in the span of 
+$V^{-1}x$ and $V^{-1} E[X]$.
 If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
-${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$
-since $\xi_0$ and $\xi_1$ belong to the subspace spanned by $V^{-1}x$ and $V^{-1}E[X]$.
-Assuming $\xi_j^T x = 1$ for $j = 0,1$ then $R(\xi_j) = \xi_j^T X$.
-Assuming $\xi^T x = 1$ then $R(\xi) = \xi^T X$ so ${\beta_0 + \beta_1 = 1}$ and
-${\xi = (1 - \beta)\xi_0 + \beta\xi_1}$ where ${\beta = \beta_1}$.
-Multiplying the tranpose on both sides by $X$ we have ${\xi^T X = (1 - \beta)\xi_0^T X + \beta\xi_1^T X}$ hence
+${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$.
+Assuming $\xi_j^T x = 1$ for $j = 0,1$ then $R_{\xi_j} = \xi_j^T X$.
+
+Assuming $\xi^T x = 1$ then $1 = \beta_0 + \beta_1$ and
+$\xi^T X = \beta_0\xi_0^T X + \beta_1\xi_1^T X$ so
 $$
-	R(\xi) - R(\xi_0) = \beta(R(\xi_1) - R(\xi_0))
+	R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
 $$
-as functions on $\Omega$ where 
-$\beta = \Cov(R(\xi) - R(\xi_0), R(\xi_1) - R(\xi_0))/\Var(R(\xi_1) - R(\xi_0))$.
+as functions on $\Omega$, where 
+$$
+	\beta = \Cov(R_\xi - R_{\xi_0}, R_{\xi_1} - R_{\xi_0})/\Var(R_{\xi_1} - R_{\xi_0}).
+$$
 The classical CAPM formula follows from taking expected values
 of both sides when $\xi_1$ is the "market portfolio" and $\xi_0$ is a
-[_riskless portfolio_](#riskless-portfolio).
-
-### Riskless Portfolio
+_riskless portfolio_.
 
 A portfolio $\zeta$ is _riskless_ if its realized return is constant. In this case
-$0 = \Var(R(\zeta)) = \zeta^T V\zeta$ assuming, as we may, $\zeta^T x = 1$.
-If another riskless portfolio exists with different realized
-return then arbitrage exists.  By removing redundant assets we can assume
-there is exactly one riskless portfolio $\zeta$ with $\zeta^T x = 1$.
-
-Let $P_\parallel = \zeta\zeta'/\zeta'\zeta$. Note $P_\parallel\zeta = \zeta$ and
-$P_\parallel\xi = 0$ if $\zeta'\xi = 0$ so it is the orthogonal projection 
-onto the space spanned by $\zeta$.
-Let $P_\perp = I - P_\parallel$
-be the projection onto its orthogonal complement,
-$\{\zeta\}^\perp = \{y\in\R^I:\zeta'y = 0\}$, so
-$V = VP_\perp + VP_\parallel$. Below we analyze the first order conditions for
-an extremum on each subspace. Note $P_\parallel$ commutes with $V$ so these
-subspaces are invariant under $V$.
-Let $y_\parallel = P_\parallel y$ be the component of $y$ parallel to $\zeta$
-and $y_\perp = P_\perp y$ be the component of $y$ orthogonal to $\zeta$ for $y\in\R^I$.
-
-The first order condition $V\xi = \lambda x + \mu E[X]$ implies
-$V\xi_\parallel = \lambda x_\parallel + \mu E[X]_\parallel$. Since $\xi_\parallel$
-is a scalar multiple of $\zeta$ we have $0 = \lambda + \mu R$ so $\lambda = -\mu R$.
-On the orthogonal complement $V\xi_\perp = -\mu R x_\perp + \mu E[X]_\perp$ so
-$\xi_\perp = V^\dashv(E[X] - Rx)$ where $V^\dashv$ is the generalized (Moore-Penrose) inverse of $V$.
-Letting $\alpha = \xi_\perp = V^\dashv(E[X] - Rx)$, every efficient portfolio can be written
-$\xi = \mu \alpha + \mu\zeta$.
-We can and do assume $\alpha'x = 1$ so
-$1 = \mu + \mu$ and $\xi = \mu \alpha + (1 - \mu)\zeta$.
-Multiplying both sides by $X$ we have $\mu X = \mu \alpha'X + (1 - \mu)R$ hence
-$$
-	R(\xi) - R = \mu(R(\alpha) - R).
-$$
-This implies the classical CAPM formula by taking expected values where $\alpha$ is the "market portfolio".
-It also shows the Lagrange multiplier
-$\mu = \Cov(R(\xi),R(\alpha))/\Var(R(\alpha))$ is the classical beta.
-
-### Non-singular Variance
-
-If $V$ is invertible the [Appendix](#lagrange-multiplier-solution)
-shows solution is
-$\lambda = (C - R B)/D$, $\mu = (-B + R A)/D$, and
-$$
-\xi = \frac{C - R B}{D}V^{-1}x + \frac{-B + R A}{D}V^{-1}E[X]
-$$
-where $A = xV^{-1}x$, $B = x'V^{-1}E[X] = E[X']V^{-1}x$,
-$C = E[X]V^{-1}E[X]$, and $D = AC - B^2$.
-The variance of the efficient portfolio is
-$$
-\Var(R(\xi)) = (C - 2BR + AR^2)/D.
-$$ 
+$\Var(R_\zeta) = 0$ so it is efficient.
 
 ## Appendix
 
+We can assume $V = E[XX^T] - E[X] E[X^T]$ is invertible.
+If $V\xi = 0$ then $\xi^T V\xi=0 = \|V^{1/2}\xi\| = 0$.
+
 ### Lagrange Multiplier Solution
 
-Let's find the minimum value of $\Var(R(\xi))$ given $E[R(\xi)] =
-R$.  If $\xi^T x = 1$ then $R(\xi) = \xi^T E[X]$ and $\Var(R(\xi))
-= \xi^T V\xi$ where $V = E[XX'] - E[X]E[X']$.
+Let's find the minimum value of $\Var(R_\xi)$ given $E[R_\xi] =
+R$.  If $\xi^T x = 1$ then $R_\xi = \xi^T E[X]$ and $\Var(R_\xi)
+= \xi^T V\xi$ where $V = E[XX^T] - E[X]E[X^T]$.
 
 We use Lagrange multipliers and solve
 $$
@@ -219,7 +173,7 @@ Assuming $V$ is invertible $\xi = V^{-1}(\lambda x + \mu E[X])$.
 Note every extremum lies in the (at most) two dimensional subspace
 spanned by $V^{-1}x$ and $V^{-1}E[X]$.
     
-The constraints $1 = x'\xi$ and $R = E[X']\xi$ can be written
+The constraints $1 = x^T\xi$ and $R = E[X^T]\xi$ can be written
 $$
 \begin{bmatrix}
 1 \\
@@ -227,8 +181,8 @@ R \\
 \end{bmatrix}
 =
 \begin{bmatrix}
-\lambda x'V^{-1}x + \mu x'V^{-1}E[X] \\
-\lambda E[X']V^{-1}x + \mu E[X']V^{-1}E[X] \\
+\lambda x^TV^{-1}x + \mu x^TV^{-1}E[X] \\
+\lambda E[X^T]V^{-1}x + \mu E[X^T]V^{-1}E[X] \\
 \end{bmatrix}
 = \begin{bmatrix}
 A & B \\
@@ -239,7 +193,7 @@ B & C\\
 \mu
 \end{bmatrix}
 $$
-with $A = xV^{-1}x$, $B = x'V^{-1}E[X] = E[X']V^{-1}x$, and $C = E[X]V^{-1}E[X]$.
+with $A = x^T V^{-1}x$, $B = x^T V^{-1}E[X] = E[X^T]V^{-1}x$, and $C = E[X^T] V^{-1}E[X]$.
 Inverting gives
 $$
 \begin{bmatrix} \lambda \\ \mu \end{bmatrix}
@@ -266,7 +220,7 @@ $$
 
 A straightforward calculation shows the variance is
 $$
-\Var(R(\xi)) = \xi^T V\xi = (C - 2BR + AR^2)/D.
+\Var(R_\xi) = \xi^T V\xi = (C - 2BR + AR^2)/D.
 $$
 
 ### Fundamental Theorem of Asset Pricing
