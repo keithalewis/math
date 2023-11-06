@@ -74,22 +74,22 @@ on daily data.
 
 Let $I$ be the set of _market instruments_ and $\Omega$ be the set of
 possible market outcomes over the period.  The _one-period model_
-specifies the initial instrument prices $x\in\R^I$[^1] and the final
-instrument prices $X\colon\Omega\to\R^I$ depending on the outcome
+specifies the initial instrument prices $x\in\RR^I$[^1] and the final
+instrument prices $X\colon\Omega\to\RR^I$ depending on the outcome
 $\omega\in\Omega$ that occurs.
 The one period model also specifies a probability
-measure $P$ on the space of outcomes, by hook or by crook.
+measure $P$ on the space of outcomes.
 
 [^1]: If $A$ and $B$ are sets then $B^A = \{f\colon A\to B\}$ is the set of all
-functions from $A$ to $B$. We can write $f_a$ for $f(a)$.
+functions from $A$ to $B$. We write $f_a$ for $f(a)$.
 
-A _portfolio_ $\xi\in\R^I$ is the number of shares initially purchased in each instrument.
+A _portfolio_ $\xi\in\RR^I$ is the number of shares initially purchased in each instrument.
 It costs ${\xi^T x = \sum_{i\in I} \xi_i x_i}$ to acquire the portfolio at the beginning of the period
 and returns $\xi^T X(\omega)$ when liquidated at the end of the period if $\omega\in\Omega$ occurs.
 
 The _realized return_ of $\xi$ is $R_\xi = \xi^T X/\xi^T x$ when $\xi^T x \not= 0$.
 
-Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\R$ so
+Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so
 there is no loss in assuming $\xi^T x = 1$.
 In this case $R_\xi = \xi^T X$ is the realized return of the portfolio.
 It is common to use _returns_ instead of realized returns
@@ -148,6 +148,8 @@ $\Var(R_\zeta) = 0$ so it is efficient.
 
 We can assume $V = E[XX^T] - E[X] E[X^T]$ is invertible.
 If $V\xi = 0$ then $\xi^T V\xi=0 = \|V^{1/2}\xi\| = 0$.
+
+$(X - E[X])\eta = 0
 
 ### Lagrange Multiplier Solution
 
@@ -243,8 +245,8 @@ If such a measure exists and $\xi^T X\ge0$ then
 $\xi^T x = \int_\Omega \xi^T X\,d\Pi \ge0$ so arbitrage
 cannot occur. The other direction is less trivial.
 
-**Lemma.** _If $x\in\R^n$ and $C$ is a closed cone in
-$\R^n$ with $x\not\in C$ then there exists $\xi\in\R^n$
+**Lemma.** _If $x\in\RR^n$ and $C$ is a closed cone in
+$\RR^n$ with $x\not\in C$ then there exists $\xi\in\RR^n$
 with $\xi^T x < 0$ and $\xi^T y \ge0$ for $y\in C$._
 
 Recall that a _cone_ is a subset of a vector space closed under addition
