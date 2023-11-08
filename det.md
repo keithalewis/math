@@ -18,7 +18,7 @@ that posited $P_i P_j = -P_j P_i$, for $i,j\in I$. If $i = j$ then $P_i P_i = -P
 so $2P_i P_i = 0$ and $P_i^2 = 0$.
 
 If $a$ is a number and $P$ is a point then $aP$ is a point with _weight_ $a$.
-He assumed $aP + bP = (a + b)P$ and $(aP)(bQ) = (ab)(PQ)$ for numbers $a,b$ and points $P,Q$.
+He assumed ${aP + bP = (a + b)P}$ and ${(aP)(bQ) = (ab)(PQ)}$ for numbers $a,b$ and points $P,Q$.
 
 That is all you need to define determinants.
 If ${P_j = \sum_i a_{ij}P_i}$ then ${\prod_i\sum_j a_{ij} P_i = (\det A)\prod_i P_i}$.
