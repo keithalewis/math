@@ -23,7 +23,6 @@ He assumed ${aP + bP = (a + b)P}$ and ${(aP)(bQ) = (ab)(PQ)}$ for numbers $a,b$ 
 That is all you need to define determinants.
 If ${P_j = \sum_i a_{ij}P_i}$ then ${\prod_i\sum_j a_{ij} P_i = (\det A)\prod_i P_i}$.
 
-For two-dimensional matrices
 $$
 \begin{aligned}
 (a_{11}P_1 + a_{12}P_2)(a_{21}P_1 + a_{22}P_2)
