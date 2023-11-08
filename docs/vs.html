@@ -5,8 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-11" />
-  <title>From \bm{R}^n to Vector Spaces</title>
+  <title>From \boldsymbol{R}^n to Vector Spaces for Engineers</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -16,24 +15,8 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -49,17 +32,16 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">From <span class="math inline">\bm{R}^n</span> to
-Vector Spaces</h1>
+<h1 class="title">From <span class="math inline">\boldsymbol{R}^n</span>
+to Vector Spaces for Engineers</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 11, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Axioms are more useful than accidents
@@ -412,6 +394,20 @@ class="math inline">S\colon U\to V</span> and <span
 class="math inline">T\colon V\to W</span> are isomorphisms then the
 composition <span class="math inline">TS\colon U\to W</span> is an
 isomorphism.</p>
+<details>
+<summary>
+Solution
+</summary>
+Since <span class="math inline">v - v = \boldsymbol{0}\in W</span>
+(identity) we have <span class="math inline">v\sim v</span>. If <span
+class="math inline">u \sim v</span> then <span class="math inline">{u -
+v\in W}</span> so <span class="math inline">{v - w = -(u - v)\in
+W}</span> (inverse). If <span class="math inline">u\sim v</span> and
+<span class="math inline">v\sim w</span> then <span
+class="math inline">u - v</span> and <span class="math inline">v -
+w</span> belong to <span class="math inline">W</span> so <span
+class="math inline">{u - w = (u - v) + (v - w)\in W}</span> (addition).
+</details>
 <p>If <span class="math inline">S</span> is a set and <span
 class="math inline">\sim</span> is an equivalence relation on <span
 class="math inline">S</span> then the set of <em>equivalence
@@ -623,9 +619,9 @@ If $V$ and $W$ are vector spaces then a _linear transformaton_ $T\colon V\to W$ 
 that preserves the vector space operations: $T(au + v) = aTu + Tv$,
 $a\in\RR$, $u,v\in V$.
 
-__Exericse__.  _If $T\colon V\to W$ is a linear transformation show $T\bm{0} = \bm{0}$_.
+__Exericse__.  _If $T\colon V\to W$ is a linear transformation show $T\mb{0} = \mb{0}$_.
 
-_Hint_: Consider $T(\bm{0} + \bm{0})$ and use $v + v = v$ imples $v = \bm{0}$.
+_Hint_: Consider $T(\mb{0} + \mb{0})$ and use $v + v = v$ imples $v = \mb{0}$.
 
 __Exercise__. _The space of linear transformations from $V$ to $W$, $\mathcal{L}(V,W)$, is a vector space_.
 
@@ -691,9 +687,5 @@ $$
 $$
 -->
 </section>
-<hr/>
-<footer>
-Return to <a href="index.html">index</a>.
-</footer>
 </body>
 </html>

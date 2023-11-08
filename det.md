@@ -11,12 +11,17 @@ abstract: Hermann Grassmann showed us how.
 \newcommand\det{\operatorname{det}}
 -->
 
-What is the determinant of a square matrix $A = [a_{ij}]$?  Let $(P_i)$
-be _points_ in Euclidean space.  Hermann Grassmann came up with Die
-Lineale Ausdehnungslehre that posited $P_i P_j = -P_j P_i$. If $i = j$
-then $P_i P_i = -P_i P_i$ so $2P_i P_i = 0$ and $P_i^2 = 0$.
+What is the determinant of a square matrix $A = [a_{ij}]$?  Let $P_i\in E$
+be _points_ in Euclidean space $E$ for $i$ in a finite index set $I$.
+In 1844 Hermann Grassmann published _Die Lineale Ausdehnungslehre_
+that posited $P_i P_j = -P_j P_i$, $i,j\in I$. If $i = j$ then $P_i P_i = -P_i P_i$
+so $2P_i P_i = 0$ and $P_i^2 = 0$.
 
-If $P_j = \sum_i a_{ij}P_i$ then $\prod_i\sum_j a_{ij} P_i = (\det A)\prod_i P_i$.
+If $a$ is a number and $P$ is a point then $aP$ is a point with _weight_ $a$.
+We assume $(aP)(bQ) = (ab)(PQ)$ for numbers $a,b$ and points $P,Q$.
+
+That is all you need to define determinants.
+If ${P_j = \sum_i a_{ij}P_i}$ then ${\prod_i\sum_j a_{ij} P_i = (\det A)\prod_i P_i}$.
 
 For two-dimensional matrices
 $$
@@ -33,6 +38,7 @@ $$
 $$
 so $\det[a_{ij}] = a_{11}a_{22} - a_{12}a_{21}$ in 2 dimensions.
 
-The same technique holds in any number of dimensions for computing determinants.
-Back in Hermann's day people were still grappling with how to extend Euclidiean geometry
-into higher dimensions. 
+The same computational technique holds in any number of dimensions for
+computing determinants.  Back in Hermann's day people were still grappling
+with how to extend Euclidiean geometry into higher dimensions. He was
+way ahead of his time.

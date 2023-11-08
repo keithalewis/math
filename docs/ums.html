@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2023-06-01" />
   <title>A Unified Model of Derivative Securities</title>
   <style>
     code{white-space: pre-wrap;}
@@ -15,22 +14,6 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -56,13 +39,12 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">A Unified Model of Derivative Securities</h1>
-<p class="date">June 1, 2023</p>
 </header>
 <p><span class="math inline">T</span> — totally ordered set of trading
 <em>times</em>.</p>
+<p><span class="math inline">I</span> — market <em>instruments</em>.</p>
 <p><span class="math inline">\Omega</span> — all possible
 <em>outcomes</em>.</p>
-<p><span class="math inline">I</span> — market <em>instruments</em>.</p>
 <p><span class="math inline">\mathcal{A}_t</span> — a partition of <span
 class="math inline">\Omega</span> indicating the <em>information</em>
 available at time <span class="math inline">t\in T</span>.</p>
@@ -110,9 +92,24 @@ corresponds to value and cash flow corresponds to account.</p>
     X_t D_t = M_t - \sum_{s\le t} C_s D_s
 </span> where <span class="math inline">M_t =
 M_u|_{\mathcal{A}_t}</span> is a <em>martingale measure</em>.</p>
-<hr/>
-<footer>
-Return to <a href="index.html">index</a>.
-</footer>
+<section id="appendix" class="level2">
+<h2>Appendix</h2>
+<p><span class="math inline">X,C\colon\sum_{j=0}^n B(\mathcal{A}_j,
+\boldsymbol{R}^I)</span></p>
+<p><span class="math inline">A\colon\sum_{j=0}^n B(\mathcal{A}_j,
+\boldsymbol{R}^I)\to\sum_{j=0}^n B(\mathcal{A}_j)</span> where <span
+class="math inline">A(\oplus \Gamma_j) = \oplus \Delta_j\cdot C_j -
+\Gamma_j\cdot X_j</span>.</p>
+<p><span class="math inline">\mathcal{G}_0 = \{\oplus \Gamma_j\mid
+\sum_j \Gamma_j = 0\}</span>.</p>
+<p><span class="math inline">\mathcal{P} = \{\oplus A_j\mid A_0 &gt; 0,
+A_j\ge 0\}</span>.</p>
+<p>Arbitrage if there exists <span
+class="math inline">\Gamma\in\mathcal{G}_0</span> with <span
+class="math inline">A(\Gamma)\in\mathcal{P}</span>.</p>
+<p><span class="math inline">A^*\colon \sum_{j=0}^n
+ba(\mathcal{A}_j)\to\sum_{j=0}^n ba(\mathcal{A}_j,
+\boldsymbol{R}^I)</span></p>
+</section>
 </body>
 </html>
