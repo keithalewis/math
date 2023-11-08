@@ -14,11 +14,11 @@ abstract: Hermann Grassmann showed us how.
 What is the determinant of a square matrix $A = [a_{ij}]$?  Let $P_i\in E$
 be _points_ in Euclidean space $E$ for $i$ in a finite index set $I$.
 In 1844 Hermann Grassmann published _Die Lineale Ausdehnungslehre_
-that posited $P_i P_j = -P_j P_i$, $i,j\in I$. If $i = j$ then $P_i P_i = -P_i P_i$
+that posited $P_i P_j = -P_j P_i$, for $i,j\in I$. If $i = j$ then $P_i P_i = -P_i P_i$
 so $2P_i P_i = 0$ and $P_i^2 = 0$.
 
 If $a$ is a number and $P$ is a point then $aP$ is a point with _weight_ $a$.
-We assume $(aP)(bQ) = (ab)(PQ)$ for numbers $a,b$ and points $P,Q$.
+He assumed $aP + bP = (a + b)P$ and $(aP)(bQ) = (ab)(PQ)$ for numbers $a,b$ and points $P,Q$.
 
 That is all you need to define determinants.
 If ${P_j = \sum_i a_{ij}P_i}$ then ${\prod_i\sum_j a_{ij} P_i = (\det A)\prod_i P_i}$.
