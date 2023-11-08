@@ -31,7 +31,7 @@ $$
 &= (a_{11}a_{22} - a_{12} a_{21})P_1 P_2\\
 \end{aligned}
 $$
-so $\det[a_{ij}] = a_{11}a_{22} - a_{12}a_{22}$ in 2 dimensions.
+so $\det[a_{ij}] = a_{11}a_{22} - a_{12}a_{21}$ in 2 dimensions.
 
 The same technique holds in any number of dimensions for computing determinants.
 Back in Hermann's day people were still grappling with how to extend Euclidiean geometry
