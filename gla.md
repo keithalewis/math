@@ -44,4 +44,8 @@ $P(\sum_i a_i P_i) = 0$ if and only if $P = \sum_i a_i P_i$.
 
 Independence: $\sum_i a_i P_i = 0$ implies $a_i = 0$ for all $i$.
 
+$P_0\cdots P_n = 0$ iff $(P_j)$ independent.
 
+$\partial P_0 P_1 P_2 = P_1 P_2 - P_0 P_2 + P_0 P_1 = (P_1 - P_0)(P_2 - P_0)$.
+
+$(P_1 - P_0)(P_2 - P_0) = 0$ iff $P_1 - P_0 = a(P_2 - P_0$.

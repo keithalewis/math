@@ -78,7 +78,7 @@ specifies the initial instrument prices $x\in\RR^I$[^1] and the final
 instrument prices $X\colon\Omega\to\RR^I$ depending on the outcome
 $\omega\in\Omega$ that occurs.
 The one period model also specifies a probability
-measure $P$ on the space of outcomes.
+measure $P$ on the space of outcomes, by hook or by crook.
 
 [^1]: If $A$ and $B$ are sets then $B^A = \{f\colon A\to B\}$ is the set of all
 functions from $A$ to $B$. We write $f_a$ for $f(a)$.
@@ -86,7 +86,6 @@ functions from $A$ to $B$. We write $f_a$ for $f(a)$.
 A _portfolio_ $\xi\in\RR^I$ is the number of shares initially purchased in each instrument.
 It costs ${\xi^T x = \sum_{i\in I} \xi_i x_i}$ to acquire the portfolio at the beginning of the period
 and returns $\xi^T X(\omega)$ when liquidated at the end of the period if $\omega\in\Omega$ occurs.
-
 The _realized return_ of $\xi$ is $R_\xi = \xi^T X/\xi^T x$ when $\xi^T x \not= 0$.
 
 Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so
@@ -116,7 +115,7 @@ $$
 $$
 where $\lambda = (C - R B)/D$, $\mu = (-B + R A)/D$, and
 ${A = x^T V^{-1}x}$, ${B = x^T V^{-1}E[X] = E[X^T]V^{-1}x}$, ${C = E[X^T]V^{-1}E[X]}$,
-where ${D = AC - B^2}$.
+${D = AC - B^2}$.
 Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
 $E[XX^T]$. Classical literature focuses mainly on the latter three which
 may explain why prior authors overlooked our elementary but stronger
@@ -126,10 +125,8 @@ This shows every efficient porfolio is in the span of
 $V^{-1}x$ and $V^{-1} E[X]$.
 If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
 ${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$.
-Assuming $\xi_j^T x = 1$ for $j = 0,1$ then $R_{\xi_j} = \xi_j^T X$.
-
-Assuming $\xi^T x = 1$ then $1 = \beta_0 + \beta_1$ and
-$\xi^T X = \beta_0\xi_0^T X + \beta_1\xi_1^T X$ so
+Assuming $\xi_j^T x = 1$ for $j = 0,1$ then $\xi^T x = \beta_0 + \beta_1$ and
+$\xi^T X = \beta_0 R_{\xi_0} + \beta_1 R_{\xi_1}$ so
 $$
 	R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
 $$
@@ -146,10 +143,10 @@ $\Var(R_\zeta) = 0$ so it is efficient.
 
 ## Appendix
 
-We can assume $V = E[XX^T] - E[X] E[X^T]$ is invertible.
-If $V\xi = 0$ then $\xi^T V\xi=0 = \|V^{1/2}\xi\| = 0$.
+If $\Var(R_\xi) = 0$ then $R_\xi$ is a constant so there exists
+$\zeta\in\RR^I$ with $\zeta^T X = 1$.
 
-$(X - E[X])\eta = 0
+Show $\xi^T X=0$ if $\xi^T V = 0$. !!!
 
 ### Lagrange Multiplier Solution
 
@@ -226,10 +223,6 @@ $$
 $$
 
 ### Fundamental Theorem of Asset Pricing
-
-## Risk-neutral Measure
-
-???
 
 If $x$ belongs to the smallest closed cone containing the range of $X$ then
 $x = \int_\Omega X dD$ for some positive finitely-additive measure $D$ on $\Omega$.
