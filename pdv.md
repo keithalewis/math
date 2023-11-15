@@ -37,3 +37,11 @@ Since $t\Sigma_t^2 = \int_0^t (dS/S)^2 = \int_0^t \Sigma_s^2\,ds$
 we have $d(t\Sigma_t^2) = \Sigma_t^2$. By the Ito calculus we
 also have $d(t\Sigma_t^2) = t\,d\Sigma^2_t + \Sigma_t^2\,dt$ so
 $0 = t\,d\Sigma_t^2$ and $\Sigma_t$ must be constant.
+
+The average realized volatility assigns equal weight to each observation.
+If $K$ is a function on the positive real numbers then we can consider
+$$
+	\Sigma^2_t = \int_0^t K(t - s)\Sigma_s^2\,ds
+$$
+It makes sense to assign more weight to recent observations
+so we can choose $K$ to be a decreasing function.
