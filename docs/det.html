@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Determinants Made Easy</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Determinants Made Easy</h1>
+<p class="author">Keith A. Lewis</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Hermann Grassmann showed us how.
+</div>
+</header>
+<!--
+\newcommand\det{\operatorname{det}}
+-->
+<p>What is the determinant of a square matrix <span
+class="math inline">A = [a_{ij}]</span>? Let <span
+class="math inline">P_i\in E</span> be <em>points</em> in Euclidean
+space <span class="math inline">E</span> for <span
+class="math inline">i</span> in a finite index set <span
+class="math inline">I</span>. In 1844 Hermann Grassmann published
+<em>Die Lineale Ausdehnungslehre</em> that posited <span
+class="math inline">P_i P_j = -P_j P_i</span>, for <span
+class="math inline">i,j\in I</span>. If <span class="math inline">i =
+j</span> then <span class="math inline">P_i P_i = -P_i P_i</span> so
+<span class="math inline">2P_i P_i = 0</span> and <span
+class="math inline">P_i^2 = 0</span>.</p>
+<p>If <span class="math inline">a</span> is a number and <span
+class="math inline">P</span> is a point then <span
+class="math inline">aP</span> is a point with <em>weight</em> <span
+class="math inline">a</span>. He assumed <span class="math inline">{aP +
+bP = (a + b)P}</span> and <span class="math inline">{(aP)(bQ) =
+(ab)(PQ)}</span> for numbers <span class="math inline">a,b</span> and
+points <span class="math inline">P,Q</span>.</p>
+<p>That is all you need to define determinants. If <span
+class="math inline">{P_j = \sum_i a_{ij}P_i}</span> then <span
+class="math inline">{\prod_i\sum_j a_{ij} P_i = (\det A)\prod_i
+P_i}</span>.</p>
+<p><span class="math display">
+\begin{aligned}
+(a_{11}P_1 + a_{12}P_2)(a_{21}P_1 + a_{22}P_2)
+&amp;= a_{11}P_1 a_{21}P_1 + a_{11}P_1 a_{22} P_2
++ a_{12}P_2 a_{21}P_1 + a_{21}P_2 a_{22} P_2\\
+&amp;= a_{11} a_{21}P_1 P_1 + a_{11}a_{22} P_1 P_2
++ a_{12} a_{21}P_2 P_1 + a_{21} a_{22} P_2 P_2\\
+&amp;= a_{11}a_{22} P_1 P_2 + a_{12} a_{21}P_2 P_1\\
+&amp;= a_{11}a_{22} P_1 P_2 - a_{12} a_{21}P_1 P_2\\
+&amp;= (a_{11}a_{22} - a_{12} a_{21})P_1 P_2\\
+\end{aligned}
+</span> so <span class="math inline">\det[a_{ij}] = a_{11}a_{22} -
+a_{12}a_{21}</span> in 2 dimensions.</p>
+<p>The same computational technique holds in any number of dimensions
+for computing determinants. Back in Hermann’s day people were still
+grappling with how to extend Euclidiean geometry into higher dimensions.
+He was way ahead of his time.</p>
+</body>
+</html>

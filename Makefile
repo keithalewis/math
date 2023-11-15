@@ -51,5 +51,5 @@ clean:
 RJS = -V theme="serif" -V revealjs-url=https://cdn.jsdelivr.net/reveal.js/3.0.0
 
 slides: um_slides.md
-	pandoc --include-in-header=revealjs.html -V theme=serif -H utf8.html -t revealjs -o um_slides.html um_slides.md
+	pandoc -V theme=serif -t revealjs -o um_slides.html um_slides.md
 	pandoc -o um_slides.pptx um_slides.md

@@ -29,7 +29,7 @@ having the same expected realized return.
 
 In the one-period model every efficient portfolio belongs to a two-dimensional
 subspace and is uniquely determined given its expected realized return.
-We show that if $R$ is the realized return of any efficient portfolio
+We show that if $R$ is the (random) realized return of any efficient portfolio
 and $R_0$ and $R_1$ are the realized returns of any two linearly independent efficient
 portfolios then 
 $$
@@ -81,12 +81,11 @@ The one period model also specifies a probability
 measure $P$ on the space of outcomes, by hook or by crook.
 
 [^1]: If $A$ and $B$ are sets then $B^A = \{f\colon A\to B\}$ is the set of all
-functions from $A$ to $B$. We can write $f_a$ for $f(a)$.
+functions from $A$ to $B$. We write $f_a$ for $f(a)$.
 
 A _portfolio_ $\xi\in\RR^I$ is the number of shares initially purchased in each instrument.
 It costs ${\xi^T x = \sum_{i\in I} \xi_i x_i}$ to acquire the portfolio at the beginning of the period
 and returns $\xi^T X(\omega)$ when liquidated at the end of the period if $\omega\in\Omega$ occurs.
-
 The _realized return_ of $\xi$ is $R_\xi = \xi^T X/\xi^T x$ when $\xi^T x \not= 0$.
 
 Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so
@@ -116,34 +115,32 @@ $$
 $$
 where $\lambda = (C - R B)/D$, $\mu = (-B + R A)/D$, and
 ${A = x^T V^{-1}x}$, ${B = x^T V^{-1}E[X] = E[X^T]V^{-1}x}$, ${C = E[X^T]V^{-1}E[X]}$,
-where ${D = AC - B^2}$.
-Every efficient porfolio is in the span of 
-$V^{-1}x$ and $V^{-1} E[X]$.
-
+${D = AC - B^2}$.
 Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
 $E[XX^T]$. Classical literature focuses mainly on the latter three which
 may explain why prior authors overlooked our elementary but stronger
 result.
 
+This shows every efficient porfolio is in the span of 
+$V^{-1}x$ and $V^{-1} E[X]$.
 If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
-${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$
-since $\xi_0$ and $\xi_1$ belong to the subspace spanned by $V^{-1}x$ and $V^{-1}E[X]$.
-Assuming $\xi_j^T x = 1$ for $j = 0,1$ then $R(\xi_j) = \xi_j^T X$.
-Assuming $\xi^T x = 1$ then $R(\xi) = \xi^T X$ so ${\beta_0 + \beta_1 = 1}$ and
-${\xi = (1 - \beta)\xi_0 + \beta\xi_1}$ where ${\beta = \beta_1}$.
-Multiplying the tranpose on both sides by $X$ we have ${\xi^T X = (1 - \beta)\xi_0^T X + \beta\xi_1^T X}$ hence
+${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$.
+Assuming $\xi_j^T x = 1$ for $j = 0,1$ then $\xi^T x = \beta_0 + \beta_1$ and
+$\xi^T X = \beta_0 R_{\xi_0} + \beta_1 R_{\xi_1}$ so
 $$
-	R(\xi) - R(\xi_0) = \beta(R(\xi_1) - R(\xi_0))
+	R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
 $$
-as functions on $\Omega$ where 
-$\beta = \Cov(R(\xi) - R(\xi_0), R(\xi_1) - R(\xi_0))/\Var(R(\xi_1) - R(\xi_0))$.
+as functions on $\Omega$, where 
+$$
+	\beta = \Cov(R_\xi - R_{\xi_0}, R_{\xi_1} - R_{\xi_0})/\Var(R_{\xi_1} - R_{\xi_0}).
+$$
 The classical CAPM formula follows from taking expected values
 of both sides when $\xi_1$ is the "market portfolio" and $\xi_0$ is a
-[_riskless portfolio_](#riskless-portfolio).
-
-### Riskless Portfolio
+_riskless portfolio_.
 
 A portfolio $\zeta$ is _riskless_ if its realized return is constant. In this case
+$\Var(R_\zeta) = 0$ so it is efficient.
+<!--
 $0 = \Var(R(\zeta)) = \zeta^T V\zeta$ assuming, as we may, $\zeta^T x = 1$.
 If another riskless portfolio exists with different realized
 return then arbitrage exists.  By removing redundant assets we can assume
@@ -192,14 +189,20 @@ The variance of the efficient portfolio is
 $$
 \Var(R(\xi)) = (C - 2BR + AR^2)/D.
 $$ 
+-->
 
 ## Appendix
 
+If $\Var(R_\xi) = 0$ then $R_\xi$ is a constant so there exists
+$\zeta\in\RR^I$ with $\zeta^T X = 1$.
+
+Show $\xi^T X=0$ if $\xi^T V = 0$. !!!
+
 ### Lagrange Multiplier Solution
 
-Let's find the minimum value of $\Var(R(\xi))$ given $E[R(\xi)] =
-R$.  If $\xi^T x = 1$ then $R(\xi) = \xi^T E[X]$ and $\Var(R(\xi))
-= \xi^T V\xi$ where $V = E[XX'] - E[X]E[X']$.
+Let's find the minimum value of $\Var(R_\xi)$ given $E[R_\xi] =
+R$.  If $\xi^T x = 1$ then $R_\xi = \xi^T E[X]$ and $\Var(R_\xi)
+= \xi^T V\xi$ where $V = E[XX^T] - E[X]E[X^T]$.
 
 We use Lagrange multipliers and solve
 $$
@@ -219,7 +222,7 @@ Assuming $V$ is invertible $\xi = V^{-1}(\lambda x + \mu E[X])$.
 Note every extremum lies in the (at most) two dimensional subspace
 spanned by $V^{-1}x$ and $V^{-1}E[X]$.
     
-The constraints $1 = x'\xi$ and $R = E[X']\xi$ can be written
+The constraints $1 = x^T\xi$ and $R = E[X^T]\xi$ can be written
 $$
 \begin{bmatrix}
 1 \\
@@ -227,8 +230,8 @@ R \\
 \end{bmatrix}
 =
 \begin{bmatrix}
-\lambda x'V^{-1}x + \mu x'V^{-1}E[X] \\
-\lambda E[X']V^{-1}x + \mu E[X']V^{-1}E[X] \\
+\lambda x^TV^{-1}x + \mu x^TV^{-1}E[X] \\
+\lambda E[X^T]V^{-1}x + \mu E[X^T]V^{-1}E[X] \\
 \end{bmatrix}
 = \begin{bmatrix}
 A & B \\
@@ -239,7 +242,7 @@ B & C\\
 \mu
 \end{bmatrix}
 $$
-with $A = xV^{-1}x$, $B = x'V^{-1}E[X] = E[X']V^{-1}x$, and $C = E[X]V^{-1}E[X]$.
+with $A = x^T V^{-1}x$, $B = x^T V^{-1}E[X] = E[X^T]V^{-1}x$, and $C = E[X^T] V^{-1}E[X]$.
 Inverting gives
 $$
 \begin{bmatrix} \lambda \\ \mu \end{bmatrix}
@@ -266,14 +269,10 @@ $$
 
 A straightforward calculation shows the variance is
 $$
-\Var(R(\xi)) = \xi^T V\xi = (C - 2BR + AR^2)/D.
+\Var(R_\xi) = \xi^T V\xi = (C - 2BR + AR^2)/D.
 $$
 
 ### Fundamental Theorem of Asset Pricing
-
-## Risk-neutral Measure
-
-???
 
 If $x$ belongs to the smallest closed cone containing the range of $X$ then
 $x = \int_\Omega X dD$ for some positive finitely-additive measure $D$ on $\Omega$.
@@ -315,6 +314,8 @@ The contrapositive follows from the lemma.
 
 The proof also shows how to find an arbitrage when one exists.
 
+<!--
+
 ## References
 
 # Notes
@@ -349,7 +350,6 @@ This follows from $E[\xi^T X] = \xi^T x/\|\Pi\| = R\xi^T x$ for any portfolio $\
 Note $Q$ is not the probability of anything, it is simply a positive
 measure with mass 1. The above statements are geometrical, not probabilistic.
 
-<!--
 Erdos. Hawaii.
 Thought he played chess, turned out to be go.
 Misspent youth playing chess for quarters in the ASU student union.

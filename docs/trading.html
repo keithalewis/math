@@ -5,7 +5,6 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-07-03" />
   <title>Trading</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,24 +15,8 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -49,7 +32,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -58,12 +41,23 @@
 <header id="title-block-header">
 <h1 class="title">Trading</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">July 3, 2023</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Buyers and sellers buy and sell
 </div>
 </header>
+<p><span class="math inline">\{(\tau_j, \Gamma_j)\mid \tau_0 &lt; \cdots
+&lt; \tau_n, \Gamma_j\}</span> is a vector space.</p>
+<p><span class="math inline">(\tau, G) + (\nu, H) = (\eta, K)</span></p>
+<p><span class="math inline">\eta = t</span> if <span
+class="math inline">\tau = t</span> and <span class="math inline">\nu
+\not= t</span> in which case <span class="math inline">K = G</span>.</p>
+<p><span class="math inline">\eta = t</span> if <span
+class="math inline">\nu = t</span> and <span class="math inline">\tau
+\not= t</span> in which case <span class="math inline">K = H</span>.</p>
+<p><span class="math inline">\eta = t</span> if <span
+class="math inline">\tau = t</span> and <span class="math inline">\nu =
+t</span> in which case <span class="math inline">K = G + H</span>.</p>
 <!--
 Suppose an instrument has price $X_t$ at time $t$.
 The _profit and loss_ of holding one share
@@ -258,9 +252,5 @@ a table using that as a foreign key.<a href="#fnref1"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
-<hr/>
-<footer>
-Return to <a href="index.html">index</a>.
-</footer>
 </body>
 </html>
