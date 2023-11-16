@@ -96,20 +96,19 @@ It costs ${\xi^T x = \sum_{i\in I} \xi_i x_i}$ to acquire the portfolio at the b
 and returns $\xi^T X(\omega)$ when liquidated at the end of the period if $\omega\in\Omega$ occurs.
 The _realized return_ of $\xi$ is $R_\xi = \xi^T X/\xi^T x$ when $\xi^T x \not= 0$.
 
-Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so
-there is no loss in assuming $\xi^T x = 1$.
-In this case $R_\xi = \xi^T X$ is the realized return of the portfolio.
 
 ## Efficient Portfolio
 
 A portfolio $\xi\in\RR^I$ is _efficient_ if $\Var(R_\xi) \le
 \Var(R_\eta)$ for every portfolio $\eta$ having the same expected
 realized return as $\xi$.
+Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so
+there is no loss in assuming $\xi^T x = 1$.
+In this case $R_\xi = \xi^T X$ is the realized return of the portfolio.
 
-If $\xi^T x = 1$ then ${R_\xi = \xi^T E[X]}$ and
-$\Var(R_\xi) = \xi^T V\xi$
+If $\xi^T x = 1$ then ${\Var(R_\xi) = \xi^T V\xi}$
 where ${V = \Var(X) = E[XX^T] - E[X]E[X^T]}$.
-For a given expected realized return $f\in\RR$ we minimize
+For a given expected realized return $r\in\RR$ we minimize
 $$
 	\frac{1}{2}\xi^T V\xi - \lambda(\xi^T x - 1) - \mu(\xi^T E[X] - r)
 $$
