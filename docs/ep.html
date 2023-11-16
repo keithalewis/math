@@ -60,10 +60,10 @@ portfolios having the same expected realized return.</p>
 <p>In the one-period model every efficient portfolio belongs to a
 two-dimensional subspace and is uniquely determined given its expected
 realized return. We show that if <span class="math inline">R</span> is
-the realized return of any efficient portfolio and <span
+the (random) realized return of any efficient portfolio and <span
 class="math inline">R_0</span> and <span class="math inline">R_1</span>
-are the realized returns of any two linearly independent efficient
-portfolios then <span class="math display">
+are the (random) realized returns of any two linearly independent
+efficient portfolios then <span class="math display">
     R - R_0 = \beta(R_1 - R_0)
 </span> where <span class="math inline">\beta = \operatorname{Cov}(R -
 R_0, R_1 - R_0)/\operatorname{Var}(R_1 - R_0)</span>. This generalizes
@@ -104,36 +104,41 @@ on daily data.
 instruments</em> and <span class="math inline">\Omega</span> be the set
 of possible market outcomes over the period. The <em>one-period
 model</em> specifies the initial instrument prices <span
-class="math inline">x\in\boldsymbol{R}^I</span><a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and
-the final instrument prices <span
-class="math inline">X\colon\Omega\to\boldsymbol{R}^I</span> depending on
-the outcome <span class="math inline">\omega\in\Omega</span> that
-occurs. The one period model also specifies a probability measure <span
+class="math inline">x\in\boldsymbol{R}^I</span> and the final instrument
+prices <span class="math inline">X\colon\Omega\to\boldsymbol{R}^I</span>
+depending on the outcome <span
+class="math inline">\omega\in\Omega</span> that occurs. Recall if <span
+class="math inline">A</span> and <span class="math inline">B</span> are
+sets then <span class="math inline">B^A = \{f\colon A\to B\}</span> is
+the set of all functions from <span class="math inline">A</span> to
+<span class="math inline">B</span>. We write <span
+class="math inline">x_i</span> for <span class="math inline">x(i)</span>
+when <span class="math inline">x\in\boldsymbol{R}^I</span>. The one
+period model also specifies a probability measure <span
 class="math inline">P</span> on the space of outcomes.</p>
+<p>Classical literature makes the implicit assumption <span
+class="math inline">\Omega = \boldsymbol{R}^I</span>, any instrument can
+go to any price, and that returns are jointly normal to reduce the
+problem of finding a probability measure to estimating the mean and
+covariance. In the modern world the sample space might include the text
+of articles or social media posts available in machine readable
+format.</p>
+<!-- in the modern world -->
 <p>A <em>portfolio</em> <span
 class="math inline">\xi\in\boldsymbol{R}^I</span> is the number of
 shares initially purchased in each instrument. It costs <span
 class="math inline">{\xi^T x = \sum_{i\in I} \xi_i x_i}</span> to
 acquire the portfolio at the beginning of the period and returns <span
 class="math inline">\xi^T X(\omega)</span> when liquidated at the end of
-the period if <span class="math inline">\omega\in\Omega</span>
-occurs.</p>
-<p>The <em>realized return</em> of <span class="math inline">\xi</span>
-is <span class="math inline">R_\xi = \xi^T X/\xi^T x</span> when <span
+the period if <span class="math inline">\omega\in\Omega</span> occurs.
+The <em>realized return</em> of <span class="math inline">\xi</span> is
+<span class="math inline">R_\xi = \xi^T X/\xi^T x</span> when <span
 class="math inline">\xi^T x \not= 0</span>.</p>
 <p>Note <span class="math inline">R_\xi = R_{t\xi}</span> for any
 non-zero <span class="math inline">t\in\boldsymbol{R}</span> so there is
 no loss in assuming <span class="math inline">\xi^T x = 1</span>. In
 this case <span class="math inline">R_\xi = \xi^T X</span> is the
-realized return of the portfolio. It is common to use <em>returns</em>
-instead of realized returns where the return <span
-class="math inline">r</span> is defined by <span class="math inline">R =
-1 + r\Delta t</span> or <span class="math inline">R = \exp(r\Delta
-t)</span> where <span class="math inline">\Delta t</span> is the time in
-years or a day count fraction for the period. Since we are considering a
-one period model there is no need to drag <span
-class="math inline">\Delta t</span> into consideration.</p>
+realized return of the portfolio.</p>
 </section>
 <section id="efficient-portfolio" class="level2">
 <h2>Efficient Portfolio</h2>
@@ -144,13 +149,13 @@ class="math inline">\operatorname{Var}(R_\xi) \le
 class="math inline">\eta</span> having the same expected realized return
 as <span class="math inline">\xi</span>.</p>
 <p>If <span class="math inline">\xi^T x = 1</span> then <span
-class="math inline">\operatorname{Var}(R_\xi) = \xi^T V\xi</span>, where
+class="math inline">{R_\xi = \xi^T E[X]}</span> and <span
+class="math inline">\operatorname{Var}(R_\xi) = \xi^T V\xi</span> where
 <span class="math inline">{V = \operatorname{Var}(X) = E[XX^T] -
-E[X]E[X^T]}</span>, and <span class="math inline">{R_\xi = \xi^T
-E[X]}</span>. For a given expected realized return <span
-class="math inline">R\in\boldsymbol{R}</span> we minimize <span
+E[X]E[X^T]}</span>. For a given expected realized return <span
+class="math inline">f\in\boldsymbol{R}</span> we minimize <span
 class="math display">
-    \frac{1}{2}\xi^T V\xi - \lambda(\xi^T x - 1) - \mu(\xi^T E[X] - R)
+    \frac{1}{2}\xi^T V\xi - \lambda(\xi^T x - 1) - \mu(\xi^T E[X] - r)
 </span> over <span class="math inline">\xi\in\boldsymbol{R}^I</span>,
 <span class="math inline">\lambda\in\boldsymbol{R}</span>, and <span
 class="math inline">\mu\in\boldsymbol{R}</span>. The <a
@@ -158,11 +163,11 @@ href="#appendix">Appendix</a> shows we may assume <span
 class="math inline">V</span> is invertable and <span
 class="math display">
         \xi =  \lambda V^{-1}x + \mu V^{-1} E[X] \\
-</span> where <span class="math inline">\lambda = (C - R B)/D</span>,
-<span class="math inline">\mu = (-B + R A)/D</span>, and <span
+</span> where <span class="math inline">\lambda = (C - r B)/D</span>,
+<span class="math inline">\mu = (-B + r A)/D</span>, and <span
 class="math inline">{A = x^T V^{-1}x}</span>, <span
 class="math inline">{B = x^T V^{-1}E[X] = E[X^T]V^{-1}x}</span>, <span
-class="math inline">{C = E[X^T]V^{-1}E[X]}</span>, where <span
+class="math inline">{C = E[X^T]V^{-1}E[X]}</span>, <span
 class="math inline">{D = AC - B^2}</span>. Note that <span
 class="math inline">A</span>, <span class="math inline">B</span>, <span
 class="math inline">C</span>, and <span class="math inline">D</span>
@@ -178,14 +183,12 @@ class="math inline">\xi_1</span> are any two independent efficient
 portfolios then <span class="math inline">{\xi = \beta_0\xi_0 +
 \beta_1\xi_1}</span> for some scalars <span
 class="math inline">\beta_0</span> and <span
-class="math inline">\beta_1</span>. Assuming <span
+class="math inline">\beta_1</span>. Assuming, as we may, that <span
 class="math inline">\xi_j^T x = 1</span> for <span class="math inline">j
-= 0,1</span> then <span class="math inline">R_{\xi_j} = \xi_j^T
-X</span>.</p>
-<p>Assuming <span class="math inline">\xi^T x = 1</span> then <span
-class="math inline">1 = \beta_0 + \beta_1</span> and <span
-class="math inline">\xi^T X = \beta_0\xi_0^T X + \beta_1\xi_1^T X</span>
-so <span class="math display">
+= 0,1</span> then <span class="math inline">\xi^T x = \beta_0 +
+\beta_1</span>.</p>
+<p><span class="math inline">\xi^T X = \beta_0 R_{\xi_0} + \beta_1
+R_{\xi_1}</span> so <span class="math display">
     R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
 </span> as functions on <span class="math inline">\Omega</span>, where
 <span class="math display">
@@ -198,27 +201,77 @@ portfolio</em>.</p>
 <p>A portfolio <span class="math inline">\zeta</span> is
 <em>riskless</em> if its realized return is constant. In this case <span
 class="math inline">\operatorname{Var}(R_\zeta) = 0</span> so it is
-efficient.</p>
+efficient. <!--
+$0 = \Var(R(\zeta)) = \zeta^T V\zeta$ assuming, as we may, $\zeta^T x = 1$.
+If another riskless portfolio exists with different realized
+return then arbitrage exists.  By removing redundant assets we can assume
+there is exactly one riskless portfolio $\zeta$ with $\zeta^T x = 1$.
+
+Let $P_\parallel = \zeta\zeta'/\zeta'\zeta$. Note $P_\parallel\zeta = \zeta$ and
+$P_\parallel\xi = 0$ if $\zeta'\xi = 0$ so it is the orthogonal projection 
+onto the space spanned by $\zeta$.
+Let $P_\perp = I - P_\parallel$
+be the projection onto its orthogonal complement,
+$\{\zeta\}^\perp = \{y\in\RR^I:\zeta'y = 0\}$, so
+$V = VP_\perp + VP_\parallel$. Below we analyze the first order conditions for
+an extremum on each subspace. Note $P_\parallel$ commutes with $V$ so these
+subspaces are invariant under $V$.
+Let $y_\parallel = P_\parallel y$ be the component of $y$ parallel to $\zeta$
+and $y_\perp = P_\perp y$ be the component of $y$ orthogonal to $\zeta$ for $y\in\RR^I$.
+
+The first order condition $V\xi = \lambda x + \mu E[X]$ implies
+$V\xi_\parallel = \lambda x_\parallel + \mu E[X]_\parallel$. Since $\xi_\parallel$
+is a scalar multiple of $\zeta$ we have $0 = \lambda + \mu R$ so $\lambda = -\mu R$.
+On the orthogonal complement $V\xi_\perp = -\mu R x_\perp + \mu E[X]_\perp$ so
+$\xi_\perp = V^\dashv(E[X] - Rx)$ where $V^\dashv$ is the generalized (Moore-Penrose) inverse of $V$.
+Letting $\alpha = \xi_\perp = V^\dashv(E[X] - Rx)$, every efficient portfolio can be written
+$\xi = \mu \alpha + \mu\zeta$.
+We can and do assume $\alpha'x = 1$ so
+$1 = \mu + \mu$ and $\xi = \mu \alpha + (1 - \mu)\zeta$.
+Multiplying both sides by $X$ we have $\mu X = \mu \alpha'X + (1 - \mu)R$ hence
+$$
+    R(\xi) - R = \mu(R(\alpha) - R).
+$$
+This implies the classical CAPM formula by taking expected values where $\alpha$ is the "market portfolio".
+It also shows the Lagrange multiplier
+$\mu = \Cov(R(\xi),R(\alpha))/\Var(R(\alpha))$ is the classical beta.
+
+### Non-singular Variance
+
+If $V$ is invertible the [Appendix](#lagrange-multiplier-solution)
+shows solution is
+$\lambda = (C - R B)/D$, $\mu = (-B + R A)/D$, and
+$$
+\xi = \frac{C - R B}{D}V^{-1}x + \frac{-B + R A}{D}V^{-1}E[X]
+$$
+where $A = xV^{-1}x$, $B = x'V^{-1}E[X] = E[X']V^{-1}x$,
+$C = E[X]V^{-1}E[X]$, and $D = AC - B^2$.
+The variance of the efficient portfolio is
+$$
+\Var(R(\xi)) = (C - 2BR + AR^2)/D.
+$$ 
+--></p>
 </section>
 <section id="appendix" class="level2">
 <h2>Appendix</h2>
-<p>We can assume <span class="math inline">V = E[XX^T] - E[X]
-E[X^T]</span> is invertible. If <span class="math inline">V\xi =
-0</span> then <span class="math inline">\xi^T V\xi=0 = \|V^{1/2}\xi\| =
-0</span>.</p>
-<p>$(X - E[X])= 0</p>
+<p>If <span class="math inline">\operatorname{Var}(R_\xi) = 0</span>
+then <span class="math inline">R_\xi</span> is a constant so there
+exists <span class="math inline">\zeta\in\boldsymbol{R}^I</span> with
+<span class="math inline">\zeta^T X = 1</span>.</p>
+<p>Show <span class="math inline">\xi^T X=0</span> if <span
+class="math inline">\xi^T V = 0</span>. !!!</p>
 <section id="lagrange-multiplier-solution" class="level3">
 <h3>Lagrange Multiplier Solution</h3>
 <p>Let’s find the minimum value of <span
 class="math inline">\operatorname{Var}(R_\xi)</span> given <span
-class="math inline">E[R_\xi] = R</span>. If <span
+class="math inline">E[R_\xi] = r</span>. If <span
 class="math inline">\xi^T x = 1</span> then <span
 class="math inline">R_\xi = \xi^T E[X]</span> and <span
 class="math inline">\operatorname{Var}(R_\xi) = \xi^T V\xi</span> where
 <span class="math inline">V = E[XX^T] - E[X]E[X^T]</span>.</p>
 <p>We use Lagrange multipliers and solve <span class="math display">
         \min \frac{1}{2}\xi^T V\xi - \lambda(\xi^T x - 1) - \mu(\xi^T
-E[X] - R)
+E[X] - r)
 </span> for <span class="math inline">\xi</span>, <span
 class="math inline">\lambda</span>, and <span
 class="math inline">\mu</span>.</p>
@@ -227,7 +280,7 @@ class="math display">
 \begin{aligned}
         0 &amp;= V\xi - \lambda x - \mu E[X] \\
         0 &amp;= \xi^T x - 1 \\
-        0 &amp;= \xi^T E[X] - R \\
+        0 &amp;= \xi^T E[X] - r \\
 \end{aligned}
 </span> Assuming <span class="math inline">V</span> is invertible <span
 class="math inline">\xi = V^{-1}(\lambda x + \mu E[X])</span>. Note
@@ -235,11 +288,11 @@ every extremum lies in the (at most) two dimensional subspace spanned by
 <span class="math inline">V^{-1}x</span> and <span
 class="math inline">V^{-1}E[X]</span>.</p>
 <p>The constraints <span class="math inline">1 = x^T\xi</span> and <span
-class="math inline">R = E[X^T]\xi</span> can be written <span
+class="math inline">r = E[X^T]\xi</span> can be written <span
 class="math display">
 \begin{bmatrix}
 1 \\
-R \\
+r \\
 \end{bmatrix}
 =
 \begin{bmatrix}
@@ -266,18 +319,18 @@ C &amp; -B \\
 \end{bmatrix}
 \begin{bmatrix}
 1 \\
-R
+r
 \end{bmatrix}
 =
 \begin{bmatrix}
-(C - R B)/D \\
-(-B + R A)/D\\
+(C - r B)/D \\
+(-B + r A)/D\\
 \end{bmatrix}
 </span> where <span class="math inline">D = AC - B^2</span>. The
-solution is <span class="math inline">\lambda = (C - R B)/D</span>,
-<span class="math inline">\mu = (-B + R A)/D</span>, and <span
+solution is <span class="math inline">\lambda = (C - r B)/D</span>,
+<span class="math inline">\mu = (-B + r A)/D</span>, and <span
 class="math display">
-    \xi = \frac{C - R B}{D} V^{-1}x + \frac{-B + R A}{D} V^{-1}E[X].
+    \xi = \frac{C - r B}{D} V^{-1}x + \frac{-B + r A}{D} V^{-1}E[X].
 </span></p>
 <p>A straightforward calculation shows the variance is <span
 class="math display">
@@ -286,11 +339,6 @@ class="math display">
 </section>
 <section id="fundamental-theorem-of-asset-pricing" class="level3">
 <h3>Fundamental Theorem of Asset Pricing</h3>
-</section>
-</section>
-<section id="risk-neutral-measure" class="level2">
-<h2>Risk-neutral Measure</h2>
-<p>???</p>
 <p>If <span class="math inline">x</span> belongs to the smallest closed
 cone containing the range of <span class="math inline">X</span> then
 <span class="math inline">x = \int_\Omega X dD</span> for some positive
@@ -349,51 +397,42 @@ is positive, linear, and continuous <span class="math inline">C =
 \{\int_\Omega X\,d\Pi : \Pi\ge 0\}</span> is also a closed cone. The
 contrapositive follows from the lemma.</p>
 <p>The proof also shows how to find an arbitrage when one exists.</p>
-</section>
-<section id="references" class="level2">
-<h2>References</h2>
-</section>
-<section id="notes" class="level1">
-<h1>Notes</h1>
-<p>Realized returns are not just identically distributed, they are
-equal.</p>
-<section id="model-arbitrage" class="level2">
-<h2>Model Arbitrage</h2>
-<p>There is <em>model arbitrage</em> if there exists a portfolio <span
-class="math inline">\xi</span> with <span class="math inline">\xi^T x
-&lt; 0</span> and <span class="math inline">\xi^T X(\omega) \ge0</span>
-for all <span class="math inline">\omega\in\Omega</span>: you make money
-on the initial investment and never lose money when unwinding at the end
-of the period. This definition does not require a measure on <span
-class="math inline">\Omega</span>.</p>
-<p>The one-period <a
-href="#fundamental-theorem-of-asset-pricing">Fundamental Theorem of
-Asset Pricing</a> states there is no model arbitrage if and only if
-there exists a positive measure <span class="math inline">\Pi</span> on
-<span class="math inline">\Omega</span> with <span class="math inline">x
-= \int_\Omega X(\omega)\,d\Pi(\omega)</span>. We assume <span
-class="math inline">X</span> is bounded, as it is in the real world, and
-<span class="math inline">\Pi</span> is a finitely additive measure. The
-dual space of bounded functions on <span
-class="math inline">\Omega</span> is the space of finitely additive
-measures on <span class="math inline">\Omega</span> with the dual
-pairing <span class="math inline">\langle X,\Pi\rangle = \int_\Omega
-X\,d\Pi</span> <span class="citation"
-data-cites="DunSch63">[@DunSch63]</span> Chapter III.</p>
-<p>If <span class="math inline">x = \int_\Omega X\,d\Pi</span> for a
-positive measure <span class="math inline">\Pi</span> then all
-portfolios have the same expected realized return <span
-class="math inline">R = 1/\|\Pi\|</span> where <span
-class="math inline">\|\Pi\| = \int_\Omega 1\,d\Pi</span> is the mass of
-<span class="math inline">\Pi</span> and the expected value is with
-respect to the <em>risk-neutral</em> probability measure <span
-class="math inline">Q = \Pi/\|\Pi\|</span>. This follows from <span
-class="math inline">E[\xi^T X] = \xi^T x/\|\Pi\| = R\xi^T x</span> for
-any portfolio <span class="math inline">\xi</span>.</p>
-<p>Note <span class="math inline">Q</span> is not the probability of
-anything, it is simply a positive measure with mass 1. The above
-statements are geometrical, not probabilistic.</p>
 <!--
+
+## References
+
+# Notes
+
+Realized returns are not just identically distributed, they are equal.
+
+## Model Arbitrage
+
+There is _model arbitrage_ if there exists a portfolio $\xi$ with
+$\xi^T x < 0$ and $\xi^T X(\omega) \ge0$ for all $\omega\in\Omega$:
+you make money on the initial investment and never lose money
+when unwinding at the end of the period. This definition does
+not require a measure on $\Omega$.
+
+The one-period
+[Fundamental Theorem of Asset Pricing](#fundamental-theorem-of-asset-pricing)
+states there is no model arbitrage if and only if there exists a positive measure $\Pi$ on $\Omega$ with
+$x = \int_\Omega X(\omega)\,d\Pi(\omega)$. We assume $X$ is
+bounded, as it is in the real world, and $\Pi$ is a
+finitely additive measure.
+The dual space of bounded functions on $\Omega$ is the space of finitely additive measures
+on $\Omega$
+with the dual pairing $\langle X,\Pi\rangle = \int_\Omega X\,d\Pi$ [@DunSch63]
+Chapter III.
+
+If $x = \int_\Omega X\,d\Pi$ for a positive measure $\Pi$ then all portfolios
+have the same expected realized return $R = 1/\|\Pi\|$ where $\|\Pi\| = \int_\Omega
+1\,d\Pi$ is the mass of $\Pi$ and the expected value is with respect to
+the _risk-neutral_ probability measure $Q = \Pi/\|\Pi\|$.
+This follows from $E[\xi^T X] = \xi^T x/\|\Pi\| = R\xi^T x$ for any portfolio $\xi$.
+
+Note $Q$ is not the probability of anything, it is simply a positive
+measure with mass 1. The above statements are geometrical, not probabilistic.
+
 Erdos. Hawaii.
 Thought he played chess, turned out to be go.
 Misspent youth playing chess for quarters in the ASU student union.
@@ -430,20 +469,6 @@ could not care less about math.
 
 -->
 </section>
-</section>
-<section class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1" role="doc-endnote"><p>If <span class="math inline">A</span>
-and <span class="math inline">B</span> are sets then <span
-class="math inline">B^A = \{f\colon A\to B\}</span> is the set of all
-functions from <span class="math inline">A</span> to <span
-class="math inline">B</span>. We write <span
-class="math inline">f_a</span> for <span
-class="math inline">f(a)</span>.<a href="#fnref1" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-</ol>
 </section>
 </body>
 </html>

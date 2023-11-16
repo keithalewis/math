@@ -30,7 +30,7 @@ having the same expected realized return.
 In the one-period model every efficient portfolio belongs to a two-dimensional
 subspace and is uniquely determined given its expected realized return.
 We show that if $R$ is the (random) realized return of any efficient portfolio
-and $R_0$ and $R_1$ are the realized returns of any two linearly independent efficient
+and $R_0$ and $R_1$ are the (random) realized returns of any two linearly independent efficient
 portfolios then 
 $$
 	R - R_0 = \beta(R_1 - R_0)
@@ -74,14 +74,22 @@ on daily data.
 
 Let $I$ be the set of _market instruments_ and $\Omega$ be the set of
 possible market outcomes over the period.  The _one-period model_
-specifies the initial instrument prices $x\in\RR^I$[^1] and the final
+specifies the initial instrument prices $x\in\RR^I$ and the final
 instrument prices $X\colon\Omega\to\RR^I$ depending on the outcome
 $\omega\in\Omega$ that occurs.
+Recall if $A$ and $B$ are sets then $B^A = \{f\colon A\to B\}$ is the set of all
+functions from $A$ to $B$. We write $x_i$ for $x(i)$ when $x\in\RR^I$.
 The one period model also specifies a probability
-measure $P$ on the space of outcomes, by hook or by crook.
+measure $P$ on the space of outcomes.
 
-[^1]: If $A$ and $B$ are sets then $B^A = \{f\colon A\to B\}$ is the set of all
-functions from $A$ to $B$. We write $f_a$ for $f(a)$.
+Classical literature makes the implicit assumption $\Omega = \RR^I$,
+any instrument can go to any price, and that returns are jointly normal
+to reduce the problem of finding a probability measure to estimating
+the mean and covariance.  In the modern world the sample space might
+include the text of articles or social media posts available in machine
+readable format. 
+
+<!-- in the modern world -->
 
 A _portfolio_ $\xi\in\RR^I$ is the number of shares initially purchased in each instrument.
 It costs ${\xi^T x = \sum_{i\in I} \xi_i x_i}$ to acquire the portfolio at the beginning of the period
@@ -91,10 +99,6 @@ The _realized return_ of $\xi$ is $R_\xi = \xi^T X/\xi^T x$ when $\xi^T x \not= 
 Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so
 there is no loss in assuming $\xi^T x = 1$.
 In this case $R_\xi = \xi^T X$ is the realized return of the portfolio.
-It is common to use _returns_ instead of realized returns
-where the return $r$ is defined by $R = 1 + r\Delta t$ or
-$R = \exp(r\Delta t)$ where $\Delta t$ is the time in years or a day count fraction for the period.
-Since we are considering a one period model there is no need to drag $\Delta t$ into consideration.
 
 ## Efficient Portfolio
 
@@ -102,18 +106,19 @@ A portfolio $\xi\in\RR^I$ is _efficient_ if $\Var(R_\xi) \le
 \Var(R_\eta)$ for every portfolio $\eta$ having the same expected
 realized return as $\xi$.
 
-If $\xi^T x = 1$ then $\Var(R_\xi) = \xi^T V\xi$,
-where ${V = \Var(X) = E[XX^T] - E[X]E[X^T]}$, and ${R_\xi = \xi^T E[X]}$.
-For a given expected realized return $R\in\RR$ we minimize
+If $\xi^T x = 1$ then ${R_\xi = \xi^T E[X]}$ and
+$\Var(R_\xi) = \xi^T V\xi$
+where ${V = \Var(X) = E[XX^T] - E[X]E[X^T]}$.
+For a given expected realized return $f\in\RR$ we minimize
 $$
-	\frac{1}{2}\xi^T V\xi - \lambda(\xi^T x - 1) - \mu(\xi^T E[X] - R)
+	\frac{1}{2}\xi^T V\xi - \lambda(\xi^T x - 1) - \mu(\xi^T E[X] - r)
 $$
 over $\xi\in\RR^I$, $\lambda\in\RR$, and $\mu\in\RR$.
 The [Appendix](#appendix) shows we may assume $V$ is invertable and
 $$
 		\xi =  \lambda V^{-1}x + \mu V^{-1} E[X] \\
 $$
-where $\lambda = (C - R B)/D$, $\mu = (-B + R A)/D$, and
+where $\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$, and
 ${A = x^T V^{-1}x}$, ${B = x^T V^{-1}E[X] = E[X^T]V^{-1}x}$, ${C = E[X^T]V^{-1}E[X]}$,
 ${D = AC - B^2}$.
 Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
@@ -125,7 +130,8 @@ This shows every efficient porfolio is in the span of
 $V^{-1}x$ and $V^{-1} E[X]$.
 If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
 ${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$.
-Assuming $\xi_j^T x = 1$ for $j = 0,1$ then $\xi^T x = \beta_0 + \beta_1$ and
+Assuming, as we may, that $\xi_j^T x = 1$ for $j = 0,1$ then $\xi^T x = \beta_0 + \beta_1$.
+
 $\xi^T X = \beta_0 R_{\xi_0} + \beta_1 R_{\xi_1}$ so
 $$
 	R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
@@ -201,12 +207,12 @@ Show $\xi^T X=0$ if $\xi^T V = 0$. !!!
 ### Lagrange Multiplier Solution
 
 Let's find the minimum value of $\Var(R_\xi)$ given $E[R_\xi] =
-R$.  If $\xi^T x = 1$ then $R_\xi = \xi^T E[X]$ and $\Var(R_\xi)
+r$.  If $\xi^T x = 1$ then $R_\xi = \xi^T E[X]$ and $\Var(R_\xi)
 = \xi^T V\xi$ where $V = E[XX^T] - E[X]E[X^T]$.
 
 We use Lagrange multipliers and solve
 $$
-		\min \frac{1}{2}\xi^T V\xi - \lambda(\xi^T x - 1) - \mu(\xi^T E[X] - R)
+		\min \frac{1}{2}\xi^T V\xi - \lambda(\xi^T x - 1) - \mu(\xi^T E[X] - r)
 $$
 for $\xi$, $\lambda$, and $\mu$.
     
@@ -215,18 +221,18 @@ $$
 \begin{aligned}
 		0 &= V\xi - \lambda x - \mu E[X] \\
 		0 &= \xi^T x - 1 \\
-		0 &= \xi^T E[X] - R \\
+		0 &= \xi^T E[X] - r \\
 \end{aligned}
 $$
 Assuming $V$ is invertible $\xi = V^{-1}(\lambda x + \mu E[X])$.
 Note every extremum lies in the (at most) two dimensional subspace
 spanned by $V^{-1}x$ and $V^{-1}E[X]$.
     
-The constraints $1 = x^T\xi$ and $R = E[X^T]\xi$ can be written
+The constraints $1 = x^T\xi$ and $r = E[X^T]\xi$ can be written
 $$
 \begin{bmatrix}
 1 \\
-R \\
+r \\
 \end{bmatrix}
 =
 \begin{bmatrix}
@@ -253,18 +259,18 @@ C & -B \\
 \end{bmatrix}
 \begin{bmatrix}
 1 \\
-R
+r
 \end{bmatrix}
 =
 \begin{bmatrix}
-(C - R B)/D \\
-(-B + R A)/D\\
+(C - r B)/D \\
+(-B + r A)/D\\
 \end{bmatrix}
 $$
 where $D = AC - B^2$. The solution is
-$\lambda = (C - R B)/D$, $\mu = (-B + R A)/D$, and
+$\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$, and
 $$
-    \xi = \frac{C - R B}{D} V^{-1}x + \frac{-B + R A}{D} V^{-1}E[X].
+    \xi = \frac{C - r B}{D} V^{-1}x + \frac{-B + r A}{D} V^{-1}E[X].
 $$
 
 A straightforward calculation shows the variance is
