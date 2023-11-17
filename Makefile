@@ -21,7 +21,7 @@ FLAGS += --css math.css
 #FLAGS += --metadata date="$(shell date "+%B %e, %Y")"
 #TEXFLAGS += --metadata date="$(shell date "+%B %e, %Y")"
 TEXFLAGS += -V fontsize=12pt
-#TEXFLAGS +=  -M date="$(shell date "+%B %e, %Y")"
+TEXFLAGS +=  -M date="$(shell date "+%B %e, %Y")"
 #FLAGS += --toc
 #FLAGS += -B katex.tex
 FLAGS += --reference-location=document

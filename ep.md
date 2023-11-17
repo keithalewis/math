@@ -129,13 +129,15 @@ This shows every efficient porfolio is in the span of
 $V^{-1}x$ and $V^{-1} E[X]$.
 If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
 ${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$.
-Assuming, as we may, that $\xi_j^T x = 1$ for $j = 0,1$ then $\xi^T x = \beta_0 + \beta_1$.
-
-$\xi^T X = \beta_0 R_{\xi_0} + \beta_1 R_{\xi_1}$ so
+Assuming, as we may, that $\xi_j^T x = 1$ for $j = 0,1$ then $\xi^T x = \beta_0 + \beta_1$
+and $\xi^T X = \beta_0 R_{\xi_0} + \beta_1 R_{\xi_1}$
+so $R_\xi = \xi^T X/\xi^T x = (\beta_0 R_{\xi_0} + \beta_1 R_{\xi_1})/(\beta_0 + \beta_1)$.
+This shows
 $$
 	R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
 $$
-as functions on $\Omega$, where 
+as functions on $\Omega$, where $\beta = \beta_1/(\beta_0 + \beta_1)$.
+Taking the covariance with $R_{\xi_1} - R_{\xi_0}$ on both sides gives
 $$
 	\beta = \Cov(R_\xi - R_{\xi_0}, R_{\xi_1} - R_{\xi_0})/\Var(R_{\xi_1} - R_{\xi_0}).
 $$
@@ -197,6 +199,10 @@ $$
 -->
 
 ## Appendix
+
+The available returns are $\mathcal{M} = \{\xi^T X\mid \xi\in\RR^I\}$.
+If $\xi^T X = 0$ and $\xi\not=0$ then there are redundant assets
+so we can assume $M\colon \RR^i\to B(\Omega)$ is one-to-one.
 
 If $\Var(R_\xi) = 0$ then $R_\xi$ is a constant so there exists
 $\zeta\in\RR^I$ with $\zeta^T X = 1$.

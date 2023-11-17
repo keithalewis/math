@@ -27,7 +27,7 @@ $S_j$ at times $t_j$ update their volatility guess based on that.
 In this case the volatility is _path dependent_.
 
 The B-S/M model assumes stock prices satisfy $dS_t/S_t = \mu\,dt + \sigma\,dB_t$
-where $\mu$ and $\sigma$ are constant and $(B_t)_{t\ge0}$ is standard Bronwnian motion.
+where $\mu$ and $\sigma$ are constant and $(B_t)_{t\ge0}$ is standard Brownian motion.
 The Ito calculus shows $(dS_t/S_t)^2 = \sigma^2\,dt$ so a natural extension
 to path dependent volatility might be $dS_t/S_t = \mu\,dt + \Sigma_t\,dB_t$ with
 ${\Sigma_t^2 = (1/t)\int_0^t (dS/S)^2}$. The volatility $\Sigma$ is the average
@@ -41,7 +41,24 @@ $0 = t\,d\Sigma_t^2$ and $\Sigma_t$ must be constant.
 The average realized volatility assigns equal weight to each observation.
 If $K$ is a function on the positive real numbers then we can consider
 $$
-	\Sigma^2_t = \int_0^t K(t - s)\Sigma_s^2\,ds
+	\Sigma^2_t = \int_0^t K(t - s)(d\Sigma_s/\Sigma_s)^2\,ds
 $$
 It makes sense to assign more weight to recent observations
-so we can choose $K$ to be a decreasing function.
+so we can choose $K$ to be a decreasing function, e.g.,
+$K(t) = \lambda\exp(-\lambda t)$, $t > 0$, for some positive $\lambda\in\RR$.
+Note $\int_0^\infty K(t)\,dt = 1$.
+This can be generalized to integrals of the form
+$$
+	\int_0^t K(t - s)\phi(d\Sigma_s/\Sigma_s)\,ds
+$$
+for some function $\phi$. Note this is scale-invariant in $\Sigma_t$.
+
+Guyon and Lekeufack consider $\phi(r) = r$ and $\phi(r) = r^2$
+and define $R_{j,t} = \int_0^t K(t - s)(d\Sigma_s/\Sigma_s)^j\,ds$ for $j = 1, 2$.
+Their model for fitting volatility is
+$$
+	\Sigma_t = \beta_0 + \beta_1 R_{1,t} + \beta_2 \sqrt(R_{2,t}), \qquad \beta_0 > 0, \beta_1 < 0, \beta2\in (0,1).
+$$
+
+The paper is not clear on how data are used to produce the $R_j$. VIX data are 30-day vols
+and implied volatility can be obtained from option prices, but at what maturities?
