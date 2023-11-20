@@ -59,7 +59,7 @@ that. In this case the volatility is <em>path dependent</em>.</p>
 class="math inline">dS_t/S_t = \mu\,dt + \sigma\,dB_t</span> where <span
 class="math inline">\mu</span> and <span
 class="math inline">\sigma</span> are constant and <span
-class="math inline">(B_t)_{t\ge0}</span> is standard Bronwnian motion.
+class="math inline">(B_t)_{t\ge0}</span> is standard Brownian motion.
 The Ito calculus shows <span class="math inline">(dS_t/S_t)^2 =
 \sigma^2\,dt</span> so a natural extension to path dependent volatility
 might be <span class="math inline">dS_t/S_t = \mu\,dt +
@@ -78,9 +78,30 @@ be constant.</p>
 <p>The average realized volatility assigns equal weight to each
 observation. If <span class="math inline">K</span> is a function on the
 positive real numbers then we can consider <span class="math display">
-    \Sigma^2_t = \int_0^t K(t - s)\Sigma_s^2\,ds
+    \Sigma^2_t = \int_0^t K(t - s)(d\Sigma_s/\Sigma_s)^2\,ds
 </span> It makes sense to assign more weight to recent observations so
 we can choose <span class="math inline">K</span> to be a decreasing
-function.</p>
+function, e.g., <span class="math inline">K(t) = \lambda\exp(-\lambda
+t)</span>, <span class="math inline">t &gt; 0</span>, for some positive
+<span class="math inline">\lambda\in\boldsymbol{R}</span>. Note <span
+class="math inline">\int_0^\infty K(t)\,dt = 1</span>. This can be
+generalized to integrals of the form <span class="math display">
+    \int_0^t K(t - s)\phi(d\Sigma_s/\Sigma_s)\,ds
+</span> for some function <span class="math inline">\phi</span>. Note
+this is scale-invariant in <span
+class="math inline">\Sigma_t</span>.</p>
+<p>Guyon and Lekeufack consider <span class="math inline">\phi(r) =
+r</span> and <span class="math inline">\phi(r) = r^2</span> and define
+<span class="math inline">{R_{j,t} = \int_0^t K(t -
+s)(d\Sigma_s/\Sigma_s)^j\,ds}</span> for <span class="math inline">j =
+1, 2</span>. Their model for fitting volatility is <span
+class="math display">
+    \Sigma_t = \beta_0 + \beta_1 R_{1,t} + \beta_2 \sqrt{R_{2,t}},
+\qquad \beta_0 &gt; 0, \beta_1 &lt; 0, \beta2\in (0,1).
+</span></p>
+<p>The paper is not clear on how data are used to produce the <span
+class="math inline">R_j</span>. VIX data are 30-day vols and implied
+volatility can be obtained from option prices, but at what
+maturities?</p>
 </body>
 </html>

@@ -116,13 +116,6 @@ class="math inline">x_i</span> for <span class="math inline">x(i)</span>
 when <span class="math inline">x\in\boldsymbol{R}^I</span>. The one
 period model also specifies a probability measure <span
 class="math inline">P</span> on the space of outcomes.</p>
-<p>Classical literature makes the implicit assumption <span
-class="math inline">\Omega = \boldsymbol{R}^I</span>, any instrument can
-go to any price, and that returns are jointly normal to reduce the
-problem of finding a probability measure to estimating the mean and
-covariance. In the modern world the sample space might include the text
-of articles or social media posts available in machine readable
-format.</p>
 <!-- in the modern world -->
 <p>A <em>portfolio</em> <span
 class="math inline">\xi\in\boldsymbol{R}^I</span> is the number of
@@ -134,11 +127,6 @@ the period if <span class="math inline">\omega\in\Omega</span> occurs.
 The <em>realized return</em> of <span class="math inline">\xi</span> is
 <span class="math inline">R_\xi = \xi^T X/\xi^T x</span> when <span
 class="math inline">\xi^T x \not= 0</span>.</p>
-<p>Note <span class="math inline">R_\xi = R_{t\xi}</span> for any
-non-zero <span class="math inline">t\in\boldsymbol{R}</span> so there is
-no loss in assuming <span class="math inline">\xi^T x = 1</span>. In
-this case <span class="math inline">R_\xi = \xi^T X</span> is the
-realized return of the portfolio.</p>
 </section>
 <section id="efficient-portfolio" class="level2">
 <h2>Efficient Portfolio</h2>
@@ -147,13 +135,17 @@ is <em>efficient</em> if <span
 class="math inline">\operatorname{Var}(R_\xi) \le
 \operatorname{Var}(R_\eta)</span> for every portfolio <span
 class="math inline">\eta</span> having the same expected realized return
-as <span class="math inline">\xi</span>.</p>
+as <span class="math inline">\xi</span>. Note <span
+class="math inline">R_\xi = R_{t\xi}</span> for any non-zero <span
+class="math inline">t\in\boldsymbol{R}</span> so there is no loss in
+assuming <span class="math inline">\xi^T x = 1</span>. In this case
+<span class="math inline">R_\xi = \xi^T X</span> is the realized return
+of the portfolio.</p>
 <p>If <span class="math inline">\xi^T x = 1</span> then <span
-class="math inline">{R_\xi = \xi^T E[X]}</span> and <span
-class="math inline">\operatorname{Var}(R_\xi) = \xi^T V\xi</span> where
-<span class="math inline">{V = \operatorname{Var}(X) = E[XX^T] -
+class="math inline">{\operatorname{Var}(R_\xi) = \xi^T V\xi}</span>
+where <span class="math inline">{V = \operatorname{Var}(X) = E[XX^T] -
 E[X]E[X^T]}</span>. For a given expected realized return <span
-class="math inline">f\in\boldsymbol{R}</span> we minimize <span
+class="math inline">r\in\boldsymbol{R}</span> we minimize <span
 class="math display">
     \frac{1}{2}\xi^T V\xi - \lambda(\xi^T x - 1) - \mu(\xi^T E[X] - r)
 </span> over <span class="math inline">\xi\in\boldsymbol{R}^I</span>,
@@ -173,9 +165,14 @@ class="math inline">A</span>, <span class="math inline">B</span>, <span
 class="math inline">C</span>, and <span class="math inline">D</span>
 depend only on <span class="math inline">x</span>, <span
 class="math inline">E[X]</span>, and <span
-class="math inline">E[XX^T]</span>. Classical literature focuses mainly
-on the latter three which may explain why prior authors overlooked our
-elementary but stronger result.</p>
+class="math inline">E[XX^T]</span>.</p>
+<p>Classical literature makes the implicit assumption <span
+class="math inline">\Omega = \boldsymbol{R}^I</span>, any instrument can
+go to any price, and that returns are jointly normal to reduce the
+problem of finding a probability measure to estimating the mean <span
+class="math inline">E[X]</span> and the covariance <span
+class="math inline">E[XX^T] - E[X] E[X^T]</span>. This may explain why
+prior authors overlooked our elementary but stronger result.</p>
 <p>This shows every efficient porfolio is in the span of <span
 class="math inline">V^{-1}x</span> and <span class="math inline">V^{-1}
 E[X]</span>. If <span class="math inline">\xi_0</span> and <span
@@ -186,22 +183,26 @@ class="math inline">\beta_0</span> and <span
 class="math inline">\beta_1</span>. Assuming, as we may, that <span
 class="math inline">\xi_j^T x = 1</span> for <span class="math inline">j
 = 0,1</span> then <span class="math inline">\xi^T x = \beta_0 +
-\beta_1</span>.</p>
-<p><span class="math inline">\xi^T X = \beta_0 R_{\xi_0} + \beta_1
-R_{\xi_1}</span> so <span class="math display">
+\beta_1</span> and <span class="math inline">\xi^T X = \beta_0 R_{\xi_0}
++ \beta_1 R_{\xi_1}</span> so <span class="math inline">R_\xi = \xi^T
+X/\xi^T x = (\beta_0 R_{\xi_0} + \beta_1 R_{\xi_1})/(\beta_0 +
+\beta_1)</span>. This shows <span class="math display">
     R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
 </span> as functions on <span class="math inline">\Omega</span>, where
-<span class="math display">
+<span class="math inline">\beta = \beta_1/(\beta_0 + \beta_1)</span>.
+Taking the covariance with <span class="math inline">R_{\xi_1} -
+R_{\xi_0}</span> on both sides gives <span class="math display">
     \beta = \operatorname{Cov}(R_\xi - R_{\xi_0}, R_{\xi_1} -
 R_{\xi_0})/\operatorname{Var}(R_{\xi_1} - R_{\xi_0}).
-</span> The classical CAPM formula follows from taking expected values
-of both sides when <span class="math inline">\xi_1</span> is the “market
-portfolio” and <span class="math inline">\xi_0</span> is a <em>riskless
-portfolio</em>.</p>
+</span></p>
 <p>A portfolio <span class="math inline">\zeta</span> is
 <em>riskless</em> if its realized return is constant. In this case <span
 class="math inline">\operatorname{Var}(R_\zeta) = 0</span> so it is
-efficient. <!--
+efficient. The classical CAPM formula follows from taking expected
+values of both sides when <span class="math inline">\xi_1</span> is the
+“market portfolio” and <span class="math inline">\xi_0</span> is a
+<em>riskless portfolio</em>.</p>
+<!--
 $0 = \Var(R(\zeta)) = \zeta^T V\zeta$ assuming, as we may, $\zeta^T x = 1$.
 If another riskless portfolio exists with different realized
 return then arbitrage exists.  By removing redundant assets we can assume
@@ -236,30 +237,21 @@ This implies the classical CAPM formula by taking expected values where $\alpha$
 It also shows the Lagrange multiplier
 $\mu = \Cov(R(\xi),R(\alpha))/\Var(R(\alpha))$ is the classical beta.
 
-### Non-singular Variance
-
-If $V$ is invertible the [Appendix](#lagrange-multiplier-solution)
-shows solution is
-$\lambda = (C - R B)/D$, $\mu = (-B + R A)/D$, and
-$$
-\xi = \frac{C - R B}{D}V^{-1}x + \frac{-B + R A}{D}V^{-1}E[X]
-$$
-where $A = xV^{-1}x$, $B = x'V^{-1}E[X] = E[X']V^{-1}x$,
-$C = E[X]V^{-1}E[X]$, and $D = AC - B^2$.
-The variance of the efficient portfolio is
-$$
-\Var(R(\xi)) = (C - 2BR + AR^2)/D.
-$$ 
---></p>
+-->
 </section>
 <section id="appendix" class="level2">
 <h2>Appendix</h2>
-<p>If <span class="math inline">\operatorname{Var}(R_\xi) = 0</span>
-then <span class="math inline">R_\xi</span> is a constant so there
-exists <span class="math inline">\zeta\in\boldsymbol{R}^I</span> with
-<span class="math inline">\zeta^T X = 1</span>.</p>
-<p>Show <span class="math inline">\xi^T X=0</span> if <span
-class="math inline">\xi^T V = 0</span>. !!!</p>
+<p>The available portfolio returns are <span
+class="math inline">\mathcal{M} = \{\xi^T X\mid
+\xi\in\boldsymbol{R}^I\}</span>. If <span class="math inline">\xi^T X =
+0</span> for some <span class="math inline">\xi\not=0</span> then there
+are redundant assets so we can assume <span class="math inline">M\colon
+\boldsymbol{R}^i\to B(\Omega)</span> where <span
+class="math inline">M\xi = \xi^TX</span> is one-to-one.</p>
+<p><strong>Lemma</strong>. If <span class="math inline">M</span> is
+injective then <span class="math inline">V = E[XX^T] - E[X]
+E[X^T]</span> is invertable.</p>
+<p><em>Proof</em>. …</p>
 <section id="lagrange-multiplier-solution" class="level3">
 <h3>Lagrange Multiplier Solution</h3>
 <p>Let’s find the minimum value of <span

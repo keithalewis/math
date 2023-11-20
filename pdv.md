@@ -54,10 +54,10 @@ $$
 for some function $\phi$. Note this is scale-invariant in $\Sigma_t$.
 
 Guyon and Lekeufack consider $\phi(r) = r$ and $\phi(r) = r^2$
-and define $R_{j,t} = \int_0^t K(t - s)(d\Sigma_s/\Sigma_s)^j\,ds$ for $j = 1, 2$.
+and define ${R_{j,t} = \int_0^t K(t - s)(d\Sigma_s/\Sigma_s)^j\,ds}$ for $j = 1, 2$.
 Their model for fitting volatility is
 $$
-	\Sigma_t = \beta_0 + \beta_1 R_{1,t} + \beta_2 \sqrt(R_{2,t}), \qquad \beta_0 > 0, \beta_1 < 0, \beta2\in (0,1).
+	\Sigma_t = \beta_0 + \beta_1 R_{1,t} + \beta_2 \sqrt{R_{2,t}}, \qquad \beta_0 > 0, \beta_1 < 0, \beta2\in (0,1).
 $$
 
 The paper is not clear on how data are used to produce the $R_j$. VIX data are 30-day vols

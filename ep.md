@@ -82,20 +82,12 @@ functions from $A$ to $B$. We write $x_i$ for $x(i)$ when $x\in\RR^I$.
 The one period model also specifies a probability
 measure $P$ on the space of outcomes.
 
-Classical literature makes the implicit assumption $\Omega = \RR^I$,
-any instrument can go to any price, and that returns are jointly normal
-to reduce the problem of finding a probability measure to estimating
-the mean and covariance.  In the modern world the sample space might
-include the text of articles or social media posts available in machine
-readable format. 
-
 <!-- in the modern world -->
 
 A _portfolio_ $\xi\in\RR^I$ is the number of shares initially purchased in each instrument.
 It costs ${\xi^T x = \sum_{i\in I} \xi_i x_i}$ to acquire the portfolio at the beginning of the period
 and returns $\xi^T X(\omega)$ when liquidated at the end of the period if $\omega\in\Omega$ occurs.
 The _realized return_ of $\xi$ is $R_\xi = \xi^T X/\xi^T x$ when $\xi^T x \not= 0$.
-
 
 ## Efficient Portfolio
 
@@ -121,8 +113,13 @@ where $\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$, and
 ${A = x^T V^{-1}x}$, ${B = x^T V^{-1}E[X] = E[X^T]V^{-1}x}$, ${C = E[X^T]V^{-1}E[X]}$,
 ${D = AC - B^2}$.
 Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
-$E[XX^T]$. Classical literature focuses mainly on the latter three which
-may explain why prior authors overlooked our elementary but stronger
+$E[XX^T]$.
+
+Classical literature makes the implicit assumption $\Omega = \RR^I$,
+any instrument can go to any price, and that returns are jointly normal
+to reduce the problem of finding a probability measure to estimating
+the mean $E[X]$ and the covariance $E[XX^T] - E[X] E[X^T]$.
+This may explain why prior authors overlooked our elementary but stronger
 result.
 
 This shows every efficient porfolio is in the span of 
@@ -141,12 +138,13 @@ Taking the covariance with $R_{\xi_1} - R_{\xi_0}$ on both sides gives
 $$
 	\beta = \Cov(R_\xi - R_{\xi_0}, R_{\xi_1} - R_{\xi_0})/\Var(R_{\xi_1} - R_{\xi_0}).
 $$
+
+A portfolio $\zeta$ is _riskless_ if its realized return is constant. In this case
+$\Var(R_\zeta) = 0$ so it is efficient.
 The classical CAPM formula follows from taking expected values
 of both sides when $\xi_1$ is the "market portfolio" and $\xi_0$ is a
 _riskless portfolio_.
 
-A portfolio $\zeta$ is _riskless_ if its realized return is constant. In this case
-$\Var(R_\zeta) = 0$ so it is efficient.
 <!--
 $0 = \Var(R(\zeta)) = \zeta^T V\zeta$ assuming, as we may, $\zeta^T x = 1$.
 If another riskless portfolio exists with different realized
@@ -182,32 +180,17 @@ This implies the classical CAPM formula by taking expected values where $\alpha$
 It also shows the Lagrange multiplier
 $\mu = \Cov(R(\xi),R(\alpha))/\Var(R(\alpha))$ is the classical beta.
 
-### Non-singular Variance
-
-If $V$ is invertible the [Appendix](#lagrange-multiplier-solution)
-shows solution is
-$\lambda = (C - R B)/D$, $\mu = (-B + R A)/D$, and
-$$
-\xi = \frac{C - R B}{D}V^{-1}x + \frac{-B + R A}{D}V^{-1}E[X]
-$$
-where $A = xV^{-1}x$, $B = x'V^{-1}E[X] = E[X']V^{-1}x$,
-$C = E[X]V^{-1}E[X]$, and $D = AC - B^2$.
-The variance of the efficient portfolio is
-$$
-\Var(R(\xi)) = (C - 2BR + AR^2)/D.
-$$ 
 -->
 
 ## Appendix
 
-The available returns are $\mathcal{M} = \{\xi^T X\mid \xi\in\RR^I\}$.
-If $\xi^T X = 0$ and $\xi\not=0$ then there are redundant assets
-so we can assume $M\colon \RR^i\to B(\Omega)$ is one-to-one.
+The available portfolio returns are $\mathcal{M} = \{\xi^T X\mid \xi\in\RR^I\}$.
+If $\xi^T X = 0$ for some $\xi\not=0$ then there are redundant assets
+so we can assume $M\colon \RR^i\to B(\Omega)$ where $M\xi = \xi^TX$ is one-to-one.
 
-If $\Var(R_\xi) = 0$ then $R_\xi$ is a constant so there exists
-$\zeta\in\RR^I$ with $\zeta^T X = 1$.
+__Lemma__. If $M$ is injective then $V = E[XX^T] - E[X] E[X^T]$ is invertable.
 
-Show $\xi^T X=0$ if $\xi^T V = 0$. !!!
+_Proof_. ...
 
 ### Lagrange Multiplier Solution
 
