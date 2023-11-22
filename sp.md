@@ -14,9 +14,8 @@ abstract: Random variables indexed by time
 A _stochastic process_ is a collection of random variables indexed by time.
 A stochastic process is completely specified by its finite joint distributions.
 The _standard setup_ specifies a _sample space_ $\Omega$, and a probability measure $P$
-defined on each _algebra_ $\AA_t$, $t\in T$. It is also common to assume
-$T$ is _totally ordered_ and $\AA_t\subseteq$\AA_u$ whenever $t\le u$
-in the ordering.
+defined on _algebras_ $\AA_t$, $t\in T$. It is common to assume
+$T$ is _totally ordered_ and $\AA_t\subseteq\AA_u$ whenever $t\le u$.
 
 We write $X_t\colon\AA_t\to\RR$, $t\in T$, to indicate $X_t$ is a function from
 $\Omega$ to the real numbers that is $\AA_t$-measurable.
