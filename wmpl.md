@@ -8,7 +8,7 @@ abstract: It is not just bean counting.
 ...
 
 Every trader knows about slippage. The price quoted by an exchange is not
-necessarly the price at which a trade is executed. A market orders get matched
+necessarly the price at which a trade is executed. Market orders get matched
 against limit orders like blocks dropping in tetris. Limit order quantities
 get eaten up until the market order is filled. It is also possible other
 market orders more limit orders are placed in the meantime.
