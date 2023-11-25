@@ -11,7 +11,7 @@ Every trader knows about slippage. The price quoted by an exchange is not
 necessarly the price at which a trade is executed. Market orders get matched
 against limit orders like blocks dropping in tetris. Limit order quantities
 get eaten up until the market order is filled. It is also possible other
-market orders more limit orders are placed in the meantime.
+market orders or more limit orders are placed in the meantime.
 
 If you have spent time on a trading floor you have probably
 heard a discussion between a trader and a back office person about how
