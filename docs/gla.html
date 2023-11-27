@@ -15,74 +15,43 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: true
-   });
-}}});
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
   </script>
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Geometric Linear Algebra</h1>
 <p class="author">Keith A. Lewis</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-Linear algebra is a special case of Geometric Algebra
-</div>
 </header>
 <p>In ??? Herman Grassmann invented Geometric Algebra…</p>
-<p>Let <span class="math inline">E</span> be the set of points in
-space.</p>
+<p>Let <span class="math inline">E</span> be the set of points in space.</p>
 <p>Define <span class="math inline">\operatorname{Alg}(E)</span> by</p>
-<p><span class="math inline">\boldsymbol{R}\subseteq
-\operatorname{Alg}(E)</span></p>
+<p><span class="math inline">\boldsymbol{R}\subseteq \operatorname{Alg}(E)</span></p>
 <p><span class="math inline">E\subseteq \operatorname{Alg}(E)</span></p>
-<p>If <span class="math inline">A,B\in\operatorname{Alg}(E)</span> then
-<span class="math inline">A + B = B +
-A\in\operatorname{Alg}(E)</span></p>
-<p>If <span class="math inline">A,B\in\operatorname{Alg}(E)</span> then
-<span class="math inline">AB \in\operatorname{Alg}(E)</span></p>
-<p>If <span class="math inline">a\in\boldsymbol{R}</span> and <span
-class="math inline">A\in\operatorname{Alg}(E)</span> then <span
-class="math inline">aA = Aa</span>.</p>
-<p>If <span class="math inline">A\in\operatorname{Alg}(E)</span> then
-<span class="math inline">0A = 0</span> and <span class="math inline">1A
-= A</span>.</p>
-<p>If <span class="math inline">A,B,C\in\operatorname{Alg}(E)</span>
-then <span class="math inline">A(B + C) = AB + AC</span> and <span
-class="math inline">(A + B)C = AC + BC</span>.</p>
+<p>If <span class="math inline">A,B\in\operatorname{Alg}(E)</span> then <span class="math inline">A + B = B + A\in\operatorname{Alg}(E)</span></p>
+<p>If <span class="math inline">A,B\in\operatorname{Alg}(E)</span> then <span class="math inline">AB \in\operatorname{Alg}(E)</span></p>
+<p>If <span class="math inline">a\in\boldsymbol{R}</span> and <span class="math inline">A\in\operatorname{Alg}(E)</span> then <span class="math inline">aA = Aa</span>.</p>
+<p>If <span class="math inline">A\in\operatorname{Alg}(E)</span> then <span class="math inline">0A = 0</span> and <span class="math inline">1A = A</span>.</p>
+<p>If <span class="math inline">A,B,C\in\operatorname{Alg}(E)</span> then <span class="math inline">A(B + C) = AB + AC</span> and <span class="math inline">(A + B)C = AC + BC</span>.</p>
 <p>Graded.</p>
-<p>Linear Transformation: <span class="math inline">T\colon E\to
-E</span>. <span class="math inline">T(aP) = aTP</span>, <span
-class="math inline">T(P + Q) = TP + TQ</span>.</p>
-<p>Grassmann: <span class="math inline">PQ = 0</span> if and only if
-<span class="math inline">P = Q</span>.</p>
-<p><span class="math inline">P(\sum_i a_i P_i) = 0</span> if and only if
-<span class="math inline">P = \sum_i a_i P_i</span>.</p>
-<p>Independence: <span class="math inline">\sum_i a_i P_i = 0</span>
-implies <span class="math inline">a_i = 0</span> for all <span
-class="math inline">i</span>.</p>
-<p><span class="math inline">P_0\cdots P_n = 0</span> iff <span
-class="math inline">(P_j)</span> independent.</p>
-<p><span class="math inline">\partial P_0 P_1 P_2 = P_1 P_2 - P_0 P_2 +
-P_0 P_1 = (P_1 - P_0)(P_2 - P_0)</span>.</p>
-<p><span class="math inline">(P_1 - P_0)(P_2 - P_0) = 0</span> iff <span
-class="math inline">P_1 - P_0 = a(P_2 - P_0</span>.</p>
+<p>Linear Transformation: <span class="math inline">T\colon E\to E</span>. <span class="math inline">T(aP) = aTP</span>, <span class="math inline">T(P + Q) = TP + TQ</span>.</p>
+<p>Grassmann: <span class="math inline">PQ = 0</span> if and only if <span class="math inline">P = Q</span>.</p>
+<p><span class="math inline">P(\sum_i a_i P_i) = 0</span> if and only if <span class="math inline">P = \sum_i a_i P_i</span>.</p>
+<p>Independence: <span class="math inline">\sum_i a_i P_i = 0</span> implies <span class="math inline">a_i = 0</span> for all <span class="math inline">i</span>.</p>
+<p><span class="math inline">P_0\cdots P_n = 0</span> iff <span class="math inline">(P_j)</span> independent.</p>
+<p><span class="math inline">\partial P_0 P_1 P_2 = P_1 P_2 - P_0 P_2 + P_0 P_1 = (P_1 - P_0)(P_2 - P_0)</span>.</p>
+<p><span class="math inline">(P_1 - P_0)(P_2 - P_0) = 0</span> iff <span class="math inline">P_1 - P_0 = a(P_2 - P_0</span>.</p>
 </body>
 </html>

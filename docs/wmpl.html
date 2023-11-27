@@ -15,97 +15,37 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: true
-   });
-}}});
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
   </script>
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">What is my P&amp;L?</h1>
 <p class="author">Keith A. Lewis</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-It is not just bean counting.
-</div>
 </header>
-<p>Every trader knows about slippage. The price quoted by an exchange is
-not necessarily the price at which a trade is executed. Market orders
-get matched against limit orders like blocks dropping in tetris. Limit
-order quantities get eaten up until the market order is filled. If the
-market order is larger then the amount of the total of the level 1 limit
-orders it spills over to the next best offers by the liquidity provider.
-It is also possible other market orders or limit orders are placed in
-the meantime.</p>
-<p>If you have spent time on a trading floor you have probably heard a
-discussion between a trader and a back office person about how their
-positions were marked-to-market. Traders care about this very much
-because that is used to determine their profit and loss, but they
-sometimes don’t understand exactly how this is calculated.</p>
-<p>This document provides a precise description of how P&amp;L is
-calculated.</p>
-<p>The atoms of finance are <em>positions</em>: a legal entity owns some
-amount of an instrument. Positions change via <em>transactions</em>:
-amounts and instruments are exchanged at some time between two entities.
-A <em>portfolio</em> is a collection of positions belonging to an
-entity. A <em>market</em> is a collection of portfolios.</p>
-<p>We can express this using math by a position is an amount,
-instrument, and entity: <span class="math inline">\pi = (a, i, e)</span>
-and a transaction is the exchange of positions at some time <span
-class="math inline">t</span>: <span class="math inline">\chi = (t, \pi,
-\pi&#39;)</span>. The market <span class="math inline">{\{\ldots,(a, i,
-e),\ldots,(a&#39;,i&#39;,e&#39;),\ldots\}}</span> becomes <span
-class="math inline">{\{\ldots,(a&#39;, i&#39;,
-e),\ldots,(a,i,e&#39;),\ldots\}}</span> after the transaction.</p>
-<p>If <span class="math inline">\mathcal{M} = \{\pi_j\}</span> is a
-market define the <em>net</em> amount of instrument <span
-class="math inline">i</span> held by entity <span
-class="math inline">e</span> by <span class="math display">
-    N(i, e) = \sum_{\pi_j = (a_j, i_j, e_j)}\{a_j\mid i_j = i, e_j =
-e\}.
+<p>Every trader knows about slippage. The price quoted by an exchange is not necessarily the price at which a trade is executed. Market orders get matched against limit orders like blocks dropping in tetris. Limit order quantities get eaten up until the market order is filled. If the market order is larger then the amount of the total of the level 1 limit orders it spills over to the next best offers by the liquidity provider. It is also possible other market orders or limit orders are placed in the meantime.</p>
+<p>If you have spent time on a trading floor you have probably heard a discussion between a trader and a back office person about how their positions were marked-to-market. Traders care about this very much because that is used to determine their profit and loss, but they sometimes don’t understand exactly how this is calculated.</p>
+<p>This document provides a precise description of how P&amp;L is calculated.</p>
+<p>The atoms of finance are <em>positions</em>: a legal entity owns some amount of an instrument. Positions change via <em>transactions</em>: amounts and instruments are exchanged at some time between two entities. A <em>portfolio</em> is a collection of positions belonging to an entity. A <em>market</em> is a collection of portfolios.</p>
+<p>We can express this using math by a position is an amount, instrument, and entity: <span class="math inline">\pi = (a, i, e)</span> and a transaction is the exchange of positions at some time <span class="math inline">t</span>: <span class="math inline">\chi = (t, \pi, \pi&#39;)</span>. The market <span class="math inline">{\{\ldots,(a, i, e),\ldots,(a&#39;,i&#39;,e&#39;),\ldots\}}</span> becomes <span class="math inline">{\{\ldots,(a&#39;, i&#39;, e),\ldots,(a,i,e&#39;),\ldots\}}</span> after the transaction.</p>
+<p>If <span class="math inline">\mathcal{M} = \{\pi_j\}</span> is a market define the <em>net</em> amount of instrument <span class="math inline">i</span> held by entity <span class="math inline">e</span> by <span class="math display">
+    N(i, e) = \sum_{\pi_j = (a_j, i_j, e_j)}\{a_j\mid i_j = i, e_j = e\}.
 </span></p>
-<p>The <em>market price</em> of a transaction <span
-class="math inline">\chi = (t,\pi,\pi&#39;)</span> is <span
-class="math inline">X^{i&#39;}_{i} = a&#39;/a</span>. To calculate
-P&amp;L in native currency <span class="math inline">i_0</span> it is
-necessary to specify “prices” <span
-class="math inline">X^{i_0}_{i}</span> for each instrument <span
-class="math inline">i</span>. The position <span
-class="math inline">(a,i,e)</span> can, in principal, be exchanged for
-<span class="math inline">(aX^{i_0}_i, i_0, e_0)</span> with some
-imaginary entity <span class="math inline">e_0</span>. The
-<em>mark-to-market</em> in currency <span class="math inline">i_0</span>
-for entity <span class="math inline">e</span> is <span
-class="math display">
-    N(e) = \sum_{\pi_j = (a_j, i_j, e_j)}\{a_jX^{i_0}_{i_j}\mid e_j =
-e\}.
-</span> The <em>profit-and-loss</em> over an interval of time is the
-difference of the mark-to-mark at the end and beginning of the
-interval.</p>
-<p>It is not controversial to assume <span
-class="math inline">X^{i_0}_{i_0} = 1</span> but the other “prices” can
-be contentious. If <span class="math inline">i</span> is exchange traded
-and liquid then its closing price can be used. If <span
-class="math inline">i</span> is rarely traded then its price is
-problematic to determine. Firms often have pricing models for illiquid
-instruments that everyone agrees to use in order to prevent heated
-arguments.</p>
+<p>The <em>market price</em> of a transaction <span class="math inline">\chi = (t,\pi,\pi&#39;)</span> is <span class="math inline">X^{i&#39;}_{i} = a&#39;/a</span>. To calculate P&amp;L in native currency <span class="math inline">i_0</span> it is necessary to specify “prices” <span class="math inline">X^{i_0}_{i}</span> for each instrument <span class="math inline">i</span>. The position <span class="math inline">(a,i,e)</span> can, in principal, be exchanged for <span class="math inline">(aX^{i_0}_i, i_0, e_0)</span> with some imaginary entity <span class="math inline">e_0</span>. The <em>mark-to-market</em> in currency <span class="math inline">i_0</span> for entity <span class="math inline">e</span> is <span class="math display">
+    N(e) = \sum_{\pi_j = (a_j, i_j, e_j)}\{a_jX^{i_0}_{i_j}\mid e_j = e\}.
+</span> The <em>profit-and-loss</em> over an interval of time is the difference of the mark-to-mark at the end and beginning of the interval.</p>
+<p>It is not controversial to assume <span class="math inline">X^{i_0}_{i_0} = 1</span> but the other “prices” can be contentious. If <span class="math inline">i</span> is exchange traded and liquid then its closing price can be used. If <span class="math inline">i</span> is rarely traded then its price is problematic to determine. Firms often have pricing models for illiquid instruments that everyone agrees to use in order to prevent heated arguments.</p>
 </body>
 </html>
