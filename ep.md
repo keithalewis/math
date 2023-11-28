@@ -268,6 +268,10 @@ $$
 
 ### Fundamental Theorem of Asset Pricing
 
+It may be the case $V^{-1}x$ and $V^{-1}E[X]$ are dependent.
+In this case $x = E[X]D$ for some $D\in\RR$. This
+ensures the model is _arbitrage free_.
+
 If $x$ belongs to the smallest closed cone containing the range of $X$ then
 $x = \int_\Omega X dD$ for some positive finitely-additive measure $D$ on $\Omega$.
 If we define $P = D/D(\Omega)$ then $P$ is a positive measure with mass 1.
