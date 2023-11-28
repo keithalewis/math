@@ -59,3 +59,17 @@ If $i$ is exchange traded and liquid then its closing price can be used.
 If $i$ is rarely traded then its price is problematic to determine.
 Firms often have pricing models for illiquid instruments that everyone agrees to use
 in order to prevent heated arguments.
+
+## But that's not all!
+
+If you work in a back office you have to deal with fiddly, but important, details.
+It is not as simple as specifying a position as an amount, instrument, and entity.
+The amount can be precisely modeled as an integer. Every instrument has a lowest
+level of divisibility and trades in an integer multiple of that.
+
+Instruments have [ISIN](https://en.wikipedia.org/wiki/International_Securities_Identification_Number)s
+that are supposed to uniquely identify them. If you can afford to pay for them.
+
+There are [LEI](https://en.wikipedia.org/wiki/Legal_Entity_Identifier)s to identify legal entities,
+but legal entities have internal subdivisions. The back office has to keep track of
+the ever changing portfolio managers.
