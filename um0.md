@@ -1,5 +1,5 @@
 ---
-title: Unified Model for Derivative Intruments
+title: Unified Model for Derivative Instruments
 author: Keith A. Lewis
 institute: KALX, LLC
 fleqn: true
