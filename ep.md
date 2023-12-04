@@ -89,6 +89,18 @@ It costs ${\xi^T x = \sum_{i\in I} \xi_i x_i}$ to acquire the portfolio at the b
 and returns $\xi^T X(\omega)$ when liquidated at the end of the period if $\omega\in\Omega$ occurs.
 The _realized return_ of $\xi$ is $R_\xi = \xi^T X/\xi^T x$ when $\xi^T x \not= 0$.
 
+If there exists a portfolio $\xi\in\RR^I$ with $\xi^T x < 0$ and $\xi^T X(\omega) \ge0$, $\omega\in\Omega$
+then _arbitrage_ exists. The cost of acquiring the porfolio is negative so you make money up front.
+The liquidation value is always non-negative so you never lose money. Note the definition of arbitrage
+does not involve the measure.
+The _Fundamental Theorem of Asset Pricing_ for the one-period model states there is no
+arbitrage if and only if there exists a positive measure $D$ on $\Omega$
+with $x = \int_\Omega X\,dD$. See the [Appendix](fundamental-theorem-of-asset-pricing) for an elementary proof.
+
+If there exists a portfolio $\zeta\in\RR^I$ with $\zeta^T X = 1$ then
+a zero coupon bond is available. Note if $\zeta'\in\RR^I$ also satisfies
+$\zeta^T X = 1$ then no arbitrage implies $\zeta = \zeta'$
+
 ## Efficient Portfolio
 
 A portfolio $\xi\in\RR^I$ is _efficient_ if $\Var(R_\xi) \le
@@ -320,7 +332,7 @@ The proof also shows how to find an arbitrage when one exists.
 
 Realized returns are not just identically distributed, they are equal.
 
-## Model Arbitrage
+## Appendix
 
 There is _model arbitrage_ if there exists a portfolio $\xi$ with
 $\xi^T x < 0$ and $\xi^T X(\omega) \ge0$ for all $\omega\in\Omega$:
