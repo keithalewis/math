@@ -79,7 +79,7 @@ instrument prices $X\colon\Omega\to\RR^I$ depending on the outcome
 $\omega\in\Omega$ that occurs.
 Recall if $A$ and $B$ are sets then $B^A = \{f\colon A\to B\}$ is the set of all
 functions from $A$ to $B$. We write $x_i$ for $x(i)$ when $x\in\RR^I$.
-The one period model also specifies a probability
+The one period model also specifies, by hook or by crook, a probability
 measure $P$ on the space of outcomes.
 
 <!-- in the modern world -->
@@ -89,8 +89,9 @@ It costs ${\xi^T x = \sum_{i\in I} \xi_i x_i}$ to acquire the portfolio at the b
 and returns $\xi^T X(\omega)$ when liquidated at the end of the period if $\omega\in\Omega$ occurs.
 The _realized return_ of $\xi$ is $R_\xi = \xi^T X/\xi^T x$ when $\xi^T x \not= 0$.
 
-If there exists a portfolio $\xi\in\RR^I$ with $\xi^T x < 0$ and $\xi^T X(\omega) \ge0$, $\omega\in\Omega$
-then _arbitrage_ exists. The cost of acquiring the porfolio is negative so you make money up front.
+_Arbitrage_ exists if there is a portfolio $\xi\in\RR^I$ with $\xi^T x < 0$
+and $\xi^T X(\omega) \ge0$, $\omega\in\Omega$.
+The cost of acquiring the porfolio is negative so you make money up front.
 The liquidation value is always non-negative so you never lose money. Note the definition of arbitrage
 does not involve the measure.
 The _Fundamental Theorem of Asset Pricing_ for the one-period model states there is no
