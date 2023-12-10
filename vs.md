@@ -189,6 +189,23 @@ that can be identified with an element of $\RR_{00}^{\NN}$.
 ### Subspace
 
 A subset $U\subseteq V$ of a vector space is a _subspace_ if $U$ is also a vector space.
+Given a subspace $U$ define $v + U = \{v + u\mid u\in U\}$
+and the _quotient space_ $V/U = \{v + U\mid v\in V\}$.
+Define vector addition in $V/U$ by ${(v + U) + (w + U) = (v + w) + U$
+and scalar multiplication by $a(v + U) = (av) + U$, $a\in\RR$, $v,w\in V$.
+
+__Exercise__. _Show vector addition and scalar multiplication in $V/U$ are well-defined_.
+
+Hint_: Use $v + U = w + U$ if and only if $v - w\in U$.
+
+If $V$ and $W$ are vector spaces define the _direct sum_ $V\oplus W = V\times W$
+with scalar multiplication $a(v, w) = (av, aw)$
+and vector addition $(v, w)\oplus(x, y) = (v + x, w + y)$.
+
+__Exercise__. _Show $V\oplus W$ is a vector space_.
+
+If $U$ is a subspace of $V$ we can identify $V$ with $U\oplus V/U$ by
+$u\oplus v + U$ corresponds to $u + v - u$.
 
 Let $X$ be a subset of a vector space $V$. A _finite linear combination_ of elements of $X$
 is a finite sum $\sum_i a_i x_i$ where $a_i\in\RR$, $x_i\in X$
