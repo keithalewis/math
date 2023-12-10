@@ -15,34 +15,38 @@ abstract: Axioms are more useful than accidents
 \newcommand\LL{\mathcal{L}}
 \newcommand\BB{\mathcal{B}}
 \newcommand\ran{\operatorname{ran}}
-\newcommand\ker{\operatorname{ker}}
+\renewcommand\ker{\operatorname{ker}}
+\newcommand\span{\operatorname{span}}
 
 <!--
 My PhD involved infinite dimensional vector spaces so excuse me for being appalled
 by cartoon introductions to vector spaces floating around the internet these days.
 -->
 
-This note starts from tuples of $n$ real numbers, $\RR^n$, and develops
-facts about vector spaces useful in practice.
+This note starts from tuples of $n$ numbers and develops
+facts about vector spaces that are useful in practice.
 We unabashedly use mathematical proofs but keep the pesky details
 to a minimum.  The exercises will teach you all the math you need to
 know. Try them before peeking at the solution.
 
 A vector space norm can be used to define a metric.
-If the vector space is complete under the metric it is a _Banach space_.
+If the vector space is complete under the metric it is a Banach space.
 A vector space inner product defines a norm.
-A _Hilbert space_ is a Banach space under the norm defined by the
-inner product.
+A Hilbert space is a Banach space under the norm defined by the
+inner product. The dual of a Hilbert space can be identified with itself.
 
 Linear operators are functions between vector spaces that respect
 the vector space structure. They are also vector spaces.
+
+...
+
 
 ## $\RR^n$
 
 The set of $n$-tuples of real numbers ${\RR^n = \{(x_1,\dots,x_n)\mid x_j\in\RR, 1\le j\le n\}}$ is 
 a vector space. If $x = (x_1,\dots,x_n)$ and $y = (y_1,\dots,y_n)$
-define _scalar multiplication_ $(ax)_j = ax_j$ and _vector addition_
-$(x + y)_j = x_j + y_j$ for $a\in\RR$ and $x,y\in\RR^n$.
+define _vector addition_ $(x + y)_j = x_j + y_j$
+and _scalar multiplication_ $(ax)_j = ax_j$ for $a\in\RR$ and $x,y\in\RR^n$.
 
 __Exercise__. _Show vector space addition is commutative and associative_.
 
@@ -50,9 +54,17 @@ _Hint_: Show $x + y = y + x$ and $(x + y) + z = x + (y + z)$, $x,y,z\in\RR^n$
 follow from the corresponding properties of real numbers.
 
 <details><summary>Solution</summary>
-We have $(x + y)_j = x_j + y_j = y_j + x_j = (y + x)_j$ and
-$((x + y) + z)_j = (x + y)_j + z_j = (x_j + y_j) + z_j = x_j + (y_j + z_j) = x_j + (y + z)_j = (x + (y + z))_j$,
-$1\le j\le n$
+We have ${(x + y)_j = x_j + y_j = y_j + x_j = (y + x)_j}$ and
+$$
+\begin{aligned}
+	((x + y) + z)_j &= (x + y)_j + z_j \\
+		&= (x_j + y_j) + z_j \\
+		&= x_j + (y_j + z_j) \\
+		&= x_j + (y + z)_j \\
+		&= (x + (y + z))_j \\
+\end{aligned}
+$$
+for $1\le j\le n$.
 </details>
 
 A _semigroup_ is a binary operation that is associative.
@@ -78,11 +90,11 @@ __Exercise__. _Show $(a + b)x = ax + bx$ and $a(x + y) = ax + ay$, $a,b\in\RR$, 
 ## Vector Space
 
 A _vector space_ is a set $V$ with a
-a scalar multiplication $(a, x)\mapsto ax$ and
-commutative group operation $(x,y)\mapsto x + y$, $x,y\in V$,
-$a\in\RR$ and $x\in V$, that satisfy the properties in the above exercises.
+commutative group operation $(x,y)\mapsto x + y$, $x,y\in V$
+and a scalar multiplication $(a, x)\mapsto ax$, $a\in\RR$ and $x\in V$,
+that satisfy the properties in the above exercises.
 
-The abstract definition allows us to consider vector spaces other than $\RR^n$
+This abstract definition allows us to consider vector spaces other than $\RR^n$
 and clarifies essential properties.
 
 __Exercise__. _Show $x + x = x$ implies $x = \mb{0}$ if $x$ is an element of a vector space_.
@@ -93,11 +105,11 @@ $$
 	x + x &= x \\
 	&\langle a = b \text{ implies }a + c = b + c\rangle [a\leftarrow x + x, b\leftarrow x, c\leftarrow -x]\\
 	(x + x) + (-x) &= x + (-x) \\
-	&\langle (a + b) + c = a + (b + c)\rangle[a\leftarrow x, b\leftarrow x, c\leftarrow -x] \\
+	&\langle (a + b) + c = a + (b + c)\rangle [a\leftarrow x, b\leftarrow x, c\leftarrow -x] \\
 	x + (x + (-x)) &= x + (-x) \\
-	&\langle a + (-a) = \mb{0}\rangle[a\leftarrow x\text{ twice}] \\
+	&\langle a + (-a) = \mb{0}\rangle [a\leftarrow x\text{ twice}] \\
 	x + \mb{0} &= \mb{0} \\
-	&\langle a + \mb{0} = a\rangle[a\leftarrow x] \\
+	&\langle a + \mb{0} = a\rangle [a\leftarrow x] \\
 	x &= \mb{0} \\
 \end{aligned}
 $$
@@ -110,26 +122,24 @@ allows us to consider a wider range of mathematical objects.
 
 ### Examples
 
-If $A$ and $B$ are sets then the exponential $B^A = \{f\colon A\to B\}$ is the set
+Recall if $A$ and $B$ are sets then the _set exponential_ ${B^A = \{f\colon A\to B\}}$ is the set
 of all functions from $A$ to $B$. 
 
-__Exercise__. _Show $\RR^n$ can be identified with $\RR^{\{1,\ldots,n\}}$_.
-
-_Hint_: $x = (x_1,\ldots,x_n)\in\RR^n$ can be identified with the
+We can identify $\RR^n$ with $\RR^{\{1,\ldots,n\}}$.
+Every $x = (x_1,\ldots,x_n)\in\RR^n$ corresponds to the
 function $x(i) = x_i$, $1\le i\le n$.
 
-Every finite-dimensional vector space can be identified with $\RR^I$
-where $I$ is a finite set. For $i\in I$ define $e_i\colon I\to\RR$ by
-$e_i(j) = δ_{ij}$, $i,j\in I$, where the _Kronecker delta_ $δ_{ij} = 0$
-if $i\not=j$ and $δ_{ij} = 1$ if $i=j$.
+__Exercise__. _Show $\RR^I$ is a vector space for_ any _set $I$_.
 
-__Exercise__. _Show $x\colon I\to\RR$ is $x = \sum_{i\in I} x(i) e_i$_.
+For $i\in I$ define $e_i\colon I\to\RR$ by
+$e_i(j) = δ_{ij}$, $i,j\in I$, where the _Kronecker delta_ $δ_{ij} = 1$
+if $i=j$ and $δ_{ij} = 0$ if $i\not=j$.
 
-__Exercise__. _Show $\RR^S$ is a vector space for_ any _set $S$_.
-
-Let $\RR^S_{00}$ be the set of functions $f\in\RR^S$ that are non-zero on a finite set of $s\in S$.
+Let $\RR^I_{00}$ be the set of functions $f\in\RR^I$ that are non-zero on a finite set of $i\in I$.
 
 __Exercise__. _Show $\RR^S_{00}$ is a vector space_.
+
+__Exercise__. _Show for every $x\in\RR^I$ that $x = \sum_{i\in I} x(i) e_i$_.
 
 A function $f\in\RR^S$ is _bounded_ if the _norm_ of $f$ defined by $\|f\| = \sup_{s\in S} |f(s)|$ is finite.
 The space of bounded functions on $S$ is $B(S) = \{f\in\RR^S\mid \|f\| < \infty\}$.
@@ -147,19 +157,25 @@ __Exercise__. _Show $d$ is a metric_.
 
 _Hint_: Show $d(f, g) = 0$ implies $f = g$ and $d(f,g) + d(g, h) \ge d(f, h)$, $f,g,h\in B(S)$.
 
-A metric space is _complete_ if every _Cauchy sequence_ converges to a point in the space.
-A sequence $(f_n)_{n\in\NN}$ is Cauchy if for every $ε > 0$ there exists $N\in\NN$
-such that $d(f_n, f_m) < ε$ when $n,m > N$. The metric space is complete if there
-exists $f$ with $\lim_{n\to\infty} f_n = f$.
+A sequence in a metric space, $(f_n)_{n\in\NN}$, is _Cauchy_ if for every $ε > 0$ there exists $N\in\NN$
+such that $d(f_n, f_m) < ε$ when $n,m > N$. A metric space is complete if 
+every Cauchy sequence has a limit in the space.
 
-A Banach space is a normed vector space that is complete in the metric it defines.
+A _Banach space_ is a normed vector space that is complete in the metric it defines.
+
+__Exercise__. _Show $B(S)$ is a Banach space_.
+
+_Hint_: If $(f_n)_{n\in\NN}$ is Cauchy then so are $(f_n(s))_{n\in\NN}$ for each $s\in S$.
+Since the real numbers are complete there exist $f(s) = \lim_{n\to\infty}f_n(s)$.
 
 __Exercise__. _Show the space of continuous functions on the interval $[a,b]$, $C([a,b])$,
 is a vector space_.
 
 __Exercise__. _Show $C([a,b])$ is contained in $B([a,b])$_.
 
-__Exercise__. _Show the space of $n$ times differentiable functions on the interval $[a,b]$, $C^{(n)}([a,b])$,
+_Hint_: Every continuous function on $[a,b]$ attains its maximum and minimum value on $[a,b]$.
+
+__Exercise__. _Show the space of $n$ times differentiable functions on the interval $[a,b]$, ${C^{(n)}([a,b])}$,
 is a vector space_.
 
 __Exercise__. _Show the solutions $x(t)$ of the homogeneous differential equation
@@ -169,6 +185,36 @@ __Exercise__. _Show polynomials are a vector space_.
 
 _Hint_: A polynomial is a finite sum $p(x) = \sum_j a_j x^j$
 that can be identified with an element of $\RR_{00}^{\NN}$.
+
+### Subspace
+
+A subset $U\subseteq V$ of a vector space is a _subspace_ if $U$ is also a vector space.
+
+Let $X$ be a subset of a vector space $V$. A _finite linear combination_ of elements of $X$
+is a finite sum $\sum_i a_i x_i$ where $a_i\in\RR$, $x_i\in X$
+The _span_ of $X$ is the collection of all finite linear combinations of elements of $X$.
+
+__Exercise__. _Show the span of $X$ is a subspace_.
+
+A set of vectors $\{x_i\}$ are _independent_ if for any finite _linear combination_
+$\sum_j a_j x_j = \mb{0}$, $a_j\in\RR$, we have $a_j = 0$ for all $j$.
+
+__Exercise__. _If $\sum_j a_j x_j = \mb{0}$ and $a_j \not= 0$ for some $j$
+then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
+
+### Basis
+
+A _basis_ of a vector space $V$ is a set of vectors $\{e_i\}_{i\in I}$ in $V$ that are independent and span $V$.
+Every vector $v\in V$ can be written $v = \sum_{i\in I} a_i e_i$ for unique $a_i\in\RR$.
+
+__Exercise__. _If $\sum_{i\in I} a_i e_i = \sum_{i\in I} b_i e_i$ then $a_i = b_i$ for all $i$_.
+
+_Hint_: Use $\bm{0} = sum_{i\in I} a_i e_i - \sum_{i\in I} b_i e_i$.
+
+This shows we can identify $V$ with $\RR^I$.
+
+
+
 
 ## Linear Operator
 
@@ -180,14 +226,35 @@ __Exercise__. _Show if $T(a u + b) = aTu + Tv$, $a\in\RR$, $u,v\in V$, then $T$ 
 
 _Hint_: Take $b = \bm{0}$ and $a = 1$.
 
-For $S,T\in\mathcal{L}(V,W)$ define scalar multiplication $(aT)v = a(Tv)$
-and vector space addition $(S + T)v = Sv + Tv$, $a\in\RR$, $v\in V$.
+For $S,T\in\mathcal{L}(V,W)$ define scalar multiplication ${(aT)v = a(Tv)}$
+and vector space addition ${(S + T)v = Sv + Tv}$, $a\in\RR$, $v\in V$.
 
 __Exercise__. _Show $\mathcal{L}(V, W)$ is a vector space_.
 
 __Exercise__. _If $T\in\mathcal{L}(V, W)$ then $T\mb{0} = \mb{0}$_.
 
 _Hint_: Consider $T(\mb{0} + \mb{0})$ and use $v + v = v$ implies $v = 0$.
+
+Sets are the foundation of mathematics. They consist of a bag of _elements_.
+A function $f\colon A\to B$ is also a set. It is a subset of the cartesian
+product $f\subseteq A\times B = \{(a, b)\mid a\in A, b\in B\}$ with the property
+for every $a\in A$ there exists a unique $b\in B$ with $(a, b)\in f$.
+We can use the notation $f(a) = b$ for $(a,b)\in f$ since $b$ is unique.
+
+We say a function $f$ is _one-to-one_ if $f(a) = f(a')$ implies $a = a'$, $a,a'\in A$,
+and $f$ is _onto_ if for every $b\in B$ there exists $a\in A$ with $f(a) = b$.
+
+Equality has the properties $a = a$, $a = b$ implies $b = a$, and
+$a = b$, $b = c$ implies $a = c$. Equivalence is a looser condition
+that allows us to manage complexity. Sets $A$ and $B$ are _equivalent_, $A\equiv B$, if
+there is a function $f\colon A\to B$ that is one-to-one and onto.
+This captures the notion $A$ and $B$ have the same number of elements,
+even if they are not equal.
+
+__Exercise__. _Show $A\equiv A$, $A\equiv B$ implies $B\equiv A$ and
+$A\equiv B$, $B\equiv C$ implies $A\equiv C$_.
+
+A vector space is a set with with additional structure.
 
 If $T\in\mathcal{L}(V,W)$ where $V$ and $W$ are normed vector spaces
 define $\|T\| = \sup_{\|v\|\le1} \|Tv\|$.
@@ -360,24 +427,6 @@ the the polynomial functional calculus_.
 
 
 ### Independent
-
-A set of vectors $\{x_i\}$ are _independent_ if for any finite _linear combination_
-$\sum_j a_j x_j = \mb{0}$, $a_j\in\RR$, we have $a_j = 0$ for all $j$.
-
-__Exercise__. _If $\sum_j a_j x_j = \mb{0}$ and $a_j \not= 0$ for some $j$
-then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
-
-### Basis
-
-A _basis_ of a vector space $V$ is a set of vectors $\{e_i\}_{i\in I}$ in $V$ that are independent and span $V$.
-Every vector $v\in V$ can be written $v = \sum_{i\in I} a_i e_i$ for unique $a_i\in\RR$.
-
-__Exercise__. _If $\sum_{i\in I} a_i e_i = \sum_{i\in I} b_i e_i$ then $a_i = b_i$ for all $i$_.
-
-_Hint_: Use $\bm{0} = sum_{i\in I} a_i e_i - \sum_{i\in I} b_i e_i$.
-
-This shows we can identify $V$ with $\RR^I$.
-
 ## Matrix
 
 If $T\colon V\to W$ is a linear transformation, $\{e_i\}$ is a basis of $V$,
