@@ -23,7 +23,7 @@ My PhD involved infinite dimensional vector spaces so excuse me for being appall
 by cartoon introductions to vector spaces floating around the internet these days.
 -->
 
-This note starts from tuples of $n$ numbers and develops
+This note starts from tuples of $n$ real numbers and develops
 facts about vector spaces that are useful in practice.
 We unabashedly use mathematical proofs but keep the pesky details
 to a minimum.  The exercises will teach you all the math you need to
@@ -67,15 +67,20 @@ $$
 for $1\le j\le n$.
 </details>
 
-A _semigroup_ is a binary operation that is associative.
+A _semigroup_ is a set and a binary operation that is associative.
+A _monoid_ is a semigroup having an _identity element_.
+It is easy to turn a semigroup $S$ into a monoid. Just add an
+identity element $e\not\in S$ with $es = s = se$ for all $s\in S$.
+
+__Exercise__. _Show the identity element of a monoid is unique_.
+
+_Hint_: If $e$ and $e'$ are identities consider $ee'$ to show $e = e'$.
 
 Define $\bm{0} = (0, \ldots, 0)\in\RR^n$.
 
 __Exercise__. _Show $x + \mb{0} = x$, $x\in\RR^n$_.
 
-This shows $\mb{0}$ is the _additive identity_.
-
-A _monoid_ is a semigroup having an identity element.
+This shows $\mb{0}$ is the _additive identity_ of vector addition.
 
 Define _additive inverse_ $-x$ by $-(x_1,\dots,x_n) = (-x_1,\ldots,-x_n)$.
 
@@ -94,8 +99,8 @@ commutative group operation $(x,y)\mapsto x + y$, $x,y\in V$
 and a scalar multiplication $(a, x)\mapsto ax$, $a\in\RR$ and $x\in V$,
 that satisfy the properties in the above exercises.
 
-This abstract definition allows us to consider vector spaces other than $\RR^n$
-and clarifies essential properties.
+The abstract definition allows us to consider vector spaces other than $\RR^n$
+and see essential properties more clearly.
 
 __Exercise__. _Show $x + x = x$ implies $x = \mb{0}$ if $x$ is an element of a vector space_.
 
@@ -185,6 +190,443 @@ __Exercise__. _Show polynomials are a vector space_.
 
 _Hint_: A polynomial is a finite sum $p(x) = \sum_j a_j x^j$
 that can be identified with an element of $\RR_{00}^{\NN}$.
+
+## Linear Operator
+
+A vector space is a set satisfying axioms. A _linear operator_ is a
+function between vector spaces that preserves the vector space axioms.
+
+Let $\LL(V,W)$ be the set of all functions $T\colon V\to W$ 
+that preserve vector space operations: $T(u + v) = Tu + Tv$, $u,v\in V$.
+and $T(av) = a(Tv), $a\in\RR$, $v\in V$.
+
+__Exercise__. _Show if $T(a u + b) = aTu + Tv$, $a\in\RR$, $u,v\in V$, then $T$ is linear_.
+
+_Hint_: Take $b = \bm{0}$ and $a = 1$.
+
+For $S,T\in\mathcal{L}(V,W)$ define
+vector addition ${(S + T)v = Sv + Tv}$, $v\in V$.
+and scalar multiplication ${(aT)v = a(Tv)}$, $a\in\RR$.
+
+__Exercise__. _Show $\mathcal{L}(V, W)$ is a vector space_.
+
+__Exercise__. _If $T\in\mathcal{L}(V, W)$ then $T\mb{0} = \mb{0}$_.
+
+_Hint_: Consider $T(\mb{0} + \mb{0})$ and use $v + v = v$ implies $v = 0$.
+
+### Subspace
+
+A subset $U\subseteq V$ of a vector space is a _subspace_ if $U$ is also a vector space.
+Given a subspace $U$ define $v + U = \{v + u\mid u\in U\}$
+and the _quotient space_ $V/U = \{v + U\mid v\in V\}$.
+Define vector addition in $V/U$ by ${(v + U) + (w + U) = (v + w) + U$
+and scalar multiplication by $a(v + U) = (av) + U$, $a\in\RR$, $v,w\in V$.
+
+__Exercise__. _Show vector addition and scalar multiplication in $V/U$ are well-defined_.
+
+Hint_: Use $v + U = w + U$ if and only if $v - w\in U$.
+
+If $V$ and $W$ are vector spaces define the _direct sum_ $V\oplus W = V\times W$
+with scalar multiplication $a(v, w) = (av, aw)$
+and vector addition $(v, w)\oplus(x, y) = (v + x, w + y)$.
+
+__Exercise__. _Show $V\oplus W$ is a vector space_.
+
+If $U$ is a subspace of $V$ we can identify $V$ with $U\oplus V/U$ by
+$u\oplus v + U$ corresponds to $u + v - u$.
+
+Let $X$ be a subset of a vector space $V$. A _finite linear combination_ of elements of $X$
+is a finite sum $\sum_i a_i x_i$ where $a_i\in\RR$, $x_i\in X$
+The _span_ of $X$ is the collection of all finite linear combinations of elements of $X$.
+
+__Exercise__. _Show the span of $X$ is a subspace_.
+
+A set of vectors $\{x_i\}$ are _independent_ if for any finite _linear combination_
+$\sum_j a_j x_j = \mb{0}$, $a_j\in\RR$, we have $a_j = 0$ for all $j$.
+
+__Exercise__. _If $\sum_j a_j x_j = \mb{0}$ and $a_j \not= 0$ for some $j$
+then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
+
+### Basis
+
+A _basis_ of a vector space $V$ is a set of vectors $\{e_i\}_{i\in I}$ in $V$ that are independent and span $V$.
+Every vector $v\in V$ can be written $v = \sum_{i\in I} a_i e_i$ for unique $a_i\in\RR$.
+
+__Exercise__. _If $\sum_{i\in I} a_i e_i = \sum_{i\in I} b_i e_i$ then $a_i = b_i$ for all $i$_.
+
+_Hint_: Use $\bm{0} = sum_{i\in I} a_i e_i - \sum_{i\in I} b_i e_i$.
+
+This shows we can identify $V$ with $\RR^I$.
+
+
+
+
+## Linear Operator
+
+Let $\LL(V,W)$ be the set of all functions from the vector space $V$
+### Subspace
+
+A subset $U\subseteq V$ of a vector space is a _subspace_ if $U$ is also a vector space.
+Given a subspace $U$ define $v + U = \{v + u\mid u\in U\}$
+and the _quotient space_ $V/U = \{v + U\mid v\in V\}$.
+Define vector addition in $V/U$ by ${(v + U) + (w + U) = (v + w) + U$
+and scalar multiplication by $a(v + U) = (av) + U$, $a\in\RR$, $v,w\in V$.
+
+__Exercise__. _Show vector addition and scalar multiplication in $V/U$ are well-defined_.
+
+Hint_: Use $v + U = w + U$ if and only if $v - w\in U$.
+
+If $V$ and $W$ are vector spaces define the _direct sum_ $V\oplus W = V\times W$
+with scalar multiplication $a(v, w) = (av, aw)$
+and vector addition $(v, w)\oplus(x, y) = (v + x, w + y)$.
+
+__Exercise__. _Show $V\oplus W$ is a vector space_.
+
+If $U$ is a subspace of $V$ we can identify $V$ with $U\oplus V/U$ by
+$u\oplus v + U$ corresponds to $u + v - u$.
+
+Let $X$ be a subset of a vector space $V$. A _finite linear combination_ of elements of $X$
+is a finite sum $\sum_i a_i x_i$ where $a_i\in\RR$, $x_i\in X$
+The _span_ of $X$ is the collection of all finite linear combinations of elements of $X$.
+
+__Exercise__. _Show the span of $X$ is a subspace_.
+
+A set of vectors $\{x_i\}$ are _independent_ if for any finite _linear combination_
+$\sum_j a_j x_j = \mb{0}$, $a_j\in\RR$, we have $a_j = 0$ for all $j$.
+
+__Exercise__. _If $\sum_j a_j x_j = \mb{0}$ and $a_j \not= 0$ for some $j$
+then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
+
+### Basis
+
+A _basis_ of a vector space $V$ is a set of vectors $\{e_i\}_{i\in I}$ in $V$ that are independent and span $V$.
+Every vector $v\in V$ can be written $v = \sum_{i\in I} a_i e_i$ for unique $a_i\in\RR$.
+
+__Exercise__. _If $\sum_{i\in I} a_i e_i = \sum_{i\in I} b_i e_i$ then $a_i = b_i$ for all $i$_.
+
+_Hint_: Use $\bm{0} = sum_{i\in I} a_i e_i - \sum_{i\in I} b_i e_i$.
+
+This shows we can identify $V$ with $\RR^I$.
+
+
+
+
+## Linear Operator
+
+### Subspace
+
+A subset $U\subseteq V$ of a vector space is a _subspace_ if $U$ is also a vector space.
+Given a subspace $U$ define $v + U = \{v + u\mid u\in U\}$
+and the _quotient space_ $V/U = \{v + U\mid v\in V\}$.
+Define vector addition in $V/U$ by ${(v + U) + (w + U) = (v + w) + U$
+and scalar multiplication by $a(v + U) = (av) + U$, $a\in\RR$, $v,w\in V$.
+
+__Exercise__. _Show vector addition and scalar multiplication in $V/U$ are well-defined_.
+
+Hint_: Use $v + U = w + U$ if and only if $v - w\in U$.
+
+If $V$ and $W$ are vector spaces define the _direct sum_ $V\oplus W = V\times W$
+with scalar multiplication $a(v, w) = (av, aw)$
+and vector addition $(v, w)\oplus(x, y) = (v + x, w + y)$.
+
+__Exercise__. _Show $V\oplus W$ is a vector space_.
+
+If $U$ is a subspace of $V$ we can identify $V$ with $U\oplus V/U$ by
+$u\oplus v + U$ corresponds to $u + v - u$.
+
+Let $X$ be a subset of a vector space $V$. A _finite linear combination_ of elements of $X$
+is a finite sum $\sum_i a_i x_i$ where $a_i\in\RR$, $x_i\in X$
+The _span_ of $X$ is the collection of all finite linear combinations of elements of $X$.
+
+__Exercise__. _Show the span of $X$ is a subspace_.
+
+A set of vectors $\{x_i\}$ are _independent_ if for any finite _linear combination_
+$\sum_j a_j x_j = \mb{0}$, $a_j\in\RR$, we have $a_j = 0$ for all $j$.
+
+__Exercise__. _If $\sum_j a_j x_j = \mb{0}$ and $a_j \not= 0$ for some $j$
+then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
+
+### Basis
+
+A _basis_ of a vector space $V$ is a set of vectors $\{e_i\}_{i\in I}$ in $V$ that are independent and span $V$.
+Every vector $v\in V$ can be written $v = \sum_{i\in I} a_i e_i$ for unique $a_i\in\RR$.
+
+__Exercise__. _If $\sum_{i\in I} a_i e_i = \sum_{i\in I} b_i e_i$ then $a_i = b_i$ for all $i$_.
+
+_Hint_: Use $\bm{0} = sum_{i\in I} a_i e_i - \sum_{i\in I} b_i e_i$.
+
+This shows we can identify $V$ with $\RR^I$.
+
+
+
+
+## Linear Operator
+
+Let $\LL(V,W)$ be the set of all functions from the vector space $V$
+### Subspace
+
+A subset $U\subseteq V$ of a vector space is a _subspace_ if $U$ is also a vector space.
+Given a subspace $U$ define $v + U = \{v + u\mid u\in U\}$
+and the _quotient space_ $V/U = \{v + U\mid v\in V\}$.
+Define vector addition in $V/U$ by ${(v + U) + (w + U) = (v + w) + U$
+and scalar multiplication by $a(v + U) = (av) + U$, $a\in\RR$, $v,w\in V$.
+
+__Exercise__. _Show vector addition and scalar multiplication in $V/U$ are well-defined_.
+
+Hint_: Use $v + U = w + U$ if and only if $v - w\in U$.
+
+If $V$ and $W$ are vector spaces define the _direct sum_ $V\oplus W = V\times W$
+with scalar multiplication $a(v, w) = (av, aw)$
+and vector addition $(v, w)\oplus(x, y) = (v + x, w + y)$.
+
+__Exercise__. _Show $V\oplus W$ is a vector space_.
+
+If $U$ is a subspace of $V$ we can identify $V$ with $U\oplus V/U$ by
+$u\oplus v + U$ corresponds to $u + v - u$.
+
+Let $X$ be a subset of a vector space $V$. A _finite linear combination_ of elements of $X$
+is a finite sum $\sum_i a_i x_i$ where $a_i\in\RR$, $x_i\in X$
+The _span_ of $X$ is the collection of all finite linear combinations of elements of $X$.
+
+__Exercise__. _Show the span of $X$ is a subspace_.
+
+A set of vectors $\{x_i\}$ are _independent_ if for any finite _linear combination_
+$\sum_j a_j x_j = \mb{0}$, $a_j\in\RR$, we have $a_j = 0$ for all $j$.
+
+__Exercise__. _If $\sum_j a_j x_j = \mb{0}$ and $a_j \not= 0$ for some $j$
+then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
+
+### Basis
+
+A _basis_ of a vector space $V$ is a set of vectors $\{e_i\}_{i\in I}$ in $V$ that are independent and span $V$.
+Every vector $v\in V$ can be written $v = \sum_{i\in I} a_i e_i$ for unique $a_i\in\RR$.
+
+__Exercise__. _If $\sum_{i\in I} a_i e_i = \sum_{i\in I} b_i e_i$ then $a_i = b_i$ for all $i$_.
+
+_Hint_: Use $\bm{0} = sum_{i\in I} a_i e_i - \sum_{i\in I} b_i e_i$.
+
+This shows we can identify $V$ with $\RR^I$.
+
+
+
+
+## Linear Operator
+
+### Subspace
+
+A subset $U\subseteq V$ of a vector space is a _subspace_ if $U$ is also a vector space.
+Given a subspace $U$ define $v + U = \{v + u\mid u\in U\}$
+and the _quotient space_ $V/U = \{v + U\mid v\in V\}$.
+Define vector addition in $V/U$ by ${(v + U) + (w + U) = (v + w) + U$
+and scalar multiplication by $a(v + U) = (av) + U$, $a\in\RR$, $v,w\in V$.
+
+__Exercise__. _Show vector addition and scalar multiplication in $V/U$ are well-defined_.
+
+Hint_: Use $v + U = w + U$ if and only if $v - w\in U$.
+
+If $V$ and $W$ are vector spaces define the _direct sum_ $V\oplus W = V\times W$
+with scalar multiplication $a(v, w) = (av, aw)$
+and vector addition $(v, w)\oplus(x, y) = (v + x, w + y)$.
+
+__Exercise__. _Show $V\oplus W$ is a vector space_.
+
+If $U$ is a subspace of $V$ we can identify $V$ with $U\oplus V/U$ by
+$u\oplus v + U$ corresponds to $u + v - u$.
+
+Let $X$ be a subset of a vector space $V$. A _finite linear combination_ of elements of $X$
+is a finite sum $\sum_i a_i x_i$ where $a_i\in\RR$, $x_i\in X$
+The _span_ of $X$ is the collection of all finite linear combinations of elements of $X$.
+
+__Exercise__. _Show the span of $X$ is a subspace_.
+
+A set of vectors $\{x_i\}$ are _independent_ if for any finite _linear combination_
+$\sum_j a_j x_j = \mb{0}$, $a_j\in\RR$, we have $a_j = 0$ for all $j$.
+
+__Exercise__. _If $\sum_j a_j x_j = \mb{0}$ and $a_j \not= 0$ for some $j$
+then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
+
+### Basis
+
+A _basis_ of a vector space $V$ is a set of vectors $\{e_i\}_{i\in I}$ in $V$ that are independent and span $V$.
+Every vector $v\in V$ can be written $v = \sum_{i\in I} a_i e_i$ for unique $a_i\in\RR$.
+
+__Exercise__. _If $\sum_{i\in I} a_i e_i = \sum_{i\in I} b_i e_i$ then $a_i = b_i$ for all $i$_.
+
+_Hint_: Use $\bm{0} = sum_{i\in I} a_i e_i - \sum_{i\in I} b_i e_i$.
+
+This shows we can identify $V$ with $\RR^I$.
+
+
+
+
+## Linear Operator
+
+Let $\LL(V,W)$ be the set of all functions from the vector space $V$
+### Subspace
+
+A subset $U\subseteq V$ of a vector space is a _subspace_ if $U$ is also a vector space.
+Given a subspace $U$ define $v + U = \{v + u\mid u\in U\}$
+and the _quotient space_ $V/U = \{v + U\mid v\in V\}$.
+Define vector addition in $V/U$ by ${(v + U) + (w + U) = (v + w) + U$
+and scalar multiplication by $a(v + U) = (av) + U$, $a\in\RR$, $v,w\in V$.
+
+__Exercise__. _Show vector addition and scalar multiplication in $V/U$ are well-defined_.
+
+Hint_: Use $v + U = w + U$ if and only if $v - w\in U$.
+
+If $V$ and $W$ are vector spaces define the _direct sum_ $V\oplus W = V\times W$
+with scalar multiplication $a(v, w) = (av, aw)$
+and vector addition $(v, w)\oplus(x, y) = (v + x, w + y)$.
+
+__Exercise__. _Show $V\oplus W$ is a vector space_.
+
+If $U$ is a subspace of $V$ we can identify $V$ with $U\oplus V/U$ by
+$u\oplus v + U$ corresponds to $u + v - u$.
+
+Let $X$ be a subset of a vector space $V$. A _finite linear combination_ of elements of $X$
+is a finite sum $\sum_i a_i x_i$ where $a_i\in\RR$, $x_i\in X$
+The _span_ of $X$ is the collection of all finite linear combinations of elements of $X$.
+
+__Exercise__. _Show the span of $X$ is a subspace_.
+
+A set of vectors $\{x_i\}$ are _independent_ if for any finite _linear combination_
+$\sum_j a_j x_j = \mb{0}$, $a_j\in\RR$, we have $a_j = 0$ for all $j$.
+
+__Exercise__. _If $\sum_j a_j x_j = \mb{0}$ and $a_j \not= 0$ for some $j$
+then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
+
+### Basis
+
+A _basis_ of a vector space $V$ is a set of vectors $\{e_i\}_{i\in I}$ in $V$ that are independent and span $V$.
+Every vector $v\in V$ can be written $v = \sum_{i\in I} a_i e_i$ for unique $a_i\in\RR$.
+
+__Exercise__. _If $\sum_{i\in I} a_i e_i = \sum_{i\in I} b_i e_i$ then $a_i = b_i$ for all $i$_.
+
+_Hint_: Use $\bm{0} = sum_{i\in I} a_i e_i - \sum_{i\in I} b_i e_i$.
+
+This shows we can identify $V$ with $\RR^I$.
+
+
+
+
+## Linear Operator
+
+### Subspace
+
+A subset $U\subseteq V$ of a vector space is a _subspace_ if $U$ is also a vector space.
+Given a subspace $U$ define $v + U = \{v + u\mid u\in U\}$
+and the _quotient space_ $V/U = \{v + U\mid v\in V\}$.
+Define vector addition in $V/U$ by ${(v + U) + (w + U) = (v + w) + U$
+and scalar multiplication by $a(v + U) = (av) + U$, $a\in\RR$, $v,w\in V$.
+
+__Exercise__. _Show vector addition and scalar multiplication in $V/U$ are well-defined_.
+
+Hint_: Use $v + U = w + U$ if and only if $v - w\in U$.
+
+If $V$ and $W$ are vector spaces define the _direct sum_ $V\oplus W = V\times W$
+with scalar multiplication $a(v, w) = (av, aw)$
+and vector addition $(v, w)\oplus(x, y) = (v + x, w + y)$.
+
+__Exercise__. _Show $V\oplus W$ is a vector space_.
+
+If $U$ is a subspace of $V$ we can identify $V$ with $U\oplus V/U$ by
+$u\oplus v + U$ corresponds to $u + v - u$.
+
+Let $X$ be a subset of a vector space $V$. A _finite linear combination_ of elements of $X$
+is a finite sum $\sum_i a_i x_i$ where $a_i\in\RR$, $x_i\in X$
+The _span_ of $X$ is the collection of all finite linear combinations of elements of $X$.
+
+__Exercise__. _Show the span of $X$ is a subspace_.
+
+A set of vectors $\{x_i\}$ are _independent_ if for any finite _linear combination_
+$\sum_j a_j x_j = \mb{0}$, $a_j\in\RR$, we have $a_j = 0$ for all $j$.
+
+__Exercise__. _If $\sum_j a_j x_j = \mb{0}$ and $a_j \not= 0$ for some $j$
+then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
+
+### Basis
+
+A _basis_ of a vector space $V$ is a set of vectors $\{e_i\}_{i\in I}$ in $V$ that are independent and span $V$.
+Every vector $v\in V$ can be written $v = \sum_{i\in I} a_i e_i$ for unique $a_i\in\RR$.
+
+__Exercise__. _If $\sum_{i\in I} a_i e_i = \sum_{i\in I} b_i e_i$ then $a_i = b_i$ for all $i$_.
+
+_Hint_: Use $\bm{0} = sum_{i\in I} a_i e_i - \sum_{i\in I} b_i e_i$.
+
+This shows we can identify $V$ with $\RR^I$.
+
+
+
+
+## Linear Operator
+
+Let $\LL(V,W)$ be the set of all functions from the vector space $V$
+### Subspace
+
+A subset $U\subseteq V$ of a vector space is a _subspace_ if $U$ is also a vector space.
+Given a subspace $U$ define $v + U = \{v + u\mid u\in U\}$
+and the _quotient space_ $V/U = \{v + U\mid v\in V\}$.
+Define vector addition in $V/U$ by ${(v + U) + (w + U) = (v + w) + U$
+and scalar multiplication by $a(v + U) = (av) + U$, $a\in\RR$, $v,w\in V$.
+
+__Exercise__. _Show vector addition and scalar multiplication in $V/U$ are well-defined_.
+
+Hint_: Use $v + U = w + U$ if and only if $v - w\in U$.
+
+If $V$ and $W$ are vector spaces define the _direct sum_ $V\oplus W = V\times W$
+with scalar multiplication $a(v, w) = (av, aw)$
+and vector addition $(v, w)\oplus(x, y) = (v + x, w + y)$.
+
+__Exercise__. _Show $V\oplus W$ is a vector space_.
+
+If $U$ is a subspace of $V$ we can identify $V$ with $U\oplus V/U$ by
+$u\oplus v + U$ corresponds to $u + v - u$.
+
+Let $X$ be a subset of a vector space $V$. A _finite linear combination_ of elements of $X$
+is a finite sum $\sum_i a_i x_i$ where $a_i\in\RR$, $x_i\in X$
+The _span_ of $X$ is the collection of all finite linear combinations of elements of $X$.
+
+__Exercise__. _Show the span of $X$ is a subspace_.
+
+A set of vectors $\{x_i\}$ are _independent_ if for any finite _linear combination_
+$\sum_j a_j x_j = \mb{0}$, $a_j\in\RR$, we have $a_j = 0$ for all $j$.
+
+__Exercise__. _If $\sum_j a_j x_j = \mb{0}$ and $a_j \not= 0$ for some $j$
+then the span of $\{x_i\}_{i\in I}$ equals the span of $\{x_i\}_{i\not=j}$_.
+
+### Basis
+
+A _basis_ of a vector space $V$ is a set of vectors $\{e_i\}_{i\in I}$ in $V$ that are independent and span $V$.
+Every vector $v\in V$ can be written $v = \sum_{i\in I} a_i e_i$ for unique $a_i\in\RR$.
+
+__Exercise__. _If $\sum_{i\in I} a_i e_i = \sum_{i\in I} b_i e_i$ then $a_i = b_i$ for all $i$_.
+
+_Hint_: Use $\bm{0} = sum_{i\in I} a_i e_i - \sum_{i\in I} b_i e_i$.
+
+This shows we can identify $V$ with $\RR^I$.
+
+
+
+
+## Linear Operator
+
+Let $\LL(V,W)$ be the set of all functions from the vector space $V$
+to the vector space $W$ that preserve vector space operations:
+$T(av) = a(Tv)$ and $T(u + v) = Tu + Tv$, $a\in\RR$, $u,v\in V$.
+
+__Exercise__. _Show if $T(a u + b) = aTu + Tv$, $a\in\RR$, $u,v\in V$, then $T$ is linear_.
+
+_Hint_: Take $b = \bm{0}$ and $a = 1$.
+
+For $S,T\in\mathcal{L}(V,W)$ define scalar multiplication ${(aT)v = a(Tv)}$
+and vector space addition ${(S + T)v = Sv + Tv}$, $a\in\RR$, $v\in V$.
+
+__Exercise__. _Show $\mathcal{L}(V, W)$ is a vector space_.
+
+__Exercise__. _If $T\in\mathcal{L}(V, W)$ then $T\mb{0} = \mb{0}$_.
+
+_Hint_: Consider $T(\mb{0} + \mb{0})$ and use $v + v = v$ implies $v = 0$.
+
 
 ### Subspace
 
