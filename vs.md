@@ -144,7 +144,7 @@ Let $\RR^I_{00}$ be the set of functions $f\in\RR^I$ that are non-zero on a fini
 
 __Exercise__. _Show $\RR^S_{00}$ is a vector space_.
 
-__Exercise__. _Show for every $x\in\RR^I$ that $x = \sum_{i\in I} x(i) e_i$_.
+__Exercise__. _Show for every $x\in\RR_{00}^I$ that $x = \sum_{i\in I} x(i) e_i$_.
 
 A function $f\in\RR^S$ is _bounded_ if the _norm_ of $f$ defined by $\|f\| = \sup_{s\in S} |f(s)|$ is finite.
 The space of bounded functions on $S$ is $B(S) = \{f\in\RR^S\mid \|f\| < \infty\}$.
@@ -183,7 +183,7 @@ _Hint_: Every continuous function on $[a,b]$ attains its maximum and minimum val
 __Exercise__. _Show the space of $n$ times differentiable functions on the interval $[a,b]$, ${C^{(n)}([a,b])}$,
 is a vector space_.
 
-__Exercise__. _Show the solutions $x(t)$ of the homogeneous differential equation
+__Exercise__. _Show the solutions of the homogeneous differential equation
 $\sum_{j=0}^n a_j x^{(j)}(t) = 0$, $a_j\in\RR$, are a vector space_.
 
 __Exercise__. _Show polynomials are a vector space_.
@@ -191,14 +191,40 @@ __Exercise__. _Show polynomials are a vector space_.
 _Hint_: A polynomial is a finite sum $p(x) = \sum_j a_j x^j$
 that can be identified with an element of $\RR_{00}^{\NN}$.
 
+For $p > 0$ define the $p$-_norm_ by $\|x\|_p = (\sum_j |x_j|^p)^{1/p}$.
+Define ${\ell^p = \{x\in\RR^N\mid \|x\|_p < \infty\}}$.
+
+__Exercise__. _Show the $p$-norm is a norm_.
+
+__Exercise__. _Show $\lim_{p\to\infty} \|x\|_p = \sup_j |x_j|$_.
+
+An _inner product_ is a bilinear function $( .\ , . ) \colon V\times V\to\RR$ where
+$(v,v) = 0$ implies $v = 0$.
+We write $v\cdot w$ for $(v, w)$.
+
+__Exercise__. _Show $\|v\| = \sqrt{v\cdot v}$ is a norm_.
+
+__Exercise__. (Cauchy-Schwartz Inequality) _Show for $x,y$ in an inner product space $(x,y) \le \|x\| \|y\|$_.
+
+_Hint_ Use $0 \le \|x - ty\|^2$ for all $t\in\RR$ and minimize over $t$.
+This also shows if equality holds and $x\not=\bm{0}$ then $x$ is a scalar multiple of $y$.
+
+A _Hilbert space_ is a vector space with an inner product that is complete.
+
+For $x,y\in\RR^n$ define $x\cdot y = \sum x_j y_j$.
+
+__Exercise__. _Show this is an inner product on $\RR^n$_.
+
+__Exercise__. _For $x,y\in\ell^2$ show $\sum_j |x_j y_j| < \infty$_.
+
 ## Linear Operator
 
 A vector space is a set satisfying axioms. A _linear operator_ is a
 function between vector spaces that preserves the vector space axioms.
 
 Let $\LL(V,W)$ be the set of all functions $T\colon V\to W$ 
-that preserve vector space operations: $T(u + v) = Tu + Tv$, $u,v\in V$.
-and $T(av) = a(Tv), $a\in\RR$, $v\in V$.
+satisfying ${T(u + v) = Tu + Tv}$ for $u,v\in V$
+and ${T(av) = a(Tv)}$, $a\in\RR$, $v\in V$.
 
 __Exercise__. _Show if $T(a u + b) = aTu + Tv$, $a\in\RR$, $u,v\in V$, then $T$ is linear_.
 
