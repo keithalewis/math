@@ -16,41 +16,41 @@ abstract: Totally ordered streams.
 \newcommand{\skip}{\operatorname{skip}}
 \newcommand{\first}{\operatorname{first}}
 
-
-
 Let $\langle T,\le\rangle$ be a totally ordered set.
 
 If $S$ is a finite subset of a totally ordered set $T$
-let $\wedge S = \min\{s\in S\}$ and $\vee S = \max\{s\in S\}$.
-Define
+define an _iterable_ over $T$ by
 $$
 \begin{aligned}
-	*S &= \wedge S \\
-	+S &= S\setminus\{*S\} \\
+	*S &= \min\{s\in S\} \\
+	+S &\leftarrow S\setminus\{*S\} \\
 	?S &= S \not= \emptyset \\
 \end{aligned}
 $$
+where left arrow indicates $S$ is updated with the right hand value.
 
-If $f\colon T\to U$ define $f(S)$ by
+## Apply
+
+If $f\colon T\to U$ define $f(S)$ as an iterable over $U$ by
 $$
 \begin{aligned}
 	*f(S) &= f(*S) \\
 	+f(S) &= f(+S) \\ 
-	?S &= f(S) \not= \emptyset \\
+	?f(S) &= S \not= \emptyset \\
 \end{aligned}
 $$
 
-__Exercise__. _Show $f(S) =\emptyset$ if and only if $S =\emptyset$_.
-
 ## Filter
 
-Given a predicate $P$ on $S$ define $S\mid P$ by
+Given a predicate $P\colon S\to\BB$ define $S\mid P$ by
 $*(S\mid P) = *S$ if $P(*S)$ and $*(S\mid P) = *(+S\mid P)$ otherwise.
-We call this $S$ _given_ $P$, or $S$ _filter_ $P$.
+This will recursively find the next value of $S$ that satisfies
+the predicate. Define $+(S\mid P) = (+S\mid P)$ 
 
 __Exercise__ _Show $s\in (S\mid P)$ if and only if $s\in S$ and $P(s)$_.
 
-If $R$ is a relation on $T$ define $SRt$ by the predicate $P(s) = sRt$.
+If $R\subset T\times T$ is a relation define $sRt$ by the predicate $P(s) = sRt$
+where $sRt$ means $(s,t)\in R$.
 
 __Exercise__. _Show, e.g., $S<t = S\cap\{s\in S\mid s < t\}$_.
 
