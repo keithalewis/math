@@ -11,6 +11,14 @@ abstract: Value, hedge, and manage risk of any portfolio
 \renewcommand\AA{\mathcal{A}}
 \newcommand\bm[1]{\boldsymbol{#1}}
 
+> A _derivative_ is a legal contract. The _buyer_ chooses a _seller_ agree to
+exchange future _cash flows_.  The seller quotes a _price_ to the buyer
+and both parties are obligated to make good on the agreed
+cash flows after the trade.
+
+> Traders buy and sell shares of instruments and eventually close out their
+position.
+
 >	Market instruments can be bought or sold at a price and ownership
 	entails cash flows. Shares of instruments can be traded based on
 	available information and accumulate to positions. The mark-to-market
