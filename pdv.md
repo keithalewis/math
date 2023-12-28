@@ -62,3 +62,12 @@ $$
 
 The paper is not clear on how data are used to produce the $R_j$. VIX data are 30-day vols
 and implied volatility can be obtained from option prices, but at what maturities?
+
+A fundamental flaw in the paper is the authors seeming to be unaware that any model that
+fits European options automatically fits the VIX.
+
+"Beyond the ability to produce desired spot-vol dynamics and capture
+spot-vol historical patterns, an important criterion to assess the
+quality of a PDV model should be its hedging performance on backtests,
+a task we leave for future work."
+
