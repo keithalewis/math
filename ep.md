@@ -138,7 +138,7 @@ $$
 $$
 where $V^{\dashv}$ is the Moore-Penrose left inverse of $V$.
 The [Appendix](#appendix) shows $\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$, where
-${A = x^* V^{\vdash}x}$, ${B = x^* V^{\vdash}E[X] = E[X^*]V^{vdash}x}$, ${C = E[X^*]V^{vdash}E[X]}$,
+${A = x^* V^{\vdash}x}$, ${B = x^* V^{\vdash}E[X] = E[X^*]V^{\vdash}x}$, ${C = E[X^*]V^{\vdash}E[X]}$,
 and ${D = AC - B^2}$.
 Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
 $E[XX^*]$.
@@ -151,7 +151,7 @@ This may explain why prior authors overlooked our elementary but stronger
 result.
 
 This shows every efficient porfolio is in the span of 
-$V^{vdash}x$ and $V^{vdash} E[X]$.
+$V^{\vdash}x$ and $V^{\vdash} E[X]$.
 If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
 ${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$.
 Assuming, as we may, that $\xi_j^* x = 1$ for $j = 0,1$ then $\xi^* x = \beta_0 + \beta_1$
