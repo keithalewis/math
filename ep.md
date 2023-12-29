@@ -13,6 +13,7 @@ thanks: |
 
 \newcommand\bm[1]{\boldsymbol{#1}}
 \newcommand\RR{\boldsymbol{R}}
+\newcommand\BB{\mathcal{B}}
 \newcommand\Var{\operatorname{Var}}
 \newcommand\Cov{\operatorname{Cov}}
 
@@ -211,16 +212,20 @@ $\mu = \Cov(R(\xi),R(\alpha))/\Var(R(\alpha))$ is the classical beta.
 
 ## Appendix
 
+Let $\BB(V,W)$ be all bounded operators from normed vector spaces $V$ to $W$.
+Define $V^* = \BB(V,\RR)$. If $\xi\in\RR^I$ define $\xi^*\in(\RR^I)^*$
+by $\xi^*x = \sum_{i\in I}\xi_i x_i$ if $I$ is finite.
+Note $\xi^*x = x^*\xi$ and this identifies $(\RR^I)^*$ with $\RR^I$.
+
 ### Fréchet derivative
 
 If $F\colon V\to W$ is a function between normed vector spaces, its Fréchet derivative
 ${DF\colon V\to \mathcal{B}(V,W)}$ is defined by
 $$
-	F(x + h) = F(x) + DF(x)h + o(\|h\|),
+	F(x + h) = F(x) + DF(x)h + o(\|h\|).
 $$
-where $\mathcal{B}(V,W)$ is the set of bounded linear operators from $V$ to $W$.
 If the Fréchet derivative exists at $x$ then $F$ can be appoximated by a linear
-operator. If $V = W = \RR$ then $DF(x) = F'(x)$.
+operator. If $V = W = \RR$ then ${DF(x) = F'(x) = \lim_{h\to0}(F(x + h) - F(x))/h}$.
 
 For $\xi\in\RR^I$ define $F\colon\RR^I\to\RR$ by $F(x) = \xi^* x$.
 We have $F(x + h) = \xi^*x + \xi^*h + 0$ so $DF(x) = \xi^*$.
