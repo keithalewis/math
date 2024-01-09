@@ -14,6 +14,7 @@ thanks: |
 \newcommand\bm[1]{\boldsymbol{#1}}
 \newcommand\RR{\boldsymbol{R}}
 \newcommand\BB{\mathcal{B}}
+\newcommand\LL{\mathcal{L}}
 \newcommand\Var{\operatorname{Var}}
 \newcommand\Cov{\operatorname{Cov}}
 
@@ -77,11 +78,12 @@ Let $I$ be the set of _market instruments_ and $\Omega$ be the set of
 possible market outcomes over the period.  The _one-period model_
 specifies the initial instrument prices $x\in\RR^I$ and the final
 instrument prices $X\colon\Omega\to\RR^I$ depending on the outcome
-$\omega\in\Omega$ that occurs.
+$\omega\in\Omega$ that occurs. We assume $X$ is bounded, because it is.
 Recall if $A$ and $B$ are sets then $B^A = \{f\colon A\to B\}$ is the set of all
 functions from $A$ to $B$. We write $x_i$ for $x(i)$ when $x\in\RR^I$.
+
 The one period model also specifies a probability
-measure $P$ on the space of outcomes. Solving this fundamental and
+measure $P$ on the space of outcomes. Addressing this fundamental and
 important problem is outside the scope of this short note.
 
 <!-- in the modern world -->
@@ -96,8 +98,8 @@ of $\xi$ is ${R_\xi = \xi^* X/\xi^* x}$ when $\xi^* x \not= 0$.
 _Arbitrage_ exists if there is a portfolio $\xi\in\RR^I$ with $\xi^* x <
 0$ and $\xi^* X(\omega) \ge0$, $\omega\in\Omega$.  The cost of acquiring
 the porfolio is negative so you make money up front.  The liquidation
-value at the end of the period is always non-negative so you never lose
-money. Note the definition of arbitrage does not involve the probability measure.
+value at the end of the period is non-negative no matter what happens so you never lose
+money. Note the definition of arbitrage does not involve a probability measure.
 The _Fundamental Theorem of Asset Pricing_ for the one-period model
 states there is no arbitrage if and only if there exists a positive
 measure $D$ on $\Omega$ with $x = \int_\Omega X\,dD$. See the
@@ -109,9 +111,10 @@ return $R_\zeta = 1/\zeta^* x$.
 
 ## Efficient Portfolio
 
-A portfolio $\xi\in\RR^I$ is _efficient_ if $\Var(R_\xi) \le
-\Var(R_\eta)$ for every portfolio $\eta$ having the same expected
-realized return as $\xi$.
+A portfolio is _efficient_ if its variance is
+less than or equal to any portfolion having the same expected
+realized return.
+
 Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so
 there is no loss in assuming $\xi^* x = 1$.
 In this case $R_\xi = \xi^* X$ is the realized return of the portfolio.
@@ -123,6 +126,19 @@ $$
 	\frac{1}{2}\xi^* V\xi - \lambda(\xi^* x - 1) - \mu(\xi^* E[X] - r)
 $$
 over $\xi\in\RR^I$, $\lambda\in\RR$, and $\mu\in\RR$.
+
+The [Appendix](#appendix) shows the first order condition on $\xi$ is
+$$
+	0 = V\xi - \lambda x - \mu E[X].
+$$
+
+If $V\xi = 0$ for some $\xi\in\RR^I$ then $x = E[X]D$ where $D = -\mu/\lambda$.
+In this case every portfolio $\eta\in\RR^I$
+has the same expected realized return.
+$E[R_\eta] = E[\eta^*X/\eta^*x] = 1/D$.
+The condition $x = E[X]D$ for some positive $D\in\RR$ is equivalent to
+the model being
+[arbitrage free](#fundamental-theorem-of-asset-pricing).
 
 It is not always the case $V$ is one-to-one. If $V\xi = 0$
 then $\Var(R_\xi) = 0$ so $\xi^* X$ is constant
@@ -212,39 +228,67 @@ $\mu = \Cov(R(\xi),R(\alpha))/\Var(R(\alpha))$ is the classical beta.
 
 ## Appendix
 
-Let $\BB(V,W)$ be all bounded operators from normed vector spaces $V$ to $W$.
-Define $V^* = \BB(V,\RR)$. If $\xi\in\RR^I$ define $\xi^*\in(\RR^I)^*$
-by $\xi^*x = \sum_{i\in I}\xi_i x_i$ if $I$ is finite.
+We use the non-standard notation $\xi^*$ for what is usually denoted
+for the transpose $\xi^T$.  It is simpler and more illuminating to work with abstract
+vector spaces and linear operators between them
+than with $\RR^n$ and matrices. Matrix multiplcation is just composition linear operators.
+
+Recall $\RR^I = \{x\colon I\to\RR\}$ is the set of all functions from $I$ to $\RR$.
+It is a vector space under pointwise scalar multiplication and addition.
+
+Let $\LL(V,W)$ be the set of linear operators from a vector space $V$
+to a vector space $W$. 
+Define the _dual_ of a vector space $V$ to be all _linear functionals_ from
+$V$ to $\RR$: $V^* = \LL(V,\RR)$. If $T\in\LL(V,W)$ define
+the _adjoint_ $T^*\in\LL(W^*,V^*)$ by $T^*w^*\in V^*$
+where $T^*w^*(v) = w^*(Tv)$, $w^*\in W^*$, $v\in V$.
+
+
+<!--
+If $V = \RR^I$ and $W = \RR^J$ where $I$ and $J$
+are finite, then given a basis $(e_i)$ of $V$ and a basis $(f_j)$ of $W$
+we can define a matrix $[t_{ij}]$ for any linear operator $T\colon V\to W$
+by $Te_i = \sum_j t_{ij} f_j$. 
+-->
+
+For $\xi\in\RR^I$ define $\xi^*\in(\RR^I)^*$
+by $\xi(x) = \xi^*x = \sum_{i\in I} \xi_i x_i$ if $I$ is finite.
 Note $\xi^*x = x^*\xi$ and this identifies $(\RR^I)^*$ with $\RR^I$.
+The Euclidean norm on $\RR^I$ is $\|x\| = \sqrt{x^*x}$. 
 
 ### Fréchet derivative
 
-If $F\colon V\to W$ is a function between normed vector spaces, its Fréchet derivative
-${DF\colon V\to \mathcal{B}(V,W)}$ is defined by
+If $F\colon V\to W$ is a function between normed vector spaces its Fréchet derivative
+${DF\colon V\to \BB(V,W)}$ is defined by
 $$
-	F(x + h) = F(x) + DF(x)h + o(\|h\|).
+	F(\xi + h) = F(\xi) + DF(\xi)h + o(\|h\|).
 $$
-If the Fréchet derivative exists at $x$ then $F$ can be appoximated by a linear
-operator. If $V = W = \RR$ then ${DF(x) = F'(x) = \lim_{h\to0}(F(x + h) - F(x))/h}$.
+If the Fréchet derivative exists at $\xi$ then $F$ can be appoximated by a linear
+operator near $\xi$. 
 
-For $\xi\in\RR^I$ define $F\colon\RR^I\to\RR$ by $F(x) = \xi^* x$.
-We have $F(x + h) = \xi^*x + \xi^*h + 0$ so $DF(x) = \xi^*$.
+If $V = W = \RR$ then $DF\colon\RR\to\BB(\RR,\RR) = \RR^*$.
+By Taylor's theorem $F(\xi + h) = F(\xi) + F'(\xi)h + o(h)$
+so $DF(\xi)h = F'(\xi)h$. If we identify $\RR^*$ with $\RR$
+then $DF(\xi) = F'(\xi)$.
 
-Define $F\colon\RR^I\to\RR$ by $F(x) = x^*Ax$ where $A\colon\RR^I\to\RR^I$
+For $x\in\RR^I$ define $F\colon\RR^I\to\RR$ by $F(\xi) = \xi^* x$.
+We have $F(\xi + h) = \xi^*x + \xi^*h + 0$ so $DF(\xi) = x^*$.
+
+Define $F\colon\RR^I\to\RR$ by $F(\xi) = \xi^*A\xi$ where $A\colon\RR^I\to\RR^I$
 is linear. We have
 $$
 \begin{aligned}
-	F(x + h) &= (x + h)^*A(x + h) \\
-		&= x^*Ax + x^*Ah + h^*Ax + h^*h \\
-		&= x^*Ax + 2x^*Ah + o(\|h\|). \\
+	F(\xi + h) &= (\xi + h)^*A(\xi + h) \\
+		&= \xi^*A\xi + \xi^*Ah + h^*A\xi + h^*h \\
+		&= \xi^*A\xi + 2\xi^*Ah + o(\|h\|). \\
 \end{aligned}
 $$
-This shows $DF(x) = 2x^*A$.
+This shows $DF(\xi) = 2\xi^*A$.
 
 ### Lagrange Multiplier
 
 Let's find the minimum value of $\Var(R_\xi)$ given $E[R_\xi] = r$.
-If $\xi^* x = 1$ then $R_\xi = \xi^* E[X]$ and $\Var(R_\xi)
+If $\xi^* \xi = 1$ then $R_\xi = \xi^* E[X]$ and $\Var(R_\xi)
 = \xi^* V\xi$ where $V = E[XX^*] - E[X]E[X^*]$.
 
 We use Lagrange multipliers and solve
@@ -319,7 +363,9 @@ $$
 
 It may be the case $V^{-1}x$ and $V^{-1}E[X]$ are dependent.
 In this case $x = E[X]D$ for some $D\in\RR$. This
-ensures the model is _arbitrage free_. Arbitrage exists if
+ensures the model is _arbitrage free_.
+
+Arbitrage exists in the one-period model Arbitrage if
 there is a $\xi\in\RR^I$ with $\xi^* x < 0$ and $\xi^* X(\omega)\ge0$
 for $\omega\in\Omega$: you make money putting on the position
 and never lose money unwinding it.
