@@ -120,7 +120,7 @@ there is no loss in assuming $\xi^* x = 1$.
 In this case $R_\xi = \xi^* X$ is the realized return of the portfolio.
 
 If $\xi^* x = 1$ then ${\Var(R_\xi) = \xi^* V\xi}$
-where ${V = \Var(X) = E[XX^*] - E[X]E[X^*]}$.
+where ${V = \Var(X) = \Cov(X,X) = E[XX^*] - E[X]E[X^*]}$.
 For a given expected realized return $r\in\RR$ we use Lagrange multipliers and minimize
 $$
 	\frac{1}{2}\xi^* V\xi - \lambda(\xi^* x - 1) - \mu(\xi^* E[X] - r)
@@ -132,29 +132,21 @@ $$
 	0 = V\xi - \lambda x - \mu E[X].
 $$
 
-If $V\xi = 0$ for some $\xi\in\RR^I$ then $x = E[X]D$ where $D = -\mu/\lambda$.
-In this case every portfolio $\eta\in\RR^I$
-has the same expected realized return.
-$E[R_\eta] = E[\eta^*X/\eta^*x] = 1/D$.
+If $V\zeta = 0$ for some $\zeta\in\RR^I$ then $\zeta$ is a zero coupon bond
+and $x = E[X]D$ where $D = -\mu/\lambda$.
+In this case every portfolio $\xi\in\RR^I$
+has the same expected realized return
+$E[R_\xi] = E[\xi^*X/\xi^*x] = 1/D$ and $\zeta$ is clearly optimal.
+
 The condition $x = E[X]D$ for some positive $D\in\RR$ is equivalent to
-the model being
-[arbitrage free](#fundamental-theorem-of-asset-pricing).
+the model being [arbitrage free](#fundamental-theorem-of-asset-pricing).
 
-It is not always the case $V$ is one-to-one. If $V\xi = 0$
-then $\Var(R_\xi) = 0$ so $\xi^* X$ is constant
-and $\xi$ is a zero coupon bond.
-If $\Var(R_\eta) = 0$ and $R_\eta \not= R_\zeta$ then arbitrage
-exists so we can assume the kernel of $V$ is at most 1-dimensional.
-If $\Var(R_\xi) = 0$ then $\xi$ is obviously efficient.
-
-
-If $\Var(R_\xi) \not= 0$ then
+We assume $V\xi = 0$ implies $\xi = 0$ so $V$ has a left inverse $V^\dashv$ so
 $$
-	\xi =  \lambda V^{\dashv}x + \mu V^{\dashv} E[X] \\
+	\xi =  \lambda V^{\dashv}x + \mu V^{\dashv} E[X].
 $$
-where $V^{\dashv}$ is the Moore-Penrose left inverse of $V$.
 The [Appendix](#appendix) shows $\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$, where
-${A = x^* V^{\vdash}x}$, ${B = x^* V^{\vdash}E[X] = E[X^*]V^{\vdash}x}$, ${C = E[X^*]V^{\vdash}E[X]}$,
+${A = x^* V^{\dashv}x}$, ${B = x^* V^{\dashv}E[X] = E[X^*]V^{\dashv}x}$, ${C = E[X^*]V^{\dashv}E[X]}$,
 and ${D = AC - B^2}$.
 Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
 $E[XX^*]$.
@@ -167,7 +159,7 @@ This may explain why prior authors overlooked our elementary but stronger
 result.
 
 This shows every efficient porfolio is in the span of 
-$V^{\vdash}x$ and $V^{\vdash} E[X]$.
+$V^{\dashv}x$ and $V^{\dashv} E[X]$.
 If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
 ${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$.
 Assuming, as we may, that $\xi_j^* x = 1$ for $j = 0,1$ then $\xi^* x = \beta_0 + \beta_1$
@@ -228,19 +220,31 @@ $\mu = \Cov(R(\xi),R(\alpha))/\Var(R(\alpha))$ is the classical beta.
 
 ## Appendix
 
-We use the non-standard notation $\xi^*$ for what is usually denoted
-for the transpose $\xi^T$.  It is simpler and more illuminating to work with abstract
+We use the notation $\xi^*$ for what is usually denoted
+by the transpose $\xi^T$.  It is simpler and more illuminating to work with abstract
 vector spaces and linear operators between them
 than with $\RR^n$ and matrices. Matrix multiplcation is just composition linear operators.
 
-Recall $\RR^I = \{x\colon I\to\RR\}$ is the set of all functions from $I$ to $\RR$.
-It is a vector space under pointwise scalar multiplication and addition.
+Recall $\RR^I = \{x\colon I\to\RR\}$ is the vector space of all
+functions from the set $I$ to $\RR$ with scalar multiplication and
+vector addition defined pointwise: ${(ax)(i) = ax(i)}$ and ${(x + y)(i) = x(i)
++ y(i)}$ for $a\in\RR$, ${x,y\in\RR^I}$, and $i\in I$.
 
-Let $\LL(V,W)$ be the set of linear operators from a vector space $V$
-to a vector space $W$. 
-Define the _dual_ of a vector space $V$ to be all _linear functionals_ from
-$V$ to $\RR$: $V^* = \LL(V,\RR)$. If $T\in\LL(V,W)$ define
-the _adjoint_ $T^*\in\LL(W^*,V^*)$ by $T^*w^*\in V^*$
+For $\xi\in\RR^I$ define $\xi^*\in(\RR^I)^*$
+by $\xi(x) = \xi^*x = \sum_{i\in I} \xi_i x_i$ if $I$ is finite.
+Note $\xi^*x = x^*\xi$ and this identifies $(\RR^I)^*$ with $\RR^I$.
+The Euclidean norm on $\RR^I$ is $\|x\| = \sqrt{x^*x}$. 
+
+Let $\BB(V,W)$ be the set of bounded linear operators from a vector space $V$
+to a vector space $W$. A linear operator $T\colon V\to W$ is bounded if
+there exists $C\in\RR$ with $\|Tv\| \le C\|v\|$ for all $v\in V$.
+The least such constant is the _norm_ of $T$.
+Note $\BB(V,W)$ is also a normed vector space with scalar multiplication
+and addition defined pointwise.
+
+Define the _dual_ of a vector space $V$ to be all _bounded linear functionals_ from
+$V$ to $\RR$: $V^* = \BB(V,\RR)$. If $T\in\LL(V,W)$ define
+the _adjoint_ $T^*\in\BB(W^*,V^*)$ by $T^*w^*\in V^*$
 where $T^*w^*(v) = w^*(Tv)$, $w^*\in W^*$, $v\in V$.
 
 
@@ -250,11 +254,6 @@ are finite, then given a basis $(e_i)$ of $V$ and a basis $(f_j)$ of $W$
 we can define a matrix $[t_{ij}]$ for any linear operator $T\colon V\to W$
 by $Te_i = \sum_j t_{ij} f_j$. 
 -->
-
-For $\xi\in\RR^I$ define $\xi^*\in(\RR^I)^*$
-by $\xi(x) = \xi^*x = \sum_{i\in I} \xi_i x_i$ if $I$ is finite.
-Note $\xi^*x = x^*\xi$ and this identifies $(\RR^I)^*$ with $\RR^I$.
-The Euclidean norm on $\RR^I$ is $\|x\| = \sqrt{x^*x}$. 
 
 ### Fréchet derivative
 
@@ -266,24 +265,22 @@ $$
 If the Fréchet derivative exists at $\xi$ then $F$ can be appoximated by a linear
 operator near $\xi$. 
 
-If $V = W = \RR$ then $DF\colon\RR\to\BB(\RR,\RR) = \RR^*$.
-By Taylor's theorem $F(\xi + h) = F(\xi) + F'(\xi)h + o(h)$
-so $DF(\xi)h = F'(\xi)h$. If we identify $\RR^*$ with $\RR$
-then $DF(\xi) = F'(\xi)$.
+Given $x\in\RR^I$
+define $F\colon\RR^I\to\RR$ by $F(\xi) = \xi^*x$.
+We have ${F(\xi + h) = \xi^*x + h^*x + 0}$
+so $DF(\xi) = x^*$ since $h^*x = x^*h$.
 
-For $x\in\RR^I$ define $F\colon\RR^I\to\RR$ by $F(\xi) = \xi^* x$.
-We have $F(\xi + h) = \xi^*x + \xi^*h + 0$ so $DF(\xi) = x^*$.
-
-Define $F\colon\RR^I\to\RR$ by $F(\xi) = \xi^*A\xi$ where $A\colon\RR^I\to\RR^I$
-is linear. We have
+Given $A\colon\RR^I\to\RR^I$
+define $F\colon\RR^I\to\RR$ by $F(\xi) = \xi^*A\xi$.
+We have
 $$
 \begin{aligned}
 	F(\xi + h) &= (\xi + h)^*A(\xi + h) \\
 		&= \xi^*A\xi + \xi^*Ah + h^*A\xi + h^*h \\
-		&= \xi^*A\xi + 2\xi^*Ah + o(\|h\|). \\
+		&= \xi^*A\xi + \xi^*Ah + \xi^*A^*h + o(\|h\|). \\
 \end{aligned}
 $$
-This shows $DF(\xi) = 2\xi^*A$.
+This shows $DF(\xi) = \xi^*(A + A^*)$.
 
 ### Lagrange Multiplier
 
@@ -300,7 +297,7 @@ for $\xi$, $\lambda$, and $\mu$.
 The first order conditions for an extremum are
 $$
 \begin{aligned}
-		0 &= \xi^*V - \lambda x - \mu E[X] \\
+		0 &= \xi^*V - \lambda x^* - \mu E[X]^* \\
 		0 &= \xi^* x - 1 \\
 		0 &= \xi^* E[X] - r \\
 \end{aligned}
