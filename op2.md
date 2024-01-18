@@ -15,25 +15,27 @@ abstract: European option pricing and greeks
 
 A _European option_ pays some function of the underlying price at expiration.
 If $F$ is the price at expiration and $\nu$ is a function
-then its Black forward value is $v = E[\nu(F)]$.
+then its Black forward _value_ is $v = E[\nu(F)]$.
 
 If $F$ is positive and $\log F$ has finite mean and variance then
 $F = fe^{sX - \kappa(s)}$ for some $X$ with mean zero and variance one
 where $\kappa(s) = \log E[\exp(sX)]$ is the _cumulant_ of $X$.
-Note $f = E[F]$ is the _forward_ and we call $s$ the _vol_.
-$\partial_f F = \partial F/\partial f = e^{sX - \kappa(s)}$
-and $\partial_s F = F (X - \kappa'(s))$
+We call $f = E[F]$ the _forward_ and $s = \Var(\log F)$ the _vol_.
+Note ${\partial_f F = \partial F/\partial f = e^{sX - \kappa(s)}}$
+and ${\partial_s F = F (X - \kappa'(s))}$.
 
 If an option pays off in shares of $F$ then 
-$E[F\nu(F)] = E[F]E[(F/E[F])\nu(F)] = fE_s[\nu(F)]$
+$E[F\nu(F)] = fE[ e^{sX - \kappa(s)}\nu(F)] = fE_s[\nu(F)]$
 where $E_s$ is the _share measure_.
-Since $F > 0$ and $E[F/E[F]] = 1$ share measure is a probability measure
+Since $F > 0$ and $E[e^{sX - \kappa(s)}] = 1$ share measure is a probability measure
 that we denote by $P_s$.
 
 ## Greeks
 
 The _delta_ of an option is the derivative of its value with respect to the forward,
 ${\partial_f v f = E[\nu'(F)\partial_f F] = E[\nu'(F)e^{sX - \kappa(s)}] = E_s[\nu'(F)]}$.
+The _gamma_ of an option is the second derivative of its value with respect to the forward,
+${\partial_f^2 v f = E[\nu''(F)e^{2sX - 2\kappa(s)}]}$.
 The _vega_ of an option is the derivative of its value with respect to the vol,
 $\partial_s v = E[\nu'(F) F (X - \kappa'(s))] = f E_s[\nu'(F) (X - \kappa'(s))]$.
 
