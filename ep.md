@@ -21,7 +21,7 @@ thanks: |
 Given two random realized returns on an investment, which is to
 be preferred?  This is a fundamental problem in finance that has no
 definitive solution except in the case one investment always returns
-more than the other.
+more than the other, in which case arbitrage exists.
 In 1952 Markowitz[@Mar52] and Roy[@Roy52] introduced the following criterion for risk vs. return
 in portfolio selection:
 if two portfolios have the same expected realized return
@@ -31,13 +31,14 @@ having the same expected realized return.
 
 In the one-period model every efficient portfolio belongs to a one or two-dimensional
 subspace and is uniquely determined given its expected realized return.
+In the one-dimensional case every portfolio has the same expected realized return.
 We show that if $R$ is the (random) realized return of any efficient portfolio
 and $R_0$ and $R_1$ are the (random) realized returns of any two linearly independent efficient
 portfolios then 
 $$
-	R - R_0 = \beta(R_1 - R_0)
+	R - R_0 = \beta(R_1 - R_0).
 $$
-where $\beta = \Cov(R - R_0, R_1 - R_0)/\Var(R_1 - R_0)$.
+It follows that $\beta = \Cov(R - R_0, R_1 - R_0)/\Var(R_1 - R_0)$.
 This generalizes the classical Capital Asset Pricing
 Model formula for the expected realized return of efficient portfolios.
 Taking expected values of both sides
@@ -83,7 +84,7 @@ Recall if $A$ and $B$ are sets then $B^A = \{f\colon A\to B\}$ is the set of all
 functions from $A$ to $B$. We write $x_i$ for $x(i)$ when $x\in\RR^I$.
 
 The one period model also specifies a probability
-measure $P$ on the space of outcomes. Addressing this fundamental and
+measure on the space of outcomes. Addressing this fundamental and
 important problem is outside the scope of this short note.
 
 <!-- in the modern world -->
@@ -97,22 +98,22 @@ of $\xi$ is ${R_\xi = \xi^* X/\xi^* x}$ when $\xi^* x \not= 0$.
 
 _Arbitrage_ exists if there is a portfolio $\xi\in\RR^I$ with $\xi^* x <
 0$ and $\xi^* X(\omega) \ge0$, $\omega\in\Omega$.  The cost of acquiring
-the porfolio is negative so you make money up front.  The liquidation
+the portfolio is negative so you make money up front.  The liquidation
 value at the end of the period is non-negative no matter what happens so you never lose
-money. Note the definition of arbitrage does not involve a probability measure.
+money. Note this definition of arbitrage does not involve a probability measure.
 The _Fundamental Theorem of Asset Pricing_ for the one-period model
 states there is no arbitrage if and only if there exists a positive
-measure $D$ on $\Omega$ with $x = \int_\Omega X\,dD$. See the
+finitely additive measure $D$ on $\Omega$ with $x = \int_\Omega X\,dD$. See the
 [Appendix](fundamental-theorem-of-asset-pricing) for an elementary proof.
 
 If there exists a portfolio $\zeta\in\RR^I$ with $\zeta^* X = 1$ then
 a riskless _zero coupon bond_ is available with
-return $R_\zeta = 1/\zeta^* x$.
+return $R_\zeta = 1/\zeta^* x$. The cost $D = \zeta^*x$ is the "discount".
 
 ## Efficient Portfolio
 
 A portfolio is _efficient_ if its variance is
-less than or equal to any portfolion having the same expected
+less than or equal to the variance of any portfolio having the same expected
 realized return.
 
 Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so
@@ -136,12 +137,12 @@ If $V\zeta = 0$ for some $\zeta\in\RR^I$ then $\zeta$ is a zero coupon bond
 and $x = E[X]D$ where $D = -\mu/\lambda$.
 In this case every portfolio $\xi\in\RR^I$
 has the same expected realized return
-$E[R_\xi] = E[\xi^*X/\xi^*x] = 1/D$ and $\zeta$ is clearly optimal.
+${E[R_\xi] = E[\xi^*X/\xi^*x] = 1/D}$ and $\zeta$ is clearly optimal.
 
 The condition $x = E[X]D$ for some positive $D\in\RR$ is equivalent to
 the model being [arbitrage free](#fundamental-theorem-of-asset-pricing).
 
-We assume $V\xi = 0$ implies $\xi = 0$ so $V$ has a left inverse $V^\dashv$ so
+We assume $V\xi = 0$ implies $\xi = 0$ so $V$ has a left inverse $V^\dashv$ hence
 $$
 	\xi =  \lambda V^{\dashv}x + \mu V^{\dashv} E[X].
 $$
@@ -158,19 +159,19 @@ the mean $E[X]$ and the covariance $E[XX^*] - E[X] E[X^*]$.
 This may explain why prior authors overlooked our elementary but stronger
 result.
 
-This shows every efficient porfolio is in the span of 
+This shows every efficient portfolio is in the span of 
 $V^{\dashv}x$ and $V^{\dashv} E[X]$.
 If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
 ${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$.
 Assuming, as we may, that $\xi_j^* x = 1$ for $j = 0,1$ then $\xi^* x = \beta_0 + \beta_1$
 and $\xi^* X = \beta_0 R_{\xi_0} + \beta_1 R_{\xi_1}$
-so $R_\xi = \xi^* X/\xi^* x = (\beta_0 R_{\xi_0} + \beta_1 R_{\xi_1})/(\beta_0 + \beta_1)$.
+so ${R_\xi = \xi^* X/\xi^* x = (\beta_0 R_{\xi_0} + \beta_1 R_{\xi_1})/(\beta_0 + \beta_1)}$.
 This shows
 $$
 	R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
 $$
 as functions on $\Omega$, where $\beta = \beta_1/(\beta_0 + \beta_1)$.
-Taking the covariance with $R_{\xi_1} - R_{\xi_0}$ on both sides gives
+Taking the covariance with ${R_{\xi_1} - R_{\xi_0}}$ on both sides gives
 $$
 	\beta = \Cov(R_\xi - R_{\xi_0}, R_{\xi_1} - R_{\xi_0})/\Var(R_{\xi_1} - R_{\xi_0}).
 $$
@@ -181,49 +182,15 @@ The classical CAPM formula follows from taking expected values
 of both sides when $\xi_1$ is the "market portfolio" and $\xi_0$ is a
 _riskless portfolio_.
 
-<!--
-$0 = \Var(R(\zeta)) = \zeta^* V\zeta$ assuming, as we may, $\zeta^* x = 1$.
-If another riskless portfolio exists with different realized
-return then arbitrage exists.  By removing redundant assets we can assume
-there is exactly one riskless portfolio $\zeta$ with $\zeta^* x = 1$.
-
-Let $P_\parallel = \zeta\zeta'/\zeta'\zeta$. Note $P_\parallel\zeta = \zeta$ and
-$P_\parallel\xi = 0$ if $\zeta'\xi = 0$ so it is the orthogonal projection 
-onto the space spanned by $\zeta$.
-Let $P_\perp = I - P_\parallel$
-be the projection onto its orthogonal complement,
-$\{\zeta\}^\perp = \{y\in\RR^I:\zeta'y = 0\}$, so
-$V = VP_\perp + VP_\parallel$. Below we analyze the first order conditions for
-an extremum on each subspace. Note $P_\parallel$ commutes with $V$ so these
-subspaces are invariant under $V$.
-Let $y_\parallel = P_\parallel y$ be the component of $y$ parallel to $\zeta$
-and $y_\perp = P_\perp y$ be the component of $y$ orthogonal to $\zeta$ for $y\in\RR^I$.
-
-The first order condition $V\xi = \lambda x + \mu E[X]$ implies
-$V\xi_\parallel = \lambda x_\parallel + \mu E[X]_\parallel$. Since $\xi_\parallel$
-is a scalar multiple of $\zeta$ we have $0 = \lambda + \mu R$ so $\lambda = -\mu R$.
-On the orthogonal complement $V\xi_\perp = -\mu R x_\perp + \mu E[X]_\perp$ so
-$\xi_\perp = V^\dashv(E[X] - Rx)$ where $V^\dashv$ is the generalized (Moore-Penrose) inverse of $V$.
-Letting $\alpha = \xi_\perp = V^\dashv(E[X] - Rx)$, every efficient portfolio can be written
-$\xi = \mu \alpha + \mu\zeta$.
-We can and do assume $\alpha'x = 1$ so
-$1 = \mu + \mu$ and $\xi = \mu \alpha + (1 - \mu)\zeta$.
-Multiplying both sides by $X$ we have $\mu X = \mu \alpha'X + (1 - \mu)R$ hence
-$$
-	R(\xi) - R = \mu(R(\alpha) - R).
-$$
-This implies the classical CAPM formula by taking expected values where $\alpha$ is the "market portfolio".
-It also shows the Lagrange multiplier
-$\mu = \Cov(R(\xi),R(\alpha))/\Var(R(\alpha))$ is the classical beta.
-
--->
+The notion of "market equilibrium" makes no sense in a one-period model.
+Some authors use that to justify assuming the market portfolio is efficient.
 
 ## Appendix
 
 We use the notation $\xi^*$ for what is usually denoted
 by the transpose $\xi^T$.  It is simpler and more illuminating to work with abstract
 vector spaces and linear operators between them
-than with $\RR^n$ and matrices. Matrix multiplcation is just composition linear operators.
+than with $\RR^n$ and matrices. Matrix multiplication is just composition linear operators.
 
 Recall $\RR^I = \{x\colon I\to\RR\}$ is the vector space of all
 functions from the set $I$ to $\RR$ with scalar multiplication and
@@ -262,7 +229,7 @@ ${DF\colon V\to \BB(V,W)}$ is defined by
 $$
 	F(\xi + h) = F(\xi) + DF(\xi)h + o(\|h\|).
 $$
-If the Fréchet derivative exists at $\xi$ then $F$ can be appoximated by a linear
+If the Fréchet derivative exists at $\xi$ then $F$ can be approximated by a linear
 operator near $\xi$. 
 
 Given $x\in\RR^I$
@@ -270,29 +237,28 @@ define $F\colon\RR^I\to\RR$ by $F(\xi) = \xi^*x$.
 We have ${F(\xi + h) = \xi^*x + h^*x + 0}$
 so $DF(\xi) = x^*$ since $h^*x = x^*h$.
 
-Given $A\colon\RR^I\to\RR^I$
-define $F\colon\RR^I\to\RR$ by $F(\xi) = \xi^*A\xi$.
+Given $T\colon\RR^I\to\RR^I$
+define $F\colon\RR^I\to\RR$ by $F(\xi) = \xi^*T\xi$.
 We have
 $$
 \begin{aligned}
-	F(\xi + h) &= (\xi + h)^*A(\xi + h) \\
-		&= \xi^*A\xi + \xi^*Ah + h^*A\xi + h^*h \\
-		&= \xi^*A\xi + \xi^*Ah + \xi^*A^*h + o(\|h\|). \\
+	F(\xi + h) &= (\xi + h)^*T(\xi + h) \\
+		&= \xi^*T\xi + \xi^*Th + h^*T\xi + h^*h \\
+		&= \xi^*T\xi + \xi^*Th + \xi^*T^*h + o(\|h\|). \\
 \end{aligned}
 $$
-This shows $DF(\xi) = \xi^*(A + A^*)$.
+This shows $DF(\xi) = \xi^*(T + T^*)$.
 
 ### Lagrange Multiplier
 
-Let's find the minimum value of $\Var(R_\xi)$ given $E[R_\xi] = r$.
-If $\xi^* \xi = 1$ then $R_\xi = \xi^* E[X]$ and $\Var(R_\xi)
-= \xi^* V\xi$ where $V = E[XX^*] - E[X]E[X^*]$.
-
-We use Lagrange multipliers and solve
+To find the minimum value of $\Var(R_\xi)$ given $E[R_\xi] = r$
+we use Lagrange multipliers and solve
 $$
 		\min \frac{1}{2}\xi^* V\xi - \lambda(\xi^* x - 1) - \mu(\xi^* E[X] - r)
 $$
 for $\xi$, $\lambda$, and $\mu$.
+If ${\xi^* \xi = 1}$ then ${R_\xi = \xi^* E[X]}$ and
+${\Var(R_\xi) = \xi^* V\xi}$ where ${V = E[XX^*] - E[X]E[X^*]}$.
     
 The first order conditions for an extremum are
 $$
@@ -302,9 +268,9 @@ $$
 		0 &= \xi^* E[X] - r \\
 \end{aligned}
 $$
-Assuming $V$ is invertible $\xi = V^{-1}(\lambda x + \mu E[X])$.
+Assuming $V$ is left invertible $\xi = V^{\dashv}(\lambda x + \mu E[X])$.
 Note every extremum lies in the (at most) two dimensional subspace
-spanned by $V^{-1}x$ and $V^{-1}E[X]$.
+spanned by $V^{\dashv}x$ and $V^{\dashv}E[X]$.
     
 The constraints $1 = x^*\xi$ and $r = E[X^*]\xi$ can be written
 $$
@@ -314,8 +280,8 @@ r \\
 \end{bmatrix}
 =
 \begin{bmatrix}
-\lambda x^*V^{-1}x + \mu x^*V^{-1}E[X] \\
-\lambda E[X^*]V^{-1}x + \mu E[X^*]V^{-1}E[X] \\
+\lambda x^*V^{\dashv}x + \mu x^*V^{\dashv}E[X] \\
+\lambda E[X^*]V^{\dashv}x + \mu E[X^*]V^{\dashv}E[X] \\
 \end{bmatrix}
 = \begin{bmatrix}
 A & B \\
@@ -326,7 +292,7 @@ B & C\\
 \mu
 \end{bmatrix}
 $$
-with $A = x^* V^{-1}x$, $B = x^* V^{-1}E[X] = E[X^*]V^{-1}x$, and $C = E[X^*] V^{-1}E[X]$.
+with $A = x^* V^{\dashv}x$, $B = x^* V^{\dashv}E[X] = E[X^*]V^{\dashv}x$, and $C = E[X^*] V^{\dashv}E[X]$.
 Inverting gives
 $$
 \begin{bmatrix} \lambda \\ \mu \end{bmatrix}
@@ -348,7 +314,7 @@ $$
 where $D = AC - B^2$. The solution is
 $\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$, and
 $$
-    \xi = \frac{C - r B}{D} V^{-1}x + \frac{-B + r A}{D} V^{-1}E[X].
+    \xi = \frac{C - r B}{D} V^{\dashv}x + \frac{-B + r A}{D} V^{\dashv}E[X].
 $$
 
 A straightforward calculation shows the variance is
@@ -358,7 +324,7 @@ $$
 
 ### Fundamental Theorem of Asset Pricing
 
-It may be the case $V^{-1}x$ and $V^{-1}E[X]$ are dependent.
+It may be the case $V^{\dashv}x$ and $V^{\dashv}E[X]$ are dependent.
 In this case $x = E[X]D$ for some $D\in\RR$. This
 ensures the model is _arbitrage free_.
 
@@ -405,75 +371,3 @@ $C = \{\int_\Omega X\,dD : D\ge 0\}$ is also a closed cone.
 The contrapositive follows from the lemma.
 
 The proof also shows how to find an arbitrage when one exists.
-
-<!--
-
-## References
-
-# Notes
-
-Realized returns are not just identically distributed, they are equal.
-
-## Appendix
-
-There is _model arbitrage_ if there exists a portfolio $\xi$ with
-$\xi^* x < 0$ and $\xi^* X(\omega) \ge0$ for all $\omega\in\Omega$:
-you make money on the initial investment and never lose money
-when unwinding at the end of the period. This definition does
-not require a measure on $\Omega$.
-
-The one-period
-[Fundamental Theorem of Asset Pricing](#fundamental-theorem-of-asset-pricing)
-states there is no model arbitrage if and only if there exists a positive measure $D$ on $\Omega$ with
-$x = \int_\Omega X(\omega)\,dD(\omega)$. We assume $X$ is
-bounded, as it is in the real world, and $D$ is a
-finitely additive measure.
-The dual space of bounded functions on $\Omega$ is the space of finitely additive measures
-on $\Omega$
-with the dual pairing $\langle X,D\rangle = \int_\Omega X\,dD$ [@DunSch63]
-Chapter III.
-
-If $x = \int_\Omega X\,dD$ for a positive measure $D$ then all portfolios
-have the same expected realized return $R = 1/\|D\|$ where $\|D\| = \int_\Omega
-1\,dD$ is the mass of $D$ and the expected value is with respect to
-the _risk-neutral_ probability measure $Q = D/\|D\|$.
-This follows from $E[\xi^* X] = \xi^* x/\|D\| = R\xi^* x$ for any portfolio $\xi$.
-
-Note $Q$ is not the probability of anything, it is simply a positive
-measure with mass 1. The above statements are geometrical, not probabilistic.
-
-Erdos. Hawaii.
-Thought he played chess, turned out to be go.
-Misspent youth playing chess for quarters in the ASU student union.
-Worst talk ever. Stood in front of what he was writing and turned to tell a story that occured to him, still covering the board.
-
-At the memorial I found out John was not a good housekeeper.
-I worked with him at Brown and had been to his house on occasion, and
-even to his cabin in Enfield when Christine was still with us.
-
-Even before I came to Brown I found his papers to be perfectly orderly. He
-would state assumptions and prove lemmas in the order required, and by
-the time you got to the proof of his main result everything was perfectly clear.
-
-That made a big impression on me as a fledgling mathematician.
-When I started attending his Wednesday analysis seminars I was shocked when I
-heard him asking dumb questions. They had to be dumb, I knew the answer!
-
-After each talk he would buttonhole the person he invited and get a brain dump
-of the key ideas behind their result. Mathematicians start with simple examples
-and generalize to the largest set of axioms for which they hold. 
-An observation about integers can turn into a theorem about Noetherian rings.
-
-John taught me how to learn new things after you got a PhD. Be humble,
-ask questions, and be genuinely interested in acquiring new knowledge.
-His seminar participants were happy to share their hard-won knowledge with him.
-
-I am no longer a practicing mathematician. People in the business world
-don't care about math. They have 99 problems to solve every day and maybe 1
-of those can benefit them from mathematical treatment.
-
-but I endeavor to replicate the same claity when communicating mathematics to business people who
-could not care less about math.
-
-
--->

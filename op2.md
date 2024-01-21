@@ -43,15 +43,22 @@ $\partial_s v = E[\nu'(F) F (X - \kappa'(s))] = f E_s[\nu'(F) (X - \kappa'(s))]$
 
 A _put_ with strike $k$ pays $\nu(F) = \max\{k - F, 0\} = (k - F)^+ = (k - F)1(F\ge k)$ at expiration.
 Note $F\le k$ is equavalent to $X\le (\log k/f + \kappa(s))/s$.
-The _moneyness_ is ${x = x(k; f, s) = (\log k/f + \kappa(s))/s}$.
+The _moneyness_ is ${x = x(k; f, s) = (\log k/f + \kappa(s))/s}$
+so $f = ke^{sx(k;f,s) - \kappa(s)}$
+
+Note $\partial_x f = fs$ so $\partial_f x = 1/fs$
+and $\partial_s f = f(x - \kappa'(s))$.
 
 ### Value
+
 The forward value of a put is
+
 $$
 \begin{aligned}
 E[(k - F)^+] &= E[(k - F)1(F\le k)] \\
 	&= kE[1(F \le k)] - E[F1(F\le k)] \\
 	&= kP(X \le x) - fP_s(X\le x). \\
+
 \end{aligned}
 $$
 
@@ -64,16 +71,43 @@ E[(k - F)^+] &= E[(k - F)1(F\le k)] \\
 $$
 Note $\Cov(F,1(F\le k)) < 0$.
 
+Let $\Psi(x) = P(X\le x)$ and $\Psi_s(x) = E[e^{sX - \kappa(s)} 1(X\le x)$.
+Note $\Psi_s'(x) = e^{sx - \kappa(s)}\psi(x)$ where $\psi(x) = \Phi'(x)$.
+
+We can write the put value as
+$$
+	p = k\Psi(x) - f\Phi_s(x),
+$$
+where $x = (\log k/f + \kappa(s))/s$ is the moneyness.
+
 ### Delta
 
-Since $\partial_f (k - f)^+ = 1(f < k)$ the put delta is
+Since $\partial_f (k - f)^+ = -1(f \le k)$ the put delta is
 $$
-	\partial_f v = E[-1(F \le k)e^{sX - \kappa(s)}] = -P_s(F\le k).
+	\partial_f p = E[-1(F \le k)e^{sX - \kappa(s)}] = -P_s(F\le k) = -\Psi_s(x).
+$$
+
+### Gamma
+
+Te second derivative with respect to forward is
+$$
+	\partial_f^2 p = -\Psi_s'(x)\partial_f x = -\psi_s(x)/fs
 $$
 
 ### Vega
 
+$$
+	\partial_s E[(k - F)^+]
+	= E[-1(F\le k)F(X - \kappa'(s))]
+$$
+
+$$
+\partial_s \Psi_s(x) = \partial_s E[F/f 1(F\le k)] 
+$$
+
 $\Psi_s(x) = P_s(X\le x) = E[e^{sX - \kappa(s)}1(X \le x)]$
+
+$\partial_s\Psi_s(x) = E[e^{sX - \kappa(s)}(X - \kappa'(s))\delta_x(X)]$
 
 $v = k \Phi(x) - f \Phi_s(x)$.
 
