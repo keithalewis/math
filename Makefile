@@ -8,8 +8,9 @@ REVEAL = https://cdn.jsdelivr.net/reveal.js/3.0.0
 
 CSS = math.css
 
-FLAGS  = -f markdown+definition_lists+raw_html+pipe_tables
+FLAGS  = -f markdown+definition_lists+raw_html+pipe_tables+citations
 FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
+$FLAGS += --citeproc capm.bib
 TEXFLAGS = --pdf-engine=xelatex 
 FLAGS += -t html5
 FLAGS += -s # smart quotes
@@ -22,7 +23,7 @@ FLAGS += --metadata date="$(shell date "+%B %e, %Y")"
 #TEXFLAGS += --metadata date="$(shell date "+%B %e, %Y")"
 TEXFLAGS += -V fontsize=12pt
 TEXFLAGS +=  -M date="$(shell date "+%B %e, %Y")"
-TEXFLAGS += --bibliography=capm.bib -o test.tex ep.md
+TEXFLAGS += --bibliography=capm.bib
 FLAGS += --toc --toc-depth=6
 #FLAGS += -B katex.tex
 FLAGS += --reference-location=document

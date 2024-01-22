@@ -22,7 +22,7 @@ Given two random realized returns on an investment, which is to
 be preferred?  This is a fundamental problem in finance that has no
 definitive solution except in the case one investment always returns
 more than the other, in which case arbitrage exists.
-In 1952 Markowitz[@Mar52] and Roy[@Roy52] introduced the following criterion for risk vs. return
+In 1952 Markowitz[@Mar1952] and Roy[@Roy1952] introduced the following criterion for risk vs. return
 in portfolio selection:
 if two portfolios have the same expected realized return
 then prefer the one with smaller variance.
@@ -371,3 +371,4 @@ $C = \{\int_\Omega X\,dD : D\ge 0\}$ is also a closed cone.
 The contrapositive follows from the lemma.
 
 The proof also shows how to find an arbitrage when one exists.
+
