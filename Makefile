@@ -23,7 +23,7 @@ FLAGS += --metadata date="$(shell date "+%B %e, %Y")"
 #TEXFLAGS += --metadata date="$(shell date "+%B %e, %Y")"
 TEXFLAGS += -V fontsize=12pt
 TEXFLAGS +=  -M date="$(shell date "+%B %e, %Y")"
-TEXFLAGS += --bibliography=capm.bib
+#TEXFLAGS += --bibliography=capm.bib
 FLAGS += --toc --toc-depth=6
 #FLAGS += -B katex.tex
 FLAGS += --reference-location=document
@@ -40,6 +40,9 @@ FLAGS += --section-divs
 %.pdf: %.md $(CSS)
 	pandoc $(TEXFLAGS) $< -o $@
 
+%.docx: %.md
+	pandoc $< -o $@
+
 index: $(MKDN)
 	./index.sh $(MKDN) > index.html
 
@@ -55,3 +58,12 @@ RJS = -V theme="serif" -V revealjs-url=https://cdn.jsdelivr.net/reveal.js/3.0.0
 slides: um_slides.md
 	pandoc -V theme=serif -t revealjs -o um_slides.html um_slides.md
 	pandoc -o um_slides.pptx um_slides.md
+
+ep.latex: ep.md
+	pandoc  --pdf-engine=xelatex --bibliography=capm.bib $< -o $@
+
+ep.pdf: ep.latex
+	xetex ep.latex
+	bibtex ep.aux
+	xetex ep.latex
+	xetex ep.latex

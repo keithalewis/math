@@ -14,22 +14,29 @@ abstract: Infinite dimensional derivatives
 \newcommand\Var{\operatorname{Var}}
 \newcommand\Cov{\operatorname{Cov}}
 
-The Fréchet derivative was invented to generalize the notion of a derivative
-of functions between infinite dimensional vector spaces.
-It exists when a function is locally linear.
+The Fréchet derivative is the derivative
+of a function between normed vector spaces.
 
-It $F\colon X\to Y$ where $X$ and $Y$ are normed linear spaces
-the Fréchet derivative ${DF\colon X\to\BB(X,Y)}$ is defined by
+If $f\colon\RR\to\RR$ then the derivative of $f$ at $x$ is
+$f'(x) = \lim_{h\to 0}(f(x + h) - f(x))/h$.
+The function $f$ can be approximated near $x$ by
+a line with slope $f'(x)$.
+
+The limit can be written using _little $o$_ notation as
+$$
+	f(x + h) = f(x) + f'(x)h + o(h).
+$$
+The derivative is actually a linear functional $h\mapsto f'(x)h$.
+
+The Fréchet derivative ${DF\colon\RR\to\LL(\RR,\RR)}$.
+
+If $F\colon X\to Y$ where $X$ and $Y$ are normed linear spaces
+the Fréchet derivative of $F$ at $x$ is ${DF\colon X\to\BB(X,Y)}$ defined by
 $$
 	F(x + h) = F(x) + DF(x)h + o(\|h\|)
 $$
 for $x,h\in X$ where $\BB(X,Y)$ is the set of bounded linear operators from $X$ to $Y$.
-The "little $o$" notation means
-$\|F(x + h) - F(x) - DF(x)h\|/\|h\| \to 0$ as $\|h\| \to 0$.
 The function $F$ can be approximated near $x$ by the linear operator $DF(x)$.
-
-If $f\colon\RR\to\RR$ then $f'(x) = \lim_{h\to 0}(f(x + h) - f(x))/h$.
-The Fréchet derivative ${DF\colon\RR\to\LL(\RR,\RR)}$.
 
 $V^*\cong V$ if $V$ is finite dimensional.
 
@@ -41,8 +48,10 @@ $D(G\circ F)(x) = DG(f(x))DF(x)$.
 
 $F\colon X\to Y$, $G\colon Y\to Z$
 
-If $A$ and $B$ are sets then $B^A = \{f\colon A\to $B$\}$ is the set
+If $A$ and $B$ are sets then $B^A = \{f\colon A\to B\}$ is the set
 of all function from $A$ to $B$. 
 
+We write $B^A = \{A\to B\}$.
 
+If $f 
 

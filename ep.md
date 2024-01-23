@@ -4,6 +4,8 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
+Header-includes:
+  - \usepackage{unicode-math}
 abstract: CAPM holds as equality of random variables, not just their expected value.
 thanks: |
 	Peter Carr and David Shimko gave insightful feedback to
@@ -11,8 +13,7 @@ thanks: |
 	Any remaining infelicities or omissions are my fault.
 ---
 
-\newcommand\bm[1]{\boldsymbol{#1}}
-\newcommand\RR{\boldsymbol{R}}
+\newcommand\RR{\mathbf{R}}
 \newcommand\BB{\mathcal{B}}
 \newcommand\LL{\mathcal{L}}
 \newcommand\Var{\operatorname{Var}}
@@ -214,7 +215,6 @@ $V$ to $\RR$: $V^* = \BB(V,\RR)$. If $T\in\LL(V,W)$ define
 the _adjoint_ $T^*\in\BB(W^*,V^*)$ by $T^*w^*\in V^*$
 where $T^*w^*(v) = w^*(Tv)$, $w^*\in W^*$, $v\in V$.
 
-
 <!--
 If $V = \RR^I$ and $W = \RR^J$ where $I$ and $J$
 are finite, then given a basis $(e_i)$ of $V$ and a basis $(f_j)$ of $W$
@@ -319,7 +319,7 @@ $$
 
 A straightforward calculation shows the variance is
 $$
-\Var(R_\xi) = \xi^* V\xi = (C - 2BR + AR^2)/D.
+\Var(R_\xi) = \xi^* V\xi = (C - 2Br + Ar^2)/D.
 $$
 
 ### Fundamental Theorem of Asset Pricing
@@ -328,20 +328,27 @@ It may be the case $V^{\dashv}x$ and $V^{\dashv}E[X]$ are dependent.
 In this case $x = E[X]D$ for some $D\in\RR$. This
 ensures the model is _arbitrage free_.
 
-Arbitrage exists in the one-period model Arbitrage if
+Arbitrage exists in the one-period model if
 there is a $\xi\in\RR^I$ with $\xi^* x < 0$ and $\xi^* X(\omega)\ge0$
 for $\omega\in\Omega$: you make money putting on the position
 and never lose money unwinding it.
-
-If $x$ belongs to the smallest closed cone containing the range of $X$ then
-$x = \int_\Omega X dD$ for some positive finitely-additive measure $D$ on $\Omega$.
-If we define $P = D/D(\Omega)$ then $P$ is a positive measure with mass 1.
 
 The one-period Fundamental Theorem of Asset Pricing states there is no model
 arbitrage if and only if there exists a positive measure $D$ on
 $\Omega$ with $x = \int_\Omega X(\omega)\,dD(\omega)$.  We assume $X$
 is bounded, as it is in the real world, and $D$ is
 finitely additive.
+
+If $x = \sum_j X(\omega_j) d_j$ where $\omega_j\in\Omega$ and $d_j\ge0$ then
+$$
+	\xi*x = \sum_j \xi^*X(\omega_j) d_j \ge0
+$$
+if $\xi^*X\ge0$ on $\Omega$.
+
+If $x$ belongs to the smallest closed cone containing the range of $X$ then
+$x = \int_\Omega X dD$ for some positive finitely-additive measure $D$ on $\Omega$.
+If we define $P = D/D(\Omega)$ then $P$ is a positive measure with mass 1.
+
 
 If such a measure exists and $\xi^* X\ge0$ then
 $\xi^* x = \int_\Omega \xi^* X\,dD \ge0$ so arbitrage
@@ -357,13 +364,13 @@ and $tC\subseteq C$ for $t > 0$. Note the set of arbitrage
 portfolios is a cone.
 
 _Proof._ Since $C$ is closed and convex there exists $x^*\in C$ with
-$0 < ||x^* - x|| \le ||y - x||$ for all $y\in C$.  Let $\xi = x^* - x$.
-For any $y\in C$ and $t > 0$ we have $ty + x^*\in C$ so $||\xi|| \le ||ty + \xi||$. 
-Simplifying gives $t^2||y||^2 + 2t\xi^* y\ge 0$. 
+$0 < \|x^* - x\| \le \|y - x\|$ for all $y\in C$.  Let $\xi = x^* - x$.
+For any $y\in C$ and $t > 0$ we have $ty + x^*\in C$ so $\|\xi\| \le \|ty + \xi\|$. 
+Simplifying gives $t^2\|y\|^2 + 2t\xi^* y\ge 0$. 
 Dividing by $t > 0$ and letting $t$ decrease to 0 shows $\xi^* y\ge 0$. 
 Take $y = x^*$ then $tx^* + x^*\in C$ for $t \ge -1$. By similar reasoning,
 letting $t$ increase to 0 shows $\xi^* x^*\le 0$ so $\xi^* x^* = 0$. 
-Because $0 < ||\xi||^2 = \xi^* (x^* - x) = -\xi^* x$ we have $\xi^* x < 0$.
+Because $0 < \|\xi\|^2 = \xi^* (x^* - x) = -\xi^* x$ we have $\xi^* x < 0$.
 
 Since the set of non-negative finitely additive measures is a closed
 cone and $X\mapsto \int_\Omega X\,dD$ is positive, linear, and continuous
