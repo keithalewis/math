@@ -8,10 +8,14 @@ fleqn: true
 abstract: P&L is stochastic integration.
 ...
 
+\newcommand{\sgn}{\mathop{\rm{sgn}}}
+
+We define the profit and loss of a trading strategy.
+
 Suppose a stock has price $X_t$ at time $t$. If we buy one share of
 stock at time $t_0$ the potential profit and loss at time $t > t_0$, or
-mark-to-market, is $X_t - X_{t_0}$, assuming we could sell the share
-at time $t$ for $X_t$. If we sell the share at
+mark-to-market, is $X_t - X_{t_0}$ assuming we could sell the share
+at time $t$ for $X_t$. If we actuall sell the share at
 time $t_1 > t_0$ the realized profit and loss is $X_{t_1} - X_{t_0}$.
 This simple observation corresponds to the mathematical
 definition of stochastic integration.
@@ -43,12 +47,25 @@ $$
 \end{cases}
 $$
 
-This corresponds to the trading strategy buy $\Gamma_0$ at $t_0$ and sell $\Gamma_0$ at $t_1$.
-Define $\Gamma_t = \Gamma_0$ if $t = t_0$, $\Gamma_t = -\Gamma_0$ if $t = t_1$, and $\Gamma_t = 0$ otherwise.
+This corresponds to the _elementry_ trading strategy buy $\Gamma_0$ at $t_0$ and sell $\Gamma_0$ at $t_1$.
 
-__Exercise__. _Show $\Delta_t = \sum_{s < t} \Gamma_s = \Gamma_0 1_{(t_0, t_1]}(t)$_.
+Instead of fixed times $t_j$ we can generalize to _stopping times_ $\tau_j$.
 
-This corresponds to the usual trader notion of $\Delta$ (delta) being
-the position and $\Gamma$ (gamma) being the change in the position.
+A _trading strategy_ is a finite number of increasing stopping times
+$\tau_0 < \tau_1 < \cdots < \tau_n$ and trades $\Gamma_0, \Gamma_1, \dots, \Gamma_n$
+where $\Gamma_j$ is a function of information available at time $\tau_j$
+and $\sum_j \Gamma_j = 0$. Every trading strategy must close out.
 
-Instead of fixed $t_0 < t_1$ we can generalize to _stopping times_ $\tau_0 < \tau_1$.
+The _position_ is the accumulation of trades ${\Delta_t = \sum_{\tau_j < t} \Gamma_j}$.
+Note the strict inequality. It takes some time for a trade to settle.
+We can write this as ${\Gamma_t = \sum_{s<t} \Gamma_s}$ where
+${\Gamma_s = \Gamma_j 1(s = \tau_j)}$. Note $\Delta_t$ is a linear combination of
+elementary treades and we define the profit and loss at time $t$ by
+the stochastic integral
+$$
+	\int_0^t \Delta_s\,dX_s.
+$$
+
+It is possible to incorporate transaction costs by replacing $\Gamma_j$
+with, e.g., $(1 + \epsilon\sgn(\Gamma_j))\Gamma_j$ where $\epsilon$ is
+the proportional transaction cost and $\sgn(x)$ is the sign of $x$.

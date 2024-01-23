@@ -48,15 +48,16 @@
 P&amp;L is stochastic integration.
 </div>
 </header>
+<p>We define the profit and loss of a trading strategy.</p>
 <p>Suppose a stock has price <span class="math inline">X_t</span> at
 time <span class="math inline">t</span>. If we buy one share of stock at
 time <span class="math inline">t_0</span> the potential profit and loss
 at time <span class="math inline">t &gt; t_0</span>, or mark-to-market,
-is <span class="math inline">X_t - X_{t_0}</span>, assuming we could
-sell the share at time <span class="math inline">t</span> for <span
-class="math inline">X_t</span>. If we sell the share at time <span
-class="math inline">t_1 &gt; t_0</span> the realized profit and loss is
-<span class="math inline">X_{t_1} - X_{t_0}</span>. This simple
+is <span class="math inline">X_t - X_{t_0}</span> assuming we could sell
+the share at time <span class="math inline">t</span> for <span
+class="math inline">X_t</span>. If we actuall sell the share at time
+<span class="math inline">t_1 &gt; t_0</span> the realized profit and
+loss is <span class="math inline">X_{t_1} - X_{t_0}</span>. This simple
 observation corresponds to the mathematical definition of stochastic
 integration.</p>
 <p>What the math does not accurately reflect is that the “price” <span
@@ -88,24 +89,38 @@ class="math inline">t_1</span>. <span class="math display">
 \Gamma_0(X_{t_1} - X_{t_0}) &amp; t &gt; t_1 \\
 \end{cases}
 </span></p>
-<p>This corresponds to the trading strategy buy <span
+<p>This corresponds to the <em>elementry</em> trading strategy buy <span
 class="math inline">\Gamma_0</span> at <span
 class="math inline">t_0</span> and sell <span
 class="math inline">\Gamma_0</span> at <span
-class="math inline">t_1</span>. Define <span
-class="math inline">\Gamma_t = \Gamma_0</span> if <span
-class="math inline">t = t_0</span>, <span class="math inline">\Gamma_t =
--\Gamma_0</span> if <span class="math inline">t = t_1</span>, and <span
-class="math inline">\Gamma_t = 0</span> otherwise.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\Delta_t = \sum_{s &lt; t} \Gamma_s = \Gamma_0
-1_{(t_0, t_1]}(t)</span></em>.</p>
-<p>This corresponds to the usual trader notion of <span
-class="math inline">\Delta</span> (delta) being the position and <span
-class="math inline">\Gamma</span> (gamma) being the change in the
-position.</p>
-<p>Instead of fixed <span class="math inline">t_0 &lt; t_1</span> we can
-generalize to <em>stopping times</em> <span class="math inline">\tau_0
-&lt; \tau_1</span>.</p>
+class="math inline">t_1</span>.</p>
+<p>Instead of fixed times <span class="math inline">t_j</span> we can
+generalize to <em>stopping times</em> <span
+class="math inline">\tau_j</span>.</p>
+<p>A <em>trading strategy</em> is a finite number of increasing stopping
+times <span class="math inline">\tau_0 &lt; \tau_1 &lt; \cdots &lt;
+\tau_n</span> and trades <span class="math inline">\Gamma_0, \Gamma_1,
+\dots, \Gamma_n</span> where <span class="math inline">\Gamma_j</span>
+is a function of information available at time <span
+class="math inline">\tau_j</span> and <span class="math inline">\sum_j
+\Gamma_j = 0</span>. Every trading strategy must close out.</p>
+<p>The <em>position</em> is the accumulation of trades <span
+class="math inline">{\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j}</span>.
+Note the strict inequality. It takes some time for a trade to settle. We
+can write this as <span class="math inline">{\Gamma_t = \sum_{s&lt;t}
+\Gamma_s}</span> where <span class="math inline">{\Gamma_s = \Gamma_j
+1(s = \tau_j)}</span>. Note <span class="math inline">\Delta_t</span> is
+a linear combination of elementary treades and we define the profit and
+loss at time <span class="math inline">t</span> by the stochastic
+integral <span class="math display">
+    \int_0^t \Delta_s\,dX_s.
+</span></p>
+<p>It is possible to incorporate transaction costs by replacing <span
+class="math inline">\Gamma_j</span> with, e.g., <span
+class="math inline">(1 +
+\epsilon\mathop{\rm{sgn}}(\Gamma_j))\Gamma_j</span> where <span
+class="math inline">\epsilon</span> is the proportional transaction cost
+and <span class="math inline">\mathop{\rm{sgn}}(x)</span> is the sign of
+<span class="math inline">x</span>.</p>
 </body>
 </html>
