@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-01-23" />
+  <title>Profit and Loss</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Profit and Loss</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">January 23, 2024</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+P&amp;L is stochastic integration.
+</div>
+</header>
+<p>Suppose a stock has price <span class="math inline">X_t</span> at
+time <span class="math inline">t</span>. If we buy one share of stock at
+time <span class="math inline">t_0</span> the potential profit and loss
+at time <span class="math inline">t &gt; t_0</span>, or mark-to-market,
+is <span class="math inline">X_t - X_{t_0}</span>, assuming we could
+sell the share at time <span class="math inline">t</span> for <span
+class="math inline">X_t</span>. If we sell the share at time <span
+class="math inline">t_1 &gt; t_0</span> the realized profit and loss is
+<span class="math inline">X_{t_1} - X_{t_0}</span>. This simple
+observation corresponds to the mathematical definition of stochastic
+integration.</p>
+<p>What the math does not accurately reflect is that the “price” <span
+class="math inline">X_t</span> is somewhat nebulous in the absence of an
+actual transaction. Your brokerage account will record the exact time,
+price, and amount of every transaction executed. Anyone who has ever
+traded knows the “price” <span class="math inline">X_t</span> they watch
+during trading hours is not necessarily what will ultimately show up in
+their account.</p>
+<p>If <span class="math inline">\Delta_t = 1</span> when <span
+class="math inline">t_0 &lt; t \le t_1</span> and is zero otherwise,
+then the P&amp;L is <span class="math display">
+\int_0^t \Delta_s\,dX_s = \int_0^t 1_{(t_0,t_1]}(s)\,dX_s =
+\begin{cases}
+0 &amp; t \le t_0 \\
+X_t - X_{t_0} &amp; t_0 &lt; t \le t_1 \\
+X_{t_1} - X_{t_0} &amp; t &gt; t_1 \\
+\end{cases}
+</span></p>
+<p>Instead of one share, we could buy any number of shares <span
+class="math inline">\Gamma_0</span> based on information available at
+time <span class="math inline">t_0</span> and sell <span
+class="math inline">\Gamma_0</span> shares at time <span
+class="math inline">t_1</span>. <span class="math display">
+\int_0^t \Gamma_0 1_{(t_0, t_1]}(s)\,dX_s =
+\begin{cases}
+0 &amp; t \le t_0 \\
+\Gamma_0(X_t - X_{t_0}) &amp; t_0 &lt; t \le t_1 \\
+\Gamma_0(X_{t_1} - X_{t_0}) &amp; t &gt; t_1 \\
+\end{cases}
+</span></p>
+<p>This corresponds to the trading strategy buy <span
+class="math inline">\Gamma_0</span> at <span
+class="math inline">t_0</span> and sell <span
+class="math inline">\Gamma_0</span> at <span
+class="math inline">t_1</span>. Define <span
+class="math inline">\Gamma_t = \Gamma_0</span> if <span
+class="math inline">t = t_0</span>, <span class="math inline">\Gamma_t =
+-\Gamma_0</span> if <span class="math inline">t = t_1</span>, and <span
+class="math inline">\Gamma_t = 0</span> otherwise.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\Delta_t = \sum_{s &lt; t} \Gamma_s = \Gamma_0
+1_{(t_0, t_1]}(t)</span></em>.</p>
+<p>This corresponds to the usual trader notion of <span
+class="math inline">\Delta</span> (delta) being the position and <span
+class="math inline">\Gamma</span> (gamma) being the change in the
+position.</p>
+<p>Instead of fixed <span class="math inline">t_0 &lt; t_1</span> we can
+generalize to <em>stopping times</em> <span class="math inline">\tau_0
+&lt; \tau_1</span>.</p>
+</body>
+</html>

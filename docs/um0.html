@@ -5,8 +5,8 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-07-06" />
-  <title>Unified Model for Derivative Intruments</title>
+  <meta name="dcterms.date" content="2024-01-23" />
+  <title>Unified Model for Derivative Instruments</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -16,24 +16,8 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -49,21 +33,66 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Unified Model for Derivative Intruments</h1>
+<h1 class="title">Unified Model for Derivative Instruments</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">July 6, 2023</p>
+<p class="date">January 23, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of any instruments
 </div>
 </header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#market" id="toc-market">Market</a>
+<ul>
+<li><a href="#model" id="toc-model">Model</a>
+<ul>
+<li><a href="#price-cash-flow" id="toc-price-cash-flow">Price, Cash
+Flow</a></li>
+</ul></li>
+<li><a href="#trading" id="toc-trading">Trading</a>
+<ul>
+<li><a href="#trade-position" id="toc-trade-position">Trade,
+Position</a></li>
+<li><a href="#value-account" id="toc-value-account">Value,
+Account</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#arbitrage" id="toc-arbitrage">Arbitrage</a></li>
+<li><a href="#hedge" id="toc-hedge">Hedge</a></li>
+<li><a href="#discount-measure" id="toc-discount-measure">Discount
+Measure</a></li>
+<li><a href="#examples" id="toc-examples">Examples</a>
+<ul>
+<li><a href="#black-scholesmerton"
+id="toc-black-scholesmerton">Black-Scholes/Merton</a></li>
+<li><a href="#transaction" id="toc-transaction">Transaction</a></li>
+<li><a href="#limit-orders" id="toc-limit-orders">Limit Orders</a></li>
+<li><a href="#market-orders" id="toc-market-orders">Market
+Orders</a></li>
+<li><a href="#forwards" id="toc-forwards">Forwards</a></li>
+<li><a href="#futures" id="toc-futures">Futures</a>
+<ul>
+<li><a href="#risky-bonds" id="toc-risky-bonds">Risky Bonds</a></li>
+</ul></li>
+<li><a href="#forward-rate-agreement"
+id="toc-forward-rate-agreement">Forward Rate Agreement</a></li>
+<li><a href="#convexity" id="toc-convexity">Convexity</a></li>
+<li><a href="#swap" id="toc-swap">Swap</a></li>
+</ul></li>
+<li><a href="#mathematical-prerequisites"
+id="toc-mathematical-prerequisites">Mathematical Prerequisites</a></li>
+<li><a href="#acknowledgments"
+id="toc-acknowledgments">Acknowledgments</a></li>
+</ul>
+</nav>
 <p>The intended customers of mathematical finance are businesses writing
 checks for tools they find useful. This has become obscured by the
 plethora of literature produced for academic purposes. Businesses find
@@ -710,9 +739,5 @@ count is the number of days from <span class="math inline">u</span> to
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
-<hr/>
-<footer>
-Return to <a href="index.html">index</a>.
-</footer>
 </body>
 </html>

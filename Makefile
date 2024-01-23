@@ -60,7 +60,7 @@ slides: um_slides.md
 	pandoc -o um_slides.pptx um_slides.md
 
 ep.latex: ep.md
-	pandoc  --pdf-engine=xelatex --bibliography=capm.bib $< -o $@
+	pandoc -t latex --pdf-engine=xelatex --bibliography=capm.bib $< -o $@
 
 ep.pdf: ep.latex
 	xetex ep.latex

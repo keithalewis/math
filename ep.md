@@ -97,6 +97,7 @@ ${\xi^* X(\omega) = \sum_{i\in I} \xi_i X_i(\omega)}$ when liquidated at the
 end of the period if $\omega\in\Omega$ occurs.  The _realized return_
 of $\xi$ is ${R_\xi = \xi^* X/\xi^* x}$ when $\xi^* x \not= 0$.
 
+<!--
 _Arbitrage_ exists if there is a portfolio $\xi\in\RR^I$ with $\xi^* x <
 0$ and $\xi^* X(\omega) \ge0$, $\omega\in\Omega$.  The cost of acquiring
 the portfolio is negative so you make money up front.  The liquidation
@@ -106,6 +107,7 @@ The _Fundamental Theorem of Asset Pricing_ for the one-period model
 states there is no arbitrage if and only if there exists a positive
 finitely additive measure $D$ on $\Omega$ with $x = \int_\Omega X\,dD$. See the
 [Appendix](fundamental-theorem-of-asset-pricing) for an elementary proof.
+-->
 
 If there exists a portfolio $\zeta\in\RR^I$ with $\zeta^* X = 1$ then
 a riskless _zero coupon bond_ is available with
@@ -139,9 +141,6 @@ and $x = E[X]D$ where $D = -\mu/\lambda$.
 In this case every portfolio $\xi\in\RR^I$
 has the same expected realized return
 ${E[R_\xi] = E[\xi^*X/\xi^*x] = 1/D}$ and $\zeta$ is clearly optimal.
-
-The condition $x = E[X]D$ for some positive $D\in\RR$ is equivalent to
-the model being [arbitrage free](#fundamental-theorem-of-asset-pricing).
 
 We assume $V\xi = 0$ implies $\xi = 0$ so $V$ has a left inverse $V^\dashv$ hence
 $$
@@ -322,6 +321,8 @@ $$
 \Var(R_\xi) = \xi^* V\xi = (C - 2Br + Ar^2)/D.
 $$
 
+<!--
+
 ### Fundamental Theorem of Asset Pricing
 
 It may be the case $V^{\dashv}x$ and $V^{\dashv}E[X]$ are dependent.
@@ -378,4 +379,4 @@ $C = \{\int_\Omega X\,dD : D\ge 0\}$ is also a closed cone.
 The contrapositive follows from the lemma.
 
 The proof also shows how to find an arbitrage when one exists.
-
+-->

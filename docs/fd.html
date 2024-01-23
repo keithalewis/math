@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-01-22" />
+  <title>Fréchet Derivative</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Fréchet Derivative</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">January 22, 2024</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Infinite dimensional derivatives
+</div>
+</header>
+<p>The Fréchet derivative is the derivative of a function between normed
+vector spaces.</p>
+<p>If <span
+class="math inline">f\colon\boldsymbol{R}\to\boldsymbol{R}</span> then
+the derivative of <span class="math inline">f</span> at <span
+class="math inline">x</span> is <span class="math inline">f&#39;(x) =
+\lim_{h\to 0}(f(x + h) - f(x))/h</span>. The function <span
+class="math inline">f</span> can be approximated near <span
+class="math inline">x</span> by a line with slope <span
+class="math inline">f&#39;(x)</span>.</p>
+<p>The limit can be written using <em>little <span
+class="math inline">o</span></em> notation as <span
+class="math display">
+    f(x + h) = f(x) + f&#39;(x)h + o(h).
+</span> The derivative is actually a linear functional <span
+class="math inline">h\mapsto f&#39;(x)h</span>.</p>
+<p>If <span class="math inline">F\colon X\to Y</span> where <span
+class="math inline">X</span> and <span class="math inline">Y</span> are
+normed linear spaces then the Fréchet derivative of <span
+class="math inline">F</span> at <span class="math inline">x</span> is
+<span class="math inline">{DF\colon X\to\mathcal{B}(X,Y)}</span> defined
+by <span class="math display">
+    F(x + h) = F(x) + DF(x)h + o(\|h\|)
+</span> for <span class="math inline">x,h\in X</span> where <span
+class="math inline">\mathcal{B}(X,Y)</span> is the set of bounded linear
+operators from <span class="math inline">X</span> to <span
+class="math inline">Y</span>. The function <span
+class="math inline">F</span> can be approximated near <span
+class="math inline">x</span> by the linear operator <span
+class="math inline">DF(x)</span>.</p>
+<p>The <em>dual</em> of a normed linear space <span
+class="math inline">X</span> is <span class="math inline">X^* =
+\mathcal{B}(X,\boldsymbol{R})</span>.</p>
+<p><strong>Exercise</strong>. <em>Define <span
+class="math inline">F\colon X\to\boldsymbol{R}</span> by <span
+class="math inline">F(x) = a^*x</span> where <span
+class="math inline">a^*\in X^*</span>. Show <span
+class="math inline">DF(x) = a^*</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">F(x + h) = a^*(x + h) = F(x)
++ a^*h + 0</span>.</p>
+<p>If <span class="math inline">T\in\mathcal{B}(X, Y)</span> define the
+<em>adjoint</em> <span class="math inline">T^*\in\mathcal{B}(Y^*,
+X^*)</span> by <span class="math inline">(T^*y^*) x = y^*Tx</span> for
+<span class="math inline">x\in X</span>, <span
+class="math inline">y^*\in Y^*</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">T^*</span> is linear</em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">T^*(tu^* + v^*) =
+tT^*u^* + T^*v^*</span> for <span
+class="math inline">t\in\boldsymbol{R}</span>, <span
+class="math inline">u^*, v^*\in Y^*</span>.</p>
+<p><span class="math inline">V^*\cong V</span> if <span
+class="math inline">V</span> is finite dimensional.</p>
+<p><span class="math inline">(g\circ f)&#39;(x) =
+g&#39;(f(x))f&#39;(x)</span>.</p>
+<p>It is possible to write this without introducing the variable <span
+class="math inline">x</span>.</p>
+<p><span class="math inline">D(G\circ F)(x) = DG(f(x))DF(x)</span>.</p>
+<p><span class="math inline">F\colon X\to Y</span>, <span
+class="math inline">G\colon Y\to Z</span></p>
+<p>If <span class="math inline">A</span> and <span
+class="math inline">B</span> are sets then <span class="math inline">B^A
+= \{f\colon A\to B\}</span> is the set of all function from <span
+class="math inline">A</span> to <span class="math inline">B</span>.</p>
+<p>We write <span class="math inline">B^A = \{A\to B\}</span>.</p>
+<p>If $f</p>
+</body>
+</html>
