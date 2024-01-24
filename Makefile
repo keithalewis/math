@@ -59,11 +59,11 @@ slides: um_slides.md
 	pandoc -V theme=serif -t revealjs -o um_slides.html um_slides.md
 	pandoc -o um_slides.pptx um_slides.md
 
-ep.latex: ep.md
-	pandoc -t latex --pdf-engine=xelatex --bibliography=capm.bib $< -o $@
+ep.pdf: ep.md
+	pandoc --citeproc --pdf-engine=xelatex --bibliography=capm.bib $< -o $@
 
-ep.pdf: ep.latex
-	xetex ep.latex
-	bibtex ep.aux
-	xetex ep.latex
-	xetex ep.latex
+#ep.pdf: ep.latex
+#	xetex ep.latex
+#	bibtex ep.aux
+#	xetex ep.latex
+#	xetex ep.latex

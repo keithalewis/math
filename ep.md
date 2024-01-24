@@ -50,9 +50,12 @@ $$
 $$
 where $\beta = \Cov(R, R_1)/\Var(R_1)$.
 
-The primary contribution of this short note is the observation that the CAPM formula
-holds for realized returns as random variables, not just their expectations.
-This follows directly from writing down a mathematical model for one period investments.
+This short note points out the CAPM formula
+holds as equality of realized returns as random variables, not just their expectations.
+It follows directly from writing down a mathematical model for one period investments.
+Prior work does not explicitly specify a sample space and probability measure,
+the first step in any model involving probability since Kolomogorov legitimized probability
+as a branch of measure theory. \cite{@Kol1922}
 
 <!--
 ## Background
@@ -80,9 +83,7 @@ Let $I$ be the set of _market instruments_ and $\Omega$ be the set of
 possible market outcomes over the period.  The _one-period model_
 specifies the initial instrument prices $x\in\RR^I$ and the final
 instrument prices $X\colon\Omega\to\RR^I$ depending on the outcome
-$\omega\in\Omega$ that occurs. We assume $X$ is bounded, because it is.
-Recall if $A$ and $B$ are sets then $B^A = \{f\colon A\to B\}$ is the set of all
-functions from $A$ to $B$. We write $x_i$ for $x(i)$ when $x\in\RR^I$.
+$\omega\in\Omega$ that occurs.
 
 The one period model also specifies a probability
 measure on the space of outcomes. Addressing this fundamental and
@@ -109,10 +110,6 @@ finitely additive measure $D$ on $\Omega$ with $x = \int_\Omega X\,dD$. See the
 [Appendix](fundamental-theorem-of-asset-pricing) for an elementary proof.
 -->
 
-If there exists a portfolio $\zeta\in\RR^I$ with $\zeta^* X = 1$ then
-a riskless _zero coupon bond_ is available with
-return $R_\zeta = 1/\zeta^* x$. The cost $D = \zeta^*x$ is the "discount".
-
 ## Efficient Portfolio
 
 A portfolio is _efficient_ if its variance is
@@ -123,8 +120,20 @@ Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so
 there is no loss in assuming $\xi^* x = 1$.
 In this case $R_\xi = \xi^* X$ is the realized return of the portfolio.
 
-If $\xi^* x = 1$ then ${\Var(R_\xi) = \xi^* V\xi}$
-where ${V = \Var(X) = \Cov(X,X) = E[XX^*] - E[X]E[X^*]}$.
+If $\xi^* x = 1$ then
+$$
+\begin{aligned}
+\Var(R_\xi) &= \Cov(R_\xi, R_\xi) \\
+	&= \Cov(\xi^*X, \xi^*X) \\
+	&= E[\xi^*X \xi^*X] - E[\xi^*X] E[\xi^*X] \\
+	&= E[\xi^*X X^*\xi] - E[\xi^*X] E[X^*\xi] \\
+	&= \xi^*E[X X^*]\xi - \xi^*E[X] E[X^*]\xi \\
+	&= \xi^*(E[X X^*]\xi] - E[X] E[X^*])\xi \\
+	&= \xi^*V\xi \\
+\end{aligned}
+$$
+where $V = E[X X^*] - E[X] E[X]^*$.
+
 For a given expected realized return $r\in\RR$ we use Lagrange multipliers and minimize
 $$
 	\frac{1}{2}\xi^* V\xi - \lambda(\xi^* x - 1) - \mu(\xi^* E[X] - r)
@@ -146,21 +155,11 @@ We assume $V\xi = 0$ implies $\xi = 0$ so $V$ has a left inverse $V^\dashv$ henc
 $$
 	\xi =  \lambda V^{\dashv}x + \mu V^{\dashv} E[X].
 $$
-The [Appendix](#appendix) shows $\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$, where
-${A = x^* V^{\dashv}x}$, ${B = x^* V^{\dashv}E[X] = E[X^*]V^{\dashv}x}$, ${C = E[X^*]V^{\dashv}E[X]}$,
-and ${D = AC - B^2}$.
-Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
-$E[XX^*]$.
 
-Classical literature makes the implicit assumption $\Omega = \RR^I$, so
-any instrument can go to any price, and that returns are jointly normal
-to reduce the problem of finding a probability measure to estimating
-the mean $E[X]$ and the covariance $E[XX^*] - E[X] E[X^*]$.
-This may explain why prior authors overlooked our elementary but stronger
-result.
-
-This shows every efficient portfolio is in the span of 
+This shows efficient portfolios are in the span of 
 $V^{\dashv}x$ and $V^{\dashv} E[X]$.
+Generalze black.
+
 If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
 ${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$.
 Assuming, as we may, that $\xi_j^* x = 1$ for $j = 0,1$ then $\xi^* x = \beta_0 + \beta_1$
@@ -175,6 +174,20 @@ Taking the covariance with ${R_{\xi_1} - R_{\xi_0}}$ on both sides gives
 $$
 	\beta = \Cov(R_\xi - R_{\xi_0}, R_{\xi_1} - R_{\xi_0})/\Var(R_{\xi_1} - R_{\xi_0}).
 $$
+
+
+The [Appendix](#appendix) shows $\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$, where
+${A = x^* V^{\dashv}x}$, ${B = x^* V^{\dashv}E[X] = E[X^*]V^{\dashv}x}$, ${C = E[X^*]V^{\dashv}E[X]}$,
+and ${D = AC - B^2}$.
+Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
+$E[XX^*]$.
+
+Classical literature makes the implicit assumption $\Omega = \RR^I$, so
+any instrument can go to any price, and that returns are jointly normal
+to reduce the problem of finding a probability measure to estimating
+the mean $E[X]$ and the covariance $E[XX^*] - E[X] E[X^*]$.
+This may explain why prior authors overlooked our elementary but stronger
+result.
 
 A portfolio $\zeta$ is _riskless_ if its realized return is constant. In this case
 $\Var(R_\zeta) = 0$ so it is efficient.
@@ -320,6 +333,8 @@ A straightforward calculation shows the variance is
 $$
 \Var(R_\xi) = \xi^* V\xi = (C - 2Br + Ar^2)/D.
 $$
+
+## References
 
 <!--
 
