@@ -120,7 +120,9 @@ Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so
 there is no loss in assuming $\xi^* x = 1$.
 In this case $R_\xi = \xi^* X$ is the realized return of the portfolio.
 
-If $\xi^* x = 1$ then
+If $\xi^* x = 1$ then $\Var(R_\xi) = \xi^*V\xi$
+where $V = E[X X^*] - E[X] E[X]^*$.
+<!--
 $$
 \begin{aligned}
 \Var(R_\xi) &= \Cov(R_\xi, R_\xi) \\
@@ -132,7 +134,7 @@ $$
 	&= \xi^*V\xi \\
 \end{aligned}
 $$
-where $V = E[X X^*] - E[X] E[X]^*$.
+-->
 
 For a given expected realized return $r\in\RR$ we use Lagrange multipliers and minimize
 $$
@@ -395,3 +397,4 @@ The contrapositive follows from the lemma.
 
 The proof also shows how to find an arbitrage when one exists.
 -->
+

@@ -62,6 +62,9 @@ slides: um_slides.md
 ep.pdf: ep.md
 	pandoc --citeproc --pdf-engine=xelatex --bibliography=capm.bib $< -o $@
 
+ep.html: ep.md
+	pandoc --citeproc --bibliography=capm.bib $< -o $@
+
 #ep.pdf: ep.latex
 #	xetex ep.latex
 #	bibtex ep.aux
