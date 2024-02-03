@@ -37,8 +37,8 @@ _Arbitrage_ exists if there is a portfolio $\xi^*$ with $\xi^*x < 0$
 and $\xi^*X(\omega)\ge0$ for $\omega\in\Omega$.
 You make money setting up the porfolio and never lose when it is
 unwound at the end of the period.
+Note this definiton of arbitrage does not depend on a measure.
 
-Note this definiton of arbitrage does not depend on the probability measure.
 Even though you make a positive amount with certainty this definition
 is not good enough for real world applicaton.
 A measure of the amount of capital involved is $|\xi|\cdot |x|$.
@@ -53,12 +53,37 @@ $x$ is in the smallest cone containing the range of $X$.
 The Fundamental Theorem of Asset Pricing states there is no arbitrage if and only if
 $x$ belongs to the smallest closed cone containing the range of $X$.
 This is equivalent to saying $x = \int_\Omega X\,dD$ for some positive measure $D$.
-
-If a derivative pays $\phi(X)$ at the end of the period, where $\phi\colon\RR^I\to\RR$
-is the payof function, then the value $v$ of the derivative is constrained
-by $(x,v)$ must belong to the smallest closed cone containing the range
-of $(X,\phi(X)$ so $v\in\{\int \phi\,dD\}\mid x = \int X\,dD\}
+We call such a measure $D$ a _numeraire_ for the model.
 
 If the market is incomplete then the _numeraire_ $D$ is not unique.
 If $x$ does not belong to the smallest closed cone containing the range of $X$
 and $y$ is the closest point in the cone then $\xi = y - x$ is an arbitrage.
+
+If a derivative pays $\phi(X)$ at the end of the period, where $\phi\colon\RR^I\to\RR$
+is the payof function, then the value $v$ of the derivative is constrained
+by $(x,v)$ must belong to the smallest closed cone containing the range
+of $(X,\phi(X))$ so ${v = \int_\Omega \phi(X)\,dD}$ for some numeraire $D$.
+
+If $\Omega = \{\omega_0, \omega_1\}$ has two points and
+$I$ has two (independent) intruments then
+$x = X(\omega_0) D_0 + X(\omega_1) D_1$ for some $D_0, D_1\in\RR$.
+This is called the _binomial model_ and the value of any option is
+${v = \phi(X_{i_0}(\omega_0)) D_0 + \phi(X_{i_1}(\omega_1)) D_1}$. Every payoff is
+equivalent to a linear payoff in a binomial model.
+
+__Exercise__. _If the model is arbitrage free then $D_0,D_1 \ge 0$_.
+
+If$X_{i_0}, X_{i_1}\in\RR^\Omega$ are
+independent for some $i_0,i_1\in I$ then those determine $D_0$ and $D_1$
+
+## Examples
+
+Let $x = (1, s)$ and $X(\omega) = (R, \omega)$ for $\omega\in\Omega = \{L, H\}$.
+Solving $x = X(L) D_L + X(H) D_H$ for $D_L,D_H\in\RR$ gives
+1 = R D_L + R D_H
+s = L D_L + H D_H
+
+H -R
+-L R
+
+$D_L = 
