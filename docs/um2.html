@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-01-23" />
+  <meta name="dcterms.date" content="2024-02-06" />
   <title>Unified Model for Derivative Instruments</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,172 +16,73 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: true
-   });
-}}});
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
   </script>
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Unified Model for Derivative Instruments</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 23, 2024</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-Value, hedge, and manage the risk of any instruments
-</div>
+<p class="date">February 6, 2024</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#market-model" id="toc-market-model">Market Model</a></li>
-<li><a href="#trade" id="toc-trade">Trade</a></li>
-<li><a href="#value" id="toc-value">Value</a></li>
-<li><a href="#arbitrage" id="toc-arbitrage">Arbitrage</a></li>
+<li><a href="#market-model">Market Model</a></li>
+<li><a href="#trade">Trade</a></li>
+<li><a href="#value">Value</a></li>
+<li><a href="#arbitrage">Arbitrage</a></li>
 </ul>
 </nav>
 <blockquote>
-<p>Market instruments can be bought or sold at a price and ownership
-entails cash flows. Shares of instruments can be traded based on
-available information and accumulate to positions. The mark-to-market
-value and amounts involved with trading correspond to price and cash
-flows respectively. The Unified Model demonstrates the connection
-between dynamic trading and how to value, hedge, and manage the risk of
-any portfolio.</p>
+<p>Market instruments can be bought or sold at a price and ownership entails cash flows. Shares of instruments can be traded based on available information and accumulate to positions. The mark-to-market value and amounts involved with trading correspond to price and cash flows respectively. The Unified Model demonstrates the connection between dynamic trading and how to value, hedge, and manage the risk of any portfolio.</p>
 </blockquote>
 <blockquote>
-<p>Every arbitrage-free model of prices and cash flows is parameterized
-by a vector-valued martingale whose components are indexed by market
-instruments and positive measures.</p>
+<p>Every arbitrage-free model of prices and cash flows is parameterized by a vector-valued martingale whose components are indexed by market instruments and positive measures.</p>
 </blockquote>
 <pre><code>XXX If repurchase agreements are available the
 canonical deflator is the reciprocal of the money market account.</code></pre>
-<p>A <em>derivative security</em> is a contract between two parties: I
-will give you this on these dates if you will give me that on those
-dates. Derivatives must have existed since before recorded history. The
-Nobel prize winning breakthrough of Black, Scholes, and Merton showed
-how to synthesize derivatives by dynamically trading market instruments
-based on the borrowing cost used to fund the hedge. Estimating the
-growth rate of the underlying securities was not neccesary.</p>
-<p>This paper provides a unified model for valuing, hedging, and
-managing the risk of any derivative security. It shows how they can be
-synthesized by trading market instruments and turns the spotlight on
-what may be the next Nobel prize winning problem: how should you hedge
-if you can’t do it continuously?</p>
-<p>The Unified Model can be used for any portfolio of stocks, bonds,
-currencies, commodities, and even other derivatives in the portfolio.
-Academic literature tends to focus on prices, but cash flows should be
-placed on equal footing. The fact is that derivative contracts are
-specified by their cash flows. No arbitrage places constraints on their
-price dynamics.</p>
+<p>A <em>derivative security</em> is a contract between two parties: I will give you this on these dates if you will give me that on those dates. Derivatives must have existed since before recorded history. The Nobel prize winning breakthrough of Black, Scholes, and Merton showed how to synthesize derivatives by dynamically trading market instruments based on the borrowing cost used to fund the hedge. Estimating the growth rate of the underlying securities was not neccesary.</p>
+<p>This paper provides a unified model for valuing, hedging, and managing the risk of any derivative security. It shows how they can be synthesized by trading market instruments and turns the spotlight on what may be the next Nobel prize winning problem: how should you hedge if you can’t do it continuously?</p>
+<p>The Unified Model can be used for any portfolio of stocks, bonds, currencies, commodities, and even other derivatives in the portfolio. Academic literature tends to focus on prices, but cash flows should be placed on equal footing. The fact is that derivative contracts are specified by their cash flows. No arbitrage places constraints on their price dynamics.</p>
 <section id="market-model" class="level2">
 <h2>Market Model</h2>
-<p>Every <em>instrument</em> has a <em>price</em> <span
-class="math inline">X_t</span> and a <em>cash flow</em> <span
-class="math inline">C_t</span> at any trading time <span
-class="math inline">t\in T</span>. Instruments are assumed to be
-perfectly liquid: they can be bought or sold at the given price in any
-amount. Cash flows are associated with owning an instrument and are
-almost always 0; stocks have dividends, bonds have coupons, currencies
-have no cash flows, commodities have storage costs. European options
-have exactly one cash flow at expiration.</p>
-<p>Let <span class="math inline">T</span> be a totally ordered set of
-trading times, <span class="math inline">I</span> the set of all market
-instruments, <span class="math inline">\Omega</span> the sample space of
-possible outcomes, and <span class="math inline">{\mathcal{A}}_t</span>
-an algebra of sets modeling information available at time <span
-class="math inline">t\in T</span>. Prices and cash flows are bounded
-<span class="math inline">{\mathcal{A}}_t</span>-measurable functions
-<span class="math inline">{X_t,
-C_t\colon\Omega\to\boldsymbol{R}^I}</span>, <span
-class="math inline">{t\in T}</span>.</p>
-<p>We write <span class="math inline">X\in B({\mathcal{A}})</span> if
-<span class="math inline">X\colon{\mathcal{A}}\to\boldsymbol{R}</span>
-is a bounded <span class="math inline">{\mathcal{A}}</span>-measurable
-function. Note if <span class="math inline">{\mathcal{A}}</span> is
-finite then its atoms are a partition of <span
-class="math inline">\Omega</span> and being <span
-class="math inline">{\mathcal{A}}</span>-measurable is equivalent to
-<span class="math inline">X</span> being constant on atoms. In this case
-<span class="math inline">X\colon{\mathcal{A}}\to\boldsymbol{R}</span>
-is standard mathematical notation for a function when <span
-class="math inline">{\mathcal{A}}</span> is identifed with its
-atoms.</p>
+<p>Every <em>instrument</em> has a <em>price</em> <span class="math inline">X_t</span> and a <em>cash flow</em> <span class="math inline">C_t</span> at any trading time <span class="math inline">t\in T</span>. Instruments are assumed to be perfectly liquid: they can be bought or sold at the given price in any amount. Cash flows are associated with owning an instrument and are almost always 0; stocks have dividends, bonds have coupons, currencies have no cash flows, commodities have storage costs. European options have exactly one cash flow at expiration.</p>
+<p>Let <span class="math inline">T</span> be a totally ordered set of trading times, <span class="math inline">I</span> the set of all market instruments, <span class="math inline">\Omega</span> the sample space of possible outcomes, and <span class="math inline">{\mathcal{A}}_t</span> an algebra of sets modeling information available at time <span class="math inline">t\in T</span>. Prices and cash flows are bounded <span class="math inline">{\mathcal{A}}_t</span>-measurable functions <span class="math inline">{X_t, C_t\colon\Omega\to\boldsymbol{R}^I}</span>, <span class="math inline">{t\in T}</span>.</p>
+<p>We write <span class="math inline">X\in B({\mathcal{A}})</span> if <span class="math inline">X\colon{\mathcal{A}}\to\boldsymbol{R}</span> is a bounded <span class="math inline">{\mathcal{A}}</span>-measurable function. Note if <span class="math inline">{\mathcal{A}}</span> is finite then its atoms are a partition of <span class="math inline">\Omega</span> and being <span class="math inline">{\mathcal{A}}</span>-measurable is equivalent to <span class="math inline">X</span> being constant on atoms. In this case <span class="math inline">X\colon{\mathcal{A}}\to\boldsymbol{R}</span> is standard mathematical notation for a function when <span class="math inline">{\mathcal{A}}</span> is identifed with its atoms.</p>
 </section>
 <section id="trade" class="level2">
 <h2>Trade</h2>
-<p>Traders buy and sell shares based on information available at each
-trading time. They trade a finite number of times and eventually close
-out all postions.</p>
-<p>A <em>trading strategy</em> is a finite collection of strictly
-increasing stopping times <span class="math inline">(τ_j)</span> and
-trades <span class="math inline">(\Gamma_j)</span> where <span
-class="math inline">\Gamma_j:{\mathcal{A}}_{τ_j}\to
-\boldsymbol{R}^{I}</span> indicating the number of shares to trade in
-each instrument at time <span class="math inline">τ_j</span>. If <span
-class="math inline">\tau</span> is a stopping time then <span
-class="math inline">{\mathcal{A}}_\tau = \{A\in{\mathcal{A}}_t\mid t\in
-T, t\le\tau\}</span>.</p>
-<p>Trades accumulate to a <em>position</em> <span
-class="math inline">\Delta_t = \sum_{τ_j &lt; t}\Gamma_j = \sum_{s &lt;
-t}\Gamma_s</span> where <span class="math inline">\Gamma_s(\omega) =
-\Gamma_j(\omega)</span> when <span class="math inline">s =
-τ_j(\omega)</span>, <span class="math inline">\omega\in\Omega</span>. A
-trade at time <span class="math inline">t</span> is not included in the
-position at time <span class="math inline">t</span>; it takes some time
-for trades to settle.</p>
+<p>Traders buy and sell shares based on information available at each trading time. They trade a finite number of times and eventually close out all postions.</p>
+<p>A <em>trading strategy</em> is a finite collection of strictly increasing stopping times <span class="math inline">(τ_j)</span> and trades <span class="math inline">(\Gamma_j)</span> where <span class="math inline">\Gamma_j:{\mathcal{A}}_{τ_j}\to \boldsymbol{R}^{I}</span> indicating the number of shares to trade in each instrument at time <span class="math inline">τ_j</span>. If <span class="math inline">\tau</span> is a stopping time then <span class="math inline">{\mathcal{A}}_\tau = \{A\in{\mathcal{A}}_t\mid t\in T, t\le\tau\}</span>.</p>
+<p>Trades accumulate to a <em>position</em> <span class="math inline">\Delta_t = \sum_{τ_j &lt; t}\Gamma_j = \sum_{s &lt; t}\Gamma_s</span> where <span class="math inline">\Gamma_s(\omega) = \Gamma_j(\omega)</span> when <span class="math inline">s = τ_j(\omega)</span>, <span class="math inline">\omega\in\Omega</span>. A trade at time <span class="math inline">t</span> is not included in the position at time <span class="math inline">t</span>; it takes some time for trades to settle.</p>
 </section>
 <section id="value" class="level2">
 <h2>Value</h2>
 <p>XXX</p>
-<p>The <em>value</em>, or mark-to-market is <span
-class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>. It is
-the amount that would result from closing out the entire position at
-current market prices, assuming that is possible. The trading
-<em>account</em> is <span class="math inline">A_t = \Delta_t\cdot C_t -
-\Gamma_t\cdot X_t</span>; cash flows propostional to existing positions
-are credited and the cost of the trade at time <span
-class="math inline">t</span> is debited.</p>
+<p>The <em>value</em>, or mark-to-market is <span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>. It is the amount that would result from closing out the entire position at current market prices, assuming that is possible. The trading <em>account</em> is <span class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t</span>; cash flows propostional to existing positions are credited and the cost of the trade at time <span class="math inline">t</span> is debited.</p>
 </section>
 <section id="arbitrage" class="level2">
 <h2>Arbitrage</h2>
-<p><em>Arbitrage</em> exists if there is a trading stragegy <span
-class="math inline">(\Gamma_t)_{t\in T}</span> with <span
-class="math inline">A_0 &lt; 0</span>, <span class="math inline">A_t \ge
-0</span>, <span class="math inline">t &gt; 0</span>, and <span
-class="math inline">\sum_{t} \Gamma_t = 0</span>.</p>
-<p><strong>Theorem</strong>. (<em>Funamental Theorem of Asset
-Pricing</em>) There is no arbitrage if and only if there exist positive
-measures <span class="math inline">(D_t)_{t\in T}</span> on <span
-class="math inline">\Omega</span> with <span class="math display">
-    X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
-D_s)|_{{\mathcal{A}}_t}
+<p><em>Arbitrage</em> exists if there is a trading stragegy <span class="math inline">(\Gamma_t)_{t\in T}</span> with <span class="math inline">A_0 &lt; 0</span>, <span class="math inline">A_t \ge 0</span>, <span class="math inline">t &gt; 0</span>, and <span class="math inline">\sum_{t} \Gamma_t = 0</span>.</p>
+<p><strong>Theorem</strong>. (<em>Funamental Theorem of Asset Pricing</em>) There is no arbitrage if and only if there exist positive measures <span class="math inline">(D_t)_{t\in T}</span> on <span class="math inline">\Omega</span> with <span class="math display">
+    X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s D_s)|_{{\mathcal{A}}_t}
 </span></p>
-<p><strong>Lemma</strong>. For any arbitrage free model and any trading
-strategy <span class="math display">
-    V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
-D_s)|_{{\mathcal{A}}_t}
+<p><strong>Lemma</strong>. For any arbitrage free model and any trading strategy <span class="math display">
+    V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s D_s)|_{{\mathcal{A}}_t}
 </span></p>
-<p><strong>Lemma</strong>. If <span class="math inline">X_t D_t = M_t -
-\sum_{s\le t} C_s D_s</span> where <span class="math inline">M_t =
-M_u|_{{\mathcal{A}}_t}</span>, <span class="math inline">t \le u</span>
-then there is no arbitrage.</p>
+<p><strong>Lemma</strong>. If <span class="math inline">X_t D_t = M_t - \sum_{s\le t} C_s D_s</span> where <span class="math inline">M_t = M_u|_{{\mathcal{A}}_t}</span>, <span class="math inline">t \le u</span> then there is no arbitrage.</p>
 </section>
 </body>
 </html>

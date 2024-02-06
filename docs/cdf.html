@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-05-15" />
+  <meta name="dcterms.date" content="2023-09-20" />
   <title>Cumulative Distribution Functions</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,126 +16,53 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: true
-   });
-}}});
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
   </script>
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Cumulative Distribution Functions</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 15, 2023</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-Facts about cumulative distribution functions
-</div>
+<p class="date">September 20, 2023</p>
 </header>
-<p>We collect some facts about <a
-href="prob.html#random-variable"><em>random variables</em></a>, their <a
-href="prob.html#cumulant"><em>cumulants</em></a>, and deriatives that
-that are useful for <a href="op.html">option pricing</a>.</p>
+<p>We collect some facts about <a href="prob.html#random-variable"><em>random variables</em></a>, their <a href="prob.html#cumulant"><em>cumulants</em></a>, and deriatives that that are useful for <a href="op.html">option pricing</a>.</p>
 <section id="esscher" class="level2">
 <h2>Esscher</h2>
-<p>Recall the moment generating function of a random variable <span
-class="math inline">X</span> is <span class="math inline">M(s) =
-E[e^{sX}]</span> and its cumulant is <span class="math inline">κ(s) =
-\log M(s)</span>. Let <span class="math display">
+<p>Recall the moment generating function of a random variable <span class="math inline">X</span> is <span class="math inline">M(s) = E[e^{sX}]</span> and its cumulant is <span class="math inline">κ(s) = \log M(s)</span>. Let <span class="math display">
     M(s, x) = E[1(X\le x) e^{sX}]
 </span> be the <em>incomplete moment generating function</em>.</p>
-<p>The Esscher transform of the random variable <span
-class="math inline">X</span> with parameter <span
-class="math inline">s</span> has cumulative distribution function <span
-class="math display">
+<p>The Esscher transform of the random variable <span class="math inline">X</span> with parameter <span class="math inline">s</span> has cumulative distribution function <span class="math display">
     F_s(x) = M(s, x)/M(s) = E[1(X\le x) e^{s X - κ(s)}].
-</span> Let <span class="math inline">ε_s(x) = e^{s x - κ(s)}</span> and
-note <span class="math inline">E[ε_s(X)] = 1</span> so <span
-class="math inline">F_s</span> is a cdf.</p>
-<p>Write <span class="math inline">E_s</span> for the Esscher
-transformed measure so for any reasonable function <span
-class="math inline">g</span> we have <span class="math inline">E_s[g(X)]
-= E[g(X)ε_s(X)]</span> so <span class="math display">
-    ∂_s E_s[g(X)] = ∂_s E[g(X) ε_s(X)] = E[g(X) ε_s(X) (X - κ&#39;(s))]
-= E_s[g(X) (X - κ&#39;(s))]
-</span> since <span class="math inline">∂_s ε_s(x) = ε_s(x) (x -
-κ&#39;(s))</span>. Define the <em>partial cumulant</em> by <span
-class="math inline">κ(s, x) = \log M(s,x)</span> so <span
-class="math display">
-    ∂_s F_s(x) = ∂_s e^{κ(s, x) - κ(s)} = F_s(x) (κ&#39;(s, x) -
-κ&#39;(s)).
+</span> Let <span class="math inline">ε_s(x) = e^{s x - κ(s)}</span> and note <span class="math inline">E[ε_s(X)] = 1</span> so <span class="math inline">F_s</span> is a cdf.</p>
+<p>Write <span class="math inline">E_s</span> for the Esscher transformed measure so for any reasonable function <span class="math inline">g</span> we have <span class="math inline">E_s[g(X)] = E[g(X)ε_s(X)]</span> so <span class="math display">
+    ∂_s E_s[g(X)] = ∂_s E[g(X) ε_s(X)] = E[g(X) ε_s(X) (X - κ&#39;(s))] = E_s[g(X) (X - κ&#39;(s))]
+</span> since <span class="math inline">∂_s ε_s(x) = ε_s(x) (x - κ&#39;(s))</span>. Define the <em>partial cumulant</em> by <span class="math inline">κ(s, x) = \log M(s,x)</span> so <span class="math display">
+    ∂_s F_s(x) = ∂_s e^{κ(s, x) - κ(s)} = F_s(x) (κ&#39;(s, x) - κ&#39;(s)).
 </span></p>
 </section>
 <section id="distributions" class="level2">
 <h2>Distributions</h2>
-<p>We gather some facts about the distributions and cumulants of
-particular random variables.</p>
+<p>We gather some facts about the distributions and cumulants of particular random variables.</p>
 <section id="discrete" class="level3">
 <h3>Discrete</h3>
-<p>A discrete random variable is defined by the values it can have,
-<span class="math inline">\{x_j\}</span>, and the probability it takes
-on those values, <span class="math inline">P(X = x_j) = p_j</span>,
-where <span class="math inline">p_j &gt; 0</span> and <span
-class="math inline">\sum_j p_j = 1</span>. It has cdf <span
-class="math inline">F(x) = \sum_j 1(x\le x_j) p_j</span> and density
-<span class="math inline">f(x) = \sum_j δ_{x_j}(x) p_j</span> where
-<span class="math inline">δ_a</span> is the <em>delta function</em>, or
-<em>point mass</em>, at <span class="math inline">a</span>. The Esscher
-transform of a discrete random variable is discrete and takes the same
-values with <span class="math inline">P(X_s = x_j) ε_s(x_j)
-p_j</span>.</p>
+<p>A discrete random variable is defined by the values it can have, <span class="math inline">\{x_j\}</span>, and the probability it takes on those values, <span class="math inline">P(X = x_j) = p_j</span>, where <span class="math inline">p_j &gt; 0</span> and <span class="math inline">\sum_j p_j = 1</span>. It has cdf <span class="math inline">F(x) = \sum_j 1(x\le x_j) p_j</span> and density <span class="math inline">f(x) = \sum_j δ_{x_j}(x) p_j</span> where <span class="math inline">δ_a</span> is the <em>delta function</em>, or <em>point mass</em>, at <span class="math inline">a</span>. The Esscher transform of a discrete random variable is discrete and takes the same values with <span class="math inline">P(X_s = x_j) ε_s(x_j) p_j</span>.</p>
 </section>
 <section id="normal" class="level3">
 <h3>Normal</h3>
-<p>The standard normal random variable <span
-class="math inline">X</span> has density <span class="math inline">φ(x)
-= \exp(-x^2/2)/\sqrt{2\pi}</span>, <span class="math inline">-\infty
-&lt; x &lt; \infty</span>. The cdf can be expressed in terms of
-<em>error functions</em> as <span class="math inline">Φ(x) = (1 +
-\operatorname{erf}(x/\sqrt{2}))/2 = 1 -
-\operatorname{erfc}(x/\sqrt{2})/2</span>. Since <span
-class="math inline">\exp(sx - s^2/2) \exp(-x^2/2) = \exp(-(x -
-s)^2/2)</span> the Esscher transformed density is <span
-class="math inline">φ_s(x) = φ(x - s)</span>.</p>
-<p>The derivatives of the density are <span
-class="math inline">φ^{(n)}(x) = (-1)^nφ(x)H_n(x)</span> where <span
-class="math inline">H_n</span> are the Hermite polynomials. They satisfy
-the recurrence <span class="math inline">H_0(x) = 1</span>, <span
-class="math inline">H_1(x) = x</span> and <span
-class="math inline">H_{n+1}(x) = x H_n(x) - n H_{n-1}(x)</span>, <span
-class="math inline">n\ge 1</span>.</p>
+<p>The standard normal random variable <span class="math inline">X</span> has density <span class="math inline">φ(x) = \exp(-x^2/2)/\sqrt{2\pi}</span>, <span class="math inline">-\infty &lt; x &lt; \infty</span>. The cdf can be expressed in terms of <em>error functions</em> as <span class="math inline">Φ(x) = (1 + \operatorname{erf}(x/\sqrt{2}))/2 = 1 - \operatorname{erfc}(x/\sqrt{2})/2</span>. Since <span class="math inline">\exp(sx - s^2/2) \exp(-x^2/2) = \exp(-(x - s)^2/2)</span> the Esscher transformed density is <span class="math inline">φ_s(x) = φ(x - s)</span>.</p>
+<p>The derivatives of the density are <span class="math inline">φ^{(n)}(x) = (-1)^nφ(x)H_n(x)</span> where <span class="math inline">H_n</span> are the Hermite polynomials. They satisfy the recurrence <span class="math inline">H_0(x) = 1</span>, <span class="math inline">H_1(x) = x</span> and <span class="math inline">H_{n+1}(x) = x H_n(x) - n H_{n-1}(x)</span>, <span class="math inline">n\ge 1</span>.</p>
 <!--
 Some useful properties are 
 $$
@@ -189,21 +116,10 @@ $$
 </section>
 <section id="poisson" class="level3">
 <h3>Poisson</h3>
-<p>The Poisson distribution with parameter <span
-class="math inline">λ</span> has density <span class="math inline">P(X =
-n) = e^{-λ}λ^n/n!</span>, <span class="math inline">n\ge 0</span> and
-moment generating function <span class="math inline">M(s) = E[e^{s X}] =
-\exp(λ(e^s - 1))</span>, <span class="math inline">s &lt; λ</span>.
-Since <span class="math inline">\exp(sn - λ(e^s - 1)) e^{-λ}λ^n =
-\exp(-λe^s) (λ e^s)^n</span> the Esscher transformed distribution is
-also Poisson with parameter <span class="math inline">λe^s</span>.</p>
-<p>Taking a derivative with respect to <span
-class="math inline">s</span> we have <span class="math inline">∂_s
-E_s[g(X_λ)]] = λ e^s E[g(X_{λ e^s} + 1) - g(X_{λ e^s})]</span> so <span
-class="math display">
+<p>The Poisson distribution with parameter <span class="math inline">λ</span> has density <span class="math inline">P(X = n) = e^{-λ}λ^n/n!</span>, <span class="math inline">n\ge 0</span> and moment generating function <span class="math inline">M(s) = E[e^{s X}] = \exp(λ(e^s - 1))</span>, <span class="math inline">s &lt; λ</span>. Since <span class="math inline">\exp(sn - λ(e^s - 1)) e^{-λ}λ^n = \exp(-λe^s) (λ e^s)^n</span> the Esscher transformed distribution is also Poisson with parameter <span class="math inline">λe^s</span>.</p>
+<p>Taking a derivative with respect to <span class="math inline">s</span> we have <span class="math inline">∂_s E_s[g(X_λ)]] = λ e^s E[g(X_{λ e^s} + 1) - g(X_{λ e^s})]</span> so <span class="math display">
 ∂_s E_s[1(X_λ \le x)] = λ e^s e^{-λ e^s} (λe^s)^n/n!
-</span> where <span class="math inline">λ e^s &lt; n \le λ e^s +
-1</span>. <!--
+</span> where <span class="math inline">λ e^s &lt; n \le λ e^s + 1</span>. <!--
 $$
 \begin{aligned}
     \frac{d}{ds} E_s[g(X_λ)] &= \frac{d}{ds} E[g(X_λ)e^{s X - κ(s)}] \\
@@ -223,94 +139,44 @@ $$
 </section>
 <section id="exponential" class="level3">
 <h3>Exponential</h3>
-<p>The density of an exponential with parameter <span
-class="math inline">λ</span> is <span class="math inline">f(x) =
-λ\exp(-λ x)</span>, <span class="math inline">x\ge 0</span>. The moment
-generating function is <span class="math inline">M(s) = E[\exp sX] =
-\int_0^\infty \exp(sx) λ\exp(-λ x)\,dx = λ/(λ - s)</span>, <span
-class="math inline">s &lt; λ</span>. The Esscher transformed density is
-also a an exponential distribution with parameter <span
-class="math inline">λ</span> with parameter <span class="math inline">λ
-- s</span>.</p>
+<p>The density of an exponential with parameter <span class="math inline">λ</span> is <span class="math inline">f(x) = λ\exp(-λ x)</span>, <span class="math inline">x\ge 0</span>. The moment generating function is <span class="math inline">M(s) = E[\exp sX] = \int_0^\infty \exp(sx) λ\exp(-λ x)\,dx = λ/(λ - s)</span>, <span class="math inline">s &lt; λ</span>. The Esscher transformed density is also a an exponential distribution with parameter <span class="math inline">λ</span> with parameter <span class="math inline">λ - s</span>.</p>
 </section>
 <section id="generalized-logistic" class="level3">
 <h3>Generalized Logistic</h3>
-<p>A generalized logistic random variate has probability density
-function <span class="math inline">f(α,b;x) = c e^{-βx}/(1 + e^{-x})^{α
-+ β}</span>, <span class="math inline">-\infty &lt; x &lt;
-\infty</span>, where <span class="math inline">c = 1/B(α,β)</span> is
-the Beta function. If <span class="math inline">α = 1</span> and <span
-class="math inline">β = 1</span> this is the standard logistic function.
-The Esscher transformed density is also a generalized logistic with
-parameters <span class="math inline">α + s</span>, <span
-class="math inline">β - s</span>.</p>
-<p>Using <span class="math inline">u = 1/(1 + e^{-x})</span>, so <span
-class="math inline">e^x = u/(1 - u)</span> and <span
-class="math inline">dx = du/u(1-u)</span> the moment generating function
-is <span class="math display">
+<p>A generalized logistic random variate has probability density function <span class="math inline">f(α,b;x) = c e^{-βx}/(1 + e^{-x})^{α + β}</span>, <span class="math inline">-\infty &lt; x &lt; \infty</span>, where <span class="math inline">c = 1/B(α,β)</span> is the Beta function. If <span class="math inline">α = 1</span> and <span class="math inline">β = 1</span> this is the standard logistic function. The Esscher transformed density is also a generalized logistic with parameters <span class="math inline">α + s</span>, <span class="math inline">β - s</span>.</p>
+<p>Using <span class="math inline">u = 1/(1 + e^{-x})</span>, so <span class="math inline">e^x = u/(1 - u)</span> and <span class="math inline">dx = du/u(1-u)</span> the moment generating function is <span class="math display">
 \begin{aligned}
-E[e^{sX}] &amp;= c \int_{-\infty}^\infty e^{sx} e^{-βx}/(1 + e^{-x})^{α
-+ β}\,dx \\
+E[e^{sX}] &amp;= c \int_{-\infty}^\infty e^{sx} e^{-βx}/(1 + e^{-x})^{α + β}\,dx \\
     &amp;= c \int_0^1 (u/(1 - u))^{s-β} u^{α + β}\,du/u(1 - u) \\
     &amp;= c \int_0^1 u^{α + s - 1} (1 - u)^{β - s - 1}\,du \\
     &amp;= c B(α + s, β - s)\\
 \end{aligned}
-</span> where <span class="math inline">B(α,β)</span> is the Beta
-function. Since <span class="math inline">1 = cB(α, β)</span> <span
-class="math display">
+</span> where <span class="math inline">B(α,β)</span> is the Beta function. Since <span class="math inline">1 = cB(α, β)</span> <span class="math display">
     M(s) = B(α + s, β - s)/B(α, β).
-</span> A similar calculation shows the incomplete moment generating
-function is <span class="math display">
+</span> A similar calculation shows the incomplete moment generating function is <span class="math display">
     M(s,x) = B(α + s, β - s; u)/B(α, β) = I_u(α + s, β - s)
-</span> where <span class="math inline">u = 1/(1 + e^{-x})</span>, <span
-class="math inline">B(α, β; u)</span> is the incomplete Beta function,
-and <span class="math inline">I_u(α, β)</span> is the regularized
-incomplete Beta function.</p>
-<p>The Esscher transformed cumulative distribution function is <span
-class="math display">
+</span> where <span class="math inline">u = 1/(1 + e^{-x})</span>, <span class="math inline">B(α, β; u)</span> is the incomplete Beta function, and <span class="math inline">I_u(α, β)</span> is the regularized incomplete Beta function.</p>
+<p>The Esscher transformed cumulative distribution function is <span class="math display">
     F_s(x) = B(α + s, β - s; u)/B(α + s, β - s) = I_u(α + s, β - s).
 </span></p>
-<p>Next we show <span class="math inline">∂_x^n e^{-β x}(1 + e^{-x})^{-
-α - β} = \sum_{k=0}^n A_{n,k} (e^{-x})^{β + k}(1 + e^{-x})^{- α - β -
-k}</span> for coefficients <span class="math inline">A_{n,k}</span>,
-<span class="math inline">0\le k\le n</span>, not depending on <span
-class="math inline">x</span>. Clearly <span class="math inline">A_{0,0}
-= 1</span>. <span class="math display">
+<p>Next we show <span class="math inline">∂_x^n e^{-β x}(1 + e^{-x})^{- α - β} = \sum_{k=0}^n A_{n,k} (e^{-x})^{β + k}(1 + e^{-x})^{- α - β - k}</span> for coefficients <span class="math inline">A_{n,k}</span>, <span class="math inline">0\le k\le n</span>, not depending on <span class="math inline">x</span>. Clearly <span class="math inline">A_{0,0} = 1</span>. <span class="math display">
 \begin{aligned}
-∂_x^n e^{-β x}(1 + e^{-x})^{- α - β} &amp;= ∂_x\sum_{k=0}^{n-1}
-A_{n-1,k} (e^{-x})^{β + k}(1 + e^{-x})^{- α - β - k} \\
-    &amp;= \sum_{k=0}^{n-1} A_{n-1,k} \left((β + k)(e^{-x})^{β + k -
-1}(-e^{-x})(1 + e^{-x})^{- α - β - k}
-       + (e^{-x})^{β + k}(- α - β - k)(1 + e^{-x})^{- α - β - k - 1}
-(-e^{-x})\right)\\
-    &amp;= \sum_{k=0}^{n-1} A_{n-1,k} \left(-(β + k)(e^{-x})^{β + k}(1 +
-e^{-x})^{- α - β - k}
-       + (α + β + k) (e^{-x})^{β + k + 1}(1 + e^{-x})^{- α - β - k -
-1}\right)\\
-    &amp;= \sum_{k=0}^{n-1} A_{n-1,k} (-(β + k))(e^{-x})^{β + k}(1 +
-e^{-x})^{- α - β - k}
-       + \sum_{k=1}^n A_{n-1,k-1} (α + β + k - 1) (e^{-x})^{β + k}(1 +
-e^{-x})^{- α - β - k}\\
+∂_x^n e^{-β x}(1 + e^{-x})^{- α - β} &amp;= ∂_x\sum_{k=0}^{n-1} A_{n-1,k} (e^{-x})^{β + k}(1 + e^{-x})^{- α - β - k} \\
+    &amp;= \sum_{k=0}^{n-1} A_{n-1,k} \left((β + k)(e^{-x})^{β + k - 1}(-e^{-x})(1 + e^{-x})^{- α - β - k} 
+       + (e^{-x})^{β + k}(- α - β - k)(1 + e^{-x})^{- α - β - k - 1} (-e^{-x})\right)\\
+    &amp;= \sum_{k=0}^{n-1} A_{n-1,k} \left(-(β + k)(e^{-x})^{β + k}(1 + e^{-x})^{- α - β - k} 
+       + (α + β + k) (e^{-x})^{β + k + 1}(1 + e^{-x})^{- α - β - k - 1}\right)\\
+    &amp;= \sum_{k=0}^{n-1} A_{n-1,k} (-(β + k))(e^{-x})^{β + k}(1 + e^{-x})^{- α - β - k} 
+       + \sum_{k=1}^n A_{n-1,k-1} (α + β + k - 1) (e^{-x})^{β + k}(1 + e^{-x})^{- α - β - k}\\
     &amp;= A_{n-1,0} (-β)(e^{-x})^β(1 + e^{-x})^{- α - β}
         + \sum_{k=1}^{n-1}
-            A_{n-1,k} (-(β + k)) + A_{n-1,k-1}(α + β + k - 1))
-(e^{-x})^{β + k}(1 + e^{-x})^{- α - β - k}
-       + A_{n-1, n-1} (α + β + n - 1) (e^{-x})^{β + n}(1 + e^{-x})^{- α
-- β - n}\\
+            A_{n-1,k} (-(β + k)) + A_{n-1,k-1}(α + β + k - 1)) (e^{-x})^{β + k}(1 + e^{-x})^{- α - β - k} 
+       + A_{n-1, n-1} (α + β + n - 1) (e^{-x})^{β + n}(1 + e^{-x})^{- α - β - n}\\
 \end{aligned}
-</span> so <span class="math inline">A_{n,0} = (-b)^n A_{n-1,0}</span>,
-<span class="math inline">A_{n,k} = -(β + k)A_{n-1,k} + (α + β + k - 1)
-A_{n-1,k-1}</span>, <span class="math inline">0 &lt; k &lt; n</span>,
-and <span class="math inline">A_{n,n} = (α + β + n - 1) A_{n-1,
-n-1}</span>. If we define <span class="math inline">A_{n,-1} = 0 =
-A_{n,n+1}</span> <span class="math display">
+</span> so <span class="math inline">A_{n,0} = (-b)^n A_{n-1,0}</span>, <span class="math inline">A_{n,k} = -(β + k)A_{n-1,k} + (α + β + k - 1) A_{n-1,k-1}</span>, <span class="math inline">0 &lt; k &lt; n</span>, and <span class="math inline">A_{n,n} = (α + β + n - 1) A_{n-1, n-1}</span>. If we define <span class="math inline">A_{n,-1} = 0 = A_{n,n+1}</span> <span class="math display">
     A_{n,k} = -(β + k)A_{n-1,k} + (α + β + k - 1) A_{n-1,k-1}
-</span> for <span class="math inline">n &gt; 0</span> and <span
-class="math inline">A_{0,0} = 1</span>.</p>
-<p>The cumulant of the generalized logistic is <span
-class="math inline">κ(s) = \log B(α + s, β - s)/B(α, β) = \log Γ(α + s)
-- \log Γ(α) + \log Γ(β - s) - \log Γ(β)</span> using the fact <span
-class="math inline">B(α,β) = Γ(α)Γ(β)/Γ(α + β)</span></p>
+</span> for <span class="math inline">n &gt; 0</span> and <span class="math inline">A_{0,0} = 1</span>.</p>
+<p>The cumulant of the generalized logistic is <span class="math inline">κ(s) = \log B(α + s, β - s)/B(α, β) = \log Γ(α + s) - \log Γ(α) + \log Γ(β - s) - \log Γ(β)</span> using the fact <span class="math inline">B(α,β) = Γ(α)Γ(β)/Γ(α + β)</span></p>
 <!--
 
 For the incomplete cumulant we use $y = wt$, $z = w(1 - t)$ so
@@ -327,57 +193,31 @@ $$
 $$
 
 -->
-<p>Recall the <em>digamma</em> function <span class="math inline">ψ(s) =
-Γ&#39;(s)/Γ(s)</span> is the derivative of the log of the Gamma function
-so <span class="math inline">κ^{(n+1)}(s) = ψ^{(n)}(α + s) - (-1)^n
-ψ^{(n)}(β - s)</span> for <span class="math inline">n\ge 0</span>. In
-particular the mean is <span class="math inline">κ&#39;(0) = ψ(α) -
-ψ(β)</span> and variance is <span class="math inline">κ&#39;&#39;(0) =
-ψ&#39;(α) + ψ&#39;(β)</span>.</p>
-<p>Let the subscripts 1 and 2 indicate the partial derivatives with
-respect to the first and second parameter respectively. Recall <span
-class="math display">
-    B_1(α,β;u) = B(α,β;u)\log u - u^a\;_3F_2(α, α, 1 - β; α + 1, α + 1;
-u)
-</span> so <span class="math inline">B_1(u)/B(u) - B_1/B = \log u</span>
-omitting the parameters <span class="math inline">α</span> and <span
-class="math inline">β</span>.</p>
-<p>Using <span class="math inline">B(α,β;u) = 1 - B(β,α;1 - u)</span> we
-have <span class="math display">
+<p>Recall the <em>digamma</em> function <span class="math inline">ψ(s) = Γ&#39;(s)/Γ(s)</span> is the derivative of the log of the Gamma function so <span class="math inline">κ^{(n+1)}(s) = ψ^{(n)}(α + s) - (-1)^n ψ^{(n)}(β - s)</span> for <span class="math inline">n\ge 0</span>. In particular the mean is <span class="math inline">κ&#39;(0) = ψ(α) - ψ(β)</span> and variance is <span class="math inline">κ&#39;&#39;(0) = ψ&#39;(α) + ψ&#39;(β)</span>.</p>
+<p>Let the subscripts 1 and 2 indicate the partial derivatives with respect to the first and second parameter respectively. Recall <span class="math display">
+    B_1(α,β;u) = B(α,β;u)\log u - u^a\;_3F_2(α, α, 1 - β; α + 1, α + 1; u)
+</span> so <span class="math inline">B_1(u)/B(u) - B_1/B = \log u</span> omitting the parameters <span class="math inline">α</span> and <span class="math inline">β</span>.</p>
+<p>Using <span class="math inline">B(α,β;u) = 1 - B(β,α;1 - u)</span> we have <span class="math display">
     B_2(α,β;u) = -(\log (1 - u) - ψ(β) + ψ(β + α))B(β, α;1 - u)
-</span> so <span class="math inline">B_2(u)/B(u) - B_2/B = -\log (1 -
-u)</span>. Since <span class="math inline">F_s(x) = B(α + s, β - s;
-u)/B(α + s, β - s) = B(u)/B</span> <span class="math display">
+</span> so <span class="math inline">B_2(u)/B(u) - B_2/B = -\log (1 - u)</span>. Since <span class="math inline">F_s(x) = B(α + s, β - s; u)/B(α + s, β - s) = B(u)/B</span> <span class="math display">
 \begin{aligned}
-    ∂_s F_s(x) &amp;= \frac{B (B_1(u) - B_2(u)) - B(u)(B_1 - B_2)}{B^2}
-\\
-        &amp;= \frac{B(u)}{B}\left[\left(\frac{B_1(u)}{B(u)} -
-\frac{B_1}{B}\right)
+    ∂_s F_s(x) &amp;= \frac{B (B_1(u) - B_2(u)) - B(u)(B_1 - B_2)}{B^2} \\
+        &amp;= \frac{B(u)}{B}\left[\left(\frac{B_1(u)}{B(u)} - \frac{B_1}{B}\right)
             - \left(\frac{B_2(u)}{B(u)} - \frac{B_2}{B}\right)\right] \\
         &amp;= F_s(x) (\log u + \log (1 - u)).
 \end{aligned}
 </span></p>
 <p>Recall <span class="math display">
     B(α,β;u) = \frac{u^α}{α}\,_2F_1(α, 1 - β, α + 1;u).
-</span> where <span class="math inline">\,_2F_1(a,b;c;x) =
-\sum_{n=0}^\infty\frac{(a)_n (b)_n}{(c)_n} x^n/n!</span> is the
-hypergeometric function.</p>
-<p>The derivatives of the hypergeometic function are <span
-class="math display">
-    ∂_x^n\,_2F_1(a, b; c; x) = \frac{(a)_n (b)_n}{(c)_n}\,_2F_1(a + n, b
-+ n; c + n;x).
+</span> where <span class="math inline">\,_2F_1(a,b;c;x) = \sum_{n=0}^\infty\frac{(a)_n (b)_n}{(c)_n} x^n/n!</span> is the hypergeometric function.</p>
+<p>The derivatives of the hypergeometic function are <span class="math display">
+    ∂_x^n\,_2F_1(a, b; c; x) = \frac{(a)_n (b)_n}{(c)_n}\,_2F_1(a + n, b + n; c + n;x).
 </span></p>
 </section>
 </section>
 <section id="acknowledgements" class="level2">
 <h2>Acknowledgements</h2>
-<p>The author thanks Peter Carr and Bill Goff for their helpful comments
-and insightful suggestions. Any errors or omissions are due to the
-author.</p>
+<p>The author thanks Peter Carr and Bill Goff for their helpful comments and insightful suggestions. Any errors or omissions are due to the author.</p>
 </section>
-<hr/>
-<footer>
-Return to <a href="index.html">index</a>.
-</footer>
 </body>
 </html>

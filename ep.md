@@ -29,6 +29,8 @@ if two portfolios have the same expected realized return
 then prefer the one with smaller variance.
 An _efficient portfolio_ has the least variance among all portfolios
 having the same expected realized return.
+This was developed into the Capital Asset Pricing Model by Treynor[@Tre1961],
+Sharp[@Sha1964], Lintner[@Lin1965], and many others.
 
 In the one-period model every efficient portfolio belongs to a one or two-dimensional
 subspace and is uniquely determined given its expected realized return.
@@ -55,7 +57,7 @@ holds as equality of realized returns as random variables, not just their expect
 It follows directly from writing down a mathematical model for one period investments.
 Prior work does not explicitly specify a sample space and probability measure,
 the first step in any model involving probability since Kolomogorov legitimized probability
-as a branch of measure theory. \cite{@Kol1956}
+as a branch of measure theory [@Kol1956].
 
 <!--
 ## Background
@@ -119,7 +121,6 @@ realized return.
 Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so
 there is no loss in assuming $\xi^* x = 1$.
 In this case $R_\xi = \xi^* X$ is the realized return of the portfolio.
-
 If $\xi^* x = 1$ then $\Var(R_\xi) = \xi^*V\xi$
 where $V = E[X X^*] - E[X] E[X]^*$.
 <!--
@@ -160,13 +161,14 @@ $$
 
 This shows efficient portfolios are in the span of 
 $V^{\dashv}x$ and $V^{\dashv} E[X]$.
-Generalze black.
+As Black[@Bla1972] showed, there is no need to assume
+a zero coupon bond is available.
 
 If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
 ${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$.
-Assuming, as we may, that $\xi_j^* x = 1$ for $j = 0,1$ then $\xi^* x = \beta_0 + \beta_1$
-and $\xi^* X = \beta_0 R_{\xi_0} + \beta_1 R_{\xi_1}$
-so ${R_\xi = \xi^* X/\xi^* x = (\beta_0 R_{\xi_0} + \beta_1 R_{\xi_1})/(\beta_0 + \beta_1)}$.
+Assuming, as we may, that $\xi_j^* x = 1$ for $j = 0,1$ then ${\xi^* x = \beta_0 + \beta_1}$
+and ${\xi^* X = \beta_0 R_{\xi_0} + \beta_1 R_{\xi_1}}$
+so ${R_\xi = (\beta_0 R_{\xi_0} + \beta_1 R_{\xi_1})/(\beta_0 + \beta_1)}$.
 This shows
 $$
 	R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
@@ -190,15 +192,6 @@ to reduce the problem of finding a probability measure to estimating
 the mean $E[X]$ and the covariance $E[XX^*] - E[X] E[X^*]$.
 This may explain why prior authors overlooked our elementary but stronger
 result.
-
-A portfolio $\zeta$ is _riskless_ if its realized return is constant. In this case
-$\Var(R_\zeta) = 0$ so it is efficient.
-The classical CAPM formula follows from taking expected values
-of both sides when $\xi_1$ is the "market portfolio" and $\xi_0$ is a
-_riskless portfolio_.
-
-The notion of "market equilibrium" makes no sense in a one-period model.
-Some authors use that to justify assuming the market portfolio is efficient.
 
 ## Appendix
 
