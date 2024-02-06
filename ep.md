@@ -55,7 +55,7 @@ holds as equality of realized returns as random variables, not just their expect
 It follows directly from writing down a mathematical model for one period investments.
 Prior work does not explicitly specify a sample space and probability measure,
 the first step in any model involving probability since Kolomogorov legitimized probability
-as a branch of measure theory. \cite{@Kol1922}
+as a branch of measure theory. \cite{@Kol1956}
 
 <!--
 ## Background
