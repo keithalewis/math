@@ -10,7 +10,7 @@ CSS = math.css
 
 FLAGS  = -f markdown+definition_lists+raw_html+pipe_tables+citations
 FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
-$FLAGS += --citeproc capm.bib
+#FLAGS += --citeproc capm.bib
 TEXFLAGS = --pdf-engine=xelatex 
 FLAGS += -t html5
 FLAGS += -s # smart quotes
@@ -60,7 +60,7 @@ slides: um_slides.md
 	pandoc -o um_slides.pptx um_slides.md
 
 ep.pdf: ep.md
-	pandoc --citeproc --pdf-engine=xelatex --bibliography=capm.bib $< -o $@
+	pandoc $< --pdf-engine=xelatex --bibliography=capm.bib -o $@
 
 #ep.pdf: ep.latex
 #	xetex ep.latex
