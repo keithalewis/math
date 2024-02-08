@@ -23,12 +23,15 @@ Given two random realized returns on an investment, which is to
 be preferred?  This is a fundamental problem in finance that has no
 definitive solution except in the case one investment always returns
 more than the other, in which case arbitrage exists.
-In 1952 Markowitz[@Mar1952] and Roy[@Roy1952] introduced the following criterion for risk vs. return
+In 1952 Markowitz[@Mar1952] and Roy[@Roy1952] introduced a criterion for risk vs. return
 in portfolio selection:
 if two portfolios have the same expected realized return
 then prefer the one with smaller variance.
 An _efficient portfolio_ has the least variance among all portfolios
 having the same expected realized return.
+
+This was developed into the Capital Asset Pricing Model
+by Treynor[@Tre1961], Sharp[@Sha1964]
 
 In the one-period model every efficient portfolio belongs to a one or two-dimensional
 subspace and is uniquely determined given its expected realized return.
@@ -98,6 +101,10 @@ ${\xi^* X(\omega) = \sum_{i\in I} \xi_i X_i(\omega)}$ when liquidated at the
 end of the period if $\omega\in\Omega$ occurs.  The _realized return_
 of $\xi$ is ${R_\xi = \xi^* X/\xi^* x}$ when $\xi^* x \not= 0$.
 
+A _zero coupon bond_ is a portfolio $\zeta\in\RR^I$ with $\zeta^*X = 1$ on $\Omega$.
+Its cost $\zeta^*x = D$ is the _discount_
+and has constant realized return $\zeta^*X = 1/D$.
+
 <!--
 _Arbitrage_ exists if there is a portfolio $\xi\in\RR^I$ with $\xi^* x <
 0$ and $\xi^* X(\omega) \ge0$, $\omega\in\Omega$.  The cost of acquiring
@@ -119,9 +126,8 @@ realized return.
 Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so
 there is no loss in assuming $\xi^* x = 1$.
 In this case $R_\xi = \xi^* X$ is the realized return of the portfolio.
-
 If $\xi^* x = 1$ then $\Var(R_\xi) = \xi^*V\xi$
-where $V = E[X X^*] - E[X] E[X]^*$.
+where ${V = E[X X^*] - E[X] E[X]^*}$.
 <!--
 $$
 \begin{aligned}
@@ -158,14 +164,13 @@ $$
 	\xi =  \lambda V^{\dashv}x + \mu V^{\dashv} E[X].
 $$
 
-This shows efficient portfolios are in the span of 
+This shows every efficient portfolio is in the span of 
 $V^{\dashv}x$ and $V^{\dashv} E[X]$.
-Generalze black.
 
 If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
 ${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$.
-Assuming, as we may, that $\xi_j^* x = 1$ for $j = 0,1$ then $\xi^* x = \beta_0 + \beta_1$
-and $\xi^* X = \beta_0 R_{\xi_0} + \beta_1 R_{\xi_1}$
+Assuming, as we may, that $\xi_j^* x = 1$ for $j = 0,1$ then ${\xi^* x = \beta_0 + \beta_1}$
+and ${\xi^* X = \beta_0 R_{\xi_0} + \beta_1 R_{\xi_1}}$
 so ${R_\xi = \xi^* X/\xi^* x = (\beta_0 R_{\xi_0} + \beta_1 R_{\xi_1})/(\beta_0 + \beta_1)}$.
 This shows
 $$
@@ -187,15 +192,13 @@ $E[XX^*]$.
 Classical literature makes the implicit assumption $\Omega = \RR^I$, so
 any instrument can go to any price, and that returns are jointly normal
 to reduce the problem of finding a probability measure to estimating
-the mean $E[X]$ and the covariance $E[XX^*] - E[X] E[X^*]$.
+the mean $E[X]$ and the variance $E[XX^*] - E[X] E[X^*]$.
 This may explain why prior authors overlooked our elementary but stronger
 result.
 
-A portfolio $\zeta$ is _riskless_ if its realized return is constant. In this case
-$\Var(R_\zeta) = 0$ so it is efficient.
 The classical CAPM formula follows from taking expected values
 of both sides when $\xi_1$ is the "market portfolio" and $\xi_0$ is a
-_riskless portfolio_.
+zero coupon bond.
 
 The notion of "market equilibrium" makes no sense in a one-period model.
 Some authors use that to justify assuming the market portfolio is efficient.
@@ -209,7 +212,7 @@ than with $\RR^n$ and matrices. Matrix multiplication is just composition linear
 
 Recall $\RR^I = \{x\colon I\to\RR\}$ is the vector space of all
 functions from the set $I$ to $\RR$ with scalar multiplication and
-vector addition defined pointwise: ${(ax)(i) = ax(i)}$ and ${(x + y)(i) = x(i)
+vector addition defined point-wise: ${(ax)(i) = ax(i)}$ and ${(x + y)(i) = x(i)
 + y(i)}$ for $a\in\RR$, ${x,y\in\RR^I}$, and $i\in I$.
 
 For $\xi\in\RR^I$ define $\xi^*\in(\RR^I)^*$
@@ -217,12 +220,12 @@ by $\xi(x) = \xi^*x = \sum_{i\in I} \xi_i x_i$ if $I$ is finite.
 Note $\xi^*x = x^*\xi$ and this identifies $(\RR^I)^*$ with $\RR^I$.
 The Euclidean norm on $\RR^I$ is $\|x\| = \sqrt{x^*x}$. 
 
-Let $\BB(V,W)$ be the set of bounded linear operators from a vector space $V$
-to a vector space $W$. A linear operator $T\colon V\to W$ is bounded if
+Let $\BB(V,W)$ be the set of bounded linear operators between normed linear spaces $V$
+and $W$. A linear operator $T\colon V\to W$ is bounded if
 there exists $C\in\RR$ with $\|Tv\| \le C\|v\|$ for all $v\in V$.
-The least such constant is the _norm_ of $T$.
+The least upper bound of such constants is the _norm_ of $T$.
 Note $\BB(V,W)$ is also a normed vector space with scalar multiplication
-and addition defined pointwise.
+and addition defined point-wise.
 
 Define the _dual_ of a vector space $V$ to be all _bounded linear functionals_ from
 $V$ to $\RR$: $V^* = \BB(V,\RR)$. If $T\in\LL(V,W)$ define
