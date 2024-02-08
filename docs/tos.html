@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-02-06" />
+  <meta name="dcterms.date" content="2024-01-23" />
   <title>Totally Ordered Streams</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,99 +16,161 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      fleqn: true
-     });
-  }}});
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
   </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Totally Ordered Streams</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">February 6, 2024</p>
+<p class="date">January 23, 2024</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Totally ordered streams.
+</div>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#apply">Apply</a></li>
-<li><a href="#filter">Filter</a>
+<li><a href="#apply" id="toc-apply">Apply</a></li>
+<li><a href="#filter" id="toc-filter">Filter</a>
 <ul>
-<li><a href="#relation">Relation</a></li>
+<li><a href="#relation" id="toc-relation">Relation</a></li>
 </ul></li>
-<li><a href="#mask">Mask</a></li>
-<li><a href="#disjoint-union">Disjoint Union</a></li>
-<li><a href="#function">Function</a></li>
-<li><a href="#examples">Examples</a></li>
+<li><a href="#mask" id="toc-mask">Mask</a></li>
+<li><a href="#disjoint-union" id="toc-disjoint-union">Disjoint
+Union</a></li>
+<li><a href="#function" id="toc-function">Function</a></li>
+<li><a href="#examples" id="toc-examples">Examples</a></li>
 </ul>
 </nav>
-<p>Let <span class="math inline">\langle T,\le\rangle</span> be a totally ordered set: for all <span class="math inline">t,u\in T</span> either <span class="math inline">t \le u</span> or <span class="math inline">u\le t</span>.</p>
-<p>If <span class="math inline">S</span> is a finite subset of a totally ordered set <span class="math inline">T</span> define an <em>iterable</em> over <span class="math inline">T</span> by <span class="math display">
+<p>Let <span class="math inline">\langle T,\le\rangle</span> be a
+totally ordered set: for all <span class="math inline">t,u\in T</span>
+either <span class="math inline">t \le u</span> or <span
+class="math inline">u\le t</span>.</p>
+<p>If <span class="math inline">S</span> is a finite subset of a totally
+ordered set <span class="math inline">T</span> define an
+<em>iterable</em> over <span class="math inline">T</span> by <span
+class="math display">
 \begin{aligned}
     *S &amp;= \min\{s\mid s\in S\} \\
     +S &amp;\leftarrow S\setminus\{*S\} \\
     ?S &amp;= (S \not= \emptyset) \\
 \end{aligned}
-</span> where left arrow indicates <span class="math inline">S</span> is updated with the right hand value.</p>
+</span> where left arrow indicates <span class="math inline">S</span> is
+updated with the right hand value.</p>
 <section id="apply" class="level2">
 <h2>Apply</h2>
-<p>If <span class="math inline">f\colon T\to U</span> define <span class="math inline">f(S)</span> as an iterable over <span class="math inline">U</span> by <span class="math display">
+<p>If <span class="math inline">f\colon T\to U</span> define <span
+class="math inline">f(S)</span> as an iterable over <span
+class="math inline">U</span> by <span class="math display">
 \begin{aligned}
     *f(S) &amp;= f(*S) \\
-    +f(S) &amp;\leftarrow f(+S) \\ 
+    +f(S) &amp;\leftarrow f(+S) \\
     ?f(S) &amp;= (S \not= \emptyset) \\
 \end{aligned}
 </span></p>
 </section>
 <section id="filter" class="level2">
 <h2>Filter</h2>
-<p>Given a predicate <span class="math inline">P\colon S\to\bm{bool}</span> define <span class="math inline">S\mid P</span> by <span class="math display">
+<p>Given a predicate <span class="math inline">P\colon
+S\to\bm{bool}</span> define <span class="math inline">S\mid P</span> by
+<span class="math display">
 \begin{aligned}
-    *(S\mid P) &amp;= P(*S) \text{ if } ?S \text{ else } *(+(S\mid P)) \\
+    *(S\mid P) &amp;= P(*S) \text{ if } ?S \text{ else } *(+(S\mid P))
+\\
     +(S\mid P) &amp;\leftarrow (+S)\mid P \\
     ?(S\mid P) &amp;= (S\not=\emptyset) \\
 \end{aligned}
-</span> This will recursively find the next value of <span class="math inline">S</span> that satisfies the predicate. We call this <span class="math inline">S</span> <em>given</em> <span class="math inline">P</span>.</p>
-<p><strong>Exercise</strong> <em>Show <span class="math inline">s\in (S\mid P)</span> if and only if <span class="math inline">s\in S</span> and <span class="math inline">P(s)</span></em>.</p>
+</span> This will recursively find the next value of <span
+class="math inline">S</span> that satisfies the predicate. We call this
+<span class="math inline">S</span> <em>given</em> <span
+class="math inline">P</span>.</p>
+<p><strong>Exercise</strong> <em>Show <span class="math inline">s\in
+(S\mid P)</span> if and only if <span class="math inline">s\in S</span>
+and <span class="math inline">P(s)</span></em>.</p>
 <section id="relation" class="level3">
 <h3>Relation</h3>
-<p>If <span class="math inline">R\subset T\times T</span> is a relation and <span class="math inline">t\in T</span> define the predicate <span class="math inline">P(s) = sRt</span> where <span class="math inline">sRt</span> means <span class="math inline">(s,t)\in R</span>. Define <span class="math inline">SRt</span> to be <span class="math inline">S\mid P</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">S&lt;t = S\cap\{s\in S\mid s &lt; t\}</span></em>.</p>
+<p>If <span class="math inline">R\subset T\times T</span> is a relation
+and <span class="math inline">t\in T</span> define the predicate <span
+class="math inline">P(s) = sRt</span> where <span
+class="math inline">sRt</span> means <span class="math inline">(s,t)\in
+R</span>. Define <span class="math inline">SRt</span> to be <span
+class="math inline">S\mid P</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">S&lt;t
+= S\cap\{s\in S\mid s &lt; t\}</span></em>.</p>
 </section>
 </section>
 <section id="mask" class="level2">
 <h2>Mask</h2>
-<p>If <span class="math inline">Q</span> is a boolean valued iterable we use the same notation for the iterable <span class="math inline">S\mid Q</span>. Define <span class="math display">
+<p>If <span class="math inline">Q</span> is a boolean valued iterable we
+use the same notation for the iterable <span class="math inline">S\mid
+Q</span>. Define <span class="math display">
 \begin{aligned}
 *(S\mid Q) &amp;= *S\text{ if }*Q\text{ else } *(+(S\mid Q)) \\
 +(S\mid Q) &amp;\leftarrow (+S\mid +Q) \\
 ?(S\mid Q) &amp;= ?Q \\
 \end{aligned}
-</span> This will recursively find the next value of <span class="math inline">S</span> that belongs to the mask. We call this <span class="math inline">S</span> <em>mask</em> <span class="math inline">Q</span>.</p>
-<p><strong>Exercise</strong> <em>Show <span class="math inline">s\in (S\mid Q)</span> if and only if and <span class="math inline">s = *+^nS</span> and <span class="math inline">*+^nQ</span> for some <span class="math inline">n\ge0</span></em>.</p>
+</span> This will recursively find the next value of <span
+class="math inline">S</span> that belongs to the mask. We call this
+<span class="math inline">S</span> <em>mask</em> <span
+class="math inline">Q</span>.</p>
+<p><strong>Exercise</strong> <em>Show <span class="math inline">s\in
+(S\mid Q)</span> if and only if and <span class="math inline">s =
+*+^nS</span> and <span class="math inline">*+^nQ</span> for some <span
+class="math inline">n\ge0</span></em>.</p>
 </section>
 <section id="disjoint-union" class="level2">
 <h2>Disjoint Union</h2>
-<p>If <span class="math inline">\{S_j\}_{0\le j \le n}</span> are finite subsets of <span class="math inline">T</span> then <span class="math inline">\sqcup_{0\le j \le n} S_j = \cup_{0\le j \le n} S_j\times\{j\}</span>. The lexicographical order defined by <span class="math inline">(s,i) \le (t,j)</span> by <span class="math inline">s &lt; t</span> or <span class="math inline">s = t</span> and <span class="math inline">i &lt; j</span> is a total order.</p>
-<p>If <span class="math inline">\{S_j\}_{0\le j &lt; n}</span> are finite subsets of <span class="math inline">T</span> define <span class="math inline">,S_j</span> by <span class="math inline">*(,S_j) = *(\sqcup_j S_j) = (s, k)</span> and <span class="math display">
+<p>If <span class="math inline">\{S_j\}_{0\le j \le n}</span> are finite
+subsets of <span class="math inline">T</span> then <span
+class="math inline">\sqcup_{0\le j \le n} S_j = \cup_{0\le j \le n}
+S_j\times\{j\}</span>. The lexicographical order defined by <span
+class="math inline">(s,i) \le (t,j)</span> by <span
+class="math inline">s &lt; t</span> or <span class="math inline">s =
+t</span> and <span class="math inline">i &lt; j</span> is a total
+order.</p>
+<p>If <span class="math inline">\{S_j\}_{0\le j &lt; n}</span> are
+finite subsets of <span class="math inline">T</span> define <span
+class="math inline">,S_j</span> by <span class="math inline">*(,S_j) =
+*(\sqcup_j S_j) = (s, k)</span> and <span class="math display">
     +(,S_j) = \sqcup_j (S_j &gt; s&#39;)).
-</span> where <span class="math inline">s&#39; = *S_{\mod(k+1,n)}</span>.</p>
+</span> where <span class="math inline">s&#39; =
+*S_{\mod(k+1,n)}</span>.</p>
 </section>
 <section id="function" class="level2">
 <h2>Function</h2>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">(X_t)</span> is right continuouse and <span class="math inline">T^a = \min\{t\mid X_t \ge a\}</span> then <span class="math inline">1_{T\ge t}</span> is left continuous</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">(X_t)</span> is right continuouse and <span
+class="math inline">T^a = \min\{t\mid X_t \ge a\}</span> then <span
+class="math inline">1_{T\ge t}</span> is left continuous</em>.</p>
 </section>
 <section id="examples" class="level2">
 <h2>Examples</h2>
-<p>Consider a trading strategy where you buy 1 share of stock with the price goes below <span class="math inline">L</span> and sell when it goes above <span class="math inline">H</span>. If <span class="math inline">S_t</span> is the price at time <span class="math inline">t</span> trade indicators are <span class="math inline">(S &lt; L),(S &gt; H)</span>.</p>
+<p>Consider a trading strategy where you buy 1 share of stock with the
+price goes below <span class="math inline">L</span> and sell when it
+goes above <span class="math inline">H</span>. If <span
+class="math inline">S_t</span> is the price at time <span
+class="math inline">t</span> trade indicators are <span
+class="math inline">(S &lt; L),(S &gt; H)</span>.</p>
 </section>
 </body>
 </html>

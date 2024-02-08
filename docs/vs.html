@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-02-06" />
+  <meta name="dcterms.date" content="2024-01-23" />
   <title>Put-Call parity</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,28 +16,49 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      fleqn: true
-     });
-  }}});
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
   </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Put-Call parity</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">February 6, 2024</p>
+<p class="date">January 23, 2024</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+For European options
+</div>
 </header>
-<p>Put call parity states the price of a call minus a put having the same strike and expiration is equal to the forward of the underlying minus the strike. It is not the case this always holds. For example, if the options are American style exercise then they may have different optimal exercise times.</p>
-<p>The relation between the underlying spot price and its forward is called <em>cost-of-carry</em>. For a one-period model of intruments <span class="math inline">I</span> the initial prices are given by <span class="math inline">x\in\boldsymbol{R}^I</span>. The terminal prices are given by a bounded functions <span class="math inline">X\colon S\to\boldsymbol{R}^I</span> where <span class="math inline">S</span> is the set of possible outcomes.</p>
+<p>Put call parity states the price of a call minus a put having the
+same strike and expiration is equal to the forward of the underlying
+minus the strike. It is not the case this always holds. For example, if
+the options are American style exercise then they may have different
+optimal exercise times.</p>
+<p>The relation between the underlying spot price and its forward is
+called <em>cost-of-carry</em>. For a one-period model of intruments
+<span class="math inline">I</span> the initial prices are given by <span
+class="math inline">x\in\boldsymbol{R}^I</span>. The terminal prices are
+given by a bounded functions <span class="math inline">X\colon
+S\to\boldsymbol{R}^I</span> where <span class="math inline">S</span> is
+the set of possible outcomes.</p>
 </body>
 </html>

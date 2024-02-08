@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-20" />
+  <meta name="dcterms.date" content="2023-07-12" />
   <title>Bachelier Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,47 +16,114 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      fleqn: true
-     });
-  }}});
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
   </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Bachelier Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 20, 2023</p>
+<p class="date">July 12, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Normal stock price
+</div>
 </header>
-<p>The Bachelier model assumes stock price has the form <span class="math inline">F_t = f + \sigma B_t</span> where <span class="math inline">f</span> and <span class="math inline">\sigma</span> are constants and <span class="math inline">B_t</span> is standard Brownian motion, assuming zero interest rate.</p>
-<p>The risk-neutral value of a put with strike <span class="math inline">k</span> expiring at <span class="math inline">t</span> is <span class="math display">
-E[(k - F_t)^+] = E[(k - F)1(F\le k)] = E[k - F]P(F \le k) + \operatorname{Cov}(k - F, 1(F\le k)).
+<p>The Bachelier model assumes stock price has the form <span
+class="math inline">F_t = f + \sigma B_t</span> where <span
+class="math inline">f</span> and <span class="math inline">\sigma</span>
+are constants and <span class="math inline">B_t</span> is standard
+Brownian motion, assuming zero interest rate.</p>
+<p>The risk-neutral value of a put with strike <span
+class="math inline">k</span> expiring at <span
+class="math inline">t</span> is <span class="math display">
+E[(k - F_t)^+] = E[(k - F)1(F\le k)] = E[k - F]P(F \le k) +
+\operatorname{Cov}(k - F, 1(F\le k)).
 </span></p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">M</span> and <span class="math inline">N</span> are jointly normal then <span class="math inline">\operatorname{Cov}(M, g(N)) = \operatorname{Cov}(M, N) E[g&#39;(N)]</span></em>.</p>
-<p><em>Hint</em>: Use <span class="math inline">E[e^{\alpha N} g(M)] = E[e^{\alpha N}] E[g(M + \operatorname{Cov}(\alpha N, M))]</span>, take a derivative with respect to <span class="math inline">\alpha</span>, then set it equal to 0.</p>
-<p>This shows <span class="math inline">{\operatorname{Cov}(k - F, 1(F\le k)) = \operatorname{Cov}(k - F, F) E[-\delta_k(F)] = \operatorname{Var}(F) E[\delta_k(F)]}</span>.</p>
-<p><strong>Exercise</strong> <em>Show <span class="math inline">E[\delta_a(b + cZ)] = \phi((a - b)/c)/c</span> if <span class="math inline">\phi</span> is the density function of <span class="math inline">Z</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">M</span> and <span class="math inline">N</span> are
+jointly normal then <span class="math inline">\operatorname{Cov}(M,
+g(N)) = \operatorname{Cov}(M, N) E[g&#39;(N)]</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">E[e^{\alpha N} g(M)] =
+E[e^{\alpha N}] E[g(M + \operatorname{Cov}(\alpha N, M))]</span>, take a
+derivative with respect to <span class="math inline">\alpha</span>, then
+set it equal to 0.</p>
+<p>This shows <span class="math inline">{\operatorname{Cov}(k - F,
+1(F\le k)) = \operatorname{Cov}(k - F, F) E[-\delta_k(F)] =
+\operatorname{Var}(F) E[\delta_k(F)]}</span>.</p>
+<p><strong>Exercise</strong> <em>Show <span
+class="math inline">E[\delta_a(b + cZ)] = \phi((a - b)/c)/c</span> if
+<span class="math inline">\phi</span> is the density function of <span
+class="math inline">Z</span></em>.</p>
 <details>
-<summary>Solution</summary> If <span class="math inline">d_a(x) = 1/h</span> for <span class="math inline">a &lt; x \le a + h</span> and 0 otherwise then <span class="math inline">{E[\delta_a(b + cZ)] = \lim_{h\to 0} E[d_a(b + c Z)].}</span> Using <span class="math inline">y = (b + cz)/c = b/c + z</span> we have <span class="math display">
+<summary>
+Solution
+</summary>
+If <span class="math inline">d_a(x) = 1/h</span> for <span
+class="math inline">a &lt; x \le a + h</span> and 0 otherwise then <span
+class="math inline">{E[\delta_a(b + cZ)] = \lim_{h\to 0} E[d_a(b + c
+Z)].}</span> Using <span class="math inline">y = (b + cz)/c = b/c +
+z</span> we have <span class="math display">
 \begin{aligned}
 E[d_a(b + c Z)] &amp;= (1/h)\int_a^{a+h} (b + cz)\phi(z)\,dz \\
     &amp;= (1/h)\int_{b/c + a}^{b/c + a + h} cy\phi(y - b/c)\,dy \\
 \end{aligned}
 </span>
 </details>
-<p>If <span class="math inline">g</span> is differentiable at <span class="math inline">z = g^{-1}(a)</span> then <span class="math inline">{E[\delta_a(g(Z))] = \phi(z)/g&#39;(z)}</span> since <span class="math inline">{g(x) \approx g(z) + g&#39;(z)(x - z)}</span> for <span class="math inline">{z\approx x}</span>.</p>
-<p>We have <span class="math inline">{E[\delta_k(F)] = E[\delta_k(f + \sigma\sqrt{t}Z)] = \phi(z)/\sigma\sqrt{t}}</span>, where <span class="math inline">Z</span> is standard normal and <span class="math inline">{z = (k - f)/\sigma\sqrt{t}}</span> so <span class="math display">
+<p>If <span class="math inline">g</span> is differentiable at <span
+class="math inline">z = g^{-1}(a)</span> then <span
+class="math inline">{E[\delta_a(g(Z))] = \phi(z)/g&#39;(z)}</span> since
+<span class="math inline">{g(x) \approx g(z) + g&#39;(z)(x - z)}</span>
+for <span class="math inline">{z\approx x}</span>.</p>
+<p>We have <span class="math inline">{E[\delta_k(F)] = E[\delta_k(f +
+\sigma\sqrt{t}Z)] = \phi(z)/\sigma\sqrt{t}}</span>, where <span
+class="math inline">Z</span> is standard normal and <span
+class="math inline">{z = (k - f)/\sigma\sqrt{t}}</span> so <span
+class="math display">
 E[(k - F_t)^+] = (k - F)\Phi(z) + \sigma\sqrt{t}\phi(z)
-</span> where <span class="math inline">\Phi</span> is the standard normal cumulative distribution function and <span class="math inline">\phi = \Phi&#39;</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">E[(F_t - k)^+] = (f - k)\Phi(-z) + \sigma\sqrt{t}\phi(-z)</span></em>.</p>
+</span> where <span class="math inline">\Phi</span> is the standard
+normal cumulative distribution function and <span
+class="math inline">\phi = \Phi&#39;</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">E[(F_t
+- k)^+] = (f - k)\Phi(-z) + \sigma\sqrt{t}\phi(-z)</span></em>.</p>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
 </body>
 </html>

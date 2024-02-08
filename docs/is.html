@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-20" />
+  <meta name="dcterms.date" content="2023-07-03" />
   <title>Invariant Subspaces</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,47 +16,133 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      fleqn: true
-     });
-  }}});
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
   </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Invariant Subspaces</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 20, 2023</p>
+<p class="date">July 3, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Do they exist?
+</div>
 </header>
-<p>The invariant subspace problem is “Given a linear operator on a vector space does it have a non-trivial invariant subspace?” The subspace consisting of the 0 vector and the vector space are trivially invariant.</p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">T\colon V\to V</span> is a linear operator then <span class="math inline">T0 = 0</span></em>.</p>
-<p><em>Hint</em>: Show <span class="math inline">v + v = v</span> implies <span class="math inline">v = 0</span> and <span class="math inline">T(0 + 0) = T0</span>.</p>
-<p>Eigenvectors determine one-dimensional invariant subspaces. If <span class="math inline">V</span> is a vector space over the field <span class="math inline">\boldsymbol{F}</span> and <span class="math inline">T\colon V\to V</span> is linear then <span class="math inline">v\in V</span> is an <em>eignenvector</em> with <em>eigenvalue</em> <span class="math inline">\lambda\in\boldsymbol{F}</span> if <span class="math inline">v\not=0</span> and <span class="math inline">Tv = \lambda v</span>. The smallest subspace containing <span class="math inline">v</span> is <span class="math inline">{\operatorname{span}\{v\} = \{\alpha v\mid \alpha\in\boldsymbol{F}\} = \boldsymbol{F}v}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\boldsymbol{F}v</span> is an invariant suBspace of <span class="math inline">T</span> if <span class="math inline">v</span> is an eigenvalue</em>.</p>
-<p>Not every operator on a finite-dimensional vector space has an invariant subspace.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">R\colon\boldsymbol{R}^2\to\boldsymbol{R}^2</span> defined by <span class="math inline">R(x, y) = (-y, x)</span> has no eigenvectors</em>.</p>
-<p>Note the linear operator <span class="math inline">R</span> corresponds to a <span class="math inline">\pi/2</span> radian counter-clockwise rotation. We use <span class="math inline">\boldsymbol{R}</span> to denote the field of real numbers and <span class="math inline">\boldsymbol{C}</span> for the complex numbers.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">R\colon\boldsymbol{C}^2\to\boldsymbol{C}^2</span> defined by <span class="math inline">R(x, y) = (-y, x)</span> has two eigenvectors</em>.</p>
-<p><em>Hint</em>: If <span class="math inline">(-y, x) = \lambda(x,y)</span> then <span class="math inline">-y = \lambda x</span> and <span class="math inline">x = \lambda y</span> so <span class="math inline">-y = \lambda^2 y</span> and <span class="math inline">x = -\lambda^2 x</span>. The two eigenvalues are <span class="math inline">i</span> and <span class="math inline">-i</span>.</p>
-<p>When looking for invariant subspaces mathematicians pick up some bad habits. Our first one is to assume the underlying field is always the complex numbers.</p>
-<p>There are two usual suspects when looking for invariant subspaces, the <em>kernel</em> and the <em>range</em> of the operator.</p>
-<p>The kernel of <span class="math inline">T\colon V\to V</span> is <span class="math inline">\operatorname{ker}T = \{v\in V\mid Tv = 0\}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\operatorname{ker}T</span> is an invariant subspace of <span class="math inline">T</span></em>.</p>
-<p>The range of <span class="math inline">T\colon V\to V</span> is <span class="math inline">\operatorname{ran}T = \{Tv\mid v \in V\}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\operatorname{ran}T</span> is an invariant subspace of <span class="math inline">T</span></em>.</p>
-<p>Our next bad habit to always assume <span class="math inline">\ket T = \{0\}</span> and <span class="math inline">\operatorname{ran}T = V</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">v\not=0</span> is an eigenvector with eigenvalue <span class="math inline">\lambda</span> if and only if <span class="math inline">v\in\operatorname{ker}(T-\lambda I)</span></em>.</p>
-<p>We use <span class="math inline">I\colon V\to V</span> to denote the <em>identity operator</em> <span class="math inline">Iv = v</span>, <span class="math inline">v\in V</span>.</p>
-<p>Every linear operator on a vactor space over <span class="math inline">\boldsymbol{C}</span> has an eigenvector, but this is not trivial to prove. It is useful to introduce a <em>topology</em> on vector spaces.</p>
+<p>The invariant subspace problem is “Given a linear operator on a
+vector space does it have a non-trivial invariant subspace?” The
+subspace consisting of the 0 vector and the vector space are trivially
+invariant.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">T\colon V\to V</span> is a linear operator then
+<span class="math inline">T0 = 0</span></em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">v + v = v</span>
+implies <span class="math inline">v = 0</span> and <span
+class="math inline">T(0 + 0) = T0</span>.</p>
+<p>Eigenvectors determine one-dimensional invariant subspaces. If <span
+class="math inline">V</span> is a vector space over the field <span
+class="math inline">\boldsymbol{F}</span> and <span
+class="math inline">T\colon V\to V</span> is linear then <span
+class="math inline">v\in V</span> is an <em>eignenvector</em> with
+<em>eigenvalue</em> <span
+class="math inline">\lambda\in\boldsymbol{F}</span> if <span
+class="math inline">v\not=0</span> and <span class="math inline">Tv =
+\lambda v</span>. The smallest subspace containing <span
+class="math inline">v</span> is <span
+class="math inline">{\operatorname{span}\{v\} = \{\alpha v\mid
+\alpha\in\boldsymbol{F}\} = \boldsymbol{F}v}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\boldsymbol{F}v</span> is an invariant suBspace of
+<span class="math inline">T</span> if <span class="math inline">v</span>
+is an eigenvalue</em>.</p>
+<p>Not every operator on a finite-dimensional vector space has an
+invariant subspace.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">R\colon\boldsymbol{R}^2\to\boldsymbol{R}^2</span>
+defined by <span class="math inline">R(x, y) = (-y, x)</span> has no
+eigenvectors</em>.</p>
+<p>Note the linear operator <span class="math inline">R</span>
+corresponds to a <span class="math inline">\pi/2</span> radian
+counter-clockwise rotation. We use <span
+class="math inline">\boldsymbol{R}</span> to denote the field of real
+numbers and <span class="math inline">\boldsymbol{C}</span> for the
+complex numbers.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">R\colon\boldsymbol{C}^2\to\boldsymbol{C}^2</span>
+defined by <span class="math inline">R(x, y) = (-y, x)</span> has two
+eigenvectors</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">(-y, x) =
+\lambda(x,y)</span> then <span class="math inline">-y = \lambda x</span>
+and <span class="math inline">x = \lambda y</span> so <span
+class="math inline">-y = \lambda^2 y</span> and <span
+class="math inline">x = -\lambda^2 x</span>. The two eigenvalues are
+<span class="math inline">i</span> and <span
+class="math inline">-i</span>.</p>
+<p>When looking for invariant subspaces mathematicians pick up some bad
+habits. Our first one is to assume the underlying field is always the
+complex numbers.</p>
+<p>There are two usual suspects when looking for invariant subspaces,
+the <em>kernel</em> and the <em>range</em> of the operator.</p>
+<p>The kernel of <span class="math inline">T\colon V\to V</span> is
+<span class="math inline">\operatorname{ker}T = \{v\in V\mid Tv =
+0\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{ker}T</span> is an invariant subspace
+of <span class="math inline">T</span></em>.</p>
+<p>The range of <span class="math inline">T\colon V\to V</span> is <span
+class="math inline">\operatorname{ran}T = \{Tv\mid v \in V\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{ran}T</span> is an invariant subspace
+of <span class="math inline">T</span></em>.</p>
+<p>Our next bad habit to always assume <span class="math inline">\ket T
+= \{0\}</span> and <span class="math inline">\operatorname{ran}T =
+V</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">v\not=0</span> is an eigenvector with eigenvalue
+<span class="math inline">\lambda</span> if and only if <span
+class="math inline">v\in\operatorname{ker}(T-\lambda I)</span></em>.</p>
+<p>We use <span class="math inline">I\colon V\to V</span> to denote the
+<em>identity operator</em> <span class="math inline">Iv = v</span>,
+<span class="math inline">v\in V</span>.</p>
+<p>Every linear operator on a vactor space over <span
+class="math inline">\boldsymbol{C}</span> has an eigenvector, but this
+is not trivial to prove. It is useful to introduce a <em>topology</em>
+on vector spaces.</p>
 <!--
 
 Topology is the mathematical study of the work 'near'.
@@ -80,28 +166,84 @@ _Hint_: $d(x, x) \ge 2d(x,x)$ and $d(x,x)\ge 0$.
 A metric defines a topology. Define the _open ball_ $B(x,r) = \{y\in S\mid d(x,y) < r\}$.
 
 -->
-<p>A <em>norm</em> on a vector space is a function <span class="math inline">\|.\|\colon V\to[0,\infty)</span> satisfying <span class="math inline">\|v\| = 0</span> implies <span class="math inline">v = 0</span>, <span class="math inline">\|\alpha v\| = |\alpha| \|v\|</span> and <span class="math inline">\|v + w\| \le \|v\| + \|w\|</span>. Norms define a <em>metric</em> <span class="math inline">d(v, w) = \|v - w\|</span>. A vector space that is <em>complete</em> under this norm is a <em>Banach space</em>.</p>
-<p>An <em>inner product</em> on a vector space is a function <span class="math inline">(.,.)\colon V\times V\to\boldsymbol{F}</span> satisfying <span class="math inline">v \mapsto (v,w)</span> and <span class="math inline">w\mapsto (v,w)</span> is linear for <span class="math inline">v, w\in V</span>. etc…</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\|v\| = (v, v)</span> is a norm</em>.</p>
-<p>A vector space with an inner product that is complete under this norm is a <em>Hilbert space</em>.</p>
-<p>There are bounded linear operators on a Hilbert space that have no eigenvectors.</p>
+<p>A <em>norm</em> on a vector space is a function <span
+class="math inline">\|.\|\colon V\to[0,\infty)</span> satisfying <span
+class="math inline">\|v\| = 0</span> implies <span class="math inline">v
+= 0</span>, <span class="math inline">\|\alpha v\| = |\alpha|
+\|v\|</span> and <span class="math inline">\|v + w\| \le \|v\| +
+\|w\|</span>. Norms define a <em>metric</em> <span
+class="math inline">d(v, w) = \|v - w\|</span>. A vector space that is
+<em>complete</em> under this norm is a <em>Banach space</em>.</p>
+<p>An <em>inner product</em> on a vector space is a function <span
+class="math inline">(.,.)\colon V\times V\to\boldsymbol{F}</span>
+satisfying <span class="math inline">v \mapsto (v,w)</span> and <span
+class="math inline">w\mapsto (v,w)</span> is linear for <span
+class="math inline">v, w\in V</span>. etc…</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\|v\| =
+(v, v)</span> is a norm</em>.</p>
+<p>A vector space with an inner product that is complete under this norm
+is a <em>Hilbert space</em>.</p>
+<p>There are bounded linear operators on a Hilbert space that have no
+eigenvectors.</p>
 <section id="shift-operator" class="level2">
 <h2>Shift Operator</h2>
-<p>The vector space of square summable sequences <span class="math inline">{\ell^2 = \{(x_j)_{j=0}^\infty\mid \sum_j |x_j|^2 &lt; \infty, x_j\in\boldsymbol{C}\}}</span> is a Hilbert space with inner product <span class="math inline">(x,y) = \sum_j x_j\overline{y_j}</span>. The shift operator <span class="math inline">S\colon\ell^2\to\ell^2</span> defined by <span class="math inline">S(x_0, x_1, \ldots) = (0, x_0, x_1,\ldots)</span> has no eigenvectors.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">Sx = \lambda x</span> then <span class="math inline">x = 0</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">0 = \lambda x_0</span>, <span class="math inline">x_1 = \lambda x_0</span>, rinse and repeat when <span class="math inline">\lambda\not=0</span>. What if <span class="math inline">\lambda = 0</span>?</p>
-<p>The shift operator has lots of non-trivial invariant subspaces. Let <span class="math inline">\mathcal{M}_1 = \{(0, x_1,\ldots)\mid x_j\in\boldsymbol{C}\}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\mathcal{M}_1</span> is an invariant subspace.</em></p>
-<p>It should be obvious to you now that <span class="math inline">\mathcal{M}_n = \{(0,\dots,0,x_n,\ldots)\mid x_j\in\boldsymbol{C}\}</span> is an invariant subspace for any <span class="math inline">n \ge 0</span>.</p>
+<p>The vector space of square summable sequences <span
+class="math inline">{\ell^2 = \{(x_j)_{j=0}^\infty\mid \sum_j |x_j|^2
+&lt; \infty, x_j\in\boldsymbol{C}\}}</span> is a Hilbert space with
+inner product <span class="math inline">(x,y) = \sum_j
+x_j\overline{y_j}</span>. The shift operator <span
+class="math inline">S\colon\ell^2\to\ell^2</span> defined by <span
+class="math inline">S(x_0, x_1, \ldots) = (0, x_0, x_1,\ldots)</span>
+has no eigenvectors.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">Sx =
+\lambda x</span> then <span class="math inline">x = 0</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">0 = \lambda x_0</span>,
+<span class="math inline">x_1 = \lambda x_0</span>, rinse and repeat
+when <span class="math inline">\lambda\not=0</span>. What if <span
+class="math inline">\lambda = 0</span>?</p>
+<p>The shift operator has lots of non-trivial invariant subspaces. Let
+<span class="math inline">\mathcal{M}_1 = \{(0, x_1,\ldots)\mid
+x_j\in\boldsymbol{C}\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\mathcal{M}_1</span> is an invariant
+subspace.</em></p>
+<p>It should be obvious to you now that <span
+class="math inline">\mathcal{M}_n = \{(0,\dots,0,x_n,\ldots)\mid
+x_j\in\boldsymbol{C}\}</span> is an invariant subspace for any <span
+class="math inline">n \ge 0</span>.</p>
 <section id="beurlings-theorem" class="level3">
 <h3>Beurling’s Theorem</h3>
-<p>Arne Beurling figured out <em>all</em> of the invariant subspaces of the shift operator. The theory of vector spaces is quite spartan. Beurling brought in tools from functional analysis to do the heavy lifting.</p>
-<p>He started with identifying <span class="math inline">\ell^2</span> with the Hardy space <span class="math inline">H^2 = \{f(z) = \sum_{j=0}^\infty c_j z^j\mid \sum_j |c_j|^2 &lt; \infty\}</span> of analytic functions on the unit disk <span class="math inline">D = \{z\in\boldsymbol{C}\mid |z| &lt; 1\}</span>. It is not trivial to prove <span class="math inline">\bar{f}(e^{i\theta}) = \lim_{r\uparrow 1} f(re^{i\theta})</span> exists on the boundary <span class="math inline">\partial D = \{z\mid |z| = 1\}</span> with Lesbegure measure 1 and <span class="math inline">f(z) = ... \bar{f}</span>.</p>
-<p><span class="math inline">S\mathcal{M}\subseteq\mathcal{M}</span>. <span class="math inline">\mathcal{M}\ominus S\mathcal{M}</span>.</p>
-<p><span class="math inline">T\colon\mathcal{H}\to\mathcal{H}</span> define <span class="math inline">R\colon \mathcal{H}\to\ell^2(\mathcal{H})</span> by <span class="math inline">x\mapsto(x, Tx, T^2x,\ldots)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\mathcal{M}_n</span> can be identified with <span class="math inline">z^n H^2</span></em>.</p>
-<p>Beurling showed every invariant subspace of the shift operator has the form <span class="math inline">\phi H^2</span> where <span class="math inline">|\phi| = 1</span> on <span class="math inline">\partial D</span>.</p>
+<p>Arne Beurling figured out <em>all</em> of the invariant subspaces of
+the shift operator. The theory of vector spaces is quite spartan.
+Beurling brought in tools from functional analysis to do the heavy
+lifting.</p>
+<p>He started with identifying <span class="math inline">\ell^2</span>
+with the Hardy space <span class="math inline">H^2 = \{f(z) =
+\sum_{j=0}^\infty c_j z^j\mid \sum_j |c_j|^2 &lt; \infty\}</span> of
+analytic functions on the unit disk <span class="math inline">D =
+\{z\in\boldsymbol{C}\mid |z| &lt; 1\}</span>. It is not trivial to prove
+<span class="math inline">\bar{f}(e^{i\theta}) = \lim_{r\uparrow 1}
+f(re^{i\theta})</span> exists on the boundary <span
+class="math inline">\partial D = \{z\mid |z| = 1\}</span> with Lesbegure
+measure 1 and <span class="math inline">f(z) = ... \bar{f}</span>.</p>
+<p><span class="math inline">S\mathcal{M}\subseteq\mathcal{M}</span>.
+<span class="math inline">\mathcal{M}\ominus S\mathcal{M}</span>.</p>
+<p><span class="math inline">T\colon\mathcal{H}\to\mathcal{H}</span>
+define <span class="math inline">R\colon
+\mathcal{H}\to\ell^2(\mathcal{H})</span> by <span
+class="math inline">x\mapsto(x, Tx, T^2x,\ldots)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\mathcal{M}_n</span> can be identified with <span
+class="math inline">z^n H^2</span></em>.</p>
+<p>Beurling showed every invariant subspace of the shift operator has
+the form <span class="math inline">\phi H^2</span> where <span
+class="math inline">|\phi| = 1</span> on <span
+class="math inline">\partial D</span>.</p>
 </section>
 </section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
 </body>
 </html>

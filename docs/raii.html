@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-20" />
+  <meta name="dcterms.date" content="2023-05-15" />
   <title>RAII</title>
   <style>
     code{white-space: pre-wrap;}
@@ -17,6 +17,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,36 +79,72 @@
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="math.css" />
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">RAII</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 20, 2023</p>
+<p class="date">May 15, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Worst name ever for built-in types.
+</div>
 </header>
-<p><em>RAII</em> is an acronym for Resource Acquistion is Initialization. A common, and valid, complaint about C++ is that it requires you to allocate and deallocate memory. If you get those dance steps wrong your program can spectacularly fail.</p>
-<p>Some very smart people have come up with ways to free users from manually keeping track of memory. C++ makes it possible to define new types that behave like built-in types. You don’t have to think about allocating an <code>int</code> and deallocating it when done using it. RAII lets you think hard once and use the new type just like an <code>int</code>.</p>
+<p><em>RAII</em> is an acronym for Resource Acquistion is
+Initialization. A common, and valid, complaint about C++ is that it
+requires you to allocate and deallocate memory. If you get those dance
+steps wrong your program can spectacularly fail.</p>
+<p>Some very smart people have come up with ways to free users from
+manually keeping track of memory. C++ makes it possible to define new
+types that behave like built-in types. You don’t have to think about
+allocating an <code>int</code> and deallocating it when done using it.
+RAII lets you think hard once and use the new type just like an
+<code>int</code>.</p>
 <p>The simplest example of a <code>string</code> class is:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">class</span> string {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="dt">char</span>* s;</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>    <span class="dt">int</span> n;</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">public</span>:</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    <span class="co">// constructor</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    string(<span class="dt">char</span>* _s, <span class="dt">int</span> _n)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    {</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>        n = _n;</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>        s = <span class="kw">new</span> <span class="dt">char</span>[n]; <span class="co">// allocate n characters</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>        <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; n; ++i) {</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>            s[i] = _s[i];</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a>        }</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a>        </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>    }</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>    <span class="co">// destructor</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>    ~string()</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>    {</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>        <span class="kw">delete</span> [] s; <span class="co">// delete n characters</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>    }</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode c++"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> string <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span><span class="op">*</span> s<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// constructor</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    string<span class="op">(</span><span class="dt">char</span><span class="op">*</span> _s<span class="op">,</span> <span class="dt">int</span> _n<span class="op">)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> _n<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> <span class="kw">new</span> <span class="dt">char</span><span class="op">[</span>n<span class="op">];</span> <span class="co">// allocate n characters</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            s<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> _s<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// destructor</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">~</span>string<span class="op">()</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="kw">delete</span> <span class="op">[]</span> s<span class="op">;</span> <span class="co">// delete n characters</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>You c</p>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
 </body>
 </html>

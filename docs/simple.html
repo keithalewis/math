@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-20" />
+  <meta name="dcterms.date" content="2023-05-15" />
   <title>The Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,48 +16,149 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      fleqn: true
-     });
-  }}});
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
   </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">The Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 20, 2023</p>
+<p class="date">May 15, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+<p>Every arbitrage-free model is parameterized by a positive measure
+process. There is no need to restrict models to Ito processes and use
+partial differential equations. There is also no need for utility
+functions or market equilibrium assumptions. In fact, there is no need
+for probability measures. The Unified Model involves only geometry, as
+was first pointed out by Stephen Ross. We do need the notion of sample
+spaces and algebras of sets in order to mathematically model partial
+information.</p>
+<p>It is time to banish the mathematical fiction of continuous time
+trading and focus on problems practitioners find useful: when to
+re-hedge and how well the hedge performs.</p>
+</div>
 </header>
-<p>There is a clear trajectory in mathematical finance starting from Black, Scholes, and Merton valuing an option to expanding the universe of instruments, incorporate credit and liquidity considerations, and make model assumptions explicit. Realistic models must allow for the empirical fact that not all market participants act optimally.</p>
-<p>Scholes and Merton won a Nobel Prize for a new method of valuing derivative securities that did not require estimating the return on the underlying. Under the assumption that stock prices can be modeled by geometric Brownian motion and it was possible to trade in continuous time, all one needed to know was the volatility and the funding rate.</p>
+<p>There is a clear trajectory in mathematical finance starting from
+Black, Scholes, and Merton valuing an option to expanding the universe
+of instruments, incorporate credit and liquidity considerations, and
+make model assumptions explicit. Realistic models must allow for the
+empirical fact that not all market participants act optimally.</p>
+<p>Scholes and Merton won a Nobel Prize for a new method of valuing
+derivative securities that did not require estimating the return on the
+underlying. Under the assumption that stock prices can be modeled by
+geometric Brownian motion and it was possible to trade in continuous
+time, all one needed to know was the volatility and the funding
+rate.</p>
 <section id="one-period-model" class="level2">
 <h2>One-Period Model</h2>
-<p>The prices of <span class="math inline">n</span> instruments at the beginning of the period can be represented by a vector <span class="math inline">x\in 𝑹^n</span>. The prices at the end of the period are <span class="math inline">X(\omega)\in 𝑹^n</span> if <span class="math inline">\omega\in\Omega</span> occured where <span class="math inline">X\colon\Omega\to 𝑹^n</span></p>
-<p>Arbitrage exists in a one-period model if it is possible to buy a portfolio of instruments at negative cost and sell them at the end of the period without losing money. The cost of purchasing <span class="math inline">\gamma\in 𝑹^n</span> in each instrument at the beginning of the period is the dot product <span class="math inline">\gamma\cdot x</span>. Assuming all positions are completely unwound at the end of the period, it will pay <span class="math inline">\gamma\cdot X(\omega)</span> if <span class="math inline">\omega\in\Omega</span> occurs. Arbitrage exists if there is a <span class="math inline">\gamma\in 𝑹^n</span> with <span class="math inline">\gamma\cdot x &lt; 0</span> and <span class="math inline">\gamma\cdot X(\omega)\ge0</span> for all <span class="math inline">\omega\in\Omega</span>.</p>
-<p>Stephan Ross was the first to show a one-period model is <em>arbitrage-free</em> if and only if <span class="math inline">x</span> belongs to the smallest closed cone containing the range of <span class="math inline">X</span>: <span class="math inline">X(\Omega) = \{X(\omega)\mid\omega\in\Omega\}</span>.</p>
+<p>The prices of <span class="math inline">n</span> instruments at the
+beginning of the period can be represented by a vector <span
+class="math inline">x\in 𝑹^n</span>. The prices at the end of the period
+are <span class="math inline">X(\omega)\in 𝑹^n</span> if <span
+class="math inline">\omega\in\Omega</span> occured where <span
+class="math inline">X\colon\Omega\to 𝑹^n</span></p>
+<p>Arbitrage exists in a one-period model if it is possible to buy a
+portfolio of instruments at negative cost and sell them at the end of
+the period without losing money. The cost of purchasing <span
+class="math inline">\gamma\in 𝑹^n</span> in each instrument at the
+beginning of the period is the dot product <span
+class="math inline">\gamma\cdot x</span>. Assuming all positions are
+completely unwound at the end of the period, it will pay <span
+class="math inline">\gamma\cdot X(\omega)</span> if <span
+class="math inline">\omega\in\Omega</span> occurs. Arbitrage exists if
+there is a <span class="math inline">\gamma\in 𝑹^n</span> with <span
+class="math inline">\gamma\cdot x &lt; 0</span> and <span
+class="math inline">\gamma\cdot X(\omega)\ge0</span> for all <span
+class="math inline">\omega\in\Omega</span>.</p>
+<p>Stephan Ross was the first to show a one-period model is
+<em>arbitrage-free</em> if and only if <span
+class="math inline">x</span> belongs to the smallest closed cone
+containing the range of <span class="math inline">X</span>: <span
+class="math inline">X(\Omega) =
+\{X(\omega)\mid\omega\in\Omega\}</span>.</p>
 <section id="examples" class="level3">
 <h3>Examples</h3>
-<p>Recall a <em>cone</em> is a subset of a vector space that is closed under addition and multiplication by positive scalars.</p>
-<p><strong>Exercise</strong>. <em>The set of arbitrage portfolios for a one-period model is a cone</em>.</p>
-<p><strong>Exercise</strong>. <em>The set <span class="math inline">\{\sum_{j=1}^n p_j v_j\mid p_j \ge 0, p_j\in 𝑹\}</span> is the smallest closed cone containg the vectors <span class="math inline">\{v_j\}_{j=1}^n</span></em>.</p>
+<p>Recall a <em>cone</em> is a subset of a vector space that is closed
+under addition and multiplication by positive scalars.</p>
+<p><strong>Exercise</strong>. <em>The set of arbitrage portfolios for a
+one-period model is a cone</em>.</p>
+<p><strong>Exercise</strong>. <em>The set <span
+class="math inline">\{\sum_{j=1}^n p_j v_j\mid p_j \ge 0, p_j\in
+𝑹\}</span> is the smallest closed cone containg the vectors <span
+class="math inline">\{v_j\}_{j=1}^n</span></em>.</p>
 <section id="model" class="level4">
 <h4>1-2-3 Model</h4>
-<p>Consider a one-period market having a bond that doubles in value over the period, a stock with initial price 1 that either stays the same or triples in value, and a call option on the stock with strike 2 and price <span class="math inline">c</span>. This is modeled by <span class="math inline">x = (1,1,c)</span>, <span class="math inline">X(\omega) = (2,\omega,\max\{\omega - 2, 0\})</span> where <span class="math inline">\Omega = \{1, 3\}</span>. For the model to be arbitrage-free there must exist <span class="math inline">p,q\ge0</span> with <span class="math inline">x = X(1)p + X(3)q</span> and <span class="math inline">p,q\ge0</span>. The constraint on the bond and stock give <span class="math inline">1 = 2p + 2q</span> and <span class="math inline">1 = p + 3q</span> respectively.</p>
-<p>These equations have the unique solution <span class="math inline">p = q = 1/4</span> so <span class="math inline">c = 0\times 1/4 + 1\times 1/4 = 1/4</span>. Note <span class="math inline">p + q = 1/2</span> is the discount over the period.</p>
+<p>Consider a one-period market having a bond that doubles in value over
+the period, a stock with initial price 1 that either stays the same or
+triples in value, and a call option on the stock with strike 2 and price
+<span class="math inline">c</span>. This is modeled by <span
+class="math inline">x = (1,1,c)</span>, <span
+class="math inline">X(\omega) = (2,\omega,\max\{\omega - 2, 0\})</span>
+where <span class="math inline">\Omega = \{1, 3\}</span>. For the model
+to be arbitrage-free there must exist <span
+class="math inline">p,q\ge0</span> with <span class="math inline">x =
+X(1)p + X(3)q</span> and <span class="math inline">p,q\ge0</span>. The
+constraint on the bond and stock give <span class="math inline">1 = 2p +
+2q</span> and <span class="math inline">1 = p + 3q</span>
+respectively.</p>
+<p>These equations have the unique solution <span class="math inline">p
+= q = 1/4</span> so <span class="math inline">c = 0\times 1/4 + 1\times
+1/4 = 1/4</span>. Note <span class="math inline">p + q = 1/2</span> is
+the discount over the period.</p>
 </section>
 <section id="model-1" class="level4">
 <h4>90-100-110 Model</h4>
-<p>Consider a one-period market having a bond with zero interest over the period, a stock with initial price 100 that can go to 90, 100, or 110 at the end of the period, and a call option on the stock with strike 100 and price <span class="math inline">c</span>. This is modeled by <span class="math inline">x = (1,100,c)</span>, <span class="math inline">X(\omega) = (1,\omega,\max\{\omega - 100, 0\})</span> where <span class="math inline">\Omega = \{90, 100, 110\}</span>. For the model to be arbitrage-free there must exist <span class="math inline">p,q,r\ge0</span> with <span class="math inline">x = X(90)p + X(100)q + X(110)r</span>.</p>
-<p>The equation for the bond, stock, and option are <span class="math inline">1 = p + q + r</span>, <span class="math inline">100 = 90p + 100q + 110r</span>, and <span class="math inline">c = 10r</span>. The first two equations can be written in matrix notation as <span class="math display">
+<p>Consider a one-period market having a bond with zero interest over
+the period, a stock with initial price 100 that can go to 90, 100, or
+110 at the end of the period, and a call option on the stock with strike
+100 and price <span class="math inline">c</span>. This is modeled by
+<span class="math inline">x = (1,100,c)</span>, <span
+class="math inline">X(\omega) = (1,\omega,\max\{\omega - 100,
+0\})</span> where <span class="math inline">\Omega = \{90, 100,
+110\}</span>. For the model to be arbitrage-free there must exist <span
+class="math inline">p,q,r\ge0</span> with <span class="math inline">x =
+X(90)p + X(100)q + X(110)r</span>.</p>
+<p>The equation for the bond, stock, and option are <span
+class="math inline">1 = p + q + r</span>, <span class="math inline">100
+= 90p + 100q + 110r</span>, and <span class="math inline">c =
+10r</span>. The first two equations can be written in matrix notation as
+<span class="math display">
 \begin{bmatrix}
 1 \\
 100 \\
@@ -76,7 +177,8 @@ q \\
 r \\
 110r \\
 \end{bmatrix}.
-</span> Solving for <span class="math inline">p</span> and <span class="math inline">q</span> gives <span class="math display">
+</span> Solving for <span class="math inline">p</span> and <span
+class="math inline">q</span> gives <span class="math display">
 \begin{bmatrix}
 p \\
 q \\
@@ -86,17 +188,45 @@ q \\
 r \\
 1 - 2r \\
 \end{bmatrix}
-</span> The conditions <span class="math inline">p,q\ge0</span> imply <span class="math inline">r\ge0</span> and <span class="math inline">1-2r\ge0</span> so <span class="math inline">0\le r\le 1/2</span>. Since <span class="math inline">c = 10r</span> we have <span class="math inline">0\le c\le 5</span> if the model is arbitrage-free.</p>
-<p>Note the option price is not unique in this example. This is the case for any realisitic model of what can occur in the market.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">x = (100, c)</span> and <span class="math inline">X(\omega) = (\omega, \max\{\omega - 100\})</span> for <span class="math inline">\omega\in\{90,100,110\}</span> show the model is arbitrage-free if and only if <span class="math inline">0\le c\le 100/11</span></em>.</p>
-<p>Even if the bond is not available for trading the option price must be strictly less than 10 in an arbitrage-free model.</p>
+</span> The conditions <span class="math inline">p,q\ge0</span> imply
+<span class="math inline">r\ge0</span> and <span
+class="math inline">1-2r\ge0</span> so <span class="math inline">0\le
+r\le 1/2</span>. Since <span class="math inline">c = 10r</span> we have
+<span class="math inline">0\le c\le 5</span> if the model is
+arbitrage-free.</p>
+<p>Note the option price is not unique in this example. This is the case
+for any realisitic model of what can occur in the market.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">x = (100,
+c)</span> and <span class="math inline">X(\omega) = (\omega,
+\max\{\omega - 100\})</span> for <span
+class="math inline">\omega\in\{90,100,110\}</span> show the model is
+arbitrage-free if and only if <span class="math inline">0\le c\le
+100/11</span></em>.</p>
+<p>Even if the bond is not available for trading the option price must
+be strictly less than 10 in an arbitrage-free model.</p>
 </section>
 <section id="binomial-model" class="level4">
 <h4>Binomial Model</h4>
-<p>The binomial model is where a bond has realized return <span class="math inline">R</span> and the stock has initial price <span class="math inline">s</span> and ends at either a low price <span class="math inline">L</span> or high price <span class="math inline">H</span>, <span class="math inline">x = (1, s)</span>, <span class="math inline">X(\omega) = (R, \omega)</span> where <span class="math inline">\omega\in\Omega = \{L,H\}</span>. The no arbitrage condition is <span class="math inline">x = X(L)p + X(H)q</span> for some <span class="math inline">p,q\ge0</span>. This has a unique solution.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">p = (H - Rs)/R(H - L)</span> and <span class="math inline">q = (Rs - L)/R(H - L)</span></em>.</p>
+<p>The binomial model is where a bond has realized return <span
+class="math inline">R</span> and the stock has initial price <span
+class="math inline">s</span> and ends at either a low price <span
+class="math inline">L</span> or high price <span
+class="math inline">H</span>, <span class="math inline">x = (1,
+s)</span>, <span class="math inline">X(\omega) = (R, \omega)</span>
+where <span class="math inline">\omega\in\Omega = \{L,H\}</span>. The no
+arbitrage condition is <span class="math inline">x = X(L)p +
+X(H)q</span> for some <span class="math inline">p,q\ge0</span>. This has
+a unique solution.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">p = (H
+- Rs)/R(H - L)</span> and <span class="math inline">q = (Rs - L)/R(H -
+L)</span></em>.</p>
 <details>
-<summary>Solution</summary> The bond satifies <span class="math inline">1 = Rp + Rq</span> and the stock satisfies <span class="math inline">s = Lp + Hq</span>. This can be written in matrix notation as <span class="math display">
+<summary>
+Solution
+</summary>
+The bond satifies <span class="math inline">1 = Rp + Rq</span> and the
+stock satisfies <span class="math inline">s = Lp + Hq</span>. This can
+be written in matrix notation as <span class="math display">
 \begin{bmatrix}
 1 \\
 s \\
@@ -142,111 +272,249 @@ H - Rs \\
 \end{bmatrix}
 </span>
 </details>
-<p><strong>Exercise</strong>. <em>Show the conditions <span class="math inline">p,q\ge0</span> imply <span class="math inline">L \le Rs \le H</span></em>.</p>
-<p>If an option pays <span class="math inline">\phi(\omega)</span> then it pays either <span class="math inline">\phi(L)</span> or <span class="math inline">\phi(H)</span> at expiration. Every European option in a binomial model is a linear function and its arbitrage-free price is determined by the no arbitrage condition the bond and stock satisfy.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">x = (1, s, c)</span> and <span class="math inline">X(\omega) = (R, \omega, \max\{\omega - K, 0\})</span> where <span class="math inline">\omega\in [L, H]</span> what are the no-arbitrage constraints on <span class="math inline">c</span></em>?</p>
+<p><strong>Exercise</strong>. <em>Show the conditions <span
+class="math inline">p,q\ge0</span> imply <span class="math inline">L \le
+Rs \le H</span></em>.</p>
+<p>If an option pays <span class="math inline">\phi(\omega)</span> then
+it pays either <span class="math inline">\phi(L)</span> or <span
+class="math inline">\phi(H)</span> at expiration. Every European option
+in a binomial model is a linear function and its arbitrage-free price is
+determined by the no arbitrage condition the bond and stock satisfy.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">x = (1,
+s, c)</span> and <span class="math inline">X(\omega) = (R, \omega,
+\max\{\omega - K, 0\})</span> where <span class="math inline">\omega\in
+[L, H]</span> what are the no-arbitrage constraints on <span
+class="math inline">c</span></em>?</p>
 </section>
 </section>
 </section>
 <section id="unified-model" class="level2">
 <h2>Unified Model</h2>
-<p>Assume <span class="math inline">\Omega</span> is the sample space of possible outcomes and <span class="math inline">\mathcal{A}_t</span> is a partition of <span class="math inline">\Omega</span> representing the information available at each trading time <span class="math inline">t\in T</span>.</p>
+<p>Assume <span class="math inline">\Omega</span> is the sample space of
+possible outcomes and <span class="math inline">\mathcal{A}_t</span> is
+a partition of <span class="math inline">\Omega</span> representing the
+information available at each trading time <span
+class="math inline">t\in T</span>.</p>
 <section id="market" class="level3">
 <h3>Market</h3>
-<p>A <em>market model</em> for a set <span class="math inline">I</span> of <em>instruments</em> is specified by functions for <em>prices</em> <span class="math inline">X_t\colon\mathcal{A}_t\to 𝑹^I</span> and <em>cash flows</em> <span class="math inline">C_t\colon\mathcal{A}_t\to 𝑹^I</span>, <span class="math inline">t\in T</span>. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>We assume any amount of each instrument can be bought or sold at price <span class="math inline">X_t</span> at time <span class="math inline">t\in T</span>. Cash flows are almost always 0. Stocks pay dividends on dividend dates, bonds pay periodic coupons, European options have a single cash flow at expiration, futures have daily margin adjustments as cash flows. The price of a futures is always 0.</p>
+<p>A <em>market model</em> for a set <span class="math inline">I</span>
+of <em>instruments</em> is specified by functions for <em>prices</em>
+<span class="math inline">X_t\colon\mathcal{A}_t\to 𝑹^I</span> and
+<em>cash flows</em> <span class="math inline">C_t\colon\mathcal{A}_t\to
+𝑹^I</span>, <span class="math inline">t\in T</span>. <a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>We assume any amount of each instrument can be bought or sold at
+price <span class="math inline">X_t</span> at time <span
+class="math inline">t\in T</span>. Cash flows are almost always 0.
+Stocks pay dividends on dividend dates, bonds pay periodic coupons,
+European options have a single cash flow at expiration, futures have
+daily margin adjustments as cash flows. The price of a futures is always
+0.</p>
 </section>
 <section id="trading" class="level3">
 <h3>Trading</h3>
-<p>A <em>trading strategy</em> is a finite set of increasing stopping times <span class="math inline">(\tau_j)</span> and how much of each instrument to trade <span class="math inline">\Gamma_j\colon\mathcal{A}_{\tau_j}\to 𝑹^I</span> at each time. Trades accumulate to a <em>position</em> <span class="math display">
+<p>A <em>trading strategy</em> is a finite set of increasing stopping
+times <span class="math inline">(\tau_j)</span> and how much of each
+instrument to trade <span
+class="math inline">\Gamma_j\colon\mathcal{A}_{\tau_j}\to 𝑹^I</span> at
+each time. Trades accumulate to a <em>position</em> <span
+class="math display">
     \Delta_t = \sum_{\tau_j &lt; t}\Gamma_j = \sum_{s &lt; t} \Gamma_s
-</span> where <span class="math inline">\Gamma_s = \Gamma_j</span> if <span class="math inline">s = \tau_j</span>. Note the strict inequality. This reflects the reality that it takes some time after a trade is executed for it to settle.</p>
-<p>We do not assume there is a money market account available to finance trading or require a strategy to be self-financing.</p>
-<p>The <em>value</em>, or <em>mark-to-market</em> of a trading strategy is <span class="math display">
+</span> where <span class="math inline">\Gamma_s = \Gamma_j</span> if
+<span class="math inline">s = \tau_j</span>. Note the strict inequality.
+This reflects the reality that it takes some time after a trade is
+executed for it to settle.</p>
+<p>We do not assume there is a money market account available to finance
+trading or require a strategy to be self-financing.</p>
+<p>The <em>value</em>, or <em>mark-to-market</em> of a trading strategy
+is <span class="math display">
     V_t = (\Delta_t + \Gamma_t)\cdot X_t.
-</span> It the the amount generated by unwinding the existing position and trades just executed at the prevailing market price, assuming that is possible.</p>
-<p>Trading strategies involve cash flows to the trading <em>account</em> <span class="math display">
+</span> It the the amount generated by unwinding the existing position
+and trades just executed at the prevailing market price, assuming that
+is possible.</p>
+<p>Trading strategies involve cash flows to the trading <em>account</em>
+<span class="math display">
     A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t.
-</span> At time <span class="math inline">t</span> cash flows are received in proportion to the existing position and the trades just executed are debited from the trading account.</p>
+</span> At time <span class="math inline">t</span> cash flows are
+received in proportion to the existing position and the trades just
+executed are debited from the trading account.</p>
 </section>
 <section id="arbitrage" class="level3">
 <h3>Arbitrage</h3>
-<p><em>Arbitrage</em> exists for a model if there is a trading strategy <span class="math inline">(\tau_j, \Gamma_j)</span> with <span class="math inline">\sum_j \Gamma_j = 0</span>, <span class="math inline">A_{\tau_0} &gt; 0</span>, <span class="math inline">A_t\ge0</span> for <span class="math inline">t &gt; \tau_0</span>. The strategy must close out, make money on the first trade, and never lose money thereafter.</p>
-<p>Arbitrage-free models are parameterized by a function <span class="math inline">D_t\colon\mathcal{A}_t\to (0,\infty)</span>. We call <span class="math inline">D_t</span> a <em>deflator</em>. If a money-market account is available to fund trading then <span class="math inline">D_t = 1/R_t</span> where <span class="math inline">R_t</span> is the realized return on the money-market account.</p>
-<p>Let <span class="math inline">M_t = X_t D_t + sum_{s\le t}C_s D_s</span>.</p>
-<p><strong>Lemma</strong>. <em>A model is arbitrage-free if <span class="math inline">M_u|_{\mathcal{A}_t} = M_t</span></em>.</p>
+<p><em>Arbitrage</em> exists for a model if there is a trading strategy
+<span class="math inline">(\tau_j, \Gamma_j)</span> with <span
+class="math inline">\sum_j \Gamma_j = 0</span>, <span
+class="math inline">A_{\tau_0} &gt; 0</span>, <span
+class="math inline">A_t\ge0</span> for <span class="math inline">t &gt;
+\tau_0</span>. The strategy must close out, make money on the first
+trade, and never lose money thereafter.</p>
+<p>Arbitrage-free models are parameterized by a function <span
+class="math inline">D_t\colon\mathcal{A}_t\to (0,\infty)</span>. We call
+<span class="math inline">D_t</span> a <em>deflator</em>. If a
+money-market account is available to fund trading then <span
+class="math inline">D_t = 1/R_t</span> where <span
+class="math inline">R_t</span> is the realized return on the
+money-market account.</p>
+<p>Let <span class="math inline">M_t = X_t D_t + sum_{s\le t}C_s
+D_s</span>.</p>
+<p><strong>Lemma</strong>. <em>A model is arbitrage-free if <span
+class="math inline">M_u|_{\mathcal{A}_t} = M_t</span></em>.</p>
 <details>
-<p><summary><em>Proof</em>.</summary></p>
+<summary>
+<em>Proof</em>.
+</summary>
 We have <span class="math display">
 \begin{aligned}
     E[X_u D_u + \sum_{t &lt; s \le u} C_s D_s\mid\mathcal{A}_t]
-    &amp;= E[M_u - \sum_{s\le u}C_s D_s + \sum_{t &lt; s \le u} C_s D_s\mid\mathcal{A}_t] \\
+    &amp;= E[M_u - \sum_{s\le u}C_s D_s + \sum_{t &lt; s \le u} C_s
+D_s\mid\mathcal{A}_t] \\
     &amp;= E[M_u - \sum_{s\le t}C_s D_s \mid\mathcal{A}_t] \\
     &amp;= M_t - \sum_{s\le t}C_s D_s \\
     &amp;= X_t D_t
 \end{aligned}
 </span>
 </details>
-<p><strong>Theorem</strong>. <em>A model is arbitrage-free if <span class="math inline">M_u|_{\mathcal{A}_t} = M_t</span></em>.</p>
-<p><strong>Lemma</strong>. <em>Using value <span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span> and account <span class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t</span>,</em> <span class="math display">
-    V_t D_t = E[V_u D_u + \sum_{t &lt; s \le u} A_s D_s\mid\mathcal{A}_t].\tag{3}
+<p><strong>Theorem</strong>. <em>A model is arbitrage-free if <span
+class="math inline">M_u|_{\mathcal{A}_t} = M_t</span></em>.</p>
+<p><strong>Lemma</strong>. <em>Using value <span class="math inline">V_t
+= (\Delta_t + \Gamma_t)\cdot X_t</span> and account <span
+class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
+X_t</span>,</em> <span class="math display">
+    V_t D_t = E[V_u D_u + \sum_{t &lt; s \le u} A_s
+D_s\mid\mathcal{A}_t].\tag{3}
 </span></p>
 <details>
-<p><summary><em>Proof</em>.</summary></p>
-Note <span class="math inline">X_t D_t = E_t[X_u D_u + C_u D_u]</span> and <span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t = \Delta_u\cdot X_t</span> for <span class="math inline">u &gt; t</span> sufficiently small. <span class="math display">
+<summary>
+<em>Proof</em>.
+</summary>
+Note <span class="math inline">X_t D_t = E_t[X_u D_u + C_u D_u]</span>
+and <span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t =
+\Delta_u\cdot X_t</span> for <span class="math inline">u &gt; t</span>
+sufficiently small. <span class="math display">
 \begin{aligned}
     V_t D_t &amp;= \Delta_u\cdot X_t D_t \\
     &amp;= \Delta_u \cdot E_t[X_u D_u + C_u D_u] \\
     &amp;= E_t[(\Delta_u \cdot X_u + \Delta_u \cdot C_u) D_u] \\
-    &amp;= E_t[(V_t - \Gamma_t\cdot X_t + A_t + \Gamma_t\cdot X_t) D_u] \\
+    &amp;= E_t[(V_t - \Gamma_t\cdot X_t + A_t + \Gamma_t\cdot X_t) D_u]
+\\
     &amp;= E_t[(V_t + A_t) D_u] \\
 \end{aligned}
-</span> The proof follows by induction on <span class="math inline">u</span>.
+</span> The proof follows by induction on <span
+class="math inline">u</span>.
 </details>
-<p>Note the similarity between equation (2) and (3). Price and cash flow in (2) correspond to value and account in (3). Every trading strategy produces a synthetic derivative instrument.</p>
-<p><strong>Theorem</strong>. (Fundamental Theorem of Asset Pricing) <em>Every model parameterized by a vector-valued martingale <span class="math inline">(M_t)_{t\in T}</span> and a positive, adapted function <span class="math inline">(D_t)_{t\in T}</span> where <span class="math inline">X_t D_t = M_t - \sum_{s\le t}C_s D_s</span> is arbitrage-free</em>.</p>
-<p><em>Proof</em>. If <span class="math inline">(\tau_j, \Gamma_j)</span> is a closed out trading strategy with <span class="math inline">A_t\ge0</span> for <span class="math inline">t &gt; \tau_0</span> then <span class="math inline">V_{\tau_0} = E[ \sum_{t &lt; s \le u} A_s D_s\mid\mathcal{A}_{\tau_0}] \ge 0</span>. Since <span class="math inline">V_{\tau_0} = \Gamma_0\cdot X_{\tau_0} = -A_{\tau_0}</span> and <span class="math inline">D_t</span> is positive we have <span class="math inline">A_{\tau_0} \le 0</span> so there is no arbitrage.</p>
+<p>Note the similarity between equation (2) and (3). Price and cash flow
+in (2) correspond to value and account in (3). Every trading strategy
+produces a synthetic derivative instrument.</p>
+<p><strong>Theorem</strong>. (Fundamental Theorem of Asset Pricing)
+<em>Every model parameterized by a vector-valued martingale <span
+class="math inline">(M_t)_{t\in T}</span> and a positive, adapted
+function <span class="math inline">(D_t)_{t\in T}</span> where <span
+class="math inline">X_t D_t = M_t - \sum_{s\le t}C_s D_s</span> is
+arbitrage-free</em>.</p>
+<p><em>Proof</em>. If <span class="math inline">(\tau_j,
+\Gamma_j)</span> is a closed out trading strategy with <span
+class="math inline">A_t\ge0</span> for <span class="math inline">t &gt;
+\tau_0</span> then <span class="math inline">V_{\tau_0} = E[ \sum_{t
+&lt; s \le u} A_s D_s\mid\mathcal{A}_{\tau_0}] \ge 0</span>. Since <span
+class="math inline">V_{\tau_0} = \Gamma_0\cdot X_{\tau_0} =
+-A_{\tau_0}</span> and <span class="math inline">D_t</span> is positive
+we have <span class="math inline">A_{\tau_0} \le 0</span> so there is no
+arbitrage.</p>
 </section>
 </section>
 <section id="money-market-account" class="level2">
 <h2>Money Market Account</h2>
-<p>If a money market account is available with return <span class="math inline">R_t</span>, then <span class="math inline">D_t = 1/R_t</span>. In this case we call <span class="math inline">D_t</span> the <em>stochastic discount</em> instead of deflator. A money market account can be used to fund trading strategies to make them self-financing.</p>
+<p>If a money market account is available with return <span
+class="math inline">R_t</span>, then <span class="math inline">D_t =
+1/R_t</span>. In this case we call <span class="math inline">D_t</span>
+the <em>stochastic discount</em> instead of deflator. A money market
+account can be used to fund trading strategies to make them
+self-financing.</p>
 </section>
 <section id="examples-1" class="level2">
 <h2>Examples</h2>
 <section id="black-scholesmerton" class="level3">
 <h3>Black-Scholes/Merton</h3>
-<p>Let <span class="math inline">M_t = se^{\sigma B_t - \sigma^2t/2}</span> and <span class="math inline">D_t = e^{-\rho t}</span>. Since <span class="math inline">S_tD_t = se^{\sigma B_t - \sigma^2t/2}</span> we have <span class="math display">
+<p>Let <span class="math inline">M_t = se^{\sigma B_t -
+\sigma^2t/2}</span> and <span class="math inline">D_t = e^{-\rho
+t}</span>. Since <span class="math inline">S_tD_t = se^{\sigma B_t -
+\sigma^2t/2}</span> we have <span class="math display">
     S_t = se^{\rho t + \sigma B_t - \sigma^2t/2}.
 </span></p>
-<p>There is no need to restrict models to Ito processes, use partial differential equations, or consider self-financing portfolios.</p>
-<p>We can allow <span class="math inline">\sigma</span> to be a function of time and use the martingale <span class="math inline">e^{\int_0^t \sigma(s)\,dB - (1/2)\int_0^t \sigma^2(s)\,ds}</span>.</p>
-<p>If the stock pays dividends <span class="math inline">d_j</span> at times <span class="math inline">t_j</span> then these are cash flows and equation (1) gives <span class="math display">
-    S_t = se^{\rho t + \sigma B_t - \sigma^2t/2} - \sum_{t_j\le t} d_j e^{\rho(t - t_j)}.
-</span> It is valid for any dividends <span class="math inline">d_j</span> that depend only on the information available at time <span class="math inline">t_j</span>. For discrete dividends <span class="math inline">d_j</span> is constant. For proportional dividend <span class="math inline">d_j = p_j S_{t_j}</span>.</p>
+<p>There is no need to restrict models to Ito processes, use partial
+differential equations, or consider self-financing portfolios.</p>
+<p>We can allow <span class="math inline">\sigma</span> to be a function
+of time and use the martingale <span class="math inline">e^{\int_0^t
+\sigma(s)\,dB - (1/2)\int_0^t \sigma^2(s)\,ds}</span>.</p>
+<p>If the stock pays dividends <span class="math inline">d_j</span> at
+times <span class="math inline">t_j</span> then these are cash flows and
+equation (1) gives <span class="math display">
+    S_t = se^{\rho t + \sigma B_t - \sigma^2t/2} - \sum_{t_j\le t} d_j
+e^{\rho(t - t_j)}.
+</span> It is valid for any dividends <span
+class="math inline">d_j</span> that depend only on the information
+available at time <span class="math inline">t_j</span>. For discrete
+dividends <span class="math inline">d_j</span> is constant. For
+proportional dividend <span class="math inline">d_j = p_j
+S_{t_j}</span>.</p>
 </section>
 <section id="zero-coupon-bonds" class="level3">
 <h3>Zero Coupon Bonds</h3>
-<p>A <em>zero coupon bond</em> with maturity <span class="math inline">u</span> has a single cash flow of 1 at time <span class="math inline">u</span>. By equation (2) we have <span class="math display">
+<p>A <em>zero coupon bond</em> with maturity <span
+class="math inline">u</span> has a single cash flow of 1 at time <span
+class="math inline">u</span>. By equation (2) we have <span
+class="math display">
 D_t(u)D_t = E_t[D_u]
-</span> where <span class="math inline">D_t(u)</span> is the price at time <span class="math inline">t</span> of the zero coupon bond.</p>
+</span> where <span class="math inline">D_t(u)</span> is the price at
+time <span class="math inline">t</span> of the zero coupon bond.</p>
 </section>
 <section id="risky-zero-coupon-bonds" class="level3">
 <h3>Risky Zero Coupon Bonds</h3>
-<p>If a zero coupon bond defaults at the random time <span class="math inline">T</span> and pays random recovery <span class="math inline">R</span> when it defaults then by equation (2) <span class="math display">
+<p>If a zero coupon bond defaults at the random time <span
+class="math inline">T</span> and pays random recovery <span
+class="math inline">R</span> when it defaults then by equation (2) <span
+class="math display">
 D^{T,R}_t(u)D_t = E_t[R1(t &lt; T \le u)D_T + 1(T &gt; u)D_u]
-</span> where <span class="math inline">D^{T,R}_t(u)</span> is the price at time <span class="math inline">t</span> of the risky zero coupon bond.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">P(T &gt; t) = e^{-\lambda t}</span> is independent of <span class="math inline">D_t</span>, <span class="math inline">t\ge 0</span>,…</em>.</p>
+</span> where <span class="math inline">D^{T,R}_t(u)</span> is the price
+at time <span class="math inline">t</span> of the risky zero coupon
+bond.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">P(T &gt;
+t) = e^{-\lambda t}</span> is independent of <span
+class="math inline">D_t</span>, <span class="math inline">t\ge
+0</span>,…</em>.</p>
 </section>
 </section>
 <section id="footnotes" class="level2">
 <h2>Footnotes</h2>
 </section>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>If <span class="math inline">\mathcal{A}</span> is an <a href="https://en.wikipedia.org/wiki/Algebra_of_sets"><em>algebra of sets</em></a> on the set <span class="math inline">\Omega</span> we write <span class="math inline">X\colon\mathcal{A}\to 𝑹</span> to indicate <span class="math inline">X\colon\Omega\to 𝑹</span> is <span class="math inline">\mathcal{A}</span>-<a href="https://en.wikipedia.org/wiki/Measurable_function"><em>measurable</em></a>. If <span class="math inline">\mathcal{A}</span> is finite then the <a href="https://en.wikipedia.org/wiki/Atom_(measure_theory)"><em>atoms</em></a> of <span class="math inline">\mathcal{A}</span> form a <a href="https://en.wikipedia.org/wiki/Partition_of_a_set"><em>partition</em></a> of <span class="math inline">\Omega</span> and <span class="math inline">X</span> is <span class="math inline">\mathcal{A}</span>-measurable if and only if it is constant on atoms of <span class="math inline">\mathcal{A}</span>. In this case <span class="math inline">X</span> is indeed a function on the atoms.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>If <span
+class="math inline">\mathcal{A}</span> is an <a
+href="https://en.wikipedia.org/wiki/Algebra_of_sets"><em>algebra of
+sets</em></a> on the set <span class="math inline">\Omega</span> we
+write <span class="math inline">X\colon\mathcal{A}\to 𝑹</span> to
+indicate <span class="math inline">X\colon\Omega\to 𝑹</span> is <span
+class="math inline">\mathcal{A}</span>-<a
+href="https://en.wikipedia.org/wiki/Measurable_function"><em>measurable</em></a>.
+If <span class="math inline">\mathcal{A}</span> is finite then the <a
+href="https://en.wikipedia.org/wiki/Atom_(measure_theory)"><em>atoms</em></a>
+of <span class="math inline">\mathcal{A}</span> form a <a
+href="https://en.wikipedia.org/wiki/Partition_of_a_set"><em>partition</em></a>
+of <span class="math inline">\Omega</span> and <span
+class="math inline">X</span> is <span
+class="math inline">\mathcal{A}</span>-measurable if and only if it is
+constant on atoms of <span class="math inline">\mathcal{A}</span>. In
+this case <span class="math inline">X</span> is indeed a function on the
+atoms.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
 </body>
 </html>
