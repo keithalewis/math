@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-01-23" />
+  <meta name="dcterms.date" content="2024-02-06" />
   <title>Unified Model for Derivative Instruments</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,425 +16,173 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: true
-   });
-}}});
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
   </script>
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Unified Model for Derivative Instruments</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 23, 2024</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-Value, hedge, and manage the risk of any instruments
-</div>
+<p class="date">February 6, 2024</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#market" id="toc-market">Market</a>
+<li><a href="#market">Market</a>
 <ul>
-<li><a href="#model" id="toc-model">Model</a>
+<li><a href="#model">Model</a>
 <ul>
-<li><a href="#price-cash-flow" id="toc-price-cash-flow">Price, Cash
-Flow</a></li>
+<li><a href="#price-cash-flow">Price, Cash Flow</a></li>
 </ul></li>
-<li><a href="#trading" id="toc-trading">Trading</a>
+<li><a href="#trading">Trading</a>
 <ul>
-<li><a href="#trade-position" id="toc-trade-position">Trade,
-Position</a></li>
-<li><a href="#value-account" id="toc-value-account">Value,
-Account</a></li>
+<li><a href="#trade-position">Trade, Position</a></li>
+<li><a href="#value-account">Value, Account</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#arbitrage" id="toc-arbitrage">Arbitrage</a></li>
-<li><a href="#hedge" id="toc-hedge">Hedge</a></li>
-<li><a href="#discount-measure" id="toc-discount-measure">Discount
-Measure</a></li>
-<li><a href="#examples" id="toc-examples">Examples</a>
+<li><a href="#arbitrage">Arbitrage</a></li>
+<li><a href="#hedge">Hedge</a></li>
+<li><a href="#discount-measure">Discount Measure</a></li>
+<li><a href="#examples">Examples</a>
 <ul>
-<li><a href="#black-scholesmerton"
-id="toc-black-scholesmerton">Black-Scholes/Merton</a></li>
-<li><a href="#transaction" id="toc-transaction">Transaction</a></li>
-<li><a href="#limit-orders" id="toc-limit-orders">Limit Orders</a></li>
-<li><a href="#market-orders" id="toc-market-orders">Market
-Orders</a></li>
-<li><a href="#forwards" id="toc-forwards">Forwards</a></li>
-<li><a href="#futures" id="toc-futures">Futures</a>
+<li><a href="#black-scholesmerton">Black-Scholes/Merton</a></li>
+<li><a href="#transaction">Transaction</a></li>
+<li><a href="#limit-orders">Limit Orders</a></li>
+<li><a href="#market-orders">Market Orders</a></li>
+<li><a href="#forwards">Forwards</a></li>
+<li><a href="#futures">Futures</a>
 <ul>
-<li><a href="#risky-bonds" id="toc-risky-bonds">Risky Bonds</a></li>
+<li><a href="#risky-bonds">Risky Bonds</a></li>
 </ul></li>
-<li><a href="#forward-rate-agreement"
-id="toc-forward-rate-agreement">Forward Rate Agreement</a></li>
-<li><a href="#convexity" id="toc-convexity">Convexity</a></li>
-<li><a href="#swap" id="toc-swap">Swap</a></li>
+<li><a href="#forward-rate-agreement">Forward Rate Agreement</a></li>
+<li><a href="#convexity">Convexity</a></li>
+<li><a href="#swap">Swap</a></li>
 </ul></li>
-<li><a href="#mathematical-prerequisites"
-id="toc-mathematical-prerequisites">Mathematical Prerequisites</a></li>
-<li><a href="#acknowledgments"
-id="toc-acknowledgments">Acknowledgments</a></li>
+<li><a href="#mathematical-prerequisites">Mathematical Prerequisites</a></li>
+<li><a href="#acknowledgments">Acknowledgments</a></li>
 </ul>
 </nav>
-<p>The intended customers of mathematical finance are businesses writing
-checks for tools they find useful. This has become obscured by the
-plethora of literature produced for academic purposes. Businesses find
-little value in pure mathematics, it must be turned into software
-producing numbers relevant to their operation.</p>
-<p>This short note is an attempt to provide a rigorous mathematical
-foundation for reasoning about problems pertinent to businesses. The
-classical theory of mathematical finance does not account for trading
-realities. Every transaction has a buyer and a seller. The seller offers
-possible exchanges and the buyer decides which to take. Issuers make
-securities available for trading. Exchanges provide instruments to
-facilitate this.</p>
-<p>We consider the fundamental problem of how to devise a trading
-strategy that replicates derivative payoffs. Continuous time trading is
-a mathematical fiction. Traders need to execute a finite number of
-trades and manage the associated risks.</p>
-<p>Market instruments have prices and cash flows. Trading involves
-valuing positions and accounting for transaction costs. Quants provide
-arbitrage-free models of market dynamics.</p>
-<p>Most models assume there is a money market account available to
-finance trading strategies. The Unified Model does not. All instruments
-used in trading must be explicitly specified. Realistic models must
-allow for non-optimal trading strategies.</p>
-<p>Traders decide when and how much to trade at discrete times based on
-available information. Managing risk involves trading strategies used
-for hedging. The Unified Model forces you to consider the decisions
-traders must make every day.</p>
-<p>See <a href="#mathematical-prerequisites">Mathematical
-Prerequisites</a> for the elementary mathematics required.</p>
+<p>The intended customers of mathematical finance are businesses writing checks for tools they find useful. This has become obscured by the plethora of literature produced for academic purposes. Businesses find little value in pure mathematics, it must be turned into software producing numbers relevant to their operation.</p>
+<p>This short note is an attempt to provide a rigorous mathematical foundation for reasoning about problems pertinent to businesses. The classical theory of mathematical finance does not account for trading realities. Every transaction has a buyer and a seller. The seller offers possible exchanges and the buyer decides which to take. Issuers make securities available for trading. Exchanges provide instruments to facilitate this.</p>
+<p>We consider the fundamental problem of how to devise a trading strategy that replicates derivative payoffs. Continuous time trading is a mathematical fiction. Traders need to execute a finite number of trades and manage the associated risks.</p>
+<p>Market instruments have prices and cash flows. Trading involves valuing positions and accounting for transaction costs. Quants provide arbitrage-free models of market dynamics.</p>
+<p>Most models assume there is a money market account available to finance trading strategies. The Unified Model does not. All instruments used in trading must be explicitly specified. Realistic models must allow for non-optimal trading strategies.</p>
+<p>Traders decide when and how much to trade at discrete times based on available information. Managing risk involves trading strategies used for hedging. The Unified Model forces you to consider the decisions traders must make every day.</p>
+<p>See <a href="#mathematical-prerequisites">Mathematical Prerequisites</a> for the elementary mathematics required.</p>
 <section id="market" class="level2">
 <h2>Market</h2>
-<p>Instruments have <em>prices</em> and <em>cash flows</em>. We make the
-usual unrealistic assumption that any instrument can be bought or sold
-at any time in any amount at the market price. Owning an instrument
-entails cash flows from the issuer or exchange. Unlike prices, cash
-flows are almost always 0. Stocks pay dividends, bonds pay coupons,
-futures pay the daily difference of their market quotes and always have
-price 0. Futures quotes are naturally occurring martingales.</p>
+<p>Instruments have <em>prices</em> and <em>cash flows</em>. We make the usual unrealistic assumption that any instrument can be bought or sold at any time in any amount at the market price. Owning an instrument entails cash flows from the issuer or exchange. Unlike prices, cash flows are almost always 0. Stocks pay dividends, bonds pay coupons, futures pay the daily difference of their market quotes and always have price 0. Futures quotes are naturally occurring martingales.</p>
 <section id="model" class="level3">
 <h3>Model</h3>
-<p>A model of the market assumes a set of <em>outcomes</em> <span
-class="math inline">\Omega</span> of all possible things that can occur.
-Information available at trading time <span class="math inline">t\in
-T</span> is modeled by a <em>partition</em> <span
-class="math inline">{\mathcal{A}}_t</span> of <span
-class="math inline">\Omega</span>.</p>
+<p>A model of the market assumes a set of <em>outcomes</em> <span class="math inline">\Omega</span> of all possible things that can occur. Information available at trading time <span class="math inline">t\in T</span> is modeled by a <em>partition</em> <span class="math inline">{\mathcal{A}}_t</span> of <span class="math inline">\Omega</span>.</p>
 <section id="price-cash-flow" class="level4">
 <h4>Price, Cash Flow</h4>
-<p>Let <span class="math inline">I</span> be the set of all instruments,
-<span class="math inline">X_t\colon{\mathcal{A}}_t\to
-\boldsymbol{R}^I</span> be the <em>prices</em>, and <span
-class="math inline">C_t\colon{\mathcal{A}}_t\to \boldsymbol{R}^I</span>
-be the <em>cash flows</em> of each instrument given information <span
-class="math inline">{\mathcal{A}}_t</span> at trading time <span
-class="math inline">t</span>. In particular, <span
-class="math inline">X_t(i) = X_t^i</span> is the price at time <span
-class="math inline">t</span> of instrument <span
-class="math inline">i\in I</span>.</p>
+<p>Let <span class="math inline">I</span> be the set of all instruments, <span class="math inline">X_t\colon{\mathcal{A}}_t\to \boldsymbol{R}^I</span> be the <em>prices</em>, and <span class="math inline">C_t\colon{\mathcal{A}}_t\to \boldsymbol{R}^I</span> be the <em>cash flows</em> of each instrument given information <span class="math inline">{\mathcal{A}}_t</span> at trading time <span class="math inline">t</span>. In particular, <span class="math inline">X_t(i) = X_t^i</span> is the price at time <span class="math inline">t</span> of instrument <span class="math inline">i\in I</span>.</p>
 </section>
 </section>
 <section id="trading" class="level3">
 <h3>Trading</h3>
-<p>Trades are based on information available at the time of the trade.
-The buyer decides how much of each instrument to buy or sell at offered
-market prices. Trades accumulate to positions and cash flows
-proportional to existing positions are credited.</p>
+<p>Trades are based on information available at the time of the trade. The buyer decides how much of each instrument to buy or sell at offered market prices. Trades accumulate to positions and cash flows proportional to existing positions are credited.</p>
 <section id="trade-position" class="level4">
 <h4>Trade, Position</h4>
-<p>A <em>trading strategy</em> is a finite number of increasing stopping
-times<a href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a> <span
-class="math inline">(\tau_j)</span> and corresponding trades <span
-class="math inline">{\Gamma_j\colon{\mathcal{A}}_{\tau_j}\to
-\boldsymbol{R}^I}</span> in each instrument with <span
-class="math inline">{\sum_j \Gamma_j = 0}</span>. Trading strategies
-must eventually close out.</p>
-<p>Trades accumulate to <em>positions</em> <span
-class="math inline">{\Delta_t = \sum_{\tau_j &lt; t}\Gamma_j = \sum_{s
-&lt; t}\Gamma_s}</span> where <span class="math inline">\Gamma_s =
-\Gamma_j</span> if <span class="math inline">s = \tau_j</span>. Note the
-strict inequality. Trades done at time <span
-class="math inline">t</span> must settle before belonging to a
-position.</p>
+<p>A <em>trading strategy</em> is a finite number of increasing stopping times<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span class="math inline">(\tau_j)</span> and corresponding trades <span class="math inline">{\Gamma_j\colon{\mathcal{A}}_{\tau_j}\to \boldsymbol{R}^I}</span> in each instrument with <span class="math inline">{\sum_j \Gamma_j = 0}</span>. Trading strategies must eventually close out.</p>
+<p>Trades accumulate to <em>positions</em> <span class="math inline">{\Delta_t = \sum_{\tau_j &lt; t}\Gamma_j = \sum_{s &lt; t}\Gamma_s}</span> where <span class="math inline">\Gamma_s = \Gamma_j</span> if <span class="math inline">s = \tau_j</span>. Note the strict inequality. Trades done at time <span class="math inline">t</span> must settle before belonging to a position.</p>
 </section>
 <section id="value-account" class="level4">
 <h4>Value, Account</h4>
-<p>The <em>value</em>, or <em>mark-to-market</em>, of a trading strategy
-at time <span class="math inline">t</span> is <span
-class="math display">
+<p>The <em>value</em>, or <em>mark-to-market</em>, of a trading strategy at time <span class="math inline">t</span> is <span class="math display">
     V_t = (\Delta_t + \Gamma_t)\cdot X_t.
-</span> It is the value of liquidating the existing positions, and the
-trades just done, at current prices.</p>
-<p>The <em>(brokerage) account</em>, or <em>(trade) blotter</em>, is
-<span class="math display">
+</span> It is the value of liquidating the existing positions, and the trades just done, at current prices.</p>
+<p>The <em>(brokerage) account</em>, or <em>(trade) blotter</em>, is <span class="math display">
     A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t.
-</span> Cash flows are credited in proportion to existing positions and
-trades just executed are debited.</p>
-<p>The net <em>profit and loss</em> over the period from time <span
-class="math inline">t</span> to time <span class="math inline">u</span>
-is <span class="math inline">{N(t,u) = V_u - V_t + \sum_{t &lt; s \le u}
-A_s}</span>. A strategy is <em>self-financing</em> at <span
-class="math inline">t</span> if <span class="math inline">A_t =
-0</span>. The Unified Model does not assume account payments are
-reinvested in a money-market account.</p>
+</span> Cash flows are credited in proportion to existing positions and trades just executed are debited.</p>
+<p>The net <em>profit and loss</em> over the period from time <span class="math inline">t</span> to time <span class="math inline">u</span> is <span class="math inline">{N(t,u) = V_u - V_t + \sum_{t &lt; s \le u} A_s}</span>. A strategy is <em>self-financing</em> at <span class="math inline">t</span> if <span class="math inline">A_t = 0</span>. The Unified Model does not assume account payments are reinvested in a money-market account.</p>
 </section>
 </section>
 </section>
 <section id="arbitrage" class="level2">
 <h2>Arbitrage</h2>
-<p>A model admits <em>arbitrage</em> if there is a trading strategy with
-<span class="math inline">A_{\tau_0} &gt; 0</span> and <span
-class="math inline">A_t\ge0</span> for <span class="math inline">t &gt;
-\tau_0</span>: you make money on the first trade and never lose money.
-Note that this definition does not require a “probability” measure.
-Traders and risk managers also compare <span
-class="math inline">{A_{\tau_0} = -\Gamma_{\tau_0}\cdot
-X_{\tau_0}}</span> to <span class="math inline">|\Gamma_{\tau_0}|\cdot
-|X_{\tau_0}|</span> as a gauge of return on investment. If they are
-savvy, they will also consider <span class="math inline">A_t</span> over
-the life of the trading strategy.</p>
-<p>Every arbitrage-free model of prices and cash flows is parameterized
-by positive <em>discount measures</em> <span class="math inline">{D_t\in
-ba({\mathcal{A}}_t)}</span> and functions <span
-class="math inline">{M_t\colon{\mathcal{A}}_t\to\boldsymbol{R}^I}</span>
-satisfying <span class="math inline">{M_tD_t = (M_u
-D_u)|_{{\mathcal{A}}_t}}</span>, <span class="math inline">t \le
-u</span>. If prices and cash flows satisfy <span class="math display">
+<p>A model admits <em>arbitrage</em> if there is a trading strategy with <span class="math inline">A_{\tau_0} &gt; 0</span> and <span class="math inline">A_t\ge0</span> for <span class="math inline">t &gt; \tau_0</span>: you make money on the first trade and never lose money. Note that this definition does not require a “probability” measure. Traders and risk managers also compare <span class="math inline">{A_{\tau_0} = -\Gamma_{\tau_0}\cdot X_{\tau_0}}</span> to <span class="math inline">|\Gamma_{\tau_0}|\cdot |X_{\tau_0}|</span> as a gauge of return on investment. If they are savvy, they will also consider <span class="math inline">A_t</span> over the life of the trading strategy.</p>
+<p>Every arbitrage-free model of prices and cash flows is parameterized by positive <em>discount measures</em> <span class="math inline">{D_t\in ba({\mathcal{A}}_t)}</span> and functions <span class="math inline">{M_t\colon{\mathcal{A}}_t\to\boldsymbol{R}^I}</span> satisfying <span class="math inline">{M_tD_t = (M_u D_u)|_{{\mathcal{A}}_t}}</span>, <span class="math inline">t \le u</span>. If prices and cash flows satisfy <span class="math display">
 \tag{0} X_t D_t = M_t D_0 - \sum_{s\le t} C_s D_s
-</span> then the model is arbitrage-free. We can multiply the discount
-measure by a positive constant without affecting this equation so we
-assume <span class="math inline">D_0</span> has mass 1.</p>
-<p><strong>Lemma</strong>. <em>Under this parameterization</em> <span
-class="math display">
-\tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u}C_s
-D_s)|_{{\mathcal{A}}_t}, u \ge t,
+</span> then the model is arbitrage-free. We can multiply the discount measure by a positive constant without affecting this equation so we assume <span class="math inline">D_0</span> has mass 1.</p>
+<p><strong>Lemma</strong>. <em>Under this parameterization</em> <span class="math display">
+\tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u}C_s D_s)|_{{\mathcal{A}}_t}, u \ge t,
 </span></p>
-<p>This follows immediately from replacing <span class="math inline">X_u
-D_u</span> by <span class="math inline">{M_u - \sum_{s\le u}C_s
-D_s}</span>.</p>
-<p><strong>Theorem</strong>. <em>Under this parameterization the model
-of prices <span class="math inline">X_t</span> and cash flows <span
-class="math inline">C_t</span> does not admit arbitrage.</em></p>
-<p><em>Proof</em>. If <span class="math inline">(\tau_j,
-\Gamma_j)</span> is a trading strategy with <span
-class="math inline">A_t\ge 0</span> for <span class="math inline">t &gt;
-\tau_0</span> then <span class="math inline">V_{\tau_0} D_{\tau_0} =
-E_{\tau_0}[\sum_{t &gt; \tau_0} A_t D_t] \ge 0</span> since <span
-class="math inline">D_t &gt; 0</span>. Using <span
-class="math inline">V_{\tau_0} = \Gamma_{\tau_0}\cdot X_{\tau_0} =
--A_{\tau_0}</span> and <span class="math inline">D_{\tau_0} &gt;
-0</span> we have <span class="math inline">A_{\tau_0} \le 0</span>.</p>
-<p>The Fundamental Theorem of Asset Pricing states the converse is true,
-but who cares? The job of a quant is to provide arbitrage-free models to
-their employers. The trick is to find martingales that can fit market
-prices.</p>
-<p><strong>Lemma</strong>. <em>Using the above definitions</em> <span
-class="math display">
-\tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u}A_s
-D_s)|_{{\mathcal{A}}_t}.
-</span> Note how trading strategies create synthetic instruments where
-value <span class="math inline">V_t</span> corresponds to prices <span
-class="math inline">X_t</span> and account <span
-class="math inline">A_t</span> corresponds to cash flows <span
-class="math inline">C_t</span>.</p>
-<p><em>Proof</em>. Assuming discrete time <span
-class="math inline">(t_j)</span> we only need <span
-class="math inline">V_j D_j = (V_{j+1} +
-A_{j+1})D_{j+1}|_{{\mathcal{A}}_{j}}</span> and induction. Using <span
-class="math inline">\Delta_{j+1}\cdot C_{j+1} = \Gamma_{j+1}\cdot
-X_{j+1} + A_{j+1}</span> we have <span class="math display">
+<p>This follows immediately from replacing <span class="math inline">X_u D_u</span> by <span class="math inline">{M_u - \sum_{s\le u}C_s D_s}</span>.</p>
+<p><strong>Theorem</strong>. <em>Under this parameterization the model of prices <span class="math inline">X_t</span> and cash flows <span class="math inline">C_t</span> does not admit arbitrage.</em></p>
+<p><em>Proof</em>. If <span class="math inline">(\tau_j, \Gamma_j)</span> is a trading strategy with <span class="math inline">A_t\ge 0</span> for <span class="math inline">t &gt; \tau_0</span> then <span class="math inline">V_{\tau_0} D_{\tau_0} = E_{\tau_0}[\sum_{t &gt; \tau_0} A_t D_t] \ge 0</span> since <span class="math inline">D_t &gt; 0</span>. Using <span class="math inline">V_{\tau_0} = \Gamma_{\tau_0}\cdot X_{\tau_0} = -A_{\tau_0}</span> and <span class="math inline">D_{\tau_0} &gt; 0</span> we have <span class="math inline">A_{\tau_0} \le 0</span>.</p>
+<p>The Fundamental Theorem of Asset Pricing states the converse is true, but who cares? The job of a quant is to provide arbitrage-free models to their employers. The trick is to find martingales that can fit market prices.</p>
+<p><strong>Lemma</strong>. <em>Using the above definitions</em> <span class="math display">
+\tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u}A_s D_s)|_{{\mathcal{A}}_t}.
+</span> Note how trading strategies create synthetic instruments where value <span class="math inline">V_t</span> corresponds to prices <span class="math inline">X_t</span> and account <span class="math inline">A_t</span> corresponds to cash flows <span class="math inline">C_t</span>.</p>
+<p><em>Proof</em>. Assuming discrete time <span class="math inline">(t_j)</span> we only need <span class="math inline">V_j D_j = (V_{j+1} + A_{j+1})D_{j+1}|_{{\mathcal{A}}_{j}}</span> and induction. Using <span class="math inline">\Delta_{j+1}\cdot C_{j+1} = \Gamma_{j+1}\cdot X_{j+1} + A_{j+1}</span> we have <span class="math display">
 \begin{aligned}
     V_j D_j &amp;= (\Delta_j + \Gamma_j)\cdot X_j D_j \\
     &amp;= \Delta_{j+1}\cdot X_j D_j \\
-    &amp;= \Delta_{j+1}\cdot (X_{j+1} +
-C_{j+1})D_{j+1}|_{{\mathcal{A}}_{j}} \\
-    &amp;= (\Delta_{j+1}\cdot X_{j+1} + \Gamma_{j+1}\cdot X_{j+1} +
-A_{j+1}) D_{j+1}|_{{\mathcal{A}}_{j}} \\
+    &amp;= \Delta_{j+1}\cdot (X_{j+1} + C_{j+1})D_{j+1}|_{{\mathcal{A}}_{j}} \\
+    &amp;= (\Delta_{j+1}\cdot X_{j+1} + \Gamma_{j+1}\cdot X_{j+1} + A_{j+1}) D_{j+1}|_{{\mathcal{A}}_{j}} \\
     &amp;= (V_{j+1} + A_{j+1})D_{j+1}|_{{\mathcal{A}}_{j}} \\
 \end{aligned}
 </span></p>
-<p>In continuous time the same argument holds path-wise if we take <span
-class="math inline">u &gt; t</span> sufficiently small.</p>
-<p>Formulas (1) and (2) are the foundation of derivative pricing. A
-derivative is a contract specifying payments <span
-class="math inline">A_j</span> at times <span
-class="math inline">\tau_j</span>. If there is a trading strategy
-replicating these payments, and <span class="math inline">A_t = 0</span>
-when <span class="math inline">t\not=\tau_j</span>, then its value is
-the cost of setting up the initial hedge.</p>
+<p>In continuous time the same argument holds path-wise if we take <span class="math inline">u &gt; t</span> sufficiently small.</p>
+<p>Formulas (1) and (2) are the foundation of derivative pricing. A derivative is a contract specifying payments <span class="math inline">A_j</span> at times <span class="math inline">\tau_j</span>. If there is a trading strategy replicating these payments, and <span class="math inline">A_t = 0</span> when <span class="math inline">t\not=\tau_j</span>, then its value is the cost of setting up the initial hedge.</p>
 </section>
 <section id="hedge" class="level2">
 <h2>Hedge</h2>
-<p>Given a derivative instrument, how does one find a trading strategy
-that replicates its payments? Let’s assume trades occur at discrete
-times <span class="math inline">(t_j)</span>. Since <span
-class="math inline">{V_{t_0} = (\sum_{t_j &gt; t_0} A_{t_j}
-D_{t_j})|_{{\mathcal{A}}_t}}</span> and <span
-class="math inline">{V_{t_0} = \Gamma_{t_0}\cdot X_{t_0}}</span> we have
-<span class="math display">
-    \Gamma_0 = \frac{d}{dX_{0}}(\sum_{j &gt; 0} A_j
-D_j)|_{{\mathcal{A}}_0},
-</span> where <span class="math inline">d/dX_0</span> is the Fréchet
-derivative.</p>
-<p>At subsequent times we have <span class="math inline">{V_j D_j =
-E_j[\sum_{k &gt; j} A_k D_k]}</span> and <span class="math inline">{V_j
-= (\Delta_j + \Gamma_j)\cdot X_j}</span> so <span class="math display">
+<p>Given a derivative instrument, how does one find a trading strategy that replicates its payments? Let’s assume trades occur at discrete times <span class="math inline">(t_j)</span>. Since <span class="math inline">{V_{t_0} = (\sum_{t_j &gt; t_0} A_{t_j} D_{t_j})|_{{\mathcal{A}}_t}}</span> and <span class="math inline">{V_{t_0} = \Gamma_{t_0}\cdot X_{t_0}}</span> we have <span class="math display">
+    \Gamma_0 = \frac{d}{dX_{0}}(\sum_{j &gt; 0} A_j D_j)|_{{\mathcal{A}}_0},
+</span> where <span class="math inline">d/dX_0</span> is the Fréchet derivative.</p>
+<p>At subsequent times we have <span class="math inline">{V_j D_j = E_j[\sum_{k &gt; j} A_k D_k]}</span> and <span class="math inline">{V_j = (\Delta_j + \Gamma_j)\cdot X_j}</span> so <span class="math display">
     (\Delta_j + \Gamma_j) D_j = \frac{d}{dX_{j}}\sum_{k &gt; j} A_k D_k.
-</span> Since <span class="math inline">\Delta_j = \sum_{i &lt;
-j}\Gamma_i</span> this determines <span
-class="math inline">\Gamma_j</span> by induction. Note <span
-class="math inline">\Delta</span> is delta and <span
-class="math inline">\Gamma</span> is gamma.</p>
-<p>Of course, this does not guarantee the trading strategy will
-replicate the payments. More work remains to be done in assessing the
-risk involved with realistic trading strategies.</p>
+</span> Since <span class="math inline">\Delta_j = \sum_{i &lt; j}\Gamma_i</span> this determines <span class="math inline">\Gamma_j</span> by induction. Note <span class="math inline">\Delta</span> is delta and <span class="math inline">\Gamma</span> is gamma.</p>
+<p>Of course, this does not guarantee the trading strategy will replicate the payments. More work remains to be done in assessing the risk involved with realistic trading strategies.</p>
 </section>
 <section id="discount-measure" class="level2">
 <h2>Discount Measure</h2>
-<p>Repurchase agreements determine a <em>canonical discount
-measure</em>.</p>
-<p>If a <em>repurchase agreement</em> has price <span
-class="math inline">X_t = 1</span> and cash flow <span
-class="math inline">{C_{t + \Delta t} = \exp(f_t\Delta t)}</span> then
-by equation (1) <span class="math inline">{1D_t = \exp(f_t\Delta t)D_{t
-+ \Delta t}|_{{\mathcal{A}}_t}}</span>. If <span
-class="math inline">D_{t + \Delta t}</span> is <span
-class="math inline">{\mathcal{A}}_t</span> measurable then <span
-class="math inline">D_{t + \Delta t}/D_t = \exp(-f_t\Delta t)</span>. In
-discrete time <span class="math inline">D_j = \exp(-\sum_{i &lt; j}
-f_i\Delta t_i)D_0</span> so the canonical discount measure. is
-determined by repo rates.<br />
-The continuous time version of this is <span class="math inline">D_t =
-\exp(-\int_0^t f_s\,ds)</span> where <span
-class="math inline">f_t</span> is the <em>(continuously compounded)
-stochastic forward rate</em>.</p>
-<p>Traders assume there is a money market account available for funding,
-but other traders on the repo desk get paid a couple of basis points for
-providing that abstraction. If you are doing day trading funded by your
-credit card then you need to use a discount based on the APR you are
-being charged.</p>
+<p>Repurchase agreements determine a <em>canonical discount measure</em>.</p>
+<p>If a <em>repurchase agreement</em> has price <span class="math inline">X_t = 1</span> and cash flow <span class="math inline">{C_{t + \Delta t} = \exp(f_t\Delta t)}</span> then by equation (1) <span class="math inline">{1D_t = \exp(f_t\Delta t)D_{t + \Delta t}|_{{\mathcal{A}}_t}}</span>. If <span class="math inline">D_{t + \Delta t}</span> is <span class="math inline">{\mathcal{A}}_t</span> measurable then <span class="math inline">D_{t + \Delta t}/D_t = \exp(-f_t\Delta t)</span>. In discrete time <span class="math inline">D_j = \exp(-\sum_{i &lt; j} f_i\Delta t_i)D_0</span> so the canonical discount measure. is determined by repo rates.<br />
+The continuous time version of this is <span class="math inline">D_t = \exp(-\int_0^t f_s\,ds)</span> where <span class="math inline">f_t</span> is the <em>(continuously compounded) stochastic forward rate</em>.</p>
+<p>Traders assume there is a money market account available for funding, but other traders on the repo desk get paid a couple of basis points for providing that abstraction. If you are doing day trading funded by your credit card then you need to use a discount based on the APR you are being charged.</p>
 </section>
 <section id="examples" class="level2">
 <h2>Examples</h2>
-<p>Applications of formula (1). We use the customary notation <span
-class="math inline">E_t[X] = E[X\mid{\mathcal{A}}_t]</span> for <span
-class="math inline">(XP)|_{{\mathcal{A}}_t}</span> when <span
-class="math inline">P</span> is a positive measure having mass 1. Unlike
-classical models <span class="math inline">E_t[X]</span> is a measure,
-not a random variable.</p>
+<p>Applications of formula (1). We use the customary notation <span class="math inline">E_t[X] = E[X\mid{\mathcal{A}}_t]</span> for <span class="math inline">(XP)|_{{\mathcal{A}}_t}</span> when <span class="math inline">P</span> is a positive measure having mass 1. Unlike classical models <span class="math inline">E_t[X]</span> is a measure, not a random variable.</p>
 <section id="black-scholesmerton" class="level3">
 <h3>Black-Scholes/Merton</h3>
-<p>The Black, Scholes, and Merton model is <span class="math inline">D_t
-= e^{-\rho t}P</span> where <span class="math inline">P</span> is Wiener
-measure on the sample space of continuous functions <span
-class="math inline">C[0,\infty)</span> and <span
-class="math inline">{M_t = (r, se^{\sigma B_t - \sigma^2t/2})}</span>.
-There is no need for Ito’s formula or partial differential equations
-when using the Unified Model.</p>
+<p>The Black, Scholes, and Merton model is <span class="math inline">D_t = e^{-\rho t}P</span> where <span class="math inline">P</span> is Wiener measure on the sample space of continuous functions <span class="math inline">C[0,\infty)</span> and <span class="math inline">{M_t = (r, se^{\sigma B_t - \sigma^2t/2})}</span>. There is no need for Ito’s formula or partial differential equations when using the Unified Model.</p>
 </section>
 <section id="transaction" class="level3">
 <h3>Transaction</h3>
-<p>Purchasing <span class="math inline">a</span> shares of instrument
-<span class="math inline">X</span> having price <span
-class="math inline">X_t</span> at time <span
-class="math inline">t</span> is a cash flow <span
-class="math inline">{C_t = (-aX_t, a)}</span> involving a currency and
-<span class="math inline">X</span>. This is a mathematical idealization.
-Transactions in the real world occur on <em>exchanges</em> and involve
-<em>order books</em>, <em>limit orders</em>, and <em>market
-orders</em>.</p>
+<p>Purchasing <span class="math inline">a</span> shares of instrument <span class="math inline">X</span> having price <span class="math inline">X_t</span> at time <span class="math inline">t</span> is a cash flow <span class="math inline">{C_t = (-aX_t, a)}</span> involving a currency and <span class="math inline">X</span>. This is a mathematical idealization. Transactions in the real world occur on <em>exchanges</em> and involve <em>order books</em>, <em>limit orders</em>, and <em>market orders</em>.</p>
 </section>
 <section id="limit-orders" class="level3">
 <h3>Limit Orders</h3>
-<p>A <em>limit order</em> <span class="math inline">L^{x,a,t}</span> is
-specified by a <em>level</em> <span class="math inline">x</span> of an
-instrument <span class="math inline">X</span>, an amount <span
-class="math inline">a</span> in shares of <span
-class="math inline">X</span>, and the time <span
-class="math inline">t</span> it is made available. After the limit order
-is submitted the buyer must wait until the underlying instrument reaches
-level <span class="math inline">x</span>. When it does the buyer
-receives <span class="math inline">a</span> shares of <span
-class="math inline">X</span> in exchange for <span
-class="math inline">ax</span> dollers. Limit orders always have price 0
-and a single cash flow <span class="math inline">C^L_\tau = (-ax,
-a)</span> at the first time the underlying reaches level <span
-class="math inline">x</span>. If <span class="math inline">X_t &lt;
-x</span> then <span class="math inline">{\tau = \inf\{u &gt; t\mid X_u
-\ge x\}}</span>. If <span class="math inline">X_t &gt; x</span> then
-<span class="math inline">{\tau = \inf\{u &gt; t\mid X_u \le
-x\}}</span>.</p>
+<p>A <em>limit order</em> <span class="math inline">L^{x,a,t}</span> is specified by a <em>level</em> <span class="math inline">x</span> of an instrument <span class="math inline">X</span>, an amount <span class="math inline">a</span> in shares of <span class="math inline">X</span>, and the time <span class="math inline">t</span> it is made available. After the limit order is submitted the buyer must wait until the underlying instrument reaches level <span class="math inline">x</span>. When it does the buyer receives <span class="math inline">a</span> shares of <span class="math inline">X</span> in exchange for <span class="math inline">ax</span> dollers. Limit orders always have price 0 and a single cash flow <span class="math inline">C^L_\tau = (-ax, a)</span> at the first time the underlying reaches level <span class="math inline">x</span>. If <span class="math inline">X_t &lt; x</span> then <span class="math inline">{\tau = \inf\{u &gt; t\mid X_u \ge x\}}</span>. If <span class="math inline">X_t &gt; x</span> then <span class="math inline">{\tau = \inf\{u &gt; t\mid X_u \le x\}}</span>.</p>
 <p>Limit orders guarantee the price but not the time of transaction.</p>
 </section>
 <section id="market-orders" class="level3">
 <h3>Market Orders</h3>
-<p>A <em>market order</em> <span class="math inline">M^{X,a,t}</span> is
-specified by an instrument <span class="math inline">X</span>, an amount
-<span class="math inline">a</span> in shares of <span
-class="math inline">X</span>, and the time it is executed. After the
-market order is submited the buyer receives <span
-class="math inline">a</span> share of <span class="math inline">X</span>
-at time <span class="math inline">t</span> in exchange for <span
-class="math inline">a(X_t + \Delta X_t)</span> dollars where <span
-class="math inline">\Delta X_t</span> is the <em>slippage</em> that
-depends on the mechanics of how order books operate. Market orders
-always have price 0 and a single cash flow <span
-class="math inline">{C^M_t = (-a(X_t + \Delta X_t), a)}</span>.</p>
-<p>Market orders guarantee the time but not the price of the
-transaction.</p>
+<p>A <em>market order</em> <span class="math inline">M^{X,a,t}</span> is specified by an instrument <span class="math inline">X</span>, an amount <span class="math inline">a</span> in shares of <span class="math inline">X</span>, and the time it is executed. After the market order is submited the buyer receives <span class="math inline">a</span> share of <span class="math inline">X</span> at time <span class="math inline">t</span> in exchange for <span class="math inline">a(X_t + \Delta X_t)</span> dollars where <span class="math inline">\Delta X_t</span> is the <em>slippage</em> that depends on the mechanics of how order books operate. Market orders always have price 0 and a single cash flow <span class="math inline">{C^M_t = (-a(X_t + \Delta X_t), a)}</span>.</p>
+<p>Market orders guarantee the time but not the price of the transaction.</p>
 </section>
 <section id="forwards" class="level3">
 <h3>Forwards</h3>
-<p>Let <span class="math inline">S_t</span> be the stock price at time
-<span class="math inline">t</span>. A forward contract with strike <span
-class="math inline">k</span> expiring at time <span
-class="math inline">t</span> has a single non-zero cash flow <span
-class="math inline">{C_t = S_t - k}</span>. From formula (1) its value
-at time <span class="math inline">t = 0</span> is <span
-class="math inline">E[(S_t - k)D_t]</span>. The (at-the-money)
-<em>forward</em> <span class="math inline">f(t)</span> is the strike
-making this value 0, hence <span class="math inline">f(t) D(t) = E[S_t
-D_t] = S_0</span> if there are no dividends. This is called <em>the cost
-of carry</em>.</p>
-<p>It becomes more complicated if the stock has dividends <span
-class="math inline">d_j</span> at times <span
-class="math inline">t_j</span>. By formula (0) we have <span
-class="math inline">{S_tD_t = M_t - \sum_{t_j\le t} d_j D_{t_j}}</span>
-where <span class="math inline">M_t</span> is a martingale with <span
-class="math inline">E[M_t] = S_0</span> hence <span
-class="math inline">{f(t) D(t) = S_0 - \sum_{t_j\le
-t}E[d_jD_{t_j}]}</span>.</p>
-<p>If the dividends are constant then <span class="math inline">{f(t)
-D(t) = S_0 - \sum_{t_j\le t} d_j D(t_j)}</span></p>
-<p>If the dividends are proportional with <span class="math inline">d_j
-= p_j S_{t_j}</span> then <span class="math inline">{f(t)D(t) = S_0 -
-\sum_{t_j\le t} p_j E[S_{t_j} D_{t_j}]}</span>. Let <span
-class="math inline">{f_j = E[S_{t_j} D_{t_j}] = S_0 - \sum_{i\le j} p_i
-E[S_{t_i} D_{t_i}]}</span>. We have <span class="math inline">f_0 =
-S_0</span> and <span class="math inline">{f_{j} - f_{j-1} = -p_j
-E[S_{t_j} D_{t_j}] = p_j f_j}</span>, <span class="math inline">j &gt;
-0</span> so <span class="math inline">f_j = f_{j-1}/(1 + p_j)</span>.
-This shows <span class="math display">
+<p>Let <span class="math inline">S_t</span> be the stock price at time <span class="math inline">t</span>. A forward contract with strike <span class="math inline">k</span> expiring at time <span class="math inline">t</span> has a single non-zero cash flow <span class="math inline">{C_t = S_t - k}</span>. From formula (1) its value at time <span class="math inline">t = 0</span> is <span class="math inline">E[(S_t - k)D_t]</span>. The (at-the-money) <em>forward</em> <span class="math inline">f(t)</span> is the strike making this value 0, hence <span class="math inline">f(t) D(t) = E[S_t D_t] = S_0</span> if there are no dividends. This is called <em>the cost of carry</em>.</p>
+<p>It becomes more complicated if the stock has dividends <span class="math inline">d_j</span> at times <span class="math inline">t_j</span>. By formula (0) we have <span class="math inline">{S_tD_t = M_t - \sum_{t_j\le t} d_j D_{t_j}}</span> where <span class="math inline">M_t</span> is a martingale with <span class="math inline">E[M_t] = S_0</span> hence <span class="math inline">{f(t) D(t) = S_0 - \sum_{t_j\le t}E[d_jD_{t_j}]}</span>.</p>
+<p>If the dividends are constant then <span class="math inline">{f(t) D(t) = S_0 - \sum_{t_j\le t} d_j D(t_j)}</span></p>
+<p>If the dividends are proportional with <span class="math inline">d_j = p_j S_{t_j}</span> then <span class="math inline">{f(t)D(t) = S_0 - \sum_{t_j\le t} p_j E[S_{t_j} D_{t_j}]}</span>. Let <span class="math inline">{f_j = E[S_{t_j} D_{t_j}] = S_0 - \sum_{i\le j} p_i E[S_{t_i} D_{t_i}]}</span>. We have <span class="math inline">f_0 = S_0</span> and <span class="math inline">{f_{j} - f_{j-1} = -p_j E[S_{t_j} D_{t_j}] = p_j f_j}</span>, <span class="math inline">j &gt; 0</span> so <span class="math inline">f_j = f_{j-1}/(1 + p_j)</span>. This shows <span class="math display">
 \begin{aligned}
 f(t)D(t) &amp;= S_0 - \sum_{t_j\le t} p_j E[S_{t_j} D_{t_j}] \\
     &amp;= S_0 - \sum_{t_j\le t} p_jS_0/\prod_{i\le j} (1 + p_i) \\
@@ -444,73 +192,22 @@ f(t)D(t) &amp;= S_0 - \sum_{t_j\le t} p_j E[S_{t_j} D_{t_j}] \\
 Companies only announce dividends for a short time into the future.
 It is reasonable to assume propor
 -->
-<p>These formulas are used for <em>dividend adjusted</em> stock
-prices.</p>
+<p>These formulas are used for <em>dividend adjusted</em> stock prices.</p>
 </section>
 <section id="futures" class="level3">
 <h3>Futures</h3>
-<p>A <em>futures</em> contract <span
-class="math inline">\Phi^{X,T}</span> is specified by an instrument
-<span class="math inline">X</span>, an expiration <span
-class="math inline">T</span>, and a set of <em>calculation times</em>
-<span class="math inline">t_0 &lt; \cdots &lt; t_n</span> where <span
-class="math inline">t_n = T</span>. The futures <em>quote</em> <span
-class="math inline">\Phi_{t_n}</span> is equal to the instrument price
-<span class="math inline">X_{t_n}</span> at expiration. Prior to that
-the quote is determined by the market. The price of a futures is always
-0 and has cash flows <span class="math inline">C_j = \Phi_{t_j} -
-\Phi_{t_{j-1}}</span> at time <span class="math inline">t_j</span>,
-<span class="math inline">0 &lt; j \le n</span>. In an arbitrage-free
-model <span class="math inline">{0D_{t_j} = E_{t_j}[(\Phi_{t_{j+1}} -
-\Phi_{t_j}) D_{t_{j+1}}]}</span>. If <span
-class="math inline">D_t</span> is the canonical discount then <span
-class="math inline">D_{t_{j+1}}</span> is known at time <span
-class="math inline">t_j</span> so <span class="math inline">\Phi_{t_j} =
-E_{t_j}[\Phi_{t_{j+1}}]</span>. Futures are naturally occuring
-martingales. ### Zero Coupon Bonds</p>
-<p>Let <span class="math inline">D(u)</span> be (the symbol for) a
-<em>zero coupon bond</em> with a single non-zero cash flow <span
-class="math inline">{C^{D(u)}_u = 1}</span> at <em>maturity</em> <span
-class="math inline">u</span>. If <span class="math inline">D_t</span> is
-a discount measure then the price at time <span
-class="math inline">t</span> of <span class="math inline">D(u)</span>
-satisfies <span class="math inline">X^{D(u)}_t D_t = (C^{D(u)}_u
-D_u)|_{{\mathcal{A}}_t} = (D_u)|_{{\mathcal{A}}_t}</span> for <span
-class="math inline">t \le u</span> so <span class="math display">
+<p>A <em>futures</em> contract <span class="math inline">\Phi^{X,T}</span> is specified by an instrument <span class="math inline">X</span>, an expiration <span class="math inline">T</span>, and a set of <em>calculation times</em> <span class="math inline">t_0 &lt; \cdots &lt; t_n</span> where <span class="math inline">t_n = T</span>. The futures <em>quote</em> <span class="math inline">\Phi_{t_n}</span> is equal to the instrument price <span class="math inline">X_{t_n}</span> at expiration. Prior to that the quote is determined by the market. The price of a futures is always 0 and has cash flows <span class="math inline">C_j = \Phi_{t_j} - \Phi_{t_{j-1}}</span> at time <span class="math inline">t_j</span>, <span class="math inline">0 &lt; j \le n</span>. In an arbitrage-free model <span class="math inline">{0D_{t_j} = E_{t_j}[(\Phi_{t_{j+1}} - \Phi_{t_j}) D_{t_{j+1}}]}</span>. If <span class="math inline">D_t</span> is the canonical discount then <span class="math inline">D_{t_{j+1}}</span> is known at time <span class="math inline">t_j</span> so <span class="math inline">\Phi_{t_j} = E_{t_j}[\Phi_{t_{j+1}}]</span>. Futures are naturally occuring martingales. ### Zero Coupon Bonds</p>
+<p>Let <span class="math inline">D(u)</span> be (the symbol for) a <em>zero coupon bond</em> with a single non-zero cash flow <span class="math inline">{C^{D(u)}_u = 1}</span> at <em>maturity</em> <span class="math inline">u</span>. If <span class="math inline">D_t</span> is a discount measure then the price at time <span class="math inline">t</span> of <span class="math inline">D(u)</span> satisfies <span class="math inline">X^{D(u)}_t D_t = (C^{D(u)}_u D_u)|_{{\mathcal{A}}_t} = (D_u)|_{{\mathcal{A}}_t}</span> for <span class="math inline">t \le u</span> so <span class="math display">
     D_t(u) = X^{D(u)}_t = E_t[D_u]/D_t.
-</span> We use the helpfully confusing notation <span
-class="math inline">D(u)</span> for <span class="math inline">D_0(u) =
-E[D_u]</span>.</p>
-<p>The discount measure/stochastic discount determines the price
-dynamics of zero coupon bonds.</p>
+</span> We use the helpfully confusing notation <span class="math inline">D(u)</span> for <span class="math inline">D_0(u) = E[D_u]</span>.</p>
+<p>The discount measure/stochastic discount determines the price dynamics of zero coupon bonds.</p>
 <section id="risky-bonds" class="level4">
 <h4>Risky Bonds</h4>
-<p>A <em>risky zero coupon bond</em> with <em>recovery</em> <span
-class="math inline">R</span> and <em>default time</em> <span
-class="math inline">T</span> has a single cash flow <span
-class="math inline">C_u = 1</span> if default occurs after maturity or
-<span class="math inline">C_u = R</span> if <span class="math inline">T
-\le u</span>. It is customary to assume <span
-class="math inline">R</span> is constant. We write <span
-class="math inline">D_t^{R,T}(u)</span> for the price <span
-class="math inline">X_t^{D^{R,T}(u)}</span> of the risky zero coupon
-bond at time <span class="math inline">t</span>. The dynamics of a risky
-zero are determined by <span class="math display">
+<p>A <em>risky zero coupon bond</em> with <em>recovery</em> <span class="math inline">R</span> and <em>default time</em> <span class="math inline">T</span> has a single cash flow <span class="math inline">C_u = 1</span> if default occurs after maturity or <span class="math inline">C_u = R</span> if <span class="math inline">T \le u</span>. It is customary to assume <span class="math inline">R</span> is constant. We write <span class="math inline">D_t^{R,T}(u)</span> for the price <span class="math inline">X_t^{D^{R,T}(u)}</span> of the risky zero coupon bond at time <span class="math inline">t</span>. The dynamics of a risky zero are determined by <span class="math display">
     D_t^{R,T}(u) D_t = E_t[R 1(T \le u) D_u + 1(T &gt; u) D_u].
-</span> The <em>credit spread</em> <span class="math inline">s_t =
-s_t^{R,T}(u)</span> defined by <span class="math inline">D_t^{R,T}(u) =
-D_t(u) e^{-u s_t}</span> incorporates both recovery and default.</p>
-<p>If default is independent of the discount measure we have at time
-<span class="math inline">t = 0</span> <span
-class="math inline">{D_0^{R,T}(u) = (RP(T\le u) + P(T &gt;
-u))D(u)}</span>. The credit spread is 0 when <span class="math inline">R
-= 1</span> or <span class="math inline">T = \infty</span>. If <span
-class="math inline">T</span> is exponentially distributed with hazard
-rate <span class="math inline">\lambda</span> then <span
-class="math inline">P(T &gt; t) = e^{-\lambda t}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">s_0^{T,R}\approx \lambda(1 - R)</span> for small
-<span class="math inline">\lambda</span></em>.</p>
+</span> The <em>credit spread</em> <span class="math inline">s_t = s_t^{R,T}(u)</span> defined by <span class="math inline">D_t^{R,T}(u) = D_t(u) e^{-u s_t}</span> incorporates both recovery and default.</p>
+<p>If default is independent of the discount measure we have at time <span class="math inline">t = 0</span> <span class="math inline">{D_0^{R,T}(u) = (RP(T\le u) + P(T &gt; u))D(u)}</span>. The credit spread is 0 when <span class="math inline">R = 1</span> or <span class="math inline">T = \infty</span>. If <span class="math inline">T</span> is exponentially distributed with hazard rate <span class="math inline">\lambda</span> then <span class="math inline">P(T &gt; t) = e^{-\lambda t}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">s_0^{T,R}\approx \lambda(1 - R)</span> for small <span class="math inline">\lambda</span></em>.</p>
 <p>We can also consider risky forward rate agreements.</p>
 <!--
 We must expand the sample space to $\Omega\times (0,\infty]$
@@ -536,207 +233,55 @@ and discount measure could be specified.
 </section>
 <section id="forward-rate-agreement" class="level3">
 <h3>Forward Rate Agreement</h3>
-<p>A <em>forward rate agreement</em> <span
-class="math inline">F^\delta(u,v)</span> specifies a rate <span
-class="math inline">f</span>, an <em>effective date</em> <span
-class="math inline">u</span>, a <em>termination date</em> <span
-class="math inline">v</span> and a <em>day count basis</em> <span
-class="math inline">\delta</span>. It has cash flows <span
-class="math inline">C^{F^\delta(u,v)}_u = -1</span> and <span
-class="math inline">C^{F^\delta(u,v)}_v = 1 + f\delta(u,v)</span> where
-<span class="math inline">\delta(u,v)</span> is the <em>day count
-fraction</em>.<a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a> The <em>par coupon</em> is the value
-of <span class="math inline">f</span> for which <span
-class="math inline">{X^{F^\delta(u,v)}_t = E_t[-D_u + (1 +
-f\delta(u,v)D_v] = 0}</span> <span class="math display">
-    F_t^\delta(u,v) = \frac{1}{\delta(u,v)}\left(\frac{D_t(u)}{D_t(v)} -
-1\right).
+<p>A <em>forward rate agreement</em> <span class="math inline">F^\delta(u,v)</span> specifies a rate <span class="math inline">f</span>, an <em>effective date</em> <span class="math inline">u</span>, a <em>termination date</em> <span class="math inline">v</span> and a <em>day count basis</em> <span class="math inline">\delta</span>. It has cash flows <span class="math inline">C^{F^\delta(u,v)}_u = -1</span> and <span class="math inline">C^{F^\delta(u,v)}_v = 1 + f\delta(u,v)</span> where <span class="math inline">\delta(u,v)</span> is the <em>day count fraction</em>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> The <em>par coupon</em> is the value of <span class="math inline">f</span> for which <span class="math inline">{X^{F^\delta(u,v)}_t = E_t[-D_u + (1 + f\delta(u,v)D_v] = 0}</span> <span class="math display">
+    F_t^\delta(u,v) = \frac{1}{\delta(u,v)}\left(\frac{D_t(u)}{D_t(v)} - 1\right).
 </span></p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">0 =
-E_t[(F_t^\delta(u,v) - F_u^\delta(u,v))\delta(u,v)D_v]</span> for <span
-class="math inline">t\le u &lt; v</span></em>.</p>
-<p><em>Hint</em>: Note <span
-class="math inline">F_t^\delta(u,v)\delta(u,v)E_t[D_v] = E_t[-D_u +
-D_v)]</span> so <span class="math inline">F_u\delta E_u[D_v] = E_u[-D_u
-+ D_v]</span>. Use <span class="math inline">E_t[E_u[X]] = E_t[X]</span>
-if <span class="math inline">t \le u</span>.</p>
-<p>This show a forward rate agreement with a single cash flow <span
-class="math inline">{C_v = (F_t^\delta(u,v) -
-F_u^\delta(u,v))\delta(u,v)}</span> has the same price as an FRA with an
-exchange of principal but they have different risk profiles if default
-occures between time <span class="math inline">u</span> and <span
-class="math inline">v</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">0 = E_t[(F_t^\delta(u,v) - F_u^\delta(u,v))\delta(u,v)D_v]</span> for <span class="math inline">t\le u &lt; v</span></em>.</p>
+<p><em>Hint</em>: Note <span class="math inline">F_t^\delta(u,v)\delta(u,v)E_t[D_v] = E_t[-D_u + D_v)]</span> so <span class="math inline">F_u\delta E_u[D_v] = E_u[-D_u + D_v]</span>. Use <span class="math inline">E_t[E_u[X]] = E_t[X]</span> if <span class="math inline">t \le u</span>.</p>
+<p>This show a forward rate agreement with a single cash flow <span class="math inline">{C_v = (F_t^\delta(u,v) - F_u^\delta(u,v))\delta(u,v)}</span> has the same price as an FRA with an exchange of principal but they have different risk profiles if default occures between time <span class="math inline">u</span> and <span class="math inline">v</span>.</p>
 </section>
 <section id="convexity" class="level3">
 <h3>Convexity</h3>
-<p><em>Convexity</em> is the difference between the quote on interest
-rates futures and the corresponding par forward rate. If <span
-class="math inline">F = F^{\delta(u,v)}_u</span> is the forward rate
-over <span class="math inline">[u,v]</span> at time <span
-class="math inline">u</span> then the corresponding futures quote is
-<span class="math inline">\phi = E[F]</span>. Let <span
-class="math inline">f = F^{\delta(u,v)}_0</span> be the par forward.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">{\phi -
-f = -\operatorname{Cov}(F,D_v)/D(v)}</span></em>.</p>
+<p><em>Convexity</em> is the difference between the quote on interest rates futures and the corresponding par forward rate. If <span class="math inline">F = F^{\delta(u,v)}_u</span> is the forward rate over <span class="math inline">[u,v]</span> at time <span class="math inline">u</span> then the corresponding futures quote is <span class="math inline">\phi = E[F]</span>. Let <span class="math inline">f = F^{\delta(u,v)}_0</span> be the par forward.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">{\phi - f = -\operatorname{Cov}(F,D_v)/D(v)}</span></em>.</p>
 <p><em>Hint</em>: <span class="math inline">0 = E[(F - f)D_v]</span></p>
-<p>Since foward rates and discounts are negatively correlated the
-convexity is positive.</p>
+<p>Since foward rates and discounts are negatively correlated the convexity is positive.</p>
 </section>
 <section id="swap" class="level3">
 <h3>Swap</h3>
-<p>A <em>(interest rate) swap</em> <span
-class="math inline">F^\delta(\{t_j\})</span> specifies a coupon <span
-class="math inline">c</span>, <em>calculation dates</em> <span
-class="math inline">\{t_j\}_{j=0}^n</span>, and a <em>day count
-basis</em> <span class="math inline">\delta</span>. It has cash flows
-<span class="math inline">C^{F^\delta(\{t_j\})}_{t_0} = -1</span> and
-<span class="math inline">C^{F^\delta(\{t_j\})}_{t_j} =
-c\delta(t_{j-1},t_j)</span> for <span class="math inline">0 &lt; j &lt;
-n</span>, and <span class="math inline">C^{F^\delta(\{t_j\})}_{t_n} = 1
-+ c\delta(t_{n-1},t_n)</span>. The <em>par coupon</em> <span
-class="math inline">F^\delta(\{t_j\})_t</span> is the value of <span
-class="math inline">c</span> for which the price of the swap is 0 at
-<span class="math inline">t</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">F^\delta(\{t_j\})_0 = (1 - D(t_n))/(\sum_{0&lt;j\le
-n} \delta(t_{j-1},t_j) D(t_j))</span></em>.</p>
-<p>Post 2008, swaps having different payment frequencies started being
-quoted at different par coupons. A simple default model having constant
-recovery and hazard rate can fit market prices remakably well.</p>
+<p>A <em>(interest rate) swap</em> <span class="math inline">F^\delta(\{t_j\})</span> specifies a coupon <span class="math inline">c</span>, <em>calculation dates</em> <span class="math inline">\{t_j\}_{j=0}^n</span>, and a <em>day count basis</em> <span class="math inline">\delta</span>. It has cash flows <span class="math inline">C^{F^\delta(\{t_j\})}_{t_0} = -1</span> and <span class="math inline">C^{F^\delta(\{t_j\})}_{t_j} = c\delta(t_{j-1},t_j)</span> for <span class="math inline">0 &lt; j &lt; n</span>, and <span class="math inline">C^{F^\delta(\{t_j\})}_{t_n} = 1 + c\delta(t_{n-1},t_n)</span>. The <em>par coupon</em> <span class="math inline">F^\delta(\{t_j\})_t</span> is the value of <span class="math inline">c</span> for which the price of the swap is 0 at <span class="math inline">t</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">F^\delta(\{t_j\})_0 = (1 - D(t_n))/(\sum_{0&lt;j\le n} \delta(t_{j-1},t_j) D(t_j))</span></em>.</p>
+<p>Post 2008, swaps having different payment frequencies started being quoted at different par coupons. A simple default model having constant recovery and hazard rate can fit market prices remakably well.</p>
 </section>
 </section>
 <section id="mathematical-prerequisites" class="level2">
 <h2>Mathematical Prerequisites</h2>
-<p>If <span class="math inline">A</span> and <span
-class="math inline">B</span> are sets then <span class="math inline">B^A
-= \{f\colon A\to B\}</span> is the set of all functions from <span
-class="math inline">A</span> to <span class="math inline">B</span>. We
-can identify <span class="math inline">\{0,1\}^A = 2^A</span> with the
-the set of all subsets of <span class="math inline">A</span>. If <span
-class="math inline">B\subseteq A</span> let <span
-class="math inline">1_B(x) = 1</span> if <span class="math inline">x\in
-B</span> and <span class="math inline">1_B(x) = 0</span> if <span
-class="math inline">x\notin B</span> be the <em>indicator function</em>
-of <span class="math inline">B</span>.</p>
-<p>Instead of countably additive “probability” measures and martingales
-that involve conditional expectation we use the more elementary notion
-of finitely additive measures and restriction of measures to subalgebras
-of sets.</p>
-<p>Dunford and Schwartz use <span class="math inline">ba(\Omega)</span>
-to denote the Banach space of bounded finitely additive measures on
-<span class="math inline">\Omega</span>. It is the dual of <span
-class="math inline">B(\Omega)</span>, the Banach algebra of bounded
-functions on <span class="math inline">\Omega</span> having norm <span
-class="math inline">{\|f\| = \sup_{\omega\in\Omega}
-|f(\omega)|}</span>.</p>
-<p>If <span class="math inline">L\colon
-B(\Omega)\to\boldsymbol{R}</span> is a bounded linear functional then we
-can define a measure <span class="math inline">\lambda\in
-ba(\Omega)</span> by <span class="math inline">\lambda(A) =
-L1_A</span>.</p>
-<p>For <span class="math inline">A,B\subseteq\Omega</span> we have <span
-class="math inline">1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}</span> so
-<span class="math inline">\lambda(A\cup B) = \lambda(A) + \lambda(B) -
-\lambda(A\cap B)</span>. Since <span
-class="math inline">\lambda(\emptyset) = L1_\emptyset = L0 = 0</span>
-this shows <span class="math inline">\lambda</span> is a finitely
-additive measure.</p>
-<p>If <span class="math inline">\lambda\in ba(\Omega)</span> we can
-define a linear functional on <em>elementary functions</em>, finite
-linear combinations of indicator functions, by <span
-class="math inline">{L(\sum_j a_j 1_{A_j}) = \sum_j
-a_j\lambda(A_j)}</span>, <span
-class="math inline">a_j\in\boldsymbol{R}</span>, <span
-class="math inline">A_j\subseteq\Omega</span>. If <span
-class="math inline">(A_j)</span> are pairwise disjoint this is well
-defined.</p>
-<p><strong>Exercise</strong>. <em>Show every elementary function <span
-class="math inline">\sum_j a_j 1_{A_j} = \sum_k b_k 1_{B_k}</span> where
-<span class="math inline">(B_k)</span> are pairwise disjoint</em>.</p>
-<p><em>Hint</em>: <span class="math inline">a1_A + b1_B = a1_{A\setminus
-B} + (a + b)1_{A\cap B} + b1_{B\setminus A}</span>.</p>
-<p>If <span class="math inline">f = \sum_j a_j 1_{A_j}</span> where
-<span class="math inline">(A_j)</span> are pairwise disjoint then <span
-class="math inline">{|Lf| \le \max_j\{|a_j|\} \sum_j |\lambda(A_j)| \le
-\|f\|\|\lambda\|}</span> so <span class="math inline">L</span> is
-continuous. Elementary functions are norm dense in <span
-class="math inline">B(\Omega)</span> so we can extend <span
-class="math inline">L</span> to the entire space.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\|L\| =
-\|\lambda\|</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">\|\lambda\| = \sup \sum_j
-|\lambda(A_j)|</span> where <span class="math inline">(A_j)</span> are
-disjoint subsets of <span class="math inline">\Omega</span>.</p>
-<p>This shows <span class="math inline">B(\Omega)^*</span> is
-isometrically isomorphic to <span
-class="math inline">ba(\Omega)</span>.</p>
-<p>For any <span class="math inline">g\in B(\Omega)</span> the
-multiplication operator <span class="math inline">M_g\colon B(\Omega)\to
-B(\Omega)</span> defined by <span class="math inline">M_gf = fg</span>
-is bounded with norm <span class="math inline">\|g\|</span>. Its adjoint
-<span class="math inline">M_g^*\colon ba(\Omega)\to ba(\Omega)</span>
-defines multiplication of a measure by a bounded function. We write
-<span class="math inline">g\lambda</span> for <span
-class="math inline">M_g^*\lambda</span>, <span class="math inline">g\in
-B(\Omega)</span>, <span class="math inline">\lambda\in
-ba(\Omega)</span>.</p>
-<p>Information at time <span class="math inline">t</span> is modeled by
-an algebra <span class="math inline">{\mathcal{A}}</span> of sets on the
-sample space <span class="math inline">\Omega</span> of all possible
-outcomes. If <span class="math inline">{\mathcal{A}}</span> is finite
-then its atoms form a partition of <span
-class="math inline">\Omega</span> and generate the algebra. Complete
-information is knowing <span class="math inline">\omega\in\Omega</span>.
-Partial information is knowing only which atom <span
-class="math inline">\omega</span> belongs to. No information is knowing
-only <span class="math inline">\omega\in\Omega</span>.</p>
-<p>A partition <span class="math inline">{\mathcal{A}}</span> of <span
-class="math inline">\Omega</span> is also a set and <span
-class="math inline">B({\mathcal{A}})</span> is the Banach algebra of
-<span class="math inline">{\mathcal{A}}</span>-<em>measurable</em> sets.
-If <span class="math inline">\lambda</span> is a measure and <span
-class="math inline">X\in B(\Omega)</span> define <span
-class="math inline">Y\in B({\mathcal{A}})</span> by <span
-class="math inline">Y(\lambda|_{\mathcal{A}}) =
-(X\lambda)|_{\mathcal{A}}</span>. If <span
-class="math inline">\lambda</span> is a positive measure with mass 1
-this can be written <span class="math inline">Y =
-E[X\mid{\mathcal{A}}]</span>, the conditional expectation of <span
-class="math inline">X</span> with respect to the algebra <span
-class="math inline">{\mathcal{A}}</span>, where <span
-class="math inline">Y</span> is the Radon-Nykodym derivative.</p>
+<p>If <span class="math inline">A</span> and <span class="math inline">B</span> are sets then <span class="math inline">B^A = \{f\colon A\to B\}</span> is the set of all functions from <span class="math inline">A</span> to <span class="math inline">B</span>. We can identify <span class="math inline">\{0,1\}^A = 2^A</span> with the the set of all subsets of <span class="math inline">A</span>. If <span class="math inline">B\subseteq A</span> let <span class="math inline">1_B(x) = 1</span> if <span class="math inline">x\in B</span> and <span class="math inline">1_B(x) = 0</span> if <span class="math inline">x\notin B</span> be the <em>indicator function</em> of <span class="math inline">B</span>.</p>
+<p>Instead of countably additive “probability” measures and martingales that involve conditional expectation we use the more elementary notion of finitely additive measures and restriction of measures to subalgebras of sets.</p>
+<p>Dunford and Schwartz use <span class="math inline">ba(\Omega)</span> to denote the Banach space of bounded finitely additive measures on <span class="math inline">\Omega</span>. It is the dual of <span class="math inline">B(\Omega)</span>, the Banach algebra of bounded functions on <span class="math inline">\Omega</span> having norm <span class="math inline">{\|f\| = \sup_{\omega\in\Omega} |f(\omega)|}</span>.</p>
+<p>If <span class="math inline">L\colon B(\Omega)\to\boldsymbol{R}</span> is a bounded linear functional then we can define a measure <span class="math inline">\lambda\in ba(\Omega)</span> by <span class="math inline">\lambda(A) = L1_A</span>.</p>
+<p>For <span class="math inline">A,B\subseteq\Omega</span> we have <span class="math inline">1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}</span> so <span class="math inline">\lambda(A\cup B) = \lambda(A) + \lambda(B) - \lambda(A\cap B)</span>. Since <span class="math inline">\lambda(\emptyset) = L1_\emptyset = L0 = 0</span> this shows <span class="math inline">\lambda</span> is a finitely additive measure.</p>
+<p>If <span class="math inline">\lambda\in ba(\Omega)</span> we can define a linear functional on <em>elementary functions</em>, finite linear combinations of indicator functions, by <span class="math inline">{L(\sum_j a_j 1_{A_j}) = \sum_j a_j\lambda(A_j)}</span>, <span class="math inline">a_j\in\boldsymbol{R}</span>, <span class="math inline">A_j\subseteq\Omega</span>. If <span class="math inline">(A_j)</span> are pairwise disjoint this is well defined.</p>
+<p><strong>Exercise</strong>. <em>Show every elementary function <span class="math inline">\sum_j a_j 1_{A_j} = \sum_k b_k 1_{B_k}</span> where <span class="math inline">(B_k)</span> are pairwise disjoint</em>.</p>
+<p><em>Hint</em>: <span class="math inline">a1_A + b1_B = a1_{A\setminus B} + (a + b)1_{A\cap B} + b1_{B\setminus A}</span>.</p>
+<p>If <span class="math inline">f = \sum_j a_j 1_{A_j}</span> where <span class="math inline">(A_j)</span> are pairwise disjoint then <span class="math inline">{|Lf| \le \max_j\{|a_j|\} \sum_j |\lambda(A_j)| \le \|f\|\|\lambda\|}</span> so <span class="math inline">L</span> is continuous. Elementary functions are norm dense in <span class="math inline">B(\Omega)</span> so we can extend <span class="math inline">L</span> to the entire space.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\|L\| = \|\lambda\|</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">\|\lambda\| = \sup \sum_j |\lambda(A_j)|</span> where <span class="math inline">(A_j)</span> are disjoint subsets of <span class="math inline">\Omega</span>.</p>
+<p>This shows <span class="math inline">B(\Omega)^*</span> is isometrically isomorphic to <span class="math inline">ba(\Omega)</span>.</p>
+<p>For any <span class="math inline">g\in B(\Omega)</span> the multiplication operator <span class="math inline">M_g\colon B(\Omega)\to B(\Omega)</span> defined by <span class="math inline">M_gf = fg</span> is bounded with norm <span class="math inline">\|g\|</span>. Its adjoint <span class="math inline">M_g^*\colon ba(\Omega)\to ba(\Omega)</span> defines multiplication of a measure by a bounded function. We write <span class="math inline">g\lambda</span> for <span class="math inline">M_g^*\lambda</span>, <span class="math inline">g\in B(\Omega)</span>, <span class="math inline">\lambda\in ba(\Omega)</span>.</p>
+<p>Information at time <span class="math inline">t</span> is modeled by an algebra <span class="math inline">{\mathcal{A}}</span> of sets on the sample space <span class="math inline">\Omega</span> of all possible outcomes. If <span class="math inline">{\mathcal{A}}</span> is finite then its atoms form a partition of <span class="math inline">\Omega</span> and generate the algebra. Complete information is knowing <span class="math inline">\omega\in\Omega</span>. Partial information is knowing only which atom <span class="math inline">\omega</span> belongs to. No information is knowing only <span class="math inline">\omega\in\Omega</span>.</p>
+<p>A partition <span class="math inline">{\mathcal{A}}</span> of <span class="math inline">\Omega</span> is also a set and <span class="math inline">B({\mathcal{A}})</span> is the Banach algebra of <span class="math inline">{\mathcal{A}}</span>-<em>measurable</em> sets. If <span class="math inline">\lambda</span> is a measure and <span class="math inline">X\in B(\Omega)</span> define <span class="math inline">Y\in B({\mathcal{A}})</span> by <span class="math inline">Y(\lambda|_{\mathcal{A}}) = (X\lambda)|_{\mathcal{A}}</span>. If <span class="math inline">\lambda</span> is a positive measure with mass 1 this can be written <span class="math inline">Y = E[X\mid{\mathcal{A}}]</span>, the conditional expectation of <span class="math inline">X</span> with respect to the algebra <span class="math inline">{\mathcal{A}}</span>, where <span class="math inline">Y</span> is the Radon-Nykodym derivative.</p>
 </section>
 <section id="acknowledgments" class="level2">
 <h2>Acknowledgments</h2>
-<p>The main impetus for this work was Peter Carr who invited me back
-into the academic world in 2008 to teach Derivative Securities at NYU
-Courant. I was chagrined to find there was no proof of the Fundamental
-Theorem of Asset Pricing accessible at the masters level, so I <a
-href="https://arxiv.org/pdf/1912.01091.pdf">came up with one</a>.</p>
-<p>I thank Kevin Atteson, Bill Goff, Stewart Inglis, Andrew Kalotay,
-Alex Mayus, and Robert Merton III for helpful insights and feedback.</p>
+<p>The main impetus for this work was Peter Carr who invited me back into the academic world in 2008 to teach Derivative Securities at NYU Courant. I was chagrined to find there was no proof of the Fundamental Theorem of Asset Pricing accessible at the masters level, so I <a href="https://arxiv.org/pdf/1912.01091.pdf">came up with one</a>.</p>
+<p>I thank Kevin Atteson, Bill Goff, Stewart Inglis, Andrew Kalotay, Alex Mayus, and Robert Merton III for helpful insights and feedback.</p>
 </section>
-<section class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>A function <span
-class="math inline">\tau\colon\Omega\to\boldsymbol{R}</span> is a
-stopping time if <span class="math inline">\{\tau\le t\}</span> is <span
-class="math inline">{\mathcal{A}}_t</span> measurable for all <span
-class="math inline">t</span>. If <span
-class="math inline">({\mathcal{A}}_t)_{t\in T}</span> are algebras
-indexed by time then <span class="math inline">{\mathcal{A}}_\tau =
-\{A\cap\{\tau\le t\}\mid A\in{\mathcal{A}}_t, t\in T\}</span>.<a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>The day count fraction <span
-class="math inline">\delta(u, v)</span> is approximately equal to time
-from <span class="math inline">u</span> to <span
-class="math inline">v</span> in years. For example, the Actual/360 day
-count is the number of days from <span class="math inline">u</span> to
-<span class="math inline">v</span> divided by 360.<a href="#fnref2"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>A function <span class="math inline">\tau\colon\Omega\to\boldsymbol{R}</span> is a stopping time if <span class="math inline">\{\tau\le t\}</span> is <span class="math inline">{\mathcal{A}}_t</span> measurable for all <span class="math inline">t</span>. If <span class="math inline">({\mathcal{A}}_t)_{t\in T}</span> are algebras indexed by time then <span class="math inline">{\mathcal{A}}_\tau = \{A\cap\{\tau\le t\}\mid A\in{\mathcal{A}}_t, t\in T\}</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>The day count fraction <span class="math inline">\delta(u, v)</span> is approximately equal to time from <span class="math inline">u</span> to <span class="math inline">v</span> in years. For example, the Actual/360 day count is the number of days from <span class="math inline">u</span> to <span class="math inline">v</span> divided by 360.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>

@@ -15,92 +15,33 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: true
-   });
-}}});
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
   </script>
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Stochastic Process</h1>
 <p class="author">Keith A. Lewis</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-Random variables indexed by time
-</div>
 </header>
-<p>A <em>stochastic process</em> is a collection of random variables
-indexed by time. A stochastic process is completely specified by its
-finite joint distributions. The <em>standard setup</em> specifies a
-<em>sample space</em> <span class="math inline">\Omega</span>, and a
-probability measure <span class="math inline">P</span> defined on
-<em>algebras</em> <span class="math inline">\mathcal{A}_t</span>, <span
-class="math inline">t\in T</span>. It is common to assume <span
-class="math inline">T</span> is <em>totally ordered</em> and <span
-class="math inline">\mathcal{A}_t\subseteq\mathcal{A}_u</span> whenever
-<span class="math inline">t\le u</span>.</p>
-<p>We write <span
-class="math inline">X_t\colon\mathcal{A}_t\to\boldsymbol{R}</span>,
-<span class="math inline">t\in T</span>, to indicate <span
-class="math inline">X_t</span> is a function from <span
-class="math inline">\Omega</span> to the real numbers that is <span
-class="math inline">\mathcal{A}_t</span>-measurable. If <span
-class="math inline">\mathcal{A}</span> is an algebra of sets then <span
-class="math inline">A\in\mathcal{A}</span> is an <em>atom</em> of <span
-class="math inline">\mathcal{A}</span> if <span
-class="math inline">B\in\mathcal{A}</span> and <span
-class="math inline">B\subseteq A</span> then either <span
-class="math inline">B = A</span> or <span class="math inline">B =
-\emptyset</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span
-class="math inline">\mathcal{A}</span> is a finite algebra of sets on
-<span class="math inline">\Omega</span> then the atoms of <span
-class="math inline">\mathcal{A}</span> are a partition of $</em>.</p>
-<p><em>Hint</em>: A collection <span
-class="math inline">\mathcal{A}</span> of subsets of <span
-class="math inline">\Omega</span> is a <em>partition</em> if the sets in
-<span class="math inline">\mathcal{A}</span> are pairwise disjoint and
-the union of all sets in <span class="math inline">\mathcal{A}</span>
-equals <span class="math inline">\Omega</span>. Given <span
-class="math inline">\omega\in\Omega</span> let <span
-class="math inline">A_\omega = \cap\{A\in\mathcal{A}\mid
-\omega\in\mathcal{A}\}</span>.</p>
-<p>In the finite case the atoms of <span
-class="math inline">\mathcal{A}</span> determine the algeba <span
-class="math inline">\mathcal{A}</span> so we can identify <span
-class="math inline">\mathcal{A}</span> with its atoms.</p>
-<p>Recall that a function <span
-class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is <span
-class="math inline">\mathcal{A}</span>-measurable if <span
-class="math inline">\{\omega\in\Omega\mid f(\omega)\le x\}</span>
-belongs to <span class="math inline">\mathcal{A}</span> for all <span
-class="math inline">x\in\boldsymbol{R}</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span
-class="math inline">\mathcal{A}</span> is finite show <span
-class="math inline">f</span> is measurable if and only if it is constant
-on atoms of <span class="math inline">\mathcal{A}</span></em>.</p>
-<p>A consequence of this exercise is that <span
-class="math inline">f\colon\Omega\to\boldsymbol{R}</span> is <span
-class="math inline">\mathcal{A}</span>-measurable if and only if <span
-class="math inline">f\colon\mathcal{A}\to\boldsymbol{R}</span>
-<em>is</em> a function from the atoms of <span
-class="math inline">\mathcal{A}</span> to the real numbers.</p>
+<p>A <em>stochastic process</em> is a collection of random variables indexed by time. A stochastic process is completely specified by its finite joint distributions. The <em>standard setup</em> specifies a <em>sample space</em> <span class="math inline">\Omega</span>, and a probability measure <span class="math inline">P</span> defined on <em>algebras</em> <span class="math inline">\mathcal{A}_t</span>, <span class="math inline">t\in T</span>. It is common to assume <span class="math inline">T</span> is <em>totally ordered</em> and <span class="math inline">\mathcal{A}_t\subseteq\mathcal{A}_u</span> whenever <span class="math inline">t\le u</span>.</p>
+<p>We write <span class="math inline">X_t\colon\mathcal{A}_t\to\boldsymbol{R}</span>, <span class="math inline">t\in T</span>, to indicate <span class="math inline">X_t</span> is a function from <span class="math inline">\Omega</span> to the real numbers that is <span class="math inline">\mathcal{A}_t</span>-measurable. If <span class="math inline">\mathcal{A}</span> is an algebra of sets then <span class="math inline">A\in\mathcal{A}</span> is an <em>atom</em> of <span class="math inline">\mathcal{A}</span> if <span class="math inline">B\in\mathcal{A}</span> and <span class="math inline">B\subseteq A</span> then either <span class="math inline">B = A</span> or <span class="math inline">B = \emptyset</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">\mathcal{A}</span> is a finite algebra of sets on <span class="math inline">\Omega</span> then the atoms of <span class="math inline">\mathcal{A}</span> are a partition of $</em>.</p>
+<p><em>Hint</em>: A collection <span class="math inline">\mathcal{A}</span> of subsets of <span class="math inline">\Omega</span> is a <em>partition</em> if the sets in <span class="math inline">\mathcal{A}</span> are pairwise disjoint and the union of all sets in <span class="math inline">\mathcal{A}</span> equals <span class="math inline">\Omega</span>. Given <span class="math inline">\omega\in\Omega</span> let <span class="math inline">A_\omega = \cap\{A\in\mathcal{A}\mid \omega\in\mathcal{A}\}</span>.</p>
+<p>In the finite case the atoms of <span class="math inline">\mathcal{A}</span> determine the algeba <span class="math inline">\mathcal{A}</span> so we can identify <span class="math inline">\mathcal{A}</span> with its atoms.</p>
+<p>Recall that a function <span class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is <span class="math inline">\mathcal{A}</span>-measurable if <span class="math inline">\{\omega\in\Omega\mid f(\omega)\le x\}</span> belongs to <span class="math inline">\mathcal{A}</span> for all <span class="math inline">x\in\boldsymbol{R}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">\mathcal{A}</span> is finite show <span class="math inline">f</span> is measurable if and only if it is constant on atoms of <span class="math inline">\mathcal{A}</span></em>.</p>
+<p>A consequence of this exercise is that <span class="math inline">f\colon\Omega\to\boldsymbol{R}</span> is <span class="math inline">\mathcal{A}</span>-measurable if and only if <span class="math inline">f\colon\mathcal{A}\to\boldsymbol{R}</span> <em>is</em> a function from the atoms of <span class="math inline">\mathcal{A}</span> to the real numbers.</p>
 </body>
 </html>

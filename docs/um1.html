@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-01-23" />
+  <meta name="dcterms.date" content="2024-02-06" />
   <title>Unified Model for Derivative Instruments</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,94 +16,55 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: true
-   });
-}}});
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
   </script>
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Unified Model for Derivative Instruments</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 23, 2024</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-Value, hedge, and manage the risk of any instruments
-</div>
+<p class="date">February 6, 2024</p>
 </header>
-<p>Let <span class="math inline">T</span> be trading times, <span
-class="math inline">I</span> the set of all market instruments, and
-<span class="math inline">\Omega</span> the sample space of possible
-outcomes.</p>
+<p>Let <span class="math inline">T</span> be trading times, <span class="math inline">I</span> the set of all market instruments, and <span class="math inline">\Omega</span> the sample space of possible outcomes.</p>
 <dl>
 <dt><em>Price</em> - market price assuming perfect liquidity</dt>
-<dd>
-<span class="math inline">X_t\colon\Omega\to\boldsymbol{R}^I</span>,
-<span class="math inline">t\in T</span>
+<dd><span class="math inline">X_t\colon\Omega\to\boldsymbol{R}^I</span>, <span class="math inline">t\in T</span>
 </dd>
 <dt><em>Cash flow</em> - dividends, coupons, margin adjustments</dt>
-<dd>
-<span class="math inline">C_t\colon\Omega\to\boldsymbol{R}^I</span>
+<dd><span class="math inline">C_t\colon\Omega\to\boldsymbol{R}^I</span>
 </dd>
 <dt><em>Trade</em> - shares per instrument based on historical data</dt>
-<dd>
-<span class="math inline">\Gamma_t = \Gamma((X_s)_{s\le t}, (C_s)_{s\le
-t})\colon\Omega\to\boldsymbol{R}^I</span>
+<dd><span class="math inline">\Gamma_t = \Gamma((X_s)_{s\le t}, (C_s)_{s\le t})\colon\Omega\to\boldsymbol{R}^I</span>
 </dd>
 <dt><em>Position</em> - accumulate trades not including last trade</dt>
-<dd>
-<span class="math inline">\Delta_t = \sum_{s &lt; t} \Gamma_s</span>
+<dd><span class="math inline">\Delta_t = \sum_{s &lt; t} \Gamma_s</span>
 </dd>
 <dt><em>Value</em> - mark-to-market</dt>
-<dd>
-<span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>
+<dd><span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>
 </dd>
 <dt><em>Account</em> - trading account blotter</dt>
-<dd>
-<span class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
-X_t</span>
+<dd><span class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t</span>
 </dd>
 </dl>
-<p><em>Arbitrage</em> exists if there is a trading stragegy <span
-class="math inline">(\Gamma_t)_{t\in T}</span> with <span
-class="math inline">A_0 &lt; 0</span>, <span class="math inline">A_t \ge
-0</span>, <span class="math inline">t &gt; 0</span>, and <span
-class="math inline">\sum_{t} \Gamma_t = 0</span>.</p>
-<p>The Funamental Theorem of Asset Pricing states there is no arbitrage
-if and only if there exist positive measures <span
-class="math inline">(D_t)_{t\in T}</span> on <span
-class="math inline">\Omega</span> with <span class="math display">
-    X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
-D_s)|_{{\mathcal{A}}_t}
-</span> where <span class="math inline">{\mathcal{A}}_t</span> is the
-smallest algebra for which <span class="math inline">(X_s)_{s\le
-t}</span>, <span class="math inline">(C_s)_{s\le t}</span> are
-measurable.</p>
-<p><strong>Lemma</strong>. For any arbitrage free model and any trading
-strategy <span class="math display">
-    V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
-D_s)|_{{\mathcal{A}}_t}
+<p><em>Arbitrage</em> exists if there is a trading stragegy <span class="math inline">(\Gamma_t)_{t\in T}</span> with <span class="math inline">A_0 &lt; 0</span>, <span class="math inline">A_t \ge 0</span>, <span class="math inline">t &gt; 0</span>, and <span class="math inline">\sum_{t} \Gamma_t = 0</span>.</p>
+<p>The Funamental Theorem of Asset Pricing states there is no arbitrage if and only if there exist positive measures <span class="math inline">(D_t)_{t\in T}</span> on <span class="math inline">\Omega</span> with <span class="math display">
+    X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s D_s)|_{{\mathcal{A}}_t}
+</span> where <span class="math inline">{\mathcal{A}}_t</span> is the smallest algebra for which <span class="math inline">(X_s)_{s\le t}</span>, <span class="math inline">(C_s)_{s\le t}</span> are measurable.</p>
+<p><strong>Lemma</strong>. For any arbitrage free model and any trading strategy <span class="math display">
+    V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s D_s)|_{{\mathcal{A}}_t}
 </span></p>
-<p><strong>Lemma</strong>. If <span class="math inline">X_t D_t = M_t -
-\sum_{s\le t} C_s D_s</span> where <span class="math inline">M_t =
-M_u|_{{\mathcal{A}}_t}</span>, <span class="math inline">t \le u</span>
-then there is no arbitrage.</p>
+<p><strong>Lemma</strong>. If <span class="math inline">X_t D_t = M_t - \sum_{s\le t} C_s D_s</span> where <span class="math inline">M_t = M_u|_{{\mathcal{A}}_t}</span>, <span class="math inline">t \le u</span> then there is no arbitrage.</p>
 </body>
 </html>

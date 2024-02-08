@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-01-23" />
+  <meta name="dcterms.date" content="2024-02-06" />
   <title>Option Pricing</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,143 +16,79 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: true
-   });
-}}});
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
   </script>
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 23, 2024</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-European option pricing and greeks
-</div>
+<p class="date">February 6, 2024</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#value" id="toc-value">Value</a></li>
-<li><a href="#greeks" id="toc-greeks">Greeks</a></li>
-<li><a href="#put" id="toc-put">Put</a>
+<li><a href="#value">Value</a></li>
+<li><a href="#greeks">Greeks</a></li>
+<li><a href="#put">Put</a>
 <ul>
-<li><a href="#value-1" id="toc-value-1">Value</a></li>
-<li><a href="#delta" id="toc-delta">Delta</a></li>
-<li><a href="#gamma" id="toc-gamma">Gamma</a></li>
-<li><a href="#vega" id="toc-vega">Vega</a></li>
+<li><a href="#value-1">Value</a></li>
+<li><a href="#delta">Delta</a></li>
+<li><a href="#gamma">Gamma</a></li>
+<li><a href="#vega">Vega</a></li>
 </ul></li>
 </ul>
 </nav>
 <section id="value" class="level2">
 <h2>Value</h2>
-<p>A <em>European option</em> pays some function of the underlying price
-at expiration. If <span class="math inline">F</span> is the price at
-expiration and <span class="math inline">\nu</span> is a function then
-its Black forward <em>value</em> is <span class="math inline">v =
-E[\nu(F)]</span>.</p>
-<p>If <span class="math inline">F</span> is positive and <span
-class="math inline">\log F</span> has finite mean and variance then
-<span class="math inline">F = fe^{sX - \kappa(s)}</span> for some <span
-class="math inline">X</span> with mean zero and variance one where <span
-class="math inline">\kappa(s) = \log E[\exp(sX)]</span> is the
-<em>cumulant</em> of <span class="math inline">X</span>. We call <span
-class="math inline">f = E[F]</span> the <em>forward</em> and <span
-class="math inline">s = \operatorname{Var}(\log F)</span> the
-<em>vol</em>. Note <span class="math inline">{\partial_f F = \partial
-F/\partial f = e^{sX - \kappa(s)}}</span> and <span
-class="math inline">{\partial_s F = F (X - \kappa&#39;(s))}</span>.</p>
-<p>If an option pays off in shares of <span class="math inline">F</span>
-then <span class="math inline">E[F\nu(F)] = fE[ e^{sX -
-\kappa(s)}\nu(F)] = fE_s[\nu(F)]</span> where <span
-class="math inline">E_s</span> is the <em>share measure</em>. Since
-<span class="math inline">F &gt; 0</span> and <span
-class="math inline">E[e^{sX - \kappa(s)}] = 1</span> share measure is a
-probability measure that we denote by <span
-class="math inline">P_s</span>.</p>
+<p>A <em>European option</em> pays some function of the underlying price at expiration. If <span class="math inline">F</span> is the price at expiration and <span class="math inline">\nu</span> is a function then its Black forward <em>value</em> is <span class="math inline">v = E[\nu(F)]</span>.</p>
+<p>If <span class="math inline">F</span> is positive and <span class="math inline">\log F</span> has finite mean and variance then <span class="math inline">F = fe^{sX - \kappa(s)}</span> for some <span class="math inline">X</span> with mean zero and variance one where <span class="math inline">\kappa(s) = \log E[\exp(sX)]</span> is the <em>cumulant</em> of <span class="math inline">X</span>. We call <span class="math inline">f = E[F]</span> the <em>forward</em> and <span class="math inline">s = \operatorname{Var}(\log F)</span> the <em>vol</em>. Note <span class="math inline">{\partial_f F = \partial F/\partial f = e^{sX - \kappa(s)}}</span> and <span class="math inline">{\partial_s F = F (X - \kappa&#39;(s))}</span>.</p>
+<p>If an option pays off in shares of <span class="math inline">F</span> then <span class="math inline">E[F\nu(F)] = fE[ e^{sX - \kappa(s)}\nu(F)] = fE_s[\nu(F)]</span> where <span class="math inline">E_s</span> is the <em>share measure</em>. Since <span class="math inline">F &gt; 0</span> and <span class="math inline">E[e^{sX - \kappa(s)}] = 1</span> share measure is a probability measure that we denote by <span class="math inline">P_s</span>.</p>
 </section>
 <section id="greeks" class="level2">
 <h2>Greeks</h2>
-<p>The <em>delta</em> of an option is the derivative of its value with
-respect to the forward, <span class="math inline">{\partial_f v f =
-E[\nu&#39;(F)\partial_f F] = E[\nu&#39;(F)e^{sX - \kappa(s)}] =
-E_s[\nu&#39;(F)]}</span>. The <em>gamma</em> of an option is the second
-derivative of its value with respect to the forward, <span
-class="math inline">{\partial_f^2 v f = E[\nu&#39;&#39;(F)e^{2sX -
-2\kappa(s)}]}</span>. The <em>vega</em> of an option is the derivative
-of its value with respect to the vol, <span
-class="math inline">\partial_s v = E[\nu&#39;(F) F (X - \kappa&#39;(s))]
-= f E_s[\nu&#39;(F) (X - \kappa&#39;(s))]</span>.</p>
+<p>The <em>delta</em> of an option is the derivative of its value with respect to the forward, <span class="math inline">{\partial_f v f = E[\nu&#39;(F)\partial_f F] = E[\nu&#39;(F)e^{sX - \kappa(s)}] = E_s[\nu&#39;(F)]}</span>. The <em>gamma</em> of an option is the second derivative of its value with respect to the forward, <span class="math inline">{\partial_f^2 v f = E[\nu&#39;&#39;(F)e^{2sX - 2\kappa(s)}]}</span>. The <em>vega</em> of an option is the derivative of its value with respect to the vol, <span class="math inline">\partial_s v = E[\nu&#39;(F) F (X - \kappa&#39;(s))] = f E_s[\nu&#39;(F) (X - \kappa&#39;(s))]</span>.</p>
 </section>
 <section id="put" class="level2">
 <h2>Put</h2>
-<p>A <em>put</em> with strike <span class="math inline">k</span> pays
-<span class="math inline">\nu(F) = \max\{k - F, 0\} = (k - F)^+ = (k -
-F)1(F\ge k)</span> at expiration. Note <span class="math inline">F\le
-k</span> is equavalent to <span class="math inline">X\le (\log k/f +
-\kappa(s))/s</span>. The <em>moneyness</em> is <span
-class="math inline">{x = x(k; f, s) = (\log k/f + \kappa(s))/s}</span>
-so <span class="math inline">f = ke^{sx(k;f,s) - \kappa(s)}</span></p>
-<p>Note <span class="math inline">\partial_x f = fs</span> so <span
-class="math inline">\partial_f x = 1/fs</span> and <span
-class="math inline">\partial_s f = f(x - \kappa&#39;(s))</span>.</p>
+<p>A <em>put</em> with strike <span class="math inline">k</span> pays <span class="math inline">\nu(F) = \max\{k - F, 0\} = (k - F)^+ = (k - F)1(F\ge k)</span> at expiration. Note <span class="math inline">F\le k</span> is equavalent to <span class="math inline">X\le (\log k/f + \kappa(s))/s</span>. The <em>moneyness</em> is <span class="math inline">{x = x(k; f, s) = (\log k/f + \kappa(s))/s}</span> so <span class="math inline">f = ke^{sx(k;f,s) - \kappa(s)}</span></p>
+<p>Note <span class="math inline">\partial_x f = fs</span> so <span class="math inline">\partial_f x = 1/fs</span> and <span class="math inline">\partial_s f = f(x - \kappa&#39;(s))</span>.</p>
 <section id="value-1" class="level3">
 <h3>Value</h3>
 <p>The forward value of a put is</p>
 $$
-<span class="math display">\begin{aligned}
-E[(k - F)^+] &amp;= E[(k - F)1(F\le k)] \\
-    &amp;= kE[1(F \le k)] - E[F1(F\le k)] \\
-    &amp;= kP(X \le x) - fP_s(X\le x). \\
-
-\end{aligned}</span>
 <p>$$</p>
 <p>We also have <span class="math display">
 \begin{aligned}
 E[(k - F)^+] &amp;= E[(k - F)1(F\le k)] \\
     &amp;= (k - f)P(F\le k) - \operatorname{Cov}(F,1(F\le k)). \\
 \end{aligned}
-</span> Note <span class="math inline">\operatorname{Cov}(F,1(F\le k))
-&lt; 0</span>.</p>
-<p>Let <span class="math inline">\Psi(x) = P(X\le x)</span> and <span
-class="math inline">\Psi_s(x) = E[e^{sX - \kappa(s)} 1(X\le x)</span>.
-Note <span class="math inline">\Psi_s&#39;(x) = e^{sx -
-\kappa(s)}\psi(x)</span> where <span class="math inline">\psi(x) =
-\Phi&#39;(x)</span>.</p>
+</span> Note <span class="math inline">\operatorname{Cov}(F,1(F\le k)) &lt; 0</span>.</p>
+<p>Let <span class="math inline">\Psi(x) = P(X\le x)</span> and <span class="math inline">\Psi_s(x) = E[e^{sX - \kappa(s)} 1(X\le x)</span>. Note <span class="math inline">\Psi_s&#39;(x) = e^{sx - \kappa(s)}\psi(x)</span> where <span class="math inline">\psi(x) = \Phi&#39;(x)</span>.</p>
 <p>We can write the put value as <span class="math display">
     p = k\Psi(x) - f\Phi_s(x),
-</span> where <span class="math inline">x = (\log k/f +
-\kappa(s))/s</span> is the moneyness.</p>
+</span> where <span class="math inline">x = (\log k/f + \kappa(s))/s</span> is the moneyness.</p>
 </section>
 <section id="delta" class="level3">
 <h3>Delta</h3>
-<p>Since <span class="math inline">\partial_f (k - f)^+ = -1(f \le
-k)</span> the put delta is <span class="math display">
-    \partial_f p = E[-1(F \le k)e^{sX - \kappa(s)}] = -P_s(F\le k) =
--\Psi_s(x).
+<p>Since <span class="math inline">\partial_f (k - f)^+ = -1(f \le k)</span> the put delta is <span class="math display">
+    \partial_f p = E[-1(F \le k)e^{sX - \kappa(s)}] = -P_s(F\le k) = -\Psi_s(x).
 </span></p>
 </section>
 <section id="gamma" class="level3">
 <h3>Gamma</h3>
-<p>Te second derivative with respect to forward is <span
-class="math display">
+<p>Te second derivative with respect to forward is <span class="math display">
     \partial_f^2 p = -\Psi_s&#39;(x)\partial_f x = -\psi_s(x)/fs
 </span></p>
 </section>
@@ -163,23 +99,16 @@ class="math display">
     = E[-1(F\le k)F(X - \kappa&#39;(s))]
 </span></p>
 <p><span class="math display">
-\partial_s \Psi_s(x) = \partial_s E[F/f 1(F\le k)]
+\partial_s \Psi_s(x) = \partial_s E[F/f 1(F\le k)] 
 </span></p>
-<p><span class="math inline">\Psi_s(x) = P_s(X\le x) = E[e^{sX -
-\kappa(s)}1(X \le x)]</span></p>
-<p><span class="math inline">\partial_s\Psi_s(x) = E[e^{sX -
-\kappa(s)}(X - \kappa&#39;(s))\delta_x(X)]</span></p>
+<p><span class="math inline">\Psi_s(x) = P_s(X\le x) = E[e^{sX - \kappa(s)}1(X \le x)]</span></p>
+<p><span class="math inline">\partial_s\Psi_s(x) = E[e^{sX - \kappa(s)}(X - \kappa&#39;(s))\delta_x(X)]</span></p>
 <p><span class="math inline">v = k \Phi(x) - f \Phi_s(x)</span>.</p>
-<p><span class="math inline">\partial_s v = k \partial_s\Phi(x) - f
-\partial_s\Phi_s(x)</span></p>
-<p><span class="math inline">\partial_s\Psi(x) = \psi(x)\partial_s
-x</span></p>
-<p><span class="math inline">\partial_s x = \partial_s (\log k/f +
-\kappa(s))/s</span></p>
-<p><span class="math inline">\partial_s (\log k/f + \kappa(s))/s =
-(s\kappa&#39;(s) - (\log k/f + \kappa(s)))/s^2</span></p>
-<p><span class="math inline">\partial_s x = \kappa&#39;(s) -
-x</span></p>
+<p><span class="math inline">\partial_s v = k \partial_s\Phi(x) - f \partial_s\Phi_s(x)</span></p>
+<p><span class="math inline">\partial_s\Psi(x) = \psi(x)\partial_s x</span></p>
+<p><span class="math inline">\partial_s x = \partial_s (\log k/f + \kappa(s))/s</span></p>
+<p><span class="math inline">\partial_s (\log k/f + \kappa(s))/s = (s\kappa&#39;(s) - (\log k/f + \kappa(s)))/s^2</span></p>
+<p><span class="math inline">\partial_s x = \kappa&#39;(s) - x</span></p>
 <p>The put vega is <span class="math display">
 \begin{aligned}
 \partial_s v &amp;= k\partial_s P(F\le k) - f\partial_s P_s(F\le k) \\

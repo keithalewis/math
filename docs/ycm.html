@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-07-12" />
+  <meta name="dcterms.date" content="2023-09-20" />
   <title>Yield Curve Models</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,79 +16,31 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: true
-   });
-}}});
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
   </script>
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Yield Curve Models</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">July 12, 2023</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-Continuously compounded stochastic forward rate
-</div>
+<p class="date">September 20, 2023</p>
 </header>
-<p>Unlike the equity world where the menagerie of stock prices are like
-bees coming out of a hive, there is a single thread that ties together
-all fixed income instrument prices. The <em>continuously compounded
-stochastic forward rate</em> <span class="math inline">f_t</span>
-corresponds quite closely to the SOFR rate. The Secured Overnight
-Financing Rate is based on the large volume of overnight repurchase
-agreements that actually trade in the market<a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.
-LIBOR was a term rate based on calling up traders and asking for their
-opinions.</p>
+<p>Unlike the equity world where the menagerie of stock prices are like bees coming out of a hive, there is a single thread that ties together all fixed income instrument prices. The <em>continuously compounded stochastic forward rate</em> <span class="math inline">f_t</span> corresponds quite closely to the SOFR rate. The Secured Overnight Financing Rate is based on the large volume of overnight repurchase agreements that actually trade in the market<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. LIBOR was a term rate based on calling up traders and asking for their opinions.</p>
 <section id="models" class="level2">
 <h2>Models</h2>
-<p>Using the mathematical fiction of continuous time trading, the
-continuously compounded stochastic forward rate <span
-class="math inline">f_t</span> is the rate at which money can be
-borrowed or lent over an infinitesimal time period. Any amount <span
-class="math inline">a\in\boldsymbol{R}</span> can be invested at time
-<span class="math inline">t</span> and return <span
-class="math inline">a(1 + f_t\,dt) = a\exp(f_t dt)</span> at time <span
-class="math inline">t + dt</span>. Rolling over 1 unit invested at time
-0 results in realized return <span class="math inline">R_t =
-\exp(\int_0^t f_s\,ds)</span> at time <span
-class="math inline">t</span>. It is the price of a <em>money market</em>
-account at time <span class="math inline">t</span>. The <em>stochastic
-discount</em> is <span class="math inline">D_t = 1/R_t</span>.</p>
+<p>Using the mathematical fiction of continuous time trading, the continuously compounded stochastic forward rate <span class="math inline">f_t</span> is the rate at which money can be borrowed or lent over an infinitesimal time period. Any amount <span class="math inline">a\in\boldsymbol{R}</span> can be invested at time <span class="math inline">t</span> and return <span class="math inline">a(1 + f_t\,dt) = a\exp(f_t dt)</span> at time <span class="math inline">t + dt</span>. Rolling over 1 unit invested at time 0 results in realized return <span class="math inline">R_t = \exp(\int_0^t f_s\,ds)</span> at time <span class="math inline">t</span>. It is the price of a <em>money market</em> account at time <span class="math inline">t</span>. The <em>stochastic discount</em> is <span class="math inline">D_t = 1/R_t</span>.</p>
 <!--
 Instruments have _prices_. Continuing the mathematial fiction, we assume
 any instrument with price $X_t$ can be bought or sold at any amount
@@ -100,133 +52,43 @@ on a firm mathematical foundation.
 
 cites!!!
 -->
-<p>Holding an instrument entails <em>cash flows</em> that, unlike
-prices, are almost always 0. Stocks have dividends, bonds have coupons,
-futures have periodic cash flows in the margin account. The price of a
-futures is always 0. Futures are naturally occuring martingales. Money
-market accounts have no cash flows.</p>
-<p>In every <a href="um0.html">arbitrage-free model</a> prices <span
-class="math inline">X_t</span> and cash flows <span
-class="math inline">C_t</span> must satisfy <span class="math display">
-    X_t D_t = E_t[X_u D_u + \sum_{t &lt; s \le u} C_s D_s],\quad t \le
-u.
-</span> If an instrument has no cash flows then <span
-class="math inline">X_t D_t</span> is a martingale, as Black, Scholes,
-and Merton demonstrated. If <span class="math inline">X_u D_u</span>
-goes to 0 as <span class="math inline">u\to\infty</span> then the price
-is the expected value of discounted future cash flows, as Graham and
-Todd taught us.</p>
+<p>Holding an instrument entails <em>cash flows</em> that, unlike prices, are almost always 0. Stocks have dividends, bonds have coupons, futures have periodic cash flows in the margin account. The price of a futures is always 0. Futures are naturally occuring martingales. Money market accounts have no cash flows.</p>
+<p>In every <a href="um0.html">arbitrage-free model</a> prices <span class="math inline">X_t</span> and cash flows <span class="math inline">C_t</span> must satisfy <span class="math display">
+    X_t D_t = E_t[X_u D_u + \sum_{t &lt; s \le u} C_s D_s],\quad t \le u.
+</span> If an instrument has no cash flows then <span class="math inline">X_t D_t</span> is a martingale, as Black, Scholes, and Merton demonstrated. If <span class="math inline">X_u D_u</span> goes to 0 as <span class="math inline">u\to\infty</span> then the price is the expected value of discounted future cash flows, as Graham and Todd taught us.</p>
 </section>
 <section id="zero-coupon-bond" class="level2">
 <h2>Zero Coupon Bond</h2>
-<p>A zero coupon bond maturing at <span class="math inline">u</span> has
-a single non-zero cash flow <span class="math inline">C_u^{D(u)} =
-1</span>. In an arbitrage-free model <span
-class="math inline">X_t^{D(u)}D_t = E_t[D_u]</span>. We write <span
-class="math inline">{X_t^{D(u)} = D_t(u) = E_t[D_u]/D_t}</span> for the
-price at time <span class="math inline">t</span> of a zero coupon bond
-maturing at <span class="math inline">u</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">D_t(u)
-= E_t[\exp(-\int_t^u f_s\,ds)]</span></em>.</p>
-<p>Every fixed income product is a portfolio of zero coupon bonds. For
-example, a forward rate agreement over the period <span
-class="math inline">[u,v]</span> has two cash flows <span
-class="math inline">C_u = -1</span> and <span class="math inline">C_v =
-1 + \delta(u,v) f</span> where <span
-class="math inline">\delta(u,v)</span> is the day count fraction for the
-interval and <span class="math inline">f</span> is a fixed coupon rate.
-The <em>par coupon</em> makes the price 0.</p>
-<p><strong>Exercise</strong>. <em>If a forward rate agreement has price
-0 then <span class="math inline">f = (D(u)/D(v) - 1)/\delta(u,
-v)</span></em>.</p>
-<p><em>Hint</em>: Use <span class="math inline">0 = E[-D_u + (1 +
-\delta(u,v) f)D_v]</span>.</p>
-<p>Mathematical analytics uses the dimensionless discount but traders
-like to use rates. Letting <span class="math inline">D(t) =
-D_0(t)</span>, the <em>forward curve</em> <span
-class="math inline">f(t)</span> is defined by <span
-class="math inline">D(t) = \exp(-\int_0^t f(s)\,ds)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">f(t) =
--(d/dt)\log D(t)</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">0 =
-E[(f_t - f(t))D_t]</span></em>.</p>
-<p><em>Hint</em>: Compute <span class="math inline">dD(t)/dt</span> two
-ways using <span class="math inline">E[\exp(-\int_0^t f_s\,ds)] =
-\exp(-\int_0^t f(s)\,ds)</span></p>
-<p>This shows <span class="math inline">f(t)</span> is the <em>par
-coupon</em> for a forward rate agreement with cash flow <span
-class="math inline">f_t - f(t)</span> at time <span
-class="math inline">t</span>.</p>
-<p>Futures quotes are naturally occuring martingales. The futures quote
-at time 0 on <span class="math inline">f_t</span> expiring at <span
-class="math inline">t</span> is <span class="math inline">\phi(t) =
-E[f_t]</span>.</p>
-<p>Since <span class="math inline">{0 = E[(f_t - f(t))D_t] = E[f_t D_t]
-- f(t) D(t) = E[f_t] D(t) + \operatorname{Cov}(f_t, D_t) - f(t)
-D(t)}</span> we have <span class="math inline">\phi(t) - f(t) =
--\operatorname{Cov}(f_t, D_t)/D(t)</span>. In general <span
-class="math inline">f_t</span> and <span class="math inline">D_t</span>
-are negatively correlated so the difference between futures and forwards
-(<em>convexity</em>) is positive.</p>
-<p>Every fixed income model is determined by the stochastic forward
-rate.</p>
+<p>A zero coupon bond maturing at <span class="math inline">u</span> has a single non-zero cash flow <span class="math inline">C_u^{D(u)} = 1</span>. In an arbitrage-free model <span class="math inline">X_t^{D(u)}D_t = E_t[D_u]</span>. We write <span class="math inline">{X_t^{D(u)} = D_t(u) = E_t[D_u]/D_t}</span> for the price at time <span class="math inline">t</span> of a zero coupon bond maturing at <span class="math inline">u</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">D_t(u) = E_t[\exp(-\int_t^u f_s\,ds)]</span></em>.</p>
+<p>Every fixed income product is a portfolio of zero coupon bonds. For example, a forward rate agreement over the period <span class="math inline">[u,v]</span> has two cash flows <span class="math inline">C_u = -1</span> and <span class="math inline">C_v = 1 + \delta(u,v) f</span> where <span class="math inline">\delta(u,v)</span> is the day count fraction for the interval and <span class="math inline">f</span> is a fixed coupon rate. The <em>par coupon</em> makes the price 0.</p>
+<p><strong>Exercise</strong>. <em>If a forward rate agreement has price 0 then <span class="math inline">f = (D(u)/D(v) - 1)/\delta(u, v)</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">0 = E[-D_u + (1 + \delta(u,v) f)D_v]</span>.</p>
+<p>Mathematical analytics uses the dimensionless discount but traders like to use rates. Letting <span class="math inline">D(t) = D_0(t)</span>, the <em>forward curve</em> <span class="math inline">f(t)</span> is defined by <span class="math inline">D(t) = \exp(-\int_0^t f(s)\,ds)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">f(t) = -(d/dt)\log D(t)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">0 = E[(f_t - f(t))D_t]</span></em>.</p>
+<p><em>Hint</em>: Compute <span class="math inline">dD(t)/dt</span> two ways using <span class="math inline">E[\exp(-\int_0^t f_s\,ds)] = \exp(-\int_0^t f(s)\,ds)</span></p>
+<p>This shows <span class="math inline">f(t)</span> is the <em>par coupon</em> for a forward rate agreement with cash flow <span class="math inline">f_t - f(t)</span> at time <span class="math inline">t</span>.</p>
+<p>Futures quotes are naturally occuring martingales. The futures quote at time 0 on <span class="math inline">f_t</span> expiring at <span class="math inline">t</span> is <span class="math inline">\phi(t) = E[f_t]</span>.</p>
+<p>Since <span class="math inline">{0 = E[(f_t - f(t))D_t] = E[f_t D_t] - f(t) D(t) = E[f_t] D(t) + \operatorname{Cov}(f_t, D_t) - f(t) D(t)}</span> we have <span class="math inline">\phi(t) - f(t) = -\operatorname{Cov}(f_t, D_t)/D(t)</span>. In general <span class="math inline">f_t</span> and <span class="math inline">D_t</span> are negatively correlated so the difference between futures and forwards (<em>convexity</em>) is positive.</p>
+<p>Every fixed income model is determined by the stochastic forward rate.</p>
 </section>
 <section id="libor-market-model" class="level2">
 <h2>LIBOR Market Model</h2>
-<p>The LIBOR market model assumes <span class="math inline">f_t =
-\phi(t)\exp(\sigma(t)\cdot B_t - \|\sigma(t)\|^2t/2)</span> where <span
-class="math inline">B_t</span> is vector-valued Brownian motion and
-<span class="math inline">\sigma(t)</span> is a vector valued function
-of time. The futures quotes <span class="math inline">\phi(t)</span> can
-be observed in the market. If we have at-the-money call options with
-prices <span class="math inline">{E[\max\{f_t - f(t), 0\}D_t]}</span>
-then the implied volatility gives us <span
-class="math inline">\|\sigma(t)\|</span>. Swaption prices can be used to
-determine the convexity. A typical assumption is <span
-class="math inline">\sigma(t) = s(t)(\cos\alpha(t),
-\sin\alpha(t))</span> for some functions <span
-class="math inline">s(t)</span> and <span
-class="math inline">\alpha(t)</span>. One felicitous feature of this
-parameterization is the futures quotes and options prices are
-independent of <span class="math inline">\alpha(t)</span> since <span
-class="math inline">\|\sigma(t)\| = s(t)</span>.</p>
-<p>There is no closed-form formula for calculating <span
-class="math inline">\operatorname{Cov}(f_t, D_t)</span> in the LIBOR
-market model but there is for the Ho-Lee model.</p>
+<p>The LIBOR market model assumes <span class="math inline">f_t = \phi(t)\exp(\sigma(t)\cdot B_t - \|\sigma(t)\|^2t/2)</span> where <span class="math inline">B_t</span> is vector-valued Brownian motion and <span class="math inline">\sigma(t)</span> is a vector valued function of time. The futures quotes <span class="math inline">\phi(t)</span> can be observed in the market. If we have at-the-money call options with prices <span class="math inline">{E[\max\{f_t - f(t), 0\}D_t]}</span> then the implied volatility gives us <span class="math inline">\|\sigma(t)\|</span>. Swaption prices can be used to determine the convexity. A typical assumption is <span class="math inline">\sigma(t) = s(t)(\cos\alpha(t), \sin\alpha(t))</span> for some functions <span class="math inline">s(t)</span> and <span class="math inline">\alpha(t)</span>. One felicitous feature of this parameterization is the futures quotes and options prices are independent of <span class="math inline">\alpha(t)</span> since <span class="math inline">\|\sigma(t)\| = s(t)</span>.</p>
+<p>There is no closed-form formula for calculating <span class="math inline">\operatorname{Cov}(f_t, D_t)</span> in the LIBOR market model but there is for the Ho-Lee model.</p>
 </section>
 <section id="ho-lee" class="level2">
 <h2><a href="ho-lee.html">Ho-Lee</a></h2>
-<p>The Ho-Lee model specifies a stochastic forward rate <span
-class="math inline">f_t = \phi(t) + \sigma(t)\cdot B_t</span> where
-<span class="math inline">\phi(t)</span> is the futures quote and <span
-class="math inline">\sigma(t)</span> is the vector-valued
-volatility.</p>
-<p><strong>Exercise</strong>. <em>Show for the Ho-Lee model with
-constant scalar volatility <span class="math inline">\sigma =
-\sigma(t)</span></em> <span class="math display">
+<p>The Ho-Lee model specifies a stochastic forward rate <span class="math inline">f_t = \phi(t) + \sigma(t)\cdot B_t</span> where <span class="math inline">\phi(t)</span> is the futures quote and <span class="math inline">\sigma(t)</span> is the vector-valued volatility.</p>
+<p><strong>Exercise</strong>. <em>Show for the Ho-Lee model with constant scalar volatility <span class="math inline">\sigma = \sigma(t)</span></em> <span class="math display">
     D(t) =  \exp(-\int_0^t \phi(s)\,ds + \sigma^2 t^3/6)
 </span></p>
-<p><em>Hint</em>: Use <span class="math inline">E[\exp(N)] = \exp(E[N] +
-\operatorname{Var}(N)/2)</span> for any normally distributed random
-variable and show <span class="math inline">{\operatorname{Var}(\int_0^t
-B_s\,ds) = \int_0^t \int_0^t \operatorname{Cov}(B_u, B_v)\,du\,dv =
-t^3/3}</span>.</p>
-<p>Since <span class="math inline">D(t) = \exp(-\int_0^t
-f(s)\,ds)</span> we have <span class="math inline">f(t) = \phi(t) -
-\sigma^2 t^2/2</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\operatorname{Cov}(N, f(M)) = E[f&#39;(M)]
-\operatorname{Cov}(N, M)</span> if <span class="math inline">N</span>
-and <span class="math inline">M</span> are jointly normal</em>.</p>
-<p><em>Hint</em>: Use <span class="math inline">E[\exp(N) f(M)] =
-E[\exp(N)] E[f(M + \operatorname{Cov}(N,M))]</span> if <span
-class="math inline">N</span> and <span class="math inline">M</span> are
-jointly normal, differentiate <span class="math inline">E[\exp(\alpha N)
-f(M)]</span> with respect to <span class="math inline">\alpha</span>,
-and set <span class="math inline">\alpha = 0</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\operatorname{Cov}(f_t, D_t) = -D(t)\sigma^2
-t^2/2</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">E[\exp(N)] = \exp(E[N] + \operatorname{Var}(N)/2)</span> for any normally distributed random variable and show <span class="math inline">{\operatorname{Var}(\int_0^t B_s\,ds) = \int_0^t \int_0^t \operatorname{Cov}(B_u, B_v)\,du\,dv = t^3/3}</span>.</p>
+<p>Since <span class="math inline">D(t) = \exp(-\int_0^t f(s)\,ds)</span> we have <span class="math inline">f(t) = \phi(t) - \sigma^2 t^2/2</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\operatorname{Cov}(N, f(M)) = E[f&#39;(M)] \operatorname{Cov}(N, M)</span> if <span class="math inline">N</span> and <span class="math inline">M</span> are jointly normal</em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">E[\exp(N) f(M)] = E[\exp(N)] E[f(M + \operatorname{Cov}(N,M))]</span> if <span class="math inline">N</span> and <span class="math inline">M</span> are jointly normal, differentiate <span class="math inline">E[\exp(\alpha N) f(M)]</span> with respect to <span class="math inline">\alpha</span>, and set <span class="math inline">\alpha = 0</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\operatorname{Cov}(f_t, D_t) = -D(t)\sigma^2 t^2/2</span></em>.</p>
 <p><em>Hint</em>: Use the previous exercise.</p>
 <p>Note this agrees with the previous convexity calculation.</p>
 <!--
@@ -234,20 +96,11 @@ $\Cov(f_t, D_t) = E[\exp(-\int_0^t \phi(s) + \sigma B_s\,ds)]\Cov(\sigma B_t,-\i
 = D(t)  \int_0^t \sigma^2 s\,ds = D(t)\sigma^2 t^2/2$.
 -->
 </section>
-<section class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>On September 17, 2019 SOFR went from
-2.43% to 5.25% and spiked to 10% at one point during the trading day.
-This was very <a
-href="https://www.federalreserve.gov/econres/notes/feds-notes/what-happened-in-money-markets-in-september-2019-20200227.html">disconcerting</a>.<a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>On September 17, 2019 SOFR went from 2.43% to 5.25% and spiked to 10% at one point during the trading day. This was very <a href="https://www.federalreserve.gov/econres/notes/feds-notes/what-happened-in-money-markets-in-september-2019-20200227.html">disconcerting</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
-<hr/>
-<footer>
-Return to <a href="index.html">index</a>.
-</footer>
 </body>
 </html>
