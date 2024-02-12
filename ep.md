@@ -205,7 +205,7 @@ result.
 We use the notation $\xi^*$ for what is usually denoted
 by the transpose $\xi^T$.  It is simpler and more illuminating to work with abstract
 vector spaces and linear operators between them
-than with $\RR^n$ and matrices. Matrix multiplication is just composition linear operators.
+than with $\RR^n$ and matrices. Matrix multiplication is just composition of linear operators.
 
 Recall $\RR^I = \{x\colon I\to\RR\}$ is the vector space of all
 functions from the set $I$ to $\RR$ with scalar multiplication and
@@ -228,6 +228,7 @@ Define the _dual_ of a vector space $V$ to be all _bounded linear functionals_ f
 $V$ to $\RR$: $V^* = \BB(V,\RR)$. If $T\in\LL(V,W)$ define
 the _adjoint_ $T^*\in\BB(W^*,V^*)$ by $T^*w^*\in V^*$
 where $T^*w^*(v) = w^*(Tv)$, $w^*\in W^*$, $v\in V$.
+If $S\in\LL(W,U)$ then $ST\in\LL(V,U)$ and $(ST)^* = T^*S^*$.
 
 <!--
 If $V = \RR^I$ and $W = \RR^J$ where $I$ and $J$
