@@ -22,7 +22,7 @@ $F = fe^{sX - \kappa(s)}$ for some $X$ with mean zero and variance one
 where $\kappa(s) = \log E[\exp(sX)]$ is the _cumulant_ of $X$.
 We call $f = E[F]$ the _forward_ and $s = \Var(\log F)$ the _vol_.
 
-__Exercise__. _Prove ${X = (\log F/f + \kappa(s))/s}$ mean 0 and variance 1_.
+__Exercise__. _Prove ${X = (\log F/f + \kappa(s))/s}$ has mean 0 and variance 1_.
 
 If an option pays off in shares of $F$ then 
 $E[F\nu(F)] = fE[ e^{sX - \kappa(s)}\nu(F)] = fE_s[\nu(F)]$
@@ -95,23 +95,18 @@ $$
 	\partial_f^2 p = -\Psi_s'(x)\partial_f x = -\psi_s(x)/fs
 $$
 
+__Exercise__. _Show $\partial_f x = 1/fs$_.
+
+_Hint_. Show $\partial_x f = fs$.
+
 ### Vega
 
 The derivative with respect to vol is
 $\partial_s E[(k - F)^+] = -E[1(F\le k)F(X - \kappa'(s))]$.
-
-Since $\partial_s P_s(X\le x) = E[e^{sX - \kappa(s)}(X - \kappa'(s)1(X\le x)]$
+Since ${\partial_s \Psi(x, s) = E[e^{sX - \kappa(s)}(X - \kappa'(s))1(X\le x)]}$
 we have
 $$
-	\partial_s p = -f\Phi_s(x)
+	\partial_s p = -f\partial_s\Psi(x, s).
 $$
 
-Note $\partial_s \Psi_s(x) = 
-$$
-	\partial_s p = -f\Psi'_x(x)
-$$
-
-%Note $\psi_s(x) = \Psi_s'(x) = e^{sx - \kappa(s)}\psi(x)$.
-
-$\partial_s \Phi_s(x) = \phi_s(x)\parial_s x$
-
+## Call
