@@ -32,9 +32,6 @@ having the same expected realized return.
 This was developed into the Capital Asset Pricing Model by Treynor[@Tre1961],
 Sharp[@Sha1964], Lintner[@Lin1965], and many others.
 
-This was developed into the Capital Asset Pricing Model
-by Treynor[@Tre1961], Sharp[@Sha1964]
-
 In the one-period model every efficient portfolio belongs to a one or two-dimensional
 subspace and is uniquely determined given its expected realized return.
 In the one-dimensional case every portfolio has the same expected realized return.
@@ -57,7 +54,7 @@ where $\beta = \Cov(R, R_1)/\Var(R_1)$.
 
 This short note points out the CAPM formula
 holds as equality of realized returns as random variables, not just their expectations.
-It follows directly from writing down a mathematical model for one period investments.
+This follows directly from writing down a mathematical model for one period investments.
 Prior work does not explicitly specify a sample space and probability measure,
 the first step in any model involving probability since Kolomogorov legitimized probability
 as a branch of measure theory [@Kol1956].
@@ -196,17 +193,18 @@ $E[XX^*]$.
 Classical literature makes the implicit assumption $\Omega = \RR^I$, so
 any instrument can go to any price, and that returns are jointly normal
 to reduce the problem of finding a probability measure to estimating
-the mean $E[X]$ and the variance $E[XX^*] - E[X] E[X^*]$.
+the mean $E[X]$ and the variance $E[XX^*] - E[X] E[X]^*$.
 This may explain why prior authors overlooked our elementary but stronger
 result.
 
 ## Appendix
 
-We use the notation $\xi^*$ for what is usually denoted
-by the transpose $\xi^T$.  It is simpler and more illuminating to work with abstract
+It is simpler and more illuminating to work with abstract
 vector spaces and linear operators between them
 than with $\RR^n$ and matrices. Matrix multiplication is just composition of linear operators.
 
+We use the notation $\xi^*$ for what is usually denoted
+by the transpose $\xi^T$.
 Recall $\RR^I = \{x\colon I\to\RR\}$ is the vector space of all
 functions from the set $I$ to $\RR$ with scalar multiplication and
 vector addition defined point-wise: ${(ax)(i) = ax(i)}$ and ${(x + y)(i) = x(i)
@@ -229,6 +227,8 @@ $V$ to $\RR$: $V^* = \BB(V,\RR)$. If $T\in\LL(V,W)$ define
 the _adjoint_ $T^*\in\BB(W^*,V^*)$ by $T^*w^*\in V^*$
 where $T^*w^*(v) = w^*(Tv)$, $w^*\in W^*$, $v\in V$.
 If $S\in\LL(W,U)$ then $ST\in\LL(V,U)$ and $(ST)^* = T^*S^*$.
+If $x\in\RR^I$ then $x^*\colon\RR^I\to\RR$ and $xx^*\colon\RR^I\to\RR^I$
+is defined by $xx^*(y) = (x^*y)x$ for $y\in\RR^I$.
 
 <!--
 If $V = \RR^I$ and $W = \RR^J$ where $I$ and $J$
