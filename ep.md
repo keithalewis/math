@@ -8,7 +8,7 @@ Header-includes:
   - \usepackage{unicode-math}
 abstract: CAPM holds as equality of random variables, not just their expected value.
 thanks: |
-	Peter Carr and David Shimko gave insightful feedback to
+	Kevin Atteson, Peter Carr, and David Shimko gave insightful feedback to
 	make the exposition more accessible to finance professionals.
 	Any remaining infelicities or omissions are my fault.
 ---
@@ -89,7 +89,6 @@ possible market outcomes over the period.  The _one-period model_
 specifies the initial instrument prices $x\in\RR^I$ and the final
 instrument prices $X\colon\Omega\to\RR^I$ depending on the outcome
 $\omega\in\Omega$ that occurs.
-
 The one period model also specifies a probability
 measure on the space of outcomes. Addressing this fundamental and
 important problem is outside the scope of this short note.
@@ -107,18 +106,6 @@ A _zero coupon bond_ is a portfolio $\zeta\in\RR^I$ with $\zeta^*X = 1$ on $\Ome
 Its cost $\zeta^*x = D$ is the _discount_
 and has constant realized return $\zeta^*X = 1/D$.
 
-<!--
-_Arbitrage_ exists if there is a portfolio $\xi\in\RR^I$ with $\xi^* x <
-0$ and $\xi^* X(\omega) \ge0$, $\omega\in\Omega$.  The cost of acquiring
-the portfolio is negative so you make money up front.  The liquidation
-value at the end of the period is non-negative no matter what happens so you never lose
-money. Note this definition of arbitrage does not involve a probability measure.
-The _Fundamental Theorem of Asset Pricing_ for the one-period model
-states there is no arbitrage if and only if there exists a positive
-finitely additive measure $D$ on $\Omega$ with $x = \int_\Omega X\,dD$. See the
-[Appendix](fundamental-theorem-of-asset-pricing) for an elementary proof.
--->
-
 ## Efficient Portfolio
 
 A portfolio is _efficient_ if its variance is
@@ -130,19 +117,6 @@ there is no loss in assuming $\xi^* x = 1$.
 In this case $R_\xi = \xi^* X$ is the realized return of the portfolio.
 If $\xi^* x = 1$ then $\Var(R_\xi) = \xi^*V\xi$
 where ${V = E[X X^*] - E[X] E[X]^*}$.
-<!--
-$$
-\begin{aligned}
-\Var(R_\xi) &= \Cov(R_\xi, R_\xi) \\
-	&= \Cov(\xi^*X, \xi^*X) \\
-	&= E[\xi^*X \xi^*X] - E[\xi^*X] E[\xi^*X] \\
-	&= E[\xi^*X X^*\xi] - E[\xi^*X] E[X^*\xi] \\
-	&= \xi^*E[X X^*]\xi - \xi^*E[X] E[X^*]\xi \\
-	&= \xi^*(E[X X^*]\xi] - E[X] E[X^*])\xi \\
-	&= \xi^*V\xi \\
-\end{aligned}
-$$
--->
 
 For a given expected realized return $r\in\RR$ we use Lagrange multipliers and minimize
 $$
@@ -178,7 +152,7 @@ and ${\xi^* X = \beta_0 R_{\xi_0} + \beta_1 R_{\xi_1}}$
 so ${R_\xi = (\beta_0 R_{\xi_0} + \beta_1 R_{\xi_1})/(\beta_0 + \beta_1)}$.
 This shows
 $$
-	R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
+	R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0}) \tag{1}
 $$
 as functions on $\Omega$, where $\beta = \beta_1/(\beta_0 + \beta_1)$.
 Taking the covariance with ${R_{\xi_1} - R_{\xi_0}}$ on both sides gives
@@ -186,19 +160,17 @@ $$
 	\beta = \Cov(R_\xi - R_{\xi_0}, R_{\xi_1} - R_{\xi_0})/\Var(R_{\xi_1} - R_{\xi_0}).
 $$
 
-
 The [Appendix](#appendix) shows $\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$, where
 ${A = x^* V^{\dashv}x}$, ${B = x^* V^{\dashv}E[X] = E[X^*]V^{\dashv}x}$, ${C = E[X^*]V^{\dashv}E[X]}$,
 and ${D = AC - B^2}$.
 Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
-$E[XX^*]$.
+$E[XX^*]$. Perhaps this explains why earlier authors missed our elementary but stronger result.
 
-Classical literature makes the implicit assumption $\Omega = \RR^I$, so
-any instrument can go to any price, and that returns are jointly normal
-to reduce the problem of finding a probability measure to estimating
-the mean $E[X]$ and the variance $E[XX^*] - E[X] E[X^*]$.
-This may explain why prior authors overlooked our elementary but stronger
-result.
+Equation (1) makes it possible to compute various measures of risk[^1] for
+an efficient portfolio using the joint distribution of $R_0$ and $R_1$,
+something that is not possible using the classical CAPM model.
+
+[^1]: Value at risk (VaR), CVaR, RVaR, EVaR.
 
 ## Appendix
 
@@ -209,8 +181,8 @@ than with $\RR^n$ and matrices. Matrix multiplication is just composition of lin
 
 Recall $\RR^I = \{x\colon I\to\RR\}$ is the vector space of all
 functions from the set $I$ to $\RR$ with scalar multiplication and
-vector addition defined point-wise: ${(ax)(i) = ax(i)}$ and ${(x + y)(i) = x(i)
-+ y(i)}$ for $a\in\RR$, ${x,y\in\RR^I}$, and $i\in I$.
+vector addition defined point-wise: ${(ax)(i) = ax(i)}$ and
+${(x + y)(i) = x(i) y(i)}$ for $a\in\RR$, ${x,y\in\RR^I}$, and $i\in I$.
 
 For $\xi\in\RR^I$ define $\xi^*\in(\RR^I)^*$
 by $\xi(x) = \xi^*x = \sum_{i\in I} \xi_i x_i$ if $I$ is finite.
@@ -229,13 +201,6 @@ $V$ to $\RR$: $V^* = \BB(V,\RR)$. If $T\in\LL(V,W)$ define
 the _adjoint_ $T^*\in\BB(W^*,V^*)$ by $T^*w^*\in V^*$
 where $T^*w^*(v) = w^*(Tv)$, $w^*\in W^*$, $v\in V$.
 If $S\in\LL(W,U)$ then $ST\in\LL(V,U)$ and $(ST)^* = T^*S^*$.
-
-<!--
-If $V = \RR^I$ and $W = \RR^J$ where $I$ and $J$
-are finite, then given a basis $(e_i)$ of $V$ and a basis $(f_j)$ of $W$
-we can define a matrix $[t_{ij}]$ for any linear operator $T\colon V\to W$
-by $Te_i = \sum_j t_{ij} f_j$. 
--->
 
 ### Fréchet derivative
 
