@@ -15,22 +15,17 @@ abstract: European option pricing and greeks
 
 A _European option_ pays some function of the underlying price at expiration.
 If $F$ is the price at expiration and $\nu$ is the _payoff function_
-then its Black forward _value_ is ${v = E[\nu(F)]}$.
+then its Black _forward value_ is ${v = E[\nu(F)]}$.
 
 If $F$ is positive and $\log F$ has finite mean and variance then
 $F = fe^{sX - \kappa(s)}$ for some $X$ with mean zero and variance one
 where $\kappa(s) = \log E[\exp(sX)]$ is the _cumulant_ of $X$.
-We call $f = E[F]$ the _forward_ and $s = \Var(\log F)$ the _vol_.
 
-__Exercise__. _Prove ${X = (\log F/f + \kappa(s))/s}$ has mean 0 and variance 1_.
+__Exercise__. _Show $E[F] = f$ and $\Var(\log F) = s^2$_.
 
-In the Fischer Black model $X = B_t/\sqrt{t}$, $f = f$, and $s = \sigma\sqrt{t}$
-where $B_t$ is Brownian motion at time $t$.
+We call $f$ the _forward_ and $s$ the _vol_.
 
-__Exercise__. _Show $F = fe^{\sigma B_t - \sigma^2t/2}$_.
-
-_Hint_: Use $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ if $N$ is normally distributed
-and $B_t$ has mean 0, variance $t$.
+__Exercise__. _Prove ${X = (\log F/f + \kappa(s))/s}$ has mean 0 and variance 1 if $s > 0$_.
 
 If an option pays off in shares of $F$ then 
 $E[F\nu(F)] = fE[ e^{sX - \kappa(s)}\nu(F)] = fE^s[\nu(F)]$
@@ -52,8 +47,10 @@ $$
 
 ## Put
 
-A _put_ with strike $k$ pays $\nu(F) = \max\{k - F, 0\} = (k - F)^+ = (k - F)1(F\le k)$ at expiration.
-Note $F\le k$ is equivalent to $X\le (\log k/f + \kappa(s))/s$ when $s > 0$.
+A _put_ with strike $k$ pays $\nu(F) = \max\{k - F, 0\} = (k - F)^+ = (k - F)1(F\ge k)$ at expiration.
+Note $F\le k$ is equivalent to $X\le x$ where
+${x = x(k) = x(k;f,s) = (\log k/f + \kappa(s))/s}$
+is the _moneyness_ of a put with strike $k$.
 
 ### Value
 
@@ -67,66 +64,108 @@ E[(k - F)^+] &= E[(k - F)1(F\le k)] \\
 \end{aligned}
 $$
 
-We also have
-$$
-\begin{aligned}
-E[(k - F)^+] &= E[(k - F)1(F\le k)] \\
-	&= (k - f)P(F\le k) - \Cov(F,1(F\le k)). \\
-\end{aligned}
-$$
-Note $\Cov(F,1(F\le k)) < 0$.
-
-Let $\Psi(x) = P(X\le x)$ be the _cumulative distribution function_ of $X$
-and $\psi(x) = \Psi'(x)$ be the density function if it exists.
-Define the _cumulative share distribution_ by
-${\Psi(x,s) = E[e^{sX - \kappa(s)} 1(X\le x)] = P^s(X\le x)}$
-and $\psi(x, s) = \partial_x\Psi(x,s)$.
-
-__Exercise__. _Show $\psi(x,s) = e^{sx - \kappa(s)}\psi(x)$_.
+Let $\Psi(x) = P(X\le x)$ be the _cumulative distribution function_ of $X$.
+The _cumulative share distribution_ is ${\Psi(x, s) = E[e^{sX - \kappa(s)} 1(X\le x)]}$.
+Note ${\Psi(x, 0) = \Psi(x)}$.
 
 We can write the put value as
 $$
-	p = k\Psi(x) - f\Phi(x, s),
+	p = k\Psi(x) - f\Phi(x, s).
 $$
-where ${x = \xi(k) = \xi(k;f,s) = (\log k/f + \kappa(s))/s}$ is the moneyness.
-
-__Exercise__. _Show $F\le k$ if and only if $X\le \xi(k)$ if $s > 0$_.
 
 ### Delta
 
 Since $\partial_f (k - f)^+ = -1(f \le k)$ the put delta is
 $$
-	\partial_f p = E[-1(F \le k)e^{sX - \kappa(s)}] = -P^s(F\le k) = -\Psi(x, s).
+\begin{aligned}
+	\partial_f p &= E[-1(F \le k)\partial_f F] \\
+	&= E[-1(F \le k)e^{sX - \kappa(s)}] \\
+	&= -P^s(F\le k) \\
+	&= -\Psi(x, s).
+\end{aligned}
 $$
 
 ### Gamma
 
 The second derivative with respect to forward is
 $$
-	\partial_f^2 p = -\partial_f\Psi(x, s)\partial_f x = -\psi(x, s)/fs
+\begin{aligned}
+	\partial_f^2 p &= \partial_f (-\Psi(x, s)) \\
+	&= -\partial_x\Psi(x, s)\partial_f x \\
+	&= -\partial_x\Psi(x, s)/fs \\
+\end{aligned}
 $$
+
 
 __Exercise__. _Show $\partial_f x = 1/fs$_.
 
-_Hint_: Show $\partial_x f = fs$.
+_Hint_. Use $f = ke^{sx - \kappa(s)}$ to show $\partial_x f = fs$.
 
 ### Vega
 
 The derivative with respect to vol is
 $\partial_s E[(k - F)^+] = -E[1(F\le k)F(X - \kappa'(s))]$.
-
-Since $\partial_s P^s(X\le x) = E[e^{sX - \kappa(s)}(X - \kappa'(s)1(X\le x)]$
+Since ${\partial_s \Psi(x, s) = E[e^{sX - \kappa(s)}(X - \kappa'(s))1(X\le x)]}$
 we have
 $$
-	\partial_s p = -f\Phi_s(x)
+	\partial_s p = -f\partial_s\Psi(x, s).
 $$
 
-Note $\partial_s \Psi_s(x) = 
-$$
-	\partial_s p = -f\Psi'_x(x)
-$$
+__Exercise__. _Show $\partial_s p = -k\partial_s\Psi(x, 0)$_.
 
-%Note $\psi_s(x) = \Psi_s'(x) = e^{sx - \kappa(s)}\psi(x)$.
+## Call
 
-$\partial_s \Phi_s(x) = \phi_s(x)\parial_s x$
+A _call_ with strike $k$ pays ${\nu(F) = (F - k)^+}$ at expiration
+and has forward value ${c = E[(F - k)^+]}$.
+Let $\overline{\Psi}(x) = 1 - \Psi(x)$ and
+${\overline{\Psi}(x, s) = 1 - \Psi(x, s)}$ be the _complementary distributions_.
+If $P^s$ does not have a point mass at $k$ then
+${P^s(F\ge k) = P^s(X\ge x) = \overline{\Psi}(x, s)}$.
 
+__Exercise__. _Show the forward call value is $c = f\overline{\Psi}(x, s) - k \overline{\Psi}(x)$_.
+
+Since ${(F - k)^+ - (k - F)^+ = F - k}$ we have _put-call_ parity ${c - p = f - k}$
+so $\partial_f c - \partial_f p = 1$.
+
+__Exercise__. _Show call delta $\partial_f c = \overline{\Psi}(x, s)$_.
+
+__Exercise__. _Show call gamma equals put gamma_.
+
+__Exercise__. _Show call vega equals put vega_.
+
+## Black
+
+The Fischer Black model takes $f = f$, $s = \sigma\sqrt{t}$ and $X = B_t/\sqrt{t}$ where
+$\sigma$ is the _volatility_, $t$ is time in years to expiration, and
+$B_t$ is Brownian motion at time $t$. We only use the fact $B_t$ is normally distributed
+with mean 0 and variance $t$.
+
+__Exercise__. _Show $B_t/\sqrt{t}$ has mean 0 and variance 1_.
+
+__Exercise__ _Show $E[e^{\sigma B_t}] = e^{\sigma^2t/2}$ for any $\sigma\in\RR$_.
+
+_Hint_. Use $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ if $N$ is normally distributed.
+
+__Exercise__. _Show $F = fe^{\sigma B_t - \sigma^2t/2}$ in the Black model_.
+
+__Exercise__. _If $X$ is standard normal then $E[e^{sX - s^2/2}f(X)] = E[f(X + s)]$_.
+
+_Hint_: Use $E[\exp(N)f(N)] = E[\exp(N)] E[f(N + \Var(N))]$ if $N$ is normal.
+
+__Exercise__. _Show $\Psi(x, s) = E[e^{sX - s^2/2}1(X\le x)] = P(X + s\le x) = \Psi(x - s)$_.
+
+The forward value for the Black model is
+${p = k\Psi(x) - f\Psi(x - \sigma\sqrt{t})}$,
+delta is ${\partial_f p = -\Psi(x - \sigma\sqrt{t})}$,
+and gamma is ${\partial_f^2 p = -\psi(x - \sigma\sqrt{t})/f\sigma\sqrt{t}}$,
+where ${x = (\log k/f)/\sigma\sqrt{t} + \sigma\sqrt{t}/2}$
+and $\psi(x) = \Psi'(x)$ is the standard normal density.
+
+__Exercise__. _Show vega is $\partial_\sigma p = f\psi(x - \sigma\sqrt{t})\sqrt{t}$_.
+
+_Hint_: Use $\partial_\sigma s = \sqrt{t}$.
+
+## Remarks
+
+Instrument prices are discrete.
+It is a fact that instrument prices are integer multiples of some minimum increment.
