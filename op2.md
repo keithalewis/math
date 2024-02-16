@@ -30,7 +30,7 @@ __Exercise__. _Prove ${X = (\log F/f + \kappa(s))/s}$ has mean 0 and variance 1 
 If an option pays off in shares of $F$ then 
 $E[F\nu(F)] = fE[ e^{sX - \kappa(s)}\nu(F)] = fE^s[\nu(F)]$
 where $E^s$ is the _share measure_.
-Since $E[e^{sX - \kappa(s)}] = 1$, share measure is a probability measure
+Since $E[e^{sX - \kappa(s)}] = 1$ share measure is a probability measure
 that we denote by $P^s$.
 
 ## Greeks
@@ -65,12 +65,13 @@ E[(k - F)^+] &= E[(k - F)1(F\le k)] \\
 $$
 
 Let $\Psi(x) = P(X\le x)$ be the _cumulative distribution function_ of $X$.
-The _cumulative share distribution_ is ${\Psi(x, s) = E[e^{sX - \kappa(s)} 1(X\le x)]}$.
+The _cumulative share distribution_ is
+${\Psi(x, s) = E[e^{sX - \kappa(s)} 1(X\le x)] = P^s(X\le x)}$.
 Note ${\Psi(x, 0) = \Psi(x)}$.
 
 We can write the put value as
 $$
-	p = k\Psi(x) - f\Phi(x, s).
+	p = k\Psi(x) - f\Psi(x, s).
 $$
 
 ### Delta
@@ -154,16 +155,34 @@ _Hint_: Use $E[\exp(N)f(N)] = E[\exp(N)] E[f(N + \Var(N))]$ if $N$ is normal.
 
 __Exercise__. _Show $\Psi(x, s) = E[e^{sX - s^2/2}1(X\le x)] = P(X + s\le x) = \Psi(x - s)$_.
 
-The forward value for the Black model is
-${p = k\Psi(x) - f\Psi(x - \sigma\sqrt{t})}$,
-delta is ${\partial_f p = -\Psi(x - \sigma\sqrt{t})}$,
-and gamma is ${\partial_f^2 p = -\psi(x - \sigma\sqrt{t})/f\sigma\sqrt{t}}$,
+The forward value of the Black put is
+$$
+	p = k\Psi(x) - f\Psi(x - \sigma\sqrt{t}),
+$$
+delta is 
+$$
+	\partial_f p = -\Psi(x - \sigma\sqrt{t}),
+$$
+and gamma is 
+$$
+	\partial_f^2 p = -\psi(x - \sigma\sqrt{t})/f\sigma\sqrt{t},
+$$
 where ${x = (\log k/f)/\sigma\sqrt{t} + \sigma\sqrt{t}/2}$
 and $\psi(x) = \Psi'(x)$ is the standard normal density.
 
-__Exercise__. _Show vega is $\partial_\sigma p = f\psi(x - \sigma\sqrt{t})\sqrt{t}$_.
+__Exercise__. _Show Black vega is $\partial_\sigma p = f\psi(x - \sigma\sqrt{t})\sqrt{t}$_.
 
 _Hint_: Use $\partial_\sigma s = \sqrt{t}$.
+
+## Black-Scholes/Merton
+
+The B-S/M model assumes the risk-neutral price of a stock is
+${S_t = S_0e^{rt + \sigma B_t - \sigma^2t/2}}$ where $r$ is the continuously
+compounded risk-free rate.  The current price $S_0$ is called the _spot_
+price of the stock.  The present value of an option paying $\nu(S_t)$
+at time $t$ is ${v = e^{-rt}E[\nu(S_t)]}$.  Note ${S_t = F}$ where $F$ is
+the forward price at expiration. This gives the relationship between
+the spot and forward $S_0e^{rt} = f$ and is called the _cost of carry_.
 
 ## Remarks
 
