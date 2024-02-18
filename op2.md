@@ -47,7 +47,7 @@ $$
 
 ## Put
 
-A _put_ with strike $k$ pays $\nu(F) = \max\{k - F, 0\} = (k - F)^+ = (k - F)1(F\ge k)$ at expiration.
+A _put_ with strike $k$ pays $\nu(F) = {\max\{k - F, 0\}} = {(k - F)^+} = {(k - F)1(F\ge k)}$ at expiration.
 Note $F\le k$ is equivalent to $X\le x$ where
 ${x = x(k) = x(k;f,s) = (\log k/f + \kappa(s))/s}$
 is the _moneyness_ of a put with strike $k$.
@@ -58,7 +58,8 @@ The forward value of a put option is
 
 $$
 \begin{aligned}
-E[(k - F)^+] &= E[(k - F)1(F\le k)] \\
+	p &= E[(k - F)^+] \\
+	&= E[(k - F)1(F\le k)] \\
 	&= kE[1(F \le k)] - E[F1(F\le k)] \\
 	&= kP(X \le x) - fP^s(X\le x). \\
 \end{aligned}
@@ -93,20 +94,17 @@ $$
 \begin{aligned}
 	\partial_f^2 p &= \partial_f (-\Psi(x, s)) \\
 	&= -\partial_x\Psi(x, s)\partial_f x \\
-	&= -\partial_x\Psi(x, s)/fs \\
+	&= \partial_x\Psi(x, s)/fs \\
 \end{aligned}
 $$
 
-
-__Exercise__. _Show $\partial_f x = 1/fs$_.
-
-_Hint_. Use $f = ke^{sx - \kappa(s)}$ to show $\partial_x f = fs$.
+__Exercise__. _Show $\partial_f x = -1/fs$_.
 
 ### Vega
 
 The derivative with respect to vol is
-$\partial_s E[(k - F)^+] = -E[1(F\le k)F(X - \kappa'(s))]$.
-Since ${\partial_s \Psi(x, s) = E[e^{sX - \kappa(s)}(X - \kappa'(s))1(X\le x)]}$
+$\partial_s E[(k - F)^+] = {-E[1(F\le k)F(X - \kappa'(s))]}$.
+Since $\partial_s \Psi(x, s) = {E[e^{sX - \kappa(s)}(X - \kappa'(s))1(X\le x)]}$
 we have
 $$
 	\partial_s p = -f\partial_s\Psi(x, s).
@@ -149,11 +147,18 @@ _Hint_. Use $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ if $N$ is normally distributed
 
 __Exercise__. _Show $F = fe^{\sigma B_t - \sigma^2t/2}$ in the Black model_.
 
-__Exercise__. _If $X$ is standard normal then $E[e^{sX - s^2/2}f(X)] = E[f(X + s)]$_.
+__Exercise__. _If $X$ is standard normal then $E[e^{sX - s^2/2}g(X)] = E[g(X + s)]$_.
 
-_Hint_: Use $E[\exp(N)f(N)] = E[\exp(N)] E[f(N + \Var(N))]$ if $N$ is normal.
+_Hint_: Use $E[\exp(N)g(N)] = E[\exp(N)] E[g(N + \Var(N))]$ if $N$ is normal.
 
 __Exercise__. _Show $\Psi(x, s) = E[e^{sX - s^2/2}1(X\le x)] = P(X + s\le x) = \Psi(x - s)$_.
+
+__Exercise__. _Show $x = \log(k/f)/\sigma\sqrt{t} + \sigma\sqrt{t}/2$_.
+
+Black and Scholes defined ${d_2 = \log(f/k)/\sigma\sqrt{t} - \sigma\sqrt{t}/2}$
+and ${d_1 = \log(f/k)/\sigma\sqrt{t} + \sigma\sqrt{t}/2}$.
+
+__Exercise__ show $x = -d_2$ and $x - \sigma\sqrt{t} = -d_1$_.
 
 The forward value of the Black put is
 $$
@@ -165,7 +170,7 @@ $$
 $$
 and gamma is 
 $$
-	\partial_f^2 p = -\psi(x - \sigma\sqrt{t})/f\sigma\sqrt{t},
+	\partial_f^2 p = \psi(x - \sigma\sqrt{t})/f\sigma\sqrt{t},
 $$
 where ${x = (\log k/f)/\sigma\sqrt{t} + \sigma\sqrt{t}/2}$
 and $\psi(x) = \Psi'(x)$ is the standard normal density.
@@ -179,7 +184,7 @@ _Hint_: Use $\partial_\sigma s = \sqrt{t}$.
 The B-S/M model assumes the risk-neutral price of a stock is
 ${S_t = S_0e^{rt + \sigma B_t - \sigma^2t/2}}$ where $r$ is the continuously
 compounded risk-free rate.  The current price $S_0$ is called the _spot_
-price of the stock.  The present value of an option paying $\nu(S_t)$
+price of the stock.  The _present value_ of an option paying $\nu(S_t)$
 at time $t$ is ${v = e^{-rt}E[\nu(S_t)]}$.  Note ${S_t = F}$ where $F$ is
 the forward price at expiration. This gives the relationship between
 the spot and forward $S_0e^{rt} = f$ and is called the _cost of carry_.
