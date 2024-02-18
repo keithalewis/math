@@ -7,6 +7,52 @@ fleqn: true
 abstract: The mathematical foundations of databases.
 ...
 
+## SQL
+
+Strucured Query Language is a language for creating, querying, and modifying relational data.
+
+### [Create](https://sqlite.org/lang_createtable.html)
+
+Create a table by specifying column names, types, and optional constraints on column values.
+
+```SQL
+CREATE TABLE table (
+	column [type](https://sqlite.org/datatypes.html) [constraint],
+	...
+)
+```
+
+### [Insert](https://sqlite.org/lang_insert.html)
+
+Insert values into an existing table.
+
+```SQL
+INSERT INTO table [(column, ...)]
+VALUES (value, ...)
+```
+
+### [Select](https://sqlite.org/lang_select.html)
+
+Select columns and rows that satisfy a predicate.
+
+```SQL
+SELECT column, ...
+FROM table
+WHERE predicate -- rows satisfying a condition
+[GROUP BY expr [HAVING expr], ...]
+[ORDER BY column, ...]
+```
+
+### [Update](https://sqlite.org/lang_update.html)
+
+Change existing values in a database.
+
+```SQL
+UPDATE table
+SET column = expr, ...
+[WHERE expr]
+```
+
 A _relational database_ $R$ is a subset of a cartesian product of _columns_ $(T_j)_{j\in J}$:
 $R\subseteq \Pi_{j\in J} T_j = T_J$.
 Databases contain _rows_ $r_i\in T_J$ where $R = \{r_i\}$.
@@ -54,34 +100,3 @@ software implmentations resort to _indicies_ to improve performance. For
 example, if one of the columns is a time value then the data can be
 scanned to compute a permutation of the physical row postion that
 preserves the time ordering.
-
-## SQL
-
-Strucured Query Language is a language for creating, querying, and modifying relational data.
-
-### [Create](https://sqlite.org/lang_createtable.html)
-
-```SQL
-CREATE TABLE table (
-	column type [constraint],
-	...
-);
-```
-
-### [Select](https://sqlite.org/lang_select.html)
-
-```SQL
-SELECT column, ...
-FROM table
-WHERE predicate
-[GROUP BY expr [HAVING expr], ...]
-[ORDER BY column, ...]
-```
-
-### [Update](https://sqlite.org/lang_update.html)
-
-```SQL
-UPDATE table
-SET column = expr, ...
-[WHERE expr]
-```
