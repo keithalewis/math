@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-02-08" />
+  <meta name="dcterms.date" content="2024-02-18" />
   <title>Efficient Portfolios</title>
   <style>
     code{white-space: pre-wrap;}
@@ -42,7 +42,7 @@
 <header id="title-block-header">
 <h1 class="title">Efficient Portfolios</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">February 8, 2024</p>
+<p class="date">February 18, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 CAPM holds as equality of random variables, not just their expected
@@ -139,10 +139,10 @@ model</em> specifies the initial instrument prices <span
 class="math inline">x\in\mathbf{R}^I</span> and the final instrument
 prices <span class="math inline">X\colon\Omega\to\mathbf{R}^I</span>
 depending on the outcome <span
-class="math inline">\omega\in\Omega</span> that occurs.</p>
-<p>The one period model also specifies a probability measure on the
-space of outcomes. Addressing this fundamental and important problem is
-outside the scope of this short note.</p>
+class="math inline">\omega\in\Omega</span> that occurs. The one period
+model also specifies a probability measure on the space of outcomes.
+Addressing this fundamental and important problem is outside the scope
+of this short note.</p>
 <!-- in the modern world -->
 <p>A <em>portfolio</em> <span
 class="math inline">\xi\in\mathbf{R}^I</span> is the number of shares
@@ -162,17 +162,6 @@ class="math inline">\Omega</span>. Its cost <span
 class="math inline">\zeta^*x = D</span> is the <em>discount</em> and has
 constant realized return <span class="math inline">\zeta^*X =
 1/D</span>.</p>
-<!--
-_Arbitrage_ exists if there is a portfolio $\xi\in\RR^I$ with $\xi^* x <
-0$ and $\xi^* X(\omega) \ge0$, $\omega\in\Omega$.  The cost of acquiring
-the portfolio is negative so you make money up front.  The liquidation
-value at the end of the period is non-negative no matter what happens so you never lose
-money. Note this definition of arbitrage does not involve a probability measure.
-The _Fundamental Theorem of Asset Pricing_ for the one-period model
-states there is no arbitrage if and only if there exists a positive
-finitely additive measure $D$ on $\Omega$ with $x = \int_\Omega X\,dD$. See the
-[Appendix](fundamental-theorem-of-asset-pricing) for an elementary proof.
--->
 </section>
 <section id="efficient-portfolio" class="level2">
 <h2>Efficient Portfolio</h2>
@@ -186,19 +175,7 @@ case <span class="math inline">R_\xi = \xi^* X</span> is the realized
 return of the portfolio. If <span class="math inline">\xi^* x = 1</span>
 then <span class="math inline">\operatorname{Var}(R_\xi) =
 \xi^*V\xi</span> where <span class="math inline">{V = E[X X^*] - E[X]
-E[X]^*}</span>. <!--
-$$
-\begin{aligned}
-\Var(R_\xi) &= \Cov(R_\xi, R_\xi) \\
-    &= \Cov(\xi^*X, \xi^*X) \\
-    &= E[\xi^*X \xi^*X] - E[\xi^*X] E[\xi^*X] \\
-    &= E[\xi^*X X^*\xi] - E[\xi^*X] E[X^*\xi] \\
-    &= \xi^*E[X X^*]\xi - \xi^*E[X] E[X^*]\xi \\
-    &= \xi^*(E[X X^*]\xi] - E[X] E[X^*])\xi \\
-    &= \xi^*V\xi \\
-\end{aligned}
-$$
---></p>
+E[X]^*}</span>.</p>
 <p>For a given expected realized return <span
 class="math inline">r\in\mathbf{R}</span> we use Lagrange multipliers
 and minimize <span class="math display">
@@ -243,7 +220,7 @@ R_{\xi_0} + \beta_1 R_{\xi_1}}</span> so <span
 class="math inline">{R_\xi = (\beta_0 R_{\xi_0} + \beta_1
 R_{\xi_1})/(\beta_0 + \beta_1)}</span>. This shows <span
 class="math display">
-    R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
+    R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0}) \tag{1}
 </span> as functions on <span class="math inline">\Omega</span>, where
 <span class="math inline">\beta = \beta_1/(\beta_0 + \beta_1)</span>.
 Taking the covariance with <span class="math inline">{R_{\xi_1} -
@@ -262,14 +239,13 @@ class="math inline">A</span>, <span class="math inline">B</span>, <span
 class="math inline">C</span>, and <span class="math inline">D</span>
 depend only on <span class="math inline">x</span>, <span
 class="math inline">E[X]</span>, and <span
-class="math inline">E[XX^*]</span>.</p>
-<p>Classical literature makes the implicit assumption <span
-class="math inline">\Omega = \mathbf{R}^I</span>, so any instrument can
-go to any price, and that returns are jointly normal to reduce the
-problem of finding a probability measure to estimating the mean <span
-class="math inline">E[X]</span> and the variance <span
-class="math inline">E[XX^*] - E[X] E[X^*]</span>. This may explain why
-prior authors overlooked our elementary but stronger result.</p>
+class="math inline">E[XX^*]</span>. Perhaps this explains why earlier
+authors missed our elementary but stronger result.</p>
+<p>Equation (1) makes it possible to compute value at risk, or any risk
+measure, for an efficient portfolio using the joint distribution of
+<span class="math inline">R_0</span> and <span
+class="math inline">R_1</span>. Note this is not possible using the
+classical CAPM model.</p>
 </section>
 <section id="appendix" class="level2">
 <h2>Appendix</h2>
@@ -278,13 +254,13 @@ is usually denoted by the transpose <span
 class="math inline">\xi^T</span>. It is simpler and more illuminating to
 work with abstract vector spaces and linear operators between them than
 with <span class="math inline">\mathbf{R}^n</span> and matrices. Matrix
-multiplication is just composition linear operators.</p>
+multiplication is just composition of linear operators.</p>
 <p>Recall <span class="math inline">\mathbf{R}^I = \{x\colon
 I\to\mathbf{R}\}</span> is the vector space of all functions from the
 set <span class="math inline">I</span> to <span
 class="math inline">\mathbf{R}</span> with scalar multiplication and
 vector addition defined point-wise: <span class="math inline">{(ax)(i) =
-ax(i)}</span> and <span class="math inline">{(x + y)(i) = x(i) +
+ax(i)}</span> and <span class="math inline">{(x + y)(i) = x(i)
 y(i)}</span> for <span class="math inline">a\in\mathbf{R}</span>, <span
 class="math inline">{x,y\in\mathbf{R}^I}</span>, and <span
 class="math inline">i\in I</span>.</p>
@@ -319,13 +295,9 @@ class="math inline">T^*\in\mathcal{B}(W^*,V^*)</span> by <span
 class="math inline">T^*w^*\in V^*</span> where <span
 class="math inline">T^*w^*(v) = w^*(Tv)</span>, <span
 class="math inline">w^*\in W^*</span>, <span class="math inline">v\in
-V</span>.</p>
-<!--
-If $V = \RR^I$ and $W = \RR^J$ where $I$ and $J$
-are finite, then given a basis $(e_i)$ of $V$ and a basis $(f_j)$ of $W$
-we can define a matrix $[t_{ij}]$ for any linear operator $T\colon V\to W$
-by $Te_i = \sum_j t_{ij} f_j$. 
--->
+V</span>. If <span class="math inline">S\in\mathcal{L}(W,U)</span> then
+<span class="math inline">ST\in\mathcal{L}(V,U)</span> and <span
+class="math inline">(ST)^* = T^*S^*</span>.</p>
 <section id="fréchet-derivative" class="level3">
 <h3>Fréchet derivative</h3>
 <p>If <span class="math inline">F\colon V\to W</span> is a function

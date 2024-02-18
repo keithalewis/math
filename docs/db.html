@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-05-15" />
+  <meta name="dcterms.date" content="2024-02-18" />
   <title>Database</title>
   <style>
     code{white-space: pre-wrap;}
@@ -14,24 +14,71 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -58,12 +105,22 @@
 <header id="title-block-header">
 <h1 class="title">Database</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 15, 2023</p>
+<p class="date">February 18, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 The mathematical foundations of databases.
 </div>
 </header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#sql" id="toc-sql">SQL</a>
+<ul>
+<li><a href="#create" id="toc-create"><span>Create</span></a></li>
+<li><a href="#select" id="toc-select"><span>Select</span></a></li>
+<li><a href="#update" id="toc-update"><span>Update</span></a></li>
+</ul></li>
+</ul>
+</nav>
 <p>A <em>relational database</em> <span class="math inline">R</span> is
 a subset of a cartesian product of <em>columns</em> <span
 class="math inline">(T_j)_{j\in J}</span>: <span
@@ -87,19 +144,16 @@ P\}</span>. One way to specify subsets of <span
 class="math inline">T_J</span> is by equations or inequalities involving
 involving row values <span class="math inline">r = (t_j)_{j\in J} \in
 T_J</span>. This is called WHERE in SQL.</p>
-<p>The <em>join</em> of two database consists of a cartesian product, a
-restriction, and a projection. The join of <span
-class="math inline">R\subseteq T_J</span> and <span
-class="math inline">R&#39;\subseteq T&#39;_{J&#39;}</span> on <span
-class="math inline">I\subseteq J</span> and <span
-class="math inline">I&#39;\subseteq J&#39;</span> starts with the
-cartesian product <span class="math inline">R\times R&#39;</span>. This
-is restricted to rows <span class="math inline">(r,r&#39;)</span>
-satisfying <span class="math inline">r_I = r&#39;_{I&#39;}</span>. The
-result is projected on columns <span class="math inline">J\cup
-(J&#39;\setminus I&#39;)</span> (or <span
-class="math inline">(J\setminus I)\cup J&#39;</span>) to remove
-redundant data. This is called JOIN in SQL.</p>
+<p>If <span class="math inline">R\subseteq A\times B</span> and <span
+class="math inline">S\subseteq B\times C</span> are relations then their
+<em>composition</em> is <span class="math display">
+    SR = \{(a,c)\in A\times C\mid (a,b)\in R, (b, c)\in S, \text{ for
+some }b\in B\}.
+</span> Their <em>join</em> is <span class="math display">
+    SR = \{(a,b,c)\in A\times C\mid (a,b)\in R, (b, c)\in S, \text{ for
+some }b\in B\}.
+</span></p>
+<p>This is written <code>FROM R JOIN R' ON R.T_j = R'.T_{j'}</code>.</p>
 <p>If <span class="math inline">R,R&#39;\subseteq T_J</span> are
 databases then <span class="math inline">R\cup R&#39;</span> is also a
 database. This is called UNION in SQL.</p>
@@ -117,9 +171,34 @@ set, software implmentations resort to <em>indicies</em> to improve
 performance. For example, if one of the columns is a time value then the
 data can be scanned to compute a permutation of the physical row postion
 that preserves the time ordering.</p>
-<hr/>
-<footer>
-Return to <a href="index.html">index</a>.
-</footer>
+<section id="sql" class="level2">
+<h2>SQL</h2>
+<p>Strucured Query Language is a language for creating, querying, and
+modifying relational data.</p>
+<section id="create" class="level3">
+<h3><a href="https://sqlite.org/lang_createtable.html">Create</a></h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> <span class="kw">table</span> (</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">column</span> <span class="kw">type</span> [<span class="kw">constraint</span>],</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">..</span>.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+</section>
+<section id="select" class="level3">
+<h3><a href="https://sqlite.org/lang_select.html">Select</a></h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">column</span>, <span class="op">..</span>.</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="kw">table</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> predicate</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>[<span class="kw">GROUP</span> <span class="kw">BY</span> expr [<span class="kw">HAVING</span> expr], <span class="op">..</span>.]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>[<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="kw">column</span>, <span class="op">..</span>.]</span></code></pre></div>
+</section>
+<section id="update" class="level3">
+<h3><a href="https://sqlite.org/lang_update.html">Update</a></h3>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> <span class="kw">table</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> <span class="kw">column</span> <span class="op">=</span> expr, <span class="op">..</span>.</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>[<span class="kw">WHERE</span> expr]</span></code></pre></div>
+</section>
+</section>
 </body>
 </html>

@@ -23,13 +23,17 @@ $T_J$ is by equations or inequalities involving involving
 row values $r = (t_j)_{j\in J} \in T_J$.
 This is called WHERE in SQL.
 
-The _join_ of two database consists of a cartesian product, a restriction,
-and a projection. The join of $R\subseteq T_J$ and $R'\subseteq T'_{J'}$
-on $I\subseteq J$ and $I'\subseteq J'$
-starts with the cartesian product $R\times R'$. This is restricted
-to rows $(r,r')$ satisfying $r_I = r'_{I'}$. The result is
-projected on columns $J\cup (J'\setminus I')$ (or $(J\setminus I)\cup J'$)
-to remove redundant data. This is called JOIN in SQL.
+If $R\subseteq A\times B$ and $S\subseteq B\times C$ are relations then
+their _composition_ is
+$$
+	SR = \{(a,c)\in A\times C\mid (a,b)\in R, (b, c)\in S, \text{ for some }b\in B\}.
+$$
+Their _join_ is
+$$
+	SR = \{(a,b,c)\in A\times C\mid (a,b)\in R, (b, c)\in S, \text{ for some }b\in B\}.
+$$
+
+This is written `FROM R JOIN R' ON R.T_j = R'.T_{j'}`.
 
 If $R,R'\subseteq T_J$ are databases then $R\cup R'$ is also a database.
 This is called UNION in SQL.
@@ -50,3 +54,34 @@ software implmentations resort to _indicies_ to improve performance. For
 example, if one of the columns is a time value then the data can be
 scanned to compute a permutation of the physical row postion that
 preserves the time ordering.
+
+## SQL
+
+Strucured Query Language is a language for creating, querying, and modifying relational data.
+
+### [Create](https://sqlite.org/lang_createtable.html)
+
+```SQL
+CREATE TABLE table (
+	column type [constraint],
+	...
+);
+```
+
+### [Select](https://sqlite.org/lang_select.html)
+
+```SQL
+SELECT column, ...
+FROM table
+WHERE predicate
+[GROUP BY expr [HAVING expr], ...]
+[ORDER BY column, ...]
+```
+
+### [Update](https://sqlite.org/lang_update.html)
+
+```SQL
+UPDATE table
+SET column = expr, ...
+[WHERE expr]
+```

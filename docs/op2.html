@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-01-23" />
+  <meta name="dcterms.date" content="2024-02-18" />
   <title>Option Pricing</title>
   <style>
     code{white-space: pre-wrap;}
@@ -42,7 +42,7 @@
 <header id="title-block-header">
 <h1 class="title">Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 23, 2024</p>
+<p class="date">February 18, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 European option pricing and greeks
@@ -59,134 +59,218 @@ European option pricing and greeks
 <li><a href="#gamma" id="toc-gamma">Gamma</a></li>
 <li><a href="#vega" id="toc-vega">Vega</a></li>
 </ul></li>
+<li><a href="#call" id="toc-call">Call</a></li>
+<li><a href="#black" id="toc-black">Black</a></li>
+<li><a href="#black-scholesmerton"
+id="toc-black-scholesmerton">Black-Scholes/Merton</a></li>
+<li><a href="#remarks" id="toc-remarks">Remarks</a></li>
 </ul>
 </nav>
 <section id="value" class="level2">
 <h2>Value</h2>
 <p>A <em>European option</em> pays some function of the underlying price
 at expiration. If <span class="math inline">F</span> is the price at
-expiration and <span class="math inline">\nu</span> is a function then
-its Black forward <em>value</em> is <span class="math inline">v =
-E[\nu(F)]</span>.</p>
+expiration and <span class="math inline">\nu</span> is the <em>payoff
+function</em> then its Black <em>forward value</em> is <span
+class="math inline">{v = E[\nu(F)]}</span>.</p>
 <p>If <span class="math inline">F</span> is positive and <span
 class="math inline">\log F</span> has finite mean and variance then
 <span class="math inline">F = fe^{sX - \kappa(s)}</span> for some <span
 class="math inline">X</span> with mean zero and variance one where <span
 class="math inline">\kappa(s) = \log E[\exp(sX)]</span> is the
-<em>cumulant</em> of <span class="math inline">X</span>. We call <span
-class="math inline">f = E[F]</span> the <em>forward</em> and <span
-class="math inline">s = \operatorname{Var}(\log F)</span> the
-<em>vol</em>. Note <span class="math inline">{\partial_f F = \partial
-F/\partial f = e^{sX - \kappa(s)}}</span> and <span
-class="math inline">{\partial_s F = F (X - \kappa&#39;(s))}</span>.</p>
+<em>cumulant</em> of <span class="math inline">X</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">E[F] =
+f</span> and <span class="math inline">\operatorname{Var}(\log F) =
+s^2</span></em>.</p>
+<p>We call <span class="math inline">f</span> the <em>forward</em> and
+<span class="math inline">s</span> the <em>vol</em>.</p>
+<p><strong>Exercise</strong>. <em>Prove <span class="math inline">{X =
+(\log F/f + \kappa(s))/s}</span> has mean 0 and variance 1 if <span
+class="math inline">s &gt; 0</span></em>.</p>
 <p>If an option pays off in shares of <span class="math inline">F</span>
 then <span class="math inline">E[F\nu(F)] = fE[ e^{sX -
-\kappa(s)}\nu(F)] = fE_s[\nu(F)]</span> where <span
-class="math inline">E_s</span> is the <em>share measure</em>. Since
-<span class="math inline">F &gt; 0</span> and <span
-class="math inline">E[e^{sX - \kappa(s)}] = 1</span> share measure is a
-probability measure that we denote by <span
-class="math inline">P_s</span>.</p>
+\kappa(s)}\nu(F)] = fE^s[\nu(F)]</span> where <span
+class="math inline">E^s</span> is the <em>share measure</em>. Since
+<span class="math inline">E[e^{sX - \kappa(s)}] = 1</span> share measure
+is a probability measure that we denote by <span
+class="math inline">P^s</span>.</p>
 </section>
 <section id="greeks" class="level2">
 <h2>Greeks</h2>
 <p>The <em>delta</em> of an option is the derivative of its value with
-respect to the forward, <span class="math inline">{\partial_f v f =
-E[\nu&#39;(F)\partial_f F] = E[\nu&#39;(F)e^{sX - \kappa(s)}] =
-E_s[\nu&#39;(F)]}</span>. The <em>gamma</em> of an option is the second
-derivative of its value with respect to the forward, <span
-class="math inline">{\partial_f^2 v f = E[\nu&#39;&#39;(F)e^{2sX -
-2\kappa(s)}]}</span>. The <em>vega</em> of an option is the derivative
-of its value with respect to the vol, <span
-class="math inline">\partial_s v = E[\nu&#39;(F) F (X - \kappa&#39;(s))]
-= f E_s[\nu&#39;(F) (X - \kappa&#39;(s))]</span>.</p>
+respect to the forward, <span class="math display">
+    \partial_f v = E[\nu&#39;(F)\partial_f F] = E[\nu&#39;(F)e^{sX -
+\kappa(s)}] = E^s[\nu&#39;(F)].
+</span> The <em>gamma</em> of an option is the second derivative of its
+value with respect to the forward, The <em>vega</em> of an option is the
+derivative of its value with respect to the vol, <span
+class="math display">
+    \partial_s v = E[\nu&#39;(F) F (X - \kappa&#39;(s))] = f
+E^s[\nu&#39;(F) (X - \kappa&#39;(s))].
+</span></p>
 </section>
 <section id="put" class="level2">
 <h2>Put</h2>
 <p>A <em>put</em> with strike <span class="math inline">k</span> pays
 <span class="math inline">\nu(F) = \max\{k - F, 0\} = (k - F)^+ = (k -
 F)1(F\ge k)</span> at expiration. Note <span class="math inline">F\le
-k</span> is equavalent to <span class="math inline">X\le (\log k/f +
-\kappa(s))/s</span>. The <em>moneyness</em> is <span
-class="math inline">{x = x(k; f, s) = (\log k/f + \kappa(s))/s}</span>
-so <span class="math inline">f = ke^{sx(k;f,s) - \kappa(s)}</span></p>
-<p>Note <span class="math inline">\partial_x f = fs</span> so <span
-class="math inline">\partial_f x = 1/fs</span> and <span
-class="math inline">\partial_s f = f(x - \kappa&#39;(s))</span>.</p>
+k</span> is equivalent to <span class="math inline">X\le x</span> where
+<span class="math inline">{x = x(k) = x(k;f,s) = (\log k/f +
+\kappa(s))/s}</span> is the <em>moneyness</em> of a put with strike
+<span class="math inline">k</span>.</p>
 <section id="value-1" class="level3">
 <h3>Value</h3>
-<p>The forward value of a put is</p>
-$$
-<span class="math display">\begin{aligned}
-E[(k - F)^+] &amp;= E[(k - F)1(F\le k)] \\
-    &amp;= kE[1(F \le k)] - E[F1(F\le k)] \\
-    &amp;= kP(X \le x) - fP_s(X\le x). \\
-
-\end{aligned}</span>
-<p>$$</p>
-<p>We also have <span class="math display">
+<p>The forward value of a put option is</p>
+<p><span class="math display">
 \begin{aligned}
 E[(k - F)^+] &amp;= E[(k - F)1(F\le k)] \\
-    &amp;= (k - f)P(F\le k) - \operatorname{Cov}(F,1(F\le k)). \\
+    &amp;= kE[1(F \le k)] - E[F1(F\le k)] \\
+    &amp;= kP(X \le x) - fP^s(X\le x). \\
 \end{aligned}
-</span> Note <span class="math inline">\operatorname{Cov}(F,1(F\le k))
-&lt; 0</span>.</p>
-<p>Let <span class="math inline">\Psi(x) = P(X\le x)</span> and <span
-class="math inline">\Psi_s(x) = E[e^{sX - \kappa(s)} 1(X\le x)</span>.
-Note <span class="math inline">\Psi_s&#39;(x) = e^{sx -
-\kappa(s)}\psi(x)</span> where <span class="math inline">\psi(x) =
-\Phi&#39;(x)</span>.</p>
+</span></p>
+<p>Let <span class="math inline">\Psi(x) = P(X\le x)</span> be the
+<em>cumulative distribution function</em> of <span
+class="math inline">X</span>. The <em>cumulative share distribution</em>
+is <span class="math inline">{\Psi(x, s) = E[e^{sX - \kappa(s)} 1(X\le
+x)] = P^s(X\le x)}</span>. Note <span class="math inline">{\Psi(x, 0) =
+\Psi(x)}</span>.</p>
 <p>We can write the put value as <span class="math display">
-    p = k\Psi(x) - f\Phi_s(x),
-</span> where <span class="math inline">x = (\log k/f +
-\kappa(s))/s</span> is the moneyness.</p>
+    p = k\Psi(x) - f\Psi(x, s).
+</span></p>
 </section>
 <section id="delta" class="level3">
 <h3>Delta</h3>
 <p>Since <span class="math inline">\partial_f (k - f)^+ = -1(f \le
 k)</span> the put delta is <span class="math display">
-    \partial_f p = E[-1(F \le k)e^{sX - \kappa(s)}] = -P_s(F\le k) =
--\Psi_s(x).
+\begin{aligned}
+    \partial_f p &amp;= E[-1(F \le k)\partial_f F] \\
+    &amp;= E[-1(F \le k)e^{sX - \kappa(s)}] \\
+    &amp;= -P^s(F\le k) \\
+    &amp;= -\Psi(x, s).
+\end{aligned}
 </span></p>
 </section>
 <section id="gamma" class="level3">
 <h3>Gamma</h3>
-<p>Te second derivative with respect to forward is <span
+<p>The second derivative with respect to forward is <span
 class="math display">
-    \partial_f^2 p = -\Psi_s&#39;(x)\partial_f x = -\psi_s(x)/fs
+\begin{aligned}
+    \partial_f^2 p &amp;= \partial_f (-\Psi(x, s)) \\
+    &amp;= -\partial_x\Psi(x, s)\partial_f x \\
+    &amp;= -\partial_x\Psi(x, s)/fs \\
+\end{aligned}
 </span></p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\partial_f x = 1/fs</span></em>.</p>
+<p><em>Hint</em>. Use <span class="math inline">f = ke^{sx -
+\kappa(s)}</span> to show <span class="math inline">\partial_x f =
+fs</span>.</p>
 </section>
 <section id="vega" class="level3">
 <h3>Vega</h3>
-<p><span class="math display">
-    \partial_s E[(k - F)^+]
-    = E[-1(F\le k)F(X - \kappa&#39;(s))]
+<p>The derivative with respect to vol is <span
+class="math inline">\partial_s E[(k - F)^+] = -E[1(F\le k)F(X -
+\kappa&#39;(s))]</span>. Since <span class="math inline">{\partial_s
+\Psi(x, s) = E[e^{sX - \kappa(s)}(X - \kappa&#39;(s))1(X\le x)]}</span>
+we have <span class="math display">
+    \partial_s p = -f\partial_s\Psi(x, s).
 </span></p>
-<p><span class="math display">
-\partial_s \Psi_s(x) = \partial_s E[F/f 1(F\le k)]
-</span></p>
-<p><span class="math inline">\Psi_s(x) = P_s(X\le x) = E[e^{sX -
-\kappa(s)}1(X \le x)]</span></p>
-<p><span class="math inline">\partial_s\Psi_s(x) = E[e^{sX -
-\kappa(s)}(X - \kappa&#39;(s))\delta_x(X)]</span></p>
-<p><span class="math inline">v = k \Phi(x) - f \Phi_s(x)</span>.</p>
-<p><span class="math inline">\partial_s v = k \partial_s\Phi(x) - f
-\partial_s\Phi_s(x)</span></p>
-<p><span class="math inline">\partial_s\Psi(x) = \psi(x)\partial_s
-x</span></p>
-<p><span class="math inline">\partial_s x = \partial_s (\log k/f +
-\kappa(s))/s</span></p>
-<p><span class="math inline">\partial_s (\log k/f + \kappa(s))/s =
-(s\kappa&#39;(s) - (\log k/f + \kappa(s)))/s^2</span></p>
-<p><span class="math inline">\partial_s x = \kappa&#39;(s) -
-x</span></p>
-<p>The put vega is <span class="math display">
-\begin{aligned}
-\partial_s v &amp;= k\partial_s P(F\le k) - f\partial_s P_s(F\le k) \\
-    &amp;= (k - f)P(F\le k) - \operatorname{Cov}(F,1(F\le k)). \\
-\end{aligned}
-</span></p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\partial_s p = -k\partial_s\Psi(x,
+0)</span></em>.</p>
 </section>
+</section>
+<section id="call" class="level2">
+<h2>Call</h2>
+<p>A <em>call</em> with strike <span class="math inline">k</span> pays
+<span class="math inline">{\nu(F) = (F - k)^+}</span> at expiration and
+has forward value <span class="math inline">{c = E[(F - k)^+]}</span>.
+Let <span class="math inline">\overline{\Psi}(x) = 1 - \Psi(x)</span>
+and <span class="math inline">{\overline{\Psi}(x, s) = 1 - \Psi(x,
+s)}</span> be the <em>complementary distributions</em>. If <span
+class="math inline">P^s</span> does not have a point mass at <span
+class="math inline">k</span> then <span class="math inline">{P^s(F\ge k)
+= P^s(X\ge x) = \overline{\Psi}(x, s)}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the forward call value is <span
+class="math inline">c = f\overline{\Psi}(x, s) - k
+\overline{\Psi}(x)</span></em>.</p>
+<p>Since <span class="math inline">{(F - k)^+ - (k - F)^+ = F -
+k}</span> we have <em>put-call</em> parity <span class="math inline">{c
+- p = f - k}</span> so <span class="math inline">\partial_f c -
+\partial_f p = 1</span>.</p>
+<p><strong>Exercise</strong>. <em>Show call delta <span
+class="math inline">\partial_f c = \overline{\Psi}(x,
+s)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show call gamma equals put
+gamma</em>.</p>
+<p><strong>Exercise</strong>. <em>Show call vega equals put
+vega</em>.</p>
+</section>
+<section id="black" class="level2">
+<h2>Black</h2>
+<p>The Fischer Black model takes <span class="math inline">f = f</span>,
+<span class="math inline">s = \sigma\sqrt{t}</span> and <span
+class="math inline">X = B_t/\sqrt{t}</span> where <span
+class="math inline">\sigma</span> is the <em>volatility</em>, <span
+class="math inline">t</span> is time in years to expiration, and <span
+class="math inline">B_t</span> is Brownian motion at time <span
+class="math inline">t</span>. We only use the fact <span
+class="math inline">B_t</span> is normally distributed with mean 0 and
+variance <span class="math inline">t</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">B_t/\sqrt{t}</span> has mean 0 and variance
+1</em>.</p>
+<p><strong>Exercise</strong> <em>Show <span
+class="math inline">E[e^{\sigma B_t}] = e^{\sigma^2t/2}</span> for any
+<span class="math inline">\sigma\in 𝑹</span></em>.</p>
+<p><em>Hint</em>. Use <span class="math inline">E[\exp(N)] = \exp(E[N] +
+\operatorname{Var}(N)/2)</span> if <span class="math inline">N</span> is
+normally distributed.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">F =
+fe^{\sigma B_t - \sigma^2t/2}</span> in the Black model</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+is standard normal then <span class="math inline">E[e^{sX - s^2/2}f(X)]
+= E[f(X + s)]</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">E[\exp(N)f(N)] =
+E[\exp(N)] E[f(N + \operatorname{Var}(N))]</span> if <span
+class="math inline">N</span> is normal.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\Psi(x,
+s) = E[e^{sX - s^2/2}1(X\le x)] = P(X + s\le x) = \Psi(x -
+s)</span></em>.</p>
+<p>The forward value of the Black put is <span class="math display">
+    p = k\Psi(x) - f\Psi(x - \sigma\sqrt{t}),
+</span> delta is <span class="math display">
+    \partial_f p = -\Psi(x - \sigma\sqrt{t}),
+</span> and gamma is <span class="math display">
+    \partial_f^2 p = -\psi(x - \sigma\sqrt{t})/f\sigma\sqrt{t},
+</span> where <span class="math inline">{x = (\log k/f)/\sigma\sqrt{t} +
+\sigma\sqrt{t}/2}</span> and <span class="math inline">\psi(x) =
+\Psi&#39;(x)</span> is the standard normal density.</p>
+<p><strong>Exercise</strong>. <em>Show Black vega is <span
+class="math inline">\partial_\sigma p = f\psi(x -
+\sigma\sqrt{t})\sqrt{t}</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">\partial_\sigma s =
+\sqrt{t}</span>.</p>
+</section>
+<section id="black-scholesmerton" class="level2">
+<h2>Black-Scholes/Merton</h2>
+<p>The B-S/M model assumes the risk-neutral price of a stock is <span
+class="math inline">{S_t = S_0e^{rt + \sigma B_t - \sigma^2t/2}}</span>
+where <span class="math inline">r</span> is the continuously compounded
+risk-free rate. The current price <span class="math inline">S_0</span>
+is called the <em>spot</em> price of the stock. The present value of an
+option paying <span class="math inline">\nu(S_t)</span> at time <span
+class="math inline">t</span> is <span class="math inline">{v =
+e^{-rt}E[\nu(S_t)]}</span>. Note <span class="math inline">{S_t =
+F}</span> where <span class="math inline">F</span> is the forward price
+at expiration. This gives the relationship between the spot and forward
+<span class="math inline">S_0e^{rt} = f</span> and is called the
+<em>cost of carry</em>.</p>
+</section>
+<section id="remarks" class="level2">
+<h2>Remarks</h2>
+<p>Instrument prices are discrete. It is a fact that instrument prices
+are integer multiples of some minimum increment.</p>
 </section>
 </body>
 </html>
