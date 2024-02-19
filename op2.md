@@ -15,7 +15,7 @@ abstract: European option pricing and greeks
 
 A _European option_ pays some function of the underlying price at expiration.
 If $F$ is the price at expiration and $\nu$ is the _payoff function_
-then its Black _forward value_ is ${v = E[\nu(F)]}$.
+then its _forward value_ is ${v = E[\nu(F)]}$.
 
 If $F$ is positive and $\log F$ has finite mean and variance then
 $F = fe^{sX - \kappa(s)}$ for some $X$ with mean zero and variance one
@@ -42,7 +42,7 @@ $$
 The _gamma_ of an option is the second derivative of its value with respect to the forward,
 The _vega_ of an option is the derivative of its value with respect to the vol,
 $$
-	\partial_s v = E[\nu'(F) F (X - \kappa'(s))] = f E^s[\nu'(F) (X - \kappa'(s))].
+	\partial_s v = E[\nu'(F)\partial_s F] = E[\nu'(F) F (X - \kappa'(s))] = f E^s[\nu'(F) (X - \kappa'(s))].
 $$
 
 ## Put
@@ -81,7 +81,7 @@ Since $\partial_f (k - f)^+ = -1(f \le k)$ the put delta is
 $$
 \begin{aligned}
 	\partial_f p &= E[-1(F \le k)\partial_f F] \\
-	&= E[-1(F \le k)e^{sX - \kappa(s)}] \\
+	&= -E[1(F \le k)e^{sX - \kappa(s)}] \\
 	&= -P^s(F\le k) \\
 	&= -\Psi(x, s).
 \end{aligned}
@@ -99,6 +99,8 @@ $$
 $$
 
 __Exercise__. _Show $\partial_f x = -1/fs$_.
+
+_Hint_: Use $x = (\log k/f + \kappa(s))/s$.
 
 ### Vega
 
@@ -143,13 +145,34 @@ __Exercise__. _Show $B_t/\sqrt{t}$ has mean 0 and variance 1_.
 
 __Exercise__ _Show $E[e^{\sigma B_t}] = e^{\sigma^2t/2}$ for any $\sigma\in\RR$_.
 
-_Hint_. Use $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ if $N$ is normally distributed.
+_Hint_. Use $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ if $N$ is normally distributed.[^1]
+
+[^1]: Since $1 = \int_{-\infty}^\infty e^{-x^2/2}\,dx/\sqrt{2\pi}$ we have
+$$
+\begin{aligned}
+E[e^N] &= \int_{-\infty}^\infty e^{\mu + \sigma x} e^{-x^2/2}\,dx/\sqrt{2\pi} \\
+&= e^{\mu + \sigma^2/2} \int_{-\infty}^\infty e^{-(x - \sigma)^2/2}\,dx/\sqrt{2\pi} \\
+&= e^{\mu + \sigma^2/2} \\
+\end{aligned}
+$$
+where $N = \mu + \sigma X$.
 
 __Exercise__. _Show $F = fe^{\sigma B_t - \sigma^2t/2}$ in the Black model_.
 
 __Exercise__. _If $X$ is standard normal then $E[e^{sX - s^2/2}g(X)] = E[g(X + s)]$_.
 
-_Hint_: Use $E[\exp(N)g(N)] = E[\exp(N)] E[g(N + \Var(N))]$ if $N$ is normal.
+_Hint_: Use $E[\exp(N)g(N)] = E[\exp(N)] E[g(N + \Var(N))]$ if $N$ is normal.[^2]
+
+[^2]: We have
+$$
+\begin{aligned}
+E[\exp(\sigma X) g(X)]
+&= \int_{-\infty}^\infty e^{\sigma x} g(x) e^{-x^2/2}\,dx/\sqrt{2\pi} \\
+&= e^{\sigma^2/2}\int_{-\infty}^\infty g(x) e^{-(x - \sigma)^2/2}\,dx/\sqrt{2\pi} \\
+&= e^{\sigma^2/2}\int_{-\infty}^\infty g(x + \sigma) e^{-x^2/2}\,dx/\sqrt{2\pi} \\
+&= E[e^{\sigma X}]E[g(X + \sigma)]. \\
+\end{aligned}
+$$
 
 __Exercise__. _Show $\Psi(x, s) = E[e^{sX - s^2/2}1(X\le x)] = P(X + s\le x) = \Psi(x - s)$_.
 
@@ -158,7 +181,7 @@ __Exercise__. _Show $x = \log(k/f)/\sigma\sqrt{t} + \sigma\sqrt{t}/2$_.
 Black and Scholes defined ${d_2 = \log(f/k)/\sigma\sqrt{t} - \sigma\sqrt{t}/2}$
 and ${d_1 = \log(f/k)/\sigma\sqrt{t} + \sigma\sqrt{t}/2}$.
 
-__Exercise__ show $x = -d_2$ and $x - \sigma\sqrt{t} = -d_1$_.
+__Exercise__ _Show $x = -d_2$ and $x - \sigma\sqrt{t} = -d_1$_.
 
 The forward value of the Black put is
 $$
