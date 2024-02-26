@@ -15,49 +15,31 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: true
-   });
-}}});
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
   </script>
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Trading</h1>
 <p class="author">Keith A. Lewis</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-Buyers and sellers buy and sell
-</div>
 </header>
-<p><span class="math inline">\{(\tau_j, \Gamma_j)\mid \tau_0 &lt; \cdots
-&lt; \tau_n, \Gamma_j\}</span> is a vector space.</p>
+<p><span class="math inline">\{(\tau_j, \Gamma_j)\mid \tau_0 &lt; \cdots &lt; \tau_n, \Gamma_j\}</span> is a vector space.</p>
 <p><span class="math inline">(\tau, G) + (\nu, H) = (\eta, K)</span></p>
-<p><span class="math inline">\eta = t</span> if <span
-class="math inline">\tau = t</span> and <span class="math inline">\nu
-\not= t</span> in which case <span class="math inline">K = G</span>.</p>
-<p><span class="math inline">\eta = t</span> if <span
-class="math inline">\nu = t</span> and <span class="math inline">\tau
-\not= t</span> in which case <span class="math inline">K = H</span>.</p>
-<p><span class="math inline">\eta = t</span> if <span
-class="math inline">\tau = t</span> and <span class="math inline">\nu =
-t</span> in which case <span class="math inline">K = G + H</span>.</p>
+<p><span class="math inline">\eta = t</span> if <span class="math inline">\tau = t</span> and <span class="math inline">\nu \not= t</span> in which case <span class="math inline">K = G</span>.</p>
+<p><span class="math inline">\eta = t</span> if <span class="math inline">\nu = t</span> and <span class="math inline">\tau \not= t</span> in which case <span class="math inline">K = H</span>.</p>
+<p><span class="math inline">\eta = t</span> if <span class="math inline">\tau = t</span> and <span class="math inline">\nu = t</span> in which case <span class="math inline">K = G + H</span>.</p>
 <!--
 Suppose an instrument has price $X_t$ at time $t$.
 The _profit and loss_ of holding one share
@@ -125,131 +107,45 @@ X_v - X_u & t \ge v \\
 $$
 covering the $t = u$ and $t = v$ cases.
 -->
-<p>Holding one share from time <span class="math inline">u</span> to
-time <span class="math inline">v</span> corresponds to the trading
-stragegy of buying 1 share at <span class="math inline">u</span> and
-selling one share at <span class="math inline">v</span>. Of course you
-exchange shares with someone other than yourself. It is customary in
-Mathematical Finance literature to assume there is a “market” available
-that provides price <span class="math inline">X_t</span> at trading time
-<span class="math inline">t</span>. It reality, things are more
-complicated. Anyone who has ever traded has experienced
-<em>slippage</em>. The price you see on a trading screen is not
-necessarily the price at which your order will be executed. The price
-also depends on whether you are buying or selling — the <em>bid/ask
-spread</em>. That might increase depending on the amount you want to buy
-or sell. It also depends on the credit worthiness of the counterparties
-involved.</p>
-<p>We will ignore all that for now and pretend any amount can be bought
-or sold at exactly price <span class="math inline">X_t</span>. These
-unrealistic assumptions can be addressed by more precise mathematical
-models.</p>
-<p>The market has many instruments so we assume <span
-class="math inline">X_t</span> is a vector indexed by all available
-market instruments. A common assumption is that a <em>money-market</em>
-instruement available for financing trading strategies. In the
-Black-Scholes/Merton model it has price <span class="math inline">X_t =
-\exp(\rho t)</span> for some constant <span
-class="math inline">\rho\in\boldsymbol{R}</span>. We don’t make that
-assumption.</p>
-<p>A <em>trading strategy</em> is a finite number of increasing
-(stopping) times <span class="math inline">(\tau_j)</span> and the
-corresponding number of shares to trade <span
-class="math inline">\Gamma_j</span> that depend only on the information
-available at time <span class="math inline">\tau_j</span>. Trades
-accumulate to a position <span class="math inline">{\Delta_t =
-\sum_{\tau_j &lt; t} \Gamma_j}</span>. Note the strict inequality. It
-takes some time for a trade to settle and become part of the position.
-Define <span class="math inline">\Gamma_t = \Gamma_j</span> if <span
-class="math inline">t = \tau_j</span> for some <span
-class="math inline">j</span> and is zero otherwise.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\Delta_t = \sum_{s&lt;t}\Gamma_s</span> is piecewise
-constant on <span class="math inline">(\tau_j,
-\tau_{j+1}]</span></em>.</p>
-<p><em>Hint</em>: The value on <span class="math inline">(\tau_j,
-\tau_{j+1}]</span> is <span class="math inline">\sum_{i\le
-j}\Gamma_i</span>.</p>
-<p>In particular, <span class="math inline">\Delta_t</span> is
-left-continuous and we can define the profit and loss for the strategy
-by the stochastic integral.</p>
+<p>Holding one share from time <span class="math inline">u</span> to time <span class="math inline">v</span> corresponds to the trading stragegy of buying 1 share at <span class="math inline">u</span> and selling one share at <span class="math inline">v</span>. Of course you exchange shares with someone other than yourself. It is customary in Mathematical Finance literature to assume there is a “market” available that provides price <span class="math inline">X_t</span> at trading time <span class="math inline">t</span>. It reality, things are more complicated. Anyone who has ever traded has experienced <em>slippage</em>. The price you see on a trading screen is not necessarily the price at which your order will be executed. The price also depends on whether you are buying or selling — the <em>bid/ask spread</em>. That might increase depending on the amount you want to buy or sell. It also depends on the credit worthiness of the counterparties involved.</p>
+<p>We will ignore all that for now and pretend any amount can be bought or sold at exactly price <span class="math inline">X_t</span>. These unrealistic assumptions can be addressed by more precise mathematical models.</p>
+<p>The market has many instruments so we assume <span class="math inline">X_t</span> is a vector indexed by all available market instruments. A common assumption is that a <em>money-market</em> instruement available for financing trading strategies. In the Black-Scholes/Merton model it has price <span class="math inline">X_t = \exp(\rho t)</span> for some constant <span class="math inline">\rho\in\boldsymbol{R}</span>. We don’t make that assumption.</p>
+<p>A <em>trading strategy</em> is a finite number of increasing (stopping) times <span class="math inline">(\tau_j)</span> and the corresponding number of shares to trade <span class="math inline">\Gamma_j</span> that depend only on the information available at time <span class="math inline">\tau_j</span>. Trades accumulate to a position <span class="math inline">{\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j}</span>. Note the strict inequality. It takes some time for a trade to settle and become part of the position. Define <span class="math inline">\Gamma_t = \Gamma_j</span> if <span class="math inline">t = \tau_j</span> for some <span class="math inline">j</span> and is zero otherwise.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\Delta_t = \sum_{s&lt;t}\Gamma_s</span> is piecewise constant on <span class="math inline">(\tau_j, \tau_{j+1}]</span></em>.</p>
+<p><em>Hint</em>: The value on <span class="math inline">(\tau_j, \tau_{j+1}]</span> is <span class="math inline">\sum_{i\le j}\Gamma_i</span>.</p>
+<p>In particular, <span class="math inline">\Delta_t</span> is left-continuous and we can define the profit and loss for the strategy by the stochastic integral.</p>
 <section id="value" class="level3">
 <h3>Value</h3>
-<p>The <em>value</em>, or <em>mark-to-market</em> of a position is <span
-class="math inline">{V_t = (\Delta_t + \Gamma_t)\cdot X_t}</span>. Note
-the position <span class="math inline">\Delta_t</span> does not contain
-the trade just executed, <span class="math inline">\Gamma_t</span>. This
-also makes the unrealistic assumption that the entire position can be
-liquidated at exactly price <span class="math inline">X_t</span>.</p>
-<p>Mark-to-market is used for accounting and does not involve actual
-trading. Often the price is just a good faith estimate if the instrument
-is not actively traded.</p>
+<p>The <em>value</em>, or <em>mark-to-market</em> of a position is <span class="math inline">{V_t = (\Delta_t + \Gamma_t)\cdot X_t}</span>. Note the position <span class="math inline">\Delta_t</span> does not contain the trade just executed, <span class="math inline">\Gamma_t</span>. This also makes the unrealistic assumption that the entire position can be liquidated at exactly price <span class="math inline">X_t</span>.</p>
+<p>Mark-to-market is used for accounting and does not involve actual trading. Often the price is just a good faith estimate if the instrument is not actively traded.</p>
 </section>
 <section id="account" class="level3">
 <h3>Account</h3>
-<p>Trading involves entries in the <em>trading account/blotter</em>.
-Many instruments entail <em>cash flows</em> <span
-class="math inline">C_t</span> in proportion to the amount held at time
-<span class="math inline">t</span>. Stocks have dividends, bonds have
-coupons, futures have periodic margin adjustments and their price is
-always 0. The money-market account has no cash flows.</p>
-<p>The amount that shows up at time <span class="math inline">t</span>
-in the account is <span class="math display">
+<p>Trading involves entries in the <em>trading account/blotter</em>. Many instruments entail <em>cash flows</em> <span class="math inline">C_t</span> in proportion to the amount held at time <span class="math inline">t</span>. Stocks have dividends, bonds have coupons, futures have periodic margin adjustments and their price is always 0. The money-market account has no cash flows.</p>
+<p>The amount that shows up at time <span class="math inline">t</span> in the account is <span class="math display">
 A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t.
-</span> You get all cash flows proportional to your existing position
-and pay for the trade just executed.</p>
+</span> You get all cash flows proportional to your existing position and pay for the trade just executed.</p>
 </section>
 <section id="profit-and-loss" class="level3">
 <h3>Profit and Loss</h3>
-<p>The profit and loss of a trading strategy over an interval <span
-class="math inline">(u, v]</span> is <span class="math display">
+<p>The profit and loss of a trading strategy over an interval <span class="math inline">(u, v]</span> is <span class="math display">
     N(u, v) = V_v - V_u + \sum_{u &lt; t \le v} A_t.
 </span></p>
 </section>
 <section id="exchange" class="level2">
 <h2>Exchange</h2>
-<p>If Ford is trading at <span class="math inline">8</span> the buyer
-can give the seller <span class="math inline">8</span> dollers to obtain
-one share of Ford stock. With the above assumptions, the buyer can give
-<span class="math inline">8a</span> dollars to obtain <span
-class="math inline">a</span> shares of F for any real number <span
-class="math inline">a\in\boldsymbol{R}</span>, ignoring the fact stocks
-trade in a discrete number of shares.</p>
-<p>A <em>position</em> is an amount of an instrument owned by an entity
-<span class="math inline">\pi = (a,i,e)</span>. A <em>market</em> is a
-set of positions<a href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a>. An <em>exchange</em> is a time, a
-<em>buyer</em> position, and a <em>seller</em> position <span
-class="math inline">\chi = (t, \pi, \pi&#39;)</span>. The market <span
-class="math inline">\{\ldots,
-(a,i,e),\ldots,(a&#39;,i&#39;,e&#39;)\ldots\}</span> becomes <span
-class="math inline">\{\ldots,
-(a&#39;,i&#39;,e),\ldots,(a,i,e&#39;)\ldots\}</span> after the exchange.
-Usually <span class="math inline">i</span> is a currency and <span
-class="math inline">i&#39;</span> is some instrument. The <em>price</em>
-of the exchange is <span class="math inline">X_t = a/a&#39;</span>. If
-you exchange <span class="math inline">(16, \$)</span> for <span
-class="math inline">(2, F)</span> the price is <span
-class="math inline">16/2</span>.</p>
-<p>If a seller quotes a price <span class="math inline">X_t</span> then
-the exchange <span class="math inline">\chi = (t, (X_t a&#39;, e),
-(a&#39;, i&#39;, e&#39;))</span> is available to the buyer.</p>
+<p>If Ford is trading at <span class="math inline">8</span> the buyer can give the seller <span class="math inline">8</span> dollers to obtain one share of Ford stock. With the above assumptions, the buyer can give <span class="math inline">8a</span> dollars to obtain <span class="math inline">a</span> shares of F for any real number <span class="math inline">a\in\boldsymbol{R}</span>, ignoring the fact stocks trade in a discrete number of shares.</p>
+<p>A <em>position</em> is an amount of an instrument owned by an entity <span class="math inline">\pi = (a,i,e)</span>. A <em>market</em> is a set of positions<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. An <em>exchange</em> is a time, a <em>buyer</em> position, and a <em>seller</em> position <span class="math inline">\chi = (t, \pi, \pi&#39;)</span>. The market <span class="math inline">\{\ldots, (a,i,e),\ldots,(a&#39;,i&#39;,e&#39;)\ldots\}</span> becomes <span class="math inline">\{\ldots, (a&#39;,i&#39;,e),\ldots,(a,i,e&#39;)\ldots\}</span> after the exchange. Usually <span class="math inline">i</span> is a currency and <span class="math inline">i&#39;</span> is some instrument. The <em>price</em> of the exchange is <span class="math inline">X_t = a/a&#39;</span>. If you exchange <span class="math inline">(16, \$)</span> for <span class="math inline">(2, F)</span> the price is <span class="math inline">16/2</span>.</p>
+<p>If a seller quotes a price <span class="math inline">X_t</span> then the exchange <span class="math inline">\chi = (t, (X_t a&#39;, e), (a&#39;, i&#39;, e&#39;))</span> is available to the buyer.</p>
 <section id="transaction" class="level3">
 <h3>Transaction</h3>
-<p>A <em>transaction</em> is a collection of exchanges. Often several
-counterparties are involed in trading, e.g., a broker who gets paid for
-hooking up the buyer and seller.</p>
+<p>A <em>transaction</em> is a collection of exchanges. Often several counterparties are involed in trading, e.g., a broker who gets paid for hooking up the buyer and seller.</p>
 </section>
 </section>
-<section class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Actually a multiset. In practice,
-positions are associated with a unique position id. The position id can
-be used as a primary key to associate more details about the position in
-a table using that as a foreign key.<a href="#fnref1"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Actually a multiset. In practice, positions are associated with a unique position id. The position id can be used as a primary key to associate more details about the position in a table using that as a foreign key.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>

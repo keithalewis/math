@@ -178,7 +178,7 @@ __Exercise__. _Show $\Psi(x, s) = E[e^{sX - s^2/2}1(X\le x)] = P(X + s\le x) = \
 
 __Exercise__. _Show $x = \log(k/f)/\sigma\sqrt{t} + \sigma\sqrt{t}/2$_.
 
-Black and Scholes defined ${d_2 = \log(f/k)/\sigma\sqrt{t} - \sigma\sqrt{t}/2}$
+Black defined ${d_2 = \log(f/k)/\sigma\sqrt{t} - \sigma\sqrt{t}/2}$
 and ${d_1 = \log(f/k)/\sigma\sqrt{t} + \sigma\sqrt{t}/2}$.
 
 __Exercise__ _Show $x = -d_2$ and $x - \sigma\sqrt{t} = -d_1$_.

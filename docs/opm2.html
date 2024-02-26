@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-02-08" />
+  <meta name="dcterms.date" content="2024-02-06" />
   <title>One-Period Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,143 +16,49 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: true
-   });
-}}});
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
   </script>
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">February 8, 2024</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-Buy now, sell later.
-</div>
+<p class="date">February 6, 2024</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#examples" id="toc-examples">Examples</a></li>
+<li><a href="#examples">Examples</a></li>
 </ul>
 </nav>
-<p>Let <span class="math inline">I</span> be the set of
-<em>instruments</em> available at the beginning and end of a time period
-and <span class="math inline">\Omega</span> be the set of possible
-outcomes over the period. The <em>prices</em> at the beginning of the
-period are a vector <span class="math inline">{x\in\boldsymbol{R}^I =
-\{x\colon I\to\boldsymbol{R}\}}</span>, the set of functions from <span
-class="math inline">I</span> to <span
-class="math inline">\boldsymbol{R}</span>. The initial price of
-instrument <span class="math inline">i\in I</span> is <span
-class="math inline">x(i)</span>, which we also write as <span
-class="math inline">x_i</span>. The prices at the end of the period are
-a function <span class="math inline">X\colon\Omega\to
-\boldsymbol{R}^I</span> where <span
-class="math inline">X(\omega)\in\boldsymbol{R}^I</span> are the final
-instrument prices if <span class="math inline">\omega\in\Omega</span>
-occurred.</p>
-<p>Define <span class="math inline">e_i\in\boldsymbol{R}^I</span> by
-<span class="math inline">e_i(j) = 1</span> if <span
-class="math inline">i = j</span> and is zero otherwise, <span
-class="math inline">i,j\in I</span>. The set <span
-class="math inline">\{e_i\}_{i\in I}</span> is the <em>standard
-basis</em> of the vector space <span
-class="math inline">\boldsymbol{R}^I</span>.</p>
-<p><strong>Exercise</strong>. <em>For <span
-class="math inline">x\in\boldsymbol{R}^I</span> show <span
-class="math inline">x = \sum_{i\in I}x(i) e_i</span></em>.</p>
-<p>A <em>portfolio</em> is a linear functional <span
-class="math inline">\xi^*\colon\boldsymbol{R}^I\to\boldsymbol{R}</span>
-where <span class="math inline">\xi^*(x) = \xi^*x</span> is the
-<em>cost</em> of acquiring the portfolio. We can identify <span
-class="math inline">\xi^*</span> with a vector <span
-class="math inline">\xi\in\boldsymbol{R}^I</span> where <span
-class="math inline">\xi^*x = \xi\cdot x = \sum_{i\in I}\xi_i
-x_i</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\xi(i)
-= \xi^*(e_i)</span></em>.</p>
-<p><em>Arbitrage</em> exists if there is a portfolio <span
-class="math inline">\xi^*</span> with <span class="math inline">\xi^*x
-&lt; 0</span> and <span class="math inline">\xi^*X(\omega)\ge0</span>
-for <span class="math inline">\omega\in\Omega</span>. You make money
-setting up the porfolio and never lose when it is unwound at the end of
-the period. Note this definiton of arbitrage does not depend on a
-measure.</p>
-<p>Even though you make a positive amount with certainty this definition
-is not good enough for real world applicaton. A measure of the amount of
-capital involved is <span class="math inline">|\xi|\cdot |x|</span>. If
-<span class="math inline">\xi\cdot x</span> is small relative to this
-then the return on investment is less attractive.</p>
-<p>If <span class="math inline">\omega_j\in\Omega</span>, <span
-class="math inline">D_j &gt; 0</span> and <span class="math inline">x =
-\sum_j X(\omega_j) D_j</span> then <span class="math inline">\xi^*x =
-\sum_j \xi^* X(\omega_j) D_j \ge 0</span> if <span
-class="math inline">\xi^*X\ge0</span>. This shows arbitrage does not
-exist if <span class="math inline">x</span> is in the smallest cone
-containing the range of <span class="math inline">X</span>.</p>
-<p>The Fundamental Theorem of Asset Pricing states there is no arbitrage
-if and only if <span class="math inline">x</span> belongs to the
-smallest closed cone containing the range of <span
-class="math inline">X</span>. This is equivalent to saying <span
-class="math inline">x = \int_\Omega X\,dD</span> for some positive
-measure <span class="math inline">D</span>. We call such a measure <span
-class="math inline">D</span> a <em>numeraire</em> for the model.</p>
-<p>If the market is incomplete then the <em>numeraire</em> <span
-class="math inline">D</span> is not unique. If <span
-class="math inline">x</span> does not belong to the smallest closed cone
-containing the range of <span class="math inline">X</span> and <span
-class="math inline">y</span> is the closest point in the cone then <span
-class="math inline">\xi = y - x</span> is an arbitrage.</p>
-<p>If a derivative pays <span class="math inline">\phi(X)</span> at the
-end of the period, where <span
-class="math inline">\phi\colon\boldsymbol{R}^I\to\boldsymbol{R}</span>
-is the payof function, then the value <span class="math inline">v</span>
-of the derivative is constrained by <span
-class="math inline">(x,v)</span> must belong to the smallest closed cone
-containing the range of <span class="math inline">(X,\phi(X))</span> so
-<span class="math inline">{v = \int_\Omega \phi(X)\,dD}</span> for some
-numeraire <span class="math inline">D</span>.</p>
-<p>If <span class="math inline">\Omega = \{\omega_0, \omega_1\}</span>
-has two points and <span class="math inline">I</span> has two
-(independent) intruments then <span class="math inline">x = X(\omega_0)
-D_0 + X(\omega_1) D_1</span> for some <span class="math inline">D_0,
-D_1\in\boldsymbol{R}</span>. This is called the <em>binomial model</em>
-and the value of any option is <span class="math inline">{v =
-\phi(X_{i_0}(\omega_0)) D_0 + \phi(X_{i_1}(\omega_1)) D_1}</span>. Every
-payoff is equivalent to a linear payoff in a binomial model.</p>
-<p><strong>Exercise</strong>. <em>If the model is arbitrage free then
-<span class="math inline">D_0,D_1 \ge 0</span></em>.</p>
-<p>If<span class="math inline">X_{i_0},
-X_{i_1}\in\boldsymbol{R}^\Omega</span> are independent for some <span
-class="math inline">i_0,i_1\in I</span> then those determine <span
-class="math inline">D_0</span> and <span
-class="math inline">D_1</span></p>
+<p>Let <span class="math inline">I</span> be the set of <em>instruments</em> available at the beginning and end of a time period and <span class="math inline">\Omega</span> be the set of possible outcomes over the period. The <em>prices</em> at the beginning of the period are a vector <span class="math inline">{x\in\boldsymbol{R}^I = \{x\colon I\to\boldsymbol{R}\}}</span>, the set of functions from <span class="math inline">I</span> to <span class="math inline">\boldsymbol{R}</span>. The initial price of instrument <span class="math inline">i\in I</span> is <span class="math inline">x(i)</span>, which we also write as <span class="math inline">x_i</span>. The prices at the end of the period are a function <span class="math inline">X\colon\Omega\to \boldsymbol{R}^I</span> where <span class="math inline">X(\omega)\in\boldsymbol{R}^I</span> are the final instrument prices if <span class="math inline">\omega\in\Omega</span> occurred.</p>
+<p>Define <span class="math inline">e_i\in\boldsymbol{R}^I</span> by <span class="math inline">e_i(j) = 1</span> if <span class="math inline">i = j</span> and is zero otherwise, <span class="math inline">i,j\in I</span>. The set <span class="math inline">\{e_i\}_{i\in I}</span> is the <em>standard basis</em> of the vector space <span class="math inline">\boldsymbol{R}^I</span>.</p>
+<p><strong>Exercise</strong>. <em>For <span class="math inline">x\in\boldsymbol{R}^I</span> show <span class="math inline">x = \sum_{i\in I}x(i) e_i</span></em>.</p>
+<p>A <em>portfolio</em> is a linear functional <span class="math inline">\xi^*\colon\boldsymbol{R}^I\to\boldsymbol{R}</span> where <span class="math inline">\xi^*(x) = \xi^*x</span> is the <em>cost</em> of acquiring the portfolio. We can identify <span class="math inline">\xi^*</span> with a vector <span class="math inline">\xi\in\boldsymbol{R}^I</span> where <span class="math inline">\xi^*x = \xi\cdot x = \sum_{i\in I}\xi_i x_i</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\xi(i) = \xi^*(e_i)</span></em>.</p>
+<p><em>Arbitrage</em> exists if there is a portfolio <span class="math inline">\xi^*</span> with <span class="math inline">\xi^*x &lt; 0</span> and <span class="math inline">\xi^*X(\omega)\ge0</span> for <span class="math inline">\omega\in\Omega</span>. You make money setting up the porfolio and never lose when it is unwound at the end of the period. Note this definiton of arbitrage does not depend on a measure.</p>
+<p>Even though you make a positive amount with certainty this definition is not good enough for real world applicaton. A measure of the amount of capital involved is <span class="math inline">|\xi|\cdot |x|</span>. If <span class="math inline">\xi\cdot x</span> is small relative to this then the return on investment is less attractive.</p>
+<p>If <span class="math inline">\omega_j\in\Omega</span>, <span class="math inline">D_j &gt; 0</span> and <span class="math inline">x = \sum_j X(\omega_j) D_j</span> then <span class="math inline">\xi^*x = \sum_j \xi^* X(\omega_j) D_j \ge 0</span> if <span class="math inline">\xi^*X\ge0</span>. This shows arbitrage does not exist if <span class="math inline">x</span> is in the smallest cone containing the range of <span class="math inline">X</span>.</p>
+<p>The Fundamental Theorem of Asset Pricing states there is no arbitrage if and only if <span class="math inline">x</span> belongs to the smallest closed cone containing the range of <span class="math inline">X</span>. This is equivalent to saying <span class="math inline">x = \int_\Omega X\,dD</span> for some positive measure <span class="math inline">D</span>. We call such a measure <span class="math inline">D</span> a <em>numeraire</em> for the model.</p>
+<p>If the market is incomplete then the <em>numeraire</em> <span class="math inline">D</span> is not unique. If <span class="math inline">x</span> does not belong to the smallest closed cone containing the range of <span class="math inline">X</span> and <span class="math inline">y</span> is the closest point in the cone then <span class="math inline">\xi = y - x</span> is an arbitrage.</p>
+<p>If a derivative pays <span class="math inline">\phi(X)</span> at the end of the period, where <span class="math inline">\phi\colon\boldsymbol{R}^I\to\boldsymbol{R}</span> is the payof function, then the value <span class="math inline">v</span> of the derivative is constrained by <span class="math inline">(x,v)</span> must belong to the smallest closed cone containing the range of <span class="math inline">(X,\phi(X))</span> so <span class="math inline">{v = \int_\Omega \phi(X)\,dD}</span> for some numeraire <span class="math inline">D</span>.</p>
+<p>If <span class="math inline">\Omega = \{\omega_0, \omega_1\}</span> has two points and <span class="math inline">I</span> has two (independent) intruments then <span class="math inline">x = X(\omega_0) D_0 + X(\omega_1) D_1</span> for some <span class="math inline">D_0, D_1\in\boldsymbol{R}</span>. This is called the <em>binomial model</em> and the value of any option is <span class="math inline">{v = \phi(X_{i_0}(\omega_0)) D_0 + \phi(X_{i_1}(\omega_1)) D_1}</span>. Every payoff is equivalent to a linear payoff in a binomial model.</p>
+<p><strong>Exercise</strong>. <em>If the model is arbitrage free then <span class="math inline">D_0,D_1 \ge 0</span></em>.</p>
+<p>If<span class="math inline">X_{i_0}, X_{i_1}\in\boldsymbol{R}^\Omega</span> are independent for some <span class="math inline">i_0,i_1\in I</span> then those determine <span class="math inline">D_0</span> and <span class="math inline">D_1</span></p>
 <section id="examples" class="level2">
 <h2>Examples</h2>
-<p>Let <span class="math inline">x = (1, s)</span> and <span
-class="math inline">X(\omega) = (R, \omega)</span> for <span
-class="math inline">\omega\in\Omega = \{L, H\}</span>. Solving <span
-class="math inline">x = X(L) D_L + X(H) D_H</span> for <span
-class="math inline">D_L,D_H\in\boldsymbol{R}</span> gives 1 = R D_L + R
-D_H s = L D_L + H D_H</p>
+<p>Let <span class="math inline">x = (1, s)</span> and <span class="math inline">X(\omega) = (R, \omega)</span> for <span class="math inline">\omega\in\Omega = \{L, H\}</span>. Solving <span class="math inline">x = X(L) D_L + X(H) D_H</span> for <span class="math inline">D_L,D_H\in\boldsymbol{R}</span> gives 1 = R D_L + R D_H s = L D_L + H D_H</p>
 <p>H -R -L R</p>
 <p>$D_L =</p>
 </section>

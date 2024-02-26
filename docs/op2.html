@@ -5,15 +5,23 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-02-18" />
+  <meta name="dcterms.date" content="2024-02-26" />
   <title>Option Pricing</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="math.css" />
   <script defer=""
@@ -34,15 +42,12 @@
   </script>
   <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">February 18, 2024</p>
+<p class="date">February 26, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 European option pricing and greeks
@@ -71,7 +76,7 @@ id="toc-black-scholesmerton">Black-Scholes/Merton</a></li>
 <p>A <em>European option</em> pays some function of the underlying price
 at expiration. If <span class="math inline">F</span> is the price at
 expiration and <span class="math inline">\nu</span> is the <em>payoff
-function</em> then its Black <em>forward value</em> is <span
+function</em> then its <em>forward value</em> is <span
 class="math inline">{v = E[\nu(F)]}</span>.</p>
 <p>If <span class="math inline">F</span> is positive and <span
 class="math inline">\log F</span> has finite mean and variance then
@@ -105,25 +110,27 @@ respect to the forward, <span class="math display">
 value with respect to the forward, The <em>vega</em> of an option is the
 derivative of its value with respect to the vol, <span
 class="math display">
-    \partial_s v = E[\nu&#39;(F) F (X - \kappa&#39;(s))] = f
-E^s[\nu&#39;(F) (X - \kappa&#39;(s))].
+    \partial_s v = E[\nu&#39;(F)\partial_s F] = E[\nu&#39;(F) F (X -
+\kappa&#39;(s))] = f E^s[\nu&#39;(F) (X - \kappa&#39;(s))].
 </span></p>
 </section>
 <section id="put" class="level2">
 <h2>Put</h2>
 <p>A <em>put</em> with strike <span class="math inline">k</span> pays
-<span class="math inline">\nu(F) = \max\{k - F, 0\} = (k - F)^+ = (k -
-F)1(F\ge k)</span> at expiration. Note <span class="math inline">F\le
-k</span> is equivalent to <span class="math inline">X\le x</span> where
-<span class="math inline">{x = x(k) = x(k;f,s) = (\log k/f +
-\kappa(s))/s}</span> is the <em>moneyness</em> of a put with strike
-<span class="math inline">k</span>.</p>
+<span class="math inline">\nu(F) = {\max\{k - F, 0\}} = {(k - F)^+} =
+{(k - F)1(F\ge k)}</span> at expiration. Note <span
+class="math inline">F\le k</span> is equivalent to <span
+class="math inline">X\le x</span> where <span class="math inline">{x =
+x(k) = x(k;f,s) = (\log k/f + \kappa(s))/s}</span> is the
+<em>moneyness</em> of a put with strike <span
+class="math inline">k</span>.</p>
 <section id="value-1" class="level3">
 <h3>Value</h3>
 <p>The forward value of a put option is</p>
 <p><span class="math display">
 \begin{aligned}
-E[(k - F)^+] &amp;= E[(k - F)1(F\le k)] \\
+    p &amp;= E[(k - F)^+] \\
+    &amp;= E[(k - F)1(F\le k)] \\
     &amp;= kE[1(F \le k)] - E[F1(F\le k)] \\
     &amp;= kP(X \le x) - fP^s(X\le x). \\
 \end{aligned}
@@ -144,7 +151,7 @@ x)] = P^s(X\le x)}</span>. Note <span class="math inline">{\Psi(x, 0) =
 k)</span> the put delta is <span class="math display">
 \begin{aligned}
     \partial_f p &amp;= E[-1(F \le k)\partial_f F] \\
-    &amp;= E[-1(F \le k)e^{sX - \kappa(s)}] \\
+    &amp;= -E[1(F \le k)e^{sX - \kappa(s)}] \\
     &amp;= -P^s(F\le k) \\
     &amp;= -\Psi(x, s).
 \end{aligned}
@@ -157,21 +164,20 @@ class="math display">
 \begin{aligned}
     \partial_f^2 p &amp;= \partial_f (-\Psi(x, s)) \\
     &amp;= -\partial_x\Psi(x, s)\partial_f x \\
-    &amp;= -\partial_x\Psi(x, s)/fs \\
+    &amp;= \partial_x\Psi(x, s)/fs \\
 \end{aligned}
 </span></p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\partial_f x = 1/fs</span></em>.</p>
-<p><em>Hint</em>. Use <span class="math inline">f = ke^{sx -
-\kappa(s)}</span> to show <span class="math inline">\partial_x f =
-fs</span>.</p>
+class="math inline">\partial_f x = -1/fs</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">x = (\log k/f +
+\kappa(s))/s</span>.</p>
 </section>
 <section id="vega" class="level3">
 <h3>Vega</h3>
 <p>The derivative with respect to vol is <span
-class="math inline">\partial_s E[(k - F)^+] = -E[1(F\le k)F(X -
-\kappa&#39;(s))]</span>. Since <span class="math inline">{\partial_s
-\Psi(x, s) = E[e^{sX - \kappa(s)}(X - \kappa&#39;(s))1(X\le x)]}</span>
+class="math inline">\partial_s E[(k - F)^+] = {-E[1(F\le k)F(X -
+\kappa&#39;(s))]}</span>. Since <span class="math inline">\partial_s
+\Psi(x, s) = {E[e^{sX - \kappa(s)}(X - \kappa&#39;(s))1(X\le x)]}</span>
 we have <span class="math display">
     \partial_s p = -f\partial_s\Psi(x, s).
 </span></p>
@@ -225,24 +231,35 @@ class="math inline">E[e^{\sigma B_t}] = e^{\sigma^2t/2}</span> for any
 <span class="math inline">\sigma\in 𝑹</span></em>.</p>
 <p><em>Hint</em>. Use <span class="math inline">E[\exp(N)] = \exp(E[N] +
 \operatorname{Var}(N)/2)</span> if <span class="math inline">N</span> is
-normally distributed.</p>
+normally distributed.<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">F =
 fe^{\sigma B_t - \sigma^2t/2}</span> in the Black model</em>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
-is standard normal then <span class="math inline">E[e^{sX - s^2/2}f(X)]
-= E[f(X + s)]</span></em>.</p>
-<p><em>Hint</em>: Use <span class="math inline">E[\exp(N)f(N)] =
-E[\exp(N)] E[f(N + \operatorname{Var}(N))]</span> if <span
-class="math inline">N</span> is normal.</p>
+is standard normal then <span class="math inline">E[e^{sX - s^2/2}g(X)]
+= E[g(X + s)]</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">E[\exp(N)g(N)] =
+E[\exp(N)] E[g(N + \operatorname{Var}(N))]</span> if <span
+class="math inline">N</span> is normal.<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">\Psi(x,
 s) = E[e^{sX - s^2/2}1(X\le x)] = P(X + s\le x) = \Psi(x -
 s)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x =
+\log(k/f)/\sigma\sqrt{t} + \sigma\sqrt{t}/2</span></em>.</p>
+<p>Black defined <span class="math inline">{d_2 =
+\log(f/k)/\sigma\sqrt{t} - \sigma\sqrt{t}/2}</span> and <span
+class="math inline">{d_1 = \log(f/k)/\sigma\sqrt{t} +
+\sigma\sqrt{t}/2}</span>.</p>
+<p><strong>Exercise</strong> <em>Show <span class="math inline">x =
+-d_2</span> and <span class="math inline">x - \sigma\sqrt{t} =
+-d_1</span></em>.</p>
 <p>The forward value of the Black put is <span class="math display">
     p = k\Psi(x) - f\Psi(x - \sigma\sqrt{t}),
 </span> delta is <span class="math display">
     \partial_f p = -\Psi(x - \sigma\sqrt{t}),
 </span> and gamma is <span class="math display">
-    \partial_f^2 p = -\psi(x - \sigma\sqrt{t})/f\sigma\sqrt{t},
+    \partial_f^2 p = \psi(x - \sigma\sqrt{t})/f\sigma\sqrt{t},
 </span> where <span class="math inline">{x = (\log k/f)/\sigma\sqrt{t} +
 \sigma\sqrt{t}/2}</span> and <span class="math inline">\psi(x) =
 \Psi&#39;(x)</span> is the standard normal density.</p>
@@ -258,19 +275,51 @@ class="math inline">\partial_\sigma p = f\psi(x -
 class="math inline">{S_t = S_0e^{rt + \sigma B_t - \sigma^2t/2}}</span>
 where <span class="math inline">r</span> is the continuously compounded
 risk-free rate. The current price <span class="math inline">S_0</span>
-is called the <em>spot</em> price of the stock. The present value of an
-option paying <span class="math inline">\nu(S_t)</span> at time <span
-class="math inline">t</span> is <span class="math inline">{v =
-e^{-rt}E[\nu(S_t)]}</span>. Note <span class="math inline">{S_t =
-F}</span> where <span class="math inline">F</span> is the forward price
-at expiration. This gives the relationship between the spot and forward
-<span class="math inline">S_0e^{rt} = f</span> and is called the
-<em>cost of carry</em>.</p>
+is called the <em>spot</em> price of the stock. The <em>present
+value</em> of an option paying <span class="math inline">\nu(S_t)</span>
+at time <span class="math inline">t</span> is <span
+class="math inline">{v = e^{-rt}E[\nu(S_t)]}</span>. Note <span
+class="math inline">{S_t = F}</span> where <span
+class="math inline">F</span> is the forward price at expiration. This
+gives the relationship between the spot and forward <span
+class="math inline">S_0e^{rt} = f</span> and is called the <em>cost of
+carry</em>.</p>
 </section>
 <section id="remarks" class="level2">
 <h2>Remarks</h2>
 <p>Instrument prices are discrete. It is a fact that instrument prices
 are integer multiples of some minimum increment.</p>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Since <span class="math inline">1 =
+\int_{-\infty}^\infty e^{-x^2/2}\,dx/\sqrt{2\pi}</span> we have <span
+class="math display">
+\begin{aligned}
+E[e^N] &amp;= \int_{-\infty}^\infty e^{\mu + \sigma x}
+e^{-x^2/2}\,dx/\sqrt{2\pi} \\
+&amp;= e^{\mu + \sigma^2/2} \int_{-\infty}^\infty e^{-(x -
+\sigma)^2/2}\,dx/\sqrt{2\pi} \\
+&amp;= e^{\mu + \sigma^2/2} \\
+\end{aligned}
+</span> where <span class="math inline">N = \mu + \sigma X</span>.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>We have <span class="math display">
+\begin{aligned}
+E[\exp(\sigma X) g(X)]
+&amp;= \int_{-\infty}^\infty e^{\sigma x} g(x)
+e^{-x^2/2}\,dx/\sqrt{2\pi} \\
+&amp;= e^{\sigma^2/2}\int_{-\infty}^\infty g(x) e^{-(x -
+\sigma)^2/2}\,dx/\sqrt{2\pi} \\
+&amp;= e^{\sigma^2/2}\int_{-\infty}^\infty g(x + \sigma)
+e^{-x^2/2}\,dx/\sqrt{2\pi} \\
+&amp;= E[e^{\sigma X}]E[g(X + \sigma)]. \\
+\end{aligned}
+</span><a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 </body>
 </html>

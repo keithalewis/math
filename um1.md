@@ -33,10 +33,10 @@ _Value_ - mark-to-market
 _Account_ - trading account blotter
 : $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$
 
-_Arbitrage_ exists if there is a trading stragegy $(\Gamma_t)_{t\in T}$
+_Arbitrage_ exists if there is a trading strategy $(\Gamma_t)_{t\in T}$
 with $A_0 < 0$, $A_t \ge 0$, $t > 0$, and $\sum_{t} \Gamma_t = 0$.
 
-The Funamental Theorem of Asset Pricing states there is no arbitrage if and only
+The Fundamental Theorem of Asset Pricing states there is no arbitrage if and only
 if there exist positive measures $(D_t)_{t\in T}$ on $\Omega$ with
 $$
 	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}

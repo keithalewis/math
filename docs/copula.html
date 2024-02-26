@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-05-15" />
+  <meta name="dcterms.date" content="2023-09-20" />
   <title>Copulas</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,118 +16,41 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: true
-   });
-}}});
+   var mathElements = document.getElementsByClassName("math");
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      fleqn: true
+     });
+  }}});
   </script>
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Copulas</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 15, 2023</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-A copula is a probability measure on unit cubes.
-</div>
+<p class="date">September 20, 2023</p>
 </header>
-<p>Copulas let you glue together marginal distributions to get joint
-distributions. If the random variable <span class="math inline">X</span>
-has cumulative distribution function <span class="math inline">F(x) =
-P(X\le x)</span> then <span class="math inline">F^{-1}(X)</span> is
-uniformly distributed on the unit interval <span
-class="math inline">[0,1]</span>. Given random variables <span
-class="math inline">X_i</span>, <span class="math inline">1\le i\le
-n</span>, with cdfs <span class="math inline">F_i</span> and a measure
-<span class="math inline">C</span> on the unit cube <span
-class="math inline">[0,1]^n</span> the we can define a joint
-distribution <span class="math inline">P(X_1\le x_1, \ldots, X_n\le x_n)
-= C(F_1^{-1}(x_1), \ldots F_n^{-1}(x_n))</span> where <span
-class="math inline">C(u_1, \ldots, u_n)</span> is the measure of <span
-class="math inline">[0,u_1]\times\cdots\times [0,u_n]</span>.</p>
-<p>In the case of two random variables the copula of <span
-class="math inline">X</span> and <span class="math inline">Y</span> is
-the joint distribution of <span class="math inline">F^{-1}(X)</span> and
-<span class="math inline">G^{-1}(Y)</span> where <span
-class="math inline">F</span> and <span class="math inline">G</span> are
-the cumulative distributions of <span class="math inline">X</span> and
-<span class="math inline">Y</span> respectively: <span
-class="math inline">C(u,v) = C^{X,Y}(u,v) = P(F^{-1}(X) \le u, G^{-1}(Y)
-\le v)</span>.</p>
-<p><strong>Exercise</strong>: <em>Show <span class="math inline">C(u,v)
-= H(F(u),G(v))</span> where and <span class="math inline">H</span> is
-the joint distribution of <span class="math inline">X</span> and <span
-class="math inline">Y</span> and <span class="math inline">F</span> and
-<span class="math inline">G</span> are the marginal distributions of
-<span class="math inline">X</span>, and <span
-class="math inline">Y</span></em>.</p>
-<p><strong>Exercise</strong>: <em>Show <span class="math inline">H(x,y)
-= C(F^{-1}(x), G^{-1}(y))</span></em>.</p>
-<p>This shows how to use the copula and marginal distributions to
-recover the joint distribution.</p>
-<p>An equivalent definition is a copula is that it is a probability
-measure on <span class="math inline">[0,1]^2</span> with uniform
-marginals.</p>
+<p>Copulas let you glue together marginal distributions to get joint distributions. If the random variable <span class="math inline">X</span> has cumulative distribution function <span class="math inline">F(x) = P(X\le x)</span> then <span class="math inline">F^{-1}(X)</span> is uniformly distributed on the unit interval <span class="math inline">[0,1]</span>. Given random variables <span class="math inline">X_i</span>, <span class="math inline">1\le i\le n</span>, with cdfs <span class="math inline">F_i</span> and a measure <span class="math inline">C</span> on the unit cube <span class="math inline">[0,1]^n</span> the we can define a joint distribution <span class="math inline">P(X_1\le x_1, \ldots, X_n\le x_n) = C(F_1^{-1}(x_1), \ldots F_n^{-1}(x_n))</span> where <span class="math inline">C(u_1, \ldots, u_n)</span> is the measure of <span class="math inline">[0,u_1]\times\cdots\times [0,u_n]</span>.</p>
+<p>In the case of two random variables the copula of <span class="math inline">X</span> and <span class="math inline">Y</span> is the joint distribution of <span class="math inline">F^{-1}(X)</span> and <span class="math inline">G^{-1}(Y)</span> where <span class="math inline">F</span> and <span class="math inline">G</span> are the cumulative distributions of <span class="math inline">X</span> and <span class="math inline">Y</span> respectively: <span class="math inline">C(u,v) = C^{X,Y}(u,v) = P(F^{-1}(X) \le u, G^{-1}(Y) \le v)</span>.</p>
+<p><strong>Exercise</strong>: <em>Show <span class="math inline">C(u,v) = H(F(u),G(v))</span> where and <span class="math inline">H</span> is the joint distribution of <span class="math inline">X</span> and <span class="math inline">Y</span> and <span class="math inline">F</span> and <span class="math inline">G</span> are the marginal distributions of <span class="math inline">X</span>, and <span class="math inline">Y</span></em>.</p>
+<p><strong>Exercise</strong>: <em>Show <span class="math inline">H(x,y) = C(F^{-1}(x), G^{-1}(y))</span></em>.</p>
+<p>This shows how to use the copula and marginal distributions to recover the joint distribution.</p>
+<p>An equivalent definition is a copula is that it is a probability measure on <span class="math inline">[0,1]^2</span> with uniform marginals.</p>
 <p><strong>Exercise</strong>: <em>Prove this</em>.</p>
 <section id="fréchet-hoeffding-inequality" class="level2">
 <h2>Fréchet-Hoeffding Inequality</h2>
-<p>If <span class="math inline">U</span> and <span
-class="math inline">V</span> are independent, uniformly distributed
-random variables on the unit interval then <span
-class="math inline">C(u,v) = uv</span>.</p>
-<p>If <span class="math inline">V=U</span> then their joint distribution
-is <span class="math inline">C(u,v) = P(U\le u, V\le v) = P(U\le u, U\le
-v) = P(U\le \min\{u, v\}) = \min\{u,v\} = M(u,v)</span>.</p>
-<p>If <span class="math inline">V=1-U</span> then their joint
-distribution is <span class="math inline">C(u,v) = P(U\le u, V\le v) =
-P(U\le u, 1-U\le v) = P(1-v\le U\le u) = \max\{u - (1 -v), 0\} = \max\{u
-+ v - 1, 0\} = W(u,v)</span></p>
-<p><strong>Exercise</strong>: (Fréchet-Hoeffding) For every copula,
-<span class="math inline">C</span>, <span class="math inline">W \le C
-\le M</span>.</p>
-<p>Hint: For the upper bound use <span class="math inline">H(x,y) \le
-F(x)</span> and <span class="math inline">H(x,y) \le G(y)</span>. For
-the lower bound note <span class="math inline">0\le C(u_1,v_1) - C(u_1,
-v_2) - C(u_2, v_1) + C(u_2, v_2)</span> for <span
-class="math inline">u_1 \ge u_2</span> and <span class="math inline">v_1
-\ge v_2</span>.</p>
+<p>If <span class="math inline">U</span> and <span class="math inline">V</span> are independent, uniformly distributed random variables on the unit interval then <span class="math inline">C(u,v) = uv</span>.</p>
+<p>If <span class="math inline">V=U</span> then their joint distribution is <span class="math inline">C(u,v) = P(U\le u, V\le v) = P(U\le u, U\le v) = P(U\le \min\{u, v\}) = \min\{u,v\} = M(u,v)</span>.</p>
+<p>If <span class="math inline">V=1-U</span> then their joint distribution is <span class="math inline">C(u,v) = P(U\le u, V\le v) = P(U\le u, 1-U\le v) = P(1-v\le U\le u) = \max\{u - (1 -v), 0\} = \max\{u + v - 1, 0\} = W(u,v)</span></p>
+<p><strong>Exercise</strong>: (Fréchet-Hoeffding) For every copula, <span class="math inline">C</span>, <span class="math inline">W \le C \le M</span>.</p>
+<p>Hint: For the upper bound use <span class="math inline">H(x,y) \le F(x)</span> and <span class="math inline">H(x,y) \le G(y)</span>. For the lower bound note <span class="math inline">0\le C(u_1,v_1) - C(u_1, v_2) - C(u_2, v_1) + C(u_2, v_2)</span> for <span class="math inline">u_1 \ge u_2</span> and <span class="math inline">v_1 \ge v_2</span>.</p>
 </section>
-<hr/>
-<footer>
-Return to <a href="index.html">index</a>.
-</footer>
 </body>
 </html>
