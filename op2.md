@@ -118,6 +118,8 @@ __Exercise__. _Show $\partial_s p = -k\partial_s\Psi(x, 0)$_.
 
 A _call_ with strike $k$ pays ${\nu(F) = (F - k)^+}$ at expiration
 and has forward value ${c = E[(F - k)^+]}$.
+Since ${(F - k)^+ - (k - F)^+ = F - k}$ we have _put-call_ parity ${c - p = f - k}$.
+
 Let $\overline{\Psi}(x) = 1 - \Psi(x)$ and
 ${\overline{\Psi}(x, s) = 1 - \Psi(x, s)}$ be the _complementary distributions_.
 If $P^s$ does not have a point mass at $k$ then
@@ -125,10 +127,9 @@ ${P^s(F\ge k) = P^s(X\ge x) = \overline{\Psi}(x, s)}$.
 
 __Exercise__. _Show the forward call value is $c = f\overline{\Psi}(x, s) - k \overline{\Psi}(x)$_.
 
-Since ${(F - k)^+ - (k - F)^+ = F - k}$ we have _put-call_ parity ${c - p = f - k}$
-so $\partial_f c - \partial_f p = 1$.
-
 __Exercise__. _Show call delta $\partial_f c = \overline{\Psi}(x, s)$_.
+
+_Hint_: Use put-call parity to show $\partial_f c = \partial_ p + 1$.
 
 __Exercise__. _Show call gamma equals put gamma_.
 
@@ -147,15 +148,16 @@ __Exercise__ _Show $E[e^{\sigma B_t}] = e^{\sigma^2t/2}$ for any $\sigma\in\RR$_
 
 _Hint_. Use $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ if $N$ is normally distributed.[^1]
 
-[^1]: Since $1 = \int_{-\infty}^\infty e^{-x^2/2}\,dx/\sqrt{2\pi}$ we have
+[^1]: Let $X$ be standard normal and $N = \mu + \sigma X$.
+Since $1 = \int_{-\infty}^\infty e^{-x^2/2}\,dx/\sqrt{2\pi}$ we have
 $$
 \begin{aligned}
 E[e^N] &= \int_{-\infty}^\infty e^{\mu + \sigma x} e^{-x^2/2}\,dx/\sqrt{2\pi} \\
 &= e^{\mu + \sigma^2/2} \int_{-\infty}^\infty e^{-(x - \sigma)^2/2}\,dx/\sqrt{2\pi} \\
 &= e^{\mu + \sigma^2/2} \\
+&= e^{E[N] + \Var(N)/2} \\
 \end{aligned}
 $$
-where $N = \mu + \sigma X$.
 
 __Exercise__. _Show $F = fe^{\sigma B_t - \sigma^2t/2}$ in the Black model_.
 
@@ -210,9 +212,28 @@ compounded risk-free rate.  The current price $S_0$ is called the _spot_
 price of the stock.  The _present value_ of an option paying $\nu(S_t)$
 at time $t$ is ${v = e^{-rt}E[\nu(S_t)]}$.  Note ${S_t = F}$ where $F$ is
 the forward price at expiration. This gives the relationship between
-the spot and forward $S_0e^{rt} = f$ and is called the _cost of carry_.
+the spot and forward $f = e^{rt}S_0$ and is called the _cost of carry_.
+
+The Black-Scholes/Merton model takes $f = e^{rt}S_0$ and discounts the Black
+forward value by $e^{-rt}$ to get the present option value
+$v = e^{-rt}E[\nu(S_t)]$.
+The B-S/M put delta is 
+$$
+\begin{aligned}
+\partial_{S_0}v &= e^{-rt}E[\nu'(S_t)\partial_{S_0}S_t] \\
+	&= e^{-rt}E[\nu'(S_t)e^{rt + \sigma B_t - \sigma^2t/2}] \\
+	&= E^{\sigma\sqrt{t}}[\nu'(S_t)] \\
+\end{aligned}
+$$
+This shows the B-S/M delta is the same as the Black forward delta for any option.
+
+<!--
+__Exercise__. _Show B-S/M gamma is equal to discounted Black gamma_.
+
+__Exercise__. _Show B-S/M vega is equal to discounted Black vega_.
 
 ## Remarks
 
 Instrument prices are discrete.
 It is a fact that instrument prices are integer multiples of some minimum increment.
+-->
