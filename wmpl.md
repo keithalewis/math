@@ -73,3 +73,19 @@ that are supposed to uniquely identify them. If you can afford to pay for them.
 There are [LEI](https://en.wikipedia.org/wiki/Legal_Entity_Identifier)s to identify legal entities,
 but legal entities have internal subdivisions. The back office has to keep track of
 the ever changing portfolio managers.
+
+We have to give names to mathematical concepts, but I always think
+in terms of the mathematical concepts. The names are just shorthand.
+The fundamental problem of risk management is assessing the risk of
+future P&L, where P&L is a stochastic process defined by a model.
+
+In the one-period case the model is a set $I$ of instruments, initial
+prices $x \in \RR^I$, a set $\Omega$ of possible outcomes over the period, a
+function $X\colon\Omega \to \RR^I$ of final prices given $\omega\in\Omega$ occurred,
+and a probability measure $P$ on Omega. P&L is defined by specifying a
+portfolio $\xi\in\RR^I$. To be completely rigorous, $\xi$ is in the dual space
+of $\RR^I$ with dual pairing $xi^* x = \langle x, xi\rangle = sum_{i\in I} xi_i x_i$.
+In this case the stochastic process for the P&L is the number $xi^* x$ at time 0
+and the random variable $xi^*X\colon\Omega \to \RR$ at time 1.  What is the "risk"
+of the one period model P&L? 
+
