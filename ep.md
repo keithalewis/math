@@ -8,7 +8,7 @@ Header-includes:
   - \usepackage{unicode-math}
 abstract: CAPM holds as equality of random variables, not just their expected value.
 thanks: |
-	Kevin Atteson, Peter Carr, Dilip Madan, and David Shimko gave insightful feedback to
+	Kevin Atteson, Peter Carr, Dilip Madan, David Shimko, and Ed Weinberger gave insightful feedback to
 	make the exposition more accessible to finance professionals.
 	Any remaining infelicities or omissions are my fault.
 ---
@@ -32,6 +32,120 @@ having the same expected realized return.
 This was developed into the Capital Asset Pricing Model by Treynor[@Tre1961],
 Sharp[@Sha1964], Lintner[@Lin1965], and many others.
 
+The CAPM places a constraint on the expected excess realized return of efficient portfolios.
+$$
+\tag{0}	E[R] - R_0 = \beta(E[R_1] - R_0)
+$$
+where $R$ is the realized return of an efficient portfole,
+$R_0$ is the realized return of a riskless portfolio,
+$R_1$ is the realized return of the "market portfolio",
+and $\beta = \Cov(R, R_1)/\Var(R_1)$.
+
+This short note points out
+$$
+\tag{1}	R - R_0 = \beta(R_1 - R_0)
+$$
+where $R_0$ and $R_1$ are the realized returns of any two independent efficient portfolios.
+This implies $\beta = \Cov(R - R_0, R_1 - R_0)/\Var(R_1 - R_0)$.
+Taking expected values of both sides
+when $R_0$ has zero variance and $R_1$ is the "market" portfolio gives
+the classical CAPM formula
+
+Equation (1) can be used to compute the value-at-risk, or any risk
+measure, of efficient portfolios, something not possible using the
+classical result. 
+This result folows directly from writing down a mathematical model for one period
+investments.  Prior work does not explicitly specify a sample space and
+probability measure, the first step in any model involving probability
+since Kolomogorov legitimized probability as a branch of measure theory
+[@Kol1956].
+
+## One-Period Model
+
+Let $I$ be the set of _market instruments_ and $\Omega$ be the set of
+possible market outcomes over the period.  The _one-period model_
+specifies the initial instrument prices $x\in\RR^I$ and the final
+instrument prices $X\colon\Omega\to\RR^I$ depending on the outcome
+$\omega\in\Omega$ that occurs.
+The one period model also specifies a probability
+measure on the space of outcomes. Addressing this fundamental and
+important problem is outside the scope of this short note.
+
+A _portfolio_ $\xi\in\RR^I$ is the number of shares initially purchased
+in each instrument.  It costs ${\xi^* x = \sum_{i\in I} \xi_i x_i}$ to
+acquire the portfolio at the beginning of the period and returns
+${\xi^* X(\omega) = \sum_{i\in I} \xi_i X_i(\omega)}$ when liquidated at the
+end of the period if $\omega\in\Omega$ occurs.  The _realized return_
+of $\xi$ is ${R_\xi = \xi^* X/\xi^* x}$ when $\xi^* x \not= 0$.
+
+A portfolio is _efficient_ if its variance is less than or equal to
+the variance of any portfolio having the same expected realized return.
+Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so there is no loss in
+assuming $\xi^* x = 1$.  In this case $R_\xi = \xi^* X$ is the realized
+return of the portfolio.  If $\xi^* x = 1$ then the variance of the
+realized return is $\Var(R_\xi) = \xi^*V\xi$ where ${V = E[X X^*] -
+E[X] E[X]^*}$.
+
+For a given expected realized return $r\in\RR$ we can use Lagrange multipliers to minimize
+$$
+	\frac{1}{2}\xi^* V\xi - \lambda(\xi^* x - 1) - \mu(\xi^* E[X] - r)
+$$
+over $\xi\in\RR^I$, $\lambda\in\RR$, and $\mu\in\RR$.
+
+As is well-known, The first order condition on $\xi$ is
+$$
+	0 = V\xi - \lambda x - \mu E[X].
+$$
+
+If $V$ is invertable then
+$$
+	\xi =  \lambda V^{-1}x + \mu V^{-1} E[X]
+$$
+where $\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$,
+${A = x^* V^{-1}x}$, ${B = x^* V^{-1}E[X] = E[X^*]V^{-1}x}$, ${C = E[X^*]V^{-1}E[X]}$,
+and ${D = AC - B^2}$.
+Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
+$E[XX^*]$.
+This shows every efficient portfolio is in the span of 
+$V^{-1}x$ and $V^{-1} E[X]$.
+
+If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
+${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$.
+Assuming, as we may, that $\xi_j^* x = 1$ for $j = 0,1$ then ${\xi^* x = \beta_0 + \beta_1}$
+and ${\xi^* X = \beta_0 R_{\xi_0} + \beta_1 R_{\xi_1}}$
+so ${R_\xi = (\beta_0 R_{\xi_0} + \beta_1 R_{\xi_1})/(\beta_0 + \beta_1)}$.
+This shows
+$$
+	R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0}) \tag{1}
+$$
+as functions on $\Omega$, where $\beta = \beta_1/(\beta_0 + \beta_1)$.
+Taking the covariance with ${R_{\xi_1} - R_{\xi_0}}$ on both sides gives
+$$
+	\beta = \Cov(R_\xi - R_{\xi_0}, R_{\xi_1} - R_{\xi_0})/\Var(R_{\xi_1} - R_{\xi_0}).
+$$
+
+If $V$ is not invertible then there exists $\zeta\in\RR^I$ with $V\zeta = 0$.
+The first order condition gives $0 = -\lambda x - \mu E[X]$,
+and the realized return for every portfolio $\xi\in\RR^I$ is
+$R_\xi = E[\xi^*X] = -\lambda/\mu$ when $\mu\not=0$.
+In this case $\zeta$ is clearly efficient.
+
+There may be two independent portfolios having variance zero. If they
+have different returns then arbitrage exists. If they have the same
+return then the model has redundant assets.
+
+As Black[@Bla1972] showed, there is no need to assume
+a zero coupon bond is available.
+
+## References
+<!--
+
+
+
+
+
+
+
 We show that if $R$ is the (random) realized return of any efficient portfolio
 and $R_0$ and $R_1$ are the (random) realized returns of any two linearly independent efficient
 portfolios then 
@@ -42,14 +156,6 @@ where $\beta = \Cov(R - R_0, R_1 - R_0)/\Var(R_1 - R_0)$.
 Taking expected values of both sides
 when $R_0$ is a zero coupon bond and $R_1$ is the "market" portfolio gives
 the classical CAPM formula
-$$
-\tag{2}	E[R] - R_0 = \beta(E[R_1] - R_0)
-$$
-where $\beta = \Cov(R, R_1)/\Var(R_1)$.
-
-Equation (1) can be used to compute the value-at-risk,
-or any risk measure, of efficient portfolios,
-something not possible using only equation (2).
 
 This short note proves the CAPM formula holds as equality of
 realized returns as random variables, not just their expectations.
@@ -59,7 +165,6 @@ probability measure, the first step in any model involving probability
 since Kolomogorov legitimized probability as a branch of measure theory
 [@Kol1956].
 
-<!--
 ## Background
 
 After the US stock market crash of 1929 the government passed the 1933
@@ -77,31 +182,6 @@ diligence on individual companies he showed how portfolio managers could
 use the collective wisdom of publicly available market prices. Market
 data and compute power was limited at the time so returns and covariances were based
 on daily data.
--->
-
-## One-Period Model
-
-Let $I$ be the set of _market instruments_ and $\Omega$ be the set of
-possible market outcomes over the period.  The _one-period model_
-specifies the initial instrument prices $x\in\RR^I$ and the final
-instrument prices $X\colon\Omega\to\RR^I$ depending on the outcome
-$\omega\in\Omega$ that occurs.
-The one period model also specifies a probability
-measure on the space of outcomes. Addressing this fundamental and
-important problem is outside the scope of this short note.
-
-<!-- in the modern world -->
-
-A _portfolio_ $\xi\in\RR^I$ is the number of shares initially purchased
-in each instrument.  It costs ${\xi^* x = \sum_{i\in I} \xi_i x_i}$ to
-acquire the portfolio at the beginning of the period and returns
-${\xi^* X(\omega) = \sum_{i\in I} \xi_i X_i(\omega)}$ when liquidated at the
-end of the period if $\omega\in\Omega$ occurs.  The _realized return_
-of $\xi$ is ${R_\xi = \xi^* X/\xi^* x}$ when $\xi^* x \not= 0$.
-
-It is preferable to work with the realized return rather than a _return_.
-The realized return corresponds to actual cash flows. Writing
-$R$ as $1 + r$, or $1 + r\Delta t$, or $e^{r\Delta t}$ is less direct.
 
 
 ## Efficient Portfolio
@@ -299,9 +379,7 @@ $$
 \Var(R_\xi) = \xi^* V\xi = (C - 2Br + Ar^2)/D.
 $$
 
-## References
 
-<!--
 
 ### Fundamental Theorem of Asset Pricing
 
