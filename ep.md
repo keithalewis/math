@@ -27,40 +27,37 @@ In 1952 Markowitz[@Mar1952] and Roy[@Roy1952] introduced a criterion for risk vs
 in portfolio selection:
 if two portfolios have the same expected realized return
 then prefer the one with smaller variance.
-An _efficient portfolio_ has the least variance among all portfolios
+An efficient portfolio has the least variance among all portfolios
 having the same expected realized return.
 This was developed into the Capital Asset Pricing Model by Treynor[@Tre1961],
 Sharp[@Sha1964], Lintner[@Lin1965], and many others.
 
-This was developed into the Capital Asset Pricing Model
-by Treynor[@Tre1961], Sharp[@Sha1964]
-
-In the one-period model every efficient portfolio belongs to a one or two-dimensional
-subspace and is uniquely determined given its expected realized return.
-In the one-dimensional case every portfolio has the same expected realized return.
 We show that if $R$ is the (random) realized return of any efficient portfolio
 and $R_0$ and $R_1$ are the (random) realized returns of any two linearly independent efficient
 portfolios then 
 $$
-	R - R_0 = \beta(R_1 - R_0).
+\tag{1}	R - R_0 = \beta(R_1 - R_0)
 $$
-It follows that $\beta = \Cov(R - R_0, R_1 - R_0)/\Var(R_1 - R_0)$.
-This generalizes the classical Capital Asset Pricing
-Model formula for the expected realized return of efficient portfolios.
+where $\beta = \Cov(R - R_0, R_1 - R_0)/\Var(R_1 - R_0)$.
 Taking expected values of both sides
-when $\Var(R_0) = 0$ and $R_1$ is the "market" portfolio gives
-the classic CAPM formula
+when $R_0$ is a zero coupon bond and $R_1$ is the "market" portfolio gives
+the classical CAPM formula
 $$
-	E[R] - R_0 = \beta(E[R_1] - R_0)
+\tag{2}	E[R] - R_0 = \beta(E[R_1] - R_0)
 $$
 where $\beta = \Cov(R, R_1)/\Var(R_1)$.
 
-This short note points out the CAPM formula
-holds as equality of realized returns as random variables, not just their expectations.
-It follows directly from writing down a mathematical model for one period investments.
-Prior work does not explicitly specify a sample space and probability measure,
-the first step in any model involving probability since Kolomogorov legitimized probability
-as a branch of measure theory [@Kol1956].
+Equation (1) can be used to compute the value-at-risk,
+or any risk measure, of efficient portfolios,
+something not possible using only equation (2).
+
+This short note proves the CAPM formula holds as equality of
+realized returns as random variables, not just their expectations.
+This follows directly from writing down a mathematical model for one period
+investments.  Prior work does not explicitly specify a sample space and
+probability measure, the first step in any model involving probability
+since Kolomogorov legitimized probability as a branch of measure theory
+[@Kol1956].
 
 <!--
 ## Background
@@ -102,9 +99,10 @@ ${\xi^* X(\omega) = \sum_{i\in I} \xi_i X_i(\omega)}$ when liquidated at the
 end of the period if $\omega\in\Omega$ occurs.  The _realized return_
 of $\xi$ is ${R_\xi = \xi^* X/\xi^* x}$ when $\xi^* x \not= 0$.
 
-A _zero coupon bond_ is a portfolio $\zeta\in\RR^I$ with $\zeta^*X = 1$ on $\Omega$.
-Its cost $\zeta^*x = D$ is the _discount_
-and has constant realized return $\zeta^*X = 1/D$.
+It is preferable to work with the realized return rather than a _return_.
+The realized return corresponds to actual cash flows. Writing
+$R$ as $1 + r$, or $1 + r\Delta t$, or $e^{r\Delta t}$ is less direct.
+
 
 ## Efficient Portfolio
 
@@ -112,11 +110,11 @@ A portfolio is _efficient_ if its variance is
 less than or equal to the variance of any portfolio having the same expected
 realized return.
 
-Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so
-there is no loss in assuming $\xi^* x = 1$.
-In this case $R_\xi = \xi^* X$ is the realized return of the portfolio.
-If $\xi^* x = 1$ then $\Var(R_\xi) = \xi^*V\xi$
-where ${V = E[X X^*] - E[X] E[X]^*}$.
+Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so there is no loss in
+assuming $\xi^* x = 1$.  In this case $R_\xi = \xi^* X$ is the realized
+return of the portfolio.  If $\xi^* x = 1$ then the variance of the
+realized return is $\Var(R_\xi) = \xi^*V\xi$ where ${V = E[X X^*] -
+E[X] E[X]^*}$.
 
 For a given expected realized return $r\in\RR$ we use Lagrange multipliers and minimize
 $$
@@ -124,24 +122,19 @@ $$
 $$
 over $\xi\in\RR^I$, $\lambda\in\RR$, and $\mu\in\RR$.
 
-The [Appendix](#appendix) shows the first order condition on $\xi$ is
+If $V$ is invertable then
 $$
-	0 = V\xi - \lambda x - \mu E[X].
+	\xi(r) =  \lambda V^{-1}x + \mu V^{-1} E[X]
 $$
-
-If $V\zeta = 0$ for some $\zeta\in\RR^I$ then $\zeta$ is a zero coupon bond
-and $x = E[X]D$ where $D = -\mu/\lambda$.
-In this case every portfolio $\xi\in\RR^I$
-has the same expected realized return
-${E[R_\xi] = E[\xi^*X/\xi^*x] = 1/D}$ and $\zeta$ is clearly optimal.
-
-We assume $V\xi = 0$ implies $\xi = 0$ so $V$ has a left inverse $V^\dashv$ hence
-$$
-	\xi =  \lambda V^{\dashv}x + \mu V^{\dashv} E[X].
-$$
+where $\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$, where
+${A = x^* V^{-1}x}$, ${B = x^* V^{-1}E[X] = E[X^*]V^{-1}x}$, ${C = E[X^*]V^{-1}E[X]}$,
+and ${D = AC - B^2}$.
+Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
+$E[XX^*]$.
 
 This shows every efficient portfolio is in the span of 
-$V^{\dashv}x$ and $V^{\dashv} E[X]$.
+$V^{-1}x$ and $V^{-1} E[X]$.
+
 As Black[@Bla1972] showed, there is no need to assume
 a zero coupon bond is available.
 
@@ -160,11 +153,17 @@ $$
 	\beta = \Cov(R_\xi - R_{\xi_0}, R_{\xi_1} - R_{\xi_0})/\Var(R_{\xi_1} - R_{\xi_0}).
 $$
 
-The [Appendix](#appendix) shows $\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$, where
-${A = x^* V^{\dashv}x}$, ${B = x^* V^{\dashv}E[X] = E[X^*]V^{\dashv}x}$, ${C = E[X^*]V^{\dashv}E[X]}$,
-and ${D = AC - B^2}$.
-Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
-$E[XX^*]$. Perhaps this explains why earlier authors missed our elementary but stronger result.
+
+The [Appendix](#appendix) shows the first order condition on $\xi$ is
+$$
+	0 = V\xi - \lambda x - \mu E[X].
+$$
+
+If $V\zeta = 0$ for some $\zeta\in\RR^I$ then $\zeta$ is a zero coupon bond
+and $x = E[X]D$ where $D = -\mu/\lambda$.
+In this case every portfolio $\xi\in\RR^I$
+has the same expected realized return
+${E[R_\xi] = E[\xi^*X/\xi^*x] = 1/D}$ and $\zeta$ is clearly optimal.
 
 Equation (1) makes it possible to compute value at risk, or any risk measure, for
 an efficient portfolio using the joint distribution of $R_0$ and $R_1$.
@@ -246,9 +245,9 @@ $$
 		0 &= \xi^* E[X] - r \\
 \end{aligned}
 $$
-Assuming $V$ is left invertible $\xi = V^{\dashv}(\lambda x + \mu E[X])$.
+Assuming $V$ is left invertible $\xi = V^{-1}(\lambda x + \mu E[X])$.
 Note every extremum lies in the (at most) two dimensional subspace
-spanned by $V^{\dashv}x$ and $V^{\dashv}E[X]$.
+spanned by $V^{-1}x$ and $V^{-1}E[X]$.
     
 The constraints $1 = x^*\xi$ and $r = E[X^*]\xi$ can be written
 $$
@@ -258,8 +257,8 @@ r \\
 \end{bmatrix}
 =
 \begin{bmatrix}
-\lambda x^*V^{\dashv}x + \mu x^*V^{\dashv}E[X] \\
-\lambda E[X^*]V^{\dashv}x + \mu E[X^*]V^{\dashv}E[X] \\
+\lambda x^*V^{-1}x + \mu x^*V^{-1}E[X] \\
+\lambda E[X^*]V^{-1}x + \mu E[X^*]V^{-1}E[X] \\
 \end{bmatrix}
 = \begin{bmatrix}
 A & B \\
@@ -270,7 +269,7 @@ B & C\\
 \mu
 \end{bmatrix}
 $$
-with $A = x^* V^{\dashv}x$, $B = x^* V^{\dashv}E[X] = E[X^*]V^{\dashv}x$, and $C = E[X^*] V^{\dashv}E[X]$.
+with $A = x^* V^{-1}x$, $B = x^* V^{-1}E[X] = E[X^*]V^{-1}x$, and $C = E[X^*] V^{-1}E[X]$.
 Inverting gives
 $$
 \begin{bmatrix} \lambda \\ \mu \end{bmatrix}
@@ -292,7 +291,7 @@ $$
 where $D = AC - B^2$. The solution is
 $\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$, and
 $$
-    \xi = \frac{C - r B}{D} V^{\dashv}x + \frac{-B + r A}{D} V^{\dashv}E[X].
+    \xi = \frac{C - r B}{D} V^{-1}x + \frac{-B + r A}{D} V^{-1}E[X].
 $$
 
 A straightforward calculation shows the variance is
@@ -306,7 +305,7 @@ $$
 
 ### Fundamental Theorem of Asset Pricing
 
-It may be the case $V^{\dashv}x$ and $V^{\dashv}E[X]$ are dependent.
+It may be the case $V^{-1}x$ and $V^{-1}E[X]$ are dependent.
 In this case $x = E[X]D$ for some $D\in\RR$. This
 ensures the model is _arbitrage free_.
 
