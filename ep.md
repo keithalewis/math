@@ -124,21 +124,21 @@ $$
 	\beta = \Cov(R_\xi - R_{\xi_0}, R_{\xi_1} - R_{\xi_0})/\Var(R_{\xi_1} - R_{\xi_0}).
 $$
 
-If $V$ is not invertible then there exists $\zeta\in\RR^I$ with $V\zeta = 0$.
-The first order condition gives $0 = -\lambda x - \mu E[X]$,
-and the realized return for every portfolio $\xi\in\RR^I$ is
-$R_\xi = E[\xi^*X] = -\lambda/\mu$ when $\mu\not=0$.
-In this case $\zeta$ is clearly efficient.
+If $V$ is not invertible then there exists $\zeta\in\RR^I$ with ${V\zeta = 0}$.
+The first order condition gives ${0 = -\lambda x - \mu E[X]}$
+so $x = -E[X}\mu/\lambda/$. The expected
+realized return for every portfolio $\xi\in\RR^I$ is $E[R_\xi] = E[\xi^*X]
+= -\lambda/\mu$.  In this case $\zeta$ is clearly efficient.
 
 There may be two independent portfolios having variance zero. If they
 have different returns then arbitrage exists. If they have the same
 return then the model has redundant assets.
 
-As Black[@Bla1972] showed, there is no need to assume
-a zero coupon bond is available.
-
 ## References
 <!--
+
+As Black[@Bla1972] showed, there is no need to assume
+a zero coupon bond is available.
 
 
 
