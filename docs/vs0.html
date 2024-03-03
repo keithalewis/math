@@ -5,31 +5,181 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-02-08" />
+  <meta name="dcterms.date" content="2024-03-03" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">February 8, 2024</p>
+<p class="date">March 3, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Abelian group with scalar multiplication satisfying the distributed law.
 </div>
 </header>
-
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#determinant" id="toc-determinant">Determinant</a></li>
+</ul>
+</nav>
+<p>A <em>vector</em> is a function from an index set <span
+class="math inline">I</span> to the real numbers, <span
+class="math inline">x\colon I\to\boldsymbol{R}</span>. Functions can be
+multiplied by a scalar, <span class="math inline">(ax)(i) = (xa)(i) =
+a(x(i))</span>, and added, <span class="math inline">(x + y)(i) = x(i) +
+y(i)</span>, <span class="math inline">a\in\boldsymbol{R}</span>, <span
+class="math inline">i,j\in I</span>. This generalizes the usual
+definition of <span class="math inline">\boldsymbol{R}^n</span> as the
+set of <span class="math inline">n</span>-tuples of real numbers <span
+class="math inline">\{(x_1,\ldots,x_n)\mid x_j\in\boldsymbol{R}\}</span>
+by letting <span class="math inline">I = \{1,\ldots,n\}</span> and
+defining <span class="math inline">x</span> by <span
+class="math inline">x(i) = x_i</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">a(x +
+y) = ax + ay</span> for <span
+class="math inline">a\in\boldsymbol{R}</span>, <span
+class="math inline">x,y\in\boldsymbol{R}^I</span></em>.</p>
+<p>Define the <em>zero vector</em> <span
+class="math inline">\boldsymbol{0}^I\colon I\to\boldsymbol{R}</span> by
+<span class="math inline">\boldsymbol{0}^I(i) = 0</span> for <span
+class="math inline">i\in I</span>. We write <span
+class="math inline">\boldsymbol{0}</span> if <span
+class="math inline">I</span> is understood.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x +
+\boldsymbol{0} = x = \boldsymbol{0} + x</span> for every vector <span
+class="math inline">x</span></em>.</p>
+<p>The zero vector is an <em>additive identity</em> for vector
+addition.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">x +
+x = x</span> then <span class="math inline">x =
+\boldsymbol{0}</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">x(i) + x(i) = x(i)</span>
+for all <span class="math inline">i\in I</span>.</p>
+<p>If <span class="math inline">A</span> and <span
+class="math inline">B</span> are sets then the <em>set exponential</em>
+<span class="math inline">B^A = \{f\colon A\to B\}</span> is the set of
+all functions from <span class="math inline">A</span> to <span
+class="math inline">B</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">A</span>
+and <span class="math inline">B</span> are finite show <span
+class="math inline">\#B^A = \#B^{\#A}</span></em>.</p>
+<p><em>Hint</em>: Where <span class="math inline">\#A</span> is the
+number of elements in set <span class="math inline">A</span>.</p>
+<p>Define <span class="math inline">e_i\in\boldsymbol{R}^I</span>, <span
+class="math inline">i\in I</span>, by <span class="math inline">e_i^I(j)
+= 1</span> if <span class="math inline">i = j</span> and <span
+class="math inline">e_i^I(j) = 0</span> if <span
+class="math inline">i\not=j</span>, <span class="math inline">j\in
+I</span>. The <em>standard basis</em> of the vector space <span
+class="math inline">\boldsymbol{R}^I</span> is <span
+class="math inline">(e_i^I)_{i\in I}</span>. We write <span
+class="math inline">e_i</span> if <span class="math inline">I</span> is
+understood.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">I</span>
+is finite show <span class="math inline">x = \sum_{i\in I}x(i)e_i</span>
+for <span class="math inline">x\in\boldsymbol{R}^I</span></em>.</p>
+<p>A <em>linear transformation</em> is a function <span
+class="math inline">T|colon\boldsymbol{R}^I\to\boldsymbol{R}^J</span>
+that preserves the vector space structure, <span
+class="math inline">T(ax) = a(Tx)</span> and <span
+class="math inline">T(x + y) = Tx + Ty</span>, <span
+class="math inline">a\in\boldsymbol{R}</span>, <span
+class="math inline">x,y\in\boldsymbol{R}^I</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">T</span>
+is a linear transformation show <span
+class="math inline">T\boldsymbol{0}^I = \boldsymbol{0}^J</span></em></p>
+<p><em>Hint</em>: Use <span class="math inline">T(\boldsymbol{0} +
+\boldsymbol{0}) = T\boldsymbol{0}</span>.</p>
+<p>The set of linear transformations, <span
+class="math inline">\mathcal{L}(\boldsymbol{R}^I,\boldsymbol{R}^J)</span>,
+is also a vector space with scalar multiplication <span
+class="math inline">(aT)(x) = a(Tx)</span> and addition <span
+class="math inline">(T + S)(x) = Tx + Sx</span>, <span
+class="math inline">a\in\boldsymbol{R}</span>, <span
+class="math inline">T,S\in\mathcal{L}(\boldsymbol{R}^I,\boldsymbol{R}^J)</span>.
+For <span class="math inline">i\in I</span> and <span
+class="math inline">j\in J</span> let <span class="math inline">t_{ij} =
+Te_i(j)</span>. We call <span class="math inline">(t_{ij})_{i\in I,j\in
+J}</span> the <em>matrix</em> of <span class="math inline">T</span>
+under the standard basis for <span
+class="math inline">\boldsymbol{R}^I</span> and <span
+class="math inline">\boldsymbol{R}^J</span>.</p>
+<p><strong>Exercise</strong> <em>Show <span
+class="math inline">T(\sum_{i\in I} x_i e_i) = \sum_{j\in J}(\sum_{i\in
+I} t_{ij}x_i) e_j</span></em>.</p>
+<p>If <span
+class="math inline">T\in\mathcal{L}(\boldsymbol{R}^I,\boldsymbol{R}^J)</span>
+and <span
+class="math inline">S\in\mathcal{L}(\boldsymbol{R}^J,\boldsymbol{R}^K)</span>
+then the composition <span
+class="math inline">ST\in\mathcal{L}(\boldsymbol{R}^I,\boldsymbol{R}^K)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the matrix of <span
+class="math inline">U = ST</span> is <span class="math inline">u_{ik} =
+\sum_{j\in J}t_{ij}s_{jk}</span>, $iI, <span class="math inline">k\in
+K</span></em>.</p>
+<p>Every <span
+class="math inline">T\in\mathcal{L}(\boldsymbol{R}^I,\boldsymbol{R}^J)</span>
+corresponds to <span
+class="math inline">\overline{T}\in\boldsymbol{R}^{I\times J}</span> by
+<span class="math inline">\overline{T}(i, j) = (Te_i)(j)</span>, <span
+class="math inline">i\in I</span>, <span class="math inline">j\in
+J</span>.</p>
+<p><strong>Exercise</strong> <em>Show this correspondence is one-to-one
+and onto</em>.</p>
+<p><em>Hint</em>: Show the standard basis of <span
+class="math inline">\boldsymbol{R}^{I\times J}</span> is <span
+class="math inline">e_{ij}^{I\times J}(k, l) =
+e_i^I(k)e_j^J(l)</span>.</p>
+<section id="determinant" class="level2">
+<h2>Determinant</h2>
+<p>If <span class="math inline">(e_i)_{i\in I}</span> is a standard
+basis define the product <span class="math inline">e_ie_j =
+-e_je_i</span>, <span class="math inline">i,j\in I</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">e_ie_i
+= 0</span></em>.</p>
+<p>Define <span class="math inline">\mathcal{G}_0 =
+\boldsymbol{R}</span>, <span class="math inline">\mathcal{G}_1 =
+\{\sum_i a_i e_i\}</span></p>
+<p>If <span class="math inline">T</span> is a linear transformation
+define <span class="math inline">T(e_i e_j) = Te_iTe_j</span>.</p>
+<p><span class="math inline">T(\prod_i e_i) = (\det T)\prod
+e_i</span>.</p>
+</section>
 </body>
 </html>

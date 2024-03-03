@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-02-26" />
+  <meta name="dcterms.date" content="2024-03-03" />
   <title>Option Pricing</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">February 26, 2024</p>
+<p class="date">March 3, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 European option pricing and greeks
@@ -68,7 +68,6 @@ European option pricing and greeks
 <li><a href="#black" id="toc-black">Black</a></li>
 <li><a href="#black-scholesmerton"
 id="toc-black-scholesmerton">Black-Scholes/Merton</a></li>
-<li><a href="#remarks" id="toc-remarks">Remarks</a></li>
 </ul>
 </nav>
 <section id="value" class="level2">
@@ -191,7 +190,10 @@ class="math inline">\partial_s p = -k\partial_s\Psi(x,
 <p>A <em>call</em> with strike <span class="math inline">k</span> pays
 <span class="math inline">{\nu(F) = (F - k)^+}</span> at expiration and
 has forward value <span class="math inline">{c = E[(F - k)^+]}</span>.
-Let <span class="math inline">\overline{\Psi}(x) = 1 - \Psi(x)</span>
+Since <span class="math inline">{(F - k)^+ - (k - F)^+ = F - k}</span>
+we have <em>put-call</em> parity <span class="math inline">{c - p = f -
+k}</span>.</p>
+<p>Let <span class="math inline">\overline{\Psi}(x) = 1 - \Psi(x)</span>
 and <span class="math inline">{\overline{\Psi}(x, s) = 1 - \Psi(x,
 s)}</span> be the <em>complementary distributions</em>. If <span
 class="math inline">P^s</span> does not have a point mass at <span
@@ -200,13 +202,11 @@ class="math inline">k</span> then <span class="math inline">{P^s(F\ge k)
 <p><strong>Exercise</strong>. <em>Show the forward call value is <span
 class="math inline">c = f\overline{\Psi}(x, s) - k
 \overline{\Psi}(x)</span></em>.</p>
-<p>Since <span class="math inline">{(F - k)^+ - (k - F)^+ = F -
-k}</span> we have <em>put-call</em> parity <span class="math inline">{c
-- p = f - k}</span> so <span class="math inline">\partial_f c -
-\partial_f p = 1</span>.</p>
 <p><strong>Exercise</strong>. <em>Show call delta <span
 class="math inline">\partial_f c = \overline{\Psi}(x,
 s)</span></em>.</p>
+<p><em>Hint</em>: Use put-call parity to show <span
+class="math inline">\partial_f c = \partial_ p + 1</span>.</p>
 <p><strong>Exercise</strong>. <em>Show call gamma equals put
 gamma</em>.</p>
 <p><strong>Exercise</strong>. <em>Show call vega equals put
@@ -282,30 +282,49 @@ class="math inline">{v = e^{-rt}E[\nu(S_t)]}</span>. Note <span
 class="math inline">{S_t = F}</span> where <span
 class="math inline">F</span> is the forward price at expiration. This
 gives the relationship between the spot and forward <span
-class="math inline">S_0e^{rt} = f</span> and is called the <em>cost of
+class="math inline">f = e^{rt}S_0</span> and is called the <em>cost of
 carry</em>.</p>
-</section>
-<section id="remarks" class="level2">
-<h2>Remarks</h2>
-<p>Instrument prices are discrete. It is a fact that instrument prices
-are integer multiples of some minimum increment.</p>
+<p>The Black-Scholes/Merton model takes <span class="math inline">f =
+e^{rt}S_0</span> and discounts the Black forward value by <span
+class="math inline">e^{-rt}</span> to get the present option value <span
+class="math inline">v = e^{-rt}E[\nu(S_t)]</span>. The B-S/M put delta
+is <span class="math display">
+\begin{aligned}
+\partial_{S_0}v &amp;= e^{-rt}E[\nu&#39;(S_t)\partial_{S_0}S_t] \\
+    &amp;= e^{-rt}E[\nu&#39;(S_t)e^{rt + \sigma B_t - \sigma^2t/2}] \\
+    &amp;= E^{\sigma\sqrt{t}}[\nu&#39;(S_t)] \\
+\end{aligned}
+</span> This shows the B-S/M delta is the same as the Black forward
+delta for any option.</p>
+<!--
+__Exercise__. _Show B-S/M gamma is equal to discounted Black gamma_.
+
+__Exercise__. _Show B-S/M vega is equal to discounted Black vega_.
+
+## Remarks
+
+Instrument prices are discrete.
+It is a fact that instrument prices are integer multiples of some minimum increment.
+-->
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Since <span class="math inline">1 =
-\int_{-\infty}^\infty e^{-x^2/2}\,dx/\sqrt{2\pi}</span> we have <span
-class="math display">
+<li id="fn1"><p>Let <span class="math inline">X</span> be standard
+normal and <span class="math inline">N = \mu + \sigma X</span>. Since
+<span class="math inline">1 = \int_{-\infty}^\infty
+e^{-x^2/2}\,dx/\sqrt{2\pi}</span> we have <span class="math display">
 \begin{aligned}
 E[e^N] &amp;= \int_{-\infty}^\infty e^{\mu + \sigma x}
 e^{-x^2/2}\,dx/\sqrt{2\pi} \\
 &amp;= e^{\mu + \sigma^2/2} \int_{-\infty}^\infty e^{-(x -
 \sigma)^2/2}\,dx/\sqrt{2\pi} \\
 &amp;= e^{\mu + \sigma^2/2} \\
+&amp;= e^{E[N] + \operatorname{Var}(N)/2} \\
 \end{aligned}
-</span> where <span class="math inline">N = \mu + \sigma X</span>.<a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</span><a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>We have <span class="math display">
 \begin{aligned}
 E[\exp(\sigma X) g(X)]

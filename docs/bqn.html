@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-03-03" />
+  <title>BQN</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">BQN</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">March 3, 2024</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Category Theory for Array Languages
+</div>
+</header>
+<p>The cartesian product of sets <span class="math inline">A</span> and
+<span class="math inline">B</span> is the set of all pairs of elements
+<span class="math inline">{A\times B = \{(a, b)\mid a\in A, b\in
+B\}}</span>. Define projections <span class="math inline">\pi_A\colon
+A\times B\to A</span> by by <span class="math inline">\pi_A(a,b) =
+a</span> and <span class="math inline">\pi_B\colon A\times B\to B</span>
+by by <span class="math inline">\pi_B(a,b) = b</span>.</p>
+<p><strong>Exercise</strong> <em>Show if functions <span
+class="math inline">\alpha\colon C\to A</span> and <span
+class="math inline">\beta\colon C\to B</span> there exists a function
+<span class="math inline">\gamma\colon C\to A\times B</span> with <span
+class="math inline">\alpha = \pi_A\gamma</span> and <span
+class="math inline">\beta = \pi_B\gamma</span></em>.</p>
+<p>A relation is a subset of a cartesian product <span
+class="math inline">R\subseteq A\times B</span>. We write <span
+class="math inline">aRb</span> for <span class="math inline">(a, b)\in
+R</span> where <span class="math inline">a\in A</span>, <span
+class="math inline">b\in B</span>. The right coset of <span
+class="math inline">R</span> is <span class="math inline">{aR = \{b\in
+B\mid aRb\}\subseteq B}</span>, <span class="math inline">a\in A</span>,
+and the left coset is <span class="math inline">{Rb = \{a\in A\mid
+aRb\}\subseteq A}</span>, <span class="math inline">b\in B</span>.</p>
+<p>A function is a relation where every right coset contains exactly one
+element. We write <span class="math inline">R\colon A\to B</span> and
+<span class="math inline">R(a) = b</span> where <span
+class="math inline">b\in B</span> is the unique element of <span
+class="math inline">aR</span>. A partial function is a relation where
+every right coset contains at most one element. Every partial function
+can be extended to a function using a unique symbol <span
+class="math inline">\bot</span> and defining <span
+class="math inline">R(a) = \bot</span> if <span
+class="math inline">aR</span> is empty.</p>
+<p>The composition of relations <span class="math inline">R\subseteq
+A\times B</span> and <span class="math inline">S\subseteq B\times
+C</span> is the relation <span class="math inline">{SR = \{(a,c)\mid
+aRb\text{ and }bRc\text{ for some }b\in B\}\subseteq A\times
+C}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">a(SR)c</span> if and only if <span
+class="math inline">aR\cap Sc\not\emptyset</span></em>.</p>
+<p>A relational database is a collection of relations. The join (on
+<span class="math inline">B</span>) of relations <span
+class="math inline">R\subseteq A\times B</span> and <span
+class="math inline">S\subseteq B\times C</span> is the relation <span
+class="math inline">{SR = \{(a,b,c)\mid aRb\text{ and }bRc\text{ for
+some }b\in B\}\subseteq A\times C}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
+A\to B</span> and <span class="math inline">g\colon B\to C</span> are
+functions show <span class="math inline">a(gf)c</span> if and only if
+<span class="math inline">c = g(f(a)</span>, <span
+class="math inline">a\in A</span>, <span class="math inline">c\in
+C</span></em>.</p>
+<p>The transpose of <span class="math inline">R\subset A\times B</span>
+is <span class="math inline">{R^* = \{(b,a)\mid a\in A, b\in
+B\}\subseteq B\times A}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">bR^* =
+Rb</span> and <span class="math inline">R^*a = aR</span> for <span
+class="math inline">a\in A</span> and <span class="math inline">b\in
+B</span></em>.</p>
+<p>A relation <span class="math inline">R\subseteq A\times A</span> is
+<em>reflexive</em> if <span class="math inline">aRa</span>,
+<em>symmetric</em> if <span class="math inline">aRb</span> implies <span
+class="math inline">bRa</span>, <em>antisymmetric</em> if <span
+class="math inline">aRb</span> and <span class="math inline">bRa</span>
+imply <span class="math inline">a = b</span>, and <em>transitive</em> if
+<span class="math inline">aRb</span> and <span
+class="math inline">bRc</span> imply <span
+class="math inline">aRc</span>, <span class="math inline">a,b,c\in
+A</span>.</p>
+<p>The <em>identity relation</em> is <span class="math inline">I_A =
+\{(a,a)\mid a\in A\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">R</span> is reflexive if and only if <span
+class="math inline">I_A\subseteq R</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">R</span> is symmetric if and only if <span
+class="math inline">R^* = R</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">R</span> is symmetric implies <span
+class="math inline">I_A\subseteq R</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">R</span> is antisymmetric if and only if <span
+class="math inline">I_A\subseteq R\cap R^*</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">R</span> is transitive if and only if <span
+class="math inline">R^2 = RR\subseteq R</span></em>.</p>
+<p><span class="math inline">I_A\subseteq R\cap R^*</span>_.</p>
+<p>For <span class="math inline">f\in A^B</span> define <span
+class="math inline">\pi_b f = f(b)</span>, <span
+class="math inline">b\in B</span>. If <span
+class="math inline">f_b\colon C\to A</span>, <span
+class="math inline">b\in B</span>, define <span
+class="math inline">g\colon C\to A^B</span> by <span
+class="math inline">g(c)b = f_b(c)</span>.</p>
+</body>
+</html>

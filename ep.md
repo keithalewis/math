@@ -34,16 +34,16 @@ Sharp[@Sha1964], Lintner[@Lin1965], and many others.
 
 The CAPM places a constraint on the expected excess realized return of efficient portfolios.
 $$
-\tag{0}	E[R] - R_0 = \beta(E[R_1] - R_0)
+\tag{1}	E[R] - R_0 = \beta(E[R_1] - R_0)
 $$
-where $R$ is the realized return of an efficient portfole,
-$R_0$ is the realized return of a riskless portfolio,
+where $R$ is the realized return of an efficient portfolio,
+$R_0$ is the realized return of a risk-less portfolio,
 $R_1$ is the realized return of the "market portfolio",
 and $\beta = \Cov(R, R_1)/\Var(R_1)$.
 
 This short note points out
 $$
-\tag{1}	R - R_0 = \beta(R_1 - R_0)
+\tag{2}	R - R_0 = \beta(R_1 - R_0)
 $$
 where $R_0$ and $R_1$ are the realized returns of any two independent efficient portfolios.
 This implies $\beta = \Cov(R - R_0, R_1 - R_0)/\Var(R_1 - R_0)$.
@@ -51,10 +51,10 @@ Taking expected values of both sides
 when $R_0$ has zero variance and $R_1$ is the "market" portfolio gives
 the classical CAPM formula
 
-Equation (1) can be used to compute the value-at-risk, or any risk
+Equation (2) can be used to compute the value-at-risk, or any risk
 measure, of efficient portfolios, something not possible using the
-classical result. 
-This result folows directly from writing down a mathematical model for one period
+classical result that only holds for expected values. 
+This result follows directly from writing down a mathematical model for one period
 investments.  Prior work does not explicitly specify a sample space and
 probability measure, the first step in any model involving probability
 since Kolomogorov legitimized probability as a branch of measure theory
@@ -63,7 +63,7 @@ since Kolomogorov legitimized probability as a branch of measure theory
 ## One-Period Model
 
 Let $I$ be the set of _market instruments_ and $\Omega$ be the set of
-possible market outcomes over the period.  The _one-period model_
+possible _market outcomes_ over the period.  The _one-period model_
 specifies the initial instrument prices $x\in\RR^I$ and the final
 instrument prices $X\colon\Omega\to\RR^I$ depending on the outcome
 $\omega\in\Omega$ that occurs.
@@ -87,12 +87,10 @@ realized return is $\Var(R_\xi) = \xi^*V\xi$ where ${V = E[X X^*] -
 E[X] E[X]^*}$.
 
 For a given expected realized return $r\in\RR$ we can use Lagrange multipliers to minimize
-$$
-	\frac{1}{2}\xi^* V\xi - \lambda(\xi^* x - 1) - \mu(\xi^* E[X] - r)
-$$
+${\frac{1}{2}\xi^* V\xi - \lambda(\xi^* x - 1) - \mu(\xi^* E[X] - r)}$
 over $\xi\in\RR^I$, $\lambda\in\RR$, and $\mu\in\RR$.
 
-The first order condition on $\xi$ is
+As is well-known, the first order condition on $\xi$ is
 $$
 	0 = V\xi - \lambda x - \mu E[X].
 $$
@@ -113,16 +111,17 @@ This shows
 $$
 	R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0}) \tag{1}
 $$
-as functions on $\Omega$, where $\beta = \beta_1/(\beta_0 + \beta_1)$.
+as random variables on $\Omega$, where $\beta = \beta_1/(\beta_0 + \beta_1)$.
 Taking the covariance with ${R_{\xi_1} - R_{\xi_0}}$ on both sides gives
 $$
 	\beta = \Cov(R_\xi - R_{\xi_0}, R_{\xi_1} - R_{\xi_0})/\Var(R_{\xi_1} - R_{\xi_0}).
 $$
 
-If $V$ is not invertible then there exists $\zeta\in\RR^I$ with ${V\zeta = 0}$.
+If $V$ is not invertable then there exists $\zeta\in\RR^I$ with ${V\zeta = 0}$.
 The first order condition gives ${0 = -\lambda x - \mu E[X]}$
-so $x = -E[X]\mu/\lambda/$. The expected realized return for every portfolio
-${\xi\in\RR^I}$ is ${E[R_\xi] = E[\xi^*X] = -\lambda/\mu}$.  In this case $\zeta$ is clearly efficient.
+so the expected realized return for every portfolio ${\xi\in\RR^I}$
+is ${E[R_\xi] = E[\xi^*X] = -\lambda/\mu}$.  In this case $\zeta$ is
+clearly efficient.
 
 There may be two independent portfolios having variance zero. If they
 have different returns then arbitrage exists. If they have the same
