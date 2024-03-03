@@ -21,13 +21,23 @@ write $aRb$ for $(a, b)\in R$ where $a\in A$, $b\in B$.
 The right coset of $R$ is ${aR = \{b\in B\mid aRb\}\subseteq B}$, $a\in A$, and the left coset
 is ${Rb = \{a\in A\mid aRb\}\subseteq A}$, $b\in B$.
 
+A function is a relation where every right coset contains exactly one element.
+We write $R\colon A\to B$ and $R(a) = b$ where $b\in B$ is the unique element of $aR$.
+A partial function is a relation where every right coset contains at most one element.
+Every partial function can be extended to a function using a unique symbol
+$\bot$ and defining $R(a) = \bot$ if $aR$ is empty.
+
 The composition of relations $R\subseteq A\times B$ and $S\subseteq B\times C$ 
 is the relation ${SR = \{(a,c)\mid aRb\text{ and }bRc\text{ for some }b\in B\}\subseteq A\times C}$.
 
 __Exercise__. _Show $a(SR)c$ if and only if $aR\cap Sc\not\emptyset$_.
 
-The join of relations $R\subseteq A\times B$ and $S\subseteq B\times C$ 
+A relational database is a collection of relations.
+The join (on $B$) of relations $R\subseteq A\times B$ and $S\subseteq B\times C$
 is the relation ${SR = \{(a,b,c)\mid aRb\text{ and }bRc\text{ for some }b\in B\}\subseteq A\times C}$.
+
+__Exercise__. _If $f\colon A\to B$ and $g\colon B\to C$ are functions show
+$a(gf)c$ if and only if $c = g(f(a)$, $a\in A$, $c\in C$_.
 
 The transpose of $R\subset A\times B$ is ${R^* = \{(b,a)\mid a\in A, b\in B\}\subseteq B\times A}$.
 
@@ -35,7 +45,7 @@ __Exercise__. _Show $bR^* = Rb$ and $R^*a = aR$ for $a\in A$ and $b\in B$_.
 
 A relation $R\subseteq A\times A$ is _reflexive_ if $aRa$,
 _symmetric_ if $aRb$ implies $bRa$, _antisymmetric_ if $aRb$ and $bRa$ imply
-$a = b$, and _transitive_ if $aRB$ and $bRc$ imply $aRc$, $a,b,c\in A$.
+$a = b$, and _transitive_ if $aRb$ and $bRc$ imply $aRc$, $a,b,c\in A$.
 
 The _identity relation_ is $I_A = \{(a,a)\mid a\in A\}$.
 
@@ -46,6 +56,8 @@ __Exercise__. _Show $R$ is symmetric if and only if $R^* = R$_.
 __Exercise__. _Show $R$ is symmetric implies $I_A\subseteq R$_.
 
 __Exercise__. _Show $R$ is antisymmetric if and only if $I_A\subseteq R\cap R^*$_.
+
+__Exercise__. _Show $R$ is transitive if and only if $R^2 = RR\subseteq R$_.
 
 $I_A\subseteq R\cap R^*$_.
 

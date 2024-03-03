@@ -92,20 +92,15 @@ $$
 $$
 over $\xi\in\RR^I$, $\lambda\in\RR$, and $\mu\in\RR$.
 
-As is well-known, The first order condition on $\xi$ is
+The first order condition on $\xi$ is
 $$
 	0 = V\xi - \lambda x - \mu E[X].
 $$
 
 If $V$ is invertable then
 $$
-	\xi =  \lambda V^{-1}x + \mu V^{-1} E[X]
+	\xi =  \lambda V^{-1}x + \mu V^{-1} E[X].
 $$
-where $\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$,
-${A = x^* V^{-1}x}$, ${B = x^* V^{-1}E[X] = E[X^*]V^{-1}x}$, ${C = E[X^*]V^{-1}E[X]}$,
-and ${D = AC - B^2}$.
-Note that $A$, $B$, $C$, and $D$ depend only on $x$, $E[X]$, and
-$E[XX^*]$.
 This shows every efficient portfolio is in the span of 
 $V^{-1}x$ and $V^{-1} E[X]$.
 
@@ -126,9 +121,8 @@ $$
 
 If $V$ is not invertible then there exists $\zeta\in\RR^I$ with ${V\zeta = 0}$.
 The first order condition gives ${0 = -\lambda x - \mu E[X]}$
-so $x = -E[X}\mu/\lambda/$. The expected
-realized return for every portfolio $\xi\in\RR^I$ is $E[R_\xi] = E[\xi^*X]
-= -\lambda/\mu$.  In this case $\zeta$ is clearly efficient.
+so $x = -E[X]\mu/\lambda/$. The expected realized return for every portfolio
+${\xi\in\RR^I}$ is ${E[R_\xi] = E[\xi^*X] = -\lambda/\mu}$.  In this case $\zeta$ is clearly efficient.
 
 There may be two independent portfolios having variance zero. If they
 have different returns then arbitrage exists. If they have the same

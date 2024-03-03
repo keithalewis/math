@@ -60,7 +60,7 @@ slides: um_slides.md
 	pandoc -o um_slides.pptx um_slides.md
 
 ep.pdf: ep.md
-	pandoc $< --metadata date="$(shell date "+%B %e, %Y")" --pdf-engine=xelatex --citeproc --bibliography=capm.bib -o $@
+	pandoc $< $(TEXFLAGS) --citeproc --bibliography=capm.bib -o $@
 
 #ep.pdf: ep.latex
 #	xetex ep.latex
