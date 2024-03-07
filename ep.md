@@ -128,15 +128,20 @@ return then the model has redundant assets.
 
 ## Remarks
 
-Some reviewers have claimed this result could not possibly be true.
-"Everyone knows" the CAPM formula only holds for expected values, not
-as equality of random variables. When I pointed out that it is simply a
-mathematial statement, so either there is a mistake in the derivation
-or a counterexample, the reponses were that it _was_ in fact a known result.
-One reviewer claimed "This is demonstrated early on in any graduate level
-presentation of the efficiency frontier and is the result you speak
-of. It does not need a citation."
-So far, no one has been able to provide a prior reference.
+This paper does not use the notion of equilibrium to claim the so-called
+market portfolio is efficient. The notion of equilibrium for a one-period
+model is problematic since it does not allow for a sequence of
+market clearing trades allowing convergence.
+
+Some reviewers have claimed our stronger version of the CAPM could not
+possibly be true.  "Everyone knows" the CAPM formula only holds for
+expected values, not as equality of random variables. When I pointed out
+that it is simply a mathematial statement, so either there is a mistake
+in the derivation or a counterexample, the reponses were that it _was_
+in fact a known result.  One reviewer claimed "This is demonstrated
+early on in any graduate level presentation of the efficiency frontier
+and is the result you speak of. It does not need a citation."  So far,
+no one has been able to provide a prior reference.
 
 ## References
 <!--
