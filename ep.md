@@ -8,7 +8,7 @@ Header-includes:
   - \usepackage{unicode-math}
 abstract: CAPM holds as equality of random variables, not just their expected value.
 thanks: |
-	Kevin Atteson, Peter Carr, Dilip Madan, David Shimko, and Ed Weinberger gave insightful feedback to
+	Kevin Atteson, Peter Carr, David Shimko, and Ed Weinberger gave insightful feedback to
 	make the exposition more accessible to finance professionals.
 	Any remaining infelicities or omissions are my fault.
 ---
@@ -45,11 +45,10 @@ This short note points out
 $$
 \tag{2}	R - R_0 = \beta(R_1 - R_0)
 $$
-where $R_0$ and $R_1$ are the realized returns of any two independent efficient portfolios.
+where $R_0$ and $R_1$ are the (random) realized returns of any two independent efficient portfolios.
 This implies $\beta = \Cov(R - R_0, R_1 - R_0)/\Var(R_1 - R_0)$.
-Taking expected values of both sides
-when $R_0$ has zero variance and $R_1$ is the "market" portfolio gives
-the classical CAPM formula
+Taking expected values of both sides when $R_0$ has zero variance and
+$R_1$ is the "market" portfolio gives the classical CAPM formula
 
 Equation (2) can be used to compute the value-at-risk, or any risk
 measure, of efficient portfolios, something not possible using the
@@ -68,8 +67,10 @@ specifies the initial instrument prices $x\in\RR^I$ and the final
 instrument prices $X\colon\Omega\to\RR^I$ depending on the outcome
 $\omega\in\Omega$ that occurs.
 The one period model also specifies a probability
-measure on the space of outcomes. Addressing this fundamental and
-important problem is outside the scope of this short note.
+measure on the space of outcomes.
+It is common to assume $\Omega$ is $\RR^I$, $X$ is the identity
+function, and $P$ is multivariate normal.
+We allow arbitrary distributions to be specified for final prices.
 
 A _portfolio_ $\xi\in\RR^I$ is the number of shares initially purchased
 in each instrument.  It costs ${\xi^* x = \sum_{i\in I} \xi_i x_i}$ to
@@ -89,11 +90,8 @@ E[X] E[X]^*}$.
 For a given expected realized return $r\in\RR$ we can use Lagrange multipliers to minimize
 ${\frac{1}{2}\xi^* V\xi - \lambda(\xi^* x - 1) - \mu(\xi^* E[X] - r)}$
 over $\xi\in\RR^I$, $\lambda\in\RR$, and $\mu\in\RR$.
-
 As is well-known, the first order condition on $\xi$ is
-$$
-	0 = V\xi - \lambda x - \mu E[X].
-$$
+${0 = V\xi - \lambda x - \mu E[X]}$.
 
 If $V$ is invertable then
 $$
@@ -109,7 +107,7 @@ and ${\xi^* X = \beta_0 R_{\xi_0} + \beta_1 R_{\xi_1}}$
 so ${R_\xi = (\beta_0 R_{\xi_0} + \beta_1 R_{\xi_1})/(\beta_0 + \beta_1)}$.
 This shows
 $$
-	R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0}) \tag{1}
+	R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
 $$
 as random variables on $\Omega$, where $\beta = \beta_1/(\beta_0 + \beta_1)$.
 Taking the covariance with ${R_{\xi_1} - R_{\xi_0}}$ on both sides gives
@@ -120,12 +118,25 @@ $$
 If $V$ is not invertable then there exists $\zeta\in\RR^I$ with ${V\zeta = 0}$.
 The first order condition gives ${0 = -\lambda x - \mu E[X]}$
 so the expected realized return for every portfolio ${\xi\in\RR^I}$
+with $\xi^*x = 1$
 is ${E[R_\xi] = E[\xi^*X] = -\lambda/\mu}$.  In this case $\zeta$ is
-clearly efficient.
+clearly efficient. Note $\mu = 0$ implies $x = 0$.
 
 There may be two independent portfolios having variance zero. If they
 have different returns then arbitrage exists. If they have the same
 return then the model has redundant assets.
+
+## Remarks
+
+Some reviewers have claimed this result could not possibly be true.
+"Everyone knows" the CAPM formula only holds for expected values, not
+as equality of random variables. When I pointed out that it is simply a
+mathematial statement, so either there is a mistake in the derivation
+or a counterexample, the reponses were that it _was_ in fact a known result.
+One reviewer claimed "This is demonstrated early on in any graduate level
+presentation of the efficiency frontier and is the result you speak
+of. It does not need a citation."
+So far, no one has been able to provide a prior reference.
 
 ## References
 <!--
