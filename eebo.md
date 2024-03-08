@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
-abstract: For European options
+abstract: Sometimes you need math.
 ...
 
 \newcommand\bm[1]{\boldsymbol{#1}}
