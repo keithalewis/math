@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-20" />
+  <meta name="dcterms.date" content="2023-05-15" />
   <title>Elliptic Curves</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,39 +16,122 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      fleqn: true
-     });
-  }}});
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
   </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Elliptic Curves</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 20, 2023</p>
+<p class="date">May 15, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+They’re, like, totally modular dude.
+</div>
 </header>
-<p>The set of points <span class="math inline">(x,y)</span> satisfying the quadratic eqution <span class="math inline">y = ax^2 + bx + c</span> is a parabola. Replacing <span class="math inline">x</span> with <span class="math inline">x/\sqrt{a}</span> this becomes <span class="math inline">y = x^2 + 2px + q</span> where <span class="math inline">2p = b/sqrt{a}</span> and <span class="math inline">q = c</span>. Since <span class="math inline">(x + p)^2 = x^2 + 2px + p^2</span> we have <span class="math display">
-y = (x + p)^2 - (p^2 - q) = (x + p + \sqrt{p^2 - 1})(x + p - \sqrt{p^2 - q} = (x - r)(x - s)
-</span> where <span class="math inline">r = -p - \sqrt{p^2 - q}</span> and <span class="math inline">s = -p + \sqrt{p^2 - q}</span>. Of course we could also take where <span class="math inline">r = -p + \sqrt{p^2 - q}</span> and <span class="math inline">s = -p - \sqrt{p^2 - q}</span> and get the same equation. There is a two element group acting on the set of roots that leaves the quadratic equation invariant. The identity is <span class="math inline">(r,s)\mapsto (r,s)</span> and the other element of the group is <span class="math inline">(r,s)\mapsto (s,r)</span>.</p>
-<p>The fundamental theorem of algebra states for any polynomial <span class="math inline">y = x^n + \sum_{j&lt;n} a_j x^j</span> there exist <span class="math inline">n</span> roots <span class="math inline">r_j\in\bm{C}</span>, <span class="math inline">j &lt; n</span>, with <span class="math inline">y = \Pi_{j&lt;n} (x - r_j)</span>. The symmetric group of order <span class="math inline">n</span> acting on the roots leaves the polynomial invariant.</p>
-<p>An <em>elliptic curve</em> is the set of points <span class="math inline">(x,y)</span> satifying <span class="math inline">y^2 = x^3 + a x^2 + b x + c</span>. Note that an elliptic curve is not an ellipse.</p>
-<p><strong>Exercise</strong>. <em>Find <span class="math inline">d</span> such that <span class="math inline">X = x - d</span> satisfies <span class="math inline">y^2 = X^3 + AX + B</span> for some <span class="math inline">A,B</span></em>.</p>
-<p>We will use the form <span class="math inline">y^2 = x^3 + ax + b</span> for elliptic curves in what follows.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">P = (x,y)</span> is on the curve then so is <span class="math inline">-P = (x, -y)</span></em>.</p>
+<p>The set of points <span class="math inline">(x,y)</span> satisfying
+the quadratic eqution <span class="math inline">y = ax^2 + bx + c</span>
+is a parabola. Replacing <span class="math inline">x</span> with <span
+class="math inline">x/\sqrt{a}</span> this becomes <span
+class="math inline">y = x^2 + 2px + q</span> where <span
+class="math inline">2p = b/sqrt{a}</span> and <span
+class="math inline">q = c</span>. Since <span class="math inline">(x +
+p)^2 = x^2 + 2px + p^2</span> we have <span class="math display">
+y = (x + p)^2 - (p^2 - q) = (x + p + \sqrt{p^2 - 1})(x + p - \sqrt{p^2 -
+q} = (x - r)(x - s)
+</span> where <span class="math inline">r = -p - \sqrt{p^2 - q}</span>
+and <span class="math inline">s = -p + \sqrt{p^2 - q}</span>. Of course
+we could also take where <span class="math inline">r = -p + \sqrt{p^2 -
+q}</span> and <span class="math inline">s = -p - \sqrt{p^2 - q}</span>
+and get the same equation. There is a two element group acting on the
+set of roots that leaves the quadratic equation invariant. The identity
+is <span class="math inline">(r,s)\mapsto (r,s)</span> and the other
+element of the group is <span class="math inline">(r,s)\mapsto
+(s,r)</span>.</p>
+<p>The fundamental theorem of algebra states for any polynomial <span
+class="math inline">y = x^n + \sum_{j&lt;n} a_j x^j</span> there exist
+<span class="math inline">n</span> roots <span
+class="math inline">r_j\in\bm{C}</span>, <span class="math inline">j
+&lt; n</span>, with <span class="math inline">y = \Pi_{j&lt;n} (x -
+r_j)</span>. The symmetric group of order <span
+class="math inline">n</span> acting on the roots leaves the polynomial
+invariant.</p>
+<p>An <em>elliptic curve</em> is the set of points <span
+class="math inline">(x,y)</span> satifying <span class="math inline">y^2
+= x^3 + a x^2 + b x + c</span>. Note that an elliptic curve is not an
+ellipse.</p>
+<p><strong>Exercise</strong>. <em>Find <span
+class="math inline">d</span> such that <span class="math inline">X = x -
+d</span> satisfies <span class="math inline">y^2 = X^3 + AX + B</span>
+for some <span class="math inline">A,B</span></em>.</p>
+<p>We will use the form <span class="math inline">y^2 = x^3 + ax +
+b</span> for elliptic curves in what follows.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">P =
+(x,y)</span> is on the curve then so is <span class="math inline">-P =
+(x, -y)</span></em>.</p>
 <p><em>Hint</em>: <span class="math inline">(-y)^2 = y^2</span>.</p>
-<p>The first remarkable fact about elliptic curves is that an addition can be defined for any two points <span class="math inline">P</span> and <span class="math inline">Q</span> on the curve. In general the line determined by <span class="math inline">P</span> and <span class="math inline">Q</span> intersects the curve at a third point <span class="math inline">R</span>. Define <span class="math inline">P + Q = -R</span>. Since the line determined by <span class="math inline">P</span> and <span class="math inline">Q</span> is the same as the line determined by <span class="math inline">Q</span> and <span class="math inline">P</span> we have <span class="math inline">Q + P = -R</span> so addition is abelian.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">Q = -P</span> show only <span class="math inline">P</span> and <span class="math inline">-P</span> are the only points on the curve determined by the line containing <span class="math inline">P</span> and <span class="math inline">-P</span></em>.</p>
-<p>If <span class="math inline">Q = -P</span> we define <span class="math inline">P + Q = P + (-P) = 0</span>.</p>
-<p>If <span class="math inline">P = (x_P,y_P)</span> and <span class="math inline">Q = (x_Q,y_Q)</span> then <span class="math inline">R = (x,y)</span> satisfies <span class="math inline">y = m(x - x_P) + y_P</span> where <span class="math inline">m = (y_P - y_Q)/(x_P - x_Q)</span> so <span class="math inline">(m(x - x_P) + y_P)^2 = x^2 + ax + b</span>.</p>
+<p>The first remarkable fact about elliptic curves is that an addition
+can be defined for any two points <span class="math inline">P</span> and
+<span class="math inline">Q</span> on the curve. In general the line
+determined by <span class="math inline">P</span> and <span
+class="math inline">Q</span> intersects the curve at a third point <span
+class="math inline">R</span>. Define <span class="math inline">P + Q =
+-R</span>. Since the line determined by <span
+class="math inline">P</span> and <span class="math inline">Q</span> is
+the same as the line determined by <span class="math inline">Q</span>
+and <span class="math inline">P</span> we have <span
+class="math inline">Q + P = -R</span> so addition is abelian.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">Q =
+-P</span> show only <span class="math inline">P</span> and <span
+class="math inline">-P</span> are the only points on the curve
+determined by the line containing <span class="math inline">P</span> and
+<span class="math inline">-P</span></em>.</p>
+<p>If <span class="math inline">Q = -P</span> we define <span
+class="math inline">P + Q = P + (-P) = 0</span>.</p>
+<p>If <span class="math inline">P = (x_P,y_P)</span> and <span
+class="math inline">Q = (x_Q,y_Q)</span> then <span
+class="math inline">R = (x,y)</span> satisfies <span
+class="math inline">y = m(x - x_P) + y_P</span> where <span
+class="math inline">m = (y_P - y_Q)/(x_P - x_Q)</span> so <span
+class="math inline">(m(x - x_P) + y_P)^2 = x^2 + ax + b</span>.</p>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
 </body>
 </html>

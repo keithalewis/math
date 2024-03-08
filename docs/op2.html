@@ -5,23 +5,15 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-03-03" />
+  <meta name="dcterms.date" content="2024-03-07" />
   <title>Option Pricing</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script defer=""
@@ -42,12 +34,15 @@
   </script>
   <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">March 3, 2024</p>
+<p class="date">March 7, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 European option pricing and greeks
@@ -307,13 +302,14 @@ Instrument prices are discrete.
 It is a fact that instrument prices are integer multiples of some minimum increment.
 -->
 </section>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<section class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Let <span class="math inline">X</span> be standard
-normal and <span class="math inline">N = \mu + \sigma X</span>. Since
-<span class="math inline">1 = \int_{-\infty}^\infty
+<li id="fn1" role="doc-endnote"><p>Let <span
+class="math inline">X</span> be standard normal and <span
+class="math inline">N = \mu + \sigma X</span>. Since <span
+class="math inline">1 = \int_{-\infty}^\infty
 e^{-x^2/2}\,dx/\sqrt{2\pi}</span> we have <span class="math display">
 \begin{aligned}
 E[e^N] &amp;= \int_{-\infty}^\infty e^{\mu + \sigma x}
@@ -325,7 +321,7 @@ e^{-x^2/2}\,dx/\sqrt{2\pi} \\
 \end{aligned}
 </span><a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>We have <span class="math display">
+<li id="fn2" role="doc-endnote"><p>We have <span class="math display">
 \begin{aligned}
 E[\exp(\sigma X) g(X)]
 &amp;= \int_{-\infty}^\infty e^{\sigma x} g(x)

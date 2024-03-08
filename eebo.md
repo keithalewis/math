@@ -17,7 +17,7 @@ abstract: For European options
 \renewcommand\ker{\operatorname{ker}}
 \newcommand\span{\operatorname{span}}
 
-It is actually quite rare that mathematics can be applied to financial problems.
+It is quite rare that mathematics can be applied to financial problems.
 Businesses face many problems that cannot be reduced to statements that are either
 true or false that can be derived from axioms using rules of inference.
 On the occasions that mathematics can be used there is often no other way of solving a problem.
@@ -33,7 +33,7 @@ People running a company have the best inside information.
 Unfortunately, that would most likely result in their CFO doing jail
 time. Mathematical finance papers rarely mention legal issues involved
 with trading, but people running a business have to pay attention.
-There is a lockout period after earnings annoucements forbidding companies
+There is a lockout period after earnings announcements forbidding companies
 to transact their stock shares.
 
 One way to lock in a lower price for their buyback is to purchase a
@@ -44,7 +44,7 @@ will pay the difference between the price at expiration and the strike
 if that is positive.  But D knew something no option issuer did: they
 were overvaluing the option.  The option issuer will value it using the
 discounted risk-neural expected payoff of the call without incorporating
-the knowleged D has about its price drastically dropping in the near
+the knowledge D has about its price drastically dropping in the near
 future.
 
 D gave BigBank this information so we were able to offer them a lower
@@ -56,7 +56,7 @@ spike down but gave us the option of not paying the call if it didn't.
 This is called a down-and-in barrier option. It pays the call if the
 stock price goes below a specified level at any point before expiration.
 Robert Merton III showed how to price a barrier option assuming constant
-volatilty in 1976 using the reflection principle for Brownian motion.
+volatility in 1976 using the reflection principle for Brownian motion.
 BigBank used that to offer them an even cheaper price if they let us
 know what knock-in barrier they wanted to use.
 
@@ -67,7 +67,7 @@ options. The call only knocks in if the barrier is hit at a specified time
 prior to expiration. 
 
 This is an example of where mathematics can be applied to financial
-enginerring problems.  No trader on the BigBank desk had ever heard of
+engineering problems.  No trader on the BigBank desk had ever heard of
 early ending barrier options until Peter Carr showed them how to make
 this trade happen. BigBank made 9 bucks on the trade and Peter and I
 got a good bonus that year.

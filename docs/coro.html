@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-20" />
+  <meta name="dcterms.date" content="2023-05-15" />
   <title>Coroutines</title>
   <style>
     code{white-space: pre-wrap;}
@@ -17,6 +17,7 @@
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -78,39 +79,91 @@
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      fleqn: true
-     });
-  }}});
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
   </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Coroutines</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 20, 2023</p>
+<p class="date">May 15, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Coroutines are functions and a continuation point.
+</div>
 </header>
-<p>Acknowledgements: <a href="https://lewissbaker.github.io/">Lewis Baker</a> and <a href="https://devblogs.microsoft.com/oldnewthing/20191209-00">Raymond Chen</a>.</p>
-<p>A <em>coroutine</em> is a function and a <em>continuation point</em>. Unlike functions, coroutines can suspend execution (<em>yield</em>) and resume at a later time. The continuation point keeps track of where the coroutine was last suspended. A coroutine can call another coroutine exactly as if it were a function. Use <em>await</em> to suspend execution and resume a live coroutine. Both yield and await set a continuation point and suspend execution. Yield is used to return results, await is used to call a coroutine then capture the results it yields.</p>
-<p>Coroutines make it far easier to write concurrent code than using threads. Unlike threads, coroutines are suspended at function statements instead of being preempted between some recondite machine instruction by the system thread scheduler. There is no need to orchestrate the creation and collection of threads and then sprinkle the code with mutexes or semaphores in the hope of ensuring correct program execution.</p>
-<p>Like functions, coroutines can stand on their own. What they add is the ability to cooperate with other coroutines to share the task of code execution. You still have to worry about deadlocks and race conditions however.</p>
+<p>Acknowledgements: <a href="https://lewissbaker.github.io/">Lewis
+Baker</a> and <a
+href="https://devblogs.microsoft.com/oldnewthing/20191209-00">Raymond
+Chen</a>.</p>
+<p>A <em>coroutine</em> is a function and a <em>continuation point</em>.
+Unlike functions, coroutines can suspend execution (<em>yield</em>) and
+resume at a later time. The continuation point keeps track of where the
+coroutine was last suspended. A coroutine can call another coroutine
+exactly as if it were a function. Use <em>await</em> to suspend
+execution and resume a live coroutine. Both yield and await set a
+continuation point and suspend execution. Yield is used to return
+results, await is used to call a coroutine then capture the results it
+yields.</p>
+<p>Coroutines make it far easier to write concurrent code than using
+threads. Unlike threads, coroutines are suspended at function statements
+instead of being preempted between some recondite machine instruction by
+the system thread scheduler. There is no need to orchestrate the
+creation and collection of threads and then sprinkle the code with
+mutexes or semaphores in the hope of ensuring correct program
+execution.</p>
+<p>Like functions, coroutines can stand on their own. What they add is
+the ability to cooperate with other coroutines to share the task of code
+execution. You still have to worry about deadlocks and race conditions
+however.</p>
 <p>Coroutines can <em>generate</em> unbounded streams of data.</p>
 <pre><code>coroutine iota
     i = 0
     loop
         yield i
         i = i + 1</code></pre>
-<p>The first time the coroutine is called a counter is set to 0. The first pass through the loop sets the statement after yield as the continuation point and returns 0. The next time it is resumed the counter is incremented and the second pass through the loop sets a new continuation point and returns 1. Rinse and repeat.</p>
-<p><em>Producer</em> and <em>consumer</em> coroutines can cooperate to send items through a queue.</p>
+<p>The first time the coroutine is called a counter is set to 0. The
+first pass through the loop sets the statement after yield as the
+continuation point and returns 0. The next time it is resumed the
+counter is incremented and the second pass through the loop sets a new
+continuation point and returns 1. Rinse and repeat.</p>
+<p><em>Producer</em> and <em>consumer</em> coroutines can cooperate to
+send items through a queue.</p>
 <pre><code>coroutine produce
     loop
         while queue not full
@@ -122,54 +175,109 @@ coroutine consume
         while queue not empty
             remove items from queue
         yield to produce</code></pre>
-<p>There is no need for multiple theads; yield can jump directly from one coroutine to another.</p>
+<p>There is no need for multiple theads; yield can jump directly from
+one coroutine to another.</p>
 <section id="handles" class="level3">
 <h3>Handles</h3>
 <p>A handle is an object representing a coroutine.</p>
 </section>
 <section id="await" class="level3">
 <h3>Await</h3>
-<p>Calling <code>await x</code> results in <code>x</code> being called and returns an <em>awaiter</em>. Awaiters can <em>suspend</em> a coroutine and <em>resume</em> to get the result of the coroutine. Awaiters are usually temporary objects and the destructor cleans up everything associated with it.</p>
-<p>Coroutines returning an awaitable object: struct with well-known functions.</p>
+<p>Calling <code>await x</code> results in <code>x</code> being called
+and returns an <em>awaiter</em>. Awaiters can <em>suspend</em> a
+coroutine and <em>resume</em> to get the result of the coroutine.
+Awaiters are usually temporary objects and the destructor cleans up
+everything associated with it.</p>
+<p>Coroutines returning an awaitable object: struct with well-known
+functions.</p>
 </section>
 <section id="symmetric-transfer" class="level3">
-<h3><a href="https://devblogs.microsoft.com/cppblog/c-coroutines-in-visual-studio-2019-version-16-8/#symmetric-transfer-and-no-op-coroutines">Symmetric transfer</a></h3>
-<p>With symmetric transfer a coroutine can indicate a coroutine handle for another coroutine to immediately resume when suspending. This suspend-and-resume operation works without introducing another frame onto the call stack.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c++"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="bu">std::</span>coroutine_handle&lt;&gt; await_suspend(<span class="bu">std::</span>coroutine_handle&lt;<span class="dt">promise_type</span>&gt; h) <span class="kw">noexcept</span> {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="cf">return</span> h.promise().continuation ? *continuation : <span class="bu">std::</span>noop_coroutine();</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>}</span></code></pre></div>
+<h3><a
+href="https://devblogs.microsoft.com/cppblog/c-coroutines-in-visual-studio-2019-version-16-8/#symmetric-transfer-and-no-op-coroutines">Symmetric
+transfer</a></h3>
+<p>With symmetric transfer a coroutine can indicate a coroutine handle
+for another coroutine to immediately resume when suspending. This
+suspend-and-resume operation works without introducing another frame
+onto the call stack.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode c++"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>coroutine_handle<span class="op">&lt;&gt;</span> await_suspend<span class="op">(</span><span class="bu">std::</span>coroutine_handle<span class="op">&lt;</span><span class="dt">promise_type</span><span class="op">&gt;</span> h<span class="op">)</span> <span class="kw">noexcept</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> h<span class="op">.</span>promise<span class="op">().</span>continuation <span class="op">?</span> <span class="op">*</span>continuation <span class="op">:</span> <span class="bu">std::</span>noop_coroutine<span class="op">();</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 <section id="the-life-of-a-coroutine" class="level2">
 <h2>The Life of a Coroutine</h2>
-<p>When a coroutine is created the continuation point is set to the beginning of the routine and it is put in a suspended state. Calling the coroutine with its arguments resumes exectution from the beginning. If the function contains a yield statement then the continuation point is set to the next statement in the function and execution is suspended. The arguments to yield become the result of the resume that activated the coroutine. Subsequent calls of the coroutine resume execution at the coninuation point and the arguments of the call become available to the coroutine. Execution continues until the next yield statement and the above is repeated or until the function terminates and the return values become the result of the last reactivation. At that point the coroutine can no longer be resumed.</p>
+<p>When a coroutine is created the continuation point is set to the
+beginning of the routine and it is put in a suspended state. Calling the
+coroutine with its arguments resumes exectution from the beginning. If
+the function contains a yield statement then the continuation point is
+set to the next statement in the function and execution is suspended.
+The arguments to yield become the result of the resume that activated
+the coroutine. Subsequent calls of the coroutine resume execution at the
+coninuation point and the arguments of the call become available to the
+coroutine. Execution continues until the next yield statement and the
+above is repeated or until the function terminates and the return values
+become the result of the last reactivation. At that point the coroutine
+can no longer be resumed.</p>
 </section>
 <section id="theory" class="level2">
 <h2>Theory</h2>
-<p>A <em>full asymmetric coroutine</em> has three operations: <em>create</em>, <em>resume</em>, and <em>yield</em>. Create takes a coroutine body and instanciates it in a suspended state. The <em>continuation point</em> is set to the beginning of the body. Resume cause a coroutine to execute from its continuation point until it either yields at a new continuation point or terminates. A terminated coroutine cannot be resumed.</p>
-<p>The first call to resume specifies the coroutine parameters. In subsequent calls to resume these become the result of yield. When a coroutine suspends, the arguments to yield become the result of the resume that activated the coroutine. When a coroutine terminates, the values returned by the body become the result of the last reactivation.</p>
-<p>An <em>expression</em> is a <em>lable</em>, <em>variable</em>, <em>function</em>, <em>application</em>, variable assignment, <em>conditional</em>, equality operator for labels, or a <em>nil</em> value.</p>
-<p><span class="math inline">e \to l\mid v\mid x\mapsto e\mid e\,e\mid x := e\mid e\,?\,e : e\mid e = e\mid \bot</span></p>
+<p>A <em>full asymmetric coroutine</em> has three operations:
+<em>create</em>, <em>resume</em>, and <em>yield</em>. Create takes a
+coroutine body and instanciates it in a suspended state. The
+<em>continuation point</em> is set to the beginning of the body. Resume
+cause a coroutine to execute from its continuation point until it either
+yields at a new continuation point or terminates. A terminated coroutine
+cannot be resumed.</p>
+<p>The first call to resume specifies the coroutine parameters. In
+subsequent calls to resume these become the result of yield. When a
+coroutine suspends, the arguments to yield become the result of the
+resume that activated the coroutine. When a coroutine terminates, the
+values returned by the body become the result of the last
+reactivation.</p>
+<p>An <em>expression</em> is a <em>lable</em>, <em>variable</em>,
+<em>function</em>, <em>application</em>, variable assignment,
+<em>conditional</em>, equality operator for labels, or a <em>nil</em>
+value.</p>
+<p><span class="math inline">e \to l\mid v\mid x\mapsto e\mid e\,e\mid x
+:= e\mid e\,?\,e : e\mid e = e\mid \bot</span></p>
 <p>A value is a label, function, or nil.</p>
-<p>A <em>store</em> is a mapping from variables and labels to values. <span class="math inline">\theta\colon\mathit{variables}\cup\mathit{labels}\to\mathit{values}</span></p>
-<p>An <em>evaluation context</em> is used to specify evaluaton of <em>expressions</em>.</p>
+<p>A <em>store</em> is a mapping from variables and labels to values.
+<span
+class="math inline">\theta\colon\mathit{variables}\cup\mathit{labels}\to\mathit{values}</span></p>
+<p>An <em>evaluation context</em> is used to specify evaluaton of
+<em>expressions</em>.</p>
 <p><span class="math display">
-C \to \emptyset\mid e C\mid C v\mid x := C\mid  C\,?\,e : e\mid e = C\mid C = v
+C \to \emptyset\mid e C\mid C v\mid x := C\mid  C\,?\,e : e\mid e =
+C\mid C = v
 </span></p>
-<p>A context and a store is evaluated to a value. <span class="math display">
+<p>A context and a store is evaluated to a value. <span
+class="math display">
 \begin{aligned}
-    \langle C[x],\theta\rangle &amp;\Rightarrow \langle C[\theta(x)],\theta\rangle \\
-    \langle C[(x\mapsto e)v],\theta\rangle &amp;\Rightarrow \langle C[e[z/x]],\theta[z\leftarrow v]\rangle \\
-    \langle C[x := v],\theta\rangle &amp;\Rightarrow \langle C[v],\theta[x\leftarrow v]\rangle \\
-    \langle C[\bot\,?\,e_1 : e_2],\theta\rangle &amp;\Rightarrow \langle e_2,\theta\rangle \\
-    \langle C[v\,?\,e_1 : e_2],\theta\rangle &amp;\Rightarrow \langle e_1,\theta\rangle \\
-    \langle C[l = l],\theta\rangle &amp;\Rightarrow \langle C[l],\theta\rangle \\
-    \langle C[l_1 = l_2],\theta\rangle &amp;\Rightarrow \langle C[\bot],\theta\rangle \\
+    \langle C[x],\theta\rangle &amp;\Rightarrow \langle
+C[\theta(x)],\theta\rangle \\
+    \langle C[(x\mapsto e)v],\theta\rangle &amp;\Rightarrow \langle
+C[e[z/x]],\theta[z\leftarrow v]\rangle \\
+    \langle C[x := v],\theta\rangle &amp;\Rightarrow \langle
+C[v],\theta[x\leftarrow v]\rangle \\
+    \langle C[\bot\,?\,e_1 : e_2],\theta\rangle &amp;\Rightarrow \langle
+e_2,\theta\rangle \\
+    \langle C[v\,?\,e_1 : e_2],\theta\rangle &amp;\Rightarrow \langle
+e_1,\theta\rangle \\
+    \langle C[l = l],\theta\rangle &amp;\Rightarrow \langle
+C[l],\theta\rangle \\
+    \langle C[l_1 = l_2],\theta\rangle &amp;\Rightarrow \langle
+C[\bot],\theta\rangle \\
 \end{aligned}
 </span></p>
 <p>Expressions can be labeled and used in coroutine operators.</p>
 <p><span class="math display">
-e \to \dots\mid l:e\mid \mathbf{create}\,e\mid \mathbf{resume}\,e\,e\mid \mathbf{yield}\,e
+e \to \dots\mid l:e\mid \mathbf{create}\,e\mid \mathbf{resume}\,e\,e\mid
+\mathbf{yield}\,e
 </span></p>
 </section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
 </body>
 </html>

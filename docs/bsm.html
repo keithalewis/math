@@ -5,6 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2023-09-21" />
   <title>Black-Scholes/Merton</title>
   <style>
     code{white-space: pre-wrap;}
@@ -15,46 +16,111 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      fleqn: true
-     });
-  }}});
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
   </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Black-Scholes/Merton</h1>
 <p class="author">Keith A. Lewis</p>
+<p class="date">September 21, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Valuation formula.
+</div>
 </header>
-<p>The theory developed by Fischer Black, Myron Scholes, and Robert Merton III is the foundation of modern mathematical finance. They showed an option can be replicated by executing a dynamic hedge using a money market account and the underlying specified in the option payoff. The value of the option is the cost of setting up the initial hedge. Their theory relies heavily on <a href="ito.html">Ito</a> processes.</p>
-<p>Assume a money market account with price <span class="math inline">R_t</span> at time <span class="math inline">t</span> satisfying <span class="math inline">dR = Rρ\,dt</span>, <span class="math inline">R_0 = 1</span>. For constant <span class="math inline">ρ</span> the solution is <span class="math inline">R_t = e^{ρ t}</span>. Assume a stock with price <span class="math inline">S_t</span> at time <span class="math inline">t</span> paying no dividends satisfying <span class="math inline">dS = S\mu\,dt + Sσ\,dB</span>, <span class="math inline">S_0 = s</span>. For constant <span class="math inline">\mu</span> and <span class="math inline">σ</span> the solution is <span class="math inline">S_t = se^{\mu t}e^{σ B_t - σ^2 t/2}</span>.</p>
-<p>At time <span class="math inline">t</span> assume amount <span class="math inline">M_t</span> is held in the money market account and <span class="math inline">N_t</span> shares are held in the stock where <span class="math inline">M_t</span> and <span class="math inline">N_t</span> are Ito diffusions. The evolution of the portfolio value <span class="math inline">V = MR + NS</span> is <span class="math display">
+<p>The theory developed by Fischer Black, Myron Scholes, and Robert
+Merton III is the foundation of modern mathematical finance. They showed
+an option can be replicated by executing a dynamic hedge using a money
+market account and the underlying specified in the option payoff. The
+value of the option is the cost of setting up the initial hedge. Their
+theory relies heavily on <a href="ito.html">Ito</a> processes.</p>
+<p>Assume a money market account with price <span
+class="math inline">R_t</span> at time <span
+class="math inline">t</span> satisfying <span class="math inline">dR =
+Rρ\,dt</span>, <span class="math inline">R_0 = 1</span>. For constant
+<span class="math inline">ρ</span> the solution is <span
+class="math inline">R_t = e^{ρ t}</span>. Assume a stock with price
+<span class="math inline">S_t</span> at time <span
+class="math inline">t</span> paying no dividends satisfying <span
+class="math inline">dS = S\mu\,dt + Sσ\,dB</span>, <span
+class="math inline">S_0 = s</span>. For constant <span
+class="math inline">\mu</span> and <span class="math inline">σ</span>
+the solution is <span class="math inline">S_t = se^{\mu t}e^{σ B_t - σ^2
+t/2}</span>.</p>
+<p>At time <span class="math inline">t</span> assume amount <span
+class="math inline">M_t</span> is held in the money market account and
+<span class="math inline">N_t</span> shares are held in the stock where
+<span class="math inline">M_t</span> and <span
+class="math inline">N_t</span> are Ito diffusions. The evolution of the
+portfolio value <span class="math inline">V = MR + NS</span> is <span
+class="math display">
 \begin{aligned}
     dV_t &amp;= d(M_t R_t + N_t S_t) \\
     &amp;= (M_t dR_t + R_t dM_t + dM_t dR_t)
         + (N_t dS_t + S_t dN_t + dN_t dS_t) \\
-    &amp;= M_t dR_t + dM_t(R_t + dR_t) 
+    &amp;= M_t dR_t + dM_t(R_t + dR_t)
         + N_t dS_t + dN_t(S_t + dS_t) \\
 \end{aligned}
 </span></p>
 <section id="self-financing-condition" class="level2">
 <h2>Self-financing condition</h2>
-<p>The cost of re-hedging the position <span class="math inline">(M,N)</span> at <span class="math inline">t</span> to <span class="math inline">(M + dM, N + dN)</span> at the prices prevailing at <span class="math inline">t + dt</span> is <span class="math inline">dM(R + dR) + dN(S + dS)</span>. The <em>self-financing</em> condition is <span class="math inline">0 = dM(R + dR) + dN(S + dS)</span>. For a self-financing strategy <span class="math inline">(M,N)</span> <span class="math display">
+<p>The cost of re-hedging the position <span
+class="math inline">(M,N)</span> at <span class="math inline">t</span>
+to <span class="math inline">(M + dM, N + dN)</span> at the prices
+prevailing at <span class="math inline">t + dt</span> is <span
+class="math inline">dM(R + dR) + dN(S + dS)</span>. The
+<em>self-financing</em> condition is <span class="math inline">0 = dM(R
++ dR) + dN(S + dS)</span>. For a self-financing strategy <span
+class="math inline">(M,N)</span> <span class="math display">
     dV = M\,dR + N\,dS = (MRρ + NS\mu)\,dt + {\color{blue} NSσ\,dB}.
 </span></p>
-<p>The sum and product of Ito diffusions are Ito diffusions so <span class="math inline">V_t</span> is an Ito diffusion and <span class="math inline">V_t = v(t, R_t, S_t)</span> for some function <span class="math inline">v\colon[0,\infty)\times\boldsymbol{R}^2\to\boldsymbol{R}</span>. Using the Ito formula and <span class="math inline">(dR)^2 = 0</span>. We have <span class="math display">
+<p>The sum and product of Ito diffusions are Ito diffusions so <span
+class="math inline">V_t</span> is an Ito diffusion and <span
+class="math inline">V_t = v(t, R_t, S_t)</span> for some function <span
+class="math inline">v\colon[0,\infty)\times\boldsymbol{R}^2\to\boldsymbol{R}</span>.
+Using the Ito formula and <span class="math inline">(dR)^2 = 0</span>.
+We have <span class="math display">
 \begin{aligned}
-    dV_t &amp;= v_t\,dt + v_r\,dR + v_s\,dS + \frac{1}{2} v_{ss}\,(dS)^2 \\
-    &amp;= v_t\,dt + v_r\,Rρ\,dt + v_s\,(S\mu\,dt + Sσ\,dB) + \frac{1}{2} v_{ss}S^2σ^2\,dt \\
+    dV_t &amp;= v_t\,dt + v_r\,dR + v_s\,dS + \frac{1}{2} v_{ss}\,(dS)^2
+\\
+    &amp;= v_t\,dt + v_r\,Rρ\,dt + v_s\,(S\mu\,dt + Sσ\,dB) +
+\frac{1}{2} v_{ss}S^2σ^2\,dt \\
     &amp;= (v_t + v_r Rρ + v_s S\mu + \frac{1}{2} v_{ss}S^2σ^2)\,dt
         + {\color{blue} v_s Sσ\,dB} \\
 \end{aligned}
@@ -62,37 +128,102 @@
 </section>
 <section id="black-scholesmerton-pde" class="level2">
 <h2>Black-Scholes/Merton PDE</h2>
-<p>Equating <span class="math inline">dt</span> terms we see <span class="math display">
+<p>Equating <span class="math inline">dt</span> terms we see <span
+class="math display">
     MRρ + NS\mu = v_t + v_r Rρ + v_s S\mu + \frac{1}{2} v_{ss}S^2σ^2.
-</span> Since <span class="math inline">V = MR + NS</span> we have <span class="math display">
-    (V - NS)ρ + NS\mu = v_t + v_r Rρ + v_s S\mu + \frac{1}{2} v_{ss}S^2σ^2.
-</span> Equating <span class="math inline">{\color{blue} dB}</span> terms we have <span class="math inline">N = v_s</span> so <span class="math display">
+</span> Since <span class="math inline">V = MR + NS</span> we have <span
+class="math display">
+    (V - NS)ρ + NS\mu = v_t + v_r Rρ + v_s S\mu + \frac{1}{2}
+v_{ss}S^2σ^2.
+</span> Equating <span class="math inline">{\color{blue} dB}</span>
+terms we have <span class="math inline">N = v_s</span> so <span
+class="math display">
     (V - v_s S)ρ = v_t + v_r Rρ + \frac{1}{2} v_{ss}S^2σ^2.
 </span></p>
-<p>since the <span class="math inline">NS\mu = V_s S\mu</span> terms, remarkably, cancel. The PDE does not involve <span class="math inline">\mu</span>. This key fact was one of the reasons Scholes and Merton were awarded a Nobel prize. They were the first to show valuing an option on a stock does not require estimating the growth rate of the stock.</p>
-<p>Note the B-S/M PDE is a <em>necessary</em> condition of a self-financing strategy but is it also <em>sufficient</em>?</p>
-<p>Note that the PDE above involves a <span class="math inline">v_r Rρ</span> term. This term does not appear in the original Black and Scholes paper <span class="citation" data-cites="BlaSch73">[@BlaSch73]</span>. It does appear in Merton’s original treatment <span class="citation" data-cites="Mer73">[@Mer73]</span>. He also assumes the bond has a non-zero diffusion term to derive a PDE and then takes a limit as the diffusion coefficient tends to zero. His later treatment <span class="citation" data-cites="Mer75">[@Mer75]</span> showed this was not necessary.</p>
-<p><strong>Exercise</strong>. <em>Define <span class="math inline">\bar{v}(t, s) = v(t, R_t, s)</span> where <span class="math inline">R_t = e^{ρ t}</span>. Show</em> <span class="math display">
-    (\bar{V} - \bar{v}_s S)ρ = \bar{v}_t + \frac{1}{2} \bar{v}_{ss}S^2σ^2.
-</span> <em>where <span class="math inline">\bar{V}_t = \bar{v}(t, S_t)</span></em>.</p>
-<p><em>Hint</em>: What is the partial derivative of <span class="math inline">\bar{v}</span> with respect to <span class="math inline">t</span>?</p>
+<p>since the <span class="math inline">NS\mu = V_s S\mu</span> terms,
+remarkably, cancel. The PDE does not involve <span
+class="math inline">\mu</span>. This key fact was one of the reasons
+Scholes and Merton were awarded a Nobel prize. They were the first to
+show valuing an option on a stock does not require estimating the growth
+rate of the stock.</p>
+<p>Note the B-S/M PDE is a <em>necessary</em> condition of a
+self-financing strategy but is it also <em>sufficient</em>?</p>
+<p>Note that the PDE above involves a <span class="math inline">v_r
+Rρ</span> term. This term does not appear in the original Black and
+Scholes paper <span class="citation"
+data-cites="BlaSch73">[@BlaSch73]</span>. It does appear in Merton’s
+original treatment <span class="citation"
+data-cites="Mer73">[@Mer73]</span>. He also assumes the bond has a
+non-zero diffusion term to derive a PDE and then takes a limit as the
+diffusion coefficient tends to zero. His later treatment <span
+class="citation" data-cites="Mer75">[@Mer75]</span> showed this was not
+necessary.</p>
+<p><strong>Exercise</strong>. <em>Define <span
+class="math inline">\bar{v}(t, s) = v(t, R_t, s)</span> where <span
+class="math inline">R_t = e^{ρ t}</span>. Show</em> <span
+class="math display">
+    (\bar{V} - \bar{v}_s S)ρ = \bar{v}_t + \frac{1}{2}
+\bar{v}_{ss}S^2σ^2.
+</span> <em>where <span class="math inline">\bar{V}_t = \bar{v}(t,
+S_t)</span></em>.</p>
+<p><em>Hint</em>: What is the partial derivative of <span
+class="math inline">\bar{v}</span> with respect to <span
+class="math inline">t</span>?</p>
 <details>
-<summary>Solution</summary> <span class="math inline">\bar{v}_t = v_t + v_r \partial R_t/\partial t = v_t + v_r R_t ρ</span>.
+<summary>
+Solution
+</summary>
+<span class="math inline">\bar{v}_t = v_t + v_r \partial R_t/\partial t
+= v_t + v_r R_t ρ</span>.
 </details>
-<p>Note that when <span class="math inline">ρ = 0</span> we have <span class="math inline">0 = \bar{v}_t + \frac{1}{2} \bar{v}_{ss}S^2σ^2</span>.</p>
+<p>Note that when <span class="math inline">ρ = 0</span> we have <span
+class="math inline">0 = \bar{v}_t + \frac{1}{2}
+\bar{v}_{ss}S^2σ^2</span>.</p>
 <section id="martingale-method" class="level3">
 <h3>Martingale Method</h3>
-<p>Replacing <span class="math inline">\mu</span> by <span class="math inline">ρ</span> in the stock price process is related to <em>change of measure</em> and involves <a href="https://en.wikipedia.org/wiki/Girsanov_theorem"><em>Girsanov’s Theorem</em></a>. A fundamental problem is specifying models that are <em>arbitrage-free</em>. A clever trader will find ways to book a “profit” given a model that is not arbitrage-free.</p>
-<p>A simple way to do this is to specify a model of stock price where <span class="math inline">S_t/R_t</span> is a martingale.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">S/R</span> is a martingale if and only if <span class="math inline">dS/S = dR/R + σ\,dB</span></em>.</p>
-<p><em>Hint</em>. Let <span class="math inline">dS/S = \mu\,dt + σ\,dB</span>. Show <span class="math inline">d(S/R) = dS/R - (S/R)\,dR/R</span> since <span class="math inline">(dR)^2 = 0</span>. Use this to show <span class="math inline">d(S/R) = (S/R)((\mu - ρ)\,dt + σ\,dB)</span>.</p>
+<p>Replacing <span class="math inline">\mu</span> by <span
+class="math inline">ρ</span> in the stock price process is related to
+<em>change of measure</em> and involves <a
+href="https://en.wikipedia.org/wiki/Girsanov_theorem"><em>Girsanov’s
+Theorem</em></a>. A fundamental problem is specifying models that are
+<em>arbitrage-free</em>. A clever trader will find ways to book a
+“profit” given a model that is not arbitrage-free.</p>
+<p>A simple way to do this is to specify a model of stock price where
+<span class="math inline">S_t/R_t</span> is a martingale.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">S/R</span> is a martingale if and only if <span
+class="math inline">dS/S = dR/R + σ\,dB</span></em>.</p>
+<p><em>Hint</em>. Let <span class="math inline">dS/S = \mu\,dt +
+σ\,dB</span>. Show <span class="math inline">d(S/R) = dS/R -
+(S/R)\,dR/R</span> since <span class="math inline">(dR)^2 = 0</span>.
+Use this to show <span class="math inline">d(S/R) = (S/R)((\mu - ρ)\,dt
++ σ\,dB)</span>.</p>
 <details>
-<summary>Solution</summary> Since <span class="math inline">(dR)^2 = 0</span>, <span class="math inline">d(1/R) = -1/R^2\,dR</span> so <span class="math inline">d(S/R) = dS/R + S\,d(1/R) = dS/R + S(-1/R^2\,dR) = dS/R - (S/R)dR/R = S(μ dt + σ dB)/R - (S/R)dR/R = (S/R)((\mu - ρ)\,dt + σ\,dB)</span>.
+<summary>
+Solution
+</summary>
+Since <span class="math inline">(dR)^2 = 0</span>, <span
+class="math inline">d(1/R) = -1/R^2\,dR</span> so <span
+class="math inline">d(S/R) = dS/R + S\,d(1/R) = dS/R + S(-1/R^2\,dR) =
+dS/R - (S/R)dR/R = S(μ dt + σ dB)/R - (S/R)dR/R = (S/R)((\mu - ρ)\,dt +
+σ\,dB)</span>.
 </details>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">S/R</span> is a martingale, V = MR + NS<span class="math inline">, and (M, N)</span> is self-financing then <span class="math inline">V/R</span> is a martingale</em>.</p>
-<p><em>Hint</em>. For any Ito process <span class="math inline">V</span> we have <span class="math inline">d(V/R) = dV/R - (V/R)\,dR/R</span> when <span class="math inline">(dR)^2 = 0</span>. Substitute <span class="math inline">dV = M\,dR + N\,dS</span> and <span class="math inline">V/R = M + NS/R</span> to show <span class="math inline">d(V/R) = -NS\,dR/R + (N/R)\,dS</span>. Use <span class="math inline">dS = S\,dR/R + Sσ\,dB</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">S/R</span> is a martingale, V = MR + NS<span
+class="math inline">, and (M, N)</span> is self-financing then <span
+class="math inline">V/R</span> is a martingale</em>.</p>
+<p><em>Hint</em>. For any Ito process <span class="math inline">V</span>
+we have <span class="math inline">d(V/R) = dV/R - (V/R)\,dR/R</span>
+when <span class="math inline">(dR)^2 = 0</span>. Substitute <span
+class="math inline">dV = M\,dR + N\,dS</span> and <span
+class="math inline">V/R = M + NS/R</span> to show <span
+class="math inline">d(V/R) = -NS\,dR/R + (N/R)\,dS</span>. Use <span
+class="math inline">dS = S\,dR/R + Sσ\,dB</span>.</p>
 <details>
-<summary>Solution</summary> <span class="math display">
+<summary>
+Solution
+</summary>
+<span class="math display">
 \begin{aligned}
 d(V/R) &amp;= (M\,dR + N\,dS)/R - (M + NS/R)\,dR/R \\
     &amp;= (M - M - NS/R)\,dR/R + (N/R)\,dS \\
@@ -100,80 +231,202 @@ d(V/R) &amp;= (M\,dR + N\,dS)/R - (M + NS/R)\,dR/R \\
     &amp;= - NS/R\,dR/R + (N/R)S(dR/R + Sσ\,dB) \\
     &amp;= (N/R)Sσ\,dB \\
 \end{aligned}
-</span> 100% on the next homework for the first person to come up with a simpler proof.
+</span> 100% on the next homework for the first person to come up with a
+simpler proof.
 </details>
 <p>There is no need to solve a PDE when using the martigale method.</p>
 </section>
 </section>
 <section id="black-scholesmerton-formula" class="level2">
 <h2>Black-Scholes/Merton formula</h2>
-<p>If an option pays <span class="math inline">\nu(S_T)</span> at expiration <span class="math inline">T</span> and there is a self-financing strategy <span class="math inline">(M_t, N_t)</span> with <span class="math inline">V_T = \nu(S_T)</span> then the value of the option is the cost of the initial hedge, <span class="math inline">V_0</span>. Since <span class="math inline">V_t/R_t</span> is a martingale the cost is <span class="math inline">V_0 = E[\nu(S_T)/R_T]</span>. This is a subtle but important point. The option value can be computed without specifying the details of the hedging process. However, it assumes a perfect hedge exists. In reality, no hedge is perfect and <em>risk management</em> involves measuring how imperfect it is. Given a money market account it is trivial to construct a self-financing hedge, but <span class="math inline">V_T</span> is almost never exactly equal to <span class="math inline">\nu(S_T)</span>.</p>
-<p>In the B-S/M model with constant rate and volatility the stock price <span class="math inline">S_t = se^{ρ t}e^{σ B_t - σ^2 t/2}</span> is log-normal. As Fischer Black noted, mathematical formulas for option valuation become simpler when working with <em>forward</em> values instead of <em>spot</em> values since the interest rate disappears.</p>
-<p>Let <span class="math inline">F_t = fe^{σ B_t - σ^2 t/2}</span> where <span class="math inline">f = se^{ρ t}</span> is the forward value of the stock. We can replace <span class="math inline">σ B_t</span> by any random variable with mean zero and variance <span class="math inline">σ^2 t</span>. Let <span class="math inline">X</span> have mean zero and variance one and set <span class="math inline">s = σ\sqrt{t}</span> We can value any option with expiration price <span class="math inline">F = fe^{sX - κ(s)}</span>, where <span class="math inline">κ^X(s) = \log E[e^{sX}]</span> is the <em>cumulant</em> of <span class="math inline">X</span>,</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">E[F] = f</span> and <span class="math inline">\operatorname{Var}(\log F) = s^2</span></em>.</p>
+<p>If an option pays <span class="math inline">\nu(S_T)</span> at
+expiration <span class="math inline">T</span> and there is a
+self-financing strategy <span class="math inline">(M_t, N_t)</span> with
+<span class="math inline">V_T = \nu(S_T)</span> then the value of the
+option is the cost of the initial hedge, <span
+class="math inline">V_0</span>. Since <span
+class="math inline">V_t/R_t</span> is a martingale the cost is <span
+class="math inline">V_0 = E[\nu(S_T)/R_T]</span>. This is a subtle but
+important point. The option value can be computed without specifying the
+details of the hedging process. However, it assumes a perfect hedge
+exists. In reality, no hedge is perfect and <em>risk management</em>
+involves measuring how imperfect it is. Given a money market account it
+is trivial to construct a self-financing hedge, but <span
+class="math inline">V_T</span> is almost never exactly equal to <span
+class="math inline">\nu(S_T)</span>.</p>
+<p>In the B-S/M model with constant rate and volatility the stock price
+<span class="math inline">S_t = se^{ρ t}e^{σ B_t - σ^2 t/2}</span> is
+log-normal. As Fischer Black noted, mathematical formulas for option
+valuation become simpler when working with <em>forward</em> values
+instead of <em>spot</em> values since the interest rate disappears.</p>
+<p>Let <span class="math inline">F_t = fe^{σ B_t - σ^2 t/2}</span> where
+<span class="math inline">f = se^{ρ t}</span> is the forward value of
+the stock. We can replace <span class="math inline">σ B_t</span> by any
+random variable with mean zero and variance <span
+class="math inline">σ^2 t</span>. Let <span class="math inline">X</span>
+have mean zero and variance one and set <span class="math inline">s =
+σ\sqrt{t}</span> We can value any option with expiration price <span
+class="math inline">F = fe^{sX - κ(s)}</span>, where <span
+class="math inline">κ^X(s) = \log E[e^{sX}]</span> is the
+<em>cumulant</em> of <span class="math inline">X</span>,</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">E[F] =
+f</span> and <span class="math inline">\operatorname{Var}(\log F) =
+s^2</span></em>.</p>
 <details>
-<summary>Solution</summary> <span class="math inline">E[F] = E[fe^{sX - κ(s)}] = fe^{-κ(s)}E[e^{sX}] = f</span>. <span class="math inline">\operatorname{Var}(\log F) = \operatorname{Var}(\log f + sX - κ(s)) = s^2\operatorname{Var}(X) = s^2</span>.
+<summary>
+Solution
+</summary>
+<span class="math inline">E[F] = E[fe^{sX - κ(s)}] = fe^{-κ(s)}E[e^{sX}]
+= f</span>. <span class="math inline">\operatorname{Var}(\log F) =
+\operatorname{Var}(\log f + sX - κ(s)) = s^2\operatorname{Var}(X) =
+s^2</span>.
 </details>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">F</span> is a positive random variable then there exists a random variable <span class="math inline">X</span> having mean zero and variance one with <span class="math inline">F = fe^{sX - κ(s)}</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">F</span>
+is a positive random variable then there exists a random variable <span
+class="math inline">X</span> having mean zero and variance one with
+<span class="math inline">F = fe^{sX - κ(s)}</span></em>.</p>
 <details>
-<summary>Solution</summary> Since <span class="math inline">F</span> is positive <span class="math inline">\log F = μ + s X</span> where <span class="math inline">X</span> has mean zero and variance one. We have <span class="math inline">f = E[F] = E[e^{μ + s X}] = e^μ e^{κ(s)}</span> so <span class="math inline">e^μ = fe^{-κ(s)}</span>.
+<summary>
+Solution
+</summary>
+Since <span class="math inline">F</span> is positive <span
+class="math inline">\log F = μ + s X</span> where <span
+class="math inline">X</span> has mean zero and variance one. We have
+<span class="math inline">f = E[F] = E[e^{μ + s X}] = e^μ
+e^{κ(s)}</span> so <span class="math inline">e^μ = fe^{-κ(s)}</span>.
 </details>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">κ^X(s) = s^2/2</span> if <span class="math inline">X</span> is standard normal</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">κ^X(s)
+= s^2/2</span> if <span class="math inline">X</span> is standard
+normal</em>.</p>
 <details>
-<summary>Solution</summary> This follows from <span class="math inline">E[e^N] = e^{E[N] + \operatorname{Var}(N)/2}</span> if <span class="math inline">N</span> is normal and <span class="math inline">\operatorname{Var}(sX) = s^2</span>.
+<summary>
+Solution
+</summary>
+This follows from <span class="math inline">E[e^N] = e^{E[N] +
+\operatorname{Var}(N)/2}</span> if <span class="math inline">N</span> is
+normal and <span class="math inline">\operatorname{Var}(sX) =
+s^2</span>.
 </details>
-<p>If <span class="math inline">h(F)</span> is the payoff of an option in shares of <span class="math inline">F</span> then <span class="math inline">Fh(F)</span> is the dollar amount of the payoff when converted at price <span class="math inline">F</span>. It is trivial that <span class="math inline">E[Fh(F)] = E[F] E[(F/E[F])h(F)]</span>. We can define <em>share measure</em> <span class="math inline">E_*</span> by <span class="math inline">E_*[Y] = E[(F/E[F])Y]</span>. Since <span class="math inline">F/E[F] &gt; 0</span> and <span class="math inline">E[F/E[F]] = 1</span> this is a probability measure.</p>
-<p>If <span class="math inline">F = fe^{sX - κ(s)}</span> then <span class="math inline">F/E[F] = e^{sX - κ(s)}</span> so share measure is <span class="math inline">E_*[Y] = E[e^{sX - κ(s)}Y]</span> and we write <span class="math inline">E_s</span> for <span class="math inline">E_*</span>. This is also referred to as the <em>forward measure</em> or the <em>Esscher transform</em>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> is standard normal show <span class="math inline">E_s[g(X)] = E[g(X + s)]</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">E[e^N g(M)] = E[e^N]E[g(M + \operatorname{Cov}(N, M))]</span> if <span class="math inline">N</span> and <span class="math inline">M</span> are jointly normal.</p>
+<p>If <span class="math inline">h(F)</span> is the payoff of an option
+in shares of <span class="math inline">F</span> then <span
+class="math inline">Fh(F)</span> is the dollar amount of the payoff when
+converted at price <span class="math inline">F</span>. It is trivial
+that <span class="math inline">E[Fh(F)] = E[F] E[(F/E[F])h(F)]</span>.
+We can define <em>share measure</em> <span
+class="math inline">E_*</span> by <span class="math inline">E_*[Y] =
+E[(F/E[F])Y]</span>. Since <span class="math inline">F/E[F] &gt;
+0</span> and <span class="math inline">E[F/E[F]] = 1</span> this is a
+probability measure.</p>
+<p>If <span class="math inline">F = fe^{sX - κ(s)}</span> then <span
+class="math inline">F/E[F] = e^{sX - κ(s)}</span> so share measure is
+<span class="math inline">E_*[Y] = E[e^{sX - κ(s)}Y]</span> and we write
+<span class="math inline">E_s</span> for <span
+class="math inline">E_*</span>. This is also referred to as the
+<em>forward measure</em> or the <em>Esscher transform</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+is standard normal show <span class="math inline">E_s[g(X)] = E[g(X +
+s)]</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">E[e^N g(M)] = E[e^N]E[g(M +
+\operatorname{Cov}(N, M))]</span> if <span class="math inline">N</span>
+and <span class="math inline">M</span> are jointly normal.</p>
 <details>
-<summary>Solution</summary> Let <span class="math inline">N = sX - κ(s)</span> and <span class="math inline">M = X</span>.
+<summary>
+Solution
+</summary>
+Let <span class="math inline">N = sX - κ(s)</span> and <span
+class="math inline">M = X</span>.
 </details>
 <section id="value" class="level3">
 <h3>Value</h3>
-<p>A put with strike <span class="math inline">k</span> pays <span class="math inline">\max\{k - F,0\} = (k - F)^+</span> at expiration. Its forward value <span class="math inline">p</span> is <span class="math display">
+<p>A put with strike <span class="math inline">k</span> pays <span
+class="math inline">\max\{k - F,0\} = (k - F)^+</span> at expiration.
+Its forward value <span class="math inline">p</span> is <span
+class="math display">
 \begin{aligned}
     p &amp;= E[\max\{k - F, 0\}] \\
         &amp;= E[(k - F)1(F\le k)] \\
         &amp;= k P(F\le k) - E[F1(F\le k)] \\
         &amp;= k P(F\le k) - fP_s(F\le k) \\
 \end{aligned}
-</span> <em>Moneyness</em> <span class="math inline">x</span> is defined by <span class="math inline">F = k</span> if and only if <span class="math inline">X = x</span>. The value of a put option in terms of the distribution for <span class="math inline">X</span> is <span class="math display">
+</span> <em>Moneyness</em> <span class="math inline">x</span> is defined
+by <span class="math inline">F = k</span> if and only if <span
+class="math inline">X = x</span>. The value of a put option in terms of
+the distribution for <span class="math inline">X</span> is <span
+class="math display">
     p = kP(X\le x) - fP_s(X\le x).
 </span></p>
-<p><strong>Exercise</strong>. <em>Show moneyness <span class="math inline">x = x(k) = (\log(k/f) + κ(s))/s</span></em>.</p>
-<p><em>Hint</em>. Solve <span class="math inline">k = fe^{sx - κ(s)}</span> for <span class="math inline">x</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">F\le k</span> if and only if <span class="math inline">X\le x</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">dx/dk = 1/ks &gt; 0</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> is standard normal show <span class="math inline">x = \log(k/f)/s + s/2</span></em>.</p>
-<p>Black and Scholes defined <span class="math inline">d_2 = \log(f/k)/s - s/2</span> where <span class="math inline">s = σ\sqrt{t}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">-d_2 = x</span></em>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> is standard normal show <span class="math inline">P_s(X\le x) = P(X\le x - s)</span></em>.</p>
-<p>Black and Scholes defined <span class="math inline">d_1 = \log(f/k)/s + s/2</span> where <span class="math inline">s = σ\sqrt{t}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">-d_1 = x - s</span></em>.</p>
-<p>This shows the forward put value is <span class="math inline">p = k\Phi(-d_2) - f\Phi(-d_1)</span> where <span class="math inline">\Phi</span> is the standard normal cumulative distribution.</p>
-<p>Since <span class="math inline">\max\{F - k, 0\} - \max\{k - F, 0\} = F - k</span> we have <span class="math inline">c - p = f - k</span> where <span class="math inline">c = E[\max\{F - k, 0\}]</span> is the call value.</p>
-<p><strong>Exercise</strong>. <em>Show the forward value of a call is <span class="math inline">c = fP_s(F\ge k) - kP(F\ge k)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show moneyness <span
+class="math inline">x = x(k) = (\log(k/f) + κ(s))/s</span></em>.</p>
+<p><em>Hint</em>. Solve <span class="math inline">k = fe^{sx -
+κ(s)}</span> for <span class="math inline">x</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">F\le
+k</span> if and only if <span class="math inline">X\le
+x</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">dx/dk = 1/ks &gt;
+0</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+is standard normal show <span class="math inline">x = \log(k/f)/s +
+s/2</span></em>.</p>
+<p>Black and Scholes defined <span class="math inline">d_2 = \log(f/k)/s
+- s/2</span> where <span class="math inline">s = σ\sqrt{t}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">-d_2 =
+x</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+is standard normal show <span class="math inline">P_s(X\le x) = P(X\le x
+- s)</span></em>.</p>
+<p>Black and Scholes defined <span class="math inline">d_1 = \log(f/k)/s
++ s/2</span> where <span class="math inline">s = σ\sqrt{t}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">-d_1 =
+x - s</span></em>.</p>
+<p>This shows the forward put value is <span class="math inline">p =
+k\Phi(-d_2) - f\Phi(-d_1)</span> where <span
+class="math inline">\Phi</span> is the standard normal cumulative
+distribution.</p>
+<p>Since <span class="math inline">\max\{F - k, 0\} - \max\{k - F, 0\} =
+F - k</span> we have <span class="math inline">c - p = f - k</span>
+where <span class="math inline">c = E[\max\{F - k, 0\}]</span> is the
+call value.</p>
+<p><strong>Exercise</strong>. <em>Show the forward value of a call is
+<span class="math inline">c = fP_s(F\ge k) - kP(F\ge k)</span></em>.</p>
 </section>
 <section id="delta" class="level3">
 <h3>Delta</h3>
-<p><em>Delta</em> is the derivative of option value with respect to the forward. The delta of a put option is <span class="math display">
+<p><em>Delta</em> is the derivative of option value with respect to the
+forward. The delta of a put option is <span class="math display">
     \begin{aligned}
         \partial_f p &amp;= \partial_ f E[\max\{k - F, 0\}] \\
             &amp;= E[-1(F \le k)\partial_f F] \\
             &amp;= -E[1(F \le k)e^{sX - κ(s)}] \\
             &amp;= -P_s(F \le k) \\
     \end{aligned}
-</span> Where <span class="math inline">\partial_f p = \partial p/\partial f</span> is the partial derivative of put value with respect to forward.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\partial_ f E[\max\{k - F, 0\}] = -E[1(F \le k)]\partial_f F]</span></em>.</p>
-<p><em>Hint</em> Show <span class="math inline">d(\max\{k - x, 0\})/dx = -1(x\le k)</span> and <span class="math inline">dF/df = e^{sX - κ(s)}</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> is standard normal then <span class="math inline">\partial_f v = -\Phi(-d_1)</span></em>.</p>
-<p>The derivative of <span class="math inline">p = k\Phi(-d_2) - f\Phi(-d_1)</span> with respect to <span class="math inline">f</span> is <span class="math inline">\partial_f v = k\nu(-d_2)\partial_f(-d_2) - f\nu(-d_1)/\partial_f(-d_1) - \Phi(-d_1)</span> where <span class="math inline">\nu = \Phi&#39;</span> is the standard normal density. The calculation showing the first two terms on the right hand side cancel is not trivial. Our more general approach avoids this.</p>
-<p>Taking the derivative of <span class="math inline">c - p = f - k</span> with respect to <span class="math inline">f</span> we have <span class="math inline">\partial_f c - \partial_f p = 1</span> so call delta equals put delta plus one.</p>
+</span> Where <span class="math inline">\partial_f p = \partial
+p/\partial f</span> is the partial derivative of put value with respect
+to forward.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\partial_ f E[\max\{k - F, 0\}] = -E[1(F \le
+k)]\partial_f F]</span></em>.</p>
+<p><em>Hint</em> Show <span class="math inline">d(\max\{k - x, 0\})/dx =
+-1(x\le k)</span> and <span class="math inline">dF/df = e^{sX -
+κ(s)}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+is standard normal then <span class="math inline">\partial_f v =
+-\Phi(-d_1)</span></em>.</p>
+<p>The derivative of <span class="math inline">p = k\Phi(-d_2) -
+f\Phi(-d_1)</span> with respect to <span class="math inline">f</span> is
+<span class="math inline">\partial_f v = k\nu(-d_2)\partial_f(-d_2) -
+f\nu(-d_1)/\partial_f(-d_1) - \Phi(-d_1)</span> where <span
+class="math inline">\nu = \Phi&#39;</span> is the standard normal
+density. The calculation showing the first two terms on the right hand
+side cancel is not trivial. Our more general approach avoids this.</p>
+<p>Taking the derivative of <span class="math inline">c - p = f -
+k</span> with respect to <span class="math inline">f</span> we have
+<span class="math inline">\partial_f c - \partial_f p = 1</span> so call
+delta equals put delta plus one.</p>
 </section>
 <section id="gamma" class="level3">
 <h3>Gamma</h3>
-<p><em>Gamma</em> is the second derivative of option value with respect to the forward.</p>
+<p><em>Gamma</em> is the second derivative of option value with respect
+to the forward.</p>
 <p><span class="math display">
 \begin{aligned}
     \partial_f^2 p &amp;= -\partial_f P_s(F \le k) \\
@@ -186,7 +439,8 @@ d(V/R) &amp;= (M\,dR + N\,dS)/R - (M + NS/R)\,dR/R \\
 </section>
 <section id="vega" class="level3">
 <h3>Vega</h3>
-<p><em>Vega</em> is the derivative of option value with respect to volatility. The vega of a put option is <span class="math display">
+<p><em>Vega</em> is the derivative of option value with respect to
+volatility. The vega of a put option is <span class="math display">
 \begin{aligned}
     \partial_s p &amp;= \partial_s E[\max\{k - F, 0\}] \\
         &amp;= E[-1(F \le k)\partial_s F] \\
@@ -194,9 +448,14 @@ d(V/R) &amp;= (M\,dR + N\,dS)/R - (M + NS/R)\,dR/R \\
         &amp;= -\partial_s P_s(X \le x)f \\
 \end{aligned}
 </span></p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\partial_s P_s(X\le x) = E[1(X \le x)F(X - κ&#39;(s))]/f</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\partial_s P_s(X\le x) = E[1(X \le x)F(X -
+κ&#39;(s))]/f</span></em>.</p>
 <details>
-<summary>Solution</summary> <span class="math display">
+<summary>
+Solution
+</summary>
+<span class="math display">
 \begin{aligned}
 \partial_s P_s(X\le x) &amp;= \partial_s E[1(X\le x) e^{sX - κ(s)}] \\
     &amp;= E[1(X\le x) e^{sX - κ(s)}(X - κ&#39;(s))] \\
@@ -208,42 +467,99 @@ d(V/R) &amp;= (M\,dR + N\,dS)/R - (M + NS/R)\,dR/R \\
 </section>
 <section id="theta" class="level3">
 <h3>Theta</h3>
-<p><em>Theta</em> is the derivative of option value with respect to time. Using <span class="math inline">s = σ\sqrt{t}</span> the theta of a put option is <span class="math display">
+<p><em>Theta</em> is the derivative of option value with respect to
+time. Using <span class="math inline">s = σ\sqrt{t}</span> the theta of
+a put option is <span class="math display">
 \begin{aligned}
     \partial_t p &amp;= \partial_s p\,\partial_t s \\
         &amp;= \partial_s p\,σ/2\sqrt{t} \\
         &amp;= -\partial_s P_s(X \le x)fσ/2\sqrt{t}. \\
 \end{aligned}
 </span></p>
-<p>Traders think in terms of <em>time decay</em> of the option value so increasing time means shorter time to expiration and use the negative of this value, and sometimes divide that by 250 (business days per year) to approximate 1 day time decay.</p>
+<p>Traders think in terms of <em>time decay</em> of the option value so
+increasing time means shorter time to expiration and use the negative of
+this value, and sometimes divide that by 250 (business days per year) to
+approximate 1 day time decay.</p>
 </section>
 <section id="kappa" class="level3">
 <h3>Kappa</h3>
-<p><em>Kappa</em> is the derivative of option value with respect to strike <span class="math display">
+<p><em>Kappa</em> is the derivative of option value with respect to
+strike <span class="math display">
     \partial_k p = \partial_k E[\max\{k - F\}, 0\}] = P(F\le k),
-</span> which is the cumulative distribution of the underlying. This implies the distribution of the underlying can be inferred from option prices <span class="citation" data-cites="BreLin">[@BreLin]</span>.</p>
-<p>Note value and all greeks can be expressed in terms of the share distribution function <span class="math inline">P_s(X\le x)</span> and its derivatives with respect to <span class="math inline">x</span> and <span class="math inline">s</span>.</p>
+</span> which is the cumulative distribution of the underlying. This
+implies the distribution of the underlying can be inferred from option
+prices <span class="citation" data-cites="BreLin">[@BreLin]</span>.</p>
+<p>Note value and all greeks can be expressed in terms of the share
+distribution function <span class="math inline">P_s(X\le x)</span> and
+its derivatives with respect to <span class="math inline">x</span> and
+<span class="math inline">s</span>.</p>
 </section>
 <section id="implied-volatility" class="level3">
 <h3>Implied Volatility</h3>
-<p>Market traded options have a <em>price</em> based on strike and expiration. Given a strike and expiration the Black-Sholes/Merton formula produces a <em>value</em> as a function of volatility. The volatility matching the market price is called the (Black-Scholes) <em>implied volatility</em>. It is used as a proxy for the price under the convention that the B-S/M formula is used for computation.</p>
-<p>The implied volatility at a fixed expiration as a function of strike is the <em>volatility curve</em> for that expiration. If the B-S/M model of stock price dynamics were correct the volatility curve would be constant. It is a market fact that this is not the case.</p>
+<p>Market traded options have a <em>price</em> based on strike and
+expiration. Given a strike and expiration the Black-Sholes/Merton
+formula produces a <em>value</em> as a function of volatility. The
+volatility matching the market price is called the (Black-Scholes)
+<em>implied volatility</em>. It is used as a proxy for the price under
+the convention that the B-S/M formula is used for computation.</p>
+<p>The implied volatility at a fixed expiration as a function of strike
+is the <em>volatility curve</em> for that expiration. If the B-S/M model
+of stock price dynamics were correct the volatility curve would be
+constant. It is a market fact that this is not the case.</p>
 </section>
 </section>
 <section id="discrete-time" class="level2">
 <h2>Discrete time</h2>
-<p>Continuous time trading is physically impossible. The speed of light is <span class="math inline">3\times 10^8</span> meters per second so it travels <span class="math inline">0.3</span> meters, or approximately 1 foot, in a nanosecond. Electrons traveling over a wire are are much slower. In reality trades occur at a finite number of discrete times.</p>
-<p>The B-S/M model assumes continuous time trading and stock price is geometric Brownian motion. These assumptions allow a mathematical proof that options can be perfectly hedged. In practice traders put on a hedge for some period of time before adjusting it based on market movements. One measure of <em>risk</em> is the difference between the actual value of the hedge at the end of the period and the theoretical model value.</p>
-<p>For simplicity we assume zero funding rate so <span class="math inline">R_t = 1</span> and <span class="math inline">S_t</span> is the price of a stock at time <span class="math inline">t</span>. The market model is <span class="math inline">X_t = (R_t, S_t)</span>, <span class="math inline">C_t = 0</span>, and the position is <span class="math inline">\Delta_t = (M_t, N_t)</span>.</p>
-<p>A European option paying <span class="math inline">\nu(S_T)</span> at expiration <span class="math inline">T</span> has <em>model value</em> <span class="math inline">\bar{V}_t = E_t[\nu(S_T)]</span>, for <span class="math inline">t\le T</span>. Let <span class="math inline">\bar{v}(t, s) = E[\bar{V}_t\mid S_t = s]</span>. Note <span class="math inline">\bar{V}_t</span> is a stochastic process and <span class="math inline">\bar{v}(t,s)</span> is a function. The risk involved with discrete time hedging over the interval <span class="math inline">[t, t + \Delta t]</span> is the difference <span class="math inline">V_{t + \Delta t} - \bar{V}_{t + \Delta t}</span>.</p>
-<p>Let <span class="math inline">\bar{v}(S, T) = E[\nu(S e^{σ B_T - σ^2T/2})]</span>. Note <span class="math inline">\bar{V}</span> is a stochastic process and <span class="math inline">\bar{v}</span> is a function.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">E_t[\nu(S_T)\mid S_t = S] = \bar{v}(S, T - t)</span></em>.</p>
+<p>Continuous time trading is physically impossible. The speed of light
+is <span class="math inline">3\times 10^8</span> meters per second so it
+travels <span class="math inline">0.3</span> meters, or approximately 1
+foot, in a nanosecond. Electrons traveling over a wire are are much
+slower. In reality trades occur at a finite number of discrete
+times.</p>
+<p>The B-S/M model assumes continuous time trading and stock price is
+geometric Brownian motion. These assumptions allow a mathematical proof
+that options can be perfectly hedged. In practice traders put on a hedge
+for some period of time before adjusting it based on market movements.
+One measure of <em>risk</em> is the difference between the actual value
+of the hedge at the end of the period and the theoretical model
+value.</p>
+<p>For simplicity we assume zero funding rate so <span
+class="math inline">R_t = 1</span> and <span
+class="math inline">S_t</span> is the price of a stock at time <span
+class="math inline">t</span>. The market model is <span
+class="math inline">X_t = (R_t, S_t)</span>, <span
+class="math inline">C_t = 0</span>, and the position is <span
+class="math inline">\Delta_t = (M_t, N_t)</span>.</p>
+<p>A European option paying <span class="math inline">\nu(S_T)</span> at
+expiration <span class="math inline">T</span> has <em>model value</em>
+<span class="math inline">\bar{V}_t = E_t[\nu(S_T)]</span>, for <span
+class="math inline">t\le T</span>. Let <span
+class="math inline">\bar{v}(t, s) = E[\bar{V}_t\mid S_t = s]</span>.
+Note <span class="math inline">\bar{V}_t</span> is a stochastic process
+and <span class="math inline">\bar{v}(t,s)</span> is a function. The
+risk involved with discrete time hedging over the interval <span
+class="math inline">[t, t + \Delta t]</span> is the difference <span
+class="math inline">V_{t + \Delta t} - \bar{V}_{t + \Delta
+t}</span>.</p>
+<p>Let <span class="math inline">\bar{v}(S, T) = E[\nu(S e^{σ B_T -
+σ^2T/2})]</span>. Note <span class="math inline">\bar{V}</span> is a
+stochastic process and <span class="math inline">\bar{v}</span> is a
+function.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">E_t[\nu(S_T)\mid S_t = S] = \bar{v}(S, T -
+t)</span></em>.</p>
 <details>
-<summary>Solution</summary> <span class="math display">
+<summary>
+Solution
+</summary>
+<span class="math display">
 \begin{aligned}
-E_t[\nu(S_T)\mid S_t = S] &amp;= E_t[\nu(se^{σ B_T - σ^2 T/2})\mid S_t = S] \\
-    &amp;= E_t[\nu(se^{σ (B_T - B_t + B_t) - σ^2(T - t + t)/2})\mid S_t = S] \\
-    &amp;= E_t[\nu(se^{σ B_t - σ^2t/2}e^{σ (B_T - B_t) - σ^2(T - t)/2})\mid S_t = S] \\
+E_t[\nu(S_T)\mid S_t = S] &amp;= E_t[\nu(se^{σ B_T - σ^2 T/2})\mid S_t =
+S] \\
+    &amp;= E_t[\nu(se^{σ (B_T - B_t + B_t) - σ^2(T - t + t)/2})\mid S_t
+= S] \\
+    &amp;= E_t[\nu(se^{σ B_t - σ^2t/2}e^{σ (B_T - B_t) - σ^2(T -
+t)/2})\mid S_t = S] \\
     &amp;= E_t[\nu(S_te^{σ (B_T - B_t) - σ^2(T - t )/2})\mid S_t = S] \\
     &amp;= E_t[\nu(Se^{σ (B_T - B_t) - σ^2(T - t)/2})] \\
     &amp;= E_0[\nu(Se^{σ B_{T - t} - σ^2(T - t)/2})] \\
@@ -251,18 +567,51 @@ E_t[\nu(S_T)\mid S_t = S] &amp;= E_t[\nu(se^{σ B_T - σ^2 T/2})\mid S_t = S] \\
 \end{aligned}
 </span>
 </details>
-<p>Note <span class="math inline">\partial_t E_t[\nu(S_T)\mid S_t = S] = -\partial_t \bar{v}(S, T - t)</span>.</p>
-<p>Suppose you are given <span class="math inline">V_0</span> in cash and it is now your job to replicate the option payoff. At each time <span class="math inline">t_j</span> you can use the money market account to put on a position of <span class="math inline">N_j</span> shares in the stock. The value of your hedge at time <span class="math inline">t_j</span> is <span class="math inline">V_j = M_j + N_j S_j</span>. Your initial position <span class="math inline">N_0</span> in the stock will be deducted from <span class="math inline">V_0</span> and result in a money market position <span class="math inline">M_0 = V_0 - N_0 S_0</span>.</p>
-<p>At time <span class="math inline">t_j</span>, <span class="math inline">0 &lt; j &lt; n</span>, you change the stock position from <span class="math inline">N_{j-1}</span> to <span class="math inline">N_j</span>. Using the money market account to finance this results in <span class="math inline">M_j = M_{j-1} - (N_j - N_{j-1})S_j</span>; the cost of the shares purchased are deducted based on the prevailing stock price.</p>
-<p>At time <span class="math inline">t_n = T</span> the position in the stock is closed out so the accumulated shares <span class="math inline">N_{n-1}</span> are sold and the money market position becomes <span class="math inline">M_n = M_{n-1} + N_{n-1}S_n</span>.</p>
-<p>A successful hedge would result in <span class="math inline">V_T = V_n = M_n R_n = \nu(S_T)</span>. How should you choose <span class="math inline">N_0,\ldots,N_{n-1}</span>?</p>
-<p>The progress of a hedge over time can be tracked by comparing the hedge value <span class="math inline">V_t = M_t + N_t S_t</span> to the model value <span class="math inline">\bar{V}_t = \bar{v}(S_t, T - t)</span>.</p>
+<p>Note <span class="math inline">\partial_t E_t[\nu(S_T)\mid S_t = S] =
+-\partial_t \bar{v}(S, T - t)</span>.</p>
+<p>Suppose you are given <span class="math inline">V_0</span> in cash
+and it is now your job to replicate the option payoff. At each time
+<span class="math inline">t_j</span> you can use the money market
+account to put on a position of <span class="math inline">N_j</span>
+shares in the stock. The value of your hedge at time <span
+class="math inline">t_j</span> is <span class="math inline">V_j = M_j +
+N_j S_j</span>. Your initial position <span
+class="math inline">N_0</span> in the stock will be deducted from <span
+class="math inline">V_0</span> and result in a money market position
+<span class="math inline">M_0 = V_0 - N_0 S_0</span>.</p>
+<p>At time <span class="math inline">t_j</span>, <span
+class="math inline">0 &lt; j &lt; n</span>, you change the stock
+position from <span class="math inline">N_{j-1}</span> to <span
+class="math inline">N_j</span>. Using the money market account to
+finance this results in <span class="math inline">M_j = M_{j-1} - (N_j -
+N_{j-1})S_j</span>; the cost of the shares purchased are deducted based
+on the prevailing stock price.</p>
+<p>At time <span class="math inline">t_n = T</span> the position in the
+stock is closed out so the accumulated shares <span
+class="math inline">N_{n-1}</span> are sold and the money market
+position becomes <span class="math inline">M_n = M_{n-1} +
+N_{n-1}S_n</span>.</p>
+<p>A successful hedge would result in <span class="math inline">V_T =
+V_n = M_n R_n = \nu(S_T)</span>. How should you choose <span
+class="math inline">N_0,\ldots,N_{n-1}</span>?</p>
+<p>The progress of a hedge over time can be tracked by comparing the
+hedge value <span class="math inline">V_t = M_t + N_t S_t</span> to the
+model value <span class="math inline">\bar{V}_t = \bar{v}(S_t, T -
+t)</span>.</p>
 <section id="profit-and-loss" class="level3">
 <h3>Profit and Loss</h3>
-<p>The difference between the hedge value and the model value is the <em>profit and loss</em>. The change in the hedge value over the interval <span class="math inline">[t_{j-1},t_j]</span> is the <em>backward difference</em> <span class="math inline">\nabla V_j = V_j - V_{j-1}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\nabla V_j = N_{j-1}\nabla S_j</span></em>.</p>
+<p>The difference between the hedge value and the model value is the
+<em>profit and loss</em>. The change in the hedge value over the
+interval <span class="math inline">[t_{j-1},t_j]</span> is the
+<em>backward difference</em> <span class="math inline">\nabla V_j = V_j
+- V_{j-1}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\nabla
+V_j = N_{j-1}\nabla S_j</span></em>.</p>
 <details>
-<summary>Solution</summary> <span class="math display">
+<summary>
+Solution
+</summary>
+<span class="math display">
 \begin{aligned}
 \nabla V_j &amp;= V_j - V_{j-1} \\
     &amp;= M_j - M_{j-1} + N_j S_j - N_{j-1} S_{j-1} \\
@@ -273,58 +622,106 @@ E_t[\nu(S_T)\mid S_t = S] &amp;= E_t[\nu(se^{σ B_T - σ^2 T/2})\mid S_t = S] \\
 \end{aligned}
 </span>
 </details>
-<p>The change in model value over the interval is <span class="math inline">\nabla\bar{V}_j = \bar{V}_j - \bar{V}_{j-1}</span>. Since <span class="math inline">σ</span> and <span class="math inline">T</span> are fixed this can be computed using Taylor’s formula <span class="math display">
+<p>The change in model value over the interval is <span
+class="math inline">\nabla\bar{V}_j = \bar{V}_j - \bar{V}_{j-1}</span>.
+Since <span class="math inline">σ</span> and <span
+class="math inline">T</span> are fixed this can be computed using
+Taylor’s formula <span class="math display">
 \begin{aligned}
-    \nabla \bar{V}_j &amp;= -\partial_t\bar{v}_j\,\nabla t_j + \partial_s\bar{v}_j\,\nabla S_j \\
+    \nabla \bar{V}_j &amp;= -\partial_t\bar{v}_j\,\nabla t_j +
+\partial_s\bar{v}_j\,\nabla S_j \\
     &amp;\quad + \frac{1}{2}\partial_t^2\bar{v}_j\,(\nabla t_j)^2
     - \partial_t\partial_s \bar{v}_j(\nabla t_j)(\nabla S_j)
     + \frac{1}{2}\partial_s^2\bar{v}_j(\nabla S_j)^2 \\
     &amp;\qquad + \mathrm{higher\ order\ terms}
 \end{aligned}
-</span> where the partial derivatives are evaluated at <span class="math inline">t = t_{j-1}</span> and <span class="math inline">S = S_{j-1}</span>. Ignoring <span class="math inline">(\nabla t_j)(\nabla S_j) = 0</span>, <span class="math inline">(\nabla t_j)^2 = 0</span>, and higher order terms we have</p>
+</span> where the partial derivatives are evaluated at <span
+class="math inline">t = t_{j-1}</span> and <span class="math inline">S =
+S_{j-1}</span>. Ignoring <span class="math inline">(\nabla t_j)(\nabla
+S_j) = 0</span>, <span class="math inline">(\nabla t_j)^2 = 0</span>,
+and higher order terms we have</p>
 <section id="explanation" class="level4">
 <h4>Explanation</h4>
 <p><span class="math display">
 \begin{aligned}
-    \nabla V_j - \nabla \bar{V}_j &amp;= N_{j-1}\nabla S_j - \nabla \bar{V}_j \\
-    &amp;\approx N_{j-1}\nabla S_j - (-\partial_t\bar{v}_j\,\nabla t_j + \partial_s\bar{v}_j\,\nabla S_j
+    \nabla V_j - \nabla \bar{V}_j &amp;= N_{j-1}\nabla S_j - \nabla
+\bar{V}_j \\
+    &amp;\approx N_{j-1}\nabla S_j - (-\partial_t\bar{v}_j\,\nabla t_j +
+\partial_s\bar{v}_j\,\nabla S_j
     + \frac{1}{2}\partial_s^2\bar{v}_j(\nabla S_j)^2) \\
-    &amp;= \partial_t\bar{v}_j\,\nabla t_j - \frac{1}{2}\partial_s^2\bar{v}_j(\nabla S_j)^2 \\
+    &amp;= \partial_t\bar{v}_j\,\nabla t_j -
+\frac{1}{2}\partial_s^2\bar{v}_j(\nabla S_j)^2 \\
 \end{aligned}
-</span> if we choose <span class="math inline">N_{j-1} = \partial_s\bar{V}_j</span>. The P&amp;L on a delta hedged trade can be approximated using theta and gamma. The term <span class="math inline">(1/2)\partial_s^2\bar{v}_j (\nabla S)^2</span> is called <em>dollar gamma</em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\nabla V_j = N_{j-1}\nabla S_j</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">N</span>, <span class="math inline">M</span>, and <span class="math inline">K</span> are jointly normal then</em> <span class="math display">
-    E[e^N 1(M \ge K)] = E[e^N] P(M + \operatorname{Cov}(N,M) \ge K + \operatorname{Cov}(N,K)).
+</span> if we choose <span class="math inline">N_{j-1} =
+\partial_s\bar{V}_j</span>. The P&amp;L on a delta hedged trade can be
+approximated using theta and gamma. The term <span
+class="math inline">(1/2)\partial_s^2\bar{v}_j (\nabla S)^2</span> is
+called <em>dollar gamma</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\nabla
+V_j = N_{j-1}\nabla S_j</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">N</span>, <span class="math inline">M</span>, and
+<span class="math inline">K</span> are jointly normal then</em> <span
+class="math display">
+    E[e^N 1(M \ge K)] = E[e^N] P(M + \operatorname{Cov}(N,M) \ge K +
+\operatorname{Cov}(N,K)).
 </span></p>
-<p><em>Hint</em>. Use <span class="math inline">E[e^N g(N_1,\ldots)] = E[e^N] E[g(N_1 + \operatorname{Cov}(N, N_1), \ldots)]</span>.</p>
+<p><em>Hint</em>. Use <span class="math inline">E[e^N g(N_1,\ldots)] =
+E[e^N] E[g(N_1 + \operatorname{Cov}(N, N_1), \ldots)]</span>.</p>
 <details>
-<summary>Solution</summary> <span class="math display">
+<summary>
+Solution
+</summary>
+<span class="math display">
 \begin{aligned}
-E[e^N 1(M \ge K)] &amp;= E[e^N] E[1(M + \operatorname{Cov}(N,M) \ge K + \operatorname{Cov}(N,K))] \\
-    &amp;=  E[e^N] P(M + \operatorname{Cov}(N,M) \ge K + \operatorname{Cov}(N,K))
+E[e^N 1(M \ge K)] &amp;= E[e^N] E[1(M + \operatorname{Cov}(N,M) \ge K +
+\operatorname{Cov}(N,K))] \\
+    &amp;=  E[e^N] P(M + \operatorname{Cov}(N,M) \ge K +
+\operatorname{Cov}(N,K))
 \end{aligned}
 </span>
 </details>
-<p><strong>Exercise</strong>. (Margrabe) <em>Show if <span class="math inline">N</span> and <span class="math inline">M</span> are jointly normal then <span class="math inline">E[\max\{e^N - e^M, 0\}]</span> is</em> <span class="math display">
-E[e^N] P(N - M \ge - \operatorname{Var}(N) + \operatorname{Cov}(N,M)) - E[e^M] P(N - M \ge - \operatorname{Cov}(M, N) + \operatorname{Var}(M)).
+<p><strong>Exercise</strong>. (Margrabe) <em>Show if <span
+class="math inline">N</span> and <span class="math inline">M</span> are
+jointly normal then <span class="math inline">E[\max\{e^N - e^M,
+0\}]</span> is</em> <span class="math display">
+E[e^N] P(N - M \ge - \operatorname{Var}(N) + \operatorname{Cov}(N,M)) -
+E[e^M] P(N - M \ge - \operatorname{Cov}(M, N) + \operatorname{Var}(M)).
 </span></p>
-<p><em>Hint</em>. <span class="math inline">E[\max\{e^N - e^M, 0\}] = E[(e^N - e^M) 1(N \ge M)]</span>.</p>
+<p><em>Hint</em>. <span class="math inline">E[\max\{e^N - e^M, 0\}] =
+E[(e^N - e^M) 1(N \ge M)]</span>.</p>
 <details>
-<summary>Solution</summary> <span class="math display">
+<summary>
+Solution
+</summary>
+<span class="math display">
 \begin{aligned}
 E[\max\{e^N - e^M, 0\}] &amp;= E[(e^N - e^M) 1(N \ge M)] \\
     &amp;= E[e^N 1(N \ge M)] - E[e^M 1(N \ge M)] \\
-    &amp;= E[e^N] P(N + \operatorname{Var}(N) \ge M + \operatorname{Cov}(N,M))
-        - E[e^M] P(N + \operatorname{Cov}(M, N) \ge M + \operatorname{Var}(M)) \\
-    &amp;= E[e^N] P(N - M \ge - \operatorname{Var}(N) + \operatorname{Cov}(N,M))
-        - E[e^M] P(N - M \ge -\operatorname{Cov}(M, N) + \operatorname{Var}(M)) \\
+    &amp;= E[e^N] P(N + \operatorname{Var}(N) \ge M +
+\operatorname{Cov}(N,M))
+        - E[e^M] P(N + \operatorname{Cov}(M, N) \ge M +
+\operatorname{Var}(M)) \\
+    &amp;= E[e^N] P(N - M \ge - \operatorname{Var}(N) +
+\operatorname{Cov}(N,M))
+        - E[e^M] P(N - M \ge -\operatorname{Cov}(M, N) +
+\operatorname{Var}(M)) \\
 \end{aligned}
 </span>
 </details>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">E[\max\{S_T - S_t, 0\}] = s (Φ(σ\sqrt(T - t)/2) - Φ(-σ\sqrt(T - t)/2))</span> where <span class="math inline">Φ</span> is the standard normal cumulative distribution</em>.</p>
-<p><em>Hint</em>. Recall <span class="math inline">S_t = se^{σB_t - σ^2 t/2}</span> and <span class="math inline">t &lt; T</span> then use the previous exercise.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">E[\max\{S_T - S_t, 0\}] = s (Φ(σ\sqrt(T - t)/2) -
+Φ(-σ\sqrt(T - t)/2))</span> where <span class="math inline">Φ</span> is
+the standard normal cumulative distribution</em>.</p>
+<p><em>Hint</em>. Recall <span class="math inline">S_t = se^{σB_t - σ^2
+t/2}</span> and <span class="math inline">t &lt; T</span> then use the
+previous exercise.</p>
 </section>
 </section>
 </section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
 </body>
 </html>

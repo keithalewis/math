@@ -5,23 +5,15 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-03-03" />
+  <meta name="dcterms.date" content="2024-03-07" />
   <title>Efficient Portfolios</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
   <script defer=""
@@ -42,12 +34,15 @@
   </script>
   <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Efficient Portfolios</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">March 3, 2024</p>
+<p class="date">March 7, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 CAPM holds as equality of random variables, not just their expected
@@ -58,6 +53,7 @@ value.
 <ul>
 <li><a href="#one-period-model" id="toc-one-period-model">One-Period
 Model</a></li>
+<li><a href="#remarks" id="toc-remarks">Remarks</a></li>
 <li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
@@ -88,8 +84,8 @@ R_1)/\operatorname{Var}(R_1)</span>.</p>
 <p>This short note points out <span class="math display">
 \tag{2} R - R_0 = \beta(R_1 - R_0)
 </span> where <span class="math inline">R_0</span> and <span
-class="math inline">R_1</span> are the realized returns of any two
-independent efficient portfolios. This implies <span
+class="math inline">R_1</span> are the (random) realized returns of any
+two independent efficient portfolios. This implies <span
 class="math inline">\beta = \operatorname{Cov}(R - R_0, R_1 -
 R_0)/\operatorname{Var}(R_1 - R_0)</span>. Taking expected values of
 both sides when <span class="math inline">R_0</span> has zero variance
@@ -113,9 +109,12 @@ class="math inline">x\in\mathbf{R}^I</span> and the final instrument
 prices <span class="math inline">X\colon\Omega\to\mathbf{R}^I</span>
 depending on the outcome <span
 class="math inline">\omega\in\Omega</span> that occurs. The one period
-model also specifies a probability measure on the space of outcomes.
-Addressing this fundamental and important problem is outside the scope
-of this short note.</p>
+model also specifies a probability measure on the space of outcomes. It
+is common to assume <span class="math inline">\Omega</span> is <span
+class="math inline">\mathbf{R}^I</span>, <span
+class="math inline">X</span> is the identity function, and <span
+class="math inline">P</span> is multivariate normal. We allow arbitrary
+distributions to be specified for final prices.</p>
 <p>A <em>portfolio</em> <span
 class="math inline">\xi\in\mathbf{R}^I</span> is the number of shares
 initially purchased in each instrument. It costs <span
@@ -136,19 +135,16 @@ case <span class="math inline">R_\xi = \xi^* X</span> is the realized
 return of the portfolio. If <span class="math inline">\xi^* x = 1</span>
 then the variance of the realized return is <span
 class="math inline">\operatorname{Var}(R_\xi) = \xi^*V\xi</span> where
-<span class="math inline">{V = E[X X^*] -
-E[X] E[X]^*}</span>.</p>
+<span class="math inline">{V = E[X X^*] - E[X] E[X]^*}</span>.</p>
 <p>For a given expected realized return <span
 class="math inline">r\in\mathbf{R}</span> we can use Lagrange
 multipliers to minimize <span class="math inline">{\frac{1}{2}\xi^* V\xi
 - \lambda(\xi^* x - 1) - \mu(\xi^* E[X] - r)}</span> over <span
 class="math inline">\xi\in\mathbf{R}^I</span>, <span
 class="math inline">\lambda\in\mathbf{R}</span>, and <span
-class="math inline">\mu\in\mathbf{R}</span>.</p>
-<p>As is well-known, the first order condition on <span
-class="math inline">\xi</span> is <span class="math display">
-    0 = V\xi - \lambda x - \mu E[X].
-</span></p>
+class="math inline">\mu\in\mathbf{R}</span>. As is well-known, the first
+order condition on <span class="math inline">\xi</span> is <span
+class="math inline">{0 = V\xi - \lambda x - \mu E[X]}</span>.</p>
 <p>If <span class="math inline">V</span> is invertable then <span
 class="math display">
     \xi =  \lambda V^{-1}x + \mu V^{-1} E[X].
@@ -168,7 +164,7 @@ R_{\xi_0} + \beta_1 R_{\xi_1}}</span> so <span
 class="math inline">{R_\xi = (\beta_0 R_{\xi_0} + \beta_1
 R_{\xi_1})/(\beta_0 + \beta_1)}</span>. This shows <span
 class="math display">
-    R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0}) \tag{1}
+    R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
 </span> as random variables on <span class="math inline">\Omega</span>,
 where <span class="math inline">\beta = \beta_1/(\beta_0 +
 \beta_1)</span>. Taking the covariance with <span
@@ -182,13 +178,32 @@ exists <span class="math inline">\zeta\in\mathbf{R}^I</span> with <span
 class="math inline">{V\zeta = 0}</span>. The first order condition gives
 <span class="math inline">{0 = -\lambda x - \mu E[X]}</span> so the
 expected realized return for every portfolio <span
-class="math inline">{\xi\in\mathbf{R}^I}</span> is <span
+class="math inline">{\xi\in\mathbf{R}^I}</span> with <span
+class="math inline">\xi^*x = 1</span> is <span
 class="math inline">{E[R_\xi] = E[\xi^*X] = -\lambda/\mu}</span>. In
-this case <span class="math inline">\zeta</span> is clearly
-efficient.</p>
+this case <span class="math inline">\zeta</span> is clearly efficient.
+Note <span class="math inline">\mu = 0</span> implies <span
+class="math inline">x = 0</span>.</p>
 <p>There may be two independent portfolios having variance zero. If they
 have different returns then arbitrage exists. If they have the same
 return then the model has redundant assets.</p>
+</section>
+<section id="remarks" class="level2">
+<h2>Remarks</h2>
+<p>This paper does not use the notion of equilibrium to claim the
+so-called market portfolio is efficient. The notion of equilibrium for a
+one-period model is problematic since it does not allow for a sequence
+of market clearing trades allowing convergence.</p>
+<p>Some reviewers have claimed our stronger version of the CAPM could
+not possibly be true. “Everyone knows” the CAPM formula only holds for
+expected values, not as equality of random variables. When I pointed out
+that it is simply a mathematial statement, so either there is a mistake
+in the derivation or a counterexample, the reponses were that it
+<em>was</em> in fact a known result. One reviewer claimed “This is
+demonstrated early on in any graduate level presentation of the
+efficiency frontier and is the result you speak of. It does not need a
+citation.” So far, no one has been able to provide a prior
+reference.</p>
 </section>
 <section id="references" class="level2">
 <h2>References</h2>

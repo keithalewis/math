@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-20" />
+  <meta name="dcterms.date" content="2023-09-07" />
   <title>Relation</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,32 +16,79 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      fleqn: true
-     });
-  }}});
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
   </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Relation</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 20, 2023</p>
+<p class="date">September 7, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Relation – comparing two things.
+</div>
 </header>
-<p>When are two things equivalent in some sense even if they are not equal? Is one thing bigger than another? Is it even possible to compare them? Relations provide a systematic way to get insight into these questions. Partial functions are a special case of relations and functions are a special case of partial functions.</p>
+<p>When are two things equivalent in some sense even if they are not
+equal? Is one thing bigger than another? Is it even possible to compare
+them? Relations provide a systematic way to get insight into these
+questions. Partial functions are a special case of relations and
+functions are a special case of partial functions.</p>
 <section id="relation" class="level2">
 <h2>Relation</h2>
-<p>Given sets <span class="math inline">X</span> and <span class="math inline">Y</span> a <em>relation</em> is a subset of the cartesian product of <span class="math inline">X</span> and <span class="math inline">Y</span>, <span class="math inline">R\subseteq X\times Y</span>. We write <span class="math inline">xRy</span> if <span class="math inline">(x,y)\in R</span>. The <em>domain</em> of a relation is <span class="math inline">\operatorname{dom}R = \{x\in X\mid xRy\text{ for some }y\in Y\}</span>. The <em>codomain</em> of a relation is <span class="math inline">\operatorname{cod}R = \{y\in Y\mid xRy\text{ for some }x\in X\}</span>. The <em>left coset</em> of <span class="math inline">y\in Y</span> is <span class="math inline">Ry = \{x\in X: xRy\}</span>. The <em>right coset</em> of <span class="math inline">x\in X</span> is <span class="math inline">xR = \{y\in Y: xRy\}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\operatorname{dom}R = \cup_{y\in Y} Ry</span> and <span class="math inline">\operatorname{cod}R = \cup_{x\in X} xR</span></em>.</p>
+<p>Given sets <span class="math inline">X</span> and <span
+class="math inline">Y</span> a <em>relation</em> is a subset of the
+cartesian product of <span class="math inline">X</span> and <span
+class="math inline">Y</span>, <span class="math inline">R\subseteq
+X\times Y</span>. We write <span class="math inline">xRy</span> if <span
+class="math inline">(x,y)\in R</span>. The <em>domain</em> of a relation
+is <span class="math inline">\operatorname{dom}R = \{x\in X\mid
+xRy\text{ for some }y\in Y\}</span>. The <em>codomain</em> of a relation
+is <span class="math inline">\operatorname{cod}R = \{y\in Y\mid
+xRy\text{ for some }x\in X\}</span>. The <em>left coset</em> of <span
+class="math inline">y\in Y</span> is <span class="math inline">Ry =
+\{x\in X: xRy\}</span>. The <em>right coset</em> of <span
+class="math inline">x\in X</span> is <span class="math inline">xR =
+\{y\in Y: xRy\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{dom}R = \cup_{y\in Y} Ry</span> and
+<span class="math inline">\operatorname{cod}R = \cup_{x\in X}
+xR</span></em>.</p>
 <!--
 It is equivalent to think of relations as a function $R\colon X\times Y\to\{0,1\}$
 where $R(x,y) = 0$ if $(x,y)\notin R$ and $R(x,y) = 1$ if $(x,y)\in R$.
@@ -52,44 +99,111 @@ The notation $R,$ is non-standard.
 -->
 <section id="composition" class="level3">
 <h3>Composition</h3>
-<p>If <span class="math inline">R\subseteq X\times Y</span> and <span class="math inline">S\subseteq Y\times Z</span> are relations define the <em>composition</em> <span class="math inline">SR\subseteq X\times Z</span> by <span class="math inline">x(SR)z</span> if there exists <span class="math inline">y\in Y</span> with <span class="math inline">xRy</span> and <span class="math inline">ySz</span>. It may seem more natural to denote the composition by <span class="math inline">RS</span> instead of <span class="math inline">SR</span>, and you would be right, but that is not the usual mathematical convention.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">x(SR)z</span> if and only if the intersection of the cosets <span class="math inline">xR</span> and <span class="math inline">Sz</span> is nonempty</em>.</p>
-<p>Composition is closely related to the E. F. Codd definition of the <em>join</em> of two relations. The join of <span class="math inline">R</span> and <span class="math inline">S</span> on <span class="math inline">Y</span> is <span class="math inline">\{(x,y,z)\mid xRy\text{ and } ySz\text{ for some }y\in Y\}</span>.</p>
+<p>If <span class="math inline">R\subseteq X\times Y</span> and <span
+class="math inline">S\subseteq Y\times Z</span> are relations define the
+<em>composition</em> <span class="math inline">SR\subseteq X\times
+Z</span> by <span class="math inline">x(SR)z</span> if there exists
+<span class="math inline">y\in Y</span> with <span
+class="math inline">xRy</span> and <span class="math inline">ySz</span>.
+It may seem more natural to denote the composition by <span
+class="math inline">RS</span> instead of <span
+class="math inline">SR</span>, and you would be right, but that is not
+the usual mathematical convention.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">x(SR)z</span> if and only if the intersection of the
+cosets <span class="math inline">xR</span> and <span
+class="math inline">Sz</span> is nonempty</em>.</p>
+<p>Composition is closely related to the E. F. Codd definition of the
+<em>join</em> of two relations. The join of <span
+class="math inline">R</span> and <span class="math inline">S</span> on
+<span class="math inline">Y</span> is <span
+class="math inline">\{(x,y,z)\mid xRy\text{ and } ySz\text{ for some
+}y\in Y\}</span>.</p>
 </section>
 <section id="transpose" class="level3">
 <h3>Transpose</h3>
-<p>The <em>transpose</em> of a relation <span class="math inline">R\subseteq X\times Y</span> is the relation <span class="math inline">R&#39;\subseteq Y\times X</span> defined by <span class="math inline">yR&#39;x = xRy</span>, <span class="math inline">x\in X</span>, <span class="math inline">y\in Y</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">R</span> is a relation on <span class="math inline">X\times Y</span> and <span class="math inline">S</span> is a relation on <span class="math inline">Y\times Z</span> then <span class="math inline">(SR)&#39; = R&#39;S&#39;</span></em>.</p>
+<p>The <em>transpose</em> of a relation <span
+class="math inline">R\subseteq X\times Y</span> is the relation <span
+class="math inline">R&#39;\subseteq Y\times X</span> defined by <span
+class="math inline">yR&#39;x = xRy</span>, <span
+class="math inline">x\in X</span>, <span class="math inline">y\in
+Y</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">R</span>
+is a relation on <span class="math inline">X\times Y</span> and <span
+class="math inline">S</span> is a relation on <span
+class="math inline">Y\times Z</span> then <span
+class="math inline">(SR)&#39; = R&#39;S&#39;</span></em>.</p>
 </section>
 <section id="associative" class="level3">
 <h3>Associative</h3>
 <p>Composition is <em>associative</em>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">R\subseteq X\times Y</span>, <span class="math inline">S\subseteq Y\times Z</span>, and <span class="math inline">T\subseteq Z\times W</span> then <span class="math inline">(TS)R = T(SR)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">R\subseteq X\times Y</span>, <span
+class="math inline">S\subseteq Y\times Z</span>, and <span
+class="math inline">T\subseteq Z\times W</span> then <span
+class="math inline">(TS)R = T(SR)</span></em>.</p>
 </section>
 <section id="identity" class="level3">
 <h3>Identity</h3>
-<p>If <span class="math inline">X</span> is a set then the <em>identity</em> relation is $I_X = I = {(x,x)xX$}.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">R\subseteq X\times Y</span> is a relation then <span class="math inline">RI_X = R</span></em>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">T\subseteq W\times X</span> is a relation then <span class="math inline">I_XT = T</span></em>.</p>
+<p>If <span class="math inline">X</span> is a set then the
+<em>identity</em> relation is $I_X = I = {(x,x)xX$}.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">R\subseteq X\times Y</span> is a relation then <span
+class="math inline">RI_X = R</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">T\subseteq W\times X</span> is a relation then <span
+class="math inline">I_XT = T</span></em>.</p>
 </section>
 </section>
 <section id="properties" class="level2">
 <h2>Properties</h2>
-<p>We say <span class="math inline">R</span> is a relation on <span class="math inline">X</span> if <span class="math inline">R\subseteq X^2 = X\times X</span>. A relation on <span class="math inline">X</span> is <em>transitive</em> if <span class="math inline">xRy</span> and <span class="math inline">yRz</span> implies <span class="math inline">xRz</span>, <span class="math inline">x,y,z\in X</span>. Transitivity is the basic notion of <em>ordering</em>.</p>
-<p><strong>Exercise</strong>. <em><span class="math inline">R</span> is transitive if and only if <span class="math inline">R^2 = RR\subseteq R</span></em>.</p>
-<p>Since composition is associative, the set of all transitive relations is a <em>semigroup</em>.</p>
-<p>Given a set <span class="math inline">X</span> let <span class="math inline">I^X = \{(x,x)\mid x\in X\}</span>. We write <span class="math inline">I</span> for <span class="math inline">I^X</span> if <span class="math inline">X</span> is clear from the context.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">I</span> is transitive</em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">RI = R = IR</span> for any relation <span class="math inline">R</span></em>.</p>
-<p>This shows the set of transitive relations on a set <span class="math inline">X</span> is a monoid with identity <span class="math inline">I</span>.</p>
-<p>A relation on <span class="math inline">X</span> is <em>reflexive</em> if <span class="math inline">xRx</span>, <span class="math inline">x\in X</span>.</p>
-<p><strong>Exercise</strong>. <em><span class="math inline">R</span> is reflexive if and only if <span class="math inline">I\subseteq R</span></em>.</p>
-<p>A relation on <span class="math inline">X</span> is <em>symmetric</em> if <span class="math inline">xRy</span> implies <span class="math inline">yRx</span>, <span class="math inline">x,y\in X</span>.</p>
-<p><strong>Exercise</strong>. <em>A relation on <span class="math inline">X</span> is <em>symmetric</em> if and only if <span class="math inline">R&#39; = R</span></em>.</p>
-<p>A relation that is reflexive, symmetric, and transitive is an <em>equivalence</em> relation.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">R</span> is an equivalence relation then the left and right cosets <span class="math inline">{\{xR\mid x\in X\} = \{Ry\mid y\in Y\}}</span> are a partition of <span class="math inline">X</span>.</em></p>
-<p>This is how to mathematically model equivalent but not equal things.</p>
-<p><em>Hint</em>: A <em>partition</em> of a set is a collection of pairwise disjoint subsets with union equal to the set.</p>
+<p>We say <span class="math inline">R</span> is a relation on <span
+class="math inline">X</span> if <span class="math inline">R\subseteq X^2
+= X\times X</span>. A relation on <span class="math inline">X</span> is
+<em>transitive</em> if <span class="math inline">xRy</span> and <span
+class="math inline">yRz</span> implies <span
+class="math inline">xRz</span>, <span class="math inline">x,y,z\in
+X</span>. Transitivity is the basic notion of <em>ordering</em>.</p>
+<p><strong>Exercise</strong>. <em><span class="math inline">R</span> is
+transitive if and only if <span class="math inline">R^2 = RR\subseteq
+R</span></em>.</p>
+<p>Since composition is associative, the set of all transitive relations
+is a <em>semigroup</em>.</p>
+<p>Given a set <span class="math inline">X</span> let <span
+class="math inline">I^X = \{(x,x)\mid x\in X\}</span>. We write <span
+class="math inline">I</span> for <span class="math inline">I^X</span> if
+<span class="math inline">X</span> is clear from the context.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">I</span> is transitive</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">RI = R
+= IR</span> for any relation <span
+class="math inline">R</span></em>.</p>
+<p>This shows the set of transitive relations on a set <span
+class="math inline">X</span> is a monoid with identity <span
+class="math inline">I</span>.</p>
+<p>A relation on <span class="math inline">X</span> is
+<em>reflexive</em> if <span class="math inline">xRx</span>, <span
+class="math inline">x\in X</span>.</p>
+<p><strong>Exercise</strong>. <em><span class="math inline">R</span> is
+reflexive if and only if <span class="math inline">I\subseteq
+R</span></em>.</p>
+<p>A relation on <span class="math inline">X</span> is
+<em>symmetric</em> if <span class="math inline">xRy</span> implies <span
+class="math inline">yRx</span>, <span class="math inline">x,y\in
+X</span>.</p>
+<p><strong>Exercise</strong>. <em>A relation on <span
+class="math inline">X</span> is <em>symmetric</em> if and only if <span
+class="math inline">R&#39; = R</span></em>.</p>
+<p>A relation that is reflexive, symmetric, and transitive is an
+<em>equivalence</em> relation.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">R</span>
+is an equivalence relation then the left and right cosets <span
+class="math inline">{\{xR\mid x\in X\} = \{Ry\mid y\in Y\}}</span> are a
+partition of <span class="math inline">X</span>.</em></p>
+<p>This is how to mathematically model equivalent but not equal
+things.</p>
+<p><em>Hint</em>: A <em>partition</em> of a set is a collection of
+pairwise disjoint subsets with union equal to the set.</p>
 <!--
 
 The _kernel_ of a relation is $\ker R = \{(x,x')\in X\times X:xR = x'R\}\subseteq X\times X$.
@@ -307,5 +421,9 @@ deserve.  For example, $f(x) = 1/x$ where $x$ is a real number is a
 partial function with domain $x \not= 0$.
 -->
 </section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
 </body>
 </html>

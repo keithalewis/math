@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-20" />
+  <meta name="dcterms.date" content="2023-09-21" />
   <title>Probability</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,192 +16,574 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      fleqn: true
-     });
-  }}});
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
   </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Probability</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 20, 2023</p>
+<p class="date">September 21, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+A calculus for uncertainty
+</div>
 </header>
-<p>Probability is an extension of the rules of logic to deal with uncertain events. A probability is a number between 0 and 1 representing a degree of belief. All probabilities are conditional on available information and can be systematically updated using Bayes’ theorem as more information becomes available.</p>
+<p>Probability is an extension of the rules of logic to deal with
+uncertain events. A probability is a number between 0 and 1 representing
+a degree of belief. All probabilities are conditional on available
+information and can be systematically updated using Bayes’ theorem as
+more information becomes available.</p>
 <section id="probability-space" class="level2">
 <h2>Probability Space</h2>
-<p>A <em>sample space</em> <span class="math inline">Ω</span> is the set of what can happen. An <em>outcome</em> <span class="math inline">ω\in Ω</span> is an element of a sample space. An <em>event</em> <span class="math inline">E\subseteq Ω</span> is a subset of a sample space. An <em>algebra</em> <span class="math inline">\mathcal{A}</span> is collection of events that is closed under set <em>complement</em> and <em>union</em>.</p>
-<p>The complement of the event <span class="math inline">E\subseteq Ω</span>, <span class="math inline">\neg E</span>, the set of outcomes ‘not’ in <span class="math inline">E</span>. The union of events, <span class="math inline">E\cup F</span>, is the set of outcomes that belong to <span class="math inline">E</span> ‘or’ <span class="math inline">F</span>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">\mathcal{A}</span> is closed under complement and union then so is <span class="math inline">\mathcal{A}\cup\{\emptyset, Ω\}</span></em>.</p>
+<p>A <em>sample space</em> <span class="math inline">Ω</span> is the set
+of what can happen. An <em>outcome</em> <span class="math inline">ω\in
+Ω</span> is an element of a sample space. An <em>event</em> <span
+class="math inline">E\subseteq Ω</span> is a subset of a sample space.
+An <em>algebra</em> <span class="math inline">\mathcal{A}</span> is
+collection of events that is closed under set <em>complement</em> and
+<em>union</em>.</p>
+<p>The complement of the event <span class="math inline">E\subseteq
+Ω</span>, <span class="math inline">\neg E</span>, the set of outcomes
+‘not’ in <span class="math inline">E</span>. The union of events, <span
+class="math inline">E\cup F</span>, is the set of outcomes that belong
+to <span class="math inline">E</span> ‘or’ <span
+class="math inline">F</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">\mathcal{A}</span> is closed under complement and
+union then so is <span class="math inline">\mathcal{A}\cup\{\emptyset,
+Ω\}</span></em>.</p>
 <p>It is convenient to assume the empty set belongs to the algebra.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">Ω\in\mathcal{A}</span> and <span class="math inline">\mathcal{A}</span> is closed under set intersection</em>.</p>
-<p><em>Hint</em>: Use <span class="math inline">\emptyset\in\mathcal{A}</span> and De Morgan’s laws.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">Ω\in\mathcal{A}</span> and <span
+class="math inline">\mathcal{A}</span> is closed under set
+intersection</em>.</p>
+<p><em>Hint</em>: Use <span
+class="math inline">\emptyset\in\mathcal{A}</span> and De Morgan’s
+laws.</p>
 <details>
-<summary>Solution</summary> The set <em>complement</em> of <span class="math inline">A\subseteq Ω</span> is <span class="math inline">\neg A = \{ω\in Ω\mid ω\not\in A\}</span> so <span class="math inline">\neg \emptyset = Ω\in\mathcal{A}</span>. Since <span class="math inline">\neg(A\cap B) = \neg A \cup\neg B</span> we have <span class="math inline">A\cap B\in\mathcal{A}</span>.
+<summary>
+Solution
+</summary>
+The set <em>complement</em> of <span class="math inline">A\subseteq
+Ω</span> is <span class="math inline">\neg A = \{ω\in Ω\mid ω\not\in
+A\}</span> so <span class="math inline">\neg \emptyset =
+Ω\in\mathcal{A}</span>. Since <span class="math inline">\neg(A\cap B) =
+\neg A \cup\neg B</span> we have <span class="math inline">A\cap
+B\in\mathcal{A}</span>.
 </details>
-<p>If an algebra is also closed under countable unions of events then is it a <span class="math inline">σ</span>-algebra. This means if <span class="math inline">E_n\in\mathcal{A}</span>, <span class="math inline">n\in\mathbf{N}</span>, then <span class="math inline">\cup_{n\in\mathbf{N}} E_n\in\mathcal{A}</span>, where <span class="math inline">\mathbf{N}= \{0, 1, 2, \ldots\}</span> is the set of <em>natural numbers</em>.</p>
-<p><strong>Exercise</strong>. <em>If an algebra is closed under countable unions then it is also closed under countable intersections</em>.</p>
+<p>If an algebra is also closed under countable unions of events then is
+it a <span class="math inline">σ</span>-algebra. This means if <span
+class="math inline">E_n\in\mathcal{A}</span>, <span
+class="math inline">n\in\mathbf{N}</span>, then <span
+class="math inline">\cup_{n\in\mathbf{N}} E_n\in\mathcal{A}</span>,
+where <span class="math inline">\mathbf{N}= \{0, 1, 2, \ldots\}</span>
+is the set of <em>natural numbers</em>.</p>
+<p><strong>Exercise</strong>. <em>If an algebra is closed under
+countable unions then it is also closed under countable
+intersections</em>.</p>
 <p>Algebras model <em>partial information</em>.</p>
 <section id="partition" class="level3">
 <h3>Partition</h3>
-<p>If <span class="math inline">\mathcal{A}</span> is finite then its atoms are a partition of the sample space and <span class="math inline">\mathcal{A}</span> is generated by its atoms.</p>
-<p>An <em>atom</em> is an event <span class="math inline">A\in\mathcal{A}</span> where <span class="math inline">B\subseteq A</span> for some <span class="math inline">B\in\mathcal{A}</span> implies <span class="math inline">B=\emptyset</span> or <span class="math inline">B=A</span>. If <span class="math inline">\mathcal{A}</span> is finite and <span class="math inline">ω\in Ω</span> define <span class="math inline">{A_ω = \cap\{A\in\mathcal{A}\mid ω\in A\}}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">A_ω</span> is an atom of <span class="math inline">\mathcal{A}</span> containing <span class="math inline">ω\in Ω</span></em>.</p>
-<p><strong>Excercise</strong>. <em>Show <span class="math inline">\{A_ω\mid ω\in Ω\}</span> is a partition of <span class="math inline">Ω</span></em>.</p>
-<p><em>Hint</em>: Since <span class="math inline">ω\in A_ω</span>, <span class="math inline">ω\in Ω</span>, the union is <span class="math inline">Ω</span>. Show either <span class="math inline">{A_ω \cap A_{ω&#39;} = \emptyset}</span> or <span class="math inline">A_ω = A_{ω&#39;}</span>, <span class="math inline">ω,ω&#39;\in Ω</span>.</p>
-<p>If <span class="math inline">\mathcal{A}</span> is finite then we can identify it with its atoms.</p>
-<p><em>Partial information</em> is modeled by a partition of a sample space. Complete information corresponds to the <em>finest</em> partition of <em>singletons</em> <span class="math inline">\{\{ω\}\mid ω\in Ω\}</span>. No information corresponds to the <em>coarsest</em> partition <span class="math inline">\{Ω\}</span>. Partial information is knowing only which set in the partition an outcome belongs to.</p>
+<p>If <span class="math inline">\mathcal{A}</span> is finite then its
+atoms are a partition of the sample space and <span
+class="math inline">\mathcal{A}</span> is generated by its atoms.</p>
+<p>An <em>atom</em> is an event <span
+class="math inline">A\in\mathcal{A}</span> where <span
+class="math inline">B\subseteq A</span> for some <span
+class="math inline">B\in\mathcal{A}</span> implies <span
+class="math inline">B=\emptyset</span> or <span
+class="math inline">B=A</span>. If <span
+class="math inline">\mathcal{A}</span> is finite and <span
+class="math inline">ω\in Ω</span> define <span class="math inline">{A_ω
+= \cap\{A\in\mathcal{A}\mid ω\in A\}}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">A_ω</span> is an atom of <span
+class="math inline">\mathcal{A}</span> containing <span
+class="math inline">ω\in Ω</span></em>.</p>
+<p><strong>Excercise</strong>. <em>Show <span
+class="math inline">\{A_ω\mid ω\in Ω\}</span> is a partition of <span
+class="math inline">Ω</span></em>.</p>
+<p><em>Hint</em>: Since <span class="math inline">ω\in A_ω</span>, <span
+class="math inline">ω\in Ω</span>, the union is <span
+class="math inline">Ω</span>. Show either <span class="math inline">{A_ω
+\cap A_{ω&#39;} = \emptyset}</span> or <span class="math inline">A_ω =
+A_{ω&#39;}</span>, <span class="math inline">ω,ω&#39;\in Ω</span>.</p>
+<p>If <span class="math inline">\mathcal{A}</span> is finite then we can
+identify it with its atoms.</p>
+<p><em>Partial information</em> is modeled by a partition of a sample
+space. Complete information corresponds to the <em>finest</em> partition
+of <em>singletons</em> <span class="math inline">\{\{ω\}\mid ω\in
+Ω\}</span>. No information corresponds to the <em>coarsest</em>
+partition <span class="math inline">\{Ω\}</span>. Partial information is
+knowing only which set in the partition an outcome belongs to.</p>
 <section id="coin-tossing" class="level4">
 <h4>Coin tossing</h4>
-<p>We can model a sequence of random coin flips by a sequence of 0’s and 1’s where 0 corresponds to heads and 1 corresponds to tails. (Or vice versa.) If <span class="math inline">ω_j\in\{0,1\}</span> is the <span class="math inline">j</span>-th flip define <span class="math inline">{ω = \sum_{j=1}^\infty ω_j/2^j}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">ω\in [0,1)</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">ω_1 = 0</span> then <span class="math inline">ω\in [0,1/2)</span> and if <span class="math inline">ω_1 = 1</span> then <span class="math inline">ω\in [1/2,1)</span></em>.</p>
-<p>This shows the partition <span class="math inline">\mathcal{A}_1 = \{[0,1/2), [1/2,1)\}</span> of <span class="math inline">[0, 1)</span> represents knowing the first base 2 digit of <span class="math inline">ω</span>. Similarly, the partition <span class="math inline">\mathcal{A}_2 = \{[0,1/4), [1/4, 1/2), [1/2, 3/4), [3/4,1)\}</span> represents knowing the first two base 2 digits of <span class="math inline">ω</span>.</p>
-<p><strong>Exercise</strong>. <em>Show the partition <span class="math inline">\mathcal{A}_n = \{[j/2^n, (j + 1)/2^n)\mid 0\le j &lt; 2^n\}</span> of <span class="math inline">[0, 1)</span> represents knowing the first <span class="math inline">n</span> base 2 digits of <span class="math inline">ω\in [0,1)</span></em>.</p>
+<p>We can model a sequence of random coin flips by a sequence of 0’s and
+1’s where 0 corresponds to heads and 1 corresponds to tails. (Or vice
+versa.) If <span class="math inline">ω_j\in\{0,1\}</span> is the <span
+class="math inline">j</span>-th flip define <span class="math inline">{ω
+= \sum_{j=1}^\infty ω_j/2^j}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">ω\in
+[0,1)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">ω_1
+= 0</span> then <span class="math inline">ω\in [0,1/2)</span> and if
+<span class="math inline">ω_1 = 1</span> then <span
+class="math inline">ω\in [1/2,1)</span></em>.</p>
+<p>This shows the partition <span class="math inline">\mathcal{A}_1 =
+\{[0,1/2), [1/2,1)\}</span> of <span class="math inline">[0, 1)</span>
+represents knowing the first base 2 digit of <span
+class="math inline">ω</span>. Similarly, the partition <span
+class="math inline">\mathcal{A}_2 = \{[0,1/4), [1/4, 1/2), [1/2, 3/4),
+[3/4,1)\}</span> represents knowing the first two base 2 digits of <span
+class="math inline">ω</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the partition <span
+class="math inline">\mathcal{A}_n = \{[j/2^n, (j + 1)/2^n)\mid 0\le j
+&lt; 2^n\}</span> of <span class="math inline">[0, 1)</span> represents
+knowing the first <span class="math inline">n</span> base 2 digits of
+<span class="math inline">ω\in [0,1)</span></em>.</p>
 </section>
 </section>
 <section id="measure" class="level3">
 <h3>Measure</h3>
-<p>A <em>measure</em> is a set function <span class="math inline">μ\colon\mathcal{A}\to\mathbf{R}</span> that satisfies <span class="math inline">μ(E\cup F) = μ(E) + μ(F) - μ(E\cap F)</span> for <span class="math inline">E,F\in\mathcal{A}</span>. Measures do not count things twice. We also assume <span class="math inline">μ(\emptyset) = 0</span>. The measure of nothing is 0.</p>
-<p><strong>Exercise</strong> <em>Show <span class="math inline">μ(E\cup F) = μ(E) + μ(F)</span> if <span class="math inline">E\cap F=\emptyset</span></em>.</p>
-<p>A <em>probability measure</em> <span class="math inline">P</span> is a measure with <span class="math inline">P(E)\ge0</span> for all <span class="math inline">E\in\mathcal{A}</span> and <span class="math inline">P(Ω) = 1</span>.</p>
+<p>A <em>measure</em> is a set function <span
+class="math inline">μ\colon\mathcal{A}\to\mathbf{R}</span> that
+satisfies <span class="math inline">μ(E\cup F) = μ(E) + μ(F) - μ(E\cap
+F)</span> for <span class="math inline">E,F\in\mathcal{A}</span>.
+Measures do not count things twice. We also assume <span
+class="math inline">μ(\emptyset) = 0</span>. The measure of nothing is
+0.</p>
+<p><strong>Exercise</strong> <em>Show <span class="math inline">μ(E\cup
+F) = μ(E) + μ(F)</span> if <span class="math inline">E\cap
+F=\emptyset</span></em>.</p>
+<p>A <em>probability measure</em> <span class="math inline">P</span> is
+a measure with <span class="math inline">P(E)\ge0</span> for all <span
+class="math inline">E\in\mathcal{A}</span> and <span
+class="math inline">P(Ω) = 1</span>.</p>
 <section id="discrete" class="level4">
 <h4>Discrete</h4>
-<p>If <span class="math inline">Ω = \{ω_j\}</span> is finite (or countable) we can define a <em>discrete</em> probability measure by <span class="math inline">P(\{ω_j\}) = p_j</span> where <span class="math inline">p_j &gt; 0</span> and <span class="math inline">\sum_j p_j = 1</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(E) = \sum_{ω_j\in E} p_j</span></em>.</p>
-<p><em>Hint</em>. <span class="math inline">E</span> is the disjoint union of singletons <span class="math inline">\{ω_j\}</span> where <span class="math inline">ω_j\in E</span>.</p>
+<p>If <span class="math inline">Ω = \{ω_j\}</span> is finite (or
+countable) we can define a <em>discrete</em> probability measure by
+<span class="math inline">P(\{ω_j\}) = p_j</span> where <span
+class="math inline">p_j &gt; 0</span> and <span
+class="math inline">\sum_j p_j = 1</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(E) =
+\sum_{ω_j\in E} p_j</span></em>.</p>
+<p><em>Hint</em>. <span class="math inline">E</span> is the disjoint
+union of singletons <span class="math inline">\{ω_j\}</span> where <span
+class="math inline">ω_j\in E</span>.</p>
 </section>
 <section id="uniform" class="level4">
 <h4>Uniform</h4>
-<p>The <em>uniform</em> measure on <span class="math inline">Ω = [0,1)</span> is defined by <span class="math inline">λ([a,b)) = b - a</span> for <span class="math inline">0\le a\le b &lt; 1</span>.</p>
+<p>The <em>uniform</em> measure on <span class="math inline">Ω =
+[0,1)</span> is defined by <span class="math inline">λ([a,b)) = b -
+a</span> for <span class="math inline">0\le a\le b &lt; 1</span>.</p>
 </section>
 </section>
 </section>
 <section id="conditional-expectation" class="level2">
 <h2>Conditional Expectation</h2>
-<p>The <em>conditional expectation</em> of an event <span class="math inline">B</span> given an event <span class="math inline">A</span> is <span class="math inline">{P(B\mid A) = P(B\cap A)/P(A)}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">P_A(B) = P(B\cap A)/P(A)</span> is a probability measure on <span class="math inline">A</span></em>.</p>
-<p><em>Hint</em>: Show <span class="math inline">P_A(A) = 1</span> and <span class="math inline">P_A(B\cup C) = P_A(B) + P_A(C) - P_A(B\cap C)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(B\mid A) = P(B) P(A\mid B)/P(A)</span></em>.</p>
-<p>This is the simplest form of Bayes Theorem. It shows how to update your degree of belief based on new information. Every probability is conditional on information.</p>
-<p>We say <span class="math inline">B</span> is <em>independent</em> of <span class="math inline">A</span> if <span class="math inline">P(B\mid A) = P(B)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">B</span> is independent of <span class="math inline">A</span> if and only if <span class="math inline">P(A\cap B) = P(A)P(B)</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">B</span> is independent of <span class="math inline">A</span> if and only if <span class="math inline">A</span> is independent of <span class="math inline">B</span></em>.</p>
-<p>We also say <span class="math inline">A</span> and <span class="math inline">B</span> are independent.</p>
+<p>The <em>conditional expectation</em> of an event <span
+class="math inline">B</span> given an event <span
+class="math inline">A</span> is <span class="math inline">{P(B\mid A) =
+P(B\cap A)/P(A)}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P_A(B)
+= P(B\cap A)/P(A)</span> is a probability measure on <span
+class="math inline">A</span></em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">P_A(A) = 1</span> and
+<span class="math inline">P_A(B\cup C) = P_A(B) + P_A(C) - P_A(B\cap
+C)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(B\mid
+A) = P(B) P(A\mid B)/P(A)</span></em>.</p>
+<p>This is the simplest form of Bayes Theorem. It shows how to update
+your degree of belief based on new information. Every probability is
+conditional on information.</p>
+<p>We say <span class="math inline">B</span> is <em>independent</em> of
+<span class="math inline">A</span> if <span class="math inline">P(B\mid
+A) = P(B)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">B</span> is independent of <span
+class="math inline">A</span> if and only if <span
+class="math inline">P(A\cap B) = P(A)P(B)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">B</span> is independent of <span
+class="math inline">A</span> if and only if <span
+class="math inline">A</span> is independent of <span
+class="math inline">B</span></em>.</p>
+<p>We also say <span class="math inline">A</span> and <span
+class="math inline">B</span> are independent.</p>
 <section id="example" class="level3">
 <h3>Example</h3>
-<p>Suppose a family moves in next door and you are told they have two children. If you step on a GI Joe doll in their yard on your way to work what is the probability they are both boys?</p>
-<p>The first step is to establish the sample space and the probability measure. We assume <span class="math inline">\Omega = \{FF, FM, MF, MM\}</span> represents the female or male gender of the younger and older child and that each possibility is equally likely.</p>
-<p>The event “step on a GI Joe” doll corresponds to <span class="math inline">B = \{FM, MF, MM\}</span> indicating at least one of the children is a boy. Bayes’ theorem implies <span class="math inline">P(\{MM\}\mid B) = P(\{MM\})/P(B) = (1/4)/(3/4) = 1/3</span>, not <span class="math inline">1/2</span>.</p>
-<p>As in every model, there are assumptions. It may not be the case female and male children are equally likely. If <span class="math inline">p</span> is the probabilty of a child being male then <span class="math inline">{P(\{MM\}\mid B) = p^2/(p(1-p) + (1-p)p + p^2) = p/(2 - p)}</span>. If <span class="math inline">p = 1/2</span> then <span class="math inline">p/(2- p) = 1/3</span>.</p>
-<p><strong>Exercise</strong>. <em>What if <span class="math inline">p = 0</span> or <span class="math inline">p = 1</span>?</em></p>
-<p>This assumes the probability of each child being male or female is independent of the order of having children. This does not hold, e.g., in counties where parents kill their first child if it is female.</p>
-<p>The assumption of stumbling across a GI Joe, or a Barbie, doll implying one of the children is or is not male may also not be valid.</p>
-<p>Probability Theory can still be applied, it is just a matter of extending the sample space and finding an appropriate probability measure.</p>
+<p>Suppose a family moves in next door and you are told they have two
+children. If you step on a GI Joe doll in their yard on your way to work
+what is the probability they are both boys?</p>
+<p>The first step is to establish the sample space and the probability
+measure. We assume <span class="math inline">\Omega = \{FF, FM, MF,
+MM\}</span> represents the female or male gender of the younger and
+older child and that each possibility is equally likely.</p>
+<p>The event “step on a GI Joe” doll corresponds to <span
+class="math inline">B = \{FM, MF, MM\}</span> indicating at least one of
+the children is a boy. Bayes’ theorem implies <span
+class="math inline">P(\{MM\}\mid B) = P(\{MM\})/P(B) = (1/4)/(3/4) =
+1/3</span>, not <span class="math inline">1/2</span>.</p>
+<p>As in every model, there are assumptions. It may not be the case
+female and male children are equally likely. If <span
+class="math inline">p</span> is the probabilty of a child being male
+then <span class="math inline">{P(\{MM\}\mid B) = p^2/(p(1-p) + (1-p)p +
+p^2) = p/(2 - p)}</span>. If <span class="math inline">p = 1/2</span>
+then <span class="math inline">p/(2- p) = 1/3</span>.</p>
+<p><strong>Exercise</strong>. <em>What if <span class="math inline">p =
+0</span> or <span class="math inline">p = 1</span>?</em></p>
+<p>This assumes the probability of each child being male or female is
+independent of the order of having children. This does not hold, e.g.,
+in counties where parents kill their first child if it is female.</p>
+<p>The assumption of stumbling across a GI Joe, or a Barbie, doll
+implying one of the children is or is not male may also not be
+valid.</p>
+<p>Probability Theory can still be applied, it is just a matter of
+extending the sample space and finding an appropriate probability
+measure.</p>
 </section>
 </section>
 <section id="random-variable" class="level2">
 <h2>Random Variable</h2>
-<p>Random variables are symbols that can be used in place of a number when manipulating equations and inequalities. The cumulative distribution function <span class="math inline">F</span> of the random variable <span class="math inline">X</span> is <span class="math inline">F(x) = P(X \le x)</span>, the probability <span class="math inline">X</span> is not greater than <span class="math inline">x</span>. The cdf tells you everything there is to know about the probability of the values a random variable can take on.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">P</span> is discrete and <span class="math inline">X</span> is the identity function on <span class="math inline">Ω</span> then <span class="math inline">P(X \le x) = \sum_{x_j\le x} p_j</span></em>.</p>
-<p>Note <span class="math inline">F</span> is piece-wise constant, non-decreasing, and right-continuous.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> is uniformly distributed on <span class="math inline">[0,1)</span> then <span class="math inline">F(x) = \max\{0,\min\{1, x\}\}</span> for <span class="math inline">-\infty &lt; x &lt; \infty</span></em>.</p>
-<p><em>Hint</em>: If <span class="math inline">x &lt; 0</span> then <span class="math inline">F(x) = 0</span> and if <span class="math inline">x \ge 1</span> then <span class="math inline">F(x) = 1</span>.</p>
-<p>The mathematical definition of a <em>random variable</em> is an <em><span class="math inline">\mathcal{A}</span>-measurable</em> function <span class="math inline">X\colon Ω\to\mathbf{R}</span> on a probability space <span class="math inline">\langle Ω, P, \mathcal{A}\rangle</span>. The function is <span class="math inline">\mathcal{A}</span>-measurable if <span class="math inline">{\{ω\in Ω\mid X(ω) \le x\}\in\mathcal{A}}</span>, <span class="math inline">x\in\mathbf{R}</span>, and we write <span class="math inline">X\colon\mathcal{A}\to\mathbf{R}</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">\mathcal{A}</span> is finite then <span class="math inline">X</span> is constant on its atoms.</em></p>
-<p>Note that <span class="math inline">X</span> <em>is</em> a function on atoms in this case.</p>
-<p>The casual definition of the cumulative distribution function of a random variable as <span class="math inline">F(x) = P(X\le x)</span> being the probability of <span class="math inline">X</span> being less than or equal to <span class="math inline">x</span> leaves out the important problem of specifying exactly what “probability” means.</p>
-<p>The rigorous mathematical definition is <span class="math inline">{F_X(x) = P(\{ω\in Ω\mid X(ω) \le x\})}</span> where <span class="math inline">P</span> is a probability measure. We write <span class="math inline">F</span> instead of <span class="math inline">F_X</span> if <span class="math inline">X</span> is understood. More generally, given a subset <span class="math inline">A\subseteq\mathbf{R}</span> the probability that <span class="math inline">X</span> takes a value in <span class="math inline">A</span> is <span class="math inline">{P(X\in A) = P(\{ω\in Ω\mid X(ω)\in A\}}</span>. The cdf corresponds to <span class="math inline">A = (-\infty, x]</span>. Two random variables have the same <em>law</em> if they have the same cdf.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">U</span> and <span class="math inline">1 - U</span> have the same law</em>.</p>
+<p>Random variables are symbols that can be used in place of a number
+when manipulating equations and inequalities. The cumulative
+distribution function <span class="math inline">F</span> of the random
+variable <span class="math inline">X</span> is <span
+class="math inline">F(x) = P(X \le x)</span>, the probability <span
+class="math inline">X</span> is not greater than <span
+class="math inline">x</span>. The cdf tells you everything there is to
+know about the probability of the values a random variable can take
+on.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">P</span>
+is discrete and <span class="math inline">X</span> is the identity
+function on <span class="math inline">Ω</span> then <span
+class="math inline">P(X \le x) = \sum_{x_j\le x} p_j</span></em>.</p>
+<p>Note <span class="math inline">F</span> is piece-wise constant,
+non-decreasing, and right-continuous.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+is uniformly distributed on <span class="math inline">[0,1)</span> then
+<span class="math inline">F(x) = \max\{0,\min\{1, x\}\}</span> for <span
+class="math inline">-\infty &lt; x &lt; \infty</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">x &lt; 0</span> then
+<span class="math inline">F(x) = 0</span> and if <span
+class="math inline">x \ge 1</span> then <span class="math inline">F(x) =
+1</span>.</p>
+<p>The mathematical definition of a <em>random variable</em> is an
+<em><span class="math inline">\mathcal{A}</span>-measurable</em>
+function <span class="math inline">X\colon Ω\to\mathbf{R}</span> on a
+probability space <span class="math inline">\langle Ω, P,
+\mathcal{A}\rangle</span>. The function is <span
+class="math inline">\mathcal{A}</span>-measurable if <span
+class="math inline">{\{ω\in Ω\mid X(ω) \le x\}\in\mathcal{A}}</span>,
+<span class="math inline">x\in\mathbf{R}</span>, and we write <span
+class="math inline">X\colon\mathcal{A}\to\mathbf{R}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\mathcal{A}</span> is finite then <span
+class="math inline">X</span> is constant on its atoms.</em></p>
+<p>Note that <span class="math inline">X</span> <em>is</em> a function
+on atoms in this case.</p>
+<p>The casual definition of the cumulative distribution function of a
+random variable as <span class="math inline">F(x) = P(X\le x)</span>
+being the probability of <span class="math inline">X</span> being less
+than or equal to <span class="math inline">x</span> leaves out the
+important problem of specifying exactly what “probability” means.</p>
+<p>The rigorous mathematical definition is <span
+class="math inline">{F_X(x) = P(\{ω\in Ω\mid X(ω) \le x\})}</span> where
+<span class="math inline">P</span> is a probability measure. We write
+<span class="math inline">F</span> instead of <span
+class="math inline">F_X</span> if <span class="math inline">X</span> is
+understood. More generally, given a subset <span
+class="math inline">A\subseteq\mathbf{R}</span> the probability that
+<span class="math inline">X</span> takes a value in <span
+class="math inline">A</span> is <span class="math inline">{P(X\in A) =
+P(\{ω\in Ω\mid X(ω)\in A\}}</span>. The cdf corresponds to <span
+class="math inline">A = (-\infty, x]</span>. Two random variables have
+the same <em>law</em> if they have the same cdf.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">U</span> and <span class="math inline">1 - U</span>
+have the same law</em>.</p>
 <p>Note <span class="math inline">U \not= 1-U</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> has cdf <span class="math inline">F</span>, then <span class="math inline">F(X)</span> and <span class="math inline">U</span> have the same law</em>.</p>
-<p><em>Hint</em>: If <span class="math inline">F(x)</span> jumps from <span class="math inline">a</span> to <span class="math inline">b</span> at <span class="math inline">x = c</span> we define <span class="math inline">F^{-1}(u) = c</span> for <span class="math inline">a \le u &lt; b</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+has cdf <span class="math inline">F</span>, then <span
+class="math inline">F(X)</span> and <span class="math inline">U</span>
+have the same law</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">F(x)</span> jumps from
+<span class="math inline">a</span> to <span class="math inline">b</span>
+at <span class="math inline">x = c</span> we define <span
+class="math inline">F^{-1}(u) = c</span> for <span class="math inline">a
+\le u &lt; b</span>.</p>
 <details>
-<summary>Solution</summary> <span class="math inline">P(F(X) \le x) = P(X\le F^{-1}(x)) = F(F^{-1}(x)) = x</span> for <span class="math inline">0\le x\le 1</span>.
+<summary>
+Solution
+</summary>
+<span class="math inline">P(F(X) \le x) = P(X\le F^{-1}(x)) =
+F(F^{-1}(x)) = x</span> for <span class="math inline">0\le x\le
+1</span>.
 </details>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> has cdf <span class="math inline">F</span>, then <span class="math inline">X</span> and <span class="math inline">F^{-1}(U)</span> have the same law</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+has cdf <span class="math inline">F</span>, then <span
+class="math inline">X</span> and <span
+class="math inline">F^{-1}(U)</span> have the same law</em>.</p>
 <details>
-<summary>Solution</summary> We have <span class="math inline">P(F^{-1}(U) \le x) = P(U\le F(x)) = F(x)</span> since <span class="math inline">0\le F(x)\le 1</span>.
+<summary>
+Solution
+</summary>
+We have <span class="math inline">P(F^{-1}(U) \le x) = P(U\le F(x)) =
+F(x)</span> since <span class="math inline">0\le F(x)\le 1</span>.
 </details>
-<p>This shows a uniformly distributed random variable has sufficient randomness to generate any random variable. There are no random, random variables.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(a &lt; X \le b) = F(b) - F(a)</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">[-\infty, b) = [-\infty, a) \cup [a, b)</span>.</p>
-<p>Every cdf is non-decreasing, continuous from the right, has left limits, and <span class="math inline">\lim_{x\to-\infty}F(x) = 0</span>, <span class="math inline">\lim_{x\to+\infty}F(x) = 1</span>. Any function with these properties is the cdf of a random variable.</p>
-<p><strong>Exercise</strong>: <em>Show <span class="math inline">F(x) \le F(y)</span> if <span class="math inline">x &lt; y</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">(-\infty, x] \subset (-\infty, y]</span> if <span class="math inline">x &lt; y</span> and <span class="math inline">P(x &lt; X \le y) \ge 0</span>.</p>
-<p><strong>Exercise</strong>: <em>Show <span class="math inline">\lim_{y\downarrow x} F(y) = F(x)</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">\cap_{n=1}^\infty (-\infty, x + 1/n] = (-\infty, x]</span>.</p>
-<p><strong>Exercise</strong>: <em>Show <span class="math inline">\lim_{y\uparrow x} F(y) = F(x-)</span> exists</em>.</p>
-<p><em>Hint</em>: If <span class="math inline">y_n</span> is an increasing sequence with limit <span class="math inline">x</span> then <span class="math inline">F(y_n)</span> is a non-decreasing sequence bounded by <span class="math inline">F(x)</span> so <span class="math inline">\sup_n F(y_n)</span> exists and is not greater than <span class="math inline">F(x)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\lim_{x\to-\infty}F(x) = 0</span></em>.</p>
-<p><em>Hint</em> <span class="math inline">\cap_n (-\infty, -n] = \emptyset</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\lim_{x\to\infty}F(x) = 1</span></em>.</p>
-<p><em>Hint</em> <span class="math inline">\cup_n (-\infty, n] = (-\infty, \infty)</span>.</p>
-<p>In general <span class="math inline">P(X\in A) = \int_A dF(x)</span> for sufficiently nice subsets <span class="math inline">A\subset\mathbf{R}</span> using <a href="https://mathworld.wolfram.com/StieltjesIntegral.html">Riemann–Stieltjes</a> integration.</p>
-<p>Define the conditional expectation of the random variable <span class="math inline">X</span> with respect to the event <span class="math inline">A</span> by <span class="math inline">E[X\mid A] = E[X 1_A]/P(A)</span>. If <span class="math inline">X = 1_B</span> then this coincides with the definition of conditional expectation above.</p>
-<p>Define the conditional expectation of <span class="math inline">X</span> with respect to the algebra <span class="math inline">\mathcal{A}</span>, <span class="math inline">E[X\mid \mathcal{A}]:\mathcal{A}\to\mathbf{R}</span>, by <span class="math inline">E[X\mid \mathcal{A}](A) = E[X\mid A]</span> for <span class="math inline">A</span> an atom of <span class="math inline">\mathcal{A}</span>.</p>
+<p>This shows a uniformly distributed random variable has sufficient
+randomness to generate any random variable. There are no random, random
+variables.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(a
+&lt; X \le b) = F(b) - F(a)</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">[-\infty, b) = [-\infty, a)
+\cup [a, b)</span>.</p>
+<p>Every cdf is non-decreasing, continuous from the right, has left
+limits, and <span class="math inline">\lim_{x\to-\infty}F(x) = 0</span>,
+<span class="math inline">\lim_{x\to+\infty}F(x) = 1</span>. Any
+function with these properties is the cdf of a random variable.</p>
+<p><strong>Exercise</strong>: <em>Show <span class="math inline">F(x)
+\le F(y)</span> if <span class="math inline">x &lt; y</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">(-\infty, x] \subset
+(-\infty, y]</span> if <span class="math inline">x &lt; y</span> and
+<span class="math inline">P(x &lt; X \le y) \ge 0</span>.</p>
+<p><strong>Exercise</strong>: <em>Show <span
+class="math inline">\lim_{y\downarrow x} F(y) = F(x)</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">\cap_{n=1}^\infty (-\infty,
+x + 1/n] = (-\infty, x]</span>.</p>
+<p><strong>Exercise</strong>: <em>Show <span
+class="math inline">\lim_{y\uparrow x} F(y) = F(x-)</span>
+exists</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">y_n</span> is an
+increasing sequence with limit <span class="math inline">x</span> then
+<span class="math inline">F(y_n)</span> is a non-decreasing sequence
+bounded by <span class="math inline">F(x)</span> so <span
+class="math inline">\sup_n F(y_n)</span> exists and is not greater than
+<span class="math inline">F(x)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\lim_{x\to-\infty}F(x) = 0</span></em>.</p>
+<p><em>Hint</em> <span class="math inline">\cap_n (-\infty, -n] =
+\emptyset</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\lim_{x\to\infty}F(x) = 1</span></em>.</p>
+<p><em>Hint</em> <span class="math inline">\cup_n (-\infty, n] =
+(-\infty, \infty)</span>.</p>
+<p>In general <span class="math inline">P(X\in A) = \int_A dF(x)</span>
+for sufficiently nice subsets <span
+class="math inline">A\subset\mathbf{R}</span> using <a
+href="https://mathworld.wolfram.com/StieltjesIntegral.html">Riemann–Stieltjes</a>
+integration.</p>
+<p>Define the conditional expectation of the random variable <span
+class="math inline">X</span> with respect to the event <span
+class="math inline">A</span> by <span class="math inline">E[X\mid A] =
+E[X 1_A]/P(A)</span>. If <span class="math inline">X = 1_B</span> then
+this coincides with the definition of conditional expectation above.</p>
+<p>Define the conditional expectation of <span
+class="math inline">X</span> with respect to the algebra <span
+class="math inline">\mathcal{A}</span>, <span
+class="math inline">E[X\mid
+\mathcal{A}]:\mathcal{A}\to\mathbf{R}</span>, by <span
+class="math inline">E[X\mid \mathcal{A}](A) = E[X\mid A]</span> for
+<span class="math inline">A</span> an atom of <span
+class="math inline">\mathcal{A}</span>.</p>
 </section>
 <section id="joint-distribution" class="level2">
 <h2>Joint Distribution</h2>
-<p>Two random variables, <span class="math inline">X</span> and <span class="math inline">Y</span>, are defined by their <em>joint distribution</em>, <span class="math inline">H(x,y) = P(X\le x, Y\le y)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show the point <span class="math inline">(X,Y)</span> is in the square <span class="math inline">(a,b]\times (c,d]</span> with probability <span class="math inline">{P(a &lt; X \le b, c &lt; Y \le d) = P(X \le b, Y \le d) - P(X \le a) - P(Y \le c) + P(X \le a, Y \le c)}</span></em>.</p>
-<p>This allows computing the probability the point belongs to any set that is a countable union of squares, a <em>measurable</em> set.</p>
-<p><strong>Exercise</strong>. <em>All convex sets are measurable</em>.</p>
-<p>In general, the joint distribution of <span class="math inline">X_1, \ldots, X_n</span> is defined by <span class="math inline">{F(x_1,\ldots,x_n) = P(X_1\le x_1, \ldots, X_n\le x_n)}</span>. If <span class="math inline">A</span> is a measurable subset of <span class="math inline">\mathbf{R}^N</span> we can use this to compute <span class="math inline">P((X_1,\ldots,X_n)\in A)</span>.</p>
+<p>Two random variables, <span class="math inline">X</span> and <span
+class="math inline">Y</span>, are defined by their <em>joint
+distribution</em>, <span class="math inline">H(x,y) = P(X\le x, Y\le
+y)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the point <span
+class="math inline">(X,Y)</span> is in the square <span
+class="math inline">(a,b]\times (c,d]</span> with probability <span
+class="math inline">{P(a &lt; X \le b, c &lt; Y \le d) = P(X \le b, Y
+\le d) - P(X \le a) - P(Y \le c) + P(X \le a, Y \le c)}</span></em>.</p>
+<p>This allows computing the probability the point belongs to any set
+that is a countable union of squares, a <em>measurable</em> set.</p>
+<p><strong>Exercise</strong>. <em>All convex sets are
+measurable</em>.</p>
+<p>In general, the joint distribution of <span class="math inline">X_1,
+\ldots, X_n</span> is defined by <span
+class="math inline">{F(x_1,\ldots,x_n) = P(X_1\le x_1, \ldots, X_n\le
+x_n)}</span>. If <span class="math inline">A</span> is a measurable
+subset of <span class="math inline">\mathbf{R}^N</span> we can use this
+to compute <span class="math inline">P((X_1,\ldots,X_n)\in
+A)</span>.</p>
 <section id="independent" class="level3">
 <h3>Independent</h3>
-<p>The random variables <span class="math inline">X</span> and <span class="math inline">Y</span> are <em>independent</em> if <span class="math inline">H(x,y) = F(x)G(y)</span> for all <span class="math inline">x</span> and <span class="math inline">y</span>. This is equivalent to <span class="math inline">P(X\in A,Y\in B) = P(X\in A)P(Y\in B)</span> for measurable sets <span class="math inline">A</span> and <span class="math inline">B</span>.</p>
-<p>We also have that <span class="math inline">E[f(X)g(Y)] = E[f(X)] E[g(Y)]</span> for any functions <span class="math inline">f</span> and <span class="math inline">g</span> whenever all expected values exist.</p>
-<p><strong>Exercise</strong>: Prove this for the case <span class="math inline">f = \sum_i a_i 1_{A_i}</span> and <span class="math inline">g = \sum_j b_j 1_{B_j}</span>.</p>
-<p>In general, <span class="math inline">X_1</span>, , <span class="math inline">X_n</span> are independent if <span class="math inline">F(x_1,\ldots,x_n) = F_1(x_1)\cdots F_n(x_n)</span>, where <span class="math inline">F_j</span> is the law of <span class="math inline">X_j</span>.</p>
+<p>The random variables <span class="math inline">X</span> and <span
+class="math inline">Y</span> are <em>independent</em> if <span
+class="math inline">H(x,y) = F(x)G(y)</span> for all <span
+class="math inline">x</span> and <span class="math inline">y</span>.
+This is equivalent to <span class="math inline">P(X\in A,Y\in B) =
+P(X\in A)P(Y\in B)</span> for measurable sets <span
+class="math inline">A</span> and <span class="math inline">B</span>.</p>
+<p>We also have that <span class="math inline">E[f(X)g(Y)] = E[f(X)]
+E[g(Y)]</span> for any functions <span class="math inline">f</span> and
+<span class="math inline">g</span> whenever all expected values
+exist.</p>
+<p><strong>Exercise</strong>: Prove this for the case <span
+class="math inline">f = \sum_i a_i 1_{A_i}</span> and <span
+class="math inline">g = \sum_j b_j 1_{B_j}</span>.</p>
+<p>In general, <span class="math inline">X_1</span>, , <span
+class="math inline">X_n</span> are independent if <span
+class="math inline">F(x_1,\ldots,x_n) = F_1(x_1)\cdots F_n(x_n)</span>,
+where <span class="math inline">F_j</span> is the law of <span
+class="math inline">X_j</span>.</p>
 </section>
 <section id="copula" class="level3">
 <h3>Copula</h3>
-<p>A <em>copula</em> is the joint distribution of uniformly distributed random variables on the unit interval. The copula of <span class="math inline">X</span> and <span class="math inline">Y</span> is the joint distribution of <span class="math inline">F^{-1}(X)</span> and <span class="math inline">G^{-1}(Y)</span> where <span class="math inline">F</span> and <span class="math inline">G</span> are the cumulative distributions of <span class="math inline">X</span> and <span class="math inline">Y</span> respectively: <span class="math inline">C(u,v) = C^{X,Y}(u,v) = P(F^{-1}(X) \le u, G^{-1}(Y) \le v)</span>.</p>
-<p><strong>Exercise</strong>: Show <span class="math inline">C(u,v) = H(F(u),G(v))</span> where and <span class="math inline">H</span> is the joint distribution of <span class="math inline">X</span> and <span class="math inline">Y</span> and <span class="math inline">F</span> and <span class="math inline">G</span> are the cumulative distribution of <span class="math inline">X</span>, and <span class="math inline">Y</span>.</p>
-<p><strong>Exercise</strong>: Show <span class="math inline">H(x,y) = C(F^{-1}(x), G^{-1}(y))</span></p>
-<p>This shows how to use the copula and marginal distributions to recover the joint distribution.</p>
-<p>An equivalent definition is a copula is a probability measure on <span class="math inline">[0,1]^2</span> with uniform marginals.</p>
+<p>A <em>copula</em> is the joint distribution of uniformly distributed
+random variables on the unit interval. The copula of <span
+class="math inline">X</span> and <span class="math inline">Y</span> is
+the joint distribution of <span class="math inline">F^{-1}(X)</span> and
+<span class="math inline">G^{-1}(Y)</span> where <span
+class="math inline">F</span> and <span class="math inline">G</span> are
+the cumulative distributions of <span class="math inline">X</span> and
+<span class="math inline">Y</span> respectively: <span
+class="math inline">C(u,v) = C^{X,Y}(u,v) = P(F^{-1}(X) \le u, G^{-1}(Y)
+\le v)</span>.</p>
+<p><strong>Exercise</strong>: Show <span class="math inline">C(u,v) =
+H(F(u),G(v))</span> where and <span class="math inline">H</span> is the
+joint distribution of <span class="math inline">X</span> and <span
+class="math inline">Y</span> and <span class="math inline">F</span> and
+<span class="math inline">G</span> are the cumulative distribution of
+<span class="math inline">X</span>, and <span
+class="math inline">Y</span>.</p>
+<p><strong>Exercise</strong>: Show <span class="math inline">H(x,y) =
+C(F^{-1}(x), G^{-1}(y))</span></p>
+<p>This shows how to use the copula and marginal distributions to
+recover the joint distribution.</p>
+<p>An equivalent definition is a copula is a probability measure on
+<span class="math inline">[0,1]^2</span> with uniform marginals.</p>
 <p><strong>Exercise</strong>: Prove this.</p>
-<p>If <span class="math inline">U</span> and <span class="math inline">V</span> are independent, uniformly distributed random variables on the unit interval then <span class="math inline">C(u,v) = uv</span>.</p>
-<p>If <span class="math inline">V=U</span> then their joint distribution is <span class="math inline">C(u,v) = P(U\le u, V\le v) = P(U\le u, U\le v) = P(U\le \min\{u, v\}) = \min\{u,v\} = M(u,v)</span>.</p>
-<p>If <span class="math inline">V=1-U</span> then their joint distribution is <span class="math inline">C(u,v) = P(U\le u, V\le v) = P(U\le u, 1-U\le v) = P(1-v\le U\le u) = \max\{u - (1 -v), 0\} = \max\{u + v - 1, 0\} = W(u,v)</span></p>
-<p><strong>Exercise</strong>: (Fréchet-Hoeffding) For every copula, <span class="math inline">C</span>, <span class="math inline">W \le C \le M</span>.</p>
-<p>Hint: For the upper bound use <span class="math inline">H(x,y) \le F(x)</span> and <span class="math inline">H(x,y) \le G(y)</span>. For the lower bound note <span class="math inline">0\le C(u_1,v_1) - C(u_1, v_2) - C(u_2, v_1) + C(u_2, v_2)</span> for <span class="math inline">u_1 \ge u_2</span> and <span class="math inline">v_1 \ge v_2</span>.</p>
+<p>If <span class="math inline">U</span> and <span
+class="math inline">V</span> are independent, uniformly distributed
+random variables on the unit interval then <span
+class="math inline">C(u,v) = uv</span>.</p>
+<p>If <span class="math inline">V=U</span> then their joint distribution
+is <span class="math inline">C(u,v) = P(U\le u, V\le v) = P(U\le u, U\le
+v) = P(U\le \min\{u, v\}) = \min\{u,v\} = M(u,v)</span>.</p>
+<p>If <span class="math inline">V=1-U</span> then their joint
+distribution is <span class="math inline">C(u,v) = P(U\le u, V\le v) =
+P(U\le u, 1-U\le v) = P(1-v\le U\le u) = \max\{u - (1 -v), 0\} = \max\{u
++ v - 1, 0\} = W(u,v)</span></p>
+<p><strong>Exercise</strong>: (Fréchet-Hoeffding) For every copula,
+<span class="math inline">C</span>, <span class="math inline">W \le C
+\le M</span>.</p>
+<p>Hint: For the upper bound use <span class="math inline">H(x,y) \le
+F(x)</span> and <span class="math inline">H(x,y) \le G(y)</span>. For
+the lower bound note <span class="math inline">0\le C(u_1,v_1) - C(u_1,
+v_2) - C(u_2, v_1) + C(u_2, v_2)</span> for <span
+class="math inline">u_1 \ge u_2</span> and <span class="math inline">v_1
+\ge v_2</span>.</p>
 </section>
 <section id="uniform-1" class="level3">
 <h3>Uniform</h3>
-<p>A <em>uniformly distributed</em> random variable <span class="math inline">U</span> on <span class="math inline">[0,1)</span> has cdf <span class="math inline">F(x) = x</span> if <span class="math inline">0\le x\le 1</span>, <span class="math inline">F(x) = 0</span> if <span class="math inline">x &lt; 0</span>, and <span class="math inline">F(x) = 1</span> if <span class="math inline">x &gt; 1</span>. Given a cdf <span class="math inline">F</span> we can define a random variable having that law using the identity function <span class="math inline">X\colon\mathbf{R}\to\mathbf{R}</span>, where <span class="math inline">X(x) = x</span>. Let <span class="math inline">P</span> be the probability measure on <span class="math inline">\mathbf{R}</span> defined by <span class="math inline">P(A) = \int_A dF(x)</span>.</p>
+<p>A <em>uniformly distributed</em> random variable <span
+class="math inline">U</span> on <span class="math inline">[0,1)</span>
+has cdf <span class="math inline">F(x) = x</span> if <span
+class="math inline">0\le x\le 1</span>, <span class="math inline">F(x) =
+0</span> if <span class="math inline">x &lt; 0</span>, and <span
+class="math inline">F(x) = 1</span> if <span class="math inline">x &gt;
+1</span>. Given a cdf <span class="math inline">F</span> we can define a
+random variable having that law using the identity function <span
+class="math inline">X\colon\mathbf{R}\to\mathbf{R}</span>, where <span
+class="math inline">X(x) = x</span>. Let <span
+class="math inline">P</span> be the probability measure on <span
+class="math inline">\mathbf{R}</span> defined by <span
+class="math inline">P(A) = \int_A dF(x)</span>.</p>
 </section>
 <section id="continuous-random-variable" class="level3">
 <h3>Continuous Random Variable</h3>
-<p>If the cdf satisfies <span class="math inline">F(x) = \int_{-\infty}^x F&#39;(u)\,du</span> we say the random variable is <em>continuously distributed</em>. The <em>density function</em> is <span class="math inline">f = F&#39;</span>. Any function satisfying <span class="math inline">f\ge 0</span> and <span class="math inline">\int_\mathbf{R} f(x)\,dx = 1</span> is a density function for a random variable.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> is continuously distributed show <span class="math inline">P(a &lt; X \le b) = P(a \le X \le b) = P(a \le X &lt; b) = P(a \le X \le b)</span></em>.</p>
+<p>If the cdf satisfies <span class="math inline">F(x) =
+\int_{-\infty}^x F&#39;(u)\,du</span> we say the random variable is
+<em>continuously distributed</em>. The <em>density function</em> is
+<span class="math inline">f = F&#39;</span>. Any function satisfying
+<span class="math inline">f\ge 0</span> and <span
+class="math inline">\int_\mathbf{R} f(x)\,dx = 1</span> is a density
+function for a random variable.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+is continuously distributed show <span class="math inline">P(a &lt; X
+\le b) = P(a \le X \le b) = P(a \le X &lt; b) = P(a \le X \le
+b)</span></em>.</p>
 </section>
 <section id="expected-value" class="level3">
 <h3>Expected Value</h3>
-<p>The <em>expected value</em> or <em>mean</em> of a random variable is defined by <span class="math inline">μ = E[X] = \int_Ω X\,dP</span>. It is a measure of the <em>location</em> of <span class="math inline">X</span>. More generally, the expected value of a function <span class="math inline">f\colon\mathbf{R}\to\mathbf{R}</span> of a random variable is <span class="math inline">E[f(X)] = \int_Ω f(X)\,dP</span> where <span class="math inline">f(X)</span> is a random variable defined by <span class="math inline">f(X)(ω) = f(X(ω))</span>, <span class="math inline">ω\in Ω</span>. The functions <span class="math inline">f(x) = x^n</span> are used to define moments.</p>
+<p>The <em>expected value</em> or <em>mean</em> of a random variable is
+defined by <span class="math inline">μ = E[X] = \int_Ω X\,dP</span>. It
+is a measure of the <em>location</em> of <span
+class="math inline">X</span>. More generally, the expected value of a
+function <span class="math inline">f\colon\mathbf{R}\to\mathbf{R}</span>
+of a random variable is <span class="math inline">E[f(X)] = \int_Ω
+f(X)\,dP</span> where <span class="math inline">f(X)</span> is a random
+variable defined by <span class="math inline">f(X)(ω) = f(X(ω))</span>,
+<span class="math inline">ω\in Ω</span>. The functions <span
+class="math inline">f(x) = x^n</span> are used to define moments.</p>
 </section>
 <section id="moment" class="level3">
 <h3>Moment</h3>
-<p>The <em>moments</em> of a random variable are <span class="math inline">\mu_n = E[X^n]</span> where <span class="math inline">n</span> is a non-negative integer. The <em>central moments</em> are <span class="math inline">\bar{μ}_n = E[(X - E[X])^n]</span>. The second central moment is the <em>variance</em> <span class="math inline">σ^2 = \operatorname{Var}(X) = E[(X - E[X])^2]</span>. The <em>standard deviation</em> <span class="math inline">σ</span> is a measure of the <em>spread</em> of <span class="math inline">X</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\operatorname{Var}(X) = E[X^2] - E[X]^2</span></em>.</p>
-<p>Every random variable with non-zero variance can be <em>standardized</em> to have mean 0 and variance 1. The <em>skew</em> of a random variable is the third central moment of a standardized random variable. It is a measure of the lopsidedness of the distribution.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span> and <span class="math inline">-X</span> have the same law then its skew is 0</em>.</p>
-<p>The <em>kurtosis</em> of a random variable is the fourth central moment of a standardized random variable. It is a measure of how peaked a distribution is.</p>
-<p>The <em>moment generating function</em> is <span class="math inline">\mu(s) = E[e^{sX}] = \sum_{n=0}^\infty m_n s^n/n!</span>. Note <span class="math inline">\mu^{(n)}(0) = m_n</span> by Taylor’s theorem if <span class="math inline">μ</span> converges in a neighborhood of <span class="math inline">s = 0</span>.</p>
-<p>Moments don’t necessarily exist for all <span class="math inline">n</span>, except for <span class="math inline">n = 0</span>. They also cannot be an arbitrary sequence of values.</p>
-<p>Suppose all moments of <span class="math inline">X</span> exist, then for any complex numbers, <span class="math inline">(c_i)</span>, <span class="math inline">{0 \le E|\sum_i c_i X^i|^2 = E[\sum_{j,k} c_j\bar{c}_k X^{j+k}] = \sum_{j,k} c_j \bar{c}_k m_{j+k}}</span>. This says the Hankel matrix <span class="math inline">M = [m_{j+k}]_{j,k}</span> is positive definite. The converse is also true: if the Hankel matrix is positive definite there exists a random variable with the corresponding moments. This is not a trivial result and the random variable might not be unique.</p>
+<p>The <em>moments</em> of a random variable are <span
+class="math inline">\mu_n = E[X^n]</span> where <span
+class="math inline">n</span> is a non-negative integer. The <em>central
+moments</em> are <span class="math inline">\bar{μ}_n = E[(X -
+E[X])^n]</span>. The second central moment is the <em>variance</em>
+<span class="math inline">σ^2 = \operatorname{Var}(X) = E[(X -
+E[X])^2]</span>. The <em>standard deviation</em> <span
+class="math inline">σ</span> is a measure of the <em>spread</em> of
+<span class="math inline">X</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{Var}(X) = E[X^2] -
+E[X]^2</span></em>.</p>
+<p>Every random variable with non-zero variance can be
+<em>standardized</em> to have mean 0 and variance 1. The <em>skew</em>
+of a random variable is the third central moment of a standardized
+random variable. It is a measure of the lopsidedness of the
+distribution.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+and <span class="math inline">-X</span> have the same law then its skew
+is 0</em>.</p>
+<p>The <em>kurtosis</em> of a random variable is the fourth central
+moment of a standardized random variable. It is a measure of how peaked
+a distribution is.</p>
+<p>The <em>moment generating function</em> is <span
+class="math inline">\mu(s) = E[e^{sX}] = \sum_{n=0}^\infty m_n
+s^n/n!</span>. Note <span class="math inline">\mu^{(n)}(0) = m_n</span>
+by Taylor’s theorem if <span class="math inline">μ</span> converges in a
+neighborhood of <span class="math inline">s = 0</span>.</p>
+<p>Moments don’t necessarily exist for all <span
+class="math inline">n</span>, except for <span class="math inline">n =
+0</span>. They also cannot be an arbitrary sequence of values.</p>
+<p>Suppose all moments of <span class="math inline">X</span> exist, then
+for any complex numbers, <span class="math inline">(c_i)</span>, <span
+class="math inline">{0 \le E|\sum_i c_i X^i|^2 = E[\sum_{j,k}
+c_j\bar{c}_k X^{j+k}] = \sum_{j,k} c_j \bar{c}_k m_{j+k}}</span>. This
+says the Hankel matrix <span class="math inline">M =
+[m_{j+k}]_{j,k}</span> is positive definite. The converse is also true:
+if the Hankel matrix is positive definite there exists a random variable
+with the corresponding moments. This is not a trivial result and the
+random variable might not be unique.</p>
 <!--
 % Dunford Schwartz Volume 2 pg 1251.
 % Extending unbounded symmetric operators. Deficiency index.
@@ -209,39 +591,100 @@
 </section>
 <section id="cumulant" class="level3">
 <h3>Cumulant</h3>
-<p>The <em>cumulant</em> of <span class="math inline">X</span> is the natural logarithm of its moment generating function <span class="math inline">{\kappa(s) = \log E[e^sX]}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">κ_X(0) = 0</span>, <span class="math inline">κ_X&#39;(0) = E[X]</span>, and <span class="math inline">κ_X&#39;&#39;(0) = \operatorname{Var}(X)</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">c</span> is a constant then <span class="math inline">κ_{c + X}(s) = cs + κ_X(s)</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">c</span> is a constant then <span class="math inline">κ_{cX}(s) = κ_X(cs)</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">X</span> and <span class="math inline">Y</span> are independent then <span class="math inline">κ_{X + Y}(s) = κ_X(s) + κ_Y(s)</span></em>.</p>
-<p><em>Hint</em>. <span class="math inline">X</span> and <span class="math inline">Y</span> are <em>independent</em> if and only if <span class="math inline">E[f(X)g(Y)] = E[f(X)]E[g(Y)]</span> for any functions <span class="math inline">f</span> and <span class="math inline">g</span>.</p>
-<p>The <em>cumulants</em> <span class="math inline">(κ_n)</span> are the coefficients of the power series expansion <span class="math inline">κ(s) = \sum_{n&gt;0}κ_n s^n/n!</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">κ_1 = E[X]</span> and <span class="math inline">κ_2 = \mathrm{Var}(X)</span></em>.</p>
-<p>The third and fourth cumulants are related to skew and kurtosis. If the variance is 1, then <span class="math inline">κ_3</span> is the skew and <span class="math inline">κ_4</span> is the <a href="https://en.wikipedia.org/wiki/Kurtosis#Excess_kurtosis">excess kurtosis</a>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">κ_1(c + X) = c + κ_1(X)</span> and <span class="math inline">κ_n(c + X) = κ_n(X)</span>, <span class="math inline">n \ge 2</span></em>.</p>
-<p><strong>Exercise</strong>. _Show <span class="math inline">κ_n(cX) = c^n κ_n(X)</span>, <span class="math inline">n\ge 1</span>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">X</span> and <span class="math inline">Y</span> are independent <span class="math inline">κ_n(X + Y) = κ_n(X) + κ_n(Y)</span> for all <span class="math inline">n</span></em>.</p>
-<p>The moments of <span class="math inline">X</span>, <span class="math inline">\mu_n = E[X^n]</span> are related to the cumulants via complete Bell polynomials <span class="math inline">B_n(κ_1,\ldots,κ_n)</span>. <span class="math display">
-    E[e^{sX}] = \sum_{n\ge0} \mu_n s^n/n! = e^{κ(s)} = e^{\sum_{n&gt;0} κ_n s^n/n!}
+<p>The <em>cumulant</em> of <span class="math inline">X</span> is the
+natural logarithm of its moment generating function <span
+class="math inline">{\kappa(s) = \log E[e^sX]}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">κ_X(0)
+= 0</span>, <span class="math inline">κ_X&#39;(0) = E[X]</span>, and
+<span class="math inline">κ_X&#39;&#39;(0) =
+\operatorname{Var}(X)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">c</span> is a constant then <span
+class="math inline">κ_{c + X}(s) = cs + κ_X(s)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">c</span> is a constant then <span
+class="math inline">κ_{cX}(s) = κ_X(cs)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">X</span> and <span class="math inline">Y</span> are
+independent then <span class="math inline">κ_{X + Y}(s) = κ_X(s) +
+κ_Y(s)</span></em>.</p>
+<p><em>Hint</em>. <span class="math inline">X</span> and <span
+class="math inline">Y</span> are <em>independent</em> if and only if
+<span class="math inline">E[f(X)g(Y)] = E[f(X)]E[g(Y)]</span> for any
+functions <span class="math inline">f</span> and <span
+class="math inline">g</span>.</p>
+<p>The <em>cumulants</em> <span class="math inline">(κ_n)</span> are the
+coefficients of the power series expansion <span
+class="math inline">κ(s) = \sum_{n&gt;0}κ_n s^n/n!</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">κ_1 =
+E[X]</span> and <span class="math inline">κ_2 =
+\mathrm{Var}(X)</span></em>.</p>
+<p>The third and fourth cumulants are related to skew and kurtosis. If
+the variance is 1, then <span class="math inline">κ_3</span> is the skew
+and <span class="math inline">κ_4</span> is the <a
+href="https://en.wikipedia.org/wiki/Kurtosis#Excess_kurtosis">excess
+kurtosis</a>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">κ_1(c +
+X) = c + κ_1(X)</span> and <span class="math inline">κ_n(c + X) =
+κ_n(X)</span>, <span class="math inline">n \ge 2</span></em>.</p>
+<p><strong>Exercise</strong>. _Show <span class="math inline">κ_n(cX) =
+c^n κ_n(X)</span>, <span class="math inline">n\ge 1</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">X</span> and <span class="math inline">Y</span> are
+independent <span class="math inline">κ_n(X + Y) = κ_n(X) +
+κ_n(Y)</span> for all <span class="math inline">n</span></em>.</p>
+<p>The moments of <span class="math inline">X</span>, <span
+class="math inline">\mu_n = E[X^n]</span> are related to the cumulants
+via complete Bell polynomials <span
+class="math inline">B_n(κ_1,\ldots,κ_n)</span>. <span
+class="math display">
+    E[e^{sX}] = \sum_{n\ge0} \mu_n s^n/n! = e^{κ(s)} = e^{\sum_{n&gt;0}
+κ_n s^n/n!}
     = \sum_{n\ge0} B_n(κ_1,\ldots,κ_n) s^n/n!
-</span> Taking a derivative with respect to <span class="math inline">s</span> of the last equality gives the recurrence formula <span class="math display">
+</span> Taking a derivative with respect to <span
+class="math inline">s</span> of the last equality gives the recurrence
+formula <span class="math display">
     B_{n+1}(κ_1,\ldots,κ_{n+1})
-        = \sum_{k = 0}^n \binom{n}{k} B_{n - k}(κ_1,\ldots,κ_{n-k})κ_{k + 1}, n &gt; 0.
+        = \sum_{k = 0}^n \binom{n}{k} B_{n - k}(κ_1,\ldots,κ_{n-k})κ_{k
++ 1}, n &gt; 0.
 </span> Note <span class="math inline">B_0 = 1</span></p>
-<p>The cumulants are related to the moments via partial Bell polynomials <span class="math inline">B_{n,k}(\mu_1,\ldots,\mu_{n - k - 1})</span> <span class="math display">
+<p>The cumulants are related to the moments via partial Bell polynomials
+<span class="math inline">B_{n,k}(\mu_1,\ldots,\mu_{n - k - 1})</span>
+<span class="math display">
     κ_n = \sum_{k=0}^{n-1} (-1)^k k! B_{n,k+1}(\mu_1,\ldots,\mu_{n - k})
-</span> where <span class="math inline">(B_{n,k})</span> are partial Bell polynomials satisfying the recurrence <span class="math inline">B_{0,0} = 1</span>, <span class="math inline">B_{n,0} = 0</span> for <span class="math inline">n &gt; 0</span>, <span class="math inline">B_{0,k} = 0</span> for <span class="math inline">k &gt; 0</span> and <span class="math display">
+</span> where <span class="math inline">(B_{n,k})</span> are partial
+Bell polynomials satisfying the recurrence <span
+class="math inline">B_{0,0} = 1</span>, <span
+class="math inline">B_{n,0} = 0</span> for <span class="math inline">n
+&gt; 0</span>, <span class="math inline">B_{0,k} = 0</span> for <span
+class="math inline">k &gt; 0</span> and <span class="math display">
     B_{n,k}(x_1,\ldots,x_{n - k + 1})
-        = \sum_{i=1}^{n-k+1}\binom{n-1}{i - 1} B_{n-i,k-1}(x_1,\ldots,x_{n - i - k + 2})x_i
+        = \sum_{i=1}^{n-k+1}\binom{n-1}{i - 1}
+B_{n-i,k-1}(x_1,\ldots,x_{n - i - k + 2})x_i
 </span></p>
 <section id="normal" class="level4">
 <h4>Normal</h4>
-<p>A <em>standard normal</em> random variable <span class="math inline">Z</span> has density function <span class="math inline">φ(z) = \exp(-z^2/2)/\sqrt{2\pi}</span>, <span class="math inline">-\infty &lt; z &lt; \infty</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\int_{-\infty}^\infty \exp(-\pi x^2)\,dx = 1</span></em>.</p>
+<p>A <em>standard normal</em> random variable <span
+class="math inline">Z</span> has density function <span
+class="math inline">φ(z) = \exp(-z^2/2)/\sqrt{2\pi}</span>, <span
+class="math inline">-\infty &lt; z &lt; \infty</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\int_{-\infty}^\infty \exp(-\pi x^2)\,dx =
+1</span></em>.</p>
 <details>
-<summary>Solution</summary> Let <span class="math inline">I = \int_{-\infty}^\infty \exp(-\pi x^2)\,dx</span>. We compute <span class="math inline">I^2</span> using polar coordinates <span class="math inline">x = r\cos\theta</span>, <span class="math inline">y = r\sin\theta</span>. Since <span class="math inline">dx = -r\sin\theta\,d\theta + \cos\theta\,dr</span> and <span class="math inline">dy = r\cos\theta\,d\theta + \sin\theta\,dr</span> we have <span class="math display">
+<summary>
+Solution
+</summary>
+Let <span class="math inline">I = \int_{-\infty}^\infty \exp(-\pi
+x^2)\,dx</span>. We compute <span class="math inline">I^2</span> using
+polar coordinates <span class="math inline">x = r\cos\theta</span>,
+<span class="math inline">y = r\sin\theta</span>. Since <span
+class="math inline">dx = -r\sin\theta\,d\theta + \cos\theta\,dr</span>
+and <span class="math inline">dy = r\cos\theta\,d\theta +
+\sin\theta\,dr</span> we have <span class="math display">
 \begin{aligned}
-    dx\,dy &amp;= (-r\sin\theta\,d\theta + \cos\theta\,dr)(r\cos\theta\,d\theta + \sin\theta\,dr) \\
+    dx\,dy &amp;= (-r\sin\theta\,d\theta +
+\cos\theta\,dr)(r\cos\theta\,d\theta + \sin\theta\,dr) \\
     &amp;= -r\sin\theta\,r\cos\theta\,d\theta\,d\theta
         -r\sin\theta\sin\theta\,d\theta\,dr
         + \cos\theta\,r\cos\theta\,dr\,d\theta
@@ -250,88 +693,184 @@
     &amp;= r(\sin^2\theta + \cos^2\theta)\,dr\,d\theta\\
     &amp;= r\,dr\,d\theta\\
 \end{aligned}
-</span> using <span class="math inline">d\theta\,d\theta = 0</span>, <span class="math inline">dr\,dr = 0</span>, and <span class="math inline">d\theta\,dr = -dr\,d\theta</span>. <span class="math display">
+</span> using <span class="math inline">d\theta\,d\theta = 0</span>,
+<span class="math inline">dr\,dr = 0</span>, and <span
+class="math inline">d\theta\,dr = -dr\,d\theta</span>. <span
+class="math display">
 \begin{aligned}
-I^2 &amp;= \int_{-\infty}^\infty \exp(-\pi x^2)\,dx \int_{-\infty}^\infty \exp(-\pi y^2)\,dy \\
-    &amp;= \int_{-\infty}^\infty \int_{-\infty}^\infty \exp(-\pi x^2) \exp(-\pi y^2)\,dx\,dy \\
-    &amp;= \int_{-\infty}^\infty \int_{-\infty}^\infty \exp(-\pi x^2 + y^2) \,dx\,dy \\
-    &amp;= \int_{0}^{2\pi} \int_{0}^\infty \exp(-\pi r^2) r\,dr\,d\theta \\
+I^2 &amp;= \int_{-\infty}^\infty \exp(-\pi x^2)\,dx
+\int_{-\infty}^\infty \exp(-\pi y^2)\,dy \\
+    &amp;= \int_{-\infty}^\infty \int_{-\infty}^\infty \exp(-\pi x^2)
+\exp(-\pi y^2)\,dx\,dy \\
+    &amp;= \int_{-\infty}^\infty \int_{-\infty}^\infty \exp(-\pi x^2 +
+y^2) \,dx\,dy \\
+    &amp;= \int_{0}^{2\pi} \int_{0}^\infty \exp(-\pi r^2) r\,dr\,d\theta
+\\
     &amp;= \int_{0}^{2\pi} -\exp(-\pi r^2)/2\pi|_0^\infty\,d\theta \\
     &amp;= \int_{0}^{2\pi} 1/2\pi\,d\theta \\
     &amp;= 1 \\
 \end{aligned}
 </span>
 </details>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\int_{-\infty}^\infty \exp(-\alpha x^2)\,dx = \sqrt{\pi/\alpha}</span></em>.</p>
-<p><em>Hint</em>: Use the change of variables <span class="math inline">\pi x^2 = \alpha y^2</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\int_{-\infty}^\infty φ(x)\,dx = 1</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\int_{-\infty}^\infty \exp(-\alpha x^2)\,dx =
+\sqrt{\pi/\alpha}</span></em>.</p>
+<p><em>Hint</em>: Use the change of variables <span
+class="math inline">\pi x^2 = \alpha y^2</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\int_{-\infty}^\infty φ(x)\,dx = 1</span></em>.</p>
 <p><em>Hint</em>: Use <span class="math inline">\alpha = 1/2</span>.</p>
-<p><strong>Exercise</strong>. <em>Show the moment generation function of a standard normal is <span class="math inline">{μ(s) = E[\exp(s Z)] = e^{s^2/2}}</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show the moment generation function of
+a standard normal is <span class="math inline">{μ(s) = E[\exp(s Z)] =
+e^{s^2/2}}</span></em>.</p>
 <p><em>Hint</em>: Complete the square.</p>
 <details>
-<summary>Solution</summary> <span class="math display">
+<summary>
+Solution
+</summary>
+<span class="math display">
 \begin{aligned}
-E[\exp(s Z)] &amp;= \int_{-\infty}^\infty e^{sz} e^{-z^2/2}\,dz/\sqrt{2\pi} \\
-    &amp;= e^{s^2/2}\int_{-\infty}^\infty e^{-(z-s)^2/2}\,dz/\sqrt{2\pi} \\
+E[\exp(s Z)] &amp;= \int_{-\infty}^\infty e^{sz}
+e^{-z^2/2}\,dz/\sqrt{2\pi} \\
+    &amp;= e^{s^2/2}\int_{-\infty}^\infty e^{-(z-s)^2/2}\,dz/\sqrt{2\pi}
+\\
     &amp;= e^{s^2/2}\int_{-\infty}^\infty e^{-z^2/2}\,dz/\sqrt{2\pi} \\
     &amp;= e^{s^2/2} \\
 \end{aligned}
 </span>
 </details>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">E[e^{sZ} f(Z)] = E[e^{sZ}] E[f(Z + s)]</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">E[e^{sZ} f(Z)] = E[e^{sZ}] E[f(Z +
+s)]</span></em>.</p>
 <p><em>Hint</em>: Complete the square.</p>
 <details>
-<summary>Solution</summary> <span class="math display">
+<summary>
+Solution
+</summary>
+<span class="math display">
 \begin{aligned}
-E[\exp(s Z) f(Z)] &amp;= \int_{-\infty}^\infty e^{sz} f(z) e^{-z^2/2}\,dz/\sqrt{2\pi} \\
-    &amp;= e^{s^2/2}\int_{-\infty}^\infty f(z) e^{-(z-s)^2/2}\,dz/\sqrt{2\pi} \\
-    &amp;= e^{s^2/2}\int_{-\infty}^\infty f(z + s) e^{-z^2/2}\,dz/\sqrt{2\pi} \\
+E[\exp(s Z) f(Z)] &amp;= \int_{-\infty}^\infty e^{sz} f(z)
+e^{-z^2/2}\,dz/\sqrt{2\pi} \\
+    &amp;= e^{s^2/2}\int_{-\infty}^\infty f(z)
+e^{-(z-s)^2/2}\,dz/\sqrt{2\pi} \\
+    &amp;= e^{s^2/2}\int_{-\infty}^\infty f(z + s)
+e^{-z^2/2}\,dz/\sqrt{2\pi} \\
     &amp;= E[e^{sZ}] E[f(Z + s)] \\
 \end{aligned}
 </span>
 </details>
-<p>The cumulant of a standard normal random variable is <span class="math inline">κ(s) = \log μ(s) = s^2/2</span>. This shows <span class="math inline">Z</span> has mean 0 and variance 1.</p>
+<p>The cumulant of a standard normal random variable is <span
+class="math inline">κ(s) = \log μ(s) = s^2/2</span>. This shows <span
+class="math inline">Z</span> has mean 0 and variance 1.</p>
 </section>
 <section id="jointly-normal" class="level4">
 <h4>Jointly Normal</h4>
-<p>If <span class="math inline">Z = (Z_1,\ldots,Z_n)</span> are independent standard normally distributed random variables then the joint density function is <span class="math inline">{φ_n(z_1,\ldots,z_n) = \prod_{j=1}^n φ(z_j)}</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">s\in\mathbf{R}^n</span> show <span class="math inline">E[\exp(s\cdot Z) f(Z)] = E[\exp(s\cdot Z)] E[f(Z + s)]</span></em>.</p>
-<p><em>Hint</em>: Complete the square using <span class="math inline">|z - s|^2 = |z|^2 - 2z\cdot s + |s|^2</span>.</p>
-<p>We say <span class="math inline">N = (N_1,\ldots,N_n)</span> are <em>jointly normal</em> if <span class="math inline">a\cdot N</span> is normal for every <span class="math inline">a\in\mathbf{R}^n</span>. Let <span class="math inline">μ = E[N]</span> and <span class="math inline">Σ = \operatorname{Var}(N) = E[NN&#39;] - E[N]E[N&#39;]</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">Z = Σ^{-1/2}(N - μ)</span> are independent standard normally distributed</em>.</p>
-<p><em>Hint</em>: By joint normality we know <span class="math inline">Z</span> are normal. Show <span class="math inline">E[Z] = 0</span> and <span class="math inline">\operatorname{Var}(Z) = I</span>, the <span class="math inline">n\times n</span> identity matrix.</p>
+<p>If <span class="math inline">Z = (Z_1,\ldots,Z_n)</span> are
+independent standard normally distributed random variables then the
+joint density function is <span class="math inline">{φ_n(z_1,\ldots,z_n)
+= \prod_{j=1}^n φ(z_j)}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">s\in\mathbf{R}^n</span> show <span
+class="math inline">E[\exp(s\cdot Z) f(Z)] = E[\exp(s\cdot Z)] E[f(Z +
+s)]</span></em>.</p>
+<p><em>Hint</em>: Complete the square using <span class="math inline">|z
+- s|^2 = |z|^2 - 2z\cdot s + |s|^2</span>.</p>
+<p>We say <span class="math inline">N = (N_1,\ldots,N_n)</span> are
+<em>jointly normal</em> if <span class="math inline">a\cdot N</span> is
+normal for every <span class="math inline">a\in\mathbf{R}^n</span>. Let
+<span class="math inline">μ = E[N]</span> and <span
+class="math inline">Σ = \operatorname{Var}(N) = E[NN&#39;] -
+E[N]E[N&#39;]</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">Z =
+Σ^{-1/2}(N - μ)</span> are independent standard normally
+distributed</em>.</p>
+<p><em>Hint</em>: By joint normality we know <span
+class="math inline">Z</span> are normal. Show <span
+class="math inline">E[Z] = 0</span> and <span
+class="math inline">\operatorname{Var}(Z) = I</span>, the <span
+class="math inline">n\times n</span> identity matrix.</p>
 </section>
 </section>
 </section>
 <section id="concentration-inequalities" class="level2">
 <h2>Concentration Inequalities</h2>
-<p>A common problem is determining when a sequence of random variables converges. Concentration inequalities can be used for that.</p>
-<p><strong>Lemma</strong>. (Chebyshev) <em>If <span class="math inline">f</span> is non-negative then <span class="math inline">P(f(X) &gt; \lambda) \le E[f(X)]/\lambda</span></em>.</p>
-<p><em>Proof</em>. We have <span class="math inline">E[f(X)] \ge E[f(X)1(f(X) &gt; \lambda)] \ge \lambda P(f(X) &gt; \lambda)</span>.</p>
-<p>Note this only has import for large <span class="math inline">\lambda</span>.</p>
-<p><strong>Exercise</strong>. <em>For any non-negative random variable <span class="math inline">X</span> and any increasing function <span class="math inline">\phi</span>, <span class="math inline">P(X &gt; \lambda) \le E[\phi(X)]/\phi(\lambda)</span></em>.</p>
-<p>An immediate corollaries is <span class="math inline">P(|X| &gt; \lambda) \le E[|X|]/\lambda</span>.</p>
-<p><strong>Exercise</strong>. (Markov) <em>Show <span class="math inline">P(|X - E[X]| &gt; \lambda) \le \operatorname{Var}(X)/\lambda^2</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">|X - E[X]| &gt; \lambda</span> if and only if <span class="math inline">|X - E[X]|^2 &gt; \lambda^2</span>.</p>
+<p>A common problem is determining when a sequence of random variables
+converges. Concentration inequalities can be used for that.</p>
+<p><strong>Lemma</strong>. (Chebyshev) <em>If <span
+class="math inline">f</span> is non-negative then <span
+class="math inline">P(f(X) &gt; \lambda) \le
+E[f(X)]/\lambda</span></em>.</p>
+<p><em>Proof</em>. We have <span class="math inline">E[f(X)] \ge
+E[f(X)1(f(X) &gt; \lambda)] \ge \lambda P(f(X) &gt; \lambda)</span>.</p>
+<p>Note this only has import for large <span
+class="math inline">\lambda</span>.</p>
+<p><strong>Exercise</strong>. <em>For any non-negative random variable
+<span class="math inline">X</span> and any increasing function <span
+class="math inline">\phi</span>, <span class="math inline">P(X &gt;
+\lambda) \le E[\phi(X)]/\phi(\lambda)</span></em>.</p>
+<p>An immediate corollaries is <span class="math inline">P(|X| &gt;
+\lambda) \le E[|X|]/\lambda</span>.</p>
+<p><strong>Exercise</strong>. (Markov) <em>Show <span
+class="math inline">P(|X - E[X]| &gt; \lambda) \le
+\operatorname{Var}(X)/\lambda^2</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">|X - E[X]| &gt;
+\lambda</span> if and only if <span class="math inline">|X - E[X]|^2
+&gt; \lambda^2</span>.</p>
 <section id="law-of-large-numbers" class="level3">
 <h3>Law of Large Numbers</h3>
-<p>A <em>statistic</em> is a function of random variables. If <span class="math inline">X</span> is a random variable and <span class="math inline">(X_j)</span> are independent and have have the same law as <span class="math inline">X</span> let <span class="math inline">S_n = (X_1 + \cdots + X_n)/n</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">E[S_n] = E[X]</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\operatorname{Var}(S_n) \le \operatorname{Var}(X)/n</span></em>.</p>
+<p>A <em>statistic</em> is a function of random variables. If <span
+class="math inline">X</span> is a random variable and <span
+class="math inline">(X_j)</span> are independent and have have the same
+law as <span class="math inline">X</span> let <span
+class="math inline">S_n = (X_1 + \cdots + X_n)/n</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">E[S_n]
+= E[X]</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{Var}(S_n) \le
+\operatorname{Var}(X)/n</span></em>.</p>
 </section>
 </section>
 <section id="jensens-inequality" class="level2">
 <h2>Jensen’s Inequality</h2>
-<p>A function <span class="math inline">\phi\colon\mathbf{R}\to\mathbf{R}</span> is <em>convex</em> if <span class="math inline">\phi(x) = \sup_{\lambda\le\phi} \lambda(x)</span> and <em>concave</em> if <span class="math inline">\phi(x) = \inf_{\lambda\ge\phi} \lambda(x)</span> where <span class="math inline">\lambda</span> is linear.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">\phi</span> is convex then <span class="math inline">\phi(tx + (1 - t)x&#39;) \le t\phi(x) + (1 - t)\phi(x&#39;)</span> if <span class="math inline">0\le t\le 1</span></em>.</p>
-<p>Hint: <span class="math inline">\lambda(x) = \phi(x^*) + m(x - x^*) \le \phi(x)</span> where <span class="math inline">x^* = t\phi(x) + (1 - t)\phi(x&#39;)</span> and <span class="math inline">m = (\phi(x&#39;) - \phi(x))/(x&#39; - x)</span>.</p>
-<p><strong>Theorem</strong>. <em>If <span class="math inline">\phi</span> is convex then <span class="math inline">E[\phi(X)] \ge \phi(E[X])</span></em>.</p>
-<p>For <span class="math inline">\lambda\le\phi</span> linear we have <span class="math inline">E[\phi(X)] \ge E[\lambda(X)] = \lambda(E[X])</span> so <span class="math inline">E[\phi(X)] \ge \sup_{\lambda\le\phi}\lambda(E[X]) = \phi(E[X])</span>.</p>
+<p>A function <span
+class="math inline">\phi\colon\mathbf{R}\to\mathbf{R}</span> is
+<em>convex</em> if <span class="math inline">\phi(x) =
+\sup_{\lambda\le\phi} \lambda(x)</span> and <em>concave</em> if <span
+class="math inline">\phi(x) = \inf_{\lambda\ge\phi} \lambda(x)</span>
+where <span class="math inline">\lambda</span> is linear.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\phi</span> is convex then <span
+class="math inline">\phi(tx + (1 - t)x&#39;) \le t\phi(x) + (1 -
+t)\phi(x&#39;)</span> if <span class="math inline">0\le t\le
+1</span></em>.</p>
+<p>Hint: <span class="math inline">\lambda(x) = \phi(x^*) + m(x - x^*)
+\le \phi(x)</span> where <span class="math inline">x^* = t\phi(x) + (1 -
+t)\phi(x&#39;)</span> and <span class="math inline">m = (\phi(x&#39;) -
+\phi(x))/(x&#39; - x)</span>.</p>
+<p><strong>Theorem</strong>. <em>If <span
+class="math inline">\phi</span> is convex then <span
+class="math inline">E[\phi(X)] \ge \phi(E[X])</span></em>.</p>
+<p>For <span class="math inline">\lambda\le\phi</span> linear we have
+<span class="math inline">E[\phi(X)] \ge E[\lambda(X)] =
+\lambda(E[X])</span> so <span class="math inline">E[\phi(X)] \ge
+\sup_{\lambda\le\phi}\lambda(E[X]) = \phi(E[X])</span>.</p>
 <section id="convergence" class="level3">
 <h3>Convergence</h3>
-<p>Random variables <span class="math inline">X_n</span> converge to <span class="math inline">X</span> in <em>mean</em> if <span class="math inline">E[|X_n - X|]</span> converges to 0. They converges in <em>mean square</em> if <span class="math inline">\operatorname{Var}(X_n - X)</span> converges to 0. They converges <em>in probability</em> if for all <span class="math inline">\epsilon &gt; 0</span> <span class="math inline">P(|X_n - X|) &gt; \epsilon)</span> converges to 0. They converge <em>almost surely</em> if <span class="math inline">P(\lim_n X_n = X) = 1</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">X_n</span> converges in mean square then it converges in probability</em>.</p>
-<p>Hint: <span class="math inline">\phi(x) = x^2</span> is increasing for <span class="math inline">x &gt; 0</span>.</p>
+<p>Random variables <span class="math inline">X_n</span> converge to
+<span class="math inline">X</span> in <em>mean</em> if <span
+class="math inline">E[|X_n - X|]</span> converges to 0. They converges
+in <em>mean square</em> if <span
+class="math inline">\operatorname{Var}(X_n - X)</span> converges to 0.
+They converges <em>in probability</em> if for all <span
+class="math inline">\epsilon &gt; 0</span> <span
+class="math inline">P(|X_n - X|) &gt; \epsilon)</span> converges to 0.
+They converge <em>almost surely</em> if <span
+class="math inline">P(\lim_n X_n = X) = 1</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">X_n</span> converges in mean square then it
+converges in probability</em>.</p>
+<p>Hint: <span class="math inline">\phi(x) = x^2</span> is increasing
+for <span class="math inline">x &gt; 0</span>.</p>
 <!--
 
 ## Examples

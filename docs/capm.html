@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-20" />
+  <meta name="dcterms.date" content="2023-07-03" />
   <title>Capital Asset Pricing Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -16,64 +16,185 @@
     ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="math.css" />
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      fleqn: true
-     });
-  }}});
+  <!-- Matomo -->
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//kalx.net/analytics/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
   </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <!-- End Matomo Code -->
+
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Capital Asset Pricing Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 20, 2023</p>
+<p class="date">July 3, 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Two assets suffice for optimal portfolios.
+</div>
 </header>
-<p>Let <span class="math inline">I</span> be the set of <em>instruments</em> available for trading over a period of time and <span class="math inline">Ω</span> be the set of what can happen over the period. The <em>prices</em> at the beginning of the period are <span class="math inline">x\in\mathbf{R}^I</span> where <span class="math inline">x_i = x(i)\in\mathbf{R}</span> is the initial price of instrument <span class="math inline">i\in I</span>. The prices at the end of the period are <span class="math inline">X\colon\Omega\to \mathbf{R}^I</span> where <span class="math inline">X(\omega)\in\mathbf{R}^I</span> are the instrument prices if <span class="math inline">\omega\in\Omega</span> occurred.</p>
-<p>A <em>position</em> <span class="math inline">\xi\in\mathbf{R}^I</span> is the number of shares of each instrument purchased at the beginning of the period. Its value at the beginning of the period is <span class="math inline">\xi\cdot x</span> and its value at the end of the period is <span class="math inline">\xi\cdot X(\omega)</span> given <span class="math inline">\omega\in\Omega</span> occurred. The <em>realized return</em> of <span class="math inline">\xi</span> is the function <span class="math inline">R_\xi = \xi\cdot X/\xi\cdot x</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">R_\xi = R_{t\xi}</span> for any non-zero <span class="math inline">t\in\mathbf{R}</span></em>.</p>
-<p>If <span class="math inline">\xi\cdot x\not=0</span> there exists <span class="math inline">t\in\mathbf{R}</span> with <span class="math inline">t\xi\cdot x = 1</span> so <span class="math inline">R_{t\xi} = \xi\cdot X</span>. One unit invested proportional to <span class="math inline">\xi</span> returns this amount.</p>
-<p>Assume a probability measure on <span class="math inline">\Omega</span>. This note provides no guidence on how to do that.</p>
-<p>A portfolio <span class="math inline">\xi\in\mathbf{R}^I</span> is <em>efficient</em> if <span class="math inline">\operatorname{Var}(R_\xi) \le \operatorname{Var}(R_\eta)</span> whenever <span class="math inline">E[R_\xi] = E[R_\eta]</span>, <span class="math inline">\eta\in\mathbf{R}^I</span>.</p>
-<p>Given a realized return <span class="math inline">R</span> we can find an efficient portfolio by minimizing <span class="math inline">\operatorname{Var}(R_\xi)</span> given <span class="math inline">E[R_\xi] = R</span>. This can be solved using Lagrange multipliers by minimizing <span class="math display">
-    \frac{1}{2}\operatorname{Var}(\xi\cdot X) - \lambda(\xi\cdot x - 1) - \mu(E[\xi\cdot X] - R)
+<p>Let <span class="math inline">I</span> be the set of
+<em>instruments</em> available for trading over a period of time and
+<span class="math inline">Ω</span> be the set of what can happen over
+the period. The <em>prices</em> at the beginning of the period are <span
+class="math inline">x\in\mathbf{R}^I</span> where <span
+class="math inline">x_i = x(i)\in\mathbf{R}</span> is the initial price
+of instrument <span class="math inline">i\in I</span>. The prices at the
+end of the period are <span class="math inline">X\colon\Omega\to
+\mathbf{R}^I</span> where <span
+class="math inline">X(\omega)\in\mathbf{R}^I</span> are the instrument
+prices if <span class="math inline">\omega\in\Omega</span> occurred.</p>
+<p>A <em>position</em> <span
+class="math inline">\xi\in\mathbf{R}^I</span> is the number of shares of
+each instrument purchased at the beginning of the period. Its value at
+the beginning of the period is <span class="math inline">\xi\cdot
+x</span> and its value at the end of the period is <span
+class="math inline">\xi\cdot X(\omega)</span> given <span
+class="math inline">\omega\in\Omega</span> occurred. The <em>realized
+return</em> of <span class="math inline">\xi</span> is the function
+<span class="math inline">R_\xi = \xi\cdot X/\xi\cdot x</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">R_\xi =
+R_{t\xi}</span> for any non-zero <span
+class="math inline">t\in\mathbf{R}</span></em>.</p>
+<p>If <span class="math inline">\xi\cdot x\not=0</span> there exists
+<span class="math inline">t\in\mathbf{R}</span> with <span
+class="math inline">t\xi\cdot x = 1</span> so <span
+class="math inline">R_{t\xi} = \xi\cdot X</span>. One unit invested
+proportional to <span class="math inline">\xi</span> returns this
+amount.</p>
+<p>Assume a probability measure on <span
+class="math inline">\Omega</span>. This note provides no guidence on how
+to do that.</p>
+<p>A portfolio <span class="math inline">\xi\in\mathbf{R}^I</span> is
+<em>efficient</em> if <span
+class="math inline">\operatorname{Var}(R_\xi) \le
+\operatorname{Var}(R_\eta)</span> whenever <span
+class="math inline">E[R_\xi] = E[R_\eta]</span>, <span
+class="math inline">\eta\in\mathbf{R}^I</span>.</p>
+<p>Given a realized return <span class="math inline">R</span> we can
+find an efficient portfolio by minimizing <span
+class="math inline">\operatorname{Var}(R_\xi)</span> given <span
+class="math inline">E[R_\xi] = R</span>. This can be solved using
+Lagrange multipliers by minimizing <span class="math display">
+    \frac{1}{2}\operatorname{Var}(\xi\cdot X) - \lambda(\xi\cdot x - 1)
+- \mu(E[\xi\cdot X] - R)
 </span></p>
-<p>If <span class="math inline">\Sigma = E[XX&#39;] - E[X]E[X&#39;]</span>, where prime denotes transpose, then the first order conditions are <span class="math display">
+<p>If <span class="math inline">\Sigma = E[XX&#39;] -
+E[X]E[X&#39;]</span>, where prime denotes transpose, then the first
+order conditions are <span class="math display">
     0 = \xi&#39;\Sigma - \lambda x&#39; - \mu E[X&#39;]
-</span> where <span class="math inline">0 = \xi\cdot x - 1</span> and <span class="math inline">0 = E[\xi\cdot X] - R</span>. Assuming <span class="math inline">\Sigma</span> is invertible <span class="math display">
+</span> where <span class="math inline">0 = \xi\cdot x - 1</span> and
+<span class="math inline">0 = E[\xi\cdot X] - R</span>. Assuming <span
+class="math inline">\Sigma</span> is invertible <span
+class="math display">
     \xi = \Sigma^{-1}(\lambda x - \mu E[X]).
-</span> Note every optimal portfolio is a linear combination of <span class="math inline">\Sigma^{-1}x</span> and <span class="math inline">\Sigma^{-1}E[X]</span>.</p>
-<p>A portfolio <span class="math inline">\xi\in\mathbf{R}^I</span> is <em>efficient</em> if <span class="math inline">E[R_\xi] \ge E[R_\eta]</span> whenever <span class="math inline">\operatorname{Var}(R_\xi) = \operatorname{Var}(R_\eta)</span>, <span class="math inline">\eta\in\mathbf{R}^I</span>.</p>
-<p>Given a variance <span class="math inline">V</span> we can find an efficient portfolio by minimizing <span class="math inline">E[R_\xi]</span> given <span class="math inline">\operatorname{Var}(R_\xi) = V</span>. This can be solved using Lagrange multipliers by minimizing <span class="math display">
-    E[\xi\cdot X] - \lambda(\xi\cdot x - 1) - \frac{\mu}{2}(\operatorname{Var}(\xi\cdot X) - V)
+</span> Note every optimal portfolio is a linear combination of <span
+class="math inline">\Sigma^{-1}x</span> and <span
+class="math inline">\Sigma^{-1}E[X]</span>.</p>
+<p>A portfolio <span class="math inline">\xi\in\mathbf{R}^I</span> is
+<em>efficient</em> if <span class="math inline">E[R_\xi] \ge
+E[R_\eta]</span> whenever <span
+class="math inline">\operatorname{Var}(R_\xi) =
+\operatorname{Var}(R_\eta)</span>, <span
+class="math inline">\eta\in\mathbf{R}^I</span>.</p>
+<p>Given a variance <span class="math inline">V</span> we can find an
+efficient portfolio by minimizing <span
+class="math inline">E[R_\xi]</span> given <span
+class="math inline">\operatorname{Var}(R_\xi) = V</span>. This can be
+solved using Lagrange multipliers by minimizing <span
+class="math display">
+    E[\xi\cdot X] - \lambda(\xi\cdot x - 1) -
+\frac{\mu}{2}(\operatorname{Var}(\xi\cdot X) - V)
 </span> The first order conditions are <span class="math display">
     0 = E[X&#39;] - \lambda x&#39; - \mu \xi&#39;\Sigma
-</span> where <span class="math inline">0 = \xi\cdot x - 1</span> and <span class="math inline">0 = \operatorname{Var}(\xi\cdot X) - V</span>. Assuming <span class="math inline">\Sigma</span> is invertible <span class="math display">
+</span> where <span class="math inline">0 = \xi\cdot x - 1</span> and
+<span class="math inline">0 = \operatorname{Var}(\xi\cdot X) - V</span>.
+Assuming <span class="math inline">\Sigma</span> is invertible <span
+class="math display">
     \xi = \Sigma^{-1}(E[X] - \lambda x)/\mu.
-</span> Note every optimal portfolio is a linear combination of <span class="math inline">\Sigma^{-1}E[X]</span> and <span class="math inline">\Sigma^{-1}x</span> so the two definitions of efficient portfolio agree.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">\xi_0\not=\xi_1</span> are any two optimal portfolios then every optimal portfolio is a linear combination of <span class="math inline">\xi_0</span> and <span class="math inline">\xi_1</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">\xi_0 = a\Sigma^{-1}x + b\Sigma^{-1}E[X]</span> and <span class="math inline">\xi_1 = c\Sigma^{-1}x + d\Sigma^{-1}E[X]</span> for some <span class="math inline">a,b,c,d\in\mathbf{R}</span> with <span class="math inline">ad - bc\not=0</span>.</p>
+</span> Note every optimal portfolio is a linear combination of <span
+class="math inline">\Sigma^{-1}E[X]</span> and <span
+class="math inline">\Sigma^{-1}x</span> so the two definitions of
+efficient portfolio agree.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\xi_0\not=\xi_1</span> are any two optimal
+portfolios then every optimal portfolio is a linear combination of <span
+class="math inline">\xi_0</span> and <span
+class="math inline">\xi_1</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">\xi_0 = a\Sigma^{-1}x +
+b\Sigma^{-1}E[X]</span> and <span class="math inline">\xi_1 =
+c\Sigma^{-1}x + d\Sigma^{-1}E[X]</span> for some <span
+class="math inline">a,b,c,d\in\mathbf{R}</span> with <span
+class="math inline">ad - bc\not=0</span>.</p>
 <section id="capm" class="level2">
 <h2>CAPM</h2>
-<p>The Capital Asset Pricing model assumes there are two optimal portfolios, one having variance 0 and the other is called the <em>market portfolio</em>. If <span class="math inline">\operatorname{Var}(R_\zeta) = 0</span> then <span class="math inline">\zeta\cdot X</span> is a constant which we may assume is 1. This is called a <em>zero coupon bond</em> and <span class="math inline">\zeta\cdot x = 1/R_\zeta</span> is its initial price, called the <em>discount</em>. Let <span class="math inline">\mu\in\mathbf{R}^I</span> be the market portfolio with <span class="math inline">\mu\cdot x = 1</span>.</p>
-<p>Every optimal portfolio <span class="math inline">\xi</span> can be written as <span class="math inline">\xi = \alpha\zeta + \beta\mu</span> for some <span class="math inline">\alpha,\beta\in\mathbf{R}</span> and we may assume <span class="math inline">\xi\cdot x = 1</span> so <span class="math inline">1 = \xi\cdot x = \alpha/R_\zeta + \beta</span> and <span class="math inline">R_\zeta = \alpha + \beta R_\zeta</span>. Taking a dot product with <span class="math inline">X</span> in <span class="math inline">\xi = \alpha\zeta + \beta\mu</span> gives <span class="math inline">R_\xi = \alpha + \beta R_\mu</span> hence <span class="math display">
+<p>The Capital Asset Pricing model assumes there are two optimal
+portfolios, one having variance 0 and the other is called the <em>market
+portfolio</em>. If <span class="math inline">\operatorname{Var}(R_\zeta)
+= 0</span> then <span class="math inline">\zeta\cdot X</span> is a
+constant which we may assume is 1. This is called a <em>zero coupon
+bond</em> and <span class="math inline">\zeta\cdot x = 1/R_\zeta</span>
+is its initial price, called the <em>discount</em>. Let <span
+class="math inline">\mu\in\mathbf{R}^I</span> be the market portfolio
+with <span class="math inline">\mu\cdot x = 1</span>.</p>
+<p>Every optimal portfolio <span class="math inline">\xi</span> can be
+written as <span class="math inline">\xi = \alpha\zeta + \beta\mu</span>
+for some <span class="math inline">\alpha,\beta\in\mathbf{R}</span> and
+we may assume <span class="math inline">\xi\cdot x = 1</span> so <span
+class="math inline">1 = \xi\cdot x = \alpha/R_\zeta + \beta</span> and
+<span class="math inline">R_\zeta = \alpha + \beta R_\zeta</span>.
+Taking a dot product with <span class="math inline">X</span> in <span
+class="math inline">\xi = \alpha\zeta + \beta\mu</span> gives <span
+class="math inline">R_\xi = \alpha + \beta R_\mu</span> hence <span
+class="math display">
     R_\xi - R_\zeta = \beta(R_\mu - R_\zeta).
 </span></p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\beta = \operatorname{Cov}(R_\xi,R_\mu)/\operatorname{Var}(R_\mu)</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">\operatorname{Cov}(R_\xi - R_\zeta, R_\mu) = \operatorname{Cov}(\beta(R_\mu - R_\zeta), R_\mu)</span>.</p>
-<p>The usual CAPM formula is <span class="math inline">E[R_\xi] - R_\zeta = \beta(E[R_\mu] - R_\zeta)</span> but a much stronger result holds: there is an equality between random variables, not just their expectations.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\beta =
+\operatorname{Cov}(R_\xi,R_\mu)/\operatorname{Var}(R_\mu)</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">\operatorname{Cov}(R_\xi -
+R_\zeta, R_\mu) = \operatorname{Cov}(\beta(R_\mu - R_\zeta),
+R_\mu)</span>.</p>
+<p>The usual CAPM formula is <span class="math inline">E[R_\xi] -
+R_\zeta = \beta(E[R_\mu] - R_\zeta)</span> but a much stronger result
+holds: there is an equality between random variables, not just their
+expectations.</p>
 </section>
 <section id="remarks" class="level2">
 <h2>Remarks</h2>
-<p>If <span class="math inline">\Sigma</span> is not invertible then there are redundent market instruments. These can be removed to ensure <span class="math inline">\Sigma</span> is invertible.</p>
+<p>If <span class="math inline">\Sigma</span> is not invertible then
+there are redundent market instruments. These can be removed to ensure
+<span class="math inline">\Sigma</span> is invertible.</p>
 <!--
 
 ## Derivative
@@ -285,5 +406,9 @@ $E[X^2] = E[X]^2 + Var(X)$
 
 -->
 </section>
+<hr/>
+<footer>
+Return to <a href="index.html">index</a>.
+</footer>
 </body>
 </html>
