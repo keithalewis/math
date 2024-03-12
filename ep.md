@@ -8,9 +8,9 @@ Header-includes:
   - \usepackage{unicode-math}
 abstract: CAPM holds as equality of random variables, not just their expected value.
 thanks: |
-	Kevin Atteson, Peter Carr, David Shimko, and Ed Weinberger gave insightful feedback to
+	Kevin Atteson, Peter Carr, Arnav Sheth, David Shimko, and Ed Weinberger gave insightful feedback to
 	make the exposition more accessible to finance professionals.
-	Any remaining infelicities or omissions are my fault.
+	Any infelicities or omissions are my fault.
 ---
 
 \newcommand\RR{\mathbf{R}}
@@ -18,6 +18,22 @@ thanks: |
 \newcommand\LL{\mathcal{L}}
 \newcommand\Var{\operatorname{Var}}
 \newcommand\Cov{\operatorname{Cov}}
+
+The Capital Asset Pricing Model marked the transition from the due
+diligence required for Graham-Todd security analysis to using the
+wisdom of the markets to inform investing. The "market portfolio" was
+an equilibrium result of the cadre of investment professionals looking
+to increase returns while minimizing risk.
+There are well-founded criticisms of the CAPM, but it has value as
+simple model. Traders are concened about Sharpe ratios to this day:
+if a risk-free investment is available, how can you improve
+returns without increasing risk?
+
+Classical results deal with expected returns and their variance. 
+If the return is normal, or lognormal, these two parameters completely
+define their distribution. This short note makes the trivial
+observation that the CAPM holds as an equality of random variables,
+not just their expected values.
 
 Given two random realized returns on an investment, which is to
 be preferred?  This is a fundamental problem in finance that has no
