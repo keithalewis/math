@@ -33,6 +33,8 @@ FLAGS += --reference-location=document
 FLAGS += --section-divs
 #FLAGS += -H HEADER.html
 #FLAGS += -H katex.html
+FLAGS += --citeproc --bibliography=capm.bib
+DOCFLAGS = --citeproc --bibliography=capm.bib
 
 %.html: %.md $(CSS)
 	pandoc $(FLAGS) $< -o $@
@@ -41,7 +43,8 @@ FLAGS += --section-divs
 	pandoc $(TEXFLAGS) $< -o $@
 
 %.docx: %.md
-	pandoc $< -o $@
+	pandoc -f markdown -t latex $(DOCFLAGS) $< -o $*.tex
+	pandoc -f latex $*.tex -o $@
 
 index: $(MKDN)
 	./index.sh $(MKDN) > index.html
