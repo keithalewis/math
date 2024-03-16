@@ -322,7 +322,7 @@ Because $0 < \|\xi\|^2 = \xi^* (\hat{x} - x) = -\xi^* x$ we have $\xi^* x < 0$.
 The proof also shows $\xi$ is an arbitrage when one exists.
 
 If $X$ is bounded, as it is in the real world, then there exists a positive
-finitely-additive measure [@DunSch1958, Chapter IV] $D$ with
+finitely-additive measure [@DunSch1958] with
 $x = \int_\Omega X\,dD$. Since $D/D(\Omega)$ is a positive
 measure with mass 1 we have $x = E[X]D(\Omega)$ under this "probability" measure.
 
