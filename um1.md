@@ -34,7 +34,7 @@ _Account_ - trading account blotter
 : $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$
 
 _Arbitrage_ exists if there is a trading strategy $(\Gamma_t)_{t\in T}$
-with $A_0 < 0$, $A_t \ge 0$, $t > 0$, and $\sum_{t} \Gamma_t = 0$.
+with $A_0 > 0$, $A_t \ge 0$, $t > 0$, and $\sum_{t} \Gamma_t = 0$.
 
 The Fundamental Theorem of Asset Pricing states there is no arbitrage if and only
 if there exist positive measures $(D_t)_{t\in T}$ on $\Omega$ with

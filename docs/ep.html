@@ -5,16 +5,44 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-03-07" />
+  <meta name="dcterms.date" content="2024-03-16" />
   <title>Efficient Portfolios</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-  </style>
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="math.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
@@ -34,44 +62,79 @@
   </script>
   <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Efficient Portfolios</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">March 7, 2024</p>
+<p class="date">March 16, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-CAPM holds as equality of random variables, not just their expected
-value.
+The Capital Asset Pricing Model holds as equality of random variables,
+not just their expected values.
 </div>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
+<li><a href="#capm" id="toc-capm">CAPM</a></li>
 <li><a href="#one-period-model" id="toc-one-period-model">One-Period
 Model</a></li>
-<li><a href="#remarks" id="toc-remarks">Remarks</a></li>
+<li><a href="#efficient-portfolio"
+id="toc-efficient-portfolio">Efficient Portfolio</a></li>
+<li><a href="#appendix" id="toc-appendix">Appendix</a>
+<ul>
+<li><a href="#fréchet-derivative" id="toc-fréchet-derivative">Fréchet
+derivative</a></li>
+<li><a href="#lagrange-multiplier" id="toc-lagrange-multiplier">Lagrange
+Multiplier</a></li>
+<li><a href="#ftap" id="toc-ftap">FTAP</a></li>
+</ul></li>
 <li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
+<!--
+Authors will need to provide no more than 3 ‘key points’ that summarize the key messages of their paper to be published with their article. The key points should be written with a practitioner audience in mind.
+-->
 <p>Given two random realized returns on an investment, which is to be
 preferred? This is a fundamental problem in finance that has no
-definitive solution except in the case one investment always returns
-more than the other, in which case arbitrage exists. In 1952
-Markowitz<span class="citation" data-cites="Mar1952">[@Mar1952]</span>
-and Roy<span class="citation" data-cites="Roy1952">[@Roy1952]</span>
+definitive answer except in the case one investment always returns more
+than the other, in which case arbitrage exists. In 1952 Markowitz<span
+class="citation" data-cites="Mar1952">(Markowitz 1952)</span> and
+Roy<span class="citation" data-cites="Roy1952">(Roy 1952)</span>
 introduced a criterion for risk vs. return in portfolio selection: if
 two portfolios have the same expected realized return then prefer the
 one with smaller variance. An efficient portfolio has the least variance
 among all portfolios having the same expected realized return. This was
 developed into the Capital Asset Pricing Model by Treynor<span
-class="citation" data-cites="Tre1961">[@Tre1961]</span>, Sharp<span
-class="citation" data-cites="Sha1964">[@Sha1964]</span>, Lintner<span
-class="citation" data-cites="Lin1965">[@Lin1965]</span>, and many
+class="citation" data-cites="Tre1961">(Treynor 1961)</span>, Sharpe<span
+class="citation" data-cites="Sha1964">(Sharpe 1964)</span>, Lintner<span
+class="citation" data-cites="Lin1965">(Lintner 1965)</span>, and many
 others.</p>
+<p>The Capital Asset Pricing Model marked the transition from the due
+diligence required for Graham-Todd security analysis to using the wisdom
+of the markets to inform investing. The “market portfolio” was assumed
+to be in an efficient “equilibrium” resulting from the cadre of
+investment professionals performing “market clearing” trades. This short
+note is agnostic to the quoted terms. It proves a mathematical result
+that simply assumes the existence of efficient portfolios.</p>
+<p>There are well-founded criticisms of the CAPM, but it has value as an
+easily understood model. Traders are concerned about Sharpe ratios to
+this day: how do you tailor returns for an investment strategy and
+account for risk? The CAPM demonstrates a constraint on expected returns
+and covariance of efficient portfolios. We show a much stronger
+constraint: there is an equality of realized returns as random
+variables. This allows the value-at-risk, or any risk measure, of
+efficient portfolios to be calculated, something not possible using the
+classical result that only holds for expected values.</p>
+<p>This result follows directly from writing down a mathematical model
+for one period investments. The only thing remarkable is that this has
+not heretofore been noted in the literature. Prior work fails to
+explicitly specify a sample space and probability measure, the first
+step in any model involving probability since Kolomogorov legitimized
+probability as a branch of measure theory <span class="citation"
+data-cites="Kol1956">(Kolmogorov 1956)</span>.</p>
+<section id="capm" class="level2">
+<h2>CAPM</h2>
 <p>The CAPM places a constraint on the expected excess realized return
 of efficient portfolios. <span class="math display">
 \tag{1} E[R] - R_0 = \beta(E[R_1] - R_0)
@@ -89,16 +152,9 @@ two independent efficient portfolios. This implies <span
 class="math inline">\beta = \operatorname{Cov}(R - R_0, R_1 -
 R_0)/\operatorname{Var}(R_1 - R_0)</span>. Taking expected values of
 both sides when <span class="math inline">R_0</span> has zero variance
-and <span class="math inline">R_1</span> is the “market” portfolio gives
+and <span class="math inline">R_1</span> is the “market portfolio” gives
 the classical CAPM formula</p>
-<p>Equation (2) can be used to compute the value-at-risk, or any risk
-measure, of efficient portfolios, something not possible using the
-classical result that only holds for expected values. This result
-follows directly from writing down a mathematical model for one period
-investments. Prior work does not explicitly specify a sample space and
-probability measure, the first step in any model involving probability
-since Kolomogorov legitimized probability as a branch of measure theory
-<span class="citation" data-cites="Kol1956">[@Kol1956]</span>.</p>
+</section>
 <section id="one-period-model" class="level2">
 <h2>One-Period Model</h2>
 <p>Let <span class="math inline">I</span> be the set of <em>market
@@ -126,6 +182,9 @@ class="math inline">\omega\in\Omega</span> occurs. The <em>realized
 return</em> of <span class="math inline">\xi</span> is <span
 class="math inline">{R_\xi = \xi^* X/\xi^* x}</span> when <span
 class="math inline">\xi^* x \not= 0</span>.</p>
+</section>
+<section id="efficient-portfolio" class="level2">
+<h2>Efficient Portfolio</h2>
 <p>A portfolio is <em>efficient</em> if its variance is less than or
 equal to the variance of any portfolio having the same expected realized
 return. Note <span class="math inline">R_\xi = R_{t\xi}</span> for any
@@ -135,7 +194,8 @@ case <span class="math inline">R_\xi = \xi^* X</span> is the realized
 return of the portfolio. If <span class="math inline">\xi^* x = 1</span>
 then the variance of the realized return is <span
 class="math inline">\operatorname{Var}(R_\xi) = \xi^*V\xi</span> where
-<span class="math inline">{V = E[X X^*] - E[X] E[X]^*}</span>.</p>
+<span class="math inline">{V = E[X X^*] -
+E[X] E[X^*]}</span>.</p>
 <p>For a given expected realized return <span
 class="math inline">r\in\mathbf{R}</span> we can use Lagrange
 multipliers to minimize <span class="math inline">{\frac{1}{2}\xi^* V\xi
@@ -144,7 +204,8 @@ class="math inline">\xi\in\mathbf{R}^I</span>, <span
 class="math inline">\lambda\in\mathbf{R}</span>, and <span
 class="math inline">\mu\in\mathbf{R}</span>. As is well-known, the first
 order condition on <span class="math inline">\xi</span> is <span
-class="math inline">{0 = V\xi - \lambda x - \mu E[X]}</span>.</p>
+class="math inline">{0 = V\xi - \lambda x - \mu E[X]}</span>. See the <a
+href="#Appendix">Appendix</a> for a proof.</p>
 <p>If <span class="math inline">V</span> is invertable then <span
 class="math display">
     \xi =  \lambda V^{-1}x + \mu V^{-1} E[X].
@@ -188,22 +249,244 @@ class="math inline">x = 0</span>.</p>
 have different returns then arbitrage exists. If they have the same
 return then the model has redundant assets.</p>
 </section>
-<section id="remarks" class="level2">
-<h2>Remarks</h2>
-<p>This paper does not use the notion of equilibrium to claim the
-so-called market portfolio is efficient. The notion of equilibrium for a
-one-period model is problematic since it does not allow for a sequence
-of market clearing trades allowing convergence.</p>
-<p>Some reviewers have claimed our stronger version of the CAPM could
-not possibly be true. “Everyone knows” the CAPM formula only holds for
-expected values, not as equality of random variables. When I pointed out
-that it is simply a mathematial statement, so either there is a mistake
-in the derivation or a counterexample, the reponses were that it
-<em>was</em> in fact a known result. One reviewer claimed “This is
-demonstrated early on in any graduate level presentation of the
-efficiency frontier and is the result you speak of. It does not need a
-citation.” So far, no one has been able to provide a prior
-reference.</p>
+<section id="appendix" class="level2">
+<h2>Appendix</h2>
+<p>We use the notation <span class="math inline">\xi^*</span> for what
+is usually denoted by the transpose <span
+class="math inline">\xi^T</span>. It is simpler and more illuminating to
+work with abstract vector spaces and linear operators between them than
+with <span class="math inline">\mathbf{R}^n</span> and matrices. Matrix
+multiplication is just composition of linear operators.</p>
+<p>Recall <span class="math inline">\mathbf{R}^I = \{x\colon
+I\to\mathbf{R}\}</span> is the vector space of all functions from the
+set <span class="math inline">I</span> to <span
+class="math inline">\mathbf{R}</span> with scalar multiplication and
+vector addition defined pointwise: <span class="math inline">{(ax)(i) =
+ax(i)}</span> and <span class="math inline">{(x + y)(i) = x(i)
+y(i)}</span> for <span class="math inline">a\in\mathbf{R}</span>, <span
+class="math inline">{x,y\in\mathbf{R}^I}</span>, and <span
+class="math inline">i\in I</span>.</p>
+<p>For <span class="math inline">\xi\in\mathbf{R}^I</span> define <span
+class="math inline">\xi^*\in(\mathbf{R}^I)^*</span> by <span
+class="math inline">\xi(x) = \xi^*x = \sum_{i\in I} \xi_i x_i</span> if
+<span class="math inline">I</span> is finite. Note <span
+class="math inline">\xi^*x = x^*\xi</span> and this identifies <span
+class="math inline">(\mathbf{R}^I)^*</span> with <span
+class="math inline">\mathbf{R}^I</span>. The Euclidean norm on <span
+class="math inline">\mathbf{R}^I</span> is <span
+class="math inline">\|x\| = \sqrt{x^*x}</span>.</p>
+<p>Let <span class="math inline">\mathcal{B}(V,W)</span> be the set of
+bounded linear operators between normed linear spaces <span
+class="math inline">V</span> and <span class="math inline">W</span>. A
+linear operator <span class="math inline">T\colon V\to W</span> is
+bounded if there exists <span class="math inline">C\in\mathbf{R}</span>
+with <span class="math inline">\|Tv\| \le C\|v\|</span> for all <span
+class="math inline">v\in V</span>. The least upper bound of such
+constants is the <em>norm</em> of <span class="math inline">T</span>.
+Note <span class="math inline">\mathcal{B}(V,W)</span> is also a normed
+vector space with scalar multiplication and addition defined
+pointwise.</p>
+<p>Define the <em>dual</em> of a vector space <span
+class="math inline">V</span> to be all <em>bounded linear
+functionals</em> from <span class="math inline">V</span> to <span
+class="math inline">\mathbf{R}</span>: <span class="math inline">V^* =
+\mathcal{B}(V,\mathbf{R})</span>. If <span
+class="math inline">T\in\mathcal{L}(V,W)</span> define the
+<em>adjoint</em> <span
+class="math inline">T^*\in\mathcal{B}(W^*,V^*)</span> by <span
+class="math inline">T^*w^*\in V^*</span> where <span
+class="math inline">T^*w^*(v) = w^*(Tv)</span>, <span
+class="math inline">w^*\in W^*</span>, <span class="math inline">v\in
+V</span>. If <span class="math inline">S\in\mathcal{L}(W,U)</span> then
+<span class="math inline">ST\in\mathcal{L}(V,U)</span> and <span
+class="math inline">(ST)^* = T^*S^*</span>.</p>
+<section id="fréchet-derivative" class="level3">
+<h3>Fréchet derivative</h3>
+<p>If <span class="math inline">F\colon V\to W</span> is a function
+between normed vector spaces its Fréchet derivative <span
+class="math inline">{DF\colon V\to \mathcal{B}(V,W)}</span> is defined
+by <span class="math display">
+    F(\xi + h) = F(\xi) + DF(\xi)h + o(\|h\|)
+</span> where <span class="math inline">f(h) = g(h) + o(\|h\|)</span>
+means <span class="math inline">(\|f(h) - \|g(h)\|)/\|h\|\to 0</span> as
+<span class="math inline">\|h\|\to 0</span>. If the Fréchet derivative
+exists at <span class="math inline">\xi</span> then <span
+class="math inline">F</span> can be approximated by a linear operator
+near <span class="math inline">\xi</span>.</p>
+<p>Given <span class="math inline">c\in\mathbf{R}^I</span> define <span
+class="math inline">F\colon\mathbf{R}^I\to\mathbf{R}</span> by <span
+class="math inline">F(\xi) = \xi^*c</span>. We have <span
+class="math inline">{F(\xi + h) = \xi^*c + h^*c}</span> so <span
+class="math inline">DF(\xi) = c^*</span> since <span
+class="math inline">h^*c = c^*h</span>.</p>
+<p>Given <span
+class="math inline">T\colon\mathbf{R}^I\to\mathbf{R}^I</span> define
+<span class="math inline">F\colon\mathbf{R}^I\to\mathbf{R}</span> by
+<span class="math inline">F(\xi) = \xi^*T\xi</span>. We have <span
+class="math display">
+\begin{aligned}
+    F(\xi + h) &amp;= (\xi + h)^*T(\xi + h) \\
+        &amp;= \xi^*T\xi + \xi^*Th + h^*T\xi + h^*h \\
+        &amp;= \xi^*T\xi + \xi^*Th + \xi^*T^*h + o(\|h\|). \\
+\end{aligned}
+</span> This shows <span class="math inline">DF(\xi) = \xi^*(T +
+T^*)</span>.</p>
+</section>
+<section id="lagrange-multiplier" class="level3">
+<h3>Lagrange Multiplier</h3>
+<p>To find the minimum value of <span
+class="math inline">\operatorname{Var}(R_\xi)</span> given <span
+class="math inline">E[R_\xi] = r</span> we use Lagrange multipliers and
+solve <span class="math display">
+        \min \frac{1}{2}\xi^* V\xi - \lambda(\xi^* x - 1) - \mu(\xi^*
+E[X] - r)
+</span> for <span class="math inline">\xi</span>, <span
+class="math inline">\lambda</span>, and <span
+class="math inline">\mu</span>. If <span class="math inline">{\xi^* \xi
+= 1}</span> then <span class="math inline">{R_\xi = \xi^* E[X]}</span>
+and <span class="math inline">{\operatorname{Var}(R_\xi) = \xi^*
+V\xi}</span> where <span class="math inline">{V = E[XX^*] -
+E[X]E[X^*]}</span>. Note <span class="math inline">V^* = V</span>.</p>
+<p>The first order conditions for an extremum are <span
+class="math display">
+\begin{aligned}
+        0 &amp;= \xi^*V - \lambda x^* - \mu E[X^*] \\
+        0 &amp;= \xi^* x - 1 \\
+        0 &amp;= \xi^* E[X] - r \\
+\end{aligned}
+</span> Assuming <span class="math inline">V</span> is left invertable
+<span class="math inline">\xi = V^{-1}(\lambda x + \mu E[X])</span>.
+Note every extremum lies in the (at most) two dimensional subspace
+spanned by <span class="math inline">V^{-1}x</span> and <span
+class="math inline">V^{-1}E[X]</span>.</p>
+<p>The constraints <span class="math inline">1 = x^*\xi</span> and <span
+class="math inline">r = E[X^*]\xi</span> can be written <span
+class="math display">
+\begin{bmatrix}
+1 \\
+r \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+\lambda x^*V^{-1}x + \mu x^*V^{-1}E[X] \\
+\lambda E[X^*]V^{-1}x + \mu E[X^*]V^{-1}E[X] \\
+\end{bmatrix}
+= \begin{bmatrix}
+A &amp; B \\
+B &amp; C\\
+\end{bmatrix}
+\begin{bmatrix}
+\lambda \\
+\mu
+\end{bmatrix}
+</span> with <span class="math inline">A = x^* V^{-1}x</span>, <span
+class="math inline">B = x^* V^{-1}E[X] = E[X^*]V^{-1}x</span>, and <span
+class="math inline">C = E[X^*] V^{-1}E[X]</span>. Inverting gives <span
+class="math display">
+\begin{bmatrix} \lambda \\ \mu \end{bmatrix}
+= \frac{1}{D}
+\begin{bmatrix}
+C &amp; -B \\
+-B &amp; A\\
+\end{bmatrix}
+\begin{bmatrix}
+1 \\
+r
+\end{bmatrix}
+=
+\begin{bmatrix}
+(C - r B)/D \\
+(-B + r A)/D\\
+\end{bmatrix}
+</span> where <span class="math inline">D = AC - B^2</span>. The
+solution is <span class="math inline">\lambda = (C - r B)/D</span>,
+<span class="math inline">\mu = (-B + r A)/D</span>, and <span
+class="math display">
+    \xi = \frac{C - r B}{D} V^{-1}x + \frac{-B + r A}{D} V^{-1}E[X].
+</span></p>
+<p>A straightforward calculation shows the variance is <span
+class="math display">
+\operatorname{Var}(R_\xi) = \xi^* V\xi = (C - 2Br + Ar^2)/D.
+</span></p>
+</section>
+<section id="ftap" class="level3">
+<h3>FTAP</h3>
+<p>Arbitrage exists in the one-period model if there is a <span
+class="math inline">\xi\in\mathbf{R}^I</span> with <span
+class="math inline">\xi^* x &lt; 0</span> and <span
+class="math inline">\xi^* X(\omega)\ge0</span> for <span
+class="math inline">\omega\in\Omega</span>. The cost of putting on a
+position <span class="math inline">\xi\in\mathbf{R}^I</span> is <span
+class="math inline">\xi^*x</span> so you make money entering the
+position and never lose money unwinding it.</p>
+<p>Note if <span class="math inline">x = \sum_j X(\omega_j) D_j</span>
+where <span class="math inline">\omega_j\in\Omega</span> and <span
+class="math inline">D_j</span> are non-negative scalars then <span
+class="math inline">{\xi^*x = \sum_j \xi^*X(\omega_j) D_j \ge 0}</span>
+if <span class="math inline">\xi^*X\ge0</span>. In this case there is no
+arbitrage.</p>
+<p>The one-period Fundamental Theorem of Asset Pricing states there is
+no model arbitrage if and only if <span class="math inline">x</span>
+belongs to the smallest closed cone contaning the range of <span
+class="math inline">X</span>. Note this statement does not involve any
+measures. The FTAP is a geometric result, not a probabilistic
+result.</p>
+<p>Recall that a <em>cone</em> is a subset of a vector space closed
+under addition and multiplication by a positive scalar, that is, <span
+class="math inline">C + C\subseteq C</span> and <span
+class="math inline">tC\subseteq C</span> for <span class="math inline">t
+&gt; 0</span>. For example, the set of arbitrage portfolios is a
+cone.</p>
+<p>The above proves the “easy” direction. The contrapositive follows
+from the</p>
+<p><strong>Lemma.</strong> <em>If <span
+class="math inline">x\in\mathbf{R}^n</span> and <span
+class="math inline">C</span> is a closed cone in <span
+class="math inline">\mathbf{R}^n</span> with <span
+class="math inline">x\not\in C</span> then there exists <span
+class="math inline">\xi\in\mathbf{R}^n</span> with <span
+class="math inline">\xi^* x &lt; 0</span> and <span
+class="math inline">\xi^* y \ge0</span> for <span
+class="math inline">y\in C</span>.</em></p>
+<p><em>Proof.</em> Since <span class="math inline">C</span> is closed
+and convex there exists nearest <span class="math inline">\hat{x}\in
+C</span> with <span class="math inline">0 &lt; \|\hat{x} - x\| \le \|y -
+x\|</span> for all <span class="math inline">y\in C</span>. Let <span
+class="math inline">\xi = \hat{x} - x</span>. For any <span
+class="math inline">y\in C</span> and <span class="math inline">t &gt;
+0</span> we have <span class="math inline">ty + \hat{x}\in C</span> so
+<span class="math inline">\|\xi\| \le \|ty + \xi\|</span>. Simplifying
+gives <span class="math inline">t^2\|y\|^2 + 2t\xi^* y\ge 0</span>.
+Dividing by <span class="math inline">t &gt; 0</span> and letting <span
+class="math inline">t</span> decrease to 0 shows <span
+class="math inline">\xi^* y\ge 0</span>. Take <span
+class="math inline">y = \hat{x}</span> then <span
+class="math inline">t\hat{x} + \hat{x}\in C</span> for <span
+class="math inline">t \ge -1</span>. By similar reasoning, letting <span
+class="math inline">t</span> increase to 0 shows <span
+class="math inline">\xi^* \hat{x}\le 0</span> so <span
+class="math inline">\xi^* \hat{x} = 0</span>. Because <span
+class="math inline">0 &lt; \|\xi\|^2 = \xi^* (\hat{x} - x) = -\xi^*
+x</span> we have <span class="math inline">\xi^* x &lt; 0</span>.</p>
+<p>The proof also shows <span class="math inline">\xi</span> is an
+arbitrage when one exists.</p>
+<p>If <span class="math inline">X</span> is bounded, as it is in the
+real world, then there exists a positive finitely-additive measure <span
+class="citation" data-cites="DunSch1958">(Dunford and Schwartz
+1958)</span> with <span class="math inline">x = \int_\Omega
+X\,dD</span>. Since <span class="math inline">D/D(\Omega)</span> is a
+positive measure with mass 1 we have <span class="math inline">x =
+E[X]D(\Omega)</span> under this “probability” measure.</p>
+<p>We say <span class="math inline">\zeta\in\mathbf{R}^I</span> is a
+zero coupon bond if <span class="math inline">\zeta^* X = 1</span>.
+Since <span class="math inline">\zeta^*x = \int_\Omega dD</span> the
+realized return on <span class="math inline">\zeta</span> is is the
+constant <span class="math inline">R_\zeta = 1/D(\Omega)</span>. The
+<em>discount</em> of the zero coupon bond is <span
+class="math inline">D(\Omega) = 1/R_\zeta</span>. In this case <span
+class="math inline">x</span> is the discounted “expected value” of <span
+class="math inline">X</span>.</p>
+</section>
 </section>
 <section id="references" class="level2">
 <h2>References</h2>
@@ -266,7 +549,7 @@ Note $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$ so there is no loss in
 assuming $\xi^* x = 1$.  In this case $R_\xi = \xi^* X$ is the realized
 return of the portfolio.  If $\xi^* x = 1$ then the variance of the
 realized return is $\Var(R_\xi) = \xi^*V\xi$ where ${V = E[X X^*] -
-E[X] E[X]^*}$.
+E[X] E[X^*]}$.
 
 For a given expected realized return $r\in\RR$ we use Lagrange multipliers and minimize
 $$
@@ -321,195 +604,50 @@ Equation (1) makes it possible to compute value at risk, or any risk measure, fo
 an efficient portfolio using the joint distribution of $R_0$ and $R_1$.
 Note this is not possible using the classical CAPM model.
 
-## Appendix
-
-We use the notation $\xi^*$ for what is usually denoted
-by the transpose $\xi^T$.  It is simpler and more illuminating to work with abstract
-vector spaces and linear operators between them
-than with $\RR^n$ and matrices. Matrix multiplication is just composition of linear operators.
-
-Recall $\RR^I = \{x\colon I\to\RR\}$ is the vector space of all
-functions from the set $I$ to $\RR$ with scalar multiplication and
-vector addition defined point-wise: ${(ax)(i) = ax(i)}$ and
-${(x + y)(i) = x(i) y(i)}$ for $a\in\RR$, ${x,y\in\RR^I}$, and $i\in I$.
-
-For $\xi\in\RR^I$ define $\xi^*\in(\RR^I)^*$
-by $\xi(x) = \xi^*x = \sum_{i\in I} \xi_i x_i$ if $I$ is finite.
-Note $\xi^*x = x^*\xi$ and this identifies $(\RR^I)^*$ with $\RR^I$.
-The Euclidean norm on $\RR^I$ is $\|x\| = \sqrt{x^*x}$. 
-
-Let $\BB(V,W)$ be the set of bounded linear operators between normed linear spaces $V$
-and $W$. A linear operator $T\colon V\to W$ is bounded if
-there exists $C\in\RR$ with $\|Tv\| \le C\|v\|$ for all $v\in V$.
-The least upper bound of such constants is the _norm_ of $T$.
-Note $\BB(V,W)$ is also a normed vector space with scalar multiplication
-and addition defined point-wise.
-
-Define the _dual_ of a vector space $V$ to be all _bounded linear functionals_ from
-$V$ to $\RR$: $V^* = \BB(V,\RR)$. If $T\in\LL(V,W)$ define
-the _adjoint_ $T^*\in\BB(W^*,V^*)$ by $T^*w^*\in V^*$
-where $T^*w^*(v) = w^*(Tv)$, $w^*\in W^*$, $v\in V$.
-If $S\in\LL(W,U)$ then $ST\in\LL(V,U)$ and $(ST)^* = T^*S^*$.
-
-### Fréchet derivative
-
-If $F\colon V\to W$ is a function between normed vector spaces its Fréchet derivative
-${DF\colon V\to \BB(V,W)}$ is defined by
-$$
-    F(\xi + h) = F(\xi) + DF(\xi)h + o(\|h\|).
-$$
-If the Fréchet derivative exists at $\xi$ then $F$ can be approximated by a linear
-operator near $\xi$. 
-
-Given $x\in\RR^I$
-define $F\colon\RR^I\to\RR$ by $F(\xi) = \xi^*x$.
-We have ${F(\xi + h) = \xi^*x + h^*x + 0}$
-so $DF(\xi) = x^*$ since $h^*x = x^*h$.
-
-Given $T\colon\RR^I\to\RR^I$
-define $F\colon\RR^I\to\RR$ by $F(\xi) = \xi^*T\xi$.
-We have
-$$
-\begin{aligned}
-    F(\xi + h) &= (\xi + h)^*T(\xi + h) \\
-        &= \xi^*T\xi + \xi^*Th + h^*T\xi + h^*h \\
-        &= \xi^*T\xi + \xi^*Th + \xi^*T^*h + o(\|h\|). \\
-\end{aligned}
-$$
-This shows $DF(\xi) = \xi^*(T + T^*)$.
-
-### Lagrange Multiplier
-
-To find the minimum value of $\Var(R_\xi)$ given $E[R_\xi] = r$
-we use Lagrange multipliers and solve
-$$
-        \min \frac{1}{2}\xi^* V\xi - \lambda(\xi^* x - 1) - \mu(\xi^* E[X] - r)
-$$
-for $\xi$, $\lambda$, and $\mu$.
-If ${\xi^* \xi = 1}$ then ${R_\xi = \xi^* E[X]}$ and
-${\Var(R_\xi) = \xi^* V\xi}$ where ${V = E[XX^*] - E[X]E[X^*]}$.
-    
-The first order conditions for an extremum are
-$$
-\begin{aligned}
-        0 &= \xi^*V - \lambda x^* - \mu E[X]^* \\
-        0 &= \xi^* x - 1 \\
-        0 &= \xi^* E[X] - r \\
-\end{aligned}
-$$
-Assuming $V$ is left invertible $\xi = V^{-1}(\lambda x + \mu E[X])$.
-Note every extremum lies in the (at most) two dimensional subspace
-spanned by $V^{-1}x$ and $V^{-1}E[X]$.
-    
-The constraints $1 = x^*\xi$ and $r = E[X^*]\xi$ can be written
-$$
-\begin{bmatrix}
-1 \\
-r \\
-\end{bmatrix}
-=
-\begin{bmatrix}
-\lambda x^*V^{-1}x + \mu x^*V^{-1}E[X] \\
-\lambda E[X^*]V^{-1}x + \mu E[X^*]V^{-1}E[X] \\
-\end{bmatrix}
-= \begin{bmatrix}
-A & B \\
-B & C\\
-\end{bmatrix}
-\begin{bmatrix}
-\lambda \\
-\mu
-\end{bmatrix}
-$$
-with $A = x^* V^{-1}x$, $B = x^* V^{-1}E[X] = E[X^*]V^{-1}x$, and $C = E[X^*] V^{-1}E[X]$.
-Inverting gives
-$$
-\begin{bmatrix} \lambda \\ \mu \end{bmatrix}
-= \frac{1}{D}
-\begin{bmatrix}
-C & -B \\
--B & A\\
-\end{bmatrix}
-\begin{bmatrix}
-1 \\
-r
-\end{bmatrix}
-=
-\begin{bmatrix}
-(C - r B)/D \\
-(-B + r A)/D\\
-\end{bmatrix}
-$$
-where $D = AC - B^2$. The solution is
-$\lambda = (C - r B)/D$, $\mu = (-B + r A)/D$, and
-$$
-    \xi = \frac{C - r B}{D} V^{-1}x + \frac{-B + r A}{D} V^{-1}E[X].
-$$
-
-A straightforward calculation shows the variance is
-$$
-\Var(R_\xi) = \xi^* V\xi = (C - 2Br + Ar^2)/D.
-$$
-
-
-
-### Fundamental Theorem of Asset Pricing
-
-It may be the case $V^{-1}x$ and $V^{-1}E[X]$ are dependent.
-In this case $x = E[X]D$ for some $D\in\RR$. This
-ensures the model is _arbitrage free_.
-
-Arbitrage exists in the one-period model if
-there is a $\xi\in\RR^I$ with $\xi^* x < 0$ and $\xi^* X(\omega)\ge0$
-for $\omega\in\Omega$: you make money putting on the position
-and never lose money unwinding it.
-
-The one-period Fundamental Theorem of Asset Pricing states there is no model
-arbitrage if and only if there exists a positive measure $D$ on
-$\Omega$ with $x = \int_\Omega X(\omega)\,dD(\omega)$.  We assume $X$
-is bounded, as it is in the real world, and $D$ is
-finitely additive.
-
-If $x = \sum_j X(\omega_j) d_j$ where $\omega_j\in\Omega$ and $d_j\ge0$ then
-$$
-    \xi*x = \sum_j \xi^*X(\omega_j) d_j \ge0
-$$
-if $\xi^*X\ge0$ on $\Omega$.
-
-If $x$ belongs to the smallest closed cone containing the range of $X$ then
-$x = \int_\Omega X dD$ for some positive finitely-additive measure $D$ on $\Omega$.
-If we define $P = D/D(\Omega)$ then $P$ is a positive measure with mass 1.
-
-
-If such a measure exists and $\xi^* X\ge0$ then
-$\xi^* x = \int_\Omega \xi^* X\,dD \ge0$ so arbitrage
-cannot occur. The other direction is less trivial.
-
-__Lemma.__ _If $x\in\RR^n$ and $C$ is a closed cone in
-$\RR^n$ with $x\not\in C$ then there exists $\xi\in\RR^n$
-with $\xi^* x < 0$ and $\xi^* y \ge0$ for $y\in C$._
-
-Recall that a _cone_ is a subset of a vector space closed under addition
-and multiplication by a positive scalar, that is, $C + C\subseteq C$
-and $tC\subseteq C$ for $t > 0$. Note the set of arbitrage
-portfolios is a cone.
-
-_Proof._ Since $C$ is closed and convex there exists $x^*\in C$ with
-$0 < \|x^* - x\| \le \|y - x\|$ for all $y\in C$.  Let $\xi = x^* - x$.
-For any $y\in C$ and $t > 0$ we have $ty + x^*\in C$ so $\|\xi\| \le \|ty + \xi\|$. 
-Simplifying gives $t^2\|y\|^2 + 2t\xi^* y\ge 0$. 
-Dividing by $t > 0$ and letting $t$ decrease to 0 shows $\xi^* y\ge 0$. 
-Take $y = x^*$ then $tx^* + x^*\in C$ for $t \ge -1$. By similar reasoning,
-letting $t$ increase to 0 shows $\xi^* x^*\le 0$ so $\xi^* x^* = 0$. 
-Because $0 < \|\xi\|^2 = \xi^* (x^* - x) = -\xi^* x$ we have $\xi^* x < 0$.
-
-Since the set of non-negative finitely additive measures is a closed
-cone and $X\mapsto \int_\Omega X\,dD$ is positive, linear, and continuous
-$C = \{\int_\Omega X\,dD : D\ge 0\}$ is also a closed cone.
-The contrapositive follows from the lemma.
-
-The proof also shows how to find an arbitrage when one exists.
 -->
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-DunSch1958" class="csl-entry" role="listitem">
+Dunford, Nelson, and Jacob T Schwartz. 1958. <em>Linear Operators
+i</em>. Interscience Publishers.
+</div>
+<div id="ref-Kol1956" class="csl-entry" role="listitem">
+Kolmogorov, Andrey. 1956. <em>Foundations of the Theory of
+Probability</em>. New York, US: Chelsea Publishing Company.
+</div>
+<div id="ref-Lin1965" class="csl-entry" role="listitem">
+Lintner, John. 1965. <span>“The <span>Valuation</span> of
+<span>Risk</span> <span>Assets</span> and the <span>Selection</span> of
+<span>Risky</span> <span>Investments</span> in <span>Stock</span>
+<span>Portfolios</span> and <span>Capital</span>
+<span>Budgets</span>.”</span> <em>The Review of Economics and
+Statistics</em> 47 (1): 13–37. <a
+href="https://www.jstor.org/stable/1924119">https://www.jstor.org/stable/1924119</a>.
+</div>
+<div id="ref-Mar1952" class="csl-entry" role="listitem">
+Markowitz, Harry. 1952. <span>“Portfolio Selection.”</span> <em>The
+Journal of Finance</em> 7 (1): 77–91.
+</div>
+<div id="ref-Roy1952" class="csl-entry" role="listitem">
+Roy, A. D. 1952. <span>“Safety <span>First</span> and the
+<span>Holding</span> of <span>Assets</span>.”</span>
+<em>Econometrica</em> 20 (3): 431–49. <a
+href="https://www.jstor.org/stable/1907413">https://www.jstor.org/stable/1907413</a>.
+</div>
+<div id="ref-Sha1964" class="csl-entry" role="listitem">
+Sharpe, William F. 1964. <span>“<span>Capital</span> <span>Asset</span>
+<span>Prices</span>: <span>A</span> <span>Theory</span> <span
+class="nocase">of</span> <span>Market</span> <span>Equilibrium</span>
+<span class="nocase">under</span> <span class="nocase">conditions</span>
+<span class="nocase">of</span> <span class="nocase">risk</span>.”</span>
+<em>The Journal of Finance</em> 19 (3): 425–42.
+</div>
+<div id="ref-Tre1961" class="csl-entry" role="listitem">
+Treynor, Jack L. 1961. <span>“Market Value, Time, and Risk.”</span>
+<em><span>SSRN</span> Electronic Journal</em>. <a
+href="http://www.ssrn.com/abstract=2600356">http://www.ssrn.com/abstract=2600356</a>.
+</div>
+</div>
 </section>
 </body>
 </html>
