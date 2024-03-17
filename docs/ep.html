@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-03-16" />
+  <meta name="dcterms.date" content="2024-03-17" />
   <title>Efficient Portfolios</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,7 +67,7 @@
 <header id="title-block-header">
 <h1 class="title">Efficient Portfolios</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">March 16, 2024</p>
+<p class="date">March 17, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 The Capital Asset Pricing Model holds as equality of random variables,
@@ -115,14 +115,14 @@ diligence required for Graham-Todd security analysis to using the wisdom
 of the markets to inform investing. The “market portfolio” was assumed
 to be in an efficient “equilibrium” resulting from the cadre of
 investment professionals performing “market clearing” trades. This short
-note is agnostic to the quoted terms. It proves a mathematical result
-that simply assumes the existence of efficient portfolios.</p>
+note is agnostic to the quoted terms and proves a simple mathematical
+result about efficient portfolios.</p>
 <p>There are well-founded criticisms of the CAPM, but it has value as an
 easily understood model. Traders are concerned about Sharpe ratios to
-this day: how do you tailor returns for an investment strategy and
-account for risk? The CAPM demonstrates a constraint on expected returns
-and covariance of efficient portfolios. We show a much stronger
-constraint: there is an equality of realized returns as random
+this day to tailor returns for an investment strategy while accounting
+for risk. The CAPM demonstrates a constraint on expected returns and
+covariance of efficient portfolios. We show a much stronger constraint:
+effcient portfolios satisfy an equality of realized returns as random
 variables. This allows the value-at-risk, or any risk measure, of
 efficient portfolios to be calculated, something not possible using the
 classical result that only holds for expected values.</p>
@@ -135,7 +135,7 @@ probability as a branch of measure theory <span class="citation"
 data-cites="Kol1956">(Kolmogorov 1956)</span>.</p>
 <section id="capm" class="level2">
 <h2>CAPM</h2>
-<p>The CAPM places a constraint on the expected excess realized return
+<p>The CAPM places a constraint on the excess expected realized return
 of efficient portfolios. <span class="math display">
 \tag{1} E[R] - R_0 = \beta(E[R_1] - R_0)
 </span> where <span class="math inline">R</span> is the realized return
@@ -144,7 +144,9 @@ realized return of a risk-less portfolio, <span
 class="math inline">R_1</span> is the realized return of the “market
 portfolio”, and <span class="math inline">\beta = \operatorname{Cov}(R,
 R_1)/\operatorname{Var}(R_1)</span>.</p>
-<p>This short note points out <span class="math display">
+<p>This short note shows the realized return <span
+class="math inline">R</span> of any efficient portfolio satisfies <span
+class="math display">
 \tag{2} R - R_0 = \beta(R_1 - R_0)
 </span> where <span class="math inline">R_0</span> and <span
 class="math inline">R_1</span> are the (random) realized returns of any
@@ -212,23 +214,18 @@ class="math display">
 </span> This shows every efficient portfolio is in the span of <span
 class="math inline">V^{-1}x</span> and <span class="math inline">V^{-1}
 E[X]</span>.</p>
-<p>If <span class="math inline">\xi_0</span> and <span
+<p>The only novel result in this paper is the observation that if <span
+class="math inline">\xi_0</span> and <span
 class="math inline">\xi_1</span> are any two independent efficient
 portfolios then <span class="math inline">{\xi = \beta_0\xi_0 +
 \beta_1\xi_1}</span> for some scalars <span
 class="math inline">\beta_0</span> and <span
-class="math inline">\beta_1</span>. Assuming, as we may, that <span
-class="math inline">\xi_j^* x = 1</span> for <span class="math inline">j
-= 0,1</span> then <span class="math inline">{\xi^* x = \beta_0 +
-\beta_1}</span> and <span class="math inline">{\xi^* X = \beta_0
-R_{\xi_0} + \beta_1 R_{\xi_1}}</span> so <span
-class="math inline">{R_\xi = (\beta_0 R_{\xi_0} + \beta_1
-R_{\xi_1})/(\beta_0 + \beta_1)}</span>. This shows <span
-class="math display">
+class="math inline">\beta_1</span> so <span class="math inline">{R_\xi =
+(\beta_0 R_{\xi_0} + \beta_1 R_{\xi_1})/(\beta_0 + \beta_1)}</span>.
+This shows <span class="math display">
     R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
-</span> as random variables on <span class="math inline">\Omega</span>,
-where <span class="math inline">\beta = \beta_1/(\beta_0 +
-\beta_1)</span>. Taking the covariance with <span
+</span> as random variables where <span class="math inline">\beta =
+\beta_1/(\beta_0 + \beta_1)</span>. Taking the covariance with <span
 class="math inline">{R_{\xi_1} - R_{\xi_0}}</span> on both sides gives
 <span class="math display">
     \beta = \operatorname{Cov}(R_\xi - R_{\xi_0}, R_{\xi_1} -
