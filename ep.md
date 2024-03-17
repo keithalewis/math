@@ -39,18 +39,18 @@ diligence required for Graham-Todd security analysis to using the wisdom
 of the markets to inform investing. The "market portfolio" was assumed
 to be in an efficient "equilibrium" resulting from the cadre of investment
 professionals performing "market clearing" trades.
-This short note is agnostic to the quoted terms. It proves a mathematical
-result that simply assumes the existence of efficient portfolios.
+This short note is agnostic to the quoted terms and proves a simple mathematical
+result about efficient portfolios.
 
 There are well-founded criticisms of the CAPM, but it has value as an
-easily understood model. Traders are concerned about Sharpe ratios to this
-day: how do you tailor returns for an investment strategy and account for risk?
-The CAPM demonstrates a constraint on expected returns and covariance
-of efficient portfolios.  We show a much stronger constraint: there
-is an equality of realized returns as random variables. This allows
-the value-at-risk, or any risk measure, of efficient portfolios to be
-calculated, something not possible using the classical result that only
-holds for expected values.
+easily understood model. Traders are concerned about Sharpe ratios to
+this day to tailor returns for an investment strategy while accounting
+for risk.  The CAPM demonstrates a constraint on expected returns and
+covariance of efficient portfolios.  We show a much stronger constraint:
+effcient portfolios satisfy an equality of realized returns as random
+variables.  This allows the value-at-risk, or any risk measure, of
+efficient portfolios to be calculated, something not possible using the
+classical result that only holds for expected values.
 
 This result follows directly from writing down a mathematical model for
 one period investments.  The only thing remarkable is that this has not
@@ -61,7 +61,7 @@ as a branch of measure theory [@Kol1956].
 
 ## CAPM
 
-The CAPM places a constraint on the expected excess realized return of efficient portfolios.
+The CAPM places a constraint on the excess expected realized return of efficient portfolios.
 $$
 \tag{1}	E[R] - R_0 = \beta(E[R_1] - R_0)
 $$
@@ -70,7 +70,7 @@ $R_0$ is the realized return of a risk-less portfolio,
 $R_1$ is the realized return of the "market portfolio",
 and $\beta = \Cov(R, R_1)/\Var(R_1)$.
 
-This short note points out
+This short note shows the realized return $R$ of any efficient portfolio satisfies
 $$
 \tag{2}	R - R_0 = \beta(R_1 - R_0)
 $$
@@ -122,16 +122,15 @@ $$
 This shows every efficient portfolio is in the span of 
 $V^{-1}x$ and $V^{-1} E[X]$.
 
-If $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
-${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$.
-Assuming, as we may, that $\xi_j^* x = 1$ for $j = 0,1$ then ${\xi^* x = \beta_0 + \beta_1}$
-and ${\xi^* X = \beta_0 R_{\xi_0} + \beta_1 R_{\xi_1}}$
+The only novel result in this paper is the observation that
+if $\xi_0$ and $\xi_1$ are any two independent efficient portfolios then
+${\xi = \beta_0\xi_0 + \beta_1\xi_1}$ for some scalars $\beta_0$ and $\beta_1$
 so ${R_\xi = (\beta_0 R_{\xi_0} + \beta_1 R_{\xi_1})/(\beta_0 + \beta_1)}$.
 This shows
 $$
 	R_\xi - R_{\xi_0} = \beta(R_{\xi_1} - R_{\xi_0})
 $$
-as random variables on $\Omega$, where $\beta = \beta_1/(\beta_0 + \beta_1)$.
+as random variables where $\beta = \beta_1/(\beta_0 + \beta_1)$.
 Taking the covariance with ${R_{\xi_1} - R_{\xi_0}}$ on both sides gives
 $$
 	\beta = \Cov(R_\xi - R_{\xi_0}, R_{\xi_1} - R_{\xi_0})/\Var(R_{\xi_1} - R_{\xi_0}).

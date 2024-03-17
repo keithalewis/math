@@ -22,7 +22,7 @@ _Cash flow_ - dividends, coupons, margin adjustments
 : $C_t\colon\Omega\to\RR^I$
 
 _Trade_ - shares per instrument based on historical data
-: $\Gamma_t = \Gamma((X_s)_{s\le t}, (C_s)_{s\le t})\colon\Omega\to\RR^I$
+: $\tau_0 < \cdots < \tau_n$, $\Gamma_t = \Gamma((X_s)_{s\le t}, (C_s)_{s\le t})\colon\Omega\to\RR^I$
 
 _Position_ - accumulate trades not including last trade
 : $\Delta_t = \sum_{s < t} \Gamma_s$
