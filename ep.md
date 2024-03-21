@@ -113,7 +113,7 @@ For a given expected realized return $r\in\RR$ we can use Lagrange multipliers t
 ${\frac{1}{2}\xi^* V\xi - \lambda(\xi^* x - 1) - \mu(\xi^* E[X] - r)}$
 over $\xi\in\RR^I$, ${\lambda, \mu\in\RR}$.
 As is well-known, the first order condition on $\xi$ is
-${0 = V\xi - \lambda x - \mu E[X]}$. See the [Appendix](#Appendix) for a proof.
+${0 = V\xi - \lambda x - \mu E[X]}$. See the [Appendix](#appendix) for a proof.
 
 If $V$ is invertable then
 $$
