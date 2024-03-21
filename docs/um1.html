@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-03-17" />
+  <meta name="dcterms.date" content="2024-03-18" />
   <title>Unified Model for Derivative Instruments</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Unified Model for Derivative Instruments</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">March 17, 2024</p>
+<p class="date">March 18, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of any instruments
@@ -63,10 +63,10 @@ available at each trading time.</p>
 <dt><em>Price</em> - market price assuming perfect liquidity</dt>
 <dd>
 <span
-class="math inline">X_t\colon{\mathcal{A}}_t\to\boldsymbol{R}^I</span>,
-<span class="math inline">t\in T</span>
+class="math inline">X_t\colon{\mathcal{A}}_t\to\boldsymbol{R}^I</span>
 </dd>
-<dt><em>Cash flow</em> - dividends, coupons, margin adjustments</dt>
+<dt><em>Cash flow</em> - dividends, coupons, margin adjustments for
+futures</dt>
 <dd>
 <span
 class="math inline">C_t\colon{\mathcal{A}}_t\to\boldsymbol{R}^I</span>
@@ -74,7 +74,7 @@ class="math inline">C_t\colon{\mathcal{A}}_t\to\boldsymbol{R}^I</span>
 <dt><em>Trading Strategy</em> - increasing stopping times</dt>
 <dd>
 <span class="math inline">\tau_0 &lt; \cdots &lt; \tau_n</span> and
-<span
+trades <span
 class="math inline">\Gamma_j\colon{\mathcal{A}}_{\tau_j}\to\boldsymbol{R}^I</span>
 </dd>
 <dt><em>Position</em> - accumulate trades not including last trade</dt>
@@ -82,7 +82,7 @@ class="math inline">\Gamma_j\colon{\mathcal{A}}_{\tau_j}\to\boldsymbol{R}^I</spa
 <span class="math inline">\Delta_t = \sum_{\tau_j &lt; t}\Gamma_j =
 \sum_{s &lt; t} \Gamma_s</span>
 </dd>
-<dt><em>Value</em> - mark-to-market</dt>
+<dt><em>Value</em> - mark-to-market including last trade</dt>
 <dd>
 <span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>
 </dd>
@@ -95,7 +95,7 @@ X_t</span>
 <p><em>Arbitrage</em> exists if there is a trading strategy with <span
 class="math inline">A_{\tau_0} &gt; 0</span>, <span
 class="math inline">A_t \ge 0</span>, <span class="math inline">t &gt;
-\tau_0</span>, and <span class="math inline">\sum_{t} \Gamma_t =
+\tau_0</span>, and <span class="math inline">\sum_{j} \Gamma_j =
 0</span>.</p>
 <p>The Fundamental Theorem of Asset Pricing states there is no arbitrage
 if and only if there exist positive measures <span

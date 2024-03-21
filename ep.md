@@ -111,7 +111,7 @@ E[X] E[X^*]}$.
 
 For a given expected realized return $r\in\RR$ we can use Lagrange multipliers to minimize
 ${\frac{1}{2}\xi^* V\xi - \lambda(\xi^* x - 1) - \mu(\xi^* E[X] - r)}$
-over $\xi\in\RR^I$, $\lambda\in\RR$, and $\mu\in\RR$.
+over $\xi\in\RR^I$, ${\lambda, \mu\in\RR}$.
 As is well-known, the first order condition on $\xi$ is
 ${0 = V\xi - \lambda x - \mu E[X]}$. See the [Appendix](#Appendix) for a proof.
 
@@ -137,11 +137,10 @@ $$
 $$
 
 If $V$ is not invertable then there exists $\zeta\in\RR^I$ with ${V\zeta = 0}$.
-The first order condition gives ${0 = -\lambda x - \mu E[X]}$
-so the expected realized return for every portfolio ${\xi\in\RR^I}$
-with $\xi^*x = 1$
-is ${E[R_\xi] = E[\xi^*X] = -\lambda/\mu}$.  In this case $\zeta$ is
-clearly efficient. Note $\mu = 0$ implies $x = 0$.
+The first order condition ${0 = -\lambda x - \mu E[X]}$ gives $x = (-\mu/\lambda)E[X]$.
+The first order contitions ${0 = \zeta^*x - 1}$, and ${0 = \zeta^*E[X] - r}$
+show ${1 = (-\mu/\lambda)r}$ so ${x = (1/r)E[X]}$.
+This is a special case of the condition for a one-period model to be (arbitrage-free)[#FTAP].
 
 There may be two independent portfolios having variance zero. If they
 have different returns then arbitrage exists. If they have the same
@@ -150,7 +149,7 @@ return then the model has redundant assets.
 ## Appendix
 
 We use the notation $\xi^*$ for what is usually denoted
-by the transpose $\xi^T$.  It is simpler and more illuminating to work with abstract
+by the transpose $\xi^T$ or $x'$.  It is simpler and more illuminating to work with abstract
 vector spaces and linear operators between them
 than with $\RR^n$ and matrices. Matrix multiplication is just composition of linear operators.
 
@@ -159,23 +158,24 @@ functions from the set $I$ to $\RR$ with scalar multiplication and
 vector addition defined pointwise: ${(ax)(i) = ax(i)}$ and
 ${(x + y)(i) = x(i) y(i)}$ for $a\in\RR$, ${x,y\in\RR^I}$, and $i\in I$.
 
-For $\xi\in\RR^I$ define $\xi^*\in(\RR^I)^*$
+For $\xi\in\RR^I$ define $\xi^*\colon\RR^I\to\RR$
 by $\xi(x) = \xi^*x = \sum_{i\in I} \xi_i x_i$ if $I$ is finite.
-Note $\xi^*x = x^*\xi$ and this identifies $(\RR^I)^*$ with $\RR^I$.
-The Euclidean norm on $\RR^I$ is $\|x\| = \sqrt{x^*x}$. 
+Note $\xi^*$ is linear.
 
-Let $\BB(V,W)$ be the set of bounded linear operators between normed linear spaces $V$
-and $W$. A linear operator $T\colon V\to W$ is bounded if
-there exists $C\in\RR$ with $\|Tv\| \le C\|v\|$ for all $v\in V$.
-The least upper bound of such constants is the _norm_ of $T$.
-Note $\BB(V,W)$ is also a normed vector space with scalar multiplication
-and addition defined pointwise.
-
-Define the _dual_ of a vector space $V$ to be all _bounded linear functionals_ from
-$V$ to $\RR$: $V^* = \BB(V,\RR)$. If $T\in\LL(V,W)$ define
-the _adjoint_ $T^*\in\BB(W^*,V^*)$ by $T^*w^*\in V^*$
+Let $\LL(V,W)$ be the set of all linear opertators from the vector space $V$ to $W$.
+Note $\LL(V,W)$ is also a vector space with scalar multiplication and addition defined pointwise.
+The dual of a vector space $V$ is $V^*=\LL(V,\RR)$.
+For $\xi\in\RR^I$ we have $\xi^*\in (\RR^I)^*$ and $\xi^*x = x\xi^*$ allows
+us to identify $(\RR^I)^*$ with $\RR^I$.
+If $T\in\LL(V,W)$ its adjoint is $T^*\in\LL(W^*,V^*)$ defined by $T^*w^*\in V^*$
 where $T^*w^*(v) = w^*(Tv)$, $w^*\in W^*$, $v\in V$.
 If $S\in\LL(W,U)$ then $ST\in\LL(V,U)$ and $(ST)^* = T^*S^*$.
+
+Let $\BB(V,W)$ be the set of bounded linear operators from the normed linear spaces $V$ to $W$.
+A linear operator $T\in\LL(V,W)$ is bounded if
+there exists $C\in\RR$ with $\|Tv\| \le C\|v\|$ for all $v\in V$.
+The least upper bound of such constants is the norm of $T$.
+This makes $\BB(V,W)$ a normed vector space.
 
 ### Fréchet derivative
 
@@ -212,12 +212,11 @@ we use Lagrange multipliers and solve
 $$
 		\min \frac{1}{2}\xi^* V\xi - \lambda(\xi^* x - 1) - \mu(\xi^* E[X] - r)
 $$
-for $\xi$, $\lambda$, and $\mu$.
+for $\xi\in\RR^I$, $\lambda, \mu\in\RR$.
 If ${\xi^* \xi = 1}$ then ${R_\xi = \xi^* E[X]}$ and
 ${\Var(R_\xi) = \xi^* V\xi}$ where ${V = E[XX^*] - E[X]E[X^*]}$.
-Note $V^* = V$.
     
-The first order conditions for an extremum are
+Since $V^* = V$, the first order conditions for an extremum are
 $$
 \begin{aligned}
 		0 &= \xi^*V - \lambda x^* - \mu E[X^*] \\

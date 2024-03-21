@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-03-17" />
+  <meta name="dcterms.date" content="2024-03-18" />
   <title>Efficient Portfolios</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,7 +67,7 @@
 <header id="title-block-header">
 <h1 class="title">Efficient Portfolios</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">March 17, 2024</p>
+<p class="date">March 18, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 The Capital Asset Pricing Model holds as equality of random variables,
@@ -203,11 +203,11 @@ class="math inline">r\in\mathbf{R}</span> we can use Lagrange
 multipliers to minimize <span class="math inline">{\frac{1}{2}\xi^* V\xi
 - \lambda(\xi^* x - 1) - \mu(\xi^* E[X] - r)}</span> over <span
 class="math inline">\xi\in\mathbf{R}^I</span>, <span
-class="math inline">\lambda\in\mathbf{R}</span>, and <span
-class="math inline">\mu\in\mathbf{R}</span>. As is well-known, the first
-order condition on <span class="math inline">\xi</span> is <span
-class="math inline">{0 = V\xi - \lambda x - \mu E[X]}</span>. See the <a
-href="#Appendix">Appendix</a> for a proof.</p>
+class="math inline">{\lambda, \mu\in\mathbf{R}}</span>. As is
+well-known, the first order condition on <span
+class="math inline">\xi</span> is <span class="math inline">{0 = V\xi -
+\lambda x - \mu E[X]}</span>. See the <a href="#Appendix">Appendix</a>
+for a proof.</p>
 <p>If <span class="math inline">V</span> is invertable then <span
 class="math display">
     \xi =  \lambda V^{-1}x + \mu V^{-1} E[X].
@@ -233,15 +233,14 @@ R_{\xi_0})/\operatorname{Var}(R_{\xi_1} - R_{\xi_0}).
 </span></p>
 <p>If <span class="math inline">V</span> is not invertable then there
 exists <span class="math inline">\zeta\in\mathbf{R}^I</span> with <span
-class="math inline">{V\zeta = 0}</span>. The first order condition gives
-<span class="math inline">{0 = -\lambda x - \mu E[X]}</span> so the
-expected realized return for every portfolio <span
-class="math inline">{\xi\in\mathbf{R}^I}</span> with <span
-class="math inline">\xi^*x = 1</span> is <span
-class="math inline">{E[R_\xi] = E[\xi^*X] = -\lambda/\mu}</span>. In
-this case <span class="math inline">\zeta</span> is clearly efficient.
-Note <span class="math inline">\mu = 0</span> implies <span
-class="math inline">x = 0</span>.</p>
+class="math inline">{V\zeta = 0}</span>. The first order condition <span
+class="math inline">{0 = -\lambda x - \mu E[X]}</span> gives <span
+class="math inline">x = (-\mu/\lambda)E[X]</span>. The first order
+contitions <span class="math inline">{0 = \zeta^*x - 1}</span>, and
+<span class="math inline">{0 = \zeta^*E[X] - r}</span> show <span
+class="math inline">{1 = (-\mu/\lambda)r}</span> so <span
+class="math inline">{x = (1/r)E[X]}</span>. This is a special case of
+the condition for a one-period model to be (arbitrage-free)[#FTAP].</p>
 <p>There may be two independent portfolios having variance zero. If they
 have different returns then arbitrage exists. If they have the same
 return then the model has redundant assets.</p>
@@ -250,10 +249,11 @@ return then the model has redundant assets.</p>
 <h2>Appendix</h2>
 <p>We use the notation <span class="math inline">\xi^*</span> for what
 is usually denoted by the transpose <span
-class="math inline">\xi^T</span>. It is simpler and more illuminating to
-work with abstract vector spaces and linear operators between them than
-with <span class="math inline">\mathbf{R}^n</span> and matrices. Matrix
-multiplication is just composition of linear operators.</p>
+class="math inline">\xi^T</span> or <span
+class="math inline">x&#39;</span>. It is simpler and more illuminating
+to work with abstract vector spaces and linear operators between them
+than with <span class="math inline">\mathbf{R}^n</span> and matrices.
+Matrix multiplication is just composition of linear operators.</p>
 <p>Recall <span class="math inline">\mathbf{R}^I = \{x\colon
 I\to\mathbf{R}\}</span> is the vector space of all functions from the
 set <span class="math inline">I</span> to <span
@@ -264,39 +264,40 @@ y(i)}</span> for <span class="math inline">a\in\mathbf{R}</span>, <span
 class="math inline">{x,y\in\mathbf{R}^I}</span>, and <span
 class="math inline">i\in I</span>.</p>
 <p>For <span class="math inline">\xi\in\mathbf{R}^I</span> define <span
-class="math inline">\xi^*\in(\mathbf{R}^I)^*</span> by <span
+class="math inline">\xi^*\colon\mathbf{R}^I\to\mathbf{R}</span> by <span
 class="math inline">\xi(x) = \xi^*x = \sum_{i\in I} \xi_i x_i</span> if
 <span class="math inline">I</span> is finite. Note <span
-class="math inline">\xi^*x = x^*\xi</span> and this identifies <span
+class="math inline">\xi^*</span> is linear.</p>
+<p>Let <span class="math inline">\mathcal{L}(V,W)</span> be the set of
+all linear opertators from the vector space <span
+class="math inline">V</span> to <span class="math inline">W</span>. Note
+<span class="math inline">\mathcal{L}(V,W)</span> is also a vector space
+with scalar multiplication and addition defined pointwise. The dual of a
+vector space <span class="math inline">V</span> is <span
+class="math inline">V^*=\mathcal{L}(V,\mathbf{R})</span>. For <span
+class="math inline">\xi\in\mathbf{R}^I</span> we have <span
+class="math inline">\xi^*\in (\mathbf{R}^I)^*</span> and <span
+class="math inline">\xi^*x = x\xi^*</span> allows us to identify <span
 class="math inline">(\mathbf{R}^I)^*</span> with <span
-class="math inline">\mathbf{R}^I</span>. The Euclidean norm on <span
-class="math inline">\mathbf{R}^I</span> is <span
-class="math inline">\|x\| = \sqrt{x^*x}</span>.</p>
-<p>Let <span class="math inline">\mathcal{B}(V,W)</span> be the set of
-bounded linear operators between normed linear spaces <span
-class="math inline">V</span> and <span class="math inline">W</span>. A
-linear operator <span class="math inline">T\colon V\to W</span> is
-bounded if there exists <span class="math inline">C\in\mathbf{R}</span>
-with <span class="math inline">\|Tv\| \le C\|v\|</span> for all <span
-class="math inline">v\in V</span>. The least upper bound of such
-constants is the <em>norm</em> of <span class="math inline">T</span>.
-Note <span class="math inline">\mathcal{B}(V,W)</span> is also a normed
-vector space with scalar multiplication and addition defined
-pointwise.</p>
-<p>Define the <em>dual</em> of a vector space <span
-class="math inline">V</span> to be all <em>bounded linear
-functionals</em> from <span class="math inline">V</span> to <span
-class="math inline">\mathbf{R}</span>: <span class="math inline">V^* =
-\mathcal{B}(V,\mathbf{R})</span>. If <span
-class="math inline">T\in\mathcal{L}(V,W)</span> define the
-<em>adjoint</em> <span
-class="math inline">T^*\in\mathcal{B}(W^*,V^*)</span> by <span
+class="math inline">\mathbf{R}^I</span>. If <span
+class="math inline">T\in\mathcal{L}(V,W)</span> its adjoint is <span
+class="math inline">T^*\in\mathcal{L}(W^*,V^*)</span> defined by <span
 class="math inline">T^*w^*\in V^*</span> where <span
 class="math inline">T^*w^*(v) = w^*(Tv)</span>, <span
 class="math inline">w^*\in W^*</span>, <span class="math inline">v\in
 V</span>. If <span class="math inline">S\in\mathcal{L}(W,U)</span> then
 <span class="math inline">ST\in\mathcal{L}(V,U)</span> and <span
 class="math inline">(ST)^* = T^*S^*</span>.</p>
+<p>Let <span class="math inline">\mathcal{B}(V,W)</span> be the set of
+bounded linear operators from the normed linear spaces <span
+class="math inline">V</span> to <span class="math inline">W</span>. A
+linear operator <span class="math inline">T\in\mathcal{L}(V,W)</span> is
+bounded if there exists <span class="math inline">C\in\mathbf{R}</span>
+with <span class="math inline">\|Tv\| \le C\|v\|</span> for all <span
+class="math inline">v\in V</span>. The least upper bound of such
+constants is the norm of <span class="math inline">T</span>. This makes
+<span class="math inline">\mathcal{B}(V,W)</span> a normed vector
+space.</p>
 <section id="fréchet-derivative" class="level3">
 <h3>Fréchet derivative</h3>
 <p>If <span class="math inline">F\colon V\to W</span> is a function
@@ -337,15 +338,14 @@ class="math inline">E[R_\xi] = r</span> we use Lagrange multipliers and
 solve <span class="math display">
         \min \frac{1}{2}\xi^* V\xi - \lambda(\xi^* x - 1) - \mu(\xi^*
 E[X] - r)
-</span> for <span class="math inline">\xi</span>, <span
-class="math inline">\lambda</span>, and <span
-class="math inline">\mu</span>. If <span class="math inline">{\xi^* \xi
-= 1}</span> then <span class="math inline">{R_\xi = \xi^* E[X]}</span>
-and <span class="math inline">{\operatorname{Var}(R_\xi) = \xi^*
-V\xi}</span> where <span class="math inline">{V = E[XX^*] -
-E[X]E[X^*]}</span>. Note <span class="math inline">V^* = V</span>.</p>
-<p>The first order conditions for an extremum are <span
-class="math display">
+</span> for <span class="math inline">\xi\in\mathbf{R}^I</span>, <span
+class="math inline">\lambda, \mu\in\mathbf{R}</span>. If <span
+class="math inline">{\xi^* \xi = 1}</span> then <span
+class="math inline">{R_\xi = \xi^* E[X]}</span> and <span
+class="math inline">{\operatorname{Var}(R_\xi) = \xi^* V\xi}</span>
+where <span class="math inline">{V = E[XX^*] - E[X]E[X^*]}</span>.</p>
+<p>Since <span class="math inline">V^* = V</span>, the first order
+conditions for an extremum are <span class="math display">
 \begin{aligned}
         0 &amp;= \xi^*V - \lambda x^* - \mu E[X^*] \\
         0 &amp;= \xi^* x - 1 \\
