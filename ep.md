@@ -140,7 +140,7 @@ If $V$ is not invertable then there exists $\zeta\in\RR^I$ with ${V\zeta = 0}$.
 The first order condition ${0 = -\lambda x - \mu E[X]}$ gives $x = (-\mu/\lambda)E[X]$.
 The first order contitions ${0 = \zeta^*x - 1}$, and ${0 = \zeta^*E[X] - r}$
 show ${1 = (-\mu/\lambda)r}$ so ${x = (1/r)E[X]}$.
-This is a special case of the condition for a one-period model to be (arbitrage-free)[#FTAP].
+This is a special case of the condition for a one-period model to be [arbitrage-free](#ftap).
 
 There may be two independent portfolios having variance zero. If they
 have different returns then arbitrage exists. If they have the same
