@@ -6,7 +6,7 @@ classoption: fleqn
 fleqn: true
 abstract: The Capital Asset Pricing Model holds as equality of random variables, not just their expected values.
 thanks: |
-	Kevin Atteson, Peter Carr, Arnav Sheth, David Shimko, and Ed Weinberger gave insightful feedback to
+	Kevin Atteson, Peter Carr, Arnav Sheth, David Shimko, Leon Tatavosian, and Ed Weinberger gave insightful feedback to
 	make the exposition more accessible to finance professionals.
 	Any infelicities or omissions are my fault.
 ---
@@ -70,14 +70,14 @@ $R_0$ is the realized return of a risk-less portfolio,
 $R_1$ is the realized return of the "market portfolio",
 and $\beta = \Cov(R, R_1)/\Var(R_1)$.
 
-This short note shows the realized return $R$ of any efficient portfolio satisfies
+This short note shows the random realized return $R$ of any efficient portfolio satisfies
 $$
 \tag{2}	R - R_0 = \beta(R_1 - R_0)
 $$
-where $R_0$ and $R_1$ are the (random) realized returns of any two independent efficient portfolios.
+where $R_0$ and $R_1$ are the random realized returns of any two independent efficient portfolios.
 This implies $\beta = \Cov(R - R_0, R_1 - R_0)/\Var(R_1 - R_0)$.
 Taking expected values of both sides when $R_0$ has zero variance and
-$R_1$ is the "market portfolio" gives the classical CAPM formula
+$R_1$ is the "market portfolio" yields the classical CAPM formula
 
 ## One-Period Model
 

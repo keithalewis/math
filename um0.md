@@ -8,10 +8,80 @@ abstract: Value, hedge, and manage the risk of any instruments
 ...
 
 \newcommand{\RR}{\boldsymbol{R}}
+\newcommand{\NN}{\boldsymbol{N}}
 \renewcommand{\AA}{{\mathcal{A}}}
 \newcommand{\ran}{\operatorname{ran}}
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
+
+There has been considerable progress since the latter two of Fischer
+Black, Myron Scholes, and Robert Merton III won Nobel Prizes for their
+theory of how to value options.  However, there are still fundamental problems
+their mathematical theory did not address.
+They won the Nobel Prize in economics for figuring out it is not necessary to 
+estimate the growth rate of a stock to value an option.
+There are still Nobel prizes to be awarded.
+What volatiltiy should be used for valuing an option?
+After putting on a hedge, when should that be adjusted?
+How well will a hedging strategy perform?
+
+This note proposes a rigorous mathematical framework to begin addressing
+these problems.  We use stochastic processes to model market instrument prices
+and cash flows but have no need for Brownian motion, much less Ito processes.
+Only familiarity with vector spaces and linear transformations is required.
+The Fundamental Theorem of Asset Pricing shows arbitrage-free models admit
+a positive measure that can be used to value derivatives involving market instruments,
+as first pointed out by Stephen Ross.
+The initial hedge is the derivative of the value with respect to initial prices.
+Any positive measure divided by its total mass, if finite, is a "probability" measure,
+however the FTAP is a purely geometric result.
+The "risk-neutral probability" of the measure is only marginally useful
+for the difficult problem of calculating real world probabilities needed
+for managing risk.
+
+## Background
+
+When a mathematical model in Physics does not agree with observation it
+is time to come up with a new model. This does not seem to be the case
+in Mathematical Finance. Toward the end of the 19th century physicists
+seemed to think Newton's program had been successfully carried out and
+it was just a matter of adding decimal places to physical constants.
+
+The ultraviolet catastrophe could not be explained using that theory.
+Heating up a black body should result in unbounded energy being emitted.
+This led Max Plank in 1900 to postulate
+electromagnetic radiation might only be emitted in integer multiples
+of the Planck constant to fit observed data.
+The price of an instrument is an
+integer multiple of the smallest trading unit determined by the issuer.
+There is no need to find a parameter that fits that to data,
+the offering document specifies it.
+
+Rutherford shot alpha particles through a thin gold sheet in 1911 to upset
+Thomson's 1904 "plum pudding" model of atoms. Most of them went
+through but some bounced back. Atoms must have a tiny nucleus
+of positive particles and a cloud of negatively charged electrons
+somehow floating around without pudding.
+
+If an electron is orbiting a
+proton in a hydrogen atom then the classical model would require it to
+be emitting radiation (bremsstrahlung).
+Niels Bohr leveraged Plank's observation to come up with a model for
+explaining the spectral lines emitted by hydrogen atoms Balmer observed
+in 1885. Electrons are "waves" that can only orbit in integral 
+multiples of their wavelenght.
+
+Werner Heisenberg added the time dimension for electrons in Bohr orbits.
+An electron can jump from level $i$ to $j$,
+represented by $e_{ij}$. Consecutive jumps can only occur at compatible
+levels, $e_{ij}e_{kl} = 1$ when $j = k$ and is $0$ when $j\not=k$. His
+colaborators Max Born and Pascual Jordan pointed out this was equivalent to
+matrix muliplication.
+
+There is an analog of the Heisenberg uncertainty principle in finance.
+A market order is executed immediately, but there is slippage involed
+with its price. A limit order guarantees the price, but it is
+uncertain when it will get executed.
 
 The intended customers of mathematical finance are businesses
 writing checks for tools they find useful.
