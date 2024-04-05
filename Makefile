@@ -24,7 +24,7 @@ FLAGS += --metadata date="$(shell date "+%B %e, %Y")"
 TEXFLAGS += -V fontsize=12pt
 TEXFLAGS +=  -M date="$(shell date "+%B %e, %Y")"
 #TEXFLAGS += --bibliography=capm.bib
-FLAGS += --toc --toc-depth=6
+#FLAGS += --toc --toc-depth=6
 #FLAGS += -B katex.tex
 FLAGS += --reference-location=document
 #FLAGS += -t html5
