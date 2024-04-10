@@ -25,6 +25,19 @@ becomes available.
 A _sample space_ $Ω$ is the set of what can happen.
 An _outcome_ $ω\in Ω$ is an element of a sample space.
 An _event_ $E\subseteq Ω$ is a subset of a sample space.
+A _probability measure_, $P$, is a function from events to $[0,1]$
+satisfying $P(E\cup F) = P(E) + P(F) - P(E\cap F)$ and $P(\emptyset) = 0$.
+A measure does not count things twice and the measure of nothing is $0$.
+
+__Exercise__. _Show $P(E\cup F) = P(E) + P(F)$ if $E\cap F = \emptyset$._
+
+It was a major event in our world when Kolomogorov legitimized previous
+results in probability theory that rascals and scoundrels
+figured out by hook or by crook to win at gambling.
+Measure Theory was developed by Lesbegue to generalise Riemann-Stieltjes integration.
+Mathematicans found probabilty theory more legitimate when Kolomogorov
+pointed out a probability measure is simply a positive measure having mass 1.
+
 An _algebra_ $\AA$ is collection of events that is closed under set _complement_ and _union_.
 
 The complement of the event $E\subseteq Ω$, $\neg E$,
