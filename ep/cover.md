@@ -18,7 +18,9 @@ frontier and is the result you speak of. It does not need a citation"
 I also find it difficult to believe nobody has heretofore picked up this
 $\$100$ bill from the sidewalk and would be grateful if a referee points
 me to a published paper with a formula analogous to
+
 $$
 	R - R_0 = \beta(R_1 - R_0)
 $$
+
 where $R$, $R_0$, and $R_1$ are random variables.
