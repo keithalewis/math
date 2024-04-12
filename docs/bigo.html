@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-04-12" />
+  <title>Big O notation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Big O notation</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">April 12, 2024</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Back of the envelope calculations.
+</div>
+</header>
+<p>The expression <span class="math inline">f(n) = O(n)</span> means
+<span class="math inline">f(n) \le Cn</span> for some constant <span
+class="math inline">C</span> and every positive integer <span
+class="math inline">n\in\boldsymbol{N}</span>. The function <span
+class="math inline">f</span> is not necessarily linear, but it is
+bounded by a linear function.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">f(n) =
+O(n)</span> implies <span class="math inline">c + f(n) = O(n)</span> for
+any constant <span class="math inline">c</span></em>.</p>
+<p><em>Hint</em>. If <span class="math inline">f(n) \le Cn</span> then
+<span class="math inline">c + f(n)\le (c + C)n</span> for <span
+class="math inline">n\in\boldsymbol{N}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">f(n) =
+O(n)</span> implies <span class="math inline">cf(n) = O(n)</span> for
+any constant <span class="math inline">c</span></em>.</p>
+<p><em>Hint</em>. If <span class="math inline">f(n) \le Cn</span> then
+<span class="math inline">cf(n) \le (cC)n</span> for <span
+class="math inline">n\in\boldsymbol{N}</span>.</p>
+<p>The “big O” notation is an abuse of the equal sign. For example <span
+class="math inline">n = O(n^2)</span> and <span class="math inline">n^2
+= O(n^2)</span> but it is not the case <span class="math inline">n =
+n^2</span>. It is better to read <span class="math inline">f(n) =
+O(n)</span> as <span class="math inline">f(n)</span> <em>is</em> <span
+class="math inline">O(n)</span>. This can be made mathematically
+rigourous by defining the set <span class="math inline">O(n) =
+\{f\colon\boldsymbol{N}\to\boldsymbol{N}\mid f(n) \le Cn\text{ for some
+constant }C\}</span> and interpret <span class="math inline">f(n) =
+O(n)</span> as <span class="math inline">f\in O(n)</span>.</p>
+<p>We can similarly define <span class="math inline">f(n) =
+O(g(n))</span> for any function <span class="math inline">g</span> to
+mean <span class="math inline">f(n) \le Cg(n)</span> for some constant
+<span class="math inline">C</span> and all <span
+class="math inline">n\in\boldsymbol{N}</span>. We write this in the
+mathematically honest form <span class="math inline">f\in
+O(g)</span>.</p>
+<p><strong>Exercise</strong> <em>Show if <span
+class="math inline">f_1\in O(g_1)</span> and <span
+class="math inline">f_2\in O(g_2)</span> then <span
+class="math inline">f_1 + f_2\in O(g_1 + g_2)</span> and <span
+class="math inline">f_1f_2\in O(g_1g_2)</span></em>.</p>
+<p>Computers compute things that take time and space in memory. Time is
+usually measured by the number of computer instructions needed for an
+algorithm. Some algorithms can be run in <em>parallel</em> and the time
+can be divided by the number of processors available. Space cannot be
+subdivided but it can be <em>distributed</em> across multiple storage
+devices. The <a href="https://en.wikipedia.org/wiki/CAP_theorem">CAP
+theorem</a> proves limitations on the Consistency, Availability, and
+Partition tolerance.</p>
+<blockquote>
+<p>A distributed system is a system where I can’t get my work done
+because a computer has failed that I’ve never even heard of. – Leslie
+Lamport</p>
+</blockquote>
+<p>Big O notation is a useful way to express rough estimates. It can
+help identify when a potential solution to a complicated problem is not
+feasable.</p>
+</body>
+</html>

@@ -7,7 +7,7 @@ fleqn: true
 abstract: The Capital Asset Pricing Model holds as equality of random variables, not just their expected values.
 thanks: |
 	Kevin Atteson, Peter Carr, Arnav Sheth, David Shimko, Leon Tatavosian, and Ed Weinberger gave insightful feedback to
-	make the exposition more accessible to finance professionals.
+	make the exposition more accessible to finance practitioners.
 	Any infelicities or omissions are my fault.
 ---
 
@@ -43,11 +43,11 @@ This short note is agnostic to the quoted terms and proves a simple mathematical
 result about efficient portfolios.
 
 There are well-founded criticisms of the CAPM, but it has value as an
-easily understood model. Traders are concerned about Sharpe ratios to
-this day to tailor returns for an investment strategy while accounting
+easily understood model. Portfolio managers use Sharpe ratios
+to tailor returns for an investment strategy while accounting
 for risk.  The CAPM demonstrates a constraint on expected returns and
 covariance of efficient portfolios.  We show a much stronger constraint:
-effcient portfolios satisfy an equality of realized returns as random
+efficient portfolios satisfy an equality of realized returns as random
 variables.  This allows the value-at-risk, or any risk measure, of
 efficient portfolios to be calculated, something not possible using the
 classical result that only holds for expected values.
@@ -138,7 +138,7 @@ $$
 
 If $V$ is not invertable then there exists $\zeta\in\RR^I$ with ${V\zeta = 0}$.
 The first order condition ${0 = -\lambda x - \mu E[X]}$ gives $x = (-\mu/\lambda)E[X]$.
-The first order contitions ${0 = \zeta^*x - 1}$, and ${0 = \zeta^*E[X] - r}$
+The first order conditions ${0 = \zeta^*x - 1}$, and ${0 = \zeta^*E[X] - r}$
 show ${1 = (-\mu/\lambda)r}$ so ${x = (1/r)E[X]}$.
 This is a special case of the condition for a one-period model to be [arbitrage-free](#ftap).
 
@@ -155,15 +155,15 @@ than with $\RR^n$ and matrices. Matrix multiplication is just composition of lin
 
 Recall $\RR^I = \{x\colon I\to\RR\}$ is the vector space of all
 functions from the set $I$ to $\RR$ with scalar multiplication and
-vector addition defined pointwise: ${(ax)(i) = ax(i)}$ and
+vector addition defined point-wise: ${(ax)(i) = ax(i)}$ and
 ${(x + y)(i) = x(i) y(i)}$ for $a\in\RR$, ${x,y\in\RR^I}$, and $i\in I$.
 
 For $\xi\in\RR^I$ define $\xi^*\colon\RR^I\to\RR$
 by $\xi(x) = \xi^*x = \sum_{i\in I} \xi_i x_i$ if $I$ is finite.
 Note $\xi^*$ is linear.
 
-Let $\LL(V,W)$ be the set of all linear opertators from the vector space $V$ to $W$.
-Note $\LL(V,W)$ is also a vector space with scalar multiplication and addition defined pointwise.
+Let $\LL(V,W)$ be the set of all linear operators from the vector space $V$ to $W$.
+Note $\LL(V,W)$ is also a vector space with scalar multiplication and addition defined point-wise.
 The dual of a vector space $V$ is $V^*=\LL(V,\RR)$.
 For $\xi\in\RR^I$ we have $\xi^*\in (\RR^I)^*$ and $\xi^*x = x\xi^*$ allows
 us to identify $(\RR^I)^*$ with $\RR^I$.
@@ -293,7 +293,7 @@ ${\xi^*x = \sum_j \xi^*X(\omega_j) D_j \ge 0}$ if $\xi^*X\ge0$. In this case the
 is no arbitrage.
 
 The one-period Fundamental Theorem of Asset Pricing states there is no model
-arbitrage if and only if $x$ belongs to the smallest closed cone contaning the
+arbitrage if and only if $x$ belongs to the smallest closed cone containing the
 range of $X$. Note this statement does not involve any measures.
 The FTAP is a geometric result, not a probabilistic result.
 
@@ -302,7 +302,7 @@ and multiplication by a positive scalar, that is, $C + C\subseteq C$
 and $tC\subseteq C$ for $t > 0$. For example, the set of arbitrage
 portfolios is a cone.
 
-The above proves the "easy" direction.  The contrapositive follows from the
+The above proves the "easy" direction.  The contra-positive follows from the
 
 __Lemma.__ _If $x\in\RR^n$ and $C$ is a closed cone in
 $\RR^n$ with $x\not\in C$ then there exists $\xi\in\RR^n$

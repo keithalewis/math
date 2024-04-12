@@ -5,15 +5,23 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-01-23" />
-  <title>Unified Model for Derivative Instruments</title>
+  <meta name="dcterms.date" content="2024-04-12" />
+  <title>Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="math.css" />
   <script defer=""
@@ -34,77 +42,86 @@
   </script>
   <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Unified Model for Derivative Instruments</h1>
+<h1 class="title">Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 23, 2024</p>
+<p class="date">April 12, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of any instruments
 </div>
 </header>
-<nav id="TOC" role="doc-toc">
-<ul>
-<li><a href="#market" id="toc-market">Market</a>
-<ul>
-<li><a href="#model" id="toc-model">Model</a>
-<ul>
-<li><a href="#price-cash-flow" id="toc-price-cash-flow">Price, Cash
-Flow</a></li>
-</ul></li>
-<li><a href="#trading" id="toc-trading">Trading</a>
-<ul>
-<li><a href="#trade-position" id="toc-trade-position">Trade,
-Position</a></li>
-<li><a href="#value-account" id="toc-value-account">Value,
-Account</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#arbitrage" id="toc-arbitrage">Arbitrage</a></li>
-<li><a href="#hedge" id="toc-hedge">Hedge</a></li>
-<li><a href="#discount-measure" id="toc-discount-measure">Discount
-Measure</a></li>
-<li><a href="#examples" id="toc-examples">Examples</a>
-<ul>
-<li><a href="#black-scholesmerton"
-id="toc-black-scholesmerton">Black-Scholes/Merton</a></li>
-<li><a href="#transaction" id="toc-transaction">Transaction</a></li>
-<li><a href="#limit-orders" id="toc-limit-orders">Limit Orders</a></li>
-<li><a href="#market-orders" id="toc-market-orders">Market
-Orders</a></li>
-<li><a href="#forwards" id="toc-forwards">Forwards</a></li>
-<li><a href="#futures" id="toc-futures">Futures</a>
-<ul>
-<li><a href="#risky-bonds" id="toc-risky-bonds">Risky Bonds</a></li>
-</ul></li>
-<li><a href="#forward-rate-agreement"
-id="toc-forward-rate-agreement">Forward Rate Agreement</a></li>
-<li><a href="#convexity" id="toc-convexity">Convexity</a></li>
-<li><a href="#swap" id="toc-swap">Swap</a></li>
-</ul></li>
-<li><a href="#mathematical-prerequisites"
-id="toc-mathematical-prerequisites">Mathematical Prerequisites</a></li>
-<li><a href="#acknowledgments"
-id="toc-acknowledgments">Acknowledgments</a></li>
-</ul>
-</nav>
-<p>The intended customers of mathematical finance are businesses writing
-checks for tools they find useful. This has become obscured by the
-plethora of literature produced for academic purposes. Businesses find
-little value in pure mathematics, it must be turned into software
-producing numbers relevant to their operation.</p>
-<p>This short note is an attempt to provide a rigorous mathematical
-foundation for reasoning about problems pertinent to businesses. The
-classical theory of mathematical finance does not account for trading
-realities. Every transaction has a buyer and a seller. The seller offers
-possible exchanges and the buyer decides which to take. Issuers make
-securities available for trading. Exchanges provide instruments to
-facilitate this.</p>
+<p>There has been considerable progress since the latter two of Fischer
+Black, Myron Scholes, and Robert Merton III won Nobel Prizes for their
+theory of option pricing. However, there are fundamental problems their
+mathematical theory did not address. What volatiltiy should be used for
+valuing an option? After putting on a hedge, when should that be
+adjusted? How well will a hedging strategy perform?</p>
+<p>This note does not solve these problems. It proposes a rigorous
+mathematical framework to allow for quantitative discussions. We use
+stochastic processes to model market instrument prices and cash flows
+but have no need for Brownian motion, much less Ito processes. Only
+familiarity with vector spaces and linear transformations is required.
+The Fundamental Theorem of Asset Pricing shows arbitrage-free models
+admit a positive measure that can be used to value derivatives, as first
+pointed out by Stephen Ross. The hedge is the derivative of the value
+with respect to prices. Any positive measure divided by its total mass,
+if finite, is a “probability” measure, however the FTAP is a purely
+geometric result. The “risk-neutral probability measure” is only
+marginally useful for the difficult problem of calculating real world
+probabilities needed for managing risk.</p>
+<section id="background" class="level2">
+<h2>Background</h2>
+<p>When a mathematical model in physics does not agree with observation
+it is time to come up with a new model. This does not seem to be the
+case in mathematical finance. Toward the end of the 19th century
+physicists seemed to think Newton’s program had been successfully
+carried out and it was just a matter of adding decimal places to
+physical constants. The ultraviolet catastrophe could not be explained
+using that theory: heating up a black body should result in unbounded
+energy being emitted. This led Max Plank in 1900 to postulate
+electromagnetic radiation might only be emitted in integer multiples of
+the Planck constant to fit observed data. The price of an instrument is
+an integer multiple of the smallest trading unit determined by the
+issuer. There is no need to find a parameter that fits that to data, the
+offering document specifies it.</p>
+<p>Rutherford shot alpha particles through a thin gold sheet in 1911 to
+upset Thomson’s 1904 “plum pudding” model of atoms. Most of them went
+through but some bounced back. Atoms must have a tiny nucleus of
+positive particles and a cloud of negatively charged electrons somehow
+floating around without pudding. If an electron is orbiting a proton in
+a hydrogen atom then the classical model would require it to be
+continuously emit radiation (bremsstrahlung). Niels Bohr leveraged
+Plank’s observation to come up with a model for explaining the discrete
+spectral lines emitted by hydrogen atoms Balmer observed in 1885.
+Electrons are “waves” that can only orbit in integral multiples of their
+wavelength.</p>
+<p>Werner Heisenberg added the time dimension for electrons in Bohr
+orbits. An electron can jump from level <span
+class="math inline">i</span> to <span class="math inline">j</span>,
+represented by <span class="math inline">e_{ij}</span>. Consecutive
+jumps can only occur at compatible levels, <span
+class="math inline">e_{ij}e_{kl} = 1</span> when <span
+class="math inline">j = k</span> and is <span
+class="math inline">0</span> when <span
+class="math inline">j\not=k</span>. His colaborators Max Born and
+Pascual Jordan pointed out this was equivalent to matrix muliplication.
+A consequence of Heisenberg’s theory is that it is not possible to
+simultaneously measure both position and momemtum to arbitray precision.
+There is an analog of the Heisenberg uncertainty principle in finance. A
+market order is executed immediately, but there is slippage involed with
+its price. A limit order guarantees the price, but it is uncertain when,
+or if, it will get executed.</p>
+</section>
+<section id="limitations" class="level2">
+<h2>Limitations</h2>
+<p>The classical theory of mathematical finance does not account for
+many trading realities. Every transaction has a buyer and a seller. The
+seller offers possible exchanges and the buyer decides which to take.
+Issuers make securities available for trading. Exchanges and brokers
+facilitate trading.</p>
 <p>We consider the fundamental problem of how to devise a trading
 strategy that replicates derivative payoffs. Continuous time trading is
 a mathematical fiction. Traders need to execute a finite number of
@@ -122,6 +139,7 @@ for hedging. The Unified Model forces you to consider the decisions
 traders must make every day.</p>
 <p>See <a href="#mathematical-prerequisites">Mathematical
 Prerequisites</a> for the elementary mathematics required.</p>
+</section>
 <section id="market" class="level2">
 <h2>Market</h2>
 <p>Instruments have <em>prices</em> and <em>cash flows</em>. We make the
@@ -261,7 +279,7 @@ class="math inline">C_t</span>.</p>
 class="math inline">(t_j)</span> we only need <span
 class="math inline">V_j D_j = (V_{j+1} +
 A_{j+1})D_{j+1}|_{{\mathcal{A}}_{j}}</span> and induction. Using <span
-class="math inline">\Delta_{j+1}\cdot C_{j+1} = \Gamma_{j+1}\cdot
+class="math inline">\Delta_{j+1}\cdot C_{j+1} =  \Gamma_{j+1}\cdot
 X_{j+1} + A_{j+1}</span> we have <span class="math display">
 \begin{aligned}
     V_j D_j &amp;= (\Delta_j + \Gamma_j)\cdot X_j D_j \\
@@ -288,10 +306,10 @@ the cost of setting up the initial hedge.</p>
 <p>Given a derivative instrument, how does one find a trading strategy
 that replicates its payments? Let’s assume trades occur at discrete
 times <span class="math inline">(t_j)</span>. Since <span
-class="math inline">{V_{t_0} = (\sum_{t_j &gt; t_0} A_{t_j}
-D_{t_j})|_{{\mathcal{A}}_t}}</span> and <span
-class="math inline">{V_{t_0} = \Gamma_{t_0}\cdot X_{t_0}}</span> we have
-<span class="math display">
+class="math inline">{V_{t_0}
+= (\sum_{t_j &gt; t_0} A_{t_j} D_{t_j})|_{{\mathcal{A}}_t}}</span> and
+<span class="math inline">{V_{t_0} = \Gamma_{t_0}\cdot
+X_{t_0}}</span> we have <span class="math display">
     \Gamma_0 = \frac{d}{dX_{0}}(\sum_{j &gt; 0} A_j
 D_j)|_{{\mathcal{A}}_0},
 </span> where <span class="math inline">d/dX_0</span> is the Fréchet
@@ -474,9 +492,10 @@ class="math inline">{C^{D(u)}_u = 1}</span> at <em>maturity</em> <span
 class="math inline">u</span>. If <span class="math inline">D_t</span> is
 a discount measure then the price at time <span
 class="math inline">t</span> of <span class="math inline">D(u)</span>
-satisfies <span class="math inline">X^{D(u)}_t D_t = (C^{D(u)}_u
-D_u)|_{{\mathcal{A}}_t} = (D_u)|_{{\mathcal{A}}_t}</span> for <span
-class="math inline">t \le u</span> so <span class="math display">
+satisfies <span class="math inline">X^{D(u)}_t D_t =
+(C^{D(u)}_u D_u)|_{{\mathcal{A}}_t} = (D_u)|_{{\mathcal{A}}_t}</span>
+for <span class="math inline">t \le u</span> so <span
+class="math display">
     D_t(u) = X^{D(u)}_t = E_t[D_u]/D_t.
 </span> We use the helpfully confusing notation <span
 class="math inline">D(u)</span> for <span class="math inline">D_0(u) =
@@ -652,8 +671,9 @@ class="math inline">A_j\subseteq\Omega</span>. If <span
 class="math inline">(A_j)</span> are pairwise disjoint this is well
 defined.</p>
 <p><strong>Exercise</strong>. <em>Show every elementary function <span
-class="math inline">\sum_j a_j 1_{A_j} = \sum_k b_k 1_{B_k}</span> where
-<span class="math inline">(B_k)</span> are pairwise disjoint</em>.</p>
+class="math inline">\sum_j a_j 1_{A_j}
+= \sum_k b_k 1_{B_k}</span> where <span class="math inline">(B_k)</span>
+are pairwise disjoint</em>.</p>
 <p><em>Hint</em>: <span class="math inline">a1_A + b1_B = a1_{A\setminus
 B} + (a + b)1_{A\cap B} + b1_{B\setminus A}</span>.</p>
 <p>If <span class="math inline">f = \sum_j a_j 1_{A_j}</span> where
@@ -717,11 +737,11 @@ href="https://arxiv.org/pdf/1912.01091.pdf">came up with one</a>.</p>
 <p>I thank Kevin Atteson, Bill Goff, Stewart Inglis, Andrew Kalotay,
 Alex Mayus, and Robert Merton III for helpful insights and feedback.</p>
 </section>
-<section class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>A function <span
+<li id="fn1"><p>A function <span
 class="math inline">\tau\colon\Omega\to\boldsymbol{R}</span> is a
 stopping time if <span class="math inline">\{\tau\le t\}</span> is <span
 class="math inline">{\mathcal{A}}_t</span> measurable for all <span
@@ -730,7 +750,7 @@ class="math inline">({\mathcal{A}}_t)_{t\in T}</span> are algebras
 indexed by time then <span class="math inline">{\mathcal{A}}_\tau =
 \{A\cap\{\tau\le t\}\mid A\in{\mathcal{A}}_t, t\in T\}</span>.<a
 href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>The day count fraction <span
+<li id="fn2"><p>The day count fraction <span
 class="math inline">\delta(u, v)</span> is approximately equal to time
 from <span class="math inline">u</span> to <span
 class="math inline">v</span> in years. For example, the Actual/360 day

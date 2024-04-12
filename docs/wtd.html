@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-04-12" />
+  <title>Derivatives</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Derivatives</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">April 12, 2024</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+How to value, hedge, and manage risk
+</div>
+</header>
+<p>A derivative is a contract for the exchange of future cash flows. The
+value of a derivative is the cost of setting up the initial hedge. Risk
+management is understanding how well the hedge will perform.</p>
+<p>Instruments have a price <span class="math inline">X_t</span> at time
+<span class="math inline">t</span>.</p>
+<p>Traders buy and sell instruments based on the information available
+to them.</p>
+<p>Every trader knows about slippage. The price quoted by an exchange is
+not necessarily the price at which a trade is executed. Market orders
+get matched against limit orders like blocks dropping in tetris. Limit
+order quantities get eaten up until the market order is filled. If the
+market order is larger then the amount of the total of the level 1 limit
+orders it spills over to the next best offers by the liquidity provider.
+It is also possible other market orders or limit orders are placed in
+the meantime.</p>
+<p>If you have spent time on a trading floor you have probably heard a
+discussion between a trader and a back office person about how their
+positions were marked-to-market. Traders care about this very much
+because that is used to determine their profit and loss, but they
+sometimes don’t understand exactly how this is calculated.</p>
+<p>This document provides a precise description of how P&amp;L is
+calculated.</p>
+<p>The atoms of finance are <em>positions</em>: a legal entity owns some
+amount of an instrument. Positions change via <em>transactions</em>:
+amounts and instruments are exchanged at some time between two entities.
+A <em>portfolio</em> is a collection of positions belonging to an
+entity. A <em>market</em> is a collection of portfolios.</p>
+<p>We can express this using math by a position is an amount,
+instrument, and entity: <span class="math inline">\pi = (a, i, e)</span>
+and a transaction is the exchange of positions at some time <span
+class="math inline">t</span>: <span class="math inline">\chi = (t, \pi,
+\pi&#39;)</span>. The market <span class="math inline">{\{\ldots,(a, i,
+e),\ldots,(a&#39;,i&#39;,e&#39;),\ldots\}}</span> becomes <span
+class="math inline">{\{\ldots,(a&#39;, i&#39;,
+e),\ldots,(a,i,e&#39;),\ldots\}}</span> after the transaction.</p>
+<p>If <span class="math inline">\mathcal{M} = \{\pi_j\}</span> is a
+market define the <em>net</em> amount of instrument <span
+class="math inline">i</span> held by entity <span
+class="math inline">e</span> by <span class="math display">
+    N(i, e) = \sum_{\pi_j = (a_j, i_j, e_j)}\{a_j\mid i_j = i, e_j =
+e\}.
+</span></p>
+<p>The <em>market price</em> of a transaction <span
+class="math inline">\chi = (t,\pi,\pi&#39;)</span> is <span
+class="math inline">X^{i&#39;}_{i} = a&#39;/a</span>. To calculate
+P&amp;L in native currency <span class="math inline">i_0</span> it is
+necessary to specify “prices” <span
+class="math inline">X^{i_0}_{i}</span> for each instrument <span
+class="math inline">i</span>. The position <span
+class="math inline">(a,i,e)</span> can, in principal, be exchanged for
+<span class="math inline">(aX^{i_0}_i, i_0, e_0)</span> with some
+imaginary entity <span class="math inline">e_0</span>. The
+<em>mark-to-market</em> in currency <span class="math inline">i_0</span>
+for entity <span class="math inline">e</span> is <span
+class="math display">
+    N(e) = \sum_{\pi_j = (a_j, i_j, e_j)}\{a_jX^{i_0}_{i_j}\mid e_j =
+e\}.
+</span> The <em>profit-and-loss</em> over an interval of time is the
+difference of the mark-to-mark at the end and beginning of the
+interval.</p>
+<p>It is not controversial to assume <span
+class="math inline">X^{i_0}_{i_0} = 1</span> but the other “prices” can
+be contentious. If <span class="math inline">i</span> is exchange traded
+and liquid then its closing price can be used. If <span
+class="math inline">i</span> is rarely traded then its price is
+problematic to determine. Firms often have pricing models for illiquid
+instruments that everyone agrees to use in order to prevent heated
+arguments.</p>
+<section id="but-thats-not-all" class="level2">
+<h2>But that’s not all!</h2>
+<p>If you work in a back office you have to deal with fiddly, but
+important, details. It is not as simple as specifying a position as an
+amount, instrument, and entity. The amount can be precisely modeled as
+an integer. Every instrument has a lowest level of divisibility and
+trades in an integer multiple of that.</p>
+<p>Instruments have <a
+href="https://en.wikipedia.org/wiki/International_Securities_Identification_Number">ISIN</a>s
+that are supposed to uniquely identify them. If you can afford to pay
+for them.</p>
+<p>There are <a
+href="https://en.wikipedia.org/wiki/Legal_Entity_Identifier">LEI</a>s to
+identify legal entities, but legal entities have internal subdivisions.
+The back office has to keep track of the ever changing portfolio
+managers.</p>
+<p>We have to give names to mathematical concepts, but I always think in
+terms of the mathematical concepts. The names are just shorthand. The
+fundamental problem of risk management is assessing the risk of future
+P&amp;L, where P&amp;L is a stochastic process defined by a model.</p>
+<p>In the one-period case the model is a set <span
+class="math inline">I</span> of instruments, initial prices <span
+class="math inline">x \in \RR^I</span>, a set <span
+class="math inline">\Omega</span> of possible outcomes over the period,
+a function <span class="math inline">X\colon\Omega \to \RR^I</span> of
+final prices given <span class="math inline">\omega\in\Omega</span>
+occurred, and a probability measure <span class="math inline">P</span>
+on Omega. P&amp;L is defined by specifying a portfolio <span
+class="math inline">\xi\in\RR^I</span>. To be completely rigorous, <span
+class="math inline">\xi</span> is in the dual space of <span
+class="math inline">\RR^I</span> with dual pairing <span
+class="math inline">xi^* x = \langle x, xi\rangle = sum_{i\in I} xi_i
+x_i</span>. In this case the stochastic process for the P&amp;L is the
+number <span class="math inline">xi^* x</span> at time 0 and the random
+variable <span class="math inline">xi^*X\colon\Omega \to \RR</span> at
+time 1. What is the “risk” of the one period model P&amp;L? </p>
+</section>
+</body>
+</html>
