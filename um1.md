@@ -17,8 +17,6 @@ A mathematical model for any set of instruments that can be used to value,
 hedge, and understand how poorly risk-neutral pricing can be used for
 managing risk.
 
-Stephen Ross...
-
 ## Unified Model
 
 Let $T$ be the set of trading times, $I$ the set of all market
@@ -31,6 +29,11 @@ the _atoms_ of $\AA$, $\bar{\AA}$, form a partition of $\Omega$.
 A function $X\colon\Omega\to\RR$ is $\AA$ measurable if and
 only if it is constant on atoms of $\AA$
 so $X\colon\bar{\AA}\to\RR$ is a function.
+
+If $P$ is a probability measure on $\Omega$ and
+$X\colon\Omega\to\RR$ is a random variable then
+conditional expectation $Y = E[X|\AA]$ is equivalent
+to restriction of measure $Y(P|A) = (XP)|\AA$.
 
 ### Market
 
@@ -60,6 +63,7 @@ _Account_ - trading account blotter
 
 _Arbitrage_ exists if there is a trading strategy
 with $A_{\tau_0} > 0$, $A_t \ge 0$, $t > \tau_0$, and $\sum_{j} \Gamma_j = 0$.
+The first trade makes money and subsequent trades never lose money.
 
 The Fundamental Theorem of Asset Pricing states there is no arbitrage if and only
 if there exist _deflators_, positive measures $D_t\colon\AA_t\to(0,\infty)$, ${t\in T}$ on $\Omega$, with
@@ -67,6 +71,8 @@ $$
 \tag{1} X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|{\AA_t}
 $$
 where $|$ indicates restriction of measure to a subalgebra of sets.
+Note if cash flows are zero then deflated prices are a martingale.
+If there are a finite number of cash flows then prices are determined by deflated future cash flows.
 
 __Lemma__. If $X_t D_t = M_t - \sum_{s\le t} C_s D_s$ where $M_t = M_u|{\AA_t}$, $t \le u$,
 then there is no arbitrage.
@@ -87,7 +93,6 @@ Suppose a derivative security specifies amounts $\bar{A}_j$ be paid at times $\b
 If there is a trading strategy $(\tau_j, \Gamma_j)$
 with $A_{\bar{\tau}_j} = \bar{A}_j$ for all $j$ and $A_t = 0$ otherwise (aka self-financing) then
 a "perfect hedge" exists[^1].
-The value of the derivative is the cost of setting up the initial hedge.
 
 Note $V_t D_t= (\sum_{\tau_j > t} \bar{A}_j D_{\bar{\tau_j}})|\AA_t$
 can be computed from the deriviative contract specification and the deflators $D_t$.
@@ -111,7 +116,19 @@ By equation (1) we have $D_j = \exp(f_j\Delta t_j)D_{j+1}|\AA_j$.
 If $D_{j+1}$ is known at time $t_j$ then $D_{j+1}/D_j = \exp(-f_j\Delta t_j)$ and
 $D_j = \exp(-\sum_{i < j}f_i\Delta t_i)$ is the canonical deflator.
 
+The continuous time analog is $D_t = \exp(-\int_0^t f(s)\,ds)$ where
+$f$ is the continuously componded instantaneous forward rate.
+
 ### Binomial Model
+
+Let $W_n$ be (symmetric) random walk. The model for bond and stock is
+the martingale $M_n = (R_n, S_n)$ where $R_n = r$ and $S_n = s\exp(\sigma W_n)/\cosh^n(\sigma))$
+and the deflator $D_n = 1$ assumes zero interest rate.
+
+$V_0 = E[\nu(S_n)]$
+
+$\Gamma = (M, N)$.
+
 
 
 
