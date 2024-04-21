@@ -22,7 +22,7 @@ What volatiltiy should be used for valuing an option?
 After putting on a hedge, when should that be adjusted?
 How well will a hedging strategy perform?
 
-This note does not solve these problems. It proposes a rigorous
+This note does not solve these problems. It only proposes a rigorous
 mathematical framework to allow for quantitative discussions.
 We use stochastic processes to model market instrument prices and cash
 flows but have no need for Brownian motion, much less Ito processes.
