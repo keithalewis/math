@@ -70,7 +70,6 @@ if there exist _deflators_, positive measures $D_t\colon\AA_t\to(0,\infty)$, ${t
 $$
 \tag{1} X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|{\AA_t}
 $$
-where $|$ indicates restriction of measure to a subalgebra of sets.
 Note if cash flows are zero then deflated prices are a martingale.
 If there are a finite number of cash flows then prices are determined by deflated future cash flows.
 
@@ -94,6 +93,8 @@ If there is a trading strategy $(\tau_j, \Gamma_j)$
 with $A_{\bar{\tau}_j} = \bar{A}_j$ for all $j$ and $A_t = 0$ otherwise (aka self-financing) then
 a "perfect hedge" exists[^1].
 
+[^1]: Perfect hedges never exist.
+
 Note $V_t D_t= (\sum_{\tau_j > t} \bar{A}_j D_{\bar{\tau_j}})|\AA_t$
 can be computed from the deriviative contract specification and the deflators $D_t$.
 Since $V_t = (\Delta_t + \Gamma_t)\cdot X_t$
@@ -102,9 +103,19 @@ of option value with respect to $X_t$.
 
 If time $T = \{t_j\}$ is discrete we can compute a possible hedge at each time,
 $\Gamma_j = D_{X_j}V_j - \Delta_j$, since $\Delta_j$ is known at $t_{j-1}$.
-In general this hedge will not exactly replicate the derivative contract obligations.
+In general this hedge will not exactly replicate the derivative contract obligation.
 
-[^1]: Perfect hedges never exist.
+### Black-Scholes/Merton
+
+The Black-Scholes/Merton model uses $M_t = (r, s\exp(\sigma B_t - \sigma^2t/2)P$,
+where $B_t$ is Brownian motion and $P$
+is Weiner measure The deflator is $D_t = \exp(-\rho t)$.
+
+Note the Unified Model does not require Ito's formula and a proof involving
+partial differential equations. One just writes down a martingale and
+deflator then uses equation (2) to value, hedge, and manage
+the risk of trading strategies that can be performed.
+The notion of "continuous time" hedging is a mathematical myth.
 
 ### Deflator
 
@@ -123,13 +134,61 @@ $f$ is the continuously componded instantaneous forward rate.
 
 A _zero coupon bond_ maturing at time $u$ has a unit cash flow at $u$.
 In an arbitrage free model its price at time $t\le u$, $D_t(u)$
-satisfies $D_t(u) D_t = (D__u)|\AA_t$ so
-$D_t(u)$ is the Radon-Nikodym derivative.
+satisfies $D_t(u) D_t = D_u|\AA_t$ so
+$D_t(u)$ is the Radon-Nikodym derivative of $D_u|\AA_t$ with respect to $D_t$.
 
-Zero coupon bond prices are determined by the deflator.
+A _fixed income_ instrument is a portfolio of zero coupon bonds.
+If a bond pays $c_j$ at time $t_j$ its present value at time $t$ is
+$$
+	P_t = \sum_{t_j > t} c_j D_t(u_j).
+$$
+
+Zero coupon bond prices are determined by the deflators.
 
 ### Forward Rate Agreement
 
+A _forward rate agreement_ with coupon $f$ over the interval $[u,v]$
+having day count convention $\delta$ has two cash flows: $-1$ at time $t$
+and $1 + f\delta(u,v)$ at time $u$. The _par forward coupon_ at time
+$t$, $F_t^\delta(u,v)$ is the coupon for which the price is 0 at time $t$.
+By equation (1) we have
+$0 = (-D_u + (1 + F_t^\delta(u,v))D_v|\AA_t$ so
+$$
+	F_t^\delta(u,v) = \frac{1}{\delta(u,v)}\bigl(\frac{D_t(u)}{D_t(v)} - 1\bigr).
+$$
+
+A _swap_ is a collection of back-to-back forward rate agreements.
+The _swap par coupon_ makes the price 0 at time $t$ so
+$$
+	F_t^\delta(t_0,\dots,t_n) = \frac{D_t(t_0) - D_t(t_n)}{\sum_{j=1}^n\delta(t_{j-1},t_j)D_t(t_j)}.
+$$
+
+### Risky Bonds
+
+Companies can default and may pay only a fraction of the notional owed on bonds they issued.
+A simple model for this is to assume the time of default is a random variable $T$
+and recovery $R$ is a constant fraction between 0 and 1.[^2]
+The sample space for the default time is $[0,\infty)$ indicating the time of default.
+The information available at time $t$ is the partition consisting of singletons
+$\{s\}$, $s < t$ and the set $[t, \infty)$. If default occurs prior to $t$ then
+we know exactly when it happend. If default has not occured by time $t$ then
+we only know it can be any time after that.
+
+The cash flows for a risky bond $D^{T,R}(u)$ are 1 at time $u$ if $T > t$
+and $RD(T)$ at time $T$ if $T \le t$. For the model to be arbitrage-free we must have
+$$
+	D_t^{R,T}(u) D_t = (D_u 1(T > u) + RD_t 1(T\le u)|\AA_t.
+$$
+If the interest rate is 0 then $D_t = 1$ and
+$D_0^{R,T} = P(T > u) + RP(T\le u)$.
+
+
+We need to extend the sample space to model the default time, $\Omega' = \Omega\times [0,\infty)$.
+
+[^2]: This is a very simplified model.
+
+
+<!--
 ### Binomial Model
 
 Let $W_n$ be (symmetric) random walk. The model for bond and stock is
@@ -139,7 +198,7 @@ and the deflator $D_n = 1$ assumes zero interest rate.
 $V_0 = E[\nu(S_n)]$
 
 $\Gamma = (M, N)$.
-
+-->
 
 
 
