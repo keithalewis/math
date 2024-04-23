@@ -5,35 +5,27 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-09-21" />
+  <meta name="dcterms.date" content="2024-04-23" />
   <title>Black-Scholes/Merton</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -49,16 +41,13 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Black-Scholes/Merton</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 21, 2023</p>
+<p class="date">April 23, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Valuation formula.
@@ -151,12 +140,13 @@ self-financing strategy but is it also <em>sufficient</em>?</p>
 <p>Note that the PDE above involves a <span class="math inline">v_r
 Rρ</span> term. This term does not appear in the original Black and
 Scholes paper <span class="citation"
-data-cites="BlaSch73">[@BlaSch73]</span>. It does appear in Merton’s
-original treatment <span class="citation"
-data-cites="Mer73">[@Mer73]</span>. He also assumes the bond has a
-non-zero diffusion term to derive a PDE and then takes a limit as the
-diffusion coefficient tends to zero. His later treatment <span
-class="citation" data-cites="Mer75">[@Mer75]</span> showed this was not
+data-cites="BlaSch73">(<strong>BlaSch73?</strong>)</span>. It does
+appear in Merton’s original treatment <span class="citation"
+data-cites="Mer73">(<strong>Mer73?</strong>)</span>. He also assumes the
+bond has a non-zero diffusion term to derive a PDE and then takes a
+limit as the diffusion coefficient tends to zero. His later treatment
+<span class="citation"
+data-cites="Mer75">(<strong>Mer75?</strong>)</span> showed this was not
 necessary.</p>
 <p><strong>Exercise</strong>. <em>Define <span
 class="math inline">\bar{v}(t, s) = v(t, R_t, s)</span> where <span
@@ -204,9 +194,9 @@ Solution
 </summary>
 Since <span class="math inline">(dR)^2 = 0</span>, <span
 class="math inline">d(1/R) = -1/R^2\,dR</span> so <span
-class="math inline">d(S/R) = dS/R + S\,d(1/R) = dS/R + S(-1/R^2\,dR) =
-dS/R - (S/R)dR/R = S(μ dt + σ dB)/R - (S/R)dR/R = (S/R)((\mu - ρ)\,dt +
-σ\,dB)</span>.
+class="math inline">d(S/R) = dS/R + S\,d(1/R) = dS/R + S(-1/R^2\,dR)
+= dS/R - (S/R)dR/R = S(μ dt + σ dB)/R - (S/R)dR/R = (S/R)((\mu - ρ)\,dt
++ σ\,dB)</span>.
 </details>
 <p><strong>Exercise</strong>. <em>If <span
 class="math inline">S/R</span> is a martingale, V = MR + NS<span
@@ -488,7 +478,8 @@ strike <span class="math display">
     \partial_k p = \partial_k E[\max\{k - F\}, 0\}] = P(F\le k),
 </span> which is the cumulative distribution of the underlying. This
 implies the distribution of the underlying can be inferred from option
-prices <span class="citation" data-cites="BreLin">[@BreLin]</span>.</p>
+prices <span class="citation"
+data-cites="BreLin">(<strong>BreLin?</strong>)</span>.</p>
 <p>Note value and all greeks can be expressed in terms of the share
 distribution function <span class="math inline">P_s(X\le x)</span> and
 its derivatives with respect to <span class="math inline">x</span> and
@@ -719,9 +710,5 @@ previous exercise.</p>
 </section>
 </section>
 </section>
-<hr/>
-<footer>
-Return to <a href="index.html">index</a>.
-</footer>
 </body>
 </html>

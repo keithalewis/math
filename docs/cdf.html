@@ -5,33 +5,25 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-05-15" />
+  <meta name="dcterms.date" content="2024-04-23" />
   <title>Cumulative Distribution Functions</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -50,15 +42,12 @@
   </script>
   <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Cumulative Distribution Functions</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 15, 2023</p>
+<p class="date">April 23, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Facts about cumulative distribution functions
@@ -227,7 +216,7 @@ $$
 class="math inline">λ</span> is <span class="math inline">f(x) =
 λ\exp(-λ x)</span>, <span class="math inline">x\ge 0</span>. The moment
 generating function is <span class="math inline">M(s) = E[\exp sX] =
-\int_0^\infty \exp(sx) λ\exp(-λ x)\,dx = λ/(λ - s)</span>, <span
+\int_0^\infty \exp(sx)  λ\exp(-λ x)\,dx = λ/(λ - s)</span>, <span
 class="math inline">s &lt; λ</span>. The Esscher transformed density is
 also a an exponential distribution with parameter <span
 class="math inline">λ</span> with parameter <span class="math inline">λ
@@ -308,9 +297,9 @@ A_{n,n+1}</span> <span class="math display">
 </span> for <span class="math inline">n &gt; 0</span> and <span
 class="math inline">A_{0,0} = 1</span>.</p>
 <p>The cumulant of the generalized logistic is <span
-class="math inline">κ(s) = \log B(α + s, β - s)/B(α, β) = \log Γ(α + s)
-- \log Γ(α) + \log Γ(β - s) - \log Γ(β)</span> using the fact <span
-class="math inline">B(α,β) = Γ(α)Γ(β)/Γ(α + β)</span></p>
+class="math inline">κ(s) = \log B(α + s, β - s)/B(α, β)
+= \log Γ(α + s) - \log Γ(α) + \log Γ(β - s) - \log Γ(β)</span> using the
+fact <span class="math inline">B(α,β) = Γ(α)Γ(β)/Γ(α + β)</span></p>
 <!--
 
 For the incomplete cumulant we use $y = wt$, $z = w(1 - t)$ so
@@ -332,8 +321,8 @@ $$
 so <span class="math inline">κ^{(n+1)}(s) = ψ^{(n)}(α + s) - (-1)^n
 ψ^{(n)}(β - s)</span> for <span class="math inline">n\ge 0</span>. In
 particular the mean is <span class="math inline">κ&#39;(0) = ψ(α) -
-ψ(β)</span> and variance is <span class="math inline">κ&#39;&#39;(0) =
-ψ&#39;(α) + ψ&#39;(β)</span>.</p>
+ψ(β)</span> and variance is <span class="math inline">κ&#39;&#39;(0)
+=  ψ&#39;(α) + ψ&#39;(β)</span>.</p>
 <p>Let the subscripts 1 and 2 indicate the partial derivatives with
 respect to the first and second parameter respectively. Recall <span
 class="math display">
@@ -375,9 +364,5 @@ class="math display">
 and insightful suggestions. Any errors or omissions are due to the
 author.</p>
 </section>
-<hr/>
-<footer>
-Return to <a href="index.html">index</a>.
-</footer>
 </body>
 </html>

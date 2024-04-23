@@ -13,9 +13,12 @@ abstract: Value, hedge, and manage the risk of instruments
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
-A mathematical model for any set of instruments that can be used to value,
+This note assumes you are familiar with measure theory and stochastic
+processes, but are not necesarily an expert.  We provide a mathematically
+rigorous model for any set of instruments that can be used to value,
 hedge, and understand how poorly risk-neutral pricing can be used for
-managing risk.
+managing risk. It does not provide a solution, only an initial
+framework for for further research. 
 
 ## Unified Model
 
@@ -37,26 +40,26 @@ to restriction of measure $Y(P|A) = (XP)|\AA$.
 
 ### Market
 
-_Price_ - market price assuming perfect liquidity
+_Price_ -- market price assuming perfect liquidity
 : $X_t\colon\bar{\AA_t}\to\RR^I$
 
-_Cash flow_ - dividends, coupons, margin adjustments for futures
+_Cash flow_ -- dividends, coupons, margin adjustments for futures
 : $C_t\colon\bar{\AA_t}\to\RR^I$
 
 ### Trading
 
-_Trading Strategy_ - increasing stopping times
+_Trading Strategy_ -- increasing stopping times
 : $\tau_0 < \cdots < \tau_n$ and trades $\Gamma_j\colon\AA_{\tau_j}\to\RR^I$
 
-_Position_ - accumulate trades not including last trade
+_Position_ -- accumulate trades not including last trade
 : $\Delta_t = \sum_{\tau_j < t}\Gamma_j = \sum_{s < t} \Gamma_s$
 
 ### Valuation
 
-_Value_ - mark-to-market including last trade
+_Value_ -- mark-to-market including last trade
 : $V_t = (\Delta_t + \Gamma_t)\cdot X_t$
 
-_Account_ - trading account blotter
+_Account_ -- trading account blotter
 : $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$
 
 ### Arbitrage

@@ -5,33 +5,25 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2023-05-15" />
+  <meta name="dcterms.date" content="2024-04-23" />
   <title>ODE</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -50,15 +42,12 @@
   </script>
   <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">ODE</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 15, 2023</p>
+<p class="date">April 23, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Ordinary Differential Equations
@@ -89,9 +78,9 @@ class="math inline">x&#39; = ax</span> with <span
 class="math inline">x(t_0) = x_0</span></em>.</p>
 <p>If <span class="math inline">x&#39;(t) = ax(t)</span> and <span
 class="math inline">x(t_0) = x_0</span> then <span
-class="math inline">x(t_0 + h) \approx x(t_0) + x&#39;(t_0) h = x_0 + a
-x_0 h</span> for small <span class="math inline">h</span>. This suggests
-that an ODE with an <em>initial condition</em> (<span
+class="math inline">x(t_0 + h) \approx x(t_0) + x&#39;(t_0) h
+= x_0 + a x_0 h</span> for small <span class="math inline">h</span>.
+This suggests that an ODE with an <em>initial condition</em> (<span
 class="math inline">x(t_0) = x_0</span>) should have a unique solution.
 We know the function at one point and the constraint on its derivative
 allows us to find nearby points. Note <span
@@ -104,12 +93,12 @@ all terms in the Taylor expansion gives <span class="math display">
 class="math inline">x(t) = x_0 e^{a(t - t_0)}</span>.</p>
 <p>This equation can be written <span class="math inline">x&#39; - ax =
 0</span>. If <span class="math inline">u&#39; - au = 0</span> and <span
-class="math inline">v&#39; - av = 0</span> are any two solutions then a
-linear combination of <span class="math inline">u</span> and <span
-class="math inline">v</span>, <span class="math inline">cu + dv</span>
-for <span class="math inline">c,d\in\mathbf{R}</span>, is also a
-solution. This shows the set of all solutions is a <em>vector
-space</em>.</p>
+class="math inline">v&#39; -
+av = 0</span> are any two solutions then a linear combination of <span
+class="math inline">u</span> and <span class="math inline">v</span>,
+<span class="math inline">cu + dv</span> for <span
+class="math inline">c,d\in\mathbf{R}</span>, is also a solution. This
+shows the set of all solutions is a <em>vector space</em>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">u</span>
 and <span class="math inline">v</span> are solutions of <span
 class="math inline">x&#39; - ax = 0</span> and <span
@@ -208,8 +197,8 @@ we can write this as <span class="math display">
 </span> For example, the ODE <span class="math inline">x&#39;&#39;(t) +
 x(t) = 0</span> has matrix <span class="math inline">A =
 \begin{bmatrix}0 &amp; 1 \\ -1 &amp; 0 \end{bmatrix}</span> so <span
-class="math inline">A^2 = \begin{bmatrix}-1 &amp; 0 \\ 0 &amp; -1
-\end{bmatrix} = -I</span>, <span class="math inline">A^3 = -A</span>,
+class="math inline">A^2 =  \begin{bmatrix}-1 &amp; 0 \\ 0 &amp; -1
+\end{bmatrix} = -I</span>, <span class="math inline">A^3 =  -A</span>,
 <span class="math inline">A^4 = I</span>, <span class="math inline">A^5
 = A</span>, . We have <span class="math inline">e^{At} =
 \begin{bmatrix}\cos t &amp; \sin t \\ -\sin t &amp; \cos t
@@ -224,9 +213,5 @@ where <span class="math inline">A = \lambda I + J</span> where <span
 class="math inline">J</span> is …</p>
 </section>
 </section>
-<hr/>
-<footer>
-Return to <a href="index.html">index</a>.
-</footer>
 </body>
 </html>

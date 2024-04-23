@@ -4,33 +4,25 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2023-05-15" />
+  <meta name="dcterms.date" content="2024-04-23" />
   <title>tnbt</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="math.css" />
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//kalx.net/analytics/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
-
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -49,9 +41,6 @@
   </script>
   <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <p>Mon cher et illustre maître,</p>
@@ -76,13 +65,14 @@ no answer to what volatility to use even for the initial delta hedge of
 a European option. Every trader knows if they see gyrating underlying
 movements they need to update their first pick.</p>
 <p>I’m sure you’ve already thought of this, but an Ito process with
-<span class="math inline">dS/S = r\,dt + \Sigma_t\,dB</span> where <span
-class="math inline">\Sigma^2_t = (1/t)\int_0^t (dS_s/S_s)\,ds</span>
-might be a more accurate model of how traders actually behave.</p>
+<span class="math inline">dS/S =
+r\,dt + \Sigma_t\,dB</span> where <span class="math inline">\Sigma^2_t
+=  (1/t)\int_0^t (dS_s/S_s)\,ds</span> might be a more accurate model of
+how traders actually behave.</p>
 <p>Here is a funny observation that I might be making an elementary
 mistake about:</p>
-<p><strong>Lemma</strong>. <em>If <span class="math inline">\Sigma^2_t =
-(1/t)\int_0^t (dS_s/S_s)^2</span> and <span
+<p><strong>Lemma</strong>. <em>If <span class="math inline">\Sigma^2_t
+=  (1/t)\int_0^t (dS_s/S_s)^2</span> and <span
 class="math inline">\Sigma</span> is an Ito process then <span
 class="math inline">\Sigma</span> is constant</em>.</p>
 <p><em>Proof</em>. Since <span class="math inline">(dS/S)^2 =
@@ -91,9 +81,5 @@ class="math inline">\Sigma</span> is constant</em>.</p>
 = t\,d\Sigma^2 + \Sigma^2\,dt</span> so <span
 class="math inline">d\Sigma^2 = 0</span>.</p>
 <p>What am I missing here?</p>
-<hr/>
-<footer>
-Return to <a href="index.html">index</a>.
-</footer>
 </body>
 </html>
