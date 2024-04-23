@@ -119,6 +119,17 @@ $D_j = \exp(-\sum_{i < j}f_i\Delta t_i)$ is the canonical deflator.
 The continuous time analog is $D_t = \exp(-\int_0^t f(s)\,ds)$ where
 $f$ is the continuously componded instantaneous forward rate.
 
+### Zero Coupon Bond
+
+A _zero coupon bond_ maturing at time $u$ has a unit cash flow at $u$.
+In an arbitrage free model its price at time $t\le u$, $D_t(u)$
+satisfies $D_t(u) D_t = (D__u)|\AA_t$ so
+$D_t(u)$ is the Radon-Nikodym derivative.
+
+Zero coupon bond prices are determined by the deflator.
+
+### Forward Rate Agreement
+
 ### Binomial Model
 
 Let $W_n$ be (symmetric) random walk. The model for bond and stock is
