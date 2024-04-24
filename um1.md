@@ -114,8 +114,8 @@ The Black-Scholes/Merton model uses $M_t = (r, s\exp(\sigma B_t - \sigma^2t/2)P$
 where $B_t$ is Brownian motion and $P$
 is Weiner measure The deflator is $D_t = \exp(-\rho t)$.
 
-Note the Unified Model does not require Ito's formula and a proof involving
-partial differential equations. One just writes down a martingale and
+Note the Unified Model does not require Ito's formula, much less a proof involving
+partial differential equations. One simply writes down a martingale and
 deflator then uses equation (2) to value, hedge, and manage
 the risk of trading strategies that can be performed.
 The notion of "continuous time" hedging is a mathematical myth.
@@ -151,7 +151,7 @@ Zero coupon bond prices are determined by the deflators.
 ### Forward Rate Agreement
 
 A _forward rate agreement_ with coupon $f$ over the interval $[u,v]$
-having day count convention $\delta$ has two cash flows: $-1$ at time $t$
+having day count convention $\delta$[^3] has two cash flows: $-1$ at time $t$
 and $1 + f\delta(u,v)$ at time $u$. The _par forward coupon_ at time
 $t$, $F_t^\delta(u,v)$ is the coupon for which the price is 0 at time $t$.
 By equation (1) we have
@@ -160,11 +160,13 @@ $$
 	F_t^\delta(u,v) = \frac{1}{\delta(u,v)}\bigl(\frac{D_t(u)}{D_t(v)} - 1\bigr).
 $$
 
-A _swap_ is a collection of back-to-back forward rate agreements.
+A _swap_ is a collection of back-to-back forward rate agreements involving times $(t_j)$.
 The _swap par coupon_ makes the price 0 at time $t$ so
 $$
 	F_t^\delta(t_0,\dots,t_n) = \frac{D_t(t_0) - D_t(t_n)}{\sum_{j=1}^n\delta(t_{j-1},t_j)D_t(t_j)}.
 $$
+
+[^3]: The _day count fraction_ $\delta(u, v)$ is approximately $v - u$ years.
 
 ### Risky Bonds
 
@@ -175,7 +177,7 @@ The sample space for the default time is $[0,\infty)$ indicating the time of def
 The information available at time $t$ is the partition consisting of singletons
 $\{s\}$, $s < t$ and the set $[t, \infty)$. If default occurs prior to $t$ then
 we know exactly when it happend. If default has not occured by time $t$ then
-we only know it can be any time after that.
+we only know it can occur any time after that.
 
 The cash flows for a risky bond $D^{T,R}(u)$ are 1 at time $u$ if $T > t$
 and $RD(T)$ at time $T$ if $T \le t$. For the model to be arbitrage-free we must have
@@ -183,8 +185,7 @@ $$
 	D_t^{R,T}(u) D_t = (D_u 1(T > u) + RD_t 1(T\le u)|\AA_t.
 $$
 If the interest rate is 0 then $D_t = 1$ and
-$D_0^{R,T} = P(T > u) + RP(T\le u)$.
-
+$D_0^{R,T} = P(T > u) + RP(T\le u)$. Note $D_0^{R,T} = 1$ if $T = \infty$ or $R = 1$.
 
 We need to extend the sample space to model the default time, $\Omega' = \Omega\times [0,\infty)$.
 
