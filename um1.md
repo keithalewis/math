@@ -41,30 +41,28 @@ to restriction of measure $Y(P|A) = (XP)|\AA$.
 
 ### Market
 
-_Price_ -- market price assuming perfect liquidity
-: $X_t\colon\underline{\AA}_t\to\RR^I$
+_Price_ -- $X_t\colon\underline{\AA}_t\to\RR^I$
+market prices assuming perfect liquidity.
 
-_Cash flow_ -- dividends, coupons, margin adjustments for futures
-: $C_t\colon\underline{\AA}_t\to\RR^I$
+_Cash flow_ -- $C_t\colon\underline{\AA}_t\to\RR^I$
+dividends, coupons, margin adjustments for futures.
 
 ### Trading
 
-_Trading Strategy_ -- finite number increasing stopping times
-: $\tau_0 < \cdots < \tau_n$ and trades $\Gamma_j\colon\underline{\AA}_{\tau_j}\to\RR^I$
+_Trading Strategy_ -- $\tau_0 < \cdots < \tau_n$ stopping times
+and trades $\Gamma_j\colon\underline{\AA}_{\tau_j}\to\RR^I$
 
-_Position_ -- accumulate trades _not_ including last trade
-: $\Delta_t = \sum_{\tau_j < t}\Gamma_j = \sum_{s < t} \Gamma_s$,
-
+_Position_ -- $\Delta_t = \sum_{\tau_j < t}\Gamma_j = \sum_{s < t} \Gamma_s$
+accumulate trades _not_ including last trades
 where $\Gamma_s = \Gamma_j 1(s = \tau_j)$.
-
 
 ### Valuation
 
-_Value_ -- liquidate existing position and trades not yet settled at current market prices
-: $V_t = (\Delta_t + \Gamma_t)\cdot X_t$
+_Value_ -- $V_t = (\Delta_t + \Gamma_t)\cdot X_t$
+mark-to-market existing positions and current trades at current prices.
 
-_Account_ -- cash flows proportional to position and pay for current trades
-: $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$
+_Account_ -- $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$
+cash flows proportional to position and pay for current trades.
 
 ### Arbitrage
 

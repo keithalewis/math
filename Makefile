@@ -12,6 +12,7 @@ FLAGS  = -f markdown+definition_lists+raw_html+pipe_tables+citations
 FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
 #FLAGS += --citeproc capm.bib
 TEXFLAGS = --pdf-engine=xelatex 
+TEXFLAGS += -f markdown+definition_lists+raw_html+pipe_tables+citations
 FLAGS += -t html5
 FLAGS += -s # smart quotes
 #FLAGS += --katex
@@ -40,7 +41,7 @@ DOCFLAGS = --citeproc --bibliography=capm.bib
 	pandoc $(FLAGS) $< -o $@
 
 %.pdf: %.md $(CSS)
-	pandoc $(TEXFLAGS) $< -o $@
+	pandoc $(TEXFLAGS) $(DOCFLAGS) $< -o $@
 
 %.docx: %.md
 	pandoc -f markdown -t latex $(DOCFLAGS) $< -o $*.tex
