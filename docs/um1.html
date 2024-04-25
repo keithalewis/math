@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-04-23" />
+  <meta name="dcterms.date" content="2024-04-25" />
   <title>Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -22,7 +22,27 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="math.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
@@ -47,18 +67,20 @@
 <header id="title-block-header">
 <h1 class="title">Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">April 23, 2024</p>
+<p class="date">April 25, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of instruments
 </div>
 </header>
 <p>This note assumes you are familiar with measure theory and stochastic
-processes, but are not necesarily an expert. We provide a mathematically
-rigorous model for any set of instruments that can be used to value,
-hedge, and understand how poorly risk-neutral pricing can be used for
-managing risk. It does not provide a solution, only an initial framework
-for for further research.</p>
+processes, but are not necessarily an expert. We provide a
+mathematically rigorous model that extends <span class="citation"
+data-cites="Ros1978">(Ross 1978)</span> without involving the
+Hahn-Banach theorem. The Unified Model can be used on any set of
+instruments to value, hedge, and understand how poorly risk-neutral
+pricing can be used for managing risk. It does not provide a solution,
+only an initial framework for further research.</p>
 <section id="unified-model" class="level2">
 <h2>Unified Model</h2>
 <p>Let <span class="math inline">T</span> be the set of trading times,
@@ -70,14 +92,14 @@ indicating the information available at each trading time.</p>
 <p>If <span class="math inline">{\mathcal{A}}</span> is a finite algebra
 of sets on <span class="math inline">\Omega</span> then the
 <em>atoms</em> of <span class="math inline">{\mathcal{A}}</span>, <span
-class="math inline">\bar{{\mathcal{A}}}</span>, form a partition of
-<span class="math inline">\Omega</span>. A function <span
+class="math inline">\underline{{\mathcal{A}}}</span>, form a partition
+of <span class="math inline">\Omega</span>. A function <span
 class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is <span
 class="math inline">{\mathcal{A}}</span> measurable if and only if it is
 constant on atoms of <span class="math inline">{\mathcal{A}}</span> so
 <span
-class="math inline">X\colon\bar{{\mathcal{A}}}\to\boldsymbol{R}</span>
-is a function.</p>
+class="math inline">X\colon\underline{{\mathcal{A}}}\to\boldsymbol{R}</span>
+<em>is</em> a function.</p>
 <p>If <span class="math inline">P</span> is a probability measure on
 <span class="math inline">\Omega</span> and <span
 class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is a random
@@ -86,49 +108,30 @@ E[X|{\mathcal{A}}]</span> is equivalent to restriction of measure <span
 class="math inline">Y(P|A) = (XP)|{\mathcal{A}}</span>.</p>
 <section id="market" class="level3">
 <h3>Market</h3>
-<dl>
-<dt><em>Price</em> – market price assuming perfect liquidity</dt>
-<dd>
-<span
-class="math inline">X_t\colon\bar{{\mathcal{A}}_t}\to\boldsymbol{R}^I</span>
-</dd>
-<dt><em>Cash flow</em> – dividends, coupons, margin adjustments for
-futures</dt>
-<dd>
-<span
-class="math inline">C_t\colon\bar{{\mathcal{A}}_t}\to\boldsymbol{R}^I</span>
-</dd>
-</dl>
+<p><em>Price</em> – <span
+class="math inline">X_t\colon\underline{{\mathcal{A}}}_t\to\boldsymbol{R}^I</span>
+market prices assuming perfect liquidity.</p>
+<p><em>Cash flow</em> – <span
+class="math inline">C_t\colon\underline{{\mathcal{A}}}_t\to\boldsymbol{R}^I</span>
+dividends, coupons, margin adjustments for futures.</p>
 </section>
 <section id="trading" class="level3">
 <h3>Trading</h3>
-<dl>
-<dt><em>Trading Strategy</em> – increasing stopping times</dt>
-<dd>
-<span class="math inline">\tau_0 &lt; \cdots &lt; \tau_n</span> and
-trades <span
-class="math inline">\Gamma_j\colon{\mathcal{A}}_{\tau_j}\to\boldsymbol{R}^I</span>
-</dd>
-<dt><em>Position</em> – accumulate trades not including last trade</dt>
-<dd>
-<span class="math inline">\Delta_t = \sum_{\tau_j &lt; t}\Gamma_j =
-\sum_{s &lt; t} \Gamma_s</span>
-</dd>
-</dl>
+<p><em>Trading Strategy</em> – <span class="math inline">\tau_0 &lt;
+\cdots &lt; \tau_n</span> stopping times and trades <span
+class="math inline">\Gamma_j\colon\underline{{\mathcal{A}}}_{\tau_j}\to\boldsymbol{R}^I</span></p>
+<p><em>Position</em> – <span class="math inline">\Delta_t = \sum_{\tau_j
+&lt; t}\Gamma_j = \sum_{s &lt; t} \Gamma_s</span> accumulate trades
+<em>not</em> including last trades.</p>
 </section>
 <section id="valuation" class="level3">
 <h3>Valuation</h3>
-<dl>
-<dt><em>Value</em> – mark-to-market including last trade</dt>
-<dd>
-<span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>
-</dd>
-<dt><em>Account</em> – trading account blotter</dt>
-<dd>
-<span class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
-X_t</span>
-</dd>
-</dl>
+<p><em>Value</em> – <span class="math inline">V_t = (\Delta_t +
+\Gamma_t)\cdot X_t</span> mark-to-market existing positions and current
+trades at current prices.</p>
+<p><em>Account</em> – <span class="math inline">A_t = \Delta_t\cdot C_t
+- \Gamma_t\cdot X_t</span> receive cash flows proportional to position
+and pay for current trades.</p>
 </section>
 <section id="arbitrage" class="level3">
 <h3>Arbitrage</h3>
@@ -140,18 +143,21 @@ class="math inline">A_t \ge 0</span>, <span class="math inline">t &gt;
 money.</p>
 <p>The Fundamental Theorem of Asset Pricing states there is no arbitrage
 if and only if there exist <em>deflators</em>, positive measures <span
-class="math inline">D_t\colon{\mathcal{A}}_t\to(0,\infty)</span>, <span
-class="math inline">{t\in T}</span> on <span
-class="math inline">\Omega</span>, with <span class="math display">
+class="math inline">D_t</span> on <span
+class="math inline">{\mathcal{A}}_t</span>, <span
+class="math inline">{t\in T}</span>, with <span class="math display">
 \tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
 D_s)|{{\mathcal{A}}_t}
-</span> Note if cash flows are zero then deflated prices are a
-martingale. If there are a finite number of cash flows then prices are
-determined by deflated future cash flows.</p>
+</span> A <em>martingale measure</em> satisfies <span
+class="math inline">M_t = M_u|{\mathcal{A}}_t</span> for <span
+class="math inline">t \le u</span>. Note if cash flows are zero then
+deflated prices are a martingale measure. If <span
+class="math inline">X_u D_u</span> goes to zero as <span
+class="math inline">u</span> goes to infinity then prices are determined
+by deflated future cash flows.</p>
 <p><strong>Lemma</strong>. If <span class="math inline">X_t D_t = M_t -
-\sum_{s\le t} C_s D_s</span> where <span class="math inline">M_t =
-M_u|{{\mathcal{A}}_t}</span>, <span class="math inline">t \le u</span>,
-then there is no arbitrage.</p>
+\sum_{s\le t} C_s D_s</span> where <span class="math inline">M_t</span>
+is a martingale measue then there is no arbitrage.</p>
 <p><strong>Lemma</strong>. For any arbitrage free model and any trading
 strategy <span class="math display">
 \tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
@@ -168,61 +174,61 @@ skeleton key to pricing derivative securities.</p>
 <section id="application" class="level2">
 <h2>Application</h2>
 <p>Suppose a derivative security specifies amounts <span
-class="math inline">\bar{A}_j</span> be paid at times <span
-class="math inline">\bar{\tau}_j</span>. If there is a trading strategy
-<span class="math inline">(\tau_j, \Gamma_j)</span> with <span
-class="math inline">A_{\bar{\tau}_j} = \bar{A}_j</span> for all <span
-class="math inline">j</span> and <span class="math inline">A_t =
-0</span> otherwise (aka self-financing) then a “perfect hedge” exists<a
-href="#fn1" class="footnote-ref" id="fnref1"
+class="math inline">\overline{A}_j</span> be paid at times <span
+class="math inline">\overline{\tau}_j</span>. If there is a trading
+strategy <span class="math inline">(\tau_j, \Gamma_j)</span> with <span
+class="math inline">A_{\overline{\tau}_j} = \overline{A}_j</span> for
+all <span class="math inline">j</span> and <span class="math inline">A_t
+= 0</span> otherwise (aka self-financing) then a “perfect hedge”
+exists<a href="#fn1" class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a>.</p>
 <p>Note <span class="math inline">V_t D_t= (\sum_{\tau_j &gt; t}
-\bar{A}_j D_{\bar{\tau_j}})|{\mathcal{A}}_t</span> can be computed from
-the deriviative contract specification and the deflators <span
-class="math inline">D_t</span>. Since <span class="math inline">V_t =
-(\Delta_t + \Gamma_t)\cdot X_t</span> we have <span
-class="math inline">\Delta_t + \Gamma_t</span>, is the Frechet
-derivative <span class="math inline">D_{X_t}V_t</span> of option value
-with respect to <span class="math inline">X_t</span>.</p>
+\overline{A}_j D_{\overline{\tau_j}})|{\mathcal{A}}_t</span> can be
+computed from the derivative contract specification and the deflators
+<span class="math inline">D_t</span>. Since we also have <span
+class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span> the
+Frechet derivative <span class="math inline">D_{X_t}V_t</span> of option
+value with respect to <span class="math inline">X_t</span> is <span
+class="math inline">\Delta_t + \Gamma_t</span>.</p>
 <p>If time <span class="math inline">T = \{t_j\}</span> is discrete we
 can compute a possible hedge at each time, <span
 class="math inline">\Gamma_j = D_{X_j}V_j - \Delta_j</span>, since <span
 class="math inline">\Delta_j</span> is known at <span
 class="math inline">t_{j-1}</span>. In general this hedge will not
 exactly replicate the derivative contract obligation.</p>
+<p>Note the Unified Model does not require Ito’s formula, much less a
+proof involving partial differential equations and change of measure.
+One simply writes down a martingale and deflator then uses equation (2)
+to value, hedge, and manage the risk of realistic trading strategies.
+The notion of “continuous time” hedging is a mathematical myth.</p>
 <section id="black-scholesmerton" class="level3">
 <h3>Black-Scholes/Merton</h3>
 <p>The Black-Scholes/Merton model uses <span class="math inline">M_t =
 (r, s\exp(\sigma B_t - \sigma^2t/2)P</span>, where <span
-class="math inline">B_t</span> is Brownian motion and <span
-class="math inline">P</span> is Weiner measure The deflator is <span
-class="math inline">D_t = \exp(-\rho t)</span>.</p>
-<p>Note the Unified Model does not require Ito’s formula and a proof
-involving partial differential equations. One just writes down a
-martingale and deflator then uses equation (2) to value, hedge, and
-manage the risk of trading strategies that can be performed. The notion
-of “continuous time” hedging is a mathematical myth.</p>
+class="math inline">B_t</span> is Brownian motion, <span
+class="math inline">P</span> is Wiener measure, and the deflator is
+<span class="math inline">D_t = \exp(-\rho t)P</span>.</p>
 </section>
 <section id="deflator" class="level3">
 <h3>Deflator</h3>
 <p>If repurchase agreements are available then a <em>canonical
 deflator</em> exists. A repurchase agreement over the interval <span
-class="math inline">[t_j, t_{j+}]</span> is specified by a rate <span
+class="math inline">[t_j, t_{j+1}]</span> is specified by a rate <span
 class="math inline">f_j</span> known at time <span
 class="math inline">t_j</span>. The price at <span
 class="math inline">t_j</span> is <span class="math inline">1</span> and
-it has a cash flow of <span class="math inline">\exp(f_j(t_{j+1} -
-t_j))</span> at time <span class="math inline">t_{j+1}</span>. By
-equation (1) we have <span class="math inline">D_j = \exp(f_j\Delta
-t_j)D_{j+1}|{\mathcal{A}}_j</span>. If <span
+it has a cash flow of <span class="math inline">{\exp(f_j(t_{j+1} -
+t_j))}</span> at time <span class="math inline">t_{j+1}</span>. By
+equation (1) we have <span class="math inline">{D_j = \exp(f_j\Delta
+t_j)D_{j+1}|{\mathcal{A}}_j}</span>. If <span
 class="math inline">D_{j+1}</span> is known at time <span
 class="math inline">t_j</span> then <span
-class="math inline">D_{j+1}/D_j = \exp(-f_j\Delta t_j)</span> and <span
-class="math inline">D_j = \exp(-\sum_{i &lt; j}f_i\Delta t_i)</span> is
-the canonical deflator.</p>
+class="math inline">{D_{j+1}/D_j = \exp(-f_j\Delta t_j)}</span> and
+<span class="math inline">{D_j = \exp(-\sum_{i &lt; j}f_i\Delta
+t_i)}</span> is the canonical deflator.</p>
 <p>The continuous time analog is <span class="math inline">D_t =
 \exp(-\int_0^t f(s)\,ds)</span> where <span class="math inline">f</span>
-is the continuously componded instantaneous forward rate.</p>
+is the continuously compounded instantaneous forward rate.</p>
 </section>
 <section id="zero-coupon-bond" class="level3">
 <h3>Zero Coupon Bond</h3>
@@ -248,21 +254,23 @@ class="math inline">t</span> is <span class="math display">
 <p>A <em>forward rate agreement</em> with coupon <span
 class="math inline">f</span> over the interval <span
 class="math inline">[u,v]</span> having day count convention <span
-class="math inline">\delta</span> has two cash flows: <span
-class="math inline">-1</span> at time <span class="math inline">t</span>
-and <span class="math inline">1 + f\delta(u,v)</span> at time <span
-class="math inline">u</span>. The <em>par forward coupon</em> at time
-<span class="math inline">t</span>, <span
-class="math inline">F_t^\delta(u,v)</span> is the coupon for which the
-price is 0 at time <span class="math inline">t</span>. By equation (1)
-we have <span class="math inline">0 = (-D_u + (1 +
+class="math inline">\delta</span><a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a> has two cash flows:
+<span class="math inline">-1</span> at time <span
+class="math inline">t</span> and <span class="math inline">1 +
+f\delta(u,v)</span> at time <span class="math inline">u</span>. The
+<em>par forward coupon</em> at time <span class="math inline">t</span>,
+<span class="math inline">F_t^\delta(u,v)</span> is the coupon for which
+the price is 0 at time <span class="math inline">t</span>. By equation
+(1) we have <span class="math inline">0 = (-D_u + (1 +
 F_t^\delta(u,v))D_v|{\mathcal{A}}_t</span> so <span
 class="math display">
     F_t^\delta(u,v) = \frac{1}{\delta(u,v)}\bigl(\frac{D_t(u)}{D_t(v)} -
 1\bigr).
 </span></p>
 <p>A <em>swap</em> is a collection of back-to-back forward rate
-agreements. The <em>swap par coupon</em> makes the price 0 at time <span
+agreements involving times <span class="math inline">(t_j)</span>. The
+<em>swap par coupon</em> makes the price 0 at time <span
 class="math inline">t</span> so <span class="math display">
     F_t^\delta(t_0,\dots,t_n) = \frac{D_t(t_0) -
 D_t(t_n)}{\sum_{j=1}^n\delta(t_{j-1},t_j)D_t(t_j)}.
@@ -271,20 +279,20 @@ D_t(t_n)}{\sum_{j=1}^n\delta(t_{j-1},t_j)D_t(t_j)}.
 <section id="risky-bonds" class="level3">
 <h3>Risky Bonds</h3>
 <p>Companies can default and may pay only a fraction of the notional
-owed on bonds they issued. A simple model for this is to assume the time
-of default is a random variable <span class="math inline">T</span> and
-recovery <span class="math inline">R</span> is a constant fraction
-between 0 and 1.<a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a> The sample space for the default
-time is <span class="math inline">[0,\infty)</span> indicating the time
-of default. The information available at time <span
-class="math inline">t</span> is the partition consisting of singletons
-<span class="math inline">\{s\}</span>, <span class="math inline">s &lt;
+owed on bonds they issued. A simple model<a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> for
+this is to assume the time of default <span class="math inline">T</span>
+and recovery <span class="math inline">R</span> are random variables.
+The sample space for the default time is <span
+class="math inline">[0,\infty)</span> indicating the time of default.
+The information available at time <span class="math inline">t</span> is
+the partition consisting of singletons <span
+class="math inline">\{s\}</span>, <span class="math inline">s &lt;
 t</span> and the set <span class="math inline">[t, \infty)</span>. If
 default occurs prior to <span class="math inline">t</span> then we know
-exactly when it happend. If default has not occured by time <span
-class="math inline">t</span> then we only know it can be any time after
-that.</p>
+exactly when it happened. If default has not occurred by time <span
+class="math inline">t</span> then we only know it can occur any time
+after that.</p>
 <p>The cash flows for a risky bond <span
 class="math inline">D^{T,R}(u)</span> are 1 at time <span
 class="math inline">u</span> if <span class="math inline">T &gt;
@@ -292,13 +300,22 @@ t</span> and <span class="math inline">RD(T)</span> at time <span
 class="math inline">T</span> if <span class="math inline">T \le
 t</span>. For the model to be arbitrage-free we must have <span
 class="math display">
-    D_t^{R,T}(u) D_t = (D_u 1(T &gt; u) + RD_t 1(T\le
-u)|{\mathcal{A}}_t.
-</span> If the interest rate is 0 then <span class="math inline">D_t =
-1</span> and <span class="math inline">D_0^{R,T} = P(T &gt; u) + RP(T\le
-u)</span>.</p>
-<p>We need to extend the sample space to model the default time, <span
-class="math inline">\Omega&#39; = \Omega\times [0,\infty)</span>.</p>
+D_t^{R,T}(u) D_t = \bigl(1(T &gt; u)D_u + 1(T\le u)R
+D_T\bigr)|{\mathcal{A}}_t.
+</span> If the deflators are independent of the stopping time and
+recovery is <span class="math inline">RD(T,u)</span> at <span
+class="math inline">T\le u</span> for some constant <span
+class="math inline">R</span> then using <span
+class="math inline">D_T(u)D_T = D_u|{\mathcal{A}}_t</span> for <span
+class="math inline">T \le u</span> we have <span class="math display">
+    D_t^{T,R}(u) D_t P(T &gt; t) = \bigl(P(T &gt; u) + R P(t &lt; T \le
+u)\bigr)D_u|{\mathcal{A}}_t.
+</span> The <em>credit spread</em> <span
+class="math inline">\lambda_t^{T,R}(u)</span> is defined by <span
+class="math inline">{D_t^{T,R}(u) = D_t(u)\exp(-\lambda_t^{T,R}(u) (u -
+t))}</span>. Note if <span class="math inline">T = \infty</span> or
+<span class="math inline">R = 1</span> then the credit spread is
+zero.</p>
 <!--
 ### Binomial Model
 
@@ -310,6 +327,16 @@ $V_0 = E[\nu(S_n)]$
 
 $\Gamma = (M, N)$.
 -->
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-Ros1978" class="csl-entry" role="listitem">
+Ross, Stephen A. 1978. <span>“A <span>Simple</span>
+<span>Approach</span> to the <span>Valuation</span> of
+<span>Risky</span> <span>Streams</span>.”</span> <em>The Journal of
+Business</em> 51 (3): 453–75. <a
+href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277</a>.
+</div>
+</div>
 </section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
@@ -318,7 +345,11 @@ role="doc-endnotes">
 <ol>
 <li id="fn1"><p>Perfect hedges never exist.<a href="#fnref1"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>This is a very simplified model.<a href="#fnref2"
+<li id="fn2"><p>The <em>day count fraction</em> <span
+class="math inline">\delta(u, v)</span> is approximately <span
+class="math inline">v - u</span> in years.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This is a very simplified model.<a href="#fnref3"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
