@@ -15,10 +15,11 @@ abstract: Value, hedge, and manage the risk of instruments
 
 This note assumes you are familiar with measure theory and stochastic
 processes, but are not necessarily an expert.  We provide a mathematically
-rigorous model for any set of instruments that can be used to value,
+rigorous model that extends [@Ros1978] without involving the Hahn-Banack theorem.
+The Unified Model can be used on any set of instruments to value,
 hedge, and understand how poorly risk-neutral pricing can be used for
 managing risk. It does not provide a solution, only an initial
-framework for for further research. 
+framework for further research. 
 
 ## Unified Model
 
@@ -48,15 +49,18 @@ _Cash flow_ -- dividends, coupons, margin adjustments for futures
 
 ### Trading
 
-_Trading Strategy_ -- increasing stopping times
+_Trading Strategy_ -- finite number increasing stopping times
 : $\tau_0 < \cdots < \tau_n$ and trades $\Gamma_j\colon\underline{\AA}_{\tau_j}\to\RR^I$
 
 _Position_ -- accumulate trades _not_ including last trade
-: $\Delta_t = \sum_{\tau_j < t}\Gamma_j = \sum_{s < t} \Gamma_s$
+: $\Delta_t = \sum_{\tau_j < t}\Gamma_j = \sum_{s < t} \Gamma_s$,
+
+where $\Gamma_s = \Gamma_j 1(s = \tau_j)$.
+
 
 ### Valuation
 
-_Value_ -- liquidate position and current trade at current market prices
+_Value_ -- liquidate existing position and trades not yet settled at current market prices
 : $V_t = (\Delta_t + \Gamma_t)\cdot X_t$
 
 _Account_ -- cash flows proportional to position and pay for current trades
@@ -69,14 +73,16 @@ with $A_{\tau_0} > 0$, $A_t \ge 0$, $t > \tau_0$, and $\sum_{j} \Gamma_j = 0$.
 The first trade makes money and subsequent trades never lose money.
 
 The Fundamental Theorem of Asset Pricing states there is no arbitrage if and only
-if there exist _deflators_, positive measures $D_t$ on $\AA_t$, ${t\in T}$ on $\Omega$, with
+if there exist _deflators_, positive measures $D_t$ on $\AA_t$, ${t\in T}$, with
 $$
 \tag{1} X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|{\AA_t}
 $$
-Note if cash flows are zero then deflated prices are a martingale.
-If $X_u D_u$ goes to zero prices are determined by deflated future cash flows.
+A _martingale measure_ satisfies $M_t = M_u|\AA_t$ for $t \le u$.
+Note if cash flows are zero then deflated prices are a martingale measure.
+If $X_u D_u$ goes to zero as $u$ goes to infinity then prices are
+determined by deflated future cash flows.
 
-__Lemma__. If $X_t D_t = M_t - \sum_{s\le t} C_s D_s$ where $M_t = M_u|{\AA_t}$, $t \le u$,
+__Lemma__. If $X_t D_t = M_t - \sum_{s\le t} C_s D_s$ where $M_t$ is a martingale measue
 then there is no arbitrage.
 
 __Lemma__. For any arbitrage free model and any trading strategy
@@ -126,10 +132,10 @@ is $D_t = \exp(-\rho t)P$.
 If repurchase agreements are available then a _canonical deflator_ exists.
 A repurchase agreement over the interval $[t_j, t_{j+1}]$ is specified
 by a rate $f_j$ known at time $t_j$. The price at $t_j$ is $1$ and it
-has a cash flow of $\exp(f_j(t_{j+1} - t_j))$ at time $t_{j+1}$.
-By equation (1) we have $D_j = \exp(f_j\Delta t_j)D_{j+1}|\AA_j$.
-If $D_{j+1}$ is known at time $t_j$ then $D_{j+1}/D_j = \exp(-f_j\Delta t_j)$ and
-$D_j = \exp(-\sum_{i < j}f_i\Delta t_i)$ is the canonical deflator.
+has a cash flow of ${\exp(f_j(t_{j+1} - t_j))}$ at time $t_{j+1}$.
+By equation (1) we have ${D_j = \exp(f_j\Delta t_j)D_{j+1}|\AA_j}$.
+If $D_{j+1}$ is known at time $t_j$ then ${D_{j+1}/D_j = \exp(-f_j\Delta t_j)}$ and
+${D_j = \exp(-\sum_{i < j}f_i\Delta t_i)}$ is the canonical deflator.
 
 The continuous time analog is $D_t = \exp(-\int_0^t f(s)\,ds)$ where
 $f$ is the continuously compounded instantaneous forward rate.
