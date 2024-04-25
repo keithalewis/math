@@ -15,7 +15,7 @@ abstract: Value, hedge, and manage the risk of instruments
 
 This note assumes you are familiar with measure theory and stochastic
 processes, but are not necessarily an expert.  We provide a mathematically
-rigorous model that extends [@Ros1978] without involving the Hahn-Banack theorem.
+rigorous model that extends [@Ros1978] without involving the Hahn-Banach theorem.
 The Unified Model can be used on any set of instruments to value,
 hedge, and understand how poorly risk-neutral pricing can be used for
 managing risk. It does not provide a solution, only an initial
@@ -53,8 +53,7 @@ _Trading Strategy_ -- $\tau_0 < \cdots < \tau_n$ stopping times
 and trades $\Gamma_j\colon\underline{\AA}_{\tau_j}\to\RR^I$
 
 _Position_ -- $\Delta_t = \sum_{\tau_j < t}\Gamma_j = \sum_{s < t} \Gamma_s$
-accumulate trades _not_ including last trades
-where $\Gamma_s = \Gamma_j 1(s = \tau_j)$.
+accumulate trades _not_ including last trades.
 
 ### Valuation
 
@@ -62,7 +61,7 @@ _Value_ -- $V_t = (\Delta_t + \Gamma_t)\cdot X_t$
 mark-to-market existing positions and current trades at current prices.
 
 _Account_ -- $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$
-cash flows proportional to position and pay for current trades.
+receive cash flows proportional to position and pay for current trades.
 
 ### Arbitrage
 
@@ -95,14 +94,14 @@ This is the skeleton key to pricing derivative securities.
 
 ## Application
 
-Suppose a derivative security specifies amounts $\bar{A}_j$ be paid at times $\bar{\tau}_j$.
+Suppose a derivative security specifies amounts $\overline{A}_j$ be paid at times $\overline{\tau}_j$.
 If there is a trading strategy $(\tau_j, \Gamma_j)$
-with $A_{\bar{\tau}_j} = \bar{A}_j$ for all $j$ and $A_t = 0$ otherwise (aka self-financing) then
+with $A_{\overline{\tau}_j} = \overline{A}_j$ for all $j$ and $A_t = 0$ otherwise (aka self-financing) then
 a "perfect hedge" exists[^1].
 
 [^1]: Perfect hedges never exist.
 
-Note $V_t D_t= (\sum_{\tau_j > t} \bar{A}_j D_{\bar{\tau_j}})|\AA_t$
+Note $V_t D_t= (\sum_{\tau_j > t} \overline{A}_j D_{\overline{\tau_j}})|\AA_t$
 can be computed from the derivative contract specification and the deflators $D_t$.
 Since we also have $V_t = (\Delta_t + \Gamma_t)\cdot X_t$
 the Frechet derivative $D_{X_t}V_t$
@@ -114,7 +113,7 @@ $\Gamma_j = D_{X_j}V_j - \Delta_j$, since $\Delta_j$ is known at $t_{j-1}$.
 In general this hedge will not exactly replicate the derivative contract obligation.
 
 Note the Unified Model does not require Ito's formula, much less a proof involving
-partial differential equations. One simply writes down a martingale and
+partial differential equations and change of measure. One simply writes down a martingale and
 deflator then uses equation (2) to value, hedge, and manage
 the risk of realistic trading strategies.
 The notion of "continuous time" hedging is a mathematical myth.
@@ -176,7 +175,7 @@ $$
 ### Risky Bonds
 
 Companies can default and may pay only a fraction of the notional owed on bonds they issued.
-A simple model[^2] for this is to assume the time of default $T$ and recover $R$ are random variables.
+A simple model[^2] for this is to assume the time of default $T$ and recovery $R$ are random variables.
 The sample space for the default time is $[0,\infty)$ indicating the time of default.
 The information available at time $t$ is the partition consisting of singletons
 $\{s\}$, $s < t$ and the set $[t, \infty)$. If default occurs prior to $t$ then
@@ -187,7 +186,9 @@ we only know it can occur any time after that.
 
 The cash flows for a risky bond $D^{T,R}(u)$ are 1 at time $u$ if $T > t$
 and $RD(T)$ at time $T$ if $T \le t$. For the model to be arbitrage-free we must have
-${D_t^{R,T}(u) D_t = \bigl(1(T > u)D_u + 1(T\le u)R D_T\bigr)|\AA_t}$
+$$
+D_t^{R,T}(u) D_t = \bigl(1(T > u)D_u + 1(T\le u)R D_T\bigr)|\AA_t.
+$$
 If the deflators are independent of the stopping time and recovery is $RD(T,u)$ at $T\le u$
 for some constant $R$ then
 using $D_T(u)D_T = D_u|\AA_t$ for $T \le u$ we have
@@ -197,8 +198,6 @@ $$
 The _credit spread_ $\lambda_t^{T,R}(u)$ is defined by
 ${D_t^{T,R}(u) = D_t(u)\exp(-\lambda_t^{T,R}(u) (u - t))}$.
 Note if $T = \infty$ or $R = 1$ then the credit spread is zero.
-
-
 
 
 <!--
