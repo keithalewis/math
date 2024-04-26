@@ -39,6 +39,12 @@ $X\colon\Omega\to\RR$ is a random variable then
 conditional expectation $Y = E[X|\AA]$ is equivalent
 to restriction of measure $Y(P|A) = (XP)|\AA$.
 
+The vector space $\RR^I$ is the set of all functions from $I$ to $\RR$.
+The _norm_ of $x\in\RR^I$ is defined by ${\|x\|^2 = \sum_{i\in I} x_i^2}$.
+The _norm_ of $X\colon\Omega\to\RR$
+is $\|X\| = \sup_{\omega\in\Omega} \|X(\omega)\|$.
+
+
 ### Market
 
 _Price_ -- $X_t\colon\underline{\AA}_t\to\RR^I$
@@ -61,7 +67,7 @@ _Value_ -- $V_t = (\Delta_t + \Gamma_t)\cdot X_t$
 mark-to-market existing positions and current trades at current prices.
 
 _Account_ -- $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$
-receive cash flows proportional to position and pay for current trades.
+receive cash flows proportional to existing positions and pay for trades just executed.
 
 ### Arbitrage
 
@@ -112,10 +118,10 @@ If time $T = \{t_j\}$ is discrete we can compute a possible hedge at each time,
 $\Gamma_j = D_{X_j}V_j - \Delta_j$, since $\Delta_j$ is known at $t_{j-1}$.
 In general this hedge will not exactly replicate the derivative contract obligation.
 
-Note the Unified Model does not require Ito's formula, much less a proof involving
-partial differential equations and change of measure. One simply writes down a martingale and
-deflator then uses equation (2) to value, hedge, and manage
-the risk of realistic trading strategies.
+Note the Unified Model does not require Ito's formula, much less a proof
+involving partial differential equations and change of measure. One
+simply writes down a martingale and deflator then uses equation (2)
+to value, hedge, and manage the risk of realistic trading strategies.
 The notion of "continuous time" hedging is a mathematical myth.
 
 ### Black-Scholes/Merton
