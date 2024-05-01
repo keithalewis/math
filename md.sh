@@ -10,5 +10,5 @@ for md in "$@"; do
 	date=$(stat -c "%y" ${md} | cut -d' ' -f 1)
 	dn=$(dirname ${md})
 	echo $date
-	#echo "pandoc ${md} --metadata date=\"${date}\" -o ${dn}.html"
+	echo "pandoc ${md} --metadata date=\"${date}\" -o ${dn}.html"
 done
