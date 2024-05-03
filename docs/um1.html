@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-04-25" />
+  <meta name="dcterms.date" content="2024-05-03" />
   <title>Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,7 +67,7 @@
 <header id="title-block-header">
 <h1 class="title">Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">April 25, 2024</p>
+<p class="date">May 3, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of instruments
@@ -77,10 +77,14 @@ Value, hedge, and manage the risk of instruments
 processes, but are not necessarily an expert. We provide a
 mathematically rigorous model that extends <span class="citation"
 data-cites="Ros1978">(Ross 1978)</span> without involving the
-Hahn-Banach theorem. The Unified Model can be used on any set of
-instruments to value, hedge, and understand how poorly risk-neutral
-pricing can be used for managing risk. It does not provide a solution,
-only an initial framework for further research.</p>
+Hahn-Banach theorem. It also does not involve probability measures,
+sigma algebras, Brownian motion, the Ito formula, or partial
+differential equations. As Ross observed, the Fundamental Theorem of
+Asset Pricing involves only geometry, not probability. The Unified Model
+can be used for any set of instruments to value, hedge, and understand
+how poorly risk-neutral pricing can be used for managing risk. It does
+not provide a solution, only an initial framework for further research.
+For proofs and more details see <a href="um.html">Unified Model</a>.</p>
 <section id="unified-model" class="level2">
 <h2>Unified Model</h2>
 <p>Let <span class="math inline">T</span> be the set of trading times,
@@ -89,37 +93,51 @@ only an initial framework for further research.</p>
 outcomes, and <span class="math inline">({\mathcal{A}}_t)_{t\in
 T}</span> be algebras of sets on <span class="math inline">\Omega</span>
 indicating the information available at each trading time.</p>
+<section id="preliminaries" class="level3">
+<h3>Preliminaries</h3>
 <p>If <span class="math inline">{\mathcal{A}}</span> is a finite algebra
-of sets on <span class="math inline">\Omega</span> then the
-<em>atoms</em> of <span class="math inline">{\mathcal{A}}</span>, <span
-class="math inline">\underline{{\mathcal{A}}}</span>, form a partition
-of <span class="math inline">\Omega</span>. A function <span
+of sets on <span class="math inline">\Omega</span> then <span
+class="math inline">[\omega] =
+\cap\{A\in{\mathcal{A}}\mid\omega\in{\mathcal{A}}\}</span> is the
+<em>atom</em> of <span class="math inline">{\mathcal{A}}</span>
+containing <span class="math inline">\omega\in\Omega</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">B\subseteq[\omega]</span> and <span
+class="math inline">B\in{\mathcal{A}}</span> then <span
+class="math inline">B = \emptyset</span> or <span class="math inline">B
+= [\omega]</span></em>.</p>
+<p><strong>Exercise</strong>. <em>The atoms of <span
+class="math inline">{\mathcal{A}}</span>, <span
+class="math inline">[{\mathcal{A}}]</span>, form a partition of <span
+class="math inline">\Omega</span></em>.</p>
+<p>A function <span
 class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is <span
 class="math inline">{\mathcal{A}}</span> measurable if and only if it is
 constant on atoms of <span class="math inline">{\mathcal{A}}</span> so
-<span
-class="math inline">X\colon\underline{{\mathcal{A}}}\to\boldsymbol{R}</span>
+<span class="math inline">X\colon[{\mathcal{A}}]\to\boldsymbol{R}</span>
 <em>is</em> a function.</p>
-<p>If <span class="math inline">P</span> is a probability measure on
-<span class="math inline">\Omega</span> and <span
-class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is a random
-variable then conditional expectation <span class="math inline">Y =
-E[X|{\mathcal{A}}]</span> is equivalent to restriction of measure <span
-class="math inline">Y(P|A) = (XP)|{\mathcal{A}}</span>.</p>
+<p>If <span class="math inline">P</span> is a positive measure with mass
+1, aka a probability measure, on <span class="math inline">\Omega</span>
+and <span class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is a
+random variable then conditional expectation <span class="math inline">Y
+= E[X|{\mathcal{A}}]</span> is equivalent to restriction of measure
+<span class="math inline">Y(P|A)
+= (XP)|{\mathcal{A}}</span>.</p>
+</section>
 <section id="market" class="level3">
 <h3>Market</h3>
 <p><em>Price</em> – <span
-class="math inline">X_t\colon\underline{{\mathcal{A}}}_t\to\boldsymbol{R}^I</span>
+class="math inline">X_t\colon[{\mathcal{A}}_t]\to\boldsymbol{R}^I</span>
 market prices assuming perfect liquidity.</p>
 <p><em>Cash flow</em> – <span
-class="math inline">C_t\colon\underline{{\mathcal{A}}}_t\to\boldsymbol{R}^I</span>
+class="math inline">C_t\colon[{\mathcal{A}}_t]\to\boldsymbol{R}^I</span>
 dividends, coupons, margin adjustments for futures.</p>
 </section>
 <section id="trading" class="level3">
 <h3>Trading</h3>
 <p><em>Trading Strategy</em> – <span class="math inline">\tau_0 &lt;
 \cdots &lt; \tau_n</span> stopping times and trades <span
-class="math inline">\Gamma_j\colon\underline{{\mathcal{A}}}_{\tau_j}\to\boldsymbol{R}^I</span></p>
+class="math inline">\Gamma_j\colon[{\mathcal{A}}_{\tau_j}]\to\boldsymbol{R}^I</span></p>
 <p><em>Position</em> – <span class="math inline">\Delta_t = \sum_{\tau_j
 &lt; t}\Gamma_j = \sum_{s &lt; t} \Gamma_s</span> accumulate trades
 <em>not</em> including last trades.</p>
@@ -130,8 +148,8 @@ class="math inline">\Gamma_j\colon\underline{{\mathcal{A}}}_{\tau_j}\to\boldsymb
 \Gamma_t)\cdot X_t</span> mark-to-market existing positions and current
 trades at current prices.</p>
 <p><em>Account</em> – <span class="math inline">A_t = \Delta_t\cdot C_t
-- \Gamma_t\cdot X_t</span> receive cash flows proportional to position
-and pay for current trades.</p>
+- \Gamma_t\cdot X_t</span> receive cash flows proportional to existing
+positions and pay for trades just executed.</p>
 </section>
 <section id="arbitrage" class="level3">
 <h3>Arbitrage</h3>
@@ -183,7 +201,7 @@ all <span class="math inline">j</span> and <span class="math inline">A_t
 exists<a href="#fn1" class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a>.</p>
 <p>Note <span class="math inline">V_t D_t= (\sum_{\tau_j &gt; t}
-\overline{A}_j D_{\overline{\tau_j}})|{\mathcal{A}}_t</span> can be
+\overline{A}_j D_{\overline{\tau}_j})|{\mathcal{A}}_t</span> can be
 computed from the derivative contract specification and the deflators
 <span class="math inline">D_t</span>. Since we also have <span
 class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span> the
@@ -270,11 +288,14 @@ class="math display">
 </span></p>
 <p>A <em>swap</em> is a collection of back-to-back forward rate
 agreements involving times <span class="math inline">(t_j)</span>. The
-<em>swap par coupon</em> makes the price 0 at time <span
-class="math inline">t</span> so <span class="math display">
+<em>swap par coupon</em> making the price 0 at time <span
+class="math inline">t</span> is <span class="math display">
     F_t^\delta(t_0,\dots,t_n) = \frac{D_t(t_0) -
 D_t(t_n)}{\sum_{j=1}^n\delta(t_{j-1},t_j)D_t(t_j)}.
 </span></p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">n =
+2</span> the swap par coupon is the same as the par forward
+coupon</em>.</p>
 </section>
 <section id="risky-bonds" class="level3">
 <h3>Risky Bonds</h3>
@@ -296,37 +317,43 @@ after that.</p>
 <p>The cash flows for a risky bond <span
 class="math inline">D^{T,R}(u)</span> are 1 at time <span
 class="math inline">u</span> if <span class="math inline">T &gt;
-t</span> and <span class="math inline">RD(T)</span> at time <span
+t</span> and <span class="math inline">RD_T</span> at time <span
 class="math inline">T</span> if <span class="math inline">T \le
 t</span>. For the model to be arbitrage-free we must have <span
 class="math display">
 D_t^{R,T}(u) D_t = \bigl(1(T &gt; u)D_u + 1(T\le u)R
 D_T\bigr)|{\mathcal{A}}_t.
-</span> If the deflators are independent of the stopping time and
-recovery is <span class="math inline">RD(T,u)</span> at <span
-class="math inline">T\le u</span> for some constant <span
-class="math inline">R</span> then using <span
-class="math inline">D_T(u)D_T = D_u|{\mathcal{A}}_t</span> for <span
-class="math inline">T \le u</span> we have <span class="math display">
-    D_t^{T,R}(u) D_t P(T &gt; t) = \bigl(P(T &gt; u) + R P(t &lt; T \le
-u)\bigr)D_u|{\mathcal{A}}_t.
 </span> The <em>credit spread</em> <span
 class="math inline">\lambda_t^{T,R}(u)</span> is defined by <span
 class="math inline">{D_t^{T,R}(u) = D_t(u)\exp(-\lambda_t^{T,R}(u) (u -
 t))}</span>. Note if <span class="math inline">T = \infty</span> or
 <span class="math inline">R = 1</span> then the credit spread is
 zero.</p>
+<p>If the deflators are independent of the stopping time and recovery is
+<span class="math inline">RD_T(u)</span> at <span
+class="math inline">T\le u</span> for some constant <span
+class="math inline">R</span> then using <span
+class="math inline">D_T(u)D_T = D_u|{\mathcal{A}}_t</span> for <span
+class="math inline">T \le u</span> we have <span class="math display">
+    D_t^{T,R}(u) D_t P(T &gt; t) = \bigl(P(T &gt; u) + R P(t &lt; T \le
+u)\bigr)D_u|{\mathcal{A}}_t
+</span> and the credit spread is <span class="math display">
+    \lambda_t^{T,R}(u) = -\frac{\log(P(T &gt; u) + R P(t &lt; T \le
+u))}{u - t}.
+</span></p>
 <!--
 ### Binomial Model
 
 Let $W_n$ be (symmetric) random walk. The model for bond and stock is
-the martingale $M_n = (R_n, S_n)$ where $R_n = r$ and $S_n = s\exp(\sigma W_n)/\cosh^n(\sigma))$
-and the deflator $D_n = 1$ assumes zero interest rate.
 
 $V_0 = E[\nu(S_n)]$
 
 $\Gamma = (M, N)$.
 -->
+</section>
+</section>
+<section id="reference" class="level2 unnumbered">
+<h2 class="unnumbered">Reference</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
 <div id="ref-Ros1978" class="csl-entry" role="listitem">
@@ -337,7 +364,6 @@ Business</em> 51 (3): 453–75. <a
 href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277</a>.
 </div>
 </div>
-</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">

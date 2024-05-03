@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <meta name="dcterms.date" content="2024-05-03" />
-  <title>Put-Call parity</title>
+  <title>Principal Component Analysis</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -45,25 +45,23 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Put-Call parity</h1>
+<h1 class="title">Principal Component Analysis</h1>
 <p class="author">Keith A. Lewis</p>
 <p class="date">May 3, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-For European options
+Cloud summarizing
 </div>
 </header>
-<p>Put call parity states the price of a call minus a put having the
-same strike and expiration is equal to the forward of the underlying
-minus the strike. It is not the case this always holds. For example, if
-the options are American style exercise then they may have different
-optimal exercise times.</p>
-<p>The relation between the underlying spot price and its forward is
-called <em>cost-of-carry</em>. For a one-period model of intruments
-<span class="math inline">I</span> the initial prices are given by <span
-class="math inline">x\in\boldsymbol{R}^I</span>. The terminal prices are
-given by a bounded functions <span class="math inline">X\colon
-S\to\boldsymbol{R}^I</span> where <span class="math inline">S</span> is
-the set of possible outcomes.</p>
+<p>Given a cloud of vectors <span class="math inline">S =
+\{x_1,\ldots,x_m\}</span> in <span class="math inline">\bm{R}^n</span>
+what single vector “best” represents the location of the cloud? If <span
+class="math inline">m = 1</span> then obviously <span
+class="math inline">\bar{x}_1 = x_1</span> is the solution to this. If
+<span class="math inline">m = 2</span> then the solution <span
+class="math inline">\bar{x}_1 = (x_1 + x_2)/2</span> seems to be a
+likely candidate. In general we might suspect the average <span
+class="math inline">\bar{x}_1 = \sum_{j=1}^m x_j/m</span> is the best
+representation of location.</p>
 </body>
 </html>
