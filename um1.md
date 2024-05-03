@@ -199,27 +199,31 @@ we only know it can occur any time after that.
 [^2]: This is a very simplified model.
 
 The cash flows for a risky bond $D^{T,R}(u)$ are 1 at time $u$ if $T > t$
-and $RD(T)$ at time $T$ if $T \le t$. For the model to be arbitrage-free we must have
+and $RD_T$ at time $T$ if $T \le t$. For the model to be arbitrage-free we must have
 $$
 D_t^{R,T}(u) D_t = \bigl(1(T > u)D_u + 1(T\le u)R D_T\bigr)|\AA_t.
-$$
-If the deflators are independent of the stopping time and recovery is $RD(T,u)$ at $T\le u$
-for some constant $R$ then
-using $D_T(u)D_T = D_u|\AA_t$ for $T \le u$ we have
-$$
-	D_t^{T,R}(u) D_t P(T > t) = \bigl(P(T > u) + R P(t < T \le u)\bigr)D_u|\AA_t.
 $$
 The _credit spread_ $\lambda_t^{T,R}(u)$ is defined by
 ${D_t^{T,R}(u) = D_t(u)\exp(-\lambda_t^{T,R}(u) (u - t))}$.
 Note if $T = \infty$ or $R = 1$ then the credit spread is zero.
+
+If the deflators are independent of the stopping time and recovery is $RD_T(u)$ at $T\le u$
+for some constant $R$ then
+using $D_T(u)D_T = D_u|\AA_t$ for $T \le u$ we have
+$$
+	D_t^{T,R}(u) D_t P(T > t) = \bigl(P(T > u) + R P(t < T \le u)\bigr)D_u|\AA_t
+$$
+and the credit spread is
+$$
+	\lambda_t^{T,R}(u) = -\frac{\log(P(T > u) + R P(t < T \le u))}{u - t}.
+$$
+
 
 
 <!--
 ### Binomial Model
 
 Let $W_n$ be (symmetric) random walk. The model for bond and stock is
-the martingale $M_n = (R_n, S_n)$ where $R_n = r$ and $S_n = s\exp(\sigma W_n)/\cosh^n(\sigma))$
-and the deflator $D_n = 1$ assumes zero interest rate.
 
 $V_0 = E[\nu(S_n)]$
 
