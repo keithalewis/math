@@ -51,21 +51,18 @@ $\Omega$ and $X\colon\Omega\to\RR$ is a random variable then conditional
 expectation $Y = E[X|\AA]$ is equivalent to restriction of measure $Y(P|A)
 = (XP)|\AA$.
 
-The _norm_ of $X\colon\Omega\to\RR$
-is $\|X\| = \sup_{\omega\in\Omega} \|X(\omega)\|$.
-
 ### Market
 
-_Price_ -- $X_t\colon\underline{\AA}_t\to\RR^I$
+_Price_ -- $X_t\colon[\AA_t]\to\RR^I$
 market prices assuming perfect liquidity.
 
-_Cash flow_ -- $C_t\colon\underline{\AA}_t\to\RR^I$
+_Cash flow_ -- $C_t\colon[\AA_t]\to\RR^I$
 dividends, coupons, margin adjustments for futures.
 
 ### Trading
 
 _Trading Strategy_ -- $\tau_0 < \cdots < \tau_n$ stopping times
-and trades $\Gamma_j\colon\underline{\AA}_{\tau_j}\to\RR^I$
+and trades $\Gamma_j\colon[\AA_{\tau_j}]\to\RR^I$
 
 _Position_ -- $\Delta_t = \sum_{\tau_j < t}\Gamma_j = \sum_{s < t} \Gamma_s$
 accumulate trades _not_ including last trades.
@@ -116,7 +113,7 @@ a "perfect hedge" exists[^1].
 
 [^1]: Perfect hedges never exist.
 
-Note $V_t D_t= (\sum_{\tau_j > t} \overline{A}_j D_{\overline{\tau_j}})|\AA_t$
+Note $V_t D_t= (\sum_{\tau_j > t} \overline{A}_j D_{\overline{\tau}_j})|\AA_t$
 can be computed from the derivative contract specification and the deflators $D_t$.
 Since we also have $V_t = (\Delta_t + \Gamma_t)\cdot X_t$
 the Frechet derivative $D_{X_t}V_t$
@@ -180,10 +177,12 @@ $$
 $$
 
 A _swap_ is a collection of back-to-back forward rate agreements involving times $(t_j)$.
-The _swap par coupon_ makes the price 0 at time $t$ so
+The _swap par coupon_ making the price 0 at time $t$ is
 $$
 	F_t^\delta(t_0,\dots,t_n) = \frac{D_t(t_0) - D_t(t_n)}{\sum_{j=1}^n\delta(t_{j-1},t_j)D_t(t_j)}.
 $$
+
+__Exercise__. _Show if $n = 2$ the swap par coupon is the same as the par forward coupon_.
 
 [^3]: The _day count fraction_ $\delta(u, v)$ is approximately $v - u$ in years.
 
