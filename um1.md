@@ -18,11 +18,12 @@ processes, but are not necessarily an expert.  We provide a mathematically
 rigorous model that extends [@Ros1978] without involving the Hahn-Banach theorem.
 It also does not involve probability measures, sigma algebras, Brownian
 motion, the Ito formula, or partial differential equations.
-As Ross pointed out, the Fundamental Theorem of Asset Pricing involves only geometry, not probability.
+As Ross observed, the Fundamental Theorem of Asset Pricing involves only geometry, not probability.
 The Unified Model can be used for any set of instruments to value,
 hedge, and understand how poorly risk-neutral pricing can be used for
 managing risk. It does not provide a solution, only an initial
 framework for further research. 
+For proofs and more details see [Unified Model](um.html).
 
 ## Unified Model
 
