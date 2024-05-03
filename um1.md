@@ -16,7 +16,10 @@ abstract: Value, hedge, and manage the risk of instruments
 This note assumes you are familiar with measure theory and stochastic
 processes, but are not necessarily an expert.  We provide a mathematically
 rigorous model that extends [@Ros1978] without involving the Hahn-Banach theorem.
-The Unified Model can be used on any set of instruments to value,
+It also does not involve probability measures, sigma algebras, Brownian
+motion, the Ito formula, or partial differential equations.
+As Ross pointed out, the Fundamental Theorem of Asset Pricing involves only geometry, not probability.
+The Unified Model can be used for any set of instruments to value,
 hedge, and understand how poorly risk-neutral pricing can be used for
 managing risk. It does not provide a solution, only an initial
 framework for further research. 
@@ -28,22 +31,27 @@ instruments, $\Omega$ the sample space of possible outcomes, and
 $(\AA_t)_{t\in T}$ be algebras of sets on $\Omega$ indicating the
 information available at each trading time.
 
+### Preliminaries
+
 If $\AA$ is a finite algebra of sets on $\Omega$ then
-the _atoms_ of $\AA$, $\underline{\AA}$, form a partition of $\Omega$.
+$[\omega] = \cap\{A\in\AA\mid\omega\in\AA\}$ is the _atom_ of $\AA$ containing $\omega\in\Omega$.
+
+__Exercise__. _If $B\subseteq[\omega]$ and $B\in\AA$ then
+$B = \emptyset$ or $B = [\omega]$_.
+
+__Exercise__. _The atoms of $\AA$, $[\AA]$, form a partition of $\Omega$_.
+
 A function $X\colon\Omega\to\RR$ is $\AA$ measurable if and
 only if it is constant on atoms of $\AA$
-so $X\colon\underline{\AA}\to\RR$ _is_ a function.
+so $X\colon[\AA]\to\RR$ _is_ a function.
 
-If $P$ is a probability measure on $\Omega$ and
-$X\colon\Omega\to\RR$ is a random variable then
-conditional expectation $Y = E[X|\AA]$ is equivalent
-to restriction of measure $Y(P|A) = (XP)|\AA$.
+If $P$ is a positive measure with mass 1, aka a probability measure, on
+$\Omega$ and $X\colon\Omega\to\RR$ is a random variable then conditional
+expectation $Y = E[X|\AA]$ is equivalent to restriction of measure $Y(P|A)
+= (XP)|\AA$.
 
-The vector space $\RR^I$ is the set of all functions from $I$ to $\RR$.
-The _norm_ of $x\in\RR^I$ is defined by ${\|x\|^2 = \sum_{i\in I} x_i^2}$.
 The _norm_ of $X\colon\Omega\to\RR$
 is $\|X\| = \sup_{\omega\in\Omega} \|X(\omega)\|$.
-
 
 ### Market
 
