@@ -42,13 +42,17 @@ $B = \emptyset$ or $B = [\omega]$_.
 
 __Exercise__. _The atoms of $\AA$, $[\AA]$, form a partition of $\Omega$_.
 
+A partition represents partial information. Complete information is knowing
+$\omega\in\Omega$. Partial information is knowing only which atom of
+the partition $\omega$ belongs to.
+
 A function $X\colon\Omega\to\RR$ is $\AA$ measurable if and
 only if it is constant on atoms of $\AA$
 so $X\colon[\AA]\to\RR$ _is_ a function.
 
 If $P$ is a positive measure with mass 1, aka a probability measure, on
 $\Omega$ and $X\colon\Omega\to\RR$ is a random variable then conditional
-expectation $Y = E[X|\AA]$ is equivalent to restriction of measure $Y(P|A)
+expectation $Y = E[X|\AA]$ is equivalent to restriction of measure $Y(P|\AA)
 = (XP)|\AA$.
 
 ### Market
