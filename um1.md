@@ -136,7 +136,7 @@ The notion of "continuous time" hedging is a mathematical myth.
 
 ### Black-Scholes/Merton
 
-The Black-Scholes/Merton model uses $M_t = (r, s\exp(\sigma B_t - \sigma^2t/2)P$,
+The Black-Scholes/Merton model uses $M_t = (r, s\exp(\sigma B_t - \sigma^2t/2))P$,
 where $B_t$ is Brownian motion, $P$ is Wiener measure, and the deflator
 is $D_t = \exp(-\rho t)P$.
 
@@ -213,7 +213,7 @@ Note if $T = \infty$ or $R = 1$ then the credit spread is zero.
 
 If the deflators are independent of the stopping time and recovery is $RD_T(u)$ at $T\le u$
 for some constant $R$ then
-using $D_T(u)D_T = D_u|\AA_t$ for $T \le u$ we have
+using $D_T(u)D_T = D_u|\AA_T$ for $T \le u$ we have
 $$
 	D_t^{T,R}(u) D_t P(T > t) = \bigl(P(T > u) + R P(t < T \le u)\bigr)D_u|\AA_t
 $$
