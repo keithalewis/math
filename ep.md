@@ -1,12 +1,16 @@
 ---
 title: Efficient Portfolios
 author: Keith A. Lewis
-institute: KALX, LLC
+institute: New York University
 classoption: fleqn
 fleqn: true
-abstract: The Capital Asset Pricing Model holds as equality of random variables, not just their expected values.
+keywords: mean-variance, CAPM, risk
+abstract: |
+	The Capital Asset Pricing Model holds for any distribution of returns as
+	equality of random variables, not just their expected values.
 thanks: |
-	Kevin Atteson, Peter Carr, Arnav Sheth, David Shimko, Leon Tatavosian, and Ed Weinberger gave insightful feedback to
+	Kevin Atteson, Peter Carr, Arnav Sheth, David Shimko, Leon Tatavossian,
+	and Ed Weinberger gave insightful feedback to
 	make the exposition more accessible to finance practitioners.
 	Any infelicities or omissions are my fault.
 ---
@@ -149,7 +153,7 @@ return then the model has redundant assets.
 ## Appendix
 
 We use the notation $\xi^*$ for what is usually denoted
-by the transpose $\xi^T$ or $x'$.  It is simpler and more illuminating to work with abstract
+by the transpose $\xi^T$ or $\xi'$.  It is simpler and more illuminating to work with abstract
 vector spaces and linear operators between them
 than with $\RR^n$ and matrices. Matrix multiplication is just composition of linear operators.
 

@@ -64,7 +64,7 @@ slides: um_slides.md
 	pandoc -o um_slides.pptx um_slides.md
 
 ep.pdf: ep.md
-	pandoc $< $(TEXFLAGS) --citeproc --bibliography=capm.bib -o $@
+	pandoc -f yaml_metadata_block+pandoc_title_block $< $(TEXFLAGS) --citeproc --bibliography=capm.bib -o $@
 
 #ep.pdf: ep.latex
 #	xetex ep.latex
