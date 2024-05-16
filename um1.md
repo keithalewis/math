@@ -122,14 +122,16 @@ can be computed from the derivative contract specification and the deflators $D_
 Since we also have $V_t = (\Delta_t + \Gamma_t)\cdot X_t$
 the Frechet derivative $D_{X_t}V_t$
 of option value with respect to $X_t$
-is $\Delta_t + \Gamma_t$.
+is $\Delta_t + \Gamma_t = \Delta_{t + \epsilon}$ for sufficiently small $\epsilon$.
 
 If time $T = \{t_j\}$ is discrete we can compute a possible hedge at each time,
 $\Gamma_j = D_{X_j}V_j - \Delta_j$, since $\Delta_j$ is known at $t_{j-1}$.
 In general this hedge will not exactly replicate the derivative contract obligation.
 
-Note the Unified Model does not require Ito's formula, much less a proof
-involving partial differential equations and change of measure. One
+Note delta hedging drops out naturally from the Unified Model, however it
+does not require Ito's formula, much less a proof
+involving partial differential equations and changing to a measure that
+is immediately discarded. One
 simply writes down a martingale and deflator then uses equation (2)
 to value, hedge, and manage the risk of realistic trading strategies.
 The notion of "continuous time" hedging is a mathematical myth.
@@ -207,9 +209,7 @@ and $RD_T$ at time $T$ if $T \le t$. For the model to be arbitrage-free we must 
 $$
 D_t^{R,T}(u) D_t = \bigl(1(T > u)D_u + 1(T\le u)R D_T\bigr)|\AA_t.
 $$
-The _credit spread_ $\lambda_t^{T,R}(u)$ is defined by
-${D_t^{T,R}(u) = D_t(u)\exp(-\lambda_t^{T,R}(u) (u - t))}$.
-Note if $T = \infty$ or $R = 1$ then the credit spread is zero.
+Note if $T = \infty$ or $R = 1$ then ${D_t^{R,T}(u) = D_t(u)}$.
 
 If the deflators are independent of the stopping time and recovery is $RD_T(u)$ at $T\le u$
 for some constant $R$ then
@@ -217,7 +217,9 @@ using $D_T(u)D_T = D_u|\AA_T$ for $T \le u$ we have
 $$
 	D_t^{T,R}(u) D_t P(T > t) = \bigl(P(T > u) + R P(t < T \le u)\bigr)D_u|\AA_t
 $$
-and the credit spread is
+The _credit spread_ $\lambda_t^{T,R}(u)$ is defined by
+${D_t^{T,R}(u) = D_t(u)\exp(-\lambda_t^{T,R}(u) (u - t))}$.
+In the above case
 $$
 	\lambda_t^{T,R}(u) = -\frac{\log(P(T > u) + R P(t < T \le u))}{u - t}.
 $$
