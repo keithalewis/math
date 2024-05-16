@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-05-16" />
+  <title>Unified Finance</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Unified Finance</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">May 16, 2024</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Unified Finance – holding, exchange, portfolios, trading
+</div>
+</header>
+<p>amount – <span class="math inline">A</span>: number of shares</p>
+<p>instrument – <span class="math inline">I</span>: all market
+instruments</p>
+<p>owner – <span class="math inline">O</span>: legal entities holding
+instruments</p>
+<p>holding – <span class="math inline">h = (a, i, o) \in H = A\times
+I\times O</span>.</p>
+<p>time – <span class="math inline">T</span>: trading times</p>
+<p>exchange – <span class="math inline">\chi = (t,h,h&#39;)</span>: at
+time <span class="math inline">t\in T</span> buyer exchanges amount and
+instrument of <span class="math inline">h</span> with seller amount and
+instrument of <span class="math inline">h&#39;</span>, <span
+class="math inline">{(t;a,i,o;a&#39;,i&#39;,o&#39;) \mapsto (t+\Delta
+t;a&#39;,i&#39;,o;a,i,o&#39;)}</span> where <span class="math inline">t
++ \Delta t</span> is settlement time.</p>
+<p>price – Price of exchange <span
+class="math inline">(a,i;a&#39;,i&#39;)\mapsto
+(a&#39;,i&#39;;a,i)</span> is <span class="math inline">X^i_{i&#39;} =
+a/a&#39;</span>. If seller quotes price <span
+class="math inline">X^i_{i&#39;}</span> then buyers can exchange <span
+class="math inline">(a&#39;X^i_{i&#39;}, i)</span> for sellers <span
+class="math inline">(a&#39;,i&#39;)</span>.</p>
+<p>portfolio – Any set of holdings.</p>
+<p>value – (mark-to-market) net amount given instrument and owner, <span
+class="math inline">{V(i,o) = \sum_a\{a\mid h = (a, i, o)\}}</span>. If
+<span class="math inline">X^i_{i_0}</span> is the price of <span
+class="math inline">i</span> in units of numeraire <span
+class="math inline">i_0</span> and <span
+class="math inline">X^{i_0}_{i_0} = 1</span>, then the mark-to-market of
+an owner is <span class="math inline">{V(o) = \sum_{a,i} \{ aX^i_{i_0}
+\mid h = (a, i, o)\}}</span> in units of the numeraire.</p>
+<p>trading – times <span class="math inline">t_j</span> and pair of
+holdings <span class="math inline">h_j</span>, <span
+class="math inline">h_j&#39;</span>.</p>
+<p>transaction – collection of related exchanges. E.g., broker fees,
+taxes.</p>
+</body>
+</html>
