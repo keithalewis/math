@@ -207,7 +207,7 @@ $$
 		&= \xi^*T\xi + \xi^*Th + \xi^*T^*h + o(\|h\|). \\
 \end{aligned}
 $$
-This shows $DF(\xi) = \xi^*(T + T^*)$.
+This shows $DF(\xi) = \xi^*(T + T^*)$ so $DF(\xi) = \xi^* 2T$ if $T* = T$.
 
 ### Lagrange Multiplier
 
