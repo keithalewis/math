@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-05-03" />
+  <meta name="dcterms.date" content="2024-05-16" />
   <title>Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,7 +67,7 @@
 <header id="title-block-header">
 <h1 class="title">Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 3, 2024</p>
+<p class="date">May 16, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of instruments
@@ -211,22 +211,25 @@ computed from the derivative contract specification and the deflators
 class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span> the
 Frechet derivative <span class="math inline">D_{X_t}V_t</span> of option
 value with respect to <span class="math inline">X_t</span> is <span
-class="math inline">\Delta_t + \Gamma_t</span>.</p>
+class="math inline">\Delta_t + \Gamma_t = \Delta_{t + \epsilon}</span>
+for sufficiently small <span class="math inline">\epsilon</span>.</p>
 <p>If time <span class="math inline">T = \{t_j\}</span> is discrete we
 can compute a possible hedge at each time, <span
 class="math inline">\Gamma_j = D_{X_j}V_j - \Delta_j</span>, since <span
 class="math inline">\Delta_j</span> is known at <span
 class="math inline">t_{j-1}</span>. In general this hedge will not
 exactly replicate the derivative contract obligation.</p>
-<p>Note the Unified Model does not require Ito’s formula, much less a
-proof involving partial differential equations and change of measure.
-One simply writes down a martingale and deflator then uses equation (2)
-to value, hedge, and manage the risk of realistic trading strategies.
-The notion of “continuous time” hedging is a mathematical myth.</p>
+<p>Note delta hedging drops out naturally from the Unified Model,
+however it does not require Ito’s formula, much less a proof involving
+partial differential equations and changing to a measure that is
+immediately discarded. One simply writes down a martingale and deflator
+then uses equation (2) to value, hedge, and manage the risk of realistic
+trading strategies. The notion of “continuous time” hedging is a
+mathematical myth.</p>
 <section id="black-scholesmerton" class="level3">
 <h3>Black-Scholes/Merton</h3>
 <p>The Black-Scholes/Merton model uses <span class="math inline">M_t =
-(r, s\exp(\sigma B_t - \sigma^2t/2)P</span>, where <span
+(r, s\exp(\sigma B_t - \sigma^2t/2))P</span>, where <span
 class="math inline">B_t</span> is Brownian motion, <span
 class="math inline">P</span> is Wiener measure, and the deflator is
 <span class="math inline">D_t = \exp(-\rho t)P</span>.</p>
@@ -327,21 +330,21 @@ t</span>. For the model to be arbitrage-free we must have <span
 class="math display">
 D_t^{R,T}(u) D_t = \bigl(1(T &gt; u)D_u + 1(T\le u)R
 D_T\bigr)|{\mathcal{A}}_t.
-</span> The <em>credit spread</em> <span
-class="math inline">\lambda_t^{T,R}(u)</span> is defined by <span
-class="math inline">{D_t^{T,R}(u) = D_t(u)\exp(-\lambda_t^{T,R}(u) (u -
-t))}</span>. Note if <span class="math inline">T = \infty</span> or
-<span class="math inline">R = 1</span> then the credit spread is
-zero.</p>
+</span> Note if <span class="math inline">T = \infty</span> or <span
+class="math inline">R = 1</span> then <span
+class="math inline">{D_t^{R,T}(u) = D_t(u)}</span>.</p>
 <p>If the deflators are independent of the stopping time and recovery is
 <span class="math inline">RD_T(u)</span> at <span
 class="math inline">T\le u</span> for some constant <span
 class="math inline">R</span> then using <span
-class="math inline">D_T(u)D_T = D_u|{\mathcal{A}}_t</span> for <span
+class="math inline">D_T(u)D_T = D_u|{\mathcal{A}}_T</span> for <span
 class="math inline">T \le u</span> we have <span class="math display">
     D_t^{T,R}(u) D_t P(T &gt; t) = \bigl(P(T &gt; u) + R P(t &lt; T \le
 u)\bigr)D_u|{\mathcal{A}}_t
-</span> and the credit spread is <span class="math display">
+</span> The <em>credit spread</em> <span
+class="math inline">\lambda_t^{T,R}(u)</span> is defined by <span
+class="math inline">{D_t^{T,R}(u) = D_t(u)\exp(-\lambda_t^{T,R}(u) (u -
+t))}</span>. In the above case <span class="math display">
     \lambda_t^{T,R}(u) = -\frac{\log(P(T &gt; u) + R P(t &lt; T \le
 u))}{u - t}.
 </span></p>
