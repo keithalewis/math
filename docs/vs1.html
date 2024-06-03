@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-06-03" />
+  <title>Vector Space</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Vector Space</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">June 3, 2024</p>
+</header>
+<p>If <span class="math inline">A</span> and <span
+class="math inline">B</span> are sets, the <em>set exponential</em>
+<span class="math inline">B^A = \{f\colon A\to B\}</span> is the set of
+all functions from <span class="math inline">A</span> to <span
+class="math inline">B</span>.</p>
+<section id="vector-space" class="level2">
+<h2>Vector Space</h2>
+<p>Every vector space has the form <span
+class="math inline">\bm{R}^I</span> where <span
+class="math inline">\bm{R}</span> is the real numbers and <span
+class="math inline">I</span> is a set. <em>Scalar multiplicaton</em> and
+<em>vector addition</em> are defined pointwise. For <span
+class="math inline">a\in\bm{R}</span>, and <span
+class="math inline">x,y\in\bm{R}^I</span> define <span
+class="math inline">{(ax)(i) = a(x(i))}</span> and <span
+class="math inline">{(x + y)(i) = x(i) + y(i)}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">I =
+\{1,\ldots,n\}</span> then we can identify <span
+class="math inline">\bm{R}^I</span> with <span
+class="math inline">\bm{R}^n = \{(x_1, \ldots, x_n)\mid
+x_i\in\bm{R}\}</span></em>.</p>
+<p><em>Hint</em>. <span class="math inline">x(i) = x_i</span>, <span
+class="math inline">i\in I</span>.</p>
+<!-- ...vs axioms... $x + x = x$. 0x = 0, 1x = x -->
+<section id="dot-product" class="level3">
+<h3>Dot Product</h3>
+<p>If <span class="math inline">I</span> is finite define the <em>dot
+product</em> <span class="math inline">x\cdot y = \sum_{i\in I} x_i
+y_i</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(ax +
+y)\cdot z = a(x\cdot z) + y\cdot z</span>, <span
+class="math inline">a\in\bm{R}</span>, <span
+class="math inline">x,y,z\in\bm{R}^I</span></em>.</p>
+</section>
+<section id="norm" class="level3">
+<h3>Norm</h3>
+<p>Define the <em>norm</em> <span class="math inline">\|x\|</span> by
+<span class="math inline">\|x\|^2 = x\cdot x</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\|ax\|
+= |a|\|x\|</span> and <span class="math inline">\|x + y\|\le\|x\| +
+\|y\|</span>, <span class="math inline">a\in\bm{R}</span>, <span
+class="math inline">x,y\in\bm{R}^I</span></em>.</p>
+<p><strong>Exercise</strong>. (Cauchy-Schwartz) <em>Show <span
+class="math inline">|x\cdot y|\le\|x\|\|y\|</span>, <span
+class="math inline">x,y\in\bm{R}^I</span></em>.</p>
+<p><em>Hint</em>: Find <span class="math inline">t\in\bm{R}</span>
+minimizing <span class="math inline">\|tx + y\|^2</span> .</p>
+</section>
+</section>
+<section id="canonical-basis" class="level2">
+<h2>Canonical Basis</h2>
+<p>For <span class="math inline">i\in I</span> define <span
+class="math inline">e_i\in\bm{R}^I</span> by <span
+class="math inline">e_i(j) = 1</span> if <span class="math inline">i =
+j</span> and <span class="math inline">e_i(j) = 0</span> if <span
+class="math inline">i\not=j</span>, <span class="math inline">j\in
+I</span>. This can also be written <span class="math inline">e_i(j) =
+\delta_{ij}</span> using the Kronecker delta.</p>
+<p><strong>Exercise</strong>. <em>Show for <span
+class="math inline">x\in\bm{R}^I</span> that <span class="math inline">x
+= \sum_{i\in I} x(i)e_i</span></em>.</p>
+<p><em>Hint</em>. Compute <span class="math inline">x(j)</span> for
+<span class="math inline">j\in I</span>.</p>
+</section>
+<section id="linear-transformation" class="level2">
+<h2>Linear Transformation</h2>
+<p>If <span class="math inline">\bm{R}^I</span> and <span
+class="math inline">\bm{R}^J</span> are vector spaces a <em>linear
+transformation</em> is a function <span class="math inline">T\colon
+\bm{R}^I\to \bm{R}^J</span> with <span class="math inline">{T(ax + y) =
+aTx + y}</span> for <span class="math inline">{a\in\bm{R}}</span>, and
+<span class="math inline">{x,y\in\bm{R}^I}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">T(ax) =
+aTx</span> and <span class="math inline">T(x + y) = Tx + Ty</span>,
+<span class="math inline">a\in\bm{R}</span>, <span
+class="math inline">x,y\in\bm{R}^I</span></em>.</p>
+<p><em>Hint</em>. Take <span class="math inline">y = 0</span> and <span
+class="math inline">a = 1</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">T0 =
+0</span> if <span class="math inline">T</span> is a linear
+transformation</em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">T(0 + 0) = T0 +
+T0</span> and <span class="math inline">x + x = x</span> implies <span
+class="math inline">x = 0</span>.</p>
+<p>For <span class="math inline">e_i\in\bm{R}^I</span> we have <span
+class="math inline">Te_i\in\bm{R}^J</span> so there are <span
+class="math inline">t_{ij}\in\bm{R}</span> with <span
+class="math inline">e_i = \sum_j t_{ij}e_j</span>. We call <span
+class="math inline">[t_{ij}]_{i\in I, j\in J}</span> the <em>matrix</em>
+of <span class="math inline">T</span>.</p>
+<p>If <span class="math inline">S\colon\bm{R}^J\to\bm{R}^K</span> is a
+linear transformation then <span
+class="math inline">ST\colon\bm{R}^I\to\bm{R}^K</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">ST</span> is linear</em>.</p>
+<p><em>Hint</em>: <span class="math inline">(ST)(a x + y) = S(T(ax + y))
+= \cdots</span></p>
+<p><strong>Exercise</strong>. <em>Show the <span
+class="math inline">i,k</span> entry of the matrix of <span
+class="math inline">ST</span> is <span class="math inline">\sum_{j\in
+J}t_{ij}s_{jk}</span>, <span class="math inline">i\in I</span>, <span
+class="math inline">k\in K</span></em>.</p>
+<p>The set of all linear transformations from <span
+class="math inline">V</span> to <span class="math inline">W</span> is
+denoted <span class="math inline">\mathcal{L}(V,W)</span>. It is also a
+vector space with scalar multiplication <span class="math inline">(aT)x
+= a(Tx)</span> and vector addition <span class="math inline">(S + T)x =
+Sx + Tx</span>. Composition is an associative product making <span
+class="math inline">\mathcal{L}(V,W)</span> a non-commutative
+<em>algebra</em>.</p>
+</section>
+<section id="dual-space" class="level2">
+<h2>Dual Space</h2>
+<p>The dual of a vector space <span class="math inline">V</span> is
+<span class="math inline">V^* = \mathcal{L}(V,\bm{R})</span>. If <span
+class="math inline">\xi^*\colon\bm{R}^I\to\bm{R}</span> is a <em>linear
+functional</em> define <span class="math inline">\xi\in\bm{R}^I</span>
+by <span class="math inline">\xi_i = \xi^*(e_i)</span>, <span
+class="math inline">i\in I</span>. This provides a map <span
+class="math inline">*\colon(\bm{R}^I)^*\to\bm{R}^I</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\xi^*(x) = \xi\cdot x</span>, <span
+class="math inline">\xi^*\in(\bm{R}^I)^*</span>, <span
+class="math inline">x\in\bm{R}^I</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show this map is linear, one-to-one,
+and onto</em>.</p>
+<p>If <span class="math inline">T\in\mathcal{L}(V,W)</span> define the
+<em>adjoint</em> <span
+class="math inline">T^*\in\mathcal{L}(W^*,V^*)</span> by <span
+class="math inline">(T^*w^*)v = w^*(Tv)</span>, <span
+class="math inline">w^*\in W^*</span>, <span class="math inline">v\in
+V</span>.</p>
+</section>
+</body>
+</html>

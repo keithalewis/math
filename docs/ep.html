@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-05-16" />
+  <meta name="dcterms.date" content="2024-06-03" />
   <meta name="keywords" content="mean-variance, CAPM, risk" />
   <title>Efficient Portfolios</title>
   <style>
@@ -68,7 +68,7 @@
 <header id="title-block-header">
 <h1 class="title">Efficient Portfolios</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 16, 2024</p>
+<p class="date">June 3, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 <p>The Capital Asset Pricing Model holds for any distribution of returns
@@ -312,7 +312,8 @@ class="math display">
         &amp;= \xi^*T\xi + \xi^*Th + \xi^*T^*h + o(\|h\|). \\
 \end{aligned}
 </span> This shows <span class="math inline">DF(\xi) = \xi^*(T +
-T^*)</span>.</p>
+T^*)</span> so <span class="math inline">DF(\xi) = \xi^* 2T</span> if
+<span class="math inline">T* = T</span>.</p>
 </section>
 <section id="lagrange-multiplier" class="level3">
 <h3>Lagrange Multiplier</h3>

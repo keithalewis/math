@@ -11,7 +11,7 @@ body {
 body {
     max-width: 40em;
 	word-wrap: break-word;
-    text-align: justify;
+    /*text-align: justify;*/
 	padding: 4em 10em; 
 	font-size: 110%; 
 	font-weight: 400; 

@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="dcterms.date" content="2024-06-03" />
-  <title>eps</title>
+  <title>Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -43,30 +43,28 @@
   href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
-<section id="epsilon" class="level1">
-<h1>Epsilon</h1>
-<p><span class="math inline">f(x + a\epsilon) = \sum_{n=0}^\infty
-f^{(n)}(x_0)a^n\epsilon^n/n!</span>.</p>
-<p><span class="math display">
-\begin{aligned}
-f(x + a\epsilon + b\epsilon^2)
-&amp;= f(x + (a + b\epsilon)\epsilon) \\
-&amp;= \sum_{n=0}^\infty f^{(n)}(x)(a + b\epsilon)^n\epsilon^n/n! \\
-&amp;= \sum_{n=0}^\infty f^{(n)}(x) (\sum_{k=0}^n\binom{n}{k} a^{n-k}
-b^k\epsilon^k)\epsilon^n/n!\\
-&amp;= \sum_{k=0}^\infty \sum_{n=k}^\infty f^{(n)}(x) (\binom{n}{k}
-a^{n-k} b^k\epsilon^k)\epsilon^n/n!\\
-&amp;= \sum_{k=0}^\infty \sum_{n=0}^\infty f^{(n+k)}(x) (\binom{n+k}{k}
-a^n b^k\epsilon^k)\epsilon^{n + k}/(n + k)!\\
-&amp;= \sum_{k=0}^\infty b^k\epsilon^{2k} \sum_{n=0}^\infty f^{(n+k)}(x)
-(\binom{n+k}{k} a^n)\epsilon^n/(n + k)!\\
-&amp;= \sum_{k=0}^\infty b^k\epsilon^{2k}/k! \sum_{n=0}^\infty
-f^{(n+k)}(x) a^n\epsilon^n/n!\\
-&amp;= \sum_{k=0}^\infty b^k\epsilon^{2k}/k! d^k/dx^k \sum_{n=0}^\infty
-f^{(n)}(x) a^n\epsilon^n/n!\\
-&amp;= \sum_{k=0}^\infty b^k\epsilon^{2k}/k! d^k/dx^k f(x + a\epsilon)\\
-\end{aligned}
-</span></p>
-</section>
+<header id="title-block-header">
+<h1 class="title">Unified Model</h1>
+<p class="date">June 3, 2024</p>
+</header>
+<p>As a fledgling quant at Bankers Trust in the 90’s, a trader came to
+me with an idea for a new product. He wanted to value a barrier option
+that knocked in/out the second time the underlying hit the barrier
+instead of the first time. Robert Merton showed how to price barrier
+options in … and I was familiar with his result. It used the reflection
+principle of Brownian motion. I learned about Brownian motion from Ito
+and McKean… Infinite oscillatory behavior. Fefferman’s proof the dual of
+<span class="math inline">H^1</span> is <span
+class="math inline">BMO</span>. <span class="math inline">H^1_0(D) =
+BMOA(D)</span>.</p>
+<p>Modeling stock price as geometric Brownian motion and assuming
+continuous time trading stunted growth.</p>
+<p>It can’t answer questions a junior trader has the first day on the
+job. What vol do I use?</p>
+<p>It can’t answer questions a junior trader has the second day on the
+job. When should I rehedge?</p>
+<p>Market instruments have prices and cash flows.</p>
+<p>Trades happen at discrete times.</p>
+<p>How well does a trading strategy replicate derivative payoffs?</p>
 </body>
 </html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-06-03" />
+  <title>Atomic Finance</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Atomic Finance</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">June 3, 2024</p>
+</header>
+<p>There is an inevitable trajectory in the financial world toward more
+data, faster calculations, and increasing complexity.</p>
+<p>The atoms of finance are holdings: an amount, instrument, and the
+owner of the holding. Holding an instrument often entails auxiliary cash
+flows for the owner. A buyer can exchange the amount and instrument of
+their holding with that of a seller. The price of the exchange is the
+ratio of buyer amount to seller amount. A portfolio is a collection of
+holdings. Portfolios evolve over time via exchanges. A transaction is a
+collection of associated exchanges.</p>
+<section id="holding" class="level2">
+<h2>Holding</h2>
+<p>Let <span class="math inline">I</span> be the set of all market
+instruments and <span class="math inline">O</span> the set of all
+(potential) instrument owners. A <em>holding</em> is a triple <span
+class="math display">
+    h = (a, i, o)
+</span> where <span class="math inline">i\in I</span> is an instrument,
+<span class="math inline">o\in O</span> is the instrument owner, and
+<span class="math inline">a\in\bm{Z}</span> is the amount as an integer
+multiple of the minimal trading increment of the instrument. Holdings
+can entail cash flows such as, stock dividends, bond coupons, futures
+margin adjustments, broker fees, and taxes.</p>
+</section>
+<section id="exchange" class="level2">
+<h2>Exchange</h2>
+<p>Let <span class="math inline">T</span> be the set of all trading
+times. Holdings interact via an <em>exchange</em>: a triple <span
+class="math display">
+    \chi = (t, h, h&#39;)
+</span> where <span class="math inline">t\in T</span>, <span
+class="math inline">h = (a,i,o)</span> is the <em>buyer</em> holding,
+and <span class="math inline">h&#39;=(a&#39;,i&#39;,o&#39;)</span> is
+the <em>seller</em> holding. The <em>price</em> of an exchange is <span
+class="math inline">X = X_{i&#39;}^i = a/a&#39;</span>. Sellers quote a
+price <span class="math inline">X</span> and buyers decide if they want
+to trade at time <span class="math inline">t</span> amount <span
+class="math inline">a&#39;X</span> of instrument <span
+class="math inline">i</span> they hold for amount <span
+class="math inline">a&#39;</span> of instrument <span
+class="math inline">i&#39;</span> the seller holds. An instrument is
+<em>fungible</em> if <span class="math inline">(a, i, o)</span> can be
+split into <span class="math inline">(b, i, o)</span> and <span
+class="math inline">(a - b, i, o)</span> when <span
+class="math inline">0 &lt; b &lt; a</span>. Cash is fungible. An
+instrument is a <em>numeraire</em> if it has no cash flows. Cash is a
+numeraire.</p>
+<p>For example, if a buyer holds 8 dollars and a seller holds 2 shares
+of Ford stock and quotes a price of 4 dollars per share then the buyer
+can acquire two shares of F for <span class="math inline">8</span>
+dollars. If the buyer wants to short two shares of Ford the seller will
+most like quote a price higher than <span class="math inline">4</span>
+per share.</p>
+</section>
+<section id="portfolio" class="level2">
+<h2>Portfolio</h2>
+<p>A <em>portfolio</em> is a collection of holdings. Exchanges act on
+portfolios. A portfolio <span
+class="math inline">{\{\ldots,(a,i,o),\ldots,(a&#39;,i&#39;,o&#39;),
+\ldots\}}</span> at time <span class="math inline">t</span> becomes
+<span
+class="math inline">{\{\ldots,(a&#39;,i&#39;,o),\ldots,(a,i,o&#39;),
+\ldots\}}</span> after the exchange <span class="math inline">\chi =
+(t,h,h&#39;)</span> at time <span class="math inline">t</span> settles.
+<span class="math display">
+    \{\ldots,(a,i,o),\ldots,(a&#39;,i&#39;,o&#39;),
+\ldots\}\overset{\chi}{\to}\{\ldots,(a&#39;,i&#39;,o),\ldots,(a,i,o&#39;),
+\ldots\}
+</span></p>
+<p>A <em>transaction</em> is a set of related exchanges, for example an
+exchange may involve a broker fee or tax payment.</p>
+</section>
+<section id="value" class="level2">
+<h2>Value</h2>
+<p>Given a portfolio the <em>value</em> of instrument <span
+class="math inline">i</span> held by owner <span
+class="math inline">o</span> is <span class="math display">
+    N(o, i) = \sum_h \{a\mid h = (a, i, o)\}
+</span> for <span class="math inline">h</span> in the portfolio.</p>
+<p>The <em>mark-to-market</em> of a position in a cash numeraire <span
+class="math inline">i_0</span> requires specifying putative prices <span
+class="math inline">X^i_{i_0}</span> for <span class="math inline">i\in
+I</span>. make imaginary exchanges of <span
+class="math inline">(a&#39;X^i_{i_0}, i, o)</span> for <span
+class="math inline">(a&#39;, i&#39;, o&#39;)</span></p>
+</section>
+<section id="remarks" class="level2">
+<h2>Remarks</h2>
+<p>Mathematics allows you to think big. We can let <span
+class="math inline">I</span> be all market instruments that exist now,
+in the past, or potentially in the future.</p>
+<p>It is quite common for owners to have different best guesses of <span
+class="math inline">X_t^i_{i_0}</span>. Accountants might use “book,”
+“market,” “liquidation,” or “going concern” values. This model does not
+suggest which is the most appropriate in any given situation, it only
+makes that choice explicit. may involve a broker fee or tax
+obligation.</p>
+</section>
+<section id="implementation" class="level2">
+<h2>Implementation</h2>
+<p>See <a
+href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven
+Design</a></p>
+<p>Holdings are stored in a relational table with columns
+<code>Id</code>, <code>Amount</code>, <code>Instrument</code>, and
+<code>Owner</code>. The <code>Id</code> is a unique identifier that
+includes the time the holding was entered. (E.g., UUID Version-4 or
+Time-First.) The <code>Amount</code> is an signed integer value
+indicating the multiple of the minimum trading increment of the
+<code>Instrument</code>. The <code>Owner</code> can be more refined
+than, e.g., a Legal Entity Identifier. Legal entities have subgroups and
+even individual employees associated with a holdings.</p>
+<section id="id" class="level3">
+<h3><code>Id</code></h3>
+<p>A unique identifier including the time a holding was inserted into
+the Holdings table.</p>
+</section>
+<section id="amount" class="level3">
+<h3><code>Amount</code></h3>
+<p>Integral multiple of smalled instrument trading unit. 64-bit signed
+integer. 32-bit is too small.</p>
+</section>
+<section id="instrument" class="level3">
+<h3><code>Instrument</code></h3>
+<p>This can be more refined than a stock ticker or CUSIP. For example, a
+stock might trade on multiple exchanges. CUSIPs can be reused so this
+should be taken into account.</p>
+</section>
+<section id="entity" class="level3">
+<h3>Entity</h3>
+<p><a href="https://www.lei-worldwide.com/">LEI</a> is too coarse. Need
+to subdivide into groups or even employee. This requires a slowly
+time-varying auxiliary table.</p>
+</section>
+</section>
+<section id="remarks-1" class="level2">
+<h2>Remarks</h2>
+<p>If it is complicated, it is wrong.</p>
+<p>Can we make it a function? (Easier to reason about.)</p>
+</section>
+</body>
+</html>
