@@ -93,7 +93,7 @@ $$
 $$
 A _martingale measure_ satisfies $M_t = M_u|\AA_t$ for $t \le u$.
 Note if cash flows are zero then deflated prices are a martingale measure.
-If $X_u D_u$ goes to zero as $u$ goes to infinity then prices are
+If there are a finite number of cash flows then prices are
 determined by deflated future cash flows.
 
 __Lemma__. If $X_t D_t = M_t - \sum_{s\le t} C_s D_s$ where $M_t$ is a martingale measure

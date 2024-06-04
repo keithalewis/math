@@ -91,7 +91,8 @@ _Hint_: Use $T(0_I + 0_I) = T0_I + T0_I$ and $x + x = x$ implies $x = 0_I$.
 For $e_i\in\RR^I$ we have $Te_i\in\RR^J$ so there are $t_{ij}\in\RR$ with
 $e_i = \sum_j t_{ij}e_j$. We call $[t_{ij}]_{i\in I, j\in J}$ the _matrix_ of $T$.
 
-If $S\colon\RR^J\to\RR^K$ is a linear transformation then $ST\colon\RR^I\to\RR^K$.
+If $S\colon\RR^J\to\RR^K$ is a linear transformation then $ST\colon\RR^I\to\RR^K$
+is the _composition_ $(ST)x = S(Tx)\in\RR^K$, $x\in\RR^I$.
 
 __Exercise__. _Show $ST$ is linear_.
 
