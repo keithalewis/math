@@ -12,32 +12,59 @@ set of all functions from $A$ to $B$.
 ## Vector Space
 
 Every vector space has the form $\RR^I$ where $\RR$ is the real numbers and $I$ is a set.
-_Scalar multiplicaton_ and _vector addition_ are defined pointwise.
+_Scalar multiplication_ and _vector addition_ are defined pointwise.
 For $a\in\RR$, and $x,y\in\RR^I$ define ${(ax)(i) = a(x(i))}$ and ${(x + y)(i) = x(i) + y(i)}$.
+We write $0_I$ for the function in $\RR^I$ with $0_I(i) = 0$ for $i\in I$.
 
 If $I = \{1,\ldots,n\}$ then we can identify $\RR^I$ with
 $\RR^n = \{(x_1, \ldots, x_n)\mid x_i\in\RR\}$ where $x(i) = x_i$, $i\in I$.
 
-<!-- ...vs axioms... $x + x = x$. 0x = 0, 1x = x -->
+__Exercise__. _For $a,b\in\RR$, $x,y,z\in\RR^I$ show_
+$$
+\begin{aligned}
+x + (y + z) &= (x + y) + z \\
+x + y &= y + x \\
+v + 0_I &= v \\
+v + (-v) &= 0_I \\
+a(bx) &= (ab)x \\
+1v &= v \\
+a(x + y) &= ax + ay \\
+(a + b)x &= ax + bx \\
+\end{aligned}
+$$
+
+Any set $V$ with a scalar multiplication and vector addition satisfying these
+properties is a _vector space_. It is true that every 
+vector space is isomorphic to $\RR^I$ for some set $I$, but you will have
+to read the proof of this elsewhere.
 
 ### Dot Product
 
-If $I$ is finite define the _dot product_ $x\cdot y = \sum_{i\in I} x_i y_i$.
+If $I$ is finite define the _dot product_ $x\cdot y = \sum_{i\in I} x_i y_i$, $x,y\in\RR^I$.
 
 __Exercise__. _Show $(ax + y)\cdot z = a(x\cdot z) + y\cdot z$, $a\in\RR$, $x,y,z\in\RR^I$_.
 
+This shows $z^*(x) = x\cdot z$ is a linear map from $\RR^I$ to $\RR$,
+$z^*(ax + y) = as^*(x) + z^*(y)$.
+
 ### Norm
 
-Define the _norm_ $\|x\|$ by $\|x\|^2 = x\cdot x$ for $x\in\RR^I$.
+Define the _(Euclidean) norm_ $\|x\|$ by $\|x\|^2 = x\cdot x$ for $x\in\RR^I$.
 
 __Exercise__. (Cauchy-Schwartz) _Show $|x\cdot y|\le\|x\|\|y\|$, $x,y\in\RR^I$_.
 
 _Hint_: Use $0\le\|tx + y\|^2 = t^2\|x\|^2 + 2tx\cdot y + \|y\|^2$ and the
-descriminant of a quadratic having at most one root is non-negative.
+discriminant of a quadratic having at most one root is non-negative.
 
 __Exercise__. _Show $\|ax\| = |a|\|x\|$ and $\|x + y\|\le\|x\| + \|y\|$, $a\in\RR$, $x,y\in\RR^I$_.
 
 _Hint_: Use $2x\cdot y\le2\|x\|\|y\|$.
+
+Define the _$p$-norm_ $\|x\|_p$ by $\|x\|_p^p = \sum_{i\in I}|x_i|^p$ for $1 \le p < \infty$.
+
+__Exercise__. _Show $\lim_{p\to\infty}\|x\|_p = \sup_{i\in I}|x_i| = \|x\|_\infty$_.
+
+_Hint_: Consider $\sum_{i\in I} |x_i/\|x\|_\infty|^p$ and use $x^p\to 0$ on $[0,1)$ as $p\to\infty$.
 
 ## Canonical Basis
 
@@ -55,11 +82,11 @@ with ${T(ax + y) = aTx + y}$ for ${a\in\RR}$, and ${x,y\in\RR^I}$.
 
 __Exercise__. _Show $T(ax) = aTx$ and $T(x + y) = Tx + Ty$, $a\in\RR$, $x,y\in\RR^I$_.
 
-_Hint_. Take $y = 0$ and $a = 1$.
+_Hint_. Take $y = 0_I$ and $a = 1$.
 
-__Exercise__. _Show $T0 = 0$ if $T$ is a linear transformation_.
+__Exercise__. _Show $T0_I = 0_I$ if $T$ is a linear transformation_.
 
-_Hint_: Use $T(0 + 0) = T0 + T0$ and $x + x = x$ implies $x = 0$.
+_Hint_: Use $T(0_I + 0_I) = T0_I + T0_I$ and $x + x = x$ implies $x = 0_I$.
 
 For $e_i\in\RR^I$ we have $Te_i\in\RR^J$ so there are $t_{ij}\in\RR$ with
 $e_i = \sum_j t_{ij}e_j$. We call $[t_{ij}]_{i\in I, j\in J}$ the _matrix_ of $T$.
@@ -71,6 +98,8 @@ __Exercise__. _Show $ST$ is linear_.
 _Hint_: $(ST)(a x + y) = S(T(ax + y)) = \cdots$
 
 __Exercise__. _Show the $i,k$ entry of the matrix of $ST$ is $\sum_{j\in J}t_{ij}s_{jk}$, $i\in I$, $k\in K$_.
+
+This shows matrix multiplication is composition of linear transformations.
 
 The set of all linear transformations from $V$ to $W$ is denoted $\LL(V,W)$.
 It is also a vector space with scalar multiplication $(aT)x = a(Tx)$ and vector addition
@@ -86,8 +115,30 @@ __Exercise__. _Show $\xi^*(x) = \xi\cdot x$ for $\xi^*\in(\RR^I)^*$, $x\in\RR^I$
 
 __Exercise__. _Show this map is linear, one-to-one, and onto_.
 
-The dual of a finite dimensional vector space can be identified with itself using the canonical basis.
+The dual of a finite dimensional vector is isomorphic with itself using the canonical basis.
 
 ## Adjoint
 
 If $T\in\LL(V,W)$ define the _adjoint_ $T^*\in\LL(W^*,V^*)$ by $(T^*w^*)v = w^*(Tv)$, $w^*\in W^*$ for $v\in V$.
+
+__Exercise__. _Show $(ST)^* = T^*S$_.
+
+## Integration
+
+For any set $S$ let ${B(S) = \{f\colon S\to\RR\mid \sup_{s\in S}|f(s)| = \|f\| < \infty\}}$ be the normed
+vector space of _bounded functions_ on $S$. Its dual is the set of all bounded linear functionals on $B(S)$.
+If $L\colon B(S)\to\RR$ is a bounded linear functional define
+$\lambda(E) = L(1_E)$ for $E\subseteq S$, where 
+$1_E(s) = 1$ if $s\in E$ and $1_E(s) = 0$ if $s\not\in E$.
+
+__Exercise__. _Show $\lambda(E\cup F) = \lambda(E) + \lambda(F) - \lambda(E\cap F)$ and $\lambda(\emptyset) = 0$
+for $E,F\subseteq S$_.
+
+_Hint_: Use $1_{E\cup F} = 1_E + 1_F - 1_{E\cap F}$ and $1_\emptyset = 0$.
+
+This shows every bounded linear functional on $B(S)$ gives rise to a finitely additive measure on $S$.
+The normed vector space of finitely additive measures is denoted $ba(S)$.
+
+__Exercise__. _Show $\|a1_E + b1_F\| = max{|a|,|b|}$.
+
+If $E,F\subseteq S$ are disjoint

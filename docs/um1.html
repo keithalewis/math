@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-03" />
+  <meta name="dcterms.date" content="2024-06-04" />
   <title>Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,7 +67,7 @@
 <header id="title-block-header">
 <h1 class="title">Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 3, 2024</p>
+<p class="date">June 4, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of instruments
@@ -121,11 +121,11 @@ constant on atoms of <span class="math inline">{\mathcal{A}}</span> so
 <span class="math inline">X\colon[{\mathcal{A}}]\to\boldsymbol{R}</span>
 <em>is</em> a function.</p>
 <p>If <span class="math inline">P</span> is a positive measure with mass
-1, aka a probability measure, on <span class="math inline">\Omega</span>
-and <span class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is a
-random variable then conditional expectation <span class="math inline">Y
-= E[X|{\mathcal{A}}]</span> is equivalent to restriction of measure
-<span class="math inline">Y(P|{\mathcal{A}})
+1 on <span class="math inline">\Omega</span> and <span
+class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is a random
+variable then conditional expectation <span class="math inline">Y =
+E[X|{\mathcal{A}}]</span> is equivalent to restriction of measure <span
+class="math inline">Y(P|{\mathcal{A}})
 = (XP)|{\mathcal{A}}</span>.</p>
 </section>
 <section id="market" class="level3">
@@ -144,10 +144,10 @@ dividends, coupons, margin adjustments for futures.</p>
 class="math inline">\Gamma_j\colon[{\mathcal{A}}_{\tau_j}]\to\boldsymbol{R}^I</span></p>
 <p><em>Position</em> – <span class="math inline">\Delta_t = \sum_{\tau_j
 &lt; t}\Gamma_j = \sum_{s &lt; t} \Gamma_s</span> accumulate trades
-<em>not</em> including last trades.</p>
+<em>not</em> including last.</p>
 </section>
-<section id="valuation" class="level3">
-<h3>Valuation</h3>
+<section id="accounting" class="level3">
+<h3>Accounting</h3>
 <p><em>Value</em> – <span class="math inline">V_t = (\Delta_t +
 \Gamma_t)\cdot X_t</span> mark-to-market existing positions and current
 trades at current prices.</p>
@@ -179,7 +179,7 @@ class="math inline">u</span> goes to infinity then prices are determined
 by deflated future cash flows.</p>
 <p><strong>Lemma</strong>. If <span class="math inline">X_t D_t = M_t -
 \sum_{s\le t} C_s D_s</span> where <span class="math inline">M_t</span>
-is a martingale measue then there is no arbitrage.</p>
+is a martingale measure then there is no arbitrage.</p>
 <p><strong>Lemma</strong>. For any arbitrage free model and any trading
 strategy <span class="math display">
 \tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
@@ -221,7 +221,7 @@ class="math inline">t_{j-1}</span>. In general this hedge will not
 exactly replicate the derivative contract obligation.</p>
 <p>Note delta hedging drops out naturally from the Unified Model,
 however it does not require Ito’s formula, much less a proof involving
-partial differential equations and changing to a measure that is
+partial differential equations and changing a measure that is
 immediately discarded. One simply writes down a martingale and deflator
 then uses equation (2) to value, hedge, and manage the risk of realistic
 trading strategies. The notion of “continuous time” hedging is a
@@ -250,7 +250,8 @@ class="math inline">D_{j+1}</span> is known at time <span
 class="math inline">t_j</span> then <span
 class="math inline">{D_{j+1}/D_j = \exp(-f_j\Delta t_j)}</span> and
 <span class="math inline">{D_j = \exp(-\sum_{i &lt; j}f_i\Delta
-t_i)}</span> is the canonical deflator.</p>
+t_i)}</span> is the canonical deflator with <span
+class="math inline">D_{t_0} = 1</span>.</p>
 <p>The continuous time analog is <span class="math inline">D_t =
 \exp(-\int_0^t f(s)\,ds)</span> where <span class="math inline">f</span>
 is the continuously compounded instantaneous forward rate.</p>
@@ -282,13 +283,13 @@ class="math inline">[u,v]</span> having day count convention <span
 class="math inline">\delta</span><a href="#fn2" class="footnote-ref"
 id="fnref2" role="doc-noteref"><sup>2</sup></a> has two cash flows:
 <span class="math inline">-1</span> at time <span
-class="math inline">t</span> and <span class="math inline">1 +
-f\delta(u,v)</span> at time <span class="math inline">u</span>. The
+class="math inline">t</span> and <span class="math inline">{1 +
+f\delta(u,v)}</span> at time <span class="math inline">u</span>. The
 <em>par forward coupon</em> at time <span class="math inline">t</span>,
-<span class="math inline">F_t^\delta(u,v)</span> is the coupon for which
-the price is 0 at time <span class="math inline">t</span>. By equation
-(1) we have <span class="math inline">0 = (-D_u + (1 +
-F_t^\delta(u,v))D_v|{\mathcal{A}}_t</span> so <span
+<span class="math inline">{F_t^\delta(u,v)}</span> is the coupon for
+which the price is 0 at time <span class="math inline">t</span>. By
+equation (1) we have <span class="math inline">{0 = (-D_u + (1 +
+F_t^\delta(u,v))D_v|{\mathcal{A}}_t}</span> so <span
 class="math display">
     F_t^\delta(u,v) = \frac{1}{\delta(u,v)}\bigl(\frac{D_t(u)}{D_t(v)} -
 1\bigr).

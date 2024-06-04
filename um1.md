@@ -51,7 +51,7 @@ A function $X\colon\Omega\to\RR$ is $\AA$ measurable if and
 only if it is constant on atoms of $\AA$
 so $X\colon[\AA]\to\RR$ _is_ a function.
 
-If $P$ is a positive measure with mass 1, aka a probability measure, on
+If $P$ is a positive measure with mass 1 on
 $\Omega$ and $X\colon\Omega\to\RR$ is a random variable then conditional
 expectation $Y = E[X|\AA]$ is equivalent to restriction of measure $Y(P|\AA)
 = (XP)|\AA$.
@@ -70,9 +70,9 @@ _Trading Strategy_ -- $\tau_0 < \cdots < \tau_n$ stopping times
 and trades $\Gamma_j\colon[\AA_{\tau_j}]\to\RR^I$
 
 _Position_ -- $\Delta_t = \sum_{\tau_j < t}\Gamma_j = \sum_{s < t} \Gamma_s$
-accumulate trades _not_ including last trades.
+accumulate trades _not_ including last.
 
-### Valuation
+### Accounting
 
 _Value_ -- $V_t = (\Delta_t + \Gamma_t)\cdot X_t$
 mark-to-market existing positions and current trades at current prices.
@@ -96,7 +96,7 @@ Note if cash flows are zero then deflated prices are a martingale measure.
 If $X_u D_u$ goes to zero as $u$ goes to infinity then prices are
 determined by deflated future cash flows.
 
-__Lemma__. If $X_t D_t = M_t - \sum_{s\le t} C_s D_s$ where $M_t$ is a martingale measue
+__Lemma__. If $X_t D_t = M_t - \sum_{s\le t} C_s D_s$ where $M_t$ is a martingale measure
 then there is no arbitrage.
 
 __Lemma__. For any arbitrage free model and any trading strategy
@@ -131,7 +131,7 @@ In general this hedge will not exactly replicate the derivative contract obligat
 
 Note delta hedging drops out naturally from the Unified Model, however it
 does not require Ito's formula, much less a proof
-involving partial differential equations and changing to a measure that
+involving partial differential equations and changing a measure that
 is immediately discarded. One
 simply writes down a martingale and deflator then uses equation (2)
 to value, hedge, and manage the risk of realistic trading strategies.
@@ -151,7 +151,7 @@ by a rate $f_j$ known at time $t_j$. The price at $t_j$ is $1$ and it
 has a cash flow of ${\exp(f_j(t_{j+1} - t_j))}$ at time $t_{j+1}$.
 By equation (1) we have ${D_j = \exp(f_j\Delta t_j)D_{j+1}|\AA_j}$.
 If $D_{j+1}$ is known at time $t_j$ then ${D_{j+1}/D_j = \exp(-f_j\Delta t_j)}$ and
-${D_j = \exp(-\sum_{i < j}f_i\Delta t_i)}$ is the canonical deflator.
+${D_j = \exp(-\sum_{i < j}f_i\Delta t_i)}$ is the canonical deflator with $D_{t_0} = 1$.
 
 The continuous time analog is $D_t = \exp(-\int_0^t f(s)\,ds)$ where
 $f$ is the continuously compounded instantaneous forward rate.

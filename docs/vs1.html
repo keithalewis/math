@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-03" />
+  <meta name="dcterms.date" content="2024-06-04" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 3, 2024</p>
+<p class="date">June 4, 2024</p>
 </header>
 <p>If <span class="math inline">A</span> and <span
 class="math inline">B</span> are sets, the <em>set exponential</em>
@@ -59,43 +59,84 @@ class="math inline">B</span>.</p>
 <p>Every vector space has the form <span
 class="math inline">\bm{R}^I</span> where <span
 class="math inline">\bm{R}</span> is the real numbers and <span
-class="math inline">I</span> is a set. <em>Scalar multiplicaton</em> and
-<em>vector addition</em> are defined pointwise. For <span
+class="math inline">I</span> is a set. <em>Scalar multiplication</em>
+and <em>vector addition</em> are defined pointwise. For <span
 class="math inline">a\in\bm{R}</span>, and <span
 class="math inline">x,y\in\bm{R}^I</span> define <span
 class="math inline">{(ax)(i) = a(x(i))}</span> and <span
-class="math inline">{(x + y)(i) = x(i) + y(i)}</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">I =
-\{1,\ldots,n\}</span> then we can identify <span
+class="math inline">{(x + y)(i) = x(i) + y(i)}</span>. We write <span
+class="math inline">0_I</span> for the function in <span
 class="math inline">\bm{R}^I</span> with <span
+class="math inline">0_I(i) = 0</span> for <span class="math inline">i\in
+I</span>.</p>
+<p>If <span class="math inline">I = \{1,\ldots,n\}</span> then we can
+identify <span class="math inline">\bm{R}^I</span> with <span
 class="math inline">\bm{R}^n = \{(x_1, \ldots, x_n)\mid
-x_i\in\bm{R}\}</span></em>.</p>
-<p><em>Hint</em>. <span class="math inline">x(i) = x_i</span>, <span
-class="math inline">i\in I</span>.</p>
-<!-- ...vs axioms... $x + x = x$. 0x = 0, 1x = x -->
+x_i\in\bm{R}\}</span> where <span class="math inline">x(i) = x_i</span>,
+<span class="math inline">i\in I</span>.</p>
+<p><strong>Exercise</strong>. <em>For <span
+class="math inline">a,b\in\bm{R}</span>, <span
+class="math inline">x,y,z\in\bm{R}^I</span> show</em> <span
+class="math display">
+\begin{aligned}
+x + (y + z) &amp;= (x + y) + z \\
+x + y &amp;= y + x \\
+v + 0_I &amp;= v \\
+v + (-v) &amp;= 0_I \\
+a(bx) &amp;= (ab)x \\
+1v &amp;= v \\
+a(x + y) &amp;= ax + ay \\
+(a + b)x &amp;= ax + bx \\
+\end{aligned}
+</span></p>
+<p>Any set <span class="math inline">V</span> with a scalar
+multiplication and vector addition satisfying these properties is a
+<em>vector space</em>. It is true that every vector space is isomorphic
+to <span class="math inline">\bm{R}^I</span> for some set <span
+class="math inline">I</span>, but you will have to read the proof of
+this elsewhere.</p>
 <section id="dot-product" class="level3">
 <h3>Dot Product</h3>
 <p>If <span class="math inline">I</span> is finite define the <em>dot
 product</em> <span class="math inline">x\cdot y = \sum_{i\in I} x_i
-y_i</span>.</p>
+y_i</span>, <span class="math inline">x,y\in\bm{R}^I</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">(ax +
 y)\cdot z = a(x\cdot z) + y\cdot z</span>, <span
 class="math inline">a\in\bm{R}</span>, <span
 class="math inline">x,y,z\in\bm{R}^I</span></em>.</p>
+<p>This shows <span class="math inline">z^*(x) = x\cdot z</span> is a
+linear map from <span class="math inline">\bm{R}^I</span> to <span
+class="math inline">\bm{R}</span>, <span class="math inline">z^*(ax + y)
+= as^*(x) + z^*(y)</span>.</p>
 </section>
 <section id="norm" class="level3">
 <h3>Norm</h3>
-<p>Define the <em>norm</em> <span class="math inline">\|x\|</span> by
-<span class="math inline">\|x\|^2 = x\cdot x</span>.</p>
+<p>Define the <em>(Euclidean) norm</em> <span
+class="math inline">\|x\|</span> by <span class="math inline">\|x\|^2 =
+x\cdot x</span> for <span class="math inline">x\in\bm{R}^I</span>.</p>
+<p><strong>Exercise</strong>. (Cauchy-Schwartz) <em>Show <span
+class="math inline">|x\cdot y|\le\|x\|\|y\|</span>, <span
+class="math inline">x,y\in\bm{R}^I</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">0\le\|tx + y\|^2 =
+t^2\|x\|^2 + 2tx\cdot y + \|y\|^2</span> and the discriminant of a
+quadratic having at most one root is non-negative.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">\|ax\|
 = |a|\|x\|</span> and <span class="math inline">\|x + y\|\le\|x\| +
 \|y\|</span>, <span class="math inline">a\in\bm{R}</span>, <span
 class="math inline">x,y\in\bm{R}^I</span></em>.</p>
-<p><strong>Exercise</strong>. (Cauchy-Schwartz) <em>Show <span
-class="math inline">|x\cdot y|\le\|x\|\|y\|</span>, <span
-class="math inline">x,y\in\bm{R}^I</span></em>.</p>
-<p><em>Hint</em>: Find <span class="math inline">t\in\bm{R}</span>
-minimizing <span class="math inline">\|tx + y\|^2</span> .</p>
+<p><em>Hint</em>: Use <span class="math inline">2x\cdot
+y\le2\|x\|\|y\|</span>.</p>
+<p>Define the <em><span class="math inline">p</span>-norm</em> <span
+class="math inline">\|x\|_p</span> by <span
+class="math inline">\|x\|_p^p = \sum_{i\in I}|x_i|^p</span> for <span
+class="math inline">1 \le p &lt; \infty</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\lim_{p\to\infty}\|x\|_p = \sup_{i\in I}|x_i| =
+\|x\|_\infty</span></em>.</p>
+<p><em>Hint</em>: Consider <span class="math inline">\sum_{i\in I}
+|x_i/\|x\|_\infty|^p</span> and use <span class="math inline">x^p\to
+0</span> on <span class="math inline">[0,1)</span> as <span
+class="math inline">p\to\infty</span>.</p>
 </section>
 </section>
 <section id="canonical-basis" class="level2">
@@ -125,14 +166,14 @@ aTx + y}</span> for <span class="math inline">{a\in\bm{R}}</span>, and
 aTx</span> and <span class="math inline">T(x + y) = Tx + Ty</span>,
 <span class="math inline">a\in\bm{R}</span>, <span
 class="math inline">x,y\in\bm{R}^I</span></em>.</p>
-<p><em>Hint</em>. Take <span class="math inline">y = 0</span> and <span
-class="math inline">a = 1</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">T0 =
-0</span> if <span class="math inline">T</span> is a linear
+<p><em>Hint</em>. Take <span class="math inline">y = 0_I</span> and
+<span class="math inline">a = 1</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">T0_I =
+0_I</span> if <span class="math inline">T</span> is a linear
 transformation</em>.</p>
-<p><em>Hint</em>: Use <span class="math inline">T(0 + 0) = T0 +
-T0</span> and <span class="math inline">x + x = x</span> implies <span
-class="math inline">x = 0</span>.</p>
+<p><em>Hint</em>: Use <span class="math inline">T(0_I + 0_I) = T0_I +
+T0_I</span> and <span class="math inline">x + x = x</span> implies <span
+class="math inline">x = 0_I</span>.</p>
 <p>For <span class="math inline">e_i\in\bm{R}^I</span> we have <span
 class="math inline">Te_i\in\bm{R}^J</span> so there are <span
 class="math inline">t_{ij}\in\bm{R}</span> with <span
@@ -151,6 +192,8 @@ class="math inline">i,k</span> entry of the matrix of <span
 class="math inline">ST</span> is <span class="math inline">\sum_{j\in
 J}t_{ij}s_{jk}</span>, <span class="math inline">i\in I</span>, <span
 class="math inline">k\in K</span></em>.</p>
+<p>This shows matrix multiplication is composition of linear
+transformations.</p>
 <p>The set of all linear transformations from <span
 class="math inline">V</span> to <span class="math inline">W</span> is
 denoted <span class="math inline">\mathcal{L}(V,W)</span>. It is also a
@@ -164,23 +207,61 @@ class="math inline">\mathcal{L}(V,W)</span> a non-commutative
 <h2>Dual Space</h2>
 <p>The dual of a vector space <span class="math inline">V</span> is
 <span class="math inline">V^* = \mathcal{L}(V,\bm{R})</span>. If <span
-class="math inline">\xi^*\colon\bm{R}^I\to\bm{R}</span> is a <em>linear
-functional</em> define <span class="math inline">\xi\in\bm{R}^I</span>
-by <span class="math inline">\xi_i = \xi^*(e_i)</span>, <span
+class="math inline">{\xi^*\colon\bm{R}^I\to\bm{R}}</span> is a
+<em>linear functional</em> define <span
+class="math inline">{\xi\in\bm{R}^I}</span> by <span
+class="math inline">{\xi_i = \xi^*(e_i)}</span>, <span
 class="math inline">i\in I</span>. This provides a map <span
 class="math inline">*\colon(\bm{R}^I)^*\to\bm{R}^I</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\xi^*(x) = \xi\cdot x</span>, <span
+class="math inline">\xi^*(x) = \xi\cdot x</span> for <span
 class="math inline">\xi^*\in(\bm{R}^I)^*</span>, <span
 class="math inline">x\in\bm{R}^I</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show this map is linear, one-to-one,
 and onto</em>.</p>
+<p>The dual of a finite dimensional vector is isomorphic with itself
+using the canonical basis.</p>
+</section>
+<section id="adjoint" class="level2">
+<h2>Adjoint</h2>
 <p>If <span class="math inline">T\in\mathcal{L}(V,W)</span> define the
 <em>adjoint</em> <span
 class="math inline">T^*\in\mathcal{L}(W^*,V^*)</span> by <span
 class="math inline">(T^*w^*)v = w^*(Tv)</span>, <span
-class="math inline">w^*\in W^*</span>, <span class="math inline">v\in
+class="math inline">w^*\in W^*</span> for <span class="math inline">v\in
 V</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(ST)^*
+= T^*S</span></em>.</p>
+</section>
+<section id="integration" class="level2">
+<h2>Integration</h2>
+<p>For any set <span class="math inline">S</span> let <span
+class="math inline">{B(S) = \{f\colon S\to\bm{R}\mid \sup_{s\in S}|f(s)|
+= \|f\| &lt; \infty\}}</span> be the normed vector space of <em>bounded
+functions</em> on <span class="math inline">S</span>. Its dual is the
+set of all bounded linear functionals on <span
+class="math inline">B(S)</span>. If <span class="math inline">L\colon
+B(S)\to\bm{R}</span> is a bounded linear functional define <span
+class="math inline">\lambda(E) = L(1_E)</span> for <span
+class="math inline">E\subseteq S</span>, where <span
+class="math inline">1_E(s) = 1</span> if <span class="math inline">s\in
+E</span> and <span class="math inline">1_E(s) = 0</span> if <span
+class="math inline">s\not\in E</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\lambda(E\cup F) = \lambda(E) + \lambda(F) -
+\lambda(E\cap F)</span> and <span class="math inline">\lambda(\emptyset)
+= 0</span> for <span class="math inline">E,F\subseteq S</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">1_{E\cup F} = 1_E + 1_F
+- 1_{E\cap F}</span> and <span class="math inline">1_\emptyset =
+0</span>.</p>
+<p>This shows every bounded linear functional on <span
+class="math inline">B(S)</span> gives rise to a finitely additive
+measure on <span class="math inline">S</span>. The normed vector space
+of finitely additive measures is denoted <span
+class="math inline">ba(S)</span>.</p>
+<p><strong>Exercise</strong>. _Show <span class="math inline">\|a1_E +
+b1_F\| = max{|a|,|b|}</span>.</p>
+<p>If <span class="math inline">E,F\subseteq S</span> are disjoint</p>
 </section>
 </body>
 </html>
