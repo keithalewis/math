@@ -15,10 +15,8 @@ Every vector space has the form $\RR^I$ where $\RR$ is the real numbers and $I$ 
 _Scalar multiplicaton_ and _vector addition_ are defined pointwise.
 For $a\in\RR$, and $x,y\in\RR^I$ define ${(ax)(i) = a(x(i))}$ and ${(x + y)(i) = x(i) + y(i)}$.
 
-__Exercise__. _If $I = \{1,\ldots,n\}$ then we can identify $\RR^I$ with
-$\RR^n = \{(x_1, \ldots, x_n)\mid x_i\in\RR\}$_.
-
-_Hint_. $x(i) = x_i$, $i\in I$.
+If $I = \{1,\ldots,n\}$ then we can identify $\RR^I$ with
+$\RR^n = \{(x_1, \ldots, x_n)\mid x_i\in\RR\}$ where $x(i) = x_i$, $i\in I$.
 
 <!-- ...vs axioms... $x + x = x$. 0x = 0, 1x = x -->
 
@@ -30,13 +28,16 @@ __Exercise__. _Show $(ax + y)\cdot z = a(x\cdot z) + y\cdot z$, $a\in\RR$, $x,y,
 
 ### Norm
 
-Define the _norm_ $\|x\|$ by $\|x\|^2 = x\cdot x$.
-
-__Exercise__. _Show $\|ax\| = |a|\|x\|$ and $\|x + y\|\le\|x\| + \|y\|$, $a\in\RR$, $x,y\in\RR^I$_.
+Define the _norm_ $\|x\|$ by $\|x\|^2 = x\cdot x$ for $x\in\RR^I$.
 
 __Exercise__. (Cauchy-Schwartz) _Show $|x\cdot y|\le\|x\|\|y\|$, $x,y\in\RR^I$_.
 
-_Hint_: Find $t\in\RR$ minimizing $\|tx + y\|^2$ .
+_Hint_: Use $0\le\|tx + y\|^2 = t^2\|x\|^2 + 2tx\cdot y + \|y\|^2$ and the
+descriminant of a quadratic having at most one root is non-negative.
+
+__Exercise__. _Show $\|ax\| = |a|\|x\|$ and $\|x + y\|\le\|x\| + \|y\|$, $a\in\RR$, $x,y\in\RR^I$_.
+
+_Hint_: Use $2x\cdot y\le2\|x\|\|y\|$.
 
 ## Canonical Basis
 
@@ -78,17 +79,15 @@ $(S + T)x = Sx + Tx$. Composition is an associative product making $\LL(V,W)$ a 
 ## Dual Space
 
 The dual of a vector space $V$ is $V^* = \LL(V,\RR)$.
-If $\xi^*\colon\RR^I\to\RR$ is a _linear functional_ define $\xi\in\RR^I$ by $\xi_i = \xi^*(e_i)$, $i\in I$.
+If ${\xi^*\colon\RR^I\to\RR}$ is a _linear functional_ define ${\xi\in\RR^I}$ by ${\xi_i = \xi^*(e_i)}$, $i\in I$.
 This provides a map $*\colon(\RR^I)^*\to\RR^I$.
 
-__Exercise__. _Show $\xi^*(x) = \xi\cdot x$, $\xi^*\in(\RR^I)^*$, $x\in\RR^I$_.
+__Exercise__. _Show $\xi^*(x) = \xi\cdot x$ for $\xi^*\in(\RR^I)^*$, $x\in\RR^I$_.
 
 __Exercise__. _Show this map is linear, one-to-one, and onto_.
 
-If $T\in\LL(V,W)$ define the _adjoint_ $T^*\in\LL(W^*,V^*)$
-by $(T^*w^*)v = w^*(Tv)$, $w^*\in W^*$, $v\in V$.
+The dual of a finite dimensional vector space can be identified with itself using the canonical basis.
 
+## Adjoint
 
-
-
-
+If $T\in\LL(V,W)$ define the _adjoint_ $T^*\in\LL(W^*,V^*)$ by $(T^*w^*)v = w^*(Tv)$, $w^*\in W^*$ for $v\in V$.

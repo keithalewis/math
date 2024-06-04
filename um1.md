@@ -175,10 +175,10 @@ Zero coupon bond prices are determined by the deflators.
 
 A _forward rate agreement_ with coupon $f$ over the interval $[u,v]$
 having day count convention $\delta$[^3] has two cash flows: $-1$ at time $t$
-and $1 + f\delta(u,v)$ at time $u$. The _par forward coupon_ at time
-$t$, $F_t^\delta(u,v)$ is the coupon for which the price is 0 at time $t$.
+and ${1 + f\delta(u,v)}$ at time $u$. The _par forward coupon_ at time
+$t$, ${F_t^\delta(u,v)}$ is the coupon for which the price is 0 at time $t$.
 By equation (1) we have
-$0 = (-D_u + (1 + F_t^\delta(u,v))D_v|\AA_t$ so
+${0 = (-D_u + (1 + F_t^\delta(u,v))D_v|\AA_t}$ so
 $$
 	F_t^\delta(u,v) = \frac{1}{\delta(u,v)}\bigl(\frac{D_t(u)}{D_t(v)} - 1\bigr).
 $$
