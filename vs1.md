@@ -5,9 +5,12 @@ author: Keith A. Lewis
 
 \newcommand\RR{\bm{R}}
 \newcommand\LL{\mathcal{L}}
+\newcommand\BB{\mathcal{B}}
 
 If $A$ and $B$ are sets, the _set exponential_ $B^A = \{f\colon A\to B\}$ is the
 set of all functions from $A$ to $B$.
+
+__Exercise__. _Show $\#(A^B) = \#A^{\#B}$ where $\#$ denotes the number of elements a set has_.
 
 ## Vector Space
 
@@ -16,8 +19,8 @@ _Scalar multiplication_ and _vector addition_ are defined pointwise.
 For $a\in\RR$, and $x,y\in\RR^I$ define ${(ax)(i) = a(x(i))}$ and ${(x + y)(i) = x(i) + y(i)}$.
 We write $0_I$ for the function in $\RR^I$ with $0_I(i) = 0$ for $i\in I$.
 
-If $I = \{1,\ldots,n\}$ then we can identify $\RR^I$ with
-$\RR^n = \{(x_1, \ldots, x_n)\mid x_i\in\RR\}$ where $x(i) = x_i$, $i\in I$.
+If $I = \{1,\ldots,n\}$ then we can identify $x\in\RR^I$ with
+$(x_1, \ldots, x_n)$ where $x(i) = x_i$, $i\in I$.
 
 __Exercise__. _For $a,b\in\RR$, $x,y,z\in\RR^I$ show_
 $$
@@ -38,6 +41,9 @@ properties is a _vector space_. It is true that every
 vector space is isomorphic to $\RR^I$ for some set $I$, but you will have
 to read the proof of this elsewhere.
 
+The abstract definition of vector space is more difficult to work with
+than the special case of
+
 ### Dot Product
 
 If $I$ is finite define the _dot product_ $x\cdot y = \sum_{i\in I} x_i y_i$, $x,y\in\RR^I$.
@@ -45,7 +51,7 @@ If $I$ is finite define the _dot product_ $x\cdot y = \sum_{i\in I} x_i y_i$, $x
 __Exercise__. _Show $(ax + y)\cdot z = a(x\cdot z) + y\cdot z$, $a\in\RR$, $x,y,z\in\RR^I$_.
 
 This shows $z^*(x) = x\cdot z$ is a linear map from $\RR^I$ to $\RR$,
-$z^*(ax + y) = as^*(x) + z^*(y)$.
+$z^*(ax + y) = az^*(x) + z^*(y)$.
 
 ### Norm
 
@@ -116,7 +122,7 @@ __Exercise__. _Show $\xi^*(x) = \xi\cdot x$ for $\xi^*\in(\RR^I)^*$, $x\in\RR^I$
 
 __Exercise__. _Show this map is linear, one-to-one, and onto_.
 
-The dual of a finite dimensional vector is isomorphic with itself using the canonical basis.
+The dual of a finite dimensional vector is isomorphic with itself via the canonical basis.
 
 ## Adjoint
 
@@ -140,6 +146,41 @@ _Hint_: Use $1_{E\cup F} = 1_E + 1_F - 1_{E\cap F}$ and $1_\emptyset = 0$.
 This shows every bounded linear functional on $B(S)$ gives rise to a finitely additive measure on $S$.
 The normed vector space of finitely additive measures is denoted $ba(S)$.
 
-__Exercise__. _Show $\|a1_E + b1_F\| = max{|a|,|b|}$.
+A _simple function_ $f = \sum a_j A_j$ is a finite sum with $a_j\in\RR$ and $A_j\subseteq S$
+define $\int_S f\,d\lambda = \sum_j a_j\lambda(A_j)$.
 
-If $E,F\subseteq S$ are disjoint
+__Exercise__. _If $\{A_j\}$ are disjoint show $\sum_j a_j 1_{A_j} = 0$ implies $a_j = 0$ for all $j$_.
+
+_Hint_: Every $s\in S$ belongs to at most one $A_j$.
+
+__Exercise__. _If $\sum_k b_k B_k$ is a finite sum with $b_k\in\RR$ and $B_k\subseteq S$
+show there exist $a_j\in\RR$ and disjoint $A_j\subseteq S$ with 
+$\sum_j a_j 1_{A_j} = \sum_k b_k 1_{B_k}$_.
+
+_Hint_: Start with  $b_1 1_{B_1} + b_2 1_{B_2}
+= b_1 1_{B_1\setminus B_2} + (b_1 + b_2)1_{B_1\cap B_2} + b_2 1_{B_2\setminus B_1}$
+where $A\setminus B = \{a\in A\mid a\not\in B\}$ is _set difference_ and use induction.
+
+__Exercise__. _If $\sum_k b_k B_k = 0$ is a finite sum with $b_k\in\RR$ and $B_k\subseteq S$
+show $\int_S \sum_k b_k\,d\lambda = 0$_.
+
+These two exercises show the definition of integration is _well-defined_ for simple functions.
+
+## Frechet Derivative
+
+If $F\colon V\to W$ is a function between two normed linear spaces the Frechet derivative
+$DF\colon V\to\BB(V,W)$
+at $x\in V$ is a linear operator approximating $F$ near $x$
+$$
+	F(x + h) = F(x) + DF(x)h + o(\|h\|).
+$$
+
+__Exercise__. _Show the Frechet derivative of $\|x\|^2$ is $2x^*$_.
+
+_Hint_. $\|x\|^2 = x^*x$.
+
+__Exercise__. _Show the Frechet derivative of $\|x\|^p$ is $p\|x\|^{p-2}x^*$_.
+
+_Hint_. $\|x\|^p = \exp((p/2)\log\|x\|^2)$.
+
+__Exercise__. _Show the Frechet derivative of $x^*Tx$ is $x^*T + T^*x^*$_.
