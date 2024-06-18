@@ -11,9 +11,7 @@ When I pointed out it was simply a mathematical theorem, so either there is
 a mistake in the proof or a counterexample, I got fewer replies.
 
 Several people subsequently claimed this was in fact a known result
-but were unable to provide a prior citation. One even claimed "This is
-demonstrated early on in any graduate level presentation of the efficiency
-frontier and is the result you speak of. It does not need a citation"
+but were unable to provide a prior citation.
 
 I also find it difficult to believe nobody has heretofore picked up this
 $\$100$ bill from the sidewalk and would be grateful if a referee points
