@@ -6,7 +6,8 @@ fleqn: true
 ---
 
 \newcommand\RR{\mathbf{R}}
-\newcommand\AA{\mathcal{A}}
+\newcommand\NN{\mathbf{N}}
+\renewcommand\AA{\mathcal{A}}
 
 The _one-period model_ specifies prices $x\in\RR^I$ for instruments $I$
 at the beginning of the period
@@ -51,10 +52,24 @@ in $T$ periods and where the integration is over the intermediate state
 $\theta$ at time $t$. Notice that the transition function depends on the
 time interval and is independent of calendar time."
 
-The _multi-period model_ specifies prices $X_j\in B(\AA_j,\RR^I)$,
+The _multi-period model_ specifies prices $X_{t_j}\in B(\AA_j,\RR^I)$, $j\in\NN$,
 where $\AA_j$ is the information available at time $t_j$, and
 a probability measure $P$ on the set of outcomes $\Omega$.
 The information available at time $t_j$ is a _partition_ $\AA_j$ of $\Omega$.
+
+### Binomial Model
+
+The _binomial model_ has sample space $\Omega = [0, 1)$. The probability measure is Lesbegue measure.
+The information available at time $t_j = j$ is the partition
+$\AA_j = \{[k/2^j, (k + 1)/2^j)\mid 0\le k < 2^j\}$. Each atom of the partition determines
+the first $j$ digits of the base 2 expansion of $\omega\in\Omega$.
+Define $V_j(\omega) = \omega_1 + \cdots + \omega_j$
+where $\omega = \sum_{i>0} \omega_i 2^-i$ and $\omega_i\in\{0,1\}$ is
+the base 2 expansion of $\omega$.
+
+__Exercise__. _Show $V_jP = 1/2 + (V_{j+1}P)|A_j$_.
+
+_Hint_: 
 
 The FTAP for multi-period models states there is no arbitrage if and only if
 there exist positive measures $D_j\in ba(\AA_j)$ making $X_j D_j$ a _martingale measure_ 
@@ -68,3 +83,10 @@ A process $(Y_j)$ is a _martingale_ if $Y_j = E[Y_k\mid\AA_j]$, $j\le k$.
 A process is _Markov_ is $Y_j = E[Y_k\mid \AA(X_j)]$, $j\le k$ where
 $\AA(X)$ is the smallest algebra for which $X$ is measurable.
 
+## Markov Process
+
+Let $S$ be a finite set of _states_ and non-negative _transition probabilties_ $\pi_{st}$ for $s,t\in S$
+with $\sum_{t\in S} \pi_{st} = 1$, $s\in S$.
+
+and $\Omega = S^\NN$.
+Define $X_j\colon\Omega\to\RR$ by $X_0 = x_0$ and 
