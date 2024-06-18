@@ -1,0 +1,70 @@
+---
+title: Ross Recovery Theorem
+author: Keith A. Lewis
+classoption: fleqn
+fleqn: true
+---
+
+\newcommand\RR{\mathbf{R}}
+\newcommand\AA{\mathcal{A}}
+
+The _one-period model_ specifies prices $x\in\RR^I$ for instruments $I$
+at the beginning of the period
+and prices $X\in B(\Omega,\RR^I)$ at the end of the period depending
+on what outcome $\omega\in\Omega$ occured,
+where $B(\Omega,\RR^I)$ is the set of all bounded $\RR^I$
+valued functions on $\Omega$. Let $P\in ba(\Omega)$ ($F$ in Ross's notation) be
+the "real-world" probabilty measure on outcomes in $\Omega$, where
+$ba(\Omega)$ is the set of finitely-additive measures on $\Omega$.
+
+The FTAP states there is no arbitrage if and only if there exists a
+positive _risk-neutral_ measure $Q\in ba(\Omega)$ with
+${x = \int_\Omega X\,dQ}$. In general $Q$ is not unique.
+If there exists $\zeta\in\RR^I$ with
+${\zeta^*X(\omega) = 1}$ for
+$\omega\in\Omega$ then ${\zeta^*x = \int_\Omega dQ = \|Q\| = D}$.
+The _discount_ $D$ is the price of the _zero coupon bond_ $\zeta$.  Note
+$Q^* = Q/D$ is a "probability" measure and $x = DE^*[X]$ where the expectation
+is computed using $Q^*$.
+
+I. Basic Framework
+
+$$
+\tag{1}p_g = \int g(\theta)\,dP(\theta)
+\leftrightarrow x = \int_\Omega X(\omega)\,dQ(\omega)
+$$
+where we use $Q$ instead of Ross's $P$.
+
+$$
+\tag{2}	p_g = e^{-r(\theta^0)T}E^*[g(\theta)] = E[g(\theta)\phi(\theta)]
+\leftrightarrow x = DE^*[X] = E[X\phi]
+$$
+where $\phi = D dQ^*/dP = dQ/dP$.
+
+Ross goes from a one-period model to a multi-period model to claim
+$$
+\tag{3}	Q(\theta_i, \theta_j, T) = \int_\theta Q(\theta_i, \theta, t) Q(d\theta, \theta_j, T - t)
+$$
+"where $Q(\theta_i, \theta_j, T)$ is the forward martingale probability
+transition function for going from state $\theta_i$ to state $\theta_j$.
+in $T$ periods and where the integration is over the intermediate state
+$\theta$ at time $t$. Notice that the transition function depends on the
+time interval and is independent of calendar time."
+
+The _multi-period model_ specifies prices $X_j\in B(\AA_j,\RR^I)$,
+where $\AA_j$ is the information available at time $t_j$, and
+a probability measure $P$ on the set of outcomes $\Omega$.
+The information available at time $t_j$ is a _partition_ $\AA_j$ of $\Omega$.
+
+The FTAP for multi-period models states there is no arbitrage if and only if
+there exist positive measures $D_j\in ba(\AA_j)$ making $X_j D_j$ a _martingale measure_ 
+$$
+	X_j D_j = (X_k D_k)|\AA_j, j \le k
+$$
+
+__Exercise__. _Show $Y = E[X\mid\AA]$ if and only if $Y(P\mid\AA) = (XP)\mid\AA$_.
+
+A process $(Y_j)$ is a _martingale_ if $Y_j = E[Y_k\mid\AA_j]$, $j\le k$.
+A process is _Markov_ is $Y_j = E[Y_k\mid \AA(X_j)]$, $j\le k$ where
+$\AA(X)$ is the smallest algebra for which $X$ is measurable.
+
