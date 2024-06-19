@@ -19,7 +19,7 @@ the "real-world" probabilty measure on outcomes in $\Omega$, where
 $ba(\Omega)$ is the set of finitely-additive measures on $\Omega$.
 
 The FTAP states there is no arbitrage if and only if there exists a
-positive _risk-neutral_ measure $Q\in ba(\Omega)$ with
+positive _risk-neutral_ measure ${Q\in ba(\Omega)}$ with
 ${x = \int_\Omega X\,dQ}$. In general $Q$ is not unique.
 If there exists $\zeta\in\RR^I$ with
 ${\zeta^*X(\omega) = 1}$ for
@@ -28,17 +28,19 @@ The _discount_ $D$ is the price of the _zero coupon bond_ $\zeta$.  Note
 $Q^* = Q/D$ is a "probability" measure and $x = DE^*[X]$ where the expectation
 is computed using $Q^*$.
 
+Put Ross's notation on a rigorous foundation. 
+
 I. Basic Framework
 
 $$
 \tag{1}p_g = \int g(\theta)\,dP(\theta)
-\leftrightarrow x = \int_\Omega X(\omega)\,dQ(\omega)
+\quad\leftrightarrow\quad x = \int_\Omega X(\omega)\,dQ(\omega)
 $$
-where we use $Q$ instead of Ross's $P$.
+where $g$ corresponds to $X$ and $Q$ is Ross's $P$.
 
 $$
 \tag{2}	p_g = e^{-r(\theta^0)T}E^*[g(\theta)] = E[g(\theta)\phi(\theta)]
-\leftrightarrow x = DE^*[X] = E[X\phi]
+\quad\leftrightarrow\quad x = DE^*[X] = E[X\phi]
 $$
 where $\phi = D dQ^*/dP = dQ/dP$.
 
@@ -59,17 +61,17 @@ The information available at time $t_j$ is a _partition_ $\AA_j$ of $\Omega$.
 
 ### Binomial Model
 
-The _binomial model_ has sample space $\Omega = [0, 1)$. The probability measure is Lesbegue measure.
-The information available at time $t_j = j$ is the partition
-$\AA_j = \{[k/2^j, (k + 1)/2^j)\mid 0\le k < 2^j\}$. Each atom of the partition determines
-the first $j$ digits of the base 2 expansion of $\omega\in\Omega$.
-Define $V_j(\omega) = \omega_1 + \cdots + \omega_j$
-where $\omega = \sum_{i>0} \omega_i 2^-i$ and $\omega_i\in\{0,1\}$ is
-the base 2 expansion of $\omega$.
+The _binomial model_ has sample space $\Omega = [0, 1)$. The probability
+measure is Lesbegue measure.  The information available at time $t_j =
+j$ is the partition $\AA_j = \{A_{ij}\mid 0\le i < 2^j\}$ where $A_{ij} =
+[i/2^j, (i + 1)/2^j)$. Each atom of the partition determines the first $j$
+digits of the base 2 expansion of $\omega\in\Omega$.  Define $V_j(\omega)
+= \omega_1 + \cdots + \omega_j$ where $\omega = \sum_{i>0} \omega_i 2^-i$
+and $\omega_i\in\{0,1\}$ is the base 2 expansion of $\omega$.
 
-__Exercise__. _Show $V_jP = 1/2 + (V_{j+1}P)|A_j$_.
+__Exercise__. _Show $V_jP = (V_{j+1}P)|A_j$ + 1/2_.
 
-_Hint_: 
+_Hint_: $V_{j+1} = V_j + \omega_{j+1}$ and $\omega_{j+1}P(A_{j,j+1}) = 1/2$.
 
 The FTAP for multi-period models states there is no arbitrage if and only if
 there exist positive measures $D_j\in ba(\AA_j)$ making $X_j D_j$ a _martingale measure_ 
