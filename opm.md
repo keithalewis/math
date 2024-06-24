@@ -12,15 +12,21 @@ abstract: Buy now, sell later.
 
 Let $I$ be the set of _instruments_ available over a time period
 and $\Omega$ be the set of possible outcomes.
-The _prices_ at the beginning of the period are a vector $x\in\RR^I$.
+The _prices_ at the beginning of the period are a vector $x\in\RR^I$[^1].
 The prices at the end of the period are a function $X\colon\Omega\to
 \RR^I$ where $X(\omega)\in\RR^I$ are the instrument prices if
 $\omega\in\Omega$ occurred.
 
+[^1]: Recall the _set exponential_ $B^A = \{f\colon B\to A\}$ is the
+set of all functions from the set $A$ to the set $B$.
+If $x\colon I\to\RR$ then $x(i)$ is the price of instrument $i\in I$.
+The _dot product_ of $x,y\in\RR^I$ is $x\cdot y = \sum_{i\in I}x_i y_i$
+if $I$ is finite. The _norm_ of $x\in\RR^I$ is defined by $\|x\|^2 = x\cdot x$.
+
 ## Example
 
 For example, the _binomial model_ has a bond and stock where $x = (1, s)$,
-$X(\omega) = (R, \omega)$, and $\Omega = \{S^-, S^+\}$ where $R > 0$, and
+$X(\omega) = (R, \omega)$, and $\Omega = \{S^-, S^+\}$ where
 ${S^- < S^+}$.
 The bond has realized return $R$ and the stock can go from price $s$
 to either $S^-$ or $S^+$.  A slightly more realistic model is
@@ -37,7 +43,20 @@ with $\xi\cdot x < 0$ and $\xi\cdot X(\omega)\ge0$ for all $\omega\in\Omega$:
 you make money acquiring the initial position and never lose money when
 unwinding it at the end.
 
-__Exercise__. _If $sR\notin [S^-,S^+]$ in the binomial model there is an arbitrage_.
+Some authors define arbitrage as a portfolio with $\xi\cdot x = 0$ and
+$\xi\cdot X$ is strictly positive on some set having positive probability.
+We haven't specified a probability measure so we can't use this definition.
+No trader would consider that to be an arbitrage anyway. 
+Even though the position costs nothing to put on, that definition has nothing
+to say about how much they will make nor how likely it is they will make it.
+
+In reality, our stronger definition is still not good enough for traders. Even though $\xi\cdot x$
+is strictly negative, they will consider how much capital will be tied up
+putting on that position and compute $|\xi|\cdot |x|$.
+If the ratio $|\xi\cdot x|/|\xi|\cdot |x|$ is small, they will take a pass on that "arbitrage"
+opportunity.
+
+__Exercise__. _If $sR\notin [S^-,S^+]$ in the binomial model then there is an arbitrage_.
 
 _Hint_: If $sR > S^+$ the bond is always more valuable than the stock
 so short the the stock and buy bond with $\xi = (S^+, -R)$.
@@ -58,11 +77,6 @@ so $\xi\cdot X\ge0$ on $\{S^-,S^+\}$.
 
 ## Cone
 
-Suppose $x = \sum_i X(\omega_i) \pi_i$ is a finite linear combination
-with $\pi_i\in\RR$ positive, $\omega_i\in\Omega$. 
-If ${\xi\cdot X(\omega)\ge0}$ for $\omega\in\Omega$ then ${\xi\cdot x\ge 0}$,
-so no arbitrage exists.
-
 A _cone_ $C$ is a subset of a vector space closed under positive scalar
 multiplication and vector addition.
 
@@ -82,7 +96,14 @@ If $\xi$ is an arbitrage then $t\xi$ is an arbtrage for $t > 0$.
 If $\xi$ and $\eta$ are arbitrages then so is $\xi + \eta$.
 </details>
 
-__Exercise__. _If $x$ belongs to the smallest cone containing
+
+The smallest cone containing the range of $X$ is
+$\{\sum_i X(\omega_i) \pi_i\mid \omega_1,\cdots,\omega_n\in\Omega, \pi_i > 0\}$.
+If $x = \sum_i X(\omega_i) \pi_i$ and
+${\xi\cdot X(\omega)\ge0}$ for $\omega\in\Omega$ then ${\xi\cdot x\ge 0}$
+so no arbitrage exists.
+
+__Exercise__. _If $x$ belongs to the smallest_ closed _cone containing
 the range of $X$ then there is no arbitrage_.
 
 _Hint_: The range of $X$ is $\ran X = \{X(\omega)\mid\omega\in\Omega\}$.
@@ -100,7 +121,7 @@ the one-period model if and only if $x$ does not belong to the smallest
 closed cone containing the range of $X$_.
 
 The previous exercise proves the "easy" direction.
-The contrapositive follows from 
+The contrapositive follows from the
 
 __Lemma__. _If $x\in\RR^n$ and $C$ is a closed cone in
 $\RR^n$ with $x\not\in C$ then there exists ${\xi\in\RR^n}$
@@ -120,7 +141,7 @@ Dividing by $t < 0$ and letting $t$ increase to 0 shows ${\xi\cdot x^*\le 0}$ so
 ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ hence ${\xi\cdot x < 0}$.
 
 The lemma proves the "hard" direction of the FTAP
-and $\xi = x^* - x$ implements an arbitrage.
+and that $\xi = x^* - x$ implements an arbitrage.
 
 Note the lemma is a purely geometric fact.
 It is similar to Farkas' lemma and is a special case of the Hahn-Banach theorem
@@ -129,7 +150,7 @@ in finite dimensional space.
 ## Application
 
 For the binomial model the smallest closed cone containing the range of $X$
-is $\{X(S^-)\pi^- + X(S^+)\pi^+\mid \pi^-,\pi^+\ge0\}$.
+is ${\{X(S^-)\pi^- + X(S^+)\pi^+\mid \pi^-,\pi^+\ge0\}}$.
 If $(1, s)$ is in the cone then ${(1,s) = (R, S^-)\pi^- + (R, S^+)\pi^+}$
 for some $\pi^-,\pi^+\ge0$. Solving for $\pi^-$ and $\pi^+$ gives
 the no arbitrage condition $S^- \le Rs \le R^+$.
@@ -180,7 +201,7 @@ __Exercise__. _Show the model without the bond is arbitrage-free if and only the
 is between $0$ and $100/11 < 10$_.
 
 _Hint_: Consider $\{(90, 0)a + (100, 0)b + (110, 10)c\mid a,b,c\ge0\}$.
-The smallest closed convex cone is bounded below by $y = 0$ and above
+The smallest closed cone is bounded below by $y = 0$ and above
 by $y = (10/110)x$.
 
 ## Reality
@@ -197,16 +218,34 @@ not founded on the mathematical fictions of continuous time trading and unbounde
 
 ## FTAP
 
+We will assume $X\colon\Omega\to\RR^I$ is bounded so $\|X\| = \sup_{\omega\in\Omega}|X(\omega)|$ is finite,
+just as it is in the real world.
 If $x\in\RR^I$ and $X\colon\Omega\to\RR^I$ is bounded then there is no arbitrage
 if and only if $x = \int_\Omega X(\omega)\,d\Pi(\omega)$ for some positive, bounded, finitely additive
 measure on $\Omega$, but this requires a bit more math to establish.
+We can any such measure _risk-neutral_, although _risk-blind_ might be more appropriate.
+In general, risk-neutral measures are not unique.
+
+Dunford and Schwartz.
+
+## Zero
 
 If there exists a _zero coupon bond_ $\zeta\in\RR^I$ with $\zeta\cdot
 X(\omega) = 1$ for all ${\omega\in\Omega}$ then
-${D = \zeta\cdot x = \int_\Omega \zeta\cdot X(\omega)\,d\Pi(\omega) = \Pi(\Omega)}$
+${\zeta\cdot x = \int_\Omega \zeta\cdot X(\omega)\,d\Pi(\omega) = \Pi(\Omega) = D}$
 is the cost of the bond, aka _discount_.  The measure ${P = \Pi/D}$ is
-positive and has mass 1 so ${x = E[XD]}$ if we pretend it is a probability
+positive and has mass 1 so ${x = E[X]D}$ if we pretend it is a probability
 measure.
+
+## Return
+
+The _realized return_ on a portfolio $\xi\in\RR^I$ is ${R_\xi = \xi\cdot X/\xi\cdot x}$
+whenever $\xi\cdot x\not=0$.
+
+__Exercise__. _Show $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$._
+
+If $\xi\cdot x = 1$ then $R_\xi = \xi\cdot X$. One unit invested at the beginning
+of the period results in $R_\xi\colon\Omega\to\RR$ at the end of the period.
 
 <!--
 
