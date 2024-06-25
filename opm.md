@@ -21,15 +21,15 @@ $\omega\in\Omega$ occurred.
 set of all functions from the set $A$ to the set $B$.
 If $x\colon I\to\RR$ then $x(i)$ is the price of instrument $i\in I$.
 The _dot product_ of $x,y\in\RR^I$ is $x\cdot y = \sum_{i\in I}x_i y_i$
-if $I$ is finite. The _norm_ of $x\in\RR^I$ is defined by $\|x\|^2 = x\cdot x$.
+if $I$ is finite. The _Euclidean norm_ of $x\in\RR^I$ is defined by $\|x\| = \sqrt{x\cdot x}$.
 
-## Example
+## Binomial Model
 
-For example, the _binomial model_ has a bond and stock where $x = (1, s)$,
-$X(\omega) = (R, \omega)$, and $\Omega = \{S^-, S^+\}$ where
+The _binomial model_ has a bond and stock where $x = (1, s)$,
+$X(\omega) = (R, \omega)$, and $\Omega = \{S^-, S^+\}$ with
 ${S^- < S^+}$.
 The bond has realized return $R$ and the stock can go from price $s$
-to either $S^-$ or $S^+$.  A slightly more realistic model is
+to either $S^-$ or $S^+$.  A somewhat more realistic model is
 ${\Omega = [S^-, S^+]}$ where the final stock price can be any value in the interval.
 
 ## Arbitrage
@@ -39,9 +39,9 @@ The cost of acquiring the initial position is $\xi\cdot x$.
 The value of liquidating the final position is $\xi\cdot X(\omega)$ if $\omega\in\Omega$ occurred.
 
 _Arbitrage_ exists in a one-period model if there is a position $\xi\in\RR^I$
-with $\xi\cdot x < 0$ and $\xi\cdot X(\omega)\ge0$ for all $\omega\in\Omega$:
-you make money acquiring the initial position and never lose money when
-unwinding it at the end.
+with $\xi\cdot x < 0$ and ${\xi\cdot X(\omega)\ge0}$ for all $\omega\in\Omega$:
+you make money acquiring the initial position and don't lose money when
+unwinding it at the end of the period.
 
 Some authors define arbitrage as a portfolio with $\xi\cdot x = 0$ and
 $\xi\cdot X$ is strictly positive on some set having positive probability.
@@ -50,29 +50,32 @@ No trader would consider that to be an arbitrage anyway.
 Even though the position costs nothing to put on, that definition has nothing
 to say about how much they will make nor how likely it is they will make it.
 
-In reality, our stronger definition is still not good enough for traders. Even though $\xi\cdot x$
-is strictly negative, they will consider how much capital will be tied up
-putting on that position and compute $|\xi|\cdot |x|$.
-If the ratio $|\xi\cdot x|/|\xi|\cdot |x|$ is small, they will take a pass on that "arbitrage"
-opportunity.
+In reality, our stronger definition is still not good enough for traders.
+Even though $\xi\cdot x$ is strictly negative, they will consider
+how much capital will be tied up putting on that position and compute
+$|\xi|\cdot |x|$.  If the ratio $|\xi\cdot x|/|\xi|\cdot |x|$ is small,
+they will take a pass on that "arbitrage" opportunity.
 
 __Exercise__. _If $sR\notin [S^-,S^+]$ in the binomial model then there is an arbitrage_.
 
 _Hint_: If $sR > S^+$ the bond is always more valuable than the stock
-so short the the stock and buy bond with $\xi = (S^+, -R)$.
+so short the the stock and buy bond.
 If $Rs < S^-$ the bond is always less valuable than the stock
-so short the bond and buy the stock with with $\xi = (-S^-, R)$.
+so short the bond and buy the stock.
 
 <details><summary>Solution</summary>
-In the first case, $\xi\cdot x = S^+ - sR < 0$,
+If $sR > S^+$ take $\xi = (S^+, -R)$ so $\xi\cdot x = S^+ - sR < 0$,
 ${\xi\cdot X(S^-) = S^+R - RS^- > 0}$,
 and ${\xi\cdot X(S^+) = S^+R - RS^+ = 0}$,
 so $\xi\cdot X\ge0$ on $\{S^-,S^+\}$.
 
-In the second case, $\xi\cdot x = -S^- + sR < 0$,
+If $Rs < S^-$ take $\xi = (-S^-, R)$ so $\xi\cdot x = -S^- + sR < 0$,
 ${\xi\cdot X(S^-) = -S^-R + RS^- = 0}$,
 and ${\xi\cdot X(S^+) = -S^-R + RS^+ > 0}$,
 so $\xi\cdot X\ge0$ on $\{S^-,S^+\}$.
+
+This argument also holds for the somewhat more realistic model
+with $\Omega = [S^-, S^+]$.
 </details>
 
 ## Cone
