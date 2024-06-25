@@ -36,7 +36,7 @@ information available at each trading time.
 ### Preliminaries
 
 If $\AA$ is a finite algebra of sets on $\Omega$ then
-$[\omega] = \cap\{A\in\AA\mid\omega\in\AA\}$ is the _atom_ of $\AA$ containing $\omega\in\Omega$.
+$[\omega] = \cap\{A\in\AA\mid\omega\in A\}$ is the _atom_ of $\AA$ containing $\omega\in\Omega$.
 
 __Exercise__. _If $B\subseteq[\omega]$ and $B\in\AA$ then
 $B = \emptyset$ or $B = [\omega]$_.
@@ -53,8 +53,8 @@ so $X\colon[\AA]\to\RR$ _is_ a function.
 
 If $P$ is a positive measure with mass 1 on
 $\Omega$ and $X\colon\Omega\to\RR$ is a random variable then conditional
-expectation $Y = E[X|\AA]$ is equivalent to restriction of measure $Y(P|\AA)
-= (XP)|\AA$.
+expectation $Y = E[X|\AA]$ is equivalent to restriction of measure $Y(P|_\AA)
+= (XP)|_\AA$.
 
 ### Market
 
@@ -83,7 +83,7 @@ receive cash flows proportional to existing positions and pay for trades just ex
 ### Arbitrage
 
 _Arbitrage_ exists if there is a trading strategy
-with $A_{\tau_0} > 0$, $A_t \ge 0$, $t > \tau_0$, and $\sum_{j} \Gamma_j = 0$.
+with $A_{\tau_0} > 0$, $A_t \ge 0$, $t > \tau_0$, and $\sum_j \Gamma_j = 0$.
 The first trade makes money and subsequent trades never lose money.
 
 The Fundamental Theorem of Asset Pricing states there is no arbitrage if and only
@@ -118,7 +118,7 @@ a "perfect hedge" exists[^1].
 
 [^1]: Perfect hedges never exist.
 
-Note $V_t D_t= (\sum_{\tau_j > t} \overline{A}_j D_{\overline{\tau}_j})|\AA_t$
+Note $V_t D_t = (\sum_{\tau_j > t} \overline{A}_j D_{\overline{\tau}_j})|\AA_t$
 can be computed from the derivative contract specification and the deflators $D_t$.
 Since we also have $V_t = (\Delta_t + \Gamma_t)\cdot X_t$
 the Frechet derivative $D_{X_t}V_t$
@@ -208,7 +208,7 @@ we only know it can occur any time after that.
 The cash flows for a risky bond $D^{T,R}(u)$ are 1 at time $u$ if $T > t$
 and $RD_T$ at time $T$ if $T \le t$. For the model to be arbitrage-free we must have
 $$
-D_t^{R,T}(u) D_t = \bigl(1(T > u)D_u + 1(T\le u)R D_T\bigr)|\AA_t.
+	D_t^{R,T}(u) D_t = \bigl(1(T > u)D_u + 1(T\le u)R D_T\bigr)|\AA_t.
 $$
 Note if $T = \infty$ or $R = 1$ then ${D_t^{R,T}(u) = D_t(u)}$.
 

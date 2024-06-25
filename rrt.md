@@ -59,6 +59,22 @@ where $\AA_j$ is the information available at time $t_j$, and
 a probability measure $P$ on the set of outcomes $\Omega$.
 The information available at time $t_j$ is a _partition_ $\AA_j$ of $\Omega$.
 
+The FTAP for multi-period models states there is no arbitrage if and only if
+there exist positive measures $D_j\in ba(\AA_j)$ making $X_j D_j$ a _martingale measure_ 
+$$
+	X_j D_j = (X_k D_k)|\AA_j, j \le k
+$$
+
+__Exercise__. _Show $Y = E[X\mid\AA]$ if and only if $Y(P\mid\AA) = (XP)\mid\AA$_.
+
+_Hint_: $Y = E[X\mid\AA]$ if and only if $Y$ is $\AA$-measurable
+and $\int_A Y\,dP = \int_A X\,dP$ for all $A\in\AA$.
+
+A process $(X_j)$ is a _martingale_ if $X_j = E[X_k\mid\AA_j]$, $j\le k$.
+A process is _Markov_ is $Y_j = E[Y_k\mid \AA(X_j)]$, $j\le k$ where
+$\AA(X)$ is the smallest algebra for which $X$ is measurable.
+
+
 ### Binomial Model
 
 The _binomial model_ has sample space $\Omega = [0, 1)$. The probability
@@ -72,19 +88,6 @@ and $\omega_i\in\{0,1\}$ is the base 2 expansion of $\omega$.
 __Exercise__. _Show $V_jP = (V_{j+1}P)|A_j$ + 1/2_.
 
 _Hint_: $V_{j+1} = V_j + \omega_{j+1}$ and $\omega_{j+1}P(A_{j,j+1}) = 1/2$.
-
-The FTAP for multi-period models states there is no arbitrage if and only if
-there exist positive measures $D_j\in ba(\AA_j)$ making $X_j D_j$ a _martingale measure_ 
-$$
-	X_j D_j = (X_k D_k)|\AA_j, j \le k
-$$
-
-__Exercise__. _Show $Y = E[X\mid\AA]$ if and only if $Y(P\mid\AA) = (XP)\mid\AA$_.
-
-A process $(Y_j)$ is a _martingale_ if $Y_j = E[Y_k\mid\AA_j]$, $j\le k$.
-A process is _Markov_ is $Y_j = E[Y_k\mid \AA(X_j)]$, $j\le k$ where
-$\AA(X)$ is the smallest algebra for which $X$ is measurable.
-
 ## Markov Process
 
 Let $S$ be a finite set of _states_ and non-negative _transition probabilties_ $\pi_{st}$ for $s,t\in S$
