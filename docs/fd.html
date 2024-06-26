@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-04" />
+  <meta name="dcterms.date" content="2024-06-26" />
   <title>Fréchet Derivative</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Fréchet Derivative</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 4, 2024</p>
+<p class="date">June 26, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Infinite dimensional derivatives
@@ -79,6 +79,12 @@ class="math inline">x,y\in X</span>.</p>
 <p>If <span class="math inline">X = Y = \boldsymbol{R}</span> then <span
 class="math inline">DF\colon\boldsymbol{R}\to\mathcal{B}(\boldsymbol{R},\boldsymbol{R})</span>
 where <span class="math inline">DF(x)h = F&#39;(x)h</span>.</p>
+<p>If <span class="math inline">G\colon Y\to Z</span> then <span
+class="math inline">D(G\circ F)(x) = DG(F(x))DF(x)h</span></p>
+<p><strong>Exercise</strong>: <em>Prove the chain rule for Frechet
+derivatives.</em></p>
+<p><em>Hint</em>: <span class="math inline">G\circ F(x + h) = G(F(x +
+h)) = G(F(x) + DF(x)h) = G(F(x)) + DG(F(x))DF(x)h</span></p>
 <p>Define the <em>dual</em> of a normed linear space <span
 class="math inline">X</span> by <span class="math inline">X^* =
 \mathcal{B}(X,\boldsymbol{R})</span>. If <span class="math inline">X^I =
@@ -113,8 +119,25 @@ ax</span> for some <span
 class="math inline">a\in\boldsymbol{R}</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">\|\cdot\|</span> is a norm</em>.</p>
-<p>…<span class="math inline">(R^I)^*\cong\boldsymbol{R}^I</span>…</p>
-<p><span class="math inline">D\|x\|^p = p\|x\|^{p-1}x^*</span>.</p>
+<p>The <em>canonical basis</em> of <span
+class="math inline">\boldsymbol{R}^I</span> is <span
+class="math inline">e_j\in\boldsymbol{R}^I</span>, <span
+class="math inline">j\in I</span>, defined by <span
+class="math inline">e_j(i) = \delta_{ij}</span>, where <span
+class="math inline">\delta_{ij} = 1</span> if <span
+class="math inline">i = j</span> and is zero otherwise. Define the dual
+basis <span class="math inline">e_i^*\in(\boldsymbol{R}^I)^*</span>,
+<span class="math inline">i\in I</span>, by <span
+class="math inline">e_i^*(e_j) = \delta_{ij}</span>. The <em>dual
+map</em> <span
+class="math inline">*\colon\boldsymbol{R}^I\to(\boldsymbol{R}^I)^*</span>
+defined by <span class="math inline">e_i\mapsto e_i^*</span> allows us
+to identify <span class="math inline">(\boldsymbol{R}^I)^*</span> with
+<span class="math inline">\boldsymbol{R}^I</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the dual map is an isometric
+isomorphism</em>.</p>
+<p><strong>Exercise</strong>: _Show <span class="math inline">D\|x\|^p =
+p\|x\|^{p-1}x^*</span>.</p>
 <p>Let <span class="math inline">F(x) = x^2</span>. For <span
 class="math inline">T\in\mathcal{L}_n</span></p>
 </body>

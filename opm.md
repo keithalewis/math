@@ -9,8 +9,10 @@ abstract: Buy now, sell later.
 
 \newcommand\RR{\boldsymbol{R}}
 \newcommand\ran{\operatorname{ran}}
+\newcommand\Var{\operatorname{Var}}
+\newcommand\BB{\mathcal{B}}
 
-Let $I$ be the set of _instruments_ available over a time period
+Let $I$ be the set of market _instruments_ available over a time period
 and $\Omega$ be the set of possible outcomes.
 The _prices_ at the beginning of the period are a vector $x\in\RR^I$[^1].
 The prices at the end of the period are a function $X\colon\Omega\to
@@ -44,32 +46,34 @@ you make money acquiring the initial position and don't lose money when
 unwinding it at the end of the period.
 
 Some authors define arbitrage as a portfolio with $\xi\cdot x = 0$ and
-$\xi\cdot X$ is strictly positive on some set having positive probability.
+$\xi\cdot X$ is non-negative and strictly positive on some set having positive probability.
 We haven't specified a probability measure so we can't use this definition.
 No trader would consider that to be an arbitrage anyway. 
 Even though the position costs nothing to put on, that definition has nothing
 to say about how much they will make nor how likely it is they will make it.
 
-In reality, our stronger definition is still not good enough for traders.
+In reality, even our stronger definition is still not good enough for traders.
 Even though $\xi\cdot x$ is strictly negative, they will consider
 how much capital will be tied up putting on that position and compute
 $|\xi|\cdot |x|$.  If the ratio $|\xi\cdot x|/|\xi|\cdot |x|$ is small,
 they will take a pass on that "arbitrage" opportunity.
+No trader would use a million dollars from their funding account
+to make at a penny even though that satisfies the mathematical definition of arbitrage.
 
-__Exercise__. _If $sR\notin [S^-,S^+]$ in the binomial model then there is an arbitrage_.
+__Exercise__. _If $Rs\notin [S^-,S^+]$ in the binomial model then there is an arbitrage_.
 
-_Hint_: If $sR > S^+$ the bond is always more valuable than the stock
+_Hint_: If $Rs > S^+$ the bond is always more valuable than the stock
 so short the the stock and buy bond.
 If $Rs < S^-$ the bond is always less valuable than the stock
 so short the bond and buy the stock.
 
 <details><summary>Solution</summary>
-If $sR > S^+$ take $\xi = (S^+, -R)$ so $\xi\cdot x = S^+ - sR < 0$,
+If $Rs > S^+$ take $\xi = (S^+, -R)$ so $\xi\cdot x = S^+ - Rs < 0$,
 ${\xi\cdot X(S^-) = S^+R - RS^- > 0}$,
 and ${\xi\cdot X(S^+) = S^+R - RS^+ = 0}$,
 so $\xi\cdot X\ge0$ on $\{S^-,S^+\}$.
 
-If $Rs < S^-$ take $\xi = (-S^-, R)$ so $\xi\cdot x = -S^- + sR < 0$,
+If $Rs < S^-$ take $\xi = (-S^-, R)$ so $\xi\cdot x = -S^- + Rs < 0$,
 ${\xi\cdot X(S^-) = -S^-R + RS^- = 0}$,
 and ${\xi\cdot X(S^+) = -S^-R + RS^+ > 0}$,
 so $\xi\cdot X\ge0$ on $\{S^-,S^+\}$.
@@ -95,23 +99,19 @@ hence $tx + (1 - t)y\in C$.
 __Exercise__. _The set of arbitrage positions is a cone_.
 
 <details><summary>Solution</summary>
-If $\xi$ is an arbitrage then $t\xi$ is an arbtrage for $t > 0$.
+If $\xi$ is an arbitrage then $t\xi$ is an arbitrage for $t > 0$.
 If $\xi$ and $\eta$ are arbitrages then so is $\xi + \eta$.
 </details>
 
-
-The smallest cone containing the range of $X$ is
-$\{\sum_i X(\omega_i) \pi_i\mid \omega_1,\cdots,\omega_n\in\Omega, \pi_i > 0\}$.
-If $x = \sum_i X(\omega_i) \pi_i$ and
-${\xi\cdot X(\omega)\ge0}$ for $\omega\in\Omega$ then ${\xi\cdot x\ge 0}$
+The smallest cone containing the range of $X$,
+$\ran X = X(\Omega) = \{X(\omega)\mid \omega\in\Omega\}$, is the set of finite
+linear combinations $\sum_i X(\omega_i) \pi_i$, $\pi_i > 0$, $\omega_i\in\Omega$.
+If $x = \sum_i X(\omega_i) \pi_i$ is in the cone
+and $\xi\cdot X$ is non-negative on $\Omega$ then ${\xi\cdot x\ge 0}$
 so no arbitrage exists.
 
 __Exercise__. _If $x$ belongs to the smallest_ closed _cone containing
 the range of $X$ then there is no arbitrage_.
-
-_Hint_: The range of $X$ is $\ran X = \{X(\omega)\mid\omega\in\Omega\}$.
-The smallest cone containing the range of $X$ is the set of finite
-linear combinations $\sum_i X(\omega_i) \pi_i$, $\pi_i > 0$, $\omega_i\in\Omega$.
 
 <details><summary>Solution</summary>
 If $x_n\in C$ converge to $x$ in norm and $\xi\cdot x_n\ge0$ then $\xi\cdot x\ge0$.
@@ -124,7 +124,7 @@ the one-period model if and only if $x$ does not belong to the smallest
 closed cone containing the range of $X$_.
 
 The previous exercise proves the "easy" direction.
-The contrapositive follows from the
+The contra-positive follows from the
 
 __Lemma__. _If $x\in\RR^n$ and $C$ is a closed cone in
 $\RR^n$ with $x\not\in C$ then there exists ${\xi\in\RR^n}$
@@ -136,7 +136,8 @@ It exists since $C$ is closed and is unique since $C$ is convex.
 Since $ty + x^*\in C$ for any $t > 0$ and $y\in C$ 
 we have $\|x^* - x\| \le \|ty + x^* - x\|$.
 Simplifying gives ${t^2||y||^2 + 2t\xi\cdot y\ge 0}$. 
-Dividing by $t > 0$ and letting $t$ decrease to 0 shows ${\xi\cdot y\ge 0}$.
+Dividing by $t > 0$ and letting $t$ decrease to 0 shows ${\xi\cdot y\ge 0}$
+for all $y\in C$.
 
 We also have $\|x^* - x\| \le \|tx^* + x^* - x\|$ for $t + 1 > 0$.
 Simplifying gives ${t^2||x^*||^2 + 2t\xi\cdot x^*\ge 0}$ for  $t > -1$.
@@ -172,6 +173,8 @@ for some $\pi^-,\pi^+\ge0$. The first two equations determine $\pi^-$ and $\pi^+
 above so $v = \nu(S^-)\pi^- + \nu(S^+)\pi^+$.
 Every option payoff is linear in the binomial model.
 
+__Exercise__. _Find $a,b\in\RR$ with $aR + b\omega = \nu(\omega)$ for $\omega\in\{S^-,S^+\}$_.
+
 A slightly more interesting model is a bond with zero interest rate, a stock that
 can go from 100 to 90, 100, or 110, and an at-the-money call option with price $v$.
 The model is $x = (1, 100, v)$, $X(\omega) = (1, \omega, \max\{\omega - 100, 0\})$,
@@ -195,10 +198,9 @@ $$
 
 __Exercise__. _Show $a = c$ and $b = 1 - 2c$_.
 
-_Hint_: Multiply the first equation by 90 and subtract the second. 
-
 The FTAP proves the model is arbitrage-free if and only if the option value is between $0$ and $5$
-since $b\ge0$ implies $0\le c\le 1/2$ and $v = 10c$.
+since $v = 10c\ge0$ and
+$b\ge0$ implies $0\le c\le 1/2$ so $v = 10c\le 5$.
 
 __Exercise__. _Show the model without the bond is arbitrage-free if and only the option value
 is between $0$ and $100/11 < 10$_.
@@ -222,33 +224,82 @@ not founded on the mathematical fictions of continuous time trading and unbounde
 ## FTAP
 
 We will assume $X\colon\Omega\to\RR^I$ is bounded so $\|X\| = \sup_{\omega\in\Omega}|X(\omega)|$ is finite,
-just as it is in the real world.
+just as it is in the real world. We write this ${X\in B(\Omega,\RR^I)}$, the normed vector space
+of bounded $\RR^I$-valued functions.
 If $x\in\RR^I$ and $X\colon\Omega\to\RR^I$ is bounded then there is no arbitrage
 if and only if $x = \int_\Omega X(\omega)\,d\Pi(\omega)$ for some positive, bounded, finitely additive
-measure on $\Omega$, but this requires a bit more math to establish.
-We can any such measure _risk-neutral_, although _risk-blind_ might be more appropriate.
+measure $\Pi\in ba(\Omega)$ on $\Omega$, but this requires a bit more math to establish.
+See [@DunSch1958].
+We call any such measure _risk-neutral_, although _risk-blind_ might be more appropriate.
 In general, risk-neutral measures are not unique.
 
-Dunford and Schwartz.
+If we let $Q = \Pi/\Pi(\Omega)$ then $Q$ is a positive measure with mass 1
+and $x = E[X]\Pi(\Omega)$ if we pretend it is a probability measure.
 
-## Zero
-
-If there exists a _zero coupon bond_ $\zeta\in\RR^I$ with $\zeta\cdot
-X(\omega) = 1$ for all ${\omega\in\Omega}$ then
-${\zeta\cdot x = \int_\Omega \zeta\cdot X(\omega)\,d\Pi(\omega) = \Pi(\Omega) = D}$
-is the cost of the bond, aka _discount_.  The measure ${P = \Pi/D}$ is
-positive and has mass 1 so ${x = E[X]D}$ if we pretend it is a probability
+If a zero coupon bond exists then $\Pi(\Omega)$ is its price.
+A _zero coupon bond_ is a portfolio $\zeta\in\RR^I$ with 
+${\zeta\cdot X(\omega) = 1}$ for all ${\omega\in\Omega}$.
+The _price_, or _discount_, of a zero coupon bond is
+${\zeta\cdot x = \int_\Omega \zeta\cdot X(\omega)\,d\Pi(\omega) = \Pi(\Omega) = D}$.
+The measure ${Q = \Pi/D}$ is positive and has mass 1 so ${x = E[X]D}$ if we pretend it is a probability
 measure.
+
+Define the map $M_X\colon\RR^I\to B(\Omega)$ by $M_X(\xi) = \xi\cdot X$.
+We can and do assume $M_X$ is one-to-one, otherwise there would be redundant market instruments.
+We say prices $X$ form a _complete market_ if $M_X$ is _onto_.
+
+__Exercise__. _Show the market is complete implies the cardinality of $\Omega$
+is less than or equal to the cardinality of $I$_.
+
+_Hint_: If $T\colon V\to W$ is a linear operator between 
+vector spaces that is onto, then the dimension of $V$ is greater than
+or equal to the dimension of $W$.
+
+<details><summary>Solution</summary>
+The image of a basis of $V$ under any linear operator cannot be a basis of $W$ if the dimension
+of $V$ is less than the dimension of $W$.
+</details>
+
+Although complete markets are common in mathematical finance books, they almost
+never occur in models faithful to the real world.
 
 ## Return
 
 The _realized return_ on a portfolio $\xi\in\RR^I$ is ${R_\xi = \xi\cdot X/\xi\cdot x}$
-whenever $\xi\cdot x\not=0$.
+whenever ${\xi\cdot x\not=0}$.
 
 __Exercise__. _Show $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$._
 
 If $\xi\cdot x = 1$ then $R_\xi = \xi\cdot X$. One unit invested at the beginning
-of the period results in $R_\xi\colon\Omega\to\RR$ at the end of the period.
+of the period results in ${R_\xi\colon\Omega\to\RR}$ at the end of the period.
+Every portfolio has the same expected realized return under a risk-neutral measure.
+
+__Exercise__. _If $\Pi$ is a risk-neutral measure then $E[R_\xi] = 1/\Pi(\Omega)$
+for any portfolio $\xi\in\RR^I$_.
+
+_Hint_: The expectation is with respect to the "probability" measure $\Pi/\Pi(\Omega)$.
+
+## Probability
+
+We now assume there is a probability measure $P$ on $\Omega$ representing
+the real-world event probabilities.
+
+Let $U\colon B(\Omega)\to\RR$ be a _utility function_.
+A common choice is $U(Y) = E[Y] - \alpha \Var(Y)$.
+Note if $Y\in B(\Omega)$ then moments of all orders exist.
+
+To find a portfolio that maximizes the utility of the realized return we use Lagrange multipliers
+to solve
+$$
+	\max_\xi U(\xi\cdot X) - \lambda(\xi\cdot x - 1).
+$$
+
+Using [Frechet Derivatives](fd.html) we get the 
+first order condition $0 = DU(\xi\cdot X)X^* - \lambda x^*$.
+
+
+
+## References
 
 <!--
 

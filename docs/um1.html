@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-04" />
+  <meta name="dcterms.date" content="2024-06-26" />
   <title>Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,7 +67,7 @@
 <header id="title-block-header">
 <h1 class="title">Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 4, 2024</p>
+<p class="date">June 26, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of instruments
@@ -97,10 +97,10 @@ indicating the information available at each trading time.</p>
 <h3>Preliminaries</h3>
 <p>If <span class="math inline">{\mathcal{A}}</span> is a finite algebra
 of sets on <span class="math inline">\Omega</span> then <span
-class="math inline">[\omega] =
-\cap\{A\in{\mathcal{A}}\mid\omega\in{\mathcal{A}}\}</span> is the
-<em>atom</em> of <span class="math inline">{\mathcal{A}}</span>
-containing <span class="math inline">\omega\in\Omega</span>.</p>
+class="math inline">[\omega] = \cap\{A\in{\mathcal{A}}\mid\omega\in
+A\}</span> is the <em>atom</em> of <span
+class="math inline">{\mathcal{A}}</span> containing <span
+class="math inline">\omega\in\Omega</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span
 class="math inline">B\subseteq[\omega]</span> and <span
 class="math inline">B\in{\mathcal{A}}</span> then <span
@@ -125,8 +125,8 @@ constant on atoms of <span class="math inline">{\mathcal{A}}</span> so
 class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is a random
 variable then conditional expectation <span class="math inline">Y =
 E[X|{\mathcal{A}}]</span> is equivalent to restriction of measure <span
-class="math inline">Y(P|{\mathcal{A}})
-= (XP)|{\mathcal{A}}</span>.</p>
+class="math inline">Y(P|_{\mathcal{A}})
+= (XP)|_{\mathcal{A}}</span>.</p>
 </section>
 <section id="market" class="level3">
 <h3>Market</h3>
@@ -160,9 +160,8 @@ positions and pay for trades just executed.</p>
 <p><em>Arbitrage</em> exists if there is a trading strategy with <span
 class="math inline">A_{\tau_0} &gt; 0</span>, <span
 class="math inline">A_t \ge 0</span>, <span class="math inline">t &gt;
-\tau_0</span>, and <span class="math inline">\sum_{j} \Gamma_j =
-0</span>. The first trade makes money and subsequent trades never lose
-money.</p>
+\tau_0</span>, and <span class="math inline">\sum_j \Gamma_j = 0</span>.
+The first trade makes money and subsequent trades never lose money.</p>
 <p>The Fundamental Theorem of Asset Pricing states there is no arbitrage
 if and only if there exist <em>deflators</em>, positive measures <span
 class="math inline">D_t</span> on <span
@@ -203,7 +202,7 @@ all <span class="math inline">j</span> and <span class="math inline">A_t
 = 0</span> otherwise (aka self-financing) then a “perfect hedge”
 exists<a href="#fn1" class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a>.</p>
-<p>Note <span class="math inline">V_t D_t= (\sum_{\tau_j &gt; t}
+<p>Note <span class="math inline">V_t D_t = (\sum_{\tau_j &gt; t}
 \overline{A}_j D_{\overline{\tau}_j})|{\mathcal{A}}_t</span> can be
 computed from the derivative contract specification and the deflators
 <span class="math inline">D_t</span>. Since we also have <span
@@ -328,7 +327,7 @@ t</span> and <span class="math inline">RD_T</span> at time <span
 class="math inline">T</span> if <span class="math inline">T \le
 t</span>. For the model to be arbitrage-free we must have <span
 class="math display">
-D_t^{R,T}(u) D_t = \bigl(1(T &gt; u)D_u + 1(T\le u)R
+    D_t^{R,T}(u) D_t = \bigl(1(T &gt; u)D_u + 1(T\le u)R
 D_T\bigr)|{\mathcal{A}}_t.
 </span> Note if <span class="math inline">T = \infty</span> or <span
 class="math inline">R = 1</span> then <span

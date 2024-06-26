@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-04" />
+  <meta name="dcterms.date" content="2024-06-26" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,13 +47,16 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 4, 2024</p>
+<p class="date">June 26, 2024</p>
 </header>
 <p>If <span class="math inline">A</span> and <span
 class="math inline">B</span> are sets, the <em>set exponential</em>
 <span class="math inline">B^A = \{f\colon A\to B\}</span> is the set of
 all functions from <span class="math inline">A</span> to <span
 class="math inline">B</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\#(A^B)
+= \#A^{\#B}</span> where <span class="math inline">\#</span> denotes the
+number of elements a set has</em>.</p>
 <section id="vector-space" class="level2">
 <h2>Vector Space</h2>
 <p>Every vector space has the form <span
@@ -70,10 +73,10 @@ class="math inline">\bm{R}^I</span> with <span
 class="math inline">0_I(i) = 0</span> for <span class="math inline">i\in
 I</span>.</p>
 <p>If <span class="math inline">I = \{1,\ldots,n\}</span> then we can
-identify <span class="math inline">\bm{R}^I</span> with <span
-class="math inline">\bm{R}^n = \{(x_1, \ldots, x_n)\mid
-x_i\in\bm{R}\}</span> where <span class="math inline">x(i) = x_i</span>,
-<span class="math inline">i\in I</span>.</p>
+identify <span class="math inline">x\in\bm{R}^I</span> with <span
+class="math inline">(x_1, \ldots, x_n)</span> where <span
+class="math inline">x(i) = x_i</span>, <span class="math inline">i\in
+I</span>.</p>
 <p><strong>Exercise</strong>. <em>For <span
 class="math inline">a,b\in\bm{R}</span>, <span
 class="math inline">x,y,z\in\bm{R}^I</span> show</em> <span
@@ -95,6 +98,8 @@ multiplication and vector addition satisfying these properties is a
 to <span class="math inline">\bm{R}^I</span> for some set <span
 class="math inline">I</span>, but you will have to read the proof of
 this elsewhere.</p>
+<p>The abstract definition of vector space is more difficult to work
+with than the special case of</p>
 <section id="dot-product" class="level3">
 <h3>Dot Product</h3>
 <p>If <span class="math inline">I</span> is finite define the <em>dot
@@ -107,7 +112,7 @@ class="math inline">x,y,z\in\bm{R}^I</span></em>.</p>
 <p>This shows <span class="math inline">z^*(x) = x\cdot z</span> is a
 linear map from <span class="math inline">\bm{R}^I</span> to <span
 class="math inline">\bm{R}</span>, <span class="math inline">z^*(ax + y)
-= as^*(x) + z^*(y)</span>.</p>
+= az^*(x) + z^*(y)</span>.</p>
 </section>
 <section id="norm" class="level3">
 <h3>Norm</h3>
@@ -222,8 +227,8 @@ class="math inline">\xi^*\in(\bm{R}^I)^*</span>, <span
 class="math inline">x\in\bm{R}^I</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show this map is linear, one-to-one,
 and onto</em>.</p>
-<p>The dual of a finite dimensional vector is isomorphic with itself
-using the canonical basis.</p>
+<p>The dual of a finite dimensional vector is isomorphic with itself via
+the canonical basis.</p>
 </section>
 <section id="adjoint" class="level2">
 <h2>Adjoint</h2>
@@ -262,9 +267,63 @@ class="math inline">B(S)</span> gives rise to a finitely additive
 measure on <span class="math inline">S</span>. The normed vector space
 of finitely additive measures is denoted <span
 class="math inline">ba(S)</span>.</p>
-<p><strong>Exercise</strong>. _Show <span class="math inline">\|a1_E +
-b1_F\| = max{|a|,|b|}</span>.</p>
-<p>If <span class="math inline">E,F\subseteq S</span> are disjoint</p>
+<p>A <em>simple function</em> <span class="math inline">f = \sum a_j
+A_j</span> is a finite sum with <span
+class="math inline">a_j\in\bm{R}</span> and <span
+class="math inline">A_j\subseteq S</span> define <span
+class="math inline">\int_S f\,d\lambda = \sum_j
+a_j\lambda(A_j)</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\{A_j\}</span> are disjoint show <span
+class="math inline">\sum_j a_j 1_{A_j} = 0</span> implies <span
+class="math inline">a_j = 0</span> for all <span
+class="math inline">j</span></em>.</p>
+<p><em>Hint</em>: Every <span class="math inline">s\in S</span> belongs
+to at most one <span class="math inline">A_j</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">\sum_k
+b_k B_k</span> is a finite sum with <span
+class="math inline">b_k\in\bm{R}</span> and <span
+class="math inline">B_k\subseteq S</span> show there exist <span
+class="math inline">a_j\in\bm{R}</span> and disjoint <span
+class="math inline">A_j\subseteq S</span> with <span
+class="math inline">\sum_j a_j 1_{A_j} = \sum_k b_k
+1_{B_k}</span></em>.</p>
+<p><em>Hint</em>: Start with <span class="math inline">b_1 1_{B_1} + b_2
+1_{B_2}
+= b_1 1_{B_1\setminus B_2} + (b_1 + b_2)1_{B_1\cap B_2} + b_2
+1_{B_2\setminus B_1}</span> where <span class="math inline">A\setminus B
+= \{a\in A\mid a\not\in B\}</span> is <em>set difference</em> and use
+induction.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">\sum_k
+b_k B_k = 0</span> is a finite sum with <span
+class="math inline">b_k\in\bm{R}</span> and <span
+class="math inline">B_k\subseteq S</span> show <span
+class="math inline">\int_S \sum_k b_k\,d\lambda = 0</span></em>.</p>
+<p>These two exercises show the definition of integration is
+<em>well-defined</em> for simple functions.</p>
+</section>
+<section id="frechet-derivative" class="level2">
+<h2>Frechet Derivative</h2>
+<p>If <span class="math inline">F\colon V\to W</span> is a function
+between two normed linear spaces the Frechet derivative <span
+class="math inline">DF\colon V\to\mathcal{B}(V,W)</span> at <span
+class="math inline">x\in V</span> is a linear operator approximating
+<span class="math inline">F</span> near <span
+class="math inline">x</span> <span class="math display">
+    F(x + h) = F(x) + DF(x)h + o(\|h\|).
+</span></p>
+<p><strong>Exercise</strong>. <em>Show the Frechet derivative of <span
+class="math inline">\|x\|^2</span> is <span
+class="math inline">2x^*</span></em>.</p>
+<p><em>Hint</em>. <span class="math inline">\|x\|^2 = x^*x</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the Frechet derivative of <span
+class="math inline">\|x\|^p</span> is <span
+class="math inline">p\|x\|^{p-2}x^*</span></em>.</p>
+<p><em>Hint</em>. <span class="math inline">\|x\|^p =
+\exp((p/2)\log\|x\|^2)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the Frechet derivative of <span
+class="math inline">x^*Tx</span> is <span class="math inline">x^*T +
+T^*x^*</span></em>.</p>
 </section>
 </body>
 </html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-06-26" />
+  <title>Ross Recovery Theorem</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Ross Recovery Theorem</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">June 26, 2024</p>
+</header>
+<p>The <em>one-period model</em> specifies prices <span
+class="math inline">x\in\mathbf{R}^I</span> for instruments <span
+class="math inline">I</span> at the beginning of the period and prices
+<span class="math inline">X\in B(\Omega,\mathbf{R}^I)</span> at the end
+of the period depending on what outcome <span
+class="math inline">\omega\in\Omega</span> occured, where <span
+class="math inline">B(\Omega,\mathbf{R}^I)</span> is the set of all
+bounded <span class="math inline">\mathbf{R}^I</span> valued functions
+on <span class="math inline">\Omega</span>. Let <span
+class="math inline">P\in ba(\Omega)</span> (<span
+class="math inline">F</span> in Ross’s notation) be the “real-world”
+probabilty measure on outcomes in <span
+class="math inline">\Omega</span>, where <span
+class="math inline">ba(\Omega)</span> is the set of finitely-additive
+measures on <span class="math inline">\Omega</span>.</p>
+<p>The FTAP states there is no arbitrage if and only if there exists a
+positive <em>risk-neutral</em> measure <span class="math inline">{Q\in
+ba(\Omega)}</span> with <span class="math inline">{x = \int_\Omega
+X\,dQ}</span>. In general <span class="math inline">Q</span> is not
+unique. If there exists <span
+class="math inline">\zeta\in\mathbf{R}^I</span> with <span
+class="math inline">{\zeta^*X(\omega) = 1}</span> for <span
+class="math inline">\omega\in\Omega</span> then <span
+class="math inline">{\zeta^*x = \int_\Omega dQ = \|Q\| = D}</span>. The
+<em>discount</em> <span class="math inline">D</span> is the price of the
+<em>zero coupon bond</em> <span class="math inline">\zeta</span>. Note
+<span class="math inline">Q^* = Q/D</span> is a “probability” measure
+and <span class="math inline">x = DE^*[X]</span> where the expectation
+is computed using <span class="math inline">Q^*</span>.</p>
+<p>Put Ross’s notation on a rigorous foundation.</p>
+<p>I. Basic Framework</p>
+<p><span class="math display">
+\tag{1}p_g = \int g(\theta)\,dP(\theta)
+\quad\leftrightarrow\quad x = \int_\Omega X(\omega)\,dQ(\omega)
+</span> where <span class="math inline">g</span> corresponds to <span
+class="math inline">X</span> and <span class="math inline">Q</span> is
+Ross’s <span class="math inline">P</span>.</p>
+<p><span class="math display">
+\tag{2} p_g = e^{-r(\theta^0)T}E^*[g(\theta)] = E[g(\theta)\phi(\theta)]
+\quad\leftrightarrow\quad x = DE^*[X] = E[X\phi]
+</span> where <span class="math inline">\phi = D dQ^*/dP =
+dQ/dP</span>.</p>
+<p>Ross goes from a one-period model to a multi-period model to claim
+<span class="math display">
+\tag{3} Q(\theta_i, \theta_j, T) = \int_\theta Q(\theta_i, \theta, t)
+Q(d\theta, \theta_j, T - t)
+</span> “where <span class="math inline">Q(\theta_i, \theta_j, T)</span>
+is the forward martingale probability transition function for going from
+state <span class="math inline">\theta_i</span> to state <span
+class="math inline">\theta_j</span>. in <span
+class="math inline">T</span> periods and where the integration is over
+the intermediate state <span class="math inline">\theta</span> at time
+<span class="math inline">t</span>. Notice that the transition function
+depends on the time interval and is independent of calendar time.”</p>
+<p>The <em>multi-period model</em> specifies prices <span
+class="math inline">X_{t_j}\in B(\mathcal{A}_j,\mathbf{R}^I)</span>,
+<span class="math inline">j\in\mathbf{N}</span>, where <span
+class="math inline">\mathcal{A}_j</span> is the information available at
+time <span class="math inline">t_j</span>, and a probability measure
+<span class="math inline">P</span> on the set of outcomes <span
+class="math inline">\Omega</span>. The information available at time
+<span class="math inline">t_j</span> is a <em>partition</em> <span
+class="math inline">\mathcal{A}_j</span> of <span
+class="math inline">\Omega</span>.</p>
+<p>The FTAP for multi-period models states there is no arbitrage if and
+only if there exist positive measures <span class="math inline">D_j\in
+ba(\mathcal{A}_j)</span> making <span class="math inline">X_j D_j</span>
+a <em>martingale measure</em> <span class="math display">
+    X_j D_j = (X_k D_k)|\mathcal{A}_j, j \le k
+</span></p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">Y =
+E[X\mid\mathcal{A}]</span> if and only if <span
+class="math inline">Y(P\mid\mathcal{A}) =
+(XP)\mid\mathcal{A}</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">Y =
+E[X\mid\mathcal{A}]</span> if and only if <span
+class="math inline">Y</span> is <span
+class="math inline">\mathcal{A}</span>-measurable and <span
+class="math inline">\int_A Y\,dP = \int_A X\,dP</span> for all <span
+class="math inline">A\in\mathcal{A}</span>.</p>
+<p>A process <span class="math inline">(X_j)</span> is a
+<em>martingale</em> if <span class="math inline">X_j =
+E[X_k\mid\mathcal{A}_j]</span>, <span class="math inline">j\le k</span>.
+A process is <em>Markov</em> is <span class="math inline">Y_j =
+E[Y_k\mid \mathcal{A}(X_j)]</span>, <span class="math inline">j\le
+k</span> where <span class="math inline">\mathcal{A}(X)</span> is the
+smallest algebra for which <span class="math inline">X</span> is
+measurable.</p>
+<section id="binomial-model" class="level3">
+<h3>Binomial Model</h3>
+<p>The <em>binomial model</em> has sample space <span
+class="math inline">\Omega = [0, 1)</span>. The probability measure is
+Lesbegue measure. The information available at time <span
+class="math inline">t_j =
+j</span> is the partition <span class="math inline">\mathcal{A}_j =
+\{A_{ij}\mid 0\le i &lt; 2^j\}</span> where <span
+class="math inline">A_{ij} =
+[i/2^j, (i + 1)/2^j)</span>. Each atom of the partition determines the
+first <span class="math inline">j</span> digits of the base 2 expansion
+of <span class="math inline">\omega\in\Omega</span>. Define <span
+class="math inline">V_j(\omega)
+= \omega_1 + \cdots + \omega_j</span> where <span
+class="math inline">\omega = \sum_{i&gt;0} \omega_i 2^-i</span> and
+<span class="math inline">\omega_i\in\{0,1\}</span> is the base 2
+expansion of <span class="math inline">\omega</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">V_jP =
+(V_{j+1}P)|A_j</span> + 1/2</em>.</p>
+<p><em>Hint</em>: <span class="math inline">V_{j+1} = V_j +
+\omega_{j+1}</span> and <span
+class="math inline">\omega_{j+1}P(A_{j,j+1}) = 1/2</span>. ## Markov
+Process</p>
+<p>Let <span class="math inline">S</span> be a finite set of
+<em>states</em> and non-negative <em>transition probabilties</em> <span
+class="math inline">\pi_{st}</span> for <span class="math inline">s,t\in
+S</span> with <span class="math inline">\sum_{t\in S} \pi_{st} =
+1</span>, <span class="math inline">s\in S</span>.</p>
+<p>and <span class="math inline">\Omega = S^\mathbf{N}</span>. Define
+<span class="math inline">X_j\colon\Omega\to\mathbf{R}</span> by <span
+class="math inline">X_0 = x_0</span> and</p>
+</section>
+</body>
+</html>

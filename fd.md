@@ -32,6 +32,12 @@ and $\|x\| = 0$ implies $x = 0$ for $a\in\RR$, $x,y\in X$.
 
 If $X = Y = \RR$ then $DF\colon\RR\to\BB(\RR,\RR)$ where $DF(x)h = F'(x)h$.
 
+If $G\colon Y\to Z$ then $D(G\circ F)(x) = DG(F(x))DF(x)h$
+
+__Exercise__: _Prove the chain rule for Frechet derivatives._
+
+_Hint_: $G\circ F(x + h) = G(F(x + h)) = G(F(x) + DF(x)h) = G(F(x)) + DG(F(x))DF(x)h$
+
 Define the _dual_ of a normed linear space $X$ by $X^* = \BB(X,\RR)$.
 If $X^I = \{x\colon I\to\RR\}$ is the set of functions from the set $I$
 to $\RR$ we can define an _inner product_ $(\cdot,\cdot)\colon X\times
@@ -53,8 +59,14 @@ __Exercise__. _Show if $|(x,y)| = \|x\| \|y\|$ and $x\not=0$ then $y = ax$ for s
 
 __Exercise__. _Show $\|\cdot\|$ is a norm_.
 
-...$(R^I)^*\cong\RR^I$...
+The _canonical basis_ of $\RR^I$ is $e_j\in\RR^I$, $j\in I$, defined by $e_j(i) = \delta_{ij}$,
+where $\delta_{ij} = 1$ if $i = j$ and is zero otherwise. Define the dual basis
+$e_i^*\in(\RR^I)^*$, $i\in I$, by $e_i^*(e_j) = \delta_{ij}$.
+The _dual map_ $*\colon\RR^I\to(\RR^I)^*$ defined by $e_i\mapsto e_i^*$ allows us to identify
+$(\RR^I)^*$ with $\RR^I$.
 
-$D\|x\|^p = p\|x\|^{p-1}x^*$.
+__Exercise__. _Show the dual map is an isometric isomorphism_.
+
+__Exercise__: _Show $D\|x\|^p = p\|x\|^{p-1}x^*$.
 
 Let $F(x) = x^2$. For $T\in\MM_n$
