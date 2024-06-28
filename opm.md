@@ -299,9 +299,7 @@ the market map as above. The chain rule gives $D(UM_X)\xi = DU(M_x\xi)DM_X\xi = 
 since $DM_X = M_X$.
 Note $DU(M_x\xi)$ is in $B(\Omega)^*$ and $M_X\xi\in B(\Omega)$.
 
-first order condition $0 = DU(\xi\cdot X)X^* - \lambda x^*$.
-
-
+The first order condition is $0 = DU(\xi\cdot X)M_X\xi - \lambda x^*$ for all $\xi\in\RR^I$.
 
 ## References
 
