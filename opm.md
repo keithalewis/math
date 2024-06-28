@@ -285,7 +285,7 @@ We now assume there is a probability measure $P$ on $\Omega$ representing
 the real-world event probabilities.
 
 Let $U\colon B(\Omega)\to\RR$ be a _utility function_.
-A common choice is $U(Y) = E[Y] - \alpha \Var(Y)$.
+A common choice is $U(Y) = E[Y] - \alpha \Var(Y)$ for some positive risk parameter $\alpha\in\RR$.
 Note if $Y\in B(\Omega)$ then moments of all orders exist.
 
 To find a portfolio that maximizes the utility of the realized return we use Lagrange multipliers
@@ -294,7 +294,11 @@ $$
 	\max_\xi U(\xi\cdot X) - \lambda(\xi\cdot x - 1).
 $$
 
-Using [Frechet Derivatives](fd.html) we get the 
+We need to compute the [Frechet Derivatives](fd.html) of $D(UM_X)$ where $M_X\xi = \xi\cdot X$ is
+the market map as above. The chain rule gives $D(UM_X)\xi = DU(M_x\xi)DM_X\xi = DU(M_x\xi)M_X\xi$
+since $DM_X = M_X$.
+Note $DU(M_x\xi)$ is in $B(\Omega)^*$ and $M_X\xi\in B(\Omega)$.
+
 first order condition $0 = DU(\xi\cdot X)X^* - \lambda x^*$.
 
 
