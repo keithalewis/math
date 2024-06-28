@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-26" />
+  <meta name="dcterms.date" content="2024-06-28" />
   <title>One-Period Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,7 +67,7 @@
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 26, 2024</p>
+<p class="date">June 28, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Buy now, sell later.
@@ -452,15 +452,26 @@ representing the real-world event probabilities.</p>
 <p>Let <span class="math inline">U\colon
 B(\Omega)\to\boldsymbol{R}</span> be a <em>utility function</em>. A
 common choice is <span class="math inline">U(Y) = E[Y] - \alpha
-\operatorname{Var}(Y)</span>. Note if <span class="math inline">Y\in
-B(\Omega)</span> then moments of all orders exist.</p>
+\operatorname{Var}(Y)</span> for some positive risk parameter <span
+class="math inline">\alpha\in\boldsymbol{R}</span>. Note if <span
+class="math inline">Y\in B(\Omega)</span> then moments of all orders
+exist.</p>
 <p>To find a portfolio that maximizes the utility of the realized return
 we use Lagrange multipliers to solve <span class="math display">
     \max_\xi U(\xi\cdot X) - \lambda(\xi\cdot x - 1).
 </span></p>
-<p>Using <a href="fd.html">Frechet Derivatives</a> we get the first
-order condition <span class="math inline">0 = DU(\xi\cdot X)X^* -
-\lambda x^*</span>.</p>
+<p>We need to compute the <a href="fd.html">Frechet Derivatives</a> of
+<span class="math inline">D(UM_X)</span> where <span
+class="math inline">M_X\xi = \xi\cdot X</span> is the market map as
+above. The chain rule gives <span class="math inline">D(UM_X)\xi =
+DU(M_x\xi)DM_X\xi = DU(M_x\xi)M_X\xi</span> since <span
+class="math inline">DM_X = M_X</span>. Note <span
+class="math inline">DU(M_x\xi)</span> is in <span
+class="math inline">B(\Omega)^*</span> and <span
+class="math inline">M_X\xi\in B(\Omega)</span>.</p>
+<p>The first order condition is <span class="math inline">0 =
+DU(\xi\cdot X)M_X\xi - \lambda x^*</span> for all <span
+class="math inline">\xi\in\boldsymbol{R}^I</span>.</p>
 </section>
 <section id="references" class="level2">
 <h2>References</h2>
