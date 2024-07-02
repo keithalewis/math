@@ -36,7 +36,7 @@ information available at each trading time.
 ### Preliminaries
 
 If $\AA$ is a finite algebra of sets on $\Omega$ then
-$[\omega] = \cap\{A\in\AA\mid\omega\in A\}$ is the _atom_ of $\AA$ containing $\omega\in\Omega$.
+$[\omega] = \cap\{A\in\AA\mid\omega\in A\}$ is the _atom_ of $\AA$ containing ${\omega\in\Omega}$.
 
 __Exercise__. _If $B\subseteq[\omega]$ and $B\in\AA$ then
 $B = \emptyset$ or $B = [\omega]$_.
@@ -89,7 +89,7 @@ The first trade makes money and subsequent trades never lose money.
 The Fundamental Theorem of Asset Pricing states there is no arbitrage if and only
 if there exist _deflators_, positive measures $D_t$ on $\AA_t$, ${t\in T}$, with
 $$
-\tag{1} X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|{\AA_t}
+\tag{1} X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}
 $$
 A _martingale measure_ satisfies $M_t = M_u|\AA_t$ for $t \le u$.
 Note if cash flows are zero then deflated prices are a martingale measure.
@@ -101,7 +101,7 @@ then there is no arbitrage.
 
 __Lemma__. For any arbitrage free model and any trading strategy
 $$
-\tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|{\AA_t}
+\tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}
 $$
 
 Note how the value $V_t$ corresponds to price $X_t$ and account $A_t$
@@ -118,7 +118,7 @@ a "perfect hedge" exists[^1].
 
 [^1]: Perfect hedges never exist.
 
-Note $V_t D_t = (\sum_{\tau_j > t} \overline{A}_j D_{\overline{\tau}_j})|\AA_t$
+Note $V_t D_t = (\sum_{\tau_j > t} \overline{A}_j D_{\overline{\tau}_j})|_{\AA_t}$
 can be computed from the derivative contract specification and the deflators $D_t$.
 Since we also have $V_t = (\Delta_t + \Gamma_t)\cdot X_t$
 the Frechet derivative $D_{X_t}V_t$
@@ -143,13 +143,39 @@ The Black-Scholes/Merton model uses $M_t = (r, s\exp(\sigma B_t - \sigma^2t/2))P
 where $B_t$ is Brownian motion, $P$ is Wiener measure, and the deflator
 is $D_t = \exp(-\rho t)P$.
 
+More generally, if $X_t$ is a Levy process where $X_1$ has mean zero and variance one
+then ${M_t = (r, s\exp(\sigma X_t - \kappa_t(\sigma)))P}$ is an arbitrage-free model,
+where $\kappa_t(\sigma) = \log E[\exp(\sigma X_t)]$ is the cumulant.
+
+Note every positive random variable with finite mean and log variance can be
+written ${F = f\exp(sX - \kappa(s))}$ where ${f = E[F]}$, ${s^2 = \Var(\log F)}$,
+$X$ has mean zero and variance 1, and ${\kappa(s) = \log E[\exp(sX)]}$.
+
+We have 
+$$
+\begin{aligned}
+E[\max\{k - F, 0\}] &= E[(k - F)1(F \le k)] \\
+	&= kP(F\le k) - E[F] E[F/E[F] 1(F\le k) \\
+	&= kP(F\le k) - fP^s(F\le k) \\
+\end{aligned}
+$$
+where $dP^s/P = F/E[F]$.
+
+__Exercise__. _If $X$ is standard normal show ${E[\max\{k - F, 0\}] = kN(m) - fN(m - s)}$
+where $N$ is the standard normal cumulative distribution and $m = (\log(k/f) + s^2/2)/s$_.
+
+_Hint_: Use $E[\exp(sX) g(X)] = E[\exp(sX)] E[g(X + s)]$ if $X$ is standard normal.
+
+__Exercise__. _Show in general $E[{\max\{k - F, 0\}] = kP(X\le m) - kP^s(X\le m)}$
+where ${m = (\log(k/f) + \kappa(s))/s}$_.
+
 ### Deflator
 
 If repurchase agreements are available then a _canonical deflator_ exists.
 A repurchase agreement over the interval $[t_j, t_{j+1}]$ is specified
 by a rate $f_j$ known at time $t_j$. The price at $t_j$ is $1$ and it
 has a cash flow of ${\exp(f_j(t_{j+1} - t_j))}$ at time $t_{j+1}$.
-By equation (1) we have ${D_j = \exp(f_j\Delta t_j)D_{j+1}|\AA_j}$.
+By equation (1) we have ${D_j = \exp(f_j\Delta t_j)D_{j+1}|_{\AA_j}}$.
 If $D_{j+1}$ is known at time $t_j$ then ${D_{j+1}/D_j = \exp(-f_j\Delta t_j)}$ and
 ${D_j = \exp(-\sum_{i < j}f_i\Delta t_i)}$ is the canonical deflator with $D_{t_0} = 1$.
 
@@ -160,8 +186,8 @@ $f$ is the continuously compounded instantaneous forward rate.
 
 A _zero coupon bond_ maturing at time $u$ has a unit cash flow at $u$.
 In an arbitrage free model its price at time $t\le u$, $D_t(u)$
-satisfies $D_t(u) D_t = D_u|\AA_t$ so
-$D_t(u)$ is the Radon-Nikodym derivative of $D_u|\AA_t$ with respect to $D_t$.
+satisfies $D_t(u) D_t = D_u|_{\AA_t}$ so
+$D_t(u)$ is the Radon-Nikodym derivative of $D_u|_{\AA_t}$ with respect to $D_t$.
 
 A _fixed income_ instrument is a portfolio of zero coupon bonds.
 If a bond pays $c_j$ at time $t_j$ its present value at time $t$ is
@@ -178,9 +204,9 @@ having day count convention $\delta$[^3] has two cash flows: $-1$ at time $t$
 and ${1 + f\delta(u,v)}$ at time $u$. The _par forward coupon_ at time
 $t$, ${F_t^\delta(u,v)}$ is the coupon for which the price is 0 at time $t$.
 By equation (1) we have
-${0 = (-D_u + (1 + F_t^\delta(u,v))D_v|\AA_t}$ so
+${0 = (-D_u + (1 + F_t^\delta(u,v))D_v|_{\AA_t}}$ so
 $$
-	F_t^\delta(u,v) = \frac{1}{\delta(u,v)}\bigl(\frac{D_t(u)}{D_t(v)} - 1\bigr).
+	F_t^\delta(u,v) = \frac{1}{\delta(u,v)}\left(\frac{D_t(u)}{D_t(v)} - 1\right).
 $$
 
 A _swap_ is a collection of back-to-back forward rate agreements involving times $(t_j)$.
@@ -208,15 +234,15 @@ we only know it can occur any time after that.
 The cash flows for a risky bond $D^{T,R}(u)$ are 1 at time $u$ if $T > t$
 and $RD_T$ at time $T$ if $T \le t$. For the model to be arbitrage-free we must have
 $$
-	D_t^{R,T}(u) D_t = \bigl(1(T > u)D_u + 1(T\le u)R D_T\bigr)|\AA_t.
+	D_t^{R,T}(u) D_t = \bigl(1(T > u)D_u + 1(T\le u)R D_T\bigr)|_{\AA_t}.
 $$
 Note if $T = \infty$ or $R = 1$ then ${D_t^{R,T}(u) = D_t(u)}$.
 
 If the deflators are independent of the stopping time and recovery is $RD_T(u)$ at $T\le u$
 for some constant $R$ then
-using $D_T(u)D_T = D_u|\AA_T$ for $T \le u$ we have
+using $D_T(u)D_T = D_u|_{\AA_T}$ for $T \le u$ we have
 $$
-	D_t^{T,R}(u) D_t P(T > t) = \bigl(P(T > u) + R P(t < T \le u)\bigr)D_u|\AA_t
+	D_t^{T,R}(u) D_t P(T > t) = \bigl(P(T > u) + R P(t < T \le u)\bigr)D_u|_{\AA_t}
 $$
 The _credit spread_ $\lambda_t^{T,R}(u)$ is defined by
 ${D_t^{T,R}(u) = D_t(u)\exp(-\lambda_t^{T,R}(u) (u - t))}$.
