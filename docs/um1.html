@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-26" />
+  <meta name="dcterms.date" content="2024-07-07" />
   <title>Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,7 +67,7 @@
 <header id="title-block-header">
 <h1 class="title">Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 26, 2024</p>
+<p class="date">July 7, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of instruments
@@ -100,7 +100,7 @@ of sets on <span class="math inline">\Omega</span> then <span
 class="math inline">[\omega] = \cap\{A\in{\mathcal{A}}\mid\omega\in
 A\}</span> is the <em>atom</em> of <span
 class="math inline">{\mathcal{A}}</span> containing <span
-class="math inline">\omega\in\Omega</span>.</p>
+class="math inline">{\omega\in\Omega}</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span
 class="math inline">B\subseteq[\omega]</span> and <span
 class="math inline">B\in{\mathcal{A}}</span> then <span
@@ -168,7 +168,7 @@ class="math inline">D_t</span> on <span
 class="math inline">{\mathcal{A}}_t</span>, <span
 class="math inline">{t\in T}</span>, with <span class="math display">
 \tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
-D_s)|{{\mathcal{A}}_t}
+D_s)|_{{\mathcal{A}}_t}
 </span> A <em>martingale measure</em> satisfies <span
 class="math inline">M_t = M_u|{\mathcal{A}}_t</span> for <span
 class="math inline">t \le u</span>. Note if cash flows are zero then
@@ -181,7 +181,7 @@ is a martingale measure then there is no arbitrage.</p>
 <p><strong>Lemma</strong>. For any arbitrage free model and any trading
 strategy <span class="math display">
 \tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
-D_s)|{{\mathcal{A}}_t}
+D_s)|_{{\mathcal{A}}_t}
 </span></p>
 <p>Note how the value <span class="math inline">V_t</span> corresponds
 to price <span class="math inline">X_t</span> and account <span
@@ -203,27 +203,30 @@ all <span class="math inline">j</span> and <span class="math inline">A_t
 exists<a href="#fn1" class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a>.</p>
 <p>Note <span class="math inline">V_t D_t = (\sum_{\tau_j &gt; t}
-\overline{A}_j D_{\overline{\tau}_j})|{\mathcal{A}}_t</span> can be
+\overline{A}_j D_{\overline{\tau}_j})|_{{\mathcal{A}}_t}</span> can be
 computed from the derivative contract specification and the deflators
 <span class="math inline">D_t</span>. Since we also have <span
-class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span> the
+class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>, the
 Frechet derivative <span class="math inline">D_{X_t}V_t</span> of option
 value with respect to <span class="math inline">X_t</span> is <span
-class="math inline">\Delta_t + \Gamma_t = \Delta_{t + \epsilon}</span>
-for sufficiently small <span class="math inline">\epsilon</span>.</p>
-<p>If time <span class="math inline">T = \{t_j\}</span> is discrete we
-can compute a possible hedge at each time, <span
-class="math inline">\Gamma_j = D_{X_j}V_j - \Delta_j</span>, since <span
-class="math inline">\Delta_j</span> is known at <span
-class="math inline">t_{j-1}</span>. In general this hedge will not
-exactly replicate the derivative contract obligation.</p>
+class="math inline">\Delta_t + \Gamma_t</span> so <span
+class="math inline">\Gamma_t = D_{X_t}V_t - \Delta</span>. Since <span
+class="math inline">\Delta</span> is known at time <span
+class="math inline">t</span>, this gives a recipe for computing a
+trading strategy. In general this hedge will not exactly replicate the
+derivative contract obligation.</p>
+<p>The Unified Model does not prescribe <em>when</em> the hedge should
+be executed. This is an important unsolved fundamental problem in the
+theory of Mathematical Finance. The Black-Scholes/Merton solution is to
+hedge “continuously”. The notion of continuous time hedging is a
+mathematical myth. Every trading strategy ever executed in the real
+world involves only a finite number of trades.</p>
 <p>Note delta hedging drops out naturally from the Unified Model,
 however it does not require Ito’s formula, much less a proof involving
 partial differential equations and changing a measure that is
 immediately discarded. One simply writes down a martingale and deflator
 then uses equation (2) to value, hedge, and manage the risk of realistic
-trading strategies. The notion of “continuous time” hedging is a
-mathematical myth.</p>
+trading strategies.</p>
 <section id="black-scholesmerton" class="level3">
 <h3>Black-Scholes/Merton</h3>
 <p>The Black-Scholes/Merton model uses <span class="math inline">M_t =
@@ -231,6 +234,37 @@ mathematical myth.</p>
 class="math inline">B_t</span> is Brownian motion, <span
 class="math inline">P</span> is Wiener measure, and the deflator is
 <span class="math inline">D_t = \exp(-\rho t)P</span>.</p>
+<p>More generally, if <span class="math inline">X_t</span> is a Levy
+process where <span class="math inline">X_1</span> has mean zero and
+variance one then <span class="math inline">{M_t = (r, s\exp(\sigma X_t
+- \kappa_t(\sigma)))P}</span> is an arbitrage-free model, where <span
+class="math inline">\kappa_t(\sigma) = \log E[\exp(\sigma X_t)]</span>
+is the cumulant.</p>
+<p>Every positive random variable with finite mean and log variance can
+be written <span class="math inline">{F = f\exp(sX - \kappa(s))}</span>
+where <span class="math inline">{f = E[F]}</span>, <span
+class="math inline">{s^2 = \operatorname{Var}(\log F)}</span>, <span
+class="math inline">X</span> has mean zero and variance 1, and <span
+class="math inline">{\kappa(s) = \log E[\exp(sX)]}</span>.</p>
+<p>We have <span class="math display">
+\begin{aligned}
+E[\max\{k - F, 0\}] &amp;= E[(k - F)1(F \le k)] \\
+    &amp;= kP(F\le k) - E[F] E[F/E[F] 1(F\le k) \\
+    &amp;= kP(F\le k) - fP^s(F\le k) \\
+\end{aligned}
+</span> where <span class="math inline">dP^s/P = F/E[F]</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+is standard normal show <span class="math inline">{E[\max\{k - F, 0\}] =
+kN(m) - fN(m - s)}</span> where <span class="math inline">N</span> is
+the standard normal cumulative distribution and <span
+class="math inline">m = (\log(k/f) + s^2/2)/s</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">E[\exp(sX) g(X)] =
+E[\exp(sX)] E[g(X + s)]</span> if <span class="math inline">X</span> is
+standard normal.</p>
+<p><strong>Exercise</strong>. <em>Show in general <span
+class="math inline">E[{\max\{k - F, 0\}] = kP(X\le m) - kP^s(X\le
+m)}</span> where <span class="math inline">{m = (\log(k/f) +
+\kappa(s))/s}</span></em>.</p>
 </section>
 <section id="deflator" class="level3">
 <h3>Deflator</h3>
@@ -243,7 +277,7 @@ class="math inline">t_j</span> is <span class="math inline">1</span> and
 it has a cash flow of <span class="math inline">{\exp(f_j(t_{j+1} -
 t_j))}</span> at time <span class="math inline">t_{j+1}</span>. By
 equation (1) we have <span class="math inline">{D_j = \exp(f_j\Delta
-t_j)D_{j+1}|{\mathcal{A}}_j}</span>. If <span
+t_j)D_{j+1}|_{{\mathcal{A}}_j}}</span>. If <span
 class="math inline">D_{j+1}</span> is known at time <span
 class="math inline">t_j</span> then <span
 class="math inline">{D_{j+1}/D_j = \exp(-f_j\Delta t_j)}</span> and
@@ -261,9 +295,9 @@ class="math inline">u</span> has a unit cash flow at <span
 class="math inline">u</span>. In an arbitrage free model its price at
 time <span class="math inline">t\le u</span>, <span
 class="math inline">D_t(u)</span> satisfies <span
-class="math inline">D_t(u) D_t = D_u|{\mathcal{A}}_t</span> so <span
+class="math inline">D_t(u) D_t = D_u|_{{\mathcal{A}}_t}</span> so <span
 class="math inline">D_t(u)</span> is the Radon-Nikodym derivative of
-<span class="math inline">D_u|{\mathcal{A}}_t</span> with respect to
+<span class="math inline">D_u|_{{\mathcal{A}}_t}</span> with respect to
 <span class="math inline">D_t</span>.</p>
 <p>A <em>fixed income</em> instrument is a portfolio of zero coupon
 bonds. If a bond pays <span class="math inline">c_j</span> at time <span
@@ -287,10 +321,10 @@ f\delta(u,v)}</span> at time <span class="math inline">u</span>. The
 <span class="math inline">{F_t^\delta(u,v)}</span> is the coupon for
 which the price is 0 at time <span class="math inline">t</span>. By
 equation (1) we have <span class="math inline">{0 = (-D_u + (1 +
-F_t^\delta(u,v))D_v|{\mathcal{A}}_t}</span> so <span
+F_t^\delta(u,v))D_v|_{{\mathcal{A}}_t}}</span> so <span
 class="math display">
-    F_t^\delta(u,v) = \frac{1}{\delta(u,v)}\bigl(\frac{D_t(u)}{D_t(v)} -
-1\bigr).
+    F_t^\delta(u,v) = \frac{1}{\delta(u,v)}\left(\frac{D_t(u)}{D_t(v)} -
+1\right).
 </span></p>
 <p>A <em>swap</em> is a collection of back-to-back forward rate
 agreements involving times <span class="math inline">(t_j)</span>. The
@@ -328,7 +362,7 @@ class="math inline">T</span> if <span class="math inline">T \le
 t</span>. For the model to be arbitrage-free we must have <span
 class="math display">
     D_t^{R,T}(u) D_t = \bigl(1(T &gt; u)D_u + 1(T\le u)R
-D_T\bigr)|{\mathcal{A}}_t.
+D_T\bigr)|_{{\mathcal{A}}_t}.
 </span> Note if <span class="math inline">T = \infty</span> or <span
 class="math inline">R = 1</span> then <span
 class="math inline">{D_t^{R,T}(u) = D_t(u)}</span>.</p>
@@ -336,10 +370,10 @@ class="math inline">{D_t^{R,T}(u) = D_t(u)}</span>.</p>
 <span class="math inline">RD_T(u)</span> at <span
 class="math inline">T\le u</span> for some constant <span
 class="math inline">R</span> then using <span
-class="math inline">D_T(u)D_T = D_u|{\mathcal{A}}_T</span> for <span
+class="math inline">D_T(u)D_T = D_u|_{{\mathcal{A}}_T}</span> for <span
 class="math inline">T \le u</span> we have <span class="math display">
     D_t^{T,R}(u) D_t P(T &gt; t) = \bigl(P(T &gt; u) + R P(t &lt; T \le
-u)\bigr)D_u|{\mathcal{A}}_t
+u)\bigr)D_u|_{{\mathcal{A}}_t}
 </span> The <em>credit spread</em> <span
 class="math inline">\lambda_t^{T,R}(u)</span> is defined by <span
 class="math inline">{D_t^{T,R}(u) = D_t(u)\exp(-\lambda_t^{T,R}(u) (u -
