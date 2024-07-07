@@ -285,7 +285,7 @@ We now assume there is a probability measure $P$ on $\Omega$ representing
 the real-world event probabilities.
 
 Let $U\colon B(\Omega)\to\RR$ be a _utility function_.
-A common choice is $U(Y) = E[Y] - \alpha \Var(Y)$.
+A common choice is $U(Y) = E[Y] - \alpha \Var(Y)$ where $\alpha$ is a risk aversion parameter.
 Note if $Y\in B(\Omega)$ then moments of all orders exist.
 
 To find a portfolio that maximizes the utility of the realized return we use Lagrange multipliers
@@ -296,6 +296,18 @@ $$
 
 Using [Frechet Derivatives](fd.html) we get the 
 first order condition $0 = DU(\xi\cdot X)X^* - \lambda x^*$.
+
+$M_X\colon\RR^I\to B(\Omega)$
+
+$U\colon B(\Omega)\to\RR$.
+
+$UM_X\colon\RR^I\to\RR$.
+
+$DM_X\colon\RR^I\to\BB(\RR^I, B(\Omega)$$
+
+$DU\colon B(\Omega)\to\BB(B(\Omega),\RR) = B(\Omega)^* \cong ba(\Omega)$.
+
+$D(UM_X)\colon\RR^I\to\BB(\RR^I,\RR) \cong (\RR^I)^*$.
 
 
 

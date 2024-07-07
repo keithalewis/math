@@ -38,8 +38,9 @@ __Exercise__: _Prove the chain rule for Frechet derivatives._
 
 _Hint_: $G\circ F(x + h) = G(F(x + h)) = G(F(x) + DF(x)h) = G(F(x)) + DG(F(x))DF(x)h$
 
-Define the _dual_ of a normed linear space $X$ by $X^* = \BB(X,\RR)$.
-If $X^I = \{x\colon I\to\RR\}$ is the set of functions from the set $I$
+Define the _dual_ of a normed linear space $X$ by the vector space
+of bounded linear functionals $X^* = \BB(X,\RR)$.
+If ${X^I = \{x\colon I\to\RR\}}$ is the set of functions from the set $I$
 to $\RR$ we can define an _inner product_ $(\cdot,\cdot)\colon X\times
 X\to\RR$ by $(x, y) = \sum_{i\in I}x(i) y(i)$ if $I$ is finite.  We also
 write $x_i$ for $x(i)$.
@@ -67,6 +68,14 @@ $(\RR^I)^*$ with $\RR^I$.
 
 __Exercise__. _Show the dual map is an isometric isomorphism_.
 
-__Exercise__: _Show $D\|x\|^p = p\|x\|^{p-1}x^*$.
+__Exercise__: _Show $D\|x\|^p = p\|x\|^{p-1}x^*$ for $x\in\RR^I$.
 
-Let $F(x) = x^2$. For $T\in\MM_n$
+_Hint_: Compute $D\|x\|^2$ and use $\|x\|^p = \exp(p/2 \log\|x\|^2)$. 
+
+__Exercise__: _Show $(Dx^2)h = hx + xh$ if $x$ is a linear operator in $\BB(V,V)$._
+
+For $x\in\BB(V,V)$ define right and left multiplication by $R_xy = xy$ and $L_xy = yx$.
+
+__Exercise__: _Show $Dx^n = \sum_{j=0}^{n - 1} R_x^{n - j} L_x^j$_.
+
+_Hint_: The previous exercise establishes the case $n = 2$. Use induction.
