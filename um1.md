@@ -161,17 +161,17 @@ $$
 \begin{aligned}
 E[\max\{k - F, 0\}] &= E[(k - F)1(F \le k)] \\
 	&= kP(F\le k) - E[F] E[F/E[F] 1(F\le k) \\
-	&= kP(F\le k) - fP^s(F\le k) \\
+	&= kP(F\le k) - fP^*(F\le k) \\
 \end{aligned}
 $$
-where $dP^s/P = F/E[F]$.
+where $dP^*/dP = F/E[F]$.
 
 __Exercise__. _If $X$ is standard normal show ${E[\max\{k - F, 0\}] = kN(m) - fN(m - s)}$
 where $N$ is the standard normal cumulative distribution and $m = (\log(k/f) + s^2/2)/s$_.
 
 _Hint_: Use $E[\exp(sX) g(X)] = E[\exp(sX)] E[g(X + s)]$ if $X$ is standard normal.
 
-__Exercise__. _Show in general $E[{\max\{k - F, 0\}] = kP(X\le m) - kP^s(X\le m)}$
+__Exercise__. _Show in general $E[{\max\{k - F, 0\}] = kP(X\le m) - kP^*(X\le m)}$
 where ${m = (\log(k/f) + \kappa(s))/s}$_.
 
 ### Deflator
@@ -193,6 +193,7 @@ A _zero coupon bond_ maturing at time $u$ has a unit cash flow at $u$.
 In an arbitrage free model its price at time $t\le u$, $D_t(u)$
 satisfies $D_t(u) D_t = D_u|_{\AA_t}$ so
 $D_t(u)$ is the Radon-Nikodym derivative of $D_u|_{\AA_t}$ with respect to $D_t$.
+Zero coupon bond prices are determined by the deflators.
 
 A _fixed income_ instrument is a portfolio of zero coupon bonds.
 If a bond pays $c_j$ at time $t_j$ its present value at time $t$ is
@@ -200,14 +201,12 @@ $$
 	P_t = \sum_{t_j > t} c_j D_t(u_j).
 $$
 
-Zero coupon bond prices are determined by the deflators.
-
 ### Forward Rate Agreement
 
 A _forward rate agreement_ with coupon $f$ over the interval $[u,v]$
 having day count convention $\delta$[^3] has two cash flows: $-1$ at time $t$
 and ${1 + f\delta(u,v)}$ at time $u$. The _par forward coupon_ at time
-$t$, ${F_t^\delta(u,v)}$ is the coupon for which the price is 0 at time $t$.
+$t$, ${F_t^\delta(u,v)}$, is the coupon for which the price is 0 at time $t$.
 By equation (1) we have
 ${0 = (-D_u + (1 + F_t^\delta(u,v))D_v|_{\AA_t}}$ so
 $$

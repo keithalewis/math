@@ -250,9 +250,9 @@ class="math inline">{\kappa(s) = \log E[\exp(sX)]}</span>.</p>
 \begin{aligned}
 E[\max\{k - F, 0\}] &amp;= E[(k - F)1(F \le k)] \\
     &amp;= kP(F\le k) - E[F] E[F/E[F] 1(F\le k) \\
-    &amp;= kP(F\le k) - fP^s(F\le k) \\
+    &amp;= kP(F\le k) - fP^*(F\le k) \\
 \end{aligned}
-</span> where <span class="math inline">dP^s/P = F/E[F]</span>.</p>
+</span> where <span class="math inline">dP^*/dP = F/E[F]</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
 is standard normal show <span class="math inline">{E[\max\{k - F, 0\}] =
 kN(m) - fN(m - s)}</span> where <span class="math inline">N</span> is
@@ -262,7 +262,7 @@ class="math inline">m = (\log(k/f) + s^2/2)/s</span></em>.</p>
 E[\exp(sX)] E[g(X + s)]</span> if <span class="math inline">X</span> is
 standard normal.</p>
 <p><strong>Exercise</strong>. <em>Show in general <span
-class="math inline">E[{\max\{k - F, 0\}] = kP(X\le m) - kP^s(X\le
+class="math inline">E[{\max\{k - F, 0\}] = kP(X\le m) - kP^*(X\le
 m)}</span> where <span class="math inline">{m = (\log(k/f) +
 \kappa(s))/s}</span></em>.</p>
 </section>
@@ -298,14 +298,14 @@ class="math inline">D_t(u)</span> satisfies <span
 class="math inline">D_t(u) D_t = D_u|_{{\mathcal{A}}_t}</span> so <span
 class="math inline">D_t(u)</span> is the Radon-Nikodym derivative of
 <span class="math inline">D_u|_{{\mathcal{A}}_t}</span> with respect to
-<span class="math inline">D_t</span>.</p>
+<span class="math inline">D_t</span>. Zero coupon bond prices are
+determined by the deflators.</p>
 <p>A <em>fixed income</em> instrument is a portfolio of zero coupon
 bonds. If a bond pays <span class="math inline">c_j</span> at time <span
 class="math inline">t_j</span> its present value at time <span
 class="math inline">t</span> is <span class="math display">
     P_t = \sum_{t_j &gt; t} c_j D_t(u_j).
 </span></p>
-<p>Zero coupon bond prices are determined by the deflators.</p>
 </section>
 <section id="forward-rate-agreement" class="level3">
 <h3>Forward Rate Agreement</h3>
@@ -318,7 +318,7 @@ id="fnref2" role="doc-noteref"><sup>2</sup></a> has two cash flows:
 class="math inline">t</span> and <span class="math inline">{1 +
 f\delta(u,v)}</span> at time <span class="math inline">u</span>. The
 <em>par forward coupon</em> at time <span class="math inline">t</span>,
-<span class="math inline">{F_t^\delta(u,v)}</span> is the coupon for
+<span class="math inline">{F_t^\delta(u,v)}</span>, is the coupon for
 which the price is 0 at time <span class="math inline">t</span>. By
 equation (1) we have <span class="math inline">{0 = (-D_u + (1 +
 F_t^\delta(u,v))D_v|_{{\mathcal{A}}_t}}</span> so <span
