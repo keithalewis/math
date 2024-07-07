@@ -123,8 +123,8 @@ can be computed from the derivative contract specification and the deflators $D_
 Since we also have $V_t = (\Delta_t + \Gamma_t)\cdot X_t$,
 the Frechet derivative $D_{X_t}V_t$
 of option value with respect to $X_t$
-is $\Delta_t + \Gamma_t$ so $\Gamma_t = D_{X_t}V_t - \Delta$.
-Since $\Delta$ is known at time $t$, this gives a recipe for
+is $\Delta_t + \Gamma_t$ so $\Gamma_t = D_{X_t}V_t - \Delta_t$.
+Since $\Delta_t$ is known at time $t$, this gives a recipe for
 computing a trading strategy.
 In general this hedge will not exactly replicate the derivative contract obligation.
 
