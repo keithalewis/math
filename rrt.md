@@ -5,8 +5,8 @@ classoption: fleqn
 fleqn: true
 ---
 
-\newcommand\RR{\mathbf{R}}
-\newcommand\NN{\mathbf{N}}
+\newcommand\RR{\bm{R}}
+\newcommand\NN{\bm{N}}
 \renewcommand\AA{\mathcal{A}}
 
 The _one-period model_ specifies prices $x\in\RR^I$ for instruments $I$
@@ -16,17 +16,21 @@ on what outcome $\omega\in\Omega$ occured,
 where $B(\Omega,\RR^I)$ is the set of all bounded $\RR^I$
 valued functions on $\Omega$. Let $P\in ba(\Omega)$ ($F$ in Ross's notation) be
 the "real-world" probabilty measure on outcomes in $\Omega$, where
-$ba(\Omega)$ is the set of finitely-additive measures on $\Omega$.
+$ba(\Omega)$ is the set of bounded finitely-additive measures on $\Omega$.
 
 The FTAP states there is no arbitrage if and only if there exists a
-positive _risk-neutral_ measure ${Q\in ba(\Omega)}$ with
-${x = \int_\Omega X\,dQ}$. In general $Q$ is not unique.
+positive measure ${D\in ba(\Omega)}$ with
+${x = \int_\Omega X\,dD}$. In general $D$ is not unique.
+Define a "probability measure" $Q = D/D(\Omega)$ that is not
+the probability of anything. Under this _risk neutral_ probabilty measure
+we have $x = E^Q[X]D(\Omega)$. 
+
 If there exists $\zeta\in\RR^I$ with
 ${\zeta^*X(\omega) = 1}$ for
-$\omega\in\Omega$ then ${\zeta^*x = \int_\Omega dQ = \|Q\| = D}$.
-The _discount_ $D$ is the price of the _zero coupon bond_ $\zeta$.  Note
-$Q^* = Q/D$ is a "probability" measure and $x = DE^*[X]$ where the expectation
-is computed using $Q^*$.
+$\omega\in\Omega$ then ${\zeta^*x = \int_\Omega dD = D(\Omega)}$.
+The _discount_ $D = D(\Omega)$ is the price of the _zero coupon bond_ $\zeta$.
+
+Given the "real-world" measure $P$ and a risk-neutral measure $Q$ the _pricing kernel_ is $\phi = dQ/dP$ is
 
 Put Ross's notation on a rigorous foundation. 
 
