@@ -23,7 +23,7 @@ positive measure ${D\in ba(\Omega)}$ with
 ${x = \int_\Omega X\,dD}$. In general $D$ is not unique.
 Define a "probability measure" $Q = D/D(\Omega)$ that is not
 the probability of anything. Under this _risk neutral_ probabilty measure
-we have $x = E^Q[X]D(\Omega)$. 
+we have $x = E^*[X]D(\Omega)$. 
 
 If there exists $\zeta\in\RR^I$ with
 ${\zeta^*X(\omega) = 1}$ for

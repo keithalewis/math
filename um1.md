@@ -16,7 +16,7 @@ abstract: Value, hedge, and manage the risk of instruments
 This note assumes you are familiar with measure theory and stochastic
 processes, but are not necessarily an expert.  We provide a mathematically
 rigorous model that extends [@Ros1978] without involving the Hahn-Banach
-theorem.  It also does not involve probability measures, sigma algebras,
+theorem.  It also does not involve probability measures,
 Brownian motion, the Ito formula, or partial differential equations.
 As Ross observed, the Fundamental Theorem of Asset Pricing involves only
 geometry, not probability.  The Unified Model can be used for any set
@@ -144,7 +144,7 @@ to value, hedge, and manage the risk of realistic trading strategies.
 
 ### Black-Scholes/Merton
 
-The Black-Scholes/Merton model uses $M_t = (r, s\exp(\sigma B_t - \sigma^2t/2))P$,
+The Black-Scholes/Merton model uses ${M_t = (r, s\exp(\sigma B_t - \sigma^2t/2))P}$,
 where $B_t$ is Brownian motion, $P$ is Wiener measure, and the deflator
 is $D_t = \exp(-\rho t)P$.
 
