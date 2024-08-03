@@ -43,7 +43,7 @@ the Fundamental Theorem of Asset Pricing.
 
 We provide a mathematically
 rigorous model that extends [@Ros1978] without involving the Hahn-Banach
-theorem.  It also does not involve probability measures, sigma algebras,
+theorem.  It also does not involve probability measures,
 Brownian motion, the Ito formula, or partial differential equations.
 As Ross observed, the Fundamental Theorem of Asset Pricing involves only
 geometry, not probability.  The Unified Model can be used for any set
@@ -171,7 +171,7 @@ to value, hedge, and manage the risk of realistic trading strategies.
 
 ### Black-Scholes/Merton
 
-The Black-Scholes/Merton model uses $M_t = (r, s\exp(\sigma B_t - \sigma^2t/2))P$,
+The Black-Scholes/Merton model uses ${M_t = (r, s\exp(\sigma B_t - \sigma^2t/2))P}$,
 where $B_t$ is Brownian motion, $P$ is Wiener measure, and the deflator
 is $D_t = \exp(-\rho t)P$.
 
@@ -187,7 +187,8 @@ We have
 $$
 \begin{aligned}
 E[\max\{k - F, 0\}] &= E[(k - F)1(F \le k)] \\
-	&= kP(F\le k) - E[F] E[F/E[F] 1(F\le k) \\
+	&= kP(F\le k) - E[F 1(F\le k)] \\
+	&= kP(F\le k) - E[F] E[F/E[F] 1(F\le k)] \\
 	&= kP(F\le k) - fP^*(F\le k) \\
 \end{aligned}
 $$
@@ -200,6 +201,12 @@ _Hint_: Use $E[\exp(sX) g(X)] = E[\exp(sX)] E[g(X + s)]$ if $X$ is standard norm
 
 __Exercise__. _Show in general $E[{\max\{k - F, 0\}] = kP(X\le m) - kP^*(X\le m)}$
 where ${m = (\log(k/f) + \kappa(s))/s}$_.
+
+### Repurchase Agreements
+
+A _repurchase agreement_ $R(f,t,\Delta t)$ has price $X_t^{$R(f,t,\Delta t)} = 1$
+at time $t$ and a single cashflow $C_{t+\Delta t} = \exp(f\Delta t)$ at
+time $t + \Delta t$. The rate $f$ can be a function known at time $t$.
 
 ### Deflator
 
@@ -216,8 +223,9 @@ $f$ is the continuously compounded instantaneous forward rate.
 
 ### Zero Coupon Bond
 
-A _zero coupon bond_ maturing at time $u$ has a unit cash flow at $u$.
-In an arbitrage free model its price at time $t\le u$, $D_t(u)$
+A _zero coupon bond_ maturing at time $u$ has a unit cash flow at $u$,
+$C_u^{D(u)} = 1$ and $C_t^{D(u)} = 0$ for $t\not=u$..
+In an arbitrage free model its price at time $t\le u$, $X_t^{D(u)} = D_t(u)$
 satisfies $D_t(u) D_t = D_u|_{\AA_t}$ so
 $D_t(u)$ is the Radon-Nikodym derivative of $D_u|_{\AA_t}$ with respect to $D_t$.
 Zero coupon bond prices are determined by the deflators.
