@@ -17,12 +17,13 @@ This note provides a replacement for the Black-Scholes/Merton theory
 of option valuation. It defines a model for instrument prices
 and cash flows, and a realistic model of trading.
 The Achille's heel of their model is that it assumes
-continuous time trading. As has been known since the
-time of Zeno, this is not possible and leads to paradoxical results[^1].
+continuous time trading.
+This leads to paradoxical results[^1].
 
 This note does not solve the crucial problem of when and how much to
-trade. It only provides an elementary but mathematically rigorous framework
-to put your nose in that problem.
+trade. It only provides an elementary but mathematically rigorous
+framework to put your nose in the most important unsolved problem in
+Mathematical Finance.
 
 [^1]: Merton provided a closed form solution for valuing
 barrier options based on the reflection principal of Brownian motion.
@@ -41,26 +42,23 @@ the Fundamental Theorem of Asset Pricing.
 
 ... this culminated in ... delbaen schachermeyer
 
-We provide a mathematically
-rigorous model that extends [@Ros1978] without involving the Hahn-Banach
+We provide a model that extends [@Ros1978] without involving the Hahn-Banach
 theorem.  It also does not involve probability measures,
 Brownian motion, the Ito formula, or partial differential equations.
 As Ross observed, the Fundamental Theorem of Asset Pricing involves only
-geometry, not probability.  The Unified Model can be used for any set
+geometry, not probability.  The Unified Model can be used for any collection
 of instruments to value, hedge, and understand how poorly risk-neutral
 pricing can be used for managing risk. It does not provide a solution,
 only an initial framework for further research.  For proofs and more
 details see [Unified Model](um.html).
 
+## Preliminaries
 
-## Unified Model
-
-Let $T$ be the set of trading times, $I$ the set of all market
-instruments, $\Omega$ the sample space of possible outcomes, and
-$(\AA_t)_{t\in T}$ be algebras of sets on $\Omega$ indicating the
-information available at each trading time.
-
-### Preliminaries
+Let $\Omega$ be a set of possible outcomes. Partial information is modeled
+by a _partition_ of $\Omega$. A collection of subsets of $\Omega$ $\{A_j\}$
+is a partition if they are pairwise disjoint and their union is $\Omega$.
+Full information is knowing $\omega\in\Omega$. Partial information is
+knowing only which atom $\omega$ belongs to.
 
 If $\AA$ is a finite algebra of sets on $\Omega$ then
 $[\omega] = \cap\{A\in\AA\mid\omega\in A\}$ is the _atom_ of $\AA$ containing ${\omega\in\Omega}$.
@@ -82,6 +80,14 @@ If $P$ is a positive measure with mass 1 on
 $\Omega$ and $X\colon\Omega\to\RR$ is a random variable then conditional
 expectation $Y = E[X|\AA]$ is equivalent to restriction of measure $Y(P|_\AA)
 = (XP)|_\AA$.
+
+## Unified Model
+
+Let $T$ be the set of trading times, $I$ the set of all market
+instruments, $\Omega$ the sample space of possible outcomes, and
+$(\AA_t)_{t\in T}$ be algebras of sets on $\Omega$ indicating the
+information available at each trading time.
+
 
 ### Market
 
