@@ -13,8 +13,35 @@ abstract: Value, hedge, and manage the risk of instruments
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
-This note assumes you are familiar with measure theory and stochastic
-processes, but are not necessarily an expert.  We provide a mathematically
+This note provides a replacement for the Black-Scholes/Merton theory
+of option valuation. It defines a model for instrument prices
+and cash flows, and a realistic model of trading.
+The Achille's heel of their model is that it assumes
+continuous time trading. As has been known since the
+time of Zeno, this is not possible and leads to paradoxical results[^1].
+
+This note does not solve the crucial problem of when and how much to
+trade. It only provides an elementary but mathematically rigorous framework
+to put your nose in that problem.
+
+[^1]: Merton provided a closed form solution for valuing
+barrier options based on the reflection principal of Brownian motion.
+[@cite]. The classical theory implied the
+value of a barrier option that knocks in or out the second
+time the barrier is hit has the same value.
+It also implies the value of a barrier option that knocks in
+or out the millionth time it hits the barrier has exactly
+the same value due to a mathematical artifact of Brownian motion.
+
+We assume you are familiar with measure theory and stochastic
+processes, but are not necessarily an expert.
+Ross [@Ros1978] started a cottage industy of mathematicians
+trying to fix up his incorrect proof of
+the Fundamental Theorem of Asset Pricing.
+
+... this culminated in ... delbaen schachermeyer
+
+We provide a mathematically
 rigorous model that extends [@Ros1978] without involving the Hahn-Banach
 theorem.  It also does not involve probability measures, sigma algebras,
 Brownian motion, the Ito formula, or partial differential equations.
@@ -114,9 +141,9 @@ This is the skeleton key to pricing derivative securities.
 Suppose a derivative security specifies amounts $\overline{A}_j$ be paid at times $\overline{\tau}_j$.
 If there is a trading strategy $(\tau_j, \Gamma_j)$
 with $A_{\overline{\tau}_j} = \overline{A}_j$ for all $j$ and $A_t = 0$ otherwise (aka self-financing) then
-a "perfect hedge" exists[^1].
+a "perfect hedge" exists[^2].
 
-[^1]: Perfect hedges never exist.
+[^2]: Perfect hedges never exist.
 
 Note $V_t D_t = (\sum_{\tau_j > t} \overline{A}_j D_{\overline{\tau}_j})|_{\AA_t}$
 can be computed from the derivative contract specification and the deflators $D_t$.
@@ -204,7 +231,7 @@ $$
 ### Forward Rate Agreement
 
 A _forward rate agreement_ with coupon $f$ over the interval $[u,v]$
-having day count convention $\delta$[^3] has two cash flows: $-1$ at time $t$
+having day count convention $\delta$[^4] has two cash flows: $-1$ at time $t$
 and ${1 + f\delta(u,v)}$ at time $u$. The _par forward coupon_ at time
 $t$, ${F_t^\delta(u,v)}$, is the coupon for which the price is 0 at time $t$.
 By equation (1) we have
@@ -221,19 +248,19 @@ $$
 
 __Exercise__. _Show if $n = 2$ the swap par coupon is the same as the par forward coupon_.
 
-[^3]: The _day count fraction_ $\delta(u, v)$ is approximately $v - u$ in years.
+[^4]: The _day count fraction_ $\delta(u, v)$ is approximately $v - u$ in years.
 
 ### Risky Bonds
 
 Companies can default and may pay only a fraction of the notional owed on bonds they issued.
-A simple model[^2] for this is to assume the time of default $T$ and recovery $R$ are random variables.
+A simple model[^3] for this is to assume the time of default $T$ and recovery $R$ are random variables.
 The sample space for the default time is $[0,\infty)$ indicating the time of default.
 The information available at time $t$ is the partition consisting of singletons
 $\{s\}$, $s < t$ and the set $[t, \infty)$. If default occurs prior to $t$ then
 we know exactly when it happened. If default has not occurred by time $t$ then
 we only know it can occur any time after that.
 
-[^2]: This is a very simplified model.
+[^3]: This is a very simplified model.
 
 The cash flows for a risky bond $D^{T,R}(u)$ are 1 at time $u$ if $T > t$
 and $RD_T$ at time $T$ if $T \le t$. For the model to be arbitrage-free we must have
