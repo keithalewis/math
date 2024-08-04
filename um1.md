@@ -8,16 +8,16 @@ abstract: Value, hedge, and manage the risk of instruments
 ...
 
 \newcommand{\RR}{\boldsymbol{R}}
+\newcommand{\ZZ}{\boldsymbol{Z}}
 \renewcommand{\AA}{{\mathcal{A}}}
 \newcommand{\ran}{\operatorname{ran}}
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
 This note provides a replacement for the Black-Scholes/Merton theory
-of option valuation. It defines a model for instrument prices
-and cash flows, and a realistic model of trading.
-The Achille's heel of their model is that it assumes
-continuous time trading.
+of option valuation. It defines a model for instrument prices and
+cash flows, and a realistic model of trading.  The Achille's heel of
+their model is that it assumes continuous time trading. 
 This leads to paradoxical results[^1].
 
 This note does not solve the crucial problem of when and how much to
@@ -27,7 +27,7 @@ Mathematical Finance.
 
 [^1]: Merton provided a closed form solution for valuing
 barrier options based on the reflection principal of Brownian motion.
-[@cite]. The classical theory implied the
+[@cite]. The classical theory implies the
 value of a barrier option that knocks in or out the second
 time the barrier is hit has the same value.
 It also implies the value of a barrier option that knocks in
@@ -42,6 +42,8 @@ the Fundamental Theorem of Asset Pricing.
 
 ... this culminated in ... delbaen schachermeyer
 
+as inscrutable as it is unpracticable.
+
 We provide a model that extends [@Ros1978] without involving the Hahn-Banach
 theorem.  It also does not involve probability measures,
 Brownian motion, the Ito formula, or partial differential equations.
@@ -52,13 +54,32 @@ pricing can be used for managing risk. It does not provide a solution,
 only an initial framework for further research.  For proofs and more
 details see [Unified Model](um.html).
 
+<details><summary>Preliminaries</summary>
 ## Preliminaries
 
-Let $\Omega$ be a set of possible outcomes. Partial information is modeled
-by a _partition_ of $\Omega$. A collection of subsets of $\Omega$ $\{A_j\}$
-is a partition if they are pairwise disjoint and their union is $\Omega$.
+Let $\Omega$ be a set of possible outcomes. _Partial information_ is modeled
+by a partition of $\Omega$. A collection of subsets of $\Omega$, $\{A_j\}$,
+is a _partition_ if they are pairwise disjoint and their union is $\Omega$.
 Full information is knowing $\omega\in\Omega$. Partial information is
-knowing only which atom $\omega$ belongs to.
+knowing only to which atom $\omega$ belongs.
+No information is modeled by the singleton partition $\{\Omega\}$.
+
+An _algebras of sets_ is a collection of sets
+closed under union and complement.
+
+__Exercise__. _Show algebras of sets are closed under intersection_.
+
+_Hint_: Let $A' = \Omega\setminus A$ be the complement of $A$ in $\Omega$.
+Use De Morgan's Law $(A\cap B)' = A'\cup B'$.
+
+We can identify a set $A$ with its _characteristic function_ $1_A\colon\Omega\to\RR$
+defined by $1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\not\in A$.
+Note $1_{A\cap B} = 1_A 1_B$, $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$
+and $1_{A'} = 1 - 1_A$.
+
+__Exercise__. _Prove De Morgan's Law_.
+
+_Hint_: Start from $1_{A'\cup B'} = 1_{A'} + 1_{B'} - 1_{A'\cap B'}$.
 
 If $\AA$ is a finite algebra of sets on $\Omega$ then
 $[\omega] = \cap\{A\in\AA\mid\omega\in A\}$ is the _atom_ of $\AA$ containing ${\omega\in\Omega}$.
@@ -68,18 +89,131 @@ $B = \emptyset$ or $B = [\omega]$_.
 
 __Exercise__. _The atoms of $\AA$, $[\AA]$, form a partition of $\Omega$_.
 
-A partition represents partial information. Complete information is knowing
-$\omega\in\Omega$. Partial information is knowing only which atom of
-the partition $\omega$ belongs to.
+This shows we can identify a finite algebra of sets with its atoms.
 
-A function $X\colon\Omega\to\RR$ is $\AA$ measurable if and
-only if it is constant on atoms of $\AA$
-so $X\colon[\AA]\to\RR$ _is_ a function.
+A function $X\colon\Omega\to\RR$ is $\AA$-_measurable_
+for an algebra of sets $\AA$
+if $\{\omega\in\Omega\mid X(\omega) \le x\}$ belongs to $\AA$
+for all $x\in\RR$.
 
-If $P$ is a positive measure with mass 1 on
-$\Omega$ and $X\colon\Omega\to\RR$ is a random variable then conditional
-expectation $Y = E[X|\AA]$ is equivalent to restriction of measure $Y(P|_\AA)
-= (XP)|_\AA$.
+__Exercise__. _If $\AA$ is finite, show $X$ is $\AA$-measurable
+if and if and only if it is constant on atoms of $\AA$_.
+
+This shows $X\colon[\AA]\to\RR$ _is_ a function.
+We jettison the word 'measurable' and say $X$ _is known given_ $\AA$.
+
+### Integration
+
+Integration is a _linear functional_: it assigns a function to a number
+where a constant times a function is assigned to the constant
+times the integral and the integral of the sum of two functions
+is the sum of the integrals. Integration involves _measures_.
+A finitely-additive measure is a _set function_ $\lambda\colon\AA\to\RR$ satisfying
+$\lambda(A\cup B) = \lambda(A) + \lambda(B) - \lambda(A\cap B)$
+and $\lambda(\emptyset) = 0$. Measures don't count things
+twice and the measure of the empty set is 0.
+
+If $S$ is a set and $f\colon S\to\RR$ is a function on $S$ define
+its _norm_ $\|f\| = \sup_{s\in S} |f(s)\|$.
+Let $B(S) = \{f\colon S\to\RR\mid \|f\| < \infty\}$ be the
+_normed linear space_ of bounded functions on $S$.
+The _dual_ of $B(S)$, $B(S)^*$, is the set of all
+_bounded linear functionals_ $L\colon B(S)\to\RR$.
+A linear functional is bounded if there exists a constant $M\in\RR$
+with $|Lf| \le M\|f\|$ for all $f\in B(S)$.
+The least such constant is the _norm_ of $L$, $\|L\|$.
+
+Every bounded linear functional gives rise to a finitely-additive
+measure $\lambda$ on $S$ by $\lambda(A) = L1_A$.
+Let $ba(S)$ denote all finitely-additive measures on $S$.  We now show
+how to identify $B(S)^*$ with $ba(S)$.
+
+__Exercise__: _Show $\lambda$ is a measure_.
+
+Every finitely-additive measure gives rise to a linear functional.
+We say $f$ is _elementary_ if it is a finite linear combination
+of characteristic functions $f = \sum_j a_j 1_{A_j}$.
+Given a measure $\lambda$ define $Lf = \sum_j a_j \lambda(A_j)$.
+
+__Exercise__. _If $\{A_j\}$ are pairwise disjoint show $Lf = 0$
+implies $f = 0$_.
+
+__Exercise__. _Show for any collection $\{B_i\}$ we have $\sum_i b_i 1_{B_i} = \sum_j a_j 1_{A_j}$
+where $\{A_j\}$ are pairwise disjoint_.
+
+_Hint_: Use $1_{E\cup F} = 1_{E\setminus F} + 1_{F\setminus E} - 1_{E\cap F}$
+and induction.
+
+This shows $L$ is _well-defined_ for elementary functions.
+
+__Exercise__. _Given any bounded function $g$ and $\epsilon > 0$ there
+exists an elementary function $f$ with $\|g - f\| < \epsilon$_.
+
+_Hint_: Let $a_n = f(n\epsilon)$ and $A_n = f^{-1}([n\epsilon, (n + 1)\epsilon))$.
+
+This shows the set of elementary functions is _dense_ in $B(S)$.
+We can extend the definition from elementary
+functions to all of $B(S)$ since $L$ is bounded
+
+__Exercise__: _If $f\in B(S)$ and $\lim_n f_n = f$
+then $\lim_n Lf_n = Lf$_.
+
+_Hint_ Use $L$ is bounded.
+
+This defines the _integral_ $Lf = \int_S f\,d\lambda$.
+
+We can define a norm on $ba(S)$ by $\|\lambda\| = \sup_{\{A_j\}} |\lambda(A_j)|$
+where the supremum is over all pairwise disjoint subsets of $S$.
+
+__Exercise__. Show $\|\lambda\| = \|L\|$_.
+
+If $S$ is finite then $B(S)$ can be identified with $\RR^S = \{f\colon S\to\RR\}$
+where $s\mapsto  f(s)$.
+Similary, $ba(S)$ can be identified with $\RR^S = \{\lambda\colon S\to\RR\}$
+where $\{s\}\mapsto \lambda(\{s\})$.
+This is good news when it comes to computer implementation,
+everything is just a finite vector of numbers.
+
+### Probability
+
+The Unified Model does not involve probability, however as an
+aid to those schooled in the classical theory we will reconnoiter
+some elementary facts.
+
+A _probability measure_ is a positive measure with mass 1.
+If $P$ is a probability measure on $\Omega$
+then any function $X\colon\Omega\to\RR$ is a _random variable_.
+The _expected value_ of $X$ is $E[X] = \int_\Omega X\,dP$.
+
+The _conditional probability_ of $B$ given $A$ is
+$P(B\mid A) = P(B\cap A)/P(A)$ for $B,A\subseteq\Omega$.
+
+__Exercise__. _Show $B\mapsto P(B\mid A)$ is a probability measure on $A$_.
+
+This can be generalized to the conditional expectation of a random
+variable given an algebra of sets. We say $Y = E[X\mid\AA]$ if
+$Y$ is known given $\AA$ and $\int_A Y\,dP = \int_A X\,dP$ for
+all $A\in\AA$.
+
+If $X$ is a random variable and $P$ is a measure we can define the
+measure $XP$ by $(XP)(A) = \int_A X\,dP$.
+
+__Exercise__. _Show $XP$ is a measure_.
+
+__Exercise__ _Show if $X\ge 0$ and $E[X] = 1$ then $XP$ is a probability measure_.
+
+_Hint_: Show $XP$ is positive and $(XP)(\Omega) = 1$.
+
+__Exercise__. _Show $Y = E[X|\AA]$ if and only if $Y(P|_\AA) = (XP)|_\AA$_.
+
+_Hint_: If $P$ is a measure on $\Omega$ then $P|_\AA$ is the restriction
+of the measure to $\AA$.
+
+__Exercise__. _Show if $A$ is an atom of $\AA$ then $E[X\mid\AA](A) = \int_A X\,dP/P(A)$_.
+
+Conditional expectation is the average over each atom.
+
+</details>
 
 ## Unified Model
 
@@ -88,6 +222,14 @@ instruments, $\Omega$ the sample space of possible outcomes, and
 $(\AA_t)_{t\in T}$ be algebras of sets on $\Omega$ indicating the
 information available at each trading time.
 
+Recall $\RR^I = \{f:I\to\RR\}$ is the vector space of all functions from $I$ to $\RR$.
+
+If $\AA_t$ is a finite algebra of sets define $[\omega] = \cap\{A\in\AA\mid \omega\in A\}$
+to be the _atom_ containg $\omega$.
+The set of atoms of $\AA$ is $[\AA] = \{[\omega]\mid \omega\in\Omega\}$.
+Recall $f\colon\AA\to\RR$ is measurable if and only if it is constant on atoms.
+In this case $f\colon[\AA]\to\RR$ _is_ a function and we
+say $f$ is _known_ given $\AA$.
 
 ### Market
 
@@ -132,15 +274,21 @@ determined by deflated future cash flows.
 __Lemma__. If $X_t D_t = M_t - \sum_{s\le t} C_s D_s$ where $M_t$ is a martingale measure
 then there is no arbitrage.
 
+_Proof_: Replace $X_u D_u$ by $M_u - \sum_{s\le u} C_s D_s$ in equation (1).
+
 __Lemma__. For any arbitrage free model and any trading strategy
 $$
 \tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}
 $$
 
+_Proof_. Use $\Delta_t + \Gamma_t = \Delta_{t + \epsilon}$ if $\epsilon > 0$
+is sufficiently small.
+
 Note how the value $V_t$ corresponds to price $X_t$ and account $A_t$
 corresponds to $C_t$ in equations (2) and (1) respectively.
 Trading strategies create synthetic market instruments.
-This is the skeleton key to pricing derivative securities.
+
+_This is the skeleton key to pricing derivative securities_.
 
 ## Application
 
@@ -165,7 +313,7 @@ The Unified Model does not prescribe _when_ the hedge should be executed.
 This is an important unsolved fundamental problem in the theory of Mathematical Finance.
 The Black-Scholes/Merton solution is to hedge "continuously".
 The notion of continuous time hedging is a mathematical myth.
-Every trading strategy ever executed in the real world involves
+Every trading strategy executed in the real world involves
 only a finite number of trades.
 
 Note delta hedging drops out naturally from the Unified Model, however it
@@ -203,16 +351,19 @@ where $dP^*/dP = F/E[F]$.
 __Exercise__. _If $X$ is standard normal show ${E[\max\{k - F, 0\}] = kN(m) - fN(m - s)}$
 where $N$ is the standard normal cumulative distribution and $m = (\log(k/f) + s^2/2)/s$_.
 
-_Hint_: Use $E[\exp(sX) g(X)] = E[\exp(sX)] E[g(X + s)]$ if $X$ is standard normal.
+_Hint_: Use $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ if $N$ is normal and
+$E[\exp(N) g(M)] = E[\exp(N)] E[g(M + \cov(M,N))]$ if $N$ and $M$
+are jointly normal.
 
-__Exercise__. _Show in general $E[{\max\{k - F, 0\}] = kP(X\le m) - kP^*(X\le m)}$
-where ${m = (\log(k/f) + \kappa(s))/s}$_.
+__Exercise__. _Show in general $E[{\max\{k - F, 0\}] = kP(X\le m) - fP^*(X\le m)}$
+for any positive $F$ where ${m = (\log(k/f) + \kappa(s))/s}$
+and $dP^*/dP = \exp(sX - \kappa(s))$_.
 
 ### Repurchase Agreements
 
-A _repurchase agreement_ $R(f,t,\Delta t)$ has price $X_t^{$R(f,t,\Delta t)} = 1$
+A _repurchase agreement_ $R(f,t,\Delta t)$ has price $X_t^{R(f,t,\Delta t)} = 1$
 at time $t$ and a single cashflow $C_{t+\Delta t} = \exp(f\Delta t)$ at
-time $t + \Delta t$. The rate $f$ can be a function known at time $t$.
+time $t + \Delta t$. The rate $f$ is a function known at time $t$.
 
 ### Deflator
 
@@ -221,10 +372,11 @@ A repurchase agreement over the interval $[t_j, t_{j+1}]$ is specified
 by a rate $f_j$ known at time $t_j$. The price at $t_j$ is $1$ and it
 has a cash flow of ${\exp(f_j(t_{j+1} - t_j))}$ at time $t_{j+1}$.
 By equation (1) we have ${D_j = \exp(f_j\Delta t_j)D_{j+1}|_{\AA_j}}$.
-If $D_{j+1}$ is known at time $t_j$ then ${D_{j+1}/D_j = \exp(-f_j\Delta t_j)}$ and
-${D_j = \exp(-\sum_{i < j}f_i\Delta t_i)}$ is the canonical deflator with $D_{t_0} = 1$.
+If $D_{j+1}$ is known at time $t_j$ then ${D_{j+1} = \exp(-f_j\Delta t_j)D_{j}$ and
+${D_n = \exp(-\sum_{j < n}f_j\Delta t_j)}D_{t_0}$ is the canonical deflator
+at time $t_n$.
 
-The continuous time analog is $D_t = \exp(-\int_0^t f(s)\,ds)$ where
+The continuous time analog is $D_t = \exp(-\int_0^t f(s)\,ds)D_0$ where
 $f$ is the continuously compounded instantaneous forward rate.
 
 ### Zero Coupon Bond
