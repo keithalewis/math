@@ -14,11 +14,23 @@ abstract: Value, hedge, and manage the risk of instruments
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
-This note provides a replacement for the Black-Scholes/Merton theory
-of option valuation. It defines a model for instrument prices and
-cash flows, and a realistic model of trading.  The Achille's heel of
+This note provides a replacement for the Black, Scholes[@BlaSch1973] and
+Merton[@Mer1973] theory of option valuation. It is a simple extension
+of Stephen Ross'[Ros1978] Fundamental Theorem of Asset Pricing.
+Ross used the Hahn-Banach theorem to show every arbitrage-free model must satisfy
+a geometric constraint. 
+
+Their assumption of continuous time trading is not realisitic
+and leads to paradoxical results.
+
+It defines a model for instrument prices and
+cash flows, and a realistic model of trading. 
+
+The Achille's heel of
 their model is that it assumes continuous time trading. 
 This leads to paradoxical results[^1].
+
+Stephen Ross [@Ros1978] started a cottage industy of mathematicians
 
 This note does not solve the crucial problem of when and how much to
 trade. It only provides an elementary but mathematically rigorous
@@ -55,8 +67,6 @@ only an initial framework for further research.  For proofs and more
 details see [Unified Model](um.html).
 
 <details><summary>Preliminaries</summary>
-## Preliminaries
-
 Let $\Omega$ be a set of possible outcomes. _Partial information_ is modeled
 by a partition of $\Omega$. A collection of subsets of $\Omega$, $\{A_j\}$,
 is a _partition_ if they are pairwise disjoint and their union is $\Omega$.
@@ -69,17 +79,20 @@ closed under union and complement.
 
 __Exercise__. _Show algebras of sets are closed under intersection_.
 
-_Hint_: Let $A' = \Omega\setminus A$ be the complement of $A$ in $\Omega$.
+_Hint_: Let $A' = \Omega\setminus A = \{\omega\in\Omega\mid \omega\not\in A\}$
+be the set complement of $A$ in $\Omega$.
 Use De Morgan's Law $(A\cap B)' = A'\cup B'$.
 
-We can identify a set $A$ with its _characteristic function_ $1_A\colon\Omega\to\RR$
+We can identify a set $A$ with its _indicator function_ $1_A\colon\Omega\to\RR$
 defined by $1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\not\in A$.
-Note $1_{A\cap B} = 1_A 1_B$, $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$
-and $1_{A'} = 1 - 1_A$.
+Note $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$, $1_{A'} = 1 - 1_A$, and
+$1_{A\cap B} = 1_A 1_B$,
 
 __Exercise__. _Prove De Morgan's Law_.
 
 _Hint_: Start from $1_{A'\cup B'} = 1_{A'} + 1_{B'} - 1_{A'\cap B'}$.
+
+Calculations on algebras of sets is algebra.
 
 If $\AA$ is a finite algebra of sets on $\Omega$ then
 $[\omega] = \cap\{A\in\AA\mid\omega\in A\}$ is the _atom_ of $\AA$ containing ${\omega\in\Omega}$.
@@ -132,7 +145,7 @@ __Exercise__: _Show $\lambda$ is a measure_.
 
 Every finitely-additive measure gives rise to a linear functional.
 We say $f$ is _elementary_ if it is a finite linear combination
-of characteristic functions $f = \sum_j a_j 1_{A_j}$.
+of indicator functions $f = \sum_j a_j 1_{A_j}$.
 Given a measure $\lambda$ define $Lf = \sum_j a_j \lambda(A_j)$.
 
 __Exercise__. _If $\{A_j\}$ are pairwise disjoint show $Lf = 0$
