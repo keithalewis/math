@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institute: KALX, LLC
 fleqn: true
 classoption: fleqn
-abstract: Value, hedge, and manage the risk of instruments
+abstract: Value, hedge, and manage the risk of derivative instruments.
 ...
 
 \newcommand{\RR}{\boldsymbol{R}}
@@ -14,26 +14,50 @@ abstract: Value, hedge, and manage the risk of instruments
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
-This note provides a replacement for the Black, Scholes[@BlaSch1973] and
-Merton[@Mer1973] theory of option valuation. It is a simple extension
-of Stephen Ross'[Ros1978] Fundamental Theorem of Asset Pricing.
-Ross used the Hahn-Banach theorem to show every arbitrage-free model must satisfy
-a geometric constraint. 
-
+This note provides a replacement for the Black, Scholes[@BlaSch1973]
+and Merton[@Mer1973] theory of option valuation. Scholes and Merton won
+a Nobel Prize in Economics for showing how value a derivative instrument
+using dynamic hedging.  The value of an option is the cost of setting
+up the initial hedge.
 Their assumption of continuous time trading is not realisitic
-and leads to paradoxical results.
+and leads to paradoxical results[^1].
 
-It defines a model for instrument prices and
-cash flows, and a realistic model of trading. 
+The Unified Model is an extension of Stephen Ross'[@Ros1978] "A Simple
+Approach to the Valuation of Risky Streams". According to Ross,
 
-The Achille's heel of
-their model is that it assumes continuous time trading. 
-This leads to paradoxical results[^1].
+> If there are no arbitrage opportunities in the capital markets, then
+there exists a (not generally unique) valuation operator, L.
 
-Stephen Ross [@Ros1978] started a cottage industy of mathematicians
+He was the first to provide a theory that recognized
+the fundamental defect in the Black-Scholes/Merton model:
+continuous time hedging is not possible,
+it is an artifact of the mathematical theory of Ito processes. 
+
+Every hedge involves discrete trading times and amounts
+of shares to purchase.
+
+used the Hahn-Banach theorem to show its existence. This set off
+a cottage industry of mathematical nitpickers pointing out he had
+not established the existence of an interior point required for its
+application.  This culminated in Delbaen and Schachermeyer's
+No Free Lunch with Vanishing Arbitrage theorem
+to get around Aloaglu's result that the unit ball in the $L^\infinity$
+weak-$*$ topoloagy does not have an iterior point.
+
+The Unified Model does not require the Hahn-Banach theorem.  It also
+does not involve a so-called real-world probablility measure that
+is immediately throw out to get the risk-neutral probability measure.
+It does not involve the Ito formula, stochastic integrals, partial differential equations,
+not to mention weak-$*$ topologies.
+
+Every arbitrage-free model is determined by _deflators_ that correspond
+to Ross' valuation operator $L$ and a _martingale measure_.
+Market instruments have prices and associated cash flows.
+Trading involve buying shares of instruments at discrete times.
+The notion of continuous time trading is a mathematical fiction.
 
 This note does not solve the crucial problem of when and how much to
-trade. It only provides an elementary but mathematically rigorous
+trade. It only provides an elementary and mathematically rigorous
 framework to put your nose in the most important unsolved problem in
 Mathematical Finance.
 
@@ -54,10 +78,10 @@ the Fundamental Theorem of Asset Pricing.
 
 ... this culminated in ... delbaen schachermeyer
 
-as inscrutable as it is unpracticable.
 
 We provide a model that extends [@Ros1978] without involving the Hahn-Banach
-theorem.  It also does not involve probability measures,
+theorem. 
+It also does not involve probability measures,
 Brownian motion, the Ito formula, or partial differential equations.
 As Ross observed, the Fundamental Theorem of Asset Pricing involves only
 geometry, not probability.  The Unified Model can be used for any collection
@@ -178,7 +202,7 @@ This defines the _integral_ $Lf = \int_S f\,d\lambda$.
 We can define a norm on $ba(S)$ by $\|\lambda\| = \sup_{\{A_j\}} |\lambda(A_j)|$
 where the supremum is over all pairwise disjoint subsets of $S$.
 
-__Exercise__. Show $\|\lambda\| = \|L\|$_.
+__Exercise__. _Show $\|\lambda\| = \|L\|$_.
 
 If $S$ is finite then $B(S)$ can be identified with $\RR^S = \{f\colon S\to\RR\}$
 where $s\mapsto  f(s)$.
@@ -365,7 +389,7 @@ __Exercise__. _If $X$ is standard normal show ${E[\max\{k - F, 0\}] = kN(m) - fN
 where $N$ is the standard normal cumulative distribution and $m = (\log(k/f) + s^2/2)/s$_.
 
 _Hint_: Use $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ if $N$ is normal and
-$E[\exp(N) g(M)] = E[\exp(N)] E[g(M + \cov(M,N))]$ if $N$ and $M$
+$E[\exp(N) g(M)] = E[\exp(N)] E[g(M + \Cov(M,N))]$ if $N$ and $M$
 are jointly normal.
 
 __Exercise__. _Show in general $E[{\max\{k - F, 0\}] = kP(X\le m) - fP^*(X\le m)}$
@@ -385,8 +409,8 @@ A repurchase agreement over the interval $[t_j, t_{j+1}]$ is specified
 by a rate $f_j$ known at time $t_j$. The price at $t_j$ is $1$ and it
 has a cash flow of ${\exp(f_j(t_{j+1} - t_j))}$ at time $t_{j+1}$.
 By equation (1) we have ${D_j = \exp(f_j\Delta t_j)D_{j+1}|_{\AA_j}}$.
-If $D_{j+1}$ is known at time $t_j$ then ${D_{j+1} = \exp(-f_j\Delta t_j)D_{j}$ and
-${D_n = \exp(-\sum_{j < n}f_j\Delta t_j)}D_{t_0}$ is the canonical deflator
+If $D_{j+1}$ is known at time $t_j$ then ${D_{j+1} = \exp(-f_j\Delta t_j)D_j}$ and
+${D_n = \exp(-\sum_{j < n} f_j\Delta t_j) D_{t_0}}$ is the canonical deflator
 at time $t_n$.
 
 The continuous time analog is $D_t = \exp(-\int_0^t f(s)\,ds)D_0$ where
