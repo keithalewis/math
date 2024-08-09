@@ -19,9 +19,9 @@ and Merton[@Mer1973] theory of option valuation. Scholes and Merton won
 a Nobel Prize in Economics for showing how value a derivative instrument
 using dynamic hedging.  The value of an option is the cost of setting
 up the initial hedge.
-Their assumption of continuous time trading is not realisitic
+Their assumption of continuous time trading is not realistic
 and leads to paradoxical results[^1].
-It is a mathematical artefact of the theory of Ito processes
+It is a mathematical artifact of the theory of Ito processes
 and dupes some people into believing complete markets and
 perfect hedges exist.
 
@@ -37,10 +37,10 @@ not established the existence of an interior point required for its
 application.  This culminated in Delbaen and Schachermeyer's
 No Free Lunch with Vanishing Arbitrage theorem
 to get around Aloaglu's result that the unit ball in the $L^\infty$
-weak-$*$ topology does not have an iterior point.
+weak-$*$ topology does not have an interior point.
 
 The Unified Model does not require the Hahn-Banach theorem.  It also
-does not involve a so-called real-world probablility measure that
+does not involve a so-called real-world probability measure that
 is immediately throw out to get the risk-neutral probability measure.
 It does not involve the Ito formula, stochastic integrals, partial differential equations,
 not to mention weak-$*$ topologies.
@@ -196,7 +196,7 @@ __Exercise__. _Show $\|\lambda\| = \|L\|$_.
 
 If $S$ is finite then $B(S)$ can be identified with $\RR^S = \{f\colon S\to\RR\}$
 where $s\mapsto  f(s)$.
-Similary, $ba(S)$ can be identified with $\RR^S = \{\lambda\colon S\to\RR\}$
+Similarly, $ba(S)$ can be identified with $\RR^S = \{\lambda\colon S\to\RR\}$
 where $\{s\}\mapsto \lambda(\{s\})$.
 This is good news when it comes to computer implementation,
 everything is just a finite vector of numbers.
@@ -250,7 +250,7 @@ information available at each trading time.
 Recall $\RR^I = \{f:I\to\RR\}$ is the vector space of all functions from $I$ to $\RR$.
 
 If $\AA_t$ is a finite algebra of sets define $[\omega] = \cap\{A\in\AA\mid \omega\in A\}$
-to be the _atom_ containg $\omega$.
+to be the _atom_ containing $\omega$.
 The set of atoms of $\AA$ is $[\AA] = \{[\omega]\mid \omega\in\Omega\}$.
 Recall $f\colon\AA\to\RR$ is measurable if and only if it is constant on atoms.
 In this case $f\colon[\AA]\to\RR$ _is_ a function and we
@@ -394,12 +394,12 @@ $$
 \end{aligned}
 $$
 
-__Exercise__. _If $X$ is standard normal show $P^*(F \le k) = N(-d_2)$ where $d_2 = (\log f/k - s^2/2)/s$_.
+__Exercise__. _If $X$ is standard normal show $P^*(F \le k) = N(-d_2)$ where ${d_2 = (\log f/k - s^2/2)/s}$_.
 
 ### Repurchase Agreements
 
 A _repurchase agreement_ $R(f,t,\Delta t)$ has price $X_t^{R(f,t,\Delta t)} = 1$
-at time $t$ and a single cashflow $C_{t+\Delta t} = \exp(f\Delta t)$ at
+at time $t$ and a single cash flow $C_{t+\Delta t} = \exp(f\Delta t)$ at
 time $t + \Delta t$. The rate $f$ is a function known at time $t$.
 
 ### Deflator
