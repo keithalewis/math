@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-07-11" />
+  <meta name="dcterms.date" content="2024-08-09" />
   <title>Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,34 +67,104 @@
 <header id="title-block-header">
 <h1 class="title">Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">July 11, 2024</p>
+<p class="date">August 9, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-Value, hedge, and manage the risk of instruments
+Value, hedge, and manage the risk of derivative instruments.
 </div>
 </header>
-<p>This note assumes you are familiar with measure theory and stochastic
-processes, but are not necessarily an expert. We provide a
-mathematically rigorous model that extends <span class="citation"
-data-cites="Ros1978">(Ross 1978)</span> without involving the
-Hahn-Banach theorem. It also does not involve probability measures,
-Brownian motion, the Ito formula, or partial differential equations. As
-Ross observed, the Fundamental Theorem of Asset Pricing involves only
-geometry, not probability. The Unified Model can be used for any set of
-instruments to value, hedge, and understand how poorly risk-neutral
-pricing can be used for managing risk. It does not provide a solution,
-only an initial framework for further research. For proofs and more
-details see <a href="um.html">Unified Model</a>.</p>
+<p>This note provides a replacement for the Black, Scholes<span
+class="citation" data-cites="BlaSch1973">(Black and Scholes 1973)</span>
+and Merton<span class="citation" data-cites="Mer1973">(Merton
+1973)</span> theory of option valuation. Scholes and Merton won a Nobel
+Prize in Economics for showing how value a derivative instrument using
+dynamic hedging. The value of an option is the cost of setting up the
+initial hedge. Their assumption of continuous time trading is not
+realisitic and leads to paradoxical results<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. It
+is a mathematical artefact of the theory of Ito processes and dupes some
+people into believing complete markets and perfect hedges exist.</p>
+<p>The Unified Model is an extension of Stephen Ross’<span
+class="citation" data-cites="Ros1978">(Ross 1978)</span> “A Simple
+Approach to the Valuation of Risky Streams”. According to Ross,</p>
+<blockquote>
+<p>If there are no arbitrage opportunities in the capital markets, then
+there exists a (not generally unique) valuation operator, L.</p>
+</blockquote>
+<p>He used the Hahn-Banach theorem to show its existence and this set
+off a cottage industry of mathematical nitpickers pointing out he had
+not established the existence of an interior point required for its
+application. This culminated in Delbaen and Schachermeyer’s No Free
+Lunch with Vanishing Arbitrage theorem to get around Aloaglu’s result
+that the unit ball in the <span class="math inline">L^\infty</span>
+weak-<span class="math inline">*</span> topology does not have an
+iterior point.</p>
+<p>The Unified Model does not require the Hahn-Banach theorem. It also
+does not involve a so-called real-world probablility measure that is
+immediately throw out to get the risk-neutral probability measure. It
+does not involve the Ito formula, stochastic integrals, partial
+differential equations, not to mention weak-<span
+class="math inline">*</span> topologies.</p>
+<p>Every arbitrage-free model is determined by <em>deflators</em> that
+correspond to Ross’ valuation operator <span
+class="math inline">L</span> and a <em>martingale measure</em>. Market
+instruments have prices and associated cash flows. Trading involve
+buying shares of instruments at discrete times.</p>
+<p>This note does not solve the crucial problem of when and how much to
+trade. It only provides an elementary and mathematically rigorous
+framework to put your nose in the most important unsolved problem in
+Mathematical Finance.</p>
 <section id="unified-model" class="level2">
 <h2>Unified Model</h2>
-<p>Let <span class="math inline">T</span> be the set of trading times,
-<span class="math inline">I</span> the set of all market instruments,
-<span class="math inline">\Omega</span> the sample space of possible
-outcomes, and <span class="math inline">({\mathcal{A}}_t)_{t\in
-T}</span> be algebras of sets on <span class="math inline">\Omega</span>
-indicating the information available at each trading time.</p>
-<section id="preliminaries" class="level3">
-<h3>Preliminaries</h3>
+<p>We assume you are familiar with measure theory and stochastic
+processes, but are not necessarily an expert. The Unified Model places
+Ross’s seminal work on a firm mathematical foundation. It does not
+involve the Hahn-Banach theorem. It also does not involve probability
+measures, Brownian motion, the Ito formula, or partial differential
+equations. As Ross observed, the Fundamental Theorem of Asset Pricing
+involves only geometry, not probability. The Unified Model can be used
+for any collection of instruments to value, hedge, and understand how
+poorly risk-neutral pricing can be used for managing risk. It does not
+provide a solution, only an initial framework for further research. For
+proofs and more details see <a href="um.html">Unified Model</a>.</p>
+<details>
+<summary>
+Preliminaries
+</summary>
+<p>Let <span class="math inline">\Omega</span> be a set of possible
+outcomes. <em>Partial information</em> is modeled by a partition of
+<span class="math inline">\Omega</span>. A collection of subsets of
+<span class="math inline">\Omega</span>, <span
+class="math inline">\{A_j\}</span>, is a <em>partition</em> if they are
+pairwise disjoint and their union is <span
+class="math inline">\Omega</span>. Full information is knowing <span
+class="math inline">\omega\in\Omega</span>. Partial information is
+knowing only to which atom <span class="math inline">\omega</span>
+belongs. No information is modeled by the singleton partition <span
+class="math inline">\{\Omega\}</span>.</p>
+<p>An <em>algebras of sets</em> is a collection of sets closed under
+union and complement.</p>
+<p><strong>Exercise</strong>. <em>Show algebras of sets are closed under
+intersection</em>.</p>
+<p><em>Hint</em>: Let <span class="math inline">A&#39; = \Omega\setminus
+A = \{\omega\in\Omega\mid \omega\not\in A\}</span> be the set complement
+of <span class="math inline">A</span> in <span
+class="math inline">\Omega</span>. Use De Morgan’s Law <span
+class="math inline">(A\cap B)&#39; = A&#39;\cup B&#39;</span>.</p>
+<p>We can identify a set <span class="math inline">A</span> with its
+<em>indicator function</em> <span
+class="math inline">1_A\colon\Omega\to\boldsymbol{R}</span> defined by
+<span class="math inline">1_A(\omega) = 1</span> if <span
+class="math inline">\omega\in A</span> and <span
+class="math inline">1_A(\omega) = 0</span> if <span
+class="math inline">\omega\not\in A</span>. Note <span
+class="math inline">1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}</span>, <span
+class="math inline">1_{A&#39;} = 1 - 1_A</span>, and <span
+class="math inline">1_{A\cap B} = 1_A 1_B</span>,</p>
+<p><strong>Exercise</strong>. <em>Prove De Morgan’s Law</em>.</p>
+<p><em>Hint</em>: Start from <span class="math inline">1_{A&#39;\cup
+B&#39;} = 1_{A&#39;} + 1_{B&#39;} - 1_{A&#39;\cap B&#39;}</span>.</p>
+<p>Calculations on algebras of sets is algebra.</p>
 <p>If <span class="math inline">{\mathcal{A}}</span> is a finite algebra
 of sets on <span class="math inline">\Omega</span> then <span
 class="math inline">[\omega] = \cap\{A\in{\mathcal{A}}\mid\omega\in
@@ -110,23 +180,190 @@ class="math inline">B = \emptyset</span> or <span class="math inline">B
 class="math inline">{\mathcal{A}}</span>, <span
 class="math inline">[{\mathcal{A}}]</span>, form a partition of <span
 class="math inline">\Omega</span></em>.</p>
-<p>A partition represents partial information. Complete information is
-knowing <span class="math inline">\omega\in\Omega</span>. Partial
-information is knowing only which atom of the partition <span
-class="math inline">\omega</span> belongs to.</p>
+<p>This shows we can identify a finite algebra of sets with its
+atoms.</p>
 <p>A function <span
 class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is <span
-class="math inline">{\mathcal{A}}</span> measurable if and only if it is
-constant on atoms of <span class="math inline">{\mathcal{A}}</span> so
-<span class="math inline">X\colon[{\mathcal{A}}]\to\boldsymbol{R}</span>
-<em>is</em> a function.</p>
-<p>If <span class="math inline">P</span> is a positive measure with mass
-1 on <span class="math inline">\Omega</span> and <span
-class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is a random
-variable then conditional expectation <span class="math inline">Y =
-E[X|{\mathcal{A}}]</span> is equivalent to restriction of measure <span
-class="math inline">Y(P|_{\mathcal{A}})
-= (XP)|_{\mathcal{A}}</span>.</p>
+class="math inline">{\mathcal{A}}</span>-<em>measurable</em> for an
+algebra of sets <span class="math inline">{\mathcal{A}}</span> if <span
+class="math inline">\{\omega\in\Omega\mid X(\omega) \le x\}</span>
+belongs to <span class="math inline">{\mathcal{A}}</span> for all <span
+class="math inline">x\in\boldsymbol{R}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">{\mathcal{A}}</span> is finite, show <span
+class="math inline">X</span> is <span
+class="math inline">{\mathcal{A}}</span>-measurable if and if and only
+if it is constant on atoms of <span
+class="math inline">{\mathcal{A}}</span></em>.</p>
+<p>This shows <span
+class="math inline">X\colon[{\mathcal{A}}]\to\boldsymbol{R}</span>
+<em>is</em> a function. We jettison the word ‘measurable’ and say <span
+class="math inline">X</span> <em>is known given</em> <span
+class="math inline">{\mathcal{A}}</span>.</p>
+<section id="integration" class="level3">
+<h3>Integration</h3>
+<p>Integration is a <em>linear functional</em>: it assigns a function to
+a number where a constant times a function is assigned to the constant
+times the integral and the integral of the sum of two functions is the
+sum of the integrals. Integration involves <em>measures</em>. A
+finitely-additive measure is a <em>set function</em> <span
+class="math inline">\lambda\colon{\mathcal{A}}\to\boldsymbol{R}</span>
+satisfying <span class="math inline">\lambda(A\cup B) = \lambda(A) +
+\lambda(B) - \lambda(A\cap B)</span> and <span
+class="math inline">\lambda(\emptyset) = 0</span>. Measures don’t count
+things twice and the measure of the empty set is 0.</p>
+<p>If <span class="math inline">S</span> is a set and <span
+class="math inline">f\colon S\to\boldsymbol{R}</span> is a function on
+<span class="math inline">S</span> define its <em>norm</em> <span
+class="math inline">\|f\| = \sup_{s\in S} |f(s)\|</span>. Let <span
+class="math inline">B(S) = \{f\colon S\to\boldsymbol{R}\mid \|f\| &lt;
+\infty\}</span> be the <em>normed linear space</em> of bounded functions
+on <span class="math inline">S</span>. The <em>dual</em> of <span
+class="math inline">B(S)</span>, <span
+class="math inline">B(S)^*</span>, is the set of all <em>bounded linear
+functionals</em> <span class="math inline">L\colon
+B(S)\to\boldsymbol{R}</span>. A linear functional is bounded if there
+exists a constant <span class="math inline">M\in\boldsymbol{R}</span>
+with <span class="math inline">|Lf| \le M\|f\|</span> for all <span
+class="math inline">f\in B(S)</span>. The least such constant is the
+<em>norm</em> of <span class="math inline">L</span>, <span
+class="math inline">\|L\|</span>.</p>
+<p>Every bounded linear functional gives rise to a finitely-additive
+measure <span class="math inline">\lambda</span> on <span
+class="math inline">S</span> by <span class="math inline">\lambda(A) =
+L1_A</span>. Let <span class="math inline">ba(S)</span> denote all
+finitely-additive measures on <span class="math inline">S</span>. We now
+show how to identify <span class="math inline">B(S)^*</span> with <span
+class="math inline">ba(S)</span>.</p>
+<p><strong>Exercise</strong>: <em>Show <span
+class="math inline">\lambda</span> is a measure</em>.</p>
+<p>Every finitely-additive measure gives rise to a linear functional. We
+say <span class="math inline">f</span> is <em>elementary</em> if it is a
+finite linear combination of indicator functions <span
+class="math inline">f = \sum_j a_j 1_{A_j}</span>. Given a measure <span
+class="math inline">\lambda</span> define <span class="math inline">Lf =
+\sum_j a_j \lambda(A_j)</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\{A_j\}</span> are pairwise disjoint show <span
+class="math inline">Lf = 0</span> implies <span class="math inline">f =
+0</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show for any collection <span
+class="math inline">\{B_i\}</span> we have <span
+class="math inline">\sum_i b_i 1_{B_i} = \sum_j a_j 1_{A_j}</span> where
+<span class="math inline">\{A_j\}</span> are pairwise disjoint</em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">1_{E\cup F} =
+1_{E\setminus F} + 1_{F\setminus E} - 1_{E\cap F}</span> and
+induction.</p>
+<p>This shows <span class="math inline">L</span> is
+<em>well-defined</em> for elementary functions.</p>
+<p><strong>Exercise</strong>. <em>Given any bounded function <span
+class="math inline">g</span> and <span class="math inline">\epsilon &gt;
+0</span> there exists an elementary function <span
+class="math inline">f</span> with <span class="math inline">\|g - f\|
+&lt; \epsilon</span></em>.</p>
+<p><em>Hint</em>: Let <span class="math inline">a_n =
+f(n\epsilon)</span> and <span class="math inline">A_n =
+f^{-1}([n\epsilon, (n + 1)\epsilon))</span>.</p>
+<p>This shows the set of elementary functions is <em>dense</em> in <span
+class="math inline">B(S)</span>. We can extend the definition from
+elementary functions to all of <span class="math inline">B(S)</span>
+since <span class="math inline">L</span> is bounded</p>
+<p><strong>Exercise</strong>: <em>If <span class="math inline">f\in
+B(S)</span> and <span class="math inline">\lim_n f_n = f</span> then
+<span class="math inline">\lim_n Lf_n = Lf</span></em>.</p>
+<p><em>Hint</em> Use <span class="math inline">L</span> is bounded.</p>
+<p>This defines the <em>integral</em> <span class="math inline">Lf =
+\int_S f\,d\lambda</span>.</p>
+<p>We can define a norm on <span class="math inline">ba(S)</span> by
+<span class="math inline">\|\lambda\| = \sup_{\{A_j\}}
+|\lambda(A_j)|</span> where the supremum is over all pairwise disjoint
+subsets of <span class="math inline">S</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\|\lambda\| = \|L\|</span></em>.</p>
+<p>If <span class="math inline">S</span> is finite then <span
+class="math inline">B(S)</span> can be identified with <span
+class="math inline">\boldsymbol{R}^S = \{f\colon
+S\to\boldsymbol{R}\}</span> where <span
+class="math inline">s\mapsto  f(s)</span>. Similary, <span
+class="math inline">ba(S)</span> can be identified with <span
+class="math inline">\boldsymbol{R}^S = \{\lambda\colon
+S\to\boldsymbol{R}\}</span> where <span class="math inline">\{s\}\mapsto
+\lambda(\{s\})</span>. This is good news when it comes to computer
+implementation, everything is just a finite vector of numbers.</p>
+</section>
+<section id="probability" class="level3">
+<h3>Probability</h3>
+<p>The Unified Model does not involve probability, however as an aid to
+those schooled in the classical theory we will reconnoiter some
+elementary facts.</p>
+<p>A <em>probability measure</em> is a positive measure with mass 1. If
+<span class="math inline">P</span> is a probability measure on <span
+class="math inline">\Omega</span> then any function <span
+class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is a
+<em>random variable</em>. The <em>expected value</em> of <span
+class="math inline">X</span> is <span class="math inline">E[X] =
+\int_\Omega X\,dP</span>.</p>
+<p>The <em>conditional probability</em> of <span
+class="math inline">B</span> given <span class="math inline">A</span> is
+<span class="math inline">P(B\mid A) = P(B\cap A)/P(A)</span> for <span
+class="math inline">B,A\subseteq\Omega</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">B\mapsto P(B\mid A)</span> is a probability measure
+on <span class="math inline">A</span></em>.</p>
+<p>This can be generalized to the conditional expectation of a random
+variable given an algebra of sets. We say <span class="math inline">Y =
+E[X\mid{\mathcal{A}}]</span> if <span class="math inline">Y</span> is
+known given <span class="math inline">{\mathcal{A}}</span> and <span
+class="math inline">\int_A Y\,dP = \int_A X\,dP</span> for all <span
+class="math inline">A\in{\mathcal{A}}</span>.</p>
+<p>If <span class="math inline">X</span> is a random variable and <span
+class="math inline">P</span> is a measure we can define the measure
+<span class="math inline">XP</span> by <span class="math inline">(XP)(A)
+= \int_A X\,dP</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">XP</span> is a measure</em>.</p>
+<p><strong>Exercise</strong> <em>Show if <span class="math inline">X\ge
+0</span> and <span class="math inline">E[X] = 1</span> then <span
+class="math inline">XP</span> is a probability measure</em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">XP</span> is positive
+and <span class="math inline">(XP)(\Omega) = 1</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">Y =
+E[X|{\mathcal{A}}]</span> if and only if <span
+class="math inline">Y(P|_{\mathcal{A}}) =
+(XP)|_{\mathcal{A}}</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">P</span> is a measure on
+<span class="math inline">\Omega</span> then <span
+class="math inline">P|_{\mathcal{A}}</span> is the restriction of the
+measure to <span class="math inline">{\mathcal{A}}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">A</span> is an atom of <span
+class="math inline">{\mathcal{A}}</span> then <span
+class="math inline">E[X\mid{\mathcal{A}}](A) = \int_A
+X\,dP/P(A)</span></em>.</p>
+<p>Conditional expectation is the average over each atom.</p>
+</details>
+<p>Let <span class="math inline">T</span> be the set of trading times,
+<span class="math inline">I</span> the set of all market instruments,
+<span class="math inline">\Omega</span> the sample space of possible
+outcomes, and <span class="math inline">({\mathcal{A}}_t)_{t\in
+T}</span> be algebras of sets on <span class="math inline">\Omega</span>
+indicating the information available at each trading time.</p>
+<p>Recall <span class="math inline">\boldsymbol{R}^I =
+\{f:I\to\boldsymbol{R}\}</span> is the vector space of all functions
+from <span class="math inline">I</span> to <span
+class="math inline">\boldsymbol{R}</span>.</p>
+<p>If <span class="math inline">{\mathcal{A}}_t</span> is a finite
+algebra of sets define <span class="math inline">[\omega] =
+\cap\{A\in{\mathcal{A}}\mid \omega\in A\}</span> to be the <em>atom</em>
+containg <span class="math inline">\omega</span>. The set of atoms of
+<span class="math inline">{\mathcal{A}}</span> is <span
+class="math inline">[{\mathcal{A}}] = \{[\omega]\mid
+\omega\in\Omega\}</span>. Recall <span
+class="math inline">f\colon{\mathcal{A}}\to\boldsymbol{R}</span> is
+measurable if and only if it is constant on atoms. In this case <span
+class="math inline">f\colon[{\mathcal{A}}]\to\boldsymbol{R}</span>
+<em>is</em> a function and we say <span class="math inline">f</span> is
+<em>known</em> given <span class="math inline">{\mathcal{A}}</span>.</p>
 </section>
 <section id="market" class="level3">
 <h3>Market</h3>
@@ -161,7 +398,8 @@ positions and pay for trades just executed.</p>
 class="math inline">A_{\tau_0} &gt; 0</span>, <span
 class="math inline">A_t \ge 0</span>, <span class="math inline">t &gt;
 \tau_0</span>, and <span class="math inline">\sum_j \Gamma_j = 0</span>.
-The first trade makes money and subsequent trades never lose money.</p>
+The first trade makes money and subsequent trades never lose money.
+Eventually the position must be closed out.</p>
 <p>The Fundamental Theorem of Asset Pricing states there is no arbitrage
 if and only if there exist <em>deflators</em>, positive measures <span
 class="math inline">D_t</span> on <span
@@ -178,17 +416,24 @@ flows.</p>
 <p><strong>Lemma</strong>. If <span class="math inline">X_t D_t = M_t -
 \sum_{s\le t} C_s D_s</span> where <span class="math inline">M_t</span>
 is a martingale measure then there is no arbitrage.</p>
+<p><em>Proof</em>: Replace <span class="math inline">X_u D_u</span> by
+<span class="math inline">M_u - \sum_{s\le u} C_s D_s</span> in equation
+(1).</p>
 <p><strong>Lemma</strong>. For any arbitrage free model and any trading
 strategy <span class="math display">
 \tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
 D_s)|_{{\mathcal{A}}_t}
 </span></p>
+<p><em>Proof</em>. Use <span class="math inline">\Delta_t + \Gamma_t =
+\Delta_{t + \epsilon}</span> if <span class="math inline">\epsilon &gt;
+0</span> is sufficiently small.</p>
 <p>Note how the value <span class="math inline">V_t</span> corresponds
 to price <span class="math inline">X_t</span> and account <span
 class="math inline">A_t</span> corresponds to <span
 class="math inline">C_t</span> in equations (2) and (1) respectively.
-Trading strategies create synthetic market instruments. This is the
-skeleton key to pricing derivative securities.</p>
+Trading strategies create synthetic market instruments.</p>
+<p><em>Equations (1) and (2) are the skeleton keys to pricing derivative
+securities</em>.</p>
 </section>
 </section>
 <section id="application" class="level2">
@@ -200,8 +445,8 @@ strategy <span class="math inline">(\tau_j, \Gamma_j)</span> with <span
 class="math inline">A_{\overline{\tau}_j} = \overline{A}_j</span> for
 all <span class="math inline">j</span> and <span class="math inline">A_t
 = 0</span> otherwise (aka self-financing) then a “perfect hedge”
-exists<a href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a>.</p>
+exists<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>.</p>
 <p>Note <span class="math inline">V_t D_t = (\sum_{\tau_j &gt; t}
 \overline{A}_j D_{\overline{\tau}_j})|_{{\mathcal{A}}_t}</span> can be
 computed from the derivative contract specification and the deflators
@@ -219,8 +464,8 @@ derivative contract obligation.</p>
 be executed. This is an important unsolved fundamental problem in the
 theory of Mathematical Finance. The Black-Scholes/Merton solution is to
 hedge “continuously”. The notion of continuous time hedging is a
-mathematical myth. Every trading strategy ever executed in the real
-world involves only a finite number of trades.</p>
+mathematical myth. Every trading strategy executed in the real world
+involves only a finite number of trades.</p>
 <p>Note delta hedging drops out naturally from the Unified Model,
 however it does not require Ito’s formula, much less a proof involving
 partial differential equations and changing a measure that is
@@ -249,7 +494,8 @@ class="math inline">{\kappa(s) = \log E[\exp(sX)]}</span>.</p>
 <p>We have <span class="math display">
 \begin{aligned}
 E[\max\{k - F, 0\}] &amp;= E[(k - F)1(F \le k)] \\
-    &amp;= kP(F\le k) - E[F] E[F/E[F] 1(F\le k) \\
+    &amp;= kP(F\le k) - E[F 1(F\le k)] \\
+    &amp;= kP(F\le k) - E[F] E[F/E[F] 1(F\le k)] \\
     &amp;= kP(F\le k) - fP^*(F\le k) \\
 \end{aligned}
 </span> where <span class="math inline">dP^*/dP = F/E[F]</span>.</p>
@@ -258,13 +504,41 @@ is standard normal show <span class="math inline">{E[\max\{k - F, 0\}] =
 kN(m) - fN(m - s)}</span> where <span class="math inline">N</span> is
 the standard normal cumulative distribution and <span
 class="math inline">m = (\log(k/f) + s^2/2)/s</span></em>.</p>
-<p><em>Hint</em>: Use <span class="math inline">E[\exp(sX) g(X)] =
-E[\exp(sX)] E[g(X + s)]</span> if <span class="math inline">X</span> is
-standard normal.</p>
+<p><em>Hint</em>: Use <span class="math inline">E[\exp(N)] = \exp(E[N] +
+\operatorname{Var}(N)/2)</span> if <span class="math inline">N</span> is
+normal and <span class="math inline">E[\exp(N) g(M)] = E[\exp(N)] E[g(M
++ \operatorname{Cov}(M,N))]</span> if <span class="math inline">N</span>
+and <span class="math inline">M</span> are jointly normal.</p>
 <p><strong>Exercise</strong>. <em>Show in general <span
-class="math inline">E[{\max\{k - F, 0\}] = kP(X\le m) - kP^*(X\le
-m)}</span> where <span class="math inline">{m = (\log(k/f) +
-\kappa(s))/s}</span></em>.</p>
+class="math inline">E[{\max\{k - F, 0\}] = kP(X\le m) - fP^*(X\le
+m)}</span> for any positive <span class="math inline">F</span> where
+<span class="math inline">{m = (\log(k/f) + \kappa(s))/s}</span> and
+<span class="math inline">dP^*/dP = \exp(sX -
+\kappa(s))</span></em>.</p>
+<p><em>Delta</em> is derivative of value <span class="math inline">v =
+E[\max\{k - F, 0\}]</span> with respect to initial price. <span
+class="math display">
+\begin{aligned}
+    \partial v/\partial f &amp;= E[-1(F \le k)\partial F/\partial f] \\
+    \partial v/\partial f &amp;= -E[1(F \le k)\exp(sX - \kappa(s))] \\
+        &amp;= -P^*(F \le k) \\
+\end{aligned}
+</span></p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+is standard normal show <span class="math inline">P^*(F \le k) =
+N(-d_2)</span> where <span class="math inline">d_2 = (\log f/k -
+s^2/2)/s</span></em>.</p>
+</section>
+<section id="repurchase-agreements" class="level3">
+<h3>Repurchase Agreements</h3>
+<p>A <em>repurchase agreement</em> <span
+class="math inline">R(f,t,\Delta t)</span> has price <span
+class="math inline">X_t^{R(f,t,\Delta t)} = 1</span> at time <span
+class="math inline">t</span> and a single cashflow <span
+class="math inline">C_{t+\Delta t} = \exp(f\Delta t)</span> at time
+<span class="math inline">t + \Delta t</span>. The rate <span
+class="math inline">f</span> is a function known at time <span
+class="math inline">t</span>.</p>
 </section>
 <section id="deflator" class="level3">
 <h3>Deflator</h3>
@@ -279,22 +553,24 @@ t_j))}</span> at time <span class="math inline">t_{j+1}</span>. By
 equation (1) we have <span class="math inline">{D_j = \exp(f_j\Delta
 t_j)D_{j+1}|_{{\mathcal{A}}_j}}</span>. If <span
 class="math inline">D_{j+1}</span> is known at time <span
-class="math inline">t_j</span> then <span
-class="math inline">{D_{j+1}/D_j = \exp(-f_j\Delta t_j)}</span> and
-<span class="math inline">{D_j = \exp(-\sum_{i &lt; j}f_i\Delta
-t_i)}</span> is the canonical deflator with <span
-class="math inline">D_{t_0} = 1</span>.</p>
+class="math inline">t_j</span> then <span class="math inline">{D_{j+1} =
+\exp(-f_j\Delta t_j)D_j}</span> and <span class="math inline">{D_n =
+\exp(-\sum_{j &lt; n} f_j\Delta t_j) D_{t_0}}</span> is the canonical
+deflator at time <span class="math inline">t_n</span>.</p>
 <p>The continuous time analog is <span class="math inline">D_t =
-\exp(-\int_0^t f(s)\,ds)</span> where <span class="math inline">f</span>
-is the continuously compounded instantaneous forward rate.</p>
+\exp(-\int_0^t f(s)\,ds)D_0</span> where <span
+class="math inline">f</span> is the continuously compounded
+instantaneous forward rate.</p>
 </section>
 <section id="zero-coupon-bond" class="level3">
 <h3>Zero Coupon Bond</h3>
 <p>A <em>zero coupon bond</em> maturing at time <span
 class="math inline">u</span> has a unit cash flow at <span
-class="math inline">u</span>. In an arbitrage free model its price at
-time <span class="math inline">t\le u</span>, <span
-class="math inline">D_t(u)</span> satisfies <span
+class="math inline">u</span>, <span class="math inline">C_u^{D(u)} =
+1</span> and <span class="math inline">C_t^{D(u)} = 0</span> for <span
+class="math inline">t\not=u</span>.. In an arbitrage free model its
+price at time <span class="math inline">t\le u</span>, <span
+class="math inline">X_t^{D(u)} = D_t(u)</span> satisfies <span
 class="math inline">D_t(u) D_t = D_u|_{{\mathcal{A}}_t}</span> so <span
 class="math inline">D_t(u)</span> is the Radon-Nikodym derivative of
 <span class="math inline">D_u|_{{\mathcal{A}}_t}</span> with respect to
@@ -312,8 +588,8 @@ class="math inline">t</span> is <span class="math display">
 <p>A <em>forward rate agreement</em> with coupon <span
 class="math inline">f</span> over the interval <span
 class="math inline">[u,v]</span> having day count convention <span
-class="math inline">\delta</span><a href="#fn2" class="footnote-ref"
-id="fnref2" role="doc-noteref"><sup>2</sup></a> has two cash flows:
+class="math inline">\delta</span><a href="#fn3" class="footnote-ref"
+id="fnref3" role="doc-noteref"><sup>3</sup></a> has two cash flows:
 <span class="math inline">-1</span> at time <span
 class="math inline">t</span> and <span class="math inline">{1 +
 f\delta(u,v)}</span> at time <span class="math inline">u</span>. The
@@ -340,8 +616,8 @@ coupon</em>.</p>
 <section id="risky-bonds" class="level3">
 <h3>Risky Bonds</h3>
 <p>Companies can default and may pay only a fraction of the notional
-owed on bonds they issued. A simple model<a href="#fn3"
-class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> for
+owed on bonds they issued. A simple model<a href="#fn4"
+class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> for
 this is to assume the time of default <span class="math inline">T</span>
 and recovery <span class="math inline">R</span> are random variables.
 The sample space for the default time is <span
@@ -396,6 +672,18 @@ $\Gamma = (M, N)$.
 <h2 class="unnumbered">Reference</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
+<div id="ref-BlaSch1973" class="csl-entry" role="listitem">
+Black, Fischer, and Myron Scholes. 1973. <span>“The Pricing of Options
+and Corporate Liabilities.”</span> <em>Journal of Political Economy</em>
+81 (3): 637–54. <a
+href="http://www.jstor.org/stable/1831029">http://www.jstor.org/stable/1831029</a>.
+</div>
+<div id="ref-Mer1973" class="csl-entry" role="listitem">
+Merton, Robert C. 1973. <span>“Theory of Rational Option
+Pricing.”</span> <em>Bell Journal of Economics and Management
+Science</em> 4 (1): 141–83. <a
+href="https://www.jstor.org/stable/3003143">https://www.jstor.org/stable/3003143</a>.
+</div>
 <div id="ref-Ros1978" class="csl-entry" role="listitem">
 Ross, Stephen A. 1978. <span>“A <span>Simple</span>
 <span>Approach</span> to the <span>Valuation</span> of
@@ -409,13 +697,23 @@ href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Perfect hedges never exist.<a href="#fnref1"
+<li id="fn1"><p>Merton provided a closed form solution for valuing
+barrier options based on the reflection principal of Brownian motion.
+<span class="citation"
+data-cites="cite">(<strong>cite?</strong>)</span>. The classical theory
+implies the value of a barrier option that knocks in or out the second
+time the barrier is hit has the same value. It also implies the value of
+a barrier option that knocks in or out the millionth time it hits the
+barrier has exactly the same value due to a mathematical artifact of
+Brownian motion.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Perfect hedges never exist.<a href="#fnref2"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>The <em>day count fraction</em> <span
+<li id="fn3"><p>The <em>day count fraction</em> <span
 class="math inline">\delta(u, v)</span> is approximately <span
-class="math inline">v - u</span> in years.<a href="#fnref2"
+class="math inline">v - u</span> in years.<a href="#fnref3"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>This is a very simplified model.<a href="#fnref3"
+<li id="fn4"><p>This is a very simplified model.<a href="#fnref4"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>

@@ -21,6 +21,9 @@ using dynamic hedging.  The value of an option is the cost of setting
 up the initial hedge.
 Their assumption of continuous time trading is not realisitic
 and leads to paradoxical results[^1].
+It is a mathematical artefact of the theory of Ito processes
+and dupes some people into believing complete markets and
+perfect hedges exist.
 
 The Unified Model is an extension of Stephen Ross'[@Ros1978] "A Simple
 Approach to the Valuation of Risky Streams". According to Ross,
@@ -28,21 +31,13 @@ Approach to the Valuation of Risky Streams". According to Ross,
 > If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, L.
 
-He was the first to provide a theory that recognized
-the fundamental defect in the Black-Scholes/Merton model:
-continuous time hedging is not possible,
-it is an artifact of the mathematical theory of Ito processes. 
-
-Every hedge involves discrete trading times and amounts
-of shares to purchase.
-
-used the Hahn-Banach theorem to show its existence. This set off
+He used the Hahn-Banach theorem to show its existence and this set off
 a cottage industry of mathematical nitpickers pointing out he had
 not established the existence of an interior point required for its
 application.  This culminated in Delbaen and Schachermeyer's
 No Free Lunch with Vanishing Arbitrage theorem
-to get around Aloaglu's result that the unit ball in the $L^\infinity$
-weak-$*$ topoloagy does not have an iterior point.
+to get around Aloaglu's result that the unit ball in the $L^\infty$
+weak-$*$ topology does not have an iterior point.
 
 The Unified Model does not require the Hahn-Banach theorem.  It also
 does not involve a so-called real-world probablility measure that
@@ -54,7 +49,6 @@ Every arbitrage-free model is determined by _deflators_ that correspond
 to Ross' valuation operator $L$ and a _martingale measure_.
 Market instruments have prices and associated cash flows.
 Trading involve buying shares of instruments at discrete times.
-The notion of continuous time trading is a mathematical fiction.
 
 This note does not solve the crucial problem of when and how much to
 trade. It only provides an elementary and mathematically rigorous
@@ -70,16 +64,12 @@ It also implies the value of a barrier option that knocks in
 or out the millionth time it hits the barrier has exactly
 the same value due to a mathematical artifact of Brownian motion.
 
+## Unified Model
+
 We assume you are familiar with measure theory and stochastic
 processes, but are not necessarily an expert.
-Ross [@Ros1978] started a cottage industy of mathematicians
-trying to fix up his incorrect proof of
-the Fundamental Theorem of Asset Pricing.
-
-... this culminated in ... delbaen schachermeyer
-
-
-We provide a model that extends [@Ros1978] without involving the Hahn-Banach
+The Unified Model places Ross's seminal work on a firm mathematical
+foundation. It does not involve the Hahn-Banach
 theorem. 
 It also does not involve probability measures,
 Brownian motion, the Ito formula, or partial differential equations.
@@ -252,8 +242,6 @@ Conditional expectation is the average over each atom.
 
 </details>
 
-## Unified Model
-
 Let $T$ be the set of trading times, $I$ the set of all market
 instruments, $\Omega$ the sample space of possible outcomes, and
 $(\AA_t)_{t\in T}$ be algebras of sets on $\Omega$ indicating the
@@ -297,6 +285,7 @@ receive cash flows proportional to existing positions and pay for trades just ex
 _Arbitrage_ exists if there is a trading strategy
 with $A_{\tau_0} > 0$, $A_t \ge 0$, $t > \tau_0$, and $\sum_j \Gamma_j = 0$.
 The first trade makes money and subsequent trades never lose money.
+Eventually the position must be closed out.
 
 The Fundamental Theorem of Asset Pricing states there is no arbitrage if and only
 if there exist _deflators_, positive measures $D_t$ on $\AA_t$, ${t\in T}$, with
@@ -325,7 +314,7 @@ Note how the value $V_t$ corresponds to price $X_t$ and account $A_t$
 corresponds to $C_t$ in equations (2) and (1) respectively.
 Trading strategies create synthetic market instruments.
 
-_This is the skeleton key to pricing derivative securities_.
+_Equations (1) and (2) are the skeleton keys to pricing derivative securities_.
 
 ## Application
 
@@ -395,6 +384,17 @@ are jointly normal.
 __Exercise__. _Show in general $E[{\max\{k - F, 0\}] = kP(X\le m) - fP^*(X\le m)}$
 for any positive $F$ where ${m = (\log(k/f) + \kappa(s))/s}$
 and $dP^*/dP = \exp(sX - \kappa(s))$_.
+
+_Delta_ is derivative of value $v = E[\max\{k - F, 0\}]$ with respect to initial price.
+$$
+\begin{aligned}
+	\partial v/\partial f &= E[-1(F \le k)\partial F/\partial f] \\
+	\partial v/\partial f &= -E[1(F \le k)\exp(sX - \kappa(s))] \\
+		&= -P^*(F \le k) \\
+\end{aligned}
+$$
+
+__Exercise__. _If $X$ is standard normal show $P^*(F \le k) = N(-d_2)$ where $d_2 = (\log f/k - s^2/2)/s$_.
 
 ### Repurchase Agreements
 

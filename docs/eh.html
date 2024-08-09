@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-08-09" />
+  <title>Error Handling in C++</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Error Handling in C++</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">August 9, 2024</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Go To statement considered annoying.
+</div>
+</header>
+<blockquote>
+<p><em>The great thing about computers is they do exactly what you tell
+them to do. The awful thing about computers is they do exaclty what you
+tell them to do.</em></p>
+</blockquote>
+<p>It is expensive to write program that have no bugs. It is also
+expensive to debug programs. This note endeavours to strke a happy
+medium by suggesting simple ways of minimizing the number of bugs in a
+program.</p>
+<blockquote>
+<p><em>There are two ways to write code: write code so simple there are
+obviously no bugs in it, or write code so complex that there are no
+obvious bugs in it</em>. – Tony Hoare</p>
+</blockquote>
+<section id="factor-your-code" class="level3">
+<h3>Factor Your Code</h3>
+<p>Tony was right, “If it’s complicated, it’s wrong” is my mantra. Every
+unit of functionality should do one thing. Spend some time thinking
+about names so using code reads naturally.</p>
+<p>C++ has functions and classes with member functions. Prefer
+standalone functions to classes. If a function has some arguments that
+do not change often then put those in the class constructor and call the
+standalone function from a similarly named member function.</p>
+<pre><code>// option.h - Fischer Black option greeks.
+
+namespace option {
+
+    // Return put value given forward, vol, strike, and time in years to expiration.
+    double put_value(double f, double s, double k, double t);
+
+    // Return derivative put of value with respect to forward.
+    double put_delta(double f, double s, double k, double t);
+
+    // Return second derivative of put value with respect to forward.
+    double put_gamma(double f, double s, double k, double t);
+
+    // Fischer Black European put option valuation and greeks.
+    class put {
+        double k, t;
+    public:
+        // A put is specified by its strike and time in years to expiration.
+        put(double k, double t)
+            : k(k), t(t)
+        { }
+
+        double value(double f, double s) const
+        {
+            return put_value(f, s, k, t);
+        }
+        double delta(double f, double s) const
+        {
+            return put_delta(f, s, k, t);
+        }
+        double gamma(double f, double s) const
+        {
+            return put_gamma(f, s, k, t);
+        }
+    };
+
+} // namespace option</code></pre>
+<p>Provide succinct and helpful comments for people using your code. And
+for yourself when you reuse what you wrote at some point in the
+future.</p>
+<pre><code>#include &quot;option.h&quot;
+...
+double f = 100, s = 0.1, k = 100, t = 0.25;
+double v = option::put_value(f, s, k, t);
+option::put p(k, t);
+double d = p.delta(f, s);</code></pre>
+<p>Note how the function and class names document the single letter
+names. There is truth in the old joke about the two hardest problems in
+computer science are naming things, cache misses, and off-by-one errors.
+Except cache misses are not a joke. Understanding how computers actually
+work can lead to 10x performance improvements.</p>
+</section>
+<section id="test-your-code" class="level3">
+<h3>Test Your Code</h3>
+<p>Every function should have <em>unit tests</em>. C++ has an <a
+href="https://en.cppreference.com/w/cpp/error/assert"><code>assert</code></a>
+macro. Use <code>assert(expression)</code> to ensure the expression
+evalates to a non-zero value. If not, the macro prints the file name and
+line number followed by the text of expression to the terminal running
+the program, then calls <a
+href="https://en.cppreference.com/w/cpp/utility/program/abort"><code>abort</code></a></p>
+<p>It is not only a politically incorrect word these days, it brings the
+program to a grinding halt and deposits a core dump.<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+This is a good thing. The person writing the code and running the unit
+test has to fix the bug before sauntering off to other tasks. Buggy code
+must be forbidden to be checked into the source code management system.
+The person writing buggy code must must be immediatley held accountable.
+If not, someone else will have to spend time to figure out what they
+wrote and why it is wrong. The person who wrote the buggy code is in the
+best position to solve this, hopefully aided by code reviews from their
+colleagues.</p>
+<p>The best way to handle errors is to not have them.</p>
+</section>
+<section id="return-codes" class="level3">
+<h3>Return Codes</h3>
+<p>If you write a function people may call it with improper inputs. For
+example, it is an error to call the function
+<code>double sqrt(double x)</code> with <code>x &lt; 0</code>.</p>
+<p>The way this was dealt with in C was to set a global
+<code>errno</code> that users had to check after every call to
+<code>sqrt</code>. This did not work well with multi-threaded
+programs.</p>
+<p>Programming languages should allow programmers to communicate what
+they think should be correct to the code that will ultimately be
+executed.</p>
+<p><em>Error handling</em> is how a program running on a computer
+communicates to the person using the program the mistakes the person who
+wrote the program requested to be reported during execution.</p>
+<p>Edsger Dijkstra wrote a letter to the editors of <em>Communications
+of the ACM</em> in 1968 titled <a
+href="https://www.cs.utexas.edu/%7EEWD/transcriptions/EWD02xx/EWD215.html">“Go
+To Statement Considered Harmful.”</a> He was (very much) concerned with
+providing programmers appropriate tools for writing correct
+programs.</p>
+<blockquote>
+<p>My second remark is that our intellectual powers are rather geared to
+master static relations and that our powers to visualize processes
+evolving in time are relatively poorly developed. For that reason we
+should do (as wise programmers aware of our limitations) our utmost best
+to shorten the conceptual gap between the static program and the dynamic
+process, to make the correspondence between the program (spread out in
+text space) and the process (spread out in time) as trivial as
+possible.</p>
+</blockquote>
+<p>Like Newton, I appreciate what people smarter than me spent their
+precious time on this planet passionately figuring out and carefully
+communicated to posterity. All I need to do is take the time to read the
+words they wrote and make an effort to understand their hard-won
+knowledge.</p>
+<p>Dijkstra’s admonition led to the practice of functions returning
+error codes instead of jumping to non-local code execution. The code
+immediately after the function call checks the error code and takes
+action based on that. This places a burden on the programmer of checking
+all possible return codes.</p>
+<p>C++ uses <em>exceptions</em> that <em>throw</em> up the function
+<em>call stack</em>. A calling function in a better position to report
+something hopefully useful to whoever is using the program can
+<em>catch</em> and</p>
+<p>In the “Design and Evolution of C++” Bjarne Stroustup reported his
+findings based on a study of existing languages that tried to handle
+exceptional behaviour during program execution. He found that trying to
+write code to work around the exception led to more problems. It is
+better to just report the exception and terminate the program with
+useful information. It is a flaw in the program that needs to be fixed
+by a human.</p>
+<p>Functions monads</p>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>By setting another macro it is possible to make the
+program suspend execution during runtime in a debugger at the point
+where the condition fails. This allows the person who wrote the code and
+best understands it to get a better understanding of the bug they need
+to fix.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+</body>
+</html>
