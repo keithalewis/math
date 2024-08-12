@@ -21,7 +21,7 @@ obvious bugs in it_. -- Tony Hoare
 ### Factor Your Code
 
 Tony was right, "If it's complicated, it's wrong" is my mantra.
-Every unit of functionality should do one thing.
+Every function should be succinct and do one thing.
 Spend some time thinking about names so using
 code reads naturally.
 
@@ -84,21 +84,16 @@ double d = p.delta(f, s);
 ```
 
 Note how the function and class names document the single letter names.
-There is truth in the old joke about the two hardest problems
-in computer science are naming things, cache misses, and
-off-by-one errors. Except cache misses are not a joke.
-Understanding how computers actually work can lead to
-10x performance improvements.
 
 ### Test Your Code
 
 Every function should have _unit tests_. C++ has an
 [`assert`](https://en.cppreference.com/w/cpp/error/assert) macro.
 Use `assert(expression)` to ensure the expression evalates to a non-zero value.
-If not, the macro
-prints the file name and line number followed by
+If not, the macro prints the file name and line number to
+[standard error](https://en.wikipedia.org/wiki/Standard_streams) followed by
 the text of expression to the terminal running the program, then calls
-[`abort`](https://en.cppreference.com/w/cpp/utility/program/abort)
+[`abort`](https://en.cppreference.com/w/cpp/utility/program/abort).
 
 It is not only a politically incorrect word these days, it brings the
 program to a grinding halt and deposits a core dump.[^1]
@@ -114,8 +109,6 @@ hopefully aided by code reviews from their colleagues.
 
 [^1]: By setting another macro it is possible to make the program
 suspend execution during runtime in a debugger at the point where the condition fails.
-This allows the person who wrote the code and best understands it
-to get a better understanding of the bug they need to fix.
 
 The best way to handle errors is to not have them.
 
@@ -127,7 +120,7 @@ with improper inputs. For example, it is an error to call the function
 
 The way this was dealt with in C was to set a global `errno`
 that users had to check after every call to `sqrt`.
-This did not work well with multi-threaded programs.
+This does not work well with multi-threaded programs.
 
 Programming languages
 should allow programmers to communicate what they think

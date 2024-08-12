@@ -17,38 +17,60 @@ abstract: Value, hedge, and manage the risk of derivative instruments.
 This note provides a replacement for the Black, Scholes[@BlaSch1973]
 and Merton[@Mer1973] theory of option valuation. Scholes and Merton won
 a Nobel Prize in Economics for showing how value a derivative instrument
-using dynamic hedging.  The value of an option is the cost of setting
+using dynamic hedging: the value of an option is the cost of setting
 up the initial hedge.
 Their assumption of continuous time trading is not realistic
 and leads to paradoxical results[^1].
 It is a mathematical artifact of the theory of Ito processes
-and dupes some people into believing complete markets and
+and duped many people in the academic world into believing complete markets and
 perfect hedges exist.
 
 The Unified Model is an extension of Stephen Ross'[@Ros1978] "A Simple
-Approach to the Valuation of Risky Streams". According to Ross,
+Approach to the Valuation of Risky Streams". According to Ross
 
-> If there are no arbitrage opportunities in the capital markets, then
-there exists a (not generally unique) valuation operator, L.
+> _If there are no arbitrage opportunities in the capital markets, then
+there exists a (not generally unique) valuation operator, $L$_.
 
-He used the Hahn-Banach theorem to show its existence and this set off
-a cottage industry of mathematical nitpickers pointing out he had
-not established the existence of an interior point required for its
-application.  This culminated in Delbaen and Schachermeyer's
-No Free Lunch with Vanishing Arbitrage theorem
-to get around Aloaglu's result that the unit ball in the $L^\infty$
-weak-$*$ topology does not have an interior point.
+He used the Hahn-Banach theorem to show the existence of $L$
+and observed it is not necessarily unique when the market is not complete.
+This set off a cottage industry of mathematical nitpickers pointing out
+he had not established the existence of an interior point required for
+its application.  This culminated in Delbaen and Schachermeyer's No Free
+Lunch with Vanishing Arbitrage theorem to get around the 
+fact that the unit ball in the $L^\infty$ weak-$*$ topology does not have an
+interior point, something no trader has ever found useful for doing their job.
+
+<!--
+Eventually this was called the _Fundamental Theorem of Asset Pricing_.
+-->
+In physics, when a theory does not agree with observation it time to
+come up with a new theory.
+
+> _Für die Richtung des dabeieinzuschlagenden Gedankenganges giebt der
+  Hinblick auf dieUnhaltbarkeit der früher gemachten Voraussetzung einen
+  Finger-zeig_. -- Max Planck
+
+> _The untenability of the assumption made earlier provides an indication
+  of the direction of the line of thought to be taken_.
+
+The untenable assumption of the Black-Scholes/Merton theory is that
+continous time trading is possible. The indicated direction is
+to provide a theory reflecting the fact traders decide at
+discrete times, based on available information, what to trade.
 
 The Unified Model does not require the Hahn-Banach theorem.  It also
 does not involve a so-called real-world probability measure that
-is immediately throw out to get the risk-neutral probability measure.
-It does not involve the Ito formula, stochastic integrals, partial differential equations,
-not to mention weak-$*$ topologies.
+is immediately throw out to get a risk-neutral probability measure.
+It does not involve stochastic integrals, the Ito formula, partial differential equations,
+much less weak-$*$ topologies. It does not even involve probability.
+
+The Fundamental Theorem of Asset pricing is a geometric fact.
+Positive measures having mass 1 show up, but they are not the probability of anything.
 
 Every arbitrage-free model is determined by _deflators_ that correspond
 to Ross' valuation operator $L$ and a _martingale measure_.
 Market instruments have prices and associated cash flows.
-Trading involve buying shares of instruments at discrete times.
+Trading involves buying instruments at discrete times.
 
 This note does not solve the crucial problem of when and how much to
 trade. It only provides an elementary and mathematically rigorous
@@ -62,23 +84,25 @@ value of a barrier option that knocks in or out the second
 time the barrier is hit has the same value.
 It also implies the value of a barrier option that knocks in
 or out the millionth time it hits the barrier has exactly
-the same value due to a mathematical artifact of Brownian motion.
+the same value. This is just a mathematical artifact of the
+properties of Brownian motion.
 
 ## Unified Model
 
 We assume you are familiar with measure theory and stochastic
 processes, but are not necessarily an expert.
+The Preliminaries section explains all the mathematics
+required.
 The Unified Model places Ross's seminal work on a firm mathematical
 foundation. It does not involve the Hahn-Banach
 theorem. 
 It also does not involve probability measures,
 Brownian motion, the Ito formula, or partial differential equations.
 As Ross observed, the Fundamental Theorem of Asset Pricing involves only
-geometry, not probability.  The Unified Model can be used for any collection
+geometry, not probability.  The Unified Model can be used for _any_ collection
 of instruments to value, hedge, and understand how poorly risk-neutral
 pricing can be used for managing risk. It does not provide a solution,
-only an initial framework for further research.  For proofs and more
-details see [Unified Model](um.html).
+only an initial framework for further research. 
 
 <details><summary>Preliminaries</summary>
 Let $\Omega$ be a set of possible outcomes. _Partial information_ is modeled
