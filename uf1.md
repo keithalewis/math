@@ -60,7 +60,7 @@ risk managers need to get a grip on the _value_, or _mark-to-market_
 of a postion at any point in time. This involes nominal trades to convert each instrument
 to a base instrument, usually the native currency of the company holding the position.
 
-$(a, i, e) \mapsto (a',e', e)$.
+$(a, i, e) \mapsto (a', e', e)$.
 
 It is necessary to specify a price function to convert 
 For instruments trading in a liquid market, it is just a matter of looking at
