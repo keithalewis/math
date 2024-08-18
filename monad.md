@@ -18,27 +18,50 @@ abstract: Will it Function?
 
 Whatever that means.
 
-It is common in numeric libraries written in C-like languages to have 'functions' of the form
-```
-	err f_e(double in, double* out);
-```
-that take a numeric `in`put, place the result of the function in the
-memory for the `out`put and return an integral `err`or code. 
-If $x$ is the input and $y$ is the output then $y = f(x)$ after the call
-if there is no error, otherwise $y$ is indeterminate and the error code
-returned by `f_e` must be inspected to determine what went wrong.
-The library user must make sure memory for the output exists and must
-check the return code to detect problems.
+Suppose function $f\colon X\to Y$ but things can go wrong when
+computing $f(x)$ for some values of $x\in X$.  One approach is
+to make $f$ a _partial function_ with domain the set of all untroublesome
+$x\in X$.  We can make $f$ into a proper function on all of $X$ by assuming
+a special element $\bot\not\in Y$ and define $f(x) = \bot$ when $x$
+is not kosher.  Now $f$ is a function in the usual mathematical
+sense but we've lost all information about the rabbinic code $f(x)$ violated.
 
-Aside from being tedious to use, one problem with this convention is that
-it is not a function in the mathematical sense.  Mathematical functions
-don't have arguments that can be used as output. This can be solved by
-making $f$ a _partial function_ with domain the set of all $x\in X$
-such that `f_e` returns no error. The standard way to do this is
-to assume a special element $\bot\not\in X$ and define $f(x) = \bot$
-when $x$ is not in the domain.
-Now $f$ is a function in the usual mathematical sense but we've lost
-information about the error code.
+In the [C standard library for mathematical
+functions](https://en.cppreference.com/w/c/numeric/math)
+this is handled by setting the macro
+[`errno`](https://en.cppreference.com/w/c/error/errno)
+to indicate what went wrong. $\bot$ is spelled
+[NAN](https://en.cppreference.com/w/c/numeric/math/NAN)
+in C and the programmer calling the function should use
+[`isnan`](https://en.cppreference.com/w/c/numeric/math/isnan) to check
+for $\bot$ and inspect `errno` to get more detailed information on why
+the function failed.
+
+It is common in numeric libraries written in C-like languages to have functions of the form
+```
+	int f(double x, double* py);
+```
+that write the value of $f(x)$ into the memory address of the pointer `py`
+and return an error code indicating what went wrong if $x$ 
+is not in the domain of $f$. This is an improvement over setting
+a global `errno` but the programmer still has to check all possible
+return values. If the library implementing `f` changes then
+new error codes might be added that the programmer needs to
+change their code to take into account.
+
+Another problem with this approach is that `f` is not a _pure_ function.
+It has a side-effect of changing the memory location pointed
+to by `py`. Monads solve this problem.
+
+## Monad
+
+_Monads_ provides a way to wrap up values, map a function to act on
+wrapped up values, and a way to unwrap values. Monads solve the problem
+of turning partial functions into functions that can report on why the
+partial function failed.
+
+The C standard library function `double sqrt(double x)`
+returns a `NAN` if $x < 0$ and sets the glob
 
 A better way is to define $F\colon E\times X\to E\times X$, where $E$
 is the set of error codes by $F(e,\_) = (e,\_)$ if $e$ is an error and

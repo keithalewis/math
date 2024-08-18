@@ -16,15 +16,15 @@ abstract: Value, hedge, and manage the risk of derivative instruments.
 
 This note provides a replacement for the Black, Scholes[@BlaSch1973]
 and Merton[@Mer1973] theory of option valuation. Scholes and Merton won
-a Nobel Prize in Economics for showing how value a derivative instrument
+a Nobel Prize in Economics for showing how to value a derivative instrument
 using dynamic hedging: the value of an option is the cost of setting
 up the initial hedge.
-Their assumptions of continuous time trading and stock prices are not realistic
-and lead to paradoxical results[^1].
-They are a mathematical artifact of the theory of Ito processes
-and duped many people in the academic world into believing complete markets and
-perfect hedges exist. Every trader knows their theory does not
-correspond to reality after a week on the job.
+The Achille's heel of their model is the assumption of continuous time trading
+and leads to untenable results[^1].
+Continuous time trading is a mathematical artifact of the theory of Ito processes
+and duped many academics into believing complete markets and
+perfect hedges exist. Every trader and risk manager knows this does not
+correspond to reality after a few days on the job.
 
 The Unified Model is an extension of Stephen Ross'[@Ros1978] "A Simple
 Approach to the Valuation of Risky Streams". According to Ross
@@ -32,20 +32,26 @@ Approach to the Valuation of Risky Streams". According to Ross
 > _If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, $L$_.
 
-He used the Hahn-Banach theorem to show the existence of $L$
-and observed it is not unique if the market is not complete.
-This set off a cottage industry of mathematical nitpickers pointing out
-he had not established the existence of an interior point required for
+He used the Hahn-Banach theorem to show the existence of $L$ and
+observed it is not unique if the market is not complete.  This set off
+a cottage industry of mathematical finance nitpickers pointing out he
+had not established the existence of an interior point required for
 its application.  This culminated in Delbaen and Schachermeyer's No Free
-Lunch with Vanishing Arbitrage theorem to get around the 
-fact that the unit ball in the $L^\infty$ weak-$*$ topology does not have an
-interior point, something no trader has ever found useful for doing their job.
+Lunch with Vanishing Arbitrage theorem to get around the fact that the
+unit ball in the $L^\infty$ weak-$*$ topology does not have an interior
+point. Something no financial business has ever found useful.
 
 <!--
 Eventually this was called the _Fundamental Theorem of Asset Pricing_.
 -->
-In physics, when a theory does not agree with observation it time to
-come up with a new theory.
+When a theory in physics does not agree with observation it is time to
+come up with a new theory. The tenor of the time at the end of the 19th century 
+was that Newton's program had been carried out and it was simply
+a matter of adding decimal places to physical constants.
+
+The Achille's heel of classical theory at the time was its
+prediction of black body radiation. Experiment did not
+agree with observation.
 
 > _Für die Richtung des dabeieinzuschlagenden Gedankenganges giebt der
   Hinblick auf dieUnhaltbarkeit der früher gemachten Voraussetzung einen
@@ -53,6 +59,9 @@ come up with a new theory.
 
 > _The untenability of the assumption made earlier provides an indication
   of the direction of the line of thought to be taken_.
+
+Max Plack came up with a simple
+solution to fit the data: assume electrons were emitted in discrete units. 
 
 The untenable assumption of the Black-Scholes/Merton theory is that
 continous time trading is possible. The indicated direction is
