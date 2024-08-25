@@ -17,14 +17,37 @@ abstract: Value, hedge, and manage the risk of derivative instruments.
 This note provides a replacement for the Black, Scholes[@BlaSch1973]
 and Merton[@Mer1973] theory of option valuation. Scholes and Merton won
 a Nobel Prize in Economics for showing how to value a derivative instrument
-using dynamic hedging: the value of an option is the cost of setting
+using dynamic hedging: the value is the cost of setting
 up the initial hedge.
-The Achille's heel of their model is the assumption of continuous time trading
-and leads to untenable results[^1].
+The Achille's heel of their model is the assumption of continuous time trading.
+That leads to untenable results[^1], something [Zeno](https://iep.utm.edu/zenos-paradoxes/)
+pointed out 2,500 years ago. The concept of infinity is problematical.
+
 Continuous time trading is a mathematical artifact of the theory of Ito processes
 and duped many academics into believing complete markets and
 perfect hedges exist. Every trader and risk manager knows this does not
 correspond to reality after a few days on the job.
+Trades occur at discrete times based on available information.
+The primary unsolved problem in mathematical finance is how
+to advise traders when and how much to hedge. There is still
+work to be done on how well the hedge works.
+
+One benefit of working as a quant during the heyday of derivatives
+was having a front row seat to seeing how well, or poorly, the
+software implementations of theory performed.
+The people running the business could not care less about
+equations in a paper. They needed people who could turn those
+into software that could produce numbers they found helpful for
+running their business.
+
+When a theory in physics does not agree with experimental observation,
+it is time to come up with a new thery. At the end of the
+19th century physists thought Newton's theory of gravitation
+and Maxwell's theory of electromagnatism had been successfully carried out.
+Lord Kelvin proclaimed "It is just a matter of adding decimal points to physical constants."
+
+Planck look at experimental results and found ...
+
 
 The Unified Model is an extension of Stephen Ross'[@Ros1978] "A Simple
 Approach to the Valuation of Risky Streams". According to Ross
@@ -36,7 +59,8 @@ He used the Hahn-Banach theorem to show the existence of $L$ and
 observed it is not unique if the market is not complete.  This set off
 a cottage industry of mathematical finance nitpickers pointing out he
 had not established the existence of an interior point required for
-its application.  This culminated in Delbaen and Schachermeyer's No Free
+the application of the Hahn-Banach theorem.
+This culminated in Delbaen and Schachermeyer's No Free
 Lunch with Vanishing Arbitrage theorem to get around the fact that the
 unit ball in the $L^\infty$ weak-$*$ topology does not have an interior
 point. Something no financial business has ever found useful.
