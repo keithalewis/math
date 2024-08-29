@@ -19,9 +19,9 @@ and Merton[@Mer1973] theory of option valuation. Scholes and Merton won
 a Nobel Prize in Economics for showing how to value a derivative instrument
 using dynamic hedging: the value is the cost of setting
 up the initial hedge.
-The Achille's heel of their model is the assumption of continuous time trading.
-That leads to untenable results[^1], something [Zeno](https://iep.utm.edu/zenos-paradoxes/)
-pointed out 2,500 years ago. The concept of infinity is problematical.
+The Achilles heel of their model is they assume continuous time trading is possible.
+This leads to untenable results[^1], something [Zeno](https://iep.utm.edu/zenos-paradoxes/)
+pointed out 2,500 years ago.
 
 Continuous time trading is a mathematical artifact of the theory of Ito processes
 and duped many academics into believing complete markets and
@@ -30,48 +30,24 @@ correspond to reality after a few days on the job.
 Trades occur at discrete times based on available information.
 The primary unsolved problem in mathematical finance is how
 to advise traders when and how much to hedge. There is still
-work to be done on how well the hedge works.
+work to be done on how well hedges work once you accept
+the fact markets are not complete.
 
-One benefit of working as a quant during the heyday of derivatives
-was having a front row seat to seeing how well, or poorly, the
-software implementations of theory performed.
-The people running the business could not care less about
-equations in a paper. They needed people who could turn those
-into software that could produce numbers they found helpful for
-running their business.
+One, um, benefit of working as a quant during the heyday of derivatives
+was having a front row seat to how the software
+implementations of the theory performed.  The people running the business
+could not care less about equations in a paper. They needed people who
+could turn those into software that could produce numbers they found
+useful for running their business. When the hedges provided by your
+implementation of a model started losing money, or even gaining money,
+you would get a visit from someone paying your salary.
 
-When a theory in physics does not agree with experimental observation,
-it is time to come up with a new thery. At the end of the
-19th century physists thought Newton's theory of gravitation
-and Maxwell's theory of electromagnatism had been successfully carried out.
-Lord Kelvin proclaimed "It is just a matter of adding decimal points to physical constants."
-
-Planck look at experimental results and found ...
-
-
-The Unified Model is an extension of Stephen Ross'[@Ros1978] "A Simple
-Approach to the Valuation of Risky Streams". According to Ross
-
-> _If there are no arbitrage opportunities in the capital markets, then
-there exists a (not generally unique) valuation operator, $L$_.
-
-He used the Hahn-Banach theorem to show the existence of $L$ and
-observed it is not unique if the market is not complete.  This set off
-a cottage industry of mathematical finance nitpickers pointing out he
-had not established the existence of an interior point required for
-the application of the Hahn-Banach theorem.
-This culminated in Delbaen and Schachermeyer's No Free
-Lunch with Vanishing Arbitrage theorem to get around the fact that the
-unit ball in the $L^\infty$ weak-$*$ topology does not have an interior
-point. Something no financial business has ever found useful.
-
-<!--
-Eventually this was called the _Fundamental Theorem of Asset Pricing_.
--->
-When a theory in physics does not agree with observation it is time to
-come up with a new theory. The tenor of the time at the end of the 19th century 
-was that Newton's program had been carried out and it was simply
-a matter of adding decimal places to physical constants.
+When a theory in physics does not agree with observation, it is time to
+come up with a new theory. The tenor of the time at the end of the 19th
+century was that Newton's theory of gravitation and Maxwell's theory
+of electromagnatism had been successfully carried out.  Lord Kelvin
+proclaimed "It is just a matter of adding decimal points to physical
+constants."
 
 The Achille's heel of classical theory at the time was its
 prediction of black body radiation. Experiment did not
@@ -87,11 +63,34 @@ agree with observation.
 Max Plack came up with a simple
 solution to fit the data: assume electrons were emitted in discrete units. 
 
+???
+
 The untenable assumption of the Black-Scholes/Merton theory is that
 continous time trading is possible. The indicated direction is
 to provide a theory reflecting the fact traders decide at
 discrete times, based on available information, what to trade.
 
+## Unified Model
+
+The Unified Model is an extension of Stephen Ross'[@Ros1978] "A Simple
+Approach to the Valuation of Risky Streams". According to Ross
+
+> _If there are no arbitrage opportunities in the capital markets, then
+there exists a (not generally unique) valuation operator, $L$_.
+
+He used the Hahn-Banach theorem to show the existence of $L$ and
+observed it is not unique if the market is not complete.  This set off
+a cottage industry of Mathematical Finance nitpickers pointing out he
+had not established the existence of an interior point required for
+the application of the Hahn-Banach theorem.
+This culminated in Delbaen and Schachermeyer's No Free
+Lunch with Vanishing Arbitrage theorem to get around the fact that the
+unit ball in the $L^\infty$ weak-$*$ topology does not have an interior
+point. Something no business person has ever found useful.
+
+<!--
+Eventually this was called the _Fundamental Theorem of Asset Pricing_.
+-->
 The Unified Model does not require the Hahn-Banach theorem.  It also
 does not involve a so-called real-world probability measure that
 is immediately throw out to get a risk-neutral probability measure.
@@ -100,14 +99,13 @@ much less weak-$*$ topologies. It does not even involve probability.
 The Fundamental Theorem of Asset pricing is a geometric fact.
 Positive measures having mass 1 show up, but they are not the probability of anything.
 
-Every arbitrage-free model is determined by deflators that correspond
-to Ross' valuation operator $L$ and a martingale measure.
-If repurchase agreements are available there is a canonical deflator.
-Market instruments have prices and associated cash flows.
-Trading involves buying and selling instruments at discrete times.
-Trades entail amounts that show up
-in the trading account. These determine the value,
-or mark-to-market, of the strategy.
+Every arbitrage-free model is determined by deflators that correspond to
+Ross' valuation operator $L$ and a martingale measure.  If repurchase
+agreements are available there is a canonical deflator.  Market
+instruments have prices and associated cash flows.  Trading involves
+buying and selling instruments at discrete times.  These determine the
+value, or mark-to-market, of the strategy and amounts that show up in
+the trading account.
 
 This note does not solve the crucial problem of when and how much to
 trade. It only provides an elementary and mathematically rigorous
@@ -121,30 +119,17 @@ value of a barrier option that knocks in or out the second
 time the barrier is hit has the same value.
 It also implies the value of a barrier option that knocks in
 or out the millionth time it hits the barrier has exactly
-the same value. This is a mathematical artifact of the
-properties of Brownian motion. Not to mention stock prices
-are not accurately modeled by real numbers. The price of
-every stock is an integer multiple of its minimum trading unit.
-This is significant when modeling zero days to expiration options.
+the same value. 
 
 ## Unified Model
 
 We assume you are familiar with measure theory and stochastic
 processes, but are not necessarily an expert.
-The Preliminaries section explains all the mathematics
-required.
-The Unified Model places Ross's seminal work on a firm mathematical
-foundation. It does not involve the Hahn-Banach
-theorem. 
-It also does not involve probability measures,
-Brownian motion, the Ito formula, or partial differential equations.
-As Ross observed, the Fundamental Theorem of Asset Pricing involves only
-geometry, not probability.  The Unified Model can be used for _any_ collection
-of instruments to value, hedge, and understand how poorly risk-neutral
-pricing can be used for managing risk. It does not provide a solution,
-only an initial framework for further research. 
 
-<details><summary>Preliminaries</summary>
+## Preliminaries
+
+<details><summary>Details</summary>
+
 Let $\Omega$ be a set of possible outcomes. _Partial information_ is modeled
 by a partition of $\Omega$. A collection of subsets of $\Omega$, $\{A_j\}$,
 is a _partition_ if they are pairwise disjoint and their union is $\Omega$.
@@ -308,17 +293,8 @@ Conditional expectation is the average over each atom.
 
 Let $T$ be the set of trading times, $I$ the set of all market
 instruments, $\Omega$ the sample space of possible outcomes, and
-$(\AA_t)_{t\in T}$ be algebras of sets on $\Omega$ indicating the
+$(\AA_t)_{t\in T}$ the algebras of sets on $\Omega$ indicating the
 information available at each trading time.
-
-Recall $\RR^I = \{f:I\to\RR\}$ is the vector space of all functions from $I$ to $\RR$.
-
-If $\AA_t$ is a finite algebra of sets define $[\omega] = \cap\{A\in\AA\mid \omega\in A\}$
-to be the _atom_ containing $\omega$.
-The set of atoms of $\AA$ is $[\AA] = \{[\omega]\mid \omega\in\Omega\}$.
-Recall $f\colon\AA\to\RR$ is measurable if and only if it is constant on atoms.
-In this case $f\colon[\AA]\to\RR$ _is_ a function and we
-say $f$ is _known_ given $\AA$.
 
 ### Market
 
@@ -349,7 +325,11 @@ receive cash flows proportional to existing positions and pay for trades just ex
 _Arbitrage_ exists if there is a trading strategy
 with $A_{\tau_0} > 0$, $A_t \ge 0$, $t > \tau_0$, and $\sum_j \Gamma_j = 0$.
 The first trade makes money and subsequent trades never lose money.
-Eventually the position must be closed out.
+Eventually the position must closed out. Otherwise you could simply
+borrow a dollar every day. A strategy Nick Leeson used to put
+Barings out of their 350 year old business.
+
+?? Barings
 
 The Fundamental Theorem of Asset Pricing states there is no arbitrage if and only
 if there exist _deflators_, positive measures $D_t$ on $\AA_t$, ${t\in T}$, with
@@ -390,7 +370,7 @@ a "perfect hedge" exists[^2].
 [^2]: Perfect hedges never exist.
 
 Note $V_t D_t = (\sum_{\tau_j > t} \overline{A}_j D_{\overline{\tau}_j})|_{\AA_t}$
-can be computed from the derivative contract specification and the deflators $D_t$.
+can be computed from the derivative contract term sheet and the deflators $D_t$.
 Since we also have $V_t = (\Delta_t + \Gamma_t)\cdot X_t$,
 the Frechet derivative $D_{X_t}V_t$
 of option value with respect to $X_t$
@@ -422,6 +402,7 @@ is $D_t = \exp(-\rho t)P$.
 More generally, if $X_t$ is a Levy process where $X_1$ has mean zero and variance one
 then ${M_t = (r, s\exp(\sigma X_t - \kappa_t(\sigma)))P}$ is an arbitrage-free model,
 where $\kappa_t(\sigma) = \log E[\exp(\sigma X_t)]$ is the cumulant.
+Merton's jump diffusion model is a special case.
 
 Every positive random variable with finite mean and log variance can be
 written ${F = f\exp(sX - \kappa(s))}$ where ${f = E[F]}$, ${s^2 = \Var(\log F)}$,
