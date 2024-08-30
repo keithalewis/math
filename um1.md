@@ -19,7 +19,7 @@ and Merton[@Mer1973] theory of option valuation. Scholes and Merton won
 a Nobel Prize in Economics for showing how to value a derivative instrument
 using dynamic hedging: the value is the cost of setting
 up the initial hedge.
-The Achilles heel of their model is they assume continuous time trading is possible.
+The Achilles heel of their model is their assumption of continuous time trading.
 This leads to untenable results[^1], something [Zeno](https://iep.utm.edu/zenos-paradoxes/)
 pointed out 2,500 years ago.
 
@@ -33,14 +33,15 @@ to advise traders when and how much to hedge. There is still
 work to be done on how well hedges work once you accept
 the fact markets are not complete.
 
-One, um, benefit of working as a quant during the heyday of derivatives
+One benefit of working as a quant during the heyday of derivatives
 was having a front row seat to how the software
-implementations of the theory performed.  The people running the business
-could not care less about equations in a paper. They needed people who
-could turn those into software that could produce numbers they found
-useful for running their business. When the hedges provided by your
+implementations of the theory performed. 
+When the hedges provided by your
 implementation of a model started losing money, or even gaining money,
-you would get a visit from someone paying your salary.
+you would get a visit from someone paying your salary expecting
+an explanation. I quickly learned the importance of gamma
+profiles. We can do better than the trader aphorism, "Hedge
+when you can, not when you have to."
 
 When a theory in physics does not agree with observation, it is time to
 come up with a new theory. The tenor of the time at the end of the 19th
@@ -60,15 +61,17 @@ agree with observation.
 > _The untenability of the assumption made earlier provides an indication
   of the direction of the line of thought to be taken_.
 
-Max Plack came up with a simple
-solution to fit the data: assume electrons were emitted in discrete units. 
-
-???
+Max Planck came up with a simple
+solution to fit the data: assume photons were emitted in integer
+multiples of of the _Planck constant_.
+Instrument prices are integer multiples of a minimum trading unit,
+not real numbers. This fact is relevant for accurate valuation
+of 0-day options.
 
 The untenable assumption of the Black-Scholes/Merton theory is that
 continous time trading is possible. The indicated direction is
 to provide a theory reflecting the fact traders decide at
-discrete times, based on available information, what to trade.
+discrete times based on available information what to trade.
 
 ## Unified Model
 
@@ -104,7 +107,7 @@ Ross' valuation operator $L$ and a martingale measure.  If repurchase
 agreements are available there is a canonical deflator.  Market
 instruments have prices and associated cash flows.  Trading involves
 buying and selling instruments at discrete times.  These determine the
-value, or mark-to-market, of the strategy and amounts that show up in
+value, or mark-to-market, of the strategy and the amounts showing up in
 the trading account.
 
 This note does not solve the crucial problem of when and how much to
@@ -298,26 +301,26 @@ information available at each trading time.
 
 ### Market
 
-_Price_ -- $X_t\colon[\AA_t]\to\RR^I$
+_Price_ -- $X_t\colon[\AA_t]\to\RR^I$,
 market prices assuming perfect liquidity.
 
-_Cash flow_ -- $C_t\colon[\AA_t]\to\RR^I$
+_Cash flow_ -- $C_t\colon[\AA_t]\to\RR^I$,
 dividends, coupons, margin adjustments for futures.
 
 ### Trading
 
-_Trading Strategy_ -- $\tau_0 < \cdots < \tau_n$ stopping times
+_Trading Strategy_ -- $\tau_0 < \cdots < \tau_n$, increasing stopping times
 and trades $\Gamma_j\colon[\AA_{\tau_j}]\to\RR^I$
 
-_Position_ -- $\Delta_t = \sum_{\tau_j < t}\Gamma_j = \sum_{s < t} \Gamma_s$
-accumulate trades _not_ including last.
+_Position_ -- $\Delta_t = \sum_{\tau_j < t}\Gamma_j = \sum_{s < t} \Gamma_s$,
+accumulation of trades _not_ including last.
 
 ### Accounting
 
-_Value_ -- $V_t = (\Delta_t + \Gamma_t)\cdot X_t$
-mark-to-market existing positions and current trades at current prices.
+_Value_ -- $V_t = (\Delta_t + \Gamma_t)\cdot X_t$,
+mark-to-market existing positions and last trade at current prices.
 
-_Account_ -- $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$
+_Account_ -- $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$,
 receive cash flows proportional to existing positions and pay for trades just executed.
 
 ### Arbitrage
@@ -325,11 +328,9 @@ receive cash flows proportional to existing positions and pay for trades just ex
 _Arbitrage_ exists if there is a trading strategy
 with $A_{\tau_0} > 0$, $A_t \ge 0$, $t > \tau_0$, and $\sum_j \Gamma_j = 0$.
 The first trade makes money and subsequent trades never lose money.
-Eventually the position must closed out. Otherwise you could simply
+Eventually the position must close out. Otherwise you could simply
 borrow a dollar every day. A strategy Nick Leeson used to put
 Barings out of their 350 year old business.
-
-?? Barings
 
 The Fundamental Theorem of Asset Pricing states there is no arbitrage if and only
 if there exist _deflators_, positive measures $D_t$ on $\AA_t$, ${t\in T}$, with
@@ -358,7 +359,7 @@ Note how the value $V_t$ corresponds to price $X_t$ and account $A_t$
 corresponds to $C_t$ in equations (2) and (1) respectively.
 Trading strategies create synthetic market instruments.
 
-_Equations (1) and (2) are the skeleton keys to pricing derivative securities_.
+__Equations (1) and (2) are the skeleton keys to pricing derivative securities__.
 
 ## Application
 
@@ -376,28 +377,30 @@ the Frechet derivative $D_{X_t}V_t$
 of option value with respect to $X_t$
 is $\Delta_t + \Gamma_t$ so $\Gamma_t = D_{X_t}V_t - \Delta_t$.
 Since $\Delta_t$ is known at time $t$, this gives a recipe for
-computing a trading strategy.
+computing a trading strategy. Delta is $\Delta$ and gamma is $\Gamma$
+in the customary sense used by traders.
 In general this hedge will not exactly replicate the derivative contract obligation.
 
 The Unified Model does not prescribe _when_ the hedge should be executed.
 This is an important unsolved fundamental problem in the theory of Mathematical Finance.
-The Black-Scholes/Merton solution is to hedge "continuously".
-The notion of continuous time hedging is a mathematical myth.
+The untenable Black-Scholes/Merton solution is to hedge "continuously".
 Every trading strategy executed in the real world involves
 only a finite number of trades.
 
-Note delta hedging drops out naturally from the Unified Model, however it
-does not require Ito's formula, much less a proof
-involving partial differential equations and changing a measure that
-is immediately discarded. One
-simply writes down a martingale and deflator then uses equation (2)
-to value, hedge, and manage the risk of realistic trading strategies.
+One simply writes down a martingale and deflator then uses equation (2)
+to value, hedge, and manage the risk of derivative securities.
 
 ### Black-Scholes/Merton
 
 The Black-Scholes/Merton model uses ${M_t = (r, s\exp(\sigma B_t - \sigma^2t/2))P}$,
 where $B_t$ is Brownian motion, $P$ is Wiener measure, and the deflator
-is $D_t = \exp(-\rho t)P$.
+is $D_t = \exp(-\rho t)P$. The model of prices is is $X_t = (R_t, S_t) = \exp(\rho t)M_t$
+and the cash flows are zero.
+
+A European put option with strike $k$ and expriataton $t$ has a single cash flow
+of $\max\{k - S_t, 0\}$ at time $t$. By equation (2) it has value
+$(\max\{k - S_t, 0\}D_t)(\Omega) = \exp(-\rho t)E[\max\{k - S_t, 0\}]$,
+same as Black-Scholes/Merton but with far less mathematical machinery.
 
 More generally, if $X_t$ is a Levy process where $X_1$ has mean zero and variance one
 then ${M_t = (r, s\exp(\sigma X_t - \kappa_t(\sigma)))P}$ is an arbitrage-free model,
@@ -441,18 +444,26 @@ $$
 
 __Exercise__. _If $X$ is standard normal show $P^*(F \le k) = N(-d_2)$ where ${d_2 = (\log f/k - s^2/2)/s}$_.
 
+Gamma, Vega
+
 ### Repurchase Agreements
 
 A _repurchase agreement_ $R(f,t,\Delta t)$ has price $X_t^{R(f,t,\Delta t)} = 1$
 at time $t$ and a single cash flow $C_{t+\Delta t} = \exp(f\Delta t)$ at
-time $t + \Delta t$. The rate $f$ is a function known at time $t$.
+time $t + \Delta t$. The _continuously compounded forward rate_ $f$ is a function known at time $t$.
+In practice, the forward rate $r$ is quoted using a _day count basis_ and the cash flow
+is $1 + r\delta$ where $\delta$ is the _day count fraction_.
+Typically, the day count fraction is the number of days from $t$ to $t + \Delta t$
+divided by 360 or 365. These are the Actual/360 and Actual/365
+day count basis respectively.
 
 ### Deflator
 
 If repurchase agreements are available then a _canonical deflator_ exists.
 A repurchase agreement over the interval $[t_j, t_{j+1}]$ is specified
 by a rate $f_j$ known at time $t_j$. The price at $t_j$ is $1$ and it
-has a cash flow of ${\exp(f_j(t_{j+1} - t_j))}$ at time $t_{j+1}$.
+has a cash flow of ${\exp(f_j(\Delta t_j))}$ at time $t_{j+1}$
+where $\Delta t_j = t_{j+1} - t_j$.
 By equation (1) we have ${D_j = \exp(f_j\Delta t_j)D_{j+1}|_{\AA_j}}$.
 If $D_{j+1}$ is known at time $t_j$ then ${D_{j+1} = \exp(-f_j\Delta t_j)D_j}$ and
 ${D_n = \exp(-\sum_{j < n} f_j\Delta t_j) D_{t_0}}$ is the canonical deflator
@@ -463,9 +474,9 @@ $f$ is the continuously compounded instantaneous forward rate.
 
 ### Zero Coupon Bond
 
-A _zero coupon bond_ maturing at time $u$ has a unit cash flow at $u$,
-$C_u^{D(u)} = 1$ and $C_t^{D(u)} = 0$ for $t\not=u$..
-In an arbitrage free model its price at time $t\le u$, $X_t^{D(u)} = D_t(u)$
+A _zero coupon bond_ maturing at time $u$ has a single unit cash flow at $u$,
+$C_u^{D(u)} = 1$ and $C_t^{D(u)} = 0$ for $t\not=u$.
+In an arbitrage free model its price at time $t\le u$, $X_t^{D(u)} = D_t(u)$,
 satisfies $D_t(u) D_t = D_u|_{\AA_t}$ so
 $D_t(u)$ is the Radon-Nikodym derivative of $D_u|_{\AA_t}$ with respect to $D_t$.
 Zero coupon bond prices are determined by the deflators.
@@ -495,6 +506,13 @@ $$
 $$
 
 __Exercise__. _Show if $n = 2$ the swap par coupon is the same as the par forward coupon_.
+
+Some swaps involve an exchange of notional amounts. If a swap has cash flows $-1$
+at $t_0$, $f\delta(t_{i-1},t_i)$ at $t_i$ for $1 < i < n$,
+and $1 + f\delta(t_{n-1},t_n)$ at $t_n$ then the value of $f$ making the price
+zero at time $t$ is equal to the swap par coupon.
+
+__Exercise__. _Show $f = F_t^\delta(t_0,\dots,t_n)$ makes the price zero_.
 
 [^4]: The _day count fraction_ $\delta(u, v)$ is approximately $v - u$ in years.
 
@@ -530,7 +548,15 @@ $$
 	\lambda_t^{T,R}(u) = -\frac{\log(P(T > u) + R P(t < T \le u))}{u - t}.
 $$
 
+### Limit Orders
 
+A limit order is a contract to buy or sell an instrument at a given level.
+We assume a money market instrument with price $R_t$ exists and the
+price of the underlying instrument is $S_t$.
+A limit _buy order_ has price 0 and and each contract has a single cash flow of $C_\tau = (-L, 1)$
+in the money market and instrument where $\tau$ is the first time
+the price of the instrument hits level $L$. This effectively purchases one share of
+stock for price $L$ at time $\tau$.
 
 <!--
 ### Binomial Model
