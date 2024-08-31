@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-08-09" />
+  <meta name="dcterms.date" content="2024-08-30" />
   <title>Error Handling in C++</title>
   <style>
     code{white-space: pre-wrap;}
@@ -29,7 +29,7 @@
 <header id="title-block-header">
 <h1 class="title">Error Handling in C++</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">August 9, 2024</p>
+<p class="date">August 30, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Go To statement considered annoying.
@@ -52,7 +52,7 @@ obvious bugs in it</em>. – Tony Hoare</p>
 <section id="factor-your-code" class="level3">
 <h3>Factor Your Code</h3>
 <p>Tony was right, “If it’s complicated, it’s wrong” is my mantra. Every
-unit of functionality should do one thing. Spend some time thinking
+function should be succinct and do one thing. Spend some time thinking
 about names so using code reads naturally.</p>
 <p>C++ has functions and classes with member functions. Prefer
 standalone functions to classes. If a function has some arguments that
@@ -105,10 +105,7 @@ double v = option::put_value(f, s, k, t);
 option::put p(k, t);
 double d = p.delta(f, s);</code></pre>
 <p>Note how the function and class names document the single letter
-names. There is truth in the old joke about the two hardest problems in
-computer science are naming things, cache misses, and off-by-one errors.
-Except cache misses are not a joke. Understanding how computers actually
-work can lead to 10x performance improvements.</p>
+names.</p>
 </section>
 <section id="test-your-code" class="level3">
 <h3>Test Your Code</h3>
@@ -116,9 +113,11 @@ work can lead to 10x performance improvements.</p>
 href="https://en.cppreference.com/w/cpp/error/assert"><code>assert</code></a>
 macro. Use <code>assert(expression)</code> to ensure the expression
 evalates to a non-zero value. If not, the macro prints the file name and
-line number followed by the text of expression to the terminal running
-the program, then calls <a
-href="https://en.cppreference.com/w/cpp/utility/program/abort"><code>abort</code></a></p>
+line number to <a
+href="https://en.wikipedia.org/wiki/Standard_streams">standard error</a>
+followed by the text of expression to the terminal running the program,
+then calls <a
+href="https://en.cppreference.com/w/cpp/utility/program/abort"><code>abort</code></a>.</p>
 <p>It is not only a politically incorrect word these days, it brings the
 program to a grinding halt and deposits a core dump.<a href="#fn1"
 class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
@@ -139,7 +138,7 @@ example, it is an error to call the function
 <code>double sqrt(double x)</code> with <code>x &lt; 0</code>.</p>
 <p>The way this was dealt with in C was to set a global
 <code>errno</code> that users had to check after every call to
-<code>sqrt</code>. This did not work well with multi-threaded
+<code>sqrt</code>. This does not work well with multi-threaded
 programs.</p>
 <p>Programming languages should allow programmers to communicate what
 they think should be correct to the code that will ultimately be
@@ -192,9 +191,7 @@ role="doc-endnotes">
 <ol>
 <li id="fn1"><p>By setting another macro it is possible to make the
 program suspend execution during runtime in a debugger at the point
-where the condition fails. This allows the person who wrote the code and
-best understands it to get a better understanding of the bug they need
-to fix.<a href="#fnref1" class="footnote-back"
+where the condition fails.<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>

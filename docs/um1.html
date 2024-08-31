@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-08-09" />
+  <meta name="dcterms.date" content="2024-08-30" />
   <title>Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,7 +67,7 @@
 <header id="title-block-header">
 <h1 class="title">Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">August 9, 2024</p>
+<p class="date">August 30, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of derivative instruments.
@@ -77,59 +77,107 @@ Value, hedge, and manage the risk of derivative instruments.
 class="citation" data-cites="BlaSch1973">(Black and Scholes 1973)</span>
 and Merton<span class="citation" data-cites="Mer1973">(Merton
 1973)</span> theory of option valuation. Scholes and Merton won a Nobel
-Prize in Economics for showing how value a derivative instrument using
-dynamic hedging. The value of an option is the cost of setting up the
-initial hedge. Their assumption of continuous time trading is not
-realistic and leads to paradoxical results<a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. It
-is a mathematical artifact of the theory of Ito processes and dupes some
-people into believing complete markets and perfect hedges exist.</p>
+Prize in Economics for showing how to value a derivative instrument
+using dynamic hedging: the value is the cost of setting up the initial
+hedge. The Achilles heel of their model is their assumption of
+continuous time trading. This leads to untenable results<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>,
+something <a href="https://iep.utm.edu/zenos-paradoxes/">Zeno</a>
+pointed out 2,500 years ago.</p>
+<p>Continuous time trading is a mathematical artifact of the theory of
+Ito processes and duped many academics into believing complete markets
+and perfect hedges exist. Every trader and risk manager knows this does
+not correspond to reality after a few days on the job. Trades occur at
+discrete times based on available information. The primary unsolved
+problem in mathematical finance is how to advise traders when and how
+much to hedge. There is still work to be done on how well hedges work
+once you accept the fact markets are not complete.</p>
+<p>One benefit of working as a quant during the heyday of derivatives
+was having a front row seat to how the software implementations of the
+theory performed. When the hedges provided by your implementation of a
+model started losing money, or even gaining money, you would get a visit
+from someone paying your salary expecting an explanation. I quickly
+learned the importance of gamma profiles. We can do better than the
+trader aphorism, “Hedge when you can, not when you have to.”</p>
+<p>When a theory in physics does not agree with observation, it is time
+to come up with a new theory. The tenor of the time at the end of the
+19th century was that Newton’s theory of gravitation and Maxwell’s
+theory of electromagnatism had been successfully carried out. Lord
+Kelvin proclaimed “It is just a matter of adding decimal points to
+physical constants.”</p>
+<p>The Achille’s heel of classical theory at the time was its prediction
+of black body radiation. Experiment did not agree with observation.</p>
+<blockquote>
+<p><em>Für die Richtung des dabeieinzuschlagenden Gedankenganges giebt
+der Hinblick auf dieUnhaltbarkeit der früher gemachten Voraussetzung
+einen Finger-zeig</em>. – Max Planck</p>
+</blockquote>
+<blockquote>
+<p><em>The untenability of the assumption made earlier provides an
+indication of the direction of the line of thought to be taken</em>.</p>
+</blockquote>
+<p>Max Planck came up with a simple solution to fit the data: assume
+photons were emitted in integer multiples of of the <em>Planck
+constant</em>. Instrument prices are integer multiples of a minimum
+trading unit, not real numbers. This fact is relevant for accurate
+valuation of 0-day options.</p>
+<p>The untenable assumption of the Black-Scholes/Merton theory is that
+continous time trading is possible. The indicated direction is to
+provide a theory reflecting the fact traders decide at discrete times
+based on available information what to trade.</p>
+<section id="unified-model" class="level2">
+<h2>Unified Model</h2>
 <p>The Unified Model is an extension of Stephen Ross’<span
 class="citation" data-cites="Ros1978">(Ross 1978)</span> “A Simple
-Approach to the Valuation of Risky Streams”. According to Ross,</p>
+Approach to the Valuation of Risky Streams”. According to Ross</p>
 <blockquote>
-<p>If there are no arbitrage opportunities in the capital markets, then
-there exists a (not generally unique) valuation operator, L.</p>
+<p><em>If there are no arbitrage opportunities in the capital markets,
+then there exists a (not generally unique) valuation operator, <span
+class="math inline">L</span></em>.</p>
 </blockquote>
-<p>He used the Hahn-Banach theorem to show its existence and this set
-off a cottage industry of mathematical nitpickers pointing out he had
-not established the existence of an interior point required for its
-application. This culminated in Delbaen and Schachermeyer’s No Free
-Lunch with Vanishing Arbitrage theorem to get around Aloaglu’s result
-that the unit ball in the <span class="math inline">L^\infty</span>
-weak-<span class="math inline">*</span> topology does not have an
-interior point.</p>
+<p>He used the Hahn-Banach theorem to show the existence of <span
+class="math inline">L</span> and observed it is not unique if the market
+is not complete. This set off a cottage industry of Mathematical Finance
+nitpickers pointing out he had not established the existence of an
+interior point required for the application of the Hahn-Banach theorem.
+This culminated in Delbaen and Schachermeyer’s No Free Lunch with
+Vanishing Arbitrage theorem to get around the fact that the unit ball in
+the <span class="math inline">L^\infty</span> weak-<span
+class="math inline">*</span> topology does not have an interior point.
+Something no business person has ever found useful.</p>
+<!--
+Eventually this was called the _Fundamental Theorem of Asset Pricing_.
+-->
 <p>The Unified Model does not require the Hahn-Banach theorem. It also
 does not involve a so-called real-world probability measure that is
-immediately throw out to get the risk-neutral probability measure. It
-does not involve the Ito formula, stochastic integrals, partial
-differential equations, not to mention weak-<span
-class="math inline">*</span> topologies.</p>
-<p>Every arbitrage-free model is determined by <em>deflators</em> that
-correspond to Ross’ valuation operator <span
-class="math inline">L</span> and a <em>martingale measure</em>. Market
-instruments have prices and associated cash flows. Trading involve
-buying shares of instruments at discrete times.</p>
+immediately throw out to get a risk-neutral probability measure. It does
+not involve stochastic integrals, the Ito formula, partial differential
+equations, much less weak-<span class="math inline">*</span> topologies.
+It does not even involve probability. The Fundamental Theorem of Asset
+pricing is a geometric fact. Positive measures having mass 1 show up,
+but they are not the probability of anything.</p>
+<p>Every arbitrage-free model is determined by deflators that correspond
+to Ross’ valuation operator <span class="math inline">L</span> and a
+martingale measure. If repurchase agreements are available there is a
+canonical deflator. Market instruments have prices and associated cash
+flows. Trading involves buying and selling instruments at discrete
+times. These determine the value, or mark-to-market, of the strategy and
+the amounts showing up in the trading account.</p>
 <p>This note does not solve the crucial problem of when and how much to
 trade. It only provides an elementary and mathematically rigorous
 framework to put your nose in the most important unsolved problem in
 Mathematical Finance.</p>
-<section id="unified-model" class="level2">
+</section>
+<section id="unified-model-1" class="level2">
 <h2>Unified Model</h2>
 <p>We assume you are familiar with measure theory and stochastic
-processes, but are not necessarily an expert. The Unified Model places
-Ross’s seminal work on a firm mathematical foundation. It does not
-involve the Hahn-Banach theorem. It also does not involve probability
-measures, Brownian motion, the Ito formula, or partial differential
-equations. As Ross observed, the Fundamental Theorem of Asset Pricing
-involves only geometry, not probability. The Unified Model can be used
-for any collection of instruments to value, hedge, and understand how
-poorly risk-neutral pricing can be used for managing risk. It does not
-provide a solution, only an initial framework for further research. For
-proofs and more details see <a href="um.html">Unified Model</a>.</p>
+processes, but are not necessarily an expert.</p>
+</section>
+<section id="preliminaries" class="level2">
+<h2>Preliminaries</h2>
 <details>
 <summary>
-Preliminaries
+Details
 </summary>
 <p>Let <span class="math inline">\Omega</span> be a set of possible
 outcomes. <em>Partial information</em> is modeled by a partition of
@@ -346,50 +394,35 @@ X\,dP/P(A)</span></em>.</p>
 <span class="math inline">I</span> the set of all market instruments,
 <span class="math inline">\Omega</span> the sample space of possible
 outcomes, and <span class="math inline">({\mathcal{A}}_t)_{t\in
-T}</span> be algebras of sets on <span class="math inline">\Omega</span>
-indicating the information available at each trading time.</p>
-<p>Recall <span class="math inline">\boldsymbol{R}^I =
-\{f:I\to\boldsymbol{R}\}</span> is the vector space of all functions
-from <span class="math inline">I</span> to <span
-class="math inline">\boldsymbol{R}</span>.</p>
-<p>If <span class="math inline">{\mathcal{A}}_t</span> is a finite
-algebra of sets define <span class="math inline">[\omega] =
-\cap\{A\in{\mathcal{A}}\mid \omega\in A\}</span> to be the <em>atom</em>
-containing <span class="math inline">\omega</span>. The set of atoms of
-<span class="math inline">{\mathcal{A}}</span> is <span
-class="math inline">[{\mathcal{A}}] = \{[\omega]\mid
-\omega\in\Omega\}</span>. Recall <span
-class="math inline">f\colon{\mathcal{A}}\to\boldsymbol{R}</span> is
-measurable if and only if it is constant on atoms. In this case <span
-class="math inline">f\colon[{\mathcal{A}}]\to\boldsymbol{R}</span>
-<em>is</em> a function and we say <span class="math inline">f</span> is
-<em>known</em> given <span class="math inline">{\mathcal{A}}</span>.</p>
+T}</span> the algebras of sets on <span
+class="math inline">\Omega</span> indicating the information available
+at each trading time.</p>
 </section>
 <section id="market" class="level3">
 <h3>Market</h3>
 <p><em>Price</em> – <span
-class="math inline">X_t\colon[{\mathcal{A}}_t]\to\boldsymbol{R}^I</span>
+class="math inline">X_t\colon[{\mathcal{A}}_t]\to\boldsymbol{R}^I</span>,
 market prices assuming perfect liquidity.</p>
 <p><em>Cash flow</em> – <span
-class="math inline">C_t\colon[{\mathcal{A}}_t]\to\boldsymbol{R}^I</span>
+class="math inline">C_t\colon[{\mathcal{A}}_t]\to\boldsymbol{R}^I</span>,
 dividends, coupons, margin adjustments for futures.</p>
 </section>
 <section id="trading" class="level3">
 <h3>Trading</h3>
 <p><em>Trading Strategy</em> – <span class="math inline">\tau_0 &lt;
-\cdots &lt; \tau_n</span> stopping times and trades <span
+\cdots &lt; \tau_n</span>, increasing stopping times and trades <span
 class="math inline">\Gamma_j\colon[{\mathcal{A}}_{\tau_j}]\to\boldsymbol{R}^I</span></p>
 <p><em>Position</em> – <span class="math inline">\Delta_t = \sum_{\tau_j
-&lt; t}\Gamma_j = \sum_{s &lt; t} \Gamma_s</span> accumulate trades
-<em>not</em> including last.</p>
+&lt; t}\Gamma_j = \sum_{s &lt; t} \Gamma_s</span>, accumulation of
+trades <em>not</em> including last.</p>
 </section>
 <section id="accounting" class="level3">
 <h3>Accounting</h3>
 <p><em>Value</em> – <span class="math inline">V_t = (\Delta_t +
-\Gamma_t)\cdot X_t</span> mark-to-market existing positions and current
-trades at current prices.</p>
+\Gamma_t)\cdot X_t</span>, mark-to-market existing positions and last
+trade at current prices.</p>
 <p><em>Account</em> – <span class="math inline">A_t = \Delta_t\cdot C_t
-- \Gamma_t\cdot X_t</span> receive cash flows proportional to existing
+- \Gamma_t\cdot X_t</span>, receive cash flows proportional to existing
 positions and pay for trades just executed.</p>
 </section>
 <section id="arbitrage" class="level3">
@@ -399,7 +432,9 @@ class="math inline">A_{\tau_0} &gt; 0</span>, <span
 class="math inline">A_t \ge 0</span>, <span class="math inline">t &gt;
 \tau_0</span>, and <span class="math inline">\sum_j \Gamma_j = 0</span>.
 The first trade makes money and subsequent trades never lose money.
-Eventually the position must be closed out.</p>
+Eventually the position must close out. Otherwise you could simply
+borrow a dollar every day. A strategy Nick Leeson used to put Barings
+out of their 350 year old business.</p>
 <p>The Fundamental Theorem of Asset Pricing states there is no arbitrage
 if and only if there exist <em>deflators</em>, positive measures <span
 class="math inline">D_t</span> on <span
@@ -432,8 +467,8 @@ to price <span class="math inline">X_t</span> and account <span
 class="math inline">A_t</span> corresponds to <span
 class="math inline">C_t</span> in equations (2) and (1) respectively.
 Trading strategies create synthetic market instruments.</p>
-<p><em>Equations (1) and (2) are the skeleton keys to pricing derivative
-securities</em>.</p>
+<p><strong>Equations (1) and (2) are the skeleton keys to pricing
+derivative securities</strong>.</p>
 </section>
 </section>
 <section id="application" class="level2">
@@ -449,8 +484,8 @@ exists<a href="#fn2" class="footnote-ref" id="fnref2"
 role="doc-noteref"><sup>2</sup></a>.</p>
 <p>Note <span class="math inline">V_t D_t = (\sum_{\tau_j &gt; t}
 \overline{A}_j D_{\overline{\tau}_j})|_{{\mathcal{A}}_t}</span> can be
-computed from the derivative contract specification and the deflators
-<span class="math inline">D_t</span>. Since we also have <span
+computed from the derivative contract term sheet and the deflators <span
+class="math inline">D_t</span>. Since we also have <span
 class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>, the
 Frechet derivative <span class="math inline">D_{X_t}V_t</span> of option
 value with respect to <span class="math inline">X_t</span> is <span
@@ -458,33 +493,39 @@ class="math inline">\Delta_t + \Gamma_t</span> so <span
 class="math inline">\Gamma_t = D_{X_t}V_t - \Delta_t</span>. Since <span
 class="math inline">\Delta_t</span> is known at time <span
 class="math inline">t</span>, this gives a recipe for computing a
-trading strategy. In general this hedge will not exactly replicate the
+trading strategy. Delta is <span class="math inline">\Delta</span> and
+gamma is <span class="math inline">\Gamma</span> in the customary sense
+used by traders. In general this hedge will not exactly replicate the
 derivative contract obligation.</p>
 <p>The Unified Model does not prescribe <em>when</em> the hedge should
 be executed. This is an important unsolved fundamental problem in the
-theory of Mathematical Finance. The Black-Scholes/Merton solution is to
-hedge “continuously”. The notion of continuous time hedging is a
-mathematical myth. Every trading strategy executed in the real world
-involves only a finite number of trades.</p>
-<p>Note delta hedging drops out naturally from the Unified Model,
-however it does not require Ito’s formula, much less a proof involving
-partial differential equations and changing a measure that is
-immediately discarded. One simply writes down a martingale and deflator
-then uses equation (2) to value, hedge, and manage the risk of realistic
-trading strategies.</p>
+theory of Mathematical Finance. The untenable Black-Scholes/Merton
+solution is to hedge “continuously”. Every trading strategy executed in
+the real world involves only a finite number of trades.</p>
+<p>One simply writes down a martingale and deflator then uses equation
+(2) to value, hedge, and manage the risk of derivative securities.</p>
 <section id="black-scholesmerton" class="level3">
 <h3>Black-Scholes/Merton</h3>
 <p>The Black-Scholes/Merton model uses <span class="math inline">{M_t =
 (r, s\exp(\sigma B_t - \sigma^2t/2))P}</span>, where <span
 class="math inline">B_t</span> is Brownian motion, <span
 class="math inline">P</span> is Wiener measure, and the deflator is
-<span class="math inline">D_t = \exp(-\rho t)P</span>.</p>
+<span class="math inline">D_t = \exp(-\rho t)P</span>. The model of
+prices is is <span class="math inline">X_t = (R_t, S_t) = \exp(\rho
+t)M_t</span> and the cash flows are zero.</p>
+<p>A European put option with strike <span class="math inline">k</span>
+and expriataton <span class="math inline">t</span> has a single cash
+flow of <span class="math inline">\max\{k - S_t, 0\}</span> at time
+<span class="math inline">t</span>. By equation (2) it has value <span
+class="math inline">(\max\{k - S_t, 0\}D_t)(\Omega) = \exp(-\rho
+t)E[\max\{k - S_t, 0\}]</span>, same as Black-Scholes/Merton but with
+far less mathematical machinery.</p>
 <p>More generally, if <span class="math inline">X_t</span> is a Levy
 process where <span class="math inline">X_1</span> has mean zero and
 variance one then <span class="math inline">{M_t = (r, s\exp(\sigma X_t
 - \kappa_t(\sigma)))P}</span> is an arbitrage-free model, where <span
 class="math inline">\kappa_t(\sigma) = \log E[\exp(\sigma X_t)]</span>
-is the cumulant.</p>
+is the cumulant. Merton’s jump diffusion model is a special case.</p>
 <p>Every positive random variable with finite mean and log variance can
 be written <span class="math inline">{F = f\exp(sX - \kappa(s))}</span>
 where <span class="math inline">{f = E[F]}</span>, <span
@@ -528,6 +569,7 @@ class="math display">
 is standard normal show <span class="math inline">P^*(F \le k) =
 N(-d_2)</span> where <span class="math inline">{d_2 = (\log f/k -
 s^2/2)/s}</span></em>.</p>
+<p>Gamma, Vega</p>
 </section>
 <section id="repurchase-agreements" class="level3">
 <h3>Repurchase Agreements</h3>
@@ -536,9 +578,17 @@ class="math inline">R(f,t,\Delta t)</span> has price <span
 class="math inline">X_t^{R(f,t,\Delta t)} = 1</span> at time <span
 class="math inline">t</span> and a single cash flow <span
 class="math inline">C_{t+\Delta t} = \exp(f\Delta t)</span> at time
-<span class="math inline">t + \Delta t</span>. The rate <span
-class="math inline">f</span> is a function known at time <span
-class="math inline">t</span>.</p>
+<span class="math inline">t + \Delta t</span>. The <em>continuously
+compounded forward rate</em> <span class="math inline">f</span> is a
+function known at time <span class="math inline">t</span>. In practice,
+the forward rate <span class="math inline">r</span> is quoted using a
+<em>day count basis</em> and the cash flow is <span
+class="math inline">1 + r\delta</span> where <span
+class="math inline">\delta</span> is the <em>day count fraction</em>.
+Typically, the day count fraction is the number of days from <span
+class="math inline">t</span> to <span class="math inline">t + \Delta
+t</span> divided by 360 or 365. These are the Actual/360 and Actual/365
+day count basis respectively.</p>
 </section>
 <section id="deflator" class="level3">
 <h3>Deflator</h3>
@@ -548,9 +598,10 @@ class="math inline">[t_j, t_{j+1}]</span> is specified by a rate <span
 class="math inline">f_j</span> known at time <span
 class="math inline">t_j</span>. The price at <span
 class="math inline">t_j</span> is <span class="math inline">1</span> and
-it has a cash flow of <span class="math inline">{\exp(f_j(t_{j+1} -
-t_j))}</span> at time <span class="math inline">t_{j+1}</span>. By
-equation (1) we have <span class="math inline">{D_j = \exp(f_j\Delta
+it has a cash flow of <span class="math inline">{\exp(f_j(\Delta
+t_j))}</span> at time <span class="math inline">t_{j+1}</span> where
+<span class="math inline">\Delta t_j = t_{j+1} - t_j</span>. By equation
+(1) we have <span class="math inline">{D_j = \exp(f_j\Delta
 t_j)D_{j+1}|_{{\mathcal{A}}_j}}</span>. If <span
 class="math inline">D_{j+1}</span> is known at time <span
 class="math inline">t_j</span> then <span class="math inline">{D_{j+1} =
@@ -565,12 +616,12 @@ instantaneous forward rate.</p>
 <section id="zero-coupon-bond" class="level3">
 <h3>Zero Coupon Bond</h3>
 <p>A <em>zero coupon bond</em> maturing at time <span
-class="math inline">u</span> has a unit cash flow at <span
+class="math inline">u</span> has a single unit cash flow at <span
 class="math inline">u</span>, <span class="math inline">C_u^{D(u)} =
 1</span> and <span class="math inline">C_t^{D(u)} = 0</span> for <span
-class="math inline">t\not=u</span>.. In an arbitrage free model its
-price at time <span class="math inline">t\le u</span>, <span
-class="math inline">X_t^{D(u)} = D_t(u)</span> satisfies <span
+class="math inline">t\not=u</span>. In an arbitrage free model its price
+at time <span class="math inline">t\le u</span>, <span
+class="math inline">X_t^{D(u)} = D_t(u)</span>, satisfies <span
 class="math inline">D_t(u) D_t = D_u|_{{\mathcal{A}}_t}</span> so <span
 class="math inline">D_t(u)</span> is the Radon-Nikodym derivative of
 <span class="math inline">D_u|_{{\mathcal{A}}_t}</span> with respect to
@@ -612,6 +663,18 @@ D_t(t_n)}{\sum_{j=1}^n\delta(t_{j-1},t_j)D_t(t_j)}.
 <p><strong>Exercise</strong>. <em>Show if <span class="math inline">n =
 2</span> the swap par coupon is the same as the par forward
 coupon</em>.</p>
+<p>Some swaps involve an exchange of notional amounts. If a swap has
+cash flows <span class="math inline">-1</span> at <span
+class="math inline">t_0</span>, <span
+class="math inline">f\delta(t_{i-1},t_i)</span> at <span
+class="math inline">t_i</span> for <span class="math inline">1 &lt; i
+&lt; n</span>, and <span class="math inline">1 +
+f\delta(t_{n-1},t_n)</span> at <span class="math inline">t_n</span> then
+the value of <span class="math inline">f</span> making the price zero at
+time <span class="math inline">t</span> is equal to the swap par
+coupon.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">f =
+F_t^\delta(t_0,\dots,t_n)</span> makes the price zero</em>.</p>
 </section>
 <section id="risky-bonds" class="level3">
 <h3>Risky Bonds</h3>
@@ -657,6 +720,20 @@ t))}</span>. In the above case <span class="math display">
     \lambda_t^{T,R}(u) = -\frac{\log(P(T &gt; u) + R P(t &lt; T \le
 u))}{u - t}.
 </span></p>
+</section>
+<section id="limit-orders" class="level3">
+<h3>Limit Orders</h3>
+<p>A limit order is a contract to buy or sell an instrument at a given
+level. We assume a money market instrument with price <span
+class="math inline">R_t</span> exists and the price of the underlying
+instrument is <span class="math inline">S_t</span>. A limit <em>buy
+order</em> has price 0 and and each contract has a single cash flow of
+<span class="math inline">C_\tau = (-L, 1)</span> in the money market
+and instrument where <span class="math inline">\tau</span> is the first
+time the price of the instrument hits level <span
+class="math inline">L</span>. This effectively purchases one share of
+stock for price <span class="math inline">L</span> at time <span
+class="math inline">\tau</span>.</p>
 <!--
 ### Binomial Model
 
@@ -704,9 +781,8 @@ data-cites="cite">(<strong>cite?</strong>)</span>. The classical theory
 implies the value of a barrier option that knocks in or out the second
 time the barrier is hit has the same value. It also implies the value of
 a barrier option that knocks in or out the millionth time it hits the
-barrier has exactly the same value due to a mathematical artifact of
-Brownian motion.<a href="#fnref1" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
+barrier has exactly the same value.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Perfect hedges never exist.<a href="#fnref2"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>The <em>day count fraction</em> <span

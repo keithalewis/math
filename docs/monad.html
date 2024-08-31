@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-03" />
+  <meta name="dcterms.date" content="2024-08-30" />
   <title>Monad</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Monad</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 3, 2024</p>
+<p class="date">August 30, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Will it Function?
@@ -57,30 +57,55 @@ Will it Function?
 <p><em>A monad is a monoid in the category of endofunctors</em>.</p>
 </blockquote>
 <p>Whatever that means.</p>
-<p>It is common in numeric libraries written in C-like languages to have
-‘functions’ of the form</p>
-<pre><code>    err f_e(double in, double* out);</code></pre>
-<p>that take a numeric <code>in</code>put, place the result of the
-function in the memory for the <code>out</code>put and return an
-integral <code>err</code>or code. If <span class="math inline">x</span>
-is the input and <span class="math inline">y</span> is the output then
-<span class="math inline">y = f(x)</span> after the call if there is no
-error, otherwise <span class="math inline">y</span> is indeterminate and
-the error code returned by <code>f_e</code> must be inspected to
-determine what went wrong. The library user must make sure memory for
-the output exists and must check the return code to detect problems.</p>
-<p>Aside from being tedious to use, one problem with this convention is
-that it is not a function in the mathematical sense. Mathematical
-functions don’t have arguments that can be used as output. This can be
-solved by making <span class="math inline">f</span> a <em>partial
-function</em> with domain the set of all <span class="math inline">x\in
-X</span> such that <code>f_e</code> returns no error. The standard way
-to do this is to assume a special element <span
-class="math inline">\bot\not\in X</span> and define <span
+<p>Suppose function <span class="math inline">f\colon X\to Y</span> but
+things can go wrong when computing <span class="math inline">f(x)</span>
+for some values of <span class="math inline">x\in X</span>. One approach
+is to make <span class="math inline">f</span> a <em>partial
+function</em> with domain the set of all untroublesome <span
+class="math inline">x\in X</span>. We can make <span
+class="math inline">f</span> into a proper function on all of <span
+class="math inline">X</span> by assuming a special element <span
+class="math inline">\bot\not\in Y</span> and define <span
 class="math inline">f(x) = \bot</span> when <span
-class="math inline">x</span> is not in the domain. Now <span
+class="math inline">x</span> is not kosher. Now <span
 class="math inline">f</span> is a function in the usual mathematical
-sense but we’ve lost information about the error code.</p>
+sense but we’ve lost all information about the rabbinic code <span
+class="math inline">f(x)</span> violated.</p>
+<p>In the <a href="https://en.cppreference.com/w/c/numeric/math">C
+standard library for mathematical functions</a> this is handled by
+setting the macro <a
+href="https://en.cppreference.com/w/c/error/errno"><code>errno</code></a>
+to indicate what went wrong. <span class="math inline">\bot</span> is
+spelled <a
+href="https://en.cppreference.com/w/c/numeric/math/NAN">NAN</a> in C and
+the programmer calling the function should use <a
+href="https://en.cppreference.com/w/c/numeric/math/isnan"><code>isnan</code></a>
+to check for <span class="math inline">\bot</span> and inspect
+<code>errno</code> to get more detailed information on why the function
+failed.</p>
+<p>It is common in numeric libraries written in C-like languages to have
+functions of the form</p>
+<pre><code>    int f(double x, double* py);</code></pre>
+<p>that write the value of <span class="math inline">f(x)</span> into
+the memory address of the pointer <code>py</code> and return an error
+code indicating what went wrong if <span class="math inline">x</span> is
+not in the domain of <span class="math inline">f</span>. This is an
+improvement over setting a global <code>errno</code> but the programmer
+still has to check all possible return values. If the library
+implementing <code>f</code> changes then new error codes might be added
+that the programmer needs to change their code to take into account.</p>
+<p>Another problem with this approach is that <code>f</code> is not a
+<em>pure</em> function. It has a side-effect of changing the memory
+location pointed to by <code>py</code>. Monads solve this problem.</p>
+<section id="monad" class="level2">
+<h2>Monad</h2>
+<p><em>Monads</em> provides a way to wrap up values, map a function to
+act on wrapped up values, and a way to unwrap values. Monads solve the
+problem of turning partial functions into functions that can report on
+why the partial function failed.</p>
+<p>The C standard library function <code>double sqrt(double x)</code>
+returns a <code>NAN</code> if <span class="math inline">x &lt; 0</span>
+and sets the glob</p>
 <p>A better way is to define <span class="math inline">F\colon E\times
 X\to E\times X</span>, where <span class="math inline">E</span> is the
 set of error codes by <span class="math inline">F(e,\_) = (e,\_)</span>
@@ -108,6 +133,7 @@ double_err F(double_err X) {
 functions and the result will be the usual composition if there are no
 errors or else the first error encountered will be propagated to the
 final result.</p>
+</section>
 <section id="numbers-that-are-not-numbers" class="level2">
 <h2>Numbers that are not numbers</h2>
 <p>In IEEE floating point arithmetic certain bit patterns in the

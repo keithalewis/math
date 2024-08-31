@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-03" />
+  <meta name="dcterms.date" content="2024-08-30" />
   <title>Unified Finance</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,47 +47,72 @@
 <header id="title-block-header">
 <h1 class="title">Unified Finance</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 3, 2024</p>
+<p class="date">August 30, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Unified Finance – holding, exchange, portfolios, trading
 </div>
 </header>
-<p>amount – <span class="math inline">A</span>: number of shares</p>
-<p>instrument – <span class="math inline">I</span>: all market
-instruments</p>
-<p>owner – <span class="math inline">O</span>: legal entities holding
-instruments</p>
-<p>holding – <span class="math inline">h = (a, i, o) \in H = A\times
-I\times O</span>.</p>
-<p>time – <span class="math inline">T</span>: trading times</p>
-<p>exchange – <span class="math inline">\chi = (t,h,h&#39;)</span>: at
-time <span class="math inline">t\in T</span> buyer exchanges amount and
-instrument of <span class="math inline">h</span> with seller amount and
-instrument of <span class="math inline">h&#39;</span>, <span
-class="math inline">{(t;a,i,o;a&#39;,i&#39;,o&#39;) \mapsto (t+\Delta
-t;a&#39;,i&#39;,o;a,i,o&#39;)}</span> where <span class="math inline">t
-+ \Delta t</span> is settlement time.</p>
-<p>price – Price of exchange <span
-class="math inline">(a,i;a&#39;,i&#39;)\mapsto
-(a&#39;,i&#39;;a,i)</span> is <span class="math inline">X^i_{i&#39;} =
-a/a&#39;</span>. If seller quotes price <span
-class="math inline">X^i_{i&#39;}</span> then buyers can exchange <span
-class="math inline">(a&#39;X^i_{i&#39;}, i)</span> for sellers <span
-class="math inline">(a&#39;,i&#39;)</span>.</p>
-<p>portfolio – Any set of holdings.</p>
-<p>value – (mark-to-market) net amount given instrument and owner, <span
-class="math inline">{V(i,o) = \sum_a\{a\mid h = (a, i, o)\}}</span>. If
-<span class="math inline">X^i_{i_0}</span> is the price of <span
-class="math inline">i</span> in units of numeraire <span
-class="math inline">i_0</span> and <span
-class="math inline">X^{i_0}_{i_0} = 1</span>, then the mark-to-market of
-an owner is <span class="math inline">{V(o) = \sum_{a,i} \{ aX^i_{i_0}
-\mid h = (a, i, o)\}}</span> in units of the numeraire.</p>
-<p>trading – times <span class="math inline">t_j</span> and pair of
-holdings <span class="math inline">h_j</span>, <span
-class="math inline">h_j&#39;</span>.</p>
-<p>transaction – collection of related exchanges. E.g., broker fees,
-taxes.</p>
+<p>The financial world is a big, messy affair. No mathematical theory or
+software implementation can accurately model reality. The best a theory
+can do is to identify features recognizable to practitioners that can be
+implemented on a computer.</p>
+<section id="holding" class="level2">
+<h2>Holding</h2>
+<p>The atoms of finance are <em>holdings</em>: an amount, an instrument,
+and an owner. We write <span class="math inline">\alpha = (a, i,
+o)</span> to indicate owner <span class="math inline">o</span> holds
+amount <span class="math inline">a</span> of instrument <span
+class="math inline">i</span>. It is common in mathematical finance
+literature to represent the amount <span class="math inline">a</span> as
+a real number in <span class="math inline">\bm{R}</span>. In the real
+world it is an integer multiple of the minimum trading amount of the
+instrument.</p>
+<p>Every holding <span class="math inline">\alpha</span> is an element
+of the cartesion product <span class="math inline">\alpha\in A\times
+I\times O</span> where <span class="math inline">A = \bm{Z}</span> is
+the set of integers, <span class="math inline">I</span> is the set of
+all market instruments, and <span class="math inline">O</span> is the
+set of all owners. The set <span class="math inline">I</span> can be the
+set of all instruments ever traded and <span
+class="math inline">O</span> can be all past, current, and future
+possible owners. Math let’s you think big, but people running a business
+need math implemented on a computer that produces numbers they find
+useful.</p>
+</section>
+<section id="position" class="level2">
+<h2>Position</h2>
+<p>A <em>position</em> is a set of holdings <span
+class="math inline">\pi \subseteq A\times I\time E</span>. This can be
+implemented as a table in a database with columns <code>amount</code>,
+<code>instrument</code>, and <code>owner</code>. Databases also assign a
+unique <code>id</code> to each entry to distinguish positions having the
+same amount, instrument, and owner. No matter the size of <span
+class="math inline">I</span> and <span class="math inline">O</span>,
+this is just a finite number of rows in the table.</p>
+<p>For example, the total amount of instrument <span
+class="math inline">i</span> owned by <span class="math inline">o</span>
+is <span class="math display">
+    A(i, o) = \sum_{\alpha\in\pi}\{a\mid \alpha.i = i, \alpha.o = o\}$
+</span></p>
+<p>This corresponds to the SQL query</p>
+<pre><code>SELECT SUM(amount)
+FROM positions
+WHERE instrument = i AND owner = o</code></pre>
+</section>
+<section id="valuation" class="level2">
+<h2>Valuation</h2>
+<p>Positions are dynamic and change throughout the day, but traders and
+risk managers need to get a grip on the <em>value</em>, or
+<em>mark-to-market</em> of a postion at any point in time. This involes
+nominal trades to convert each instrument to a base instrument, usually
+the native currency of the company holding the position.</p>
+<p><span class="math inline">(a, i, e) \mapsto (a&#39;, e&#39;,
+e)</span>.</p>
+<p>It is necessary to specify a price function to convert For
+instruments trading in a liquid market, it is just a matter of looking
+at the current quote. When that luxury is not available it is necessary
+to specify a function</p>
+</section>
 </body>
 </html>
