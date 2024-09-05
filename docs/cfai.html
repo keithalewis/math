@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-09-04" />
+  <title>Portfolio construction</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Portfolio construction</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">September 4, 2024</p>
+</header>
+<!--
+:!pandoc % -s --katex --css math.css -o %:r.html
+:!pandoc % --pdf-engine=xelatex -o %:r.pdf
+-->
+<nav>
+<ul>
+<li>
+<a href=#preliminaries>Preliminaries
+</li>
+<ul>
+<li>
+<a href=#set-exponential>Set exponential</a>
+</li>
+<li>
+<a href=#vector-space>Vector space</a>
+</li>
+<li>
+<a href=#probability-space>Probability space</a>
+</li>
+</ul>
+<li>
+<a href=#one-period-model>One-Period Model</a>
+</li>
+<li>
+<a href=#portfolio>Portfolio</a>
+</li>
+<li>
+<a>return</a>
+</li>
+<li>
+<a>portfolio</a>
+</li>
+<li>
+<a>feasible</a>
+</li>
+<li>
+<a>realized return</a>
+</li>
+<li>
+<a>risk-free</a>
+</li>
+<li>
+<a>market</a>
+</li>
+<li>
+<a>capital allocation/market line</a>
+</li>
+</ul>
+</nav>
+<p>Portfolio managers adjust their positions by trading to tailor risk
+and return. In general, lower volatility and higher returns are
+preferred. They also have to consider multi-period risk management,
+transaction costs, counterparty risk, tax considerations, and other
+messy details salient to being successful in their career. We have
+nothing to say about these important matters and only consider the
+simplest case: a one-period model that permits rigorous mathematical
+results.</p>
+<p>Our model allows for any return distribution, not just multivariate
+normal. However, we do not address the difficult and crucial problem of
+determining the distribution of returns. See <a
+href="https://github.com/microprediction/precise/blob/main/LITERATURE.md">this</a>
+for recent literature on this topic.</p>
+<p>We define the one-period model, portfolio, return, and realized
+return. In general, there is a unique portfolio having minimum realized
+return. If that has zero variance it is a zero coupon bond. This can be
+used to tailor the standard deviation and return of a portfolio.</p>
+<p>An efficient portfolio has the minimum variance for a given return.
+The Capital Asset Pricing Model shows every efficient portfolio is a
+linear combination of any two independent efficient portfolios. A zero
+coupon bond is clearly efficient. Classical literature assumes the
+“market” portfolio is efficient, usually accompanied with hand waving
+arguments involving “equilibrium.”</p>
+<p>The key insight of Markowitz was to move from Graham and Todd’s
+detailed Security Analysis of individual stocks to leveraging market
+wisdom. There are many people who get up every day and try to beat the
+market. The prices they pay for instruments indicate what people with
+skin in the game believe. How to make use of that information is an
+ongoing topic of research.</p>
+<section id="preliminaries" class="level2">
+<h2>Preliminaries</h2>
+<details>
+<summary>
+Details
+</summary>
+<section id="set-exponential" class="level3">
+<h3>Set Exponential</h3>
+<p>Recall if <span class="math inline">A</span> and <span
+class="math inline">B</span> are sets, then the <em>set exponential</em>
+<span class="math inline">{B^A = \{f\colon A\to B\}}</span> is the set
+of all functions from <span class="math inline">A</span> to <span
+class="math inline">B</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">A</span>
+and <span class="math inline">B</span> are finite, then <span
+class="math inline">\#(B^A) = \#B^{\#A}</span></em>.</p>
+<p><em>Hint</em>. Where <span class="math inline">\#</span> counts the
+number of elements in a set.</p>
+</section>
+<section id="vector-space" class="level3">
+<h3>Vector Space</h3>
+<p>If <span class="math inline">S</span> is a set then <span
+class="math inline">\mathbf{R}^S</span> is a vector space over the real
+numbers <span class="math inline">\mathbf{R}</span> with scalar
+multiplication and vector addition defined pointwise: <span
+class="math inline">(ax)(s) = a(x(s))</span> and <span
+class="math inline">(x + y)(s) = x(s) + y(s)</span>, <span
+class="math inline">a\in\mathbf{R}</span>, <span
+class="math inline">x,y\in\mathbf{R}^S</span>. The <em>dimension</em> of
+<span class="math inline">\mathbf{R}^S</span> is the cardinality of
+<span class="math inline">S</span>. For <span
+class="math inline">x\in\mathbf{R}^S</span>, we write <span
+class="math inline">x(s)</span> as <span class="math inline">x_s</span>
+and <span class="math inline">{x = (x_s)_{s\in S}}</span>.</p>
+<p>A <em>subspace</em> of a vector space is a subset closed under scalar
+multiplication and vector addition.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">U</span> and <span class="math inline">V</span> are
+subspaces then <span class="math inline">{U + V = \{u + v\mid u\in U,
+v\in V\}}</span> is a subspace</em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">a(u + v) \in U +
+V</span>, <span class="math inline">a\in\mathbf{R}</span>, and <span
+class="math inline">u + v\in U + V</span>.</p>
+<p>A <em>cone</em> is a subset closed under positive scalar
+multiplication and vector addition.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">U</span> and <span class="math inline">V</span> are
+cones then <span class="math inline">{U + V = \{u + v\mid u\in U, v\in
+V\}}</span> is a cone</em>.</p>
+<p><em>Hint</em>: Same as the previous hint using <span
+class="math inline">a &gt; 0</span>.</p>
+<p>If <span class="math inline">S</span> is finite define the
+<em>inner/dot product</em> to be the scalar <span
+class="math inline">{x^*y = \sum_{s\in S} x_s y_s}</span> and the
+<em>outer product</em> to be the matrix <span class="math inline">xy^* =
+[x_s y_t]_{s,t\in S}</span> for <span
+class="math inline">x,y\in\mathbf{R}^S</span>.</p>
+</section>
+<section id="probability-space" class="level3">
+<h3>Probability Space</h3>
+<p>A <em>probability space</em> is a set <span
+class="math inline">\Omega</span>, the <em>sample space</em>, and a
+<em>probability measure</em> <span class="math inline">P</span> on <span
+class="math inline">\Omega</span>. The elements of the sample space are
+the possible outcomes. A measure is a function from <em>events</em>,
+subsets of <span class="math inline">\Omega</span>, to the real numbers
+<span class="math inline">\mathbf{R}</span> satisfying <span
+class="math inline">P(E\cup F) = P(E) + P(F) - P(E\cap F)</span>, <span
+class="math inline">E, F\subseteq\Omega</span>; measures don’t count
+things twice. Measures must also satisfy <span
+class="math inline">P(\emptyset) = 0</span>; the measure of nothing is
+zero. A measure is a probability measure if <span
+class="math inline">P(E)\ge0</span> for <span
+class="math inline">E\subseteq\Omega</span> and <span
+class="math inline">P(\Omega) = 1</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\Omega</span> is finite then <span
+class="math inline">p_j = P(\{\omega\})</span>, <span
+class="math inline">\omega_j\in\Omega</span> determine the probability
+measure <span class="math inline">P</span></em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">P(E) =
+\sum_{\omega_j\in E} p_j</span> for <span
+class="math inline">E\subseteq\Omega</span>.</p>
+</details>
+</section>
+</section>
+<section id="one-period-model" class="level2">
+<h2>One-Period Model</h2>
+<p>The one-period model consists of a probability space <span
+class="math inline">(\Omega, P)</span>, a set of instruments <span
+class="math inline">I</span>, their prices <span
+class="math inline">x\in\mathbf{R}^I</span> at the beginning of the
+period, and their random prices <span
+class="math inline">{X\colon\Omega\to\mathbf{R}^I}</span> at the end of
+the period. If outcome <span
+class="math inline">{\omega\in\Omega}</span> occurs, the prices at the
+end of the period are <span
+class="math inline">{X(\omega)\in\mathbf{R}^I}</span>.</p>
+<p>Holding an instrument may entail <em>cash flows</em>. For example,
+bonds have coupons and stocks have dividends. We implicitly assume these
+are added to the prices at the end of the period.</p>
+<p>Estimating the probability measure <span class="math inline">P</span>
+is a difficult and important problem having no canonical solution. Often
+it is assumed to be multivariate normal. The mean and covariance can be
+estimated from historical returns assuming independent increments and
+stationarity. Even then, there are still questions. How far back in
+history? Should the estimates use exponential weighting? What parameter
+should be used in the exponential weighting?</p>
+<p>We will assume the one-period model is arbitrage-free.
+<em>Arbitrage</em> exists (for a model) if there is a portfolio <span
+class="math inline">\xi\in\mathbf{R}^I</span> with negative cost <span
+class="math inline">\xi^*x &lt; 0</span> and non-negative return <span
+class="math inline">\xi^*X\ge0</span>. You make money acquiring the
+portfolio and never lose money when it is liquidated.</p>
+<p>The Fundamental Theorem of Asset Pricing states there is no arbitrage
+if and only if <span class="math inline">x</span> belongs to the
+smallest closed cone containing the range of <span
+class="math inline">X</span>. This is equivalent to the existence of a
+positive measure <span class="math inline">D</span> on <span
+class="math inline">\Omega</span> with <span class="math inline">x =
+\int_\Omega X,dD</span>. In general, <span class="math inline">D</span>
+is not unique. If we let <span class="math inline">P =
+D/D(\Omega)</span> then <span class="math inline">P</span> is a positive
+measure with weight 1 and <span class="math inline">x =
+E[X]D(\Omega)</span>.</p>
+<p><strong>Exercise</strong>: <em>Show if there exists <span
+class="math inline">\zeta\in\mathbf{R}^I</span> with <span
+class="math inline">\zeta^*X = 1</span> then <span
+class="math inline">D(\Omega) = \zeta^*x</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">\zeta^*x = \int_\Omega
+\zeta^*X dD</span>.</p>
+<p>We call this portfolio a <em>zero coupon bond</em>. Its price <span
+class="math inline">\zeta^*x</span> is the <em>discount</em> over the
+period.</p>
+<section id="binomial" class="level3">
+<h3>Binomial</h3>
+<details>
+<summary>
+Details
+</summary>
+<p>The <em>binomial model</em> is when <span
+class="math inline">\Omega</span> has only two possibilities.</p>
+<p><strong>Exercise</strong>: <em>If <span
+class="math inline">X_i</span> is not constant for some <span
+class="math inline">i\in I</span> show every <span
+class="math inline">X_j</span> is a linear function of <span
+class="math inline">X_i</span></em>.</p>
+<p><em>Hint</em>: Evaluating <span class="math inline">X_j = a + b
+X_i</span> at each point gives two linear equations in two unknowns.</p>
+<p>This limits the usefulness of one-period binomial models.</p>
+<p>A two instrument model of a bond and a stock is <span
+class="math inline">\Omega = \{L,H\}</span>, <span class="math inline">x
+= (1, s)</span>, and <span class="math inline">X(\omega) =
+(R,\omega)</span>. The bond has realized return <span
+class="math inline">R</span> and the stock can go to either a high or
+low price.</p>
+<p><strong>Exercise</strong>. <em>Show every payoff <span
+class="math inline">Y\colon\Omega\to\mathbf{R}</span> is a linear
+combination of the bond and stock</em>.</p>
+<p><em>Hint</em>: Find <span class="math inline">a,b\in\mathbf{R}</span>
+with <span class="math inline">Y(L) = aR + bL</span> and <span
+class="math inline">Y(H) = aR + bH</span>.</p>
+</details>
+</section>
+<section id="interval" class="level3">
+<h3>Interval</h3>
+<details>
+<summary>
+Details
+</summary>
+<p>The <em>interval model</em> is a two instrument model where the stock
+can go to any price between a given low and high price. Its sample space
+is the interval <span class="math inline">\Omega = [L, H]</span> with
+<span class="math inline">x = (1, s)</span>, and <span
+class="math inline">X(\omega) = (R,\omega)</span>.</p>
+</details>
+</section>
+<section id="jointly-normal" class="level3">
+<h3>Jointly Normal</h3>
+<details>
+<summary>
+Details
+</summary>
+<p>The <em>jointly normal model</em> has sample space <span
+class="math inline">{\Omega = \mathbf{R}^I}</span>, any vector of
+terminal prices is possible, and <span class="math inline">P</span> is a
+jointly normal distribution on <span
+class="math inline">\mathbf{R}^I</span>. Every jointly normal
+distribution is uniquely determined by the expected prices <span
+class="math inline">{E[X] = (E[X_i])_{i\in I}}</span> and the covariance
+matrix <span class="math inline">\operatorname{Var}(X) =
+\operatorname{Cov}(X,X) = {[\operatorname{Cov}(X_i, X_j)]_{i,j\in
+I}}</span>.</p>
+<p><strong>Exercise</strong> <em>Show <span
+class="math inline">\operatorname{Var}(X) = E[(X - E[X])(X - E[X])^*] =
+E[XX^*] - E[X]E[X]^*</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">XX^*(\omega) =
+X(\omega)X(\omega)^*</span>.</p>
+<p>If <span class="math inline">I</span> has <span
+class="math inline">n</span> instruments, then the jointly normal model
+is specified by <span class="math inline">n + n(n-1)/2</span> numbers
+since the covariance matrix is symmetric.</p>
+</details>
+</section>
+</section>
+<section id="portfolio" class="level2">
+<h2>Portfolio</h2>
+<p>A <em>portfolio</em> is a vector <span
+class="math inline">\xi\in\mathbf{R}^I</span> representing the number of
+shares held in each instrument. We assume perfect liquidity so the
+<em>cost</em> of acquiring <span class="math inline">\xi</span> is <span
+class="math inline">\xi^*x</span>. The <em>return</em> on <span
+class="math inline">\xi</span> at the end of the period is the random
+variable <span
+class="math inline">\xi^*X\colon\Omega\to\mathbf{R}</span>. In the
+one-period model it is implicitly assumed the portfolio is liquidated at
+the end of the period.</p>
+<p>The <em>market</em> is the set of all possible portfolio returns
+<span class="math inline">{\mathcal{M}= \mathcal{M}_X =
+\{\xi^*X\mid\xi\in\mathbf{R}^I\} \subseteq \mathbf{R}^\Omega}</span>.
+The model is <em>complete</em> if <span class="math inline">\mathcal{M}=
+\mathbf{R}^\Omega</span>; every possible return is attainable from some
+portfolio.</p>
+<p>If <span class="math inline">\xi^*X = 0</span> for some <span
+class="math inline">\xi\not=0</span> then <span class="math inline">X_i
+= -\sum_{j\not= i}\xi_j/\xi_i X_j</span> where <span
+class="math inline">\xi_i</span> is a non-zero component of <span
+class="math inline">\xi</span>. In this case we can remove instrument
+<span class="math inline">i\in I</span> and still have the same
+market.</p>
+<p>Assuming we have done this for all instruments, the market is a
+vector space of dimension <span class="math inline">\#I</span>. The one
+period model is not complete if <span
+class="math inline">\#\Omega</span> is larger this. The number of
+possible outcomes are vastly larger than the number of instruments in
+any realistic model.</p>
+<p>If <span class="math inline">x_i\not=0</span> we can replace <span
+class="math inline">x_i</span> by 1 and <span
+class="math inline">X_i</span> by <span
+class="math inline">X_i/x_i</span> without affecting the market.</p>
+<section id="feasible" class="level3">
+<h3>Feasible</h3>
+<p>A portfolio <span class="math inline">\xi\in\mathbf{R}^I</span> is
+<em>feasible</em> if its cost at the beginning of the period is one
+unit, i.e., <span class="math inline">\xi^*x = 1</span>.</p>
+<p><strong>Exercise</strong>: <em>Show if <span
+class="math inline">\xi^*x</span> is not zero then <span
+class="math inline">\xi/\xi^*x</span> is feasible</em>.</p>
+<p>The <em>realized return</em> of a portfolio <span
+class="math inline">\xi\in\mathbf{R}^I</span> is <span
+class="math inline">{R_\xi = \xi^*X/\xi^*x}</span> when <span
+class="math inline">{\xi^*x\not=0}</span>. Note <span
+class="math inline">R_{w\xi} = R_\xi</span> for any non-zero <span
+class="math inline">w\in\mathbf{R}</span>.</p>
+<p><strong>Exercise</strong>: <em>Show the return of a feasible
+portfolio equals its realized return</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">\xi</span> is feasible
+then <span class="math inline">\xi^*x = 1</span>.</p>
+<p>Assuming a portfolio is feasible simplifies formulas.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\xi_0</span> and <span
+class="math inline">\xi_1</span> are feasible portfolios, then <span
+class="math inline">\xi_w = (1 - w)\xi_0 + w\xi_1</span> is a feasible
+portfolio for any <span
+class="math inline">w\in\mathbf{R}</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">(1 - w) + w = 1</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\xi_w =
+\xi_0</span> if <span class="math inline">w = 0</span> and <span
+class="math inline">\xi_w = \xi_1</span> if <span class="math inline">w
+= 1</span></em>.</p>
+<p>We begin by considering how to use two portfolios to tailor return
+and standard deviation over a single time period. Portfolio managers do
+not buy or sell a fraction of every instrument in a portfolio.</p>
+<p>The (realized) return of <span class="math inline">R_w =
+\xi_w^*X</span> is <span class="math display">
+    R_w = (1 - w)R_0 + w R_1 = R_0 + w(R_1 - R_0)
+</span> and has variance <span class="math display">
+    \operatorname{Var}(R_w)
+         = \operatorname{Var}(R_0) + 2w\operatorname{Cov}(R_0, R_1 -
+R_0) + w^2\operatorname{Var}(R_1 - R_0)
+</span></p>
+<p>If <span class="math inline">E[R_0] = E[R_1]</span>, then <span
+class="math inline">E[R_w]</span> is constant. We assume <span
+class="math inline">E[R_0] \not= E[R_1]</span> in what follows.</p>
+<p>Given a target return <span class="math inline">R</span> we can find
+a weight <span class="math inline">w\in\mathbf{R}</span> with <span
+class="math inline">R = E[R_w]</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the expected return of <span
+class="math inline">R_w</span> is <span class="math inline">R</span> if
+<span class="math inline">w = (R - E[R_0])/(E[R_1] -
+E[R_0])</span></em>.</p>
+<p><em>Hint</em>: Solve <span class="math inline">R = E[R_0] + w(E[R_1]
+- E[R_0])</span> for <span class="math inline">w</span>.</p>
+<p>If <span class="math inline">R_0</span> and <span
+class="math inline">R_1</span> have correlation 1 then <span
+class="math inline">\operatorname{Var}(R_0 - R_1) = 0</span>. If <span
+class="math inline">R_0</span> and <span class="math inline">R_1</span>
+have correlation -1 then <span
+class="math inline">\operatorname{Var}(R_0 + R_1) = 0</span>. In either
+case we have a redundant securities. We assume <span
+class="math inline">R_0</span> and <span class="math inline">R_1</span>
+are not perfectly correlated in what follows.</p>
+<p>Given a target standard deviation <span
+class="math inline">\sigma</span> it might not be possible to find a
+weight <span class="math inline">w</span> with <span
+class="math inline">\sigma = \sigma_w</span>, where <span
+class="math inline">\sigma_w^2</span> is the variance of <span
+class="math inline">R_w</span>. Variance is quadratic in <span
+class="math inline">w</span> so there is a minimum.</p>
+<p><strong>Exercise</strong>: <em>Show <span class="math inline">A - 2Bw
++ Cw^2</span> is minimized when <span class="math inline">{w =
+B/C}</span> and the minimum is <span class="math inline">{A -
+B^2/C}</span></em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">A - 2Bw + Cw^2 = A +
+(B/\sqrt{C} - w\sqrt{C})^2 - B^2/C</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\sigma_w</span> is minimized when <span
+class="math inline">{w = (\operatorname{Var}(R_0) -
+\operatorname{Cov}{R_0,R_1})/(\operatorname{Var}(R_0) -
+2\operatorname{Cov}(R_0, R_1) + \operatorname{Var}(R_1))}</span> and the
+minimum is <span class="math inline">{\operatorname{Var}(R_0) -
+(\operatorname{Var}(R_0) - \operatorname{Cov}(R_0,
+R_1))^2/(\operatorname{Var}(R_0) - 2\operatorname{Cov}(R_0, R_1) +
+\operatorname{Var}(R_1))}</span></em>.</p>
+<p>For any values of <span class="math inline">\sigma</span> greater
+than the minimum there will be two weights giving the same standard
+deviation.</p>
+<p><strong>Exercise</strong>: <em>If <span
+class="math inline">\xi_0</span> is risk-free show <span
+class="math inline">\operatorname{Var}(R_w) =
+w^2\operatorname{Var}(R_1)</span></em>.</p>
+<p>This shows if a risk-free instrument is available, we can achieve any
+non-negative target standard deviation.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">R_0 +
+(R_1 - R_0)\sigma/\sigma_1</span> has standard deviation <span
+class="math inline">\sigma</span></em>.</p>
+<p>This is called the <em>capital allocation line</em> in the
+literature. We call it matching a standard deviation target.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">(E[R_{\sigma/\sigma_1}] - R_0)/\sigma = (E[R_1] -
+R_0)/\sigma_1</span> for any <span class="math inline">\sigma &gt;
+0</span></em>.</p>
+<p>The <em>Sharpe ratio</em> of a realized return <span
+class="math inline">R</span> is <span class="math inline">S(R) = (E[R] -
+R_0)/\sigma</span> where <span class="math inline">R_0</span> is the
+risk-free realized return. The exercise shows we cannot use a risk-free
+instrument to change the Sharpe ratio.</p>
+</section>
+<section id="efficient" class="level3">
+<h3>Efficient</h3>
+<p>A portfolio is <em>efficient</em> if its variance is less than or
+equal to all other portfolios having the same expected realized return.
+If <span class="math inline">\operatorname{Var}(R_\zeta) = 0</span> for
+some <span class="math inline">\zeta\in\mathbf{R}^I</span> then <span
+class="math inline">\zeta</span> is clearly efficient and we say <span
+class="math inline">\zeta</span> is a <em>risk-free</em> <em>zero coupon
+bond</em>.</p>
+<p>Recall <span class="math inline">\operatorname{Var}(\xi^*X) =
+\xi^*V\xi</span> where <span class="math inline">V =
+\operatorname{Var}(X)</span>. If there is no risk-free security then
+<span class="math inline">V</span> is invertible.</p>
+<p>Minimizing <span class="math inline">\operatorname{Var}(R_\xi)</span>
+given <span class="math inline">\xi^*x = 1</span> and <span
+class="math inline">E[R_\xi] = \rho</span> yields <span
+class="math display">
+    \xi =  \lambda V^{-1}x + \mu V^{-1} E[X],
+</span> where <span class="math inline">V =
+\operatorname{Var}(X)</span>, <span class="math inline">\lambda = (C -
+\rho B)/D</span>, <span class="math inline">\mu = (-B + \rho A)/D</span>
+with <span class="math display">
+\begin{aligned}
+A &amp;= x^* V^{-1}x \\
+B &amp;= x^* V^{-1}E[X] = E[X]^*V^{-1}x \\
+C &amp;= E[X]^* V^{-1}E[X] \\
+\end{aligned}
+</span> and <span class="math inline">D = AC - B^2</span>. Note that
+<span class="math inline">A</span>, <span class="math inline">B</span>,
+<span class="math inline">C</span>, and <span
+class="math inline">D</span> depend only on <span
+class="math inline">x</span>, <span class="math inline">E[X]</span>, and
+<span class="math inline">E[XX^*]</span>. This shows every efficient
+portfolio is a linear combination of <span
+class="math inline">V^{-1}x</span> and <span class="math inline">V^{-1}
+E[X]</span>.</p>
+<p>The minimum variance solution is <span class="math display">
+    \xi = \frac{C - \rho B}{D} V^{-1}x + \frac{-B + \rho A}{D}
+V^{-1}E[X].
+</span> with variance <span class="math display">
+    \operatorname{Var}(R_\xi) = \xi^* V\xi = (C - 2B\rho + A\rho^2)/D.
+</span></p>
+</section>
+</section>
+<section id="rank-one-perturbation" class="level2">
+<h2>Rank one perturbation</h2>
+<p><span class="math inline">(A + vw^*)^{-1} = A^{-1} -
+A^{-1}vw^*A^{-1}/(1 + w^*A^{-1}v)</span>.</p>
+<p><span class="math inline">((1 - \rho)I + \rho 11^*)^{-1} = \frac{1}{1
+- \rho} I - \frac{1}{(1 - \rho)(1 - \rho + n)} 11^*</span></p>
+<p><span class="math inline">x = 1</span>, <span class="math inline">X =
+R + Z</span> where <span class="math inline">R\in\mathbf{R}^I</span> and
+<span class="math inline">E[Z] = 0</span>.</p>
+<p><span class="math inline">\operatorname{Var}(X) =
+\operatorname{Var}(Z) = E[Z^*Z] = \delta(\sigma)((1 - \rho)I + \rho
+11^*)\delta(\sigma)</span>.</p>
+<p><span class="math inline">V^{-1} = 1/(1 - \rho)\delta(1/\sigma)(I -
+11^*/(1 - \rho + n))\delta(1/\sigma)</span></p>
+<p><span class="math inline">V^{-1}1 = 1/(1 - \rho)\delta(1/\sigma)(1 -
+n1)/(1 - \rho + n))\delta(1/\sigma)</span></p>
+<p><span class="math inline">1^*V^{-1}1 = 1/(1 - \rho)\delta(1/\sigma)(n
+- n^2)/(1 - \rho + n))\delta(1/\sigma)</span></p>
+<!--
+### Arbitrage
+
+_Arbitrage_ exists (for a model) if there is a portfolio $\xi\in\RR^I$
+with negative cost $\xi^*x < 0$ and non-negative return $\xi^*X\ge0$.
+You make money acquiring the portfolio and never lose money
+when it is liquidated.
+
+__Exercise__: _Let $x = \sum_j w_j X_j(\omega_j)$ where $w_j > 0$ and $\omega_j\in\Omega$.
+Show if $\xi^*X\ge0$ then $\xi^*x \ge0$_.
+
+This shows if $x$ belongs to the smallest cone containing the range of $X$,
+${\ran X = \{X(\omega)\mid\omega\in\Omega\}}$,
+then the model is arbitrage-free.
+
+The Fundamental Theorem of Asset Pricing states there is no arbitrage
+if and only if $x$ belongs to the smallest closed cone containing the range of $X$.
+This is equivalent to the existence of a positive measure $D$ on $\Omega$
+with $x = \int_\Omega X,dD$. In general, $D$ is not unique.
+
+Let $Q = D/D(\Omega)$ so $Q(\Omega) = 1$
+and $Q$ is called a _risk neutral_ probability measure.
+We have $x = E[X]D(\Omega)$ under this measure.
+
+__Exercise__. _Show the expected realized return of every portfolio under
+a risk-neutral probability measure is $1/D(\Omega)$_.
+
+_Hint_: $\xi^*x = E[\xi^*X]D(\Omega)$ so $E[R_\xi] = 1/D(\Omega)$.
+
+__Exercise__: _If a one-period model admits a zero coupon bond, then
+the discount is $D(\Omega)$_.
+
+_Hint_: $\zeta^*X = 1$.
+
+-->
+<!--
+Define the _standard basis_ vector $e_i\in\RR^I$, $i\in I$,
+by $e_i(j) = 1$ if $i = j$ and $e_i(j) = 0$ if $i\not=j$.
+
+__Exercise__. _Show $x = \sum_{i\in I} (e_i^*x) e_i$_.
+
+_Hint_: Use $x_i = e_i^*x$.
+-->
+<!--
+## Portfolio Construction
+### Sharpe Ratio
+The _Sharpe ratio_ of a portfolio $\xi$ is defined by
+$$
+    S_\xi = \frac{\rho_\xi - \rho_\zeta}{\sigma_\xi}.
+$$
+It is a measure of the tradeoff between return and risk as measured by the variablity of the return.
+
+In general, portfolios with high return and low standard deviation are preferred.
+One measure of this is the _Sharpe ratio_ 
+
+Portfolio managers have existing postions constructed to 
+achieve desired risk and return characteristics.
+As markets change they need to adjust
+their position to accomodate this.
+
+## Efficient
+### Efficient
+
+A portfolio is _efficient_ if its variance is less than or equal to all
+other portfolios having the same expected realzied return.
+To find the most efficient feasible portfolio we minimize $\Var(R_\xi)$
+subject to $\xi^*x = 1$.
+
+__Exercise__. _Show $\Var(\xi^*X) = \xi^*\Var(X)\xi$_.
+
+$\min (1/2)\Var(R_\xi) - \lambda(\xi^*x - 1)$
+
+$0 = \xi^*V - \lambda x^*$
+
+$\xi_0 = V^{-1}x/x^*V^{-1}x$.
+
+$\min (1/2)\Var(R_\xi) - \lambda(\xi^*E[X] - r)$
+
+$0 = \xi^*V - \lambda x^*$
+
+$\xi_0 = V^{-1}x/x^*V^{-1}x$.
+
+An efficient portfolio has the minimum variance for a given return.
+The Capital Asset Pricing Model shows every efficient portfolio
+is a linear combination of any two independent efficient porfolios.
+-->
+<!--
+### Arbitrage
+
+_Arbitrage_ exists (for a model) if there is a portfolio $\xi\in\RR^I$
+with negative cost $\xi^*x < 0$ and non-negative return $\xi^*X\ge0$.
+You make money acquiring the portfolio and never lose money
+when it is liquidated.
+
+__Exercise__: _Let $x = \sum_j w_j X_j(\omega_j)$ where $w_j > 0$ and $\omega_j\in\Omega$.
+Show if $\xi^*X\ge0$ then $\xi^*x \ge0$_.
+
+This shows if $x$ belongs to the smallest cone containing the range of $X$,
+${\ran X = \{X(\omega)\mid\omega\in\Omega\}}$,
+then the model is arbitrage-free.
+
+The Fundamental Theorem of Asset Pricing states there is no arbitrage
+if and only if $x$ belongs to the smallest closed cone containing the range of $X$.
+This is equivalent to the existence of a positive measure $D$ on $\Omega$
+with $x = \int_\Omega X,dD$. In general, $D$ is not unique.
+
+Let $Q = D/D(\Omega)$ so $Q(\Omega) = 1$
+and $Q$ is called a _risk neutral_ probability measure.
+We have $x = E[X]D(\Omega)$ under this measure.
+
+__Exercise__. _Show the expected realized return of every portfolio under
+a risk-neutral probability measure is $1/D(\Omega)$_.
+
+_Hint_: $\xi^*x = E[\xi^*X]D(\Omega)$ so $E[R_\xi] = 1/D(\Omega)$.
+
+__Exercise__: _If a one-period model admits a zero coupon bond, then
+the discount is $D(\Omega)$_.
+
+_Hint_: $\zeta^*X = 1$.
+
+-->
+<!--
+Define the _standard basis_ vector $e_i\in\RR^I$, $i\in I$,
+by $e_i(j) = 1$ if $i = j$ and $e_i(j) = 0$ if $i\not=j$.
+
+__Exercise__. _Show $x = \sum_{i\in I} (e_i^*x) e_i$_.
+
+_Hint_: Use $x_i = e_i^*x$.
+-->
+<p><span class="math inline">x = (1, 1)</span>, <span
+class="math inline">X = R + Z</span>, <span class="math inline">E[Z] =
+0</span></p>
+<p><span class="math display">
+V =
+\begin{bmatrix}
+\operatorname{Var}(R_0) &amp; \sigma_0\sigma_1\rho \\
+\sigma_0\sigma_1\rho &amp; \operatorname{Var}(R_1) \\
+\end{bmatrix}
+</span> <span class="math display">
+V^{-1} = \frac{1}{\operatorname{Var}(R_0)\operatorname{Var}(R_1)(1 -
+\rho^2)}
+\begin{bmatrix}
+\operatorname{Var}(R_1) &amp; -\sigma_0\sigma_1\rho \\
+-\sigma_0\sigma_1\rho &amp; \operatorname{Var}(R_0) \\
+\end{bmatrix}
+</span></p>
+<p><span class="math display">V^{-1}x =
+\frac{1}{\operatorname{Var}(R_0)\operatorname{Var}(R_1)(1 - \rho^2)}
+\begin{bmatrix}
+\operatorname{Var}(R_1) - \sigma_0\sigma_1\rho \\
+-\sigma_0\sigma_1\rho + \operatorname{Var}(R_0) \\
+\end{bmatrix}
+</span></p>
+<p><span class="math display">
+x^*V^{-1}x = \frac{1}{\operatorname{Var}(R_0)\operatorname{Var}(R_1)(1 -
+\rho^2)}
+(\operatorname{Var}(R_1) - 2\sigma_0\sigma_1\rho +
+\operatorname{Var}(R_0))
+</span></p>
+</section>
+</body>
+</html>
