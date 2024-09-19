@@ -46,11 +46,11 @@ when you can, not when you have to."
 When a theory in physics does not agree with observation, it is time to
 come up with a new theory. The tenor of the time at the end of the 19th
 century was that Newton's theory of gravitation and Maxwell's theory
-of electromagnatism had been successfully carried out.  Lord Kelvin
+of electromagnetism had been successfully carried out.  Lord Kelvin
 proclaimed "It is just a matter of adding decimal points to physical
 constants."
 
-The Achille's heel of classical theory at the time was its
+The Achilles's heel of classical theory at the time was its
 prediction of black body radiation. Experiment did not
 agree with observation.
 
@@ -69,7 +69,7 @@ not real numbers. This fact is relevant for accurate valuation
 of 0-day options.
 
 The untenable assumption of the Black-Scholes/Merton theory is that
-continous time trading is possible. The indicated direction is
+continuous time trading is possible. The indicated direction is
 to provide a theory reflecting the fact traders decide at
 discrete times based on available information what to trade.
 
@@ -373,7 +373,7 @@ a "perfect hedge" exists[^2].
 Note $V_t D_t = (\sum_{\tau_j > t} \overline{A}_j D_{\overline{\tau}_j})|_{\AA_t}$
 can be computed from the derivative contract term sheet and the deflators $D_t$.
 Since we also have $V_t = (\Delta_t + \Gamma_t)\cdot X_t$,
-the Frechet derivative $D_{X_t}V_t$
+the Fréchet derivative $D_{X_t}V_t$
 of option value with respect to $X_t$
 is $\Delta_t + \Gamma_t$ so $\Gamma_t = D_{X_t}V_t - \Delta_t$.
 Since $\Delta_t$ is known at time $t$, this gives a recipe for
@@ -397,7 +397,7 @@ where $B_t$ is Brownian motion, $P$ is Wiener measure, and the deflator
 is $D_t = \exp(-\rho t)P$. The model of prices is is $X_t = (R_t, S_t) = \exp(\rho t)M_t$
 and the cash flows are zero.
 
-A European put option with strike $k$ and expriataton $t$ has a single cash flow
+A European put option with strike $k$ and expiration $t$ has a single cash flow
 of $\max\{k - S_t, 0\}$ at time $t$. By equation (2) it has value
 $(\max\{k - S_t, 0\}D_t)(\Omega) = \exp(-\rho t)E[\max\{k - S_t, 0\}]$,
 same as Black-Scholes/Merton but with far less mathematical machinery.
