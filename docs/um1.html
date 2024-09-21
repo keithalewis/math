@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-09-19" />
+  <meta name="dcterms.date" content="2024-09-20" />
   <title>Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,7 +67,7 @@
 <header id="title-block-header">
 <h1 class="title">Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 19, 2024</p>
+<p class="date">September 20, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of derivative instruments.
@@ -264,7 +264,7 @@ things twice and the measure of the empty set is 0.</p>
 <p>If <span class="math inline">S</span> is a set and <span
 class="math inline">f\colon S\to\boldsymbol{R}</span> is a function on
 <span class="math inline">S</span> define its <em>norm</em> <span
-class="math inline">\|f\| = \sup_{s\in S} |f(s)\|</span>. Let <span
+class="math inline">\|f\| = \sup_{s\in S} |f(s)|</span>. Let <span
 class="math inline">B(S) = \{f\colon S\to\boldsymbol{R}\mid \|f\| &lt;
 \infty\}</span> be the <em>normed linear space</em> of bounded functions
 on <span class="math inline">S</span>. The <em>dual</em> of <span
@@ -287,7 +287,7 @@ class="math inline">ba(S)</span>.</p>
 <p><strong>Exercise</strong>: <em>Show <span
 class="math inline">\lambda</span> is a measure</em>.</p>
 <p>Every finitely-additive measure gives rise to a linear functional. We
-say <span class="math inline">f</span> is <em>elementary</em> if it is a
+say <span class="math inline">f</span> is <em>simple</em> if it is a
 finite linear combination of indicator functions <span
 class="math inline">f = \sum_j a_j 1_{A_j}</span>. Given a measure <span
 class="math inline">\lambda</span> define <span class="math inline">Lf =
@@ -304,19 +304,19 @@ class="math inline">\sum_i b_i 1_{B_i} = \sum_j a_j 1_{A_j}</span> where
 1_{E\setminus F} + 1_{F\setminus E} - 1_{E\cap F}</span> and
 induction.</p>
 <p>This shows <span class="math inline">L</span> is
-<em>well-defined</em> for elementary functions.</p>
+<em>well-defined</em> for simple functions.</p>
 <p><strong>Exercise</strong>. <em>Given any bounded function <span
 class="math inline">g</span> and <span class="math inline">\epsilon &gt;
-0</span> there exists an elementary function <span
+0</span> there exists an simple function <span
 class="math inline">f</span> with <span class="math inline">\|g - f\|
 &lt; \epsilon</span></em>.</p>
 <p><em>Hint</em>: Let <span class="math inline">a_n =
 f(n\epsilon)</span> and <span class="math inline">A_n =
 f^{-1}([n\epsilon, (n + 1)\epsilon))</span>.</p>
-<p>This shows the set of elementary functions is <em>dense</em> in <span
+<p>This shows the set of simple functions is <em>dense</em> in <span
 class="math inline">B(S)</span>. We can extend the definition from
-elementary functions to all of <span class="math inline">B(S)</span>
-since <span class="math inline">L</span> is bounded</p>
+simple functions to all of <span class="math inline">B(S)</span> since
+<span class="math inline">L</span> is bounded</p>
 <p><strong>Exercise</strong>: <em>If <span class="math inline">f\in
 B(S)</span> and <span class="math inline">\lim_n f_n = f</span> then
 <span class="math inline">\lim_n Lf_n = Lf</span></em>.</p>
