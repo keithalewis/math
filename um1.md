@@ -193,7 +193,7 @@ and $\lambda(\emptyset) = 0$. Measures don't count things
 twice and the measure of the empty set is 0.
 
 If $S$ is a set and $f\colon S\to\RR$ is a function on $S$ define
-its _norm_ $\|f\| = \sup_{s\in S} |f(s)\|$.
+its _norm_ $\|f\| = \sup_{s\in S} |f(s)|$.
 Let $B(S) = \{f\colon S\to\RR\mid \|f\| < \infty\}$ be the
 _normed linear space_ of bounded functions on $S$.
 The _dual_ of $B(S)$, $B(S)^*$, is the set of all
@@ -210,7 +210,7 @@ how to identify $B(S)^*$ with $ba(S)$.
 __Exercise__: _Show $\lambda$ is a measure_.
 
 Every finitely-additive measure gives rise to a linear functional.
-We say $f$ is _elementary_ if it is a finite linear combination
+We say $f$ is _simple_ if it is a finite linear combination
 of indicator functions $f = \sum_j a_j 1_{A_j}$.
 Given a measure $\lambda$ define $Lf = \sum_j a_j \lambda(A_j)$.
 
@@ -223,15 +223,15 @@ where $\{A_j\}$ are pairwise disjoint_.
 _Hint_: Use $1_{E\cup F} = 1_{E\setminus F} + 1_{F\setminus E} - 1_{E\cap F}$
 and induction.
 
-This shows $L$ is _well-defined_ for elementary functions.
+This shows $L$ is _well-defined_ for simple functions.
 
 __Exercise__. _Given any bounded function $g$ and $\epsilon > 0$ there
-exists an elementary function $f$ with $\|g - f\| < \epsilon$_.
+exists an simple function $f$ with $\|g - f\| < \epsilon$_.
 
 _Hint_: Let $a_n = f(n\epsilon)$ and $A_n = f^{-1}([n\epsilon, (n + 1)\epsilon))$.
 
-This shows the set of elementary functions is _dense_ in $B(S)$.
-We can extend the definition from elementary
+This shows the set of simple functions is _dense_ in $B(S)$.
+We can extend the definition from simple
 functions to all of $B(S)$ since $L$ is bounded
 
 __Exercise__: _If $f\in B(S)$ and $\lim_n f_n = f$

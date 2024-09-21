@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-08-30" />
+  <meta name="dcterms.date" content="2024-09-19" />
   <title>Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,7 +67,7 @@
 <header id="title-block-header">
 <h1 class="title">Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">August 30, 2024</p>
+<p class="date">September 19, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of derivative instruments.
@@ -102,11 +102,12 @@ trader aphorism, “Hedge when you can, not when you have to.”</p>
 <p>When a theory in physics does not agree with observation, it is time
 to come up with a new theory. The tenor of the time at the end of the
 19th century was that Newton’s theory of gravitation and Maxwell’s
-theory of electromagnatism had been successfully carried out. Lord
+theory of electromagnetism had been successfully carried out. Lord
 Kelvin proclaimed “It is just a matter of adding decimal points to
 physical constants.”</p>
-<p>The Achille’s heel of classical theory at the time was its prediction
-of black body radiation. Experiment did not agree with observation.</p>
+<p>The Achilles’s heel of classical theory at the time was its
+prediction of black body radiation. Experiment did not agree with
+observation.</p>
 <blockquote>
 <p><em>Für die Richtung des dabeieinzuschlagenden Gedankenganges giebt
 der Hinblick auf dieUnhaltbarkeit der früher gemachten Voraussetzung
@@ -122,7 +123,7 @@ constant</em>. Instrument prices are integer multiples of a minimum
 trading unit, not real numbers. This fact is relevant for accurate
 valuation of 0-day options.</p>
 <p>The untenable assumption of the Black-Scholes/Merton theory is that
-continous time trading is possible. The indicated direction is to
+continuous time trading is possible. The indicated direction is to
 provide a theory reflecting the fact traders decide at discrete times
 based on available information what to trade.</p>
 <section id="unified-model" class="level2">
@@ -487,7 +488,7 @@ role="doc-noteref"><sup>2</sup></a>.</p>
 computed from the derivative contract term sheet and the deflators <span
 class="math inline">D_t</span>. Since we also have <span
 class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>, the
-Frechet derivative <span class="math inline">D_{X_t}V_t</span> of option
+Fréchet derivative <span class="math inline">D_{X_t}V_t</span> of option
 value with respect to <span class="math inline">X_t</span> is <span
 class="math inline">\Delta_t + \Gamma_t</span> so <span
 class="math inline">\Gamma_t = D_{X_t}V_t - \Delta_t</span>. Since <span
@@ -514,9 +515,9 @@ class="math inline">P</span> is Wiener measure, and the deflator is
 prices is is <span class="math inline">X_t = (R_t, S_t) = \exp(\rho
 t)M_t</span> and the cash flows are zero.</p>
 <p>A European put option with strike <span class="math inline">k</span>
-and expriataton <span class="math inline">t</span> has a single cash
-flow of <span class="math inline">\max\{k - S_t, 0\}</span> at time
-<span class="math inline">t</span>. By equation (2) it has value <span
+and expiration <span class="math inline">t</span> has a single cash flow
+of <span class="math inline">\max\{k - S_t, 0\}</span> at time <span
+class="math inline">t</span>. By equation (2) it has value <span
 class="math inline">(\max\{k - S_t, 0\}D_t)(\Omega) = \exp(-\rho
 t)E[\max\{k - S_t, 0\}]</span>, same as Black-Scholes/Merton but with
 far less mathematical machinery.</p>
