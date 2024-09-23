@@ -13,6 +13,31 @@ abstract: Value, hedge, and manage the risk of any instruments
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
+We all know the classical Black-Scholes/Merton theory for option pricing
+is wrong. Market instruments are not
+perfectly liquid; there is a bid-ask spread involved in transactions
+that tends to widen as the amount traded increases.
+Stock prices are discrete; they trade in integer multiples of their smallest trading unit.
+The most glaring defect is the assumption continuous time trading is possible;
+every hedge executed in the real world involes a finite number of trades.
+
+The Unified Model addresses these defects.
+It provides a simple mathematically rigourous model that can be applied to all instruments.
+
+Every instrument has a price and cash flows associated with holding the instrument;
+stocks have dividends, bonds have coupons, futures have price 0 with cash flows the daily margin adjustments.
+
+
+It can be applied to _all_ market instruments: stocks, bonds, swaps, futures, options,
+limit orders, commodities, convertible bonds, risky bonds; anything that has
+a price and associated cash flows.
+
+Scholes and Merton won Nobel prizes for demonstrating
+perfect replicating of option payoffs
+using dynamic hedging exists under this assumption
+By the law of one price, the value of the option is the cost
+of setting up the initial hedge.
+
 >	Market instruments can be bought or sold at a price and ownership
 	entails cash flows. Shares of instruments can be traded based on
 	available information and accumulate to positions. The mark-to-market
@@ -117,3 +142,6 @@ $$
 
 __Lemma__. If $X_t D_t = M_t - \sum_{s\le t} C_s D_s$ where $M_t = M_u|_{\AA_t}$, $t \le u$
 then there is no arbitrage.
+
+For those paying attention...
+What about bid-ask spread? Use limit orders.
