@@ -13,16 +13,11 @@ abstract: Category with structure
 \newcommand\ran{\operatorname{ran}}
 \newcommand\cat[1]{\mathbf{#1}}
 \newcommand\mb[1]{\mathbf{#1}}
+\newcommand\ZZ{\bm{Z}}
 
-Lots of categories are based on the category $\cat{Set}$ with structure.
-For example, a monoid is a set $M$ with an associative binary operation and an identity element.
-If $m\colon M\times M\to M$ is the binary operation we can express associativity
-as $m(a,m(b,c)) = m(m(a,b),c)$, $a,b,c\in M$,
-and identity as $m(1, a) = a = m(a, 1)$,
-where $1\in M$ is the identity.
-
-These conditions are not very categoryish. How does one say $m(1,a) = a$, $a\in M$, without
-mentioning $a$, or even $1$ for that matter? Categories are just arrows and objects.
+These conditions are not very categoryish. How does one say  $m(a,m(b,c)) = m(m(a,b),c)$
+without mentioning $a$, $b$, or $c$?
+Categories are just arrows and objects.
 Define $i\colon M\to I\times M$ by $i(a) = (\star,a)$.
 
 We can define a functor on $\cat{Set}$ by $F(M) = I \times M$, for any set $M$, where $I$ is
@@ -33,16 +28,32 @@ If $a\colon M\to N$ is
 and arrow the $F(a)\colon F(M)\to F(N)$ by $I\times aM\mapsto 
 
 An F-algebra on a category $\cat{C}$ is a functor $F\colon \cat{C}\to\cat{C}$,
-an object $A$ in $\cat{C}$ and an arrow $α\colon F(A)\to A$.
-For a monoid the F-algebra has functor $F(M) = I + M\times M$ on $\cat{Set}$
-and arrow $α\colon I + M\times M\to M$ where $I\mapsto 1$ and $(a,b)\mapsto m(a,b)$.
+an object $A$ in $\cat{C}$, and an arrow $α\colon F(A)\to A$.
+For a monoid the F-algebra has functor $F(M) = M\times M$ on $\cat{Set}$
+and arrow $α\colon M\times M\to M$ where and $(a,b)\mapsto m(a,b)$.
 Here $I$ is an initial object of $\cat{Set}$, i.e., any singleton.
+
+
+
+
+Sets can be equipped with an algebraic structure.
+For example, a _semigroup_ is a set $S$ with
+an associative binary operation.  A binary operation $m\colon S\times
+S\to S$ is _associative_ if $m(a,m(b,c)) = m(m(a,b),c)$, $a,b,c\in M$.
+If we write $ab$ for $m(a,b)$ this becomes $a(bc) = (ab)c$.
+
+__Exercise__. _The binary operation of subtraction on the integers is not associative_.
+
+A _monoid_ is a semigroup with an identity element $e$ satisfying $ea = a = ae$ for all $a$
+in the semigroup.
 
 ## F-algebra
 
-An _F-algebra_ for category $\cat{C}$ is an endofunctor $F\colon\cat{C}\to\cat{C}$,
-an object $A$, and an arrow $α\colon F(A)\to A$. If $(B,β)$ is an F-algebra then
-$f\colon A\to B$ is an F-algebra homomorphism if $fα = βF(f)$.
+Given an endofuction $F\colon\cat{C}\to\cat{C}$, an _F-algebra_
+$\lbracket A,α\rbracket$ for category $\cat{C}$ is an endofunctor
+$F\colon\cat{C}\to\cat{C}$, an object $A$, and an arrow $α\colon F(A)\to
+A$. If $\lbracket B,β\rbraket$ is an F-algebra then $f\colon A\to B$ is an F-algebra
+homomorphism if $fα = βF(f)$.
 
 If $M$ is a moniod with identity $e\in M$ then $ea = a = ae$, $a\in M$,
 and $a(bc) = (ab)c$, $a,b,c\in M$ where $ab = m(a,b)$ is the monoid operation $m\colon M\times M\to M$.
