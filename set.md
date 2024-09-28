@@ -13,33 +13,88 @@ abstract: Sets are defined by membership
 \newcommand\ran{\operatorname{ran}}
 \newcommand\cat[1]{\mathbf{#1}}
 \newcommand\mb[1]{\mathbf{#1}}
+\newcommand{\NN}{\bm{N}}
+\newcommand\o[1]{\overline{#1}}
 
 Everything in (standard) mathematics is a [set](https://plato.stanford.edu/entries/set-theory/).
-Sets are defined by their _members_.
-We write $x\in S$ to indicate $x$ is a member, or _element_, of the set $S$. 
-A finite set can be explicitly described by specifying its members $S = \{x, y, z\}$.
-The theory of sets proposed by Frege posited sets are defined by a rule,
-$x\in S$ if and only if $P(x)$, where $P(x)$ is a proposition that is true
-or false depending on $x$.
+Logicians are wont to say "The language of set theory is epsilon."
+If you have expert knowledge of
+[first order logic](https://plato.stanford.edu/entries/logic-firstorder-emergence/)
+then this might make sense to you.
 
-Logicians like to say "The language of set theory is epsilon."
-They already have first order logic in their back pocket and mean
-set theory can be defined by membership using the symbol $\in$.
-They do not have much to say about how one establishes whether
-or not $x\in S$.
+> “Mathematicians are like Frenchmen: whenever you speak
+to them, they translate it into their own language, and forthwith it is
+something completely different” &mdash; Johann Wolfgang von Goethe, Maxims
+and Reflections
 
+Following Peano, modern set theory uses lunate epsilon $\in$, instead of $\epsilon$,
+to indicate set _membership_. A set is defined by its members.
+We write $s\in S$ to indicate the set $s$ is a member, or _element_, of the set $S$. 
+The empty set $\emptyset = \{\}$ is the set with no members.
+A _singleton_ is a set with one member $S = \{s\}$, for example $\emptyset\in\{\emptyset\}$.
+In general, $S\in\{S\}$ for any set $S$.
+A finite set can be specified by writing out its members.
+
+Frege's theory of sets posited they can be defined by a rule.
+A _proposition_ is a rule that is either true or false.
+
+A _contradiction_ proposition the implies true
 Bertrand Russell showed Frege's theory involved a contradiction. 
-Consider the set $S$ defined by the proposition $P(x) = x\notin x$. Is $S\in S$?
-If it is, it isn't. If it isn't, it is.
+Consider the set $S$ defined by the rule $x\in S$ if and only if $x\not\in x$.
+If $S\in S$ then $S\not\in S$. If $S\not\in S$ then $S\in S$.
+The set of all sets cannot be a set.
 
-One way to fix this up is to define sets by a rule restricted to previously existing
-sets: $x\in S$ if and only if $P(x)$, where $P(x)$ **and** $x\in T$, is a proposition that is true
-or false depending on $x\in T$. This theory might also involve a contradiction, but nobody
-has found one so far.
+Frege's rule is the proposition $P(x) = x\not\in x$.
+If we define $S = \{x\mid P(x)\}$ there is a contradiction.
+One way to fix set theory up is _comprehension_.
+If $T$ is a set we can define $U = \{t\in T\mid P(t)\}$
+and settle the question whether or not $U$ is a member of $U$.
+If $U\in U$ then $U\in T$ and $U\not\in U$ 
 
-<!--A modern day Russell might also find a contradiction,
+Define sets by a rule
+restricting members to previously defined sets.
+Godel proved a modern day Russell might also find a contradiction,
 but so far that has not happened.
--->
+
+## Set Algebra
+
+The _intersection_ $A\cap B$ of $A$ and $B$ is the set
+of elements that belong to both $A$ and $B$.
+The _union_ $A\cup B$ of sets $A$ and $B$ is the set of elements in either
+$A$ or $B$.
+The _set difference_ ${A\setminus B}$ of $A$ and $B$ is the 
+set of elements of $A$ that do not belong to $B$.
+
+
+As George Boole pointed out this can be used to reduce logic to algebra,
+thereby providing the foundation of computer science.
+Given a set $\Omega$ containing all sets under consideration
+we can think of a set $A$ as a function
+$1_A\colon\Omega\to\{0,1\}$
+where $1_A(\omega) = 1$ is $\omega\in A$ and
+$1_A(\omega) = 0$ if $\omega\not\in A$.
+When $\Omega$ is understood, we write $\o{A}$ for $\Omega\setminus A$.
+
+__Exercise__. _Show $1_{A\cap B} = 1_A 1_B$, $1_{A\cup B} = 1_A + 1_B - 1_A 1_B$,
+and $1_{\o{A}} = 1 - 1_A$_.
+
+This makes it trivial to prove De Morgan's laws.
+
+__Exercise__. _Show $\o{A\cap B} = \o{A}\cup\o{B}$ and $\o{A\cup B} = \o{A}\cap\o{B}$_.
+
+_Hint_: We have
+$$
+\begin{aligned}
+1_{\o{A}\cup\o{B}} &= 1_{\o{A}} + 1_{\o{B}} - 1_{\o{A}} 1_{\o{B}} \\
+	&= (1 - 1_A) + (1 - 1_B) - (1 - 1_A) (1 - 1_B) \\
+	&= 2 - 1_A - 1_B - 1 + 1_B + 1_A - 1_A  1_B \\
+	&= 1 - 1_A 1_B \\
+	&= 1 - 1_{A\cap B} \\
+	&= 1_{\o{A\cap B}} \\
+\end{aligned}
+$$
+
+The _set exponential_ $B^A$ is the set of all functions from $A$ to $B$.
 
 We can use first order logic to define some binary operations on sets.
 Two sets are equal if they have the same members: $A = B$ if and only if
