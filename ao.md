@@ -7,6 +7,13 @@ fleqn: true
 abstract: American option pricing
 ...
 
+\newcommand{\RR}{\boldsymbol{R}}
+\newcommand{\ZZ}{\boldsymbol{Z}}
+\renewcommand{\AA}{{\mathcal{A}}}
+\newcommand{\ran}{\operatorname{ran}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+
 An American put option with strike $K$ and expiration $T$ on underlying $S_t$ pays
 $\max\{K - S_t,0\}$ at a time $t\le T$ chosen by the option holder.
 The sample space for the Black-Scholes/Merton model is 
@@ -40,3 +47,10 @@ A Bermudan option specifies a set of times $T_0 < \cdots < T_n$ at which
 the option holder can receive the payoff. Assuming the option holder
 exercises optimally, the above formula for the value is restricted to
 stopping times $\tau\colon\Omega\to\{T_0, \ldots, T_n\}$.
+To compute this let
+$$
+	v_j = \max_{T_j\le\tau\le T} E[\nu(S_\tau) \exp(-\rho(\tau - T_j)|\AA_{T_j}],
+$$
+where $\nu$ is the payoff and $\AA_t$ is the information available at time $t$.
+
+__Lemma__. We have $v_j\exp(-\rho T_j) = \max\{\nu(S_{t_j}), v_{j + 1}\exp(-\rho T_{j+1})\}$.
