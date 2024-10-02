@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-04" />
+  <meta name="dcterms.date" content="2024-10-02" />
   <title>Set</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,45 +47,113 @@
 <header id="title-block-header">
 <h1 class="title">Set</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 4, 2024</p>
+<p class="date">October 2, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Sets are defined by membership
 </div>
 </header>
 <p>Everything in (standard) mathematics is a <a
-href="https://plato.stanford.edu/entries/set-theory/">set</a>. Sets are
-defined by their <em>members</em>. We write <span
-class="math inline">x\in S</span> to indicate <span
-class="math inline">x</span> is a member, or <em>element</em>, of the
-set <span class="math inline">S</span>. A finite set can be explicitly
-described by specifying its members <span class="math inline">S = \{x,
-y, z\}</span>. The theory of sets proposed by Frege posited sets are
-defined by a rule, <span class="math inline">x\in S</span> if and only
-if <span class="math inline">P(x)</span>, where <span
-class="math inline">P(x)</span> is a proposition that is true or false
-depending on <span class="math inline">x</span>.</p>
-<p>Logicians like to say “The language of set theory is epsilon.” They
-already have first order logic in their back pocket and mean set theory
-can be defined by membership using the symbol <span
-class="math inline">\in</span>. They do not have much to say about how
-one establishes whether or not <span class="math inline">x\in
-S</span>.</p>
-<p>Bertrand Russell showed Frege’s theory involved a contradiction.
-Consider the set <span class="math inline">S</span> defined by the
-proposition <span class="math inline">P(x) = x\notin x</span>. Is <span
-class="math inline">S\in S</span>? If it is, it isn’t. If it isn’t, it
-is.</p>
-<p>One way to fix this up is to define sets by a rule restricted to
-previously existing sets: <span class="math inline">x\in S</span> if and
-only if <span class="math inline">P(x)</span>, where <span
-class="math inline">P(x)</span> <strong>and</strong> <span
-class="math inline">x\in T</span>, is a proposition that is true or
-false depending on <span class="math inline">x\in T</span>. This theory
-might also involve a contradiction, but nobody has found one so far.</p>
-<!--A modern day Russell might also find a contradiction,
-but so far that has not happened.
--->
+href="https://plato.stanford.edu/entries/set-theory/">set</a>. Logicians
+are wont to say “The language of set theory is epsilon.” If you have
+expert knowledge of <a
+href="https://plato.stanford.edu/entries/logic-firstorder-emergence/">first
+order logic</a> then this might make sense to you.</p>
+<blockquote>
+<p>“Mathematicians are like Frenchmen: whenever you speak to them, they
+translate it into their own language, and forthwith it is something
+completely different” — Johann Wolfgang von Goethe, Maxims and
+Reflections</p>
+</blockquote>
+<p>Following Peano, modern set theory uses lunate epsilon <span
+class="math inline">\in</span>, instead of <span
+class="math inline">\epsilon</span>, to indicate set
+<em>membership</em>. A set is defined by its members. We write <span
+class="math inline">s\in S</span> to indicate the set <span
+class="math inline">s</span> is a member, or <em>element</em>, of the
+set <span class="math inline">S</span>. The empty set <span
+class="math inline">\emptyset = \{\}</span> is the set with no members.
+A <em>singleton</em> is a set with one member <span
+class="math inline">S = \{s\}</span>, for example <span
+class="math inline">\emptyset\in\{\emptyset\}</span>. In general, <span
+class="math inline">S\in\{S\}</span> for any set <span
+class="math inline">S</span>. A finite set can be specified by writing
+out its members.</p>
+<p>Frege’s theory of sets posited they can be defined by a rule. A
+<em>proposition</em> is a rule that is either true or false.</p>
+<p>A <em>contradiction</em> proposition the implies true Bertrand
+Russell showed Frege’s theory involved a contradiction. Consider the set
+<span class="math inline">S</span> defined by the rule <span
+class="math inline">x\in S</span> if and only if <span
+class="math inline">x\not\in x</span>. If <span class="math inline">S\in
+S</span> then <span class="math inline">S\not\in S</span>. If <span
+class="math inline">S\not\in S</span> then <span
+class="math inline">S\in S</span>. The set of all sets cannot be a
+set.</p>
+<p>Frege’s rule is the proposition <span class="math inline">P(x) =
+x\not\in x</span>. If we define <span class="math inline">S = \{x\mid
+P(x)\}</span> there is a contradiction. One way to fix set theory up is
+<em>comprehension</em>. If <span class="math inline">T</span> is a set
+we can define <span class="math inline">U = \{t\in T\mid P(t)\}</span>
+and settle the question whether or not <span
+class="math inline">U</span> is a member of <span
+class="math inline">U</span>. If <span class="math inline">U\in U</span>
+then <span class="math inline">U\in T</span> and <span
+class="math inline">U\not\in U</span></p>
+<p>Define sets by a rule restricting members to previously defined sets.
+Godel proved a modern day Russell might also find a contradiction, but
+so far that has not happened.</p>
+<section id="set-algebra" class="level2">
+<h2>Set Algebra</h2>
+<p>The <em>intersection</em> <span class="math inline">A\cap B</span> of
+<span class="math inline">A</span> and <span
+class="math inline">B</span> is the set of elements that belong to both
+<span class="math inline">A</span> and <span
+class="math inline">B</span>. The <em>union</em> <span
+class="math inline">A\cup B</span> of sets <span
+class="math inline">A</span> and <span class="math inline">B</span> is
+the set of elements in either <span class="math inline">A</span> or
+<span class="math inline">B</span>. The <em>set difference</em> <span
+class="math inline">{A\setminus B}</span> of <span
+class="math inline">A</span> and <span class="math inline">B</span> is
+the set of elements of <span class="math inline">A</span> that do not
+belong to <span class="math inline">B</span>.</p>
+<p>As George Boole pointed out this can be used to reduce logic to
+algebra, thereby providing the foundation of computer science. Given a
+set <span class="math inline">\Omega</span> containing all sets under
+consideration we can think of a set <span class="math inline">A</span>
+as a function <span class="math inline">1_A\colon\Omega\to\{0,1\}</span>
+where <span class="math inline">1_A(\omega) = 1</span> is <span
+class="math inline">\omega\in A</span> and <span
+class="math inline">1_A(\omega) = 0</span> if <span
+class="math inline">\omega\not\in A</span>. When <span
+class="math inline">\Omega</span> is understood, we write <span
+class="math inline">\overline{A}</span> for <span
+class="math inline">\Omega\setminus A</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">1_{A\cap B} = 1_A 1_B</span>, <span
+class="math inline">1_{A\cup B} = 1_A + 1_B - 1_A 1_B</span>, and <span
+class="math inline">1_{\overline{A}} = 1 - 1_A</span></em>.</p>
+<p>This makes it trivial to prove De Morgan’s laws.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\overline{A\cap B} =
+\overline{A}\cup\overline{B}</span> and <span
+class="math inline">\overline{A\cup B} =
+\overline{A}\cap\overline{B}</span></em>.</p>
+<p><em>Hint</em>: We have <span class="math display">
+\begin{aligned}
+1_{\overline{A}\cup\overline{B}} &amp;= 1_{\overline{A}} +
+1_{\overline{B}} - 1_{\overline{A}} 1_{\overline{B}} \\
+    &amp;= (1 - 1_A) + (1 - 1_B) - (1 - 1_A) (1 - 1_B) \\
+    &amp;= 2 - 1_A - 1_B - 1 + 1_B + 1_A - 1_A  1_B \\
+    &amp;= 1 - 1_A 1_B \\
+    &amp;= 1 - 1_{A\cap B} \\
+    &amp;= 1_{\overline{A\cap B}} \\
+\end{aligned}
+</span></p>
+<p>The <em>set exponential</em> <span class="math inline">B^A</span> is
+the set of all functions from <span class="math inline">A</span> to
+<span class="math inline">B</span>.</p>
 <p>We can use first order logic to define some binary operations on
 sets. Two sets are equal if they have the same members: <span
 class="math inline">A = B</span> if and only if <span
@@ -152,6 +220,7 @@ initial objects are not unique but any two are isomorphic. This runs
 into problems right off the bat since <span class="math inline">x ε y ε
 z</span> in set theory can only hold in trivial cases using Lawvere’s
 definition of membership.</p>
+</section>
 <section id="product" class="level2">
 <h2>Product</h2>
 <p>The <em>product</em> of objects <span class="math inline">A</span>

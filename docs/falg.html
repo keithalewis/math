@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-04" />
+  <meta name="dcterms.date" content="2024-10-02" />
   <title>F-Algebra</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,29 +47,18 @@
 <header id="title-block-header">
 <h1 class="title">F-Algebra</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 4, 2024</p>
+<p class="date">October 2, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Category with structure
 </div>
 </header>
-<p>Lots of categories are based on the category <span
-class="math inline">\mathbf{Set}</span> with structure. For example, a
-monoid is a set <span class="math inline">M</span> with an associative
-binary operation and an identity element. If <span
-class="math inline">m\colon M\times M\to M</span> is the binary
-operation we can express associativity as <span
-class="math inline">m(a,m(b,c)) = m(m(a,b),c)</span>, <span
-class="math inline">a,b,c\in M</span>, and identity as <span
-class="math inline">m(1, a) = a = m(a, 1)</span>, where <span
-class="math inline">1\in M</span> is the identity.</p>
 <p>These conditions are not very categoryish. How does one say <span
-class="math inline">m(1,a) = a</span>, <span class="math inline">a\in
-M</span>, without mentioning <span class="math inline">a</span>, or even
-<span class="math inline">1</span> for that matter? Categories are just
-arrows and objects. Define <span class="math inline">i\colon M\to
-I\times M</span> by <span class="math inline">i(a) =
-(\star,a)</span>.</p>
+class="math inline">m(a,m(b,c)) = m(m(a,b),c)</span> without mentioning
+<span class="math inline">a</span>, <span class="math inline">b</span>,
+or <span class="math inline">c</span>? Categories are just arrows and
+objects. Define <span class="math inline">i\colon M\to I\times M</span>
+by <span class="math inline">i(a) = (\star,a)</span>.</p>
 <p>We can define a functor on <span
 class="math inline">\mathbf{Set}</span> by <span
 class="math inline">F(M) = I \times M</span>, for any set <span
@@ -85,25 +74,44 @@ class="math inline">a\in M</span>.</p>
 class="math inline">\mathbf{C}</span> is a functor <span
 class="math inline">F\colon \mathbf{C}\to\mathbf{C}</span>, an object
 <span class="math inline">A</span> in <span
-class="math inline">\mathbf{C}</span> and an arrow <span
+class="math inline">\mathbf{C}</span>, and an arrow <span
 class="math inline">α\colon F(A)\to A</span>. For a monoid the F-algebra
-has functor <span class="math inline">F(M) = I + M\times M</span> on
-<span class="math inline">\mathbf{Set}</span> and arrow <span
-class="math inline">α\colon I + M\times M\to M</span> where <span
-class="math inline">I\mapsto 1</span> and <span
+has functor <span class="math inline">F(M) = M\times M</span> on <span
+class="math inline">\mathbf{Set}</span> and arrow <span
+class="math inline">α\colon M\times M\to M</span> where and <span
 class="math inline">(a,b)\mapsto m(a,b)</span>. Here <span
 class="math inline">I</span> is an initial object of <span
 class="math inline">\mathbf{Set}</span>, i.e., any singleton.</p>
+<p>Sets can be equipped with an algebraic structure. For example, a
+<em>semigroup</em> is a set <span class="math inline">S</span> with an
+associative binary operation. A binary operation <span
+class="math inline">m\colon S\times
+S\to S</span> is <em>associative</em> if <span
+class="math inline">m(a,m(b,c)) = m(m(a,b),c)</span>, <span
+class="math inline">a,b,c\in M</span>. If we write <span
+class="math inline">ab</span> for <span
+class="math inline">m(a,b)</span> this becomes <span
+class="math inline">a(bc) = (ab)c</span>.</p>
+<p><strong>Exercise</strong>. <em>The binary operation of subtraction on
+the integers is not associative</em>.</p>
+<p>A <em>monoid</em> is a semigroup with an identity element <span
+class="math inline">e</span> satisfying <span class="math inline">ea = a
+= ae</span> for all <span class="math inline">a</span> in the
+semigroup.</p>
 <section id="f-algebra" class="level2">
 <h2>F-algebra</h2>
-<p>An <em>F-algebra</em> for category <span
+<p>Given an endofuction <span
+class="math inline">F\colon\mathbf{C}\to\mathbf{C}</span>, an
+<em>F-algebra</em> <span class="math inline">\lbracket
+A,α\rbracket</span> for category <span
 class="math inline">\mathbf{C}</span> is an endofunctor <span
 class="math inline">F\colon\mathbf{C}\to\mathbf{C}</span>, an object
 <span class="math inline">A</span>, and an arrow <span
-class="math inline">α\colon F(A)\to A</span>. If <span
-class="math inline">(B,β)</span> is an F-algebra then <span
-class="math inline">f\colon A\to B</span> is an F-algebra homomorphism
-if <span class="math inline">fα = βF(f)</span>.</p>
+class="math inline">α\colon F(A)\to
+A</span>. If <span class="math inline">\lbracket B,β\rbraket</span> is
+an F-algebra then <span class="math inline">f\colon A\to B</span> is an
+F-algebra homomorphism if <span class="math inline">fα =
+βF(f)</span>.</p>
 <p>If <span class="math inline">M</span> is a moniod with identity <span
 class="math inline">e\in M</span> then <span class="math inline">ea = a
 = ae</span>, <span class="math inline">a\in M</span>, and <span

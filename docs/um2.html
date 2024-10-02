@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-04" />
+  <meta name="dcterms.date" content="2024-10-02" />
   <title>Unified Model for Derivative Instruments</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,12 +47,32 @@
 <header id="title-block-header">
 <h1 class="title">Unified Model for Derivative Instruments</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 4, 2024</p>
+<p class="date">October 2, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of any instruments
 </div>
 </header>
+<p>We all know the classical Black-Scholes/Merton theory for option
+pricing is wrong. Market instruments are not perfectly liquid; there is
+a bid-ask spread involved in transactions that tends to widen as the
+amount traded increases. Stock prices are discrete; they trade in
+integer multiples of their smallest trading unit. The most glaring
+defect is the assumption continuous time trading is possible; every
+hedge executed in the real world involes a finite number of trades.</p>
+<p>The Unified Model addresses these defects. It provides a simple
+mathematically rigourous model that can be applied to all
+instruments.</p>
+<p>Every instrument has a price and cash flows associated with holding
+the instrument; stocks have dividends, bonds have coupons, futures have
+price 0 with cash flows the daily margin adjustments.</p>
+<p>It can be applied to <em>all</em> market instruments: stocks, bonds,
+swaps, futures, options, limit orders, commodities, convertible bonds,
+risky bonds; anything that has a price and associated cash flows.</p>
+<p>Scholes and Merton won Nobel prizes for demonstrating perfect
+replicating of option payoffs using dynamic hedging exists under this
+assumption By the law of one price, the value of the option is the cost
+of setting up the initial hedge.</p>
 <blockquote>
 <p>Market instruments can be bought or sold at a price and ownership
 entails cash flows. Shares of instruments can be traded based on
@@ -179,6 +199,8 @@ D_s)|_{{\mathcal{A}}_t}
 \sum_{s\le t} C_s D_s</span> where <span class="math inline">M_t =
 M_u|_{{\mathcal{A}}_t}</span>, <span class="math inline">t \le u</span>
 then there is no arbitrage.</p>
+<p>For those paying attention… What about bid-ask spread? Use limit
+orders.</p>
 </section>
 </body>
 </html>
