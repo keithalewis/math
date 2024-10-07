@@ -38,14 +38,15 @@ $B_t - \alpha t$ is BM under $P_\alpha$ where $dP_\alpha/dP|_t = \exp(\alpha B_t
 $$
 \begin{aligned}
 &E[g(X_t) 1(\o{X}_t > a)] \\
-\quad &= E[f(B_t) 1(\max_{0\le s\le t}\mu s + \sigma B_s  > a)] \\
-\quad &= E[\exp(\alpha B_t - \alpha^2t/2) f(B_t - \alpha t) 1(\max_{0\le s\le t}\mu s + \sigma (B_s - \alpha s)  > a)] \\
-\quad &= E[\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2) f(B_t - (\mu/\sigma) t)
+\qquad &= E[f(B_t) 1(\max_{0\le s\le t}\mu s + \sigma B_s  > a)] \\
+\qquad &= E[\exp(\alpha B_t - \alpha^2t/2) f(B_t - \alpha t)
+	1(\max_{0\le s\le t}\mu s + \sigma (B_s - \alpha s)  > a)] \\
+\qquad &= E[\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2) f(B_t - (\mu/\sigma) t)
 	1(\max_{0\le s\le t}\sigma B_s  > a)] \\
-\quad &= E[\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2) f(B_t - (\mu/\sigma) t)
+\qquad &= E[\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2) f(B_t - (\mu/\sigma) t)
 	1(\max_{0\le s\le t}B_s  > a/\sigma)] \\
-\quad &= E[h(B_t) 1(\o{B}_t  > a/\sigma)] \\
-\quad &= E[(h(B_t) + h(2a - B_t)) 1(B_t  > a/\sigma)], \\
+\qquad &= E[h(B_t) 1(\o{B}_t  > a/\sigma)] \\
+\qquad &= E[(h(B_t) + h(2a - B_t)) 1(B_t  > a/\sigma)], \\
 \end{aligned}
 $$
 where $f(x) = g(\mu t + \sigma x)$ and $h(x) = \exp((\mu/\sigma) x - (\mu/\sigma)^2t/2) f(x - (\mu/\sigma) t)$.

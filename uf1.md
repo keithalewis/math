@@ -17,14 +17,13 @@ to practitioners that can be practically implemented on a computer.
 
 ## Holding
 
-The atoms of finance are _holdings_: an _amount_, an _instrument_, and an _entity_.
+The atoms of finance are holdings. A _holding_ is an _amount_, an _instrument_, and an _entity_.
 We write $\alpha = (a, i, e)$ to indicate entity $e$ holds amount
 $a\in\ZZ$ of instrument $i$. The amount is an integral multiple of the
-minimum trading amount of the instrument.
-
-Every holding $\alpha$ is an element of the cartesian product
-$\alpha\in A\times I\times E$ where $A = \ZZ$ is the set of integers,
-$I$ is the set of all market instruments, and $E$ is the set of all
+minimum trading quantity of the instrument.
+Holdings are element of the cartesian product
+$A\times I\times E$ where $A = \ZZ$ is the set of integers,
+$I$ is the set of market instruments, and $E$ is the set of 
 entities. The set $I$ can be the set of all instruments
 ever traded and $E$ can be all past, current, and future
 possible entities. Math let's you think big.
@@ -54,25 +53,47 @@ The above calculation corresponds to the SQL query
 
 ## Exchange
 
-An _exchange_ occurs when a buyer and seller swap the amounts and instruments of holdings.
-If the buyer holds ${\alpha = (a, i, e)}$ and the seller holds ${\alpha' = (a', i', e')}$,
-then after the exchage settles the buyer holds ${(a', i', e)}$ and the seller
-holds ${(a, i, e')}$.
-The _post facto price_ of the exchange is ${X = a'/a}$.
-We write ${\chi = (t, \alpha, \alpha')}$ to indicate the exchange
-occured at time $t$.
+An _exchange_ occurs when two entities swap the amounts and instruments of their holdings.
+Given holdings ${\alpha = (a, i, e)}$ and ${\alpha' = (a', i', e')}$
+then, after the exchange settles, the entities hold ${(a', i', e)}$ and
+${(a, i, e')}$ respectively.
 
-Typically a seller quotes a _pre facto price_ $X$ for some available instrument $i'$ in terms
+### Price
+
+Often entity $e$ is a _buyer_ and entity $e'$ is a _seller_.
+A buyer decides whether or not to execute the exchange based on the
+_price_ offered by the seller.
+The _post facto price_ of the exchange is ${X = a'/a}$.
+A seller quotes a _pre facto price_ $X$ for instrument $i'$ in terms
 of a currency $i$. If the buyer wants to acquire $n$ shares of $i'$ they
 must give the seller $nX$ units of currency $i$. If $n$ is large, or negative,
-the seller will usually adjust their quoted price. They might also adjust
+the seller will adjust their quoted price. They might also adjust
 the price based on the buyer.
 
-Exchanges aggregate liquidity providers to offer limit orders to their customers.
-The "price" of a market order is determined by the limit orders that
-exist at the time of the transaction.
+_Financial exchanges_ sign up liquidity providers to supply limit orders.
+Each provider offers to buy or sell a fixed amount of some instrument if
+there are any takers.
+Exchanges make money by charging a fraction of the amount exchanged.
+They only care about the volume of trades.
 
-### Transacton
+Exchange customers open an account by depositing a _margin_.
+
+
+The _order book_ shows the total amounts available
+to buy or sell at each price level.
+They do not make the identity of liquidity
+providers available.
+
+The "price" of a market order executed by a customer of the exchange
+is determined by the existing limit orders.  The amount of the market
+order is matched against limit orders. If the amount of level one orders are
+less than the amount of the market order than the trade is matched
+against the next level.
+
+We write ${\chi = (t, \alpha, \alpha')}$ to indicate the exchange
+occurred at time $t$.
+
+### Transaction
 
 A _transaction_ is a collection of related exchanges. A broker might charge the
 buyer, the seller, or both for facilitating an exchange.
@@ -83,20 +104,14 @@ the instrument issuer.
 
 ## Valuation
 
+How much is a position worth?
+In order to determine that you must
+find putative prices for instruments you hold in terms of the
+currency used for reporting.
+Accountants might use "book," "market," "liquidation,"
+or "going concern" values.
 
-Given a base instrument $i_0$ (usually a currency),
-a _price_ function $X\colon I\to\RR$ for one unit of each instrument,
-the value of holding ${\alpha = (a, i, e)}$ is $a X(i)$.
-
-Positions are dynamic and change throughout the day, but traders and
-risk managers need to get a grip on the _value_, or _mark-to-market_
-of a postion at any point in time. This involes nominal trades to convert each instrument
-to a base instrument, usually the native currency of the company holding the position.
-
-$(a, i, e) \mapsto (a', e', e)$.
-
-It is necessary to specify a price function to convert 
-For instruments trading in a liquid market, it is just a matter of looking at
-the current quote. When that luxury is not available it is necessary to 
-specify a function 
-
+Mathematics is agnostic to that important problem.
+Given a base instrument (the reporting currency) $i_0$,
+a _price_ function $X\colon I\to\RR$ determines the
+value of converting instrument $i\in I$ to $i_0$.
