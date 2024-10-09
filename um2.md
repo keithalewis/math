@@ -13,66 +13,43 @@ abstract: Value, hedge, and manage the risk of any instruments
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
-We all know the classical Black-Scholes/Merton theory for option pricing
-is wrong. Market instruments are not
-perfectly liquid; there is a bid-ask spread involved in transactions
-that tends to widen as the amount traded increases.
-Stock prices are discrete; they trade in integer multiples of their smallest trading unit.
-The most glaring defect is the assumption continuous time trading is possible;
-every hedge executed in the real world involes a finite number of trades.
+We all know the classical Black-Scholes/Merton theory for option
+pricing is imperfect. Market instruments are not perfectly liquid;
+there is a bid-ask spread involved in transactions that tends to widen
+as the amount traded increases.  Stock prices are discrete; they trade
+in integer multiples of their smallest trading unit.  The most glaring
+defect is the assumption continuous time trading is possible; every
+hedge executed in the real world involves a finite number of trades.
 
-The Unified Model addresses these defects.
-It provides a simple mathematically rigourous model that can be applied to all instruments.
+One example showing the B-S/M model is untenable is a barrier option
+that knocks in (or out) the second time it hits the barrier.  It has
+exactly the same value in their model as a barrier option that knocks in
+the first time.  It also has exactly the same value as a barrier option
+that knocks in the millionth time.  This is a mathematical artifact of
+the infinite oscillatory behavior of Brownian motion that has no basis
+in financial reality.
 
-Every instrument has a price and cash flows associated with holding the instrument;
-stocks have dividends, bonds have coupons, futures have price 0 with cash flows the daily margin adjustments.
+The Unified Model provides a simple and mathematically rigorous model
+that can be applied to _all_ instruments.  Instruments have prices and
+cash flows associated with holding them.  A trading strategy involves
+only a finite number of trades. Trades result in amounts being debited
+or credited to a trading account and accumulate to a position in each
+instrument. Nominal prices for instruments can be used to approximate
+the value (mark-to-market) of the position.
 
+A simple mathematical consequence of defining price, cash flow, value, and account is
+that trading strategies create synthetic instruments. The value of the strategy
+corresponds to the price of an instrument and the amounts in the
+trading account correspond to cash flows.
 
-It can be applied to _all_ market instruments: stocks, bonds, swaps, futures, options,
-limit orders, commodities, convertible bonds, risky bonds; anything that has
-a price and associated cash flows.
+This is the skeleton key to valuing, hedging, and managing the risk of derivatives.
+A derivative is a contract. The buyer pays the seller to provide cash
+flows at times specified in the contract. The Unified Model does not
+solve the difficult problems involved with valuing, hedging, and
+managing the risk faced by seller. It only provides a mathematically
+rigorous notation for investigating this problem.
 
-Scholes and Merton won Nobel prizes for demonstrating
-perfect replicating of option payoffs
-using dynamic hedging exists under this assumption
-By the law of one price, the value of the option is the cost
-of setting up the initial hedge.
-
->	Market instruments can be bought or sold at a price and ownership
-	entails cash flows. Shares of instruments can be traded based on
-	available information and accumulate to positions. The mark-to-market
-	value and amounts involved with trading correspond to price
-	and cash flows respectively. The Unified Model demonstrates the connection
-	between dynamic trading and how to value, hedge, and manage the
-	risk of any portfolio.
-
->	Every arbitrage-free model of prices and cash flows is
-	parameterized by a vector-valued martingale whose components are
-	indexed by market instruments and positive measures.
-
-	XXX If repurchase agreements are available the
-	canonical deflator is the reciprocal of the money market account.
-
-A _derivative security_ is a contract between two parties: I will
-give you this on these dates if you will give me that on those dates.
-Derivatives must have existed since before recorded history.  The Nobel
-prize winning breakthrough of Black, Scholes, and Merton showed
-how to synthesize derivatives by dynamically trading market instruments
-based on the borrowing cost used to fund the hedge. 
-Estimating the growth rate of the underlying securities was not neccesary.
-
-This paper provides a unified model for valuing, hedging, and
-managing the risk of any derivative security. It shows how they can
-be synthesized by trading market instruments and turns the spotlight on
-what may be the next Nobel prize winning problem: how should you hedge
-if you can't do it continuously?
-
-The Unified Model can be used for any portfolio of stocks, bonds,
-currencies, commodities, and even other derivatives in the portfolio.
-Academic literature tends to focus on prices, but cash flows should
-be placed on equal footing. The fact is that derivative contracts
-are specified by their cash flows. No arbitrage places constraints
-on their price dynamics.
+<!--
 
 ## Market Model
 
@@ -145,3 +122,4 @@ then there is no arbitrage.
 
 For those paying attention...
 What about bid-ask spread? Use limit orders.
+-->
