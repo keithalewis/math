@@ -7,13 +7,11 @@ classoption: fleqn
 abstract: 
 ...
 
-\newcommand\o[1]{\overline{#1}}
-\newcommand\u[1]{\underline{#1}}
+\renewcommand\o[1]{\overline{#1}}
+\renewcommand\u[1]{\underline{#1}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
 If $B_t$ is Brownian motion let $\o{B}_t = \max_{0\le s\le t}B_s$ be the running max.
-Let $\tau_a = \inf\{t > 0\mid \o{B}_t > a\}$ be the first time $B_t$ hits level $a$.
-Note $\tau_a < t$ if and only if $\o{B}_t > a$.
 
 $$
 	E[f(B_t) 1(\o{B}_t > a)] = E[f(B_t) 1(B_t > a)] + E[f(2a - B_t) 1(B_t > a)]
@@ -26,21 +24,35 @@ $$
 E[f(B_t) 1(\o{B}_t > a)] &= E[f(B_t) 1(\o{B}_t > a,B_t > a)] + E[f(B_t) 1(\o{B}_t > a,B_t < a)]\\
 &= E[f(B_t) 1(B_t > a)] + E[f(B_t) 1(\o{B}_t > a,B_t < a)] \\
 &= E[f(B_t) 1(B_t > a)] + E[f(B^a_t) 1(\o{B^a}_t > a,B^a_t < a)] \\
-&= E[f(B_t) 1(B_t > a)] + E[f(2a - B) 1(\o{B^a}_t > a,2a - B_t < a)] \\
-&= E[f(B_t) 1(B_t > a)] + E[f(2a - B) 1(\o{B^a}_t > a, B_t > a)] \\
-&= E[f(B_t) 1(B_t > a)] + E[f(2a - B) 1(B_t > a)] \\
+&= E[f(B_t) 1(B_t > a)] + E[f(2a - B_t) 1(\o{B^a}_t > a,2a - B_t < a)] \\
+&= E[f(B_t) 1(B_t > a)] + E[f(2a - B_t) 1(\o{B^a}_t > a, B_t > a)] \\
+&= E[f(B_t) 1(B_t > a)] + E[f(2a - B_t) 1(B_t > a)] \\
+&= E[\bigl(f(B_t) + f(2a - B_t)\bigr) 1(B_t > a)] \\
 \end{aligned}
 $$
 
 Taking $f(x) = 1$ gives $P(\o{B}_t > a) = 2P(B_t > a)$.
 
-$1 - G(x) = 2(1 - F(x))$, $G(x) = 2F(x) - 1$, $x > 0$.
+Let $\u{B}_t = \min_{0 \le s \le t} B_s$. $(\u{-B})_t = -\o{B}_t$.
 
-$g(x) = 2f(x)$, $x > 0$.
+$$
+\begin{aligned}
+	E[f(B_t) 1(\u{B}_t < a)] &= E[f(-B_t) 1(\u{-B}_t < a)] \\
+		&= E[f(-B_t) 1(-\o{B}_t < a)] \\
+		&= E[f(-B_t) 1(\o{B}_t > -a)] \\
+		&= E[\bigl(f(-B_t) + f(-(-2a - B_t)\bigr) 1(B_t > -a)] \\
+		&= E[\bigl(f(-B_t) + f(2a + B_t)\bigr) 1(B_t > -a)] \\
+		&= E[\bigl(f(B_t) + f(2a - B_t)\bigr) 1(B_t < a)] \\
+\end{aligned}
+$$
 
+Taking $f(x) = 1$ gives $P(\u{B}_t < a) = 2P(B_t < a)$.
 
+Let $\tau_a = \inf\{t > 0\mid \u{B}_t < a\}$ be the first time $B_t$ hits level $a < 0$.
 
-Recall $E[T] = \int_0^\infty P(T > t)\,dx$ if $T\ge0$.
+Note $\tau_a > t$ if and only if $\u{B}_t < a$.
+
+Recall $E[\tau] = \int_0^\infty P(\tau > t)\,dt$ if $\tau\ge0$.
 
 $P(\min\{\tau_a, T\} > t) = P(\tau_a > t, T > t) = P(\tau_a > t)1(T > t)$
 
@@ -54,15 +66,15 @@ Let $g(x) = f(\mu t + \sigma x)$ and $\alpha = \mu/\sigma$.
 
 $$
 \begin{aligned}
-E[f(X_t) 1(\o{X}_t > a)] &= E[g(B_t) 1(\max_{0\le s\le t}\mu s + \sigma B_s  > a)] \\
+E[f(X_t) 1(\u{X}_t < a)] &= E[g(B_t) 1(\min_{0\le s\le t}\mu s + \sigma B_s  < a)] \\
 &= E[\exp(\alpha B_t - \alpha^2t/2) g(B_t - \alpha t)
-	1(\max_{0\le s\le t}\mu s + \sigma (B_s - \alpha s)  > a)] \\
+	1(\min_{0\le s\le t}\mu s + \sigma (B_s - \alpha s)  < a)] \\
 &= E[\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2) g(B_t - (\mu/\sigma) t)
-	1(\max_{0\le s\le t}\sigma B_s  > a)] \\
+	1(\min_{0\le s\le t}\sigma B_s  < a)] \\
 &= E[\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2) g(B_t - (\mu/\sigma) t)
-	1(\max_{0\le s\le t}B_s  > a/\sigma)] \\
-&= E[h(B_t) 1(\o{B}_t  > a/\sigma)] \\
-&= E[(h(B_t) + h(2a - B_t)) 1(B_t  > a/\sigma)], \\
+	1(\min_{0\le s\le t}B_s  < a/\sigma)] \\
+&= E[h(B_t) 1(\u{B}_t  < a/\sigma)] \\
+&= E[(h(B_t) + h(2a - B_t)) 1(B_t < a/\sigma)], \\
 \end{aligned}
 $$
 where $h(x) = \exp((\mu/\sigma) x - (\mu/\sigma)^2t/2) g(x - (\mu/\sigma) t)$.
@@ -70,31 +82,30 @@ where $h(x) = \exp((\mu/\sigma) x - (\mu/\sigma)^2t/2) g(x - (\mu/\sigma) t)$.
 If $f(x) = 1$ then $g(x) = 1$ and $h(x) = \exp((\mu/\sigma) x - (\mu/\sigma)^2t/2)$.
 
 $$
-P(\o{X}_t > a) = E[(\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2)
-	+ \exp((\mu/\sigma) (2a - B_t) - (\mu/\sigma)^2t/2))1(B_t > a/\sigma)].
+P(\u{X}_t < a) = E[\bigl(\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2)
+	+ \exp((\mu/\sigma) (2a - B_t) - (\mu/\sigma)^2t/2)\bigr)1(B_t < a/\sigma)].
 $$
 
-$E[e^{\alpha B_t - \alpha^2t/2} 1(B_t > a)]
-= E[1(B_t + \Cov(\alpha B_t,B_t) > a)]
-= P(B_t > a - \alpha t)$.
+$E[\exp(\alpha B_t - \alpha^2t/2) 1(B_t < a)]
+= E[1(B_t + \Cov(\alpha B_t,B_t) < a)]
+= P(B_t < a - \alpha t)$.
 
-$E[\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2) 1(B_t > a/\sigma)]
-= P(B_t > a/\sigma - (\mu/\sigma)t)$.
+$E[\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2) 1(B_t < a/\sigma)]
+= P(B_t < a/\sigma - (\mu/\sigma)t)$.
 
-$E[\exp((\mu/\sigma) (2a - B_t) - (\mu/\sigma)^2t/2) 1(B_t > a/\sigma)]
-=\exp(2a\mu/\sigma) P(B_t > a/\sigma + (\mu/\sigma)t)$.
+$E[\exp((\mu/\sigma) (2a - B_t) - (\mu/\sigma)^2t/2) 1(B_t < a/\sigma)]
+=\exp(2a\mu/\sigma) P(B_t < a/\sigma + (\mu/\sigma)t)$.
 
 $$
-E[\min\{\tau_a,T\}] = \int_0^T P(B_t > a/\sigma - (\mu/\sigma)t)
-	+ \exp(2a\mu/\sigma) P(B_t > a/\sigma + (\mu/\sigma)t)\,dt \\
+E[\min\{\tau_a,T\}] = \int_0^T P(B_t < a/\sigma - (\mu/\sigma)t)
+	+ \exp(2a\mu/\sigma) P(B_t < a/\sigma + (\mu/\sigma)t)\,dt \\
 $$
 
 Let $Z$ be standard normal.
 
-$\int_0^T P(Z > a + bt)\,dt =
-P(Z > a + bt)t|_0^T + \int_0^T t \phi(a + bt)b\,dt$
+$\int_0^T P(Z < a/\sqrt{t} + b\sqrt{t})\,dt$
 
-$u = P(Z > a + bt) = 1 - \Phi(a + bt)$, $dv = dt$; $du = -\phi(a + bt)b\,dt$, $v = t$.
+$u = P(Z < a\sqrt{t} + b\sqrt{t}) = \Phi(a + bt)$, $dv = dt$; $du = \phi(a + bt)b\,dt$, $v = t$.
 
 $s = a + bt$, $t = (s - a)/b$
 
@@ -105,4 +116,3 @@ $$
 &= ((-\exp(s^2/2) - a \Phi(s))/b|_a^{a + bT} \\
 \end{aligned}
 $$
-
