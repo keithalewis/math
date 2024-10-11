@@ -19,12 +19,18 @@ to come up with a new theory. Lord Kelvin claimed toward the end of the 19th cen
 > _There is nothing new to be discovered in physics now. All that remains is more and more precise measurement_.
 
 The Rayleigh-Jeans law for black-body electromagnetic radiation fit experimental observation
-for low tempurature, but was drasticly wrong as the tempurature increased.
+for low tempuratures, but was drasticly wrong as the tempurature increased.
 Max Planck showed it was possible to fit the data by assuming radiation
-could only be emitted in a minimal increment. This led to the discovery of quantum mechanics.
+could only be emitted in a minimal increment. His contibution to science
+was not the constant that fitted the data, it was getting his contemporaries
+to devote their life to understanding why that worked. The result was
+the development of quantum mechanics.
 
-There is something drastingly wrong with the Black-Scholes/Merton theory:
-their mathmatical fiction of continous time trading.
+There is something drastingly wrong with the Black-Scholes/Merton
+theory: their mathmatical fiction of perfectly liquid continous time
+trading. Every trader knows only a finite number of trades can be executed
+at the minimal increment of the instrument involved.
+
 
 
 
