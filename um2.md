@@ -13,8 +13,31 @@ abstract: Value, hedge, and manage the risk of any instruments
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
-We all know the classical Black-Scholes/Merton theory for option
-pricing is imperfect. Market instruments are not perfectly liquid;
+When observation does not agree with theory in physics, it is time
+to come up with a new theory. Lord Kelvin claimed toward the end of the 19th century
+
+> _There is nothing new to be discovered in physics now. All that remains is more and more precise measurement_.
+
+The Rayleigh-Jeans law for black-body electromagnetic radiation fit experimental observation
+for low tempurature, but was drasticly wrong as the tempurature increased.
+Max Planck showed it was possible to fit the data by assuming radiation
+could only be emitted in a minimal increment. This led to the discovery of quantum mechanics.
+
+There is something drastingly wrong with the Black-Scholes/Merton theory:
+their mathmatical fiction of continous time trading.
+
+
+
+The Black-Scholes/Merton theory give
+
+Merton provided a closed form formula for the
+price of barrier options in ??? using the reflection principal
+of Brownian motion. 
+There is a glaring error in the classical Black-Scholes/Merton theory
+for option pricing.
+
+
+is imperfect. Market instruments are not perfectly liquid;
 there is a bid-ask spread involved in transactions that tends to widen
 as the amount traded increases.  Stock prices are discrete; they trade
 in integer multiples of their smallest trading unit.  The most glaring

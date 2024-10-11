@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-10-02" />
+  <meta name="dcterms.date" content="2024-10-10" />
   <title>Unified Finance</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Unified Finance</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 2, 2024</p>
+<p class="date">October 10, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Unified Finance – holding, exchange, portfolios, trading
@@ -55,64 +55,115 @@ Unified Finance – holding, exchange, portfolios, trading
 </header>
 <p>The financial world is a big, messy affair. No mathematical theory or
 software implementation can accurately model reality. The best a theory
-can do is to identify features recognizable to practitioners that can be
-implemented on a computer.</p>
+can do is to identify features relevant to practitioners that can be
+practically implemented on a computer.</p>
 <section id="holding" class="level2">
 <h2>Holding</h2>
-<p>The atoms of finance are <em>holdings</em>: an amount, an instrument,
-and an owner. We write <span class="math inline">\alpha = (a, i,
-o)</span> to indicate owner <span class="math inline">o</span> holds
-amount <span class="math inline">a</span> of instrument <span
-class="math inline">i</span>. It is common in mathematical finance
-literature to represent the amount <span class="math inline">a</span> as
-a real number in <span class="math inline">\bm{R}</span>. In the real
-world it is an integer multiple of the minimum trading amount of the
-instrument.</p>
-<p>Every holding <span class="math inline">\alpha</span> is an element
-of the cartesion product <span class="math inline">\alpha\in A\times
-I\times O</span> where <span class="math inline">A = \bm{Z}</span> is
-the set of integers, <span class="math inline">I</span> is the set of
-all market instruments, and <span class="math inline">O</span> is the
-set of all owners. The set <span class="math inline">I</span> can be the
-set of all instruments ever traded and <span
-class="math inline">O</span> can be all past, current, and future
-possible owners. Math let’s you think big, but people running a business
-need math implemented on a computer that produces numbers they find
-useful.</p>
+<p>The atoms of finance are holdings. A <em>holding</em> is an
+<em>amount</em>, an <em>instrument</em>, and an <em>entity</em>. We
+write <span class="math inline">\alpha = (a, i, e)</span> to indicate
+entity <span class="math inline">e</span> holds amount <span
+class="math inline">a\in\bm{Z}</span> of instrument <span
+class="math inline">i</span>. The amount is an integral multiple of the
+minimum trading quantity of the instrument. Holdings are element of the
+cartesian product <span class="math inline">A\times I\times E</span>
+where <span class="math inline">A = \bm{Z}</span> is the set of
+integers, <span class="math inline">I</span> is the set of market
+instruments, and <span class="math inline">E</span> is the set of
+entities. The set <span class="math inline">I</span> can be the set of
+all instruments ever traded and <span class="math inline">E</span> can
+be all past, current, and future possible entities. Math let’s you think
+big.</p>
+<section id="cash-flow" class="level3">
+<h3>Cash Flow</h3>
+<p>Holdings can entail <em>cash flows</em>. Stocks have dividends, bonds
+have coupons, futures have daily margin adjustments. (Taxes?)</p>
 </section>
-<section id="position" class="level2">
-<h2>Position</h2>
-<p>A <em>position</em> is a set of holdings <span
-class="math inline">\pi \subseteq A\times I\time E</span>. This can be
-implemented as a table in a database with columns <code>amount</code>,
-<code>instrument</code>, and <code>owner</code>. Databases also assign a
-unique <code>id</code> to each entry to distinguish positions having the
-same amount, instrument, and owner. No matter the size of <span
-class="math inline">I</span> and <span class="math inline">O</span>,
-this is just a finite number of rows in the table.</p>
-<p>For example, the total amount of instrument <span
-class="math inline">i</span> owned by <span class="math inline">o</span>
-is <span class="math display">
-    A(i, o) = \sum_{\alpha\in\pi}\{a\mid \alpha.i = i, \alpha.o = o\}$
+<section id="position" class="level3">
+<h3>Position</h3>
+<p>A <em>position</em> is a (multi)set of holdings <span
+class="math inline">\pi\subseteq A\times I\times E</span>. The total
+amount of instrument <span class="math inline">i</span> held by entity
+<span class="math inline">e</span> is <span class="math display">
+    A(\pi, i, e) = \sum_{\alpha\in\pi}\{\alpha.a\mid \alpha.i = i,
+\alpha.e = e\}
 </span></p>
-<p>This corresponds to the SQL query</p>
-<pre><code>SELECT SUM(amount)
-FROM positions
-WHERE instrument = i AND owner = o</code></pre>
+<p>This can be implemented as a <code>positions</code> table in a
+database with columns <code>amount</code>, <code>instrument</code>, and
+<code>entity</code>. The above calculation corresponds to the SQL
+query</p>
+<pre><code>    SELECT SUM(amount) AS A
+    FROM positions
+    WHERE instrument = i AND entity = e</code></pre>
+</section>
+</section>
+<section id="exchange" class="level2">
+<h2>Exchange</h2>
+<p>An <em>exchange</em> occurs when two entities swap the amounts and
+instruments of their holdings. Given holdings <span
+class="math inline">{\alpha = (a, i, e)}</span> and <span
+class="math inline">{\alpha&#39; = (a&#39;, i&#39;, e&#39;)}</span>
+then, after the exchange settles, the entities hold <span
+class="math inline">{(a&#39;, i&#39;, e)}</span> and <span
+class="math inline">{(a, i, e&#39;)}</span> respectively.</p>
+<section id="price" class="level3">
+<h3>Price</h3>
+<p>Often entity <span class="math inline">e</span> is a <em>buyer</em>
+and entity <span class="math inline">e&#39;</span> is a <em>seller</em>.
+A buyer decides whether or not to execute the exchange based on the
+<em>price</em> offered by the seller. The <em>post facto price</em> of
+the exchange is <span class="math inline">{X = a&#39;/a}</span>. A
+seller quotes a <em>pre facto price</em> <span
+class="math inline">X</span> for instrument <span
+class="math inline">i&#39;</span> in terms of a currency <span
+class="math inline">i</span>. If the buyer wants to acquire <span
+class="math inline">n</span> shares of <span
+class="math inline">i&#39;</span> they must give the seller <span
+class="math inline">nX</span> units of currency <span
+class="math inline">i</span>. If <span class="math inline">n</span> is
+large, or negative, the seller will adjust their quoted price. They
+might also adjust the price based on the buyer.</p>
+<p><em>Financial exchanges</em> sign up liquidity providers to supply
+limit orders. Each provider offers to buy or sell a fixed amount of some
+instrument if there are any takers. Exchanges make money by charging a
+fraction of the amount exchanged. They only care about the volume of
+trades.</p>
+<p>Exchange customers open an account by depositing a
+<em>margin</em>.</p>
+<p>The <em>order book</em> shows the total amounts available to buy or
+sell at each price level. They do not make the identity of liquidity
+providers available.</p>
+<p>The “price” of a market order executed by a customer of the exchange
+is determined by the existing limit orders. The amount of the market
+order is matched against limit orders. If the amount of level one orders
+are less than the amount of the market order than the trade is matched
+against the next level.</p>
+<p>We write <span class="math inline">{\chi = (t, \alpha,
+\alpha&#39;)}</span> to indicate the exchange occurred at time <span
+class="math inline">t</span>.</p>
+</section>
+<section id="transaction" class="level3">
+<h3>Transaction</h3>
+<p>A <em>transaction</em> is a collection of related exchanges. A broker
+might charge the buyer, the seller, or both for facilitating an
+exchange. If an entity holds an instrument they get all associated cash
+flows proportional to the amount held at the time of the cash flow.
+These are related exchanges but usually between the buyer and the
+instrument issuer.</p>
+</section>
 </section>
 <section id="valuation" class="level2">
 <h2>Valuation</h2>
-<p>Positions are dynamic and change throughout the day, but traders and
-risk managers need to get a grip on the <em>value</em>, or
-<em>mark-to-market</em> of a postion at any point in time. This involes
-nominal trades to convert each instrument to a base instrument, usually
-the native currency of the company holding the position.</p>
-<p><span class="math inline">(a, i, e) \mapsto (a&#39;, e&#39;,
-e)</span>.</p>
-<p>It is necessary to specify a price function to convert For
-instruments trading in a liquid market, it is just a matter of looking
-at the current quote. When that luxury is not available it is necessary
-to specify a function</p>
+<p>How much is a position worth? In order to determine that you must
+find putative prices for instruments you hold in terms of the currency
+used for reporting. Accountants might use “book,” “market,”
+“liquidation,” or “going concern” values.</p>
+<p>Mathematics is agnostic to that important problem. Given a base
+instrument (the reporting currency) <span
+class="math inline">i_0</span>, a <em>price</em> function <span
+class="math inline">X\colon I\to\bm{R}</span> determines the value of
+converting instrument <span class="math inline">i\in I</span> to <span
+class="math inline">i_0</span>.</p>
 </section>
 </body>
 </html>

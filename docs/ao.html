@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-10-02" />
+  <meta name="dcterms.date" content="2024-10-10" />
   <title>American Options</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,38 +47,53 @@
 <header id="title-block-header">
 <h1 class="title">American Options</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 2, 2024</p>
+<p class="date">October 10, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 American option pricing
 </div>
 </header>
 <p>An American put option with strike <span class="math inline">K</span>
-and expiration <span class="math inline">T</span> on underlying <span
-class="math inline">S_t</span> pays <span class="math inline">\max\{K -
-S_t,0\}</span> at a time <span class="math inline">t\le T</span> chosen
-by the option holder. The sample space for the Black-Scholes/Merton
-model is <span class="math inline">\Omega = C[0, \infty)</span>, the set
-of continuous functions on the non-negative real numbers. The
-risk-neutral stock price is <span class="math inline">S_t = S_0\exp(\rho
-t + \sigma B_t - \sigma^2 t/2)</span>, where <span
+and expiration <span class="math inline">T</span> on an underlying
+having price <span class="math inline">S_t</span> at time <span
+class="math inline">t</span> pays <span class="math inline">\max\{K -
+S_\tau,0\}</span> at a time <span class="math inline">\tau\le T</span>
+chosen by the option holder. The sample space for the
+Black-Scholes/Merton model is <span class="math inline">\Omega = C[0,
+\infty)</span>, the set of continuous functions on the non-negative real
+numbers. The risk-neutral stock price is <span class="math inline">S_t =
+S_0\exp(\rho t + \sigma B_t - \sigma^2 t/2)</span>, where <span
 class="math inline">\rho</span> is the risk-free rate and <span
 class="math inline">\sigma</span> is the B-S/M volatility.</p>
 <p>The sample space for an American option is the cartesian product
-<span class="math inline">\Omega\times[0, T]</span> where the second
-factor is the American exercise time. A common assumption is the option
-holder exericises optimally so the option value is <span
-class="math display">
-    v = \max_{0\le\tau\le T} E[\max\{K - S_\tau,0\} \exp(-\rho\tau)],
+<span class="math inline">\Omega\times (0, T]</span> where the second
+factor is the exercise time. We assume the option cannot be exercised at
+<span class="math inline">t = 0</span>. If the holder exercises at the
+stopping time <span class="math inline">\tau\colon\Omega\to (0,T]</span>
+then the option value is <span class="math display">
+    V_0 = (\sum_{0 &lt; t \le T} \nu(S_t) 1(\tau=t) D_t)(\Omega\times
+(0,T]),
+</span> where <span class="math inline">D_t = \exp(-\rho t)P</span> is
+the deflator at time <span class="math inline">T</span>.</p>
+<p>The option value at time <span class="math inline">t\le T</span> is
+determined by <span class="math display">
+    V_t D_t = (\sum_{t \le s \le T} \nu(S_s) 1(\tau=s)
+D_s)|_{{\mathcal{A}}_t}.
+</span></p>
+<p>A common assumption is the option holder exercises optimally so the
+option value is <span class="math display">
+    v = \max_{0\le\tau\le T} E[\nu(S_\tau) \exp(-\rho\tau)],
 </span> where <span class="math inline">\tau\colon\Omega\to[0,T]</span>
-is a stopping time.</p>
+is a stopping time and <span class="math inline">\nu(s) = \max\{K -
+s,0\}</span> is the put payoff.</p>
 <p>While this may be plausible for American options on equities, it is
 untenable for, e.g., mortgage backed securities. Their value depends on
 the actual prepayments and those are never optimal in reality. It is
 important models have knobs for all possible outcomes and not make the
-mistake of assuming implicit optimization.</p>
+mistake of implicit optimization.</p>
 <p>It is common to underspecify the sample space for models. For
-example, the exercise time might depend tax considerations.</p>
+example, the exercise time might depend on tax considerations or social
+media data.</p>
 <section id="bermudan" class="level2">
 <h2>Bermudan</h2>
 <p>A Bermudan option specifies a set of times <span
@@ -86,7 +101,16 @@ class="math inline">T_0 &lt; \cdots &lt; T_n</span> at which the option
 holder can receive the payoff. Assuming the option holder exercises
 optimally, the above formula for the value is restricted to stopping
 times <span class="math inline">\tau\colon\Omega\to\{T_0, \ldots,
-T_n\}</span>.</p>
+T_n\}</span>. To compute this define <span
+class="math inline">v_j</span> by <span class="math display">
+    v_j \exp(-\rho T_j) = \max_{T_j\le\tau\le T} E[\nu(S_\tau)
+\exp(-\rho \tau)\mid\tau &gt; T_j],
+</span> where <span class="math inline">\nu</span> is the payoff and
+<span class="math inline">{\mathcal{A}}_t</span> is the information
+available at time <span class="math inline">t</span>.</p>
+<p><strong>Lemma</strong>. We have <span
+class="math inline">v_j\exp(-\rho T_j) = \max\{\nu(S_{t_j}), v_{j +
+1}\exp(-\rho T_{j+1})\}</span>.</p>
 </section>
 </body>
 </html>

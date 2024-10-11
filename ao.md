@@ -52,7 +52,7 @@ prepayments and those are never optimal in reality.
 It is important models have knobs for all possible outcomes and
 not make the mistake of implicit optimization.
 
-It is common to under specify the sample space for models.
+It is common to underspecify the sample space for models.
 For example, the exercise time might depend
 on tax considerations or social media data.
 
