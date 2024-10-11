@@ -105,14 +105,4 @@ Let $Z$ be standard normal.
 
 $\int_0^T P(Z < a/\sqrt{t} + b\sqrt{t})\,dt$
 
-$u = P(Z < a\sqrt{t} + b\sqrt{t}) = \Phi(a + bt)$, $dv = dt$; $du = \phi(a + bt)b\,dt$, $v = t$.
-
-$s = a + bt$, $t = (s - a)/b$
-
-$$
-\begin{aligned}
-\int_0^T t \phi(a + bt)b\,dt &= \int_a^{a + bT} (s - a)/b \phi(s)b\,ds/b \\
-&= \int_a^{a + bT} (s - a) \phi(s)\,ds/b \\
-&= ((-\exp(s^2/2) - a \Phi(s))/b|_a^{a + bT} \\
-\end{aligned}
-$$
+No closed form solution.

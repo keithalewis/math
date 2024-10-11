@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-10-10" />
+  <meta name="dcterms.date" content="2024-10-11" />
   <title>Hitting Times</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,63 +47,117 @@
 <header id="title-block-header">
 <h1 class="title">Hitting Times</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 10, 2024</p>
+<p class="date">October 11, 2024</p>
 </header>
-<p>If <span class="math inline">B_t</span> is Brownian motion and <span
-class="math inline">\overline{B}_t = \max_{0\le s\le t}B_s</span> is the
-running max, then <span class="math display">
+<p>If <span class="math inline">B_t</span> is Brownian motion let <span
+class="math inline">\overline{B}_t = \max_{0\le s\le t}B_s</span> be the
+running max.</p>
+<p><span class="math display">
     E[f(B_t) 1(\overline{B}_t &gt; a)] = E[f(B_t) 1(B_t &gt; a)] +
 E[f(2a - B_t) 1(B_t &gt; a)]
+</span></p>
+<p><strong>Proof</strong>. Define the reflected Brownian motions <span
+class="math inline">B_t^a = B_t</span> for <span class="math inline">t
+&lt; \tau_a</span> and <span class="math inline">B_t^a = 2a - B_t</span>
+for <span class="math inline">t &gt; \tau_a</span>. We have <span
+class="math display">
+\begin{aligned}
+E[f(B_t) 1(\overline{B}_t &gt; a)] &amp;= E[f(B_t) 1(\overline{B}_t &gt;
+a,B_t &gt; a)] + E[f(B_t) 1(\overline{B}_t &gt; a,B_t &lt; a)]\\
+&amp;= E[f(B_t) 1(B_t &gt; a)] + E[f(B_t) 1(\overline{B}_t &gt; a,B_t
+&lt; a)] \\
+&amp;= E[f(B_t) 1(B_t &gt; a)] + E[f(B^a_t) 1(\overline{B^a}_t &gt;
+a,B^a_t &lt; a)] \\
+&amp;= E[f(B_t) 1(B_t &gt; a)] + E[f(2a - B_t) 1(\overline{B^a}_t &gt;
+a,2a - B_t &lt; a)] \\
+&amp;= E[f(B_t) 1(B_t &gt; a)] + E[f(2a - B_t) 1(\overline{B^a}_t &gt;
+a, B_t &gt; a)] \\
+&amp;= E[f(B_t) 1(B_t &gt; a)] + E[f(2a - B_t) 1(B_t &gt; a)] \\
+&amp;= E[\bigl(f(B_t) + f(2a - B_t)\bigr) 1(B_t &gt; a)] \\
+\end{aligned}
 </span></p>
 <p>Taking <span class="math inline">f(x) = 1</span> gives <span
 class="math inline">P(\overline{B}_t &gt; a) = 2P(B_t &gt;
 a)</span>.</p>
-<p><span class="math inline">1 - G(x) = 2(1 - F(x))</span>, <span
-class="math inline">G(x) = 2F(x) - 1</span>, <span class="math inline">x
-&gt; 0</span>.</p>
-<p><span class="math inline">g(x) = 2f(x)</span>, <span
-class="math inline">x &gt; 0</span>.</p>
+<p>Let <span class="math inline">\underline{B}_t = \min_{0 \le s \le t}
+B_s</span>. <span class="math inline">(\underline{-B})_t =
+-\overline{B}_t</span>.</p>
+<p><span class="math display">
+\begin{aligned}
+    E[f(B_t) 1(\underline{B}_t &lt; a)] &amp;= E[f(-B_t)
+1(\underline{-B}_t &lt; a)] \\
+        &amp;= E[f(-B_t) 1(-\overline{B}_t &lt; a)] \\
+        &amp;= E[f(-B_t) 1(\overline{B}_t &gt; -a)] \\
+        &amp;= E[\bigl(f(-B_t) + f(-(-2a - B_t)\bigr) 1(B_t &gt; -a)] \\
+        &amp;= E[\bigl(f(-B_t) + f(2a + B_t)\bigr) 1(B_t &gt; -a)] \\
+        &amp;= E[\bigl(f(B_t) + f(2a - B_t)\bigr) 1(B_t &lt; a)] \\
+\end{aligned}
+</span></p>
+<p>Taking <span class="math inline">f(x) = 1</span> gives <span
+class="math inline">P(\underline{B}_t &lt; a) = 2P(B_t &lt;
+a)</span>.</p>
 <p>Let <span class="math inline">\tau_a = \inf\{t &gt; 0\mid
-\overline{B}_t &gt; a\}</span> be the first time <span
-class="math inline">B</span></p>
-<p>Note <span class="math inline">\tau_a &lt; t</span> if and only if
-<span class="math inline">\overline{B}_t &gt; a</span>.</p>
-<p>Recall <span class="math inline">E[X] = \int_0^\infty P(X &gt;
-x)\,dx</span> if <span class="math inline">X</span> is positive.</p>
+\underline{B}_t &lt; a\}</span> be the first time <span
+class="math inline">B_t</span> hits level <span class="math inline">a
+&lt; 0</span>.</p>
+<p>Note <span class="math inline">\tau_a &gt; t</span> if and only if
+<span class="math inline">\underline{B}_t &lt; a</span>.</p>
+<p>Recall <span class="math inline">E[\tau] = \int_0^\infty P(\tau &gt;
+t)\,dt</span> if <span class="math inline">\tau\ge0</span>.</p>
 <p><span class="math inline">P(\min\{\tau_a, T\} &gt; t) = P(\tau_a &gt;
 t, T &gt; t) = P(\tau_a &gt; t)1(T &gt; t)</span></p>
 <p><span class="math inline">E[\min\{\tau_a, T\}] = \int_0^T P(\tau_a
 &gt; t)\,dt</span>.</p>
 <p>Let <span class="math inline">X_t = \mu t + \sigma B_t</span>.</p>
-<p><span class="math inline">B_t - \alpha t</span> is BM under <span
-class="math inline">P_\alpha</span> where <span
-class="math inline">dP_\alpha/dP|_t = \exp(\alpha B_t -
-\alpha^2t/2)</span>.</p>
+<p>Girsanov’s theorem states <span class="math inline">B_t - \alpha
+t</span> is BM under <span class="math inline">P_\alpha</span> where
+<span class="math inline">{dP_\alpha/dP|_t = \exp(\alpha B_t -
+\alpha^2t/2)}</span>. Let <span class="math inline">g(x) = f(\mu t +
+\sigma x)</span> and <span class="math inline">\alpha =
+\mu/\sigma</span>.</p>
 <p><span class="math display">
 \begin{aligned}
-&amp;E[g(X_t) 1(\overline{X}_t &gt; a)] \\
-\qquad &amp;= E[f(B_t) 1(\max_{0\le s\le t}\mu s + \sigma B_s  &gt; a)]
-\\
-\qquad &amp;= E[\exp(\alpha B_t - \alpha^2t/2) f(B_t - \alpha t)
-    1(\max_{0\le s\le t}\mu s + \sigma (B_s - \alpha s)  &gt; a)] \\
-\qquad &amp;= E[\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2) f(B_t -
-(\mu/\sigma) t)
-    1(\max_{0\le s\le t}\sigma B_s  &gt; a)] \\
-\qquad &amp;= E[\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2) f(B_t -
-(\mu/\sigma) t)
-    1(\max_{0\le s\le t}B_s  &gt; a/\sigma)] \\
-\qquad &amp;= E[h(B_t) 1(\overline{B}_t  &gt; a/\sigma)] \\
-\qquad &amp;= E[(h(B_t) + h(2a - B_t)) 1(B_t  &gt; a/\sigma)], \\
+E[f(X_t) 1(\underline{X}_t &lt; a)] &amp;= E[g(B_t) 1(\min_{0\le s\le
+t}\mu s + \sigma B_s  &lt; a)] \\
+&amp;= E[\exp(\alpha B_t - \alpha^2t/2) g(B_t - \alpha t)
+    1(\min_{0\le s\le t}\mu s + \sigma (B_s - \alpha s)  &lt; a)] \\
+&amp;= E[\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2) g(B_t - (\mu/\sigma)
+t)
+    1(\min_{0\le s\le t}\sigma B_s  &lt; a)] \\
+&amp;= E[\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2) g(B_t - (\mu/\sigma)
+t)
+    1(\min_{0\le s\le t}B_s  &lt; a/\sigma)] \\
+&amp;= E[h(B_t) 1(\underline{B}_t  &lt; a/\sigma)] \\
+&amp;= E[(h(B_t) + h(2a - B_t)) 1(B_t &lt; a/\sigma)], \\
 \end{aligned}
-</span> where <span class="math inline">f(x) = g(\mu t + \sigma
-x)</span> and <span class="math inline">h(x) = \exp((\mu/\sigma) x -
-(\mu/\sigma)^2t/2) f(x - (\mu/\sigma) t)</span>.</p>
-<p>If <span class="math inline">g(x) = 1</span> then <span
-class="math inline">f(x) = 1</span> and <span class="math inline">h(x) =
+</span> where <span class="math inline">h(x) = \exp((\mu/\sigma) x -
+(\mu/\sigma)^2t/2) g(x - (\mu/\sigma) t)</span>.</p>
+<p>If <span class="math inline">f(x) = 1</span> then <span
+class="math inline">g(x) = 1</span> and <span class="math inline">h(x) =
 \exp((\mu/\sigma) x - (\mu/\sigma)^2t/2)</span>.</p>
 <p><span class="math display">
-P(\overline{X}_t &gt; a) = E[(\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2)
-    + \exp((\mu/\sigma) (2a - B_t) - (\mu/\sigma)^2t/2))1(B_t &gt; a)].
+P(\underline{X}_t &lt; a) = E[\bigl(\exp((\mu/\sigma) B_t -
+(\mu/\sigma)^2t/2)
+    + \exp((\mu/\sigma) (2a - B_t) - (\mu/\sigma)^2t/2)\bigr)1(B_t &lt;
+a/\sigma)].
 </span></p>
+<p><span class="math inline">E[\exp(\alpha B_t - \alpha^2t/2) 1(B_t &lt;
+a)]
+= E[1(B_t + \operatorname{Cov}(\alpha B_t,B_t) &lt; a)]
+= P(B_t &lt; a - \alpha t)</span>.</p>
+<p><span class="math inline">E[\exp((\mu/\sigma) B_t -
+(\mu/\sigma)^2t/2) 1(B_t &lt; a/\sigma)]
+= P(B_t &lt; a/\sigma - (\mu/\sigma)t)</span>.</p>
+<p><span class="math inline">E[\exp((\mu/\sigma) (2a - B_t) -
+(\mu/\sigma)^2t/2) 1(B_t &lt; a/\sigma)]
+=\exp(2a\mu/\sigma) P(B_t &lt; a/\sigma + (\mu/\sigma)t)</span>.</p>
+<p><span class="math display">
+E[\min\{\tau_a,T\}] = \int_0^T P(B_t &lt; a/\sigma - (\mu/\sigma)t)
+    + \exp(2a\mu/\sigma) P(B_t &lt; a/\sigma + (\mu/\sigma)t)\,dt \\
+</span></p>
+<p>Let <span class="math inline">Z</span> be standard normal.</p>
+<p><span class="math inline">\int_0^T P(Z &lt; a/\sqrt{t} +
+b\sqrt{t})\,dt</span></p>
+<p>No closed form solution.</p>
 </body>
 </html>
