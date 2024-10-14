@@ -19,27 +19,47 @@ to come up with a new theory. Lord Kelvin claimed toward the end of the 19th cen
 > _There is nothing new to be discovered in physics now. All that remains is more and more precise measurement_.
 
 The Rayleigh-Jeans law for black-body electromagnetic radiation fit experimental observation
-for low tempuratures, but was drasticly wrong as the tempurature increased.
-Max Planck showed it was possible to fit the data by assuming radiation
-could only be emitted in a minimal increment. His main contibution to science
+for low temperatures, but was drastically wrong as the temperature increased.
+Max Planck showed it was possible to fit the observed data by assuming radiation
+could only be emitted in a minimal increment. His main contribution to science
 was not the constant that fitted the data, it was getting his contemporaries
 to focus on understanding why that worked. The result was
 the development of quantum mechanics.
 
-There is something drastingly wrong with the Black-Scholes/Merton
-theory: their mathmatical fiction of perfectly liquid continous time
-trading. Only a finite number of trades can be executed.
+There is something drastically wrong with the Black-Scholes/Merton
+theory due to their assumption of continuous time trading.
+Merton provided a closed form formula for the
+price of barrier options in [@Mer1973] using the reflection principal
+for Brownian motion.
+A mathematical artifact of Brownian motion implies their theory
+gives the same the value for a barrier option that knocks in (or out) the $n$-th
+time the barrier is hit for any $n > 0$.
 
+This untenable conclusion can be avoided by accepting the fact that
+every hedging strategy involves only a finite number of trades
+and there are no perfect hedges, something every derivative trader knows after
+the first week on the job. They just want to know what initial hedge
+to put on, and when and how much to adjust the initial hedge to
+replicate the derivative contract obligations.
+Half a century on from B-S/M, the mathematical finance community has not been
+able to come up with an answer to this basic problem. 
 
+Another pernicious influence of the B-S/M model that [@Ros1978] 
+pointed out was their result had nothing to do with probability,
+it only involved geometry.
+
+> _If there are no arbitrage opportunities in the capital markets, then
+there exists a (not generally unique) valuation operator, $L$_.
+
+His valuation operator $L$ was a linear functional on the prices of instruments.
+
+$B(S)^* = ba(S)$.
+
+Linear operator as an integral.
 
 
 The Black-Scholes/Merton theory give
 
-Merton provided a closed form formula for the
-price of barrier options in ??? using the reflection principal
-of Brownian motion. 
-There is a glaring error in the classical Black-Scholes/Merton theory
-for option pricing.
 
 
 is imperfect. Market instruments are not perfectly liquid;
@@ -151,3 +171,5 @@ then there is no arbitrage.
 For those paying attention...
 What about bid-ask spread? Use limit orders.
 -->
+
+## References
