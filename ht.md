@@ -81,6 +81,9 @@ where $h(x) = \exp((\mu/\sigma) x - (\mu/\sigma)^2t/2) g(x - (\mu/\sigma) t)$.
 
 If $f(x) = 1$ then $g(x) = 1$ and $h(x) = \exp((\mu/\sigma) x - (\mu/\sigma)^2t/2)$.
 
+If $f(x) = 1(x < b)$ then $g(x) = 1(\mu t + \sigma x < b)$
+and ${h(x) = \exp((\mu/\sigma) x - (\mu/\sigma)^2t/2) 1(\mu t + \sigma (x - (\mu/\sigma) t) < b)}$
+
 $$
 P(\u{X}_t < a) = E[\bigl(\exp((\mu/\sigma) B_t - (\mu/\sigma)^2t/2)
 	+ \exp((\mu/\sigma) (2a - B_t) - (\mu/\sigma)^2t/2)\bigr)1(B_t < a/\sigma)].
@@ -106,3 +109,17 @@ Let $Z$ be standard normal.
 $\int_0^T P(Z < a/\sqrt{t} + b\sqrt{t})\,dt$
 
 No closed form solution.
+
+$$
+\begin{aligned}
+P(B_t < a, \u{B_t} < \u{a}) &= E[1(B_t < a) 1(\u{B_t} < \u{a})] \\
+	&= E[(1(B_t < a) + 1(2\u{a} - B_t  < a) 1(B_t < \u{a})] \\
+	&= E[(1(B_t < a) 1(B_t < \u{a})] + E[1(2\u{a} - B_t  < a) 1(B_t < \u{a})] \\
+	&= P(B_t < \min\{a, \u{a}\}) + P(B_t > 2\u{a} - a, B_t < \u{a}) \\
+	&= P(B_t < \min\{a, \u{a}\}) + P(2\u{a} - a < B_t < \u{a}) \\
+\end{aligned}
+$$
+
+$P(S_t - \u{S}_t > a)$, $S_t = s\exp(\mu t + \sigma B_t - \sigma^2 t/2)$.
+
+$P(X_t - \u{X}_t > a)$, $X_t = x + \mu t + \sigma B_t$.
