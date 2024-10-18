@@ -67,5 +67,16 @@ $$
 $$
 
 It is possible to incorporate transaction costs by replacing $\Gamma_j$
-with, e.g., $(1 + \epsilon\sgn(\Gamma_j))\Gamma_j$ where $\epsilon$ is
-the proportional transaction cost and $\sgn(x)$ is the sign of $x$.
+with, e.g., $\epsilon\sgn(\Gamma_j)) + \Gamma_j$ or
+$(1 + \epsilon\sgn(\Gamma_j))\Gamma_j$ where $\epsilon$ is
+the absolute or proportional transaction cost respectively and $\sgn(x)$ is the sign of $x$.
+
+<!--
+
+$\Delta (X_j Y_j)
+= X_{j+1}Y_{j+1} - X_j Y_j
+= X_{j+1}Y_{j+1} - X_{j+1} Y_j + X_{j+1} Y_j - X_j Y_j
+= X_{j+1}(Y_{j+1} - Y_j) + (X_{j+1} - X_j) Y_j$
+
+$X_n Y_n - X_0 Y_0 = \sum_0^{n-1} X_{j+1}\Delta Y_j + \Delta X_j Y_j$
+ -->
