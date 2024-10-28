@@ -13,6 +13,29 @@ abstract: Value, hedge, and manage the risk of any instruments
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
+The classical Black-Scholes/Merton theory of option valuation is
+untenable.  Only a finite number of trades can be executed based on
+information available at the time of the trade.  The notion of continuous
+time trading is a mathematical artifact of Ito processes that leads to
+results practitioners find ridiculous.
+
+This note proposes a more accurate model based on [@Ros1978]. He extended
+the B-S/M theory to value any collection of instruments.
+
+> _If there are no arbitrage opportunities in the capital markets, then
+there exists a (not generally unique) valuation operator, $L$_.
+
+He used the Hahn-Banach theorem to show
+arbitrage is a geometric notion that has nothing to do with probability.
+
+The proposed model puts Ross' theory on a firm mathematical basis by
+identifying his valuation operator as a _deflator_: a set of
+measures indexed by trading times. Not only are these not unique,
+as Ross pointed out, the restriction of a finite number of trades
+puts your nose squarely in the main unsolved problem of Mathematical Finance:
+when and how much should you trade given the information available to you?
+It does not propose a solution to this, only a framework for furthur research.
+
 When observation does not agree with theory in physics, it is time
 to come up with a new theory. Lord Kelvin claimed toward the end of the 19th century
 
