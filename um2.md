@@ -1,5 +1,5 @@
 ---
-title: Unified Model for Derivative Instruments
+title: A Basic Unified Model for Derivative Instruments
 author: Keith A. Lewis
 institute: KALX, LLC
 fleqn: true
@@ -19,22 +19,23 @@ information available at the time of the trade.  The notion of continuous
 time trading is a mathematical artifact of Ito processes that leads to
 results practitioners find ridiculous.
 
-This note proposes a more accurate model based on [@Ros1978]. He extended
+This note proposes a more realistic model based on [@Ros1978]. He extended
 the B-S/M theory to value any collection of instruments.
 
 > _If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, $L$_.
 
-He used the Hahn-Banach theorem to show
-arbitrage is a geometric notion that has nothing to do with probability.
-
+Ross used the Hahn-Banach theorem to show arbitrage is a geometric notion
+that has nothing to do with probability.
 The proposed model puts Ross' theory on a firm mathematical basis by
 identifying his valuation operator as a _deflator_: a set of
 measures indexed by trading times. Not only are these not unique,
-as Ross pointed out, the restriction of a finite number of trades
-puts your nose squarely in the main unsolved problem of Mathematical Finance:
-when and how much should you trade given the information available to you?
-It does not propose a solution to this, only a framework for furthur research.
+as Ross pointed out, the restriction to a finite number of trades
+underscores the main unsolved problem of Mathematical Finance:
+when and how much should you trade given available information?
+It does not propose a solution to this, only a framework for further research.
+
+## Physics
 
 When observation does not agree with theory in physics, it is time
 to come up with a new theory. Lord Kelvin claimed toward the end of the 19th century
@@ -43,84 +44,241 @@ to come up with a new theory. Lord Kelvin claimed toward the end of the 19th cen
 
 The Rayleigh-Jeans law for black-body electromagnetic radiation fit experimental observation
 for low temperatures, but was drastically wrong as the temperature increased.
+Experiment did not agree with observation.
+
+> _Für die Richtung des dabeieinzuschlagenden Gedankenganges giebt der
+  Hinblick auf dieUnhaltbarkeit der früher gemachten Voraussetzung einen
+  Finger-zeig_. -- Max Planck
+
+> _The untenability of the assumption made earlier provides an indication
+  of the direction of the line of thought to be taken_.
+
 Max Planck showed it was possible to fit the observed data by assuming radiation
-could only be emitted in a minimal increment. His main contribution to science
-was not the constant that fitted the data, it was getting his contemporaries
+could only be emitted in a minimal increment. Planck's main contribution to science
+was not his eponymous constant that fit the data, it was getting his contemporaries
 to focus on understanding why that worked. The result was
 the development of quantum mechanics.
+
+## Finance
 
 There is something drastically wrong with the Black-Scholes/Merton
 theory due to their assumption of continuous time trading.
 Merton provided a closed form formula for the
-price of barrier options in [@Mer1973] using the reflection principal
+value of barrier options in [@Mer1973] using the reflection principal
 for Brownian motion.
-A mathematical artifact of Brownian motion implies their theory
-gives the same the value for a barrier option that knocks in (or out) the $n$-th
-time the barrier is hit for any $n > 0$.
+A preposterous mathematical artifact of using Ito's theory is that it implies
+the value of a barrier option does not change if it
+knocks in (or out) the second, third, or even the millionth time it is hit.
 
 This untenable conclusion can be avoided by accepting the fact that
-every hedging strategy involves only a finite number of trades
-and there are no perfect hedges, something every derivative trader knows after
+every hedging strategy involves only a finite number of trades.
+There are no perfect hedges, something every derivative trader knows after
 the first week on the job. They just want to know what initial hedge
-to put on, and when and how much to adjust the initial hedge to
+to put on, and when and how much to adjust the initial hedge over time to
 replicate the derivative contract obligations.
 Half a century on from B-S/M, the mathematical finance community has not been
-able to come up with an answer to this basic problem. 
+able to come up with a mutually agreeable answer to this fundamental problem. 
 
 Another pernicious influence of the B-S/M model that [@Ros1978] 
-pointed out was their result had nothing to do with probability,
-it only involved geometry.
+pointed out was arbitrage-free models have nothing to do with probability,
+they only involved geometry. We eliminate the use of the Hahn-Banach
+theorem and show his linear valuation operator corresponds to a collection
+of positive measures indexed by trading time.
 
-> _If there are no arbitrage opportunities in the capital markets, then
-there exists a (not generally unique) valuation operator, $L$_.
+Market instruments are not perfectly liquid; there is a bid-ask spread
+involved in transactions that tends to widen as the amount traded
+increases.  Stock prices are discrete; they trade in integer multiples of
+their smallest trading unit. The price of an instrument can also depend
+on the credit worthiness of the counterparties involved in a trade.
+The Basic Unified Model does not address these salient market realities.
 
-His valuation operator $L$ was a linear functional on the prices of instruments.
+The Basic Unified Model does provide a simple and mathematically rigorous
+model that can be applied to _all_ instruments.  Instruments have prices
+and cash flows associated with holding them.  A trading strategy involves
+only a finite number of trades based on available information. Trades
+result in amounts being debited or credited to a trading account
+and accumulate to a position in each instrument. Nominal prices for
+instruments can be used to approximate the value (mark-to-market) of
+the position.
 
-$B(S)^* = ba(S)$.
-
-Linear operator as an integral.
-
-
-The Black-Scholes/Merton theory give
-
-
-
-is imperfect. Market instruments are not perfectly liquid;
-there is a bid-ask spread involved in transactions that tends to widen
-as the amount traded increases.  Stock prices are discrete; they trade
-in integer multiples of their smallest trading unit.  The most glaring
-defect is the assumption continuous time trading is possible; every
-hedge executed in the real world involves a finite number of trades.
-
-One example showing the B-S/M model is untenable is a barrier option
-that knocks in (or out) the second time it hits the barrier.  It has
-exactly the same value in their model as a barrier option that knocks in
-the first time.  It also has exactly the same value as a barrier option
-that knocks in the millionth time.  This is a mathematical artifact of
-the infinite oscillatory behavior of Brownian motion that has no basis
-in financial reality.
-
-The Unified Model provides a simple and mathematically rigorous model
-that can be applied to _all_ instruments.  Instruments have prices and
-cash flows associated with holding them.  A trading strategy involves
-only a finite number of trades. Trades result in amounts being debited
-or credited to a trading account and accumulate to a position in each
-instrument. Nominal prices for instruments can be used to approximate
-the value (mark-to-market) of the position.
-
-A simple mathematical consequence of defining price, cash flow, value, and account is
+An elementary mathematical consequence of defining price, cash flow, value, and account is
 that trading strategies create synthetic instruments. The value of the strategy
 corresponds to the price of an instrument and the amounts in the
 trading account correspond to cash flows.
-
 This is the skeleton key to valuing, hedging, and managing the risk of derivatives.
 A derivative is a contract. The buyer pays the seller to provide cash
-flows at times specified in the contract. The Unified Model does not
+flows at times specified in the contract. The Basic Unified Model does not
 solve the difficult problems involved with valuing, hedging, and
 managing the risk faced by seller. It only provides a mathematically
 rigorous notation for investigating this problem.
 
+## Preliminaries
+
+<details><summary>Details</summary>
+
+Let $\Omega$ be a set of possible outcomes. _Partial information_ is modeled
+by a partition of $\Omega$. A collection of subsets of $\Omega$, $\{A_j\}$,
+is a _partition_ if they are pairwise disjoint and their union is $\Omega$.
+Full information is knowing $\omega\in\Omega$. Partial information is
+knowing only to which atom $\omega$ belongs.
+No information is modeled by the singleton partition $\{\Omega\}$.
+
+An _algebras of sets_ is a collection of sets
+closed under union and complement.
+
+__Exercise__. _Show algebras of sets are closed under intersection_.
+
+_Hint_: Let $A' = \Omega\setminus A = \{\omega\in\Omega\mid \omega\not\in A\}$
+be the set complement of $A$ in $\Omega$.
+Use De Morgan's Law $(A\cap B)' = A'\cup B'$.
+
+We can identify a set $A$ with its _indicator function_ $1_A\colon\Omega\to\RR$
+defined by $1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\not\in A$.
+Note $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$, $1_{A'} = 1 - 1_A$, and
+$1_{A\cap B} = 1_A 1_B$,
+
+__Exercise__. _Prove De Morgan's Law_.
+
+_Hint_: Start from $1_{A'\cup B'} = 1_{A'} + 1_{B'} - 1_{A'\cap B'}$.
+
+Calculations on algebras of sets is algebra.
+
+If $\AA$ is a finite algebra of sets on $\Omega$ then
+$[\omega] = \cap\{A\in\AA\mid\omega\in A\}$ is the _atom_ of $\AA$ containing ${\omega\in\Omega}$.
+
+__Exercise__. _If $B\subseteq[\omega]$ and $B\in\AA$ then
+$B = \emptyset$ or $B = [\omega]$_.
+
+__Exercise__. _The atoms of $\AA$, $[\AA]$, form a partition of $\Omega$_.
+
+This shows we can identify a finite algebra of sets with its atoms.
+
+A function $X\colon\Omega\to\RR$ is $\AA$-_measurable_
+for an algebra of sets $\AA$
+if $\{\omega\in\Omega\mid X(\omega) \le x\}$ belongs to $\AA$
+for all $x\in\RR$.
+
+__Exercise__. _If $\AA$ is finite, show $X$ is $\AA$-measurable
+if and if and only if it is constant on atoms of $\AA$_.
+
+This shows $X\colon[\AA]\to\RR$ _is_ a function.
+We jettison the word 'measurable' and say $X$ is _known given_ $\AA$.
+
 <!--
+### Integration
+
+Integration is a _linear functional_: it assigns a function to a number
+where a constant times a function is assigned to the constant
+times the integral and the integral of the sum of two functions
+is the sum of the integrals. Integration involves _measures_.
+A finitely-additive measure is a _set function_ $\lambda\colon\AA\to\RR$ satisfying
+$\lambda(A\cup B) = \lambda(A) + \lambda(B) - \lambda(A\cap B)$
+and $\lambda(\emptyset) = 0$. Measures don't count things
+twice and the measure of the empty set is 0.
+
+If $S$ is a set and $f\colon S\to\RR$ is a function on $S$ define
+its _norm_ $\|f\| = \sup_{s\in S} |f(s)|$.
+Let $B(S) = \{f\colon S\to\RR\mid \|f\| < \infty\}$ be the
+_normed linear space_ of bounded functions on $S$.
+The _dual_ of $B(S)$, $B(S)^*$, is the set of all
+_bounded linear functionals_ $L\colon B(S)\to\RR$.
+A linear functional is bounded if there exists a constant $M\in\RR$
+with $|Lf| \le M\|f\|$ for all $f\in B(S)$.
+The least such constant is the _norm_ of $L$, $\|L\|$.
+
+Every bounded linear functional gives rise to a finitely-additive
+measure $\lambda$ on $S$ by $\lambda(A) = L1_A$.
+Let $ba(S)$ denote all finitely-additive measures on $S$.  We now show
+how to identify $B(S)^*$ with $ba(S)$.
+
+__Exercise__: _Show $\lambda$ is a measure_.
+
+Every finitely-additive measure gives rise to a linear functional.
+We say $f$ is _simple_ if it is a finite linear combination
+of indicator functions $f = \sum_j a_j 1_{A_j}$.
+Given a measure $\lambda$ define $Lf = \sum_j a_j \lambda(A_j)$.
+
+__Exercise__. _If $\{A_j\}$ are pairwise disjoint show $Lf = 0$
+implies $f = 0$_.
+
+__Exercise__. _Show for any collection $\{B_i\}$ we have $\sum_i b_i 1_{B_i} = \sum_j a_j 1_{A_j}$
+where $\{A_j\}$ are pairwise disjoint_.
+
+_Hint_: Use $1_{E\cup F} = 1_{E\setminus F} + 1_{F\setminus E} - 1_{E\cap F}$
+and induction.
+
+This shows $L$ is _well-defined_ for simple functions.
+
+__Exercise__. _Given any bounded function $g$ and $\epsilon > 0$ there
+exists an simple function $f$ with $\|g - f\| < \epsilon$_.
+
+_Hint_: Let $a_n = f(n\epsilon)$ and $A_n = f^{-1}([n\epsilon, (n + 1)\epsilon))$.
+
+This shows the set of simple functions is _dense_ in $B(S)$.
+We can extend the definition from simple
+functions to all of $B(S)$ since $L$ is bounded
+
+__Exercise__: _If $f\in B(S)$ and $\lim_n f_n = f$
+then $\lim_n Lf_n = Lf$_.
+
+_Hint_ Use $L$ is bounded.
+
+This defines the _integral_ $Lf = \int_S f\,d\lambda$.
+
+We can define a norm on $ba(S)$ by $\|\lambda\| = \sup_{\{A_j\}} |\lambda(A_j)|$
+where the supremum is over all pairwise disjoint subsets of $S$.
+
+__Exercise__. _Show $\|\lambda\| = \|L\|$_.
+
+If $S$ is finite then $B(S)$ can be identified with $\RR^S = \{f\colon S\to\RR\}$
+where $s\mapsto  f(s)$.
+Similarly, $ba(S)$ can be identified with $\RR^S = \{\lambda\colon S\to\RR\}$
+where $\{s\}\mapsto \lambda(\{s\})$.
+This is good news when it comes to computer implementation,
+everything is just a finite vector of numbers.
+-->
+
+### Probability
+
+The Unified Model does not involve probability, however as an
+aid to those schooled in the classical theory we will reconnoiter
+some elementary facts.
+
+A _probability measure_ is a positive measure with mass 1.
+If $P$ is a probability measure on $\Omega$
+then any function $X\colon\Omega\to\RR$ is a _random variable_.
+The _expected value_ of $X$ is $E[X] = \int_\Omega X\,dP$.
+
+The _conditional probability_ of $B$ given $A$ is
+$P(B\mid A) = P(B\cap A)/P(A)$ for $B,A\subseteq\Omega$.
+
+__Exercise__. _Show $B\mapsto P(B\mid A)$ is a probability measure on $A$_.
+
+This can be generalized to the conditional expectation of a random
+variable given an algebra of sets. We say $Y = E[X\mid\AA]$ if
+$Y$ is known given $\AA$ and $\int_A Y\,dP = \int_A X\,dP$ for
+all $A\in\AA$.
+
+If $X$ is a random variable and $P$ is a measure we can define the
+measure $XP$ by $(XP)(A) = \int_A X\,dP$.
+
+__Exercise__. _Show $XP$ is a measure_.
+
+__Exercise__ _Show if $X\ge 0$ and $E[X] = 1$ then $XP$ is a probability measure_.
+
+_Hint_: Show $XP$ is positive and $(XP)(\Omega) = 1$.
+
+__Exercise__. _Show $Y = E[X|\AA]$ if and only if $Y(P|_\AA) = (XP)|_\AA$_.
+
+_Hint_: If $P$ is a measure on $\Omega$ then $P|_\AA$ is the restriction
+of the measure to $\AA$.
+
+__Exercise__. _Show if $A$ is an atom of $\AA$ and $P(A)\not=0$ then $E[X\mid\AA](A) = \int_A X\,dP/P(A)$_.
+
+Conditional expectation is the average over each atom.
+
+</details>
+
 
 ## Market Model
 
@@ -138,7 +296,7 @@ and $\AA_t$ an algebra of sets modeling information available at time $t\in T$.
 Prices and cash flows are bounded $\AA_t$-measurable functions
 ${X_t, C_t\colon\Omega\to\RR^I}$, ${t\in T}$.
 
-We write $X\in B(\AA)$ if $X\colon\AA\to\RR$ is a bounded $\AA$-measurable function.
+We write $X\in B(\AA)$ if $X\colon\Omega\to\RR$ is a bounded $\AA$-measurable function.
 Note if $\AA$ is finite then its atoms are a partition of $\Omega$ and being
 $\AA$-measurable is equivalent to $X$ being constant on atoms.
 In this case $X\colon\AA\to\RR$ is standard mathematical notation
@@ -193,6 +351,5 @@ then there is no arbitrage.
 
 For those paying attention...
 What about bid-ask spread? Use limit orders.
--->
 
 ## References
