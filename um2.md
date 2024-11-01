@@ -13,14 +13,13 @@ abstract: Value, hedge, and manage the risk of any instruments
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
-The classical Black-Scholes/Merton theory of option valuation is
-untenable.  Only a finite number of trades can be executed based on
-information available at the time of the trade.  The notion of continuous
-time trading is a mathematical artifact of Ito processes that leads to
-results practitioners find ridiculous.
+The Black-Scholes/Merton theory of option valuation has a serious flaw:
+it assumes continous time trading is possible.
+Only a finite number of trades can be executed based on
+information available at the time of the trade.
 
-This note proposes a more realistic model based on [@Ros1978]. He extended
-the B-S/M theory to value any collection of instruments.
+[@Ros1978] extended the B-S/M theory to value any collection of instruments
+and identified the condition for models to be arbitrage-free.
 
 > _If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, $L$_.
@@ -33,7 +32,7 @@ measures indexed by trading times. Not only are these not unique,
 as Ross pointed out, the restriction to a finite number of trades
 underscores the main unsolved problem of Mathematical Finance:
 when and how much should you trade given available information?
-It does not propose a solution to this, only a framework for further research.
+This short note does not propose a solution to this, only a framework for further research.
 
 ## Physics
 
@@ -53,13 +52,18 @@ Experiment did not agree with observation.
 > _The untenability of the assumption made earlier provides an indication
   of the direction of the line of thought to be taken_.
 
-Max Planck showed it was possible to fit the observed data by assuming radiation
-could only be emitted in a minimal increment. Planck's main contribution to science
+Max Planck showed it was possible to fit the observed data by assuming photons
+could only be emitted in integer multiples of a minimal value. 
+Planck's main contribution to science
 was not his eponymous constant that fit the data, it was getting his contemporaries
 to focus on understanding why that worked. The result was
 the development of quantum mechanics.
 
-## Finance
+Stock prices also trade in integer multiples of a minimal value.
+This does not necessarialy imply results from quantum mechanics
+can be applied to mathematical finance.
+
+## Mathematical Finance
 
 There is something drastically wrong with the Black-Scholes/Merton
 theory due to their assumption of continuous time trading.
