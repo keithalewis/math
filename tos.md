@@ -10,25 +10,36 @@ abstract: Totally ordered streams.
 
 \newcommand\RR{\bm{R}}
 \newcommand\NN{\bm{N}}
-\newcommand\BB{\bm{bool}}
+\newcommand\BB{\bm{Bool}}
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\given}{\mid}
 \newcommand{\skip}{\operatorname{skip}}
 \newcommand{\first}{\operatorname{first}}
+\newcommand{\def}{\coloneqq}
 
-Let $\langle T,\le\rangle$ be a totally ordered set:
-for all $t,u\in T$ either $t \le u$ or $u\le t$.
+$B^A = \{f\colon A\to B\}$.
 
-If $S$ is a finite subset of a totally ordered set $T$
-define an _iterable_ over $T$ by
-$$
-\begin{aligned}
-	*S &= \min\{s\mid s\in S\} \\
-	+S &\leftarrow S\setminus\{*S\} \\
-	?S &= (S \not= \emptyset) \\
-\end{aligned}
-$$
-where left arrow indicates $S$ is updated with the right hand value.
+$0 = \{\} = \emptyset$, $n = n\cup\{n\}$.
+
+$T^* = \cup_{n\in\NN}T^n$
+
+$T^\# = \sqcup_{n\in\NN}T^n$
+
+A _strict totally ordered set_ is a set $T$ and relation $\lt$ on $T$ that is
+
+i) _transitive_: $a\lt b$ and $b\lt c$ imply $a\lt c$
+
+i) _irreflexive_: $a\lt a$ is false
+
+i) _antisymmetric_: if $a\lt b$ then not $b\lt a$
+
+i) _connected_: if $a\not=b$ then $a\lt b$ or $b\lt a$
+
+$*\colon T^{n+1}\to T$ by $(t_0,\ldots,t_n)\mapsto t_0$
+
+$+\colon T^{n+1}\to T^n$ by $(t_0,\ldots,t_n)\mapsto (t_1,\ldots,t_n)$
+
+$?\colon T^n\to\BB$ by $n\not=0$.
 
 ## Apply
 
