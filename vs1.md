@@ -10,7 +10,7 @@ author: Keith A. Lewis
 If $A$ and $B$ are sets, the _set exponential_ $B^A = \{f\colon A\to B\}$ is the
 set of all functions from $A$ to $B$.
 
-__Exercise__. _Show $\#(A^B) = \#A^{\#B}$ where $\#$ denotes the number of elements a set has_.
+__Exercise__. _Show $|A^B| = |A|^|B|$ where $|.|$ denotes the number of elements a set has_.
 
 ## Vector Space
 
