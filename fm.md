@@ -16,13 +16,20 @@ Stephen Ross[@Ros1978] showed
 > _If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, $L$_.
 
-As shown in [Unified Model](https://keithalewis.github.io/math/um1.html),
+As shown in the [Unified Model](https://keithalewis.github.io/math/um1.html),
 Ross's linear valuation operators correspond to _deflators_: adapted,
-positive, finitely-additive measures indexed by trading time.  A model
-of (vector-valued) prices $(X_t)$ and cash flows $(C_t)$, depending only
-on information available at time $t$, $\AA_t$, is arbitrage free
-if and only if there exists a deflator with
+positive, finitely-additive measures indexed by trading time.
 
+Market instruments have prices and associated cash flows. Stocks have
+dividends, bonds have coupons, futures have daily margin adjustments.
+The price of a futures is always zero.  A _market model_ consist of
+vector-values prices $(X_t)$ and cash flows $(C_t)$ indexed by market
+instruments.  Prices and cash flows depend only on information available
+at time $t$. This is modeled by algebras of sets $\AA_t$
+at each trading time $t$ and requiring prices
+and cash flows to be measurable with respect to the algebras.
+
+A model is arbitrage free if and only if there exist a deflators $(D_t)$ with
 $$
 \tag{1}	X_t D_t = (X_u D_u + \sum_{t < s \le u}C_s D_s)|_{\AA_t}
 $$
