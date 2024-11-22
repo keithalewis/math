@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-11-22" />
+  <meta name="keywords" content="entropy" />
+  <title>Logical Entropy</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Logical Entropy</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">November 22, 2024</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+<p>An improvement over Shannon entropy</p>
+</div>
+</header>
+<!--
+Authors will need to provide no more than 3 ‘key points’ that summarize the key messages of their paper to be published with their article. The key points should be written with a practitioner audience in mind.
+-->
+<p>Shannon entropy is defined for measures, not random variables. It is
+a common mistake to define the entropy of a discrete random variable
+<span class="math inline">X</span>, where the probability <span
+class="math inline">X</span> takes on the value <span
+class="math inline">x_j</span> with probability <span
+class="math inline">p_j</span>, as <span class="math inline">-\sum_j p_j
+\log p_j</span>. Note this definition of entropy does not involve any
+<span class="math inline">x_j</span>.</p>
+<p>It is an even worse mistake to define the entropy of a random
+variable with density <span class="math inline">f</span> as <span
+class="math inline">-\int_\mathbf{R}f(x)\log f(x)\,dx</span>. It is true
+that every random variable <span class="math inline">X</span> with
+cumulative distribution <span class="math inline">F(x) = P(X\le
+x)</span> can be modelled as the identity function on the sample space
+of real numbers with probablility measure <span
+class="math inline">P((-\infty, x]) = \int_{-\infty}^x dF(x)</span>.</p>
+<p>…</p>
+<p>Joint distributions. Negative entropy.</p>
+<p>Logical entropy can incorporate values or random variables…</p>
+<section id="logic" class="level2">
+<h2>Logic</h2>
+<p>Boole and De Morgan layed down the foundation for computer science by
+showing predicate calculus can be reduced to arithmetic.</p>
+<p>Frege introduced the notion of parameterizing a predicate with a
+variable.</p>
+</section>
+<section id="set" class="level2">
+<h2>Set</h2>
+<p>Frege advanced the predicate calculus of logic developed by Boole and
+De Morgan by</p>
+<p>A <em>set</em> is a collection of <em>elements</em> that are
+<em>members</em> of the set.</p>
+<p><span class="math inline">S = \{a,...\}</span>.</p>
+</section>
+<section id="relation" class="level2">
+<h2>Relation</h2>
+<p>A <em>relation</em> <span class="math inline">R</span> on sets <span
+class="math inline">A</span> and <span class="math inline">B</span> is a
+subset of their cartesian product <span class="math inline">R\subseteq
+A\times B</span>. The <em>domain</em> of <span
+class="math inline">R</span> is <span
+class="math inline">\operatorname{dom}R = A</span> and the
+<em>codomain</em> of <span class="math inline">R</span> is <span
+class="math inline">\operatorname{cod}R = B</span>. We write <span
+class="math inline">{R\colon A\leftrightarrow B}</span> and <span
+class="math inline">aRb</span> when <span class="math inline">{(a,b)\in
+R}</span>. The <em>codset</em> <span class="math inline">{aR = \{b\in
+B\mid aRb\}}</span> and the <em>domset</em> <span
+class="math inline">{Rb = \{a\in A\mid aRb\}}</span>. If <span
+class="math inline">S\subseteq B\times C</span> is a relation on sets
+<span class="math inline">B</span> and <span
+class="math inline">C</span>, then the <em>composition</em> <span
+class="math inline">SR\colon A\leftrightarrow C</span> is a relation on
+<span class="math inline">A\times C</span> where <span
+class="math inline">a(SR)c</span> if and only if there is a <span
+class="math inline">b\in B</span> with <span
+class="math inline">aRb</span> and <span class="math inline">bSc</span>.
+This is used to define the <em>join</em> of relational database
+tables.</p>
+</section>
+<section id="function" class="level2">
+<h2>Function</h2>
+<p>A relation <span class="math inline">R\colon A\leftrightarrow
+B</span> is a <em>function</em> if the codset <span
+class="math inline">aR</span> has exactly one element for every <span
+class="math inline">a\in A</span>. To indicate this we write <span
+class="math inline">R\colon A\to B</span> and <span
+class="math inline">b = R(a)</span> where <span
+class="math inline">b</span> is the unique element of <span
+class="math inline">aR</span>. A function is <em>injective</em>, or
+<em>one-to-one</em>, if <span class="math inline">Rb</span> has at most
+one element for all <span class="math inline">b\in B</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
+A\to B</span> is injective and <span class="math inline">g,h\colon C\to
+A</span> are functions where <span class="math inline">fg = fh</span>
+then <span class="math inline">g = h</span></em>.</p>
+<p>A function is <em>surjective</em>, or <em>onto</em>, if <span
+class="math inline">|Rb| &gt; 0</span> for all <span
+class="math inline">b\in B</span>. There is some <span
+class="math inline">a\in A</span> with <span
+class="math inline">aRb</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
+A\to B</span> is surjective and <span class="math inline">g,h\colon B\to
+C</span> are functions where <span class="math inline">gf = hf</span>
+then <span class="math inline">g = h</span></em>.</p>
+<p>A <em>part</em> of a set <span class="math inline">A</span> is an
+injective function <span class="math inline">P\colon I\to A</span>. It
+corresponds to the subset <span class="math inline">P(I) = \{P(i)\mid
+i\in I\}\subseteq A</span>.</p>
+<p>A <em>partition</em> of a set <span class="math inline">A</span> is a
+surjective function <span class="math inline">\Pi\colon A\to I</span>.
+Let <span class="math inline">{A_i = \{a\in A\mid \Pi(a) =
+i\}}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show either <span
+class="math inline">A_i = A_j</span> or <span
+class="math inline">A_i\cap A_j = \emptyset</span> for <span
+class="math inline">i,j\in I</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\cup_{i\in I}A_i = A</span></em>.</p>
+<p>Partitions are a mathematically rigorous way of representing partial
+information. Given a set <span class="math inline">A</span>, full
+information is the partition of singletons <span
+class="math inline">{\{\{a\}\mid a\in A\}}</span>, no information is
+<span class="math inline">\{A\}</span>, partial information is knowing
+only which <span class="math inline">A_i</span> in the partition that
+<span class="math inline">a\in A</span> belongs to.</p>
+</section>
+</body>
+</html>

@@ -5,8 +5,8 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-10-11" />
-  <title>Unified Model for Derivative Instruments</title>
+  <meta name="dcterms.date" content="2024-11-22" />
+  <title>A Basic Unified Model for Derivative Instruments</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -22,19 +22,80 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Unified Model for Derivative Instruments</h1>
+<h1 class="title">A Basic Unified Model for Derivative Instruments</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 11, 2024</p>
+<p class="date">November 22, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of any instruments
 </div>
 </header>
+<p>The Black-Scholes/Merton theory of option valuation has a serious
+flaw: it assumes continous time trading is possible. Only a finite
+number of trades can be executed based on information available at the
+time of the trade.</p>
+<p><span class="citation" data-cites="Ros1978">(Ross 1978)</span>
+extended the B-S/M theory to value any collection of instruments and
+identified the condition for models to be arbitrage-free.</p>
+<blockquote>
+<p><em>If there are no arbitrage opportunities in the capital markets,
+then there exists a (not generally unique) valuation operator, <span
+class="math inline">L</span></em>.</p>
+</blockquote>
+<p>Ross used the Hahn-Banach theorem to show arbitrage is a geometric
+notion that has nothing to do with probability. The proposed model puts
+Ross’ theory on a firm mathematical basis by identifying his valuation
+operator as a <em>deflator</em>: a set of measures indexed by trading
+times. Not only are these not unique, as Ross pointed out, the
+restriction to a finite number of trades underscores the main unsolved
+problem of Mathematical Finance: when and how much should you trade
+given available information? This short note does not propose a solution
+to this, only a framework for further research.</p>
+<section id="physics" class="level2">
+<h2>Physics</h2>
 <p>When observation does not agree with theory in physics, it is time to
 come up with a new theory. Lord Kelvin claimed toward the end of the
 19th century</p>
@@ -43,125 +104,393 @@ come up with a new theory. Lord Kelvin claimed toward the end of the
 remains is more and more precise measurement</em>.</p>
 </blockquote>
 <p>The Rayleigh-Jeans law for black-body electromagnetic radiation fit
-experimental observation for low tempuratures, but was drasticly wrong
-as the tempurature increased. Max Planck showed it was possible to fit
-the data by assuming radiation could only be emitted in a minimal
-increment. His main contibution to science was not the constant that
-fitted the data, it was getting his contemporaries to focus on
-understanding why that worked. The result was the development of quantum
-mechanics.</p>
-<p>There is something drastingly wrong with the Black-Scholes/Merton
-theory: their mathmatical fiction of perfectly liquid continous time
-trading. Only a finite number of trades can be executed.</p>
-<p>The Black-Scholes/Merton theory give</p>
-<p>Merton provided a closed form formula for the price of barrier
-options in ??? using the reflection principal of Brownian motion. There
-is a glaring error in the classical Black-Scholes/Merton theory for
-option pricing.</p>
-<p>is imperfect. Market instruments are not perfectly liquid; there is a
-bid-ask spread involved in transactions that tends to widen as the
-amount traded increases. Stock prices are discrete; they trade in
-integer multiples of their smallest trading unit. The most glaring
-defect is the assumption continuous time trading is possible; every
-hedge executed in the real world involves a finite number of trades.</p>
-<p>One example showing the B-S/M model is untenable is a barrier option
-that knocks in (or out) the second time it hits the barrier. It has
-exactly the same value in their model as a barrier option that knocks in
-the first time. It also has exactly the same value as a barrier option
-that knocks in the millionth time. This is a mathematical artifact of
-the infinite oscillatory behavior of Brownian motion that has no basis
-in financial reality.</p>
-<p>The Unified Model provides a simple and mathematically rigorous model
-that can be applied to <em>all</em> instruments. Instruments have prices
-and cash flows associated with holding them. A trading strategy involves
-only a finite number of trades. Trades result in amounts being debited
-or credited to a trading account and accumulate to a position in each
+experimental observation for low temperatures, but was drastically wrong
+as the temperature increased. Experiment did not agree with
+observation.</p>
+<blockquote>
+<p><em>Für die Richtung des dabeieinzuschlagenden Gedankenganges giebt
+der Hinblick auf dieUnhaltbarkeit der früher gemachten Voraussetzung
+einen Finger-zeig</em>. – Max Planck</p>
+</blockquote>
+<blockquote>
+<p><em>The untenability of the assumption made earlier provides an
+indication of the direction of the line of thought to be taken</em>.</p>
+</blockquote>
+<p>Max Planck showed it was possible to fit the observed data by
+assuming photons could only be emitted in integer multiples of a minimal
+value. Planck’s main contribution to science was not his eponymous
+constant that fit the data, it was getting his contemporaries to focus
+on understanding why that worked. The result was the development of
+quantum mechanics.</p>
+<p>Stock prices also trade in integer multiples of a minimal value. This
+does not necessarialy imply results from quantum mechanics can be
+applied to mathematical finance.</p>
+</section>
+<section id="mathematical-finance" class="level2">
+<h2>Mathematical Finance</h2>
+<p>There is something drastically wrong with the Black-Scholes/Merton
+theory due to their assumption of continuous time trading. Merton
+provided a closed form formula for the value of barrier options in <span
+class="citation" data-cites="Mer1973">(Merton 1973)</span> using the
+reflection principal for Brownian motion. A preposterous mathematical
+artifact of using Ito’s theory is that it implies the value of a barrier
+option does not change if it knocks in (or out) the second, third, or
+even the millionth time it is hit.</p>
+<p>This untenable conclusion can be avoided by accepting the fact that
+every hedging strategy involves only a finite number of trades. There
+are no perfect hedges, something every derivative trader knows after the
+first week on the job. They just want to know what initial hedge to put
+on, and when and how much to adjust the initial hedge over time to
+replicate the derivative contract obligations. Half a century on from
+B-S/M, the mathematical finance community has not been able to come up
+with a mutually agreeable answer to this fundamental problem.</p>
+<p>Another pernicious influence of the B-S/M model that <span
+class="citation" data-cites="Ros1978">(Ross 1978)</span> pointed out was
+arbitrage-free models have nothing to do with probability, they only
+involved geometry. We eliminate the use of the Hahn-Banach theorem and
+show his linear valuation operator corresponds to a collection of
+positive measures indexed by trading time.</p>
+<p>Market instruments are not perfectly liquid; there is a bid-ask
+spread involved in transactions that tends to widen as the amount traded
+increases. Stock prices are discrete; they trade in integer multiples of
+their smallest trading unit. The price of an instrument can also depend
+on the credit worthiness of the counterparties involved in a trade. The
+Basic Unified Model does not address these salient market realities.</p>
+<p>The Basic Unified Model does provide a simple and mathematically
+rigorous model that can be applied to <em>all</em> instruments.
+Instruments have prices and cash flows associated with holding them. A
+trading strategy involves only a finite number of trades based on
+available information. Trades result in amounts being debited or
+credited to a trading account and accumulate to a position in each
 instrument. Nominal prices for instruments can be used to approximate
 the value (mark-to-market) of the position.</p>
-<p>A simple mathematical consequence of defining price, cash flow,
+<p>An elementary mathematical consequence of defining price, cash flow,
 value, and account is that trading strategies create synthetic
 instruments. The value of the strategy corresponds to the price of an
 instrument and the amounts in the trading account correspond to cash
-flows.</p>
-<p>This is the skeleton key to valuing, hedging, and managing the risk
-of derivatives. A derivative is a contract. The buyer pays the seller to
-provide cash flows at times specified in the contract. The Unified Model
-does not solve the difficult problems involved with valuing, hedging,
-and managing the risk faced by seller. It only provides a mathematically
-rigorous notation for investigating this problem.</p>
+flows. This is the skeleton key to valuing, hedging, and managing the
+risk of derivatives. A derivative is a contract. The buyer pays the
+seller to provide cash flows at times specified in the contract. The
+Basic Unified Model does not solve the difficult problems involved with
+valuing, hedging, and managing the risk faced by seller. It only
+provides a mathematically rigorous notation for investigating this
+problem.</p>
+</section>
+<section id="preliminaries" class="level2">
+<h2>Preliminaries</h2>
+<details>
+<summary>
+Details
+</summary>
+<p>Let <span class="math inline">\Omega</span> be a set of possible
+outcomes. <em>Partial information</em> is modeled by a partition of
+<span class="math inline">\Omega</span>. A collection of subsets of
+<span class="math inline">\Omega</span>, <span
+class="math inline">\{A_j\}</span>, is a <em>partition</em> if they are
+pairwise disjoint and their union is <span
+class="math inline">\Omega</span>. Full information is knowing <span
+class="math inline">\omega\in\Omega</span>. Partial information is
+knowing only to which atom <span class="math inline">\omega</span>
+belongs. No information is modeled by the singleton partition <span
+class="math inline">\{\Omega\}</span>.</p>
+<p>An <em>algebras of sets</em> is a collection of sets closed under
+union and complement.</p>
+<p><strong>Exercise</strong>. <em>Show algebras of sets are closed under
+intersection</em>.</p>
+<p><em>Hint</em>: Let <span class="math inline">A&#39; = \Omega\setminus
+A = \{\omega\in\Omega\mid \omega\not\in A\}</span> be the set complement
+of <span class="math inline">A</span> in <span
+class="math inline">\Omega</span>. Use De Morgan’s Law <span
+class="math inline">(A\cap B)&#39; = A&#39;\cup B&#39;</span>.</p>
+<p>We can identify a set <span class="math inline">A</span> with its
+<em>indicator function</em> <span
+class="math inline">1_A\colon\Omega\to\boldsymbol{R}</span> defined by
+<span class="math inline">1_A(\omega) = 1</span> if <span
+class="math inline">\omega\in A</span> and <span
+class="math inline">1_A(\omega) = 0</span> if <span
+class="math inline">\omega\not\in A</span>. Note <span
+class="math inline">1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}</span>, <span
+class="math inline">1_{A&#39;} = 1 - 1_A</span>, and <span
+class="math inline">1_{A\cap B} = 1_A 1_B</span>,</p>
+<p><strong>Exercise</strong>. <em>Prove De Morgan’s Law</em>.</p>
+<p><em>Hint</em>: Start from <span class="math inline">1_{A&#39;\cup
+B&#39;} = 1_{A&#39;} + 1_{B&#39;} - 1_{A&#39;\cap B&#39;}</span>.</p>
+<p>Calculations on algebras of sets is algebra.</p>
+<p>If <span class="math inline">{\mathcal{A}}</span> is a finite algebra
+of sets on <span class="math inline">\Omega</span> then <span
+class="math inline">[\omega] = \cap\{A\in{\mathcal{A}}\mid\omega\in
+A\}</span> is the <em>atom</em> of <span
+class="math inline">{\mathcal{A}}</span> containing <span
+class="math inline">{\omega\in\Omega}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">B\subseteq[\omega]</span> and <span
+class="math inline">B\in{\mathcal{A}}</span> then <span
+class="math inline">B = \emptyset</span> or <span class="math inline">B
+= [\omega]</span></em>.</p>
+<p><strong>Exercise</strong>. <em>The atoms of <span
+class="math inline">{\mathcal{A}}</span>, <span
+class="math inline">[{\mathcal{A}}]</span>, form a partition of <span
+class="math inline">\Omega</span></em>.</p>
+<p>This shows we can identify a finite algebra of sets with its
+atoms.</p>
+<p>A function <span
+class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is <span
+class="math inline">{\mathcal{A}}</span>-<em>measurable</em> for an
+algebra of sets <span class="math inline">{\mathcal{A}}</span> if <span
+class="math inline">\{\omega\in\Omega\mid X(\omega) \le x\}</span>
+belongs to <span class="math inline">{\mathcal{A}}</span> for all <span
+class="math inline">x\in\boldsymbol{R}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">{\mathcal{A}}</span> is finite, show <span
+class="math inline">X</span> is <span
+class="math inline">{\mathcal{A}}</span>-measurable if and if and only
+if it is constant on atoms of <span
+class="math inline">{\mathcal{A}}</span></em>.</p>
+<p>This shows <span
+class="math inline">X\colon[{\mathcal{A}}]\to\boldsymbol{R}</span>
+<em>is</em> a function. We jettison the word ‘measurable’ and say <span
+class="math inline">X</span> is <em>known given</em> <span
+class="math inline">{\mathcal{A}}</span>.</p>
 <!--
+### Integration
 
-## Market Model
+Integration is a _linear functional_: it assigns a function to a number
+where a constant times a function is assigned to the constant
+times the integral and the integral of the sum of two functions
+is the sum of the integrals. Integration involves _measures_.
+A finitely-additive measure is a _set function_ $\lambda\colon\AA\to\RR$ satisfying
+$\lambda(A\cup B) = \lambda(A) + \lambda(B) - \lambda(A\cap B)$
+and $\lambda(\emptyset) = 0$. Measures don't count things
+twice and the measure of the empty set is 0.
 
-Every _instrument_ has a _price_ $X_t$ and a _cash flow_ $C_t$ at any
-trading time $t\in T$.  Instruments are assumed to be perfectly liquid:
-they can be bought or sold at the given price in any amount. Cash flows
-are associated with owning an instrument and are almost always 0; stocks
-have dividends, bonds have coupons, currencies have no cash flows,
-commodities have storage costs.
-European options have exactly one cash flow at expiration.
+If $S$ is a set and $f\colon S\to\RR$ is a function on $S$ define
+its _norm_ $\|f\| = \sup_{s\in S} |f(s)|$.
+Let $B(S) = \{f\colon S\to\RR\mid \|f\| < \infty\}$ be the
+_normed linear space_ of bounded functions on $S$.
+The _dual_ of $B(S)$, $B(S)^*$, is the set of all
+_bounded linear functionals_ $L\colon B(S)\to\RR$.
+A linear functional is bounded if there exists a constant $M\in\RR$
+with $|Lf| \le M\|f\|$ for all $f\in B(S)$.
+The least such constant is the _norm_ of $L$, $\|L\|$.
 
-Let $T$ be a totally ordered set of trading times,
-$I$ the set of all market instruments, $\Omega$ the sample space of possible outcomes,
-and $\AA_t$ an algebra of sets modeling information available at time $t\in T$.
-Prices and cash flows are bounded $\AA_t$-measurable functions
-${X_t, C_t\colon\Omega\to\RR^I}$, ${t\in T}$.
+Every bounded linear functional gives rise to a finitely-additive
+measure $\lambda$ on $S$ by $\lambda(A) = L1_A$.
+Let $ba(S)$ denote all finitely-additive measures on $S$.  We now show
+how to identify $B(S)^*$ with $ba(S)$.
 
-We write $X\in B(\AA)$ if $X\colon\AA\to\RR$ is a bounded $\AA$-measurable function.
-Note if $\AA$ is finite then its atoms are a partition of $\Omega$ and being
-$\AA$-measurable is equivalent to $X$ being constant on atoms.
-In this case $X\colon\AA\to\RR$ is standard mathematical notation
-for a function when $\AA$ is identifed with its atoms.
+__Exercise__: _Show $\lambda$ is a measure_.
 
-## Trade
+Every finitely-additive measure gives rise to a linear functional.
+We say $f$ is _simple_ if it is a finite linear combination
+of indicator functions $f = \sum_j a_j 1_{A_j}$.
+Given a measure $\lambda$ define $Lf = \sum_j a_j \lambda(A_j)$.
 
-Traders buy and sell shares based on information available at each trading time.
-They trade a finite number of times and eventually close out all postions.
+__Exercise__. _If $\{A_j\}$ are pairwise disjoint show $Lf = 0$
+implies $f = 0$_.
 
-A _trading strategy_ is a finite collection of strictly increasing
-stopping times $(τ_j)$ and trades $(\Gamma_j)$ where
-$\Gamma_j:\AA_{τ_j}\to \RR^{I}$ indicating the number of shares to trade
-in each instrument at time $τ_j$. If $\tau$ is a stopping time then
-$\AA_\tau = \{A\in\AA_t\mid  t\in T, t\le\tau\}$. 
+__Exercise__. _Show for any collection $\{B_i\}$ we have $\sum_i b_i 1_{B_i} = \sum_j a_j 1_{A_j}$
+where $\{A_j\}$ are pairwise disjoint_.
 
-Trades accumulate to a _position_
-$\Delta_t = \sum_{τ_j < t}\Gamma_j = \sum_{s < t}\Gamma_s$ where
-$\Gamma_s(\omega) = \Gamma_j(\omega)$ when $s = τ_j(\omega)$, $\omega\in\Omega$. 
-A trade at time $t$ is not included in the position at time $t$;
-it takes some time for trades to settle.
+_Hint_: Use $1_{E\cup F} = 1_{E\setminus F} + 1_{F\setminus E} - 1_{E\cap F}$
+and induction.
 
-## Value
+This shows $L$ is _well-defined_ for simple functions.
 
-XXX
+__Exercise__. _Given any bounded function $g$ and $\epsilon > 0$ there
+exists an simple function $f$ with $\|g - f\| < \epsilon$_.
 
-The _value_, or mark-to-market is $V_t = (\Delta_t + \Gamma_t)\cdot X_t$.
-It is the amount that would result from closing out the entire position
-at current market prices, assuming that is possible.
-The trading _account_ is $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$;
-cash flows propostional to existing positions are credited and the
-cost of the trade at time $t$ is debited.
+_Hint_: Let $a_n = f(n\epsilon)$ and $A_n = f^{-1}([n\epsilon, (n + 1)\epsilon))$.
 
-## Arbitrage
+This shows the set of simple functions is _dense_ in $B(S)$.
+We can extend the definition from simple
+functions to all of $B(S)$ since $L$ is bounded
 
-_Arbitrage_ exists if there is a trading stragegy $(\Gamma_t)_{t\in T}$
-with $A_0 < 0$, $A_t \ge 0$, $t > 0$, and $\sum_{t} \Gamma_t = 0$.
+__Exercise__: _If $f\in B(S)$ and $\lim_n f_n = f$
+then $\lim_n Lf_n = Lf$_.
 
-__Theorem__. (_Funamental Theorem of Asset Pricing_) There is no arbitrage if and only
-if there exist positive measures $(D_t)_{t\in T}$ on $\Omega$ with
-$$
-    X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}
-$$
+_Hint_ Use $L$ is bounded.
 
-__Lemma__. For any arbitrage free model and any trading strategy
-$$
-    V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}
-$$
+This defines the _integral_ $Lf = \int_S f\,d\lambda$.
 
-__Lemma__. If $X_t D_t = M_t - \sum_{s\le t} C_s D_s$ where $M_t = M_u|_{\AA_t}$, $t \le u$
-then there is no arbitrage.
+We can define a norm on $ba(S)$ by $\|\lambda\| = \sup_{\{A_j\}} |\lambda(A_j)|$
+where the supremum is over all pairwise disjoint subsets of $S$.
 
-For those paying attention...
-What about bid-ask spread? Use limit orders.
+__Exercise__. _Show $\|\lambda\| = \|L\|$_.
+
+If $S$ is finite then $B(S)$ can be identified with $\RR^S = \{f\colon S\to\RR\}$
+where $s\mapsto  f(s)$.
+Similarly, $ba(S)$ can be identified with $\RR^S = \{\lambda\colon S\to\RR\}$
+where $\{s\}\mapsto \lambda(\{s\})$.
+This is good news when it comes to computer implementation,
+everything is just a finite vector of numbers.
 -->
+<section id="probability" class="level3">
+<h3>Probability</h3>
+<p>The Unified Model does not involve probability, however as an aid to
+those schooled in the classical theory we will reconnoiter some
+elementary facts.</p>
+<p>A <em>probability measure</em> is a positive measure with mass 1. If
+<span class="math inline">P</span> is a probability measure on <span
+class="math inline">\Omega</span> then any function <span
+class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is a
+<em>random variable</em>. The <em>expected value</em> of <span
+class="math inline">X</span> is <span class="math inline">E[X] =
+\int_\Omega X\,dP</span>.</p>
+<p>The <em>conditional probability</em> of <span
+class="math inline">B</span> given <span class="math inline">A</span> is
+<span class="math inline">P(B\mid A) = P(B\cap A)/P(A)</span> for <span
+class="math inline">B,A\subseteq\Omega</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">B\mapsto P(B\mid A)</span> is a probability measure
+on <span class="math inline">A</span></em>.</p>
+<p>This can be generalized to the conditional expectation of a random
+variable given an algebra of sets. We say <span class="math inline">Y =
+E[X\mid{\mathcal{A}}]</span> if <span class="math inline">Y</span> is
+known given <span class="math inline">{\mathcal{A}}</span> and <span
+class="math inline">\int_A Y\,dP = \int_A X\,dP</span> for all <span
+class="math inline">A\in{\mathcal{A}}</span>.</p>
+<p>If <span class="math inline">X</span> is a random variable and <span
+class="math inline">P</span> is a measure we can define the measure
+<span class="math inline">XP</span> by <span class="math inline">(XP)(A)
+= \int_A X\,dP</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">XP</span> is a measure</em>.</p>
+<p><strong>Exercise</strong> <em>Show if <span class="math inline">X\ge
+0</span> and <span class="math inline">E[X] = 1</span> then <span
+class="math inline">XP</span> is a probability measure</em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">XP</span> is positive
+and <span class="math inline">(XP)(\Omega) = 1</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">Y =
+E[X|{\mathcal{A}}]</span> if and only if <span
+class="math inline">Y(P|_{\mathcal{A}}) =
+(XP)|_{\mathcal{A}}</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">P</span> is a measure on
+<span class="math inline">\Omega</span> then <span
+class="math inline">P|_{\mathcal{A}}</span> is the restriction of the
+measure to <span class="math inline">{\mathcal{A}}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">A</span> is an atom of <span
+class="math inline">{\mathcal{A}}</span> and <span
+class="math inline">P(A)\not=0</span> then <span
+class="math inline">E[X\mid{\mathcal{A}}](A) = \int_A
+X\,dP/P(A)</span></em>.</p>
+<p>Conditional expectation is the average over each atom.</p>
+</details>
+</section>
+</section>
+<section id="market-model" class="level2">
+<h2>Market Model</h2>
+<p>Every <em>instrument</em> has a <em>price</em> <span
+class="math inline">X_t</span> and a <em>cash flow</em> <span
+class="math inline">C_t</span> at any trading time <span
+class="math inline">t\in T</span>. Instruments are assumed to be
+perfectly liquid: they can be bought or sold at the given price in any
+amount. Cash flows are associated with owning an instrument and are
+almost always 0; stocks have dividends, bonds have coupons, currencies
+have no cash flows, commodities have storage costs. European options
+have exactly one cash flow at expiration.</p>
+<p>Let <span class="math inline">T</span> be a totally ordered set of
+trading times, <span class="math inline">I</span> the set of all market
+instruments, <span class="math inline">\Omega</span> the sample space of
+possible outcomes, and <span class="math inline">{\mathcal{A}}_t</span>
+an algebra of sets modeling information available at time <span
+class="math inline">t\in T</span>. Prices and cash flows are bounded
+<span class="math inline">{\mathcal{A}}_t</span>-measurable functions
+<span class="math inline">{X_t,
+C_t\colon\Omega\to\boldsymbol{R}^I}</span>, <span
+class="math inline">{t\in T}</span>.</p>
+<p>We write <span class="math inline">X\in B({\mathcal{A}})</span> if
+<span class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is a
+bounded <span class="math inline">{\mathcal{A}}</span>-measurable
+function. Note if <span class="math inline">{\mathcal{A}}</span> is
+finite then its atoms are a partition of <span
+class="math inline">\Omega</span> and being <span
+class="math inline">{\mathcal{A}}</span>-measurable is equivalent to
+<span class="math inline">X</span> being constant on atoms. In this case
+<span class="math inline">X\colon{\mathcal{A}}\to\boldsymbol{R}</span>
+is standard mathematical notation for a function when <span
+class="math inline">{\mathcal{A}}</span> is identifed with its
+atoms.</p>
+</section>
+<section id="trade" class="level2">
+<h2>Trade</h2>
+<p>Traders buy and sell shares based on information available at each
+trading time. They trade a finite number of times and eventually close
+out all postions.</p>
+<p>A <em>trading strategy</em> is a finite collection of strictly
+increasing stopping times <span class="math inline">(τ_j)</span> and
+trades <span class="math inline">(\Gamma_j)</span> where <span
+class="math inline">\Gamma_j:{\mathcal{A}}_{τ_j}\to
+\boldsymbol{R}^{I}</span> indicating the number of shares to trade in
+each instrument at time <span class="math inline">τ_j</span>. If <span
+class="math inline">\tau</span> is a stopping time then <span
+class="math inline">{\mathcal{A}}_\tau = \{A\in{\mathcal{A}}_t\mid  t\in
+T, t\le\tau\}</span>.</p>
+<p>Trades accumulate to a <em>position</em> <span
+class="math inline">\Delta_t = \sum_{τ_j &lt; t}\Gamma_j = \sum_{s &lt;
+t}\Gamma_s</span> where <span class="math inline">\Gamma_s(\omega) =
+\Gamma_j(\omega)</span> when <span class="math inline">s =
+τ_j(\omega)</span>, <span class="math inline">\omega\in\Omega</span>. A
+trade at time <span class="math inline">t</span> is not included in the
+position at time <span class="math inline">t</span>; it takes some time
+for trades to settle.</p>
+</section>
+<section id="value" class="level2">
+<h2>Value</h2>
+<p>XXX</p>
+<p>The <em>value</em>, or mark-to-market is <span
+class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>. It is
+the amount that would result from closing out the entire position at
+current market prices, assuming that is possible. The trading
+<em>account</em> is <span class="math inline">A_t = \Delta_t\cdot C_t -
+\Gamma_t\cdot X_t</span>; cash flows propostional to existing positions
+are credited and the cost of the trade at time <span
+class="math inline">t</span> is debited.</p>
+</section>
+<section id="arbitrage" class="level2">
+<h2>Arbitrage</h2>
+<p><em>Arbitrage</em> exists if there is a trading stragegy <span
+class="math inline">(\Gamma_t)_{t\in T}</span> with <span
+class="math inline">A_0 &lt; 0</span>, <span class="math inline">A_t \ge
+0</span>, <span class="math inline">t &gt; 0</span>, and <span
+class="math inline">\sum_{t} \Gamma_t = 0</span>.</p>
+<p><strong>Theorem</strong>. (<em>Funamental Theorem of Asset
+Pricing</em>) There is no arbitrage if and only if there exist positive
+measures <span class="math inline">(D_t)_{t\in T}</span> on <span
+class="math inline">\Omega</span> with <span class="math display">
+    X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
+D_s)|_{{\mathcal{A}}_t}
+</span></p>
+<p><strong>Lemma</strong>. For any arbitrage free model and any trading
+strategy <span class="math display">
+    V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
+D_s)|_{{\mathcal{A}}_t}
+</span></p>
+<p><strong>Lemma</strong>. If <span class="math inline">X_t D_t = M_t -
+\sum_{s\le t} C_s D_s</span> where <span class="math inline">M_t =
+M_u|_{{\mathcal{A}}_t}</span>, <span class="math inline">t \le u</span>
+then there is no arbitrage.</p>
+<p>For those paying attention… What about bid-ask spread? Use limit
+orders.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-Mer1973" class="csl-entry" role="listitem">
+Merton, Robert C. 1973. <span>“Theory of Rational Option
+Pricing.”</span> <em>Bell Journal of Economics and Management
+Science</em> 4 (1): 141–83. <a
+href="https://www.jstor.org/stable/3003143">https://www.jstor.org/stable/3003143</a>.
+</div>
+<div id="ref-Ros1978" class="csl-entry" role="listitem">
+Ross, Stephen A. 1978. <span>“A <span>Simple</span>
+<span>Approach</span> to the <span>Valuation</span> of
+<span>Risky</span> <span>Streams</span>.”</span> <em>The Journal of
+Business</em> 51 (3): 453–75. <a
+href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277</a>.
+</div>
+</div>
+</section>
 </body>
 </html>

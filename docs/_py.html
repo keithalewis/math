@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-10-28" />
+  <title>Unwind Value</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Unwind Value</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">October 28, 2024</p>
+</header>
+<p>Let <span class="math inline">S_t = S_0\exp(\mu t + \sigma B_t -
+\sigma^2t/2)</span> be geometric Brownian motion and <span
+class="math inline">\overline{S}_t = \max_{0\le u\le t} S_u</span> be
+its running maximum.</p>
+<p>Let <span class="math inline">t_0,\ldots,t_n</span> be permitted
+<em>unwind</em> times, <span class="math inline">T</span> a
+<em>horizon</em> time, and <span class="math inline">L</span> a
+draw-down limit. Define the unwind (stopping) time <span
+class="math inline">\tau = \min\{t_j\mid \overline{S}_{t_j} - S_{t_j}
+&gt; L\}</span> and <span class="math inline">\tau\wedge T = \min\{\tau,
+T\}</span>.</p>
+<p>Calculate <span class="math inline">P(\tau &lt; T)</span> (unwind
+before horizon), <span class="math inline">E[e^{-r(\tau\wedge
+T)}(\tau\wedge T)]</span> (expected discounted time to unwind or
+horizon) where <span class="math inline">r</span> is the risk-free
+rate.</p>
+<p>Input variables: <span class="math inline">S_0</span>, <span
+class="math inline">r</span>, <span class="math inline">\sigma</span>,
+<span class="math inline">(t_j)</span>, <span
+class="math inline">T</span>, <span class="math inline">L</span>, <span
+class="math inline">IR</span> (information ratio)</p>
+<p>Dependent variables: <span class="math inline">\mu = IR
+\sigma</span>.</p>
+<p>Typically the <span class="math inline">t_j</span> are end of month
+dates and <span class="math inline">T</span> is 1 or 2 years.</p>
+<p>Create a table for <span class="math inline">IR\in\{0.5, 1,
+1.5\}</span> and <span class="math inline">L = \{5, 7.5, 10\}</span>
+with <span class="math inline">S_0 = 100</span>, <span
+class="math inline">\sigma = 5\%</span>, <span class="math inline">r =
+4.5\%</span>.</p>
+</body>
+</html>

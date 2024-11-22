@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-04" />
+  <meta name="dcterms.date" content="2024-11-22" />
   <title>Totally Ordered Streams</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,27 +47,39 @@
 <header id="title-block-header">
 <h1 class="title">Totally Ordered Streams</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 4, 2024</p>
+<p class="date">November 22, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Totally ordered streams.
 </div>
 </header>
-<p>Let <span class="math inline">\langle T,\le\rangle</span> be a
-totally ordered set: for all <span class="math inline">t,u\in T</span>
-either <span class="math inline">t \le u</span> or <span
-class="math inline">u\le t</span>.</p>
-<p>If <span class="math inline">S</span> is a finite subset of a totally
-ordered set <span class="math inline">T</span> define an
-<em>iterable</em> over <span class="math inline">T</span> by <span
-class="math display">
-\begin{aligned}
-    *S &amp;= \min\{s\mid s\in S\} \\
-    +S &amp;\leftarrow S\setminus\{*S\} \\
-    ?S &amp;= (S \not= \emptyset) \\
-\end{aligned}
-</span> where left arrow indicates <span class="math inline">S</span> is
-updated with the right hand value.</p>
+<p><span class="math inline">B^A = \{f\colon A\to B\}</span>.</p>
+<p><span class="math inline">0 = \{\} = \emptyset</span>, <span
+class="math inline">n = n\cup\{n\}</span>.</p>
+<p><span class="math inline">T^* = \cup_{n\in\bm{N}}T^n</span></p>
+<p><span class="math inline">T^\# = \sqcup_{n\in\bm{N}}T^n</span></p>
+<p>A <em>strict totally ordered set</em> is a set <span
+class="math inline">T</span> and relation <span
+class="math inline">\lt</span> on <span class="math inline">T</span>
+that is</p>
+<ol type="i">
+<li><p><em>transitive</em>: <span class="math inline">a\lt b</span> and
+<span class="math inline">b\lt c</span> imply <span
+class="math inline">a\lt c</span></p></li>
+<li><p><em>irreflexive</em>: <span class="math inline">a\lt a</span> is
+false</p></li>
+<li><p><em>antisymmetric</em>: if <span class="math inline">a\lt
+b</span> then not <span class="math inline">b\lt a</span></p></li>
+<li><p><em>connected</em>: if <span class="math inline">a\not=b</span>
+then <span class="math inline">a\lt b</span> or <span
+class="math inline">b\lt a</span></p></li>
+</ol>
+<p><span class="math inline">*\colon T^{n+1}\to T</span> by <span
+class="math inline">(t_0,\ldots,t_n)\mapsto t_0</span></p>
+<p><span class="math inline">+\colon T^{n+1}\to T^n</span> by <span
+class="math inline">(t_0,\ldots,t_n)\mapsto (t_1,\ldots,t_n)</span></p>
+<p><span class="math inline">?\colon T^n\to\bm{Bool}</span> by <span
+class="math inline">n\not=0</span>.</p>
 <section id="apply" class="level2">
 <h2>Apply</h2>
 <p>If <span class="math inline">f\colon T\to U</span> define <span
@@ -83,7 +95,7 @@ class="math inline">U</span> by <span class="math display">
 <section id="filter" class="level2">
 <h2>Filter</h2>
 <p>Given a predicate <span class="math inline">P\colon
-S\to\bm{bool}</span> define <span class="math inline">S\mid P</span> by
+S\to\bm{Bool}</span> define <span class="math inline">S\mid P</span> by
 <span class="math display">
 \begin{aligned}
     *(S\mid P) &amp;= P(*S) \text{ if } ?S \text{ else } *(+(S\mid P))

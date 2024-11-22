@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-11-22" />
+  <title>Financial Modeling</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Financial Modeling</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">November 22, 2024</p>
+</header>
+<p>In “A Simple Approach to the Valuation of Risky Streams” Stephen
+Ross<span class="citation" data-cites="Ros1978">(Ross 1978)</span>
+showed</p>
+<blockquote>
+<p><em>If there are no arbitrage opportunities in the capital markets,
+then there exists a (not generally unique) valuation operator, <span
+class="math inline">L</span></em>.</p>
+</blockquote>
+<p>As shown in <a
+href="https://keithalewis.github.io/math/um1.html">Unified Model</a>,
+Ross’s linear valuation operators correspond to <em>deflators</em>:
+adapted, positive, finitely-additive measures indexed by trading time. A
+model of (vector-valued) prices <span class="math inline">(X_t)</span>
+and cash flows <span class="math inline">(C_t)</span>, depending only on
+information available at time <span class="math inline">t</span>, <span
+class="math inline">\mathcal{A}_t</span>, is arbitrage free if and only
+if there exists a deflator with</p>
+<p><span class="math display">
+\tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u}C_s
+D_s)|_{\mathcal{A}_t}
+</span> where <span class="math inline">|</span> indicates restriction
+of measure. Recall a function times a measure is a measure and the
+conditional expectation <span class="math inline">{Y =
+E[X|\mathcal{A}]}</span> if and only if <span
+class="math inline">Y(P|_{\mathcal{A}}) = (XP)|_{\mathcal{A}}</span>,
+where <span class="math inline">P</span> is a probability measure.</p>
+<p>If <span class="math inline">(M_t)</span> is s vector-valued
+martingale measure then <span class="math display">
+    X_t D_t = M_t - \sum_{s\le t}C_s D_s
+</span> is an arbitrage-free model of prices and cash flows. For
+example, the Black-Scholes/Merton model with no dividends corresponds to
+<span class="math inline">X_t =
+(r\exp(\rho t), s\exp(\rho t + \sigma B_t - \sigma^2 t/2))</span>, <span
+class="math inline">C_t =
+(0, 0)</span> and <span class="math inline">{D_t = \exp(-\rho
+t)P|_{\mathcal{A}_t}}</span> where <span
+class="math inline">(B_t)</span> is Brownian motion, <span
+class="math inline">P</span> is Wiener measure, and <span
+class="math inline">{\mathcal{A}_t}</span> is the standard
+filtration.</p>
+<p>A <em>trading strategy</em> is a finite sequence <span
+class="math inline">(\tau_j)</span> of increasing stopping times and
+vector-valued <span class="math inline">(\Gamma_j)</span>, depending on
+information available at time <span class="math inline">\tau_j</span>,
+indicating the number of shares purchased at time <span
+class="math inline">\tau_j</span>. Let <span
+class="math inline">\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j = \sum_{s
+&lt; t} \Gamma_s</span> be the (settled) position at time <span
+class="math inline">t</span>, where <span class="math inline">\Gamma_s =
+\Gamma_j</span> if <span class="math inline">s = \tau_j</span> and is
+zero otherwise.</p>
+<p>The <em>amounts</em> <span class="math inline">A_t = \Delta_t\cdot
+C_t - \Gamma_t\cdot X_t</span> show up in the brokerage account during
+trading: you receive cash flows proportional to existing positions and
+pay for trades just executed at the prevailing market prices. The
+mark-to-market of the trading strategy at time <span
+class="math inline">t</span> is <span class="math inline">V_t =
+(\Delta_t + \Gamma_t)\cdot X_t</span>. It the the <em>value</em> of
+unwinding existing positions and the last trades at prevailing market
+prices. A simple consequence of these definitions is <span
+class="math display">
+\tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u}A_s
+D_s)|_{\mathcal{A}_t}
+</span> Note how value <span class="math inline">V_t</span> in (2)
+corresponds to prices <span class="math inline">X_t</span> in (1),
+likewise amount <span class="math inline">A_t</span> to cash flows <span
+class="math inline">C_t</span>.</p>
+<p><strong>Trading strategies create synthetic market
+instruments</strong>.</p>
+<p>A <em>derivative</em> is a synthetic market instrument. Its contract
+specifies a finite sequence of increasing stopping times <span
+class="math inline">\overline{\tau}_j</span> and amounts <span
+class="math inline">\overline{A}_j</span> paid at these times. A
+European option has a single constant stopping time <span
+class="math inline">\bar{\tau}</span> with payoff <span
+class="math inline">{\overline{A} = \phi(X_{\overline{\tau}})}</span>
+for some function <span class="math inline">\phi</span>.</p>
+<p>Suppose we could find a a trading strategy <span
+class="math inline">(\tau_j)</span>, <span
+class="math inline">(\Gamma_j)</span> with <span
+class="math inline">\sum_j \Gamma_j = 0</span>, <span
+class="math inline">A_t = \overline{A}_j</span> when <span
+class="math inline">t = \overline{\tau}_j</span> and is zero
+(self-financing) otherwise. The condition <span
+class="math inline">{\sum_j \Gamma_j = 0}</span> requires the hedge to
+be eventually closed. This is a perfect hedge and the value of the
+derivative at time <span class="math inline">t</span> would be
+determined by equation (2): <span class="math inline">{V_t D_t =
+(\sum_{\overline{\tau}_j &gt; t} \overline{A}_j
+D_{\overline{\tau}_j})|_{\mathcal{A}_t}}</span>.</p>
+<p>Perfect hedges do not exist in practice. A fundamental (unsolved)
+problem in mathematical finance is how to hedge a derivative when a
+perfect hedge does not exist. A first attempt at a solution is to assume
+a perfect hedge exists. The initial hedge at <span
+class="math inline">\tau_0 = 0</span> can be computed from <span
+class="math inline">V_0 = \Gamma_0\cdot X_0</span> and <span
+class="math inline">{V_0 D_0 = (\sum_{\overline{\tau}_j &gt; t}
+\overline{A}_j D_{\overline{\tau}_j})|_{\mathcal{A}_0}}</span>. <span
+class="math display">
+    \Gamma_0 D_0 = D_{X_0}(\sum_{\overline{\tau}_j &gt; 0}
+\overline{A}_j D_{\overline{\tau}_j})|_{\mathcal{A}_0},
+</span> where <span class="math inline">D_{X_0}</span> is the Fréchet
+derivative. For <span class="math inline">\tau_1 = t &gt; 0</span> we
+have <span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot
+X_t</span> so <span class="math display">
+    (\Delta_t + \Gamma_t) D_t = D_{X_t}(\sum_{\overline{\tau}_j &gt; t}
+\overline{A}_j D_{\overline{\tau}_j})|_{\mathcal{A}_0}.
+</span> For <span class="math inline">t &gt; 0</span> sufficiently small
+we have <span class="math inline">\Delta_t = \Gamma_0</span> so we can
+solve for <span class="math inline">\Gamma_t</span>. This procedure does
+not specify what value <span class="math inline">\tau_1 = t</span> to
+choose.</p>
+<p>The classical Black-Scholes/Merton theory gives the ludicrous answer
+that you should trade “continuously”. The Unified Model does not provide
+an answer, it only puts your nose directly in the problem mathematical
+finance has heretofore completely failed to answer: given an existing
+hedge, when and how much do you rehedge?</p>
+<section id="deflators" class="level2">
+<h2>Deflators</h2>
+<p>If repurchase agreements exists then there is a canonical choice for
+the deflators. A repurchase agreement with rate <span
+class="math inline">f_t</span>, known at time <span
+class="math inline">t</span>, has price 1 at time <span
+class="math inline">t</span> and pays <span
+class="math inline">\exp(f_t\,dt)</span> at time <span
+class="math inline">t + dt</span>. For any deflator <span
+class="math inline">(D_t)</span> equation (1) gives <span
+class="math inline">{1 D_t = (\exp(f_t\,dt)D_{t + dt})|_{\mathcal{A}_t}
+= \exp(f_t\,dt)D_{t + dt}|_{\mathcal{A}_t}}</span>. For a deflator with
+<span class="math inline">D_{t + dt}</span> known at time <span
+class="math inline">t</span> we have <span class="math inline">{D_t =
+\exp(f_t\,dt)D_{t + dt}}</span>. The <em>canonical deflator</em> is
+<span class="math inline">{D_t = \exp(-\int_0^t f_s\,ds)D_0}</span>.</p>
+<p>The repurchase rates <span class="math inline">(f_t)</span> are
+called the <em>(continuously compounded) short rate process</em>.
+<em>Every</em> interest rate model is just a specific parameterization
+of this. The deflators determine the prices of zero coupon bonds. If
+<span class="math inline">D_t(u)</span> is the price of a zero coupon
+bond paying 1 unit at time <span class="math inline">u</span> then
+equation (1) implies <span class="math inline">{D_t(u) D_t =
+D_u|_{\mathcal{A}_t}}</span> so the price is the Radon-Nikodym
+derivative.</p>
+<p>The price of zero coupon bonds determine the value of all risk-free
+fixed income instruments.</p>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-Ros1978" class="csl-entry" role="listitem">
+Ross, Stephen A. 1978. <span>“A <span>Simple</span>
+<span>Approach</span> to the <span>Valuation</span> of
+<span>Risky</span> <span>Streams</span>.”</span> <em>The Journal of
+Business</em> 51 (3): 453–75. <a
+href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277</a>.
+</div>
+</div>
+</section>
+</body>
+</html>

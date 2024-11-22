@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-10-10" />
+  <meta name="dcterms.date" content="2024-11-22" />
   <title>Hitting Times</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Hitting Times</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 10, 2024</p>
+<p class="date">November 22, 2024</p>
 </header>
 <p>If <span class="math inline">B_t</span> is Brownian motion let <span
 class="math inline">\overline{B}_t = \max_{0\le s\le t}B_s</span> be the
@@ -135,6 +135,10 @@ t)
 <p>If <span class="math inline">f(x) = 1</span> then <span
 class="math inline">g(x) = 1</span> and <span class="math inline">h(x) =
 \exp((\mu/\sigma) x - (\mu/\sigma)^2t/2)</span>.</p>
+<p>If <span class="math inline">f(x) = 1(x &lt; b)</span> then <span
+class="math inline">g(x) = 1(\mu t + \sigma x &lt; b)</span> and <span
+class="math inline">{h(x) = \exp((\mu/\sigma) x - (\mu/\sigma)^2t/2)
+1(\mu t + \sigma (x - (\mu/\sigma) t) &lt; b)}</span></p>
 <p><span class="math display">
 P(\underline{X}_t &lt; a) = E[\bigl(\exp((\mu/\sigma) B_t -
 (\mu/\sigma)^2t/2)
@@ -158,19 +162,25 @@ E[\min\{\tau_a,T\}] = \int_0^T P(B_t &lt; a/\sigma - (\mu/\sigma)t)
 <p>Let <span class="math inline">Z</span> be standard normal.</p>
 <p><span class="math inline">\int_0^T P(Z &lt; a/\sqrt{t} +
 b\sqrt{t})\,dt</span></p>
-<p><span class="math inline">u = P(Z &lt; a\sqrt{t} + b\sqrt{t}) =
-\Phi(a + bt)</span>, <span class="math inline">dv = dt</span>; <span
-class="math inline">du = \phi(a + bt)b\,dt</span>, <span
-class="math inline">v = t</span>.</p>
-<p><span class="math inline">s = a + bt</span>, <span
-class="math inline">t = (s - a)/b</span></p>
+<p>No closed form solution.</p>
 <p><span class="math display">
 \begin{aligned}
-\int_0^T t \phi(a + bt)b\,dt &amp;= \int_a^{a + bT} (s - a)/b
-\phi(s)b\,ds/b \\
-&amp;= \int_a^{a + bT} (s - a) \phi(s)\,ds/b \\
-&amp;= ((-\exp(s^2/2) - a \Phi(s))/b|_a^{a + bT} \\
+P(B_t &lt; a, \underline{B_t} &lt; \underline{a}) &amp;= E[1(B_t &lt; a)
+1(\underline{B_t} &lt; \underline{a})] \\
+    &amp;= E[(1(B_t &lt; a) + 1(2\underline{a} - B_t  &lt; a) 1(B_t &lt;
+\underline{a})] \\
+    &amp;= E[(1(B_t &lt; a) 1(B_t &lt; \underline{a})] +
+E[1(2\underline{a} - B_t  &lt; a) 1(B_t &lt; \underline{a})] \\
+    &amp;= P(B_t &lt; \min\{a, \underline{a}\}) + P(B_t &gt;
+2\underline{a} - a, B_t &lt; \underline{a}) \\
+    &amp;= P(B_t &lt; \min\{a, \underline{a}\}) + P(2\underline{a} - a
+&lt; B_t &lt; \underline{a}) \\
 \end{aligned}
 </span></p>
+<p><span class="math inline">P(S_t - \underline{S}_t &gt; a)</span>,
+<span class="math inline">S_t = s\exp(\mu t + \sigma B_t - \sigma^2
+t/2)</span>.</p>
+<p><span class="math inline">P(X_t - \underline{X}_t &gt; a)</span>,
+<span class="math inline">X_t = x + \mu t + \sigma B_t</span>.</p>
 </body>
 </html>

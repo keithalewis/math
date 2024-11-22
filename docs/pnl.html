@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-04" />
+  <meta name="dcterms.date" content="2024-11-22" />
   <title>Profit and Loss</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Profit and Loss</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 4, 2024</p>
+<p class="date">November 22, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 P&amp;L is stochastic integration.
@@ -122,10 +122,21 @@ integral <span class="math display">
 </span></p>
 <p>It is possible to incorporate transaction costs by replacing <span
 class="math inline">\Gamma_j</span> with, e.g., <span
-class="math inline">(1 +
+class="math inline">\epsilon\mathop{\rm{sgn}}(\Gamma_j)) +
+\Gamma_j</span> or <span class="math inline">(1 +
 \epsilon\mathop{\rm{sgn}}(\Gamma_j))\Gamma_j</span> where <span
-class="math inline">\epsilon</span> is the proportional transaction cost
-and <span class="math inline">\mathop{\rm{sgn}}(x)</span> is the sign of
-<span class="math inline">x</span>.</p>
+class="math inline">\epsilon</span> is the absolute or proportional
+transaction cost respectively and <span
+class="math inline">\mathop{\rm{sgn}}(x)</span> is the sign of <span
+class="math inline">x</span>.</p>
+<!--
+
+$\Delta (X_j Y_j)
+= X_{j+1}Y_{j+1} - X_j Y_j
+= X_{j+1}Y_{j+1} - X_{j+1} Y_j + X_{j+1} Y_j - X_j Y_j
+= X_{j+1}(Y_{j+1} - Y_j) + (X_{j+1} - X_j) Y_j$
+
+$X_n Y_n - X_0 Y_0 = \sum_0^{n-1} X_{j+1}\Delta Y_j + \Delta X_j Y_j$
+ -->
 </body>
 </html>
