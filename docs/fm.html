@@ -77,16 +77,23 @@ showed</p>
 then there exists a (not generally unique) valuation operator, <span
 class="math inline">L</span></em>.</p>
 </blockquote>
-<p>As shown in <a
+<p>As shown in the <a
 href="https://keithalewis.github.io/math/um1.html">Unified Model</a>,
 Ross’s linear valuation operators correspond to <em>deflators</em>:
-adapted, positive, finitely-additive measures indexed by trading time. A
-model of (vector-valued) prices <span class="math inline">(X_t)</span>
-and cash flows <span class="math inline">(C_t)</span>, depending only on
-information available at time <span class="math inline">t</span>, <span
-class="math inline">\mathcal{A}_t</span>, is arbitrage free if and only
-if there exists a deflator with</p>
-<p><span class="math display">
+adapted, positive, finitely-additive measures indexed by trading
+time.</p>
+<p>Market instruments have prices and associated cash flows. Stocks have
+dividends, bonds have coupons, futures have daily margin adjustments.
+The price of a futures is always zero. A <em>market model</em> consist
+of vector-values prices <span class="math inline">(X_t)</span> and cash
+flows <span class="math inline">(C_t)</span> indexed by market
+instruments. Prices and cash flows depend only on information available
+at time <span class="math inline">t</span>. This is modeled by algebras
+of sets <span class="math inline">\mathcal{A}_t</span> at each trading
+time <span class="math inline">t</span> and requiring prices and cash
+flows to be measurable with respect to the algebras.</p>
+<p>A model is arbitrage free if and only if there exist a deflators
+<span class="math inline">(D_t)</span> with <span class="math display">
 \tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u}C_s
 D_s)|_{\mathcal{A}_t}
 </span> where <span class="math inline">|</span> indicates restriction
