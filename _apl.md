@@ -44,7 +44,7 @@ Let's give names to things.
 The _primitive types_ are
 booleans $\BB$,
 integers $\ZZ$,
-non-negative integers $\ZZ$,
+non-negative integers $\NN$,
 real numbers $\RR$, 
 and characters $\CC$.
 We have $\BB\subseteq\NN\subseteq\ZZ\subseteq\RR$ as rings.
@@ -64,6 +64,8 @@ We write $\BB = \{\f,\t\}$ where $\f$ represents false and $\t$ represents true.
 If $X$, $X_i$ are types
 
 _array_ $x = [x_1,\ldots,x_n]\in X^n\cong n\to X$, $x[i] = x_i$.
+
+$(I\times n)^A x (-n\times I)^A \to I^A$
 
 _tuple_ $x = \langle x_1,\ldots,x_n\rangle\in\prod X_{i\in\NN}$, $n\to(\prod X_i\to X_i)$,
 $n\mapsto π_i$, 

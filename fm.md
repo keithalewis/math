@@ -87,7 +87,7 @@ This is a perfect hedge and the value of the derivative at time $t$
 would be determined by equation (2): ${V_t D_t = (\sum_{\o{\tau}_j > t} \o{A}_j D_{\o{\tau}_j})|_{\AA_t}}$.
 
 Perfect hedges do not exist in practice.
-A fundamental (unsolved) problem in mathematical finance is how to hedge a
+A fundamental problem in mathematical finance is how to hedge a
 derivative when a perfect hedge does not exist.
 A first attempt at a solution
 is to assume a perfect hedge exists.
@@ -96,19 +96,22 @@ and ${V_0 D_0 = (\sum_{\o{\tau}_j > t} \o{A}_j D_{\o{\tau}_j})|_{\AA_0}}$.
 $$
 	\Gamma_0 D_0 = D_{X_0}(\sum_{\o{\tau}_j > 0} \o{A}_j D_{\o{\tau}_j})|_{\AA_0},
 $$
-where $D_{X_0}$ is the Fréchet derivative.
+where $D_{X_0}$ is the Fréchet derivative. Just as in the B-S/M theory, the (putative) initial hedge is
+the derivative of value with respect to current prices. Note that value can be
+computed using only the deflators and the contract specified amounts.
+
 For $\tau_1 = t > 0$ we have $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ so
 $$
 	(\Delta_t + \Gamma_t) D_t = D_{X_t}(\sum_{\o{\tau}_j > t} \o{A}_j D_{\o{\tau}_j})|_{\AA_0}.
 $$
 For $t > 0$ sufficiently small we have $\Delta_t = \Gamma_0$ so we can solve for $\Gamma_t$.
-This procedure does not specify what value $\tau_1 = t$ to choose.
+This procedure does not specify what value of $\tau_1$ to choose.
 
-The classical Black-Scholes/Merton theory gives the ludicrous answer that 
-you should trade "continuously". The Unified Model does not provide an
-answer, it only puts your nose directly in the problem mathematical finance
-has heretofore completely failed to answer: given an existing hedge, when
-and how much do you rehedge?
+The Unified Model does not provide an
+answer to when hedge, it only puts your nose directly in the problem of 
+when and how much to hedge.
+The classical Black-Scholes/Merton theory gives the inapplicable answer that 
+you should trade "continuously".
 
 ## Deflators
 

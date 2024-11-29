@@ -15,31 +15,59 @@ abstract: A mathematical sweet spot
 \newcommand{\ran}{\operatorname{ran}}
 \renewcommand{\implies}{\Rightarrow}
 
-## Vector Space
+Everything in math is a set, but things become more interesting for sets
+having a "structure". Functions between sets "with structure" that preserve the
+structure are _homomorphisms_. A one-to-one and onto homomorphism is an
+_isomorphism_. Two sets with structure are _equivalent_ if there is an
+isomorphism between them.
 
-A _vector space_ $V$ over a field $\FF$ is a commutative (abelian) group under addition
-with a scalar multiplication that satisfy the distributive laws
-$$
-	a(u + w) = au + aw, a\in\FF, u,w\in V,
-$$
-$$
-	(a + b)u = au + bu, a,b\in\FF, u\in V.
-$$
-We also require $a(bv) = (ab)v$ for $a,b\in\FF$, $v\in V$ and $1v = v$, $u\in V$
-where $1\in\FF$ is the field unit.
+A vector space over the real numbers $\RR$ is a set having a scalar multiplication
+and a commutative vector addition satisfying a distributive law.
 
-Note that the field of real numbers $\RR$ and complex numbers $\CC$ are (1-dimensional) vector spaces.
+The set of all functions from a set $I$ to the real numbers, $\RR^I = \{x\colon I\to\RR\}$
+is a vector space over $\RR$.
+Scalar multiplication and vector addition are defined pointwise:
+${(ax)(i) = ax(i)}$ and ${(x + y)(i) = x(i) + y(i)}$ for ${i\in I}$.
+It is customary to write $\RR^n$, $n\in\NN$, for ${I = \{1,\ldots,n\}}$ or
+${I = \{0,\ldots,n-1\}}$.
 
-__Exercise__. _Show $v + v = v$ implies $v = 0$, $v\in V$_.
+For $x, y, z\in\RR^I$ and $a,b\in\RR$,
+
+__Exercise__. _Show $x + (y + z) = (x + y) + z$_.
+
+__Exercise__. _Show $x + y = y + x$_.
+
+__Exercise__. _Show $\bm{0} + x = x$ where $\bm{0}(i) = 0$ for $i\in I$_.
+
+__Exercise__. _Show $x + (-x) = \bm{0}$ where $(-x)(i) = -x(i)$, for $i\in I$_.
+
+__Exercise__. _Show $a(bx) = (ab)x$_.
+
+__Exercise__. _Show $1x = x$_.
+
+__Exercise__. _Show $a(x + y) = ax + ay$_.
+
+__Exercise__. _Show $(a + b)x = ax + bx$_.
+
+_Hint_: These follow directly from the pointwise definitions and properties of real numbers.
+
+The exercises are the axioms for an abstract vector space with scalar multiplication
+$\RR\times V\to V$ where $(a,x)\mapsto ax$ and binary addition $V\times V\to V$
+where $(x,y)\mapsto x + y$. We omit the non-trivial result these imply there exists
+a set $I$ where $V$ can be identified with $\RR^I$
+
+Proofs involving only the abstract axioms are considered more elegant.
+
+__Exercise__. _Using only the abstract axioms show $v + v = v$ implies $v = 0$, $v\in V$_.
 
 <details>
 <summary>Solution</summary>
 $$
 \begin{aligned}
 v + v &= v \\
-	&\quad\langle a = b\implies a + c = b + c\rangle\\
+	&\quad\langle x = y\implies x + z = y + z\rangle\\
 (v + v) + (-v) &= v + (-v) \\
-	&\quad\langle (a + b) + c = a + (b + c)\rangle\\
+	&\quad\langle (x + y) + z = x + (y + z)\rangle\\
 v + (v + (-v)) &= v + (-v) \\
 	&\quad\langle v + (-v) = 0\rangle\\
 v + 0 &= 0 \\
@@ -49,26 +77,165 @@ v &= 0
 $$
 </details>
 
-Recall $B^A = \{f\colon A\to B\}$ is the set of all functions from the set $A$ to the set $B$.
-Define the $n$-dimensional vector space $\FF^n = \{v\colon n\to\FF\}$ where $n = \{1,2,\ldots,n\}$.
-The _standard basis_ $e_i\in\FF^n$ is defined by $e_i(j) = δ_{ij}$,
+The _standard basis_ $e_i\in\RR^I$ is defined by $e_i(j) = δ_{ij}$,
 where $δ_{ij} = 1$ if $i=j$ and $δ_{ij} = 0$ if $i\not= j$ is the _Kronecker delta_,
 
-__Exercise__. _Show every $v\in\FF^n$ can be written $v=\sum_i v_i e_i$ for some $v_i\in\FF$_.
+__Exercise__. _Show every $v\in\RR^n$ can be written $v=\sum_i v_i e_i$ for some $v_i\in\RR$_.
 
 _Hint_: $v_i = v(i)$.
 
 <details><summary>Solution</summary>
-$v(j) = \sum_i v_i e_i(j) = \sum_i v_i \delta_{ij} = v_j$.
+$v_(j) = \sum_i v_i \delta_{ij} = \sum_i v_i e_i(j) = v_j$.
 </details>
 
-This shows we can identify $\{(v_1,\ldots,v_n)\mid v_j\in\FF\}$
-with $\RR^n$ where $(v_1,\ldots,v_n)$ corresponds to $\sum_i v_i e_i$.
+## Linear Transformation
+
+A _linear transformation_ is a function $T\colon V\to W$, where $V$ and
+$W$ are vector spaces that satisfies ${T(av + w) = aTv + Tw}$, $a\in\RR$,
+$v,w\in V$. Note that the addition ${av + w}$ occurs in $V$ and
+${aTv + Tw}$ occurs in $W$.  The space of all such linear transformations is
+denoted $\LL(V,W)$.
+
+__Exercise__. _Show if $T$ is a linear transformation then $T\bm{0} = \bm{0}$_.
+
+__Hint__: Consider $T(\bm{0} + \bm{0})$ and $v + v = v$ implies $v = \bm{0}$.
+
+<details><summary>Solution</summary>
+$T(\bm{0} + \bm{0}) = T(\bm{0}) + T(\bm{0})$ and $T(\bm{0} + \bm{0}) = T(\bm{0})$ so $T(\bm{0}) = \bm{0}$.
+</details>
+
+__Exercise__. _Show $T(av) = aTv$, $a\in\RR$, $v\in V$_.
+
+<details>
+<summary>Solution</summary>
+Using $T(av + w) = aTv + Tw$,
+$T(av) = T(av + 0) = aTv + T0 = aTv + 0 = aTv$.
+</details>
+
+__Exercise__. _Show $T(av + bw) = aTv + bTw$, $a,b\in\RR$, $v,w\in V$_.
+
+<details>
+<summary>Solution</summary>
+$T(av + bw) = aTv + T(bw) = aTv = bTw$.
+</details>
+
+A linear transformation $T\colon V\to W$ is _one-to-one_, or _injective_,
+if $Tu = Tv$ implies $u = v$ then $T$
+
+__Exercise__. _Show if $Tv = \bm{0}$ implies $v = \bm{0}$ then $T$ is one-to-one_.
+
+_Hint_. Use linearity.
+
+<details><summary>Solution</summary>
+If $Tu = Tv$ then $T(u - v) = \bm{0}$ so $u - v = \bm{0}$ and $u = v$.
+</details>
+
+A linear transformation $T\colon V\to W$ is _onto_, or _surjective_,
+if for every $w\in W$ there exists $v\in V$ with $Tv = w$.
+
+A linear transformation that is one-to-one and onto, or bijective, is an _isomorphism_.
+If $T\colon V\to W$ is an isomorphism then $V$ and $W$ are _isomorphic_, $V\cong W$.
+
+__Exercise__. _Show $V\cong W$ is an equivalence relation_.
+
+_Hint_: This means $V\cong V$, $V\cong W$ implies $W\cong V$, and $V\cong W$, $W\cong U$ implies $V\cong U$.
+
+<details><summary>Solution</summary>
+The identity transformation $I\colon V\to V$ defined by $I(v) = v$ shows $V\cong V$.
+If $T\colon V\to W$ is an isomorphism then its inverse $T^{-1}\colon W\to V$ shows
+$W\cong V$. If $T\colon V\to W$ and $S\colon W\to U$ are isomorphisms then
+so is $ST$ and $V\cong U$.
+</details>
+
+The space of linear transformations $\LL(V,W)$ is also a vector
+space under pointwise scalar multiplication ${(aT)v = a(Tv)}$
+pointwise addition ${(T + S)v = Tv + Sv}$, $a\in\RR$, $v,w\in V$.
+The space $\LL(\RR^n,\RR^m)$ can be identified with $\RR^{n\times m}$.
+If ${T\colon\RR^n\to\RR^m}$ then ${Te_i = \sum_j t_{ij} e_j}$
+for some $t_{ij}\in\RR$.
+
+__Exercise__. _If $T\colon\RR^k\to\RR^n$ and $S\colon\RR^n\to\RR^m$ then the composition
+$R = ST\colon\RR^k\to\RR^m$. Show $r_{ij} = \sum_k t_{ik} s_{kj}$_.
+
+<details><summary>Solution</summary>
+$R(e_i) = ST(e_i)
+	= S(\sum_k t_{ik} e_k)
+	= \sum_k t_{ik} Se_k
+	= \sum_k t_{ik} \sum_j s_{kj} e_j
+	= \sum_j \sum_k t_{ik} s_{kj} e_j
+	= \sum_j r_{ij} e_j$
+</details>
+
+Matrix multiplication is composition of linear transformations.
+
+## Dual
+
+The _dual_ of a vector space is $V^* = \LL(V,\RR)$, the space of _linear functionals_ on $V$.
+Define the _dual pairing_ by $\langle v,v^*\rangle = v^*(v)$ for $v\in V$ and $v^*\in V^*$.
+
+If $V = \RR^n$ we can identify $V^*$ with $\RR^n$ using the standard basis.
+Define the _dual basis_ $e_j^*\colon\RR^n\to\RR$ by $e_j^*(e_k) = δ_{jk}$.
+
+__Exercise__. _Show every $v\in\RR^n$ can be written $v = \sum_j e_j^*(v) e_j$._
+
+<details><summary>Solution</summary>
+If $v = \sum_j v_j e_j$ then $e_i^*(v) = v_i$.
+</details>
+
+__Exercise__. _Show every $v^*\in(\RR^n)^*$ can be written $v^* = \sum_j v^*(e_j) e_j^*$._
+
+<details><summary>Solution</summary>
+If $v^* = \sum_j v_j e_j^*$ then $e_i^*(v) = v_i$.
+</details>
+
+If $V$ has _any_ basis $e_j$ then every $v\in V$ can be written $v = \sum v_j e_j$ for some $v_j\in\RR$. 
+Define the _dual basis_ $e_j^*\colon V\to\RR\in V^*$ by $e_j^*(v) = v_j$. 
+The map $V\to V^*$ by $v = \sum_j v_j e_j\mapsto \sum v_j e_j^* = v^*$
+is one-to-one and onto (an _isomorphism_).
+
+Functions are vectors. They can be added and scalar multiplication satisfies the distributed law.
+Integration is a linear functional on a space of functions.
+Given a set $\Omega$ let $B(\Omega) = \{f\colon\Omega\to\RR : \|f\| = \sup_{\omega\in\Omega}|f(\omega)| < \infty\}$.
+
+If $L\colon B(\Omega)\to\RR$ is a linear functional define $λ(E) = L(1_E)$ for $E\subseteq\Omega$.
+
+__Exercise__. _If $E,F\subseteq\Omega$ are disjoint the $1_{E\cup F} = 1_E + 1_F$_.
+
+This shows $λ(E\cup F) = λ(E) + λ(F)$ if $E\cap F=\emptyset$.
+Since $1_\emptyset = 0$ we have $λ(\emptyset) = 0$ so
+$λ$ is a (finitely additive) measure.
+
+Given a finitely additive measure $λ$ on subsets of $\Omega$ define a linear functional
+$L\colon B(\Omega)\to\RR$ by $L(\sum_i a_i 1_{E_i}) = \sum_i a_i λ(E_i)$.
+
+__Exercise__. _Show this is well-defined_.
+
+_Hint_: $\sum_i a_i 1_{A_i} = \sum_j b_j 1_{B_j}$ where $(B_j)$ are pairwise disjoint.
+Note $1_A + 1_B = 1_{A\setminus B} + 1_{A\cap B} + 1_{B\setminus A}$ is a sum of
+pairwise disjoint sets.
+
+__Exercise__. _Given $f\in B(Ω)$ and $ε > 0$ show there exist a finite number of $a_i\in\RR$
+and $A_i\subseteq Ω$ with $\|f - \sum_i a_i 1_{A_i}\| < ε$_.
+
+This shows the linear functional can be extended to $B(\Omega)$
+and $B(\Omega)^*$ is isomorphic to the space of finitely additive measures on $\Omega$, $ba(\Omega)$.
+
+If $\Omega$ has a sufficiently rich topology (e.g., compact and Hausdorff) then
+$C(\Omega)^*$ can be identfied with the space of countably additive Borel measures on $\Omega$, $M(\Omega)$.
+If $\mu\in M(\Omega)$ define $L^p(\mu) = \{f\colon\Omega\to\RR : \int_\Omega |f|^p\,d\mu < \infty\}$.
+It is true that $L^p(\mu)^*\cong L^q(\mu)$ where $1/p + 1/q = 1$ and $p > 1$.
+It is not true that $L^\infty(\mu)^* \cong L^1(\mu)$ in general.
+Proving these claims is non-trivial.
+
 
 ## Span
 
+
+
+
+
 A _linear combination_ of vectors $v_j\in V$ is a sum $\sum_j a_j v_j$ where
-$a_j\in\FF$. The _span_ of $\{v_j\}$ is the set of all linear combinations.
+$a_j\in\RR$. The _span_ of $\{v_j\}$ is the set of all linear combinations.
 
 __Exercise__. _Show the span is a vector space_.
 
@@ -85,15 +252,15 @@ ${v + w = \sum_j (b_j + c_j) v_j}$ is in the span.
 
 A subset $U\subseteq V$ of a vector space $V$ is a _subspace_ if $U$ is also a vector space.
 
-__Exercise__. _Let $U$ be a subset of $V$. If $\FF U\subseteq U$ and $U + U\subseteq U$ then
+__Exercise__. _Let $U$ be a subset of $V$. If $\RR U\subseteq U$ and $U + U\subseteq U$ then
 $U$ is a subspace of $V$_.
 
-_Hint_. $\FF U = \{au\mid a\in\FF, u\in U\}$ and $U + U = \{v + w\mid v\in U, w\in U\}$.
+_Hint_. $\RR U = \{au\mid a\in\RR, u\in U\}$ and $U + U = \{v + w\mid v\in U, w\in U\}$.
 Show if $u\in U$ then $au\in U$
 and if $v,w\in U$ then $v + w\in U$.
 
 <details><summary>Solution</summary>
-If $u\in U$ and $a\in\FF$ then $au\in\FF U\subseteq U$.
+If $u\in U$ and $a\in\RR$ then $au\in\RR U\subseteq U$.
 If $v\in U$ and $w\in U$ then $v + w\in U + U\subseteq U$.
 </details>
 
@@ -140,93 +307,13 @@ _Hint_: $0 = \sum_i (a_i - b_i) v_i$.
 $\sum_i a_i v_i - \sum_i b_i v_i = \sum_i (a_i - b_i)v_i = 0$ so $a_i - b_i = 0$ for $i\in I$.
 </details>
 
-This shows how to identify any vector space $V$ with $\FF^I$ given a basis $(v_i)_{i\in I}$.
+This shows how to identify any vector space $V$ with $\RR^I$ given a basis $(v_i)_{i\in I}$.
 
 The _dimension_ of a vector space is the number of elements of a basis.
 A vector space has many collections of vectors that are a basis but
 every basis has the same number of vectors. This is not trivial to prove.
 Vector spaces occupy a sweet spot in the menagerie of mathematical objects.
 They are determined up to _isomorphism_ by their dimension.
-
-## Linear Transformation
-
-A _linear transformation_ is a function $T\colon V\to W$, where $V$ and
-$W$ are vector spaces that satisfies ${T(av + w) = aTv + Tw}$, $a\in\FF$,
-$v,w\in V$. Note that the addition ${av + w}$ occurs in $V$ and
-${aTv + Tw}$ occurs in $W$.  The space of all such linear transformations is
-denoted $\LL(V,W)$.
-
-__Exercise__. _Show if $T$ is a linear transformation then $T0 = 0$_.
-
-__Hint__: Consider $T(0 + 0)$ and $v + v = v$ implies $v = 0$.
-
-<details><summary>Solution</summary>
-$T(0 + 0) = T(0) + T(0)$ and $T(0 + 0) = T(0)$ so $T(0) = 0$.
-</details>
-
-__Exercise__. _Show $T(av) = aTv$, $a\in\FF$, $v\in V$_.
-
-<details>
-<summary>Solution</summary>
-Using $T(av + w) = aTv + Tw$,
-$T(av) = T(av + 0) = aTv + T0 = aTv + 0 = aTv$.
-</details>
-
-__Exercise__. _Show $T(av + bw) = aTv + bTw$, $a,b\in\FF$, $v,w\in V$_.
-
-<details>
-<summary>Solution</summary>
-$T(av + bw) = aTv + T(bw) = aTv = bTw$.
-</details>
-
-A linear transformation $T\colon V\to W$ is _one-to-one_, or _injective_,
-if $Tu = Tv$ implies $u = v$ then $T$
-
-__Exercise__. _Show if $Tv = 0$ implies $v = 0$ then $T$ is one-to-one_.
-
-_Hint_. Use linearity.
-
-<details><summary>Solution</summary>
-If $Tu = Tv$ then $T(u - v) = 0$ so $u - v = 0$ and $u = v$.
-</details>
-
-A linear transformation $T\colon V\to W$ is _onto_, or _surjective_,
-if for every $w\in W$ there exists $v\in V$ with $Tv = w$.
-
-A linear transformation that is one-to-one and onto, or bijective, is an _isomorphism_.
-If $T\colon V\to W$ is an isomorphism then $V$ and $W$ are _isomorphic_, $V\cong W$.
-
-__Exercise__. _Show $V\cong W$ is an equivalence relation_.
-
-_Hint_: This means $V\cong V$, $V\cong W$ implies $W\cong V$, and $V\cong W$, $W\cong U$ implies $V\cong U$.
-
-<details><summary>Solution</summary>
-The identity transformation $I\colon V\to V$ defined by $I(v) = v$ shows $V\cong V$.
-If $T\colon V\to W$ is an isomorphism then its inverse $T^{-1}\colon W\to V$ shows
-$W\cong V$. If $T\colon V\to W$ and $S\colon W\to U$ are isomorphisms then
-so is $ST$ and $V\cong U$.
-</details>
-
-The space of linear transformations $\LL(V,W)$ is also a vector
-space under pointwise addition ${(T + S)v = Tv + Sv}$ and pointwise
-scalar multiplication ${(aT)v = a(Tv)}$, $a\in\FF$, $v,w\in V$.
-The space $\LL(\FF^n,\FF^m)$ can be identified with $\FF^{n\times m}$.
-If ${T\colon\FF^n\to\FF^m}$ then ${Te_i = \sum_j t_{ij} e_j}$
-for some $t_{ij}\in\FF$.
-
-__Exercise__. _If $T\colon\FF^k\to\FF^n$ and $S\colon\FF^n\to\FF^m$ then the composition
-$R = ST\colon\FF^k\to\FF^m$. Show $r_{ij} = \sum_k t_{ik} s_{kj}$_.
-
-<details><summary>Solution</summary>
-$R(e_i) = ST(e_i)
-	= S(\sum_k t_{ik} e_k)
-	= \sum_k t_{ik} Se_k
-	= \sum_k t_{ik} \sum_j s_{kj} e_j
-	= \sum_j \sum_k t_{ik} s_{kj} e_j
-	= \sum_j r_{ij} e_j$
-</details>
-
-Matrix multiplication is composition of linear transformations.
 
 ## Heisenberg
 
@@ -256,7 +343,7 @@ $\ker T = \{v\in V\mid Tv = 0\}\subseteq V$.
 
 __Exercise__. _The kernel of a linear transformation is a subspace_.
 
-_Hint_: $T(av + w) = aTv + Tw = 0$ for $a\in\FF$, $v,w\in \ker T$.
+_Hint_: $T(av + w) = aTv + Tw = 0$ for $a\in\RR$, $v,w\in \ker T$.
 
 __Exercise__. _$T$ is one-to-one if and only if $\ker T = \{0\}$_.
 
@@ -332,7 +419,7 @@ The _quotient space_ $V/U = \{v + U\mid v\in V\}$ is a vector
 space with scalar multiplication $a(v + U) = av + U$ and
 addition $(v + U) + (w + U) = (v + w) + U$.
 
-__Exercise__. _Show $v + U = w + U$ implies $av + U = aw + U$, $a\in\FF$, $v,w\in V$_.
+__Exercise__. _Show $v + U = w + U$ implies $av + U = aw + U$, $a\in\RR$, $v,w\in V$_.
 
 _Hint_: $av - aw\in U$.
 
@@ -371,7 +458,7 @@ An _invariant subspace_ of $T\colon V\to V$ is a subspace $U\subseteq V$ with $T
 __Exercise__. _If $T\colon V\to V$ show $\ker T$ and $\ran T$ are invariant subspaces_.
 
 If $U$ is a 1-dimensional subspace spanned by $e\in V$ then $e$ is an _eigenvector_
-and $Te = λe$ for some $λ\in\FF$, the _eigenvalue_ corresponding to $u$.
+and $Te = λe$ for some $λ\in\RR$, the _eigenvalue_ corresponding to $u$.
 
 If the eigenvectors of $T$ are independent they and their corresponding eigenvalues determine $T$.
 Let $(e_i)$, $(λ_i)$ be the eigenvectors and corresponding eigenvalues. Every vector $v\in V$
@@ -384,7 +471,7 @@ $I:V\to V$ is the _identity transformation_ $Iv = v$, $v\in V$.
 
 __Exercise__. _If the eigenvectors of $T$ form a basis then $(T-λ_1I)\cdots(T-λ_nI) = 0$_.
 
-The dimension of $\LL(\FF^n,\FF^n)$ is $n^2$ so we know
+The dimension of $\LL(\RR^n,\RR^n)$ is $n^2$ so we know
 $I$, $T$, $T^2$, \dots, $T^{n^2}$ must be linearly dependent so there is a polynomial
 of order at most $n^2$ with $p(T) = 0$. If $T$ is diagonalizable the above exercise shows there is
 a polynomial of order $n$ satisfying this. The Cayley-Hamilton states this is true for any $T$
@@ -393,7 +480,7 @@ where $p(λ) = \det(T - λ I)$.
 ## Norm
 
 A _norm_ on a vector space is a function $\|\cdot\|\colon V\to[0,\infty)$ with
-$\|av\| = |a|\|v\|$, $\|v + w\| \le \|v\| + \|w\|$, $a\in\FF$, $v,w\in V$,
+$\|av\| = |a|\|v\|$, $\|v + w\| \le \|v\| + \|w\|$, $a\in\RR$, $v,w\in V$,
 and $\|v\| = 0$ implies $v = 0$.
 
 If $V=\CC^n$ then $\|v\|_\infty = \max_i |v_i|$ and $\|v\|_p = (\sum_i |v_i|^p)^{1/p}$
@@ -405,11 +492,11 @@ If $T\colon V\to W$ is a linear transformation between normed vector spaces then
 the _operator norm_ is $\|T\| = \sup_{\|v\|\le 1}\|Tv\|$.
 
 __Exercise__. _Show $\|aT\| = |a|\|T\|$, $\|T + S\|\le \|T\| + \|S\|$ and $\|T\| = 0$ implies $T = 0$,
-$a\in\FF$, $T,S\in\LL(V,W)$_.
+$a\in\RR$, $T,S\in\LL(V,W)$_.
 
 ## Inner Product
 
-An _inner product_ on a vector space is a bilinear function $V\times V\to\FF$.
+An _inner product_ on a vector space is a bilinear function $V\times V\to\RR$.
 The pair $(u,v)$ is sent to $v\cdot w$, $v, w\in V$. The inner product satisfies
 $v\cdot v \ge 0$ and $v\cdot v = 0$ implies $v = 0$.
 
@@ -446,65 +533,6 @@ Define the _multiplicity_ of $λ\in\CC$ by $m(λ) = \dim\ker(T - λI)$.
 __Exercise__. _Show there exists $e\in V$ with $(T - λI)^ke\neq 0$ for $0\le k < m(λ)$
 and $(T - λI)^{m(λ)}e = 0$_.
 
-## Dual
-
-The _dual_ of a vector space is $V^* = \LL(V,\FF)$, the space of _linear functionals_ on $V$.
-Define the _dual pairing_ by $\langle v,v^*\rangle = v^*(v)$ for $v\in V$ and $v^*\in V^*$.
-
-If $V = \FF^n$ we can identify $V^*$ with $\FF^n$ using the standard basis.
-Define the _dual basis_ $e_j^*\colon\FF^n\to\FF$ by $e_j^*(e_k) = δ_{jk}$.
-
-__Exercise__. _Show every $v\in\FF^n$ can be written $v = \sum_j e_j^*(v) e_j$._
-
-<details><summary>Solution</summary>
-If $v = \sum_j v_j e_j$ then $e_i^*(v) = v_i$.
-</details>
-
-__Exercise__. _Show every $v^*\in(\FF^n)^*$ can be written $v^* = \sum_j v^*(e_j) e_j^*$._
-
-<details><summary>Solution</summary>
-If $v^* = \sum_j v_j e_j^*$ then $e_i^*(v) = v_i$.
-</details>
-
-If $V$ has _any_ basis $e_j$ then every $v\in V$ can be written $v = \sum v_j e_j$ for some $v_j\in\FF$. 
-Define the _dual basis_ $e_j^*\colon V\to\FF\in V^*$ by $e_j^*(v) = v_j$. 
-The map $V\to V^*$ by $v = \sum_j v_j e_j\mapsto \sum v_j e_j^* = v^*$
-is one-to-one and onto (an _isomorphism_).
-
-Functions are vectors. They can be added and scalar multiplication satisfies the distributed law.
-Integration is a linear functional on a space of functions.
-Given a set $\Omega$ let $B(\Omega) = \{f\colon\Omega\to\FF : \|f\| = \sup_{\omega\in\Omega}|f(\omega)| < \infty\}$.
-
-If $L\colon B(\Omega)\to\FF$ is a linear functional define $λ(E) = L(1_E)$ for $E\subseteq\Omega$.
-
-__Exercise__. _If $E,F\subseteq\Omega$ are disjoint the $1_{E\cup F} = 1_E + 1_F$_.
-
-This shows $λ(E\cup F) = λ(E) + λ(F)$ if $E\cap F=\emptyset$.
-Since $1_\emptyset = 0$ we have $λ(\emptyset) = 0$ so
-$λ$ is a (finitely additive) measure.
-
-Given a finitely additive measure $λ$ on subsets of $\Omega$ define a linear functional
-$L\colon B(\Omega)\to\FF$ by $L(\sum_i a_i 1_{E_i}) = \sum_i a_i λ(E_i)$.
-
-__Exercise__. _Show this is well-defined_.
-
-_Hint_: $\sum_i a_i 1_{A_i} = \sum_j b_j 1_{B_j}$ where $(B_j)$ are pairwise disjoint.
-Note $1_A + 1_B = 1_{A\setminus B} + 1_{A\cap B} + 1_{B\setminus A}$ is a sum of
-pairwise disjoint sets.
-
-__Exercise__. _Given $f\in B(Ω)$ and $ε > 0$ show there exist a finite number of $a_i\in\FF$
-and $A_i\subseteq Ω$ with $\|f - \sum_i a_i 1_{A_i}\| < ε$_.
-
-This shows the linear functional can be extended to $B(\Omega)$
-and $B(\Omega)^*$ is isomorphic to the space of finitely additive measures on $\Omega$, $ba(\Omega)$.
-
-If $\Omega$ has a sufficiently rich topology (e.g., compact and Hausdorff) then
-$C(\Omega)^*$ can be identfied with the space of countably additive Borel measures on $\Omega$, $M(\Omega)$.
-If $\mu\in M(\Omega)$ define $L^p(\mu) = \{f\colon\Omega\to\FF : \int_\Omega |f|^p\,d\mu < \infty\}$.
-It is true that $L^p(\mu)^*\cong L^q(\mu)$ where $1/p + 1/q = 1$ and $p > 1$.
-It is not true that $L^\infty(\mu)^* \cong L^1(\mu)$ in general.
-Proving these claims is non-trivial.
-
 ### Adjoint
 
 The _adjoint_ of a linear operator $T\colon V\to W$ is $T^*\colon W^*\to V^*$ defined
@@ -537,7 +565,7 @@ $DF(x) = \sum_{i=0}^{n-1} L_x^{n-i-1}R_x^{i}$_.
 
 _Hint_: What are the terms in $(x + h)^n$ containing exactly one $h$?
 
-__Exercise__. _If $F\colon\FF^n\to\FF$ is
+__Exercise__. _If $F\colon\RR^n\to\RR$ is
 $F(x) = \|x\|^p$ show $DF(x) = p\|x\|^{p-2}x^*$._
 
 _Hint_. Show $D\|x\|^2 = 2x^*$ and note $\|x\|^p = (\|x\|^2)^{p/2}$.
