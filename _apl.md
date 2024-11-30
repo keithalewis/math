@@ -59,6 +59,12 @@ character (set).
 
 We write $\BB = \{\f,\t\}$ where $\f$ represents false and $\t$ represents true.
 
+$(A\times B)\to C\cong A\to (B\to C)$ by $f(a,b) = c \leftrightarrow f,(a)b = c$ or $f,(a)b = f(a,b)$.
+
+$A\to (B\to C) \cong (A\times B)\to C$ by $g(a)b = c \leftrightarrow g`(a,b) = c$ or $g`(a,b) = g(a)b$.
+
+$\pi(a,b) = (a,b)$, $\pi_0(a,b) = a$, $\pi_1(a,b) = b$.
+
 ## Type
 
 If $X$, $X_i$ are types

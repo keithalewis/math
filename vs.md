@@ -23,6 +23,8 @@ isomorphism between them.
 
 A vector space over the real numbers $\RR$ is a set having a scalar multiplication
 and a commutative vector addition satisfying a distributive law.
+A vector space homomorphism is a _linear transformation_. Two vector spaces are
+equivalent if and only if they have the same _dimension_.
 
 The set of all functions from a set $I$ to the real numbers, $\RR^I = \{x\colon I\to\RR\}$
 is a vector space over $\RR$.
