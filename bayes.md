@@ -22,7 +22,9 @@ based on available information.  As more information becomes available
 it can be used to update individual degrees of belief. They are delayed
 satisfaction frequentists who believe subjective degrees of belief will
 converge for all individuals given sufficient common information over
-repeated trials.
+repeated trials. The guilty secret of Bayesians is that they have
+nothing to say about choosing a "prior distribution" or
+what "loss function" should be used.
 
 ## Probability Space
 
@@ -186,7 +188,14 @@ proved him correct.
 
 Keynes A Treatise on Probability - probability is not a total order.
 
-> Is our expectation of rain, when we start out for a walk, always more likely than not, or less likely than not, or as likely as not? I am prepared to argue that on some occasions none of these alternatives hold, and that it will be an arbitrary matter to decide for or against the umbrella. If the barometer is high, but the clouds are black, it is not always rational that one should prevail over the other in our minds, or even that we should balance them, though it will be rational to allow caprice to determine us and to waste no time on the debate.
+> Is our expectation of rain, when we start out for a walk, always
+more likely than not, or less likely than not, or as likely as not? I
+am prepared to argue that on some occasions none of these alternatives
+hold, and that it will be an arbitrary matter to decide for or against
+the umbrella. If the barometer is high, but the clouds are black, it is
+not always rational that one should prevail over the other in our minds,
+or even that we should balance them, though it will be rational to allow
+caprice to determine us and to waste no time on the debate.
 
 maxplus algebras
 

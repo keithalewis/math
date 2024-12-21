@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-11-22" />
+  <meta name="dcterms.date" content="2024-12-07" />
   <title>Financial Modeling</title>
   <style>
     code{white-space: pre-wrap;}
@@ -26,7 +26,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -67,7 +66,7 @@
 <header id="title-block-header">
 <h1 class="title">Financial Modeling</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">November 22, 2024</p>
+<p class="date">December 7, 2024</p>
 </header>
 <p>In “A Simple Approach to the Valuation of Risky Streams” Stephen
 Ross<span class="citation" data-cites="Ros1978">(Ross 1978)</span>
@@ -107,10 +106,9 @@ martingale measure then <span class="math display">
     X_t D_t = M_t - \sum_{s\le t}C_s D_s
 </span> is an arbitrage-free model of prices and cash flows. For
 example, the Black-Scholes/Merton model with no dividends corresponds to
-<span class="math inline">X_t =
-(r\exp(\rho t), s\exp(\rho t + \sigma B_t - \sigma^2 t/2))</span>, <span
-class="math inline">C_t =
-(0, 0)</span> and <span class="math inline">{D_t = \exp(-\rho
+<span class="math inline">X_t = (r\exp(\rho t), s\exp(\rho t + \sigma
+B_t - \sigma^2 t/2))</span>, <span class="math inline">C_t = (0,
+0)</span> and <span class="math inline">{D_t = \exp(-\rho
 t)P|_{\mathcal{A}_t}}</span> where <span
 class="math inline">(B_t)</span> is Brownian motion, <span
 class="math inline">P</span> is Wiener measure, and <span
@@ -166,33 +164,36 @@ derivative at time <span class="math inline">t</span> would be
 determined by equation (2): <span class="math inline">{V_t D_t =
 (\sum_{\overline{\tau}_j &gt; t} \overline{A}_j
 D_{\overline{\tau}_j})|_{\mathcal{A}_t}}</span>.</p>
-<p>Perfect hedges do not exist in practice. A fundamental (unsolved)
-problem in mathematical finance is how to hedge a derivative when a
-perfect hedge does not exist. A first attempt at a solution is to assume
-a perfect hedge exists. The initial hedge at <span
-class="math inline">\tau_0 = 0</span> can be computed from <span
-class="math inline">V_0 = \Gamma_0\cdot X_0</span> and <span
-class="math inline">{V_0 D_0 = (\sum_{\overline{\tau}_j &gt; t}
-\overline{A}_j D_{\overline{\tau}_j})|_{\mathcal{A}_0}}</span>. <span
+<p>Perfect hedges do not exist in practice. A fundamental problem in
+mathematical finance is how to hedge a derivative when a perfect hedge
+does not exist. A first attempt at a solution is to assume a perfect
+hedge exists. The initial hedge at <span class="math inline">\tau_0 =
+0</span> can be computed from <span class="math inline">V_0 =
+\Gamma_0\cdot X_0</span> and <span class="math inline">{V_0 D_0 =
+(\sum_{\overline{\tau}_j &gt; t} \overline{A}_j
+D_{\overline{\tau}_j})|_{\mathcal{A}_0}}</span>. <span
 class="math display">
     \Gamma_0 D_0 = D_{X_0}(\sum_{\overline{\tau}_j &gt; 0}
 \overline{A}_j D_{\overline{\tau}_j})|_{\mathcal{A}_0},
 </span> where <span class="math inline">D_{X_0}</span> is the Fréchet
-derivative. For <span class="math inline">\tau_1 = t &gt; 0</span> we
-have <span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot
-X_t</span> so <span class="math display">
+derivative. Just as in the B-S/M theory, the (putative) initial hedge is
+the derivative of value with respect to current prices. Note that value
+can be computed using only the deflators and the contract specified
+amounts.</p>
+<p>For <span class="math inline">\tau_1 = t &gt; 0</span> we have <span
+class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span> so <span
+class="math display">
     (\Delta_t + \Gamma_t) D_t = D_{X_t}(\sum_{\overline{\tau}_j &gt; t}
 \overline{A}_j D_{\overline{\tau}_j})|_{\mathcal{A}_0}.
 </span> For <span class="math inline">t &gt; 0</span> sufficiently small
 we have <span class="math inline">\Delta_t = \Gamma_0</span> so we can
 solve for <span class="math inline">\Gamma_t</span>. This procedure does
-not specify what value <span class="math inline">\tau_1 = t</span> to
+not specify what value of <span class="math inline">\tau_1</span> to
 choose.</p>
-<p>The classical Black-Scholes/Merton theory gives the ludicrous answer
-that you should trade “continuously”. The Unified Model does not provide
-an answer, it only puts your nose directly in the problem mathematical
-finance has heretofore completely failed to answer: given an existing
-hedge, when and how much do you rehedge?</p>
+<p>The Unified Model does not provide an answer to when hedge, it only
+puts your nose directly in the problem of when and how much to hedge.
+The classical Black-Scholes/Merton theory gives the inapplicable answer
+that you should trade “continuously”.</p>
 <section id="deflators" class="level2">
 <h2>Deflators</h2>
 <p>If repurchase agreements exists then there is a canonical choice for
@@ -221,7 +222,7 @@ derivative.</p>
 <p>The price of zero coupon bonds determine the value of all risk-free
 fixed income instruments.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-Ros1978" class="csl-entry" role="listitem">
 Ross, Stephen A. 1978. <span>“A <span>Simple</span>
 <span>Approach</span> to the <span>Valuation</span> of

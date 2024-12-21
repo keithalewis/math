@@ -1,5 +1,5 @@
 ---
-title: Probability
+title: Probabilistic Reasoning
 author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
@@ -14,11 +14,39 @@ abstract: A calculus for uncertainty
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Var}}
 
-Probability is an extension of the rules of logic to deal with uncertain
-events.  A probability is a number between 0 and 1 representing a degree
+> _The theory of probabilities is at bottom nothing but common sense
+reduced to calculus; it enables us to appreciate with exactness that
+which accurate minds feel with a sort of instinct for which of times
+they are unable to account_. -- Pierre-Simon Laplace
+
+Probability is an
+[extension of the rules of logic](https://plato.stanford.edu/entries/logic-probability/)
+to deal with uncertain events.
+Instead of the absolute 'true' or 'false' of logic, it uses estimation to aid plausible reasoning.
+The first step in any problem involving probability is to specify
+what outcomes are possible and their a priori probability of occuring.
+A probability is a number between 0 and 1 representing a degree
 of belief.  All probabilities are conditional on available information
 and can be systematically updated using Bayes' theorem as more information
 becomes available.
+
+## Origins
+
+In 1654, Antoine Gombaud (aka le chevalier de Méré) asked Blaise Pascal
+"Is it worthwhile betting even money that double sixes will turn up at
+least once in 24 throws of a fair pair of dice?" Based on empirical data
+he believed that the probability was greater than rolling at least one
+6 in 4 throws. The probability of not throwing a 6 is $5/6$ so the
+probability of not throwing a 6 in 4 throws is $(5/6)^4$.
+The probability of pair of dice not having a pair of 6's is $(35/36)$ so the probability
+of not throwing a pair of 6's in 24 throws is $(35/36)^{24}$.
+This shows the answer to De Méré's first question is $1 - (35/36)^{24}\approx .491$.
+Since $1 - (5/6)^4 \approx .518$ we have shown ...
+
+In this case the sample space is 24 rolls of a pair of dice, $\Omega = (D\times D)^24$
+where $D = \{1,2,3,4,5,6\}$.
+
+
 
 ## Probability Space
 
@@ -37,6 +65,14 @@ figured out by hook or by crook to win at gambling.
 Measure Theory was developed by Lesbegue to generalise Riemann-Stieltjes integration.
 Mathematicans found probabilty theory more legitimate when Kolomogorov
 pointed out a probability measure is simply a positive measure having mass 1.
+
+_Partial information_ about outcomes in $\Omega$ is modeled by a _partition_:
+a collection of pairwise disjoint subsets whose union is $\Omega$.
+Elements of the partition are _atoms_.  Complete information
+corresponds to the _finest_ partition of _singletons_ ${\{\{ω\}\mid ω\in Ω\}}$.
+No information corresponds to the _coarsest_ partition $\{Ω\}$.
+Partial information is knowing only which atom an outcome belongs to.
+
 
 An _algebra_ $\AA$ is collection of events that is closed under set _complement_ and _union_.
 
@@ -85,13 +121,6 @@ _Hint_: Since $ω\in A_ω$, $ω\in Ω$, the union is $Ω$.
 Show either ${A_ω \cap A_{ω'} = \emptyset}$ or $A_ω = A_{ω'}$, $ω,ω'\in Ω$.
 
 If $\AA$ is finite then we can identify it with its atoms.
-
-_Partial information_ is modeled by a partition of a sample space.
-Complete information corresponds to the _finest_ partition
-of _singletons_ $\{\{ω\}\mid ω\in Ω\}$.
-No information corresponds to the _coarsest_ partition $\{Ω\}$.
-Partial information is knowing only which set in the partition an
-outcome belongs to.
 
 #### Coin tossing
 
@@ -941,3 +970,12 @@ since the infinite sum converges to a finite value.
 PGN PNG GPN GNP NPG NGB
 
 -->
+
+## Unsorted
+
+The traditional‘frequentist’ methods which
+ use only sampling distributions are usable and useful in many particularly simple, idealized
+ problems; however, they represent the most proscribed special cases of probability theory,
+ because they presuppose conditions (independent repetitions of a ‘random experiment’ but
+ no relevant prior information) that are hardly ever met in real problems. This approach is
+ quite inadequate for the current needs of science.

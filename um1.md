@@ -1,5 +1,5 @@
 ---
-title: Unified Model
+title: Simple Unified Model
 author: Keith A. Lewis
 institute: KALX, LLC
 fleqn: true
@@ -73,9 +73,9 @@ continuous time trading is possible. The indicated direction is
 to provide a theory reflecting the fact traders decide at
 discrete times based on available information what to trade.
 
-## Unified Model
+## Simple Unified Model
 
-The Unified Model is an extension of Stephen Ross'[@Ros1978] "A Simple
+The Simple Unified Model is an extension of Stephen Ross'[@Ros1978] "A Simple
 Approach to the Valuation of Risky Streams". According to Ross
 
 > _If there are no arbitrage opportunities in the capital markets, then
@@ -94,7 +94,7 @@ point. Something no business person has ever found useful.
 <!--
 Eventually this was called the _Fundamental Theorem of Asset Pricing_.
 -->
-The Unified Model does not require the Hahn-Banach theorem.  It also
+The Simple Unified Model does not require the Hahn-Banach theorem.  It also
 does not involve a so-called real-world probability measure that
 is immediately throw out to get a risk-neutral probability measure.
 It does not involve stochastic integrals, the Ito formula, partial differential equations,
@@ -124,7 +124,7 @@ It also implies the value of a barrier option that knocks in
 or out the millionth time it hits the barrier has exactly
 the same value. 
 
-## Unified Model
+## Simple Unified Model
 
 We assume you are familiar with measure theory and stochastic
 processes, but are not necessarily an expert.
@@ -255,7 +255,7 @@ everything is just a finite vector of numbers.
 
 ### Probability
 
-The Unified Model does not involve probability, however as an
+The Simple Unified Model does not involve probability, however as an
 aid to those schooled in the classical theory we will reconnoiter
 some elementary facts.
 
@@ -381,7 +381,7 @@ computing a trading strategy. Delta is $\Delta$ and gamma is $\Gamma$
 in the customary sense used by traders.
 In general this hedge will not exactly replicate the derivative contract obligation.
 
-The Unified Model does not prescribe _when_ the hedge should be executed.
+The Simple Unified Model does not prescribe _when_ the hedge should be executed.
 This is an important unsolved fundamental problem in the theory of Mathematical Finance.
 The untenable Black-Scholes/Merton solution is to hedge "continuously".
 Every trading strategy executed in the real world involves

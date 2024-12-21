@@ -1,4 +1,5 @@
----
+ _If there are no arbitrage opportunities in the capital markets, then
+there exists a (not generally unique) valuation operator, $L$_.---
 title: A Basic Unified Model for Derivative Instruments
 author: Keith A. Lewis
 institute: KALX, LLC

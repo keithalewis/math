@@ -9,29 +9,47 @@ abstract: A mathematical sweet spot
 
 \newcommand\FF{\boldsymbol{F}}
 \newcommand\CC{\boldsymbol{C}}
-\newcommand\RR{\boldsymbol{R}}
+\newcommand\RR{\mathbb{R}}
 \newcommand\NN{\boldsymbol{N}}
 \newcommand\LL{\mathcal{L}}
 \newcommand{\ran}{\operatorname{ran}}
+\renewcommand{\span}{\operatorname{span}}
 \renewcommand{\implies}{\Rightarrow}
+\newcommand\zero{\boldsymbol{0}}
 
-Everything in math is a set, but things become more interesting for sets
-having a "structure". Functions between sets "with structure" that preserve the
-structure are _homomorphisms_. A one-to-one and onto homomorphism is an
-_isomorphism_. Two sets with structure are _equivalent_ if there is an
-isomorphism between them.
+Many mathematical objects are sets having an algebraic structure.
+For example, a _semigroup_ is a set $S$ and binary operation ${m\colon S\times S\to S}$
+that is associative: ${m(a,m(b,c)) = m(m(a,b),c)}$ for ${a,b,c\in S}$,
+or ${a(bc) = (ab)c}$ if we write $ab$ for $m(a,b)$.
+While this may seem trivial, is allows us to write $abc$ without parentheses.
+This is the foundation of [MapReduce](https://en.wikipedia.org/wiki/MapReduce).
 
-A vector space over the real numbers $\RR$ is a set having a scalar multiplication
-and a commutative vector addition satisfying a distributive law.
-A vector space homomorphism is a _linear transformation_. Two vector spaces are
-equivalent if and only if they have the same _dimension_.
+Functions between sets with structure that
+preserve the structure are _homomorphisms_. A homomorphism that puts set
+elements in one-to-one correspondence is an _isomorphism_. Two sets with
+structure are _equivalent_ if there is an isomorphism between them.
+It is difficult to determine in general when two sets with structure
+are equivalent, but vector spaces are a mathematical sweet spot:
+two vector spaces are equivalent if and only if they have the same dimension.
 
-The set of all functions from a set $I$ to the real numbers, $\RR^I = \{x\colon I\to\RR\}$
+The set of all functions from a set $I$ to the real numbers, ${\RR^I = \{x\colon I\to\RR\}}$,
 is a vector space over $\RR$.
 Scalar multiplication and vector addition are defined pointwise:
 ${(ax)(i) = ax(i)}$ and ${(x + y)(i) = x(i) + y(i)}$ for ${i\in I}$.
-It is customary to write $\RR^n$, $n\in\NN$, for ${I = \{1,\ldots,n\}}$ or
-${I = \{0,\ldots,n-1\}}$.
+It is customary to write $\RR^n$, $n\in\NN$, when ${I = \{1,\ldots,n\}}$ or
+${I = \{0,\ldots,n-1\}}$ and the initial index is specified.
+
+The _standard basis_ $e_i\in\RR^I$, $i\in I$, is defined by $e_i(j) = δ_{ij}$, $j\in I$,
+where $δ_{ij} = 1$ if $i=j$ and $δ_{ij} = 0$ if $i\not= j$ is the _Kronecker delta_.
+
+__Exercise__. _Show if $I$ is finite then $v = \sum_i v(i) e_i$_.
+
+_Hint_. Show $v(j) = (\sum_i v(i) e_i)(j)$ for $j\in I$.
+
+## Axioms
+
+A vector space over the real numbers $\RR$ is a set having a scalar multiplication
+and a commutative vector addition satisfying a distributive law.
 
 For $x, y, z\in\RR^I$ and $a,b\in\RR$,
 
@@ -39,9 +57,9 @@ __Exercise__. _Show $x + (y + z) = (x + y) + z$_.
 
 __Exercise__. _Show $x + y = y + x$_.
 
-__Exercise__. _Show $\bm{0} + x = x$ where $\bm{0}(i) = 0$ for $i\in I$_.
+__Exercise__. _Show $\zero + x = x$ where $\zero(i) = 0$ for $i\in I$_.
 
-__Exercise__. _Show $x + (-x) = \bm{0}$ where $(-x)(i) = -x(i)$, for $i\in I$_.
+__Exercise__. _Show $x + (-x) = \zero$ where $(-x)(i) = -x(i)$, for $i\in I$_.
 
 __Exercise__. _Show $a(bx) = (ab)x$_.
 
@@ -53,14 +71,15 @@ __Exercise__. _Show $(a + b)x = ax + bx$_.
 
 _Hint_: These follow directly from the pointwise definitions and properties of real numbers.
 
-The exercises are the axioms for an abstract vector space with scalar multiplication
+The exercises are the axioms for an _abstract vector space_ with scalar multiplication
 $\RR\times V\to V$ where $(a,x)\mapsto ax$ and binary addition $V\times V\to V$
-where $(x,y)\mapsto x + y$. We omit the non-trivial result these imply there exists
-a set $I$ where $V$ can be identified with $\RR^I$
+where $(x,y)\mapsto x + y$. We omit the non-trivial result these axioms imply there exists
+a set $I$ where $V$ can be identified with $\RR^I$. The cardinality of $I$
+is the _dimension_ of $\RR^I$.
 
 Proofs involving only the abstract axioms are considered more elegant.
 
-__Exercise__. _Using only the abstract axioms show $v + v = v$ implies $v = 0$, $v\in V$_.
+__Exercise__. _Using only the abstract axioms show $v + v = v$ implies $v = \zero$, $v\in V$_.
 
 <details>
 <summary>Solution</summary>
@@ -71,24 +90,104 @@ v + v &= v \\
 (v + v) + (-v) &= v + (-v) \\
 	&\quad\langle (x + y) + z = x + (y + z)\rangle\\
 v + (v + (-v)) &= v + (-v) \\
-	&\quad\langle v + (-v) = 0\rangle\\
-v + 0 &= 0 \\
-	&\quad\langle v + 0 = v\rangle\\
-v &= 0
+	&\quad\langle v + (-v) = \zero\rangle\\
+v + \zero &= \zero \\
+	&\quad\langle v + \zero = v\rangle\\
+v &= \zero
 \end{aligned}
 $$
 </details>
 
-The _standard basis_ $e_i\in\RR^I$ is defined by $e_i(j) = δ_{ij}$,
-where $δ_{ij} = 1$ if $i=j$ and $δ_{ij} = 0$ if $i\not= j$ is the _Kronecker delta_,
+### Subspace
 
-__Exercise__. _Show every $v\in\RR^n$ can be written $v=\sum_i v_i e_i$ for some $v_i\in\RR$_.
+A subset $U\subseteq V$ of a vector space $V$ is a _subspace_ if $U$ is also a vector space.
 
-_Hint_: $v_i = v(i)$.
+__Exercise__. _Let $U$ be a subset of $V$. If $\RR U\subseteq U$ and $U + U\subseteq U$ then
+$U$ is a subspace of $V$_.
+
+_Hint_. $\RR U = \{au\mid a\in\RR, u\in U\}$ and $U + U = \{v + w\mid v\in U, w\in U\}$.
+Show if $u\in U$ then $au\in U$
+and if $v,w\in U$ then $v + w\in U$.
 
 <details><summary>Solution</summary>
-$v_(j) = \sum_i v_i \delta_{ij} = \sum_i v_i e_i(j) = v_j$.
+If $u\in U$ and $a\in\RR$ then $au\in\RR U\subseteq U$.
+If $v\in U$ and $w\in U$ then $v + w\in U + U\subseteq U$.
 </details>
+
+__Exercise__. _Show the intersection of two subspaces is a subspace_.
+
+_Hint_. Show if $v$ is in the intersection then $av$ is also in the intersection for $a\in\RR$
+and if $u$ and $w$ are in the intersection then $u + w$ is also in the intersection.
+
+<details><summary>Solution</summary>
+If $v\in U\cap V$ then $au\in U$ and $av\in V$ so $au\in U\cap V$.
+If $u,w\in U\cap V$ then $u + w\in U$ and $u + w\in V$ so $u + w\in U\cap V$.
+</details>
+
+__Exercise__. _Show the sum of two subspaces is a subspace_.
+
+_Hint_. The sum of subspaces $U, W\subseteq V$ is $U + W = \{u + w\mid u\in U, w\in W\}$.
+
+???Quotient
+
+### Span
+
+The _span_ of a subset of a vector space is the smallest subspace
+containing the subset.
+
+A _linear combination_ of vectors $v_i\in V$, $i\in I$, is a sum $\sum_i a_i v_i$ where
+a finite number of $a_i\in\RR$ are non-zero. The _span_ of $\{v_i\}_{i\in I}$
+is the set of all linear combinations,
+$$
+\span\{v_i\} = \{\sum_i a_i v_i\mid a_i\in\RR\}.
+$$
+
+__Exercise__. _Show the span is a vector space_.
+
+_Hint_. Show if $u$ is in the span then $au$ is also in the span for $a\in\RR$
+and if $v$ and $w$ are in the span then $v + w$ is also in the span.
+
+<details><summary>Solution</summary>
+If $u = \sum_j a_j v_j$ then ${au = \sum_j a(a_j v_j) = \sum_j (aa_j)v_j}$ is in the span.
+If ${v = \sum_j b_j v_j}$ and ${w = \sum_j c_j v_j}$ then
+${v + w = \sum_j (b_j + c_j) v_j}$ is in the span.
+</details>
+
+### Independent
+
+A set of vectors $\{v_i\}_{i\in I}$ are _independent_ if
+for any finite sum $\sum a_i v_i = 0$ implies $a_i = 0$ for all $i$.
+
+__Exercise__. _If $\{v_i\}_{i\in I}$ are independent and ${\sum_i a_i v_i = \sum_i b_i v_i}$
+then ${a_i = b_i}$ for all ${i\in I}$_.
+
+_Hint_: $\sum_i (a_i - b_i) v_i = \zero$.
+
+<details><summary>Solution</summary>
+If ${\sum_i a_i v_i = \sum_i b_i v_i}$ then
+$\zero = \sum_i a_i v_i - \sum_i b_i v_i = \sum_i (a_i - b_i)v_i$ so $a_i - b_i = 0$ for $i\in I$.
+</details>
+
+__Exercise__. _If $\{v_i\}$ are not independent then
+$v_j = \sum_{i\not= j} b_i v_i$ for some $j\in I$ and $b_i\in\RR$_.
+
+_Hint_: If $\sum a_i v_i = \zero$ and $a_j\not= 0$ for some $j\in I$ then
+$a_j v_j = -\sum_{i\not=j} a_i v_i$.
+
+<details><summary>Solution</summary>
+$v_j = -\sum_{i\not=j} a_i/a_j v_i$.
+</details>
+
+### Basis
+
+A collection of vectors $\{v_i\}_{i\in I}$, $v_i\in V$, is a _basis_ of $V$ if
+they are independent and span $V$. Since they span $V$ every
+vector $v\in V$ can be written as a linear combination $v = \sum_{i\in I} a_i v_i$.
+This shows how to identify any vector space $V$ with $\RR^I$ given a basis $(v_i)_{i\in I}$.
+
+The _dimension_ of a vector space is the number of elements of a basis.
+A vector space has many collections of vectors that are a basis but
+every basis has the same number of vectors. This is not trivial to prove.
 
 ## Linear Transformation
 
@@ -98,12 +197,12 @@ $v,w\in V$. Note that the addition ${av + w}$ occurs in $V$ and
 ${aTv + Tw}$ occurs in $W$.  The space of all such linear transformations is
 denoted $\LL(V,W)$.
 
-__Exercise__. _Show if $T$ is a linear transformation then $T\bm{0} = \bm{0}$_.
+__Exercise__. _Show if $T$ is a linear transformation then $T\zero = \zero$_.
 
-__Hint__: Consider $T(\bm{0} + \bm{0})$ and $v + v = v$ implies $v = \bm{0}$.
+__Hint__: Consider $T(\zero + \zero)$ and $v + v = v$ implies $v = \zero$.
 
 <details><summary>Solution</summary>
-$T(\bm{0} + \bm{0}) = T(\bm{0}) + T(\bm{0})$ and $T(\bm{0} + \bm{0}) = T(\bm{0})$ so $T(\bm{0}) = \bm{0}$.
+$T(\zero + \zero) = T(\zero) + T(\zero)$ and $T(\zero + \zero) = T(\zero)$ so $T(\zero) = \zero$.
 </details>
 
 __Exercise__. _Show $T(av) = aTv$, $a\in\RR$, $v\in V$_.
@@ -124,12 +223,12 @@ $T(av + bw) = aTv + T(bw) = aTv = bTw$.
 A linear transformation $T\colon V\to W$ is _one-to-one_, or _injective_,
 if $Tu = Tv$ implies $u = v$ then $T$
 
-__Exercise__. _Show if $Tv = \bm{0}$ implies $v = \bm{0}$ then $T$ is one-to-one_.
+__Exercise__. _Show if $Tv = \zero$ implies $v = \zero$ then $T$ is one-to-one_.
 
 _Hint_. Use linearity.
 
 <details><summary>Solution</summary>
-If $Tu = Tv$ then $T(u - v) = \bm{0}$ so $u - v = \bm{0}$ and $u = v$.
+If $Tu = Tv$ then $T(u - v) = \zero$ so $u - v = \zero$ and $u = v$.
 </details>
 
 A linear transformation $T\colon V\to W$ is _onto_, or _surjective_,
@@ -178,13 +277,13 @@ Define the _dual pairing_ by $\langle v,v^*\rangle = v^*(v)$ for $v\in V$ and $v
 If $V = \RR^n$ we can identify $V^*$ with $\RR^n$ using the standard basis.
 Define the _dual basis_ $e_j^*\colon\RR^n\to\RR$ by $e_j^*(e_k) = δ_{jk}$.
 
-__Exercise__. _Show every $v\in\RR^n$ can be written $v = \sum_j e_j^*(v) e_j$._
+__Exercise__. _Show $v = \sum_j e_j^*(v) e_j$, $v\in\RR^n$_.
 
 <details><summary>Solution</summary>
 If $v = \sum_j v_j e_j$ then $e_i^*(v) = v_i$.
 </details>
 
-__Exercise__. _Show every $v^*\in(\RR^n)^*$ can be written $v^* = \sum_j v^*(e_j) e_j^*$._
+__Exercise__. _Show $v^* = \sum_j v^*(e_j) e_j^*$, $v^*\in(\RR^n)^*$_.
 
 <details><summary>Solution</summary>
 If $v^* = \sum_j v_j e_j^*$ then $e_i^*(v) = v_i$.
@@ -229,93 +328,31 @@ It is true that $L^p(\mu)^*\cong L^q(\mu)$ where $1/p + 1/q = 1$ and $p > 1$.
 It is not true that $L^\infty(\mu)^* \cong L^1(\mu)$ in general.
 Proving these claims is non-trivial.
 
+<!--
 
-## Span
+## Grassmann
 
+For $I \subset V$ let $I\colon I\to V$ be injective.
 
+Define $\vee I$ to be the span of $I$.
 
+$t\colon I\to J$. $T\colon\RR^J\to\RR^I$.
+$v\colon J\to\RR$ mapsto $Tv\colon I\to\RR$ by $Tv(i) = v(t(i)$.
 
+$f\colon A\to B$
 
-A _linear combination_ of vectors $v_j\in V$ is a sum $\sum_j a_j v_j$ where
-$a_j\in\RR$. The _span_ of $\{v_j\}$ is the set of all linear combinations.
+$\circ f\colon C^B\to C^A$ by $(\circ f)g = gf$.
 
-__Exercise__. _Show the span is a vector space_.
+$f\circ\colon A^C\to B^C$ by $(f\circ)h = fh$.
 
-_Hint_. Show if $u$ is in the span then $au$ is also in the span for $a\in\RR$
-and if $v$ and $w$ are in the span then $v + w$ is also in the span.
+A function $f\colon I\to J$ determines a linear transformation
+$F\colon\RR^J\to\RR^I$.
 
-<details><summary>Solution</summary>
-If $u = \sum_j a_j v_j$ then ${au = \sum_j a(a_j v_j) = \sum_j (aa_j)v_j}$ is in the span.
-If ${v = \sum_j b_j v_j}$ and ${w = \sum_j c_j v_j}$ then
-${v + w = \sum_j (b_j + c_j) v_j}$ is in the span.
-</details>
+$I^n\to\RR$.
 
-## Subspace
+$d_i\colon I^n\to I^n\setminus\{i\}$
 
-A subset $U\subseteq V$ of a vector space $V$ is a _subspace_ if $U$ is also a vector space.
-
-__Exercise__. _Let $U$ be a subset of $V$. If $\RR U\subseteq U$ and $U + U\subseteq U$ then
-$U$ is a subspace of $V$_.
-
-_Hint_. $\RR U = \{au\mid a\in\RR, u\in U\}$ and $U + U = \{v + w\mid v\in U, w\in U\}$.
-Show if $u\in U$ then $au\in U$
-and if $v,w\in U$ then $v + w\in U$.
-
-<details><summary>Solution</summary>
-If $u\in U$ and $a\in\RR$ then $au\in\RR U\subseteq U$.
-If $v\in U$ and $w\in U$ then $v + w\in U + U\subseteq U$.
-</details>
-
-__Exercise__. _Show the intersection of two subspaces is a subspace_.
-
-_Hint_. Show if $v$ is in the intersection then $av$ is also in the intersection for $a\in\RR$
-and if $u$ and $w$ are in the intersection then $u + w$ is also in the intersection.
-
-<details><summary>Solution</summary>
-If $v\in U\cap V$ then $au\in U$ and $av\in V$ so $au\in U\cap V$.
-If $u,w\in U\cap V$ then $u + w\in U$ and $u + w\in V$ so $u + w\in U\cap V$.
-</details>
-
-__Exercise__. _Show the sum of two subspaces is a subspace_.
-
-_Hint_. The sum of subspaces $U, W\subseteq V$ is $U + W = \{u + w\mid u\in U, w\in W\}$.
-
-## Independent
-
-A set of vectors $\{v_j\}$ are _independent_ if
-$\sum a_j v_j = 0$ implies $a_j = 0$ for all $j$.
-
-__Exercise__. _If $\{v_j\}$ are not independent then
-$v_i = \sum_{j\not= i} a_j v_j$ for some $i$_.
-
-_Hint_: If $\sum a_j v_j = 0$ and $a_i\not= 0$ for some $i$ then
-$a_i v_i = -\sum_{j\not=i} a_j v_j$.
-
-<details><summary>Solution</summary>
-$v_i = -\sum_{j\not=i} a_j/a_i v_j$.
-</details>
-
-## Basis
-
-A collection of vectors $(v_i)_{i\in I}$, $v_i\in V$, is a _basis_ of $V$ if
-they are independent and span $V$. Since they span $V$ every
-vector $v\in V$ can be written $v = \sum_{i\in I} a_i v_i$.
-
-__Exercise__. _If $\sum_i a_i v_i = \sum_i b_i v_i$ then $a_i = b_i$ for all $i\in I$_.
-
-_Hint_: $0 = \sum_i (a_i - b_i) v_i$.
-
-<details><summary>Solution</summary>
-$\sum_i a_i v_i - \sum_i b_i v_i = \sum_i (a_i - b_i)v_i = 0$ so $a_i - b_i = 0$ for $i\in I$.
-</details>
-
-This shows how to identify any vector space $V$ with $\RR^I$ given a basis $(v_i)_{i\in I}$.
-
-The _dimension_ of a vector space is the number of elements of a basis.
-A vector space has many collections of vectors that are a basis but
-every basis has the same number of vectors. This is not trivial to prove.
-Vector spaces occupy a sweet spot in the menagerie of mathematical objects.
-They are determined up to _isomorphism_ by their dimension.
+$\partial\colon I^n\to\RR^{I^{n-1}}$.
 
 ## Heisenberg
 
@@ -445,6 +482,7 @@ hence the quotient space $V/U$ is a vector space where
 the cosets are the vectors. A subspace $U$ and the quotient space $V/U$
 determine $V$ up to isomorphism, but that requires more machinery.
 
+-->
 <!--
 $T\colon U\to V$
 
@@ -453,6 +491,7 @@ $0\to\ker T\to U\to \ran T\to V\to 0$
 $0\to U\to V\to V/U\to 0$.
 -->
 
+<!--
 ## Invariant Subspace
 
 An _invariant subspace_ of $T\colon V\to V$ is a subspace $U\subseteq V$ with $T(U) \subseteq U$.
@@ -573,3 +612,4 @@ $F(x) = \|x\|^p$ show $DF(x) = p\|x\|^{p-2}x^*$._
 _Hint_. Show $D\|x\|^2 = 2x^*$ and note $\|x\|^p = (\|x\|^2)^{p/2}$.
 By the chain rule $D\|x\|^p = (p/2)\|x\|^{2(p/2 - 1)}2x^* = p\|x\|^{p - 2}x^*$.
 
+-->

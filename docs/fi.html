@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-06-03" />
+  <meta name="dcterms.date" content="2024-12-07" />
   <title>Fixed Income</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Fixed Income</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 3, 2024</p>
+<p class="date">December 7, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Fixed cash flows
@@ -183,9 +183,8 @@ having a piecewise constant forward curve that matches each price. The
 first forward is the yield of the first instrument. Given a discount to
 time <span class="math inline">t</span> and a forward rate <span
 class="math inline">f</span> we can extend the discount for <span
-class="math inline">u &gt;
-t</span> by <span class="math inline">D(u) = D(t)e^{-f(u -
-t)}</span>.</p>
+class="math inline">u &gt; t</span> by <span class="math inline">D(u) =
+D(t)e^{-f(u - t)}</span>.</p>
 <p>The bootstrap method is deterministic. It assumes the forward curve
 is piecewise constant with jumps at maturities of instruments used to
 build the curve. As instruments of increasing maturity are added, the
