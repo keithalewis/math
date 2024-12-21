@@ -13,97 +13,27 @@ abstract: Value, hedge, and manage the risk of derivative instruments.
 \newcommand{\ran}{\operatorname{ran}}
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Alg}{\operatorname{Alg}}
 
-This note provides a replacement for the Black, Scholes[@BlaSch1973]
-and Merton[@Mer1973] theory of option valuation. Scholes and Merton won
-a Nobel Prize in Economics for showing how to value a derivative instrument
-using dynamic hedging: the value is the cost of setting
-up the initial hedge.
-The Achilles heel of their model is their assumption of continuous time trading.
-This leads to untenable results[^1], something [Zeno](https://iep.utm.edu/zenos-paradoxes/)
-pointed out 2,500 years ago.
+This note proposes improvements to Stephen Ross's [@Ros1978] paper
+"A Simple Approach to the Valuation of Risky Streams" by identifying
+cash flows associated with owning financial instruments and
+modeling trading as a finite number of transactions based on
+available information. The model provides an accurate
+representation of trading and a simple derivation of the
+Black-Scholes [@BlaSch1973] and Merton [@Mer1973] valuation formula.
 
-Continuous time trading is a mathematical artifact of the theory of Ito processes
-and duped many academics into believing complete markets and
-perfect hedges exist. Every trader and risk manager knows this does not
-correspond to reality after a few days on the job.
-Trades occur at discrete times based on available information.
-The primary unsolved problem in mathematical finance is how
-to advise traders when and how much to hedge. There is still
-work to be done on how well hedges work once you accept
-the fact markets are not complete.
-
-One benefit of working as a quant during the heyday of derivatives
-was having a front row seat to how the software
-implementations of the theory performed. 
-When the hedges provided by your
-implementation of a model started losing money, or even gaining money,
-you would get a visit from someone paying your salary expecting
-an explanation. I quickly learned the importance of gamma
-profiles. We can do better than the trader aphorism, "Hedge
-when you can, not when you have to."
-
-When a theory in physics does not agree with observation, it is time to
-come up with a new theory. The tenor of the time at the end of the 19th
-century was that Newton's theory of gravitation and Maxwell's theory
-of electromagnetism had been successfully carried out.  Lord Kelvin
-proclaimed "It is just a matter of adding decimal points to physical
-constants."
-
-The Achilles's heel of classical theory at the time was its
-prediction of black body radiation. Experiment did not
-agree with observation.
-
-> _Für die Richtung des dabeieinzuschlagenden Gedankenganges giebt der
-  Hinblick auf dieUnhaltbarkeit der früher gemachten Voraussetzung einen
-  Finger-zeig_. -- Max Planck
-
-> _The untenability of the assumption made earlier provides an indication
-  of the direction of the line of thought to be taken_.
-
-Max Planck came up with a simple
-solution to fit the data: assume photons were emitted in integer
-multiples of of the _Planck constant_.
-Instrument prices are integer multiples of a minimum trading unit,
-not real numbers. This fact is relevant for accurate valuation
-of 0-day options.
-
-The untenable assumption of the Black-Scholes/Merton theory is that
-continuous time trading is possible. The indicated direction is
-to provide a theory reflecting the fact traders decide at
-discrete times based on available information what to trade.
-
-## Simple Unified Model
-
-The Simple Unified Model is an extension of Stephen Ross'[@Ros1978] "A Simple
-Approach to the Valuation of Risky Streams". According to Ross
-
-> _If there are no arbitrage opportunities in the capital markets, then
-there exists a (not generally unique) valuation operator, $L$_.
-
-He used the Hahn-Banach theorem to show the existence of $L$ and
-observed it is not unique if the market is not complete.  This set off
-a cottage industry of Mathematical Finance nitpickers pointing out he
-had not established the existence of an interior point required for
-the application of the Hahn-Banach theorem.
-This culminated in Delbaen and Schachermeyer's No Free
-Lunch with Vanishing Arbitrage theorem to get around the fact that the
-unit ball in the $L^\infty$ weak-$*$ topology does not have an interior
-point. Something no business person has ever found useful.
-
-<!--
-Eventually this was called the _Fundamental Theorem of Asset Pricing_.
--->
-The Simple Unified Model does not require the Hahn-Banach theorem.  It also
-does not involve a so-called real-world probability measure that
-is immediately throw out to get a risk-neutral probability measure.
-It does not involve stochastic integrals, the Ito formula, partial differential equations,
-much less weak-$*$ topologies. It does not even involve probability.
-The Fundamental Theorem of Asset pricing is a geometric fact.
-Positive measures having mass 1 show up, but they are not the probability of anything.
+The Simple Unified Model does not involve so-called real-world probability
+measures that are immediately throw out to get risk-neutral probability
+measures.  It does not involve stochastic integration, the Ito formula,
+partial differential equations, much less the Hahn-Banach theorem or
+weak-$*$ topologies. It does not even involve probability.  As Ross
+showed, the lack of arbitrage places constraints on price dynamics. It
+Is a purely geometric fact.  Positive measures having mass 1 show up,
+but they are not the probability of anything.
 
 Every arbitrage-free model is determined by deflators that correspond to
-Ross' valuation operator $L$ and a martingale measure.  If repurchase
+Ross's valuation operator and a martingale measure.  If repurchase
 agreements are available there is a canonical deflator.  Market
 instruments have prices and associated cash flows.  Trading involves
 buying and selling instruments at discrete times.  These determine the
@@ -115,209 +45,70 @@ trade. It only provides an elementary and mathematically rigorous
 framework to put your nose in the most important unsolved problem in
 Mathematical Finance.
 
-[^1]: Merton provided a closed form solution for valuing
-barrier options based on the reflection principal of Brownian motion.
-[@cite]. The classical theory implies the
-value of a barrier option that knocks in or out the second
-time the barrier is hit has the same value.
-It also implies the value of a barrier option that knocks in
-or out the millionth time it hits the barrier has exactly
-the same value. 
-
 ## Simple Unified Model
+
+The Simple Unified Model is an extension of Stephen Ross's [@Ros1978] "A Simple
+Approach to the Valuation of Risky Streams". According to Ross
+
+> _If there are no arbitrage opportunities in the capital markets, then
+there exists a (not generally unique) valuation operator, $L$_.
+
+He used the Hahn-Banach theorem to show the existence of $L$ and
+observed it is not unique if the market is not complete.
+Ross generalized the B-S/M model of a bond, stock, and option
+to any collection of instruments (risky-streams).
+He identified cash flows as the derivative of a price process.
+We put cash flows on the first class footing they deserve.
+He assumed, as did B-S/M, that continuous time trading was
+possible. Every trading strategy in the real world involves
+only a finite number of trades.
 
 We assume you are familiar with measure theory and stochastic
 processes, but are not necessarily an expert.
+We assume a set $\Omega$ that is the collection of all possible outcomes.
+Partial information is modeled by a _partition_ of $\Omega$.
+Elements of the partition are _atoms_.
+The model specifies partitions $\AA_t$
+represening available information at each trading time $t\in T$.
+Information increases over time:
+if ${B\in\AA_u}$ then ${B = \cup\{A\mid A\subseteq B, A\in\AA_t\}}$ whenever ${t < u}$.
 
-## Preliminaries
-
-<details><summary>Details</summary>
-
-Let $\Omega$ be a set of possible outcomes. _Partial information_ is modeled
-by a partition of $\Omega$. A collection of subsets of $\Omega$, $\{A_j\}$,
-is a _partition_ if they are pairwise disjoint and their union is $\Omega$.
-Full information is knowing $\omega\in\Omega$. Partial information is
-knowing only to which atom $\omega$ belongs.
-No information is modeled by the singleton partition $\{\Omega\}$.
-
-An _algebras of sets_ is a collection of sets
-closed under union and complement.
-
-__Exercise__. _Show algebras of sets are closed under intersection_.
-
-_Hint_: Let $A' = \Omega\setminus A = \{\omega\in\Omega\mid \omega\not\in A\}$
-be the set complement of $A$ in $\Omega$.
-Use De Morgan's Law $(A\cap B)' = A'\cup B'$.
-
-We can identify a set $A$ with its _indicator function_ $1_A\colon\Omega\to\RR$
-defined by $1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\not\in A$.
-Note $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$, $1_{A'} = 1 - 1_A$, and
-$1_{A\cap B} = 1_A 1_B$,
-
-__Exercise__. _Prove De Morgan's Law_.
-
-_Hint_: Start from $1_{A'\cup B'} = 1_{A'} + 1_{B'} - 1_{A'\cap B'}$.
-
-Calculations on algebras of sets is algebra.
-
-If $\AA$ is a finite algebra of sets on $\Omega$ then
-$[\omega] = \cap\{A\in\AA\mid\omega\in A\}$ is the _atom_ of $\AA$ containing ${\omega\in\Omega}$.
-
-__Exercise__. _If $B\subseteq[\omega]$ and $B\in\AA$ then
-$B = \emptyset$ or $B = [\omega]$_.
-
-__Exercise__. _The atoms of $\AA$, $[\AA]$, form a partition of $\Omega$_.
-
-This shows we can identify a finite algebra of sets with its atoms.
-
-A function $X\colon\Omega\to\RR$ is $\AA$-_measurable_
-for an algebra of sets $\AA$
-if $\{\omega\in\Omega\mid X(\omega) \le x\}$ belongs to $\AA$
-for all $x\in\RR$.
-
-__Exercise__. _If $\AA$ is finite, show $X$ is $\AA$-measurable
-if and if and only if it is constant on atoms of $\AA$_.
-
-This shows $X\colon[\AA]\to\RR$ _is_ a function.
-We jettison the word 'measurable' and say $X$ _is known given_ $\AA$.
-
-### Integration
-
-Integration is a _linear functional_: it assigns a function to a number
-where a constant times a function is assigned to the constant
-times the integral and the integral of the sum of two functions
-is the sum of the integrals. Integration involves _measures_.
-A finitely-additive measure is a _set function_ $\lambda\colon\AA\to\RR$ satisfying
-$\lambda(A\cup B) = \lambda(A) + \lambda(B) - \lambda(A\cap B)$
-and $\lambda(\emptyset) = 0$. Measures don't count things
-twice and the measure of the empty set is 0.
-
-If $S$ is a set and $f\colon S\to\RR$ is a function on $S$ define
-its _norm_ $\|f\| = \sup_{s\in S} |f(s)|$.
-Let $B(S) = \{f\colon S\to\RR\mid \|f\| < \infty\}$ be the
-_normed linear space_ of bounded functions on $S$.
-The _dual_ of $B(S)$, $B(S)^*$, is the set of all
-_bounded linear functionals_ $L\colon B(S)\to\RR$.
-A linear functional is bounded if there exists a constant $M\in\RR$
-with $|Lf| \le M\|f\|$ for all $f\in B(S)$.
-The least such constant is the _norm_ of $L$, $\|L\|$.
-
-Every bounded linear functional gives rise to a finitely-additive
-measure $\lambda$ on $S$ by $\lambda(A) = L1_A$.
-Let $ba(S)$ denote all finitely-additive measures on $S$.  We now show
-how to identify $B(S)^*$ with $ba(S)$.
-
-__Exercise__: _Show $\lambda$ is a measure_.
-
-Every finitely-additive measure gives rise to a linear functional.
-We say $f$ is _simple_ if it is a finite linear combination
-of indicator functions $f = \sum_j a_j 1_{A_j}$.
-Given a measure $\lambda$ define $Lf = \sum_j a_j \lambda(A_j)$.
-
-__Exercise__. _If $\{A_j\}$ are pairwise disjoint show $Lf = 0$
-implies $f = 0$_.
-
-__Exercise__. _Show for any collection $\{B_i\}$ we have $\sum_i b_i 1_{B_i} = \sum_j a_j 1_{A_j}$
-where $\{A_j\}$ are pairwise disjoint_.
-
-_Hint_: Use $1_{E\cup F} = 1_{E\setminus F} + 1_{F\setminus E} - 1_{E\cap F}$
-and induction.
-
-This shows $L$ is _well-defined_ for simple functions.
-
-__Exercise__. _Given any bounded function $g$ and $\epsilon > 0$ there
-exists an simple function $f$ with $\|g - f\| < \epsilon$_.
-
-_Hint_: Let $a_n = f(n\epsilon)$ and $A_n = f^{-1}([n\epsilon, (n + 1)\epsilon))$.
-
-This shows the set of simple functions is _dense_ in $B(S)$.
-We can extend the definition from simple
-functions to all of $B(S)$ since $L$ is bounded
-
-__Exercise__: _If $f\in B(S)$ and $\lim_n f_n = f$
-then $\lim_n Lf_n = Lf$_.
-
-_Hint_ Use $L$ is bounded.
-
-This defines the _integral_ $Lf = \int_S f\,d\lambda$.
-
-We can define a norm on $ba(S)$ by $\|\lambda\| = \sup_{\{A_j\}} |\lambda(A_j)|$
-where the supremum is over all pairwise disjoint subsets of $S$.
-
-__Exercise__. _Show $\|\lambda\| = \|L\|$_.
-
-If $S$ is finite then $B(S)$ can be identified with $\RR^S = \{f\colon S\to\RR\}$
-where $s\mapsto  f(s)$.
-Similarly, $ba(S)$ can be identified with $\RR^S = \{\lambda\colon S\to\RR\}$
-where $\{s\}\mapsto \lambda(\{s\})$.
-This is good news when it comes to computer implementation,
-everything is just a finite vector of numbers.
-
-### Probability
-
-The Simple Unified Model does not involve probability, however as an
-aid to those schooled in the classical theory we will reconnoiter
-some elementary facts.
-
-A _probability measure_ is a positive measure with mass 1.
-If $P$ is a probability measure on $\Omega$
-then any function $X\colon\Omega\to\RR$ is a _random variable_.
-The _expected value_ of $X$ is $E[X] = \int_\Omega X\,dP$.
-
-The _conditional probability_ of $B$ given $A$ is
-$P(B\mid A) = P(B\cap A)/P(A)$ for $B,A\subseteq\Omega$.
-
-__Exercise__. _Show $B\mapsto P(B\mid A)$ is a probability measure on $A$_.
-
-This can be generalized to the conditional expectation of a random
-variable given an algebra of sets. We say $Y = E[X\mid\AA]$ if
-$Y$ is known given $\AA$ and $\int_A Y\,dP = \int_A X\,dP$ for
-all $A\in\AA$.
-
-If $X$ is a random variable and $P$ is a measure we can define the
-measure $XP$ by $(XP)(A) = \int_A X\,dP$.
-
-__Exercise__. _Show $XP$ is a measure_.
-
-__Exercise__ _Show if $X\ge 0$ and $E[X] = 1$ then $XP$ is a probability measure_.
-
-_Hint_: Show $XP$ is positive and $(XP)(\Omega) = 1$.
-
-__Exercise__. _Show $Y = E[X|\AA]$ if and only if $Y(P|_\AA) = (XP)|_\AA$_.
-
-_Hint_: If $P$ is a measure on $\Omega$ then $P|_\AA$ is the restriction
-of the measure to $\AA$.
-
-__Exercise__. _Show if $A$ is an atom of $\AA$ then $E[X\mid\AA](A) = \int_A X\,dP/P(A)$_.
-
-Conditional expectation is the average over each atom.
-
-</details>
-
-Let $T$ be the set of trading times, $I$ the set of all market
-instruments, $\Omega$ the sample space of possible outcomes, and
-$(\AA_t)_{t\in T}$ the algebras of sets on $\Omega$ indicating the
-information available at each trading time.
+If $\Alg\AA$ is the smallest _algebra of sets_ generated by a finite partition $\AA$
+of $\Omega$ then a function $X\colon\Omega\to\RR$ is _measurable_ if and only if
+$X$ is constant on each atom of $\AA$. 
+This allows us to write $X\colon\AA\to\RR$ as a function on atoms and
+relegate the words 'algebra' and 'measurable' to the (Appendix)[#appendix].
 
 ### Market
 
-_Price_ -- $X_t\colon[\AA_t]\to\RR^I$,
-market prices assuming perfect liquidity.
+Let $I$ be the collection of all market _instruments_. 
+Instruments can be bought or sold at _price_ $X_t\colon\AA_t\to\RR^I$
+at any trading time $t\in T$. We assume, as is customary,
+that market prices are perfectly liquid and divisible.
 
-_Cash flow_ -- $C_t\colon[\AA_t]\to\RR^I$,
-dividends, coupons, margin adjustments for futures.
+Instruments have _cash flows_ $C_t\colon\AA_t\to\RR^I$
+associated with their ownership.
+Stocks have dividends, bonds have periodic coupons and principal at maturity,
+futures have daily margin adustments. The price of a futures is always
+zero in an arbitrage-free model. Money market accounts have zero cash flows.
 
 ### Trading
 
-_Trading Strategy_ -- $\tau_0 < \cdots < \tau_n$, increasing stopping times
-and trades $\Gamma_j\colon[\AA_{\tau_j}]\to\RR^I$
-
-_Position_ -- $\Delta_t = \sum_{\tau_j < t}\Gamma_j = \sum_{s < t} \Gamma_s$,
-accumulation of trades _not_ including last.
+Traders buy and sell intruments over time based on information available
+at the time of the trade. A _trading strategy_ is a finite sequence
+$\tau_0 < \cdots < \tau_n$ of increasing stopping times and trades
+$\Gamma_j\colon\AA_{\tau_j}\to\RR^I$.
+Trades accumulate to the _position_ $\Delta_t = \sum_{\tau_j < t}\Gamma_j$ at time $t$.
+Note the position _does not_ include the trades $\Gamma_t$ at time $t$. This
+corresponds to the fact that it takes a non-zero amount of time after a trade
+is executed for a trade to settle.
+We also write $\Delta_t = \sum_{s < t} \Gamma_s$ where $\Gamma_s = \Gamma_j$
+when $s = \tau_j$.
 
 ### Accounting
 
-_Value_ -- $V_t = (\Delta_t + \Gamma_t)\cdot X_t$,
+The _value_, or _mark-to-market_, of a trading strategy
+is $V_t = (\Delta_t + \Gamma_t)\cdot X_t$.
 mark-to-market existing positions and last trade at current prices.
 
 _Account_ -- $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$,
@@ -567,6 +358,253 @@ $V_0 = E[\nu(S_n)]$
 
 $\Gamma = (M, N)$.
 -->
+
+Various authors have considered replication error.
+
+[@Der1999]
+
+[@DerTal2005]
+
+## Review
+
+This note provides a replacement for the Black, Scholes [@BlaSch1973]
+and Merton [@Mer1973] theory of option valuation. Scholes and Merton won
+a Nobel Prize in Economics for showing how to value a derivative instrument
+using dynamic hedging: the value is the cost of setting
+up the initial hedge.
+The Achilles heel of their model is their assumption of continuous time trading.
+This leads to untenable results[^1], something [Zeno](https://iep.utm.edu/zenos-paradoxes/)
+pointed out 2,500 years ago.
+
+[^1]: Merton provided a closed form solution for valuing
+barrier options based on the reflection principal of Brownian motion
+in Section 9 of [@Mer1973]. The classical theory implies the
+value of a barrier option that knocks in or out the second
+time the barrier is hit has the same value.
+It also implies the value of a barrier option that knocks in
+or out the millionth time it hits the barrier has exactly
+the same value. 
+
+Continuous time trading is a mathematical artifact of the theory of Ito processes
+and duped many academics into believing complete markets and
+perfect hedges exist. Every trader and risk manager knows this does not
+correspond to reality after a few days on the job.
+Trades occur at discrete times based on available information.
+The primary unsolved problem in mathematical finance is how
+to advise traders when and how much to hedge. There is still
+work to be done on how well hedges work once you accept
+the fact markets are not complete.
+
+One benefit of working as a quant during the heyday of derivatives
+was having a front row seat to how the software
+implementations of the theory performed. 
+When the hedges provided by your
+implementation of a model started losing money, or even gaining money,
+you would get a visit from someone paying your salary expecting
+an explanation. I quickly learned the importance of gamma
+profiles. We can do better than the trader aphorism, "Hedge
+when you can, not when you have to."
+
+When a theory in physics does not agree with observation, it is time to
+come up with a new theory. The tenor of the time at the end of the 19th
+century was that Newton's theory of gravitation and Maxwell's theory
+of electromagnetism had been successfully carried out.  Lord Kelvin
+proclaimed "It is just a matter of adding decimal points to physical
+constants."
+
+The Achilles's heel of classical theory at the time was its
+prediction of black body radiation. Experiment did not
+agree with observation.
+
+> _Für die Richtung des dabeieinzuschlagenden Gedankenganges giebt der
+  Hinblick auf dieUnhaltbarkeit der früher gemachten Voraussetzung einen
+  Finger-zeig_. -- Max Planck
+
+> _The untenability of the assumption made earlier provides an indication
+  of the direction of the line of thought to be taken_.
+
+Max Planck came up with a simple
+solution to fit the data: assume photons were emitted in integer
+multiples of of the _Planck constant_.
+Instrument prices are integer multiples of a minimum trading unit,
+not real numbers. This fact is relevant for accurate valuation
+of 0-day options.
+
+The untenable assumption of the Black-Scholes/Merton theory is that
+continuous time trading is possible. The indicated direction is
+to provide a theory reflecting the fact traders decide at
+discrete times based on available information what to trade.
+
+
+## Appendix
+
+<details><summary>Details</summary>
+
+Let $\Omega$ be a set of possible outcomes. _Partial information_ is modeled
+by a partition of $\Omega$. A collection of subsets of $\Omega$, $\{A_j\}$,
+is a _partition_ if they are pairwise disjoint and their union is $\Omega$.
+Full information is knowing $\omega\in\Omega$. Partial information is
+knowing only to which atom $\omega$ belongs.
+No information is modeled by the singleton partition $\{\Omega\}$.
+
+An _algebras of sets_ is a collection of sets
+closed under union and complement.
+
+__Exercise__. _Show algebras of sets are closed under intersection_.
+
+_Hint_: Let $A' = \Omega\setminus A = \{\omega\in\Omega\mid \omega\not\in A\}$
+be the set complement of $A$ in $\Omega$.
+Use De Morgan's Law $(A\cap B)' = A'\cup B'$.
+
+We can identify a set $A$ with its _indicator function_ $1_A\colon\Omega\to\RR$
+defined by $1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\not\in A$.
+Note $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$, $1_{A'} = 1 - 1_A$, and
+$1_{A\cap B} = 1_A 1_B$,
+
+__Exercise__. _Prove De Morgan's Law_.
+
+_Hint_: Start from $1_{A'\cup B'} = 1_{A'} + 1_{B'} - 1_{A'\cap B'}$.
+
+Calculations on algebras of sets is algebra.
+
+If $\AA$ is a finite algebra of sets on $\Omega$ then
+$[\omega] = \cap\{A\in\AA\mid\omega\in A\}$ is the _atom_ of $\AA$ containing ${\omega\in\Omega}$.
+
+__Exercise__. _If $B\subseteq[\omega]$ and $B\in\AA$ then
+$B = \emptyset$ or $B = [\omega]$_.
+
+__Exercise__. _The atoms of $\AA$, $[\AA]$, form a partition of $\Omega$_.
+
+This shows we can identify a finite algebra of sets with its atoms.
+
+A function $X\colon\Omega\to\RR$ is $\AA$-_measurable_
+for an algebra of sets $\AA$
+if $\{\omega\in\Omega\mid X(\omega) \le x\}$ belongs to $\AA$
+for all $x\in\RR$.
+
+__Exercise__. _If $\AA$ is finite, show $X$ is $\AA$-measurable
+if and if and only if it is constant on atoms of $\AA$_.
+
+This shows $X\colon[\AA]\to\RR$ _is_ a function.
+We jettison the word 'measurable' and say $X$ _is known given_ $\AA$.
+
+### Integration
+
+Integration is a _linear functional_: it assigns a function to a number
+where a constant times a function is assigned to the constant
+times the integral and the integral of the sum of two functions
+is the sum of the integrals. Integration involves _measures_.
+A finitely-additive measure is a _set function_ $\lambda\colon\AA\to\RR$ satisfying
+$\lambda(A\cup B) = \lambda(A) + \lambda(B) - \lambda(A\cap B)$
+and $\lambda(\emptyset) = 0$. Measures don't count things
+twice and the measure of the empty set is 0.
+
+If $S$ is a set and $f\colon S\to\RR$ is a function on $S$ define
+its _norm_ $\|f\| = \sup_{s\in S} |f(s)|$.
+Let $B(S) = \{f\colon S\to\RR\mid \|f\| < \infty\}$ be the
+_normed linear space_ of bounded functions on $S$.
+The _dual_ of $B(S)$, $B(S)^*$, is the set of all
+_bounded linear functionals_ $L\colon B(S)\to\RR$.
+A linear functional is bounded if there exists a constant $M\in\RR$
+with $|Lf| \le M\|f\|$ for all $f\in B(S)$.
+The least such constant is the _norm_ of $L$, $\|L\|$.
+
+Every bounded linear functional gives rise to a finitely-additive
+measure $\lambda$ on $S$ by $\lambda(A) = L1_A$.
+Let $ba(S)$ denote all finitely-additive measures on $S$.  We now show
+how to identify $B(S)^*$ with $ba(S)$.
+
+__Exercise__: _Show $\lambda$ is a measure_.
+
+Every finitely-additive measure gives rise to a linear functional.
+We say $f$ is _simple_ if it is a finite linear combination
+of indicator functions $f = \sum_j a_j 1_{A_j}$.
+Given a measure $\lambda$ define $Lf = \sum_j a_j \lambda(A_j)$.
+
+__Exercise__. _If $\{A_j\}$ are pairwise disjoint show $Lf = 0$
+implies $f = 0$_.
+
+__Exercise__. _Show for any collection $\{B_i\}$ we have $\sum_i b_i 1_{B_i} = \sum_j a_j 1_{A_j}$
+where $\{A_j\}$ are pairwise disjoint_.
+
+_Hint_: Use $1_{E\cup F} = 1_{E\setminus F} + 1_{F\setminus E} - 1_{E\cap F}$
+and induction.
+
+This shows $L$ is _well-defined_ for simple functions.
+
+__Exercise__. _Given any bounded function $g$ and $\epsilon > 0$ there
+exists an simple function $f$ with $\|g - f\| < \epsilon$_.
+
+_Hint_: Let $a_n = f(n\epsilon)$ and $A_n = f^{-1}([n\epsilon, (n + 1)\epsilon))$.
+
+This shows the set of simple functions is _dense_ in $B(S)$.
+We can extend the definition from simple
+functions to all of $B(S)$ since $L$ is bounded
+
+__Exercise__: _If $f\in B(S)$ and $\lim_n f_n = f$
+then $\lim_n Lf_n = Lf$_.
+
+_Hint_ Use $L$ is bounded.
+
+This defines the _integral_ $Lf = \int_S f\,d\lambda$.
+
+We can define a norm on $ba(S)$ by $\|\lambda\| = \sup_{\{A_j\}} |\lambda(A_j)|$
+where the supremum is over all pairwise disjoint subsets of $S$.
+
+__Exercise__. _Show $\|\lambda\| = \|L\|$_.
+
+If $S$ is finite then $B(S)$ can be identified with $\RR^S = \{f\colon S\to\RR\}$
+where $s\mapsto  f(s)$.
+Similarly, $ba(S)$ can be identified with $\RR^S = \{\lambda\colon S\to\RR\}$
+where $\{s\}\mapsto \lambda(\{s\})$.
+This is good news when it comes to computer implementation,
+everything is just a finite vector of numbers.
+
+### Probability
+
+The Simple Unified Model does not involve probability, however as an
+aid to those schooled in the classical theory we will reconnoiter
+some elementary facts.
+
+A _probability measure_ is a positive measure with mass 1.
+If $P$ is a probability measure on $\Omega$
+then any function $X\colon\Omega\to\RR$ is a _random variable_.
+The _expected value_ of $X$ is $E[X] = \int_\Omega X\,dP$.
+
+The _conditional probability_ of $B$ given $A$ is
+$P(B\mid A) = P(B\cap A)/P(A)$ for $B,A\subseteq\Omega$.
+
+__Exercise__. _Show $B\mapsto P(B\mid A)$ is a probability measure on $A$_.
+
+This can be generalized to the conditional expectation of a random
+variable given an algebra of sets. We say $Y = E[X\mid\AA]$ if
+$Y$ is known given $\AA$ and $\int_A Y\,dP = \int_A X\,dP$ for
+all $A\in\AA$.
+
+If $X$ is a random variable and $P$ is a measure we can define the
+measure $XP$ by $(XP)(A) = \int_A X\,dP$.
+
+__Exercise__. _Show $XP$ is a measure_.
+
+__Exercise__ _Show if $X\ge 0$ and $E[X] = 1$ then $XP$ is a probability measure_.
+
+_Hint_: Show $XP$ is positive and $(XP)(\Omega) = 1$.
+
+__Exercise__. _Show $Y = E[X|\AA]$ if and only if $Y(P|_\AA) = (XP)|_\AA$_.
+
+_Hint_: If $P$ is a measure on $\Omega$ then $P|_\AA$ is the restriction
+of the measure to $\AA$.
+
+__Exercise__. _Show if $A$ is an atom of $\AA$ then $E[X\mid\AA](A) = \int_A X\,dP/P(A)$_.
+
+Conditional expectation is the average over each atom.
+
+</details>
+
+Let $T$ be the set of trading times, $I$ the set of all market
+instruments, $\Omega$ the sample space of possible outcomes, and
+$(\AA_t)_{t\in T}$ the algebras of sets on $\Omega$ indicating the
+information available at each trading time.
 
 
 ## Reference
