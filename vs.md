@@ -9,11 +9,13 @@ abstract: A mathematical sweet spot
 
 \newcommand\FF{\boldsymbol{F}}
 \newcommand\CC{\boldsymbol{C}}
-\newcommand\RR{\mathbb{R}}
+\newcommand\RR{\boldsymbol{R}}
 \newcommand\NN{\boldsymbol{N}}
 \newcommand\LL{\mathcal{L}}
-\newcommand{\ran}{\operatorname{ran}}
-\renewcommand{\span}{\operatorname{span}}
+\newcommand\ker{\operatorname{ker}}
+\newcommand\ran{\operatorname{ran}}
+\renewcommand\span{\operatorname{span}}
+\renewcommand\graph{\operatorname{graph}}
 \renewcommand{\implies}{\Rightarrow}
 \newcommand\zero{\boldsymbol{0}}
 
@@ -128,7 +130,20 @@ __Exercise__. _Show the sum of two subspaces is a subspace_.
 
 _Hint_. The sum of subspaces $U, W\subseteq V$ is $U + W = \{u + w\mid u\in U, w\in W\}$.
 
-???Quotient
+### Quotient
+
+If $U$ is a subspace of $V$ define ${V/U = \{v + U\mid v\in V\}}$.
+Define scalar multiplication by ${a(v + U) = av + U}$ and vector addition
+by ${(v + U) + (w + U) = (v + w) + U}$, ${a\in\RR}$, ${v,w\in V}$.
+
+__Exercise__. _Show $v + U = w + U$ if and only if $v - w\in U$, $v,w\in V$_.
+
+__Exercise__. _Show scalar multiplication and vector multiplication are well-defined_.
+
+_Hint_: Show $v + U = v' + U$ implies $a(v + U) = a(v' + U)$, and
+$v + U = v' + U$, $w + U = w' + U$, imply $(v + w) + U = (v' + w') + U$.
+
+__Exercise__. _Show $V/U$ is a vector space with identity $\zero + U = U$_.
 
 ### Span
 
@@ -221,7 +236,7 @@ $T(av + bw) = aTv + T(bw) = aTv = bTw$.
 </details>
 
 A linear transformation $T\colon V\to W$ is _one-to-one_, or _injective_,
-if $Tu = Tv$ implies $u = v$ then $T$
+if $Tu = Tv$ implies $u = v$.
 
 __Exercise__. _Show if $Tv = \zero$ implies $v = \zero$ then $T$ is one-to-one_.
 
@@ -231,11 +246,29 @@ _Hint_. Use linearity.
 If $Tu = Tv$ then $T(u - v) = \zero$ so $u - v = \zero$ and $u = v$.
 </details>
 
+Define the _kernel_ of a linear transformaton $\ker T = \{v\in V\mid Tv = \zero\}$.
+
+__Exercise__. _Show $\ker T$ is a subspace_.
+
+__Exercise__. _Show $T$ is one-to-one if and only if $\ker T = \{\zero\}$_.
+
+Define $\pi_T\colon V\to V/\ker T$ by $\pi_T v = v + \ker T$.
+
+__Exercise__. _Show $\pi_T$ is a well-defined linear transformation_.
+
 A linear transformation $T\colon V\to W$ is _onto_, or _surjective_,
 if for every $w\in W$ there exists $v\in V$ with $Tv = w$.
 
-A linear transformation that is one-to-one and onto, or bijective, is an _isomorphism_.
+Define the _range_ of a linear transformation
+${\ran T = TV = \{w\mid w = Tv\text{ for some }v\in V\}}$
+and let $\nu_T\colon V/\ker T\to\ran T$ by $\nu_T(v + \ker T) = Tv$.
+
+__Exercise__ _Show $\nu_T$ well-defined, one-to-one, and onto_.
+
+A linear transformation that is one-to-one and onto, or _bijective_, is an _isomorphism_.
 If $T\colon V\to W$ is an isomorphism then $V$ and $W$ are _isomorphic_, $V\cong W$.
+
+__Exercise__. _Show if $T$ is an isomorphism then $T^{-1}$ is linear_.
 
 __Exercise__. _Show $V\cong W$ is an equivalence relation_.
 
@@ -256,7 +289,7 @@ If ${T\colon\RR^n\to\RR^m}$ then ${Te_i = \sum_j t_{ij} e_j}$
 for some $t_{ij}\in\RR$.
 
 __Exercise__. _If $T\colon\RR^k\to\RR^n$ and $S\colon\RR^n\to\RR^m$ then the composition
-$R = ST\colon\RR^k\to\RR^m$. Show $r_{ij} = \sum_k t_{ik} s_{kj}$_.
+$U = ST\colon\RR^k\to\RR^m$. Show $u_{ij} = \sum_k t_{ik} s_{kj}$_.
 
 <details><summary>Solution</summary>
 $R(e_i) = ST(e_i)
@@ -264,10 +297,64 @@ $R(e_i) = ST(e_i)
 	= \sum_k t_{ik} Se_k
 	= \sum_k t_{ik} \sum_j s_{kj} e_j
 	= \sum_j \sum_k t_{ik} s_{kj} e_j
-	= \sum_j r_{ij} e_j$
+	= \sum_j u_{ij} e_j$
 </details>
 
 Matrix multiplication is composition of linear transformations.
+
+Let $\LL(V) = \LL(V,V)$ be the space of linear transformations from
+a vector space to itself. It is also an _algebra_ with multiplication
+defined by composition with identity ${I_V = I\colon V\to V}$ defined by ${Iv = v}$, ${v\in V}$.
+
+__Exercise__. _Show $IT = TI$ and $T(U + V) = TU + TV$, ${T,U,V\in\LL(V)}$_.
+
+### Sum
+
+If $U$ and $W$ are vector spaces define the _external direct sum_
+$U\oplus W = \{u\oplus w)\mid u\in U, w\in W\}$, where
+$u\oplus w$ is the pair $(u,w)$.
+Define scalar multiplication
+$a(u\oplus w) = (au)\oplus (aw)$ and
+vector addition $(u\oplus w) + (u'\oplus w') = (u + u')\oplus (w + w')$.
+
+__Exercise__. _Show $U\oplus W$ is a vector space_.
+
+If $U$ and $W$ are subspaces of the vector space $V$ with
+$U\cap W = \{\zero\}$  then the _interal direct sum_
+$U + V\cong U\oplus V$.
+
+__Exercise__. _Show this!!!_.
+
+If $T\in\LL(U,V)$ define $\graph T = \{u\oplus Tu\mid u\in U\}$.
+
+__Exercise__. _Show $T$ is linear if and only if $\graph T$ is a subspace_.
+
+### Invariant Subspace
+
+An _invariant subspace_ of $T\colon V\to V$ is a subspace $U\subseteq V$ with $TU\subseteq U$.
+
+__Exercise__. _If $T\colon V\to V$ show $\ker T$ and $\ran T$ are invariant subspaces_.
+
+$V = \sum_\lambda \ker(T - \lambda I)$.
+
+If $U$ is a 1-dimensional subspace spanned by $e\in V$ then $e$ is an _eigenvector_
+and $Te = λe$ for some $λ\in\RR$, the _eigenvalue_ corresponding to $u$.
+
+If the eigenvectors of $T$ are independent they and their corresponding eigenvalues determine $T$.
+Let $(e_i)$, $(λ_i)$ be the eigenvectors and corresponding eigenvalues. Every vector $v\in V$
+can be written $v = \sum_i a_i e_i$ so $Tv = \sum_i a_i Te_i = \sum_i λ_i a_i v_i$.
+In this case we say $T$ is _diagonalizable_. Using the eigenvectors as a basis,
+$t_{ij} = λ_i δ_{ij}$.
+
+If $e$ is an eigenvector with eigenvalue $λ$ then $Te = λe$ so $(T - λI)e = 0$.
+
+__Exercise__. _If the eigenvectors of $T$ form a basis then $(T-λ_1I)\cdots(T-λ_nI) = 0$_.
+
+The dimension of $\LL(\RR^n,\RR^n)$ is $n^2$ so we know
+$I$, $T$, $T^2$, \dots, $T^{n^2}$ must be linearly dependent so there is a polynomial
+of order at most $n^2$ with $p(T) = 0$. If $T$ is diagonalizable the above exercise shows there is
+a polynomial of order $n$ satisfying this. The Cayley-Hamilton states this is true for any $T$
+where $p(λ) = \det(T - λ I)$.
 
 ## Dual
 
@@ -492,32 +579,6 @@ $0\to U\to V\to V/U\to 0$.
 -->
 
 <!--
-## Invariant Subspace
-
-An _invariant subspace_ of $T\colon V\to V$ is a subspace $U\subseteq V$ with $T(U) \subseteq U$.
-
-__Exercise__. _If $T\colon V\to V$ show $\ker T$ and $\ran T$ are invariant subspaces_.
-
-If $U$ is a 1-dimensional subspace spanned by $e\in V$ then $e$ is an _eigenvector_
-and $Te = λe$ for some $λ\in\RR$, the _eigenvalue_ corresponding to $u$.
-
-If the eigenvectors of $T$ are independent they and their corresponding eigenvalues determine $T$.
-Let $(e_i)$, $(λ_i)$ be the eigenvectors and corresponding eigenvalues. Every vector $v\in V$
-can be written $v = \sum_i a_i e_i$ so $Tv = \sum_i a_i Te_i = \sum_i λ_i a_i v_i$.
-In this case we say $T$ is _diagonalizable_. Using the eigenvectors as a basis,
-$t_{ij} = λ_i δ_{ij}$.
-
-If $e$ is an eigenvector with eigenvalue $λ$ then $Te = λe$ so $(T - λI)e = 0$ where
-$I:V\to V$ is the _identity transformation_ $Iv = v$, $v\in V$.
-
-__Exercise__. _If the eigenvectors of $T$ form a basis then $(T-λ_1I)\cdots(T-λ_nI) = 0$_.
-
-The dimension of $\LL(\RR^n,\RR^n)$ is $n^2$ so we know
-$I$, $T$, $T^2$, \dots, $T^{n^2}$ must be linearly dependent so there is a polynomial
-of order at most $n^2$ with $p(T) = 0$. If $T$ is diagonalizable the above exercise shows there is
-a polynomial of order $n$ satisfying this. The Cayley-Hamilton states this is true for any $T$
-where $p(λ) = \det(T - λ I)$.
-
 ## Norm
 
 A _norm_ on a vector space is a function $\|\cdot\|\colon V\to[0,\infty)$ with

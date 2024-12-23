@@ -46,6 +46,7 @@ Since $1 - (5/6)^4 \approx .518$ we have shown ...
 In this case the sample space is 24 rolls of a pair of dice, $\Omega = (D\times D)^24$
 where $D = \{1,2,3,4,5,6\}$.
 
+...
 
 
 ## Probability Space

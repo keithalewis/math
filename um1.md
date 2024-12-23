@@ -1,35 +1,45 @@
 ---
-title: Simple Unified Model
+title: Basic Unified Model
 author: Keith A. Lewis
 institute: KALX, LLC
 fleqn: true
 classoption: fleqn
-abstract: Value, hedge, and manage the risk of derivative instruments.
+abstract: How to think about valuing, hedging, and managing the risk of derivative instruments.
 ...
 
-\newcommand{\RR}{\boldsymbol{R}}
+\newcommand\RR{\boldsymbol{R}}
 \newcommand{\ZZ}{\boldsymbol{Z}}
 \renewcommand{\AA}{{\mathcal{A}}}
 \newcommand{\ran}{\operatorname{ran}}
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 \newcommand{\Alg}{\operatorname{Alg}}
+\newcommand\o[1]{\overline{#1}}
 
-This note proposes improvements to Stephen Ross's [@Ros1978] paper
-"A Simple Approach to the Valuation of Risky Streams" by identifying
-cash flows associated with owning financial instruments and
-modeling trading as a finite number of transactions based on
-available information. The model provides an accurate
-representation of trading and a simple derivation of the
-Black-Scholes [@BlaSch1973] and Merton [@Mer1973] valuation formula.
+This note proposes improvements to [Stephen Ross's][@Ros1978]
+paper "A Simple Approach to the Valuation of Risky Streams".
+Ross extended the theory invented by Fischer Black, Myron Scholes [@BlaSch1973]
+and Robert C. Merton III [@Mer1973] for valuing an option by dynamic trading
+of a bond and stock to any collection of instruments (risky streams).
+We put the cash flows associated with owning financial instruments on
+an equal basis with prices and reject the notion continuous time trading is possilble.
+This is a mathematical artefact of using Ito processes to model stock prices
+that leads to untenable results[^1].
+Every trading strategy involves only a finite number of transactions
+based on available information.  The Basic Unified Model does not solve
+the fundamental problem of when to hedge, how much to buy, or how good the
+hedge is; it only provides a rigorous mathematical framework for future
+researchers to address the limitations of existing theory.
 
-The Simple Unified Model does not involve so-called real-world probability
-measures that are immediately throw out to get risk-neutral probability
-measures.  It does not involve stochastic integration, the Ito formula,
+### ???
+
+The Basic Unified Model does not involve so-called real-world probability
+measures that are immediately replaced by risk-neutral probability
+measures.  It does not involve stochastic processes, the Ito formula,
 partial differential equations, much less the Hahn-Banach theorem or
 weak-$*$ topologies. It does not even involve probability.  As Ross
 showed, the lack of arbitrage places constraints on price dynamics. It
-Is a purely geometric fact.  Positive measures having mass 1 show up,
+is a purely geometric fact.  Positive measures with mass 1 show up,
 but they are not the probability of anything.
 
 Every arbitrage-free model is determined by deflators that correspond to
@@ -40,14 +50,14 @@ buying and selling instruments at discrete times.  These determine the
 value, or mark-to-market, of the strategy and the amounts showing up in
 the trading account.
 
-This note does not solve the crucial problem of when and how much to
+This note does not solve the fundamental problem of when and how much to
 trade. It only provides an elementary and mathematically rigorous
 framework to put your nose in the most important unsolved problem in
 Mathematical Finance.
 
-## Simple Unified Model
+## Basic Unified Model
 
-The Simple Unified Model is an extension of Stephen Ross's [@Ros1978] "A Simple
+The Basic Unified Model is an extension of Stephen Ross's [@Ros1978] "A Simple
 Approach to the Valuation of Risky Streams". According to Ross
 
 > _If there are no arbitrage opportunities in the capital markets, then
@@ -57,24 +67,34 @@ He used the Hahn-Banach theorem to show the existence of $L$ and
 observed it is not unique if the market is not complete.
 Ross generalized the B-S/M model of a bond, stock, and option
 to any collection of instruments (risky-streams).
-He identified cash flows as the derivative of a price process.
+He identified cash flows as a derivative of a price process.
 We put cash flows on the first class footing they deserve.
 He assumed, as did B-S/M, that continuous time trading was
 possible. Every trading strategy in the real world involves
 only a finite number of trades.
 
 We assume you are familiar with measure theory and stochastic
-processes, but are not necessarily an expert.
-We assume a set $\Omega$ that is the collection of all possible outcomes.
+processes, but are not necessarily an expert. See the (Appendix)[#appendix]
+for details.  Let $\Omega$ be the set of all possible market outcomes.
+
+In the Black-Scholes/Merton theory $\Omega = C[0,\infty)$ is the set
+of all continuous functions from $[0,\infty)$ to the real numbers.
+They model possible stock prices as $S_t(\omega) = s\exp(\mu t + \sigma \omega(t) - \omega(t)^2/2)$
+for $\omega\in\Omega$. This vastly underestimates set of all possible market outcomes.
+
 Partial information is modeled by a _partition_ of $\Omega$.
 Elements of the partition are _atoms_.
 The model specifies partitions $\AA_t$
 represening available information at each trading time $t\in T$.
-Information increases over time:
-if ${B\in\AA_u}$ then ${B = \cup\{A\mid A\subseteq B, A\in\AA_t\}}$ whenever ${t < u}$.
 
-If $\Alg\AA$ is the smallest _algebra of sets_ generated by a finite partition $\AA$
-of $\Omega$ then a function $X\colon\Omega\to\RR$ is _measurable_ if and only if
+Let $\bar{\AA}$ denote the smallest _algebra of sets_ generated by a finite partition $\AA$ of $\Omega$.
+Every function $D\colon\AA\to\RR$ can be extended to a measure
+on $\bar{\AA}$ by ${\o{D}(B) = \sum\{D(A)\mid A\subseteq B, A\in\AA\}}$, $B\in\bar{\AA}$.
+
+Information increases over time so $\bar{\AA_t}\subseteq\bar{\AA_u}$ if $t < u$.
+
+then we can de
+a function $X\colon\Omega\to\RR$ is $\o{\AA}$ _measurable_ if and only if
 $X$ is constant on each atom of $\AA$. 
 This allows us to write $X\colon\AA\to\RR$ as a function on atoms and
 relegate the words 'algebra' and 'measurable' to the (Appendix)[#appendix].
@@ -99,29 +119,30 @@ at the time of the trade. A _trading strategy_ is a finite sequence
 $\tau_0 < \cdots < \tau_n$ of increasing stopping times and trades
 $\Gamma_j\colon\AA_{\tau_j}\to\RR^I$.
 Trades accumulate to the _position_ $\Delta_t = \sum_{\tau_j < t}\Gamma_j$ at time $t$.
-Note the position _does not_ include the trades $\Gamma_t$ at time $t$. This
-corresponds to the fact that it takes a non-zero amount of time after a trade
-is executed for a trade to settle.
 We also write $\Delta_t = \sum_{s < t} \Gamma_s$ where $\Gamma_s = \Gamma_j$
 when $s = \tau_j$.
+Note the position _does not_ include the trades $\Gamma_t$ at time $t$. This
+corresponds to the fact that it takes time after a trade
+is executed for it to settle.
 
 ### Accounting
 
 The _value_, or _mark-to-market_, of a trading strategy
-is $V_t = (\Delta_t + \Gamma_t)\cdot X_t$.
-mark-to-market existing positions and last trade at current prices.
+is $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ and represents
+how much liquidating the current position and trades yet
+to settle at current market prices would yield.
 
-_Account_ -- $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$,
-receive cash flows proportional to existing positions and pay for trades just executed.
+Trading strategies incur cash flows in the trading _account_ $A_t
+= \Delta_t\cdot C_t - \Gamma_t\cdot X_t$: you receive cash flows
+proportional to existing positions and pay the current market price for trades just executed.
 
 ### Arbitrage
 
 _Arbitrage_ exists if there is a trading strategy
 with $A_{\tau_0} > 0$, $A_t \ge 0$, $t > \tau_0$, and $\sum_j \Gamma_j = 0$.
 The first trade makes money and subsequent trades never lose money.
-Eventually the position must close out. Otherwise you could simply
-borrow a dollar every day. A strategy Nick Leeson used to put
-Barings out of their 350 year old business.
+Eventually the position must close out, otherwise you could simply
+borrow a dollar every day.
 
 The Fundamental Theorem of Asset Pricing states there is no arbitrage if and only
 if there exist _deflators_, positive measures $D_t$ on $\AA_t$, ${t\in T}$, with
