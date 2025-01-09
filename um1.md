@@ -1,10 +1,10 @@
 ---
-title: Basic Unified Model
+title: Simple Unified Model
 author: Keith A. Lewis
 institute: KALX, LLC
 fleqn: true
 classoption: fleqn
-abstract: How to think about valuing, hedging, and managing the risk of derivative instruments.
+abstract: A mathematically rigorous framework for valuing, hedging, and managing the risk of derivative instruments.
 ...
 
 \newcommand\RR{\boldsymbol{R}}
@@ -14,50 +14,86 @@ abstract: How to think about valuing, hedging, and managing the risk of derivati
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 \newcommand{\Alg}{\operatorname{Alg}}
-\newcommand\o[1]{\overline{#1}}
+\renewcommand\o[1]{\hat{#1}}
 
 This note proposes improvements to [Stephen Ross's][@Ros1978]
 paper "A Simple Approach to the Valuation of Risky Streams".
-Ross extended the theory invented by Fischer Black, Myron Scholes [@BlaSch1973]
-and Robert C. Merton III [@Mer1973] for valuing an option by dynamic trading
-of a bond and stock to any collection of instruments (risky streams).
+Ross extended the theory invented by Fischer Black, Myron Scholes
+[@BlaSch1973] and Robert C. Merton III [@Mer1973] for valuing an option
+by dynamic trading of a bond and stock to valuing any derivative using
+any collection of instruments (risky streams).
+
+Perhaps at the time, over half a century ago, people were not prepared
+for such an audatious expansion of the B-S/M theory.
+Ross conflated cash flows with instantaneous changes in the price of the underlying.
 We put the cash flows associated with owning financial instruments on
-an equal basis with prices and reject the notion continuous time trading is possilble.
-This is a mathematical artefact of using Ito processes to model stock prices
+ShengQuan Zhouan equal footing with prices. B-S/M and Ross assumed continuous time trading is possible.
+This is a mathematical artifact of using Ito processes to model trading strategies
 that leads to untenable results[^1].
 Every trading strategy involves only a finite number of transactions
-based on available information.  The Basic Unified Model does not solve
-the fundamental problem of when to hedge, how much to buy, or how good the
+based on available information.  The Simple Unified Model does not solve
+the crucial problem of when to hedge, how much to buy, or how good the
 hedge is; it only provides a rigorous mathematical framework for future
-researchers to address the limitations of existing theory.
+researchers to address limitations of existing theory.
 
-### ???
+### Synopsis
 
-The Basic Unified Model does not involve so-called real-world probability
+The Simple Unified Model does not involve so-called real-world probability
 measures that are immediately replaced by risk-neutral probability
 measures.  It does not involve stochastic processes, the Ito formula,
-partial differential equations, much less the Hahn-Banach theorem or
-weak-$*$ topologies. It does not even involve probability.  As Ross
-showed, the lack of arbitrage places constraints on price dynamics. It
-is a purely geometric fact.  Positive measures with mass 1 show up,
-but they are not the probability of anything.
+partial differential equations,
+the Hahn-Banach theorem or, much less, weak-$*$ topologies.
+It does not even involve probability.  As Ross
+showed, the lack of arbitrage places geometric constraints on price dynamics.
+Positive measures having mass one show up, but they are not the probability of anything.
 
-Every arbitrage-free model is determined by deflators that correspond to
-Ross's valuation operator and a martingale measure.  If repurchase
-agreements are available there is a canonical deflator.  Market
-instruments have prices and associated cash flows.  Trading involves
-buying and selling instruments at discrete times.  These determine the
-value, or mark-to-market, of the strategy and the amounts showing up in
+Ross's valuation operator corresponds to a _deflator_ ${(D_t)_{t\in T}}$: positive measures
+on an algebras of sets $(\AA_t)_{t\in T}$ representing available information.
+If repurchase agreements are available then the canonical deflator is the stochastic
+discount: the reciprocal of the return from rolling over one unit
+invested at prevailing repo rates.
+Market instruments have prices $(X_t)$ and associated cash flows $(C_t)$.
+Trading involves buying and selling instruments $(\Gamma_j)$ 
+at a finite number of increasing stopping times $(\tau_j)$.
+Trades accumulate to positions ${\Delta_t = \sum_{\tau_j < t} \Gamma_j
+= \sum_{s < t}\Gamma_s}$, where $\Gamma_s = \Gamma_j$ if $s = \tau_j$ and
+is zero otherwise.
+Prices, cash flows, and trades determine the
+value, or mark-to-market, ${V_t = (\Delta_t + \Gamma_t)\cdot X_t}$ of the strategy
+and the amounts ${A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t}$ showing up in
 the trading account.
 
-This note does not solve the fundamental problem of when and how much to
-trade. It only provides an elementary and mathematically rigorous
-framework to put your nose in the most important unsolved problem in
-Mathematical Finance.
+Arbitrage exists if there is a trading strategy $(\tau_j, \Gamma_j)$ with
+$A_{\tau_0} > 0$, $A_t\ge0$ for $t > \tau_0$, and $\sum_j \Gamma_j = 0$.
+There is no arbitrage if there exist positive measures $D_t$ on
+$\AA_t$ with
+$$
+	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}.
+$$
+A direct consequence using the definitions of value and amount is
+$$
+	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}.
+$$
+If a derivative instrument pays $\o{A}_k$ at $\o{\tau}_k$ and there
+exists a trading strategy $(\tau_j, \Gamma_j)$ with
+$A_t = \o{A}_k$ when $t = \o{\tau}_k$, $A_t = 0$ otherwise, and
+$\sum_j \Gamma_j = 0$ then the value of the hedge at time $t$ satisfies
+$$
+	V_t D_t = (\sum_{\o{\tau}_k > t} \o{A}_k D_{\o{\tau}_k})|_{\AA_t}.
+$$
+This formula show how to value hedgeable derivative instruments based
+on their payoffs, deflator, and available information.
 
-## Basic Unified Model
+The Black-Scholes/Merton model for the price of a bond and a stock is
+${X_t = (r\exp(\rho t), s\exp(\rho t + \sigma B_t - \sigma^2t/2))P}$,
+where $B_t$ is Brownian motion and the cash flows are zero, $C_t = (0, 0)$.
+The deflator is $D_t = \exp(-\rho t)P$ where $P$ is Wiener measure.
+For a call option paying $\o{A}_T = \max\{S_T - k, 0\}$ at time $\o{\tau} = T$ the above
+formula at $t = 0$ yields $V_0 = E[\max\{S_T - k, 0\}\exp(-\rho T)]$.
 
-The Basic Unified Model is an extension of Stephen Ross's [@Ros1978] "A Simple
+## Simple Unified Model
+
+The Simple Unified Model is an extension of Stephen Ross's [@Ros1978] "A Simple
 Approach to the Valuation of Risky Streams". According to Ross
 
 > _If there are no arbitrage opportunities in the capital markets, then
@@ -74,7 +110,7 @@ possible. Every trading strategy in the real world involves
 only a finite number of trades.
 
 We assume you are familiar with measure theory and stochastic
-processes, but are not necessarily an expert. See the (Appendix)[#appendix]
+processes, but are not necessarily an expert. See the [Appendix](#appendix)
 for details.  Let $\Omega$ be the set of all possible market outcomes.
 
 In the Black-Scholes/Merton theory $\Omega = C[0,\infty)$ is the set
@@ -85,7 +121,7 @@ for $\omega\in\Omega$. This vastly underestimates set of all possible market out
 Partial information is modeled by a _partition_ of $\Omega$.
 Elements of the partition are _atoms_.
 The model specifies partitions $\AA_t$
-represening available information at each trading time $t\in T$.
+representing available information at each trading time $t\in T$.
 
 Let $\bar{\AA}$ denote the smallest _algebra of sets_ generated by a finite partition $\AA$ of $\Omega$.
 Every function $D\colon\AA\to\RR$ can be extended to a measure
@@ -109,12 +145,12 @@ that market prices are perfectly liquid and divisible.
 Instruments have _cash flows_ $C_t\colon\AA_t\to\RR^I$
 associated with their ownership.
 Stocks have dividends, bonds have periodic coupons and principal at maturity,
-futures have daily margin adustments. The price of a futures is always
+futures have daily margin adjustments. The price of a futures is always
 zero in an arbitrage-free model. Money market accounts have zero cash flows.
 
 ### Trading
 
-Traders buy and sell intruments over time based on information available
+Traders buy and sell instruments over time based on information available
 at the time of the trade. A _trading strategy_ is a finite sequence
 $\tau_0 < \cdots < \tau_n$ of increasing stopping times and trades
 $\Gamma_j\colon\AA_{\tau_j}\to\RR^I$.
@@ -175,53 +211,92 @@ __Equations (1) and (2) are the skeleton keys to pricing derivative securities__
 
 ## Application
 
-Suppose a derivative security specifies amounts $\overline{A}_j$ be paid at times $\overline{\tau}_j$.
-If there is a trading strategy $(\tau_j, \Gamma_j)$
-with $A_{\overline{\tau}_j} = \overline{A}_j$ for all $j$ and $A_t = 0$ otherwise (aka self-financing) then
-a "perfect hedge" exists[^2].
+Suppose a cash settled derivative security specifies amounts $\o{A}_j$
+be paid at times $\o{\tau}_j$.  If there is a trading strategy $(\tau_j,
+\Gamma_j)$ with $A_{\o{\tau}_j} = \o{A}_j$ for all $j$ and $A_t = 0$
+otherwise (aka self-financing) then a "perfect hedge" exists[^2].
 
 [^2]: Perfect hedges never exist.
 
-Note $V_t D_t = (\sum_{\tau_j > t} \overline{A}_j D_{\overline{\tau}_j})|_{\AA_t}$
-can be computed from the derivative contract term sheet and the deflators $D_t$.
-Since we also have $V_t = (\Delta_t + \Gamma_t)\cdot X_t$,
+Equation (2) yields
+$$
+\tag{3}	V_t D_t = (\sum_{\tau_j > t} \o{A}_j D_{\o{\tau}_j})|_{\AA_t}
+$$
+which can be computed from the derivative contract term sheet and the deflators $(D_t)$.
+Since $V_t = (\Delta_t + \Gamma_t)\cdot X_t$,
 the Fréchet derivative $D_{X_t}V_t$
 of option value with respect to $X_t$
 is $\Delta_t + \Gamma_t$ so $\Gamma_t = D_{X_t}V_t - \Delta_t$.
 Since $\Delta_t$ is known at time $t$, this gives a recipe for
-computing a trading strategy. Delta is $\Delta$ and gamma is $\Gamma$
+computing a trading strategy where $\Delta$ is delta and $\Gamma$ is gamma
 in the customary sense used by traders.
 In general this hedge will not exactly replicate the derivative contract obligation.
 
 The Simple Unified Model does not prescribe _when_ the hedge should be executed.
-This is an important unsolved fundamental problem in the theory of Mathematical Finance.
 The untenable Black-Scholes/Merton solution is to hedge "continuously".
 Every trading strategy executed in the real world involves
 only a finite number of trades.
 
-One simply writes down a martingale and deflator then uses equation (2)
-to value, hedge, and manage the risk of derivative securities.
+Various authors have considered replication error.
 
-### Black-Scholes/Merton
+[@Der1999]
 
-The Black-Scholes/Merton model uses ${M_t = (r, s\exp(\sigma B_t - \sigma^2t/2))P}$,
-where $B_t$ is Brownian motion, $P$ is Wiener measure, and the deflator
-is $D_t = \exp(-\rho t)P$. The model of prices is is $X_t = (R_t, S_t) = \exp(\rho t)M_t$
-and the cash flows are zero.
+[@DerTal2005]
 
-A European put option with strike $k$ and expiration $t$ has a single cash flow
-of $\max\{k - S_t, 0\}$ at time $t$. By equation (2) it has value
-$(\max\{k - S_t, 0\}D_t)(\Omega) = \exp(-\rho t)E[\max\{k - S_t, 0\}]$,
-same as Black-Scholes/Merton but with far less mathematical machinery.
+One simply writes down a martingale measure indexed by market instruments and deflator,
+then use equation (3) to value derivative securities.
+There is still work to be done on when and how much to hedge, and measure how well a hedge performs.
 
-More generally, if $X_t$ is a Levy process where $X_1$ has mean zero and variance one
-then ${M_t = (r, s\exp(\sigma X_t - \kappa_t(\sigma)))P}$ is an arbitrage-free model,
-where $\kappa_t(\sigma) = \log E[\exp(\sigma X_t)]$ is the cumulant.
-Merton's jump diffusion model is a special case.
+### European
+
+A European option has a single payoff $\hat{A}_T$ at expiration $T$. 
+In this case, equation (3) for the value of the option
+is ${V_t D_t = (\hat{A}_TD_T)|_{\AA_t}}$.
+
+#### Forward
+
+A _forward_ on an instrument with price process $(S_t)$ is determined by a _strike_ $K$ and _expiration $T$.
+A forward has a single cash flow $C_T = S_T - K$.
+
+$$
+	V_t D_t = ((S_T - K)D_T)|_{\AA_t}
+$$
+
+#### Black-Scholes/Merton
+
+The Black-Scholes/Merton model uses the martingale measure ${M_t = (r,
+p(\sigma B_t - \sigma^2t/2))P}$, where $B_t$ is Brownian motion
+and $P$ is Wiener measure. The deflator is ${D_t = \exp(-\rho t)P}$,
+where $\rho$ is the constant interest rate.  From equation (3) the
+model of prices is $X_t  = (R_t, S_t)$ where the bond price is
+${R_t = r\exp(\rho t)}$ and the stock price is
+${S_t = s\exp(\rho t + \sigma B_t - \sigma^2t/2) - \sum_{s\le t} C_s\exp(\rho(t - s))}$
+where $C_t$ is the stock dividend at time $t$. 
+The current value of a European call with payoff $\nu(S_T)$ at time $T$ is
+$V_0 D_0|_{\AA_0} = (\nu(S_T) D_T)|_{\AA_0}$ so $V_0 = E[\nu(S_T) D_t)]$.
+
+If there are fixed dividends $d_j$ at $t_j$ then $C_{t_j} = d_j$.
+If there are proportional dividends $p_j$ at $t_j$ then $C_{t_j} = p_j S_{t_j}$.
+Since divideds are usually announced less than a year in advance a more realistic
+model might specify a function $x(t)$ that is 1 over the announcement period 
+that tends to zero and assume dividends are mixture
+{$C_t = x(t_j)d_j + (1 - x(t_j)p_j S_{t_j}$.
+
+More generally, if $B_t$ is a Levy process where $B_1$ has mean zero and variance one
+then ${M_t = (r, \sigma\exp(s B_t - t\kappa(\sigma))P}$ is an arbitrage-free model,
+where $\kappa(\sigma) = \log E[\exp(\sigma X_1)]$ 
+and $\log E[e^{B_t}] = t \log E[e^{B_1}]$.
+
+???ref???
+
+Merton's jump diffusion model is a special case. (ref???)
+
+#### General Option
 
 Every positive random variable with finite mean and log variance can be
 written ${F = f\exp(sX - \kappa(s))}$ where ${f = E[F]}$, ${s^2 = \Var(\log F)}$,
 $X$ has mean zero and variance 1, and ${\kappa(s) = \log E[\exp(sX)]}$.
+The _vol_ $s$ is related to $\sigma$ by $s = \sigma\sqrt{t}$.
 
 We have 
 $$
@@ -232,44 +307,86 @@ E[\max\{k - F, 0\}] &= E[(k - F)1(F \le k)] \\
 	&= kP(F\le k) - fP^*(F\le k) \\
 \end{aligned}
 $$
-where $dP^*/dP = F/E[F]$.
+where $dP^*/dP = F/E[F]$. Since $F > 0$ and $E[F/E[F]] = 1$, $P^*$ is a positive measure with mass 1.
 
 __Exercise__. _If $X$ is standard normal show ${E[\max\{k - F, 0\}] = kN(m) - fN(m - s)}$
-where $N$ is the standard normal cumulative distribution and $m = (\log(k/f) + s^2/2)/s$_.
+where $N$ is the standard normal cumulative distribution and ${m = (\log(k/f) + s^2/2)/s}$_.
 
 _Hint_: Use $E[\exp(N)] = \exp(E[N] + \Var(N)/2)$ if $N$ is normal and
 $E[\exp(N) g(M)] = E[\exp(N)] E[g(M + \Cov(M,N))]$ if $N$ and $M$
 are jointly normal.
 
-__Exercise__. _Show in general $E[{\max\{k - F, 0\}] = kP(X\le m) - fP^*(X\le m)}$
-for any positive $F$ where ${m = (\log(k/f) + \kappa(s))/s}$
+__Exercise__. _Show if $F > 0$ that $E[{\max\{k - F, 0\}] = kP(X\le m) - fP^*(X\le m)}$
+where ${m = (\log(k/f) + \kappa(s))/s}$
 and $dP^*/dP = \exp(sX - \kappa(s))$_.
 
-_Delta_ is derivative of value $v = E[\max\{k - F, 0\}]$ with respect to initial price.
+_Delta_ is the derivative of value $v = E[\max\{k - F, 0\}]$ with respect to initial price $f$.
 $$
 \begin{aligned}
 	\partial v/\partial f &= E[-1(F \le k)\partial F/\partial f] \\
-	\partial v/\partial f &= -E[1(F \le k)\exp(sX - \kappa(s))] \\
+		&= -E[1(F \le k)\exp(sX - \kappa(s))] \\
 		&= -P^*(F \le k) \\
 \end{aligned}
 $$
 
+_Gamma_ is the second derivative of value $v = E[\max\{k - F, 0\}]$ with respect to initial price $f$.
+$$
+\begin{aligned}
+    \partial_f^2 v &= -\partial_f P^*(F \le k) \\
+    &= -\partial_f P^*(X \le m) \\
+    &= -\partial_m P^*(X \le m)\partial_f x \\
+    &= -\partial_m P^*(X \le m)/\partial_x f \\
+    &= \partial_m P^*(X \le m)/f s\\
+\end{aligned}
+$$
+
+_Vega_ is the derivative of option value with respect to volatility.
+The vega of a put option is
+$$
+\begin{aligned}
+    \partial_s v &= \partial_s E[\max\{k - F, 0\}] \\
+        &= E[-1(F \le k)\partial_s F] \\
+        &= -E[1(F \le k)F(X - κ'(s))] \\
+        &= -\partial_s P_s(X \le x)f \\
+\end{aligned}
+$$
+
+__Exercise__. _Show $\partial_s P_s(X\le x) = E[1(X \le x)F(X - κ'(s))]/f$_.
+
+<details>
+<summary>Solution</summary>
+$$
+\begin{aligned}
+\partial_s P_s(X\le m) &= \partial_s E[1(X\le m) e^{sX - κ(s)}] \\
+    &= E[1(X\le m) e^{sX - κ(s)}(X - κ'(s))] \\
+    &= E[1(X\le m) fe^{sX - κ(s)}(X - κ'(s))]/f \\
+    &= E[1(X\le m) F(X - κ'(s)]/f \\
+\end{aligned}
+$$
+</details>
+
 __Exercise__. _If $X$ is standard normal show $P^*(F \le k) = N(-d_2)$ where ${d_2 = (\log f/k - s^2/2)/s}$_.
 
-Gamma, Vega
+### Fixed Income
 
-### Repurchase Agreements
+_Fixed income_ instruments pay cash flows $c_j$ at times $t_j$.
+From equation (1), the value of a fixed income instrument at time $t$ is determined by
+$$
+	V_t D_t  = (\sum_{t_j > t} c_j D_{t_j})|_{\AA_t}.
+$$
+
+#### Repurchase Agreements
 
 A _repurchase agreement_ $R(f,t,\Delta t)$ has price $X_t^{R(f,t,\Delta t)} = 1$
 at time $t$ and a single cash flow $C_{t+\Delta t} = \exp(f\Delta t)$ at
-time $t + \Delta t$. The _continuously compounded forward rate_ $f$ is a function known at time $t$.
+time $t + \Delta t$.
 In practice, the forward rate $r$ is quoted using a _day count basis_ and the cash flow
 is $1 + r\delta$ where $\delta$ is the _day count fraction_.
 Typically, the day count fraction is the number of days from $t$ to $t + \Delta t$
 divided by 360 or 365. These are the Actual/360 and Actual/365
 day count basis respectively.
 
-### Deflator
+#### Deflator
 
 If repurchase agreements are available then a _canonical deflator_ exists.
 A repurchase agreement over the interval $[t_j, t_{j+1}]$ is specified
@@ -284,7 +401,7 @@ at time $t_n$.
 The continuous time analog is $D_t = \exp(-\int_0^t f(s)\,ds)D_0$ where
 $f$ is the continuously compounded instantaneous forward rate.
 
-### Zero Coupon Bond
+#### Zero Coupon Bond
 
 A _zero coupon bond_ maturing at time $u$ has a single unit cash flow at $u$,
 $C_u^{D(u)} = 1$ and $C_t^{D(u)} = 0$ for $t\not=u$.
@@ -293,13 +410,7 @@ satisfies $D_t(u) D_t = D_u|_{\AA_t}$ so
 $D_t(u)$ is the Radon-Nikodym derivative of $D_u|_{\AA_t}$ with respect to $D_t$.
 Zero coupon bond prices are determined by the deflators.
 
-A _fixed income_ instrument is a portfolio of zero coupon bonds.
-If a bond pays $c_j$ at time $t_j$ its present value at time $t$ is
-$$
-	P_t = \sum_{t_j > t} c_j D_t(u_j).
-$$
-
-### Forward Rate Agreement
+#### Forward Rate Agreement
 
 A _forward rate agreement_ with coupon $f$ over the interval $[u,v]$
 having day count convention $\delta$[^4] has two cash flows: $-1$ at time $t$
@@ -310,6 +421,8 @@ ${0 = (-D_u + (1 + F_t^\delta(u,v))D_v|_{\AA_t}}$ so
 $$
 	F_t^\delta(u,v) = \frac{1}{\delta(u,v)}\left(\frac{D_t(u)}{D_t(v)} - 1\right).
 $$
+
+#### Swap
 
 A _swap_ is a collection of back-to-back forward rate agreements involving times $(t_j)$.
 The _swap par coupon_ making the price 0 at time $t$ is
@@ -326,9 +439,12 @@ zero at time $t$ is equal to the swap par coupon.
 
 __Exercise__. _Show $f = F_t^\delta(t_0,\dots,t_n)$ makes the price zero_.
 
+Exposure...
+
+
 [^4]: The _day count fraction_ $\delta(u, v)$ is approximately $v - u$ in years.
 
-### Risky Bonds
+#### Risky Bonds
 
 Companies can default and may pay only a fraction of the notional owed on bonds they issued.
 A simple model[^3] for this is to assume the time of default $T$ and recovery $R$ are random variables.
@@ -360,7 +476,7 @@ $$
 	\lambda_t^{T,R}(u) = -\frac{\log(P(T > u) + R P(t < T \le u))}{u - t}.
 $$
 
-### Limit Orders
+#### Limit Orders
 
 A limit order is a contract to buy or sell an instrument at a given level.
 We assume a money market instrument with price $R_t$ exists and the
@@ -379,13 +495,6 @@ $V_0 = E[\nu(S_n)]$
 
 $\Gamma = (M, N)$.
 -->
-
-Various authors have considered replication error.
-
-[@Der1999]
-
-[@DerTal2005]
-
 ## Review
 
 This note provides a replacement for the Black, Scholes [@BlaSch1973]
@@ -627,5 +736,16 @@ instruments, $\Omega$ the sample space of possible outcomes, and
 $(\AA_t)_{t\in T}$ the algebras of sets on $\Omega$ indicating the
 information available at each trading time.
 
+### TODO
+
+y. Garman (1977) and Cox and Ross (1976b), for
+ example, have shown that if diffusions are used then the operator L will
+ take the form of the Ito parabolic differential operator, and this integra
+ tion of the operator and the continuous time approaches should lead to
+ new results. Nevertheless, it is surprising how much of what is central
+ to modern finance is based solely on the arbitrage principles embodied
+ in the basic valuation theorem
+
 
 ## Reference
+

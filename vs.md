@@ -50,9 +50,6 @@ _Hint_. Show $v(j) = (\sum_i v(i) e_i)(j)$ for $j\in I$.
 
 ## Axioms
 
-A vector space over the real numbers $\RR$ is a set having a scalar multiplication
-and a commutative vector addition satisfying a distributive law.
-
 For $x, y, z\in\RR^I$ and $a,b\in\RR$,
 
 __Exercise__. _Show $x + (y + z) = (x + y) + z$_.
@@ -73,11 +70,16 @@ __Exercise__. _Show $(a + b)x = ax + bx$_.
 
 _Hint_: These follow directly from the pointwise definitions and properties of real numbers.
 
-The exercises are the axioms for an _abstract vector space_ with scalar multiplication
+The exercises are the customary axioms for an _abstract vector space_ with scalar multiplication
 $\RR\times V\to V$ where $(a,x)\mapsto ax$ and binary addition $V\times V\to V$
-where $(x,y)\mapsto x + y$. We omit the non-trivial result these axioms imply there exists
+where $(x,y)\mapsto x + y$. 
+
+We omit the non-trivial result these axioms imply there exists
 a set $I$ where $V$ can be identified with $\RR^I$. The cardinality of $I$
 is the _dimension_ of $\RR^I$.
+
+A vector space over the real numbers $\RR$ is a set having a scalar multiplication
+and a commutative vector addition satisfying a distributive law.
 
 Proofs involving only the abstract axioms are considered more elegant.
 
@@ -206,10 +208,10 @@ every basis has the same number of vectors. This is not trivial to prove.
 
 ## Linear Transformation
 
-A _linear transformation_ is a function $T\colon V\to W$, where $V$ and
-$W$ are vector spaces that satisfies ${T(av + w) = aTv + Tw}$, $a\in\RR$,
-$v,w\in V$. Note that the addition ${av + w}$ occurs in $V$ and
-${aTv + Tw}$ occurs in $W$.  The space of all such linear transformations is
+A _linear transformation_, or _linear operator_, is a function $T\colon V\to W$, where $V$ and
+$W$ are vector spaces that satisfies preserves the vector space structure: ${T(au + v) = aTu + Tv}$, $a\in\RR$,
+$u,v\in V$. Note that the addition ${au + v}$ occurs in $V$ and
+${aTu + Tv}$ occurs in $W$.  The space of all such linear transformations is
 denoted $\LL(V,W)$.
 
 __Exercise__. _Show if $T$ is a linear transformation then $T\zero = \zero$_.
@@ -302,11 +304,36 @@ $R(e_i) = ST(e_i)
 
 Matrix multiplication is composition of linear transformations.
 
+<!--
+Another way to see this is to use $A\times B\to C$ is isomorphic to
+$A\to(B\to C)$ for any sets $A, B, C$. This is called _currying_ after Haskell Curry.
+If $f\colon A\times B\to C$ define $f,\colon A\to(B\to C)$
+by $(f,a)b = f(a,b)$.
+If $g\colon A\to(B\to C)$ define $g`\colon A\times B\to C$
+by $g`(a,b) = (ga)b$.
+
+__Exercise__. _If $f\colon A\times B\to C$ show $(f,)` = f$
+and if $g\colon A\to(B\to C)$ show $(g`), = g$_.
+
+This shows a bijection???
+
+We can identify $(I\to\RR)\to(J\to\RR)$ with $I\times J\to\RR$.
+-->
+
 Let $\LL(V) = \LL(V,V)$ be the space of linear transformations from
 a vector space to itself. It is also an _algebra_ with multiplication
 defined by composition with identity ${I_V = I\colon V\to V}$ defined by ${Iv = v}$, ${v\in V}$.
 
 __Exercise__. _Show $IT = TI$ and $T(U + V) = TU + TV$, ${T,U,V\in\LL(V)}$_.
+
+### Indexing
+
+For every _change of index function_ $s\colon I\to J$ define $\circ s\colon \RR^J\to\RR^I$
+define $\circ s v = vs\in\RR^I$, for $v\in\RR^J$.
+
+__Exercise__. _Show $\circ s$ is a linear operator_.
+
+_Hint_: $\circ s v(i) = v(s(i))$ for $v\in\RR^J$.
 
 ### Sum
 
@@ -325,36 +352,51 @@ $U + V\cong U\oplus V$.
 
 __Exercise__. _Show this!!!_.
 
+Claim: $V\cong U\oplus V/U$.
+
+Define $T\colon U\oplus V/U\to V$ by $T(u\oplus v+W) = u + v$.
+
+If $U$ is invariant for $T$ then $U$ is invariant for $T - \lambda I$.
+
+_Hint_: If $Tu = v$, $u,v\in U$ then $(T - \lambda I)u\in U$.
+
 If $T\in\LL(U,V)$ define $\graph T = \{u\oplus Tu\mid u\in U\}$.
 
 __Exercise__. _Show $T$ is linear if and only if $\graph T$ is a subspace_.
 
 ### Invariant Subspace
 
-An _invariant subspace_ of $T\colon V\to V$ is a subspace $U\subseteq V$ with $TU\subseteq U$.
+An _invariant subspace_ of a linear operator $T\colon V\to V$ is a subspace $U\subseteq V$ with $TU\subseteq U$.
+Similar to prime factorizaton of numbers, invariant subspaces break down linear operators
+into smaller pieces.
 
-__Exercise__. _If $T\colon V\to V$ show $\ker T$ and $\ran T$ are invariant subspaces_.
+__Exercise__. _If $T\colon V\to V$ is a linear operator show $\ker T$ and $\ran T$ are invariant subspaces_.
 
-$V = \sum_\lambda \ker(T - \lambda I)$.
-
-If $U$ is a 1-dimensional subspace spanned by $e\in V$ then $e$ is an _eigenvector_
-and $Te = λe$ for some $λ\in\RR$, the _eigenvalue_ corresponding to $u$.
+If $U$ is a 1-dimensional invariant subspace spanned by $e\in V$ then $e$ is an _eigenvector_
+and $Te = \lambda e$ for some $\lambda\in\RR$, the _eigenvalue_ corresponding to $u$.
 
 If the eigenvectors of $T$ are independent they and their corresponding eigenvalues determine $T$.
-Let $(e_i)$, $(λ_i)$ be the eigenvectors and corresponding eigenvalues. Every vector $v\in V$
-can be written $v = \sum_i a_i e_i$ so $Tv = \sum_i a_i Te_i = \sum_i λ_i a_i v_i$.
+Let $(e_i)$, $(\lambda_i)$ be the eigenvectors and corresponding eigenvalues. Every vector $v\in V$
+can be written $v = \sum_i a_i e_i$ so $Tv = \sum_i a_i Te_i = \sum_i \lambda_i a_i v_i$.
 In this case we say $T$ is _diagonalizable_. Using the eigenvectors as a basis,
-$t_{ij} = λ_i δ_{ij}$.
+$t_{ij} = \lambda_i δ_{ij}$.
 
-If $e$ is an eigenvector with eigenvalue $λ$ then $Te = λe$ so $(T - λI)e = 0$.
+If $e$ is an eigenvector with eigenvalue $\lambda$ then $Te = \lambda e$ so $(T - \lambda I)e = 0$
+and $e\in\ker (T - \lamda I)$. There may be vectors that are not eigenvectors
+that belong to $\ker (T - \lambda I)$.
 
-__Exercise__. _If the eigenvectors of $T$ form a basis then $(T-λ_1I)\cdots(T-λ_nI) = 0$_.
+__Exercise__. _If the matrix of $T$ is $[0, 1; 0, 0]$ then 
+
+
+
+
+__Exercise__. _If the eigenvectors of $T$ form a basis then $(T-\lambda_1I)\cdots(T-\lambda_nI) = 0$_.
 
 The dimension of $\LL(\RR^n,\RR^n)$ is $n^2$ so we know
 $I$, $T$, $T^2$, \dots, $T^{n^2}$ must be linearly dependent so there is a polynomial
 of order at most $n^2$ with $p(T) = 0$. If $T$ is diagonalizable the above exercise shows there is
 a polynomial of order $n$ satisfying this. The Cayley-Hamilton states this is true for any $T$
-where $p(λ) = \det(T - λ I)$.
+where $p(\lambda) = \det(T - \lambda I)$.
 
 ## Dual
 
@@ -385,16 +427,16 @@ Functions are vectors. They can be added and scalar multiplication satisfies the
 Integration is a linear functional on a space of functions.
 Given a set $\Omega$ let $B(\Omega) = \{f\colon\Omega\to\RR : \|f\| = \sup_{\omega\in\Omega}|f(\omega)| < \infty\}$.
 
-If $L\colon B(\Omega)\to\RR$ is a linear functional define $λ(E) = L(1_E)$ for $E\subseteq\Omega$.
+If $L\colon B(\Omega)\to\RR$ is a linear functional define $\lambda(E) = L(1_E)$ for $E\subseteq\Omega$.
 
 __Exercise__. _If $E,F\subseteq\Omega$ are disjoint the $1_{E\cup F} = 1_E + 1_F$_.
 
-This shows $λ(E\cup F) = λ(E) + λ(F)$ if $E\cap F=\emptyset$.
-Since $1_\emptyset = 0$ we have $λ(\emptyset) = 0$ so
-$λ$ is a (finitely additive) measure.
+This shows $\lambda(E\cup F) = \lambda(E) + \lambda(F)$ if $E\cap F=\emptyset$.
+Since $1_\emptyset = 0$ we have $\lambda(\emptyset) = 0$ so
+$\lambda$ is a (finitely additive) measure.
 
-Given a finitely additive measure $λ$ on subsets of $\Omega$ define a linear functional
-$L\colon B(\Omega)\to\RR$ by $L(\sum_i a_i 1_{E_i}) = \sum_i a_i λ(E_i)$.
+Given a finitely additive measure $\lambda$ on subsets of $\Omega$ define a linear functional
+$L\colon B(\Omega)\to\RR$ by $L(\sum_i a_i 1_{E_i}) = \sum_i a_i \lambda(E_i)$.
 
 __Exercise__. _Show this is well-defined_.
 
@@ -616,24 +658,24 @@ is 0 if and only if $au - v = 0$.
 If $V$ is a finite dimensional normed space over $\CC$ then every operator $T\colon V\to V$ has
 and eigenvector.
 
-The _spectrum_, $σ(T)$, of a linear operator $T\colon V\to V$ is the set of all $λ\in\CC$
-such that $\ker(T - λI)$ is not invertable. The _spectral radius_ is
-$ρ(T) = \max\{|λ|\mid λ\in σ(T)\}$.
+The _spectrum_, $σ(T)$, of a linear operator $T\colon V\to V$ is the set of all $\lambda\in\CC$
+such that $\ker(T - \lambdaI)$ is not invertable. The _spectral radius_ is
+$ρ(T) = \max\{|\lambda|\mid \lambda\in σ(T)\}$.
 
 __Exercise__. _Show if $V$ is finite dimensional then the spectrum is the set of eigenvalues_.
 
-_Hint_: $\ker(T - λI)\neq 0$ if and only if $Te = λe$ for some $e\in V$.
+_Hint_: $\ker(T - \lambdaI)\neq 0$ if and only if $Te = \lambdae$ for some $e\in V$.
 
-Define $E_λ = \ker(T - λI)$.
+Define $E_\lambda = \ker(T - \lambdaI)$.
 
-__Exercise__. _Show $E_λ\cap E_μ = 0$ if $λ\ne μ$_.
+__Exercise__. _Show $E_\lambda\cap E_μ = 0$ if $\lambda\ne μ$_.
 
-__Exercise__. _Show $\sum_{λ\in σ(T)} E_λ = V$_.
+__Exercise__. _Show $\sum_{\lambda\in σ(T)} E_\lambda = V$_.
 
-Define the _multiplicity_ of $λ\in\CC$ by $m(λ) = \dim\ker(T - λI)$.
+Define the _multiplicity_ of $\lambda\in\CC$ by $m(\lambda) = \dim\ker(T - \lambdaI)$.
 
-__Exercise__. _Show there exists $e\in V$ with $(T - λI)^ke\neq 0$ for $0\le k < m(λ)$
-and $(T - λI)^{m(λ)}e = 0$_.
+__Exercise__. _Show there exists $e\in V$ with $(T - \lambdaI)^ke\neq 0$ for $0\le k < m(\lambda)$
+and $(T - \lambdaI)^{m(\lambda)}e = 0$_.
 
 ### Adjoint
 

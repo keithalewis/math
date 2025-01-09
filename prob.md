@@ -40,8 +40,8 @@ he believed that the probability was greater than rolling at least one
 probability of not throwing a 6 in 4 throws is $(5/6)^4$.
 The probability of pair of dice not having a pair of 6's is $(35/36)$ so the probability
 of not throwing a pair of 6's in 24 throws is $(35/36)^{24}$.
-This shows the answer to De Méré's first question is $1 - (35/36)^{24}\approx .491$.
-Since $1 - (5/6)^4 \approx .518$ we have shown ...
+This shows the answer to De Méré's first question is $1 - (35/36)^{24}\approx .491$
+and since $1 - (5/6)^4 \approx .518$ we have shown his intuition was wrong.
 
 In this case the sample space is 24 rolls of a pair of dice, $\Omega = (D\times D)^24$
 where $D = \{1,2,3,4,5,6\}$.
@@ -980,3 +980,120 @@ The traditional‘frequentist’ methods which
  because they presuppose conditions (independent repetitions of a ‘random experiment’ but
  no relevant prior information) that are hardly ever met in real problems. This approach is
  quite inadequate for the current needs of science.
+
+### Conditional
+
+For a probability measure $P$ on $\Omega$,
+the _conditional probability_ of $A$ _given_ $B$ is $P(A|B) = P(AB)/P(B)$, $A,B\subseteq\Omega$.
+
+__Exercise__. _Show $P(B|B) = 1$ and $P(A|\Omega) = A$_.
+
+__Exercise__. _Show $A\mapsto P(A|B)$ is a probability measure on $B$_.
+
+_Hint_: Show $P(A\cup A'|B) = P(A|B) + P(A'|B) - P(AA'|B)$.
+
+### Estimation
+
+Given $\langle \Omega, P\rangle$, $X\colon\Omega\to\RR$,
+$P(X\le x) = F_\theta(x)$ for some $\theta\in\Theta$.
+
+Given (independent) observations $x_1, \ldots, x_n$ estimate $\theta$.
+
+Define $P^n$ on $\Omega^n$ by $P^n(A_1\times\cdots\times A_n) = P(A_1)\cdots P(A_n)$ for $A_j\subseteq\Omega$
+and $\bm{X} = (X_1,\ldots,X_n)\colon\Omega^n\to\RR^n$ by
+$\bm{X}(\omega_1,\ldots,\omega_n) = (X_1(\omega_1),\ldots,X_n(\omega_n))$.
+
+#### Bernoulli
+
+$P(X = 0) = 1 - p$, $P(X = 1) = p$ so
+$P(X = x) = p^x (1 - p)^{1 - x}$, $x\in\{0,1\}$.
+
+$E[X^n] = p$ for all $n > 0$ since $X^n = X$..
+
+$\mu(s) = E[\exp(sX)] = 1 - p + e^s p = 1 + (e^s - 1)p$
+
+$W_n = X_1 + \cdots X_n$
+
+$Y = (X - p)/p(1 - p)$ has mean 0 and variance 1.
+
+$E[\exp(s(a + bX))] = \exp(as)\mu(bs))$
+
+$E[\exp(sY)] = \exp(-s/(1-p))(1 - p + e^{s/p(1 - p)} p)$
+
+$p = 1/2$, $E[\exp(sY)] = e^{-2s}(1/2 + e^{4s}/2) = \cosh(2s)$.
+
+$V_n = (Y_1 + \cdots + Y_n)/\sqrt{n}$.
+
+$E[e^{sV_n} = \Pi E[e^{sY_n/sqrt{n}] = ?$ 
+
+$e^{as}e^{bs} = e^{(a + b)s}$
+
+$V_n = Y_1 + \cdots + Y_n$.
+
+$\kappa(s) = \log(1 + (e^s - 1)p)$.
+
+$\kappa'(s) = e^sp/(1 + (e^s - 1)p)$ so $\kappa'(0) = p$
+
+$\kappa''(s) = ((1 + (e^s - 1)p)e^sp - e^sp e^sp )/(1 + (e^s - 1)p)^2
+= ((1 + (e^s - 1)p - e^sp))e^sp/()^2$
+$ so $\kappa'(0) = p$
+
+Let $p$ be a random varialble with $P(p = p_j) = q_j$.
+
+$P(X = x) = \sum_j P(X = x|p = p_j) q_j = \sum_j p_j^x (1 - p_j)^{1 - x}q_j$
+
+$P(p = p_j|X_0 = x_0) = P(p = p_j) P(X_0 = x_0|p = p_j)/P(X_0 = x_0)$ so
+$$
+P(p = p_j|X_0 = x_0) = q_j \frac{p_j^{x_0}(1 - p_j)^{1 - x_0}}{\sum_k p_k^{x_0} (1 - p_k)^{1 - {x_0}}q_k}
+$$
+and
+$$
+P(p = p_j|X_0 = 0) = q_j\frac{1 - p_j}{\sum_k (1 - p_k) q_k}
+$$
+and
+$$
+P(p = p_j|X_0 = 1) = q_j\frac{p_j}{\sum_k p_k q_k}
+$$
+
+Suppose a uniform discrete prior $p_j = j/n$, $0\le j\le n$, and $q_j = 1/(n + 1)$.
+
+$P(X = x) = \sum_j (j/n)^x (1 - j/n)^{1 - x}/(n + 1)$.
+
+$P(X = 0) = \sum_j (1 - j/n)/(n + 1)$.
+
+$P(X = 1) = \sum_j j/n/(n + 1) = n(n+1)/2 n(n+1) = 1/2 = 1 - P(X = 0)$.
+
+$$
+P(p = p_j|X_0 = 0) = 2q_j(1 - 1/(n+1))
+$$
+and
+$$
+P(p = p_j|X_0 = 1) = 2q_j/(n+1)
+$$
+
+## Timeline
+
+Gerolamo Cardano (1501–-1576) Liber de ludo aleae ("Book on Games of Chance"),
+First systematic treatment of probability, as well as a section on effective cheating methods.
+Binomial theorem. Negative numbers.
+
+Pierre de Fermat (1607-–1665)
+
+Blaise Pascal (1623-–1662)
+
+Sir Isaac Newton (1642–-1726) 
+
+Gottfried Wilhelm Leibniz (1646--1716) 
+
+Jacob Bernoulli (1654–-1705; also known as James or Jacques)
+Bernoulli numbers, _Ars Conjectandi_.
+
+Nicolaus I Bernoulli (1687–-1759; son of Jacob's brother Nicklaus)
+Curves, differential equations, and probability; originator of the St. Petersburg paradox
+
+Daniel Bernoulli (1700–-1782; son of Jacob's brother Johann)
+Bernoulli's principle,  expected utility for resolving the St. Petersburg paradox
+
+Leonhard Euler (1707-–1783)
+
+Johann Carl Friedrich Gauss (1777--1855)
