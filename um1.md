@@ -16,6 +16,18 @@ abstract: A mathematically rigorous framework for valuing, hedging, and managing
 \newcommand{\Alg}{\operatorname{Alg}}
 \renewcommand\o[1]{\hat{#1}}
 
+This note proposes a replacement for the Black, Scholes, and Merton theory
+of option pricing based on Ross's "A Simple Approach to the
+Valuation of Risky Streams".
+Only a finite number of trades are possible and
+cash flows associated with instruments are placed on equal footing with prices.
+This clarifies the relationship between Graham-Todd
+expected value of future cash flows and using dynamic trading to 
+create synthetic market instruments.
+The Simple Unified Model does not solve problem of valuing, hedging,
+and managing risk; it only provides a simple and mathematically rigorous
+model for furthur research.
+
 This note proposes improvements to [Stephen Ross's][@Ros1978]
 paper "A Simple Approach to the Valuation of Risky Streams".
 Ross extended the theory invented by Fischer Black, Myron Scholes

@@ -48,6 +48,43 @@ where $D = \{1,2,3,4,5,6\}$.
 
 ...
 
+$P(A\mid B) = P(AB)/P(B)$
+
+$P(A\mid B) = P(A)P(B\mid A)/P(B)$
+
+$\Omega = \{\text{heads},\text{tails}\}$. $P(\text{heads}) = p$, $P(\text{tails}) = 1 - p$ for some
+$p\in[0, 1]$. Define $X\colon\Omega\to\RR$ by $X(\text{heads}) = 1$ and $X(\text{tails}) = 0$.
+
+__Exercise__. _Show $P(X = x) = p^x(1 - p)^{1 - x}$_.
+
+We could let $\Omega = \{0,1\}$ with $P(\{0\}) = 1 - p$, $P(\{1\}) = p$, and define $X(\omega) = \omega$.
+
+What if we don't know $p$? How can coin flips give us information about its value?
+
+Let $\Omega = \{0,1\}\times[0,1]$ and $X\colon\Omega\to\RR$ by $X(x,\theta) = x$.
+
+$P(X = x) = P(\{x\}\times[0,1])$
+
+$P(X = x) = p^x(1-p)^{1 - x}$, where $p = P(X = 1)$ so $1 - p = P(X = 0)$.
+
+$P(\Theta\le\theta) = P(\{0,1\}\times [0,\theta])$.
+
+$P(X = x) = \Theta^x (1 - \Theta)^{1 - x}$ is a random variable (???)
+
+$P(X = x)$ means $P(X = x\mid\Theta)$.
+
+$P(\Theta\le\theta|X = x) = P(\Theta\le\theta)P(X = x\mid \Theta\le\theta)/P(X = x)$
+
+Suppose $P(\Theta \le \theta) = 1_{[p,\infty)}(\theta)$, i.e., $\Theta = p$ with probability 1.
+
+Claim $P(X = x) = E[\Theta]^x(1 - E[\Theta])^{1 - x} = p^x(1 - p)^{1 - x}$.
+
+$P(X = x\mid \Theta\le\theta) = ?$
+
+$P(X = 0\mid \Theta\le\theta) = \int_0^1 (1 - q)\,d1_{[p,\infty)}(q)$
+
+$P(X = 1\mid \Theta\le\theta) = \int_0^1 q\,d1_{[p,\infty)}(q)$
+
 
 ## Probability Space
 
