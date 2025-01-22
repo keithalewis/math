@@ -34,31 +34,23 @@ It is difficult to determine in general when two sets with structure
 are equivalent, but vector spaces are a mathematical sweet spot:
 two vector spaces are equivalent if and only if they have the same dimension.
 
-The set of all functions from a set $I$ to the real numbers, ${\RR^I = \{x\colon I\to\RR\}}$,
-is a vector space over $\RR$.
-Scalar multiplication and vector addition are defined pointwise:
-${(ax)(i) = ax(i)}$ and ${(x + y)(i) = x(i) + y(i)}$ for ${i\in I}$.
-It is customary to write $\RR^n$, $n\in\NN$, when ${I = \{1,\ldots,n\}}$ or
-${I = \{0,\ldots,n-1\}}$ and the initial index is specified.
-
-The _standard basis_ $e_i\in\RR^I$, $i\in I$, is defined by $e_i(j) = δ_{ij}$, $j\in I$,
-where $δ_{ij} = 1$ if $i=j$ and $δ_{ij} = 0$ if $i\not= j$ is the _Kronecker delta_.
-
-__Exercise__. _Show if $I$ is finite then $v = \sum_i v(i) e_i$_.
-
-_Hint_. Show $v(j) = (\sum_i v(i) e_i)(j)$ for $j\in I$.
+The cartesian product of $n\in\NN$ copies of the real numbers
+${\RR^n = \{(x_1,\ldots,x_n)\}}$, where ${x_i\in\RR}$ for ${1\le i\le n}$, is a vector space.
+Scalar multiplication and vector addition are defined by
+${ax = xa = (ax_1,\ldots,ax_n)}$ and ${x + y = (x_1 + y_1,\ldots,x_n + y_n)}$,
+for ${a\in\RR}$, ${x,y\in\RR^n}$.
 
 ## Axioms
 
-For $x, y, z\in\RR^I$ and $a,b\in\RR$,
+For $x, y, z\in\RR^n$ and $a,b\in\RR$,
 
 __Exercise__. _Show $x + (y + z) = (x + y) + z$_.
 
 __Exercise__. _Show $x + y = y + x$_.
 
-__Exercise__. _Show $\zero + x = x$ where $\zero(i) = 0$ for $i\in I$_.
+__Exercise__. _Show $\zero + x = x$ where $\zero = (0,\ldots,0)$_.
 
-__Exercise__. _Show $x + (-x) = \zero$ where $(-x)(i) = -x(i)$, for $i\in I$_.
+__Exercise__. _Show $x + (-x) = \zero$ where $(-x)_i = -(x_i)$, for $1\le i\le n$_.
 
 __Exercise__. _Show $a(bx) = (ab)x$_.
 
@@ -68,22 +60,15 @@ __Exercise__. _Show $a(x + y) = ax + ay$_.
 
 __Exercise__. _Show $(a + b)x = ax + bx$_.
 
-_Hint_: These follow directly from the pointwise definitions and properties of real numbers.
+_Hint_: Use the properties of real numbers.
 
 The exercises are the customary axioms for an _abstract vector space_ with scalar multiplication
-$\RR\times V\to V$ where $(a,x)\mapsto ax$ and binary addition $V\times V\to V$
-where $(x,y)\mapsto x + y$. 
-
-We omit the non-trivial result these axioms imply there exists
-a set $I$ where $V$ can be identified with $\RR^I$. The cardinality of $I$
-is the _dimension_ of $\RR^I$.
-
-A vector space over the real numbers $\RR$ is a set having a scalar multiplication
-and a commutative vector addition satisfying a distributive law.
+${\RR\times V\to V}$ where ${(a,x)\mapsto ax = xa}$ and binary addition ${V\times V\to V}$
+where ${(x,y)\mapsto x + y}$. 
 
 Proofs involving only the abstract axioms are considered more elegant.
 
-__Exercise__. _Using only the abstract axioms show $v + v = v$ implies $v = \zero$, $v\in V$_.
+__Exercise__. _For any vector space $V$ show ${v + v = v}$ implies ${v = \zero}$ for all ${v\in V}$_.
 
 <details>
 <summary>Solution</summary>
@@ -101,6 +86,52 @@ v &= \zero
 \end{aligned}
 $$
 </details>
+
+A homomorphism $T\colon V\to W$ from a vector space $V$ to a vector space $W$ is called a _linear operator_.
+
+__Exercise__. _If $T$ is a linear operator then $T\zero = \zero$_.
+
+_Hint_: Show $T\zero + T\zero = \zero$ and use the previous exerise. Note
+the $\zero$s on the left hand side are the additive identity of $V$
+and the $\zero$ on the right hand side is the additive identity of $W$.
+
+<details>
+<summary>Solution</summary>
+Since ${Tv + Tw = T(v + w)}$ and ${\zero + v = v}$ we have
+${T\zero + T\zero = T(\zero + \zero) = T\zero}$.
+</details>
+
+The collection of all linear operators from a vector space $V$ to a
+vector space $W$ is denoted $\LL(V,W)$. It is a vector space with scalar
+multiplication and vector addition defined by ${(aT)v = a(Tv)}$ and
+${(T + U)v = Tv + Tu}$ for $T\in\LL(V,W)$, $a\in\RR$, $v\in V$.
+
+__Exercise__. _Show linear operators form a vector space_.
+
+There are many vector spaces other than $\RR^n$.
+The set of all functions from a (possibly infinite) set $I$ to the real numbers,
+${\RR^I = \{x\colon I\to\RR\}}$, is a vector space over $\RR$.
+Scalar multiplication and vector addition are defined pointwise:
+${(ax)(i) = ax(i)}$ and ${(x + y)(i) = x(i) + y(i)}$ for ${i\in I}$.
+This generalizes $\RR^n$ when ${I = \{1,\ldots,n\}}$.
+We can identify $x\colon\{1,\ldots,n\}\to\RR$
+with $(x_1,\ldots,x_n)$ by $x(i) = x_i$, $i\in I$.
+
+__Exercise__. _Show $\RR^I$ satisfies the abstract vector space axioms._
+
+The _standard basis_ $e_i\in\RR^I$, $i\in I$, is defined by $e_i(j) = δ_{ij}$, $j\in I$,
+where $δ_{ij} = 1$ if $i=j$ and $δ_{ij} = 0$ if $i\not= j$ is the _Kronecker delta_.
+
+__Exercise__. _Show if $I$ is finite then $v = \sum_i v(i) e_i$_.
+
+_Hint_. Show $v(j) = (\sum_i v(i) e_i)(j)$ for $j\in I$.
+
+We omit the non-trivial result these axioms imply there exists
+a set $I$ where $V$ can be identified with $\RR^I$. The cardinality of $I$
+is the _dimension_ of $\RR^I$.
+
+A vector space over the real numbers $\RR$ is a set having a scalar multiplication
+and a commutative vector addition satisfying a distributive law.
 
 ### Subspace
 
