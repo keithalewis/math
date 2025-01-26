@@ -26,6 +26,42 @@ or ${a(bc) = (ab)c}$ if we write $ab$ for $m(a,b)$.
 While this may seem trivial, is allows us to write $abc$ without parentheses.
 This is the foundation of [MapReduce](https://en.wikipedia.org/wiki/MapReduce).
 
+We can add an _identity_ $e$, not in the semigroup $S$, that satisfies
+${es = s = se}$ for all $s\in S$ to turn a semigroup into a monoid
+${M = S\cup\{e\}}$.
+
+__Exercise__. _Show ${a(bc) = (ab)c}$ for ${a,b,c\in M}$_.
+
+_Hint_: There are seven boring cases when $a$, $b$, and $c$ are $e$.
+
+A _monoid_ is a semigroup with an identity for the binary operation.
+The identity is unique.
+
+__Exercise__. _If $M$ is a monoid and $e'\in M$ satisfies $e'm = m = me'$, $m\in M$, then $e' = e$_.
+
+<details>
+<summary>Solution</summary>
+$e' = ee' = e$
+</details>
+
+__Exercise__. _Show $\max\{a,b\}$, $a,b\in\RR$ is a monoid with
+identity $-\infty$_.
+
+_Hint_: $-\infty < a$ for all $a\in\RR$.
+
+__Exercise__. _Show $\min\{a,b\}$, $a,b\in\RR$ is a monoid with
+identity $+\infty$_.
+
+_Hint_: $\infty > a$ for all $a\in\RR$.
+
+__Exercise__. _Show string concatenation is a monoid with
+identity the empty string_.
+
+The _Kleen star_ of a set is the union of the cartesian product of ${n\in\NN}$ copies of of the set.
+If $M$ is a monoid 
+where ${M^0 = \{e\}}$ and ${M^n = \{(m_1,\ldots,m_n)\mid m_j\in M, 1\le j\le n\}}$.
+Define _fold_ ${f\colon M^*\to M}$ by ${f(e) = e}$ and ${f((m_1,\ldots,m_n)) = m_1\cdots m_n}$.
+
 Functions between sets with structure that
 preserve the structure are _homomorphisms_. A homomorphism that puts set
 elements in one-to-one correspondence is an _isomorphism_. Two sets with
@@ -33,6 +69,10 @@ structure are _equivalent_ if there is an isomorphism between them.
 It is difficult to determine in general when two sets with structure
 are equivalent, but vector spaces are a mathematical sweet spot:
 two vector spaces are equivalent if and only if they have the same dimension.
+
+Linear operators between vector spaces are also a vector space.
+
+## $\RR^n$
 
 The cartesian product of $n\in\NN$ copies of the real numbers
 ${\RR^n = \{(x_1,\ldots,x_n)\}}$, where ${x_i\in\RR}$ for ${1\le i\le n}$, is a vector space.
@@ -62,7 +102,7 @@ __Exercise__. _Show $(a + b)x = ax + bx$_.
 
 _Hint_: Use the properties of real numbers.
 
-The exercises are the customary axioms for an _abstract vector space_ with scalar multiplication
+The exercises are the axioms for an _abstract vector space_ with scalar multiplication
 ${\RR\times V\to V}$ where ${(a,x)\mapsto ax = xa}$ and binary addition ${V\times V\to V}$
 where ${(x,y)\mapsto x + y}$. 
 
@@ -108,7 +148,15 @@ ${(T + U)v = Tv + Tu}$ for $T\in\LL(V,W)$, $a\in\RR$, $v\in V$.
 
 __Exercise__. _Show linear operators form a vector space_.
 
-There are many vector spaces other than $\RR^n$.
+An important special case is when the range is $\RR$.
+Define the _dual_ of the vector space $V$ by $V^* = \LL(V,\RR)$.
+For $v^*\in V^*$ we write the _dual pairing_ using angle brackets
+$\langle v,v^*\rangle = v^*v$.
+
+If $T\colon V\to W$ is a linear transformation define its _adjoint_
+${T^*\colon W^*\to V^*}$ by ${\langle v, T^*w^*\rangle = \langle Tv, w^*\rangle}$,
+${v\in V}$, ${w^*\in W^*}$.
+
 The set of all functions from a (possibly infinite) set $I$ to the real numbers,
 ${\RR^I = \{x\colon I\to\RR\}}$, is a vector space over $\RR$.
 Scalar multiplication and vector addition are defined pointwise:
@@ -126,12 +174,15 @@ __Exercise__. _Show if $I$ is finite then $v = \sum_i v(i) e_i$_.
 
 _Hint_. Show $v(j) = (\sum_i v(i) e_i)(j)$ for $j\in I$.
 
+We define the _dual basis_ $e_j^*\in(\RR^I)^*$ by $e_j^*e_i = \delta_{ij}$.
+
+__Exercise__. _Show if $I$ is finite then $v^* = \sum_i v^*e_i e^*_i$_.
+
+_Hint_. Consider $v^*e_j$.
+
 We omit the non-trivial result these axioms imply there exists
 a set $I$ where $V$ can be identified with $\RR^I$. The cardinality of $I$
 is the _dimension_ of $\RR^I$.
-
-A vector space over the real numbers $\RR$ is a set having a scalar multiplication
-and a commutative vector addition satisfying a distributive law.
 
 ### Subspace
 
@@ -141,8 +192,6 @@ __Exercise__. _Let $U$ be a subset of $V$. If $\RR U\subseteq U$ and $U + U\subs
 $U$ is a subspace of $V$_.
 
 _Hint_. $\RR U = \{au\mid a\in\RR, u\in U\}$ and $U + U = \{v + w\mid v\in U, w\in U\}$.
-Show if $u\in U$ then $au\in U$
-and if $v,w\in U$ then $v + w\in U$.
 
 <details><summary>Solution</summary>
 If $u\in U$ and $a\in\RR$ then $au\in\RR U\subseteq U$.

@@ -16,24 +16,18 @@ abstract: A mathematically rigorous framework for valuing, hedging, and managing
 \newcommand{\Alg}{\operatorname{Alg}}
 \renewcommand\o[1]{\hat{#1}}
 
-This note proposes a replacement for the Black, Scholes, and Merton theory
-of option pricing based on Ross's "A Simple Approach to the
-Valuation of Risky Streams".
-Only a finite number of trades are possible and
-cash flows associated with instruments are placed on equal footing with prices.
-This clarifies the relationship between Graham-Todd
-expected value of future cash flows and using dynamic trading to 
-create synthetic market instruments.
-The Simple Unified Model does not solve problem of valuing, hedging,
-and managing risk; it only provides a simple and mathematically rigorous
-model for furthur research.
 
-This note proposes improvements to [Stephen Ross's][@Ros1978]
-paper "A Simple Approach to the Valuation of Risky Streams".
-Ross extended the theory invented by Fischer Black, Myron Scholes
-[@BlaSch1973] and Robert C. Merton III [@Mer1973] for valuing an option
-by dynamic trading of a bond and stock to valuing any derivative using
-any collection of instruments (risky streams).
+This note suggests improvements to Stephen Ross's paper "A Simple
+Approach to the Valuation of Risky Streams" [@Ros1978]. Ross expanded
+on the groundbreaking theory developed by Fischer Black, Myron Scholes
+[@BlaSch1973], and Robert C. Merton [@Mer1973], which originally focused
+on valuing options through dynamic trading of a bond and a stock. Ross
+greatly expanded this by showing how to value derivatives using
+any collection of instruments, referred to as risky streams.
+
+We place cash flows on equal footing with prices and assume every
+trading strategy involves only a finite number of transactions based on
+available information.
 
 Perhaps at the time, over half a century ago, people were not prepared
 for such an audatious expansion of the B-S/M theory.
@@ -76,6 +70,18 @@ and the amounts ${A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t}$ showing up in
 the trading account.
 
 Arbitrage exists if there is a trading strategy $(\tau_j, \Gamma_j)$ with
+$A_{\tau_0} > 0$, $A_t\ge0$ for $t > \tau_0$, and $\sum_j \Gamma_j = 0$.
+There is no arbitrage if there exist positive measures $D_t$ on
+$\AA_t$ with
+$$
+	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}.
+$$
+A direct consequence using the definitions of value and amount is
+$$
+	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}.
+$$
+If a derivative instrument pays $\o{A}_k$ at $\o{\tau}_k$ and there
+exists a trading strategy $(\tau_j, \Gamma_j)$ with
 $A_{\tau_0} > 0$, $A_t\ge0$ for $t > \tau_0$, and $\sum_j \Gamma_j = 0$.
 There is no arbitrage if there exist positive measures $D_t$ on
 $\AA_t$ with
@@ -749,15 +755,3 @@ $(\AA_t)_{t\in T}$ the algebras of sets on $\Omega$ indicating the
 information available at each trading time.
 
 ### TODO
-
-y. Garman (1977) and Cox and Ross (1976b), for
- example, have shown that if diffusions are used then the operator L will
- take the form of the Ito parabolic differential operator, and this integra
- tion of the operator and the continuous time approaches should lead to
- new results. Nevertheless, it is surprising how much of what is central
- to modern finance is based solely on the arbitrage principles embodied
- in the basic valuation theorem
-
-
-## Reference
-

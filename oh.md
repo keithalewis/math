@@ -16,24 +16,24 @@ Let $X_t = (1, B_t)$, $C_t = (0, 0)$.
 
 Find the best least square initial hedge for payoff $A_1 = B_1^+ = \max\{B_1,0\}$.
 
-$\Gamma_0 = (\alpha, \beta)$, $\Gamma_1 = -\Gamma_0$.
+$\Gamma_0 = (m, n)$, $\Gamma_1 = -\Gamma_0$.
 
-$A_1 = -\Gamma_1\cdot X_1 = \alpha + \beta B_1$.
+$A_1 = -\Gamma_1\cdot X_1 = m + n B_1$.
 
-Find $\min_{\alpha,\beta} E[(A_1 - B_1^+)^2] = \min_{\alpha,\beta} E[(\alpha + \beta B_1 - B_1^+)^2]$.
+Find $\min_{m,n} E[(A_1 - B_1^+)^2] = \min_{m,n} E[(m + n B_1 - B_1^+)^2]$.
 
 First order conditions are
 $$
 \begin{aligned}
-	0 &= E[2(\alpha + \beta B_1 - B_1^+)] \\
-	0 &= E[2(\alpha + \beta B_1 - B_1^+)B_1^+] \\
+	0 &= E[2(m + n B_1 - B_1^+)] \\
+	0 &= E[2(m + n B_1 - B_1^+)B_1^+] \\
 \end{aligned}
 $$
 so
 $$
 \begin{aligned}
-	E[B_1^+] &= \alpha + \beta E[B_1] \\
-	E[(B_1^+)^2] &= \alpha E[B_1^+] + \beta E[B_1 B_1^+] \\
+	E[B_1^+] &= m + n E[B_1] \\
+	E[(B_1^+)^2] &= m E[B_1^+] + n E[B_1 B_1^+] \\
 \end{aligned}
 $$
 
@@ -50,11 +50,27 @@ $$
 		1/\sqrt{2\pi} & 1/2 \\
 	\end{bmatrix}
 	\begin{bmatrix}
-		\alpha \\
-		\beta \\
+		m \\
+		n \\
 	\end{bmatrix}
 $$
-so $\alpha = 1/\sqrt{2\pi} \approx 0.4$ and $\beta = 1 - 2/\sqrt{2\pi} \approx 0.2$.
+hence
+$$
+	\begin{bmatrix}
+		m \\
+		n \\
+	\end{bmatrix}
+	= 2
+	\begin{bmatrix}
+		1/2 & 0 \\
+		-1/\sqrt{2\pi} & 1 \\
+	\end{bmatrix}
+	\begin{bmatrix}
+		1/\sqrt{2\pi} \\
+		1/2 \\
+	\end{bmatrix}
+$$
+so $m = 1/\sqrt{2\pi} \approx 0.4$ and $n = -1/\pi + 1 \approx 0.68$.
 
 Note $V_0 = \Gamma_0\cdot X_0 = 1/\sqrt{2\pi} = E[B_1^+]$.
 
