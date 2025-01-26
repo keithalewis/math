@@ -4,9 +4,8 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="author" content="Keith A. Lewis" />
   <meta name="dcterms.date" content="2025-01-26" />
-  <title>SOFR, so Good</title>
+  <title>LIBOR Market Model</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -36,7 +35,7 @@
     displayMode: mathElements[i].classList.contains('display'),
     throwOnError: false,
     macros: macros,
-    fleqn: true
+    fleqn: false
    });
 }}});
   </script>
@@ -45,42 +44,18 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">SOFR, so Good</h1>
-<p class="author">Keith A. Lewis</p>
+<h1 class="title">LIBOR Market Model</h1>
 <p class="date">January 26, 2025</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-One more thing to figure out.
-</div>
 </header>
-<nav id="TOC" role="doc-toc">
-<ul>
-<li><a href="#ho-lee" id="toc-ho-lee">Ho-Lee</a></li>
-</ul>
-</nav>
-<p>SOFR is the Secured Overnight Financing Rate. Quants should be
-overjoyed that there is a highly liquid market instrument that is a
-proxy for the continously compounded risk-free forward rate, <span
-class="math inline">f_t</span>. The reality is that SOFR can spike, as
-it did in September 2019.</p>
-<p><span class="math inline">D_t = \exp(-\int_0^t f_s\,ds)</span>.</p>
-<p><span class="math inline">D_t(u) = E_t[D_u]/D_t = \exp(-\int_t^u
-f_t(s)\,ds)</span>.</p>
-<p>Term SOFR is an average of backward looking rates, similar to Fed
-Fund Futures settelment quotes.</p>
-<p><span class="math inline">S_t(t - h, t) = (1/h)\int_{t - h}^t
-f_s\,ds</span></p>
-<p>Forward rate at <span class="math inline">t</span> over <span
-class="math inline">[t, t + h]</span>.</p>
-<p><span class="math inline">F_t(t, t + h) = (1/h)(1/D_t(t + h) - 1)
-\approx (1/h)\int_t^{t + h} f_t(s)\,ds</span></p>
-<section id="ho-lee" class="level2">
-<h2>Ho-Lee</h2>
-<p><span class="math inline">f_t = r(t) + \sigma B_t</span>.</p>
-<p><span class="math inline">f_t(u) = r(t) - \sigma^2 (u - t)^2/2 +
-\sigma B_t</span>_.</p>
-<p><span class="math inline">\int_t^u B_s\,ds = \int_t^u s\,dB_s + (u -
-t) B_t</span>.</p>
-</section>
+<p>Instantaneous short (repo) rate <span
+class="math inline">(f_t)</span>.</p>
+<p>Stochastic discount <span class="math inline">D_t = \exp(-\int_0^t
+f_s\,ds)P</span>.</p>
+<p><span class="math inline">D_t(\Omega) = \exp(-\int_0^t
+f(s)\,ds)</span>.</p>
+<p><span class="math inline">D_t(u)P = (D_u/D_t)|_{\mathcal{A}_t} =
+\exp(-\int_t^u f_t(s)\,ds)P</span></p>
+<p>Futures <span class="math inline">\phi_t(u)P = f_u
+P|_{\mathcal{A}_t}</span>.</p>
 </body>
 </html>

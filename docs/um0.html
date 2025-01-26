@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-12-07" />
+  <meta name="dcterms.date" content="2025-01-26" />
   <title>Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,12 +47,59 @@
 <header id="title-block-header">
 <h1 class="title">Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">December 7, 2024</p>
+<p class="date">January 26, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of any instruments
 </div>
 </header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#background" id="toc-background">Background</a></li>
+<li><a href="#limitations" id="toc-limitations">Limitations</a></li>
+<li><a href="#market" id="toc-market">Market</a>
+<ul>
+<li><a href="#model" id="toc-model">Model</a>
+<ul>
+<li><a href="#price-cash-flow" id="toc-price-cash-flow">Price, Cash
+Flow</a></li>
+</ul></li>
+<li><a href="#trading" id="toc-trading">Trading</a>
+<ul>
+<li><a href="#trade-position" id="toc-trade-position">Trade,
+Position</a></li>
+<li><a href="#value-account" id="toc-value-account">Value,
+Account</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#arbitrage" id="toc-arbitrage">Arbitrage</a></li>
+<li><a href="#hedge" id="toc-hedge">Hedge</a></li>
+<li><a href="#discount-measure" id="toc-discount-measure">Discount
+Measure</a></li>
+<li><a href="#examples" id="toc-examples">Examples</a>
+<ul>
+<li><a href="#black-scholesmerton"
+id="toc-black-scholesmerton">Black-Scholes/Merton</a></li>
+<li><a href="#transaction" id="toc-transaction">Transaction</a></li>
+<li><a href="#limit-orders" id="toc-limit-orders">Limit Orders</a></li>
+<li><a href="#market-orders" id="toc-market-orders">Market
+Orders</a></li>
+<li><a href="#forwards" id="toc-forwards">Forwards</a></li>
+<li><a href="#futures" id="toc-futures">Futures</a>
+<ul>
+<li><a href="#risky-bonds" id="toc-risky-bonds">Risky Bonds</a></li>
+</ul></li>
+<li><a href="#forward-rate-agreement"
+id="toc-forward-rate-agreement">Forward Rate Agreement</a></li>
+<li><a href="#convexity" id="toc-convexity">Convexity</a></li>
+<li><a href="#swap" id="toc-swap">Swap</a></li>
+</ul></li>
+<li><a href="#mathematical-prerequisites"
+id="toc-mathematical-prerequisites">Mathematical Prerequisites</a></li>
+<li><a href="#acknowledgments"
+id="toc-acknowledgments">Acknowledgments</a></li>
+</ul>
+</nav>
 <p>There has been considerable progress since the latter two of Fischer
 Black, Myron Scholes, and Robert Merton III won Nobel Prizes for their
 theory of option pricing. However, there are fundamental problems their

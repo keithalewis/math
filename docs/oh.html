@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2025-01-23" />
+  <title>Optimal Hedging</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Optimal Hedging</h1>
+<p class="date">January 23, 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#warmup" id="toc-warmup">Warmup</a></li>
+</ul>
+</nav>
+<section id="warmup" class="level2">
+<h2>Warmup</h2>
+<p>First exercise in understanding <span
+class="math inline">(X,C)</span>, <span
+class="math inline">(\tau,\Gamma)</span>, and <span
+class="math inline">(V, A)</span> notation.</p>
+<p>Assume interest rate is zero, stock price is standard Brownian
+motion, and no dividends.</p>
+<p>Let <span class="math inline">X_t = (1, B_t)</span>, <span
+class="math inline">C_t = (0, 0)</span>.</p>
+<p>Find the best least square initial hedge for payoff <span
+class="math inline">A_1 = B_1^+ = \max\{B_1,0\}</span>.</p>
+<p><span class="math inline">\Gamma_0 = (m, n)</span>, <span
+class="math inline">\Gamma_1 = -\Gamma_0</span>.</p>
+<p><span class="math inline">A_1 = -\Gamma_1\cdot X_1 = m + n
+B_1</span>.</p>
+<p>Find <span class="math inline">\min_{m,n} E[(A_1 - B_1^+)^2] =
+\min_{m,n} E[(m + n B_1 - B_1^+)^2]</span>.</p>
+<p>First order conditions are <span class="math display">
+\begin{aligned}
+    0 &amp;= E[2(m + n B_1 - B_1^+)] \\
+    0 &amp;= E[2(m + n B_1 - B_1^+)B_1^+] \\
+\end{aligned}
+</span> so <span class="math display">
+\begin{aligned}
+    E[B_1^+] &amp;= m + n E[B_1] \\
+    E[(B_1^+)^2] &amp;= m E[B_1^+] + n E[B_1 B_1^+] \\
+\end{aligned}
+</span></p>
+<p>Since <span class="math inline">E[B_1^+] = 1/\sqrt{2\pi}</span>,
+<span class="math inline">E[B_1] = 0</span>, and <span
+class="math inline">E[(B_1^+)^2] = E[B_1B_1^+] = 1/2</span> we have
+<span class="math display">
+    \begin{bmatrix}
+        1/\sqrt{2\pi} \\
+        1/2 \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        1 &amp; 0 \\
+        1/\sqrt{2\pi} &amp; 1/2 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        m \\
+        n \\
+    \end{bmatrix}
+</span> hence <span class="math display">
+    \begin{bmatrix}
+        m \\
+        n \\
+    \end{bmatrix}
+    = 2
+    \begin{bmatrix}
+        1/2 &amp; 0 \\
+        -1/\sqrt{2\pi} &amp; 1 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        1/\sqrt{2\pi} \\
+        1/2 \\
+    \end{bmatrix}
+</span> so <span class="math inline">m = 1/\sqrt{2\pi} \approx
+0.4</span> and <span class="math inline">n = -1/\pi + 1 \approx
+0.68</span>.</p>
+<p>Note <span class="math inline">V_0 = \Gamma_0\cdot X_0 =
+1/\sqrt{2\pi} = E[B_1^+]</span>.</p>
+<p>In matrix form, minimizing <span class="math inline">E[(\Gamma\cdot X
+- A)^2]</span> has first order condition <span class="math inline">{0 =
+E[2(\Gamma\cdot X - A)X]}</span> so <span class="math inline">\Gamma =
+E[XX^*]^{-1}E[AX]</span>.</p>
+</section>
+</body>
+</html>

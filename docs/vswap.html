@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-12-07" />
+  <meta name="dcterms.date" content="2025-01-26" />
   <title>Variance Swaps</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,12 +47,20 @@
 <header id="title-block-header">
 <h1 class="title">Variance Swaps</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">December 7, 2024</p>
+<p class="date">January 26, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage risk of variance swaps.
 </div>
 </header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#one-period" id="toc-one-period">One Period</a></li>
+<li><a href="#contract" id="toc-contract">Contract</a></li>
+<li><a href="#static-hedge" id="toc-static-hedge">Static Hedge</a></li>
+<li><a href="#cubic-term" id="toc-cubic-term">Cubic Term</a></li>
+</ul>
+</nav>
 <p>A variance swap pays the sum of the squares of realized return over a
 period. It provides exposure to volatility no matter the level of the
 underlying. Unlike a call or put option it never goes out-of-the-money.

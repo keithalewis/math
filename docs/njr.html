@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-12-07" />
+  <meta name="dcterms.date" content="2025-01-26" />
   <title>A General Formula for Option Pricing</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,12 +47,41 @@
 <header id="title-block-header">
 <h1 class="title">A General Formula for Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">December 7, 2024</p>
+<p class="date">January 26, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Perturbation of the normal distribution
 </div>
 </header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#cumulants" id="toc-cumulants">Cumulants</a></li>
+<li><a href="#edgeworth-expansion"
+id="toc-edgeworth-expansion">Edgeworth Expansion</a></li>
+<li><a href="#hermite-polynomials" id="toc-hermite-polynomials">Hermite
+Polynomials</a></li>
+<li><a href="#the-esscher-transform" id="toc-the-esscher-transform">The
+Esscher Transform</a></li>
+<li><a href="#examples" id="toc-examples">Examples</a>
+<ul>
+<li><a href="#normal" id="toc-normal">Normal</a></li>
+<li><a href="#gamma" id="toc-gamma">Gamma</a></li>
+<li><a href="#poisson" id="toc-poisson">Poisson</a></li>
+<li><a href="#variance-gamma" id="toc-variance-gamma">Variance
+Gamma</a></li>
+<li><a href="#compound-poisson" id="toc-compound-poisson">Compound
+Poisson</a></li>
+<li><a href="#jump-diffusion" id="toc-jump-diffusion">Jump
+Diffusion</a></li>
+<li><a href="#double-exponential" id="toc-double-exponential">Double
+Exponential</a></li>
+</ul></li>
+<li><a href="#lévy-processes" id="toc-lévy-processes">Lévy Processes</a>
+<ul>
+<li><a href="#remarks" id="toc-remarks">Remarks</a></li>
+</ul></li>
+</ul>
+</nav>
 <p>The forward value of a European put option having strike <span
 class="math inline">k &gt; 0</span> on underlying <span
 class="math inline">F</span> is <span class="math display">

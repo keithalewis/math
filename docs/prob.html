@@ -5,8 +5,8 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-12-07" />
-  <title>Probability</title>
+  <meta name="dcterms.date" content="2025-01-26" />
+  <title>Probabilistic Reasoning</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -45,19 +45,157 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Probability</h1>
+<h1 class="title">Probabilistic Reasoning</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">December 7, 2024</p>
+<p class="date">January 26, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A calculus for uncertainty
 </div>
 </header>
-<p>Probability is an extension of the rules of logic to deal with
-uncertain events. A probability is a number between 0 and 1 representing
-a degree of belief. All probabilities are conditional on available
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#origins" id="toc-origins">Origins</a></li>
+<li><a href="#probability-space" id="toc-probability-space">Probability
+Space</a>
+<ul>
+<li><a href="#partition" id="toc-partition">Partition</a>
+<ul>
+<li><a href="#coin-tossing" id="toc-coin-tossing">Coin tossing</a></li>
+</ul></li>
+<li><a href="#measure" id="toc-measure">Measure</a>
+<ul>
+<li><a href="#discrete" id="toc-discrete">Discrete</a></li>
+<li><a href="#uniform" id="toc-uniform">Uniform</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#conditional-expectation"
+id="toc-conditional-expectation">Conditional Expectation</a>
+<ul>
+<li><a href="#example" id="toc-example">Example</a></li>
+</ul></li>
+<li><a href="#random-variable" id="toc-random-variable">Random
+Variable</a></li>
+<li><a href="#joint-distribution" id="toc-joint-distribution">Joint
+Distribution</a>
+<ul>
+<li><a href="#independent" id="toc-independent">Independent</a></li>
+<li><a href="#copula" id="toc-copula">Copula</a></li>
+<li><a href="#uniform-1" id="toc-uniform-1">Uniform</a></li>
+<li><a href="#continuous-random-variable"
+id="toc-continuous-random-variable">Continuous Random Variable</a></li>
+<li><a href="#expected-value" id="toc-expected-value">Expected
+Value</a></li>
+<li><a href="#moment" id="toc-moment">Moment</a></li>
+<li><a href="#cumulant" id="toc-cumulant">Cumulant</a>
+<ul>
+<li><a href="#normal" id="toc-normal">Normal</a></li>
+<li><a href="#jointly-normal" id="toc-jointly-normal">Jointly
+Normal</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#concentration-inequalities"
+id="toc-concentration-inequalities">Concentration Inequalities</a>
+<ul>
+<li><a href="#law-of-large-numbers" id="toc-law-of-large-numbers">Law of
+Large Numbers</a></li>
+</ul></li>
+<li><a href="#jensens-inequality" id="toc-jensens-inequality">Jensen’s
+Inequality</a>
+<ul>
+<li><a href="#convergence" id="toc-convergence">Convergence</a></li>
+</ul></li>
+<li><a href="#unsorted" id="toc-unsorted">Unsorted</a>
+<ul>
+<li><a href="#conditional" id="toc-conditional">Conditional</a></li>
+<li><a href="#estimation" id="toc-estimation">Estimation</a>
+<ul>
+<li><a href="#bernoulli" id="toc-bernoulli">Bernoulli</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#timeline" id="toc-timeline">Timeline</a></li>
+</ul>
+</nav>
+<blockquote>
+<p><em>The theory of probabilities is at bottom nothing but common sense
+reduced to calculus; it enables us to appreciate with exactness that
+which accurate minds feel with a sort of instinct for which of times
+they are unable to account</em>. – Pierre-Simon Laplace</p>
+</blockquote>
+<p>Probability is an <a
+href="https://plato.stanford.edu/entries/logic-probability/">extension
+of the rules of logic</a> to deal with uncertain events. Instead of the
+absolute ‘true’ or ‘false’ of logic, it uses estimation to aid plausible
+reasoning. The first step in any problem involving probability is to
+specify what outcomes are possible and their a priori probability of
+occuring. A probability is a number between 0 and 1 representing a
+degree of belief. All probabilities are conditional on available
 information and can be systematically updated using Bayes’ theorem as
 more information becomes available.</p>
+<section id="origins" class="level2">
+<h2>Origins</h2>
+<p>In 1654, Antoine Gombaud (aka le chevalier de Méré) asked Blaise
+Pascal “Is it worthwhile betting even money that double sixes will turn
+up at least once in 24 throws of a fair pair of dice?” Based on
+empirical data he believed that the probability was greater than rolling
+at least one 6 in 4 throws. The probability of not throwing a 6 is <span
+class="math inline">5/6</span> so the probability of not throwing a 6 in
+4 throws is <span class="math inline">(5/6)^4</span>. The probability of
+pair of dice not having a pair of 6’s is <span
+class="math inline">(35/36)</span> so the probability of not throwing a
+pair of 6’s in 24 throws is <span
+class="math inline">(35/36)^{24}</span>. This shows the answer to De
+Méré’s first question is <span class="math inline">1 -
+(35/36)^{24}\approx .491</span> and since <span class="math inline">1 -
+(5/6)^4 \approx .518</span> we have shown his intuition was wrong.</p>
+<p>In this case the sample space is 24 rolls of a pair of dice, <span
+class="math inline">\Omega = (D\times D)^24</span> where <span
+class="math inline">D = \{1,2,3,4,5,6\}</span>.</p>
+<p>…</p>
+<p><span class="math inline">P(A\mid B) = P(AB)/P(B)</span></p>
+<p><span class="math inline">P(A\mid B) = P(A)P(B\mid A)/P(B)</span></p>
+<p><span class="math inline">\Omega =
+\{\text{heads},\text{tails}\}</span>. <span
+class="math inline">P(\text{heads}) = p</span>, <span
+class="math inline">P(\text{tails}) = 1 - p</span> for some <span
+class="math inline">p\in[0, 1]</span>. Define <span
+class="math inline">X\colon\Omega\to\mathbf{R}</span> by <span
+class="math inline">X(\text{heads}) = 1</span> and <span
+class="math inline">X(\text{tails}) = 0</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(X =
+x) = p^x(1 - p)^{1 - x}</span></em>.</p>
+<p>We could let <span class="math inline">\Omega = \{0,1\}</span> with
+<span class="math inline">P(\{0\}) = 1 - p</span>, <span
+class="math inline">P(\{1\}) = p</span>, and define <span
+class="math inline">X(\omega) = \omega</span>.</p>
+<p>What if we don’t know <span class="math inline">p</span>? How can
+coin flips give us information about its value?</p>
+<p>Let <span class="math inline">\Omega = \{0,1\}\times[0,1]</span> and
+<span class="math inline">X\colon\Omega\to\mathbf{R}</span> by <span
+class="math inline">X(x,\theta) = x</span>.</p>
+<p><span class="math inline">P(X = x) = P(\{x\}\times[0,1])</span></p>
+<p><span class="math inline">P(X = x) = p^x(1-p)^{1 - x}</span>, where
+<span class="math inline">p = P(X = 1)</span> so <span
+class="math inline">1 - p = P(X = 0)</span>.</p>
+<p><span class="math inline">P(\Theta\le\theta) = P(\{0,1\}\times
+[0,\theta])</span>.</p>
+<p><span class="math inline">P(X = x) = \Theta^x (1 - \Theta)^{1 -
+x}</span> is a random variable (???)</p>
+<p><span class="math inline">P(X = x)</span> means <span
+class="math inline">P(X = x\mid\Theta)</span>.</p>
+<p><span class="math inline">P(\Theta\le\theta|X = x) =
+P(\Theta\le\theta)P(X = x\mid \Theta\le\theta)/P(X = x)</span></p>
+<p>Suppose <span class="math inline">P(\Theta \le \theta) =
+1_{[p,\infty)}(\theta)</span>, i.e., <span class="math inline">\Theta =
+p</span> with probability 1.</p>
+<p>Claim <span class="math inline">P(X = x) = E[\Theta]^x(1 -
+E[\Theta])^{1 - x} = p^x(1 - p)^{1 - x}</span>.</p>
+<p><span class="math inline">P(X = x\mid \Theta\le\theta) = ?</span></p>
+<p><span class="math inline">P(X = 0\mid \Theta\le\theta) = \int_0^1 (1
+- q)\,d1_{[p,\infty)}(q)</span></p>
+<p><span class="math inline">P(X = 1\mid \Theta\le\theta) = \int_0^1
+q\,d1_{[p,\infty)}(q)</span></p>
+</section>
 <section id="probability-space" class="level2">
 <h2>Probability Space</h2>
 <p>A <em>sample space</em> <span class="math inline">Ω</span> is the set
@@ -80,6 +218,15 @@ developed by Lesbegue to generalise Riemann-Stieltjes integration.
 Mathematicans found probabilty theory more legitimate when Kolomogorov
 pointed out a probability measure is simply a positive measure having
 mass 1.</p>
+<p><em>Partial information</em> about outcomes in <span
+class="math inline">\Omega</span> is modeled by a <em>partition</em>: a
+collection of pairwise disjoint subsets whose union is <span
+class="math inline">\Omega</span>. Elements of the partition are
+<em>atoms</em>. Complete information corresponds to the <em>finest</em>
+partition of <em>singletons</em> <span class="math inline">{\{\{ω\}\mid
+ω\in Ω\}}</span>. No information corresponds to the <em>coarsest</em>
+partition <span class="math inline">\{Ω\}</span>. Partial information is
+knowing only which atom an outcome belongs to.</p>
 <p>An <em>algebra</em> <span class="math inline">\mathcal{A}</span> is
 collection of events that is closed under set <em>complement</em> and
 <em>union</em>.</p>
@@ -151,12 +298,6 @@ class="math inline">Ω</span>. Show either <span class="math inline">{A_ω
 A_{ω&#39;}</span>, <span class="math inline">ω,ω&#39;\in Ω</span>.</p>
 <p>If <span class="math inline">\mathcal{A}</span> is finite then we can
 identify it with its atoms.</p>
-<p><em>Partial information</em> is modeled by a partition of a sample
-space. Complete information corresponds to the <em>finest</em> partition
-of <em>singletons</em> <span class="math inline">\{\{ω\}\mid ω\in
-Ω\}</span>. No information corresponds to the <em>coarsest</em>
-partition <span class="math inline">\{Ω\}</span>. Partial information is
-knowing only which set in the partition an outcome belongs to.</p>
 <section id="coin-tossing" class="level4">
 <h4>Coin tossing</h4>
 <p>We can model a sequence of random coin flips by a sequence of 0’s and
@@ -1184,6 +1325,134 @@ PGN PNG GPN GNP NPG NGB
 
 -->
 </section>
+</section>
+<section id="unsorted" class="level2">
+<h2>Unsorted</h2>
+<p>The traditional‘frequentist’ methods which use only sampling
+distributions are usable and useful in many particularly simple,
+idealized problems; however, they represent the most proscribed special
+cases of probability theory, because they presuppose conditions
+(independent repetitions of a ‘random experiment’ but no relevant prior
+information) that are hardly ever met in real problems. This approach is
+quite inadequate for the current needs of science.</p>
+<section id="conditional" class="level3">
+<h3>Conditional</h3>
+<p>For a probability measure <span class="math inline">P</span> on <span
+class="math inline">\Omega</span>, the <em>conditional probability</em>
+of <span class="math inline">A</span> <em>given</em> <span
+class="math inline">B</span> is <span class="math inline">P(A|B) =
+P(AB)/P(B)</span>, <span
+class="math inline">A,B\subseteq\Omega</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(B|B)
+= 1</span> and <span class="math inline">P(A|\Omega) =
+A</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">A\mapsto P(A|B)</span> is a probability measure on
+<span class="math inline">B</span></em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">P(A\cup A&#39;|B) =
+P(A|B) + P(A&#39;|B) - P(AA&#39;|B)</span>.</p>
+</section>
+<section id="estimation" class="level3">
+<h3>Estimation</h3>
+<p>Given <span class="math inline">\langle \Omega, P\rangle</span>,
+<span class="math inline">X\colon\Omega\to\mathbf{R}</span>, <span
+class="math inline">P(X\le x) = F_\theta(x)</span> for some <span
+class="math inline">\theta\in\Theta</span>.</p>
+<p>Given (independent) observations <span class="math inline">x_1,
+\ldots, x_n</span> estimate <span class="math inline">\theta</span>.</p>
+<p>Define <span class="math inline">P^n</span> on <span
+class="math inline">\Omega^n</span> by <span
+class="math inline">P^n(A_1\times\cdots\times A_n) = P(A_1)\cdots
+P(A_n)</span> for <span class="math inline">A_j\subseteq\Omega</span>
+and <span class="math inline">\bm{X} =
+(X_1,\ldots,X_n)\colon\Omega^n\to\mathbf{R}^n</span> by <span
+class="math inline">\bm{X}(\omega_1,\ldots,\omega_n) =
+(X_1(\omega_1),\ldots,X_n(\omega_n))</span>.</p>
+<section id="bernoulli" class="level4">
+<h4>Bernoulli</h4>
+<p><span class="math inline">P(X = 0) = 1 - p</span>, <span
+class="math inline">P(X = 1) = p</span> so <span class="math inline">P(X
+= x) = p^x (1 - p)^{1 - x}</span>, <span
+class="math inline">x\in\{0,1\}</span>.</p>
+<p><span class="math inline">E[X^n] = p</span> for all <span
+class="math inline">n &gt; 0</span> since <span class="math inline">X^n
+= X</span>..</p>
+<p><span class="math inline">\mu(s) = E[\exp(sX)] = 1 - p + e^s p = 1 +
+(e^s - 1)p</span></p>
+<p><span class="math inline">W_n = X_1 + \cdots X_n</span></p>
+<p><span class="math inline">Y = (X - p)/p(1 - p)</span> has mean 0 and
+variance 1.</p>
+<p><span class="math inline">E[\exp(s(a + bX))] =
+\exp(as)\mu(bs))</span></p>
+<p><span class="math inline">E[\exp(sY)] = \exp(-s/(1-p))(1 - p +
+e^{s/p(1 - p)} p)</span></p>
+<p><span class="math inline">p = 1/2</span>, <span
+class="math inline">E[\exp(sY)] = e^{-2s}(1/2 + e^{4s}/2) =
+\cosh(2s)</span>.</p>
+<p><span class="math inline">V_n = (Y_1 + \cdots +
+Y_n)/\sqrt{n}</span>.</p>
+<p><span class="math inline">E[e^{sV_n} = \Pi E[e^{sY_n/sqrt{n}] =
+?</span></p>
+<p><span class="math inline">e^{as}e^{bs} = e^{(a + b)s}</span></p>
+<p><span class="math inline">V_n = Y_1 + \cdots + Y_n</span>.</p>
+<p><span class="math inline">\kappa(s) = \log(1 + (e^s -
+1)p)</span>.</p>
+<p><span class="math inline">\kappa&#39;(s) = e^sp/(1 + (e^s -
+1)p)</span> so <span class="math inline">\kappa&#39;(0) = p</span></p>
+<p><span class="math inline">\kappa&#39;&#39;(s) = ((1 + (e^s - 1)p)e^sp
+- e^sp e^sp )/(1 + (e^s - 1)p)^2 = ((1 + (e^s - 1)p -
+e^sp))e^sp/()^2</span> $ so <span class="math inline">\kappa&#39;(0) =
+p</span></p>
+<p>Let <span class="math inline">p</span> be a random varialble with
+<span class="math inline">P(p = p_j) = q_j</span>.</p>
+<p><span class="math inline">P(X = x) = \sum_j P(X = x|p = p_j) q_j =
+\sum_j p_j^x (1 - p_j)^{1 - x}q_j</span></p>
+<p><span class="math inline">P(p = p_j|X_0 = x_0) = P(p = p_j) P(X_0 =
+x_0|p = p_j)/P(X_0 = x_0)</span> so <span class="math display">
+P(p = p_j|X_0 = x_0) = q_j \frac{p_j^{x_0}(1 - p_j)^{1 - x_0}}{\sum_k
+p_k^{x_0} (1 - p_k)^{1 - {x_0}}q_k}
+</span> and <span class="math display">
+P(p = p_j|X_0 = 0) = q_j\frac{1 - p_j}{\sum_k (1 - p_k) q_k}
+</span> and <span class="math display">
+P(p = p_j|X_0 = 1) = q_j\frac{p_j}{\sum_k p_k q_k}
+</span></p>
+<p>Suppose a uniform discrete prior <span class="math inline">p_j =
+j/n</span>, <span class="math inline">0\le j\le n</span>, and <span
+class="math inline">q_j = 1/(n + 1)</span>.</p>
+<p><span class="math inline">P(X = x) = \sum_j (j/n)^x (1 - j/n)^{1 -
+x}/(n + 1)</span>.</p>
+<p><span class="math inline">P(X = 0) = \sum_j (1 - j/n)/(n +
+1)</span>.</p>
+<p><span class="math inline">P(X = 1) = \sum_j j/n/(n + 1) = n(n+1)/2
+n(n+1) = 1/2 = 1 - P(X = 0)</span>.</p>
+<p><span class="math display">
+P(p = p_j|X_0 = 0) = 2q_j(1 - 1/(n+1))
+</span> and <span class="math display">
+P(p = p_j|X_0 = 1) = 2q_j/(n+1)
+</span></p>
+</section>
+</section>
+</section>
+<section id="timeline" class="level2">
+<h2>Timeline</h2>
+<p>Gerolamo Cardano (1501–-1576) Liber de ludo aleae (“Book on Games of
+Chance”), First systematic treatment of probability, as well as a
+section on effective cheating methods. Binomial theorem. Negative
+numbers.</p>
+<p>Pierre de Fermat (1607-–1665)</p>
+<p>Blaise Pascal (1623-–1662)</p>
+<p>Sir Isaac Newton (1642–-1726)</p>
+<p>Gottfried Wilhelm Leibniz (1646–1716)</p>
+<p>Jacob Bernoulli (1654–-1705; also known as James or Jacques)
+Bernoulli numbers, <em>Ars Conjectandi</em>.</p>
+<p>Nicolaus I Bernoulli (1687–-1759; son of Jacob’s brother Nicklaus)
+Curves, differential equations, and probability; originator of the
+St. Petersburg paradox</p>
+<p>Daniel Bernoulli (1700–-1782; son of Jacob’s brother Johann)
+Bernoulli’s principle, expected utility for resolving the St. Petersburg
+paradox</p>
+<p>Leonhard Euler (1707-–1783)</p>
+<p>Johann Carl Friedrich Gauss (1777–1855)</p>
 </section>
 </body>
 </html>

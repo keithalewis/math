@@ -4,9 +4,8 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="author" content="Keith A. Lewis" />
   <meta name="dcterms.date" content="2025-01-26" />
-  <title>SOFR, so Good</title>
+  <title>Bayesian Option Value</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -36,7 +35,7 @@
     displayMode: mathElements[i].classList.contains('display'),
     throwOnError: false,
     macros: macros,
-    fleqn: true
+    fleqn: false
    });
 }}});
   </script>
@@ -45,42 +44,25 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">SOFR, so Good</h1>
-<p class="author">Keith A. Lewis</p>
+<h1 class="title">Bayesian Option Value</h1>
 <p class="date">January 26, 2025</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-One more thing to figure out.
-</div>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#ho-lee" id="toc-ho-lee">Ho-Lee</a></li>
+<li><a href="#example" id="toc-example">Example</a></li>
 </ul>
 </nav>
-<p>SOFR is the Secured Overnight Financing Rate. Quants should be
-overjoyed that there is a highly liquid market instrument that is a
-proxy for the continously compounded risk-free forward rate, <span
-class="math inline">f_t</span>. The reality is that SOFR can spike, as
-it did in September 2019.</p>
-<p><span class="math inline">D_t = \exp(-\int_0^t f_s\,ds)</span>.</p>
-<p><span class="math inline">D_t(u) = E_t[D_u]/D_t = \exp(-\int_t^u
-f_t(s)\,ds)</span>.</p>
-<p>Term SOFR is an average of backward looking rates, similar to Fed
-Fund Futures settelment quotes.</p>
-<p><span class="math inline">S_t(t - h, t) = (1/h)\int_{t - h}^t
-f_s\,ds</span></p>
-<p>Forward rate at <span class="math inline">t</span> over <span
-class="math inline">[t, t + h]</span>.</p>
-<p><span class="math inline">F_t(t, t + h) = (1/h)(1/D_t(t + h) - 1)
-\approx (1/h)\int_t^{t + h} f_t(s)\,ds</span></p>
-<section id="ho-lee" class="level2">
-<h2>Ho-Lee</h2>
-<p><span class="math inline">f_t = r(t) + \sigma B_t</span>.</p>
-<p><span class="math inline">f_t(u) = r(t) - \sigma^2 (u - t)^2/2 +
-\sigma B_t</span>_.</p>
-<p><span class="math inline">\int_t^u B_s\,ds = \int_t^u s\,dB_s + (u -
-t) B_t</span>.</p>
+<p>Given a distribution for <span class="math inline">F</span> and
+option values, how do we compute the posterior distribution.</p>
+<section id="example" class="level2">
+<h2>Example</h2>
+<p><span class="math inline">P(AB) = P(A)P(B|A) = P(B)P(A|B)</span></p>
+<p><span class="math inline">P(A|B) = P(A)P(B|A)/P(B)</span>.</p>
+<p><span class="math inline">P(X = x) = q^x(1-q)^{1-x}</span>, <span
+class="math inline">x\in\{0,1\}</span>, <span class="math inline">0\le
+q\le 1</span>.</p>
+<p><span class="math inline">P(X = x|X_1 = x_1) = P(X = x)P(X_1 = x_1|X
+= x)/P(X = x)</span></p>
 </section>
 </body>
 </html>

@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-12-07" />
+  <meta name="dcterms.date" content="2025-01-26" />
   <title>Principal Component Analysis</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Principal Component Analysis</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">December 7, 2024</p>
+<p class="date">January 26, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Cloud summarizing
@@ -63,5 +63,27 @@ class="math inline">\bar{x}_1 = (x_1 + x_2)/2</span> seems to be a
 likely candidate. In general we might suspect the average <span
 class="math inline">\bar{x}_1 = \sum_{j=1}^m x_j/m</span> is the best
 representation of location.</p>
+<p>Define the <em>size</em> of <span class="math inline">S</span> by
+$|S|^2 = _i |x_i|^2. Given <span class="math inline">x\in\bm{R}^n</span>
+define the projection along <span class="math inline">x</span> by <span
+class="math inline">P_xy = y - x\cdot y/\|x\|^2</span>. Note <span
+class="math inline">P_x x = 0</span> and <span class="math inline">P_x y
+= y</span> if <span class="math inline">x\cdot y = 0</span>. The
+<em>principal component</em> of <span class="math inline">S</span> is
+the value of <span class="math inline">x</span> that minimizes the size
+of <span class="math inline">P_xS</span>. The <em>reduction</em> is $R_x
+= |S|^2 - |P_xS|^2.</p>
+<p>Define <span class="math inline">\Sigma^2 = (1/m)\sum x_j
+x_j^*</span>. Since <span class="math inline">\Sigma^2</span> is
+symmetric and positive, it has a <em>spectral decomomposition</em> <span
+class="math inline">\Sigma^2 = \sum_j \sigma_j^2 e_j e_j^*</span> where
+<span class="math inline">(e_j)</span> are orthonormal. Assume <span
+class="math inline">\sigma_j</span> are in non-increasing order.</p>
+<p>What are the principle components of <span
+class="math inline">\{B_t(\omega)\mid 0\le t\le 1, \omega\in
+C(0,1)\}</span>?</p>
+<p><span class="math inline">\Sigma^2\colon L^2[0,1]\to L^2[0,1]</span>
+by <span class="math inline">\Sigma^2f(x) = \int_0^2
+B_t(x)B_t(y)f(y)\,dy</span>.</p>
 </body>
 </html>

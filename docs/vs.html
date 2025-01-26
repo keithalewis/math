@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-12-07" />
+  <meta name="dcterms.date" content="2025-01-26" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,12 +47,35 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">December 7, 2024</p>
+<p class="date">January 26, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
 </div>
 </header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#boldsymbolrn" id="toc-boldsymbolrn"><span
+class="math inline">\boldsymbol{R}^n</span></a></li>
+<li><a href="#axioms" id="toc-axioms">Axioms</a>
+<ul>
+<li><a href="#subspace" id="toc-subspace">Subspace</a></li>
+<li><a href="#quotient" id="toc-quotient">Quotient</a></li>
+<li><a href="#span" id="toc-span">Span</a></li>
+<li><a href="#independent" id="toc-independent">Independent</a></li>
+<li><a href="#basis" id="toc-basis">Basis</a></li>
+</ul></li>
+<li><a href="#linear-transformation"
+id="toc-linear-transformation">Linear Transformation</a>
+<ul>
+<li><a href="#indexing" id="toc-indexing">Indexing</a></li>
+<li><a href="#sum" id="toc-sum">Sum</a></li>
+<li><a href="#invariant-subspace" id="toc-invariant-subspace">Invariant
+Subspace</a></li>
+</ul></li>
+<li><a href="#dual" id="toc-dual">Dual</a></li>
+</ul>
+</nav>
 <p>Many mathematical objects are sets having an algebraic structure. For
 example, a <em>semigroup</em> is a set <span
 class="math inline">S</span> and binary operation <span
@@ -65,6 +88,54 @@ class="math inline">m(a,b)</span>. While this may seem trivial, is
 allows us to write <span class="math inline">abc</span> without
 parentheses. This is the foundation of <a
 href="https://en.wikipedia.org/wiki/MapReduce">MapReduce</a>.</p>
+<p>We can add an <em>identity</em> <span class="math inline">e</span>,
+not in the semigroup <span class="math inline">S</span>, that satisfies
+<span class="math inline">{es = s = se}</span> for all <span
+class="math inline">s\in S</span> to turn a semigroup into a monoid
+<span class="math inline">{M = S\cup\{e\}}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">{a(bc)
+= (ab)c}</span> for <span class="math inline">{a,b,c\in
+M}</span></em>.</p>
+<p><em>Hint</em>: There are seven boring cases when <span
+class="math inline">a</span>, <span class="math inline">b</span>, and
+<span class="math inline">c</span> are <span
+class="math inline">e</span>.</p>
+<p>A <em>monoid</em> is a semigroup with an identity for the binary
+operation. The identity is unique.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">M</span>
+is a monoid and <span class="math inline">e&#39;\in M</span> satisfies
+<span class="math inline">e&#39;m = m = me&#39;</span>, <span
+class="math inline">m\in M</span>, then <span class="math inline">e&#39;
+= e</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math inline">e&#39; = ee&#39; = e</span>
+</details>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\max\{a,b\}</span>, <span
+class="math inline">a,b\in\boldsymbol{R}</span> is a monoid with
+identity <span class="math inline">-\infty</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">-\infty &lt; a</span> for
+all <span class="math inline">a\in\boldsymbol{R}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\min\{a,b\}</span>, <span
+class="math inline">a,b\in\boldsymbol{R}</span> is a monoid with
+identity <span class="math inline">+\infty</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">\infty &gt; a</span> for all
+<span class="math inline">a\in\boldsymbol{R}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show string concatenation is a monoid
+with identity the empty string</em>.</p>
+<p>The <em>Kleen star</em> of a set is the union of the cartesian
+product of <span class="math inline">{n\in\boldsymbol{N}}</span> copies
+of of the set. If <span class="math inline">M</span> is a monoid where
+<span class="math inline">{M^0 = \{e\}}</span> and <span
+class="math inline">{M^n = \{(m_1,\ldots,m_n)\mid m_j\in M, 1\le j\le
+n\}}</span>. Define <em>fold</em> <span class="math inline">{f\colon
+M^*\to M}</span> by <span class="math inline">{f(e) = e}</span> and
+<span class="math inline">{f((m_1,\ldots,m_n)) = m_1\cdots
+m_n}</span>.</p>
 <p>Functions between sets with structure that preserve the structure are
 <em>homomorphisms</em>. A homomorphism that puts set elements in
 one-to-one correspondence is an <em>isomorphism</em>. Two sets with
@@ -73,52 +144,36 @@ them. It is difficult to determine in general when two sets with
 structure are equivalent, but vector spaces are a mathematical sweet
 spot: two vector spaces are equivalent if and only if they have the same
 dimension.</p>
-<p>The set of all functions from a set <span
-class="math inline">I</span> to the real numbers, <span
-class="math inline">{\mathbb{R}^I = \{x\colon I\to\mathbb{R}\}}</span>
-is a vector space over <span class="math inline">\mathbb{R}</span>.
-Scalar multiplication and vector addition are defined pointwise: <span
-class="math inline">{(ax)(i) = ax(i)}</span> and <span
-class="math inline">{(x + y)(i) = x(i) + y(i)}</span> for <span
-class="math inline">{i\in I}</span>. It is customary to write <span
-class="math inline">\mathbb{R}^n</span>, <span
-class="math inline">n\in\boldsymbol{N}</span>, when <span
-class="math inline">{I = \{1,\ldots,n\}}</span> or <span
-class="math inline">{I = \{0,\ldots,n-1\}}</span> and the initial index
-is specified.</p>
-<p>The <em>standard basis</em> <span
-class="math inline">e_i\in\mathbb{R}^I</span>, <span
-class="math inline">i\in I</span>, is defined by <span
-class="math inline">e_i(j) = δ_{ij}</span>, <span
-class="math inline">j\in I</span>, where <span
-class="math inline">δ_{ij} = 1</span> if <span
-class="math inline">i=j</span> and <span class="math inline">δ_{ij} =
-0</span> if <span class="math inline">i\not= j</span> is the
-<em>Kronecker delta</em>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span
-class="math inline">I</span> is finite then <span class="math inline">v
-= \sum_i v(i) e_i</span></em>.</p>
-<p><em>Hint</em>. Show <span class="math inline">v(j) = (\sum_i v(i)
-e_i)(j)</span> for <span class="math inline">j\in I</span>.</p>
+<p>Linear operators between vector spaces are also a vector space.</p>
+<section id="boldsymbolrn" class="level2">
+<h2><span class="math inline">\boldsymbol{R}^n</span></h2>
+<p>The cartesian product of <span
+class="math inline">n\in\boldsymbol{N}</span> copies of the real numbers
+<span class="math inline">{\boldsymbol{R}^n =
+\{(x_1,\ldots,x_n)\}}</span>, where <span
+class="math inline">{x_i\in\boldsymbol{R}}</span> for <span
+class="math inline">{1\le i\le n}</span>, is a vector space. Scalar
+multiplication and vector addition are defined by <span
+class="math inline">{ax = xa = (ax_1,\ldots,ax_n)}</span> and <span
+class="math inline">{x + y = (x_1 + y_1,\ldots,x_n + y_n)}</span>, for
+<span class="math inline">{a\in\boldsymbol{R}}</span>, <span
+class="math inline">{x,y\in\boldsymbol{R}^n}</span>.</p>
+</section>
 <section id="axioms" class="level2">
 <h2>Axioms</h2>
-<p>A vector space over the real numbers <span
-class="math inline">\mathbb{R}</span> is a set having a scalar
-multiplication and a commutative vector addition satisfying a
-distributive law.</p>
-<p>For <span class="math inline">x, y, z\in\mathbb{R}^I</span> and <span
-class="math inline">a,b\in\mathbb{R}</span>,</p>
+<p>For <span class="math inline">x, y, z\in\boldsymbol{R}^n</span> and
+<span class="math inline">a,b\in\boldsymbol{R}</span>,</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">x + (y
 + z) = (x + y) + z</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">x + y =
 y + x</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">\boldsymbol{0}+ x = x</span> where <span
-class="math inline">\boldsymbol{0}(i) = 0</span> for <span
-class="math inline">i\in I</span></em>.</p>
+class="math inline">\boldsymbol{0}= (0,\ldots,0)</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">x +
-(-x) = \boldsymbol{0}</span> where <span class="math inline">(-x)(i) =
--x(i)</span>, for <span class="math inline">i\in I</span></em>.</p>
+(-x) = \boldsymbol{0}</span> where <span class="math inline">(-x)_i =
+-(x_i)</span>, for <span class="math inline">1\le i\le
+n</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">a(bx) =
 (ab)x</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">1x =
@@ -127,24 +182,19 @@ x</span></em>.</p>
 y) = ax + ay</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">(a +
 b)x = ax + bx</span></em>.</p>
-<p><em>Hint</em>: These follow directly from the pointwise definitions
-and properties of real numbers.</p>
+<p><em>Hint</em>: Use the properties of real numbers.</p>
 <p>The exercises are the axioms for an <em>abstract vector space</em>
-with scalar multiplication <span class="math inline">\mathbb{R}\times
-V\to V</span> where <span class="math inline">(a,x)\mapsto ax</span> and
-binary addition <span class="math inline">V\times V\to V</span> where
-<span class="math inline">(x,y)\mapsto x + y</span>. We omit the
-non-trivial result these axioms imply there exists a set <span
-class="math inline">I</span> where <span class="math inline">V</span>
-can be identified with <span class="math inline">\mathbb{R}^I</span>.
-The cardinality of <span class="math inline">I</span> is the
-<em>dimension</em> of <span class="math inline">\mathbb{R}^I</span>.</p>
+with scalar multiplication <span
+class="math inline">{\boldsymbol{R}\times V\to V}</span> where <span
+class="math inline">{(a,x)\mapsto ax = xa}</span> and binary addition
+<span class="math inline">{V\times V\to V}</span> where <span
+class="math inline">{(x,y)\mapsto x + y}</span>.</p>
 <p>Proofs involving only the abstract axioms are considered more
 elegant.</p>
-<p><strong>Exercise</strong>. <em>Using only the abstract axioms show
-<span class="math inline">v + v = v</span> implies <span
-class="math inline">v = \boldsymbol{0}</span>, <span
-class="math inline">v\in V</span></em>.</p>
+<p><strong>Exercise</strong>. <em>For any vector space <span
+class="math inline">V</span> show <span class="math inline">{v + v =
+v}</span> implies <span class="math inline">{v = \boldsymbol{0}}</span>
+for all <span class="math inline">{v\in V}</span></em>.</p>
 <details>
 <summary>
 Solution
@@ -163,37 +213,98 @@ v &amp;= \boldsymbol{0}
 \end{aligned}
 </span>
 </details>
-<section id="span" class="level3">
-<h3>Span</h3>
-<p>A <em>linear combination</em> of vectors <span
-class="math inline">v_i\in V</span>, <span class="math inline">i\in
-I</span>, is a sum <span class="math inline">\sum_i a_i v_i</span> where
-a finite number of <span class="math inline">a_i\in\mathbb{R}</span> are
-non-zero. The <em>span</em> of <span class="math inline">\{v_i\}_{i\in
-I}</span> is the set of all finite linear combinations, <span
-class="math display">
-\operatorname{span}\{v_i\} = \{\sum_i a_i v_i\mid a_i\in\mathbb{R}\}.
-</span></p>
-<p><strong>Exercise</strong>. <em>Show the span is a vector
-space</em>.</p>
-<p><em>Hint</em>. Show if <span class="math inline">u</span> is in the
-span then <span class="math inline">au</span> is also in the span for
-<span class="math inline">a\in\mathbb{R}</span> and if <span
-class="math inline">v</span> and <span class="math inline">w</span> are
-in the span then <span class="math inline">v + w</span> is also in the
-span.</p>
+<p>A homomorphism <span class="math inline">T\colon V\to W</span> from a
+vector space <span class="math inline">V</span> to a vector space <span
+class="math inline">W</span> is called a <em>linear operator</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">T</span>
+is a linear operator then <span class="math inline">T\boldsymbol{0}=
+\boldsymbol{0}</span></em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">T\boldsymbol{0}+
+T\boldsymbol{0}= \boldsymbol{0}</span> and use the previous exerise.
+Note the <span class="math inline">\boldsymbol{0}</span>s on the left
+hand side are the additive identity of <span
+class="math inline">V</span> and the <span
+class="math inline">\boldsymbol{0}</span> on the right hand side is the
+additive identity of <span class="math inline">W</span>.</p>
 <details>
 <summary>
 Solution
 </summary>
-If <span class="math inline">u = \sum_j a_j v_j</span> then <span
-class="math inline">{au = \sum_j a(a_j v_j) = \sum_j (aa_j)v_j}</span>
-is in the span. If <span class="math inline">{v = \sum_j b_j v_j}</span>
-and <span class="math inline">{w = \sum_j c_j v_j}</span> then <span
-class="math inline">{v + w = \sum_j (b_j + c_j) v_j}</span> is in the
-span.
+Since <span class="math inline">{Tv + Tw = T(v + w)}</span> and <span
+class="math inline">{\boldsymbol{0}+ v = v}</span> we have <span
+class="math inline">{T\boldsymbol{0}+ T\boldsymbol{0}= T(\boldsymbol{0}+
+\boldsymbol{0}) = T\boldsymbol{0}}</span>.
 </details>
-</section>
+<p>The collection of all linear operators from a vector space <span
+class="math inline">V</span> to a vector space <span
+class="math inline">W</span> is denoted <span
+class="math inline">\mathcal{L}(V,W)</span>. It is a vector space with
+scalar multiplication and vector addition defined by <span
+class="math inline">{(aT)v = a(Tv)}</span> and <span
+class="math inline">{(T + U)v = Tv + Tu}</span> for <span
+class="math inline">T\in\mathcal{L}(V,W)</span>, <span
+class="math inline">a\in\boldsymbol{R}</span>, <span
+class="math inline">v\in V</span>.</p>
+<p><strong>Exercise</strong>. <em>Show linear operators form a vector
+space</em>.</p>
+<p>An important special case is when the range is <span
+class="math inline">\boldsymbol{R}</span>. Define the <em>dual</em> of
+the vector space <span class="math inline">V</span> by <span
+class="math inline">V^* = \mathcal{L}(V,\boldsymbol{R})</span>. For
+<span class="math inline">v^*\in V^*</span> we write the <em>dual
+pairing</em> using angle brackets <span class="math inline">\langle
+v,v^*\rangle = v^*v</span>.</p>
+<p>If <span class="math inline">T\colon V\to W</span> is a linear
+transformation define its <em>adjoint</em> <span
+class="math inline">{T^*\colon W^*\to V^*}</span> by <span
+class="math inline">{\langle v, T^*w^*\rangle = \langle Tv,
+w^*\rangle}</span>, <span class="math inline">{v\in V}</span>, <span
+class="math inline">{w^*\in W^*}</span>.</p>
+<p>The set of all functions from a (possibly infinite) set <span
+class="math inline">I</span> to the real numbers, <span
+class="math inline">{\boldsymbol{R}^I = \{x\colon
+I\to\boldsymbol{R}\}}</span>, is a vector space over <span
+class="math inline">\boldsymbol{R}</span>. Scalar multiplication and
+vector addition are defined pointwise: <span
+class="math inline">{(ax)(i) = ax(i)}</span> and <span
+class="math inline">{(x + y)(i) = x(i) + y(i)}</span> for <span
+class="math inline">{i\in I}</span>. This generalizes <span
+class="math inline">\boldsymbol{R}^n</span> when <span
+class="math inline">{I = \{1,\ldots,n\}}</span>. We can identify <span
+class="math inline">x\colon\{1,\ldots,n\}\to\boldsymbol{R}</span> with
+<span class="math inline">(x_1,\ldots,x_n)</span> by <span
+class="math inline">x(i) = x_i</span>, <span class="math inline">i\in
+I</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\boldsymbol{R}^I</span> satisfies the abstract
+vector space axioms.</em></p>
+<p>The <em>standard basis</em> <span
+class="math inline">e_i\in\boldsymbol{R}^I</span>, <span
+class="math inline">i\in I</span>, is defined by <span
+class="math inline">e_i(j) = δ_{ij}</span>, <span
+class="math inline">j\in I</span>, where <span
+class="math inline">δ_{ij} = 1</span> if <span
+class="math inline">i=j</span> and <span class="math inline">δ_{ij} =
+0</span> if <span class="math inline">i\not= j</span> is the
+<em>Kronecker delta</em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">I</span> is finite then <span class="math inline">v
+= \sum_i v(i) e_i</span></em>.</p>
+<p><em>Hint</em>. Show <span class="math inline">v(j) = (\sum_i v(i)
+e_i)(j)</span> for <span class="math inline">j\in I</span>.</p>
+<p>We define the <em>dual basis</em> <span
+class="math inline">e_j^*\in(\boldsymbol{R}^I)^*</span> by <span
+class="math inline">e_j^*e_i = \delta_{ij}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">I</span> is finite then <span
+class="math inline">v^* = \sum_i v^*e_i e^*_i</span></em>.</p>
+<p><em>Hint</em>. Consider <span class="math inline">v^*e_j</span>.</p>
+<p>We omit the non-trivial result these axioms imply there exists a set
+<span class="math inline">I</span> where <span
+class="math inline">V</span> can be identified with <span
+class="math inline">\boldsymbol{R}^I</span>. The cardinality of <span
+class="math inline">I</span> is the <em>dimension</em> of <span
+class="math inline">\boldsymbol{R}^I</span>.</p>
 <section id="subspace" class="level3">
 <h3>Subspace</h3>
 <p>A subset <span class="math inline">U\subseteq V</span> of a vector
@@ -201,38 +312,30 @@ space <span class="math inline">V</span> is a <em>subspace</em> if <span
 class="math inline">U</span> is also a vector space.</p>
 <p><strong>Exercise</strong>. <em>Let <span class="math inline">U</span>
 be a subset of <span class="math inline">V</span>. If <span
-class="math inline">\mathbb{R}U\subseteq U</span> and <span
+class="math inline">\boldsymbol{R}U\subseteq U</span> and <span
 class="math inline">U + U\subseteq U</span> then <span
 class="math inline">U</span> is a subspace of <span
 class="math inline">V</span></em>.</p>
-<p><em>Hint</em>. <span class="math inline">\mathbb{R}U = \{au\mid
-a\in\mathbb{R}, u\in U\}</span> and <span class="math inline">U + U =
-\{v + w\mid v\in U, w\in U\}</span>. Show if <span
-class="math inline">u\in U</span> then <span class="math inline">au\in
-U</span> and if <span class="math inline">v,w\in U</span> then <span
-class="math inline">v + w\in U</span>.</p>
+<p><em>Hint</em>. <span class="math inline">\boldsymbol{R}U = \{au\mid
+a\in\boldsymbol{R}, u\in U\}</span> and <span class="math inline">U + U
+= \{v + w\mid v\in U, w\in U\}</span>.</p>
 <details>
 <summary>
 Solution
 </summary>
 If <span class="math inline">u\in U</span> and <span
-class="math inline">a\in\mathbb{R}</span> then <span
-class="math inline">au\in\mathbb{R}U\subseteq U</span>. If <span
+class="math inline">a\in\boldsymbol{R}</span> then <span
+class="math inline">au\in\boldsymbol{R}U\subseteq U</span>. If <span
 class="math inline">v\in U</span> and <span class="math inline">w\in
 U</span> then <span class="math inline">v + w\in U + U\subseteq
 U</span>.
 </details>
-<p><strong>Exercise</strong>. <em>For <span class="math inline">v_i\in
-V</span>, <span class="math inline">i\in I</span>, show <span
-class="math inline">\operatorname{span}\{v_i\}_{i\in I}</span> is a
-subspace of <span class="math inline">V</span></em>.</p>
-<p><em>Hint</em>: Use the previous exercise.</p>
 <p><strong>Exercise</strong>. <em>Show the intersection of two subspaces
 is a subspace</em>.</p>
 <p><em>Hint</em>. Show if <span class="math inline">v</span> is in the
 intersection then <span class="math inline">av</span> is also in the
-intersection for <span class="math inline">a\in\mathbb{R}</span> and if
-<span class="math inline">u</span> and <span
+intersection for <span class="math inline">a\in\boldsymbol{R}</span> and
+if <span class="math inline">u</span> and <span
 class="math inline">w</span> are in the intersection then <span
 class="math inline">u + w</span> is also in the intersection.</p>
 <details>
@@ -251,6 +354,63 @@ subspace</em>.</p>
 <p><em>Hint</em>. The sum of subspaces <span class="math inline">U,
 W\subseteq V</span> is <span class="math inline">U + W = \{u + w\mid
 u\in U, w\in W\}</span>.</p>
+</section>
+<section id="quotient" class="level3">
+<h3>Quotient</h3>
+<p>If <span class="math inline">U</span> is a subspace of <span
+class="math inline">V</span> define <span class="math inline">{V/U = \{v
++ U\mid v\in V\}}</span>. Define scalar multiplication by <span
+class="math inline">{a(v + U) = av + U}</span> and vector addition by
+<span class="math inline">{(v + U) + (w + U) = (v + w) + U}</span>,
+<span class="math inline">{a\in\boldsymbol{R}}</span>, <span
+class="math inline">{v,w\in V}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">v + U =
+w + U</span> if and only if <span class="math inline">v - w\in U</span>,
+<span class="math inline">v,w\in V</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show scalar multiplication and vector
+multiplication are well-defined</em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">v + U = v&#39; +
+U</span> implies <span class="math inline">a(v + U) = a(v&#39; +
+U)</span>, and <span class="math inline">v + U = v&#39; + U</span>,
+<span class="math inline">w + U = w&#39; + U</span>, imply <span
+class="math inline">(v + w) + U = (v&#39; + w&#39;) + U</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">V/U</span> is a vector space with identity <span
+class="math inline">\boldsymbol{0}+ U = U</span></em>.</p>
+</section>
+<section id="span" class="level3">
+<h3>Span</h3>
+<p>The <em>span</em> of a subset of a vector space is the smallest
+subspace containing the subset.</p>
+<p>A <em>linear combination</em> of vectors <span
+class="math inline">v_i\in V</span>, <span class="math inline">i\in
+I</span>, is a sum <span class="math inline">\sum_i a_i v_i</span> where
+a finite number of <span class="math inline">a_i\in\boldsymbol{R}</span>
+are non-zero. The <em>span</em> of <span
+class="math inline">\{v_i\}_{i\in I}</span> is the set of all linear
+combinations, <span class="math display">
+\operatorname{span}\{v_i\} = \{\sum_i a_i v_i\mid
+a_i\in\boldsymbol{R}\}.
+</span></p>
+<p><strong>Exercise</strong>. <em>Show the span is a vector
+space</em>.</p>
+<p><em>Hint</em>. Show if <span class="math inline">u</span> is in the
+span then <span class="math inline">au</span> is also in the span for
+<span class="math inline">a\in\boldsymbol{R}</span> and if <span
+class="math inline">v</span> and <span class="math inline">w</span> are
+in the span then <span class="math inline">v + w</span> is also in the
+span.</p>
+<details>
+<summary>
+Solution
+</summary>
+If <span class="math inline">u = \sum_j a_j v_j</span> then <span
+class="math inline">{au = \sum_j a(a_j v_j) = \sum_j (aa_j)v_j}</span>
+is in the span. If <span class="math inline">{v = \sum_j b_j v_j}</span>
+and <span class="math inline">{w = \sum_j c_j v_j}</span> then <span
+class="math inline">{v + w = \sum_j (b_j + c_j) v_j}</span> is in the
+span.
+</details>
 </section>
 <section id="independent" class="level3">
 <h3>Independent</h3>
@@ -279,7 +439,7 @@ b_i v_i = \sum_i (a_i - b_i)v_i</span> so <span class="math inline">a_i
 class="math inline">\{v_i\}</span> are not independent then <span
 class="math inline">v_j = \sum_{i\not= j} b_i v_i</span> for some <span
 class="math inline">j\in I</span> and <span
-class="math inline">b_i\in\mathbb{R}</span></em>.</p>
+class="math inline">b_i\in\boldsymbol{R}</span></em>.</p>
 <p><em>Hint</em>: If <span class="math inline">\sum a_i v_i =
 \boldsymbol{0}</span> and <span class="math inline">a_j\not= 0</span>
 for some <span class="math inline">j\in I</span> then <span
@@ -301,7 +461,7 @@ independent and span <span class="math inline">V</span>. Since they span
 class="math inline">v\in V</span> can be written as a linear combination
 <span class="math inline">v = \sum_{i\in I} a_i v_i</span>. This shows
 how to identify any vector space <span class="math inline">V</span> with
-<span class="math inline">\mathbb{R}^I</span> given a basis <span
+<span class="math inline">\boldsymbol{R}^I</span> given a basis <span
 class="math inline">(v_i)_{i\in I}</span>.</p>
 <p>The <em>dimension</em> of a vector space is the number of elements of
 a basis. A vector space has many collections of vectors that are a basis
@@ -311,15 +471,16 @@ prove.</p>
 </section>
 <section id="linear-transformation" class="level2">
 <h2>Linear Transformation</h2>
-<p>A <em>linear transformation</em> is a function <span
-class="math inline">T\colon V\to W</span>, where <span
+<p>A <em>linear transformation</em>, or <em>linear operator</em>, is a
+function <span class="math inline">T\colon V\to W</span>, where <span
 class="math inline">V</span> and <span class="math inline">W</span> are
-vector spaces that satisfies <span class="math inline">{T(av + w) = aTv
-+ Tw}</span>, <span class="math inline">a\in\mathbb{R}</span>, <span
-class="math inline">v,w\in V</span>. Note that the addition <span
-class="math inline">{av + w}</span> occurs in <span
-class="math inline">V</span> and <span class="math inline">{aTv +
-Tw}</span> occurs in <span class="math inline">W</span>. The space of
+vector spaces that satisfies preserves the vector space structure: <span
+class="math inline">{T(au + v) = aTu + Tv}</span>, <span
+class="math inline">a\in\boldsymbol{R}</span>, <span
+class="math inline">u,v\in V</span>. Note that the addition <span
+class="math inline">{au + v}</span> occurs in <span
+class="math inline">V</span> and <span class="math inline">{aTu +
+Tv}</span> occurs in <span class="math inline">W</span>. The space of
 all such linear transformations is denoted <span
 class="math inline">\mathcal{L}(V,W)</span>.</p>
 <p><strong>Exercise</strong>. <em>Show if <span
@@ -340,7 +501,7 @@ T(\boldsymbol{0})</span> so <span class="math inline">T(\boldsymbol{0})
 = \boldsymbol{0}</span>.
 </details>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">T(av) =
-aTv</span>, <span class="math inline">a\in\mathbb{R}</span>, <span
+aTv</span>, <span class="math inline">a\in\boldsymbol{R}</span>, <span
 class="math inline">v\in V</span></em>.</p>
 <details>
 <summary>
@@ -351,7 +512,7 @@ class="math inline">T(av) = T(av + 0) = aTv + T0 = aTv + 0 = aTv</span>.
 </details>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">T(av +
 bw) = aTv + bTw</span>, <span
-class="math inline">a,b\in\mathbb{R}</span>, <span
+class="math inline">a,b\in\boldsymbol{R}</span>, <span
 class="math inline">v,w\in V</span></em>.</p>
 <details>
 <summary>
@@ -362,7 +523,7 @@ Solution
 <p>A linear transformation <span class="math inline">T\colon V\to
 W</span> is <em>one-to-one</em>, or <em>injective</em>, if <span
 class="math inline">Tu = Tv</span> implies <span class="math inline">u =
-v</span> then <span class="math inline">T</span></p>
+v</span>.</p>
 <p><strong>Exercise</strong>. <em>Show if <span class="math inline">Tv =
 \boldsymbol{0}</span> implies <span class="math inline">v =
 \boldsymbol{0}</span> then <span class="math inline">T</span> is
@@ -377,16 +538,42 @@ class="math inline">T(u - v) = \boldsymbol{0}</span> so <span
 class="math inline">u - v = \boldsymbol{0}</span> and <span
 class="math inline">u = v</span>.
 </details>
+<p>Define the <em>kernel</em> of a linear transformaton <span
+class="math inline">\operatorname{ker}T = \{v\in V\mid Tv =
+\boldsymbol{0}\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{ker}T</span> is a subspace</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">T</span> is one-to-one if and only if <span
+class="math inline">\operatorname{ker}T =
+\{\boldsymbol{0}\}</span></em>.</p>
+<p>Define <span class="math inline">\pi_T\colon V\to
+V/\operatorname{ker}T</span> by <span class="math inline">\pi_T v = v +
+\operatorname{ker}T</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\pi_T</span> is a well-defined linear
+transformation</em>.</p>
 <p>A linear transformation <span class="math inline">T\colon V\to
 W</span> is <em>onto</em>, or <em>surjective</em>, if for every <span
 class="math inline">w\in W</span> there exists <span
 class="math inline">v\in V</span> with <span class="math inline">Tv =
 w</span>.</p>
-<p>A linear transformation that is one-to-one and onto, or bijective, is
-an <em>isomorphism</em>. If <span class="math inline">T\colon V\to
-W</span> is an isomorphism then <span class="math inline">V</span> and
-<span class="math inline">W</span> are <em>isomorphic</em>, <span
-class="math inline">V\cong W</span>.</p>
+<p>Define the <em>range</em> of a linear transformation <span
+class="math inline">{\operatorname{ran}T = TV = \{w\mid w = Tv\text{ for
+some }v\in V\}}</span> and let <span class="math inline">\nu_T\colon
+V/\operatorname{ker}T\to\operatorname{ran}T</span> by <span
+class="math inline">\nu_T(v + \operatorname{ker}T) = Tv</span>.</p>
+<p><strong>Exercise</strong> <em>Show <span
+class="math inline">\nu_T</span> well-defined, one-to-one, and
+onto</em>.</p>
+<p>A linear transformation that is one-to-one and onto, or
+<em>bijective</em>, is an <em>isomorphism</em>. If <span
+class="math inline">T\colon V\to W</span> is an isomorphism then <span
+class="math inline">V</span> and <span class="math inline">W</span> are
+<em>isomorphic</em>, <span class="math inline">V\cong W</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">T</span> is an isomorphism then <span
+class="math inline">T^{-1}</span> is linear</em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">V\cong
 W</span> is an equivalence relation</em>.</p>
 <p><em>Hint</em>: This means <span class="math inline">V\cong V</span>,
@@ -413,46 +600,182 @@ U</span>.
 class="math inline">\mathcal{L}(V,W)</span> is also a vector space under
 pointwise scalar multiplication <span class="math inline">{(aT)v =
 a(Tv)}</span> pointwise addition <span class="math inline">{(T + S)v =
-Tv + Sv}</span>, <span class="math inline">a\in\mathbb{R}</span>, <span
-class="math inline">v,w\in V</span>. The space <span
-class="math inline">\mathcal{L}(\mathbb{R}^n,\mathbb{R}^m)</span> can be
-identified with <span class="math inline">\mathbb{R}^{n\times m}</span>.
-If <span class="math inline">{T\colon\mathbb{R}^n\to\mathbb{R}^m}</span>
+Tv + Sv}</span>, <span class="math inline">a\in\boldsymbol{R}</span>,
+<span class="math inline">v,w\in V</span>. The space <span
+class="math inline">\mathcal{L}(\boldsymbol{R}^n,\boldsymbol{R}^m)</span>
+can be identified with <span class="math inline">\boldsymbol{R}^{n\times
+m}</span>. If <span
+class="math inline">{T\colon\boldsymbol{R}^n\to\boldsymbol{R}^m}</span>
 then <span class="math inline">{Te_i = \sum_j t_{ij} e_j}</span> for
-some <span class="math inline">t_{ij}\in\mathbb{R}</span>.</p>
+some <span class="math inline">t_{ij}\in\boldsymbol{R}</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span
-class="math inline">T\colon\mathbb{R}^k\to\mathbb{R}^n</span> and <span
-class="math inline">S\colon\mathbb{R}^n\to\mathbb{R}^m</span> then the
-composition <span class="math inline">R =
-ST\colon\mathbb{R}^k\to\mathbb{R}^m</span>. Show <span
-class="math inline">r_{ij} = \sum_k t_{ik} s_{kj}</span></em>.</p>
+class="math inline">T\colon\boldsymbol{R}^k\to\boldsymbol{R}^n</span>
+and <span
+class="math inline">S\colon\boldsymbol{R}^n\to\boldsymbol{R}^m</span>
+then the composition <span class="math inline">U =
+ST\colon\boldsymbol{R}^k\to\boldsymbol{R}^m</span>. Show <span
+class="math inline">u_{ij} = \sum_k t_{ik} s_{kj}</span></em>.</p>
 <details>
 <summary>
 Solution
 </summary>
 <span class="math inline">R(e_i) = ST(e_i)  = S(\sum_k t_{ik} e_k)  =
 \sum_k t_{ik} Se_k  = \sum_k t_{ik} \sum_j s_{kj} e_j  = \sum_j \sum_k
-t_{ik} s_{kj} e_j  = \sum_j r_{ij} e_j</span>
+t_{ik} s_{kj} e_j  = \sum_j u_{ij} e_j</span>
 </details>
 <p>Matrix multiplication is composition of linear transformations.</p>
+<!--
+Another way to see this is to use $A\times B\to C$ is isomorphic to
+$A\to(B\to C)$ for any sets $A, B, C$. This is called _currying_ after Haskell Curry.
+If $f\colon A\times B\to C$ define $f,\colon A\to(B\to C)$
+by $(f,a)b = f(a,b)$.
+If $g\colon A\to(B\to C)$ define $g`\colon A\times B\to C$
+by $g`(a,b) = (ga)b$.
+
+__Exercise__. _If $f\colon A\times B\to C$ show $(f,)` = f$
+and if $g\colon A\to(B\to C)$ show $(g`), = g$_.
+
+This shows a bijection???
+
+We can identify $(I\to\RR)\to(J\to\RR)$ with $I\times J\to\RR$.
+-->
+<p>Let <span class="math inline">\mathcal{L}(V) =
+\mathcal{L}(V,V)</span> be the space of linear transformations from a
+vector space to itself. It is also an <em>algebra</em> with
+multiplication defined by composition with identity <span
+class="math inline">{I_V = I\colon V\to V}</span> defined by <span
+class="math inline">{Iv = v}</span>, <span class="math inline">{v\in
+V}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">IT =
+TI</span> and <span class="math inline">T(U + V) = TU + TV</span>, <span
+class="math inline">{T,U,V\in\mathcal{L}(V)}</span></em>.</p>
+<section id="indexing" class="level3">
+<h3>Indexing</h3>
+<p>For every <em>change of index function</em> <span
+class="math inline">s\colon I\to J</span> define <span
+class="math inline">\circ s\colon
+\boldsymbol{R}^J\to\boldsymbol{R}^I</span> define <span
+class="math inline">\circ s v = vs\in\boldsymbol{R}^I</span>, for <span
+class="math inline">v\in\boldsymbol{R}^J</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\circ
+s</span> is a linear operator</em>.</p>
+<p><em>Hint</em>: <span class="math inline">\circ s v(i) =
+v(s(i))</span> for <span
+class="math inline">v\in\boldsymbol{R}^J</span>.</p>
+</section>
+<section id="sum" class="level3">
+<h3>Sum</h3>
+<p>If <span class="math inline">U</span> and <span
+class="math inline">W</span> are vector spaces define the <em>external
+direct sum</em> <span class="math inline">U\oplus W = \{u\oplus w)\mid
+u\in U, w\in W\}</span>, where <span class="math inline">u\oplus
+w</span> is the pair <span class="math inline">(u,w)</span>. Define
+scalar multiplication <span class="math inline">a(u\oplus w) =
+(au)\oplus (aw)</span> and vector addition <span
+class="math inline">(u\oplus w) + (u&#39;\oplus w&#39;) = (u +
+u&#39;)\oplus (w + w&#39;)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">U\oplus
+W</span> is a vector space</em>.</p>
+<p>If <span class="math inline">U</span> and <span
+class="math inline">W</span> are subspaces of the vector space <span
+class="math inline">V</span> with <span class="math inline">U\cap W =
+\{\boldsymbol{0}\}</span> then the <em>interal direct sum</em> <span
+class="math inline">U + V\cong U\oplus V</span>.</p>
+<p><strong>Exercise</strong>. <em>Show this!!!</em>.</p>
+<p>Claim: <span class="math inline">V\cong U\oplus V/U</span>.</p>
+<p>Define <span class="math inline">T\colon U\oplus V/U\to V</span> by
+<span class="math inline">T(u\oplus v+W) = u + v</span>.</p>
+<p>If <span class="math inline">U</span> is invariant for <span
+class="math inline">T</span> then <span class="math inline">U</span> is
+invariant for <span class="math inline">T - \lambda I</span>.</p>
+<p><em>Hint</em>: If <span class="math inline">Tu = v</span>, <span
+class="math inline">u,v\in U</span> then <span class="math inline">(T -
+\lambda I)u\in U</span>.</p>
+<p>If <span class="math inline">T\in\mathcal{L}(U,V)</span> define <span
+class="math inline">\operatorname{graph}T = \{u\oplus Tu\mid u\in
+U\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">T</span> is linear if and only if <span
+class="math inline">\operatorname{graph}T</span> is a subspace</em>.</p>
+</section>
+<section id="invariant-subspace" class="level3">
+<h3>Invariant Subspace</h3>
+<p>An <em>invariant subspace</em> of a linear operator <span
+class="math inline">T\colon V\to V</span> is a subspace <span
+class="math inline">U\subseteq V</span> with <span
+class="math inline">TU\subseteq U</span>. Similar to prime factorizaton
+of numbers, invariant subspaces break down linear operators into smaller
+pieces.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">T\colon
+V\to V</span> is a linear operator show <span
+class="math inline">\operatorname{ker}T</span> and <span
+class="math inline">\operatorname{ran}T</span> are invariant
+subspaces</em>.</p>
+<p>If <span class="math inline">U</span> is a 1-dimensional invariant
+subspace spanned by <span class="math inline">e\in V</span> then <span
+class="math inline">e</span> is an <em>eigenvector</em> and <span
+class="math inline">Te = \lambda e</span> for some <span
+class="math inline">\lambda\in\boldsymbol{R}</span>, the
+<em>eigenvalue</em> corresponding to <span
+class="math inline">u</span>.</p>
+<p>If the eigenvectors of <span class="math inline">T</span> are
+independent they and their corresponding eigenvalues determine <span
+class="math inline">T</span>. Let <span
+class="math inline">(e_i)</span>, <span
+class="math inline">(\lambda_i)</span> be the eigenvectors and
+corresponding eigenvalues. Every vector <span class="math inline">v\in
+V</span> can be written <span class="math inline">v = \sum_i a_i
+e_i</span> so <span class="math inline">Tv = \sum_i a_i Te_i = \sum_i
+\lambda_i a_i v_i</span>. In this case we say <span
+class="math inline">T</span> is <em>diagonalizable</em>. Using the
+eigenvectors as a basis, <span class="math inline">t_{ij} = \lambda_i
+δ_{ij}</span>.</p>
+<p>If <span class="math inline">e</span> is an eigenvector with
+eigenvalue <span class="math inline">\lambda</span> then <span
+class="math inline">Te = \lambda e</span> so <span
+class="math inline">(T - \lambda I)e = 0</span> and <span
+class="math inline">e\in\operatorname{ker}(T - \lamda I)</span>. There
+may be vectors that are not eigenvectors that belong to <span
+class="math inline">\operatorname{ker}(T - \lambda I)</span>.</p>
+<p><strong>Exercise</strong>. _If the matrix of <span
+class="math inline">T</span> is <span class="math inline">[0, 1; 0,
+0]</span> then</p>
+<p><strong>Exercise</strong>. <em>If the eigenvectors of <span
+class="math inline">T</span> form a basis then <span
+class="math inline">(T-\lambda_1I)\cdots(T-\lambda_nI) =
+0</span></em>.</p>
+<p>The dimension of <span
+class="math inline">\mathcal{L}(\boldsymbol{R}^n,\boldsymbol{R}^n)</span>
+is <span class="math inline">n^2</span> so we know <span
+class="math inline">I</span>, <span class="math inline">T</span>, <span
+class="math inline">T^2</span>, , <span
+class="math inline">T^{n^2}</span> must be linearly dependent so there
+is a polynomial of order at most <span class="math inline">n^2</span>
+with <span class="math inline">p(T) = 0</span>. If <span
+class="math inline">T</span> is diagonalizable the above exercise shows
+there is a polynomial of order <span class="math inline">n</span>
+satisfying this. The Cayley-Hamilton states this is true for any <span
+class="math inline">T</span> where <span class="math inline">p(\lambda)
+= \det(T - \lambda I)</span>.</p>
+</section>
 </section>
 <section id="dual" class="level2">
 <h2>Dual</h2>
 <p>The <em>dual</em> of a vector space is <span class="math inline">V^*
-= \mathcal{L}(V,\mathbb{R})</span>, the space of <em>linear
+= \mathcal{L}(V,\boldsymbol{R})</span>, the space of <em>linear
 functionals</em> on <span class="math inline">V</span>. Define the
 <em>dual pairing</em> by <span class="math inline">\langle v,v^*\rangle
 = v^*(v)</span> for <span class="math inline">v\in V</span> and <span
 class="math inline">v^*\in V^*</span>.</p>
-<p>If <span class="math inline">V = \mathbb{R}^n</span> we can identify
-<span class="math inline">V^*</span> with <span
-class="math inline">\mathbb{R}^n</span> using the standard basis. Define
-the <em>dual basis</em> <span
-class="math inline">e_j^*\colon\mathbb{R}^n\to\mathbb{R}</span> by <span
-class="math inline">e_j^*(e_k) = δ_{jk}</span>.</p>
+<p>If <span class="math inline">V = \boldsymbol{R}^n</span> we can
+identify <span class="math inline">V^*</span> with <span
+class="math inline">\boldsymbol{R}^n</span> using the standard basis.
+Define the <em>dual basis</em> <span
+class="math inline">e_j^*\colon\boldsymbol{R}^n\to\boldsymbol{R}</span>
+by <span class="math inline">e_j^*(e_k) = δ_{jk}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">v =
 \sum_j e_j^*(v) e_j</span>, <span
-class="math inline">v\in\mathbb{R}^n</span></em>.</p>
+class="math inline">v\in\boldsymbol{R}^n</span></em>.</p>
 <details>
 <summary>
 Solution
@@ -462,7 +785,7 @@ class="math inline">e_i^*(v) = v_i</span>.
 </details>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">v^* =
 \sum_j v^*(e_j) e_j^*</span>, <span
-class="math inline">v^*\in(\mathbb{R}^n)^*</span></em>.</p>
+class="math inline">v^*\in(\boldsymbol{R}^n)^*</span></em>.</p>
 <details>
 <summary>
 Solution
@@ -473,33 +796,37 @@ class="math inline">e_i^*(v) = v_i</span>.
 <p>If <span class="math inline">V</span> has <em>any</em> basis <span
 class="math inline">e_j</span> then every <span class="math inline">v\in
 V</span> can be written <span class="math inline">v = \sum v_j
-e_j</span> for some <span class="math inline">v_j\in\mathbb{R}</span>.
-Define the <em>dual basis</em> <span class="math inline">e_j^*\colon
-V\to\mathbb{R}\in V^*</span> by <span class="math inline">e_j^*(v) =
-v_j</span>. The map <span class="math inline">V\to V^*</span> by <span
-class="math inline">v = \sum_j v_j e_j\mapsto \sum v_j e_j^* =
-v^*</span> is one-to-one and onto (an <em>isomorphism</em>).</p>
+e_j</span> for some <span
+class="math inline">v_j\in\boldsymbol{R}</span>. Define the <em>dual
+basis</em> <span class="math inline">e_j^*\colon V\to\boldsymbol{R}\in
+V^*</span> by <span class="math inline">e_j^*(v) = v_j</span>. The map
+<span class="math inline">V\to V^*</span> by <span class="math inline">v
+= \sum_j v_j e_j\mapsto \sum v_j e_j^* = v^*</span> is one-to-one and
+onto (an <em>isomorphism</em>).</p>
 <p>Functions are vectors. They can be added and scalar multiplication
 satisfies the distributed law. Integration is a linear functional on a
 space of functions. Given a set <span class="math inline">\Omega</span>
-let <span class="math inline">B(\Omega) = \{f\colon\Omega\to\mathbb{R}:
-\|f\| = \sup_{\omega\in\Omega}|f(\omega)| &lt; \infty\}</span>.</p>
-<p>If <span class="math inline">L\colon B(\Omega)\to\mathbb{R}</span> is
-a linear functional define <span class="math inline">λ(E) =
-L(1_E)</span> for <span class="math inline">E\subseteq\Omega</span>.</p>
+let <span class="math inline">B(\Omega) =
+\{f\colon\Omega\to\boldsymbol{R}: \|f\| =
+\sup_{\omega\in\Omega}|f(\omega)| &lt; \infty\}</span>.</p>
+<p>If <span class="math inline">L\colon
+B(\Omega)\to\boldsymbol{R}</span> is a linear functional define <span
+class="math inline">\lambda(E) = L(1_E)</span> for <span
+class="math inline">E\subseteq\Omega</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span
 class="math inline">E,F\subseteq\Omega</span> are disjoint the <span
 class="math inline">1_{E\cup F} = 1_E + 1_F</span></em>.</p>
-<p>This shows <span class="math inline">λ(E\cup F) = λ(E) + λ(F)</span>
-if <span class="math inline">E\cap F=\emptyset</span>. Since <span
-class="math inline">1_\emptyset = 0</span> we have <span
-class="math inline">λ(\emptyset) = 0</span> so <span
-class="math inline">λ</span> is a (finitely additive) measure.</p>
-<p>Given a finitely additive measure <span class="math inline">λ</span>
-on subsets of <span class="math inline">\Omega</span> define a linear
-functional <span class="math inline">L\colon
-B(\Omega)\to\mathbb{R}</span> by <span class="math inline">L(\sum_i a_i
-1_{E_i}) = \sum_i a_i λ(E_i)</span>.</p>
+<p>This shows <span class="math inline">\lambda(E\cup F) = \lambda(E) +
+\lambda(F)</span> if <span class="math inline">E\cap F=\emptyset</span>.
+Since <span class="math inline">1_\emptyset = 0</span> we have <span
+class="math inline">\lambda(\emptyset) = 0</span> so <span
+class="math inline">\lambda</span> is a (finitely additive) measure.</p>
+<p>Given a finitely additive measure <span
+class="math inline">\lambda</span> on subsets of <span
+class="math inline">\Omega</span> define a linear functional <span
+class="math inline">L\colon B(\Omega)\to\boldsymbol{R}</span> by <span
+class="math inline">L(\sum_i a_i 1_{E_i}) = \sum_i a_i
+\lambda(E_i)</span>.</p>
 <p><strong>Exercise</strong>. <em>Show this is well-defined</em>.</p>
 <p><em>Hint</em>: <span class="math inline">\sum_i a_i 1_{A_i} = \sum_j
 b_j 1_{B_j}</span> where <span class="math inline">(B_j)</span> are
@@ -509,7 +836,7 @@ pairwise disjoint sets.</p>
 <p><strong>Exercise</strong>. <em>Given <span class="math inline">f\in
 B(Ω)</span> and <span class="math inline">ε &gt; 0</span> show there
 exist a finite number of <span
-class="math inline">a_i\in\mathbb{R}</span> and <span
+class="math inline">a_i\in\boldsymbol{R}</span> and <span
 class="math inline">A_i\subseteq Ω</span> with <span
 class="math inline">\|f - \sum_i a_i 1_{A_i}\| &lt; ε</span></em>.</p>
 <p>This shows the linear functional can be extended to <span
@@ -524,195 +851,168 @@ of countably additive Borel measures on <span
 class="math inline">\Omega</span>, <span
 class="math inline">M(\Omega)</span>. If <span
 class="math inline">\mu\in M(\Omega)</span> define <span
-class="math inline">L^p(\mu) = \{f\colon\Omega\to\mathbb{R}: \int_\Omega
-|f|^p\,d\mu &lt; \infty\}</span>. It is true that <span
+class="math inline">L^p(\mu) = \{f\colon\Omega\to\boldsymbol{R}:
+\int_\Omega |f|^p\,d\mu &lt; \infty\}</span>. It is true that <span
 class="math inline">L^p(\mu)^*\cong L^q(\mu)</span> where <span
 class="math inline">1/p + 1/q = 1</span> and <span class="math inline">p
 &gt; 1</span>. It is not true that <span
 class="math inline">L^\infty(\mu)^* \cong L^1(\mu)</span> in general.
-Proving these claims is non-trivial. ## Heisenberg</p>
-<p>Werner Heisenberg rediscovered matrix multiplication by considering
-orbital levels of the hydrogen atom. If <span
-class="math inline">e_{ij}</span> represents a jump from level <span
-class="math inline">i</span> to level <span
-class="math inline">j</span>, he posited <span
-class="math inline">e_{ij}e_{kl} = e_{il}</span> if <span
-class="math inline">j = k</span> and equals <span
-class="math inline">e_{ij}e_{kl} = 0</span> if <span
-class="math inline">j\not= k</span>. <span class="citation"
-data-cites="cite">(<strong>cite?</strong> Hei)</span> An electron can
-jump from <span class="math inline">i</span> to <span
-class="math inline">j</span>, then <span class="math inline">j</span> to
-<span class="math inline">l</span>, but not from <span
-class="math inline">i</span> to <span class="math inline">j</span>, then
-<span class="math inline">k</span> to <span class="math inline">l</span>
-if <span class="math inline">k\not= j</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">S =
-\sum_{i,j}s_{ij}e_{ij}</span> and <span class="math inline">T =
-\sum_{k,l} t_{kl}e_{kl}</span> show <span class="math inline">TS =
-\sum_{i,j} (\sum_k t_{ik} s_{kj}) e_{ij}</span></em>.</p>
-<details>
-<summary>
-Solution
-</summary>
-<span class="math display">
+Proving these claims is non-trivial.</p>
+<!--
+
+## Grassmann
+
+For $I \subset V$ let $I\colon I\to V$ be injective.
+
+Define $\vee I$ to be the span of $I$.
+
+$t\colon I\to J$. $T\colon\RR^J\to\RR^I$.
+$v\colon J\to\RR$ mapsto $Tv\colon I\to\RR$ by $Tv(i) = v(t(i)$.
+
+$f\colon A\to B$
+
+$\circ f\colon C^B\to C^A$ by $(\circ f)g = gf$.
+
+$f\circ\colon A^C\to B^C$ by $(f\circ)h = fh$.
+
+A function $f\colon I\to J$ determines a linear transformation
+$F\colon\RR^J\to\RR^I$.
+
+$I^n\to\RR$.
+
+$d_i\colon I^n\to I^n\setminus\{i\}$
+
+$\partial\colon I^n\to\RR^{I^{n-1}}$.
+
+## Heisenberg
+
+Werner Heisenberg rediscovered matrix multiplication by considering
+orbital levels of the hydrogen atom. If $e_{ij}$ represents a jump
+from level $i$ to level $j$, he posited
+$e_{ij}e_{kl} = e_{il}$ if $j = k$ and equals $e_{ij}e_{kl} = 0$ if $j\not= k$. [@cite Hei]
+An electron can jump from $i$ to $j$, then $j$ to $l$, but not
+from $i$ to $j$, then $k$ to $l$ if $k\not= j$.
+
+__Exercise__. _If $S = \sum_{i,j}s_{ij}e_{ij}$ and $T = \sum_{k,l} t_{kl}e_{kl}$ show
+$TS = \sum_{i,j} (\sum_k t_{ik} s_{kj}) e_{ij}$_.
+
+<details><summary>Solution</summary>
+$$
 \begin{aligned}
-TS &amp;= (\sum_{kl} t_{kl}e_{kl})(\sum_{ij}s_{ij}e_{ij}) \\
-&amp;= \sum_{ij} \sum_{kl} s_{ij} t_{kl} e_{ij}e_{kl} \\
-&amp;= \sum_{ij} \sum_{kl} s_{ij} t_{kl} e_{il}\delta_{jk} \\
-&amp;= \sum_{ij} \sum_k s_{ik} t_{kl} e_{il} \\
+TS &= (\sum_{kl} t_{kl}e_{kl})(\sum_{ij}s_{ij}e_{ij}) \\
+&= \sum_{ij} \sum_{kl} s_{ij} t_{kl} e_{ij}e_{kl} \\
+&= \sum_{ij} \sum_{kl} s_{ij} t_{kl} e_{il}\delta_{jk} \\
+&= \sum_{ij} \sum_k s_{ik} t_{kl} e_{il} \\
 \end{aligned}
-</span>
+$$
 </details>
-<p>The <em>kernel</em> of a linear transformation <span
-class="math inline">T\colon V\to W</span> is <span
-class="math inline">\ker T = \{v\in V\mid Tv = 0\}\subseteq
-V</span>.</p>
-<p><strong>Exercise</strong>. <em>The kernel of a linear transformation
-is a subspace</em>.</p>
-<p><em>Hint</em>: <span class="math inline">T(av + w) = aTv + Tw =
-0</span> for <span class="math inline">a\in\mathbb{R}</span>, <span
-class="math inline">v,w\in \ker T</span>.</p>
-<p><strong>Exercise</strong>. <em><span class="math inline">T</span> is
-one-to-one if and only if <span class="math inline">\ker T =
-\{0\}</span></em>.</p>
-<p><em>Hint</em>: Consider <span class="math inline">T(v -
-v&#39;)</span>.</p>
-<p>The <em>range</em> of a linear transformation <span
-class="math inline">T\colon V\to W</span> is <span
-class="math inline">\operatorname{ran}T = \{Tv\mid v\in V\}\subseteq
-W</span>.</p>
-<p><strong>Exercise</strong>. <em>The range of a linear transformation
-is a subspace</em>.</p>
-<p><em>Hint</em>: <span class="math inline">aTv + Tw = T(av +
-w)\in\operatorname{ran}T</span>.</p>
-<p>If <span class="math inline">\operatorname{ran}T = W</span> then
-<span class="math inline">T</span> is <em>onto</em>, or
-<em>surjective</em>.</p>
-<p>Every linear transformation <span class="math inline">T\colon V\to
-W</span> factors through the quotient space <span
-class="math inline">V/\ker T</span>. Define <span
-class="math inline">π\colon V\to V/\ker T</span> by <span
-class="math inline">πv = v + \ker T</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">π</span> is a surjective linear
-transformation</em>.</p>
-<p>Define <span class="math inline">ν\colon V/\ker
-T\to\operatorname{ran}T</span> by <span class="math inline">ν(v + \ker
-T) = Tv</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">ν</span> is a well-defined injective linear
-transformation</em>.</p>
-<p><em>Hint</em>: Start by showing it is well-defined; if <span
-class="math inline">v + \ker T = v&#39; + \ker T</span> then <span
-class="math inline">Tv = Tv&#39;</span>, <span
-class="math inline">v,v&#39;\in V</span>.</p>
+
+The _kernel_ of a linear transformation $T\colon V\to W$ is
+$\ker T = \{v\in V\mid Tv = 0\}\subseteq V$.
+
+__Exercise__. _The kernel of a linear transformation is a subspace_.
+
+_Hint_: $T(av + w) = aTv + Tw = 0$ for $a\in\RR$, $v,w\in \ker T$.
+
+__Exercise__. _$T$ is one-to-one if and only if $\ker T = \{0\}$_.
+
+_Hint_: Consider $T(v - v')$.
+
+The _range_ of a linear transformation $T\colon V\to W$ is
+$\ran T = \{Tv\mid v\in V\}\subseteq W$.
+
+__Exercise__. _The range of a linear transformation is a subspace_.
+
+_Hint_: $aTv + Tw = T(av + w)\in\ran T$.
+
+If $\ran T = W$ then $T$ is _onto_, or _surjective_.
+
+Every linear transformation $T\colon V\to W$ factors through the quotient space $V/\ker T$.
+Define $π\colon V\to V/\ker T$ by $πv = v + \ker T$.
+
+__Exercise__. _Show $π$ is a surjective linear transformation_.
+
+Define $ν\colon V/\ker T\to\ran T$ by $ν(v + \ker T) = Tv$.
+
+__Exercise__. _Show $ν$ is a well-defined injective linear transformation_.
+
+_Hint_: Start by showing it is well-defined; if $v + \ker T = v' + \ker T$ then $Tv = Tv'$, $v,v'\in V$.
+
 <details>
-<summary>
-Solution
-</summary>
-Since <span class="math inline">v + \ker T = v&#39; + \ker T</span> if
-and only if <span class="math inline">v - v&#39;\in\ker T</span> we have
-<span class="math inline">T(v - v&#39;) = 0</span> so <span
-class="math inline">Tv = Tv&#39;</span> and <span
-class="math inline">ν</span> is well-defined. If <span
-class="math inline">Tv = Tv&#39;</span> then <span class="math inline">v
-- v&#39;\in\ker T</span> so <span class="math inline">v + \ker T =
-v&#39; + \ker T</span> showing <span class="math inline">ν</span> is
-injective.
+<summary>Solution</summary>
+Since $v + \ker T = v' + \ker T$ if and only if $v - v'\in\ker T$ we have
+$T(v - v') = 0$ so $Tv = Tv'$ and $ν$ is well-defined.
+If $Tv = Tv'$ then $v - v'\in\ker T$ so $v + \ker T = v' + \ker T$
+showing $ν$ is injective.
 </details>
-<section id="quotient" class="level3">
-<h3>Quotient</h3>
-<p>If <span class="math inline">U</span> is a subspace of <span
-class="math inline">V</span> and <span class="math inline">v\in V</span>
-define the <em>coset</em> of <span class="math inline">U</span>
-containing <span class="math inline">v</span> by <span
-class="math inline">v + U = \{v + u\mid u\in U\}</span>. Subspaces
-factor vector spaces into smaller vector spaces.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">v\in
-v+U</span> for <span class="math inline">v\in V</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">U</span> is a vector space
-so <span class="math inline">0\in U</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">u + U =
-U</span> if and only if <span class="math inline">u\in
-U</span></em>.</p>
+
+
+### Quotient
+
+If $U$ is a subspace of $V$ and $v\in V$ define the _coset_ of $U$ containing $v$
+by $v + U = \{v + u\mid u\in U\}$. Subspaces factor vector spaces into smaller vector spaces.
+
+__Exercise__. _Show $v\in v+U$ for $v\in V$_.
+
+_Hint_: $U$ is a vector space so $0\in U$.
+
+__Exercise__. _Show $u + U = U$ if and only if $u\in U$_.
+
 <details>
-<summary>
-Solution
-</summary>
-<p>If <span class="math inline">u + U = U</span> then <span
-class="math inline">u + u&#39; = u&#39;&#39;</span> for some <span
-class="math inline">u&#39;,u&#39;&#39;\in U</span> so <span
-class="math inline">u = u&#39;&#39; - u&#39;\in U</span>.</p>
-If <span class="math inline">u\in U</span> then <span
-class="math inline">u + u&#39;\in U</span> for all <span
-class="math inline">u&#39;\in U</span> so <span class="math inline">u +
-U \subseteq U</span> and if <span class="math inline">u&#39;\in U</span>
-then <span class="math inline">u&#39; = u + (u&#39; - u)\in u + U</span>
-so <span class="math inline">U\subseteq u + U</span>.
+<summary>Solution</summary>
+If $u + U = U$ then $u + u' = u''$ for some $u',u''\in U$
+so $u = u'' - u'\in U$.
+
+If $u\in U$ then $u + u'\in U$ for all $u'\in U$ so $u + U \subseteq U$
+and if $u'\in U$ then $u' = u + (u' - u)\in u + U$ so $U\subseteq u + U$.
 </details>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">v + U =
-w + U</span> if and only if <span class="math inline">v - w\in
-U</span></em>.</p>
+
+__Exercise__. _Show $v + U = w + U$ if and only if $v - w\in U$_.
+
 <details>
-<summary>
-Solution
-</summary>
-<p>If <span class="math inline">v + U = w + U</span> then <span
-class="math inline">v + u = w + u&#39;</span> for some <span
-class="math inline">u,u&#39;\in U</span> so <span class="math inline">v
-- w = u&#39; - u\in U</span>.</p>
-If <span class="math inline">v - w\in U</span> then <span
-class="math inline">v - w = u</span> for some <span
-class="math inline">u\in U</span> so <span class="math inline">v + U = w
-+ u + U = w + U</span>.
+<summary>Solution</summary>
+If $v + U = w + U$ then $v + u = w + u'$ for some $u,u'\in U$
+so $v - w = u' - u\in U$.
+
+If $v - w\in U$ then $v - w = u$ for some $u\in U$
+so $v + U = w + u + U = w + U$.
 </details>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">v\cong_U w</span> if and only if <span
-class="math inline">v + U = w + U</span> is an equivalence
-relation</em>.</p>
-<p><em>Hint</em>: Show <span class="math inline">v\cong v</span>
-(reflexive), <span class="math inline">v\cong w</span> implies <span
-class="math inline">w\cong v</span> (symmetric), and <span
-class="math inline">v\cong w</span> and <span class="math inline">w\cong
-x</span> implies <span class="math inline">v\cong x</span>
-(transitive).</p>
-<p>The <em>quotient space</em> <span class="math inline">V/U = \{v +
-U\mid v\in V\}</span> is a vector space with scalar multiplication <span
-class="math inline">a(v + U) = av + U</span> and addition <span
-class="math inline">(v + U) + (w + U) = (v + w) + U</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">v + U =
-w + U</span> implies <span class="math inline">av + U = aw + U</span>,
-<span class="math inline">a\in\mathbb{R}</span>, <span
-class="math inline">v,w\in V</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">av - aw\in U</span>.</p>
+
+__Exercise__. _Show $v\cong_U w$ if and only if $v + U = w + U$ is
+an equivalence relation_.
+
+_Hint_: Show $v\cong v$ (reflexive), $v\cong w$ implies $w\cong v$ (symmetric), and
+$v\cong w$ and $w\cong x$ implies $v\cong x$ (transitive).
+
+The _quotient space_ $V/U = \{v + U\mid v\in V\}$ is a vector
+space with scalar multiplication $a(v + U) = av + U$ and
+addition $(v + U) + (w + U) = (v + w) + U$.
+
+__Exercise__. _Show $v + U = w + U$ implies $av + U = aw + U$, $a\in\RR$, $v,w\in V$_.
+
+_Hint_: $av - aw\in U$.
+
 <details>
-<summary>
-Solution
-</summary>
-If <span class="math inline">v + U = w + U</span> then <span
-class="math inline">v - w\in U</span>, so <span class="math inline">a(v
-- w)\in U</span> and <span class="math inline">av + U = aw + U</span>.
+<summary>Solution</summary>
+If $v + U = w + U$ then $v - w\in U$, so $a(v - w)\in U$ and $av + U = aw + U$.
 </details>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">v + U =
-v&#39; + U</span> and <span class="math inline">w + U = w&#39; +
-U</span> implies <span class="math inline">v + u + U = v&#39; + w&#39; +
-U</span>, <span class="math inline">v,v&#39;,w,w&#39;\in
-V</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">v - v&#39;, w - w&#39;\in
-U</span>.</p>
-<p>The last two exercises show scalar multiplication and addition are
-well-defined in <span class="math inline">V/U</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">(u + U)
-+ (v + U) = (v + U) + (u + U)</span> and <span class="math inline">a((u
-+ U) + (v + U)) = a(u + U) + a(v + U)</span></em>.</p>
-<p>This shows addition is commutative and scalar multiplication
-distributes over addition, hence the quotient space <span
-class="math inline">V/U</span> is a vector space where the cosets are
-the vectors. A subspace <span class="math inline">U</span> and the
-quotient space <span class="math inline">V/U</span> determine <span
-class="math inline">V</span> up to isomorphism, but that requires more
-machinery.</p>
+
+__Exercise__. _Show $v + U = v' + U$ and $w + U = w' + U$ implies
+$v + u + U = v' + w' + U$, $v,v',w,w'\in V$_.
+
+_Hint_: $v - v', w - w'\in U$.
+
+The last two exercises show scalar multiplication and addition are well-defined in $V/U$.
+
+__Exercise__. _Show $(u + U) + (v + U) = (v + U) + (u + U)$ and
+$a((u + U) + (v + U)) = a(u + U) + a(v + U)$_.
+
+This shows addition is commutative and scalar multiplication distributes over addition,
+hence the quotient space $V/U$ is a vector space where
+the cosets are the vectors. A subspace $U$ and the quotient space $V/U$
+determine $V$ up to isomorphism, but that requires more machinery.
+
+-->
 <!--
 $T\colon U\to V$
 
@@ -720,191 +1020,102 @@ $0\to\ker T\to U\to \ran T\to V\to 0$
 
 $0\to U\to V\to V/U\to 0$.
 -->
-</section>
-</section>
-<section id="invariant-subspace" class="level2">
-<h2>Invariant Subspace</h2>
-<p>An <em>invariant subspace</em> of <span class="math inline">T\colon
-V\to V</span> is a subspace <span class="math inline">U\subseteq
-V</span> with <span class="math inline">T(U) \subseteq U</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">T\colon
-V\to V</span> show <span class="math inline">\ker T</span> and <span
-class="math inline">\operatorname{ran}T</span> are invariant
-subspaces</em>.</p>
-<p>If <span class="math inline">U</span> is a 1-dimensional subspace
-spanned by <span class="math inline">e\in V</span> then <span
-class="math inline">e</span> is an <em>eigenvector</em> and <span
-class="math inline">Te = λe</span> for some <span
-class="math inline">λ\in\mathbb{R}</span>, the <em>eigenvalue</em>
-corresponding to <span class="math inline">u</span>.</p>
-<p>If the eigenvectors of <span class="math inline">T</span> are
-independent they and their corresponding eigenvalues determine <span
-class="math inline">T</span>. Let <span
-class="math inline">(e_i)</span>, <span class="math inline">(λ_i)</span>
-be the eigenvectors and corresponding eigenvalues. Every vector <span
-class="math inline">v\in V</span> can be written <span
-class="math inline">v = \sum_i a_i e_i</span> so <span
-class="math inline">Tv = \sum_i a_i Te_i = \sum_i λ_i a_i v_i</span>. In
-this case we say <span class="math inline">T</span> is
-<em>diagonalizable</em>. Using the eigenvectors as a basis, <span
-class="math inline">t_{ij} = λ_i δ_{ij}</span>.</p>
-<p>If <span class="math inline">e</span> is an eigenvector with
-eigenvalue <span class="math inline">λ</span> then <span
-class="math inline">Te = λe</span> so <span class="math inline">(T -
-λI)e = 0</span> where <span class="math inline">I:V\to V</span> is the
-<em>identity transformation</em> <span class="math inline">Iv =
-v</span>, <span class="math inline">v\in V</span>.</p>
-<p><strong>Exercise</strong>. <em>If the eigenvectors of <span
-class="math inline">T</span> form a basis then <span
-class="math inline">(T-λ_1I)\cdots(T-λ_nI) = 0</span></em>.</p>
-<p>The dimension of <span
-class="math inline">\mathcal{L}(\mathbb{R}^n,\mathbb{R}^n)</span> is
-<span class="math inline">n^2</span> so we know <span
-class="math inline">I</span>, <span class="math inline">T</span>, <span
-class="math inline">T^2</span>, , <span
-class="math inline">T^{n^2}</span> must be linearly dependent so there
-is a polynomial of order at most <span class="math inline">n^2</span>
-with <span class="math inline">p(T) = 0</span>. If <span
-class="math inline">T</span> is diagonalizable the above exercise shows
-there is a polynomial of order <span class="math inline">n</span>
-satisfying this. The Cayley-Hamilton states this is true for any <span
-class="math inline">T</span> where <span class="math inline">p(λ) =
-\det(T - λ I)</span>.</p>
-</section>
-<section id="norm" class="level2">
-<h2>Norm</h2>
-<p>A <em>norm</em> on a vector space is a function <span
-class="math inline">\|\cdot\|\colon V\to[0,\infty)</span> with <span
-class="math inline">\|av\| = |a|\|v\|</span>, <span
-class="math inline">\|v + w\| \le \|v\| + \|w\|</span>, <span
-class="math inline">a\in\mathbb{R}</span>, <span
-class="math inline">v,w\in V</span>, and <span class="math inline">\|v\|
-= 0</span> implies <span class="math inline">v = 0</span>.</p>
-<p>If <span class="math inline">V=\boldsymbol{C}^n</span> then <span
-class="math inline">\|v\|_\infty = \max_i |v_i|</span> and <span
-class="math inline">\|v\|_p = (\sum_i |v_i|^p)^{1/p}</span> are the
-<em>sup norm</em> and <span class="math inline">p</span>-<em>norm</em>,
-<span class="math inline">p\ge 1</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\lim_{p\to\infty}\|v\|_p =
-\|v\|_\infty</span></em>.</p>
-<p>If <span class="math inline">T\colon V\to W</span> is a linear
-transformation between normed vector spaces then the <em>operator
-norm</em> is <span class="math inline">\|T\| = \sup_{\|v\|\le
-1}\|Tv\|</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\|aT\|
-= |a|\|T\|</span>, <span class="math inline">\|T + S\|\le \|T\| +
-\|S\|</span> and <span class="math inline">\|T\| = 0</span> implies
-<span class="math inline">T = 0</span>, <span
-class="math inline">a\in\mathbb{R}</span>, <span
-class="math inline">T,S\in\mathcal{L}(V,W)</span></em>.</p>
-</section>
-<section id="inner-product" class="level2">
-<h2>Inner Product</h2>
-<p>An <em>inner product</em> on a vector space is a bilinear function
-<span class="math inline">V\times V\to\mathbb{R}</span>. The pair <span
-class="math inline">(u,v)</span> is sent to <span
-class="math inline">v\cdot w</span>, <span class="math inline">v, w\in
-V</span>. The inner product satisfies <span class="math inline">v\cdot v
-\ge 0</span> and <span class="math inline">v\cdot v = 0</span> implies
-<span class="math inline">v = 0</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\|v\| =
-v\cdot v</span> is a norm</em>.</p>
-<p><strong>Theorem</strong> (Cauchy-Schwartz) <em><span
-class="math inline">|u\cdot v| \le \|u\| \|v\|</span> and equality holds
-if and only if <span class="math inline">u</span> and <span
-class="math inline">v</span> are colinear</em>.</p>
-<p><em>Proof</em>. Since <span class="math inline">0\le\|au - v\|^2 =
-a^2\|u\|^2 - 2au\cdot v + \|v\|^2</span> the discriminat <span
-class="math inline">|u\cdot v|^2 - \|u\|^2 \|v\|^2\ge 0</span>. The
-discriminant is 0 if and only if <span class="math inline">au - v =
-0</span>.</p>
-</section>
-<section id="spectrum" class="level2">
-<h2>Spectrum</h2>
-<p>If <span class="math inline">V</span> is a finite dimensional normed
-space over <span class="math inline">\boldsymbol{C}</span> then every
-operator <span class="math inline">T\colon V\to V</span> has and
-eigenvector.</p>
-<p>The <em>spectrum</em>, <span class="math inline">σ(T)</span>, of a
-linear operator <span class="math inline">T\colon V\to V</span> is the
-set of all <span class="math inline">λ\in\boldsymbol{C}</span> such that
-<span class="math inline">\ker(T - λI)</span> is not invertable. The
-<em>spectral radius</em> is <span class="math inline">ρ(T) =
-\max\{|λ|\mid λ\in σ(T)\}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span
-class="math inline">V</span> is finite dimensional then the spectrum is
-the set of eigenvalues</em>.</p>
-<p><em>Hint</em>: <span class="math inline">\ker(T - λI)\neq 0</span> if
-and only if <span class="math inline">Te = λe</span> for some <span
-class="math inline">e\in V</span>.</p>
-<p>Define <span class="math inline">E_λ = \ker(T - λI)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">E_λ\cap
-E_μ = 0</span> if <span class="math inline">λ\ne μ</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\sum_{λ\in σ(T)} E_λ = V</span></em>.</p>
-<p>Define the <em>multiplicity</em> of <span
-class="math inline">λ\in\boldsymbol{C}</span> by <span
-class="math inline">m(λ) = \dim\ker(T - λI)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show there exists <span
-class="math inline">e\in V</span> with <span class="math inline">(T -
-λI)^ke\neq 0</span> for <span class="math inline">0\le k &lt;
-m(λ)</span> and <span class="math inline">(T - λI)^{m(λ)}e =
-0</span></em>.</p>
-<section id="adjoint" class="level3">
-<h3>Adjoint</h3>
-<p>The <em>adjoint</em> of a linear operator <span
-class="math inline">T\colon V\to W</span> is <span
-class="math inline">T^*\colon W^*\to V^*</span> defined by <span
-class="math inline">\langle v, T^* w\rangle = \langle Tv,
-w^*\rangle</span>, <span class="math inline">v\in V</span>, <span
-class="math inline">w^*\in W^*</span>.</p>
-</section>
-</section>
-<section id="fréchet-derivative" class="level2">
-<h2>Fréchet Derivative</h2>
-<p>If <span class="math inline">F\colon X\to Y</span> is a function
-between normed vector spaces the <em>Fréchet</em> derivative <span
-class="math inline">DF\colon X\to\mathcal{L}(X,Y)</span> is defined by
-<span class="math display">
+<!--
+## Norm
+
+A _norm_ on a vector space is a function $\|\cdot\|\colon V\to[0,\infty)$ with
+$\|av\| = |a|\|v\|$, $\|v + w\| \le \|v\| + \|w\|$, $a\in\RR$, $v,w\in V$,
+and $\|v\| = 0$ implies $v = 0$.
+
+If $V=\CC^n$ then $\|v\|_\infty = \max_i |v_i|$ and $\|v\|_p = (\sum_i |v_i|^p)^{1/p}$
+are the _sup norm_ and $p$-_norm_, $p\ge 1$.
+
+__Exercise__. _Show $\lim_{p\to\infty}\|v\|_p = \|v\|_\infty$_.
+
+If $T\colon V\to W$ is a linear transformation between normed vector spaces then
+the _operator norm_ is $\|T\| = \sup_{\|v\|\le 1}\|Tv\|$.
+
+__Exercise__. _Show $\|aT\| = |a|\|T\|$, $\|T + S\|\le \|T\| + \|S\|$ and $\|T\| = 0$ implies $T = 0$,
+$a\in\RR$, $T,S\in\LL(V,W)$_.
+
+## Inner Product
+
+An _inner product_ on a vector space is a bilinear function $V\times V\to\RR$.
+The pair $(u,v)$ is sent to $v\cdot w$, $v, w\in V$. The inner product satisfies
+$v\cdot v \ge 0$ and $v\cdot v = 0$ implies $v = 0$.
+
+__Exercise__. _Show $\|v\| = v\cdot v$ is a norm_.
+
+__Theorem__ (Cauchy-Schwartz) _$|u\cdot v| \le \|u\| \|v\|$ and equality
+holds if and only if $u$ and $v$ are colinear_.
+
+_Proof_. Since $0\le\|au - v\|^2 = a^2\|u\|^2 - 2au\cdot v + \|v\|^2$
+the discriminat $|u\cdot v|^2 - \|u\|^2 \|v\|^2\ge 0$. The discriminant
+is 0 if and only if $au - v = 0$.
+
+## Spectrum
+
+If $V$ is a finite dimensional normed space over $\CC$ then every operator $T\colon V\to V$ has
+and eigenvector.
+
+The _spectrum_, $σ(T)$, of a linear operator $T\colon V\to V$ is the set of all $\lambda\in\CC$
+such that $\ker(T - \lambdaI)$ is not invertable. The _spectral radius_ is
+$ρ(T) = \max\{|\lambda|\mid \lambda\in σ(T)\}$.
+
+__Exercise__. _Show if $V$ is finite dimensional then the spectrum is the set of eigenvalues_.
+
+_Hint_: $\ker(T - \lambdaI)\neq 0$ if and only if $Te = \lambdae$ for some $e\in V$.
+
+Define $E_\lambda = \ker(T - \lambdaI)$.
+
+__Exercise__. _Show $E_\lambda\cap E_μ = 0$ if $\lambda\ne μ$_.
+
+__Exercise__. _Show $\sum_{\lambda\in σ(T)} E_\lambda = V$_.
+
+Define the _multiplicity_ of $\lambda\in\CC$ by $m(\lambda) = \dim\ker(T - \lambdaI)$.
+
+__Exercise__. _Show there exists $e\in V$ with $(T - \lambdaI)^ke\neq 0$ for $0\le k < m(\lambda)$
+and $(T - \lambdaI)^{m(\lambda)}e = 0$_.
+
+### Adjoint
+
+The _adjoint_ of a linear operator $T\colon V\to W$ is $T^*\colon W^*\to V^*$ defined
+by $\langle v, T^* w\rangle = \langle Tv, w^*\rangle$, $v\in V$, $w^*\in W^*$.
+
+## Fréchet Derivative
+
+If $F\colon X\to Y$ is a function between normed vector spaces the _Fréchet_ derivative
+$DF\colon X\to\LL(X,Y)$ is defined by
+$$
     F(x + h) - F(x) = DF(x)h + o(\|h\|).
-</span></p>
-<p>Recall <span class="math inline">F(x) = G(x) + o(\|h\|)</span> means
-<span class="math inline">\lim_{\|h\|\to 0} \|F(x) - G(x)\|/\|h\| =
-0</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">F(x) =
-x^2</span> where <span class="math inline">x</span> is a square matrix
-show <span class="math inline">DF(x) = L_x + R_x</span> where <span
-class="math inline">L_xy = xy</span> and <span class="math inline">R_xy
-= yx</span></em>.</p>
-<p>A suggestive way to write this is <span class="math inline">D(x^2) =
-x(Dx) + (Dx)x</span>.</p>
-<p><em>Hint</em>: <span class="math inline">(x + h)^2 = x^2 + xh + hx +
-h^2</span> and <span class="math inline">h^2 = o(\|h\|)</span>.</p>
-<details>
-<summary>
-Solution
-</summary>
-Since <span class="math inline">(x + h)^2 = xx + xh + hx + hh</span> and
-<span class="math inline">\|h^2\| = o(\|h\})</span> we have <span
-class="math inline">D(x^2)h = L_x h + R_x h</span>.
+$$
+
+Recall $F(x) = G(x) + o(\|h\|)$ means $\lim_{\|h\|\to 0} \|F(x) - G(x)\|/\|h\| = 0$.
+
+__Exercise__. _If $F(x) = x^2$ where $x$ is a square matrix show $DF(x) = L_x + R_x$ where
+$L_xy = xy$ and $R_xy = yx$_.
+
+A suggestive way to write this is $D(x^2) = x(Dx) + (Dx)x$.
+
+_Hint_: $(x + h)^2 = x^2 + xh + hx + h^2$ and $h^2 = o(\|h\|)$.
+
+<details><summary>Solution</summary>
+Since $(x + h)^2 = xx + xh + hx + hh$ and $\|h^2\| = o(\|h\})$ we have
+$D(x^2)h = L_x h + R_x h$.
 </details>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">F(x) =
-x^n</span> where <span class="math inline">x</span> is a square matrix
-and <span class="math inline">n\in\boldsymbol{N}</span> show <span
-class="math inline">DF(x) = \sum_{i=0}^{n-1}
-L_x^{n-i-1}R_x^{i}</span></em>.</p>
-<p><em>Hint</em>: What are the terms in <span class="math inline">(x +
-h)^n</span> containing exactly one <span
-class="math inline">h</span>?</p>
-<p><strong>Exercise</strong>. <em>If <span
-class="math inline">F\colon\mathbb{R}^n\to\mathbb{R}</span> is <span
-class="math inline">F(x) = \|x\|^p</span> show <span
-class="math inline">DF(x) = p\|x\|^{p-2}x^*</span>.</em></p>
-<p><em>Hint</em>. Show <span class="math inline">D\|x\|^2 = 2x^*</span>
-and note <span class="math inline">\|x\|^p = (\|x\|^2)^{p/2}</span>. By
-the chain rule <span class="math inline">D\|x\|^p = (p/2)\|x\|^{2(p/2 -
-1)}2x^* = p\|x\|^{p - 2}x^*</span>.</p>
+
+__Exercise__. _If $F(x) = x^n$ where $x$ is a square matrix and $n\in\NN$ show
+$DF(x) = \sum_{i=0}^{n-1} L_x^{n-i-1}R_x^{i}$_.
+
+_Hint_: What are the terms in $(x + h)^n$ containing exactly one $h$?
+
+__Exercise__. _If $F\colon\RR^n\to\RR$ is
+$F(x) = \|x\|^p$ show $DF(x) = p\|x\|^{p-2}x^*$._
+
+_Hint_. Show $D\|x\|^2 = 2x^*$ and note $\|x\|^p = (\|x\|^2)^{p/2}$.
+By the chain rule $D\|x\|^p = (p/2)\|x\|^{2(p/2 - 1)}2x^* = p\|x\|^{p - 2}x^*$.
+
+-->
 </section>
 </body>
 </html>

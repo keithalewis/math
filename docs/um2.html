@@ -4,9 +4,8 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-11-08" />
-  <title>A Basic Unified Model for Derivative Instruments</title>
+  <meta name="dcterms.date" content="2024-12-31" />
+  <title>um2</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -26,7 +25,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -56,7 +54,7 @@
     displayMode: mathElements[i].classList.contains('display'),
     throwOnError: false,
     macros: macros,
-    fleqn: true
+    fleqn: false
    });
 }}});
   </script>
@@ -64,15 +62,28 @@
   href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
-<header id="title-block-header">
-<h1 class="title">A Basic Unified Model for Derivative Instruments</h1>
-<p class="author">Keith A. Lewis</p>
-<p class="date">November 8, 2024</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-Value, hedge, and manage the risk of any instruments
-</div>
-</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#physics" id="toc-physics">Physics</a></li>
+<li><a href="#mathematical-finance"
+id="toc-mathematical-finance">Mathematical Finance</a></li>
+<li><a href="#preliminaries" id="toc-preliminaries">Preliminaries</a>
+<ul>
+<li><a href="#probability" id="toc-probability">Probability</a></li>
+</ul></li>
+<li><a href="#market-model" id="toc-market-model">Market Model</a></li>
+<li><a href="#trade" id="toc-trade">Trade</a></li>
+<li><a href="#value" id="toc-value">Value</a></li>
+<li><a href="#arbitrage" id="toc-arbitrage">Arbitrage</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p><em>If there are no arbitrage opportunities in the capital markets,
+then there exists a (not generally unique) valuation operator, <span
+class="math inline">L</span></em>.— title: A Basic Unified Model for
+Derivative Instruments author: Keith A. Lewis institute: KALX, LLC
+fleqn: true classoption: fleqn abstract: Value, hedge, and manage the
+risk of any instruments …</p>
 <p>The Black-Scholes/Merton theory of option valuation has a serious
 flaw: it assumes continous time trading is possible. Only a finite
 number of trades can be executed based on information available at the
@@ -424,7 +435,7 @@ class="math inline">\Gamma_j:{\mathcal{A}}_{τ_j}\to
 \boldsymbol{R}^{I}</span> indicating the number of shares to trade in
 each instrument at time <span class="math inline">τ_j</span>. If <span
 class="math inline">\tau</span> is a stopping time then <span
-class="math inline">{\mathcal{A}}_\tau = \{A\in{\mathcal{A}}_t\mid  t\in
+class="math inline">{\mathcal{A}}_\tau = \{A\in{\mathcal{A}}_t\mid t\in
 T, t\le\tau\}</span>.</p>
 <p>Trades accumulate to a <em>position</em> <span
 class="math inline">\Delta_t = \sum_{τ_j &lt; t}\Gamma_j = \sum_{s &lt;
@@ -476,7 +487,7 @@ orders.</p>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-Mer1973" class="csl-entry" role="listitem">
 Merton, Robert C. 1973. <span>“Theory of Rational Option
 Pricing.”</span> <em>Bell Journal of Economics and Management

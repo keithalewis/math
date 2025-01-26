@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2024-12-07" />
+  <meta name="dcterms.date" content="2025-01-26" />
   <title>A Simple Model of Derivative Securities</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,12 +47,35 @@
 <header id="title-block-header">
 <h1 class="title">A Simple Model of Derivative Securities</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">December 7, 2024</p>
+<p class="date">January 26, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage risk of any portfolio
 </div>
 </header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#price-and-cash-flow" id="toc-price-and-cash-flow">Price
+and Cash Flow</a></li>
+<li><a href="#value-and-account" id="toc-value-and-account">Value and
+Account</a></li>
+<li><a href="#recap" id="toc-recap">Recap</a></li>
+<li><a href="#arbitrage" id="toc-arbitrage">Arbitrage</a></li>
+<li><a href="#hedging" id="toc-hedging">Hedging</a></li>
+<li><a href="#instruments" id="toc-instruments">Instruments</a>
+<ul>
+<li><a href="#futures" id="toc-futures">Futures</a></li>
+<li><a href="#zero-coupon-bonds" id="toc-zero-coupon-bonds">Zero Coupon
+Bonds</a></li>
+<li><a href="#forward-rate-agreements"
+id="toc-forward-rate-agreements">Forward Rate Agreements</a></li>
+<li><a href="#swaps" id="toc-swaps">Swaps</a></li>
+<li><a href="#stock-dividends" id="toc-stock-dividends">Stock
+Dividends</a></li>
+</ul></li>
+<li><a href="#remarks" id="toc-remarks">Remarks</a></li>
+</ul>
+</nav>
 <p>Instruments have <em>prices</em> and <em>cash flows</em>. Trading
 instruments result in cash flows to the <em>trading account</em>; you
 buy and sell at prevailing prices and receive cash flows associated with
