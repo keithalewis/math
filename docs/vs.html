@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-02-15" />
+  <meta name="dcterms.date" content="2025-02-16" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">February 15, 2025</p>
+<p class="date">February 16, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -224,17 +224,18 @@ class="math inline">{e_i = (0,\ldots,1,\ldots,0)}</span> with all
 elements <span class="math inline">0</span> except for a <span
 class="math inline">1</span> in the <span
 class="math inline">i</span>-th position. It is plausible that <span
-class="math inline">{x = (x_1,\ldots,x_n) = x_1 e_1 + \cdots + x_n
-e_n}</span> for <span class="math inline">{x\in\bm{{{R}}}^n}</span>, but
-you should always be wary of definitions involving dots.</p>
+class="math inline">{x = (x_1,\ldots,x_n)
+= x_1 e_1 + \cdots + x_n e_n}</span> for <span
+class="math inline">{x\in\bm{{{R}}}^n}</span>, but you should always be
+wary of definitions involving dots.</p>
 <p>More generally, the standard basis of <span
 class="math inline">\bm{{{R}}}^I</span> is <span
 class="math inline">{e_i\in\bm{{{R}}}^I}</span>, <span
-class="math inline">{i\in I}</span>, where <span
-class="math inline">{e_i(j) = \delta_{ij}}</span> for <span
-class="math inline">j\in I</span>, where $_{ij} is the <em>Kronecker
-delta</em> defined by <span class="math inline">{δ_{ij} = 1}</span> if
-<span class="math inline">{i=j}</span> and <span
+class="math inline">{i\in
+I}</span>, where <span class="math inline">{e_i(j) = \delta_{ij}}</span>
+for <span class="math inline">j\in I</span>, where $_{ij} is the
+<em>Kronecker delta</em> defined by <span class="math inline">{δ_{ij} =
+1}</span> if <span class="math inline">{i=j}</span> and <span
 class="math inline">{δ_{ij} = 0}</span> if <span
 class="math inline">{i\not=j}</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">I</span>
@@ -323,7 +324,8 @@ class="math inline">{\cos\theta = (x, y)/\|x\|\|y\|}</span>. This
 defines the <em>angle</em> between two vectors.</p>
 <p><strong>Exercise</strong> <em>Show <span class="math inline">\|x\|
 \ge 0</span>, <span class="math inline">\|ax\| = |a|\|x\|</span>, and
-<span class="math inline">\|x + y\| \le \|x\| + \|y\|</span>, for <span
+<span class="math inline">\|x + y\|
+\le \|x\| + \|y\|</span>, for <span
 class="math inline">a\in\bm{{{R}}}</span>, <span
 class="math inline">x,y\in\bm{{{R}}}^n</span></em>.</p>
 <p><em>Hint</em>: Use <span class="math inline">\|x + y\|^2 = \|x\|^2 +
