@@ -19,66 +19,68 @@ abstract: A mathematical sweet spot
 \renewcommand{\implies}{\Rightarrow}
 \newcommand\zero{\boldsymbol{0}}
 
-Many mathematical objects are sets having an algebraic structure.
-For example, a _semigroup_ is a set $S$ and binary operation ${m\colon S\times S\to S}$
-that is associative: ${m(a,m(b,c)) = m(m(a,b),c)}$ for ${a,b,c\in S}$,
-or ${a(bc) = (ab)c}$ if we write $ab$ for $m(a,b)$.
-While this may seem trivial, is allows us to write $abc$ without parentheses.
-This is the foundation of [MapReduce](https://en.wikipedia.org/wiki/MapReduce).
+Many mathematical objects are sets with an algebraic structure.
+Functions between sets with structure that preserve the structure are
+_homomorphisms_. A homomorphism that is bijective (one-to-one and
+onto) is an _isomorphism_. Two sets with structure are _equivalent_ if
+there is an isomorphism between them. In general, it is difficult to determine
+when two sets with structure are equivalent, but vector spaces
+are a mathematical sweet spot.
+Two vector spaces are equivalent if and only if they have the same dimension.
 
-We can add an _identity_ $e$, not in the semigroup $S$, that satisfies
-${es = s = se}$ for all $s\in S$ to turn a semigroup into a monoid
-${M = S\cup\{e\}}$.
-
-__Exercise__. _Show ${a(bc) = (ab)c}$ for ${a,b,c\in M}$_.
-
-_Hint_: There are seven boring cases when $a$, $b$, and $c$ are $e$.
-
-A _monoid_ is a semigroup with an identity for the binary operation.
-The identity is unique.
-
-__Exercise__. _If $M$ is a monoid and $e'\in M$ satisfies $e'm = m = me'$, $m\in M$, then $e' = e$_.
-
-<details>
-<summary>Solution</summary>
-$e' = ee' = e$
-</details>
-
-__Exercise__. _Show $\max\{a,b\}$, $a,b\in\RR$ is a monoid with
-identity $-\infty$_.
-
-_Hint_: $-\infty < a$ for all $a\in\RR$.
-
-__Exercise__. _Show $\min\{a,b\}$, $a,b\in\RR$ is a monoid with
-identity $+\infty$_.
-
-_Hint_: $\infty > a$ for all $a\in\RR$.
-
-__Exercise__. _Show string concatenation is a monoid with
-identity the empty string_.
-
-The _Kleen star_ of a set is the union of the cartesian product of ${n\in\NN}$ copies of of the set.
-If $M$ is a monoid 
-where ${M^0 = \{e\}}$ and ${M^n = \{(m_1,\ldots,m_n)\mid m_j\in M, 1\le j\le n\}}$.
-Define _fold_ ${f\colon M^*\to M}$ by ${f(e) = e}$ and ${f((m_1,\ldots,m_n)) = m_1\cdots m_n}$.
-
-Functions between sets with structure that
-preserve the structure are _homomorphisms_. A homomorphism that puts set
-elements in one-to-one correspondence is an _isomorphism_. Two sets with
-structure are _equivalent_ if there is an isomorphism between them.
-It is difficult to determine in general when two sets with structure
-are equivalent, but vector spaces are a mathematical sweet spot:
-two vector spaces are equivalent if and only if they have the same dimension.
-
-Linear operators between vector spaces are also a vector space.
+A _linear operator_ is homomorphism from one vector space to another.
+Given two vector spaces, the set of all linear operators is also a vector space.
+If the two vector spaces are equal then
+composition defines a product making the set of _endomorphisms_ into an _algebra_.
+Two endomorphisms are equivalent in the algebra if and
+only if they have the same _Jordan canonical form_.
 
 ## $\RR^n$
 
-The cartesian product of $n\in\NN$ copies of the real numbers
-${\RR^n = \{(x_1,\ldots,x_n)\}}$, where ${x_i\in\RR}$ for ${1\le i\le n}$, is a vector space.
+A list of real numbers $x = (x_1,\ldots,x_n)$ is a vector.
+Given a natural number $n\in\NN$, let
+${\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR, 1\le i\le n\}}$
+be the cartesian product of $n\in\NN$ copies of the real numbers.
 Scalar multiplication and vector addition are defined by
 ${ax = xa = (ax_1,\ldots,ax_n)}$ and ${x + y = (x_1 + y_1,\ldots,x_n + y_n)}$,
 for ${a\in\RR}$, ${x,y\in\RR^n}$.
+
+The _standard basis_ of $\RR^n$ is ${e_i\in\RR^n}$, ${1\le i\le n}$,
+where ${e_i = (0,\ldots,1,\ldots,0)}$ with
+all elements $0$ except for a $1$ in the $i$-th position.
+It is plausible that
+${x = (x_1,\ldots,x_n) = x_1 e_1 + \cdots + x_n e_n}$ for ${x\in\RR^n}$, but you should always be
+suspicious of arguments involving dots. We will treat this more rigorously below.
+
+The _inner product_, or _dot product_, of $x,y\in\RR^n$ is $(x,y) = x\cdot y = \sum_{1\le i\le n}x_i y_i$.
+This is used to define a _norm_ on $\RR^n$ by $\|x\| = \sqrt{x\cdot x}$.
+
+The _Cauchy-Schwartz inequality_ is $|(x, y)|\le\|x\|\|y\|$.
+Since $-1\le |(x, y)|/\|x\|\|y\|\le 1$ there exists $\theta$ between 0 and $2\pi$
+with $\cos\theta = (x, y)/\|x\|\|y\|$. This defines the _angle_ between two vectors.
+
+__Exercise__ _Show $\|x\| \ge 0$,
+$\|ax\| = |a|\|x\|$, and $\|x + y\| \le \|x\| + \|y\|$, for $a\in\RR$, $x,y\in\RR^n$_.
+
+_Hint_: Use $\|x + y\|^2 = \|x\|^2 + 2x\cdot y + \|y\|^2$ and the Cauchy-Schwartz inequality.
+
+__Exercise__. _Show $\|x\| = 0$ implies $x = 0$, $x\in\RR^n$_.
+
+__Exercise__. _Show equality holds in the Cauchy-Schwartz inequality if and only if
+$x$ is a scalar multiple of $y$_.
+
+_Hint_: TODO Sid.
+
+A norm defines a _metric_ ${d(x,y) = \|x - y\|}$
+
+__Exercise__. _Show $d(x, y) \le d(x,z) + d(z,y)$, $x,y,z\in\RR^n$ and
+$d(x,y) = 0$ implies $x = y$_.
+
+A _Banach Space_ is a vector space with a norm that is _complete_.
+
+__Exercise__. _If $lim_{n\to\infty} \|x_n - x\| = 0$ show $x\in\RR^n$_.
+
+_Hint_: The real numbers with absolute value norm is complete.
 
 ## Axioms
 
@@ -115,23 +117,23 @@ __Exercise__. _For any vector space $V$ show ${v + v = v}$ implies ${v = \zero}$
 $$
 \begin{aligned}
 v + v &= v \\
-	&\quad\langle x = y\implies x + z = y + z\rangle\\
+	&\quad\langle x = y\implies x + z = y + z\mid x\leftarrow v + v,y\leftarrow v,z\leftarrow -v\rangle\\
 (v + v) + (-v) &= v + (-v) \\
-	&\quad\langle (x + y) + z = x + (y + z)\rangle\\
+	&\quad\langle (x + y) + z = x + (y + z)\mid x\leftarrow v, y\leftarrow v, z\leftarrow -v\rangle\\
 v + (v + (-v)) &= v + (-v) \\
-	&\quad\langle v + (-v) = \zero\rangle\\
+	&\quad\langle x + (-x) = \zero\mid x\leftarrow v\text{ twice }\rangle\\
 v + \zero &= \zero \\
-	&\quad\langle v + \zero = v\rangle\\
+	&\quad\langle x + \zero = x\mid x\leftarrow v\rangle\\
 v &= \zero
 \end{aligned}
 $$
 </details>
 
-A homomorphism $T\colon V\to W$ from a vector space $V$ to a vector space $W$ is called a _linear operator_.
+A homomorphism $T\colon V\to W$ from a vector space $V$ to a vector space $W$ is a _linear operator_.
 
 __Exercise__. _If $T$ is a linear operator then $T\zero = \zero$_.
 
-_Hint_: Show $T\zero + T\zero = \zero$ and use the previous exerise. Note
+_Hint_: Show $T\zero + T\zero = T\zero$ and use the previous exercise. Note
 the $\zero$s on the left hand side are the additive identity of $V$
 and the $\zero$ on the right hand side is the additive identity of $W$.
 
@@ -144,18 +146,20 @@ ${T\zero + T\zero = T(\zero + \zero) = T\zero}$.
 The collection of all linear operators from a vector space $V$ to a
 vector space $W$ is denoted $\LL(V,W)$. It is a vector space with scalar
 multiplication and vector addition defined by ${(aT)v = a(Tv)}$ and
-${(T + U)v = Tv + Tu}$ for $T\in\LL(V,W)$, $a\in\RR$, $v\in V$.
+${(T + U)v = Tv + Tv}$ for $T\in\LL(V,W)$, $a\in\RR$, $v\in V$.
 
 __Exercise__. _Show linear operators form a vector space_.
 
-An important special case is when the range is $\RR$.
+An important special case is when the range is the one-dimensional vector space $\RR$.
 Define the _dual_ of the vector space $V$ by $V^* = \LL(V,\RR)$.
-For $v^*\in V^*$ we write the _dual pairing_ using angle brackets
-$\langle v,v^*\rangle = v^*v$.
+We write the _dual pairing_ using angle brackets
+${\langle v,v^*\rangle = v^*v}$ for ${v^*\in V^*}$, ${v\in V}$.
 
+<!--
 If $T\colon V\to W$ is a linear transformation define its _adjoint_
 ${T^*\colon W^*\to V^*}$ by ${\langle v, T^*w^*\rangle = \langle Tv, w^*\rangle}$,
 ${v\in V}$, ${w^*\in W^*}$.
+-->
 
 The set of all functions from a (possibly infinite) set $I$ to the real numbers,
 ${\RR^I = \{x\colon I\to\RR\}}$, is a vector space over $\RR$.
@@ -328,7 +332,7 @@ _Hint_. Use linearity.
 If $Tu = Tv$ then $T(u - v) = \zero$ so $u - v = \zero$ and $u = v$.
 </details>
 
-Define the _kernel_ of a linear transformaton $\ker T = \{v\in V\mid Tv = \zero\}$.
+Define the _kernel_ of a linear transformation $\ker T = \{v\in V\mid Tv = \zero\}$.
 
 __Exercise__. _Show $\ker T$ is a subspace_.
 
@@ -795,4 +799,47 @@ $F(x) = \|x\|^p$ show $DF(x) = p\|x\|^{p-2}x^*$._
 _Hint_. Show $D\|x\|^2 = 2x^*$ and note $\|x\|^p = (\|x\|^2)^{p/2}$.
 By the chain rule $D\|x\|^p = (p/2)\|x\|^{2(p/2 - 1)}2x^* = p\|x\|^{p - 2}x^*$.
 
+-->
+<!--
+For example, a _semigroup_ is a set $S$ and binary operation ${m\colon S\times S\to S}$
+that is associative: ${m(a,m(b,c)) = m(m(a,b),c)}$ for ${a,b,c\in S}$,
+or ${a(bc) = (ab)c}$ if we write $ab$ for $m(a,b)$.
+While this may seem trivial, is allows us to write $abc$ without parentheses.
+This is the foundation of [MapReduce](https://en.wikipedia.org/wiki/MapReduce).
+
+We can add an _identity_ $e$, not in the semigroup $S$, that satisfies
+${es = s = se}$ for all $s\in S$ to turn a semigroup into a monoid
+${M = S\cup\{e\}}$.
+
+__Exercise__. _Show ${a(bc) = (ab)c}$ for ${a,b,c\in M}$_.
+
+_Hint_: There are seven boring cases when $a$, $b$, and $c$ are $e$.
+
+A _monoid_ is a semigroup with an identity for the binary operation.
+The identity is unique.
+
+__Exercise__. _If $M$ is a monoid and $e'\in M$ satisfies $e'm = m = me'$, $m\in M$, then $e' = e$_.
+
+<details>
+<summary>Solution</summary>
+$e' = ee' = e$
+</details>
+
+__Exercise__. _Show $\max\{a,b\}$, $a,b\in\RR$ is a monoid with
+identity $-\infty$_.
+
+_Hint_: $-\infty < a$ for all $a\in\RR$.
+
+__Exercise__. _Show $\min\{a,b\}$, $a,b\in\RR$ is a monoid with
+identity $+\infty$_.
+
+_Hint_: $\infty > a$ for all $a\in\RR$.
+
+__Exercise__. _Show string concatenation is a monoid with
+identity the empty string_.
+
+The _Kleen star_ of a set is the union of the cartesian product of ${n\in\NN}$ copies of of the set.
+If $M$ is a monoid 
+where ${M^0 = \{e\}}$ and ${M^n = \{(m_1,\ldots,m_n)\mid m_j\in M, 1\le j\le n\}}$.
+Define _fold_ ${f\colon M^*\to M}$ by ${f(e) = e}$ and ${f((m_1,\ldots,m_n)) = m_1\cdots m_n}$.
 -->

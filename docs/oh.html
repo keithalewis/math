@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-01-23" />
+  <meta name="dcterms.date" content="2025-01-29" />
   <title>Optimal Hedging</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,7 +45,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Optimal Hedging</h1>
-<p class="date">January 23, 2025</p>
+<p class="date">January 29, 2025</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -54,31 +54,35 @@
 </nav>
 <section id="warmup" class="level2">
 <h2>Warmup</h2>
-<p>First exercise in understanding <span
-class="math inline">(X,C)</span>, <span
-class="math inline">(\tau,\Gamma)</span>, and <span
+<p>First exercise in understanding the market <span
+class="math inline">(X,C)</span>, trading <span
+class="math inline">(\tau,\Gamma)</span>, and account <span
 class="math inline">(V, A)</span> notation.</p>
-<p>Assume interest rate is zero, stock price is standard Brownian
-motion, and no dividends.</p>
-<p>Let <span class="math inline">X_t = (1, B_t)</span>, <span
-class="math inline">C_t = (0, 0)</span>.</p>
-<p>Find the best least square initial hedge for payoff <span
-class="math inline">A_1 = B_1^+ = \max\{B_1,0\}</span>.</p>
-<p><span class="math inline">\Gamma_0 = (m, n)</span>, <span
-class="math inline">\Gamma_1 = -\Gamma_0</span>.</p>
-<p><span class="math inline">A_1 = -\Gamma_1\cdot X_1 = m + n
-B_1</span>.</p>
-<p>Find <span class="math inline">\min_{m,n} E[(A_1 - B_1^+)^2] =
-\min_{m,n} E[(m + n B_1 - B_1^+)^2]</span>.</p>
-<p>First order conditions are <span class="math display">
+<p>Assume interest rate is zero, stock price is standard Brownian motion
+starting at 1, and no dividends.</p>
+<p>Let <span class="math inline">X_t = (R_t, S_t) = (1, 1 + B_t)</span>,
+<span class="math inline">C_t = (0, 0)</span>.</p>
+<p>Find the best least square initial hedge for contractual at-the-money
+call payoff <span class="math inline">{\hat{A}_1 = \max\{S_1, 1\} = 1 +
+B_1^+}</span>.</p>
+<p>Initial hedge, <span class="math inline">\Gamma_0 = (m, n)</span>
+with unwind <span class="math inline">\Gamma_1 = -\Gamma_0</span>.</p>
+<p>Amount from unwinding the initial hedge is <span
+class="math inline">A_1 = -\Gamma_1\cdot X_1 = mR_1 + nS_1 = m + n (1 +
+B_1)</span>.</p>
+<p>Find <span class="math inline">\min_{m,n} E[(A_1 - \hat{A}_1)^2] =
+\min_{m,n} E[(m + n (1 + B_1) - (1 + B_1^+))^2]</span>.</p>
+<p>First order conditions taking derivatives with respect to <span
+class="math inline">m</span> and <span class="math inline">n</span> are
+<span class="math display">
 \begin{aligned}
-    0 &amp;= E[2(m + n B_1 - B_1^+)] \\
-    0 &amp;= E[2(m + n B_1 - B_1^+)B_1^+] \\
+    0 &amp;= E[2(m + n (1 + B_1) - (1 + B_1^+))] \\
+    0 &amp;= E[2(m + n (1 + B_1) - (1 + B_1^+))(1 + B_1)] \\
 \end{aligned}
 </span> so <span class="math display">
 \begin{aligned}
-    E[B_1^+] &amp;= m + n E[B_1] \\
-    E[(B_1^+)^2] &amp;= m E[B_1^+] + n E[B_1 B_1^+] \\
+    E[1 + B_1^+] &amp;= m + n E[1 + B_1] \\
+    E[(1 + B_1^+)(1 + B_1)] &amp;= m E[B_1^+] + n E[(1 + B_1)^2] \\
 \end{aligned}
 </span></p>
 <p>Since <span class="math inline">E[B_1^+] = 1/\sqrt{2\pi}</span>,
@@ -86,8 +90,8 @@ B_1</span>.</p>
 class="math inline">E[(B_1^+)^2] = E[B_1B_1^+] = 1/2</span> we have
 <span class="math display">
     \begin{bmatrix}
-        1/\sqrt{2\pi} \\
-        1/2 \\
+        1 + 1/\sqrt{2\pi} \\
+        1 + 2/\sqrt{2\pi} + 1/2 +  \\
     \end{bmatrix}
     =
     \begin{bmatrix}
@@ -118,9 +122,9 @@ class="math inline">E[(B_1^+)^2] = E[B_1B_1^+] = 1/2</span> we have
 <p>Note <span class="math inline">V_0 = \Gamma_0\cdot X_0 =
 1/\sqrt{2\pi} = E[B_1^+]</span>.</p>
 <p>In matrix form, minimizing <span class="math inline">E[(\Gamma\cdot X
-- A)^2]</span> has first order condition <span class="math inline">{0 =
-E[2(\Gamma\cdot X - A)X]}</span> so <span class="math inline">\Gamma =
-E[XX^*]^{-1}E[AX]</span>.</p>
+- \hat{A})^2]</span> has first order condition <span
+class="math inline">{0 = E[2(\Gamma\cdot X - A)X]}</span> so <span
+class="math inline">\Gamma = E[XX^*]^{-1}E[AX]</span>.</p>
 </section>
 </body>
 </html>

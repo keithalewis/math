@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-01-26" />
+  <meta name="dcterms.date" content="2025-01-30" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 26, 2025</p>
+<p class="date">January 30, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -76,88 +76,87 @@ Subspace</a></li>
 <li><a href="#dual" id="toc-dual">Dual</a></li>
 </ul>
 </nav>
-<p>Many mathematical objects are sets having an algebraic structure. For
-example, a <em>semigroup</em> is a set <span
-class="math inline">S</span> and binary operation <span
-class="math inline">{m\colon S\times S\to S}</span> that is associative:
-<span class="math inline">{m(a,m(b,c)) = m(m(a,b),c)}</span> for <span
-class="math inline">{a,b,c\in S}</span>, or <span
-class="math inline">{a(bc) = (ab)c}</span> if we write <span
-class="math inline">ab</span> for <span
-class="math inline">m(a,b)</span>. While this may seem trivial, is
-allows us to write <span class="math inline">abc</span> without
-parentheses. This is the foundation of <a
-href="https://en.wikipedia.org/wiki/MapReduce">MapReduce</a>.</p>
-<p>We can add an <em>identity</em> <span class="math inline">e</span>,
-not in the semigroup <span class="math inline">S</span>, that satisfies
-<span class="math inline">{es = s = se}</span> for all <span
-class="math inline">s\in S</span> to turn a semigroup into a monoid
-<span class="math inline">{M = S\cup\{e\}}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">{a(bc)
-= (ab)c}</span> for <span class="math inline">{a,b,c\in
-M}</span></em>.</p>
-<p><em>Hint</em>: There are seven boring cases when <span
-class="math inline">a</span>, <span class="math inline">b</span>, and
-<span class="math inline">c</span> are <span
-class="math inline">e</span>.</p>
-<p>A <em>monoid</em> is a semigroup with an identity for the binary
-operation. The identity is unique.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">M</span>
-is a monoid and <span class="math inline">e&#39;\in M</span> satisfies
-<span class="math inline">e&#39;m = m = me&#39;</span>, <span
-class="math inline">m\in M</span>, then <span class="math inline">e&#39;
-= e</span></em>.</p>
-<details>
-<summary>
-Solution
-</summary>
-<span class="math inline">e&#39; = ee&#39; = e</span>
-</details>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\max\{a,b\}</span>, <span
-class="math inline">a,b\in\boldsymbol{R}</span> is a monoid with
-identity <span class="math inline">-\infty</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">-\infty &lt; a</span> for
-all <span class="math inline">a\in\boldsymbol{R}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\min\{a,b\}</span>, <span
-class="math inline">a,b\in\boldsymbol{R}</span> is a monoid with
-identity <span class="math inline">+\infty</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">\infty &gt; a</span> for all
-<span class="math inline">a\in\boldsymbol{R}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show string concatenation is a monoid
-with identity the empty string</em>.</p>
-<p>The <em>Kleen star</em> of a set is the union of the cartesian
-product of <span class="math inline">{n\in\boldsymbol{N}}</span> copies
-of of the set. If <span class="math inline">M</span> is a monoid where
-<span class="math inline">{M^0 = \{e\}}</span> and <span
-class="math inline">{M^n = \{(m_1,\ldots,m_n)\mid m_j\in M, 1\le j\le
-n\}}</span>. Define <em>fold</em> <span class="math inline">{f\colon
-M^*\to M}</span> by <span class="math inline">{f(e) = e}</span> and
-<span class="math inline">{f((m_1,\ldots,m_n)) = m_1\cdots
-m_n}</span>.</p>
-<p>Functions between sets with structure that preserve the structure are
-<em>homomorphisms</em>. A homomorphism that puts set elements in
-one-to-one correspondence is an <em>isomorphism</em>. Two sets with
-structure are <em>equivalent</em> if there is an isomorphism between
-them. It is difficult to determine in general when two sets with
-structure are equivalent, but vector spaces are a mathematical sweet
-spot: two vector spaces are equivalent if and only if they have the same
-dimension.</p>
-<p>Linear operators between vector spaces are also a vector space.</p>
+<p>Many mathematical objects are sets with an algebraic structure.
+Functions between sets with structure that preserve the structure are
+<em>homomorphisms</em>. A homomorphism that is bijective (one-to-one and
+onto) is an <em>isomorphism</em>. Two sets with structure are
+<em>equivalent</em> if there is an isomorphism between them. In general,
+it is difficult to determine when two sets with structure are
+equivalent, but vector spaces are a mathematical sweet spot. Two vector
+spaces are equivalent if and only if they have the same dimension.</p>
+<p>A <em>linear operator</em> is homomorphism from one vector space to
+another. Given two vector spaces, the set of all linear operators is
+also a vector space. If the two vector spaces are equal then composition
+defines a product making the set of <em>endomorphisms</em> into an
+<em>algebra</em>. Two endomorphisms are equivalent in the algebra if and
+only if they have the same <em>Jordan canonical form</em>.</p>
 <section id="boldsymbolrn" class="level2">
 <h2><span class="math inline">\boldsymbol{R}^n</span></h2>
-<p>The cartesian product of <span
-class="math inline">n\in\boldsymbol{N}</span> copies of the real numbers
-<span class="math inline">{\boldsymbol{R}^n =
-\{(x_1,\ldots,x_n)\}}</span>, where <span
-class="math inline">{x_i\in\boldsymbol{R}}</span> for <span
-class="math inline">{1\le i\le n}</span>, is a vector space. Scalar
-multiplication and vector addition are defined by <span
+<p>A list of real numbers <span class="math inline">x =
+(x_1,\ldots,x_n)</span> is a vector. Given a natural number <span
+class="math inline">n\in\boldsymbol{N}</span>, let <span
+class="math inline">{\boldsymbol{R}^n = \{(x_1,\ldots,x_n)\mid
+x_i\in\boldsymbol{R}, 1\le i\le n\}}</span> be the cartesian product of
+<span class="math inline">n\in\boldsymbol{N}</span> copies of the real
+numbers. Scalar multiplication and vector addition are defined by <span
 class="math inline">{ax = xa = (ax_1,\ldots,ax_n)}</span> and <span
 class="math inline">{x + y = (x_1 + y_1,\ldots,x_n + y_n)}</span>, for
 <span class="math inline">{a\in\boldsymbol{R}}</span>, <span
 class="math inline">{x,y\in\boldsymbol{R}^n}</span>.</p>
+<p>The <em>standard basis</em> of <span
+class="math inline">\boldsymbol{R}^n</span> is <span
+class="math inline">{e_i\in\boldsymbol{R}^n}</span>, <span
+class="math inline">{1\le i\le n}</span>, where <span
+class="math inline">{e_i = (0,\ldots,1,\ldots,0)}</span> with all
+elements <span class="math inline">0</span> except for a <span
+class="math inline">1</span> in the <span
+class="math inline">i</span>-th position. It is plausible that <span
+class="math inline">{x = (x_1,\ldots,x_n) = x_1 e_1 + \cdots + x_n
+e_n}</span> for <span class="math inline">{x\in\boldsymbol{R}^n}</span>,
+but you should always be suspicious of arguments involving dots. We will
+treat this more rigorously below.</p>
+<p>The <em>inner product</em>, or <em>dot product</em>, of <span
+class="math inline">x,y\in\boldsymbol{R}^n</span> is <span
+class="math inline">(x,y) = x\cdot y = \sum_{1\le i\le n}x_i y_i</span>.
+This is used to define a <em>norm</em> on <span
+class="math inline">\boldsymbol{R}^n</span> by <span
+class="math inline">\|x\| = \sqrt{x\cdot x}</span>.</p>
+<p>The <em>Cauchy-Schwartz inequality</em> is <span
+class="math inline">|(x, y)|\le\|x\|\|y\|</span>. Since <span
+class="math inline">-1\le |(x, y)|/\|x\|\|y\|\le 1</span> there exists
+<span class="math inline">\theta</span> between 0 and <span
+class="math inline">2\pi</span> with <span
+class="math inline">\cos\theta = (x, y)/\|x\|\|y\|</span>. This defines
+the <em>angle</em> between two vectors.</p>
+<p><strong>Exercise</strong> <em>Show <span class="math inline">\|x\|
+\ge 0</span>, <span class="math inline">\|ax\| = |a|\|x\|</span>, and
+<span class="math inline">\|x + y\| \le \|x\| + \|y\|</span>, for <span
+class="math inline">a\in\boldsymbol{R}</span>, <span
+class="math inline">x,y\in\boldsymbol{R}^n</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">\|x + y\|^2 = \|x\|^2 +
+2x\cdot y + \|y\|^2</span> and the Cauchy-Schwartz inequality.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\|x\| =
+0</span> implies <span class="math inline">x = 0</span>, <span
+class="math inline">x\in\boldsymbol{R}^n</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show equality holds in the
+Cauchy-Schwartz inequality if and only if <span
+class="math inline">x</span> is a scalar multiple of <span
+class="math inline">y</span></em>.</p>
+<p><em>Hint</em>: TODO Sid.</p>
+<p>A norm defines a <em>metric</em> <span class="math inline">{d(x,y) =
+\|x - y\|}</span></p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">d(x, y)
+\le d(x,z) + d(z,y)</span>, <span
+class="math inline">x,y,z\in\boldsymbol{R}^n</span> and <span
+class="math inline">d(x,y) = 0</span> implies <span
+class="math inline">x = y</span></em>.</p>
+<p>A <em>Banach Space</em> is a vector space with a norm that is
+<em>complete</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">lim_{n\to\infty} \|x_n - x\| = 0</span> show <span
+class="math inline">x\in\boldsymbol{R}^n</span></em>.</p>
+<p><em>Hint</em>: The real numbers with absolute value norm is
+complete.</p>
 </section>
 <section id="axioms" class="level2">
 <h2>Axioms</h2>
@@ -202,25 +201,28 @@ Solution
 <span class="math display">
 \begin{aligned}
 v + v &amp;= v \\
-    &amp;\quad\langle x = y\Rightarrow x + z = y + z\rangle\\
+    &amp;\quad\langle x = y\Rightarrow x + z = y + z\mid x\leftarrow v +
+v,y\leftarrow v,z\leftarrow -v\rangle\\
 (v + v) + (-v) &amp;= v + (-v) \\
-    &amp;\quad\langle (x + y) + z = x + (y + z)\rangle\\
+    &amp;\quad\langle (x + y) + z = x + (y + z)\mid x\leftarrow v,
+y\leftarrow v, z\leftarrow -v\rangle\\
 v + (v + (-v)) &amp;= v + (-v) \\
-    &amp;\quad\langle v + (-v) = \boldsymbol{0}\rangle\\
+    &amp;\quad\langle x + (-x) = \boldsymbol{0}\mid x\leftarrow v\text{
+twice }\rangle\\
 v + \boldsymbol{0}&amp;= \boldsymbol{0}\\
-    &amp;\quad\langle v + \boldsymbol{0}= v\rangle\\
+    &amp;\quad\langle x + \boldsymbol{0}= x\mid x\leftarrow v\rangle\\
 v &amp;= \boldsymbol{0}
 \end{aligned}
 </span>
 </details>
 <p>A homomorphism <span class="math inline">T\colon V\to W</span> from a
 vector space <span class="math inline">V</span> to a vector space <span
-class="math inline">W</span> is called a <em>linear operator</em>.</p>
+class="math inline">W</span> is a <em>linear operator</em>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">T</span>
 is a linear operator then <span class="math inline">T\boldsymbol{0}=
 \boldsymbol{0}</span></em>.</p>
 <p><em>Hint</em>: Show <span class="math inline">T\boldsymbol{0}+
-T\boldsymbol{0}= \boldsymbol{0}</span> and use the previous exerise.
+T\boldsymbol{0}= T\boldsymbol{0}</span> and use the previous exercise.
 Note the <span class="math inline">\boldsymbol{0}</span>s on the left
 hand side are the additive identity of <span
 class="math inline">V</span> and the <span
@@ -241,25 +243,25 @@ class="math inline">W</span> is denoted <span
 class="math inline">\mathcal{L}(V,W)</span>. It is a vector space with
 scalar multiplication and vector addition defined by <span
 class="math inline">{(aT)v = a(Tv)}</span> and <span
-class="math inline">{(T + U)v = Tv + Tu}</span> for <span
+class="math inline">{(T + U)v = Tv + Tv}</span> for <span
 class="math inline">T\in\mathcal{L}(V,W)</span>, <span
 class="math inline">a\in\boldsymbol{R}</span>, <span
 class="math inline">v\in V</span>.</p>
 <p><strong>Exercise</strong>. <em>Show linear operators form a vector
 space</em>.</p>
-<p>An important special case is when the range is <span
-class="math inline">\boldsymbol{R}</span>. Define the <em>dual</em> of
-the vector space <span class="math inline">V</span> by <span
-class="math inline">V^* = \mathcal{L}(V,\boldsymbol{R})</span>. For
-<span class="math inline">v^*\in V^*</span> we write the <em>dual
-pairing</em> using angle brackets <span class="math inline">\langle
-v,v^*\rangle = v^*v</span>.</p>
-<p>If <span class="math inline">T\colon V\to W</span> is a linear
-transformation define its <em>adjoint</em> <span
-class="math inline">{T^*\colon W^*\to V^*}</span> by <span
-class="math inline">{\langle v, T^*w^*\rangle = \langle Tv,
-w^*\rangle}</span>, <span class="math inline">{v\in V}</span>, <span
-class="math inline">{w^*\in W^*}</span>.</p>
+<p>An important special case is when the range is the one-dimensional
+vector space <span class="math inline">\boldsymbol{R}</span>. Define the
+<em>dual</em> of the vector space <span class="math inline">V</span> by
+<span class="math inline">V^* = \mathcal{L}(V,\boldsymbol{R})</span>. We
+write the <em>dual pairing</em> using angle brackets <span
+class="math inline">{\langle v,v^*\rangle = v^*v}</span> for <span
+class="math inline">{v^*\in V^*}</span>, <span class="math inline">{v\in
+V}</span>.</p>
+<!--
+If $T\colon V\to W$ is a linear transformation define its _adjoint_
+${T^*\colon W^*\to V^*}$ by ${\langle v, T^*w^*\rangle = \langle Tv, w^*\rangle}$,
+${v\in V}$, ${w^*\in W^*}$.
+-->
 <p>The set of all functions from a (possibly infinite) set <span
 class="math inline">I</span> to the real numbers, <span
 class="math inline">{\boldsymbol{R}^I = \{x\colon
@@ -538,7 +540,7 @@ class="math inline">T(u - v) = \boldsymbol{0}</span> so <span
 class="math inline">u - v = \boldsymbol{0}</span> and <span
 class="math inline">u = v</span>.
 </details>
-<p>Define the <em>kernel</em> of a linear transformaton <span
+<p>Define the <em>kernel</em> of a linear transformation <span
 class="math inline">\operatorname{ker}T = \{v\in V\mid Tv =
 \boldsymbol{0}\}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
@@ -1115,6 +1117,49 @@ $F(x) = \|x\|^p$ show $DF(x) = p\|x\|^{p-2}x^*$._
 _Hint_. Show $D\|x\|^2 = 2x^*$ and note $\|x\|^p = (\|x\|^2)^{p/2}$.
 By the chain rule $D\|x\|^p = (p/2)\|x\|^{2(p/2 - 1)}2x^* = p\|x\|^{p - 2}x^*$.
 
+-->
+<!--
+For example, a _semigroup_ is a set $S$ and binary operation ${m\colon S\times S\to S}$
+that is associative: ${m(a,m(b,c)) = m(m(a,b),c)}$ for ${a,b,c\in S}$,
+or ${a(bc) = (ab)c}$ if we write $ab$ for $m(a,b)$.
+While this may seem trivial, is allows us to write $abc$ without parentheses.
+This is the foundation of [MapReduce](https://en.wikipedia.org/wiki/MapReduce).
+
+We can add an _identity_ $e$, not in the semigroup $S$, that satisfies
+${es = s = se}$ for all $s\in S$ to turn a semigroup into a monoid
+${M = S\cup\{e\}}$.
+
+__Exercise__. _Show ${a(bc) = (ab)c}$ for ${a,b,c\in M}$_.
+
+_Hint_: There are seven boring cases when $a$, $b$, and $c$ are $e$.
+
+A _monoid_ is a semigroup with an identity for the binary operation.
+The identity is unique.
+
+__Exercise__. _If $M$ is a monoid and $e'\in M$ satisfies $e'm = m = me'$, $m\in M$, then $e' = e$_.
+
+<details>
+<summary>Solution</summary>
+$e' = ee' = e$
+</details>
+
+__Exercise__. _Show $\max\{a,b\}$, $a,b\in\RR$ is a monoid with
+identity $-\infty$_.
+
+_Hint_: $-\infty < a$ for all $a\in\RR$.
+
+__Exercise__. _Show $\min\{a,b\}$, $a,b\in\RR$ is a monoid with
+identity $+\infty$_.
+
+_Hint_: $\infty > a$ for all $a\in\RR$.
+
+__Exercise__. _Show string concatenation is a monoid with
+identity the empty string_.
+
+The _Kleen star_ of a set is the union of the cartesian product of ${n\in\NN}$ copies of of the set.
+If $M$ is a monoid 
+where ${M^0 = \{e\}}$ and ${M^n = \{(m_1,\ldots,m_n)\mid m_j\in M, 1\le j\le n\}}$.
+Define _fold_ ${f\colon M^*\to M}$ by ${f(e) = e}$ and ${f((m_1,\ldots,m_n)) = m_1\cdots m_n}$.
 -->
 </section>
 </body>
