@@ -78,7 +78,7 @@ $d(x,y) = 0$ implies $x = y$_.
 
 A _Banach Space_ is a vector space with a norm that is _complete_.
 
-__Exercise__. _If $lim_{n\to\infty} \|x_n - x\| = 0$ show $x\in\RR^n$_.
+__Exercise__. _If $\lim_{n\to\infty} \|x_n - x\| = 0$ show $x\in\RR^n$_.
 
 _Hint_: The real numbers with absolute value norm is complete.
 
