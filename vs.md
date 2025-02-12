@@ -5,21 +5,25 @@ institute: KALX, LLC
 classoption: fleqn
 fleqn: true
 abstract: A mathematical sweet spot
+header-includes:
+	- \usepackage{bm}
 ...
 
-\newcommand\FF{\boldsymbol{F}}
-\newcommand\CC{\boldsymbol{C}}
-\newcommand\RR{\boldsymbol{R}}
-\newcommand\NN{\boldsymbol{N}}
+\newcommand\bs[1]{\bm{{#1}}}
+\newcommand\FF{\bs{F}}
+\newcommand\CC{\bs{C}}
+\newcommand\RR{\bs{{R}}}
+\newcommand\NN{\bs{N}}
+\newcommand\ZZ{\bs{Z}}
 \newcommand\LL{\mathcal{L}}
-\newcommand\ker{\operatorname{ker}}
+\renewcommand\ker{\operatorname{ker}}
 \newcommand\ran{\operatorname{ran}}
 \renewcommand\span{\operatorname{span}}
-\renewcommand\graph{\operatorname{graph}}
+\newcommand\graph{\operatorname{graph}}
 \renewcommand{\implies}{\Rightarrow}
-\newcommand\zero{\boldsymbol{0}}
+\newcommand\zero{\bs{0}}
 
-Many mathematical objects are sets with an algebraic structure.
+Mathematical objects are sets with structure.
 Functions between sets with structure that preserve the structure are
 _homomorphisms_. A homomorphism that is bijective (one-to-one and
 onto) is an _isomorphism_. Two sets with structure are _equivalent_ if
@@ -32,67 +36,42 @@ A _linear operator_ is homomorphism from one vector space to another.
 Given two vector spaces, the set of all linear operators is also a vector space.
 If the two vector spaces are equal then
 composition defines a product making the set of _endomorphisms_ into an _algebra_.
-Two endomorphisms are equivalent in the algebra if and
+Two endomorphisms are _similar_ in the algebra if and
 only if they have the same _Jordan canonical form_.
+
+If a vector space is provided with an _inner product_ we can define the distance
+between two vectors.
 
 ## $\RR^n$
 
-A list of real numbers $x = (x_1,\ldots,x_n)$ is a vector.
+A list of real numbers $x = (x_1,\ldots,x_n)$ is an impoverished example of a vector.
 Given a natural number $n\in\NN$, let
 ${\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR, 1\le i\le n\}}$
 be the cartesian product of $n\in\NN$ copies of the real numbers.
-Scalar multiplication and vector addition are defined by
-${ax = xa = (ax_1,\ldots,ax_n)}$ and ${x + y = (x_1 + y_1,\ldots,x_n + y_n)}$,
-for ${a\in\RR}$, ${x,y\in\RR^n}$.
+If bold $\bs{n} = \{1,\ldots,n\}$
+then $i\in \bs{n}$ is a shorter notation for $1\le i\le n$.
+If $A$ and $B$ are sets then the _set exponential_ $B^A = \{f\colon A\to B\}$
+is the set of all functions from $A$ to $B$. 
+We identify $\RR^n$ with $\RR^{\bs{n}}$ by $x = (x_1,\ldots,x_n)\in\RR^n$
+with the functon $x\colon\bs{n}\to\RR$ defined by $x(i) = x_i$, $i\in\bs{n}$.
+For any set $I$, $\RR^I$ is a vector space.
 
-The _standard basis_ of $\RR^n$ is ${e_i\in\RR^n}$, ${1\le i\le n}$,
-where ${e_i = (0,\ldots,1,\ldots,0)}$ with
-all elements $0$ except for a $1$ in the $i$-th position.
-It is plausible that
-${x = (x_1,\ldots,x_n) = x_1 e_1 + \cdots + x_n e_n}$ for ${x\in\RR^n}$, but you should always be
-suspicious of arguments involving dots. We will treat this more rigorously below.
+### Scalar Multiplication and Vector Addition
 
-The _inner product_, or _dot product_, of $x,y\in\RR^n$ is $(x,y) = x\cdot y = \sum_{1\le i\le n}x_i y_i$.
-This is used to define a _norm_ on $\RR^n$ by $\|x\| = \sqrt{x\cdot x}$.
+Scalar multiplication and vector addition on $\RR^I$ are defined _pointwise_ by
+${(ax)(i) = a(x(i))}$ and ${(x + y)(i) = x(i) + y(i)}$, $a\in\RR$, $x,y\in\RR^I$.
 
-The _Cauchy-Schwartz inequality_ is $|(x, y)|\le\|x\|\|y\|$.
-Since $-1\le |(x, y)|/\|x\|\|y\|\le 1$ there exists $\theta$ between 0 and $2\pi$
-with $\cos\theta = (x, y)/\|x\|\|y\|$. This defines the _angle_ between two vectors.
+### Axioms
 
-__Exercise__ _Show $\|x\| \ge 0$,
-$\|ax\| = |a|\|x\|$, and $\|x + y\| \le \|x\| + \|y\|$, for $a\in\RR$, $x,y\in\RR^n$_.
-
-_Hint_: Use $\|x + y\|^2 = \|x\|^2 + 2x\cdot y + \|y\|^2$ and the Cauchy-Schwartz inequality.
-
-__Exercise__. _Show $\|x\| = 0$ implies $x = 0$, $x\in\RR^n$_.
-
-__Exercise__. _Show equality holds in the Cauchy-Schwartz inequality if and only if
-$x$ is a scalar multiple of $y$_.
-
-_Hint_: TODO Sid.
-
-A norm defines a _metric_ ${d(x,y) = \|x - y\|}$
-
-__Exercise__. _Show $d(x, y) \le d(x,z) + d(z,y)$, $x,y,z\in\RR^n$ and
-$d(x,y) = 0$ implies $x = y$_.
-
-A _Banach Space_ is a vector space with a norm that is _complete_.
-
-__Exercise__. _If $\lim_{n\to\infty} \|x_n - x\| = 0$ show $x\in\RR^n$_.
-
-_Hint_: The real numbers with absolute value norm is complete.
-
-## Axioms
-
-For $x, y, z\in\RR^n$ and $a,b\in\RR$,
+For any set $I$, $a,b\in\RR$, and $x, y, z\in\RR^I$
 
 __Exercise__. _Show $x + (y + z) = (x + y) + z$_.
 
 __Exercise__. _Show $x + y = y + x$_.
 
-__Exercise__. _Show $\zero + x = x$ where $\zero = (0,\ldots,0)$_.
+__Exercise__. _Show $\zero + x = x$ where $\zero(i) = 0$, $i\in I$_.
 
-__Exercise__. _Show $x + (-x) = \zero$ where $(-x)_i = -(x_i)$, for $1\le i\le n$_.
+__Exercise__. _Show $x + (-x) = \zero$ where $(-x)(i) = -(x(i))$, for $i\in I$_.
 
 __Exercise__. _Show $a(bx) = (ab)x$_.
 
@@ -104,11 +83,24 @@ __Exercise__. _Show $(a + b)x = ax + bx$_.
 
 _Hint_: Use the properties of real numbers.
 
-The exercises are the axioms for an _abstract vector space_ with scalar multiplication
-${\RR\times V\to V}$ where ${(a,x)\mapsto ax = xa}$ and binary addition ${V\times V\to V}$
-where ${(x,y)\mapsto x + y}$. 
-
+The exercises are the axioms for an _abstract vector space_ with scalar
+multiplication ${\RR\times V\to V}$ where ${(a,x)\mapsto ax = xa}$ and
+binary addition ${V\times V\to V}$ where ${(x,y)\mapsto x + y}$. The
+first four axioms show vector addition is an abelian (commutative)
+group. The last two axioms are the _distributive laws_ connecting scalar
+multiplication and vector addition.
 Proofs involving only the abstract axioms are considered more elegant.
+
+If $x\in\RR^I$ then $(0x)(i) = 0(x(i)) = 0$ and $(1x)(i) = 1(x(i)) = x(i)$ for all $i\in I$ so
+$0x = \zero$ and $1x = x$. These hold for any vector space, not just $\RR^I$.
+
+__Exercise__. (Zero is unique) _Show if $\zero' + x = x$ for all $x\in V$ then $0' = 0$_.
+
+If $x\in\RR^I$ then 
+
+__Exercise__. _Show $0x = \zero$ for all $x\in V$_.
+
+_Hint_: Show $0x + x = x$.
 
 __Exercise__. _For any vector space $V$ show ${v + v = v}$ implies ${v = \zero}$ for all ${v\in V}$_.
 
@@ -129,6 +121,92 @@ v &= \zero
 $$
 </details>
 
+
+If $n = 1$ we can identify $\RR$ with $\RR^1$ by $x\in\RR$ corresponds to $(x)\in\RR^1$.
+We can also identify every $y\in\RR$ with the linear function from $\RR$ to $\RR$
+of multiplication by $y$ denoted by $y^*x = xy$, for $x\in\RR$.
+These trivial definitions are the foundation of a systematic notation for
+higher dimensional calculations. There is no need for "row" and "column"
+vectors, the dual of a vector space and composition of linear functions
+generalizes the Einstein summation convention and various "tensor"
+notations invented by less brilliant people. Standard mathematical notation suffices.
+
+### Standard and Dual Basis
+
+The _standard basis_ of $\RR^n$ is ${e_i\in\RR^n}$, ${i\in n}$,
+where ${e_i = (0,\ldots,1,\ldots,0)}$ with all elements $0$ except for a
+$1$ in the $i$-th position.  It is plausible that ${x = (x_1,\ldots,x_n)
+= x_1 e_1 + \cdots + x_n e_n}$ for ${x\in\RR^n}$, but you should always
+be suspicious of arguments involving dots.
+
+Define the _dual basis_ by
+$e^*_j\colon\RR^n\to\RR$ by ${e^*_j((x_1,\ldots,x_n)) = x_j}$, ${j\in n}$.
+Clearly $e^*_j(e_i) = \delta_{ij}$, wWhere $δ_{ij} = 1$
+if $i=j$ and $δ_{ij} = 0$ if $i\not= j$ is the _Kronecker delta_.
+
+The standard and dual bases allows us to identify $\RR^n$ with its _dual_
+$(\RR^n)^*$, the linear functionals from $\RR^n\to\RR$.
+If ${x = \sum_i x_i e_i\in\RR^n}$ define ${x^* = \sum_j x_j e_j^*\in(\RR^n)^*}$.
+
+__Exercise__. _Show $y^*x = \langle x,y^*\rangle = \sum_i x_i y_i$_.
+
+A function $T\colon\RR^n\to\RR^m$ is a _linear operator_ if ${T(ax + y) = aTx + y}$, ${a\in\RR}$, ${x,y\in\RR^n}$.
+
+__Exercise__. _Show if $T$ is a linear operator then $T(ax) = aTx$
+and $T(x + y) = Tx + Ty$, ${a\in\RR}$, ${x,y\in\RR^n}$_.
+
+_Hint_: Take $y = (0,\ldots,0)$ and $a = 1$.
+
+If $T\colon\RR^n\to\RR^m$ the _matrix_ of $T$ is $t\colon n\times m\to\RR\in\RR^{n\times m}$ where
+${t(i,j) = t_{ij} = \langle Te_i,e^*_j\rangle}$, ${i\in n}$, ${j\in m}$.
+We denote the map $
+
+If $S\colon\RR^m\to\RR^l$ then $U = ST\colon\RR^n\to\RR^l$.
+
+__Exercise__. _Show the matrix of the composition $U = ST$ is
+${u_{ik} = \sum_{j\in m} s_{ij}t_{jk}}$, $i\in n$, $k\in l$_.
+
+Matrix multiplication is just composition of linear operators.
+
+### Tensor
+
+Write $\RR^{-n}$ for $(\RR^n)^*$ for $n\in\NN$. A _tensor_
+is a cartesian product $\RR^{n_1}\times\cdots\times\RR^{n_m}$ where the $n_i$ are
+integers $n_i\in\ZZ$ for $i\in m$.
+
+### Inner Product
+
+The _inner product_, or _dot product_, of $x,y\in\RR^n$ is $(x,y) = x\cdot y = \sum_{1\le i\le n}x_i y_i$.
+This is used to define a _norm_ on $\RR^n$ by $\|x\| = \sqrt{x\cdot x}$.
+
+The _Cauchy-Schwartz inequality_ is ${|(x, y)|\le\|x\|\|y\|}$, ${x,y\in\RR^n}$.
+Since ${-1\le (x, y)/\|x\|\|y\|\le 1}$ there exists ${\theta\in[0, 2\pi)}$
+with ${\cos\theta = (x, y)/\|x\|\|y\|}$. This defines the _angle_ between two vectors.
+
+__Exercise__ _Show $\|x\| \ge 0$, $\|ax\| = |a|\|x\|$, and $\|x + y\|
+\le \|x\| + \|y\|$, for $a\in\RR$, $x,y\in\RR^n$_.
+
+_Hint_: Use $\|x + y\|^2 = \|x\|^2 + 2x\cdot y + \|y\|^2$ and the Cauchy-Schwartz inequality.
+
+__Exercise__. _Show $\|x\| = 0$ implies $x = 0$, $x\in\RR^n$_.
+
+__Exercise__. _Show equality holds in the Cauchy-Schwartz inequality if and only if
+$x$ is a scalar multiple of $y$_.
+
+_Hint_: TODO Sid. Use $0\le\|x - ty\|^2$ for $t\in\RR$, $x,y\in\RR^n$.
+
+__Exercise__. _Show if $\lim_{n\to\infty} \|x_n - x\| = 0$ show $x\in\RR^n$_.
+
+_Hint_: The real numbers with absolute value norm is complete.
+
+<!--
+A norm defines a _metric_ ${d(x,y) = \|x - y\|}$
+
+__Exercise__. _Show ${d(x, y) \le d(x,z) + d(z,y)}$, ${x,y,z\in\RR^n}$ and
+${d(x,y) = 0}$ implies ${x = y}$_.
+-->
+
+<!--
 A homomorphism $T\colon V\to W$ from a vector space $V$ to a vector space $W$ is a _linear operator_.
 
 __Exercise__. _If $T$ is a linear operator then $T\zero = \zero$_.
@@ -155,11 +233,9 @@ Define the _dual_ of the vector space $V$ by $V^* = \LL(V,\RR)$.
 We write the _dual pairing_ using angle brackets
 ${\langle v,v^*\rangle = v^*v}$ for ${v^*\in V^*}$, ${v\in V}$.
 
-<!--
 If $T\colon V\to W$ is a linear transformation define its _adjoint_
 ${T^*\colon W^*\to V^*}$ by ${\langle v, T^*w^*\rangle = \langle Tv, w^*\rangle}$,
 ${v\in V}$, ${w^*\in W^*}$.
--->
 
 The set of all functions from a (possibly infinite) set $I$ to the real numbers,
 ${\RR^I = \{x\colon I\to\RR\}}$, is a vector space over $\RR$.
@@ -388,7 +464,6 @@ $R(e_i) = ST(e_i)
 
 Matrix multiplication is composition of linear transformations.
 
-<!--
 Another way to see this is to use $A\times B\to C$ is isomorphic to
 $A\to(B\to C)$ for any sets $A, B, C$. This is called _currying_ after Haskell Curry.
 If $f\colon A\times B\to C$ define $f,\colon A\to(B\to C)$
@@ -402,7 +477,6 @@ and if $g\colon A\to(B\to C)$ show $(g`), = g$_.
 This shows a bijection???
 
 We can identify $(I\to\RR)\to(J\to\RR)$ with $I\times J\to\RR$.
--->
 
 Let $\LL(V) = \LL(V,V)$ be the space of linear transformations from
 a vector space to itself. It is also an _algebra_ with multiplication
@@ -466,7 +540,7 @@ In this case we say $T$ is _diagonalizable_. Using the eigenvectors as a basis,
 $t_{ij} = \lambda_i δ_{ij}$.
 
 If $e$ is an eigenvector with eigenvalue $\lambda$ then $Te = \lambda e$ so $(T - \lambda I)e = 0$
-and $e\in\ker (T - \lamda I)$. There may be vectors that are not eigenvectors
+and $e\in\ker (T - \lambda I)$. There may be vectors that are not eigenvectors
 that belong to $\ker (T - \lambda I)$.
 
 __Exercise__. _If the matrix of $T$ is $[0, 1; 0, 0]$ then 
@@ -540,8 +614,6 @@ If $\mu\in M(\Omega)$ define $L^p(\mu) = \{f\colon\Omega\to\RR : \int_\Omega |f|
 It is true that $L^p(\mu)^*\cong L^q(\mu)$ where $1/p + 1/q = 1$ and $p > 1$.
 It is not true that $L^\infty(\mu)^* \cong L^1(\mu)$ in general.
 Proving these claims is non-trivial.
-
-<!--
 
 ## Grassmann
 
@@ -695,16 +767,12 @@ hence the quotient space $V/U$ is a vector space where
 the cosets are the vectors. A subspace $U$ and the quotient space $V/U$
 determine $V$ up to isomorphism, but that requires more machinery.
 
--->
-<!--
 $T\colon U\to V$
 
 $0\to\ker T\to U\to \ran T\to V\to 0$
 
 $0\to U\to V\to V/U\to 0$.
--->
 
-<!--
 ## Norm
 
 A _norm_ on a vector space is a function $\|\cdot\|\colon V\to[0,\infty)$ with
@@ -799,8 +867,6 @@ $F(x) = \|x\|^p$ show $DF(x) = p\|x\|^{p-2}x^*$._
 _Hint_. Show $D\|x\|^2 = 2x^*$ and note $\|x\|^p = (\|x\|^2)^{p/2}$.
 By the chain rule $D\|x\|^p = (p/2)\|x\|^{2(p/2 - 1)}2x^* = p\|x\|^{p - 2}x^*$.
 
--->
-<!--
 For example, a _semigroup_ is a set $S$ and binary operation ${m\colon S\times S\to S}$
 that is associative: ${m(a,m(b,c)) = m(m(a,b),c)}$ for ${a,b,c\in S}$,
 or ${a(bc) = (ab)c}$ if we write $ab$ for $m(a,b)$.

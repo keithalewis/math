@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2025-02-12" />
+  <title>Mathematics</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Mathematics</h1>
+<p class="date">February 12, 2025</p>
+</header>
+<p>Euclid came up with the notion of deducing geometric truths from
+axioms and postulates.</p>
+<p>axiom vs postulate</p>
+<p>Descarte. Cartesian coordinates.</p>
+<p>Move from geometry to algebra</p>
+<p>When you enter a PhD math program the first thing you learn is logic
+and set theory. George Boole invented propositional calculus to reduce
+logic to algebra.</p>
+<p>Predicate calculus. First order logic.</p>
+<p>rules of inference</p>
+<p>Gentzen natural deduction, modus polens.</p>
+<p>Sequent calculus.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Language</th>
+<th style="text-align: center;">Logic</th>
+<th style="text-align: center;">Set</th>
+<th style="text-align: left;">Algebra</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">not</td>
+<td style="text-align: center;"><span class="math inline">\neg
+P</span></td>
+<td style="text-align: center;"><span class="math inline">A&#39; =
+\Omega\setminus A</span></td>
+<td style="text-align: left;"><span class="math inline">1 -
+1_E</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">and</td>
+<td style="text-align: center;"><span class="math inline">P\wedge
+Q</span></td>
+<td style="text-align: center;"><span class="math inline">A\cap
+B</span></td>
+<td style="text-align: left;"><span class="math inline">1_E
+1_F</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">nand</td>
+<td style="text-align: center;"><span class="math inline">\neg(P\wedge
+Q)</span></td>
+<td style="text-align: center;"><span class="math inline">(A\cap
+B)&#39;</span></td>
+<td style="text-align: left;"><span class="math inline">1 -
+1_{EF}</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">or</td>
+<td style="text-align: center;"><span class="math inline">\vee
+P</span></td>
+<td style="text-align: center;"><span class="math inline">A\cup
+B</span></td>
+<td style="text-align: left;"><span class="math inline">1_E + 1_F -
+1_{EF}</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">implies</td>
+<td style="text-align: center;"><span class="math inline">P\Rightarrow
+Q</span></td>
+<td style="text-align: center;"><span class="math inline">A&#39;\cup
+B</span></td>
+<td style="text-align: left;"><span class="math inline">1 - 1_E +
+1_{EF}</span></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

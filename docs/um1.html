@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-01-26" />
+  <meta name="dcterms.date" content="2025-02-12" />
   <title>Simple Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -66,7 +66,7 @@
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 26, 2025</p>
+<p class="date">February 12, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematically rigorous framework for valuing, hedging, and managing
@@ -134,10 +134,10 @@ available information.</p>
 prepared for such an audatious expansion of the B-S/M theory. Ross
 conflated cash flows with instantaneous changes in the price of the
 underlying. We put the cash flows associated with owning financial
-instruments on ShengQuan Zhouan equal footing with prices. B-S/M and
-Ross assumed continuous time trading is possible. This is a mathematical
-artifact of using Ito processes to model trading strategies that leads
-to untenable results<a href="#fn1" class="footnote-ref" id="fnref1"
+instruments on equal footing with prices. B-S/M and Ross assumed
+continuous time trading is possible. This is a mathematical artifact of
+using Ito processes to model trading strategies that leads to untenable
+results<a href="#fn1" class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a>. Every trading strategy involves
 only a finite number of transactions based on available information. The
 Simple Unified Model does not solve the crucial problem of when to
@@ -277,11 +277,7 @@ extended to a measure on <span
 class="math inline">\bar{{\mathcal{A}}}</span> by <span
 class="math inline">{\hat{D}(B) = \sum\{D(A)\mid A\subseteq B,
 A\in{\mathcal{A}}\}}</span>, <span
-class="math inline">B\in\bar{{\mathcal{A}}}</span>.</p>
-<p>Information increases over time so <span
-class="math inline">\bar{{\mathcal{A}}_t}\subseteq\bar{{\mathcal{A}}_u}</span>
-if <span class="math inline">t &lt; u</span>.</p>
-<p>then we can de a function <span
+class="math inline">B\in\bar{{\mathcal{A}}}</span>. A function <span
 class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is <span
 class="math inline">\hat{{\mathcal{A}}}</span> <em>measurable</em> if
 and only if <span class="math inline">X</span> is constant on each atom
@@ -372,9 +368,8 @@ D_s)|_{{\mathcal{A}}_t}
 0</span> is sufficiently small.</p>
 <p>Note how the value <span class="math inline">V_t</span> corresponds
 to price <span class="math inline">X_t</span> and account <span
-class="math inline">A_t</span> corresponds to <span
-class="math inline">C_t</span> in equations (2) and (1) respectively.
-Trading strategies create synthetic market instruments.</p>
+class="math inline">A_t</span></p>
+<p>Trading strategies create synthetic market instruments.</p>
 <p><strong>Equations (1) and (2) are the skeleton keys to pricing
 derivative securities</strong>.</p>
 </section>
@@ -499,9 +494,9 @@ class="math inline">E[F/E[F]] = 1</span>, <span
 class="math inline">P^*</span> is a positive measure with mass 1.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
 is standard normal show <span class="math inline">{E[\max\{k - F, 0\}] =
-kN(m) - fN(m - s)}</span> where <span class="math inline">N</span> is
+kN(x) - fN(x - s)}</span> where <span class="math inline">N</span> is
 the standard normal cumulative distribution and <span
-class="math inline">{m = (\log(k/f) + s^2/2)/s}</span></em>.</p>
+class="math inline">{x = (\log(k/f) + s^2/2)/s}</span></em>.</p>
 <p><em>Hint</em>: Use <span class="math inline">E[\exp(N)] = \exp(E[N] +
 \operatorname{Var}(N)/2)</span> if <span class="math inline">N</span> is
 normal and <span class="math inline">E[\exp(N) g(M)] = E[\exp(N)] E[g(M
@@ -509,7 +504,7 @@ normal and <span class="math inline">E[\exp(N) g(M)] = E[\exp(N)] E[g(M
 and <span class="math inline">M</span> are jointly normal.</p>
 <p><strong>Exercise</strong>. <em>Show if <span class="math inline">F
 &gt; 0</span> that <span class="math inline">E[{\max\{k - F, 0\}] =
-kP(X\le m) - fP^*(X\le m)}</span> where <span class="math inline">{m =
+kP(X\le x) - fP^*(X\le x)}</span> where <span class="math inline">{x =
 (\log(k/f) + \kappa(s))/s}</span> and <span class="math inline">dP^*/dP
 = \exp(sX - \kappa(s))</span></em>.</p>
 <p><em>Delta</em> is the derivative of value <span class="math inline">v
@@ -519,6 +514,7 @@ class="math inline">f</span>. <span class="math display">
     \partial v/\partial f &amp;= E[-1(F \le k)\partial F/\partial f] \\
         &amp;= -E[1(F \le k)\exp(sX - \kappa(s))] \\
         &amp;= -P^*(F \le k) \\
+        &amp;= -P^*(X \le x) \\
 \end{aligned}
 </span></p>
 <p><em>Gamma</em> is the second derivative of value <span
@@ -527,10 +523,10 @@ initial price <span class="math inline">f</span>. <span
 class="math display">
 \begin{aligned}
     \partial_f^2 v &amp;= -\partial_f P^*(F \le k) \\
-    &amp;= -\partial_f P^*(X \le m) \\
-    &amp;= -\partial_m P^*(X \le m)\partial_f x \\
-    &amp;= -\partial_m P^*(X \le m)/\partial_x f \\
-    &amp;= \partial_m P^*(X \le m)/f s\\
+    &amp;= -\partial_f P^*(X \le x) \\
+    &amp;= -\partial_x P^*(X \le x)\partial_f x \\
+    &amp;= -\partial_x P^*(X \le x)/\partial_x f \\
+    &amp;= \partial_x P^*(X \le x)/f s\\
 \end{aligned}
 </span></p>
 <p><em>Vega</em> is the derivative of option value with respect to
@@ -551,10 +547,10 @@ Solution
 </summary>
 <span class="math display">
 \begin{aligned}
-\partial_s P_s(X\le m) &amp;= \partial_s E[1(X\le m) e^{sX - κ(s)}] \\
-    &amp;= E[1(X\le m) e^{sX - κ(s)}(X - κ&#39;(s))] \\
-    &amp;= E[1(X\le m) fe^{sX - κ(s)}(X - κ&#39;(s))]/f \\
-    &amp;= E[1(X\le m) F(X - κ&#39;(s)]/f \\
+\partial_s P_s(X\le x) &amp;= \partial_s E[1(X\le x) e^{sX - κ(s)}] \\
+    &amp;= E[1(X\le x) e^{sX - κ(s)}(X - κ&#39;(s))] \\
+    &amp;= E[1(X\le x) fe^{sX - κ(s)}(X - κ&#39;(s))]/f \\
+    &amp;= E[1(X\le x) F(X - κ&#39;(s)]/f \\
 \end{aligned}
 </span>
 </details>
