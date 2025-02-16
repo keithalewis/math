@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-02-12" />
+  <meta name="dcterms.date" content="2025-02-15" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">February 12, 2025</p>
+<p class="date">February 15, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -65,6 +65,10 @@ and Vector Addition</a></li>
 <li><a href="#axioms" id="toc-axioms">Axioms</a></li>
 <li><a href="#standard-and-dual-basis"
 id="toc-standard-and-dual-basis">Standard and Dual Basis</a></li>
+</ul></li>
+<li><a href="#linear-operator" id="toc-linear-operator">Linear
+Operator</a>
+<ul>
 <li><a href="#tensor" id="toc-tensor">Tensor</a></li>
 <li><a href="#inner-product" id="toc-inner-product">Inner
 Product</a></li>
@@ -99,15 +103,16 @@ numbers. If bold <span class="math inline">\bm{{n}} =
 \{1,\ldots,n\}</span> then <span class="math inline">i\in
 \bm{{n}}</span> is a shorter notation for <span class="math inline">1\le
 i\le n</span>. If <span class="math inline">A</span> and <span
-class="math inline">B</span> are sets then the <em>set exponential</em>
+class="math inline">B</span> are sets, the <em>set exponential</em>
 <span class="math inline">B^A = \{f\colon A\to B\}</span> is the set of
 all functions from <span class="math inline">A</span> to <span
 class="math inline">B</span>. We identify <span
 class="math inline">\bm{{{R}}}^n</span> with <span
-class="math inline">\bm{{{R}}}^{\bm{{n}}}</span> by <span
-class="math inline">x = (x_1,\ldots,x_n)\in\bm{{{R}}}^n</span> with the
-functon <span class="math inline">x\colon\bm{{n}}\to\bm{{{R}}}</span>
-defined by <span class="math inline">x(i) = x_i</span>, <span
+class="math inline">\bm{{{R}}}^{\bm{{n}}}</span> where <span
+class="math inline">x = (x_1,\ldots,x_n)\in\bm{{{R}}}^n</span>
+corresponds to the functon <span
+class="math inline">x\colon\bm{{n}}\to\bm{{{R}}}</span> defined by <span
+class="math inline">x(i) = x_i</span>, <span
 class="math inline">i\in\bm{{n}}</span>. For any set <span
 class="math inline">I</span>, <span
 class="math inline">\bm{{{R}}}^I</span> is a vector space.</p>
@@ -124,26 +129,26 @@ class="math inline">x,y\in\bm{{{R}}}^I</span>.</p>
 <h3>Axioms</h3>
 <p>For any set <span class="math inline">I</span>, <span
 class="math inline">a,b\in\bm{{{R}}}</span>, and <span
-class="math inline">x, y, z\in\bm{{{R}}}^I</span></p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">x + (y
-+ z) = (x + y) + z</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">x + y =
-y + x</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\bm{{0}}+ x = x</span> where <span
-class="math inline">\bm{{0}}(i) = 0</span>, <span
-class="math inline">i\in I</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">x +
-(-x) = \bm{{0}}</span> where <span class="math inline">(-x)(i) =
--(x(i))</span>, for <span class="math inline">i\in I</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">a(bx) =
-(ab)x</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">1x =
+class="math inline">x, y, z\in\bm{{{R}}}^I</span> show the
+following:</p>
+<p><strong>Exercise</strong>. <em><span class="math inline">x + (y + z)
+= (x + y) + z</span></em>.</p>
+<p><strong>Exercise</strong>. <em><span class="math inline">x + y = y +
 x</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">a(x +
-y) = ax + ay</span></em>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">(a +
-b)x = ax + bx</span></em>.</p>
+<p><strong>Exercise</strong>. <em><span class="math inline">\bm{{0}}+ x
+= x</span> where <span class="math inline">\bm{{0}}(i) = 0</span>, <span
+class="math inline">i\in I</span></em>.</p>
+<p><strong>Exercise</strong>. <em><span class="math inline">x + (-x) =
+\bm{{0}}</span> where <span class="math inline">(-x)(i) =
+-(x(i))</span>, for <span class="math inline">i\in I</span></em>.</p>
+<p><strong>Exercise</strong>. <em><span class="math inline">a(bx) =
+(ab)x</span></em>.</p>
+<p><strong>Exercise</strong>. <em><span class="math inline">1x =
+x</span></em>.</p>
+<p><strong>Exercise</strong>. <em><span class="math inline">a(x + y) =
+ax + ay</span></em>.</p>
+<p><strong>Exercise</strong>. <em><span class="math inline">(a + b)x =
+ax + bx</span></em>.</p>
 <p><em>Hint</em>: Use the properties of real numbers.</p>
 <p>The exercises are the axioms for an <em>abstract vector space</em>
 with scalar multiplication <span class="math inline">{\bm{{{R}}}\times
@@ -152,8 +157,11 @@ xa}</span> and binary addition <span class="math inline">{V\times V\to
 V}</span> where <span class="math inline">{(x,y)\mapsto x + y}</span>.
 The first four axioms show vector addition is an abelian (commutative)
 group. The last two axioms are the <em>distributive laws</em> connecting
-scalar multiplication and vector addition. Proofs involving only the
-abstract axioms are considered more elegant.</p>
+scalar multiplication and vector addition. Every abstract vector space
+can be represented by <span class="math inline">\bm{{{R}}}^I</span> for
+some set <span class="math inline">I</span>. Two vector spaces</p>
+<p>Proofs involving only the abstract axioms are considered more
+elegant.</p>
 <p>If <span class="math inline">x\in\bm{{{R}}}^I</span> then <span
 class="math inline">(0x)(i) = 0(x(i)) = 0</span> and <span
 class="math inline">(1x)(i) = 1(x(i)) = x(i)</span> for all <span
@@ -195,54 +203,69 @@ v &amp;= \bm{{0}}
 \end{aligned}
 </span>
 </details>
-<p>If <span class="math inline">n = 1</span> we can identify <span
-class="math inline">\bm{{{R}}}</span> with <span
-class="math inline">\bm{{{R}}}^1</span> by <span
-class="math inline">x\in\bm{{{R}}}</span> corresponds to <span
-class="math inline">(x)\in\bm{{{R}}}^1</span>. We can also identify
-every <span class="math inline">y\in\bm{{{R}}}</span> with the linear
-function from <span class="math inline">\bm{{{R}}}</span> to <span
-class="math inline">\bm{{{R}}}</span> of multiplication by <span
-class="math inline">y</span> denoted by <span class="math inline">y^*x =
-xy</span>, for <span class="math inline">x\in\bm{{{R}}}</span>. These
-trivial definitions are the foundation of a systematic notation for
-higher dimensional calculations. There is no need for “row” and “column”
+<!--
+If $n = 1$ we can identify $\RR$ with $\RR^1$ by $x\in\RR$ corresponds to $(x)\in\RR^1$.
+We can also identify every $y\in\RR$ with the linear function from $\RR$ to $\RR$
+of multiplication by $y$ denoted by $y^*x = xy$, for $x\in\RR$.
+These trivial definitions are the foundation of a systematic notation for
+higher dimensional calculations. There is no need for "row" and "column"
 vectors, the dual of a vector space and composition of linear functions
-generalizes the Einstein summation convention and various “tensor”
-notations invented by less brilliant people. Standard mathematical
-notation suffices.</p>
+generalizes the Einstein summation convention and various "tensor"
+notations invented by less brilliant people. Standard mathematical notation suffices.
+-->
 </section>
 <section id="standard-and-dual-basis" class="level3">
 <h3>Standard and Dual Basis</h3>
 <p>The <em>standard basis</em> of <span
 class="math inline">\bm{{{R}}}^n</span> is <span
 class="math inline">{e_i\in\bm{{{R}}}^n}</span>, <span
-class="math inline">{i\in n}</span>, where <span
+class="math inline">{i\in\bm{{n}}}</span>, where <span
 class="math inline">{e_i = (0,\ldots,1,\ldots,0)}</span> with all
 elements <span class="math inline">0</span> except for a <span
 class="math inline">1</span> in the <span
 class="math inline">i</span>-th position. It is plausible that <span
 class="math inline">{x = (x_1,\ldots,x_n) = x_1 e_1 + \cdots + x_n
 e_n}</span> for <span class="math inline">{x\in\bm{{{R}}}^n}</span>, but
-you should always be suspicious of arguments involving dots.</p>
+you should always be wary of definitions involving dots.</p>
+<p>More generally, the standard basis of <span
+class="math inline">\bm{{{R}}}^I</span> is <span
+class="math inline">{e_i\in\bm{{{R}}}^I}</span>, <span
+class="math inline">{i\in I}</span>, where <span
+class="math inline">{e_i(j) = \delta_{ij}}</span> for <span
+class="math inline">j\in I</span>, where $_{ij} is the <em>Kronecker
+delta</em> defined by <span class="math inline">{δ_{ij} = 1}</span> if
+<span class="math inline">{i=j}</span> and <span
+class="math inline">{δ_{ij} = 0}</span> if <span
+class="math inline">{i\not=j}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">I</span>
+is finite, show <span class="math inline">x = \sum_{i\in I}
+x(i)e_i</span> for <span
+class="math inline">x\in\bm{{{R}}}^I</span></em>.</p>
+<p><em>Hint</em>: Consider <span class="math inline">x(j)</span>, <span
+class="math inline">j\in I</span>.</p>
 <p>Define the <em>dual basis</em> by <span
-class="math inline">e^*_j\colon\bm{{{R}}}^n\to\bm{{{R}}}</span> by <span
-class="math inline">{e^*_j((x_1,\ldots,x_n)) = x_j}</span>, <span
-class="math inline">{j\in n}</span>. Clearly <span
-class="math inline">e^*_j(e_i) = \delta_{ij}</span>, wWhere <span
-class="math inline">δ_{ij} = 1</span> if <span
-class="math inline">i=j</span> and <span class="math inline">δ_{ij} =
-0</span> if <span class="math inline">i\not= j</span> is the
-<em>Kronecker delta</em>.</p>
-<p>The standard and dual bases allows us to identify <span
-class="math inline">\bm{{{R}}}^n</span> with its <em>dual</em> <span
-class="math inline">(\bm{{{R}}}^n)^*</span>, the linear functionals from
-<span class="math inline">\bm{{{R}}}^n\to\bm{{{R}}}</span>. If <span
-class="math inline">{x = \sum_i x_i e_i\in\bm{{{R}}}^n}</span> define
-<span class="math inline">{x^* = \sum_j x_j
-e_j^*\in(\bm{{{R}}}^n)^*}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">y^*x =
-\langle x,y^*\rangle = \sum_i x_i y_i</span></em>.</p>
+class="math inline">e^*_j\colon\bm{{{R}}}^I\to\bm{{{R}}}</span> by <span
+class="math inline">{e^*_j(x) = x(j)}</span>, <span
+class="math inline">{j\in I}</span>. The standard and dual bases allows
+us to identify <span class="math inline">\bm{{{R}}}^I</span> with its
+<em>dual</em> <span class="math inline">(\bm{{{R}}}^I)^*</span>, the
+linear functionals from <span
+class="math inline">\bm{{{R}}}^I\to\bm{{{R}}}</span>. The <em>dual
+pairing</em> of <span class="math inline">x\in\bm{{{R}}}^I</span> and
+<span class="math inline">{y\in\bm{{{R}}}^I}</span> is defined by
+y^<em>(x) = x, y^</em>= _{iI} x(i)y(i)$.</p>
+<p>If <span class="math inline">{x,y\in\bm{{{R}}}^I}</span> the
+<em>inner product</em>, or <em>dot product</em> is <span
+class="math inline">{(x,y) = x\cdot y = \sum_{i\in I}x_i y_i}</span>.
+This is similar, but different from, the dual pairing is a function
+<span
+class="math inline">\langle\cdot,\cdot\rangle\colon\bm{{{R}}}^I\times(\bm{{{R}}}^I)^*\to\bm{{{R}}}</span>
+while the dot product is a function <span
+class="math inline">(\cdot,\cdot)\colon\bm{{{R}}}^I\times\bm{{{R}}}^I\to\bm{{{R}}}</span>.</p>
+</section>
+</section>
+<section id="linear-operator" class="level2">
+<h2>Linear Operator</h2>
 <p>A function <span
 class="math inline">T\colon\bm{{{R}}}^n\to\bm{{{R}}}^m</span> is a
 <em>linear operator</em> if <span class="math inline">{T(ax + y) = aTx +
@@ -272,7 +295,6 @@ class="math inline">{u_{ik} = \sum_{j\in m} s_{ij}t_{jk}}</span>, <span
 class="math inline">i\in n</span>, <span class="math inline">k\in
 l</span></em>.</p>
 <p>Matrix multiplication is just composition of linear operators.</p>
-</section>
 <section id="tensor" class="level3">
 <h3>Tensor</h3>
 <p>Write <span class="math inline">\bm{{{R}}}^{-n}</span> for <span

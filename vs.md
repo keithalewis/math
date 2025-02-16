@@ -50,10 +50,10 @@ ${\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR, 1\le i\le n\}}$
 be the cartesian product of $n\in\NN$ copies of the real numbers.
 If bold $\bs{n} = \{1,\ldots,n\}$
 then $i\in \bs{n}$ is a shorter notation for $1\le i\le n$.
-If $A$ and $B$ are sets then the _set exponential_ $B^A = \{f\colon A\to B\}$
+If $A$ and $B$ are sets, the _set exponential_ $B^A = \{f\colon A\to B\}$
 is the set of all functions from $A$ to $B$. 
-We identify $\RR^n$ with $\RR^{\bs{n}}$ by $x = (x_1,\ldots,x_n)\in\RR^n$
-with the functon $x\colon\bs{n}\to\RR$ defined by $x(i) = x_i$, $i\in\bs{n}$.
+We identify $\RR^n$ with $\RR^{\bs{n}}$ where $x = (x_1,\ldots,x_n)\in\RR^n$
+corresponds to the functon $x\colon\bs{n}\to\RR$ defined by $x(i) = x_i$, $i\in\bs{n}$.
 For any set $I$, $\RR^I$ is a vector space.
 
 ### Scalar Multiplication and Vector Addition
@@ -63,23 +63,23 @@ ${(ax)(i) = a(x(i))}$ and ${(x + y)(i) = x(i) + y(i)}$, $a\in\RR$, $x,y\in\RR^I$
 
 ### Axioms
 
-For any set $I$, $a,b\in\RR$, and $x, y, z\in\RR^I$
+For any set $I$, $a,b\in\RR$, and $x, y, z\in\RR^I$ show the following:
 
-__Exercise__. _Show $x + (y + z) = (x + y) + z$_.
+__Exercise__. _$x + (y + z) = (x + y) + z$_.
 
-__Exercise__. _Show $x + y = y + x$_.
+__Exercise__. _$x + y = y + x$_.
 
-__Exercise__. _Show $\zero + x = x$ where $\zero(i) = 0$, $i\in I$_.
+__Exercise__. _$\zero + x = x$ where $\zero(i) = 0$, $i\in I$_.
 
-__Exercise__. _Show $x + (-x) = \zero$ where $(-x)(i) = -(x(i))$, for $i\in I$_.
+__Exercise__. _$x + (-x) = \zero$ where $(-x)(i) = -(x(i))$, for $i\in I$_.
 
-__Exercise__. _Show $a(bx) = (ab)x$_.
+__Exercise__. _$a(bx) = (ab)x$_.
 
-__Exercise__. _Show $1x = x$_.
+__Exercise__. _$1x = x$_.
 
-__Exercise__. _Show $a(x + y) = ax + ay$_.
+__Exercise__. _$a(x + y) = ax + ay$_.
 
-__Exercise__. _Show $(a + b)x = ax + bx$_.
+__Exercise__. _$(a + b)x = ax + bx$_.
 
 _Hint_: Use the properties of real numbers.
 
@@ -88,7 +88,9 @@ multiplication ${\RR\times V\to V}$ where ${(a,x)\mapsto ax = xa}$ and
 binary addition ${V\times V\to V}$ where ${(x,y)\mapsto x + y}$. The
 first four axioms show vector addition is an abelian (commutative)
 group. The last two axioms are the _distributive laws_ connecting scalar
-multiplication and vector addition.
+multiplication and vector addition. Every abstract vector space
+can be represented by $\RR^I$ for some set $I$. Two vector spaces
+
 Proofs involving only the abstract axioms are considered more elegant.
 
 If $x\in\RR^I$ then $(0x)(i) = 0(x(i)) = 0$ and $(1x)(i) = 1(x(i)) = x(i)$ for all $i\in I$ so
@@ -122,6 +124,7 @@ $$
 </details>
 
 
+<!--
 If $n = 1$ we can identify $\RR$ with $\RR^1$ by $x\in\RR$ corresponds to $(x)\in\RR^1$.
 We can also identify every $y\in\RR$ with the linear function from $\RR$ to $\RR$
 of multiplication by $y$ denoted by $y^*x = xy$, for $x\in\RR$.
@@ -130,25 +133,38 @@ higher dimensional calculations. There is no need for "row" and "column"
 vectors, the dual of a vector space and composition of linear functions
 generalizes the Einstein summation convention and various "tensor"
 notations invented by less brilliant people. Standard mathematical notation suffices.
+-->
 
 ### Standard and Dual Basis
 
-The _standard basis_ of $\RR^n$ is ${e_i\in\RR^n}$, ${i\in n}$,
+The _standard basis_ of $\RR^n$ is ${e_i\in\RR^n}$, ${i\in\bs{n}}$,
 where ${e_i = (0,\ldots,1,\ldots,0)}$ with all elements $0$ except for a
 $1$ in the $i$-th position.  It is plausible that ${x = (x_1,\ldots,x_n)
 = x_1 e_1 + \cdots + x_n e_n}$ for ${x\in\RR^n}$, but you should always
-be suspicious of arguments involving dots.
+be wary of definitions involving dots.
 
-Define the _dual basis_ by
-$e^*_j\colon\RR^n\to\RR$ by ${e^*_j((x_1,\ldots,x_n)) = x_j}$, ${j\in n}$.
-Clearly $e^*_j(e_i) = \delta_{ij}$, wWhere $δ_{ij} = 1$
-if $i=j$ and $δ_{ij} = 0$ if $i\not= j$ is the _Kronecker delta_.
+More generally, the standard basis of $\RR^I$ is ${e_i\in\RR^I}$, ${i\in
+I}$, where ${e_i(j) = \delta_{ij}}$ for $j\in I$, where $\delta_{ij} is
+the _Kronecker delta_ defined by ${δ_{ij} = 1}$ if ${i=j}$ and
+${δ_{ij} = 0}$ if ${i\not=j}$.
 
-The standard and dual bases allows us to identify $\RR^n$ with its _dual_
-$(\RR^n)^*$, the linear functionals from $\RR^n\to\RR$.
-If ${x = \sum_i x_i e_i\in\RR^n}$ define ${x^* = \sum_j x_j e_j^*\in(\RR^n)^*}$.
+__Exercise__. _If $I$ is finite, show $x = \sum_{i\in I} x(i)e_i$ for $x\in\RR^I$_.
 
-__Exercise__. _Show $y^*x = \langle x,y^*\rangle = \sum_i x_i y_i$_.
+_Hint_: Consider $x(j)$, $j\in I$.
+
+Define the _dual basis_ by $e^*_j\colon\RR^I\to\RR$ by ${e^*_j(x) = x(j)}$, ${j\in I}$.
+The standard and dual bases allows us to identify $\RR^I$ with its _dual_
+$(\RR^I)^*$, the linear functionals from $\RR^I\to\RR$.
+The _dual pairing_ of $x\in\RR^I$ and ${y\in\RR^I}$ is defined by
+y^*(x) = \langle x, y^*\rangle = \sum_{i\in I} x(i)y(i)$.
+
+If ${x,y\in\RR^I}$ the _inner product_, or _dot product_ is
+${(x,y) = x\cdot y = \sum_{i\in I}x_i y_i}$. This is similar, but different
+from, the dual pairing is a
+function $\langle\cdot,\cdot\rangle\colon\RR^I\times(\RR^I)^*\to\RR$ while
+the dot product is a function $(\cdot,\cdot)\colon\RR^I\times\RR^I\to\RR$.
+
+## Linear Operator
 
 A function $T\colon\RR^n\to\RR^m$ is a _linear operator_ if ${T(ax + y) = aTx + y}$, ${a\in\RR}$, ${x,y\in\RR^n}$.
 
