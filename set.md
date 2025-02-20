@@ -27,13 +27,20 @@ to them, they translate it into their own language, and forthwith it is
 something completely different” &mdash; Johann Wolfgang von Goethe, Maxims
 and Reflections
 
-Following Peano, modern set theory uses lunate epsilon $\in$, instead of $\epsilon$,
+Following [Peano](https://en.wikipedia.org/wiki/Giuseppe_Peano),
+modern set theory uses lunate epsilon $\in$, instead of $\epsilon$,
 to indicate set _membership_. A set is defined by its members.
-We write $s\in S$ to indicate the set $s$ is a member, or _element_, of the set $S$. 
+[Frege's](https://en.wikipedia.org/wiki/Gottlob_Frege) theory
+of sets was a set is defined by a rule: a set $S$ is an element the set
+if and only if it satisfies a proposition $P(S)$.
+
+We write $s\in S$ to indicate $s$ is a _member_, or _element_, of the set $S$. 
 The empty set $\emptyset = \{\}$ is the set with no members.
+It is defined by $S\notin\emptyset$ for every set $S$.
 A _singleton_ is a set with one member $S = \{s\}$, for example $\emptyset\in\{\emptyset\}$.
 In general, $S\in\{S\}$ for any set $S$.
-A finite set can be specified by writing out its members.
+
+__Exercise__ _Show the number of sets is not finite_.
 
 Frege's theory of sets posited they can be defined by a rule.
 A _proposition_ is a rule that is either true or false.
@@ -65,8 +72,7 @@ $A$ or $B$.
 The _set difference_ ${A\setminus B}$ of $A$ and $B$ is the 
 set of elements of $A$ that do not belong to $B$.
 
-
-As George Boole pointed out this can be used to reduce logic to algebra,
+As George Boole pointed out, this can be used to reduce logic to algebra,
 thereby providing the foundation of computer science.
 Given a set $\Omega$ containing all sets under consideration
 we can think of a set $A$ as a function
@@ -109,7 +115,7 @@ The _empty set_ $\emptyset = \{\}$ is the set having no elements.
 We can let $\emptyset$ represent 0. 
 If we can represent $n$, what should $n + 1$ be?
 
-One solution, due to von Neumann, is the define $n + 1 = n\cup\{n\}$.
+One solution, due to von Neumann, is to define $n + 1 = n\cup\{n\}$.
 
 __Exercise__. _Show $n + 1 \not= n$_.
 

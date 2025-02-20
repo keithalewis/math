@@ -32,6 +32,7 @@ when two sets with structure are equivalent, but vector spaces
 are a mathematical sweet spot.
 Two vector spaces are equivalent if and only if they have the same dimension.
 
+<!--
 A _linear operator_ is homomorphism from one vector space to another.
 Given two vector spaces, the set of all linear operators is also a vector space.
 If the two vector spaces are equal then
@@ -41,21 +42,95 @@ only if they have the same _Jordan canonical form_.
 
 If a vector space is provided with an _inner product_ we can define the distance
 between two vectors.
+-->
 
 ## $\RR^n$
 
-A list of real numbers $x = (x_1,\ldots,x_n)$ is an impoverished example of a vector.
+An impoverished view of a vector is that it
+is a list of real numbers $x = (x_1,\ldots,x_n)$.
 Given a natural number $n\in\NN$, let
-${\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR, 1\le i\le n\}}$
+${\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR, 1\le i\le n\} = \prod_{1\le i\le n}\RR}$
 be the cartesian product of $n\in\NN$ copies of the real numbers.
 If bold $\bs{n} = \{1,\ldots,n\}$
 then $i\in \bs{n}$ is a shorter notation for $1\le i\le n$.
-If $A$ and $B$ are sets, the _set exponential_ $B^A = \{f\colon A\to B\}$
+Recall if $A$ and $B$ are sets, the _set exponential_ $B^A = \{f\colon A\to B\}$
 is the set of all functions from $A$ to $B$. 
-We identify $\RR^n$ with $\RR^{\bs{n}}$ where $x = (x_1,\ldots,x_n)\in\RR^n$
-corresponds to the functon $x\colon\bs{n}\to\RR$ defined by $x(i) = x_i$, $i\in\bs{n}$.
-For any set $I$, $\RR^I$ is a vector space.
+We identify $\RR^n$ with $\RR^{\bs{n}}$ where the tuple ${x = (x_1,\ldots,x_n)\in\RR^n}$
+corresponds to the function $\bs{x}\colon\bs{n}\to\RR$ defined by $\bs{x}(i) = x_i$, $i\in\bs{n}$.
 
+__Exercise__. _Show $\prod_{i\in\bs{n}}\RR$ is in one-to-one correspondence with $\RR^n$_.
+
+A more powerful view is to consider the _vector space_ of all functions
+from an _index set_ $I$ to the real numbers, $\RR^I$.
+The tuple $x = (x_i)_{i\in I}$ in $\prod_{i\in I}\RR$ defines a function
+${\bs{x}\colon I\to\RR}$ in $\RR^I$ by $\bs{x}(i) = x_i$, $i\in I$.
+Likewise, a the function ${\bs{x}\colon I\to\RR}$ corresponds to the tuple $x = (x_i)_{i\in I}$
+by $x_i = \bs{x}(i)$, $i\in I$.
+In what follows we just write $x$ for $\bs{x}$ and leave it to you to figure
+out from context if a vector is a tuple or a function.
+
+If $x\in\RR^{n\times m}$ then we can define $x_{i,j} = x(i, j)$,
+$i\in\bs{n}$, $j\in\bs{m}$. This defines a two-dimensional matrix $[x_{i,j}]$
+where the $i$-th row is ${(x_{i,j})_{j\in\bs{m}}}$ and the
+$j$-th column is ${(x_{i,j})_{i\in\bs{n}}}$. This can be generlized to higher
+dimensions where there is no notion of a row or column vector.
+
+A _tensor_[^1] is a vector space where the index set is a cartesian product
+${I = I_1\times\cdots\times I_m = \prod_{j\in\bs{m}} I_j}$.
+The $i$-th _slice_ fixes the $j$-th index at $i\in I_j$. 
+
+Recall $C^{B\times A}$ can be identfied with $(C^B)^A$.
+This is called _currying_ (named after Haskell Curry).
+In the functional programming language Haskell (named after Haskell Curry)
+the functions `curry` and `uncurry` provide this correpondence.
+If `f :: a -> (b -> c)` and `g :: (a, b) -> c`
+with `f = curry g` and `g = uncurry f`, then
+`(f x) y = g (x, y)`.
+
+In mathematics, currying is so common and often done implicity there is no
+generally accepted notation for it, so let's define one.
+If $f\colon A\to(B\to C)$ define $f,\colon A\times B\to C$ by
+$f,(a, b) = (f(a))(b) = fa(b)$ for $a\in A$, $b\in B$. If $g\colon A\times B\to C$
+define $,g\colon A\to(B\to C)$ by $,ga(b) = g(a,b)$.
+
+__Exercise__. _Show $,(f,) = f$ and $(,g), = g$_.
+
+
+
+[^1]: This is the definition of a tensor common in machine learning. The mathematical
+definition of a tensor is quite different.
+
+
+Even with this minimal material we can consider interesting operations to perform on $\RR^I$.
+For any function $\iota\colon J\to I$ we have a mapping $\RR^I\to\RR^J$ 
+$x\mapsto x\iota$. We call $\iota$ a _view_ of $I$.
+Element of $x\in\RR^I$ are extracted from a view by function application $x(J(j))$, $j\in J$.
+
+__Exercise__ _If $J$ is the_ singleton $\{i\}$ _for some $i\in I$ then the inclusion $\iota\colon J\to I$
+selects the $i$-the element of $x$_.
+
+_Hint_. Show $x(\iota(i)) = x(i)$.
+
+More generally, if $J\subseteq I$ then the inclusion selects $(x_j)_{j\in J}$.
+
+<!--
+If $J$ is a _multiset_ then elements can be duplicated.
+For example if $J = \{i,i,i\}$ then $x\iota = (x_i,x_i,x_i)$.
+-->
+
+Many computer languages use 0-based array indexing.
+In this case we define $\bs{n} = \{0,\ldots,n-1\}$.
+We often want to select a _slice_ of $k$ elements starting at index $i$
+in increments of $j$,
+${(x_i, x_{i + j},\ldots, x_{i + j(k-1)})}$
+
+__Exercise__ _What is the largest value of $k$ for which $0 \le i + j(k-1) < n$_?
+
+_Hint_: The increment $j$ may be negative.
+
+Some low level languages do not have any guards aginst indexing an array
+out of bounds. The onus is on the programmer to use their tools correctly
+if performance is an issue.
 ### Scalar Multiplication and Vector Addition
 
 Scalar multiplication and vector addition on $\RR^I$ are defined _pointwise_ by
@@ -96,13 +171,13 @@ Proofs involving only the abstract axioms are considered more elegant.
 If $x\in\RR^I$ then $(0x)(i) = 0(x(i)) = 0$ and $(1x)(i) = 1(x(i)) = x(i)$ for all $i\in I$ so
 $0x = \zero$ and $1x = x$. These hold for any vector space, not just $\RR^I$.
 
-__Exercise__. (Zero is unique) _Show if $\zero' + x = x$ for all $x\in V$ then $0' = 0$_.
+__Exercise__. (Zero is unique) _Show if $\zero' + v = v$ for all $v\in V$ then $0' = 0$_.
 
-If $x\in\RR^I$ then 
+_Hint_: $\zero + v = v$ so $\zero' + v = \zero + v$. Add $-v$ to both sides.
 
-__Exercise__. _Show $0x = \zero$ for all $x\in V$_.
+__Exercise__. _Show $0v = \zero$ for all $v\in V$_.
 
-_Hint_: Show $0x + x = x$.
+_Hint_: Show $0v + v = v$ and use the previous exercise.
 
 __Exercise__. _For any vector space $V$ show ${v + v = v}$ implies ${v = \zero}$ for all ${v\in V}$_.
 
@@ -156,7 +231,7 @@ Define the _dual basis_ by $e^*_j\colon\RR^I\to\RR$ by ${e^*_j(x) = x(j)}$, ${j\
 The standard and dual bases allows us to identify $\RR^I$ with its _dual_
 $(\RR^I)^*$, the linear functionals from $\RR^I\to\RR$.
 The _dual pairing_ of $x\in\RR^I$ and ${y\in\RR^I}$ is defined by
-y^*(x) = \langle x, y^*\rangle = \sum_{i\in I} x(i)y(i)$.
+$y^*(x) = \langle x, y^*\rangle = \sum_{i\in I} x(i)y(i)$.
 
 If ${x,y\in\RR^I}$ the _inner product_, or _dot product_ is
 ${(x,y) = x\cdot y = \sum_{i\in I}x_i y_i}$. This is similar, but different
