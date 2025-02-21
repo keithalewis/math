@@ -9,7 +9,7 @@ header-includes:
 	- \usepackage{bm}
 ...
 
-\newcommand\bs[1]{\bm{{#1}}}
+\newcommand\bs[1]{\boldsymbol{{#1}}}
 \newcommand\FF{\bs{F}}
 \newcommand\CC{\bs{C}}
 \newcommand\RR{\bs{{R}}}
@@ -46,34 +46,37 @@ between two vectors.
 
 ## $\RR^n$
 
-An impoverished view of a vector is that it
-is a list of real numbers $x = (x_1,\ldots,x_n)$.
-Given a natural number $n\in\NN$, let
-${\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR, 1\le i\le n\} = \prod_{1\le i\le n}\RR}$
+An impoverished notion of a vector is that it is a list of real numbers
+${x = (x_1,\ldots,x_n)}$.  Given a natural number $n\in\NN$, let
+${{\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR, 1\le i\le n\} = \prod_{1\le i\le n}\RR}}$
 be the cartesian product of $n\in\NN$ copies of the real numbers.
-If bold $\bs{n} = \{1,\ldots,n\}$
-then $i\in \bs{n}$ is a shorter notation for $1\le i\le n$.
-Recall if $A$ and $B$ are sets, the _set exponential_ $B^A = \{f\colon A\to B\}$
-is the set of all functions from $A$ to $B$. 
-We identify $\RR^n$ with $\RR^{\bs{n}}$ where the tuple ${x = (x_1,\ldots,x_n)\in\RR^n}$
-corresponds to the function $\bs{x}\colon\bs{n}\to\RR$ defined by $\bs{x}(i) = x_i$, $i\in\bs{n}$.
+If bold ${\bs{n} = \{1,\ldots,n\}}$ then ${i\in \bs{n}}$ is a shorter
+notation for ${1\le i\le n}$.  Recall if $A$ and $B$ are sets, the _set
+exponential_ ${B^A = \{f\colon A\to B\}}$ is the set of all functions
+from $A$ to $B$.  We identify $\RR^n$ with $\RR^{\bs{n}}$ where the
+tuple ${(x_i)_{i\in\bs{n}}}$ corresponds to the function
+$\bs{x}\colon\bs{n}\to\RR$ defined by $\bs{x}(i) = x_i$, $i\in\bs{n}$.
 
-__Exercise__. _Show $\prod_{i\in\bs{n}}\RR$ is in one-to-one correspondence with $\RR^n$_.
+__Exercise__. _Show $\prod_{i\in\bs{n}}\RR$ is in one-to-one correspondence with $\RR^{\bs{n}}$_.
 
-A more powerful view is to consider the _vector space_ of all functions
+A more powerful notion is to consider a vector as an element of the _vector space_ of all functions
 from an _index set_ $I$ to the real numbers, $\RR^I$.
 The tuple $x = (x_i)_{i\in I}$ in $\prod_{i\in I}\RR$ defines a function
-${\bs{x}\colon I\to\RR}$ in $\RR^I$ by $\bs{x}(i) = x_i$, $i\in I$.
-Likewise, a the function ${\bs{x}\colon I\to\RR}$ corresponds to the tuple $x = (x_i)_{i\in I}$
-by $x_i = \bs{x}(i)$, $i\in I$.
+${\bs{x}\colon I\to\RR}$ in $\RR^I$ where $\bs{x}(i) = x_i$, $i\in I$.
+The function ${\bs{x}\colon I\to\RR}$ corresponds to the tuple $x = (x_i)_{i\in I}$
+where $x_i = \bs{x}(i)$, $i\in I$.
 In what follows we just write $x$ for $\bs{x}$ and leave it to you to figure
 out from context if a vector is a tuple or a function.
+
+__Exercise__. _Show $\prod_{i\in I}\RR$ is in one-to-one correspondence with $\RR^{I}$_.
+
+## Tensor
 
 If $x\in\RR^{n\times m}$ then we can define $x_{i,j} = x(i, j)$,
 $i\in\bs{n}$, $j\in\bs{m}$. This defines a two-dimensional matrix $[x_{i,j}]$
 where the $i$-th row is ${(x_{i,j})_{j\in\bs{m}}}$ and the
 $j$-th column is ${(x_{i,j})_{i\in\bs{n}}}$. This can be generlized to higher
-dimensions where there is no notion of a row or column vector.
+dimensions where there is no notion of row or column vectors.
 
 A _tensor_[^1] is a vector space where the index set is a cartesian product
 ${I = I_1\times\cdots\times I_m = \prod_{j\in\bs{m}} I_j}$.
@@ -87,14 +90,13 @@ If `f :: a -> (b -> c)` and `g :: (a, b) -> c`
 with `f = curry g` and `g = uncurry f`, then
 `(f x) y = g (x, y)`.
 
-In mathematics, currying is so common and often done implicity there is no
-generally accepted notation for it, so let's define one.
+Currying is quite common in mathematics and is often done implicity.
+There is no generally accepted notation for it, so let's define one.
 If $f\colon A\to(B\to C)$ define $f,\colon A\times B\to C$ by
 $f,(a, b) = (f(a))(b) = fa(b)$ for $a\in A$, $b\in B$. If $g\colon A\times B\to C$
 define $,g\colon A\to(B\to C)$ by $,ga(b) = g(a,b)$.
 
 __Exercise__. _Show $,(f,) = f$ and $(,g), = g$_.
-
 
 
 [^1]: This is the definition of a tensor common in machine learning. The mathematical
