@@ -16,6 +16,8 @@ header-includes:
 \newcommand\NN{\bs{N}}
 \newcommand\ZZ{\bs{Z}}
 \newcommand\LL{\mathcal{L}}
+\newcommand\TT{\mathcal{T}}
+\renewcommand\eval{\operatorname{eval}}
 \renewcommand\ker{\operatorname{ker}}
 \newcommand\ran{\operatorname{ran}}
 \renewcommand\span{\operatorname{span}}
@@ -51,9 +53,9 @@ ${x = (x_1,\ldots,x_n)}$.  Given a natural number $n\in\NN$, let
 ${{\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR, 1\le i\le n\} = \prod_{1\le i\le n}\RR}}$
 be the cartesian product of $n\in\NN$ copies of the real numbers.
 If bold ${\bs{n} = \{1,\ldots,n\}}$ then ${i\in \bs{n}}$ is a shorter
-notation for ${1\le i\le n}$.  Recall if $A$ and $B$ are sets, the _set
+notation for ${1\le i\le n}$.  If you don't know when $A$ and $B$ are sets then the _set
 exponential_ ${B^A = \{f\colon A\to B\}}$ is the set of all functions
-from $A$ to $B$.  We identify $\RR^n$ with $\RR^{\bs{n}}$ where the
+from $A$ to $B$, now you do.  We identify $\RR^n$ with $\RR^{\bs{n}}$ where the
 tuple ${(x_i)_{i\in\bs{n}}}$ corresponds to the function
 $\bs{x}\colon\bs{n}\to\RR$ defined by $\bs{x}(i) = x_i$, $i\in\bs{n}$.
 
@@ -61,8 +63,8 @@ __Exercise__. _Show $\prod_{i\in\bs{n}}\RR$ is in one-to-one correspondence with
 
 A more powerful notion is to consider a vector as an element of the _vector space_ of all functions
 from an _index set_ $I$ to the real numbers, $\RR^I$.
-The tuple $x = (x_i)_{i\in I}$ in $\prod_{i\in I}\RR$ defines a function
-${\bs{x}\colon I\to\RR}$ in $\RR^I$ where $\bs{x}(i) = x_i$, $i\in I$.
+The tuple $x = (x_i)_{i\in I}$ in $\prod_{i\in I}\RR$ corresponds to a function
+${\bs{x}\colon I\to\RR}$ in $\RR^I$ defined by $\bs{x}(i) = x_i$, $i\in I$.
 The function ${\bs{x}\colon I\to\RR}$ corresponds to the tuple $x = (x_i)_{i\in I}$
 where $x_i = \bs{x}(i)$, $i\in I$.
 In what follows we just write $x$ for $\bs{x}$ and leave it to you to figure
@@ -72,35 +74,81 @@ __Exercise__. _Show $\prod_{i\in I}\RR$ is in one-to-one correspondence with $\R
 
 ## Tensor
 
-If $x\in\RR^{n\times m}$ then we can define $x_{i,j} = x(i, j)$,
-$i\in\bs{n}$, $j\in\bs{m}$. This defines a two-dimensional matrix $[x_{i,j}]$
-where the $i$-th row is ${(x_{i,j})_{j\in\bs{m}}}$ and the
-$j$-th column is ${(x_{i,j})_{i\in\bs{n}}}$. This can be generlized to higher
-dimensions where there is no notion of row or column vectors.
+A _tensor_[^1] of _rank_ $m$ is a vector space where the index set is a cartesian product
+of $m$ index sets ${I = I_1\times\cdots\times I_m = \prod_{j\in\bs{m}} I_j}$.
+A rank 1 tensor is a vector.
+The _shape_ of a tensor is its index set.
+First we consider rank 2 tensors with natual number index sets.
 
-A _tensor_[^1] is a vector space where the index set is a cartesian product
-${I = I_1\times\cdots\times I_m = \prod_{j\in\bs{m}} I_j}$.
-The $i$-th _slice_ fixes the $j$-th index at $i\in I_j$. 
+[^1]: This is the definition of a tensor common in machine learning. The mathematical
+definition of a tensor is quite different.
 
-Recall $C^{B\times A}$ can be identfied with $(C^B)^A$.
-This is called _currying_ (named after Haskell Curry).
-In the functional programming language Haskell (named after Haskell Curry)
-the functions `curry` and `uncurry` provide this correpondence.
-If `f :: a -> (b -> c)` and `g :: (a, b) -> c`
-with `f = curry g` and `g = uncurry f`, then
-`(f x) y = g (x, y)`.
+### Rank 2
+
+A rank 2 tensor is a _matrix_.
+If $x\in\RR^{n\times m}$, $n,m\in\NN$, then we can define
+$x_{i,j} = x(i, j)$, $i\in\bs{n}$, $j\in\bs{m}$. 
+Thinking of $x$ as the two-dimensional matrix $[x_{i,j}]$,
+the $i$-th row of $x$ is ${(x_{i,j})_{j\in\bs{m}}}$
+and the $j$-th column is ${(x_{i,j})_{i\in\bs{n}}}$.
+In the Python [numpy](https://numpy.org/doc/stable/reference/arrays.ndarray.html)
+package the $i$-th row is expressed as $x[i,:]$ and the $j$-th column as $x[:,j]$.
+
+Note selecting a row is a function $\RR^{n\times m}\times\bs{n}\to\RR^{m}$
+where $(x, i)$ is associated with the function $j\mapsto x(i,j)$ in $\RR^m$.
+
+This is an example of _currying_.
 
 Currying is quite common in mathematics and is often done implicity.
-There is no generally accepted notation for it, so let's define one.
+It is also the key to writing operations on tensors as composition of
+functions. There is no need for
+[pictures with squiggly lines](https://tensorcookbook.com/), just
+give names to functions and apply them.
+Although currying is common, there is no generally accepted notation for it, so let's define one
+for our purposes.
 If $f\colon A\to(B\to C)$ define $f,\colon A\times B\to C$ by
 $f,(a, b) = (f(a))(b) = fa(b)$ for $a\in A$, $b\in B$. If $g\colon A\times B\to C$
 define $,g\colon A\to(B\to C)$ by $,ga(b) = g(a,b)$.
 
 __Exercise__. _Show $,(f,) = f$ and $(,g), = g$_.
 
+Selecting a row is currying.
+If $g\colon\RR^{n\times m}\times\bs{n}\to\RR^m$ then
+$,g\colon\RR^{n\times m}\to(\bs{n}\to\RR^m)$.
+We write this using square brackets without mentioning $g$ or its curried value $g,$
+as $x[i,.]\colon\bs{m}\to\RR$ defined by $x[i,.](j) = x(i,j)$.
+Similarly, selecting a column $x[.,j]\colon\bs{m}\to\RR$ is defined by $x[.,j](i) = x(i,j)$.
 
-[^1]: This is the definition of a tensor common in machine learning. The mathematical
-definition of a tensor is quite different.
+Define the _transpose_ operator ${}^T\colon A\times B\to B\times A$ by
+${}^T(a,b) = (b,a)$. We
+decorate this as ${{}^{T^{A,B}}}$ when we want to make the sets involved explicit.
+
+__Exercise__. _For $x\in\RR^{n\times m}$ show
+${x^{T^{\bs{m},\bs{n}}}(j,i) = x(i,j)}$ for $i\in\bs{n}$, $j\in\bs{m}$_.
+
+_Hint_. $x^{T^{\bs{m},\bs{n}}}$ is the composition of ${}^{T^{\bs{m},\bs{n}}}$ with $x$.
+
+When the indices are understood we write $x^T(j,i) = x(i,j)$.
+
+__Exercise__. _Show $x^T[.,k] = x[k,.]$ for $x\in\RR^{n\times m}$, $k\in\bs{n}$_.
+
+### Arbitrary Rank
+
+Let's extend the notation to handle tensors of any rank, not just rank 2.
+Let $\TT_m$ be the collection of rank $m$ tensors.
+Define $[]\colon\TT_m\times\bf{m}\to\TT_{m-1}$
+
+
+More rigourously, define $[]\colon \RR^{\prod_{i\in\bs{m}}}\times\bs{m}\to\
+
+If $\iota\colon J\to I$ and $x\in\RR^I$ we have $x\iota\in\RR^J$
+for any index sets $I$, $J$. The name for composition on the right by $\iota$
+is $\circ\iota\colon\RR^I\to\RR^J$ so $\circ\iota(x) = x\iota$, $x\in\RR^I$.
+
+Obviously if $h\in B^A$ and $a\in A$ then evaluating $h$ at $a$ results in $h(a)\in B$.
+We reify this by defining the $\eval$ function
+${\eval\colon B^A\times A\to B}$ by $\eval(h,a) = h(a)$. We
+decorate this as ${\eval^{A,B}}$ when we want to make the sets involved explicit.
 
 
 Even with this minimal material we can consider interesting operations to perform on $\RR^I$.
