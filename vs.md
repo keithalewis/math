@@ -18,6 +18,8 @@ header-includes:
 \newcommand\LL{\mathcal{L}}
 \newcommand\TT{\mathcal{T}}
 \renewcommand\eval{\operatorname{eval}}
+\renewcommand\first{\operatorname{first}}
+\renewcommand\second{\operatorname{second}}
 \renewcommand\ker{\operatorname{ker}}
 \newcommand\ran{\operatorname{ran}}
 \renewcommand\span{\operatorname{span}}
@@ -25,11 +27,132 @@ header-includes:
 \renewcommand{\implies}{\Rightarrow}
 \newcommand\zero{\bs{0}}
 
+Blah, blah, blah...
+
+## Set
+
+Everything in math is a set.
+The set of function from a set $A$ to a set $B$ is the
+_set exponential_ $B^A = \{f\colon A\to B\}$. 
+The _graph_ of a function $f\colon A\to B$ is the set
+$\{(a,f(a))\mid a\in A\}$.
+Note the graph of a function is a subset of the cartesion product
+$A\times B = \{(a,b)\mid a\in A, b\in B\}$.
+
+### Pair
+
+Defining the _ordered pair_ $(a,b)$ using only set theory is a little tricky.
+Norbert Wiener gave a first crack at it in 1914 by defining $(a,b)$
+to be the set $\{\{\{a,\emptyset\}, \{\{b\}\}\}$.
+Around the same time Felix Hausdorff proposed the more recognizable
+definition $\{\{a,1\},\{b,2\}$ "where $1$ and $2$ are two distinct
+objects different from $a$ and $b$." In 1921, Kazimierz Kuratowski
+eliminated Housdorff's circumloqution and proposed simplifying
+Wiener's definition to $\{a,\{a,b\}\}$.
+
+__Exercise__. _Show $\cap\{a,\{a,b\}\} = \{a\}$ and $\cup\{a,\{a,b\}\} = \{a,b\}$_.
+
+_Hint_ For any set $A$, $\cap A = \cap\{a\mid a\in A\}$ and $\cup A = \cup\{a\mid a\in A\}$.
+
+The intersection identifies the first item of the pair. If the union is
+a singleton then the second item is equal to the first item,
+otherwise we remove the first item to identify the second item.
+
+Ordered pairs have _projections_ $\first\colon A\times B\to A$ where
+$\first(a,b) = a$ and 
+$\second\colon A\times B\to B$ where
+$\second(a,b) = b$.
+
+__Exercise__. _If $f\colon C\to A$ and $g\colon C\to B$ show there
+exists $h\colon C\to A\times B$ with $\first(h(c)) = f(c)$
+and $\second(h(c)) = g(c)$, $c\in C$_.
+
+<aside>As of 2024, the `Java` language standard does not provide a pair object.
+One must `import javafx.util.Pair;` to make that available.</aside>
+
+A function $f\colon A\to B$ is _one-to-one_, or _injective_
+if $f(a) = f(a')$ implies $a = a'$, $a,a'\in A$.
+A function is _onto_, or _surjective_, if for every
+$b\in B$ there exists an $a\in A$ with $f(a) = b$.
+A function is a _one-to-one correspondence_, or _bijective_,
+if it is one-to-one and onto.
+
+Two sets $A$ and $B$ are _equivalent_ (as sets), $A\cong B$,
+if there exists a one-to-one correspondence between them.
+
+__Exercise__. _Show $\cong$ is an_ equivalence _relation_.
+
+_Hint_. Establish $A\cong A$, $A\cong B$ implies $B\cong A$,
+and $A\cong B$, $B\cong C$ imply $A\cong C$ for sets $A,B,C$.
+
+<details><summary>Solution</summary>
+Show the identity function from $A$ to $A$ is bijective.
+Show if $f\colon A\to B$ is bijective, so is $f^{-1}\colon B\to A$.
+Show if $f\colon A\to B$ and $g\colon B\to C$ are bijective then so is $gf\colon A\to C$.
+</details>
+
+An equivalence relation on a set $S$ is a subset $R\subseteq S\times S$ with
+$aRa$ (reflexive), $aRb$ implies $bRa$ (symmetric),
+and $aRb$, $bRc$ imply $aRc$ (transitive), $a,b,c\in S$,
+where we write $aRb$ for $(a,b)\in R$. The _equivalence class_ of $a\in S$
+is $[a] = \{b\in S\mid aRb\}$.
+
+__Exercise__. _Show either $[a] = [b]$ or $[a]\cap [b] = \emptyset$ for $a,b\in S$_.
+
+A _partition_ of a set is a collection of disjoint subsets whose union is the entire set.
+This exercise shows $\{[a]\mid a\in A\}$ is a partition of $S$.
+
+__Exercise__. _If $\Sigma$ is a partions of $S$ then $\cup_{s\in\Sigma} s\times s$ is
+an equivalence relation on $S$_.
+
+Equivalence allows us to consider when two things are "the same" in a
+particualar sense even if they are not equal.
+
+
+Currying is quite common in mathematics and is often done implicity.
+Although currying is common, there is no generally accepted notation for it, so let's define one
+for our purposes.
+If $f\colon A\to(B\to C)$ define $f,\colon A\times B\to C$ by
+$f,(a, b) = (f(a))(b) = fa(b)$ for $a\in A$, $b\in B$. If $g\colon A\times B\to C$
+define $,g\colon A\to(B\to C)$ by $,ga(b) = g(a,b)$.
+
+__Exercise__. _Show $,(f,) = f$ and $(,g), = g$_.
+
+Currying shows $(B\times C)^A$ is equavalent to $(B^C)^A$.
+
+If $h\in B^A$ and $a\in A$ then evaluating $h$ at $a$ results in $h(a)\in B$.
+We reify this by defining the $\eval$ function
+${\eval\colon B^A\times A\to B}$ by $\eval(h,a) = h(a)$. We
+decorate this as ${\eval^{A,B}}$ when we want to make the sets involved explicit.
+
+__Exercise__. _If $f\in (C^B)^A$ show $f, = \eval(\eval(f, a), b)$_.
+
+__Exercise__. _If $g\in (B\times C)^A$ show $,g = \eval(\eval(g, a), b)$_.
+
+
+### Structure
+
 Mathematical objects are sets with structure.
+For example, a _semigroup_ is a set $S$ with a binary operation
+$m\colon S\times S\to S$ that is _associative_:
+$m(a,m(b,c)) = m(m(a,b),c)$, $a,b,c\in S$.
+If we write $ab$ for $m(a,b)$ this becomes $a(bc) = (ab)c$.
+This allows us to write $abc$ unambigously for either term.
+
+You might think this is too simple to be very useful, but you would be wrong.
+Semigroups are the basis of the Map-Reduce algorithm.
+A computation $a_1a_2\cdots a_n$ can be partitioned into
+$(a_1\cdots a_{n_1})(a_{n_1+1}\cdots a_{n_2})\cdots(a_{n_k+1}\cdots a_n)$
+where $1 < n_1 < \cdots < n_k < n$. The partitioned calculations
+can be performed in parallel and
+the $k + 1$ calculations can be combined to get the final result.
+
 Functions between sets with structure that preserve the structure are
 _homomorphisms_. A homomorphism that is bijective (one-to-one and
 onto) is an _isomorphism_. Two sets with structure are _equivalent_ if
-there is an isomorphism between them. In general, it is difficult to determine
+there is an isomorphism between them.
+
+In general, it is difficult to determine
 when two sets with structure are equivalent, but vector spaces
 are a mathematical sweet spot.
 Two vector spaces are equivalent if and only if they have the same dimension.
@@ -48,14 +171,17 @@ between two vectors.
 
 ## $\RR^n$
 
+There are two ways to think about $\RR^n$, one is as a set of tuples,
+the other is as a set of functions. These two perspectives are a source of confusion and insight.
+
 An impoverished notion of a vector is that it is a list of real numbers
 ${x = (x_1,\ldots,x_n)}$.  Given a natural number $n\in\NN$, let
 ${{\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR, 1\le i\le n\} = \prod_{1\le i\le n}\RR}}$
 be the cartesian product of $n\in\NN$ copies of the real numbers.
 If bold ${\bs{n} = \{1,\ldots,n\}}$ then ${i\in \bs{n}}$ is a shorter
-notation for ${1\le i\le n}$.  If you don't know when $A$ and $B$ are sets then the _set
+notation for ${1\le i\le n}$.  Recall if $A$ and $B$ are sets then the _set
 exponential_ ${B^A = \{f\colon A\to B\}}$ is the set of all functions
-from $A$ to $B$, now you do.  We identify $\RR^n$ with $\RR^{\bs{n}}$ where the
+from $A$ to $B$.  We can identify $\RR^n$ with $\RR^{\bs{n}}$ where the
 tuple ${(x_i)_{i\in\bs{n}}}$ corresponds to the function
 $\bs{x}\colon\bs{n}\to\RR$ defined by $\bs{x}(i) = x_i$, $i\in\bs{n}$.
 
@@ -65,12 +191,14 @@ A more powerful notion is to consider a vector as an element of the _vector spac
 from an _index set_ $I$ to the real numbers, $\RR^I$.
 The tuple $x = (x_i)_{i\in I}$ in $\prod_{i\in I}\RR$ corresponds to a function
 ${\bs{x}\colon I\to\RR}$ in $\RR^I$ defined by $\bs{x}(i) = x_i$, $i\in I$.
-The function ${\bs{x}\colon I\to\RR}$ corresponds to the tuple $x = (x_i)_{i\in I}$
-where $x_i = \bs{x}(i)$, $i\in I$.
+The tuple $x = (x_i)_{i\in I}$ where $x_i = \bs{x}(i)$, $i\in I$.
+corresponds to the function ${\bs{x}\colon I\to\RR}$.
 In what follows we just write $x$ for $\bs{x}$ and leave it to you to figure
 out from context if a vector is a tuple or a function.
 
 __Exercise__. _Show $\prod_{i\in I}\RR$ is in one-to-one correspondence with $\RR^{I}$_.
+
+__Exercise__. _If $I$ and $J$ are in one-to-one correspondence then so are $\RR^I$ and $\RR^J$_.
 
 ## Tensor
 
@@ -79,6 +207,8 @@ of $m$ index sets ${I = I_1\times\cdots\times I_m = \prod_{j\in\bs{m}} I_j}$.
 A rank 1 tensor is a vector.
 The _shape_ of a tensor is its index set.
 First we consider rank 2 tensors with natual number index sets.
+More precisely, if $n\in\NN$ is a natural number we use
+the index set $\bs{n} = \{1,\ldots,n\}$.
 
 [^1]: This is the definition of a tensor common in machine learning. The mathematical
 definition of a tensor is quite different.
@@ -94,23 +224,13 @@ and the $j$-th column is ${(x_{i,j})_{i\in\bs{n}}}$.
 In the Python [numpy](https://numpy.org/doc/stable/reference/arrays.ndarray.html)
 package the $i$-th row is expressed as $x[i,:]$ and the $j$-th column as $x[:,j]$.
 
+__Exercise__. _Show $\RR^{\bs{n}\timex\bs{m}}$ is
+in one-to-one correspondence with $\RR^{nm}$, $n,m\in\NN$_.
+
 Note selecting a row is a function $\RR^{n\times m}\times\bs{n}\to\RR^{m}$
 where $(x, i)$ is associated with the function $j\mapsto x(i,j)$ in $\RR^m$.
 
 This is an example of _currying_.
-
-Currying is quite common in mathematics and is often done implicity.
-It is also the key to writing operations on tensors as composition of
-functions. There is no need for
-[pictures with squiggly lines](https://tensorcookbook.com/), just
-give names to functions and apply them.
-Although currying is common, there is no generally accepted notation for it, so let's define one
-for our purposes.
-If $f\colon A\to(B\to C)$ define $f,\colon A\times B\to C$ by
-$f,(a, b) = (f(a))(b) = fa(b)$ for $a\in A$, $b\in B$. If $g\colon A\times B\to C$
-define $,g\colon A\to(B\to C)$ by $,ga(b) = g(a,b)$.
-
-__Exercise__. _Show $,(f,) = f$ and $(,g), = g$_.
 
 Selecting a row is currying.
 If $g\colon\RR^{n\times m}\times\bs{n}\to\RR^m$ then
@@ -144,11 +264,6 @@ More rigourously, define $[]\colon \RR^{\prod_{i\in\bs{m}}}\times\bs{m}\to\
 If $\iota\colon J\to I$ and $x\in\RR^I$ we have $x\iota\in\RR^J$
 for any index sets $I$, $J$. The name for composition on the right by $\iota$
 is $\circ\iota\colon\RR^I\to\RR^J$ so $\circ\iota(x) = x\iota$, $x\in\RR^I$.
-
-Obviously if $h\in B^A$ and $a\in A$ then evaluating $h$ at $a$ results in $h(a)\in B$.
-We reify this by defining the $\eval$ function
-${\eval\colon B^A\times A\to B}$ by $\eval(h,a) = h(a)$. We
-decorate this as ${\eval^{A,B}}$ when we want to make the sets involved explicit.
 
 
 Even with this minimal material we can consider interesting operations to perform on $\RR^I$.
