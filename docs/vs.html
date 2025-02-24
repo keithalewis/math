@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-02-16" />
+  <meta name="dcterms.date" content="2025-02-24" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">February 16, 2025</p>
+<p class="date">February 24, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -56,12 +56,18 @@ A mathematical sweet spot
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#bmrn" id="toc-bmrn"><span
-class="math inline">\bm{{{R}}}^n</span></a>
+<li><a href="#set" id="toc-set">Set</a>
 <ul>
-<li><a href="#scalar-multiplication-and-vector-addition"
-id="toc-scalar-multiplication-and-vector-addition">Scalar Multiplication
-and Vector Addition</a></li>
+<li><a href="#pair" id="toc-pair">Pair</a></li>
+<li><a href="#structure" id="toc-structure">Structure</a></li>
+</ul></li>
+<li><a href="#boldsymbolrn" id="toc-boldsymbolrn"><span
+class="math inline">\boldsymbol{{{R}}}^n</span></a></li>
+<li><a href="#tensor" id="toc-tensor">Tensor</a>
+<ul>
+<li><a href="#rank-2" id="toc-rank-2">Rank 2</a></li>
+<li><a href="#arbitrary-rank" id="toc-arbitrary-rank">Arbitrary
+Rank</a></li>
 <li><a href="#axioms" id="toc-axioms">Axioms</a></li>
 <li><a href="#standard-and-dual-basis"
 id="toc-standard-and-dual-basis">Standard and Dual Basis</a></li>
@@ -69,77 +75,423 @@ id="toc-standard-and-dual-basis">Standard and Dual Basis</a></li>
 <li><a href="#linear-operator" id="toc-linear-operator">Linear
 Operator</a>
 <ul>
-<li><a href="#tensor" id="toc-tensor">Tensor</a></li>
+<li><a href="#tensor-1" id="toc-tensor-1">Tensor</a></li>
 <li><a href="#inner-product" id="toc-inner-product">Inner
 Product</a></li>
 </ul></li>
 </ul>
 </nav>
-<p>Mathematical objects are sets with structure. Functions between sets
-with structure that preserve the structure are <em>homomorphisms</em>. A
-homomorphism that is bijective (one-to-one and onto) is an
-<em>isomorphism</em>. Two sets with structure are <em>equivalent</em> if
-there is an isomorphism between them. In general, it is difficult to
-determine when two sets with structure are equivalent, but vector spaces
-are a mathematical sweet spot. Two vector spaces are equivalent if and
-only if they have the same dimension.</p>
-<p>A <em>linear operator</em> is homomorphism from one vector space to
-another. Given two vector spaces, the set of all linear operators is
-also a vector space. If the two vector spaces are equal then composition
-defines a product making the set of <em>endomorphisms</em> into an
-<em>algebra</em>. Two endomorphisms are <em>similar</em> in the algebra
-if and only if they have the same <em>Jordan canonical form</em>.</p>
-<p>If a vector space is provided with an <em>inner product</em> we can
-define the distance between two vectors.</p>
-<section id="bmrn" class="level2">
-<h2><span class="math inline">\bm{{{R}}}^n</span></h2>
-<p>A list of real numbers <span class="math inline">x =
-(x_1,\ldots,x_n)</span> is an impoverished example of a vector. Given a
-natural number <span class="math inline">n\in\bm{{N}}</span>, let <span
-class="math inline">{\bm{{{R}}}^n = \{(x_1,\ldots,x_n)\mid
-x_i\in\bm{{{R}}}, 1\le i\le n\}}</span> be the cartesian product of
-<span class="math inline">n\in\bm{{N}}</span> copies of the real
-numbers. If bold <span class="math inline">\bm{{n}} =
-\{1,\ldots,n\}</span> then <span class="math inline">i\in
-\bm{{n}}</span> is a shorter notation for <span class="math inline">1\le
-i\le n</span>. If <span class="math inline">A</span> and <span
-class="math inline">B</span> are sets, the <em>set exponential</em>
-<span class="math inline">B^A = \{f\colon A\to B\}</span> is the set of
-all functions from <span class="math inline">A</span> to <span
-class="math inline">B</span>. We identify <span
-class="math inline">\bm{{{R}}}^n</span> with <span
-class="math inline">\bm{{{R}}}^{\bm{{n}}}</span> where <span
-class="math inline">x = (x_1,\ldots,x_n)\in\bm{{{R}}}^n</span>
-corresponds to the functon <span
-class="math inline">x\colon\bm{{n}}\to\bm{{{R}}}</span> defined by <span
-class="math inline">x(i) = x_i</span>, <span
-class="math inline">i\in\bm{{n}}</span>. For any set <span
-class="math inline">I</span>, <span
-class="math inline">\bm{{{R}}}^I</span> is a vector space.</p>
-<section id="scalar-multiplication-and-vector-addition" class="level3">
-<h3>Scalar Multiplication and Vector Addition</h3>
+<p>Blah, blah, blah…</p>
+<section id="set" class="level2">
+<h2>Set</h2>
+<p>Everything in math is a set. The set of function from a set <span
+class="math inline">A</span> to a set <span class="math inline">B</span>
+is the <em>set exponential</em> <span class="math inline">B^A =
+\{f\colon A\to B\}</span>. The <em>graph</em> of a function <span
+class="math inline">f\colon A\to B</span> is the set <span
+class="math inline">\{(a,f(a))\mid a\in A\}</span>. Note the graph of a
+function is a subset of the cartesion product <span
+class="math inline">A\times B = \{(a,b)\mid a\in A, b\in B\}</span>.</p>
+<section id="pair" class="level3">
+<h3>Pair</h3>
+<p>Defining the <em>ordered pair</em> <span
+class="math inline">(a,b)</span> using only set theory is a little
+tricky. Norbert Wiener gave a first crack at it in 1914 by defining
+<span class="math inline">(a,b)</span> to be the set <span
+class="math inline">\{\{\{a,\emptyset\}, \{\{b\}\}\}</span>. Around the
+same time Felix Hausdorff proposed the more recognizable definition
+<span class="math inline">\{\{a,1\},\{b,2\}</span> “where <span
+class="math inline">1</span> and <span class="math inline">2</span> are
+two distinct objects different from <span class="math inline">a</span>
+and <span class="math inline">b</span>.” In 1921, Kazimierz Kuratowski
+eliminated Housdorff’s circumloqution and proposed simplifying Wiener’s
+definition to <span class="math inline">\{a,\{a,b\}\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\cap\{a,\{a,b\}\} = \{a\}</span> and <span
+class="math inline">\cup\{a,\{a,b\}\} = \{a,b\}</span></em>.</p>
+<p><em>Hint</em> For any set <span class="math inline">A</span>, <span
+class="math inline">\cap A = \cap\{a\mid a\in A\}</span> and <span
+class="math inline">\cup A = \cup\{a\mid a\in A\}</span>.</p>
+<p>The intersection identifies the first item of the pair. If the union
+is a singleton then the second item is equal to the first item,
+otherwise we remove the first item to identify the second item.</p>
+<p>Ordered pairs have <em>projections</em> <span
+class="math inline">\operatorname{first}\colon A\times B\to A</span>
+where <span class="math inline">\operatorname{first}(a,b) = a</span> and
+<span class="math inline">\operatorname{second}\colon A\times B\to
+B</span> where <span class="math inline">\operatorname{second}(a,b) =
+b</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
+C\to A</span> and <span class="math inline">g\colon C\to B</span> show
+there exists <span class="math inline">h\colon C\to A\times B</span>
+with <span class="math inline">\operatorname{first}(h(c)) = f(c)</span>
+and <span class="math inline">\operatorname{second}(h(c)) = g(c)</span>,
+<span class="math inline">c\in C</span></em>.</p>
+<aside>
+As of 2024, the <code>Java</code> language standard does not provide a
+pair object. One must <code>import javafx.util.Pair;</code> to make that
+available.
+</aside>
+<p>A function <span class="math inline">f\colon A\to B</span> is
+<em>one-to-one</em>, or <em>injective</em> if <span
+class="math inline">f(a) = f(a&#39;)</span> implies <span
+class="math inline">a = a&#39;</span>, <span
+class="math inline">a,a&#39;\in A</span>. A function is <em>onto</em>,
+or <em>surjective</em>, if for every <span class="math inline">b\in
+B</span> there exists an <span class="math inline">a\in A</span> with
+<span class="math inline">f(a) = b</span>. A function is a
+<em>one-to-one correspondence</em>, or <em>bijective</em>, if it is
+one-to-one and onto.</p>
+<p>Two sets <span class="math inline">A</span> and <span
+class="math inline">B</span> are <em>equivalent</em> (as sets), <span
+class="math inline">A\cong B</span>, if there exists a one-to-one
+correspondence between them.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\cong</span> is an</em> equivalence
+<em>relation</em>.</p>
+<p><em>Hint</em>. Establish <span class="math inline">A\cong A</span>,
+<span class="math inline">A\cong B</span> implies <span
+class="math inline">B\cong A</span>, and <span
+class="math inline">A\cong B</span>, <span class="math inline">B\cong
+C</span> imply <span class="math inline">A\cong C</span> for sets <span
+class="math inline">A,B,C</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+Show the identity function from <span class="math inline">A</span> to
+<span class="math inline">A</span> is bijective. Show if <span
+class="math inline">f\colon A\to B</span> is bijective, so is <span
+class="math inline">f^{-1}\colon B\to A</span>. Show if <span
+class="math inline">f\colon A\to B</span> and <span
+class="math inline">g\colon B\to C</span> are bijective then so is <span
+class="math inline">gf\colon A\to C</span>.
+</details>
+<p>An equivalence relation on a set <span class="math inline">S</span>
+is a subset <span class="math inline">R\subseteq S\times S</span> with
+<span class="math inline">aRa</span> (reflexive), <span
+class="math inline">aRb</span> implies <span
+class="math inline">bRa</span> (symmetric), and <span
+class="math inline">aRb</span>, <span class="math inline">bRc</span>
+imply <span class="math inline">aRc</span> (transitive), <span
+class="math inline">a,b,c\in S</span>, where we write <span
+class="math inline">aRb</span> for <span class="math inline">(a,b)\in
+R</span>. The <em>equivalence class</em> of <span
+class="math inline">a\in S</span> is <span class="math inline">[a] =
+\{b\in S\mid aRb\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show either <span
+class="math inline">[a] = [b]</span> or <span
+class="math inline">[a]\cap [b] = \emptyset</span> for <span
+class="math inline">a,b\in S</span></em>.</p>
+<p>A <em>partition</em> of a set is a collection of disjoint subsets
+whose union is the entire set. This exercise shows <span
+class="math inline">\{[a]\mid a\in A\}</span> is a partition of <span
+class="math inline">S</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\Sigma</span> is a partions of <span
+class="math inline">S</span> then <span
+class="math inline">\cup_{s\in\Sigma} s\times s</span> is an equivalence
+relation on <span class="math inline">S</span></em>.</p>
+<p>Equivalence allows us to consider when two things are “the same” in a
+particualar sense even if they are not equal.</p>
+<p>Currying is quite common in mathematics and is often done implicity.
+Although currying is common, there is no generally accepted notation for
+it, so let’s define one for our purposes. If <span
+class="math inline">f\colon A\to(B\to C)</span> define <span
+class="math inline">f,\colon A\times B\to C</span> by <span
+class="math inline">f,(a, b) = (f(a))(b) = fa(b)</span> for <span
+class="math inline">a\in A</span>, <span class="math inline">b\in
+B</span>. If <span class="math inline">g\colon A\times B\to C</span>
+define <span class="math inline">,g\colon A\to(B\to C)</span> by <span
+class="math inline">,ga(b) = g(a,b)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">,(f,) =
+f</span> and <span class="math inline">(,g), = g</span></em>.</p>
+<p>Currying shows <span class="math inline">(B\times C)^A</span> is
+equavalent to <span class="math inline">(B^C)^A</span>.</p>
+<p>If <span class="math inline">h\in B^A</span> and <span
+class="math inline">a\in A</span> then evaluating <span
+class="math inline">h</span> at <span class="math inline">a</span>
+results in <span class="math inline">h(a)\in B</span>. We reify this by
+defining the <span class="math inline">\operatorname{eval}</span>
+function <span class="math inline">{\operatorname{eval}\colon B^A\times
+A\to B}</span> by <span class="math inline">\operatorname{eval}(h,a) =
+h(a)</span>. We decorate this as <span
+class="math inline">{\operatorname{eval}^{A,B}}</span> when we want to
+make the sets involved explicit.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\in
+(C^B)^A</span> show <span class="math inline">f, =
+\operatorname{eval}(\operatorname{eval}(f, a), b)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">g\in
+(B\times C)^A</span> show <span class="math inline">,g =
+\operatorname{eval}(\operatorname{eval}(g, a), b)</span></em>.</p>
+</section>
+<section id="structure" class="level3">
+<h3>Structure</h3>
+<p>Mathematical objects are sets with structure. For example, a
+<em>semigroup</em> is a set <span class="math inline">S</span> with a
+binary operation <span class="math inline">m\colon S\times S\to S</span>
+that is <em>associative</em>: <span class="math inline">m(a,m(b,c)) =
+m(m(a,b),c)</span>, <span class="math inline">a,b,c\in S</span>. If we
+write <span class="math inline">ab</span> for <span
+class="math inline">m(a,b)</span> this becomes <span
+class="math inline">a(bc) = (ab)c</span>. This allows us to write <span
+class="math inline">abc</span> unambigously for either term.</p>
+<p>You might think this is too simple to be very useful, but you would
+be wrong. Semigroups are the basis of the Map-Reduce algorithm. A
+computation <span class="math inline">a_1a_2\cdots a_n</span> can be
+partitioned into <span class="math inline">(a_1\cdots
+a_{n_1})(a_{n_1+1}\cdots a_{n_2})\cdots(a_{n_k+1}\cdots a_n)</span>
+where <span class="math inline">1 &lt; n_1 &lt; \cdots &lt; n_k &lt;
+n</span>. The partitioned calculations can be performed in parallel and
+the <span class="math inline">k + 1</span> calculations can be combined
+to get the final result.</p>
+<p>Functions between sets with structure that preserve the structure are
+<em>homomorphisms</em>. A homomorphism that is bijective (one-to-one and
+onto) is an <em>isomorphism</em>. Two sets with structure are
+<em>equivalent</em> if there is an isomorphism between them.</p>
+<p>In general, it is difficult to determine when two sets with structure
+are equivalent, but vector spaces are a mathematical sweet spot. Two
+vector spaces are equivalent if and only if they have the same
+dimension.</p>
+<!--
+A _linear operator_ is homomorphism from one vector space to another.
+Given two vector spaces, the set of all linear operators is also a vector space.
+If the two vector spaces are equal then
+composition defines a product making the set of _endomorphisms_ into an _algebra_.
+Two endomorphisms are _similar_ in the algebra if and
+only if they have the same _Jordan canonical form_.
+
+If a vector space is provided with an _inner product_ we can define the distance
+between two vectors.
+-->
+</section>
+</section>
+<section id="boldsymbolrn" class="level2">
+<h2><span class="math inline">\boldsymbol{{{R}}}^n</span></h2>
+<p>There are two ways to think about <span
+class="math inline">\boldsymbol{{{R}}}^n</span>, one is as a set of
+tuples, the other is as a set of functions. These two perspectives are a
+source of confusion and insight.</p>
+<p>An impoverished notion of a vector is that it is a list of real
+numbers <span class="math inline">{x = (x_1,\ldots,x_n)}</span>. Given a
+natural number <span class="math inline">n\in\boldsymbol{{N}}</span>,
+let <span class="math inline">{{\boldsymbol{{{R}}}^n =
+\{(x_1,\ldots,x_n)\mid x_i\in\boldsymbol{{{R}}}, 1\le i\le n\} =
+\prod_{1\le i\le n}\boldsymbol{{{R}}}}}</span> be the cartesian product
+of <span class="math inline">n\in\boldsymbol{{N}}</span> copies of the
+real numbers. If bold <span class="math inline">{\boldsymbol{{n}} =
+\{1,\ldots,n\}}</span> then <span class="math inline">{i\in
+\boldsymbol{{n}}}</span> is a shorter notation for <span
+class="math inline">{1\le i\le n}</span>. Recall if <span
+class="math inline">A</span> and <span class="math inline">B</span> are
+sets then the <em>set exponential</em> <span class="math inline">{B^A =
+\{f\colon A\to B\}}</span> is the set of all functions from <span
+class="math inline">A</span> to <span class="math inline">B</span>. We
+can identify <span class="math inline">\boldsymbol{{{R}}}^n</span> with
+<span class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}}</span>
+where the tuple <span
+class="math inline">{(x_i)_{i\in\boldsymbol{{n}}}}</span> corresponds to
+the function <span
+class="math inline">\boldsymbol{{x}}\colon\boldsymbol{{n}}\to\boldsymbol{{{R}}}</span>
+defined by <span class="math inline">\boldsymbol{{x}}(i) = x_i</span>,
+<span class="math inline">i\in\boldsymbol{{n}}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\prod_{i\in\boldsymbol{{n}}}\boldsymbol{{{R}}}</span>
+is in one-to-one correspondence with <span
+class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}}</span></em>.</p>
+<p>A more powerful notion is to consider a vector as an element of the
+<em>vector space</em> of all functions from an <em>index set</em> <span
+class="math inline">I</span> to the real numbers, <span
+class="math inline">\boldsymbol{{{R}}}^I</span>. The tuple <span
+class="math inline">x = (x_i)_{i\in I}</span> in <span
+class="math inline">\prod_{i\in I}\boldsymbol{{{R}}}</span> corresponds
+to a function <span class="math inline">{\boldsymbol{{x}}\colon
+I\to\boldsymbol{{{R}}}}</span> in <span
+class="math inline">\boldsymbol{{{R}}}^I</span> defined by <span
+class="math inline">\boldsymbol{{x}}(i) = x_i</span>, <span
+class="math inline">i\in I</span>. The tuple <span class="math inline">x
+= (x_i)_{i\in I}</span> where <span class="math inline">x_i =
+\boldsymbol{{x}}(i)</span>, <span class="math inline">i\in I</span>.
+corresponds to the function <span
+class="math inline">{\boldsymbol{{x}}\colon
+I\to\boldsymbol{{{R}}}}</span>. In what follows we just write <span
+class="math inline">x</span> for <span
+class="math inline">\boldsymbol{{x}}</span> and leave it to you to
+figure out from context if a vector is a tuple or a function.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\prod_{i\in I}\boldsymbol{{{R}}}</span> is in
+one-to-one correspondence with <span
+class="math inline">\boldsymbol{{{R}}}^{I}</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">I</span>
+and <span class="math inline">J</span> are in one-to-one correspondence
+then so are <span class="math inline">\boldsymbol{{{R}}}^I</span> and
+<span class="math inline">\boldsymbol{{{R}}}^J</span></em>.</p>
+</section>
+<section id="tensor" class="level2">
+<h2>Tensor</h2>
+<p>A <em>tensor</em><a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> of <em>rank</em> <span
+class="math inline">m</span> is a vector space where the index set is a
+cartesian product of <span class="math inline">m</span> index sets <span
+class="math inline">{I = I_1\times\cdots\times I_m =
+\prod_{j\in\boldsymbol{{m}}} I_j}</span>. A rank 1 tensor is a vector.
+The <em>shape</em> of a tensor is its index set. First we consider rank
+2 tensors with natual number index sets. More precisely, if <span
+class="math inline">n\in\boldsymbol{{N}}</span> is a natural number we
+use the index set <span class="math inline">\boldsymbol{{n}} =
+\{1,\ldots,n\}</span>.</p>
+<section id="rank-2" class="level3">
+<h3>Rank 2</h3>
+<p>A rank 2 tensor is a <em>matrix</em>. If <span
+class="math inline">x\in\boldsymbol{{{R}}}^{n\times m}</span>, <span
+class="math inline">n,m\in\boldsymbol{{N}}</span>, then we can define
+<span class="math inline">x_{i,j} = x(i, j)</span>, <span
+class="math inline">i\in\boldsymbol{{n}}</span>, <span
+class="math inline">j\in\boldsymbol{{m}}</span>. Thinking of <span
+class="math inline">x</span> as the two-dimensional matrix <span
+class="math inline">[x_{i,j}]</span>, the <span
+class="math inline">i</span>-th row of <span
+class="math inline">x</span> is <span
+class="math inline">{(x_{i,j})_{j\in\boldsymbol{{m}}}}</span> and the
+<span class="math inline">j</span>-th column is <span
+class="math inline">{(x_{i,j})_{i\in\boldsymbol{{n}}}}</span>. In the
+Python <a
+href="https://numpy.org/doc/stable/reference/arrays.ndarray.html">numpy</a>
+package the <span class="math inline">i</span>-th row is expressed as
+<span class="math inline">x[i,:]</span> and the <span
+class="math inline">j</span>-th column as <span
+class="math inline">x[:,j]</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}\timex\boldsymbol{{m}}}</span>
+is in one-to-one correspondence with <span
+class="math inline">\boldsymbol{{{R}}}^{nm}</span>, <span
+class="math inline">n,m\in\boldsymbol{{N}}</span></em>.</p>
+<p>Note selecting a row is a function <span
+class="math inline">\boldsymbol{{{R}}}^{n\times
+m}\times\boldsymbol{{n}}\to\boldsymbol{{{R}}}^{m}</span> where <span
+class="math inline">(x, i)</span> is associated with the function <span
+class="math inline">j\mapsto x(i,j)</span> in <span
+class="math inline">\boldsymbol{{{R}}}^m</span>.</p>
+<p>This is an example of <em>currying</em>.</p>
+<p>Selecting a row is currying. If <span
+class="math inline">g\colon\boldsymbol{{{R}}}^{n\times
+m}\times\boldsymbol{{n}}\to\boldsymbol{{{R}}}^m</span> then <span
+class="math inline">,g\colon\boldsymbol{{{R}}}^{n\times
+m}\to(\boldsymbol{{n}}\to\boldsymbol{{{R}}}^m)</span>. We write this
+using square brackets without mentioning <span
+class="math inline">g</span> or its curried value <span
+class="math inline">g,</span> as <span
+class="math inline">x[i,.]\colon\boldsymbol{{m}}\to\boldsymbol{{{R}}}</span>
+defined by <span class="math inline">x[i,.](j) = x(i,j)</span>.
+Similarly, selecting a column <span
+class="math inline">x[.,j]\colon\boldsymbol{{m}}\to\boldsymbol{{{R}}}</span>
+is defined by <span class="math inline">x[.,j](i) = x(i,j)</span>.</p>
+<p>Define the <em>transpose</em> operator <span
+class="math inline">{}^T\colon A\times B\to B\times A</span> by <span
+class="math inline">{}^T(a,b) = (b,a)</span>. We decorate this as <span
+class="math inline">{{}^{T^{A,B}}}</span> when we want to make the sets
+involved explicit.</p>
+<p><strong>Exercise</strong>. <em>For <span
+class="math inline">x\in\boldsymbol{{{R}}}^{n\times m}</span> show <span
+class="math inline">{x^{T^{\boldsymbol{{m}},\boldsymbol{{n}}}}(j,i) =
+x(i,j)}</span> for <span
+class="math inline">i\in\boldsymbol{{n}}</span>, <span
+class="math inline">j\in\boldsymbol{{m}}</span></em>.</p>
+<p><em>Hint</em>. <span
+class="math inline">x^{T^{\boldsymbol{{m}},\boldsymbol{{n}}}}</span> is
+the composition of <span
+class="math inline">{}^{T^{\boldsymbol{{m}},\boldsymbol{{n}}}}</span>
+with <span class="math inline">x</span>.</p>
+<p>When the indices are understood we write <span
+class="math inline">x^T(j,i) = x(i,j)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">x^T[.,k] = x[k,.]</span> for <span
+class="math inline">x\in\boldsymbol{{{R}}}^{n\times m}</span>, <span
+class="math inline">k\in\boldsymbol{{n}}</span></em>.</p>
+</section>
+<section id="arbitrary-rank" class="level3">
+<h3>Arbitrary Rank</h3>
+<p>Let’s extend the notation to handle tensors of any rank, not just
+rank 2. Let <span class="math inline">\mathcal{T}_m</span> be the
+collection of rank <span class="math inline">m</span> tensors. Define
+<span
+class="math inline">[]\colon\mathcal{T}_m\times\bf{m}\to\mathcal{T}_{m-1}</span></p>
+<p>More rigourously, define $[]^{_{i}}<br />
+</p>
+<p>If <span class="math inline">\iota\colon J\to I</span> and <span
+class="math inline">x\in\boldsymbol{{{R}}}^I</span> we have <span
+class="math inline">x\iota\in\boldsymbol{{{R}}}^J</span> for any index
+sets <span class="math inline">I</span>, <span
+class="math inline">J</span>. The name for composition on the right by
+<span class="math inline">\iota</span> is <span
+class="math inline">\circ\iota\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}^J</span>
+so <span class="math inline">\circ\iota(x) = x\iota</span>, <span
+class="math inline">x\in\boldsymbol{{{R}}}^I</span>.</p>
+<p>Even with this minimal material we can consider interesting
+operations to perform on <span
+class="math inline">\boldsymbol{{{R}}}^I</span>. For any function <span
+class="math inline">\iota\colon J\to I</span> we have a mapping <span
+class="math inline">\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}^J</span>
+<span class="math inline">x\mapsto x\iota</span>. We call <span
+class="math inline">\iota</span> a <em>view</em> of <span
+class="math inline">I</span>. Element of <span
+class="math inline">x\in\boldsymbol{{{R}}}^I</span> are extracted from a
+view by function application <span class="math inline">x(J(j))</span>,
+<span class="math inline">j\in J</span>.</p>
+<p><strong>Exercise</strong> <em>If <span class="math inline">J</span>
+is the</em> singleton <span class="math inline">\{i\}</span> <em>for
+some <span class="math inline">i\in I</span> then the inclusion <span
+class="math inline">\iota\colon J\to I</span> selects the <span
+class="math inline">i</span>-the element of <span
+class="math inline">x</span></em>.</p>
+<p><em>Hint</em>. Show <span class="math inline">x(\iota(i)) =
+x(i)</span>.</p>
+<p>More generally, if <span class="math inline">J\subseteq I</span> then
+the inclusion selects <span class="math inline">(x_j)_{j\in
+J}</span>.</p>
+<!--
+If $J$ is a _multiset_ then elements can be duplicated.
+For example if $J = \{i,i,i\}$ then $x\iota = (x_i,x_i,x_i)$.
+-->
+<p>Many computer languages use 0-based array indexing. In this case we
+define <span class="math inline">\boldsymbol{{n}} =
+\{0,\ldots,n-1\}</span>. We often want to select a <em>slice</em> of
+<span class="math inline">k</span> elements starting at index <span
+class="math inline">i</span> in increments of <span
+class="math inline">j</span>, <span class="math inline">{(x_i, x_{i +
+j},\ldots, x_{i + j(k-1)})}</span></p>
+<p><strong>Exercise</strong> <em>What is the largest value of <span
+class="math inline">k</span> for which <span class="math inline">0 \le i
++ j(k-1) &lt; n</span></em>?</p>
+<p><em>Hint</em>: The increment <span class="math inline">j</span> may
+be negative.</p>
+<p>Some low level languages do not have any guards aginst indexing an
+array out of bounds. The onus is on the programmer to use their tools
+correctly if performance is an issue. ### Scalar Multiplication and
+Vector Addition</p>
 <p>Scalar multiplication and vector addition on <span
-class="math inline">\bm{{{R}}}^I</span> are defined <em>pointwise</em>
-by <span class="math inline">{(ax)(i) = a(x(i))}</span> and <span
-class="math inline">{(x + y)(i) = x(i) + y(i)}</span>, <span
-class="math inline">a\in\bm{{{R}}}</span>, <span
-class="math inline">x,y\in\bm{{{R}}}^I</span>.</p>
+class="math inline">\boldsymbol{{{R}}}^I</span> are defined
+<em>pointwise</em> by <span class="math inline">{(ax)(i) =
+a(x(i))}</span> and <span class="math inline">{(x + y)(i) = x(i) +
+y(i)}</span>, <span class="math inline">a\in\boldsymbol{{{R}}}</span>,
+<span class="math inline">x,y\in\boldsymbol{{{R}}}^I</span>.</p>
 </section>
 <section id="axioms" class="level3">
 <h3>Axioms</h3>
 <p>For any set <span class="math inline">I</span>, <span
-class="math inline">a,b\in\bm{{{R}}}</span>, and <span
-class="math inline">x, y, z\in\bm{{{R}}}^I</span> show the
+class="math inline">a,b\in\boldsymbol{{{R}}}</span>, and <span
+class="math inline">x, y, z\in\boldsymbol{{{R}}}^I</span> show the
 following:</p>
 <p><strong>Exercise</strong>. <em><span class="math inline">x + (y + z)
 = (x + y) + z</span></em>.</p>
 <p><strong>Exercise</strong>. <em><span class="math inline">x + y = y +
 x</span></em>.</p>
-<p><strong>Exercise</strong>. <em><span class="math inline">\bm{{0}}+ x
-= x</span> where <span class="math inline">\bm{{0}}(i) = 0</span>, <span
+<p><strong>Exercise</strong>. <em><span
+class="math inline">\boldsymbol{{0}}+ x = x</span> where <span
+class="math inline">\boldsymbol{{0}}(i) = 0</span>, <span
 class="math inline">i\in I</span></em>.</p>
 <p><strong>Exercise</strong>. <em><span class="math inline">x + (-x) =
-\bm{{0}}</span> where <span class="math inline">(-x)(i) =
+\boldsymbol{{0}}</span> where <span class="math inline">(-x)(i) =
 -(x(i))</span>, for <span class="math inline">i\in I</span></em>.</p>
 <p><strong>Exercise</strong>. <em><span class="math inline">a(bx) =
 (ab)x</span></em>.</p>
@@ -151,37 +503,43 @@ ax + ay</span></em>.</p>
 ax + bx</span></em>.</p>
 <p><em>Hint</em>: Use the properties of real numbers.</p>
 <p>The exercises are the axioms for an <em>abstract vector space</em>
-with scalar multiplication <span class="math inline">{\bm{{{R}}}\times
-V\to V}</span> where <span class="math inline">{(a,x)\mapsto ax =
-xa}</span> and binary addition <span class="math inline">{V\times V\to
-V}</span> where <span class="math inline">{(x,y)\mapsto x + y}</span>.
-The first four axioms show vector addition is an abelian (commutative)
-group. The last two axioms are the <em>distributive laws</em> connecting
-scalar multiplication and vector addition. Every abstract vector space
-can be represented by <span class="math inline">\bm{{{R}}}^I</span> for
+with scalar multiplication <span
+class="math inline">{\boldsymbol{{{R}}}\times V\to V}</span> where <span
+class="math inline">{(a,x)\mapsto ax = xa}</span> and binary addition
+<span class="math inline">{V\times V\to V}</span> where <span
+class="math inline">{(x,y)\mapsto x + y}</span>. The first four axioms
+show vector addition is an abelian (commutative) group. The last two
+axioms are the <em>distributive laws</em> connecting scalar
+multiplication and vector addition. Every abstract vector space can be
+represented by <span class="math inline">\boldsymbol{{{R}}}^I</span> for
 some set <span class="math inline">I</span>. Two vector spaces</p>
 <p>Proofs involving only the abstract axioms are considered more
 elegant.</p>
-<p>If <span class="math inline">x\in\bm{{{R}}}^I</span> then <span
-class="math inline">(0x)(i) = 0(x(i)) = 0</span> and <span
+<p>If <span class="math inline">x\in\boldsymbol{{{R}}}^I</span> then
+<span class="math inline">(0x)(i) = 0(x(i)) = 0</span> and <span
 class="math inline">(1x)(i) = 1(x(i)) = x(i)</span> for all <span
 class="math inline">i\in I</span> so <span class="math inline">0x =
-\bm{{0}}</span> and <span class="math inline">1x = x</span>. These hold
-for any vector space, not just <span
-class="math inline">\bm{{{R}}}^I</span>.</p>
+\boldsymbol{{0}}</span> and <span class="math inline">1x = x</span>.
+These hold for any vector space, not just <span
+class="math inline">\boldsymbol{{{R}}}^I</span>.</p>
 <p><strong>Exercise</strong>. (Zero is unique) <em>Show if <span
-class="math inline">\bm{{0}}&#39; + x = x</span> for all <span
-class="math inline">x\in V</span> then <span class="math inline">0&#39;
+class="math inline">\boldsymbol{{0}}&#39; + v = v</span> for all <span
+class="math inline">v\in V</span> then <span class="math inline">0&#39;
 = 0</span></em>.</p>
-<p>If <span class="math inline">x\in\bm{{{R}}}^I</span> then</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">0x =
-\bm{{0}}</span> for all <span class="math inline">x\in
+<p><em>Hint</em>: <span class="math inline">\boldsymbol{{0}}+ v =
+v</span> so <span class="math inline">\boldsymbol{{0}}&#39; + v =
+\boldsymbol{{0}}+ v</span>. Add <span class="math inline">-v</span> to
+both sides.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">0v =
+\boldsymbol{{0}}</span> for all <span class="math inline">v\in
 V</span></em>.</p>
-<p><em>Hint</em>: Show <span class="math inline">0x + x = x</span>.</p>
+<p><em>Hint</em>: Show <span class="math inline">0v + v = v</span> and
+use the previous exercise.</p>
 <p><strong>Exercise</strong>. <em>For any vector space <span
 class="math inline">V</span> show <span class="math inline">{v + v =
-v}</span> implies <span class="math inline">{v = \bm{{0}}}</span> for
-all <span class="math inline">{v\in V}</span></em>.</p>
+v}</span> implies <span class="math inline">{v =
+\boldsymbol{{0}}}</span> for all <span class="math inline">{v\in
+V}</span></em>.</p>
 <details>
 <summary>
 Solution
@@ -195,11 +553,11 @@ v,y\leftarrow v,z\leftarrow -v\rangle\\
     &amp;\quad\langle (x + y) + z = x + (y + z)\mid x\leftarrow v,
 y\leftarrow v, z\leftarrow -v\rangle\\
 v + (v + (-v)) &amp;= v + (-v) \\
-    &amp;\quad\langle x + (-x) = \bm{{0}}\mid x\leftarrow v\text{ twice
-}\rangle\\
-v + \bm{{0}}&amp;= \bm{{0}}\\
-    &amp;\quad\langle x + \bm{{0}}= x\mid x\leftarrow v\rangle\\
-v &amp;= \bm{{0}}
+    &amp;\quad\langle x + (-x) = \boldsymbol{{0}}\mid x\leftarrow
+v\text{ twice }\rangle\\
+v + \boldsymbol{{0}}&amp;= \boldsymbol{{0}}\\
+    &amp;\quad\langle x + \boldsymbol{{0}}= x\mid x\leftarrow v\rangle\\
+v &amp;= \boldsymbol{{0}}
 \end{aligned}
 </span>
 </details>
@@ -217,132 +575,138 @@ notations invented by less brilliant people. Standard mathematical notation suff
 <section id="standard-and-dual-basis" class="level3">
 <h3>Standard and Dual Basis</h3>
 <p>The <em>standard basis</em> of <span
-class="math inline">\bm{{{R}}}^n</span> is <span
-class="math inline">{e_i\in\bm{{{R}}}^n}</span>, <span
-class="math inline">{i\in\bm{{n}}}</span>, where <span
+class="math inline">\boldsymbol{{{R}}}^n</span> is <span
+class="math inline">{e_i\in\boldsymbol{{{R}}}^n}</span>, <span
+class="math inline">{i\in\boldsymbol{{n}}}</span>, where <span
 class="math inline">{e_i = (0,\ldots,1,\ldots,0)}</span> with all
 elements <span class="math inline">0</span> except for a <span
 class="math inline">1</span> in the <span
 class="math inline">i</span>-th position. It is plausible that <span
-class="math inline">{x = (x_1,\ldots,x_n)
-= x_1 e_1 + \cdots + x_n e_n}</span> for <span
-class="math inline">{x\in\bm{{{R}}}^n}</span>, but you should always be
-wary of definitions involving dots.</p>
+class="math inline">{x = (x_1,\ldots,x_n) = x_1 e_1 + \cdots + x_n
+e_n}</span> for <span
+class="math inline">{x\in\boldsymbol{{{R}}}^n}</span>, but you should
+always be wary of definitions involving dots.</p>
 <p>More generally, the standard basis of <span
-class="math inline">\bm{{{R}}}^I</span> is <span
-class="math inline">{e_i\in\bm{{{R}}}^I}</span>, <span
-class="math inline">{i\in
-I}</span>, where <span class="math inline">{e_i(j) = \delta_{ij}}</span>
-for <span class="math inline">j\in I</span>, where $_{ij} is the
-<em>Kronecker delta</em> defined by <span class="math inline">{δ_{ij} =
-1}</span> if <span class="math inline">{i=j}</span> and <span
+class="math inline">\boldsymbol{{{R}}}^I</span> is <span
+class="math inline">{e_i\in\boldsymbol{{{R}}}^I}</span>, <span
+class="math inline">{i\in I}</span>, where <span
+class="math inline">{e_i(j) = \delta_{ij}}</span> for <span
+class="math inline">j\in I</span>, where $_{ij} is the <em>Kronecker
+delta</em> defined by <span class="math inline">{δ_{ij} = 1}</span> if
+<span class="math inline">{i=j}</span> and <span
 class="math inline">{δ_{ij} = 0}</span> if <span
 class="math inline">{i\not=j}</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">I</span>
 is finite, show <span class="math inline">x = \sum_{i\in I}
 x(i)e_i</span> for <span
-class="math inline">x\in\bm{{{R}}}^I</span></em>.</p>
+class="math inline">x\in\boldsymbol{{{R}}}^I</span></em>.</p>
 <p><em>Hint</em>: Consider <span class="math inline">x(j)</span>, <span
 class="math inline">j\in I</span>.</p>
 <p>Define the <em>dual basis</em> by <span
-class="math inline">e^*_j\colon\bm{{{R}}}^I\to\bm{{{R}}}</span> by <span
-class="math inline">{e^*_j(x) = x(j)}</span>, <span
+class="math inline">e^*_j\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}</span>
+by <span class="math inline">{e^*_j(x) = x(j)}</span>, <span
 class="math inline">{j\in I}</span>. The standard and dual bases allows
-us to identify <span class="math inline">\bm{{{R}}}^I</span> with its
-<em>dual</em> <span class="math inline">(\bm{{{R}}}^I)^*</span>, the
-linear functionals from <span
-class="math inline">\bm{{{R}}}^I\to\bm{{{R}}}</span>. The <em>dual
-pairing</em> of <span class="math inline">x\in\bm{{{R}}}^I</span> and
-<span class="math inline">{y\in\bm{{{R}}}^I}</span> is defined by
-y^<em>(x) = x, y^</em>= _{iI} x(i)y(i)$.</p>
-<p>If <span class="math inline">{x,y\in\bm{{{R}}}^I}</span> the
+us to identify <span class="math inline">\boldsymbol{{{R}}}^I</span>
+with its <em>dual</em> <span
+class="math inline">(\boldsymbol{{{R}}}^I)^*</span>, the linear
+functionals from <span
+class="math inline">\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}</span>.
+The <em>dual pairing</em> of <span
+class="math inline">x\in\boldsymbol{{{R}}}^I</span> and <span
+class="math inline">{y\in\boldsymbol{{{R}}}^I}</span> is defined by
+<span class="math inline">y^*(x) = \langle x, y^*\rangle = \sum_{i\in I}
+x(i)y(i)</span>.</p>
+<p>If <span class="math inline">{x,y\in\boldsymbol{{{R}}}^I}</span> the
 <em>inner product</em>, or <em>dot product</em> is <span
 class="math inline">{(x,y) = x\cdot y = \sum_{i\in I}x_i y_i}</span>.
 This is similar, but different from, the dual pairing is a function
 <span
-class="math inline">\langle\cdot,\cdot\rangle\colon\bm{{{R}}}^I\times(\bm{{{R}}}^I)^*\to\bm{{{R}}}</span>
+class="math inline">\langle\cdot,\cdot\rangle\colon\boldsymbol{{{R}}}^I\times(\boldsymbol{{{R}}}^I)^*\to\boldsymbol{{{R}}}</span>
 while the dot product is a function <span
-class="math inline">(\cdot,\cdot)\colon\bm{{{R}}}^I\times\bm{{{R}}}^I\to\bm{{{R}}}</span>.</p>
+class="math inline">(\cdot,\cdot)\colon\boldsymbol{{{R}}}^I\times\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}</span>.</p>
 </section>
 </section>
 <section id="linear-operator" class="level2">
 <h2>Linear Operator</h2>
 <p>A function <span
-class="math inline">T\colon\bm{{{R}}}^n\to\bm{{{R}}}^m</span> is a
-<em>linear operator</em> if <span class="math inline">{T(ax + y) = aTx +
-y}</span>, <span class="math inline">{a\in\bm{{{R}}}}</span>, <span
-class="math inline">{x,y\in\bm{{{R}}}^n}</span>.</p>
+class="math inline">T\colon\boldsymbol{{{R}}}^n\to\boldsymbol{{{R}}}^m</span>
+is a <em>linear operator</em> if <span class="math inline">{T(ax + y) =
+aTx + y}</span>, <span
+class="math inline">{a\in\boldsymbol{{{R}}}}</span>, <span
+class="math inline">{x,y\in\boldsymbol{{{R}}}^n}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show if <span
 class="math inline">T</span> is a linear operator then <span
 class="math inline">T(ax) = aTx</span> and <span class="math inline">T(x
 + y) = Tx + Ty</span>, <span
-class="math inline">{a\in\bm{{{R}}}}</span>, <span
-class="math inline">{x,y\in\bm{{{R}}}^n}</span></em>.</p>
+class="math inline">{a\in\boldsymbol{{{R}}}}</span>, <span
+class="math inline">{x,y\in\boldsymbol{{{R}}}^n}</span></em>.</p>
 <p><em>Hint</em>: Take <span class="math inline">y = (0,\ldots,0)</span>
 and <span class="math inline">a = 1</span>.</p>
 <p>If <span
-class="math inline">T\colon\bm{{{R}}}^n\to\bm{{{R}}}^m</span> the
-<em>matrix</em> of <span class="math inline">T</span> is <span
-class="math inline">t\colon n\times m\to\bm{{{R}}}\in\bm{{{R}}}^{n\times
-m}</span> where <span class="math inline">{t(i,j) = t_{ij} = \langle
+class="math inline">T\colon\boldsymbol{{{R}}}^n\to\boldsymbol{{{R}}}^m</span>
+the <em>matrix</em> of <span class="math inline">T</span> is <span
+class="math inline">t\colon n\times
+m\to\boldsymbol{{{R}}}\in\boldsymbol{{{R}}}^{n\times m}</span> where
+<span class="math inline">{t(i,j) = t_{ij} = \langle
 Te_i,e^*_j\rangle}</span>, <span class="math inline">{i\in n}</span>,
 <span class="math inline">{j\in m}</span>. We denote the map $</p>
 <p>If <span
-class="math inline">S\colon\bm{{{R}}}^m\to\bm{{{R}}}^l</span> then <span
-class="math inline">U = ST\colon\bm{{{R}}}^n\to\bm{{{R}}}^l</span>.</p>
+class="math inline">S\colon\boldsymbol{{{R}}}^m\to\boldsymbol{{{R}}}^l</span>
+then <span class="math inline">U =
+ST\colon\boldsymbol{{{R}}}^n\to\boldsymbol{{{R}}}^l</span>.</p>
 <p><strong>Exercise</strong>. <em>Show the matrix of the composition
 <span class="math inline">U = ST</span> is <span
 class="math inline">{u_{ik} = \sum_{j\in m} s_{ij}t_{jk}}</span>, <span
 class="math inline">i\in n</span>, <span class="math inline">k\in
 l</span></em>.</p>
 <p>Matrix multiplication is just composition of linear operators.</p>
-<section id="tensor" class="level3">
+<section id="tensor-1" class="level3">
 <h3>Tensor</h3>
-<p>Write <span class="math inline">\bm{{{R}}}^{-n}</span> for <span
-class="math inline">(\bm{{{R}}}^n)^*</span> for <span
-class="math inline">n\in\bm{{N}}</span>. A <em>tensor</em> is a
+<p>Write <span class="math inline">\boldsymbol{{{R}}}^{-n}</span> for
+<span class="math inline">(\boldsymbol{{{R}}}^n)^*</span> for <span
+class="math inline">n\in\boldsymbol{{N}}</span>. A <em>tensor</em> is a
 cartesian product <span
-class="math inline">\bm{{{R}}}^{n_1}\times\cdots\times\bm{{{R}}}^{n_m}</span>
+class="math inline">\boldsymbol{{{R}}}^{n_1}\times\cdots\times\boldsymbol{{{R}}}^{n_m}</span>
 where the <span class="math inline">n_i</span> are integers <span
-class="math inline">n_i\in\bm{{Z}}</span> for <span
+class="math inline">n_i\in\boldsymbol{{Z}}</span> for <span
 class="math inline">i\in m</span>.</p>
 </section>
 <section id="inner-product" class="level3">
 <h3>Inner Product</h3>
 <p>The <em>inner product</em>, or <em>dot product</em>, of <span
-class="math inline">x,y\in\bm{{{R}}}^n</span> is <span
+class="math inline">x,y\in\boldsymbol{{{R}}}^n</span> is <span
 class="math inline">(x,y) = x\cdot y = \sum_{1\le i\le n}x_i y_i</span>.
 This is used to define a <em>norm</em> on <span
-class="math inline">\bm{{{R}}}^n</span> by <span
+class="math inline">\boldsymbol{{{R}}}^n</span> by <span
 class="math inline">\|x\| = \sqrt{x\cdot x}</span>.</p>
 <p>The <em>Cauchy-Schwartz inequality</em> is <span
 class="math inline">{|(x, y)|\le\|x\|\|y\|}</span>, <span
-class="math inline">{x,y\in\bm{{{R}}}^n}</span>. Since <span
+class="math inline">{x,y\in\boldsymbol{{{R}}}^n}</span>. Since <span
 class="math inline">{-1\le (x, y)/\|x\|\|y\|\le 1}</span> there exists
 <span class="math inline">{\theta\in[0, 2\pi)}</span> with <span
 class="math inline">{\cos\theta = (x, y)/\|x\|\|y\|}</span>. This
 defines the <em>angle</em> between two vectors.</p>
 <p><strong>Exercise</strong> <em>Show <span class="math inline">\|x\|
 \ge 0</span>, <span class="math inline">\|ax\| = |a|\|x\|</span>, and
-<span class="math inline">\|x + y\|
-\le \|x\| + \|y\|</span>, for <span
-class="math inline">a\in\bm{{{R}}}</span>, <span
-class="math inline">x,y\in\bm{{{R}}}^n</span></em>.</p>
+<span class="math inline">\|x + y\| \le \|x\| + \|y\|</span>, for <span
+class="math inline">a\in\boldsymbol{{{R}}}</span>, <span
+class="math inline">x,y\in\boldsymbol{{{R}}}^n</span></em>.</p>
 <p><em>Hint</em>: Use <span class="math inline">\|x + y\|^2 = \|x\|^2 +
 2x\cdot y + \|y\|^2</span> and the Cauchy-Schwartz inequality.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">\|x\| =
 0</span> implies <span class="math inline">x = 0</span>, <span
-class="math inline">x\in\bm{{{R}}}^n</span></em>.</p>
+class="math inline">x\in\boldsymbol{{{R}}}^n</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show equality holds in the
 Cauchy-Schwartz inequality if and only if <span
 class="math inline">x</span> is a scalar multiple of <span
 class="math inline">y</span></em>.</p>
 <p><em>Hint</em>: TODO Sid. Use <span class="math inline">0\le\|x -
-ty\|^2</span> for <span class="math inline">t\in\bm{{{R}}}</span>, <span
-class="math inline">x,y\in\bm{{{R}}}^n</span>.</p>
+ty\|^2</span> for <span
+class="math inline">t\in\boldsymbol{{{R}}}</span>, <span
+class="math inline">x,y\in\boldsymbol{{{R}}}^n</span>.</p>
 <p><strong>Exercise</strong>. <em>Show if <span
 class="math inline">\lim_{n\to\infty} \|x_n - x\| = 0</span> show <span
-class="math inline">x\in\bm{{{R}}}^n</span></em>.</p>
+class="math inline">x\in\boldsymbol{{{R}}}^n</span></em>.</p>
 <p><em>Hint</em>: The real numbers with absolute value norm is
 complete.</p>
 <!--
@@ -1056,5 +1420,14 @@ Define _fold_ ${f\colon M^*\to M}$ by ${f(e) = e}$ and ${f((m_1,\ldots,m_n)) = m
 -->
 </section>
 </section>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This is the definition of a tensor common in machine
+learning. The mathematical definition of a tensor is quite different.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
 </body>
 </html>
