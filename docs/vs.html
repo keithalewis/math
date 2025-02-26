@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-02-24" />
+  <meta name="dcterms.date" content="2025-02-25" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">February 24, 2025</p>
+<p class="date">February 25, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -56,13 +56,13 @@ A mathematical sweet spot
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#set" id="toc-set">Set</a>
+<li><a href="#set" id="toc-set">Set</a></li>
+<li><a href="#boldsymbolrn" id="toc-boldsymbolrn"><span
+class="math inline">\boldsymbol{{{R}}}^n</span></a>
 <ul>
 <li><a href="#pair" id="toc-pair">Pair</a></li>
 <li><a href="#structure" id="toc-structure">Structure</a></li>
 </ul></li>
-<li><a href="#boldsymbolrn" id="toc-boldsymbolrn"><span
-class="math inline">\boldsymbol{{{R}}}^n</span></a></li>
 <li><a href="#tensor" id="toc-tensor">Tensor</a>
 <ul>
 <li><a href="#rank-2" id="toc-rank-2">Rank 2</a></li>
@@ -87,11 +87,153 @@ Product</a></li>
 <p>Everything in math is a set. The set of function from a set <span
 class="math inline">A</span> to a set <span class="math inline">B</span>
 is the <em>set exponential</em> <span class="math inline">B^A =
-\{f\colon A\to B\}</span>. The <em>graph</em> of a function <span
-class="math inline">f\colon A\to B</span> is the set <span
-class="math inline">\{(a,f(a))\mid a\in A\}</span>. Note the graph of a
-function is a subset of the cartesion product <span
-class="math inline">A\times B = \{(a,b)\mid a\in A, b\in B\}</span>.</p>
+\{f\colon A\to B\}</span>. A function is a set defined by its
+<em>graph</em> <span class="math inline">\{(a,f(a))\mid a\in
+A\}\subseteq A\times B</span>. An <em>ordered pair</em> <span
+class="math inline">(a,b)\in A\times B</span> can be defined as the set
+<span class="math inline">\{a,\{a,b\}\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\cap\{a,\{a,b\}\} = \{a\}</span> and <span
+class="math inline">\cup\{a,\{a,b\}\} = \{a,b\}</span></em>.</p>
+<p><em>Hint</em> For any set <span class="math inline">A</span>, <span
+class="math inline">\cap A = \cap\{a\mid a\in A\}</span> and <span
+class="math inline">\cup A = \cup\{a\mid a\in A\}</span>.</p>
+<p>The intersection identifies the first item of the pair. If the union
+is a singleton then the second item is equal to the first item,
+otherwise we remove the first item to identify the second item.</p>
+<p>Ordered pairs have <em>projections</em> <span
+class="math inline">\operatorname{first}\colon A\times B\to A</span>
+where <span class="math inline">\operatorname{first}(a,b) = a</span> and
+<span class="math inline">\operatorname{second}\colon A\times B\to
+B</span> where <span class="math inline">\operatorname{second}(a,b) =
+b</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
+C\to A</span> and <span class="math inline">g\colon C\to B</span> show
+there exists <span class="math inline">h\colon C\to A\times B</span>
+with <span class="math inline">\operatorname{first}(h(c)) = f(c)</span>
+and <span class="math inline">\operatorname{second}(h(c)) = g(c)</span>,
+<span class="math inline">c\in C</span></em>.</p>
+<p><em>Hint</em>: Of course <span class="math inline">h(c) = (f(c),
+g(c))</span>.</p>
+<p>Two sets <span class="math inline">A</span> and <span
+class="math inline">B</span> are <em>equivalent</em> (as sets), <span
+class="math inline">A\cong B</span>, if there exists a one-to-one
+correspondence between them.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\cong</span> is an</em> equivalence
+<em>relation</em>.</p>
+<p><em>Hint</em>. Establish <span class="math inline">A\cong A</span>,
+<span class="math inline">A\cong B</span> implies <span
+class="math inline">B\cong A</span>, and <span
+class="math inline">A\cong B</span>, <span class="math inline">B\cong
+C</span> imply <span class="math inline">A\cong C</span> for sets <span
+class="math inline">A,B,C</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+Show the identity function from <span class="math inline">A</span> to
+<span class="math inline">A</span> is bijective. Show if <span
+class="math inline">f\colon A\to B</span> is bijective, so is <span
+class="math inline">f^{-1}\colon B\to A</span>. Show if <span
+class="math inline">f\colon A\to B</span> and <span
+class="math inline">g\colon B\to C</span> are bijective then so is <span
+class="math inline">gf\colon A\to C</span>.
+</details>
+<p>An equivalence relation on a set <span class="math inline">S</span>
+is a subset <span class="math inline">R\subseteq S\times S</span> with
+<span class="math inline">aRa</span> (reflexive), <span
+class="math inline">aRb</span> implies <span
+class="math inline">bRa</span> (symmetric), and <span
+class="math inline">aRb</span>, <span class="math inline">bRc</span>
+imply <span class="math inline">aRc</span> (transitive), <span
+class="math inline">a,b,c\in S</span>, where we write <span
+class="math inline">aRb</span> for <span class="math inline">(a,b)\in
+R</span>. The <em>equivalence class</em> of <span
+class="math inline">a\in S</span> is <span class="math inline">[a] =
+\{b\in S\mid aRb\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show either <span
+class="math inline">[a] = [b]</span> or <span
+class="math inline">[a]\cap [b] = \emptyset</span> for <span
+class="math inline">a,b\in S</span></em>.</p>
+<p>A <em>partition</em> of a set is a collection of disjoint subsets
+whose union is the entire set. This exercise shows <span
+class="math inline">\{[a]\mid a\in A\}</span> is a partition of <span
+class="math inline">S</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\Sigma</span> is a partions of <span
+class="math inline">S</span> then <span
+class="math inline">\cup_{s\in\Sigma} s\times s</span> is an equivalence
+relation on <span class="math inline">S</span></em>.</p>
+<p>Equivalence allows us to consider when two things are “the same” in a
+particualar sense even if they are not equal.</p>
+<p>Functions between sets with structure that preserve the structure are
+<em>homomorphisms</em>. A homomorphism that is bijective (one-to-one and
+onto) is an <em>isomorphism</em>. Two sets with structure are
+<em>equivalent</em> if there is an isomorphism between them.</p>
+</section>
+<section id="boldsymbolrn" class="level2">
+<h2><span class="math inline">\boldsymbol{{{R}}}^n</span></h2>
+<p>There are two ways to think about <span
+class="math inline">\boldsymbol{{{R}}}^n</span>, one is as a set of
+tuples, the other is as a set of functions. These two perspectives are a
+source of confusion and insight.</p>
+<p>An impoverished notion of a vector is that it is a tuple of real
+numbers <span class="math inline">{x = (x_1,\ldots,x_n)}</span>. Given a
+natural number <span class="math inline">n\in\boldsymbol{{N}}</span>,
+let <span class="math inline">{{\boldsymbol{{{R}}}^n =
+\{(x_1,\ldots,x_n)\mid x_i\in\boldsymbol{{{R}}}, 1\le i\le n\} =
+\prod_{1\le i\le n}\boldsymbol{{{R}}}}}</span> be the cartesian product
+of <span class="math inline">n\in\boldsymbol{{N}}</span> copies of the
+real numbers. If bold <span class="math inline">{\boldsymbol{{n}} =
+\{1,\ldots,n\}}</span> then <span class="math inline">{i\in
+\boldsymbol{{n}}}</span> is a shorter notation for <span
+class="math inline">{1\le i\le n}</span>. Recall if <span
+class="math inline">A</span> and <span class="math inline">B</span> are
+sets then the <em>set exponential</em> <span class="math inline">{B^A =
+\{f\colon A\to B\}}</span> is the set of all functions from <span
+class="math inline">A</span> to <span class="math inline">B</span>. We
+can identify <span class="math inline">\boldsymbol{{{R}}}^n</span> with
+<span class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}}</span>
+where the tuple <span
+class="math inline">{(x_i)_{i\in\boldsymbol{{n}}}}</span> corresponds to
+the function <span
+class="math inline">\boldsymbol{{x}}\colon\boldsymbol{{n}}\to\boldsymbol{{{R}}}</span>
+defined by <span class="math inline">\boldsymbol{{x}}(i) = x_i</span>,
+<span class="math inline">i\in\boldsymbol{{n}}</span>.</p>
+<p>!!! <span class="math inline">n\in\boldsymbol{{N}}</span> to <span
+class="math inline">\boldsymbol{{n}}\subseteq\boldsymbol{{N}}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\prod_{i\in\boldsymbol{{n}}}\boldsymbol{{{R}}}</span>
+is in one-to-one correspondence with <span
+class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}}</span></em>.</p>
+<p>A more powerful notion is to consider a vector as an element of the
+<em>vector space</em> of all functions from an <em>index set</em> <span
+class="math inline">I</span> to the real numbers, <span
+class="math inline">\boldsymbol{{{R}}}^I</span>. The tuple <span
+class="math inline">x = (x_i)_{i\in I}</span> in <span
+class="math inline">\prod_{i\in I}\boldsymbol{{{R}}}</span> corresponds
+to a function <span class="math inline">{\boldsymbol{{x}}\colon
+I\to\boldsymbol{{{R}}}}</span> in <span
+class="math inline">\boldsymbol{{{R}}}^I</span> defined by <span
+class="math inline">\boldsymbol{{x}}(i) = x_i</span>, <span
+class="math inline">i\in I</span>. The tuple <span class="math inline">x
+= (x_i)_{i\in I}</span> where <span class="math inline">x_i =
+\boldsymbol{{x}}(i)</span>, <span class="math inline">i\in I</span>.
+corresponds to the function <span
+class="math inline">{\boldsymbol{{x}}\colon
+I\to\boldsymbol{{{R}}}}</span>. In what follows we just write <span
+class="math inline">x</span> for <span
+class="math inline">\boldsymbol{{x}}</span> and leave it to you to
+figure out from context if a vector is a tuple or a function.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\prod_{i\in I}\boldsymbol{{{R}}}</span> is in
+one-to-one correspondence with <span
+class="math inline">\boldsymbol{{{R}}}^{I}</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">I</span>
+and <span class="math inline">J</span> are in one-to-one correspondence
+then so are <span class="math inline">\boldsymbol{{{R}}}^I</span> and
+<span class="math inline">\boldsymbol{{{R}}}^J</span></em>.</p>
 <section id="pair" class="level3">
 <h3>Pair</h3>
 <p>Defining the <em>ordered pair</em> <span
@@ -265,67 +407,6 @@ If a vector space is provided with an _inner product_ we can define the distance
 between two vectors.
 -->
 </section>
-</section>
-<section id="boldsymbolrn" class="level2">
-<h2><span class="math inline">\boldsymbol{{{R}}}^n</span></h2>
-<p>There are two ways to think about <span
-class="math inline">\boldsymbol{{{R}}}^n</span>, one is as a set of
-tuples, the other is as a set of functions. These two perspectives are a
-source of confusion and insight.</p>
-<p>An impoverished notion of a vector is that it is a list of real
-numbers <span class="math inline">{x = (x_1,\ldots,x_n)}</span>. Given a
-natural number <span class="math inline">n\in\boldsymbol{{N}}</span>,
-let <span class="math inline">{{\boldsymbol{{{R}}}^n =
-\{(x_1,\ldots,x_n)\mid x_i\in\boldsymbol{{{R}}}, 1\le i\le n\} =
-\prod_{1\le i\le n}\boldsymbol{{{R}}}}}</span> be the cartesian product
-of <span class="math inline">n\in\boldsymbol{{N}}</span> copies of the
-real numbers. If bold <span class="math inline">{\boldsymbol{{n}} =
-\{1,\ldots,n\}}</span> then <span class="math inline">{i\in
-\boldsymbol{{n}}}</span> is a shorter notation for <span
-class="math inline">{1\le i\le n}</span>. Recall if <span
-class="math inline">A</span> and <span class="math inline">B</span> are
-sets then the <em>set exponential</em> <span class="math inline">{B^A =
-\{f\colon A\to B\}}</span> is the set of all functions from <span
-class="math inline">A</span> to <span class="math inline">B</span>. We
-can identify <span class="math inline">\boldsymbol{{{R}}}^n</span> with
-<span class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}}</span>
-where the tuple <span
-class="math inline">{(x_i)_{i\in\boldsymbol{{n}}}}</span> corresponds to
-the function <span
-class="math inline">\boldsymbol{{x}}\colon\boldsymbol{{n}}\to\boldsymbol{{{R}}}</span>
-defined by <span class="math inline">\boldsymbol{{x}}(i) = x_i</span>,
-<span class="math inline">i\in\boldsymbol{{n}}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\prod_{i\in\boldsymbol{{n}}}\boldsymbol{{{R}}}</span>
-is in one-to-one correspondence with <span
-class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}}</span></em>.</p>
-<p>A more powerful notion is to consider a vector as an element of the
-<em>vector space</em> of all functions from an <em>index set</em> <span
-class="math inline">I</span> to the real numbers, <span
-class="math inline">\boldsymbol{{{R}}}^I</span>. The tuple <span
-class="math inline">x = (x_i)_{i\in I}</span> in <span
-class="math inline">\prod_{i\in I}\boldsymbol{{{R}}}</span> corresponds
-to a function <span class="math inline">{\boldsymbol{{x}}\colon
-I\to\boldsymbol{{{R}}}}</span> in <span
-class="math inline">\boldsymbol{{{R}}}^I</span> defined by <span
-class="math inline">\boldsymbol{{x}}(i) = x_i</span>, <span
-class="math inline">i\in I</span>. The tuple <span class="math inline">x
-= (x_i)_{i\in I}</span> where <span class="math inline">x_i =
-\boldsymbol{{x}}(i)</span>, <span class="math inline">i\in I</span>.
-corresponds to the function <span
-class="math inline">{\boldsymbol{{x}}\colon
-I\to\boldsymbol{{{R}}}}</span>. In what follows we just write <span
-class="math inline">x</span> for <span
-class="math inline">\boldsymbol{{x}}</span> and leave it to you to
-figure out from context if a vector is a tuple or a function.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\prod_{i\in I}\boldsymbol{{{R}}}</span> is in
-one-to-one correspondence with <span
-class="math inline">\boldsymbol{{{R}}}^{I}</span></em>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">I</span>
-and <span class="math inline">J</span> are in one-to-one correspondence
-then so are <span class="math inline">\boldsymbol{{{R}}}^I</span> and
-<span class="math inline">\boldsymbol{{{R}}}^J</span></em>.</p>
 </section>
 <section id="tensor" class="level2">
 <h2>Tensor</h2>

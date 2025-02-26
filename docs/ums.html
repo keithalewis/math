@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-02-24" />
+  <meta name="dcterms.date" content="2025-02-25" />
   <title>Simple Unified Model of Derivative Securities</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,8 +45,21 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model of Derivative Securities</h1>
-<p class="date">February 24, 2025</p>
+<p class="date">February 25, 2025</p>
 </header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#examples" id="toc-examples">Examples</a>
+<ul>
+<li><a href="#canonical-deflator" id="toc-canonical-deflator">Canonical
+Deflator</a></li>
+<li><a href="#zero-coupon-bond" id="toc-zero-coupon-bond">Zero Coupon
+Bond</a></li>
+<li><a href="#risky-bond" id="toc-risky-bond">Risky Bond</a></li>
+<li><a href="#forward" id="toc-forward">Forward</a></li>
+</ul></li>
+</ul>
+</nav>
 <!--
 :!pandoc -t html5 -s --katex=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/ --css math.css ums.md -o ums.html
 :!pandoc -V fontsize=12pt ums.md -o ums.pdf
@@ -71,7 +84,7 @@ class="math inline">C_t\colon\mathcal{A}_t\to\boldsymbol{R}^I</span> —
 bounded <em>cash flows</em> at times <span class="math inline">t\in
 T</span> of market instruments.</p>
 <p>E.g., coupons, dividends, and futures margin adjustments are cash
-flows.</p>
+flows. Futures have price 0.</p>
 <p><span class="math inline">(\tau_j, \Gamma_j)</span> — <em>trading
 strategy</em> of strictly increasing stopping times <span
 class="math inline">\tau_j</span> and shares <span
@@ -79,9 +92,9 @@ class="math inline">\Gamma_j\colon\mathcal{A}_{\tau_j}\to\boldsymbol{R}^I</span>
 purchased at <span class="math inline">\tau_j</span>.</p>
 <p>The <em>position</em> resulting from a trading strategy is <span
 class="math inline">\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j = \sum_{s
-&lt; t} \Gamma_s</span> where <span class="math inline">\Gamma_s =
-\Gamma_j 1(\tau_j = s)</span>. Note the strict inequality. It takes time
-for a trade to settle and become a part of the position.</p>
+&lt; t} \Gamma_s</span> where <span class="math inline">{\Gamma_s =
+\Gamma_j 1(\tau_j = s)}</span>. Note the strict inequality. It takes
+time for a trade to settle and become a part of the position.</p>
 <p><span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>
 — the <em>value</em>, or <em>mark-to-market</em>, of the strategy.</p>
 <p><span class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
@@ -99,21 +112,23 @@ id="fnref3" role="doc-noteref"><sup>3</sup></a> <span
 class="math inline">D_t</span> on <span
 class="math inline">\mathcal{A}_t</span>, <span class="math inline">t\in
 T</span>, with</em> <span class="math display">
-    X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
+\tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
 D_s)|_{\mathcal{A}_t}, t\le u.
-</span> (Note <span class="math inline">Y = E[X|\mathcal{A}]</span> if
-and only if <span class="math inline">Y(P|_\mathcal{A}) =
-(XP)|_\mathcal{A}</span> when <span class="math inline">P</span> is a
-positive measure with mass 1.)</p>
+</span></p>
 <p><strong>Claim</strong>. <em>If <span class="math inline">M_t =
 M_u|_{\mathcal{A}_t}</span>, <span class="math inline">t\le u</span>, is
 a <span class="math inline">\boldsymbol{R}^I</span>-valued</em>
 martingale measure <em>and <span class="math inline">D_t\in
 ba(A_t)</span> are positive measures then <span class="math inline">{X_t
 D_t = M_t - \sum_{s\le t} C_s D_s}</span> is arbitrage-free</em>.</p>
+<p><em>Proof</em>: Substitute <span class="math inline">X_u D_u</span>
+by this formula in <span class="math inline">(1)</span> and cancel terms
+in the sums.</p>
 <p><strong>Example</strong>. (Black-Scholes/Merton) <span
 class="math inline">M_t = (r, se^{\sigma B_t - \sigma^2t/2})P</span>,
-<span class="math inline">D_t = e^{-\rho t}P</span> where <span
+<span class="math inline">C_t = (0,0)</span>, <span
+class="math inline">D_t = e^{-\rho t}P</span> where <span
+class="math inline">(B_t)</span> is standard Brownian motion and <span
 class="math inline">P</span> is Wiener measure.</p>
 <!--
 __Example__. (LIBOR Market Model) _If repurchase agreements are available with price 1 at $t$
@@ -121,9 +136,19 @@ and pay $e^{f_t\,dt}$ at time $t$ then the_ stochastic discount _$D_t = e^{-\int
 -->
 <p><strong>Lemma</strong>. <em>With the above notation</em> <span
 class="math display">
-    V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
+\tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
 D_s)|_{\mathcal{A}_t}, t\le u.
 </span></p>
+<p><em>Proof</em>: Substitue <span class="math inline">V_t</span> by its
+definition on the left side of <span class="math inline">(2)</span> and
+use <span class="math inline">X_t D_t</span> from <span
+class="math inline">(1)</span>. Note <span class="math inline">\Delta_t
++ \Gamma_t = \Delta_{t+\epsilon}</span> for <span
+class="math inline">\epsilon &gt; 0</span> sufficiently small. In this
+case <span class="math inline">V_t D_t = (V_u D_u + A_u
+D_u)|_{\mathcal{A}_t}</span> for <span class="math inline">u =
+{t+\epsilon}</span>. Since the stopping times are strictly increasing,
+induction can be applied.</p>
 <p><strong>Trading strategies create synthetic instruments where price
 corresponds to value and cash flow corresponds to account.</strong></p>
 <p>A (cash settled) derivative contract is specified by stopping times
@@ -139,19 +164,107 @@ determined by <span class="math display">
     V_t D_t = (\sum_{\hat{\tau}_j &gt; t} \hat{A}_j
 D_{\hat{\tau}_j})|_{\mathcal{A}_t}.
 </span> Note the right hand side is determined by the contract
-specifications and <span class="math inline">(D_t)</span>. Assuming
-<span class="math inline">\tau_0 = 0</span>, <span
-class="math inline">V_0 = \Gamma_0\cdot X_0</span> so the initial hedge
-<span class="math inline">\Gamma_0</span> is the Fréchet derivative
-<span class="math inline">D_{X_0}V_0</span> with respect to <span
-class="math inline">X_0</span>. Since <span class="math inline">V_t =
-(\Gamma_t + \Delta_t)\cdot X_t</span> we have <span
-class="math inline">\Gamma_t = D_{X_t}V_t - \Delta_t</span>. Note <span
-class="math inline">\Delta_t</span> is settled prior to time <span
-class="math inline">t</span>. This does not specify the trading times
-<span class="math inline">\tau_j &gt; 0</span><a href="#fn5"
+specifications and deflator. Assuming <span class="math inline">\tau_0 =
+0</span>, <span class="math inline">V_0 = \Gamma_0\cdot X_0</span> so
+the initial hedge <span class="math inline">\Gamma_0</span> is the
+Fréchet derivative <span class="math inline">D_{X_0}V_0</span> with
+respect to <span class="math inline">X_0</span>. Since <span
+class="math inline">V_t = (\Gamma_t + \Delta_t)\cdot X_t</span> we have
+<span class="math inline">\Gamma_t = D_{X_t}V_t - \Delta_t</span>. Note
+<span class="math inline">\Delta_t</span> is settled prior to time <span
+class="math inline">t</span>. This does not specify subsequent trading
+times <span class="math inline">\tau_j &gt; 0</span><a href="#fn5"
 class="footnote-ref" id="fnref5"
 role="doc-noteref"><sup>5</sup></a>.</p>
+<section id="examples" class="level2">
+<h2>Examples</h2>
+<section id="canonical-deflator" class="level3">
+<h3>Canonical Deflator</h3>
+<p>If repurchase agreements are available then a <em>canonical
+deflator</em> exists. A repurchase agreement over the interval <span
+class="math inline">[t_j, t_{j+1}]</span> is specified by a rate <span
+class="math inline">f_j</span> known at time <span
+class="math inline">t_j</span>. The price at <span
+class="math inline">t_j</span> is <span class="math inline">1</span> and
+it has a cash flow of <span class="math inline">{\exp(f_j\Delta
+t_j)}</span> at time <span class="math inline">t_{j+1}</span> where
+<span class="math inline">\Delta t_j = t_{j+1} - t_j</span>. By equation
+(1) we have <span class="math inline">{D_j = \exp(f_j\Delta
+t_j)D_{j+1}|_{\mathcal{A}_j}}</span>. If <span
+class="math inline">D_{j+1}</span> is known at time <span
+class="math inline">t_j</span> then <span class="math inline">{D_{j+1} =
+\exp(-f_j\Delta t_j)D_j}</span> and <span class="math inline">{D_n =
+\exp(-\sum_{j &lt; n} f_j\Delta t_j) D_{t_0}}</span> is the canonical
+deflator at time <span class="math inline">t_n</span>.</p>
+<p>The continuous time analog is <span class="math inline">D_t =
+\exp(-\int_0^t f(s)\,ds)D_0</span> where <span
+class="math inline">f</span> is the continuously compounded
+instantaneous forward rate.</p>
+</section>
+<section id="zero-coupon-bond" class="level3">
+<h3>Zero Coupon Bond</h3>
+<p>A <em>zero coupon bond</em> maturing at time <span
+class="math inline">u</span> has a single unit cash flow at <span
+class="math inline">u</span>, <span class="math inline">C_u^{D(u)} =
+1</span> and <span class="math inline">C_t^{D(u)} = 0</span> for <span
+class="math inline">t\not=u</span>. In an arbitrage free model its price
+at time <span class="math inline">t\le u</span>, <span
+class="math inline">X_t^{D(u)} = D_t(u)</span>, satisfies <span
+class="math inline">D_t(u) D_t = D_u|_{\mathcal{A}_t}</span> so <span
+class="math inline">D_t(u)</span> is the Radon-Nikodym derivative of
+<span class="math inline">D_u|_{\mathcal{A}_t}</span> with respect to
+<span class="math inline">D_t</span>. Zero coupon bond prices are
+determined by the deflators.</p>
+</section>
+<section id="risky-bond" class="level3">
+<h3>Risky Bond</h3>
+<p>Suppose a bond defaults at a random time <span
+class="math inline">\tau</span> and constant fraction <span
+class="math inline">R</span> is recovered at default. We augment the
+sample space to <span class="math inline">\Omega\times T</span> where
+the element <span class="math inline">(\omega, t)</span> indicates
+default at <span class="math inline">t</span>. Information about default
+at time <span class="math inline">t</span> is represented by the
+partition of <span class="math inline">T</span> consisting of
+singletons, <span class="math inline">\{s\}</span>, <span
+class="math inline">{s &lt; t}</span>, and the set <span
+class="math inline">\{u\ge t\}</span>. If default occurs before <span
+class="math inline">t</span> then we know <span
+class="math inline">\tau</span> exactly, otherwise we only know <span
+class="math inline">\tau \ge t</span>. The value of a risky zero coupon
+at time <span class="math inline">t</span> is determined by <span
+class="math display">
+    D^{\tau,R}_t(u)D_t = (RD_\tau 1(t \le \tau \le u) + D_u 1(\tau &gt;
+u))|_{\mathcal{A}_t}, t &gt; \tau.
+</span> <!--
+If rates are zero this implies $D^{\tau,R}_t(u) = 
+If recovery is $RD_\tau(u)$ instead of $R$ and $\tau$ is independent of $(D_t)_{t\in T}$
+then
+$$
+    D^{\tau,R}_t(u)D_t = D_t(u) \bigl(RP(t < \tau \le u) + P(\tau > u)\bigr)
+$$
+when $t > \tau$.
+--></p>
+</section>
+<section id="forward" class="level3">
+<h3>Forward</h3>
+<p>A <em>forward contract</em> on an underlying with price <span
+class="math inline">S_t</span> at <span class="math inline">t\in
+T</span> is specified by a forward <span
+class="math inline">f\in\boldsymbol{R}</span> and an expiration <span
+class="math inline">u\in T</span>. It has a single cash flow <span
+class="math inline">S_u - f</span> at <span
+class="math inline">u</span>. Its value at time <span
+class="math inline">t &lt; u</span> satisfies <span
+class="math inline">V_t D_t = ((S_u - f)D_u)|_{\mathcal{A}_t}</span>. If
+the underlying has no cash flows then <span class="math inline">S_t
+D_t</span> is a martingale measure so <span class="math inline">V_t =
+S_t - fD_t(u)</span>. If <span class="math inline">V_0 = 0</span> then
+<span class="math inline">f</span> is the <em>at the money</em> forward
+and the <em>cost of carry</em> is <span class="math inline">S_0 =
+fD_0(u)</span>.</p>
+</section>
+</section>
 <aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />

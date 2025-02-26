@@ -34,10 +34,102 @@ Blah, blah, blah...
 Everything in math is a set.
 The set of function from a set $A$ to a set $B$ is the
 _set exponential_ $B^A = \{f\colon A\to B\}$. 
-The _graph_ of a function $f\colon A\to B$ is the set
-$\{(a,f(a))\mid a\in A\}$.
-Note the graph of a function is a subset of the cartesion product
-$A\times B = \{(a,b)\mid a\in A, b\in B\}$.
+A function is a set defined by its _graph_ $\{(a,f(a))\mid a\in A\}\subseteq A\times B$.
+An _ordered pair_ $(a,b)\in A\times B$ can be
+defined as the set $\{a,\{a,b\}\}$.
+
+__Exercise__. _Show $\cap\{a,\{a,b\}\} = \{a\}$ and $\cup\{a,\{a,b\}\} = \{a,b\}$_.
+
+_Hint_ For any set $A$, $\cap A = \cap\{a\mid a\in A\}$ and $\cup A = \cup\{a\mid a\in A\}$.
+
+The intersection identifies the first item of the pair. If the union is
+a singleton then the second item is equal to the first item,
+otherwise we remove the first item to identify the second item.
+
+Ordered pairs have _projections_ $\first\colon A\times B\to A$ where
+$\first(a,b) = a$ and 
+$\second\colon A\times B\to B$ where
+$\second(a,b) = b$.
+
+__Exercise__. _If $f\colon C\to A$ and $g\colon C\to B$ show there
+exists $h\colon C\to A\times B$ with $\first(h(c)) = f(c)$
+and $\second(h(c)) = g(c)$, $c\in C$_.
+
+_Hint_: Of course $h(c) = (f(c), g(c))$.
+
+Two sets $A$ and $B$ are _equivalent_ (as sets), $A\cong B$,
+if there exists a one-to-one correspondence between them.
+
+__Exercise__. _Show $\cong$ is an_ equivalence _relation_.
+
+_Hint_. Establish $A\cong A$, $A\cong B$ implies $B\cong A$,
+and $A\cong B$, $B\cong C$ imply $A\cong C$ for sets $A,B,C$.
+
+<details><summary>Solution</summary>
+Show the identity function from $A$ to $A$ is bijective.
+Show if $f\colon A\to B$ is bijective, so is $f^{-1}\colon B\to A$.
+Show if $f\colon A\to B$ and $g\colon B\to C$ are bijective then so is $gf\colon A\to C$.
+</details>
+
+An equivalence relation on a set $S$ is a subset $R\subseteq S\times S$ with
+$aRa$ (reflexive), $aRb$ implies $bRa$ (symmetric),
+and $aRb$, $bRc$ imply $aRc$ (transitive), $a,b,c\in S$,
+where we write $aRb$ for $(a,b)\in R$. The _equivalence class_ of $a\in S$
+is $[a] = \{b\in S\mid aRb\}$.
+
+__Exercise__. _Show either $[a] = [b]$ or $[a]\cap [b] = \emptyset$ for $a,b\in S$_.
+
+A _partition_ of a set is a collection of disjoint subsets whose union is the entire set.
+This exercise shows $\{[a]\mid a\in A\}$ is a partition of $S$.
+
+__Exercise__. _If $\Sigma$ is a partions of $S$ then $\cup_{s\in\Sigma} s\times s$ is
+an equivalence relation on $S$_.
+
+Equivalence allows us to consider when two things are "the same" in a
+particualar sense even if they are not equal.
+
+
+Functions between sets with structure that preserve the structure are
+_homomorphisms_. A homomorphism that is bijective (one-to-one and
+onto) is an _isomorphism_. Two sets with structure are _equivalent_ if
+there is an isomorphism between them.
+
+
+
+
+## $\RR^n$
+
+There are two ways to think about $\RR^n$, one is as a set of tuples,
+the other is as a set of functions. These two perspectives are a source of confusion and insight.
+
+An impoverished notion of a vector is that it is a tuple of real numbers
+${x = (x_1,\ldots,x_n)}$.  Given a natural number $n\in\NN$, let
+${{\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR, 1\le i\le n\} = \prod_{1\le i\le n}\RR}}$
+be the cartesian product of $n\in\NN$ copies of the real numbers.
+If bold ${\bs{n} = \{1,\ldots,n\}}$ then ${i\in \bs{n}}$ is a shorter
+notation for ${1\le i\le n}$.  Recall if $A$ and $B$ are sets then the _set
+exponential_ ${B^A = \{f\colon A\to B\}}$ is the set of all functions
+from $A$ to $B$.  We can identify $\RR^n$ with $\RR^{\bs{n}}$ where the
+tuple ${(x_i)_{i\in\bs{n}}}$ corresponds to the function
+$\bs{x}\colon\bs{n}\to\RR$ defined by $\bs{x}(i) = x_i$, $i\in\bs{n}$.
+
+!!! $n\in\NN$ to $\bs{n}\subseteq\NN$.
+
+__Exercise__. _Show $\prod_{i\in\bs{n}}\RR$ is in one-to-one correspondence with $\RR^{\bs{n}}$_.
+
+A more powerful notion is to consider a vector as an element of the _vector space_ of all functions
+from an _index set_ $I$ to the real numbers, $\RR^I$.
+The tuple $x = (x_i)_{i\in I}$ in $\prod_{i\in I}\RR$ corresponds to a function
+${\bs{x}\colon I\to\RR}$ in $\RR^I$ defined by $\bs{x}(i) = x_i$, $i\in I$.
+The tuple $x = (x_i)_{i\in I}$ where $x_i = \bs{x}(i)$, $i\in I$.
+corresponds to the function ${\bs{x}\colon I\to\RR}$.
+In what follows we just write $x$ for $\bs{x}$ and leave it to you to figure
+out from context if a vector is a tuple or a function.
+
+__Exercise__. _Show $\prod_{i\in I}\RR$ is in one-to-one correspondence with $\RR^{I}$_.
+
+__Exercise__. _If $I$ and $J$ are in one-to-one correspondence then so are $\RR^I$ and $\RR^J$_.
+
 
 ### Pair
 
@@ -168,37 +260,6 @@ only if they have the same _Jordan canonical form_.
 If a vector space is provided with an _inner product_ we can define the distance
 between two vectors.
 -->
-
-## $\RR^n$
-
-There are two ways to think about $\RR^n$, one is as a set of tuples,
-the other is as a set of functions. These two perspectives are a source of confusion and insight.
-
-An impoverished notion of a vector is that it is a list of real numbers
-${x = (x_1,\ldots,x_n)}$.  Given a natural number $n\in\NN$, let
-${{\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR, 1\le i\le n\} = \prod_{1\le i\le n}\RR}}$
-be the cartesian product of $n\in\NN$ copies of the real numbers.
-If bold ${\bs{n} = \{1,\ldots,n\}}$ then ${i\in \bs{n}}$ is a shorter
-notation for ${1\le i\le n}$.  Recall if $A$ and $B$ are sets then the _set
-exponential_ ${B^A = \{f\colon A\to B\}}$ is the set of all functions
-from $A$ to $B$.  We can identify $\RR^n$ with $\RR^{\bs{n}}$ where the
-tuple ${(x_i)_{i\in\bs{n}}}$ corresponds to the function
-$\bs{x}\colon\bs{n}\to\RR$ defined by $\bs{x}(i) = x_i$, $i\in\bs{n}$.
-
-__Exercise__. _Show $\prod_{i\in\bs{n}}\RR$ is in one-to-one correspondence with $\RR^{\bs{n}}$_.
-
-A more powerful notion is to consider a vector as an element of the _vector space_ of all functions
-from an _index set_ $I$ to the real numbers, $\RR^I$.
-The tuple $x = (x_i)_{i\in I}$ in $\prod_{i\in I}\RR$ corresponds to a function
-${\bs{x}\colon I\to\RR}$ in $\RR^I$ defined by $\bs{x}(i) = x_i$, $i\in I$.
-The tuple $x = (x_i)_{i\in I}$ where $x_i = \bs{x}(i)$, $i\in I$.
-corresponds to the function ${\bs{x}\colon I\to\RR}$.
-In what follows we just write $x$ for $\bs{x}$ and leave it to you to figure
-out from context if a vector is a tuple or a function.
-
-__Exercise__. _Show $\prod_{i\in I}\RR$ is in one-to-one correspondence with $\RR^{I}$_.
-
-__Exercise__. _If $I$ and $J$ are in one-to-one correspondence then so are $\RR^I$ and $\RR^J$_.
 
 ## Tensor
 
