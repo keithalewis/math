@@ -55,11 +55,6 @@ _Proof_: Substitute $X_u D_u$ by this formula in $(1)$ and cancel terms in the s
 __Example__. (Black-Scholes/Merton) $M_t = (r, se^{\sigma B_t - \sigma^2t/2})P$, $C_t = (0,0)$,
 $D_t = e^{-\rho t}P$ where $(B_t)$ is standard Brownian motion and $P$ is Wiener measure.
 
-<!--
-__Example__. (LIBOR Market Model) _If repurchase agreements are available with price 1 at $t$
-and pay $e^{f_t\,dt}$ at time $t$ then the_ stochastic discount _$D_t = e^{-\int_0^t} f_s\,ds}$ is a deflator_.
--->
-
 __Lemma__. _With the above notation_
 $$
 \tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}, t\le u.
@@ -146,6 +141,20 @@ $S_u - f$ at $u$. Its value at time $t < u$
 satisfies $V_t D_t = ((S_u - f)D_u)|_{\AA_t}$. If the underlying has no
 cash flows then $S_t D_t$ is a martingale measure so $V_t = S_t - fD_t(u)$.
 If $V_0 = 0$ then $f$ is the _at the money_ forward and the _cost of carry_ is $S_0 = fD_0(u)$.
+
+### Futures
+
+A _futures contract_ on an underlying with price $S_t$, $t\in T$, is
+specified by _quote times_ $t_0 < \cdots < t_n = u$ where $u$ is the
+_futures expiration_. The futures _quote_ at expiration
+is equal to the price of the underlying $\Phi_u = S_u$. The price of a futures
+is always zero and has cash flows $\Phi_{t_{j+1}} - \Phi_{t_j}$ at $t_{j+1}$ where
+the quote $\Phi_t$ is determined by the market prior to expiration.
+
+In an arbitrage-free model $0D_{t_j} = ((\Phi_{t_{j+1}} - \Phi_{t_j})D_{t_{j+1}})|_{\AA_{t_j}}$.
+...
+
+### Limit Orders
 
 
 [^1]: A partition of $\Omega$ is a collection of pairwise disjoint sets with union $\Omega$.

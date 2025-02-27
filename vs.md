@@ -17,6 +17,8 @@ header-includes:
 \newcommand\ZZ{\bs{Z}}
 \newcommand\LL{\mathcal{L}}
 \newcommand\TT{\mathcal{T}}
+\renewcommand\dom{\operatorname{dom}}
+\renewcommand\cod{\operatorname{cod}}
 \renewcommand\eval{\operatorname{eval}}
 \renewcommand\first{\operatorname{first}}
 \renewcommand\second{\operatorname{second}}
@@ -34,7 +36,8 @@ Blah, blah, blah...
 Everything in math is a set.
 The set of function from a set $A$ to a set $B$ is the
 _set exponential_ $B^A = \{f\colon A\to B\}$. 
-A function is a set defined by its _graph_ $\{(a,f(a))\mid a\in A\}\subseteq A\times B$.
+A function is a set defined by its _graph_ $\{(a,f(a))\mid a\in A\}$
+contained in the _cartesion product_ $A\times B$.
 An _ordered pair_ $(a,b)\in A\times B$ can be
 defined as the set $\{a,\{a,b\}\}$.
 
@@ -43,8 +46,67 @@ __Exercise__. _Show $\cap\{a,\{a,b\}\} = \{a\}$ and $\cup\{a,\{a,b\}\} = \{a,b\}
 _Hint_ For any set $A$, $\cap A = \cap\{a\mid a\in A\}$ and $\cup A = \cup\{a\mid a\in A\}$.
 
 The intersection identifies the first item of the pair. If the union is
-a singleton then the second item is equal to the first item,
+a _singleton_ then the second item is equal to the first item,
 otherwise we remove the first item to identify the second item.
+
+A function $f\colon A\to B$ is _one-to-one_, or _injective_
+if $f(a) = f(a')$ implies $a = a'$, $a,a'\in A$.
+A function is _onto_, or _surjective_, if for every
+$b\in B$ there exists an $a\in A$ with $f(a) = b$.
+A function is a _one-to-one correspondence_, or _bijective_,
+if it is one-to-one and onto.
+
+Functions $f\colon A\to B$ and $g\colon B\to C$ can be _composed_.
+The composition of $f$ and $g$ is $g\circ f\colon A\to C$ defined
+by $g\circ f(a) = g(f(a))$, $a\in A$.
+We also write $gf$ for $g\circ f$.
+
+__Exercise__. _If in addtion $h\colon C\to D$ show
+$h(g) = (hg)f$_.
+
+This shows composition is _associative_.
+Every set has an _identity_ function $\iota_A\colon A\to A$ defined by
+$\iota_A(a) = a$, $a\in A$.
+
+__Exercise__. _If $f\colon A\to B$ show $f\iota_A = f$
+and $\iota_B f = f$_.
+
+__Exercise__. _Show $f\colon A\to B$ is one-to-one if and only $fg = fh$ implies
+$g = h$ for $g,h\colon C\to A$_.
+
+__Exercise__. _Show $f\colon A\to B$ is onto if and only $gf = hf$ implies
+$g = h$ for $g,h\colon B\to C$_.
+
+The _power set_ of a set $A$ is the set of all subsets of $A$,
+$\mathcal{P}(A) = \{E\mid E\subseteq A\}$,
+Every subset $E$ of a set $A$ corresponds to an _indicator_ function $1_E$
+defined by $1_E(a) = 1$ if $a\in E$ and $1_E(a) = 0$ if $a\not\in E$.
+Set exponential allows us to express all indicator functions as ${\{0,1\}}^A$.
+It is more common to write this as $2^A$ where $2 = \{0,1\}$.
+
+__Exercise__. _Show $\mathcal{P}(A)$ is in one-to-one correspondence with $2^A$_.
+
+__Exercise__. _Show $\mathcal{P}(A)$ is not in one-to-one correspondence with $A$_.
+
+_Hint_: If $f\colon A\to\mathcal{P}(A)$ is one-to-on and onto consider the set
+$S = \{a\in A\mid a\not\in f(a)\}$. Since $f$ is onto there exists
+$b\in A$ with $S = g(b)$. Is $b\in S$?
+
+Every function $f\colon A\to B$ gives rise to two functions defined
+on exponentials. Given any set $C$ define
+$f\circ\colon A^C\to B^C$ by $g\mapsto f\circ g$, $g\in A^C$.
+and $\circ $C^B\to C^A$ by $h\mapsto h\circ f$, $h\in C^B$.
+
+The inclusion $\iota\colon\{0,1\}\to\RR$ gives rise to
+$\circ\itoa\colon 2^I\to\RR^I$ for any set $I$.
+Since $\RR^I$ is the set of functions from $I$ to $\RR$ we
+can add and multiply them.
+
+__Exercise__. _Show $1_{A\cap B} = 1_A 1_B$ and $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$_.
+
+__Exercise__. _Show $1_{I\setminus A} = 1 - 1_A$_.
+
+_Hint_: The _set difference_ $A\setminus B = \{a\in A\mid a\not\in B\}$.
 
 Ordered pairs have _projections_ $\first\colon A\times B\to A$ where
 $\first(a,b) = a$ and 
@@ -54,8 +116,6 @@ $\second(a,b) = b$.
 __Exercise__. _If $f\colon C\to A$ and $g\colon C\to B$ show there
 exists $h\colon C\to A\times B$ with $\first(h(c)) = f(c)$
 and $\second(h(c)) = g(c)$, $c\in C$_.
-
-_Hint_: Of course $h(c) = (f(c), g(c))$.
 
 Two sets $A$ and $B$ are _equivalent_ (as sets), $A\cong B$,
 if there exists a one-to-one correspondence between them.
@@ -71,6 +131,22 @@ Show if $f\colon A\to B$ is bijective, so is $f^{-1}\colon B\to A$.
 Show if $f\colon A\to B$ and $g\colon B\to C$ are bijective then so is $gf\colon A\to C$.
 </details>
 
+### Relation
+
+Given sets $A$ and $B$ a _relation_ is a subset of the cartesian product
+of $A$ and $B$, $R\subseteq A\times B$. We write $aRb$ if $(a,b)\in R$.
+The _domain_ of a relation is $\dom R = \{a\in A\mid aRb\text{ for some }b\in B\}$.
+The _codomain_ of a relation is $\cod R = \{b\in B\mid aRb\text{ for some }a\in A\}$.
+The _left coset_ of $b\in\cod B$ is $Rb = \{a\in A: aRb\}$.
+The _right coset_ of $a\in\dom A$ is $aR = \{b\in B: aRb\}$.
+
+__Exercise__. _Show $\dom R = \cup_{b\in B} Rb$ and $\cod R = \cup_{a\in A} aR$_.
+
+__Exercise__. _Show $\dom R = first(R)$ and $\cod R = \second(R)$_.
+
+_Hint_: $\first(R) = \{\first(a,b)\mid (a,b)\in R\}$
+
+
 An equivalence relation on a set $S$ is a subset $R\subseteq S\times S$ with
 $aRa$ (reflexive), $aRb$ implies $bRa$ (symmetric),
 and $aRb$, $bRc$ imply $aRc$ (transitive), $a,b,c\in S$,
@@ -85,17 +161,39 @@ This exercise shows $\{[a]\mid a\in A\}$ is a partition of $S$.
 __Exercise__. _If $\Sigma$ is a partions of $S$ then $\cup_{s\in\Sigma} s\times s$ is
 an equivalence relation on $S$_.
 
-Equivalence allows us to consider when two things are "the same" in a
-particualar sense even if they are not equal.
 
+Equivalence allows us to simplify considerations. Two things are "the same" in a
+particular sense even if they are not equal.
+
+### Structure
 
 Functions between sets with structure that preserve the structure are
 _homomorphisms_. A homomorphism that is bijective (one-to-one and
-onto) is an _isomorphism_. Two sets with structure are _equivalent_ if
-there is an isomorphism between them.
+onto) is an _isomorphism_. 
 
+For example, a _semigroup_ is a set $S$ with a binary operation
+$m\colon S\times S\to S$ that is _associative_:
+$m(a,m(b,c)) = m(m(a,b),c)$, $a,b,c\in S$.
+If we write $ab$ for $m(a,b)$ this becomes $a(bc) = (ab)c$.
+This allows us to write $abc$ unambigously for either term.
 
+You might think this is too simple to be useful, but you would be wrong.
+Semigroups are the basis of the Map-Reduce algorithm.
+A computation $a_1a_2\cdots a_n$ can be partitioned into
+$(a_1\cdots a_{n_1})(a_{n_1+1}\cdots a_{n_2})\cdots(a_{n_k+1}\cdots a_n)$
+where $1 < n_1 < \cdots < n_k < n$. The partitioned calculations
+can be performed in parallel and
+the $k + 1$ calculations can be combined to get the final result.
+The computation time is proportional to $\max_j\{n_{j+1} - n_j\} + k + 1$.
 
+__Exercise__. _What is the optimal partition size for the product of $n$ terms_?
+
+_Hint_: Back of the envelope, if there are $k$ partitions of equal
+size the time is proportional to $n/k + k$.
+
+Semigroups don't have enough structure to have a convenienient characterization.
+Vector spaces are a mathematical sweet spot. Two vector spaces
+are isomorphic if and only if they have the same _dimension_.
 
 ## $\RR^n$
 
@@ -107,13 +205,10 @@ ${x = (x_1,\ldots,x_n)}$.  Given a natural number $n\in\NN$, let
 ${{\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR, 1\le i\le n\} = \prod_{1\le i\le n}\RR}}$
 be the cartesian product of $n\in\NN$ copies of the real numbers.
 If bold ${\bs{n} = \{1,\ldots,n\}}$ then ${i\in \bs{n}}$ is a shorter
-notation for ${1\le i\le n}$.  Recall if $A$ and $B$ are sets then the _set
-exponential_ ${B^A = \{f\colon A\to B\}}$ is the set of all functions
-from $A$ to $B$.  We can identify $\RR^n$ with $\RR^{\bs{n}}$ where the
+notation for ${1\le i\le n}$. 
+We can identify $\RR^n$ with $\RR^{\bs{n}}$ where the
 tuple ${(x_i)_{i\in\bs{n}}}$ corresponds to the function
 $\bs{x}\colon\bs{n}\to\RR$ defined by $\bs{x}(i) = x_i$, $i\in\bs{n}$.
-
-!!! $n\in\NN$ to $\bs{n}\subseteq\NN$.
 
 __Exercise__. _Show $\prod_{i\in\bs{n}}\RR$ is in one-to-one correspondence with $\RR^{\bs{n}}$_.
 
@@ -121,82 +216,12 @@ A more powerful notion is to consider a vector as an element of the _vector spac
 from an _index set_ $I$ to the real numbers, $\RR^I$.
 The tuple $x = (x_i)_{i\in I}$ in $\prod_{i\in I}\RR$ corresponds to a function
 ${\bs{x}\colon I\to\RR}$ in $\RR^I$ defined by $\bs{x}(i) = x_i$, $i\in I$.
-The tuple $x = (x_i)_{i\in I}$ where $x_i = \bs{x}(i)$, $i\in I$.
-corresponds to the function ${\bs{x}\colon I\to\RR}$.
 In what follows we just write $x$ for $\bs{x}$ and leave it to you to figure
 out from context if a vector is a tuple or a function.
 
 __Exercise__. _Show $\prod_{i\in I}\RR$ is in one-to-one correspondence with $\RR^{I}$_.
 
 __Exercise__. _If $I$ and $J$ are in one-to-one correspondence then so are $\RR^I$ and $\RR^J$_.
-
-
-### Pair
-
-Defining the _ordered pair_ $(a,b)$ using only set theory is a little tricky.
-Norbert Wiener gave a first crack at it in 1914 by defining $(a,b)$
-to be the set $\{\{\{a,\emptyset\}, \{\{b\}\}\}$.
-Around the same time Felix Hausdorff proposed the more recognizable
-definition $\{\{a,1\},\{b,2\}$ "where $1$ and $2$ are two distinct
-objects different from $a$ and $b$." In 1921, Kazimierz Kuratowski
-eliminated Housdorff's circumloqution and proposed simplifying
-Wiener's definition to $\{a,\{a,b\}\}$.
-
-__Exercise__. _Show $\cap\{a,\{a,b\}\} = \{a\}$ and $\cup\{a,\{a,b\}\} = \{a,b\}$_.
-
-_Hint_ For any set $A$, $\cap A = \cap\{a\mid a\in A\}$ and $\cup A = \cup\{a\mid a\in A\}$.
-
-The intersection identifies the first item of the pair. If the union is
-a singleton then the second item is equal to the first item,
-otherwise we remove the first item to identify the second item.
-
-Ordered pairs have _projections_ $\first\colon A\times B\to A$ where
-$\first(a,b) = a$ and 
-$\second\colon A\times B\to B$ where
-$\second(a,b) = b$.
-
-__Exercise__. _If $f\colon C\to A$ and $g\colon C\to B$ show there
-exists $h\colon C\to A\times B$ with $\first(h(c)) = f(c)$
-and $\second(h(c)) = g(c)$, $c\in C$_.
-
-<aside>As of 2024, the `Java` language standard does not provide a pair object.
-One must `import javafx.util.Pair;` to make that available.</aside>
-
-A function $f\colon A\to B$ is _one-to-one_, or _injective_
-if $f(a) = f(a')$ implies $a = a'$, $a,a'\in A$.
-A function is _onto_, or _surjective_, if for every
-$b\in B$ there exists an $a\in A$ with $f(a) = b$.
-A function is a _one-to-one correspondence_, or _bijective_,
-if it is one-to-one and onto.
-
-Two sets $A$ and $B$ are _equivalent_ (as sets), $A\cong B$,
-if there exists a one-to-one correspondence between them.
-
-__Exercise__. _Show $\cong$ is an_ equivalence _relation_.
-
-_Hint_. Establish $A\cong A$, $A\cong B$ implies $B\cong A$,
-and $A\cong B$, $B\cong C$ imply $A\cong C$ for sets $A,B,C$.
-
-<details><summary>Solution</summary>
-Show the identity function from $A$ to $A$ is bijective.
-Show if $f\colon A\to B$ is bijective, so is $f^{-1}\colon B\to A$.
-Show if $f\colon A\to B$ and $g\colon B\to C$ are bijective then so is $gf\colon A\to C$.
-</details>
-
-An equivalence relation on a set $S$ is a subset $R\subseteq S\times S$ with
-$aRa$ (reflexive), $aRb$ implies $bRa$ (symmetric),
-and $aRb$, $bRc$ imply $aRc$ (transitive), $a,b,c\in S$,
-where we write $aRb$ for $(a,b)\in R$. The _equivalence class_ of $a\in S$
-is $[a] = \{b\in S\mid aRb\}$.
-
-__Exercise__. _Show either $[a] = [b]$ or $[a]\cap [b] = \emptyset$ for $a,b\in S$_.
-
-A _partition_ of a set is a collection of disjoint subsets whose union is the entire set.
-This exercise shows $\{[a]\mid a\in A\}$ is a partition of $S$.
-
-__Exercise__. _If $\Sigma$ is a partions of $S$ then $\cup_{s\in\Sigma} s\times s$ is
-an equivalence relation on $S$_.
-
 Equivalence allows us to consider when two things are "the same" in a
 particualar sense even if they are not equal.
 
@@ -225,20 +250,6 @@ __Exercise__. _If $g\in (B\times C)^A$ show $,g = \eval(\eval(g, a), b)$_.
 ### Structure
 
 Mathematical objects are sets with structure.
-For example, a _semigroup_ is a set $S$ with a binary operation
-$m\colon S\times S\to S$ that is _associative_:
-$m(a,m(b,c)) = m(m(a,b),c)$, $a,b,c\in S$.
-If we write $ab$ for $m(a,b)$ this becomes $a(bc) = (ab)c$.
-This allows us to write $abc$ unambigously for either term.
-
-You might think this is too simple to be very useful, but you would be wrong.
-Semigroups are the basis of the Map-Reduce algorithm.
-A computation $a_1a_2\cdots a_n$ can be partitioned into
-$(a_1\cdots a_{n_1})(a_{n_1+1}\cdots a_{n_2})\cdots(a_{n_k+1}\cdots a_n)$
-where $1 < n_1 < \cdots < n_k < n$. The partitioned calculations
-can be performed in parallel and
-the $k + 1$ calculations can be combined to get the final result.
-
 Functions between sets with structure that preserve the structure are
 _homomorphisms_. A homomorphism that is bijective (one-to-one and
 onto) is an _isomorphism_. Two sets with structure are _equivalent_ if
