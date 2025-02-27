@@ -280,7 +280,8 @@ A rank 1 tensor is a vector.
 The _shape_ of a tensor is its index set.
 First we consider rank 2 tensors with natual number index sets.
 More precisely, if $n\in\NN$ is a natural number we use
-the index set $\bs{n} = \{1,\ldots,n\}$.
+the index set $\bs{n} = \{1,\ldots,n\}$
+or $\bs{n} = \{0,\ldots,n-1\}$ if we are considering computer applications.
 
 [^1]: This is the definition of a tensor common in machine learning. The mathematical
 definition of a tensor is quite different.
@@ -288,7 +289,11 @@ definition of a tensor is quite different.
 ### Rank 2
 
 A rank 2 tensor is a _matrix_.
-If $x\in\RR^{n\times m}$, $n,m\in\NN$, then we can define
+If $x\in\RR^{n\times m}$, $n,m\in\NN$, then
+the $i$-th row is a vector in $\RR^m$ with $j\mapsto x(i, j)$, $j\in\bs{m}$,
+and the $j$-th column is a vector in $\RR^n$ with $i\mapsto x(i, j)$, $i\in\bs{n}$.
+
+we can define
 $x_{i,j} = x(i, j)$, $i\in\bs{n}$, $j\in\bs{m}$. 
 Thinking of $x$ as the two-dimensional matrix $[x_{i,j}]$,
 the $i$-th row of $x$ is ${(x_{i,j})_{j\in\bs{m}}}$
@@ -296,7 +301,7 @@ and the $j$-th column is ${(x_{i,j})_{i\in\bs{n}}}$.
 In the Python [numpy](https://numpy.org/doc/stable/reference/arrays.ndarray.html)
 package the $i$-th row is expressed as $x[i,:]$ and the $j$-th column as $x[:,j]$.
 
-__Exercise__. _Show $\RR^{\bs{n}\timex\bs{m}}$ is
+__Exercise__. _Show $\RR^{\bs{n}\times\bs{m}}$ is
 in one-to-one correspondence with $\RR^{nm}$, $n,m\in\NN$_.
 
 Note selecting a row is a function $\RR^{n\times m}\times\bs{n}\to\RR^{m}$
