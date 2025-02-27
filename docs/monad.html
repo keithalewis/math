@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-01-26" />
+  <meta name="dcterms.date" content="2025-02-27" />
   <title>Monad</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Monad</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 26, 2025</p>
+<p class="date">February 27, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Will it Function?
@@ -103,7 +103,8 @@ not in the domain of <span class="math inline">f</span>. This is an
 improvement over setting a global <code>errno</code> but the programmer
 still has to check all possible return values. If the library
 implementing <code>f</code> changes then new error codes might be added
-that the programmer needs to change their code to take into account.</p>
+that requires the programmer to change their code to take into
+account.</p>
 <p>Another problem with this approach is that <code>f</code> is not a
 <em>pure</em> function. It has a side-effect of changing the memory
 location pointed to by <code>py</code>. Monads solve this problem.</p>

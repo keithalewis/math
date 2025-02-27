@@ -17,6 +17,7 @@ header-includes:
 \newcommand\ZZ{\bs{Z}}
 \newcommand\LL{\mathcal{L}}
 \newcommand\TT{\mathcal{T}}
+\newcommand\PP{\mathcal{P}}
 \renewcommand\dom{\operatorname{dom}}
 \renewcommand\cod{\operatorname{cod}}
 \renewcommand\eval{\operatorname{eval}}
@@ -78,35 +79,50 @@ __Exercise__. _Show $f\colon A\to B$ is onto if and only $gf = hf$ implies
 $g = h$ for $g,h\colon B\to C$_.
 
 The _power set_ of a set $A$ is the set of all subsets of $A$,
-$\mathcal{P}(A) = \{E\mid E\subseteq A\}$,
+$\PP(A) = \{E\mid E\subseteq A\}$,
 Every subset $E$ of a set $A$ corresponds to an _indicator_ function $1_E$
 defined by $1_E(a) = 1$ if $a\in E$ and $1_E(a) = 0$ if $a\not\in E$.
-Set exponential allows us to express all indicator functions as ${\{0,1\}}^A$.
+Set exponential allows us to express all indicator functions as elements of ${\{0,1\}}^A$.
 It is more common to write this as $2^A$ where $2 = \{0,1\}$.
 
-__Exercise__. _Show $\mathcal{P}(A)$ is in one-to-one correspondence with $2^A$_.
+__Exercise__. _Show $\PP(A)$ is in one-to-one correspondence with $2^A$_.
 
-__Exercise__. _Show $\mathcal{P}(A)$ is not in one-to-one correspondence with $A$_.
+__Exercise__. _Show $\PP(A)$ is not in one-to-one correspondence with $A$ if $A$ is non-empty_.
 
-_Hint_: If $f\colon A\to\mathcal{P}(A)$ is one-to-on and onto consider the set
+_Hint_: If $f\colon A\to\PP(A)$ is onto consider the set
 $S = \{a\in A\mid a\not\in f(a)\}$. Since $f$ is onto there exists
-$b\in A$ with $S = g(b)$. Is $b\in S$?
+$b\in A$ with $S = g(b)$. Is $b\in S$? Conclude no such $f$ exists.
+
+There is a close connection between set theory and _propositional calculus_.
+Let $\top$ (top) stand for the proposition that is always true and $\bot$ (bottom) for the
+proposition that is always false. These are also written $T$, $\text{true}$, or $1$
+and $F$, $\text{false}$, or $0$, respectively$. 
 
 Every function $f\colon A\to B$ gives rise to two functions defined
 on exponentials. Given any set $C$ define
 $f\circ\colon A^C\to B^C$ by $g\mapsto f\circ g$, $g\in A^C$.
-and $\circ $C^B\to C^A$ by $h\mapsto h\circ f$, $h\in C^B$.
+and $\circ f\colon C^B\to C^A$ by $h\mapsto h\circ f$, $h\in C^B$.
 
-The inclusion $\iota\colon\{0,1\}\to\RR$ gives rise to
-$\circ\itoa\colon 2^I\to\RR^I$ for any set $I$.
+__Exercise__: Show if $f\colon A\to B$ is one-to-one then so is $f\circ\colon A^C\to B^C$_.
+
+__Exercise__: Show if $f\colon A\to B$ is onto then so is $\circ f\colon C^A\to C^B$_.
+
+The inclusion $\iota\colon\{0,1\}\to\RR$ into the real numbers gives rise to
+$\circ\iota\colon 2^I\to\RR^I$ for any set $I$.
 Since $\RR^I$ is the set of functions from $I$ to $\RR$ we
 can add and multiply them.
+
+Logical connectives between propositions can be modeled using set theory. 
+Given a fixed _universal_ set $S$ we let the powerset $\PP(S)$
 
 __Exercise__. _Show $1_{A\cap B} = 1_A 1_B$ and $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$_.
 
 __Exercise__. _Show $1_{I\setminus A} = 1 - 1_A$_.
 
 _Hint_: The _set difference_ $A\setminus B = \{a\in A\mid a\not\in B\}$.
+
+We can reduce set identities to algebraic operatons.
+For example, De Mogan's Laws are 
 
 Ordered pairs have _projections_ $\first\colon A\times B\to A$ where
 $\first(a,b) = a$ and 

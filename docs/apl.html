@@ -188,14 +188,15 @@ class="math inline">X\times Y</span>.</p>
 <h3>Exponential</h3>
 <p>If a category has products the <em>exponential</em> <span
 class="math inline">Z^Y</span> is an object <span
-class="math inline">\langle Y\to Z\rangle</span> and an
-<em>evaluation</em> arrow <span class="math inline">e\colon
-Y\times\langle Y\to Z\rangle\to Z</span>. Note <span
-class="math inline">\langle Y\to Z\rangle</span> might not be the same
-as <span class="math inline">(Y\to Z)</span>. The evaluation arrow
-satisfies the condition that any arrow <span class="math inline">f\colon
-X\times Y\to Z</span> corresponds to a unique arrow <span
-class="math inline">f_X\colon X\to\langle Y\to Z\rangle</span> via …</p>
+class="math inline">\langle
+Y\to Z\rangle</span> and an <em>evaluation</em> arrow <span
+class="math inline">e\colon Y\times\langle Y\to Z\rangle\to Z</span>.
+Note <span class="math inline">\langle Y\to Z\rangle</span> might not be
+the same as <span class="math inline">(Y\to Z)</span>. The evaluation
+arrow satisfies the condition that any arrow <span
+class="math inline">f\colon X\times Y\to Z</span> corresponds to a
+unique arrow <span class="math inline">f_X\colon X\to\langle Y\to
+Z\rangle</span> via …</p>
 </section>
 </section>
 <section id="set" class="level2">
@@ -245,9 +246,9 @@ I_j}</span> where <span class="math inline">X</span> is any set and
 <span class="math inline">(I_j)_{j\in J}</span> is any indexed
 collection of sets – the product of exponentials is the exponential of
 the sum. The element <span class="math inline">x\in\Pi_{j\in J}
-X^{I_j}</span> corresponds to <span class="math inline">\overline{x}\in
-X^{\sqcup_{j\in J} I_j}</span> via <span class="math inline">\pi_j x =
-\overline{x}\nu_j</span> where <span
+X^{I_j}</span> corresponds to <span
+class="math inline">\overline{x}\in  X^{\sqcup_{j\in J} I_j}</span> via
+<span class="math inline">\pi_j x = \overline{x}\nu_j</span> where <span
 class="math inline">\pi_j\colon\Pi_{j\in J}\to X_j</span> are the
 projection defining the product and <span
 class="math inline">\nu_j\colon X_j\to\sqcup_{j\in J}</span> are the
@@ -410,10 +411,11 @@ distinct first elements.</p>
 <section id="reshape" class="level3">
 <h3>Reshape</h3>
 <p>The function <span class="math inline">\rho =
-\rho_{n_0,...,n_{k-1}}\colon\iota n_0\times\cdots\times\iota
-n_{k-1}\to\iota n_0\cdots n_{k-1}</span> is defined by <span
-class="math inline">\rho(i_0, i_1, \ldots, i_{k-1}) = i_0 +
-n_0(\rho(i_1, \ldots, n_{k-1}))</span>.</p>
+\rho_{n_0,...,n_{k-1}}\colon\iota
+n_0\times\cdots\times\iota n_{k-1}\to\iota n_0\cdots n_{k-1}</span> is
+defined by <span class="math inline">\rho(i_0, i_1, \ldots, i_{k-1}) =
+i_0 + n_0(\rho(i_1,
+\ldots, n_{k-1}))</span>.</p>
 <p>Every element <span class="math inline">x\in X^n</span> corresponds
 to a function <span class="math inline">x\colon\iota n\to X</span>. The
 composition <span class="math inline">x\rho\colon
@@ -471,11 +473,12 @@ be a set of characters.</p>
 <p>APL lets you turn a number into a lot of numbers. The function <span
 class="math inline">\iota</span> (iota) is used to produce sequences. If
 <span class="math inline">n\in \bm{N}</span> then <span
-class="math inline">\iota n = (0, 1, \ldots n-1)</span> where <span
-class="math inline">\bm{N}</span> is the set of natural numbers. It is
-related to our convention <span class="math inline">n = \{0,\ldots,
-n-1\}</span> but <span class="math inline">\iota n</span> is not equal
-to <span class="math inline">n</span>, it is an element of <span
+class="math inline">\iota n = (0,
+1, \ldots n-1)</span> where <span class="math inline">\bm{N}</span> is
+the set of natural numbers. It is related to our convention <span
+class="math inline">n = \{0,\ldots, n-1\}</span> but <span
+class="math inline">\iota n</span> is not equal to <span
+class="math inline">n</span>, it is an element of <span
 class="math inline">\bm{N}^n</span>. Note <span
 class="math inline">(\iota n)_i = i</span>, <span
 class="math inline">i\in n</span> so <span class="math inline">\iota
@@ -627,7 +630,7 @@ class="math inline">X_J</span>.</p>
 (Z^Y)^X</span> via <span class="math inline">f(x,y) = z</span> iff <span
 class="math inline">(fx)y = z</span>.</p>
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -648,24 +651,24 @@ class="math inline">\{\}\colon\mathbf{Vec}\to\mathbf{Set}</span>. There
 is also the <em>free functor</em> <span
 class="math inline">\langle\rangle\colon\mathbf{Set}\to\mathbf{Vec}</span>
 defined by <span class="math inline">X\subseteq V\mapsto \langle
-X\rangle = \operatorname{span}\{\delta_x:x\in X\}\subseteq B(X)</span>
-where <span class="math inline">B(X)</span> is the vector space of
-bounded functions on <span class="math inline">X</span> and <span
-class="math inline">\delta_x(y) = 1</span> if <span
-class="math inline">y = x</span> and <span
+X\rangle = \operatorname{span}\{\delta_x:x\in
+X\}\subseteq B(X)</span> where <span class="math inline">B(X)</span> is
+the vector space of bounded functions on <span
+class="math inline">X</span> and <span class="math inline">\delta_x(y) =
+1</span> if <span class="math inline">y = x</span> and <span
 class="math inline">\delta_x(y) = 0</span> if <span
-class="math inline">y\not= x</span>, <span class="math inline">x,y\in
-X</span>. A function on sets <span class="math inline">t\colon X\to
-Y</span> can be extended to <span class="math inline">\langle
-t\rangle\colon \langle X\rangle\to\langle Y\rangle</span> by extending
-it linearly. Since <span class="math inline">\{\delta_x:x\in
-X\}\subseteq B(X)</span> are independent this extension is well-defined.
-Show <span class="math inline">\{V\}\Rightarrow X\cong
-V\Rightarrow\langle X\rangle</span> for <span
-class="math inline">V</span> a vector space and <span
-class="math inline">X</span> a set.<a href="#fnref2"
+class="math inline">y\not=
+x</span>, <span class="math inline">x,y\in X</span>. A function on sets
+<span class="math inline">t\colon X\to Y</span> can be extended to <span
+class="math inline">\langle t\rangle\colon \langle X\rangle\to\langle
+Y\rangle</span> by extending it linearly. Since <span
+class="math inline">\{\delta_x:x\in X\}\subseteq B(X)</span> are
+independent this extension is well-defined. Show <span
+class="math inline">\{V\}\Rightarrow X\cong V\Rightarrow\langle
+X\rangle</span> for <span class="math inline">V</span> a vector space
+and <span class="math inline">X</span> a set.<a href="#fnref2"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-02-25" />
+  <meta name="dcterms.date" content="2025-02-27" />
   <title>Simple Unified Model of Derivative Securities</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,7 +45,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model of Derivative Securities</h1>
-<p class="date">February 25, 2025</p>
+<p class="date">February 27, 2025</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -57,6 +57,8 @@ Deflator</a></li>
 Bond</a></li>
 <li><a href="#risky-bond" id="toc-risky-bond">Risky Bond</a></li>
 <li><a href="#forward" id="toc-forward">Forward</a></li>
+<li><a href="#futures" id="toc-futures">Futures</a></li>
+<li><a href="#limit-orders" id="toc-limit-orders">Limit Orders</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -130,10 +132,6 @@ class="math inline">M_t = (r, se^{\sigma B_t - \sigma^2t/2})P</span>,
 class="math inline">D_t = e^{-\rho t}P</span> where <span
 class="math inline">(B_t)</span> is standard Brownian motion and <span
 class="math inline">P</span> is Wiener measure.</p>
-<!--
-__Example__. (LIBOR Market Model) _If repurchase agreements are available with price 1 at $t$
-and pay $e^{f_t\,dt}$ at time $t$ then the_ stochastic discount _$D_t = e^{-\int_0^t} f_s\,ds}$ is a deflator_.
--->
 <p><strong>Lemma</strong>. <em>With the above notation</em> <span
 class="math display">
 \tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
@@ -264,8 +262,28 @@ S_t - fD_t(u)</span>. If <span class="math inline">V_0 = 0</span> then
 and the <em>cost of carry</em> is <span class="math inline">S_0 =
 fD_0(u)</span>.</p>
 </section>
+<section id="futures" class="level3">
+<h3>Futures</h3>
+<p>A <em>futures contract</em> on an underlying with price <span
+class="math inline">S_t</span>, <span class="math inline">t\in T</span>,
+is specified by <em>quote times</em> <span class="math inline">t_0 &lt;
+\cdots &lt; t_n = u</span> where <span class="math inline">u</span> is
+the <em>futures expiration</em>. The futures <em>quote</em> at
+expiration is equal to the price of the underlying <span
+class="math inline">\Phi_u = S_u</span>. The price of a futures is
+always zero and has cash flows <span class="math inline">\Phi_{t_{j+1}}
+- \Phi_{t_j}</span> at <span class="math inline">t_{j+1}</span> where
+the quote <span class="math inline">\Phi_t</span> is determined by the
+market prior to expiration.</p>
+<p>In an arbitrage-free model <span class="math inline">0D_{t_j} =
+((\Phi_{t_{j+1}} - \Phi_{t_j})D_{t_{j+1}})|_{\mathcal{A}_{t_j}}</span>.
+…</p>
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="limit-orders" class="level3">
+<h3>Limit Orders</h3>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -302,6 +320,6 @@ class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>Continuous time trading is impossible.<a href="#fnref5"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>

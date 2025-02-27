@@ -46,7 +46,7 @@ and return an error code indicating what went wrong if $x$
 is not in the domain of $f$. This is an improvement over setting
 a global `errno` but the programmer still has to check all possible
 return values. If the library implementing `f` changes then
-new error codes might be added that the programmer needs to
+new error codes might be added that requires the programmer to
 change their code to take into account.
 
 Another problem with this approach is that `f` is not a _pure_ function.

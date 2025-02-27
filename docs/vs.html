@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-02-25" />
+  <meta name="dcterms.date" content="2025-02-27" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">February 25, 2025</p>
+<p class="date">February 27, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -56,12 +56,15 @@ A mathematical sweet spot
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#set" id="toc-set">Set</a></li>
+<li><a href="#set" id="toc-set">Set</a>
+<ul>
+<li><a href="#relation" id="toc-relation">Relation</a></li>
+<li><a href="#structure" id="toc-structure">Structure</a></li>
+</ul></li>
 <li><a href="#boldsymbolrn" id="toc-boldsymbolrn"><span
 class="math inline">\boldsymbol{{{R}}}^n</span></a>
 <ul>
-<li><a href="#pair" id="toc-pair">Pair</a></li>
-<li><a href="#structure" id="toc-structure">Structure</a></li>
+<li><a href="#structure-1" id="toc-structure-1">Structure</a></li>
 </ul></li>
 <li><a href="#tensor" id="toc-tensor">Tensor</a>
 <ul>
@@ -88,8 +91,9 @@ Product</a></li>
 class="math inline">A</span> to a set <span class="math inline">B</span>
 is the <em>set exponential</em> <span class="math inline">B^A =
 \{f\colon A\to B\}</span>. A function is a set defined by its
-<em>graph</em> <span class="math inline">\{(a,f(a))\mid a\in
-A\}\subseteq A\times B</span>. An <em>ordered pair</em> <span
+<em>graph</em> <span class="math inline">\{(a,f(a))\mid a\in A\}</span>
+contained in the <em>cartesion product</em> <span
+class="math inline">A\times B</span>. An <em>ordered pair</em> <span
 class="math inline">(a,b)\in A\times B</span> can be defined as the set
 <span class="math inline">\{a,\{a,b\}\}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
@@ -99,8 +103,117 @@ class="math inline">\cup\{a,\{a,b\}\} = \{a,b\}</span></em>.</p>
 class="math inline">\cap A = \cap\{a\mid a\in A\}</span> and <span
 class="math inline">\cup A = \cup\{a\mid a\in A\}</span>.</p>
 <p>The intersection identifies the first item of the pair. If the union
-is a singleton then the second item is equal to the first item,
+is a <em>singleton</em> then the second item is equal to the first item,
 otherwise we remove the first item to identify the second item.</p>
+<p>A function <span class="math inline">f\colon A\to B</span> is
+<em>one-to-one</em>, or <em>injective</em> if <span
+class="math inline">f(a) = f(a&#39;)</span> implies <span
+class="math inline">a = a&#39;</span>, <span
+class="math inline">a,a&#39;\in A</span>. A function is <em>onto</em>,
+or <em>surjective</em>, if for every <span class="math inline">b\in
+B</span> there exists an <span class="math inline">a\in A</span> with
+<span class="math inline">f(a) = b</span>. A function is a
+<em>one-to-one correspondence</em>, or <em>bijective</em>, if it is
+one-to-one and onto.</p>
+<p>Functions <span class="math inline">f\colon A\to B</span> and <span
+class="math inline">g\colon B\to C</span> can be <em>composed</em>. The
+composition of <span class="math inline">f</span> and <span
+class="math inline">g</span> is <span class="math inline">g\circ f\colon
+A\to C</span> defined by <span class="math inline">g\circ f(a) =
+g(f(a))</span>, <span class="math inline">a\in A</span>. We also write
+<span class="math inline">gf</span> for <span class="math inline">g\circ
+f</span>.</p>
+<p><strong>Exercise</strong>. <em>If in addtion <span
+class="math inline">h\colon C\to D</span> show <span
+class="math inline">h(g) = (hg)f</span></em>.</p>
+<p>This shows composition is <em>associative</em>. Every set has an
+<em>identity</em> function <span class="math inline">\iota_A\colon A\to
+A</span> defined by <span class="math inline">\iota_A(a) = a</span>,
+<span class="math inline">a\in A</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
+A\to B</span> show <span class="math inline">f\iota_A = f</span> and
+<span class="math inline">\iota_B f = f</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">f\colon
+A\to B</span> is one-to-one if and only <span class="math inline">fg =
+fh</span> implies <span class="math inline">g = h</span> for <span
+class="math inline">g,h\colon C\to A</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">f\colon
+A\to B</span> is onto if and only <span class="math inline">gf =
+hf</span> implies <span class="math inline">g = h</span> for <span
+class="math inline">g,h\colon B\to C</span></em>.</p>
+<p>The <em>power set</em> of a set <span class="math inline">A</span> is
+the set of all subsets of <span class="math inline">A</span>, <span
+class="math inline">\mathcal{P}(A) = \{E\mid E\subseteq A\}</span>,
+Every subset <span class="math inline">E</span> of a set <span
+class="math inline">A</span> corresponds to an <em>indicator</em>
+function <span class="math inline">1_E</span> defined by <span
+class="math inline">1_E(a) = 1</span> if <span class="math inline">a\in
+E</span> and <span class="math inline">1_E(a) = 0</span> if <span
+class="math inline">a\not\in E</span>. Set exponential allows us to
+express all indicator functions as elements of <span
+class="math inline">{\{0,1\}}^A</span>. It is more common to write this
+as <span class="math inline">2^A</span> where <span
+class="math inline">2 = \{0,1\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\mathcal{P}(A)</span> is in one-to-one
+correspondence with <span class="math inline">2^A</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\mathcal{P}(A)</span> is not in one-to-one
+correspondence with <span class="math inline">A</span> if <span
+class="math inline">A</span> is non-empty</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">f\colon
+A\to\mathcal{P}(A)</span> is onto consider the set <span
+class="math inline">S = \{a\in A\mid a\not\in f(a)\}</span>. Since <span
+class="math inline">f</span> is onto there exists <span
+class="math inline">b\in A</span> with <span class="math inline">S =
+g(b)</span>. Is <span class="math inline">b\in S</span>? Conclude no
+such <span class="math inline">f</span> exists.</p>
+<p>There is a close connection between set theory and <em>propositional
+calculus</em>. Let <span class="math inline">\top</span> (top) stand for
+the proposition that is always true and <span
+class="math inline">\bot</span> (bottom) for the proposition that is
+always false. These are also written <span class="math inline">T</span>,
+<span class="math inline">\text{true}</span>, or <span
+class="math inline">1</span> and <span class="math inline">F</span>,
+<span class="math inline">\text{false}</span>, or <span
+class="math inline">0</span>, respectively$.</p>
+<p>Every function <span class="math inline">f\colon A\to B</span> gives
+rise to two functions defined on exponentials. Given any set <span
+class="math inline">C</span> define <span
+class="math inline">f\circ\colon A^C\to B^C</span> by <span
+class="math inline">g\mapsto f\circ g</span>, <span
+class="math inline">g\in A^C</span>. and <span class="math inline">\circ
+f\colon C^B\to C^A</span> by <span class="math inline">h\mapsto h\circ
+f</span>, <span class="math inline">h\in C^B</span>.</p>
+<p><strong>Exercise</strong>: Show if <span class="math inline">f\colon
+A\to B</span> is one-to-one then so is <span
+class="math inline">f\circ\colon A^C\to B^C</span>_.</p>
+<p><strong>Exercise</strong>: Show if <span class="math inline">f\colon
+A\to B</span> is onto then so is <span class="math inline">\circ f\colon
+C^A\to C^B</span>_.</p>
+<p>The inclusion <span
+class="math inline">\iota\colon\{0,1\}\to\boldsymbol{{{R}}}</span> into
+the real numbers gives rise to <span
+class="math inline">\circ\iota\colon 2^I\to\boldsymbol{{{R}}}^I</span>
+for any set <span class="math inline">I</span>. Since <span
+class="math inline">\boldsymbol{{{R}}}^I</span> is the set of functions
+from <span class="math inline">I</span> to <span
+class="math inline">\boldsymbol{{{R}}}</span> we can add and multiply
+them.</p>
+<p>Logical connectives between propositions can be modeled using set
+theory. Given a fixed <em>universal</em> set <span
+class="math inline">S</span> we let the powerset <span
+class="math inline">\mathcal{P}(S)</span></p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">1_{A\cap B} = 1_A 1_B</span> and <span
+class="math inline">1_{A\cup B} = 1_A + 1_B - 1_{A\cap
+B}</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">1_{I\setminus A} = 1 - 1_A</span></em>.</p>
+<p><em>Hint</em>: The <em>set difference</em> <span
+class="math inline">A\setminus B = \{a\in A\mid a\not\in B\}</span>.</p>
+<p>We can reduce set identities to algebraic operatons. For example, De
+Mogan’s Laws are</p>
 <p>Ordered pairs have <em>projections</em> <span
 class="math inline">\operatorname{first}\colon A\times B\to A</span>
 where <span class="math inline">\operatorname{first}(a,b) = a</span> and
@@ -113,8 +226,6 @@ there exists <span class="math inline">h\colon C\to A\times B</span>
 with <span class="math inline">\operatorname{first}(h(c)) = f(c)</span>
 and <span class="math inline">\operatorname{second}(h(c)) = g(c)</span>,
 <span class="math inline">c\in C</span></em>.</p>
-<p><em>Hint</em>: Of course <span class="math inline">h(c) = (f(c),
-g(c))</span>.</p>
 <p>Two sets <span class="math inline">A</span> and <span
 class="math inline">B</span> are <em>equivalent</em> (as sets), <span
 class="math inline">A\cong B</span>, if there exists a one-to-one
@@ -140,6 +251,32 @@ class="math inline">f\colon A\to B</span> and <span
 class="math inline">g\colon B\to C</span> are bijective then so is <span
 class="math inline">gf\colon A\to C</span>.
 </details>
+<section id="relation" class="level3">
+<h3>Relation</h3>
+<p>Given sets <span class="math inline">A</span> and <span
+class="math inline">B</span> a <em>relation</em> is a subset of the
+cartesian product of <span class="math inline">A</span> and <span
+class="math inline">B</span>, <span class="math inline">R\subseteq
+A\times B</span>. We write <span class="math inline">aRb</span> if <span
+class="math inline">(a,b)\in R</span>. The <em>domain</em> of a relation
+is <span class="math inline">\operatorname{dom}R = \{a\in A\mid
+aRb\text{ for some }b\in B\}</span>. The <em>codomain</em> of a relation
+is <span class="math inline">\operatorname{cod}R = \{b\in B\mid
+aRb\text{ for some }a\in A\}</span>. The <em>left coset</em> of <span
+class="math inline">b\in\operatorname{cod}B</span> is <span
+class="math inline">Rb = \{a\in A: aRb\}</span>. The <em>right
+coset</em> of <span class="math inline">a\in\operatorname{dom}A</span>
+is <span class="math inline">aR = \{b\in B: aRb\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{dom}R = \cup_{b\in B} Rb</span> and
+<span class="math inline">\operatorname{cod}R = \cup_{a\in A}
+aR</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{dom}R = first(R)</span> and <span
+class="math inline">\operatorname{cod}R =
+\operatorname{second}(R)</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">\operatorname{first}(R) =
+\{\operatorname{first}(a,b)\mid (a,b)\in R\}</span></p>
 <p>An equivalence relation on a set <span class="math inline">S</span>
 is a subset <span class="math inline">R\subseteq S\times S</span> with
 <span class="math inline">aRa</span> (reflexive), <span
@@ -165,12 +302,43 @@ class="math inline">\Sigma</span> is a partions of <span
 class="math inline">S</span> then <span
 class="math inline">\cup_{s\in\Sigma} s\times s</span> is an equivalence
 relation on <span class="math inline">S</span></em>.</p>
-<p>Equivalence allows us to consider when two things are “the same” in a
-particualar sense even if they are not equal.</p>
+<p>Equivalence allows us to simplify considerations. Two things are “the
+same” in a particular sense even if they are not equal.</p>
+</section>
+<section id="structure" class="level3">
+<h3>Structure</h3>
 <p>Functions between sets with structure that preserve the structure are
 <em>homomorphisms</em>. A homomorphism that is bijective (one-to-one and
-onto) is an <em>isomorphism</em>. Two sets with structure are
-<em>equivalent</em> if there is an isomorphism between them.</p>
+onto) is an <em>isomorphism</em>.</p>
+<p>For example, a <em>semigroup</em> is a set <span
+class="math inline">S</span> with a binary operation <span
+class="math inline">m\colon S\times S\to S</span> that is
+<em>associative</em>: <span class="math inline">m(a,m(b,c)) =
+m(m(a,b),c)</span>, <span class="math inline">a,b,c\in S</span>. If we
+write <span class="math inline">ab</span> for <span
+class="math inline">m(a,b)</span> this becomes <span
+class="math inline">a(bc) = (ab)c</span>. This allows us to write <span
+class="math inline">abc</span> unambigously for either term.</p>
+<p>You might think this is too simple to be useful, but you would be
+wrong. Semigroups are the basis of the Map-Reduce algorithm. A
+computation <span class="math inline">a_1a_2\cdots a_n</span> can be
+partitioned into <span class="math inline">(a_1\cdots
+a_{n_1})(a_{n_1+1}\cdots a_{n_2})\cdots(a_{n_k+1}\cdots a_n)</span>
+where <span class="math inline">1 &lt; n_1 &lt; \cdots &lt; n_k &lt;
+n</span>. The partitioned calculations can be performed in parallel and
+the <span class="math inline">k + 1</span> calculations can be combined
+to get the final result. The computation time is proportional to <span
+class="math inline">\max_j\{n_{j+1} - n_j\} + k + 1</span>.</p>
+<p><strong>Exercise</strong>. <em>What is the optimal partition size for
+the product of <span class="math inline">n</span> terms</em>?</p>
+<p><em>Hint</em>: Back of the envelope, if there are <span
+class="math inline">k</span> partitions of equal size the time is
+proportional to <span class="math inline">n/k + k</span>.</p>
+<p>Semigroups don’t have enough structure to have a convenienient
+characterization. Vector spaces are a mathematical sweet spot. Two
+vector spaces are isomorphic if and only if they have the same
+<em>dimension</em>.</p>
+</section>
 </section>
 <section id="boldsymbolrn" class="level2">
 <h2><span class="math inline">\boldsymbol{{{R}}}^n</span></h2>
@@ -188,21 +356,15 @@ of <span class="math inline">n\in\boldsymbol{{N}}</span> copies of the
 real numbers. If bold <span class="math inline">{\boldsymbol{{n}} =
 \{1,\ldots,n\}}</span> then <span class="math inline">{i\in
 \boldsymbol{{n}}}</span> is a shorter notation for <span
-class="math inline">{1\le i\le n}</span>. Recall if <span
-class="math inline">A</span> and <span class="math inline">B</span> are
-sets then the <em>set exponential</em> <span class="math inline">{B^A =
-\{f\colon A\to B\}}</span> is the set of all functions from <span
-class="math inline">A</span> to <span class="math inline">B</span>. We
-can identify <span class="math inline">\boldsymbol{{{R}}}^n</span> with
-<span class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}}</span>
-where the tuple <span
+class="math inline">{1\le i\le n}</span>. We can identify <span
+class="math inline">\boldsymbol{{{R}}}^n</span> with <span
+class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}}</span> where
+the tuple <span
 class="math inline">{(x_i)_{i\in\boldsymbol{{n}}}}</span> corresponds to
 the function <span
 class="math inline">\boldsymbol{{x}}\colon\boldsymbol{{n}}\to\boldsymbol{{{R}}}</span>
 defined by <span class="math inline">\boldsymbol{{x}}(i) = x_i</span>,
 <span class="math inline">i\in\boldsymbol{{n}}</span>.</p>
-<p>!!! <span class="math inline">n\in\boldsymbol{{N}}</span> to <span
-class="math inline">\boldsymbol{{n}}\subseteq\boldsymbol{{N}}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">\prod_{i\in\boldsymbol{{n}}}\boldsymbol{{{R}}}</span>
 is in one-to-one correspondence with <span
@@ -217,12 +379,7 @@ to a function <span class="math inline">{\boldsymbol{{x}}\colon
 I\to\boldsymbol{{{R}}}}</span> in <span
 class="math inline">\boldsymbol{{{R}}}^I</span> defined by <span
 class="math inline">\boldsymbol{{x}}(i) = x_i</span>, <span
-class="math inline">i\in I</span>. The tuple <span class="math inline">x
-= (x_i)_{i\in I}</span> where <span class="math inline">x_i =
-\boldsymbol{{x}}(i)</span>, <span class="math inline">i\in I</span>.
-corresponds to the function <span
-class="math inline">{\boldsymbol{{x}}\colon
-I\to\boldsymbol{{{R}}}}</span>. In what follows we just write <span
+class="math inline">i\in I</span>. In what follows we just write <span
 class="math inline">x</span> for <span
 class="math inline">\boldsymbol{{x}}</span> and leave it to you to
 figure out from context if a vector is a tuple or a function.</p>
@@ -233,109 +390,9 @@ class="math inline">\boldsymbol{{{R}}}^{I}</span></em>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">I</span>
 and <span class="math inline">J</span> are in one-to-one correspondence
 then so are <span class="math inline">\boldsymbol{{{R}}}^I</span> and
-<span class="math inline">\boldsymbol{{{R}}}^J</span></em>.</p>
-<section id="pair" class="level3">
-<h3>Pair</h3>
-<p>Defining the <em>ordered pair</em> <span
-class="math inline">(a,b)</span> using only set theory is a little
-tricky. Norbert Wiener gave a first crack at it in 1914 by defining
-<span class="math inline">(a,b)</span> to be the set <span
-class="math inline">\{\{\{a,\emptyset\}, \{\{b\}\}\}</span>. Around the
-same time Felix Hausdorff proposed the more recognizable definition
-<span class="math inline">\{\{a,1\},\{b,2\}</span> “where <span
-class="math inline">1</span> and <span class="math inline">2</span> are
-two distinct objects different from <span class="math inline">a</span>
-and <span class="math inline">b</span>.” In 1921, Kazimierz Kuratowski
-eliminated Housdorff’s circumloqution and proposed simplifying Wiener’s
-definition to <span class="math inline">\{a,\{a,b\}\}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\cap\{a,\{a,b\}\} = \{a\}</span> and <span
-class="math inline">\cup\{a,\{a,b\}\} = \{a,b\}</span></em>.</p>
-<p><em>Hint</em> For any set <span class="math inline">A</span>, <span
-class="math inline">\cap A = \cap\{a\mid a\in A\}</span> and <span
-class="math inline">\cup A = \cup\{a\mid a\in A\}</span>.</p>
-<p>The intersection identifies the first item of the pair. If the union
-is a singleton then the second item is equal to the first item,
-otherwise we remove the first item to identify the second item.</p>
-<p>Ordered pairs have <em>projections</em> <span
-class="math inline">\operatorname{first}\colon A\times B\to A</span>
-where <span class="math inline">\operatorname{first}(a,b) = a</span> and
-<span class="math inline">\operatorname{second}\colon A\times B\to
-B</span> where <span class="math inline">\operatorname{second}(a,b) =
-b</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
-C\to A</span> and <span class="math inline">g\colon C\to B</span> show
-there exists <span class="math inline">h\colon C\to A\times B</span>
-with <span class="math inline">\operatorname{first}(h(c)) = f(c)</span>
-and <span class="math inline">\operatorname{second}(h(c)) = g(c)</span>,
-<span class="math inline">c\in C</span></em>.</p>
-<aside>
-As of 2024, the <code>Java</code> language standard does not provide a
-pair object. One must <code>import javafx.util.Pair;</code> to make that
-available.
-</aside>
-<p>A function <span class="math inline">f\colon A\to B</span> is
-<em>one-to-one</em>, or <em>injective</em> if <span
-class="math inline">f(a) = f(a&#39;)</span> implies <span
-class="math inline">a = a&#39;</span>, <span
-class="math inline">a,a&#39;\in A</span>. A function is <em>onto</em>,
-or <em>surjective</em>, if for every <span class="math inline">b\in
-B</span> there exists an <span class="math inline">a\in A</span> with
-<span class="math inline">f(a) = b</span>. A function is a
-<em>one-to-one correspondence</em>, or <em>bijective</em>, if it is
-one-to-one and onto.</p>
-<p>Two sets <span class="math inline">A</span> and <span
-class="math inline">B</span> are <em>equivalent</em> (as sets), <span
-class="math inline">A\cong B</span>, if there exists a one-to-one
-correspondence between them.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\cong</span> is an</em> equivalence
-<em>relation</em>.</p>
-<p><em>Hint</em>. Establish <span class="math inline">A\cong A</span>,
-<span class="math inline">A\cong B</span> implies <span
-class="math inline">B\cong A</span>, and <span
-class="math inline">A\cong B</span>, <span class="math inline">B\cong
-C</span> imply <span class="math inline">A\cong C</span> for sets <span
-class="math inline">A,B,C</span>.</p>
-<details>
-<summary>
-Solution
-</summary>
-Show the identity function from <span class="math inline">A</span> to
-<span class="math inline">A</span> is bijective. Show if <span
-class="math inline">f\colon A\to B</span> is bijective, so is <span
-class="math inline">f^{-1}\colon B\to A</span>. Show if <span
-class="math inline">f\colon A\to B</span> and <span
-class="math inline">g\colon B\to C</span> are bijective then so is <span
-class="math inline">gf\colon A\to C</span>.
-</details>
-<p>An equivalence relation on a set <span class="math inline">S</span>
-is a subset <span class="math inline">R\subseteq S\times S</span> with
-<span class="math inline">aRa</span> (reflexive), <span
-class="math inline">aRb</span> implies <span
-class="math inline">bRa</span> (symmetric), and <span
-class="math inline">aRb</span>, <span class="math inline">bRc</span>
-imply <span class="math inline">aRc</span> (transitive), <span
-class="math inline">a,b,c\in S</span>, where we write <span
-class="math inline">aRb</span> for <span class="math inline">(a,b)\in
-R</span>. The <em>equivalence class</em> of <span
-class="math inline">a\in S</span> is <span class="math inline">[a] =
-\{b\in S\mid aRb\}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show either <span
-class="math inline">[a] = [b]</span> or <span
-class="math inline">[a]\cap [b] = \emptyset</span> for <span
-class="math inline">a,b\in S</span></em>.</p>
-<p>A <em>partition</em> of a set is a collection of disjoint subsets
-whose union is the entire set. This exercise shows <span
-class="math inline">\{[a]\mid a\in A\}</span> is a partition of <span
-class="math inline">S</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span
-class="math inline">\Sigma</span> is a partions of <span
-class="math inline">S</span> then <span
-class="math inline">\cup_{s\in\Sigma} s\times s</span> is an equivalence
-relation on <span class="math inline">S</span></em>.</p>
-<p>Equivalence allows us to consider when two things are “the same” in a
-particualar sense even if they are not equal.</p>
+<span class="math inline">\boldsymbol{{{R}}}^J</span></em>. Equivalence
+allows us to consider when two things are “the same” in a particualar
+sense even if they are not equal.</p>
 <p>Currying is quite common in mathematics and is often done implicity.
 Although currying is common, there is no generally accepted notation for
 it, so let’s define one for our purposes. If <span
@@ -366,31 +423,13 @@ make the sets involved explicit.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">g\in
 (B\times C)^A</span> show <span class="math inline">,g =
 \operatorname{eval}(\operatorname{eval}(g, a), b)</span></em>.</p>
-</section>
-<section id="structure" class="level3">
+<section id="structure-1" class="level3">
 <h3>Structure</h3>
-<p>Mathematical objects are sets with structure. For example, a
-<em>semigroup</em> is a set <span class="math inline">S</span> with a
-binary operation <span class="math inline">m\colon S\times S\to S</span>
-that is <em>associative</em>: <span class="math inline">m(a,m(b,c)) =
-m(m(a,b),c)</span>, <span class="math inline">a,b,c\in S</span>. If we
-write <span class="math inline">ab</span> for <span
-class="math inline">m(a,b)</span> this becomes <span
-class="math inline">a(bc) = (ab)c</span>. This allows us to write <span
-class="math inline">abc</span> unambigously for either term.</p>
-<p>You might think this is too simple to be very useful, but you would
-be wrong. Semigroups are the basis of the Map-Reduce algorithm. A
-computation <span class="math inline">a_1a_2\cdots a_n</span> can be
-partitioned into <span class="math inline">(a_1\cdots
-a_{n_1})(a_{n_1+1}\cdots a_{n_2})\cdots(a_{n_k+1}\cdots a_n)</span>
-where <span class="math inline">1 &lt; n_1 &lt; \cdots &lt; n_k &lt;
-n</span>. The partitioned calculations can be performed in parallel and
-the <span class="math inline">k + 1</span> calculations can be combined
-to get the final result.</p>
-<p>Functions between sets with structure that preserve the structure are
-<em>homomorphisms</em>. A homomorphism that is bijective (one-to-one and
-onto) is an <em>isomorphism</em>. Two sets with structure are
-<em>equivalent</em> if there is an isomorphism between them.</p>
+<p>Mathematical objects are sets with structure. Functions between sets
+with structure that preserve the structure are <em>homomorphisms</em>. A
+homomorphism that is bijective (one-to-one and onto) is an
+<em>isomorphism</em>. Two sets with structure are <em>equivalent</em> if
+there is an isomorphism between them.</p>
 <p>In general, it is difficult to determine when two sets with structure
 are equivalent, but vector spaces are a mathematical sweet spot. Two
 vector spaces are equivalent if and only if they have the same
@@ -420,14 +459,23 @@ The <em>shape</em> of a tensor is its index set. First we consider rank
 2 tensors with natual number index sets. More precisely, if <span
 class="math inline">n\in\boldsymbol{{N}}</span> is a natural number we
 use the index set <span class="math inline">\boldsymbol{{n}} =
-\{1,\ldots,n\}</span>.</p>
+\{1,\ldots,n\}</span> or <span class="math inline">\boldsymbol{{n}} =
+\{0,\ldots,n-1\}</span> if we are considering computer applications.</p>
 <section id="rank-2" class="level3">
 <h3>Rank 2</h3>
 <p>A rank 2 tensor is a <em>matrix</em>. If <span
 class="math inline">x\in\boldsymbol{{{R}}}^{n\times m}</span>, <span
-class="math inline">n,m\in\boldsymbol{{N}}</span>, then we can define
-<span class="math inline">x_{i,j} = x(i, j)</span>, <span
-class="math inline">i\in\boldsymbol{{n}}</span>, <span
+class="math inline">n,m\in\boldsymbol{{N}}</span>, then the <span
+class="math inline">i</span>-th row is a vector in <span
+class="math inline">\boldsymbol{{{R}}}^m</span> with <span
+class="math inline">j\mapsto x(i, j)</span>, <span
+class="math inline">j\in\boldsymbol{{m}}</span>, and the <span
+class="math inline">j</span>-th column is a vector in <span
+class="math inline">\boldsymbol{{{R}}}^n</span> with <span
+class="math inline">i\mapsto x(i, j)</span>, <span
+class="math inline">i\in\boldsymbol{{n}}</span>.</p>
+<p>we can define <span class="math inline">x_{i,j} = x(i, j)</span>,
+<span class="math inline">i\in\boldsymbol{{n}}</span>, <span
 class="math inline">j\in\boldsymbol{{m}}</span>. Thinking of <span
 class="math inline">x</span> as the two-dimensional matrix <span
 class="math inline">[x_{i,j}]</span>, the <span
@@ -443,7 +491,7 @@ package the <span class="math inline">i</span>-th row is expressed as
 class="math inline">j</span>-th column as <span
 class="math inline">x[:,j]</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}\timex\boldsymbol{{m}}}</span>
+class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}\times\boldsymbol{{m}}}</span>
 is in one-to-one correspondence with <span
 class="math inline">\boldsymbol{{{R}}}^{nm}</span>, <span
 class="math inline">n,m\in\boldsymbol{{N}}</span></em>.</p>
@@ -663,18 +711,18 @@ class="math inline">{e_i = (0,\ldots,1,\ldots,0)}</span> with all
 elements <span class="math inline">0</span> except for a <span
 class="math inline">1</span> in the <span
 class="math inline">i</span>-th position. It is plausible that <span
-class="math inline">{x = (x_1,\ldots,x_n) = x_1 e_1 + \cdots + x_n
-e_n}</span> for <span
+class="math inline">{x = (x_1,\ldots,x_n)
+= x_1 e_1 + \cdots + x_n e_n}</span> for <span
 class="math inline">{x\in\boldsymbol{{{R}}}^n}</span>, but you should
 always be wary of definitions involving dots.</p>
 <p>More generally, the standard basis of <span
 class="math inline">\boldsymbol{{{R}}}^I</span> is <span
 class="math inline">{e_i\in\boldsymbol{{{R}}}^I}</span>, <span
-class="math inline">{i\in I}</span>, where <span
-class="math inline">{e_i(j) = \delta_{ij}}</span> for <span
-class="math inline">j\in I</span>, where $_{ij} is the <em>Kronecker
-delta</em> defined by <span class="math inline">{δ_{ij} = 1}</span> if
-<span class="math inline">{i=j}</span> and <span
+class="math inline">{i\in
+I}</span>, where <span class="math inline">{e_i(j) = \delta_{ij}}</span>
+for <span class="math inline">j\in I</span>, where $_{ij} is the
+<em>Kronecker delta</em> defined by <span class="math inline">{δ_{ij} =
+1}</span> if <span class="math inline">{i=j}</span> and <span
 class="math inline">{δ_{ij} = 0}</span> if <span
 class="math inline">{i\not=j}</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">I</span>
@@ -769,7 +817,8 @@ class="math inline">{\cos\theta = (x, y)/\|x\|\|y\|}</span>. This
 defines the <em>angle</em> between two vectors.</p>
 <p><strong>Exercise</strong> <em>Show <span class="math inline">\|x\|
 \ge 0</span>, <span class="math inline">\|ax\| = |a|\|x\|</span>, and
-<span class="math inline">\|x + y\| \le \|x\| + \|y\|</span>, for <span
+<span class="math inline">\|x + y\|
+\le \|x\| + \|y\|</span>, for <span
 class="math inline">a\in\boldsymbol{{{R}}}</span>, <span
 class="math inline">x,y\in\boldsymbol{{{R}}}^n</span></em>.</p>
 <p><em>Hint</em>: Use <span class="math inline">\|x + y\|^2 = \|x\|^2 +
@@ -1501,7 +1550,7 @@ Define _fold_ ${f\colon M^*\to M}$ by ${f(e) = e}$ and ${f((m_1,\ldots,m_n)) = m
 -->
 </section>
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -1509,6 +1558,6 @@ role="doc-endnotes">
 learning. The mathematical definition of a tensor is quite different.<a
 href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>
