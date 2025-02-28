@@ -29,6 +29,7 @@ header-includes:
 \newcommand\graph{\operatorname{graph}}
 \renewcommand{\implies}{\Rightarrow}
 \newcommand\zero{\bs{0}}
+\newcommand\imples{\Rightarrow}
 
 Blah, blah, blah...
 
@@ -93,7 +94,38 @@ _Hint_: If $f\colon A\to\PP(A)$ is onto consider the set
 $S = \{a\in A\mid a\not\in f(a)\}$. Since $f$ is onto there exists
 $b\in A$ with $S = g(b)$. Is $b\in S$? Conclude no such $f$ exists.
 
-There is a close connection between set theory and _propositional calculus_.
+### Logic
+
+There is a close connection between set theory and _propositional logic/calculus_.
+A _proposition_ is a statement that is either true or false.
+Propositional _connectives_ define new propositions in terms of existing propositions.
+The connective 'not' defines $\neg P$ to be false if $P$ is true and
+true if $P$ is false. The connective 'and' defines $P\wedge Q$ to be true if
+both $P$ and $Q$ are true, otherwise $P\wedge Q$ is false.
+These can be combined to define 'nand' $P\uparrow Q = \neg(P\wedge Q)$
+to be the negation of 'and'.
+
+__Exercise__. _Show $P\uparrow P = \neg P$_.
+
+Every logical connective can be defined in terms of nand. Since $\neg(\neg P) = P$
+we have $P\wedge Q = \neg(P\uparrow Q)$.
+The connective 'or' defines $P\vee Q$ to be true if
+either $P$ or $Q$ are true, otherwise $P\vee Q$ is false.
+
+__Exercise__. _Show $P\vee Q = (\neg P)\uparrow(\neg Q)$_.
+
+_Logical implication_ is defined by $P\imples Q = (\neg P)\vee Q$.
+Note this is true if $P$ is false so we conclude a false proposition
+implies any proposition. This mathematical definition of implication is quite different from the standard
+usage of the word 'implies.'
+
+Logical connectives between propositions can be modeled using set theory. 
+If $A,B$ are sets then the set intersection $A\cap B$ corresponds to the logical connective
+$A\wedge B$.
+To model negation we need a fixed _universal_ set $S$.
+If $A\subseteq S$ then the set difference $S\setminus A = \{s\in S\mid a\not\in A\}$
+corresponds to $\neg A$.
+
 Let $\top$ (top) stand for the proposition that is always true and $\bot$ (bottom) for the
 proposition that is always false. These are also written $T$, $\text{true}$, or $1$
 and $F$, $\text{false}$, or $0$, respectively$. 
@@ -111,9 +143,6 @@ The inclusion $\iota\colon\{0,1\}\to\RR$ into the real numbers gives rise to
 $\circ\iota\colon 2^I\to\RR^I$ for any set $I$.
 Since $\RR^I$ is the set of functions from $I$ to $\RR$ we
 can add and multiply them.
-
-Logical connectives between propositions can be modeled using set theory. 
-Given a fixed _universal_ set $S$ we let the powerset $\PP(S)$
 
 __Exercise__. _Show $1_{A\cap B} = 1_A 1_B$ and $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$_.
 
