@@ -39,7 +39,7 @@ about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 ## Set
 
 Everything in math is a set.
-We write $a\in A$ to indicate $a$ is an _element_/_member_ of $A$.
+We write $a\in A$ to indicate $a$ is an _element_, or _member_, of $A$.
 The set of function from a set $A$ to a set $B$ is the
 _set exponential_ $B^A = \{f\colon A\to B\}$. 
 A function is a set defined by its _graph_ $\{(a,f(a))\mid a\in A\}$
@@ -128,6 +128,8 @@ __Exercise__. _Show any such $P$ is in one-to-one correspondence with $A\times B
 Since $p_A\colon P\to A$ and $p_B\colon P\to B$ there exists
 $h\colon P\to A\times B$ with $\pi_A h = p_A$ and $\pi_B h = p_B$.
 Likewise, there exists $k\colon A\times B\to P$ with $p_A k = \pi_A$ and $p_B k = \pi_B$.
+
+TODO: complete this proof
 </details>
 
 
@@ -151,8 +153,8 @@ $\bs{x}\colon\bs{n}\to\RR$ defined by $\bs{x}(i) = x_i$, $i\in\bs{n}$.
 
 __Exercise__. _Show $\prod_{i\in\bs{n}}\RR$ is in one-to-one correspondence with $\RR^{\bs{n}}$_.
 
-_Hint_: If $\pi_i\colon\prod_{i\in\bs{n}}\RR}}\to\RR$ are the projections $\pi_i(x) = x_i$, $i\in I$
-define $x\to\bs{x}$ by $bs{x}(i) = \pi_i(x)$ and show it is bijective.
+_Hint_: If ${\pi_i\colon\prod_{i\in\bs{n}}\RR\to\RR}$ are the projections $\pi_i(x) = x_i$, $i\in I$
+define $x\to\bs{x}$ by $\bs{x}(i) = \pi_i(x)$ and show it is bijective.
 
 A more powerful notion is to consider a vector as an element of the _vector space_ of all functions
 from an _index set_ $I$ to the real numbers, $\RR^I$.
@@ -239,7 +241,7 @@ $1$ in the $i$-th position.  It is plausible that ${x = (x_1,\ldots,x_n)
 be wary of definitions involving dots.
 
 More generally, the standard basis of $\RR^I$ is ${e_i\in\RR^I}$,
-${i\in I}$, where ${e_i(j) = \delta_{ij}}$ for $j\in I$, where $\delta_{ij} is
+${i\in I}$, where ${e_i(j) = \delta_{ij}}$ for $j\in I$, where $\delta_{ij}$ is
 the _Kronecker delta_ defined by ${δ_{ij} = 1}$ if ${i=j}$ and
 ${δ_{ij} = 0}$ if ${i\not=j}$. We write $e^I_j$ to indicate
 the domain if needed.
@@ -310,35 +312,12 @@ by $e_i^*(x) = x(i)$, $i\in I$.
 
 __Exercise__. _Show $e_i^*$ is linear for all $i\in I$_.
 
-__Exercise__. _Show $\langle e_i, e*_j\rangle = \delta_{ij}$, $i,j\in I$_.
+__Exercise__. _Show $\langle e_i, e^*_j\rangle = \delta_{ij}$, $i,j\in I$_.
 
 __Exercise__ _Show the matrix of $T\in\LL(\RR^I,\RR^J)$ is ${t_{ij} = \langle Te_i, e^*j\rangle}$,
 $i\in I$, $j\in J$_.
 
-### Structure
-
-Mathematical objects are sets with structure.
-Functions between sets with structure that preserve the structure are
-_homomorphisms_. A homomorphism that is bijective (one-to-one and
-onto) is an _isomorphism_. Two sets with structure are _equivalent_ if
-there is an isomorphism between them.
-
-In general, it is difficult to determine
-when two sets with structure are equivalent, but vector spaces
-are a mathematical sweet spot.
-Two vector spaces are equivalent if and only if they have the same dimension.
-
 <!--
-A _linear operator_ is homomorphism from one vector space to another.
-Given two vector spaces, the set of all linear operators is also a vector space.
-If the two vector spaces are equal then
-composition defines a product making the set of _endomorphisms_ into an _algebra_.
-Two endomorphisms are _similar_ in the algebra if and
-only if they have the same _Jordan canonical form_.
-
-If a vector space is provided with an _inner product_ we can define the distance
-between two vectors.
--->
 
 ## Tensor
 
@@ -423,10 +402,8 @@ _Hint_. Show $x(\iota(i)) = x(i)$.
 
 More generally, if $J\subseteq I$ then the inclusion selects $(x_j)_{j\in J}$.
 
-<!--
 If $J$ is a _multiset_ then elements can be duplicated.
 For example if $J = \{i,i,i\}$ then $x\iota = (x_i,x_i,x_i)$.
--->
 
 Many computer languages use 0-based array indexing.
 In this case we define $\bs{n} = \{0,\ldots,n-1\}$.
@@ -442,7 +419,6 @@ Some low level languages do not have any guards aginst indexing an array
 out of bounds. The onus is on the programmer to use their tools correctly
 if performance is an issue.
 
-<!--
 If $n = 1$ we can identify $\RR$ with $\RR^1$ by $x\in\RR$ corresponds to $(x)\in\RR^1$.
 We can also identify every $y\in\RR$ with the linear function from $\RR$ to $\RR$
 of multiplication by $y$ denoted by $y^*x = xy$, for $x\in\RR$.
@@ -451,7 +427,6 @@ higher dimensional calculations. There is no need for "row" and "column"
 vectors, the dual of a vector space and composition of linear functions
 generalizes the Einstein summation convention and various "tensor"
 notations invented by less brilliant people. Standard mathematical notation suffices.
--->
 
 ### Standard and Dual Basis
 Define the _dual basis_ by $e^*_j\colon\RR^I\to\RR$ by ${e^*_j(x) = x(j)}$, ${j\in I}$.
@@ -497,7 +472,6 @@ __Exercise__. _Show if $\lim_{n\to\infty} \|x_n - x\| = 0$ show $x\in\RR^n$_.
 
 _Hint_: The real numbers with absolute value norm is complete.
 
-<!--
 A norm defines a _metric_ ${d(x,y) = \|x - y\|}$
 
 __Exercise__. _Show ${d(x, y) \le d(x,z) + d(z,y)}$, ${x,y,z\in\RR^n}$ and

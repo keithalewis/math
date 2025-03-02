@@ -65,14 +65,13 @@ no answer to what volatility to use even for the initial delta hedge of
 a European option. Every trader knows if they see gyrating underlying
 movements they need to update their first pick.</p>
 <p>I’m sure you’ve already thought of this, but an Ito process with
-<span class="math inline">dS/S =
-r\,dt + \Sigma_t\,dB</span> where <span class="math inline">\Sigma^2_t
-=  (1/t)\int_0^t (dS_s/S_s)\,ds</span> might be a more accurate model of
-how traders actually behave.</p>
+<span class="math inline">dS/S = r\,dt + \Sigma_t\,dB</span> where <span
+class="math inline">\Sigma^2_t = (1/t)\int_0^t (dS_s/S_s)\,ds</span>
+might be a more accurate model of how traders actually behave.</p>
 <p>Here is a funny observation that I might be making an elementary
 mistake about:</p>
-<p><strong>Lemma</strong>. <em>If <span class="math inline">\Sigma^2_t
-=  (1/t)\int_0^t (dS_s/S_s)^2</span> and <span
+<p><strong>Lemma</strong>. <em>If <span class="math inline">\Sigma^2_t =
+(1/t)\int_0^t (dS_s/S_s)^2</span> and <span
 class="math inline">\Sigma</span> is an Ito process then <span
 class="math inline">\Sigma</span> is constant</em>.</p>
 <p><em>Proof</em>. Since <span class="math inline">(dS/S)^2 =
