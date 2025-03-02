@@ -29,216 +29,110 @@ header-includes:
 \newcommand\graph{\operatorname{graph}}
 \renewcommand{\implies}{\Rightarrow}
 \newcommand\zero{\bs{0}}
-\newcommand\imples{\Rightarrow}
 
-Blah, blah, blah...
+<!--
+In Derrida's "Diseminations" he pointed out a preface to a book was
+typically the last thing an author wrote. He thought clearly
+about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
+-->
 
 ## Set
 
 Everything in math is a set.
+We write $a\in A$ to indicate $a$ is an _element_/_member_ of $A$.
 The set of function from a set $A$ to a set $B$ is the
 _set exponential_ $B^A = \{f\colon A\to B\}$. 
 A function is a set defined by its _graph_ $\{(a,f(a))\mid a\in A\}$
 contained in the _cartesion product_ $A\times B$.
-An _ordered pair_ $(a,b)\in A\times B$ can be
-defined as the set $\{a,\{a,b\}\}$.
+Kazimierz Kuratowski improved Norbert Wiener's definition of
+an _ordered pair_ $(a,b)\in A\times B$ 
+as the set $\{a,\{a,b\}\}$.
 
 __Exercise__. _Show $\cap\{a,\{a,b\}\} = \{a\}$ and $\cup\{a,\{a,b\}\} = \{a,b\}$_.
 
-_Hint_ For any set $A$, $\cap A = \cap\{a\mid a\in A\}$ and $\cup A = \cup\{a\mid a\in A\}$.
+_Hint_ For any set $A$, $\cap A$ is the intersection $\cap\{x\mid x\in A\}$;
+$x$ belongs to $\cap A$ if and only if $x$ is a member of every element of $A$.
+For any set $A$, $\cup A$ is the union $\cup\{x\mid x\in A\}$;
+$x$ belongs to $\cup A$ if and only if $x$ is a member of some element of $A$.
 
 The intersection identifies the first item of the pair. If the union is
-a _singleton_ then the second item is equal to the first item,
+a _singleton_, a set containing only one element, then the second item is equal to the first item,
 otherwise we remove the first item to identify the second item.
-
-A function $f\colon A\to B$ is _one-to-one_, or _injective_
-if $f(a) = f(a')$ implies $a = a'$, $a,a'\in A$.
-A function is _onto_, or _surjective_, if for every
-$b\in B$ there exists an $a\in A$ with $f(a) = b$.
-A function is a _one-to-one correspondence_, or _bijective_,
-if it is one-to-one and onto.
 
 Functions $f\colon A\to B$ and $g\colon B\to C$ can be _composed_.
 The composition of $f$ and $g$ is $g\circ f\colon A\to C$ defined
 by $g\circ f(a) = g(f(a))$, $a\in A$.
 We also write $gf$ for $g\circ f$.
 
-__Exercise__. _If in addtion $h\colon C\to D$ show
-$h(g) = (hg)f$_.
+__Exercise__. _If in additon $h\colon C\to D$ show
+$h(gf) = (hg)f$_.
 
-This shows composition is _associative_.
-Every set has an _identity_ function $\iota_A\colon A\to A$ defined by
-$\iota_A(a) = a$, $a\in A$.
+Function composition is _associative_.
+Every set has an _identity_ function $1_A\colon A\to A$ defined by
+$1_A(a) = a$, $a\in A$.
 
-__Exercise__. _If $f\colon A\to B$ show $f\iota_A = f$
-and $\iota_B f = f$_.
+__Exercise__. _If $f\colon A\to B$ show $f1_A = f$
+and $1_B f = f$_.
+
+A function $f\colon A\to B$ is _one-to-one_, or _injective_,
+if $f(a) = f(a')$ implies $a = a'$, $a,a'\in A$.
+A function is _onto_, or _surjective_, if for every
+$b\in B$ there exists an $a\in A$ with $f(a) = b$.
+A function is a _one-to-one correspondence_, or _bijective_,
+if it is one-to-one and onto.
+
+We can define one-to-one and onto using only functions.
 
 __Exercise__. _Show $f\colon A\to B$ is one-to-one if and only $fg = fh$ implies
 $g = h$ for $g,h\colon C\to A$_.
 
+_Hint_: $fg = fh$ if and only if $f(g(c)) = f(h(c))$ for all $c\in C$.
+
 __Exercise__. _Show $f\colon A\to B$ is onto if and only $gf = hf$ implies
 $g = h$ for $g,h\colon B\to C$_.
 
-The _power set_ of a set $A$ is the set of all subsets of $A$,
-$\PP(A) = \{E\mid E\subseteq A\}$,
-Every subset $E$ of a set $A$ corresponds to an _indicator_ function $1_E$
-defined by $1_E(a) = 1$ if $a\in E$ and $1_E(a) = 0$ if $a\not\in E$.
-Set exponential allows us to express all indicator functions as elements of ${\{0,1\}}^A$.
-It is more common to write this as $2^A$ where $2 = \{0,1\}$.
+_Hint_: $gf = hf$ if and only if $g(f(a)) = h(f(a))$ for all $a\in A$.
+For all $b\in B$ there exists $a\in A$ with $f(a) = b$.
 
-__Exercise__. _Show $\PP(A)$ is in one-to-one correspondence with $2^A$_.
+Not everything in math is a set. There is an alternate foundation
+called _category theory_ involving _objects_ and _arrows_ having an associative
+composition and identity arrows for each object. The above exercises
+show sets and functions form a category $\mathbf{Set}$.
+The pointwise definitions of one-to-one and onto can be replaced by
+definitions involving only sets and functions.
 
-__Exercise__. _Show $\PP(A)$ is not in one-to-one correspondence with $A$ if $A$ is non-empty_.
+We will not give a rigorous definition of what a category is, but we
+will lean heavily on what Samuel Eilenberg and Saunders Mac Lane invented
+to unify many proofs from diverse areas of mathematics prior to the mid
+20-th century.
 
-_Hint_: If $f\colon A\to\PP(A)$ is onto consider the set
-$S = \{a\in A\mid a\not\in f(a)\}$. Since $f$ is onto there exists
-$b\in A$ with $S = g(b)$. Is $b\in S$? Conclude no such $f$ exists.
-
-### Logic
-
-There is a close connection between set theory and _propositional logic/calculus_.
-A _proposition_ is a statement that is either true or false.
-Propositional _connectives_ define new propositions in terms of existing propositions.
-The connective 'not' defines $\neg P$ to be false if $P$ is true and
-true if $P$ is false. The connective 'and' defines $P\wedge Q$ to be true if
-both $P$ and $Q$ are true, otherwise $P\wedge Q$ is false.
-These can be combined to define 'nand' $P\uparrow Q = \neg(P\wedge Q)$
-to be the negation of 'and'.
-
-__Exercise__. _Show $P\uparrow P = \neg P$_.
-
-Every logical connective can be defined in terms of nand. Since $\neg(\neg P) = P$
-we have $P\wedge Q = \neg(P\uparrow Q)$.
-The connective 'or' defines $P\vee Q$ to be true if
-either $P$ or $Q$ are true, otherwise $P\vee Q$ is false.
-
-__Exercise__. _Show $P\vee Q = (\neg P)\uparrow(\neg Q)$_.
-
-_Logical implication_ is defined by $P\imples Q = (\neg P)\vee Q$.
-Note this is true if $P$ is false so we conclude a false proposition
-implies any proposition. This mathematical definition of implication is quite different from the standard
-usage of the word 'implies.'
-
-Logical connectives between propositions can be modeled using set theory. 
-If $A,B$ are sets then the set intersection $A\cap B$ corresponds to the logical connective
-$A\wedge B$.
-To model negation we need a fixed _universal_ set $S$.
-If $A\subseteq S$ then the set difference $S\setminus A = \{s\in S\mid a\not\in A\}$
-corresponds to $\neg A$.
-
-Let $\top$ (top) stand for the proposition that is always true and $\bot$ (bottom) for the
-proposition that is always false. These are also written $T$, $\text{true}$, or $1$
-and $F$, $\text{false}$, or $0$, respectively$. 
-
-Every function $f\colon A\to B$ gives rise to two functions defined
-on exponentials. Given any set $C$ define
-$f\circ\colon A^C\to B^C$ by $g\mapsto f\circ g$, $g\in A^C$.
-and $\circ f\colon C^B\to C^A$ by $h\mapsto h\circ f$, $h\in C^B$.
-
-__Exercise__: Show if $f\colon A\to B$ is one-to-one then so is $f\circ\colon A^C\to B^C$_.
-
-__Exercise__: Show if $f\colon A\to B$ is onto then so is $\circ f\colon C^A\to C^B$_.
-
-The inclusion $\iota\colon\{0,1\}\to\RR$ into the real numbers gives rise to
-$\circ\iota\colon 2^I\to\RR^I$ for any set $I$.
-Since $\RR^I$ is the set of functions from $I$ to $\RR$ we
-can add and multiply them.
-
-__Exercise__. _Show $1_{A\cap B} = 1_A 1_B$ and $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$_.
-
-__Exercise__. _Show $1_{I\setminus A} = 1 - 1_A$_.
-
-_Hint_: The _set difference_ $A\setminus B = \{a\in A\mid a\not\in B\}$.
-
-We can reduce set identities to algebraic operatons.
-For example, De Mogan's Laws are 
-
-Ordered pairs have _projections_ $\first\colon A\times B\to A$ where
-$\first(a,b) = a$ and 
-$\second\colon A\times B\to B$ where
-$\second(a,b) = b$.
+It is possible to define an ordered pair using only functions.
+Define _projections_ $\pi_A\colon A\times B\to A$ by $\pi_A(a,b) = a$ and 
+$\pi_B\colon A\times B\to B$ by $\pi_B(a,b) = b$.
 
 __Exercise__. _If $f\colon C\to A$ and $g\colon C\to B$ show there
-exists $h\colon C\to A\times B$ with $\first(h(c)) = f(c)$
-and $\second(h(c)) = g(c)$, $c\in C$_.
+exists $h\colon C\to A\times B$ with $\pi_A h = f$
+and $\pi_B h = g$_.
 
-Two sets $A$ and $B$ are _equivalent_ (as sets), $A\cong B$,
-if there exists a one-to-one correspondence between them.
+_Hint_: Of course $h(c) = (f(c), g(c))$, $c\in C$.
 
-__Exercise__. _Show $\cong$ is an_ equivalence _relation_.
+This characterizes the cartesian product $A\times B$. Let $P$ be any set
+with functions $p_A\colon P\to A$, $p_B\colon P\to B$
+with the property in the previous exercise, then $P$
+is in one-to-one correspondence with $A\times B$.
 
-_Hint_. Establish $A\cong A$, $A\cong B$ implies $B\cong A$,
-and $A\cong B$, $B\cong C$ imply $A\cong C$ for sets $A,B,C$.
+
+__Exercise__. _Show any such $P$ is in one-to-one correspondence with $A\times B$_.
 
 <details><summary>Solution</summary>
-Show the identity function from $A$ to $A$ is bijective.
-Show if $f\colon A\to B$ is bijective, so is $f^{-1}\colon B\to A$.
-Show if $f\colon A\to B$ and $g\colon B\to C$ are bijective then so is $gf\colon A\to C$.
+Since $p_A\colon P\to A$ and $p_B\colon P\to B$ there exists
+$h\colon P\to A\times B$ with $\pi_A h = p_A$ and $\pi_B h = p_B$.
+Likewise, there exists $k\colon A\times B\to P$ with $p_A k = \pi_A$ and $p_B k = \pi_B$.
 </details>
 
-### Relation
 
-Given sets $A$ and $B$ a _relation_ is a subset of the cartesian product
-of $A$ and $B$, $R\subseteq A\times B$. We write $aRb$ if $(a,b)\in R$.
-The _domain_ of a relation is $\dom R = \{a\in A\mid aRb\text{ for some }b\in B\}$.
-The _codomain_ of a relation is $\cod R = \{b\in B\mid aRb\text{ for some }a\in A\}$.
-The _left coset_ of $b\in\cod B$ is $Rb = \{a\in A: aRb\}$.
-The _right coset_ of $a\in\dom A$ is $aR = \{b\in B: aRb\}$.
-
-__Exercise__. _Show $\dom R = \cup_{b\in B} Rb$ and $\cod R = \cup_{a\in A} aR$_.
-
-__Exercise__. _Show $\dom R = first(R)$ and $\cod R = \second(R)$_.
-
-_Hint_: $\first(R) = \{\first(a,b)\mid (a,b)\in R\}$
-
-
-An equivalence relation on a set $S$ is a subset $R\subseteq S\times S$ with
-$aRa$ (reflexive), $aRb$ implies $bRa$ (symmetric),
-and $aRb$, $bRc$ imply $aRc$ (transitive), $a,b,c\in S$,
-where we write $aRb$ for $(a,b)\in R$. The _equivalence class_ of $a\in S$
-is $[a] = \{b\in S\mid aRb\}$.
-
-__Exercise__. _Show either $[a] = [b]$ or $[a]\cap [b] = \emptyset$ for $a,b\in S$_.
-
-A _partition_ of a set is a collection of disjoint subsets whose union is the entire set.
-This exercise shows $\{[a]\mid a\in A\}$ is a partition of $S$.
-
-__Exercise__. _If $\Sigma$ is a partions of $S$ then $\cup_{s\in\Sigma} s\times s$ is
-an equivalence relation on $S$_.
-
-
-Equivalence allows us to simplify considerations. Two things are "the same" in a
-particular sense even if they are not equal.
-
-### Structure
-
-Functions between sets with structure that preserve the structure are
-_homomorphisms_. A homomorphism that is bijective (one-to-one and
-onto) is an _isomorphism_. 
-
-For example, a _semigroup_ is a set $S$ with a binary operation
-$m\colon S\times S\to S$ that is _associative_:
-$m(a,m(b,c)) = m(m(a,b),c)$, $a,b,c\in S$.
-If we write $ab$ for $m(a,b)$ this becomes $a(bc) = (ab)c$.
-This allows us to write $abc$ unambigously for either term.
-
-You might think this is too simple to be useful, but you would be wrong.
-Semigroups are the basis of the Map-Reduce algorithm.
-A computation $a_1a_2\cdots a_n$ can be partitioned into
-$(a_1\cdots a_{n_1})(a_{n_1+1}\cdots a_{n_2})\cdots(a_{n_k+1}\cdots a_n)$
-where $1 < n_1 < \cdots < n_k < n$. The partitioned calculations
-can be performed in parallel and
-the $k + 1$ calculations can be combined to get the final result.
-The computation time is proportional to $\max_j\{n_{j+1} - n_j\} + k + 1$.
-
-__Exercise__. _What is the optimal partition size for the product of $n$ terms_?
-
-_Hint_: Back of the envelope, if there are $k$ partitions of equal
-size the time is proportional to $n/k + k$.
-
-Semigroups don't have enough structure to have a convenienient characterization.
-Vector spaces are a mathematical sweet spot. Two vector spaces
-are isomorphic if and only if they have the same _dimension_.
+Our theme is to define everything in terms of sets and functions
+with an eye toward computer implementation.
 
 ## $\RR^n$
 
@@ -247,15 +141,18 @@ the other is as a set of functions. These two perspectives are a source of confu
 
 An impoverished notion of a vector is that it is a tuple of real numbers
 ${x = (x_1,\ldots,x_n)}$.  Given a natural number $n\in\NN$, let
-${{\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR, 1\le i\le n\} = \prod_{1\le i\le n}\RR}}$
+${\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR, 1\le i\le n\} = \prod_{1\le i\le n}\RR}$
 be the cartesian product of $n\in\NN$ copies of the real numbers.
-If bold ${\bs{n} = \{1,\ldots,n\}}$ then ${i\in \bs{n}}$ is a shorter
+If bold ${\bs{n}}$ is the set ${\{1,\ldots,n\}}$ then ${i\in\bs{n}}$ is a shorter
 notation for ${1\le i\le n}$. 
 We can identify $\RR^n$ with $\RR^{\bs{n}}$ where the
 tuple ${(x_i)_{i\in\bs{n}}}$ corresponds to the function
 $\bs{x}\colon\bs{n}\to\RR$ defined by $\bs{x}(i) = x_i$, $i\in\bs{n}$.
 
 __Exercise__. _Show $\prod_{i\in\bs{n}}\RR$ is in one-to-one correspondence with $\RR^{\bs{n}}$_.
+
+_Hint_: If $\pi_i\colon\prod_{i\in\bs{n}}\RR}}\to\RR$ are the projections $\pi_i(x) = x_i$, $i\in I$
+define $x\to\bs{x}$ by $bs{x}(i) = \pi_i(x)$ and show it is bijective.
 
 A more powerful notion is to consider a vector as an element of the _vector space_ of all functions
 from an _index set_ $I$ to the real numbers, $\RR^I$.
@@ -264,33 +161,159 @@ ${\bs{x}\colon I\to\RR}$ in $\RR^I$ defined by $\bs{x}(i) = x_i$, $i\in I$.
 In what follows we just write $x$ for $\bs{x}$ and leave it to you to figure
 out from context if a vector is a tuple or a function.
 
-__Exercise__. _Show $\prod_{i\in I}\RR$ is in one-to-one correspondence with $\RR^{I}$_.
+__Exercise__. _For any set $I$, show $\prod_{i\in I}\RR$ is in one-to-one correspondence with $\RR^{I}$_.
 
-__Exercise__. _If $I$ and $J$ are in one-to-one correspondence then so are $\RR^I$ and $\RR^J$_.
-Equivalence allows us to consider when two things are "the same" in a
-particualar sense even if they are not equal.
+### Scalar Multiplication and Vector Addition
 
+Scalar multiplication and vector addition on $\RR^I$ are defined _pointwise_ by
+${(ax)(i) = a(x(i))}$ and ${(x + y)(i) = x(i) + y(i)}$, $a\in\RR$, $x,y\in\RR^I$.
 
-Currying is quite common in mathematics and is often done implicity.
-Although currying is common, there is no generally accepted notation for it, so let's define one
-for our purposes.
-If $f\colon A\to(B\to C)$ define $f,\colon A\times B\to C$ by
-$f,(a, b) = (f(a))(b) = fa(b)$ for $a\in A$, $b\in B$. If $g\colon A\times B\to C$
-define $,g\colon A\to(B\to C)$ by $,ga(b) = g(a,b)$.
+### Axioms
 
-__Exercise__. _Show $,(f,) = f$ and $(,g), = g$_.
+For any set $I$, $a,b\in\RR$, and $x, y, z\in\RR^I$ show the following:
 
-Currying shows $(B\times C)^A$ is equavalent to $(B^C)^A$.
+__Exercise__. _$x + (y + z) = (x + y) + z$_.
 
-If $h\in B^A$ and $a\in A$ then evaluating $h$ at $a$ results in $h(a)\in B$.
-We reify this by defining the $\eval$ function
-${\eval\colon B^A\times A\to B}$ by $\eval(h,a) = h(a)$. We
-decorate this as ${\eval^{A,B}}$ when we want to make the sets involved explicit.
+__Exercise__. _$x + y = y + x$_.
 
-__Exercise__. _If $f\in (C^B)^A$ show $f, = \eval(\eval(f, a), b)$_.
+__Exercise__. _$\zero + x = x$ where $\zero(i) = 0$, $i\in I$_.
 
-__Exercise__. _If $g\in (B\times C)^A$ show $,g = \eval(\eval(g, a), b)$_.
+__Exercise__. _$x + (-x) = \zero$ where $(-x)(i) = -(x(i))$, for $i\in I$_.
 
+__Exercise__. _$a(bx) = (ab)x$_.
+
+__Exercise__. _$1x = x$_.
+
+__Exercise__. _$a(x + y) = ax + ay$_.
+
+__Exercise__. _$(a + b)x = ax + bx$_.
+
+_Hint_: Use the properties of real numbers.
+
+The exercises are the axioms for an _abstract vector space_ with scalar
+multiplication ${\RR\times V\to V}$ where ${(a,x)\mapsto ax = xa}$ and
+binary addition ${V\times V\to V}$ where ${(x,y)\mapsto x + y}$. The
+first four axioms show vector addition is an abelian (commutative)
+group. The last two axioms are the _distributive laws_ connecting scalar
+multiplication and vector addition. Every abstract vector space
+can be represented by $\RR^I$ for some set $I$, but this is not a trivial result.
+
+Proofs involving only the abstract axioms are considered more elegant.
+
+If $x\in\RR^I$ then $(0x)(i) = 0(x(i)) = 0$ and $(1x)(i) = 1(x(i)) = x(i)$ for all $i\in I$ so
+$0x = \zero$ and $1x = x$. These hold for any vector space, not just $\RR^I$.
+
+__Exercise__. (Zero is unique) _Show if $\zero' + v = v$ for all $v\in V$ then $0' = 0$_.
+
+_Hint_: $\zero + v = v$ so $\zero' + v = \zero + v$. Add $-v$ to both sides.
+
+__Exercise__. _Show $0v = \zero$ for all $v\in V$_.
+
+_Hint_: Show $0v + v = v$ and use the previous exercise.
+
+__Exercise__. _For any vector space $V$ show ${v + v = v}$ implies ${v = \zero}$ for all ${v\in V}$_.
+
+<details>
+<summary>Solution</summary>
+$$
+\begin{aligned}
+v + v &= v \\
+	&\quad\langle x = y\implies x + z = y + z\mid x\leftarrow v + v,y\leftarrow v,z\leftarrow -v\rangle\\
+(v + v) + (-v) &= v + (-v) \\
+	&\quad\langle (x + y) + z = x + (y + z)\mid x\leftarrow v, y\leftarrow v, z\leftarrow -v\rangle\\
+v + (v + (-v)) &= v + (-v) \\
+	&\quad\langle x + (-x) = \zero\mid x\leftarrow v\text{ twice }\rangle\\
+v + \zero &= \zero \\
+	&\quad\langle x + \zero = x\mid x\leftarrow v\rangle\\
+v &= \zero
+\end{aligned}
+$$
+</details>
+
+### Standard Basis
+
+The _standard basis_ of $\RR^n$ is ${e_i\in\RR^n}$, ${i\in\bs{n}}$,
+where ${e_i = (0,\ldots,1,\ldots,0)}$ with all elements $0$ except for a
+$1$ in the $i$-th position.  It is plausible that ${x = (x_1,\ldots,x_n)
+= x_1 e_1 + \cdots + x_n e_n}$ for ${x\in\RR^n}$, but you should always
+be wary of definitions involving dots.
+
+More generally, the standard basis of $\RR^I$ is ${e_i\in\RR^I}$,
+${i\in I}$, where ${e_i(j) = \delta_{ij}}$ for $j\in I$, where $\delta_{ij} is
+the _Kronecker delta_ defined by ${δ_{ij} = 1}$ if ${i=j}$ and
+${δ_{ij} = 0}$ if ${i\not=j}$. We write $e^I_j$ to indicate
+the domain if needed.
+
+__Exercise__. _If $I$ is finite, show $x = \sum_{i\in I} x(i)e_i$ for $x\in\RR^I$_.
+
+_Hint_: Evaluate the putative equality at $j\in I$.
+
+## Linear Operator
+
+A vector space homomorphism is a _linear operator_.
+A linear operator between vector spaces is a function ${T\colon V\to W}$
+that preserves the scalar multiplication and vector addition: $T(ax) = aTx$ and
+${T(x + y) = Tx + Ty}$, ${a\in\RR}$, ${x,y\in V}$.
+The collection of all linear operators from $V$ to $W$ is denoted $\LL(V,W)$.
+
+__Exercise__. _Show if $T\colon V\to W$ is a function with ${T(ax + y) = aTx + y}$, ${a\in\RR}$, ${x,y\in V}$
+then $T$ is a linear operator_.
+
+_Hint_: Take $y = \zero$ and $a = 1$.
+
+The collection $\LL(V,W)$ can be made into a vector space. Define scalar multiplication
+by $(aT)v = a(Tv)$ and vector addition by $(T + S)v = Tv + Sv$, $a\in\RR$, $T,S\in\LL(V,W)$.
+One could check the scalar multiplication and vector addition satisfy
+the axioms for an abstract vector space but we will show a simple way to establish this later.
+
+A _linear combination_ is any finite sum of scalars times vectors
+and are preserved by linear transformations.
+
+__Exercise__. _Show if $T$ is a linear operator then $T(\sum_k a_k v_k)
+= \sum_k a_k Tv_k$_.
+
+_Hint_: Use induction on the number of terms.
+
+### Matrix
+
+If $T\colon\RR^I\to\RR^J$ then the image of the $i$-th standard basis
+element in $\RR^I$ under $T$ is a linear combination of standard basis elements in $\RR^J$
+so $Te^I_i = \sum_{j\in J} t_{ij} e^J_j$
+for some scalars $t_{ij}\in\RR$ when $I$ and $J$ are finite.
+The _matrix_ of $T$ is $[t_{ij}]_{i\in I, j\in J}$.
+
+If $S\colon\RR^J\to\RR^K$ then $U = ST\colon\RR^I\to\RR^K$.
+
+__Exercise__. _Show the matrix of the composition $U = ST$ is
+${u_{ik} = \sum_{j\in J} s_{ij}t_{jk}}$, for $i\in I$, $k\in K$_.
+
+Matrix multiplication is just composition of linear operators.
+
+Linear operators from $\RR^I$ to $\RR^J$ are in one-to-one correspondence
+with $\RR^{I\times J}$. Define a function from $T\in\LL(\RR^I,\RR^J)$
+to $\bs{T}\in\RR^{I\times J}$ by $\bs{T}(i,j) = t_{ij}$ where $[t_{ij}]$
+is the matrix of $T$.
+
+__Exercise__. _Show $\LL(\RR^I,\RR^J)$ is isomorphic to $\RR^{I\times J}$_.
+
+Since $I\times J$ is a set, $\RR^{I\times J}$ is a vector space.
+This shows $\LL(\RR^I,\RR^J)$ is a vector space, as promised.
+
+### Dual
+
+The _dual_ of a vector space $V$ is the set of all _linear functionals_
+from $V$ to $\RR$, $V^* = \LL(V,\RR)$.
+We write the _dual pairing_ $\langle v, v^*\rangle = v^*(v)$ for $v\in V$, $v^*\in V^*$.
+
+The _standard dual basis_ of $\RR^I$, $e_i^*\colon\RR^I\to\RR$,
+by $e_i^*(x) = x(i)$, $i\in I$.
+
+__Exercise__. _Show $e_i^*$ is linear for all $i\in I$_.
+
+__Exercise__. _Show $\langle e_i, e*_j\rangle = \delta_{ij}$, $i,j\in I$_.
+
+__Exercise__ _Show the matrix of $T\in\LL(\RR^I,\RR^J)$ is ${t_{ij} = \langle Te_i, e^*j\rangle}$,
+$i\in I$, $j\in J$_.
 
 ### Structure
 
@@ -418,73 +441,6 @@ _Hint_: The increment $j$ may be negative.
 Some low level languages do not have any guards aginst indexing an array
 out of bounds. The onus is on the programmer to use their tools correctly
 if performance is an issue.
-### Scalar Multiplication and Vector Addition
-
-Scalar multiplication and vector addition on $\RR^I$ are defined _pointwise_ by
-${(ax)(i) = a(x(i))}$ and ${(x + y)(i) = x(i) + y(i)}$, $a\in\RR$, $x,y\in\RR^I$.
-
-### Axioms
-
-For any set $I$, $a,b\in\RR$, and $x, y, z\in\RR^I$ show the following:
-
-__Exercise__. _$x + (y + z) = (x + y) + z$_.
-
-__Exercise__. _$x + y = y + x$_.
-
-__Exercise__. _$\zero + x = x$ where $\zero(i) = 0$, $i\in I$_.
-
-__Exercise__. _$x + (-x) = \zero$ where $(-x)(i) = -(x(i))$, for $i\in I$_.
-
-__Exercise__. _$a(bx) = (ab)x$_.
-
-__Exercise__. _$1x = x$_.
-
-__Exercise__. _$a(x + y) = ax + ay$_.
-
-__Exercise__. _$(a + b)x = ax + bx$_.
-
-_Hint_: Use the properties of real numbers.
-
-The exercises are the axioms for an _abstract vector space_ with scalar
-multiplication ${\RR\times V\to V}$ where ${(a,x)\mapsto ax = xa}$ and
-binary addition ${V\times V\to V}$ where ${(x,y)\mapsto x + y}$. The
-first four axioms show vector addition is an abelian (commutative)
-group. The last two axioms are the _distributive laws_ connecting scalar
-multiplication and vector addition. Every abstract vector space
-can be represented by $\RR^I$ for some set $I$. Two vector spaces
-
-Proofs involving only the abstract axioms are considered more elegant.
-
-If $x\in\RR^I$ then $(0x)(i) = 0(x(i)) = 0$ and $(1x)(i) = 1(x(i)) = x(i)$ for all $i\in I$ so
-$0x = \zero$ and $1x = x$. These hold for any vector space, not just $\RR^I$.
-
-__Exercise__. (Zero is unique) _Show if $\zero' + v = v$ for all $v\in V$ then $0' = 0$_.
-
-_Hint_: $\zero + v = v$ so $\zero' + v = \zero + v$. Add $-v$ to both sides.
-
-__Exercise__. _Show $0v = \zero$ for all $v\in V$_.
-
-_Hint_: Show $0v + v = v$ and use the previous exercise.
-
-__Exercise__. _For any vector space $V$ show ${v + v = v}$ implies ${v = \zero}$ for all ${v\in V}$_.
-
-<details>
-<summary>Solution</summary>
-$$
-\begin{aligned}
-v + v &= v \\
-	&\quad\langle x = y\implies x + z = y + z\mid x\leftarrow v + v,y\leftarrow v,z\leftarrow -v\rangle\\
-(v + v) + (-v) &= v + (-v) \\
-	&\quad\langle (x + y) + z = x + (y + z)\mid x\leftarrow v, y\leftarrow v, z\leftarrow -v\rangle\\
-v + (v + (-v)) &= v + (-v) \\
-	&\quad\langle x + (-x) = \zero\mid x\leftarrow v\text{ twice }\rangle\\
-v + \zero &= \zero \\
-	&\quad\langle x + \zero = x\mid x\leftarrow v\rangle\\
-v &= \zero
-\end{aligned}
-$$
-</details>
-
 
 <!--
 If $n = 1$ we can identify $\RR$ with $\RR^1$ by $x\in\RR$ corresponds to $(x)\in\RR^1$.
@@ -498,22 +454,6 @@ notations invented by less brilliant people. Standard mathematical notation suff
 -->
 
 ### Standard and Dual Basis
-
-The _standard basis_ of $\RR^n$ is ${e_i\in\RR^n}$, ${i\in\bs{n}}$,
-where ${e_i = (0,\ldots,1,\ldots,0)}$ with all elements $0$ except for a
-$1$ in the $i$-th position.  It is plausible that ${x = (x_1,\ldots,x_n)
-= x_1 e_1 + \cdots + x_n e_n}$ for ${x\in\RR^n}$, but you should always
-be wary of definitions involving dots.
-
-More generally, the standard basis of $\RR^I$ is ${e_i\in\RR^I}$, ${i\in
-I}$, where ${e_i(j) = \delta_{ij}}$ for $j\in I$, where $\delta_{ij} is
-the _Kronecker delta_ defined by ${δ_{ij} = 1}$ if ${i=j}$ and
-${δ_{ij} = 0}$ if ${i\not=j}$.
-
-__Exercise__. _If $I$ is finite, show $x = \sum_{i\in I} x(i)e_i$ for $x\in\RR^I$_.
-
-_Hint_: Consider $x(j)$, $j\in I$.
-
 Define the _dual basis_ by $e^*_j\colon\RR^I\to\RR$ by ${e^*_j(x) = x(j)}$, ${j\in I}$.
 The standard and dual bases allows us to identify $\RR^I$ with its _dual_
 $(\RR^I)^*$, the linear functionals from $\RR^I\to\RR$.
@@ -525,26 +465,6 @@ ${(x,y) = x\cdot y = \sum_{i\in I}x_i y_i}$. This is similar, but different
 from, the dual pairing is a
 function $\langle\cdot,\cdot\rangle\colon\RR^I\times(\RR^I)^*\to\RR$ while
 the dot product is a function $(\cdot,\cdot)\colon\RR^I\times\RR^I\to\RR$.
-
-## Linear Operator
-
-A function $T\colon\RR^n\to\RR^m$ is a _linear operator_ if ${T(ax + y) = aTx + y}$, ${a\in\RR}$, ${x,y\in\RR^n}$.
-
-__Exercise__. _Show if $T$ is a linear operator then $T(ax) = aTx$
-and $T(x + y) = Tx + Ty$, ${a\in\RR}$, ${x,y\in\RR^n}$_.
-
-_Hint_: Take $y = (0,\ldots,0)$ and $a = 1$.
-
-If $T\colon\RR^n\to\RR^m$ the _matrix_ of $T$ is $t\colon n\times m\to\RR\in\RR^{n\times m}$ where
-${t(i,j) = t_{ij} = \langle Te_i,e^*_j\rangle}$, ${i\in n}$, ${j\in m}$.
-We denote the map $
-
-If $S\colon\RR^m\to\RR^l$ then $U = ST\colon\RR^n\to\RR^l$.
-
-__Exercise__. _Show the matrix of the composition $U = ST$ is
-${u_{ik} = \sum_{j\in m} s_{ij}t_{jk}}$, $i\in n$, $k\in l$_.
-
-Matrix multiplication is just composition of linear operators.
 
 ### Tensor
 
@@ -1286,4 +1206,187 @@ The _Kleen star_ of a set is the union of the cartesian product of ${n\in\NN}$ c
 If $M$ is a monoid 
 where ${M^0 = \{e\}}$ and ${M^n = \{(m_1,\ldots,m_n)\mid m_j\in M, 1\le j\le n\}}$.
 Define _fold_ ${f\colon M^*\to M}$ by ${f(e) = e}$ and ${f((m_1,\ldots,m_n)) = m_1\cdots m_n}$.
+
+
+
+
+Every function $f\colon A\to B$ gives rise to two functions defined
+on exponentials. Given any set $C$ define
+$f\circ\colon A^C\to B^C$ by $g\mapsto f\circ g$, $g\in A^C$.
+and $\circ f\colon C^B\to C^A$ by $h\mapsto h\circ f$, $h\in C^B$.
+
+__Exercise__: Show if $f\colon A\to B$ is one-to-one then so is $f\circ\colon A^C\to B^C$_.
+
+_Hint_: If $f\circ g = f\circ h$ for $g,h\in A^C$ then $g = h$ if $f$ is one-to-one.
+
+__Exercise__: Show if $f\colon A\to B$ is onto then so is $\circ f\colon C^A\to C^B$_.
+
+_Hint_: If $(\circ f)g = (\circ f)h$ for $g,h\in C^A$ then $g\circ f = h\circ f$
+and $g = h$ if $f$ is onto.
+The _power set_ of a set $A$ is the set of all subsets of $A$,
+$\PP(A) = \{E\mid E\subseteq A\}$,
+Every subset $E$ of a set $A$ corresponds to an _indicator_ function $1_E$
+defined by $1_E(a) = 1$ if $a\in E$ and $1_E(a) = 0$ if $a\not\in E$.
+Set exponential allows us to express all indicator functions as elements of ${\{0,1\}}^A$.
+It is more common to write this as $2^A$ where $2 = \{0,1\}$.
+
+__Exercise__. _Show $\PP(A)$ is in one-to-one correspondence with $2^A$_.
+
+__Exercise__. _Show $\PP(A)$ is not in one-to-one correspondence with $A$ if $A$ is non-empty_.
+
+_Hint_: If $f\colon A\to\PP(A)$ is onto consider the set
+$S = \{a\in A\mid a\not\in f(a)\}$. Since $f$ is onto there exists
+$b\in A$ with $S = g(b)$. Is $b\in S$? Conclude no such $f$ exists.
+
+### Logic
+
+There is a close connection between set theory and _propositional logic/calculus_.
+A _proposition_ is a statement that is either true or false.
+Propositional _connectives_ define new propositions in terms of existing propositions.
+The connective 'not' defines $\neg P$ to be false if $P$ is true and
+true if $P$ is false. The connective 'and' defines $P\wedge Q$ to be true if
+both $P$ and $Q$ are true, otherwise $P\wedge Q$ is false.
+These can be combined to define 'nand' $P\uparrow Q = \neg(P\wedge Q)$
+to be the negation of 'and'.
+
+__Exercise__. _Show $P\uparrow P = \neg P$_.
+
+Every logical connective can be defined in terms of nand. Since $\neg(\neg P) = P$
+we have $P\wedge Q = \neg(P\uparrow Q)$.
+The connective 'or' defines $P\vee Q$ to be true if
+either $P$ or $Q$ are true, otherwise $P\vee Q$ is false.
+
+__Exercise__. _Show $P\vee Q = (\neg P)\uparrow(\neg Q)$_.
+
+_Logical implication_ is defined by $P\imples Q = (\neg P)\vee Q$.
+Note this is true if $P$ is false so we conclude a false proposition
+implies any proposition. This mathematical definition of implication is quite different from the standard
+usage of the word 'implies.'
+
+Logical connectives between propositions can be modeled using set theory. 
+If $A,B$ are sets then the set intersection $A\cap B$ corresponds to the logical connective
+$A\wedge B$.
+To model negation we need a fixed _universal_ set $S$.
+If $A\subseteq S$ then the set difference $S\setminus A = \{s\in S\mid a\not\in A\}$
+corresponds to $\neg A$.
+
+Let $\top$ (top) stand for the proposition that is always true and $\bot$ (bottom) for the
+proposition that is always false. These are also written $T$, $\text{true}$, or $1$
+and $F$, $\text{false}$, or $0$, respectively$. 
+The inclusion $\iota\colon\{0,1\}\to\RR$ into the real numbers gives rise to
+$\circ\iota\colon 2^I\to\RR^I$ for any set $I$.
+Since $\RR^I$ is the set of functions from $I$ to $\RR$ we
+can add and multiply them.
+
+__Exercise__. _Show $1_{A\cap B} = 1_A 1_B$ and $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$_.
+
+__Exercise__. _Show $1_{I\setminus A} = 1 - 1_A$_.
+
+_Hint_: The _set difference_ $A\setminus B = \{a\in A\mid a\not\in B\}$.
+
+We can reduce set identities to algebraic operatons.
+For example, De Mogan's Laws are 
+Two sets $A$ and $B$ are _equivalent_ (as sets), $A\cong B$,
+if there exists a one-to-one correspondence between them.
+
+__Exercise__. _Show $\cong$ is an_ equivalence _relation_.
+
+_Hint_. Establish $A\cong A$, $A\cong B$ implies $B\cong A$,
+and $A\cong B$, $B\cong C$ imply $A\cong C$ for sets $A,B,C$.
+
+<details><summary>Solution</summary>
+Show the identity function from $A$ to $A$ is bijective.
+Show if $f\colon A\to B$ is bijective, so is $f^{-1}\colon B\to A$.
+Show if $f\colon A\to B$ and $g\colon B\to C$ are bijective then so is $gf\colon A\to C$.
+</details>
+
+### Relation
+
+Given sets $A$ and $B$ a _relation_ is a subset of the cartesian product
+of $A$ and $B$, $R\subseteq A\times B$. We write $aRb$ if $(a,b)\in R$.
+The _domain_ of a relation is $\dom R = \{a\in A\mid aRb\text{ for some }b\in B\}$.
+The _codomain_ of a relation is $\cod R = \{b\in B\mid aRb\text{ for some }a\in A\}$.
+The _left coset_ of $b\in\cod B$ is $Rb = \{a\in A: aRb\}$.
+The _right coset_ of $a\in\dom A$ is $aR = \{b\in B: aRb\}$.
+
+__Exercise__. _Show $\dom R = \cup_{b\in B} Rb$ and $\cod R = \cup_{a\in A} aR$_.
+
+__Exercise__. _Show $\dom R = first(R)$ and $\cod R = \second(R)$_.
+
+_Hint_: $\first(R) = \{\first(a,b)\mid (a,b)\in R\}$
+
+An equivalence relation on a set $S$ is a subset $R\subseteq S\times S$ with
+$aRa$ (reflexive), $aRb$ implies $bRa$ (symmetric),
+and $aRb$, $bRc$ imply $aRc$ (transitive), $a,b,c\in S$,
+where we write $aRb$ for $(a,b)\in R$. The _equivalence class_ of $a\in S$
+is $[a] = \{b\in S\mid aRb\}$.
+
+__Exercise__. _Show either $[a] = [b]$ or $[a]\cap [b] = \emptyset$ for $a,b\in S$_.
+
+A _partition_ of a set is a collection of disjoint subsets whose union is the entire set.
+This exercise shows $\{[a]\mid a\in A\}$ is a partition of $S$.
+
+__Exercise__. _If $\Sigma$ is a partions of $S$ then $\cup_{s\in\Sigma} s\times s$ is
+an equivalence relation on $S$_.
+
+Equivalence allows us to simplify considerations. Two things are "the same" in a
+particular sense even if they are not equal.
+
+### Structure
+
+Functions between sets with structure that preserve the structure are
+_homomorphisms_. A homomorphism that is bijective (one-to-one and
+onto) is an _isomorphism_. 
+
+For example, a _semigroup_ is a set $S$ with a binary operation
+$m_S = m\colon S\times S\to S$ that is _associative_:
+$m(a,m(b,c)) = m(m(a,b),c)$, $a,b,c\in S$.
+If we write $ab$ for $m(a,b)$ this becomes $a(bc) = (ab)c$.
+This allows us to write $abc$ unambigously for either term.
+A function $f\colon S\to T$ between semigroups is a homomorphism
+if and only if $f(m_S(a,b)) = m_T(f(a), f(b)$ for all $a,b\in S$.
+We write this $f(ab) = f(a)f(b)$ for all $a,b\in S$
+and expect you to keep in mind the binary operation in the argument
+to $f$ occurs in $S$ and binary operation on the right occurs in $T$.
+
+You might think this is too simple to be useful, but you would be wrong.
+Semigroups are the basis of the Map-Reduce algorithm.
+A computation $a_1a_2\cdots a_n$ can be partitioned into
+$(a_1\cdots a_{n_1})(a_{n_1+1}\cdots a_{n_2})\cdots(a_{n_k+1}\cdots a_n)$
+where $1 < n_1 < \cdots < n_k < n = n_{k+1}$. The partitioned calculations
+can be performed in parallel and
+the $k + 1$ calculations can be combined to get the final result.
+The computation time is proportional to $\max_{1\le j\le k}\{n_{j+1} - n_j\} + k + 1$.
+
+__Exercise__. _What is the optimal partition size for the product of $n$ terms_?
+
+_Hint_: Back of the envelope, if there are $k$ partitions of equal
+size the time is proportional to $n/k + k$.
+
+Semigroups don't have enough structure to have a convenient
+classification up to isomorphism.
+Vector spaces are a mathematical sweet spot. Two vector spaces
+are isomorphic if and only if they have the same _dimension_.
+
+
+
+Currying is quite common in mathematics and is often done implicity.
+Although currying is common, there is no generally accepted notation for it, so let's define one
+for our purposes.
+If $f\colon A\to(B\to C)$ define $f,\colon A\times B\to C$ by
+$f,(a, b) = (f(a))(b) = fa(b)$ for $a\in A$, $b\in B$. If $g\colon A\times B\to C$
+define $,g\colon A\to(B\to C)$ by $,ga(b) = g(a,b)$.
+
+__Exercise__. _Show $,(f,) = f$ and $(,g), = g$_.
+
+Currying shows $(B\times C)^A$ is equavalent to $(B^C)^A$.
+
+If $h\in B^A$ and $a\in A$ then evaluating $h$ at $a$ results in $h(a)\in B$.
+We reify this by defining the $\eval$ function
+${\eval\colon B^A\times A\to B}$ by $\eval(h,a) = h(a)$. We
+decorate this as ${\eval^{A,B}}$ when we want to make the sets involved explicit.
+
+__Exercise__. _If $f\in (C^B)^A$ show $f, = \eval(\eval(f, a), b)$_.
+
+__Exercise__. _If $g\in (B\times C)^A$ show $,g = \eval(\eval(g, a), b)$_.
 -->
