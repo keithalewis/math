@@ -189,7 +189,7 @@ __Exercise__. _$a(x + y) = ax + ay$_.
 
 __Exercise__. _$(a + b)x = ax + bx$_.
 
-_Hint_: Use the properties of real numbers.
+_Hint_: Use the pointwise definitions and the properties of real numbers.
 
 The exercises are the axioms for an _abstract vector space_ with scalar
 multiplication ${\RR\times V\to V}$ where ${(a,x)\mapsto ax = xa}$ and
@@ -230,6 +230,10 @@ v &= \zero
 \end{aligned}
 $$
 </details>
+
+This may seem to be a tedoious way to prove an obvious result, but it is a simple
+example of the power of mathematics. Unlike other areas of human endeavour,
+whenever two mathematicians disagree it is possible to get to the bottom of things.
 
 ### Standard Basis
 
