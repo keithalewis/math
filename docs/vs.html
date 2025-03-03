@@ -245,7 +245,7 @@ class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}}</span></em>.</p>
 class="math inline">{\pi_i\colon\prod_{i\in\boldsymbol{{n}}}\boldsymbol{{{R}}}\to\boldsymbol{{{R}}}}</span>
 are the projections <span class="math inline">\pi_i(x) = x_i</span>,
 <span class="math inline">i\in I</span> define <span
-class="math inline">x\to\boldsymbol{{x}}</span> by <span
+class="math inline">x\mapsto\boldsymbol{{x}}</span> by <span
 class="math inline">\boldsymbol{{x}}(i) = \pi_i(x)</span> and show it is
 bijective.</p>
 <p>A more powerful notion is to consider a vector as an element of the
@@ -423,22 +423,14 @@ class="math inline">a\in\boldsymbol{{{R}}}</span>, <span
 class="math inline">T,S\in\mathcal{L}(V,W)</span>. One could check the
 scalar multiplication and vector addition satisfy the axioms for an
 abstract vector space but we will show a simple way to establish this
-later.</p>
-<p>A <em>linear combination</em> is any finite sum of scalars times
-vectors and are preserved by linear transformations.</p>
-<p><strong>Exercise</strong>. <em>Show if <span
-class="math inline">T</span> is a linear operator then <span
-class="math inline">T(\sum_k a_k v_k) = \sum_k a_k Tv_k</span></em>.</p>
-<p><em>Hint</em>: Use induction on the number of terms.</p>
+once we define <em>matrix</em>.</p>
 <section id="matrix" class="level3">
 <h3>Matrix</h3>
 <p>If <span
-class="math inline">T\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}^J</span>
+class="math inline">T\in\mathcal{L}(\boldsymbol{{{R}}}^I,\boldsymbol{{{R}}}^J)</span>
 then the image of the <span class="math inline">i</span>-th standard
 basis element in <span class="math inline">\boldsymbol{{{R}}}^I</span>
-under <span class="math inline">T</span> is a linear combination of
-standard basis elements in <span
-class="math inline">\boldsymbol{{{R}}}^J</span> so <span
+under <span class="math inline">T</span> can be written <span
 class="math inline">Te^I_i = \sum_{j\in J} t_{ij} e^J_j</span> for some
 scalars <span class="math inline">t_{ij}\in\boldsymbol{{{R}}}</span>
 when <span class="math inline">I</span> and <span

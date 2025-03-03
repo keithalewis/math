@@ -121,7 +121,6 @@ with functions $p_A\colon P\to A$, $p_B\colon P\to B$
 with the property in the previous exercise, then $P$
 is in one-to-one correspondence with $A\times B$.
 
-
 __Exercise__. _Show any such $P$ is in one-to-one correspondence with $A\times B$_.
 
 <details><summary>Solution</summary>
@@ -154,7 +153,7 @@ $\bs{x}\colon\bs{n}\to\RR$ defined by $\bs{x}(i) = x_i$, $i\in\bs{n}$.
 __Exercise__. _Show $\prod_{i\in\bs{n}}\RR$ is in one-to-one correspondence with $\RR^{\bs{n}}$_.
 
 _Hint_: If ${\pi_i\colon\prod_{i\in\bs{n}}\RR\to\RR}$ are the projections $\pi_i(x) = x_i$, $i\in I$
-define $x\to\bs{x}$ by $\bs{x}(i) = \pi_i(x)$ and show it is bijective.
+define $x\mapsto\bs{x}$ by $\bs{x}(i) = \pi_i(x)$ and show it is bijective.
 
 A more powerful notion is to consider a vector as an element of the _vector space_ of all functions
 from an _index set_ $I$ to the real numbers, $\RR^I$.
@@ -266,21 +265,14 @@ _Hint_: Take $y = \zero$ and $a = 1$.
 The collection $\LL(V,W)$ can be made into a vector space. Define scalar multiplication
 by $(aT)v = a(Tv)$ and vector addition by $(T + S)v = Tv + Sv$, $a\in\RR$, $T,S\in\LL(V,W)$.
 One could check the scalar multiplication and vector addition satisfy
-the axioms for an abstract vector space but we will show a simple way to establish this later.
-
-A _linear combination_ is any finite sum of scalars times vectors
-and are preserved by linear transformations.
-
-__Exercise__. _Show if $T$ is a linear operator then $T(\sum_k a_k v_k)
-= \sum_k a_k Tv_k$_.
-
-_Hint_: Use induction on the number of terms.
+the axioms for an abstract vector space but we will show a simple way to establish this 
+once we define _matrix_.
 
 ### Matrix
 
-If $T\colon\RR^I\to\RR^J$ then the image of the $i$-th standard basis
-element in $\RR^I$ under $T$ is a linear combination of standard basis elements in $\RR^J$
-so $Te^I_i = \sum_{j\in J} t_{ij} e^J_j$
+If $T\in\LL(\RR^I,\RR^J)$ then the image of the $i$-th standard basis
+element in $\RR^I$ under $T$ can be written
+$Te^I_i = \sum_{j\in J} t_{ij} e^J_j$
 for some scalars $t_{ij}\in\RR$ when $I$ and $J$ are finite.
 The _matrix_ of $T$ is $[t_{ij}]_{i\in I, j\in J}$.
 
