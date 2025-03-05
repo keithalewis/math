@@ -79,27 +79,43 @@ if $f(a) = f(a')$ implies $a = a'$, $a,a'\in A$.
 A function is _onto_, or _surjective_, if for every
 $b\in B$ there exists an $a\in A$ with $f(a) = b$.
 A function is a _one-to-one correspondence_, or _bijective_,
-if it is one-to-one and onto.
+if it is one-to-one and onto. Two finite sets are the same size
+if they have the same number of elements. Bijections classify
+possibly infinite sets by _cardinality_.
 
 We can define one-to-one and onto using only functions.
 
-__Exercise__. _Show $f\colon A\to B$ is one-to-one if and only $fg = fh$ implies
+__Exercise__. _Show $f\colon A\to B$ is one-to-one if and only if $fg = fh$ implies
 $g = h$ for $g,h\colon C\to A$_.
 
 _Hint_: $fg = fh$ if and only if $f(g(c)) = f(h(c))$ for all $c\in C$.
 
-__Exercise__. _Show $f\colon A\to B$ is onto if and only $gf = hf$ implies
+__Exercise__. _Show $f\colon A\to B$ is one-to-one if and only if
+it has a left inverse_.
+
+_Hint_: A _left inverse_ is a function $f^\dashv\colon B\to A$ with $f^\dashv f = 1_A$.
+
+<details><summary>Solution</summary>
+If $f is one-to-one and $f(a) = b$ define $f^\dashv(b) = a$. This is well-defined
+since $f$ is one-to-one, i.e., if $f(a') = b$ then $a = a'$.
+If a left inverse exists and $fg = fh$ then pre-compose the left inverse to get $g = h$.
+</details>
+
+__Exercise__. _Show $f\colon A\to B$ is onto if and only if $gf = hf$ implies
 $g = h$ for $g,h\colon B\to C$_.
 
 _Hint_: $gf = hf$ if and only if $g(f(a)) = h(f(a))$ for all $a\in A$.
 For all $b\in B$ there exists $a\in A$ with $f(a) = b$.
 
-Not everything in math is a set. There is an alternate foundation
-called _category theory_ involving _objects_ and _arrows_ having an associative
-composition and identity arrows for each object. The above exercises
-show sets and functions form a category $\mathbf{Set}$.
-The pointwise definitions of one-to-one and onto can be replaced by
-definitions involving only sets and functions.
+__Exercise__. _Show $f\colon A\to B$ is onto if and only if
+it has a right inverse_.
+
+_Hint_: A _right inverse_ is a function $f^\vdash\colon B\to A$ with $ff^\vdash = 1_B$.
+
+Not everything in math is a set. There is an alternate foundation of
+mathematics called _category theory_ involving _objects_ and _arrows_
+having an associative composition and identity arrows for each object. The
+above exercises show sets and functions are objects and arrows for the category $\mathbf{Set}$.
 
 We will not give a rigorous definition of what a category is, but we
 will lean heavily on what Samuel Eilenberg and Saunders Mac Lane invented
@@ -127,6 +143,7 @@ __Exercise__. _Show any such $P$ is in one-to-one correspondence with $A\times B
 Since $p_A\colon P\to A$ and $p_B\colon P\to B$ there exists
 $h\colon P\to A\times B$ with $\pi_A h = p_A$ and $\pi_B h = p_B$.
 Likewise, there exists $k\colon A\times B\to P$ with $p_A k = \pi_A$ and $p_B k = \pi_B$.
+Show $h$ is a left inverse of $k$ and $k$ is a right inverse of $h$.
 
 TODO: complete this proof
 </details>
