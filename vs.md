@@ -96,7 +96,7 @@ it has a left inverse_.
 _Hint_: A _left inverse_ is a function $f^\dashv\colon B\to A$ with $f^\dashv f = 1_A$.
 
 <details><summary>Solution</summary>
-If $f is one-to-one and $f(a) = b$ define $f^\dashv(b) = a$. This is well-defined
+If $f$ is one-to-one and $f(a) = b$ define $f^\dashv(b) = a$. This is well-defined
 since $f$ is one-to-one, i.e., if $f(a') = b$ then $a = a'$.
 If a left inverse exists and $fg = fh$ then pre-compose the left inverse to get $g = h$.
 </details>
@@ -144,13 +144,14 @@ Since $p_A\colon P\to A$ and $p_B\colon P\to B$ there exists
 $h\colon P\to A\times B$ with $\pi_A h = p_A$ and $\pi_B h = p_B$.
 Likewise, there exists $k\colon A\times B\to P$ with $p_A k = \pi_A$ and $p_B k = \pi_B$.
 Show $h$ is a left inverse of $k$ and $k$ is a right inverse of $h$.
-
-TODO: complete this proof
+???
 </details>
 
-
-Our theme is to define everything in terms of sets and functions
-with an eye toward computer implementation.
+Our theme is to define everything mathematically in terms of sets and
+functions with an eye toward computer implementation.  Every programming
+language allows you to define functions and call them on types belonging
+to a set. We provide mathematical names that can be translated into
+any computer language.
 
 ## $\RR^n$
 
