@@ -23,31 +23,21 @@ _Vector addition_ is defined by $(x_1,\ldots,x_n) + (y_1,\ldots,y_n)
 = (x_1 + y_1,\ldots,x_n + y_n)$.
 
 Definitions involving dots are not ammenable to computer
-implementation. Every vector $x\in\RR^n$ determines a function $\bm{x}(i)
-= x_i$, $1\le i\le n$. Scalar multiplication and vector addition can
+implementation. Every vector $x\in\RR^n$ determines a function
+$\bm{x}\colon\bm{n}\to\RR$ by $\bm{x}(i) = x_i$ for $i\in\bm{n} = \{1,\ldots,n\}$.
+Scalar multiplication and vector addition can
 be defined _pointwise_ by $(a\bm{x})(i) = a(\bm{x}(i))$ and $(\bm{x} +
 \bm{y})(i) = \bm{x}(i) + \bm{y}(i)$, $1\le i\le n$.
 
-A vector is usually represented on a computer as a contiguous array of memory
-with elements of the same type. The real numbers are uniquely characterized
-mathematically as a complete Archemedean ordered field. Computers
-can only model real numbers as a finite number of bits. 
-The most common representation is 64-bit or 32-bit IEEE 754 floating point.
-
-Every finite dimensional vector space over the real numbers can be
-identified with the _set exponential_ $\RR^I$ of all functions from an
-_index set_ to $\RR$. 
-
-The usual definition of the vector space $\RR^n$ is the collection of tuples
-$x = (x_1,\ldots,x_n)$, $x_i\in\RR$, $i\in\bm{n}$. $\RR^n$ is not the same as $\RR^\bm{n}$
-but there is a one-to-one correspondence.
+The set of tuples $\RR^n$ is not the same as the set of functions $\RR^\bm{n}$
+but they are in one-to-one correspondence.
 Define a map $\iota\colon\RR^n\to\RR^\bm{n}$ by $\iota x(i) = x_i$, $x\in\RR^n$, $i\in\bm{n}$.
 
-__Exercise__. _Show if $\iota x = \iota y$, $x,y\in\RR^n$, then $x = y$_.
-
-This shows $\iota$ is _one-to-one_, or _injective_.
+__Exercise__. _Show if $\iota x = \iota y$ then $x = y$, $x,y\in\RR^n$_
 
 _Hint_: Use $x = y$ if and only if $x_i = y_i$ for all $i\in\bm{n}$.
+
+This shows $\iota$ is _one-to-one_, or _injective_.
 
 __Exercise__. _Show for every $\bm{x}\in\RR^\bm{n}$ there exists $x\in\RR^n$ with $\iota x = \bm{x}$_.
 
@@ -56,21 +46,54 @@ _Hint_: Given $\bm{x}\in\RR^\bm{n}$ let $x_i = \bm{x}(i)$, $i\in\bm{n}$.
 This show $\iota$ is _onto_, or _surjective_.
 A function that is one-to-one and onto is a _one-to-one correspondence_, or _bijective_.
 
-__Exercise__. _Show $\iota(ax) = a(\iota x)$ and $\itoa(x + y) = \iota x + \iota y$ for
+__Exercise__. _Show $\iota(ax) = a(\iota x)$ and $\iota(x + y) = \iota x + \iota y$ for
 $a\in\RR$, $x,y\in\RR^n$_.
 
 This shows $\iota$ is a _linear operator_, a function from one vector space to
 another that preserves the linear structure.
 If a linear operator is bijective we call it an _isomorphism_.
 
-Any function $\sigma\colon J\to I$ defines a function $\circ\sigma\colon \RR^I\to\RR^J$ by
-right composition $(\circ sigma) x = x\circ\sigma = x\sigma$ so
+## Array
+
+Every finite dimensional vector space over the real numbers can be
+identified with the _set exponential_ $\RR^I$ of all functions from an
+_index set_ $I$ to $\RR$. Elements of $\RR^I$ are called _arrays_.
+
+A _view_ of $\RR^I$ is a function $\sigma\colon J\to I$
+and is used to define a function $\circ\sigma\colon\RR^I\to\RR^J$ by
+right composition $(\circ\sigma)x = x\circ\sigma = x\sigma$ so
 $(x\sigma)(j) = x(\sigma(j))$, $x\in\RR^I$, $j\in J$.
 
 __Exercise__. _Show $\circ\sigma$ is a linear operator_.
 
-If $I = \bm{n}\times\bm{m}$ is the cartesian product of $\bm{n}$ and $\bm{n}$, $n,m\in\NN$
-the $\RR^{\bm{n}\times\bm{m}}$ is a _matrix_.
+_Hint_: Show $a(x\sigma) = (ax)\sigma$ and $(x + y)\sigma = x\sigma + y\sigma$.
+
+__Exercise__. _Show if $\sigma$ is one-to-one then $\circ\sigma$ is onto._
+
+_Hint_: Show there exists $\sigma^\dashv\colon I\to J$ with $\sigma^\dashv\sigma = 1_J$.
+If $x\in\RR^J$ then $x\sigma^\dashv\in\RR^I$ and $x\sigma^\dashv\sigma = x$.
+
+__Exercise__. _Show if $\sigma$ is onto then $\circ\sigma$ is one-to-one._
+
+_Hint_: Show there exists $\sigma^\vdash\colon J\to I$ with $\sigma\sigma^\vdash = 1_I$.
+If $x\sigma = y\sigma$, $x,y\in\RR^I$, then $x\sigma\sigma^\vdash = y\sigma\sigma^\vdash$
+and $x = y$.
+
+This shows if $\sigma$ is one-to-one and onto then $\circ\sigma$ is an isomorphism.
+
+If $J\subset I$ we write $[J]\colon J\to I$ for the inclusion map and
+call $x[J]$ the _projection_ on $J$ of $x\in\RR^I$.
+
+## Matrix
+
+If $I = I_1\times I_2$ is a cartesian product of two index sets
+the elements of $\RR^{I_1\times I_2}$ are _matrices_.
+
+A vector is usually represented on a computer as a contiguous array of memory
+with elements of the same type. The real numbers are uniquely characterized
+mathematically as a complete Archemedean ordered field. Computers
+can only model real numbers as a finite number of bits. 
+The most common representation is 64-bit or 32-bit IEEE 754 floating point.
 
 
 <!--

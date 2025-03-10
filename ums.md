@@ -9,6 +9,19 @@ classoption: fleqn
 \newcommand\RR{\boldsymbol{R}}
 \renewcommand\AA{\mathcal{A}}
 
+
+This note suggests improvements to Stephen Ross's paper "A Simple
+Approach to the Valuation of Risky Streams" [@Ros1978]. Ross expanded
+on the Nobel Prize winning theory developed by Fischer Black, Myron Scholes
+[@BlaSch1973], and Robert C. Merton [@Mer1973], which originally focused
+on valuing options through dynamic trading of a bond and a stock. Ross
+greatly expanded this by showing how to value derivatives using
+any collection of instruments.
+
+We place cash flows on equal footing with prices and show trading
+strategies create synthetic market instruments.
+
+
 $T$ — totally ordered set of _trading times_.
 
 $I$ — market _instruments_.
