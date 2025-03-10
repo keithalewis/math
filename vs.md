@@ -345,7 +345,7 @@ is the matrix of $T$.
 __Exercise__. _Show $\LL(\RR^I,\RR^J)$ is isomorphic to $\RR^{I\times J}$_.
 
 Since $I\times J$ is a set, $\RR^{I\times J}$ is a vector space.
-This shows $\LL(\RR^I,\RR^J)$ is a vector space, as promised.
+This shows $\LL(\RR^I,\RR^J)$ is a vector space.
 
 ### Dual
 
