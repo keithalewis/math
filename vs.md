@@ -40,7 +40,7 @@ about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 
 Everything in math is a set.
 We write $a\in A$ to indicate $a$ is an _element_, or _member_, of $A$.
-The set of function from a set $A$ to a set $B$ is the
+The set of function from $A$ to $B$ is the
 _set exponential_ $B^A = \{f\colon A\to B\}$. 
 A function is a set defined by its _graph_ $\{(a,f(a))\mid a\in A\}$
 contained in the _cartesion product_ $A\times B$.
@@ -147,7 +147,23 @@ Show $h$ is a left inverse of $k$ and $k$ is a right inverse of $h$.
 ???
 </details>
 
-Our theme is to define everything mathematically in terms of sets and
+Set product and exponential are connected by _currying_. Functions from
+$A\times B$ to $C$ are in one-to-one correspondence with functions
+from $A$ to functions from $B$ to $C$.
+If $f\colon A\times B\to C$ define $f,\colon A\to(B\to C)$
+by $f,a(b) = f(a,b)$.
+If $g\colon A\to(B\to C)$ define $g`\colon A\times B\to C$
+by $g`(a,b) = ga(b)$.
+
+__Exercise__. _If $f\colon A\times B\to C$ show $(f,)` = f$
+and if $g\colon A\to(B\to C)$ show $(g`), = g$_.
+
+Evaluation of a function is defined by $\eval = \eval_A^B\colon A^B\times B\to A$ with
+$\eval(f,b) = f(a)$.
+
+__Exercise__. !!!connect currying and eval!!!
+
+Our theme is to define everything in terms of sets and
 functions with an eye toward computer implementation.  Every programming
 language allows you to define functions and call them on types belonging
 to a set. We provide mathematical names that can be translated into
@@ -181,6 +197,11 @@ In what follows we just write $x$ for $\bs{x}$ and leave it to you to figure
 out from context if a vector is a tuple or a function.
 
 __Exercise__. _For any set $I$, show $\prod_{i\in I}\RR$ is in one-to-one correspondence with $\RR^{I}$_.
+
+_Hint_: If $\pi_i\colon \prod_{i\in I}\RR\to\RR$ are the projections defining the product
+then $\bs{x}(i) = \pi_i(x)$.
+
+I -> (Pi_i R -> R)
 
 ### Scalar Multiplication and Vector Addition
 
@@ -304,8 +325,19 @@ __Exercise__. _Show the matrix of the composition $U = ST$ is
 ${u_{ik} = \sum_{j\in J} s_{ij}t_{jk}}$, for $i\in I$, $k\in K$_.
 
 Matrix multiplication is just composition of linear operators.
+Define $E_{ij}\colon\RR^I\to\RR^J$ to be the linear operator
+with matrix $[\delta_{ij}]$.
 
-Linear operators from $\RR^I$ to $\RR^J$ are in one-to-one correspondence
+__Exercise__. _Show $E_{ij}E_{k,l} = \delta_{jk}E__il}$_.
+
+Werner Heisenberg reinvented matrix multiplication.
+His interpretation was $E_{ij}$ represented a jump of an
+electron from orbital
+level $i$ in a hydrogen atom to orbital level $j$. He positied
+$E_{ij}E_{kl}$ was a jump from level $i$ to level $l$ if and
+only if $j = k$. Eventually Pascual Jordan pointed this out to him.
+
+This shows linear operators from $\RR^I$ to $\RR^J$ are in one-to-one correspondence
 with $\RR^{I\times J}$. Define a function from $T\in\LL(\RR^I,\RR^J)$
 to $\bs{T}\in\RR^{I\times J}$ by $\bs{T}(i,j) = t_{ij}$ where $[t_{ij}]$
 is the matrix of $T$.
@@ -321,8 +353,8 @@ The _dual_ of a vector space $V$ is the set of all _linear functionals_
 from $V$ to $\RR$, $V^* = \LL(V,\RR)$.
 We write the _dual pairing_ $\langle v, v^*\rangle = v^*(v)$ for $v\in V$, $v^*\in V^*$.
 
-The _standard dual basis_ of $\RR^I$, $e_i^*\colon\RR^I\to\RR$,
-by $e_i^*(x) = x(i)$, $i\in I$.
+The _standard dual basis_ of $\RR^I$, $e_i^*\colon\RR^I\to\RR$ is
+defined by $e_i^*(x) = x(i)$, $i\in I$.
 
 __Exercise__. _Show $e_i^*$ is linear for all $i\in I$_.
 

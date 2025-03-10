@@ -148,18 +148,17 @@ A _futures contract_ on an underlying with price $S_t$, $t\in T$, is
 specified by _quote times_ $t_0 < \cdots < t_n = u$ where $u$ is the
 _futures expiration_. The futures _quote_ at expiration
 is equal to the price of the underlying $\Phi_u = S_u$. The price of a futures
-is always zero and has cash flows $\Phi_{t_{j+1}} - \Phi_{t_j}$ at $t_{j+1}$ where
-the quote $\Phi_t$ is determined by the market prior to expiration.
+is always zero and has cash flows $\Phi_{t_{j+1}} - \Phi_{t_j}$ at $t_{j+1}\le u$
+where the quote $\Phi_t$ is determined by the market prior to expiration.
 
 In an arbitrage-free model $0D_{t_j} = ((\Phi_{t_{j+1}} - \Phi_{t_j})D_{t_{j+1}})|_{\AA_{t_j}}$.
-Under the canonical deflator futures quotes are a martingale.
+Under a canonical deflator futures quotes are a martingale.
 
 ### Limit Orders
 
 A _limit order_ is specified by a level.
 It has price 0 and at most one cash flow equal to the level
 at the first time the underlying crosses the level.
-
 
 [^1]: A partition of $\Omega$ is a collection of pairwise disjoint sets with union $\Omega$.
 If $\AA$ is a finite algebra of sets on $\Omega$ then the atoms of $\AA$ form a partition
