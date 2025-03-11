@@ -9,6 +9,9 @@ classoption: fleqn
 \newcommand\RR{\boldsymbol{R}}
 \renewcommand\AA{\mathcal{A}}
 
+Fischer Black, Myron Scholes [@BlaSch1973], and Robert C. Merton III
+[@Mer1973], invented a Nobel Prize winning theory showing how to value
+options by dynamically trading a bond and a stock.
 
 This note suggests improvements to Stephen Ross's paper "A Simple
 Approach to the Valuation of Risky Streams" [@Ros1978]. Ross expanded
