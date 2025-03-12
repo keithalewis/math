@@ -23,7 +23,28 @@ any collection of instruments.
 
 We place cash flows on equal footing with prices and show trading
 strategies create synthetic market instruments.
+If a perfect hedge exists, it is determined by the Fréchet derivative of the option value with respect to price.
+The Simple Unified Model assumes every hedge has only a finite number of trades, as is the
+case in the real world. This implies perfect hedges do not, in general, exist.
 
+## Preamble
+
+The SUM does not involve probability measures. As Ross showed, the Fundamental Theorem
+of Asset Pricing is a geometric result. We assume a sample space and filtration, but
+do not require a probability measure.
+
+If an algebra $\AA$ of sets on $\Omega$ is finite then the atoms of the algebra form a
+partition of $\Omega$ and a function $X\colon\Omega\to\RR$ is measurable with
+respect to $\AA$ if and only if it is constant on atoms. In this case $X$ is
+a function on the atoms and we write $X\colon\AA\to\RR$.
+
+The dual of bounded functions on $\Omega$, $B(\Omega)^*$, can be identified with
+finitely additive measures on $\Omega$[@DunSch1958]. Recall if $P$ is probability
+measure then conditional expectation with respect to an algebra is defined
+by $Y = E[X\mid\AA]$ if and only if $Y$ is $\AA$-measurable
+and $\int_A Y\,dP = \int_A X\,dP$ for $A\in\AA$.
+This is equivalent to $Y(P|_\AA) = (XP)|_\AA$. We do not use conditional
+expectation in what follows, only restriction of measures to an algebra.
 
 $T$ — totally ordered set of _trading times_.
 
@@ -76,7 +97,7 @@ $$
 \tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}, t\le u.
 $$
 
-_Proof_: Substitue $V_t$ by its definition on the left side of $(2)$ and
+_Proof_: Substitute $V_t$ by its definition on the left side of $(2)$ and
 use $X_t D_t$ from $(1)$. Note $\Delta_t + \Gamma_t = \Delta_{t+\epsilon}$
 for $\epsilon > 0$ sufficiently small. In this case
 $V_t D_t = (V_u D_u + A_u D_u)|_{\AA_t}$ for $u = {t+\epsilon}$.
@@ -175,6 +196,8 @@ Under a canonical deflator futures quotes are a martingale.
 A _limit order_ is specified by a level.
 It has price 0 and at most one cash flow equal to the level
 at the first time the underlying crosses the level.
+
+## References
 
 [^1]: A partition of $\Omega$ is a collection of pairwise disjoint sets with union $\Omega$.
 If $\AA$ is a finite algebra of sets on $\Omega$ then the atoms of $\AA$ form a partition

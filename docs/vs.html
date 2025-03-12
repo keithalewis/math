@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-03-06" />
+  <meta name="dcterms.date" content="2025-03-12" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">March 6, 2025</p>
+<p class="date">March 12, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -85,16 +85,15 @@ about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 <p>Everything in math is a set. We write <span class="math inline">a\in
 A</span> to indicate <span class="math inline">a</span> is an
 <em>element</em>, or <em>member</em>, of <span
-class="math inline">A</span>. The set of function from a set <span
-class="math inline">A</span> to a set <span class="math inline">B</span>
-is the <em>set exponential</em> <span class="math inline">B^A =
-\{f\colon A\to B\}</span>. A function is a set defined by its
-<em>graph</em> <span class="math inline">\{(a,f(a))\mid a\in A\}</span>
-contained in the <em>cartesion product</em> <span
-class="math inline">A\times B</span>. Kazimierz Kuratowski improved
-Norbert Wiener’s definition of an <em>ordered pair</em> <span
-class="math inline">(a,b)\in A\times B</span> as the set <span
-class="math inline">\{a,\{a,b\}\}</span>.</p>
+class="math inline">A</span>. The set of function from <span
+class="math inline">A</span> to <span class="math inline">B</span> is
+the <em>set exponential</em> <span class="math inline">B^A = \{f\colon
+A\to B\}</span>. A function is a set defined by its <em>graph</em> <span
+class="math inline">\{(a,f(a))\mid a\in A\}</span> contained in the
+<em>cartesion product</em> <span class="math inline">A\times B</span>.
+Kazimierz Kuratowski improved Norbert Wiener’s definition of an
+<em>ordered pair</em> <span class="math inline">(a,b)\in A\times
+B</span> as the set <span class="math inline">\{a,\{a,b\}\}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">\cap\{a,\{a,b\}\} = \{a\}</span> and <span
 class="math inline">\cup\{a,\{a,b\}\} = \{a,b\}</span></em>.</p>
@@ -235,11 +234,31 @@ class="math inline">h</span> is a left inverse of <span
 class="math inline">k</span> and <span class="math inline">k</span> is a
 right inverse of <span class="math inline">h</span>. ???
 </details>
-<p>Our theme is to define everything mathematically in terms of sets and
-functions with an eye toward computer implementation. Every programming
-language allows you to define functions and call them on types belonging
-to a set. We provide mathematical names that can be translated into any
-computer language.</p>
+<p>Set product and exponential are connected by <em>currying</em>.
+Functions from <span class="math inline">A\times B</span> to <span
+class="math inline">C</span> are in one-to-one correspondence with
+functions from <span class="math inline">A</span> to functions from
+<span class="math inline">B</span> to <span
+class="math inline">C</span>. If <span class="math inline">f\colon
+A\times B\to C</span> define <span class="math inline">f,\colon
+A\to(B\to C)</span> by <span class="math inline">f,a(b) = f(a,b)</span>.
+If <span class="math inline">g\colon A\to(B\to C)</span> define <span
+class="math inline">g`\colon A\times B\to C</span> by <span
+class="math inline">g`(a,b) = ga(b)</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
+A\times B\to C</span> show <span class="math inline">(f,)` = f</span>
+and if <span class="math inline">g\colon A\to(B\to C)</span> show <span
+class="math inline">(g`), = g</span></em>.</p>
+<p>Evaluation of a function is defined by <span
+class="math inline">\operatorname{eval}= \operatorname{eval}_A^B\colon
+A^B\times B\to A</span> with <span
+class="math inline">\operatorname{eval}(f,b) = f(a)</span>.</p>
+<p><strong>Exercise</strong>. !!!connect currying and eval!!!</p>
+<p>Our theme is to define everything in terms of sets and functions with
+an eye toward computer implementation. Every programming language allows
+you to define functions and call them on types belonging to a set. We
+provide mathematical names that can be translated into any computer
+language.</p>
 </section>
 <section id="boldsymbolrn" class="level2">
 <h2><span class="math inline">\boldsymbol{{{R}}}^n</span></h2>
@@ -296,6 +315,11 @@ figure out from context if a vector is a tuple or a function.</p>
 class="math inline">I</span>, show <span class="math inline">\prod_{i\in
 I}\boldsymbol{{{R}}}</span> is in one-to-one correspondence with <span
 class="math inline">\boldsymbol{{{R}}}^{I}</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">\pi_i\colon \prod_{i\in
+I}\boldsymbol{{{R}}}\to\boldsymbol{{{R}}}</span> are the projections
+defining the product then <span class="math inline">\boldsymbol{{x}}(i)
+= \pi_i(x)</span>.</p>
+<p>I -&gt; (Pi_i R -&gt; R)</p>
 <section id="scalar-multiplication-and-vector-addition" class="level3">
 <h3>Scalar Multiplication and Vector Addition</h3>
 <p>Scalar multiplication and vector addition on <span
@@ -407,8 +431,8 @@ class="math inline">{e_i = (0,\ldots,1,\ldots,0)}</span> with all
 elements <span class="math inline">0</span> except for a <span
 class="math inline">1</span> in the <span
 class="math inline">i</span>-th position. It is plausible that <span
-class="math inline">{x = (x_1,\ldots,x_n) = x_1 e_1 + \cdots + x_n
-e_n}</span> for <span
+class="math inline">{x = (x_1,\ldots,x_n)
+= x_1 e_1 + \cdots + x_n e_n}</span> for <span
 class="math inline">{x\in\boldsymbol{{{R}}}^n}</span>, but you should
 always be wary of definitions involving dots.</p>
 <p>More generally, the standard basis of <span
@@ -481,8 +505,23 @@ ST\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}^K</span>.</p>
 class="math inline">{u_{ik} = \sum_{j\in J} s_{ij}t_{jk}}</span>, for
 <span class="math inline">i\in I</span>, <span class="math inline">k\in
 K</span></em>.</p>
-<p>Matrix multiplication is just composition of linear operators.</p>
-<p>Linear operators from <span
+<p>Matrix multiplication is just composition of linear operators. Define
+<span
+class="math inline">E_{ij}\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}^J</span>
+to be the linear operator with matrix <span
+class="math inline">[\delta_{ij}]</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">E_{ij}E_{k,l} = \delta_{jk}E__il}</span></em>.</p>
+<p>Werner Heisenberg reinvented matrix multiplication. His
+interpretation was <span class="math inline">E_{ij}</span> represented a
+jump of an electron from orbital level <span
+class="math inline">i</span> in a hydrogen atom to orbital level <span
+class="math inline">j</span>. He positied <span
+class="math inline">E_{ij}E_{kl}</span> was a jump from level <span
+class="math inline">i</span> to level <span class="math inline">l</span>
+if and only if <span class="math inline">j = k</span>. Eventually
+Pascual Jordan pointed this out to him.</p>
+<p>This shows linear operators from <span
 class="math inline">\boldsymbol{{{R}}}^I</span> to <span
 class="math inline">\boldsymbol{{{R}}}^J</span> are in one-to-one
 correspondence with <span
@@ -502,7 +541,7 @@ J}</span></em>.</p>
 class="math inline">\boldsymbol{{{R}}}^{I\times J}</span> is a vector
 space. This shows <span
 class="math inline">\mathcal{L}(\boldsymbol{{{R}}}^I,\boldsymbol{{{R}}}^J)</span>
-is a vector space, as promised.</p>
+is a vector space.</p>
 </section>
 <section id="dual" class="level3">
 <h3>Dual</h3>
@@ -516,8 +555,8 @@ v^*\rangle = v^*(v)</span> for <span class="math inline">v\in V</span>,
 <span class="math inline">v^*\in V^*</span>.</p>
 <p>The <em>standard dual basis</em> of <span
 class="math inline">\boldsymbol{{{R}}}^I</span>, <span
-class="math inline">e_i^*\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}</span>,
-by <span class="math inline">e_i^*(x) = x(i)</span>, <span
+class="math inline">e_i^*\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}</span>
+is defined by <span class="math inline">e_i^*(x) = x(i)</span>, <span
 class="math inline">i\in I</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">e_i^*</span> is linear for all <span
