@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-03-06" />
+  <meta name="dcterms.date" content="2025-03-12" />
   <title>Simple Unified Model of Derivative Securities</title>
   <style>
     code{white-space: pre-wrap;}
@@ -21,7 +21,27 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="math.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
@@ -45,10 +65,11 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model of Derivative Securities</h1>
-<p class="date">March 6, 2025</p>
+<p class="date">March 12, 2025</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
+<li><a href="#preamble" id="toc-preamble">Preamble</a></li>
 <li><a href="#examples" id="toc-examples">Examples</a>
 <ul>
 <li><a href="#canonical-deflator" id="toc-canonical-deflator">Canonical
@@ -60,12 +81,66 @@ Bond</a></li>
 <li><a href="#futures" id="toc-futures">Futures</a></li>
 <li><a href="#limit-orders" id="toc-limit-orders">Limit Orders</a></li>
 </ul></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
 <!--
 :!pandoc -t html5 -s --katex=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/ --css math.css ums.md -o ums.html
 :!pandoc -V fontsize=12pt ums.md -o ums.pdf
 -->
+<p>Fischer Black, Myron Scholes <span class="citation"
+data-cites="BlaSch1973">(Black and Scholes 1973)</span>, and Robert C.
+Merton III <span class="citation" data-cites="Mer1973">(Merton
+1973)</span>, invented a Nobel Prize winning theory showing how to value
+options by dynamically trading a bond and a stock.</p>
+<p>This note suggests improvements to Stephen Ross’s paper “A Simple
+Approach to the Valuation of Risky Streams” <span class="citation"
+data-cites="Ros1978">(Ross 1978)</span>. Ross expanded on the Nobel
+Prize winning theory developed by Fischer Black, Myron Scholes <span
+class="citation" data-cites="BlaSch1973">(Black and Scholes
+1973)</span>, and Robert C. Merton <span class="citation"
+data-cites="Mer1973">(Merton 1973)</span>, which originally focused on
+valuing options through dynamic trading of a bond and a stock. Ross
+greatly expanded this by showing how to value derivatives using any
+collection of instruments.</p>
+<p>We place cash flows on equal footing with prices and show trading
+strategies create synthetic market instruments. If a perfect hedge
+exists, it is determined by the Fréchet derivative of the option value
+with respect to price. The Simple Unified Model assumes every hedge has
+only a finite number of trades, as is the case in the real world. This
+implies perfect hedges do not, in general, exist.</p>
+<section id="preamble" class="level2">
+<h2>Preamble</h2>
+<p>The SUM does not involve probability measures. As Ross showed, the
+Fundamental Theorem of Asset Pricing is a geometric result. We assume a
+sample space and filtration, but do not require a probability
+measure.</p>
+<p>If an algebra <span class="math inline">\mathcal{A}</span> of sets on
+<span class="math inline">\Omega</span> is finite then the atoms of the
+algebra form a partition of <span class="math inline">\Omega</span> and
+a function <span
+class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is measurable
+with respect to <span class="math inline">\mathcal{A}</span> if and only
+if it is constant on atoms. In this case <span
+class="math inline">X</span> is a function on the atoms and we write
+<span
+class="math inline">X\colon\mathcal{A}\to\boldsymbol{R}</span>.</p>
+<p>The dual of bounded functions on <span
+class="math inline">\Omega</span>, <span
+class="math inline">B(\Omega)^*</span>, can be identified with finitely
+additive measures on <span class="math inline">\Omega</span><span
+class="citation" data-cites="DunSch1958">(Dunford and Schwartz
+1958)</span>. Recall if <span class="math inline">P</span> is
+probability measure then conditional expectation with respect to an
+algebra is defined by <span class="math inline">Y =
+E[X\mid\mathcal{A}]</span> if and only if <span
+class="math inline">Y</span> is <span
+class="math inline">\mathcal{A}</span>-measurable and <span
+class="math inline">\int_A Y\,dP = \int_A X\,dP</span> for <span
+class="math inline">A\in\mathcal{A}</span>. This is equivalent to <span
+class="math inline">Y(P|_\mathcal{A}) = (XP)|_\mathcal{A}</span>. We do
+not use conditional expectation in what follows, only restriction of
+measures to an algebra.</p>
 <p><span class="math inline">T</span> — totally ordered set of
 <em>trading times</em>.</p>
 <p><span class="math inline">I</span> — market <em>instruments</em>.</p>
@@ -137,9 +212,9 @@ class="math display">
 \tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
 D_s)|_{\mathcal{A}_t}, t\le u.
 </span></p>
-<p><em>Proof</em>: Substitue <span class="math inline">V_t</span> by its
-definition on the left side of <span class="math inline">(2)</span> and
-use <span class="math inline">X_t D_t</span> from <span
+<p><em>Proof</em>: Substitute <span class="math inline">V_t</span> by
+its definition on the left side of <span class="math inline">(2)</span>
+and use <span class="math inline">X_t D_t</span> from <span
 class="math inline">(1)</span>. Note <span class="math inline">\Delta_t
 + \Gamma_t = \Delta_{t+\epsilon}</span> for <span
 class="math inline">\epsilon &gt; 0</span> sufficiently small. In this
@@ -174,6 +249,7 @@ class="math inline">t</span>. This does not specify subsequent trading
 times <span class="math inline">\tau_j &gt; 0</span><a href="#fn5"
 class="footnote-ref" id="fnref5"
 role="doc-noteref"><sup>5</sup></a>.</p>
+</section>
 <section id="examples" class="level2">
 <h2>Examples</h2>
 <section id="canonical-deflator" class="level3">
@@ -272,12 +348,12 @@ the <em>futures expiration</em>. The futures <em>quote</em> at
 expiration is equal to the price of the underlying <span
 class="math inline">\Phi_u = S_u</span>. The price of a futures is
 always zero and has cash flows <span class="math inline">\Phi_{t_{j+1}}
-- \Phi_{t_j}</span> at <span class="math inline">t_{j+1}</span> where
-the quote <span class="math inline">\Phi_t</span> is determined by the
-market prior to expiration.</p>
+- \Phi_{t_j}</span> at <span class="math inline">t_{j+1}\le u</span>
+where the quote <span class="math inline">\Phi_t</span> is determined by
+the market prior to expiration.</p>
 <p>In an arbitrage-free model <span class="math inline">0D_{t_j} =
 ((\Phi_{t_{j+1}} - \Phi_{t_j})D_{t_{j+1}})|_{\mathcal{A}_{t_j}}</span>.
-Under the canonical deflator futures quotes are a martingale.</p>
+Under a canonical deflator futures quotes are a martingale.</p>
 </section>
 <section id="limit-orders" class="level3">
 <h3>Limit Orders</h3>
@@ -286,7 +362,36 @@ most one cash flow equal to the level at the first time the underlying
 crosses the level.</p>
 </section>
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-BlaSch1973" class="csl-entry" role="listitem">
+Black, Fischer, and Myron Scholes. 1973. <span>“The Pricing of Options
+and Corporate Liabilities.”</span> <em>Journal of Political Economy</em>
+81 (3): 637–54. <a
+href="http://www.jstor.org/stable/1831029">http://www.jstor.org/stable/1831029</a>.
+</div>
+<div id="ref-DunSch1958" class="csl-entry" role="listitem">
+Dunford, Nelson, and Jacob T Schwartz. 1958. <em>Linear Operators
+i</em>. Interscience Publishers.
+</div>
+<div id="ref-Mer1973" class="csl-entry" role="listitem">
+Merton, Robert C. 1973. <span>“Theory of Rational Option
+Pricing.”</span> <em>Bell Journal of Economics and Management
+Science</em> 4 (1): 141–83. <a
+href="https://www.jstor.org/stable/3003143">https://www.jstor.org/stable/3003143</a>.
+</div>
+<div id="ref-Ros1978" class="csl-entry" role="listitem">
+Ross, Stephen A. 1978. <span>“A <span>Simple</span>
+<span>Approach</span> to the <span>Valuation</span> of
+<span>Risky</span> <span>Streams</span>.”</span> <em>The Journal of
+Business</em> 51 (3): 453–75. <a
+href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277</a>.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -323,6 +428,6 @@ class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>Continuous time trading is impossible.<a href="#fnref5"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>

@@ -141,8 +141,8 @@ _Hint_: Evaluate $x(j)$, $j\in I$.
 
 ## Matrix
 
-If $I = I_1\times I_2$ is a cartesian product of two index sets
-the elements of $\RR^{I_1\times I_2}$ are _matrices_.
+A _matrix_ is an array where the index set is the cartesian product
+of two sets $\RR^{I\times J}$.
 
 A vector is usually represented on a computer as a contiguous array of memory
 with elements of the same type. The real numbers are uniquely characterized

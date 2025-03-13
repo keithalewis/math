@@ -187,8 +187,8 @@ t^3/3</span>.</p>
 \int_0^t \|Σ(t) - Σ(s)\|^2\,ds = 2σ(t)\cdot \int_0^t Σ(t) -
 Σ(s)\,ds</span></em>.</p>
 <p><em>Hint</em>. Use the Leibniz integral rule <span
-class="math inline">(d/dt)\int_0^t F(t,s)\,ds = F(t, t) + \int_0^t
-(\partial/\partial t) F(t, s)\,ds</span>.</p>
+class="math inline">(d/dt)\int_0^t F(t,s)\,ds
+= F(t, t) + \int_0^t (\partial/\partial t) F(t, s)\,ds</span>.</p>
 <details>
 <summary>
 Solution
@@ -203,7 +203,7 @@ f(s)\,ds)</span> the forward curve is <span class="math display">
     f(t) = φ(t) - σ(t)\cdot \int_0^t Σ(t) - Σ(s)\,ds.
 </span></p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">σ</span>
-is constant then <span class="math inline">{f(t) = φ(t) - \|σ\|^2
+is constant then <span class="math inline">{f(t) = φ(t) -  \|σ\|^2
 t^2/2}</span></em>.</p>
 <p><em>Hint</em>: Use <span class="math inline">Σ(t) = σt</span>.</p>
 <p>There is an explicit formula for convexity in the Ho-Lee model.</p>
@@ -222,8 +222,8 @@ class="math inline">s\le t</span>.</p>
 Solution
 </summary>
 We have <span class="math inline">\operatorname{Cov}(f_t, D_t) =
-\operatorname{Cov}(σ(t)\cdot B_t,-\int_0^t σ(s)\cdot dB_s) E[D_t] =
--σ(t) \cdot \int_0^t σ(s)s\,ds\,D(t)</span>.
+\operatorname{Cov}(σ(t)\cdot B_t,-\int_0^t σ(s)\cdot dB_s) E[D_t]
+= -σ(t) \cdot \int_0^t σ(s)s\,ds\,D(t)</span>.
 </details>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">σ</span>
 is constant show <span class="math inline">\operatorname{Cov}(f_t,
@@ -311,8 +311,9 @@ is constant show</em> <span class="math display">
     D_t(u) = \exp(\int_t^u -φ(s)\,ds + σ^2(u - t)^3/6 - σ(u - t) B_t).
 </span></p>
 <p>Note <span class="math inline">D_t(u)</span> is lognormal with
-log-variance <span class="math inline">\operatorname{Var}(\log D_t) =
-(Σ(u) - Σ(t))^2 t</span> and expected value <span class="math display">
+log-variance <span class="math inline">\operatorname{Var}(\log D_t)
+=  (Σ(u) - Σ(t))^2 t</span> and expected value <span
+class="math display">
     E[D_t(u)] = \exp(\int_t^u -φ(s)\,ds + \int_t^u (Σ(u) - Σ(s))^2/2\,ds
 + (Σ(u) - Σ(t))^2t/2)
 </span></p>
@@ -417,8 +418,8 @@ jointly normal.</p>
 Solution
 </summary>
 We have <span class="math inline">\operatorname{Cov}(f_t, \log D_t) =
-\operatorname{Cov}(σ B_t, -\int_0^t σ B_s\,ds) = -σ^2 \int_0^t s\,ds =
--σ^2 t^2/2</span>.
+\operatorname{Cov}(σ B_t, -\int_0^t σ B_s\,ds)
+= -σ^2 \int_0^t s\,ds = -σ^2 t^2/2</span>.
 </details>
 <p>Note the floorlet value can be calculated using the <a
 href="bach.html">Bachelier model</a>. If <span class="math inline">F = f
@@ -501,7 +502,7 @@ class="math inline">\int_0^t s σ(s)\,ds = t Σ(t) - \int_0^t
 <h2>Reference</h2>
 <div class="csl-bib-body" style="line-height: 1.35; margin-left: 2em; text-indent:-2em;">
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -516,6 +517,6 @@ title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzoter
 </div>
 <a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>

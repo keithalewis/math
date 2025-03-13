@@ -205,8 +205,9 @@ having a piecewise constant forward curve that matches each price. The
 first forward is the yield of the first instrument. Given a discount to
 time <span class="math inline">t</span> and a forward rate <span
 class="math inline">f</span> we can extend the discount for <span
-class="math inline">u &gt; t</span> by <span class="math inline">D(u) =
-D(t)e^{-f(u - t)}</span>.</p>
+class="math inline">u &gt;
+t</span> by <span class="math inline">D(u) = D(t)e^{-f(u -
+t)}</span>.</p>
 <p>The bootstrap method is deterministic. It assumes the forward curve
 is piecewise constant with jumps at maturities of instruments used to
 build the curve. As instruments of increasing maturity are added, the

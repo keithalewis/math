@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-03-12" />
+  <title>Tensor</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  
+  
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Tensor</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">March 12, 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#array" id="toc-array">Array</a></li>
+<li><a href="#matrix" id="toc-matrix">Matrix</a></li>
+</ul>
+</nav>
+<p>There seems to be some uncertainty in the computer science community
+about exactly what a tensor is. This short note clarifies this by giving
+names to functions and composing them. The mathematical definitions can
+be translated directly into any computer language that allows functions
+to be defined and called.</p>
+<p>The vector space <span class="math inline">\bm{R}^n</span> is the set
+of tuples <span class="math inline">x = (x_1,\ldots,x_n)</span> where
+<span class="math inline">x_i\in\bm{R}</span>, <span
+class="math inline">1\le i\le n</span>. <em>Scalar multiplication</em>
+is defined by <span class="math inline">a(x_1,\ldots,x_n) =
+(ax_1,\ldots,ax_n)</span> for <span
+class="math inline">a\in\bm{R}</span>. <em>Vector addition</em> is
+defined by <span class="math inline">(x_1,\ldots,x_n) + (y_1,\ldots,y_n)
+= (x_1 + y_1,\ldots,x_n + y_n)</span>.</p>
+<p>Definitions involving dots are not ammenable to computer
+implementation. Every vector <span
+class="math inline">x\in\bm{R}^n</span> determines a function <span
+class="math inline">\bm{x}\colon\bm{n}\to\bm{R}</span> by <span
+class="math inline">\bm{x}(i) = x_i</span> for <span
+class="math inline">i\in\bm{n} = \{1,\ldots,n\}</span>. Scalar
+multiplication and vector addition can be defined <em>pointwise</em> by
+<span class="math inline">(a\bm{x})(i) = a(\bm{x}(i))</span> and <span
+class="math inline">(\bm{x} +
+\bm{y})(i) = \bm{x}(i) + \bm{y}(i)</span>, <span
+class="math inline">1\le i\le n</span>.</p>
+<p>The set of tuples <span class="math inline">\bm{R}^n</span> is not
+the same as the set of functions <span
+class="math inline">\bm{R}^\bm{n}</span> but they are in one-to-one
+correspondence. Define a map <span
+class="math inline">\iota\colon\bm{R}^n\to\bm{R}^\bm{n}</span> by <span
+class="math inline">\iota x(i) = x_i</span>, <span
+class="math inline">x\in\bm{R}^n</span>, <span
+class="math inline">i\in\bm{n}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">\iota x = \iota y</span> then <span
+class="math inline">x = y</span>, <span
+class="math inline">x,y\in\bm{R}^n</span></em></p>
+<p><em>Hint</em>: Use <span class="math inline">x = y</span> if and only
+if <span class="math inline">x_i = y_i</span> for all <span
+class="math inline">i\in\bm{n}</span>.</p>
+<p>This shows <span class="math inline">\iota</span> is
+<em>one-to-one</em>, or <em>injective</em>.</p>
+<p><strong>Exercise</strong>. <em>Show for every <span
+class="math inline">\bm{x}\in\bm{R}^\bm{n}</span> there exists <span
+class="math inline">x\in\bm{R}^n</span> with <span
+class="math inline">\iota x = \bm{x}</span></em>.</p>
+<p><em>Hint</em>: Given <span
+class="math inline">\bm{x}\in\bm{R}^\bm{n}</span> let <span
+class="math inline">x_i = \bm{x}(i)</span>, <span
+class="math inline">i\in\bm{n}</span>.</p>
+<p>This show <span class="math inline">\iota</span> is <em>onto</em>, or
+<em>surjective</em>. A function that is one-to-one and onto is a
+<em>one-to-one correspondence</em>, or <em>bijective</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\iota(ax) = a(\iota x)</span> and <span
+class="math inline">\iota(x + y) = \iota x + \iota y</span> for <span
+class="math inline">a\in\bm{R}</span>, <span
+class="math inline">x,y\in\bm{R}^n</span></em>.</p>
+<p>This shows <span class="math inline">\iota</span> is a <em>linear
+operator</em>, a function from one vector space to another that
+preserves the linear structure. If a linear operator is bijective we
+call it an <em>isomorphism</em>.</p>
+<section id="array" class="level2">
+<h2>Array</h2>
+<p>Every finite dimensional vector space over the real numbers can be
+identified with the <em>set exponential</em> <span
+class="math inline">\bm{R}^I</span> of all functions from an <em>index
+set</em> <span class="math inline">I</span> to <span
+class="math inline">\bm{R}</span>. Elements of <span
+class="math inline">\bm{R}^I</span> are called <em>arrays</em>.</p>
+<p>A <em>view</em> of <span class="math inline">\bm{R}^I</span> is a
+function <span class="math inline">\sigma\colon J\to I</span> and is
+used to define a function <span
+class="math inline">\circ\sigma\colon\bm{R}^I\to\bm{R}^J</span> by right
+composition <span class="math inline">(\circ\sigma)x = x\circ\sigma =
+x\sigma</span> so <span class="math inline">(x\sigma)(j) =
+x(\sigma(j))</span>, <span class="math inline">x\in\bm{R}^I</span>,
+<span class="math inline">j\in J</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\circ\sigma</span> is a linear operator</em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">a(x\sigma) =
+(ax)\sigma</span> and <span class="math inline">(x + y)\sigma = x\sigma
++ y\sigma</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">\sigma</span> is one-to-one then <span
+class="math inline">\circ\sigma</span> is onto.</em></p>
+<p><em>Hint</em>: Show there exists <span
+class="math inline">\sigma^\dashv\colon I\to J</span> with <span
+class="math inline">\sigma^\dashv\sigma = 1_J</span>. If <span
+class="math inline">x\in\bm{R}^J</span> then <span
+class="math inline">x\sigma^\dashv\in\bm{R}^I</span> and <span
+class="math inline">x\sigma^\dashv\sigma = x</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">\sigma</span> is onto then <span
+class="math inline">\circ\sigma</span> is one-to-one.</em></p>
+<p><em>Hint</em>: Show there exists <span
+class="math inline">\sigma^\vdash\colon J\to I</span> with <span
+class="math inline">\sigma\sigma^\vdash = 1_I</span>. If <span
+class="math inline">x\sigma = y\sigma</span>, <span
+class="math inline">x,y\in\bm{R}^I</span>, then <span
+class="math inline">x\sigma\sigma^\vdash = y\sigma\sigma^\vdash</span>
+and <span class="math inline">x = y</span>.</p>
+<p>This shows if <span class="math inline">\sigma</span> is one-to-one
+and onto then <span class="math inline">\circ\sigma</span> is an
+isomorphism.</p>
+<p>If <span class="math inline">J\subset I</span> we write <span
+class="math inline">[J]\colon J\to I</span> for the inclusion map and
+call <span class="math inline">x[J]</span> the <em>projection</em> on
+<span class="math inline">J</span> of <span
+class="math inline">x\in\bm{R}^I</span>.</p>
+</section>
+<section id="matrix" class="level2">
+<h2>Matrix</h2>
+<p>A <em>matrix</em> is an array where the index set is the cartesian
+product of two sets <span class="math inline">\bm{R}^{I\times
+J}</span>.</p>
+<p>A vector is usually represented on a computer as a contiguous array
+of memory with elements of the same type. The real numbers are uniquely
+characterized mathematically as a complete Archemedean ordered field.
+Computers can only model real numbers as a finite number of bits. The
+most common representation is 64-bit or 32-bit IEEE 754 floating
+point.</p>
+<!--
+
+The _dual_ of a vector space $V$ over the real numbers $\RR$ is the set
+of all linear functionals from $V$ to $\RR$.
+
+The vector space $\RR^n$, where $\RR$ is the set of real numbers and
+$n\in\NN$ is a natural number, can be identified with the set
+of functions from $\bm{n} = \{1,\ldots, n\}$ to $\RR$.
+The tuple $x = (x_1,\ldots,x_n)$ corresponds to the function
+$\bm{x}\colon\bm{n}\to\RR$ by $\bm{x}(i) = x_i$, $i\in\bm{n}$.
+
+The _dual_ of $\RR^n$ is the set of all _linear functionals_
+from $\RR^n\to\RR$. 
+
+$x^*y = x^*(y)$.
+
+$xy^*\colon V\to V$ by $(xy^*)v = x(y^*v)$.
+
+Hadamard Product $A\in\RR^{I\times J}$, $B\in\RR^{I\times J}$ 
+$A\odot B = SAB$ where $Sxyz = xz(yz)$ is the $S$ combinator.
+
+Trace. $\Delta\colon I\to I\times I$ by $i\mapsto (i,i)$. $\tr T = +*T\Delta$.
+
+__Exercise__. _Show $\tr A^T = \tr B$_.
+
+_Hint_. ${}^T\Delta = \Delta$.
+
+__Exercise__. _Show $\tr TS = \tr ST$_.
+
+$\RR^{n\times m}\times n\to \RR^m$, $(x, i)\mapsto (x,i)j = x(i,j)$, $j\in\bm{m}$
+
+$\RR^{n\times m}\times m\to \RR^n$, $(x, j)\mapsto (x,j)i = x(i,j)$, $i\in\bm{n}$. 
+
+Monoid. $m\colon M\times M\to M$. $m^*\colon M^*\to M$.
+$m^* = m/$. Right vs left fold.
+
+if $X$ and $Y$ are sets the _set exponential_ $Y^X = \{f\colon X\to Y\}$
+is the set of all functions from $X$ to $Y$ and if $g\colon U\to X$
+then _composition_ $\circ g\colon Y^X\to Y^U$ by $(\circ g)f = f\circ g = fg$,
+where $(fg)(u) = f(g(u))$, $u\in U$.
+
+__Exericise__: _Show if $g$ is one-to-one then so is $f\circ g$_.
+
+_Hint_: Show $f\circ g(u) = f\circ g(u')$ then $u = u'$.
+
+$\RR^n$ $X = n$, $Y = \RR$.
+
+$\RR^{n\times n}$ $X = n\times m$, $Y = \RR$.
+
+We use the somewhat unconventional name upper case capital $T$ 
+for the function that transposes elements of an ordered pair:
+${}^T\colon A\times B\to B\times A$ by ${}^T(a, b) = (b, a)$,
+$a\in A$, $b\in B$.
+
+__Exercise__. _Show ${}^T$ is bijective_.
+
+We can generalize this to any permutation $\tau\colon X\to X$
+
+$\RR^{n\times m}\to \RR^n$ by $T
+-->
+</section>
+</body>
+</html>
