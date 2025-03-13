@@ -12,16 +12,15 @@ classoption: fleqn
 Fischer Black, Myron Scholes [@BlaSch1973], and Robert C. Merton III
 [@Mer1973], invented a Nobel Prize winning theory showing how to value
 options by dynamically trading a bond and a stock.
+Stephen Ross's paper "A Simple
+Approach to the Valuation of Risky Streams" [@Ros1978]
+extended the B-S/M theory by showing how to value derivatives using
+any collection of instruments. He used the Hahn-Banach theorem to show
 
-This note suggests improvements to Stephen Ross's paper "A Simple
-Approach to the Valuation of Risky Streams" [@Ros1978]. Ross expanded
-on the Nobel Prize winning theory developed by Fischer Black, Myron Scholes
-[@BlaSch1973], and Robert C. Merton [@Mer1973], which originally focused
-on valuing options through dynamic trading of a bond and a stock. Ross
-greatly expanded this by showing how to value derivatives using
-any collection of instruments.
+> _If there are no arbitrage opportunities in the capital markets, then
+there exists a (not generally unique) valuation operator, $L$_.
 
-We place cash flows on equal footing with prices and show trading
+This note suggests an improvement by placing cash flows on equal footing with prices and show trading
 strategies create synthetic market instruments.
 If a perfect hedge exists, it is determined by the Fréchet derivative of the option value with respect to price.
 The Simple Unified Model assumes every hedge has only a finite number of trades, as is the
@@ -45,6 +44,8 @@ by $Y = E[X\mid\AA]$ if and only if $Y$ is $\AA$-measurable
 and $\int_A Y\,dP = \int_A X\,dP$ for $A\in\AA$.
 This is equivalent to $Y(P|_\AA) = (XP)|_\AA$. We do not use conditional
 expectation in what follows, only restriction of measures to an algebra.
+
+## Simple Unified Model
 
 $T$ — totally ordered set of _trading times_.
 
