@@ -9,6 +9,7 @@ header-includes:
 \newcommand\NN{\bm{N}}
 \newcommand\LL{\mathcal{L}}
 \newcommand\tr{\operatorname{tr}}
+\newcommand\eval{\operatorname{eval}}
 
 There seems to be some uncertainty in the computer science community
 about exactly what a tensor is. This short note clarifies this by giving
@@ -53,7 +54,51 @@ This shows $\iota$ is a _linear operator_, a function from one vector space to
 another that preserves the linear structure.
 If a linear operator is bijective we call it an _isomorphism_.
 
+## Cartesian Product
+
+The _cartesian product_ $\prod_{i\in I}A_i$ of sets $A_i$, $i\in I$, is defined
+by _projections_ $\pi_i\colon \Pi_{i\in I}A_i\to A_i$, $i\in I$ having the property
+that if $P$ is a set with functions $p_i\colon P\to A_i$, $i\in I$, then there exists
+a function $p\colon P\to\prod_{i\in I}A_i$ with $\pi_ip = p_i$, $i\in I$.
+
+If $P$ is a set with functions $p_i\colon P\to A_i$, $i\in I$ having the property
+that if $Q$ is a set with functions $q_i\colon Q\to A_i$, $i\in I$, then there exists
+a function $q\colon Q\to P$ with $p_iq = q_i$, $i\in I$, then $P$ is in
+one-to-one correspondence with $\prod_{i\in I}A_i$.
+
+__Exercise__. _Prove this_.
+
+_Hint_: Let $Q = \prod_{i\in I}A_i$ and $q_i = \pi_i$.
+
+<details><summary>Solution</summary>
+We have $p\colon P\to\prod_{i\in I}A_i$ with $\pi_ip = p_i$
+and $q\colon\prod_{i\in I}A_i\to P$ with $p_i q = \pi_i$.
+$qp: P -> P$. 
+</details>
+
+
+## Set Exponential
+
+Given sets $A$ and $B$, the _set exponential_ $B^A$ is the set of all functions
+from $A$ to $B$. It is related to cartesian product by $C^{A\times B}$
+is in one-to-one correspondence with $C^{B^A}$.
+If we write $B^A = \{A\to B\}$ this says
+$\{A\times B\to C\}$ 
+is in one-to-one correspondence with $\{A\to\{B\to C\}\}$
+and is more easily recognized as _currying_.
+If we have a function $f\colon A\times B\to C$ and $a\in A$ we
+can define a function from $B\to C$ by $b\mapsto f(a,b)$.
+Conversly, if we have a function $g\colon A\to C^B$ we can
+define a function from $A\times B$ to $C$ by $(a,b)\mapsto (g(a))(b) = (ga)b$.
+
+If $f\colon A\to B$ is a function then the value of $f$ at $a\in A$ is $f(a)$.
+We reify this with the name $\eval_B^A\colon B^A\times A\to B$ defined
+by $\eval_B^A(f,a) = f(a)$.
+
 ## Array
+
+Given any _index set_ $I$ the cartesian product $\prod_{i\in I}\RR$ is
+isomorphic to the set exponential $\RR^I$. 
 
 Every finite dimensional vector space over the real numbers can be
 identified with the _set exponential_ $\RR^I$ of all functions from an
@@ -83,6 +128,16 @@ This shows if $\sigma$ is one-to-one and onto then $\circ\sigma$ is an isomorphi
 
 If $J\subset I$ we write $[J]\colon J\to I$ for the inclusion map and
 call $x[J]$ the _projection_ on $J$ of $x\in\RR^I$.
+
+## Dual
+
+The _dual_ of the vector space $\RR^I$ is the set of all linear operators from $\RR^I$ to $\RR$.
+The _standard basis_ of $\RR^I$ is $(e_i)_{i\in I}$ where $e_i(j) = \delta_{ij}$
+is the Kronecker delta: $\delta_{ij} = 1$ if $i = j$ and $\delta_{ij} = 0$ if $i \not= j$.
+
+__Exercise__. _Show $x = \sum_{i\in I} x(i)e_i$ if $I$ is finite_.
+
+_Hint_: Evaluate $x(j)$, $j\in I$.
 
 ## Matrix
 
