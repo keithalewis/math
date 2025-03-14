@@ -47,32 +47,28 @@ expectation in what follows, only restriction of measures to an algebra.
 
 ## Simple Unified Model
 
-$T$ — totally ordered set of _trading times_.
+Let $T$ be a totally ordered set of _trading times_,
+$I$ the set of market _instruments_,
+$\Omega$ the set of possible _outcomes_, and $(\AA_t)_{t\in T}$ 
+be the_partitions_[^1] of $\Omega$ indicating the information available at time $t\in T$.
 
-$I$ — market _instruments_.
-
-$\Omega$ — possible _outcomes_.
-
-$(\AA_t)_{t\in T}$ — _partitions_[^1] of $\Omega$ indicating the information available at time $t\in T$.
-
-$X_t\colon\AA_t\to\RR^I$ — bounded _prices_[^2] at times $t\in T$ of market instruments.
-
-$C_t\colon\AA_t\to\RR^I$ — bounded _cash flows_ at times $t\in T$ of market instruments.
-
+For each $t\in T$ let $X_t\colon\AA_t\to\RR^I$ be the _prices_[^2] of market instruments
+and $C_t\colon\AA_t\to\RR^I$ the _cash flows_ of market instruments.
 E.g., coupons, dividends, and futures margin adjustments are cash flows.
 Futures have price 0.
 
-$(\tau_j, \Gamma_j)$ — _trading strategy_ of strictly increasing stopping
-times $\tau_j$ and shares $\Gamma_j\colon\AA_{\tau_j}\to\RR^I$ purchased at $\tau_j$.
+A _trading strategy_ $(\tau_j, \Gamma_j)$ is a finite number
+of strictly increasing stopping times $\tau_j$ and shares to purchase
+in eash instrument $\Gamma_j\colon\AA_{\tau_j}\to\RR^I$ at $\tau_j$.
 
 The _position_ resulting from a trading strategy is
 $\Delta_t = \sum_{\tau_j < t} \Gamma_j = \sum_{s < t} \Gamma_s$ where
 ${\Gamma_s = \Gamma_j 1(\tau_j = s)}$. Note the strict inequality.
 It takes time for a trade to settle and become a part of the position.
 
-$V_t = (\Delta_t + \Gamma_t)\cdot X_t$ — the _value_, or _mark-to-market_, of the strategy.
-
-$A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$ — the _amount_ showing up in the trading account.
+The _value_, or _mark-to-market_, of a strategy
+is $V_t = (\Delta_t + \Gamma_t)\cdot X_t$. 
+the _amount_ in the trading account is $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$.
 
 Arbitrage exists if there is a trading strategy with $A_{\tau_0} > 0$, $A_t \ge0$, $t > \tau_0$, and
 $\sum_j \Gamma_j = 0$. You make money on the first trade and never lose money until
