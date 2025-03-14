@@ -11,16 +11,16 @@ classoption: fleqn
 
 Fischer Black, Myron Scholes [@BlaSch1973], and Robert C. Merton III
 [@Mer1973], invented a Nobel Prize winning theory showing how to value
-options by dynamically trading a bond and a stock.
-Stephen Ross's paper "A Simple
-Approach to the Valuation of Risky Streams" [@Ros1978]
-extended the B-S/M theory by showing how to value derivatives using
+options by dynamically trading a bond and a stock.  Stephen Ross's
+paper "A Simple Approach to the Valuation of Risky Streams" [@Ros1978]
+extended the B-S/M theory by showing how to value any derivative using
 any collection of instruments. He used the Hahn-Banach theorem to show
 
 > _If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, $L$_.
 
-This note suggests an improvement by placing cash flows on equal footing with prices and show trading
+This note identifies the valuation operator as 
+suggests an improvement by placing cash flows on equal footing with prices and show trading
 strategies create synthetic market instruments.
 If a perfect hedge exists, it is determined by the Fréchet derivative of the option value with respect to price.
 The Simple Unified Model assumes every hedge has only a finite number of trades, as is the
