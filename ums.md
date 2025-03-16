@@ -13,44 +13,102 @@ Fischer Black, Myron Scholes [@BlaSch1973], and Robert C. Merton III
 [@Mer1973], invented a Nobel Prize winning theory showing how to value
 options by dynamically trading a bond and a stock.  Stephen Ross's
 paper "A Simple Approach to the Valuation of Risky Streams" [@Ros1978]
-extended the B-S/M theory by showing how to value any derivative using
+extended the B-S/M theory by showing how to value a derivative using
 any collection of instruments. He used the Hahn-Banach theorem to show
 
 > _If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, $L$_.
 
-This note identifies the valuation operator as 
-suggests an improvement by placing cash flows on equal footing with prices and show trading
-strategies create synthetic market instruments.
-If a perfect hedge exists, it is determined by the Fréchet derivative of the option value with respect to price.
-The Simple Unified Model assumes every hedge has only a finite number of trades, as is the
-case in the real world. This implies perfect hedges do not, in general, exist.
+This note identifies Ross's valuation operator and suggests an improvement
+by placing cash flows on equal footing with prices.  In some sense,
+cash flows are more important. The Fundamental Theorem of Asset Pricing
+puts geometric constraints on arbitrage-free prices given cash flows.
+
+Trading strategies create synthetic market instruments.  If a perfect
+hedge exists, it is determined by the Fréchet derivative of the option
+value with respect to price.  The Simple Unified Model assumes every
+hedge has only a finite number of trades, as is the case in the real
+world. This implies perfect hedges do not, in general, exist.
+Work remains to better manage the risk of this market reality.
+The SUM specifies a rigorous model
+using relatively simple mathematics.
 
 ## Preamble
 
-The SUM does not involve probability measures. As Ross showed, the Fundamental Theorem
+This section reviews the mathematics required for the SUM with a view to how
+it relates to classical Black-Scholes/Merton machinery.
+We do not require Brownian motion, the Ito calculus, or partial differential
+equations.
+
+The SUM does not involve probability. As Ross showed, the Fundamental Theorem
 of Asset Pricing is a geometric result. We assume a sample space and filtration, but
 do not require a probability measure.
 
 If an algebra $\AA$ of sets on $\Omega$ is finite then the atoms of the algebra form a
 partition of $\Omega$ and a function $X\colon\Omega\to\RR$ is measurable with
 respect to $\AA$ if and only if it is constant on atoms. In this case $X$ is
-a function on the atoms and we write $X\colon\AA\to\RR$.
+a function on the atoms and we write $X\colon\AA\to\RR$. A partition provides
+partial informaton about outcomes. Full information is knowing which
+$\omega\in\Omega$ occured, partial information is knowing only which atom
+$\omega$ belongs to. The partition of singletons represents complete information.
+The partition consisting of the sample space represents no information.
 
 The dual of bounded functions on $\Omega$, $B(\Omega)^*$, can be identified with
-finitely additive measures on $\Omega$[@DunSch1958]. Recall if $P$ is probability
+finitely additive measures on $\Omega$[@DunSch1958]. A linear functional
+$L\in B(\Omega)^*$ defines a measure $\lambda(E) = L1_E$ for $E\subseteq\Omega$
+where $1_E(\omega) = 1$ if $\omega\in E$ and $1_E(\omega) = 0$ if $\omega\in\Omega\setminus E$.
+The facts $1_\emptyset = 0$ and $1_{E\cup F} = 1_E + 1_F - 1_{E\cap F}$, $E,F\subseteq\Omega$
+show $\lambda$ is a measure.
+
+Recall if $P$ is probability
 measure then conditional expectation with respect to an algebra is defined
 by $Y = E[X\mid\AA]$ if and only if $Y$ is $\AA$-measurable
 and $\int_A Y\,dP = \int_A X\,dP$ for $A\in\AA$.
-This is equivalent to $Y(P|_\AA) = (XP)|_\AA$. We do not use conditional
+This is equivalent to $Y(P|_\AA) = (XP)|_\AA$ where the vertical bar indicates
+restriction of measure. We do not use conditional
 expectation in what follows, only restriction of measures to an algebra.
+
+## One-Period Model
+
+Let $I$ be the finite set of market instruments, $x\in\RR^I$ be their prices at the
+beginning of the period, and $X\colon\Omega\to\RR^I$ be their prices at
+the end of the period where $\Omega$ is the set of possible outcomes.
+Recall the set exponential $\RR^I$ is the set of functions from $I$ to $\RR$.
+
+The initial cost of purchasing $\gamma$ shares of each instrument is $\gamma\cdot x$.
+The proceeds from selling $\gamma$ shares
+at the end of the period is $\gamma\cdot X(\omega)$ if $\omega\in\Omega$ occurs.
+Arbitrage exists if there is a $\gamma\in\RR^I$ with $\gamma\cdot x < 0$
+and $\gamma\cdot X\ge0$ on $\Omega$: you make money acquiring the shares and
+never lose money liquidating them. Note this definition of arbitrage does
+not involve probability.
+
+__Theorem__. (One-Period Fundamental Theorem of Asset Pricing) _There is
+no arbitrage if and only if $x$ belongs to the smallest closed cone
+containing the range of $X$_.
+
+_Proof_.  The cone containing the range of $X$ consists of
+all finite sums $\sum_j X(\omega_j)\,d_j$ where
+$\omega_j\in\Omega$ and $d_j$ are positive real numbers.
+If $x\in\RR^I$ belongs to the cone and $\gamma\cdot X\ge0$ on $\Omega$
+then $\gamma\cdot x\ge0$ so there is no arbitrage.
+Since ... weak-star ...
+
+If $x$ does not belong to the smallest closed cone
+containing the range of $X$_ there is a unique closest point $x^*$
+in the closed cone. The position $\gamma = x^* - x$ is an arbitrage.
+
+There are some problems with the classial one-period model. If the end of
+the period is the end of trading then the prices must be zero since
+no future trading is possible.
+
 
 ## Simple Unified Model
 
-Let $T$ be a totally ordered set of _trading times_,
+Let $T$ be a finite totally ordered set of _trading times_,
 $I$ the set of market _instruments_,
 $\Omega$ the set of possible _outcomes_, and $(\AA_t)_{t\in T}$ 
-be the_partitions_[^1] of $\Omega$ indicating the information available at time $t\in T$.
+be the _partitions_[^1] of $\Omega$ indicating the information available at time $t\in T$.
 
 For each $t\in T$ let $X_t\colon\AA_t\to\RR^I$ be the _prices_[^2] of market instruments
 and $C_t\colon\AA_t\to\RR^I$ the _cash flows_ of market instruments.
