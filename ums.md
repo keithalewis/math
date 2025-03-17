@@ -24,25 +24,25 @@ by placing cash flows on equal footing with prices.  In some sense,
 cash flows are more important. The Fundamental Theorem of Asset Pricing
 puts geometric constraints on arbitrage-free prices given cash flows.
 
-Trading strategies create synthetic market instruments.  If a perfect
+Trading strategies create synthetic market instruments. If a perfect
 hedge exists, it is determined by the Fréchet derivative of the option
 value with respect to price.  The Simple Unified Model assumes every
 hedge has only a finite number of trades, as is the case in the real
 world. This implies perfect hedges do not, in general, exist.
-Work remains to better manage the risk of this market reality.
-The SUM specifies a rigorous model
-using relatively simple mathematics.
+
+The SUM specifies a rigorous mathematical model
+that can be taught at the master's level.
+Work remains for future researchers to better manage the risk of this market reality.
 
 ## Preamble
 
 This section reviews the mathematics required for the SUM with a view to how
 it relates to classical Black-Scholes/Merton machinery.
-We do not require Brownian motion, the Ito calculus, or partial differential
-equations.
-
 The SUM does not involve probability. As Ross showed, the Fundamental Theorem
 of Asset Pricing is a geometric result. We assume a sample space and filtration, but
 do not require a probability measure.
+We do not require Brownian motion, the Ito calculus, or partial differential
+equations.
 
 If an algebra $\AA$ of sets on $\Omega$ is finite then the atoms of the algebra form a
 partition of $\Omega$ and a function $X\colon\Omega\to\RR$ is measurable with
@@ -58,7 +58,8 @@ finitely additive measures on $\Omega$[@DunSch1958]. A linear functional
 $L\in B(\Omega)^*$ defines a measure $\lambda(E) = L1_E$ for $E\subseteq\Omega$
 where $1_E(\omega) = 1$ if $\omega\in E$ and $1_E(\omega) = 0$ if $\omega\in\Omega\setminus E$.
 The facts $1_\emptyset = 0$ and $1_{E\cup F} = 1_E + 1_F - 1_{E\cap F}$, $E,F\subseteq\Omega$
-show $\lambda$ is a measure.
+show $\lambda$ is a measure. If $f\in B(\Omega)$ and $\lambda\in ba(\Omega)$
+then $f\lambda\in ba(\Omega)$ is defined by 
 
 Recall if $P$ is probability
 measure then conditional expectation with respect to an algebra is defined
@@ -81,7 +82,7 @@ at the end of the period is $\gamma\cdot X(\omega)$ if $\omega\in\Omega$ occurs.
 Arbitrage exists if there is a $\gamma\in\RR^I$ with $\gamma\cdot x < 0$
 and $\gamma\cdot X\ge0$ on $\Omega$: you make money acquiring the shares and
 never lose money liquidating them. Note this definition of arbitrage does
-not involve probability.
+not involve probability[^1].
 
 __Theorem__. (One-Period Fundamental Theorem of Asset Pricing) _There is
 no arbitrage if and only if $x$ belongs to the smallest closed cone
