@@ -8,6 +8,7 @@ classoption: fleqn
 ...
 \newcommand\RR{\boldsymbol{R}}
 \renewcommand\AA{\mathcal{A}}
+\newcommand{\Var}{\operatorname{Var}}
 
 Fischer Black, Myron Scholes [@BlaSch1973], and Robert C. Merton III
 [@Mer1973], invented a Nobel Prize winning theory showing how to value
@@ -24,15 +25,17 @@ by placing cash flows on equal footing with prices.  In some sense,
 cash flows are more important. The Fundamental Theorem of Asset Pricing
 puts geometric constraints on arbitrage-free prices given cash flows.
 
-Trading strategies create synthetic market instruments. If a perfect
-hedge exists, it is determined by the Fréchet derivative of the option
+Trading strategies create synthetic market instruments. If
+a perfect hedge for a derivative instrument exists
+it is determined by the Fréchet derivative of the option
 value with respect to price.  The Simple Unified Model assumes every
 hedge has only a finite number of trades, as is the case in the real
 world. This implies perfect hedges do not, in general, exist.
 
 The SUM specifies a rigorous mathematical model
 that can be taught at the master's level.
-Work remains for future researchers to better manage the risk of this market reality.
+Work remains for future researchers to determine when and how much to 
+hedge in order to better manage the risk of this market reality.
 
 ## Preamble
 
@@ -48,8 +51,8 @@ If an algebra $\AA$ of sets on $\Omega$ is finite then the atoms of the algebra 
 partition of $\Omega$ and a function $X\colon\Omega\to\RR$ is measurable with
 respect to $\AA$ if and only if it is constant on atoms. In this case $X$ is
 a function on the atoms and we write $X\colon\AA\to\RR$. A partition provides
-partial informaton about outcomes. Full information is knowing which
-$\omega\in\Omega$ occured, partial information is knowing only which atom
+partial information about outcomes. Full information is knowing which
+$\omega\in\Omega$ occurred, partial information is knowing only which atom
 $\omega$ belongs to. The partition of singletons represents complete information.
 The partition consisting of the sample space represents no information.
 
@@ -58,12 +61,17 @@ finitely additive measures on $\Omega$[@DunSch1958]. A linear functional
 $L\in B(\Omega)^*$ defines a measure $\lambda(E) = L1_E$ for $E\subseteq\Omega$
 where $1_E(\omega) = 1$ if $\omega\in E$ and $1_E(\omega) = 0$ if $\omega\in\Omega\setminus E$.
 The facts $1_\emptyset = 0$ and $1_{E\cup F} = 1_E + 1_F - 1_{E\cap F}$, $E,F\subseteq\Omega$
-show $\lambda$ is a measure. If $f\in B(\Omega)$ and $\lambda\in ba(\Omega)$
-then $f\lambda\in ba(\Omega)$ is defined by 
+show $\lambda$ is a measure.
+
+Define $M_f\colon B(\Omega)\to B(\Omega)$ by $M_fg = fg$. Its adjoint
+$M_f^*\colon ba(\Omega)\to ba(\Omega)$ defines multiplication of a
+measure by a bounded function $f\lambda = M_f^*\lambda$.
+The Radon-Nikodym derivative of $f\lambda$ with respect to $\lambda$ is $f$.
 
 Recall if $P$ is probability
-measure then conditional expectation with respect to an algebra is defined
-by $Y = E[X\mid\AA]$ if and only if $Y$ is $\AA$-measurable
+measure then conditional expectation of a random variable $X\colon\Omega\to\RR$
+with respect to an algebra is defined
+by $Y = E[X|\AA]$ if and only if $Y\colon\Omega\to\RR$ is $\AA$-measurable
 and $\int_A Y\,dP = \int_A X\,dP$ for $A\in\AA$.
 This is equivalent to $Y(P|_\AA) = (XP)|_\AA$ where the vertical bar indicates
 restriction of measure. We do not use conditional
@@ -75,6 +83,9 @@ Let $I$ be the finite set of market instruments, $x\in\RR^I$ be their prices at 
 beginning of the period, and $X\colon\Omega\to\RR^I$ be their prices at
 the end of the period where $\Omega$ is the set of possible outcomes.
 Recall the set exponential $\RR^I$ is the set of functions from $I$ to $\RR$.
+The _dot product_ of $x,y\in\RR^I$ is $x\cdot y = \sum_{i\in I} x(i)y(i)$
+and the _norm_ is $\|x\| = \sqrt{x\cdot x}$.
+We assume $\|X\| = \sup_{\omega\in\Omega}\|X(\omega)\|$ is finite.
 
 The initial cost of purchasing $\gamma$ shares of each instrument is $\gamma\cdot x$.
 The proceeds from selling $\gamma$ shares
@@ -86,55 +97,97 @@ not involve probability[^1].
 
 __Theorem__. (One-Period Fundamental Theorem of Asset Pricing) _There is
 no arbitrage if and only if $x$ belongs to the smallest closed cone
-containing the range of $X$_.
+containing the range of $X$. If $x^*$ is the nearest point in the
+cone to $x$ then $\gamma = x^* - x$ is an arbitrage_.
 
-_Proof_.  The cone containing the range of $X$ consists of
-all finite sums $\sum_j X(\omega_j)\,d_j$ where
-$\omega_j\in\Omega$ and $d_j$ are positive real numbers.
-If $x\in\RR^I$ belongs to the cone and $\gamma\cdot X\ge0$ on $\Omega$
-then $\gamma\cdot x\ge0$ so there is no arbitrage.
-Since ... weak-star ...
+_Proof_. The smallest closed cone containing the range of $X$
+is ${\{\int_\Omega X\,dD\mid D\ge 0, D\in ba(\Omega)\}}$.
+If $x = \int_\Omega X\,dD$ and $\gamma\cdot X\ge0$ on $\Omega$
+then $\gamma\cdot x\ge 0$. This establishes the "easy" direction.
 
 If $x$ does not belong to the smallest closed cone
-containing the range of $X$_ there is a unique closest point $x^*$
-in the closed cone. The position $\gamma = x^* - x$ is an arbitrage.
+containing the range of $X$ there is a unique closest point $x^*$
+in the cone.
+Let $\gamma = x^* - x$. We will show $\gamma\cdot x < 0$
+and $\gamma\cdot y\ge0$ for every $y$ in the cone.
 
-There are some problems with the classial one-period model. If the end of
-the period is the end of trading then the prices must be zero since
-no future trading is possible.
+First we show $\gamma\cdot x < 0$. Since $\|x^* - x\| \le \|tx^* - x\|$ for $t > 0$
+we have $0\le (t^2 - 1)\|x^*\|^2 - 2(t - 1)x^*\cdot x$.
+The quadratic has a double root at $t = 1$
+so its derivative at $t = 1$ is ${0 = 2\|x^*\|^2 - 2x^*\cdot x = 2x^*\cdot (x^* - x) = 2x^*\cdot\gamma}$.
+Since ${0 < \|x^* - x\|^2 = \gamma\cdot (x^* - x) = -\gamma\cdot x}$
+we have $\gamma\cdot x < 0$.
 
+If $y$ is in the cone then $ty + x^*$ is in the cone for $t \ge 0$.
+We have $\|x^* - x\| \le \|ty + x^* - x\|$ and
+$0\le t^2\|y\|^2 + 2ty(x^* - x)$. Dividing by $t$
+and letting $t = 0$ shows $0\le y\cdot\gamma$.
+Letting $D$ be a point mass at $\omega\in\Omega$
+shows $\gamma\cdot X(\omega)\ge0$. This establishes the "hard" direction.
 
-## Simple Unified Model
+Something is amiss with the one-period model. If the end of
+the period is the end of trading then prices must be zero since
+no future trading is possible. It also makes the assumption all shares
+are liquidated at the end of the period. The final "prices"
+are actually cash flows associated with holding the instruments 
+and are paid in proportion to the initial position.
+The multi-period model clarifies this.
+
+## Multi-Period Model
 
 Let $T$ be a finite totally ordered set of _trading times_,
-$I$ the set of market _instruments_,
+$I$ the finite set of market _instruments_,
 $\Omega$ the set of possible _outcomes_, and $(\AA_t)_{t\in T}$ 
 be the _partitions_[^1] of $\Omega$ indicating the information available at time $t\in T$.
+
+### Market
 
 For each $t\in T$ let $X_t\colon\AA_t\to\RR^I$ be the _prices_[^2] of market instruments
 and $C_t\colon\AA_t\to\RR^I$ the _cash flows_ of market instruments.
 E.g., coupons, dividends, and futures margin adjustments are cash flows.
 Futures have price 0.
+We assume at each time $t\in T$ that prices and cash flows are bounded.
+
+### Trading
 
 A _trading strategy_ $(\tau_j, \Gamma_j)$ is a finite number
 of strictly increasing stopping times $\tau_j$ and shares to purchase
-in eash instrument $\Gamma_j\colon\AA_{\tau_j}\to\RR^I$ at $\tau_j$.
+in each instrument $\Gamma_j\colon\AA_{\tau_j}\to\RR^I$ at $\tau_j$.
 
-The _position_ resulting from a trading strategy is
+Trades accumulate to a _position_
 $\Delta_t = \sum_{\tau_j < t} \Gamma_j = \sum_{s < t} \Gamma_s$ where
-${\Gamma_s = \Gamma_j 1(\tau_j = s)}$. Note the strict inequality.
+${\Gamma_s = \Gamma_j 1_{\{\tau_j = s\}}}$. Note the strict inequality.
 It takes time for a trade to settle and become a part of the position.
 
-The _value_, or _mark-to-market_, of a strategy
-is $V_t = (\Delta_t + \Gamma_t)\cdot X_t$. 
-the _amount_ in the trading account is $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$.
+### Accounting
+
+The _value_, or _mark-to-market_, of a trading strategy
+is ${V_t = (\Delta_t + \Gamma_t)\cdot X_t}$ and represents
+how much liquidating the current position and trades yet
+to settle at current market prices would yield.
+Trading strategies incur cash flow _amounts_ in the trading account
+of ${A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t}$: you receive cash flows
+proportional to existing positions and pay the current market price for trades just executed.
+
+We can now see clearly how to interpret the one-period model.
+It corresponds to a trading strategy $(t_0, \Gamma_0)$, $(t_1, -\Gamma_0)$.
+At $t_0$ the trading account is charged $A_{t_0} = -\Gamma_0\cdot X_{t_0}$
+and has value $V_{t_0} = \Gamma_0\cdot X_{t_0}$.
+This makes the unrealistic assumption it is possible to
+instantly buy and sell with no transaction costs.  If there are
+no intermediate cash flows and then $A_t = 0$ for $t_0 < t < t_1$.
+Unwinding at $t_1$ results in $A_{t_1} = \Gamma_0 C_{t_1} + \Gamma_0\cdot
+X_{t_1}$. You get the cash flow at $t_1$ proportional to the position
+put on at $t_0$ and close the position $\Gamma_0$ at the current price.
+
+## Simple Unified Model
 
 Arbitrage exists if there is a trading strategy with $A_{\tau_0} > 0$, $A_t \ge0$, $t > \tau_0$, and
 $\sum_j \Gamma_j = 0$. You make money on the first trade and never lose money until
 the position is closed.
 
 __Theorem__ (Fundamental Theorem of Asset Pricing) _There is no arbitrage if there exist _deflators_, positive
-finitely additive measures[^3] $D_t$ on $\AA_t$, $t\in T$, with_
+finitely additive measures $D_t$ on $\AA_t$, $t\in T$, with_
 $$
 \tag{1}	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}, t\le u.
 $$
@@ -144,6 +197,8 @@ $D_t\in ba(A_t)$ are positive measures then
 ${X_t D_t = M_t - \sum_{s\le t} C_s D_s}$ is arbitrage-free_.
 
 _Proof_: Substitute $X_u D_u$ by this formula in $(1)$ and cancel terms in the sums.
+
+Every arbitrage-free model is a special case of this.
 
 __Example__. (Black-Scholes/Merton) $M_t = (r, se^{\sigma B_t - \sigma^2t/2})P$, $C_t = (0,0)$,
 $D_t = e^{-\rho t}P$ where $(B_t)$ is standard Brownian motion and $P$ is Wiener measure.
@@ -160,24 +215,143 @@ $V_t D_t = (V_u D_u + A_u D_u)|_{\AA_t}$ for $u = {t+\epsilon}$.
 Since the stopping times are strictly increasing, induction can be applied.
 
 **Trading strategies create synthetic instruments where price corresponds
-to value and cash flow corresponds to account.**
+to value and cash flow corresponds to amount.**
 
 A (cash settled) derivative contract is specified by stopping times ${\hat{\tau}_j}$ and cash
 flows $\hat{A}_j$.  If there exists a trading strategy
 $(\tau_j,\Gamma_j)$ with ${\sum_j \Gamma_j = 0}$, ${A_{\hat{\tau}_j} = \hat{A}_j}$
-and ${A_t = 0}$ (self-financing) otherwise, then a perfect hedge exists[^4].
-The value of the derivative is determined by
+and ${A_t = 0}$ (self-financing) otherwise, then a perfect hedge exists[^2].
+The value of the derivative instrument is determined by
 $$
-	V_t D_t = (\sum_{\hat{\tau}_j > t} \hat{A}_j D_{\hat{\tau}_j})|_{\AA_t}.
+\tag{3}	V_t D_t = (\sum_{\hat{\tau}_j > t} \hat{A}_j D_{\hat{\tau}_j})|_{\AA_t}.
 $$
 Note the right hand side is determined by the contract specifications and deflator.
 Assuming $\tau_0 = 0$, $V_0 = \Gamma_0\cdot X_0$ so the initial hedge $\Gamma_0$ is the Fréchet 
 derivative $D_{X_0}V_0$ with respect to $X_0$.
 Since $V_t = (\Gamma_t + \Delta_t)\cdot X_t$ we have
 $\Gamma_t = D_{X_t}V_t - \Delta_t$. Note $\Delta_t$ is settled prior to time $t$.
-This does not specify subsequent trading times $\tau_j > 0$[^5].
+This does not specify trading times $\tau_j > 0$.
+
+The Black-Sholes/Merton model make the unrealistic assumption that continuous
+time trading is possible. The SUM models what traders actually do, but does
+not provide an answer to the question they all have, "When and how much
+should I trade?" This model only provides a rigorous framework for
+additional work on this fundamental question.
 
 ## Examples
+
+### Zero Coupon Bond
+
+A _zero coupon bond_ maturing at time $u$ has a single unit cash flow at $u$,
+$C_u^{D(u)} = 1$ and $C_t^{D(u)} = 0$ for $t\not=u$.
+In an arbitrage free model its price at time $t\le u$, $X_t^{D(u)} = D_t(u)$,
+satisfies $D_t(u) D_t = D_u|_{\AA_t}$ so
+$D_t(u)$ is the Radon-Nikodym derivative of $D_u|_{\AA_t}$ with respect to $D_t$.
+If we assume $\AA_0$ is $\{\Omega\}$
+and $D_0(\Omega) = 1$, then $D_0(u) = D(u) = D_u(\Omega)$.
+
+Zero coupon bond prices are determined by the deflators.
+These determine the value of any fixed income instrument.
+If the instrument pays $(c_j)$ at time $(u_j)$ then
+its value at time $t$ is
+$$
+	V_t = \sum_{u_j>t} c_j D_t(u_j)
+$$
+
+### Forward
+
+A _forward contract_ on an underlying with price $S_t$ at $t\in T$ is specified
+by a forward $f\in\RR$ and an expiration $u\in T$. It has a single cash flow
+$S_u - f$ at $u$. Its value at time $t < u$
+satisfies $V_t D_t = ((S_u - f)D_u)|_{\AA_t}$. If the underlying has no
+cash flows then $S_t D_t$ is a martingale measure so $V_t = S_t - fD_t(u)$.
+If $V_0 = 0$ then $f$ is the _at the money_ forward and the _cost of carry_ is $S_0 = fD(u)$.
+
+### European Option
+
+A European option expiring at time $u\in T$ has a single
+cash flow $\nu(S_u)$ at $u$ where $\nu$ is the _payoff_ function.
+The value of the option at time $t\in T$
+satisfies ${V_t D_t = (\nu(S_u) D_u)|_{\AA_t}}$, $t\le u$.
+Since $D_u(\Omega)/D(u) = 1$ we can have
+$V_0 = E[\nu(S_u)]D(u)$ under this "probability" measure.
+
+Any positive random variable $F$ with finite mean and log variance
+can be written $F = fe^{sX - \kappa(s)}$ where $X$ has mean 0
+and variance 1 and $\kappa(s) = \log E[e^{sX}]$ is the cumulant.
+Note $E[F] = f$.
+
+If an option pays shares of the underlying instead of cash
+we need to calculate $E[F\nu(F)] = fE[e^{sX - \kappa(s)}\nu(F)] = fE^s[\nu(F)]$
+where $E^s$ is the _share measure_ with $dP^*/dP = e^{sX - \kappa(s)}$.
+Since $E[e^{sX - \kappa(s)}] = 1$ we have the share measure $P^s$
+is a "probability" measure.
+
+#### Put
+
+The (forward) value of a put option with strike $k$ and underlying $F$
+at expiration is
+$$
+\begin{aligned}
+p &= E[\max\{k - F, 0\}] \\
+  &= E[(k - F)1(F \le k)] \\
+  &= kP(F\le k) - E[F1(F \le k)] \\
+  &= kP(F\le k) - fP^s(F \le k) \\
+\end{aligned}
+$$
+Note $F\le k$ if and only if $X \le (\log k/f + \kappa(s))/s$.
+We call $x(f,k,s) = (\log k/f + \kappa(s))/s$ the _moneyness_ of the option.
+Let $\Psi^s$ be the cumulative distribution function of $X$ under
+the share measure. Note $\Psi^0 = \Psi$ is the  cumulative distribution function of $X$.
+The put value is
+$$
+	p = k\Psi(x) - f\Psi^s(x)
+$$
+where $x = x(f,k,s)$.
+If $X$ is standard normal then $\kappa(s) = s^2/2$ and this reduces to the Black[@Bla1976] formula.
+
+_Delta_ is the derivative of option value with respect to $f$
+$$
+\begin{aligned}
+\partial_f p &= \partial_f E[\max\{k - F, 0\}] \\
+  &= E[-1(F \le k)\partial_f F] \\
+  &= E[-1(F \le k)e^{sX - \kappa(s)}] \\
+  &= -P^s(F \le k) \\
+  &= -\Psi^s(x) \\
+\end{aligned}
+$$
+
+_Gamma_ is the second derivative of option value with respect to $f$
+$$
+\begin{aligned}
+    \partial_f^2 p &= -\partial_f \Psi^s(x) \\
+    &= -\partial_x \Psi^s(x)\partial_f x \\
+    &= -\partial_x \Psi^s(x)/\partial_x f \\
+    &= \partial_x \Psi^s(x)/f s\\
+\end{aligned}
+$$
+
+_Vega_ is the derivative of option value with respect to $s$.
+The vega of a put option is
+$$
+\begin{aligned}
+    \partial_s v &= \partial_s E[\max\{k - F, 0\}] \\
+        &= E[-1(F \le k)\partial_s F] \\
+        &= -E[1(X\le x)F(X - \kappa'(s))] \\
+        &= -f\partial_s \Psi^s(x) \\
+\end{aligned}
+$$
+The last equality follows from $\partial_s E^s[1(X\le x)] = E[1(X \le x)e^{sX - \kappa(s)}(X - \kappa'(s))]$.
+
+This shows put option value and greeks can be computed from the
+share cumulative distribution $\Psi^s(x)$ and its derivatives with
+respect to $x$ and $s$. This is the case if $\Psi$ is a
+[generalized hypergeometic function](https://en.wikipedia.org/wiki/Generalized_hypergeometric_function).
+For example,
+$$
+\Phi^s(x) = \frac{1}{2} + \frac{x-s}{\sqrt{2\pi}} \, _1F_1\left(\frac{1}{2}, \frac{3}{2}, -\frac{(x-s)^2}{2}\right)
+$$
+where $\Phi$ is the standard normal cumulative distribution.
 
 ### Canonical Deflator
 
@@ -193,25 +367,18 @@ at time $t_n$.
 
 The continuous time analog is $D_t = \exp(-\int_0^t f(s)\,ds)D_0$ where
 $f$ is the continuously compounded instantaneous forward rate.
-
-### Zero Coupon Bond
-
-A _zero coupon bond_ maturing at time $u$ has a single unit cash flow at $u$,
-$C_u^{D(u)} = 1$ and $C_t^{D(u)} = 0$ for $t\not=u$.
-In an arbitrage free model its price at time $t\le u$, $X_t^{D(u)} = D_t(u)$,
-satisfies $D_t(u) D_t = D_u|_{\AA_t}$ so
-$D_t(u)$ is the Radon-Nikodym derivative of $D_u|_{\AA_t}$ with respect to $D_t$.
-Zero coupon bond prices are determined by the deflators.
+This is commonly referred to as the _stochastic discount_.
 
 ### Risky Bond
 
-Suppose a bond defaults at a random time $\tau$ and constant fraction $R$ is recovered
-at default. We augment the sample space to $\Omega\times T$ where
-the element $(\omega, t)$ indicates default at $t$.
+Suppose a bond defaults at a random time $\tau$ and fraction $\rho$ is recovered
+at default. We augment the sample space to $\Omega\times T\times [0,1]$ where
+the element $(\omega, t, r)$ indicates default at $t$ with recovery $r$.
 Information about default at time $t$ is represented by the
 partition of $T$ consisting of singletons, $\{s\}$, ${s < t}$, and the set $\{u\ge t\}$.
 If default occurs before $t$ then we know $\tau$ exactly,
-otherwise we only know $\tau \ge t$. The value of a risky zero coupon at time $t$
+otherwise we only know $\tau \ge t$. It is customary to assume $\rho$ is a constant.
+The value of a risky zero coupon at time $t$
 is determined by
 $$
 	D^{\tau,R}_t(u)D_t = (RD_\tau 1(t \le \tau \le u) + D_u 1(\tau > u))|_{\AA_t}, t > \tau.
@@ -225,16 +392,6 @@ $$
 $$
 when $t > \tau$.
 -->
-
-### Forward
-
-A _forward contract_ on an underlying with price $S_t$ at $t\in T$ is specified
-by a forward $f\in\RR$ and an expiration $u\in T$. It has a single cash flow
-$S_u - f$ at $u$. Its value at time $t < u$
-satisfies $V_t D_t = ((S_u - f)D_u)|_{\AA_t}$. If the underlying has no
-cash flows then $S_t D_t$ is a martingale measure so $V_t = S_t - fD_t(u)$.
-If $V_0 = 0$ then $f$ is the _at the money_ forward and the _cost of carry_ is $S_0 = fD_0(u)$.
-
 ### Futures
 
 A _futures contract_ on an underlying with price $S_t$, $t\in T$, is
@@ -245,7 +402,7 @@ is always zero and has cash flows $\Phi_{t_{j+1}} - \Phi_{t_j}$ at $t_{j+1}\le u
 where the quote $\Phi_t$ is determined by the market prior to expiration.
 
 In an arbitrage-free model $0D_{t_j} = ((\Phi_{t_{j+1}} - \Phi_{t_j})D_{t_{j+1}})|_{\AA_{t_j}}$.
-Under a canonical deflator futures quotes are a martingale.
+Under the canonical deflator futures quotes are a martingale.
 
 ### Limit Orders
 
@@ -255,20 +412,9 @@ at the first time the underlying crosses the level.
 
 ## References
 
-[^1]: A partition of $\Omega$ is a collection of pairwise disjoint sets with union $\Omega$.
-If $\AA$ is a finite algebra of sets on $\Omega$ then the atoms of $\AA$ form a partition
-of $\Omega$. Partial information is knowing which atom $\omega\in\Omega$ belongs to.
-A function $X\colon\Omega\to\RR$ is $\AA$-measurable if and only if it is constant on atoms
-so $X$ _is_ a function on the atoms of $\AA$.
+[^1]: This definition is not satisfactory to traders and risk managers.
+They will compare the profit $\gamma\cdot x$ to $|\gamma|\cdot|x|$,
+the total amount of money involved in establishing the trade.
+They would probably not be willing to tie up a million dollars to make a one dollar profit.
 
-[^2]: Prices _are_ bounded. There is a finite amount of money in the world.
-Likewise for the number of shares it is possible to trade.
-
-[^3]: The dual of bounded functions $B(\Omega)^* \cong ba(\Omega)$ is the space
-of finitely additive measures on $\Omega$. $L\in B(\Omega)^*$ corresponds to
-the measure $\lambda(E) = L1_E$. If $P$ is a positive measure with mass 1 then
-$Y = E[X|\AA]$ if and only if $Y(P|_\AA) = (XP)|_\AA$.
-
-[^4]: A perfect hedge never exists.
-
-[^5]: Continuous time trading is impossible.
+[^2]: Perfect hedges never exist.

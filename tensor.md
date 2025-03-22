@@ -93,7 +93,8 @@ define a function from $A\times B$ to $C$ by $(a,b)\mapsto (g(a))(b) = (ga)b$.
 
 If $f\colon A\to B$ is a function then the value of $f$ at $a\in A$ is $f(a)$.
 We reify this with the name $\eval_B^A\colon B^A\times A\to B$ defined
-by $\eval_B^A(f,a) = f(a)$.
+by $\eval_B^A(f,a) = f(a)$. If $g\in (C^B)^A$ and $a\in A$ then
+$\eval_{C^B}^A(g, a)\in C^B$ is called _partial evaluation_.
 
 ## Array
 
