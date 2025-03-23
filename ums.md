@@ -5,10 +5,16 @@
 ---
 title: Simple Unified Model of Derivative Securities
 classoption: fleqn
+header-includes:
+	- \usepackage{bm}
+	- \usepackage{amsthm}
+	- \usepackage{amssymb}
 ...
 \newcommand\RR{\boldsymbol{R}}
 \renewcommand\AA{\mathcal{A}}
 \newcommand{\Var}{\operatorname{Var}}
+\renewcommand{\qedsymbol}{\rule{1ex}{1ex}}
+\newtheorem{thm}{Theorem}[section]
 
 Fischer Black, Myron Scholes [@BlaSch1973], and Robert C. Merton III
 [@Mer1973], invented a Nobel Prize winning theory showing how to value
@@ -37,7 +43,7 @@ that can be taught at the master's level.
 Work remains for future researchers to determine when and how much to 
 hedge in order to better manage the risk of this market reality.
 
-## Preamble
+## Prologue
 
 This section reviews the mathematics required for the SUM with a view to how
 it relates to classical Black-Scholes/Merton machinery.
@@ -49,7 +55,7 @@ equations.
 
 If an algebra $\AA$ of sets on $\Omega$ is finite then the atoms of the algebra form a
 partition of $\Omega$ and a function $X\colon\Omega\to\RR$ is measurable with
-respect to $\AA$ if and only if it is constant on atoms. In this case $X$ is
+respect to $\AA$ if and only if it is constant on atoms. In this case $X$ _is_
 a function on the atoms and we write $X\colon\AA\to\RR$. A partition provides
 partial information about outcomes. Full information is knowing which
 $\omega\in\Omega$ occurred, partial information is knowing only which atom
@@ -95,12 +101,14 @@ and $\gamma\cdot X\ge0$ on $\Omega$: you make money acquiring the shares and
 never lose money liquidating them. Note this definition of arbitrage does
 not involve probability[^1].
 
-__Theorem__. (One-Period Fundamental Theorem of Asset Pricing) _There is
-no arbitrage if and only if $x$ belongs to the smallest closed cone
+\begin{thm}[One-Period Fundamental Theorem of Asset Pricing]
+There is no arbitrage if and only if $x$ belongs to the smallest closed cone
 containing the range of $X$. If $x^*$ is the nearest point in the
-cone to $x$ then $\gamma = x^* - x$ is an arbitrage_.
+cone to $x$ then $\gamma = x^* - x$ is an arbitrage.
+\end{thm}
 
-_Proof_. The smallest closed cone containing the range of $X$
+\begin{proof}
+The smallest closed cone containing the range of $X$
 is ${\{\int_\Omega X\,dD\mid D\ge 0, D\in ba(\Omega)\}}$.
 If $x = \int_\Omega X\,dD$ and $\gamma\cdot X\ge0$ on $\Omega$
 then $\gamma\cdot x\ge 0$. This establishes the "easy" direction.
@@ -112,10 +120,19 @@ Let $\gamma = x^* - x$. We will show $\gamma\cdot x < 0$
 and $\gamma\cdot y\ge0$ for every $y$ in the cone.
 
 First we show $\gamma\cdot x < 0$.
+We have $\|x^* - x\| \le \|tx^* - x\|$ for $t > 0$ so
+$0\le (t^2 - 1)\|x^*\|^2 + 2(t - 1)x^*\cdot x$.
+The quadratic is non-negative and has a root at $t = 1$ so
+its derivative there is $0 = 2\|x^*\|^2 + 2x^*\cdot x = 2x^*\cdot(x^* - x)$.
+Since $0 < \|x^* - x\|^2 = (x^* - x)\cdot(x^* - x) = -x\cdot(x^* - x)$
+we have $\gamma\cdot x < 0$.
+
 If $y$ is in the cone then $ty + x^*$ is in the cone for $t \ge 0$ so
 $\|x^* - x\|^2 \le \|ty + x^* - x\|^2$ and
 $0\le t^2\|y\|^2 + 2ty\cdot(x^* - x)$.
-Diviing by $t > 0$ and letting it go to 0 shows $0\le y\cdot(x^* - x)$.
+Dividng by $t > 0$ and letting it go to 0 shows $0\le y\cdot(x^* - x)$.
+$\qedhere$
+\end{proof}
 
 
 Something is amiss with the one-period model. If the end of
@@ -196,11 +213,14 @@ $$
 \tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}, t\le u.
 $$
 
-_Proof_: Substitute $V_t$ by its definition on the left side of $(2)$ and
+\begin{proof}
+Substitute $V_t$ by its definition on the left side of $(2)$ and
 use $X_t D_t$ from $(1)$. Note $\Delta_t + \Gamma_t = \Delta_{t+\epsilon}$
 for $\epsilon > 0$ sufficiently small. In this case
 $V_t D_t = (V_u D_u + A_u D_u)|_{\AA_t}$ for $u = {t+\epsilon}$.
 The result follows from induction.
+\end{proof}
+$\qedsymbol$
 
 __Claim__. _If $M_t = M_u|_{\AA_t}$, $t\le u$, is a $\RR^I$-valued_ martingale measure _and
 $D_t\in ba(A_t)$ are positive measures then
