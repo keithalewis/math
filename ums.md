@@ -111,19 +111,12 @@ in the cone.
 Let $\gamma = x^* - x$. We will show $\gamma\cdot x < 0$
 and $\gamma\cdot y\ge0$ for every $y$ in the cone.
 
-First we show $\gamma\cdot x < 0$. Since $\|x^* - x\| \le \|tx^* - x\|$ for $t > 0$
-we have $0\le (t^2 - 1)\|x^*\|^2 - 2(t - 1)x^*\cdot x$.
-The quadratic has a double root at $t = 1$
-so its derivative at $t = 1$ is ${0 = 2\|x^*\|^2 - 2x^*\cdot x = 2x^*\cdot (x^* - x) = 2x^*\cdot\gamma}$.
-Since ${0 < \|x^* - x\|^2 = \gamma\cdot (x^* - x) = -\gamma\cdot x}$
-we have $\gamma\cdot x < 0$.
+First we show $\gamma\cdot x < 0$.
+If $y$ is in the cone then $ty + x^*$ is in the cone for $t \ge 0$ so
+$\|x^* - x\|^2 \le \|ty + x^* - x\|^2$ and
+$0\le t^2\|y\|^2 + 2ty\cdot(x^* - x)$.
+Diviing by $t > 0$ and letting it go to 0 shows $0\le y\cdot(x^* - x)$.
 
-If $y$ is in the cone then $ty + x^*$ is in the cone for $t \ge 0$.
-We have $\|x^* - x\| \le \|ty + x^* - x\|$ and
-$0\le t^2\|y\|^2 + 2ty(x^* - x)$. Dividing by $t$
-and letting $t = 0$ shows $0\le y\cdot\gamma$.
-Letting $D$ be a point mass at $\omega\in\Omega$
-shows $\gamma\cdot X(\omega)\ge0$. This establishes the "hard" direction.
 
 Something is amiss with the one-period model. If the end of
 the period is the end of trading then prices must be zero since
@@ -186,11 +179,28 @@ Arbitrage exists if there is a trading strategy with $A_{\tau_0} > 0$, $A_t \ge0
 $\sum_j \Gamma_j = 0$. You make money on the first trade and never lose money until
 the position is closed.
 
-__Theorem__ (Fundamental Theorem of Asset Pricing) _There is no arbitrage if there exist _deflators_, positive
-finitely additive measures $D_t$ on $\AA_t$, $t\in T$, with_
+The _Fundamental Theorem of Asset Pricing_ states there is no arbitrage if there exist _deflators_,
+positive finitely additive measures $D_t$ on $\AA_t$, $t\in T$, with
 $$
 \tag{1}	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}, t\le u.
 $$
+Deflators are the (not generally unique) valuation operator Ross identified.
+We will see later that if repurchase agreements are available in
+the market there is a canonical deflator that corresponds
+to the stochastic discount.
+A _money market account_ corresponds to reinvesting at the repo rate.
+Its reciprocal is the _stochastic discount_.
+
+__Lemma__. _Assuming the above_
+$$
+\tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}, t\le u.
+$$
+
+_Proof_: Substitute $V_t$ by its definition on the left side of $(2)$ and
+use $X_t D_t$ from $(1)$. Note $\Delta_t + \Gamma_t = \Delta_{t+\epsilon}$
+for $\epsilon > 0$ sufficiently small. In this case
+$V_t D_t = (V_u D_u + A_u D_u)|_{\AA_t}$ for $u = {t+\epsilon}$.
+The result follows from induction.
 
 __Claim__. _If $M_t = M_u|_{\AA_t}$, $t\le u$, is a $\RR^I$-valued_ martingale measure _and
 $D_t\in ba(A_t)$ are positive measures then
@@ -202,18 +212,6 @@ Every arbitrage-free model is a special case of this.
 
 __Example__. (Black-Scholes/Merton) $M_t = (r, se^{\sigma B_t - \sigma^2t/2})P$, $C_t = (0,0)$,
 $D_t = e^{-\rho t}P$ where $(B_t)$ is standard Brownian motion and $P$ is Wiener measure.
-
-__Lemma__. _With the above notation_
-$$
-\tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}, t\le u.
-$$
-
-_Proof_: Substitute $V_t$ by its definition on the left side of $(2)$ and
-use $X_t D_t$ from $(1)$. Note $\Delta_t + \Gamma_t = \Delta_{t+\epsilon}$
-for $\epsilon > 0$ sufficiently small. In this case
-$V_t D_t = (V_u D_u + A_u D_u)|_{\AA_t}$ for $u = {t+\epsilon}$.
-Since the stopping times are strictly increasing, induction can be applied.
-
 **Trading strategies create synthetic instruments where price corresponds
 to value and cash flow corresponds to amount.**
 
