@@ -12,9 +12,16 @@ header-includes:
 ...
 \newcommand\RR{\boldsymbol{R}}
 \renewcommand\AA{\mathcal{A}}
+\renewcommand\PP{\mathcal{P}}
 \newcommand{\Var}{\operatorname{Var}}
+\newcommand{\ran}{\operatorname{ran}}
+\renewcommand{\ker}{\operatorname{ker}}
 \renewcommand{\qedsymbol}{\rule{1ex}{1ex}}
 \newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{clm}{Claim}[section]
+\newtheorem{exa}{Example}[section]
+
 
 Fischer Black, Myron Scholes [@BlaSch1973], and Robert C. Merton III
 [@Mer1973], invented a Nobel Prize winning theory showing how to value
@@ -101,13 +108,12 @@ and $\gamma\cdot X\ge0$ on $\Omega$: you make money acquiring the shares and
 never lose money liquidating them. Note this definition of arbitrage does
 not involve probability[^1].
 
-\begin{thm}[One-Period Fundamental Theorem of Asset Pricing]
-There is no arbitrage if and only if $x$ belongs to the smallest closed cone
+__Theorem__. (One-Period Fundamental Theorem of Asset Pricing)
+_There is no arbitrage if and only if $x$ belongs to the smallest closed cone
 containing the range of $X$. If $x^*$ is the nearest point in the
-cone to $x$ then $\gamma = x^* - x$ is an arbitrage.
-\end{thm}
+cone to $x$ then $\gamma = x^* - x$ is an arbitrage._
 
-\begin{proof}
+_Proof_.
 The smallest closed cone containing the range of $X$
 is ${\{\int_\Omega X\,dD\mid D\ge 0, D\in ba(\Omega)\}}$.
 If $x = \int_\Omega X\,dD$ and $\gamma\cdot X\ge0$ on $\Omega$
@@ -120,20 +126,17 @@ Let $\gamma = x^* - x$. We will show $\gamma\cdot x < 0$
 and $\gamma\cdot y\ge0$ for every $y$ in the cone.
 
 First we show $\gamma\cdot x < 0$.
-We have $\|x^* - x\| \le \|tx^* - x\|$ for $t > 0$ so
-$0\le (t^2 - 1)\|x^*\|^2 + 2(t - 1)x^*\cdot x$.
+We have ${\|x^* - x\| \le \|tx^* - x\|}$ for $t > 0$ so
+${0\le (t^2 - 1)\|x^*\|^2 + 2(t - 1)x^*\cdot x}$.
 The quadratic is non-negative and has a root at $t = 1$ so
-its derivative there is $0 = 2\|x^*\|^2 + 2x^*\cdot x = 2x^*\cdot(x^* - x)$.
-Since $0 < \|x^* - x\|^2 = (x^* - x)\cdot(x^* - x) = -x\cdot(x^* - x)$
-we have $\gamma\cdot x < 0$.
+its derivative there is ${0 = 2\|x^*\|^2 + 2x^*\cdot x = 2x^*\cdot(x^* - x)}$.
+Since ${0 < \|x^* - x\|^2 = (x^* - x)\cdot(x^* - x) = -x\cdot(x^* - x)}$
+we have ${\gamma\cdot x < 0}$.
 
 If $y$ is in the cone then $ty + x^*$ is in the cone for $t \ge 0$ so
-$\|x^* - x\|^2 \le \|ty + x^* - x\|^2$ and
-$0\le t^2\|y\|^2 + 2ty\cdot(x^* - x)$.
-Dividng by $t > 0$ and letting it go to 0 shows $0\le y\cdot(x^* - x)$.
-$\qedhere$
-\end{proof}
-
+${\|x^* - x\|^2 \le \|ty + x^* - x\|^2}$ and
+${0\le t^2\|y\|^2 + 2ty\cdot(x^* - x)}$.
+Dividng by $t > 0$ and letting it go to 0 shows ${0\le y\cdot(x^* - x)}$.
 
 Something is amiss with the one-period model. If the end of
 the period is the end of trading then prices must be zero since
@@ -179,15 +182,16 @@ Trading strategies incur cash flow _amounts_ in the trading account
 of ${A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t}$: you receive cash flows
 proportional to existing positions and pay the current market price for trades just executed.
 
-We can now see clearly how to interpret the one-period model.
-It corresponds to a trading strategy $(t_0, \Gamma_0)$, $(t_1, -\Gamma_0)$.
+The one-period model
+corresponds to a trading strategy $(t_0, \Gamma_0)$, $(t_1, -\Gamma_0)$.
 At $t_0$ the trading account is charged $A_{t_0} = -\Gamma_0\cdot X_{t_0}$
 and has value $V_{t_0} = \Gamma_0\cdot X_{t_0}$.
 This makes the unrealistic assumption it is possible to
 instantly buy and sell with no transaction costs.  If there are
 no intermediate cash flows and then $A_t = 0$ for $t_0 < t < t_1$.
-Unwinding at $t_1$ results in $A_{t_1} = \Gamma_0 C_{t_1} + \Gamma_0\cdot
-X_{t_1}$. You get the cash flow at $t_1$ proportional to the position
+Unwinding at $t_1$ results in
+${A_{t_1} = \Gamma_0 C_{t_1} + \Gamma_0\cdot X_{t_1}}$.
+You get the cash flow at $t_1$ proportional to the position
 put on at $t_0$ and close the position $\Gamma_0$ at the current price.
 
 ## Simple Unified Model
@@ -195,6 +199,9 @@ put on at $t_0$ and close the position $\Gamma_0$ at the current price.
 Arbitrage exists if there is a trading strategy with $A_{\tau_0} > 0$, $A_t \ge0$, $t > \tau_0$, and
 $\sum_j \Gamma_j = 0$. You make money on the first trade and never lose money until
 the position is closed.
+
+Define $A\colon \oplus_t B(\AA_t, \RR^I)\to \oplus_t B(\AA_t)$
+by ${A(\oplus_t \Delta_t) = \oplus_t (\Delta_t\cdot C_t - \Gamma_t\cdot X_t)}$.
 
 The _Fundamental Theorem of Asset Pricing_ states there is no arbitrage if there exist _deflators_,
 positive finitely additive measures $D_t$ on $\AA_t$, $t\in T$, with
@@ -208,30 +215,29 @@ to the stochastic discount.
 A _money market account_ corresponds to reinvesting at the repo rate.
 Its reciprocal is the _stochastic discount_.
 
-__Lemma__. _Assuming the above_
+__Claim__. _If $M_t = M_u|_{\AA_t}$, $t\le u$, is a $\RR^I$-valued martingale measure and
+$D_t\in ba(A_t)$ are positive measures then
+${X_t D_t = M_t - \sum_{s\le t} C_s D_s}$ is arbitrage-free_.
+
+_Proof_. Substitute $X_u D_u$ by this formula in $(1)$ and cancel terms in the sums.
+
+Every arbitrage-free model is a special case of this.
+
+__Lemma__. _Assuming $(1)$ and the definitions of value and amount_
 $$
 \tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}, t\le u.
 $$
 
-\begin{proof}
+_Proof_.
 Substitute $V_t$ by its definition on the left side of $(2)$ and
 use $X_t D_t$ from $(1)$. Note $\Delta_t + \Gamma_t = \Delta_{t+\epsilon}$
 for $\epsilon > 0$ sufficiently small. In this case
 $V_t D_t = (V_u D_u + A_u D_u)|_{\AA_t}$ for $u = {t+\epsilon}$.
 The result follows from induction.
-\end{proof}
-$\qedsymbol$
-
-__Claim__. _If $M_t = M_u|_{\AA_t}$, $t\le u$, is a $\RR^I$-valued_ martingale measure _and
-$D_t\in ba(A_t)$ are positive measures then
-${X_t D_t = M_t - \sum_{s\le t} C_s D_s}$ is arbitrage-free_.
-
-_Proof_: Substitute $X_u D_u$ by this formula in $(1)$ and cancel terms in the sums.
-
-Every arbitrage-free model is a special case of this.
-
-__Example__. (Black-Scholes/Merton) $M_t = (r, se^{\sigma B_t - \sigma^2t/2})P$, $C_t = (0,0)$,
+__Example__. (Black-Scholes/Merton)
+$M_t = (r, se^{\sigma B_t - \sigma^2t/2})P$, $C_t = (0,0)$,
 $D_t = e^{-\rho t}P$ where $(B_t)$ is standard Brownian motion and $P$ is Wiener measure.
+
 **Trading strategies create synthetic instruments where price corresponds
 to value and cash flow corresponds to amount.**
 
@@ -424,9 +430,59 @@ Under the canonical deflator futures quotes are a martingale.
 
 ### Limit Orders
 
-A _limit order_ is specified by a level.
-It has price 0 and at most one cash flow equal to the level
-at the first time the underlying crosses the level.
+A _limit order_ is specified by a level. When the underlying reaches
+the level the holder receives one share of stock by paying the level.
+
+## Fundamental Theorem of Asset Pricing
+
+For the one-period model consider the operator $A\colon\RR^I\to\RR\oplus B(\Omega)$
+defined by $A\gamma = -\gamma\cdot x \oplus \gamma\cdot X$.
+The first component is the amount made purchasing $\gamma$ shares and the
+second is the amount made when closing the postion at current market prices.
+Arbitrage exists if there is a $\gamma\in\RR^I$ with 
+$A\gamma$ in the positive cone ${\PP = \{p\oplus P\mid p > 0, P\ge0\}\subseteq \RR\oplus B(\Omega)}$.
+
+The adjoint of $A^*\colon\RR^*\oplus ba(\Omega)\to(\RR^I)^*$ is $A^*(d\oplus D) = -xd + XD$
+where we identify $(\RR^I)^*$ with $\RR^I$. Every $x\in\RR^I$ corresponds to
+the linear functional $x^*\colon\RR^I\to\RR$ defined by $x^*y = x\cdot y$, $y\in\RR^I$.
+Since
+$$
+\begin{aligned}
+\langle \gamma, A^*(d\oplus D) \rangle
+&= \langle A\gamma, d\oplus D \rangle \\
+&= \langle -\gamma\cdot x\oplus \gamma\cdot X, d\oplus D \rangle \\
+&= \langle \gamma, -xd + XD \rangle \\
+\end{aligned}
+$$
+this shows $A^*(d\oplus D) = -xd + XD$.
+
+Assume trading times $t_0 < \cdots < t_n$.
+Define the amount operator
+$$
+{A\colon\oplus_{j=1}^n B(\AA_j, \RR^I)\to\oplus_{j=0}^n B(\AA_j)}
+$$
+by $A(\oplus_j \Delta_j) = \oplus_j \Delta_j\cdot C_j - \Gamma_j\cdot X_j$.
+Recall ${\Delta_j = \sum_{i < j} \Gamma_j}$ so $\Delta_0 = 0$
+and ${\Gamma_j = \Delta_{j+1} - \Delta_j}$, $0\le j < n$.
+
+We now compute the adjoint $A^*\colon\oplus_j ba(\AA_j)\to\plus_j ba(\AA_j, \RR^I)$
+$$
+\begin{aligned}
+\langle \oplus_j \Delta_j, A^*(\oplus_j D_j))\rangle &=
+\langle A(\oplus \Delta_j), \oplus_j D_j)\rangle \\
+&= \sum_{j=0}^n \langle \Delta_j\cdot C_j - \Gamma_j\cdot X_j, D_j\rangle \\
+&= \sum_{j=0}^n \langle \Delta_j\cdot C_j - (\Delta_{j+1} - \Delta_j)\cdot X_j, D_j\rangle \\
+&= \sum_{j=0}^n \langle \Delta_j\cdot C_j + \Delta_j\cdot X_j, D_j\rangle
+ -  \sum_j \langle \Delta_j\cdot X_{j-1}, D_{j-1}\rangle \\
+&= \sum_{j=0}^n \langle \Delta_j, C_j D_j + X_j D_j - X_{j-1} D_{j-1} \rangle \\
+&= \langle\oplus_j \Delta_j,\oplus_j C_j D_j + X_j D_j - X_{j-1} D_{j-1} \rangle \\
+\end{aligned}
+$$
+This shows $A^*(\oplus_j D_j) = \oplus_j \oplus_j C_j D_j + X_j D_j - X_{j-1} D_{j-1}$.
+
+
+<!--
+-->
 
 ## References
 
