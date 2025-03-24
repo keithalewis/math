@@ -1,7 +1,13 @@
 ---
 title: L-moments
 author: Keith A. Lewis
+classoption: fleqn
+fleqn: true
+header-includes:
+	- \usepackage{bm}
 ---
+\newcommand\bs[1]{\boldsymbol{{#1}}}
+\newcommand\RR{\bs{{R}}}
 
 Everything there is to know about a random variable $X$ is
 determined by the probability it is less than or equal to a given value $x$.
@@ -57,5 +63,31 @@ $E[((X - \mu)/\sigma)^3]$.
 
 _Kurtosis_ is the fourth standardized moment $E[((X - \mu)/\sigma)^4]$.
 
-L-moments are similar to moments. They are more difficult to
-compute but better at summarizing the shape of a distribution.
+## L-moments
+
+L-moments are similar to moments but are defined for any distribution with finite mean.
+They are more difficult to compute but better at summarizing the shape of a distribution.
+When given samples of a random variable they provide a robust way
+of estimating its distribution.
+
+The first L-moment of a random variable $X$ is $\lambda_1 = E[X]$.
+
+The second L-moment is $\lambda_2 = E[|X_2 - X_1|]$ where $X_1$ and $X_2$ are independent
+and have the same distribution as $X$. It is a measure of spread even
+when standard deviation is not finite. It measures the distance between two independent random
+samples of $X$.
+
+__Exercise__ _Show $\lambda_2 = E[\max\{X_1,X_2\} - \min\{X_1,X_2\}]$_.
+
+_Hint_: $|x| = \max\{x,-x\}$.
+
+Higher order L-moments are defined using _order statistics_. Given
+random variables $X_1,\ldots,X_n$ define 
+$X_{1:n}\le\ldots\le X_{n:n}$ by sorting pointwise. Every random variable
+is a function $X\colon\Omega\to\RR$ with cumulative distribution $F(x) = P(X\le x)$.
+Independent samples of a
+random variable are functions on the product space $X_i\colon\Omega^n\to\RR$
+where $X_i(\omega_1,\ldots,\omega_n) = \omega_i$ equipped with the product
+measure $P_n(A_1\times\cdots\times A_n) = P(A_1)\cdots P(A_n)$.
+For every $\omega\in\Omega^n$ the numbers $X_1(\omega), \dots, X_n(\omega)$
+can be sorted to $X_{1:n}(\omega),\ldots,X_{n:n}(\omega)$
