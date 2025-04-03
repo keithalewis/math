@@ -12,6 +12,7 @@ header-includes:
 Everything there is to know about a random variable $X$ is
 determined by the probability it is less than or equal to a given value $x$.
 Its _cumulative distribution function_ is $F(x) = P(X\le x)$.
+Two random variables have the same _law_ if they have the same cdf.
 Every cdf is non-decreasing, right-continuous, has left limits, tends to 0 as $x$
 goes to $-\infty$ and tends to 1 as $x$ goes to $+\infty$.
 Every such function defines a cdf of a random variable.
@@ -70,24 +71,47 @@ They are more difficult to compute but better at summarizing the shape of a dist
 When given samples of a random variable they provide a robust way
 of estimating its distribution.
 
-The first L-moment of a random variable $X$ is $\lambda_1 = E[X]$.
+The first L-moment of a random variable $X$ is the mean $\lambda_1 = E[X]$.
 
-The second L-moment is $\lambda_2 = E[|X_2 - X_1|]$ where $X_1$ and $X_2$ are independent
+The second L-moment is $\lambda_2 = (1/2)E[|X_2 - X_1|]$ where $X_1$ and $X_2$ are independent
 and have the same distribution as $X$. It is a measure of spread even
 when standard deviation is not finite. It measures the distance between two independent random
 samples of $X$.
 
-__Exercise__ _Show $\lambda_2 = E[\max\{X_1,X_2\} - \min\{X_1,X_2\}]$_.
+__Exercise__ _Show $\lambda_2 = (1/2)E[\max\{X_1,X_2\} - \min\{X_1,X_2\}]$_.
 
 _Hint_: $|x| = \max\{x,-x\}$.
 
-Higher order L-moments are defined using _order statistics_. Given
-random variables $X_1,\ldots,X_n$ define 
-$X_{1:n}\le\ldots\le X_{n:n}$ by sorting pointwise. Every random variable
-is a function $X\colon\Omega\to\RR$ with cumulative distribution $F(x) = P(X\le x)$.
-Independent samples of a
-random variable are functions on the product space $X_i\colon\Omega^n\to\RR$
-where $X_i(\omega_1,\ldots,\omega_n) = \omega_i$ equipped with the product
-measure $P_n(A_1\times\cdots\times A_n) = P(A_1)\cdots P(A_n)$.
-For every $\omega\in\Omega^n$ the numbers $X_1(\omega), \dots, X_n(\omega)$
-can be sorted to $X_{1:n}(\omega),\ldots,X_{n:n}(\omega)$
+Higher order L-moments are defined using _order statistics_.  They do
+a better job of estimating the distribution of a random variable
+given independent sample values.  Given independent random variables
+$X_1,\ldots,X_n$ having the same law as $X$ define $X_{1:n}\le\ldots\le
+X_{n:n}$ by sorting pointwise.  Independent samples of a random
+variable are functions on the product space $X_i\colon\Omega^n\to\RR$
+where $X_i(\omega_1,\ldots,\omega_n) = \omega_i$ equipped with the
+product measure $F_n(x_1,\ldots,x_n) = P(X_1\le x_1,\ldots,X_n\le x_n)
+= P(X_1\le x_1)\cdots F(X_n\le x_n)$.  The numbers $X_1(\omega), \dots,
+X_n(\omega)$ can be sorted pointwise to define the order statistics
+$X_{1:n}(\omega),\ldots,X_{n:n}(\omega)$
+
+__Exercise__. _Show $\lambda_2 = (1/2)E[X_{2:2} - X_{1:2}]$_.
+
+The third L-moment is
+${\lambda_3 = (1/3)E[(X_{3:3} - X_{3:2}) - (X_{3:2} - X_{3:1})] = E[X_{3:3} - 2X_{3:2} + X_{3:1}]}$.
+If you sample $X$ three
+times this measures the difference between the high and mid and the
+difference between the mid and the low. This is a measure of skewness. If
+it is positive then the distribution has more mass toward the right.
+If it is negative then the distribution has more mass toward the left.
+
+The fourth L-moment is
+$\lambda_3 =
+(1/4)E[(X_{4:4} - X_{4:3}) - (X_{4:3} - X_{4:2})
+- ((X_{4:3} - X_{4:2}) - (X_{4:2} - X_{4:1}))]
+= (1/4)E[X_{4:4} - 3X_{4:3} + 3X_{4:2} - X_{4:1}]$.
+
+
+The general theme of L-moments is to consider $\Delta X_{n:j} = X_{n:j+1} - X_{n:j}$.
+The second L-moment is $E[\Delta X_{2:1}]$. The third
+L-moment is $E[\Delta\Delta X_{3:1}]$ the $n$-th L-moment
+is $E[\Delta^{n-1}X_{n:1}]$.

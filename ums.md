@@ -57,8 +57,9 @@ it relates to classical Black-Scholes/Merton machinery.
 The SUM does not involve probability. As Ross showed, the Fundamental Theorem
 of Asset Pricing is a geometric result. We assume a sample space and filtration, but
 do not require a probability measure.
-We do not require Brownian motion, the Ito calculus, or partial differential
-equations.
+There is no need for Brownian motion, the Ito calculus, or partial differential
+equations. The notion of continuous time hedging is a mathematical artifact.
+Traders can only execute a finite number of trades.
 
 If an algebra $\AA$ of sets on $\Omega$ is finite then the atoms of the algebra form a
 partition of $\Omega$ and a function $X\colon\Omega\to\RR$ is measurable with
@@ -71,10 +72,14 @@ The partition consisting of the sample space represents no information.
 
 The dual of bounded functions on $\Omega$, $B(\Omega)^*$, can be identified with
 finitely additive measures on $\Omega$[@DunSch1958]. A linear functional
-$L\in B(\Omega)^*$ defines a measure $\lambda(E) = L1_E$ for $E\subseteq\Omega$
-where $1_E(\omega) = 1$ if $\omega\in E$ and $1_E(\omega) = 0$ if $\omega\in\Omega\setminus E$.
-The facts $1_\emptyset = 0$ and $1_{E\cup F} = 1_E + 1_F - 1_{E\cap F}$, $E,F\subseteq\Omega$
+$L\in B(\Omega)^*$ defines a measure $\lambda(A) = L1_A$ for $A\subseteq\Omega$
+where $1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\in\Omega\setminus A$.
+The facts $1_\emptyset = 0$ and $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$, $A,B\subseteq\Omega$
 show $\lambda$ is a measure.
+
+The integral $\int_S f\,d\lambda$ is defined for _elementary functions_ that are 
+a finite linear sum $f = \sum_i a_i 1_{A_i}$ by $\int_S f\,d\lambda = \sum_i a_i\lambda(A_i)$.
+It is not obvious this is well-defined and ... ???
 
 Define $M_f\colon B(\Omega)\to B(\Omega)$ by $M_fg = fg$. Its adjoint
 $M_f^*\colon ba(\Omega)\to ba(\Omega)$ defines multiplication of a
@@ -435,28 +440,47 @@ the level the holder receives one share of stock by paying the level.
 
 ## Fundamental Theorem of Asset Pricing
 
-For the one-period model consider the operator $A\colon\RR^I\to\RR\oplus B(\Omega)$
-defined by $A\gamma = -\gamma\cdot x \oplus \gamma\cdot X$.
+In this section we prove the FTAP for multi-period models. 
+We start with a proof for the one-period model that can be generalized.
+
+In the one-period model consider the amount operator ${A\colon\RR^I\to\RR\oplus_\infty B(\Omega)}$
+defined by ${A\gamma = -\gamma\cdot x \oplus_\infty \gamma\cdot X}$.
+The norm on the range is $\|p\oplus_\infty P\|_\infty = \max\{|p|,\|P\|\}$ for $p\in\RR$, $P\in B(\Omega)$.
 The first component is the amount made purchasing $\gamma$ shares and the
 second is the amount made when closing the postion at current market prices.
 Arbitrage exists if there is a $\gamma\in\RR^I$ with 
-$A\gamma$ in the positive cone ${\PP = \{p\oplus P\mid p > 0, P\ge0\}\subseteq \RR\oplus B(\Omega)}$.
+$A\gamma$ in the cone ${\PP = \{p\oplus P\mid p > 0, P\ge0\}\subseteq \RR\oplus_\infty B(\Omega)}$
 
-The adjoint of $A^*\colon\RR^*\oplus ba(\Omega)\to(\RR^I)^*$ is $A^*(d\oplus D) = -xd + XD$
-where we identify $(\RR^I)^*$ with $\RR^I$. Every $x\in\RR^I$ corresponds to
-the linear functional $x^*\colon\RR^I\to\RR$ defined by $x^*y = x\cdot y$, $y\in\RR^I$.
-Since
+The adjoint $A^*\colon\RR\oplus_1 ba(\Omega)\to \RR^I$ is $A^*(\pi\oplus_1 \Pi) = -x\pi + \langle X,\Pi\rangle$
+where we identify $(\RR^I)^*$ with $\RR^I$.
+The norm on the domain is $\|\pi\oplus_1 P\|_1 = |\pi| + \|\Pi\|$.
+The calculation
 $$
 \begin{aligned}
-\langle \gamma, A^*(d\oplus D) \rangle
-&= \langle A\gamma, d\oplus D \rangle \\
-&= \langle -\gamma\cdot x\oplus \gamma\cdot X, d\oplus D \rangle \\
-&= \langle \gamma, -xd + XD \rangle \\
+\langle \gamma, A^*(\pi\oplus_1 \Pi) \rangle
+&= \langle A\gamma, \pi\oplus_1 \Pi \rangle \\
+&= \langle -\gamma\cdot x\oplus_\infty \gamma\cdot X, \pi\oplus_1 \Pi \rangle \\
+&= -\gamma\cdot x\pi + \langle \gamma\cdot X, \Pi \rangle \\
+&= \langle \gamma, -x\pi + \langle X\,\Pi\rangle \rangle \\
 \end{aligned}
 $$
-this shows $A^*(d\oplus D) = -xd + XD$.
+shows $A^*(\pi\oplus_1 \Pi) = -x\pi + \langle X,\Pi\rangle\in\RR^I$.
 
-Assume trading times $t_0 < \cdots < t_n$.
+The range of $A$ is closed since it is finite dimensional and $\PP$ has an interior point
+so by the Hahn-Banach theorem there exists a hyperplane $H\supseteq\ran A$ that does not meet $\PP$.
+Every hyperplane is the preanhiliator of an element of the dual, say $d\oplus_1 D\in\RR^*\oplus ba(\Omega)$,
+so ${H = {}^\perp\{d\oplus_1 D\} =  \{p\oplus_\infty P\mid \langle p\oplus_\infty P, d\oplus_1 D\rangle = 0}$.
+
+Since $\ran A = {}^\perp(\ker A^*)\subseteq H$ we have $d\oplus_1 D\in\ker A^*$.
+
+If $p_+\oplus_\infty P_+\in\PP$ has $\langle p_+ \oplus 
+
+
+\cite???
+
+Assuming the time between trades is at least a (quato second)[https://www.bipm.org/en/cgpm-2022/resolution-3]
+and trading stops before the heat death of the universe there are
+a finite number of trading times $t_0 < \cdots < t_n$.
 Define the amount operator
 $$
 {A\colon\oplus_{j=1}^n B(\AA_j, \RR^I)\to\oplus_{j=0}^n B(\AA_j)}

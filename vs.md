@@ -363,6 +363,13 @@ __Exercise__. _Show $\langle e_i, e^*_j\rangle = \delta_{ij}$, $i,j\in I$_.
 __Exercise__ _Show the matrix of $T\in\LL(\RR^I,\RR^J)$ is ${t_{ij} = \langle Te_i, e^*j\rangle}$,
 $i\in I$, $j\in J$_.
 
+## Characteristic Polynomial
+
+Every linear operator $T\colon\RR^I\to\RR^I$ is an element of the vector space
+$\RR^{I\times I}$ so $I, T, T^2,\ldots,T^{|I\times I|}$ are linearly dependent
+so there exists a polynomial $p$ of degree $|I\times I|$ with $p(T) = 0$.
+But there is a drastic reduction. For every linear operator $T\colon\RR^I\to\RR^I$
+
 <!--
 
 ## Tensor

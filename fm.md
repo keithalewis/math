@@ -1,133 +1,52 @@
 ---
-title: Financial Modeling
+title: Function, Measure, Integral
 author: Keith A. Lewis
 institute: KALX, LLC
 fleqn: true
 classoption: fleqn
+abstract: Finitely additive measures are the dual of the vector space of bounded functions.
 ---
 
+\newcommand\bs[1]{\boldsymbol{{#1}}}
+\newcommand\RR{\bs{{R}}}
 \renewcommand\o[1]{\overline{#1}}
 \renewcommand\AA{\mathcal{A}}
+\renewcommand\PP{\mathcal{P}}
 
-
-In "A Simple Approach to the Valuation of Risky Streams"
-Stephen Ross[@Ros1978] showed
-
-> _If there are no arbitrage opportunities in the capital markets, then
-there exists a (not generally unique) valuation operator, $L$_.
-
-As shown in the [Unified Model](https://keithalewis.github.io/math/um1.html),
-Ross's linear valuation operators correspond to _deflators_: adapted,
-positive, finitely-additive measures indexed by trading time.
-
-Market instruments have prices and associated cash flows. Stocks have
-dividends, bonds have coupons, futures have daily margin adjustments.
-The price of a futures is always zero.  A _market model_ consist of
-vector-values prices $(X_t)$ and cash flows $(C_t)$ indexed by market
-instruments.  Prices and cash flows depend only on information available
-at time $t$. This is modeled by algebras of sets $\AA_t$
-at each trading time $t$ and requiring prices
-and cash flows to be measurable with respect to the algebras.
-
-A model is arbitrage free if and only if there exist a deflators $(D_t)$ with
+Integration is a _linear functional_. The integral of a constant times a function
+is the constant times the intergral of the function and the integral of a
+sum of functions is the sum of the integrals.
+The Riemann integral of a continuous function on a finite interval is
+defined as a limit:
 $$
-\tag{1}	X_t D_t = (X_u D_u + \sum_{t < s \le u}C_s D_s)|_{\AA_t}
+	\int_a^b f(x)\,dx = \lim_{\Delta x\to 0} \sum_j f(x_j^*)\,Delta x_j
 $$
-where $|$ indicates restriction of measure. Recall a function
-times a measure is a measure and the conditional expectation
-${Y = E[X|\AA]}$ if and only if
-$Y(P|_{\AA}) = (XP)|_{\AA}$,
-where $P$ is a probability measure.
+where $a = x_0 < \cdots < x_n = b$, $\Delta x_j = x_{j+1} - x_j$, and $x_j^*\in [x_j, x_{j+1}]$.
+The precise definition of the limit is a bit complicated and it is not trivial to
+show it exists and is unique. <F6>
 
-If $(M_t)$ is s vector-valued martingale measure then
-$$
-	X_t D_t = M_t - \sum_{s\le t}C_s D_s
-$$
-is an arbitrage-free model of prices and cash flows.  For example,
-the Black-Scholes/Merton model with no dividends corresponds to $X_t =
-(r\exp(\rho t), s\exp(\rho t + \sigma B_t - \sigma^2 t/2))$, $C_t =
-(0, 0)$ and ${D_t = \exp(-\rho t)P|_{\AA_t}}$ where $(B_t)$
-is Brownian motion, $P$ is Wiener measure, and ${\AA_t}$ is the
-standard filtration.
+A _function_ from a set $S$ to the real numbers, $f\colon S\to\RR$,
+associates each $s\in S$ with a unique $f(s)\in\RR$.
+A _(finitely additive) measure_ is a function from the set of all subsets of $S$,
+_power set_ of $S$, $\PP(S) = \{A\subseteq S\}$,
+to the real numbers $\phi\colon\PP(S)\to\RR$ that satisfies $\phi(\emptyset) = 0$
+and $\phi(A\cup B) = \phi(A) + \phi(B) - \phi(A\cap B)$.
+The measure of the empty set is 0 and measures don't count things twice.
 
-A _trading strategy_ is a finite sequence $(\tau_j)$ of increasing
-stopping times and vector-valued 
-$(\Gamma_j)$, depending on information available at time $\tau_j$,
-indicating the number of shares purchased at time $\tau_j$.
-Let $\Delta_t = \sum_{\tau_j < t} \Gamma_j = \sum_{s < t} \Gamma_s$ be the (settled) position at time $t$,
-where $\Gamma_s = \Gamma_j$ if $s = \tau_j$ and is zero otherwise.
+## Set Exponential
 
-The _amounts_ $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$ show up in the
-brokerage account during trading: you receive cash flows proportional to
-existing positions and pay for trades just executed at the prevailing market prices.
-The mark-to-market of the trading strategy at time $t$
-is $V_t = (\Delta_t + \Gamma_t)\cdot X_t$. It the the _value_ of unwinding
-existing positions and the last trades at prevailing market prices.
-A simple consequence of these definitions is
-$$
-\tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u}A_s D_s)|_{\AA_t}
-$$
-Note how value $V_t$ in (2) corresponds to prices $X_t$ in (1),
-likewise amount $A_t$ to cash flows $C_t$.
+If $A$ and $B$ are sets then the _set exponential_ $B^A$ is the set
+of all functions from $A$ to $B$, $B^A = \{f\colon B\to A$.
 
-**Trading strategies create synthetic market instruments**.
+Denote the _bounded functions_ on $S$ by $B(S) = \{f\colon S\to\RR\mid \|f\| = \sup_{s\in S} |f(s)| < \infty\}$.
+The dual of $B(S)$ is the set of _linear functionals_ on $B(S)$,
+$B(S)^* = \{F\colon B(S)\to\RR\mid F\text{ is linear}\}$.
+Every $F\in B(S)^*$ determines a measure $\phi(A) = F(1_A)$
+where $1_A\colon S\to\RR$ is the _characteristic function_
+$1_A(s) = 1$ if $s\in A$ and $1_A(s) = 0$ if $s\not\in A$.
 
-A _derivative_ is a synthetic market instrument.
-Its contract specifies a finite sequence of increasing stopping times
-$\o{\tau}_j$ and amounts $\o{A}_j$ paid at these times.
-A European option has a single constant stopping time $\bar{\tau}$ with payoff
-${\o{A} = \phi(X_{\o{\tau}})}$ for some function $\phi$.
+__Exercise__. _Show $\phi$ is a measure_.
 
-Suppose we could find a
-a trading strategy $(\tau_j)$, $(\Gamma_j)$ with
-$\sum_j \Gamma_j = 0$, $A_t = \o{A}_j$ when $t = \o{\tau}_j$
-and is zero (self-financing) otherwise. The condition ${\sum_j \Gamma_j = 0}$
-requires the hedge to be eventually closed.
-This is a perfect hedge and the value of the derivative at time $t$
-would be determined by equation (2): ${V_t D_t = (\sum_{\o{\tau}_j > t} \o{A}_j D_{\o{\tau}_j})|_{\AA_t}}$.
+_Hint_. Use $1_\emptyset = 0$ and $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$.
 
-Perfect hedges do not exist in practice.
-A fundamental problem in mathematical finance is how to hedge a
-derivative when a perfect hedge does not exist.
-A first attempt at a solution
-is to assume a perfect hedge exists.
-The initial hedge at $\tau_0 = 0$ can be computed from $V_0 = \Gamma_0\cdot X_0$
-and ${V_0 D_0 = (\sum_{\o{\tau}_j > t} \o{A}_j D_{\o{\tau}_j})|_{\AA_0}}$.
-$$
-	\Gamma_0 D_0 = D_{X_0}(\sum_{\o{\tau}_j > 0} \o{A}_j D_{\o{\tau}_j})|_{\AA_0},
-$$
-where $D_{X_0}$ is the Fréchet derivative. Just as in the B-S/M theory, the (putative) initial hedge is
-the derivative of value with respect to current prices. Note that value can be
-computed using only the deflators and the contract specified amounts.
-
-For $\tau_1 = t > 0$ we have $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ so
-$$
-	(\Delta_t + \Gamma_t) D_t = D_{X_t}(\sum_{\o{\tau}_j > t} \o{A}_j D_{\o{\tau}_j})|_{\AA_0}.
-$$
-For $t > 0$ sufficiently small we have $\Delta_t = \Gamma_0$ so we can solve for $\Gamma_t$.
-This procedure does not specify what value of $\tau_1$ to choose.
-
-The Unified Model does not provide an
-answer to when hedge, it only puts your nose directly in the problem of 
-when and how much to hedge.
-The classical Black-Scholes/Merton theory gives the inapplicable answer that 
-you should trade "continuously".
-
-## Deflators
-
-If repurchase agreements exists then there is a canonical choice for the deflators.
-A repurchase agreement with rate $f_t$, known at time $t$, has price 1 at
-time $t$ and pays $\exp(f_t\,dt)$ at time $t + dt$.
-For any deflator $(D_t)$ equation (1) gives
-${1 D_t = (\exp(f_t\,dt)D_{t + dt})|_{\AA_t} = \exp(f_t\,dt)D_{t + dt}|_{\AA_t}}$.
-For a deflator with $D_{t + dt}$ known at time $t$ we have
-${D_t = \exp(f_t\,dt)D_{t + dt}}$.
-The _canonical deflator_ is ${D_t = \exp(-\int_0^t f_s\,ds)D_0}$.
-
-The repurchase rates $(f_t)$ are called the _(continuously compounded) short rate process_.
-_Every_ interest rate model is just a specific parameterization of this.
-The deflators determine the prices of zero coupon bonds. If $D_t(u)$ is the price of
-a zero coupon bond paying 1 unit at time $u$ then equation (1) implies
-${D_t(u) D_t = D_u|_{\AA_t}}$ so the price is the Radon-Nikodym derivative.
-
-The price of zero coupon bonds determine the value of all risk-free fixed income instruments.
+The integral of $f$ with respect to $\phi$ is $\int_S f\,d\phi = F(f)$.

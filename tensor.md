@@ -17,22 +17,22 @@ names to functions and composing them. The mathematical definitions can
 be translated directly into any computer language that allows functions
 to be defined and called.
 
-The vector space $\RR^n$ is the set of tuples $x = (x_1,\ldots,x_n)$ where
-$x_i\in\RR$, $1\le i\le n$. _Scalar multiplication_
-is defined by $a(x_1,\ldots,x_n) = (ax_1,\ldots,ax_n)$ for $a\in\RR$.
-_Vector addition_ is defined by $(x_1,\ldots,x_n) + (y_1,\ldots,y_n)
-= (x_1 + y_1,\ldots,x_n + y_n)$.
+The vector space $\RR^n$ is the set of tuples ${x = (x_1,\ldots,x_n)}$ where
+${x_i\in\RR}$, ${1\le i\le n}$. _Scalar multiplication_
+is defined by ${a(x_1,\ldots,x_n) = (ax_1,\ldots,ax_n)}$ for ${a\in\RR}$.
+_Vector addition_ is defined by ${(x_1,\ldots,x_n) + (y_1,\ldots,y_n)
+= (x_1 + y_1,\ldots,x_n + y_n)}$.
 
 Definitions involving dots are not ammenable to computer
-implementation. Every vector $x\in\RR^n$ determines a function
-$\bm{x}\colon\bm{n}\to\RR$ by $\bm{x}(i) = x_i$ for $i\in\bm{n} = \{1,\ldots,n\}$.
+implementation. Every vector ${x\in\RR^n}$ determines a function
+${\bm{x}\colon\bm{n}\to\RR}$ by ${\bm{x}(i) = x_i}$ for ${i\in\bm{n} = \{1,\ldots,n\}}$.
 Scalar multiplication and vector addition can
-be defined _pointwise_ by $(a\bm{x})(i) = a(\bm{x}(i))$ and $(\bm{x} +
-\bm{y})(i) = \bm{x}(i) + \bm{y}(i)$, $1\le i\le n$.
+be defined _pointwise_ by ${(a\bm{x})(i) = a(\bm{x}(i))}$ and
+${(\bm{x} + \bm{y})(i) = \bm{x}(i) + \bm{y}(i)}$, ${1\le i\le n}$.
 
 The set of tuples $\RR^n$ is not the same as the set of functions $\RR^\bm{n}$
 but they are in one-to-one correspondence.
-Define a map $\iota\colon\RR^n\to\RR^\bm{n}$ by $\iota x(i) = x_i$, $x\in\RR^n$, $i\in\bm{n}$.
+Define a map ${\iota\colon\RR^n\to\RR^\bm{n}}$ by ${\iota x(i) = x_i}$, ${x\in\RR^n}$, ${i\in\bm{n}}$.
 
 __Exercise__. _Show if $\iota x = \iota y$ then $x = y$, $x,y\in\RR^n$_
 
@@ -73,9 +73,8 @@ _Hint_: Let $Q = \prod_{i\in I}A_i$ and $q_i = \pi_i$.
 <details><summary>Solution</summary>
 We have $p\colon P\to\prod_{i\in I}A_i$ with $\pi_ip = p_i$
 and $q\colon\prod_{i\in I}A_i\to P$ with $p_i q = \pi_i$.
-$qp: P -> P$. 
+Use this to show this defines an isomorphism.
 </details>
-
 
 ## Set Exponential
 
@@ -96,14 +95,12 @@ We reify this with the name $\eval_B^A\colon B^A\times A\to B$ defined
 by $\eval_B^A(f,a) = f(a)$. If $g\in (C^B)^A$ and $a\in A$ then
 $\eval_{C^B}^A(g, a)\in C^B$ is called _partial evaluation_.
 
-## Array
+## Tuple, Array
 
 Given any _index set_ $I$ the cartesian product $\prod_{i\in I}\RR$ is
 isomorphic to the set exponential $\RR^I$. 
-
-Every finite dimensional vector space over the real numbers can be
-identified with the _set exponential_ $\RR^I$ of all functions from an
-_index set_ $I$ to $\RR$. Elements of $\RR^I$ are called _arrays_.
+Elements of the cartesian product are _tuples_. Elements
+of the set exponential are _arrays_.
 
 A _view_ of $\RR^I$ is a function $\sigma\colon J\to I$
 and is used to define a function $\circ\sigma\colon\RR^I\to\RR^J$ by
