@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-03-12" />
+  <meta name="dcterms.date" content="2025-03-30" />
   <title>Tensor</title>
   <style>
     code{white-space: pre-wrap;}
@@ -49,11 +49,16 @@
 <header id="title-block-header">
 <h1 class="title">Tensor</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">March 12, 2025</p>
+<p class="date">March 30, 2025</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#array" id="toc-array">Array</a></li>
+<li><a href="#cartesian-product" id="toc-cartesian-product">Cartesian
+Product</a></li>
+<li><a href="#set-exponential" id="toc-set-exponential">Set
+Exponential</a></li>
+<li><a href="#tuple-array" id="toc-tuple-array">Tuple, Array</a></li>
+<li><a href="#dual" id="toc-dual">Dual</a></li>
 <li><a href="#matrix" id="toc-matrix">Matrix</a></li>
 </ul>
 </nav>
@@ -63,33 +68,32 @@ names to functions and composing them. The mathematical definitions can
 be translated directly into any computer language that allows functions
 to be defined and called.</p>
 <p>The vector space <span class="math inline">\bm{R}^n</span> is the set
-of tuples <span class="math inline">x = (x_1,\ldots,x_n)</span> where
-<span class="math inline">x_i\in\bm{R}</span>, <span
-class="math inline">1\le i\le n</span>. <em>Scalar multiplication</em>
-is defined by <span class="math inline">a(x_1,\ldots,x_n) =
-(ax_1,\ldots,ax_n)</span> for <span
-class="math inline">a\in\bm{R}</span>. <em>Vector addition</em> is
-defined by <span class="math inline">(x_1,\ldots,x_n) + (y_1,\ldots,y_n)
-= (x_1 + y_1,\ldots,x_n + y_n)</span>.</p>
+of tuples <span class="math inline">{x = (x_1,\ldots,x_n)}</span> where
+<span class="math inline">{x_i\in\bm{R}}</span>, <span
+class="math inline">{1\le i\le n}</span>. <em>Scalar multiplication</em>
+is defined by <span class="math inline">{a(x_1,\ldots,x_n) =
+(ax_1,\ldots,ax_n)}</span> for <span
+class="math inline">{a\in\bm{R}}</span>. <em>Vector addition</em> is
+defined by <span class="math inline">{(x_1,\ldots,x_n) +
+(y_1,\ldots,y_n) = (x_1 + y_1,\ldots,x_n + y_n)}</span>.</p>
 <p>Definitions involving dots are not ammenable to computer
 implementation. Every vector <span
-class="math inline">x\in\bm{R}^n</span> determines a function <span
-class="math inline">\bm{x}\colon\bm{n}\to\bm{R}</span> by <span
-class="math inline">\bm{x}(i) = x_i</span> for <span
-class="math inline">i\in\bm{n} = \{1,\ldots,n\}</span>. Scalar
+class="math inline">{x\in\bm{R}^n}</span> determines a function <span
+class="math inline">{\bm{x}\colon\bm{n}\to\bm{R}}</span> by <span
+class="math inline">{\bm{x}(i) = x_i}</span> for <span
+class="math inline">{i\in\bm{n} = \{1,\ldots,n\}}</span>. Scalar
 multiplication and vector addition can be defined <em>pointwise</em> by
-<span class="math inline">(a\bm{x})(i) = a(\bm{x}(i))</span> and <span
-class="math inline">(\bm{x} +
-\bm{y})(i) = \bm{x}(i) + \bm{y}(i)</span>, <span
-class="math inline">1\le i\le n</span>.</p>
+<span class="math inline">{(a\bm{x})(i) = a(\bm{x}(i))}</span> and <span
+class="math inline">{(\bm{x} + \bm{y})(i) = \bm{x}(i) +
+\bm{y}(i)}</span>, <span class="math inline">{1\le i\le n}</span>.</p>
 <p>The set of tuples <span class="math inline">\bm{R}^n</span> is not
 the same as the set of functions <span
 class="math inline">\bm{R}^\bm{n}</span> but they are in one-to-one
 correspondence. Define a map <span
-class="math inline">\iota\colon\bm{R}^n\to\bm{R}^\bm{n}</span> by <span
-class="math inline">\iota x(i) = x_i</span>, <span
-class="math inline">x\in\bm{R}^n</span>, <span
-class="math inline">i\in\bm{n}</span>.</p>
+class="math inline">{\iota\colon\bm{R}^n\to\bm{R}^\bm{n}}</span> by
+<span class="math inline">{\iota x(i) = x_i}</span>, <span
+class="math inline">{x\in\bm{R}^n}</span>, <span
+class="math inline">{i\in\bm{n}}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show if <span
 class="math inline">\iota x = \iota y</span> then <span
 class="math inline">x = y</span>, <span
@@ -119,14 +123,85 @@ class="math inline">x,y\in\bm{R}^n</span></em>.</p>
 operator</em>, a function from one vector space to another that
 preserves the linear structure. If a linear operator is bijective we
 call it an <em>isomorphism</em>.</p>
-<section id="array" class="level2">
-<h2>Array</h2>
-<p>Every finite dimensional vector space over the real numbers can be
-identified with the <em>set exponential</em> <span
-class="math inline">\bm{R}^I</span> of all functions from an <em>index
-set</em> <span class="math inline">I</span> to <span
-class="math inline">\bm{R}</span>. Elements of <span
-class="math inline">\bm{R}^I</span> are called <em>arrays</em>.</p>
+<section id="cartesian-product" class="level2">
+<h2>Cartesian Product</h2>
+<p>The <em>cartesian product</em> <span class="math inline">\prod_{i\in
+I}A_i</span> of sets <span class="math inline">A_i</span>, <span
+class="math inline">i\in I</span>, is defined by <em>projections</em>
+<span class="math inline">\pi_i\colon \Pi_{i\in I}A_i\to A_i</span>,
+<span class="math inline">i\in I</span> having the property that if
+<span class="math inline">P</span> is a set with functions <span
+class="math inline">p_i\colon P\to A_i</span>, <span
+class="math inline">i\in I</span>, then there exists a function <span
+class="math inline">p\colon P\to\prod_{i\in I}A_i</span> with <span
+class="math inline">\pi_ip = p_i</span>, <span class="math inline">i\in
+I</span>.</p>
+<p>If <span class="math inline">P</span> is a set with functions <span
+class="math inline">p_i\colon P\to A_i</span>, <span
+class="math inline">i\in I</span> having the property that if <span
+class="math inline">Q</span> is a set with functions <span
+class="math inline">q_i\colon Q\to A_i</span>, <span
+class="math inline">i\in I</span>, then there exists a function <span
+class="math inline">q\colon Q\to P</span> with <span
+class="math inline">p_iq = q_i</span>, <span class="math inline">i\in
+I</span>, then <span class="math inline">P</span> is in one-to-one
+correspondence with <span class="math inline">\prod_{i\in
+I}A_i</span>.</p>
+<p><strong>Exercise</strong>. <em>Prove this</em>.</p>
+<p><em>Hint</em>: Let <span class="math inline">Q = \prod_{i\in
+I}A_i</span> and <span class="math inline">q_i = \pi_i</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+We have <span class="math inline">p\colon P\to\prod_{i\in I}A_i</span>
+with <span class="math inline">\pi_ip = p_i</span> and <span
+class="math inline">q\colon\prod_{i\in I}A_i\to P</span> with <span
+class="math inline">p_i q = \pi_i</span>. Use this to show this defines
+an isomorphism.
+</details>
+</section>
+<section id="set-exponential" class="level2">
+<h2>Set Exponential</h2>
+<p>Given sets <span class="math inline">A</span> and <span
+class="math inline">B</span>, the <em>set exponential</em> <span
+class="math inline">B^A</span> is the set of all functions from <span
+class="math inline">A</span> to <span class="math inline">B</span>. It
+is related to cartesian product by <span class="math inline">C^{A\times
+B}</span> is in one-to-one correspondence with <span
+class="math inline">C^{B^A}</span>. If we write <span
+class="math inline">B^A = \{A\to B\}</span> this says <span
+class="math inline">\{A\times B\to C\}</span> is in one-to-one
+correspondence with <span class="math inline">\{A\to\{B\to C\}\}</span>
+and is more easily recognized as <em>currying</em>. If we have a
+function <span class="math inline">f\colon A\times B\to C</span> and
+<span class="math inline">a\in A</span> we can define a function from
+<span class="math inline">B\to C</span> by <span
+class="math inline">b\mapsto f(a,b)</span>. Conversly, if we have a
+function <span class="math inline">g\colon A\to C^B</span> we can define
+a function from <span class="math inline">A\times B</span> to <span
+class="math inline">C</span> by <span class="math inline">(a,b)\mapsto
+(g(a))(b) = (ga)b</span>.</p>
+<p>If <span class="math inline">f\colon A\to B</span> is a function then
+the value of <span class="math inline">f</span> at <span
+class="math inline">a\in A</span> is <span
+class="math inline">f(a)</span>. We reify this with the name <span
+class="math inline">\operatorname{eval}_B^A\colon B^A\times A\to
+B</span> defined by <span
+class="math inline">\operatorname{eval}_B^A(f,a) = f(a)</span>. If <span
+class="math inline">g\in (C^B)^A</span> and <span
+class="math inline">a\in A</span> then <span
+class="math inline">\operatorname{eval}_{C^B}^A(g, a)\in C^B</span> is
+called <em>partial evaluation</em>.</p>
+</section>
+<section id="tuple-array" class="level2">
+<h2>Tuple, Array</h2>
+<p>Given any <em>index set</em> <span class="math inline">I</span> the
+cartesian product <span class="math inline">\prod_{i\in I}\bm{R}</span>
+is isomorphic to the set exponential <span
+class="math inline">\bm{R}^I</span>. Elements of the cartesian product
+are <em>tuples</em>. Elements of the set exponential are
+<em>arrays</em>.</p>
 <p>A <em>view</em> of <span class="math inline">\bm{R}^I</span> is a
 function <span class="math inline">\sigma\colon J\to I</span> and is
 used to define a function <span
@@ -167,6 +242,25 @@ class="math inline">[J]\colon J\to I</span> for the inclusion map and
 call <span class="math inline">x[J]</span> the <em>projection</em> on
 <span class="math inline">J</span> of <span
 class="math inline">x\in\bm{R}^I</span>.</p>
+</section>
+<section id="dual" class="level2">
+<h2>Dual</h2>
+<p>The <em>dual</em> of the vector space <span
+class="math inline">\bm{R}^I</span> is the set of all linear operators
+from <span class="math inline">\bm{R}^I</span> to <span
+class="math inline">\bm{R}</span>. The <em>standard basis</em> of <span
+class="math inline">\bm{R}^I</span> is <span
+class="math inline">(e_i)_{i\in I}</span> where <span
+class="math inline">e_i(j) = \delta_{ij}</span> is the Kronecker delta:
+<span class="math inline">\delta_{ij} = 1</span> if <span
+class="math inline">i = j</span> and <span
+class="math inline">\delta_{ij} = 0</span> if <span
+class="math inline">i \not= j</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x =
+\sum_{i\in I} x(i)e_i</span> if <span class="math inline">I</span> is
+finite</em>.</p>
+<p><em>Hint</em>: Evaluate <span class="math inline">x(j)</span>, <span
+class="math inline">j\in I</span>.</p>
 </section>
 <section id="matrix" class="level2">
 <h2>Matrix</h2>

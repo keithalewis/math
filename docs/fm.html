@@ -5,8 +5,8 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-01-26" />
-  <title>Financial Modeling</title>
+  <meta name="dcterms.date" content="2025-04-04" />
+  <title>Function, Measure, Integral</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -22,27 +22,7 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-    /* CSS for citations */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-      margin-bottom: 0em;
-    }
-    .hanging-indent div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }  </style>
+  </style>
   <link rel="stylesheet" href="math.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
@@ -65,179 +45,76 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Financial Modeling</h1>
+<h1 class="title">Function, Measure, Integral</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 26, 2025</p>
+<p class="date">April 4, 2025</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Finitely additive measures are the dual of the vector space of bounded
+functions.
+</div>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#deflators" id="toc-deflators">Deflators</a></li>
+<li><a href="#set-exponential" id="toc-set-exponential">Set
+Exponential</a></li>
 </ul>
 </nav>
-<p>In “A Simple Approach to the Valuation of Risky Streams” Stephen
-Ross<span class="citation" data-cites="Ros1978">(Ross 1978)</span>
-showed</p>
-<blockquote>
-<p><em>If there are no arbitrage opportunities in the capital markets,
-then there exists a (not generally unique) valuation operator, <span
-class="math inline">L</span></em>.</p>
-</blockquote>
-<p>As shown in the <a
-href="https://keithalewis.github.io/math/um1.html">Unified Model</a>,
-Ross’s linear valuation operators correspond to <em>deflators</em>:
-adapted, positive, finitely-additive measures indexed by trading
-time.</p>
-<p>Market instruments have prices and associated cash flows. Stocks have
-dividends, bonds have coupons, futures have daily margin adjustments.
-The price of a futures is always zero. A <em>market model</em> consist
-of vector-values prices <span class="math inline">(X_t)</span> and cash
-flows <span class="math inline">(C_t)</span> indexed by market
-instruments. Prices and cash flows depend only on information available
-at time <span class="math inline">t</span>. This is modeled by algebras
-of sets <span class="math inline">\mathcal{A}_t</span> at each trading
-time <span class="math inline">t</span> and requiring prices and cash
-flows to be measurable with respect to the algebras.</p>
-<p>A model is arbitrage free if and only if there exist a deflators
-<span class="math inline">(D_t)</span> with <span class="math display">
-\tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u}C_s
-D_s)|_{\mathcal{A}_t}
-</span> where <span class="math inline">|</span> indicates restriction
-of measure. Recall a function times a measure is a measure and the
-conditional expectation <span class="math inline">{Y =
-E[X|\mathcal{A}]}</span> if and only if <span
-class="math inline">Y(P|_{\mathcal{A}}) = (XP)|_{\mathcal{A}}</span>,
-where <span class="math inline">P</span> is a probability measure.</p>
-<p>If <span class="math inline">(M_t)</span> is s vector-valued
-martingale measure then <span class="math display">
-    X_t D_t = M_t - \sum_{s\le t}C_s D_s
-</span> is an arbitrage-free model of prices and cash flows. For
-example, the Black-Scholes/Merton model with no dividends corresponds to
-<span class="math inline">X_t =
-(r\exp(\rho t), s\exp(\rho t + \sigma B_t - \sigma^2 t/2))</span>, <span
-class="math inline">C_t =
-(0, 0)</span> and <span class="math inline">{D_t = \exp(-\rho
-t)P|_{\mathcal{A}_t}}</span> where <span
-class="math inline">(B_t)</span> is Brownian motion, <span
-class="math inline">P</span> is Wiener measure, and <span
-class="math inline">{\mathcal{A}_t}</span> is the standard
-filtration.</p>
-<p>A <em>trading strategy</em> is a finite sequence <span
-class="math inline">(\tau_j)</span> of increasing stopping times and
-vector-valued <span class="math inline">(\Gamma_j)</span>, depending on
-information available at time <span class="math inline">\tau_j</span>,
-indicating the number of shares purchased at time <span
-class="math inline">\tau_j</span>. Let <span
-class="math inline">\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j = \sum_{s
-&lt; t} \Gamma_s</span> be the (settled) position at time <span
-class="math inline">t</span>, where <span class="math inline">\Gamma_s =
-\Gamma_j</span> if <span class="math inline">s = \tau_j</span> and is
-zero otherwise.</p>
-<p>The <em>amounts</em> <span class="math inline">A_t = \Delta_t\cdot
-C_t - \Gamma_t\cdot X_t</span> show up in the brokerage account during
-trading: you receive cash flows proportional to existing positions and
-pay for trades just executed at the prevailing market prices. The
-mark-to-market of the trading strategy at time <span
-class="math inline">t</span> is <span class="math inline">V_t =
-(\Delta_t + \Gamma_t)\cdot X_t</span>. It the the <em>value</em> of
-unwinding existing positions and the last trades at prevailing market
-prices. A simple consequence of these definitions is <span
-class="math display">
-\tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u}A_s
-D_s)|_{\mathcal{A}_t}
-</span> Note how value <span class="math inline">V_t</span> in (2)
-corresponds to prices <span class="math inline">X_t</span> in (1),
-likewise amount <span class="math inline">A_t</span> to cash flows <span
-class="math inline">C_t</span>.</p>
-<p><strong>Trading strategies create synthetic market
-instruments</strong>.</p>
-<p>A <em>derivative</em> is a synthetic market instrument. Its contract
-specifies a finite sequence of increasing stopping times <span
-class="math inline">\overline{\tau}_j</span> and amounts <span
-class="math inline">\overline{A}_j</span> paid at these times. A
-European option has a single constant stopping time <span
-class="math inline">\bar{\tau}</span> with payoff <span
-class="math inline">{\overline{A} = \phi(X_{\overline{\tau}})}</span>
-for some function <span class="math inline">\phi</span>.</p>
-<p>Suppose we could find a a trading strategy <span
-class="math inline">(\tau_j)</span>, <span
-class="math inline">(\Gamma_j)</span> with <span
-class="math inline">\sum_j \Gamma_j = 0</span>, <span
-class="math inline">A_t = \overline{A}_j</span> when <span
-class="math inline">t = \overline{\tau}_j</span> and is zero
-(self-financing) otherwise. The condition <span
-class="math inline">{\sum_j \Gamma_j = 0}</span> requires the hedge to
-be eventually closed. This is a perfect hedge and the value of the
-derivative at time <span class="math inline">t</span> would be
-determined by equation (2): <span class="math inline">{V_t D_t =
-(\sum_{\overline{\tau}_j &gt; t} \overline{A}_j
-D_{\overline{\tau}_j})|_{\mathcal{A}_t}}</span>.</p>
-<p>Perfect hedges do not exist in practice. A fundamental problem in
-mathematical finance is how to hedge a derivative when a perfect hedge
-does not exist. A first attempt at a solution is to assume a perfect
-hedge exists. The initial hedge at <span class="math inline">\tau_0 =
-0</span> can be computed from <span class="math inline">V_0 =
-\Gamma_0\cdot X_0</span> and <span class="math inline">{V_0 D_0 =
-(\sum_{\overline{\tau}_j &gt; t} \overline{A}_j
-D_{\overline{\tau}_j})|_{\mathcal{A}_0}}</span>. <span
-class="math display">
-    \Gamma_0 D_0 = D_{X_0}(\sum_{\overline{\tau}_j &gt; 0}
-\overline{A}_j D_{\overline{\tau}_j})|_{\mathcal{A}_0},
-</span> where <span class="math inline">D_{X_0}</span> is the Fréchet
-derivative. Just as in the B-S/M theory, the (putative) initial hedge is
-the derivative of value with respect to current prices. Note that value
-can be computed using only the deflators and the contract specified
-amounts.</p>
-<p>For <span class="math inline">\tau_1 = t &gt; 0</span> we have <span
-class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span> so <span
-class="math display">
-    (\Delta_t + \Gamma_t) D_t = D_{X_t}(\sum_{\overline{\tau}_j &gt; t}
-\overline{A}_j D_{\overline{\tau}_j})|_{\mathcal{A}_0}.
-</span> For <span class="math inline">t &gt; 0</span> sufficiently small
-we have <span class="math inline">\Delta_t = \Gamma_0</span> so we can
-solve for <span class="math inline">\Gamma_t</span>. This procedure does
-not specify what value of <span class="math inline">\tau_1</span> to
-choose.</p>
-<p>The Unified Model does not provide an answer to when hedge, it only
-puts your nose directly in the problem of when and how much to hedge.
-The classical Black-Scholes/Merton theory gives the inapplicable answer
-that you should trade “continuously”.</p>
-<section id="deflators" class="level2">
-<h2>Deflators</h2>
-<p>If repurchase agreements exists then there is a canonical choice for
-the deflators. A repurchase agreement with rate <span
-class="math inline">f_t</span>, known at time <span
-class="math inline">t</span>, has price 1 at time <span
-class="math inline">t</span> and pays <span
-class="math inline">\exp(f_t\,dt)</span> at time <span
-class="math inline">t + dt</span>. For any deflator <span
-class="math inline">(D_t)</span> equation (1) gives <span
-class="math inline">{1 D_t = (\exp(f_t\,dt)D_{t + dt})|_{\mathcal{A}_t}
-= \exp(f_t\,dt)D_{t + dt}|_{\mathcal{A}_t}}</span>. For a deflator with
-<span class="math inline">D_{t + dt}</span> known at time <span
-class="math inline">t</span> we have <span class="math inline">{D_t =
-\exp(f_t\,dt)D_{t + dt}}</span>. The <em>canonical deflator</em> is
-<span class="math inline">{D_t = \exp(-\int_0^t f_s\,ds)D_0}</span>.</p>
-<p>The repurchase rates <span class="math inline">(f_t)</span> are
-called the <em>(continuously compounded) short rate process</em>.
-<em>Every</em> interest rate model is just a specific parameterization
-of this. The deflators determine the prices of zero coupon bonds. If
-<span class="math inline">D_t(u)</span> is the price of a zero coupon
-bond paying 1 unit at time <span class="math inline">u</span> then
-equation (1) implies <span class="math inline">{D_t(u) D_t =
-D_u|_{\mathcal{A}_t}}</span> so the price is the Radon-Nikodym
-derivative.</p>
-<p>The price of zero coupon bonds determine the value of all risk-free
-fixed income instruments.</p>
-<div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
-<div id="ref-Ros1978" class="csl-entry" role="listitem">
-Ross, Stephen A. 1978. <span>“A <span>Simple</span>
-<span>Approach</span> to the <span>Valuation</span> of
-<span>Risky</span> <span>Streams</span>.”</span> <em>The Journal of
-Business</em> 51 (3): 453–75. <a
-href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277</a>.
-</div>
-</div>
+<p>Integration is a <em>linear functional</em>. The integral of a
+constant times a function is the constant times the intergral of the
+function and the integral of a sum of functions is the sum of the
+integrals. The Riemann integral of a continuous function on a finite
+interval is defined as a limit: <span class="math display">
+    \int_a^b f(x)\,dx = \lim_{\Delta x\to 0} \sum_j f(x_j^*)\,Delta x_j
+</span> where <span class="math inline">a = x_0 &lt; \cdots &lt; x_n =
+b</span>, <span class="math inline">\Delta x_j = x_{j+1} - x_j</span>,
+and <span class="math inline">x_j^*\in [x_j, x_{j+1}]</span>. The
+precise definition of the limit is a bit complicated and it is not
+trivial to show it exists and is unique. <F6></p>
+<p>A <em>function</em> from a set <span class="math inline">S</span> to
+the real numbers, <span class="math inline">f\colon
+S\to\boldsymbol{{{R}}}</span>, associates each <span
+class="math inline">s\in S</span> with a unique <span
+class="math inline">f(s)\in\boldsymbol{{{R}}}</span>. A <em>(finitely
+additive) measure</em> is a function from the set of all subsets of
+<span class="math inline">S</span>, <em>power set</em> of <span
+class="math inline">S</span>, <span class="math inline">\mathcal{P}(S) =
+\{A\subseteq S\}</span>, to the real numbers <span
+class="math inline">\phi\colon\mathcal{P}(S)\to\boldsymbol{{{R}}}</span>
+that satisfies <span class="math inline">\phi(\emptyset) = 0</span> and
+<span class="math inline">\phi(A\cup B) = \phi(A) + \phi(B) - \phi(A\cap
+B)</span>. The measure of the empty set is 0 and measures don’t count
+things twice.</p>
+<section id="set-exponential" class="level2">
+<h2>Set Exponential</h2>
+<p>If <span class="math inline">A</span> and <span
+class="math inline">B</span> are sets then the <em>set exponential</em>
+<span class="math inline">B^A</span> is the set of all functions from
+<span class="math inline">A</span> to <span
+class="math inline">B</span>, <span class="math inline">B^A = \{f\colon
+B\to A</span>.</p>
+<p>Denote the <em>bounded functions</em> on <span
+class="math inline">S</span> by <span class="math inline">B(S) =
+\{f\colon S\to\boldsymbol{{{R}}}\mid \|f\| = \sup_{s\in S} |f(s)| &lt;
+\infty\}</span>. The dual of <span class="math inline">B(S)</span> is
+the set of <em>linear functionals</em> on <span
+class="math inline">B(S)</span>, <span class="math inline">B(S)^* =
+\{F\colon B(S)\to\boldsymbol{{{R}}}\mid F\text{ is linear}\}</span>.
+Every <span class="math inline">F\in B(S)^*</span> determines a measure
+<span class="math inline">\phi(A) = F(1_A)</span> where <span
+class="math inline">1_A\colon S\to\boldsymbol{{{R}}}</span> is the
+<em>characteristic function</em> <span class="math inline">1_A(s) =
+1</span> if <span class="math inline">s\in A</span> and <span
+class="math inline">1_A(s) = 0</span> if <span
+class="math inline">s\not\in A</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\phi</span> is a measure</em>.</p>
+<p><em>Hint</em>. Use <span class="math inline">1_\emptyset = 0</span>
+and <span class="math inline">1_{A\cup B} = 1_A + 1_B - 1_{A\cap
+B}</span>.</p>
+<p>The integral of <span class="math inline">f</span> with respect to
+<span class="math inline">\phi</span> is <span
+class="math inline">\int_S f\,d\phi = F(f)</span>.</p>
 </section>
 </body>
 </html>

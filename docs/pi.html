@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-04-04" />
+  <title>Partial Information</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Partial Information</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">April 4, 2025</p>
+</header>
+<p>A <em>partition</em> of a set <span class="math inline">S</span> is a
+collection of disjoint subsets with union equal to <span
+class="math inline">S</span>. The elements of the partition are called
+<em>atoms</em>. The coarsest partition containing only the atom <span
+class="math inline">S</span> represents no information. The finest
+partition of singletons <span class="math inline">\{s\}</span>, <span
+class="math inline">s\in S</span>, represents complete information.
+Knowing which atom of a partition <span class="math inline">s\in
+S</span> belongs to represents <em>partial information</em>. Finite
+algebras of set are in one-to-one correspondence with partitions. An
+<em>algebra of sets</em> on <span class="math inline">S</span> is a
+collection of subsets of <span class="math inline">S</span> closed under
+union and complement. We assume every algebra contains the empty set. By
+De Morgan’s laws it is also closed under intersection.</p>
+<p>If <span class="math inline">\mathcal{A}</span> is an algebra of sets
+on <span class="math inline">S</span> then <span
+class="math inline">A\in\mathcal{A}</span> is an <em>atom</em> if <span
+class="math inline">B\subseteq A</span> and <span
+class="math inline">B\in\mathcal{A}</span> imply <span
+class="math inline">B = \emptyset</span> or <span class="math inline">B
+= A</span>.</p>
+<p>George Boole showed how to reduce De Morgan’s laws for sets to an
+algebraic calculation. For <span class="math inline">A\subseteq S</span>
+define the <em>indicator function</em> <span
+class="math inline">1_A\colon S\to\boldsymbol{R}</span> by <span
+class="math inline">1_A(s) = 1</span> if <span class="math inline">s\in
+A</span> and <span class="math inline">1_A(s) = 0</span> if <span
+class="math inline">{s\in S\setminus A = \{s\in S\mid s\not\in
+A\}}</span>. Recall the <em>union</em> <span class="math inline">A\cup
+B</span> of sets <span class="math inline">A</span> and <span
+class="math inline">B</span> is the set if elements belonging to either
+<span class="math inline">A</span> or <span class="math inline">B</span>
+and and the <em>intersection</em> <span class="math inline">A\cap
+B</span> of sets <span class="math inline">A</span> and <span
+class="math inline">B</span> is the set of elements belonging to both
+<span class="math inline">A</span> and <span
+class="math inline">B</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">1_{S\setminus A} = 1_S - 1_A</span>, <span
+class="math inline">1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}</span>, and
+<span class="math inline">1_{A\cap B} = 1_A1_B</span></em>.</p>
+<p><strong>Exercise</strong>. (De Morgan) <em>Show <span
+class="math inline">S\setminus (A\cup B) = (S\setminus A)\cap(S\setminus
+B)</span> and <span class="math inline">S\setminus (A\cap B) =
+(S\setminus A)\cup(S\setminus B)</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">1_{(S\setminus
+A)\cap(S\setminus B)} = 1_{S\setminus A}1_{S\setminus B}</span> and
+<span class="math inline">1_{(S\setminus A)\cup(S\setminus B)} =
+1_{S\setminus A} + 1_{S\setminus B} - 1_{S\setminus A}1_{S\setminus
+B}</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+We have <span class="math display">
+\begin{aligned}
+1_{(S\setminus A)\cap(S\setminus B)}
+&amp;= 1_{S\setminus A} 1_{S\setminus B} \\
+&amp;= (1_S - 1_A)(1_S - 1_B) \\
+&amp;= 1_S - 1_A - 1_B + 1_A 1_B \\
+&amp;= 1_S - (1_A + 1_B - 1_{A\cap B}) \\
+&amp;= 1_S - 1_{A\cup B}) \\
+&amp;= 1_{S\setminus (A\cup B)} \\
+\end{aligned}
+</span> and <span class="math display">
+\begin{aligned}
+1_{(S\setminus A)\cup(S\setminus B)}
+&amp;= 1_{S\setminus A} + 1_{S\setminus B} - 1_{S\setminus A}
+1_{S\setminus B} \\
+&amp;= (1_S - 1_A) + (1_S - 1_B) - (1_S - 1_A)(1_S - 1B) \\
+&amp;= (1_S - 1_A) + (1_S - 1_B) - 1_S + 1_A + 1_B - 1_A 1_B \\
+&amp;= 1_S - 1_{A\cap B} \\
+&amp;= 1_{S\setminus (A\cap B)} \\
+\end{aligned}
+</span>
+</details>
+<p>For example, let <span class="math inline">S = [0,1)</span> be the
+real numbers greater or equal to 0 and strictly less than 1. Every <span
+class="math inline">s\in S</span> can be written in a base-2 expansion
+<span class="math inline">s = \sum_{n&gt;0} s_n/2^n</span> where <span
+class="math inline">s_n</span> is either 0 or 1.</p>
+<p>The partition <span class="math inline">\{[0,1/2),[1/2,1)\}</span>
+represents knowing the first base-2 digit of <span
+class="math inline">s</span>. If <span
+class="math inline">s\in[0,1/2)</span> then <span
+class="math inline">s_1 = 0</span> and if <span
+class="math inline">s\in[1/2,1)</span> then <span
+class="math inline">s_1 = 1</span>.</p>
+<p>The partition <span class="math inline">\{[j/2^n, (j+1)/2^n)\mid 0\le
+j\le 2^n\}</span> represents knowing the first <span
+class="math inline">n</span> base-2 digits of <span
+class="math inline">s</span>.</p>
+</body>
+</html>

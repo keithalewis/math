@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-01-26" />
+  <meta name="dcterms.date" content="2025-04-04" />
   <title>Fixed Income</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Fixed Income</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 26, 2025</p>
+<p class="date">April 4, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Fixed cash flows
@@ -57,8 +57,8 @@ Fixed cash flows
 <ul>
 <li><a href="#fixed-income" id="toc-fixed-income">Fixed Income</a>
 <ul>
-<li><a href="#zero-coupon-bond" id="toc-zero-coupon-bond">Zero Coupon
-Bond</a></li>
+<li><a href="#zero-coupon-bond-dynamics"
+id="toc-zero-coupon-bond-dynamics">Zero Coupon Bond Dynamics</a></li>
 <li><a href="#risky-bonds" id="toc-risky-bonds">Risky Bonds</a></li>
 </ul></li>
 <li><a href="#discount-curve" id="toc-discount-curve">Discount Curve</a>
@@ -77,19 +77,35 @@ Rate Swap</a></li>
 </nav>
 <section id="fixed-income" class="level2">
 <h2>Fixed Income</h2>
+<p>A <em>zero coupon bond</em> paying unit cash flow at
+<em>maturity</em> <span class="math inline">u</span> has
+<em>discount</em> <span class="math inline">D(u)</span>. Discount is the
+price of the bond. Paying <span class="math inline">D(u)</span> now
+results in receiving one unit at <span class="math inline">u</span>. The
+discount can be expressed in terms of a <em>spot rate</em> <span
+class="math inline">r(u)</span> where <span class="math inline">D(u) =
+e^{-u r(u)}</span> or a <em>forward curve</em> <span
+class="math inline">f(t)</span> where <span class="math inline">D(u) =
+e^{-\int_0^u f(t)\,dt}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">r(u) =
+(1/u)\int_0^u f(t)\,dt</span></em>.</p>
+<p>The spot rate is the average of the forward curve.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">f(u) =
+r(u) + ur&#39;(u)</span></em></p>
+<p><em>Hint</em>: Use <span class="math inline">u r(u) = \int_0^u
+f(t)\,dt</span>.</p>
+<p>The forward equals the spot when <span class="math inline">r&#39;(u)
+= 0</span>. It is numerically preferable to use the forward to define
+the spot since averages smooth out the forward. Defining the forward in
+terms of the spot involves a derivative that might spike.</p>
 <p>A <em>fixed income</em> instrument is specified by cash flows <span
 class="math inline">(c_j)</span> at times <span
-class="math inline">(u_j)</span>. It is a portfolio of zero coupon bonds
-and its <em>present value</em> is <span class="math inline">P = \sum_j
-c_j D(u_j)</span> where <span class="math inline">D(u)</span> is the
-discount to time <span class="math inline">u</span>. The present value
-at time <span class="math inline">t</span> is <span
-class="math inline">P_t = \sum_{u_j &gt; t} c_j D_t(u_j)</span> where
-<span class="math inline">D_t(u)</span> is the price at time <span
-class="math inline">t</span> of a zero coupon bond maturing at <span
-class="math inline">u</span>.</p>
-<section id="zero-coupon-bond" class="level3">
-<h3>Zero Coupon Bond</h3>
+class="math inline">(u_j)</span>. A fixed income instrument is a
+portfolio of zero coupon bonds and its <em>present value</em> is <span
+class="math inline">P = \sum_j c_j D(u_j)</span> where <span
+class="math inline">D(u)</span>.</p>
+<section id="zero-coupon-bond-dynamics" class="level3">
+<h3>Zero Coupon Bond Dynamics</h3>
 <p>A <em>zero coupon bond</em>, <span class="math inline">D(u)</span>,
 pays one unit at maturity <span class="math inline">u</span> so <span
 class="math inline">C^{D(u)}_u = 1</span> is the only cash flow. We
@@ -205,9 +221,8 @@ having a piecewise constant forward curve that matches each price. The
 first forward is the yield of the first instrument. Given a discount to
 time <span class="math inline">t</span> and a forward rate <span
 class="math inline">f</span> we can extend the discount for <span
-class="math inline">u &gt;
-t</span> by <span class="math inline">D(u) = D(t)e^{-f(u -
-t)}</span>.</p>
+class="math inline">u &gt; t</span> by <span class="math inline">D(u) =
+D(t)e^{-f(u - t)}</span>.</p>
 <p>The bootstrap method is deterministic. It assumes the forward curve
 is piecewise constant with jumps at maturities of instruments used to
 build the curve. As instruments of increasing maturity are added, the

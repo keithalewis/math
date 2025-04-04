@@ -443,7 +443,7 @@ the level the holder receives one share of stock by paying the level.
 In this section we prove the FTAP for multi-period models. 
 We start with a proof for the one-period model that can be generalized.
 
-In the one-period model consider the amount operator ${A\colon\RR^I\to\RR\oplus_\infty B(\Omega)}$
+For the one-period model consider the amount operator ${A\colon\RR^I\to\RR\oplus_\infty B(\Omega)}$
 defined by ${A\gamma = -\gamma\cdot x \oplus_\infty \gamma\cdot X}$.
 The norm on the range is $\|p\oplus_\infty P\|_\infty = \max\{|p|,\|P\|\}$ for $p\in\RR$, $P\in B(\Omega)$.
 The first component is the amount made purchasing $\gamma$ shares and the
@@ -451,8 +451,9 @@ second is the amount made when closing the postion at current market prices.
 Arbitrage exists if there is a $\gamma\in\RR^I$ with 
 $A\gamma$ in the cone ${\PP = \{p\oplus P\mid p > 0, P\ge0\}\subseteq \RR\oplus_\infty B(\Omega)}$
 
-The adjoint $A^*\colon\RR\oplus_1 ba(\Omega)\to \RR^I$ is $A^*(\pi\oplus_1 \Pi) = -x\pi + \langle X,\Pi\rangle$
-where we identify $(\RR^I)^*$ with $\RR^I$.
+The adjoint $A^*\colon\RR\oplus_1 ba(\Omega)\to\RR^I$ is $A^*(\pi\oplus_1 \Pi) = -x\pi + \langle X,\Pi\rangle$
+where we identify $(\RR^I)^*$ with $\RR^I$ by $x\in\RR^I$ corresponds to
+$x^*\in(\RR^I)^*$ using $\langle y, x^*\rangle = y\cdot x$, $y\in\RR^I$.
 The norm on the domain is $\|\pi\oplus_1 P\|_1 = |\pi| + \|\Pi\|$.
 The calculation
 $$
@@ -460,36 +461,45 @@ $$
 \langle \gamma, A^*(\pi\oplus_1 \Pi) \rangle
 &= \langle A\gamma, \pi\oplus_1 \Pi \rangle \\
 &= \langle -\gamma\cdot x\oplus_\infty \gamma\cdot X, \pi\oplus_1 \Pi \rangle \\
-&= -\gamma\cdot x\pi + \langle \gamma\cdot X, \Pi \rangle \\
-&= \langle \gamma, -x\pi + \langle X\,\Pi\rangle \rangle \\
+&= \langle -\gamma\cdot x, \pi\rangle + \langle \gamma\cdot X, \Pi \rangle \\
+&= \langle \gamma, -x\pi + \langle X,\Pi\rangle \rangle \\
 \end{aligned}
 $$
 shows $A^*(\pi\oplus_1 \Pi) = -x\pi + \langle X,\Pi\rangle\in\RR^I$.
 
 The range of $A$ is closed since it is finite dimensional and $\PP$ has an interior point
 so by the Hahn-Banach theorem there exists a hyperplane $H\supseteq\ran A$ that does not meet $\PP$.
-Every hyperplane is the preanhiliator of an element of the dual, say $d\oplus_1 D\in\RR^*\oplus ba(\Omega)$,
-so ${H = {}^\perp\{d\oplus_1 D\} =  \{p\oplus_\infty P\mid \langle p\oplus_\infty P, d\oplus_1 D\rangle = 0}$.
+Every hyperplane is the preanhiliator of an element of the dual, say $d\oplus_1 D\in\RR\oplus ba(\Omega)$,
+so ${H = {}^\perp\{d\oplus_1 D\} =  \{p\oplus_\infty P\mid \langle p\oplus_\infty P, d\oplus_1 D\rangle = 0\}}$.
+Since $\ran A = {}^\perp(\ker A^*)\subseteq H$ we have $d\oplus_1 D\in\ker A^*$
+so $0 = -xd + \langle X,D\rangle$. We now show $d$ and $D$ are positive.
 
-Since $\ran A = {}^\perp(\ker A^*)\subseteq H$ we have $d\oplus_1 D\in\ker A^*$.
+If there exist $p_+\oplus_\infty P_+\in\PP$
+and $p_-\oplus_\infty P_-\in\PP$
+with ${\langle p_+\oplus_\infty P_+,d\oplus_1 D\rangle > 0}$ and
+${\langle p_-\oplus_\infty P_-,d\oplus_1 D\rangle < 0}$
+then there is a convex combination in $H$, which contradicts
+the fact $H$ does not meet the cone $\PP$.
+This shows we can assume ${\langle p\oplus_\infty P, d\oplus_1 D\rangle > 0}$
+for all ${p\oplus_\infty P\in\PP}$.
+It follows that $d > 0$ and $D > 0$.
 
-If $p_+\oplus_\infty P_+\in\PP$ has $\langle p_+ \oplus 
+This shows there is no arbitrage if and only if ${xd = \langle X,D\rangle}$
+for some positive ${d\in\RR}$ and ${D\in ba(\Omega)}$.
 
-
-\cite???
-
-Assuming the time between trades is at least a (quato second)[https://www.bipm.org/en/cgpm-2022/resolution-3]
-and trading stops before the heat death of the universe there are
+For the multi-period model we assume the time between trades is at least
+a [quato second](https://www.bipm.org/en/cgpm-2022/resolution-3)
+and trading stops before the heat death of the universe so there are
 a finite number of trading times $t_0 < \cdots < t_n$.
 Define the amount operator
 $$
 {A\colon\oplus_{j=1}^n B(\AA_j, \RR^I)\to\oplus_{j=0}^n B(\AA_j)}
 $$
-by $A(\oplus_j \Delta_j) = \oplus_j \Delta_j\cdot C_j - \Gamma_j\cdot X_j$.
-Recall ${\Delta_j = \sum_{i < j} \Gamma_j}$ so $\Delta_0 = 0$
+by $A(\oplus_j \Delta_j) = \oplus_j \Delta_j\cdot C_j - \Gamma_j\cdot X_j$,
+where ${\Delta_j = \sum_{i < j} \Gamma_j}$ so $\Delta_0 = 0$
 and ${\Gamma_j = \Delta_{j+1} - \Delta_j}$, $0\le j < n$.
 
-We now compute the adjoint $A^*\colon\oplus_j ba(\AA_j)\to\plus_j ba(\AA_j, \RR^I)$
+We now compute the adjoint $A^*\colon\oplus_j ba(\AA_j)\to\oplus_j ba(\AA_j, \RR^I)$
 $$
 \begin{aligned}
 \langle \oplus_j \Delta_j, A^*(\oplus_j D_j))\rangle &=

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-03-12" />
+  <meta name="dcterms.date" content="2025-04-04" />
   <title>Simple Unified Model of Derivative Securities</title>
   <style>
     code{white-space: pre-wrap;}
@@ -25,7 +25,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -43,6 +42,9 @@
       margin-left: 2em;
     }  </style>
   <link rel="stylesheet" href="math.css" />
+  
+  
+  
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -65,22 +67,40 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model of Derivative Securities</h1>
-<p class="date">March 12, 2025</p>
+<p class="date">April 4, 2025</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#preamble" id="toc-preamble">Preamble</a></li>
+<li><a href="#prologue" id="toc-prologue">Prologue</a></li>
+<li><a href="#one-period-model" id="toc-one-period-model">One-Period
+Model</a></li>
+<li><a href="#multi-period-model"
+id="toc-multi-period-model">Multi-Period Model</a>
+<ul>
+<li><a href="#market" id="toc-market">Market</a></li>
+<li><a href="#trading" id="toc-trading">Trading</a></li>
+<li><a href="#accounting" id="toc-accounting">Accounting</a></li>
+</ul></li>
+<li><a href="#simple-unified-model" id="toc-simple-unified-model">Simple
+Unified Model</a></li>
 <li><a href="#examples" id="toc-examples">Examples</a>
 <ul>
-<li><a href="#canonical-deflator" id="toc-canonical-deflator">Canonical
-Deflator</a></li>
 <li><a href="#zero-coupon-bond" id="toc-zero-coupon-bond">Zero Coupon
 Bond</a></li>
-<li><a href="#risky-bond" id="toc-risky-bond">Risky Bond</a></li>
 <li><a href="#forward" id="toc-forward">Forward</a></li>
-<li><a href="#futures" id="toc-futures">Futures</a></li>
+<li><a href="#european-option" id="toc-european-option">European
+Option</a>
+<ul>
+<li><a href="#put" id="toc-put">Put</a></li>
+</ul></li>
+<li><a href="#canonical-deflator" id="toc-canonical-deflator">Canonical
+Deflator</a></li>
+<li><a href="#risky-bond" id="toc-risky-bond">Risky Bond</a></li>
 <li><a href="#limit-orders" id="toc-limit-orders">Limit Orders</a></li>
 </ul></li>
+<li><a href="#fundamental-theorem-of-asset-pricing"
+id="toc-fundamental-theorem-of-asset-pricing">Fundamental Theorem of
+Asset Pricing</a></li>
 <li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
@@ -92,29 +112,41 @@ Bond</a></li>
 data-cites="BlaSch1973">(Black and Scholes 1973)</span>, and Robert C.
 Merton III <span class="citation" data-cites="Mer1973">(Merton
 1973)</span>, invented a Nobel Prize winning theory showing how to value
-options by dynamically trading a bond and a stock.</p>
-<p>This note suggests improvements to Stephen Ross’s paper “A Simple
-Approach to the Valuation of Risky Streams” <span class="citation"
-data-cites="Ros1978">(Ross 1978)</span>. Ross expanded on the Nobel
-Prize winning theory developed by Fischer Black, Myron Scholes <span
-class="citation" data-cites="BlaSch1973">(Black and Scholes
-1973)</span>, and Robert C. Merton <span class="citation"
-data-cites="Mer1973">(Merton 1973)</span>, which originally focused on
-valuing options through dynamic trading of a bond and a stock. Ross
-greatly expanded this by showing how to value derivatives using any
-collection of instruments.</p>
-<p>We place cash flows on equal footing with prices and show trading
-strategies create synthetic market instruments. If a perfect hedge
-exists, it is determined by the Fréchet derivative of the option value
-with respect to price. The Simple Unified Model assumes every hedge has
-only a finite number of trades, as is the case in the real world. This
-implies perfect hedges do not, in general, exist.</p>
-<section id="preamble" class="level2">
-<h2>Preamble</h2>
-<p>The SUM does not involve probability measures. As Ross showed, the
-Fundamental Theorem of Asset Pricing is a geometric result. We assume a
-sample space and filtration, but do not require a probability
-measure.</p>
+options by dynamically trading a bond and a stock. Stephen Ross’s paper
+“A Simple Approach to the Valuation of Risky Streams” <span
+class="citation" data-cites="Ros1978">(Ross 1978)</span> extended the
+B-S/M theory by showing how to value a derivative using any collection
+of instruments. He used the Hahn-Banach theorem to show</p>
+<blockquote>
+<p><em>If there are no arbitrage opportunities in the capital markets,
+then there exists a (not generally unique) valuation operator, <span
+class="math inline">L</span></em>.</p>
+</blockquote>
+<p>This note identifies Ross’s valuation operator and suggests an
+improvement by placing cash flows on equal footing with prices. In some
+sense, cash flows are more important. The Fundamental Theorem of Asset
+Pricing puts geometric constraints on arbitrage-free prices given cash
+flows.</p>
+<p>Trading strategies create synthetic market instruments. If a perfect
+hedge for a derivative instrument exists it is determined by the Fréchet
+derivative of the option value with respect to price. The Simple Unified
+Model assumes every hedge has only a finite number of trades, as is the
+case in the real world. This implies perfect hedges do not, in general,
+exist.</p>
+<p>The SUM specifies a rigorous mathematical model that can be taught at
+the master’s level. Work remains for future researchers to determine
+when and how much to hedge in order to better manage the risk of this
+market reality.</p>
+<section id="prologue" class="level2">
+<h2>Prologue</h2>
+<p>This section reviews the mathematics required for the SUM with a view
+to how it relates to classical Black-Scholes/Merton machinery. The SUM
+does not involve probability. As Ross showed, the Fundamental Theorem of
+Asset Pricing is a geometric result. We assume a sample space and
+filtration, but do not require a probability measure. There is no need
+for Brownian motion, the Ito calculus, or partial differential
+equations. The notion of continuous time hedging is a mathematical
+artifact. Traders can only execute a finite number of trades.</p>
 <p>If an algebra <span class="math inline">\mathcal{A}</span> of sets on
 <span class="math inline">\Omega</span> is finite then the atoms of the
 algebra form a partition of <span class="math inline">\Omega</span> and
@@ -122,97 +154,243 @@ a function <span
 class="math inline">X\colon\Omega\to\boldsymbol{R}</span> is measurable
 with respect to <span class="math inline">\mathcal{A}</span> if and only
 if it is constant on atoms. In this case <span
-class="math inline">X</span> is a function on the atoms and we write
-<span
-class="math inline">X\colon\mathcal{A}\to\boldsymbol{R}</span>.</p>
+class="math inline">X</span> <em>is</em> a function on the atoms and we
+write <span
+class="math inline">X\colon\mathcal{A}\to\boldsymbol{R}</span>. A
+partition provides partial information about outcomes. Full information
+is knowing which <span class="math inline">\omega\in\Omega</span>
+occurred, partial information is knowing only which atom <span
+class="math inline">\omega</span> belongs to. The partition of
+singletons represents complete information. The partition consisting of
+the sample space represents no information.</p>
 <p>The dual of bounded functions on <span
 class="math inline">\Omega</span>, <span
 class="math inline">B(\Omega)^*</span>, can be identified with finitely
 additive measures on <span class="math inline">\Omega</span><span
 class="citation" data-cites="DunSch1958">(Dunford and Schwartz
-1958)</span>. Recall if <span class="math inline">P</span> is
-probability measure then conditional expectation with respect to an
-algebra is defined by <span class="math inline">Y =
-E[X\mid\mathcal{A}]</span> if and only if <span
-class="math inline">Y</span> is <span
+1958)</span>. A linear functional <span class="math inline">L\in
+B(\Omega)^*</span> defines a measure <span
+class="math inline">\lambda(A) = L1_A</span> for <span
+class="math inline">A\subseteq\Omega</span> where <span
+class="math inline">1_A(\omega) = 1</span> if <span
+class="math inline">\omega\in A</span> and <span
+class="math inline">1_A(\omega) = 0</span> if <span
+class="math inline">\omega\in\Omega\setminus A</span>. The facts <span
+class="math inline">1_\emptyset = 0</span> and <span
+class="math inline">1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}</span>, <span
+class="math inline">A,B\subseteq\Omega</span> show <span
+class="math inline">\lambda</span> is a measure.</p>
+<p>The integral <span class="math inline">\int_S f\,d\lambda</span> is
+defined for <em>elementary functions</em> that are a finite linear sum
+<span class="math inline">f = \sum_i a_i 1_{A_i}</span> by <span
+class="math inline">\int_S f\,d\lambda = \sum_i a_i\lambda(A_i)</span>.
+It is not obvious this is well-defined and … ???</p>
+<p>Define <span class="math inline">M_f\colon B(\Omega)\to
+B(\Omega)</span> by <span class="math inline">M_fg = fg</span>. Its
+adjoint <span class="math inline">M_f^*\colon ba(\Omega)\to
+ba(\Omega)</span> defines multiplication of a measure by a bounded
+function <span class="math inline">f\lambda = M_f^*\lambda</span>. The
+Radon-Nikodym derivative of <span class="math inline">f\lambda</span>
+with respect to <span class="math inline">\lambda</span> is <span
+class="math inline">f</span>.</p>
+<p>Recall if <span class="math inline">P</span> is probability measure
+then conditional expectation of a random variable <span
+class="math inline">X\colon\Omega\to\boldsymbol{R}</span> with respect
+to an algebra is defined by <span class="math inline">Y =
+E[X|\mathcal{A}]</span> if and only if <span
+class="math inline">Y\colon\Omega\to\boldsymbol{R}</span> is <span
 class="math inline">\mathcal{A}</span>-measurable and <span
 class="math inline">\int_A Y\,dP = \int_A X\,dP</span> for <span
 class="math inline">A\in\mathcal{A}</span>. This is equivalent to <span
-class="math inline">Y(P|_\mathcal{A}) = (XP)|_\mathcal{A}</span>. We do
-not use conditional expectation in what follows, only restriction of
-measures to an algebra.</p>
-<p><span class="math inline">T</span> — totally ordered set of
-<em>trading times</em>.</p>
-<p><span class="math inline">I</span> — market <em>instruments</em>.</p>
-<p><span class="math inline">\Omega</span> — possible
-<em>outcomes</em>.</p>
-<p><span class="math inline">(\mathcal{A}_t)_{t\in T}</span> —
-<em>partitions</em><a href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a> of <span
+class="math inline">Y(P|_\mathcal{A}) = (XP)|_\mathcal{A}</span> where
+the vertical bar indicates restriction of measure. We do not use
+conditional expectation in what follows, only restriction of measures to
+an algebra.</p>
+</section>
+<section id="one-period-model" class="level2">
+<h2>One-Period Model</h2>
+<p>Let <span class="math inline">I</span> be the finite set of market
+instruments, <span class="math inline">x\in\boldsymbol{R}^I</span> be
+their prices at the beginning of the period, and <span
+class="math inline">X\colon\Omega\to\boldsymbol{R}^I</span> be their
+prices at the end of the period where <span
+class="math inline">\Omega</span> is the set of possible outcomes.
+Recall the set exponential <span
+class="math inline">\boldsymbol{R}^I</span> is the set of functions from
+<span class="math inline">I</span> to <span
+class="math inline">\boldsymbol{R}</span>. The <em>dot product</em> of
+<span class="math inline">x,y\in\boldsymbol{R}^I</span> is <span
+class="math inline">x\cdot y = \sum_{i\in I} x(i)y(i)</span> and the
+<em>norm</em> is <span class="math inline">\|x\| = \sqrt{x\cdot
+x}</span>. We assume <span class="math inline">\|X\| =
+\sup_{\omega\in\Omega}\|X(\omega)\|</span> is finite.</p>
+<p>The initial cost of purchasing <span
+class="math inline">\gamma</span> shares of each instrument is <span
+class="math inline">\gamma\cdot x</span>. The proceeds from selling
+<span class="math inline">\gamma</span> shares at the end of the period
+is <span class="math inline">\gamma\cdot X(\omega)</span> if <span
+class="math inline">\omega\in\Omega</span> occurs. Arbitrage exists if
+there is a <span class="math inline">\gamma\in\boldsymbol{R}^I</span>
+with <span class="math inline">\gamma\cdot x &lt; 0</span> and <span
+class="math inline">\gamma\cdot X\ge0</span> on <span
+class="math inline">\Omega</span>: you make money acquiring the shares
+and never lose money liquidating them. Note this definition of arbitrage
+does not involve probability<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p><strong>Theorem</strong>. (One-Period Fundamental Theorem of Asset
+Pricing) <em>There is no arbitrage if and only if <span
+class="math inline">x</span> belongs to the smallest closed cone
+containing the range of <span class="math inline">X</span>. If <span
+class="math inline">x^*</span> is the nearest point in the cone to <span
+class="math inline">x</span> then <span class="math inline">\gamma = x^*
+- x</span> is an arbitrage.</em></p>
+<p><em>Proof</em>. The smallest closed cone containing the range of
+<span class="math inline">X</span> is <span
+class="math inline">{\{\int_\Omega X\,dD\mid D\ge 0, D\in
+ba(\Omega)\}}</span>. If <span class="math inline">x = \int_\Omega
+X\,dD</span> and <span class="math inline">\gamma\cdot X\ge0</span> on
+<span class="math inline">\Omega</span> then <span
+class="math inline">\gamma\cdot x\ge 0</span>. This establishes the
+“easy” direction.</p>
+<p>If <span class="math inline">x</span> does not belong to the smallest
+closed cone containing the range of <span class="math inline">X</span>
+there is a unique closest point <span class="math inline">x^*</span> in
+the cone. Let <span class="math inline">\gamma = x^* - x</span>. We will
+show <span class="math inline">\gamma\cdot x &lt; 0</span> and <span
+class="math inline">\gamma\cdot y\ge0</span> for every <span
+class="math inline">y</span> in the cone.</p>
+<p>First we show <span class="math inline">\gamma\cdot x &lt; 0</span>.
+We have <span class="math inline">{\|x^* - x\| \le \|tx^* - x\|}</span>
+for <span class="math inline">t &gt; 0</span> so <span
+class="math inline">{0\le (t^2 - 1)\|x^*\|^2 + 2(t - 1)x^*\cdot
+x}</span>. The quadratic is non-negative and has a root at <span
+class="math inline">t = 1</span> so its derivative there is <span
+class="math inline">{0 = 2\|x^*\|^2 + 2x^*\cdot x = 2x^*\cdot(x^* -
+x)}</span>. Since <span class="math inline">{0 &lt; \|x^* - x\|^2 = (x^*
+- x)\cdot(x^* - x) = -x\cdot(x^* - x)}</span> we have <span
+class="math inline">{\gamma\cdot x &lt; 0}</span>.</p>
+<p>If <span class="math inline">y</span> is in the cone then <span
+class="math inline">ty + x^*</span> is in the cone for <span
+class="math inline">t \ge 0</span> so <span class="math inline">{\|x^* -
+x\|^2 \le \|ty + x^* - x\|^2}</span> and <span class="math inline">{0\le
+t^2\|y\|^2 + 2ty\cdot(x^* - x)}</span>. Dividng by <span
+class="math inline">t &gt; 0</span> and letting it go to 0 shows <span
+class="math inline">{0\le y\cdot(x^* - x)}</span>.</p>
+<p>Something is amiss with the one-period model. If the end of the
+period is the end of trading then prices must be zero since no future
+trading is possible. It also makes the assumption all shares are
+liquidated at the end of the period. The final “prices” are actually
+cash flows associated with holding the instruments and are paid in
+proportion to the initial position. The multi-period model clarifies
+this.</p>
+</section>
+<section id="multi-period-model" class="level2">
+<h2>Multi-Period Model</h2>
+<p>Let <span class="math inline">T</span> be a finite totally ordered
+set of <em>trading times</em>, <span class="math inline">I</span> the
+finite set of market <em>instruments</em>, <span
+class="math inline">\Omega</span> the set of possible <em>outcomes</em>,
+and <span class="math inline">(\mathcal{A}_t)_{t\in T}</span> be the
+<em>partitions</em><a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> of <span
 class="math inline">\Omega</span> indicating the information available
 at time <span class="math inline">t\in T</span>.</p>
-<p><span
-class="math inline">X_t\colon\mathcal{A}_t\to\boldsymbol{R}^I</span> —
-bounded <em>prices</em><a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a> at times <span
-class="math inline">t\in T</span> of market instruments.</p>
-<p><span
-class="math inline">C_t\colon\mathcal{A}_t\to\boldsymbol{R}^I</span> —
-bounded <em>cash flows</em> at times <span class="math inline">t\in
-T</span> of market instruments.</p>
-<p>E.g., coupons, dividends, and futures margin adjustments are cash
-flows. Futures have price 0.</p>
-<p><span class="math inline">(\tau_j, \Gamma_j)</span> — <em>trading
-strategy</em> of strictly increasing stopping times <span
-class="math inline">\tau_j</span> and shares <span
+<section id="market" class="level3">
+<h3>Market</h3>
+<p>For each <span class="math inline">t\in T</span> let <span
+class="math inline">X_t\colon\mathcal{A}_t\to\boldsymbol{R}^I</span> be
+the <em>prices</em><a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> of market instruments and <span
+class="math inline">C_t\colon\mathcal{A}_t\to\boldsymbol{R}^I</span> the
+<em>cash flows</em> of market instruments. E.g., coupons, dividends, and
+futures margin adjustments are cash flows. Futures have price 0. We
+assume at each time <span class="math inline">t\in T</span> that prices
+and cash flows are bounded.</p>
+</section>
+<section id="trading" class="level3">
+<h3>Trading</h3>
+<p>A <em>trading strategy</em> <span class="math inline">(\tau_j,
+\Gamma_j)</span> is a finite number of strictly increasing stopping
+times <span class="math inline">\tau_j</span> and shares to purchase in
+each instrument <span
 class="math inline">\Gamma_j\colon\mathcal{A}_{\tau_j}\to\boldsymbol{R}^I</span>
-purchased at <span class="math inline">\tau_j</span>.</p>
-<p>The <em>position</em> resulting from a trading strategy is <span
+at <span class="math inline">\tau_j</span>.</p>
+<p>Trades accumulate to a <em>position</em> <span
 class="math inline">\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j = \sum_{s
 &lt; t} \Gamma_s</span> where <span class="math inline">{\Gamma_s =
-\Gamma_j 1(\tau_j = s)}</span>. Note the strict inequality. It takes
-time for a trade to settle and become a part of the position.</p>
-<p><span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>
-— the <em>value</em>, or <em>mark-to-market</em>, of the strategy.</p>
-<p><span class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
-X_t</span> — the <em>amount</em> showing up in the trading account.</p>
+\Gamma_j 1_{\{\tau_j = s\}}}</span>. Note the strict inequality. It
+takes time for a trade to settle and become a part of the position.</p>
+</section>
+<section id="accounting" class="level3">
+<h3>Accounting</h3>
+<p>The <em>value</em>, or <em>mark-to-market</em>, of a trading strategy
+is <span class="math inline">{V_t = (\Delta_t + \Gamma_t)\cdot
+X_t}</span> and represents how much liquidating the current position and
+trades yet to settle at current market prices would yield. Trading
+strategies incur cash flow <em>amounts</em> in the trading account of
+<span class="math inline">{A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
+X_t}</span>: you receive cash flows proportional to existing positions
+and pay the current market price for trades just executed.</p>
+<p>The one-period model corresponds to a trading strategy <span
+class="math inline">(t_0, \Gamma_0)</span>, <span
+class="math inline">(t_1, -\Gamma_0)</span>. At <span
+class="math inline">t_0</span> the trading account is charged <span
+class="math inline">A_{t_0} = -\Gamma_0\cdot X_{t_0}</span> and has
+value <span class="math inline">V_{t_0} = \Gamma_0\cdot X_{t_0}</span>.
+This makes the unrealistic assumption it is possible to instantly buy
+and sell with no transaction costs. If there are no intermediate cash
+flows and then <span class="math inline">A_t = 0</span> for <span
+class="math inline">t_0 &lt; t &lt; t_1</span>. Unwinding at <span
+class="math inline">t_1</span> results in <span
+class="math inline">{A_{t_1} = \Gamma_0 C_{t_1} + \Gamma_0\cdot
+X_{t_1}}</span>. You get the cash flow at <span
+class="math inline">t_1</span> proportional to the position put on at
+<span class="math inline">t_0</span> and close the position <span
+class="math inline">\Gamma_0</span> at the current price.</p>
+</section>
+</section>
+<section id="simple-unified-model" class="level2">
+<h2>Simple Unified Model</h2>
 <p>Arbitrage exists if there is a trading strategy with <span
 class="math inline">A_{\tau_0} &gt; 0</span>, <span
 class="math inline">A_t \ge0</span>, <span class="math inline">t &gt;
 \tau_0</span>, and <span class="math inline">\sum_j \Gamma_j = 0</span>.
 You make money on the first trade and never lose money until the
 position is closed.</p>
-<p><strong>Theorem</strong> (Fundamental Theorem of Asset Pricing)
-<em>There is no arbitrage if there exist <em>deflators</em>, positive
-finitely additive measures<a href="#fn3" class="footnote-ref"
-id="fnref3" role="doc-noteref"><sup>3</sup></a> <span
-class="math inline">D_t</span> on <span
+<p>Define <span class="math inline">A\colon \oplus_t B(\mathcal{A}_t,
+\boldsymbol{R}^I)\to \oplus_t B(\mathcal{A}_t)</span> by <span
+class="math inline">{A(\oplus_t \Delta_t) = \oplus_t (\Delta_t\cdot C_t
+- \Gamma_t\cdot X_t)}</span>.</p>
+<p>The <em>Fundamental Theorem of Asset Pricing</em> states there is no
+arbitrage if there exist <em>deflators</em>, positive finitely additive
+measures <span class="math inline">D_t</span> on <span
 class="math inline">\mathcal{A}_t</span>, <span class="math inline">t\in
-T</span>, with</em> <span class="math display">
+T</span>, with <span class="math display">
 \tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
 D_s)|_{\mathcal{A}_t}, t\le u.
-</span></p>
+</span> Deflators are the (not generally unique) valuation operator Ross
+identified. We will see later that if repurchase agreements are
+available in the market there is a canonical deflator that corresponds
+to the stochastic discount. A <em>money market account</em> corresponds
+to reinvesting at the repo rate. Its reciprocal is the <em>stochastic
+discount</em>.</p>
 <p><strong>Claim</strong>. <em>If <span class="math inline">M_t =
 M_u|_{\mathcal{A}_t}</span>, <span class="math inline">t\le u</span>, is
-a <span class="math inline">\boldsymbol{R}^I</span>-valued</em>
-martingale measure <em>and <span class="math inline">D_t\in
-ba(A_t)</span> are positive measures then <span class="math inline">{X_t
-D_t = M_t - \sum_{s\le t} C_s D_s}</span> is arbitrage-free</em>.</p>
-<p><em>Proof</em>: Substitute <span class="math inline">X_u D_u</span>
+a <span class="math inline">\boldsymbol{R}^I</span>-valued martingale
+measure and <span class="math inline">D_t\in ba(A_t)</span> are positive
+measures then <span class="math inline">{X_t D_t = M_t - \sum_{s\le t}
+C_s D_s}</span> is arbitrage-free</em>.</p>
+<p><em>Proof</em>. Substitute <span class="math inline">X_u D_u</span>
 by this formula in <span class="math inline">(1)</span> and cancel terms
 in the sums.</p>
-<p><strong>Example</strong>. (Black-Scholes/Merton) <span
-class="math inline">M_t = (r, se^{\sigma B_t - \sigma^2t/2})P</span>,
-<span class="math inline">C_t = (0,0)</span>, <span
-class="math inline">D_t = e^{-\rho t}P</span> where <span
-class="math inline">(B_t)</span> is standard Brownian motion and <span
-class="math inline">P</span> is Wiener measure.</p>
-<p><strong>Lemma</strong>. <em>With the above notation</em> <span
-class="math display">
+<p>Every arbitrage-free model is a special case of this.</p>
+<p><strong>Lemma</strong>. <em>Assuming <span
+class="math inline">(1)</span> and the definitions of value and
+amount</em> <span class="math display">
 \tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
 D_s)|_{\mathcal{A}_t}, t\le u.
 </span></p>
-<p><em>Proof</em>: Substitute <span class="math inline">V_t</span> by
+<p><em>Proof</em>. Substitute <span class="math inline">V_t</span> by
 its definition on the left side of <span class="math inline">(2)</span>
 and use <span class="math inline">X_t D_t</span> from <span
 class="math inline">(1)</span>. Note <span class="math inline">\Delta_t
@@ -220,10 +398,15 @@ class="math inline">(1)</span>. Note <span class="math inline">\Delta_t
 class="math inline">\epsilon &gt; 0</span> sufficiently small. In this
 case <span class="math inline">V_t D_t = (V_u D_u + A_u
 D_u)|_{\mathcal{A}_t}</span> for <span class="math inline">u =
-{t+\epsilon}</span>. Since the stopping times are strictly increasing,
-induction can be applied.</p>
+{t+\epsilon}</span>. The result follows from induction.
+<strong>Example</strong>. (Black-Scholes/Merton) <span
+class="math inline">M_t = (r, se^{\sigma B_t - \sigma^2t/2})P</span>,
+<span class="math inline">C_t = (0,0)</span>, <span
+class="math inline">D_t = e^{-\rho t}P</span> where <span
+class="math inline">(B_t)</span> is standard Brownian motion and <span
+class="math inline">P</span> is Wiener measure.</p>
 <p><strong>Trading strategies create synthetic instruments where price
-corresponds to value and cash flow corresponds to account.</strong></p>
+corresponds to value and cash flow corresponds to amount.</strong></p>
 <p>A (cash settled) derivative contract is specified by stopping times
 <span class="math inline">{\hat{\tau}_j}</span> and cash flows <span
 class="math inline">\hat{A}_j</span>. If there exists a trading strategy
@@ -232,9 +415,9 @@ class="math inline">{\sum_j \Gamma_j = 0}</span>, <span
 class="math inline">{A_{\hat{\tau}_j} = \hat{A}_j}</span> and <span
 class="math inline">{A_t = 0}</span> (self-financing) otherwise, then a
 perfect hedge exists<a href="#fn4" class="footnote-ref" id="fnref4"
-role="doc-noteref"><sup>4</sup></a>. The value of the derivative is
-determined by <span class="math display">
-    V_t D_t = (\sum_{\hat{\tau}_j &gt; t} \hat{A}_j
+role="doc-noteref"><sup>4</sup></a>. The value of the derivative
+instrument is determined by <span class="math display">
+\tag{3} V_t D_t = (\sum_{\hat{\tau}_j &gt; t} \hat{A}_j
 D_{\hat{\tau}_j})|_{\mathcal{A}_t}.
 </span> Note the right hand side is determined by the contract
 specifications and deflator. Assuming <span class="math inline">\tau_0 =
@@ -245,13 +428,157 @@ respect to <span class="math inline">X_0</span>. Since <span
 class="math inline">V_t = (\Gamma_t + \Delta_t)\cdot X_t</span> we have
 <span class="math inline">\Gamma_t = D_{X_t}V_t - \Delta_t</span>. Note
 <span class="math inline">\Delta_t</span> is settled prior to time <span
-class="math inline">t</span>. This does not specify subsequent trading
-times <span class="math inline">\tau_j &gt; 0</span><a href="#fn5"
-class="footnote-ref" id="fnref5"
-role="doc-noteref"><sup>5</sup></a>.</p>
+class="math inline">t</span>. This does not specify trading times <span
+class="math inline">\tau_j &gt; 0</span>.</p>
+<p>The Black-Sholes/Merton model make the unrealistic assumption that
+continuous time trading is possible. The SUM models what traders
+actually do, but does not provide an answer to the question they all
+have, “When and how much should I trade?” This model only provides a
+rigorous framework for additional work on this fundamental question.</p>
 </section>
 <section id="examples" class="level2">
 <h2>Examples</h2>
+<section id="zero-coupon-bond" class="level3">
+<h3>Zero Coupon Bond</h3>
+<p>A <em>zero coupon bond</em> maturing at time <span
+class="math inline">u</span> has a single unit cash flow at <span
+class="math inline">u</span>, <span class="math inline">C_u^{D(u)} =
+1</span> and <span class="math inline">C_t^{D(u)} = 0</span> for <span
+class="math inline">t\not=u</span>. In an arbitrage free model its price
+at time <span class="math inline">t\le u</span>, <span
+class="math inline">X_t^{D(u)} = D_t(u)</span>, satisfies <span
+class="math inline">D_t(u) D_t = D_u|_{\mathcal{A}_t}</span> so <span
+class="math inline">D_t(u)</span> is the Radon-Nikodym derivative of
+<span class="math inline">D_u|_{\mathcal{A}_t}</span> with respect to
+<span class="math inline">D_t</span>. If we assume <span
+class="math inline">\mathcal{A}_0</span> is <span
+class="math inline">\{\Omega\}</span> and <span
+class="math inline">D_0(\Omega) = 1</span>, then <span
+class="math inline">D_0(u) = D(u) = D_u(\Omega)</span>.</p>
+<p>Zero coupon bond prices are determined by the deflators. These
+determine the value of any fixed income instrument. If the instrument
+pays <span class="math inline">(c_j)</span> at time <span
+class="math inline">(u_j)</span> then its value at time <span
+class="math inline">t</span> is <span class="math display">
+    V_t = \sum_{u_j&gt;t} c_j D_t(u_j)
+</span></p>
+</section>
+<section id="forward" class="level3">
+<h3>Forward</h3>
+<p>A <em>forward contract</em> on an underlying with price <span
+class="math inline">S_t</span> at <span class="math inline">t\in
+T</span> is specified by a forward <span
+class="math inline">f\in\boldsymbol{R}</span> and an expiration <span
+class="math inline">u\in T</span>. It has a single cash flow <span
+class="math inline">S_u - f</span> at <span
+class="math inline">u</span>. Its value at time <span
+class="math inline">t &lt; u</span> satisfies <span
+class="math inline">V_t D_t = ((S_u - f)D_u)|_{\mathcal{A}_t}</span>. If
+the underlying has no cash flows then <span class="math inline">S_t
+D_t</span> is a martingale measure so <span class="math inline">V_t =
+S_t - fD_t(u)</span>. If <span class="math inline">V_0 = 0</span> then
+<span class="math inline">f</span> is the <em>at the money</em> forward
+and the <em>cost of carry</em> is <span class="math inline">S_0 =
+fD(u)</span>.</p>
+</section>
+<section id="european-option" class="level3">
+<h3>European Option</h3>
+<p>A European option expiring at time <span class="math inline">u\in
+T</span> has a single cash flow <span
+class="math inline">\nu(S_u)</span> at <span
+class="math inline">u</span> where <span class="math inline">\nu</span>
+is the <em>payoff</em> function. The value of the option at time <span
+class="math inline">t\in T</span> satisfies <span
+class="math inline">{V_t D_t = (\nu(S_u) D_u)|_{\mathcal{A}_t}}</span>,
+<span class="math inline">t\le u</span>. Since <span
+class="math inline">D_u(\Omega)/D(u) = 1</span> we can have <span
+class="math inline">V_0 = E[\nu(S_u)]D(u)</span> under this
+“probability” measure.</p>
+<p>Any positive random variable <span class="math inline">F</span> with
+finite mean and log variance can be written <span class="math inline">F
+= fe^{sX - \kappa(s)}</span> where <span class="math inline">X</span>
+has mean 0 and variance 1 and <span class="math inline">\kappa(s) = \log
+E[e^{sX}]</span> is the cumulant. Note <span class="math inline">E[F] =
+f</span>.</p>
+<p>If an option pays shares of the underlying instead of cash we need to
+calculate <span class="math inline">E[F\nu(F)] = fE[e^{sX -
+\kappa(s)}\nu(F)] = fE^s[\nu(F)]</span> where <span
+class="math inline">E^s</span> is the <em>share measure</em> with <span
+class="math inline">dP^*/dP = e^{sX - \kappa(s)}</span>. Since <span
+class="math inline">E[e^{sX - \kappa(s)}] = 1</span> we have the share
+measure <span class="math inline">P^s</span> is a “probability”
+measure.</p>
+<section id="put" class="level4">
+<h4>Put</h4>
+<p>The (forward) value of a put option with strike <span
+class="math inline">k</span> and underlying <span
+class="math inline">F</span> at expiration is <span
+class="math display">
+\begin{aligned}
+p &amp;= E[\max\{k - F, 0\}] \\
+  &amp;= E[(k - F)1(F \le k)] \\
+  &amp;= kP(F\le k) - E[F1(F \le k)] \\
+  &amp;= kP(F\le k) - fP^s(F \le k) \\
+\end{aligned}
+</span> Note <span class="math inline">F\le k</span> if and only if
+<span class="math inline">X \le (\log k/f + \kappa(s))/s</span>. We call
+<span class="math inline">x(f,k,s) = (\log k/f + \kappa(s))/s</span> the
+<em>moneyness</em> of the option. Let <span
+class="math inline">\Psi^s</span> be the cumulative distribution
+function of <span class="math inline">X</span> under the share measure.
+Note <span class="math inline">\Psi^0 = \Psi</span> is the cumulative
+distribution function of <span class="math inline">X</span>. The put
+value is <span class="math display">
+    p = k\Psi(x) - f\Psi^s(x)
+</span> where <span class="math inline">x = x(f,k,s)</span>. If <span
+class="math inline">X</span> is standard normal then <span
+class="math inline">\kappa(s) = s^2/2</span> and this reduces to the
+Black<span class="citation" data-cites="Bla1976">(Black 1976)</span>
+formula.</p>
+<p><em>Delta</em> is the derivative of option value with respect to
+<span class="math inline">f</span> <span class="math display">
+\begin{aligned}
+\partial_f p &amp;= \partial_f E[\max\{k - F, 0\}] \\
+  &amp;= E[-1(F \le k)\partial_f F] \\
+  &amp;= E[-1(F \le k)e^{sX - \kappa(s)}] \\
+  &amp;= -P^s(F \le k) \\
+  &amp;= -\Psi^s(x) \\
+\end{aligned}
+</span></p>
+<p><em>Gamma</em> is the second derivative of option value with respect
+to <span class="math inline">f</span> <span class="math display">
+\begin{aligned}
+    \partial_f^2 p &amp;= -\partial_f \Psi^s(x) \\
+    &amp;= -\partial_x \Psi^s(x)\partial_f x \\
+    &amp;= -\partial_x \Psi^s(x)/\partial_x f \\
+    &amp;= \partial_x \Psi^s(x)/f s\\
+\end{aligned}
+</span></p>
+<p><em>Vega</em> is the derivative of option value with respect to <span
+class="math inline">s</span>. The vega of a put option is <span
+class="math display">
+\begin{aligned}
+    \partial_s v &amp;= \partial_s E[\max\{k - F, 0\}] \\
+        &amp;= E[-1(F \le k)\partial_s F] \\
+        &amp;= -E[1(X\le x)F(X - \kappa&#39;(s))] \\
+        &amp;= -f\partial_s \Psi^s(x) \\
+\end{aligned}
+</span> The last equality follows from <span
+class="math inline">\partial_s E^s[1(X\le x)] = E[1(X \le x)e^{sX -
+\kappa(s)}(X - \kappa&#39;(s))]</span>.</p>
+<p>This shows put option value and greeks can be computed from the share
+cumulative distribution <span class="math inline">\Psi^s(x)</span> and
+its derivatives with respect to <span class="math inline">x</span> and
+<span class="math inline">s</span>. This is the case if <span
+class="math inline">\Psi</span> is a <a
+href="https://en.wikipedia.org/wiki/Generalized_hypergeometric_function">generalized
+hypergeometic function</a>. For example, <span class="math display">
+\Phi^s(x) = \frac{1}{2} + \frac{x-s}{\sqrt{2\pi}} \,
+_1F_1\left(\frac{1}{2}, \frac{3}{2}, -\frac{(x-s)^2}{2}\right)
+</span> where <span class="math inline">\Phi</span> is the standard
+normal cumulative distribution.</p>
+</section>
+</section>
 <section id="canonical-deflator" class="level3">
 <h3>Canonical Deflator</h3>
 <p>If repurchase agreements are available then a <em>canonical
@@ -273,31 +600,18 @@ deflator at time <span class="math inline">t_n</span>.</p>
 <p>The continuous time analog is <span class="math inline">D_t =
 \exp(-\int_0^t f(s)\,ds)D_0</span> where <span
 class="math inline">f</span> is the continuously compounded
-instantaneous forward rate.</p>
-</section>
-<section id="zero-coupon-bond" class="level3">
-<h3>Zero Coupon Bond</h3>
-<p>A <em>zero coupon bond</em> maturing at time <span
-class="math inline">u</span> has a single unit cash flow at <span
-class="math inline">u</span>, <span class="math inline">C_u^{D(u)} =
-1</span> and <span class="math inline">C_t^{D(u)} = 0</span> for <span
-class="math inline">t\not=u</span>. In an arbitrage free model its price
-at time <span class="math inline">t\le u</span>, <span
-class="math inline">X_t^{D(u)} = D_t(u)</span>, satisfies <span
-class="math inline">D_t(u) D_t = D_u|_{\mathcal{A}_t}</span> so <span
-class="math inline">D_t(u)</span> is the Radon-Nikodym derivative of
-<span class="math inline">D_u|_{\mathcal{A}_t}</span> with respect to
-<span class="math inline">D_t</span>. Zero coupon bond prices are
-determined by the deflators.</p>
+instantaneous forward rate. This is commonly referred to as the
+<em>stochastic discount</em>.</p>
 </section>
 <section id="risky-bond" class="level3">
 <h3>Risky Bond</h3>
 <p>Suppose a bond defaults at a random time <span
-class="math inline">\tau</span> and constant fraction <span
-class="math inline">R</span> is recovered at default. We augment the
-sample space to <span class="math inline">\Omega\times T</span> where
-the element <span class="math inline">(\omega, t)</span> indicates
-default at <span class="math inline">t</span>. Information about default
+class="math inline">\tau</span> and fraction <span
+class="math inline">\rho</span> is recovered at default. We augment the
+sample space to <span class="math inline">\Omega\times T\times
+[0,1]</span> where the element <span class="math inline">(\omega, t,
+r)</span> indicates default at <span class="math inline">t</span> with
+recovery <span class="math inline">r</span>. Information about default
 at time <span class="math inline">t</span> is represented by the
 partition of <span class="math inline">T</span> consisting of
 singletons, <span class="math inline">\{s\}</span>, <span
@@ -305,8 +619,9 @@ class="math inline">{s &lt; t}</span>, and the set <span
 class="math inline">\{u\ge t\}</span>. If default occurs before <span
 class="math inline">t</span> then we know <span
 class="math inline">\tau</span> exactly, otherwise we only know <span
-class="math inline">\tau \ge t</span>. The value of a risky zero coupon
-at time <span class="math inline">t</span> is determined by <span
+class="math inline">\tau \ge t</span>. It is customary to assume <span
+class="math inline">\rho</span> is a constant. The value of a risky zero
+coupon at time <span class="math inline">t</span> is determined by <span
 class="math display">
     D^{\tau,R}_t(u)D_t = (RD_\tau 1(t \le \tau \le u) + D_u 1(\tau &gt;
 u))|_{\mathcal{A}_t}, t &gt; \tau.
@@ -318,28 +633,7 @@ $$
     D^{\tau,R}_t(u)D_t = D_t(u) \bigl(RP(t < \tau \le u) + P(\tau > u)\bigr)
 $$
 when $t > \tau$.
---></p>
-</section>
-<section id="forward" class="level3">
-<h3>Forward</h3>
-<p>A <em>forward contract</em> on an underlying with price <span
-class="math inline">S_t</span> at <span class="math inline">t\in
-T</span> is specified by a forward <span
-class="math inline">f\in\boldsymbol{R}</span> and an expiration <span
-class="math inline">u\in T</span>. It has a single cash flow <span
-class="math inline">S_u - f</span> at <span
-class="math inline">u</span>. Its value at time <span
-class="math inline">t &lt; u</span> satisfies <span
-class="math inline">V_t D_t = ((S_u - f)D_u)|_{\mathcal{A}_t}</span>. If
-the underlying has no cash flows then <span class="math inline">S_t
-D_t</span> is a martingale measure so <span class="math inline">V_t =
-S_t - fD_t(u)</span>. If <span class="math inline">V_0 = 0</span> then
-<span class="math inline">f</span> is the <em>at the money</em> forward
-and the <em>cost of carry</em> is <span class="math inline">S_0 =
-fD_0(u)</span>.</p>
-</section>
-<section id="futures" class="level3">
-<h3>Futures</h3>
+--> ### Futures</p>
 <p>A <em>futures contract</em> on an underlying with price <span
 class="math inline">S_t</span>, <span class="math inline">t\in T</span>,
 is specified by <em>quote times</em> <span class="math inline">t_0 &lt;
@@ -353,19 +647,136 @@ where the quote <span class="math inline">\Phi_t</span> is determined by
 the market prior to expiration.</p>
 <p>In an arbitrage-free model <span class="math inline">0D_{t_j} =
 ((\Phi_{t_{j+1}} - \Phi_{t_j})D_{t_{j+1}})|_{\mathcal{A}_{t_j}}</span>.
-Under a canonical deflator futures quotes are a martingale.</p>
+Under the canonical deflator futures quotes are a martingale.</p>
 </section>
 <section id="limit-orders" class="level3">
 <h3>Limit Orders</h3>
-<p>A <em>limit order</em> is specified by a level. It has price 0 and at
-most one cash flow equal to the level at the first time the underlying
-crosses the level.</p>
+<p>A <em>limit order</em> is specified by a level. When the underlying
+reaches the level the holder receives one share of stock by paying the
+level.</p>
 </section>
+</section>
+<section id="fundamental-theorem-of-asset-pricing" class="level2">
+<h2>Fundamental Theorem of Asset Pricing</h2>
+<p>In this section we prove the FTAP for multi-period models. We start
+with a proof for the one-period model that can be generalized.</p>
+<p>For the one-period model consider the amount operator <span
+class="math inline">{A\colon\boldsymbol{R}^I\to\boldsymbol{R}\oplus_\infty
+B(\Omega)}</span> defined by <span class="math inline">{A\gamma =
+-\gamma\cdot x \oplus_\infty \gamma\cdot X}</span>. The norm on the
+range is <span class="math inline">\|p\oplus_\infty P\|_\infty =
+\max\{|p|,\|P\|\}</span> for <span
+class="math inline">p\in\boldsymbol{R}</span>, <span
+class="math inline">P\in B(\Omega)</span>. The first component is the
+amount made purchasing <span class="math inline">\gamma</span> shares
+and the second is the amount made when closing the postion at current
+market prices. Arbitrage exists if there is a <span
+class="math inline">\gamma\in\boldsymbol{R}^I</span> with <span
+class="math inline">A\gamma</span> in the cone <span
+class="math inline">{\mathcal{P}= \{p\oplus P\mid p &gt; 0,
+P\ge0\}\subseteq \boldsymbol{R}\oplus_\infty B(\Omega)}</span></p>
+<p>The adjoint <span class="math inline">A^*\colon\boldsymbol{R}\oplus_1
+ba(\Omega)\to\boldsymbol{R}^I</span> is <span
+class="math inline">A^*(\pi\oplus_1 \Pi) = -x\pi + \langle
+X,\Pi\rangle</span> where we identify <span
+class="math inline">(\boldsymbol{R}^I)^*</span> with <span
+class="math inline">\boldsymbol{R}^I</span> by <span
+class="math inline">x\in\boldsymbol{R}^I</span> corresponds to <span
+class="math inline">x^*\in(\boldsymbol{R}^I)^*</span> using <span
+class="math inline">\langle y, x^*\rangle = y\cdot x</span>, <span
+class="math inline">y\in\boldsymbol{R}^I</span>. The norm on the domain
+is <span class="math inline">\|\pi\oplus_1 P\|_1 = |\pi| +
+\|\Pi\|</span>. The calculation <span class="math display">
+\begin{aligned}
+\langle \gamma, A^*(\pi\oplus_1 \Pi) \rangle
+&amp;= \langle A\gamma, \pi\oplus_1 \Pi \rangle \\
+&amp;= \langle -\gamma\cdot x\oplus_\infty \gamma\cdot X, \pi\oplus_1
+\Pi \rangle \\
+&amp;= \langle -\gamma\cdot x, \pi\rangle + \langle \gamma\cdot X, \Pi
+\rangle \\
+&amp;= \langle \gamma, -x\pi + \langle X,\Pi\rangle \rangle \\
+\end{aligned}
+</span> shows <span class="math inline">A^*(\pi\oplus_1 \Pi) = -x\pi +
+\langle X,\Pi\rangle\in\boldsymbol{R}^I</span>.</p>
+<p>The range of <span class="math inline">A</span> is closed since it is
+finite dimensional and <span class="math inline">\mathcal{P}</span> has
+an interior point so by the Hahn-Banach theorem there exists a
+hyperplane <span
+class="math inline">H\supseteq\operatorname{ran}A</span> that does not
+meet <span class="math inline">\mathcal{P}</span>. Every hyperplane is
+the preanhiliator of an element of the dual, say <span
+class="math inline">d\oplus_1 D\in\boldsymbol{R}\oplus
+ba(\Omega)</span>, so <span class="math inline">{H = {}^\perp\{d\oplus_1
+D\} = \{p\oplus_\infty P\mid \langle p\oplus_\infty P, d\oplus_1
+D\rangle = 0\}}</span>. Since <span
+class="math inline">\operatorname{ran}A =
+{}^\perp(\operatorname{ker}A^*)\subseteq H</span> we have <span
+class="math inline">d\oplus_1 D\in\operatorname{ker}A^*</span> so <span
+class="math inline">0 = -xd + \langle X,D\rangle</span>. We now show
+<span class="math inline">d</span> and <span
+class="math inline">D</span> are positive.</p>
+<p>If there exist <span class="math inline">p_+\oplus_\infty
+P_+\in\mathcal{P}</span> and <span class="math inline">p_-\oplus_\infty
+P_-\in\mathcal{P}</span> with <span class="math inline">{\langle
+p_+\oplus_\infty P_+,d\oplus_1 D\rangle &gt; 0}</span> and <span
+class="math inline">{\langle p_-\oplus_\infty P_-,d\oplus_1 D\rangle
+&lt; 0}</span> then there is a convex combination in <span
+class="math inline">H</span>, which contradicts the fact <span
+class="math inline">H</span> does not meet the cone <span
+class="math inline">\mathcal{P}</span>. This shows we can assume <span
+class="math inline">{\langle p\oplus_\infty P, d\oplus_1 D\rangle &gt;
+0}</span> for all <span class="math inline">{p\oplus_\infty
+P\in\mathcal{P}}</span>. It follows that <span class="math inline">d
+&gt; 0</span> and <span class="math inline">D &gt; 0</span>.</p>
+<p>This shows there is no arbitrage if and only if <span
+class="math inline">{xd = \langle X,D\rangle}</span> for some positive
+<span class="math inline">{d\in\boldsymbol{R}}</span> and <span
+class="math inline">{D\in ba(\Omega)}</span>.</p>
+<p>For the multi-period model we assume the time between trades is at
+least a <a href="https://www.bipm.org/en/cgpm-2022/resolution-3">quato
+second</a> and trading stops before the heat death of the universe so
+there are a finite number of trading times <span class="math inline">t_0
+&lt; \cdots &lt; t_n</span>. Define the amount operator <span
+class="math display">
+{A\colon\oplus_{j=1}^n B(\mathcal{A}_j,
+\boldsymbol{R}^I)\to\oplus_{j=0}^n B(\mathcal{A}_j)}
+</span> by <span class="math inline">A(\oplus_j \Delta_j) = \oplus_j
+\Delta_j\cdot C_j - \Gamma_j\cdot X_j</span>, where <span
+class="math inline">{\Delta_j = \sum_{i &lt; j} \Gamma_j}</span> so
+<span class="math inline">\Delta_0 = 0</span> and <span
+class="math inline">{\Gamma_j = \Delta_{j+1} - \Delta_j}</span>, <span
+class="math inline">0\le j &lt; n</span>.</p>
+<p>We now compute the adjoint <span
+class="math inline">A^*\colon\oplus_j ba(\mathcal{A}_j)\to\oplus_j
+ba(\mathcal{A}_j, \boldsymbol{R}^I)</span> <span class="math display">
+\begin{aligned}
+\langle \oplus_j \Delta_j, A^*(\oplus_j D_j))\rangle &amp;=
+\langle A(\oplus \Delta_j), \oplus_j D_j)\rangle \\
+&amp;= \sum_{j=0}^n \langle \Delta_j\cdot C_j - \Gamma_j\cdot X_j,
+D_j\rangle \\
+&amp;= \sum_{j=0}^n \langle \Delta_j\cdot C_j - (\Delta_{j+1} -
+\Delta_j)\cdot X_j, D_j\rangle \\
+&amp;= \sum_{j=0}^n \langle \Delta_j\cdot C_j + \Delta_j\cdot X_j,
+D_j\rangle
+-  \sum_j \langle \Delta_j\cdot X_{j-1}, D_{j-1}\rangle \\
+&amp;= \sum_{j=0}^n \langle \Delta_j, C_j D_j + X_j D_j - X_{j-1}
+D_{j-1} \rangle \\
+&amp;= \langle\oplus_j \Delta_j,\oplus_j C_j D_j + X_j D_j - X_{j-1}
+D_{j-1} \rangle \\
+\end{aligned}
+</span> This shows <span class="math inline">A^*(\oplus_j D_j) =
+\oplus_j \oplus_j C_j D_j + X_j D_j - X_{j-1} D_{j-1}</span>.</p>
+<!--
+-->
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
+<div id="ref-Bla1976" class="csl-entry" role="listitem">
+Black, Fischer. 1976. <span>“The Pricing of Commodity Contracts.”</span>
+<em>Journal of Financial Economics</em> 3 (1-2): 167–79.
+</div>
 <div id="ref-BlaSch1973" class="csl-entry" role="listitem">
 Black, Fischer, and Myron Scholes. 1973. <span>“The Pricing of Options
 and Corporate Liabilities.”</span> <em>Journal of Political Economy</em>
@@ -391,43 +802,29 @@ href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277
 </div>
 </div>
 </section>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>A partition of <span class="math inline">\Omega</span>
-is a collection of pairwise disjoint sets with union <span
-class="math inline">\Omega</span>. If <span
-class="math inline">\mathcal{A}</span> is a finite algebra of sets on
-<span class="math inline">\Omega</span> then the atoms of <span
-class="math inline">\mathcal{A}</span> form a partition of <span
-class="math inline">\Omega</span>. Partial information is knowing which
-atom <span class="math inline">\omega\in\Omega</span> belongs to. A
-function <span class="math inline">X\colon\Omega\to\boldsymbol{R}</span>
-is <span class="math inline">\mathcal{A}</span>-measurable if and only
-if it is constant on atoms so <span class="math inline">X</span>
-<em>is</em> a function on the atoms of <span
-class="math inline">\mathcal{A}</span>.<a href="#fnref1"
+<li id="fn1"><p>This definition is not satisfactory to traders and risk
+managers. They will compare the profit <span
+class="math inline">\gamma\cdot x</span> to <span
+class="math inline">|\gamma|\cdot|x|</span>, the total amount of money
+involved in establishing the trade. They would probably not be willing
+to tie up a million dollars to make a one dollar profit.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This definition is not satisfactory to traders and risk
+managers. They will compare the profit <span
+class="math inline">\gamma\cdot x</span> to <span
+class="math inline">|\gamma|\cdot|x|</span>, the total amount of money
+involved in establishing the trade. They would probably not be willing
+to tie up a million dollars to make a one dollar profit.<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Perfect hedges never exist.<a href="#fnref3"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Prices <em>are</em> bounded. There is a finite amount of
-money in the world. Likewise for the number of shares it is possible to
-trade.<a href="#fnref2" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>The dual of bounded functions <span
-class="math inline">B(\Omega)^* \cong ba(\Omega)</span> is the space of
-finitely additive measures on <span class="math inline">\Omega</span>.
-<span class="math inline">L\in B(\Omega)^*</span> corresponds to the
-measure <span class="math inline">\lambda(E) = L1_E</span>. If <span
-class="math inline">P</span> is a positive measure with mass 1 then
-<span class="math inline">Y = E[X|\mathcal{A}]</span> if and only if
-<span class="math inline">Y(P|_\mathcal{A}) =
-(XP)|_\mathcal{A}</span>.<a href="#fnref3" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>A perfect hedge never exists.<a href="#fnref4"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Continuous time trading is impossible.<a href="#fnref5"
+<li id="fn4"><p>Perfect hedges never exist.<a href="#fnref4"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
 </body>
 </html>

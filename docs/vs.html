@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-03-12" />
+  <meta name="dcterms.date" content="2025-04-04" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">March 12, 2025</p>
+<p class="date">April 4, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -73,6 +73,8 @@ Operator</a>
 <li><a href="#matrix" id="toc-matrix">Matrix</a></li>
 <li><a href="#dual" id="toc-dual">Dual</a></li>
 </ul></li>
+<li><a href="#characteristic-polynomial"
+id="toc-characteristic-polynomial">Characteristic Polynomial</a></li>
 </ul>
 </nav>
 <!--
@@ -431,8 +433,8 @@ class="math inline">{e_i = (0,\ldots,1,\ldots,0)}</span> with all
 elements <span class="math inline">0</span> except for a <span
 class="math inline">1</span> in the <span
 class="math inline">i</span>-th position. It is plausible that <span
-class="math inline">{x = (x_1,\ldots,x_n)
-= x_1 e_1 + \cdots + x_n e_n}</span> for <span
+class="math inline">{x = (x_1,\ldots,x_n) = x_1 e_1 + \cdots + x_n
+e_n}</span> for <span
 class="math inline">{x\in\boldsymbol{{{R}}}^n}</span>, but you should
 always be wary of definitions involving dots.</p>
 <p>More generally, the standard basis of <span
@@ -569,6 +571,21 @@ class="math inline">T\in\mathcal{L}(\boldsymbol{{{R}}}^I,\boldsymbol{{{R}}}^J)</
 is <span class="math inline">{t_{ij} = \langle Te_i,
 e^*j\rangle}</span>, <span class="math inline">i\in I</span>, <span
 class="math inline">j\in J</span></em>.</p>
+</section>
+</section>
+<section id="characteristic-polynomial" class="level2">
+<h2>Characteristic Polynomial</h2>
+<p>Every linear operator <span
+class="math inline">T\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}^I</span>
+is an element of the vector space <span
+class="math inline">\boldsymbol{{{R}}}^{I\times I}</span> so <span
+class="math inline">I, T, T^2,\ldots,T^{|I\times I|}</span> are linearly
+dependent so there exists a polynomial <span
+class="math inline">p</span> of degree <span
+class="math inline">|I\times I|</span> with <span
+class="math inline">p(T) = 0</span>. But there is a drastic reduction.
+For every linear operator <span
+class="math inline">T\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}^I</span></p>
 <!--
 
 ## Tensor
@@ -1615,7 +1632,6 @@ __Exercise__. _If $f\in (C^B)^A$ show $f, = \eval(\eval(f, a), b)$_.
 
 __Exercise__. _If $g\in (B\times C)^A$ show $,g = \eval(\eval(g, a), b)$_.
 -->
-</section>
 </section>
 </body>
 </html>

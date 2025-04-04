@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-04-04" />
+  <title>Black-Scholes/Merton is wrong</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Black-Scholes/Merton is wrong</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">April 4, 2025</p>
+</header>
+<p>The theory developed by Fischer Black, Myron Scholes, and Robert C.
+Merton III is wrong. Not just a little bit wrong, but wrong in a way no
+Nobel Prize can redeem. Merton provided a closed-form solution for
+barrier options using the reflection principle of Brownian motion. What
+is the value of a barrier option that knocks in the second time the
+barrier is hit? It is the same as a barrier option that knocks in the
+millionth time it is hit. Don’t be like me and actually say that to a
+trader. Charlie didn’t speak to me for 3 months after I made that
+mathematically correct, but totally foolish claim. I managed to redeem
+myself by helping him with some statistics he needed for his Fantasy
+Football hobby.</p>
+<p>This ridiculouness is a mathematical artifact of Merton learning the
+Ito calculus at Cal Tech. It leads to the untenable notion of continuous
+time trading. I have been guilty of teaching this nonsence to
+unsuspecting students at NYU, Cornell, Rutgers, and Columbia in the
+derivative securities I’ve taught. The way it works in the real world is
+traders do only a finite number of trades.</p>
+<p>It is time to put an end to this.</p>
+</body>
+</html>

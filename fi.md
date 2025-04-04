@@ -13,13 +13,30 @@ abstract: Fixed cash flows
 
 ## Fixed Income
 
-A _fixed income_ instrument is specified by cash flows $(c_j)$ at times $(u_j)$.
-It is a portfolio of zero coupon bonds and its _present value_ is
-$P = \sum_j c_j D(u_j)$ where $D(u)$ is the discount to time $u$.
-The present value at time $t$ is $P_t = \sum_{u_j > t} c_j D_t(u_j)$
-where $D_t(u)$ is the price at time $t$ of a zero coupon bond maturing at $u$.
+A _zero coupon bond_ paying unit cash flow at _maturity_ $u$ has _discount_ $D(u)$.
+Discount is the price of the bond. Paying $D(u)$ now results in receiving
+one unit at $u$.
+The discount can be expressed in terms of a _spot rate_ $r(u)$ where $D(u) = e^{-u r(u)}$
+or a _forward curve_ $f(t)$ where $D(u) = e^{-\int_0^u f(t)\,dt}$.
 
-### Zero Coupon Bond
+__Exercise__. _Show $r(u) = (1/u)\int_0^u f(t)\,dt$_.
+
+The spot rate is the average of the forward curve.
+
+__Exercise__. _Show $f(u) = r(u) + ur'(u)$_
+
+_Hint_: Use $u r(u) = \int_0^u f(t)\,dt$.
+
+The forward equals the spot when $r'(u) = 0$.
+It is numerically preferable to use the forward to define the spot
+since averages smooth out the forward. Defining the forward in terms
+of the spot involves a derivative that might spike.
+
+A _fixed income_ instrument is specified by cash flows $(c_j)$ at times $(u_j)$.
+A fixed income instrument is a portfolio of zero coupon bonds and its _present value_ is
+$P = \sum_j c_j D(u_j)$ where $D(u)$.
+
+### Zero Coupon Bond Dynamics
 
 A _zero coupon bond_, $D(u)$, pays one unit at maturity $u$ so $C^{D(u)}_u = 1$ is the only cash flow.
 We write $D_t(u)$ for the price $X_t^{D(u)}$ of the zero coupon bond at time $t$.
