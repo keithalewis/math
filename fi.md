@@ -14,8 +14,15 @@ abstract: Fixed cash flows
 ## Fixed Income
 
 A _zero coupon bond_ paying unit cash flow at _maturity_ $u$ has _discount_ $D(u)$.
-Discount is the price of the bond. Paying $D(u)$ now results in receiving
-one unit at $u$.
+The discount is the price of the bond. Paying $D(u)$ now results in receiving
+one unit at $u$. Zero coupon bonds are the mechanism for moving fixed cash
+flows in time. It is convenient to express discount in terms of _rates_
+to compare bonds of different maturities.
+For example, a (constant) %5\%$ annual
+return implies a discount of $D(u) = (1 + 0.05)^{-u}$.
+One unit invested at $5\%$ results in $(1 + 0.05)$ at one year.
+If reinvested for another year the result is $(1 + 0.05)^2$.
+
 The discount can be expressed in terms of a _spot rate_ $r(u)$ where $D(u) = e^{-u r(u)}$
 or a _forward curve_ $f(t)$ where $D(u) = e^{-\int_0^u f(t)\,dt}$.
 
