@@ -13,15 +13,65 @@ abstract: Fixed cash flows
 
 ## Fixed Income
 
-A _zero coupon bond_ paying unit cash flow at _maturity_ $u$ has _discount_ $D(u)$.
-The discount is the price of the bond. Paying $D(u)$ now results in receiving
-one unit at $u$. Zero coupon bonds are the mechanism for moving fixed cash
-flows in time. It is convenient to express discount in terms of _rates_
+Zero coupon bonds are the basic mechanism for moving fixed cash flows
+in time. A _zero coupon bond_ pays unit cash flow at _maturity_ $u$.
+Its _price_ $D(u)$ is the _discount curve_. Paying $D(u)$ now to the bond
+issuer results in receiving one unit from them at $u$, assuming they
+have not defaulted. After a bond is issued it can be traded
+in the _secondary market_.
+
+A _fixed income instrument_ is a portfolio of zero coupon bonds.
+It is specified by amounts $c_j$ paid at times $u_j$
+and has _value_ $V_0 = \sum_j c_j D(u_j)$. Typical bonds
+make semi-annual coupon payments and a final payment of
+coupon plus notional at maturity.
+
+We distinguish price from value. The value is only an idealized mathematical
+approximation to a market price. A price is an amount involved in an
+actual market transaction. Value does not take into account bid/ask
+spread, which typically widens as the size of the trade increases, or counterparty
+risk.
+
+Paying $aD(u)$ now results in $a$ at maturity for any[^1] number $a$. 
+
+[^1]: You can't buy more than than the amount issued. The amount must be
+an integer multiple of some minimum trading unit.
+Shorting a bond ($a < 0)$ might be difficult or impossible. 
+
+__Exercise__. _Show paying 1 now results in $1/D(u)$ at $u$_.
+
+_Hint_: Use $D(u)/D(u) = 1$.
+
+We call $R(u) = 1/D(u)$ the _realized return_ over the interval $[0,u]$.
+
+It is convenient to express discount in terms of _rates_
 to compare bonds of different maturities.
-For example, a (constant) %5\%$ annual
-return implies a discount of $D(u) = (1 + 0.05)^{-u}$.
-One unit invested at $5\%$ results in $(1 + 0.05)$ at one year.
-If reinvested for another year the result is $(1 + 0.05)^2$.
+For example, a $5\%$ annual
+rate implies a realized return of $R = 1 + 0.05$ in 1 year.
+If that is reinvested for the next year it grows to
+$1.05^2 = 1.1025$.
+
+## Dates and Times
+
+One problem in valuing fixed income securites is how to convert
+calendar dates into time in years used in the mathematical theory.
+The difference of two calendar dates must be converted into
+a time in years. The only requirement is if $y = d_1 - d_0$
+is the number of years between two calendare dates then $d_0 + y = d_1$.
+There is no unique solution to this problem. One possible solution
+is to let $y$ be the number of seconds between $d0$ and $d1$ and
+divide by the number of seconds in a year. There are exactly 86400
+second in a day, but the number of days in a year varies.
+If a year is divisible by 4 but not by 100 then it is
+a leap year with a Feburary 29 that makes 366 days.
+
+It is common to use $365 + 1/4 - 1/100 = 365.24$ for this but
+the only thing that matters is being consistent.
+
+Another issue is _day count basis_. 
+Bonds pay coupons muliplied by a _aay count fraction_ that is
+appoximately eqaul to the number of years over which the
+coupon accures.
 
 The discount can be expressed in terms of a _spot rate_ $r(u)$ where $D(u) = e^{-u r(u)}$
 or a _forward curve_ $f(t)$ where $D(u) = e^{-\int_0^u f(t)\,dt}$.
@@ -42,6 +92,8 @@ of the spot involves a derivative that might spike.
 A _fixed income_ instrument is specified by cash flows $(c_j)$ at times $(u_j)$.
 A fixed income instrument is a portfolio of zero coupon bonds and its _present value_ is
 $P = \sum_j c_j D(u_j)$ where $D(u)$.
+
+???Secondary Market
 
 ### Zero Coupon Bond Dynamics
 
@@ -302,3 +354,9 @@ A _swaption_ is an option on a swap.
 It has a single cash flow $\max\{k - F_{t_0}(t_0,\ldots,t_n;δ), 0\}$ at the
 effective date of the swap, $t_0$.
 
+
+## Risky Bond
+
+A _risky zero coupon bond_ with maturity $u$ pays 1 unit at $u$ if the issuer
+has not defaulted and pays recovery $\rho$ at default time $\tau$ if $\tau < u$.
+Both $\rho\in[0,1]$ and $\tau\ge0$ can be random variables.
