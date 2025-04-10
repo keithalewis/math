@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-04-04" />
+  <meta name="dcterms.date" content="2025-04-10" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">April 4, 2025</p>
+<p class="date">April 10, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -82,6 +82,38 @@ In Derrida's "Diseminations" he pointed out a preface to a book was
 typically the last thing an author wrote. He thought clearly
 about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 -->
+<p>Given two sets <span class="math inline">A</span> and <span
+class="math inline">B</span> the set exponential <span
+class="math inline">{B^A = \{f\colon A\to B\}}</span> is the set of all
+functions from <span class="math inline">A</span> to <span
+class="math inline">B</span>. Let’s write <span
+class="math inline">B^A</span> suggestively as <span
+class="math inline">{\{A\to B\}}</span>. If <span
+class="math inline">A</span> and <span class="math inline">B</span> are
+sets with structure we want to consider only the functions that preserve
+the structure and write that as <span class="math inline">{[A\to
+B]}</span>. A function <span class="math inline">{f\in [A\to B]}</span>
+is a <em>homomorphisms</em>, derived from the Greek homos(ὁμός), meaning
+same, and morphe(μορφή), meaning form or shape.</p>
+<p>A homomorphism <span class="math inline">f\colon A\to B</span> that
+is one-to-one(injective) and onto(surjective) is a one-to-one
+correspondence(isomorphism). A game mathematicians like to play is to
+come up with a way to figure out when sets with structure are
+isomorphic. Vector spaces hold a sweet spot in the mathematical world of
+sets with structure. Two vector spaces are isomorphic if and only if
+they have the same dimension. This is very different from the case for,
+e.g., groups, rings, and fields. Only a totally ordered Archemedian
+field can top this. It must be isomorphic to the real numbers. Lie
+groups take a distant second. If a group has a topology making the
+multiplication continuous there is a very beautiful theory due to
+Killing, and fixed up in Elie Cartan’s PhD thesus, providing a complete
+classification.</p>
+<p>The next game they like to play is to figure out when two
+homomorphism are isomorphic. A homomorphism between vector spaces is
+called a <em>linear operator</em>. Two linear operators are isomorphic
+if they have the same Jordan canonical form. Keep reading to find out
+what that is. Along the way we will develop a theory that can be widely
+applied to any linear system.</p>
 <section id="set" class="level2">
 <h2>Set</h2>
 <p>Everything in math is a set. We write <span class="math inline">a\in
@@ -1632,6 +1664,128 @@ __Exercise__. _If $f\in (C^B)^A$ show $f, = \eval(\eval(f, a), b)$_.
 
 __Exercise__. _If $g\in (B\times C)^A$ show $,g = \eval(\eval(g, a), b)$_.
 -->
+<p>A linear operator <span class="math inline">T\colon V\to V</span> is
+like an overgrown number. We can add and multiply them. Addition is
+commutative but multiplication is not if the dimension of <span
+class="math inline">V</span> is greater than 1. If <span
+class="math inline">V</span> is one-dimensional then <span
+class="math inline">Tv = \lambda v</span>, <span
+class="math inline">v\in V</span>, for some number <span
+class="math inline">\lambda \in\boldsymbol{{C}}</span>. The number <span
+class="math inline">\lambda</span> corresponds to the linear operator of
+scalar multiplication by <span class="math inline">\lambda</span>.</p>
+<p><strong>Exercise</strong>. <em>Prove this</em>.</p>
+<p><em>Hint</em>: Pick any <span class="math inline">v\in V</span> that
+is not the zero vector. Since <span class="math inline">Tv\in V</span>
+there exists <span class="math inline">\lambda\in\boldsymbol{{C}}</span>
+with <span class="math inline">Tv = \lambda v</span>.</p>
+<p>For any <span class="math inline">T\colon V\to V</span> we say <span
+class="math inline">v\in V</span> is an <em>eigenvector</em>
+corresponding to the <em>eigenvalue</em> <span
+class="math inline">\lambda\in\boldsymbol{{C}}</span> if <span
+class="math inline">{v\not=\boldsymbol{{0}}}</span> and <span
+class="math inline">{Tv = \lambda v}</span>. The first important fact
+about eigenvectors is that if they have different corresponding
+eigenvalues they must be independent.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">Tv =
+\lambda v</span>, <span class="math inline">Tw = \mu w</span>, and <span
+class="math inline">\lambda\not=\mu</span>, then <span
+class="math inline">v</span> and <span class="math inline">w</span> are
+independent</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">av + bw =
+\boldsymbol{{0}}</span> then <span class="math inline">T(av + bw) =
+a\lambda v + b\mu w = \boldsymbol{{0}}</span>. If <span
+class="math inline">a</span> and <span class="math inline">b</span> are
+not zero this implis</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(T -
+\lambda I)\boldsymbol{{0}}= \boldsymbol{{0}}</span> for any linear
+operator <span class="math inline">T</span> and <span
+class="math inline">\lambda\in\boldsymbol{{C}}</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">\boldsymbol{{0}}</span> is
+in the kernel of every linear operator.</p>
+<p><strong>Exercise</strong>. <em>Show non-zero <span
+class="math inline">v\in V</span> is an eigenvector corresponding to the
+eigenvalue <span class="math inline">\lambda\in\boldsymbol{{C}}</span>
+if and only if <span class="math inline">v\in\operatorname{ker}T -
+\lambda I</span></em>.</p>
+<p>The <em>spectrum</em> of an operator is <span
+class="math inline">\sigma(T) = \{\lambda\in\boldsymbol{{C}}\mid T -
+\lambda I\text{ is not invertible}\}</span>. Recall <span
+class="math inline">T - \lambda I</span> is not invertible if and only
+if <span class="math inline">\operatorname{ker}T - \lambda I \not=
+\{\boldsymbol{{0}}\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">\lambda\in\sigma(T)</span> there exists an
+eigenvector having eigenvalue <span
+class="math inline">\lambda</span></em>.</p>
+<p>If the cardinality of <span class="math inline">\sigma(T)</span>
+equals the dimension of <span class="math inline">V</span> we say <span
+class="math inline">T</span> is <em>diagonalizable</em>. Let’s
+abbreviate this to <em>d’able</em>. If <span
+class="math inline">V</span> has dimension <span
+class="math inline">n</span> and <span class="math inline">\sigma(T) =
+\{\lambda_1,\ldots,\lambda_n\}</span> then there are independent
+eigenvectors <span class="math inline">\{v_1,\ldots,v_n\}</span> with
+<span class="math inline">Tv_j = \lambda_j v_j</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\{v_1,\ldots,v_n\}</span> is a basis of <span
+class="math inline">V</span></em>.</p>
+<p>If <span class="math inline">T</span> is d’able then the spectrum
+completely determines <span class="math inline">T</span>. For <span
+class="math inline">\lambda\in\sigma(T)</span> there exists <span
+class="math inline">v_\lambda\not=\boldsymbol{{0}}</span> with <span
+class="math inline">Tv_\lambda = \lambda v_\lambda</span>. Since <span
+class="math inline">\{v_\lambda\mid\lambda\in\sigma(T)\}</span> is a
+basis of <span class="math inline">V</span> every <span
+class="math inline">v\in V</span> can be written <span
+class="math inline">v = \sum_{\lambda\in\sigma(T)} a_\lambda
+v_\lambda</span> for some <span
+class="math inline">a_\lambda\in\boldsymbol{{C}}</span>. The overgrown
+number <span class="math inline">T</span> satifies <span
+class="math inline">Tv = \sum_{\lambda\in\sigma(T)} a_\lambda \lambda
+v_\lambda</span>.</p>
+<p>You might be thinking d’able operators are a special case, but we
+will prove later that every linear operator can be appoximated by them.
+Not every result about d’able operators can be used for the general
+theory but it is easy to prove some results for d’able operators.</p>
+<p>If <span class="math inline">T\colon V\to V</span> then <span
+class="math inline">I, T, T^2, \ldots, T^{n^2}</span> must be dependent
+since <span class="math inline">[T\to T]</span> is a vector space with
+dimension <span class="math inline">n^2</span> where <span
+class="math inline">n</span> is the dimension of <span
+class="math inline">V</span>. Hence there exists a polynomial <span
+class="math inline">p</span> of order <span
+class="math inline">n^2</span> with <span class="math inline">p(T) =
+0</span>. For a d’able operator <span class="math inline">T</span> there
+exists a more drastic result that there is a polynomial of order <span
+class="math inline">n</span> with <span class="math inline">p(T) =
+0</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">T\colon
+V\to V</span> is d’able and <span class="math inline">p(z) =
+\prod_{\lambda\in\sigma(T)} (z - \lambda)</span> then <span
+class="math inline">p(T) = 0</span></em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">p(T)v_\lambda =
+0</span> if <span class="math inline">Tv_\lambda = \lambda
+v_\lambda</span>.</p>
+<p>If it is true that every linear operator can be approximated by a
+d’able operator thd</p>
+<p>If <span class="math inline">T</span> is a linear operator on <span
+class="math inline">V</span> and <span class="math inline">TM\subseteq
+M</span> is an invariant subspace define <span
+class="math inline">T/M\colon V/M\to V/M</span> by <span
+class="math inline">v + M \mapsto Tv + M</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">T/M</span> is well-defined</em>.</p>
+<p><em>Hint</em>: Show if <span class="math inline">v + M = w + M</span>
+then <span class="math inline">Tv + M = Tw + M</span>. Since <span
+class="math inline">v - w\in M</span> we have <span
+class="math inline">T(v - w)\in M</span>.</p>
+<p>Show <span class="math inline">T\oplus M\colon M\oplus V/M\to M\oplus
+V/M</span> is equivalent to <span class="math inline">T</span></p>
+<p><span class="math inline">T\colon V\to V</span> and <span
+class="math inline">U\colon W\to W</span> are <em>equivalent</em> if
+there exists an isomorphism <span class="math inline">E\colon V\to
+W</span> with <span class="math inline">ET = UE</span>.</p>
 </section>
 </body>
 </html>

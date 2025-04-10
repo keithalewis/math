@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-04-04" />
+  <meta name="dcterms.date" content="2025-04-10" />
   <title>Fixed Income</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Fixed Income</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">April 4, 2025</p>
+<p class="date">April 10, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Fixed cash flows
@@ -55,7 +55,9 @@ Fixed cash flows
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#fixed-income" id="toc-fixed-income">Fixed Income</a>
+<li><a href="#fixed-income" id="toc-fixed-income">Fixed Income</a></li>
+<li><a href="#dates-and-times" id="toc-dates-and-times">Dates and
+Times</a>
 <ul>
 <li><a href="#zero-coupon-bond-dynamics"
 id="toc-zero-coupon-bond-dynamics">Zero Coupon Bond Dynamics</a></li>
@@ -73,16 +75,71 @@ Rate Swap</a></li>
 <li><a href="#floor-cap" id="toc-floor-cap">Floor, Cap</a></li>
 <li><a href="#swaption" id="toc-swaption">Swaption</a></li>
 </ul></li>
+<li><a href="#risky-bond" id="toc-risky-bond">Risky Bond</a></li>
 </ul>
 </nav>
 <section id="fixed-income" class="level2">
 <h2>Fixed Income</h2>
-<p>A <em>zero coupon bond</em> paying unit cash flow at
-<em>maturity</em> <span class="math inline">u</span> has
-<em>discount</em> <span class="math inline">D(u)</span>. Discount is the
-price of the bond. Paying <span class="math inline">D(u)</span> now
-results in receiving one unit at <span class="math inline">u</span>. The
-discount can be expressed in terms of a <em>spot rate</em> <span
+<p>Zero coupon bonds are the basic mechanism for moving fixed cash flows
+in time. A <em>zero coupon bond</em> pays unit cash flow at
+<em>maturity</em> <span class="math inline">u</span>. Its <em>price</em>
+<span class="math inline">D(u)</span> is the <em>discount curve</em>.
+Paying <span class="math inline">D(u)</span> now to the bond issuer
+results in receiving one unit from them at <span
+class="math inline">u</span>, assuming they have not defaulted. After a
+bond is issued it can be traded in the <em>secondary market</em>.</p>
+<p>A <em>fixed income instrument</em> is a portfolio of zero coupon
+bonds. It is specified by amounts <span class="math inline">c_j</span>
+paid at times <span class="math inline">u_j</span> and has
+<em>value</em> <span class="math inline">V_0 = \sum_j c_j D(u_j)</span>.
+Typical bonds make semi-annual coupon payments and a final payment of
+coupon plus notional at maturity.</p>
+<p>We distinguish price from value. The value is only an idealized
+mathematical approximation to a market price. A price is an amount
+involved in an actual market transaction. Value does not take into
+account bid/ask spread, which typically widens as the size of the trade
+increases, or counterparty risk.</p>
+<p>Paying <span class="math inline">aD(u)</span> now results in <span
+class="math inline">a</span> at maturity for any<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+number <span class="math inline">a</span>.</p>
+<p><strong>Exercise</strong>. <em>Show paying 1 now results in <span
+class="math inline">1/D(u)</span> at <span
+class="math inline">u</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">D(u)/D(u) =
+1</span>.</p>
+<p>We call <span class="math inline">R(u) = 1/D(u)</span> the
+<em>realized return</em> over the interval <span
+class="math inline">[0,u]</span>.</p>
+<p>It is convenient to express discount in terms of <em>rates</em> to
+compare bonds of different maturities. For example, a <span
+class="math inline">5\%</span> annual rate implies a realized return of
+<span class="math inline">R = 1 + 0.05</span> in 1 year. If that is
+reinvested for the next year it grows to <span
+class="math inline">1.05^2 = 1.1025</span>.</p>
+</section>
+<section id="dates-and-times" class="level2">
+<h2>Dates and Times</h2>
+<p>One problem in valuing fixed income securites is how to convert
+calendar dates into time in years used in the mathematical theory. The
+difference of two calendar dates must be converted into a time in years.
+The only requirement is if <span class="math inline">y = d_1 -
+d_0</span> is the number of years between two calendare dates then <span
+class="math inline">d_0 + y = d_1</span>. There is no unique solution to
+this problem. One possible solution is to let <span
+class="math inline">y</span> be the number of seconds between <span
+class="math inline">d0</span> and <span class="math inline">d1</span>
+and divide by the number of seconds in a year. There are exactly 86400
+second in a day, but the number of days in a year varies. If a year is
+divisible by 4 but not by 100 then it is a leap year with a Feburary 29
+that makes 366 days.</p>
+<p>It is common to use <span class="math inline">365 + 1/4 - 1/100 =
+365.24</span> for this but the only thing that matters is being
+consistent.</p>
+<p>Another issue is <em>day count basis</em>. Bonds pay coupons
+muliplied by a <em>aay count fraction</em> that is appoximately eqaul to
+the number of years over which the coupon accures.</p>
+<p>The discount can be expressed in terms of a <em>spot rate</em> <span
 class="math inline">r(u)</span> where <span class="math inline">D(u) =
 e^{-u r(u)}</span> or a <em>forward curve</em> <span
 class="math inline">f(t)</span> where <span class="math inline">D(u) =
@@ -104,6 +161,7 @@ class="math inline">(u_j)</span>. A fixed income instrument is a
 portfolio of zero coupon bonds and its <em>present value</em> is <span
 class="math inline">P = \sum_j c_j D(u_j)</span> where <span
 class="math inline">D(u)</span>.</p>
+<p>???Secondary Market</p>
 <section id="zero-coupon-bond-dynamics" class="level3">
 <h3>Zero Coupon Bond Dynamics</h3>
 <p>A <em>zero coupon bond</em>, <span class="math inline">D(u)</span>,
@@ -425,5 +483,26 @@ back-to-back floorlets or caplets.</p>
 class="math inline">t_0</span>.</p>
 </section>
 </section>
+<section id="risky-bond" class="level2">
+<h2>Risky Bond</h2>
+<p>A <em>risky zero coupon bond</em> with maturity <span
+class="math inline">u</span> pays 1 unit at <span
+class="math inline">u</span> if the issuer has not defaulted and pays
+recovery <span class="math inline">\rho</span> at default time <span
+class="math inline">\tau</span> if <span class="math inline">\tau &lt;
+u</span>. Both <span class="math inline">\rho\in[0,1]</span> and <span
+class="math inline">\tau\ge0</span> can be random variables.</p>
+</section>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>You can’t buy more than than the amount issued. The
+amount must be an integer multiple of some minimum trading unit.
+Shorting a bond (<span class="math inline">a &lt; 0)</span> might be
+difficult or impossible.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
 </body>
 </html>

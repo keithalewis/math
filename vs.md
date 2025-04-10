@@ -36,6 +36,35 @@ typically the last thing an author wrote. He thought clearly
 about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 -->
 
+Given two sets $A$ and $B$ the set exponential ${B^A = \{f\colon A\to B\}}$
+is the set of all functions from $A$ to $B$.  Let's write $B^A$
+suggestively as ${\{A\to B\}}$.
+If $A$ and $B$ are sets with structure
+we want to consider only the functions that preserve the structure
+and write that as ${[A\to B]}$.  A function ${f\in [A\to B]}$ is a
+_homomorphisms_, derived from the Greek homos(ὁμός), meaning same,
+and morphe(μορφή), meaning form or shape.
+
+A homomorphism $f\colon A\to B$ that is one-to-one(injective) and
+onto(surjective) is a one-to-one correspondence(isomorphism).  A game
+mathematicians like to play is to come up with a way to figure out when
+sets with structure are isomorphic.  Vector spaces hold a sweet spot in
+the mathematical world of sets with structure. Two vector spaces are
+isomorphic if and only if they have the same dimension.  This is very
+different from the case for, e.g., groups, rings, and fields.  Only a
+totally ordered Archemedian field can top this. It must be isomorphic
+to the real numbers. Lie groups take a distant second. If a group has a
+topology making the multiplication continuous there is a very beautiful
+theory due to Killing, and fixed up in Elie Cartan's PhD thesus, providing
+a complete classification.
+
+The next game they like to play is to figure out when two homomorphism
+are isomorphic. A homomorphism between vector spaces is called a _linear
+operator_.  Two linear operators are isomorphic if they have the same
+Jordan canonical form. Keep reading to find out what that is. Along
+the way we will develop a theory that can be widely applied to any
+linear system.
+
 ## Set
 
 Everything in math is a set.
@@ -1417,3 +1446,91 @@ __Exercise__. _If $f\in (C^B)^A$ show $f, = \eval(\eval(f, a), b)$_.
 
 __Exercise__. _If $g\in (B\times C)^A$ show $,g = \eval(\eval(g, a), b)$_.
 -->
+
+A linear operator $T\colon V\to V$ is like an overgrown number.
+We can add and multiply them. Addition is commutative but multiplication is not
+if the dimension of $V$ is greater than 1.
+If $V$ is one-dimensional then $Tv = \lambda v$, $v\in V$, for some number $\lambda \in\CC$.
+The number $\lambda$ corresponds to the linear operator of scalar multiplication
+by $\lambda$.
+
+__Exercise__. _Prove this_.
+
+_Hint_: Pick any $v\in V$ that is not the zero vector. Since $Tv\in V$
+there exists $\lambda\in\CC$ with $Tv = \lambda v$.
+
+For any $T\colon V\to V$ we say $v\in V$ is an _eigenvector_ corresponding
+to the _eigenvalue_ $\lambda\in\CC$ if ${v\not=\zero}$ and ${Tv = \lambda v}$.
+The first important fact about eigenvectors is that if they have different
+corresponding eigenvalues they must be independent.
+
+__Exercise__. _If $Tv = \lambda v$, $Tw = \mu w$, and $\lambda\not=\mu$,
+then $v$ and $w$ are independent_.
+
+_Hint_:
+If $av + bw = \zero$ then $T(av + bw) = a\lambda v + b\mu w = \zero$.
+If $a$ and $b$ are not zero this implis
+
+
+__Exercise__. _Show $(T - \lambda I)\zero = \zero$ for any
+linear operator $T$ and $\lambda\in\CC$_.
+
+_Hint_: $\zero$ is in the kernel of every linear operator.
+
+__Exercise__. _Show non-zero $v\in V$ is an eigenvector corresponding
+to the eigenvalue $\lambda\in\CC$ if and only if $v\in\ker T - \lambda I$_.
+
+The _spectrum_ of an operator is $\sigma(T) = \{\lambda\in\CC\mid T - \lambda I\text{ is not invertible}\}$.
+Recall $T - \lambda I$ is not invertible if and only if $\ker T - \lambda I \not= \{\zero\}$. 
+
+__Exercise__. _Show if $\lambda\in\sigma(T)$ there exists an eigenvector
+having eigenvalue $\lambda$_.
+
+If the cardinality of $\sigma(T)$ equals the dimension of $V$ we
+say $T$ is _diagonalizable_. Let's abbreviate this to _d'able_.
+If $V$ has dimension $n$ and $\sigma(T) = \{\lambda_1,\ldots,\lambda_n\}$
+then there are independent eigenvectors $\{v_1,\ldots,v_n\}$ with $Tv_j = \lambda_j v_j$.
+
+__Exercise__. _Show $\{v_1,\ldots,v_n\}$ is a basis of $V$_.
+
+If $T$ is d'able then the spectrum completely determines $T$.
+For $\lambda\in\sigma(T)$ there exists $v_\lambda\not=\zero$ with $Tv_\lambda = \lambda v_\lambda$.
+Since $\{v_\lambda\mid\lambda\in\sigma(T)\}$ is a basis of $V$
+every $v\in V$ can be written $v = \sum_{\lambda\in\sigma(T)} a_\lambda v_\lambda$
+for some $a_\lambda\in\CC$.
+The overgrown number $T$ satifies $Tv = \sum_{\lambda\in\sigma(T)} a_\lambda \lambda v_\lambda$.
+
+You might be thinking d'able operators are a special case, but we will prove later that
+every linear operator can be appoximated by them. Not every result about d'able operators
+can be used for the general theory but it is easy to prove some results for d'able operators.
+
+If $T\colon V\to V$ then $I, T, T^2, \ldots, T^{n^2}$ must be dependent
+since $[T\to T]$ is a vector space with dimension $n^2$ where $n$
+is the dimension of $V$.  Hence there exists a polynomial $p$ of order
+$n^2$ with $p(T) = 0$.  For a d'able operator $T$ there exists a more
+drastic result that there is a polynomial of order $n$ with $p(T) = 0$.
+
+__Exercise__. _If $T\colon V\to V$ is d'able and $p(z) = \prod_{\lambda\in\sigma(T)} (z - \lambda)$
+then $p(T) = 0$_.
+
+_Hint_: Show $p(T)v_\lambda = 0$ if $Tv_\lambda = \lambda v_\lambda$.
+
+If it is true that every linear operator can be approximated by
+a d'able operator thd
+
+
+
+If $T$ is a linear operator on $V$ and $TM\subseteq M$ is an invariant
+subspace define $T/M\colon V/M\to V/M$ by
+$v + M \mapsto Tv + M$.
+
+__Exercise__. _Show $T/M$ is well-defined_.
+
+_Hint_: Show if $v + M = w + M$ then $Tv + M = Tw + M$.
+Since $v - w\in M$ we have $T(v - w)\in M$.
+
+Show $T\oplus M\colon M\oplus V/M\to M\oplus V/M$ is equivalent to $T$
+
+$T\colon V\to V$ and $U\colon W\to W$ are _equivalent_ if
+there exists an isomorphism $E\colon V\to W$
+with $ET = UE$.

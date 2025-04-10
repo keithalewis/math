@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2025-04-10" />
+  <title>Bayes</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Bayes</h1>
+<p class="date">April 10, 2025</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+How to apply it
+</div>
+</header>
+<p>A <em>measure</em> on a set <span class="math inline">S</span> is a
+<em>set function</em> <span class="math inline">\mu</span> from subsets
+of <span class="math inline">S</span> to the real numbers that satisfies
+<span class="math inline">\mu(\emptyset) = 0</span>, and <span
+class="math inline">\mu(E\cup F) = \mu(E) + \mu(F) - \mu(E\cap F)</span>
+for <span class="math inline">E,F\subseteq S</span>. The measure of
+nothing is 0 and measures do not count things twice.</p>
+<p>A <em>probability measure</em> <span class="math inline">P</span> on
+a set <span class="math inline">S</span> is a positive measure, <span
+class="math inline">P(E)\ge0</span> for <span
+class="math inline">E\subseteq S</span>, with <span
+class="math inline">P(S) = 1</span>. Subsets of <span
+class="math inline">S</span> are <em>events</em>.</p>
+<p>The conditional expectation of an event <span
+class="math inline">A</span> given event <span
+class="math inline">B</span> is <span class="math inline">P(A|B) =
+P(A\cap B)/P(B)</span>. This makes <span class="math inline">A\mapsto
+P(A|B)</span> a probability measure on <span
+class="math inline">B</span>.</p>
+<p><strong>Exercise</strong>. Show if <span
+class="math inline">E,F\subseteq B</span> then <span
+class="math inline">P(\emptyset|B) = 0</span>, <span
+class="math inline">P(E \cup F|B) = P(E|B) + P(F|B) - P(E\cap
+F|B)</span> and <span class="math inline">P(B|B) = 1)</span>.</p>
+<p><em>Hint</em>: Use <span class="math inline">P(E\cup F) = P(E) + P(F)
+- P(E\cap F)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(A|B)
+= P(A)P(B|A)/P(B)</span></em>.</p>
+<p><em>Hint</em>. Use <span class="math inline">P(B|A) = P(B\cap
+A)/P(A)</span>.</p>
+<p>This exercise establishes the simplest form of Bayes Theorem. It
+shows how to update the probability of <span
+class="math inline">A</span> given the information <span
+class="math inline">B</span>.</p>
+<p>Suppose <span class="math inline">X</span> and <span
+class="math inline">Y</span> are discrete random variables on <span
+class="math inline">\{x_j\}\times\{y_k\}</span> with <span
+class="math inline">P(X = x_j, Y = y_k) = p_{jk}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(X =
+x_j) = \sum_k p_{jk}</span> and <span class="math inline">P(Y = y_k) =
+\sum_j p_{jk}</span></em>.</p>
+<p><em>Hint</em>: The set <span class="math inline">\{X = x_j\} = \cup_k
+\{(x_j, y_k)\}</span> is a disjoint union.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P(X =
+x_j|Y = y_k) = p_{jk}/\sum_j p_{jk}</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">P(X = x_j|Y = y_k) = P(X =
+x_j, Y = y_k)/P(Y = y_k)</span>.</p>
+<p>How do we use Bayes to calculate <span class="math inline">P(X =
+x_j|E[Y] = y)</span>? Since <span class="math inline">E[Y] = \sum_j y_j
+P(Y = y_j) = \sum_j y_j \sum_i p_{ij}</span> its value is determined by
+the prior joint distribution of <span class="math inline">X</span> and
+<span class="math inline">Y</span>. This seems like a defect in the
+Bayesian approach.</p>
+<p>The fundamental problem in using data to estimate the distribution of
+a random variable <span class="math inline">X</span> is to turns
+observations <span class="math inline">x_1, x_2, \ldots</span> into a
+cumulative distribution function <span class="math inline">F(x) = P(X\le
+x)</span>. Let <span class="math inline">X_1, X_2, \ldots</span> be
+independent random variables having the same law as <span
+class="math inline">X</span>.</p>
+</body>
+</html>
