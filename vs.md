@@ -1496,9 +1496,9 @@ __Exercise__. _Show $\{v_1,\ldots,v_n\}$ is a basis of $V$_.
 If $T$ is d'able then the spectrum completely determines $T$.
 For $\lambda\in\sigma(T)$ there exists $v_\lambda\not=\zero$ with $Tv_\lambda = \lambda v_\lambda$.
 Since $\{v_\lambda\mid\lambda\in\sigma(T)\}$ is a basis of $V$
-every $v\in V$ can be written $v = \sum_{\lambda\in\sigma(T)} a_\lambda v_\lambda$
-for some $a_\lambda\in\CC$.
-The overgrown number $T$ satifies $Tv = \sum_{\lambda\in\sigma(T)} a_\lambda \lambda v_\lambda$.
+every $v\in V$ can be written $v = \sum_{\lambda\in\sigma(T)} t_\lambda v_\lambda$
+for some $t_\lambda\in\CC$.
+The overgrown number $T$ satifies $Tv = \sum_{\lambda\in\sigma(T)} t_\lambda \lambda v_\lambda$.
 
 You might be thinking d'able operators are a special case, but we will prove later that
 every linear operator can be appoximated by them. Not every result about d'able operators
@@ -1516,7 +1516,10 @@ then $p(T) = 0$_.
 _Hint_: Show $p(T)v_\lambda = 0$ if $Tv_\lambda = \lambda v_\lambda$.
 
 If it is true that every linear operator can be approximated by
-a d'able operator thd
+a d'able operators then this holds for all operators.
+
+__Exercise__. _If $T_n\to T$ in norm then $p(T_n) \to p(T)$ in norm
+for any polynomial $p$_.
 
 
 

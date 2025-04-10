@@ -357,10 +357,6 @@ class="math inline">A_t \ge0</span>, <span class="math inline">t &gt;
 \tau_0</span>, and <span class="math inline">\sum_j \Gamma_j = 0</span>.
 You make money on the first trade and never lose money until the
 position is closed.</p>
-<p>Define <span class="math inline">A\colon \oplus_t B(\mathcal{A}_t,
-\boldsymbol{R}^I)\to \oplus_t B(\mathcal{A}_t)</span> by <span
-class="math inline">{A(\oplus_t \Delta_t) = \oplus_t (\Delta_t\cdot C_t
-- \Gamma_t\cdot X_t)}</span>.</p>
 <p>The <em>Fundamental Theorem of Asset Pricing</em> states there is no
 arbitrage if there exist <em>deflators</em>, positive finitely additive
 measures <span class="math inline">D_t</span> on <span
@@ -732,35 +728,52 @@ P\in\mathcal{P}}</span>. It follows that <span class="math inline">d
 class="math inline">{xd = \langle X,D\rangle}</span> for some positive
 <span class="math inline">{d\in\boldsymbol{R}}</span> and <span
 class="math inline">{D\in ba(\Omega)}</span>.</p>
-<p>For the multi-period model we assume the time between trades is at
-least a <a href="https://www.bipm.org/en/cgpm-2022/resolution-3">quato
-second</a> and trading stops before the heat death of the universe so
-there are a finite number of trading times <span class="math inline">t_0
-&lt; \cdots &lt; t_n</span>. Define the amount operator <span
-class="math display">
-{A\colon\oplus_{j=1}^n B(\mathcal{A}_j,
-\boldsymbol{R}^I)\to\oplus_{j=0}^n B(\mathcal{A}_j)}
-</span> by <span class="math inline">A(\oplus_j \Delta_j) = \oplus_j
-\Delta_j\cdot C_j - \Gamma_j\cdot X_j</span>, where <span
-class="math inline">{\Delta_j = \sum_{i &lt; j} \Gamma_j}</span> so
-<span class="math inline">\Delta_0 = 0</span> and <span
-class="math inline">{\Gamma_j = \Delta_{j+1} - \Delta_j}</span>, <span
-class="math inline">0\le j &lt; n</span>.</p>
-<p>We now compute the adjoint <span
-class="math inline">A^*\colon\oplus_j ba(\mathcal{A}_j)\to\oplus_j
-ba(\mathcal{A}_j, \boldsymbol{R}^I)</span> <span class="math display">
+<p>For the multi-period model we assume discrete trading times <span
+class="math inline">(t_j)_{j\in\boldsymbol{N}}</span>. Define the amount
+operator <span class="math display">
+A\colon\oplus_{j\in\boldsymbol{N}} B(\mathcal{A}_j,
+\boldsymbol{R}^I)\to\oplus_{j\in\boldsymbol{N}} B(\mathcal{A}_j)
+</span> by <span class="math inline">A(\oplus_j \Gamma_j) = \oplus_j
+A_j</span> where <span class="math inline">A_j = \Delta_j\cdot C_j -
+\Gamma_j\cdot X_j</span> and <span class="math inline">{\Delta_j =
+\sum_{i &lt; j} \Gamma_j}</span>. Note <span
+class="math inline">{\Delta_0 = 0}</span>. The norm is <span
+class="math inline">\|\oplus_j \Gamma_j\| = \sup_j
+\|\Gamma_j\|</span>.</p>
+<p><span class="math inline">\Delta\colon\oplus
+B(\mathcal{A}_j)\to\oplus B(\mathcal{A}_j)</span> <span
+class="math inline">\Delta(\oplus_j \Gamma_j) = \oplus \Delta_j</span>
+where <span class="math inline">\Delta_j =
+\sum_{i&lt;j}\Gamma_i</span>.</p>
+<p><span class="math display">
 \begin{aligned}
-\langle \oplus_j \Delta_j, A^*(\oplus_j D_j))\rangle &amp;=
-\langle A(\oplus \Delta_j), \oplus_j D_j)\rangle \\
-&amp;= \sum_{j=0}^n \langle \Delta_j\cdot C_j - \Gamma_j\cdot X_j,
-D_j\rangle \\
-&amp;= \sum_{j=0}^n \langle \Delta_j\cdot C_j - (\Delta_{j+1} -
-\Delta_j)\cdot X_j, D_j\rangle \\
-&amp;= \sum_{j=0}^n \langle \Delta_j\cdot C_j + \Delta_j\cdot X_j,
-D_j\rangle
+\langle\oplus_j\Gamma_j, \Delta^*(\oplus_j D_j)\rangle
+&amp;= \langle \Delta(\oplus_j\Gamma_j), \oplus_j D_j\rangle \\
+&amp;= \sum_j \langle \Delta_j, D_j\rangle \\
+&amp;= \sum_j \langle \sum_{i&lt;j} \Gamma_i, D_j\rangle \\
+&amp;= \sum_j \sum_{i&lt;j} \langle \Gamma_i, D_j\rangle \\
+&amp;= \sum_i \sum_{j&gt;i} \langle \Gamma_i, D_j\rangle \\
+&amp;= \sum_i \langle \Gamma_i, \sum_{j&gt;i} D_j\rangle \\
+&amp;= \langle\oplus_i \Gamma_i, \oplus_i \sum_{j&gt;i} D_j\rangle \\
+\end{aligned}
+</span> so <span class="math inline">\Delta^*(\oplus_j D_j) = \oplus_j
+\sum_{j&gt;i} D_i</span>.</p>
+<p>We now compute the adjoint <span
+class="math inline">A^*\colon\oplus_{j\in\boldsymbol{N}}
+ba(\mathcal{A}_j)\to\oplus_{j\in\boldsymbol{N}} ba(\mathcal{A}_j,
+\boldsymbol{R}^I)</span> <span class="math display">
+\begin{aligned}
+\langle \oplus_j \Gamma_j, A^*(\oplus_j D_j)\rangle
+&amp;= \langle A(\oplus_j \Gamma_j), \oplus_j D_j\rangle \\ &amp;=
+\sum_j \langle \Delta_j\cdot C_j - \Gamma_j\cdot X_j, D_j\rangle \\
+&amp;= \sum_j \langle \Delta_j\cdot C_j - (\Delta_{j+1} - \Delta_j)\cdot
+X_j, D_j\rangle \\
+&amp;= \sum_j \langle \Delta_j\cdot C_j + \Delta_j\cdot X_j, D_j\rangle
+-  \sum_j \langle \Delta_{j+1}\cdot X_j, D_j\rangle \\
+&amp;= \sum_j \langle \Delta_j\cdot C_j + \Delta_j\cdot X_j, D_j\rangle
 -  \sum_j \langle \Delta_j\cdot X_{j-1}, D_{j-1}\rangle \\
-&amp;= \sum_{j=0}^n \langle \Delta_j, C_j D_j + X_j D_j - X_{j-1}
-D_{j-1} \rangle \\
+&amp;= \sum_j \langle \Delta_j, C_j D_j + X_j D_j - X_{j-1} D_{j-1}
+\rangle \\
 &amp;= \langle\oplus_j \Delta_j,\oplus_j C_j D_j + X_j D_j - X_{j-1}
 D_{j-1} \rangle \\
 \end{aligned}

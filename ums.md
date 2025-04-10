@@ -206,9 +206,6 @@ Arbitrage exists if there is a trading strategy with $A_{\tau_0} > 0$, $A_t \ge0
 $\sum_j \Gamma_j = 0$. You make money on the first trade and never lose money until
 the position is closed.
 
-Define $A\colon \oplus_t B(\AA_t, \RR^I)\to \oplus_t B(\AA_t)$
-by ${A(\oplus_t \Delta_t) = \oplus_t (\Delta_t\cdot C_t - \Gamma_t\cdot X_t)}$.
-
 The _Fundamental Theorem of Asset Pricing_ states there is no arbitrage if there exist _deflators_,
 positive finitely additive measures $D_t$ on $\AA_t$, $t\in T$, with
 $$
