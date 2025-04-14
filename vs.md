@@ -18,11 +18,11 @@ header-includes:
 \newcommand\LL{\mathcal{L}}
 \newcommand\TT{\mathcal{T}}
 \newcommand\PP{\mathcal{P}}
-\renewcommand\dom{\operatorname{dom}}
-\renewcommand\cod{\operatorname{cod}}
-\renewcommand\eval{\operatorname{eval}}
-\renewcommand\first{\operatorname{first}}
-\renewcommand\second{\operatorname{second}}
+\newcommand\dom{\operatorname{dom}}
+\newcommand\cod{\operatorname{cod}}
+\newcommand\eval{\operatorname{eval}}
+\newcommand\first{\operatorname{first}}
+\newcommand\second{\operatorname{second}}
 \renewcommand\ker{\operatorname{ker}}
 \newcommand\ran{\operatorname{ran}}
 \renewcommand\span{\operatorname{span}}
@@ -38,32 +38,47 @@ about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 
 Given two sets $A$ and $B$ the set exponential ${B^A = \{f\colon A\to B\}}$
 is the set of all functions from $A$ to $B$.  Let's write $B^A$
-suggestively as ${\{A\to B\}}$.
+suggestively as ${f\in\{A\to B\}}$.
 If $A$ and $B$ are sets with structure
-we want to consider only the functions that preserve the structure
+we want to consider functions that preserve the structure
 and write that as ${[A\to B]}$.  A function ${f\in [A\to B]}$ is a
-_homomorphisms_, derived from the Greek homos(ὁμός), meaning same,
-and morphe(μορφή), meaning form or shape.
+_homomorphism_, derived from the Greek homos(ὁμός), meaning alike,
+and morphe(μορφή), meaning form.
 
-A homomorphism $f\colon A\to B$ that is one-to-one(injective) and
-onto(surjective) is a one-to-one correspondence(isomorphism).  A game
-mathematicians like to play is to come up with a way to figure out when
-sets with structure are isomorphic.  Vector spaces hold a sweet spot in
-the mathematical world of sets with structure. Two vector spaces are
+A homomorphism $f\in [A\to B]$ that is one-to-one(injective) and
+onto(surjective) is a one-to-one correspondence(isomorphism).
+We use the notation $A\cong B$ to denote the existence of
+a bijection.
+
+__Exercise__. _Show $A\cong A$, $A\cong B$ implies $B\cong A$,
+and $A\cong B$, $B\cong C$ imply $A\cong C$_.
+
+The exercise shows $\cong$ is an _equivalence relation_.
+This generalizes the notion of equality. Two things can
+be the "same" without being equal. In the case of sets,
+two sets are isomorphic if and only if they have the
+same cardinality.
+
+A game mathematicians like to play is to determine when
+sets with structure are isomorphic.  Sets and vector spaces hold a sweet spot in
+the mathematical world of sets with structure. Sets have no
+structure, they are just a bag of _elements_ that are _members_ of the set.
+Two sets have the same _cardinality_ if and only if there is a bijection
+between them.
+Two vector spaces are
 isomorphic if and only if they have the same dimension.  This is very
 different from the case for, e.g., groups, rings, and fields.  Only a
-totally ordered Archemedian field can top this. It must be isomorphic
+Dedekind complete totally ordered Archemedian field can top this; it must be isomorphic
 to the real numbers. Lie groups take a distant second. If a group has a
 topology making the multiplication continuous there is a very beautiful
-theory due to Killing, and fixed up in Elie Cartan's PhD thesus, providing
+theory due to Killing, fixed up in Elie Cartan's PhD thesis, providing
 a complete classification.
 
-The next game they like to play is to figure out when two homomorphism
-are isomorphic. A homomorphism between vector spaces is called a _linear
-operator_.  Two linear operators are isomorphic if they have the same
-Jordan canonical form. Keep reading to find out what that is. Along
-the way we will develop a theory that can be widely applied to any
-linear system.
+The next game they like to play is determining when two homomorphisms
+are equivalent. A homomorphism between vector spaces is called a _linear
+operator_.  Keep reading to find out how the Jordan canonical form solves
+this in finite dimensions. Along the way we will develop a theory that can be widely applied
+to any linear system.
 
 ## Set
 
@@ -112,6 +127,43 @@ if it is one-to-one and onto. Two finite sets are the same size
 if they have the same number of elements. Bijections classify
 possibly infinite sets by _cardinality_.
 
+There is a total ordering on set cardinality given by 
+$\#A\le\#B$ if and only if there is a one-to-one function
+$f\colon A\to B$.
+
+## Category
+
+Okay, I lied.  Not everything in math is a set. There is an alternate foundation of
+mathematics called _category theory_ involving _objects_ and _arrows_
+having an associative composition for arrows and identity arrows for each object. The
+above exercises show sets and functions are objects and arrows for the category $\mathbf{Set}$.
+Samuel Eilenberg and Saunders Mac Lane noticed many proofs in their area, algebraic
+topology, were based on these simple notions. The goal of algebraic topology is
+to detect when two topologial spaces are isomorphic, i.e., there is 
+a continuous bijection between them. As of 2025, this problem remains unsolved.
+
+A funny thing happened when people tried to define sets using only objects
+and arrows. Logicians like to say, "The language of set theory is epsilon."
+By that they mean set theory can be defined using first-order logic and axioms
+for set membership. It turned out the notion of membership
+in category theory is a little tricky.
+
+Topos Theory theory tries to define sets using only objects and arrows.
+The best anyone has come up with so far for membership is a _subobject
+classifier_ $\Omega$ for which there exists (fasten your seatbelt)
+a morphism from a terminal object $1\to\Omega$ such that for each
+monomorphism $j\colon U\to X$ there exists a unique $\chi_j\colon
+X\to\Omega$ such that $\chi_j j\colon U\to\Omega$ is equal to the composition of
+$U\to 1$ and $1\to\Omega$. Phew!
+
+Category theory can help generalize classical set theory results.
+It turns out set membership is a special case. For example,
+the points of a sphere are members of the sphere, but each
+point also determines a unique tangent plane to the sphere.
+
+The axioms of category theory are so simple compared to set theory it
+is no surprise their application is more complicated. 
+
 We can define one-to-one and onto using only functions.
 
 __Exercise__. _Show $f\colon A\to B$ is one-to-one if and only if $fg = fh$ implies
@@ -119,39 +171,40 @@ $g = h$ for $g,h\colon C\to A$_.
 
 _Hint_: $fg = fh$ if and only if $f(g(c)) = f(h(c))$ for all $c\in C$.
 
-__Exercise__. _Show $f\colon A\to B$ is one-to-one if and only if
-it has a left inverse_.
-
-_Hint_: A _left inverse_ is a function $f^\dashv\colon B\to A$ with $f^\dashv f = 1_A$.
-
-<details><summary>Solution</summary>
-If $f$ is one-to-one and $f(a) = b$ define $f^\dashv(b) = a$. This is well-defined
-since $f$ is one-to-one, i.e., if $f(a') = b$ then $a = a'$.
-If a left inverse exists and $fg = fh$ then pre-compose the left inverse to get $g = h$.
-</details>
-
 __Exercise__. _Show $f\colon A\to B$ is onto if and only if $gf = hf$ implies
 $g = h$ for $g,h\colon B\to C$_.
 
 _Hint_: $gf = hf$ if and only if $g(f(a)) = h(f(a))$ for all $a\in A$.
 For all $b\in B$ there exists $a\in A$ with $f(a) = b$.
 
+In a general category these two cancellation properties define _mono_ and _epi_ arrows.
+In the category $\mathbf{Set}$ these turn out to be the same
+as injective and surjective.
+
+__Exercise__. _Show $f\colon A\to B$ is one-to-one if and only if
+it has a left inverse_(retraction).
+
+_Hint_: A _left inverse_ is a function $f^\dashv\colon B\to A$ with $f^\dashv f = 1_A$.
+
+<details><summary>Solution</summary>
+If $f$ is one-to-one and $f(a) = b$ define $f^\dashv(b) = a$. This is well-defined
+since $f$ is one-to-one, i.e., if $f(a') = b$ then $a = a'$.
+</details>
+
+__Exercise__. _Show if $f\colon A\to B$ is a retraction then $f$ is mono_.
+
+_Hint_: If a left inverse exists and $fg = fh$ then pre-compose the left inverse to get $g = h$.
+
 __Exercise__. _Show $f\colon A\to B$ is onto if and only if
-it has a right inverse_.
+it has a right inverse_(section).
 
 _Hint_: A _right inverse_ is a function $f^\vdash\colon B\to A$ with $ff^\vdash = 1_B$.
 
-Not everything in math is a set. There is an alternate foundation of
-mathematics called _category theory_ involving _objects_ and _arrows_
-having an associative composition and identity arrows for each object. The
-above exercises show sets and functions are objects and arrows for the category $\mathbf{Set}$.
+__Exercise__. _Show if $f\colon A\to B$ is a section then $f$ is mono_.
 
-We will not give a rigorous definition of what a category is, but we
-will lean heavily on what Samuel Eilenberg and Saunders Mac Lane invented
-to unify many proofs from diverse areas of mathematics prior to the mid
-20-th century.
+_Hint_: If a right inverse exists and $gf = hf$ then post-compose the right inverse to get $g = h$.
 
-It is possible to define an ordered pair using only functions.
+It is also possible to define an ordered pair using only functions.
 Define _projections_ $\pi_A\colon A\times B\to A$ by $\pi_A(a,b) = a$ and 
 $\pi_B\colon A\times B\to B$ by $\pi_B(a,b) = b$.
 
@@ -357,7 +410,7 @@ Matrix multiplication is just composition of linear operators.
 Define $E_{ij}\colon\RR^I\to\RR^J$ to be the linear operator
 with matrix $[\delta_{ij}]$.
 
-__Exercise__. _Show $E_{ij}E_{k,l} = \delta_{jk}E__il}$_.
+__Exercise__. _Show $E_{ij}E_{k,l} = \delta_{jk}E_{il}$_.
 
 Werner Heisenberg reinvented matrix multiplication.
 His interpretation was $E_{ij}$ represented a jump of an
@@ -392,11 +445,145 @@ __Exercise__. _Show $\langle e_i, e^*_j\rangle = \delta_{ij}$, $i,j\in I$_.
 __Exercise__ _Show the matrix of $T\in\LL(\RR^I,\RR^J)$ is ${t_{ij} = \langle Te_i, e^*j\rangle}$,
 $i\in I$, $j\in J$_.
 
-## Characteristic Polynomial
+## Operator Structure
+
+We now turn to the problem of characterizing linear operators up to similarity.
+Operators $T,U\colon V\to V$ are similar if and only if there exists an
+invertible $S\colon V\to V$ with $T = S^{-1}US$.
+
+__Exercise__. _The matrix of $T$ under any basis $(v_i)$ equals the matrix of $U$
+under the basis $(Sv_i)$_.
+
+_Hint_: The matrix of $T$ is $t_{ij} = v_j^*Tv_i$ where $(v_j^*)$ is the dual basis.
+
+Linear operators are overgrown numbers.
+We can add and multiply them. Addition is commutative but multiplication might not be.
+
+If $V$ is one-dimensional then $Tv = t v$, $v\in V$, for some number $t \in\CC$.
+The number $t$ corresponds to the linear operator of scalar multiplication
+by $t$.
+
+__Exercise__. _Prove this_.
+
+_Hint_: Pick any $v\in V$ that is not the zero vector. Since $Tv\in V$
+there exists $\lambda\in\CC$ with $Tv = \lambda v$.
+
+We say $T$ is diagonalizable (d'able for short) if there exists a basis $(v_i)$ of $V$
+with $Tv_i = t_i v_i$ for some $t_i\in\CC$. We say $v_i$ is and _eigenvector_
+with _eigenvalue_ $t_i$.
+
+__Exercise__. _Show the matrix of $T$ under the basis $(v_i)$ is $t_{ij} = t_i\delta_{ij}$_.
+
+$$
+T = \begin{bmatrix}
+t_1 & 0 & 0 \\
+0 & \ddots & 0 \\
+0 & 0 & t_n \\
+\end{bmatrix}
+$$
+
+We will prove later that every operator $T\colon V\to V$
+is almost d'able in the sense that given $\epsilon > 0$ there exists
+d'able $T_\epsilon\colon V\to V$ with $\|T_\epsilon - T\| < \epsilon$.
+
+You will prove now that Every d'able operator is near to a d'able operator with distinct eigenvalues.
+
+__Exercise__. _If $T$ is d'able and $\epsilon > 0$ then there exists $T_\epsilon$
+with distinct eigenvalues satisfying ${\|T_\epsilon - T\| < \epsilon}$_.
+
+_Hint_: The norm of a d'able operator is the maximum of the modulus of every eigenvalue.
+
+!!!Uses vector space norm.
+
+if the dimension of $V$ is greater than 1.
+For any $T\colon V\to V$ we say $v\in V$ is an _eigenvector_ corresponding
+to the _eigenvalue_ $\lambda\in\CC$ if ${v\not=\zero}$ and ${Tv = \lambda v}$.
+The first important fact about eigenvectors is that if they have different
+corresponding eigenvalues they must be independent.
+
+__Exercise__. _If $Tv = \lambda v$, $Tw = \mu w$, $\lambda,\mu\in\CC$, $v, w\in V$, and $\lambda\not=\mu$,
+then $v$ and $w$ are independent_.
+
+_Hint_:
+If $av + bw = \zero$ then $T(av + bw) = a\lambda v + b\mu w = \zero$.
+Subtract $\lambda(av + bw) = 0$ from
+both sides to get $b(\mu - \lambda)w = \zero$.
+Conclude $b = 0$ and $a = 0$.
+
+In general, if $(\lambda_j)$ are $m$ distinct eigenvalues corresponding to
+eigenvectors $(v_j)$ then the eigenvectors are linearly independent.
+The previous exercise establishes this for $m = 2$ and the induction
+step is similar to proof for two distinct eigenvalues.
+
+__Exercise__. _Show $(T - \lambda I)\zero = \zero$ for any
+linear operator $T$ and $\lambda\in\CC$_.
+
+_Hint_: $\zero$ is in the kernel of every linear operator.
+
+__Exercise__. _Show non-zero $v\in V$ is an eigenvector corresponding
+to the eigenvalue $\lambda\in\CC$ if and only if $v\in\ker T - \lambda I$_.
+
+The _spectrum_ of an operator is $\sigma(T) = \{\lambda\in\CC\mid T - \lambda I\text{ is not invertible}\}$.
+Recall $T - \lambda I$ is not invertible if and only if $\ker T - \lambda I \not= \{\zero\}$. 
+
+__Exercise__. _Show if $\lambda\in\sigma(T)$ there exists an eigenvector
+having eigenvalue $\lambda$_.
+
+If the cardinality of $\sigma(T)$ equals the dimension of $V$ we
+say $T$ is _diagonalizable_. Let's abbreviate this to _d'able_.
+If $V$ has dimension $n$ and $\sigma(T) = \{\lambda_1,\ldots,\lambda_n\}$
+then there are independent eigenvectors $\{v_1,\ldots,v_n\}$ with $Tv_j = \lambda_j v_j$.
+
+__Exercise__. _Show $\{v_1,\ldots,v_n\}$ is a basis of $V$_.
+
+If $T$ is d'able then the spectrum completely determines $T$.
+For $\lambda\in\sigma(T)$ there exists $v_\lambda\not=\zero$ with $Tv_\lambda = \lambda v_\lambda$.
+Since $\{v_\lambda\mid\lambda\in\sigma(T)\}$ is a basis of $V$
+every $v\in V$ can be written $v = \sum_{\lambda\in\sigma(T)} t_\lambda v_\lambda$
+for some $t_\lambda\in\CC$.
+The overgrown number $T$ satifies $Tv = \sum_{\lambda\in\sigma(T)} t_\lambda \lambda v_\lambda$.
+
+You might be thinking d'able operators are a special case, but we will prove later that
+every linear operator can be appoximated by them. Not every result about d'able operators
+can be used for the general theory but it is easy to prove some results for d'able operators.
+
+If $T\colon V\to V$ then $I, T, T^2, \ldots, T^{n^2}$ must be dependent
+since $[T\to T]$ is a vector space with dimension $n^2$ where $n$
+is the dimension of $V$.  Hence there exists a polynomial $p$ of order
+$n^2$ with $p(T) = 0$.  For a d'able operator $T$ there is a more
+drastic result that there is a polynomial of order $n$ with $p(T) = 0$.
+
+__Exercise__. _If $T\colon V\to V$ is d'able and $p(z) = \prod_{\lambda\in\sigma(T)} (z - \lambda)$
+then $p(T) = 0$_.
+
+_Hint_: Show $p(T)v_\lambda = 0$ if $Tv_\lambda = \lambda v_\lambda$.
+
+If it is true that every linear operator can be approximated by
+a d'able operators then this holds for all operators.
+
+__Exercise__. _If $T_n\to T$ in norm then $p(T_n) \to p(T)$ in norm
+for any polynomial $p$_.
+
+
+
+If $T$ is a linear operator on $V$ and $TM\subseteq M$ is an invariant
+subspace define $T/M\colon V/M\to V/M$ by
+$v + M \mapsto Tv + M$.
+
+__Exercise__. _Show $T/M$ is well-defined_.
+
+_Hint_: Show if $v + M = w + M$ then $Tv + M = Tw + M$.
+Since $v - w\in M$ we have $T(v - w)\in M$.
+
+Show $T\oplus M\colon M\oplus V/M\to M\oplus V/M$ is equivalent to $T$
+
+$T\colon V\to V$ and $U\colon W\to W$ are _equivalent_ if
+there exists an isomorphism $E\colon V\to W$
+with $ET = UE$.
 
 Every linear operator $T\colon\RR^I\to\RR^I$ is an element of the vector space
 $\RR^{I\times I}$ so $I, T, T^2,\ldots,T^{|I\times I|}$ are linearly dependent
-so there exists a polynomial $p$ of degree $|I\times I|$ with $p(T) = 0$.
+and there exists a polynomial $p$ of degree $|I\times I|$ with $p(T) = 0$.
 But there is a drastic reduction. For every linear operator $T\colon\RR^I\to\RR^I$
 
 <!--
@@ -469,7 +656,7 @@ More rigourously, define $[]\colon \RR^{\prod_{i\in\bs{m}}}\times\bs{m}\to\
 
 If $\iota\colon J\to I$ and $x\in\RR^I$ we have $x\iota\in\RR^J$
 for any index sets $I$, $J$. The name for composition on the right by $\iota$
-is $\circ\iota\colon\RR^I\to\RR^J$ so $\circ\iota(x) = x\iota$, $x\in\RR^I$.
+is $\c$\mathbf{Set}$irc\iota\colon\RR^I\to\RR^J$ so $\circ\iota(x) = x\iota$, $x\in\RR^I$.
 
 
 Even with this minimal material we can consider interesting operations to perform on $\RR^I$.
@@ -1286,6 +1473,8 @@ defined by $1_E(a) = 1$ if $a\in E$ and $1_E(a) = 0$ if $a\not\in E$.
 Set exponential allows us to express all indicator functions as elements of ${\{0,1\}}^A$.
 It is more common to write this as $2^A$ where $2 = \{0,1\}$.
 
+!!! This is the subobject classifier for sets.
+
 __Exercise__. _Show $\PP(A)$ is in one-to-one correspondence with $2^A$_.
 
 __Exercise__. _Show $\PP(A)$ is not in one-to-one correspondence with $A$ if $A$ is non-empty_.
@@ -1424,8 +1613,6 @@ classification up to isomorphism.
 Vector spaces are a mathematical sweet spot. Two vector spaces
 are isomorphic if and only if they have the same _dimension_.
 
-
-
 Currying is quite common in mathematics and is often done implicity.
 Although currying is common, there is no generally accepted notation for it, so let's define one
 for our purposes.
@@ -1446,94 +1633,3 @@ __Exercise__. _If $f\in (C^B)^A$ show $f, = \eval(\eval(f, a), b)$_.
 
 __Exercise__. _If $g\in (B\times C)^A$ show $,g = \eval(\eval(g, a), b)$_.
 -->
-
-A linear operator $T\colon V\to V$ is like an overgrown number.
-We can add and multiply them. Addition is commutative but multiplication is not
-if the dimension of $V$ is greater than 1.
-If $V$ is one-dimensional then $Tv = \lambda v$, $v\in V$, for some number $\lambda \in\CC$.
-The number $\lambda$ corresponds to the linear operator of scalar multiplication
-by $\lambda$.
-
-__Exercise__. _Prove this_.
-
-_Hint_: Pick any $v\in V$ that is not the zero vector. Since $Tv\in V$
-there exists $\lambda\in\CC$ with $Tv = \lambda v$.
-
-For any $T\colon V\to V$ we say $v\in V$ is an _eigenvector_ corresponding
-to the _eigenvalue_ $\lambda\in\CC$ if ${v\not=\zero}$ and ${Tv = \lambda v}$.
-The first important fact about eigenvectors is that if they have different
-corresponding eigenvalues they must be independent.
-
-__Exercise__. _If $Tv = \lambda v$, $Tw = \mu w$, and $\lambda\not=\mu$,
-then $v$ and $w$ are independent_.
-
-_Hint_:
-If $av + bw = \zero$ then $T(av + bw) = a\lambda v + b\mu w = \zero$.
-If $a$ and $b$ are not zero this implis
-
-
-__Exercise__. _Show $(T - \lambda I)\zero = \zero$ for any
-linear operator $T$ and $\lambda\in\CC$_.
-
-_Hint_: $\zero$ is in the kernel of every linear operator.
-
-__Exercise__. _Show non-zero $v\in V$ is an eigenvector corresponding
-to the eigenvalue $\lambda\in\CC$ if and only if $v\in\ker T - \lambda I$_.
-
-The _spectrum_ of an operator is $\sigma(T) = \{\lambda\in\CC\mid T - \lambda I\text{ is not invertible}\}$.
-Recall $T - \lambda I$ is not invertible if and only if $\ker T - \lambda I \not= \{\zero\}$. 
-
-__Exercise__. _Show if $\lambda\in\sigma(T)$ there exists an eigenvector
-having eigenvalue $\lambda$_.
-
-If the cardinality of $\sigma(T)$ equals the dimension of $V$ we
-say $T$ is _diagonalizable_. Let's abbreviate this to _d'able_.
-If $V$ has dimension $n$ and $\sigma(T) = \{\lambda_1,\ldots,\lambda_n\}$
-then there are independent eigenvectors $\{v_1,\ldots,v_n\}$ with $Tv_j = \lambda_j v_j$.
-
-__Exercise__. _Show $\{v_1,\ldots,v_n\}$ is a basis of $V$_.
-
-If $T$ is d'able then the spectrum completely determines $T$.
-For $\lambda\in\sigma(T)$ there exists $v_\lambda\not=\zero$ with $Tv_\lambda = \lambda v_\lambda$.
-Since $\{v_\lambda\mid\lambda\in\sigma(T)\}$ is a basis of $V$
-every $v\in V$ can be written $v = \sum_{\lambda\in\sigma(T)} t_\lambda v_\lambda$
-for some $t_\lambda\in\CC$.
-The overgrown number $T$ satifies $Tv = \sum_{\lambda\in\sigma(T)} t_\lambda \lambda v_\lambda$.
-
-You might be thinking d'able operators are a special case, but we will prove later that
-every linear operator can be appoximated by them. Not every result about d'able operators
-can be used for the general theory but it is easy to prove some results for d'able operators.
-
-If $T\colon V\to V$ then $I, T, T^2, \ldots, T^{n^2}$ must be dependent
-since $[T\to T]$ is a vector space with dimension $n^2$ where $n$
-is the dimension of $V$.  Hence there exists a polynomial $p$ of order
-$n^2$ with $p(T) = 0$.  For a d'able operator $T$ there exists a more
-drastic result that there is a polynomial of order $n$ with $p(T) = 0$.
-
-__Exercise__. _If $T\colon V\to V$ is d'able and $p(z) = \prod_{\lambda\in\sigma(T)} (z - \lambda)$
-then $p(T) = 0$_.
-
-_Hint_: Show $p(T)v_\lambda = 0$ if $Tv_\lambda = \lambda v_\lambda$.
-
-If it is true that every linear operator can be approximated by
-a d'able operators then this holds for all operators.
-
-__Exercise__. _If $T_n\to T$ in norm then $p(T_n) \to p(T)$ in norm
-for any polynomial $p$_.
-
-
-
-If $T$ is a linear operator on $V$ and $TM\subseteq M$ is an invariant
-subspace define $T/M\colon V/M\to V/M$ by
-$v + M \mapsto Tv + M$.
-
-__Exercise__. _Show $T/M$ is well-defined_.
-
-_Hint_: Show if $v + M = w + M$ then $Tv + M = Tw + M$.
-Since $v - w\in M$ we have $T(v - w)\in M$.
-
-Show $T\oplus M\colon M\oplus V/M\to M\oplus V/M$ is equivalent to $T$
-
-$T\colon V\to V$ and $U\colon W\to W$ are _equivalent_ if
-there exists an isomorphism $E\colon V\to W$
-with $ET = UE$.

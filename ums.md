@@ -10,10 +10,12 @@ header-includes:
 	- \usepackage{amsthm}
 	- \usepackage{amssymb}
 ...
-\newcommand\RR{\boldsymbol{R}}
-\newcommand\NN{\boldsymbol{N}}
+\newcommand\bs[1]{\boldsymbol{{#1}}}
+\newcommand\RR{\bs{R}}
+\newcommand\NN{\bs{N}}
 \renewcommand\AA{\mathcal{A}}
 \newcommand\PP{\mathcal{P}}
+\newcommand\GG{\mathcal{G}}
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\ran}{\operatorname{ran}}
 \renewcommand{\ker}{\operatorname{ker}}
@@ -92,7 +94,7 @@ measure then conditional expectation of a random variable $X\colon\Omega\to\RR$
 with respect to an algebra is defined
 by $Y = E[X|\AA]$ if and only if $Y\colon\Omega\to\RR$ is $\AA$-measurable
 and $\int_A Y\,dP = \int_A X\,dP$ for $A\in\AA$.
-This is equivalent to $Y(P|_\AA) = (XP)|_\AA$ where the vertical bar indicates
+This is equivalent to $Y(P|_{\AA}) = (XP)|_{\AA}$ where the vertical bar indicates
 restriction of measure. We do not use conditional
 expectation in what follows, only restriction of measures to an algebra.
 
@@ -491,27 +493,12 @@ $$
 A\colon\oplus_{j\in\NN} B(\AA_j, \RR^I)\to\oplus_{j\in\NN} B(\AA_j)
 $$
 by $A(\oplus_j \Gamma_j) = \oplus_j A_j$ where $A_j = \Delta_j\cdot C_j - \Gamma_j\cdot X_j$
-and ${\Delta_j = \sum_{i < j} \Gamma_j}$. Note ${\Delta_0 = 0}$.
-The norm is $\|\oplus_j \Gamma_j\| = \sup_j \|\Gamma_j\|$.
+and ${\Delta_j = \sum_{i < j} \Gamma_j}$. Note ${\Delta_0 = 0}$
+and $\Gamma_j = \Delta_{j+1} - \Delta_j$.
+The direct sum uses the $\infty$ norm $\|\oplus_j \Gamma_j\|_\infty = \sup_j \|\Gamma_j\|$.
 
-$\Delta\colon\oplus B(\AA_j)\to\oplus B(\AA_j)$
-$\Delta(\oplus_j \Gamma_j) = \oplus \Delta_j$ where $\Delta_j = \sum_{i<j}\Gamma_i$.
-
-$$
-\begin{aligned}
-\langle\oplus_j\Gamma_j, \Delta^*(\oplus_j D_j)\rangle
-&= \langle \Delta(\oplus_j\Gamma_j), \oplus_j D_j\rangle \\
-&= \sum_j \langle \Delta_j, D_j\rangle \\
-&= \sum_j \langle \sum_{i<j} \Gamma_i, D_j\rangle \\
-&= \sum_j \sum_{i<j} \langle \Gamma_i, D_j\rangle \\
-&= \sum_i \sum_{j>i} \langle \Gamma_i, D_j\rangle \\
-&= \sum_i \langle \Gamma_i, \sum_{j>i} D_j\rangle \\
-&= \langle\oplus_i \Gamma_i, \oplus_i \sum_{j>i} D_j\rangle \\
-\end{aligned}
-$$
-so $\Delta^*(\oplus_j D_j) = \oplus_j \sum_{j>i} D_i$.
-
-We now compute the adjoint $A^*\colon\oplus_{j\in\NN} ba(\AA_j)\to\oplus_{j\in\NN} ba(\AA_j, \RR^I)$
+We now compute the adjoint $A^*\colon\oplus_{j\in\NN} ba(\AA_j)\to\oplus_{j\in\NN} ba(\AA_j, \RR^I)$.
+For $\oplus_j D_j\in \oplus_j ba(\AA_j)$ with norm $\|\oplus_j D_j\|_1 = \sum_j \|D_j\|$
 $$
 \begin{aligned}
 \langle \oplus_j \Gamma_j, A^*(\oplus_j D_j)\rangle
@@ -525,7 +512,26 @@ $$
 &= \langle\oplus_j \Delta_j,\oplus_j C_j D_j + X_j D_j - X_{j-1} D_{j-1} \rangle \\
 \end{aligned}
 $$
-This shows $A^*(\oplus_j D_j) = \oplus_j \oplus_j C_j D_j + X_j D_j - X_{j-1} D_{j-1}$.
+This shows $A^*(\oplus_j D_j) = \oplus_j C_j D_j + X_j D_j - X_{j-1} D_{j-1}$.
+
+$$
+\begin{aligned}
+\langle \oplus_j \Gamma_j, A^*(\oplus_j D_j)\rangle
+&= \langle A(\oplus_j \Gamma_j), \oplus_j D_j\rangle \\ &= \sum_j \langle \Delta_j\cdot C_j - \Gamma_j\cdot X_j, D_j\rangle \\
+&= \sum_j \langle \Delta_j\cdot C_j - (\Delta_{j+1} - \Delta_j)\cdot X_j, D_j\rangle \\
+&= \sum_j \langle \Delta_j\cdot C_j + \Delta_j\cdot X_j, D_j\rangle
+ -  \sum_j \langle \Delta_{j+1}\cdot X_j, D_j\rangle \\
+&= \sum_j \langle \Delta_j\cdot C_j + \Delta_j\cdot X_j, D_j\rangle
+ -  \sum_j \langle \Delta_j\cdot X_{j-1}, D_{j-1}\rangle \\
+&= \sum_j \langle \Delta_j, C_j D_j + X_j D_j - X_{j-1} D_{j-1} \rangle \\
+&= \langle\oplus_j \Delta_j,\oplus_j C_j D_j + X_j D_j - X_{j-1} D_{j-1} \rangle \\
+\end{aligned}
+$$
+
+Define the positive cone $\PP = \{\oplus_{j\in\NN} P_j\mid P_0 > 0, P_j\ge 0, j>0\}$
+and $\GG$ to be the subspace of $\oplus_{j\in\NN} B(\AA_j,\RR^I$ having
+a finite number of non-zero terms that sum to 0.
+Arbitrage exists if $A(\GG_0)$ meets $\PP$.
 
 
 <!--
