@@ -36,6 +36,8 @@ any collection of instruments. He used the Hahn-Banach theorem to show
 > _If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, $L$_.
 
+Perhaps Ross never won a Nobel prize 
+
 This note identifies Ross's valuation operator and suggests an improvement
 by placing cash flows on equal footing with prices.  In some sense,
 cash flows are more important. The Fundamental Theorem of Asset Pricing
@@ -56,13 +58,16 @@ hedge in order to better manage the risk of this market reality.
 ## Prologue
 
 This section reviews the mathematics required for the SUM with a view to how
-it relates to classical Black-Scholes/Merton machinery.
+it relates to classical Black-Scholes/Merton machinery. It is especially intended
+for mathematically sophisticated readers. They tend to have difficulty
+shedding their hard-won knowledge and accept the fact only elementary math is needed.
+
 The SUM does not involve probability. As Ross showed, the Fundamental Theorem
 of Asset Pricing is a geometric result. We assume a sample space and filtration, but
 do not require a probability measure.
-There is no need for Brownian motion, the Ito calculus, or partial differential
-equations. The notion of continuous time hedging is a mathematical artifact.
-Traders can only execute a finite number of trades.
+There is no need for the Ito calculus, or partial differential
+equations. The notion of continuous time hedging is a deleterious mathematical artifact;
+every hedge in the real world consists of a finite number of trades.
 
 If an algebra $\AA$ of sets on $\Omega$ is finite then the atoms of the algebra form a
 partition of $\Omega$ and a function $X\colon\Omega\to\RR$ is measurable with
@@ -80,9 +85,11 @@ where $1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\in\Ome
 The facts $1_\emptyset = 0$ and $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$, $A,B\subseteq\Omega$
 show $\lambda$ is a measure.
 
-The integral $\int_S f\,d\lambda$ is defined for _elementary functions_ that are 
-a finite linear sum $f = \sum_i a_i 1_{A_i}$ by $\int_S f\,d\lambda = \sum_i a_i\lambda(A_i)$.
-It is not obvious this is well-defined and ... ???
+The integral $\int_\Omega f\,d\lambda$ is defined for _elementary functions_ that are 
+a finite linear sum $f = \sum_i a_i 1_{A_i}$, $A_i\subseteq\Omega$,
+by $\int_\Omega f\,d\lambda = \sum_i a_i\lambda(A_i)$.
+Dunford and Schwartz show this is well-defined and an isometry so it can be extended
+to all of $B(\Omega)$.
 
 Define $M_f\colon B(\Omega)\to B(\Omega)$ by $M_fg = fg$. Its adjoint
 $M_f^*\colon ba(\Omega)\to ba(\Omega)$ defines multiplication of a
@@ -235,10 +242,11 @@ $$
 
 _Proof_.
 Substitute $V_t$ by its definition on the left side of $(2)$ and
-use $X_t D_t$ from $(1)$. Note $\Delta_t + \Gamma_t = \Delta_{t+\epsilon}$
-for $\epsilon > 0$ sufficiently small. In this case
-$V_t D_t = (V_u D_u + A_u D_u)|_{\AA_t}$ for $u = {t+\epsilon}$.
-The result follows from induction.
+use $X_t D_t$ from $(1)$. Note ${\Delta_t + \Gamma_t = \Delta_{t+\epsilon}}$
+for ${\epsilon > 0}$ sufficiently small. In this case
+${V_t D_t = (V_u D_u + A_u D_u)|_{\AA_t}}$ for ${u = t+\epsilon}$.
+The result follows by induction.
+
 __Example__. (Black-Scholes/Merton)
 $M_t = (r, se^{\sigma B_t - \sigma^2t/2})P$, $C_t = (0,0)$,
 $D_t = e^{-\rho t}P$ where $(B_t)$ is standard Brownian motion and $P$ is Wiener measure.
@@ -364,7 +372,7 @@ _Vega_ is the derivative of option value with respect to $s$.
 The vega of a put option is
 $$
 \begin{aligned}
-    \partial_s v &= \partial_s E[\max\{k - F, 0\}] \\
+    \partial_s p &= \partial_s E[\max\{k - F, 0\}] \\
         &= E[-1(F \le k)\partial_s F] \\
         &= -E[1(X\le x)F(X - \kappa'(s))] \\
         &= -f\partial_s \Psi^s(x) \\
@@ -421,6 +429,7 @@ $$
 $$
 when $t > \tau$.
 -->
+
 ### Futures
 
 A _futures contract_ on an underlying with price $S_t$, $t\in T$, is
@@ -437,6 +446,11 @@ Under the canonical deflator futures quotes are a martingale.
 
 A _limit order_ is specified by a level. When the underlying reaches
 the level the holder receives one share of stock by paying the level.
+This corresponds to a cash flow $C_{\tau_L} = (-L, 1)$ where $\tau_L$
+is the first time level $L$ is reached and the components correspond
+to the currency used for the underlying quote and the underlying.
+
+## Doob's Upcrossing Lemma
 
 ## Fundamental Theorem of Asset Pricing
 
@@ -502,31 +516,15 @@ For $\oplus_j D_j\in \oplus_j ba(\AA_j)$ with norm $\|\oplus_j D_j\|_1 = \sum_j 
 $$
 \begin{aligned}
 \langle \oplus_j \Gamma_j, A^*(\oplus_j D_j)\rangle
-&= \langle A(\oplus_j \Gamma_j), \oplus_j D_j\rangle \\ &= \sum_j \langle \Delta_j\cdot C_j - \Gamma_j\cdot X_j, D_j\rangle \\
-&= \sum_j \langle \Delta_j\cdot C_j - (\Delta_{j+1} - \Delta_j)\cdot X_j, D_j\rangle \\
-&= \sum_j \langle \Delta_j\cdot C_j + \Delta_j\cdot X_j, D_j\rangle
- -  \sum_j \langle \Delta_{j+1}\cdot X_j, D_j\rangle \\
-&= \sum_j \langle \Delta_j\cdot C_j + \Delta_j\cdot X_j, D_j\rangle
- -  \sum_j \langle \Delta_j\cdot X_{j-1}, D_{j-1}\rangle \\
-&= \sum_j \langle \Delta_j, C_j D_j + X_j D_j - X_{j-1} D_{j-1} \rangle \\
-&= \langle\oplus_j \Delta_j,\oplus_j C_j D_j + X_j D_j - X_{j-1} D_{j-1} \rangle \\
+&= \langle A(\oplus_j \Gamma_j), \oplus_j D_j\rangle \\
+&= \sum_j \langle \Delta_j\cdot C_j - \Gamma_j\cdot X_j, D_j\rangle \\
+&= \sum_j \langle (\sum_{i < j}\Gamma_i)\cdot C_j - \Gamma_j\cdot X_j, D_j\rangle \\
+&= \sum_j \langle \Gamma_j\cdot (\sum_{i > j} C_j) - \Gamma_j\cdot X_j, D_j\rangle \\
+&= \sum_j \langle \Gamma_j\cdot \bigl((\sum_{i > j} C_j) - X_j\bigr), D_j\rangle \\
+&= \sum_j \langle \Gamma_j, \bigl((\sum_{i > j} C_j) - X_j\bigr) D_j\rangle \\
 \end{aligned}
 $$
-This shows $A^*(\oplus_j D_j) = \oplus_j C_j D_j + X_j D_j - X_{j-1} D_{j-1}$.
-
-$$
-\begin{aligned}
-\langle \oplus_j \Gamma_j, A^*(\oplus_j D_j)\rangle
-&= \langle A(\oplus_j \Gamma_j), \oplus_j D_j\rangle \\ &= \sum_j \langle \Delta_j\cdot C_j - \Gamma_j\cdot X_j, D_j\rangle \\
-&= \sum_j \langle \Delta_j\cdot C_j - (\Delta_{j+1} - \Delta_j)\cdot X_j, D_j\rangle \\
-&= \sum_j \langle \Delta_j\cdot C_j + \Delta_j\cdot X_j, D_j\rangle
- -  \sum_j \langle \Delta_{j+1}\cdot X_j, D_j\rangle \\
-&= \sum_j \langle \Delta_j\cdot C_j + \Delta_j\cdot X_j, D_j\rangle
- -  \sum_j \langle \Delta_j\cdot X_{j-1}, D_{j-1}\rangle \\
-&= \sum_j \langle \Delta_j, C_j D_j + X_j D_j - X_{j-1} D_{j-1} \rangle \\
-&= \langle\oplus_j \Delta_j,\oplus_j C_j D_j + X_j D_j - X_{j-1} D_{j-1} \rangle \\
-\end{aligned}
-$$
+This shows $A^*(\oplus_j D_j) = \oplus_j \bigl((\sum_{i > j} C_j) - X_j\bigr) D_j$.
 
 Define the positive cone $\PP = \{\oplus_{j\in\NN} P_j\mid P_0 > 0, P_j\ge 0, j>0\}$
 and $\GG$ to be the subspace of $\oplus_{j\in\NN} B(\AA_j,\RR^I$ having
