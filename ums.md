@@ -31,12 +31,15 @@ Fischer Black, Myron Scholes [@BlaSch1973], and Robert C. Merton III
 options by dynamically trading a bond and a stock.  Stephen Ross's
 paper "A Simple Approach to the Valuation of Risky Streams" [@Ros1978]
 extended the B-S/M theory by showing how to value a derivative using
-any collection of instruments. He used the Hahn-Banach theorem to show
+_any_ collection of instruments. He used the Hahn-Banach theorem to show
 
 > _If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, $L$_.
 
-Perhaps Ross never won a Nobel prize 
+Perhaps Ross never won a Nobel prize because his result was so audacious.
+Maybe people were not ready to believe it was possible to come up
+with a theory that applied to every market traded instrument, not
+just a bond, stock, and option.
 
 This note identifies Ross's valuation operator and suggests an improvement
 by placing cash flows on equal footing with prices.  In some sense,
@@ -233,7 +236,9 @@ ${X_t D_t = M_t - \sum_{s\le t} C_s D_s}$ is arbitrage-free_.
 
 _Proof_. Substitute $X_u D_u$ by this formula in $(1)$ and cancel terms in the sums.
 
-Every arbitrage-free model is a special case of this.
+__Example__. (Black-Scholes/Merton)
+$M_t = (r, se^{\sigma B_t - \sigma^2t/2})P$, $C_t = (0,0)$,
+$D_t = e^{-\rho t}P$ where $(B_t)$ is standard Brownian motion and $P$ is Wiener measure.
 
 __Lemma__. _Assuming $(1)$ and the definitions of value and amount_
 $$
@@ -246,10 +251,6 @@ use $X_t D_t$ from $(1)$. Note ${\Delta_t + \Gamma_t = \Delta_{t+\epsilon}}$
 for ${\epsilon > 0}$ sufficiently small. In this case
 ${V_t D_t = (V_u D_u + A_u D_u)|_{\AA_t}}$ for ${u = t+\epsilon}$.
 The result follows by induction.
-
-__Example__. (Black-Scholes/Merton)
-$M_t = (r, se^{\sigma B_t - \sigma^2t/2})P$, $C_t = (0,0)$,
-$D_t = e^{-\rho t}P$ where $(B_t)$ is standard Brownian motion and $P$ is Wiener measure.
 
 **Trading strategies create synthetic instruments where price corresponds
 to value and cash flow corresponds to amount.**
@@ -507,27 +508,29 @@ $$
 A\colon\oplus_{j\in\NN} B(\AA_j, \RR^I)\to\oplus_{j\in\NN} B(\AA_j)
 $$
 by $A(\oplus_j \Gamma_j) = \oplus_j A_j$ where $A_j = \Delta_j\cdot C_j - \Gamma_j\cdot X_j$
-and ${\Delta_j = \sum_{i < j} \Gamma_j}$. Note ${\Delta_0 = 0}$
-and $\Gamma_j = \Delta_{j+1} - \Delta_j$.
-The direct sum uses the $\infty$ norm $\|\oplus_j \Gamma_j\|_\infty = \sup_j \|\Gamma_j\|$.
+and ${\Delta_j = \sum_{i < j} \Gamma_j}$. Note ${\Delta_0 = 0}$ and
+$\Gamma_j = \Delta_{j+1} - \Delta_j$. The direct sum uses the sup
+norm $\|\oplus_j \Gamma_j\|_\infty = \sup_j \|\Gamma_j\|$.
 
 We now compute the adjoint $A^*\colon\oplus_{j\in\NN} ba(\AA_j)\to\oplus_{j\in\NN} ba(\AA_j, \RR^I)$.
-For $\oplus_j D_j\in \oplus_j ba(\AA_j)$ with norm $\|\oplus_j D_j\|_1 = \sum_j \|D_j\|$
+For $\oplus_j D_j\in \oplus_j ba(\AA_j)$ with sum norm $\|\oplus_j D_j\|_1 = \sum_j \|D_j\|$
 $$
 \begin{aligned}
 \langle \oplus_j \Gamma_j, A^*(\oplus_j D_j)\rangle
 &= \langle A(\oplus_j \Gamma_j), \oplus_j D_j\rangle \\
 &= \sum_j \langle \Delta_j\cdot C_j - \Gamma_j\cdot X_j, D_j\rangle \\
 &= \sum_j \langle (\sum_{i < j}\Gamma_i)\cdot C_j - \Gamma_j\cdot X_j, D_j\rangle \\
-&= \sum_j \langle \Gamma_j\cdot (\sum_{i > j} C_j) - \Gamma_j\cdot X_j, D_j\rangle \\
-&= \sum_j \langle \Gamma_j\cdot \bigl((\sum_{i > j} C_j) - X_j\bigr), D_j\rangle \\
-&= \sum_j \langle \Gamma_j, \bigl((\sum_{i > j} C_j) - X_j\bigr) D_j\rangle \\
+&= \sum_j \sum_{i < j} \langle \Gamma_i\cdot C_j, D_j\rangle - \sum_j \langle \Gamma_j\cdot X_j, D_j\rangle \\
+&= \sum_i \sum_{j > i} \langle \Gamma_i\cdot C_j, D_j\rangle - \sum_j \langle \Gamma_j\cdot X_j, D_j\rangle \\
+&= \sum_j \sum_{i > j} \langle \Gamma_j\cdot C_i, D_i\rangle - \sum_j \langle \Gamma_j\cdot X_j, D_j\rangle \\
+&= \sum_j \langle \Gamma_j\cdot \sum_{i > j} C_i, D_i\rangle - \sum_j \langle \Gamma_j\cdot X_j, D_j\rangle \\
+&= \sum_j \langle \Gamma_j, \sum_{i > j} C_i D_i\rangle - \sum_j \langle \Gamma_j, X_j D_j\rangle \\
 \end{aligned}
 $$
-This shows $A^*(\oplus_j D_j) = \oplus_j \bigl((\sum_{i > j} C_j) - X_j\bigr) D_j$.
+This shows $A^*(\oplus_j D_j) = \oplus_j \sum_{i > j} C_i D_i - X_j D_j$.
 
 Define the positive cone $\PP = \{\oplus_{j\in\NN} P_j\mid P_0 > 0, P_j\ge 0, j>0\}$
-and $\GG$ to be the subspace of $\oplus_{j\in\NN} B(\AA_j,\RR^I$ having
+and $\GG_0$ to be the subspace of $\oplus_{j\in\NN} B(\AA_j,\RR^I)$ having
 a finite number of non-zero terms that sum to 0.
 Arbitrage exists if $A(\GG_0)$ meets $\PP$.
 
