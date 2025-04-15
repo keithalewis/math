@@ -65,6 +65,7 @@ the mathematical world of sets with structure. Sets have no
 structure, they are just a bag of _elements_ that are _members_ of the set.
 Two sets have the same _cardinality_ if and only if there is a bijection
 between them.
+
 Two vector spaces are
 isomorphic if and only if they have the same dimension.  This is very
 different from the case for, e.g., groups, rings, and fields.  Only a
@@ -127,10 +128,6 @@ if it is one-to-one and onto. Two finite sets are the same size
 if they have the same number of elements. Bijections classify
 possibly infinite sets by _cardinality_.
 
-There is a total ordering on set cardinality given by 
-$\#A\le\#B$ if and only if there is a one-to-one function
-$f\colon A\to B$.
-
 ## Category
 
 Okay, I lied.  Not everything in math is a set. There is an alternate foundation of
@@ -139,7 +136,7 @@ having an associative composition for arrows and identity arrows for each object
 above exercises show sets and functions are objects and arrows for the category $\mathbf{Set}$.
 Samuel Eilenberg and Saunders Mac Lane noticed many proofs in their area, algebraic
 topology, were based on these simple notions. The goal of algebraic topology is
-to detect when two topologial spaces are isomorphic, i.e., there is 
+to classify when two topologial spaces are isomorphic, i.e., there is 
 a continuous bijection between them. As of 2025, this problem remains unsolved.
 
 A funny thing happened when people tried to define sets using only objects
@@ -155,14 +152,20 @@ a morphism from a terminal object $1\to\Omega$ such that for each
 monomorphism $j\colon U\to X$ there exists a unique $\chi_j\colon
 X\to\Omega$ such that $\chi_j j\colon U\to\Omega$ is equal to the composition of
 $U\to 1$ and $1\to\Omega$. Phew!
+No wonder some people think category theory is useless.
 
-Category theory can help generalize classical set theory results.
+Putting on your category theory glasses can help see classical set theory results
+more clearly.
 It turns out set membership is a special case. For example,
 the points of a sphere are members of the sphere, but each
 point also determines a unique tangent plane to the sphere.
+This is an example of a [_sheaf_](https://ncatlab.org/nlab/show/sheaf)
+that generalizes set membership.
 
 The axioms of category theory are so simple compared to set theory it
 is no surprise their application is more complicated. 
+Fighting to establish true statements with one hand tied behind your
+back forces you to get to the bottom of what is essential.
 
 We can define one-to-one and onto using only functions.
 
@@ -219,7 +222,7 @@ with functions $p_A\colon P\to A$, $p_B\colon P\to B$
 with the property in the previous exercise, then $P$
 is in one-to-one correspondence with $A\times B$.
 
-__Exercise__. _Show any such $P$ is in one-to-one correspondence with $A\times B$_.
+__Exercise__. _Prove this_.
 
 <details><summary>Solution</summary>
 Since $p_A\colon P\to A$ and $p_B\colon P\to B$ there exists

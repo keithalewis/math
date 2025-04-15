@@ -481,10 +481,10 @@ $$
 $$
 shows $A^*(\pi\oplus_1 \Pi) = -x\pi + \langle X,\Pi\rangle\in\RR^I$.
 
-The range of $A$ is closed since it is finite dimensional and $\PP$ has an interior point
+The range of $A$ is closed, since it is finite dimensional, and $\PP$ has an interior point
 so by the Hahn-Banach theorem there exists a hyperplane $H\supseteq\ran A$ that does not meet $\PP$.
 Every hyperplane is the preanhiliator of an element of the dual, say $d\oplus_1 D\in\RR\oplus ba(\Omega)$,
-so ${H = {}^\perp\{d\oplus_1 D\} =  \{p\oplus_\infty P\mid \langle p\oplus_\infty P, d\oplus_1 D\rangle = 0\}}$.
+so ${H = {}^\perp\{d\oplus_1 D\} = \{p\oplus_\infty P\mid \langle p\oplus_\infty P, d\oplus_1 D\rangle = 0\}}$.
 Since $\ran A = {}^\perp(\ker A^*)\subseteq H$ we have $d\oplus_1 D\in\ker A^*$
 so $0 = -xd + \langle X,D\rangle$. We now show $d$ and $D$ are positive.
 
