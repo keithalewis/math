@@ -34,7 +34,7 @@ This exercise establishes the simplest form of Bayes Theorem. It shows how to up
 probability of $A$ given information $B$.
 
 A _random variable_ is a function $X\colon S\to\RR$. Its _cumulative distribution
-function_ is $F(x) = P(X\le x$. It determines everything there is to
+function_ is $F(x) = P(X\le x)$. It determines everything there is to
 know about $X$. Two random variables have the same _law_ if they have
 the same cumulative distribution function.
 
@@ -61,4 +61,4 @@ __Exercise__. _Show $P(X = x_j|Y = y_k) = p_{jk}/\sum_j p_{jk}$_.
 
 _Hint_: $P(X = x_j|Y = y_k) = P(X = x_j, Y = y_k)/P(Y = y_k)$.
 
-Using Bayes Theorem, ${P(X = x_j|E[Y] = y) = P(X = x_j)P(E[Y] = y|X = x_j)/P(E[Y] = y)}$
+Using Bayes Theorem, ${P(X = x_j|E[Y] = y) = P(X = x_j)P(E[Y] = y|X = x_j)/P(E[Y] = y)}$...
