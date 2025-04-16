@@ -17,21 +17,21 @@ A _probability measure_ $P$ on a set $S$ is a positive measure with mass 1
 so $P(E)\ge0$ for $E\subseteq S$ and $P(S) = 1$.
 
 Subsets of $S$ are _events_.  The conditional expectation of an event
-$A$ given event $B$ is ${P(A|B) = P(A\cap B)/P(B)}$. This makes $A\mapsto
-P(A|B)$ a probability measure on $B$ if ${P(B)\not=0}$.
+$E$ given the event $F$ is ${P(E|F) = P(E\cap F)/P(F)}$. This makes $E\mapsto
+P(E|F)$ a probability measure on $F$ if ${P(F)\not=0}$.
 
 __Exercise__. _Show if $E,F\subseteq B$ then
-${P(E \cup F|B) = P(E|B) + P(F|B) - P(E\cap F|B)}$,
-${P(\emptyset|B) = 0}$, and ${P(B|B) = 1})$_.
+${P(E \cup F|F) = P(E|F) + P(F|F) - P(E\cap F|F)}$,
+${P(\emptyset|F) = 0}$, and ${P(F|F) = 1})$_.
 
 _Hint_: Use $P(E\cup F) = P(E) + P(F) - P(E\cap F)$.
 
-__Exercise__. _Show $P(A|B) = P(A)P(B|A)/P(B)$_.
+__Exercise__. _Show $P(E|F) = P(E)P(F|E)/P(F)$_.
 
-_Hint_. Use $P(B|A) = P(B\cap A)/P(A)$.
+FHint_. Use $P(F|E) = P(F\cap E)/P(E)$.
 
 This exercise establishes the simplest form of Bayes Theorem. It shows how to update the
-probability of $A$ given information $B$.
+probability of an evert $E$ given the information $F$ occured.
 
 A _random variable_ is a function $X\colon S\to\RR$. Its _cumulative distribution
 function_ is $F(x) = P(X\le x)$. It determines everything there is to
