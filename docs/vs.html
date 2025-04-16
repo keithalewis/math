@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-04-10" />
+  <meta name="dcterms.date" content="2025-04-15" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">April 10, 2025</p>
+<p class="date">April 15, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -57,6 +57,7 @@ A mathematical sweet spot
 <nav id="TOC" role="doc-toc">
 <ul>
 <li><a href="#set" id="toc-set">Set</a></li>
+<li><a href="#category" id="toc-category">Category</a></li>
 <li><a href="#boldsymbolrn" id="toc-boldsymbolrn"><span
 class="math inline">\boldsymbol{{{R}}}^n</span></a>
 <ul>
@@ -73,8 +74,8 @@ Operator</a>
 <li><a href="#matrix" id="toc-matrix">Matrix</a></li>
 <li><a href="#dual" id="toc-dual">Dual</a></li>
 </ul></li>
-<li><a href="#characteristic-polynomial"
-id="toc-characteristic-polynomial">Characteristic Polynomial</a></li>
+<li><a href="#operator-structure" id="toc-operator-structure">Operator
+Structure</a></li>
 </ul>
 </nav>
 <!--
@@ -88,32 +89,47 @@ class="math inline">{B^A = \{f\colon A\to B\}}</span> is the set of all
 functions from <span class="math inline">A</span> to <span
 class="math inline">B</span>. Let’s write <span
 class="math inline">B^A</span> suggestively as <span
-class="math inline">{\{A\to B\}}</span>. If <span
+class="math inline">{f\in\{A\to B\}}</span>. If <span
 class="math inline">A</span> and <span class="math inline">B</span> are
-sets with structure we want to consider only the functions that preserve
-the structure and write that as <span class="math inline">{[A\to
-B]}</span>. A function <span class="math inline">{f\in [A\to B]}</span>
-is a <em>homomorphisms</em>, derived from the Greek homos(ὁμός), meaning
-same, and morphe(μορφή), meaning form or shape.</p>
-<p>A homomorphism <span class="math inline">f\colon A\to B</span> that
-is one-to-one(injective) and onto(surjective) is a one-to-one
-correspondence(isomorphism). A game mathematicians like to play is to
-come up with a way to figure out when sets with structure are
-isomorphic. Vector spaces hold a sweet spot in the mathematical world of
-sets with structure. Two vector spaces are isomorphic if and only if
-they have the same dimension. This is very different from the case for,
-e.g., groups, rings, and fields. Only a totally ordered Archemedian
-field can top this. It must be isomorphic to the real numbers. Lie
+sets with structure we want to consider functions that preserve the
+structure and write that as <span class="math inline">{[A\to B]}</span>.
+A function <span class="math inline">{f\in [A\to B]}</span> is a
+<em>homomorphism</em>, derived from the Greek homos(ὁμός), meaning
+alike, and morphe(μορφή), meaning form.</p>
+<p>A homomorphism <span class="math inline">f\in [A\to B]</span> that is
+one-to-one(injective) and onto(surjective) is a one-to-one
+correspondence(isomorphism). We use the notation <span
+class="math inline">A\cong B</span> to denote the existence of a
+bijection.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">A\cong
+A</span>, <span class="math inline">A\cong B</span> implies <span
+class="math inline">B\cong A</span>, and <span
+class="math inline">A\cong B</span>, <span class="math inline">B\cong
+C</span> imply <span class="math inline">A\cong C</span></em>.</p>
+<p>The exercise shows <span class="math inline">\cong</span> is an
+<em>equivalence relation</em>. This generalizes the notion of equality.
+Two things can be the “same” without being equal. In the case of sets,
+two sets are isomorphic if and only if they have the same
+cardinality.</p>
+<p>A game mathematicians like to play is to determine when sets with
+structure are isomorphic. Sets and vector spaces hold a sweet spot in
+the mathematical world of sets with structure. Sets have no structure,
+they are just a bag of <em>elements</em> that are <em>members</em> of
+the set. Two sets have the same <em>cardinality</em> if and only if
+there is a bijection between them.</p>
+<p>Two vector spaces are isomorphic if and only if they have the same
+dimension. This is very different from the case for, e.g., groups,
+rings, and fields. Only a Dedekind complete totally ordered Archemedian
+field can top this; it must be isomorphic to the real numbers. Lie
 groups take a distant second. If a group has a topology making the
 multiplication continuous there is a very beautiful theory due to
-Killing, and fixed up in Elie Cartan’s PhD thesus, providing a complete
+Killing, fixed up in Elie Cartan’s PhD thesis, providing a complete
 classification.</p>
-<p>The next game they like to play is to figure out when two
-homomorphism are isomorphic. A homomorphism between vector spaces is
-called a <em>linear operator</em>. Two linear operators are isomorphic
-if they have the same Jordan canonical form. Keep reading to find out
-what that is. Along the way we will develop a theory that can be widely
-applied to any linear system.</p>
+<p>The next game they like to play is determining when two homomorphisms
+are equivalent. A homomorphism between vector spaces is called a
+<em>linear operator</em>. Keep reading to find out how the Jordan
+canonical form solves this in finite dimensions. Along the way we will
+develop a theory that can be widely applied to any linear system.</p>
 <section id="set" class="level2">
 <h2>Set</h2>
 <p>Everything in math is a set. We write <span class="math inline">a\in
@@ -177,6 +193,47 @@ B</span> there exists an <span class="math inline">a\in A</span> with
 one-to-one and onto. Two finite sets are the same size if they have the
 same number of elements. Bijections classify possibly infinite sets by
 <em>cardinality</em>.</p>
+</section>
+<section id="category" class="level2">
+<h2>Category</h2>
+<p>Okay, I lied. Not everything in math is a set. There is an alternate
+foundation of mathematics called <em>category theory</em> involving
+<em>objects</em> and <em>arrows</em> having an associative composition
+for arrows and identity arrows for each object. The above exercises show
+sets and functions are objects and arrows for the category <span
+class="math inline">\mathbf{Set}</span>. Samuel Eilenberg and Saunders
+Mac Lane noticed many proofs in their area, algebraic topology, were
+based on these simple notions. The goal of algebraic topology is to
+classify when two topologial spaces are isomorphic, i.e., there is a
+continuous bijection between them. As of 2025, this problem remains
+unsolved.</p>
+<p>A funny thing happened when people tried to define sets using only
+objects and arrows. Logicians like to say, “The language of set theory
+is epsilon.” By that they mean set theory can be defined using
+first-order logic and axioms for set membership. It turned out the
+notion of membership in category theory is a little tricky.</p>
+<p>Topos Theory theory tries to define sets using only objects and
+arrows. The best anyone has come up with so far for membership is a
+<em>subobject classifier</em> <span class="math inline">\Omega</span>
+for which there exists (fasten your seatbelt) a morphism from a terminal
+object <span class="math inline">1\to\Omega</span> such that for each
+monomorphism <span class="math inline">j\colon U\to X</span> there
+exists a unique <span class="math inline">\chi_j\colon X\to\Omega</span>
+such that <span class="math inline">\chi_j j\colon U\to\Omega</span> is
+equal to the composition of <span class="math inline">U\to 1</span> and
+<span class="math inline">1\to\Omega</span>. Phew! No wonder some people
+think category theory is useless.</p>
+<p>Putting on your category theory glasses can help see classical set
+theory results more clearly. It turns out set membership is a special
+case. For example, the points of a sphere are members of the sphere, but
+each point also determines a unique tangent plane to the sphere. This is
+an example of a <a
+href="https://ncatlab.org/nlab/show/sheaf"><em>sheaf</em></a> that
+generalizes set membership.</p>
+<p>The axioms of category theory are so simple compared to set theory it
+is no surprise their application is more complicated. Fighting to
+establish true statements with one hand tied behind your back forces you
+to get to the bottom of what is essential.</p>
 <p>We can define one-to-one and onto using only functions.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">f\colon
 A\to B</span> is one-to-one if and only if <span class="math inline">fg
@@ -186,8 +243,22 @@ class="math inline">g,h\colon C\to A</span></em>.</p>
 if <span class="math inline">f(g(c)) = f(h(c))</span> for all <span
 class="math inline">c\in C</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">f\colon
+A\to B</span> is onto if and only if <span class="math inline">gf =
+hf</span> implies <span class="math inline">g = h</span> for <span
+class="math inline">g,h\colon B\to C</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">gf = hf</span> if and only
+if <span class="math inline">g(f(a)) = h(f(a))</span> for all <span
+class="math inline">a\in A</span>. For all <span
+class="math inline">b\in B</span> there exists <span
+class="math inline">a\in A</span> with <span class="math inline">f(a) =
+b</span>.</p>
+<p>In a general category these two cancellation properties define
+<em>mono</em> and <em>epi</em> arrows. In the category <span
+class="math inline">\mathbf{Set}</span> these turn out to be the same as
+injective and surjective.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">f\colon
 A\to B</span> is one-to-one if and only if it has a left
-inverse</em>.</p>
+inverse</em>(retraction).</p>
 <p><em>Hint</em>: A <em>left inverse</em> is a function <span
 class="math inline">f^\dashv\colon B\to A</span> with <span
 class="math inline">f^\dashv f = 1_A</span>.</p>
@@ -200,39 +271,30 @@ class="math inline">f(a) = b</span> define <span
 class="math inline">f^\dashv(b) = a</span>. This is well-defined since
 <span class="math inline">f</span> is one-to-one, i.e., if <span
 class="math inline">f(a&#39;) = b</span> then <span
-class="math inline">a = a&#39;</span>. If a left inverse exists and
-<span class="math inline">fg = fh</span> then pre-compose the left
-inverse to get <span class="math inline">g = h</span>.
+class="math inline">a = a&#39;</span>.
 </details>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">f\colon A\to B</span> is a retraction then <span
+class="math inline">f</span> is mono</em>.</p>
+<p><em>Hint</em>: If a left inverse exists and <span
+class="math inline">fg = fh</span> then pre-compose the left inverse to
+get <span class="math inline">g = h</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">f\colon
-A\to B</span> is onto if and only if <span class="math inline">gf =
-hf</span> implies <span class="math inline">g = h</span> for <span
-class="math inline">g,h\colon B\to C</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">gf = hf</span> if and only
-if <span class="math inline">g(f(a)) = h(f(a))</span> for all <span
-class="math inline">a\in A</span>. For all <span
-class="math inline">b\in B</span> there exists <span
-class="math inline">a\in A</span> with <span class="math inline">f(a) =
-b</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">f\colon
-A\to B</span> is onto if and only if it has a right inverse</em>.</p>
+A\to B</span> is onto if and only if it has a right
+inverse</em>(section).</p>
 <p><em>Hint</em>: A <em>right inverse</em> is a function <span
 class="math inline">f^\vdash\colon B\to A</span> with <span
 class="math inline">ff^\vdash = 1_B</span>.</p>
-<p>Not everything in math is a set. There is an alternate foundation of
-mathematics called <em>category theory</em> involving <em>objects</em>
-and <em>arrows</em> having an associative composition and identity
-arrows for each object. The above exercises show sets and functions are
-objects and arrows for the category <span
-class="math inline">\mathbf{Set}</span>.</p>
-<p>We will not give a rigorous definition of what a category is, but we
-will lean heavily on what Samuel Eilenberg and Saunders Mac Lane
-invented to unify many proofs from diverse areas of mathematics prior to
-the mid 20-th century.</p>
-<p>It is possible to define an ordered pair using only functions. Define
-<em>projections</em> <span class="math inline">\pi_A\colon A\times B\to
-A</span> by <span class="math inline">\pi_A(a,b) = a</span> and <span
-class="math inline">\pi_B\colon A\times B\to B</span> by <span
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">f\colon A\to B</span> is a section then <span
+class="math inline">f</span> is mono</em>.</p>
+<p><em>Hint</em>: If a right inverse exists and <span
+class="math inline">gf = hf</span> then post-compose the right inverse
+to get <span class="math inline">g = h</span>.</p>
+<p>It is also possible to define an ordered pair using only functions.
+Define <em>projections</em> <span class="math inline">\pi_A\colon
+A\times B\to A</span> by <span class="math inline">\pi_A(a,b) = a</span>
+and <span class="math inline">\pi_B\colon A\times B\to B</span> by <span
 class="math inline">\pi_B(a,b) = b</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
 C\to A</span> and <span class="math inline">g\colon C\to B</span> show
@@ -249,9 +311,7 @@ class="math inline">p_B\colon P\to B</span> with the property in the
 previous exercise, then <span class="math inline">P</span> is in
 one-to-one correspondence with <span class="math inline">A\times
 B</span>.</p>
-<p><strong>Exercise</strong>. <em>Show any such <span
-class="math inline">P</span> is in one-to-one correspondence with <span
-class="math inline">A\times B</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Prove this</em>.</p>
 <details>
 <summary>
 Solution
@@ -545,7 +605,7 @@ class="math inline">E_{ij}\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}^J</spa
 to be the linear operator with matrix <span
 class="math inline">[\delta_{ij}]</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">E_{ij}E_{k,l} = \delta_{jk}E__il}</span></em>.</p>
+class="math inline">E_{ij}E_{k,l} = \delta_{jk}E_{il}</span></em>.</p>
 <p>Werner Heisenberg reinvented matrix multiplication. His
 interpretation was <span class="math inline">E_{ij}</span> represented a
 jump of an electron from orbital level <span
@@ -605,14 +665,194 @@ e^*j\rangle}</span>, <span class="math inline">i\in I</span>, <span
 class="math inline">j\in J</span></em>.</p>
 </section>
 </section>
-<section id="characteristic-polynomial" class="level2">
-<h2>Characteristic Polynomial</h2>
+<section id="operator-structure" class="level2">
+<h2>Operator Structure</h2>
+<p>We now turn to the problem of characterizing linear operators up to
+similarity. Operators <span class="math inline">T,U\colon V\to V</span>
+are similar if and only if there exists an invertible <span
+class="math inline">S\colon V\to V</span> with <span
+class="math inline">T = S^{-1}US</span>.</p>
+<p><strong>Exercise</strong>. <em>The matrix of <span
+class="math inline">T</span> under any basis <span
+class="math inline">(v_i)</span> equals the matrix of <span
+class="math inline">U</span> under the basis <span
+class="math inline">(Sv_i)</span></em>.</p>
+<p><em>Hint</em>: The matrix of <span class="math inline">T</span> is
+<span class="math inline">t_{ij} = v_j^*Tv_i</span> where <span
+class="math inline">(v_j^*)</span> is the dual basis.</p>
+<p>Linear operators are overgrown numbers. We can add and multiply them.
+Addition is commutative but multiplication might not be.</p>
+<p>If <span class="math inline">V</span> is one-dimensional then <span
+class="math inline">Tv = t v</span>, <span class="math inline">v\in
+V</span>, for some number <span class="math inline">t
+\in\boldsymbol{{C}}</span>. The number <span
+class="math inline">t</span> corresponds to the linear operator of
+scalar multiplication by <span class="math inline">t</span>.</p>
+<p><strong>Exercise</strong>. <em>Prove this</em>.</p>
+<p><em>Hint</em>: Pick any <span class="math inline">v\in V</span> that
+is not the zero vector. Since <span class="math inline">Tv\in V</span>
+there exists <span class="math inline">\lambda\in\boldsymbol{{C}}</span>
+with <span class="math inline">Tv = \lambda v</span>.</p>
+<p>We say <span class="math inline">T</span> is diagonalizable (d’able
+for short) if there exists a basis <span
+class="math inline">(v_i)</span> of <span class="math inline">V</span>
+with <span class="math inline">Tv_i = t_i v_i</span> for some <span
+class="math inline">t_i\in\boldsymbol{{C}}</span>. We say <span
+class="math inline">v_i</span> is and <em>eigenvector</em> with
+<em>eigenvalue</em> <span class="math inline">t_i</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the matrix of <span
+class="math inline">T</span> under the basis <span
+class="math inline">(v_i)</span> is <span class="math inline">t_{ij} =
+t_i\delta_{ij}</span></em>.</p>
+<p><span class="math display">
+T = \begin{bmatrix}
+t_1 &amp; 0 &amp; 0 \\
+0 &amp; \ddots &amp; 0 \\
+0 &amp; 0 &amp; t_n \\
+\end{bmatrix}
+</span></p>
+<p>We will prove later that every operator <span
+class="math inline">T\colon V\to V</span> is almost d’able in the sense
+that given <span class="math inline">\epsilon &gt; 0</span> there exists
+d’able <span class="math inline">T_\epsilon\colon V\to V</span> with
+<span class="math inline">\|T_\epsilon - T\| &lt; \epsilon</span>.</p>
+<p>You will prove now that Every d’able operator is near to a d’able
+operator with distinct eigenvalues.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">T</span>
+is d’able and <span class="math inline">\epsilon &gt; 0</span> then
+there exists <span class="math inline">T_\epsilon</span> with distinct
+eigenvalues satisfying <span class="math inline">{\|T_\epsilon - T\|
+&lt; \epsilon}</span></em>.</p>
+<p><em>Hint</em>: The norm of a d’able operator is the maximum of the
+modulus of every eigenvalue.</p>
+<p>!!!Uses vector space norm.</p>
+<p>if the dimension of <span class="math inline">V</span> is greater
+than 1. For any <span class="math inline">T\colon V\to V</span> we say
+<span class="math inline">v\in V</span> is an <em>eigenvector</em>
+corresponding to the <em>eigenvalue</em> <span
+class="math inline">\lambda\in\boldsymbol{{C}}</span> if <span
+class="math inline">{v\not=\boldsymbol{{0}}}</span> and <span
+class="math inline">{Tv = \lambda v}</span>. The first important fact
+about eigenvectors is that if they have different corresponding
+eigenvalues they must be independent.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">Tv =
+\lambda v</span>, <span class="math inline">Tw = \mu w</span>, <span
+class="math inline">\lambda,\mu\in\boldsymbol{{C}}</span>, <span
+class="math inline">v, w\in V</span>, and <span
+class="math inline">\lambda\not=\mu</span>, then <span
+class="math inline">v</span> and <span class="math inline">w</span> are
+independent</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">av + bw =
+\boldsymbol{{0}}</span> then <span class="math inline">T(av + bw) =
+a\lambda v + b\mu w = \boldsymbol{{0}}</span>. Subtract <span
+class="math inline">\lambda(av + bw) = 0</span> from both sides to get
+<span class="math inline">b(\mu - \lambda)w = \boldsymbol{{0}}</span>.
+Conclude <span class="math inline">b = 0</span> and <span
+class="math inline">a = 0</span>.</p>
+<p>In general, if <span class="math inline">(\lambda_j)</span> are <span
+class="math inline">m</span> distinct eigenvalues corresponding to
+eigenvectors <span class="math inline">(v_j)</span> then the
+eigenvectors are linearly independent. The previous exercise establishes
+this for <span class="math inline">m = 2</span> and the induction step
+is similar to proof for two distinct eigenvalues.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(T -
+\lambda I)\boldsymbol{{0}}= \boldsymbol{{0}}</span> for any linear
+operator <span class="math inline">T</span> and <span
+class="math inline">\lambda\in\boldsymbol{{C}}</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">\boldsymbol{{0}}</span> is
+in the kernel of every linear operator.</p>
+<p><strong>Exercise</strong>. <em>Show non-zero <span
+class="math inline">v\in V</span> is an eigenvector corresponding to the
+eigenvalue <span class="math inline">\lambda\in\boldsymbol{{C}}</span>
+if and only if <span class="math inline">v\in\operatorname{ker}T -
+\lambda I</span></em>.</p>
+<p>The <em>spectrum</em> of an operator is <span
+class="math inline">\sigma(T) = \{\lambda\in\boldsymbol{{C}}\mid T -
+\lambda I\text{ is not invertible}\}</span>. Recall <span
+class="math inline">T - \lambda I</span> is not invertible if and only
+if <span class="math inline">\operatorname{ker}T - \lambda I \not=
+\{\boldsymbol{{0}}\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">\lambda\in\sigma(T)</span> there exists an
+eigenvector having eigenvalue <span
+class="math inline">\lambda</span></em>.</p>
+<p>If the cardinality of <span class="math inline">\sigma(T)</span>
+equals the dimension of <span class="math inline">V</span> we say <span
+class="math inline">T</span> is <em>diagonalizable</em>. Let’s
+abbreviate this to <em>d’able</em>. If <span
+class="math inline">V</span> has dimension <span
+class="math inline">n</span> and <span class="math inline">\sigma(T) =
+\{\lambda_1,\ldots,\lambda_n\}</span> then there are independent
+eigenvectors <span class="math inline">\{v_1,\ldots,v_n\}</span> with
+<span class="math inline">Tv_j = \lambda_j v_j</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\{v_1,\ldots,v_n\}</span> is a basis of <span
+class="math inline">V</span></em>.</p>
+<p>If <span class="math inline">T</span> is d’able then the spectrum
+completely determines <span class="math inline">T</span>. For <span
+class="math inline">\lambda\in\sigma(T)</span> there exists <span
+class="math inline">v_\lambda\not=\boldsymbol{{0}}</span> with <span
+class="math inline">Tv_\lambda = \lambda v_\lambda</span>. Since <span
+class="math inline">\{v_\lambda\mid\lambda\in\sigma(T)\}</span> is a
+basis of <span class="math inline">V</span> every <span
+class="math inline">v\in V</span> can be written <span
+class="math inline">v = \sum_{\lambda\in\sigma(T)} t_\lambda
+v_\lambda</span> for some <span
+class="math inline">t_\lambda\in\boldsymbol{{C}}</span>. The overgrown
+number <span class="math inline">T</span> satifies <span
+class="math inline">Tv = \sum_{\lambda\in\sigma(T)} t_\lambda \lambda
+v_\lambda</span>.</p>
+<p>You might be thinking d’able operators are a special case, but we
+will prove later that every linear operator can be appoximated by them.
+Not every result about d’able operators can be used for the general
+theory but it is easy to prove some results for d’able operators.</p>
+<p>If <span class="math inline">T\colon V\to V</span> then <span
+class="math inline">I, T, T^2, \ldots, T^{n^2}</span> must be dependent
+since <span class="math inline">[T\to T]</span> is a vector space with
+dimension <span class="math inline">n^2</span> where <span
+class="math inline">n</span> is the dimension of <span
+class="math inline">V</span>. Hence there exists a polynomial <span
+class="math inline">p</span> of order <span
+class="math inline">n^2</span> with <span class="math inline">p(T) =
+0</span>. For a d’able operator <span class="math inline">T</span> there
+is a more drastic result that there is a polynomial of order <span
+class="math inline">n</span> with <span class="math inline">p(T) =
+0</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">T\colon
+V\to V</span> is d’able and <span class="math inline">p(z) =
+\prod_{\lambda\in\sigma(T)} (z - \lambda)</span> then <span
+class="math inline">p(T) = 0</span></em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">p(T)v_\lambda =
+0</span> if <span class="math inline">Tv_\lambda = \lambda
+v_\lambda</span>.</p>
+<p>If it is true that every linear operator can be approximated by a
+d’able operators then this holds for all operators.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">T_n\to
+T</span> in norm then <span class="math inline">p(T_n) \to p(T)</span>
+in norm for any polynomial <span class="math inline">p</span></em>.</p>
+<p>If <span class="math inline">T</span> is a linear operator on <span
+class="math inline">V</span> and <span class="math inline">TM\subseteq
+M</span> is an invariant subspace define <span
+class="math inline">T/M\colon V/M\to V/M</span> by <span
+class="math inline">v + M \mapsto Tv + M</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">T/M</span> is well-defined</em>.</p>
+<p><em>Hint</em>: Show if <span class="math inline">v + M = w + M</span>
+then <span class="math inline">Tv + M = Tw + M</span>. Since <span
+class="math inline">v - w\in M</span> we have <span
+class="math inline">T(v - w)\in M</span>.</p>
+<p>Show <span class="math inline">T\oplus M\colon M\oplus V/M\to M\oplus
+V/M</span> is equivalent to <span class="math inline">T</span></p>
+<p><span class="math inline">T\colon V\to V</span> and <span
+class="math inline">U\colon W\to W</span> are <em>equivalent</em> if
+there exists an isomorphism <span class="math inline">E\colon V\to
+W</span> with <span class="math inline">ET = UE</span>.</p>
 <p>Every linear operator <span
 class="math inline">T\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}^I</span>
 is an element of the vector space <span
 class="math inline">\boldsymbol{{{R}}}^{I\times I}</span> so <span
 class="math inline">I, T, T^2,\ldots,T^{|I\times I|}</span> are linearly
-dependent so there exists a polynomial <span
+dependent and there exists a polynomial <span
 class="math inline">p</span> of degree <span
 class="math inline">|I\times I|</span> with <span
 class="math inline">p(T) = 0</span>. But there is a drastic reduction.
@@ -688,7 +928,7 @@ More rigourously, define $[]\colon \RR^{\prod_{i\in\bs{m}}}\times\bs{m}\to\
 
 If $\iota\colon J\to I$ and $x\in\RR^I$ we have $x\iota\in\RR^J$
 for any index sets $I$, $J$. The name for composition on the right by $\iota$
-is $\circ\iota\colon\RR^I\to\RR^J$ so $\circ\iota(x) = x\iota$, $x\in\RR^I$.
+is $\c$\mathbf{Set}$irc\iota\colon\RR^I\to\RR^J$ so $\circ\iota(x) = x\iota$, $x\in\RR^I$.
 
 
 Even with this minimal material we can consider interesting operations to perform on $\RR^I$.
@@ -1504,6 +1744,8 @@ defined by $1_E(a) = 1$ if $a\in E$ and $1_E(a) = 0$ if $a\not\in E$.
 Set exponential allows us to express all indicator functions as elements of ${\{0,1\}}^A$.
 It is more common to write this as $2^A$ where $2 = \{0,1\}$.
 
+!!! This is the subobject classifier for sets.
+
 __Exercise__. _Show $\PP(A)$ is in one-to-one correspondence with $2^A$_.
 
 __Exercise__. _Show $\PP(A)$ is not in one-to-one correspondence with $A$ if $A$ is non-empty_.
@@ -1642,8 +1884,6 @@ classification up to isomorphism.
 Vector spaces are a mathematical sweet spot. Two vector spaces
 are isomorphic if and only if they have the same _dimension_.
 
-
-
 Currying is quite common in mathematics and is often done implicity.
 Although currying is common, there is no generally accepted notation for it, so let's define one
 for our purposes.
@@ -1664,131 +1904,6 @@ __Exercise__. _If $f\in (C^B)^A$ show $f, = \eval(\eval(f, a), b)$_.
 
 __Exercise__. _If $g\in (B\times C)^A$ show $,g = \eval(\eval(g, a), b)$_.
 -->
-<p>A linear operator <span class="math inline">T\colon V\to V</span> is
-like an overgrown number. We can add and multiply them. Addition is
-commutative but multiplication is not if the dimension of <span
-class="math inline">V</span> is greater than 1. If <span
-class="math inline">V</span> is one-dimensional then <span
-class="math inline">Tv = \lambda v</span>, <span
-class="math inline">v\in V</span>, for some number <span
-class="math inline">\lambda \in\boldsymbol{{C}}</span>. The number <span
-class="math inline">\lambda</span> corresponds to the linear operator of
-scalar multiplication by <span class="math inline">\lambda</span>.</p>
-<p><strong>Exercise</strong>. <em>Prove this</em>.</p>
-<p><em>Hint</em>: Pick any <span class="math inline">v\in V</span> that
-is not the zero vector. Since <span class="math inline">Tv\in V</span>
-there exists <span class="math inline">\lambda\in\boldsymbol{{C}}</span>
-with <span class="math inline">Tv = \lambda v</span>.</p>
-<p>For any <span class="math inline">T\colon V\to V</span> we say <span
-class="math inline">v\in V</span> is an <em>eigenvector</em>
-corresponding to the <em>eigenvalue</em> <span
-class="math inline">\lambda\in\boldsymbol{{C}}</span> if <span
-class="math inline">{v\not=\boldsymbol{{0}}}</span> and <span
-class="math inline">{Tv = \lambda v}</span>. The first important fact
-about eigenvectors is that if they have different corresponding
-eigenvalues they must be independent.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">Tv =
-\lambda v</span>, <span class="math inline">Tw = \mu w</span>, and <span
-class="math inline">\lambda\not=\mu</span>, then <span
-class="math inline">v</span> and <span class="math inline">w</span> are
-independent</em>.</p>
-<p><em>Hint</em>: If <span class="math inline">av + bw =
-\boldsymbol{{0}}</span> then <span class="math inline">T(av + bw) =
-a\lambda v + b\mu w = \boldsymbol{{0}}</span>. If <span
-class="math inline">a</span> and <span class="math inline">b</span> are
-not zero this implis</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">(T -
-\lambda I)\boldsymbol{{0}}= \boldsymbol{{0}}</span> for any linear
-operator <span class="math inline">T</span> and <span
-class="math inline">\lambda\in\boldsymbol{{C}}</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">\boldsymbol{{0}}</span> is
-in the kernel of every linear operator.</p>
-<p><strong>Exercise</strong>. <em>Show non-zero <span
-class="math inline">v\in V</span> is an eigenvector corresponding to the
-eigenvalue <span class="math inline">\lambda\in\boldsymbol{{C}}</span>
-if and only if <span class="math inline">v\in\operatorname{ker}T -
-\lambda I</span></em>.</p>
-<p>The <em>spectrum</em> of an operator is <span
-class="math inline">\sigma(T) = \{\lambda\in\boldsymbol{{C}}\mid T -
-\lambda I\text{ is not invertible}\}</span>. Recall <span
-class="math inline">T - \lambda I</span> is not invertible if and only
-if <span class="math inline">\operatorname{ker}T - \lambda I \not=
-\{\boldsymbol{{0}}\}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span
-class="math inline">\lambda\in\sigma(T)</span> there exists an
-eigenvector having eigenvalue <span
-class="math inline">\lambda</span></em>.</p>
-<p>If the cardinality of <span class="math inline">\sigma(T)</span>
-equals the dimension of <span class="math inline">V</span> we say <span
-class="math inline">T</span> is <em>diagonalizable</em>. Let’s
-abbreviate this to <em>d’able</em>. If <span
-class="math inline">V</span> has dimension <span
-class="math inline">n</span> and <span class="math inline">\sigma(T) =
-\{\lambda_1,\ldots,\lambda_n\}</span> then there are independent
-eigenvectors <span class="math inline">\{v_1,\ldots,v_n\}</span> with
-<span class="math inline">Tv_j = \lambda_j v_j</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\{v_1,\ldots,v_n\}</span> is a basis of <span
-class="math inline">V</span></em>.</p>
-<p>If <span class="math inline">T</span> is d’able then the spectrum
-completely determines <span class="math inline">T</span>. For <span
-class="math inline">\lambda\in\sigma(T)</span> there exists <span
-class="math inline">v_\lambda\not=\boldsymbol{{0}}</span> with <span
-class="math inline">Tv_\lambda = \lambda v_\lambda</span>. Since <span
-class="math inline">\{v_\lambda\mid\lambda\in\sigma(T)\}</span> is a
-basis of <span class="math inline">V</span> every <span
-class="math inline">v\in V</span> can be written <span
-class="math inline">v = \sum_{\lambda\in\sigma(T)} t_\lambda
-v_\lambda</span> for some <span
-class="math inline">t_\lambda\in\boldsymbol{{C}}</span>. The overgrown
-number <span class="math inline">T</span> satifies <span
-class="math inline">Tv = \sum_{\lambda\in\sigma(T)} t_\lambda \lambda
-v_\lambda</span>.</p>
-<p>You might be thinking d’able operators are a special case, but we
-will prove later that every linear operator can be appoximated by them.
-Not every result about d’able operators can be used for the general
-theory but it is easy to prove some results for d’able operators.</p>
-<p>If <span class="math inline">T\colon V\to V</span> then <span
-class="math inline">I, T, T^2, \ldots, T^{n^2}</span> must be dependent
-since <span class="math inline">[T\to T]</span> is a vector space with
-dimension <span class="math inline">n^2</span> where <span
-class="math inline">n</span> is the dimension of <span
-class="math inline">V</span>. Hence there exists a polynomial <span
-class="math inline">p</span> of order <span
-class="math inline">n^2</span> with <span class="math inline">p(T) =
-0</span>. For a d’able operator <span class="math inline">T</span> there
-exists a more drastic result that there is a polynomial of order <span
-class="math inline">n</span> with <span class="math inline">p(T) =
-0</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">T\colon
-V\to V</span> is d’able and <span class="math inline">p(z) =
-\prod_{\lambda\in\sigma(T)} (z - \lambda)</span> then <span
-class="math inline">p(T) = 0</span></em>.</p>
-<p><em>Hint</em>: Show <span class="math inline">p(T)v_\lambda =
-0</span> if <span class="math inline">Tv_\lambda = \lambda
-v_\lambda</span>.</p>
-<p>If it is true that every linear operator can be approximated by a
-d’able operators then this holds for all operators.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">T_n\to
-T</span> in norm then <span class="math inline">p(T_n) \to p(T)</span>
-in norm for any polynomial <span class="math inline">p</span></em>.</p>
-<p>If <span class="math inline">T</span> is a linear operator on <span
-class="math inline">V</span> and <span class="math inline">TM\subseteq
-M</span> is an invariant subspace define <span
-class="math inline">T/M\colon V/M\to V/M</span> by <span
-class="math inline">v + M \mapsto Tv + M</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">T/M</span> is well-defined</em>.</p>
-<p><em>Hint</em>: Show if <span class="math inline">v + M = w + M</span>
-then <span class="math inline">Tv + M = Tw + M</span>. Since <span
-class="math inline">v - w\in M</span> we have <span
-class="math inline">T(v - w)\in M</span>.</p>
-<p>Show <span class="math inline">T\oplus M\colon M\oplus V/M\to M\oplus
-V/M</span> is equivalent to <span class="math inline">T</span></p>
-<p><span class="math inline">T\colon V\to V</span> and <span
-class="math inline">U\colon W\to W</span> are <em>equivalent</em> if
-there exists an isomorphism <span class="math inline">E\colon V\to
-W</span> with <span class="math inline">ET = UE</span>.</p>
 </section>
 </body>
 </html>
