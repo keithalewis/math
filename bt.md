@@ -22,7 +22,7 @@ P(E|F)$ a probability measure on $F$ if ${P(F)\not=0}$.
 
 __Exercise__. _Show if $E,F\subseteq B$ then
 ${P(E \cup F|F) = P(E|F) + P(F|F) - P(E\cap F|F)}$,
-${P(\emptyset|F) = 0}$, and ${P(F|F) = 1})$_.
+${P(\emptyset|F) = 0}$, and ${P(F|F) = 1}$_.
 
 _Hint_: Use $P(E\cup F) = P(E) + P(F) - P(E\cap F)$.
 
