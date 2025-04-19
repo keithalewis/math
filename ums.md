@@ -3,7 +3,7 @@
 :!pandoc -V fontsize=12pt ums.md -o ums.pdf
 -->
 ---
-title: Simple Unified Model of Derivative Securities
+title: Valuation of Risky Streams of Cash Flows
 classoption: fleqn
 header-includes:
 	- \usepackage{bm}
@@ -28,10 +28,17 @@ header-includes:
 
 Fischer Black, Myron Scholes [@BlaSch1973], and Robert C. Merton III
 [@Mer1973], invented a Nobel Prize winning theory showing how to value
-options by dynamically trading a bond and a stock.  Stephen Ross's
-paper "A Simple Approach to the Valuation of Risky Streams" [@Ros1978]
-extended the B-S/M theory by showing how to value a derivative using
-_any_ collection of instruments. He used the Hahn-Banach theorem to show
+equity options using a money market account to finance dynamic trading in
+the underlying stock. In their model, it is possible to exactly replicate
+the option payoff so the value of the option is the cost of setting
+up the initial hedge.
+
+Stephen Ross tremendously generalized the B-S/M model in
+"A Simple Approach to the Valuation of Risky Streams" [@Ros1978]
+by showing how to approximately value a derivative using
+_any_ collection of instruments. 
+
+He used the Hahn-Banach theorem to show
 
 > _If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, $L$_.
@@ -68,9 +75,17 @@ shedding their hard-won knowledge and accept the fact only elementary math is ne
 The SUM does not involve probability. As Ross showed, the Fundamental Theorem
 of Asset Pricing is a geometric result. We assume a sample space and filtration, but
 do not require a probability measure.
-There is no need for the Ito calculus, or partial differential
-equations. The notion of continuous time hedging is a deleterious mathematical artifact;
-every hedge in the real world consists of a finite number of trades.
+There is no need for the Ito calculus or partial differential
+equations. The notion of continuous time hedging is a deleterious mathematical artifact
+of that model leading to incorrect results.[^2]
+Every hedge in the real world consists of a finite number of trades.
+
+[^2]: Barrier option example.
+
+Recall the set exponential $\RR^I$ is the set of functions from $I$ to $\RR$.
+The _dot product_ of $x,y\in\RR^I$ is $x\cdot y = \sum_{i\in I} x(i)y(i)$
+and the _norm_ is $\|x\| = \sqrt{x\cdot x}$.
+We assume $\|X\| = \sup_{\omega\in\Omega}\|X(\omega)\|$ is finite.
 
 If an algebra $\AA$ of sets on $\Omega$ is finite then the atoms of the algebra form a
 partition of $\Omega$ and a function $X\colon\Omega\to\RR$ is measurable with
@@ -82,13 +97,17 @@ $\omega$ belongs to. The partition of singletons represents complete information
 The partition consisting of the sample space represents no information.
 
 The dual of bounded functions on $\Omega$, $B(\Omega)^*$, can be identified with
-finitely additive measures on $\Omega$[@DunSch1958]. A linear functional
+finitely additive measures on $\Omega$[@DunSch1958]. We write $B(\Omega,\RR^I)$
+for the space of bounded vector-valued functions. Its dual is isomorphic
+to the space of finitely additive vector-valued measures $ba(\Omega,\RR^I)$
+A linear functional
 $L\in B(\Omega)^*$ defines a measure $\lambda(A) = L1_A$ for $A\subseteq\Omega$
 where $1_A(\omega) = 1$ if $\omega\in A$ and $1_A(\omega) = 0$ if $\omega\in\Omega\setminus A$.
 The facts $1_\emptyset = 0$ and $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$, $A,B\subseteq\Omega$
-show $\lambda$ is a measure.
+show $\lambda$ is a measure. Its _norm_ is the supremum over all finite partitions $\{A_i\}$
+of ${\sum_i |\lambda(A_i)|}$.
 
-The integral $\int_\Omega f\,d\lambda$ is defined for _elementary functions_ that are 
+The integral $\int_\Omega f\,d\lambda$ is defined for _simple functions_ that are 
 a finite linear sum $f = \sum_i a_i 1_{A_i}$, $A_i\subseteq\Omega$,
 by $\int_\Omega f\,d\lambda = \sum_i a_i\lambda(A_i)$.
 Dunford and Schwartz show this is well-defined and an isometry so it can be extended
@@ -113,10 +132,6 @@ expectation in what follows, only restriction of measures to an algebra.
 Let $I$ be the finite set of market instruments, $x\in\RR^I$ be their prices at the
 beginning of the period, and $X\colon\Omega\to\RR^I$ be their prices at
 the end of the period where $\Omega$ is the set of possible outcomes.
-Recall the set exponential $\RR^I$ is the set of functions from $I$ to $\RR$.
-The _dot product_ of $x,y\in\RR^I$ is $x\cdot y = \sum_{i\in I} x(i)y(i)$
-and the _norm_ is $\|x\| = \sqrt{x\cdot x}$.
-We assume $\|X\| = \sup_{\omega\in\Omega}\|X(\omega)\|$ is finite.
 
 The initial cost of purchasing $\gamma$ shares of each instrument is $\gamma\cdot x$.
 The proceeds from selling $\gamma$ shares
@@ -173,7 +188,7 @@ be the _partitions_[^1] of $\Omega$ indicating the information available at time
 
 ### Market
 
-For each $t\in T$ let $X_t\colon\AA_t\to\RR^I$ be the _prices_[^2] of market instruments
+For each $t\in T$ let $X_t\colon\AA_t\to\RR^I$ be the _prices_[^3] of market instruments
 and $C_t\colon\AA_t\to\RR^I$ the _cash flows_ of market instruments.
 E.g., coupons, dividends, and futures margin adjustments are cash flows.
 Futures have price 0.
@@ -220,8 +235,9 @@ the position is closed.
 
 The _Fundamental Theorem of Asset Pricing_ states there is no arbitrage if there exist _deflators_,
 positive finitely additive measures $D_t$ on $\AA_t$, $t\in T$, with
+$\sum_{t\in T} \|D_t\| < \infty$ and
 $$
-\tag{1}	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}, t\le u.
+\tag{1}	X_t D_t = \sum_{u >} C_s D_s)|_{\AA_t}, t\le u.
 $$
 Deflators are the (not generally unique) valuation operator Ross identified.
 We will see later that if repurchase agreements are available in
@@ -258,7 +274,7 @@ to value and cash flow corresponds to amount.**
 A (cash settled) derivative contract is specified by stopping times ${\hat{\tau}_j}$ and cash
 flows $\hat{A}_j$.  If there exists a trading strategy
 $(\tau_j,\Gamma_j)$ with ${\sum_j \Gamma_j = 0}$, ${A_{\hat{\tau}_j} = \hat{A}_j}$
-and ${A_t = 0}$ (self-financing) otherwise, then a perfect hedge exists[^2].
+and ${A_t = 0}$ (self-financing) otherwise, then a perfect hedge exists[^3].
 The value of the derivative instrument is determined by
 $$
 \tag{3}	V_t D_t = (\sum_{\hat{\tau}_j > t} \hat{A}_j D_{\hat{\tau}_j})|_{\AA_t}.
@@ -458,45 +474,45 @@ to the currency used for the underlying quote and the underlying.
 In this section we prove the FTAP for multi-period models. 
 We start with a proof for the one-period model that can be generalized.
 
-For the one-period model consider the amount operator ${A\colon\RR^I\to\RR\oplus_\infty B(\Omega)}$
-defined by ${A\gamma = -\gamma\cdot x \oplus_\infty \gamma\cdot X}$.
-The norm on the range is $\|p\oplus_\infty P\|_\infty = \max\{|p|,\|P\|\}$ for $p\in\RR$, $P\in B(\Omega)$.
+For the one-period model consider the amount operator ${A\colon\RR^I\to\RR\oplus^\infty B(\Omega)}$
+defined by ${A\gamma = -\gamma\cdot x \oplus^\infty \gamma\cdot X}$.
+The norm on the range is $\|p\oplus^\infty P\|_\infty = \max\{|p|,\|P\|\}$ for $p\in\RR$, $P\in B(\Omega)$.
 The first component is the amount made purchasing $\gamma$ shares and the
 second is the amount made when closing the postion at current market prices.
 Arbitrage exists if there is a $\gamma\in\RR^I$ with 
-$A\gamma$ in the cone ${\PP = \{p\oplus P\mid p > 0, P\ge0\}\subseteq \RR\oplus_\infty B(\Omega)}$
+$A\gamma$ in the cone ${\PP = \{p\oplus P\mid p > 0, P\ge0\}\subseteq \RR\oplus^\infty B(\Omega)}$
 
-The adjoint $A^*\colon\RR\oplus_1 ba(\Omega)\to\RR^I$ is $A^*(\pi\oplus_1 \Pi) = -x\pi + \langle X,\Pi\rangle$
+The adjoint $A^*\colon\RR\oplus^1 ba(\Omega)\to\RR^I$ is $A^*(\pi\oplus^1 \Pi) = -x\pi + \langle X,\Pi\rangle$
 where we identify $(\RR^I)^*$ with $\RR^I$ by $x\in\RR^I$ corresponds to
 $x^*\in(\RR^I)^*$ using $\langle y, x^*\rangle = y\cdot x$, $y\in\RR^I$.
-The norm on the domain is $\|\pi\oplus_1 P\|_1 = |\pi| + \|\Pi\|$.
+The norm on the domain is $\|\pi\oplus^1 P\|_1 = |\pi| + \|\Pi\|$.
 The calculation
 $$
 \begin{aligned}
-\langle \gamma, A^*(\pi\oplus_1 \Pi) \rangle
-&= \langle A\gamma, \pi\oplus_1 \Pi \rangle \\
-&= \langle -\gamma\cdot x\oplus_\infty \gamma\cdot X, \pi\oplus_1 \Pi \rangle \\
+\langle \gamma, A^*(\pi\oplus^1 \Pi) \rangle
+&= \langle A\gamma, \pi\oplus^1 \Pi \rangle \\
+&= \langle -\gamma\cdot x\oplus^\infty \gamma\cdot X, \pi\oplus^1 \Pi \rangle \\
 &= \langle -\gamma\cdot x, \pi\rangle + \langle \gamma\cdot X, \Pi \rangle \\
 &= \langle \gamma, -x\pi + \langle X,\Pi\rangle \rangle \\
 \end{aligned}
 $$
-shows $A^*(\pi\oplus_1 \Pi) = -x\pi + \langle X,\Pi\rangle\in\RR^I$.
+shows $A^*(\pi\oplus^1 \Pi) = -x\pi + \langle X,\Pi\rangle\in\RR^I$.
 
 The range of $A$ is closed, since it is finite dimensional, and $\PP$ has an interior point
 so by the Hahn-Banach theorem there exists a hyperplane $H\supseteq\ran A$ that does not meet $\PP$.
-Every hyperplane is the preanhiliator of an element of the dual, say $d\oplus_1 D\in\RR\oplus ba(\Omega)$,
-so ${H = {}^\perp\{d\oplus_1 D\} = \{p\oplus_\infty P\mid \langle p\oplus_\infty P, d\oplus_1 D\rangle = 0\}}$.
-Since $\ran A = {}^\perp(\ker A^*)\subseteq H$ we have $d\oplus_1 D\in\ker A^*$
+Every hyperplane is the preanhiliator of an element of the dual, say $d\oplus^1 D\in\RR\oplus ba(\Omega)$,
+so ${H = {}^\perp\{d\oplus^1 D\} = \{p\oplus^\infty P\mid \langle p\oplus^\infty P, d\oplus^1 D\rangle = 0\}}$.
+Since $\ran A = {}^\perp(\ker A^*)\subseteq H$ we have $d\oplus^1 D\in\ker A^*$
 so $0 = -xd + \langle X,D\rangle$. We now show $d$ and $D$ are positive.
 
-If there exist $p_+\oplus_\infty P_+\in\PP$
-and $p_-\oplus_\infty P_-\in\PP$
-with ${\langle p_+\oplus_\infty P_+,d\oplus_1 D\rangle > 0}$ and
-${\langle p_-\oplus_\infty P_-,d\oplus_1 D\rangle < 0}$
+If there exist $p_+\oplus^\infty P_+\in\PP$
+and $p_-\oplus^\infty P_-\in\PP$
+with ${\langle p_+\oplus^\infty P_+,d\oplus^1 D\rangle > 0}$ and
+${\langle p_-\oplus^\infty P_-,d\oplus^1 D\rangle < 0}$
 then there is a convex combination in $H$, which contradicts
 the fact $H$ does not meet the cone $\PP$.
-This shows we can assume ${\langle p\oplus_\infty P, d\oplus_1 D\rangle > 0}$
-for all ${p\oplus_\infty P\in\PP}$.
+This shows we can assume ${\langle p\oplus^\infty P, d\oplus^1 D\rangle > 0}$
+for all ${p\oplus^\infty P\in\PP}$.
 It follows that $d > 0$ and $D > 0$.
 
 This shows there is no arbitrage if and only if ${xd = \langle X,D\rangle}$
@@ -527,12 +543,21 @@ $$
 &= \sum_j \langle \Gamma_j, \sum_{i > j} C_i D_i\rangle - \sum_j \langle \Gamma_j, X_j D_j\rangle \\
 \end{aligned}
 $$
-This shows $A^*(\oplus_j D_j) = \oplus_j \sum_{i > j} C_i D_i - X_j D_j$.
 
-Define the positive cone $\PP = \{\oplus_{j\in\NN} P_j\mid P_0 > 0, P_j\ge 0, j>0\}$
-and $\GG_0$ to be the subspace of $\oplus_{j\in\NN} B(\AA_j,\RR^I)$ having
+__Lemma__. _If $X\in B(\AA)$ then $\langle X, \Pi\rangle = \langle X, \Pi|_\AA\rangle$
+for $\Pi\in ba(\Omega)$_.
+
+_Proof_. This follows from $\langle 1_A,\Pi\rangle = \langle 1_A,\Pi|_\AA\rangle$
+for $A\in\AA$ and every $X\in B(\AA)$ is the norm limit of simple functions.
+
+This shows the dual of the amount operator is
+${A^*(\oplus_j D_j) = \oplus_j \sum_{i > j} (C_i D_i)|_{\AA_j} - X_j D_j}$.
+
+The subspace of closed-out trading strategies is  $\GG_0$ = $\oplus^\infty_{j\in\NN} B(\AA_j,\RR^I)$ having
 a finite number of non-zero terms that sum to 0.
-Arbitrage exists if $A(\GG_0)$ meets $\PP$.
+If $\PP = \{\oplus^1_{j\in\NN} P_j\mid P_j\in ba(\AA_j), P_0 > 0, P_j\ge 0, j>0\}$
+is the cone of positive measures then
+arbitrage exists if $A(\GG_0)$ meets $\PP$.
 
 
 <!--
@@ -545,4 +570,4 @@ They will compare the profit $\gamma\cdot x$ to $|\gamma|\cdot|x|$,
 the total amount of money involved in establishing the trade.
 They would probably not be willing to tie up a million dollars to make a one dollar profit.
 
-[^2]: Perfect hedges never exist.
+[^3]: Perfect hedges never exist.
