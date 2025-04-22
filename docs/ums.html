@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-04-15" />
-  <title>Simple Unified Model of Derivative Securities</title>
+  <meta name="dcterms.date" content="2025-04-23" />
+  <title>Valuation of Risky Streams of Cash Flows</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -66,8 +66,12 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Simple Unified Model of Derivative Securities</h1>
-<p class="date">April 15, 2025</p>
+<h1 class="title">Valuation of Risky Streams of Cash Flows</h1>
+<p class="date">April 23, 2025</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Arbitrage-free prices are determined by cash flows.
+</div>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -115,11 +119,15 @@ Asset Pricing</a></li>
 data-cites="BlaSch1973">(Black and Scholes 1973)</span>, and Robert C.
 Merton III <span class="citation" data-cites="Mer1973">(Merton
 1973)</span>, invented a Nobel Prize winning theory showing how to value
-options by dynamically trading a bond and a stock. Stephen Ross’s paper
-“A Simple Approach to the Valuation of Risky Streams” <span
-class="citation" data-cites="Ros1978">(Ross 1978)</span> extended the
-B-S/M theory by showing how to value a derivative using <em>any</em>
-collection of instruments. He used the Hahn-Banach theorem to show</p>
+equity options using a money market account to finance dynamic trading
+in the underlying stock. In their model, it is possible to exactly
+replicate the option payoff so the value of the option is the cost of
+setting up the initial hedge.</p>
+<p>Stephen Ross tremendously generalized the B-S/M model in “A Simple
+Approach to the Valuation of Risky Streams” <span class="citation"
+data-cites="Ros1978">(Ross 1978)</span> by showing how to approximately
+value a derivative using <em>any</em> collection of instruments.</p>
+<p>He used the Hahn-Banach theorem to show</p>
 <blockquote>
 <p><em>If there are no arbitrage opportunities in the capital markets,
 then there exists a (not generally unique) valuation operator, <span
@@ -154,9 +162,20 @@ only elementary math is needed.</p>
 <p>The SUM does not involve probability. As Ross showed, the Fundamental
 Theorem of Asset Pricing is a geometric result. We assume a sample space
 and filtration, but do not require a probability measure. There is no
-need for the Ito calculus, or partial differential equations. The notion
-of continuous time hedging is a deleterious mathematical artifact; every
-hedge in the real world consists of a finite number of trades.</p>
+need for the Ito calculus or partial differential equations. The notion
+of continuous time hedging is a deleterious mathematical artifact of
+that model leading to incorrect results.<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+Every hedge in the real world consists of a finite number of trades.</p>
+<p>Recall the set exponential <span
+class="math inline">\boldsymbol{{R}}^I</span> is the set of functions
+from <span class="math inline">I</span> to <span
+class="math inline">\boldsymbol{{R}}</span>. The <em>dot product</em> of
+<span class="math inline">x,y\in\boldsymbol{{R}}^I</span> is <span
+class="math inline">x\cdot y = \sum_{i\in I} x(i)y(i)</span> and the
+<em>norm</em> is <span class="math inline">\|x\| = \sqrt{x\cdot
+x}</span>. We assume <span class="math inline">\|X\| =
+\sup_{\omega\in\Omega}\|X(\omega)\|</span> is finite.</p>
 <p>If an algebra <span class="math inline">\mathcal{A}</span> of sets on
 <span class="math inline">\Omega</span> is finite then the atoms of the
 algebra form a partition of <span class="math inline">\Omega</span> and
@@ -178,9 +197,13 @@ class="math inline">\Omega</span>, <span
 class="math inline">B(\Omega)^*</span>, can be identified with finitely
 additive measures on <span class="math inline">\Omega</span><span
 class="citation" data-cites="DunSch1958">(Dunford and Schwartz
-1958)</span>. A linear functional <span class="math inline">L\in
-B(\Omega)^*</span> defines a measure <span
-class="math inline">\lambda(A) = L1_A</span> for <span
+1958)</span>. We write <span
+class="math inline">B(\Omega,\boldsymbol{{R}}^I)</span> for the space of
+bounded vector-valued functions. Its dual is isomorphic to the space of
+finitely additive vector-valued measures <span
+class="math inline">ba(\Omega,\boldsymbol{{R}}^I)</span> A linear
+functional <span class="math inline">L\in B(\Omega)^*</span> defines a
+measure <span class="math inline">\lambda(A) = L1_A</span> for <span
 class="math inline">A\subseteq\Omega</span> where <span
 class="math inline">1_A(\omega) = 1</span> if <span
 class="math inline">\omega\in A</span> and <span
@@ -189,10 +212,13 @@ class="math inline">\omega\in\Omega\setminus A</span>. The facts <span
 class="math inline">1_\emptyset = 0</span> and <span
 class="math inline">1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}</span>, <span
 class="math inline">A,B\subseteq\Omega</span> show <span
-class="math inline">\lambda</span> is a measure.</p>
+class="math inline">\lambda</span> is a measure. Its <em>norm</em> is
+the supremum over all finite partitions <span
+class="math inline">\{A_i\}</span> of <span class="math inline">{\sum_i
+|\lambda(A_i)|}</span>.</p>
 <p>The integral <span class="math inline">\int_\Omega f\,d\lambda</span>
-is defined for <em>elementary functions</em> that are a finite linear
-sum <span class="math inline">f = \sum_i a_i 1_{A_i}</span>, <span
+is defined for <em>simple functions</em> that are a finite linear sum
+<span class="math inline">f = \sum_i a_i 1_{A_i}</span>, <span
 class="math inline">A_i\subseteq\Omega</span>, by <span
 class="math inline">\int_\Omega f\,d\lambda = \sum_i
 a_i\lambda(A_i)</span>. Dunford and Schwartz show this is well-defined
@@ -227,16 +253,7 @@ instruments, <span class="math inline">x\in\boldsymbol{{R}}^I</span> be
 their prices at the beginning of the period, and <span
 class="math inline">X\colon\Omega\to\boldsymbol{{R}}^I</span> be their
 prices at the end of the period where <span
-class="math inline">\Omega</span> is the set of possible outcomes.
-Recall the set exponential <span
-class="math inline">\boldsymbol{{R}}^I</span> is the set of functions
-from <span class="math inline">I</span> to <span
-class="math inline">\boldsymbol{{R}}</span>. The <em>dot product</em> of
-<span class="math inline">x,y\in\boldsymbol{{R}}^I</span> is <span
-class="math inline">x\cdot y = \sum_{i\in I} x(i)y(i)</span> and the
-<em>norm</em> is <span class="math inline">\|x\| = \sqrt{x\cdot
-x}</span>. We assume <span class="math inline">\|X\| =
-\sup_{\omega\in\Omega}\|X(\omega)\|</span> is finite.</p>
+class="math inline">\Omega</span> is the set of possible outcomes.</p>
 <p>The initial cost of purchasing <span
 class="math inline">\gamma</span> shares of each instrument is <span
 class="math inline">\gamma\cdot x</span>. The proceeds from selling
@@ -248,8 +265,8 @@ with <span class="math inline">\gamma\cdot x &lt; 0</span> and <span
 class="math inline">\gamma\cdot X\ge0</span> on <span
 class="math inline">\Omega</span>: you make money acquiring the shares
 and never lose money liquidating them. Note this definition of arbitrage
-does not involve probability<a href="#fn1" class="footnote-ref"
-id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+does not involve probability<a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <p><strong>Theorem</strong>. (One-Period Fundamental Theorem of Asset
 Pricing) <em>There is no arbitrage if and only if <span
 class="math inline">x</span> belongs to the smallest closed cone
@@ -304,16 +321,16 @@ set of <em>trading times</em>, <span class="math inline">I</span> the
 finite set of market <em>instruments</em>, <span
 class="math inline">\Omega</span> the set of possible <em>outcomes</em>,
 and <span class="math inline">(\mathcal{A}_t)_{t\in T}</span> be the
-<em>partitions</em><a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a> of <span
+<em>partitions</em><a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> of <span
 class="math inline">\Omega</span> indicating the information available
 at time <span class="math inline">t\in T</span>.</p>
 <section id="market" class="level3">
 <h3>Market</h3>
 <p>For each <span class="math inline">t\in T</span> let <span
 class="math inline">X_t\colon\mathcal{A}_t\to\boldsymbol{{R}}^I</span>
-be the <em>prices</em><a href="#fn3" class="footnote-ref" id="fnref3"
-role="doc-noteref"><sup>3</sup></a> of market instruments and <span
+be the <em>prices</em><a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a> of market instruments and <span
 class="math inline">C_t\colon\mathcal{A}_t\to\boldsymbol{{R}}^I</span>
 the <em>cash flows</em> of market instruments. E.g., coupons, dividends,
 and futures margin adjustments are cash flows. Futures have price 0. We
@@ -371,18 +388,30 @@ class="math inline">A_t \ge0</span>, <span class="math inline">t &gt;
 You make money on the first trade and never lose money until the
 position is closed.</p>
 <p>The <em>Fundamental Theorem of Asset Pricing</em> states there is no
-arbitrage if there exist <em>deflators</em>, positive finitely additive
-measures <span class="math inline">D_t</span> on <span
-class="math inline">\mathcal{A}_t</span>, <span class="math inline">t\in
-T</span>, with <span class="math display">
-\tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
-D_s)|_{\mathcal{A}_t}, t\le u.
-</span> Deflators are the (not generally unique) valuation operator Ross
-identified. We will see later that if repurchase agreements are
-available in the market there is a canonical deflator that corresponds
+arbitrage if and only if there exist positive finitely additive measures
+<span class="math inline">D_t\in ba(\mathcal{A}_t)</span>, <span
+class="math inline">t\in T</span>, with <span
+class="math inline">\sum_{t\in T} \|D_t\| &lt; \infty</span> and <span
+class="math display">
+\tag{1} X_t D_t = \sum_{u &gt; t} (C_s D_s)|_{\mathcal{A}_t}.
+</span> We call such <span class="math inline">(D_t)_{t\in T}</span> a
+<em>deflator</em>. Deflators are the (not generally unique) valuation
+operator Ross identified. We will see later that if repurchase
+agreements are available there is a canonical deflator that corresponds
 to the stochastic discount. A <em>money market account</em> corresponds
-to reinvesting at the repo rate. Its reciprocal is the <em>stochastic
+to rolling over at the repo rate. Its reciprocal is the <em>stochastic
 discount</em>.</p>
+<p>Equation <span class="math inline">(1)</span> is the Graham-Todd
+“Securities Analysis” ansatz that the value of an investment is the
+present value of future cash flows.</p>
+<p><strong>Lemma</strong>. <em>Equation <span
+class="math inline">(1)</span> is equivalent to</em> <span
+class="math display">
+\tag{1a}    X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_u
+D_u)|_{\mathcal{A}_t}, t\le u.
+</span></p>
+<p>The proof is trivial. If cash flows are zero this implies discounted
+prices are a martingale.</p>
 <p><strong>Claim</strong>. <em>If <span class="math inline">M_t =
 M_u|_{\mathcal{A}_t}</span>, <span class="math inline">t\le u</span>, is
 a <span class="math inline">\boldsymbol{{R}}^I</span>-valued martingale
@@ -390,8 +419,8 @@ measure and <span class="math inline">D_t\in ba(A_t)</span> are positive
 measures then <span class="math inline">{X_t D_t = M_t - \sum_{s\le t}
 C_s D_s}</span> is arbitrage-free</em>.</p>
 <p><em>Proof</em>. Substitute <span class="math inline">X_u D_u</span>
-by this formula in <span class="math inline">(1)</span> and cancel terms
-in the sums.</p>
+by this formula in <span class="math inline">(1a)</span> and cancel
+terms in the sums.</p>
 <p><strong>Example</strong>. (Black-Scholes/Merton) <span
 class="math inline">M_t = (r, se^{\sigma B_t - \sigma^2t/2})P</span>,
 <span class="math inline">C_t = (0,0)</span>, <span
@@ -401,16 +430,15 @@ class="math inline">P</span> is Wiener measure.</p>
 <p><strong>Lemma</strong>. <em>Assuming <span
 class="math inline">(1)</span> and the definitions of value and
 amount</em> <span class="math display">
-\tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
-D_s)|_{\mathcal{A}_t}, t\le u.
+\tag{2} V_t D_t = \sum_{u &gt; t} (A_u D_u)|_{\mathcal{A}_t}.
 </span></p>
 <p><em>Proof</em>. Substitute <span class="math inline">V_t</span> by
-its definition on the left side of <span class="math inline">(2)</span>
-and use <span class="math inline">X_t D_t</span> from <span
-class="math inline">(1)</span>. Note <span class="math inline">{\Delta_t
-+ \Gamma_t = \Delta_{t+\epsilon}}</span> for <span
-class="math inline">{\epsilon &gt; 0}</span> sufficiently small. In this
-case <span class="math inline">{V_t D_t = (V_u D_u + A_u
+its definition on the left-hand side of <span
+class="math inline">(2)</span> and use <span class="math inline">X_t
+D_t</span> from <span class="math inline">(1)</span>. Note <span
+class="math inline">{\Delta_t + \Gamma_t = \Delta_{t+\epsilon}}</span>
+for <span class="math inline">{\epsilon &gt; 0}</span> sufficiently
+small. In this case <span class="math inline">{V_t D_t = (V_u D_u + A_u
 D_u)|_{\mathcal{A}_t}}</span> for <span class="math inline">{u =
 t+\epsilon}</span>. The result follows by induction.</p>
 <p><strong>Trading strategies create synthetic instruments where price
@@ -422,8 +450,8 @@ class="math inline">\hat{A}_j</span>. If there exists a trading strategy
 class="math inline">{\sum_j \Gamma_j = 0}</span>, <span
 class="math inline">{A_{\hat{\tau}_j} = \hat{A}_j}</span> and <span
 class="math inline">{A_t = 0}</span> (self-financing) otherwise, then a
-perfect hedge exists<a href="#fn4" class="footnote-ref" id="fnref4"
-role="doc-noteref"><sup>4</sup></a>. The value of the derivative
+perfect hedge exists<a href="#fn5" class="footnote-ref" id="fnref5"
+role="doc-noteref"><sup>5</sup></a>. The value of the derivative
 instrument is determined by <span class="math display">
 \tag{3} V_t D_t = (\sum_{\hat{\tau}_j &gt; t} \hat{A}_j
 D_{\hat{\tau}_j})|_{\mathcal{A}_t}.
@@ -679,10 +707,10 @@ the currency used for the underlying quote and the underlying.</p>
 <p>In this section we prove the FTAP for multi-period models. We start
 with a proof for the one-period model that can be generalized.</p>
 <p>For the one-period model consider the amount operator <span
-class="math inline">{A\colon\boldsymbol{{R}}^I\to\boldsymbol{{R}}\oplus_\infty
+class="math inline">{A\colon\boldsymbol{{R}}^I\to\boldsymbol{{R}}\oplus^\infty
 B(\Omega)}</span> defined by <span class="math inline">{A\gamma =
--\gamma\cdot x \oplus_\infty \gamma\cdot X}</span>. The norm on the
-range is <span class="math inline">\|p\oplus_\infty P\|_\infty =
+-\gamma\cdot x \oplus^\infty \gamma\cdot X}</span>. The norm on the
+range is <span class="math inline">\|p\oplus^\infty P\|_\infty =
 \max\{|p|,\|P\|\}</span> for <span
 class="math inline">p\in\boldsymbol{{R}}</span>, <span
 class="math inline">P\in B(\Omega)</span>. The first component is the
@@ -692,11 +720,11 @@ market prices. Arbitrage exists if there is a <span
 class="math inline">\gamma\in\boldsymbol{{R}}^I</span> with <span
 class="math inline">A\gamma</span> in the cone <span
 class="math inline">{\mathcal{P}= \{p\oplus P\mid p &gt; 0,
-P\ge0\}\subseteq \boldsymbol{{R}}\oplus_\infty B(\Omega)}</span></p>
+P\ge0\}\subseteq \boldsymbol{{R}}\oplus^\infty B(\Omega)}</span></p>
 <p>The adjoint <span
-class="math inline">A^*\colon\boldsymbol{{R}}\oplus_1
+class="math inline">A^*\colon\boldsymbol{{R}}\oplus^1
 ba(\Omega)\to\boldsymbol{{R}}^I</span> is <span
-class="math inline">A^*(\pi\oplus_1 \Pi) = -x\pi + \langle
+class="math inline">A^*(\pi\oplus^1 \Pi) = -x\pi + \langle
 X,\Pi\rangle</span> where we identify <span
 class="math inline">(\boldsymbol{{R}}^I)^*</span> with <span
 class="math inline">\boldsymbol{{R}}^I</span> by <span
@@ -704,18 +732,18 @@ class="math inline">x\in\boldsymbol{{R}}^I</span> corresponds to <span
 class="math inline">x^*\in(\boldsymbol{{R}}^I)^*</span> using <span
 class="math inline">\langle y, x^*\rangle = y\cdot x</span>, <span
 class="math inline">y\in\boldsymbol{{R}}^I</span>. The norm on the
-domain is <span class="math inline">\|\pi\oplus_1 P\|_1 = |\pi| +
+domain is <span class="math inline">\|\pi\oplus^1 P\|_1 = |\pi| +
 \|\Pi\|</span>. The calculation <span class="math display">
 \begin{aligned}
-\langle \gamma, A^*(\pi\oplus_1 \Pi) \rangle
-&amp;= \langle A\gamma, \pi\oplus_1 \Pi \rangle \\
-&amp;= \langle -\gamma\cdot x\oplus_\infty \gamma\cdot X, \pi\oplus_1
+\langle \gamma, A^*(\pi\oplus^1 \Pi) \rangle
+&amp;= \langle A\gamma, \pi\oplus^1 \Pi \rangle \\
+&amp;= \langle -\gamma\cdot x\oplus^\infty \gamma\cdot X, \pi\oplus^1
 \Pi \rangle \\
 &amp;= \langle -\gamma\cdot x, \pi\rangle + \langle \gamma\cdot X, \Pi
 \rangle \\
 &amp;= \langle \gamma, -x\pi + \langle X,\Pi\rangle \rangle \\
 \end{aligned}
-</span> shows <span class="math inline">A^*(\pi\oplus_1 \Pi) = -x\pi +
+</span> shows <span class="math inline">A^*(\pi\oplus^1 \Pi) = -x\pi +
 \langle X,\Pi\rangle\in\boldsymbol{{R}}^I</span>.</p>
 <p>The range of <span class="math inline">A</span> is closed, since it
 is finite dimensional, and <span class="math inline">\mathcal{P}</span>
@@ -724,27 +752,27 @@ hyperplane <span
 class="math inline">H\supseteq\operatorname{ran}A</span> that does not
 meet <span class="math inline">\mathcal{P}</span>. Every hyperplane is
 the preanhiliator of an element of the dual, say <span
-class="math inline">d\oplus_1 D\in\boldsymbol{{R}}\oplus
-ba(\Omega)</span>, so <span class="math inline">{H = {}^\perp\{d\oplus_1
-D\} = \{p\oplus_\infty P\mid \langle p\oplus_\infty P, d\oplus_1
+class="math inline">d\oplus^1 D\in\boldsymbol{{R}}\oplus
+ba(\Omega)</span>, so <span class="math inline">{H = {}^\perp\{d\oplus^1
+D\} = \{p\oplus^\infty P\mid \langle p\oplus^\infty P, d\oplus^1
 D\rangle = 0\}}</span>. Since <span
 class="math inline">\operatorname{ran}A =
 {}^\perp(\operatorname{ker}A^*)\subseteq H</span> we have <span
-class="math inline">d\oplus_1 D\in\operatorname{ker}A^*</span> so <span
+class="math inline">d\oplus^1 D\in\operatorname{ker}A^*</span> so <span
 class="math inline">0 = -xd + \langle X,D\rangle</span>. We now show
 <span class="math inline">d</span> and <span
 class="math inline">D</span> are positive.</p>
-<p>If there exist <span class="math inline">p_+\oplus_\infty
-P_+\in\mathcal{P}</span> and <span class="math inline">p_-\oplus_\infty
+<p>If there exist <span class="math inline">p_+\oplus^\infty
+P_+\in\mathcal{P}</span> and <span class="math inline">p_-\oplus^\infty
 P_-\in\mathcal{P}</span> with <span class="math inline">{\langle
-p_+\oplus_\infty P_+,d\oplus_1 D\rangle &gt; 0}</span> and <span
-class="math inline">{\langle p_-\oplus_\infty P_-,d\oplus_1 D\rangle
+p_+\oplus^\infty P_+,d\oplus^1 D\rangle &gt; 0}</span> and <span
+class="math inline">{\langle p_-\oplus^\infty P_-,d\oplus^1 D\rangle
 &lt; 0}</span> then there is a convex combination in <span
 class="math inline">H</span>, which contradicts the fact <span
 class="math inline">H</span> does not meet the cone <span
 class="math inline">\mathcal{P}</span>. This shows we can assume <span
-class="math inline">{\langle p\oplus_\infty P, d\oplus_1 D\rangle &gt;
-0}</span> for all <span class="math inline">{p\oplus_\infty
+class="math inline">{\langle p\oplus^\infty P, d\oplus^1 D\rangle &gt;
+0}</span> for all <span class="math inline">{p\oplus^\infty
 P\in\mathcal{P}}</span>. It follows that <span class="math inline">d
 &gt; 0</span> and <span class="math inline">D &gt; 0</span>.</p>
 <p>This shows there is no arbitrage if and only if <span
@@ -789,16 +817,28 @@ X_j, D_j\rangle \\
 &amp;= \sum_j \langle \Gamma_j, \sum_{i &gt; j} C_i D_i\rangle - \sum_j
 \langle \Gamma_j, X_j D_j\rangle \\
 \end{aligned}
-</span> This shows <span class="math inline">A^*(\oplus_j D_j) =
-\oplus_j \sum_{i &gt; j} C_i D_i - X_j D_j</span>.</p>
-<p>Define the positive cone <span class="math inline">\mathcal{P}=
-\{\oplus_{j\in\boldsymbol{{N}}} P_j\mid P_0 &gt; 0, P_j\ge 0,
-j&gt;0\}</span> and <span class="math inline">\mathcal{G}_0</span> to be
-the subspace of <span class="math inline">\oplus_{j\in\boldsymbol{{N}}}
+</span></p>
+<p><strong>Lemma</strong>. <em>If <span class="math inline">X\in
+B(\mathcal{A})</span> then <span class="math inline">\langle X,
+\Pi\rangle = \langle X, \Pi|_\mathcal{A}\rangle</span> for <span
+class="math inline">\Pi\in ba(\Omega)</span></em>.</p>
+<p><em>Proof</em>. This follows from <span class="math inline">\langle
+1_A,\Pi\rangle = \langle 1_A,\Pi|_\mathcal{A}\rangle</span> for <span
+class="math inline">A\in\mathcal{A}</span> and every <span
+class="math inline">X\in B(\mathcal{A})</span> is the norm limit of
+simple functions.</p>
+<p>This shows the dual of the amount operator is <span
+class="math inline">{A^*(\oplus_j D_j) = \oplus_j \sum_{i &gt; j} (C_i
+D_i)|_{\mathcal{A}_j} - X_j D_j}</span>.</p>
+<p>The subspace of closed-out trading strategies is <span
+class="math inline">\mathcal{G}_0</span> = <span
+class="math inline">\oplus^\infty_{j\in\boldsymbol{{N}}}
 B(\mathcal{A}_j,\boldsymbol{{R}}^I)</span> having a finite number of
-non-zero terms that sum to 0. Arbitrage exists if <span
-class="math inline">A(\mathcal{G}_0)</span> meets <span
-class="math inline">\mathcal{P}</span>.</p>
+non-zero terms that sum to 0. If <span class="math inline">\mathcal{P}=
+\{\oplus^1_{j\in\boldsymbol{{N}}} P_j\mid P_j\in ba(\mathcal{A}_j), P_0
+&gt; 0, P_j\ge 0, j&gt;0\}</span> is the cone of positive measures then
+arbitrage exists if <span class="math inline">A(\mathcal{G}_0)</span>
+meets <span class="math inline">\mathcal{P}</span>.</p>
 <!--
 -->
 </section>
@@ -839,13 +879,8 @@ href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>This definition is not satisfactory to traders and risk
-managers. They will compare the profit <span
-class="math inline">\gamma\cdot x</span> to <span
-class="math inline">|\gamma|\cdot|x|</span>, the total amount of money
-involved in establishing the trade. They would probably not be willing
-to tie up a million dollars to make a one dollar profit.<a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Barrier option example.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>This definition is not satisfactory to traders and risk
 managers. They will compare the profit <span
 class="math inline">\gamma\cdot x</span> to <span
@@ -853,9 +888,16 @@ class="math inline">|\gamma|\cdot|x|</span>, the total amount of money
 involved in establishing the trade. They would probably not be willing
 to tie up a million dollars to make a one dollar profit.<a
 href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Perfect hedges never exist.<a href="#fnref3"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This definition is not satisfactory to traders and risk
+managers. They will compare the profit <span
+class="math inline">\gamma\cdot x</span> to <span
+class="math inline">|\gamma|\cdot|x|</span>, the total amount of money
+involved in establishing the trade. They would probably not be willing
+to tie up a million dollars to make a one dollar profit.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Perfect hedges never exist.<a href="#fnref4"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Perfect hedges never exist.<a href="#fnref5"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </aside>
