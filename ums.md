@@ -4,6 +4,7 @@
 -->
 ---
 title: Valuation of Risky Streams of Cash Flows
+abstract: Arbitrage-free prices are determined by cash flows.
 classoption: fleqn
 header-includes:
 	- \usepackage{bm}
@@ -19,11 +20,6 @@ header-includes:
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\ran}{\operatorname{ran}}
 \renewcommand{\ker}{\operatorname{ker}}
-\renewcommand{\qedsymbol}{\rule{1ex}{1ex}}
-\newtheorem{thm}{Theorem}[section]
-\newtheorem{lem}{Lemma}[section]
-\newtheorem{clm}{Claim}[section]
-\newtheorem{exa}{Example}[section]
 
 
 Fischer Black, Myron Scholes [@BlaSch1973], and Robert C. Merton III
@@ -233,24 +229,36 @@ Arbitrage exists if there is a trading strategy with $A_{\tau_0} > 0$, $A_t \ge0
 $\sum_j \Gamma_j = 0$. You make money on the first trade and never lose money until
 the position is closed.
 
-The _Fundamental Theorem of Asset Pricing_ states there is no arbitrage if there exist _deflators_,
-positive finitely additive measures $D_t$ on $\AA_t$, $t\in T$, with
+The _Fundamental Theorem of Asset Pricing_ states there is no arbitrage if and only if there exist
+positive finitely additive measures $D_t\in ba(\AA_t)$, $t\in T$, with
 $\sum_{t\in T} \|D_t\| < \infty$ and
 $$
-\tag{1}	X_t D_t = \sum_{u >} C_s D_s)|_{\AA_t}, t\le u.
+\tag{1}	X_t D_t = \sum_{u > t} (C_s D_s)|_{\AA_t}.
 $$
+We call such $(D_t)_{t\in T}$ a _deflator_.
 Deflators are the (not generally unique) valuation operator Ross identified.
-We will see later that if repurchase agreements are available in
-the market there is a canonical deflator that corresponds
+We will see later that if repurchase agreements are available
+there is a canonical deflator that corresponds
 to the stochastic discount.
-A _money market account_ corresponds to reinvesting at the repo rate.
+A _money market account_ corresponds to rolling over at the repo rate.
 Its reciprocal is the _stochastic discount_.
+
+Equation $(1)$ is the Graham-Todd "Securities Analysis" ansatz that the value of an investment is
+the present value of future cash flows.
+
+__Lemma__. _Equation $(1)$ is equivalent to_
+$$
+\tag{1a}	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_u D_u)|_{\AA_t}, t\le u.
+$$
+
+The proof is trivial.
+If cash flows are zero this implies discounted prices are a martingale.
 
 __Claim__. _If $M_t = M_u|_{\AA_t}$, $t\le u$, is a $\RR^I$-valued martingale measure and
 $D_t\in ba(A_t)$ are positive measures then
 ${X_t D_t = M_t - \sum_{s\le t} C_s D_s}$ is arbitrage-free_.
 
-_Proof_. Substitute $X_u D_u$ by this formula in $(1)$ and cancel terms in the sums.
+_Proof_. Substitute $X_u D_u$ by this formula in $(1a)$ and cancel terms in the sums.
 
 __Example__. (Black-Scholes/Merton)
 $M_t = (r, se^{\sigma B_t - \sigma^2t/2})P$, $C_t = (0,0)$,
@@ -258,11 +266,11 @@ $D_t = e^{-\rho t}P$ where $(B_t)$ is standard Brownian motion and $P$ is Wiener
 
 __Lemma__. _Assuming $(1)$ and the definitions of value and amount_
 $$
-\tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}, t\le u.
+\tag{2}	V_t D_t = \sum_{u > t} (A_u D_u)|_{\AA_t}.
 $$
 
 _Proof_.
-Substitute $V_t$ by its definition on the left side of $(2)$ and
+Substitute $V_t$ by its definition on the left-hand side of $(2)$ and
 use $X_t D_t$ from $(1)$. Note ${\Delta_t + \Gamma_t = \Delta_{t+\epsilon}}$
 for ${\epsilon > 0}$ sufficiently small. In this case
 ${V_t D_t = (V_u D_u + A_u D_u)|_{\AA_t}}$ for ${u = t+\epsilon}$.
