@@ -25,16 +25,15 @@ header-includes:
 Fischer Black, Myron Scholes [@BlaSch1973], and Robert C. Merton III
 [@Mer1973], invented a Nobel Prize winning theory showing how to value
 equity options using a money market account to finance dynamic trading in
-the underlying stock. In their model, it is possible to exactly replicate
-the option payoff so the value of the option is the cost of setting
+the underlying stock. Their model uses the Ito calculus to exactly replicate
+the option payoff hence the value of the option is the cost of setting
 up the initial hedge.
 
-Stephen Ross tremendously generalized the B-S/M model in
-"A Simple Approach to the Valuation of Risky Streams" [@Ros1978]
-by showing how to approximately value a derivative using
-_any_ collection of instruments. 
-
-He used the Hahn-Banach theorem to show
+Stephen Ross generalized the B-S/M model in "A Simple Approach to the
+Valuation of Risky Streams" [@Ros1978] by showing how to bound the
+arbitrage-free value of a derivative depending on _any_ collection of
+instruments. His model uses the Hahn-Banach theorem and shows the
+there is not generally a unique value.
 
 > _If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, $L$_.
@@ -484,11 +483,13 @@ We start with a proof for the one-period model that can be generalized.
 
 For the one-period model consider the amount operator ${A\colon\RR^I\to\RR\oplus^\infty B(\Omega)}$
 defined by ${A\gamma = -\gamma\cdot x \oplus^\infty \gamma\cdot X}$.
-The norm on the range is $\|p\oplus^\infty P\|_\infty = \max\{|p|,\|P\|\}$ for $p\in\RR$, $P\in B(\Omega)$.
+The norm on the range is ${\|p\oplus^\infty P\|_\infty = \max\{|p|,\|P\|\}}$ for
+${p\in\RR}$, ${P\in B(\Omega)}$.
 The first component is the amount made purchasing $\gamma$ shares and the
 second is the amount made when closing the postion at current market prices.
-Arbitrage exists if there is a $\gamma\in\RR^I$ with 
-$A\gamma$ in the cone ${\PP = \{p\oplus P\mid p > 0, P\ge0\}\subseteq \RR\oplus^\infty B(\Omega)}$
+Arbitrage exists if there is a ${\gamma\in\RR^I}$ with 
+$A\gamma$ in the cone ${\PP = \{p\oplus P\mid p > 0, P\ge0\}}$ where
+$p\in\RR$ and $P\in B(\Omega)$.
 
 The adjoint $A^*\colon\RR\oplus^1 ba(\Omega)\to\RR^I$ is $A^*(\pi\oplus^1 \Pi) = -x\pi + \langle X,\Pi\rangle$
 where we identify $(\RR^I)^*$ with $\RR^I$ by $x\in\RR^I$ corresponds to
@@ -506,7 +507,7 @@ $$
 $$
 shows $A^*(\pi\oplus^1 \Pi) = -x\pi + \langle X,\Pi\rangle\in\RR^I$.
 
-The range of $A$ is closed, since it is finite dimensional, and $\PP$ has an interior point
+The range of $A$ is closed since it is finite dimensional and $\PP$ has an interior point
 so by the Hahn-Banach theorem there exists a hyperplane $H\supseteq\ran A$ that does not meet $\PP$.
 Every hyperplane is the preanhiliator of an element of the dual, say $d\oplus^1 D\in\RR\oplus ba(\Omega)$,
 so ${H = {}^\perp\{d\oplus^1 D\} = \{p\oplus^\infty P\mid \langle p\oplus^\infty P, d\oplus^1 D\rangle = 0\}}$.
@@ -514,9 +515,9 @@ Since $\ran A = {}^\perp(\ker A^*)\subseteq H$ we have $d\oplus^1 D\in\ker A^*$
 so $0 = -xd + \langle X,D\rangle$. We now show $d$ and $D$ are positive.
 
 If there exist $p_+\oplus^\infty P_+\in\PP$
-and $p_-\oplus^\infty P_-\in\PP$
 with ${\langle p_+\oplus^\infty P_+,d\oplus^1 D\rangle > 0}$ and
-${\langle p_-\oplus^\infty P_-,d\oplus^1 D\rangle < 0}$
+$p_-\oplus^\infty P_-\in\PP$
+with ${\langle p_-\oplus^\infty P_-,d\oplus^1 D\rangle < 0}$
 then there is a convex combination in $H$, which contradicts
 the fact $H$ does not meet the cone $\PP$.
 This shows we can assume ${\langle p\oplus^\infty P, d\oplus^1 D\rangle > 0}$
@@ -526,18 +527,19 @@ It follows that $d > 0$ and $D > 0$.
 This shows there is no arbitrage if and only if ${xd = \langle X,D\rangle}$
 for some positive ${d\in\RR}$ and ${D\in ba(\Omega)}$.
 
-For the multi-period model we assume discrete trading times $(t_j)_{j\in\NN}$.
+For the multi-period model let $(t_j)_{j\in\NN}$
+be the finite number of increasing trading times.
 Define the amount operator
 $$
 A\colon\oplus_{j\in\NN} B(\AA_j, \RR^I)\to\oplus_{j\in\NN} B(\AA_j)
 $$
 by $A(\oplus_j \Gamma_j) = \oplus_j A_j$ where $A_j = \Delta_j\cdot C_j - \Gamma_j\cdot X_j$
 and ${\Delta_j = \sum_{i < j} \Gamma_j}$. Note ${\Delta_0 = 0}$ and
-$\Gamma_j = \Delta_{j+1} - \Delta_j$. The direct sum uses the sup
-norm $\|\oplus_j \Gamma_j\|_\infty = \sup_j \|\Gamma_j\|$.
+$\Gamma_j = \Delta_{j+1} - \Delta_j$. The direct sum uses the
+norm $\|\oplus_j \Gamma_j\|_\infty = \max_j \|\Gamma_j\|$.
 
 We now compute the adjoint $A^*\colon\oplus_{j\in\NN} ba(\AA_j)\to\oplus_{j\in\NN} ba(\AA_j, \RR^I)$.
-For $\oplus_j D_j\in \oplus_j ba(\AA_j)$ with sum norm $\|\oplus_j D_j\|_1 = \sum_j \|D_j\|$
+For $\oplus_j D_j\in \oplus_j ba(\AA_j)$ with norm $\|\oplus_j D_j\|_1 = \sum_j \|D_j\|$
 $$
 \begin{aligned}
 \langle \oplus_j \Gamma_j, A^*(\oplus_j D_j)\rangle
@@ -555,17 +557,38 @@ $$
 __Lemma__. _If $X\in B(\AA)$ then $\langle X, \Pi\rangle = \langle X, \Pi|_\AA\rangle$
 for $\Pi\in ba(\Omega)$_.
 
-_Proof_. This follows from $\langle 1_A,\Pi\rangle = \langle 1_A,\Pi|_\AA\rangle$
-for $A\in\AA$ and every $X\in B(\AA)$ is the norm limit of simple functions.
+_Proof_. This follows from ${\langle 1_A,\Pi\rangle = \Pi(A) = \langle 1_A,\Pi|_\AA\rangle}$
+for $A\in\AA$ and the fact every $X\in B(\AA)$ is the norm limit of simple functions.
 
 This shows the dual of the amount operator is
 ${A^*(\oplus_j D_j) = \oplus_j \sum_{i > j} (C_i D_i)|_{\AA_j} - X_j D_j}$.
 
-The subspace of closed-out trading strategies is  $\GG_0$ = $\oplus^\infty_{j\in\NN} B(\AA_j,\RR^I)$ having
+The subspace of closed-out trading strategies is $\GG_0$ = $\oplus^\infty_{j\in\NN} B(\AA_j,\RR^I)$ having
 a finite number of non-zero terms that sum to 0.
-If $\PP = \{\oplus^1_{j\in\NN} P_j\mid P_j\in ba(\AA_j), P_0 > 0, P_j\ge 0, j>0\}$
+If ${\PP = \{\oplus^1_{j\in\NN} P_j\mid P_j\in ba(\AA_j)\}}$ with ${P_0 > 0}$ and ${P_j\ge 0}$, ${j>0}$
 is the cone of positive measures then
 arbitrage exists if $A(\GG_0)$ meets $\PP$.
+
+By ... there exists a hyperplane $H\subseteq\ran A$ that does not meet $\PP$.
+Every hyperplane is the preanhiliator of an element of the dual, say $\oplus^1 D_j\in\oplus ba(\AA_j)$,
+so ${H = {}^\perp\{\oplus^1 D_j\} = \{\oplus^\infty P_j\mid \langle \oplus^\infty P_j, \oplus^1 D_j\rangle = 0\}}$.
+Since $\ran A = {}^\perp(\ker A^*)\subseteq H$ we have $\oplus^1 D_j\in\ker A^*$
+so ${0 = \oplus_j \sum_{i > j} (C_i D_i)|_{\AA_j} - X_j D_j}$.
+We now show $D_j$ are positive for all $j\in\NN$.
+
+If there exist $p_+\oplus^\infty P_+\in\PP$
+with ${\langle p_+\oplus^\infty P_+,d\oplus^1 D\rangle > 0}$ and
+$p_-\oplus^\infty P_-\in\PP$
+with ${\langle p_-\oplus^\infty P_-,d\oplus^1 D\rangle < 0}$
+then there is a convex combination in $H$, which contradicts
+the fact $H$ does not meet the cone $\PP$.
+This shows we can assume ${\langle p\oplus^\infty P, d\oplus^1 D\rangle > 0}$
+for all ${p\oplus^\infty P\in\PP}$.
+It follows that $d > 0$ and $D > 0$.
+
+This shows there is no arbitrage if and only if ${xd = \langle X,D\rangle}$
+for some positive ${d\in\RR}$ and ${D\in ba(\Omega)}$.
+
 
 
 <!--

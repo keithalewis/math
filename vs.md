@@ -36,6 +36,9 @@ typically the last thing an author wrote. He thought clearly
 about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 -->
 
+A vector space is more than a $n$-tuple of real numbers,
+$\RR^n = \{(x_1,\ldots,x_n)\mid x_j\in\RR, 1\le j\le n\}$.
+
 Given two sets $A$ and $B$ the set exponential ${B^A = \{f\colon A\to B\}}$
 is the set of all functions from $A$ to $B$.  Let's write $B^A$
 suggestively as ${f\in\{A\to B\}}$.
