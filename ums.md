@@ -25,23 +25,26 @@ header-includes:
 Fischer Black, Myron Scholes [@BlaSch1973], and Robert C. Merton III
 [@Mer1973], invented a Nobel Prize winning theory showing how to value
 equity options using a money market account to finance dynamic trading in
-the underlying stock. Their model uses the Ito calculus to exactly replicate
+the underlying stock. Their model used the Ito calculus to replicate
 the option payoff hence the value of the option is the cost of setting
-up the initial hedge.
+up the initial hedge. As shown in Harrison and Kreps [@HarKre1979],
+their assumption of continuous time trading leads to untenable results.
 
-Stephen Ross generalized the B-S/M model in "A Simple Approach to the
-Valuation of Risky Streams" [@Ros1978] by showing how to bound the
-arbitrage-free value of a derivative depending on _any_ collection of
-instruments. His model uses the Hahn-Banach theorem and shows the
+Stephen Ross [@Ros1978] generalized the B-S/M model 
+by showing how to bound the
+possible arbitrage-free values of a derivative depending on _any_ collection of
+instruments. His model used the Hahn-Banach theorem to show the
 there is not generally a unique value.
 
 > _If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, $L$_.
 
-Perhaps Ross never won a Nobel prize because his result was so audacious.
-Maybe people were not ready to believe it was possible to come up
-with a theory that applied to every market traded instrument, not
-just a bond, stock, and option.
+<!--
+ Now, let us consider some simple propositions concerning the value
+ of return streams in competitive markets. I believe that most of these
+ are well known (at least at some level of consciousness), but the failure
+ to understand either their universality or their applicability is endemic.
+-->
 
 This note identifies Ross's valuation operator and suggests an improvement
 by placing cash flows on equal footing with prices.  In some sense,
@@ -72,10 +75,10 @@ of Asset Pricing is a geometric result. We assume a sample space and filtration,
 do not require a probability measure.
 There is no need for the Ito calculus or partial differential
 equations. The notion of continuous time hedging is a deleterious mathematical artifact
-of that model leading to incorrect results.[^2]
+of that model leading to incorrect results.[^1]
 Every hedge in the real world consists of a finite number of trades.
 
-[^2]: Barrier option example.
+[^1]: Barrier option example.
 
 Recall the set exponential $\RR^I$ is the set of functions from $I$ to $\RR$.
 The _dot product_ of $x,y\in\RR^I$ is $x\cdot y = \sum_{i\in I} x(i)y(i)$
@@ -181,7 +184,7 @@ $I$ the finite set of market _instruments_,
 $\Omega$ the set of possible _outcomes_, and $(\AA_t)_{t\in T}$ 
 be the _partitions_[^1] of $\Omega$ indicating the information available at time $t\in T$.
 
-### Market
+### Market 
 
 For each $t\in T$ let $X_t\colon\AA_t\to\RR^I$ be the _prices_[^3] of market instruments
 and $C_t\colon\AA_t\to\RR^I$ the _cash flows_ of market instruments.
@@ -226,7 +229,7 @@ put on at $t_0$ and close the position $\Gamma_0$ at the current price.
 
 Arbitrage exists if there is a trading strategy with $A_{\tau_0} > 0$, $A_t \ge0$, $t > \tau_0$, and
 $\sum_j \Gamma_j = 0$. You make money on the first trade and never lose money until
-the position is closed.
+the position is closed. Note this definition does not involve a probability measure[^1].
 
 The _Fundamental Theorem of Asset Pricing_ states there is no arbitrage if and only if there exist
 positive finitely additive measures $D_t\in ba(\AA_t)$, $t\in T$, with
@@ -599,6 +602,6 @@ for some positive ${d\in\RR}$ and ${D\in ba(\Omega)}$.
 [^1]: This definition is not satisfactory to traders and risk managers.
 They will compare the profit $\gamma\cdot x$ to $|\gamma|\cdot|x|$,
 the total amount of money involved in establishing the trade.
-They would probably not be willing to tie up a million dollars to make a one dollar profit.
+It does not make economic sense to tie up a million dollars to make a one dollar profit.
 
 [^3]: Perfect hedges never exist.

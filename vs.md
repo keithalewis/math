@@ -36,6 +36,93 @@ typically the last thing an author wrote. He thought clearly
 about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 -->
 
+You are probably familiar with the vector space of $n$-tuples of
+real numbers $\RR^n = \{(x_1,\dots,x_n)\mid x_j\in\RR, 1\le j \le n\}$.
+_Scalar multiplication_ by $a\in\RR$ is
+$a(x_1,\ldots,x_n) = (ax_1,\ldots,ax_n)$ and
+_vector addition_ is 
+$(x_1,\dots,x_n) + (y_1,\dots,y_n) = (x_1 + y_1,\dots,x_n + y_n)$.
+The _standard basis_ is $e_i = (0,\ldots,1,\ldots,0)$, $1\le i\le n$,
+where all entries are 0 except the $i$-th which is 1.
+
+We can write this without $\ldots$'s using _projections_
+$\pi_i^n = \pi_i\colon\RR^n\to\RR$ where $\pi_i(x) = x_i$.
+Note $x = y$ if and only if $\pi_i(x) = \pi_i(y)$, $1\le i\le n$ for $x,y\in\RR^n$.
+Scalar multiplication is$\pi_i(ax) = a\pi_i(x)$ and
+vector addition is $\pi_i(x + y) = \pi_i(x) + \pi_i(y)$ for $a\in\RR$, $x,y\in\RR^n$.
+
+__Exercise__. _Show the standard basis satisfies $\pi_i(e_j) = \delta_{ij}$_.
+
+_Hint_. Recall the Kronecker delta $\delta_{ij}$ is 1 if $i = j$ and 0 if $i\not=j$.
+
+Every element of $\RR^n$ is a _linear combination_ of standard basis vectors.
+
+__Exercise__. _Show $x = \sum_i x_i e_i$ for $x\in\RR^n$_.
+
+_Hint_. Apply $\pi_i$ to each side and use the definition of the Kronecker delta.
+
+Define $\zero\in\RR^n$ by $\pi_i(\zero) = 0$ for $1\le i\le n$.
+
+__Exercise__. _Show $x + \zero = x = \zero + x$ for all $x\in\RR^n$_.
+
+This shows $\zero$ is the _identity element_ for vector addition.
+
+A _linear transformation_ is a function $T\colon\RR^n\to\RR^m$ that
+respects the vector space structure: $T(ax) = a(Tx)$ and $T(x + y) = Tx + Ty$
+for $a\in\RR$, $x,y\in\RR^n$. 
+
+__Exercise__. _Show $T$ is a linear transformation if and only if
+$T(ax + y) = aTx + y$ for $a\in\RR$, $x,y\in\RR^n$_.
+
+_Hint_. Take $y = \zero$ and $a = 1$ noting $1x = x$.
+
+The collection of all linear transformations from $\RR^n$ to $\RR^m$
+also form a vector space. Scalar multiplication is
+$(aT)x = a(Tx)$ and vector addition is $(T + U)x = Tx + Ux$ for $a\in\RR$,
+$T,U\colon\RR^n\to\RR^m$ linear, and $x\in\RR^n$. This is our first inkling that there is more
+to vector spaces than just $\RR^n$.
+
+The _matrix_ of a linear transformation $T\colon\RR^n\to\RR^m$ under
+the standard basis is $[t_{ij}]$ where $t_{ij}\in\RR$, $1\le i\le n$,
+$1\le j\le m$ are defined by $Te^n_i = \sum_j t_{ij}e^m_j$.
+This follow from $Te^n_i\in\RR^m$ being a linear combination of $e^m_j$, $1\le j\le m$.
+
+If $S\colon\RR^m\to\RR^k$ is a linear transformation then there
+is the composition $U = ST\colon\RR^n\to\RR^k$.
+
+__Exercise__. _Show the matrix of $U$ is $u_{ik} = \sum_j t_{ij}s_{jk}$_.
+
+_Hint_. ...
+
+This shows matrix multiplication is just composition of linear transformations.
+It also shows calculations involving the standard basis are cumbersome.
+
+<details><summary>Werner Heisenberg</summary>
+
+Werner Heisenberg reinvented matrix multiplication.
+
+His theory of the orbital levels of a hydrogen atom used $E_{ij}$ to
+represent a jump of an electron from orbital level $i$ to orbital level $j$.
+His physical intuition led him to the rule $E_{ij}E_{kl}$ was a jump
+from level $i$ to level $l$ if and only if $j = k$.
+
+__Exercise__. _Show $(\sum_{ij} t_{ij}E_{ij})(\sum_{kl} s_{kl} E_{kl})
+= \sum_j t_{ij}s_{jl} E_{il}$_.
+
+Eventually Pascual Jordan pointed this out to him.
+
+</details>
+
+$\RR^{n\times m}$ vs $\RR^{nm}$.
+
+tensors
+
+
+A _linear functional_ is a function $f\colon\RR^n\to\RR$, i.e., a linear
+transformation where $m = 1$.
+
+Projections are linear tranformations. In this case $m = 1$ and we call them _linear functionals_.
+
 A vector space is more than a $n$-tuple of real numbers,
 $\RR^n = \{(x_1,\ldots,x_n)\mid x_j\in\RR, 1\le j\le n\}$.
 
