@@ -37,18 +37,18 @@ about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 -->
 
 You are probably familiar with the vector space of $n$-tuples of
-real numbers $\RR^n = \{(x_1,\dots,x_n)\mid x_j\in\RR, 1\le j \le n\}$.
+real numbers ${\RR^n = \{x = (x_1,\dots,x_n)\mid x_j\in\RR, 1\le j \le n\}}$.
 _Scalar multiplication_ by $a\in\RR$ is
-$a(x_1,\ldots,x_n) = (ax_1,\ldots,ax_n)$ and
+${a(x_1,\ldots,x_n) = (ax_1,\ldots,ax_n)}$ and
 _vector addition_ is 
-$(x_1,\dots,x_n) + (y_1,\dots,y_n) = (x_1 + y_1,\dots,x_n + y_n)$.
-The _standard basis_ is $e_i = (0,\ldots,1,\ldots,0)$, $1\le i\le n$,
+${(x_1,\dots,x_n) + (y_1,\dots,y_n) = (x_1 + y_1,\dots,x_n + y_n)}$.
+The _standard basis_ is ${e_i = (0,\ldots,1,\ldots,0)}$, ${1\le i\le n}$,
 where all entries are 0 except the $i$-th which is 1.
 
 We can write this without $\ldots$'s using _projections_
 $\pi_i^n = \pi_i\colon\RR^n\to\RR$ where $\pi_i(x) = x_i$.
 Note $x = y$ if and only if $\pi_i(x) = \pi_i(y)$, $1\le i\le n$ for $x,y\in\RR^n$.
-Scalar multiplication is$\pi_i(ax) = a\pi_i(x)$ and
+Scalar multiplication is $\pi_i(ax) = a\pi_i(x)$ and
 vector addition is $\pi_i(x + y) = \pi_i(x) + \pi_i(y)$ for $a\in\RR$, $x,y\in\RR^n$.
 
 __Exercise__. _Show the standard basis satisfies $\pi_i(e_j) = \delta_{ij}$_.
@@ -57,7 +57,7 @@ _Hint_. Recall the Kronecker delta $\delta_{ij}$ is 1 if $i = j$ and 0 if $i\not
 
 Every element of $\RR^n$ is a _linear combination_ of standard basis vectors.
 
-__Exercise__. _Show $x = \sum_i x_i e_i$ for $x\in\RR^n$_.
+__Exercise__. _Show $x = \sum_j x_j e_i$ for $x\in\RR^n$_.
 
 _Hint_. Apply $\pi_i$ to each side and use the definition of the Kronecker delta.
 
@@ -87,35 +87,52 @@ the standard basis is $[t_{ij}]$ where $t_{ij}\in\RR$, $1\le i\le n$,
 $1\le j\le m$ are defined by $Te^n_i = \sum_j t_{ij}e^m_j$.
 This follow from $Te^n_i\in\RR^m$ being a linear combination of $e^m_j$, $1\le j\le m$.
 
-If $S\colon\RR^m\to\RR^k$ is a linear transformation then there
-is the composition $U = ST\colon\RR^n\to\RR^k$.
+If $S\colon\RR^m\to\RR^k$ is a linear transformation then the matrix
+of the composition $U = ST\colon\RR^n\to\RR^k$ is ${u_{ik} = \sum_j t_{ij}s_{jk}}$_.
 
-__Exercise__. _Show the matrix of $U$ is $u_{ik} = \sum_j t_{ij}s_{jk}$_.
+__Exercise__. _Prove this_.
 
-_Hint_. ...
+_Hint_. Start with $STx = S(\sum_i t_{ij}e_i) = \sum_i t_{ij}Se_i = \sum_i t_{ij}\sum_j s_{jk}e_k$.
 
 This shows matrix multiplication is just composition of linear transformations.
 It also shows calculations involving the standard basis are cumbersome.
 
-<details><summary>Werner Heisenberg</summary>
-
 Werner Heisenberg reinvented matrix multiplication.
-
-His theory of the orbital levels of a hydrogen atom used $E_{ij}$ to
+His theory of the orbital levels of a hydrogen atom used $e_{ij}$ to
 represent a jump of an electron from orbital level $i$ to orbital level $j$.
-His physical intuition led him to the rule $E_{ij}E_{kl}$ was a jump
-from level $i$ to level $l$ if and only if $j = k$.
+His physical intuition led him to the rule $e_{ij}e_{kl}$ was a jump
+from level $i$ to level $l$ if and only if $j = k$ so
+$e_{ij}e_{kl} = \delta_{jk}e_{il}$.
 
-__Exercise__. _Show $(\sum_{ij} t_{ij}E_{ij})(\sum_{kl} s_{kl} E_{kl})
-= \sum_j t_{ij}s_{jl} E_{il}$_.
+__Exercise__. _Show $(\sum_{ij} t_{ij}e_{ij})(\sum_{kl} s_{kl} e_{kl})
+= \sum_j t_{ij}s_{jl} e_{il}$_.
 
-Eventually Pascual Jordan pointed this out to him.
+This shows we can identify the vector space of linear transformations from $\RR^n$
+to $\RR^m$ with ${\{(t_{ij})\mid 1\le i\le n, 1\le j\le m\}}$.
+In basic linear algebra courses it is common to define row vectors and column
+vectors of a matix. Row $i$ is the vector having $j$-th projection $t_{ij}$
+and columns $j$ is the vector having $i$-th projection $t_{ij}$, but this does
+not generalize to higher dimensions.
 
-</details>
+## Tensor
 
-$\RR^{n\times m}$ vs $\RR^{nm}$.
+Given two sets $A$ and $B$ the set exponential ${B^A = \{f\colon A\to B\}}$
+is the set of all functions from $A$ to $B$. The _exponential tensor_ with index set
+$I$ is $R^I$.
+It is a vector space with scalar multiplication $(ax)(i) = ax(i)$ and
+vector addition $(x + y)(i) = x(i) + y(i)$, $a\in\RR$, $x,y\in\RR^I$, $i\in I$.
 
-tensors
+__Exercise__. _Show $\RR^n$ can be identified with $\RR^{\bs{n}}$ where $\bs{n} = \{1,\ldots,n\}$_.
+
+_Hint_. The vector $x\in\RR^n$ corresponds to the function $\bs{x}\in\RR^\bs{n}$ via
+$x_i = \bs{x}(i)$, $i\in\bs{n}$.
+
+__Exercise__. _Show linear transformations from $\RR^n$ to $\RR^m$ can be
+identified with $\RR^{\bs{n}\times\bs{m}}$_.
+
+_Hint_. Recall $\bs{n}\times\bs{m} = \{(i,j)\mid 1\le i\le n, 1\le j\le m\}$.
+The matrix $[t_{ij}]$ can be identifed with $\bs{t}\in\RR^{\bs{n}\times\bs{m}}$
+by $t_{ij} = \bs{t}(i,j)$.
 
 
 A _linear functional_ is a function $f\colon\RR^n\to\RR$, i.e., a linear
