@@ -67,12 +67,33 @@ __Exercise__. _Show $x + \zero = x = \zero + x$ for all $x\in\RR^n$_.
 
 This shows $\zero$ is the _identity element_ for vector addition.
 
+The _span_ of a collection of vectors $v_i\in\RR^n$, $i\in I$, is the set
+of all finite linear combinations $\sum_{i\in I} a_i v_i$, $a_i\in\RR$.
+A collection of vectors is _independent_ if $\sum_i a_i v_i = \zero$ implies $a_i = 0$ for all $i$.
+A _basis_ of $\RR^n$ is a collection of vectors that are independent and span $\RR^n$.
+
+__Exercise__. _If $(v_i)_{i\in I}$ are dependent then there exists $j\in I$
+with $v_j = \sum_{i\not=j} b_i v_i$_.
+
+_Hint_. Dependent means not independent. If $\sum_i a_i v_i = \zero$ but not
+all $a_i = 0$ then there exists $j\in I$ with $a_j\not=0$. Show $b_i = -a_i/a_j$ for $i\not=j$.
+
+## Linear Transformation
+
 A _linear transformation_ is a function $T\colon\RR^n\to\RR^m$ that
 respects the vector space structure: $T(ax) = a(Tx)$ and $T(x + y) = Tx + Ty$
 for $a\in\RR$, $x,y\in\RR^n$. 
 
-__Exercise__. _Show $T$ is a linear transformation if and only if
-$T(ax + y) = aTx + y$ for $a\in\RR$, $x,y\in\RR^n$_.
+__Exercise__. _Show if $T$ is linear then $Tx = \zero$_.
+
+_Hint_. Note $T\zero + T\zero = T(\zero + \zero) = T\zero$
+and add $-T\zero$ to both sides.
+
+__Exercise__. _If $T$ is linear show $T(ax + y) = aTx + y$, $a\in\RR$, $x,y\in\RR^n$_.
+
+_Proof_: Note $T(ax + y) = T(ax) + Ty = aTx + Ty$.
+
+__Exercise__. _Show $T$ is linear if $T(ax + y) = aTx + y$ for $a\in\RR$, $x,y\in\RR^n$_.
 
 _Hint_. Take $y = \zero$ and $a = 1$ noting $1x = x$.
 

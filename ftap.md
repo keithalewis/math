@@ -4,6 +4,33 @@ author: Keith A. Lewis
 ---
 \newcommand\bs[1]{\boldsymbol{{#1}}}
 \newcommand\RR{\bs{{R}}}
+\renewcommand\AA{\mathcal{A}}
+
+Mathematical model.
+
+$T$ - trading times
+
+$I$ - instruments
+
+$\Omega$ - sample space of possible outcomes
+
+$(\AA_t)_{t\in T}$ - information at time $t$ is a partition of $\Omega$
+
+$X_t\colon\AA_t\to\RR^I$ - prices
+
+$C_t\colon\AA_t\to\RR^I$ - cash flows
+
+$\tau_0 < \cdots < \tau_n$, $\Gamma_j\colon\AA_{\tau_j}\to\RR^I$ - trading strategy
+
+$\Delta_t = \sum_{\tau_j < t} \Gamma_j = \sum_s < t} \Gamma_s$ - position
+
+$V_t = (\Delta_t + \Gamma_t)\cdot X_t - value
+
+$A_t = \Delta_t\codt C_t - \Gamma_t\cdot X_t$ - amount
+
+$X_t D_t = (\sum_{u > t} C_u D_u)|_{\AA_t}$
+
+$V_t D_t = (\sum_{u > t} A_u D_u)|_{\AA_t}$
 
 ## 1971
 
