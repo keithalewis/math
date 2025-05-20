@@ -37,19 +37,30 @@ about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 -->
 
 You are probably familiar with the vector space of $n$-tuples of
-real numbers ${\RR^n = \{x = (x_1,\dots,x_n)\mid x_j\in\RR, 1\le j \le n\}}$.
+real numbers
+$$
+\RR^n = \{x = (x_1,\dots,x_n)\mid x_j\in\RR, 1\le j \le n\}.
+$$
 _Scalar multiplication_ by $a\in\RR$ is
-${a(x_1,\ldots,x_n) = (ax_1,\ldots,ax_n)}$ and
-_vector addition_ is 
-${(x_1,\dots,x_n) + (y_1,\dots,y_n) = (x_1 + y_1,\dots,x_n + y_n)}$.
+$$
+a(x_1,\ldots,x_n) = (ax_1,\ldots,ax_n)
+$$
+and _vector addition_ is 
+$$
+(x_1,\dots,x_n) + (y_1,\dots,y_n) = (x_1 + y_1,\dots,x_n + y_n).
+$$
 The _standard basis_ is ${e_i = (0,\ldots,1,\ldots,0)}$, ${1\le i\le n}$,
 where all entries are 0 except the $i$-th which is 1.
 
 We can write this without $\ldots$'s using _projections_
-$\pi_i^n = \pi_i\colon\RR^n\to\RR$ where $\pi_i(x) = x_i$.
-Note $x = y$ if and only if $\pi_i(x) = \pi_i(y)$, $1\le i\le n$ for $x,y\in\RR^n$.
-Scalar multiplication is $\pi_i(ax) = a\pi_i(x)$ and
-vector addition is $\pi_i(x + y) = \pi_i(x) + \pi_i(y)$ for $a\in\RR$, $x,y\in\RR^n$.
+${\pi_i^n\colon\RR^n\to\RR}$ where ${\pi_i(x) = x_i}$.
+We write ${\pi_i^n}$ as $\pi_i$ when $n$ is evident from the context.
+Note ${x = y}$ if and only if ${\pi_i(x) = \pi_i(y)}$, ${1\le i\le n}$ for ${x,y\in\RR^n}$.
+
+__Exercise__. Show $\pi_i(ax) = a\pi_i(x)$ and
+$\pi_i(x + y) = \pi_i(x) + \pi_i(y)$ for $a\in\RR$, $x,y\in\RR^n$.
+
+Projections preserve the linear structure of $\RR^n$.
 
 __Exercise__. _Show the standard basis satisfies $\pi_i(e_j) = \delta_{ij}$_.
 
@@ -63,9 +74,75 @@ _Hint_. Apply $\pi_i$ to each side and use the definition of the Kronecker delta
 
 Define $\zero\in\RR^n$ by $\pi_i(\zero) = 0$ for $1\le i\le n$.
 
+__Exercise__. _Show $0x = \zero$ for $x\in\RR^n$_.
+
 __Exercise__. _Show $x + \zero = x = \zero + x$ for all $x\in\RR^n$_.
 
 This shows $\zero$ is the _identity element_ for vector addition.
+
+__Exercise__. _Show $(a + b)x = ax + bx$ and $a(x + y) = ax + ay$ for $a,b\in\RR$ and $x,y\in\RR^n$_.
+
+_Hint_. Consider $\pi_i((a + b)x)$ and $\pi_i(a(x + y))$.
+
+This establishes the _distributive laws_ connecting scalar multiplication and vector addition.
+
+__Exercise__. _Show $-x = -1x$ satisfies $x + (-x) = \zero$_.
+
+_Hint_. Consider $x + (-x) = 1x + (-1x) = (1 + (-1))x$.
+
+This shows $-x$ is the _additive inverse_ of $x\in\RR^n$.
+
+__Exercise__. _Show $a(bx) = (ab)x$ for $a,b\in\RR$, $x\in\RR^n$_.
+
+_Hint_: Use the fact multiplication is associative in $\RR$
+so $\pi_(a(bx)) = a(\pi_i(bx)) = a(b\pi_i(x)) = (ab)\pi_(i)(x)$.
+
+## Vector Space
+
+There exist vector spaces beyond the special case of $\RR^n$.
+A more powerful approach is to extract the essential properties and define
+them through abstract axioms, allowing for a clearer and more general
+perspective. A vector space is any set equipped with scalar multiplication
+and vector addition, provided they satisfy fundamental rules established
+in the preceding exercises. Specifically, vector addition forms an
+abelian (commutative) group, while scalar multiplication adheres to the
+distributive laws: $a(x + y) = ax + ay$ and $(a + b)x = ax + bx$,
+for all $a, b \in \RR$ and $x, y \in V$. Additionally,
+scalar multiplication must satisfy the associativity condition,
+$a(bx) = (ab)x$, and the identity property, $1x = x$, for all $a, b \in \RR$
+and $x \in V$.
+
+A _subspace_ is a subset $W\subseteq V$ that is also a vector space.
+Define the notation $\RR W = \{ax\mid a\in\RR, x\in W\}$ and 
+$W + W = \{x + y\mid x,y\in W\}$.
+
+__Exercise__ _Show if $W\subseteq V$, $\RR W\subseteq W$, and $W + W\subseteq W$
+then $W$ is a vector space.
+
+_Hint_: The assumptions guaranted scalar multiplication and vector addition are well-defined on $W$.
+The other axioms follow from $V$ being a vector space.
+
+The _span_ of a finite collection $\{v_i\}$, $i\in I$, is the set of all
+linear combinations $\span \{v_i\} = \{\sum_{i\in I} a_i v_i\mid a_i\in\RR\}$.
+
+__Exercise__. _Show $\span \{v_i\}_{i\in I}$ is a subspace_.
+
+_Hint_: Use $a(\sum_i a_i v_i) = \sum_i a a_i v_i$
+and $(\sum_i a_i v_i) + (\sum_i b_i v_i) = \sum_i (a_i + b_i) v_i$.
+
+__Exercise__. _If $v_1,\ldots v_m$ are independent and $v$ is not in the
+span of $v_i$ then $v_1,\ldots,v_m,v$ are independent_. 
+
+_Hint_.  Suppose $a v + \sum_i a_i v_i = \zero$. If $a = 0$ 
+then $a_i = 0$ for all $i$. If $a\not=0$ then $v$ is
+in the span of the $v_i$.
+
+This shows any finite-dimensional subspace is the span of independent vectors.
+
+
+A _vector space_ is a set $V$ with scalar multiplication $\RR\times V\to V$
+and
+vector addition $V\times V\to V$
 
 The _span_ of a collection of vectors $v_i\in\RR^n$, $i\in I$, is the set
 of all finite linear combinations $\sum_{i\in I} a_i v_i$, $a_i\in\RR$.
@@ -78,13 +155,56 @@ with $v_j = \sum_{i\not=j} b_i v_i$_.
 _Hint_. Dependent means not independent. If $\sum_i a_i v_i = \zero$ but not
 all $a_i = 0$ then there exists $j\in I$ with $a_j\not=0$. Show $b_i = -a_i/a_j$ for $i\not=j$.
 
+## Vector Space
+
+$\RR^n$ is a special case of the vector space of all functions from a
+set $I$ to $\RR$, $\RR^I = \{x\colon I\to\RR\}$ where $I = \{1,\ldots,n\}$.
+Scalar multiplication is ${(ax)(i) = ax(i)}$ and vector addition
+is ${(x + y)(i) = x(i) + y(i)}$ for $i\in I$.
+
+### Examples
+
+A _linear ordinary differential equation_ constrains a function $y = y(x)$ 
+by requiring its
+derivatives satisfy $\sum_{i=0}^n a_n(x) d^ny/dx^n = b(x)$.
+If $b(x) = 0$ we say the solution is _homogeneous_.
+
+__Exercise__. _The set of homogeneous solutions of a linear ODE form a vector space_.
+
+_Hint_ If $y$ is a homogeneous solution then so is $ay$ for $a\in\RR$.
+If $y$ and $z$ are homogeneous solutions then so is $y + z$.
+
+If, by hook or by crook, we can find a single inhomogeneous solution $y_b$
+then we can find all solutions.
+
+__Exercise__. _Show every solution to the inhomogeneous equation has
+the form $y_b + z$ where $z$ is a homogeneous solution_.
+
+_Hint_. If $y$ is any solution to the inhomogeneous equation
+then $y_b - y$ is a homogeneous solution.
+
+For first order linear ordinary differential equations we can assume the
+coefficient of $dy/dx$ is $a_1(x) = 1$ and normalize to 
+$dy/dx + a(x) y = b(x)$.
+
+__Exercise__. _If $A'(x) = a(x)$ then $d(e^{A(x)}y)/dx = e^{A(x)}(dy/dx + a(x)y)$_.
+
+Multiplying both sides of $dy/dx = a(x)y$ by the _integrating factor_ $e^{A(x)}$
+shows $e^{A(x)}y = \int e^{A(x)} b(x)\,dx + C$ for some constant $C$.
+
+__Exercise__. _Show every solution of $dy/dx + a(x)y = b(x)$ has
+the form $y = ce^{-A(x)}\int e^{A(x)} b(x)\,dx$ for some constant $c$_.
+
+In the case of second order linear ODE's there is a wonderland
+of solutions. 
+
 ## Linear Transformation
 
 A _linear transformation_ is a function $T\colon\RR^n\to\RR^m$ that
 respects the vector space structure: $T(ax) = a(Tx)$ and $T(x + y) = Tx + Ty$
 for $a\in\RR$, $x,y\in\RR^n$. 
 
-__Exercise__. _Show if $T$ is linear then $Tx = \zero$_.
+__Exercise__. _Show if $T$ is linear then $T\zero = \zero$_.
 
 _Hint_. Note $T\zero + T\zero = T(\zero + \zero) = T\zero$
 and add $-T\zero$ to both sides.
@@ -505,10 +625,9 @@ __Exercise__. _If $I$ is finite, show $x = \sum_{i\in I} x(i)e_i$ for $x\in\RR^I
 
 _Hint_: Evaluate the putative equality at $j\in I$.
 
-## Linear Operator
+## Linear Transformation
 
-A vector space homomorphism is a _linear operator_.
-A linear operator between vector spaces is a function ${T\colon V\to W}$
+A _linear transformation_ between vector spaces is a function ${T\colon V\to W}$
 that preserves the scalar multiplication and vector addition: $T(ax) = aTx$ and
 ${T(x + y) = Tx + Ty}$, ${a\in\RR}$, ${x,y\in V}$.
 The collection of all linear operators from $V$ to $W$ is denoted $\LL(V,W)$.
