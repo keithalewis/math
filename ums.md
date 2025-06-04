@@ -554,8 +554,10 @@ $$
 &= \sum_j \sum_{i > j} \langle \Gamma_j\cdot C_i, D_i\rangle - \sum_j \langle \Gamma_j\cdot X_j, D_j\rangle \\
 &= \sum_j \langle \Gamma_j\cdot \sum_{i > j} C_i, D_i\rangle - \sum_j \langle \Gamma_j\cdot X_j, D_j\rangle \\
 &= \sum_j \langle \Gamma_j, \sum_{i > j} C_i D_i\rangle - \sum_j \langle \Gamma_j, X_j D_j\rangle \\
+&= \sum_j \langle \Gamma_j, (\sum_{i > j} C_i D_i)|_{\AA_j} \rangle - \sum_j \langle \Gamma_j, X_j D_j\rangle \\
 \end{aligned}
 $$
+This shows $A^*(\oplus_j D_j) = \oplus_j \sum_{i > j} (C_i D_i)|_{\AA_j} - X_j D_j$.
 
 __Lemma__. _If $X\in B(\AA)$ then $\langle X, \Pi\rangle = \langle X, \Pi|_\AA\rangle$
 for $\Pi\in ba(\Omega)$_.
