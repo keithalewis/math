@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-04-23" />
+  <meta name="dcterms.date" content="2025-06-10" />
   <title>Valuation of Risky Streams of Cash Flows</title>
   <style>
     code{white-space: pre-wrap;}
@@ -25,6 +25,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -67,7 +68,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Valuation of Risky Streams of Cash Flows</h1>
-<p class="date">April 23, 2025</p>
+<p class="date">June 10, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Arbitrage-free prices are determined by cash flows.
@@ -120,23 +121,28 @@ data-cites="BlaSch1973">(Black and Scholes 1973)</span>, and Robert C.
 Merton III <span class="citation" data-cites="Mer1973">(Merton
 1973)</span>, invented a Nobel Prize winning theory showing how to value
 equity options using a money market account to finance dynamic trading
-in the underlying stock. In their model, it is possible to exactly
-replicate the option payoff so the value of the option is the cost of
-setting up the initial hedge.</p>
-<p>Stephen Ross tremendously generalized the B-S/M model in “A Simple
-Approach to the Valuation of Risky Streams” <span class="citation"
-data-cites="Ros1978">(Ross 1978)</span> by showing how to approximately
-value a derivative using <em>any</em> collection of instruments.</p>
-<p>He used the Hahn-Banach theorem to show</p>
+in the underlying stock. Their model used the Ito calculus to replicate
+the option payoff hence the value of the option is the cost of setting
+up the initial hedge. As shown in Harrison and Kreps <span
+class="citation" data-cites="HarKre1979">(Harrison and Kreps
+1979)</span>, their assumption of continuous time trading leads to
+untenable results.</p>
+<p>Stephen Ross <span class="citation" data-cites="Ros1978">(Ross
+1978)</span> generalized the B-S/M model by showing how to bound the
+possible arbitrage-free values of a derivative depending on <em>any</em>
+collection of instruments. His model used the Hahn-Banach theorem to
+show the there is not generally a unique value.</p>
 <blockquote>
 <p><em>If there are no arbitrage opportunities in the capital markets,
 then there exists a (not generally unique) valuation operator, <span
 class="math inline">L</span></em>.</p>
 </blockquote>
-<p>Perhaps Ross never won a Nobel prize because his result was so
-audacious. Maybe people were not ready to believe it was possible to
-come up with a theory that applied to every market traded instrument,
-not just a bond, stock, and option.</p>
+<!--
+ Now, let us consider some simple propositions concerning the value
+ of return streams in competitive markets. I believe that most of these
+ are well known (at least at some level of consciousness), but the failure
+ to understand either their universality or their applicability is endemic.
+-->
 <p>This note identifies Ross’s valuation operator and suggests an
 improvement by placing cash flows on equal footing with prices. In some
 sense, cash flows are more important. The Fundamental Theorem of Asset
@@ -386,7 +392,9 @@ class="math inline">A_{\tau_0} &gt; 0</span>, <span
 class="math inline">A_t \ge0</span>, <span class="math inline">t &gt;
 \tau_0</span>, and <span class="math inline">\sum_j \Gamma_j = 0</span>.
 You make money on the first trade and never lose money until the
-position is closed.</p>
+position is closed. Note this definition does not involve a probability
+measure<a href="#fn5" class="footnote-ref" id="fnref5"
+role="doc-noteref"><sup>5</sup></a>.</p>
 <p>The <em>Fundamental Theorem of Asset Pricing</em> states there is no
 arbitrage if and only if there exist positive finitely additive measures
 <span class="math inline">D_t\in ba(\mathcal{A}_t)</span>, <span
@@ -450,8 +458,8 @@ class="math inline">\hat{A}_j</span>. If there exists a trading strategy
 class="math inline">{\sum_j \Gamma_j = 0}</span>, <span
 class="math inline">{A_{\hat{\tau}_j} = \hat{A}_j}</span> and <span
 class="math inline">{A_t = 0}</span> (self-financing) otherwise, then a
-perfect hedge exists<a href="#fn5" class="footnote-ref" id="fnref5"
-role="doc-noteref"><sup>5</sup></a>. The value of the derivative
+perfect hedge exists<a href="#fn6" class="footnote-ref" id="fnref6"
+role="doc-noteref"><sup>6</sup></a>. The value of the derivative
 instrument is determined by <span class="math display">
 \tag{3} V_t D_t = (\sum_{\hat{\tau}_j &gt; t} \hat{A}_j
 D_{\hat{\tau}_j})|_{\mathcal{A}_t}.
@@ -710,17 +718,19 @@ with a proof for the one-period model that can be generalized.</p>
 class="math inline">{A\colon\boldsymbol{{R}}^I\to\boldsymbol{{R}}\oplus^\infty
 B(\Omega)}</span> defined by <span class="math inline">{A\gamma =
 -\gamma\cdot x \oplus^\infty \gamma\cdot X}</span>. The norm on the
-range is <span class="math inline">\|p\oplus^\infty P\|_\infty =
-\max\{|p|,\|P\|\}</span> for <span
-class="math inline">p\in\boldsymbol{{R}}</span>, <span
-class="math inline">P\in B(\Omega)</span>. The first component is the
+range is <span class="math inline">{\|p\oplus^\infty P\|_\infty =
+\max\{|p|,\|P\|\}}</span> for <span
+class="math inline">{p\in\boldsymbol{{R}}}</span>, <span
+class="math inline">{P\in B(\Omega)}</span>. The first component is the
 amount made purchasing <span class="math inline">\gamma</span> shares
 and the second is the amount made when closing the postion at current
 market prices. Arbitrage exists if there is a <span
-class="math inline">\gamma\in\boldsymbol{{R}}^I</span> with <span
+class="math inline">{\gamma\in\boldsymbol{{R}}^I}</span> with <span
 class="math inline">A\gamma</span> in the cone <span
 class="math inline">{\mathcal{P}= \{p\oplus P\mid p &gt; 0,
-P\ge0\}\subseteq \boldsymbol{{R}}\oplus^\infty B(\Omega)}</span></p>
+P\ge0\}}</span> where <span
+class="math inline">p\in\boldsymbol{{R}}</span> and <span
+class="math inline">P\in B(\Omega)</span>.</p>
 <p>The adjoint <span
 class="math inline">A^*\colon\boldsymbol{{R}}\oplus^1
 ba(\Omega)\to\boldsymbol{{R}}^I</span> is <span
@@ -745,9 +755,9 @@ domain is <span class="math inline">\|\pi\oplus^1 P\|_1 = |\pi| +
 \end{aligned}
 </span> shows <span class="math inline">A^*(\pi\oplus^1 \Pi) = -x\pi +
 \langle X,\Pi\rangle\in\boldsymbol{{R}}^I</span>.</p>
-<p>The range of <span class="math inline">A</span> is closed, since it
-is finite dimensional, and <span class="math inline">\mathcal{P}</span>
-has an interior point so by the Hahn-Banach theorem there exists a
+<p>The range of <span class="math inline">A</span> is closed since it is
+finite dimensional and <span class="math inline">\mathcal{P}</span> has
+an interior point so by the Hahn-Banach theorem there exists a
 hyperplane <span
 class="math inline">H\supseteq\operatorname{ran}A</span> that does not
 meet <span class="math inline">\mathcal{P}</span>. Every hyperplane is
@@ -763,9 +773,9 @@ class="math inline">0 = -xd + \langle X,D\rangle</span>. We now show
 <span class="math inline">d</span> and <span
 class="math inline">D</span> are positive.</p>
 <p>If there exist <span class="math inline">p_+\oplus^\infty
-P_+\in\mathcal{P}</span> and <span class="math inline">p_-\oplus^\infty
-P_-\in\mathcal{P}</span> with <span class="math inline">{\langle
+P_+\in\mathcal{P}</span> with <span class="math inline">{\langle
 p_+\oplus^\infty P_+,d\oplus^1 D\rangle &gt; 0}</span> and <span
+class="math inline">p_-\oplus^\infty P_-\in\mathcal{P}</span> with <span
 class="math inline">{\langle p_-\oplus^\infty P_-,d\oplus^1 D\rangle
 &lt; 0}</span> then there is a convex combination in <span
 class="math inline">H</span>, which contradicts the fact <span
@@ -779,9 +789,10 @@ P\in\mathcal{P}}</span>. It follows that <span class="math inline">d
 class="math inline">{xd = \langle X,D\rangle}</span> for some positive
 <span class="math inline">{d\in\boldsymbol{{R}}}</span> and <span
 class="math inline">{D\in ba(\Omega)}</span>.</p>
-<p>For the multi-period model we assume discrete trading times <span
-class="math inline">(t_j)_{j\in\boldsymbol{{N}}}</span>. Define the
-amount operator <span class="math display">
+<p>For the multi-period model let <span
+class="math inline">(t_j)_{j\in\boldsymbol{{N}}}</span> be the finite
+number of increasing trading times. Define the amount operator <span
+class="math display">
 A\colon\oplus_{j\in\boldsymbol{{N}}} B(\mathcal{A}_j,
 \boldsymbol{{R}}^I)\to\oplus_{j\in\boldsymbol{{N}}} B(\mathcal{A}_j)
 </span> by <span class="math inline">A(\oplus_j \Gamma_j) = \oplus_j
@@ -790,13 +801,13 @@ A_j</span> where <span class="math inline">A_j = \Delta_j\cdot C_j -
 \sum_{i &lt; j} \Gamma_j}</span>. Note <span
 class="math inline">{\Delta_0 = 0}</span> and <span
 class="math inline">\Gamma_j = \Delta_{j+1} - \Delta_j</span>. The
-direct sum uses the sup norm <span class="math inline">\|\oplus_j
-\Gamma_j\|_\infty = \sup_j \|\Gamma_j\|</span>.</p>
+direct sum uses the norm <span class="math inline">\|\oplus_j
+\Gamma_j\|_\infty = \max_j \|\Gamma_j\|</span>.</p>
 <p>We now compute the adjoint <span
 class="math inline">A^*\colon\oplus_{j\in\boldsymbol{{N}}}
 ba(\mathcal{A}_j)\to\oplus_{j\in\boldsymbol{{N}}} ba(\mathcal{A}_j,
 \boldsymbol{{R}}^I)</span>. For <span class="math inline">\oplus_j
-D_j\in \oplus_j ba(\mathcal{A}_j)</span> with sum norm <span
+D_j\in \oplus_j ba(\mathcal{A}_j)</span> with norm <span
 class="math inline">\|\oplus_j D_j\|_1 = \sum_j \|D_j\|</span> <span
 class="math display">
 \begin{aligned}
@@ -816,17 +827,22 @@ X_j, D_j\rangle \\
 \sum_j \langle \Gamma_j\cdot X_j, D_j\rangle \\
 &amp;= \sum_j \langle \Gamma_j, \sum_{i &gt; j} C_i D_i\rangle - \sum_j
 \langle \Gamma_j, X_j D_j\rangle \\
+&amp;= \sum_j \langle \Gamma_j, (\sum_{i &gt; j} C_i
+D_i)|_{\mathcal{A}_j} \rangle - \sum_j \langle \Gamma_j, X_j D_j\rangle
+\\
 \end{aligned}
-</span></p>
+</span> This shows <span class="math inline">A^*(\oplus_j D_j) =
+\oplus_j \sum_{i &gt; j} (C_i D_i)|_{\mathcal{A}_j} - X_j
+D_j</span>.</p>
 <p><strong>Lemma</strong>. <em>If <span class="math inline">X\in
 B(\mathcal{A})</span> then <span class="math inline">\langle X,
 \Pi\rangle = \langle X, \Pi|_\mathcal{A}\rangle</span> for <span
 class="math inline">\Pi\in ba(\Omega)</span></em>.</p>
-<p><em>Proof</em>. This follows from <span class="math inline">\langle
-1_A,\Pi\rangle = \langle 1_A,\Pi|_\mathcal{A}\rangle</span> for <span
-class="math inline">A\in\mathcal{A}</span> and every <span
-class="math inline">X\in B(\mathcal{A})</span> is the norm limit of
-simple functions.</p>
+<p><em>Proof</em>. This follows from <span class="math inline">{\langle
+1_A,\Pi\rangle = \Pi(A) = \langle 1_A,\Pi|_\mathcal{A}\rangle}</span>
+for <span class="math inline">A\in\mathcal{A}</span> and the fact every
+<span class="math inline">X\in B(\mathcal{A})</span> is the norm limit
+of simple functions.</p>
 <p>This shows the dual of the amount operator is <span
 class="math inline">{A^*(\oplus_j D_j) = \oplus_j \sum_{i &gt; j} (C_i
 D_i)|_{\mathcal{A}_j} - X_j D_j}</span>.</p>
@@ -834,18 +850,52 @@ D_i)|_{\mathcal{A}_j} - X_j D_j}</span>.</p>
 class="math inline">\mathcal{G}_0</span> = <span
 class="math inline">\oplus^\infty_{j\in\boldsymbol{{N}}}
 B(\mathcal{A}_j,\boldsymbol{{R}}^I)</span> having a finite number of
-non-zero terms that sum to 0. If <span class="math inline">\mathcal{P}=
-\{\oplus^1_{j\in\boldsymbol{{N}}} P_j\mid P_j\in ba(\mathcal{A}_j), P_0
-&gt; 0, P_j\ge 0, j&gt;0\}</span> is the cone of positive measures then
-arbitrage exists if <span class="math inline">A(\mathcal{G}_0)</span>
-meets <span class="math inline">\mathcal{P}</span>.</p>
+non-zero terms that sum to 0. If <span class="math inline">{\mathcal{P}=
+\{\oplus^1_{j\in\boldsymbol{{N}}} P_j\mid P_j\in
+ba(\mathcal{A}_j)\}}</span> with <span class="math inline">{P_0 &gt;
+0}</span> and <span class="math inline">{P_j\ge 0}</span>, <span
+class="math inline">{j&gt;0}</span> is the cone of positive measures
+then arbitrage exists if <span
+class="math inline">A(\mathcal{G}_0)</span> meets <span
+class="math inline">\mathcal{P}</span>.</p>
+<p>By … there exists a hyperplane <span
+class="math inline">H\subseteq\operatorname{ran}A</span> that does not
+meet <span class="math inline">\mathcal{P}</span>. Every hyperplane is
+the preanhiliator of an element of the dual, say <span
+class="math inline">\oplus^1 D_j\in\oplus ba(\mathcal{A}_j)</span>, so
+<span class="math inline">{H = {}^\perp\{\oplus^1 D_j\} =
+\{\oplus^\infty P_j\mid \langle \oplus^\infty P_j, \oplus^1 D_j\rangle =
+0\}}</span>. Since <span class="math inline">\operatorname{ran}A =
+{}^\perp(\operatorname{ker}A^*)\subseteq H</span> we have <span
+class="math inline">\oplus^1 D_j\in\operatorname{ker}A^*</span> so <span
+class="math inline">{0 = \oplus_j \sum_{i &gt; j} (C_i
+D_i)|_{\mathcal{A}_j} - X_j D_j}</span>. We now show <span
+class="math inline">D_j</span> are positive for all <span
+class="math inline">j\in\boldsymbol{{N}}</span>.</p>
+<p>If there exist <span class="math inline">p_+\oplus^\infty
+P_+\in\mathcal{P}</span> with <span class="math inline">{\langle
+p_+\oplus^\infty P_+,d\oplus^1 D\rangle &gt; 0}</span> and <span
+class="math inline">p_-\oplus^\infty P_-\in\mathcal{P}</span> with <span
+class="math inline">{\langle p_-\oplus^\infty P_-,d\oplus^1 D\rangle
+&lt; 0}</span> then there is a convex combination in <span
+class="math inline">H</span>, which contradicts the fact <span
+class="math inline">H</span> does not meet the cone <span
+class="math inline">\mathcal{P}</span>. This shows we can assume <span
+class="math inline">{\langle p\oplus^\infty P, d\oplus^1 D\rangle &gt;
+0}</span> for all <span class="math inline">{p\oplus^\infty
+P\in\mathcal{P}}</span>. It follows that <span class="math inline">d
+&gt; 0</span> and <span class="math inline">D &gt; 0</span>.</p>
+<p>This shows there is no arbitrage if and only if <span
+class="math inline">{xd = \langle X,D\rangle}</span> for some positive
+<span class="math inline">{d\in\boldsymbol{{R}}}</span> and <span
+class="math inline">{D\in ba(\Omega)}</span>.</p>
 <!--
 -->
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-Bla1976" class="csl-entry" role="listitem">
 Black, Fischer. 1976. <span>“The Pricing of Commodity Contracts.”</span>
 <em>Journal of Financial Economics</em> 3 (1-2): 167–79.
@@ -859,6 +909,12 @@ href="http://www.jstor.org/stable/1831029">http://www.jstor.org/stable/1831029</
 <div id="ref-DunSch1958" class="csl-entry" role="listitem">
 Dunford, Nelson, and Jacob T Schwartz. 1958. <em>Linear Operators
 i</em>. Interscience Publishers.
+</div>
+<div id="ref-HarKre1979" class="csl-entry" role="listitem">
+Harrison, Michael, and David M. Kreps. 1979. <span>“Martingales and
+Arbitrage in Multiperiod Securities Markets.”</span> <em>Journal of
+Economic Theory</em> 20: 381–408. <a
+href="https://doi.org/10.1016/0022-0531(79)90043-7">https://doi.org/10.1016/0022-0531(79)90043-7</a>.
 </div>
 <div id="ref-Mer1973" class="csl-entry" role="listitem">
 Merton, Robert C. 1973. <span>“Theory of Rational Option
@@ -875,31 +931,43 @@ href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277
 </div>
 </div>
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Barrier option example.<a href="#fnref1"
+<li id="fn1"><p>This definition is not satisfactory to traders and risk
+managers. They will compare the profit <span
+class="math inline">\gamma\cdot x</span> to <span
+class="math inline">|\gamma|\cdot|x|</span>, the total amount of money
+involved in establishing the trade. It does not make economic sense to
+tie up a million dollars to make a one dollar profit.<a href="#fnref1"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>This definition is not satisfactory to traders and risk
 managers. They will compare the profit <span
 class="math inline">\gamma\cdot x</span> to <span
 class="math inline">|\gamma|\cdot|x|</span>, the total amount of money
-involved in establishing the trade. They would probably not be willing
-to tie up a million dollars to make a one dollar profit.<a
-href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+involved in establishing the trade. It does not make economic sense to
+tie up a million dollars to make a one dollar profit.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>This definition is not satisfactory to traders and risk
 managers. They will compare the profit <span
 class="math inline">\gamma\cdot x</span> to <span
 class="math inline">|\gamma|\cdot|x|</span>, the total amount of money
-involved in establishing the trade. They would probably not be willing
-to tie up a million dollars to make a one dollar profit.<a
-href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+involved in establishing the trade. It does not make economic sense to
+tie up a million dollars to make a one dollar profit.<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Perfect hedges never exist.<a href="#fnref4"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Perfect hedges never exist.<a href="#fnref5"
+<li id="fn5"><p>This definition is not satisfactory to traders and risk
+managers. They will compare the profit <span
+class="math inline">\gamma\cdot x</span> to <span
+class="math inline">|\gamma|\cdot|x|</span>, the total amount of money
+involved in establishing the trade. It does not make economic sense to
+tie up a million dollars to make a one dollar profit.<a href="#fnref5"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Perfect hedges never exist.<a href="#fnref6"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>

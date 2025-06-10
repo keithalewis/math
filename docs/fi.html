@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-04-10" />
+  <meta name="dcterms.date" content="2025-06-10" />
   <title>Fixed Income</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Fixed Income</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">April 10, 2025</p>
+<p class="date">June 10, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Fixed cash flows
@@ -279,8 +279,9 @@ having a piecewise constant forward curve that matches each price. The
 first forward is the yield of the first instrument. Given a discount to
 time <span class="math inline">t</span> and a forward rate <span
 class="math inline">f</span> we can extend the discount for <span
-class="math inline">u &gt; t</span> by <span class="math inline">D(u) =
-D(t)e^{-f(u - t)}</span>.</p>
+class="math inline">u &gt;
+t</span> by <span class="math inline">D(u) = D(t)e^{-f(u -
+t)}</span>.</p>
 <p>The bootstrap method is deterministic. It assumes the forward curve
 is piecewise constant with jumps at maturities of instruments used to
 build the curve. As instruments of increasing maturity are added, the
@@ -442,21 +443,20 @@ F_u(u,v),0\}δ(u,v)</span> at time <span class="math inline">v</span>.
 Its value at time <span class="math inline">t &lt; u</span> is
 determined by <span class="math inline">V_t D_t = E_t \max\{k -
 F_u(u,v),0\}δ(u,v) D_u</span>. Writing <span class="math inline">F_u =
-F_u(u,v)</span> and <span class="math inline">δ = δ(u,v)</span> we
-have</p>
-<p><span class="math display">\begin{align*}
-V_t D_t &amp;= E_t[\max\{k - F_u,0\}δ D_v] \\
-        &amp;= E_t[\max\{kδ - (1/D_u(v) - 1),0\} D_v] \\
-        &amp;= E_t[\max\{1 + kδ - 1/D_u(v),0\} D_v] \\
-        &amp;= E^*_t[\max\{1 + kδ - 1/D_u(v),0\}] E_tD_v \\
-        &amp;= E^*_t[\max\{1 + kδ - 1/D_u(v),0\}] D_t(v)D_t \\
-\end{align*}</span> where <span class="math inline">E_t^*</span> is the
-expectation under the forward measure <span
-class="math inline">P^*</span> defined by <span
-class="math inline">dP_t^*/dP_t = D_v/E_t D_v</span>. This shows the
-value at <span class="math inline">t</span> of a floorlet is <span
-class="math inline">V_t = E^*_t[\max\{1 + kδ - 1/D_u(v),0\}]
-D_t(v)</span>.</p>
+F_u(u,v)</span> and <span class="math inline">δ = δ(u,v)</span> we have
+<!--
+\begin{align*}
+V_t D_t &= E_t[\max\{k - F_u,0\}δ D_v] \\
+        &= E_t[\max\{kδ - (1/D_u(v) - 1),0\} D_v] \\
+        &= E_t[\max\{1 + kδ - 1/D_u(v),0\} D_v] \\
+        &= E^*_t[\max\{1 + kδ - 1/D_u(v),0\}] E_tD_v \\
+        &= E^*_t[\max\{1 + kδ - 1/D_u(v),0\}] D_t(v)D_t \\
+\end{align*}
+where $E_t^*$ is the expectation under the forward measure $P^*$ defined
+by $dP_t^*/dP_t = D_v/E_t D_v$.
+This shows the value at $t$ of a floorlet is
+$V_t = E^*_t[\max\{1 + kδ - 1/D_u(v),0\}] D_t(v)$.
+--></p>
 </section>
 <section id="caplet" class="level3">
 <h3>Caplet</h3>
@@ -493,7 +493,7 @@ class="math inline">\tau</span> if <span class="math inline">\tau &lt;
 u</span>. Both <span class="math inline">\rho\in[0,1]</span> and <span
 class="math inline">\tau\ge0</span> can be random variables.</p>
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -503,6 +503,6 @@ Shorting a bond (<span class="math inline">a &lt; 0)</span> might be
 difficult or impossible.<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>

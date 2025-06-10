@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-06-10" />
+  <title>FTAP History</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">FTAP History</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">June 10, 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#section" id="toc-section">1971</a>
+<ul>
+<li><a href="#a.-beja" id="toc-a.-beja">A. Beja</a></li>
+</ul></li>
+</ul>
+</nav>
+<p>Mathematical model.</p>
+<p><span class="math inline">T</span> - trading times</p>
+<p><span class="math inline">I</span> - instruments</p>
+<p><span class="math inline">\Omega</span> - sample space of possible
+outcomes</p>
+<p><span class="math inline">(\mathcal{A}_t)_{t\in T}</span> -
+information at time <span class="math inline">t</span> is a partition of
+<span class="math inline">\Omega</span></p>
+<p><span
+class="math inline">X_t\colon\mathcal{A}_t\to\boldsymbol{{{R}}}^I</span>
+- prices</p>
+<p><span
+class="math inline">C_t\colon\mathcal{A}_t\to\boldsymbol{{{R}}}^I</span>
+- cash flows</p>
+<p><span class="math inline">\tau_0 &lt; \cdots &lt; \tau_n</span>,
+<span
+class="math inline">\Gamma_j\colon\mathcal{A}_{\tau_j}\to\boldsymbol{{{R}}}^I</span>
+- trading strategy</p>
+<p><span class="math inline">\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j =
+\sum_s &lt; t} \Gamma_s</span> - position</p>
+<p>$V_t = (_t + _t)X_t - value</p>
+<p><span class="math inline">A_t = \Delta_t\codt C_t - \Gamma_t\cdot
+X_t</span> - amount</p>
+<p><span class="math inline">X_t D_t = (\sum_{u &gt; t} C_u
+D_u)|_{\mathcal{A}_t}</span></p>
+<p><span class="math inline">V_t D_t = (\sum_{u &gt; t} A_u
+D_u)|_{\mathcal{A}_t}</span></p>
+<section id="section" class="level2">
+<h2>1971</h2>
+<section id="a.-beja" class="level3">
+<h3><a href="https://www.jstor.org/stable/2296388">A. Beja</a></h3>
+<p>“The Structure of the Cost of Capital under Uncertainty”</p>
+<blockquote>
+<p>The present study represents an attempt at a slightly different
+approach. We postulate the existence of equilibrium prices for capital
+assets under uncertainty, and then proceed to analyze the properties
+implicit in their definition. It is shown that some results can be
+derived without recourse to the way individuals make decisions, their
+detailed preferences or their subjective assessments of
+probabilities</p>
+</blockquote>
+<p>Section II. <span class="math inline">T</span> finite times. <span
+class="math inline">S</span> state space, <span
+class="math inline">(e_t^i)_i</span> partition of <span
+class="math inline">S</span> at <span class="math inline">t\in T</span>.
+<span class="math inline">Z = \boldsymbol{{{R}}}^{\cup_{t,i}
+e_t^i}</span> is prospect space.</p>
+</section>
+</section>
+</body>
+</html>

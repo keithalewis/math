@@ -109,7 +109,7 @@ $\partial_s E[(k - F)^+] = {-E[1(F\le k)F(X - \kappa'(s))]}$.
 Since $\partial_s \Psi(x, s) = {E[e^{sX - \kappa(s)}(X - \kappa'(s))1(X\le x)]}$
 we have
 $$
-	\partial_s p = -f\partial_s\Psi(x, s).
+	\partial_s p = f\partial_s\Psi(x, s).
 $$
 
 __Exercise__. _Show $\partial_s p = -k\partial_s\Psi(x, 0)$_.

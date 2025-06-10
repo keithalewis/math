@@ -4,8 +4,9 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-01-26" />
-  <title>eli5</title>
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-06-10" />
+  <title>Hypergeometric Functions</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -43,38 +44,20 @@
   href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
-<p>Start with account containing <span class="math inline">A</span>.</p>
-<p>Buy <span class="math inline">Γ_0</span> shares at price <span
-class="math inline">X_0</span>.</p>
-<p><span class="math inline">A_0 = A - Γ_0 X_0</span>.</p>
-<p><span class="math inline">V_0 = A_0 + Γ_0 X_0 = A - Γ_0 X_0 + Γ_0 X_0
-= A</span>.</p>
-<p><span class="math inline">A_1 = A_0 - Γ_1 X_1 =  A - Γ_0 X_0 - Γ_1
-X_1</span>.</p>
-<p><span class="math display">
-\begin{aligned}
-V_1 &amp;= A_1 + (Γ_0 + Γ_1)X_1 \\
-    &amp;= A - Γ_0 X_0 - Γ_1 X_1 + (Γ_0 + Γ_1)X_1 \\
-    &amp;= A + Γ_0(X_1 - X_0) \\
-\end{aligned}
-</span></p>
-<p><span class="math inline">A_2 = A_1 - Γ_2 X_2 = A - Γ_0 X_0 - Γ_1 X_1
-- Γ_2 X_2</span></p>
-<span class="math display">\begin{aligned}
-V_2 &amp;= A_2 + (Γ_0 + Γ_1 + Γ_2)X_2 \\
-    &amp;= A - Γ_0 X_0 - Γ_1 X_1 - Γ_2 X_2 + (Γ_0 + Γ_1 + Γ_2)X_2 \\
-    &amp;= A + Γ_0(X_2 - X_0) + Γ_1(X_2 - X_1) \\
-\end{aligned}</span>
-<p>$$</p>
-<p><span class="math inline">A_n = A - \sum_{j=0}^n Γ_j X_j</span>.</p>
-<p><span class="math inline">V_n = A + \sum_{j=0}^{n-1} Γ_j(X_n -
-X_j)</span>.</p>
-<p><span class="math inline">0 = \sum_^n Γ_j</span>, <span
-class="math display">
-\begin{aligned}
-A_n &amp;= A - \sum_{j=0}^{n-1} Γ_j X_j + (\sum_{j=0}^{n-1} Γ_j) X_n \\
-    &amp;= A + \sum_{j=0}^{n-1} (X_n - X_j) \\
-\end{aligned}
-</span></p>
+<header id="title-block-header">
+<h1 class="title">Hypergeometric Functions</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">June 10, 2025</p>
+</header>
+<p>Fasten your seatbelt.</p>
+<p>By Taylor’s theorem, every sufficiently well-behaved function on the
+real numbers has a power series representation <span
+class="math inline">f(x) = \sum_{n=0}^\infty f^{n}(0) x^n/n!</span>
+around <span class="math inline">x = 0</span>, where <span
+class="math inline">f^{n}(x)</span> denotes the <span
+class="math inline">n</span>-th derivative of <span
+class="math inline">f</span>. Perhaps the most well-known is the
+exponential function with power series representation <span
+class="math inline">\exp(x) = \sum_{n=0}^\infty x^n/n!</span>.</p>
 </body>
 </html>

@@ -323,7 +323,7 @@ A _floorlet_ is a put option on an at-the-money _forward rate agreement_.
 It pays $\max\{k - F_u(u,v),0\}δ(u,v)$ at time $v$.
 Its value at time $t < u$ is determined by $V_t D_t = E_t \max\{k - F_u(u,v),0\}δ(u,v) D_u$.
 Writing $F_u = F_u(u,v)$ and $δ = δ(u,v)$ we have
-
+<!--
 \begin{align*}
 V_t D_t &= E_t[\max\{k - F_u,0\}δ D_v] \\
         &= E_t[\max\{kδ - (1/D_u(v) - 1),0\} D_v] \\
@@ -335,6 +335,7 @@ where $E_t^*$ is the expectation under the forward measure $P^*$ defined
 by $dP_t^*/dP_t = D_v/E_t D_v$.
 This shows the value at $t$ of a floorlet is
 $V_t = E^*_t[\max\{1 + kδ - 1/D_u(v),0\}] D_t(v)$.
+-->
 
 ### Caplet
 

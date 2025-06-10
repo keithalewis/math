@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-06-10" />
+  <title>chrono</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">chrono</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">June 10, 2025</p>
+</header>
+<p>C++ <code>&lt;chrono&gt;</code> library.</p>
+<p>A <em>duration</em> is a duration of time represented by an
+arithmetic type and a compile-time fraction indicating the number of
+seconds between each integral value in the representation.</p>
+<p>A <em>time point</em> is a <em>clock</em> and a duration measuring
+time since the clock <em>epoch</em>.</p>
+<p>A <em>date</em> is a time point with precision of 1 day.</p>
+<p>The class <code>year_month_day</code> does year and month
+calculations. The class <code>sys_days</code> is a
+<code>time_point&lt;system_clock, day&gt;</code> for day oriented
+calculations. Conversion between them is implicit with no loss of
+information.</p>
+<p>The class <code>year_month_last</code> is last day of year and
+month.</p>
+<p>The class <code>year_month_weekday</code> is <span
+class="math inline">n</span>-th weekday of year and month. Note 0-th
+weekday is last weekday of previous month. Same as
+<code>weekday[last]</code> of previous month.</p>
+<p>The class <code>system_clock</code> is Unix time – time in seconds
+since 1970/January/1 00:00:00 UTC excluding leap seconds. The class
+<code>sys_days</code> is <code>system_clock&lt;days&gt;</code>.</p>
+<p>Use
+<code>zoned_time(const time_zone*, sys_time&lt;Duration&gt;)</code> to
+convert timepoint to time zone. Duration must be at least seconds
+precision.</p>
+</body>
+</html>

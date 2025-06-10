@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-06-10" />
+  <title>Johnson Distribution</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Johnson Distribution</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">June 10, 2025</p>
+</header>
+<p>N. L. Johnson considered how to apply classical statistical
+techniques involving normal distributions to almost normal
+distributions. Given an almost normal distribution <span
+class="math inline">X</span> he looked for transformations of the form
+<span class="math inline">\gamma + \delta f((X - \xi)/\lambda)</span>
+that would result in a normal distribution, where <span
+class="math inline">\gamma</span>, <span class="math inline">delta &gt;
+0</span>, <span class="math inline">xi</span>, <span
+class="math inline">\lambda &gt; 0</span> are real numbers and <span
+class="math inline">f</span> is function.</p>
+<p>If <span class="math inline">N = \gamma + \delta f((X -
+\xi)/\lambda)</span> is normal then we can adjust <span
+class="math inline">\gamma</span> and <span
+class="math inline">\delta</span> to make it standard normal.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">\mu =
+E[N]</span> and <span class="math inline">\sigma^2 =
+\operatorname{Var}(N)</span> then <span class="math inline">\gamma&#39;
++ \delta&#39; f((X -\xi)/\lambda)</span> is standard normal if <span
+class="math inline">\gamma&#39; = (\gamma - \mu)/\sigma</span> and <span
+class="math inline">\delta&#39; = \delta/\sigma</span></em>.</p>
+<p>We will use <span class="math inline">Z = \gamma + \delta f((X -
+\xi)/\lambda)</span> where <span class="math inline">Z</span> is
+standard normal in what follows. If <span class="math inline">f</span>
+is invertable then <span class="math inline">X = \xi + \lambda f^{-1}(Z
+- \gamma)/\delta</span>.</p>
+<p>To compare with the lognormal model we want to match the first two
+moments of <span class="math inline">X</span> and <span
+class="math inline">F = f\exp(sZ - s^2/2)</span>. We have <span
+class="math inline">E[F] = f</span> and <span class="math inline">E[F^2]
+= f^2\exp(s^2)</span>. If the first two moments are <span
+class="math inline">m_1</span> and <span class="math inline">m_2</span>
+then <span class="math inline">f = m_1</span> and <span
+class="math inline">s^2 = \log(m_2/m_1^2)</span>.</p>
+<p>Johnson’s <span class="math inline">S_U</span> (unbounded) system is
+<span class="math inline">{f(y) = \sinh^{-1}(y) = \log(y + \sqrt{1 +
+y^2})}</span> so <span class="math inline">{X = \xi + \lambda \sinh((Z -
+\gamma)/\delta)}</span>. Let <span class="math inline">{U = (Z -
+\gamma)/\delta}</span> so <span class="math inline">{m = E[U] = -
+\gamma/\delta}</span> and <span class="math inline">{s^2 =
+\operatorname{Var}(U) = 1/\delta^2}</span>.</p>
+<p>We have <span class="math display">
+\begin{aligned}
+E[X] &amp;= E[\xi + \lambda \sinh((Z - \gamma)/\delta)] \\
+    &amp;= \xi + \lambda E[\sinh(U)] \\
+    &amp;= \xi + \lambda E[\frac{e^U - e^{-U}}{2}] \\
+    &amp;= \xi + \lambda \frac{e^{m + s^2/2} - e^{-m + s^2/2}}{2} \\
+    &amp;= \xi + \lambda e^{1/2\delta^2} \sinh(- \gamma/\delta) \\
+\end{aligned}
+</span></p>
+<p>For small <span class="math inline">\gamma</span> and <span
+class="math inline">\delta</span> near 1 we have <span
+class="math inline">E[X] \approx \xi -
+\sqrt{e}\lambda\gamma/\delta</span>.</p>
+<p>Clearly <span class="math inline">X\le x</span> is equivalent to
+<span class="math inline">Z \le z</span> where <span
+class="math inline">z = \gamma + \delta \sinh^{-1}((x -
+\xi)/\lambda)</span>. We have <span class="math inline">{P(X\le x) =
+\Phi(z)}</span> where <span class="math inline">\Phi</span> is the
+cumulative distribution of the standard normal.</p>
+<p>For share measure we calculate <span class="math display">
+\begin{aligned}
+E[X 1(X\le x)] &amp;= E[(\xi + \lambda \sinh((Z - \gamma)/\delta))
+1(Z\le z)]\\
+    &amp;= \xi P(Z\le z) + \lambda E[\sinh(U) 1(Z\le z)]\\
+    &amp;= \xi P(Z\le z) + \lambda E[\frac{e^U - e^{-U}}{2} 1(Z\le z)]\\
+    &amp;= \xi P(Z\le z) + \frac{\lambda}{2} (E[e^U] P(Z +
+\operatorname{Cov}(U,Z)\le z) - E[e^{-U}] P(Z -
+\operatorname{Cov}(U,Z)\le z]))\\
+\end{aligned}
+</span> Note <span class="math inline">{E[e^U] = e^{- \gamma/\delta +
+1/2\delta^2}}</span>, <span class="math inline">{E[e^{-U}] = e^{
+\gamma)/\delta + 1/2\delta^2}}</span>, and <span
+class="math inline">{\operatorname{Cov}(U, Z) = 1/\delta}</span>.
+Letting <span class="math inline">z = - \gamma/\delta</span> and <span
+class="math inline">s^2 = 1/\delta^2</span> we have <span
+class="math display">
+E[X 1(X\le x)] = \xi P(Z\le z) + \frac{\lambda e^{s^2/2}}{2}
+\left(e^{z}P(Z \le z - s^2\delta) - e^{-z}P(Z \le z + s^2\delta)\right)
+</span></p>
+<p>Note put forward value is <span class="math inline">E[(k - X)^+] =
+kP(X\le k) - E[X 1(X\le k)]</span> so we have a closed form solution for
+put values using the Johnson distribution.</p>
+</body>
+</html>
