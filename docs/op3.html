@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-06-10" />
+  <title>Option Pricing</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Option Pricing</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">June 10, 2025</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+European option pricing and greeks
+</div>
+</header>
+<p>A cash settled European option on underlying <span
+class="math inline">F</span> pays <span
+class="math inline">\nu(F)</span> at expiration for some function <span
+class="math inline">\nu\colon 𝑹\to 𝑹</span>. Its forward value is <span
+class="math inline">E[\nu(F)]</span>.</p>
+<p>If the option pays off in shares its forward value is <span
+class="math inline">E[F\nu(F)] =fE[(F/f) \nu(F)] = fE^*[\nu(F)]</span>
+where <span class="math inline">f = E[F]</span> and the corresponding
+probablility measures have Radon-Nikodym derivative <span
+class="math inline">dP^*/dP = F/f</span>. If <span class="math inline">F
+&gt; 0</span> then <span class="math inline">P^*</span> is a probability
+measure since <span class="math inline">E[F/f] = 1</span>. We call <span
+class="math inline">P^*</span> the <em>share measure</em>.</p>
+<p>A put with strike <span class="math inline">k</span> has payoff <span
+class="math inline">\nu(F) = \max\{k - F, 0\} = (k - F)1(F\le k)</span>
+where <span class="math inline">1(F\le k) = 1</span> if <span
+class="math inline">F\le k</span> and <span class="math inline">1(F\le
+k) = 0</span> if <span class="math inline">F &gt; k</span>. Its forward
+value is <span class="math display">
+\begin{aligned}
+p &amp;= E[(k - F)^+] \\
+    &amp;= E[(k - F) 1(F\le k)] \\
+    &amp;= kP(F\le k) - fE[F/f 1(F\le k)] \\
+    &amp;= kP(F\le k) - fP^*(F\le k) \\
+\end{aligned}
+</span></p>
+<p><strong>Exercise</strong>. Show <span class="math inline">p =  (k -
+f)P(F\le k) + f(P(F\le k) - P^*(F\le k))</span>_.</p>
+<p><em>Hint</em>: <span class="math inline">-P(F\le k) + P(F\le k) =
+0</span></p>
+<p><strong>Exercise</strong>. Show <span class="math inline">p = (k -
+f)P(F\le k) + \operatorname{Cov}(F,1(F\le k))</span>_.</p>
+<p><em>Hint</em>: <span class="math inline">\operatorname{Cov}(a + X, Y)
+= \operatorname{Cov}(X,Y) = E[XY] - E[X]E[Y]</span> if $a is
+constant.</p>
+<p>Note <span class="math inline">\operatorname{Cov}(X, f(X)) &lt;
+0</span> if <span class="math inline">f</span> is decreasing.</p>
+<p>Suppose the underlying <span class="math inline">F</span> can only
+take on values <span class="math inline">k_j</span> with risk-neutral
+probabilities <span class="math inline">P(F = k_j) = q_j</span> and put
+prices are available <span class="math inline">p_j = E[(k_j - F)1(F\le
+k_j)] = \sum_{i\le j} (k_j - k_i)q_i</span>.</p>
+<p>We have <span class="math display">
+\begin{aligned}
+p_{j+1} - p_j &amp;= \sum_{i\le j+1} (k_{j+1} - k_i)q_i - \sum_{i\le j}
+(k_j - k_i)q_i \\
+    &amp;= 0 + \sum_{i\le j} (k_{j+1} - k_i)q_i - (k_j - k_i)q_i \\
+    &amp;= \sum_{i\le j} (k_{j+1} - k_j)q_i \\
+    &amp;= (k_{j+1} - k_j) \sum_{i\le j} q_i \\
+\end{aligned}
+</span> so <span class="math inline">p&#39;_j = \Delta p_j/\Delta k_j =
+\sum_{i\le j} q_i</span> and <span class="math inline">p&#39;_j -
+p&#39;_{j-1} = q_j</span>.</p>
+<p>Suppose the underlying <span class="math inline">F</span> can only
+take on values <span class="math inline">k_j</span> with risk-neutral
+probabilities <span class="math inline">P(F = k_j) = q_j</span> and call
+prices are available <span class="math inline">x_j = E[(F - k_j1(F\ge
+k_j)] = \sum_{i\le j} (k_j - k_i)q_i</span>.</p>
+<p>We have <span class="math display">
+\begin{aligned}
+p_{j+1} - p_j &amp;= \sum_{i\le j+1} (k_{j+1} - k_i)q_i - \sum_{i\le j}
+(k_j - k_i)q_i \\
+    &amp;= 0 + \sum_{i\le j} (k_{j+1} - k_i)q_i - (k_j - k_i)q_i \\
+    &amp;= \sum_{i\le j} (k_{j+1} - k_j)q_i \\
+    &amp;= (k_{j+1} - k_j) \sum_{i\le j} q_i \\
+\end{aligned}
+</span> so <span class="math inline">p&#39;_j = \Delta p_j/\Delta k_j =
+\sum_{i\le j} q_i</span> and <span class="math inline">p&#39;_j -
+p&#39;_{j-1} = q_j</span>.</p>
+</body>
+</html>
