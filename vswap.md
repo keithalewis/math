@@ -110,14 +110,15 @@ The quadratic term can be used to replicate a variance swap payoff.
 If $f''(x) = 2/x^2$ then $(1/2)f''(X_j)(\Delta X_j)^2 = (\Delta X_j/X_j)^2$ is
 the square of the realized return.
 We have $f'(x) = -2/x + c$ where $c$ is a constant, and
-$f(x) = -2\log x + cx$. It is convenient to choose $c = 1/z$ for some constant $z$ so
+$f(x) = -2\log x + cx$. It is convenient to choose $c = 2/z$ for some constant $z$ so
+$f'(z) = 0$ and
 $$
--2\log X_n + X_n/z + 2\log X_0 - X_0/z
+-2\log (X_n/X_0) + 2(X_0 - X_0)/z
 	= \sum_{0\le j < n} (-2/X_j + 2/z)\Delta X_j + (\Delta X_j/X_j)^2 + R_j
 $$
 Rearranging terms and simplifying gives
 $$
-\sum_{0\le j < n} (\Delta X_j/X_j)^2 = -2\log X_n/X_0 + (X_n - X_0)/z + \sum_{0\le j < n} (2/X_j - 2/z)\Delta X_j - R_j
+\sum_{0\le j < n} (\Delta X_j/X_j)^2 = -2\log X_n/X_0 + 2(X_n - X_0)/z + \sum_{0\le j < n} (2/X_j - 2/z)\Delta X_j - R_j
 $$
 This shows a variance swap can be replicated using a static hedge and
 a dynamic hedge using futures with error $R_j$. The static hedge can be
