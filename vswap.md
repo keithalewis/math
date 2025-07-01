@@ -127,7 +127,7 @@ X_0$ then the initial furtures hedge is zero.
 
 ## Static Hedge
 
-The static hedge is $-2\log X_n/X_0 + (X_n - X_0)/z$ and can be approximately replicated
+The static hedge is $-2\log X_n/X_0 + 2(X_n - X_0)/z$ and can be approximately replicated
 with a cash position, a forward, and a portfolio of puts and calls.
 Recall the Carr-Madan formula for a twice differentiable function $f\colon [0, \infty)\to\RR$ is
 $$
