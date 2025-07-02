@@ -12,15 +12,17 @@ header-includes:
 \newcommand\bs[1]{\boldsymbol{{#1}}}
 \newcommand\FF{\bs{F}}
 \newcommand\CC{\bs{C}}
-\newcommand\RR{\bs{{R}}}
+\newcommand\RR{\bs{R}}
 \newcommand\NN{\bs{N}}
 \newcommand\ZZ{\bs{Z}}
+\newcommand\QQ{\bs{Q}}
 \newcommand\LL{\mathcal{L}}
 \newcommand\TT{\mathcal{T}}
 \newcommand\PP{\mathcal{P}}
 \newcommand\dom{\operatorname{dom}}
 \newcommand\cod{\operatorname{cod}}
 \newcommand\eval{\operatorname{eval}}
+\newcommand\coeval{\operatorname{coeval}}
 \newcommand\first{\operatorname{first}}
 \newcommand\second{\operatorname{second}}
 \renewcommand\ker{\operatorname{ker}}
@@ -35,6 +37,55 @@ In Derrida's "Diseminations" he pointed out a preface to a book was
 typically the last thing an author wrote. He thought clearly
 about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 -->
+
+Everything in (classical) mathematics consists of sets with structure.
+The structure is one or more functions on the sets that satisfy given axioms.
+Vector spaces occupy a sweet spot in mathematics. A vector space
+over a field has a scalar multiplication and commutative vector addition
+that satisfy distributive laws. Two vector spaces are isomorphic (equivalent form)
+if and only if they have the same dimension: the minimum number of independent
+vectors that span the vector space.
+
+Functions between sets with structure that preserve the structure
+are homomorphisms (like form). If the function is injective (one-to-one)
+and surjective (onto) then it is an isomorphism.
+A linear operator is a homomorphism from one vector space to another.
+They also form a vector space since they have a scalar multiplication
+and commutative addition.
+
+## Semigroup
+
+For example, a _semigroup_ is a set $S$ and a binary operator
+$m\colon S\times S\to S$ that is _associative_:
+$m(a,m(b,c)) = m(m(a,b),c)$. If we write $ab$ for $m(a,b)$
+then $a(bc) = (ab)c$ so $abc$ is unambigous.
+
+Examples of semigroups are the integral, natural, real, and rational numbers
+under multiplication and addition. They are also semigroups under
+maximum and minimum values.
+
+__Exercise__. _Show $\max\{a,\max\{b,c\}\} = \max\{\max\{a,b\},c\}$_.
+
+Strings under concatenation are also a semigroup.
+
+## Monoid
+
+A _monoid_ is a semigroup with an _identity element_. If $M$ is a monoid then
+$e\in M$ is the identity element if $em = m = me$ for $m\in M$.
+
+__Exercise__. _Show the idenity element is unique_.
+
+<details><summary>Solution</summary>
+If $e$ and $e'$ are identity elements then $e' = e'e = e$.
+</details>
+
+If $S$ is a semigroup and $e\not\in S$ define $es = s = se$ for $s\in S$.
+
+__Exercise__. _Show this makes $S$ into a monoid_.
+
+_Hint_. Show $(ab)c = a(bc)$ for $a,b,c\in S\cup\{e\}$.
+
+## $\RR^n$
 
 You are probably familiar with the vector space of $n$-tuples of
 real numbers
@@ -1883,3 +1934,79 @@ __Exercise__. _If $f\in (C^B)^A$ show $f, = \eval(\eval(f, a), b)$_.
 
 __Exercise__. _If $g\in (B\times C)^A$ show $,g = \eval(\eval(g, a), b)$_.
 -->
+
+<!--
+$\RR^n$ - vector space axioms
+
+$\RR^{n_1\times \cdots n_d}$ "tensor", also a vector
+
+Shape $\rho x = n_1\times \cdots n_d$ if $x\in\RR^{n_1\times \cdots n_d}
+
+APL/kdb operations
+
+$\rho\colon \RR\times n_1\times \cdots n_d\to \RR^{n_1\times \cdots n_d}$.
+
+$f\colon\RR\to\RR$ then $f^I\colon\RR^I\to\RR^I$ by $f(x)(i) = f(x(i))$.
+
+$a + x = x + a$ where $(x + a)(i) = x(i) + a$.
+
+If $R$ is a relation then $x R y$ is $(x R y)(i) = x(i) R y(i)$, $i\in I$.
+
+If $m$ is a monoid operation then $m/x = \prod_{i\in I} m(i)$
+
+Index reduction $m_i/x$
+
+Product. Dual space. Composition of functions.
+
+Concatenation. x,y
+
+Mask
+
+Flatten
+
+Expansion
+
+Indexing
+
+Rotation/Shift
+
+Special vectors: constant, characteristic, prefix, suffix, random, interval
+
+
+
+
+
+$\sigma(T)$, $m\colon\sigma(T)\to\NN$
+
+$\Alg(T) \cong P(\sigma(T), m)$.
+-->
+
+## Polynomial Functional Calculus
+
+Given $T\in\LL(V)$ define $\Phi_T\colon\PP\to\LL(V)$ by $p\mapsto p(T)$ where
+$p\in\PP$ is a polynomial.
+
+We have $\PP/\ker\Phi_T\to\ran\Phi_T$ is a isomorphism.
+
+Claim $\ker\Phi_T$ is an ideal: If $q\in\PP$ and $p\in\ker\Phi_T$ then $qp\in\ker\Phi_T$.
+
+Since $\PP$ is a PID we have $\ker\Phi_T = (m)$ for some polynomial $m$, the _minimal polynomial_.
+
+For $p\in\PP$ we have the inverse image of $p(T)$ is $q + (m)$
+
+Suppose $\tau\colon\LL(V)\to\RR$ is a linear operator, $\tau(AB) = \tau(BA)$, and $\tau(I) = \dim V$.
+
+__Exercise__. _If $A$ is similar to $B$ then $\tau(A) = \tau(B)$_.
+
+Trace is a natural transformation from $\End(-)$ to $\RR$.
+
+$\eval_V\colon V^*\otimes V\to\FF$. $v\otimes v^* = v^*(v)$.
+
+$\coeval_\FF\colon\FF\to V\otimes V^*$
+
+$\otimes\colon V\times W\to V\otimes W$.
+If $\beta\colon V\times W\to X$ there exists a unique linear map
+$\hat\beta V\otimes W \to X$.
+
+$\nu_V\colon I\to **$ is a natural transformation.
+

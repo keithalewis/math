@@ -111,9 +111,8 @@ If $f''(x) = 2/x^2$ then $(1/2)f''(X_j)(\Delta X_j)^2 = (\Delta X_j/X_j)^2$ is
 the square of the realized return.
 We have $f'(x) = -2/x + c$ where $c$ is a constant, and
 $f(x) = -2\log x + cx$. It is convenient to choose $c = 2/z$ for some constant $z$ so
-$f'(z) = 0$ and
 $$
--2\log (X_n/X_0) + 2(X_0 - X_0)/z
+-2\log X_n + 2 X_n/z + 2\log X_n - 2 X_0/z
 	= \sum_{0\le j < n} (-2/X_j + 2/z)\Delta X_j + (\Delta X_j/X_j)^2 + R_j
 $$
 Rearranging terms and simplifying gives
@@ -127,7 +126,7 @@ X_0$ then the initial furtures hedge is zero.
 
 ## Static Hedge
 
-The static hedge is $-2\log X_n/X_0 + 2(X_n - X_0)/z$ and can be approximately replicated
+The static hedge is $-2\log X_n/X_0 + (X_n - X_0)/z$ and can be approximately replicated
 with a cash position, a forward, and a portfolio of puts and calls.
 Recall the Carr-Madan formula for a twice differentiable function $f\colon [0, \infty)\to\RR$ is
 $$

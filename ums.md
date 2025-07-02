@@ -559,11 +559,13 @@ $$
 $$
 This shows $A^*(\oplus_j D_j) = \oplus_j \sum_{i > j} (C_i D_i)|_{\AA_j} - X_j D_j$.
 
-__Lemma__. _If $X\in B(\AA)$ then $\langle X, \Pi\rangle = \langle X, \Pi|_\AA\rangle$
-for $\Pi\in ba(\Omega)$_.
+__Lemma__. _If ${X\in B(\AA)}$ then ${\langle X, \Pi\rangle = \langle X, \Pi|_{\AA}\rangle}$
+for ${\Pi\in ba(\Omega)}$_.
 
+<!-- !!!
 _Proof_. This follows from ${\langle 1_A,\Pi\rangle = \Pi(A) = \langle 1_A,\Pi|_\AA\rangle}$
 for $A\in\AA$ and the fact every $X\in B(\AA)$ is the norm limit of simple functions.
+-->
 
 This shows the dual of the amount operator is
 ${A^*(\oplus_j D_j) = \oplus_j \sum_{i > j} (C_i D_i)|_{\AA_j} - X_j D_j}$.

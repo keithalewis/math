@@ -36,12 +36,17 @@ abstract: A Programming Language
 > notation often becomes the source of profound theories_.
 >  &mdash; Pierre-Simon Laplace
 
-A Programming Language _APL_ was invented by Ken E. Iverson, a mathematician
-unsatisfied by the limited expressiveness of FORTRAN when it came to manipulating
-multidimensional arrays. What follows is a mathematical description of
-the objects and operations on them he envisioned to scratch that itch.
-It is simply a matter of giving explicit names to the operations that can be
-performed on collections of data, what Iverson called "tools of thought."
+A Programming Language _APL_ was invented by Ken E. Iverson, a
+mathematician unsatisfied by the limited expressiveness of early versions
+of FORTRAN when it came to manipulating multidimensional arrays. Modern
+[Fortran](https://wg5-fortran.org/) is much more popular than APL and
+incorporates many of Iverson's ideas. Maybe it should incorporate more.
+
+What follows is a mathematical description of the objects and operations
+on them he envisioned to scratch that itch.  It is simply a matter
+of giving explicit names to the operations that can be performed
+on collections of data, what Iverson called [Notation as a Tool of
+Thought](https://www.eecg.toronto.edu/~jzhu/csc326/readings/iverson.pdf)
 
 There have been many languages inspired by APL and this writeup takes
 liberties with the classical language. Let's agree to call it TPL, This
@@ -66,9 +71,6 @@ binary operation of concatenation with the empty string as identty.
 The two main concepts of TPL are composition and (vector space) duality.
 It is just a matter of providing a language to manipulate sums, products,
 and exponentials in the appropriate categories.
-
-Now is a good time to remind yourself about [categories](cat.html) and
-[vector spaces](la.html).
 
 ## Categories
 
@@ -122,7 +124,7 @@ $f_X\colon X\to\langle Y\to Z\rangle$ via ...
 
 We use the convention that applying a function to an element of a set
 is right associative so $f(x)$ can be written $fx$.
-This in natural in languages where composition means function application.
+This is natural in languages where composition means function application.
 Applying a function to an element of a set causes a slight problem.
 $fgh(x) = f(g(h(x))$ but $(fg)(h(x))\not= f(g(h(x)))$.
 
@@ -172,7 +174,7 @@ the _kernel_ of $\xi$.
 __Exercise__. _Show $X_i\cap X_j = \emptyset$ if $i\not= j$ and $\cup_i X_i = X$_.
 
 A function $s\colon X\to\BB$ determines a subset of $X$ (and its complement)
-by $S = \{x\inX:s(x) = t\}$ so $X\setminus S = \{x\inX:s(x) = f\}$.
+by $S = \{x\in X:s(x) = t\}$ so $X\setminus S = \{x\in X:s(x) = f\}$.
 
 ### Vec
 
@@ -393,7 +395,7 @@ If $X = X_i$, $i\in I$ then $X_I = \Pi X_I = \Pi_{i\in I} X\cong X^I$
 via $x = (x_i)\in \Pi X_I$ corresponds to $\hat{x}\in X^I$ via $x_i = \hat{x}(i)$. 
 More generally, $\Pi_{i\in I} X_{I_i}\cong X^{\sqcup_{i\in I} I_i}$
 via $x = (x_i)\in \Pi_I X_{I_i}$ correspoinds to $\hat{x}\in X^I$ via $x_i = \hat{x}(i)$. 
-via $x_{i_j}} = x(i_j)$, $i_j\in I_j$
+via $x_{i_j} = x(i_j)$, $i_j\in I_j$
 shows the fundamental relationship between product and disjoint sum.
 
 If $f\colon X\to Y$ then $f^Z\colon X^Z\to Y^Z$ via $f^Zx = fx$

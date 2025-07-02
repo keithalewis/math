@@ -11,7 +11,6 @@ abstract: A guide to Linear Algebra.
 \newcommand\span{\operatorname{span}}
 \newcommand\given[1]{\qquad\{#1\}}
 
-
 This is not a beginners guide to linear algebra. It is a breviloquent
 collection of pertinent facts about vector spaces and the linear
 transformations between them.  Although it is complete and self-contained
