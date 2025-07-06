@@ -9,7 +9,7 @@ N. L. Johnson considered how to apply classical statistical techniques involving
 normal distributions to almost normal distributions.
 Given an almost normal distribution $X$ he looked for transformations of the
 form $\gamma + \delta f((X - \xi)/\lambda)$ that would result in a normal distribution,
-where $\gamma$, $delta > 0$, $xi$, $\lambda > 0$ are real numbers
+where $\gamma$, $\delta > 0$, $\xi$, $\lambda > 0$ are real numbers
 and $f$ is function.
 
 If $N = \gamma + \delta f((X - \xi)/\lambda)$ is normal
@@ -70,3 +70,11 @@ $$
 
 Note put forward value is $E[(k - X)^+] = kP(X\le k) - E[X 1(X\le k)]$
 so we have a closed form solution for put values using the Johnson distribution.
+
+We have
+$$
+\begin{aligned}
+E[X^2] &= E[(\xi + \lambda \sinh((Z - \gamma)/\delta))^2] \\
+	&= \xi^2 + 2\xi\lambda E[\sinh U] + \lambda^2 E[\sinh^2U] \\
+\end{aligned}
+$$
