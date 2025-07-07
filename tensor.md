@@ -19,9 +19,8 @@ header-includes:
 \newcommand\graph{\operatorname{graph}}
 
 There seems to be some uncertainty in the computer science community
-about exactly what a tensor is. THe only things involved are sets,
+about exactly what a tensor is. The only things involved are sets,
 functions, and their composition.
-
 This short note clarifies this by giving names to functions and
 then composing them. The mathematical definitions can be translated
 directly into any computer language that allows functions to be
@@ -31,19 +30,18 @@ graphical notations.
 
 We assume the reader knows what a set is and use $\in$ to denote membership.
 The _set exponential_ of the set $A$ and $B$ is $B^A = \{f\colon A\to B\}$, the set
-of all functions from $A$ to $B$. Let's write $B^A$ as $\{A\to B\}$.
+of all functions from $A$ to $B$. We also write this as $\{A\to B\}$.
 The _cartesian product_ of $A$ and $B$
 is $A\times B = \{(a,b)\mid a\in A, b\in B\}$, the set of ordered pairs of
 elements from the two sets.
 
-__Exercise__. _Show we can identify the ordered pair $(a,b)$ with the 
+__Exercise__. (Kuratowski) _Show we can identify the ordered pair $(a,b)$ with the 
 set $\{a,\{a,b\}\}$_.
 
-_Hint_: If $c \in \{a,\{a,b\}\}$ then either $c = a$ or $c = \{a,b\}$.
-If $c = a$ then $c$ is the first element of the pair $(a,b)$,
-otherwise $c = \{a,b\}$ and $b$ is 
+_Hint_: An ordered pair is defined by $(a,b) = (c,d)$ if and only if $a = c$ and $b = d$.
+Show $\{a,\{a,b\}\} = \{c, \{c,d\}\}$ if and only if $a = c$ and $b = d$.
 
-__Exercise__. A function can be identified with its $\graph f = \{(a, f(a))\mid a\in A\} \subseteq A\times B$.
+__Exercise__. A function can be identified with its $\graph f = \{(a, f(a))\mid a\in A\}\subseteq A\times B$.
 
 _Hint_: $f(a) = b$ if and only if $(a,b)\in\graph f$.
 
@@ -65,38 +63,33 @@ show $h\circ(g\circ f) = (h\circ g)\circ f$.
 This allows us to write $h\circ g\circ f$ unambiguosly.
 
 _Currying_ and _uncurrying_ provides the connection between set exponential and cartesian product.
-The set $\{A\times B\to C\}$ is in one-to-one correspondence with
-the set $\{A\to\{B\to C\}\}$. Given $f\in\{A\times B\to C\}$ define
-$\curry f\colon A\to\{B\to C\}$ by $((\curry f)(a))(b) = f(a,b)$.
-The inverse is _uncurrying_. Given $g\in\{A\to\{B\to C\}\}$ define
-$\uncurry g\colon A\times B\to C$
-by $(\uncurry g)(a,b) = (g(a))(b)$.
+The set ${\{A\times B\to C\}}$ is in one-to-one correspondence with
+the set ${\{A\to\{B\to C\}\}}$. Given ${f\in\{A\times B\to C\}}$ define
+${\curry f\colon A\to\{B\to C\}}$ by ${((\curry f)(a))(b) = f(a,b)}$.
+The inverse is _uncurrying_. Given ${g\in\{A\to\{B\to C\}\}}$ define
+${\uncurry g\colon A\times B\to C}$
+by ${(\uncurry g)(a,b) = (g(a))(b)}$.
 
-
-
-
-$f,\colon A\to\{B\to C\}$ by $f,a(b) = f(a,b)$.
-The inverse is _uncurrying_. Given $g\in\{A\to\{B\to C\}\}$ define $,g\colon A\times B\to C$
-by $,g(a,b) = ga(b)$.
+Using the non-standard notation $\curry f = f,$ then $f,a(b) = f(a,b)$
+and $\uncurry g = ,g$ then $,g(a,b) = ga(b)$.
 
 __Exercise__. _Show $,(f,) = f$ and (,g), = g$_.
 
 _Hint_. $,(f,)(a,b) = f,a(b) = f(a,b)$ and $(,g),a(b) = ,g(a,b) = ga(b)$.
 
-
-
 _Evaluation_ is a function $\eval\colon\{A\to B\}\times A\to B$ defined
 by $\eval(f,a) = f(a)$, $f\in\{A\to B}$, $a\in A$.
-
 
 If the base of a set exponential is a [field](https://en.wikipedia.org/wiki/Field_(mathematics))
 $\FF$ then $\FF^I$ is a _vector space_ for any _index set_ $I$. Typically
 $\FF$ is the real numbers $\RR$, the complex numbers $\CC$, the rational
 numbers $\QQ$, or integers modulo $p$ $\ZZ_p$ where $p$ is prime.
+If $I = \{1,\ldots,n\}$ or $I = \{0,\ldots,n-1\}$ we write $\FF^n$
+when the base index of 1 or 0 is understood.
 Scalar multiplication and vector addition are defined pointwise:
 $(ax)(i) = a(x(i))$ and $(x + y)(i) = x(i) + y(i)$ for $a\in\FF$, $x,y\in\FF^I$.
 
-__Exercise__. _Show vector space axioms are satisfied_.
+__Exercise__. _Show this satisfies the vector space axioms_.
 
 The _standard basis_ of $\RR^I$ is $(e_i)_{i\in I}$ where $e_i(j) = \delta_{ij}$
 is the Kronecker delta. We write $e_i^I$ to indicate $e_i\in\FF^I$ if necesary.
