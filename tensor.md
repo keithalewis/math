@@ -13,6 +13,8 @@ header-includes:
 \newcommand\QQ{\bm{Q}}
 \newcommand\LL{\mathcal{L}}
 \newcommand\tr{\operatorname{tr}}
+\newcommand\dom{\operatorname{dom}}
+\newcommand\ran{\operatorname{ran}}
 \newcommand\eval{\operatorname{eval}}
 \newcommand\curry{\operatorname{curry}}
 \newcommand\uncurry{\operatorname{uncurry}}
@@ -28,12 +30,14 @@ defined and called.  We cover topics described in [The Tensor
 Cookbook](https://tensorcookbook.com/) but have no need for their
 graphical notations.
 
+## Set Exponential and Cartesian Product
+
 We assume the reader knows what a set is and use $\in$ to denote membership.
 The _set exponential_ of the set $A$ and $B$ is $B^A = \{f\colon A\to B\}$, the set
 of all functions from $A$ to $B$. We also write this as $\{A\to B\}$.
-The _cartesian product_ of $A$ and $B$
-is $A\times B = \{(a,b)\mid a\in A, b\in B\}$, the set of ordered pairs of
-elements from the two sets.
+The _domain_ of a function $f\colon A\to B$ is $\dom f = A$ and the _range_ is $\ran f = B$.
+The _cartesian product_ of sets $A$ and $B$ is $A\times B = \{(a,b)\mid a\in A,
+b\in B\}$, the set of ordered pairs of elements from the two sets.
 
 __Exercise__. (Kuratowski) _Show we can identify the ordered pair $(a,b)$ with the 
 set $\{a,\{a,b\}\}$_.
@@ -45,11 +49,16 @@ __Exercise__. A function can be identified with its $\graph f = \{(a, f(a))\mid 
 
 _Hint_: $f(a) = b$ if and only if $(a,b)\in\graph f$.
 
+## Composition
+
 The _composition_ of two compatible functions is a function
 $\circ\colon\{A\to B\}\times\{B\to C\}\to\{A\to C\}$
-defined by $\circ(f,g)(a) = g(f(a))$, $a\in A$. Note the order of $f$ and $g$ are reversed.
+defined by $\circ(f,g)(a) = g(f(a))$, $a\in A$.
 This is also written as $g\circ f$
 or simply $gf$ when it is clear composition is intended.
+Note the order of $f$ and $g$ are reversed.
+If $\ran f = \dom g$
+then the composition ${\circ(f,g) = g\circ f = gf}$ exists.
 We could write $B^A$ as $\{B\leftarrow A\}$ and define
 composition as $\circ\colon\{C\leftarrow B\}\times\{B\leftarrow A\}\to\{C\leftarrow A\}$
 and $\circ(g,f)(a) = g(f(a))$ so we don't have to reverse the order of $f$ and $g$, but
@@ -62,7 +71,15 @@ show $h\circ(g\circ f) = (h\circ g)\circ f$.
 
 This allows us to write $h\circ g\circ f$ unambiguosly.
 
-_Currying_ and _uncurrying_ provides the connection between set exponential and cartesian product.
+Given a set $A$ define the _identity function_ $1_A\colon A\to A$
+by $1_A(a) = a$ for $a\in A$.
+
+__Exercise__. _If $f\colon A\to B$ is a function then
+$f1_A = f$ and $1_Bf = f$_.
+
+## Curry
+
+_Currying_ and _uncurrying_ provides a connection between set exponential and cartesian product.
 The set ${\{A\times B\to C\}}$ is in one-to-one correspondence with
 the set ${\{A\to\{B\to C\}\}}$. Given ${f\in\{A\times B\to C\}}$ define
 ${\curry f\colon A\to\{B\to C\}}$ by ${((\curry f)(a))(b) = f(a,b)}$.
@@ -73,12 +90,18 @@ by ${(\uncurry g)(a,b) = (g(a))(b)}$.
 Using the non-standard notation $\curry f = f,$ then $f,a(b) = f(a,b)$
 and $\uncurry g = ,g$ then $,g(a,b) = ga(b)$.
 
-__Exercise__. _Show $,(f,) = f$ and (,g), = g$_.
+__Exercise__. _Show $,(f,) = f$ and $(,g), = g$_.
 
 _Hint_. $,(f,)(a,b) = f,a(b) = f(a,b)$ and $(,g),a(b) = ,g(a,b) = ga(b)$.
 
+## Evaluation
+
 _Evaluation_ is a function $\eval\colon\{A\to B\}\times A\to B$ defined
-by $\eval(f,a) = f(a)$, $f\in\{A\to B}$, $a\in A$.
+by $\eval(f,a) = f(a)$, $f\in\{A\to B\}$, $a\in A$.
+
+__Exercise__. _Show $\eval(f,a) = f1_{\{a\}}(a)$_.
+
+## Vector Space
 
 If the base of a set exponential is a [field](https://en.wikipedia.org/wiki/Field_(mathematics))
 $\FF$ then $\FF^I$ is a _vector space_ for any _index set_ $I$. Typically
@@ -101,8 +124,20 @@ _Hint_. If $x,y\in\FF^I$ then $x = y$ if and only if $x(j) = y(j)$ for all $j\in
 A simple but quite useful observation is that if $\sigma\colon J\to I$ is any function
 then $\circ\sigma\colon\FF^I\to\FF^J$ by $x\mapsto x\circ\sigma$, $x\in\FF^I$.
 
-For example, if $j\in I$ and $\sigma_j\colon\{j\}\to I$ by $j\mapsto j$ then
-$x\circ\sigma_i) = x(i)$. If $I = {j}$ is a singleton then $\FF$ is in one-to-one
+__Exercise__. _Show $\circ\sigma(ax) = a(\circ\sigma(x))$ and
+$\circ\sigma(x + y) = \circ\sigma(x) + \circ\sigma(y)$ for $a\in\RR$ and $x,y\in\FF^I$_.
+
+_Hint_: Show $(ax)\sigma = a(x\sigma)$ and $(x + y)\sigma = x\sigma + y\sigma$ on $\FF^J$.
+
+## Linear Operator
+
+Any function $T\colon\FF^I\to\FF^J$ satisfying $T(ax) = a(Tx)$ and $T(x + y) = Tx + Ty$
+for $a\in\FF$, $x,y\in\FF^I$ is a _linear operator_.
+
+For example, if $j\in I$ and $\pi_j\colon\{j\}\to I$ by $j\mapsto j$ then
+$x\circ\pi_j) = x(j)$.
+
+If $I = {j}$ is a singleton then $\FF$ is in one-to-one
 correspondence with $\FF^I$. The element $x\in\FF$ corresponds to
 the function $j\mapsto x$.
 
