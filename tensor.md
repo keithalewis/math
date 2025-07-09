@@ -109,6 +109,7 @@ $\FF$ is the real numbers $\RR$, the complex numbers $\CC$, the rational
 numbers $\QQ$, or integers modulo $p$ $\ZZ_p$ where $p$ is prime.
 If $I = \{1,\ldots,n\}$ or $I = \{0,\ldots,n-1\}$ we write $\FF^n$
 when the base index of 1 or 0 is understood.
+The _dimension_ of a vector space is the cardinality of the index set.
 Scalar multiplication and vector addition are defined pointwise:
 $(ax)(i) = a(x(i))$ and $(x + y)(i) = x(i) + y(i)$ for $a\in\FF$, $x,y\in\FF^I$.
 
@@ -120,6 +121,10 @@ is the Kronecker delta. We write $e_i^I$ to indicate $e_i\in\FF^I$ if necesary.
 __Exercise__. _Show $x = \sum_{i\in I} x(i)e_i$ when $I$ is finite_.
 
 _Hint_. If $x,y\in\FF^I$ then $x = y$ if and only if $x(j) = y(j)$ for all $j\in I$.
+
+We can identify $\FF^I$ with the cartesian product of $I$ copies of the field $\FF$.
+The element $(x_i)_{i\in I}$ in the cartesian product corresponds to the
+function $x\in\FF^I$ by $x(i) = x_i$, $i\in I$.
 
 A simple but quite useful observation is that if $\sigma\colon J\to I$ is any function
 then $\circ\sigma\colon\FF^I\to\FF^J$ by $x\mapsto x\circ\sigma$, $x\in\FF^I$.
@@ -134,12 +139,6 @@ _Hint_: Show $(ax)\sigma = a(x\sigma)$ and $(x + y)\sigma = x\sigma + y\sigma$ o
 Any function $T\colon\FF^I\to\FF^J$ satisfying $T(ax) = a(Tx)$ and $T(x + y) = Tx + Ty$
 for $a\in\FF$, $x,y\in\FF^I$ is a _linear operator_.
 
-For example, if $j\in I$ and $\pi_j\colon\{j\}\to I$ by $j\mapsto j$ then
-$x\circ\pi_j) = x(j)$.
-
-If $I = {j}$ is a singleton then $\FF$ is in one-to-one
-correspondence with $\FF^I$. The element $x\in\FF$ corresponds to
-the function $j\mapsto x$.
 
 <!--
 
