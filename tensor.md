@@ -134,10 +134,25 @@ $\circ\sigma(x + y) = \circ\sigma(x) + \circ\sigma(y)$ for $a\in\RR$ and $x,y\in
 
 _Hint_: Show $(ax)\sigma = a(x\sigma)$ and $(x + y)\sigma = x\sigma + y\sigma$ on $\FF^J$.
 
+If $i\in I$ and $\sigma_i\colon\{i\}\to I$ is the inclusion $i\mapsto i$
+then $\circ\sigma_i\colon\FF^I\to\FF^{\{i\}}$. We can identify $\FF^{\{i\}}$
+with $\FF$ in the obvious way and get a map $\pi_i\colon\FF^I\to\FF$.
+
+__Exercise__. _Show $x = \sum_{i\in I}\pi_i(x) e_i$, $x\in\FF^I$, if $I$ is finite_.
+
+_Hint_: Show $\pi_i(x) = x(i)$.
+
 ## Linear Operator
 
 Any function $T\colon\FF^I\to\FF^J$ satisfying $T(ax) = a(Tx)$ and $T(x + y) = Tx + Ty$
-for $a\in\FF$, $x,y\in\FF^I$ is a _linear operator_.
+for $a\in\FF$, $x,y\in\FF^I$ is a _linear operator_. We use
+$\mathcal{L}(\FF^I, \FF^J)$ and $[\RR^I\to\FF^J]$ to denote the space of all
+linear operators.
+Linear operators also are a vector space with scalar multiplication $(aT)(x) = aT(x)$
+and vector addition $(T + U)(x) = Tx + Ux$, $a\in\FF$, $T,U\in[\FF^I\to\FF^J]$, $x\in\FF^I$.
+
+The _matrix_ of a linear operator $T\in[\FF^I\to\FF^J]$ is $t\in\FF^{I\times J}$ defined
+by $t(i,j) = Te_i
 
 
 <!--
