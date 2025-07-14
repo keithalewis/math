@@ -15,39 +15,87 @@ header-includes:
 \newcommand\tr{\operatorname{tr}}
 \newcommand\dom{\operatorname{dom}}
 \newcommand\ran{\operatorname{ran}}
+\newcommand\cod{\operatorname{cod}}
 \newcommand\eval{\operatorname{eval}}
 \newcommand\curry{\operatorname{curry}}
 \newcommand\uncurry{\operatorname{uncurry}}
 \newcommand\graph{\operatorname{graph}}
 
 There seems to be some uncertainty in the computer science community
-about exactly what a tensor is. The only things involved are sets,
-functions, and their composition.
-This short note clarifies this by giving names to functions and
-then composing them. The mathematical definitions can be translated
+about exactly what a tensor is. The only things involved are
+functions and their composition.
+This short note gives names to functions then composes them.
+The mathematical definitions can be translated
 directly into any computer language that allows functions to be
 defined and called.  We cover topics described in [The Tensor
 Cookbook](https://tensorcookbook.com/) but have no need for their
-graphical notations.
+graphical notations that do not have a direct translation
+to computer implementation.
 
-## Set Exponential and Cartesian Product
+## Set
 
-We assume the reader knows what a set is and use $\in$ to denote membership.
+Everything in classical mathematics is a _set_.
+We assume the reader knows what a set is and use $\in$ to denote set membership.
 The _set exponential_ of the set $A$ and $B$ is $B^A = \{f\colon A\to B\}$, the set
 of all functions from $A$ to $B$. We also write this as $\{A\to B\}$.
-The _domain_ of a function $f\colon A\to B$ is $\dom f = A$ and the _range_ is $\ran f = B$.
-The _cartesian product_ of sets $A$ and $B$ is $A\times B = \{(a,b)\mid a\in A,
-b\in B\}$, the set of ordered pairs of elements from the two sets.
+The _domain_ of a function $f\colon A\to B$ is $\dom f = A$ and the
+_codomain_ is $\cod f = B$.
+
+The _cartesian product_ of sets $A$ and $B$ is ${A\times B = \{(a,b)\mid a\in A,
+b\in B\}}$, the set of ordered pairs of elements from the two sets.
 
 __Exercise__. (Kuratowski) _Show we can identify the ordered pair $(a,b)$ with the 
-set $\{a,\{a,b\}\}$_.
+set $\{\{a\},\{a,b\}\}$_.
 
 _Hint_: An ordered pair is defined by $(a,b) = (c,d)$ if and only if $a = c$ and $b = d$.
-Show $\{a,\{a,b\}\} = \{c, \{c,d\}\}$ if and only if $a = c$ and $b = d$.
+Show $\{\{a\}, \{a,b\}\} = \{\{c\}, \{c,d\}\}$ if and only if $a = c$ and $b = d$.
 
 __Exercise__. A function can be identified with its $\graph f = \{(a, f(a))\mid a\in A\}\subseteq A\times B$.
 
 _Hint_: $f(a) = b$ if and only if $(a,b)\in\graph f$.
+
+If $f\colon A\to B$ we say $a,a'\in A$ are _equivalent_ if $f(a) = f(a')$.
+The _equivalence class_ of $a\in A$ is $[a] = \{a'\in A\mid f(a) = f(a')\}$.
+The _kernel_ of a $f$ is $\ker f = \{[a]\mid a\in A\}$.
+
+The kernel of a function is a _partition_ of its domain.
+
+__Exercise__. _Show the union of $\ker f$ is $A$_.
+
+_Hint_. Show $\cup_{a\in A} [a] = A$ using $a\in[A]$ for $a\in A$.
+
+__Exercise__. _Show the elements of $\ker f$ are either disjoint or equal_.
+
+_Hint_. If $x\in [a]\cap[a']$
+then $f(x) = f(a)$ and $f(x) = f(a')$ so $f(a) = f(a')$.
+If $y\in [a]$ then $f(y) = f(a) = f(a')$ so $y\in [a']$.
+Show the converse also holds.
+
+The last two exercises show $\ker f$ is a partiion of $A$.
+Partitions are a way to loosen the notion of equality to _equivalence_.
+They are also a way of modeling partial information. Full information
+is knowing the element $a\in A$, partial information is only knowing $[a]$,
+no information is only knowing $a\in A$.
+
+__Exercise__. _Show the parition $\{\{a\}\mid a\in A\}$ represents full information
+and the partition $\{A\}$ represents no information_.
+
+
+A function $f\colon A\to B$ is _one-to-one_, or _injective_, if $[a]$
+is a singleton (has exactly one element) for all $a\in A$.
+
+__Exercise__. _If $f\colon A\to B$ is injective then
+$f(a) = f(a')$ implies $a = a'$_.
+
+The _range_ of $f\colon A\to B$ is $\ran f = \{f(a)\mid a\in A\}$.
+It is _onto_, or _surjective_ if $\ran f = B$.
+
+__Exercise__. _If $f\colon A\to B$ is surjective then for
+every $b\in B$ there exists at least one $a\in A$ with $f(a) = b$_.
+
+<!--
+Set exponential, domain, codomain...
+-->
 
 ## Composition
 
@@ -57,11 +105,11 @@ defined by $\circ(f,g)(a) = g(f(a))$, $a\in A$.
 This is also written as $g\circ f$
 or simply $gf$ when it is clear composition is intended.
 Note the order of $f$ and $g$ are reversed.
-If $\ran f = \dom g$
+If $\cod f = \dom g$
 then the composition ${\circ(f,g) = g\circ f = gf}$ exists.
 We could write $B^A$ as $\{B\leftarrow A\}$ and define
 composition as $\circ\colon\{C\leftarrow B\}\times\{B\leftarrow A\}\to\{C\leftarrow A\}$
-and $\circ(g,f)(a) = g(f(a))$ so we don't have to reverse the order of $f$ and $g$, but
+by $\circ(g,f)(a) = g(f(a))$ so we don't have to reverse the order of $f$ and $g$, but
 we resist this temptation and stick to standard mathematical notation.
 
 __Exercise__. _Show composition of functions is associative_.
@@ -76,6 +124,25 @@ by $1_A(a) = a$ for $a\in A$.
 
 __Exercise__. _If $f\colon A\to B$ is a function then
 $f1_A = f$ and $1_Bf = f$_.
+
+The last two exercises shows sets and functions are the objects and arrows
+of a [category](https://en.wikipedia.org/wiki/Category_(mathematics)){target="_blank"}
+denoted by [$\text{\bf{Set}}$](https://en.wikipedia.org/wiki/Category_of_sets){target="_blank"}. 
+
+__Exercise__. _Show if $f\colon A\to B$ is injective then there
+exists $g\colon B\to A$ with $gf = 1_A$.
+
+_Hint_: If $f(a) = b$ then $b\in[a]$. Since $[a]$ is a singleton
+we can define $g(b) = a$.
+
+__Exercise__. _Show if $f\colon A\to B$ is surjective then there
+exists $g\colon B\to A$ with $fg = 1_B$.
+
+_Hint_: For every $b\in B$ there exists $a\in A$ with $f(a) = b$.
+Let $g(b) = a$. In general, there are many right inverses.
+
+These two exercises show it is possible to define injective and
+surjective without mentioning elements of sets.
 
 ## Curry
 
@@ -101,26 +168,88 @@ by $\eval(f,a) = f(a)$, $f\in\{A\to B\}$, $a\in A$.
 
 __Exercise__. _Show $\eval(f,a) = f1_{\{a\}}(a)$_.
 
+## Relation
+
+A _relation_ on sets $A$ and $B$ is a subset $R\subseteq A\times B$.
+We write $aRb$ whenever $(a,b)\in R$.
+The _left coset_ is $Rb = \{a\in A\mid aRb\}$ and the 
+_right coset_ iis $aRb = \{b\in B\mid aRb\}$. If for every $a\in A$
+the right coset $aR$ is a singleton then $R$ is a function and we
+write $R(a) = b$ where $b\in B$ is the unique element of $aR$.
+
+The _composition_ of relations $R\subseteq A\times B$ and $S\subseteq B\times C$
+is $SR = \{a\in A, c\in C\mid aRb\text{ and }bSc\text{ for some }b\in B\}$.
+This is used in the definition of the various
+[`JOIN`](https://learn.microsoft.com/en-us/sql/relational-databases/performance/joins?view=sql-server-ver17){target="_black"}
+commands in SQL.
+
+Relations on $A\times A$ are classified by properties they satisfy
+
+----------------   ---------------
+    _reflexive_:   $aRa$ is always true
+  _irreflexive_:   $aRa$ is always false
+    _symmetric_:   $aRb$ implies $bRa$
+_antisymmetric_:   $aRb$ and $bRa$ imply $a = b$
+   _transitive_:   $aRb$ and $bRc$ imply $aRc$
+----------------   ---------------
+
+The relation _equal_ is $=\subseteq\{(a,a)\mid a\in A\}$.
+It is a left and right identity for composition.
+
+__Exercise__. _Show $=R$, $R$, and $R=$ are all equal_.
+
+__Exercise__. _Show if $R$ is reflexive then $=\subseteq R$_.
+
+__Exercise__. _Show $R$ is symmetric if and only if $aR = Ra$, $a\in A$_.
+
+The Kleen star of a relation $R$ is $R^* = \cup_{n>0} R^n$ where
+$R^n$ is $R$ composed with itself $n$ times.
+
+__Exercise__. _Show the Kleen star of any relation is transitive_.
+
+_Hint_. Note $aR^*b$ if and only if $aR^nb$ for some $n$ and
+$R^nR^m = R^{n+m}$.
+
+An _equivalence relation_ is reflexive, symmetric, and transitive.
+Note _equal_ is an equivalence relation.
+
+__Exercise__. _Show if $R$ is an equivalence relation then
+$aRb$ if and only if $aR = Rb$.
+
+This shows equivalence is equality of cosets.
+
+__Exercise__. _If $R$ is an equivalence relation show $\{aR\mid a\in A\}$
+is a partition of $A$_.
+
+_Hint_. Show $\cup_{a\in A}aR = A$ and if $aR\cap Rb\neq\emptyset$ then
+$aR = Rb$.
+
+__Exercise__. _If $\{A_i\}_{i\in I}$ is a partition of $A$ and $aRb$ if and only if
+there exists $i\in I$ with $a,b\in A_i$ then $R$ is an equivalence relation_.
+
 ## Vector Space
 
 If the base of a set exponential is a [field](https://en.wikipedia.org/wiki/Field_(mathematics))
 $\FF$ then $\FF^I$ is a _vector space_ for any _index set_ $I$. Typically
 $\FF$ is the real numbers $\RR$, the complex numbers $\CC$, the rational
 numbers $\QQ$, or integers modulo $p$ $\ZZ_p$ where $p$ is prime.
-If $I = \{1,\ldots,n\}$ or $I = \{0,\ldots,n-1\}$ we write $\FF^n$
+If $I = \{1,\ldots,n\}$ or $I = \{0,\ldots,n-1\}$ we write $\FF^\bm{n}$
 when the base index of 1 or 0 is understood.
-The _dimension_ of a vector space is the cardinality of the index set.
 Scalar multiplication and vector addition are defined pointwise:
 $(ax)(i) = a(x(i))$ and $(x + y)(i) = x(i) + y(i)$ for $a\in\FF$, $x,y\in\FF^I$.
+The additive identity is $\bm{0} = 0_I$ defined by $\bm{0}(i) = 0$, $i\in I$.
+The _additive inverse_ of $x\in\FF^I$ is $-x$ defined by $(-x)(i) = -x(i)$, $i\in I$.
 
-__Exercise__. _Show this satisfies the vector space axioms_.
+__Exercise__. _Show $\FF^I$ satisfies the
+[vector space axioms](https://www.math.ucla.edu/~tao/resource/general/121.1.00s/vector_axioms.html){target="_blank"}_.
 
 The _standard basis_ of $\RR^I$ is $(e_i)_{i\in I}$ where $e_i(j) = \delta_{ij}$
-is the Kronecker delta. We write $e_i^I$ to indicate $e_i\in\FF^I$ if necesary.
+is the Kronecker delta. We write $e_i^I$ to indicate $e_i\in\FF^I$.
 
-__Exercise__. _Show $x = \sum_{i\in I} x(i)e_i$ when $I$ is finite_.
+__Exercise__. _Show $x = \sum_{i\in I} x(i) e_i$ when $I$ is finite_.
 
 _Hint_. If $x,y\in\FF^I$ then $x = y$ if and only if $x(j) = y(j)$ for all $j\in I$.
+What is $x(j)$?
 
 We can identify $\FF^I$ with the cartesian product of $I$ copies of the field $\FF$.
 The element $(x_i)_{i\in I}$ in the cartesian product corresponds to the
@@ -134,13 +263,40 @@ $\circ\sigma(x + y) = \circ\sigma(x) + \circ\sigma(y)$ for $a\in\RR$ and $x,y\in
 
 _Hint_: Show $(ax)\sigma = a(x\sigma)$ and $(x + y)\sigma = x\sigma + y\sigma$ on $\FF^J$.
 
-If $i\in I$ and $\sigma_i\colon\{i\}\to I$ is the inclusion $i\mapsto i$
-then $\circ\sigma_i\colon\FF^I\to\FF^{\{i\}}$. We can identify $\FF^{\{i\}}$
-with $\FF$ in the obvious way and get a map $\pi_i\colon\FF^I\to\FF$.
+If $i\in I$ and ${\sigma_i\colon\{i\}\to I}$ is the inclusion ${i\mapsto i}$
+then ${\circ\sigma_i\colon\FF^I\to\FF^{\{i\}}}$. We can identify $\FF^{\{i\}}$
+with $\FF$ by $(x)\leftrightarrow x$ and get a map ${e_i^* = e_i^{I*}\colon\FF^I\to\FF}$.
 
-__Exercise__. _Show $x = \sum_{i\in I}\pi_i(x) e_i$, $x\in\FF^I$, if $I$ is finite_.
+__Exercise__. _Show $x = \sum_{i\in I}e_i^*(x) e_i$, $x\in\FF^I$, if $I$ is finite_.
 
-_Hint_: Show $\pi_i(x) = x(i)$.
+_Hint_: Show $e_i*(x) = x(i)$.
+
+A _subspace_ is a subset $V\subseteq\RR^I$ that is closed under scalar
+multiplication and vector addition. There are two trivial subspaces.
+
+__Exercise__. _Show $\{0\}$ and $\FF^I$ are subspaces of $\FF^I$_.
+
+__Exercise__. _Show if $v\in\FF^I$ then $\{av\mid a\in\FF\}$ is a subspace_.
+
+_Hint_: $b(av) = (ba)v$ and $av + bv = (a + b)v$ for $a,b\in\FF$.
+
+Given $v_1,\ldots,v_k\in\FF^I$ define their _span_ as the set
+of _linear combinations_
+$\span \{v_j\}_{j=1}^k = \{\sum_{j=1}^k a_j v_j\mid a_f\in\FF\}$.
+
+__Exercise__. _Show the span is a subspace_.
+
+_Hint_. Use $a(\sum_j a_j v_j) = \sum_j aa_j v_j$
+and $\sum_j a_j v_j + \sum_j b_j v_j = \sum_j (a_j + b_j) v_j$.
+
+The vectors $v_1,\ldots,v_k\in\FF^I$ are _independent_ if
+for $a_1,\ldots,a_k\in\FF$,
+$\sum_j a_j v_j = 0$ implies $a_j = 0$ for all $j$.
+
+The vectors $v_1,\ldots,v_k\in\FF^I$ are _dependent_ (not independent) if
+there exist $a_1,\ldots,a_k\in\FF$, not all 0, with
+$\sum_j a_j v_j = 0$. If $a_j\not=0$ then
+$v_j = -\sum_{i\not=j} a_i/a_j v_i$.
 
 ## Linear Operator
 
@@ -151,8 +307,49 @@ linear operators.
 Linear operators also are a vector space with scalar multiplication $(aT)(x) = aT(x)$
 and vector addition $(T + U)(x) = Tx + Ux$, $a\in\FF$, $T,U\in[\FF^I\to\FF^J]$, $x\in\FF^I$.
 
-The _matrix_ of a linear operator $T\in[\FF^I\to\FF^J]$ is $t\in\FF^{I\times J}$ defined
-by $t(i,j) = Te_i
+__Exercise__. _Prove $T0 = 0$_.
+
+_Hint
+
+The _kernel_ of a linear operator $T\colon\FF^I\to\FF^J$
+is ${\ker T = \{x\in\FF^I\mid Tx = 0\}\subseteq\FF^J}$.
+
+__Exercise__. _Show $\ker T$ is a subspace of $\FF^I$_.
+
+_Hint_. Show if $Tx = 0$ then $T(ax) = 0$ and $Tx = 0$, $Ty = 0$ implies T(x + y) = 0$.
+
+__Exercise__. _Show if $Tx = Ty$ then $x - y\in\ker T$_.
+
+_Hint_. Use $T$ is linear.
+
+__Exercise__. _Show if $\ker T = \{0\}$ then $T$ is injective_.
+
+The _matrix_ of a linear operator $T\in[\FF^I\to\FF^J]$ is $[T]\in\FF^{I\times J}$ defined
+by $[t_{ij}] = [T](i,j) = e_j^{J*} Te_i^I$, $i\in I$, $j\in J$.
+
+<!-- ???
+Since $I\times J$ is a set $\FF^{I\times J}$ is a vector space
+and $[T] = \sum_{i,j} t_{ij} e_{ij}$ where $(e_{ij})_{i\in I, j\in J}$ is the
+standard basis of $\FF^{I\times J}$.
+
+__Exercise__. _Show $T\mapsto [T]$ is linear_.
+
+_Hint_. Show $[aT] = a[T]$ and $[T + U] = [T] + [U]$.
+
+__Exercise__. _If $T\colon\FF^I\FF^J$ and $U\colon\FF^J\to\FF^K$ then
+$[UT](i,k) = \sum_{j\in J} t(i,j) u(j,k)$_.
+
+_Hint_. 
+-->
+
+## Tensor
+
+$\FF^{I\times J}$ is a rank 2 tensor.
+
+A _tensor_ is an element of $\FF^{\bm{n_1}\times\cdots\times\bm{n_r}}$
+where $r$ is the _rank_ of the tensor.
+
+
 
 
 <!--
