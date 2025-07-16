@@ -62,9 +62,9 @@ The _kernel_ of a $f$ is $\ker f = \{[a]\mid a\in A\}$.
 
 The kernel of a function is a _partition_ of its domain.
 
-__Exercise__. _Show the union of $\ker f$ is $A$_.
+__Exercise__. _Show the union of sets in $\ker f$ is $A$_.
 
-_Hint_. Show $\cup_{a\in A} [a] = A$ using $a\in[A]$ for $a\in A$.
+_Hint_. Show $\cup_{a\in A} [a] = A$ using $a\in[a]$ for $a\in A$.
 
 __Exercise__. _Show the elements of $\ker f$ are either disjoint or equal_.
 
@@ -82,12 +82,19 @@ no information is only knowing $a\in A$.
 __Exercise__. _Show the parition $\{\{a\}\mid a\in A\}$ represents full information
 and the partition $\{A\}$ represents no information_.
 
-
 A function $f\colon A\to B$ is _one-to-one_, or _injective_, if $[a]$
 is a singleton (has exactly one element) for all $a\in A$.
 
 __Exercise__. _If $f\colon A\to B$ is injective then
 $f(a) = f(a')$ implies $a = a'$_.
+
+Define $[f]\colon\ker A\to B$ by $[a]\mapsto f(a)$.
+
+__Exercise__. _Show $[f]$ is well-defined_.
+
+_Hint_. Show if $[a] = [a']$ then $f(a) = f(a')$.
+
+__Exercise__. _Show $[f]$ is injective_.
 
 The _range_ of $f\colon A\to B$ is $\ran f = \{f(a)\mid a\in A\}$.
 It is _onto_, or _surjective_ if $\ran f = B$.
@@ -130,13 +137,13 @@ of a [category](https://en.wikipedia.org/wiki/Category_(mathematics)){target="_b
 denoted by [$\text{\bf{Set}}$](https://en.wikipedia.org/wiki/Category_of_sets){target="_blank"}. 
 
 __Exercise__. _Show if $f\colon A\to B$ is injective then there
-exists $g\colon B\to A$ with $gf = 1_A$.
+exists $g\colon B\to A$ with $gf = 1_A$_.
 
 _Hint_: If $f(a) = b$ then $b\in[a]$. Since $[a]$ is a singleton
 we can define $g(b) = a$.
 
 __Exercise__. _Show if $f\colon A\to B$ is surjective then there
-exists $g\colon B\to A$ with $fg = 1_B$.
+exists $g\colon B\to A$ with $fg = 1_B$_.
 
 _Hint_: For every $b\in B$ there exists $a\in A$ with $f(a) = b$.
 Let $g(b) = a$. In general, there are many right inverses.
@@ -164,10 +171,17 @@ _Hint_. $,(f,)(a,b) = f,a(b) = f(a,b)$ and $(,g),a(b) = ,g(a,b) = ga(b)$.
 
 ## Evaluation
 
-_Evaluation_ is a function $\eval\colon\{A\to B\}\times A\to B$ defined
+Given a function $f\colon A\to B$ and $a\in A$ then we can apply
+the function to $a$ and get $f(a)\in B$. This is called 
+_evaluation_ and we define the function $\eval\colon\{A\to B\}\times A\to B$ defined
 by $\eval(f,a) = f(a)$, $f\in\{A\to B\}$, $a\in A$.
 
-__Exercise__. _Show $\eval(f,a) = f1_{\{a\}}(a)$_.
+If $f\colon A\times B\to C$ an $a\in A$ then we can define a function from $B$
+to $C$ by $b\mapsto f(a,b)$. Specifying some arguments for a multi-argument
+function to make it a function on the remaining arguments is called _partial evaluation_.
+
+__Exercise__. _If $f\colon A\times B\to C$ show $,fa\colon B\to C$
+and $,fa(b) = f(a,b)$_.
 
 ## Relation
 
@@ -196,36 +210,40 @@ _antisymmetric_:   $aRb$ and $bRa$ imply $a = b$
 ----------------   ---------------
 -->
 
-The relation _equal_ is $=\subseteq\{(a,a)\mid a\in A\}$.
+The relation _equal_ is $\Delta\subseteq\{(a,a)\mid a\in A\}$.
 It is a left and right identity for composition.
 
-__Exercise__. _Show $=R$, $R$, and $R=$ are all equal_.
+__Exercise__. _Show $\DeltaR$, $R$, and $R\Delta$ are all equal_.
 
-__Exercise__. _Show if $R$ is reflexive then $=\subseteq R$_.
+__Exercise__. _Show if $R$ is reflexive if and only $\Delta\subseteq R$_.
 
 __Exercise__. _Show $R$ is symmetric if and only if $aR = Ra$, $a\in A$_.
 
-The Kleen star of a relation $R$ is $R^* = \cup_{n>0} R^n$ where
+_Hint_. If $b\in aR$ then $aRb$ so $bRa$ if R is symmetric. This shows $b\in Ra$.
+Similarly for $a\in Rb$. If $aR = Ra$, $a\in A$, then
+$aRb$ implies $a\in Rb = bR$ so $bRa$.
+
+The Kleen plus of a relation $R$ is $R^+ = \cup_{n>0} R^n$ where
 $R^n$ is $R$ composed with itself $n$ times.
 
-__Exercise__. _Show the Kleen star of any relation is transitive_.
+__Exercise__. _Show the Kleen plus of any relation is transitive_.
 
-_Hint_. Note $aR^*b$ if and only if $aR^nb$ for some $n$ and
+_Hint_. Note $aR^+b$ if and only if $aR^nb$ for some $n>0$ and
 $R^nR^m = R^{n+m}$.
 
 An _equivalence relation_ is reflexive, symmetric, and transitive.
 Note _equal_ is an equivalence relation.
 
 __Exercise__. _Show if $R$ is an equivalence relation then
-$aRb$ if and only if $aR = Rb$.
-
-This shows equivalence is equality of cosets.
+$aRb$ if and only if $aR = Rb$_.
 
 __Exercise__. _If $R$ is an equivalence relation show $\{aR\mid a\in A\}$
 is a partition of $A$_.
 
 _Hint_. Show $\cup_{a\in A}aR = A$ and if $aR\cap Rb\neq\emptyset$ then
 $aR = Rb$.
+
+<!-- review -->
 
 __Exercise__. _If $\{A_i\}_{i\in I}$ is a partition of $A$ and $aRb$ if and only if
 there exists $i\in I$ with $a,b\in A_i$ then $R$ is an equivalence relation_.
