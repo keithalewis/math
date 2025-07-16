@@ -11,6 +11,7 @@ header-includes:
 \newcommand\FF{\bm{F}}
 \newcommand\NN{\bm{N}}
 \newcommand\QQ{\bm{Q}}
+\newcommand\zero{\bm{0}}
 \newcommand\LL{\mathcal{L}}
 \newcommand\tr{\operatorname{tr}}
 \newcommand\dom{\operatorname{dom}}
@@ -20,6 +21,7 @@ header-includes:
 \newcommand\curry{\operatorname{curry}}
 \newcommand\uncurry{\operatorname{uncurry}}
 \newcommand\graph{\operatorname{graph}}
+\renewcommand\span{\operatorname{span}}
 
 There seems to be some uncertainty in the computer science community
 about exactly what a tensor is. The only things involved are
@@ -93,9 +95,7 @@ It is _onto_, or _surjective_ if $\ran f = B$.
 __Exercise__. _If $f\colon A\to B$ is surjective then for
 every $b\in B$ there exists at least one $a\in A$ with $f(a) = b$_.
 
-<!--
 Set exponential, domain, codomain...
--->
 
 ## Composition
 
@@ -144,6 +144,7 @@ Let $g(b) = a$. In general, there are many right inverses.
 These two exercises show it is possible to define injective and
 surjective without mentioning elements of sets.
 
+
 ## Curry
 
 _Currying_ and _uncurrying_ provides a connection between set exponential and cartesian product.
@@ -185,6 +186,7 @@ commands in SQL.
 
 Relations on $A\times A$ are classified by properties they satisfy
 
+<!--
 ----------------   ---------------
     _reflexive_:   $aRa$ is always true
   _irreflexive_:   $aRa$ is always false
@@ -192,6 +194,7 @@ Relations on $A\times A$ are classified by properties they satisfy
 _antisymmetric_:   $aRb$ and $bRa$ imply $a = b$
    _transitive_:   $aRb$ and $bRc$ imply $aRc$
 ----------------   ---------------
+-->
 
 The relation _equal_ is $=\subseteq\{(a,a)\mid a\in A\}$.
 It is a left and right identity for composition.
@@ -229,11 +232,11 @@ there exists $i\in I$ with $a,b\in A_i$ then $R$ is an equivalence relation_.
 
 ## Vector Space
 
-If the base of a set exponential is a [field](https://en.wikipedia.org/wiki/Field_(mathematics))
-$\FF$ then $\FF^I$ is a _vector space_ for any _index set_ $I$. Typically
+If the base of a set exponential is a _field_
+then $\FF^I$ is a _vector space_ for any _index set_ $I$. Typically
 $\FF$ is the real numbers $\RR$, the complex numbers $\CC$, the rational
 numbers $\QQ$, or integers modulo $p$ $\ZZ_p$ where $p$ is prime.
-If $I = \{1,\ldots,n\}$ or $I = \{0,\ldots,n-1\}$ we write $\FF^\bm{n}$
+If $I = \{1,\ldots,n\}$ or $I = \{0,\ldots,n-1\}$ we write $\FF^{\bm{n}}$
 when the base index of 1 or 0 is understood.
 Scalar multiplication and vector addition are defined pointwise:
 $(ax)(i) = a(x(i))$ and $(x + y)(i) = x(i) + y(i)$ for $a\in\FF$, $x,y\in\FF^I$.
@@ -309,7 +312,7 @@ and vector addition $(T + U)(x) = Tx + Ux$, $a\in\FF$, $T,U\in[\FF^I\to\FF^J]$, 
 
 __Exercise__. _Prove $T0 = 0$_.
 
-_Hint
+_Hint_: Usee $x + x = x$ implies $x=\zero$.
 
 The _kernel_ of a linear operator $T\colon\FF^I\to\FF^J$
 is ${\ker T = \{x\in\FF^I\mid Tx = 0\}\subseteq\FF^J}$.
@@ -327,7 +330,6 @@ __Exercise__. _Show if $\ker T = \{0\}$ then $T$ is injective_.
 The _matrix_ of a linear operator $T\in[\FF^I\to\FF^J]$ is $[T]\in\FF^{I\times J}$ defined
 by $[t_{ij}] = [T](i,j) = e_j^{J*} Te_i^I$, $i\in I$, $j\in J$.
 
-<!-- ???
 Since $I\times J$ is a set $\FF^{I\times J}$ is a vector space
 and $[T] = \sum_{i,j} t_{ij} e_{ij}$ where $(e_{ij})_{i\in I, j\in J}$ is the
 standard basis of $\FF^{I\times J}$.
@@ -340,17 +342,13 @@ __Exercise__. _If $T\colon\FF^I\FF^J$ and $U\colon\FF^J\to\FF^K$ then
 $[UT](i,k) = \sum_{j\in J} t(i,j) u(j,k)$_.
 
 _Hint_. 
--->
 
 ## Tensor
 
 $\FF^{I\times J}$ is a rank 2 tensor.
 
-A _tensor_ is an element of $\FF^{\bm{n_1}\times\cdots\times\bm{n_r}}$
+A _tensor_ is an element of $\FF^{\bm{n_1}}\times\cdots\times\bm{n_r}$
 where $r$ is the _rank_ of the tensor.
-
-
-
 
 <!--
 
@@ -370,6 +368,7 @@ ${(\bm{x} + \bm{y})(i) = \bm{x}(i) + \bm{y}(i)}$, ${1\le i\le n}$.
 The set of tuples $\RR^n$ is not the same as the set of functions $\RR^\bm{n}$
 but they are in one-to-one correspondence.
 Define a map ${\iota\colon\RR^n\to\RR^\bm{n}}$ by ${\iota x(i) = x_i}$, ${x\in\RR^n}$, ${i\in\bm{n}}$.
+
 
 __Exercise__. _Show if $\iota x = \iota y$ then $x = y$, $x,y\in\RR^n$_
 
