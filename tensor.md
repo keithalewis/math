@@ -180,9 +180,6 @@ If $f\colon A\times B\to C$ an $a\in A$ then we can define a function from $B$
 to $C$ by $b\mapsto f(a,b)$. Specifying some arguments for a multi-argument
 function to make it a function on the remaining arguments is called _partial evaluation_.
 
-__Exercise__. _If $f\colon A\times B\to C$ show $,fa\colon B\to C$
-and $,fa(b) = f(a,b)$_.
-
 ## Relation
 
 A _relation_ on sets $A$ and $B$ is a subset $R\subseteq A\times B$.
@@ -198,24 +195,27 @@ This is used in the definition of the various
 [`JOIN`](https://learn.microsoft.com/en-us/sql/relational-databases/performance/joins?view=sql-server-ver17){target="_black"}
 commands in SQL.
 
-Relations on $A\times A$ are classified by properties they satisfy
+The _transpose_ of a relation $R\subseteq A\times B$
+is $R^T\subseteq B\times A$ where $bR^Ta$ if and only if $aRb$.
 
-<!--
-----------------   ---------------
-    _reflexive_:   $aRa$ is always true
-  _irreflexive_:   $aRa$ is always false
-    _symmetric_:   $aRb$ implies $bRa$
-_antisymmetric_:   $aRb$ and $bRa$ imply $a = b$
-   _transitive_:   $aRb$ and $bRc$ imply $aRc$
-----------------   ---------------
--->
+__Exercise__. _Show $(RS)^T = S^T R^T$_.
 
 The relation _equal_ is $\Delta\subseteq\{(a,a)\mid a\in A\}$.
 It is a left and right identity for composition.
 
-__Exercise__. _Show $\DeltaR$, $R$, and $R\Delta$ are all equal_.
+__Exercise__. _Show $\Delta R$, $R$, and $R\Delta$ are all equal_.
 
-__Exercise__. _Show if $R$ is reflexive if and only $\Delta\subseteq R$_.
+Relations on $A\times A$ are classified by properties they satisfy
+
+     Property    Definition                           Formula
+-------------    ----------------------------   ------------------------
+_reflexive_      $aRa$ is always true.          $\Delta\subseteq R$
+_irreflexive_    $aRa$ is always false.         $\Delta\cap R = \emptyset$
+_symmetric_      $aRb$ implies $bRa$.           $R^T = R$
+_antisymmetric_  $aRb$ and $bRa$ imply $a = b$.  $\Delta\subseteq R\cap R^T$
+_transitive_     $aRb$ and $bRc$ imply $aRc$.   $R^2\subseteq R$
+
+__Exercise__. _Prove the formulas from the definitions_.
 
 __Exercise__. _Show $R$ is symmetric if and only if $aR = Ra$, $a\in A$_.
 
@@ -232,7 +232,8 @@ _Hint_. Note $aR^+b$ if and only if $aR^nb$ for some $n>0$ and
 $R^nR^m = R^{n+m}$.
 
 An _equivalence relation_ is reflexive, symmetric, and transitive.
-Note _equal_ is an equivalence relation.
+
+__Exercise__. _Show $\Delta$ (equal) is an equivalence relation_.
 
 __Exercise__. _Show if $R$ is an equivalence relation then
 $aRb$ if and only if $aR = Rb$_.
@@ -247,6 +248,9 @@ $aR = Rb$.
 
 __Exercise__. _If $\{A_i\}_{i\in I}$ is a partition of $A$ and $aRb$ if and only if
 there exists $i\in I$ with $a,b\in A_i$ then $R$ is an equivalence relation_.
+
+Every equivalence relation on $A\times A$ correponds to a partition of $A$.
+Every partition of $A$ corresponds to an equivalence relation on $A\time A$.
 
 ## Vector Space
 
@@ -328,7 +332,7 @@ linear operators.
 Linear operators also are a vector space with scalar multiplication $(aT)(x) = aT(x)$
 and vector addition $(T + U)(x) = Tx + Ux$, $a\in\FF$, $T,U\in[\FF^I\to\FF^J]$, $x\in\FF^I$.
 
-__Exercise__. _Prove $T0 = 0$_.
+__Exercise__. _Prove $T\zero = \zero$_.
 
 _Hint_: Usee $x + x = x$ implies $x=\zero$.
 
@@ -359,14 +363,25 @@ _Hint_. Show $[aT] = a[T]$ and $[T + U] = [T] + [U]$.
 __Exercise__. _If $T\colon\FF^I\FF^J$ and $U\colon\FF^J\to\FF^K$ then
 $[UT](i,k) = \sum_{j\in J} t(i,j) u(j,k)$_.
 
-_Hint_. 
+_Hint_. Use $[UT](i,k) = \e_k^*UTe_i$ and $Te_i = \sum_j e_j^*(Te_i)e_j$.
 
 ## Tensor
 
-$\FF^{I\times J}$ is a rank 2 tensor.
+$\FF^{I\times J}$ is a rank 2 tensor. As we have just seen it corresponds
+to a linear operator in $[\FF^I\to\FF^J]$. Define ${}^T\colon J\times I\to I\times J$ by
+$(j,i)\mapsto (i,j)$. Note $T\circ{}^T\colon\FF^{J\times I}\to\FF^{I\times J}$.
 
 A _tensor_ is an element of $\FF^{\bm{n_1}}\times\cdots\times\bm{n_r}$
 where $r$ is the _rank_ of the tensor.
+
+
+## Structure
+
+$[V\to V]\to\mathcal{P}$ from linear operators to characteristic polynomial is continuous.
+
+$v\wedge w$ can be thought of as the oriented parallelogram determined by $v$ and $w$.
+
+__Exercise__. _Show $v\wedge w = -w\wedge v$.
 
 <!--
 
