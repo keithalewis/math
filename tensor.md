@@ -151,7 +151,6 @@ Let $g(b) = a$. In general, there are many right inverses.
 These two exercises show it is possible to define injective and
 surjective without mentioning elements of sets.
 
-
 ## Curry
 
 _Currying_ and _uncurrying_ provides a connection between set exponential and cartesian product.
@@ -276,6 +275,34 @@ __Exercise__. _Show $x = \sum_{i\in I} x(i) e_i$ when $I$ is finite_.
 _Hint_. If $x,y\in\FF^I$ then $x = y$ if and only if $x(j) = y(j)$ for all $j\in I$.
 What is $x(j)$?
 
+The _dot product_ of $x,y\in\FF^I$ when $I$ is fintite is
+$x\cdot y = \sum_{i\in I} x(i) y(i)$, or $x\cdot y = \sum_{i\in I} x(i) \overline{y(i)}$
+when $\FF$ is the complex numbers.. Recall if $z = x + iy\in\CC$ where $x,y\in\RR$
+then the _complex conjugate_ of $z$ is $\overline{z} = x - iy$.
+Define $|z| = \sqrt{z\cdot z}$.
+
+### Norm
+
+The _norm_ of $x\in\FF^I$ is $\|x\| = \sqrt{x\cdot x}$.
+
+__Exercise__. _Show $\|x\| \ge 0$, $\|x\| = 0$ implies $x = \zero$,
+$\|ax\| = |a|\|x\|$ and $\|x + y\| \le \|x\| + \|y\|$_.
+
+__Exercise__ (Cauchy-Schwartz)  _Show $|x\cdot y| \le \|x\| \|y\|$ and if equality
+holds then $ax = by$ for some $a,b\in\FF$_.
+
+_Hint_: Use $0\le\|x - ty\|^2$ for $t\in\FF$ and facts about quadratic equations
+you learned in high school.
+
+### Metric
+
+Define the _distance_ from $x$ to $y$ by $d(x,y) = \|x - y\|$.
+
+__Exercise__. _Show $d(x,y) = 0$ implies $x = y$, $d(x,y) = d(y,x)$
+and $d(x,y) + d(y,z) \ge d(x,z)$_.
+
+This shows $d$ is a _metric_ that defines a topology on $\FF^I$.
+
 We can identify $\FF^I$ with the cartesian product of $I$ copies of the field $\FF$.
 The element $(x_i)_{i\in I}$ in the cartesian product corresponds to the
 function $x\in\FF^I$ by $x(i) = x_i$, $i\in I$.
@@ -294,7 +321,9 @@ with $\FF$ by $(x)\leftrightarrow x$ and get a map ${e_i^* = e_i^{I*}\colon\FF^I
 
 __Exercise__. _Show $x = \sum_{i\in I}e_i^*(x) e_i$, $x\in\FF^I$, if $I$ is finite_.
 
-_Hint_: Show $e_i*(x) = x(i)$.
+_Hint_: Show $e_i^*(x) = x(i)$.
+
+### Subspace
 
 A _subspace_ is a subset $V\subseteq\RR^I$ that is closed under scalar
 multiplication and vector addition. There are two trivial subspaces.
@@ -321,7 +350,19 @@ $\sum_j a_j v_j = 0$ implies $a_j = 0$ for all $j$.
 The vectors $v_1,\ldots,v_k\in\FF^I$ are _dependent_ (not independent) if
 there exist $a_1,\ldots,a_k\in\FF$, not all 0, with
 $\sum_j a_j v_j = 0$. If $a_j\not=0$ then
-$v_j = -\sum_{i\not=j} a_i/a_j v_i$.
+$v_j = -\sum_{i\not=j} (a_i/a_j) v_i$.
+
+A collection of vectors $v_1,\ldots,v_n\in\FF^I$ are a _basis_ if they
+span $\FF^I$ and are independent.
+
+__Exercise__ _Show if $\{v_i\}_{i=1}^n$ is a basis of $\FF^I$ then for every
+$x\in\FF^I$ there exist unique $x_i$, $1\le i\le n$, with $x = \sum_{i=1}^n x_i v_i$_.
+
+__Hint__. The vectors $\{v_i\}_{i=1}^n$ span $\FF^I$ so the $x_i\in\FF$ exist.
+Use independence to show they are unique.
+
+This defines a bijection from $\FF^I$ to $\FF^{\bm{n}}$.
+This map is also a linear operator.
 
 ## Linear Operator
 
@@ -334,20 +375,24 @@ and vector addition $(T + U)(x) = Tx + Ux$, $a\in\FF$, $T,U\in[\FF^I\to\FF^J]$, 
 
 __Exercise__. _Prove $T\zero = \zero$_.
 
-_Hint_: Usee $x + x = x$ implies $x=\zero$.
+_Hint_: Use $x + x = x$ implies $x=\zero$.
 
 The _kernel_ of a linear operator $T\colon\FF^I\to\FF^J$
 is ${\ker T = \{x\in\FF^I\mid Tx = 0\}\subseteq\FF^J}$.
 
 __Exercise__. _Show $\ker T$ is a subspace of $\FF^I$_.
 
-_Hint_. Show if $Tx = 0$ then $T(ax) = 0$ and $Tx = 0$, $Ty = 0$ implies T(x + y) = 0$.
+_Hint_. Show if $Tx = \zero$ then $T(ax) = \zero$ and that
+$Tx = \zero$, $Ty = \zero$ implies T(x + y) = \zero$.
 
 __Exercise__. _Show if $Tx = Ty$ then $x - y\in\ker T$_.
 
 _Hint_. Use $T$ is linear.
 
-__Exercise__. _Show if $\ker T = \{0\}$ then $T$ is injective_.
+__Exercise__. _Show if $\ker T = \{\zero\}$ then $T$ is injective_.
+
+If $T$ is injective and surjective then $T$ is an _isomorphism_,
+a bijection that preserves the vector space structure.
 
 The _matrix_ of a linear operator $T\in[\FF^I\to\FF^J]$ is $[T]\in\FF^{I\times J}$ defined
 by $[t_{ij}] = [T](i,j) = e_j^{J*} Te_i^I$, $i\in I$, $j\in J$.
@@ -360,16 +405,38 @@ __Exercise__. _Show $T\mapsto [T]$ is linear_.
 
 _Hint_. Show $[aT] = a[T]$ and $[T + U] = [T] + [U]$.
 
-__Exercise__. _If $T\colon\FF^I\FF^J$ and $U\colon\FF^J\to\FF^K$ then
+__Exercise__. _If $T\colon\FF^I\to\FF^J$ and $U\colon\FF^J\to\FF^K$ then
 $[UT](i,k) = \sum_{j\in J} t(i,j) u(j,k)$_.
 
-_Hint_. Use $[UT](i,k) = \e_k^*UTe_i$ and $Te_i = \sum_j e_j^*(Te_i)e_j$.
+_Hint_. Use $[UT](i,k) = e_k^*UTe_i$ and $Te_i = \sum_j e_j^*(Te_i)e_j$.
+
+We have no need for the Einstein summation convention...
+
+__Lemma__. _If $T\colon\FF^I\to\FF^J$ is injective then $|I| \le |J|$_.
+
+__Lemma__. _If $T\colon\FF^I\to\FF^J$ is surjective then $|I| \ge |J|$_.
+
+## Dual
+
+The _dual_ of $\RR^I$ is $\FF^* = [\FF^I\to\FF]$, the set of _linear functionals_
+from a vector space to its underlying field. We have already seen an
+example of this $e_i^*\colon\FF^I\to\FF$. If $I$ is finite the
+linear transformation $*\colon\FF\to\FF^*$ defined by $e_i\mapsto e_i^*$, $i\in I$,
+is an isomorphism.
 
 ## Tensor
 
-$\FF^{I\times J}$ is a rank 2 tensor. As we have just seen it corresponds
-to a linear operator in $[\FF^I\to\FF^J]$. Define ${}^T\colon J\times I\to I\times J$ by
-$(j,i)\mapsto (i,j)$. Note $T\circ{}^T\colon\FF^{J\times I}\to\FF^{I\times J}$.
+It seems to be popular to say "a tensor is something that transforms like a tensor."
+A more useful definition is a tensor is a vector space indexed by a cartesian product.
+The number of products is the _rank_ of the tensor.
+
+For example, $\FF^{I\times J}$ is a rank 2 tensor.
+As we have just seen it corresponds to a linear operator in $[\FF^I\to\FF^J]$.
+Define a function with the slightly odd name superscript $T$ by ${}^T\colon J\times I\to I\times J$ by
+$(j,i)\mapsto (i,j)$. Note $\circ{}^T\colon\FF^{J\times I}\to\FF^{I\times J}$.
+
+__Exercise__. _Show if $T\colon\FF^I\to\FF^J$ with matrix $[t_{ij}]$ then the
+matrix of $[T]\circ^T$ is $[t_{ji}]$_.
 
 A _tensor_ is an element of $\FF^{\bm{n_1}}\times\cdots\times\bm{n_r}$
 where $r$ is the _rank_ of the tensor.
