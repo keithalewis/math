@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2025-07-23" />
+  <title>Simple Unified Model</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="math.css" />
+  
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Simple Unified Model</h1>
+<p class="date">July 23, 2025</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Arbitrage-free prices are constrained by cash flows.
+</div>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#market" id="toc-market">Market</a></li>
+<li><a href="#trading" id="toc-trading">Trading</a></li>
+<li><a href="#accounting" id="toc-accounting">Accounting</a></li>
+<li><a href="#arbitrage" id="toc-arbitrage">Arbitrage</a></li>
+<li><a href="#derivative" id="toc-derivative">Derivative</a></li>
+<li><a href="#examples" id="toc-examples">Examples</a></li>
+<li><a href="#notes" id="toc-notes">Notes</a></li>
+</ul>
+</nav>
+<!--
+:!pandoc -t html5 -s --katex=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/ --css math.css ums.md -o ums.html
+:!pandoc -V fontsize=12pt ums.md -o ums.pdf
+-->
+<p>Let <span class="math inline">\Omega</span> be a sample space
+representing all possible instrument prices. Information at time <span
+class="math inline">t</span> is modelled by a partition <span
+class="math inline">\mathcal{A}_t</span> of <span
+class="math inline">\Omega</span>. We assume <span
+class="math inline">\mathcal{A}_u</span> is a refinement of <span
+class="math inline">\mathcal{A}_t</span> whenever <span
+class="math inline">u &gt; t</span>. The possible <em>trading times</em>
+<span class="math inline">T</span> are a subset of the real numbers. To
+avoid doubling strategies <span class="citation"
+data-cites="HarKre1979">(Harrison and Kreps 1979)</span> we assume <span
+class="math inline">\epsilon = \inf\{|t - u|\mid t,u\in T, t\not=u\}
+&gt; 0</span>. Finally, let <span class="math inline">I</span> be the
+set of all market instruments.</p>
+<p>We use <span class="math inline">B(\Omega)</span> for the space of
+bounded functions on <span class="math inline">\Omega</span>. Recall its
+vector space dual can be identified with the space of finitely addititve
+measures on <span class="math inline">\Omega</span> denoted <span
+class="math inline">ba(\Omega)</span>.</p>
+<section id="market" class="level2">
+<h2>Market</h2>
+<p>Every instrument has prices and cash flows indexed by <span
+class="math inline">T</span>. We assume instruments can be bought or
+sold in any amount at time <span class="math inline">t</span> with
+<em>price</em> <span class="math inline">X_t\in
+B(\Omega,\boldsymbol{{R}}^I)</span>, <span class="math inline">t\in
+T</span>. <em>Cash flows</em> associated with owning an instrument are
+<span class="math inline">C_t\in B(\Omega,\boldsymbol{{R}}^I)</span> at
+time <span class="math inline">t\in T</span>. Examples of cash flows are
+stock dividends, bond coupons, and margin adjustements from futures. The
+price of a futures contract is always zero. Usually <span
+class="math inline">C_t = 0</span> for all but a finite number of times
+<span class="math inline">t\in T</span>.</p>
+</section>
+<section id="trading" class="level2">
+<h2>Trading</h2>
+<p>A <em>trading strategy</em> is a finite number of strictly increasing
+stopping times <span class="math inline">\tau_j\colon\Omega\to T</span>,
+<span class="math inline">0\le j\le n</span>, and number of shares to
+buy at <span class="math inline">\tau_j</span> denoted <span
+class="math inline">\Gamma_j\colon\Omega\to\boldsymbol{{R}}^I</span>
+where <span class="math inline">\Gamma_j</span> is constant on <span
+class="math inline">\{\tau_j = t\}</span> for all <span
+class="math inline">t\in T</span>. Shares accumulate to position <span
+class="math inline">\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j</span>.
+Note the strict inequality. Trades take some time to settle before
+becoming part of the position. We also write this as <span
+class="math inline">\Delta_t = \sum_{s &lt; t} \Gamma_s</span> where
+<span class="math inline">\Gamma_s = \Gamma_j</span> when <span
+class="math inline">s = \tau_j</span> and is zero otherwise. Note <span
+class="math inline">\Delta_t + \Gamma_t = \Delta_u</span> for <span
+class="math inline">u &gt; t</span> and <span class="math inline">u -
+t</span> sufficiently small.</p>
+</section>
+<section id="accounting" class="level2">
+<h2>Accounting</h2>
+<p>The <em>value</em>, or <em>mark-to-market</em>, of a position is how
+much you would make if you liquidated at current prices, <span
+class="math inline">{V_t = (\Delta_t + \Gamma_t)\cdot X_t}</span>. You
+don’t own <span class="math inline">\Gamma_t</span> at time <span
+class="math inline">t</span> but you will at <span class="math inline">t
++ \epsilon</span> and should be accounted for. The <em>amount</em>
+associated with a trading strategy at time <span
+class="math inline">t</span> is <span class="math inline">{A_t =
+\Delta_t\cdot C_t - \Gamma_t\cdot X_t}</span>: you receive cash flows
+proportional to your position and have to pay for trades just
+executed.</p>
+</section>
+<section id="arbitrage" class="level2">
+<h2>Arbitrage</h2>
+<p>We define arbitrage (for this model) as the existence of a trading
+strategy that closes out (<span class="math inline">\sum_j \Gamma_j =
+0</span>) with <span class="math inline">A_{\tau_0} &gt; 0</span> and
+<span class="math inline">A_t\ge0</span>, for <span
+class="math inline">t &gt; \tau_0</span>: you make money on the first
+trade and never lose money therafter. If you don’t require the strategy
+to close out then borrowing a dollar every day would be an arbitrage.
+Note our definition of arbitrage does not involve a probablility
+measure.</p>
+<p><strong>Theorem</strong>. (Fundamental Theorem of Asset Pricing.)
+<em>The Simple Unified Model is arbitrage free if and only if there
+exist a</em> deflator <em>, positive measures <span
+class="math inline">D_t</span> in <span
+class="math inline">ba(\mathcal{A}_t)</span>, <span
+class="math inline">t\in T</span>, with</em> <span class="math display">
+\tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
+D_s)|_{\mathcal{A}_t}, t\le u
+</span> <em>where <span class="math inline">|</span> indicates
+restriction of measure</em>.</p>
+<p><strong>Lemma</strong>. <em>Using the above definitions</em> <span
+class="math display">
+\tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
+D_s)|_{\mathcal{A}_t}, t\le u.
+</span></p>
+<p><strong>Trading strategies create synthetic instruments where price
+corresponds to value and cash flow corresponds to amount.</strong></p>
+<p><em>Proof</em>: We have <span class="math inline">{X_t D_t = (X_u D_u
++ C_u D_u)|_{\mathcal{A}_t}}</span> and <span
+class="math inline">{\Delta_t + \Gamma_t = \Delta_u}</span> for some
+<span class="math inline">u\in T</span> with <span
+class="math inline">{u - t \ge \epsilon}</span> sufficiently small.</p>
+<p>We have <span class="math display">
+\begin{aligned}
+V_t D_t &amp;= (\Delta_t + \Gamma_t)\cdot X_t D_t \\
+    &amp;= (\Delta_u\cdot X_u D_u + \Delta_u C_u D_u)|_{\mathcal{A}_t}
+\\
+    &amp;= (\Delta_u\cdot X_u + (\Gamma_u\cdot X_u +
+A_u)D_u|_{\mathcal{A}_t} \\
+    &amp;= (\Delta_u + \Gamma_u)\cdot X_u + A_u)D_u|_{\mathcal{A}_t} \\
+    &amp;= (V_u + A_u)D_u|_{\mathcal{A}_t} \\
+\end{aligned}
+</span> The lemma follows by finite induction since <span
+class="math inline">\epsilon &gt; 0</span>.</p>
+<p>We say <span class="math inline">(M_t)_{t\in T}</span> is a
+martingale measure if <span class="math inline">M_t\in
+ba(\mathcal{A}_t)</span> and <span class="math inline">M_t =
+M_u|_{\mathcal{A}_t}</span> for <span class="math inline">u &gt;
+t</span>.</p>
+<p><strong>Lemma</strong>. <em>If <span class="math inline">(M_t)_{t\in
+T}</span> is an <span
+class="math inline">\boldsymbol{{R}}^I</span>-valued martingale measure
+and <span class="math inline">D_t\in ba(\mathcal{A}_t)</span> are
+positive then</em> <span class="math display">
+    X_t D_t = M_t - \sum_{s\le t} C_s D_s
+</span> <em>is an arbitrage-free model of prices and cash
+flows</em>.</p>
+<p><em>Proof</em>: Since <span class="math inline">{V_{\tau_0} =
+(\sum_{u &gt; \tau_0} A_u D_u)|_{\mathcal{A}_t}}</span> and if <span
+class="math inline">A_t \ge 0</span> for <span class="math inline">t
+&gt; \tau_0</span> then <span class="math inline">V_{\tau_0} \ge
+0</span>. Since <span class="math inline">\Delta_{\tau_0} = 0</span> we
+have <span class="math inline">{V_{\tau_0} = \Gamma_{\tau_0}\cdot
+X_{\tau_0}}</span> and <span class="math inline">{A_{\tau_0} =
+-\Gamma_{\tau_0}\cdot X_{\tau_0}}</span> so <span
+class="math inline">{A_{\tau_0} = -V_{\tau_0} \le 0}</span>. This shows
+the model is arbitrage-free and proves the “easy” direction of the FTAP.
+The contrapositive involves the Hahn-Banach theorem, but given the
+plethora of arbitrage-free models why bother?</p>
+</section>
+<section id="derivative" class="level2">
+<h2>Derivative</h2>
+<p>A (cash settled) derivative contract is specified by stopping times
+<span class="math inline">{\hat{\tau}_j}</span> and cash flows <span
+class="math inline">\hat{A}_j</span>. If there exists a trading strategy
+<span class="math inline">(\tau_j,\Gamma_j)</span> with <span
+class="math inline">{\sum_j \Gamma_j = 0}</span>, <span
+class="math inline">{A_{\hat{\tau}_j} = \hat{A}_j}</span> and <span
+class="math inline">{A_t = 0}</span> (self-financing) otherwise, then a
+perfect hedge exists. The value of the derivative instrument is
+determined by <span class="math display">
+\tag{3} V_t D_t = (\sum_{\hat{\tau}_j &gt; t} \hat{A}_j
+D_{\hat{\tau}_j})|_{\mathcal{A}_t}.
+</span> Note the right hand side is determined by the contract
+specifications and deflator. Assuming <span class="math inline">\tau_0 =
+0</span>, <span class="math inline">V_0 = \Gamma_0\cdot X_0</span> so
+the initial hedge <span class="math inline">\Gamma_0</span> is the
+Fréchet derivative <span class="math inline">D_{X_0}V_0</span> with
+respect to <span class="math inline">X_0</span>. Since <span
+class="math inline">V_t = (\Gamma_t + \Delta_t)\cdot X_t</span> we have
+<span class="math inline">\Gamma_t = D_{X_t}V_t - \Delta_t</span>. Note
+<span class="math inline">\Delta_t</span> is settled prior to time <span
+class="math inline">t</span>. This does not determine the trading times
+<span class="math inline">\tau_j</span>.</p>
+</section>
+<section id="examples" class="level2">
+<h2>Examples</h2>
+<p>The Black-Scholes<span class="citation"
+data-cites="BlaSch1973">(Black and Scholes 1973)</span> and Merton<span
+class="citation" data-cites="Mer1973">(Merton 1973)</span> model has
+<span class="math inline">\Omega = C[0,\infty)</span>, <span
+class="math inline">T = [0,\infty)</span> with instruments a bond and a
+stock having no associated cash flows. Our martingale measure is <span
+class="math inline">M_t = (r, se^{\sigma B_t - \sigma^2t/2})P</span>
+where <span class="math inline">(B_t)</span> is Brownian motion and
+<span class="math inline">P</span> is Weiner measure. The deflator is
+<span class="math inline">D_t = e^{-\rho t}P</span>.</p>
+<p>If repurchase agreements are availble they determine a <em>canonical
+deflator</em>. A repurchase agreement over the interval <span
+class="math inline">[t_j, t_{j+1}]</span> is specified by a rate <span
+class="math inline">f_j</span> known at time <span
+class="math inline">t_j</span>. The price at <span
+class="math inline">t_j</span> is <span class="math inline">1</span> and
+it has a cash flow of <span class="math inline">{\exp(f_j\Delta
+t_j)}</span> at time <span class="math inline">t_{j+1}</span> where
+<span class="math inline">\Delta t_j = t_{j+1} - t_j</span>. By equation
+(1) we have <span class="math inline">{D_j = \exp(f_j\Delta
+t_j)D_{j+1}|_{\mathcal{A}_j}}</span>. If <span
+class="math inline">D_{j+1}</span> is known at time <span
+class="math inline">t_j</span> then <span class="math inline">{D_{j+1} =
+\exp(-f_j\Delta t_j)D_j}</span> and <span class="math inline">{D_n =
+\exp(-\sum_{j &lt; n} f_j\Delta t_j) D_{t_0}}</span> is the canonical
+deflator at time <span class="math inline">t_n</span>.</p>
+<p>The continuous time analog is <span class="math inline">D_t =
+\exp(-\int_0^t f_s\,ds)D_0</span> where <span
+class="math inline">f</span> is the continuously compounded
+instantaneous forward rate. This is commonly referred to as the
+<em>stochastic discount</em>.</p>
+</section>
+<section id="notes" class="level2">
+<h2>Notes</h2>
+<p>The set exponential <span class="math inline">B^A</span> is the set
+of all functions from <span class="math inline">A</span> to <span
+class="math inline">B</span>. For any set <span
+class="math inline">I</span>, <span
+class="math inline">\boldsymbol{{R}}^I</span> is a vector space with
+scalar multiplication and vector addition defined pointwise.</p>
+<p>If <span class="math inline">\mathcal{A}</span> is a sigma algebra on
+<span class="math inline">\Omega</span> then it is an algebra. If it is
+finite then the atoms of <span class="math inline">\mathcal{A}</span>
+form a partition of <span class="math inline">\Omega</span>. In this
+case a function <span
+class="math inline">X\colon\Omega\to\boldsymbol{{R}}</span> is <span
+class="math inline">\mathcal{A}</span>-measurable if and only if <span
+class="math inline">X</span> is constant on atoms of <span
+class="math inline">\mathcal{A}</span>. In this case it is a function on
+the atoms of <span class="math inline">\mathcal{A}</span> and write
+<span class="math inline">B(\mathcal{A})</span>.</p>
+<p>Our definition of arbitrage is not sufficient. Recall <span
+class="math inline">A_0 = -\Gamma_0\cdot X_0</span>. Even if this is
+strictly positive traders and risk managers will compare it to <span
+class="math inline">|\Gamma_0|\cdot|X_0|</span> as a measure of how much
+capital will be tied up in the trading strategy.</p>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-BlaSch1973" class="csl-entry" role="listitem">
+Black, Fischer, and Myron Scholes. 1973. <span>“The Pricing of Options
+and Corporate Liabilities.”</span> <em>Journal of Political Economy</em>
+81 (3): 637–54. <a
+href="http://www.jstor.org/stable/1831029">http://www.jstor.org/stable/1831029</a>.
+</div>
+<div id="ref-HarKre1979" class="csl-entry" role="listitem">
+Harrison, Michael, and David M. Kreps. 1979. <span>“Martingales and
+Arbitrage in Multiperiod Securities Markets.”</span> <em>Journal of
+Economic Theory</em> 20: 381–408. <a
+href="https://doi.org/10.1016/0022-0531(79)90043-7">https://doi.org/10.1016/0022-0531(79)90043-7</a>.
+</div>
+<div id="ref-Mer1973" class="csl-entry" role="listitem">
+Merton, Robert C. 1973. <span>“Theory of Rational Option
+Pricing.”</span> <em>Bell Journal of Economics and Management
+Science</em> 4 (1): 141–83. <a
+href="https://www.jstor.org/stable/3003143">https://www.jstor.org/stable/3003143</a>.
+</div>
+</div>
+</section>
+</body>
+</html>

@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-06-10" />
+  <meta name="dcterms.date" content="2025-07-23" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 10, 2025</p>
+<p class="date">July 23, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -56,6 +56,10 @@ A mathematical sweet spot
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
+<li><a href="#semigroup" id="toc-semigroup">Semigroup</a></li>
+<li><a href="#monoid" id="toc-monoid">Monoid</a></li>
+<li><a href="#boldsymbolrn" id="toc-boldsymbolrn"><span
+class="math inline">\boldsymbol{{R}}^n</span></a></li>
 <li><a href="#vector-space" id="toc-vector-space">Vector Space</a></li>
 <li><a href="#vector-space-1" id="toc-vector-space-1">Vector Space</a>
 <ul>
@@ -66,8 +70,8 @@ id="toc-linear-transformation">Linear Transformation</a></li>
 <li><a href="#tensor" id="toc-tensor">Tensor</a></li>
 <li><a href="#set" id="toc-set">Set</a></li>
 <li><a href="#category" id="toc-category">Category</a></li>
-<li><a href="#boldsymbolrn" id="toc-boldsymbolrn"><span
-class="math inline">\boldsymbol{{{R}}}^n</span></a>
+<li><a href="#boldsymbolrn-1" id="toc-boldsymbolrn-1"><span
+class="math inline">\boldsymbol{{R}}^n</span></a>
 <ul>
 <li><a href="#scalar-multiplication-and-vector-addition"
 id="toc-scalar-multiplication-and-vector-addition">Scalar Multiplication
@@ -84,6 +88,9 @@ id="toc-linear-transformation-1">Linear Transformation</a>
 </ul></li>
 <li><a href="#operator-structure" id="toc-operator-structure">Operator
 Structure</a></li>
+<li><a href="#polynomial-functional-calculus"
+id="toc-polynomial-functional-calculus">Polynomial Functional
+Calculus</a></li>
 </ul>
 </nav>
 <!--
@@ -91,13 +98,73 @@ In Derrida's "Diseminations" he pointed out a preface to a book was
 typically the last thing an author wrote. He thought clearly
 about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 -->
+<p>Everything in (classical) mathematics consists of sets with
+structure. The structure is one or more functions on the sets that
+satisfy given axioms. Vector spaces occupy a sweet spot in mathematics.
+A vector space over a field has a scalar multiplication and commutative
+vector addition that satisfy distributive laws. Two vector spaces are
+isomorphic (equivalent form) if and only if they have the same
+dimension: the minimum number of independent vectors that span the
+vector space.</p>
+<p>Functions between sets with structure that preserve the structure are
+homomorphisms (like form). If the function is injective (one-to-one) and
+surjective (onto) then it is an isomorphism. A linear operator is a
+homomorphism from one vector space to another. They also form a vector
+space since they have a scalar multiplication and commutative
+addition.</p>
+<section id="semigroup" class="level2">
+<h2>Semigroup</h2>
+<p>For example, a <em>semigroup</em> is a set <span
+class="math inline">S</span> and a binary operator <span
+class="math inline">m\colon S\times S\to S</span> that is
+<em>associative</em>: <span class="math inline">m(a,m(b,c)) =
+m(m(a,b),c)</span>. If we write <span class="math inline">ab</span> for
+<span class="math inline">m(a,b)</span> then <span
+class="math inline">a(bc) = (ab)c</span> so <span
+class="math inline">abc</span> is unambigous.</p>
+<p>Examples of semigroups are the integral, natural, real, and rational
+numbers under multiplication and addition. They are also semigroups
+under maximum and minimum values.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\max\{a,\max\{b,c\}\} =
+\max\{\max\{a,b\},c\}</span></em>.</p>
+<p>Strings under concatenation are also a semigroup.</p>
+</section>
+<section id="monoid" class="level2">
+<h2>Monoid</h2>
+<p>A <em>monoid</em> is a semigroup with an <em>identity element</em>.
+If <span class="math inline">M</span> is a monoid then <span
+class="math inline">e\in M</span> is the identity element if <span
+class="math inline">em = m = me</span> for <span
+class="math inline">m\in M</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the idenity element is
+unique</em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+If <span class="math inline">e</span> and <span
+class="math inline">e&#39;</span> are identity elements then <span
+class="math inline">e&#39; = e&#39;e = e</span>.
+</details>
+<p>If <span class="math inline">S</span> is a semigroup and <span
+class="math inline">e\not\in S</span> define <span
+class="math inline">es = s = se</span> for <span
+class="math inline">s\in S</span>.</p>
+<p><strong>Exercise</strong>. <em>Show this makes <span
+class="math inline">S</span> into a monoid</em>.</p>
+<p><em>Hint</em>. Show <span class="math inline">(ab)c = a(bc)</span>
+for <span class="math inline">a,b,c\in S\cup\{e\}</span>.</p>
+</section>
+<section id="boldsymbolrn" class="level2">
+<h2><span class="math inline">\boldsymbol{{R}}^n</span></h2>
 <p>You are probably familiar with the vector space of <span
 class="math inline">n</span>-tuples of real numbers <span
 class="math display">
-\boldsymbol{{{R}}}^n = \{x = (x_1,\dots,x_n)\mid
-x_j\in\boldsymbol{{{R}}}, 1\le j \le n\}.
+\boldsymbol{{R}}^n = \{x = (x_1,\dots,x_n)\mid x_j\in\boldsymbol{{R}},
+1\le j \le n\}.
 </span> <em>Scalar multiplication</em> by <span
-class="math inline">a\in\boldsymbol{{{R}}}</span> is <span
+class="math inline">a\in\boldsymbol{{R}}</span> is <span
 class="math display">
 a(x_1,\ldots,x_n) = (ax_1,\ldots,ax_n)
 </span> and <em>vector addition</em> is <span class="math display">
@@ -108,52 +175,50 @@ n}</span>, where all entries are 0 except the <span
 class="math inline">i</span>-th which is 1.</p>
 <p>We can write this without <span class="math inline">\ldots</span>’s
 using <em>projections</em> <span
-class="math inline">{\pi_i^n\colon\boldsymbol{{{R}}}^n\to\boldsymbol{{{R}}}}</span>
+class="math inline">{\pi_i^n\colon\boldsymbol{{R}}^n\to\boldsymbol{{R}}}</span>
 where <span class="math inline">{\pi_i(x) = x_i}</span>. We write <span
 class="math inline">{\pi_i^n}</span> as <span
 class="math inline">\pi_i</span> when <span class="math inline">n</span>
 is evident from the context. Note <span class="math inline">{x =
 y}</span> if and only if <span class="math inline">{\pi_i(x) =
 \pi_i(y)}</span>, <span class="math inline">{1\le i\le n}</span> for
-<span class="math inline">{x,y\in\boldsymbol{{{R}}}^n}</span>.</p>
+<span class="math inline">{x,y\in\boldsymbol{{R}}^n}</span>.</p>
 <p><strong>Exercise</strong>. Show <span class="math inline">\pi_i(ax) =
 a\pi_i(x)</span> and <span class="math inline">\pi_i(x + y) = \pi_i(x) +
 \pi_i(y)</span> for <span
-class="math inline">a\in\boldsymbol{{{R}}}</span>, <span
-class="math inline">x,y\in\boldsymbol{{{R}}}^n</span>.</p>
+class="math inline">a\in\boldsymbol{{R}}</span>, <span
+class="math inline">x,y\in\boldsymbol{{R}}^n</span>.</p>
 <p>Projections preserve the linear structure of <span
-class="math inline">\boldsymbol{{{R}}}^n</span>.</p>
+class="math inline">\boldsymbol{{R}}^n</span>.</p>
 <p><strong>Exercise</strong>. <em>Show the standard basis satisfies
 <span class="math inline">\pi_i(e_j) = \delta_{ij}</span></em>.</p>
 <p><em>Hint</em>. Recall the Kronecker delta <span
 class="math inline">\delta_{ij}</span> is 1 if <span
 class="math inline">i = j</span> and 0 if <span
 class="math inline">i\not=j</span>.</p>
-<p>Every element of <span
-class="math inline">\boldsymbol{{{R}}}^n</span> is a <em>linear
-combination</em> of standard basis vectors.</p>
+<p>Every element of <span class="math inline">\boldsymbol{{R}}^n</span>
+is a <em>linear combination</em> of standard basis vectors.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">x =
 \sum_j x_j e_i</span> for <span
-class="math inline">x\in\boldsymbol{{{R}}}^n</span></em>.</p>
+class="math inline">x\in\boldsymbol{{R}}^n</span></em>.</p>
 <p><em>Hint</em>. Apply <span class="math inline">\pi_i</span> to each
 side and use the definition of the Kronecker delta.</p>
 <p>Define <span
-class="math inline">\boldsymbol{{0}}\in\boldsymbol{{{R}}}^n</span> by
+class="math inline">\boldsymbol{{0}}\in\boldsymbol{{R}}^n</span> by
 <span class="math inline">\pi_i(\boldsymbol{{0}}) = 0</span> for <span
 class="math inline">1\le i\le n</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">0x =
 \boldsymbol{{0}}</span> for <span
-class="math inline">x\in\boldsymbol{{{R}}}^n</span></em>.</p>
+class="math inline">x\in\boldsymbol{{R}}^n</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">x +
 \boldsymbol{{0}}= x = \boldsymbol{{0}}+ x</span> for all <span
-class="math inline">x\in\boldsymbol{{{R}}}^n</span></em>.</p>
+class="math inline">x\in\boldsymbol{{R}}^n</span></em>.</p>
 <p>This shows <span class="math inline">\boldsymbol{{0}}</span> is the
 <em>identity element</em> for vector addition.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">(a +
 b)x = ax + bx</span> and <span class="math inline">a(x + y) = ax +
-ay</span> for <span class="math inline">a,b\in\boldsymbol{{{R}}}</span>
-and <span
-class="math inline">x,y\in\boldsymbol{{{R}}}^n</span></em>.</p>
+ay</span> for <span class="math inline">a,b\in\boldsymbol{{R}}</span>
+and <span class="math inline">x,y\in\boldsymbol{{R}}^n</span></em>.</p>
 <p><em>Hint</em>. Consider <span class="math inline">\pi_i((a +
 b)x)</span> and <span class="math inline">\pi_i(a(x + y))</span>.</p>
 <p>This establishes the <em>distributive laws</em> connecting scalar
@@ -165,42 +230,43 @@ multiplication and vector addition.</p>
 (-1x) = (1 + (-1))x</span>.</p>
 <p>This shows <span class="math inline">-x</span> is the <em>additive
 inverse</em> of <span
-class="math inline">x\in\boldsymbol{{{R}}}^n</span>.</p>
+class="math inline">x\in\boldsymbol{{R}}^n</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">a(bx) =
 (ab)x</span> for <span
-class="math inline">a,b\in\boldsymbol{{{R}}}</span>, <span
-class="math inline">x\in\boldsymbol{{{R}}}^n</span></em>.</p>
+class="math inline">a,b\in\boldsymbol{{R}}</span>, <span
+class="math inline">x\in\boldsymbol{{R}}^n</span></em>.</p>
 <p><em>Hint</em>: Use the fact multiplication is associative in <span
-class="math inline">\boldsymbol{{{R}}}</span> so <span
+class="math inline">\boldsymbol{{R}}</span> so <span
 class="math inline">\pi_(a(bx)) = a(\pi_i(bx)) = a(b\pi_i(x)) =
 (ab)\pi_(i)(x)</span>.</p>
+</section>
 <section id="vector-space" class="level2">
 <h2>Vector Space</h2>
 <p>There exist vector spaces beyond the special case of <span
-class="math inline">\boldsymbol{{{R}}}^n</span>. A more powerful
-approach is to extract the essential properties and define them through
-abstract axioms, allowing for a clearer and more general perspective. A
-vector space is any set equipped with scalar multiplication and vector
+class="math inline">\boldsymbol{{R}}^n</span>. A more powerful approach
+is to extract the essential properties and define them through abstract
+axioms, allowing for a clearer and more general perspective. A vector
+space is any set equipped with scalar multiplication and vector
 addition, provided they satisfy fundamental rules established in the
 preceding exercises. Specifically, vector addition forms an abelian
 (commutative) group, while scalar multiplication adheres to the
 distributive laws: <span class="math inline">a(x + y) = ax + ay</span>
 and <span class="math inline">(a + b)x = ax + bx</span>, for all <span
-class="math inline">a, b \in \boldsymbol{{{R}}}</span> and <span
+class="math inline">a, b \in \boldsymbol{{R}}</span> and <span
 class="math inline">x, y \in V</span>. Additionally, scalar
 multiplication must satisfy the associativity condition, <span
 class="math inline">a(bx) = (ab)x</span>, and the identity property,
 <span class="math inline">1x = x</span>, for all <span
-class="math inline">a, b \in \boldsymbol{{{R}}}</span> and <span
+class="math inline">a, b \in \boldsymbol{{R}}</span> and <span
 class="math inline">x \in V</span>.</p>
 <p>A <em>subspace</em> is a subset <span class="math inline">W\subseteq
 V</span> that is also a vector space. Define the notation <span
-class="math inline">\boldsymbol{{{R}}}W = \{ax\mid
-a\in\boldsymbol{{{R}}}, x\in W\}</span> and <span class="math inline">W
-+ W = \{x + y\mid x,y\in W\}</span>.</p>
+class="math inline">\boldsymbol{{R}}W = \{ax\mid a\in\boldsymbol{{R}},
+x\in W\}</span> and <span class="math inline">W + W = \{x + y\mid x,y\in
+W\}</span>.</p>
 <p><strong>Exercise</strong> _Show if <span
 class="math inline">W\subseteq V</span>, <span
-class="math inline">\boldsymbol{{{R}}}W\subseteq W</span>, and <span
+class="math inline">\boldsymbol{{R}}W\subseteq W</span>, and <span
 class="math inline">W + W\subseteq W</span> then <span
 class="math inline">W</span> is a vector space.</p>
 <p><em>Hint</em>: The assumptions guaranted scalar multiplication and
@@ -211,7 +277,7 @@ vector space.</p>
 class="math inline">\{v_i\}</span>, <span class="math inline">i\in
 I</span>, is the set of all linear combinations <span
 class="math inline">\operatorname{span}\{v_i\} = \{\sum_{i\in I} a_i
-v_i\mid a_i\in\boldsymbol{{{R}}}\}</span>.</p>
+v_i\mid a_i\in\boldsymbol{{R}}\}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">\operatorname{span}\{v_i\}_{i\in I}</span> is a
 subspace</em>.</p>
@@ -234,19 +300,19 @@ class="math inline">v_i</span>.</p>
 vectors.</p>
 <p>A <em>vector space</em> is a set <span class="math inline">V</span>
 with scalar multiplication <span
-class="math inline">\boldsymbol{{{R}}}\times V\to V</span> and vector
+class="math inline">\boldsymbol{{R}}\times V\to V</span> and vector
 addition <span class="math inline">V\times V\to V</span></p>
 <p>The <em>span</em> of a collection of vectors <span
-class="math inline">v_i\in\boldsymbol{{{R}}}^n</span>, <span
+class="math inline">v_i\in\boldsymbol{{R}}^n</span>, <span
 class="math inline">i\in I</span>, is the set of all finite linear
 combinations <span class="math inline">\sum_{i\in I} a_i v_i</span>,
-<span class="math inline">a_i\in\boldsymbol{{{R}}}</span>. A collection
-of vectors is <em>independent</em> if <span class="math inline">\sum_i
-a_i v_i = \boldsymbol{{0}}</span> implies <span class="math inline">a_i
-= 0</span> for all <span class="math inline">i</span>. A <em>basis</em>
-of <span class="math inline">\boldsymbol{{{R}}}^n</span> is a collection
-of vectors that are independent and span <span
-class="math inline">\boldsymbol{{{R}}}^n</span>.</p>
+<span class="math inline">a_i\in\boldsymbol{{R}}</span>. A collection of
+vectors is <em>independent</em> if <span class="math inline">\sum_i a_i
+v_i = \boldsymbol{{0}}</span> implies <span class="math inline">a_i =
+0</span> for all <span class="math inline">i</span>. A <em>basis</em> of
+<span class="math inline">\boldsymbol{{R}}^n</span> is a collection of
+vectors that are independent and span <span
+class="math inline">\boldsymbol{{R}}^n</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span
 class="math inline">(v_i)_{i\in I}</span> are dependent then there
 exists <span class="math inline">j\in I</span> with <span
@@ -260,12 +326,12 @@ class="math inline">a_j\not=0</span>. Show <span class="math inline">b_i
 </section>
 <section id="vector-space-1" class="level2">
 <h2>Vector Space</h2>
-<p><span class="math inline">\boldsymbol{{{R}}}^n</span> is a special
-case of the vector space of all functions from a set <span
+<p><span class="math inline">\boldsymbol{{R}}^n</span> is a special case
+of the vector space of all functions from a set <span
 class="math inline">I</span> to <span
-class="math inline">\boldsymbol{{{R}}}</span>, <span
-class="math inline">\boldsymbol{{{R}}}^I = \{x\colon
-I\to\boldsymbol{{{R}}}\}</span> where <span class="math inline">I =
+class="math inline">\boldsymbol{{R}}</span>, <span
+class="math inline">\boldsymbol{{R}}^I = \{x\colon
+I\to\boldsymbol{{R}}\}</span> where <span class="math inline">I =
 \{1,\ldots,n\}</span>. Scalar multiplication is <span
 class="math inline">{(ax)(i) = ax(i)}</span> and vector addition is
 <span class="math inline">{(x + y)(i) = x(i) + y(i)}</span> for <span
@@ -281,7 +347,7 @@ say the solution is <em>homogeneous</em>.</p>
 linear ODE form a vector space</em>.</p>
 <p><em>Hint</em> If <span class="math inline">y</span> is a homogeneous
 solution then so is <span class="math inline">ay</span> for <span
-class="math inline">a\in\boldsymbol{{{R}}}</span>. If <span
+class="math inline">a\in\boldsymbol{{R}}</span>. If <span
 class="math inline">y</span> and <span class="math inline">z</span> are
 homogeneous solutions then so is <span class="math inline">y +
 z</span>.</p>
@@ -317,12 +383,12 @@ solutions.</p>
 <section id="linear-transformation" class="level2">
 <h2>Linear Transformation</h2>
 <p>A <em>linear transformation</em> is a function <span
-class="math inline">T\colon\boldsymbol{{{R}}}^n\to\boldsymbol{{{R}}}^m</span>
+class="math inline">T\colon\boldsymbol{{R}}^n\to\boldsymbol{{R}}^m</span>
 that respects the vector space structure: <span
 class="math inline">T(ax) = a(Tx)</span> and <span
 class="math inline">T(x + y) = Tx + Ty</span> for <span
-class="math inline">a\in\boldsymbol{{{R}}}</span>, <span
-class="math inline">x,y\in\boldsymbol{{{R}}}^n</span>.</p>
+class="math inline">a\in\boldsymbol{{R}}</span>, <span
+class="math inline">x,y\in\boldsymbol{{R}}^n</span>.</p>
 <p><strong>Exercise</strong>. <em>Show if <span
 class="math inline">T</span> is linear then <span
 class="math inline">T\boldsymbol{{0}}= \boldsymbol{{0}}</span></em>.</p>
@@ -332,44 +398,44 @@ T\boldsymbol{{0}}</span> and add <span
 class="math inline">-T\boldsymbol{{0}}</span> to both sides.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">T</span>
 is linear show <span class="math inline">T(ax + y) = aTx + y</span>,
-<span class="math inline">a\in\boldsymbol{{{R}}}</span>, <span
-class="math inline">x,y\in\boldsymbol{{{R}}}^n</span></em>.</p>
+<span class="math inline">a\in\boldsymbol{{R}}</span>, <span
+class="math inline">x,y\in\boldsymbol{{R}}^n</span></em>.</p>
 <p><em>Proof</em>: Note <span class="math inline">T(ax + y) = T(ax) + Ty
 = aTx + Ty</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">T</span> is linear if <span class="math inline">T(ax
 + y) = aTx + y</span> for <span
-class="math inline">a\in\boldsymbol{{{R}}}</span>, <span
-class="math inline">x,y\in\boldsymbol{{{R}}}^n</span></em>.</p>
+class="math inline">a\in\boldsymbol{{R}}</span>, <span
+class="math inline">x,y\in\boldsymbol{{R}}^n</span></em>.</p>
 <p><em>Hint</em>. Take <span class="math inline">y =
 \boldsymbol{{0}}</span> and <span class="math inline">a = 1</span>
 noting <span class="math inline">1x = x</span>.</p>
 <p>The collection of all linear transformations from <span
-class="math inline">\boldsymbol{{{R}}}^n</span> to <span
-class="math inline">\boldsymbol{{{R}}}^m</span> also form a vector
-space. Scalar multiplication is <span class="math inline">(aT)x =
-a(Tx)</span> and vector addition is <span class="math inline">(T + U)x =
-Tx + Ux</span> for <span
-class="math inline">a\in\boldsymbol{{{R}}}</span>, <span
-class="math inline">T,U\colon\boldsymbol{{{R}}}^n\to\boldsymbol{{{R}}}^m</span>
-linear, and <span class="math inline">x\in\boldsymbol{{{R}}}^n</span>.
+class="math inline">\boldsymbol{{R}}^n</span> to <span
+class="math inline">\boldsymbol{{R}}^m</span> also form a vector space.
+Scalar multiplication is <span class="math inline">(aT)x = a(Tx)</span>
+and vector addition is <span class="math inline">(T + U)x = Tx +
+Ux</span> for <span class="math inline">a\in\boldsymbol{{R}}</span>,
+<span
+class="math inline">T,U\colon\boldsymbol{{R}}^n\to\boldsymbol{{R}}^m</span>
+linear, and <span class="math inline">x\in\boldsymbol{{R}}^n</span>.
 This is our first inkling that there is more to vector spaces than just
-<span class="math inline">\boldsymbol{{{R}}}^n</span>.</p>
+<span class="math inline">\boldsymbol{{R}}^n</span>.</p>
 <p>The <em>matrix</em> of a linear transformation <span
-class="math inline">T\colon\boldsymbol{{{R}}}^n\to\boldsymbol{{{R}}}^m</span>
+class="math inline">T\colon\boldsymbol{{R}}^n\to\boldsymbol{{R}}^m</span>
 under the standard basis is <span class="math inline">[t_{ij}]</span>
-where <span class="math inline">t_{ij}\in\boldsymbol{{{R}}}</span>,
-<span class="math inline">1\le i\le n</span>, <span
-class="math inline">1\le j\le m</span> are defined by <span
-class="math inline">Te^n_i = \sum_j t_{ij}e^m_j</span>. This follow from
-<span class="math inline">Te^n_i\in\boldsymbol{{{R}}}^m</span> being a
-linear combination of <span class="math inline">e^m_j</span>, <span
+where <span class="math inline">t_{ij}\in\boldsymbol{{R}}</span>, <span
+class="math inline">1\le i\le n</span>, <span class="math inline">1\le
+j\le m</span> are defined by <span class="math inline">Te^n_i = \sum_j
+t_{ij}e^m_j</span>. This follow from <span
+class="math inline">Te^n_i\in\boldsymbol{{R}}^m</span> being a linear
+combination of <span class="math inline">e^m_j</span>, <span
 class="math inline">1\le j\le m</span>.</p>
 <p>If <span
-class="math inline">S\colon\boldsymbol{{{R}}}^m\to\boldsymbol{{{R}}}^k</span>
+class="math inline">S\colon\boldsymbol{{R}}^m\to\boldsymbol{{R}}^k</span>
 is a linear transformation then the matrix of the composition <span
 class="math inline">U =
-ST\colon\boldsymbol{{{R}}}^n\to\boldsymbol{{{R}}}^k</span> is <span
+ST\colon\boldsymbol{{R}}^n\to\boldsymbol{{R}}^k</span> is <span
 class="math inline">{u_{ik} = \sum_j t_{ij}s_{jk}}</span>_.</p>
 <p><strong>Exercise</strong>. <em>Prove this</em>.</p>
 <p><em>Hint</em>. Start with <span class="math inline">STx = S(\sum_i
@@ -392,8 +458,8 @@ class="math inline">l</span> if and only if <span class="math inline">j
 class="math inline">(\sum_{ij} t_{ij}e_{ij})(\sum_{kl} s_{kl} e_{kl})
 = \sum_j t_{ij}s_{jl} e_{il}</span></em>.</p>
 <p>This shows we can identify the vector space of linear transformations
-from <span class="math inline">\boldsymbol{{{R}}}^n</span> to <span
-class="math inline">\boldsymbol{{{R}}}^m</span> with <span
+from <span class="math inline">\boldsymbol{{R}}^n</span> to <span
+class="math inline">\boldsymbol{{R}}^m</span> with <span
 class="math inline">{\{(t_{ij})\mid 1\le i\le n, 1\le j\le m\}}</span>.
 In basic linear algebra courses it is common to define row vectors and
 column vectors of a matix. Row <span class="math inline">i</span> is the
@@ -415,33 +481,33 @@ set <span class="math inline">I</span> is <span
 class="math inline">R^I</span>. It is a vector space with scalar
 multiplication <span class="math inline">(ax)(i) = ax(i)</span> and
 vector addition <span class="math inline">(x + y)(i) = x(i) +
-y(i)</span>, <span class="math inline">a\in\boldsymbol{{{R}}}</span>,
-<span class="math inline">x,y\in\boldsymbol{{{R}}}^I</span>, <span
+y(i)</span>, <span class="math inline">a\in\boldsymbol{{R}}</span>,
+<span class="math inline">x,y\in\boldsymbol{{R}}^I</span>, <span
 class="math inline">i\in I</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\boldsymbol{{{R}}}^n</span> can be identified with
-<span class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}}</span>
+class="math inline">\boldsymbol{{R}}^n</span> can be identified with
+<span class="math inline">\boldsymbol{{R}}^{\boldsymbol{{n}}}</span>
 where <span class="math inline">\boldsymbol{{n}} =
 \{1,\ldots,n\}</span></em>.</p>
 <p><em>Hint</em>. The vector <span
-class="math inline">x\in\boldsymbol{{{R}}}^n</span> corresponds to the
+class="math inline">x\in\boldsymbol{{R}}^n</span> corresponds to the
 function <span
-class="math inline">\boldsymbol{{x}}\in\boldsymbol{{{R}}}^\boldsymbol{{n}}</span>
+class="math inline">\boldsymbol{{x}}\in\boldsymbol{{R}}^\boldsymbol{{n}}</span>
 via <span class="math inline">x_i = \boldsymbol{{x}}(i)</span>, <span
 class="math inline">i\in\boldsymbol{{n}}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show linear transformations from <span
-class="math inline">\boldsymbol{{{R}}}^n</span> to <span
-class="math inline">\boldsymbol{{{R}}}^m</span> can be identified with
+class="math inline">\boldsymbol{{R}}^n</span> to <span
+class="math inline">\boldsymbol{{R}}^m</span> can be identified with
 <span
-class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}\times\boldsymbol{{m}}}</span></em>.</p>
+class="math inline">\boldsymbol{{R}}^{\boldsymbol{{n}}\times\boldsymbol{{m}}}</span></em>.</p>
 <p><em>Hint</em>. Recall <span
 class="math inline">\boldsymbol{{n}}\times\boldsymbol{{m}} = \{(i,j)\mid
 1\le i\le n, 1\le j\le m\}</span>. The matrix <span
 class="math inline">[t_{ij}]</span> can be identifed with <span
-class="math inline">\boldsymbol{{t}}\in\boldsymbol{{{R}}}^{\boldsymbol{{n}}\times\boldsymbol{{m}}}</span>
+class="math inline">\boldsymbol{{t}}\in\boldsymbol{{R}}^{\boldsymbol{{n}}\times\boldsymbol{{m}}}</span>
 by <span class="math inline">t_{ij} = \boldsymbol{{t}}(i,j)</span>.</p>
 <p>A <em>linear functional</em> is a function <span
-class="math inline">f\colon\boldsymbol{{{R}}}^n\to\boldsymbol{{{R}}}</span>,
+class="math inline">f\colon\boldsymbol{{R}}^n\to\boldsymbol{{R}}</span>,
 i.e., a linear transformation where <span class="math inline">m =
 1</span>.</p>
 <p>Projections are linear tranformations. In this case <span
@@ -449,8 +515,8 @@ class="math inline">m = 1</span> and we call them <em>linear
 functionals</em>.</p>
 <p>A vector space is more than a <span
 class="math inline">n</span>-tuple of real numbers, <span
-class="math inline">\boldsymbol{{{R}}}^n = \{(x_1,\ldots,x_n)\mid
-x_j\in\boldsymbol{{{R}}}, 1\le j\le n\}</span>.</p>
+class="math inline">\boldsymbol{{R}}^n = \{(x_1,\ldots,x_n)\mid
+x_j\in\boldsymbol{{R}}, 1\le j\le n\}</span>.</p>
 <p>Given two sets <span class="math inline">A</span> and <span
 class="math inline">B</span> the set exponential <span
 class="math inline">{B^A = \{f\colon A\to B\}}</span> is the set of all
@@ -724,38 +790,36 @@ you to define functions and call them on types belonging to a set. We
 provide mathematical names that can be translated into any computer
 language.</p>
 </section>
-<section id="boldsymbolrn" class="level2">
-<h2><span class="math inline">\boldsymbol{{{R}}}^n</span></h2>
+<section id="boldsymbolrn-1" class="level2">
+<h2><span class="math inline">\boldsymbol{{R}}^n</span></h2>
 <p>There are two ways to think about <span
-class="math inline">\boldsymbol{{{R}}}^n</span>, one is as a set of
+class="math inline">\boldsymbol{{R}}^n</span>, one is as a set of
 tuples, the other is as a set of functions. These two perspectives are a
 source of confusion and insight.</p>
 <p>An impoverished notion of a vector is that it is a tuple of real
 numbers <span class="math inline">{x = (x_1,\ldots,x_n)}</span>. Given a
 natural number <span class="math inline">n\in\boldsymbol{{N}}</span>,
-let <span class="math inline">{\boldsymbol{{{R}}}^n =
-\{(x_1,\ldots,x_n)\mid x_i\in\boldsymbol{{{R}}}, 1\le i\le n\} =
-\prod_{1\le i\le n}\boldsymbol{{{R}}}}</span> be the cartesian product
-of <span class="math inline">n\in\boldsymbol{{N}}</span> copies of the
-real numbers. If bold <span
-class="math inline">{\boldsymbol{{n}}}</span> is the set <span
-class="math inline">{\{1,\ldots,n\}}</span> then <span
+let <span class="math inline">{\boldsymbol{{R}}^n =
+\{(x_1,\ldots,x_n)\mid x_i\in\boldsymbol{{R}}, 1\le i\le n\} =
+\prod_{1\le i\le n}\boldsymbol{{R}}}</span> be the cartesian product of
+<span class="math inline">n\in\boldsymbol{{N}}</span> copies of the real
+numbers. If bold <span class="math inline">{\boldsymbol{{n}}}</span> is
+the set <span class="math inline">{\{1,\ldots,n\}}</span> then <span
 class="math inline">{i\in\boldsymbol{{n}}}</span> is a shorter notation
 for <span class="math inline">{1\le i\le n}</span>. We can identify
-<span class="math inline">\boldsymbol{{{R}}}^n</span> with <span
-class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}}</span> where
-the tuple <span
-class="math inline">{(x_i)_{i\in\boldsymbol{{n}}}}</span> corresponds to
-the function <span
-class="math inline">\boldsymbol{{x}}\colon\boldsymbol{{n}}\to\boldsymbol{{{R}}}</span>
+<span class="math inline">\boldsymbol{{R}}^n</span> with <span
+class="math inline">\boldsymbol{{R}}^{\boldsymbol{{n}}}</span> where the
+tuple <span class="math inline">{(x_i)_{i\in\boldsymbol{{n}}}}</span>
+corresponds to the function <span
+class="math inline">\boldsymbol{{x}}\colon\boldsymbol{{n}}\to\boldsymbol{{R}}</span>
 defined by <span class="math inline">\boldsymbol{{x}}(i) = x_i</span>,
 <span class="math inline">i\in\boldsymbol{{n}}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\prod_{i\in\boldsymbol{{n}}}\boldsymbol{{{R}}}</span>
+class="math inline">\prod_{i\in\boldsymbol{{n}}}\boldsymbol{{R}}</span>
 is in one-to-one correspondence with <span
-class="math inline">\boldsymbol{{{R}}}^{\boldsymbol{{n}}}</span></em>.</p>
+class="math inline">\boldsymbol{{R}}^{\boldsymbol{{n}}}</span></em>.</p>
 <p><em>Hint</em>: If <span
-class="math inline">{\pi_i\colon\prod_{i\in\boldsymbol{{n}}}\boldsymbol{{{R}}}\to\boldsymbol{{{R}}}}</span>
+class="math inline">{\pi_i\colon\prod_{i\in\boldsymbol{{n}}}\boldsymbol{{R}}\to\boldsymbol{{R}}}</span>
 are the projections <span class="math inline">\pi_i(x) = x_i</span>,
 <span class="math inline">i\in I</span> define <span
 class="math inline">x\mapsto\boldsymbol{{x}}</span> by <span
@@ -764,12 +828,12 @@ bijective.</p>
 <p>A more powerful notion is to consider a vector as an element of the
 <em>vector space</em> of all functions from an <em>index set</em> <span
 class="math inline">I</span> to the real numbers, <span
-class="math inline">\boldsymbol{{{R}}}^I</span>. The tuple <span
+class="math inline">\boldsymbol{{R}}^I</span>. The tuple <span
 class="math inline">x = (x_i)_{i\in I}</span> in <span
-class="math inline">\prod_{i\in I}\boldsymbol{{{R}}}</span> corresponds
-to a function <span class="math inline">{\boldsymbol{{x}}\colon
-I\to\boldsymbol{{{R}}}}</span> in <span
-class="math inline">\boldsymbol{{{R}}}^I</span> defined by <span
+class="math inline">\prod_{i\in I}\boldsymbol{{R}}</span> corresponds to
+a function <span class="math inline">{\boldsymbol{{x}}\colon
+I\to\boldsymbol{{R}}}</span> in <span
+class="math inline">\boldsymbol{{R}}^I</span> defined by <span
 class="math inline">\boldsymbol{{x}}(i) = x_i</span>, <span
 class="math inline">i\in I</span>. In what follows we just write <span
 class="math inline">x</span> for <span
@@ -777,27 +841,27 @@ class="math inline">\boldsymbol{{x}}</span> and leave it to you to
 figure out from context if a vector is a tuple or a function.</p>
 <p><strong>Exercise</strong>. <em>For any set <span
 class="math inline">I</span>, show <span class="math inline">\prod_{i\in
-I}\boldsymbol{{{R}}}</span> is in one-to-one correspondence with <span
-class="math inline">\boldsymbol{{{R}}}^{I}</span></em>.</p>
+I}\boldsymbol{{R}}</span> is in one-to-one correspondence with <span
+class="math inline">\boldsymbol{{R}}^{I}</span></em>.</p>
 <p><em>Hint</em>: If <span class="math inline">\pi_i\colon \prod_{i\in
-I}\boldsymbol{{{R}}}\to\boldsymbol{{{R}}}</span> are the projections
+I}\boldsymbol{{R}}\to\boldsymbol{{R}}</span> are the projections
 defining the product then <span class="math inline">\boldsymbol{{x}}(i)
 = \pi_i(x)</span>.</p>
 <p>I -&gt; (Pi_i R -&gt; R)</p>
 <section id="scalar-multiplication-and-vector-addition" class="level3">
 <h3>Scalar Multiplication and Vector Addition</h3>
 <p>Scalar multiplication and vector addition on <span
-class="math inline">\boldsymbol{{{R}}}^I</span> are defined
+class="math inline">\boldsymbol{{R}}^I</span> are defined
 <em>pointwise</em> by <span class="math inline">{(ax)(i) =
 a(x(i))}</span> and <span class="math inline">{(x + y)(i) = x(i) +
-y(i)}</span>, <span class="math inline">a\in\boldsymbol{{{R}}}</span>,
-<span class="math inline">x,y\in\boldsymbol{{{R}}}^I</span>.</p>
+y(i)}</span>, <span class="math inline">a\in\boldsymbol{{R}}</span>,
+<span class="math inline">x,y\in\boldsymbol{{R}}^I</span>.</p>
 </section>
 <section id="axioms" class="level3">
 <h3>Axioms</h3>
 <p>For any set <span class="math inline">I</span>, <span
-class="math inline">a,b\in\boldsymbol{{{R}}}</span>, and <span
-class="math inline">x, y, z\in\boldsymbol{{{R}}}^I</span> show the
+class="math inline">a,b\in\boldsymbol{{R}}</span>, and <span
+class="math inline">x, y, z\in\boldsymbol{{R}}^I</span> show the
 following:</p>
 <p><strong>Exercise</strong>. <em><span class="math inline">x + (y + z)
 = (x + y) + z</span></em>.</p>
@@ -822,25 +886,25 @@ ax + bx</span></em>.</p>
 real numbers.</p>
 <p>The exercises are the axioms for an <em>abstract vector space</em>
 with scalar multiplication <span
-class="math inline">{\boldsymbol{{{R}}}\times V\to V}</span> where <span
+class="math inline">{\boldsymbol{{R}}\times V\to V}</span> where <span
 class="math inline">{(a,x)\mapsto ax = xa}</span> and binary addition
 <span class="math inline">{V\times V\to V}</span> where <span
 class="math inline">{(x,y)\mapsto x + y}</span>. The first four axioms
 show vector addition is an abelian (commutative) group. The last two
 axioms are the <em>distributive laws</em> connecting scalar
 multiplication and vector addition. Every abstract vector space can be
-represented by <span class="math inline">\boldsymbol{{{R}}}^I</span> for
+represented by <span class="math inline">\boldsymbol{{R}}^I</span> for
 some set <span class="math inline">I</span>, but this is not a trivial
 result.</p>
 <p>Proofs involving only the abstract axioms are considered more
 elegant.</p>
-<p>If <span class="math inline">x\in\boldsymbol{{{R}}}^I</span> then
-<span class="math inline">(0x)(i) = 0(x(i)) = 0</span> and <span
+<p>If <span class="math inline">x\in\boldsymbol{{R}}^I</span> then <span
+class="math inline">(0x)(i) = 0(x(i)) = 0</span> and <span
 class="math inline">(1x)(i) = 1(x(i)) = x(i)</span> for all <span
 class="math inline">i\in I</span> so <span class="math inline">0x =
 \boldsymbol{{0}}</span> and <span class="math inline">1x = x</span>.
 These hold for any vector space, not just <span
-class="math inline">\boldsymbol{{{R}}}^I</span>.</p>
+class="math inline">\boldsymbol{{R}}^I</span>.</p>
 <p><strong>Exercise</strong>. (Zero is unique) <em>Show if <span
 class="math inline">\boldsymbol{{0}}&#39; + v = v</span> for all <span
 class="math inline">v\in V</span> then <span class="math inline">0&#39;
@@ -888,8 +952,8 @@ get to the bottom of things.</p>
 <section id="standard-basis" class="level3">
 <h3>Standard Basis</h3>
 <p>The <em>standard basis</em> of <span
-class="math inline">\boldsymbol{{{R}}}^n</span> is <span
-class="math inline">{e_i\in\boldsymbol{{{R}}}^n}</span>, <span
+class="math inline">\boldsymbol{{R}}^n</span> is <span
+class="math inline">{e_i\in\boldsymbol{{R}}^n}</span>, <span
 class="math inline">{i\in\boldsymbol{{n}}}</span>, where <span
 class="math inline">{e_i = (0,\ldots,1,\ldots,0)}</span> with all
 elements <span class="math inline">0</span> except for a <span
@@ -897,11 +961,11 @@ class="math inline">1</span> in the <span
 class="math inline">i</span>-th position. It is plausible that <span
 class="math inline">{x = (x_1,\ldots,x_n)
 = x_1 e_1 + \cdots + x_n e_n}</span> for <span
-class="math inline">{x\in\boldsymbol{{{R}}}^n}</span>, but you should
+class="math inline">{x\in\boldsymbol{{R}}^n}</span>, but you should
 always be wary of definitions involving dots.</p>
 <p>More generally, the standard basis of <span
-class="math inline">\boldsymbol{{{R}}}^I</span> is <span
-class="math inline">{e_i\in\boldsymbol{{{R}}}^I}</span>, <span
+class="math inline">\boldsymbol{{R}}^I</span> is <span
+class="math inline">{e_i\in\boldsymbol{{R}}^I}</span>, <span
 class="math inline">{i\in I}</span>, where <span
 class="math inline">{e_i(j) = \delta_{ij}}</span> for <span
 class="math inline">j\in I</span>, where <span
@@ -913,7 +977,7 @@ class="math inline">e^I_j</span> to indicate the domain if needed.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">I</span>
 is finite, show <span class="math inline">x = \sum_{i\in I}
 x(i)e_i</span> for <span
-class="math inline">x\in\boldsymbol{{{R}}}^I</span></em>.</p>
+class="math inline">x\in\boldsymbol{{R}}^I</span></em>.</p>
 <p><em>Hint</em>: Evaluate the putative equality at <span
 class="math inline">j\in I</span>.</p>
 </section>
@@ -925,7 +989,7 @@ class="math inline">j\in I</span>.</p>
 scalar multiplication and vector addition: <span
 class="math inline">T(ax) = aTx</span> and <span
 class="math inline">{T(x + y) = Tx + Ty}</span>, <span
-class="math inline">{a\in\boldsymbol{{{R}}}}</span>, <span
+class="math inline">{a\in\boldsymbol{{R}}}</span>, <span
 class="math inline">{x,y\in V}</span>. The collection of all linear
 operators from <span class="math inline">V</span> to <span
 class="math inline">W</span> is denoted <span
@@ -933,7 +997,7 @@ class="math inline">\mathcal{L}(V,W)</span>.</p>
 <p><strong>Exercise</strong>. <em>Show if <span
 class="math inline">T\colon V\to W</span> is a function with <span
 class="math inline">{T(ax + y) = aTx + y}</span>, <span
-class="math inline">{a\in\boldsymbol{{{R}}}}</span>, <span
+class="math inline">{a\in\boldsymbol{{R}}}</span>, <span
 class="math inline">{x,y\in V}</span> then <span
 class="math inline">T</span> is a linear operator</em>.</p>
 <p><em>Hint</em>: Take <span class="math inline">y =
@@ -942,7 +1006,7 @@ class="math inline">T</span> is a linear operator</em>.</p>
 be made into a vector space. Define scalar multiplication by <span
 class="math inline">(aT)v = a(Tv)</span> and vector addition by <span
 class="math inline">(T + S)v = Tv + Sv</span>, <span
-class="math inline">a\in\boldsymbol{{{R}}}</span>, <span
+class="math inline">a\in\boldsymbol{{R}}</span>, <span
 class="math inline">T,S\in\mathcal{L}(V,W)</span>. One could check the
 scalar multiplication and vector addition satisfy the axioms for an
 abstract vector space but we will show a simple way to establish this
@@ -950,20 +1014,20 @@ once we define <em>matrix</em>.</p>
 <section id="matrix" class="level3">
 <h3>Matrix</h3>
 <p>If <span
-class="math inline">T\in\mathcal{L}(\boldsymbol{{{R}}}^I,\boldsymbol{{{R}}}^J)</span>
+class="math inline">T\in\mathcal{L}(\boldsymbol{{R}}^I,\boldsymbol{{R}}^J)</span>
 then the image of the <span class="math inline">i</span>-th standard
-basis element in <span class="math inline">\boldsymbol{{{R}}}^I</span>
+basis element in <span class="math inline">\boldsymbol{{R}}^I</span>
 under <span class="math inline">T</span> can be written <span
 class="math inline">Te^I_i = \sum_{j\in J} t_{ij} e^J_j</span> for some
-scalars <span class="math inline">t_{ij}\in\boldsymbol{{{R}}}</span>
-when <span class="math inline">I</span> and <span
+scalars <span class="math inline">t_{ij}\in\boldsymbol{{R}}</span> when
+<span class="math inline">I</span> and <span
 class="math inline">J</span> are finite. The <em>matrix</em> of <span
 class="math inline">T</span> is <span class="math inline">[t_{ij}]_{i\in
 I, j\in J}</span>.</p>
 <p>If <span
-class="math inline">S\colon\boldsymbol{{{R}}}^J\to\boldsymbol{{{R}}}^K</span>
+class="math inline">S\colon\boldsymbol{{R}}^J\to\boldsymbol{{R}}^K</span>
 then <span class="math inline">U =
-ST\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}^K</span>.</p>
+ST\colon\boldsymbol{{R}}^I\to\boldsymbol{{R}}^K</span>.</p>
 <p><strong>Exercise</strong>. <em>Show the matrix of the composition
 <span class="math inline">U = ST</span> is <span
 class="math inline">{u_{ik} = \sum_{j\in J} s_{ij}t_{jk}}</span>, for
@@ -971,7 +1035,7 @@ class="math inline">{u_{ik} = \sum_{j\in J} s_{ij}t_{jk}}</span>, for
 K</span></em>.</p>
 <p>Matrix multiplication is just composition of linear operators. Define
 <span
-class="math inline">E_{ij}\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}^J</span>
+class="math inline">E_{ij}\colon\boldsymbol{{R}}^I\to\boldsymbol{{R}}^J</span>
 to be the linear operator with matrix <span
 class="math inline">[\delta_{ij}]</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
@@ -986,25 +1050,24 @@ class="math inline">i</span> to level <span class="math inline">l</span>
 if and only if <span class="math inline">j = k</span>. Eventually
 Pascual Jordan pointed this out to him.</p>
 <p>This shows linear operators from <span
-class="math inline">\boldsymbol{{{R}}}^I</span> to <span
-class="math inline">\boldsymbol{{{R}}}^J</span> are in one-to-one
-correspondence with <span
-class="math inline">\boldsymbol{{{R}}}^{I\times J}</span>. Define a
-function from <span
-class="math inline">T\in\mathcal{L}(\boldsymbol{{{R}}}^I,\boldsymbol{{{R}}}^J)</span>
+class="math inline">\boldsymbol{{R}}^I</span> to <span
+class="math inline">\boldsymbol{{R}}^J</span> are in one-to-one
+correspondence with <span class="math inline">\boldsymbol{{R}}^{I\times
+J}</span>. Define a function from <span
+class="math inline">T\in\mathcal{L}(\boldsymbol{{R}}^I,\boldsymbol{{R}}^J)</span>
 to <span
-class="math inline">\boldsymbol{{T}}\in\boldsymbol{{{R}}}^{I\times
+class="math inline">\boldsymbol{{T}}\in\boldsymbol{{R}}^{I\times
 J}</span> by <span class="math inline">\boldsymbol{{T}}(i,j) =
 t_{ij}</span> where <span class="math inline">[t_{ij}]</span> is the
 matrix of <span class="math inline">T</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\mathcal{L}(\boldsymbol{{{R}}}^I,\boldsymbol{{{R}}}^J)</span>
-is isomorphic to <span class="math inline">\boldsymbol{{{R}}}^{I\times
+class="math inline">\mathcal{L}(\boldsymbol{{R}}^I,\boldsymbol{{R}}^J)</span>
+is isomorphic to <span class="math inline">\boldsymbol{{R}}^{I\times
 J}</span></em>.</p>
 <p>Since <span class="math inline">I\times J</span> is a set, <span
-class="math inline">\boldsymbol{{{R}}}^{I\times J}</span> is a vector
+class="math inline">\boldsymbol{{R}}^{I\times J}</span> is a vector
 space. This shows <span
-class="math inline">\mathcal{L}(\boldsymbol{{{R}}}^I,\boldsymbol{{{R}}}^J)</span>
+class="math inline">\mathcal{L}(\boldsymbol{{R}}^I,\boldsymbol{{R}}^J)</span>
 is a vector space.</p>
 </section>
 <section id="dual" class="level3">
@@ -1012,14 +1075,14 @@ is a vector space.</p>
 <p>The <em>dual</em> of a vector space <span
 class="math inline">V</span> is the set of all <em>linear
 functionals</em> from <span class="math inline">V</span> to <span
-class="math inline">\boldsymbol{{{R}}}</span>, <span
-class="math inline">V^* = \mathcal{L}(V,\boldsymbol{{{R}}})</span>. We
+class="math inline">\boldsymbol{{R}}</span>, <span
+class="math inline">V^* = \mathcal{L}(V,\boldsymbol{{R}})</span>. We
 write the <em>dual pairing</em> <span class="math inline">\langle v,
 v^*\rangle = v^*(v)</span> for <span class="math inline">v\in V</span>,
 <span class="math inline">v^*\in V^*</span>.</p>
 <p>The <em>standard dual basis</em> of <span
-class="math inline">\boldsymbol{{{R}}}^I</span>, <span
-class="math inline">e_i^*\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}</span>
+class="math inline">\boldsymbol{{R}}^I</span>, <span
+class="math inline">e_i^*\colon\boldsymbol{{R}}^I\to\boldsymbol{{R}}</span>
 is defined by <span class="math inline">e_i^*(x) = x(i)</span>, <span
 class="math inline">i\in I</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
@@ -1029,7 +1092,7 @@ class="math inline">i\in I</span></em>.</p>
 e_i, e^*_j\rangle = \delta_{ij}</span>, <span class="math inline">i,j\in
 I</span></em>.</p>
 <p><strong>Exercise</strong> <em>Show the matrix of <span
-class="math inline">T\in\mathcal{L}(\boldsymbol{{{R}}}^I,\boldsymbol{{{R}}}^J)</span>
+class="math inline">T\in\mathcal{L}(\boldsymbol{{R}}^I,\boldsymbol{{R}}^J)</span>
 is <span class="math inline">{t_{ij} = \langle Te_i,
 e^*j\rangle}</span>, <span class="math inline">i\in I</span>, <span
 class="math inline">j\in J</span></em>.</p>
@@ -1218,16 +1281,16 @@ class="math inline">U\colon W\to W</span> are <em>equivalent</em> if
 there exists an isomorphism <span class="math inline">E\colon V\to
 W</span> with <span class="math inline">ET = UE</span>.</p>
 <p>Every linear operator <span
-class="math inline">T\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}^I</span>
+class="math inline">T\colon\boldsymbol{{R}}^I\to\boldsymbol{{R}}^I</span>
 is an element of the vector space <span
-class="math inline">\boldsymbol{{{R}}}^{I\times I}</span> so <span
+class="math inline">\boldsymbol{{R}}^{I\times I}</span> so <span
 class="math inline">I, T, T^2,\ldots,T^{|I\times I|}</span> are linearly
 dependent and there exists a polynomial <span
 class="math inline">p</span> of degree <span
 class="math inline">|I\times I|</span> with <span
 class="math inline">p(T) = 0</span>. But there is a drastic reduction.
 For every linear operator <span
-class="math inline">T\colon\boldsymbol{{{R}}}^I\to\boldsymbol{{{R}}}^I</span></p>
+class="math inline">T\colon\boldsymbol{{R}}^I\to\boldsymbol{{R}}^I</span></p>
 <!--
 
 ## Tensor
@@ -2274,6 +2337,96 @@ __Exercise__. _If $f\in (C^B)^A$ show $f, = \eval(\eval(f, a), b)$_.
 
 __Exercise__. _If $g\in (B\times C)^A$ show $,g = \eval(\eval(g, a), b)$_.
 -->
+<!--
+$\RR^n$ - vector space axioms
+
+$\RR^{n_1\times \cdots n_d}$ "tensor", also a vector
+
+Shape $\rho x = n_1\times \cdots n_d$ if $x\in\RR^{n_1\times \cdots n_d}
+
+APL/kdb operations
+
+$\rho\colon \RR\times n_1\times \cdots n_d\to \RR^{n_1\times \cdots n_d}$.
+
+$f\colon\RR\to\RR$ then $f^I\colon\RR^I\to\RR^I$ by $f(x)(i) = f(x(i))$.
+
+$a + x = x + a$ where $(x + a)(i) = x(i) + a$.
+
+If $R$ is a relation then $x R y$ is $(x R y)(i) = x(i) R y(i)$, $i\in I$.
+
+If $m$ is a monoid operation then $m/x = \prod_{i\in I} m(i)$
+
+Index reduction $m_i/x$
+
+Product. Dual space. Composition of functions.
+
+Concatenation. x,y
+
+Mask
+
+Flatten
+
+Expansion
+
+Indexing
+
+Rotation/Shift
+
+Special vectors: constant, characteristic, prefix, suffix, random, interval
+
+
+
+
+
+$\sigma(T)$, $m\colon\sigma(T)\to\NN$
+
+$\Alg(T) \cong P(\sigma(T), m)$.
+-->
+</section>
+<section id="polynomial-functional-calculus" class="level2">
+<h2>Polynomial Functional Calculus</h2>
+<p>Given <span class="math inline">T\in\mathcal{L}(V)</span> define
+<span
+class="math inline">\Phi_T\colon\mathcal{P}\to\mathcal{L}(V)</span> by
+<span class="math inline">p\mapsto p(T)</span> where <span
+class="math inline">p\in\mathcal{P}</span> is a polynomial.</p>
+<p>We have <span
+class="math inline">\mathcal{P}/\operatorname{ker}\Phi_T\to\operatorname{ran}\Phi_T</span>
+is a isomorphism.</p>
+<p>Claim <span class="math inline">\operatorname{ker}\Phi_T</span> is an
+ideal: If <span class="math inline">q\in\mathcal{P}</span> and <span
+class="math inline">p\in\operatorname{ker}\Phi_T</span> then <span
+class="math inline">qp\in\operatorname{ker}\Phi_T</span>.</p>
+<p>Since <span class="math inline">\mathcal{P}</span> is a PID we have
+<span class="math inline">\operatorname{ker}\Phi_T = (m)</span> for some
+polynomial <span class="math inline">m</span>, the <em>minimal
+polynomial</em>.</p>
+<p>For <span class="math inline">p\in\mathcal{P}</span> we have the
+inverse image of <span class="math inline">p(T)</span> is <span
+class="math inline">q + (m)</span></p>
+<p>Suppose <span
+class="math inline">\tau\colon\mathcal{L}(V)\to\boldsymbol{{R}}</span>
+is a linear operator, <span class="math inline">\tau(AB) =
+\tau(BA)</span>, and <span class="math inline">\tau(I) = \dim
+V</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">A</span>
+is similar to <span class="math inline">B</span> then <span
+class="math inline">\tau(A) = \tau(B)</span></em>.</p>
+<p>Trace is a natural transformation from <span
+class="math inline">\End(-)</span> to <span
+class="math inline">\boldsymbol{{R}}</span>.</p>
+<p><span class="math inline">\operatorname{eval}_V\colon V^*\otimes
+V\to\boldsymbol{{F}}</span>. <span class="math inline">v\otimes v^* =
+v^*(v)</span>.</p>
+<p><span
+class="math inline">\operatorname{coeval}_\boldsymbol{{F}}\colon\boldsymbol{{F}}\to
+V\otimes V^*</span></p>
+<p><span class="math inline">\otimes\colon V\times W\to V\otimes
+W</span>. If <span class="math inline">\beta\colon V\times W\to X</span>
+there exists a unique linear map <span class="math inline">\hat\beta
+V\otimes W \to X</span>.</p>
+<p><span class="math inline">\nu_V\colon I\to **</span> is a natural
+transformation.</p>
 </section>
 </body>
 </html>

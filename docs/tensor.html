@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-06-10" />
+  <meta name="dcterms.date" content="2025-07-23" />
   <title>Tensor</title>
   <style>
     code{white-space: pre-wrap;}
@@ -49,232 +49,612 @@
 <header id="title-block-header">
 <h1 class="title">Tensor</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">June 10, 2025</p>
+<p class="date">July 23, 2025</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#cartesian-product" id="toc-cartesian-product">Cartesian
-Product</a></li>
-<li><a href="#set-exponential" id="toc-set-exponential">Set
-Exponential</a></li>
-<li><a href="#tuple-array" id="toc-tuple-array">Tuple, Array</a></li>
-<li><a href="#dual" id="toc-dual">Dual</a></li>
-<li><a href="#matrix" id="toc-matrix">Matrix</a></li>
+<li><a href="#set" id="toc-set">Set</a></li>
+<li><a href="#composition" id="toc-composition">Composition</a></li>
+<li><a href="#curry" id="toc-curry">Curry</a></li>
+<li><a href="#evaluation" id="toc-evaluation">Evaluation</a></li>
+<li><a href="#relation" id="toc-relation">Relation</a></li>
+<li><a href="#vector-space" id="toc-vector-space">Vector Space</a></li>
+<li><a href="#linear-operator" id="toc-linear-operator">Linear
+Operator</a></li>
+<li><a href="#tensor" id="toc-tensor">Tensor</a></li>
 </ul>
 </nav>
 <p>There seems to be some uncertainty in the computer science community
-about exactly what a tensor is. This short note clarifies this by giving
-names to functions and composing them. The mathematical definitions can
-be translated directly into any computer language that allows functions
-to be defined and called.</p>
-<p>The vector space <span class="math inline">\bm{R}^n</span> is the set
-of tuples <span class="math inline">{x = (x_1,\ldots,x_n)}</span> where
-<span class="math inline">{x_i\in\bm{R}}</span>, <span
-class="math inline">{1\le i\le n}</span>. <em>Scalar multiplication</em>
-is defined by <span class="math inline">{a(x_1,\ldots,x_n) =
-(ax_1,\ldots,ax_n)}</span> for <span
-class="math inline">{a\in\bm{R}}</span>. <em>Vector addition</em> is
-defined by <span class="math inline">{(x_1,\ldots,x_n) +
-(y_1,\ldots,y_n)
-= (x_1 + y_1,\ldots,x_n + y_n)}</span>.</p>
-<p>Definitions involving dots are not ammenable to computer
-implementation. Every vector <span
-class="math inline">{x\in\bm{R}^n}</span> determines a function <span
-class="math inline">{\bm{x}\colon\bm{n}\to\bm{R}}</span> by <span
-class="math inline">{\bm{x}(i) = x_i}</span> for <span
-class="math inline">{i\in\bm{n} = \{1,\ldots,n\}}</span>. Scalar
-multiplication and vector addition can be defined <em>pointwise</em> by
-<span class="math inline">{(a\bm{x})(i) = a(\bm{x}(i))}</span> and <span
-class="math inline">{(\bm{x} + \bm{y})(i) = \bm{x}(i) +
-\bm{y}(i)}</span>, <span class="math inline">{1\le i\le n}</span>.</p>
-<p>The set of tuples <span class="math inline">\bm{R}^n</span> is not
-the same as the set of functions <span
-class="math inline">\bm{R}^\bm{n}</span> but they are in one-to-one
-correspondence. Define a map <span
-class="math inline">{\iota\colon\bm{R}^n\to\bm{R}^\bm{n}}</span> by
-<span class="math inline">{\iota x(i) = x_i}</span>, <span
-class="math inline">{x\in\bm{R}^n}</span>, <span
-class="math inline">{i\in\bm{n}}</span>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span
-class="math inline">\iota x = \iota y</span> then <span
-class="math inline">x = y</span>, <span
-class="math inline">x,y\in\bm{R}^n</span></em></p>
-<p><em>Hint</em>: Use <span class="math inline">x = y</span> if and only
-if <span class="math inline">x_i = y_i</span> for all <span
-class="math inline">i\in\bm{n}</span>.</p>
-<p>This shows <span class="math inline">\iota</span> is
-<em>one-to-one</em>, or <em>injective</em>.</p>
-<p><strong>Exercise</strong>. <em>Show for every <span
-class="math inline">\bm{x}\in\bm{R}^\bm{n}</span> there exists <span
-class="math inline">x\in\bm{R}^n</span> with <span
-class="math inline">\iota x = \bm{x}</span></em>.</p>
-<p><em>Hint</em>: Given <span
-class="math inline">\bm{x}\in\bm{R}^\bm{n}</span> let <span
-class="math inline">x_i = \bm{x}(i)</span>, <span
-class="math inline">i\in\bm{n}</span>.</p>
-<p>This show <span class="math inline">\iota</span> is <em>onto</em>, or
-<em>surjective</em>. A function that is one-to-one and onto is a
-<em>one-to-one correspondence</em>, or <em>bijective</em>.</p>
+about exactly what a tensor is. The only things involved are functions
+and their composition. This short note gives names to functions then
+composes them. The mathematical definitions can be translated directly
+into any computer language that allows functions to be defined and
+called. We cover topics described in <a
+href="https://tensorcookbook.com/">The Tensor Cookbook</a> but have no
+need for their graphical notations that do not have a direct translation
+to computer implementation.</p>
+<section id="set" class="level2">
+<h2>Set</h2>
+<p>Everything in classical mathematics is a <em>set</em>. We assume the
+reader knows what a set is and use <span class="math inline">\in</span>
+to denote set membership. The <em>set exponential</em> of the set <span
+class="math inline">A</span> and <span class="math inline">B</span> is
+<span class="math inline">B^A = \{f\colon A\to B\}</span>, the set of
+all functions from <span class="math inline">A</span> to <span
+class="math inline">B</span>. We also write this as <span
+class="math inline">\{A\to B\}</span>. The <em>domain</em> of a function
+<span class="math inline">f\colon A\to B</span> is <span
+class="math inline">\operatorname{dom}f = A</span> and the
+<em>codomain</em> is <span class="math inline">\operatorname{cod}f =
+B</span>.</p>
+<p>The <em>cartesian product</em> of sets <span
+class="math inline">A</span> and <span class="math inline">B</span> is
+<span class="math inline">{A\times B = \{(a,b)\mid a\in A,
+b\in B\}}</span>, the set of ordered pairs of elements from the two
+sets.</p>
+<p><strong>Exercise</strong>. (Kuratowski) <em>Show we can identify the
+ordered pair <span class="math inline">(a,b)</span> with the set <span
+class="math inline">\{\{a\},\{a,b\}\}</span></em>.</p>
+<p><em>Hint</em>: An ordered pair is defined by <span
+class="math inline">(a,b) = (c,d)</span> if and only if <span
+class="math inline">a = c</span> and <span class="math inline">b =
+d</span>. Show <span class="math inline">\{\{a\}, \{a,b\}\} = \{\{c\},
+\{c,d\}\}</span> if and only if <span class="math inline">a = c</span>
+and <span class="math inline">b = d</span>.</p>
+<p><strong>Exercise</strong>. A function can be identified with its
+<span class="math inline">\operatorname{graph}f = \{(a, f(a))\mid a\in
+A\}\subseteq A\times B</span>.</p>
+<p><em>Hint</em>: <span class="math inline">f(a) = b</span> if and only
+if <span class="math inline">(a,b)\in\operatorname{graph}f</span>.</p>
+<p>If <span class="math inline">f\colon A\to B</span> we say <span
+class="math inline">a,a&#39;\in A</span> are <em>equivalent</em> if
+<span class="math inline">f(a) = f(a&#39;)</span>. The <em>equivalence
+class</em> of <span class="math inline">a\in A</span> is <span
+class="math inline">[a] = \{a&#39;\in A\mid f(a) = f(a&#39;)\}</span>.
+The <em>kernel</em> of a <span class="math inline">f</span> is <span
+class="math inline">\ker f = \{[a]\mid a\in A\}</span>.</p>
+<p>The kernel of a function is a <em>partition</em> of its domain.</p>
+<p><strong>Exercise</strong>. <em>Show the union of <span
+class="math inline">\ker f</span> is <span
+class="math inline">A</span></em>.</p>
+<p><em>Hint</em>. Show <span class="math inline">\cup_{a\in A} [a] =
+A</span> using <span class="math inline">a\in[A]</span> for <span
+class="math inline">a\in A</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the elements of <span
+class="math inline">\ker f</span> are either disjoint or equal</em>.</p>
+<p><em>Hint</em>. If <span class="math inline">x\in
+[a]\cap[a&#39;]</span> then <span class="math inline">f(x) = f(a)</span>
+and <span class="math inline">f(x) = f(a&#39;)</span> so <span
+class="math inline">f(a) = f(a&#39;)</span>. If <span
+class="math inline">y\in [a]</span> then <span class="math inline">f(y)
+= f(a) = f(a&#39;)</span> so <span class="math inline">y\in
+[a&#39;]</span>. Show the converse also holds.</p>
+<p>The last two exercises show <span class="math inline">\ker f</span>
+is a partiion of <span class="math inline">A</span>. Partitions are a
+way to loosen the notion of equality to <em>equivalence</em>. They are
+also a way of modeling partial information. Full information is knowing
+the element <span class="math inline">a\in A</span>, partial information
+is only knowing <span class="math inline">[a]</span>, no information is
+only knowing <span class="math inline">a\in A</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the parition <span
+class="math inline">\{\{a\}\mid a\in A\}</span> represents full
+information and the partition <span class="math inline">\{A\}</span>
+represents no information</em>.</p>
+<p>A function <span class="math inline">f\colon A\to B</span> is
+<em>one-to-one</em>, or <em>injective</em>, if <span
+class="math inline">[a]</span> is a singleton (has exactly one element)
+for all <span class="math inline">a\in A</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
+A\to B</span> is injective then <span class="math inline">f(a) =
+f(a&#39;)</span> implies <span class="math inline">a =
+a&#39;</span></em>.</p>
+<p>The <em>range</em> of <span class="math inline">f\colon A\to B</span>
+is <span class="math inline">\operatorname{ran}f = \{f(a)\mid a\in
+A\}</span>. It is <em>onto</em>, or <em>surjective</em> if <span
+class="math inline">\operatorname{ran}f = B</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
+A\to B</span> is surjective then for every <span
+class="math inline">b\in B</span> there exists at least one <span
+class="math inline">a\in A</span> with <span class="math inline">f(a) =
+b</span></em>.</p>
+<p>Set exponential, domain, codomain…</p>
+</section>
+<section id="composition" class="level2">
+<h2>Composition</h2>
+<p>The <em>composition</em> of two compatible functions is a function
+<span class="math inline">\circ\colon\{A\to B\}\times\{B\to C\}\to\{A\to
+C\}</span> defined by <span class="math inline">\circ(f,g)(a) =
+g(f(a))</span>, <span class="math inline">a\in A</span>. This is also
+written as <span class="math inline">g\circ f</span> or simply <span
+class="math inline">gf</span> when it is clear composition is intended.
+Note the order of <span class="math inline">f</span> and <span
+class="math inline">g</span> are reversed. If <span
+class="math inline">\operatorname{cod}f = \operatorname{dom}g</span>
+then the composition <span class="math inline">{\circ(f,g) = g\circ f =
+gf}</span> exists. We could write <span class="math inline">B^A</span>
+as <span class="math inline">\{B\leftarrow A\}</span> and define
+composition as <span class="math inline">\circ\colon\{C\leftarrow
+B\}\times\{B\leftarrow A\}\to\{C\leftarrow A\}</span> by <span
+class="math inline">\circ(g,f)(a) = g(f(a))</span> so we don’t have to
+reverse the order of <span class="math inline">f</span> and <span
+class="math inline">g</span>, but we resist this temptation and stick to
+standard mathematical notation.</p>
+<p><strong>Exercise</strong>. <em>Show composition of functions is
+associative</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">f\colon A\to B</span>,
+<span class="math inline">g\colon B\to C</span>, and <span
+class="math inline">h\colon C\to D</span> show <span
+class="math inline">h\circ(g\circ f) = (h\circ g)\circ f</span>.</p>
+<p>This allows us to write <span class="math inline">h\circ g\circ
+f</span> unambiguosly.</p>
+<p>Given a set <span class="math inline">A</span> define the
+<em>identity function</em> <span class="math inline">1_A\colon A\to
+A</span> by <span class="math inline">1_A(a) = a</span> for <span
+class="math inline">a\in A</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
+A\to B</span> is a function then <span class="math inline">f1_A =
+f</span> and <span class="math inline">1_Bf = f</span></em>.</p>
+<p>The last two exercises shows sets and functions are the objects and
+arrows of a <a
+href="https://en.wikipedia.org/wiki/Category_(mathematics)"
+target="_blank">category</a> denoted by <a
+href="https://en.wikipedia.org/wiki/Category_of_sets"
+target="_blank"><span
+class="math inline">\text{\bf{Set}}</span></a>.</p>
+<p><strong>Exercise</strong>. _Show if <span class="math inline">f\colon
+A\to B</span> is injective then there exists <span
+class="math inline">g\colon B\to A</span> with <span
+class="math inline">gf = 1_A</span>.</p>
+<p><em>Hint</em>: If <span class="math inline">f(a) = b</span> then
+<span class="math inline">b\in[a]</span>. Since <span
+class="math inline">[a]</span> is a singleton we can define <span
+class="math inline">g(b) = a</span>.</p>
+<p><strong>Exercise</strong>. _Show if <span class="math inline">f\colon
+A\to B</span> is surjective then there exists <span
+class="math inline">g\colon B\to A</span> with <span
+class="math inline">fg = 1_B</span>.</p>
+<p><em>Hint</em>: For every <span class="math inline">b\in B</span>
+there exists <span class="math inline">a\in A</span> with <span
+class="math inline">f(a) = b</span>. Let <span class="math inline">g(b)
+= a</span>. In general, there are many right inverses.</p>
+<p>These two exercises show it is possible to define injective and
+surjective without mentioning elements of sets.</p>
+</section>
+<section id="curry" class="level2">
+<h2>Curry</h2>
+<p><em>Currying</em> and <em>uncurrying</em> provides a connection
+between set exponential and cartesian product. The set <span
+class="math inline">{\{A\times B\to C\}}</span> is in one-to-one
+correspondence with the set <span class="math inline">{\{A\to\{B\to
+C\}\}}</span>. Given <span class="math inline">{f\in\{A\times B\to
+C\}}</span> define <span
+class="math inline">{\operatorname{curry}f\colon A\to\{B\to C\}}</span>
+by <span class="math inline">{((\operatorname{curry}f)(a))(b) =
+f(a,b)}</span>. The inverse is <em>uncurrying</em>. Given <span
+class="math inline">{g\in\{A\to\{B\to C\}\}}</span> define <span
+class="math inline">{\operatorname{uncurry}g\colon A\times B\to
+C}</span> by <span class="math inline">{(\operatorname{uncurry}g)(a,b) =
+(g(a))(b)}</span>.</p>
+<p>Using the non-standard notation <span
+class="math inline">\operatorname{curry}f = f,</span> then <span
+class="math inline">f,a(b) = f(a,b)</span> and <span
+class="math inline">\operatorname{uncurry}g = ,g</span> then <span
+class="math inline">,g(a,b) = ga(b)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">,(f,) =
+f</span> and <span class="math inline">(,g), = g</span></em>.</p>
+<p><em>Hint</em>. <span class="math inline">,(f,)(a,b) = f,a(b) =
+f(a,b)</span> and <span class="math inline">(,g),a(b) = ,g(a,b) =
+ga(b)</span>.</p>
+</section>
+<section id="evaluation" class="level2">
+<h2>Evaluation</h2>
+<p><em>Evaluation</em> is a function <span
+class="math inline">\operatorname{eval}\colon\{A\to B\}\times A\to
+B</span> defined by <span class="math inline">\operatorname{eval}(f,a) =
+f(a)</span>, <span class="math inline">f\in\{A\to B\}</span>, <span
+class="math inline">a\in A</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\iota(ax) = a(\iota x)</span> and <span
-class="math inline">\iota(x + y) = \iota x + \iota y</span> for <span
-class="math inline">a\in\bm{R}</span>, <span
-class="math inline">x,y\in\bm{R}^n</span></em>.</p>
-<p>This shows <span class="math inline">\iota</span> is a <em>linear
-operator</em>, a function from one vector space to another that
-preserves the linear structure. If a linear operator is bijective we
-call it an <em>isomorphism</em>.</p>
-<section id="cartesian-product" class="level2">
-<h2>Cartesian Product</h2>
-<p>The <em>cartesian product</em> <span class="math inline">\prod_{i\in
-I}A_i</span> of sets <span class="math inline">A_i</span>, <span
-class="math inline">i\in I</span>, is defined by <em>projections</em>
-<span class="math inline">\pi_i\colon \Pi_{i\in I}A_i\to A_i</span>,
-<span class="math inline">i\in I</span> having the property that if
-<span class="math inline">P</span> is a set with functions <span
-class="math inline">p_i\colon P\to A_i</span>, <span
-class="math inline">i\in I</span>, then there exists a function <span
-class="math inline">p\colon P\to\prod_{i\in I}A_i</span> with <span
-class="math inline">\pi_ip = p_i</span>, <span class="math inline">i\in
-I</span>.</p>
-<p>If <span class="math inline">P</span> is a set with functions <span
-class="math inline">p_i\colon P\to A_i</span>, <span
-class="math inline">i\in I</span> having the property that if <span
-class="math inline">Q</span> is a set with functions <span
-class="math inline">q_i\colon Q\to A_i</span>, <span
-class="math inline">i\in I</span>, then there exists a function <span
-class="math inline">q\colon Q\to P</span> with <span
-class="math inline">p_iq = q_i</span>, <span class="math inline">i\in
-I</span>, then <span class="math inline">P</span> is in one-to-one
-correspondence with <span class="math inline">\prod_{i\in
-I}A_i</span>.</p>
-<p><strong>Exercise</strong>. <em>Prove this</em>.</p>
-<p><em>Hint</em>: Let <span class="math inline">Q = \prod_{i\in
-I}A_i</span> and <span class="math inline">q_i = \pi_i</span>.</p>
-<details>
-<summary>
-Solution
-</summary>
-We have <span class="math inline">p\colon P\to\prod_{i\in I}A_i</span>
-with <span class="math inline">\pi_ip = p_i</span> and <span
-class="math inline">q\colon\prod_{i\in I}A_i\to P</span> with <span
-class="math inline">p_i q = \pi_i</span>. Use this to show this defines
-an isomorphism.
-</details>
+class="math inline">\operatorname{eval}(f,a) =
+f1_{\{a\}}(a)</span></em>.</p>
 </section>
-<section id="set-exponential" class="level2">
-<h2>Set Exponential</h2>
-<p>Given sets <span class="math inline">A</span> and <span
-class="math inline">B</span>, the <em>set exponential</em> <span
-class="math inline">B^A</span> is the set of all functions from <span
-class="math inline">A</span> to <span class="math inline">B</span>. It
-is related to cartesian product by <span class="math inline">C^{A\times
-B}</span> is in one-to-one correspondence with <span
-class="math inline">C^{B^A}</span>. If we write <span
-class="math inline">B^A = \{A\to B\}</span> this says <span
-class="math inline">\{A\times B\to C\}</span> is in one-to-one
-correspondence with <span class="math inline">\{A\to\{B\to C\}\}</span>
-and is more easily recognized as <em>currying</em>. If we have a
-function <span class="math inline">f\colon A\times B\to C</span> and
-<span class="math inline">a\in A</span> we can define a function from
-<span class="math inline">B\to C</span> by <span
-class="math inline">b\mapsto f(a,b)</span>. Conversly, if we have a
-function <span class="math inline">g\colon A\to C^B</span> we can define
-a function from <span class="math inline">A\times B</span> to <span
-class="math inline">C</span> by <span class="math inline">(a,b)\mapsto
-(g(a))(b) = (ga)b</span>.</p>
-<p>If <span class="math inline">f\colon A\to B</span> is a function then
-the value of <span class="math inline">f</span> at <span
-class="math inline">a\in A</span> is <span
-class="math inline">f(a)</span>. We reify this with the name <span
-class="math inline">\operatorname{eval}_B^A\colon B^A\times A\to
-B</span> defined by <span
-class="math inline">\operatorname{eval}_B^A(f,a) = f(a)</span>. If <span
-class="math inline">g\in (C^B)^A</span> and <span
-class="math inline">a\in A</span> then <span
-class="math inline">\operatorname{eval}_{C^B}^A(g, a)\in C^B</span> is
-called <em>partial evaluation</em>.</p>
-</section>
-<section id="tuple-array" class="level2">
-<h2>Tuple, Array</h2>
-<p>Given any <em>index set</em> <span class="math inline">I</span> the
-cartesian product <span class="math inline">\prod_{i\in I}\bm{R}</span>
-is isomorphic to the set exponential <span
-class="math inline">\bm{R}^I</span>. Elements of the cartesian product
-are <em>tuples</em>. Elements of the set exponential are
-<em>arrays</em>.</p>
-<p>A <em>view</em> of <span class="math inline">\bm{R}^I</span> is a
-function <span class="math inline">\sigma\colon J\to I</span> and is
-used to define a function <span
-class="math inline">\circ\sigma\colon\bm{R}^I\to\bm{R}^J</span> by right
-composition <span class="math inline">(\circ\sigma)x = x\circ\sigma =
-x\sigma</span> so <span class="math inline">(x\sigma)(j) =
-x(\sigma(j))</span>, <span class="math inline">x\in\bm{R}^I</span>,
-<span class="math inline">j\in J</span>.</p>
+<section id="relation" class="level2">
+<h2>Relation</h2>
+<p>A <em>relation</em> on sets <span class="math inline">A</span> and
+<span class="math inline">B</span> is a subset <span
+class="math inline">R\subseteq A\times B</span>. We write <span
+class="math inline">aRb</span> whenever <span
+class="math inline">(a,b)\in R</span>. The <em>left coset</em> is <span
+class="math inline">Rb = \{a\in A\mid aRb\}</span> and the <em>right
+coset</em> iis <span class="math inline">aRb = \{b\in B\mid
+aRb\}</span>. If for every <span class="math inline">a\in A</span> the
+right coset <span class="math inline">aR</span> is a singleton then
+<span class="math inline">R</span> is a function and we write <span
+class="math inline">R(a) = b</span> where <span class="math inline">b\in
+B</span> is the unique element of <span
+class="math inline">aR</span>.</p>
+<p>The <em>composition</em> of relations <span
+class="math inline">R\subseteq A\times B</span> and <span
+class="math inline">S\subseteq B\times C</span> is <span
+class="math inline">SR = \{a\in A, c\in C\mid aRb\text{ and }bSc\text{
+for some }b\in B\}</span>. This is used in the definition of the various
+<a
+href="https://learn.microsoft.com/en-us/sql/relational-databases/performance/joins?view=sql-server-ver17"
+target="_black"><code>JOIN</code></a> commands in SQL.</p>
+<p>Relations on <span class="math inline">A\times A</span> are
+classified by properties they satisfy</p>
+<!--
+----------------   ---------------
+    _reflexive_:   $aRa$ is always true
+  _irreflexive_:   $aRa$ is always false
+    _symmetric_:   $aRb$ implies $bRa$
+_antisymmetric_:   $aRb$ and $bRa$ imply $a = b$
+   _transitive_:   $aRb$ and $bRc$ imply $aRc$
+----------------   ---------------
+-->
+<p>The relation <em>equal</em> is <span
+class="math inline">=\subseteq\{(a,a)\mid a\in A\}</span>. It is a left
+and right identity for composition.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\circ\sigma</span> is a linear operator</em>.</p>
-<p><em>Hint</em>: Show <span class="math inline">a(x\sigma) =
-(ax)\sigma</span> and <span class="math inline">(x + y)\sigma = x\sigma
-+ y\sigma</span>.</p>
+class="math inline">=R</span>, <span class="math inline">R</span>, and
+<span class="math inline">R=</span> are all equal</em>.</p>
 <p><strong>Exercise</strong>. <em>Show if <span
-class="math inline">\sigma</span> is one-to-one then <span
-class="math inline">\circ\sigma</span> is onto.</em></p>
-<p><em>Hint</em>: Show there exists <span
-class="math inline">\sigma^\dashv\colon I\to J</span> with <span
-class="math inline">\sigma^\dashv\sigma = 1_J</span>. If <span
-class="math inline">x\in\bm{R}^J</span> then <span
-class="math inline">x\sigma^\dashv\in\bm{R}^I</span> and <span
-class="math inline">x\sigma^\dashv\sigma = x</span>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span
-class="math inline">\sigma</span> is onto then <span
-class="math inline">\circ\sigma</span> is one-to-one.</em></p>
-<p><em>Hint</em>: Show there exists <span
-class="math inline">\sigma^\vdash\colon J\to I</span> with <span
-class="math inline">\sigma\sigma^\vdash = 1_I</span>. If <span
-class="math inline">x\sigma = y\sigma</span>, <span
-class="math inline">x,y\in\bm{R}^I</span>, then <span
-class="math inline">x\sigma\sigma^\vdash = y\sigma\sigma^\vdash</span>
-and <span class="math inline">x = y</span>.</p>
-<p>This shows if <span class="math inline">\sigma</span> is one-to-one
-and onto then <span class="math inline">\circ\sigma</span> is an
-isomorphism.</p>
-<p>If <span class="math inline">J\subset I</span> we write <span
-class="math inline">[J]\colon J\to I</span> for the inclusion map and
-call <span class="math inline">x[J]</span> the <em>projection</em> on
-<span class="math inline">J</span> of <span
-class="math inline">x\in\bm{R}^I</span>.</p>
+class="math inline">R</span> is reflexive then <span
+class="math inline">=\subseteq R</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">R</span> is symmetric if and only if <span
+class="math inline">aR = Ra</span>, <span class="math inline">a\in
+A</span></em>.</p>
+<p>The Kleen star of a relation <span class="math inline">R</span> is
+<span class="math inline">R^* = \cup_{n&gt;0} R^n</span> where <span
+class="math inline">R^n</span> is <span class="math inline">R</span>
+composed with itself <span class="math inline">n</span> times.</p>
+<p><strong>Exercise</strong>. <em>Show the Kleen star of any relation is
+transitive</em>.</p>
+<p><em>Hint</em>. Note <span class="math inline">aR^*b</span> if and
+only if <span class="math inline">aR^nb</span> for some <span
+class="math inline">n</span> and <span class="math inline">R^nR^m =
+R^{n+m}</span>.</p>
+<p>An <em>equivalence relation</em> is reflexive, symmetric, and
+transitive. Note <em>equal</em> is an equivalence relation.</p>
+<p><strong>Exercise</strong>. _Show if <span
+class="math inline">R</span> is an equivalence relation then <span
+class="math inline">aRb</span> if and only if <span
+class="math inline">aR = Rb</span>.</p>
+<p>This shows equivalence is equality of cosets.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">R</span>
+is an equivalence relation show <span class="math inline">\{aR\mid a\in
+A\}</span> is a partition of <span
+class="math inline">A</span></em>.</p>
+<p><em>Hint</em>. Show <span class="math inline">\cup_{a\in A}aR =
+A</span> and if <span class="math inline">aR\cap Rb\neq\emptyset</span>
+then <span class="math inline">aR = Rb</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\{A_i\}_{i\in I}</span> is a partition of <span
+class="math inline">A</span> and <span class="math inline">aRb</span> if
+and only if there exists <span class="math inline">i\in I</span> with
+<span class="math inline">a,b\in A_i</span> then <span
+class="math inline">R</span> is an equivalence relation</em>.</p>
 </section>
-<section id="dual" class="level2">
-<h2>Dual</h2>
-<p>The <em>dual</em> of the vector space <span
-class="math inline">\bm{R}^I</span> is the set of all linear operators
-from <span class="math inline">\bm{R}^I</span> to <span
-class="math inline">\bm{R}</span>. The <em>standard basis</em> of <span
+<section id="vector-space" class="level2">
+<h2>Vector Space</h2>
+<p>If the base of a set exponential is a <em>field</em> then <span
+class="math inline">\bm{F}^I</span> is a <em>vector space</em> for any
+<em>index set</em> <span class="math inline">I</span>. Typically <span
+class="math inline">\bm{F}</span> is the real numbers <span
+class="math inline">\bm{R}</span>, the complex numbers <span
+class="math inline">\bm{C}</span>, the rational numbers <span
+class="math inline">\bm{Q}</span>, or integers modulo <span
+class="math inline">p</span> <span class="math inline">\bm{Z}_p</span>
+where <span class="math inline">p</span> is prime. If <span
+class="math inline">I = \{1,\ldots,n\}</span> or <span
+class="math inline">I = \{0,\ldots,n-1\}</span> we write <span
+class="math inline">\bm{F}^{\bm{n}}</span> when the base index of 1 or 0
+is understood. Scalar multiplication and vector addition are defined
+pointwise: <span class="math inline">(ax)(i) = a(x(i))</span> and <span
+class="math inline">(x + y)(i) = x(i) + y(i)</span> for <span
+class="math inline">a\in\bm{F}</span>, <span
+class="math inline">x,y\in\bm{F}^I</span>. The additive identity is
+<span class="math inline">\bm{0} = 0_I</span> defined by <span
+class="math inline">\bm{0}(i) = 0</span>, <span class="math inline">i\in
+I</span>. The <em>additive inverse</em> of <span
+class="math inline">x\in\bm{F}^I</span> is <span
+class="math inline">-x</span> defined by <span
+class="math inline">(-x)(i) = -x(i)</span>, <span
+class="math inline">i\in I</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\bm{F}^I</span> satisfies the <a
+href="https://www.math.ucla.edu/~tao/resource/general/121.1.00s/vector_axioms.html"
+target="_blank">vector space axioms</a></em>.</p>
+<p>The <em>standard basis</em> of <span
 class="math inline">\bm{R}^I</span> is <span
 class="math inline">(e_i)_{i\in I}</span> where <span
-class="math inline">e_i(j) = \delta_{ij}</span> is the Kronecker delta:
-<span class="math inline">\delta_{ij} = 1</span> if <span
-class="math inline">i = j</span> and <span
-class="math inline">\delta_{ij} = 0</span> if <span
-class="math inline">i \not= j</span>.</p>
+class="math inline">e_i(j) = \delta_{ij}</span> is the Kronecker delta.
+We write <span class="math inline">e_i^I</span> to indicate <span
+class="math inline">e_i\in\bm{F}^I</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">x =
-\sum_{i\in I} x(i)e_i</span> if <span class="math inline">I</span> is
+\sum_{i\in I} x(i) e_i</span> when <span class="math inline">I</span> is
 finite</em>.</p>
-<p><em>Hint</em>: Evaluate <span class="math inline">x(j)</span>, <span
-class="math inline">j\in I</span>.</p>
+<p><em>Hint</em>. If <span class="math inline">x,y\in\bm{F}^I</span>
+then <span class="math inline">x = y</span> if and only if <span
+class="math inline">x(j) = y(j)</span> for all <span
+class="math inline">j\in I</span>. What is <span
+class="math inline">x(j)</span>?</p>
+<p>We can identify <span class="math inline">\bm{F}^I</span> with the
+cartesian product of <span class="math inline">I</span> copies of the
+field <span class="math inline">\bm{F}</span>. The element <span
+class="math inline">(x_i)_{i\in I}</span> in the cartesian product
+corresponds to the function <span
+class="math inline">x\in\bm{F}^I</span> by <span
+class="math inline">x(i) = x_i</span>, <span class="math inline">i\in
+I</span>.</p>
+<p>A simple but quite useful observation is that if <span
+class="math inline">\sigma\colon J\to I</span> is any function then
+<span class="math inline">\circ\sigma\colon\bm{F}^I\to\bm{F}^J</span> by
+<span class="math inline">x\mapsto x\circ\sigma</span>, <span
+class="math inline">x\in\bm{F}^I</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\circ\sigma(ax) = a(\circ\sigma(x))</span> and <span
+class="math inline">\circ\sigma(x + y) = \circ\sigma(x) +
+\circ\sigma(y)</span> for <span class="math inline">a\in\bm{R}</span>
+and <span class="math inline">x,y\in\bm{F}^I</span></em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">(ax)\sigma =
+a(x\sigma)</span> and <span class="math inline">(x + y)\sigma = x\sigma
++ y\sigma</span> on <span class="math inline">\bm{F}^J</span>.</p>
+<p>If <span class="math inline">i\in I</span> and <span
+class="math inline">{\sigma_i\colon\{i\}\to I}</span> is the inclusion
+<span class="math inline">{i\mapsto i}</span> then <span
+class="math inline">{\circ\sigma_i\colon\bm{F}^I\to\bm{F}^{\{i\}}}</span>.
+We can identify <span class="math inline">\bm{F}^{\{i\}}</span> with
+<span class="math inline">\bm{F}</span> by <span
+class="math inline">(x)\leftrightarrow x</span> and get a map <span
+class="math inline">{e_i^* =
+e_i^{I*}\colon\bm{F}^I\to\bm{F}}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x =
+\sum_{i\in I}e_i^*(x) e_i</span>, <span
+class="math inline">x\in\bm{F}^I</span>, if <span
+class="math inline">I</span> is finite</em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">e_i*(x) =
+x(i)</span>.</p>
+<p>A <em>subspace</em> is a subset <span
+class="math inline">V\subseteq\bm{R}^I</span> that is closed under
+scalar multiplication and vector addition. There are two trivial
+subspaces.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\{0\}</span> and <span
+class="math inline">\bm{F}^I</span> are subspaces of <span
+class="math inline">\bm{F}^I</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">v\in\bm{F}^I</span> then <span
+class="math inline">\{av\mid a\in\bm{F}\}</span> is a subspace</em>.</p>
+<p><em>Hint</em>: <span class="math inline">b(av) = (ba)v</span> and
+<span class="math inline">av + bv = (a + b)v</span> for <span
+class="math inline">a,b\in\bm{F}</span>.</p>
+<p>Given <span class="math inline">v_1,\ldots,v_k\in\bm{F}^I</span>
+define their <em>span</em> as the set of <em>linear combinations</em>
+<span class="math inline">\operatorname{span}\{v_j\}_{j=1}^k =
+\{\sum_{j=1}^k a_j v_j\mid a_f\in\bm{F}\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the span is a subspace</em>.</p>
+<p><em>Hint</em>. Use <span class="math inline">a(\sum_j a_j v_j) =
+\sum_j aa_j v_j</span> and <span class="math inline">\sum_j a_j v_j +
+\sum_j b_j v_j = \sum_j (a_j + b_j) v_j</span>.</p>
+<p>The vectors <span
+class="math inline">v_1,\ldots,v_k\in\bm{F}^I</span> are
+<em>independent</em> if for <span
+class="math inline">a_1,\ldots,a_k\in\bm{F}</span>, <span
+class="math inline">\sum_j a_j v_j = 0</span> implies <span
+class="math inline">a_j = 0</span> for all <span
+class="math inline">j</span>.</p>
+<p>The vectors <span
+class="math inline">v_1,\ldots,v_k\in\bm{F}^I</span> are
+<em>dependent</em> (not independent) if there exist <span
+class="math inline">a_1,\ldots,a_k\in\bm{F}</span>, not all 0, with
+<span class="math inline">\sum_j a_j v_j = 0</span>. If <span
+class="math inline">a_j\not=0</span> then <span class="math inline">v_j
+= -\sum_{i\not=j} a_i/a_j v_i</span>.</p>
 </section>
-<section id="matrix" class="level2">
-<h2>Matrix</h2>
-<p>A <em>matrix</em> is an array where the index set is the cartesian
-product of two sets <span class="math inline">\bm{R}^{I\times
+<section id="linear-operator" class="level2">
+<h2>Linear Operator</h2>
+<p>Any function <span
+class="math inline">T\colon\bm{F}^I\to\bm{F}^J</span> satisfying <span
+class="math inline">T(ax) = a(Tx)</span> and <span
+class="math inline">T(x + y) = Tx + Ty</span> for <span
+class="math inline">a\in\bm{F}</span>, <span
+class="math inline">x,y\in\bm{F}^I</span> is a <em>linear operator</em>.
+We use <span class="math inline">\mathcal{L}(\bm{F}^I, \bm{F}^J)</span>
+and <span class="math inline">[\bm{R}^I\to\bm{F}^J]</span> to denote the
+space of all linear operators. Linear operators also are a vector space
+with scalar multiplication <span class="math inline">(aT)(x) =
+aT(x)</span> and vector addition <span class="math inline">(T + U)(x) =
+Tx + Ux</span>, <span class="math inline">a\in\bm{F}</span>, <span
+class="math inline">T,U\in[\bm{F}^I\to\bm{F}^J]</span>, <span
+class="math inline">x\in\bm{F}^I</span>.</p>
+<p><strong>Exercise</strong>. <em>Prove <span class="math inline">T0 =
+0</span></em>.</p>
+<p><em>Hint</em>: Usee <span class="math inline">x + x = x</span>
+implies <span class="math inline">x=\bm{0}</span>.</p>
+<p>The <em>kernel</em> of a linear operator <span
+class="math inline">T\colon\bm{F}^I\to\bm{F}^J</span> is <span
+class="math inline">{\ker T = \{x\in\bm{F}^I\mid Tx =
+0\}\subseteq\bm{F}^J}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\ker
+T</span> is a subspace of <span
+class="math inline">\bm{F}^I</span></em>.</p>
+<p><em>Hint</em>. Show if <span class="math inline">Tx = 0</span> then
+<span class="math inline">T(ax) = 0</span> and <span
+class="math inline">Tx = 0</span>, <span class="math inline">Ty =
+0</span> implies T(x + y) = 0$.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">Tx =
+Ty</span> then <span class="math inline">x - y\in\ker T</span></em>.</p>
+<p><em>Hint</em>. Use <span class="math inline">T</span> is linear.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">\ker
+T = \{0\}</span> then <span class="math inline">T</span> is
+injective</em>.</p>
+<p>The <em>matrix</em> of a linear operator <span
+class="math inline">T\in[\bm{F}^I\to\bm{F}^J]</span> is <span
+class="math inline">[T]\in\bm{F}^{I\times J}</span> defined by <span
+class="math inline">[t_{ij}] = [T](i,j) = e_j^{J*} Te_i^I</span>, <span
+class="math inline">i\in I</span>, <span class="math inline">j\in
+J</span>.</p>
+<p>Since <span class="math inline">I\times J</span> is a set <span
+class="math inline">\bm{F}^{I\times J}</span> is a vector space and
+<span class="math inline">[T] = \sum_{i,j} t_{ij} e_{ij}</span> where
+<span class="math inline">(e_{ij})_{i\in I, j\in J}</span> is the
+standard basis of <span class="math inline">\bm{F}^{I\times
 J}</span>.</p>
-<p>A vector is usually represented on a computer as a contiguous array
-of memory with elements of the same type. The real numbers are uniquely
-characterized mathematically as a complete Archemedean ordered field.
-Computers can only model real numbers as a finite number of bits. The
-most common representation is 64-bit or 32-bit IEEE 754 floating
-point.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">T\mapsto [T]</span> is linear</em>.</p>
+<p><em>Hint</em>. Show <span class="math inline">[aT] = a[T]</span> and
+<span class="math inline">[T + U] = [T] + [U]</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">T\colon\bm{F}^I\bm{F}^J</span> and <span
+class="math inline">U\colon\bm{F}^J\to\bm{F}^K</span> then <span
+class="math inline">[UT](i,k) = \sum_{j\in J} t(i,j)
+u(j,k)</span></em>.</p>
+<p><em>Hint</em>.</p>
+</section>
+<section id="tensor" class="level2">
+<h2>Tensor</h2>
+<p><span class="math inline">\bm{F}^{I\times J}</span> is a rank 2
+tensor.</p>
+<p>A <em>tensor</em> is an element of <span
+class="math inline">\bm{F}^{\bm{n_1}}\times\cdots\times\bm{n_r}</span>
+where <span class="math inline">r</span> is the <em>rank</em> of the
+tensor.</p>
 <!--
+
+The vector space $\RR^n$ is the set of tuples ${x = (x_1,\ldots,x_n)}$ where
+${x_i\in\RR}$, ${1\le i\le n}$. _Scalar multiplication_
+is defined by ${a(x_1,\ldots,x_n) = (ax_1,\ldots,ax_n)}$ for ${a\in\RR}$.
+_Vector addition_ is defined by ${(x_1,\ldots,x_n) + (y_1,\ldots,y_n)
+= (x_1 + y_1,\ldots,x_n + y_n)}$.
+
+Definitions involving dots are not ammenable to computer
+implementation. Every vector ${x\in\RR^n}$ determines a function
+${\bm{x}\colon\bm{n}\to\RR}$ by ${\bm{x}(i) = x_i}$ for ${i\in\bm{n} = \{1,\ldots,n\}}$.
+Scalar multiplication and vector addition can
+be defined _pointwise_ by ${(a\bm{x})(i) = a(\bm{x}(i))}$ and
+${(\bm{x} + \bm{y})(i) = \bm{x}(i) + \bm{y}(i)}$, ${1\le i\le n}$.
+
+The set of tuples $\RR^n$ is not the same as the set of functions $\RR^\bm{n}$
+but they are in one-to-one correspondence.
+Define a map ${\iota\colon\RR^n\to\RR^\bm{n}}$ by ${\iota x(i) = x_i}$, ${x\in\RR^n}$, ${i\in\bm{n}}$.
+
+
+__Exercise__. _Show if $\iota x = \iota y$ then $x = y$, $x,y\in\RR^n$_
+
+_Hint_: Use $x = y$ if and only if $x_i = y_i$ for all $i\in\bm{n}$.
+
+This shows $\iota$ is _one-to-one_, or _injective_.
+
+__Exercise__. _Show for every $\bm{x}\in\RR^\bm{n}$ there exists $x\in\RR^n$ with $\iota x = \bm{x}$_.
+
+_Hint_: Given $\bm{x}\in\RR^\bm{n}$ let $x_i = \bm{x}(i)$, $i\in\bm{n}$.
+
+This show $\iota$ is _onto_, or _surjective_.
+A function that is one-to-one and onto is a _one-to-one correspondence_, or _bijective_.
+
+__Exercise__. _Show $\iota(ax) = a(\iota x)$ and $\iota(x + y) = \iota x + \iota y$ for
+$a\in\RR$, $x,y\in\RR^n$_.
+
+This shows $\iota$ is a _linear operator_, a function from one vector space to
+another that preserves the linear structure.
+If a linear operator is bijective we call it an _isomorphism_.
+
+## Cartesian Product
+
+The _cartesian product_ $\prod_{i\in I}A_i$ of sets $A_i$, $i\in I$, is defined
+by _projections_ $\pi_i\colon \Pi_{i\in I}A_i\to A_i$, $i\in I$ having the property
+that if $P$ is a set with functions $p_i\colon P\to A_i$, $i\in I$, then there exists
+a function $p\colon P\to\prod_{i\in I}A_i$ with $\pi_ip = p_i$, $i\in I$.
+
+If $P$ is a set with functions $p_i\colon P\to A_i$, $i\in I$ having the property
+that if $Q$ is a set with functions $q_i\colon Q\to A_i$, $i\in I$, then there exists
+a function $q\colon Q\to P$ with $p_iq = q_i$, $i\in I$, then $P$ is in
+one-to-one correspondence with $\prod_{i\in I}A_i$.
+
+__Exercise__. _Prove this_.
+
+_Hint_: Let $Q = \prod_{i\in I}A_i$ and $q_i = \pi_i$.
+
+<details><summary>Solution</summary>
+We have $p\colon P\to\prod_{i\in I}A_i$ with $\pi_ip = p_i$
+and $q\colon\prod_{i\in I}A_i\to P$ with $p_i q = \pi_i$.
+Use this to show this defines an isomorphism.
+</details>
+
+## Set Exponential
+
+Given sets $A$ and $B$, the _set exponential_ $B^A$ is the set of all functions
+from $A$ to $B$. It is related to cartesian product by $C^{A\times B}$
+is in one-to-one correspondence with $C^{B^A}$.
+If we write $B^A = \{A\to B\}$ this says
+$\{A\times B\to C\}$ 
+is in one-to-one correspondence with $\{A\to\{B\to C\}\}$
+and is more easily recognized as _currying_.
+If we have a function $f\colon A\times B\to C$ and $a\in A$ we
+can define a function from $B\to C$ by $b\mapsto f(a,b)$.
+Conversly, if we have a function $g\colon A\to C^B$ we can
+define a function from $A\times B$ to $C$ by $(a,b)\mapsto (g(a))(b) = (ga)b$.
+
+If $f\colon A\to B$ is a function then the value of $f$ at $a\in A$ is $f(a)$.
+We reify this with the name $\eval_B^A\colon B^A\times A\to B$ defined
+by $\eval_B^A(f,a) = f(a)$. If $g\in (C^B)^A$ and $a\in A$ then
+$\eval_{C^B}^A(g, a)\in C^B$ is called _partial evaluation_.
+
+## Tuple, Array
+
+Given any _index set_ $I$ the cartesian product $\prod_{i\in I}\RR$ is
+isomorphic to the set exponential $\RR^I$. 
+Elements of the cartesian product are _tuples_. Elements
+of the set exponential are _arrays_.
+
+A _view_ of $\RR^I$ is a function $\sigma\colon J\to I$
+and is used to define a function $\circ\sigma\colon\RR^I\to\RR^J$ by
+right composition $(\circ\sigma)x = x\circ\sigma = x\sigma$ so
+$(x\sigma)(j) = x(\sigma(j))$, $x\in\RR^I$, $j\in J$.
+
+__Exercise__. _Show $\circ\sigma$ is a linear operator_.
+
+_Hint_: Show $a(x\sigma) = (ax)\sigma$ and $(x + y)\sigma = x\sigma + y\sigma$.
+
+__Exercise__. _Show if $\sigma$ is one-to-one then $\circ\sigma$ is onto._
+
+_Hint_: Show there exists $\sigma^\dashv\colon I\to J$ with $\sigma^\dashv\sigma = 1_J$.
+If $x\in\RR^J$ then $x\sigma^\dashv\in\RR^I$ and $x\sigma^\dashv\sigma = x$.
+
+__Exercise__. _Show if $\sigma$ is onto then $\circ\sigma$ is one-to-one._
+
+_Hint_: Show there exists $\sigma^\vdash\colon J\to I$ with $\sigma\sigma^\vdash = 1_I$.
+If $x\sigma = y\sigma$, $x,y\in\RR^I$, then $x\sigma\sigma^\vdash = y\sigma\sigma^\vdash$
+and $x = y$.
+
+This shows if $\sigma$ is one-to-one and onto then $\circ\sigma$ is an isomorphism.
+
+If $J\subset I$ we write $[J]\colon J\to I$ for the inclusion map and
+call $x[J]$ the _projection_ on $J$ of $x\in\RR^I$.
+
+## Dual
+
+The _dual_ of the vector space $\RR^I$ is the set of all linear operators from $\RR^I$ to $\RR$.
+The _standard basis_ of $\RR^I$ is $(e_i)_{i\in I}$ where $e_i(j) = \delta_{ij}$
+is the Kronecker delta: $\delta_{ij} = 1$ if $i = j$ and $\delta_{ij} = 0$ if $i \not= j$.
+
+__Exercise__. _Show $x = \sum_{i\in I} x(i)e_i$ if $I$ is finite_.
+
+_Hint_: Evaluate $x(j)$, $j\in I$.
+
+## Matrix
+
+A _matrix_ is an array where the index set is the cartesian product
+of two sets $\RR^{I\times J}$.
+
+A vector is usually represented on a computer as a contiguous array of memory
+with elements of the same type. The real numbers are uniquely characterized
+mathematically as a complete Archemedean ordered field. Computers
+can only model real numbers as a finite number of bits. 
+The most common representation is 64-bit or 32-bit IEEE 754 floating point.
+
+
 
 The _dual_ of a vector space $V$ over the real numbers $\RR$ is the set
 of all linear functionals from $V$ to $\RR$.

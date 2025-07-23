@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-07-01" />
+  <meta name="dcterms.date" content="2025-07-23" />
   <title>Variance Swaps</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Variance Swaps</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">July 1, 2025</p>
+<p class="date">July 23, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage risk of variance swaps.
@@ -190,9 +190,8 @@ class="math inline">f&#39;(x) = -2/x + c</span> where <span
 class="math inline">c</span> is a constant, and <span
 class="math inline">f(x) = -2\log x + cx</span>. It is convenient to
 choose <span class="math inline">c = 2/z</span> for some constant <span
-class="math inline">z</span> so <span class="math inline">f&#39;(z) =
-0</span> and <span class="math display">
--2\log (X_n/X_0) + 2(X_0 - X_0)/z
+class="math inline">z</span> so <span class="math display">
+-2\log X_n + 2 X_n/z + 2\log X_n - 2 X_0/z
     = \sum_{0\le j &lt; n} (-2/X_j + 2/z)\Delta X_j + (\Delta X_j/X_j)^2
 + R_j
 </span> Rearranging terms and simplifying gives <span
@@ -208,10 +207,10 @@ X_0</span> then the initial furtures hedge is zero.</p>
 </section>
 <section id="static-hedge" class="level2">
 <h2>Static Hedge</h2>
-<p>The static hedge is <span class="math inline">-2\log X_n/X_0 + 2(X_n
-- X_0)/z</span> and can be approximately replicated with a cash
-position, a forward, and a portfolio of puts and calls. Recall the
-Carr-Madan formula for a twice differentiable function <span
+<p>The static hedge is <span class="math inline">-2\log X_n/X_0 + (X_n -
+X_0)/z</span> and can be approximately replicated with a cash position,
+a forward, and a portfolio of puts and calls. Recall the Carr-Madan
+formula for a twice differentiable function <span
 class="math inline">f\colon [0, \infty)\to\mathbf{R}</span> is <span
 class="math display">
     f(x) = f(a) + f&#39;(a)(x - a) + \int_0^a f&#39;&#39;(k) (k - x)^+

@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-01-26" />
+  <meta name="dcterms.date" content="2025-07-23" />
   <title>APL</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">APL</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 26, 2025</p>
+<p class="date">July 23, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A Programming Language
@@ -91,12 +91,17 @@ simplified notation often becomes the source of profound theories</em>.
 — Pierre-Simon Laplace</p>
 </blockquote>
 <p>A Programming Language <em>APL</em> was invented by Ken E. Iverson, a
-mathematician unsatisfied by the limited expressiveness of FORTRAN when
-it came to manipulating multidimensional arrays. What follows is a
-mathematical description of the objects and operations on them he
-envisioned to scratch that itch. It is simply a matter of giving
-explicit names to the operations that can be performed on collections of
-data, what Iverson called “tools of thought.”</p>
+mathematician unsatisfied by the limited expressiveness of early
+versions of FORTRAN when it came to manipulating multidimensional
+arrays. Modern <a href="https://wg5-fortran.org/">Fortran</a> is much
+more popular than APL and incorporates many of Iverson’s ideas. Maybe it
+should incorporate more.</p>
+<p>What follows is a mathematical description of the objects and
+operations on them he envisioned to scratch that itch. It is simply a
+matter of giving explicit names to the operations that can be performed
+on collections of data, what Iverson called <a
+href="https://www.eecg.toronto.edu/~jzhu/csc326/readings/iverson.pdf">Notation
+as a Tool of Thought</a></p>
 <p>There have been many languages inspired by APL and this writeup takes
 liberties with the classical language. Let’s agree to call it TPL, This
 Programming Languge. Our approach is informed by category theory and
@@ -119,9 +124,6 @@ concatenation with the empty string as identty.</p>
 <p>The two main concepts of TPL are composition and (vector space)
 duality. It is just a matter of providing a language to manipulate sums,
 products, and exponentials in the appropriate categories.</p>
-<p>Now is a good time to remind yourself about <a
-href="cat.html">categories</a> and <a href="la.html">vector
-spaces</a>.</p>
 <section id="categories" class="level2">
 <h2>Categories</h2>
 <p>Categories have <em>objects</em> and <em>arrows</em>. An arrow <span
@@ -203,7 +205,7 @@ Z\rangle</span> via …</p>
 <h2>Set</h2>
 <p>We use the convention that applying a function to an element of a set
 is right associative so <span class="math inline">f(x)</span> can be
-written <span class="math inline">fx</span>. This in natural in
+written <span class="math inline">fx</span>. This is natural in
 languages where composition means function application. Applying a
 function to an element of a set causes a slight problem. <span
 class="math inline">fgh(x) = f(g(h(x))</span> but <span
@@ -274,8 +276,8 @@ X_j = \emptyset</span> if <span class="math inline">i\not= j</span> and
 <span class="math inline">\cup_i X_i = X</span></em>.</p>
 <p>A function <span class="math inline">s\colon X\to\bm{B}</span>
 determines a subset of <span class="math inline">X</span> (and its
-complement) by <span class="math inline">S = \{x\inX:s(x) = t\}</span>
-so <span class="math inline">X\setminus S = \{x\inX:s(x) =
+complement) by <span class="math inline">S = \{x\in X:s(x) = t\}</span>
+so <span class="math inline">X\setminus S = \{x\in X:s(x) =
 f\}</span>.</p>
 <section id="vec" class="level3">
 <h3>Vec</h3>
@@ -592,7 +594,7 @@ class="math inline">\Pi_{i\in I} X_{I_i}\cong X^{\sqcup_{i\in I}
 I_i}</span> via <span class="math inline">x = (x_i)\in \Pi_I
 X_{I_i}</span> correspoinds to <span class="math inline">\hat{x}\in
 X^I</span> via <span class="math inline">x_i = \hat{x}(i)</span>. via
-<span class="math inline">x_{i_j}} = x(i_j)</span>, <span
+<span class="math inline">x_{i_j} = x(i_j)</span>, <span
 class="math inline">i_j\in I_j</span> shows the fundamental relationship
 between product and disjoint sum.</p>
 <p>If <span class="math inline">f\colon X\to Y</span> then <span
