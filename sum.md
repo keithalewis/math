@@ -26,7 +26,7 @@ and managing the risk of **all** derivative instruments. It is based on [@Ros197
 > _If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, $L$_.
 
-The valuation operator is determined by positive measures that only depend
+The valuation operator is determined by _deflators_: positive measures that only depend
 on the information available at each trading time. Ross's theory applies to
 all instruments, not just a bond, stock, and option that Black and Scholes [@BlaSch1973]
 and Merton [@Mer1973] considered. His insight was to realize option valuation
@@ -110,7 +110,7 @@ Note our definition of arbitrage does not involve a probability measure.
 
 [^1]: Nick Leeson used this strategy to put 350 year old Barings out of business.
 
-__Theorem__. (Fundamental Theorem of Asset Pricing.) _The Simple Unified Model is
+__Theorem__. (Fundamental Theorem of Asset Pricing.) _The Simple Universal Model is
 arbitrage free if and only if there exist a_ deflator _, positive measures $D_t$ in $ba(\AA_t)$, $t\in T$, with_
 $$
 \tag{1}	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}, t\le u
