@@ -39,10 +39,10 @@ about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 -->
 
 Everything in (classical) mathematics consists of sets with structure.
-The structure is one or more functions on the sets that satisfy given axioms.
+The structure is one or more functions on sets that satisfy given axioms.
 Vector spaces occupy a sweet spot in mathematics. A vector space
 over a field has a scalar multiplication and commutative vector addition
-that satisfy distributive laws. Two vector spaces are isomorphic (equivalent form)
+that satisfy distributive laws. Two vector spaces are isomorphic (same form)
 if and only if they have the same dimension: the minimum number of independent
 vectors that span the vector space.
 

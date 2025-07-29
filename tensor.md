@@ -11,6 +11,8 @@ header-includes:
 \newcommand\FF{\bm{F}}
 \newcommand\NN{\bm{N}}
 \newcommand\QQ{\bm{Q}}
+\newcommand\TT{\bm{T}}
+\newcommand\BB{\bm{B}}
 \newcommand\zero{\bm{0}}
 \newcommand\LL{\mathcal{L}}
 \newcommand\tr{\operatorname{tr}}
@@ -38,7 +40,7 @@ to computer implementation.
 
 Everything in classical mathematics is a _set_.
 We assume the reader knows what a set is and use $\in$ to denote set membership.
-The _set exponential_ of the set $A$ and $B$ is $B^A = \{f\colon A\to B\}$, the set
+The _set exponential_ of the sets $A$ and $B$ is $B^A = \{f\colon A\to B\}$, the set
 of all functions from $A$ to $B$. We also write this as $\{A\to B\}$.
 The _domain_ of a function $f\colon A\to B$ is $\dom f = A$ and the
 _codomain_ is $\cod f = B$.
@@ -249,7 +251,7 @@ __Exercise__. _If $\{A_i\}_{i\in I}$ is a partition of $A$ and $aRb$ if and only
 there exists $i\in I$ with $a,b\in A_i$ then $R$ is an equivalence relation_.
 
 Every equivalence relation on $A\times A$ correponds to a partition of $A$.
-Every partition of $A$ corresponds to an equivalence relation on $A\time A$.
+Every partition of $A$ corresponds to an equivalence relation on $A\times A$.
 
 ## Vector Space
 
@@ -277,9 +279,13 @@ What is $x(j)$?
 
 The _dot product_ of $x,y\in\FF^I$ when $I$ is fintite is
 $x\cdot y = \sum_{i\in I} x(i) y(i)$, or $x\cdot y = \sum_{i\in I} x(i) \overline{y(i)}$
-when $\FF$ is the complex numbers.. Recall if $z = x + iy\in\CC$ where $x,y\in\RR$
+when $\FF$ is the complex numbers. Recall if $z = x + iy\in\CC$ where $x,y\in\RR$
 then the _complex conjugate_ of $z$ is $\overline{z} = x - iy$.
-Define $|z| = \sqrt{z\cdot z}$.
+
+__Exercise__. _Show for $x\in\FF^I$ that $x^*\colon\FF^I\to\FF$
+defined by $x^*y = x\cdot\overline{y}$ is linear_.
+
+_Hint_: Show $x^*(ay) = ax^*y$ and $x^*(y + z) = x^*y + x^*z$, $a\in\FF$, $x,y,z\in\FF^I$.
 
 ### Norm
 
@@ -441,7 +447,6 @@ matrix of $[T]\circ^T$ is $[t_{ji}]$_.
 A _tensor_ is an element of $\FF^{\bm{n_1}}\times\cdots\times\bm{n_r}$
 where $r$ is the _rank_ of the tensor.
 
-
 ## Structure
 
 $[V\to V]\to\mathcal{P}$ from linear operators to characteristic polynomial is continuous.
@@ -449,6 +454,17 @@ $[V\to V]\to\mathcal{P}$ from linear operators to characteristic polynomial is c
 $v\wedge w$ can be thought of as the oriented parallelogram determined by $v$ and $w$.
 
 __Exercise__. _Show $v\wedge w = -w\wedge v$.
+
+## Iterable
+
+The Kleene star of a set $S$ is $S^* = \cup_{n\ge0} S^n$
+so an element $s\in S^*\in S^n$ for some $n$.
+The Kleene plus of a set $S$ is $S^+ = \cup_{n > 0} S^n$.
+Define $?\colon S^*\to\BB$ by $?s$ to be false$ if $s\in S^0$ and true otherwise.
+Define $*\colon S^+\to S$ by $*s = s_1$ if $s = (s_1, \ldots, s_n)$.
+Define $+\colon S^+\to S^*$ by $+(s_1, s_2, \ldots, s_n) = (s_2, \ldots, s_n)$.
+
+
 
 <!--
 
