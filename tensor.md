@@ -161,14 +161,9 @@ the set ${\{A\to\{B\to C\}\}}$. Given ${f\in\{A\times B\to C\}}$ define
 ${\curry f\colon A\to\{B\to C\}}$ by ${((\curry f)(a))(b) = f(a,b)}$.
 The inverse is _uncurrying_. Given ${g\in\{A\to\{B\to C\}\}}$ define
 ${\uncurry g\colon A\times B\to C}$
-by ${(\uncurry g)(a,b) = (g(a))(b)}$.
+by ${(\uncurry g)(a,b) = (g(a))(b) = (ga)b}$.
 
-Using the non-standard notation $\curry f = f,$ then $f,a(b) = f(a,b)$
-and $\uncurry g = ,g$ then $,g(a,b) = ga(b)$.
-
-__Exercise__. _Show $,(f,) = f$ and $(,g), = g$_.
-
-_Hint_. $,(f,)(a,b) = f,a(b) = f(a,b)$ and $(,g),a(b) = ,g(a,b) = ga(b)$.
+__Exercise__. _Show $\uncurry(\curry f) = f$ and $\curry(\uncurry g) = g$_.
 
 ## Evaluation
 
@@ -224,7 +219,7 @@ _Hint_. If $b\in aR$ then $aRb$ so $bRa$ if R is symmetric. This shows $b\in Ra$
 Similarly for $a\in Rb$. If $aR = Ra$, $a\in A$, then
 $aRb$ implies $a\in Rb = bR$ so $bRa$.
 
-The Kleen plus of a relation $R$ is $R^+ = \cup_{n>0} R^n$ where
+The Kleen plus of a relation $R\subseteq A\times A$ is $R^+ = \cup_{n>0} R^n$ where
 $R^n$ is $R$ composed with itself $n$ times.
 
 __Exercise__. _Show the Kleen plus of any relation is transitive_.
@@ -236,18 +231,23 @@ An _equivalence relation_ is reflexive, symmetric, and transitive.
 
 __Exercise__. _Show $\Delta$ (equal) is an equivalence relation_.
 
-__Exercise__. _Show if $R$ is an equivalence relation then
-$aRb$ if and only if $aR = Rb$_.
+_Hint_: Recall $\Delta = \{(a,a)\mid a\in A\}$.
 
-__Exercise__. _If $R$ is an equivalence relation show $\{aR\mid a\in A\}$
+Given an equivalence relation $R$ on $A$ define the
+_equivalence class_ of $a\in A$ by $[a] = \{b\in A\mid aRb\}$.
+Note $[a]$ is the left coset $aR$ and $aR = Ra$ since $R$ is symmetric.
+
+__Exercise__. _If $R$ is an equivalence relation show the set of
+equivalence classes $\{[a]\mid a\in A\}$
 is a partition of $A$_.
 
-_Hint_. Show $\cup_{a\in A}aR = A$ and if $aR\cap Rb\neq\emptyset$ then
-$aR = Rb$.
+_Hint_. Show $\cup_{a\in A}[a] = A$ and if $[a]\cap [b] \not=\emptset
+then $[a] = [b]$.
 
 <!-- review -->
 
-__Exercise__. _If $\{A_i\}_{i\in I}$ is a partition of $A$ and $aRb$ if and only if
+__Exercise__. _If $\{A_i\}_{i\in I}$ is a partition of $A$ and we define $R$
+by $aRb$ if and only if
 there exists $i\in I$ with $a,b\in A_i$ then $R$ is an equivalence relation_.
 
 Every equivalence relation on $A\times A$ correponds to a partition of $A$.
@@ -277,15 +277,26 @@ __Exercise__. _Show $x = \sum_{i\in I} x(i) e_i$ when $I$ is finite_.
 _Hint_. If $x,y\in\FF^I$ then $x = y$ if and only if $x(j) = y(j)$ for all $j\in I$.
 What is $x(j)$?
 
-The _dot product_ of $x,y\in\FF^I$ when $I$ is fintite is
-$x\cdot y = \sum_{i\in I} x(i) y(i)$, or $x\cdot y = \sum_{i\in I} x(i) \overline{y(i)}$
-when $\FF$ is the complex numbers. Recall if $z = x + iy\in\CC$ where $x,y\in\RR$
+The _dot product_ of $x,y\in\FF^I$ when $I$ is finite is
+$x\cdot y = \sum_{i\in I} x(i) y(i)$.
+If $\FF$ is the complex numbers $\CC$ then
+$x\cdot y = \sum_{i\in I} x(i) \overline{y(i)}$.
+Recall if $z = x + iy\in\CC$ where $x,y\in\RR$
 then the _complex conjugate_ of $z$ is $\overline{z} = x - iy$.
 
 __Exercise__. _Show for $x\in\FF^I$ that $x^*\colon\FF^I\to\FF$
-defined by $x^*y = x\cdot\overline{y}$ is linear_.
+defined by ${x^*y = x\cdot y}$ is_ linear _if $\FF$ is not $\CC$_.
 
 _Hint_: Show $x^*(ay) = ax^*y$ and $x^*(y + z) = x^*y + x^*z$, $a\in\FF$, $x,y,z\in\FF^I$.
+
+__Exercise__. _Show for $y\in\FF^I$ that $y^*\colon\FF^I\to\FF$
+defined by $y^*x = x\cdot\overline{y}$ is linear (or conjugate linear if $\FF$ is $\CC$).
+
+_Hint_: Show $y^*(ax) = ay^*x$ and $y^*(x + w) = y^*x + y^*w$, $a\in\FF$, $w,x,y\in\FF^I$
+and $y^*(ax) = ay^*x$ and $y^*(x + w) = y^*x + y^*w$
+
+An _abstract vector space_ is only required to satisfy the vector space axioms.
+It does not have a standard basis that can be used to define the dot product.
 
 ### Norm
 
@@ -307,10 +318,10 @@ Define the _distance_ from $x$ to $y$ by $d(x,y) = \|x - y\|$.
 __Exercise__. _Show $d(x,y) = 0$ implies $x = y$, $d(x,y) = d(y,x)$
 and $d(x,y) + d(y,z) \ge d(x,z)$_.
 
-This shows $d$ is a _metric_ that defines a topology on $\FF^I$.
+This shows $d$ is a _metric_ that defines a _topology_ on $\FF^I$.
 
 We can identify $\FF^I$ with the cartesian product of $I$ copies of the field $\FF$.
-The element $(x_i)_{i\in I}$ in the cartesian product corresponds to the
+The element $(x_i)_{i\in I}$ in the cartesian product $\Pi_{i\in I}\FF$ corresponds to the
 function $x\in\FF^I$ by $x(i) = x_i$, $i\in I$.
 
 A simple but quite useful observation is that if $\sigma\colon J\to I$ is any function

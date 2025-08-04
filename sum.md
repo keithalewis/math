@@ -4,7 +4,7 @@
 -->
 ---
 title: Simple Universal Model
-abstract: Arbitrage-free prices are constrained by the geometry of cash flows.
+abstract: Arbitrage-free prices are geometrically constrained by cash flows.
 classoption: fleqn
 header-includes:
 	- \usepackage{bm}
@@ -26,26 +26,31 @@ and managing the risk of **all** derivative instruments. It is based on [@Ros197
 > _If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, $L$_.
 
-The valuation operator is determined by _deflators_: positive measures that only depend
-on the information available at each trading time. Ross's theory applies to
-all instruments, not just a bond, stock, and option that Black and Scholes [@BlaSch1973]
-and Merton [@Mer1973] considered. His insight was to realize option valuation
-had nothing to do with probability and used the Hahn-Banach theorem
-to show prices are constrained by the geometry determined by cash flows.
+The not generally uinque valuation operators are determined by _deflators_:
+positive measures that depend only on the information available at
+each trading time. Ross's theory applies to all instruments, not just a
+bond, stock, and option that Black and Scholes [@BlaSch1973] and Merton
+[@Mer1973] considered. His insight was to realize option valuation had
+nothing to do with probability and used the Hahn-Banach theorem to show
+prices are constrained by the geometry determined by cash flows.
 
 The Achilles Heel of the Black-Scholes/Merton model is that it assumes
 continuous-time trading. This leads to infeasible trading strategies
-and obviously incorrect valuations.
-The doubling strategy pointed out by Harrison and Kreps [HarKre1979] is impossible to carry out.
-According to the B-S/M theory the value of a barrier option that knocks
-in the $n$-th time the barrier is hit is the same for all $n$.
-If Brownian motion hits $a$ at time $\tau$ then it hits $a$
-infinitely often in the interval $[\tau, \tau + \epsilon]$ for any $\epsilon > 0$
+and obviously incorrect valuations.  The doubling strategy pointed
+out by Harrison and Kreps [@HarKre1979] is impossible to carry out, as
+[Zeno](https://plato.stanford.edu/entries/zeno-elea/) pointed out over two
+millenia ago.  According to the B-S/M theory the value of a barrier option
+that knocks in the $n$-th time the barrier is hit is the same for all $n$.
+If Brownian motion hits $a$ at time $\tau$ then it hits $a$ infinitely
+often in the interval $[\tau, \tau + \epsilon]$ for any $\epsilon > 0$
 since Brownian motion has unbounded variation on any finite interval.
 See [@KarShr1991] Section 3.2.
 
-The fundamental problem every trader faces the first day on the job is
+A derivative instrument is a contract. The seller is obligated to
+to pay and receive cash flows specified in the contract the buyer agrees to.
+The fundamental problem every sell side trader faces the first day on the job is
 when and how many market instruments to buy in order to manage risk.
+
 This note provides a simple universal model that provides
 a foundation for making advances on this important and poorly understood problem.
 
@@ -190,7 +195,7 @@ Static hedging (Nazir, Peter)
 If repurchase agreements are available they determine a _canonical deflator_.
 A repurchase agreement over the interval $[t_j, t_{j+1}]$ is specified
 by a rate $f_j$ known at time $t_j$. The price at $t_j$ is $1$ and it
-has a cash flow of ${\exp(f_j\Delta t_j)}$ at time $t_{j+1}$
+has a cash flow of ${\exp(f_j\Delta t_j)\approx 1 + f_j\Delta t_j}$ at time $t_{j+1}$
 where $\Delta t_j = t_{j+1} - t_j$.
 
 By equation (1) we have ${D_j = \exp(f_j\Delta t_j)D_{j+1}|_{\AA_j}}$.
@@ -204,6 +209,12 @@ This is commonly referred to as the _stochastic discount_
 and the reciprocal $R_t = 1/D_t$ is called the _money market account_.
 It is convenient to assume there is an instrument with price $R_t$
 and no cash flows exists in order to finance trading strategies.
+
+It is rare for market participants to use repos to finance their trading.
+Traders working for large banks have access to a funding desk that
+charges them the repo rate plus a few basis points. Day traders
+using a credit card to fund trading get charged at a much higher rate.
+
 
 <!--
 but every big bank has a repo desk of traders working
@@ -225,15 +236,44 @@ satisfies $D_t(u) D_t = D_u|_{\AA_t}$ so
 $D_t(u)$ is the Radon-Nikodym derivative of $D_u|_{\AA_t}$ with respect to $D_t$.
 
 Zero coupon bond prices are determined by the deflators.
+The Brace-Gatarek-Musiela Market model[@BraGatMus1997] corresponds to using the canonical deflator
+built from forward rate agreements instead of repos.
+The Heath-Jarrow-Morton model[HeaJarMor1992] corresponds to using
+the continuous time stochastic discount.
 
 ### Fixed Income
 
-_Fixed income_ instruments pay cash flows $c_j$ at times $t_j$.
+_Fixed income_ instruments pay fixed cash flows $c_j$ at times $t_j$.
 From equation (2), the value of a fixed income instrument at time $t$ is determined by
 $$
 	V_t D_t  = (\sum_{t_j > t} c_j D_{t_j})|_{\AA_t}
 $$
 so $V_t = \sum_{t_j > t} c_j D_t(t_j)$.
+
+### Risky Bonds
+
+Bonds can default and the holder recovers only a fraction of the remaining value.
+Let $\tau$ be the time the bond defaults and $\rho$ be the fraction of the value recovered.
+These are both random variables but it is customary to assume $\rho$ is a given constant.
+The original sample space must be augmented by the cartesion product with $[0,\infty)$
+indicating the default time. At time $t$ the information we have
+about the default time is either $\tau < t$ and we know exactly when default happened,
+otherwise we only know $\tau\in[t,\infty)$. This corresponds to the
+partition of $[0,\infty)$ consisting of singletons $\{s\}$, $s < t$, and
+the atom $[t,\infty)$. We assume if default occurs at time $t$ then we
+learn about it later.
+
+A risky zero coupon bond maturing at $u$ pays in full at $u$ if $\tau > u$
+and $\rho D_\tau(u)$ at $\tau$ if $\tau\le u$. By equation (2) its value satisfies
+$$
+	V_t D_t = (\rho D_\tau(u)1(\tau\le u) D_\tau + 1(\tau >u)D_u)|_{\AA_t}.
+$$
+If rates are zero then $D_t(u) = 1$. Writing $V_t$ as $D_t^{\tau,\rho}(u)$ we have
+$$
+	D_t^{\tau,\rho}(u) = (\rho 1(\tau\le u) + 1(\tau >u))|_{\AA_t}
+$$
+
+
 
 ### Black-Scholes/Merton
 
@@ -274,6 +314,22 @@ The set exponential $B^A$ is the set of all functions from $A$ to $B$.
 For any set $I$, $\RR^I$ is a vector space with scalar multiplication
 and vector addition defined pointwise:
 $(ax)(i) = ax(i)$ and $(x + y)(i) = x(i) + y(i)$, $a\in\RR$, $x,y\in\RR^I$.
+
+A _real valued function_ takes an element of a set to a real number.
+A _real valued measure_ takes a subset of a set to a real number. Measures
+do not count things twice and the measure of nothing is zero.
+If $B(S)$ is the normed vector space of bounded functions on $S$
+where the norm of $f\in B(S)$ is $\|f\| = \sup\{|f(s)|\mid s\in S\}$
+then its dual $B(S)^*$ can be identified with the normed vector
+space of bounded finitely additive measures on $S$, $ba(S)$.
+
+If $L\colon B(S)\to\RR$ is linear define $\lambda(E) = L1_E$ where
+$1_E(s) = 1$ if $s\in E$ and $1_E(s) = 0$ if $s\not\in S$.
+Since $1_{E\cup F} = 1_E + 1_F - 1_{E\cap F}$ we have
+$\lambda(E\cup F) = \lambda(E) + \lambda(F) - \lambda(E\cap F)$.
+Measures do not count things twice. Since $1_\emptyset = 0$,
+$\lambda(1_\emptyset) = 0$.
+
 
 If $\AA$ is a sigma algebra on $\Omega$ then it is an algebra. If it is finite
 then the atoms of $\AA$ form a partition of $\Omega$. An _atom_ $B\in\AA$
