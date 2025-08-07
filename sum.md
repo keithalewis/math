@@ -187,7 +187,6 @@ This does not determine the trading times $\tau_j$.
 
 Static hedging (Nazir, Peter)
 
-
 ## Examples
 
 ### Canonical Deflator
@@ -289,24 +288,32 @@ zero and variance one. In this case
 $M_t = (r, se^{\sigma X_t - t\kappa(\sigma)})P$ where $\kappa(\sigma)
 = \log E[\exp(\sigma X_1)]$ is the _cumulant_ of $X_1$.
 Independence and stationarity imply the cumulant of $X_t$ is $t\kappa(\sigma)$
+and the distribution of $X_1$ determines the Levy process.
+???cite
+
+Since $X_1$ is infinitely divisible ???cite and has finite variance its cumulant can be
+characterized by $\gamma\in\RR$ and a non-decrasing function $\Gamma\colon\RR\to [0,1]$
+$$
+	\log E[e^{sX_1}] = \gamma s + \int_{-\infty}^\infty K_s(x)\,dG(x)$
+$$
+where $K_s(x) = (e^{sx} - 1 - sx)/x^2 = \sum_{k=2]^\infty s*n x^{n-2}/n!$.
 
 ### European Option
 
 A _European option_ on underlying $S$ pays $\nu(S_t)$ for some function $\nu$ at _expiration_ $t$.
 For a _put_ $\nu(x) = \max\{k - x, 0\}$ and for a _call_ $\nu(x) = \max\{x - k, 0\}$
-where $k$ is the _strike_. Given a model of prices $X_t = (R_t, S_t)$ and no cash flows,
-where $R$ is a money market instrument, we can hedge using a trading strategy
-$(\tau_j, \Gamma_j)$ where $\Gamma_j = (M_j, N_j)$.
+where $k$ is the _strike_. Given a model of prices $X_t = (R_t, S_t)$ 
+where $R$ is a money market instrument and $S$ is a stock paying no dividends.
+If a self-financing trading strategy exists then the option value
+at time 0 is $(\nu(S_t)D_t)|_{\AA_0}$.
 
-The _self-financing_ condition is $A_s = 0$ for $0 < s < t$
-so we require $0 = -\Gamma_s\cdot X_s = -M_s R_s - N_s S_s$.
-Given $N_s$ we need to trade $M_s = -N_s S_s/R_s$ in the money market instrument.
+If the option pays $F\nu$
 
-If $p(k) = E[\max\{k - F, 0\}]$ then $dp/dk = E[1(F\le k)] = P(k)$
+If $p(k) = E[\max\{k - F, 0\}]$ then $dp/dk = E[1(F\le k)] = P(F\le k)$ is the
+cumulative distribution of $F$, as [@BreLit1978] showed.
 
-Given $p(k_j) = p_j$ convolve with gaussian like kernel $\sum_j w_j \phi_{\sigma_k}$
+We have $p(k) = E[(k - F)1(F\le k)] = kP(F\le k) - E[F1(F\le k)]$.
 
-$E[F\nu(F)] = E[F] E^*[\nu(F)]$ where $dP^*/dP = F/E[F]$ is share measure.
 
 ## Notes
 
