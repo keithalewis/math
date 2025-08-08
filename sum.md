@@ -179,11 +179,16 @@ derivative $D_{X_0}V_0$ with respect to $X_0$.
 Since $V_t = (\Gamma_t + \Delta_t)\cdot X_t$ we have
 $\Gamma_t = D_{X_t}V_t - \Delta_t$. Note $\Delta_t$ is settled prior to time $t$.
 
-If we choose $T = \epsilon\NN$ then as $\epsilon$ goes to zero this recovers the classical B-S/M model
+If we choose a strategy trading at every $T = \epsilon\NN$
+then as $\epsilon$ goes to zero this recovers the classical B-S/M model
 where $\Delta$ is delta and $\Gamma$ is gamma.
+<!-- ??? what is variance of hedge given epsilon -->
 
-The interesting open problem is ...
-This does not determine the trading times $\tau_j$.
+A feature of the SUM is there is no canonical choice for the trading times $(\tau_j)$. 
+The B-S/M model obscures the essential problem faced by every trader: when and
+how how much of each instrument are required to hedge. It is simply not possible
+to hedge continously. This question is yet to be answered.
+
 
 Static hedging (Nazir, Peter)
 
@@ -272,8 +277,6 @@ $$
 	D_t^{\tau,\rho}(u) = (\rho 1(\tau\le u) + 1(\tau >u))|_{\AA_t}
 $$
 
-
-
 ### Black-Scholes/Merton
 
 The Black-Scholes[@BlaSch1973] and Merton[@Mer1973] model has
@@ -292,27 +295,35 @@ and the distribution of $X_1$ determines the Levy process.
 ???cite
 
 Since $X_1$ is infinitely divisible ???cite and has finite variance its cumulant can be
-characterized by $\gamma\in\RR$ and a non-decrasing function $\Gamma\colon\RR\to [0,1]$
+characterized by $\gamma\in\RR$ and a non-decrasing function $\Gamma\colon\RR\to\RR$
+with $\Gamma(-\infty) = 0$ an $\Gamma(\infty) = 1$
 $$
 	\log E[e^{sX_1}] = \gamma s + \int_{-\infty}^\infty K_s(x)\,dG(x)$
 $$
-where $K_s(x) = (e^{sx} - 1 - sx)/x^2 = \sum_{k=2]^\infty s*n x^{n-2}/n!$.
+where $K_s(x) = (e^{sx} - 1 - sx)/x^2 = \sum_{k=2}^\infty s*n x^{n-2}/n!$.
 
 ### European Option
 
 A _European option_ on underlying $S$ pays $\nu(S_t)$ for some function $\nu$ at _expiration_ $t$.
 For a _put_ $\nu(x) = \max\{k - x, 0\}$ and for a _call_ $\nu(x) = \max\{x - k, 0\}$
-where $k$ is the _strike_. Given a model of prices $X_t = (R_t, S_t)$ 
-where $R$ is a money market instrument and $S$ is a stock paying no dividends.
-If a self-financing trading strategy exists then the option value
-at time 0 is $(\nu(S_t)D_t)|_{\AA_0}$.
+where $k$ is the _strike_. If we have a money-market instrument $R$ with price $R_t = 1/D_t$
+and a self-financing strategy exists then
+the cost of setting that up at time 0 is determined by $V_0 D_0$ = (\nu(S_t) D_t)|_{\AA_0}$.
 
-If the option pays $F\nu$
+Relation of $E$ to $|$...???
 
-If $p(k) = E[\max\{k - F, 0\}]$ then $dp/dk = E[1(F\le k)] = P(F\le k)$ is the
+If a European option pays of $F\nu(F)$ in shares then
+$E[F\nu(F)] = fE[e^{sX - \kappa(s)}\nu(F)] = fE^s[\nu(F)]$
+where $E^s$ is _share measure_. The Radon-Nycodym derivative
+of the correponding probability measures is $dP^s/dP = e^{sX - \kappa(s)}$.
+
+The put value is
+$$
+	p(k) = E[\max\{k - F, 0\}] = E[(k - F)1(F\le k)] = kP(F\le k) - E[F1(F\le k)] = kP(F\le k) - fP^s(F\le k).
+$$
+then $\partial_k p = E[1(F\le k)] = P(F\le k)$ is the
 cumulative distribution of $F$, as [@BreLit1978] showed.
 
-We have $p(k) = E[(k - F)1(F\le k)] = kP(F\le k) - E[F1(F\le k)]$.
 
 
 ## Notes
