@@ -37,7 +37,8 @@ prices are constrained by the geometry determined by cash flows.
 There is a clear trajectory in Mathematical Finance from simple 
 closed-form models to those allowing more realistic features to be incorporated.
 Classical models assume there is no bid-ask spread (perfect liquidity)
-and prices a real numbers (infinitely divisible). 
+and prices are a real numbers (infinitely divisible). We also make that
+unrealistic assumption.
 
 The Achilles Heel of the Black-Scholes/Merton model is that it assumes
 continuous-time trading. This leads to infeasible trading strategies
