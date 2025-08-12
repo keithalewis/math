@@ -34,6 +34,11 @@ bond, stock, and option that Black and Scholes [@BlaSch1973] and Merton
 nothing to do with probability and used the Hahn-Banach theorem to show
 prices are constrained by the geometry determined by cash flows.
 
+There is a clear trajectory in Mathematical Finance from simple 
+closed-form models to those allowing more realistic features to be incorporated.
+Classical models assume there is no bid-ask spread (perfect liquidity)
+and prices a real numbers (infinitely divisible). 
+
 The Achilles Heel of the Black-Scholes/Merton model is that it assumes
 continuous-time trading. This leads to infeasible trading strategies
 and obviously incorrect valuations.  The doubling strategy pointed
@@ -115,20 +120,27 @@ Note our definition of arbitrage does not involve a probability measure.
 
 [^1]: Nick Leeson used this strategy to put 350 year old Barings out of business.
 
-__Theorem__. (Fundamental Theorem of Asset Pricing.) _The Simple Universal Model is
+__Theorem__. (Fundamental Theorem of Asset Pricing) _The Simple Universal Model is
 arbitrage free if and only if there exist a_ deflator _, positive measures $D_t$ in $ba(\AA_t)$, $t\in T$, with_
 $$
 \tag{1}	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}, t\le u
 $$
 _where $|$ indicates restriction of measure_.
 
+If $(D_t)$ is a deflator then $(D_t/D_0(\Omega))$ is also a deflator
+so we can and will assume $D_0(\Omega) = 1$. This techniquely makes $D_0$
+a probability measure, but it is not the probability of anything. 
+
 __Lemma__. _Using the above definitions_
 $$
 \tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}, t\le u.
 $$
 
-**Trading strategies create synthetic instruments where price corresponds
-to value and cash flow corresponds to amount.**
+This is the universal key to valuing, hedging, and managing the risk
+of _any_ derivative instrument.
+
+**Trading strategies create synthetic instruments where price, $X$, corresponds
+to value, $V$, and cash flow, $C$, corresponds to amount, $A$.**
 
 _Proof_: We have ${X_t D_t = (X_u D_u + C_u D_u)|_{\AA_t}}$ and
 ${\Delta_t + \Gamma_t = \Delta_u}$ for some $u\in T$ 
@@ -239,6 +251,8 @@ In an arbitrage free model its price at time $t\le u$, $X_t^{D(u)} = D_t(u)$,
 satisfies $D_t(u) D_t = D_u|_{\AA_t}$ so
 $D_t(u)$ is the Radon-Nikodym derivative of $D_u|_{\AA_t}$ with respect to $D_t$.
 
+Note $D_0(u)D_0 =  D_u|_{\AA_0}$. 
+
 Zero coupon bond prices are determined by the deflators.
 The Brace-Gatarek-Musiela Market model[@BraGatMus1997] corresponds to using the canonical deflator
 built from forward rate agreements instead of repos.
@@ -280,11 +294,12 @@ $$
 ### Black-Scholes/Merton
 
 The Black-Scholes[@BlaSch1973] and Merton[@Mer1973] model has
-$\Omega = C[0,\infty)$, $T = [0,\infty)$ with
+$\Omega = C[0,\infty)$, the set of continuous functions on the non-negative
+real numbers, and $T = [0,\infty)$ with
 instruments a bond and a stock having no associated cash flows.
-Our martingale measure
+The martingale measure
 is $M_t = (r, se^{\sigma B_t - \sigma^2t/2})P$ where $(B_t)$ is
-Brownian motion and $P$ is Wiener measure. The deflator is $D_t = e^{-\rho t}P$.
+standard Brownian motion and $P$ is Wiener measure. The deflator is $D_t = e^{-\rho t}P$.
 
 We can generalize this to any Levy process $(X_t)$ with $X_1$ having mean
 zero and variance one. In this case
@@ -295,8 +310,8 @@ and the distribution of $X_1$ determines the Levy process.
 ???cite
 
 Since $X_1$ is infinitely divisible ???cite and has finite variance its cumulant can be
-characterized by $\gamma\in\RR$ and a non-decrasing function $\Gamma\colon\RR\to\RR$
-with $\Gamma(-\infty) = 0$ an $\Gamma(\infty) = 1$
+characterized by $\gamma\in\RR$ and a non-decreasing function $\Gamma\colon\RR\to\RR$
+with $\lim_{x\to -\infty}\Gamma(x) = 0$ and $\lim_{x\to\infty}\Gamma(x) = 1$ where
 $$
 	\log E[e^{sX_1}] = \gamma s + \int_{-\infty}^\infty K_s(x)\,dG(x)$
 $$
@@ -312,17 +327,24 @@ the cost of setting that up at time 0 is determined by $V_0 D_0$ = (\nu(S_t) D_t
 
 Relation of $E$ to $|$...???
 
-If a European option pays of $F\nu(F)$ in shares then
+Switch from S to F. Use R. B-S/M -> Black parameterization
+
+If a European option pays $\nu(F)$ shares then
 $E[F\nu(F)] = fE[e^{sX - \kappa(s)}\nu(F)] = fE^s[\nu(F)]$
-where $E^s$ is _share measure_. The Radon-Nycodym derivative
+where $E^s$ is _share measure_. The Radon-Nikodym derivative
 of the correponding probability measures is $dP^s/dP = e^{sX - \kappa(s)}$.
 
-The put value is
+If $F = fe^{sX - \kappa(s)}$ where $X$ has mean zero and variance one then
+$E[F] = f$ and $\Var(\log F) = s^2$. Every positive random variables
+with finite mean and log variance has this form.
+
+The forward put value with strike $k$ is $p(k) = E[\max\{k - F, 0\}] = E[(k - F)1(F\le k)]$ so
 $$
-	p(k) = E[\max\{k - F, 0\}] = E[(k - F)1(F\le k)] = kP(F\le k) - E[F1(F\le k)] = kP(F\le k) - fP^s(F\le k).
+	p(k) = P(F\le k) - fP^s(F\le k).
 $$
-then $\partial_k p = E[1(F\le k)] = P(F\le k)$ is the
-cumulative distribution of $F$, as [@BreLit1978] showed.
+
+Put prices determine the distribution of $F$, as Breeden and Litzenberg  [@BreLit1978] showed,
+since $\partial_k p = E[1(F\le k)] = P(F\le k)$.
 
 
 
