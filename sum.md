@@ -314,9 +314,9 @@ Since $X_1$ is infinitely divisible ???cite and has finite variance its cumulant
 characterized by $\gamma\in\RR$ and a non-decreasing function $\Gamma\colon\RR\to\RR$
 with $\lim_{x\to -\infty}\Gamma(x) = 0$ and $\lim_{x\to\infty}\Gamma(x) = 1$ where
 $$
-	\log E[e^{sX_1}] = \gamma s + \int_{-\infty}^\infty K_s(x)\,dG(x)$
+	\log E[e^{sX_1}] = \gamma s + \int_{-\infty}^\infty K_s(x)\,dG(x)
 $$
-where $K_s(x) = (e^{sx} - 1 - sx)/x^2 = \sum_{k=2}^\infty s*n x^{n-2}/n!$.
+where $K_s(x) = (e^{sx} - 1 - sx)/x^2 = \sum_{k=2}^\infty s^n x^{n-2}/n!$.
 
 ### European Option
 
