@@ -1,9 +1,9 @@
 ---
 title: Quantum Markets
-abstract: Notes on Quantum Msrkets by Jack Sarkissian.
+abstract: Notes on Quantum Markets by Jack Sarkissian.
 ---
 
-Notes on _Quantum Msrkets_ by Jack Sarkissian.
+Notes on _Quantum Markets_ by Jack Sarkissian.
 
 ## Notation
 
@@ -32,7 +32,7 @@ A _portfolio_ is a collection of holdings. An _elementary transaction_ is a trip
 where $t$ is the time of the exchange, $h$ is a holding of the _buyer_, and $h'$ is
 a holding of the _seller_. An elementary transaction results in the portfolio of the
 buyer $o$ to change from $\{\ldots,(a,i,o),\ldots\}$
-to $\{\ldots,(a',i',o),\ldots\}$ and the porfolion of the seller $o'$
+to $\{\ldots,(a',i',o),\ldots\}$ and the portfolio of the seller $o'$
 to change from $\{\ldots,(a',i',o'),\ldots\}$
 to $\{\ldots,(a,i,o'),\ldots\}$.
 
