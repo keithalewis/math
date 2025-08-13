@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-07-23" />
+  <meta name="dcterms.date" content="2025-07-31" />
   <title>Tensor</title>
   <style>
     code{white-space: pre-wrap;}
@@ -49,7 +49,7 @@
 <header id="title-block-header">
 <h1 class="title">Tensor</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">July 23, 2025</p>
+<p class="date">July 31, 2025</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -58,10 +58,18 @@
 <li><a href="#curry" id="toc-curry">Curry</a></li>
 <li><a href="#evaluation" id="toc-evaluation">Evaluation</a></li>
 <li><a href="#relation" id="toc-relation">Relation</a></li>
-<li><a href="#vector-space" id="toc-vector-space">Vector Space</a></li>
+<li><a href="#vector-space" id="toc-vector-space">Vector Space</a>
+<ul>
+<li><a href="#norm" id="toc-norm">Norm</a></li>
+<li><a href="#metric" id="toc-metric">Metric</a></li>
+<li><a href="#subspace" id="toc-subspace">Subspace</a></li>
+</ul></li>
 <li><a href="#linear-operator" id="toc-linear-operator">Linear
 Operator</a></li>
+<li><a href="#dual" id="toc-dual">Dual</a></li>
 <li><a href="#tensor" id="toc-tensor">Tensor</a></li>
+<li><a href="#structure" id="toc-structure">Structure</a></li>
+<li><a href="#iterable" id="toc-iterable">Iterable</a></li>
 </ul>
 </nav>
 <p>There seems to be some uncertainty in the computer science community
@@ -77,7 +85,7 @@ to computer implementation.</p>
 <h2>Set</h2>
 <p>Everything in classical mathematics is a <em>set</em>. We assume the
 reader knows what a set is and use <span class="math inline">\in</span>
-to denote set membership. The <em>set exponential</em> of the set <span
+to denote set membership. The <em>set exponential</em> of the sets <span
 class="math inline">A</span> and <span class="math inline">B</span> is
 <span class="math inline">B^A = \{f\colon A\to B\}</span>, the set of
 all functions from <span class="math inline">A</span> to <span
@@ -89,9 +97,8 @@ class="math inline">\operatorname{dom}f = A</span> and the
 B</span>.</p>
 <p>The <em>cartesian product</em> of sets <span
 class="math inline">A</span> and <span class="math inline">B</span> is
-<span class="math inline">{A\times B = \{(a,b)\mid a\in A,
-b\in B\}}</span>, the set of ordered pairs of elements from the two
-sets.</p>
+<span class="math inline">{A\times B = \{(a,b)\mid a\in A, b\in
+B\}}</span>, the set of ordered pairs of elements from the two sets.</p>
 <p><strong>Exercise</strong>. (Kuratowski) <em>Show we can identify the
 ordered pair <span class="math inline">(a,b)</span> with the set <span
 class="math inline">\{\{a\},\{a,b\}\}</span></em>.</p>
@@ -114,11 +121,11 @@ class="math inline">[a] = \{a&#39;\in A\mid f(a) = f(a&#39;)\}</span>.
 The <em>kernel</em> of a <span class="math inline">f</span> is <span
 class="math inline">\ker f = \{[a]\mid a\in A\}</span>.</p>
 <p>The kernel of a function is a <em>partition</em> of its domain.</p>
-<p><strong>Exercise</strong>. <em>Show the union of <span
+<p><strong>Exercise</strong>. <em>Show the union of sets in <span
 class="math inline">\ker f</span> is <span
 class="math inline">A</span></em>.</p>
 <p><em>Hint</em>. Show <span class="math inline">\cup_{a\in A} [a] =
-A</span> using <span class="math inline">a\in[A]</span> for <span
+A</span> using <span class="math inline">a\in[a]</span> for <span
 class="math inline">a\in A</span>.</p>
 <p><strong>Exercise</strong>. <em>Show the elements of <span
 class="math inline">\ker f</span> are either disjoint or equal</em>.</p>
@@ -148,6 +155,15 @@ for all <span class="math inline">a\in A</span>.</p>
 A\to B</span> is injective then <span class="math inline">f(a) =
 f(a&#39;)</span> implies <span class="math inline">a =
 a&#39;</span></em>.</p>
+<p>Define <span class="math inline">[f]\colon\ker A\to B</span> by <span
+class="math inline">[a]\mapsto f(a)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">[f]</span> is well-defined</em>.</p>
+<p><em>Hint</em>. Show if <span class="math inline">[a] =
+[a&#39;]</span> then <span class="math inline">f(a) =
+f(a&#39;)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">[f]</span> is injective</em>.</p>
 <p>The <em>range</em> of <span class="math inline">f\colon A\to B</span>
 is <span class="math inline">\operatorname{ran}f = \{f(a)\mid a\in
 A\}</span>. It is <em>onto</em>, or <em>surjective</em> if <span
@@ -201,18 +217,18 @@ target="_blank">category</a> denoted by <a
 href="https://en.wikipedia.org/wiki/Category_of_sets"
 target="_blank"><span
 class="math inline">\text{\bf{Set}}</span></a>.</p>
-<p><strong>Exercise</strong>. _Show if <span class="math inline">f\colon
-A\to B</span> is injective then there exists <span
-class="math inline">g\colon B\to A</span> with <span
-class="math inline">gf = 1_A</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">f\colon A\to B</span> is injective then there exists
+<span class="math inline">g\colon B\to A</span> with <span
+class="math inline">gf = 1_A</span></em>.</p>
 <p><em>Hint</em>: If <span class="math inline">f(a) = b</span> then
 <span class="math inline">b\in[a]</span>. Since <span
 class="math inline">[a]</span> is a singleton we can define <span
 class="math inline">g(b) = a</span>.</p>
-<p><strong>Exercise</strong>. _Show if <span class="math inline">f\colon
-A\to B</span> is surjective then there exists <span
-class="math inline">g\colon B\to A</span> with <span
-class="math inline">fg = 1_B</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">f\colon A\to B</span> is surjective then there
+exists <span class="math inline">g\colon B\to A</span> with <span
+class="math inline">fg = 1_B</span></em>.</p>
 <p><em>Hint</em>: For every <span class="math inline">b\in B</span>
 there exists <span class="math inline">a\in A</span> with <span
 class="math inline">f(a) = b</span>. Let <span class="math inline">g(b)
@@ -234,28 +250,30 @@ f(a,b)}</span>. The inverse is <em>uncurrying</em>. Given <span
 class="math inline">{g\in\{A\to\{B\to C\}\}}</span> define <span
 class="math inline">{\operatorname{uncurry}g\colon A\times B\to
 C}</span> by <span class="math inline">{(\operatorname{uncurry}g)(a,b) =
-(g(a))(b)}</span>.</p>
-<p>Using the non-standard notation <span
-class="math inline">\operatorname{curry}f = f,</span> then <span
-class="math inline">f,a(b) = f(a,b)</span> and <span
-class="math inline">\operatorname{uncurry}g = ,g</span> then <span
-class="math inline">,g(a,b) = ga(b)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">,(f,) =
-f</span> and <span class="math inline">(,g), = g</span></em>.</p>
-<p><em>Hint</em>. <span class="math inline">,(f,)(a,b) = f,a(b) =
-f(a,b)</span> and <span class="math inline">(,g),a(b) = ,g(a,b) =
-ga(b)</span>.</p>
+(g(a))(b) = (ga)b}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{uncurry}(\operatorname{curry}f) =
+f</span> and <span
+class="math inline">\operatorname{curry}(\operatorname{uncurry}g) =
+g</span></em>.</p>
 </section>
 <section id="evaluation" class="level2">
 <h2>Evaluation</h2>
-<p><em>Evaluation</em> is a function <span
+<p>Given a function <span class="math inline">f\colon A\to B</span> and
+<span class="math inline">a\in A</span> then we can apply the function
+to <span class="math inline">a</span> and get <span
+class="math inline">f(a)\in B</span>. This is called <em>evaluation</em>
+and we define the function <span
 class="math inline">\operatorname{eval}\colon\{A\to B\}\times A\to
 B</span> defined by <span class="math inline">\operatorname{eval}(f,a) =
 f(a)</span>, <span class="math inline">f\in\{A\to B\}</span>, <span
 class="math inline">a\in A</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\operatorname{eval}(f,a) =
-f1_{\{a\}}(a)</span></em>.</p>
+<p>If <span class="math inline">f\colon A\times B\to C</span> an <span
+class="math inline">a\in A</span> then we can define a function from
+<span class="math inline">B</span> to <span class="math inline">C</span>
+by <span class="math inline">b\mapsto f(a,b)</span>. Specifying some
+arguments for a multi-argument function to make it a function on the
+remaining arguments is called <em>partial evaluation</em>.</p>
 </section>
 <section id="relation" class="level2">
 <h2>Relation</h2>
@@ -280,60 +298,128 @@ for some }b\in B\}</span>. This is used in the definition of the various
 <a
 href="https://learn.microsoft.com/en-us/sql/relational-databases/performance/joins?view=sql-server-ver17"
 target="_black"><code>JOIN</code></a> commands in SQL.</p>
+<p>The <em>transpose</em> of a relation <span
+class="math inline">R\subseteq A\times B</span> is <span
+class="math inline">R^T\subseteq B\times A</span> where <span
+class="math inline">bR^Ta</span> if and only if <span
+class="math inline">aRb</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(RS)^T
+= S^T R^T</span></em>.</p>
+<p>The relation <em>equal</em> is <span
+class="math inline">\Delta\subseteq\{(a,a)\mid a\in A\}</span>. It is a
+left and right identity for composition.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\Delta
+R</span>, <span class="math inline">R</span>, and <span
+class="math inline">R\Delta</span> are all equal</em>.</p>
 <p>Relations on <span class="math inline">A\times A</span> are
 classified by properties they satisfy</p>
-<!--
-----------------   ---------------
-    _reflexive_:   $aRa$ is always true
-  _irreflexive_:   $aRa$ is always false
-    _symmetric_:   $aRb$ implies $bRa$
-_antisymmetric_:   $aRb$ and $bRa$ imply $a = b$
-   _transitive_:   $aRb$ and $bRc$ imply $aRc$
-----------------   ---------------
--->
-<p>The relation <em>equal</em> is <span
-class="math inline">=\subseteq\{(a,a)\mid a\in A\}</span>. It is a left
-and right identity for composition.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">=R</span>, <span class="math inline">R</span>, and
-<span class="math inline">R=</span> are all equal</em>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span
-class="math inline">R</span> is reflexive then <span
-class="math inline">=\subseteq R</span></em>.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Property</th>
+<th style="text-align: left;">Definition</th>
+<th style="text-align: center;">Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><em>reflexive</em></td>
+<td style="text-align: left;"><span class="math inline">aRa</span> is
+always true.</td>
+<td style="text-align: center;"><span
+class="math inline">\Delta\subseteq R</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><em>irreflexive</em></td>
+<td style="text-align: left;"><span class="math inline">aRa</span> is
+always false.</td>
+<td style="text-align: center;"><span class="math inline">\Delta\cap R =
+\emptyset</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><em>symmetric</em></td>
+<td style="text-align: left;"><span class="math inline">aRb</span>
+implies <span class="math inline">bRa</span>.</td>
+<td style="text-align: center;"><span class="math inline">R^T =
+R</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><em>antisymmetric</em></td>
+<td style="text-align: left;"><span class="math inline">aRb</span> and
+<span class="math inline">bRa</span> imply <span class="math inline">a =
+b</span>.</td>
+<td style="text-align: center;"><span
+class="math inline">\Delta\subseteq R\cap R^T</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><em>transitive</em></td>
+<td style="text-align: left;"><span class="math inline">aRb</span> and
+<span class="math inline">bRc</span> imply <span
+class="math inline">aRc</span>.</td>
+<td style="text-align: center;"><span class="math inline">R^2\subseteq
+R</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exercise</strong>. <em>Prove the formulas from the
+definitions</em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">R</span> is symmetric if and only if <span
 class="math inline">aR = Ra</span>, <span class="math inline">a\in
 A</span></em>.</p>
-<p>The Kleen star of a relation <span class="math inline">R</span> is
-<span class="math inline">R^* = \cup_{n&gt;0} R^n</span> where <span
-class="math inline">R^n</span> is <span class="math inline">R</span>
-composed with itself <span class="math inline">n</span> times.</p>
-<p><strong>Exercise</strong>. <em>Show the Kleen star of any relation is
+<p><em>Hint</em>. If <span class="math inline">b\in aR</span> then <span
+class="math inline">aRb</span> so <span class="math inline">bRa</span>
+if R is symmetric. This shows <span class="math inline">b\in Ra</span>.
+Similarly for <span class="math inline">a\in Rb</span>. If <span
+class="math inline">aR = Ra</span>, <span class="math inline">a\in
+A</span>, then <span class="math inline">aRb</span> implies <span
+class="math inline">a\in Rb = bR</span> so <span
+class="math inline">bRa</span>.</p>
+<p>The Kleen plus of a relation <span class="math inline">R\subseteq
+A\times A</span> is <span class="math inline">R^+ = \cup_{n&gt;0}
+R^n</span> where <span class="math inline">R^n</span> is <span
+class="math inline">R</span> composed with itself <span
+class="math inline">n</span> times.</p>
+<p><strong>Exercise</strong>. <em>Show the Kleen plus of any relation is
 transitive</em>.</p>
-<p><em>Hint</em>. Note <span class="math inline">aR^*b</span> if and
+<p><em>Hint</em>. Note <span class="math inline">aR^+b</span> if and
 only if <span class="math inline">aR^nb</span> for some <span
-class="math inline">n</span> and <span class="math inline">R^nR^m =
+class="math inline">n&gt;0</span> and <span class="math inline">R^nR^m =
 R^{n+m}</span>.</p>
 <p>An <em>equivalence relation</em> is reflexive, symmetric, and
-transitive. Note <em>equal</em> is an equivalence relation.</p>
-<p><strong>Exercise</strong>. _Show if <span
-class="math inline">R</span> is an equivalence relation then <span
-class="math inline">aRb</span> if and only if <span
-class="math inline">aR = Rb</span>.</p>
-<p>This shows equivalence is equality of cosets.</p>
+transitive.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\Delta</span> (equal) is an equivalence
+relation</em>.</p>
+<p><em>Hint</em>: Recall <span class="math inline">\Delta = \{(a,a)\mid
+a\in A\}</span>.</p>
+<p>Given an equivalence relation <span class="math inline">R</span> on
+<span class="math inline">A</span> define the <em>equivalence class</em>
+of <span class="math inline">a\in A</span> by <span
+class="math inline">[a] = \{b\in A\mid aRb\}</span>. Note <span
+class="math inline">[a]</span> is the left coset <span
+class="math inline">aR</span> and <span class="math inline">aR =
+Ra</span> since <span class="math inline">R</span> is symmetric.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">R</span>
-is an equivalence relation show <span class="math inline">\{aR\mid a\in
-A\}</span> is a partition of <span
+is an equivalence relation show the set of equivalence classes <span
+class="math inline">\{[a]\mid a\in A\}</span> is a partition of <span
 class="math inline">A</span></em>.</p>
-<p><em>Hint</em>. Show <span class="math inline">\cup_{a\in A}aR =
-A</span> and if <span class="math inline">aR\cap Rb\neq\emptyset</span>
-then <span class="math inline">aR = Rb</span>.</p>
+<p><em>Hint</em>. Show <span class="math inline">\cup_{a\in A}[a] =
+A</span> and if $[a]= then <span class="math inline">[a] =
+[b]</span>.</p>
+<!-- review -->
 <p><strong>Exercise</strong>. <em>If <span
 class="math inline">\{A_i\}_{i\in I}</span> is a partition of <span
-class="math inline">A</span> and <span class="math inline">aRb</span> if
+class="math inline">A</span> and we define <span
+class="math inline">R</span> by <span class="math inline">aRb</span> if
 and only if there exists <span class="math inline">i\in I</span> with
 <span class="math inline">a,b\in A_i</span> then <span
 class="math inline">R</span> is an equivalence relation</em>.</p>
+<p>Every equivalence relation on <span class="math inline">A\times
+A</span> correponds to a partition of <span
+class="math inline">A</span>. Every partition of <span
+class="math inline">A</span> corresponds to an equivalence relation on
+<span class="math inline">A\times A</span>.</p>
 </section>
 <section id="vector-space" class="level2">
 <h2>Vector Space</h2>
@@ -379,12 +465,77 @@ then <span class="math inline">x = y</span> if and only if <span
 class="math inline">x(j) = y(j)</span> for all <span
 class="math inline">j\in I</span>. What is <span
 class="math inline">x(j)</span>?</p>
+<p>The <em>dot product</em> of <span
+class="math inline">x,y\in\bm{F}^I</span> when <span
+class="math inline">I</span> is finite is <span
+class="math inline">x\cdot y = \sum_{i\in I} x(i) y(i)</span>. If <span
+class="math inline">\bm{F}</span> is the complex numbers <span
+class="math inline">\bm{C}</span> then <span class="math inline">x\cdot
+y = \sum_{i\in I} x(i) \overline{y(i)}</span>. Recall if <span
+class="math inline">z = x + iy\in\bm{C}</span> where <span
+class="math inline">x,y\in\bm{R}</span> then the <em>complex
+conjugate</em> of <span class="math inline">z</span> is <span
+class="math inline">\overline{z} = x - iy</span>.</p>
+<p><strong>Exercise</strong>. <em>Show for <span
+class="math inline">x\in\bm{F}^I</span> that <span
+class="math inline">x^*\colon\bm{F}^I\to\bm{F}</span> defined by <span
+class="math inline">{x^*y = x\cdot y}</span> is</em> linear <em>if <span
+class="math inline">\bm{F}</span> is not <span
+class="math inline">\bm{C}</span></em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">x^*(ay) = ax^*y</span>
+and <span class="math inline">x^*(y + z) = x^*y + x^*z</span>, <span
+class="math inline">a\in\bm{F}</span>, <span
+class="math inline">x,y,z\in\bm{F}^I</span>.</p>
+<p><strong>Exercise</strong>. _Show for <span
+class="math inline">y\in\bm{F}^I</span> that <span
+class="math inline">y^*\colon\bm{F}^I\to\bm{F}</span> defined by <span
+class="math inline">y^*x = x\cdot\overline{y}</span> is linear (or
+conjugate linear if <span class="math inline">\bm{F}</span> is <span
+class="math inline">\bm{C}</span>).</p>
+<p><em>Hint</em>: Show <span class="math inline">y^*(ax) = ay^*x</span>
+and <span class="math inline">y^*(x + w) = y^*x + y^*w</span>, <span
+class="math inline">a\in\bm{F}</span>, <span
+class="math inline">w,x,y\in\bm{F}^I</span> and <span
+class="math inline">y^*(ax) = ay^*x</span> and <span
+class="math inline">y^*(x + w) = y^*x + y^*w</span></p>
+<p>An <em>abstract vector space</em> is only required to satisfy the
+vector space axioms. It does not have a standard basis that can be used
+to define the dot product.</p>
+<section id="norm" class="level3">
+<h3>Norm</h3>
+<p>The <em>norm</em> of <span class="math inline">x\in\bm{F}^I</span> is
+<span class="math inline">\|x\| = \sqrt{x\cdot x}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\|x\|
+\ge 0</span>, <span class="math inline">\|x\| = 0</span> implies <span
+class="math inline">x = \bm{0}</span>, <span class="math inline">\|ax\|
+= |a|\|x\|</span> and <span class="math inline">\|x + y\| \le \|x\| +
+\|y\|</span></em>.</p>
+<p><strong>Exercise</strong> (Cauchy-Schwartz) <em>Show <span
+class="math inline">|x\cdot y| \le \|x\| \|y\|</span> and if equality
+holds then <span class="math inline">ax = by</span> for some <span
+class="math inline">a,b\in\bm{F}</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">0\le\|x - ty\|^2</span>
+for <span class="math inline">t\in\bm{F}</span> and facts about
+quadratic equations you learned in high school.</p>
+</section>
+<section id="metric" class="level3">
+<h3>Metric</h3>
+<p>Define the <em>distance</em> from <span class="math inline">x</span>
+to <span class="math inline">y</span> by <span
+class="math inline">d(x,y) = \|x - y\|</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">d(x,y)
+= 0</span> implies <span class="math inline">x = y</span>, <span
+class="math inline">d(x,y) = d(y,x)</span> and <span
+class="math inline">d(x,y) + d(y,z) \ge d(x,z)</span></em>.</p>
+<p>This shows <span class="math inline">d</span> is a <em>metric</em>
+that defines a <em>topology</em> on <span
+class="math inline">\bm{F}^I</span>.</p>
 <p>We can identify <span class="math inline">\bm{F}^I</span> with the
 cartesian product of <span class="math inline">I</span> copies of the
 field <span class="math inline">\bm{F}</span>. The element <span
-class="math inline">(x_i)_{i\in I}</span> in the cartesian product
-corresponds to the function <span
-class="math inline">x\in\bm{F}^I</span> by <span
+class="math inline">(x_i)_{i\in I}</span> in the cartesian product <span
+class="math inline">\Pi_{i\in I}\bm{F}</span> corresponds to the
+function <span class="math inline">x\in\bm{F}^I</span> by <span
 class="math inline">x(i) = x_i</span>, <span class="math inline">i\in
 I</span>.</p>
 <p>A simple but quite useful observation is that if <span
@@ -413,8 +564,11 @@ e_i^{I*}\colon\bm{F}^I\to\bm{F}}</span>.</p>
 \sum_{i\in I}e_i^*(x) e_i</span>, <span
 class="math inline">x\in\bm{F}^I</span>, if <span
 class="math inline">I</span> is finite</em>.</p>
-<p><em>Hint</em>: Show <span class="math inline">e_i*(x) =
+<p><em>Hint</em>: Show <span class="math inline">e_i^*(x) =
 x(i)</span>.</p>
+</section>
+<section id="subspace" class="level3">
+<h3>Subspace</h3>
 <p>A <em>subspace</em> is a subset <span
 class="math inline">V\subseteq\bm{R}^I</span> that is closed under
 scalar multiplication and vector addition. There are two trivial
@@ -450,7 +604,28 @@ class="math inline">v_1,\ldots,v_k\in\bm{F}^I</span> are
 class="math inline">a_1,\ldots,a_k\in\bm{F}</span>, not all 0, with
 <span class="math inline">\sum_j a_j v_j = 0</span>. If <span
 class="math inline">a_j\not=0</span> then <span class="math inline">v_j
-= -\sum_{i\not=j} a_i/a_j v_i</span>.</p>
+= -\sum_{i\not=j} (a_i/a_j) v_i</span>.</p>
+<p>A collection of vectors <span
+class="math inline">v_1,\ldots,v_n\in\bm{F}^I</span> are a
+<em>basis</em> if they span <span class="math inline">\bm{F}^I</span>
+and are independent.</p>
+<p><strong>Exercise</strong> <em>Show if <span
+class="math inline">\{v_i\}_{i=1}^n</span> is a basis of <span
+class="math inline">\bm{F}^I</span> then for every <span
+class="math inline">x\in\bm{F}^I</span> there exist unique <span
+class="math inline">x_i</span>, <span class="math inline">1\le i\le
+n</span>, with <span class="math inline">x = \sum_{i=1}^n x_i
+v_i</span></em>.</p>
+<p><strong>Hint</strong>. The vectors <span
+class="math inline">\{v_i\}_{i=1}^n</span> span <span
+class="math inline">\bm{F}^I</span> so the <span
+class="math inline">x_i\in\bm{F}</span> exist. Use independence to show
+they are unique.</p>
+<p>This defines a bijection from <span
+class="math inline">\bm{F}^I</span> to <span
+class="math inline">\bm{F}^{\bm{n}}</span>. This map is also a linear
+operator.</p>
+</section>
 </section>
 <section id="linear-operator" class="level2">
 <h2>Linear Operator</h2>
@@ -468,10 +643,10 @@ aT(x)</span> and vector addition <span class="math inline">(T + U)(x) =
 Tx + Ux</span>, <span class="math inline">a\in\bm{F}</span>, <span
 class="math inline">T,U\in[\bm{F}^I\to\bm{F}^J]</span>, <span
 class="math inline">x\in\bm{F}^I</span>.</p>
-<p><strong>Exercise</strong>. <em>Prove <span class="math inline">T0 =
-0</span></em>.</p>
-<p><em>Hint</em>: Usee <span class="math inline">x + x = x</span>
-implies <span class="math inline">x=\bm{0}</span>.</p>
+<p><strong>Exercise</strong>. <em>Prove <span
+class="math inline">T\bm{0}= \bm{0}</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">x + x = x</span> implies
+<span class="math inline">x=\bm{0}</span>.</p>
 <p>The <em>kernel</em> of a linear operator <span
 class="math inline">T\colon\bm{F}^I\to\bm{F}^J</span> is <span
 class="math inline">{\ker T = \{x\in\bm{F}^I\mid Tx =
@@ -479,16 +654,19 @@ class="math inline">{\ker T = \{x\in\bm{F}^I\mid Tx =
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">\ker
 T</span> is a subspace of <span
 class="math inline">\bm{F}^I</span></em>.</p>
-<p><em>Hint</em>. Show if <span class="math inline">Tx = 0</span> then
-<span class="math inline">T(ax) = 0</span> and <span
-class="math inline">Tx = 0</span>, <span class="math inline">Ty =
-0</span> implies T(x + y) = 0$.</p>
+<p><em>Hint</em>. Show if <span class="math inline">Tx = \bm{0}</span>
+then <span class="math inline">T(ax) = \bm{0}</span> and that <span
+class="math inline">Tx = \bm{0}</span>, <span class="math inline">Ty =
+\bm{0}</span> implies T(x + y) = $.</p>
 <p><strong>Exercise</strong>. <em>Show if <span class="math inline">Tx =
 Ty</span> then <span class="math inline">x - y\in\ker T</span></em>.</p>
 <p><em>Hint</em>. Use <span class="math inline">T</span> is linear.</p>
 <p><strong>Exercise</strong>. <em>Show if <span class="math inline">\ker
-T = \{0\}</span> then <span class="math inline">T</span> is
+T = \{\bm{0}\}</span> then <span class="math inline">T</span> is
 injective</em>.</p>
+<p>If <span class="math inline">T</span> is injective and surjective
+then <span class="math inline">T</span> is an <em>isomorphism</em>, a
+bijection that preserves the vector space structure.</p>
 <p>The <em>matrix</em> of a linear operator <span
 class="math inline">T\in[\bm{F}^I\to\bm{F}^J]</span> is <span
 class="math inline">[T]\in\bm{F}^{I\times J}</span> defined by <span
@@ -506,20 +684,83 @@ class="math inline">T\mapsto [T]</span> is linear</em>.</p>
 <p><em>Hint</em>. Show <span class="math inline">[aT] = a[T]</span> and
 <span class="math inline">[T + U] = [T] + [U]</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span
-class="math inline">T\colon\bm{F}^I\bm{F}^J</span> and <span
+class="math inline">T\colon\bm{F}^I\to\bm{F}^J</span> and <span
 class="math inline">U\colon\bm{F}^J\to\bm{F}^K</span> then <span
 class="math inline">[UT](i,k) = \sum_{j\in J} t(i,j)
 u(j,k)</span></em>.</p>
-<p><em>Hint</em>.</p>
+<p><em>Hint</em>. Use <span class="math inline">[UT](i,k) =
+e_k^*UTe_i</span> and <span class="math inline">Te_i = \sum_j
+e_j^*(Te_i)e_j</span>.</p>
+<p>We have no need for the Einstein summation convention…</p>
+<p><strong>Lemma</strong>. <em>If <span
+class="math inline">T\colon\bm{F}^I\to\bm{F}^J</span> is injective then
+<span class="math inline">|I| \le |J|</span></em>.</p>
+<p><strong>Lemma</strong>. <em>If <span
+class="math inline">T\colon\bm{F}^I\to\bm{F}^J</span> is surjective then
+<span class="math inline">|I| \ge |J|</span></em>.</p>
+</section>
+<section id="dual" class="level2">
+<h2>Dual</h2>
+<p>The <em>dual</em> of <span class="math inline">\bm{R}^I</span> is
+<span class="math inline">\bm{F}^* = [\bm{F}^I\to\bm{F}]</span>, the set
+of <em>linear functionals</em> from a vector space to its underlying
+field. We have already seen an example of this <span
+class="math inline">e_i^*\colon\bm{F}^I\to\bm{F}</span>. If <span
+class="math inline">I</span> is finite the linear transformation <span
+class="math inline">*\colon\bm{F}\to\bm{F}^*</span> defined by <span
+class="math inline">e_i\mapsto e_i^*</span>, <span
+class="math inline">i\in I</span>, is an isomorphism.</p>
 </section>
 <section id="tensor" class="level2">
 <h2>Tensor</h2>
-<p><span class="math inline">\bm{F}^{I\times J}</span> is a rank 2
-tensor.</p>
+<p>It seems to be popular to say “a tensor is something that transforms
+like a tensor.” A more useful definition is a tensor is a vector space
+indexed by a cartesian product. The number of products is the
+<em>rank</em> of the tensor.</p>
+<p>For example, <span class="math inline">\bm{F}^{I\times J}</span> is a
+rank 2 tensor. As we have just seen it corresponds to a linear operator
+in <span class="math inline">[\bm{F}^I\to\bm{F}^J]</span>. Define a
+function with the slightly odd name superscript <span
+class="math inline">T</span> by <span class="math inline">{}^T\colon
+J\times I\to I\times J</span> by <span class="math inline">(j,i)\mapsto
+(i,j)</span>. Note <span
+class="math inline">\circ{}^T\colon\bm{F}^{J\times I}\to\bm{F}^{I\times
+J}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">T\colon\bm{F}^I\to\bm{F}^J</span> with matrix <span
+class="math inline">[t_{ij}]</span> then the matrix of <span
+class="math inline">[T]\circ^T</span> is <span
+class="math inline">[t_{ji}]</span></em>.</p>
 <p>A <em>tensor</em> is an element of <span
 class="math inline">\bm{F}^{\bm{n_1}}\times\cdots\times\bm{n_r}</span>
 where <span class="math inline">r</span> is the <em>rank</em> of the
 tensor.</p>
+</section>
+<section id="structure" class="level2">
+<h2>Structure</h2>
+<p><span class="math inline">[V\to V]\to\mathcal{P}</span> from linear
+operators to characteristic polynomial is continuous.</p>
+<p><span class="math inline">v\wedge w</span> can be thought of as the
+oriented parallelogram determined by <span class="math inline">v</span>
+and <span class="math inline">w</span>.</p>
+<p><strong>Exercise</strong>. _Show <span class="math inline">v\wedge w
+= -w\wedge v</span>.</p>
+</section>
+<section id="iterable" class="level2">
+<h2>Iterable</h2>
+<p>The Kleene star of a set <span class="math inline">S</span> is <span
+class="math inline">S^* = \cup_{n\ge0} S^n</span> so an element <span
+class="math inline">s\in S^*\in S^n</span> for some <span
+class="math inline">n</span>. The Kleene plus of a set <span
+class="math inline">S</span> is <span class="math inline">S^+ = \cup_{n
+&gt; 0} S^n</span>. Define <span class="math inline">?\colon
+S^*\to\bm{B}</span> by <span class="math inline">?s</span> to be false$
+if <span class="math inline">s\in S^0</span> and true otherwise. Define
+<span class="math inline">*\colon S^+\to S</span> by <span
+class="math inline">*s = s_1</span> if <span class="math inline">s =
+(s_1, \ldots, s_n)</span>. Define <span class="math inline">+\colon
+S^+\to S^*</span> by <span class="math inline">+(s_1, s_2, \ldots, s_n)
+= (s_2, \ldots, s_n)</span>.</p>
 <!--
 
 The vector space $\RR^n$ is the set of tuples ${x = (x_1,\ldots,x_n)}$ where

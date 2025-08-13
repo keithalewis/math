@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2025-08-12" />
+  <title>Quantum Markets</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Quantum Markets</h1>
+<p class="date">August 12, 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#notation" id="toc-notation">Notation</a></li>
+<li><a href="#holding-portfolio-transaction"
+id="toc-holding-portfolio-transaction">Holding, Portfolio,
+Transaction</a></li>
+<li><a href="#order-book" id="toc-order-book">Order Book</a></li>
+</ul>
+</nav>
+<p>Notes on <em>Quantum Msrkets</em> by Jack Sarkissian.</p>
+<section id="notation" class="level2">
+<h2>Notation</h2>
+<p><span class="math inline">\tau</span> – time between trades<br />
+<span class="math inline">\rho</span> – order size density<br />
+<span class="math inline">\theta</span> – order density flow <span
+class="math inline">\Delta</span> – bid/ask spread<br />
+<span class="math inline">s</span> – price<br />
+<span class="math inline">x</span> – log price<br />
+<span class="math inline">\epsilon</span> – <span
+class="math inline">\Delta/s</span> - relative spread<br />
+<span class="math inline">h</span> – high minus low<br />
+<span class="math inline">I</span> – execution imbalance<br />
+<span class="math inline">J</span> – order imbalance<br />
+<span class="math inline">m</span> – order/trade imbalance<br />
+<span class="math inline">q</span> – order size<br />
+<span class="math inline">M</span> – absolute value trade size<br />
+<span class="math inline">Q</span> – signed trade size<br />
+<span class="math inline">V</span> – volume<br />
+<span class="math inline">v</span> – order flow<br />
+<span class="math inline">L</span> – price impact</p>
+</section>
+<section id="holding-portfolio-transaction" class="level2">
+<h2>Holding, Portfolio, Transaction</h2>
+<p>A <em>holding</em> is a triple <span class="math inline">h = (a, i,
+o)</span> indicating owner <span class="math inline">o</span> holds
+amount <span class="math inline">a</span> of instrument <span
+class="math inline">i</span>. A <em>portfolio</em> is a collection of
+holdings. An <em>elementary transaction</em> is a triple <span
+class="math inline">\chi = (t, h, h&#39;)</span> where <span
+class="math inline">t</span> is the time of the exchange, <span
+class="math inline">h</span> is a holding of the <em>buyer</em>, and
+<span class="math inline">h&#39;</span> is a holding of the
+<em>seller</em>. An elementary transaction results in the portfolio of
+the buyer <span class="math inline">o</span> to change from <span
+class="math inline">\{\ldots,(a,i,o),\ldots\}</span> to <span
+class="math inline">\{\ldots,(a&#39;,i&#39;,o),\ldots\}</span> and the
+porfolion of the seller <span class="math inline">o&#39;</span> to
+change from <span
+class="math inline">\{\ldots,(a&#39;,i&#39;,o&#39;),\ldots\}</span> to
+<span class="math inline">\{\ldots,(a,i,o&#39;),\ldots\}</span>.</p>
+<p>A <em>transaction</em> is a collection of related elementary
+transactions. Sellers offer elementary transactions and buyers decide
+which to accept/lift. It is not uncommon for elementary transactions to
+involve associated elementary transactions, for example, broker fees or
+taxes. Savvy buyers should take these into account. Sellers have already
+done so.</p>
+<p>Elementary transactions are the atoms of finance. Transactions are
+the molecules.</p>
+<p>The <em>price</em> of an elementary transaction is <span
+class="math inline">X = a/a&#39;</span> where <span
+class="math inline">h = (a, i, o)</span> and <span
+class="math inline">h&#39; = (a&#39;, i&#39;, o&#39;)</span>. If a buyer
+pays <span class="math inline">(8, \$)</span> for <span
+class="math inline">(2, \text{F})</span> shares of Ford stock then the
+price is <span class="math inline">8/2 = 4</span> dollars per share.
+There is no uncertainty in the price of an elementary transaction, it is
+simply a number entered into the books and records of each owner.</p>
+<p>If a seller offers a price <span class="math inline">X</span> at time
+<span class="math inline">t</span> for buyers to exchange instrument
+<span class="math inline">i&#39;</span> for instrument <span
+class="math inline">i</span> then it is approximately correct that the
+transaction <span class="math inline">\chi = (t,(Xa&#39;, i,
+o),(a&#39;,i&#39;,o&#39;))</span> is available to a buyer wanting to
+acquire <span class="math inline">a&#39;</span> of instrument <span
+class="math inline">i&#39;</span>. If the buyer wants to buy <span
+class="math inline">a&#39; &gt; 0</span> of <span
+class="math inline">i&#39;</span> then the seller price <span
+class="math inline">X</span> will be the ask. As <span
+class="math inline">a&#39;</span> becomes a larger positive number, the
+ask will increase. If the buyer want to sell <span
+class="math inline">a&#39; &lt; 0</span> of <span
+class="math inline">i&#39;</span> then the seller price <span
+class="math inline">X</span> will be the bid. As <span
+class="math inline">a&#39;</span> becomes a larger negative number, the
+bid will decrease.</p>
+</section>
+<section id="order-book" class="level1">
+<h1>Order Book</h1>
+<p>An <em>order book</em> is a collection of <em>limit orders</em>.</p>
+</section>
+</body>
+</html>

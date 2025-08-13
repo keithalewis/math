@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
   <meta name="dcterms.date" content="2025-08-12" />
-  <title>Hypergeometric Functions</title>
+  <title>Black-Scholes/Merton Simulation</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -45,19 +45,15 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Hypergeometric Functions</h1>
+<h1 class="title">Black-Scholes/Merton Simulation</h1>
 <p class="author">Keith A. Lewis</p>
 <p class="date">August 12, 2025</p>
 </header>
-<p>Fasten your seatbelt.</p>
-<p>By Taylor’s theorem, every sufficiently well-behaved function on the
-real numbers has a power series representation <span
-class="math inline">f(x) = \sum_{n=0}^\infty f^{n}(0) x^n/n!</span>
-around <span class="math inline">x = 0</span>, where <span
-class="math inline">f^{n}(x)</span> denotes the <span
-class="math inline">n</span>-th derivative of <span
-class="math inline">f</span>. Perhaps the most well-known is the
-exponential function with power series representation <span
-class="math inline">\exp(x) = \sum_{n=0}^\infty x^n/n!</span>.</p>
+<p><span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot
+X_t</span>.</p>
+<p><span class="math inline">A_t = \Delta_t\dot C_t - \Gamma_t\cdot
+X_t</span>.</p>
+<p><span class="math inline">V_t D_t = (\sum_{u &gt; t} A_u
+D_u)|_t</span></p>
 </body>
 </html>
