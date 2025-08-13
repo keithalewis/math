@@ -122,8 +122,8 @@ determined by cash flows.</p>
 <p>There is a clear trajectory in Mathematical Finance from simple
 closed-form models to those allowing more realistic features to be
 incorporated. Classical models assume there is no bid-ask spread
-(perfect liquidity) and prices a real numbers (infinitely
-divisible).</p>
+(perfect liquidity) and prices are a real numbers (infinitely
+divisible). We also make that unrealistic assumption.</p>
 <p>The Achilles Heel of the Black-Scholes/Merton model is that it
 assumes continuous-time trading. This leads to infeasible trading
 strategies and obviously incorrect valuations. The doubling strategy
@@ -497,9 +497,9 @@ class="math inline">\Gamma\colon\boldsymbol{{R}}\to\boldsymbol{{R}}</span>
 with <span class="math inline">\lim_{x\to -\infty}\Gamma(x) = 0</span>
 and <span class="math inline">\lim_{x\to\infty}\Gamma(x) = 1</span>
 where <span class="math display">
-    \log E[e^{sX_1}] = \gamma s + \int_{-\infty}^\infty K_s(x)\,dG(x)$
+    \log E[e^{sX_1}] = \gamma s + \int_{-\infty}^\infty K_s(x)\,dG(x)
 </span> where <span class="math inline">K_s(x) = (e^{sx} - 1 - sx)/x^2 =
-\sum_{k=2}^\infty s*n x^{n-2}/n!</span>.</p>
+\sum_{k=2}^\infty s^n x^{n-2}/n!</span>.</p>
 </section>
 <section id="european-option" class="level3">
 <h3>European Option</h3>
