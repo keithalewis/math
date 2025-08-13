@@ -1,5 +1,6 @@
 ---
 title: Quantum Markets
+abstract: Notes on Quantum Msrkets by Jack Sarkissian.
 ---
 
 Notes on _Quantum Msrkets_ by Jack Sarkissian.
