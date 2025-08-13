@@ -62,4 +62,10 @@ As $a'$ becomes a larger negative number, the bid will decrease.
 # Order Book
 
 An _order book_ is a collection of _limit orders_.
-
+A limit order is a quintuple $(t, l, a, i, o)$ indicating at time $t$ that $o$
+is willing to buy ($a > 0$) or sell ($a < 0$) of instrument $i$ at price $l$.
+A _market order_ specifies the holding $(t, a, i, o)$ that $o$ would like to obtain
+at time $t$. A limit order placed at time $t$ will eventually have price $l$, but there
+is no guarantee when, or if, it will get matched by a market order. 
+A market order is immediately matched with existing limit orders, but it's price
+is uncertain. This is similar to the Heisenberg Uncertainty Principle.
