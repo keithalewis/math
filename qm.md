@@ -29,7 +29,7 @@ $L$ -- price impact
 
 A _holding_ is a triple $h = (a, i, o)$ indicating owner $o$ holds amount $a$ of instrument $i$.
 A _portfolio_ is a collection of holdings. An _elementary transaction_ is a triple $\chi = (t, h, h')$
-where $t$ is the time of the exchange, $h$ is a holding of the _buyer_, and $h'$ is
+where $t$ is the time of the elementary transaction, $h$ is a holding of the _buyer_, and $h'$ is
 a holding of the _seller_. An elementary transaction results in the portfolio of the
 buyer $o$ to change from $\{\ldots,(a,i,o),\ldots\}$
 to $\{\ldots,(a',i',o),\ldots\}$ and the portfolio of the seller $o'$
