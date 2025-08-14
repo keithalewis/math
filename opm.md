@@ -227,21 +227,21 @@ We will assume $X\colon\Omega\to\RR^I$ is bounded so $\|X\| = \sup_{\omega\in\Om
 just as it is in the real world. We write this ${X\in B(\Omega,\RR^I)}$, the normed vector space
 of bounded $\RR^I$-valued functions.
 If $x\in\RR^I$ and $X\colon\Omega\to\RR^I$ is bounded then there is no arbitrage
-if and only if $x = \int_\Omega X(\omega)\,d\Pi(\omega)$ for some positive, bounded, finitely additive
-measure $\Pi\in ba(\Omega)$ on $\Omega$, but this requires a bit more math to establish.
+if and only if $x = \int_\Omega X(\omega)\,dD(\omega)$ for some positive, bounded, finitely additive
+measure $D\in ba(\Omega)$ on $\Omega$, but this requires a bit more math to establish.
 See [@DunSch1958].
 We call any such measure _risk-neutral_, although _risk-blind_ might be more appropriate.
 In general, risk-neutral measures are not unique.
 
-If we let $Q = \Pi/\Pi(\Omega)$ then $Q$ is a positive measure with mass 1
-and $x = E[X]\Pi(\Omega)$ if we pretend it is a probability measure.
+If we let $Q = D/D(\Omega)$ then $Q$ is a positive measure with mass 1
+and $x = E[X]D(\Omega)$ if we pretend it is a probability measure.
 
-If a zero coupon bond exists then $\Pi(\Omega)$ is its price.
+If a zero coupon bond exists then $D(\Omega)$ is its price.
 A _zero coupon bond_ is a portfolio $\zeta\in\RR^I$ with 
 ${\zeta\cdot X(\omega) = 1}$ for all ${\omega\in\Omega}$.
 The _price_, or _discount_, of a zero coupon bond is
-${\zeta\cdot x = \int_\Omega \zeta\cdot X(\omega)\,d\Pi(\omega) = \Pi(\Omega) = D}$.
-The measure ${Q = \Pi/D}$ is positive and has mass 1 so ${x = E[X]D}$ if we pretend it is a probability
+${\zeta\cdot x = \int_\Omega \zeta\cdot X(\omega)\,dD(\omega) = D(\Omega) = D}$.
+The measure ${Q = D/D}$ is positive and has mass 1 so ${x = E[X]D}$ if we pretend it is a probability
 measure.
 
 Define the map $M_X\colon\RR^I\to B(\Omega)$ by $M_X(\xi) = \xi\cdot X$.
@@ -274,10 +274,27 @@ If $\xi\cdot x = 1$ then $R_\xi = \xi\cdot X$. One unit invested at the beginnin
 of the period results in ${R_\xi\colon\Omega\to\RR}$ at the end of the period.
 Every portfolio has the same expected realized return under a risk-neutral measure.
 
-__Exercise__. _If $\Pi$ is a risk-neutral measure then $E[R_\xi] = 1/\Pi(\Omega)$
-for any portfolio $\xi\in\RR^I$_.
+__Exercise__. _If $D$ is a risk-neutral measure then $R = E[R_\xi] = 1/D(\Omega)$
+is constant for any portfolio $\xi\in\RR^I$_.
 
-_Hint_: The expectation is with respect to the "probability" measure $\Pi/\Pi(\Omega)$.
+_Hint_: The expectation is with respect to the "probability" measure $Q = DR = D/D(\Omega)$.
+
+## Hedging
+
+Suppose there is an instrument paying $\nu(X)$ at the end of the period where
+$\nu\colon\RR^I\to\RR$ is the _payoff_ function. If there exists
+$\gamma\in\RR^I$ with $\nu(X) = \gamma\cdot X$ then
+$E^Q[\nu(X)/R] = \langle \nu(X), D\rangle = \langle \gamma\cdot X, D\rangle = \gamma\cdot x$
+so the cost of setting up a perfect hedge is $E^Q[\nu(X)/R]$
+and $\gamma = (d/dx)E^Q[\nu(X)/R]$.
+
+We can always compute $\gamma = (d/dx)E^Q[\nu(X)/R]$ and the above shows
+$E^Q[\nu(X)/R] = \gamma\cdot X$.
+The variance $\Var^Q(\nu(X) - \gamma\cdot X)$ is a measure of how
+good the hedge is.
+
+
+
 
 ## Probability
 
