@@ -2010,3 +2010,5 @@ $\hat\beta V\otimes W \to X$.
 
 $\nu_V\colon I\to **$ is a natural transformation.
 
+$x[J_1,\ldots,J_k]$
+
