@@ -4,18 +4,21 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: Linear sequence of elements
+abstract: Sequence of elements
 ...
 
 \newcommand\NN{\bm{N}}
+\newcommand{\Bool}{\bm{B}}
 
-An _iterable_ $i$ is an ordered sequence of elements from a set $X$.
-Iterables can be identified with functions $i\colon\NN\to X$,
-possibly restricted to an initial segment of $\NN$.
-Let $n = \{i:i < n\}$, $n\in\NN$, denote the initial
-segment of $\NN$ having $n$ elements.
-For $i\colon\NN\to X$ let $i|_n$ be $i$ restricted to $n$.
-The collection of such iterables is denoted $X^n$.
+For any set $T$ the collection of one or more elements of $T$ is the
+_Kleene plus_ $T^+ = \cup_{n > 0} T^n$ and the collection of zero or
+more elements of $T$ is the _Kleene star_ $T^* = \cup__n \ge 0} T^n$.
+
+An _iterable_ over $T$ is an element of $T^*$.
+Define $?\colon T^*\to\Bool$, the set of Boolian values true or false,
+by $?i$ is true if $i\in T^+$ and false otherwise.
+Define $*\colon T^+\to T$ by $*(t_0, t_1, \ldots) = t_0$.
+Define $+\colon T^+\to T^*$ by $+(t_0, t_1, \ldots) = (t_1, t_2, \ldots)$.
 
 Define $+\colon\NN\to\NN$ via $+(n) = 1 + n$, $n\in\NN$.
 Given an iterable $i\colon n\to X$ define $i+\colon n-1\to X$

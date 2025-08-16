@@ -7,7 +7,6 @@ fleqn: true
 abstract: Possibly infinite streams
 ...
 
-
 ## Iterable
 
 An _iterable_ is a generalization of a sequence. Let $i$ be a

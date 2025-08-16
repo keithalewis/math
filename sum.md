@@ -273,20 +273,23 @@ so $V_t = \sum_{t_j > t} c_j D_t(t_j)$.
 
 Bonds can default and the holder recovers only a fraction of the remaining value.
 Let $\tau$ be the time the bond defaults and $\rho$ be the fraction of the value recovered.
-These are both random variables but it is customary to assume $\rho$ is a given constant.
-The original sample space must be augmented by the cartesion product with $[0,\infty)$
-indicating the default time. At time $t$ the information we have
+These are both random variables.
+The original sample space must be augmented by the cartesion product with $[0,\infty)\times [0,1]$
+indicating the default time and recovery. At time $t$ the information we have
 about the default time is either $\tau < t$ and we know exactly when default happened,
-otherwise we only know $\tau\in[t,\infty)$. This corresponds to the
+otherwise we only know $\tau\ge t$. This corresponds to the
 partition of $[0,\infty)$ consisting of singletons $\{s\}$, $s < t$, and
 the atom $[t,\infty)$. We assume if default occurs at time $t$ then we
-learn about it later.
+learn about it later. It is common to assume recovery is
+a constant times the value at default of the zero coupon bond.
 
 A risky zero coupon bond maturing at $u$ pays in full at $u$ if $\tau > u$
 and $\rho D_\tau(u)$ at $\tau$ if $\tau\le u$. By equation (2) its value satisfies
 $$
 	V_t D_t = (\rho D_\tau(u)1(\tau\le u) D_\tau + 1(\tau >u)D_u)|_{\AA_t}.
 $$
+Since $D_\tau(u) D_\tau(A) = ???$
+
 If rates are zero then $D_t(u) = 1$. Writing $V_t$ as $D_t^{\tau,\rho}(u)$ we have
 $$
 	D_t^{\tau,\rho}(u) = (\rho 1(\tau\le u) + 1(\tau >u))|_{\AA_t}
