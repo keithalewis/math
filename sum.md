@@ -43,9 +43,8 @@ unrealistic assumption.
 The Achilles Heel of the Black-Scholes/Merton model is that it assumes
 continuous-time trading. This leads to infeasible trading strategies
 and obviously incorrect valuations.  The doubling strategy pointed
-out by Harrison and Kreps [@HarKre1979] is impossible to carry out, as
-[Zeno](https://plato.stanford.edu/entries/zeno-elea/) pointed out over two
-millenia ago.  According to the B-S/M theory the value of a barrier option
+out by Harrison and Kreps [@HarKre1979] is impossible to carry out.
+According to the B-S/M theory the value of a barrier option
 that knocks in the $n$-th time the barrier is hit is the same for all $n$.
 If Brownian motion hits $a$ at time $\tau$ then it hits $a$ infinitely
 often in the interval $[\tau, \tau + \epsilon]$ for any $\epsilon > 0$
@@ -53,7 +52,7 @@ since Brownian motion has unbounded variation on any finite interval.
 See [@KarShr1991] Section 3.2.
 
 A derivative instrument is a contract. The seller is obligated to
-to pay and receive cash flows specified in the contract the buyer agrees to.
+to satisfy cash flows specified in the contract the buyer agrees to.
 The fundamental problem every sell side trader faces the first day on the job is
 when and how many market instruments to buy in order to manage risk.
 
@@ -286,13 +285,13 @@ a constant times the value at default of the zero coupon bond.
 A risky zero coupon bond maturing at $u$ pays in full at $u$ if $\tau > u$
 and $\rho D_\tau(u)$ at $\tau$ if $\tau\le u$. By equation (2) its value satisfies
 $$
-	V_t D_t = (\rho D_\tau(u)1(\tau\le u) D_\tau + 1(\tau >u)D_u)|_{\AA_t}.
+	V_t D_t = (\rho D_\tau(u)1(t\le\tau\le u) D_\tau + 1(\tau >u)D_u)|_{\AA_t}.
 $$
 Since $D_\tau(u) D_\tau(A) = ???$
 
 If rates are zero then $D_t(u) = 1$. Writing $V_t$ as $D_t^{\tau,\rho}(u)$ we have
 $$
-	D_t^{\tau,\rho}(u) = (\rho 1(\tau\le u) + 1(\tau >u))|_{\AA_t}
+	D_t^{\tau,\rho}(u) = (\rho 1(t\le\tau\le u) + 1(\tau >u))|_{\AA_t}
 $$
 
 ### Black-Scholes/Merton
