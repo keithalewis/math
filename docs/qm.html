@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-08-13" />
+  <meta name="dcterms.date" content="2025-08-18" />
   <title>Quantum Markets</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,7 +45,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Quantum Markets</h1>
-<p class="date">August 13, 2025</p>
+<p class="date">August 18, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Notes on Quantum Markets by Jack Sarkissian.
@@ -54,18 +54,21 @@ Notes on Quantum Markets by Jack Sarkissian.
 <nav id="TOC" role="doc-toc">
 <ul>
 <li><a href="#notation" id="toc-notation">Notation</a></li>
-<li><a href="#holding-portfolio-transaction"
-id="toc-holding-portfolio-transaction">Holding, Portfolio,
-Transaction</a></li>
+<li><a href="#holding-portfolio-exchange-transaction"
+id="toc-holding-portfolio-exchange-transaction">Holding, Portfolio,
+Exchange, Transaction</a></li>
 <li><a href="#order-book" id="toc-order-book">Order Book</a></li>
+<li><a href="#coupled-wave-model"
+id="toc-coupled-wave-model">Coupled-Wave Model</a></li>
 </ul>
 </nav>
 <p>Notes on <em>Quantum Markets</em> by Jack Sarkissian.</p>
 <section id="notation" class="level2">
 <h2>Notation</h2>
 <p><span class="math inline">\tau</span> – time between trades<br />
-<span class="math inline">\rho</span> – order size density<br />
-<span class="math inline">\theta</span> – order density flow <span
+<span class="math inline">\rho</span> – order size density <span
+class="math inline">s\,dm/ds</span> <span
+class="math inline">\theta</span> – order density flow <span
 class="math inline">\Delta</span> – bid/ask spread<br />
 <span class="math inline">s</span> – price<br />
 <span class="math inline">x</span> – log price<br />
@@ -82,42 +85,42 @@ class="math inline">\Delta/s</span> - relative spread<br />
 <span class="math inline">v</span> – order flow<br />
 <span class="math inline">L</span> – price impact</p>
 </section>
-<section id="holding-portfolio-transaction" class="level2">
-<h2>Holding, Portfolio, Transaction</h2>
+<section id="holding-portfolio-exchange-transaction" class="level2">
+<h2>Holding, Portfolio, Exchange, Transaction</h2>
 <p>A <em>holding</em> is a triple <span class="math inline">h = (a, i,
-o)</span> indicating owner <span class="math inline">o</span> holds
-amount <span class="math inline">a</span> of instrument <span
-class="math inline">i</span>. A <em>portfolio</em> is a collection of
-holdings. An <em>elementary transaction</em> is a triple <span
-class="math inline">\chi = (t, h, h&#39;)</span> where <span
-class="math inline">t</span> is the time of the elementary transaction,
-<span class="math inline">h</span> is a holding of the <em>buyer</em>,
-and <span class="math inline">h&#39;</span> is a holding of the
-<em>seller</em>. An elementary transaction results in the portfolio of
-the buyer <span class="math inline">o</span> to change from <span
+o)</span> indicating amount <span class="math inline">a</span> of
+instrument <span class="math inline">i</span>. is held by owner <span
+class="math inline">o</span>. A <em>portfolio</em> is a collection of
+holdings.</p>
+<p>An <em>exchange</em> is a triple <span class="math inline">\chi = (t,
+h, h&#39;)</span> where <span class="math inline">t</span> is the time
+of the exchange, <span class="math inline">h</span> is a holding of the
+<em>buyer</em>, and <span class="math inline">h&#39;</span> is a holding
+of the <em>seller</em>. An exchange results in the portfolio of the
+buyer <span class="math inline">o</span> changing from <span
 class="math inline">\{\ldots,(a,i,o),\ldots\}</span> to <span
 class="math inline">\{\ldots,(a&#39;,i&#39;,o),\ldots\}</span> and the
-portfolio of the seller <span class="math inline">o&#39;</span> to
-change from <span
+portfolio of the seller <span class="math inline">o&#39;</span> changing
+from <span
 class="math inline">\{\ldots,(a&#39;,i&#39;,o&#39;),\ldots\}</span> to
 <span class="math inline">\{\ldots,(a,i,o&#39;),\ldots\}</span>.</p>
-<p>A <em>transaction</em> is a collection of related elementary
-transactions. Sellers offer elementary transactions and buyers decide
-which to accept/lift. It is not uncommon for elementary transactions to
-involve associated elementary transactions, for example, broker fees or
-taxes. Savvy buyers should take these into account. Sellers have already
-done so.</p>
-<p>Elementary transactions are the atoms of finance. Transactions are
-the molecules.</p>
-<p>The <em>price</em> of an elementary transaction is <span
-class="math inline">X = a/a&#39;</span> where <span
-class="math inline">h = (a, i, o)</span> and <span
-class="math inline">h&#39; = (a&#39;, i&#39;, o&#39;)</span>. If a buyer
-pays <span class="math inline">(8, \$)</span> for <span
+<p>A <em>transaction</em> is a collection of related exchanges.
+Transactions often involve exchanges such as broker fees or taxes. Savvy
+buyers should take these into account. Sellers have already done so.</p>
+<p>Sellers passively offer exchanges as <em>limit orders</em> and buyers
+actively decide which to accept/lift using <em>market orders</em>.</p>
+<p>Exchanges are the atoms of finance. Transactions are the
+molecules.</p>
+<p>The <em>price</em> of an exchange is <span class="math inline">X =
+a/a&#39;</span> where <span class="math inline">h = (a, i, o)</span> and
+<span class="math inline">h&#39; = (a&#39;, i&#39;, o&#39;)</span>. If a
+buyer pays <span class="math inline">(8, \$)</span> for <span
 class="math inline">(2, \text{F})</span> shares of Ford stock then the
 price is <span class="math inline">8/2 = 4</span> dollars per share.
-There is no uncertainty in the price of an elementary transaction, it is
-simply a number entered into the books and records of each owner.</p>
+Typically <span class="math inline">i</span> is the preferred currency
+of the buyer.</p>
+<p>There is no uncertainty in the price of an exchange, it is simply a
+number entered into the books and records of each owner.</p>
 <p>If a seller offers a price <span class="math inline">X</span> at time
 <span class="math inline">t</span> for buyers to exchange instrument
 <span class="math inline">i&#39;</span> for instrument <span
@@ -128,33 +131,54 @@ acquire <span class="math inline">a&#39;</span> of instrument <span
 class="math inline">i&#39;</span>. If the buyer wants to buy <span
 class="math inline">a&#39; &gt; 0</span> of <span
 class="math inline">i&#39;</span> then the seller price <span
-class="math inline">X</span> will be the ask. As <span
+class="math inline">X</span> will be the <em>ask</em>. As <span
 class="math inline">a&#39;</span> becomes a larger positive number, the
 ask will increase. If the buyer want to sell <span
 class="math inline">a&#39; &lt; 0</span> of <span
 class="math inline">i&#39;</span> then the seller price <span
-class="math inline">X</span> will be the bid. As <span
+class="math inline">X</span> will be the <em>bid</em>. As <span
 class="math inline">a&#39;</span> becomes a larger negative number, the
 bid will decrease.</p>
 </section>
-<section id="order-book" class="level1">
-<h1>Order Book</h1>
-<p>An <em>order book</em> is a collection of <em>limit orders</em>. A
-limit order is a quintuple <span class="math inline">(t, l, a, i,
-o)</span> indicating at time <span class="math inline">t</span> that
-<span class="math inline">o</span> is willing to buy (<span
-class="math inline">a &gt; 0</span>) or sell (<span
-class="math inline">a &lt; 0</span>) of instrument <span
-class="math inline">i</span> at price <span
-class="math inline">l</span>. A <em>market order</em> specifies the
-holding <span class="math inline">(t, a, i, o)</span> that <span
+<section id="order-book" class="level2">
+<h2>Order Book</h2>
+<p>An <em>order book</em> is a collection of limit orders. A limit order
+is a quintuple <span class="math inline">(t, l, a, i, o)</span>
+indicating that seller <span class="math inline">o</span> is willing to
+buy amount <span class="math inline">a &gt; 0</span> or sell mount <span
+class="math inline">a &lt; 0</span> of instrument <span
+class="math inline">i</span> at price <span class="math inline">l</span>
+any time after <span class="math inline">t</span>. Limit orders can be
+cancelled by the seller.</p>
+<p>A <em>market order</em> specifies the holding <span
+class="math inline">(t, a, i, o)</span> that buyer <span
 class="math inline">o</span> would like to obtain at time <span
 class="math inline">t</span>. A limit order placed at time <span
 class="math inline">t</span> will eventually have price <span
 class="math inline">l</span>, but there is no guarantee when, or if, it
-will get matched by a market order. A market order is immediately
-matched with existing limit orders, but it’s price is uncertain. This is
+will get matched by a market orders. A market order is immediately
+matched with existing limit orders, but its price is uncertain. This is
 similar to the Heisenberg Uncertainty Principle.</p>
+<p>The <em>depth</em> at time <span class="math inline">t</span> for
+level <span class="math inline">l</span> is the sum over limit orders
+placed prior to <span class="math inline">t</span> having level <span
+class="math inline">l</span> <span class="math display">
+    A(t, l) = \sum_{(t_j,l_j,a_j,i_j,o_j)} \{a_j\mid t_j &lt; t, l_j =
+l\}.
+</span></p>
+<p>The <em>ask</em> for a order book at <span
+class="math inline">t</span> is the lowest level with positive depth.
+The <em>bid</em> for a order book at <span class="math inline">t</span>
+is the highest level with negative depth. The <em>mid</em> is the
+average of the bid and ask. The <em>high</em> over an interval is the
+largest ask over the interval. The <em>low</em> over an interval is the
+smallest bid over the interval. The <em>open</em> is the price of the
+first market order of the session and the sign of the amount. The
+<em>close</em> is the price of the last market order of the session and
+the sign of the amount.</p>
+</section>
+<section id="coupled-wave-model" class="level2">
+<h2>Coupled-Wave Model</h2>
 </section>
 </body>
 </html>

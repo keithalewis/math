@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-01-26" />
+  <meta name="dcterms.date" content="2025-08-19" />
   <title>One-Period Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -26,6 +26,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -66,7 +67,7 @@
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 26, 2025</p>
+<p class="date">August 19, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Buy now, sell later.
@@ -85,6 +86,7 @@ Asset Pricing</a></li>
 <li><a href="#reality" id="toc-reality">Reality</a></li>
 <li><a href="#ftap" id="toc-ftap">FTAP</a></li>
 <li><a href="#return" id="toc-return">Return</a></li>
+<li><a href="#hedging" id="toc-hedging">Hedging</a></li>
 <li><a href="#probability" id="toc-probability">Probability</a></li>
 <li><a href="#references" id="toc-references">References</a></li>
 </ul>
@@ -96,7 +98,8 @@ class="math inline">\Omega</span> be the set of possible outcomes. The
 class="math inline">x\in\boldsymbol{R}^I</span><a href="#fn1"
 class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.
 The prices at the end of the period are a function <span
-class="math inline">X\colon\Omega\to \boldsymbol{R}^I</span> where <span
+class="math inline">X\colon\Omega\to
+\boldsymbol{R}^I</span> where <span
 class="math inline">X(\omega)\in\boldsymbol{R}^I</span> are the
 instrument prices if <span class="math inline">\omega\in\Omega</span>
 occurred.</p>
@@ -386,30 +389,30 @@ B(\Omega,\boldsymbol{R}^I)}</span>, the normed vector space of bounded
 <span class="math inline">x\in\boldsymbol{R}^I</span> and <span
 class="math inline">X\colon\Omega\to\boldsymbol{R}^I</span> is bounded
 then there is no arbitrage if and only if <span class="math inline">x =
-\int_\Omega X(\omega)\,d\Pi(\omega)</span> for some positive, bounded,
-finitely additive measure <span class="math inline">\Pi\in
+\int_\Omega X(\omega)\,dD(\omega)</span> for some positive, bounded,
+finitely additive measure <span class="math inline">D\in
 ba(\Omega)</span> on <span class="math inline">\Omega</span>, but this
 requires a bit more math to establish. See <span class="citation"
 data-cites="DunSch1958">(Dunford and Schwartz 1958)</span>. We call any
 such measure <em>risk-neutral</em>, although <em>risk-blind</em> might
 be more appropriate. In general, risk-neutral measures are not
 unique.</p>
-<p>If we let <span class="math inline">Q = \Pi/\Pi(\Omega)</span> then
-<span class="math inline">Q</span> is a positive measure with mass 1 and
-<span class="math inline">x = E[X]\Pi(\Omega)</span> if we pretend it is
-a probability measure.</p>
+<p>If we let <span class="math inline">Q = D/D(\Omega)</span> then <span
+class="math inline">Q</span> is a positive measure with mass 1 and <span
+class="math inline">x = E[X]D(\Omega)</span> if we pretend it is a
+probability measure.</p>
 <p>If a zero coupon bond exists then <span
-class="math inline">\Pi(\Omega)</span> is its price. A <em>zero coupon
+class="math inline">D(\Omega)</span> is its price. A <em>zero coupon
 bond</em> is a portfolio <span
 class="math inline">\zeta\in\boldsymbol{R}^I</span> with <span
 class="math inline">{\zeta\cdot X(\omega) = 1}</span> for all <span
 class="math inline">{\omega\in\Omega}</span>. The <em>price</em>, or
 <em>discount</em>, of a zero coupon bond is <span
 class="math inline">{\zeta\cdot x = \int_\Omega \zeta\cdot
-X(\omega)\,d\Pi(\omega) = \Pi(\Omega) = D}</span>. The measure <span
-class="math inline">{Q = \Pi/D}</span> is positive and has mass 1 so
-<span class="math inline">{x = E[X]D}</span> if we pretend it is a
-probability measure.</p>
+X(\omega)\,dD(\omega) = D(\Omega) = D}</span>. The measure <span
+class="math inline">{Q = D/D}</span> is positive and has mass 1 so <span
+class="math inline">{x = E[X]D}</span> if we pretend it is a probability
+measure.</p>
 <p>Define the map <span class="math inline">M_X\colon\boldsymbol{R}^I\to
 B(\Omega)</span> by <span class="math inline">M_X(\xi) = \xi\cdot
 X</span>. We can and do assume <span class="math inline">M_X</span> is
@@ -452,12 +455,30 @@ beginning of the period results in <span
 class="math inline">{R_\xi\colon\Omega\to\boldsymbol{R}}</span> at the
 end of the period. Every portfolio has the same expected realized return
 under a risk-neutral measure.</p>
-<p><strong>Exercise</strong>. <em>If <span
-class="math inline">\Pi</span> is a risk-neutral measure then <span
-class="math inline">E[R_\xi] = 1/\Pi(\Omega)</span> for any portfolio
-<span class="math inline">\xi\in\boldsymbol{R}^I</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">D</span>
+is a risk-neutral measure then <span class="math inline">R = E[R_\xi] =
+1/D(\Omega)</span> is constant for any portfolio <span
+class="math inline">\xi\in\boldsymbol{R}^I</span></em>.</p>
 <p><em>Hint</em>: The expectation is with respect to the “probability”
-measure <span class="math inline">\Pi/\Pi(\Omega)</span>.</p>
+measure <span class="math inline">Q = DR = D/D(\Omega)</span>.</p>
+</section>
+<section id="hedging" class="level2">
+<h2>Hedging</h2>
+<p>Suppose there is an instrument paying <span
+class="math inline">\nu(X)</span> at the end of the period where <span
+class="math inline">\nu\colon\boldsymbol{R}^I\to\boldsymbol{R}</span> is
+the <em>payoff</em> function. If there exists <span
+class="math inline">\gamma\in\boldsymbol{R}^I</span> with <span
+class="math inline">\nu(X) = \gamma\cdot X</span> then <span
+class="math inline">E^Q[\nu(X)/R] = \langle \nu(X), D\rangle = \langle
+\gamma\cdot X, D\rangle = \gamma\cdot x</span> so the cost of setting up
+a perfect hedge is <span class="math inline">E^Q[\nu(X)/R]</span> and
+<span class="math inline">\gamma = (d/dx)E^Q[\nu(X)/R]</span>.</p>
+<p>We can always compute <span class="math inline">\gamma =
+(d/dx)E^Q[\nu(X)/R]</span> and the above shows <span
+class="math inline">E^Q[\nu(X)/R] = \gamma\cdot X</span>. The variance
+<span class="math inline">\operatorname{Var}^Q(\nu(X) - \gamma\cdot
+X)</span> is a measure of how good the hedge is.</p>
 </section>
 <section id="probability" class="level2">
 <h2>Probability</h2>
@@ -513,14 +534,14 @@ $Rx = E[X] = \sum_j X(ω_j) \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
 
 -->
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-DunSch1958" class="csl-entry" role="listitem">
 Dunford, Nelson, and Jacob T Schwartz. 1958. <em>Linear Operators
 i</em>. Interscience Publishers.
 </div>
 </div>
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -538,6 +559,6 @@ class="math inline">I</span> is finite. The <em>Euclidean norm</em> of
 <span class="math inline">\|x\| = \sqrt{x\cdot x}</span>.<a
 href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>
