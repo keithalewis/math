@@ -255,13 +255,14 @@ In an arbitrage free model its price at time $t\le u$, $X_t^{D(u)} = D_t(u)$,
 satisfies $D_t(u) D_t = D_u|_{\AA_t}$ so
 $D_t(u)$ is the Radon-Nikodym derivative of $D_u|_{\AA_t}$ with respect to $D_t$.
 
-Note $D_0(u)D_0 =  D_u|_{\AA_0}$. 
+Note $D_0(u)D_0 =  D_u|_{\AA_0}$ so the discount to time $u$ is $D_0(u) = D_u(\Omega)/D_0(\Omega)
+=  D_u(\Omega)$ assuming, without loss of generality, that $D_0(\Omega) = 1$.
 
 Zero coupon bond prices are determined by the deflators.
 The Brace-Gatarek-Musiela Market model[@BraGatMus1997] corresponds to using the canonical deflator
 built from forward rate agreements instead of repos.
 The Heath-Jarrow-Morton model[HeaJarMor1992] corresponds to using
-the continuous time stochastic discount.
+the continuous time forward rates.
 
 ### Fixed Income
 
