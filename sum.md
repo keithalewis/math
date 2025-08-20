@@ -229,7 +229,11 @@ and no cash flows exists in order to finance trading strategies.
 It is rare for market participants to use repos to finance their trading.
 Traders working for large banks have access to a funding desk that
 charges them the repo rate plus a few basis points. Day traders
-using a credit card to fund trading get charged at a much higher rate.
+using a credit card to fund trading get charged at the APR they qualified for.
+
+The SUM model does not assume a risk-free rate exists. If a funding
+instrument is being used then it, or all the instruments used to mimic it,
+should be added to the set of instruments $I$.
 
 
 <!--

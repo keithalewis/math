@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-08-19" />
+  <meta name="dcterms.date" content="2025-08-20" />
   <title>Simple Universal Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -66,7 +66,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Simple Universal Model</h1>
-<p class="date">August 19, 2025</p>
+<p class="date">August 20, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Arbitrage-free prices are geometrically constrained by cash flows.
@@ -130,13 +130,10 @@ assumes continuous-time trading. This leads to infeasible trading
 strategies and obviously incorrect valuations. The doubling strategy
 pointed out by Harrison and Kreps <span class="citation"
 data-cites="HarKre1979">(Harrison and Kreps 1979)</span> is impossible
-to carry out, as <a
-href="https://plato.stanford.edu/entries/zeno-elea/">Zeno</a> pointed
-out over two millenia ago. According to the B-S/M theory the value of a
-barrier option that knocks in the <span class="math inline">n</span>-th
-time the barrier is hit is the same for all <span
-class="math inline">n</span>. If Brownian motion hits <span
-class="math inline">a</span> at time <span
+to carry out. According to the B-S/M theory the value of a barrier
+option that knocks in the <span class="math inline">n</span>-th time the
+barrier is hit is the same for all <span class="math inline">n</span>.
+If Brownian motion hits <span class="math inline">a</span> at time <span
 class="math inline">\tau</span> then it hits <span
 class="math inline">a</span> infinitely often in the interval <span
 class="math inline">[\tau, \tau + \epsilon]</span> for any <span
@@ -145,10 +142,10 @@ unbounded variation on any finite interval. See <span class="citation"
 data-cites="KarShr1991">(Karatzas and Shreve 1991)</span> Section
 3.2.</p>
 <p>A derivative instrument is a contract. The seller is obligated to to
-pay and receive cash flows specified in the contract the buyer agrees
-to. The fundamental problem every sell side trader faces the first day
-on the job is when and how many market instruments to buy in order to
-manage risk.</p>
+satisfy cash flows specified in the contract the buyer agrees to. The
+fundamental problem every sell side trader faces the first day on the
+job is when and how many market instruments to buy in order to manage
+risk.</p>
 <p>This note provides a simple universal model that provides a
 foundation for making advances on this important and poorly understood
 problem.</p>
@@ -384,8 +381,12 @@ order to finance trading strategies.</p>
 <p>It is rare for market participants to use repos to finance their
 trading. Traders working for large banks have access to a funding desk
 that charges them the repo rate plus a few basis points. Day traders
-using a credit card to fund trading get charged at a much higher
-rate.</p>
+using a credit card to fund trading get charged at the APR they
+qualified for.</p>
+<p>The SUM model does not assume a risk-free rate exists. If a funding
+instrument is being used then it, or all the instruments used to mimic
+it, should be added to the set of instruments <span
+class="math inline">I</span>.</p>
 <!--
 but every big bank has a repo desk of traders working
 diligently every day to provide this simplifying illusion.
@@ -457,7 +458,7 @@ u</span> and <span class="math inline">\rho D_\tau(u)</span> at <span
 class="math inline">\tau</span> if <span class="math inline">\tau\le
 u</span>. By equation (2) its value satisfies <span
 class="math display">
-    V_t D_t = (\rho D_\tau(u)1(\tau\le u) D_\tau + 1(\tau
+    V_t D_t = (\rho D_\tau(u)1(t\le\tau\le u) D_\tau + 1(\tau
 &gt;u)D_u)|_{\mathcal{A}_t}.
 </span> Since <span class="math inline">D_\tau(u) D_\tau(A) =
 ???</span></p>
@@ -465,7 +466,7 @@ class="math display">
 Writing <span class="math inline">V_t</span> as <span
 class="math inline">D_t^{\tau,\rho}(u)</span> we have <span
 class="math display">
-    D_t^{\tau,\rho}(u) = (\rho 1(\tau\le u) + 1(\tau
+    D_t^{\tau,\rho}(u) = (\rho 1(t\le\tau\le u) + 1(\tau
 &gt;u))|_{\mathcal{A}_t}
 </span></p>
 </section>
