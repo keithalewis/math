@@ -26,7 +26,7 @@ and managing the risk of **all** derivative instruments. It is based on [@Ros197
 > _If there are no arbitrage opportunities in the capital markets, then
 there exists a (not generally unique) valuation operator, $L$_.
 
-The not generally uinque valuation operators are determined by _deflators_:
+The not generally unique valuation operators are determined by _deflators_:
 positive measures that depend only on the information available at
 each trading time. Ross's theory applies to all instruments, not just a
 bond, stock, and option that Black and Scholes [@BlaSch1973] and Merton
@@ -74,7 +74,7 @@ Recall its vector space dual can be identified with the space of
 finitely additive measures on $\Omega$ denoted $ba(\Omega)$.
 For any $f\in B(\Omega)$ define the linear operator of multiplication by $f$,
 $M_f\colon B(\Omega)\to B(\Omega)$, by $M_fg = fg$.
-Its adjoint is a linear operator $M_f^*\colon ba(\Omega)\to ba(\Omega)$. 
+Its adjoint is the linear operator $M_f^*\colon ba(\Omega)\to ba(\Omega)$. 
 This defines multiplying a measure by a function $f\phi = M_f^*\phi$
 for $f\in B(\Omega)$ and $\phi\in ba(\Omega)$.
 
@@ -102,23 +102,23 @@ and is zero otherwise. Note $\Delta_t + \Gamma_t = \Delta_u$ for $u > t$ when $u
 
 ## Accounting
 
-The _value_, or _mark-to-market_, of a position is how much you would make if you
-liquidated at current prices, ${V_t = (\Delta_t + \Gamma_t)\cdot X_t}$. You don't own
-$\Gamma_t$ at time $t$ but you will at $t + \epsilon$ and should be accounted for.
+The _value_, or _mark-to-market_, of a position is how much would be made if
+the position was liquidated at current prices, ${V_t = (\Delta_t + \Gamma_t)\cdot X_t}$.
+Trade $\Gamma_t$ is not part of the position at time $t$ but will be at $t + \epsilon$ and needs to be accounted for.
 The _amount_ associated with a trading strategy at time $t$
-is ${A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t}$: you receive cash flows proportional
-to your position and have to pay for trades just executed.
+is ${A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t}$: cash flows proportional
+to position are credited and trades just executed are debited at the current market price.
 
 ## Arbitrage
 
 We define arbitrage (for this model) as the existence of a trading strategy 
-with $A_{\tau_0} > 0$ and $A_t\ge0$, for $t > \tau_0$: you make money on the first trade and
-never lose money thereafter.
+with $A_{\tau_0} > 0$ and $A_t\ge0$, for $t > \tau_0$: the first trade makes money and
+subsequent trades never lose money.
 We also require the strategy to eventually closes out, $\sum_j \Gamma_j = 0$,
 otherwise borrowing a dollar every day would be an arbitrage.[^1]
 Note our definition of arbitrage does not involve a probability measure.
 
-[^1]: Nick Leeson used this strategy to put 350 year old Barings out of business.
+[^1]: Nick Leeson used this strategy to put 233 year old, at the time, Barings Bank out of business.
 
 __Theorem__. (Fundamental Theorem of Asset Pricing) _The Simple Universal Model is
 arbitrage free if and only if there exist a_ deflator _, positive measures $D_t$ in $ba(\AA_t)$, $t\in T$, with_
@@ -126,10 +126,6 @@ $$
 \tag{1}	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}, t\le u
 $$
 _where $|$ indicates restriction of measure_.
-
-If $(D_t)$ is a deflator then $(D_t/D_0(\Omega))$ is also a deflator
-so we can and will assume $D_0(\Omega) = 1$. This techniquely makes $D_0$
-a probability measure, but it is not the probability of anything. 
 
 __Lemma__. _Using the above definitions_
 $$
@@ -199,7 +195,7 @@ where $\Delta$ is delta and $\Gamma$ is gamma.
 A feature of the SUM is there is no canonical choice for the trading times $(\tau_j)$. 
 The B-S/M model obscures the essential problem faced by every trader: when and
 how how much of each instrument are required to hedge. It is simply not possible
-to hedge continously. This question is yet to be answered.
+to hedge continuously. This question is yet to be answered.
 
 
 Static hedging (Nazir, Peter)
@@ -257,10 +253,11 @@ $D_t(u)$ is the Radon-Nikodym derivative of $D_u|_{\AA_t}$ with respect to $D_t$
 
 Note $D_0(u)D_0 =  D_u|_{\AA_0}$ so the discount to time $u$ is $D_0(u) = D_u(\Omega)/D_0(\Omega)
 =  D_u(\Omega)$ assuming, without loss of generality, that $D_0(\Omega) = 1$.
+This technically makes $D_0$ a probability measure, but it is not the probability of anything. 
 
 Zero coupon bond prices are determined by the deflators.
 The Brace-Gatarek-Musiela Market model[@BraGatMus1997] corresponds to using the canonical deflator
-built from forward rate agreements instead of repos.
+built from futures instead of repos.
 The Heath-Jarrow-Morton model[HeaJarMor1992] corresponds to using
 the continuous time forward rates.
 
@@ -323,61 +320,103 @@ with $\lim_{x\to -\infty}\Gamma(x) = 0$ and $\lim_{x\to\infty}\Gamma(x) = 1$ whe
 $$
 	\log E[e^{sX_1}] = \gamma s + \int_{-\infty}^\infty K_s(x)\,dG(x)
 $$
-where $K_s(x) = (e^{sx} - 1 - sx)/x^2 = \sum_{k=2}^\infty s^n x^{n-2}/n!$.
+and $K_s(x) = (e^{sx} - 1 - sx)/x^2 = \sum_{k=2}^\infty s^n x^{n-2}/n!$
+is the Kolomogorov[@Kol????] kernel. Not $G(x) = 1_[0,\infty)$ gives
+the normal distribution with mean $\gamma$ and variance one. 
+If $G(x) = 1_[a,\infty)$, $a\not=0$ we get a Poisson
+distribution with parameter $\lambda = ???$.
 
-### European Option
+### General European Option
 
 A _European option_ on underlying $S$ pays $\nu(S_t)$ for some function $\nu$ at _expiration_ $t$.
 For a _put_ $\nu(x) = \max\{k - x, 0\}$ and for a _call_ $\nu(x) = \max\{x - k, 0\}$
 where $k$ is the _strike_. If we have a money-market instrument $R$ with price $R_t = 1/D_t$
 and a self-financing strategy exists then
-the cost of setting that up at time 0 is determined by $V_0 D_0$ = (\nu(S_t) D_t)|_{\AA_0}$.
+the cost of setting that up at time 0 is determined by ${V_0 D_0 = (\nu(S_t) D_t)|_{\AA_0}}$.
+Using the "probability" measure $P = D_0$ this is usually written
+$V_0 = E[\nu(S_t)D_t]$.
 
-Relation of $E$ to $|$...???
-
-Switch from S to F. Use R. B-S/M -> Black parameterization
-
+The Black model[@Bla1976] considers the forward value of an option on the forward
+$F_t = fe^{\sigma B_t - \sigma^2t/2}$, where $f = se^{\rho t}$.
+The forward value is $E[\nu(F_t)]$.
 If a European option pays $\nu(F)$ shares then
 $E[F\nu(F)] = fE[e^{sX - \kappa(s)}\nu(F)] = fE^s[\nu(F)]$
 where $E^s$ is _share measure_. The Radon-Nikodym derivative
-of the correponding probability measures is $dP^s/dP = e^{sX - \kappa(s)}$.
+of the correponding "probability" measures is $dP^s/dP = e^{sX - \kappa(s)}$.
+Note $e^{sX - \kappa(s)} > 0$ and $E[e^{sX - \kappa(s)}] = 1$ so
+$P_s$ is a "probability" measure.
 
-If $F = fe^{sX - \kappa(s)}$ where $X$ has mean zero and variance one then
-$E[F] = f$ and $\Var(\log F) = s^2$. Every positive random variables
+The general Black model is $F = fe^{sX - \kappa(s)}$ where $X$ has mean zero and variance one
+and $s = \sigma\sqrt{t}$.. Every positive random variables
 with finite mean and log variance has this form.
 
 The forward put value with strike $k$ is $p(k) = E[\max\{k - F, 0\}] = E[(k - F)1(F\le k)]$ so
 $$
 	p(k) = P(F\le k) - fP^s(F\le k).
 $$
-
 Put prices determine the distribution of $F$, as Breeden and Litzenberg  [@BreLit1978] showed,
 since $\partial_k p = E[1(F\le k)] = P(F\le k)$.
 
+_Delta_ is the derivative of option value with respect to $f$
+$$
+\begin{aligned}
+\partial_f p &= \partial_f E[\max\{k - F, 0\}] \\
+  &= E[-1(F \le k)\partial_f F] \\
+  &= E[-1(F \le k)e^{sX - \kappa(s)}] \\
+  &= -P^s(F \le k) \\
+  &= -\Psi^s(x) \\
+\end{aligned}
+$$
 
+_Gamma_ is the second derivative of option value with respect to $f$
+$$
+\begin{aligned}
+    \partial_f^2 p &= -\partial_f \Psi^s(x) \\
+    &= -\partial_x \Psi^s(x)\partial_f x \\
+    &= -\partial_x \Psi^s(x)/\partial_x f \\
+    &= \partial_x \Psi^s(x)/f s\\
+\end{aligned}
+$$
+
+_Vega_ is the derivative of option value with respect to $s$.
+The vega of a put option is
+$$
+\begin{aligned}
+    \partial_s p &= \partial_s E[\max\{k - F, 0\}] \\
+        &= E[-1(F \le k)\partial_s F] \\
+        &= -E[1(X\le x)F(X - \kappa'(s))] \\
+        &= -f\partial_s \Psi^s(x) \\
+\end{aligned}
+$$
+The last equality follows from $\partial_s E^s[1(X\le x)] = E[1(X \le x)e^{sX - \kappa(s)}(X - \kappa'(s))]$.
 
 ## Notes
 
 The set exponential $B^A$ is the set of all functions from $A$ to $B$.
 For any set $I$, $\RR^I$ is a vector space with scalar multiplication
 and vector addition defined pointwise:
-$(ax)(i) = ax(i)$ and $(x + y)(i) = x(i) + y(i)$, $a\in\RR$, $x,y\in\RR^I$.
+${(ax)(i) = ax(i)}$ and ${(x + y)(i) = x(i) + y(i)}$, $a\in\RR$, ${x,y\in\RR^I}$.
 
 A _real valued function_ takes an element of a set to a real number.
 A _real valued measure_ takes a subset of a set to a real number. Measures
 do not count things twice and the measure of nothing is zero.
 If $B(S)$ is the normed vector space of bounded functions on $S$
-where the norm of $f\in B(S)$ is $\|f\| = \sup\{|f(s)|\mid s\in S\}$
+where the norm of $f\in B(S)$ is ${\|f\| = \sup\{|f(s)|\mid s\in S\}}$
 then its dual $B(S)^*$ can be identified with the normed vector
 space of bounded finitely additive measures on $S$, $ba(S)$.
+The _dual pairing_ ${\langle f,\phi\rangle = \int_\Omega f\,d\phi}$
+is defined for _simple functions_,
+a finite linear sum ${f = \sum_i a_i 1_{A_i}}$, $A_i\subseteq\Omega$,
+by $\int_\Omega f\,d\phi = \sum_i a_i\phi(A_i)$.
+Dunford and Schwartz[@DunSch1958] show this is well-defined and an
+isometry so it can be extended to all of $B(\Omega)$.
 
-If $L\colon B(S)\to\RR$ is linear define $\lambda(E) = L1_E$ where
+If $\Phi\colon B(S)\to\RR$ is linear define $\phi(E) = \Phi 1_E$ where
 $1_E(s) = 1$ if $s\in E$ and $1_E(s) = 0$ if $s\not\in S$.
 Since $1_{E\cup F} = 1_E + 1_F - 1_{E\cap F}$ we have
-$\lambda(E\cup F) = \lambda(E) + \lambda(F) - \lambda(E\cap F)$.
+$\phi(E\cup F) = \phi(E) + \phi(F) - \phi(E\cap F)$.
 Measures do not count things twice. Since $1_\emptyset = 0$,
-$\lambda(1_\emptyset) = 0$.
-
+$\phi(1_\emptyset) = 0$.
 
 If $\AA$ is a sigma algebra on $\Omega$ then it is an algebra. If it is finite
 then the atoms of $\AA$ form a partition of $\Omega$. An _atom_ $B\in\AA$
