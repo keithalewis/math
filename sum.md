@@ -6,6 +6,7 @@
 title: Simple Universal Model
 abstract: Arbitrage-free prices are geometrically constrained by cash flows.
 classoption: fleqn
+link-citations: true
 header-includes:
 	- \usepackage{bm}
 ...
@@ -29,8 +30,8 @@ there exists a (not generally unique) valuation operator, $L$_.
 The not generally unique valuation operators are determined by _deflators_:
 positive measures that depend only on the information available at
 each trading time. Ross's theory applies to all instruments, not just a
-bond, stock, and option that Black and Scholes [@BlaSch1973] and Merton
-[@Mer1973] considered. His insight was to realize option valuation had
+bond, stock, and option that [@BlaSch1973] and [@Mer1973] considered.
+His insight was to realize option valuation had
 nothing to do with probability and used the Hahn-Banach theorem to show
 prices are constrained by the geometry determined by cash flows.
 
@@ -43,7 +44,7 @@ unrealistic assumption.
 The Achilles Heel of the Black-Scholes/Merton model is that it assumes
 continuous-time trading. This leads to infeasible trading strategies
 and obviously incorrect valuations.  The doubling strategy pointed
-out by Harrison and Kreps [@HarKre1979] is impossible to carry out.
+out by [@HarKre1979] is impossible to carry out.
 According to the B-S/M theory the value of a barrier option
 that knocks in the $n$-th time the barrier is hit is the same for all $n$.
 If Brownian motion hits $a$ at time $\tau$ then it hits $a$ infinitely
@@ -213,8 +214,10 @@ how how much of each instrument are required to hedge. It is simply not possible
 to hedge continuously. The SUM forces you to consider this question that has
 yet have a definitive answer.
 
-
-Static hedging (Nazir, Peter)
+Semi-Static hedging involves finding an initial static hedge that approximately
+replicates the option, then finding a dynamic hedge to improve on the difference.
+See [@CarEllGup1998] for early work and [@SauTou2024] for recent improvements
+of this technique.
 
 ## Examples
 
@@ -272,10 +275,11 @@ Note $D_0(u)D_0 =  D_u|_{\AA_0}$ so the discount to time $u$ is $D_0(u) = D_u(\O
 This technically makes $D_0$ a probability measure, but it is not the probability of anything. 
 
 Zero coupon bond prices are determined by the deflators.
-The Brace-Gatarek-Musiela Market model[@BraGatMus1997] corresponds to using the canonical deflator
+The [@BraGatMus1997] model corresponds to using the canonical deflator
 built from futures instead of repos.
-The Heath-Jarrow-Morton model[HeaJarMor1992] corresponds to using
+The [@HeaJarMor1992] model corresponds to using
 the continuous time forward rates.
+
 
 ### Fixed Income
 
@@ -317,9 +321,13 @@ $$
 	D_t^{\tau,\rho}(u) = (\rho 1(t\le\tau\le u) + 1(\tau >u))|_{\AA_t}
 $$
 
+### Convertible Bond
+
+???
+
 ### Black-Scholes/Merton
 
-The Black-Scholes[@BlaSch1973] and Merton[@Mer1973] model has
+The Black-Scholes and Merton models have
 $\Omega = C[0,\infty)$, the set of continuous functions on the non-negative
 real numbers, and $T = [0,\infty)$ with
 instruments a bond and a stock having no associated cash flows.
@@ -327,25 +335,30 @@ The martingale measure
 is $M_t = (r, se^{\sigma B_t - \sigma^2t/2})P$ where $(B_t)$ is
 standard Brownian motion and $P$ is Wiener measure. The deflator is $D_t = e^{-\rho t}P$.
 
-We can generalize this to any Levy process $(X_t)$ with $X_1$ having mean
+We can generalize this to any Lévy process $(X_t)$ with $X_1$ having mean
 zero and variance one. In this case
 $M_t = (r, se^{\sigma X_t - t\kappa(\sigma)})P$ where $\kappa(\sigma)
 = \log E[\exp(\sigma X_1)]$ is the _cumulant_ of $X_1$.
 Independence and stationarity imply the cumulant of $X_t$ is $t\kappa(\sigma)$
-and the distribution of $X_1$ determines the Levy process.
-???cite
+and the distribution of $X_1$ determines the Lévy process.
+See [@Sat1999] for basic facts about Lévy processes.
 
 Since $X_1$ is infinitely divisible ???cite and has finite variance its cumulant can be
 characterized by $\gamma\in\RR$ and a non-decreasing function $\Gamma\colon\RR\to\RR$
 with $\lim_{x\to -\infty}\Gamma(x) = 0$ and $\lim_{x\to\infty}\Gamma(x) = 1$ where
 $$
-	\log E[e^{sX_1}] = \gamma s + \int_{-\infty}^\infty K_s(x)\,dG(x)
+	\kappa(s) = \log E[e^{sX_1}] = \gamma s + \int_{-\infty}^\infty K_s(x)\,dG(x)
 $$
 and $K_s(x) = (e^{sx} - 1 - sx)/x^2 = \sum_{k=2}^\infty s^n x^{n-2}/n!$
-is the Kolomogorov[@Kol????] kernel. Not $G(x) = 1_[0,\infty)$ gives
+is the Kolomogorov[@Kol1931] kernel. Note $G(x) = 1_[0,\infty)$ gives
 the normal distribution with mean $\gamma$ and variance one. 
-If $G(x) = 1_[a,\infty)$, $a\not=0$ we get a Poisson
-distribution with parameter $\lambda = ???$.
+If $G(x) = 1_[a,\infty)$, $a\not=0$, we have
+$\kappa(s) = \gamma s + (e^{as} - 1 - as)/a^2 = (\gamma - 1/a)s + (1/a^2)(e^{as} - 1)$.
+Recall the cumulant of a Posson distribution with parameter $\lambda$
+is $\lambda(e^s - 1)$ and the cumulant of $b + cX$ is $bs + \kappa(cs)$ where
+$\kappa$ is the cumulant of $X$. This implies $\lambda = 1/a^2$, $a = c$,
+and $\gamma - 1/a = b$ so every infinitely divisible distribution can be
+approximated by a normal plus a sum of independent Poisson distributions.
 
 ### General European Option
 
@@ -413,6 +426,11 @@ $$
 \end{aligned}
 $$
 The last equality follows from $\partial_s E^s[1(X\le x)] = E[1(X \le x)e^{sX - \kappa(s)}(X - \kappa'(s))]$.
+
+### American Option
+
+Exercise time $\tau\colon\Omega\to[0,\infty)$ can be arbitrary.
+???
 
 ## Notes
 
