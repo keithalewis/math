@@ -86,10 +86,10 @@ $$
 The _ask_ for a order book at $t$ is the lowest level with positive depth.
 The _bid_ for a order book at $t$ is the highest level with negative depth.
 The _mid_ is the average of the bid and ask.
-The _high_ over an interval is the largest ask over the interval.
-The _low_ over an interval is the smallest bid over the interval.
-The _open_ is the price of the first market order of the session and the sign of the amount.
-The _close_ is the price of the last market order of the session and the sign of the amount.
+The _high_ over an interval is the largest trade price over the interval.
+The _low_ over an interval is the smallest trade price over the interval.
+The _open_ is the price of the first trade of the session and the sign of the amount.
+The _close_ is the price of the last trade of the session and the sign of the amount.
 
 ## Coupled-Wave Model
 

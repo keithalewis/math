@@ -127,12 +127,14 @@ $$
 $$
 _where $|$ indicates restriction of measure_.
 
+The proof relies on the following two lemmas.
+
 __Lemma__. _Using the above definitions_
 $$
 \tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}, t\le u.
 $$
 
-This is the universal key to valuing, hedging, and managing the risk
+This is the skeleton key to valuing, hedging, and managing the risk
 of _any_ derivative instrument.
 
 **Trading strategies create synthetic instruments where price, $X$, corresponds
@@ -162,7 +164,20 @@ $$
 $$
 _is an arbitrage-free model of prices and cash flows_.
 
-_Proof_: Since ${V_{\tau_0} = (\sum_{u > \tau_0} A_u D_u)|_{\AA_t}}$ and
+This follows from substituting $X_u D_u = M_u - \sum_{s\le u} C_s D_s$
+in equation (1)
+to obtain the arbitrage-free condition:
+$$
+\begin{aligned}
+	(X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t} 
+		&= (M_u - \sum_{s\le u} C_s D_s + \sum_{t < s \le u} C_s D_s)|_{\AA_t} \\
+		&= (M_u - \sum_{s\le t} C_s D_s)|_{\AA_t} \\
+		&= M_t - \sum_{s\le t} C_s D_s \\
+		&= X_t D_t \\ 
+\end{aligned}
+$$
+
+_Proof_ (FTAP): Since ${V_{\tau_0} = (\sum_{u > \tau_0} A_u D_u)|_{\AA_t}}$ and
 if $A_t \ge 0$ for $t > \tau_0$ then $V_{\tau_0} \ge 0$.
 Since $\Delta_{\tau_0} = 0$ we have ${V_{\tau_0} = \Gamma_{\tau_0}\cdot X_{\tau_0}}$
 and ${A_{\tau_0} = -\Gamma_{\tau_0}\cdot X_{\tau_0}}$ so ${A_{\tau_0} = -V_{\tau_0} \le 0}$.
@@ -188,14 +203,15 @@ Since $V_t = (\Gamma_t + \Delta_t)\cdot X_t$ we have
 $\Gamma_t = D_{X_t}V_t - \Delta_t$. Note $\Delta_t$ is settled prior to time $t$.
 
 If we choose a strategy trading at every $T = \epsilon\NN$
-then as $\epsilon$ goes to zero this recovers the classical B-S/M model
-where $\Delta$ is delta and $\Gamma$ is gamma.
+then as $\epsilon$ goes to zero this can be recognized as a generalization of the
+classical B-S/M model where $\Delta$ is delta and $\Gamma$ is gamma.
 <!-- ??? what is variance of hedge given epsilon -->
 
 A feature of the SUM is there is no canonical choice for the trading times $(\tau_j)$. 
 The B-S/M model obscures the essential problem faced by every trader: when and
 how how much of each instrument are required to hedge. It is simply not possible
-to hedge continuously. This question is yet to be answered.
+to hedge continuously. The SUM forces you to consider this question that has
+yet have a definitive answer.
 
 
 Static hedging (Nazir, Peter)
@@ -225,7 +241,7 @@ and no cash flows exists in order to finance trading strategies.
 It is rare for market participants to use repos to finance their trading.
 Traders working for large banks have access to a funding desk that
 charges them the repo rate plus a few basis points. Day traders
-using a credit card to fund trading get charged at the APR they qualified for.
+using a credit card to fund trading get charged at the APR they qualifiy for.
 
 The SUM model does not assume a risk-free rate exists. If a funding
 instrument is being used then it, or all the instruments used to mimic it,
@@ -289,7 +305,12 @@ and $\rho D_\tau(u)$ at $\tau$ if $\tau\le u$. By equation (2) its value satisfi
 $$
 	V_t D_t = (\rho D_\tau(u)1(t\le\tau\le u) D_\tau + 1(\tau >u)D_u)|_{\AA_t}.
 $$
-Since $D_\tau(u) D_\tau(A) = ???$
+If we make the usual unrealistic assumptions that $\tau$ is independent of 
+all $(D_t)_{t\in T}$ and $\rho$ is constant then
+$$
+	V_t D_t = (\rho D_\tau(u)1(t\le\tau\le u) D_\tau + 1(\tau >u)D_u)|_{\AA_t}.
+$$
+???
 
 If rates are zero then $D_t(u) = 1$. Writing $V_t$ as $D_t^{\tau,\rho}(u)$ we have
 $$
@@ -333,10 +354,13 @@ For a _put_ $\nu(x) = \max\{k - x, 0\}$ and for a _call_ $\nu(x) = \max\{x - k, 
 where $k$ is the _strike_. If we have a money-market instrument $R$ with price $R_t = 1/D_t$
 and a self-financing strategy exists then
 the cost of setting that up at time 0 is determined by ${V_0 D_0 = (\nu(S_t) D_t)|_{\AA_0}}$.
-Using the "probability" measure $P = D_0$ this is usually written
+Using the "probability" measure $P = D_0$ this can be written
 $V_0 = E[\nu(S_t)D_t]$.
 
-The Black model[@Bla1976] considers the forward value of an option on the forward
+The Black model[@Bla1976] sidesteps involving iterest rates by
+computing the forward value of an option on the forward $E[\nu(F_t)]$
+where $F_t = S_t$ at expiration.
+
 $F_t = fe^{\sigma B_t - \sigma^2t/2}$, where $f = se^{\rho t}$.
 The forward value is $E[\nu(F_t)]$.
 If a European option pays $\nu(F)$ shares then
@@ -346,9 +370,9 @@ of the correponding "probability" measures is $dP^s/dP = e^{sX - \kappa(s)}$.
 Note $e^{sX - \kappa(s)} > 0$ and $E[e^{sX - \kappa(s)}] = 1$ so
 $P_s$ is a "probability" measure.
 
-The general Black model is $F = fe^{sX - \kappa(s)}$ where $X$ has mean zero and variance one
-and $s = \sigma\sqrt{t}$.. Every positive random variables
-with finite mean and log variance has this form.
+The general Black model is $F = fe^{sX - \kappa(s)}$ where $X$ has mean zero and variance one.
+Every positive random variables with finite mean and log variance has this form.
+$f = se^{\rho t}$, and $s = \sigma\sqrt{t}$.
 
 The forward put value with strike $k$ is $p(k) = E[\max\{k - F, 0\}] = E[(k - F)1(F\le k)]$ so
 $$

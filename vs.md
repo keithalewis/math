@@ -135,7 +135,7 @@ __Exercise__. _Show $(a + b)x = ax + bx$ and $a(x + y) = ax + ay$ for $a,b\in\RR
 
 _Hint_. Consider $\pi_i((a + b)x)$ and $\pi_i(a(x + y))$.
 
-This establishes the _distributive laws_ connecting scalar multiplication and vector addition.
+This establishes the _distributive laws_ satisfied by scalar multiplication and vector addition.
 
 __Exercise__. _Show $-x = -1x$ satisfies $x + (-x) = \zero$_.
 
