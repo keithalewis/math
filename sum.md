@@ -65,9 +65,9 @@ a foundation for making advances on this important and poorly understood problem
 Let $\Omega$ be a sample space representing everything that can happen.
 Information at time $t$ is modeled by a partition $\AA_t$ of $\Omega$. We assume
 $\AA_u$ is a refinement of $\AA_t$ whenever $u > t$.
-The possible _trading times_ $T$ are a subset of the real numbers.
+The possible _trading times_ $T$ are a subset of the non-negative real numbers.
 To avoid doubling strategies
-we assume $\epsilon = \inf\{|t - u|\mid t,u\in T, t\not=u\} > 0$.
+we assume $T\cap[0,t]$ is finite for all $t$ so $T$ has no accumulation points.
 Finally, let $I$ be the set of all market instruments.
 
 We use $B(\Omega)$ to denote the space of bounded functions on $\Omega$.
@@ -143,7 +143,7 @@ to value, $V$, and cash flow, $C$, corresponds to amount, $A$.**
 
 _Proof_: We have ${X_t D_t = (X_u D_u + C_u D_u)|_{\AA_t}}$ and
 ${\Delta_t + \Gamma_t = \Delta_u}$ for some $u\in T$ 
-with ${u - t \ge \epsilon}$ sufficiently small.  It follows
+with ${u - t}$ sufficiently small.  It follows
 $$
 \begin{aligned}
 V_t D_t &= (\Delta_t + \Gamma_t)\cdot X_t D_t \\
@@ -153,7 +153,7 @@ V_t D_t &= (\Delta_t + \Gamma_t)\cdot X_t D_t \\
 	&= (V_u + A_u)D_u|_{\AA_t} \\
 \end{aligned}
 $$
-The lemma is established by finite induction since $\epsilon > 0$.
+The lemma is established by finite induction since $T$ has no accumulation points.
 
 We say $(M_t)_{t\in T}$ is a martingale measure if $M_t\in ba(\AA_t)$
 and $M_t = M_u|_{\AA_t}$ for $u > t$.
@@ -451,7 +451,7 @@ Note $\partial_s \Psi^s(x, s) < 0$ so vega is positive.
 An _American option_ with expiration $t$ on underlying $S$ pays $\nu(S_\tau)$ at a stopping time
 $\tau\le t$ chosen by the option holder.
 
-The sample space is $\Omega^t = \Omega\times [0,t]$ where
+The sample space is $\Omega' = \Omega\times [0,t]$ where
 $\Omega$ is the sample space for $S$. The filtration on
 $[0,t]$ is the same as for default times.
 
