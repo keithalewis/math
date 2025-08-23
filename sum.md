@@ -370,9 +370,14 @@ the cost of setting that up at time 0 is determined by ${V_0 D_0 = (\nu(S_t) D_t
 Using the "probability" measure $P = D_0$ this can be written
 $V_0 = E[\nu(S_t)D_t]$.
 
-The Black model[@Bla1976] sidesteps involving iterest rates by
-computing the forward value of an option on the forward $E[\nu(F_t)]$
-where $F_t = S_t$ at expiration.
+The [@Bla1976] model sidesteps interest rates by
+computing the forward value of the option $E[\nu(S_t)]$.
+A _forward contract_ with strike $k$ pays $S_t - k$ at expiration $t$.
+The _forward_ of $S$ at time $t$ is the strike making
+the current value of the contract zero.
+In this case ${0 = E[(S_t - f)D_t] = E[S_t D_t] - fE[D_t]}$
+so ${f = E[S_t D_t]/E[D_t] = S_0/D_0}$. This formula is called the
+_cost-of-carry_. ??? revisit
 
 $F_t = fe^{\sigma B_t - \sigma^2t/2}$, where $f = se^{\rho t}$.
 The forward value is $E[\nu(F_t)]$.
@@ -389,10 +394,21 @@ $f = se^{\rho t}$, and $s = \sigma\sqrt{t}$.
 
 The forward put value with strike $k$ is $p(k) = E[\max\{k - F, 0\}] = E[(k - F)1(F\le k)]$ so
 $$
-	p(k) = P(F\le k) - fP^s(F\le k).
+\begin{aligned}
+	p(k) &= E[\max\{k - F, 0\}] \\
+	&= E[(k - F)1(F\le k)] \\
+	&= k P(F\le k) - fP^s(F\le k).
+\end{aligned}
 $$
-Put prices determine the distribution of $F$, as Breeden and Litzenberg  [@BreLit1978] showed,
-since $\partial_k p = E[1(F\le k)] = P(F\le k)$.
+Put prices determine the distribution of $F$, as [@BreLit1978] showed,
+since $\partial_k p(k) = E[1(F\le k)] = P(F\le k)$.
+
+Define _moneyness_ $x = x(f,s,k)$ by $F\le k$ if and only if $X \le x$
+so $x = (\log k/f + kappa(s))/s$ if $s > 0$.
+
+Define the _share cumulative distribution_ by $\Psi(x, s) = P^s(X\le x)$.
+Note $\Psi(x, 0)$ is the cumulative distribution of $X$.
+The formula for put value is ${p(k) = k \Psi(x, 0) - f \Psi(x, s)}.
 
 _Delta_ is the derivative of option value with respect to $f$
 $$
@@ -401,17 +417,17 @@ $$
   &= E[-1(F \le k)\partial_f F] \\
   &= E[-1(F \le k)e^{sX - \kappa(s)}] \\
   &= -P^s(F \le k) \\
-  &= -\Psi^s(x) \\
+  &= -\Psi(x, s) \\
 \end{aligned}
 $$
 
 _Gamma_ is the second derivative of option value with respect to $f$
 $$
 \begin{aligned}
-    \partial_f^2 p &= -\partial_f \Psi^s(x) \\
-    &= -\partial_x \Psi^s(x)\partial_f x \\
-    &= -\partial_x \Psi^s(x)/\partial_x f \\
-    &= \partial_x \Psi^s(x)/f s\\
+    \partial_f^2 p &= -\partial_f \Psi(x, s) \\
+    &= -\partial_x \Psi(x, s)\partial_f x \\
+    &= -\partial_x \Psi(x, s)/\partial_x f \\
+    &= \partial_x \Psi(x, s)/f s\\
 \end{aligned}
 $$
 
@@ -422,15 +438,25 @@ $$
     \partial_s p &= \partial_s E[\max\{k - F, 0\}] \\
         &= E[-1(F \le k)\partial_s F] \\
         &= -E[1(X\le x)F(X - \kappa'(s))] \\
-        &= -f\partial_s \Psi^s(x) \\
+        &= -f\partial_s \Psi^s(x, s) \\
 \end{aligned}
 $$
-The last equality follows from $\partial_s E^s[1(X\le x)] = E[1(X \le x)e^{sX - \kappa(s)}(X - \kappa'(s))]$.
+The last equality follows from ${\partial_s E^s[1(X\le x)] = E[1(X \le x)e^{sX - \kappa(s)}(X - \kappa'(s))]}$.
+
+Note $\partial_s \Psi^s(x, s) < 0$ so vega is positive.
+??? Proof ???
 
 ### American Option
 
-Exercise time $\tau\colon\Omega\to[0,\infty)$ can be arbitrary.
-???
+An _American option_ with expiration $t$ on underlying $S$ pays $\nu(S_\tau)$ at a stopping time
+$\tau\le t$ chosen by the option holder.
+
+The sample space is $\Omega^t = \Omega\times [0,t]$ where
+$\Omega$ is the sample space for $S$. The filtration on
+$[0,t]$ is the same as for default times.
+
+Its value is $V_0D_0 = (\nu(S_\tau) D_\tau)|_{\AA_0}$l
+
 
 ## Notes
 
