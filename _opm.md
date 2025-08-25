@@ -40,25 +40,32 @@ Arbitrage exists if and only if the range of $A$ meets $\PP$.
 
 There is no arbitrage if and only if $\ran A\cap\PP = \emptyset$.
 If so, there exists a hyperplane $H\supseteq\ran A$ with $H\cap\PP = \emptyset$.
-There exists $\pi\oplus\Pi$ with preannihilator ${}^\perp\{\pi\oplus\Pi\} = H$.
+There exists $\pi\oplus\Pi$ with pre-annihilator ${}^\perp\{\pi\oplus\Pi\} = H$.
 
 Since $(\ran A)^\perp = \ker A^*$ \subseteq H$
 
-we have $A^*(\pi\oplus\Pi) = 0$ so $\langle x, \pi\rangle = \langle X, \Pi\rangle$
+We have $A^*(\pi\oplus\Pi) = 0$ so $\angle x, \pi\angle = \angle X, \Pi\angle$
 
-$x\pi = X\Pi|_{\AA_0}$
 
-## Binomial American Option
+$X_j\Pi_j = (X_{j+1} + C_{j+1})|_{\AA_j}$
 
-Sample space is
-${\Omega = \{(\omega, t)\mid \omega\in\{+,-\}, t\in\{0,1\}\}}$, information at time 0 is
-${\AA_0 = \{\{(-,0),(+,0)\},\{(-,1),(+,1)\}\}}$ and
-information at time 1 is ${\AA_1 = \{\{(-,0)\},\{(+,0)\},\{(-,1)\},\{(+,1)\}\}}$.
+## Trinomial American Option
 
-Bond goes from 1 to $R$, stock goes from $s$ to $S^\pm$
-and option pays $\nu(s)$ at time 0 or $\nu(S)$ at time 1.
+The sample space is the possible stock price movements over the first
+and second periods, and
+when the option is exercised.
+${\Omega = \{(\omega_1, \omega_2, t)\mid \omega_i\in\{-,+\}, t\in\{1,2\}\}}$.
+We write, e.g., $-+1$ for $(-,+,1)$.
 
-$I$ is a bond, stock, and American option.
-$$
-	x = \begin{bmatrix}1\\ s\\ \nu(s)1(t=0)\end{bmatrix}
-$$
+Information at time 0 is $\AA_0 = \{\Omega\}$.
+At time one we know if the stock went up or down in the first period and whether or not the option was exercised.
+so ${\AA_1 = \{\{--1,-+1\}, \{+-1,++1\}, \{--2,-+2\}, \{+-2,+-2\}\}}$.
+Of course $\AA_2$ consists of all singletons of $\Omega$.
+
+We have $X_0(\omega_1,\omega_2, t) = (1, S_0, V_0)$ where $S_0$ and $V_0$ are scalar.
+
+And $X_1(\omega_1, \omega_2, t) = (R, S_1(\omega_1), V_1(\omega_1) 1(t = 2))$ with
+$C_1 = (0, 0, \nu(S_1(\omega_1)) 1(t = 1))$.
+
+Also $X_2(\omega_1, \omega_2, t) = (R^2, S_2(\omega_1, \omega_2), 0)$ with
+$C_2(\omega_1, \omega_2, t) = (0, 0, \nu(S_2(\omega_1, \omega_2))1(t = 2))$.
