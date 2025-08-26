@@ -44,7 +44,7 @@ There exists $\pi\oplus\Pi$ with pre-annihilator ${}^\perp\{\pi\oplus\Pi\} = H$.
 
 Since $(\ran A)^\perp = \ker A^*$ \subseteq H$
 
-We have $A^*(\pi\oplus\Pi) = 0$ so $\angle x, \pi\angle = \angle X, \Pi\angle$
+We have $A^*(\pi\oplus\Pi) = 0$ so $\langle x, \pi\rangle = \langle X, \Pi\rangle$
 
 
 $X_j\Pi_j = (X_{j+1} + C_{j+1})|_{\AA_j}$
@@ -57,10 +57,12 @@ when the option is exercised.
 ${\Omega = \{(\omega_1, \omega_2, t)\mid \omega_i\in\{-,+\}, t\in\{1,2\}\}}$.
 We write, e.g., $-+1$ for $(-,+,1)$.
 
-Information at time 0 is $\AA_0 = \{\Omega\}$.
+Information at time 0 is $\AA_0 = \{\Omega\}$. We assume $\Pi_0(\Omega) = 1$.
 At time one we know if the stock went up or down in the first period and whether or not the option was exercised.
-so ${\AA_1 = \{\{--1,-+1\}, \{+-1,++1\}, \{--2,-+2\}, \{+-2,+-2\}\}}$.
+so ${\AA_1 = \{\{--1,-+1\}, \{+-1,++1\}, \{--2,-+2\}, \{+-2,+-2\}\}}$
+We write $\Pi_1(--1) = \Pi_1(-+1) = \pi_{-1}$, etc.
 Of course $\AA_2$ consists of all singletons of $\Omega$.
+We write $\Pi(--1) = \pi_{--1}$, etc.
 
 We have $X_0(\omega_1,\omega_2, t) = (1, S_0, V_0)$ where $S_0$ and $V_0$ are scalar.
 
@@ -69,3 +71,28 @@ $C_1 = (0, 0, \nu(S_1(\omega_1)) 1(t = 1))$.
 
 Also $X_2(\omega_1, \omega_2, t) = (R^2, S_2(\omega_1, \omega_2), 0)$ with
 $C_2(\omega_1, \omega_2, t) = (0, 0, \nu(S_2(\omega_1, \omega_2))1(t = 2))$.
+
+Since $X_0\Pi_0 = ((X_1 + C_1)\Pi_1)|_{\AA_1}$ we have
+$$
+\begin{aligned}
+1 &= R(\pi_{-1} + \pi_{-2} + \pi_{+1} + \pi_{+2}) \\
+S_0 &= S_1(-)(\pi_{-1} + \pi_{-2}) + S_1(+)(\pi_{+1} + \pi_{+2}) \\
+V_0 &= S_1(-)\pi_{-2} + S_1(+)\pi_{+2} + \nu(S_1(-))\pi_{-1} + \nu(S_1(+))\pi_{+1} \\
+\end{aligned}
+$$
+<!--
+$$
+\begin{bmatrix} 1\\ S_0\\ V_0 \\ \end{bmatrix}
+= \begin{bmatrix}
+R & R & R & R \\
+S_1(-) & S_1(+) & S_1(-) & S_1(+) \\
+\nu(S_1(-)) & \nu(S_1(+)) & S_1(-) & S_1(+) \\
+\end{bmatrix}
+\begin{bmatrix}
+\pi_{-1} \\
+\pi_{+1} \\
+\pi_{-2} \\
+\pi_{+2} \\
+\end{bmatrix}
+$$
+-->

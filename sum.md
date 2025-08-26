@@ -31,7 +31,7 @@ The not generally unique valuation operators are determined by _deflators_:
 positive measures that depend only on the information available at
 each trading time. Ross's theory applies to all instruments, not just a
 bond, stock, and option that [@BlaSch1973] and [@Mer1973] considered.
-His insight was to realize option valuation had
+His insight was to realize option valuation has
 nothing to do with probability and used the Hahn-Banach theorem to show
 prices are constrained by the geometry determined by cash flows.
 
@@ -46,10 +46,9 @@ continuous-time trading. This leads to infeasible trading strategies
 and obviously incorrect valuations.  The doubling strategy pointed
 out by [@HarKre1979] is impossible to carry out.
 According to the B-S/M theory the value of a barrier option
-that knocks in the $n$-th time the barrier is hit is the same for all $n$.
+that knocks in the $n$-th time the barrier is hit is the same for all $n>0$.
 If Brownian motion hits $a$ at time $\tau$ then it hits $a$ infinitely
-often in the interval $[\tau, \tau + \epsilon]$ for any $\epsilon > 0$
-since Brownian motion has unbounded variation on any finite interval.
+often in the interval $[\tau, \tau + \epsilon]$ for any $\epsilon > 0$.
 See [@KarShr1991] Section 3.2.
 
 A derivative instrument is a contract. The seller is obligated to
@@ -78,6 +77,7 @@ $M_f\colon B(\Omega)\to B(\Omega)$, by $M_fg = fg$.
 Its adjoint is the linear operator $M_f^*\colon ba(\Omega)\to ba(\Omega)$. 
 This defines multiplying a measure by a function $f\phi = M_f^*\phi$
 for $f\in B(\Omega)$ and $\phi\in ba(\Omega)$.
+We call $f$ the Radon-Nikodym derivative of $f\phi$ with respect to $\phi$.
 
 ## Market
 
@@ -141,12 +141,14 @@ of _any_ derivative instrument.
 **Trading strategies create synthetic instruments where price, $X$, corresponds
 to value, $V$, and cash flow, $C$, corresponds to amount, $A$.**
 
-_Proof_: We have ${X_t D_t = (X_u D_u + C_u D_u)|_{\AA_t}}$ and
-${\Delta_t + \Gamma_t = \Delta_u}$ for some $u\in T$ 
-with ${u - t}$ sufficiently small.  It follows
+_Proof_: If at most one cash flow occurs in the interval $(t,u]$
+then ${X_t D_t = (X_u D_u + C_u D_u)|_{\AA_t}}$ and
+${\Delta_t + \Gamma_t = \Delta_u}$ is $\AA_t$ measurable.
+Using $\Delta_u\cdot C_u = \Gamma_u\cdot X_u + A_u$ we have
 $$
 \begin{aligned}
 V_t D_t &= (\Delta_t + \Gamma_t)\cdot X_t D_t \\
+	&= \Delta_u\cdot (X_u D_u + C_u D_u)|_{\AA_t} \\
 	&= (\Delta_u\cdot X_u D_u + \Delta_u C_u D_u)|_{\AA_t} \\
 	&= (\Delta_u\cdot X_u + (\Gamma_u\cdot X_u + A_u)D_u|_{\AA_t} \\
 	&= (\Delta_u + \Gamma_u)\cdot X_u + A_u)D_u|_{\AA_t} \\
@@ -211,8 +213,8 @@ classical B-S/M model where $\Delta$ is delta and $\Gamma$ is gamma.
 A feature of the SUM is there is no canonical choice for the trading times $(\tau_j)$. 
 The B-S/M model obscures the essential problem faced by every trader: when and
 how how much of each instrument are required to hedge. It is simply not possible
-to hedge continuously. The SUM forces you to consider this question that has
-yet have a definitive answer.
+to hedge continuously.
+The SUM forces you to consider this fundamental question.
 
 Semi-Static hedging involves finding an initial static hedge that approximately
 replicates the option, then finding a dynamic hedge to improve on the difference.
@@ -272,7 +274,7 @@ $D_t(u)$ is the Radon-Nikodym derivative of $D_u|_{\AA_t}$ with respect to $D_t$
 
 Note $D_0(u)D_0 =  D_u|_{\AA_0}$ so the discount to time $u$ is $D_0(u) = D_u(\Omega)/D_0(\Omega)
 =  D_u(\Omega)$ assuming, without loss of generality, that $D_0(\Omega) = 1$.
-This technically makes $D_0$ a probability measure, but it is not the probability of anything. 
+This technically makes $D_0$ a "probability measure," but it is not the probability of anything. 
 
 Zero coupon bond prices are determined by the deflators.
 The [@BraGatMus1997] model corresponds to using the canonical deflator
@@ -301,39 +303,51 @@ about the default time is either $\tau < t$ and we know exactly when default hap
 otherwise we only know $\tau\ge t$. This corresponds to the
 partition of $[0,\infty)$ consisting of singletons $\{s\}$, $s < t$, and
 the atom $[t,\infty)$. We assume if default occurs at time $t$ then we
-learn about it later. It is common to assume recovery is
-a constant times the value at default of the zero coupon bond.
+learn about it later.
 
 A risky zero coupon bond maturing at $u$ pays in full at $u$ if $\tau > u$
-and $\rho D_\tau(u)$ at $\tau$ if $\tau\le u$. By equation (2) its value satisfies
+and $\rho D_\tau(u)$ at $\tau$ if $t\le\tau\le u$. By equation (2) its value
+$V_t = D_t^{\tau,\rho}(u)$ satisfies
 $$
-	V_t D_t = (\rho D_\tau(u)1(t\le\tau\le u) D_\tau + 1(\tau >u)D_u)|_{\AA_t}.
+	D_t^{\tau,\rho}(u) D_t = (\rho D_\tau(u)1(t\le\tau\le u) D_\tau + 1(\tau >u)D_u)|_{\AA_t}.
+$$
+Since $D_\tau(u)D_\tau|_{\AA_t} = D_u|_{\AA_t}$ for $t\le\tau\le u$ this simplifies to
+$$
+	D_t^{\tau,\rho}(u) D_t = ((\rho 1(t\le\tau\le u) + 1(\tau >u))D_u)|_{\AA_t}.
 $$
 If we make the usual unrealistic assumptions that $\tau$ is independent of 
 all $(D_t)_{t\in T}$ and $\rho$ is constant then
 $$
-	V_t D_t = (\rho D_\tau(u)1(t\le\tau\le u) D_\tau + 1(\tau >u)D_u)|_{\AA_t}.
+	D_t^{\tau,\rho}(u) D_t = (\rho P(t\le\tau\le u) + P(\tau > u))D_t(u).
 $$
-???
+If $\rho = 1$ or $\tau = \infty$ we have
+$ D_t^{\tau,\rho}(u) D_t(\{\omega\}\times [t,\infty)) = P(\tau > t)D_t(u)(\{\omega\}\times [t,\infty))$
+so $D_t^{\tau,\rho}(u) = D_t(u)$ is the same as a riskless zero coupon bond.
 
-If rates are zero then $D_t(u) = 1$. Writing $V_t$ as $D_t^{\tau,\rho}(u)$ we have
+The _credit spread_ $s^{\tau,\rho}(u)$ is defined by
+$D_t^{\tau,\rho}(u) = exp(-s^{\tau,\rho}(u)) D_t(u)$ so
 $$
-	D_t^{\tau,\rho}(u) = (\rho 1(t\le\tau\le u) + 1(\tau >u))|_{\AA_t}
+	s^{\tau,\rho}(u) = -log (\rho P(t\le\tau\le u) + P(\tau > u))
+$$
+If $\tau$ is exponentially distributed with hazard rate $\lambda$
+then for small $\lambda$ we have the approximation
+$$
+	s^{\tau,\rho}(u) \approx \lambda (u - \rho(u - t))
 $$
 
-### Convertible Bond
-
-???
+!!!check
 
 ### Black-Scholes/Merton
 
+!!!revisit
+
 The Black-Scholes and Merton models have
-$\Omega = C[0,\infty)$, the set of continuous functions on the non-negative
-real numbers, and $T = [0,\infty)$ with
-instruments a bond and a stock having no associated cash flows.
+trading times $T = [0,\infty)$, 
+sample space $\Omega = C[0,\infty)$, the set of continuous functions on the non-negative
+real numbers, and deflator $D_t = e^{-\rho t}P$ where $P$ is Wiener measure.
 The martingale measure
 is $M_t = (r, se^{\sigma B_t - \sigma^2t/2})P$ where $(B_t)$ is
-standard Brownian motion and $P$ is Wiener measure. The deflator is $D_t = e^{-\rho t}P$.
+standard Brownian motion.
 
 We can generalize this to any Lévy process $(X_t)$ with $X_1$ having mean
 zero and variance one. In this case
@@ -404,11 +418,11 @@ Put prices determine the distribution of $F$, as [@BreLit1978] showed,
 since $\partial_k p(k) = E[1(F\le k)] = P(F\le k)$.
 
 Define _moneyness_ $x = x(f,s,k)$ by $F\le k$ if and only if $X \le x$
-so $x = (\log k/f + kappa(s))/s$ if $s > 0$.
+so $x = (\log k/f + \kappa(s))/s$ if $s > 0$.
 
 Define the _share cumulative distribution_ by $\Psi(x, s) = P^s(X\le x)$.
 Note $\Psi(x, 0)$ is the cumulative distribution of $X$.
-The formula for put value is ${p(k) = k \Psi(x, 0) - f \Psi(x, s)}.
+The formula for put value is ${p(k) = k \Psi(x, 0) - f \Psi(x, s)}$.
 
 _Delta_ is the derivative of option value with respect to $f$
 $$
@@ -438,25 +452,14 @@ $$
     \partial_s p &= \partial_s E[\max\{k - F, 0\}] \\
         &= E[-1(F \le k)\partial_s F] \\
         &= -E[1(X\le x)F(X - \kappa'(s))] \\
-        &= -f\partial_s \Psi^s(x, s) \\
+        &= -f\partial_s \Psi(x, s) \\
 \end{aligned}
 $$
 The last equality follows from ${\partial_s E^s[1(X\le x)] = E[1(X \le x)e^{sX - \kappa(s)}(X - \kappa'(s))]}$.
 
-Note $\partial_s \Psi^s(x, s) < 0$ so vega is positive.
+Note $\partial_s \Psi(x, s) < 0$ so vega is positive.
+
 ??? Proof ???
-
-### American Option
-
-An _American option_ with expiration $t$ on underlying $S$ pays $\nu(S_\tau)$ at a stopping time
-$\tau\le t$ chosen by the option holder.
-
-The sample space is $\Omega' = \Omega\times [0,t]$ where
-$\Omega$ is the sample space for $S$. The filtration on
-$[0,t]$ is the same as for default times.
-
-Its value is $V_0D_0 = (\nu(S_\tau) D_\tau)|_{\AA_0}$l
-
 
 ## Notes
 
