@@ -149,9 +149,9 @@ $$
 \begin{aligned}
 V_t D_t &= (\Delta_t + \Gamma_t)\cdot X_t D_t \\
 	&= \Delta_u\cdot (X_u D_u + C_u D_u)|_{\AA_t} \\
-	&= (\Delta_u\cdot X_u D_u + \Delta_u C_u D_u)|_{\AA_t} \\
-	&= (\Delta_u\cdot X_u + (\Gamma_u\cdot X_u + A_u)D_u|_{\AA_t} \\
-	&= (\Delta_u + \Gamma_u)\cdot X_u + A_u)D_u|_{\AA_t} \\
+	&= (\Delta_u\cdot X_u D_u + \Delta_u\cdot C_u D_u)|_{\AA_t} \\
+	&= (\Delta_u\cdot X_u + (\Gamma_u\cdot X_u + A_u))D_u|_{\AA_t} \\
+	&= ((\Delta_u + \Gamma_u)\cdot X_u + A_u)D_u)|_{\AA_t} \\
 	&= (V_u + A_u)D_u|_{\AA_t} \\
 \end{aligned}
 $$
@@ -180,7 +180,7 @@ $$
 \end{aligned}
 $$
 
-_Proof_ (FTAP): Since ${V_{\tau_0} = (\sum_{u > \tau_0} A_u D_u)|_{\AA_t}}$ and
+_Proof_ (FTAP): Since ${V_{\tau_0}D_{\tau_0} = (\sum_{u > \tau_0} A_u D_u)|_{\AA_{\tau_0}}}$ and
 if $A_t \ge 0$ for $t > \tau_0$ then $V_{\tau_0} \ge 0$.
 Since $\Delta_{\tau_0} = 0$ we have ${V_{\tau_0} = \Gamma_{\tau_0}\cdot X_{\tau_0}}$
 and ${A_{\tau_0} = -\Gamma_{\tau_0}\cdot X_{\tau_0}}$ so ${A_{\tau_0} = -V_{\tau_0} \le 0}$.
@@ -456,10 +456,12 @@ $$
 \end{aligned}
 $$
 The last equality follows from ${\partial_s E^s[1(X\le x)] = E[1(X \le x)e^{sX - \kappa(s)}(X - \kappa'(s))]}$.
+Note $E_s[1(X\le x)((X - \kappa'(s))] = E_s[1(X\le x)((X - E_s[X])]
+= P_x(X\le x)(E_s[X\mid X\le x] - E_s[X]] < 0$.
 
-Note $\partial_s \Psi(x, s) < 0$ so vega is positive.
-
-??? Proof ???
+To use these formulas with the B-S/M parameters $\rho$, $S_0$, $sigma$, and $t$
+use $f = S_0e^{\rho t}$, and $s = \sigma\sqrt{t}$ and multiply the forward values
+by $e^{-\rho t}$.
 
 ## Notes
 
