@@ -51,3 +51,55 @@ while jotting in his ever-present notebook. If we ever meet again I can
 see in my mind's eye the excited look on his face in anticipation of
 sharing his latest ideas. I'm not ashamed to admit I'm having trouble
 seeing the words I write now. So I will just stop.
+
+MoMath
+
+Met Peter at MS at a talk he organized, of course.
+
+The speaker did not understand the difference between risk-neutral and real-world probability.
+
+Peter was too polite to point that out. I wasn't.
+
+He button-holed me ater the talk, and we started talking.
+
+My guilty pleasure was sneaking out from my technology job on the swaps desk to  go to his office and geek out about mathematical finance.
+
+He left for Banc of America Securities. (Banc)
+
+I was his first hire.
+
+Nationsbank, Bank of America, Montgomery Securities.
+
+John Sandelman came from Saloman Brothers pitching capital structure arbitrage.
+
+He didn't think quants were necessary and ran his business for 6 months without them.
+
+Walter, the BofA head of risk management, was shutting him down.
+
+Sandleman found out Walter had a PhD in Finance so he figured that all he needed
+to do was hire the top Finance PhD on Wall Street to give him a secret handshake.
+
+It doesn't work like that. Trading models have to be vetted by risk managers.
+
+He bought a turn-key system, Imagine, and found out it was missing a few keys.
+
+Very heady days. 9 building on W 57. Got in trouble for writing on glass because
+Kevin Beauregard couldn't provide white boards.
+
+The first model I built was an early ending barrier option. Peter wrote the paper
+on that.
+
+When I implemented that I noticed the numbers seemed wrong. I put together a
+Monte Carlo simulation that indicated there was a problem.
+
+I found the mistake in the math and fixed it. 
+
+I was so nervous approaching him about this. It could have been an early ending carrer option
+to tell your boss he was wrong.
+
+To Peter's credit, he immediatley recognized the mistake and thanked me.
+"Can you imagine what would happen if we gave them the wrong numbers?"
+
+Yes. Yes I could. I had seen what happens.
+
+We made 9 bucks, as they say in the business.
