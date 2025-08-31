@@ -63,6 +63,17 @@ Peter was too polite to point that out. I wasn't.
 He button-holed me ater the talk, and we started talking.
 
 My guilty pleasure was sneaking out from my technology job on the swaps desk to  go to his office and geek out about mathematical finance.
+I "proved" the value of a call option is equal to its intrinsic.
+
+Peter just giggled and said "that's impossible."
+He was right. I showed him how $\int_0^t 1(X > K)\,dX_t$ is the P&L
+and it is equal to $\max\{X_t - k, 0} + \int_0^t A_s\,ds$.
+where $A_s$ is the _local time_.
+I was surprised when he turned that into a paper that actally got published.
+
+Protter's "Stochastic Integration and Differential Equations" is one of those
+books, like Artin's, "Algebra" that cannot be improved on.
+The only possible person to write a second edition is Philip Protter.
 
 He left for Banc of America Securities. (Banc)
 
@@ -103,3 +114,5 @@ To Peter's credit, he immediatley recognized the mistake and thanked me.
 Yes. Yes I could. I had seen what happens.
 
 We made 9 bucks, as they say in the business.
+
+
