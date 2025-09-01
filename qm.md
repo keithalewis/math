@@ -114,25 +114,13 @@ are matched in priority of when they were placed and removed from the order book
 If the depth at the bid is less than the amount $a$ then the price will be the bid.
 If not, limit orders at the next lowest level will be matched. If their
 depth is still less than the remaining amount the process repeats
-until the entire sell is filled.
+until the entire sell is filled. This results in a transaction
+containing switches for each level that was filled.
 
 A limit order placed at time $t$ will eventually have price $l$, but there
 is no guarantee when, or if, it will get matched by a market orders. 
 A market order is immediately matched with existing limit orders, but its price
 is uncertain. This is not unlike the Heisenberg Uncertainty Principle.
-
-The graphical representation of an order book is a piecewise constant
-function of amount versus level. 
-
-The _cumulative positive depth_ at time $t$ for level $l$ is
-$$
-	A^+(t, l) = \sum_{(t_j,l_j,a_j,i_j,o_j)} \{a_j1 (l_j < l)\mid t_j < t, a_j > 0\}.
-$$
-The _cumulative negative depth_ at time $t$ for level $l$ is
-$$
-	A^-(t, l) = \sum_{(t_j,l_j,a_j,i_j,o_j)} \{a_j1 (l_j > l)\mid t_j < t, a_j < 0\}.
-$$
-Define $B(t, l) = A^+(t,l) + A^-(t,l)$.
 
 The _ask_ for a order book is the lowest level with positive depth.
 The _bid_ for a order book is the highest level with negative depth.
@@ -142,10 +130,7 @@ The _low_ over an interval is the smallest trade price over the interval.
 The _open_ is the price of the first trade of the session and the sign of the amount.
 The _close_ is the price of the last trade of the session and the sign of the amount.
 
-The _order levels_ is the function
-$$
-	B(t, l) = \sum_{(t_j,l_j,a_j,i_j,o_j)} \{a_j 1(l_j < l)\mid t_j < t, l_j = l\}.
-$$
+
 
 ## Coupled-Wave Model
 
