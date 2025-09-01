@@ -9,49 +9,54 @@ Notes on _Quantum Markets_ by Jack Sarkissian.
 
 $\tau$ -- time between trades  
 $s$ -- price  
-$m$ -- order/trade imbalance  
+$x$ -- log price  
+$m$ -- absolute value of order/trade size  
+$M$ -- absolute value trade size  
+$q$ -- order size  
+$Q$ -- signed trade size  
 $\rho$ -- order size density  $s\,dm/ds$
 $\theta$ -- order density flow 
 $\Delta$ -- bid/ask spread  
-$x$ -- log price  
 $\epsilon$ -- $\Delta/s$ - relative spread  
 $h$ -- high minus low  
 $I$ -- execution imbalance  
 $J$ -- order imbalance  
-$q$ -- order size  
-$M$ -- absolute value trade size  
-$Q$ -- signed trade size  
 $V$ -- volume  
 $v$ -- order flow  
 $L$ -- price impact  
 
 ## Holding, Portfolio, Exchange, Transaction
 
+A _(legal) entitiy_ is a person or corporation that can own financial instruments.
+
 A _holding_ is a triple $h = (a, i, o)$ indicating amount $a$ of instrument $i$.
 is held by owner $o$.  A _portfolio_ is a collection of holdings.
 Holdings are the atoms of finance.
 
-An _exchange_ is a triple $\chi = (t, h, h')$
-where $t$ is the time of the exchange, $h$ is a holding of the _buyer_, and $h'$ is
-a holding of the _seller_. An exchange results in the portfolio of the
+An _switch_ is a triple $\chi = (t, h, h')$
+where $t$ is the time the _buyer_ holding $h$ is exchanged with the _seller_ holding $h'$.
+Both buyers and sellers are owners.
+
+A switch results in the portfolio of the
 buyer $o$ changing from $\{\ldots,(a,i,o),\ldots\}$
 to $\{\ldots,(a',i',o),\ldots\}$ and the portfolio of the seller $o'$
 changing from $\{\ldots,(a',i',o'),\ldots\}$
-to $\{\ldots,(a,i,o'),\ldots\}$.
+to $\{\ldots,(a,i,o'),\ldots\}$. The amount of each instrument is switched
+between the buyer and the seller.
 Sellers passively offer potential exchanges and buyers actively decide which to accept.
-Buyers and sellers can buy (amount is positive) or sell (amount is negative).
+Both buyers and sellers can buy/go long (amount is positive) or sell/go short (amount is negative).
 
-A _transaction_ is a collection of related exchanges.
-Transactions often involve exchanges such as broker fees or taxes.
+A _transaction_ is a collection of related switches
+involving, e.g., fees or taxes.
 Savvy buyers should take these into account. Sellers have already done so.
 Transactions are the molecules of finance.
 
-The _price_ of an exchange is $X = a/a'$ where $h = (a, i, o)$ and
+The _price_ of a switch is $X = a/a'$ where $h = (a, i, o)$ and
 $h' = (a', i', o')$. If a buyer pays $(8, \$)$ for $(2, \text{F})$ shares of Ford stock
 then the price is $8/2 = 4$ dollars per share. Typically $i$ is the preferred
 currency of the buyer.
 
-There is no uncertainty in the price of an exchange,
+There is no uncertainty in the price of a switch.
 it is simply a number entered into the books and records of each owner.
 
 If a seller offers a price $X$ at time $t$ for buyers to exchange instrument $i'$
@@ -63,12 +68,14 @@ As $a'$ becomes a larger positive number, the ask will increase.
 If the buyer want to sell $a' < 0$ of $i'$ then the seller price $X$ will be the _bid_.
 As $a'$ becomes a larger negative number, the bid will decrease.
 
+The price a seller quotes can also depend on the buyer.
+
 ## Order Book
 
 An _order book_ is a collection of limit orders.
 A limit order is a quintuple $(t, l, a, i, o)$ indicating that owner $o$
-is willing to buy/go long amount $a > 0$
-or sell/go short amount $a < 0$ of instrument $i$ at price $l$
+is willing to buy amount $a > 0$
+or sell amount $a < 0$ of instrument $i$ at price $l$
 any time after $t$. Limit orders can be cancelled by the owner.
 
 The _depth_ at time $t$ for level $l$ is the sum over the amount of every limit orders placed
@@ -78,6 +85,14 @@ $$
 $$
 The _ask_ is the lowest level with $A(t, l) > 0$. The _bid_
 is the highest level with $A(t, l) < 0$.
+
+The order book can be represented by
+$$
+	B(t, l) = \sum_{a_j > 0, t > t_j} a_j 1(l > l_j) + \sum_{a_j < 0, t > t_j} a_j 1(l < l_j)
+$$
+Note $dB/dl = A$.
+
+TODO: explain better
 
 Brokers/Exchanges line up _liquidity providers_ to seed the order book prior to market open with
 limit orders. Broker customers can also place limit orders.
