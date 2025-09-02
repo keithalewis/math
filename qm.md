@@ -143,6 +143,20 @@ The _close_ is the price of the last trade of the session and the sign of the am
 
 ## Notation
 
+Now that we have established rigorous definitions of order books and market orders we
+will revisit the notation from the first section.
+
+Let $(t_j, a_j')$ be the market orders where the times are increasing.
+Clearly $\Delta t_j = t_{j+1} - t_j$ is the time between trade $j$
+and trade $j + 1$. Given two times $u < v$ the average time between trades
+in $[u, v]$ is $\tau(u,v) = (\sum_{j=m}^n \Delta t_j)/(n - m + 1)$ where the
+sum is over $\Delta t_j\subseteq [u,v]$.
+
+The last price to trade at $s_t$ is $X_j = a_j/a_j'$ where $j = j(t) = \max \{i \mid t_i < t\}$.
+We write $s_t^+$ if traded at the ask
+and $s_t^-$ if traded at the bid. The mid is $s_t = (s_t^+ + s_t^-)/2$.
+
+$m, M, q, Q$?
 
 ## Coupled-Wave Model
 
