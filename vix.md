@@ -65,7 +65,7 @@ puts with strikes less than $z$, and calls with strikes greater than $z$ is used
 Note we do not need a put at strike $k_0$ or a call at strike $k_n$ to do this.
 
 A possible improvement might be to find $\bar{f}_j\approx f(k_j)$ that minimizes
-the $L^\infty$ norm of $f - \bar{f}$ over $[k0, k_n]$. Attention must
+the $L^\infty$ norm of $f - \bar{f}$ over $[k_0, k_n]$. Attention must
 also be paid to to the extrapolated slopes ${(\bar{f}_1 - \bar{f}_0)/(k_1 - k0)}$
 and ${(\bar{f}_n - \bar{f}_{n-1})/(k_n - k_{n-1})}$.
 
@@ -80,13 +80,18 @@ $$
 \bar{f}(x) = \bar{f}(z) + \bar{f}'(z)(x - z)
 	+ \sum_{k_j < z} \bar{f}''_j (k_j - x)^+
 	+ \sum_{k_j > z} \bar{f}''_j (x - k_j)^+
+	+ \int_{k_-}^{k^+} f''\,dk
 $$
+where $k_- = \max\{k_j\mid k_j < z\}$
+and $k_- = \min\{k_j\mid k_j > z\}$.
 
-The formula for par variance is
+The formula for par variance is given when $f(x) = (-2\log x + 2x/z)/t$
+so $f'(x) = (-2/x + 2/z)/t$ and $f''(x) = -2/x^2t.
 $$
-\sigma^2 = \bar{f}(z) + \bar{f}'(E[X] - z) 
+\sigma^2 =  (-2\log x + 2x/z)/t + \bar{f}'(E[X] - z) 
 	+ \sum_{k_j < z} \bar{f}''_j p(k_j)
 	+ \sum_{k_j > z} \bar{f}''_j c(k_j)
+	+ \int_{k_-}^{k^+} \bar{f}''\,dk
 $$
 where $p(k)$ is the put price at $k$ and $c(k)$ is the call price at $k$.
 
