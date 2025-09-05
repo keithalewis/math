@@ -115,4 +115,4 @@ Yes. Yes I could. I had seen what happens.
 
 We made 9 bucks, as they say in the business.
 
-
+Every function is linear when plotted with a magic marker with a fat pen.

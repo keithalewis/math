@@ -15,19 +15,17 @@ where $\sigma$ is agreed on at $t_0$ so the contract has price 0.
 Actual contracts use days per year divided by $n - b$, where $b$ is a small integer,
 instead of ${1/(t_n - t_0)}$.
 As OTC contracts near closing the days per year and $b$
-tend to get played with by sell-side firms hoping their buy-side client won't notice. 
+tend to get played with by sell-side firms hoping their buy-side clients won't notice. 
 
 Every variance swap contract I've seen specifies realized return
 as $\log_e X_{j+1}/X_j$ where $e$ is approximately $2.718281828...$
 instead of $\Delta X_j/X_j$.  It is true that if you make the mistake of
 assuming $X_t$ is an Ito process then ${(d\log X_t)^2 = (dX_t/X_t)^2}$.
-Since ${\Delta \log X_j = \Delta X_j/X_j - (1/2)(\Delta X_j/X_j)^2 +
-O((\Delta X_j/X_j)^3)}$ we have
+For a dicrete interval ${\Delta \log X_j = \Delta X_j/X_j - (1/2)(\Delta X_j/X_j)^2 +
+O((\Delta X_j/X_j)^3)}$ so
 $$
 (\Delta \log X_j)^2 = (\Delta X_j/X_j)^2 - (\Delta X_j/X_j)^3 + O((\Delta X_j/X_j)^4).
 $$
-
-Let's used the idealized payoff and deal with details later.
 
 If the Taylor series for $f$ converges then
 $$
@@ -37,7 +35,9 @@ f(X_n) - f(X_0) &= \sum_{j=0}^{n-1} f(X_{j+1}) - f(X_j) \\
 \end{aligned}
 $$
 
-Let $f''(x) = 2/x^2$ so $f'(x) = -2/x + 2/z$ for some constant $z$ and $f(x) = -2\log x + 2x/z$.
+If $f''(x) = 2/x^2$ then the quadratic term in the sum is $(\Delta X_j/X_j)^2$
+and gives the variance swap payoff.
+We have $f'(x) = -2/x + 2/z$ for some constant $z$ and $f(x) = -2\log x + 2x/z$.
 Usually $z$ is taken to be $X_0$ so the initial futures hedge is 0.
 Solving for the quadradic term gives
 
@@ -80,18 +80,14 @@ $$
 \bar{f}(x) = \bar{f}(z) + \bar{f}'(z)(x - z)
 	+ \sum_{k_j < z} \bar{f}''_j (k_j - x)^+
 	+ \sum_{k_j > z} \bar{f}''_j (x - k_j)^+
-	+ \int_{k_-}^{k^+} f''\,dk
 $$
-where $k_- = \max\{k_j\mid k_j < z\}$
-and $k_- = \min\{k_j\mid k_j > z\}$.
 
-The formula for par variance is given when $f(x) = (-2\log x + 2x/z)/t$
-so $f'(x) = (-2/x + 2/z)/t$ and $f''(x) = -2/x^2t.
+The formula for par variance times $t_n - t_0$ uses $f(x) = -2\log x + 2x/z$
+so $f'(x) = -2/x + 2/z$ and $f''(x) = -2/x^2.
 $$
 \sigma^2 =  (-2\log x + 2x/z)/t + \bar{f}'(E[X] - z) 
 	+ \sum_{k_j < z} \bar{f}''_j p(k_j)
 	+ \sum_{k_j > z} \bar{f}''_j c(k_j)
-	+ \int_{k_-}^{k^+} \bar{f}''\,dk
 $$
 where $p(k)$ is the put price at $k$ and $c(k)$ is the call price at $k$.
 
