@@ -64,7 +64,7 @@ to make at a penny even though that satisfies the mathematical definition of arb
 __Exercise__. _If $Rs\notin [S^-,S^+]$ in the binomial model then there is an arbitrage_.
 
 _Hint_: If $Rs > S^+$ the bond is always more valuable than the stock
-so short the the stock and buy bond.
+so short the stock and buy bond.
 If $Rs < S^-$ the bond is always less valuable than the stock
 so short the bond and buy the stock.
 
@@ -355,7 +355,7 @@ $$
 	\max_\xi U(\xi\cdot X) - \lambda(\xi\cdot x - 1).
 $$
 
-We need to compute the [Frechet Derivatives](fd.html) of $D(UM_X)$ where $M_X\xi = \xi\cdot X$ is
+We need to compute the [Fréchet Derivatives](fd.html) of $D(UM_X)$ where $M_X\xi = \xi\cdot X$ is
 the market map as above. The chain rule gives $D(UM_X)\xi = DU(M_x\xi)DM_X\xi = DU(M_x\xi)M_X\xi$
 since $DM_X = M_X$.
 Note $DU(M_x\xi)$ is in $B(\Omega)^*$ and $M_X\xi\in B(\Omega)$.
