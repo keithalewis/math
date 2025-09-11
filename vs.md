@@ -85,6 +85,15 @@ __Exercise__. _Show this makes $S$ into a monoid_.
 
 _Hint_. Show $(ab)c = a(bc)$ for $a,b,c\in S\cup\{e\}$.
 
+This might seem to be too trivial to be useful, but it is
+the foundation of [MapReduce](https://en.wikipedia.org/wiki/MapReduce).
+You can chop $a_1\cdots a_n$ into $k$ pieces and run their
+product in parallel on $k$ computers. Each piece has $n/k$
+elements so the total parallel computation time is $O(n/k)$.
+The $k$ partial products can be computed in $O(k)$ time.
+The value of $k$ that minimizes $n/k + k$ is $k = \sqrt{n}$
+so $n/k + k = 2\sqrt{k}$.
+
 ## $\RR^n$
 
 You are probably familiar with the vector space of $n$-tuples of

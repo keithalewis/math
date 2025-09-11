@@ -11,6 +11,7 @@ abstract: Buy now, sell later.
 \newcommand\ran{\operatorname{ran}}
 \newcommand\Var{\operatorname{Var}}
 \newcommand\BB{\mathcal{B}}
+\newcommand\GG{\mathcal{G}}
 
 Let $I$ be the set of market _instruments_ available over a time period
 and $\Omega$ be the set of possible outcomes.
@@ -208,6 +209,49 @@ is between $0$ and $100/11 < 10$_.
 _Hint_: Consider $\{(90, 0)a + (100, 0)b + (110, 10)c\mid a,b,c\ge0\}$.
 The smallest closed cone is bounded below by $y = 0$ and above
 by $y = (10/110)x$.
+
+### Grassmann Algebra
+
+We can also solve this using Grassmann Algebra. If $E$ is Euclidian
+space define $\GG(E)$ to be the algebra of points in $E$ with the
+condition $PQ = 0$ if and only if $P = Q$. Note $PQ = -QP$
+since $(P + Q)(P + Q) = 0$. If $PQ = aRS$ for some scalar $a$ we
+write $a = \frac{PQ}{RS}$. If $R = aP + bQ$ then $RPQ = 0$.
+Furthurmore $PR = bPQ$ and $RQ = aPQ$ so
+$R = \frac{RQ}{PQ} P + \frac{PR}{PQ} Q$.
+
+The _weight_ of $aP + bQ$ is $a + b$. Every point having weight 1 on the line determinend
+by the points $P$ and $Q$ has the form ${R(t) = (1 - t)P + tQ = P + t(Q - P)}$.
+Note $Q - P\not= R(t)$ for any $t$. As $t$ goes to infinity $(1 - t)/t$ goes to $-1$
+and we interpret $R(\infty) = Q - P$ as the point at infinity determined by $P$ and $Q$
+and call it the _vector_ from $P$ to $Q$.
+
+In the last problem above, let $O$ be the point $(0,0)$, $P_1$ be $(0,1)$, and $P_2$ be $(1,0)$.
+Let $E_1 = P_1 - O$ be the stock direction and $E_2 = P_2 - O$ be the bond direction.
+The smallest cone containing the the range of $X$ is
+$$
+\{O + t_{90} 90 E_1 + t_{100} 100 E_1 + t_{110}(110E_1 + 10E_2)\mid t_{90},t_{100},t_{110}\ge 0\}
+$$
+This is clearly the same a $\{O + tE_1 + u(11E_1 + E_2)\mid t,u\ge0\}$.
+Note $x = O + 100E_1 + vE_2$ if the initial option price is $v$
+and $v = \frac{OE_1x}{OE_1E_2}$.
+
+By Grassmann Algebra, $t = \frac{Ox(11E_1+E_1)}{OE_1(11E_1 + E_2)}$
+and $u = \frac{OE_1x}{OE_1(11E_1 + E_2)}$.
+Since $Ox(11E_1+E_1)
+= O(O + 100E_1 + vE_2)(11E_1+E_2)
+= 100 OE_1E_2 + 11v OE_2E_1 = (100 - 11v) OE_1E_2$ we have $t = 100 - 11v$.
+Since $O E_1 x = O E_1 (O + 100E_1 + vE_2) = v O E_1 E_2$
+we have $u = v$ so $x$ is in the cone if and only
+if $100 - 11v \ge0$ and $v\ge0$ hence $0\le v\le 100/11$.
+
+A more interesting example is the case of options at multiple strikes.
+By put-call parity we can assume they are all calls. The model is
+$\Omega = [L, H]$ indicating the final stock price is in this interval.
+The initial prices are $x = (1, s, v_1,\ldots,v_n)$
+and the final prices are $X(\omega) = (R, \omega, (\omega - k_1)^+,\ldots,(\omega - k_n)^+)$
+The range of $X$ is $\{X(omega)\mid L\le \omega\le H\}$.
+This is equal to $\{X(L), X(H)\}\cup_j\{X(k_j)\}$.
 
 ## Reality
 
