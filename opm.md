@@ -212,23 +212,45 @@ by $y = (10/110)x$.
 
 ### Grassmann Algebra
 
-We can also solve this using Grassmann Algebra. If $E$ is Euclidian
-space define $\GG(E)$ to be the algebra of points in $E$ with the
-condition $PQ = 0$ if and only if $P = Q$. Note $PQ = -QP$
+We can also solve this using Grassmann Algebra. If $E$ is Euclidean
+space define $\GG(E)$ to be the (associative) algebra of points in $E$ with the
+condition $PQ = 0$ if and only if $P = Q$ so $PP = 0$. Note $PQ = -QP$
 since $(P + Q)(P + Q) = 0$. If $PQ = aRS$ for some scalar $a$ we
-write $a = \frac{PQ}{RS}$. If $R = aP + bQ$ then $RPQ = 0$.
-Furthurmore $PR = bPQ$ and $RQ = aPQ$ so
+say $PQ$ is _congruent_ to $RS$ and write $a = \frac{PQ}{RS}$. If $R = aP + bQ$ then $RPQ = 0$.
+Furthermore $PR = bPQ$ and $RQ = aPQ$ so
 $R = \frac{RQ}{PQ} P + \frac{PR}{PQ} Q$.
 
-The _weight_ of $aP + bQ$ is $a + b$. Every point having weight 1 on the line determinend
+This generalizes to any number of dimensions. If $P_0\cdots P_k = aQ_0\cdots Q_k$
+then $a = \frac{P_0\cdots P_k}{Q_0\cdots Q_k}$ and if $PP_0\cdots P_k = 0$ then
+$$
+	P = \sum_{j=0}^k \frac{P_0\cdots P\cdots P_k}{P_0\cdots P_k} P_j
+$$
+if $P_0\cdots P_k\not=0$ where $P$ in the numerator takes the $j$-th spot.
+Note if $\sum_{j=0}^k a_j P_j = 0$ then $a_j = 0$ for $0\le j\le k$
+and we say the $P_j$ are _linearly independent_.
+Note the sum of the coefficients is 1 and $P$ is in the convex hull
+of $P_0,\ldots,P_n$ if and only if all coefficients are non-negative.
+
+The _weight_ of $aP + bQ$ is $a + b$. Every point having weight 1 on the line determined
 by the points $P$ and $Q$ has the form ${R(t) = (1 - t)P + tQ = P + t(Q - P)}$.
 Note $Q - P\not= R(t)$ for any $t$. As $t$ goes to infinity $(1 - t)/t$ goes to $-1$
 and we interpret $R(\infty) = Q - P$ as the point at infinity determined by $P$ and $Q$
-and call it the _vector_ from $P$ to $Q$.
+and call it the _vector_ from $P$ to $Q$. As $t$ goes to negative infinity
+we get $R(-\infty) = P - Q = -R(\infty)$.
 
-In the last problem above, let $O$ be the point $(0,0)$, $P_1$ be $(0,1)$, and $P_2$ be $(1,0)$.
-Let $E_1 = P_1 - O$ be the stock direction and $E_2 = P_2 - O$ be the bond direction.
-The smallest cone containing the the range of $X$ is
+In the last problem above using only the stock and option,
+let $O = (0,0)$ be the origin, $P_1 = (0,1)$, and $P_2 = (1,0)$.
+We call $E_1 = P_1 - O$ the _stock direction_ and $E_2 = P_2 - O$ the _option direction_.
+Note
+${X(90) = (90, 0) = O + 90E_1 + E_2}$,
+${X(100) = (100, 0) = O + 100E_1 + E_2}$, and
+${X(110) = (110, 1) = O + 110E_1 + E_2}$.
+Since $OX(90)X(100) = 0$ we know $X(100)$ is a linear combination of $O$ and $X(90)$
+
+The smallest cone containing the range of $X$ is the set of all linear
+combinations of $X(\omega) - O$, $\omega\in\{90,100,110\}$, with non-negative
+coefficients. Since $X(90) - O = .9(X(100) - O)$ we need only
+consider $\omega\in\{90,110\}$ so the cone is
 $$
 \{O + t_{90} 90 E_1 + t_{100} 100 E_1 + t_{110}(110E_1 + 10E_2)\mid t_{90},t_{100},t_{110}\ge 0\}
 $$
@@ -246,12 +268,16 @@ we have $u = v$ so $x$ is in the cone if and only
 if $100 - 11v \ge0$ and $v\ge0$ hence $0\le v\le 100/11$.
 
 A more interesting example is the case of options at multiple strikes.
-By put-call parity we can assume they are all calls. The model is
-$\Omega = [L, H]$ indicating the final stock price is in this interval.
+By put-call parity we can assume they are all calls. The sample space is
+$\Omega = [L, H]$ containing all strikes and $\omega\in\Omega$ is the final stock price.
 The initial prices are $x = (1, s, v_1,\ldots,v_n)$
-and the final prices are $X(\omega) = (R, \omega, (\omega - k_1)^+,\ldots,(\omega - k_n)^+)$
-The range of $X$ is $\{X(omega)\mid L\le \omega\le H\}$.
-This is equal to $\{X(L), X(H)\}\cup_j\{X(k_j)\}$.
+and the final prices are $X(\omega) = (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)$
+The range of $X$ is $\{X(\omega)\mid L\le \omega\le H\}$.
+The smallest cone containing the range of $X$ is
+$$
+	\{tX(L) + uX(H) \sum_{j=1}^n t_n X(K_j)\mid t,u,t_j\ge0\}
+$$
+where $L < K_1 < \cdots < K_n < H$. If $E_0 = P_0 - O$ is the bond direction
 
 ## Reality
 
