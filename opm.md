@@ -29,11 +29,11 @@ if $I$ is finite. The _Euclidean norm_ of $x\in\RR^I$ is defined by $\|x\| = \sq
 ## Binomial Model
 
 The _binomial model_ has a bond and stock where $x = (1, s)$,
-$X(\omega) = (R, \omega)$, and $\Omega = \{S^-, S^+\}$ with
-${S^- < S^+}$.
+$X(\omega) = (R, \omega)$, and $\Omega = \{L, H\}$ with
+${L < H}$.
 The bond has realized return $R$ and the stock can go from price $s$
-to either $S^-$ or $S^+$.  A somewhat more realistic model is
-${\Omega = [S^-, S^+]}$ where the final stock price can be any value in the interval.
+to either $L$ or $H$.  A somewhat more realistic model is
+${\Omega = [L, H]}$ where the final stock price can be any value in the interval.
 
 ## Arbitrage
 
@@ -53,34 +53,35 @@ No trader would consider that to be an arbitrage anyway.
 Even though the position costs nothing to put on, that definition has nothing
 to say about how much they will make nor how likely it is they will make it.
 
-In reality, even our stronger definition is still not good enough for traders.
-Even though $\xi\cdot x$ is strictly negative, they will consider
+Even our stronger definition is still not good enough for traders
+and risk managers.
+Even though $\xi\cdot x$ is strictly negative they will consider
 how much capital will be tied up putting on that position and compute
-$|\xi|\cdot |x|$.  If the ratio $|\xi\cdot x|/|\xi|\cdot |x|$ is small,
+the ratio $\xi\cdot x/|\xi|\cdot |x|$. If it is small
 they will take a pass on that "arbitrage" opportunity.
-No trader would use a million dollars from their funding account
+No business would approve using a million dollars from their funding account
 to make at a penny even though that satisfies the mathematical definition of arbitrage.
 
-__Exercise__. _If $Rs\notin [S^-,S^+]$ in the binomial model then there is an arbitrage_.
+__Exercise__. _If $Rs\notin [L,H]$ in the binomial model then there is an arbitrage_.
 
-_Hint_: If $Rs > S^+$ the bond is always more valuable than the stock
+_Hint_: If $Rs > H$ the bond is always more valuable than the stock
 so short the stock and buy bond.
-If $Rs < S^-$ the bond is always less valuable than the stock
+If $Rs < L$ the bond is always less valuable than the stock
 so short the bond and buy the stock.
 
 <details><summary>Solution</summary>
-If $Rs > S^+$ take $\xi = (S^+, -R)$ so $\xi\cdot x = S^+ - Rs < 0$,
-${\xi\cdot X(S^-) = S^+R - RS^- > 0}$,
-and ${\xi\cdot X(S^+) = S^+R - RS^+ = 0}$,
-so $\xi\cdot X\ge0$ on $\{S^-,S^+\}$.
+If $Rs > H$ take $\xi = (H, -R)$ so $\xi\cdot x = H - Rs < 0$,
+${\xi\cdot X(L) = HR - RL > 0}$,
+and ${\xi\cdot X(H) = HR - RH = 0}$,
+so $\xi\cdot X\ge0$ on $\{L,H\}$.
 
-If $Rs < S^-$ take $\xi = (-S^-, R)$ so $\xi\cdot x = -S^- + Rs < 0$,
-${\xi\cdot X(S^-) = -S^-R + RS^- = 0}$,
-and ${\xi\cdot X(S^+) = -S^-R + RS^+ > 0}$,
-so $\xi\cdot X\ge0$ on $\{S^-,S^+\}$.
+If $Rs < L$ take $\xi = (-L, R)$ so $\xi\cdot x = -L + Rs < 0$,
+${\xi\cdot X(L) = -LR + RL = 0}$,
+and ${\xi\cdot X(H) = -LR + RH > 0}$,
+so $\xi\cdot X\ge0$ on $\{L,H\}$.
 
 This argument also holds for the somewhat more realistic model
-with $\Omega = [S^-, S^+]$.
+with $\Omega = [L, H]$.
 </details>
 
 ## Cone
@@ -155,26 +156,26 @@ in finite dimensional space.
 ## Application
 
 For the binomial model the smallest closed cone containing the range of $X$
-is ${\{X(S^-)\pi^- + X(S^+)\pi^+\mid \pi^-,\pi^+\ge0\}}$.
-If $(1, s)$ is in the cone then ${(1,s) = (R, S^-)\pi^- + (R, S^+)\pi^+}$
+is ${\{X(L)\pi^- + X(H)\pi^+\mid \pi^-,\pi^+\ge0\}}$.
+If $(1, s)$ is in the cone then ${(1,s) = (R, L)\pi^- + (R, H)\pi^+}$
 for some $\pi^-,\pi^+\ge0$. Solving for $\pi^-$ and $\pi^+$ gives
-the no arbitrage condition $S^- \le Rs \le R^+$.
+the no arbitrage condition $L \le Rs \le R^+$.
 
-__Exercise__. _Show $\pi^- = (S^+ - Rs)/R(S^+ - S^-)$ and $\pi^+ = (Rs - S^-)/R(S^+ - S^-)$_.
+__Exercise__. _Show $\pi^- = (H - Rs)/R(H - L)$ and $\pi^+ = (Rs - L)/R(H - L)$_.
 
-If $Rs > S^+$ then $(R, s)$ is above the line through the origin with
-slope $R/S^+$ so $\xi$ should be proportional to $(S^+, -R)$.
-If $Rs < S^-$ then $(R, s)$ is below the line through the origin with
-slope $R/S^-$ so $\xi$ should be proportional to $(-S^-, R)$.
+If $Rs > H$ then $(R, s)$ is above the line through the origin with
+slope $R/H$ so $\xi$ should be proportional to $(H, -R)$.
+If $Rs < L$ then $(R, s)$ is below the line through the origin with
+slope $R/L$ so $\xi$ should be proportional to $(-L, R)$.
 
 If we add an option with payoff $\nu$ to the binomial model then
-$x = (1, s, c)$ and $X(\omega) = (R, \omega, \nu(\omega))$, $\omega\in\{S^-,S^+\}$.
-There is no arbitrage if and only if $(1, s, c) = X(S^-)\pi^- + X(S^+)\pi^+$
+$x = (1, s, c)$ and $X(\omega) = (R, \omega, \nu(\omega))$, $\omega\in\{L,H\}$.
+There is no arbitrage if and only if $(1, s, c) = X(L)\pi^- + X(H)\pi^+$
 for some $\pi^-,\pi^+\ge0$. The first two equations determine $\pi^-$ and $\pi^+$ as
-above so $v = \nu(S^-)\pi^- + \nu(S^+)\pi^+$.
+above so $v = \nu(L)\pi^- + \nu(H)\pi^+$.
 Every option payoff is linear in the binomial model.
 
-__Exercise__. _Find $a,b\in\RR$ with $aR + b\omega = \nu(\omega)$ for $\omega\in\{S^-,S^+\}$_.
+__Exercise__. _Find $a,b\in\RR$ with $aR + b\omega = \nu(\omega)$ for $\omega\in\{L,H\}$_.
 
 A slightly more interesting model is a bond with zero interest rate, a stock that
 can go from 100 to 90, 100, or 110, and an at-the-money call option with price $v$.
