@@ -326,7 +326,7 @@ never occur in models faithful to the real world.
 The _realized return_ on a portfolio $\xi\in\RR^I$ is ${R_\xi = \xi\cdot X/\xi\cdot x}$
 whenever ${\xi\cdot x\not=0}$.
 
-__Exercise__. _Show $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$._
+__Exercise__. _Show $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$_.
 
 If $\xi\cdot x = 1$ then $R_\xi = \xi\cdot X$. One unit invested at the beginning
 of the period results in ${R_\xi\colon\Omega\to\RR}$ at the end of the period.
