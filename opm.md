@@ -13,8 +13,9 @@ abstract: Buy now, sell later.
 \newcommand\BB{\mathcal{B}}
 \newcommand\GG{\mathcal{G}}
 
-Let $I$ be the set of market _instruments_ available over a time period
-and $\Omega$ be the set of possible outcomes.
+The _One Period Model_ consists of a set or market _instruments_, $I$,
+available to trade at the beginning and the end of a period.
+The set of possible _outcomes_, $\Omega$, is what can happen over the period.
 The _prices_ at the beginning of the period are a vector $x\in\RR^I$[^1].
 The prices at the end of the period are a function $X\colon\Omega\to
 \RR^I$ where $X(\omega)\in\RR^I$ are the instrument prices if
@@ -182,27 +183,14 @@ can go from 100 to 90, 100, or 110, and an at-the-money call option with price $
 The model is $x = (1, 100, v)$, $X(\omega) = (1, \omega, \max\{\omega - 100, 0\})$,
 $\omega\in\{90, 100, 110\}$.
 The smallest closed cone containing the range of $X$
-is $\{X(90) a + X(100) b + X(110) c\mid a,b,c\ge0\}$. If $x$ belongs to the cone then
-$$
-\begin{aligned}
-	1 &= a + b + c \\
-	100 &= 90a + 100b + 110 c \\
-	v &= 10c \\
-\end{aligned}
-$$
-for some $a,b,c\ge0$ so
-$$
-\begin{aligned}
-	1 - c &= a + b \\
-	100 - 110c &= 90a + 100b \\
-\end{aligned}
-$$
+is $\{X(90) a + X(100) b + X(110) c\mid a,b,c\ge0\}$.
 
-__Exercise__. _Show $a = c$ and $b = 1 - 2c$_.
+__Exercise__. _Show $x$ belongs to the cone if and only if $0\le v\le 5$.
+
+_Hint_. $1 = a + b + c$, $s = 90a + 100b + 110c$ and $v = 10c$.
+Show _Show $a = c$ and $b = 1 - 2c$.
 
 The FTAP proves the model is arbitrage-free if and only if the option value is between $0$ and $5$
-since $v = 10c\ge0$ and
-$b\ge0$ implies $0\le c\le 1/2$ so $v = 10c\le 5$.
 
 __Exercise__. _Show the model without the bond is arbitrage-free if and only the option value
 is between $0$ and $100/11 < 10$_.
@@ -211,6 +199,7 @@ _Hint_: Consider $\{(90, 0)a + (100, 0)b + (110, 10)c\mid a,b,c\ge0\}$.
 The smallest closed cone is bounded below by $y = 0$ and above
 by $y = (10/110)x$.
 
+<!--
 ### Grassmann Algebra
 
 We can also solve this using Grassmann Algebra. If $E$ is Euclidean
@@ -279,6 +268,7 @@ $$
 	\{tX(L) + uX(H) \sum_{j=1}^n t_n X(K_j)\mid t,u,t_j\ge0\}
 $$
 where $L < K_1 < \cdots < K_n < H$. If $E_0 = P_0 - O$ is the bond direction
+-->
 
 ## Reality
 
@@ -304,15 +294,12 @@ See [@DunSch1958].
 We call any such measure _risk-neutral_, although _risk-blind_ might be more appropriate.
 In general, risk-neutral measures are not unique.
 
-If we let $Q = D/D(\Omega)$ then $Q$ is a positive measure with mass 1
-and $x = E[X]D(\Omega)$ if we pretend it is a probability measure.
-
 If a zero coupon bond exists then $D(\Omega)$ is its price.
 A _zero coupon bond_ is a portfolio $\zeta\in\RR^I$ with 
 ${\zeta\cdot X(\omega) = 1}$ for all ${\omega\in\Omega}$.
 The _price_, or _discount_, of a zero coupon bond is
 ${\zeta\cdot x = \int_\Omega \zeta\cdot X(\omega)\,dD(\omega) = D(\Omega) = D}$.
-The measure ${Q = D/D}$ is positive and has mass 1 so ${x = E[X]D}$ if we pretend it is a probability
+The measure ${Q = D/D(\Omega)}$ is positive and has mass 1 so ${x = E[X]D}$ if we pretend it is a probability
 measure.
 
 Define the map $M_X\colon\RR^I\to B(\Omega)$ by $M_X(\xi) = \xi\cdot X$.

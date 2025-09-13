@@ -47,13 +47,13 @@ and obviously incorrect valuations.  The doubling strategy pointed
 out by [@HarKre1979] is impossible to carry out.
 According to the B-S/M theory the value of a barrier option
 that knocks in the $n$-th time the barrier is hit is the same for all $n>0$.
-If Brownian motion hits $a$ at time $\tau$ then it hits $a$ infinitely
+If Brownian motion hits level $a$ at time $\tau$ then it hits $a$ infinitely
 often in the interval $[\tau, \tau + \epsilon]$ for any $\epsilon > 0$.
 See [@KarShr1991] Section 3.2.
 
 A derivative instrument is a contract. The seller is obligated to
-to satisfy cash flows specified in the contract the buyer agrees to.
-The fundamental problem every sell side trader faces the first day on the job is
+to satisfy cash flows specified in the (cash settled) contract the buyer agrees to.
+The fundamental problem every trader faces the first day on the job is
 when and how many market instruments to buy in order to manage risk.
 
 This note provides a simple universal model that provides
@@ -66,12 +66,17 @@ Information at time $t$ is modeled by a partition $\AA_t$ of $\Omega$. We assume
 $\AA_u$ is a refinement of $\AA_t$ whenever $u > t$.
 The possible _trading times_ $T$ are a subset of the non-negative real numbers.
 To avoid doubling strategies
-we assume $T\cap[0,t]$ is finite for all $t$ so $T$ has no accumulation points.
+we assume $T\cap[0,t]$ is has no accumulation points.
+This is satisfied if time is modelled by a 64-bit floating point number.
 Finally, let $I$ be the set of all market instruments.
 
 We use $B(\Omega)$ to denote the space of bounded functions on $\Omega$.
 Recall its vector space dual can be identified with the space of
 finitely additive measures on $\Omega$ denoted $ba(\Omega)$.
+(If $L\colon B(\Omega)\to\RR$ is linear and bounded define $\lambda(E) = L(1_E)$ where
+$1_E$ is 1 on $E$ and zero on $\Omega\setminus E$.
+Since $1_{E\cup F} = 1_E + 1_F - 1_{E\cap F}$ and $1_\emptyset =  0$
+this defines a finitely additive measure.)
 For any $f\in B(\Omega)$ define the linear operator of multiplication by $f$,
 $M_f\colon B(\Omega)\to B(\Omega)$, by $M_fg = fg$.
 Its adjoint is the linear operator $M_f^*\colon ba(\Omega)\to ba(\Omega)$. 
@@ -81,14 +86,19 @@ We call $f$ the Radon-Nikodym derivative of $f\phi$ with respect to $\phi$.
 
 ## Market
 
-Instruments have prices and cash flows indexed by $T$.
+Instruments have prices and cash flows after purchase indexed by $T$.
 The _price_ at time $t\in T$ is a bounded $\RR^I$-valued function
 $X_t\in B(\Omega,\RR^I)$.
-The _cash flows_ that result from holding an instrument are
+The _cash flows_ that result from owning an instrument are
 also bounded $\RR^I$-valued functions $C_t\in B(\Omega,\RR^I)$.
 Examples of cash flows are stock dividends, bond coupons, and margin adjustments from futures.
 The price of a futures contract is always zero.
 Usually $C_t = 0$ for all but a finite number of times $t\in T$.
+
+Ross thought of prices as right-continuous functions and identified the jumps
+as the cash flow/dividend. This no longer works if the trading times are discrete.
+Also, calling the close-to-open price gap a dividend is a categorical mistake.
+It is market repricing, not a payout.
 
 ## Trading
 
