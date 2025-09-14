@@ -26,7 +26,7 @@ Let $I$ be the set of market _instruments_ available at the beginning and end of
 and let $\Omega$ be the set of possible outcomes.
 
 The _One Period Model_ consists of a set or market _instruments_, $I$,
-available to trade at the beginning and the end of a period.
+available for trading at the beginning and the end of a period.
 The set of possible _outcomes_, $\Omega$, is what can happen over the period.
 The _prices_ at the beginning of the period are a vector $x\in\RR^I$[^1].
 The prices at the end of the period are a function $X\colon\Omega\to
