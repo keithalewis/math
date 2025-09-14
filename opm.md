@@ -33,7 +33,7 @@ The prices at the end of the period are a function $X\colon\Omega\to
 \RR^I$ where $X(\omega)\in\RR^I$ are the instrument prices if
 $\omega\in\Omega$ occurred.
 
-[^1]: Recall the _set exponential_ $B^A = \{f\colon B\to A\}$ is the
+[^1]: Recall the _set exponential_ $B^A = \{f\colon A\to B\}$ is the
 set of all functions from the set $A$ to the set $B$.
 If $x\colon I\to\RR$ then $x(i)$ is the price of instrument $i\in I$.
 The _dot product_ of $x,y\in\RR^I$ is $x\cdot y = \sum_{i\in I}x_i y_i$
@@ -136,7 +136,8 @@ If $x_n\in C$ converge to $x$ in norm and $\xi\cdot x_n\ge0$ then $\xi\cdot x\ge
 
 __Theorem__.  _Arbitrage exists in
 the one-period model if and only if $x$ does not belong to the smallest
-closed cone containing the range of $X$_.
+closed cone containing the range of $X$. If $x^*$ is the closest point
+in the cone then $\xi = x^* - x$ is an arbitrage_.
 
 The previous exercise proves the "easy" direction.
 The contra-positive follows from the
@@ -195,12 +196,12 @@ can go from 100 to 90, 100, or 110, and an at-the-money call option with price $
 The model is $x = (1, 100, v)$, $X(\omega) = (1, \omega, \max\{\omega - 100, 0\})$,
 $\omega\in\{90, 100, 110\}$.
 The smallest closed cone containing the range of $X$
-is $\{X(90) a + X(100) b + X(110) c\mid a,b,c\ge0\}$.
+is $\{aX(90)  + bX(100) + cX(110)\mid a,b,c\ge0\}$.
 
 __Exercise__. _Show $x$ belongs to the cone if and only if $0\le v\le 5$.
 
 _Hint_. $1 = a + b + c$, $s = 90a + 100b + 110c$ and $v = 10c$.
-Show _Show $a = c$ and $b = 1 - 2c$.
+Show $a = c$ and $b = 1 - 2c$.
 
 The FTAP proves the model is arbitrage-free if and only if the option value is between $0$ and $5$
 
