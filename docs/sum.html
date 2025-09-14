@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-08-22" />
+  <meta name="dcterms.date" content="2025-09-14" />
   <title>Simple Universal Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -25,6 +25,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -65,7 +66,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Simple Universal Model</h1>
-<p class="date">August 22, 2025</p>
+<p class="date">September 14, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Arbitrage-free prices are geometrically constrained by cash flows.
@@ -87,8 +88,6 @@ Deflator</a></li>
 Bond</a></li>
 <li><a href="#fixed-income" id="toc-fixed-income">Fixed Income</a></li>
 <li><a href="#risky-bonds" id="toc-risky-bonds">Risky Bonds</a></li>
-<li><a href="#black-scholesmerton"
-id="toc-black-scholesmerton">Black-Scholes/Merton</a></li>
 <li><a href="#general-european-option"
 id="toc-general-european-option">General European Option</a></li>
 </ul></li>
@@ -102,8 +101,9 @@ id="toc-general-european-option">General European Option</a></li>
 <p>This note provides a simple and rigorous mathematical model for
 valuing, hedging, and managing the risk of <strong>all</strong>
 derivative instruments. It is based on <span class="citation"
-data-cites="Ros1978">(Ross 1978)</span> “A Simple Approach to the
-Valuation of Risky Streams” where he showed</p>
+data-cites="Ros1978">(<a href="#ref-Ros1978" role="doc-biblioref">Ross
+1978</a>)</span> “A Simple Approach to the Valuation of Risky Streams”
+where he showed</p>
 <blockquote>
 <p><em>If there are no arbitrage opportunities in the capital markets,
 then there exists a (not generally unique) valuation operator, <span
@@ -112,12 +112,13 @@ class="math inline">L</span></em>.</p>
 <p>The not generally unique valuation operators are determined by
 <em>deflators</em>: positive measures that depend only on the
 information available at each trading time. Ross’s theory applies to all
-instruments, not just a bond, stock, and option that Black and Scholes
-<span class="citation" data-cites="BlaSch1973">(Black and Scholes
-1973)</span> and Merton <span class="citation"
-data-cites="Mer1973">(Merton 1973)</span> considered. His insight was to
-realize option valuation had nothing to do with probability and used the
-Hahn-Banach theorem to show prices are constrained by the geometry
+instruments, not just a bond, stock, and option that <span
+class="citation" data-cites="BlaSch1973">(<a href="#ref-BlaSch1973"
+role="doc-biblioref">Black and Scholes 1973</a>)</span> and <span
+class="citation" data-cites="Mer1973">(<a href="#ref-Mer1973"
+role="doc-biblioref">Merton 1973</a>)</span> considered. His insight was
+to realize option valuation has nothing to do with probability and used
+the Hahn-Banach theorem to show prices are constrained by the geometry
 determined by cash flows.</p>
 <p>There is a clear trajectory in Mathematical Finance from simple
 closed-form models to those allowing more realistic features to be
@@ -127,24 +128,25 @@ divisible). We also make that unrealistic assumption.</p>
 <p>The Achilles Heel of the Black-Scholes/Merton model is that it
 assumes continuous-time trading. This leads to infeasible trading
 strategies and obviously incorrect valuations. The doubling strategy
-pointed out by Harrison and Kreps <span class="citation"
-data-cites="HarKre1979">(Harrison and Kreps 1979)</span> is impossible
-to carry out. According to the B-S/M theory the value of a barrier
-option that knocks in the <span class="math inline">n</span>-th time the
-barrier is hit is the same for all <span class="math inline">n</span>.
-If Brownian motion hits <span class="math inline">a</span> at time <span
+pointed out by <span class="citation" data-cites="HarKre1979">(<a
+href="#ref-HarKre1979" role="doc-biblioref">Harrison and Kreps
+1979</a>)</span> is impossible to carry out. According to the B-S/M
+theory the value of a barrier option that knocks in the <span
+class="math inline">n</span>-th time the barrier is hit is the same for
+all <span class="math inline">n&gt;0</span>. If Brownian motion hits
+level <span class="math inline">a</span> at time <span
 class="math inline">\tau</span> then it hits <span
 class="math inline">a</span> infinitely often in the interval <span
 class="math inline">[\tau, \tau + \epsilon]</span> for any <span
-class="math inline">\epsilon &gt; 0</span> since Brownian motion has
-unbounded variation on any finite interval. See <span class="citation"
-data-cites="KarShr1991">(Karatzas and Shreve 1991)</span> Section
+class="math inline">\epsilon &gt; 0</span>. See <span class="citation"
+data-cites="KarShr1991">(<a href="#ref-KarShr1991"
+role="doc-biblioref">Karatzas and Shreve 1991</a>)</span> Section
 3.2.</p>
 <p>A derivative instrument is a contract. The seller is obligated to to
-satisfy cash flows specified in the contract the buyer agrees to. The
-fundamental problem every sell side trader faces the first day on the
-job is when and how many market instruments to buy in order to manage
-risk.</p>
+satisfy cash flows specified in the (cash settled) contract the buyer
+agrees to. The fundamental problem every trader faces the first day on
+the job is when and how many market instruments to buy in order to
+manage risk.</p>
 <p>This note provides a simple universal model that provides a
 foundation for making advances on this important and poorly understood
 problem.</p>
@@ -158,33 +160,46 @@ class="math inline">\Omega</span>. We assume <span
 class="math inline">\mathcal{A}_u</span> is a refinement of <span
 class="math inline">\mathcal{A}_t</span> whenever <span
 class="math inline">u &gt; t</span>. The possible <em>trading times</em>
-<span class="math inline">T</span> are a subset of the real numbers. To
-avoid doubling strategies we assume <span class="math inline">\epsilon =
-\inf\{|t - u|\mid t,u\in T, t\not=u\} &gt; 0</span>. Finally, let <span
-class="math inline">I</span> be the set of all market instruments.</p>
+<span class="math inline">T</span> are a subset of the non-negative real
+numbers. To avoid doubling strategies we assume <span
+class="math inline">T\cap[0,t]</span> is has no accumulation points.
+This is satisfied if time is modelled by a 64-bit floating point number.
+Finally, let <span class="math inline">I</span> be the set of all market
+instruments.</p>
 <p>We use <span class="math inline">B(\Omega)</span> to denote the space
 of bounded functions on <span class="math inline">\Omega</span>. Recall
 its vector space dual can be identified with the space of finitely
 additive measures on <span class="math inline">\Omega</span> denoted
-<span class="math inline">ba(\Omega)</span>. For any <span
-class="math inline">f\in B(\Omega)</span> define the linear operator of
-multiplication by <span class="math inline">f</span>, <span
-class="math inline">M_f\colon B(\Omega)\to B(\Omega)</span>, by <span
-class="math inline">M_fg = fg</span>. Its adjoint is the linear operator
-<span class="math inline">M_f^*\colon ba(\Omega)\to ba(\Omega)</span>.
-This defines multiplying a measure by a function <span
+<span class="math inline">ba(\Omega)</span>. (If <span
+class="math inline">L\colon B(\Omega)\to\boldsymbol{{R}}</span> is
+linear and bounded define <span class="math inline">\lambda(E) =
+L(1_E)</span> where <span class="math inline">1_E</span> is 1 on <span
+class="math inline">E</span> and zero on <span
+class="math inline">\Omega\setminus E</span>. Since <span
+class="math inline">1_{E\cup F} = 1_E + 1_F - 1_{E\cap F}</span> and
+<span class="math inline">1_\emptyset =  0</span> this defines a
+finitely additive measure.) For any <span class="math inline">f\in
+B(\Omega)</span> define the linear operator of multiplication by <span
+class="math inline">f</span>, <span class="math inline">M_f\colon
+B(\Omega)\to B(\Omega)</span>, by <span class="math inline">M_fg =
+fg</span>. Its adjoint is the linear operator <span
+class="math inline">M_f^*\colon ba(\Omega)\to ba(\Omega)</span>. This
+defines multiplying a measure by a function <span
 class="math inline">f\phi = M_f^*\phi</span> for <span
 class="math inline">f\in B(\Omega)</span> and <span
-class="math inline">\phi\in ba(\Omega)</span>.</p>
+class="math inline">\phi\in ba(\Omega)</span>. We call <span
+class="math inline">f</span> the Radon-Nikodym derivative of <span
+class="math inline">f\phi</span> with respect to <span
+class="math inline">\phi</span>.</p>
 </section>
 <section id="market" class="level2">
 <h2>Market</h2>
-<p>Instruments have prices and cash flows indexed by <span
-class="math inline">T</span>. The <em>price</em> at time <span
+<p>Instruments have prices and cash flows after purchase indexed by
+<span class="math inline">T</span>. The <em>price</em> at time <span
 class="math inline">t\in T</span> is a bounded <span
 class="math inline">\boldsymbol{{R}}^I</span>-valued function <span
 class="math inline">X_t\in B(\Omega,\boldsymbol{{R}}^I)</span>. The
-<em>cash flows</em> that result from holding an instrument are also
+<em>cash flows</em> that result from owning an instrument are also
 bounded <span class="math inline">\boldsymbol{{R}}^I</span>-valued
 functions <span class="math inline">C_t\in
 B(\Omega,\boldsymbol{{R}}^I)</span>. Examples of cash flows are stock
@@ -192,6 +207,10 @@ dividends, bond coupons, and margin adjustments from futures. The price
 of a futures contract is always zero. Usually <span
 class="math inline">C_t = 0</span> for all but a finite number of times
 <span class="math inline">t\in T</span>.</p>
+<p>Ross thought of prices as right-continuous functions and identified
+the jumps as the cash flow/dividend. This no longer works if the trading
+times are discrete. Also, calling the close-to-open price gap a dividend
+is a categorical mistake. It is market repricing, not a payout.</p>
 </section>
 <section id="trading" class="level2">
 <h2>Trading</h2>
@@ -262,23 +281,26 @@ of <em>any</em> derivative instrument.</p>
 class="math inline">V</span>, and cash flow, <span
 class="math inline">C</span>, corresponds to amount, <span
 class="math inline">A</span>.</strong></p>
-<p><em>Proof</em>: We have <span class="math inline">{X_t D_t = (X_u D_u
-+ C_u D_u)|_{\mathcal{A}_t}}</span> and <span
-class="math inline">{\Delta_t + \Gamma_t = \Delta_u}</span> for some
-<span class="math inline">u\in T</span> with <span
-class="math inline">{u - t \ge \epsilon}</span> sufficiently small. It
-follows <span class="math display">
+<p><em>Proof</em>: If at most one cash flow occurs in the interval <span
+class="math inline">(t,u]</span> then <span class="math inline">{X_t D_t
+= (X_u D_u + C_u D_u)|_{\mathcal{A}_t}}</span> and <span
+class="math inline">{\Delta_t + \Gamma_t = \Delta_u}</span> is <span
+class="math inline">\mathcal{A}_t</span> measurable. Using <span
+class="math inline">\Delta_u\cdot C_u = \Gamma_u\cdot X_u + A_u</span>
+we have <span class="math display">
 \begin{aligned}
 V_t D_t &amp;= (\Delta_t + \Gamma_t)\cdot X_t D_t \\
-    &amp;= (\Delta_u\cdot X_u D_u + \Delta_u C_u D_u)|_{\mathcal{A}_t}
-\\
+    &amp;= \Delta_u\cdot (X_u D_u + C_u D_u)|_{\mathcal{A}_t} \\
+    &amp;= (\Delta_u\cdot X_u D_u + \Delta_u\cdot C_u
+D_u)|_{\mathcal{A}_t} \\
     &amp;= (\Delta_u\cdot X_u + (\Gamma_u\cdot X_u +
-A_u)D_u|_{\mathcal{A}_t} \\
-    &amp;= (\Delta_u + \Gamma_u)\cdot X_u + A_u)D_u|_{\mathcal{A}_t} \\
+A_u))D_u|_{\mathcal{A}_t} \\
+    &amp;= ((\Delta_u + \Gamma_u)\cdot X_u + A_u)D_u)|_{\mathcal{A}_t}
+\\
     &amp;= (V_u + A_u)D_u|_{\mathcal{A}_t} \\
 \end{aligned}
 </span> The lemma is established by finite induction since <span
-class="math inline">\epsilon &gt; 0</span>.</p>
+class="math inline">T</span> has no accumulation points.</p>
 <p>We say <span class="math inline">(M_t)_{t\in T}</span> is a
 martingale measure if <span class="math inline">M_t\in
 ba(\mathcal{A}_t)</span> and <span class="math inline">M_t =
@@ -304,8 +326,9 @@ D_s)|_{\mathcal{A}_t} \\
         &amp;= X_t D_t \\
 \end{aligned}
 </span></p>
-<p><em>Proof</em> (FTAP): Since <span class="math inline">{V_{\tau_0} =
-(\sum_{u &gt; \tau_0} A_u D_u)|_{\mathcal{A}_t}}</span> and if <span
+<p><em>Proof</em> (FTAP): Since <span
+class="math inline">{V_{\tau_0}D_{\tau_0} = (\sum_{u &gt; \tau_0} A_u
+D_u)|_{\mathcal{A}_{\tau_0}}}</span> and if <span
 class="math inline">A_t \ge 0</span> for <span class="math inline">t
 &gt; \tau_0</span> then <span class="math inline">V_{\tau_0} \ge
 0</span>. Since <span class="math inline">\Delta_{\tau_0} = 0</span> we
@@ -353,9 +376,16 @@ class="math inline">\Gamma</span> is gamma.
 times <span class="math inline">(\tau_j)</span>. The B-S/M model
 obscures the essential problem faced by every trader: when and how how
 much of each instrument are required to hedge. It is simply not possible
-to hedge continuously. The SUM forces you to consider this question that
-has yet have a definitive answer.</p>
-<p>Static hedging (Nazir, Peter)</p>
+to hedge continuously. The SUM forces you to consider this fundamental
+question.</p>
+<p>Semi-Static hedging involves finding an initial static hedge that
+approximately replicates the option, then finding a dynamic hedge to
+improve on the difference. See <span class="citation"
+data-cites="CarEllGup1998">(<a href="#ref-CarEllGup1998"
+role="doc-biblioref">Carr, Ellis, and Gupta 1998</a>)</span> for early
+work and <span class="citation" data-cites="SauTou2024">(<a
+href="#ref-SauTou2024" role="doc-biblioref">Sauldubois and Touzi
+2024</a>)</span> for recent improvements of this technique.</p>
 </section>
 <section id="examples" class="level2">
 <h2>Examples</h2>
@@ -420,19 +450,22 @@ class="math inline">D_t(u) D_t = D_u|_{\mathcal{A}_t}</span> so <span
 class="math inline">D_t(u)</span> is the Radon-Nikodym derivative of
 <span class="math inline">D_u|_{\mathcal{A}_t}</span> with respect to
 <span class="math inline">D_t</span>.</p>
-<p>Note <span class="math inline">D_0(u)D_0 =
-D_u|_{\mathcal{A}_0}</span> so the discount to time <span
+<p>Note <span class="math inline">D_0(u)D_0
+=  D_u|_{\mathcal{A}_0}</span> so the discount to time <span
 class="math inline">u</span> is <span class="math inline">D_0(u) =
-D_u(\Omega)/D_0(\Omega) = D_u(\Omega)</span> assuming, without loss of
-generality, that <span class="math inline">D_0(\Omega) = 1</span>. This
-technically makes <span class="math inline">D_0</span> a probability
-measure, but it is not the probability of anything.</p>
-<p>Zero coupon bond prices are determined by the deflators. The
-Brace-Gatarek-Musiela Market model<span class="citation"
-data-cites="BraGatMus1997">(Brace, Gatarek, and Musiela 1997)</span>
-corresponds to using the canonical deflator built from futures instead
-of repos. The Heath-Jarrow-Morton model[HeaJarMor1992] corresponds to
-using the continuous time forward rates.</p>
+D_u(\Omega)/D_0(\Omega)
+=  D_u(\Omega)</span> assuming, without loss of generality, that <span
+class="math inline">D_0(\Omega) = 1</span>. This technically makes <span
+class="math inline">D_0</span> a “probability measure,” but it is not
+the probability of anything.</p>
+<p>Zero coupon bond prices are determined by the deflators. The <span
+class="citation" data-cites="BraGatMus1997">(<a
+href="#ref-BraGatMus1997" role="doc-biblioref">Brace, Gatarek, and
+Musiela 1997</a>)</span> model corresponds to using the canonical
+deflator built from futures instead of repos. The <span class="citation"
+data-cites="HeaJarMor1992">(<a href="#ref-HeaJarMor1992"
+role="doc-biblioref">Heath, Jarrow, and Morton 1992</a>)</span> model
+corresponds to using the continuous time forward rates.</p>
 </section>
 <section id="fixed-income" class="level3">
 <h3>Fixed Income</h3>
@@ -462,56 +495,38 @@ class="math inline">[0,\infty)</span> consisting of singletons <span
 class="math inline">\{s\}</span>, <span class="math inline">s &lt;
 t</span>, and the atom <span class="math inline">[t,\infty)</span>. We
 assume if default occurs at time <span class="math inline">t</span> then
-we learn about it later. It is common to assume recovery is a constant
-times the value at default of the zero coupon bond.</p>
+we learn about it later.</p>
 <p>A risky zero coupon bond maturing at <span
 class="math inline">u</span> pays in full at <span
 class="math inline">u</span> if <span class="math inline">\tau &gt;
 u</span> and <span class="math inline">\rho D_\tau(u)</span> at <span
-class="math inline">\tau</span> if <span class="math inline">\tau\le
-u</span>. By equation (2) its value satisfies <span
-class="math display">
-    V_t D_t = (\rho D_\tau(u)1(t\le\tau\le u) D_\tau + 1(\tau
-&gt;u)D_u)|_{\mathcal{A}_t}.
+class="math inline">\tau</span> if <span class="math inline">t\le\tau\le
+u</span>. By equation (2) its value <span class="math inline">V_t =
+D_t^{\tau,\rho}(u)</span> satisfies <span class="math display">
+    D_t^{\tau,\rho}(u) D_t = (\rho D_\tau(u)1(t\le\tau\le u) D_\tau +
+1(\tau &gt;u)D_u)|_{\mathcal{A}_t}.
+</span> Since <span class="math inline">D_\tau(u)D_\tau|_{\mathcal{A}_t}
+= D_u|_{\mathcal{A}_t}</span> for <span class="math inline">t\le\tau\le
+u</span> this simplifies to <span class="math display">
+    D_t^{\tau,\rho}(u) D_t = ((\rho 1(t\le\tau\le u) + 1(\tau
+&gt;u))D_u)|_{\mathcal{A}_t}.
 </span> If we make the usual unrealistic assumptions that <span
 class="math inline">\tau</span> is independent of all <span
 class="math inline">(D_t)_{t\in T}</span> and <span
 class="math inline">\rho</span> is constant then <span
 class="math display">
-    V_t D_t = (\rho D_\tau(u)1(t\le\tau\le u) D_\tau + 1(\tau
-&gt;u)D_u)|_{\mathcal{A}_t}.
-</span> ???</p>
-<p>If rates are zero then <span class="math inline">D_t(u) = 1</span>.
-Writing <span class="math inline">V_t</span> as <span
-class="math inline">D_t^{\tau,\rho}(u)</span> we have <span
-class="math display">
-    D_t^{\tau,\rho}(u) = (\rho 1(t\le\tau\le u) + 1(\tau
-&gt;u))|_{\mathcal{A}_t}
-</span></p>
-</section>
-<section id="black-scholesmerton" class="level3">
-<h3>Black-Scholes/Merton</h3>
-<p>The Black-Scholes<span class="citation"
-data-cites="BlaSch1973">(Black and Scholes 1973)</span> and Merton<span
-class="citation" data-cites="Mer1973">(Merton 1973)</span> model has
-<span class="math inline">\Omega = C[0,\infty)</span>, the set of
-continuous functions on the non-negative real numbers, and <span
-class="math inline">T = [0,\infty)</span> with instruments a bond and a
-stock having no associated cash flows. The martingale measure is <span
-class="math inline">M_t = (r, se^{\sigma B_t - \sigma^2t/2})P</span>
-where <span class="math inline">(B_t)</span> is standard Brownian motion
-and <span class="math inline">P</span> is Wiener measure. The deflator
-is <span class="math inline">D_t = e^{-\rho t}P</span>.</p>
-<p>We can generalize this to any Levy process <span
-class="math inline">(X_t)</span> with <span
-class="math inline">X_1</span> having mean zero and variance one. In
-this case <span class="math inline">M_t = (r, se^{\sigma X_t -
-t\kappa(\sigma)})P</span> where <span class="math inline">\kappa(\sigma)
-= \log E[\exp(\sigma X_1)]</span> is the <em>cumulant</em> of <span
-class="math inline">X_1</span>. Independence and stationarity imply the
-cumulant of <span class="math inline">X_t</span> is <span
+    D_t^{\tau,\rho}(u) D_t = (\rho P(t\le\tau\le u) + P(\tau &gt;
+u))D_t(u).
+</span> If <span class="math inline">\rho = 1</span> or <span
+class="math inline">\tau = \infty</span> we have $ D_t^{,}(u) D_t({}$ is
+the <em>cumulant</em> of <span class="math inline">X_1</span>.
+Independence and stationarity imply the cumulant of <span
+class="math inline">X_t</span> is <span
 class="math inline">t\kappa(\sigma)</span> and the distribution of <span
-class="math inline">X_1</span> determines the Levy process. ???cite</p>
+class="math inline">X_1</span> determines the Lévy process. See <span
+class="citation" data-cites="Sat1999">(<a href="#ref-Sat1999"
+role="doc-biblioref">Sato 1999</a>)</span> for basic facts about Lévy
+processes.</p>
 <p>Since <span class="math inline">X_1</span> is infinitely divisible
 ???cite and has finite variance its cumulant can be characterized by
 <span class="math inline">\gamma\in\boldsymbol{{R}}</span> and a
@@ -520,16 +535,28 @@ class="math inline">\Gamma\colon\boldsymbol{{R}}\to\boldsymbol{{R}}</span>
 with <span class="math inline">\lim_{x\to -\infty}\Gamma(x) = 0</span>
 and <span class="math inline">\lim_{x\to\infty}\Gamma(x) = 1</span>
 where <span class="math display">
-    \log E[e^{sX_1}] = \gamma s + \int_{-\infty}^\infty K_s(x)\,dG(x)
+    \kappa(s) = \log E[e^{sX_1}] = \gamma s + \int_{-\infty}^\infty
+K_s(x)\,dG(x)
 </span> and <span class="math inline">K_s(x) = (e^{sx} - 1 - sx)/x^2 =
 \sum_{k=2}^\infty s^n x^{n-2}/n!</span> is the Kolomogorov<span
-class="citation" data-cites="Kol">(<strong>Kol?</strong>)</span> kernel.
-Not <span class="math inline">G(x) = 1_[0,\infty)</span> gives the
-normal distribution with mean <span class="math inline">\gamma</span>
-and variance one. If <span class="math inline">G(x) =
-1_[a,\infty)</span>, <span class="math inline">a\not=0</span> we get a
-Poisson distribution with parameter <span class="math inline">\lambda =
-???</span>.</p>
+class="citation" data-cites="Kol1931">(<a href="#ref-Kol1931"
+role="doc-biblioref">Kolmogorov 1931</a>)</span> kernel. Note <span
+class="math inline">G(x) = 1_[0,\infty)</span> gives the normal
+distribution with mean <span class="math inline">\gamma</span> and
+variance one. If <span class="math inline">G(x) = 1_[a,\infty)</span>,
+<span class="math inline">a\not=0</span>, we have <span
+class="math inline">\kappa(s) = \gamma s + (e^{as} - 1 - as)/a^2 =
+(\gamma - 1/a)s + (1/a^2)(e^{as} - 1)</span>. Recall the cumulant of a
+Posson distribution with parameter <span
+class="math inline">\lambda</span> is <span
+class="math inline">\lambda(e^s - 1)</span> and the cumulant of <span
+class="math inline">b + cX</span> is <span class="math inline">bs +
+\kappa(cs)</span> where <span class="math inline">\kappa</span> is the
+cumulant of <span class="math inline">X</span>. This implies <span
+class="math inline">\lambda = 1/a^2</span>, <span class="math inline">a
+= c</span>, and <span class="math inline">\gamma - 1/a = b</span> so
+every infinitely divisible distribution can be approximated by a normal
+plus a sum of independent Poisson distributions.</p>
 </section>
 <section id="general-european-option" class="level3">
 <h3>General European Option</h3>
@@ -548,11 +575,19 @@ by <span class="math inline">{V_0 D_0 = (\nu(S_t)
 D_t)|_{\mathcal{A}_0}}</span>. Using the “probability” measure <span
 class="math inline">P = D_0</span> this can be written <span
 class="math inline">V_0 = E[\nu(S_t)D_t]</span>.</p>
-<p>The Black model<span class="citation" data-cites="Bla1976">(Black
-1976)</span> sidesteps involving iterest rates by computing the forward
-value of an option on the forward <span
-class="math inline">E[\nu(F_t)]</span> where <span
-class="math inline">F_t = S_t</span> at expiration.</p>
+<p>The <span class="citation" data-cites="Bla1976">(<a
+href="#ref-Bla1976" role="doc-biblioref">Black 1976</a>)</span> model
+sidesteps interest rates by computing the forward value of the option
+<span class="math inline">E[\nu(S_t)]</span>. A <em>forward
+contract</em> with strike <span class="math inline">k</span> pays <span
+class="math inline">S_t - k</span> at expiration <span
+class="math inline">t</span>. The <em>forward</em> of <span
+class="math inline">S</span> at time <span class="math inline">t</span>
+is the strike making the current value of the contract zero. In this
+case <span class="math inline">{0 = E[(S_t - f)D_t] = E[S_t D_t] -
+fE[D_t]}</span> so <span class="math inline">{f = E[S_t D_t]/E[D_t] =
+S_0/D_0}</span>. This formula is called the <em>cost-of-carry</em>. ???
+revisit</p>
 <p><span class="math inline">F_t = fe^{\sigma B_t - \sigma^2t/2}</span>,
 where <span class="math inline">f = se^{\rho t}</span>. The forward
 value is <span class="math inline">E[\nu(F_t)]</span>. If a European
@@ -573,12 +608,27 @@ t}</span>, and <span class="math inline">s = \sigma\sqrt{t}</span>.</p>
 <p>The forward put value with strike <span class="math inline">k</span>
 is <span class="math inline">p(k) = E[\max\{k - F, 0\}] = E[(k -
 F)1(F\le k)]</span> so <span class="math display">
-    p(k) = P(F\le k) - fP^s(F\le k).
+\begin{aligned}
+    p(k) &amp;= E[\max\{k - F, 0\}] \\
+    &amp;= E[(k - F)1(F\le k)] \\
+    &amp;= k P(F\le k) - fP^s(F\le k).
+\end{aligned}
 </span> Put prices determine the distribution of <span
-class="math inline">F</span>, as Breeden and Litzenberg <span
-class="citation" data-cites="BreLit1978">(Breeden and Litzenberger
-1978)</span> showed, since <span class="math inline">\partial_k p =
-E[1(F\le k)] = P(F\le k)</span>.</p>
+class="math inline">F</span>, as <span class="citation"
+data-cites="BreLit1978">(<a href="#ref-BreLit1978"
+role="doc-biblioref">Breeden and Litzenberger 1978</a>)</span> showed,
+since <span class="math inline">\partial_k p(k) = E[1(F\le k)] = P(F\le
+k)</span>.</p>
+<p>Define <em>moneyness</em> <span class="math inline">x =
+x(f,s,k)</span> by <span class="math inline">F\le k</span> if and only
+if <span class="math inline">X \le x</span> so <span
+class="math inline">x = (\log k/f + \kappa(s))/s</span> if <span
+class="math inline">s &gt; 0</span>.</p>
+<p>Define the <em>share cumulative distribution</em> by <span
+class="math inline">\Psi(x, s) = P^s(X\le x)</span>. Note <span
+class="math inline">\Psi(x, 0)</span> is the cumulative distribution of
+<span class="math inline">X</span>. The formula for put value is <span
+class="math inline">{p(k) = k \Psi(x, 0) - f \Psi(x, s)}</span>.</p>
 <p><em>Delta</em> is the derivative of option value with respect to
 <span class="math inline">f</span> <span class="math display">
 \begin{aligned}
@@ -586,16 +636,16 @@ E[1(F\le k)] = P(F\le k)</span>.</p>
   &amp;= E[-1(F \le k)\partial_f F] \\
   &amp;= E[-1(F \le k)e^{sX - \kappa(s)}] \\
   &amp;= -P^s(F \le k) \\
-  &amp;= -\Psi^s(x) \\
+  &amp;= -\Psi(x, s) \\
 \end{aligned}
 </span></p>
 <p><em>Gamma</em> is the second derivative of option value with respect
 to <span class="math inline">f</span> <span class="math display">
 \begin{aligned}
-    \partial_f^2 p &amp;= -\partial_f \Psi^s(x) \\
-    &amp;= -\partial_x \Psi^s(x)\partial_f x \\
-    &amp;= -\partial_x \Psi^s(x)/\partial_x f \\
-    &amp;= \partial_x \Psi^s(x)/f s\\
+    \partial_f^2 p &amp;= -\partial_f \Psi(x, s) \\
+    &amp;= -\partial_x \Psi(x, s)\partial_f x \\
+    &amp;= -\partial_x \Psi(x, s)/\partial_x f \\
+    &amp;= \partial_x \Psi(x, s)/f s\\
 \end{aligned}
 </span></p>
 <p><em>Vega</em> is the derivative of option value with respect to <span
@@ -605,11 +655,21 @@ class="math display">
     \partial_s p &amp;= \partial_s E[\max\{k - F, 0\}] \\
         &amp;= E[-1(F \le k)\partial_s F] \\
         &amp;= -E[1(X\le x)F(X - \kappa&#39;(s))] \\
-        &amp;= -f\partial_s \Psi^s(x) \\
+        &amp;= -f\partial_s \Psi(x, s) \\
 \end{aligned}
 </span> The last equality follows from <span
-class="math inline">\partial_s E^s[1(X\le x)] = E[1(X \le x)e^{sX -
-\kappa(s)}(X - \kappa&#39;(s))]</span>.</p>
+class="math inline">{\partial_s E^s[1(X\le x)] = E[1(X \le x)e^{sX -
+\kappa(s)}(X - \kappa&#39;(s))]}</span>. Note <span
+class="math inline">E_s[1(X\le x)((X - \kappa&#39;(s))] = E_s[1(X\le
+x)((X - E_s[X])]
+= P_x(X\le x)(E_s[X\mid X\le x] - E_s[X]] &lt; 0</span>.</p>
+<p>To use these formulas with the B-S/M parameters <span
+class="math inline">\rho</span>, <span class="math inline">S_0</span>,
+<span class="math inline">sigma</span>, and <span
+class="math inline">t</span> use <span class="math inline">f =
+S_0e^{\rho t}</span>, and <span class="math inline">s =
+\sigma\sqrt{t}</span> and multiply the forward values by <span
+class="math inline">e^{-\rho t}</span>.</p>
 </section>
 </section>
 <section id="notes" class="level2">
@@ -640,10 +700,10 @@ functions</em>, a finite linear sum <span class="math inline">{f =
 \sum_i a_i 1_{A_i}}</span>, <span
 class="math inline">A_i\subseteq\Omega</span>, by <span
 class="math inline">\int_\Omega f\,d\phi = \sum_i a_i\phi(A_i)</span>.
-Dunford and Schwartz<span class="citation"
-data-cites="DunSch1958">(Dunford and Schwartz 1958)</span> show this is
-well-defined and an isometry so it can be extended to all of <span
-class="math inline">B(\Omega)</span>.</p>
+Dunford and Schwartz<span class="citation" data-cites="DunSch1958">(<a
+href="#ref-DunSch1958" role="doc-biblioref">Dunford and Schwartz
+1958</a>)</span> show this is well-defined and an isometry so it can be
+extended to all of <span class="math inline">B(\Omega)</span>.</p>
 <p>If <span class="math inline">\Phi\colon
 B(S)\to\boldsymbol{{R}}</span> is linear define <span
 class="math inline">\phi(E) = \Phi 1_E</span> where <span
@@ -676,7 +736,7 @@ strictly positive traders and risk managers will compare it to <span
 class="math inline">|\Gamma_0|\cdot|X_0|</span> as a measure of how much
 capital will be tied up in the trading strategy.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-Bla1976" class="csl-entry" role="listitem">
 Black, Fischer. 1976. <span>“The Pricing of Commodity Contracts.”</span>
 <em>Journal of Financial Economics</em> 3 (1-2): 167–79.
@@ -698,6 +758,12 @@ Breeden, Douglas T., and Robert H. Litzenberger. 1978. <span>“Prices of
 State-Contingent Claims Implicit in Option Prices.”</span> <em>Journal
 of Business</em> 51 (4): 621–51.
 </div>
+<div id="ref-CarEllGup1998" class="csl-entry" role="listitem">
+Carr, Peter, Katrina Ellis, and Vishal Gupta. 1998. <span>“Static
+Hedging of Exotic Options.”</span> <em>Journal of Finance</em> 53 (3):
+1165–90. <a
+href="https://doi.org/10.1111/0022-1082.00048">https://doi.org/10.1111/0022-1082.00048</a>.
+</div>
 <div id="ref-DunSch1958" class="csl-entry" role="listitem">
 Dunford, Nelson, and Jacob T Schwartz. 1958. <em>Linear Operators
 i</em>. Interscience Publishers.
@@ -708,9 +774,21 @@ Arbitrage in Multiperiod Securities Markets.”</span> <em>Journal of
 Economic Theory</em> 20: 381–408. <a
 href="https://doi.org/10.1016/0022-0531(79)90043-7">https://doi.org/10.1016/0022-0531(79)90043-7</a>.
 </div>
+<div id="ref-HeaJarMor1992" class="csl-entry" role="listitem">
+Heath, David, Robert Jarrow, and Andrew Morton. 1992. <span>“Bond
+Pricing and the Term Structure of Interest Rates: A New Methodology for
+Contingent Claims Valuation.”</span> <em>Econometrica</em> 60 (1):
+77–105. <a
+href="https://doi.org/10.2307/2951677">https://doi.org/10.2307/2951677</a>.
+</div>
 <div id="ref-KarShr1991" class="csl-entry" role="listitem">
 Karatzas, Ioannis, and Steven E. Shreve. 1991. <em>Brownian Motion and
 Stochastic Calculus</em>. 2nd ed. New York: Springer.
+</div>
+<div id="ref-Kol1931" class="csl-entry" role="listitem">
+Kolmogorov, A. N. 1931. <span>“<span>Ü</span>ber Die Analytischen
+Methoden in Der Wahrscheinlichkeitsrechnung.”</span> <em>Mathematische
+Annalen</em> 104: 415–58.
 </div>
 <div id="ref-Mer1973" class="csl-entry" role="listitem">
 Merton, Robert C. 1973. <span>“Theory of Rational Option
@@ -725,9 +803,20 @@ Ross, Stephen A. 1978. <span>“A <span>Simple</span>
 Business</em> 51 (3): 453–75. <a
 href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277</a>.
 </div>
+<div id="ref-Sat1999" class="csl-entry" role="listitem">
+Sato, Keniti. 1999. <em>L<span>é</span>vy Processes and Infinitely
+Divisible Distributions</em>. Vol. 68. Cambridge Studies in Advanced
+Mathematics. Cambridge, UK: Cambridge University Press.
+</div>
+<div id="ref-SauTou2024" class="csl-entry" role="listitem">
+Sauldubois, Nathan, and Nizar Touzi. 2024. <span>“First Order Martingale
+Model Risk and Semi‐static Hedging.”</span> <em>arXiv Preprint
+arXiv:2410.06906</em>. <a
+href="https://doi.org/10.48550/arXiv.2410.06906">https://doi.org/10.48550/arXiv.2410.06906</a>.
+</div>
 </div>
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -735,6 +824,6 @@ role="doc-endnotes">
 the time, Barings Bank out of business.<a href="#fnref1"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>

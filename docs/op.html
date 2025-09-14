@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-01-26" />
+  <meta name="dcterms.date" content="2025-09-14" />
   <title>Option Pricing</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 26, 2025</p>
+<p class="date">September 14, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 European option pricing and greeks
@@ -94,9 +94,9 @@ cumluative distribution function, <span class="math inline">s</span> is
 the spot price, <span class="math inline">k</span> is the call strike,
 <span class="math inline">r</span> is the risk-free continuously
 compounded interest rate, <span class="math inline">t</span> is the time
-in years to expiration, <span class="math inline">d_1 = (\log(s/k) + (r
-+ σ^2/2)t)/σ\sqrt{t}</span>, and <span class="math inline">d_2 = d_1 -
-σ\sqrt{t}</span>.</p>
+in years to expiration, <span class="math inline">d_1 =
+(\log(s/k) + (r + σ^2/2)t)/σ\sqrt{t}</span>, and <span
+class="math inline">d_2 = d_1 - σ\sqrt{t}</span>.</p>
 <p>Option <em>delta</em> is the derivative of value with respect to the
 underlying. It is true that <span class="math inline">∂_s v_0 = ∂v_0/∂s
 = N(d_1)</span>, but <span class="math inline">d_1</span> and <span
@@ -261,7 +261,7 @@ class="math display">
 </span> where <span class="math inline">x = x(y) = ε_s^{-1}(y/f) = (\log
 y/f + κ(s))/s</span> is the <em>moneyness</em> of <span
 class="math inline">y</span>. Note <span class="math inline">∂_x ε_s(x)
-= ε_s(x) s</span>, <span class="math inline">∂_s ε_s(x) = ε_s(x) (x -
+=  ε_s(x) s</span>, <span class="math inline">∂_s ε_s(x) = ε_s(x) (x -
 κ&#39;(s))</span>, and <span class="math inline">ε_s(x(y)) =
 y/f</span>.</p>
 <section id="greeks" class="level3">
@@ -376,10 +376,10 @@ s/2</span>.</p>
 1(F \le k)</span> and a <em>digital call</em> has payoff <span
 class="math inline">ν(F) = 1(F &gt; k)</span>. Since <span
 class="math inline">1(F \le k) + 1(F &gt; k) = 1</span> we have digital
-put-call parity <span class="math inline">p + c = 1</span> where <span
-class="math inline">p</span> is the digital put value and <span
-class="math inline">c</span> is the digital call value: <span
-class="math display">
+put-call parity <span class="math inline">p + c =
+1</span> where <span class="math inline">p</span> is the digital put
+value and <span class="math inline">c</span> is the digital call value:
+<span class="math display">
     p = P(F \le k), c = P(F &gt; k) = 1 - p.
 </span></p>
 <p>Digital put delta is <span class="math display">

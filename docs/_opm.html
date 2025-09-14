@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-08-25" />
+  <title>One Period Model</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">One Period Model</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">August 25, 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#trinomial-american-option"
+id="toc-trinomial-american-option">Trinomial American Option</a></li>
+</ul>
+</nav>
+<p>Instruments <span class="math inline">I</span>, sample space <span
+class="math inline">\Omega</span>, partitions <span
+class="math inline">\mathcal{A}_0</span> and <span
+class="math inline">\mathcal{A}_1</span> of <span
+class="math inline">\Omega</span>, and prices <span
+class="math inline">{x\in B(\mathcal{A}_0, \boldsymbol{{R}}^I)}</span>,
+<span class="math inline">{X\in B(\mathcal{A}_1, R^I)}</span>.</p>
+<p>Arbitrage exists if there is a <span
+class="math inline">\gamma^*\in(\boldsymbol{{R}}^I)^*</span> with <span
+class="math inline">\gamma^* x &lt; 0</span> and <span
+class="math inline">\gamma^* X \ge0</span>.</p>
+<p>Define <span class="math inline">A\colon (\boldsymbol{{R}}^I)^*\to
+B(\mathcal{A}_0)\oplus B(\mathcal{A}_1)</span> by <span
+class="math inline">\gamma^*\mapsto -\gamma^* x \oplus \gamma^*
+X</span>.</p>
+<p><span class="math inline">A^*\colon ba(\mathcal{A}_0)\oplus
+ba(\mathcal{A}_1)\to\boldsymbol{{R}}^I</span> is defined by <span
+class="math display">
+\begin{aligned}
+\langle\gamma^*, A^*(\pi\oplus\Pi)\rangle
+&amp;= \langle A\gamma^*, \pi\oplus\Pi\rangle \\
+&amp;= \langle -\gamma^* x\oplus\gamma^* X, \pi\oplus\Pi\rangle \\
+&amp;= \langle -\gamma^* x, \pi\rangle + \langle\gamma^* X, \Pi\rangle
+\\
+&amp;= \langle \gamma^*, \langle -x, \pi\rangle + \langle X,
+\Pi\rangle\rangle \\
+\end{aligned}
+</span> so <span class="math inline">A^*(\pi\oplus\Pi) = \langle -x,
+\pi\rangle + \langle X, \Pi\rangle</span>.</p>
+<p>Define the positive cone in <span
+class="math inline">ba(\mathcal{A}_0)\oplus ba(\mathcal{A}_1)</span> by
+<span class="math inline">\mathcal{P}= \{\pi\oplus\Pi\mid \pi &gt; 0,
+\Pi\ge0\}</span> Arbitrage exists if and only if the range of <span
+class="math inline">A</span> meets <span
+class="math inline">\mathcal{P}</span>.</p>
+<p>There is no arbitrage if and only if <span
+class="math inline">\operatorname{ran}A\cap\mathcal{P}=
+\emptyset</span>. If so, there exists a hyperplane <span
+class="math inline">H\supseteq\operatorname{ran}A</span> with <span
+class="math inline">H\cap\mathcal{P}= \emptyset</span>. There exists
+<span class="math inline">\pi\oplus\Pi</span> with pre-annihilator <span
+class="math inline">{}^\perp\{\pi\oplus\Pi\} = H</span>.</p>
+<p>Since <span class="math inline">(\operatorname{ran}A)^\perp =
+\operatorname{ker}A^*</span> H$</p>
+<p>We have <span class="math inline">A^*(\pi\oplus\Pi) = 0</span> so
+<span class="math inline">\langle x, \pi\rangle = \langle X,
+\Pi\rangle</span></p>
+<p><span class="math inline">X_j\Pi_j = (X_{j+1} +
+C_{j+1})|_{\mathcal{A}_j}</span></p>
+<section id="trinomial-american-option" class="level2">
+<h2>Trinomial American Option</h2>
+<p>The sample space is the possible stock price movements over the first
+and second periods, and when the option is exercised. <span
+class="math inline">{\Omega = \{(\omega_1, \omega_2, t)\mid
+\omega_i\in\{-,+\}, t\in\{1,2\}\}}</span>. We write, e.g., <span
+class="math inline">-+1</span> for <span
+class="math inline">(-,+,1)</span>.</p>
+<p>Information at time 0 is <span class="math inline">\mathcal{A}_0 =
+\{\Omega\}</span>. We assume <span class="math inline">\Pi_0(\Omega) =
+1</span>. At time one we know if the stock went up or down in the first
+period and whether or not the option was exercised. so <span
+class="math inline">{\mathcal{A}_1 = \{\{--1,-+1\}, \{+-1,++1\},
+\{--2,-+2\}, \{+-2,+-2\}\}}</span> We write <span
+class="math inline">\Pi_1(--1) = \Pi_1(-+1) = \pi_{-1}</span>, etc. Of
+course <span class="math inline">\mathcal{A}_2</span> consists of all
+singletons of <span class="math inline">\Omega</span>. We write <span
+class="math inline">\Pi(--1) = \pi_{--1}</span>, etc.</p>
+<p>We have <span class="math inline">X_0(\omega_1,\omega_2, t) = (1,
+S_0, V_0)</span> where <span class="math inline">S_0</span> and <span
+class="math inline">V_0</span> are scalar.</p>
+<p>And <span class="math inline">X_1(\omega_1, \omega_2, t) = (R,
+S_1(\omega_1), V_1(\omega_1) 1(t = 2))</span> with <span
+class="math inline">C_1 = (0, 0, \nu(S_1(\omega_1)) 1(t =
+1))</span>.</p>
+<p>Also <span class="math inline">X_2(\omega_1, \omega_2, t) = (R^2,
+S_2(\omega_1, \omega_2), 0)</span> with <span
+class="math inline">C_2(\omega_1, \omega_2, t) = (0, 0,
+\nu(S_2(\omega_1, \omega_2))1(t = 2))</span>.</p>
+<p>Since <span class="math inline">X_0\Pi_0 = ((X_1 +
+C_1)\Pi_1)|_{\mathcal{A}_1}</span> we have <span class="math display">
+\begin{aligned}
+1 &amp;= R(\pi_{-1} + \pi_{-2} + \pi_{+1} + \pi_{+2}) \\
+S_0 &amp;= S_1(-)(\pi_{-1} + \pi_{-2}) + S_1(+)(\pi_{+1} + \pi_{+2}) \\
+V_0 &amp;= S_1(-)\pi_{-2} + S_1(+)\pi_{+2} + \nu(S_1(-))\pi_{-1} +
+\nu(S_1(+))\pi_{+1} \\
+\end{aligned}
+</span> <!--
+$$
+\begin{bmatrix} 1\\ S_0\\ V_0 \\ \end{bmatrix}
+= \begin{bmatrix}
+R & R & R & R \\
+S_1(-) & S_1(+) & S_1(-) & S_1(+) \\
+\nu(S_1(-)) & \nu(S_1(+)) & S_1(-) & S_1(+) \\
+\end{bmatrix}
+\begin{bmatrix}
+\pi_{-1} \\
+\pi_{+1} \\
+\pi_{-2} \\
+\pi_{+2} \\
+\end{bmatrix}
+$$
+--></p>
+</section>
+</body>
+</html>

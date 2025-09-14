@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-08-12" />
+  <meta name="dcterms.date" content="2025-09-14" />
   <title>VIX</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">VIX</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">August 12, 2025</p>
+<p class="date">September 14, 2025</p>
 </header>
 <p>A variance swap contract specifies observation times <span
 class="math inline">t_0 &lt; t_1 &lt; \ldots &lt; t_n</span> and an
@@ -61,27 +61,27 @@ variance swap pays the average realized variance minus the par variance
 X_j/X_j)^2 - \sigma^2}</span> where <span
 class="math inline">\sigma</span> is agreed on at <span
 class="math inline">t_0</span> so the contract has price 0.</p>
-<p>Actual contracts use days per year divided by <span
-class="math inline">n - b</span>, where <span
-class="math inline">b</span> is a small integer, instead of <span
-class="math inline">{1/(t_n - t_0)}</span>. As OTC contracts near
-closing the days per year and <span class="math inline">b</span> tend to
-get played with by sell-side firms hoping their buy-side client won’t
-notice.</p>
+<p>Actual contracts use <span class="math inline">n - b</span>, where
+<span class="math inline">b</span> is a small integer, divided by days
+per year (often 252) instead of <span class="math inline">t_n -
+t_0</span>. As OTC contracts near execution the days per year and <span
+class="math inline">b</span> tend to get played with by sell-side firms
+hoping their buy-side clients won’t notice.</p>
 <p>Every variance swap contract I’ve seen specifies realized return as
-<span class="math inline">\log_e X_{j+1}/X_j</span> where <span
-class="math inline">e</span> is approximately <span
+<span class="math inline">\log_e X_{j+1}/X_j = \Delta \log X_j</span>
+where <span class="math inline">e</span> is approximately <span
 class="math inline">2.718281828...</span> instead of <span
 class="math inline">\Delta X_j/X_j</span>. It is true that if you make
 the mistake of assuming <span class="math inline">X_t</span> is an Ito
 process then <span class="math inline">{(d\log X_t)^2 =
-(dX_t/X_t)^2}</span>. Since <span class="math inline">{\Delta \log X_j =
-\Delta X_j/X_j - (1/2)(\Delta X_j/X_j)^2 + O((\Delta X_j/X_j)^3)}</span>
-we have <span class="math display">
+(dX_t/X_t)^2}</span>. For a discrete difference <span
+class="math display">
+    \Delta \log X_j = \Delta X_j/X_j - (1/2)(\Delta X_j/X_j)^2 +
+O((\Delta X_j/X_j)^3)
+</span> so <span class="math display">
 (\Delta \log X_j)^2 = (\Delta X_j/X_j)^2 - (\Delta X_j/X_j)^3 +
 O((\Delta X_j/X_j)^4).
 </span></p>
-<p>Let’s used the idealized payoff and deal with details later.</p>
 <p>If the Taylor series for <span class="math inline">f</span> converges
 then <span class="math display">
 \begin{aligned}
@@ -90,54 +90,68 @@ f(X_n) - f(X_0) &amp;= \sum_{j=0}^{n-1} f(X_{j+1}) - f(X_j) \\
 X_j)^k/k! \\
 \end{aligned}
 </span></p>
-<p>Let <span class="math inline">f&#39;&#39;(x) = 2/x^2</span> so <span
+<p>Taking <span class="math inline">f&#39;&#39;(x) = 2/x^2</span> so
+<span class="math inline">f&#39;&#39;(X_j)(\Delta X_j)^2/2 = (\Delta
+X_j/X_j)^2</span> produces the variance swap payoff. We have <span
 class="math inline">f&#39;(x) = -2/x + 2/z</span> for some constant
 <span class="math inline">z</span> and <span class="math inline">f(x) =
--2\log x + 2x/z</span>. Usually <span class="math inline">z</span> is
-taken to be <span class="math inline">X_0</span> so the initial futures
-hedge is 0. Solving for the quadradic term gives</p>
-<p><span class="math display">
-\sum_{j=0}^{n-1} (\Delta X_j/X_j)^2 = f(X_n) - f(X_0)
-- \sum_{j=0}^{n-1} f&#39;(X_j)\Delta X_j + O(((\Delta X_j/X_j)^3)
+-2\log x + 2x/z</span>. We have <span class="math display">
+\sum_{j=0}^{n-1} (\Delta X_j/X_j)^2 = -2\log X_n/X_0 + 2(X_n - X_0)/z
++ \sum_{j=0}^{n-1} (2/X_j - 2/z) \Delta X_j + O(((\Delta X_j/X_j)^3)
 </span> The first two terms on the right hand side are the payoff of a
-European option, the <em>static hedge</em>. The terms in the summation
-are the payoffs of <span class="math inline">2(1/X_j - 1/z)</span>
-futures contracts on <span class="math inline">X</span> entered into at
-time <span class="math inline">t_j</span>, the <em>dynamic
-hedge</em>.</p>
+European option, the <em>static hedge</em>. The terms in the right hand
+summation are the payoffs at <span class="math inline">t_{j+1}</span> of
+<span class="math inline">2(1/X_j - 1/z)</span> futures contracts on
+<span class="math inline">X</span> entered into at time <span
+class="math inline">t_j</span>, the <em>dynamic hedge</em>. This means
+we should purchase <span class="math inline">2/X_{j+1} - 2/z - (2/X_j -
+2/z) = 2/X_{j+1} - 2/X_j = 2\Delta X_j/X_{j+1} X_j</span> futures at
+<span class="math inline">t_{j + 1}</span> after entering the initial
+futures position.</p>
 <p>Since <span class="math inline">f&#39;&#39;&#39;(x) = -4/x^3</span>
 the third order term is <span class="math inline">(2/3)(\Delta
 X_j/X_j)^3</span>.</p>
 <p>The Carr-Madan formula is <span class="math display">
 f(x) = f(z) + f&#39;(z)(x - z) + \int_0^z f&#39;&#39;(k) p(k)\,dk +
 \int_z^\infty f&#39;&#39;(k) c(k)\,dk
-</span> where <span class="math inline">p(k) = \max\{k - x,0\}</span>
-and <span class="math inline">c(k) = \max\{x - k,0\}</span>.</p>
-<p>Given strikes <span class="math inline">{k_0,\ldots,k_n}</span> we
-replace <span class="math inline">f</span> by a piece-wise linear and
-continuous function <span class="math inline">\bar{f}</span> determined
-by the points <span class="math inline">(k_j, f(k_j))_{j=0}^n</span>. To
-replicate the static hedge a portfolio of a cash position, a forward at
-<span class="math inline">z</span>, puts with strikes less than <span
+</span> where <span class="math inline">p(k) = \max\{k - x,0\}</span> is
+the put payoff and <span class="math inline">c(k) = \max\{x -
+k,0\}</span> is the call payoff at strike <span
+class="math inline">k</span>.</p>
+<p>Assume the strikes <span class="math inline">{k_0,\ldots,k_n}</span>
+are available for trading. We replace <span class="math inline">f</span>
+by a piece-wise linear and continuous function <span
+class="math inline">\bar{f}</span> determined by the points <span
+class="math inline">(k_j, f(k_j))_{j=0}^n</span>. To replicate the
+static hedge a portfolio of a cash position, a forward at <span
+class="math inline">z</span>, puts with strikes less than <span
 class="math inline">z</span>, and calls with strikes greater than <span
 class="math inline">z</span> is used. Note we do not need a put at
 strike <span class="math inline">k_0</span> or a call at strike <span
-class="math inline">k_n</span> to do this.</p>
-<p>A possible improvement might be to find <span
-class="math inline">\bar{f}_j\approx f(k_j)</span> that minimizes the
-<span class="math inline">L^\infty</span> norm of <span
-class="math inline">f - \bar{f}</span> over <span
-class="math inline">[k0, k_n]</span>. Attention must also be paid to to
-the extrapolated slopes <span class="math inline">{(\bar{f}_1 -
-\bar{f}_0)/(k_1 - k0)}</span> and <span class="math inline">{(\bar{f}_n
-- \bar{f}_{n-1})/(k_n - k_{n-1})}</span>.</p>
+class="math inline">k_n</span> to do this. Since <span
+class="math inline">f&#39;&#39;(x) &gt; 0</span> this super-replicates
+the payoff on <span class="math inline">[k_0,k_n]</span>. We can choose
+<span class="math inline">k_0 &lt; k_1</span> and <span
+class="math inline">k_n &gt; k_{n-1}</span> at will since we do not need
+to trade options at these strikes. Traders tend not to buy far out of
+the money puts since they are expensive in downwardly sloping implied
+volatility environments. They often choose a low <span
+class="math inline">k_0</span> which loads up on the <span
+class="math inline">k_1</span> strike put. If the underlying moves
+toward <span class="math inline">k_1</span> then they sell the lowest
+strike put and buy puts at lower strikes that have become more
+affordable. The value used for <span class="math inline">k_n</span> is
+less critical since <span class="math inline">f(x)</span> is nearly
+linear for large <span class="math inline">x</span>.</p>
 <p>For <span class="math inline">0 \le j &lt; n</span> we have <span
 class="math inline">\bar{f}&#39;(x) = m_j = (\bar{f}_{j+1} -
 \bar{f}_j)/(k_{j+1} - k_j)</span> on <span class="math inline">(k_j,
 k_{j+1})</span>.</p>
 <p>For <span class="math inline">1\le j &lt; n</span> we have <span
 class="math inline">{\bar{f}&#39;&#39;(k_j) = \bar{f}&#39;&#39;_j = (m_j
-- m_{j-1})\delta_{k_j}}</span>. Note <span
+- m_{j-1})\delta_{k_j}}</span> where <span
+class="math inline">\delta_k</span> is a point mass at <span
+class="math inline">k</span>. Note <span
 class="math inline">\bar{f}&#39;&#39;(k_0) = 0 =
 \bar{f}&#39;&#39;(k_n)</span>.</p>
 <p>The Carr-Madan formula for the piecewise-linear approximation is
@@ -145,14 +159,21 @@ class="math inline">\bar{f}&#39;&#39;(k_0) = 0 =
 \bar{f}(x) = \bar{f}(z) + \bar{f}&#39;(z)(x - z)
     + \sum_{k_j &lt; z} \bar{f}&#39;&#39;_j (k_j - x)^+
     + \sum_{k_j &gt; z} \bar{f}&#39;&#39;_j (x - k_j)^+
-</span></p>
-<p>The formula for par variance is <span class="math display">
-\sigma^2 = \bar{f}(z) + \bar{f}&#39;(E[X] - z)
+</span> Let <span class="math inline">k^- = \max\{k_j\mid k_j &lt;
+z\}</span> be the strike of the highest strike put and <span
+class="math inline">k^+ = \min\{k_j\mid k_j \ge z\}</span> be the strike
+of lowest strike call.</p>
+<p>The formula for par variance times <span class="math inline">t = t_n
+- t_0</span> uses <span class="math inline">f(x) = -2\log x +
+2x/z</span> so <span class="math inline">f&#39;(x) = -2/x + 2/z</span>
+and <span class="math inline">f&#39;&#39;(x) = -2/x^2</span>. <span
+class="math display">
+\sigma^2t = E[-2\log z + 2(X_n - X_0)/z + \bar{f}&#39;(X_n)(X_n - z) -
+\bar{f}&#39;(X_0)(X_0 - z)]
     + \sum_{k_j &lt; z} \bar{f}&#39;&#39;_j p(k_j)
     + \sum_{k_j &gt; z} \bar{f}&#39;&#39;_j c(k_j)
-</span> where <span class="math inline">p(k)</span> is the put price at
-<span class="math inline">k</span> and <span
-class="math inline">c(k)</span> is the call price at <span
+</span> where <span class="math inline">p(k)</span> is the put price and
+<span class="math inline">c(k)</span> is the call price at <span
 class="math inline">k</span>.</p>
 <p>Out-of-the-money puts on equity indices tend to be expensive. In
 practice, traders load up on the lowest strike put they beleive is
@@ -160,5 +181,13 @@ affordable. If the index stays above this strike then the static hedge
 replicates the payoff. If the index goes below this strike then traders
 sell off some of the loaded up put and purchase lower strike puts to
 replicate the payoff.</p>
+<p>We can sub-replicate on <span class="math inline">[k_0, k_n]</span>
+by shifting <span class="math inline">\bar{f}</span> down.</p>
+<p>Given <span class="math inline">k_j</span> and <span
+class="math inline">k_{j+1}</span> define <span class="math inline">m_j
+= (f(k_{j+1}) - f(k_j))/(k_{j+1} - k_j)</span>. We want to find <span
+class="math inline">k</span> with <span class="math inline">f&#39;(k) =
+m_j</span>. Since <span class="math inline">-2/k + 2/z = m_j</span> we
+have $k = z/(1 - mz/2).</p>
 </body>
 </html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-08-22" />
+  <meta name="dcterms.date" content="2025-09-14" />
   <title>Quantum Markets</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,7 +45,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Quantum Markets</h1>
-<p class="date">August 22, 2025</p>
+<p class="date">September 14, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Notes on Quantum Markets by Jack Sarkissian.
@@ -58,6 +58,7 @@ Notes on Quantum Markets by Jack Sarkissian.
 id="toc-holding-portfolio-exchange-transaction">Holding, Portfolio,
 Exchange, Transaction</a></li>
 <li><a href="#order-book" id="toc-order-book">Order Book</a></li>
+<li><a href="#notation-1" id="toc-notation-1">Notation</a></li>
 <li><a href="#coupled-wave-model"
 id="toc-coupled-wave-model">Coupled-Wave Model</a></li>
 </ul>
@@ -66,52 +67,56 @@ id="toc-coupled-wave-model">Coupled-Wave Model</a></li>
 <section id="notation" class="level2">
 <h2>Notation</h2>
 <p><span class="math inline">\tau</span> – time between trades<br />
+<span class="math inline">s</span> – price<br />
+<span class="math inline">x</span> – log price<br />
+<span class="math inline">m</span> – absolute value of order/trade
+size<br />
+<span class="math inline">M</span> – absolute value trade size<br />
+<span class="math inline">q</span> – order size<br />
+<span class="math inline">Q</span> – signed trade size<br />
 <span class="math inline">\rho</span> – order size density <span
 class="math inline">s\,dm/ds</span> <span
 class="math inline">\theta</span> – order density flow <span
 class="math inline">\Delta</span> – bid/ask spread<br />
-<span class="math inline">s</span> – price<br />
-<span class="math inline">x</span> – log price<br />
 <span class="math inline">\epsilon</span> – <span
 class="math inline">\Delta/s</span> - relative spread<br />
 <span class="math inline">h</span> – high minus low<br />
 <span class="math inline">I</span> – execution imbalance<br />
 <span class="math inline">J</span> – order imbalance<br />
-<span class="math inline">m</span> – order/trade imbalance<br />
-<span class="math inline">q</span> – order size<br />
-<span class="math inline">M</span> – absolute value trade size<br />
-<span class="math inline">Q</span> – signed trade size<br />
 <span class="math inline">V</span> – volume<br />
 <span class="math inline">v</span> – order flow<br />
 <span class="math inline">L</span> – price impact</p>
 </section>
 <section id="holding-portfolio-exchange-transaction" class="level2">
 <h2>Holding, Portfolio, Exchange, Transaction</h2>
+<p>A <em>(legal) entitiy</em> is a person or corporation that can own
+financial instruments.</p>
 <p>A <em>holding</em> is a triple <span class="math inline">h = (a, i,
 o)</span> indicating amount <span class="math inline">a</span> of
 instrument <span class="math inline">i</span>. is held by owner <span
 class="math inline">o</span>. A <em>portfolio</em> is a collection of
-holdings.</p>
-<p>An <em>exchange</em> is a triple <span class="math inline">\chi = (t,
-h, h&#39;)</span> where <span class="math inline">t</span> is the time
-of the exchange, <span class="math inline">h</span> is a holding of the
-<em>buyer</em>, and <span class="math inline">h&#39;</span> is a holding
-of the <em>seller</em>. An exchange results in the portfolio of the
-buyer <span class="math inline">o</span> changing from <span
+holdings. Holdings are the atoms of finance.</p>
+<p>An <em>atomic transaction</em>, or <em>switch</em>, is a triple <span
+class="math inline">\chi = (t, h, h&#39;)</span> where <span
+class="math inline">t</span> is the time the <em>buyer</em> holding
+<span class="math inline">h</span> is exchanged with the <em>seller</em>
+holding <span class="math inline">h&#39;</span>. Both buyers and sellers
+are owners.</p>
+<p>A switch results in the portfolio of the buyer <span
+class="math inline">o</span> changing from <span
 class="math inline">\{\ldots,(a,i,o),\ldots\}</span> to <span
 class="math inline">\{\ldots,(a&#39;,i&#39;,o),\ldots\}</span> and the
 portfolio of the seller <span class="math inline">o&#39;</span> changing
 from <span
 class="math inline">\{\ldots,(a&#39;,i&#39;,o&#39;),\ldots\}</span> to
-<span class="math inline">\{\ldots,(a,i,o&#39;),\ldots\}</span>.</p>
-<p>A <em>transaction</em> is a collection of related exchanges.
-Transactions often involve exchanges such as broker fees or taxes. Savvy
-buyers should take these into account. Sellers have already done so.</p>
-<p>Sellers passively offer exchanges as <em>limit orders</em> and buyers
-actively decide which to accept/lift using <em>market orders</em>.</p>
-<p>Exchanges are the atoms of finance. Transactions are the
-molecules.</p>
-<p>The <em>price</em> of an exchange is <span class="math inline">X =
+<span class="math inline">\{\ldots,(a,i,o&#39;),\ldots\}</span>. The
+amount of each instrument is switched between the buyer and seller.
+Sellers passively offer potential exchanges and buyers actively decide
+which to accept. Both buyers and sellers can buy/go long (amount is
+positive) or sell/go short (amount is negative).</p>
+<p>A <em>transaction</em> is a collection of related switches involving,
+e.g., fees or taxes. Transactions are the molecules of finance.</p>
+<p>The <em>price</em> of a switch is <span class="math inline">X =
 a/a&#39;</span> where <span class="math inline">h = (a, i, o)</span> and
 <span class="math inline">h&#39; = (a&#39;, i&#39;, o&#39;)</span>. If a
 buyer pays <span class="math inline">(8, \$)</span> for <span
@@ -119,16 +124,16 @@ class="math inline">(2, \text{F})</span> shares of Ford stock then the
 price is <span class="math inline">8/2 = 4</span> dollars per share.
 Typically <span class="math inline">i</span> is the preferred currency
 of the buyer.</p>
-<p>There is no uncertainty in the price of an exchange, it is simply a
+<p>There is no uncertainty in the price of a switch. It is simply a
 number entered into the books and records of each owner.</p>
 <p>If a seller offers a price <span class="math inline">X</span> at time
 <span class="math inline">t</span> for buyers to exchange instrument
 <span class="math inline">i&#39;</span> for instrument <span
 class="math inline">i</span> then it is approximately correct that the
-transaction <span class="math inline">\chi = (t,(Xa&#39;, i,
-o),(a&#39;,i&#39;,o&#39;))</span> is available to a buyer wanting to
-acquire <span class="math inline">a&#39;</span> of instrument <span
-class="math inline">i&#39;</span>. If the buyer wants to buy <span
+switch <span class="math inline">\chi = (t,(X a&#39;, i, o),
+(a&#39;,i&#39;,o&#39;))</span> is available to a buyer wanting to
+acquire <span class="math inline">a&#39;</span> of seller’s instrument
+<span class="math inline">i&#39;</span>. If the buyer wants to buy <span
 class="math inline">a&#39; &gt; 0</span> of <span
 class="math inline">i&#39;</span> then the seller price <span
 class="math inline">X</span> will be the <em>ask</em>. As <span
@@ -139,43 +144,110 @@ class="math inline">i&#39;</span> then the seller price <span
 class="math inline">X</span> will be the <em>bid</em>. As <span
 class="math inline">a&#39;</span> becomes a larger negative number, the
 bid will decrease.</p>
+<p>The price a seller quotes can also depend on the buyer but in all
+cases the price recorded in books and records will be <span
+class="math inline">X = a/a&#39;</span>.</p>
+<p>If <span class="math inline">i</span> is assumed to be the preferred
+buyer currency, <span class="math inline">i&#39;</span> is a particular
+seller instrument, and we lump all buyers into <span
+class="math inline">o</span> and all sellers into <span
+class="math inline">o&#39;</span> then market orders can be modeled as a
+sequence <span class="math inline">(t_j, a_j&#39;)</span> of times and
+amounts of instrument <span class="math inline">i&#39;</span> acquired
+by the buyer. The buyer pays <span class="math inline">a_j = a_j&#39;
+X_j</span> in the preferred currency to the seller where <span
+class="math inline">X_j</span> is the price of the switch.</p>
 </section>
 <section id="order-book" class="level2">
 <h2>Order Book</h2>
 <p>An <em>order book</em> is a collection of limit orders. A limit order
 is a quintuple <span class="math inline">(t, l, a, i, o)</span>
-indicating that seller <span class="math inline">o</span> is willing to
-buy amount <span class="math inline">a &gt; 0</span> or sell mount <span
-class="math inline">a &lt; 0</span> of instrument <span
+indicating that owner <span class="math inline">o</span> is willing to
+buy amount <span class="math inline">a &gt; 0</span> or sell amount
+<span class="math inline">a &lt; 0</span> of instrument <span
 class="math inline">i</span> at price <span class="math inline">l</span>
 any time after <span class="math inline">t</span>. Limit orders can be
-cancelled by the seller.</p>
-<p>A <em>market order</em> specifies the holding <span
-class="math inline">(t, a, i, o)</span> that buyer <span
-class="math inline">o</span> would like to obtain at time <span
-class="math inline">t</span>. A limit order placed at time <span
-class="math inline">t</span> will eventually have price <span
-class="math inline">l</span>, but there is no guarantee when, or if, it
-will get matched by a market orders. A market order is immediately
-matched with existing limit orders, but its price is uncertain. This is
-similar to the Heisenberg Uncertainty Principle.</p>
+cancelled by the owner.</p>
 <p>The <em>depth</em> at time <span class="math inline">t</span> for
-level <span class="math inline">l</span> is the sum over limit orders
-placed prior to <span class="math inline">t</span> having level <span
-class="math inline">l</span> <span class="math display">
+level <span class="math inline">l</span> is the sum over the amount of
+every limit orders placed prior to <span class="math inline">t</span>
+having level <span class="math inline">l</span>. <span
+class="math display">
     A(t, l) = \sum_{(t_j,l_j,a_j,i_j,o_j)} \{a_j\mid t_j &lt; t, l_j =
 l\}.
-</span></p>
-<p>The <em>ask</em> for a order book at <span
-class="math inline">t</span> is the lowest level with positive depth.
-The <em>bid</em> for a order book at <span class="math inline">t</span>
-is the highest level with negative depth. The <em>mid</em> is the
-average of the bid and ask. The <em>high</em> over an interval is the
-largest trade price over the interval. The <em>low</em> over an interval
-is the smallest trade price over the interval. The <em>open</em> is the
-price of the first trade of the session and the sign of the amount. The
-<em>close</em> is the price of the last trade of the session and the
-sign of the amount.</p>
+</span> The <em>ask</em> is the lowest level with <span
+class="math inline">A(t, l) &gt; 0</span>. The <em>bid</em> is the
+highest level with <span class="math inline">A(t, l) &lt; 0</span>.</p>
+<p>The order book can be represented by <span class="math display">
+    B(t, l) = \sum_{a_j &gt; 0, t &gt; t_j} a_j 1(l &gt; l_j) +
+\sum_{a_j &lt; 0, t &gt; t_j} a_j 1(l &lt; l_j)
+</span> Note <span class="math inline">dB/dl = A</span> and the inverse
+of <span class="math inline">B</span> is the usual representation for
+order books.</p>
+<p>TODO: explain better</p>
+<p>Exchanges line up <em>liquidity providers</em> to seed the order book
+prior to market open with limit orders. Exchange customers can also
+place limit orders. Both liquidity providers and exchange customers can
+execute market orders during trading hours.</p>
+<p>A <em>market order</em> specifies the holding <span
+class="math inline">(a, i, o)</span> that buyer <span
+class="math inline">o</span> would like to obtain at time <span
+class="math inline">t</span>. If the amount <span
+class="math inline">a</span> is positive the limit orders at the ask
+level are matched in priority of when they were placed and removed from
+the order book. This may result in a transaction with multiple switches
+having different limit owner orders.</p>
+<p>If the depth at the ask is less than the amount <span
+class="math inline">a</span> then the price will be the ask. If not,
+limit orders at the next highest level will be matched. If their depth
+is still less than the remaining amount the process repeats until the
+entire buy is filled. This results in a transaction containing switches
+for each level that was filled.</p>
+<p>If the amount <span class="math inline">a</span> is negative the
+limit orders at the bid level are matched in priority of when they were
+placed and removed from the order book. If the depth at the bid is less
+than the amount <span class="math inline">a</span> then the price will
+be the bid. If not, limit orders at the next lowest level will be
+matched. If their depth is still less than the remaining amount the
+process repeats until the entire sell is filled.</p>
+<p>The usual representation is the inverse of <span
+class="math inline">B</span> with level a function of amount.</p>
+<p>A limit order placed at time <span class="math inline">t</span> will
+eventually have price <span class="math inline">l</span>, but there is
+no guarantee when, or if, it will get matched by a market orders. A
+market order is immediately matched with existing limit orders, but its
+price is uncertain. This is not unlike the Heisenberg Uncertainty
+Principle.</p>
+<p>The <em>ask</em> for a order book is the lowest level with positive
+depth. The <em>bid</em> for a order book is the highest level with
+negative depth. The <em>mid</em> is the average of the bid and ask. The
+<em>high</em> over an interval is the largest trade price over the
+interval. The <em>low</em> over an interval is the smallest trade price
+over the interval. The <em>open</em> is the price of the first trade of
+the session and the sign of the amount. The <em>close</em> is the price
+of the last trade of the session and the sign of the amount.</p>
+</section>
+<section id="notation-1" class="level2">
+<h2>Notation</h2>
+<p>Now that we have established rigorous definitions of order books and
+market orders we will revisit the notation from the first section.</p>
+<p>Let <span class="math inline">(t_j, a_j&#39;)</span> be the market
+orders where the times are increasing. Clearly <span
+class="math inline">\Delta t_j = t_{j+1} - t_j</span> is the time
+between trade <span class="math inline">j</span> and trade <span
+class="math inline">j + 1</span>. Given two times <span
+class="math inline">u &lt; v</span> the average time between trades in
+<span class="math inline">[u, v]</span> is <span
+class="math inline">\tau(u,v) = (\sum_{j=m}^n \Delta t_j)/(n - m +
+1)</span> where the sum is over <span class="math inline">\Delta
+t_j\subseteq [u,v]</span>.</p>
+<p>The last price to trade at <span class="math inline">s_t</span> is
+<span class="math inline">X_j = a_j/a_j&#39;</span> where <span
+class="math inline">j = j(t) = \max \{i \mid t_i &lt; t\}</span>. We
+write <span class="math inline">s_t^+</span> if traded at the ask and
+<span class="math inline">s_t^-</span> if traded at the bid. The mid is
+<span class="math inline">s_t = (s_t^+ + s_t^-)/2</span>.</p>
+<p><span class="math inline">m, M, q, Q</span>?</p>
 </section>
 <section id="coupled-wave-model" class="level2">
 <h2>Coupled-Wave Model</h2>

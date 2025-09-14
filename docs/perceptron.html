@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-09-14" />
+  <title>Perceptrons</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Perceptrons</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">September 14, 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#classification"
+id="toc-classification">Classification</a></li>
+</ul>
+</nav>
+<p><em>Perceptrons</em> were invented by <span class="citation"
+data-cites="McCPit1943">(McCulloch and Pitts 1943)</span>, two college
+professors in the department of psychiatry and neuropsychiatricietry,
+respectively, at the University of Chicago. Their abstract starts
+with:</p>
+<blockquote>
+<p>Because of the “all-or-none” character of nervous activity, neural
+events and the relations among them can be treated by means of
+propositional logic.</p>
+</blockquote>
+<p>It is difficult to imagine the tenor of 1943 in the middle of WW
+II.</p>
+<blockquote>
+<p>Many years ago one of us, by considerations impertinent to this
+argument, was led to conceive of the response of any neuron as factually
+equivalent to a proposition which proposed its adequate stimulus. He
+therefore attempted to record the behavior of complicated nets in the
+notation of the symbolic logic of propositions.</p>
+</blockquote>
+<blockquote>
+<p>To present the theory, the most appropriate symbolism is that of
+Language II of R. Carnap (1938), augmented with various notations drawn
+from B. Russell and A. N. Whitehead (1927),</p>
+</blockquote>
+<p><span class="citation"
+data-cites="Ros1957">(<strong>Ros1957?</strong>)</span> coined the term
+<em>percepton</em> and described the model used today. The limitations
+of a single perceptron were quickly realized and Rosenblatt used layers
+containing multple perceptrons, a neural network, to build his Mark I
+Perceptron. His model assumed the output of a perceptron was 0 or 1
+corresponding to an actual neuron either not firing or not firing. Later
+models softend this to emiting a number between 0 and 1 that was a
+smooth function of the inputs using a RelU.</p>
+<p>“the embryo of an electronic computer that [the Navy] expects will be
+able to walk, talk, see, write, reproduce itself and be conscious of its
+existence.”</p>
+<section id="classification" class="level2">
+<h2>Classification</h2>
+<p>Large Language Models are functions from strings to strings. Given a
+string of characters it returns a string of characters. Models are
+trained by specifying a set of input strings and the expected output
+strings then finds a function that interpolates this data.</p>
+<p>In <span class="citation" data-cites="Sea1980">(Searle 1980)</span>
+the philosophical aspects of this were were considered. He stipulated a
+<em>Chinese Room</em> where English text was slipped under a door and a
+human being who did not know Chinese simply applied a set of fixed rules
+to translate it to Chinese characters.</p>
+<p>Recall that a function from set <span class="math inline">A</span> to
+set <span class="math inline">B</span> is an element of the <em>set
+exponential</em> <span class="math inline">B^A = \{f\colon A\to
+B\}</span>. Every function can be represented by its graph <span
+class="math inline">\{(a, f(a))\mid a\in A\}</span> which is a subset of
+the cartesian product <span class="math inline">A\times B</span>. If
+<span class="math inline">A</span> has <span
+class="math inline">|A|</span> elements and <span
+class="math inline">B</span> has <span class="math inline">|B|</span>
+elements then <span class="math inline">B^A</span> has <span
+class="math inline">|B^A| = |B|^|A|</span> elements. Given the current
+estimate of the number of elementary particles in the universe is
+considerably less than <span class="math inline">10^{100}</span> it is
+not physically possible to represent graphs of all functions in <span
+class="math inline">B^A</span> on a computer even for moderately sizes
+of <span class="math inline">A</span> and <span
+class="math inline">B</span>.</p>
+<p><span class="citation" data-cites="Chu1941">(Church 1941)</span>
+invented the lambda calculus to express any computable function. His
+student Alan Turing invented his eponymus Turing Machine that has
+equivalent computing power.</p>
+<p>Turing considered an infinite discrete tape that could have marks
+made on it and move left and right. It’s legacy is <a
+href="https://en.wikipedia.org/wiki/Brainfuck">BrainFuck</a></p>
+<p>Church’s lambda calculus specified an <em>expression</em> as either a
+variable, abstraction, or application. A <em>variable</em> is a unique
+symbol, an <em>abstraction</em> is a <span class="math inline">\lambda
+x. E</span> where <span class="math inline">x</span> is a variable and
+<span class="math inline">E</span> is an expression, an _application is
+<span class="math inline">EF</span> where <span
+class="math inline">E</span> and <span class="math inline">F</span> are
+expressions. Unlike BrainFuck, many languaged based on the lambda
+calculus have been written. One of the earliest was <a
+href="https://www.smlnj.org/">Standard ML of New Jersey</a>. This led to
+<a href="https://ocaml.org/">Ocaml</a> that <a
+href="https://www.janestreet.com/">Jane Street Campital</a> uses. The
+current most popular function programming language is <a
+href="https://www.haskell.org/">Haskell</a> based on the SKI
+combinators.</p>
+<p>Given sets <span class="math inline">S_0,
+S_1\subseteq\boldsymbol{{R}}^n</span> a function <span
+class="math inline">f\colon\boldsymbol{{R}}^n\to\{0,1\}</span>
+<em>classifies</em> the data if <span class="math inline">x\in
+S_0</span> implies <span class="math inline">f(x) = 0</span> and <span
+class="math inline">x\in S_1</span> implies <span
+class="math inline">f(x) = 1</span>. find a function</p>
+<p>A perceptron is a function <span
+class="math inline">\pi\colon\boldsymbol{{R}}^n\to\{0,1\}</span> defined
+by <span class="math inline">b\in\boldsymbol{{R}}</span> and <span
+class="math inline">w\in\boldsymbol{{R}}^n</span> where <span
+class="math inline">\pi(x) = b + w\cdot x &gt; 0</span>.</p>
+<p><span class="math inline">w&#39; = w + r(d - f(x))x</span></p>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-Chu1941" class="csl-entry" role="listitem">
+Church, Alonzo. 1941. <em>The Calculi of Lambda-Conversion</em>. Vol. 6.
+Annals of Mathematics Studies. Princeton, NJ: Princeton University
+Press. <a
+href="https://doi.org/10.1515/9781400882618">https://doi.org/10.1515/9781400882618</a>.
+</div>
+<div id="ref-McCPit1943" class="csl-entry" role="listitem">
+McCulloch, Warren S., and Walter Pitts. 1943. <span>“A Logical Calculus
+of the Ideas Immanent in Nervous Activity.”</span> <em>The Bulletin of
+Mathematical Biophysics</em> 5 (4): 115–33. <a
+href="https://doi.org/10.1007/BF02478259">https://doi.org/10.1007/BF02478259</a>.
+</div>
+<div id="ref-Sea1980" class="csl-entry" role="listitem">
+Searle, John. 1980. <span>“Minds, Brains and Programs.”</span>
+<em>Behavioral and Brain Sciences</em> 3 (3): 417–57. <a
+href="https://doi.org/10.1017/S0140525X00005756">https://doi.org/10.1017/S0140525X00005756</a>.
+</div>
+</div>
+</section>
+</body>
+</html>

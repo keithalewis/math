@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-08-12" />
+  <meta name="dcterms.date" content="2025-09-14" />
   <title>pc</title>
   <style>
     code{white-space: pre-wrap;}
@@ -23,6 +23,24 @@
     }
   </style>
   <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <p>I am still in shock and unable to post coherent thoughts about losing
@@ -75,5 +93,56 @@ espresso while jotting in his ever-present notebook. If we ever meet
 again I can see in my mind’s eye the excited look on his face in
 anticipation of sharing his latest ideas. I’m not ashamed to admit I’m
 having trouble seeing the words I write now. So I will just stop.</p>
+<p>MoMath</p>
+<p>Met Peter at MS at a talk he organized, of course.</p>
+<p>The speaker did not understand the difference between risk-neutral
+and real-world probability.</p>
+<p>Peter was too polite to point that out. I wasn’t.</p>
+<p>He button-holed me ater the talk, and we started talking.</p>
+<p>My guilty pleasure was sneaking out from my technology job on the
+swaps desk to go to his office and geek out about mathematical finance.
+I “proved” the value of a call option is equal to its intrinsic.</p>
+<p>Peter just giggled and said “that’s impossible.” He was right. I
+showed him how <span class="math inline">\int_0^t 1(X &gt;
+K)\,dX_t</span> is the P&amp;L and it is equal to <span
+class="math inline">\max\{X_t - k, 0} + \int_0^t A_s\,ds</span>. where
+<span class="math inline">A_s</span> is the <em>local time</em>. I was
+surprised when he turned that into a paper that actally got
+published.</p>
+<p>Protter’s “Stochastic Integration and Differential Equations” is one
+of those books, like Artin’s, “Algebra” that cannot be improved on. The
+only possible person to write a second edition is Philip Protter.</p>
+<p>He left for Banc of America Securities. (Banc)</p>
+<p>I was his first hire.</p>
+<p>Nationsbank, Bank of America, Montgomery Securities.</p>
+<p>John Sandelman came from Saloman Brothers pitching capital structure
+arbitrage.</p>
+<p>He didn’t think quants were necessary and ran his business for 6
+months without them.</p>
+<p>Walter, the BofA head of risk management, was shutting him down.</p>
+<p>Sandleman found out Walter had a PhD in Finance so he figured that
+all he needed to do was hire the top Finance PhD on Wall Street to give
+him a secret handshake.</p>
+<p>It doesn’t work like that. Trading models have to be vetted by risk
+managers.</p>
+<p>He bought a turn-key system, Imagine, and found out it was missing a
+few keys.</p>
+<p>Very heady days. 9 building on W 57. Got in trouble for writing on
+glass because Kevin Beauregard couldn’t provide white boards.</p>
+<p>The first model I built was an early ending barrier option. Peter
+wrote the paper on that.</p>
+<p>When I implemented that I noticed the numbers seemed wrong. I put
+together a Monte Carlo simulation that indicated there was a
+problem.</p>
+<p>I found the mistake in the math and fixed it.</p>
+<p>I was so nervous approaching him about this. It could have been an
+early ending carrer option to tell your boss he was wrong.</p>
+<p>To Peter’s credit, he immediatley recognized the mistake and thanked
+me. “Can you imagine what would happen if we gave them the wrong
+numbers?”</p>
+<p>Yes. Yes I could. I had seen what happens.</p>
+<p>We made 9 bucks, as they say in the business.</p>
+<p>Every function is linear when plotted with a magic marker with a fat
+pen.</p>
 </body>
 </html>
