@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-01-26" />
+  <meta name="dcterms.date" content="2025-09-14" />
   <title>Copulas</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Copulas</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 26, 2025</p>
+<p class="date">September 14, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A copula is a probability measure on unit cubes.
@@ -109,8 +109,9 @@ is <span class="math inline">C(u,v) = P(U\le u, V\le v) = P(U\le u, U\le
 v) = P(U\le \min\{u, v\}) = \min\{u,v\} = M(u,v)</span>.</p>
 <p>If <span class="math inline">V=1-U</span> then their joint
 distribution is <span class="math inline">C(u,v) = P(U\le u, V\le v) =
-P(U\le u, 1-U\le v) = P(1-v\le U\le u) = \max\{u - (1 -v), 0\} = \max\{u
-+ v - 1, 0\} = W(u,v)</span></p>
+P(U\le u, 1-U\le v)
+= P(1-v\le U\le u) = \max\{u - (1 -v), 0\} = \max\{u + v - 1, 0\} =
+W(u,v)</span></p>
 <p><strong>Exercise</strong>: (Fréchet-Hoeffding) For every copula,
 <span class="math inline">C</span>, <span class="math inline">W \le C
 \le M</span>.</p>

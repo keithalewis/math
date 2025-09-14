@@ -15,3 +15,5 @@ after neurons in the brain. Given a set of inputs they would either
 fire or not.
 
 The best prompt is "yes". It will clue you in to the current context.
+A LLM is a function from an input string _prompt_ and a _context_ to an _output_ string.
+So called "prompt engineering" is really about context engineering.
