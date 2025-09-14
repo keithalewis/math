@@ -13,8 +13,17 @@ abstract: Buy now, sell later.
 \newcommand\BB{\mathcal{B}}
 \newcommand\GG{\mathcal{G}}
 
-Let $I$ be the set of market _instruments_ available over a time period
-and $\Omega$ be the set of possible outcomes.
+The One‑Period Model provides the simplest formal framework for
+describing a financial market. It specifies the initial prices of
+available instruments at the beginning of a period and their terminal
+prices at the end, depending on what occured.
+We make the usual unrealistic assumptions that prices are real numbers
+instead of integral multiples of each instrument's minimum trading amount, 
+and there is no bid-ask spread depending on the amount being bought or sold,
+much less the counterparties involved in trading that affect pricing.
+
+Let $I$ be the set of market _instruments_ available at the beginning and end of a time period
+and let $\Omega$ be the set of possible outcomes.
 The _prices_ at the beginning of the period are a vector $x\in\RR^I$[^1].
 The prices at the end of the period are a function $X\colon\Omega\to
 \RR^I$ where $X(\omega)\in\RR^I$ are the instrument prices if
