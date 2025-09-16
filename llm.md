@@ -14,6 +14,9 @@ Machine learning began in ... with ... perceptrons. They were modelled
 after neurons in the brain. Given a set of inputs they would either
 fire or not.
 
-The best prompt is "yes". It will clue you in to the current context.
+The best prompt is "yes". It will clue you in to the current context
+of the LLM you are using at the moment.
+Use the output to detect what it is _not_ telling you.
+
 A LLM is a function from an input string _prompt_ and a _context_ to an _output_ string.
 So called "prompt engineering" is really about context engineering.

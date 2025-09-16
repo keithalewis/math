@@ -10,6 +10,7 @@ abstract: Buy now, sell later.
 \newcommand\RR{\boldsymbol{R}}
 \newcommand\ran{\operatorname{ran}}
 \newcommand\Var{\operatorname{Var}}
+\newcommand\Cov{\operatorname{Cov}}
 \newcommand\BB{\mathcal{B}}
 \newcommand\GG{\mathcal{G}}
 
@@ -312,7 +313,7 @@ A _zero coupon bond_ is a portfolio $\zeta\in\RR^I$ with
 ${\zeta\cdot X(\omega) = 1}$ for all ${\omega\in\Omega}$.
 The _price_, or _discount_, of a zero coupon bond is
 ${\zeta\cdot x = \int_\Omega \zeta\cdot X(\omega)\,dD(\omega) = D(\Omega) = D}$.
-The measure ${Q = D/D(\Omega)}$ is positive and has mass 1 so ${x = E[X]D}$ if we pretend it is a probability
+The measure ${D/D(\Omega)}$ is positive and has mass 1 so ${x = E[X]D}$ if we pretend it is a probability
 measure.
 
 Define the map $M_X\colon\RR^I\to B(\Omega)$ by $M_X(\xi) = \xi\cdot X$.
@@ -344,24 +345,25 @@ __Exercise__. _Show $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$_.
 If $\xi\cdot x = 1$ then $R_\xi = \xi\cdot X$. One unit invested at the beginning
 of the period results in ${R_\xi\colon\Omega\to\RR}$ at the end of the period.
 Every portfolio has the same expected realized return under a risk-neutral measure.
+This is why I suggest the term _risk-blind_ instead.
 
 __Exercise__. _If $D$ is a risk-neutral measure then $R = E[R_\xi] = 1/D(\Omega)$
 is constant for any portfolio $\xi\in\RR^I$_.
 
-_Hint_: The expectation is with respect to the "probability" measure $Q = DR = D/D(\Omega)$.
+_Hint_: The expectation is with respect to the "probability" measure $DR = D/D(\Omega)$.
+
+This shows $\xi\cdot X = E[\xi\dot X D(\Omega)]$.
 
 ## Hedging
 
-Suppose there is an instrument paying $\nu(X)$ at the end of the period where
-$\nu\colon\RR^I\to\RR$ is the _payoff_ function. If there exists
-$\gamma\in\RR^I$ with $\nu(X) = \gamma\cdot X$ then
-$E^Q[\nu(X)/R] = \langle \nu(X), D\rangle = \langle \gamma\cdot X, D\rangle = \gamma\cdot x$
-so the cost of setting up a perfect hedge is $E^Q[\nu(X)/R]$
-and $\gamma = (d/dx)E^Q[\nu(X)/R]$.
+Let $\nu\colon\RR^I\to\RR$ be the _payoff_ of a derivative instrument.
+If there exists $\gamma\in\RR^I$ with $\nu(X) = \gamma\cdot X$ then
+$E[\nu(X)/R] = \gamma\cdot x$
+so the cost of setting up the perfect hedge is $E[\nu(X)/R]$.
 
-We can always compute $\gamma = (d/dx)E^Q[\nu(X)/R]$ and the above shows
-$E^Q[\nu(X)/R] = \gamma\cdot X$.
-The variance $\Var^Q(\nu(X) - \gamma\cdot X)$ is a measure of how
+We can always compute $\gamma = (d/dx)E[\nu(X)/R]$ and the above shows
+$E[\nu(X)/R] = \gamma\cdot X$.
+The variance $\Var(\nu(X) - \gamma\cdot X)$ is a measure of how
 good the hedge is.
 
 
@@ -388,6 +390,12 @@ since $DM_X = M_X$.
 Note $DU(M_x\xi)$ is in $B(\Omega)^*$ and $M_X\xi\in B(\Omega)$.
 
 The first order condition is $0 = DU(\xi\cdot X)M_X\xi - \lambda x^*$ for all $\xi\in\RR^I$.
+
+$\Var(\xi^T X - \nu(X)) = \xi^T\Var(X)\xi - 2\Cov(X^T, \nu(X))\xi + \Var(\nu(X))$.
+
+$\|A\xi - b\|^2 = \xi^T A^TA \xi - 2b^TA\xi + \|b\|^2$
+
+$\Var(X) = \Cov(X,X) = A^T A$. $\Cov(X^T, \nu(X)) = E[X^T,\nu(X)] = E[X]^TE[\nu(X)]$.
 
 ## References
 
