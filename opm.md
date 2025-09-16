@@ -8,9 +8,11 @@ abstract: Buy now, sell later.
 ...
 
 \newcommand\RR{\boldsymbol{R}}
+\newcommand\ZZ{\boldsymbol{Z}}
 \newcommand\ran{\operatorname{ran}}
 \newcommand\Var{\operatorname{Var}}
 \newcommand\Cov{\operatorname{Cov}}
+\newcommand\co{\operatorname{co}}
 \newcommand\BB{\mathcal{B}}
 \newcommand\GG{\mathcal{G}}
 
@@ -19,12 +21,21 @@ describing a financial market. It specifies the initial prices of
 available instruments at the beginning of a period and their terminal
 prices at the end, depending on what occured.
 We make the usual unrealistic assumptions that prices are real numbers
-instead of integral multiples of each instrument's minimum trading amount, 
+instead of integral multiples of each instrument's minimum trading increment, 
 and there is no bid-ask spread depending on the amount being bought or sold,
-much less the counterparties involved in trading that might affect pricing.
+much less any consideration of the counterparties involved.
+The appendix proposes a model that can incorporate more realistic assumptions.
 
-Let $I$ be the set of market _instruments_ available at the beginning and end of a time period
-and let $\Omega$ be the set of possible outcomes.
+If the sample space consists of two point we get the binomial model.
+It is not at all realistic, but it can illustrate the concept of arbitrage.
+Models that are not arbitrage free are useless so we need a way of
+detecting the. The Fundamental Theorem of asset pricing for the one-period
+model states there is no arbitrage if and only if the initial prices belong
+so the smallest closed cone containing all possible final prices.
+
+We then use the FTAP in several examples to show how to hedge and manage risk.
+
+## One-Period Model
 
 The _One Period Model_ consists of a set or market _instruments_, $I$,
 available for trading at the beginning and the end of a period.
@@ -34,11 +45,13 @@ The prices at the end of the period are a function $X\colon\Omega\to
 \RR^I$ where $X(\omega)\in\RR^I$ are the instrument prices if
 $\omega\in\Omega$ occurred.
 
+Unlike the Capital Asset Pricing Model, the one-period model does _not_ specify a probability measure on $\Omega$.
+
 [^1]: Recall the _set exponential_ $B^A = \{f\colon A\to B\}$ is the
 set of all functions from the set $A$ to the set $B$.
 If $x\colon I\to\RR$ then $x(i)$ is the price of instrument $i\in I$.
-The _dot product_ of $x,y\in\RR^I$ is $x\cdot y = \sum_{i\in I}x_i y_i$
-if $I$ is finite. The _Euclidean norm_ of $x\in\RR^I$ is defined by $\|x\| = \sqrt{x\cdot x}$.
+The _dot product_ of $x,y\in\RR^I$ is ${x\cdot y = \sum_{i\in I}x_i y_i}$
+if $I$ is finite. The _Euclidean norm_, $\|x\|$, of ${x\in\RR^I}$ is defined by ${\|x\|^2 = x\cdot x}$.
 
 ## Binomial Model
 
@@ -171,23 +184,96 @@ in finite dimensional space.
 ## Application
 
 For the binomial model the smallest closed cone containing the range of $X$
-is ${\{X(L)\pi^- + X(H)\pi^+\mid \pi^-,\pi^+\ge0\}}$.
-If $(1, s)$ is in the cone then ${(1,s) = (R, L)\pi^- + (R, H)\pi^+}$
-for some $\pi^-,\pi^+\ge0$. Solving for $\pi^-$ and $\pi^+$ gives
-the no arbitrage condition $L \le Rs \le R^+$.
+is ${\{X(L)\pi_L + X(H)\pi_H\mid \pi_L,\pi_H\ge0\}}$.
+If $(1, s)$ is in the cone then ${(1,s) = (R, L)\pi_L + (R, H)\pi_H}$
+for some $\pi_L,\pi_H\ge0$. Solving for $\pi_L$ and $\pi_H$ gives
+the no arbitrage condition $L \le Rs \le H$.
 
-__Exercise__. _Show $\pi^- = (H - Rs)/R(H - L)$ and $\pi^+ = (Rs - L)/R(H - L)$_.
+__Exercise__. _Show $\pi_L = (H - Rs)/R(H - L)$ and $\pi_H = (Rs - L)/R(H - L)$_.
 
 If $Rs > H$ then $(R, s)$ is above the line through the origin with
 slope $R/H$ so $\xi$ should be proportional to $(H, -R)$.
 If $Rs < L$ then $(R, s)$ is below the line through the origin with
 slope $R/L$ so $\xi$ should be proportional to $(-L, R)$.
 
+Now let's use the more realistic sample space $\Omega = [L,H]$ so
+the final stock price can take on any value between $L < H$.
+We will eventually arrive at the same no‑arbitrage condition,
+but will take this opportunity to introduce Grassmann algebra.
+
+### Grassmann Algebra
+
+Let $E$ be the set of points in space. The Grassmann algebra $\GG(E)$
+is the (associative) algebra of points in $E$ with the condition
+$PQ = 0$ if and only if $PP = 0$.
+
+__Exercise__. _Show $PQ = -QP$_.
+
+_Hint_: $0 = (P + Q)(P + Q) = PP + PQ + QP + QQ$.
+
+__Exercise__. _Show $P(Q + R)(P + Q + R) = 0$_.
+
+Congratulations! You have just proved the medians of a triangle intersect its centroid.
+In Grassmann Algebra the centroid of at triangle determined by $P$, $Q$, and $R$
+is $(P + Q + R)/3$, the midpoint of $Q$ and $R$ is $(Q + R)/2$ and the median
+from $P$ to the midpoint is $P(Q + R)/2$.
+
+If $PQ = tRS$ for some scalar $t$ (with $P\not=Q$ and $R\not=S$)
+then $PQ$ and $RS$ are _congruent_ and we write $t = \frac{PQ}{RS}$.
+If $R(t) = (1 - t)P + tQ = P + t(Q - P)$ we can think of $R(t)$ as the point $P$
+plus a scalar multiple of the _vector_ $Q - P$.
+
+__Exercise__. _Show $R(t) = Q + (1 - t)(P - Q)$_.
+
+Since $R(t)Q = (1 - t)PQ$ and $PR(t) = tPQ$.
+we have $R(t) = \frac{RQ}{PQ}P + \frac{PR}{PQ}Q$.
+
+__Exercise__. _Show $PQR = 0$_.
+
+__Exercise__. _Show $R(t) \not= Q - P$ for any $t$_.
+
+Note $PQ(Q - P) = 0$.
+
+__Exercise__. _Show $\frac{(Q - P)Q}{PQ} = -1$ and $\frac{P(Q - P)}{PQ} = 1$.
+
+In general if $P_0\cdots P_k \not=0$ and $P_0\cdots P_kR = 0$, for $P_j,R\in E$, then
+$$
+	R = \sum_{j=0}^k \frac{P_0\cdots R \cdots P_k}{P_0\cdots P_k} P_j
+$$
+where $R$ takes the place of $P_j$ in the numerator of each congruence.
+
+__Exercise__. _Show ${P_1\cdots R \cdots P_k = (-1)^jR\prod_{i\not=j}P_i}$_.
+
+_Hint_: $PQ = -QP$
+
+The _convex hull_ of points $P_0,\ldots,P_k$ in $E$ is
+$$
+	\co(P_0,\ldots,P_k) = \{(1 - \sum_{j>0} t_j) P_0 + \sum_{j>0} t_j P_j\mid t_j \ge 0, 1\le j\le k\}. 
+$$
+Clearly $P_j$ is in the hull for all $j$ and if $Q$ and $R$ are in the hull then
+every convex combination is also in the hull.
+
+This gives a simple way to detect if a point is in convex hull of a set of points
+whos product is not 0. Given a candidate point $P\in E$ calculate
+$P_0\cdots P\cdots P_k$ where $P$ replaces $P_j$, $0\le j\le k$ in the product.
+The point $P\in E$ is in the convex hull if and only if
+all the congruents are non-negative.
+
+
+Since there is no origin in Euclidean space we have to define a cone relative to some point $O\in E$.
+We say $C\subseteq\GG(E)$ is a cone with _origin_ $O$ if $C$ is convex and for every $P\in C$
+we have the ray $O + t(P - O)\in C$ for all $t\ge0$.
+
+__Exercise__. _Show if $Q$ and $R$ are in a cone then so is $Q + R - O$ is also in the cone_.
+
+_Hint_. Calculate $O + (Q - O) + (R - O)$.
+
+
 If we add an option with payoff $\nu$ to the binomial model then
 $x = (1, s, c)$ and $X(\omega) = (R, \omega, \nu(\omega))$, $\omega\in\{L,H\}$.
-There is no arbitrage if and only if $(1, s, c) = X(L)\pi^- + X(H)\pi^+$
-for some $\pi^-,\pi^+\ge0$. The first two equations determine $\pi^-$ and $\pi^+$ as
-above so $v = \nu(L)\pi^- + \nu(H)\pi^+$.
+There is no arbitrage if and only if $(1, s, c) = X(L)\pi_L + X(H)\pi_H$
+for some $\pi_L,\pi_H\ge0$. The first two equations determine $\pi_L$ and $\pi_H$ as
+above so $v = \nu(L)\pi_L + \nu(H)\pi_H$.
 Every option payoff is linear in the binomial model.
 
 __Exercise__. _Find $a,b\in\RR$ with $aR + b\omega = \nu(\omega)$ for $\omega\in\{L,H\}$_.
@@ -199,12 +285,12 @@ $\omega\in\{90, 100, 110\}$.
 The smallest closed cone containing the range of $X$
 is $\{aX(90)  + bX(100) + cX(110)\mid a,b,c\ge0\}$.
 
-__Exercise__. _Show $x$ belongs to the cone if and only if $0\le v\le 5$.
+__Exercise__. _Show $x$ belongs to the cone if and only if $0\le v\le 5$_.
 
 _Hint_. $1 = a + b + c$, $s = 90a + 100b + 110c$ and $v = 10c$.
 Show $a = c$ and $b = 1 - 2c$.
 
-The FTAP proves the model is arbitrage-free if and only if the option value is between $0$ and $5$
+The FTAP proves the model is arbitrage-free if and only if the option value is between $0$ and $5$.
 
 __Exercise__. _Show the model without the bond is arbitrage-free if and only the option value
 is between $0$ and $100/11 < 10$_.
@@ -396,6 +482,14 @@ $\Var(\xi^T X - \nu(X)) = \xi^T\Var(X)\xi - 2\Cov(X^T, \nu(X))\xi + \Var(\nu(X))
 $\|A\xi - b\|^2 = \xi^T A^TA \xi - 2b^TA\xi + \|b\|^2$
 
 $\Var(X) = \Cov(X,X) = A^T A$. $\Cov(X^T, \nu(X)) = E[X^T,\nu(X)] = E[X]^TE[\nu(X)]$.
+
+## Liquidity and Risk
+
+It is possible to define a model that takes into account bid/ask spreads involving
+the amount traded and the counterparties involved.
+A _holding_ is a triple $(a,i,e)$ specifying an integer amount, instrument, and legal entity.
+It indicates $e$ is the legal owner of amount $a$ of instrument $i$.
+The amount is an integral number of (minimum fractional) shares of the instrument.
 
 ## References
 
