@@ -21,7 +21,7 @@ prices at the end, depending on what occured.
 We make the usual unrealistic assumptions that prices are real numbers
 instead of integral multiples of each instrument's minimum trading amount, 
 and there is no bid-ask spread depending on the amount being bought or sold,
-much less the counterparties involved in trading that affect pricing.
+much less the counterparties involved in trading that might affect pricing.
 
 Let $I$ be the set of market _instruments_ available at the beginning and end of a time period
 and let $\Omega$ be the set of possible outcomes.
