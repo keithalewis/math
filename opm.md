@@ -13,6 +13,7 @@ abstract: Buy now, sell later.
 \newcommand\Var{\operatorname{Var}}
 \newcommand\Cov{\operatorname{Cov}}
 \newcommand\co{\operatorname{co}}
+\newcommand\cone{\operatorname{cone}}
 \newcommand\BB{\mathcal{B}}
 \newcommand\GG{\mathcal{G}}
 
@@ -257,7 +258,7 @@ _Hint_: $PQ = -QP$
 
 The _convex hull_ of points $P_0,\ldots,P_k$ in $E$ is
 $$
-	\co(P_0,\ldots,P_k) = \{\sum_{j=0}^k t_j P_j\mid t_j \ge 0, \sum_j t_j le 1\. 
+	\co(P_0,\ldots,P_k) = \{\sum_{j=0}^k t_j P_j\mid t_j \ge 0, \sum_j t_j = 1\}. 
 $$
 Clearly $P_j$ is in the hull for all $j$.
 
@@ -272,11 +273,20 @@ all the congruent ratios are non-negative.
 
 Since there is no origin in Euclidean space we have to define a cone relative to some point $O\in E$.
 We say $C\subseteq\GG(E)$ is a cone with _origin_ $O$ if $C$ is convex and for every $P\in C$
-we have the ray $O + t(P - O)\in C$ for all $t\ge0$.
+we have the ray from $O$ through $P$, $O + t(P - O)$ for $t\ge0$, is in $C$.
 
-__Exercise__. _Show if $Q$ and $R$ are in a cone relative to $O$ then so is $Q + R - O$_.
+__Exercise__. _Show if $Q$ and $R$ are in a cone with origin $O$ then so is $Q + R - O$_.
 
-_Hint_. Consider $O + (Q - O) + (R - O)$ and the fact $1 \ge 0$..
+_Hint_. Consider $O + (Q - O) + (R - O)$ and the fact $1 \ge 0$.
+
+__Exercise__. _Show the smallest cone with origin $O$ containing $P_1, \ldots, P_k$ is_
+$$
+\begin{aligned}
+	\cone(P_0,\ldots,P_k) &= \{O + \sum_{j=1}^k t_j (P_j - O)\mid t_j\ge0\} \\
+		&= \{(1 - \sum_{j=1}^n t_j) O + \sum_{j=0}^k t_j P_j\mid t_j\ge0\}. \\
+\end{aligned}
+$$
+Note the similarity to the convex hull, however the coefficient of $O$ might be negative.
 
 In the slightly more realistic binomial model $x = (1, s)$, $X(\omega) = \omega$ for $\omega\in[L,H]$
 
