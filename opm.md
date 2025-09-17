@@ -203,9 +203,10 @@ but will take this opportunity to introduce Grassmann algebra.
 
 ### Grassmann Algebra
 
-Let $E$ be the set of points in space. The Grassmann algebra $\GG(E)$
-is the (associative) algebra of points in $E$ with the condition
-$PQ = 0$ if and only if $PP = 0$.
+Let $E$ be the set of points in space. The Grassmann[@Gra1844] algebra $\GG(E)$
+is the algebra of points in $E$ with the condition
+$PQ = 0$ if and only if $P = Q$, so $PP = 0$. Multiplication is
+associative so $(PQ)R = P(QR)$ and we can write $PQR$ unambigously.
 
 __Exercise__. _Show $PQ = -QP$_.
 
@@ -214,9 +215,17 @@ _Hint_: $0 = (P + Q)(P + Q) = PP + PQ + QP + QQ$.
 __Exercise__. _Show $P(Q + R)(P + Q + R) = 0$_.
 
 Congratulations! You have just proved the medians of a triangle intersect its centroid.
-In Grassmann Algebra the centroid of at triangle determined by $P$, $Q$, and $R$
+In Grassmann Algebra the centroid of a triangle determined by points $P$, $Q$, and $R$
 is $(P + Q + R)/3$, the midpoint of $Q$ and $R$ is $(Q + R)/2$ and the median
-from $P$ to the midpoint is $P(Q + R)/2$.
+from $P$ to the midpoint is $P(Q + R)/2$. Permuting $P$, $Q$, and $R$ shows all
+three medians meet at the centroid. Grassmann used algebra instead of Euclid's ruler
+and compass. It was the greatest invention in mathematics after René Descartes 
+introduced coordinates to specify points in two and three dimensions. Grassmann
+got rid of coordinates and used points in space directly. His algebra
+works in any number of dimensions and
+predated Einstein 
+in not assumiming an absolute origin of points in space. Vector spaces come
+along for free as the difference of two points.
 
 If $PQ = tRS$ for some scalar $t$ (with $P\not=Q$ and $R\not=S$)
 then $PQ$ and $RS$ are _congruent_ and we write $t = \frac{PQ}{RS}$.
@@ -240,7 +249,7 @@ In general if $P_0\cdots P_k \not=0$ and $P_0\cdots P_kR = 0$, for $P_j,R\in E$,
 $$
 	R = \sum_{j=0}^k \frac{P_0\cdots R \cdots P_k}{P_0\cdots P_k} P_j
 $$
-where $R$ takes the place of $P_j$ in the numerator of each congruence.
+where $R$ takes the place of $P_j$ in the numerator of each congruence ratio.
 
 __Exercise__. _Show ${P_1\cdots R \cdots P_k = (-1)^jR\prod_{i\not=j}P_i}$_.
 
@@ -248,25 +257,28 @@ _Hint_: $PQ = -QP$
 
 The _convex hull_ of points $P_0,\ldots,P_k$ in $E$ is
 $$
-	\co(P_0,\ldots,P_k) = \{(1 - \sum_{j>0} t_j) P_0 + \sum_{j>0} t_j P_j\mid t_j \ge 0, 1\le j\le k\}. 
+	\co(P_0,\ldots,P_k) = \{\sum_{j=0}^k t_j P_j\mid t_j \ge 0, \sum_j t_j le 1\. 
 $$
-Clearly $P_j$ is in the hull for all $j$ and if $Q$ and $R$ are in the hull then
-every convex combination is also in the hull.
+Clearly $P_j$ is in the hull for all $j$.
+
+__Exercise__. _Show if $Q$ and $R$ are in the hull then
+every convex combination of $Q$ and $R$ is also in the hull_.
 
 This gives a simple way to detect if a point is in convex hull of a set of points
 whos product is not 0. Given a candidate point $P\in E$ calculate
 $P_0\cdots P\cdots P_k$ where $P$ replaces $P_j$, $0\le j\le k$ in the product.
 The point $P\in E$ is in the convex hull if and only if
-all the congruents are non-negative.
-
+all the congruent ratios are non-negative.
 
 Since there is no origin in Euclidean space we have to define a cone relative to some point $O\in E$.
 We say $C\subseteq\GG(E)$ is a cone with _origin_ $O$ if $C$ is convex and for every $P\in C$
 we have the ray $O + t(P - O)\in C$ for all $t\ge0$.
 
-__Exercise__. _Show if $Q$ and $R$ are in a cone then so is $Q + R - O$ is also in the cone_.
+__Exercise__. _Show if $Q$ and $R$ are in a cone relative to $O$ then so is $Q + R - O$_.
 
-_Hint_. Calculate $O + (Q - O) + (R - O)$.
+_Hint_. Consider $O + (Q - O) + (R - O)$ and the fact $1 \ge 0$..
+
+In the slightly more realistic binomial model $x = (1, s)$, $X(\omega) = \omega$ for $\omega\in[L,H]$
 
 
 If we add an option with payoff $\nu$ to the binomial model then
