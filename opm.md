@@ -46,7 +46,15 @@ The prices at the end of the period are a function $X\colon\Omega\to
 \RR^I$ where $X(\omega)\in\RR^I$ are the instrument prices if
 $\omega\in\Omega$ occurred.
 
-Unlike the Capital Asset Pricing Model, the one-period model does _not_ specify a probability measure on $\Omega$.
+The Capital Asset Pricing Model is a one-period model that specifies a probability measure on $\Omega$.
+The Fundamental Theorem of Asset Pricing states a one-period model is arbitrage free if and only
+if there exists a positive measure $D$ on $\Omega$
+with $x = \int_\Omega X(\omega)\,dD(\omega)$. If we define $Q = D/D(\omega)$ then
+$Q$ is a positive measure having mass one, so it is a "probability" measure, but
+it is not the probability of anything. We call it a _risk-neutral_ measure, although
+a better name is _risk-blind_. We can rewrite the integral as an expectation
+under $Q$ as $x = E[X]D(\Omega)$ so $x$ can be thought of as the expected value of future discounted prices.
+This is the simplest example of discounted prices being a martingale.
 
 [^1]: Recall the _set exponential_ $B^A = \{f\colon A\to B\}$ is the
 set of all functions from the set $A$ to the set $B$.
@@ -112,7 +120,7 @@ This argument also holds for the somewhat more realistic model
 with $\Omega = [L, H]$.
 </details>
 
-## Cone
+## Fundamental Theorem of Asset Pricing
 
 A _cone_ $C$ is a subset of a vector space closed under positive scalar
 multiplication and vector addition.
@@ -147,15 +155,16 @@ the range of $X$ then there is no arbitrage_.
 If $x_n\in C$ converge to $x$ in norm and $\xi\cdot x_n\ge0$ then $\xi\cdot x\ge0$.
 </details>
 
-## Fundamental Theorem of Asset Pricing
+This proves if $x$ belongs to the smallest cone containing the range of $X$
+then there is no arbitrage. The contrapositive is also true.
 
 __Theorem__.  _Arbitrage exists in
-the one-period model if and only if $x$ does not belong to the smallest
+the one-period model if $x$ does not belong to the smallest
 closed cone containing the range of $X$. If $x^*$ is the closest point
 in the cone then $\xi = x^* - x$ is an arbitrage_.
 
-The previous exercise proves the "easy" direction.
-The contra-positive follows from the
+In general, the arbitrage is not unique. We will establish the theorem using
+the purely geometric
 
 __Lemma__. _If $x\in\RR^n$ and $C$ is a closed cone in
 $\RR^n$ with $x\not\in C$ then there exists ${\xi\in\RR^n}$
@@ -175,12 +184,7 @@ Simplifying gives ${t^2||x^*||^2 + 2t\xi\cdot x^*\ge 0}$ for  $t > -1$.
 Dividing by $t < 0$ and letting $t$ increase to 0 shows ${\xi\cdot x^*\le 0}$ so
 ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ hence ${\xi\cdot x < 0}$.
 
-The lemma proves the "hard" direction of the FTAP
-and that $\xi = x^* - x$ implements an arbitrage.
-
-Note the lemma is a purely geometric fact.
-It is similar to Farkas' lemma and is a special case of the Hahn-Banach theorem
-in finite dimensional space.
+The lemma proves the FTAP and that $\xi = x^* - x$ implements an arbitrage.
 
 ## Application
 
