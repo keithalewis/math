@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-08-25" />
+  <meta name="dcterms.date" content="2025-08-24" />
   <title>One Period Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">One Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">August 25, 2025</p>
+<p class="date">August 24, 2025</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -101,8 +101,8 @@ class="math inline">{}^\perp\{\pi\oplus\Pi\} = H</span>.</p>
 <p>Since <span class="math inline">(\operatorname{ran}A)^\perp =
 \operatorname{ker}A^*</span> H$</p>
 <p>We have <span class="math inline">A^*(\pi\oplus\Pi) = 0</span> so
-<span class="math inline">\langle x, \pi\rangle = \langle X,
-\Pi\rangle</span></p>
+<span class="math inline">\angle x, \pi\angle = \angle X,
+\Pi\angle</span></p>
 <p><span class="math inline">X_j\Pi_j = (X_{j+1} +
 C_{j+1})|_{\mathcal{A}_j}</span></p>
 <section id="trinomial-american-option" class="level2">
@@ -114,15 +114,12 @@ class="math inline">{\Omega = \{(\omega_1, \omega_2, t)\mid
 class="math inline">-+1</span> for <span
 class="math inline">(-,+,1)</span>.</p>
 <p>Information at time 0 is <span class="math inline">\mathcal{A}_0 =
-\{\Omega\}</span>. We assume <span class="math inline">\Pi_0(\Omega) =
-1</span>. At time one we know if the stock went up or down in the first
-period and whether or not the option was exercised. so <span
+\{\Omega\}</span>. At time one we know if the stock went up or down in
+the first period and whether or not the option was exercised. so <span
 class="math inline">{\mathcal{A}_1 = \{\{--1,-+1\}, \{+-1,++1\},
-\{--2,-+2\}, \{+-2,+-2\}\}}</span> We write <span
-class="math inline">\Pi_1(--1) = \Pi_1(-+1) = \pi_{-1}</span>, etc. Of
-course <span class="math inline">\mathcal{A}_2</span> consists of all
-singletons of <span class="math inline">\Omega</span>. We write <span
-class="math inline">\Pi(--1) = \pi_{--1}</span>, etc.</p>
+\{--2,-+2\}, \{+-2,+-2\}\}}</span>. Of course <span
+class="math inline">\mathcal{A}_2</span> consists of all singletons of
+<span class="math inline">\Omega</span>.</p>
 <p>We have <span class="math inline">X_0(\omega_1,\omega_2, t) = (1,
 S_0, V_0)</span> where <span class="math inline">S_0</span> and <span
 class="math inline">V_0</span> are scalar.</p>
@@ -133,31 +130,7 @@ class="math inline">C_1 = (0, 0, \nu(S_1(\omega_1)) 1(t =
 <p>Also <span class="math inline">X_2(\omega_1, \omega_2, t) = (R^2,
 S_2(\omega_1, \omega_2), 0)</span> with <span
 class="math inline">C_2(\omega_1, \omega_2, t) = (0, 0,
-\nu(S_2(\omega_1, \omega_2))1(t = 2))</span>.</p>
-<p>Since <span class="math inline">X_0\Pi_0 = ((X_1 +
-C_1)\Pi_1)|_{\mathcal{A}_1}</span> we have <span class="math display">
-\begin{aligned}
-1 &amp;= R(\pi_{-1} + \pi_{-2} + \pi_{+1} + \pi_{+2}) \\
-S_0 &amp;= S_1(-)(\pi_{-1} + \pi_{-2}) + S_1(+)(\pi_{+1} + \pi_{+2}) \\
-V_0 &amp;= S_1(-)\pi_{-2} + S_1(+)\pi_{+2} + \nu(S_1(-))\pi_{-1} +
-\nu(S_1(+))\pi_{+1} \\
-\end{aligned}
-</span> <!--
-$$
-\begin{bmatrix} 1\\ S_0\\ V_0 \\ \end{bmatrix}
-= \begin{bmatrix}
-R & R & R & R \\
-S_1(-) & S_1(+) & S_1(-) & S_1(+) \\
-\nu(S_1(-)) & \nu(S_1(+)) & S_1(-) & S_1(+) \\
-\end{bmatrix}
-\begin{bmatrix}
-\pi_{-1} \\
-\pi_{+1} \\
-\pi_{-2} \\
-\pi_{+2} \\
-\end{bmatrix}
-$$
---></p>
+\nu(S_2(\omega_1, \omega_2)1(t = 2))</span>.</p>
 </section>
 </body>
 </html>

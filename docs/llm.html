@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-09-14" />
+  <meta name="dcterms.date" content="2025-09-18" />
   <title>Large Language Models</title>
   <style>
     code{white-space: pre-wrap;}
@@ -29,9 +29,19 @@
 <header id="title-block-header">
 <h1 class="title">Large Language Models</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 14, 2025</p>
+<p class="date">September 18, 2025</p>
 </header>
 <p>https://github.com/karpathy/llm.c</p>
+<p>A large language model is a function. Given a sequence of characters
+it returns a sequence of characters. How does it do that?</p>
+<p>It takes training data consisting of “correct” answers and
+interpolates.</p>
+<p>Machine learning began in … with … perceptrons. They were modelled
+after neurons in the brain. Given a set of inputs they would either fire
+or not.</p>
+<p>The best prompt is “yes”. It will clue you in to the current context
+of the LLM you are using at the moment. Use the output to detect what it
+is <em>not</em> telling you.</p>
 <p>A LLM is a function from an input string <em>prompt</em> and a
 <em>context</em> to an <em>output</em> string. So called “prompt
 engineering” is really about context engineering.</p>

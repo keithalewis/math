@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-09-14" />
+  <meta name="dcterms.date" content="2025-09-18" />
   <title>L-moments</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">L-moments</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 14, 2025</p>
+<p class="date">September 18, 2025</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -142,18 +142,16 @@ They do a better job of estimating the distribution of a random variable
 given independent sample values. Given independent random variables
 <span class="math inline">X_1,\ldots,X_n</span> having the same law as
 <span class="math inline">X</span> define <span
-class="math inline">X_{1:n}\le\ldots\le
-X_{n:n}</span> by sorting pointwise. Independent samples of a random
-variable are functions on the product space <span
+class="math inline">X_{1:n}\le\ldots\le X_{n:n}</span> by sorting
+pointwise. Independent samples of a random variable are functions on the
+product space <span
 class="math inline">X_i\colon\Omega^n\to\boldsymbol{{{R}}}</span> where
 <span class="math inline">X_i(\omega_1,\ldots,\omega_n) =
 \omega_i</span> equipped with the product measure <span
 class="math inline">F_n(x_1,\ldots,x_n) = P(X_1\le x_1,\ldots,X_n\le
-x_n)
-= P(X_1\le x_1)\cdots F(X_n\le x_n)</span>. The numbers <span
-class="math inline">X_1(\omega), \dots,
-X_n(\omega)</span> can be sorted pointwise to define the order
-statistics <span
+x_n) = P(X_1\le x_1)\cdots F(X_n\le x_n)</span>. The numbers <span
+class="math inline">X_1(\omega), \dots, X_n(\omega)</span> can be sorted
+pointwise to define the order statistics <span
 class="math inline">X_{1:n}(\omega),\ldots,X_{n:n}(\omega)</span></p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">\lambda_2 = (1/2)E[X_{2:2} -
@@ -167,9 +165,9 @@ skewness. If it is positive then the distribution has more mass toward
 the right. If it is negative then the distribution has more mass toward
 the left.</p>
 <p>The fourth L-moment is <span class="math inline">\lambda_3 =
-(1/4)E[(X_{4:4} - X_{4:3}) - (X_{4:3} - X_{4:2})
-- ((X_{4:3} - X_{4:2}) - (X_{4:2} - X_{4:1}))]
-= (1/4)E[X_{4:4} - 3X_{4:3} + 3X_{4:2} - X_{4:1}]</span>.</p>
+(1/4)E[(X_{4:4} - X_{4:3}) - (X_{4:3} - X_{4:2}) - ((X_{4:3} - X_{4:2})
+- (X_{4:2} - X_{4:1}))] = (1/4)E[X_{4:4} - 3X_{4:3} + 3X_{4:2} -
+X_{4:1}]</span>.</p>
 <p>The general theme of L-moments is to consider <span
 class="math inline">\Delta X_{n:j} = X_{n:j+1} - X_{n:j}</span>. The
 second L-moment is <span class="math inline">E[\Delta X_{2:1}]</span>.

@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-09-14" />
+  <meta name="dcterms.date" content="2025-09-18" />
   <title>Simple Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -26,7 +26,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -67,7 +66,7 @@
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 14, 2025</p>
+<p class="date">September 18, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematically rigorous framework for valuing, hedging, and managing
@@ -167,8 +166,8 @@ class="math inline">(C_t)</span>. Trading involves buying and selling
 instruments <span class="math inline">(\Gamma_j)</span> at a finite
 number of increasing stopping times <span
 class="math inline">(\tau_j)</span>. Trades accumulate to positions
-<span class="math inline">{\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j
-= \sum_{s &lt; t}\Gamma_s}</span>, where <span
+<span class="math inline">{\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j =
+\sum_{s &lt; t}\Gamma_s}</span>, where <span
 class="math inline">\Gamma_s = \Gamma_j</span> if <span
 class="math inline">s = \tau_j</span> and is zero otherwise. Prices,
 cash flows, and trades determine the value, or mark-to-market, <span
@@ -327,10 +326,9 @@ is <span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>
 and represents how much liquidating the current position and trades yet
 to settle at current market prices would yield.</p>
 <p>Trading strategies incur cash flows in the trading <em>account</em>
-<span class="math inline">A_t
-= \Delta_t\cdot C_t - \Gamma_t\cdot X_t</span>: you receive cash flows
-proportional to existing positions and pay the current market price for
-trades just executed.</p>
+<span class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
+X_t</span>: you receive cash flows proportional to existing positions
+and pay the current market price for trades just executed.</p>
 </section>
 <section id="arbitrage" class="level3">
 <h3>Arbitrage</h3>
@@ -381,11 +379,11 @@ derivative securities</strong>.</p>
 <p>Suppose a cash settled derivative security specifies amounts <span
 class="math inline">\hat{A}_j</span> be paid at times <span
 class="math inline">\hat{\tau}_j</span>. If there is a trading strategy
-<span class="math inline">(\tau_j,
-\Gamma_j)</span> with <span class="math inline">A_{\hat{\tau}_j} =
-\hat{A}_j</span> for all <span class="math inline">j</span> and <span
-class="math inline">A_t = 0</span> otherwise (aka self-financing) then a
-“perfect hedge” exists<a href="#fn2" class="footnote-ref" id="fnref2"
+<span class="math inline">(\tau_j, \Gamma_j)</span> with <span
+class="math inline">A_{\hat{\tau}_j} = \hat{A}_j</span> for all <span
+class="math inline">j</span> and <span class="math inline">A_t =
+0</span> otherwise (aka self-financing) then a “perfect hedge” exists<a
+href="#fn2" class="footnote-ref" id="fnref2"
 role="doc-noteref"><sup>2</sup></a>.</p>
 <p>Equation (2) yields <span class="math display">
 \tag{3} V_t D_t = (\sum_{\tau_j &gt; t} \hat{A}_j
@@ -436,13 +434,12 @@ class="math inline">C_T = S_T - K</span>.</p>
 <section id="black-scholesmerton" class="level4">
 <h4>Black-Scholes/Merton</h4>
 <p>The Black-Scholes/Merton model uses the martingale measure <span
-class="math inline">{M_t = (r,
-p(\sigma B_t - \sigma^2t/2))P}</span>, where <span
-class="math inline">B_t</span> is Brownian motion and <span
+class="math inline">{M_t = (r, p(\sigma B_t - \sigma^2t/2))P}</span>,
+where <span class="math inline">B_t</span> is Brownian motion and <span
 class="math inline">P</span> is Wiener measure. The deflator is <span
 class="math inline">{D_t = \exp(-\rho t)P}</span>, where <span
 class="math inline">\rho</span> is the constant interest rate. From
-equation (3) the model of prices is <span class="math inline">X_t  =
+equation (3) the model of prices is <span class="math inline">X_t =
 (R_t, S_t)</span> where the bond price is <span class="math inline">{R_t
 = r\exp(\rho t)}</span> and the stock price is <span
 class="math inline">{S_t = s\exp(\rho t + \sigma B_t - \sigma^2t/2) -
@@ -956,13 +953,13 @@ class="math inline">\|\lambda\| = \|L\|</span></em>.</p>
 <p>If <span class="math inline">S</span> is finite then <span
 class="math inline">B(S)</span> can be identified with <span
 class="math inline">\boldsymbol{R}^S = \{f\colon
-S\to\boldsymbol{R}\}</span> where <span
-class="math inline">s\mapsto  f(s)</span>. Similarly, <span
-class="math inline">ba(S)</span> can be identified with <span
-class="math inline">\boldsymbol{R}^S = \{\lambda\colon
-S\to\boldsymbol{R}\}</span> where <span class="math inline">\{s\}\mapsto
-\lambda(\{s\})</span>. This is good news when it comes to computer
-implementation, everything is just a finite vector of numbers.</p>
+S\to\boldsymbol{R}\}</span> where <span class="math inline">s\mapsto
+f(s)</span>. Similarly, <span class="math inline">ba(S)</span> can be
+identified with <span class="math inline">\boldsymbol{R}^S =
+\{\lambda\colon S\to\boldsymbol{R}\}</span> where <span
+class="math inline">\{s\}\mapsto \lambda(\{s\})</span>. This is good
+news when it comes to computer implementation, everything is just a
+finite vector of numbers.</p>
 </section>
 <section id="probability" class="level3">
 <h3>Probability</h3>
@@ -1026,7 +1023,7 @@ at each trading time.</p>
 <section id="todo" class="level3 unnumbered">
 <h3 class="unnumbered">TODO</h3>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-BlaSch1973" class="csl-entry" role="listitem">
 Black, Fischer, and Myron Scholes. 1973. <span>“The Pricing of Options
 and Corporate Liabilities.”</span> <em>Journal of Political Economy</em>
@@ -1061,7 +1058,7 @@ href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277
 </div>
 </section>
 </section>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -1090,6 +1087,6 @@ value. It also implies the value of a barrier option that knocks in or
 out the millionth time it hits the barrier has exactly the same value.<a
 href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
 </body>
 </html>

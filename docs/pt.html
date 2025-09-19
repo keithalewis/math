@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-09-14" />
+  <meta name="dcterms.date" content="2025-09-18" />
   <title>Pivot Table</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Pivot Table</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 14, 2025</p>
+<p class="date">September 18, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 The mathematical foundations of pivot tables.
@@ -73,14 +73,12 @@ class="math inline">\mu</span> is a function from subsets of <span
 class="math inline">V</span> to <span class="math inline">V</span> we
 can define the pivot table <span
 class="math inline">t_{\Delta,\mu}\colon\Delta\to V</span> by <span
-class="math inline">t_{\Delta,\mu}(\delta)
-= \mu(t(\delta))</span> for <span
-class="math inline">\delta\in\Delta</span> where <span
-class="math inline">t(\delta) =
-\{t(d):d\in\delta\}\subseteq V</span>. Any function <span
-class="math inline">u\colon D&#39;\to D</span> can be be composed with
-<span class="math inline">t</span> to get pivot table data <span
-class="math inline">t\circ u\colon D&#39;\to V</span>.</p>
+class="math inline">t_{\Delta,\mu}(\delta) = \mu(t(\delta))</span> for
+<span class="math inline">\delta\in\Delta</span> where <span
+class="math inline">t(\delta) = \{t(d):d\in\delta\}\subseteq V</span>.
+Any function <span class="math inline">u\colon D&#39;\to D</span> can be
+be composed with <span class="math inline">t</span> to get pivot table
+data <span class="math inline">t\circ u\colon D&#39;\to V</span>.</p>
 <p>For example, if <span class="math inline">D</span> is the set of all
 datetimes we can partition <span class="math inline">D</span> into days
 using the equivalence relation <span class="math inline">t_1\sim
@@ -105,9 +103,8 @@ class="math inline">\delta,\epsilon\in\Delta</span> either <span
 class="math inline">\delta\cap \epsilon = \emptyset</span> or <span
 class="math inline">\delta = \epsilon</span>. The elements of a
 partition are called <em>atoms</em>. If <span class="math inline">\Delta
-=
-\{\delta_1,\ldots,\delta_n\}</span> is finite then it is a partition of
-<span class="math inline">D</span> if and only if <span
+= \{\delta_1,\ldots,\delta_n\}</span> is finite then it is a partition
+of <span class="math inline">D</span> if and only if <span
 class="math inline">\cup_j \delta_j = D</span> and <span
 class="math inline">\delta_j\cap\delta_k = \emptyset</span> if <span
 class="math inline">j\not= k</span>.</p>
@@ -244,9 +241,9 @@ class="math inline">\Delta&#39;|\emptyset = \emptyset</span> we have
 0</span>. If <span class="math inline">E,F\in\Delta</span> are disjoint
 then so are <span class="math inline">\Delta&#39;|E</span> and <span
 class="math inline">\Delta&#39;|F</span> hence <span
-class="math inline">\mu(E\cup F) = \mu&#39;(\Delta&#39;|(E\cup F))
-= \mu&#39;((\Delta&#39;|E)\cup(\Delta&#39;|F)) = \mu&#39;(\Delta&#39;|E)
-+ \mu&#39;(\Delta&#39;|F)) = \mu(E) + \mu(F)</span>.</p>
+class="math inline">\mu(E\cup F) = \mu&#39;(\Delta&#39;|(E\cup F)) =
+\mu&#39;((\Delta&#39;|E)\cup(\Delta&#39;|F)) = \mu&#39;(\Delta&#39;|E) +
+\mu&#39;(\Delta&#39;|F)) = \mu(E) + \mu(F)</span>.</p>
 </blockquote>
 </details>
 <p>If <span class="math inline">t&#39;&#39;\colon\Delta&#39;&#39;\to
@@ -284,8 +281,8 @@ class="math inline">x\vee(y\vee z) = (x\vee y)\vee z</span>
 determined by <span class="math inline">\{\mu(\{s\}): s\in
 S\}</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">S</span>
-is a monoid show <span class="math inline">\mu(\{s_1,\ldots,s_n\})
-= \mu(\{s_1\})\oplus\cdots\oplus\mu(\{s_n\})</span> where <span
+is a monoid show <span class="math inline">\mu(\{s_1,\ldots,s_n\}) =
+\mu(\{s_1\})\oplus\cdots\oplus\mu(\{s_n\})</span> where <span
 class="math inline">s_j\in S</span>, <span class="math inline">1\le j\le
 n</span></em>.</p>
 <details>

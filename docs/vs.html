@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-09-14" />
+  <meta name="dcterms.date" content="2025-09-18" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 14, 2025</p>
+<p class="date">September 18, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -468,8 +468,8 @@ class="math inline">l</span> if and only if <span class="math inline">j
 = k</span> so <span class="math inline">e_{ij}e_{kl} =
 \delta_{jk}e_{il}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">(\sum_{ij} t_{ij}e_{ij})(\sum_{kl} s_{kl} e_{kl})
-= \sum_j t_{ij}s_{jl} e_{il}</span></em>.</p>
+class="math inline">(\sum_{ij} t_{ij}e_{ij})(\sum_{kl} s_{kl} e_{kl}) =
+\sum_j t_{ij}s_{jl} e_{il}</span></em>.</p>
 <p>This shows we can identify the vector space of linear transformations
 from <span class="math inline">\boldsymbol{{R}}^n</span> to <span
 class="math inline">\boldsymbol{{R}}^m</span> with <span
@@ -666,12 +666,11 @@ arrows. The best anyone has come up with so far for membership is a
 for which there exists (fasten your seatbelt) a morphism from a terminal
 object <span class="math inline">1\to\Omega</span> such that for each
 monomorphism <span class="math inline">j\colon U\to X</span> there
-exists a unique <span class="math inline">\chi_j\colon
-X\to\Omega</span> such that <span class="math inline">\chi_j j\colon
-U\to\Omega</span> is equal to the composition of <span
-class="math inline">U\to 1</span> and <span
-class="math inline">1\to\Omega</span>. Phew! No wonder some people think
-category theory is useless.</p>
+exists a unique <span class="math inline">\chi_j\colon X\to\Omega</span>
+such that <span class="math inline">\chi_j j\colon U\to\Omega</span> is
+equal to the composition of <span class="math inline">U\to 1</span> and
+<span class="math inline">1\to\Omega</span>. Phew! No wonder some people
+think category theory is useless.</p>
 <p>Putting on your category theory glasses can help see classical set
 theory results more clearly. It turns out set membership is a special
 case. For example, the points of a sphere are members of the sphere, but
@@ -972,8 +971,8 @@ class="math inline">{e_i = (0,\ldots,1,\ldots,0)}</span> with all
 elements <span class="math inline">0</span> except for a <span
 class="math inline">1</span> in the <span
 class="math inline">i</span>-th position. It is plausible that <span
-class="math inline">{x = (x_1,\ldots,x_n)
-= x_1 e_1 + \cdots + x_n e_n}</span> for <span
+class="math inline">{x = (x_1,\ldots,x_n) = x_1 e_1 + \cdots + x_n
+e_n}</span> for <span
 class="math inline">{x\in\boldsymbol{{R}}^n}</span>, but you should
 always be wary of definitions involving dots.</p>
 <p>More generally, the standard basis of <span

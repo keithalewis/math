@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-09-14" />
+  <meta name="dcterms.date" content="2025-09-18" />
   <title>General Option Pricing</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">General Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 14, 2025</p>
+<p class="date">September 18, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 European option pricing and greeks
@@ -111,13 +111,12 @@ a) 1(x \le a)</span></p>
 \delta&#39;_a(x) - 2(x - a) \delta_a(x) + 1(x \le a)</span>.</p>
 <p><span class="math inline">E[(k - F)^+] = E[(k - F)1(F \le k)] =
 k\Phi(x(k)) - E[F1(X \le x(k))]</span>.</p>
-<p><span class="math inline">E[F1(X \le x)] = E[f(1 + s X)1(X\le x)]
-fP(X\le x) + fs E[X 1(X\le x)]</span></p>
+<p><span class="math inline">E[F1(X \le x)] = E[f(1 + s X)1(X\le
+x)]  fP(X\le x) + fs E[X 1(X\le x)]</span></p>
 <p><span class="math inline">p = E[(k - F)^+] = (k - f)\Phi(x(k)) +
 fs\Phi(x(k), 1)</span></p>
 <p><span class="math inline">dp/df = E[-(F/f)1(F\le k)] = E[-(1 + s
-X)1(F\le k)]
-    = -\Phi(x(k)) - s \Phi(x(k), 1)</span>.</p>
+X)1(F\le k)]  = -\Phi(x(k)) - s \Phi(x(k), 1)</span>.</p>
 <p>$d<sup>2p/df</sup>2 = $</p>
 <p>$d/df E[1(Fk)] =</p>
 <p><span class="math inline">dp/ds = E[-X1(F\le k)] = - \Phi(x(k),

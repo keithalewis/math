@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-09-14" />
+  <meta name="dcterms.date" content="2025-09-18" />
   <title>A General Formula for Option Pricing</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">A General Formula for Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 14, 2025</p>
+<p class="date">September 18, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Perturbation of the normal distribution
@@ -103,11 +103,11 @@ normal, and <span class="math inline">E[\exp(N) f(M)] = E[\exp(N)] E[f(M
 + \mathop{\rm{Cov}}(N,M))]</span> if <span class="math inline">N</span>
 and <span class="math inline">M</span> are jointly normal. We have <span
 class="math inline">\kappa(s) = \log E[\exp(sX)] = s^2/2</span> and
-<span class="math inline">E^s[f(X)] = E[\exp(sX-s^2/2) f(X)]
-= E[f(X + s)]</span>. In the usual notation, <span class="math inline">m
-= -d_2 = (\log (k/f) + \sigma^2t/2)/\sigma\sqrt{t}</span> and <span
-class="math inline">P^s(X \le m) = P(X + \sigma\sqrt{t} \le -d_2)
-= P(X \le -d_1)</span> where <span class="math inline">d_1 = d_2 +
+<span class="math inline">E^s[f(X)] = E[\exp(sX-s^2/2) f(X)] = E[f(X +
+s)]</span>. In the usual notation, <span class="math inline">m = -d_2 =
+(\log (k/f) + \sigma^2t/2)/\sigma\sqrt{t}</span> and <span
+class="math inline">P^s(X \le m) = P(X + \sigma\sqrt{t} \le -d_2) = P(X
+\le -d_1)</span> where <span class="math inline">d_1 = d_2 +
 \sigma\sqrt{t}</span>.</p>
 <section id="cumulants" class="level2">
 <h2>Cumulants</h2>
@@ -217,8 +217,8 @@ class="math inline">X^s</span> is <span class="math inline">\kappa^s(u)
 = \kappa(u + s) - \kappa(s)</span>, where <span
 class="math inline">\kappa</span> is the cumulant of <span
 class="math inline">X</span>. This follows from <span
-class="math inline">E^s[e^{uX}] = E[e^{sX - \kappa(s)} e^{uX}]
-= e^{\kappa(s + u) - \kappa(s)}</span>.</p>
+class="math inline">E^s[e^{uX}] = E[e^{sX - \kappa(s)} e^{uX}] =
+e^{\kappa(s + u) - \kappa(s)}</span>.</p>
 <p>It follows that the <span class="math inline">n</span>-th derivative
 satisfies <span class="math inline">\kappa^{s(n)}(u) = \kappa^{(n)}(u +
 s)</span>, for <span class="math inline">n &gt; 0</span>,<br />
@@ -226,10 +226,9 @@ and setting <span class="math inline">u=0</span>, <span
 class="math inline">\kappa^s_n = \kappa^{s(n)}(0) =
 \kappa^{(n)}(s)</span>.</p>
 <p>The last expression can be expressed as <span
-class="math inline">\kappa^{(n)}(s) =
-\sum_{k=0}^\infty \kappa_{n - k} s^k/k!</span>, but for many random
-variables, we can use the closed form solution on the left-hand side
-instead of the infinite sum.</p>
+class="math inline">\kappa^{(n)}(s) = \sum_{k=0}^\infty \kappa_{n - k}
+s^k/k!</span>, but for many random variables, we can use the closed form
+solution on the left-hand side instead of the infinite sum.</p>
 </section>
 <section id="examples" class="level2">
 <h2>Examples</h2>
