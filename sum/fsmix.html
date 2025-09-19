@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Fourier Mixer</title>
+  <link rel="stylesheet" href="../math.css" />
+</head>
+<body>
+<h1>Fourier Mixer</h1>
+<svg width="600" height="320" style="border:1px solid #ccc;"></svg>
+
+<div style="margin-top:20px; display:flex; justify-content:center; gap:40px;">
+  <div style="display:flex; flex-direction:column; align-items:center;">
+    <input id="a1Slider" type="range" min="-5" max="5" step="0.1" value="1"
+           style="writing-mode: bt-lr; -webkit-appearance: slider-vertical; height:150px;">
+    <label>a<sub>1</sub>: <span id="a1Value">1</span></label>
+  </div>
+  <div style="display:flex; flex-direction:column; align-items:center;">
+    <input id="a2Slider" type="range" min="-5" max="5" step="0.1" value="0"
+           style="writing-mode: bt-lr; -webkit-appearance: slider-vertical; height:150px;">
+    <label>a<sub>2</sub>: <span id="a2Value">0</span></label>
+  </div>
+</div>
+
+<h2>Notes</h2>
+<p>
+This is something I ChatGPTed together in 30 minutes, but I hope it conveys the basic idea.
+</p>
+<p>
+The intent is to gamify the mathematical fact that integrable functions can be approximated
+by Fourier series using the sliders. I only put 2, but you could use any number. Perhaps make it
+skeuomorphic to a music mixing board.
+</p>
+<p>
+Not shown is the target function. Possible implementation would be to generate random
+coefficients in the range [-5,5] so exact matching is possible.
+It would make computing the Parseval distance simple too and display that as feedback.
+</p>
+<p>
+It could be made more fun by having several mixers so museum goers could compete against each other.
+Or even make a phone app so any number could simultaneously play and display a real-time leader board.
+</p>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+// SVG setup
+const svg = d3.select("svg");
+const width = +svg.attr("width"), height = +svg.attr("height");
+const margin = {top: 20, right: 20, bottom: 50, left: 70};
+const innerW = width - margin.left - margin.right;
+const innerH = height - margin.top - margin.bottom;
+
+const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+// Parameters
+const xMin = 0, xMax = 2 * Math.PI;
+let a1 = 1, a2 = 0;
+
+// Scales
+const x = d3.scaleLinear().domain([xMin, xMax]).range([0, innerW]);
+const y = d3.scaleLinear().domain([-5, 5]).range([innerH, 0]);
+
+// Axis ticks
+const xticks = [0, Math.PI/2, Math.PI, 3*Math.PI/2, 2*Math.PI];
+const xtickFormat = d => {
+  if (d === 0) return "0";
+  if (d === Math.PI) return "π";
+  if (d === 2*Math.PI) return "2π";
+  if (d === Math.PI/2) return "π/2";
+  if (d === 3*Math.PI/2) return "3π/2";
+  return d.toFixed(2);
+};
+
+// Axes
+g.append("g")
+  .attr("transform", `translate(0,${y(0)})`)
+  .call(d3.axisBottom(x).tickValues(xticks).tickFormat(xtickFormat))
+  .append("text")
+    .attr("x", innerW)
+    .attr("y", 35)
+    .attr("fill", "black")
+    .attr("text-anchor", "end")
+    .attr("font-size", "14px")
+    .text("x");
+
+g.append("g")
+  .attr("transform", `translate(${x(0)},0)`)
+  .call(d3.axisLeft(y).ticks(5))
+  .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -innerH/2)
+    .attr("y", -50)
+    .attr("fill", "black")
+    .attr("text-anchor", "middle")
+    .attr("font-size", "14px")
+    .text("∑ₙ aₙ sin(n x)");
+
+// Line generator
+const line = d3.line()
+  .x(d => x(d.x))
+  .y(d => y(d.y));
+
+// Data generator
+function generateData(a1, a2) {
+  return d3.range(xMin, xMax + 0.01, .01).map(t => ({
+    x: t,
+    y: a1 * Math.sin(t) + a2 * Math.sin(2 * t)
+  }));
+}
+
+// Path
+const path = g.append("path")
+  .attr("fill", "none")
+  .attr("stroke", "steelblue")
+  .attr("stroke-width", 2);
+
+// Sliders
+const a1Slider = document.getElementById("a1Slider");
+const a1Value = document.getElementById("a1Value");
+const a2Slider = document.getElementById("a2Slider");
+const a2Value = document.getElementById("a2Value");
+
+function updatePlot() {
+  path.datum(generateData(a1, a2)).attr("d", line);
+}
+
+a1Slider.addEventListener("input", function() {
+  a1 = +this.value;
+  a1Value.textContent = a1;
+  updatePlot();
+});
+a2Slider.addEventListener("input", function() {
+  a2 = +this.value;
+  a2Value.textContent = a2;
+  updatePlot();
+});
+
+// Initial render
+updatePlot();
+</script>
+</body>
+

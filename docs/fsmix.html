@@ -1,6 +1,12 @@
 <!DOCTYPE html>
-<meta charset="utf-8" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Fourier Mixer</title>
+  <link rel="stylesheet" href="../math.css" />
+</head>
 <body>
+<h1>Fourier Mixer</h1>
 <svg width="600" height="320" style="border:1px solid #ccc;"></svg>
 
 <div style="margin-top:20px; display:flex; justify-content:center; gap:40px;">
@@ -15,6 +21,25 @@
     <label>a<sub>2</sub>: <span id="a2Value">0</span></label>
   </div>
 </div>
+
+<h2>Notes</h2>
+<p>
+This is something I ChatGPTed together in 30 minutes, but I hope it conveys the basic idea.
+</p>
+<p>
+The intent is to gamify the mathematical fact that integrable functions can be approximated
+by Fourier series using the sliders. I only put 2, but you could use any number. Perhaps make it
+skeuomorphic to a music mixing board.
+</p>
+<p>
+Not shown is the target function. Possible implementation would be to generate random
+coefficients in the range [-5,5] so exact matching is possible.
+It would make computing the Parseval distance simple too and display that as feedback.
+</p>
+<p>
+It could be made more fun by having several mixers so museum goers could compete against each other.
+Or even make a phone app so any number could simultaneously play and display a real-time leader board.
+</p>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
@@ -68,7 +93,7 @@ g.append("g")
     .attr("fill", "black")
     .attr("text-anchor", "middle")
     .attr("font-size", "14px")
-    .text("a₁ sin(x) + a₂ sin(2x)");
+    .text("∑ₙ aₙ sin(n x)");
 
 // Line generator
 const line = d3.line()
@@ -77,7 +102,7 @@ const line = d3.line()
 
 // Data generator
 function generateData(a1, a2) {
-  return d3.range(xMin, xMax + 0.001, 0.01).map(t => ({
+  return d3.range(xMin, xMax + 0.01, .01).map(t => ({
     x: t,
     y: a1 * Math.sin(t) + a2 * Math.sin(2 * t)
   }));
