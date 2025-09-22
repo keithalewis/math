@@ -286,14 +286,34 @@ _Hint_. Consider $O + (Q - O) + (R - O)$ and the fact $1 \ge 0$.
 __Exercise__. _Show the smallest cone with origin $O$ containing $P_1, \ldots, P_k$ is_
 $$
 \begin{aligned}
-	\cone(P_0,\ldots,P_k) &= \{O + \sum_{j=1}^k t_j (P_j - O)\mid t_j\ge0\} \\
+	\cone_O(P_1,\ldots,P_k) &= \{O + \sum_{j=1}^k t_j (P_j - O)\mid t_j\ge0\} \\
 		&= \{(1 - \sum_{j=1}^n t_j) O + \sum_{j=0}^k t_j P_j\mid t_j\ge0\}. \\
 \end{aligned}
 $$
 Note the similarity to the convex hull, however the coefficient of $O$ might be negative.
 
 In the slightly more realistic binomial model $x = (1, s)$, $X(\omega) = \omega$ for $\omega\in[L,H]$
+...
 
+$$
+\begin{aligned}
+OX(L)X(K)X(H) &= O(\_O + R\,P_b + L\,P_s)X(K)X(H) \\
+	&= (R\,OP_b + L\,OP_s)(\_O + R\,P_b + K\,P_s)X(H) \\
+	&= (RK\,OP_bP_s + LR\,OP_sP_b)(\_O + R\,P_b + H\,P_s + (H - K)\,P_c) \\
+	&= RK(H - K)\,OP_bP_sP_c + LR(H - K)\,OP_sP_bP_c \\
+	&= R(H - K)(K - L)\,OP_bP_sP_c \\
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+OxX(K)X(H) &= O(\_O + P_b + s\,P_s + v\,P_c)X(K)X(H) \\
+	&= (OP_b + s\,OP_s + v\,OP_c)(\_O + R\,P_b + K\,P_s)X(H) \\
+	&= (RK\,OP_bP_s + LR\,OP_sP_b)(\_O + R\,P_b + H\,P_s + (H - K)\,P_c) \\
+	&= RK(H - K)\,OP_bP_sP_c + LR(H - K)\,OP_sP_bP_c \\
+	&= R(H - K)(K - L)\,OP_bP_sP_c \\
+\end{aligned}
+$$
 
 If we add an option with payoff $\nu$ to the binomial model then
 $x = (1, s, c)$ and $X(\omega) = (R, \omega, \nu(\omega))$, $\omega\in\{L,H\}$.
