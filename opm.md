@@ -232,6 +232,12 @@ predated Einstein
 in not assumiming an absolute origin of points in space. Vector spaces come
 along for free as the difference of two points.
 
+Descartes assumed an origin for his coordinate system. Given an origin $O\in E$
+and points $P_1,\ldots,P_n\in E$ is is possible to write any point in their span
+as $P = (1 - \sum_j t_j)O + \sum_j t_j P_j$, as we will see shortly.
+The Cartesion coordinates of the $P_j$ relative to origin $O$ are
+the tuple $(t_1,\ldots,t_n)$. Note the coefficent of $O$ is determined by the tuple.
+
 If $PQ = tRS$ for some scalar $t$ (with $P\not=Q$ and $R\not=S$)
 then $PQ$ and $RS$ are _congruent_ and we write $t = \frac{PQ}{RS}$.
 If $R(t) = (1 - t)P + tQ = P + t(Q - P)$ we can think of $R(t)$ as the point $P$
