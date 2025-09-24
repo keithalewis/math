@@ -28,7 +28,7 @@ code {
 	position: fixed;
 	top: 10px;     /* distance from the top */
 	right: 10px;   /* distance from the right */
-	background: lightblue;
+	/*background: lightblue;*/
 	padding: 10px;
 }
 

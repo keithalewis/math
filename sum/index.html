@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simple Universal Model</title>
+	<link rel="stylesheet" href="sum.css">
+</head>
+
+<body>
+
+<div class="topcorner"><a href="mailto:kal@kalx.net">kal@kalx.net</a></div>
+
+    <h1>Simple Universal Model</h1>
+	<p>Based on Stephen Ross's 1978 paper "A Simple Approach to the Valuation of Risky Streams"</p>
+
+<blockquote><i>If there are no arbitrage opportunities in the capital markets, then
+there exists a (not generally unique) [linear] valuation operator, L</i>.
+</blockquote>
+
+<p>
+Ross did say "(not generally unique)" but you have to read the paper to
+find out they are [linear]. If you have studied calculus, you know
+integration takes a function to a number linearly: the integral of
+a function times a constant is the constant times the integral, and
+the integral of a sum is the sum of the integrals.
+</p>
+
+	<p>Instruments have prices and pay associated cash flows after you buy them:
+	bonds pay coupons, stocks pay dividends, futures have margin adjustments.</p>
+    <p><math>
+            <mi>T</mi>
+        </math> - market trading times</p>
+    <p><math>
+            <mi>I</mi>
+        </math> - all market instruments</p>
+	<p><math><msub><mi mathvariant="script">A</mi><mi>t</mi></msub></math></p>
+
+    <h2>Market</h2>
+    <canvas id="market" style="border: 1px solid #ccc"></canvas>
+
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>t</mi></msub><msub><mi>D</mi><mi>t</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><munder><mo>∑</mo><mrow><mi>u</mi><mo>&gt;</mo><mi>t</mi></mrow></munder><msub><mi>C</mi><mi>s</mi></msub><msub><mi>D</mi><mi>s</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mo stretchy="false" form="prefix">|</mo><msub><mi>𝒜</mi><mi>t</mi></msub></msub></mrow><annotation encoding="application/x-tex">
+    X_t D_t = (\sum_{u &gt; t} C_s D_s)|_{\mathcal{A}_t}
+</annotation></semantics></math></p>
+
+    <script>
+        // Use the canvas's intrinsic drawing buffer size
+        const w = 300;
+        const h = 300;
+        const b = 20; // border padding
+
+		// return canvas for svg element id with w and h and (b,b) as the origin
+		function makeCanvas(id, w, h, b) {
+            const canvas = document.getElementById(id);
+            if (!canvas || !canvas.getContext) return;
+
+			resizeCanvas(canvas, w + 2 * b, h + 2 * b);
+			ctx = canvas.getContext('2d');
+
+			ctx.translate(b, h + b);
+			ctx.scale(1, -1)
+
+            // Ensure the line is visible
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 1;
+
+			return canvas;
+		}
+
+        function resizeCanvas(canvas, w, h) {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.style.width = w + 'px';
+            canvas.style.height = h + 'px';
+            canvas.width = Math.round(w * dpr);
+            canvas.height = Math.round(h * dpr);
+        }
+
+        function drawLine(ctx, x, y, w, h) {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + w, y + h);
+            ctx.stroke();
+        }
+        function drawMarket() {
+            const canvas = makeCanvas('market', w, h, b);
+            if (!canvas || !canvas.getContext) return;
+
+            const ctx = canvas.getContext('2d');
+
+            ctx.font = '16px system-ui, sans-serif';
+            const time = ctx.measureText("time");
+            const price = ctx.measureText("price");
+
+            drawLine(ctx, 0, 0, w, 0);
+            drawLine(ctx, 0, 0, 0, h);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            drawMarket();
+        });
+    </script>
+</body>
+
+</html>
+<!--
+BTF Biff https://www.youtube.com/watch?v=5ciMZ4VYWKg
+
+Peter brought me back into the academic world in 2008.
+
+Trying to get better at teaching. How do you transmit what you know to someone else?
+
+This is a suit.
+
+Met Peter when we both worked for MS at a talk he organized.  
+The speaker did not know the difference between real-world measure and risk-neutral measure.  
+Peter was too nice to point that out, but I wasn't.  
+After the talk he button holed me said he agreed with me.
+
+Peter was good at math, but the first person to admit he had no formal training.
+
+I was his seeing-eye mathematician.
+
+Last question he asked was what is the derivative of $\|x\|^p$.
+
+Frechet derivative. D_x \|x\|^p = p\|x\|^{p-2}x^*$ where $x^*\colon\RR^n\to\RR$ by $x^*(y) = x\cdot y$.
+
+Early ending barrier option with Dell.
+
+Banc of America Securities. Don't they know how to spell? End of the Glass-Steagall era where
+banks were not allowed to transact stocks.
+
+Up in a balloon.
+
+
+-->
