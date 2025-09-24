@@ -27,6 +27,37 @@ and there is no bid-ask spread depending on the amount being bought or sold,
 much less any consideration of the counterparties involved.
 The appendix proposes a model that can incorporate more realistic assumptions.
 
+The Capital Asset Pricing Model assumes that a probability measure is
+specified on the sample space of possible outcomes.
+[@Mar1952] and [@Roy1952] developed Modern
+Portfolio Theory by introducing the concept of an efficient portfolio:
+one for which no alternative portfolio offers a higher expected return
+at the same level of risk, or a lower level of risk for the same expected
+return. In their framework, risk is quantified as the variance of realized
+returns.
+
+A common parameterization is to assume returns are jointly normal.
+This reduces parameter estimation to the mean and covariance matrix.
+If we assume a multiperiod model where the returns are stationary and independent
+(i.e., a random walk)
+then standard linear regression can be used to estimate the parameters
+based on historical prices. There are still some practical questions
+to answer: How far back do you go? Do you use exponential weights?
+What exponent should you use?
+
+
+
+[@Ros1976] invented Arbitrage Pricing Theory as a systematic approach to estimate
+a CAPM probability distribution that depends on information other than historical prices.
+
+After reseachers noted empirical contradictions of the CAPM [@FamFre1992] introduced
+factors that include information other than price to address this.
+In addition to excess return over the risk-free rate they used the excess returns
+of small‑cap stocks over large‑cap stocks (SMB) and the excess returns of value stocks
+over growth stock (HML). They also assume stationary and independent returns
+and use linear regression to estimate their model parameters.
+
+
 If the sample space consists of two point we get the binomial model.
 It is not at all realistic, but it can illustrate the concept of arbitrage.
 Models that are not arbitrage free are useless so we need a way of
