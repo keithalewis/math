@@ -13,14 +13,15 @@ abstract: Buy now, sell later.
 \newcommand\Var{\operatorname{Var}}
 \newcommand\Cov{\operatorname{Cov}}
 \newcommand\co{\operatorname{co}}
+\newcommand\sgn{\operatorname{sgn}}
 \newcommand\cone{\operatorname{cone}}
 \newcommand\BB{\mathcal{B}}
 \newcommand\GG{\mathcal{G}}
 
 The One‑Period Model provides the simplest formal framework for
 describing a financial market. It specifies the initial prices of
-available instruments at the beginning of a period and their terminal
-prices at the end, depending on what occured.
+available instruments at the start of a period and their terminal
+prices at the end depending on what occured.
 We make the usual unrealistic assumptions that prices are real numbers
 instead of integral multiples of each instrument's minimum trading increment, 
 and there is no bid-ask spread depending on the amount being bought or sold,
@@ -573,6 +574,25 @@ the amount traded and the counterparties involved.
 A _holding_ is a triple $(a,i,e)$ specifying an integer amount, instrument, and legal entity.
 It indicates $e$ is the legal owner of amount $a$ of instrument $i$.
 The amount is an integral number of (minimum fractional) shares of the instrument.
+
+## Appendix
+
+We can make the one-period model more realistic. The price of an instrument must
+be an integral multiple of its minimal trading increment, or _tick size_.
+Let $\epsilon(i)$ be the tick size 
+of instrument $i\in I$. Initial prices $x\in\ZZ^I$ correspond
+to actual prices $x(i)\epsilon(i)$. Likewise for final prices $X\colon\Omega\to\ZZ^I$.
+
+Price depends on the amount being bought or sold. The amount must be an
+integral multiple of its minimum share size, or _lot size_.
+Let $\delta(i)$ be the lot size 
+of instrument $i\in I$. Amounts $\xi\in\ZZ^I$ correspond
+to amounts $xi(i)\delta(i)$. The bid and ask are a function of each instrument
+and the amount being purchased. Initial price is a function
+$x\colon\ZZ\times I\to\RR$ where $x(\xi,i)$ is the price of $\xi$ lot sizes
+of $i\in I$. For example $x(\xi,i) = x_i + \sgn(xi)\eta$ where
+the _signum_ $\sgn(\xi) = 1$ if $\xi > 0$ and $\sgn(\xi) = -1$ if $\xi < 0$
+and $x_i$ is the mid price.
 
 ## References
 
