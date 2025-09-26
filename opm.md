@@ -26,7 +26,7 @@ We make the usual unrealistic assumptions that prices are real numbers
 instead of integral multiples of each instrument's minimum trading increment, 
 and there is no bid-ask spread depending on the amount being bought or sold,
 much less any consideration of the counterparties involved.
-The appendix proposes a model that can incorporate more realistic assumptions.
+The [appendix](#appendix) proposes a model that can incorporate more realistic assumptions.
 
 The Capital Asset Pricing Model assumes that a probability measure is
 specified on the sample space of possible outcomes.
@@ -34,7 +34,7 @@ specified on the sample space of possible outcomes.
 Portfolio Theory by introducing the concept of an efficient portfolio:
 one for which no alternative portfolio offers a higher expected return
 at the same level of risk, or a lower level of risk for the same expected
-return. In their framework, risk is quantified as the variance of realized
+return. In their framework, risk is quantified using the variance of realized
 returns.
 
 A common parameterization is to assume returns are jointly normal.
@@ -46,18 +46,14 @@ based on historical prices. There are still some practical questions
 to answer: How far back do you go? Do you use exponential weights?
 What exponent should you use?
 
-
-
 [@Ros1976] invented Arbitrage Pricing Theory as a systematic approach to estimate
 a CAPM probability distribution that depends on information other than historical prices.
 
 After reseachers noted empirical contradictions of the CAPM [@FamFre1992] introduced
-factors that include information other than price to address this.
-In addition to excess return over the risk-free rate they used the excess returns
+specific factors. In addition to excess return over the risk-free rate they used the excess returns
 of small‑cap stocks over large‑cap stocks (SMB) and the excess returns of value stocks
 over growth stock (HML). They also assume stationary and independent returns
 and use linear regression to estimate their model parameters.
-
 
 If the sample space consists of two point we get the binomial model.
 It is not at all realistic, but it can illustrate the concept of arbitrage.
@@ -65,8 +61,6 @@ Models that are not arbitrage free are useless so we need a way of
 detecting the. The Fundamental Theorem of asset pricing for the one-period
 model states there is no arbitrage if and only if the initial prices belong
 so the smallest closed cone containing all possible final prices.
-
-We then use the FTAP in several examples to show how to hedge and manage risk.
 
 ## One-Period Model
 
