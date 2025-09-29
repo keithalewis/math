@@ -2,23 +2,39 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Fourier Mixer</title>
+  <title>Funkmaster Fourier</title>
   <link rel="stylesheet" href="../math.css" />
+  <link rel="stylesheet" href="math.css" />
 </head>
 <body>
-<h1>Fourier Mixer</h1>
-<svg width="600" height="320" style="border:1px solid #ccc;"></svg>
+<h1>Funkmaster Fourier</h1>
+<svg id="plot" width="600" height="320" style="border:1px solid #ccc;"></svg>
 
 <div style="margin-top:20px; display:flex; justify-content:center; gap:40px;">
   <div style="display:flex; flex-direction:column; align-items:center;">
-    <input id="a1Slider" type="range" min="-5" max="5" step="0.1" value="1"
-           style="writing-mode: bt-lr; -webkit-appearance: slider-vertical; height:150px;">
+    <input id="a1Slider" type="range" min="-5" max="5" step="0.5" value="1"
+           style="writing-mode: bt-lr; -webkit-appearance: slider-vertical; height:150px; oninput="updatePlot()";">
     <label>a<sub>1</sub>: <span id="a1Value">1</span></label>
   </div>
   <div style="display:flex; flex-direction:column; align-items:center;">
-    <input id="a2Slider" type="range" min="-5" max="5" step="0.1" value="0"
-           style="writing-mode: bt-lr; -webkit-appearance: slider-vertical; height:150px;">
+    <input id="a2Slider" type="range" min="-5" max="5" step="0.5" value="0"
+           style="writing-mode: bt-lr; -webkit-appearance: slider-vertical; height:150px; oninput="updatePlot()";">
     <label>a<sub>2</sub>: <span id="a2Value">0</span></label>
+  </div>
+  <div style="display:flex; flex-direction:column; align-items:center;">
+    <input id="a3Slider" type="range" min="-5" max="5" step="0.5" value="0"
+           style="writing-mode: bt-lr; -webkit-appearance: slider-vertical; height:150px; oninput="updatePlot()";">
+    <label>a<sub>3</sub>: <span id="a3Value">0</span></label>
+  </div>
+  <div style="display:flex; flex-direction:column; align-items:center;">
+    <input id="a4Slider" type="range" min="-5" max="5" step="0.5" value="0"
+           style="writing-mode: bt-lr; -webkit-appearance: slider-vertical; height:150px; oninput="updatePlot()";">
+    <label>a<sub>4</sub>: <span id="a4Value">0</span></label>
+  </div>
+  <div style="display:flex; flex-direction:column; align-items:center;">
+    <input id="a5Slider" type="range" min="-5" max="5" step="0.5" value="0"
+           style="writing-mode: bt-lr; -webkit-appearance: slider-vertical; height:150px; oninput="updatePlot()";">
+    <label>a<sub>5</sub>: <span id="a5Value">0</span></label>
   </div>
 </div>
 
@@ -44,7 +60,7 @@ Or even make a phone app so any number could simultaneously play and display a r
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
 // SVG setup
-const svg = d3.select("svg");
+const svg = d3.select("#plot");
 const width = +svg.attr("width"), height = +svg.attr("height");
 const margin = {top: 20, right: 20, bottom: 50, left: 70};
 const innerW = width - margin.left - margin.right;
@@ -52,9 +68,15 @@ const innerH = height - margin.top - margin.bottom;
 
 const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
+function randBetween(low, high)
+{
+	return low + Math.random(high - low);
+}
+
 // Parameters
 const xMin = 0, xMax = 2 * Math.PI;
-let a1 = 1, a2 = 0;
+let a1 = 1, a2 = 0, a3 = 0, a4 = 0, a5 = 0;
+let A1 = randBetween(-3,3), A2 = randBetween(-2,2), A3 = randBetween(-2,2), A4 = randBetween(-1,1), A5 = randBetween(-1,1); 
 
 // Scales
 const x = d3.scaleLinear().domain([xMin, xMax]).range([0, innerW]);
@@ -101,42 +123,76 @@ const line = d3.line()
   .y(d => y(d.y));
 
 // Data generator
-function generateData(a1, a2) {
-  return d3.range(xMin, xMax + 0.01, .01).map(t => ({
+const b = .88;
+function generateData(a1, a2, a3, a4, a5) {
+  return d3.range(b+xMin, b+xMax + 0.01, .01).map(t => ({
     x: t,
-    y: a1 * Math.sin(t) + a2 * Math.sin(2 * t)
+    y: a1 * Math.sin(t) + a2 * Math.sin(2 * t) + a3 * Math.sin(3 * t) + a4 * Math.sin(4 * t) + a5 * Math.sin(5 * t)
   }));
 }
 
 // Path
-const path = g.append("path")
-  .attr("fill", "none")
-  .attr("stroke", "steelblue")
-  .attr("stroke-width", 2);
+const userPath   = svg.append("path")
+    .attr("stroke","steelblue")
+    .attr("fill","none");
+
+const targetPath = svg.append("path")
+    .attr("stroke","black")
+    .attr("fill","none")
+    .attr("stroke-width", 3);
+
 
 // Sliders
 const a1Slider = document.getElementById("a1Slider");
 const a1Value = document.getElementById("a1Value");
 const a2Slider = document.getElementById("a2Slider");
 const a2Value = document.getElementById("a2Value");
+const a3Slider = document.getElementById("a3Slider");
+const a3Value = document.getElementById("a3Value");
+const a4Slider = document.getElementById("a4Slider");
+const a4Value = document.getElementById("a4Value");
+const a5Slider = document.getElementById("a5Slider");
+const a5Value = document.getElementById("a5Value");
 
-function updatePlot() {
-  path.datum(generateData(a1, a2)).attr("d", line);
+function updatePlot(a1, a2, a3, a4, a5) {
+  userPath.datum(generateData(a1, a2, a3, a4, a5)).attr("d", line);
+
+  // draw target curve (if it exists)
+  targetPath.datum(generateData(A1, A2, A3, A4, A5)).attr("d", line);
 }
 
 a1Slider.addEventListener("input", function() {
   a1 = +this.value;
   a1Value.textContent = a1;
-  updatePlot();
+  updatePlot(a1, a2, a3, a4, a5);
 });
 a2Slider.addEventListener("input", function() {
   a2 = +this.value;
   a2Value.textContent = a2;
-  updatePlot();
+  updatePlot(a1, a2, a3, a4, a5);
+});
+a3Slider.addEventListener("input", function() {
+  a3 = +this.value;
+  a3Value.textContent = a3;
+  updatePlot(a1, a2, a3, a4, a5);
+});
+a4Slider.addEventListener("input", function() {
+  a4 = +this.value;
+  a4Value.textContent = a4;
+  updatePlot(a1, a2, a3, a4, a5);
+});
+a5Slider.addEventListener("input", function() {
+  a5 = +this.value;
+  a5Value.textContent = a5;
+  updatePlot(a1, a2, a3, a4, a5);
 });
 
 // Initial render
-updatePlot();
+window.onload = function() {
+    updatePlot(A1, A2, A3, A4, A5);   // if you want a random start
+    updatePlot(a1, a2, a3, a4, a5);   // to ensure the user-controlled plot is visible
+};
+
 </script>
 </body>
 
