@@ -19,10 +19,11 @@ contracts. They also need models to value, hedge, and manage their risk.
 Inspired by [Lexifi](https://www.lexify.com), we propose a mathematical
 theory that can be practially implemented on a computer.  A key
 simplification is to seperate the notion of an increasing sequence of
-times to be used in the contact specifications and trading strategies. We
+times to be used in the contact specifications and events such as cash flows
+or trading strategies. We
 identify primitive operations that apply only to increasing time series
 and a operations on them. These can be used to convert contract specifications
-into a stream of cash flows.
+into a stream of cash flows or trades.
 
 It is important to include knobs for all possible actions an intrument owner can take.
 For example, an American option holder can exercise any time prior to expiration.
@@ -41,7 +42,7 @@ takes this into account.
 A fundamental problem when implementing date and time operations is how to convert two
 calendar dates to a time duration and a date plus a time duration back to a calendar date.
 Let $t(d)$ be the _time_ associated with _date_ $d$. On Unix systems it is common
-to use the number of non-leap seconds since midnight 1 January, 1970
+to use the number of non-leap seconds since Unix epoch midnight 1 January, 1970
 [UTC](https://en.wikipedia.org/wiki/Coordinated_Universal_Time).
 Most modern systems allow resolution to microseconds.
 The inverse function $d(t)$ converts time to dates.
@@ -49,6 +50,8 @@ Complications arise when considering durations such as weeks and months.
 For example, 31 Jan plus one month cannot be 31 Feb. Should it be
 29 Feb on leap-years and 28 Feb otherwise?
 Such issues will not be considered here.
+We assume any such resolution satisfed $d + (d' - d) = d'$
+ant $d(t + t') = d(t) + (t' - t)$.
 
 It is also important to distinguish between prices and cash flows. Every actual
 trade has a price: the quotient of the amount the seller exchanges with the buyer.
