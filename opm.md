@@ -72,23 +72,13 @@ The prices at the end of the period are a function $X\colon\Omega\to
 \RR^I$ where $X(\omega)\in\RR^I$ are the instrument prices if
 $\omega\in\Omega$ occurred.
 
-The Capital Asset Pricing Model is a one-period model that specifies a probability measure on $\Omega$.
-The Fundamental Theorem of Asset Pricing states a one-period model is arbitrage free if and only
-if there exists a positive measure $D$ on $\Omega$
-with $x = \int_\Omega X(\omega)\,dD(\omega)$. If we define $Q = D/D(\omega)$ then
-$Q$ is a positive measure having mass one, so it is a "probability" measure, but
-it is not the probability of anything. We call it a _risk-neutral_ measure, although
-a better name is _risk-blind_. We can rewrite the integral as an expectation
-under $Q$ as $x = E[X]D(\Omega)$ so $x$ can be thought of as the expected value of future discounted prices.
-This is the simplest example of discounted prices being a martingale.
-
 [^1]: Recall the _set exponential_ $B^A = \{f\colon A\to B\}$ is the
 set of all functions from the set $A$ to the set $B$.
 If $x\colon I\to\RR$ then $x(i)$ is the price of instrument $i\in I$.
 The _dot product_ of $x,y\in\RR^I$ is ${x\cdot y = \sum_{i\in I}x_i y_i}$
 if $I$ is finite. The _Euclidean norm_, $\|x\|$, of ${x\in\RR^I}$ is defined by ${\|x\|^2 = x\cdot x}$.
 
-## Binomial Model
+### Binomial Model
 
 The _binomial model_ has a bond and stock where $x = (1, s)$,
 $X(\omega) = (R, \omega)$, and $\Omega = \{L, H\}$ with
@@ -102,6 +92,8 @@ ${\Omega = [L, H]}$ where the final stock price can be any value in the interval
 A _position_ $\xi\in\RR^I$ is the number of shares held in each instrument.
 The cost of acquiring the initial position is $\xi\cdot x$.
 The value of liquidating the final position is $\xi\cdot X(\omega)$ if $\omega\in\Omega$ occurred.
+The one-period model implicitly assumes the position is liquidated at the
+end of the period.
 
 _Arbitrage_ exists in a one-period model if there is a position $\xi\in\RR^I$
 with $\xi\cdot x < 0$ and ${\xi\cdot X(\omega)\ge0}$ for all $\omega\in\Omega$:
@@ -149,7 +141,8 @@ with $\Omega = [L, H]$.
 ## Fundamental Theorem of Asset Pricing
 
 A _cone_ $C$ is a subset of a vector space closed under positive scalar
-multiplication and vector addition.
+multiplication and vector addition: if $x\in C$ then $tx\in C$ for $t > 0$
+and if $x,y\in C$ then $x + y \in C$.
 
 __Exercise__. _A cone is convex_.
 
@@ -212,6 +205,17 @@ ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ hence ${\xi\cdot x < 0}$.
 
 The lemma proves the FTAP and that $\xi = x^* - x$ implements an arbitrage.
 
+## Capital Asset Pricing Model
+
+The Capital Asset Pricing Model is a one-period model that specifies a probability measure on $\Omega$.
+The Fundamental Theorem of Asset Pricing states a one-period model is arbitrage free if and only
+if there exists a positive measure $D$ on $\Omega$
+with $x = \int_\Omega X(\omega)\,dD(\omega)$. If we define $Q = D/D(\omega)$ then
+$Q$ is a positive measure having mass one, so it is a "probability" measure, but
+it is not the probability of anything. We call it a _risk-neutral_ measure, although
+a better name is _risk-blind_. We can rewrite the integral as an expectation
+under $Q$ as $x = E[X]D(\Omega)$ so $x$ can be thought of as the expected value of future discounted prices.
+This is the simplest example of discounted prices being a martingale.
 ## Application
 
 For the binomial model the smallest closed cone containing the range of $X$
