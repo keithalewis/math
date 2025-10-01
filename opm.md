@@ -32,14 +32,14 @@ returns.
 
 A common parameterization is to assume returns are jointly normal.
 This reduces parameter estimation to the mean and covariance matrix.
-If we assume a multiperiod model where the returns are stationary and independent
+If we assume a multi period model where the returns are stationary and independent
 (i.e., a random walk)
 then standard linear regression can be used to estimate the parameters
 based on historical prices. There are still some practical questions
 to answer: How far back do you go? Do you use exponential weights?
 What exponent should you use?
 
-[@Ros1976] invented Arage Pricing Theory as a systematic approach to estimate
+[@Ros1976] invented Arbitrage Pricing Theory as a systematic approach to estimate
 a CAPM probability distribution that depends on information other than historical prices.
 
 After reseachers noted empirical contradictions of the CAPM [@FamFre1992] introduced
@@ -62,7 +62,7 @@ describing a financial market over a single period where
 trading is allowed only at the start and end of the period.
 It specifies the prices of
 available instruments at the start of the period and their
-prices and cash flows at the end depending on what occured.
+prices and cash flows at the end depending on what occurred.
 We make the usual unrealistic assumptions that prices are real numbers
 instead of integral multiples of each instrument's minimum trading increment/tick size, 
 and there is no bid-ask spread depending on the amount being bought or sold,
@@ -71,8 +71,8 @@ The [appendix](#appendix) proposes a model that can incorporate more realistic a
 
 Quants turn math into software that traders use.
 If they roll out a model that is not arbitrage-free then a "clever" trader
-will find an "arbitrage" and any business that didn't have risk managment
-in place to prevent this will ultimately lose money.
+will find an "arbitrage" and any business that didn't have risk controls
+in place to prevent this will most likely lose money.
 
 The Fundamental Theorem of Asset Pricing identifies arbitrage-free models
 and provides an arbitrage if they are not. As [@Ros1978] showed, this is
@@ -108,28 +108,30 @@ ${\Omega = [L, H]}$ where the final stock price can be any value in the interval
 
 The bond could be a cash deposit or Treasury bill that has a cash flow at the end of the period.
 These are typically quoted as a _yield_ having a _day count basis_ that can be used
-to calculate the realized return. !!!T-bill example!!!
+to calculate the realized return. T-bills use Actual/360 day count basis. The quoted
+yield $y$ indicates the price now of unit notional received in $t$ days is $1 - yt/360$.
+The realized return $R$ is the reciprocal of this.
 
 ## Arbitrage
 
 A _position_ $\xi\in\RR^I$ is the number of shares purchased in each
 instrument. The cost of acquiring the initial position is $\xi\cdot x$.
-The value of liquidating the position at the end of the period is $\xi\cdot(X(\omega) + C(\omega))$
+The value of liquidating the position at the end of the period is ${\xi\cdot(X(\omega) + C(\omega))}$
 if $\omega\in\Omega$ occurred. The one-period model implicitly
 assumes the position is liquidated and the prices and cash flows are
 received at the end of the period.
 
 _Arbitrage_ exists in a one-period model if there is a position $\xi\in\RR^I$
-with $\xi\cdot x < 0$ and ${\xi\cdot (X(\omega) + C(\omega))\ge0}$ for all $\omega\in\Omega$:
+with ${\xi\cdot x < 0}$ and ${\xi\cdot (X(\omega) + C(\omega))\ge0}$ for all ${\omega\in\Omega}$:
 you make money acquiring the initial position and don't lose money when
 unwinding it at the end of the period.
 
-Some authors define arbitrage as a portfolio with $\xi\cdot x = 0$ and
-$\xi\cdot X$ is non-negative and strictly positive on some set having positive probability.
-We haven't specified a probability measure so we can't use this definition.
+Some authors define arbitrage as a portfolio with ${\xi\cdot x = 0}$ and
+${\xi\cdot X}$ is non-negative and strictly positive on some set having positive probability.
+We haven't specified, and don't need, a probability measure so we can't use this definition.
 No trader would consider that to be an arbitrage anyway. 
 Even though the position costs nothing to put on, that definition has nothing
-to say about how much they will make nor how likely it is they will make it.
+definite to say about how much they will make nor how likely it is they will make it.
 
 Even our stronger definition is still not good enough for traders
 and risk managers.
@@ -166,11 +168,11 @@ with $\Omega = [L, H]$.
 
 A _cone_ $C$ is a subset of a vector space closed under positive scalar
 multiplication and vector addition: if $x\in C$ then $tx\in C$ for $t > 0$
-and if $x,y\in C$ then $x + y \in C$.
+and if $x,y\in C$ then ${x + y\in C}$.
 
 __Exercise__. _A cone is convex_.
 
-_Hint_: Show $x,y\in C$ implies $tx + (1-t)y\in C$ for $0 < t < 1$.
+_Hint_: Show $x,y\in C$ implies ${tx + (1-t)y\in C}$ for ${0 < t < 1}$.
 
 <details><summary>Solution</summary>
 Since $t > 0$ and $1 - t > 0$ both $tx$ and $(1 - t)y$ belong to $C$,
@@ -201,7 +203,7 @@ If $x_n\in C$ converge to $x$ in norm and $\xi\cdot x_n\ge0$ then $\xi\cdot x\ge
 This proves if $x$ belongs to the smallest cone containing the range of $X$
 then there is no arbitrage. The contrapositive is also true.
 
-__Theorem__.  _Arage exists in
+__Theorem__.  _Arbitrage exists in
 the one-period model if $x$ does not belong to the smallest
 closed cone containing the range of $X$. If $x^*$ is the closest point
 in the cone then $\xi = x^* - x$ is an arbitrage_.
@@ -218,8 +220,8 @@ It exists since $C$ is closed and is unique since $C$ is convex.
 
 Since $ty + x^*\in C$ for any $t > 0$ and $y\in C$ 
 we have $\|x^* - x\| \le \|ty + x^* - x\|$.
-Simplifying gives ${t^2||y||^2 + 2t\xi\cdot y\ge 0}$. 
-Dividing by $t > 0$ and letting $t$ decrease to 0 shows ${\xi\cdot y\ge 0}$
+Simplifying gives ${t^2||y||^2 + 2t\xi\cdot y\ge0}$. 
+Dividing by $t > 0$ and letting $t$ decrease to 0 shows ${\xi\cdot y\ge0}$
 for all $y\in C$.
 
 We also have $\|x^* - x\| \le \|tx^* + x^* - x\|$ for $t + 1 > 0$.
@@ -229,12 +231,69 @@ ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ hence ${\xi\cdot x < 0}$.
 
 The lemma proves the FTAP and that $\xi = x^* - x$ implements an arbitrage.
 
+If we assume $X\colon\Omega\to\RR^I$ is bounded so $\|X\| = \sup_{\omega\in\Omega}|X(\omega)|$ is finite,
+just as it is in the real world. We write this ${X\in B(\Omega,\RR^I)}$, the normed vector space
+of bounded $\RR^I$-valued functions.
+If $x\in\RR^I$ and $X\colon\Omega\to\RR^I$ is bounded then there is no arbitrage
+if and only if $x = \int_\Omega X(\omega)\,dD(\omega)$ for some positive, bounded, finitely additive
+measure $D\in ba(\Omega)$ on $\Omega$, but this requires a bit more math to establish.
+See [@DunSch1958].
+We call any such measure _risk-neutral_, although _risk-blind_ might be more appropriate.
+In general, risk-neutral measures are not unique.
+
+If a zero coupon bond exists then $D(\Omega)$ is its price.
+A _zero coupon bond_ is a portfolio $\zeta\in\RR^I$ with 
+${\zeta\cdot X(\omega) = 1}$ for all ${\omega\in\Omega}$.
+The _price_, or _discount_, of a zero coupon bond is
+${\zeta\cdot x = \int_\Omega \zeta\cdot X(\omega)\,dD(\omega) = D(\Omega) = D}$.
+The measure ${D/D(\Omega)}$ is positive and has mass 1 so ${x = E[X]D}$ if we pretend it is a probability
+measure.
+
+Define the map $M_X\colon\RR^I\to B(\Omega)$ by $M_X(\xi) = \xi\cdot X$.
+We can and do assume $M_X$ is one-to-one, otherwise there would be redundant market instruments.
+We say prices $X$ form a _complete market_ if $M_X$ is _onto_.
+
+__Exercise__. _Show the market is complete implies the cardinality of $\Omega$
+is less than or equal to the cardinality of $I$_.
+
+_Hint_: If $T\colon V\to W$ is a linear operator between 
+vector spaces that is onto, then the dimension of $V$ is greater than
+or equal to the dimension of $W$.
+
+<details><summary>Solution</summary>
+The image of a basis of $V$ under any linear operator cannot be a basis of $W$ if the dimension
+of $V$ is less than the dimension of $W$.
+</details>
+
+Although complete markets are common in mathematical finance books, they almost
+never occur in models faithful to the real world.
+
+### Realized Return
+
+The _realized return_ on a portfolio $\xi\in\RR^I$ is ${R_\xi = \xi\cdot X/\xi\cdot x}$
+whenever ${\xi\cdot x\not=0}$.
+
+__Exercise__. _Show $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$_.
+
+If $\xi\cdot x = 1$ then $R_\xi = \xi\cdot X$. One unit invested at the beginning
+of the period results in ${R_\xi\colon\Omega\to\RR}$ at the end of the period.
+Every portfolio has the same expected realized return under a risk-neutral measure.
+This is why I suggest the term _risk-blind_ instead.
+
+__Exercise__. _If $D$ is a risk-neutral measure then $R = E[R_\xi] = 1/D(\Omega)$
+is constant for any portfolio $\xi\in\RR^I$_.
+
+_Hint_: The expectation is with respect to the "probability" measure $DR = D/D(\Omega)$.
+
+This shows $\xi\cdot X = E[\xi\dot X] D(\Omega)$.
+
+
 ### Grassmann Algebra
 
-Let $E$ be the set of points in space. The Grassmann[@Gra1844] algebra $\GG(E)$
-is the algebra of points in $E$ with the condition
+Let $E$ be the set of points in space. The [@Gra1844] algebra $\GG(E)$
+is the algebra over the real numbers generated by points in $E$ with the condition
 $PQ = 0$ if and only if $P = Q$, so $PP = 0$. Multiplication is
-associative so $(PQ)R = P(QR)$ and we can write $PQR$ unambigously.
+associative so $(PQ)R = P(QR)$ and we can write $PQR$ unambiguously.
 
 __Exercise__. _Show $PQ = -QP$_.
 
@@ -252,14 +311,14 @@ introduced coordinates to specify points in two and three dimensions. Grassmann
 got rid of coordinates and used points in space directly. His algebra
 works in any number of dimensions and
 predated Einstein 
-in not assumiming an absolute origin of points in space. Vector spaces come
+in not assuming an absolute origin of points in space. Vector spaces come
 along for free as the difference of two points.
 
 Descartes assumed an origin for his coordinate system. Given an origin $O\in E$
 and points $P_1,\ldots,P_n\in E$ is is possible to write any point in their span
 as $P = (1 - \sum_j t_j)O + \sum_j t_j P_j$, as we will see shortly.
-The Cartesion coordinates of the $P_j$ relative to origin $O$ are
-the tuple $(t_1,\ldots,t_n)$. Note the coefficent of $O$ is determined by the tuple.
+The Cartesian coordinates of the $P_j$ relative to origin $O$ are
+the tuple $(t_1,\ldots,t_n)$. Note the coefficient of $O$ is determined by the tuple.
 
 If $PQ = tRS$ for some scalar $t$ (with $P\not=Q$ and $R\not=S$)
 then $PQ$ and $RS$ are _congruent_ and we write $t = \frac{PQ}{RS}$.
@@ -279,7 +338,7 @@ Note $PQ(Q - P) = 0$.
 
 __Exercise__. _Show $\frac{(Q - P)Q}{PQ} = -1$ and $\frac{P(Q - P)}{PQ} = 1$.
 
-In general if $P_0\cdots P_k \not=0$ and $P_0\cdots P_kR = 0$, for $P_j,R\in E$, then
+In general if $P_0\cdots P_k \not=0$ and $P_0\cdots P_kR = 0$ then
 $$
 	R = \sum_{j=0}^k \frac{P_0\cdots R \cdots P_k}{P_0\cdots P_k} P_j
 $$
@@ -293,13 +352,13 @@ The _convex hull_ of points $P_0,\ldots,P_k$ in $E$ is
 $$
 	\co(P_0,\ldots,P_k) = \{\sum_{j=0}^k t_j P_j\mid t_j \ge 0, \sum_j t_j = 1\}. 
 $$
-Clearly $P_j$ is in the hull for all $j$.
+Clearly $P_j$ is in the convex hull for all $j$.
 
 __Exercise__. _Show if $Q$ and $R$ are in the hull then
 every convex combination of $Q$ and $R$ is also in the hull_.
 
-This gives a simple way to detect if a point is in convex hull of a set of points
-whos product is not 0. Given a candidate point $P\in E$ calculate
+This gives a simple way to detect if a point is in the convex hull of a set of points
+whose product is not 0. Given a candidate point $P\in E$ calculate
 $P_0\cdots P\cdots P_k$ where $P$ replaces $P_j$, $0\le j\le k$ in the product.
 The point $P\in E$ is in the convex hull if and only if
 all the congruent ratios are non-negative.
@@ -307,10 +366,6 @@ all the congruent ratios are non-negative.
 Since there is no origin in Euclidean space we have to define a cone relative to some point $O\in E$.
 We say $C\subseteq\GG(E)$ is a cone with _origin_ $O$ if $C$ is convex and for every $P\in C$
 we have the ray from $O$ through $P$, $O + t(P - O)$ for $t\ge0$, is in $C$.
-
-__Exercise__. _Show if $Q$ and $R$ are in a cone with origin $O$ then so is $Q + R - O$_.
-
-_Hint_. Consider $O + (Q - O) + (R - O)$ and the fact $1 \ge 0$.
 
 __Exercise__. _Show the smallest cone with origin $O$ containing $P_1, \ldots, P_k$ is_
 $$
@@ -321,28 +376,107 @@ $$
 $$
 Note the similarity to the convex hull, however the coefficient of $O$ might be negative.
 
-In the slightly more realistic binomial model $x = (1, s)$, $X(\omega) = \omega$ for $\omega\in[L,H]$
-...
-
+In the binomial model we have $x = (1, s)$ and $X(\omega) = \omega$ for $\omega\in\{L,H\}$. Let
+$P_b$ be the point in the bond dimension and $P_s$ be the point in the stock direction
+so $x = (1 - 1 - s)O + P_b + s\,P_s$,
+$X(L) = (1 - R - L )O + R\,P_b + L\,P_s$, and
+$X(H) = (1 - R - H )O + R\,P_b + H\,P_s$.
+Since
+$$
+	x = \frac{xX(L)X(H)}{OX(L)X(H)} O + \frac{OxX(H)}{OX(L)X(H)} X(L) + \frac{OX(L)x}{OX(L)X(H)} X(H)
+$$
+we can find the no arbitrage conditions by a simple, if somewhat tedious, calculation.
 $$
 \begin{aligned}
-OX(L)X(K)X(H) &= O(\_O + R\,P_b + L\,P_s)X(K)X(H) \\
+OX(L)X(H) &= (R\,OP_b + L\,OP_s)X(H) \\
+	&= (R\,OP_b + L\,OP_s)( (1 - R - H )O + R\,P_b + H\,P_s) \\
+	&= RH\,OP_bP_s + LR\,OP_sP_b \\
+	&= R(H-L)\,OP_bP_s \\
+\end{aligned}
+$$
+The coefficient of $O$ is determined by the other two coefficient so we write $\_O$ to streamline calculations.
+For the bond coefficient we compute
+$$
+\begin{aligned}
+OxX(H) &= (OP_b + s\,OP_s)X(H) \\
+	&= (OP_b + s\,OP_s)(\_O + R\,P_b + H\,P_s) \\
+	&= H\,OP_bP_s + sR\,OP_sP_b \\
+	& = (H - sR)\,OP_bP_s \\
+\end{aligned}
+$$
+For the stock coefficient we compute
+$$
+\begin{aligned}
+OX(L)x &= (R\,OP_b + L\,OP_s)x \\
+	&= (R\,OP_b + L\,OP_s)(\_O + P_b + s\,P_s) \\
+	&= Rs\,OP_bP_s + L\,OP_sP_b \\
+	&= (Rs - L)OP_bP_s \\
+\end{aligned}
+$$
+Since $R$ and $H - L$ are positive
+the no arbitrage condition are ${H - sR\ge0}$ and ${Rs - L\ge0}$
+so $L \le Rs \le H$.
+
+__Exercise__. _What is the cone with origin $O$ generated by $\{X(\omega)\mid L\le\omega\le H\}$_.
+
+_Hint_: It is the same as the cone with origin $O$ generated by $X(L)$ and $X(H)$.
+
+We can add a call option with price $o$ and strike $K\in(L,H)$.
+The one period model is now $x = (1, s, o)$ and ${X(\omega) = (R, \omega, \max\{\omega - K, 0\})}$
+for ${\omega\in[L,H]}$.
+
+__Exercise__. _Show the cone with origin $O$ generated by the range of $X$ is
+the same as that generated by $X(L)$, $X(K)$, and $X(H)$_.
+
+_Hint_: Every $X(\omega)$ is a convex combination of either $X(L)$ and $X(K)$
+if $L\le\omega\le K$ or $X(K)$ and $X(H)$ if $K\le\omega\le H$.
+
+If $P_o$ is a point in the option direction then
+$x = \_O + P_b + s\,P_s + o\,P_o$ and
+$X(\omega) = \_O + R\,P_b + \omega\,P_s + (\omega - K)^+\,P_o$.
+
+The arbitrage free conditions are reduced to calculating congruence ratios as above.
+$$
+\begin{aligned}
+OX(L)X(K)X(H) &= (R\,OP_b + L\,OP_s)X(K)X(H) \\
 	&= (R\,OP_b + L\,OP_s)(\_O + R\,P_b + K\,P_s)X(H) \\
-	&= (RK\,OP_bP_s + LR\,OP_sP_b)(\_O + R\,P_b + H\,P_s + (H - K)\,P_c) \\
-	&= RK(H - K)\,OP_bP_sP_c + LR(H - K)\,OP_sP_bP_c \\
-	&= R(H - K)(K - L)\,OP_bP_sP_c \\
+	&= (RK\,OP_b P_s + LR\,OP_s P_b)(\_O + R\,P_b + H\,P_s + (H - K)\,P_o) \\
+	&= RK(H - K)\,OP_b P_s P_o + LR(H - K)\,OP_s P_b P_o \\
+	&= R(H - K)(K - L)\,OP_b P_s P_o \\
 \end{aligned}
 $$
-
+The coefficient of $X(L)$ is
 $$
 \begin{aligned}
-OxX(K)X(H) &= O(\_O + P_b + s\,P_s + v\,P_c)X(K)X(H) \\
-	&= (OP_b + s\,OP_s + v\,OP_c)(\_O + R\,P_b + K\,P_s)X(H) \\
-	&= (RK\,OP_bP_s + LR\,OP_sP_b)(\_O + R\,P_b + H\,P_s + (H - K)\,P_c) \\
-	&= RK(H - K)\,OP_bP_sP_c + LR(H - K)\,OP_sP_bP_c \\
-	&= R(H - K)(K - L)\,OP_bP_sP_c \\
+OxX(K)X(H) &= (OP_b + s\,OP_s + o\,OP_o)X(K)X(H) \\
+	&= (OP_b + s\,OP_s + v\,OP_o)(\_O + R\,P_b + K\,P_s)X(H) \\
+	&= (RK\,OP_b P_s + sR\,OP_s P_b)(\_O + R\,P_b + H\,P_s + (H - K)\,P_o) \\
+	&= RK(H - K)\,OP_b P_s P_o + sR(H - K)\,OP_s P_b P_o \\
+	&= R(H - K)(K - s)\,OP_b P_s P_o \\
 \end{aligned}
 $$
+The coefficient of $X(K)$ is
+$$
+\begin{aligned}
+OX(L)xX(H) &= (R\,OP_b + L\,OP_s)xX(H) \\
+	&= (R\,OP_b + L\,OP_s)(P_b + s\,P_s + o\,P_o)X(H) \\
+	&= (Rs\,OP_b P_s + Ro\,OP_b P_o + L\,OP_s P_b + Lo\,OP_s P_o)X(H) \\
+	&= (Rs - L)OP_b P_s + Ro\,OP_b P_o + Lo\,OP_s P_o)( R\,P_b + H\,P_s + (H - K)\,P_o) \\
+	&= ((Rs - L)(H - K) - RoH + LoR) OP_b P_s P_o \\
+	&= ((Rs - L)(H - K) - Ro(H - L)) OP_b P_s P_o \\
+\end{aligned}
+$$
+The coefficient of $X(H)$ is
+$$
+\begin{aligned}
+OX(L)X(K)x &= (R\,OP_b + L\,OP_s)X(K)x \\
+	&= (R\,OP_b + L\,OP_s)(R\,P_b + K\,P_s)x \\
+	&= (RK\,OP_b P_s + LR\,OP_sP_b)x \\
+	&= R(K - L)OP_b P_s(P_b + s\,P_s + o\,P_o) \\
+	&= (R(K - L)o\,OP_b P_s P_o \\
+\end{aligned}
+$$
+The no arbitrage conditions are $s\le K$ and $0\le o\le\frac{(Rs - L)(H - K)}{R(H - L)}$.
 
 If we add an option with payoff $\nu$ to the binomial model then
 $x = (1, s, c)$ and $X(\omega) = (R, \omega, \nu(\omega))$, $\omega\in\{L,H\}$.
@@ -457,63 +591,7 @@ way to determine the volatility of a stock.
 And perhaps multiple future prizes for those who develop theories
 not founded on the mathematical fictions of continuous time trading and unbounded prices.
 
-## FTAP
-
-We will assume $X\colon\Omega\to\RR^I$ is bounded so $\|X\| = \sup_{\omega\in\Omega}|X(\omega)|$ is finite,
-just as it is in the real world. We write this ${X\in B(\Omega,\RR^I)}$, the normed vector space
-of bounded $\RR^I$-valued functions.
-If $x\in\RR^I$ and $X\colon\Omega\to\RR^I$ is bounded then there is no arbitrage
-if and only if $x = \int_\Omega X(\omega)\,dD(\omega)$ for some positive, bounded, finitely additive
-measure $D\in ba(\Omega)$ on $\Omega$, but this requires a bit more math to establish.
-See [@DunSch1958].
-We call any such measure _risk-neutral_, although _risk-blind_ might be more appropriate.
-In general, risk-neutral measures are not unique.
-
-If a zero coupon bond exists then $D(\Omega)$ is its price.
-A _zero coupon bond_ is a portfolio $\zeta\in\RR^I$ with 
-${\zeta\cdot X(\omega) = 1}$ for all ${\omega\in\Omega}$.
-The _price_, or _discount_, of a zero coupon bond is
-${\zeta\cdot x = \int_\Omega \zeta\cdot X(\omega)\,dD(\omega) = D(\Omega) = D}$.
-The measure ${D/D(\Omega)}$ is positive and has mass 1 so ${x = E[X]D}$ if we pretend it is a probability
-measure.
-
-Define the map $M_X\colon\RR^I\to B(\Omega)$ by $M_X(\xi) = \xi\cdot X$.
-We can and do assume $M_X$ is one-to-one, otherwise there would be redundant market instruments.
-We say prices $X$ form a _complete market_ if $M_X$ is _onto_.
-
-__Exercise__. _Show the market is complete implies the cardinality of $\Omega$
-is less than or equal to the cardinality of $I$_.
-
-_Hint_: If $T\colon V\to W$ is a linear operator between 
-vector spaces that is onto, then the dimension of $V$ is greater than
-or equal to the dimension of $W$.
-
-<details><summary>Solution</summary>
-The image of a basis of $V$ under any linear operator cannot be a basis of $W$ if the dimension
-of $V$ is less than the dimension of $W$.
-</details>
-
-Although complete markets are common in mathematical finance books, they almost
-never occur in models faithful to the real world.
-
-## Return
-
-The _realized return_ on a portfolio $\xi\in\RR^I$ is ${R_\xi = \xi\cdot X/\xi\cdot x}$
-whenever ${\xi\cdot x\not=0}$.
-
-__Exercise__. _Show $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$_.
-
-If $\xi\cdot x = 1$ then $R_\xi = \xi\cdot X$. One unit invested at the beginning
-of the period results in ${R_\xi\colon\Omega\to\RR}$ at the end of the period.
-Every portfolio has the same expected realized return under a risk-neutral measure.
-This is why I suggest the term _risk-blind_ instead.
-
-__Exercise__. _If $D$ is a risk-neutral measure then $R = E[R_\xi] = 1/D(\Omega)$
-is constant for any portfolio $\xi\in\RR^I$_.
-
-_Hint_: The expectation is with respect to the "probability" measure $DR = D/D(\Omega)$.
-
-This shows $\xi\cdot X = E[\xi\dot X D(\Omega)]$.
+## References
 
 ## Hedging
 
@@ -585,7 +663,6 @@ of $i\in I$. For example $x(\xi,i) = x_i + \sgn(xi)\eta$ where
 the _signum_ $\sgn(\xi) = 1$ if $\xi > 0$ and $\sgn(\xi) = -1$ if $\xi < 0$
 and $x_i$ is the mid price.
 
-## References
 
 <!--
 
