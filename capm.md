@@ -319,4 +319,36 @@ $$
 
 $E[X^2] = E[X]^2 + Var(X)$
 
+
+## Capital Asset Pricing Model
+
+The Capital Asset Pricing Model is a one-period model that specifies a probability measure on $\Omega$.
+The Fundamental Theorem of Asset Pricing states a one-period model is arbitrage free if and only
+if there exists a positive measure $D$ on $\Omega$
+with $x = \int_\Omega X(\omega)\,dD(\omega)$. If we define $Q = D/D(\omega)$ then
+$Q$ is a positive measure having mass one, so it is a "probability" measure, but
+it is not the probability of anything. We call it a _risk-neutral_ measure, although
+a better name is _risk-blind_. We can rewrite the integral as an expectation
+under $Q$ as $x = E[X]D(\Omega)$ so $x$ can be thought of as the expected value of future discounted prices.
+This is the simplest example of discounted prices being a martingale.
+## Application
+
+For the binomial model the smallest closed cone containing the range of $X$
+is ${\{X(L)\pi_L + X(H)\pi_H\mid \pi_L,\pi_H\ge0\}}$.
+If $(1, s)$ is in the cone then ${(1,s) = (R, L)\pi_L + (R, H)\pi_H}$
+for some $\pi_L,\pi_H\ge0$. Solving for $\pi_L$ and $\pi_H$ gives
+the no arbitrage condition $L \le Rs \le H$.
+
+__Exercise__. _Show $\pi_L = (H - Rs)/R(H - L)$ and $\pi_H = (Rs - L)/R(H - L)$_.
+
+If $Rs > H$ then $(R, s)$ is above the line through the origin with
+slope $R/H$ so $\xi$ should be proportional to $(H, -R)$.
+If $Rs < L$ then $(R, s)$ is below the line through the origin with
+slope $R/L$ so $\xi$ should be proportional to $(-L, R)$.
+
+Now let's use the more realistic sample space $\Omega = [L,H]$ so
+the final stock price can take on any value between $L < H$.
+We will eventually arrive at the same no‑arbitrage condition,
+but will take this opportunity to introduce Grassmann algebra.
+
 -->

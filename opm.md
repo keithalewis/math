@@ -18,15 +18,8 @@ abstract: Buy now, sell later.
 \newcommand\BB{\mathcal{B}}
 \newcommand\GG{\mathcal{G}}
 
-The One‑Period Model provides the simplest formal framework for
-describing a financial market. It specifies the initial prices of
-available instruments at the start of a period and their terminal
-prices at the end depending on what occured.
-We make the usual unrealistic assumptions that prices are real numbers
-instead of integral multiples of each instrument's minimum trading increment, 
-and there is no bid-ask spread depending on the amount being bought or sold,
-much less any consideration of the counterparties involved.
-The [appendix](#appendix) proposes a model that can incorporate more realistic assumptions.
+
+<!--
 
 The Capital Asset Pricing Model assumes that a probability measure is
 specified on the sample space of possible outcomes.
@@ -46,7 +39,7 @@ based on historical prices. There are still some practical questions
 to answer: How far back do you go? Do you use exponential weights?
 What exponent should you use?
 
-[@Ros1976] invented Arbitrage Pricing Theory as a systematic approach to estimate
+[@Ros1976] invented Arage Pricing Theory as a systematic approach to estimate
 a CAPM probability distribution that depends on information other than historical prices.
 
 After reseachers noted empirical contradictions of the CAPM [@FamFre1992] introduced
@@ -62,41 +55,72 @@ detecting the. The Fundamental Theorem of asset pricing for the one-period
 model states there is no arbitrage if and only if the initial prices belong
 so the smallest closed cone containing all possible final prices.
 
+-->
+
+The One‑Period Model provides the simplest formal framework for
+describing a financial market over a single period where
+trading is allowed only at the start and end of the period.
+It specifies the prices of
+available instruments at the start of the period and their
+prices and cash flows at the end depending on what occured.
+We make the usual unrealistic assumptions that prices are real numbers
+instead of integral multiples of each instrument's minimum trading increment/tick size, 
+and there is no bid-ask spread depending on the amount being bought or sold,
+much less any consideration of the credit rating of counterparties involved.
+The [appendix](#appendix) proposes a model that can incorporate more realistic assumptions.
+
+Quants turn math into software that traders use.
+If they roll out a model that is not arbitrage-free then a "clever" trader
+will find an "arbitrage" and any business that didn't have risk managment
+in place to prevent this will ultimately lose money.
+
+The Fundamental Theorem of Asset Pricing identifies arbitrage-free models
+and provides an arbitrage if they are not. As [@Ros1978] showed, this is
+a purely geometric result having nothing to do with probability.
+Positive measures with mass one make an appearance, but they are not
+the probability of anything.
+
 ## One-Period Model
 
-The _One Period Model_ consists of a set or market _instruments_, $I$,
-available for trading at the beginning and the end of a period.
+The _One-Period Model_ consists of a set or market _instruments_, $I$,
+available for trading at the start and end of a period.
 The set of possible _outcomes_, $\Omega$, is what can happen over the period.
 The _prices_ at the beginning of the period are a vector $x\in\RR^I$[^1].
 The prices at the end of the period are a function $X\colon\Omega\to
 \RR^I$ where $X(\omega)\in\RR^I$ are the instrument prices if
-$\omega\in\Omega$ occurred.
+$\omega\in\Omega$ occurred. Instruments can have associated
+cash flows such as bond coupons or stock dividends. We use
+$C\colon\Omega\to\RR^I$ to denote the cash flows paid at the end of the period.
 
 [^1]: Recall the _set exponential_ $B^A = \{f\colon A\to B\}$ is the
 set of all functions from the set $A$ to the set $B$.
 If $x\colon I\to\RR$ then $x(i)$ is the price of instrument $i\in I$.
 The _dot product_ of $x,y\in\RR^I$ is ${x\cdot y = \sum_{i\in I}x_i y_i}$
-if $I$ is finite. The _Euclidean norm_, $\|x\|$, of ${x\in\RR^I}$ is defined by ${\|x\|^2 = x\cdot x}$.
+if $I$ is finite. The _Euclidean norm_ of ${x\in\RR^I}$ is defined by ${\|x\| = \sqrt{x\cdot x}}$.
 
 ### Binomial Model
 
-The _binomial model_ has a bond and stock where $x = (1, s)$,
-$X(\omega) = (R, \omega)$, and $\Omega = \{L, H\}$ with
-${L < H}$.
+The _binomial model_ (with no dividends) has a bond and stock where $x = (1, s)$,
+$X(\omega) = (R, \omega)$, and $\Omega = \{L, H\}$ with ${L < H}$.
 The bond has realized return $R$ and the stock can go from price $s$
 to either $L$ or $H$.  A somewhat more realistic model is
 ${\Omega = [L, H]}$ where the final stock price can be any value in the interval.
 
+The bond could be a cash deposit or Treasury bill that has a cash flow at the end of the period.
+These are typically quoted as a _yield_ having a _day count basis_ that can be used
+to calculate the realized return. !!!T-bill example!!!
+
 ## Arbitrage
 
-A _position_ $\xi\in\RR^I$ is the number of shares held in each instrument.
-The cost of acquiring the initial position is $\xi\cdot x$.
-The value of liquidating the final position is $\xi\cdot X(\omega)$ if $\omega\in\Omega$ occurred.
-The one-period model implicitly assumes the position is liquidated at the
-end of the period.
+A _position_ $\xi\in\RR^I$ is the number of shares purchased in each
+instrument. The cost of acquiring the initial position is $\xi\cdot x$.
+The value of liquidating the position at the end of the period is $\xi\cdot(X(\omega) + C(\omega))$
+if $\omega\in\Omega$ occurred. The one-period model implicitly
+assumes the position is liquidated and the prices and cash flows are
+received at the end of the period.
 
 _Arbitrage_ exists in a one-period model if there is a position $\xi\in\RR^I$
-with $\xi\cdot x < 0$ and ${\xi\cdot X(\omega)\ge0}$ for all $\omega\in\Omega$:
+with $\xi\cdot x < 0$ and ${\xi\cdot (X(\omega) + C(\omega))\ge0}$ for all $\omega\in\Omega$:
 you make money acquiring the initial position and don't lose money when
 unwinding it at the end of the period.
 
@@ -177,7 +201,7 @@ If $x_n\in C$ converge to $x$ in norm and $\xi\cdot x_n\ge0$ then $\xi\cdot x\ge
 This proves if $x$ belongs to the smallest cone containing the range of $X$
 then there is no arbitrage. The contrapositive is also true.
 
-__Theorem__.  _Arbitrage exists in
+__Theorem__.  _Arage exists in
 the one-period model if $x$ does not belong to the smallest
 closed cone containing the range of $X$. If $x^*$ is the closest point
 in the cone then $\xi = x^* - x$ is an arbitrage_.
@@ -204,37 +228,6 @@ Dividing by $t < 0$ and letting $t$ increase to 0 shows ${\xi\cdot x^*\le 0}$ so
 ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ hence ${\xi\cdot x < 0}$.
 
 The lemma proves the FTAP and that $\xi = x^* - x$ implements an arbitrage.
-
-## Capital Asset Pricing Model
-
-The Capital Asset Pricing Model is a one-period model that specifies a probability measure on $\Omega$.
-The Fundamental Theorem of Asset Pricing states a one-period model is arbitrage free if and only
-if there exists a positive measure $D$ on $\Omega$
-with $x = \int_\Omega X(\omega)\,dD(\omega)$. If we define $Q = D/D(\omega)$ then
-$Q$ is a positive measure having mass one, so it is a "probability" measure, but
-it is not the probability of anything. We call it a _risk-neutral_ measure, although
-a better name is _risk-blind_. We can rewrite the integral as an expectation
-under $Q$ as $x = E[X]D(\Omega)$ so $x$ can be thought of as the expected value of future discounted prices.
-This is the simplest example of discounted prices being a martingale.
-## Application
-
-For the binomial model the smallest closed cone containing the range of $X$
-is ${\{X(L)\pi_L + X(H)\pi_H\mid \pi_L,\pi_H\ge0\}}$.
-If $(1, s)$ is in the cone then ${(1,s) = (R, L)\pi_L + (R, H)\pi_H}$
-for some $\pi_L,\pi_H\ge0$. Solving for $\pi_L$ and $\pi_H$ gives
-the no arbitrage condition $L \le Rs \le H$.
-
-__Exercise__. _Show $\pi_L = (H - Rs)/R(H - L)$ and $\pi_H = (Rs - L)/R(H - L)$_.
-
-If $Rs > H$ then $(R, s)$ is above the line through the origin with
-slope $R/H$ so $\xi$ should be proportional to $(H, -R)$.
-If $Rs < L$ then $(R, s)$ is below the line through the origin with
-slope $R/L$ so $\xi$ should be proportional to $(-L, R)$.
-
-Now let's use the more realistic sample space $\Omega = [L,H]$ so
-the final stock price can take on any value between $L < H$.
-We will eventually arrive at the same no‑arbitrage condition,
-but will take this opportunity to introduce Grassmann algebra.
 
 ### Grassmann Algebra
 
