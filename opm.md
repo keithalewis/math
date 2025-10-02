@@ -200,8 +200,7 @@ the range of $X$ then there is no arbitrage_.
 If $x_n\in C$ converge to $x$ in norm and $\xi\cdot x_n\ge0$ then $\xi\cdot x\ge0$.
 </details>
 
-This proves if $x$ belongs to the smallest cone containing the range of $X$
-then there is no arbitrage. The contrapositive is also true.
+The contrapositive is also true.
 
 __Theorem__.  _Arbitrage exists in
 the one-period model if $x$ does not belong to the smallest
