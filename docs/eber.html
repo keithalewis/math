@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-10-03" />
+  <title>Thoughts on Finance</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Thoughts on Finance</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">October 3, 2025</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Toward a universal model of trading, hedging, and risk-management
+</div>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#date-and-time" id="toc-date-and-time">Date and
+Time</a></li>
+<li><a href="#examples" id="toc-examples">Examples</a>
+<ul>
+<li><a href="#call" id="toc-call">Call</a></li>
+</ul></li>
+<li><a href="#time-series" id="toc-time-series">Time Series</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p>We discuss the Simple Universal Model for market prices and cash
+flows, trading strategies, and the values and amounts involved. Every
+company trading in the market needs to describe instument contracts.
+They also need models to value, hedge, and manage their risk.</p>
+<p>Inspired by <a href="https://www.lexify.com">Lexifi</a>, we propose a
+mathematical theory that can be practially implemented on a computer. A
+key simplification is to seperate the notion of an increasing sequence
+of times to be used in the contact specifications and events such as
+cash flows or trading strategies. We identify primitive operations that
+apply only to increasing time series and a operations on them. These can
+be used to convert contract specifications into a stream of cash flows
+or trades.</p>
+<p>It is important to include knobs for all possible actions an
+intrument owner can take. For example, an American option holder can
+exercise any time prior to expiration. A realistic model should not
+assume the holder will exercise optimally. In the mortgage-backed
+secuities market a number of individual mortages are bundled together
+and the principal and interest paid by individual mortages are passed
+through to MBS holders. It is well known that most individual mortage
+holders do not exercise their right to pay off their mortgage in an
+optimal fashion.<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> Any model that assumes this will be
+unable to fit observed market prices. See <span class="citation"
+data-cites="KalYanFab2004">(Kalotay, Yang, and Fabozzi 2004)</span> for
+a prepayment model that takes this into account.</p>
+<section id="date-and-time" class="level2">
+<h2>Date and Time</h2>
+<p>A fundamental problem when implementing date and time operations is
+how to convert two calendar dates to a time duration and a date plus a
+time duration back to a calendar date. Let <span
+class="math inline">t(d)</span> be the <em>time</em> associated with
+<em>date</em> <span class="math inline">d</span>. On Unix systems it is
+common to use the number of non-leap seconds since Unix epoch midnight 1
+January, 1970 <a
+href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC</a>.
+Most modern systems allow resolution to microseconds. The inverse
+function <span class="math inline">d(t)</span> converts time to dates.
+Complications arise when considering durations such as weeks and months.
+For example, 31 Jan plus one month cannot be 31 Feb. Should it be 29 Feb
+on leap-years and 28 Feb otherwise? Such issues will not be considered
+here. We assume any such resolution satisfed <span class="math inline">d
++ (d&#39; - d) = d&#39;</span> ant <span class="math inline">d(t +
+t&#39;) = d(t) + (t&#39; - t)</span>.</p>
+<p>It is also important to distinguish between prices and cash flows.
+Every actual trade has a price: the quotient of the amount the seller
+exchanges with the buyer. If a buyer receives 2 shares of Ford stock for
+$22 the price is $11 per share of Ford stock. The price 11 and number of
+shares 2 will be entered into books and records. A model of an
+instrument specifies possible future prices and cash flows. Models
+typically do not take into account the bid/ask spread, how that widens
+as the amounts get larger, much less how price is affected by the
+counterparties involved.</p>
+<p>Owning an instrument can entail cash flows. Bonds have coupons,
+stocks have dividends, futures have daily margin adjustments. The price
+of a futures is always zero and futures quotes are a naturally occuring
+martingale in efficient markets.</p>
+</section>
+<section id="examples" class="level2">
+<h2>Examples</h2>
+<section id="call" class="level3">
+<h3>Call</h3>
+<p>A European call option is specified by a triple <span
+class="math inline">(X, k, d)\in I\times\boldsymbol{{R}}\times
+d(T)</span> where <span class="math inline">X</span> is the call
+underlying, <span class="math inline">k</span> is the strike<a
+href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>, and <span
+class="math inline">d</span> is the expiration date. On the expiration
+date the option issuer pays the option holder <span
+class="math inline">\max\{X_t - k, 0\}</span> per unit held where <span
+class="math inline">X_t</span> is the price of the underlying at time
+<span class="math inline">t(d)</span>. Prices are <span
+class="math inline">X_t\colon\Omega\to\boldsymbol{{R}}</span><a
+href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> that are measurable with respect to
+information available at time <span class="math inline">t</span>. We can
+also write this as <span
+class="math inline">X\colon\T\times\Omega\to\boldsymbol{{R}}</span>
+where <span class="math inline">X(t,\omega) = X_t(\omega)</span>, <span
+class="math inline">t\in T</span>, <span
+class="math inline">\omega\in\Omega</span>.</p>
+</section>
+</section>
+<section id="time-series" class="level2">
+<h2>Time Series</h2>
+<p>An <em>ordered time series</em> is a non-decreasing sequence of times
+<span class="math inline">u_0 \le u_1 \le \cdots</span> where the <span
+class="math inline">u_j</span> belong to a totally ordered set <span
+class="math inline">T</span>. Let <span class="math inline">U</span> for
+the set <span class="math inline">\{u_j\}</span>. We introduce the
+notation <span class="math inline">\text{?}U = \text{true}</span> if
+<span class="math inline">U</span> is not empty and <span
+class="math inline">\text{?}U = \text{false}</span> otherwise, <span
+class="math inline">\text{*}U = \min U</span>, and <span
+class="math inline">\text{+}U = U\setminus\text{*}U</span>. In
+particular <span class="math inline">\text{*}U = u_0</span>, <span
+class="math inline">\text{*}\text{+}U = u_1</span>, etc., so <span
+class="math inline">U</span> is an iterator.</p>
+<p>If <span class="math inline">R\subset T\times T</span> is a relation
+on <span class="math inline">T</span> define <span
+class="math inline">URt</span> for <span class="math inline">t\in
+T</span> by <span class="math inline">u\in URt</span> if and only if
+<span class="math inline">uRt</span> and <span class="math inline">u\in
+U</span>. For example, <span class="math inline">U &lt; t</span> is a
+stream that terminates at the first <span class="math inline">u_j \ge
+t</span>.</p>
+<p>Recall the disjoint union of two sets <span
+class="math inline">A\sqcup B = (\{0\}\times A)\cup(\{1\}\times
+B)</span>. An element of the disjoint union for the form <span
+class="math inline">(i,c)</span> satisfies <span class="math inline">i =
+0</span> and <span class="math inline">c\in A</span> or <span
+class="math inline">i = 1</span> and <span class="math inline">c\in
+B</span>. The order <span
+class="math inline">(i,c)\le(i&#39;,c&#39;)</span> if and only if <span
+class="math inline">c &lt; c&#39;</span> or <span class="math inline">c
+= c&#39;</span> and <span class="math inline">i &lt; i&#39;</span> is a
+total order</p>
+<p>The disjoint union of sets <span class="math inline">A_i</span>
+indexed by <span class="math inline">i\in I</span> is <span
+class="math display">
+    \sqcup_{i\in I} A_i = \cup_{i\in I} (\{i\}\times A_i)
+</span></p>
+<p>The <a href="sum.html">Simple Universal Model</a> posits a
+mathematical model of the market that is arbitrage free. Possible
+trading times are denoted <span class="math inline">T</span>. The set of
+all instruments is <span class="math inline">I</span>. The sample space
+<span class="math inline">\Omega</span> is the set of everything that
+can happen. Information available at time <span class="math inline">t\in
+T</span> corresponds to a partition <span
+class="math inline">\mathcal{A}_t</span> of <span
+class="math inline">\Omega</span>. The prices and cash flows associated
+with each instrument are <span
+class="math inline">\mathcal{A}_t</span>-measurable functions <span
+class="math inline">X_t,C_t\colon\mathcal{A}_t\to\boldsymbol{{R}}^I</span>.</p>
+<p>The SUM shows every arbitrage-free model has the form <span
+class="math display">
+    X_t D_t = M_t - \sum_{s &lt; t} C_s
+</span> Where <span class="math inline">D_t</span> is a positive measure
+on <span class="math inline">\mathcal{A}_t</span> and <span
+class="math inline">M_t</span> is a <span
+class="math inline">\boldsymbol{{R}}^I</span>-valued martingale measure
+on <span class="math inline">\mathcal{A}_t</span>. We say <span
+class="math inline">(M_t)_{t\in T}</span> is a martingale measure if
+<span class="math inline">M_t = M_u|_{\mathcal{A}_t}</span> for <span
+class="math inline">t &lt; u</span> where the vertical bar and subscript
+algebra indicate restriction of <span class="math inline">M_u</span> on
+<span class="math inline">\mathcal{A}_u</span> to <span
+class="math inline">\mathcal{A}_t</span>. This requires <span
+class="math inline">\mathcal{A}_u</span> to be a refinement of <span
+class="math inline">\mathcal{A}_t</span> if <span class="math inline">u
+&lt; t</span>.</p>
+<p>The SUM can be used for any collection of instruments: bonds, stocks,
+futures, options, convertible bonds, FX spot/options/futures,
+commodities, etc.</p>
+<p>We also need a mechanism to convert between calendar dates and times
+and assume <span class="math inline">t(d)</span> is the time correpondng
+to calendar date <span class="math inline">d</span>. This will not be
+considered in what follows.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-KalYanFab2004" class="csl-entry" role="listitem">
+Kalotay, Andrew, Deane Yang, and Frank J. Fabozzi. 2004. <span>“An
+Option-Theoretic Prepayment Model for Mortgages and Mortgage-Backed
+Securities.”</span> <em>International Journal of Theoretical and Applied
+Finance</em> 7 (8): 949–78. <a
+href="https://doi.org/10.1142/S0219024904002785">https://doi.org/10.1142/S0219024904002785</a>.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Such as me.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The strike can be implemented as an integer the
+multiplied by the minimum trading increment of the underlying to get the
+contract strike.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>See[^2].<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+</body>
+</html>

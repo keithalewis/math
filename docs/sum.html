@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-09-18" />
+  <meta name="dcterms.date" content="2025-10-03" />
   <title>Simple Universal Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -25,6 +25,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -65,7 +66,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Simple Universal Model</h1>
-<p class="date">September 18, 2025</p>
+<p class="date">October 3, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Arbitrage-free prices are geometrically constrained by cash flows.
@@ -176,8 +177,8 @@ L(1_E)</span> where <span class="math inline">1_E</span> is 1 on <span
 class="math inline">E</span> and zero on <span
 class="math inline">\Omega\setminus E</span>. Since <span
 class="math inline">1_{E\cup F} = 1_E + 1_F - 1_{E\cap F}</span> and
-<span class="math inline">1_\emptyset = 0</span> this defines a finitely
-additive measure.) For any <span class="math inline">f\in
+<span class="math inline">1_\emptyset =  0</span> this defines a
+finitely additive measure.) For any <span class="math inline">f\in
 B(\Omega)</span> define the linear operator of multiplication by <span
 class="math inline">f</span>, <span class="math inline">M_f\colon
 B(\Omega)\to B(\Omega)</span>, by <span class="math inline">M_fg =
@@ -449,13 +450,14 @@ class="math inline">D_t(u) D_t = D_u|_{\mathcal{A}_t}</span> so <span
 class="math inline">D_t(u)</span> is the Radon-Nikodym derivative of
 <span class="math inline">D_u|_{\mathcal{A}_t}</span> with respect to
 <span class="math inline">D_t</span>.</p>
-<p>Note <span class="math inline">D_0(u)D_0 =
-D_u|_{\mathcal{A}_0}</span> so the discount to time <span
+<p>Note <span class="math inline">D_0(u)D_0
+=  D_u|_{\mathcal{A}_0}</span> so the discount to time <span
 class="math inline">u</span> is <span class="math inline">D_0(u) =
-D_u(\Omega)/D_0(\Omega) = D_u(\Omega)</span> assuming, without loss of
-generality, that <span class="math inline">D_0(\Omega) = 1</span>. This
-technically makes <span class="math inline">D_0</span> a “probability
-measure,” but it is not the probability of anything.</p>
+D_u(\Omega)/D_0(\Omega)
+=  D_u(\Omega)</span> assuming, without loss of generality, that <span
+class="math inline">D_0(\Omega) = 1</span>. This technically makes <span
+class="math inline">D_0</span> a “probability measure,” but it is not
+the probability of anything.</p>
 <p>Zero coupon bond prices are determined by the deflators. The <span
 class="citation" data-cites="BraGatMus1997">(<a
 href="#ref-BraGatMus1997" role="doc-biblioref">Brace, Gatarek, and
@@ -659,8 +661,8 @@ class="math display">
 class="math inline">{\partial_s E^s[1(X\le x)] = E[1(X \le x)e^{sX -
 \kappa(s)}(X - \kappa&#39;(s))]}</span>. Note <span
 class="math inline">E_s[1(X\le x)((X - \kappa&#39;(s))] = E_s[1(X\le
-x)((X - E_s[X])] = P_x(X\le x)(E_s[X\mid X\le x] - E_s[X]] &lt;
-0</span>.</p>
+x)((X - E_s[X])]
+= P_x(X\le x)(E_s[X\mid X\le x] - E_s[X]] &lt; 0</span>.</p>
 <p>To use these formulas with the B-S/M parameters <span
 class="math inline">\rho</span>, <span class="math inline">S_0</span>,
 <span class="math inline">sigma</span>, and <span
@@ -734,7 +736,7 @@ strictly positive traders and risk managers will compare it to <span
 class="math inline">|\Gamma_0|\cdot|X_0|</span> as a measure of how much
 capital will be tied up in the trading strategy.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-Bla1976" class="csl-entry" role="listitem">
 Black, Fischer. 1976. <span>“The Pricing of Commodity Contracts.”</span>
 <em>Journal of Financial Economics</em> 3 (1-2): 167–79.
@@ -814,7 +816,7 @@ href="https://doi.org/10.48550/arXiv.2410.06906">https://doi.org/10.48550/arXiv.
 </div>
 </div>
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -822,6 +824,6 @@ role="doc-endnotes">
 the time, Barings Bank out of business.<a href="#fnref1"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>

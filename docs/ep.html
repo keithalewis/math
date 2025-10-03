@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-09-18" />
+  <meta name="dcterms.date" content="2025-10-03" />
   <meta name="keywords" content="mean-variance, CAPM, risk" />
   <title>Efficient Portfolios</title>
   <style>
@@ -27,6 +27,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -67,7 +68,7 @@
 <header id="title-block-header">
 <h1 class="title">Efficient Portfolios</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 18, 2025</p>
+<p class="date">October 3, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 <p>The Capital Asset Pricing Model holds for any distribution of returns
@@ -196,7 +197,8 @@ case <span class="math inline">R_\xi = \xi^* X</span> is the realized
 return of the portfolio. If <span class="math inline">\xi^* x = 1</span>
 then the variance of the realized return is <span
 class="math inline">\operatorname{Var}(R_\xi) = \xi^*V\xi</span> where
-<span class="math inline">{V = E[X X^*] - E[X] E[X^*]}</span>.</p>
+<span class="math inline">{V = E[X X^*] -
+E[X] E[X^*]}</span>.</p>
 <p>For a given expected realized return <span
 class="math inline">r\in\mathbf{R}</span> we can use Lagrange
 multipliers to minimize <span class="math inline">{\frac{1}{2}\xi^* V\xi
@@ -604,7 +606,7 @@ Note this is not possible using the classical CAPM model.
 
 -->
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-DunSch1958" class="csl-entry" role="listitem">
 Dunford, Nelson, and Jacob T Schwartz. 1958. <em>Linear Operators
 i</em>. Interscience Publishers.
@@ -627,18 +629,15 @@ Markowitz, Harry. 1952. <span>“Portfolio Selection.”</span> <em>The
 Journal of Finance</em> 7 (1): 77–91.
 </div>
 <div id="ref-Roy1952" class="csl-entry" role="listitem">
-Roy, A. D. 1952. <span>“Safety <span>First</span> and the
-<span>Holding</span> of <span>Assets</span>.”</span>
+Roy, A. D. 1952. <span>“Safety First and the Holding of Assets.”</span>
 <em>Econometrica</em> 20 (3): 431–49. <a
-href="https://www.jstor.org/stable/1907413">https://www.jstor.org/stable/1907413</a>.
+href="https://doi.org/10.2307/1907413">https://doi.org/10.2307/1907413</a>.
 </div>
 <div id="ref-Sha1964" class="csl-entry" role="listitem">
-Sharpe, William F. 1964. <span>“<span>Capital</span> <span>Asset</span>
-<span>Prices</span>: <span>A</span> <span>Theory</span> <span
-class="nocase">of</span> <span>Market</span> <span>Equilibrium</span>
-<span class="nocase">under</span> <span class="nocase">conditions</span>
-<span class="nocase">of</span> <span class="nocase">risk</span>.”</span>
-<em>The Journal of Finance</em> 19 (3): 425–42.
+Sharpe, William F. 1964. <span>“Capital Asset Prices: A Theory of Market
+Equilibrium Under Conditions of Risk.”</span> <em>The Journal of
+Finance</em> 19 (3): 425–42. <a
+href="https://doi.org/10.1111/j.1540-6261.1964.tb02865.x">https://doi.org/10.1111/j.1540-6261.1964.tb02865.x</a>.
 </div>
 <div id="ref-Tre1961" class="csl-entry" role="listitem">
 Treynor, Jack L. 1961. <span>“Market Value, Time, and Risk.”</span>

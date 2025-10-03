@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-10-03" />
+  <title>Survival of the Fittest</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Survival of the Fittest</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">October 3, 2025</p>
+</header>
+<p>Assume a finite number of stategies <span class="math inline">S =
+\{s_1,\ldots,s_k\}</span> and a fitness function<br />
+<span class="math inline">\phi\colon S\times S\to\boldsymbol{R}</span>.
+Assume <span class="math inline">n</span> players at elements if <span
+class="math inline">\boldsymbol{Z}_n</span> and an initial distribution
+of strategies <span class="math inline">\Delta_0\boldsymbol{Z}_n\to
+S</span>.</p>
+<p>At each round player <span class="math inline">i</span> gets a payoff
+of <span class="math inline">\phi_i = \phi(s_{i-1},s_i) + \phi(s_i,
+s_{i+1})</span> from its nearest neighbors where <span
+class="math inline">s_i = \Delta_0(i)</span> is the strategy of player
+<span class="math inline">i</span>. I.e., everyone plays their nearest
+neighbor. The distribution at time 1 is determined by competition. In
+the <em>deterministic</em> case <span
+class="math inline">\Delta_1(i)</span> the strategy having the greatest
+fitness in the <span class="math inline">[i-1,i,i+1]</span> arena. In
+the <em>Malthusian</em> case the strategy is choosen at random from
+<span class="math inline">\{s_{i-1},s_i,s_{i+1}\}</span> weighted by the
+corresponding fitness. The distribution <span
+class="math inline">\Delta_t</span> takes positions to a probability
+density on <span class="math inline">S</span>.</p>
+<p><span class="math inline">\delta_a\star\delta_b = \delta_{a +
+b}</span>.</p>
+<p><span class="math inline">\delta_a\star\delta_b(E) = \int_x\int_y
+1_E(x+y)\,\delta_a(x)\star\delta_b(y) = 1_E(a+b)</span>.</p>
+<p>Distribution is <span
+class="math inline">\Delta\boldsymbol{Z}_n\to\P(S)</span> where <span
+class="math inline">\Delta(i)</span> is a probability measure on <span
+class="math inline">S</span>.</p>
+<p>The distribution (assuming independence) of <span
+class="math inline">\phi(s_{i-1},s_i) + \phi(s_i, s_{i+1})</span> is the
+convolution of measures.</p>
+<p><span class="math inline">\Delta_t \in B(S)^n</span> where <span
+class="math inline">\mathcal{P}(S)</span> is all probability measures on
+<span class="math inline">S</span>.</p>
+<p>Play <span
+class="math inline">P\colon\mathcal{P}(S)^n\to\mathcal{P}(S)^n</span> by
+<span class="math inline">P\Delta_(i) = \phi(s_{i-1},s_i) + \phi(s_i,
+s_{i+1})</span></p>
+</body>
+</html>

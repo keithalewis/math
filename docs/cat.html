@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-09-18" />
+  <meta name="dcterms.date" content="2025-10-03" />
   <title>Category Theory</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Category Theory</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 18, 2025</p>
+<p class="date">October 3, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Objects and Arrows
@@ -174,10 +174,11 @@ class="math inline">f;g</span> instead of <span
 class="math inline">gf</span>. In this notation <span
 class="math inline">f\colon A\to B</span> and <span
 class="math inline">g\colon B\to C</span> compose to <span
-class="math inline">f;g\colon A\to C</span> keeping the arrow names in
-order. If this sort of trifling is a concern you can just write the
-arrows backwards: <span class="math inline">g\colon C\leftarrow B</span>
-and <span class="math inline">f\colon B\leftarrow A</span> so <span
+class="math inline">f;g\colon
+A\to C</span> keeping the arrow names in order. If this sort of trifling
+is a concern you can just write the arrows backwards: <span
+class="math inline">g\colon C\leftarrow B</span> and <span
+class="math inline">f\colon B\leftarrow A</span> so <span
 class="math inline">gf\colon C\leftarrow A</span>.</p>
 </section>
 <section id="identity-arrow" class="level3">
@@ -186,8 +187,9 @@ class="math inline">gf\colon C\leftarrow A</span>.</p>
 class="math inline">f\colon A\to B</span> then the identity arrows <span
 class="math inline">1_A\colon A\to A</span> and <span
 class="math inline">1_B\colon B\to B</span> satisfy <span
-class="math inline">f 1_A = f = 1_B f</span>. One can always throw in
-identity arrows if they don’t exist.</p>
+class="math inline">f 1_A =
+f = 1_B f</span>. One can always throw in identity arrows if they don’t
+exist.</p>
 <strong>Exercise</strong>. <em>If <span class="math inline">e\colon A\to
 A</span> has the property <span class="math inline">fe = f</span> for
 all <span class="math inline">f\colon A\to B</span> then <span
@@ -244,14 +246,14 @@ class="math inline">A</span> is the domain of <span
 class="math inline">f</span> and <span class="math inline">B</span> is
 the codomain of <span class="math inline">f</span>. If <span
 class="math inline">f\colon A\to B</span> and <span
-class="math inline">g\colon B\to C</span> then <span
-class="math inline">gf\colon A\to C</span> exists. If <span
-class="math inline">f\colon A\to B</span>, <span
-class="math inline">g\colon B\to C</span>, and <span
-class="math inline">h\colon C\to D</span> then <span
-class="math inline">gf\colon A\to C</span> and <span
-class="math inline">hg\colon C\to D</span> exist and <span
-class="math inline">h(gf) = (hg)f</span>.</p>
+class="math inline">g\colon
+B\to C</span> then <span class="math inline">gf\colon A\to C</span>
+exists. If <span class="math inline">f\colon A\to B</span>, <span
+class="math inline">g\colon
+B\to C</span>, and <span class="math inline">h\colon C\to D</span> then
+<span class="math inline">gf\colon A\to C</span> and <span
+class="math inline">hg\colon C\to
+D</span> exist and <span class="math inline">h(gf) = (hg)f</span>.</p>
 <p>Every object <span class="math inline">A</span> has an identity arrow
 <span class="math inline">1_A</span>. If <span
 class="math inline">f\colon A\to B</span> then <span
@@ -519,20 +521,20 @@ class="math inline">V</span> and <span class="math inline">V^*</span> is
 <span class="math inline">\langle v,v^*\rangle = v^*(v)</span>. If <span
 class="math inline">T\colon V\to W</span> is a linear transformation
 then <span class="math inline">T^*\colon W^*\to V^*</span> via <span
-class="math inline">\langle Tv,w^*\rangle = \langle
-v,T^*w^*\rangle</span>. Note <span class="math inline">T^{**}\colon
-V^{**}\to W^{**}</span> and gives rise to a functor <span
-class="math inline">D</span> in <span
+class="math inline">\langle Tv,w^*\rangle
+= \langle v,T^*w^*\rangle</span>. Note <span
+class="math inline">T^{**}\colon V^{**}\to W^{**}</span> and gives rise
+to a functor <span class="math inline">D</span> in <span
 class="math inline">\mathbf{Vec}</span> via <span
 class="math inline">V\mapsto V^{**}</span> and <span
 class="math inline">T\mapsto T^{**}</span>. There is a natural inclusion
-<span class="math inline">\iota_V\colon V\to V^{**}</span> by <span
-class="math inline">\langle \iota_V v,v^*\rangle = \langle v,
-v^*\rangle</span>. The property <span class="math inline">T^{**}\iota_V
-= \iota_W T</span> says <span class="math inline">\iota\colon I\to
-D</span> is a natural transformation where <span
-class="math inline">I</span> is the identity functor of <span
-class="math inline">\mathbf{Vec}</span>.</p>
+<span class="math inline">\iota_V\colon
+V\to V^{**}</span> by <span class="math inline">\langle \iota_V
+v,v^*\rangle = \langle v, v^*\rangle</span>. The property <span
+class="math inline">T^{**}\iota_V = \iota_W T</span> says <span
+class="math inline">\iota\colon I\to D</span> is a natural
+transformation where <span class="math inline">I</span> is the identity
+functor of <span class="math inline">\mathbf{Vec}</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">T^{**}\iota_V = \iota_W T</span></em>.</p>
 <details>
@@ -542,9 +544,11 @@ Solution
 <blockquote>
 <p>For <span class="math inline">v\in V</span> and <span
 class="math inline">w^*\in W^*</span>, <span class="math inline">\langle
-T^{**}\iota_V v,w^*\rangle =\langle \iota_V v,T^*w^*\rangle =\langle
-v,T^*w^*\rangle =\langle Tv,w^*\rangle =\langle \iota_W
-Tv,w^*\rangle</span>.</p>
+T^{**}\iota_V v,w^*\rangle
+=\langle \iota_V v,T^*w^*\rangle
+=\langle v,T^*w^*\rangle
+=\langle Tv,w^*\rangle
+=\langle \iota_W Tv,w^*\rangle</span>.</p>
 </blockquote>
 </details>
 <p>Are there categories of categories of …? Yep. They are called <span

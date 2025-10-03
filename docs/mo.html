@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-09-18" />
+  <meta name="dcterms.date" content="2025-10-03" />
   <title>Monoid</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Monoid</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 18, 2025</p>
+<p class="date">October 3, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Associative binary operation with an identity
@@ -177,10 +177,11 @@ monoid with identity <span class="math inline">\emptyset</span>.</p>
 <p>The Kleene star of <span class="math inline">M</span> is the union of
 all finite sequences of elements of <span class="math inline">M</span>,
 <span class="math inline">M^* = \cup_{n\ge0} M^n</span> where <span
-class="math inline">M^n = \{(m_1,\dots,m_n)\mid m_j\in M\}</span>.
-Define <span class="math inline">m^*\colon M^*\to M</span> by <span
-class="math inline">m^*((m_1,\ldots,m_n)) = m_1 \cdots m_n</span> and
-<span class="math inline">m^*(()) = e</span>, the monoid identity.</p>
+class="math inline">M^n = \{(m_1,\dots,m_n)\mid
+m_j\in M\}</span>. Define <span class="math inline">m^*\colon M^*\to
+M</span> by <span class="math inline">m^*((m_1,\ldots,m_n)) =
+m_1 \cdots m_n</span> and <span class="math inline">m^*(()) = e</span>,
+the monoid identity.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">M^*</span> is a monoid under <span
 class="math inline">m^*</span> with identity <span

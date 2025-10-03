@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-09-18" />
+  <meta name="dcterms.date" content="2025-10-03" />
   <title>Variance Swaps</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Variance Swaps</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">September 18, 2025</p>
+<p class="date">October 3, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage risk of variance swaps.
@@ -122,10 +122,11 @@ contract that is not far from the number 1. The par volatility makes the
 price of the contract at <span class="math inline">t_0</span> equal to
 zero.</p>
 <p>The realized return is <span class="math inline">R_j = \log
-X_{j+1}/X_j = \log X_{j+1} - \log X_j = \Delta \log X_j</span> where
-<span class="math inline">\log</span> is the natuaral logarithm with
-base <span class="math inline">e \approx 2.718281828</span>. Real-world
-variance swap contracts actually specify this approximation.</p>
+X_{j+1}/X_j = \log X_{j+1} - \log X_j =
+\Delta \log X_j</span> where <span class="math inline">\log</span> is
+the natuaral logarithm with base <span class="math inline">e \approx
+2.718281828</span>. Real-world variance swap contracts actually specify
+this approximation.</p>
 <p>Another common way of specifying realized return is <span
 class="math inline">R_j = (X_{j+1} - X_j)/X_j = \Delta X_j/X_j</span>.
 It does not drag in logarithms and is simpler to work with.</p>
@@ -201,8 +202,8 @@ X_0)/z + \sum_{0\le j &lt; n} (2/X_j - 2/z)\Delta X_j - R_j
 hedge and a dynamic hedge using futures with error <span
 class="math inline">R_j</span>. The static hedge can be approximated
 with puts and calls using the Carr-Madan formula. If <span
-class="math inline">z = X_0</span> then the initial furtures hedge is
-zero.</p>
+class="math inline">z =
+X_0</span> then the initial furtures hedge is zero.</p>
 </section>
 <section id="static-hedge" class="level2">
 <h2>Static Hedge</h2>
