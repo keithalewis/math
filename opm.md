@@ -121,8 +121,12 @@ if $\omega\in\Omega$ occurred. The one-period model implicitly
 assumes the position is liquidated and the prices and cash flows are
 received at the end of the period.
 
+In the one-period model the final price is usually assumed to include the cash flow
+and under this assumption we use $X$ instead of $X + C$.
+In multi-period models this distinction becomes crucial.
+
 _Arbitrage_ exists in a one-period model if there is a position $\xi\in\RR^I$
-with ${\xi\cdot x < 0}$ and ${\xi\cdot (X(\omega) + C(\omega))\ge0}$ for all ${\omega\in\Omega}$:
+with ${\xi\cdot x < 0}$ and ${\xi\cdot X(\omega)\ge0}$ for all ${\omega\in\Omega}$:
 you make money acquiring the initial position and don't lose money when
 unwinding it at the end of the period.
 
@@ -188,7 +192,7 @@ If $\xi$ and $\eta$ are arbitrages then so is $\xi + \eta$.
 
 The smallest cone containing the range of $X$,
 $\ran X = X(\Omega) = \{X(\omega)\mid \omega\in\Omega\}$, is the set of finite
-linear combinations $\sum_i X(\omega_i) \pi_i$, $\pi_i > 0$, $\omega_i\in\Omega$.
+linear combinations $\sum_i X(\omega_i) \pi_i$, $\omega_i\in\Omega$, $\pi_i > 0$.
 If $x = \sum_i X(\omega_i) \pi_i$ is in the cone
 and $\xi\cdot X$ is non-negative on $\Omega$ then ${\xi\cdot x\ge 0}$
 so no arbitrage exists.
@@ -223,7 +227,7 @@ Simplifying gives ${t^2||y||^2 + 2t\xi\cdot y\ge0}$.
 Dividing by $t > 0$ and letting $t$ decrease to 0 shows ${\xi\cdot y\ge0}$
 for all $y\in C$.
 
-We also have $\|x^* - x\| \le \|tx^* + x^* - x\|$ for $t + 1 > 0$.
+We also have $\|x^* - x\| \le \|(t + 1)x^* - x\|$ for $t + 1 > 0$.
 Simplifying gives ${t^2||x^*||^2 + 2t\xi\cdot x^*\ge 0}$ for  $t > -1$.
 Dividing by $t < 0$ and letting $t$ increase to 0 shows ${\xi\cdot x^*\le 0}$ so
 ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ hence ${\xi\cdot x < 0}$.

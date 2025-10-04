@@ -206,13 +206,17 @@ class="math inline">{\xi\cdot(X(\omega) + C(\omega))}</span> if <span
 class="math inline">\omega\in\Omega</span> occurred. The one-period
 model implicitly assumes the position is liquidated and the prices and
 cash flows are received at the end of the period.</p>
+<p>In the one-period model the final price is usually assumed to include
+the cash flow and under this assumption we use <span
+class="math inline">X</span> instead of <span class="math inline">X +
+C</span>. In multi-period models this distinction becomes crucial.</p>
 <p><em>Arbitrage</em> exists in a one-period model if there is a
 position <span class="math inline">\xi\in\boldsymbol{R}^I</span> with
 <span class="math inline">{\xi\cdot x &lt; 0}</span> and <span
-class="math inline">{\xi\cdot (X(\omega) + C(\omega))\ge0}</span> for
-all <span class="math inline">{\omega\in\Omega}</span>: you make money
-acquiring the initial position and don’t lose money when unwinding it at
-the end of the period.</p>
+class="math inline">{\xi\cdot X(\omega)\ge0}</span> for all <span
+class="math inline">{\omega\in\Omega}</span>: you make money acquiring
+the initial position and don’t lose money when unwinding it at the end
+of the period.</p>
 <p>Some authors define arbitrage as a portfolio with <span
 class="math inline">{\xi\cdot x = 0}</span> and <span
 class="math inline">{\xi\cdot X}</span> is non-negative and strictly
@@ -298,10 +302,10 @@ class="math inline">X</span>, <span
 class="math inline">\operatorname{ran}X = X(\Omega) = \{X(\omega)\mid
 \omega\in\Omega\}</span>, is the set of finite linear combinations <span
 class="math inline">\sum_i X(\omega_i) \pi_i</span>, <span
-class="math inline">\pi_i &gt; 0</span>, <span
-class="math inline">\omega_i\in\Omega</span>. If <span
-class="math inline">x = \sum_i X(\omega_i) \pi_i</span> is in the cone
-and <span class="math inline">\xi\cdot X</span> is non-negative on <span
+class="math inline">\omega_i\in\Omega</span>, <span
+class="math inline">\pi_i &gt; 0</span>. If <span class="math inline">x
+= \sum_i X(\omega_i) \pi_i</span> is in the cone and <span
+class="math inline">\xi\cdot X</span> is non-negative on <span
 class="math inline">\Omega</span> then <span
 class="math inline">{\xi\cdot x\ge 0}</span> so no arbitrage exists.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">x</span>
@@ -347,7 +351,7 @@ x\|</span>. Simplifying gives <span class="math inline">{t^2||y||^2 +
 0</span> and letting <span class="math inline">t</span> decrease to 0
 shows <span class="math inline">{\xi\cdot y\ge0}</span> for all <span
 class="math inline">y\in C</span>.</p>
-<p>We also have <span class="math inline">\|x^* - x\| \le \|tx^* + x^* -
+<p>We also have <span class="math inline">\|x^* - x\| \le \|(t + 1)x^* -
 x\|</span> for <span class="math inline">t + 1 &gt; 0</span>.
 Simplifying gives <span class="math inline">{t^2||x^*||^2 + 2t\xi\cdot
 x^*\ge 0}</span> for <span class="math inline">t &gt; -1</span>.
