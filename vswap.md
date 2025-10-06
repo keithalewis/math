@@ -33,7 +33,7 @@ Either contract can be used to replicate the other using the 0 price forward con
 
 __Exercise__. _If the price of the forward is $C$ then $B = 2xC + A$_.
 
-Note this provides a perfect hedge no matter the value of $X$.
+Note this provides a perfect hedge no matter the final value of $X$.
 
 A more realistic one period model has payoff $(\log X/x)^2$, the square of the
 realized return. Recall Taylor's formula with remainder for sufficiently differentiable $f$ is
@@ -139,6 +139,7 @@ $(L_j, f(L_j))$, $L_j < K$, and $(H_j, f(H_j))$, $H_j \ge K$. We assume linear e
 on the left using the two lowest put strikes and on the right by the two highest call strikes.
 Typically $K$ is chosen to be close to the at-the-money forward at option expiration.
 
+<!--
 ## Cubic Term
 
 The cubic term typically describes 95% of variance swap P&L over each period.
@@ -153,3 +154,4 @@ $$
 		&= \frac{2}{3} \frac{|\Delta X_j|^3}{\min\{X_j, X_{j+1}\}^3}
 \end{aligned}
 $$
+-->
