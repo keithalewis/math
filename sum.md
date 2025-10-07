@@ -331,11 +331,11 @@ $$
 	D_t^{\tau,\rho}(u) D_t = (\rho P(t\le\tau\le u) + P(\tau > u))D_t(u).
 $$
 If $\rho = 1$ or $\tau = \infty$ we have
-$ D_t^{\tau,\rho}(u) D_t(\{\omega\}\times [t,\infty)) = P(\tau > t)D_t(u)(\{\omega\}\times [t,\infty))$
+$D_t^{\tau,\rho}(u) D_t(\{\omega\}\times [t,\infty)) = P(\tau > t)D_t(u)(\{\omega\}\times [t,\infty))$
 so $D_t^{\tau,\rho}(u) = D_t(u)$ is the same as a riskless zero coupon bond.
 
 The _credit spread_ $s^{\tau,\rho}(u)$ is defined by
-$D_t^{\tau,\rho}(u) = exp(-s^{\tau,\rho}(u)) D_t(u)$ so
+$D_t^{\tau,\rho}(u) = \exp(-s^{\tau,\rho}(u)) D_t(u)$ so
 $$
 	s^{\tau,\rho}(u) = -log (\rho P(t\le\tau\le u) + P(\tau > u))
 $$
@@ -416,7 +416,7 @@ The general Black model is $F = fe^{sX - \kappa(s)}$ where $X$ has mean zero and
 Every positive random variables with finite mean and log variance has this form.
 $f = se^{\rho t}$, and $s = \sigma\sqrt{t}$.
 
-The forward put value with strike $k$ is $p(k) = E[\max\{k - F, 0\}] = E[(k - F)1(F\le k)]$ so
+The forward put value with strike $k$ is ${p(k) = E[\max\{k - F, 0\}] = E[(k - F)1(F\le k)]}$ so
 $$
 \begin{aligned}
 	p(k) &= E[\max\{k - F, 0\}] \\

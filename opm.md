@@ -82,7 +82,7 @@ the probability of anything.
 
 ## One-Period Model
 
-The _One-Period Model_ consists of a set or market _instruments_, $I$,
+The _One-Period Model_ consists of a finite set of market _instruments_, $I$,
 available for trading at the start and end of a period.
 The set of possible _outcomes_, $\Omega$, is what can happen over the period.
 The _prices_ at the beginning of the period are a vector $x\in\RR^I$[^1].
@@ -119,7 +119,7 @@ instrument. The cost of acquiring the initial position is $\xi\cdot x$.
 The value of liquidating the position at the end of the period is ${\xi\cdot(X(\omega) + C(\omega))}$
 if $\omega\in\Omega$ occurred. The one-period model implicitly
 assumes the position is liquidated and the prices and cash flows are
-received at the end of the period.
+received in proportion to the position at the end of the period.
 
 _Arbitrage_ exists in a one-period model if there is a position $\xi\in\RR^I$
 with ${\xi\cdot x < 0}$ and ${\xi\cdot (X(\omega) + C(\omega))\ge0}$ for all ${\omega\in\Omega}$:
@@ -161,7 +161,8 @@ and ${\xi\cdot X(H) = -LR + RH > 0}$,
 so $\xi\cdot X\ge0$ on $\{L,H\}$.
 
 This argument also holds for the somewhat more realistic model
-with $\Omega = [L, H]$.
+where the final stock price can be any value between the low and the high,
+i.e., $\Omega = [L, H]$.
 </details>
 
 ## Fundamental Theorem of Asset Pricing
@@ -276,7 +277,7 @@ and sell.
 If $\xi\cdot x = 1$ then $R_\xi = \xi\cdot X$. One unit invested at the beginning
 of the period results in ${R_\xi\colon\Omega\to\RR}$ at the end of the period.
 Every portfolio has the same expected realized return under a risk-neutral measure
-so perhaps this should be called _risk-blind_.
+so perhaps this should be called a _risk-blind_ measure.
 
 __Exercise__. _If $D$ is a risk-neutral measure then $R = E[R_\xi] = 1/D(\Omega)$
 is constant for any portfolio $\xi\in\RR^I$_.
