@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-10-03" />
+  <meta name="dcterms.date" content="2025-10-09" />
   <title>Simple Universal Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -66,7 +66,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Simple Universal Model</h1>
-<p class="date">October 3, 2025</p>
+<p class="date">October 9, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Arbitrage-free prices are geometrically constrained by cash flows.
@@ -88,6 +88,8 @@ Deflator</a></li>
 Bond</a></li>
 <li><a href="#fixed-income" id="toc-fixed-income">Fixed Income</a></li>
 <li><a href="#risky-bonds" id="toc-risky-bonds">Risky Bonds</a></li>
+<li><a href="#black-scholesmerton"
+id="toc-black-scholesmerton">Black-Scholes/Merton</a></li>
 <li><a href="#general-european-option"
 id="toc-general-european-option">General European Option</a></li>
 </ul></li>
@@ -518,10 +520,44 @@ class="math display">
     D_t^{\tau,\rho}(u) D_t = (\rho P(t\le\tau\le u) + P(\tau &gt;
 u))D_t(u).
 </span> If <span class="math inline">\rho = 1</span> or <span
-class="math inline">\tau = \infty</span> we have $ D_t^{,}(u) D_t({}$ is
-the <em>cumulant</em> of <span class="math inline">X_1</span>.
-Independence and stationarity imply the cumulant of <span
-class="math inline">X_t</span> is <span
+class="math inline">\tau = \infty</span> we have <span
+class="math inline">D_t^{\tau,\rho}(u) D_t(\{\omega\}\times [t,\infty))
+= P(\tau &gt; t)D_t(u)(\{\omega\}\times [t,\infty))</span> so <span
+class="math inline">D_t^{\tau,\rho}(u) = D_t(u)</span> is the same as a
+riskless zero coupon bond.</p>
+<p>The <em>credit spread</em> <span
+class="math inline">s^{\tau,\rho}(u)</span> is defined by <span
+class="math inline">D_t^{\tau,\rho}(u) = \exp(-s^{\tau,\rho}(u))
+D_t(u)</span> so <span class="math display">
+    s^{\tau,\rho}(u) = -log (\rho P(t\le\tau\le u) + P(\tau &gt; u))
+</span> If <span class="math inline">\tau</span> is exponentially
+distributed with hazard rate <span class="math inline">\lambda</span>
+then for small <span class="math inline">\lambda</span> we have the
+approximation <span class="math display">
+    s^{\tau,\rho}(u) \approx \lambda (u - \rho(u - t))
+</span></p>
+<p>!!!check</p>
+</section>
+<section id="black-scholesmerton" class="level3">
+<h3>Black-Scholes/Merton</h3>
+<p>!!!revisit</p>
+<p>The Black-Scholes and Merton models have trading times <span
+class="math inline">T = [0,\infty)</span>, sample space <span
+class="math inline">\Omega = C[0,\infty)</span>, the set of continuous
+functions on the non-negative real numbers, and deflator <span
+class="math inline">D_t = e^{-\rho t}P</span> where <span
+class="math inline">P</span> is Wiener measure. The martingale measure
+is <span class="math inline">M_t = (r, se^{\sigma B_t -
+\sigma^2t/2})P</span> where <span class="math inline">(B_t)</span> is
+standard Brownian motion.</p>
+<p>We can generalize this to any Lévy process <span
+class="math inline">(X_t)</span> with <span
+class="math inline">X_1</span> having mean zero and variance one. In
+this case <span class="math inline">M_t = (r, se^{\sigma X_t -
+t\kappa(\sigma)})P</span> where <span class="math inline">\kappa(\sigma)
+= \log E[\exp(\sigma X_1)]</span> is the <em>cumulant</em> of <span
+class="math inline">X_1</span>. Independence and stationarity imply the
+cumulant of <span class="math inline">X_t</span> is <span
 class="math inline">t\kappa(\sigma)</span> and the distribution of <span
 class="math inline">X_1</span> determines the Lévy process. See <span
 class="citation" data-cites="Sat1999">(<a href="#ref-Sat1999"
@@ -606,8 +642,8 @@ and variance one. Every positive random variables with finite mean and
 log variance has this form. <span class="math inline">f = se^{\rho
 t}</span>, and <span class="math inline">s = \sigma\sqrt{t}</span>.</p>
 <p>The forward put value with strike <span class="math inline">k</span>
-is <span class="math inline">p(k) = E[\max\{k - F, 0\}] = E[(k -
-F)1(F\le k)]</span> so <span class="math display">
+is <span class="math inline">{p(k) = E[\max\{k - F, 0\}] = E[(k -
+F)1(F\le k)]}</span> so <span class="math display">
 \begin{aligned}
     p(k) &amp;= E[\max\{k - F, 0\}] \\
     &amp;= E[(k - F)1(F\le k)] \\
@@ -665,7 +701,7 @@ x)((X - E_s[X])]
 = P_x(X\le x)(E_s[X\mid X\le x] - E_s[X]] &lt; 0</span>.</p>
 <p>To use these formulas with the B-S/M parameters <span
 class="math inline">\rho</span>, <span class="math inline">S_0</span>,
-<span class="math inline">sigma</span>, and <span
+<span class="math inline">\sigma</span>, and <span
 class="math inline">t</span> use <span class="math inline">f =
 S_0e^{\rho t}</span>, and <span class="math inline">s =
 \sigma\sqrt{t}</span> and multiply the forward values by <span
@@ -797,10 +833,9 @@ Science</em> 4 (1): 141–83. <a
 href="https://www.jstor.org/stable/3003143">https://www.jstor.org/stable/3003143</a>.
 </div>
 <div id="ref-Ros1978" class="csl-entry" role="listitem">
-Ross, Stephen A. 1978. <span>“A <span>Simple</span>
-<span>Approach</span> to the <span>Valuation</span> of
-<span>Risky</span> <span>Streams</span>.”</span> <em>The Journal of
-Business</em> 51 (3): 453–75. <a
+Ross, Stephen A. 1978. <span>“A Simple Approach to the Valuation of
+Risky Streams.”</span> <em>The Journal of Business</em> 51 (3): 453–75.
+<a
 href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277</a>.
 </div>
 <div id="ref-Sat1999" class="csl-entry" role="listitem">

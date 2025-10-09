@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-10-03" />
+  <meta name="dcterms.date" content="2025-10-09" />
   <title>Variance Swaps</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Variance Swaps</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 3, 2025</p>
+<p class="date">October 9, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage risk of variance swaps.
@@ -58,7 +58,6 @@ Value, hedge, and manage risk of variance swaps.
 <li><a href="#one-period" id="toc-one-period">One Period</a></li>
 <li><a href="#contract" id="toc-contract">Contract</a></li>
 <li><a href="#static-hedge" id="toc-static-hedge">Static Hedge</a></li>
-<li><a href="#cubic-term" id="toc-cubic-term">Cubic Term</a></li>
 </ul>
 </nav>
 <p>A variance swap pays the sum of the squares of realized return over a
@@ -88,7 +87,7 @@ contract.</p>
 <p><strong>Exercise</strong>. <em>If the price of the forward is <span
 class="math inline">C</span> then <span class="math inline">B = 2xC +
 A</span></em>.</p>
-<p>Note this provides a perfect hedge no matter the value of <span
+<p>Note this provides a perfect hedge no matter the final value of <span
 class="math inline">X</span>.</p>
 <p>A more realistic one period model has payoff <span
 class="math inline">(\log X/x)^2</span>, the square of the realized
@@ -227,26 +226,22 @@ class="math inline">(H_j, f(H_j))</span>, <span class="math inline">H_j
 lowest put strikes and on the right by the two highest call strikes.
 Typically <span class="math inline">K</span> is chosen to be close to
 the at-the-money forward at option expiration.</p>
-</section>
-<section id="cubic-term" class="level2">
-<h2>Cubic Term</h2>
-<p>The cubic term typically describes 95% of variance swap P&amp;L over
-each period.</p>
-<p>Since <span class="math inline">f&#39;&#39;&#39;(x) = -4/x^3</span>
-the error term <span class="math inline">R_j</span> over the period
-<span class="math inline">[t_j, t_{j+1}]</span> is <span
-class="math inline">R_j = (1/2)\int_{X_j}^{X_{j+1}} -4/t^3 (X_{j+1} -
-t)^2\, dt</span>. Using <span class="math inline">t</span> is between
-<span class="math inline">X_j</span> and <span
-class="math inline">X_{j+1}</span> we have <span class="math display">
+<!--
+## Cubic Term
+
+The cubic term typically describes 95% of variance swap P&L over each period.
+
+Since $f'''(x) = -4/x^3$ the error term $R_j$ over the period $[t_j, t_{j+1}]$ is
+$R_j = (1/2)\int_{X_j}^{X_{j+1}} -4/t^3 (X_{j+1} - t)^2\, dt$.
+Using $t$ is between $X_j$ and $X_{j+1}$ we have
+$$
 \begin{aligned}
-    |R_j| &amp;\le \frac{2}{\min\{X_j, X_{j+1}\}^3}
-\left|\int_{X_j}^{X_{j+1}} (X_{j+1} - t)^2\, dt\right| \\
-        &amp;= \frac{2}{\min\{X_j, X_{j+1}\}^3} \frac{1}{3}|X_{j+1} -
-X_j|^3 \\
-        &amp;= \frac{2}{3} \frac{|\Delta X_j|^3}{\min\{X_j, X_{j+1}\}^3}
+    |R_j| &\le \frac{2}{\min\{X_j, X_{j+1}\}^3} \left|\int_{X_j}^{X_{j+1}} (X_{j+1} - t)^2\, dt\right| \\
+        &= \frac{2}{\min\{X_j, X_{j+1}\}^3} \frac{1}{3}|X_{j+1} - X_j|^3 \\
+        &= \frac{2}{3} \frac{|\Delta X_j|^3}{\min\{X_j, X_{j+1}\}^3}
 \end{aligned}
-</span></p>
+$$
+-->
 </section>
 </body>
 </html>

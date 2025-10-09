@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-10-03" />
+  <meta name="dcterms.date" content="2025-10-09" />
   <title>One-Period Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,7 +67,7 @@
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 3, 2025</p>
+<p class="date">October 9, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Buy now, sell later.
@@ -155,7 +155,7 @@ Positive measures with mass one make an appearance, but they are not the
 probability of anything.</p>
 <section id="one-period-model" class="level2">
 <h2>One-Period Model</h2>
-<p>The <em>One-Period Model</em> consists of a set or market
+<p>The <em>One-Period Model</em> consists of a finite set of market
 <em>instruments</em>, <span class="math inline">I</span>, available for
 trading at the start and end of a period. The set of possible
 <em>outcomes</em>, <span class="math inline">\Omega</span>, is what can
@@ -205,18 +205,15 @@ liquidating the position at the end of the period is <span
 class="math inline">{\xi\cdot(X(\omega) + C(\omega))}</span> if <span
 class="math inline">\omega\in\Omega</span> occurred. The one-period
 model implicitly assumes the position is liquidated and the prices and
-cash flows are received at the end of the period.</p>
-<p>In the one-period model the final price is usually assumed to include
-the cash flow and under this assumption we use <span
-class="math inline">X</span> instead of <span class="math inline">X +
-C</span>. In multi-period models this distinction becomes crucial.</p>
+cash flows are received in proportion to the position at the end of the
+period.</p>
 <p><em>Arbitrage</em> exists in a one-period model if there is a
 position <span class="math inline">\xi\in\boldsymbol{R}^I</span> with
 <span class="math inline">{\xi\cdot x &lt; 0}</span> and <span
-class="math inline">{\xi\cdot X(\omega)\ge0}</span> for all <span
-class="math inline">{\omega\in\Omega}</span>: you make money acquiring
-the initial position and don’t lose money when unwinding it at the end
-of the period.</p>
+class="math inline">{\xi\cdot (X(\omega) + C(\omega))\ge0}</span> for
+all <span class="math inline">{\omega\in\Omega}</span>: you make money
+acquiring the initial position and don’t lose money when unwinding it at
+the end of the period.</p>
 <p>Some authors define arbitrage as a portfolio with <span
 class="math inline">{\xi\cdot x = 0}</span> and <span
 class="math inline">{\xi\cdot X}</span> is non-negative and strictly
@@ -227,11 +224,10 @@ position costs nothing to put on, that definition has nothing definite
 to say about how much they will make nor how likely it is they will make
 it.</p>
 <p>Even our stronger definition is still not good enough for traders and
-risk managers. Even though <span class="math inline">\xi\cdot x</span>
-is strictly negative they will consider how much capital will be tied up
-putting on that position and compute the ratio <span
-class="math inline">\xi\cdot x/|\xi|\cdot |x|</span>. If it is small
-they will take a pass on that “arbitrage” opportunity. No business would
+risk managers. Even though <span class="math inline">{\xi\cdot x}</span>
+is strictly negative they will compute <span
+class="math inline">{|\xi|\cdot|x|}</span> as a measure of how much
+capital will be tied up putting on the position. No business would
 approve using a million dollars from their funding account to make at a
 penny even though that satisfies the mathematical definition of
 arbitrage.</p>
@@ -259,7 +255,8 @@ class="math inline">{\xi\cdot X(L) = -LR + RL = 0}</span>, and <span
 class="math inline">{\xi\cdot X(H) = -LR + RH &gt; 0}</span>, so <span
 class="math inline">\xi\cdot X\ge0</span> on <span
 class="math inline">\{L,H\}</span>.</p>
-This argument also holds for the somewhat more realistic model with
+This argument also holds for the somewhat more realistic model where the
+final stock price can be any value between the low and the high, i.e.,
 <span class="math inline">\Omega = [L, H]</span>.
 </details>
 </section>
@@ -302,10 +299,10 @@ class="math inline">X</span>, <span
 class="math inline">\operatorname{ran}X = X(\Omega) = \{X(\omega)\mid
 \omega\in\Omega\}</span>, is the set of finite linear combinations <span
 class="math inline">\sum_i X(\omega_i) \pi_i</span>, <span
-class="math inline">\omega_i\in\Omega</span>, <span
-class="math inline">\pi_i &gt; 0</span>. If <span class="math inline">x
-= \sum_i X(\omega_i) \pi_i</span> is in the cone and <span
-class="math inline">\xi\cdot X</span> is non-negative on <span
+class="math inline">\pi_i &gt; 0</span>, <span
+class="math inline">\omega_i\in\Omega</span>. If <span
+class="math inline">x = \sum_i X(\omega_i) \pi_i</span> is in the cone
+and <span class="math inline">\xi\cdot X</span> is non-negative on <span
 class="math inline">\Omega</span> then <span
 class="math inline">{\xi\cdot x\ge 0}</span> so no arbitrage exists.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">x</span>
@@ -351,7 +348,7 @@ x\|</span>. Simplifying gives <span class="math inline">{t^2||y||^2 +
 0</span> and letting <span class="math inline">t</span> decrease to 0
 shows <span class="math inline">{\xi\cdot y\ge0}</span> for all <span
 class="math inline">y\in C</span>.</p>
-<p>We also have <span class="math inline">\|x^* - x\| \le \|(t + 1)x^* -
+<p>We also have <span class="math inline">\|x^* - x\| \le \|tx^* + x^* -
 x\|</span> for <span class="math inline">t + 1 &gt; 0</span>.
 Simplifying gives <span class="math inline">{t^2||x^*||^2 + 2t\xi\cdot
 x^*\ge 0}</span> for <span class="math inline">t &gt; -1</span>.
@@ -372,7 +369,7 @@ class="math inline">D\in ba(\Omega)</span> on <span
 class="math inline">\Omega</span>, but this requires a bit more math to
 establish. See <span class="citation" data-cites="DunSch1958">(Dunford
 and Schwartz 1958)</span>. We call any such measure
-<em>risk-neutral</em>. In general, risk-neutral measures are not
+<em>risk-neutral</em>. Risk-neutral measures are not generally
 unique.</p>
 <p>A <em>zero coupon bond</em> pays 1 unit at the end of the period on
 every outcome. A portfolio <span
@@ -419,17 +416,14 @@ class="math inline">R_\xi = \xi\cdot X</span>. One unit invested at the
 beginning of the period results in <span
 class="math inline">{R_\xi\colon\Omega\to\boldsymbol{R}}</span> at the
 end of the period. Every portfolio has the same expected realized return
-under a risk-neutral measure so perhaps this should be called
-<em>risk-blind</em>.</p>
+under a risk-neutral measure so perhaps this should be called a
+<em>risk-blind</em> measure.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">D</span>
 is a risk-neutral measure then <span class="math inline">R = E[R_\xi] =
 1/D(\Omega)</span> is constant for any portfolio <span
 class="math inline">\xi\in\boldsymbol{R}^I</span></em>.</p>
 <p><em>Hint</em>: The expectation is with respect to the “probability”
 measure <span class="math inline">DR = D/D(\Omega)</span>.</p>
-<p>This shows <span class="math inline">\xi\cdot X = E[\xi\cdot X]
-D(\Omega)</span> so <span class="math inline">E[R_\xi] = 1/D(\Omega) =
-R</span>.</p>
 </section>
 <section id="grassmann-algebra" class="level3">
 <h3>Grassmann Algebra</h3>
@@ -439,10 +433,11 @@ algebra <span class="math inline">\mathcal{G}(E)</span> is the algebra
 over the real numbers generated by points in <span
 class="math inline">E</span> with the condition <span
 class="math inline">PQ = 0</span> if and only if <span
-class="math inline">P = Q</span>, so <span class="math inline">PP =
-0</span>. Multiplication is associative so <span
-class="math inline">(PQ)R = P(QR)</span> and we can write <span
-class="math inline">PQR</span> unambiguously.</p>
+class="math inline">P = Q</span> for <span class="math inline">P,Q\in
+E</span>. In particular <span class="math inline">PP = 0</span>.
+Multiplication is associative so <span class="math inline">(PQ)R =
+P(QR)</span> and we can write <span class="math inline">PQR</span>
+unambiguously.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">PQ =
 -QP</span></em>.</p>
 <p><em>Hint</em>: <span class="math inline">0 = (P + Q)(P + Q) = PP + PQ
@@ -465,8 +460,8 @@ It was the greatest invention in mathematics after René Descartes
 introduced coordinates to specify points in two and three dimensions.
 Grassmann got rid of coordinates and used points in space directly. His
 algebra works in any number of dimensions and predated Einstein in not
-assuming an absolute origin of points in space. Vector spaces come along
-for free as the difference of two points.</p>
+assuming an absolute origin of points in space. Vectors come along for
+free as the difference of two points.</p>
 <p>Descartes assumed an origin for his coordinate system. Given an
 origin <span class="math inline">O\in E</span> and points <span
 class="math inline">P_1,\ldots,P_n\in E</span> is is possible to write
@@ -497,9 +492,9 @@ class="math inline">R(t) = \frac{RQ}{PQ}P + \frac{PR}{PQ}Q</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">R(t)
 \not= Q - P</span> for any <span class="math inline">t</span></em>.</p>
 <p>Note <span class="math inline">PQ(Q - P) = 0</span>.</p>
-<p><strong>Exercise</strong>. _Show <span class="math inline">\frac{(Q -
-P)Q}{PQ} = -1</span> and <span class="math inline">\frac{P(Q - P)}{PQ} =
-1</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\frac{(Q - P)Q}{PQ} = -1</span> and <span
+class="math inline">\frac{P(Q - P)}{PQ} = 1</span></em>.</p>
 <p>In general if <span class="math inline">P_0\cdots P_k \not=0</span>
 and <span class="math inline">P_0\cdots P_kR = 0</span> then <span
 class="math display">
@@ -594,7 +589,9 @@ OX(L)x &amp;= (R\,OP_b + L\,OP_s)x \\
 class="math inline">H - L</span> are positive the no arbitrage condition
 are <span class="math inline">{H - sR\ge0}</span> and <span
 class="math inline">{Rs - L\ge0}</span> so <span class="math inline">L
-\le Rs \le H</span>.</p>
+\le Rs \le H</span>. We have already established this without using
+Grassmann algebra but generalizations to higher dimensional cases can be
+reduced to a calculation.</p>
 <p><strong>Exercise</strong>. <em>What is the cone with origin <span
 class="math inline">O</span> generated by <span
 class="math inline">\{X(\omega)\mid L\le\omega\le H\}</span></em>.</p>
@@ -732,7 +729,7 @@ class="math inline">\operatorname{sgn}(0) = 0</span>.</p>
 \operatorname{sgn}(\xi)|\xi|\eta</span> where the bid/ask spread is
 proportional to how much is being transacted. For exchange traded
 instruments for which order book levels are available we can model the
-price more accurately.</p>
+price quite accurately.</p>
 </section>
 <section id="references" class="level2">
 <h2>References</h2>
@@ -903,10 +900,9 @@ Grassmann, Hermann Günther. 1844. <em>Die Ausdehnungslehre: Vollständig
 Und in Strenger Form Bearbeitet</em>. Leipzig: Otto Wigand.
 </div>
 <div id="ref-Ros1978" class="csl-entry" role="listitem">
-Ross, Stephen A. 1978. <span>“A <span>Simple</span>
-<span>Approach</span> to the <span>Valuation</span> of
-<span>Risky</span> <span>Streams</span>.”</span> <em>The Journal of
-Business</em> 51 (3): 453–75. <a
+Ross, Stephen A. 1978. <span>“A Simple Approach to the Valuation of
+Risky Streams.”</span> <em>The Journal of Business</em> 51 (3): 453–75.
+<a
 href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277</a>.
 </div>
 </div>

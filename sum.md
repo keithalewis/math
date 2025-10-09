@@ -469,7 +469,7 @@ The last equality follows from ${\partial_s E^s[1(X\le x)] = E[1(X \le x)e^{sX -
 Note $E_s[1(X\le x)((X - \kappa'(s))] = E_s[1(X\le x)((X - E_s[X])]
 = P_x(X\le x)(E_s[X\mid X\le x] - E_s[X]] < 0$.
 
-To use these formulas with the B-S/M parameters $\rho$, $S_0$, $sigma$, and $t$
+To use these formulas with the B-S/M parameters $\rho$, $S_0$, $\sigma$, and $t$
 use $f = S_0e^{\rho t}$, and $s = \sigma\sqrt{t}$ and multiply the forward values
 by $e^{-\rho t}$.
 
