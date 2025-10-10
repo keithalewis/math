@@ -10,9 +10,9 @@ abstract: Value, hedge, and manage risk of variance swaps.
 \newcommand\mb[1]{\mathbf{#1}}
 \newcommand\RR{\mb{R}}
 
-A variance swap pays the sum of the squares of realized return over a period.
+A variance swap pays the sum of the squares of realized returns over a period.
 It provides exposure to volatility no matter the level of the underlying.
-Unlike a call or put option it never goes out-of-the-money.
+Unlike a call or put option, it never goes out-of-the-money.
 The most remarkable fact about variance swaps is that they do not
 require a mathematical model of the underlying price, only
 futures on the underlying and puts and calls that expire at the
@@ -22,14 +22,14 @@ maturity of the variance swap.
 
 Consider an underlying with price $x$ at the beginning of a period and price $X$
 at the end of the period. Consider an option with payoff $(X - x)^2$ at the
-end of the period having price $A$. If an option with payoff
-$X^2 - x^2$ has price $B$ and the forward paying $X - x$ has price 0 then
-$A = B$. This follows from the elementary formula
+end of the period having price $A$ and an option with payoff
+$X^2 - x^2$ having price $B$. If a forward paying $X - x$ has price 0 then
+$A = B$. This follows from simple algebra:
 $$
 	X^2 - x^2 = 2x(X - x) + (X - x)^2.
 $$
 Note this is Taylor's formula for $f(x) = x^2$ since cubic and higher order terms are 0.
-Either contract can be used to replicate the other using the 0 price forward contract.
+Either contract can be used to replicate the other using the at-the-money forward contract.
 
 __Exercise__. _If the price of the forward is $C$ then $B = 2xC + A$_.
 
@@ -45,10 +45,11 @@ __Exercise__. _If $f(x) = \log x$ show_
 $$
 	\log X/x = \log X - \log x = (1/x)(X - x) - (1/x^2)(X - x)^2/2 + \int_x^X 2/t^3(X - t)^2/2\,dt
 $$
+This provides a perfect hedge no matter the value of $X$ so it is model independent.
 
 ## Contract
 
-Contracts are specified by an underlying instrument and observation times.
+Variance swap contracts are specified by an underlying instrument and observation times.
 If the level of the underlying is $X_t$ at time $t$ and the observation times
 are $(t_j)_{0\le j\le n}$ then the payoff on unit notional at time $t_n$ is
 $$
@@ -63,7 +64,7 @@ The realized return is $R_j = \log X_{j+1}/X_j = \log X_{j+1} - \log X_j =
 with base $e \approx 2.718281828$. Real-world variance swap contracts actually specify this
 approximation.
 
-Another common way of specifying realized return is 
+Another way of specifying realized return is 
 $R_j = (X_{j+1} - X_j)/X_j = \Delta X_j/X_j$. It does not drag in logarithms and is simpler
 to work with.
 
