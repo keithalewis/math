@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Simple Universal Model</title>
+	<style>
+		:root{font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color:#111}
+		body{max-width:880px;margin:12px 16px;padding:0 12px;line-height:1.6}
+		img.responsive{max-width:100%;width:100%;height:auto;display:block}
+		header h1{margin:0 0 8px}
+		pre.dialog{background:#f7f7f9;border:1px solid #eee;padding:12px;border-radius:6px;white-space:pre-wrap}
+		section{margin:24px 0;padding:12px}
+		code{background:#f3f4f6;padding:2px 6px;border-radius:4px}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>TITLE</h1>
+	</header>
+
+	<main>
+		<img class="responsive" src="./AA_take_me_to_your_data.png" alt="Alien: Take me to your data Earthling. Earthling: Not our ruler? A: Stop wasting my time! (You are making me very mad - Marvin Martian) E: Okay, but we have lots of data. A: No problemo, I will store it on this. (Stick) E: You don't understand. We have lots and lots of data. A: No, you don't understand. We will encode the data as a sequence of 0's and 1's, just like you Earthlings. E: You'll need a bigger stick. A: We will just take the encoded data $0110\ldots$ then stick a decimal point in front. E: Wat?">
+
+		<section aria-labelledby="dialogue">
+			<pre class="dialog">
+Alien: Take me to your data Earthling.  
+Earthling: Not our ruler?
+A: Stop wasting my time! (You are making me very mad - Marvin Martian)
+E: Okay, but we have lots of data.  
+A: No problemo, I will store it on this. (Stick)  
+</pre>
+
+			<img class="responsive" src="./BB_where_will_you_put_it.png" alt="E: You don't understand. We have lots and lots of data. A: No, you don't understand. We will encode the data as a sequence of 0's and 1's, just like you Earthlings. E: You'll need a bigger stick. A: We will just take the encoded data $0110\ldots$ then stick a decimal point in front. E: Wat?">
+
+			<pre class=""dialog">
+E: You don't understand. We have lots and lots of data.  
+A: No, you don't understand. We will encode the data as a sequence of 0's and 1's, just like you Earthlings.  
+E: You'll need a bigger stick.  
+A: We will just take the encoded data 01101... then put a decimal point in front.
+In base 2 that is a number between 0 and 1.
+E: And then what? 
+A: Make a mark on the stick at ω = .01101...<sub>2</sub>
+			</pre>
+		</section>
+        
+		<section aria-labelledby="math">
+			<h2 id="math">Random Variable</h2>
+            <p>A <em>random variable</em> is a variable, a symbol representing a number that 
+                can be used in an equration or inequality, that takes a set 
+                to the probablity the random variable variable belongs the set when sampled.
+            </p>
+        </section>
+
+        <section aria-labelledby="math">
+			<h2 id="math">Timeseries</h2>
+            <p>White noise.</p>
+		</section>
+
+        <section aria-labelledby="math">
+			<h2 id="math">White Noise</h2>
+            <p>White noise is a random signal having equal intensity at different frequencies, 
+                giving it a constant power spectral density.</p>
+		</section>
+
+		<section>
+			<h2>Partial Information</h2>
+			<p>How do we represent "knowing the first digit of \(\omega\)?"</p>
+			<p>\(\mathcal{A}_1 = \{[0, 1/2), [1/2, 1]\}\)</p>
+		</section>
+
+		<section>
+			<h2>Function</h2>
+			<p>If \(A\) and \(B\) are sets then the <em>set exponential</em> \(B^A = \{f\colon A\to B\}\)
+			is the set of all functions from \(A\) to \(B\).</p>
+		</section>
+
+		<section>
+			<h2>Measure</h2>
+			<p>A <em>measure</em> takes a subset of a set to a number. Measures don't count things twice: the measure of the union
+			of two sets is the sum of their measures minus the measure of their intersection. The measure of the empty set is zero.</p>
+			<p>The simplest example is counting measure: the number of elements of a set.</p>
+		</section>
+
+		<section>
+			<h3>Hadwiger's Theorem</h3>
+			<p>Mathematicians like countably additive measures so they can swap limits and integrals; 
+                finitely additive measures can be useful in other contexts.</p>
+		</section>
+	</main>
+
+	<!-- MathJax CDN (renders $...$ and \(...) inline) -->
+	<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" crossorigin="anonymous"></script>
+</body>
+</html>
