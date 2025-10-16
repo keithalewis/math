@@ -64,15 +64,16 @@ It specifies the prices of
 available instruments at the start of the period and their
 prices and cash flows at the end depending on what occurred.
 We make the usual unrealistic assumptions that prices are real numbers
-instead of integral multiples of each instrument's minimum trading increment/tick size, 
+instead of integral multiples of each instrument's minimum trading increment/tick size
 and there is no bid-ask spread depending on the amount being bought or sold,
 much less any consideration of the credit rating of counterparties involved.
 The [appendix](#appendix) proposes a model that can incorporate more realistic assumptions.
 
 Quants turn math into software that traders use.
-If they roll out a model that is not arbitrage-free then a "clever" trader
-will find an "arbitrage" and any business that didn't have risk controls
-in place to prevent this will most likely lose money.
+If they roll out a model that is not arbitrage-free then
+customers will go long on trades that are underpriced and
+short trades that over overpriced. Eventually trading
+reality catches up and the firm loses money.
 
 The Fundamental Theorem of Asset Pricing identifies arbitrage-free models
 and provides an arbitrage if they are not. As [@Ros1978] showed, this is
@@ -100,7 +101,7 @@ if $I$ is finite. The _Euclidean norm_ of ${x\in\RR^I}$ is defined by ${\|x\| = 
 
 ### Binomial Model
 
-The _binomial model_ (with no dividends) has a bond and stock where $x = (1, s)$,
+The _binomial model_ (with no dividends) has instruments a bond and stock where $x = (1, s)$,
 $X(\omega) = (R, \omega)$, and $\Omega = \{L, H\}$ with ${L < H}$.
 The bond has realized return $R$ and the stock can go from price $s$
 to either $L$ or $H$.  A somewhat more realistic model is
@@ -187,7 +188,8 @@ If $\xi$ and $\eta$ are arbitrages then so is $\xi + \eta$.
 
 The smallest cone containing the range of $X$,
 $\ran X = X(\Omega) = \{X(\omega)\mid \omega\in\Omega\}$, is the set of finite
-linear combinations $\sum_i X(\omega_i) \pi_i$, $\pi_i > 0$, $\omega_i\in\Omega$.
+linear combinations of point in the range with positive coefficient,
+$\sum_i X(\omega_i) \pi_i$, $\pi_i > 0$, $\omega_i\in\Omega$.
 If $x = \sum_i X(\omega_i) \pi_i$ is in the cone
 and $\xi\cdot X$ is non-negative on $\Omega$ then ${\xi\cdot x\ge 0}$
 so no arbitrage exists.
@@ -257,7 +259,7 @@ A model is _complete_ if this map is _onto_. This cannot be the
 case if the cardinality of $I$ is less than the cardinality of $\Omega$.
 In general the number of instruments is much smaller than the
 number of outcomes.
-Although complete markets are common in mathematical finance books, they almost
+Although complete markets are common in mathematical finance books, they
 never occur in models faithful to the real world.
 
 ### Realized Return
