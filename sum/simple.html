@@ -9,9 +9,10 @@
 		body{max-width:880px;margin:12px 16px;padding:0 12px;line-height:1.6}
 		img.responsive{max-width:100%;width:100%;height:auto;display:block}
 		header h1{margin:0 0 8px}
-		pre.dialog{background:#f7f7f9;border:1px solid #eee;padding:12px;border-radius:6px;white-space:pre-wrap}
+		pre.dialog{background:#f7f7f9;border:1px solid #eee;padding:12px;border-radius:6px;white-space:pre-wrap;font-size:large;}
 		section{margin:24px 0;padding:12px}
 		code{background:#f3f4f6;padding:2px 6px;border-radius:4px}
+		aside { width: 200px; border: 1px solid black; padding: 10px; margin: 10px; float: right;}
 	</style>
 </head>
 <body>
@@ -20,7 +21,7 @@
 	</header>
 
 	<main>
-		<img class="responsive" src="./AA_take_me_to_your_data.png" alt="Alien: Take me to your data Earthling. Earthling: Not our ruler? A: Stop wasting my time! (You are making me very mad - Marvin Martian) E: Okay, but we have lots of data. A: No problemo, I will store it on this. (Stick) E: You don't understand. We have lots and lots of data. A: No, you don't understand. We will encode the data as a sequence of 0's and 1's, just like you Earthlings. E: You'll need a bigger stick. A: We will just take the encoded data $0110\ldots$ then stick a decimal point in front. E: Wat?">
+		<img class="responsive" src="./AA_take_me_to_your_data.png" alt="Take me to your data Earthling.">
 
 		<section aria-labelledby="dialogue">
 			<pre class="dialog">
@@ -31,9 +32,9 @@ E: Okay, but we have lots of data.
 A: No problemo, I will store it on this. (Stick)  
 </pre>
 
-			<img class="responsive" src="./BB_where_will_you_put_it.png" alt="E: You don't understand. We have lots and lots of data. A: No, you don't understand. We will encode the data as a sequence of 0's and 1's, just like you Earthlings. E: You'll need a bigger stick. A: We will just take the encoded data $0110\ldots$ then stick a decimal point in front. E: Wat?">
+			<img class="responsive" src="./BB_where_will_you_put_it.png" alt="You don't understand.">
 
-			<pre class=""dialog">
+			<pre class="dialog">
 E: You don't understand. We have lots and lots of data.  
 A: No, you don't understand. We will encode the data as a sequence of 0's and 1's, just like you Earthlings.  
 E: You'll need a bigger stick.  
@@ -41,32 +42,60 @@ A: We will just take the encoded data 01101... then put a decimal point in front
 In base 2 that is a number between 0 and 1.
 E: And then what? 
 A: Make a mark on the stick at ω = .01101...<sub>2</sub>
-			</pre>
+</pre>
 		</section>
         
 		<section aria-labelledby="math">
 			<h2 id="math">Random Variable</h2>
             <p>A <em>random variable</em> is a variable, a symbol representing a number that 
-                can be used in an equration or inequality, that takes a set 
-                to the probablity the random variable variable belongs the set when sampled.
+                can be used in an equation or inequality, and
+                the probability the random variable variable takes on a given value.
             </p>
+			<aside>
+			Introduce \(X\) for name of random variable.
+			</aside>
+			<p>Discrete: \(P(X = x_j) = p_j\) where \(p_j \ge 0\), \(\sum_j p_j = 1\).</p>
+			<p>Expected value: \(E[X] = \sum_j x_j p_j\)</p>
+			<p>Variance: \(\operatorname{Var}(X) = E[(X - E[X])^2] = E[X^2] - E[X]^2\)</p>
+			<p>Covariance: \(\operatorname{Cov}(X, Y) = E[(X - E[X])(Y - E[Y]) = E[XY] - E[X]E[Y]\)</p>
+			<p>Probability is a <em>measure</em>: \(P(X\in E\cup F) = P(X\in E) + P(X\in F) - P(X\in E\cap F)\) and \(P(X\in\emptyset) = 0\)</p>
         </section>
 
         <section aria-labelledby="math">
-			<h2 id="math">Timeseries</h2>
-            <p>White noise.</p>
+			<h2 id="math">Time Series</h2>
+			<p>
+			A <em>time series</em> is a sequence of random variables indexed by time:
+			\(X_0, X_1, X_2, \ldots\).
+			</p>
+			<p>
+			Stationary: does not matter when you start observing it.
+			</p>
+			<p>
+			Uncorrelated: past observations do not influence future observations.
+			</p>
+			<p>
+			Example: coin flips
+			</p>
 		</section>
 
         <section aria-labelledby="math">
 			<h2 id="math">White Noise</h2>
-            <p>White noise is a random signal having equal intensity at different frequencies, 
-                giving it a constant power spectral density.</p>
+            <p>The most basic time series is <em>white noise</em></p>
+			<p>Stationary, uncorrelated, and mean 0</p>
+			<p>Wold decomposition: every stationary, uncorrelated time series
+			is a moving average of white noise plus a deterministic time series.
+			</p>
 		</section>
 
 		<section>
 			<h2>Partial Information</h2>
+			<p>Partial information is a <em>partition</em>.</p>
+			<p>Initially we know only \(\omega\in[0,1)\)</p>
+			<p>\(\mathcal{A}_0 = \{[0, 1]\}\)</p>
 			<p>How do we represent "knowing the first digit of \(\omega\)?"</p>
 			<p>\(\mathcal{A}_1 = \{[0, 1/2), [1/2, 1]\}\)</p>
+			<p>How do we represent "knowing the first two digits of \(\omega\)?"</p>
+			<p>\(\mathcal{A}_2 = \{[0, 1/4),\ldots, [3/4, 1]\}\)</p>
 		</section>
 
 		<section>
@@ -83,6 +112,7 @@ A: Make a mark on the stick at ω = .01101...<sub>2</sub>
 		</section>
 
 		<section>
+		<aside>Optional?</aside>
 			<h3>Hadwiger's Theorem</h3>
 			<p>Mathematicians like countably additive measures so they can swap limits and integrals; 
                 finitely additive measures can be useful in other contexts.</p>
