@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-10-09" />
+  <meta name="dcterms.date" content="2025-10-16" />
   <title>Variance Swaps</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Variance Swaps</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 9, 2025</p>
+<p class="date">October 16, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage risk of variance swaps.
@@ -60,9 +60,9 @@ Value, hedge, and manage risk of variance swaps.
 <li><a href="#static-hedge" id="toc-static-hedge">Static Hedge</a></li>
 </ul>
 </nav>
-<p>A variance swap pays the sum of the squares of realized return over a
-period. It provides exposure to volatility no matter the level of the
-underlying. Unlike a call or put option it never goes out-of-the-money.
+<p>A variance swap pays the sum of the squares of realized returns over
+a period. It provides exposure to volatility no matter the level of the
+underlying. Unlike a call or put option, it never goes out-of-the-money.
 The most remarkable fact about variance swaps is that they do not
 require a mathematical model of the underlying price, only futures on
 the underlying and puts and calls that expire at the maturity of the
@@ -73,16 +73,16 @@ variance swap.</p>
 at the beginning of a period and price <span
 class="math inline">X</span> at the end of the period. Consider an
 option with payoff <span class="math inline">(X - x)^2</span> at the end
-of the period having price <span class="math inline">A</span>. If an
-option with payoff <span class="math inline">X^2 - x^2</span> has price
-<span class="math inline">B</span> and the forward paying <span
+of the period having price <span class="math inline">A</span> and an
+option with payoff <span class="math inline">X^2 - x^2</span> having
+price <span class="math inline">B</span>. If a forward paying <span
 class="math inline">X - x</span> has price 0 then <span
-class="math inline">A = B</span>. This follows from the elementary
-formula <span class="math display">
+class="math inline">A = B</span>. This follows from simple algebra:
+<span class="math display">
     X^2 - x^2 = 2x(X - x) + (X - x)^2.
 </span> Note this is Taylor’s formula for <span class="math inline">f(x)
 = x^2</span> since cubic and higher order terms are 0. Either contract
-can be used to replicate the other using the 0 price forward
+can be used to replicate the other using the at-the-money forward
 contract.</p>
 <p><strong>Exercise</strong>. <em>If the price of the forward is <span
 class="math inline">C</span> then <span class="math inline">B = 2xC +
@@ -101,12 +101,13 @@ class="math display">
 \log x</span> show</em> <span class="math display">
     \log X/x = \log X - \log x = (1/x)(X - x) - (1/x^2)(X - x)^2/2 +
 \int_x^X 2/t^3(X - t)^2/2\,dt
-</span></p>
+</span> This provides a perfect hedge no matter the value of <span
+class="math inline">X</span> so it is model independent.</p>
 </section>
 <section id="contract" class="level2">
 <h2>Contract</h2>
-<p>Contracts are specified by an underlying instrument and observation
-times. If the level of the underlying is <span
+<p>Variance swap contracts are specified by an underlying instrument and
+observation times. If the level of the underlying is <span
 class="math inline">X_t</span> at time <span
 class="math inline">t</span> and the observation times are <span
 class="math inline">(t_j)_{0\le j\le n}</span> then the payoff on unit
@@ -126,7 +127,7 @@ X_{j+1}/X_j = \log X_{j+1} - \log X_j =
 the natuaral logarithm with base <span class="math inline">e \approx
 2.718281828</span>. Real-world variance swap contracts actually specify
 this approximation.</p>
-<p>Another common way of specifying realized return is <span
+<p>Another way of specifying realized return is <span
 class="math inline">R_j = (X_{j+1} - X_j)/X_j = \Delta X_j/X_j</span>.
 It does not drag in logarithms and is simpler to work with.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">\Delta

@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-10-09" />
+  <meta name="dcterms.date" content="2025-10-16" />
   <title>One-Period Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,10 +67,10 @@
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 9, 2025</p>
+<p class="date">October 16, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-Buy now, sell later.
+Simplest formal model of a financial market.
 </div>
 </header>
 <nav id="TOC" role="doc-toc">
@@ -95,58 +95,25 @@ Algebra</a></li>
 <li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
-<!--
-
-The Capital Asset Pricing Model assumes that a probability measure is
-specified on the sample space of possible outcomes.
-[@Mar1952] and [@Roy1952] developed Modern
-Portfolio Theory by introducing the concept of an efficient portfolio:
-one for which no alternative portfolio offers a higher expected return
-at the same level of risk, or a lower level of risk for the same expected
-return. In their framework, risk is quantified using the variance of realized
-returns.
-
-A common parameterization is to assume returns are jointly normal.
-This reduces parameter estimation to the mean and covariance matrix.
-If we assume a multi period model where the returns are stationary and independent
-(i.e., a random walk)
-then standard linear regression can be used to estimate the parameters
-based on historical prices. There are still some practical questions
-to answer: How far back do you go? Do you use exponential weights?
-What exponent should you use?
-
-[@Ros1976] invented Arbitrage Pricing Theory as a systematic approach to estimate
-a CAPM probability distribution that depends on information other than historical prices.
-
-After reseachers noted empirical contradictions of the CAPM [@FamFre1992] introduced
-specific factors. In addition to excess return over the risk-free rate they used the excess returns
-of small‑cap stocks over large‑cap stocks (SMB) and the excess returns of value stocks
-over growth stock (HML). They also assume stationary and independent returns
-and use linear regression to estimate their model parameters.
-
-If the sample space consists of two point we get the binomial model.
-It is not at all realistic, but it can illustrate the concept of arbitrage.
-Models that are not arbitrage free are useless so we need a way of
-detecting the. The Fundamental Theorem of asset pricing for the one-period
-model states there is no arbitrage if and only if the initial prices belong
-so the smallest closed cone containing all possible final prices.
-
--->
 <p>The One‑Period Model provides the simplest formal framework for
 describing a financial market over a single period where trading is
 allowed only at the start and end of the period. It specifies the prices
 of available instruments at the start of the period and their prices and
 cash flows at the end depending on what occurred. We make the usual
 unrealistic assumptions that prices are real numbers instead of integral
-multiples of each instrument’s minimum trading increment/tick size, and
+multiples of each instrument’s minimum trading increment/tick size and
 there is no bid-ask spread depending on the amount being bought or sold,
 much less any consideration of the credit rating of counterparties
-involved. The <a href="#appendix">appendix</a> proposes a model that can
-incorporate more realistic assumptions.</p>
-<p>Quants turn math into software that traders use. If they roll out a
-model that is not arbitrage-free then a “clever” trader will find an
-“arbitrage” and any business that didn’t have risk controls in place to
-prevent this will most likely lose money.</p>
+involved or tax issues. We also ignore the fact instruments can only be
+purchased in integral multiples of their minimum share/lot size. The <a
+href="#appendix">appendix</a> proposes a model that can incorporate more
+realistic assumptions.</p>
+<p>Quants turn mathematical models into software that traders use. If
+they roll out a model that is not arbitrage-free then customers will go
+long on trades that are underpriced and short trades that over
+overpriced. Eventually trading reality catches up and the firm loses
+money. Even worse, a “clever” trader might find an internal arbitrage in
+the system they use to give the appearance of making profit.</p>
 <p>The Fundamental Theorem of Asset Pricing identifies arbitrage-free
 models and provides an arbitrage if they are not. As <span
 class="citation" data-cites="Ros1978">(Ross 1978)</span> showed, this is
@@ -174,8 +141,8 @@ class="math inline">C\colon\Omega\to\boldsymbol{R}^I</span> to denote
 the cash flows paid at the end of the period.</p>
 <section id="binomial-model" class="level3">
 <h3>Binomial Model</h3>
-<p>The <em>binomial model</em> (with no dividends) has a bond and stock
-where <span class="math inline">x = (1, s)</span>, <span
+<p>The <em>binomial model</em> (with no dividends) has instruments a
+bond and stock where <span class="math inline">x = (1, s)</span>, <span
 class="math inline">X(\omega) = (R, \omega)</span>, and <span
 class="math inline">\Omega = \{L, H\}</span> with <span
 class="math inline">{L &lt; H}</span>. The bond has realized return
@@ -297,7 +264,8 @@ are arbitrages then so is <span class="math inline">\xi + \eta</span>.
 <p>The smallest cone containing the range of <span
 class="math inline">X</span>, <span
 class="math inline">\operatorname{ran}X = X(\Omega) = \{X(\omega)\mid
-\omega\in\Omega\}</span>, is the set of finite linear combinations <span
+\omega\in\Omega\}</span>, is the set of finite linear combinations of
+point in the range with positive coefficient, <span
 class="math inline">\sum_i X(\omega_i) \pi_i</span>, <span
 class="math inline">\pi_i &gt; 0</span>, <span
 class="math inline">\omega_i\in\Omega</span>. If <span
@@ -397,7 +365,7 @@ case if the cardinality of <span class="math inline">I</span> is less
 than the cardinality of <span class="math inline">\Omega</span>. In
 general the number of instruments is much smaller than the number of
 outcomes. Although complete markets are common in mathematical finance
-books, they almost never occur in models faithful to the real world.</p>
+books, they never occur in models faithful to the real world.</p>
 <section id="realized-return" class="level3">
 <h3>Realized Return</h3>
 <p>The <em>realized return</em> on a portfolio <span
@@ -419,18 +387,21 @@ end of the period. Every portfolio has the same expected realized return
 under a risk-neutral measure so perhaps this should be called a
 <em>risk-blind</em> measure.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">D</span>
-is a risk-neutral measure then <span class="math inline">R = E[R_\xi] =
-1/D(\Omega)</span> is constant for any portfolio <span
+is a risk-neutral measure then the expected realized return <span
+class="math inline">R = E[R_\xi] = 1/D(\Omega)</span> is constant for
+any portfolio <span
 class="math inline">\xi\in\boldsymbol{R}^I</span></em>.</p>
 <p><em>Hint</em>: The expectation is with respect to the “probability”
 measure <span class="math inline">DR = D/D(\Omega)</span>.</p>
 </section>
 <section id="grassmann-algebra" class="level3">
 <h3>Grassmann Algebra</h3>
+<p>We now show how to use the geometric algebra <span class="citation"
+data-cites="Gra1844">(Grassmann 1844)</span> invented to solve problems
+involving arbitrage free models.</p>
 <p>Let <span class="math inline">E</span> be the set of points in space.
-The <span class="citation" data-cites="Gra1844">(Grassmann 1844)</span>
-algebra <span class="math inline">\mathcal{G}(E)</span> is the algebra
-over the real numbers generated by points in <span
+The Grassmann algebra <span class="math inline">\mathcal{G}(E)</span> is
+the algebra over the real numbers generated by points in <span
 class="math inline">E</span> with the condition <span
 class="math inline">PQ = 0</span> if and only if <span
 class="math inline">P = Q</span> for <span class="math inline">P,Q\in
@@ -456,12 +427,12 @@ class="math inline">P(Q + R)/2</span>. Permuting <span
 class="math inline">P</span>, <span class="math inline">Q</span>, and
 <span class="math inline">R</span> shows all three medians meet at the
 centroid. Grassmann used algebra instead of Euclid’s ruler and compass.
-It was the greatest invention in mathematics after René Descartes
-introduced coordinates to specify points in two and three dimensions.
-Grassmann got rid of coordinates and used points in space directly. His
-algebra works in any number of dimensions and predated Einstein in not
-assuming an absolute origin of points in space. Vectors come along for
-free as the difference of two points.</p>
+It was the greatest invention in mathematics following René Descartes
+introduction of coordinates to specify points in two and three
+dimensions. Grassmann got rid of coordinates and used points in space
+directly. His algebra works in any number of dimensions and predated
+Einstein in not assuming an absolute origin of points in space. Vectors
+come along for free as the difference of two points.</p>
 <p>Descartes assumed an origin for his coordinate system. Given an
 origin <span class="math inline">O\in E</span> and points <span
 class="math inline">P_1,\ldots,P_n\in E</span> is is possible to write
@@ -727,9 +698,9 @@ class="math inline">\xi &lt; 0</span>, and <span
 class="math inline">\operatorname{sgn}(0) = 0</span>.</p>
 <p>A more realistic model is <span class="math inline">x(\xi,i) = x_i +
 \operatorname{sgn}(\xi)|\xi|\eta</span> where the bid/ask spread is
-proportional to how much is being transacted. For exchange traded
-instruments for which order book levels are available we can model the
-price quite accurately.</p>
+proportional to how much is being transacted.</p>
+<p>For exchange traded instruments the price is determined by the
+existing limit orders, if that information is available.</p>
 </section>
 <section id="references" class="level2">
 <h2>References</h2>
@@ -887,6 +858,43 @@ $p_j = \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
 $1 = \sum_j p_j = \sum_j \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
 
 $Rx = E[X] = \sum_j X(ω_j) \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+
+-->
+<!--
+
+The Capital Asset Pricing Model assumes that a probability measure is
+specified on the sample space of possible outcomes.
+[@Mar1952] and [@Roy1952] developed Modern
+Portfolio Theory by introducing the concept of an efficient portfolio:
+one for which no alternative portfolio offers a higher expected return
+at the same level of risk, or a lower level of risk for the same expected
+return. In their framework, risk is quantified using the variance of realized
+returns.
+
+A common parameterization is to assume returns are jointly normal.
+This reduces parameter estimation to the mean and covariance matrix.
+If we assume a multi period model where the returns are stationary and independent
+(i.e., a random walk)
+then standard linear regression can be used to estimate the parameters
+based on historical prices. There are still some practical questions
+to answer: How far back do you go? Do you use exponential weights?
+What exponent should you use?
+
+[@Ros1976] invented Arbitrage Pricing Theory as a systematic approach to estimate
+a CAPM probability distribution that depends on information other than historical prices.
+
+After reseachers noted empirical contradictions of the CAPM [@FamFre1992] introduced
+specific factors. In addition to excess return over the risk-free rate they used the excess returns
+of small‑cap stocks over large‑cap stocks (SMB) and the excess returns of value stocks
+over growth stock (HML). They also assume stationary and independent returns
+and use linear regression to estimate their model parameters.
+
+If the sample space consists of two point we get the binomial model.
+It is not at all realistic, but it can illustrate the concept of arbitrage.
+Models that are not arbitrage free are useless so we need a way of
+detecting the. The Fundamental Theorem of asset pricing for the one-period
+model states there is no arbitrage if and only if the initial prices belong
+so the smallest closed cone containing all possible final prices.
 
 -->
 <div id="refs" class="references csl-bib-body hanging-indent"
