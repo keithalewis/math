@@ -1,6 +1,6 @@
 ---
 title: Thoughts on Finance
-abstract: Toward a universal model of trading, hedging, and risk-management
+abstract: Toward a unified model of trading, hedging, and risk-management
 author: Keith A. Lewis
 ---
 \newcommand\bs[1]{\boldsymbol{{#1}}}
@@ -11,11 +11,6 @@ author: Keith A. Lewis
 \newcommand\os{\text{*}}
 \newcommand\oi{\text{+}}
 
-We discuss the Simple Universal Model for market prices and cash flows, trading
-strategies, and the values and amounts involved.
-Every company trading in the market needs to describe instument
-contracts. They also need models to value, hedge, and manage their risk.
-
 Inspired by [Lexifi](https://www.lexify.com), we propose a mathematical
 theory that can be practially implemented on a computer.  A key
 simplification is to seperate the notion of an increasing sequence of
@@ -24,6 +19,11 @@ or trading strategies. We
 identify primitive operations that apply only to increasing time series
 and a operations on them. These can be used to convert contract specifications
 into a stream of cash flows or trades.
+
+We discuss the Simple Universal Model for market prices and cash flows, trading
+strategies, and the values and amounts involved.
+Every company trading in the market needs to describe instument
+contracts. They also need models to value, hedge, and manage their risk.
 
 It is important to include knobs for all possible actions an intrument owner can take.
 For example, an American option holder can exercise any time prior to expiration.

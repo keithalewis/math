@@ -9,15 +9,18 @@ _Perceptrons_ were invented by [@McCPit1943], two college professors
 in the department of psychiatry and neuropsychiatricietry, respectively,
 at the University of Chicago. Their abstract starts with:
 
-> Because of the "all-or-none" character of nervous activity, neural 
-events and the relations among them can be treated by means of propositional logic. 
+> Because of the "all-or-none" character of nervous activity, neural
+events and the relations among them can be treated by means of
+propositional logic.
 
-It is difficult to imagine the tenor of 1943 in the middle of WW II.
+It is difficult to imagine the tenor of 1943 in the middle of WW II
+where mathematical logic would hold such sway.
 
-> Many years ago one of us, by considerations impertinent to this 
-argument, was led to conceive of the response of any neuron as factually equivalent to
-a proposition which proposed its adequate stimulus. He therefore attempted to record the behavior of complicated 
-nets in the notation of the symbolic logic of propositions.
+> Many years ago one of us, by considerations impertinent to this
+argument, was led to conceive of the response of any neuron as factually
+equivalent to a proposition which proposed its adequate stimulus. He
+therefore attempted to record the behavior of complicated nets in the
+notation of the symbolic logic of propositions.
 
 > To present the theory, the most appropriate symbolism is that of
 Language II of R. Carnap (1938), augmented with various notations
@@ -28,11 +31,10 @@ The limitations of a single perceptron were quickly realized and Rosenblatt
 used layers containing multple perceptrons, a neural network, to
 build his Mark I Perceptron. His model assumed the output of a
 perceptron was 0 or 1 corresponding to an actual neuron either
-not firing or not firing. Later models softend this to 
-emiting a number between 0 and 1 that was a smooth function
-of the inputs using a RelU.
-
-
+not firing or not firing, similar to the false and true of propositional logic.
+Later models softend this to emiting a number between 0 and 1 that is a non-decreasing
+function of the inputs. These are called Rectified Linear Units by
+people who like to call them ReLUs to sound smart.
 
 "the embryo of an electronic computer that [the Navy] expects will be
 able to walk, talk, see, write, reproduce itself and be conscious of
