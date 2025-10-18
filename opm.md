@@ -236,7 +236,7 @@ whenever ${\xi\cdot x\not=0}$.
 __Exercise__. _Show $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$_.
 
 This is actually a deleterious feature of the model. Going long or short typically
-affects the realized return. It also implies a portfolio stategy can be scaled
+affects the realized return. It also implies a portfolio strategy can be scaled
 to arbitrarily large positions. At some point you will run out of instruments to buy
 and sell.
 
@@ -491,11 +491,17 @@ $x_i$ is the mid price models a fixed bid/ask spread.
 Recall the _signum_ $\sgn(\xi) = 1$ if $\xi > 0$, $\sgn(\xi) = -1$ if $\xi < 0$,
 and $\sgn(0) = 0$.
 
-A more realistic model is $x(\xi,i) = x_i + \sgn(\xi)|\xi|\eta$
-where the bid/ask spread is proportional to how much is being transacted.
+A more realistic model is $x(\xi,i) = x_i + \xi\eta$
+when the bid/ask spread is proportional to how much is being transacted
+or $x(\xi,i) = x_i + \phi(\xi)\eta$ where $\phi(\xi)$ is an increasing function
+of $\xi$ with $\phi(0) = 0$.
 
 For exchange traded instruments the price is determined by the existing limit orders,
 if that information is available.
+
+To be even more realistic, the domain of the price function should be restricted.
+It is not possible to by more shares of an instrument than have been issued
+and sometimes it is expensive, or not possible, to short an instrument.
 
 ## References
 

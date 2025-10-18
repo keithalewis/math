@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-10-16" />
+  <meta name="dcterms.date" content="2025-10-18" />
   <title>One-Period Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -67,7 +67,7 @@
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 16, 2025</p>
+<p class="date">October 18, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Simplest formal model of a financial market.
@@ -88,9 +88,9 @@ Asset Pricing</a>
 <ul>
 <li><a href="#realized-return" id="toc-realized-return">Realized
 Return</a></li>
+</ul></li>
 <li><a href="#grassmann-algebra" id="toc-grassmann-algebra">Grassmann
 Algebra</a></li>
-</ul></li>
 <li><a href="#appendix" id="toc-appendix">Appendix</a></li>
 <li><a href="#references" id="toc-references">References</a></li>
 </ul>
@@ -110,7 +110,7 @@ href="#appendix">appendix</a> proposes a model that can incorporate more
 realistic assumptions.</p>
 <p>Quants turn mathematical models into software that traders use. If
 they roll out a model that is not arbitrage-free then customers will go
-long on trades that are underpriced and short trades that over
+long on trades that are underpriced and short trades that are over
 overpriced. Eventually trading reality catches up and the firm loses
 money. Even worse, a “clever” trader might find an internal arbitrage in
 the system they use to give the appearance of making profit.</p>
@@ -128,23 +128,23 @@ trading at the start and end of a period. The set of possible
 <em>outcomes</em>, <span class="math inline">\Omega</span>, is what can
 happen over the period. The <em>prices</em> at the beginning of the
 period are a vector <span
-class="math inline">x\in\boldsymbol{R}^I</span><a href="#fn1"
+class="math inline">{x\in\boldsymbol{R}^I}</span><a href="#fn1"
 class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.
 The prices at the end of the period are a function <span
-class="math inline">X\colon\Omega\to
-\boldsymbol{R}^I</span> where <span
-class="math inline">X(\omega)\in\boldsymbol{R}^I</span> are the
-instrument prices if <span class="math inline">\omega\in\Omega</span>
+class="math inline">{X\colon\Omega\to
+\boldsymbol{R}^I}</span> where <span
+class="math inline">{X(\omega)\in\boldsymbol{R}^I}</span> are the
+instrument prices if <span class="math inline">{\omega\in\Omega}</span>
 occurred. Instruments can have associated cash flows such as bond
 coupons or stock dividends. We use <span
-class="math inline">C\colon\Omega\to\boldsymbol{R}^I</span> to denote
+class="math inline">{C\colon\Omega\to\boldsymbol{R}^I}</span> to denote
 the cash flows paid at the end of the period.</p>
 <section id="binomial-model" class="level3">
 <h3>Binomial Model</h3>
 <p>The <em>binomial model</em> (with no dividends) has instruments a
-bond and stock where <span class="math inline">x = (1, s)</span>, <span
-class="math inline">X(\omega) = (R, \omega)</span>, and <span
-class="math inline">\Omega = \{L, H\}</span> with <span
+bond and stock where <span class="math inline">{x = (1, s)}</span>,
+<span class="math inline">{X(\omega) = (R, \omega)}</span>, and <span
+class="math inline">{\Omega = \{L, H\}}</span> with <span
 class="math inline">{L &lt; H}</span>. The bond has realized return
 <span class="math inline">R</span> and the stock can go from price <span
 class="math inline">s</span> to either <span
@@ -158,7 +158,7 @@ flow at the end of the period. These are typically quoted as a
 calculate the realized return. T-bills use Actual/360 day count basis.
 The quoted yield <span class="math inline">y</span> indicates the price
 now of unit notional received in <span class="math inline">t</span> days
-is <span class="math inline">1 - yt/360</span>. The realized return
+is <span class="math inline">{1 - yt/360}</span>. The realized return
 <span class="math inline">R</span> is the reciprocal of this.</p>
 </section>
 </section>
@@ -377,7 +377,7 @@ R_{t\xi}</span> for any non-zero <span
 class="math inline">t\in\boldsymbol{R}</span></em>.</p>
 <p>This is actually a deleterious feature of the model. Going long or
 short typically affects the realized return. It also implies a portfolio
-stategy can be scaled to arbitrarily large positions. At some point you
+strategy can be scaled to arbitrarily large positions. At some point you
 will run out of instruments to buy and sell.</p>
 <p>If <span class="math inline">\xi\cdot x = 1</span> then <span
 class="math inline">R_\xi = \xi\cdot X</span>. One unit invested at the
@@ -394,8 +394,9 @@ class="math inline">\xi\in\boldsymbol{R}^I</span></em>.</p>
 <p><em>Hint</em>: The expectation is with respect to the “probability”
 measure <span class="math inline">DR = D/D(\Omega)</span>.</p>
 </section>
-<section id="grassmann-algebra" class="level3">
-<h3>Grassmann Algebra</h3>
+</section>
+<section id="grassmann-algebra" class="level2">
+<h2>Grassmann Algebra</h2>
 <p>We now show how to use the geometric algebra <span class="citation"
 data-cites="Gra1844">(Grassmann 1844)</span> invented to solve problems
 involving arbitrage free models.</p>
@@ -560,9 +561,7 @@ OX(L)x &amp;= (R\,OP_b + L\,OP_s)x \\
 class="math inline">H - L</span> are positive the no arbitrage condition
 are <span class="math inline">{H - sR\ge0}</span> and <span
 class="math inline">{Rs - L\ge0}</span> so <span class="math inline">L
-\le Rs \le H</span>. We have already established this without using
-Grassmann algebra but generalizations to higher dimensional cases can be
-reduced to a calculation.</p>
+\le Rs \le H</span>.</p>
 <p><strong>Exercise</strong>. <em>What is the cone with origin <span
 class="math inline">O</span> generated by <span
 class="math inline">\{X(\omega)\mid L\le\omega\le H\}</span></em>.</p>
@@ -570,12 +569,19 @@ class="math inline">\{X(\omega)\mid L\le\omega\le H\}</span></em>.</p>
 class="math inline">O</span> generated by <span
 class="math inline">X(L)</span> and <span
 class="math inline">X(H)</span>.</p>
+<p>We have already established this without using Grassmann algebra but
+generalizations to higher dimensional cases can be reduced to a
+calculation.</p>
 <p>We can add a call option with price <span
-class="math inline">o</span> and strike <span
+class="math inline">v</span> and strike <span
 class="math inline">K\in(L,H)</span>. The one period model is now <span
-class="math inline">x = (1, s, o)</span> and <span
+class="math inline">{x = (1, s, v)}</span> and <span
 class="math inline">{X(\omega) = (R, \omega, \max\{\omega - K,
-0\})}</span> for <span class="math inline">{\omega\in[L,H]}</span>.</p>
+0\})}</span> for <span class="math inline">{\omega\in[L,H]}</span>. It
+in not obvious the no arbitrage conditions are <span
+class="math inline">{s\le K}</span> and <span class="math inline">{0\le
+v\le\frac{(Rs - L)(H - K)}{R(H - L)}}</span> but this can be reduced to
+a straightforward calculation.</p>
 <p><strong>Exercise</strong>. <em>Show the cone with origin <span
 class="math inline">O</span> generated by the range of <span
 class="math inline">X</span> is the same as that generated by <span
@@ -589,9 +595,9 @@ class="math inline">X(K)</span> and <span
 class="math inline">X(H)</span> if <span
 class="math inline">K\le\omega\le H</span>.</p>
 <p>If <span class="math inline">P_o</span> is a point in the option
-dimension then <span class="math inline">x = \_O + P_b + s\,P_s +
-o\,P_o</span> and <span class="math inline">X(\omega) = \_O + R\,P_b +
-\omega\,P_s + (\omega - K)^+\,P_o</span>.</p>
+dimension then <span class="math inline">{x = \_O + P_b + s\,P_s +
+v\,P_o}</span> and <span class="math inline">{X(\omega) = \_O + R\,P_b +
+\omega\,P_s + (\omega - K)^+\,P_o}</span>.</p>
 <p>The arbitrage free conditions are reduced to calculating congruence
 ratios as above. <span class="math display">
 \begin{aligned}
@@ -605,7 +611,7 @@ K)\,P_o) \\
 </span> The coefficient of <span class="math inline">X(L)</span> is
 <span class="math display">
 \begin{aligned}
-OxX(K)X(H) &amp;= (OP_b + s\,OP_s + o\,OP_o)X(K)X(H) \\
+OxX(K)X(H) &amp;= (OP_b + s\,OP_s + v\,OP_o)X(K)X(H) \\
     &amp;= (OP_b + s\,OP_s + v\,OP_o)(\_O + R\,P_b + K\,P_s)X(H) \\
     &amp;= (RK\,OP_b P_s + sR\,OP_s P_b)(\_O + R\,P_b + H\,P_s + (H -
 K)\,P_o) \\
@@ -616,13 +622,13 @@ K)\,P_o) \\
 <span class="math display">
 \begin{aligned}
 OX(L)xX(H) &amp;= (R\,OP_b + L\,OP_s)xX(H) \\
-    &amp;= (R\,OP_b + L\,OP_s)(P_b + s\,P_s + o\,P_o)X(H) \\
-    &amp;= (Rs\,OP_b P_s + Ro\,OP_b P_o + L\,OP_s P_b + Lo\,OP_s
+    &amp;= (R\,OP_b + L\,OP_s)(P_b + s\,P_s + v\,P_o)X(H) \\
+    &amp;= (Rs\,OP_b P_s + Rv\,OP_b P_o + L\,OP_s P_b + Lo\,OP_s
 P_o)X(H) \\
-    &amp;= (Rs - L)OP_b P_s + Ro\,OP_b P_o + Lo\,OP_s P_o)( R\,P_b +
+    &amp;= (Rs - L)OP_b P_s + Rv\,OP_b P_o + Lo\,OP_s P_o)( R\,P_b +
 H\,P_s + (H - K)\,P_o) \\
-    &amp;= ((Rs - L)(H - K) - RoH + LoR) OP_b P_s P_o \\
-    &amp;= ((Rs - L)(H - K) - Ro(H - L)) OP_b P_s P_o \\
+    &amp;= ((Rs - L)(H - K) - RvH + LoR) OP_b P_s P_o \\
+    &amp;= ((Rs - L)(H - K) - Rv(H - L)) OP_b P_s P_o \\
 \end{aligned}
 </span> The coefficient of <span class="math inline">X(H)</span> is
 <span class="math display">
@@ -630,26 +636,26 @@ H\,P_s + (H - K)\,P_o) \\
 OX(L)X(K)x &amp;= (R\,OP_b + L\,OP_s)X(K)x \\
     &amp;= (R\,OP_b + L\,OP_s)(R\,P_b + K\,P_s)x \\
     &amp;= (RK\,OP_b P_s + LR\,OP_sP_b)x \\
-    &amp;= R(K - L)OP_b P_s(P_b + s\,P_s + o\,P_o) \\
-    &amp;= (R(K - L)o\,OP_b P_s P_o \\
+    &amp;= R(K - L)OP_b P_s(P_b + s\,P_s + v\,P_o) \\
+    &amp;= (R(K - L)v\,OP_b P_s P_o \\
 \end{aligned}
-</span> The no arbitrage conditions are <span class="math inline">s\le
-K</span> and <span class="math inline">0\le o\le\frac{(Rs - L)(H -
-K)}{R(H - L)}</span>. Of course the conditions <span
-class="math inline">L\le Rs \le H</span> hold from the model not
+</span> The no arbitrage conditions are <span class="math inline">{s\le
+K}</span> and <span class="math inline">{0\le v\le\frac{(Rs - L)(H -
+K)}{R(H - L)}}</span>. Of course the condition <span
+class="math inline">{L\le Rs \le H}</span> holds from the model not
 containing the option.</p>
 <p><strong>Exercise</strong>. <em>Consider a model with a bond having
 zero interest, and a stock that starts at 100 and can go to either 90,
 100, or 110. What are the arbitrage-free values of an at-the-money
 call</em>?</p>
 <p><em>Hint</em>. The model is <span class="math inline">x = (1, 100,
-o)</span>, <span class="math inline">X(\omega) = (1, \omega,
+v)</span>, <span class="math inline">X(\omega) = (1, \omega,
 \max\{\omega - 100, 0\})</span> where <span
 class="math inline">\omega\in\{90,100,110\}</span>. Show <span
-class="math inline">0\le o\le 5</span>.</p>
+class="math inline">0\le v\le 5</span>.</p>
 <p><strong>Exercise</strong>. <em>Remove the bond from the above model
 and answer the same question</em>.</p>
-<p><em>Hint</em>: The answer is <span class="math inline">0\le o\le
+<p><em>Hint</em>: The answer is <span class="math inline">0\le v\le
 100/11 = 9.090\ldots</span>.</p>
 <p>Grassmann algebra can also be used to detect and find an arbitrage
 when it exists. If any of the coefficients are negative then arbitrage
@@ -662,7 +668,6 @@ The author implemented this for the option trading book at Banc of
 America Securities. We found the only arbitrage opportunities were
 negative price butterfly spreads at adjacent traded strikes, but the
 bid/ask spread turned the price positive.</p>
-</section>
 </section>
 <section id="appendix" class="level2">
 <h2>Appendix</h2>
@@ -697,10 +702,17 @@ class="math inline">\operatorname{sgn}(\xi) = -1</span> if <span
 class="math inline">\xi &lt; 0</span>, and <span
 class="math inline">\operatorname{sgn}(0) = 0</span>.</p>
 <p>A more realistic model is <span class="math inline">x(\xi,i) = x_i +
-\operatorname{sgn}(\xi)|\xi|\eta</span> where the bid/ask spread is
-proportional to how much is being transacted.</p>
+\xi\eta</span> when the bid/ask spread is proportional to how much is
+being transacted or <span class="math inline">x(\xi,i) = x_i +
+\phi(\xi)\eta</span> where <span class="math inline">\phi(\xi)</span> is
+an increasing function of <span class="math inline">\xi</span> with
+<span class="math inline">\phi(0) = 0</span>.</p>
 <p>For exchange traded instruments the price is determined by the
 existing limit orders, if that information is available.</p>
+<p>To be even more realistic, the domain of the price function should be
+restricted. It is not possible to by more shares of an instrument than
+have been issued and sometimes it is expensive, or not possible, to
+short an instrument.</p>
 </section>
 <section id="references" class="level2">
 <h2>References</h2>
@@ -920,13 +932,13 @@ role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1"><p>Recall the <em>set exponential</em> <span
-class="math inline">B^A = \{f\colon A\to B\}</span> is the set of all
+class="math inline">{B^A = \{f\colon A\to B\}}</span> is the set of all
 functions from the set <span class="math inline">A</span> to the set
-<span class="math inline">B</span>. If <span class="math inline">x\colon
-I\to\boldsymbol{R}</span> then <span class="math inline">x(i)</span> is
-the price of instrument <span class="math inline">i\in I</span>. The
-<em>dot product</em> of <span
-class="math inline">x,y\in\boldsymbol{R}^I</span> is <span
+<span class="math inline">B</span>. If <span
+class="math inline">{x\colon I\to\boldsymbol{R}}</span> then <span
+class="math inline">x(i)</span> is the price of instrument <span
+class="math inline">i\in I</span>. The <em>dot product</em> of <span
+class="math inline">{x,y\in\boldsymbol{R}^I}</span> is <span
 class="math inline">{x\cdot y = \sum_{i\in I}x_i y_i}</span> if <span
 class="math inline">I</span> is finite. The <em>Euclidean norm</em> of
 <span class="math inline">{x\in\boldsymbol{R}^I}</span> is defined by
