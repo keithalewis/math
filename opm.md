@@ -500,8 +500,8 @@ For exchange traded instruments the price is determined by the existing limit or
 if that information is available.
 
 To be even more realistic, the domain of the price function should be restricted.
-It is not possible to by more shares of an instrument than have been issued
-and sometimes it is expensive, or not possible, to short an instrument.
+It is not possible to buy more shares of an instrument than have been issued
+and there are furthur restrictions when shorting an instrument.
 
 ## References
 
