@@ -479,19 +479,26 @@ Let $\epsilon(i)$ be the tick size
 of instrument $i\in I$. Initial prices $x\in\ZZ^I$ correspond
 to actual prices $x(i)\epsilon(i)$. Likewise for final prices $X\colon\Omega\to\ZZ^I$.
 
-Price depends on the amount being bought or sold. The amount must be an
+The amount must be an
 integral multiple of its minimum share size, or _lot size_.
 Let $\delta(i)$ be the lot size 
 of instrument $i\in I$. Amounts $\xi\in\ZZ^I$ correspond
-to amounts $\xi(i)\delta(i)$. The bid and ask are a function of each instrument
+to amounts $\xi(i)\delta(i)$.
+
+Price can depend on the amount being bought or sold (among other things).
+The bid and ask price can be a function of each instrument
 and the amount being purchased. Initial price is a function
-$x\colon\ZZ\times I\to\RR$ where $x(\xi,i)$ is the price of $\xi$ lot sizes
-of $i\in I$. For example $x(\xi,i) = x_i + \sgn(\xi)\eta$ where
-$x_i$ is the mid price models a fixed bid/ask spread.
+$x\colon\ZZ\times I\to\RR$ where $x(\xi,i)$ is the price of $\xi_i$ lot sizes
+of $i\in I$. Final price is $X_i(\omega,-\xi_i)$ where $\omega\in\Omega$
+is what occured over the interval. Recall the one period model assumes
+the initial position is liquidated at the end of the period.
+
+For example $x_i(\xi,i) = x_i + \sgn(\xi_i)\eta$ where
+$x_i$ is the mid price models a fixed bid/ask spread $\eta$.
 Recall the _signum_ $\sgn(\xi) = 1$ if $\xi > 0$, $\sgn(\xi) = -1$ if $\xi < 0$,
 and $\sgn(0) = 0$.
 
-A more realistic model is $x(\xi,i) = x_i + \xi\eta$
+A more realistic model is $x_i(\xi,i) = x_i + \xi_i\eta$
 when the bid/ask spread is proportional to how much is being transacted
 or $x(\xi,i) = x_i + \phi(\xi)\eta$ where $\phi(\xi)$ is an increasing function
 of $\xi$ with $\phi(0) = 0$.

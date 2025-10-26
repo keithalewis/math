@@ -8,4 +8,4 @@ Every arbitrage free model admits a linear valuation
 operator that we identify as the reciprocal of the funding account.
 He also showed the result is purely geometric. Although positive measures
 having mass one make an appearance, they are not the probability of anything.
-
+Ross defined a cash flow as a change in price but this leads to problems.
