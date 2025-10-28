@@ -62,8 +62,11 @@ ${C\colon\Omega\to\RR^I}$ to denote the cash flows paid at the end of the period
 [^1]: Recall the _set exponential_ ${B^A = \{f\colon A\to B\}}$ is the
 set of all functions from the set $A$ to the set $B$.
 If ${x\colon I\to\RR}$ then $x(i)$ is the price of instrument $i\in I$.
-The _dot product_ of ${x,y\in\RR^I}$ is ${x\cdot y = \sum_{i\in I}x_i y_i}$
-if $I$ is finite. The _Euclidean norm_ of ${x\in\RR^I}$ is defined by ${\|x\| = \sqrt{x\cdot x}}$.
+We can identify $\RR^I$ with the cartesian product of $I$ copies of $\RR$.
+The function $x\colon I\to\RR$ corresponds to the $I$-tuple
+$(x_i)_{i\in I}$ by $x_i = x(i)$. The vector space $\RR^n$ is defined
+as the set of all $n$-tuples ${(x_1,\ldots,x_n)}$ where ${x_i\in\RR}$.
+This corresponds the to set exponential ${\RR^{\{1,\ldots,n\}}}$.
 
 ### Binomial Model
 
@@ -82,7 +85,8 @@ The realized return $R$ is the reciprocal of this.
 ## Arbitrage
 
 A _position_ $\xi\in\RR^I$ is the number of shares purchased in each
-instrument. The cost of acquiring the initial position is $\xi\cdot x$.
+instrument. The cost of acquiring the initial position is the inner product
+${\xi\cdot x = \sum_{i\in I}\xi(i) x(i)}$.
 The value of liquidating the position at the end of the period is ${\xi\cdot(X(\omega) + C(\omega))}$
 if $\omega\in\Omega$ occurred. The one-period model implicitly
 assumes the position is liquidated and the prices and cash flows are
@@ -95,7 +99,7 @@ unwinding it at the end of the period.
 
 Some authors define arbitrage as a portfolio with ${\xi\cdot x = 0}$ and
 ${\xi\cdot X}$ is non-negative and strictly positive on some set having positive probability.
-We haven't specified, and don't need, a probability measure so we can't use this definition.
+We haven't specified a probability measure so we can't use this definition.
 No trader would consider that to be an arbitrage anyway. 
 Even though the position costs nothing to put on, that definition has nothing
 definite to say about how much they will make nor how likely it is they will make it.
@@ -190,7 +194,8 @@ Simplifying gives ${t^2||y||^2 + 2t\xi\cdot y\ge0}$.
 Dividing by $t > 0$ and letting $t$ decrease to 0 shows ${\xi\cdot y\ge0}$
 for all $y\in C$.
 
-We also have $\|x^* - x\| \le \|tx^* + x^* - x\|$ for $t + 1 > 0$.
+Since $(t + 1)x^*\in C$ for $t + 1 > 0$
+we have $\|x^* - x\| \le \|(t + 1)x^* - x\|$.
 Simplifying gives ${t^2||x^*||^2 + 2t\xi\cdot x^*\ge 0}$ for  $t > -1$.
 Dividing by $t < 0$ and letting $t$ increase to 0 shows ${\xi\cdot x^*\le 0}$ so
 ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ hence ${\xi\cdot x < 0}$.
@@ -249,6 +254,12 @@ __Exercise__. _If $D$ is a risk-neutral measure then the expected realized retur
 $R = E[R_\xi] = 1/D(\Omega)$ is constant for any portfolio $\xi\in\RR^I$_.
 
 _Hint_: The expectation is with respect to the "probability" measure $DR = D/D(\Omega)$.
+
+## CAPM
+
+The [Capital Asset Pricing Model](capm.html) is the one-period model with a probability measure
+specified on $\Omega$. [@Mar1952] assumed the probability measure was a jointly normal
+distribution on final prices, 
 
 ## Grassmann Algebra
 
@@ -483,32 +494,26 @@ The amount must be an
 integral multiple of its minimum share size, or _lot size_.
 Let $\delta(i)$ be the lot size 
 of instrument $i\in I$. Amounts $\xi\in\ZZ^I$ correspond
-to amounts $\xi(i)\delta(i)$.
+to actual amounts $\xi(i)\delta(i)$.
 
 Price can depend on the amount being bought or sold (among other things).
 The bid and ask price can be a function of each instrument
-and the amount being purchased. Initial price is a function
-$x\colon\ZZ\times I\to\RR$ where $x(\xi,i)$ is the price of $\xi_i$ lot sizes
-of $i\in I$. Final price is $X_i(\omega,-\xi_i)$ where $\omega\in\Omega$
-is what occured over the interval. Recall the one period model assumes
+and the amount being purchased.
+Initial price is a function
+$x\colon\ZZ^I\to\ZZ^I$ where $x(\xi)$ is the price of $\xi$ lot sizes.
+Typically the price of the $i$-th instrument is a function of
+the $i$-th lot size so $x_i(\xi) = x_i(\xi_i)$.
+Final price is a function $X\colon\Omega\times\ZZ^I\to\ZZ^I$ where
+$X(\omega,-\xi)$, $\omega\in\Omega$.
+Recall the one period model assumes
 the initial position is liquidated at the end of the period.
-
-For example $x_i(\xi,i) = x_i + \sgn(\xi_i)\eta$ where
-$x_i$ is the mid price models a fixed bid/ask spread $\eta$.
-Recall the _signum_ $\sgn(\xi) = 1$ if $\xi > 0$, $\sgn(\xi) = -1$ if $\xi < 0$,
-and $\sgn(0) = 0$.
-
-A more realistic model is $x_i(\xi,i) = x_i + \xi_i\eta$
-when the bid/ask spread is proportional to how much is being transacted
-or $x(\xi,i) = x_i + \phi(\xi)\eta$ where $\phi(\xi)$ is an increasing function
-of $\xi$ with $\phi(0) = 0$.
 
 For exchange traded instruments the price is determined by the existing limit orders,
 if that information is available.
 
 To be even more realistic, the domain of the price function should be restricted.
 It is not possible to buy more shares of an instrument than have been issued
-and there are furthur restrictions when shorting an instrument.
+and there are often furthur restrictions when shorting an instrument.
 
 ## References
 

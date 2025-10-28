@@ -24,16 +24,24 @@ This note provides a simple and rigorous mathematical model for valuing, hedging
 and managing the risk of **all** derivative instruments. It is based on [@Ros1978]
 "A Simple Approach to the Valuation of Risky Streams" where he showed
 
-> _If there are no arbitrage opportunities in the capital markets, then
-there exists a (not generally unique) valuation operator, $L$_.
+> If there are no arbitrage opportunities in a market, then there must exist a (not generally unique)
+positive linear operator that can be used to value all marketed assets.
 
-The not generally unique valuation operators are determined by _deflators_:
-positive measures that depend only on the information available at
-each trading time. Ross's theory applies to all instruments, not just a
-bond, stock, and option that [@BlaSch1973] and [@Mer1973] considered.
+We call Ross's valuation operator a _deflator_:
+positive measures that depend only on the information available at each trading time.
+We will show the reciprocal of a money market account used to fund trading determines
+a canonical deflator.
+
+Unlike [@BlaSch1973] and [@Mer1973] Ross made no assumptions on the underlying
+stochastic processes for prices. He does not require Brownian motion, the It\^o
+calculus, much less partial differential equations.
 His insight was to realize option valuation has
 nothing to do with probability and used the Hahn-Banach theorem to show
 prices are constrained by the geometry determined by cash flows.
+We show even that is not required.
+
+Ross's theory also applies to all instruments, not just a
+bond, stock, and option that Black, Scholes, and Merton considered.
 
 There is a clear trajectory in Mathematical Finance from simple 
 closed-form models to those allowing more realistic features to be incorporated.
