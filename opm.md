@@ -751,8 +751,8 @@ If they roll out a model that is not arbitrage-free then
 buy side customers go long on trades that are underpriced and
 short on trades that are over overpriced. Eventually trading
 reality catches up and the sell side firm loses money.
-Even worse, a "clever" trader might find an internal arbitrage in
-the system they use to give the appearance of making profit.
+Even worse, a "clever" trader might find an internal arbitrage
+that gives the illusion of making profits.
 
 The Fundamental Theorem of Asset Pricing identifies arbitrage-free models
 and provides an arbitrage if they are not. As [@Ros1978] showed, this is
@@ -760,118 +760,120 @@ a purely geometric result having nothing to do with probability.
 Positive measures having mass one make an appearance, but they are not
 the probability of anything.
 
+Ross made the untenable assumption that continuous time trading is
+possible and the category error of defining a cash flow as a jump
+in price. A cash flow is a payment made by the instrument issuer
+to every instrument holder. Stocks pay dividends, bonds pay coupons,
+futures pay the change in end-of-day quotes and always have price zero.
+
+The Fundamental Theorem of Asset Pricing shows models of cash flows
+entail geometric constraints on arbitrage-free prices.
+
 ## One-Period Model
 
 The _One-Period Model_ consists of a finite set of market _instruments_, $I$,
 available for trading.
 The set of possible _outcomes_, $\Omega$, is what can happen over the period.
-The _prices_ at the beginning of the period are a vector ${x\in\RR^I}$[^1].
+The _prices_ at the beginning of the period is a vector ${x\in\RR^I}$[^1]
+indexed by the available instruments.
 The _cash flows_ at the end of the period are a vector-valued function
 ${C\colon\Omega\to \RR^I}$
 where ${C(\omega)\in\RR^I}$ are the cash flows if ${\omega\in\Omega}$ occurred.
-A _position_ $\xi\in\RR^I$ is the number of share purchased in each instrument at the beginning of the period.
-The _cost_ of acquiring the position is ${\xi\cdot x = \sum_{i\in I}\xi(i) x(i)}$ and results in
-${\xi\cdot C(\omega)}$ at the end if $\omega\in\Omega$ occurs.
-The _realized return_ of a position $\xi\in\RR^I$
-is ${R_\xi = \xi\cdot C/\xi\cdot x}$ if $\xi\cdot x\not=0$.
 
-A position $\xi$ is _feasible_ if $\xi\cdot x = 1$ in which case the realized
-return is $R_\xi = \xi\cdot C$.
-If $\xi$ is any position with $\xi\cdot x\not=0$ then $\xi/\xi\cdot x$ is feasible. 
+A _position_ $\xi\in\RR^I$ is the number of shares purchased in each
+instrument at the beginning of the period.  The _cost_ of acquiring the
+position is ${\xi\cdot x = \sum_{i\in I}\xi(i) x(i)}$ and results in
+${\xi\cdot C(\omega)}$ at the end of the period.  The _realized return_
+of a position $\xi\in\RR^I$ is ${R_\xi = \xi\cdot C/\xi\cdot x}$ if
+$\xi\cdot x\not=0$.
+
+__Exercise__. _Show $R_{t\xi} = R_{\xi}$ for any non-zero $t\in\RR$_.
+
+This is actually a deleterious feature of the model. Going long or short typically
+affects the realized return. It also implies a portfolio strategy can be scaled
+to arbitrarily large positions. At some point you will run out of instruments to buy
+and sell.
+
+A position $\xi$ is _feasible_ if the cost of acquiring it is 1
+so its realized return is $R_\xi = \xi\cdot C$.  If $\xi$ is any
+position with $\xi\cdot x\not=0$ then $\xi/\xi\cdot x$ is feasible.
 Assuming feasibility simplifies computations involving realized return.
 
-Classical literature specifies prices $X\colon\Omega\to\RR^I$ at the
-end of the period instead of cash flows $C$. 
-Prices do not exist at the end of the period since there is no
-further economic activity available.
-The classical approach implicitly assumes the initial position is liquidated
-at the end of the period.
+Classical literature specifies prices $X\colon\Omega\to\RR^I$ at the end
+of the period instead of cash flows $C$. If one is being intellectually
+honest, prices do not exist at the end of the period since there is no
+further economic activity available.  The classical approach implicitly
+assumes the initial position is liquidated at the end of the period
+resulting in a payment of $\xi\cdot X$. In reality
+cash flows are paid in proportion to position.
 
-[^1]: Recall the _set exponential_ ${B^A = \{f\colon A\to B\}}$ is the
-set of all functions from the set $A$ to the set $B$.
-If ${x\in\RR^I}$ then $x(i)\in\RR$ is the price of instrument $i\in I$.
-If $I = \{1,\ldots,n\}$ we can identify $\RR^I$ with 
-the vector space of $n$-tuples ${\RR^n = \prod_{i=1}^n\RR = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
-by $x_i = x(i)$, $1\le i\le n$..
+The [Multi-period model](mpm.html) clarifies the relationship
+between prices and cash flows.
 
-### Binomial Model
+The [Capital Asset Pricing Model](capm.html) is a one-period model
+where a probability measure on possible outcomes is specified.
 
-The _binomial model_ has instruments a bond and stock where ${x = (1, s)}$,
-${X(\omega) = (R, \omega)}$, and ${\Omega = \{L, H\}}$ with ${L < H}$.
-The bond has realized return $R$ and the stock can go from price $s$
-to either $L$ or $H$.  A somewhat more realistic model is
-${\Omega = [L, H]}$ where the final stock price can be any value in the interval.
-
-The bond could be a cash deposit or Treasury bill that has a cash flow at the end of the period.
-These are typically quoted as a _yield_ having a _day count basis_ that can be used
-to calculate the realized return. T-bills use Actual/360 day count basis. The quoted
-yield $y$ indicates the price now of unit notional received in $t$ days is ${1 - yt/360}$.
-The realized return $R$ is the reciprocal of this.
+[^1]: Recall the _set exponential_ ${B^A = \{f\colon A\to B\}}$ is the set
+of all functions from the set $A$ to the set $B$.  If ${x\in\RR^I}$ then
+$x(i)\in\RR$ is the price of instrument $i\in I$.  If $I = \{1,\ldots,n\}$
+we can identify $\RR^I$ with the vector space of $n$-tuples
+${\RR^n = \prod_{i=1}^n\RR = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
+by $x(i) = x_i$, $1\le i\le n$.
 
 ## Arbitrage
 
-A _position_ $\xi\in\RR^I$ is the number of shares purchased in each
-instrument. The cost of acquiring the initial position is $\xi\cdot x$.
-The value of liquidating the position at the end of the period is ${\xi\cdot(X(\omega) + C(\omega))}$
-if $\omega\in\Omega$ occurred. The one-period model implicitly
-assumes the position is liquidated and the prices and cash flows are
-received in proportion to the position at the end of the period.
-
 _Arbitrage_ exists in a one-period model if there is a position $\xi\in\RR^I$
-with ${\xi\cdot x < 0}$ and ${\xi\cdot (X(\omega) + C(\omega))\ge0}$ for all ${\omega\in\Omega}$:
-you make money acquiring the initial position and don't lose money when
-unwinding it at the end of the period.
+with ${\xi\cdot x < 0}$ and ${\xi\cdot C(\omega)\ge0}$ for all ${\omega\in\Omega}$:
+you make money acquiring the initial position and never lose money
+at the end of the period.
+
+If you are uncomfortable using cash flows $C$ instead of prices $X$ when the
+instrument is a stock consider $C$ to be the liquidation value
+or a stock buy back by the company at the end of the period.
 
 Some authors define arbitrage as a portfolio with ${\xi\cdot x = 0}$ and
-${\xi\cdot X}$ is non-negative and strictly positive on some set having positive probability.
-We haven't specified, and don't need, a probability measure so we can't use this definition.
+${\xi\cdot C}$ is non-negative and positive on some set having positive probability.
+We haven't specified a probability measure so we can't use this definition.
 No trader would consider that to be an arbitrage anyway. 
-Even though the position costs nothing to put on, that definition has nothing
-definite to say about how much they will make nor how likely it is they will make it.
+Even though the position costs nothing other than agita to put on,
+that definition has nothing definite to say about how much they will
+make nor how likely it is they will make it.
 
-Even our stronger definition is still not good enough for traders
-and risk managers.
-Even though ${\xi\cdot x}$ is strictly negative they will compute ${|\xi|\cdot|x|}$
-as a measure of how much capital will be tied up putting on the position.
-No business would approve using a million dollars from their funding account
-to make at a penny even though that satisfies the mathematical definition of arbitrage.
-
-__Exercise__. _If $Rs\notin [L,H]$ in the binomial model then there is an arbitrage_.
-
-_Hint_: If $Rs > H$ the bond is always more valuable than the stock
-so short the stock and buy bond.
-If $Rs < L$ the bond is always less valuable than the stock
-so short the bond and buy the stock.
-
-<details><summary>Solution</summary>
-If $Rs > H$ take $\xi = (H, -R)$ so $\xi\cdot x = H - Rs < 0$,
-${\xi\cdot X(L) = HR - RL > 0}$,
-and ${\xi\cdot X(H) = HR - RH = 0}$,
-so $\xi\cdot X\ge0$ on $\{L,H\}$.
-
-If $Rs < L$ take $\xi = (-L, R)$ so $\xi\cdot x = -L + Rs < 0$,
-${\xi\cdot X(L) = -LR + RL = 0}$,
-and ${\xi\cdot X(H) = -LR + RH > 0}$,
-so $\xi\cdot X\ge0$ on $\{L,H\}$.
-
-This argument also holds for the somewhat more realistic model
-where the final stock price can be any value between the low and the high,
-i.e., $\Omega = [L, H]$.
-</details>
+Our stronger probability-free definition is still not good enough
+for traders and risk managers.  Even though ${\xi\cdot x}$ is strictly
+negative they will slap absolute value signs around every number and
+compute ${|\xi|\cdot|x|}$ as a measure of how much capital will be tied
+up putting on the position.  No business would approve using a million
+dollars from their funding account just to make a penny up front even though that
+technically satisfies our mathematical definition of arbitrage.
 
 ## Fundamental Theorem of Asset Pricing
 
-A _cone_ $C$ is a subset of a vector space closed under positive scalar
-multiplication and vector addition: if $x\in C$ then $tx\in C$ for $t > 0$
-and if $x,y\in C$ then ${x + y\in C}$.
+<!--
+A derivative instrument is a contract: I will give you this on these dates if
+you will give me that on those dates. Derivatives differ from bartering in that they
+involve future transactions instead of immediate exchanges.
+Caveman Korg may have asked caveman Grok for as many arrowheads as the fingers on
+both hands and promised to give him a bear skin before the moon is big in the sky.
+Korg might not be able to make delivery if the bear has a say in the matter so
+Grok must take this into account when offering arrowheads.
+
+-->
+
+The assumption of no arbitrage places constraints on initial prices
+that are determined by possible cash flows. The constraints involve a cone.
+
+Recall a _cone_ $K$ is a subset of a vector space closed under positive scalar
+multiplication and vector addition: if $x\in K$ then $tx\in K$ for $t > 0$
+and if $x,y\in K$ then ${x + y\in K}$.
 
 __Exercise__. _A cone is convex_.
 
-_Hint_: Show $x,y\in C$ implies ${tx + (1-t)y\in C}$ for ${0 < t < 1}$.
+_Hint_: Show $x,y\in K$ implies ${tx + (1-t)y\in K}$ for ${0 < t < 1}$.
 
 <details><summary>Solution</summary>
-Since $t > 0$ and $1 - t > 0$ both $tx$ and $(1 - t)y$ belong to $C$,
-hence $tx + (1 - t)y\in C$.
+Since $t > 0$ and $1 - t > 0$ both $tx$ and $(1 - t)y$ belong to $K$
+hence $tx + (1 - t)y\in K$.
 </details>
 
 __Exercise__. _The set of arbitrage positions is a cone_.
@@ -881,16 +883,15 @@ If $\xi$ is an arbitrage then $t\xi$ is an arbitrage for $t > 0$.
 If $\xi$ and $\eta$ are arbitrages then so is $\xi + \eta$.
 </details>
 
-The smallest cone containing the range of $X$,
-$\ran X = X(\Omega) = \{X(\omega)\mid \omega\in\Omega\}$, is the set of finite
-linear combinations of point in the range with positive coefficient,
-$\sum_i X(\omega_i) \pi_i$, $\pi_i > 0$, $\omega_i\in\Omega$.
-If $x = \sum_i X(\omega_i) \pi_i$ is in the cone
-and $\xi\cdot X$ is non-negative on $\Omega$ then ${\xi\cdot x\ge 0}$
+The smallest cone containing the possible cash flows $C$ is the set
+of finite linear combinations with positive coefficents
+${\{\sum_i C(\omega_i) \pi_i\mid \omega_i\in\Omega, \pi_i > 0\}}$.
+If $x = \sum_i C(\omega_i) \pi_i$ is in the cone
+and $\xi\cdot C$ is non-negative on $\Omega$ then ${\xi\cdot x\ge 0}$
 so no arbitrage exists.
 
 __Exercise__. _If $x$ belongs to the smallest_ closed _cone containing
-the range of $X$ then there is no arbitrage_.
+the range of $C$ then there is no arbitrage_.
 
 <details><summary>Solution</summary>
 If $x_n\in C$ converge to $x$ in norm and $\xi\cdot x_n\ge0$ then $\xi\cdot x\ge0$.
@@ -900,24 +901,24 @@ The contrapositive is also true.
 
 __Theorem__.  _Arbitrage exists in
 the one-period model if $x$ does not belong to the smallest
-closed cone containing the range of $X$. If $x^*$ is the closest point
+closed cone containing the range of $C$. If $x^*$ is the closest point
 in the cone then $\xi = x^* - x$ is an arbitrage_.
 
 In general, the arbitrage is not unique. We will establish the theorem using
 the purely geometric
 
-__Lemma__. _If $x\in\RR^n$ and $C$ is a closed cone in
-$\RR^n$ with $x\not\in C$ then there exists ${\xi\in\RR^n}$
-with ${\xi\cdot x < 0}$ and ${\xi\cdot y \ge0}$ for ${y\in C}$._
+__Lemma__. _If $x\in\RR^n$ and $K$ is a closed cone in
+$\RR^n$ with $x\not\in K$ then there exists ${\xi\in\RR^n}$
+with ${\xi\cdot x < 0}$ and ${\xi\cdot y \ge0}$ for ${y\in K}$._
 
-_Proof._ Let $x^*$ be the point in $C$ closest to $x$.
-It exists since $C$ is closed and is unique since $C$ is convex.
+_Proof._ Let $x^*$ be the point in $K$ closest to $x$.
+It exists since $K$ is closed and is unique since $K$ is convex.
 
-Since $ty + x^*\in C$ for any $t > 0$ and $y\in C$ 
+Since $ty + x^*\in K$ for any $t > 0$ and $y\in K$ 
 we have $\|x^* - x\| \le \|ty + x^* - x\|$.
 Simplifying gives ${t^2||y||^2 + 2t\xi\cdot y\ge0}$. 
 Dividing by $t > 0$ and letting $t$ decrease to 0 shows ${\xi\cdot y\ge0}$
-for all $y\in C$.
+for all $y\in K$.
 
 We also have $\|x^* - x\| \le \|tx^* + x^* - x\|$ for $t + 1 > 0$.
 Simplifying gives ${t^2||x^*||^2 + 2t\xi\cdot x^*\ge 0}$ for  $t > -1$.
@@ -956,6 +957,63 @@ In general the number of instruments is much smaller than the
 number of outcomes.
 Although complete markets are common in mathematical finance books, they
 never occur in models faithful to the real world.
+
+
+## Examples
+
+We now apply the FTAP to particular models. 
+
+### 1-2-3 Model
+
+A very simple and unrealistic one-period model of a bond 
+returning double and a stock with price 1 that can go
+to either 1 or 3 is is $x = (1, 1)$
+and $C(\omega) = (2, \omega)$ where $\omega\in\{1,3\}$.
+
+
+
+
+### Binomial Model
+
+The _binomial model_ has instruments a bond and stock where ${x = (1, s)}$,
+${C(\omega) = (R, \omega)}$, and ${\Omega = \{L, H\}}$ with ${L < H}$.
+The bond has realized return $R$ and the stock can go from price $s$
+to either $L$ or $H$. 
+
+The bond could be a cash deposit or Treasury bill that has a cash flow at the end of the period.
+These are typically quoted as a _yield_ having a _day count basis_ that can be used
+to calculate the realized return. T-bills use Actual/360 day count basis. The quoted
+yield $y$ indicates the price now of unit notional received in $t$ days is ${1 - yt/360}$.
+The realized return $R$ is the reciprocal of this.
+
+### Interval Model
+
+A somewhat more realistic model is
+${\Omega = [L, H]}$ where the final stock price can be any value in the interval.
+
+-->
+__Exercise__. _If $Rs\notin [L,H]$ in the binomial model then there is an arbitrage_.
+
+_Hint_: If $Rs > H$ the bond is always more valuable than the stock
+so short the stock and buy bond.
+If $Rs < L$ the bond is always less valuable than the stock
+so short the bond and buy the stock.
+
+<details><summary>Solution</summary>
+If $Rs > H$ take $\xi = (H, -R)$ so $\xi\cdot x = H - Rs < 0$,
+${\xi\cdot X(L) = HR - RL > 0}$,
+and ${\xi\cdot X(H) = HR - RH = 0}$,
+so $\xi\cdot X\ge0$ on $\{L,H\}$.
+
+If $Rs < L$ take $\xi = (-L, R)$ so $\xi\cdot x = -L + Rs < 0$,
+${\xi\cdot X(L) = -LR + RL = 0}$,
+and ${\xi\cdot X(H) = -LR + RH > 0}$,
+so $\xi\cdot X\ge0$ on $\{L,H\}$.
+
+This argument also holds for the somewhat more realistic model
+where the final stock price can be any value between the low and the high,
+i.e., $\Omega = [L, H]$.
+</details>
 
 ### Realized Return
 
