@@ -920,10 +920,12 @@ Simplifying gives ${t^2||y||^2 + 2t\xi\cdot y\ge0}$.
 Dividing by $t > 0$ and letting $t$ decrease to 0 shows ${\xi\cdot y\ge0}$
 for all $y\in K$.
 
-We also have $\|x^* - x\| \le \|tx^* + x^* - x\|$ for $t + 1 > 0$.
+Since $(t + 1)x^*\in K$ for $t + 1 > 0$
+we also have $\|x^* - x\| \le \|tx^* + x^* - x\|$.
 Simplifying gives ${t^2||x^*||^2 + 2t\xi\cdot x^*\ge 0}$ for  $t > -1$.
-Dividing by $t < 0$ and letting $t$ increase to 0 shows ${\xi\cdot x^*\le 0}$ so
-${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ hence ${\xi\cdot x < 0}$.
+Dividing by $t < 0$ and letting $t$ increase to 0 shows ${\xi\cdot x^*\le 0}$.
+
+We have ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ hence ${\xi\cdot x < 0}$.
 
 The lemma proves the FTAP and that $\xi = x^* - x$ implements an arbitrage.
 
