@@ -2,7 +2,7 @@ html {
 	background-color: #E0E0E0;
 }
 body {
-	font-family: -system-ui, serif, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto;
+	font-family: -system-ui, serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
     margin:  10px auto;
 	background-color: white;
 /*'Noto Sans', "Segoe UI", 'Calisto','IBM Plex Serif', 'Cambria', Georgia, serif, 'Times New Roman','STIX Two Text';*/

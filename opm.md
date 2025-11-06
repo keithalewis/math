@@ -799,13 +799,32 @@ so its realized return is $R_\xi = \xi\cdot C$.  If $\xi$ is any
 position with $\xi\cdot x\not=0$ then $\xi/\xi\cdot x$ is feasible.
 Assuming feasibility simplifies computations involving realized return.
 
+We assume redundant instruments are removed from the model. 
+If ${\xi\cdot C = 0}$ then one instrument is a linear combination
+of the others and can be removed. This can be repeated until
+${\xi\cdot C\not=0}$ for any $\xi\in\RR^I$.
+If so, the map $\xi\in\RR^I$ to $\xi\cdot C\in\RR^\Omega$ is one-to-one.
+A model is _complete_ if this map is _onto_. This cannot be the case
+if the cardinality of $I$ is less than the cardinality of $\Omega$.
+In general the number of instruments is much smaller than the number of
+possible outcomes.  Although complete markets are common in mathematical
+finance books they never occur in models faithful to the real world.
+
 Classical literature specifies prices $X\colon\Omega\to\RR^I$ at the end
 of the period instead of cash flows $C$. If one is being intellectually
 honest, prices do not exist at the end of the period since there is no
 further economic activity available.  The classical approach implicitly
 assumes the initial position is liquidated at the end of the period
-resulting in a payment of $\xi\cdot X$. In reality
-cash flows are paid in proportion to position.
+resulting in a payment of $\xi\cdot X$. In reality,
+cash flows are paid proportional to position whether or not
+any trading occurs.
+
+When the instrument is a bond the end of the period is
+its maturity and it pays a cash flow of notional plus interest.
+If you are uncomfortable using cash flows $C$ instead of prices $X$ when the
+instrument is a stock consider $C$ to be the
+going out of business liquidation value
+or a stock buy back by the company at the end of the period.
 
 The [Multi-period model](mpm.html) clarifies the relationship
 between prices and cash flows.
@@ -826,10 +845,6 @@ _Arbitrage_ exists in a one-period model if there is a position $\xi\in\RR^I$
 with ${\xi\cdot x < 0}$ and ${\xi\cdot C(\omega)\ge0}$ for all ${\omega\in\Omega}$:
 you make money acquiring the initial position and never lose money
 at the end of the period.
-
-If you are uncomfortable using cash flows $C$ instead of prices $X$ when the
-instrument is a stock consider $C$ to be the liquidation value
-or a stock buy back by the company at the end of the period.
 
 Some authors define arbitrage as a portfolio with ${\xi\cdot x = 0}$ and
 ${\xi\cdot C}$ is non-negative and positive on some set having positive probability.
@@ -861,7 +876,7 @@ Grok must take this into account when offering arrowheads.
 -->
 
 The assumption of no arbitrage places constraints on initial prices
-that are determined by possible cash flows. The constraints involve a cone.
+that are determined by cash flows. The constraints involve a cone.
 
 Recall a _cone_ $K$ is a subset of a vector space closed under positive scalar
 multiplication and vector addition: if $x\in K$ then $tx\in K$ for $t > 0$
@@ -894,7 +909,7 @@ __Exercise__. _If $x$ belongs to the smallest_ closed _cone containing
 the range of $C$ then there is no arbitrage_.
 
 <details><summary>Solution</summary>
-If $x_n\in C$ converge to $x$ in norm and $\xi\cdot x_n\ge0$ then $\xi\cdot x\ge0$.
+If $x_n\in K$ converge to $x$ in norm and $\xi\cdot x_n\ge0$ then $\xi\cdot x\ge0$.
 </details>
 
 The contrapositive is also true.
@@ -904,61 +919,70 @@ the one-period model if $x$ does not belong to the smallest
 closed cone containing the range of $C$. If $x^*$ is the closest point
 in the cone then $\xi = x^* - x$ is an arbitrage_.
 
-In general, the arbitrage is not unique. We will establish the theorem using
+In general the arbitrage is not unique. We will establish the theorem using
 the purely geometric
 
 __Lemma__. _If $x\in\RR^n$ and $K$ is a closed cone in
 $\RR^n$ with $x\not\in K$ then there exists ${\xi\in\RR^n}$
-with ${\xi\cdot x < 0}$ and ${\xi\cdot y \ge0}$ for ${y\in K}$._
+with ${\xi\cdot x < 0}$ and ${\xi\cdot y \ge0}$ for ${y\in K}$_.
 
 _Proof._ Let $x^*$ be the point in $K$ closest to $x$.
 It exists since $K$ is closed and is unique since $K$ is convex.
 
-Since $ty + x^*\in K$ for any $t > 0$ and $y\in K$ 
-we have $\|x^* - x\| \le \|ty + x^* - x\|$.
+We have $ty + x^*\in K$ for any $t > 0$ and $y\in K$ 
+so $\|x^* - x\| \le \|ty + x^* - x\|$.
 Simplifying gives ${t^2||y||^2 + 2t\xi\cdot y\ge0}$. 
 Dividing by $t > 0$ and letting $t$ decrease to 0 shows ${\xi\cdot y\ge0}$
 for all $y\in K$.
 
-Since $(t + 1)x^*\in K$ for $t + 1 > 0$
-we also have $\|x^* - x\| \le \|tx^* + x^* - x\|$.
+We have $(t + 1)x^*\in K$ for $t + 1 > 0$
+so $\|x^* - x\| \le \|tx^* + x^* - x\|$.
 Simplifying gives ${t^2||x^*||^2 + 2t\xi\cdot x^*\ge 0}$ for  $t > -1$.
 Dividing by $t < 0$ and letting $t$ increase to 0 shows ${\xi\cdot x^*\le 0}$.
 
-We have ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ hence ${\xi\cdot x < 0}$.
+Since ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ we have ${\xi\cdot x < 0}$.
 
 The lemma proves the FTAP and that $\xi = x^* - x$ implements an arbitrage.
 
 If we assume prices are bounded, as they are in the real world, then every point 
-in the closed convex cone generated by the range of $X$ can
-be written $\int_\Omega X(\omega)\,dD(\omega)$ for some positive, bounded, finitely additive
+in the closed convex cone generated by the range of $C$ can
+be written as an integral $\int_\Omega C(\omega)\,dD(\omega)$ for some positive, bounded, finitely additive
 measure $D\in ba(\Omega)$ on $\Omega$,
 but this requires a bit more math to establish.
 See [@DunSch1958].
 We call any such measure _risk-neutral_.
 Risk-neutral measures are not generally unique.
 
+The measure $Q = D/D(\Omega)$ is a positive
+measure having mass 1 so it satisfies the definition of a probability measure.
+Every portfolio has the same expected realized return under a risk-neutral measure
+so perhaps this should be called a _risk-blind_ measure.
+
+__Exercise__. _If $D$ is a risk-neutral measure then the expected realized return
+$R = E^Q[R_\xi] = 1/D(\Omega)$ is constant for any portfolio $\xi\in\RR^I$
+with $\xi\cdot x\not=0$_.
+
+_Hint_: The expectation is with respect to the "probability" measure $Q = D/D(\Omega)$.
+
+This exercise is a wake-up call to the fact risk-neutral measures are useless for
+risk management. The variance of a realized return can be arbitrarily large
+but a risk-neutral measure cannot detect excess returns to compensate for this risk.
+
 A _zero coupon bond_ pays 1 unit at the end of the period on every outcome.
 A portfolio $\zeta\in\RR^I$ with 
-${\zeta\cdot X(\omega) = 1}$ for all ${\omega\in\Omega}$
+${\zeta\cdot C(\omega) = 1}$ for all ${\omega\in\Omega}$
 is a zero coupon bond.
-The _price_, or _discount_, of a zero coupon bond is
-${\zeta\cdot x = \int_\Omega \zeta\cdot X(\omega)\,dD(\omega) = D(\Omega)}$.
-The measure ${D/D(\Omega)}$ is positive and has mass 1 so ${x = E[X]D(\Omega)}$
-if we pretend it is a probability measure.
+The _discount_ of a zero coupon bond is its price
+${\zeta\cdot x = \int_\Omega \zeta\cdot C(\omega)\,dD(\omega) = D(\Omega)}$.
 
 __Exercise__. _If $\zeta$ is a zero coupon bond with only one non-zero component then
 that component is equal to the discount_.
 
-If $\xi\cdot X = 0$ then one instrument is a linear combination of the others
-and can be removed. This can be repeated until $\xi\cdot X\not=0$ for
-any $\xi\in\RR^I$. If so the map $\xi\mapsto\xi\cdot X$ is one-to-one.
-A model is _complete_ if this map is _onto_. This cannot be the
-case if the cardinality of $I$ is less than the cardinality of $\Omega$.
-In general the number of instruments is much smaller than the
-number of outcomes.
-Although complete markets are common in mathematical finance books, they
-never occur in models faithful to the real world.
+__Exercise__. _If $x = \int_\Omega C\,dD$ show $x = E^Q[C]D(\Omega)$_.
+
+This formula can be read "Prices are discounted expected cash flows."
+It is a mathematically rigorous instance of the method used by Graham and Dodd
+in Security Analysis for valuing instruments. [@GraDod1934]
 
 
 ## Examples
@@ -967,33 +991,56 @@ We now apply the FTAP to particular models.
 
 ### 1-2-3 Model
 
-A very simple and unrealistic one-period model of a bond 
-returning double and a stock with price 1 that can go
-to either 1 or 3 is is $x = (1, 1)$
-and $C(\omega) = (2, \omega)$ where $\omega\in\{1,3\}$.
+A very simple and unrealistic one-period model consists of a bond 
+with price 1 at the beginning of the period that has a cash flow
+2 at the end
+and a stock with price 1 that has a cash flow
+of either 1 or 3. We write this as $x = (1, 1)$
+and ${C(\omega) = (2, \omega)}$ where ${\omega\in\{1,3\}}$.
+This is arbitrage-free if and only if we can find
+${\pi_1,\pi_3 \ge0}$ with ${x = C(1)\pi_1 + C(3)\pi_3}$.
+Considering the bond component
+implies ${1 = 2\pi_1 + 2\pi_3}$ and
+the stock component
+yields ${1 = 1\pi_1 + 3\pi_3}$ so ${\pi_1 = \pi_3 = 1/4}$.
 
+If we add a call option with strike 2 and price $v$ then the model becomes
+${x = (1, 1, v)}$, ${C(\omega) = (2, \omega, \max\{\omega - 2,0\})}$
+where $v$ is the option value. Since the bond and stock components
+determine ${\pi_1 = \pi_3 = 1/4}$ the option component is
+${v = \max\{1 - 2, 0\}(1/4) + \max\{3 - 2, 0\}(1/4) = 1/4}$.
 
+A similar argument shows any European option paying $\nu(\omega)$ at expiration
+has value ${v = (\nu(1) + \nu(3))/4}$.
 
+<!--
+We don't need the FTAP so see the value of the option is a quarter
+since we can use that to replicate the option payoff. Borrow another
+quarter using the bond and invest half a dollar in the stock.
+If the stock stays at 1 then we sell it and use the half dollar to pay back the bond
+and the option is out of the money. If the stock goes to 3 then we use
+the dollar and a half to pay half a dollar to cover the bond and
+have a dollar left to meet the call obligation.
+-->
 
 ### Binomial Model
 
-The _binomial model_ has instruments a bond and stock where ${x = (1, s)}$,
+The 1-2-3 model is a special case of the  _binomial model_ having instruments a bond and stock where ${x = (r, s)}$,
 ${C(\omega) = (R, \omega)}$, and ${\Omega = \{L, H\}}$ with ${L < H}$.
-The bond has realized return $R$ and the stock can go from price $s$
+The bond has realized return $R/r$ and the stock can go from price $s$
 to either $L$ or $H$. 
+This is arbitrage-free if and only we can find $\pi_L,\pi_H \ge 0$
+with $x = C(L)\pi_L + C(H)\pi_H$. Considering the bond and stock components
+we have $\pi_L = (H - sR/r)/(H - L)$ and $\pi_H = (sR/r - L)/(H - L)$.
+The model is arbitrage-free if and only if $L/R \le s/r \le H/R$.
 
-The bond could be a cash deposit or Treasury bill that has a cash flow at the end of the period.
-These are typically quoted as a _yield_ having a _day count basis_ that can be used
-to calculate the realized return. T-bills use Actual/360 day count basis. The quoted
-yield $y$ indicates the price now of unit notional received in $t$ days is ${1 - yt/360}$.
-The realized return $R$ is the reciprocal of this.
+Every option payoff is linear in a binomial model.
 
 ### Interval Model
 
-A somewhat more realistic model is
+A somewhat more realistic model is the binomial model with sample space
 ${\Omega = [L, H]}$ where the final stock price can be any value in the interval.
 
--->
 __Exercise__. _If $Rs\notin [L,H]$ in the binomial model then there is an arbitrage_.
 
 _Hint_: If $Rs > H$ the bond is always more valuable than the stock
@@ -1016,28 +1063,6 @@ This argument also holds for the somewhat more realistic model
 where the final stock price can be any value between the low and the high,
 i.e., $\Omega = [L, H]$.
 </details>
-
-### Realized Return
-
-The _realized return_ on a portfolio $\xi\in\RR^I$ is ${R_\xi = \xi\cdot X/\xi\cdot x}$
-whenever ${\xi\cdot x\not=0}$.
-
-__Exercise__. _Show $R_\xi = R_{t\xi}$ for any non-zero $t\in\RR$_.
-
-This is actually a deleterious feature of the model. Going long or short typically
-affects the realized return. It also implies a portfolio strategy can be scaled
-to arbitrarily large positions. At some point you will run out of instruments to buy
-and sell.
-
-If $\xi\cdot x = 1$ then $R_\xi = \xi\cdot X$. One unit invested at the beginning
-of the period results in ${R_\xi\colon\Omega\to\RR}$ at the end of the period.
-Every portfolio has the same expected realized return under a risk-neutral measure
-so perhaps this should be called a _risk-blind_ measure.
-
-__Exercise__. _If $D$ is a risk-neutral measure then the expected realized return
-$R = E[R_\xi] = 1/D(\Omega)$ is constant for any portfolio $\xi\in\RR^I$_.
-
-_Hint_: The expectation is with respect to the "probability" measure $DR = D/D(\Omega)$.
 
 ## Grassmann Algebra
 
@@ -1181,7 +1206,7 @@ but generalizations to higher dimensional cases can be reduced to a calculation.
 We can add a call option with price $v$ and strike $K\in(L,H)$.
 The one period model is now ${x = (1, s, v)}$ and ${X(\omega) = (R, \omega, \max\{\omega - K, 0\})}$
 for ${\omega\in[L,H]}$.
-It in not obvious the no arbitrage conditions are ${s\le K}$ and ${0\le v\le\frac{(Rs - L)(H - K)}{R(H - L)}}$
+It is not obvious the no arbitrage conditions are ${s\le K}$ and ${0\le v\le\frac{(Rs - L)(H - K)}{R(H - L)}}$
 but this can be reduced to a straightforward calculation.
 
 __Exercise__. _Show the cone with origin $O$ generated by the range of $X$ is
@@ -1298,6 +1323,10 @@ if that information is available.
 To be even more realistic, the domain of the price function should be restricted.
 It is not possible to buy more shares of an instrument than have been issued
 and there are furthur restrictions when shorting an instrument.
+
+## Scratch
+
+$x = (x_0, x_1)$, $C(\omega) = (\omega_0,\omega_1)$, $\omega\in\{\{L_0,H_0\},\{L_1,H_1\}\}$.
 
 ## References
 
