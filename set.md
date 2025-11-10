@@ -16,28 +16,34 @@ abstract: Sets are defined by membership
 \newcommand{\NN}{\bm{N}}
 \newcommand\o[1]{\overline{#1}}
 
+> “Mathematicians are like Frenchmen: whenever you speak
+to them, they translate it into their own language, and forthwith it is
+something completely different” &mdash; Johann Wolfgang von Goethe, Maxims
+and Reflections
+
 Everything in (standard) mathematics is a [set](https://plato.stanford.edu/entries/set-theory/).
 Logicians are wont to say "The language of set theory is epsilon."
 If you have expert knowledge of
 [first order logic](https://plato.stanford.edu/entries/logic-firstorder-emergence/)
 then this might make sense to you.
 
-> “Mathematicians are like Frenchmen: whenever you speak
-to them, they translate it into their own language, and forthwith it is
-something completely different” &mdash; Johann Wolfgang von Goethe, Maxims
-and Reflections
-
 Following [Peano](https://en.wikipedia.org/wiki/Giuseppe_Peano),
 modern set theory uses lunate epsilon $\in$, instead of $\epsilon$,
 to indicate set _membership_. A set is defined by its members.
-[Frege's](https://en.wikipedia.org/wiki/Gottlob_Frege) theory
-of sets was a set is defined by a rule: a set $S$ is an element the set
-if and only if it satisfies a proposition $P(S)$.
+Consider the set $S$ defined by the rule $x$ is an element of
+$S$ if $x$ is not a member of itself: $S = \{x\mid x\not\in x\}$.
+If $S$ is a member of $S$ then it satisfies the rule $S\not\in S$. 
+If $S$ is not a member of $S$ then it is not the case $S\not\in S$
+so $S\in S$.
 
-We write $s\in S$ to indicate $s$ is a _member_, or _element_, of the set $S$. 
+This example was provided by Bertrand Russell to show
+[Frege's](https://en.wikipedia.org/wiki/Gottlob_Frege) theory
+of sets implied a contradiction.
+
+We write $x\in S$ to indicate $x$ is a _member_, or _element_, of the set $S$. 
 The empty set $\emptyset = \{\}$ is the set with no members.
 It is defined by $S\notin\emptyset$ for every set $S$.
-A _singleton_ is a set with one member $S = \{s\}$, for example $\emptyset\in\{\emptyset\}$.
+A _singleton_ is a set with one member $S = \{x\}$, for example $\emptyset\in\{\emptyset\}$.
 In general, $S\in\{S\}$ for any set $S$.
 
 __Exercise__ _Show the number of sets is not finite_.
@@ -84,7 +90,7 @@ When $\Omega$ is understood, we write $\o{A}$ for $\Omega\setminus A$.
 __Exercise__. _Show $1_{A\cap B} = 1_A 1_B$, $1_{A\cup B} = 1_A + 1_B - 1_A 1_B$,
 and $1_{\o{A}} = 1 - 1_A$_.
 
-This makes it trivial to prove De Morgan's laws.
+This reduces De Morgan's laws to arithmatic.
 
 __Exercise__. _Show $\o{A\cap B} = \o{A}\cup\o{B}$ and $\o{A\cup B} = \o{A}\cap\o{B}$_.
 
