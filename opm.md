@@ -360,7 +360,268 @@ $0 = \int_\Omega C(\omega)\,dD(\omega)$ add to binomial model solution. Keep pos
 
 
 
+## Appendix
 
+We can make the one-period model more realistic. The price of an instrument must
+be an integral multiple of its minimal trading increment, or _tick size_.
+Let $\epsilon(i)\in\RR$ be the tick size 
+of instrument $i\in I$. Initial prices $x\in\ZZ^I$ correspond
+to actual prices $x(i)\epsilon(i)$. Likewise for final prices ${X\colon\Omega\to\ZZ^I}$.
+
+The amount must be an
+integral multiple of its minimum share size, or _lot size_.
+Let $\delta(i)$ be the lot size 
+of instrument $i\in I$. Shares $\xi\in\ZZ^I$ correspond
+to amounts $\xi(i)\delta(i)$.
+
+The atoms of finance are _holdings_: an instrument, amount, and owner.
+Let ${\eta = (a,i,o)}$ denote owner $o$ holds amount $a$ of instrument $i$.
+A _position_ is a collection of holdings.
+A _transaction_ at time $t$ is a triple ${(t,\eta,\eta')}$ where 
+$\eta$ and $\eta'$ are holdings. If the buyer $o$ holds $\eta$ and
+the seller $o'$ holds $\eta'$ at time $t$ then after the transaction settles
+the buyer holds $(a',i',o)$ and the seller holds $(a,i,o')$.
+The _price_ of the transaction is $X = a/a'$.
+
+Sellers quote prices for potential transactions. Buyers decide whether
+or not to execute the transaction. For example, if a seller quotes Ford
+stock for $12$ USD per share then the buyer can exchange $\$24$ for 2
+shares of Ford stock. This corresponds to the transaction where ${\eta =
+(24, \$, o)}$ and ${\eta' = (2, F, o')}$.  The price is ${X = a/a' = 24/2}$
+and we can use  $12$ USD/F to indicate a price of $\$12$ per share of Ford
+stock. Replacing the virgule '/' by '$= 1$' gives the mnemonic $12$ USD $=
+1$ F.  After the transaction settles the buyer holds ${\eta = (2, F, o)}$
+and the seller holds ${\eta' = (24, \$, o')}$ in their respective positions.
+
+After a transaction the price is a well-defined number: the amount the buyer
+exchanged with the seller divided by the amount the seller exchanged with the buyer.
+This number is recorded in the books and records of each counterparty.
+
+Prior to a transaction the price quoted by the seller is not a well-defined number.
+The difference between a quoted price and the actual price is called _slippage_.
+Sellers quote a bid price and an ask price.
+When a buyer buys one share they pay the seller's ask price and when
+the buyer sells one share they only get the sellers bid price.
+The difference between the ask and the bid is the _bid-ask spread_
+and is usually positive. This is how sellers get paid for
+providing _liquidity_ to buyers in the market.
+
+The quotes are only valid for transaction of a small number of shares.
+As the number of shares becomes larger sellers increase the bid-ask
+spread. On an exchange the quote only holds out to level 1 depth before
+switching to level 2. Sellers might not know why so many shares are being purchased, but
+know demand will move the price up and they will increase their ask.
+At some point the number of shares to purchase will bump
+into the total number of shares issued and price becomes meaningless.
+When a buyer sells shares they face even more restrictions and are also
+charged a _borrow cost_ over the period of time they are short.
+Prices can also depend on the particular buyer and seller of the
+transaction due to credit issues or regulations.
+
+A more realistic model for prices in a one-period model is to replace
+$x\colon I\to\RR$ by $x\colon I\times A\to\RR$ where $A$ is the set
+of possible amounts. The cost of setting up the position $\xi\in\RR^I$
+is ${\sum_{i\in I} \xi(i) x(i, \xi(i))}$. For a fixed transaction cost
+$\tau\in\RR$ per share we have ${x(i, a) = x_0(i) + \tau a}$ where
+$x_0$ is the mid price. 
+
+## References
+
+<!--
+### Grassmann Algebra
+
+We can also solve this using Grassmann Algebra. If $E$ is Euclidean
+space define $\GG(E)$ to be the (associative) algebra of points in $E$ with the
+condition $PQ = 0$ if and only if $P = Q$ so $PP = 0$. Note $PQ = -QP$
+since $(P + Q)(P + Q) = 0$. If $PQ = aRS$ for some scalar $a$ we
+say $PQ$ is _congruent_ to $RS$ and write $a = \frac{PQ}{RS}$. If $R = aP + bQ$ then $RPQ = 0$.
+Furthermore $PR = bPQ$ and $RQ = aPQ$ so
+$R = \frac{RQ}{PQ} P + \frac{PR}{PQ} Q$.
+
+This generalizes to any number of dimensions. If $P_0\cdots P_k = aQ_0\cdots Q_k$
+then $a = \frac{P_0\cdots P_k}{Q_0\cdots Q_k}$ and if $PP_0\cdots P_k = 0$ then
+$$
+	P = \sum_{j=0}^k \frac{P_0\cdots P\cdots P_k}{P_0\cdots P_k} P_j
+$$
+if $P_0\cdots P_k\not=0$ where $P$ in the numerator takes the $j$-th spot.
+Note if $\sum_{j=0}^k a_j P_j = 0$ then $a_j = 0$ for $0\le j\le k$
+and we say the $P_j$ are _linearly independent_.
+Note the sum of the coefficients is 1 and $P$ is in the convex hull
+of $P_0,\ldots,P_n$ if and only if all coefficients are non-negative.
+
+The _weight_ of $aP + bQ$ is $a + b$. Every point having weight 1 on the line determined
+by the points $P$ and $Q$ has the form ${R(t) = (1 - t)P + tQ = P + t(Q - P)}$.
+Note $Q - P\not= R(t)$ for any $t$. As $t$ goes to infinity $(1 - t)/t$ goes to $-1$
+and we interpret $R(\infty) = Q - P$ as the point at infinity determined by $P$ and $Q$
+and call it the _vector_ from $P$ to $Q$. As $t$ goes to negative infinity
+we get $R(-\infty) = P - Q = -R(\infty)$.
+
+In the last problem above using only the stock and option,
+let $O = (0,0)$ be the origin, $P_1 = (0,1)$, and $P_2 = (1,0)$.
+We call $E_1 = P_1 - O$ the _stock dimension and $E_2 = P_2 - O$ the _option dimension.
+Note
+${X(90) = (90, 0) = O + 90E_1 + E_2}$,
+${X(100) = (100, 0) = O + 100E_1 + E_2}$, and
+${X(110) = (110, 1) = O + 110E_1 + E_2}$.
+Since $OX(90)X(100) = 0$ we know $X(100)$ is a linear combination of $O$ and $X(90)$
+
+The smallest cone containing the range of $X$ is the set of all linear
+combinations of $X(\omega) - O$, $\omega\in\{90,100,110\}$, with non-negative
+coefficients. Since $X(90) - O = .9(X(100) - O)$ we need only
+consider $\omega\in\{90,110\}$ so the cone is
+$$
+\{O + t_{90} 90 E_1 + t_{100} 100 E_1 + t_{110}(110E_1 + 10E_2)\mid t_{90},t_{100},t_{110}\ge 0\}
+$$
+This is clearly the same a $\{O + tE_1 + u(11E_1 + E_2)\mid t,u\ge0\}$.
+Note $x = O + 100E_1 + vE_2$ if the initial option price is $v$
+and $v = \frac{OE_1x}{OE_1E_2}$.
+
+By Grassmann Algebra, $t = \frac{Ox(11E_1+E_1)}{OE_1(11E_1 + E_2)}$
+and $u = \frac{OE_1x}{OE_1(11E_1 + E_2)}$.
+Since $Ox(11E_1+E_1)
+= O(O + 100E_1 + vE_2)(11E_1+E_2)
+= 100 OE_1E_2 + 11v OE_2E_1 = (100 - 11v) OE_1E_2$ we have $t = 100 - 11v$.
+Since $O E_1 x = O E_1 (O + 100E_1 + vE_2) = v O E_1 E_2$
+we have $u = v$ so $x$ is in the cone if and only
+if $100 - 11v \ge0$ and $v\ge0$ hence $0\le v\le 100/11$.
+
+A more interesting example is the case of options at multiple strikes.
+By put-call parity we can assume they are all calls. The sample space is
+$\Omega = [L, H]$ containing all strikes and $\omega\in\Omega$ is the final stock price.
+The initial prices are $x = (1, s, v_1,\ldots,v_n)$
+and the final prices are $X(\omega) = (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)$
+The range of $X$ is $\{X(\omega)\mid L\le \omega\le H\}$.
+The smallest cone containing the range of $X$ is
+$$
+	\{tX(L) + uX(H) \sum_{j=1}^n t_n X(K_j)\mid t,u,t_j\ge0\}
+$$
+where $L < K_1 < \cdots < K_n < H$. If $E_0 = P_0 - O$ is the bond dimension
+
+## Reality
+
+If you are willing to assume prices are bounded, as they are in the real world, then
+the one-period model should require $X\colon\Omega\to\RR^I$ is bounded.
+This is not the case in the Black-Scholes/Merton continuous time model of lognormal stock prices.
+Scholes and Merton won a Nobel prize "for a new method to determine the value of derivatives."
+Their assumptions eliminated the need to measure the real-world return on a stock. 
+There is still a Nobel prize to be won by someone who can come up with a generally accepted
+way to determine the volatility of a stock.
+And perhaps multiple future prizes for those who develop theories
+not founded on the mathematical fictions of continuous time trading and unbounded prices.
+
+
+## Hedging
+
+Let $\nu\colon\RR^I\to\RR$ be the _payoff_ of a derivative instrument.
+If there exists $\gamma\in\RR^I$ with $\nu(X) = \gamma\cdot X$ then
+$E[\nu(X)/R] = \gamma\cdot x$
+so the cost of setting up the perfect hedge is $E[\nu(X)/R]$.
+
+We can always compute $\gamma = (d/dx)E[\nu(X)/R]$ and the above shows
+$E[\nu(X)/R] = \gamma\cdot X$.
+The variance $\Var(\nu(X) - \gamma\cdot X)$ is a measure of how
+good the hedge is.
+
+
+
+
+## Probability
+
+We now assume there is a probability measure $P$ on $\Omega$ representing
+the real-world event probabilities.
+
+Let $U\colon B(\Omega)\to\RR$ be a _utility function_.
+A common choice is $U(Y) = E[Y] - \alpha \Var(Y)$ for some positive risk parameter $\alpha\in\RR$.
+Note if $Y\in B(\Omega)$ then moments of all orders exist.
+
+To find a portfolio that maximizes the utility of the realized return we use Lagrange multipliers
+to solve
+$$
+	\max_\xi U(\xi\cdot X) - \lambda(\xi\cdot x - 1).
+$$
+
+We need to compute the [Fréchet Derivatives](fd.html) of $D(UM_X)$ where $M_X\xi = \xi\cdot X$ is
+the market map as above. The chain rule gives $D(UM_X)\xi = DU(M_x\xi)DM_X\xi = DU(M_x\xi)M_X\xi$
+since $DM_X = M_X$.
+Note $DU(M_x\xi)$ is in $B(\Omega)^*$ and $M_X\xi\in B(\Omega)$.
+
+The first order condition is $0 = DU(\xi\cdot X)M_X\xi - \lambda x^*$ for all $\xi\in\RR^I$.
+
+$\Var(\xi^T X - \nu(X)) = \xi^T\Var(X)\xi - 2\Cov(X^T, \nu(X))\xi + \Var(\nu(X))$.
+
+$\|A\xi - b\|^2 = \xi^T A^TA \xi - 2b^TA\xi + \|b\|^2$
+
+$\Var(X) = \Cov(X,X) = A^T A$. $\Cov(X^T, \nu(X)) = E[X^T,\nu(X)] = E[X]^TE[\nu(X)]$.
+
+## Liquidity and Risk
+
+It is possible to define a model that takes into account bid/ask spreads involving
+the amount traded and the counterparties involved.
+A _holding_ is a triple $(a,i,e)$ specifying an integer amount, instrument, and legal entity.
+It indicates $e$ is the legal owner of amount $a$ of instrument $i$.
+The amount is an integral number of (minimum fractional) shares of the instrument.
+-->
+
+<!--
+
+## Maximum Entropy
+
+The _entropy_ of a measure on a finite set $Ω = \{ω_j\}$ with $P(\{ω_j\}) = p_j$, $p_j \ge0$,
+is $H = -\sum_j p_j \log p_j$.
+
+$Φ = -\sum_j p_j \log p_j - λ(\sum_j p_j - 1) - μ'(E[X] - Rx)$
+
+$\partial Φ/\partial p_j = -1 - \log p_j - λp_j - μ_j X(ω_j)$
+
+$\partial Φ/\partial λ = \sum_j p_j - 1$
+
+$\partial Φ/\partial μ = E[X] - Rx$
+
+$p_j = \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+
+$1 = \sum_j p_j = \sum_j \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+
+$Rx = E[X] = \sum_j X(ω_j) \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+
+-->
+<!--
+
+The Capital Asset Pricing Model assumes that a probability measure is
+specified on the sample space of possible outcomes.
+[@Mar1952] and [@Roy1952] developed Modern
+Portfolio Theory by introducing the concept of an efficient portfolio:
+one for which no alternative portfolio offers a higher expected return
+at the same level of risk, or a lower level of risk for the same expected
+return. In their framework, risk is quantified using the variance of realized
+returns.
+
+A common parameterization is to assume returns are jointly normal.
+This reduces parameter estimation to the mean and covariance matrix.
+If we assume a multi period model where the returns are stationary and independent
+(i.e., a random walk)
+then standard linear regression can be used to estimate the parameters
+based on historical prices. There are still some practical questions
+to answer: How far back do you go? Do you use exponential weights?
+What exponent should you use?
+
+[@Ros1976] invented Arbitrage Pricing Theory as a systematic approach to estimate
+a CAPM probability distribution that depends on information other than historical prices.
+
+After reseachers noted empirical contradictions of the CAPM [@FamFre1992] introduced
+specific factors. In addition to excess return over the risk-free rate they used the excess returns
+of small‑cap stocks over large‑cap stocks (SMB) and the excess returns of value stocks
+over growth stock (HML). They also assume stationary and independent returns
+and use linear regression to estimate their model parameters.
+
+If the sample space consists of two point we get the binomial model.
+It is not at all realistic, but it can illustrate the concept of arbitrage.
+Models that are not arbitrage free are useless so we need a way of
+detecting the. The Fundamental Theorem of asset pricing for the one-period
+model states there is no arbitrage if and only if the initial prices belong
+so the smallest closed cone containing all possible final prices.
+
+-->
+<!--
 ## Grassmann Algebra
 
 We now show how to use the geometric algebra [@Gra1844] invented to solve problems
@@ -603,243 +864,5 @@ low and high values for the underlying instrument. The author implemented this
 for the option trading book at Banc of America Securities. We found the only arbitrage
 opportunities were negative price butterfly spreads at adjacent traded strikes, but the bid/ask
 spread turned the price positive.
-
-## Appendix
-
-We can make the one-period model more realistic. The price of an instrument must
-be an integral multiple of its minimal trading increment, or _tick size_.
-Let $\epsilon(i)$ be the tick size 
-of instrument $i\in I$. Initial prices $x\in\ZZ^I$ correspond
-to actual prices $x(i)\epsilon(i)$. Likewise for final prices $X\colon\Omega\to\ZZ^I$.
-
-The amount must be an
-integral multiple of its minimum share size, or _lot size_.
-Let $\delta(i)$ be the lot size 
-of instrument $i\in I$. Amounts $\xi\in\ZZ^I$ correspond
-to amounts $\xi(i)\delta(i)$.
-
-Price can depend on the amount being bought or sold (among other things).
-The bid and ask price can be a function of each instrument
-and the amount being purchased. Initial price is a function
-$x\colon\ZZ\times I\to\RR$ where $x(\xi,i)$ is the price of $\xi_i$ lot sizes
-of $i\in I$. Final price is $X_i(\omega,-\xi_i)$ where $\omega\in\Omega$
-is what occured over the interval. Recall the one period model assumes
-the initial position is liquidated at the end of the period.
-
-For example $x_i(\xi,i) = x_i + \sgn(\xi_i)\eta$ where
-$x_i$ is the mid price models a fixed bid/ask spread $\eta$.
-Recall the _signum_ $\sgn(\xi) = 1$ if $\xi > 0$, $\sgn(\xi) = -1$ if $\xi < 0$,
-and $\sgn(0) = 0$.
-
-A more realistic model is $x_i(\xi,i) = x_i + \xi_i\eta$
-when the bid/ask spread is proportional to how much is being transacted
-or $x(\xi,i) = x_i + \phi(\xi)\eta$ where $\phi(\xi)$ is an increasing function
-of $\xi$ with $\phi(0) = 0$.
-
-For exchange traded instruments the price is determined by the existing limit orders,
-if that information is available.
-
-To be even more realistic, the domain of the portfolio function should be restricted.
-It is not possible to buy more shares of an instrument than have been issued
-and there may furthur restrictions when shorting an instrument.
-
-## Scratch
-
-$x = (x_0, x_1)$, $C(\omega) = (\omega_0,\omega_1)$, $\omega\in\{(L_0,H_0),(L_1,H_1)\}$.
-
-## References
-
-<!--
-### Grassmann Algebra
-
-We can also solve this using Grassmann Algebra. If $E$ is Euclidean
-space define $\GG(E)$ to be the (associative) algebra of points in $E$ with the
-condition $PQ = 0$ if and only if $P = Q$ so $PP = 0$. Note $PQ = -QP$
-since $(P + Q)(P + Q) = 0$. If $PQ = aRS$ for some scalar $a$ we
-say $PQ$ is _congruent_ to $RS$ and write $a = \frac{PQ}{RS}$. If $R = aP + bQ$ then $RPQ = 0$.
-Furthermore $PR = bPQ$ and $RQ = aPQ$ so
-$R = \frac{RQ}{PQ} P + \frac{PR}{PQ} Q$.
-
-This generalizes to any number of dimensions. If $P_0\cdots P_k = aQ_0\cdots Q_k$
-then $a = \frac{P_0\cdots P_k}{Q_0\cdots Q_k}$ and if $PP_0\cdots P_k = 0$ then
-$$
-	P = \sum_{j=0}^k \frac{P_0\cdots P\cdots P_k}{P_0\cdots P_k} P_j
-$$
-if $P_0\cdots P_k\not=0$ where $P$ in the numerator takes the $j$-th spot.
-Note if $\sum_{j=0}^k a_j P_j = 0$ then $a_j = 0$ for $0\le j\le k$
-and we say the $P_j$ are _linearly independent_.
-Note the sum of the coefficients is 1 and $P$ is in the convex hull
-of $P_0,\ldots,P_n$ if and only if all coefficients are non-negative.
-
-The _weight_ of $aP + bQ$ is $a + b$. Every point having weight 1 on the line determined
-by the points $P$ and $Q$ has the form ${R(t) = (1 - t)P + tQ = P + t(Q - P)}$.
-Note $Q - P\not= R(t)$ for any $t$. As $t$ goes to infinity $(1 - t)/t$ goes to $-1$
-and we interpret $R(\infty) = Q - P$ as the point at infinity determined by $P$ and $Q$
-and call it the _vector_ from $P$ to $Q$. As $t$ goes to negative infinity
-we get $R(-\infty) = P - Q = -R(\infty)$.
-
-In the last problem above using only the stock and option,
-let $O = (0,0)$ be the origin, $P_1 = (0,1)$, and $P_2 = (1,0)$.
-We call $E_1 = P_1 - O$ the _stock dimension and $E_2 = P_2 - O$ the _option dimension.
-Note
-${X(90) = (90, 0) = O + 90E_1 + E_2}$,
-${X(100) = (100, 0) = O + 100E_1 + E_2}$, and
-${X(110) = (110, 1) = O + 110E_1 + E_2}$.
-Since $OX(90)X(100) = 0$ we know $X(100)$ is a linear combination of $O$ and $X(90)$
-
-The smallest cone containing the range of $X$ is the set of all linear
-combinations of $X(\omega) - O$, $\omega\in\{90,100,110\}$, with non-negative
-coefficients. Since $X(90) - O = .9(X(100) - O)$ we need only
-consider $\omega\in\{90,110\}$ so the cone is
-$$
-\{O + t_{90} 90 E_1 + t_{100} 100 E_1 + t_{110}(110E_1 + 10E_2)\mid t_{90},t_{100},t_{110}\ge 0\}
-$$
-This is clearly the same a $\{O + tE_1 + u(11E_1 + E_2)\mid t,u\ge0\}$.
-Note $x = O + 100E_1 + vE_2$ if the initial option price is $v$
-and $v = \frac{OE_1x}{OE_1E_2}$.
-
-By Grassmann Algebra, $t = \frac{Ox(11E_1+E_1)}{OE_1(11E_1 + E_2)}$
-and $u = \frac{OE_1x}{OE_1(11E_1 + E_2)}$.
-Since $Ox(11E_1+E_1)
-= O(O + 100E_1 + vE_2)(11E_1+E_2)
-= 100 OE_1E_2 + 11v OE_2E_1 = (100 - 11v) OE_1E_2$ we have $t = 100 - 11v$.
-Since $O E_1 x = O E_1 (O + 100E_1 + vE_2) = v O E_1 E_2$
-we have $u = v$ so $x$ is in the cone if and only
-if $100 - 11v \ge0$ and $v\ge0$ hence $0\le v\le 100/11$.
-
-A more interesting example is the case of options at multiple strikes.
-By put-call parity we can assume they are all calls. The sample space is
-$\Omega = [L, H]$ containing all strikes and $\omega\in\Omega$ is the final stock price.
-The initial prices are $x = (1, s, v_1,\ldots,v_n)$
-and the final prices are $X(\omega) = (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)$
-The range of $X$ is $\{X(\omega)\mid L\le \omega\le H\}$.
-The smallest cone containing the range of $X$ is
-$$
-	\{tX(L) + uX(H) \sum_{j=1}^n t_n X(K_j)\mid t,u,t_j\ge0\}
-$$
-where $L < K_1 < \cdots < K_n < H$. If $E_0 = P_0 - O$ is the bond dimension
-
-## Reality
-
-If you are willing to assume prices are bounded, as they are in the real world, then
-the one-period model should require $X\colon\Omega\to\RR^I$ is bounded.
-This is not the case in the Black-Scholes/Merton continuous time model of lognormal stock prices.
-Scholes and Merton won a Nobel prize "for a new method to determine the value of derivatives."
-Their assumptions eliminated the need to measure the real-world return on a stock. 
-There is still a Nobel prize to be won by someone who can come up with a generally accepted
-way to determine the volatility of a stock.
-And perhaps multiple future prizes for those who develop theories
-not founded on the mathematical fictions of continuous time trading and unbounded prices.
-
-
-## Hedging
-
-Let $\nu\colon\RR^I\to\RR$ be the _payoff_ of a derivative instrument.
-If there exists $\gamma\in\RR^I$ with $\nu(X) = \gamma\cdot X$ then
-$E[\nu(X)/R] = \gamma\cdot x$
-so the cost of setting up the perfect hedge is $E[\nu(X)/R]$.
-
-We can always compute $\gamma = (d/dx)E[\nu(X)/R]$ and the above shows
-$E[\nu(X)/R] = \gamma\cdot X$.
-The variance $\Var(\nu(X) - \gamma\cdot X)$ is a measure of how
-good the hedge is.
-
-
-
-
-## Probability
-
-We now assume there is a probability measure $P$ on $\Omega$ representing
-the real-world event probabilities.
-
-Let $U\colon B(\Omega)\to\RR$ be a _utility function_.
-A common choice is $U(Y) = E[Y] - \alpha \Var(Y)$ for some positive risk parameter $\alpha\in\RR$.
-Note if $Y\in B(\Omega)$ then moments of all orders exist.
-
-To find a portfolio that maximizes the utility of the realized return we use Lagrange multipliers
-to solve
-$$
-	\max_\xi U(\xi\cdot X) - \lambda(\xi\cdot x - 1).
-$$
-
-We need to compute the [Fréchet Derivatives](fd.html) of $D(UM_X)$ where $M_X\xi = \xi\cdot X$ is
-the market map as above. The chain rule gives $D(UM_X)\xi = DU(M_x\xi)DM_X\xi = DU(M_x\xi)M_X\xi$
-since $DM_X = M_X$.
-Note $DU(M_x\xi)$ is in $B(\Omega)^*$ and $M_X\xi\in B(\Omega)$.
-
-The first order condition is $0 = DU(\xi\cdot X)M_X\xi - \lambda x^*$ for all $\xi\in\RR^I$.
-
-$\Var(\xi^T X - \nu(X)) = \xi^T\Var(X)\xi - 2\Cov(X^T, \nu(X))\xi + \Var(\nu(X))$.
-
-$\|A\xi - b\|^2 = \xi^T A^TA \xi - 2b^TA\xi + \|b\|^2$
-
-$\Var(X) = \Cov(X,X) = A^T A$. $\Cov(X^T, \nu(X)) = E[X^T,\nu(X)] = E[X]^TE[\nu(X)]$.
-
-## Liquidity and Risk
-
-It is possible to define a model that takes into account bid/ask spreads involving
-the amount traded and the counterparties involved.
-A _holding_ is a triple $(a,i,e)$ specifying an integer amount, instrument, and legal entity.
-It indicates $e$ is the legal owner of amount $a$ of instrument $i$.
-The amount is an integral number of (minimum fractional) shares of the instrument.
 -->
 
-<!--
-
-## Maximum Entropy
-
-The _entropy_ of a measure on a finite set $Ω = \{ω_j\}$ with $P(\{ω_j\}) = p_j$, $p_j \ge0$,
-is $H = -\sum_j p_j \log p_j$.
-
-$Φ = -\sum_j p_j \log p_j - λ(\sum_j p_j - 1) - μ'(E[X] - Rx)$
-
-$\partial Φ/\partial p_j = -1 - \log p_j - λp_j - μ_j X(ω_j)$
-
-$\partial Φ/\partial λ = \sum_j p_j - 1$
-
-$\partial Φ/\partial μ = E[X] - Rx$
-
-$p_j = \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
-
-$1 = \sum_j p_j = \sum_j \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
-
-$Rx = E[X] = \sum_j X(ω_j) \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
-
--->
-<!--
-
-The Capital Asset Pricing Model assumes that a probability measure is
-specified on the sample space of possible outcomes.
-[@Mar1952] and [@Roy1952] developed Modern
-Portfolio Theory by introducing the concept of an efficient portfolio:
-one for which no alternative portfolio offers a higher expected return
-at the same level of risk, or a lower level of risk for the same expected
-return. In their framework, risk is quantified using the variance of realized
-returns.
-
-A common parameterization is to assume returns are jointly normal.
-This reduces parameter estimation to the mean and covariance matrix.
-If we assume a multi period model where the returns are stationary and independent
-(i.e., a random walk)
-then standard linear regression can be used to estimate the parameters
-based on historical prices. There are still some practical questions
-to answer: How far back do you go? Do you use exponential weights?
-What exponent should you use?
-
-[@Ros1976] invented Arbitrage Pricing Theory as a systematic approach to estimate
-a CAPM probability distribution that depends on information other than historical prices.
-
-After reseachers noted empirical contradictions of the CAPM [@FamFre1992] introduced
-specific factors. In addition to excess return over the risk-free rate they used the excess returns
-of small‑cap stocks over large‑cap stocks (SMB) and the excess returns of value stocks
-over growth stock (HML). They also assume stationary and independent returns
-and use linear regression to estimate their model parameters.
-
-If the sample space consists of two point we get the binomial model.
-It is not at all realistic, but it can illustrate the concept of arbitrage.
-Models that are not arbitrage free are useless so we need a way of
-detecting the. The Fundamental Theorem of asset pricing for the one-period
-model states there is no arbitrage if and only if the initial prices belong
-so the smallest closed cone containing all possible final prices.
-
--->
