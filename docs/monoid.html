@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-11-25" />
+  <title>Monoid</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Monoid</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">November 25, 2025</p>
+</header>
+<p>A <em>semigroup</em> is a set with an associative binary operation.
+If we write <span class="math inline">ab</span> for the binary operation
+then <span class="math inline">a(bc) = (ab)c</span> is the associative
+law. This allows us to write <span class="math inline">abc</span>
+unambiguously. A semigroup is <em>commutative</em>, or <em>abelian</em>,
+if <span class="math inline">ab = ba</span> for every element of the
+semigroup.</p>
+<p>The binary operation for a semigroup is a function <span
+class="math inline">m\colon S\times S\to S</span> on the cartesian
+product of the set of elements satisfying <span
+class="math inline">m(a,m(b,c)) = m(m(a,b),c)</span> whenever <span
+class="math inline">a,b,c\in S</span>. If we write <span
+class="math inline">ab</span> for <span
+class="math inline">m(a,b)</span> this becomes <span
+class="math inline">a(bc) = (ab)c</span>.</p>
+<p>A <em>monoid</em> is a semigroup <span class="math inline">\langle
+M,m\rangle</span> with an identity element <span
+class="math inline">e\in M</span> satisfying <span
+class="math inline">me = m = em</span> for <span
+class="math inline">m\in M</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the identity element of a monoid
+is unique</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">e&#39;</span> is another
+identity element then <span class="math inline">e = ee&#39; =
+e&#39;</span>.</p>
+<!-- ??? Every left identity is a right identity ??? -->
+<p>Every semigroup can be turned into a monoid by adjoining an identity
+element.</p>
+<p>If <span class="math inline">\langle S,m\rangle</span> is a semigroup
+pick any <span class="math inline">e\not\in S</span> and define <span
+class="math inline">m^e(a,b) = m(a,b)</span> and <span
+class="math inline">m^e(e,c) = c = m^e(c,e)</span> for <span
+class="math inline">a,b,c\in S</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\langle
+S\cup\{e\}, m^e\rangle</span> is a monoid</em>.</p>
+<p>Semigroups and monoids are ubiquitous. Addition and multiplication of
+numbers are all abelian semigroups. Strings under concatenation are a
+non-abelian monoids with identity the empty string.</p>
+<p><strong>Exercise</strong>. <em>Show subtraction and division over the
+rational numbers is not associative</em>.</p>
+<p>Monoids might seem to be too trivial to be useful, but they are the
+foundation of <a
+href="https://en.wikipedia.org/wiki/MapReduce">MapReduce</a>. You can
+chop <span class="math inline">a_1\cdots a_n</span> into <span
+class="math inline">k</span> pieces and run their product in parallel on
+<span class="math inline">k</span> computers. Each piece has <span
+class="math inline">n/k</span> elements so the total parallel
+computation time is <span class="math inline">O(n/k)</span>. The <span
+class="math inline">k</span> partial products can be computed in <span
+class="math inline">O(k)</span> time. The value of <span
+class="math inline">k</span> that minimizes <span
+class="math inline">n/k + k</span> is <span class="math inline">k =
+\sqrt{n}</span> so the total computation time is <span
+class="math inline">2\sqrt{n}</span>.</p>
+</body>
+</html>

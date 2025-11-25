@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-10-18" />
-  <title>Simple Universal Model</title>
+  <meta name="dcterms.date" content="2025-11-25" />
+  <title>A Simple Approach to the Valuation of Risky Streams of Cash Flows</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,9 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Simple Universal Model</h1>
-<p class="date">October 18, 2025</p>
+<h1 class="title">A Simple Approach to the Valuation of Risky Streams of
+Cash Flows</h1>
+<p class="date">November 25, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Arbitrage-free prices are geometrically constrained by cash flows.
@@ -107,21 +108,26 @@ data-cites="Ros1978">(<a href="#ref-Ros1978" role="doc-biblioref">Ross
 1978</a>)</span> “A Simple Approach to the Valuation of Risky Streams”
 where he showed</p>
 <blockquote>
-<p><em>If there are no arbitrage opportunities in the capital markets,
-then there exists a (not generally unique) valuation operator, <span
-class="math inline">L</span></em>.</p>
+<p>If there are no arbitrage opportunities in a market, then there must
+exist a (not generally unique) positive linear operator that can be used
+to value all marketed assets.</p>
 </blockquote>
-<p>The not generally unique valuation operators are determined by
-<em>deflators</em>: positive measures that depend only on the
-information available at each trading time. Ross’s theory applies to all
-instruments, not just a bond, stock, and option that <span
-class="citation" data-cites="BlaSch1973">(<a href="#ref-BlaSch1973"
-role="doc-biblioref">Black and Scholes 1973</a>)</span> and <span
-class="citation" data-cites="Mer1973">(<a href="#ref-Mer1973"
-role="doc-biblioref">Merton 1973</a>)</span> considered. His insight was
-to realize option valuation has nothing to do with probability and used
-the Hahn-Banach theorem to show prices are constrained by the geometry
-determined by cash flows.</p>
+<p>We call Ross’s valuation operator a <em>deflator</em>: positive
+measures that depend only on the information available at each trading
+time. We will show the reciprocal of a money market account used to fund
+trading determines a canonical deflator.</p>
+<p>Unlike <span class="citation" data-cites="BlaSch1973">(<a
+href="#ref-BlaSch1973" role="doc-biblioref">Black and Scholes
+1973</a>)</span> and <span class="citation" data-cites="Mer1973">(<a
+href="#ref-Mer1973" role="doc-biblioref">Merton 1973</a>)</span> Ross
+made no assumptions on the underlying stochastic processes for prices.
+He does not require Brownian motion, the It^o calculus, much less
+partial differential equations. His insight was to realize option
+valuation has nothing to do with probability and used the Hahn-Banach
+theorem to show prices are constrained by the geometry determined by
+cash flows. We show even that is not required.</p>
+<p>Ross’s theory also applies to all instruments, not just a bond,
+stock, and option that Black, Scholes, and Merton considered.</p>
 <p>There is a clear trajectory in Mathematical Finance from simple
 closed-form models to those allowing more realistic features to be
 incorporated. Classical models assume there is no bid-ask spread

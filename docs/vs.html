@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-10-18" />
+  <meta name="dcterms.date" content="2025-11-25" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">October 18, 2025</p>
+<p class="date">November 25, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -154,20 +154,6 @@ class="math inline">s\in S</span>.</p>
 class="math inline">S</span> into a monoid</em>.</p>
 <p><em>Hint</em>. Show <span class="math inline">(ab)c = a(bc)</span>
 for <span class="math inline">a,b,c\in S\cup\{e\}</span>.</p>
-<p>This might seem to be too trivial to be useful, but it is the
-foundation of <a
-href="https://en.wikipedia.org/wiki/MapReduce">MapReduce</a>. You can
-chop <span class="math inline">a_1\cdots a_n</span> into <span
-class="math inline">k</span> pieces and run their product in parallel on
-<span class="math inline">k</span> computers. Each piece has <span
-class="math inline">n/k</span> elements so the total parallel
-computation time is <span class="math inline">O(n/k)</span>. The <span
-class="math inline">k</span> partial products can be computed in <span
-class="math inline">O(k)</span> time. The value of <span
-class="math inline">k</span> that minimizes <span
-class="math inline">n/k + k</span> is <span class="math inline">k =
-\sqrt{n}</span> so <span class="math inline">n/k + k =
-2\sqrt{k}</span>.</p>
 </section>
 <section id="boldsymbolrn" class="level2">
 <h2><span class="math inline">\boldsymbol{{R}}^n</span></h2>

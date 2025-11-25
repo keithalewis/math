@@ -3,7 +3,7 @@
 :!pandoc -V fontsize=12pt ums.md -o ums.pdf
 -->
 ---
-title: Simple Universal Model
+title: A Simple Approach to the Valuation of Risky Streams of Cash Flows
 abstract: Arbitrage-free prices are geometrically constrained by cash flows.
 classoption: fleqn
 link-citations: true
