@@ -19,11 +19,10 @@ abstract: Simplest formal model of a financial market.
 \newcommand\GG{\mathcal{G}}
 
 The One‑Period Model is the simplest framework for rigorously
-representing a financial market over a single time horizon. It defines
+representing a financial market over a single time horizon. The model defines
 the initial prices of tradable instruments and their terminal cash flows
-contingent on the realized outcome. In the absence of arbitrage, these
-prices are subject to geometric constraints imposed by the structure of
-the cash flows.
+contingent on the realized outcome. In the absence of arbitrage
+prices are subject to geometric constraints determined by the cash flows.
 
 We make the usual unrealistic assumptions that prices are real numbers
 instead of integral multiples of each instrument's minimum trading
@@ -33,54 +32,54 @@ We also ignore the fact instruments can only be purchased in integral
 multiples of their minimum share/lot size.  The [Appendix](#appendix)
 proposes a model that can incorporate more realistic assumptions.
 
-Quants turn mathematical models into software that traders use.  If a
+Quants turn mathematical models into software used for trading.  If a
 model is deployed without ensuring it is arbitrage-free then buy-side
 clients will exploit mispricings by going long on trades that are undervalued
 and short on overpriced ones. Eventually trading reality catches up
 and the sell-side firm loses money.  Even worse, a "clever" trader might
-find an internal arbitrage that gives the illusion of making profits.
+find an internal arbitrage that gives the illusion of making profits[^1].
+
+[^1]: Nick Leeson used this to put 233 year old, at the time, Barings Bank out of business.
 
 The Fundamental Theorem of Asset Pricing characterizes arbitrage-free
-models and (unlike Black, Scholes and Merton) provide an arbitrage if
-they are not. As [@Ros1978] showed, this is a purely geometric result
-having nothing to do with probability.  Positive measures having mass
-one make an appearance, but they are not the probability of anything.
+models and provide an arbitrage if they are not. As [@Ros1978] showed,
+this is a purely geometric result having nothing to do with probability.
+Positive measures having mass one make an appearance, but they are not
+the probability of anything.
 
 Ross made the untenable assumption that continuous time trading is
 possible and the category error of defining a cash flow as a jump
-in price. A cash flow is a payment made by the instrument issuer
-to every instrument holder. Stocks pay dividends, bonds pay coupons,
-futures pay the change in end-of-day quotes and always have price zero.
+in price. Stock prices jump between market close and market open but
+there is no associated cash flow.
+A cash flow is a payment made by the instrument issuer
+to each instrument holder. Stocks pay dividends, bonds pay coupons,
+futures pay the change in end-of-day quotes (and always have price zero).
 The Fundamental Theorem of Asset Pricing shows models of cash flows
 entail geometric constraints on arbitrage-free prices.
 
 ## One-Period Model
 
-The _One-Period Model_ consists of a finite set of tradable _instruments_ $I$.
+The _One-Period Model_ defines a finite set of tradable _instruments_ $I$.
 The set of possible _outcomes_ $\Omega$ represents what can happen over the period.
-The initial _prices_ are given by a vector ${x\in\RR^I}$[^1], indexed by the instruments.
-Terminal _cash flows_ are described by a vector-valued function
+The initial _prices_ are given by a vector ${x\in\RR^I}$[^2], indexed by the instruments.
+Terminal _cash flows_ are defined by a vector-valued function
 ${C\colon\Omega\to \RR^I}$ where ${C(\omega)\in\RR^I}$ are the cash
-flows corresponding to each outcome ${\omega\in\Omega}$.
+flows for each instrument corresponding to outcome ${\omega\in\Omega}$.
 
 A _position_ $\xi\in\RR^I$ is the number of shares purchased in each
 instrument at the beginning of the period.  The _cost_ of acquiring the
 position is ${\xi\cdot x = \sum_{i\in I}\xi(i) x(i)}$ and results in
-${\xi\cdot C(\omega)}$ at the end of the period for each outcome $\omega\in\Omega$.
+${\xi\cdot C(\omega)}$ at the end of the period.
 The _realized return_ of a position $\xi\in\RR^I$ is ${R_\xi = \xi\cdot C/\xi\cdot x}$ provided
 $\xi\cdot x\not=0$.
 
 __Exercise__. _Show $R_{t\xi} = R_{\xi}$ for any non-zero $t\in\RR$_.
 
-This is actually a deleterious feature of the model. Going long or short typically
+This is actually a deleterious feature of the model. Going long ($t > 0$)
+or short ($t < 0$) typically
 affects the realized return. It also implies a portfolio strategy can be scaled
 to arbitrarily large positions. At some point you will run out of instruments to buy
 and sell.
-
-A position $\xi$ is said to be _feasible_ if the cost of acquiring it is one,
-in which case its realized return is $R_\xi = \xi\cdot C$.  If $\xi$ is any
-position with $\xi\cdot x\not=0$ then $\xi/\xi\cdot x$ is feasible.
-Assuming feasibility simplifies computations involving realized return.
 
 We assume redundant instruments are removed from the model. 
 If ${\xi\cdot C = 0}$ then one instrument is a linear combination
@@ -90,19 +89,18 @@ If so, the map $\xi\in\RR^I$ to $\xi\cdot C\in\RR^\Omega$ is one-to-one.
 A model is _complete_ if this map is _onto_. This cannot be the case
 if the cardinality of $I$ is less than the cardinality of $\Omega$.
 In general the number of instruments is much smaller than the number of
-possible outcomes.  Although complete markets are frequently assumed in mathematical
-finance books they rarely arise in models faithful to the real world.
+possible outcomes.
 
-Classical literature often specifies terminal prices as the function $X\colon\Omega\to\RR^I$
-rather than cash flows $C$. From a rigorous standdpoint, however,
-prices do not truely exist at the end of the period since there is no
+Classical literature often specifies terminal prices as a function $X\colon\Omega\to\RR^I$
+rather than cash flows $C$. From a rigorous standdpoint,
+prices do not actually exist at the end of the period since there is no
 further economic activity available.  The classical approach implicitly
 assumes the initial position is liquidated at the end of the period
-yielding a payment of $\xi\cdot X$. In practice,
+at prevailing prices yielding a payment of $\xi\cdot X$. In practice,
 cash flows are paid proportional to position whether or not
 any trading occurs.
 
-For example, a zero coupon bond has an initial price (its discount)
+For example, a zero coupon bond has an initial price/discount
 and pays a unit cash flow at temination. 
 If you are uncomfortable using cash flows $C$ instead of prices $X$ when the
 instrument is a stock, $C$ may be interpreted as
@@ -115,7 +113,7 @@ between prices and cash flows.
 The [Capital Asset Pricing Model](capm.html) is a one-period model
 where a probability measure on possible outcomes is specified.
 
-[^1]: Recall the _set exponential_ ${B^A = \{f\colon A\to B\}}$ is the set
+[^2]: Recall the _set exponential_ ${B^A = \{f\colon A\to B\}}$ is the set
 of all functions from the set $A$ to the set $B$.  If ${x\in\RR^I}$ then
 $x(i)\in\RR$ is the price of instrument $i\in I$.  If $I = \{1,\ldots,n\}$
 we can identify $\RR^I$ with the vector space of $n$-tuples
@@ -130,7 +128,7 @@ you make money acquiring the initial position and never lose money
 at the end of the period.
 
 Some authors define arbitrage as a portfolio satisfying ${\xi\cdot x = 0}$ and
-${\xi\cdot C}$ is non-negative and positive on some set having positive probability.
+${\xi\cdot C\ge0}$ is strictly positive on some set having positive probability.
 We haven't specified a probability measure so we can't use this definition.
 Moreover, no trader would consider this to be an arbitrage anyway. 
 Even though the position costs nothing other than agita to put on,
@@ -198,7 +196,7 @@ If $x_n\in K$ converge to $x$ in norm and $\xi\cdot x_n\ge0$ then $\xi\cdot x\ge
 The contrapositive is also true.
 
 __Theorem__.  _Arbitrage exists in
-the one-period model if $x$ does not belong to the smallest
+a one-period model if $x$ does not belong to the smallest
 closed cone containing the range of $C$. If $x^*$ is the closest point
 in the cone then $\xi = x^* - x$ is an arbitrage_.
 
@@ -228,16 +226,13 @@ Since ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ we have ${\xi\cdot 
 
 The lemma proves the FTAP and that $\xi = x^* - x$ implements an arbitrage.
 
-If we assume prices are bounded, as they are in the real world, then every point 
-in the closed convex cone generated by the range of $C$ can
-be written as an integral $\int_\Omega C(\omega)\,dD(\omega)$ for some positive, bounded, finitely additive
-measure $D\in ba(\Omega)$ on $\Omega$,
-but this requires a bit more math to establish.
-See [@DunSch1958].
-We call any such measure _risk-neutral_.
-Risk-neutral measures are not generally unique.
+A _risk-neutral pricing measure_ is any positive, finitely additive measure $D$ on $\Omega$ with
+$x = \int_\Omega C\,dD$. The FTAP shows no arbitrage implies this
+set is not empty. Every such measure corresponds to a positive linear functional
+on the vector space of bounded functions on $\Omega$.  See [@DunSch1958].
+Risk-neutral pricing measures are not generally unique.
 
-The measure $Q = D/D(\Omega)$ is a positive
+If $D$ is a risk-neutral pricing measure then $Q = D/D(\Omega)$ is a positive
 measure having mass 1 so it satisfies the definition of a probability measure.
 Every portfolio has the same expected realized return under a risk-neutral measure
 so perhaps this should be called a _risk-blind_ measure.
@@ -264,13 +259,26 @@ that component is equal to the discount_.
 
 __Exercise__. _If $x = \int_\Omega C\,dD$ show $x = E^Q[C]D(\Omega)$_.
 
-This formula can be read "Prices are discounted expected cash flows."
-It is a mathematically rigorous instance of the method used by [@GraDod1934]
-in _Security Analysis_ for valuing instruments.
+This formula can be read "Prices are expected discounted cash flows."
+It is a mathematically rigorous one-period example of the method used by [@GraDod1934]
+in _Security Analysis_ for valuing equities.
 
 ## Examples
 
 We now apply the FTAP to particular models. 
+
+### Zero Coupon Bond
+
+A common misbelief is that the price of a zero coupon bond must not be greater
+than its notional since this would imply negative interest rates.
+This actually occured in Europe between 2014 and 2020 but did not give rise
+to arbitrage opportunities.
+
+If the only instrument is a zero coupon bond then $C = 1$. In the absence of arbitage
+we have $x = CD = D$ for some positive number $D$. This shows that the discount
+is not neccessarily less than 1.
+
+__Exercise__. _If $x < 0$ find an arbitrage_.
 
 ### 1-2-3 Model
 
@@ -287,7 +295,7 @@ This shows the risk-neutral measure is $D(\{1\}) = D(\{3\}) = 1/4$.
 The risk-neutral probability measure $Q = D/D(\Omega)$
 is $Q(\{1\}) = Q(\{3\}) = 1/2$.
 
-__Exercise__. _Show $E^Q[C]/2 = \int_\Omega C\,dD = (1, 1)$ is the initial bond and stock price_.
+__Exercise__. _Show $E^Q[C]D(\Omega) = \int_\Omega C\,dD = (1, 1)$ is the initial bond and stock price_.
 
 If we add a call option with strike 2 and price $v$ then the model becomes
 ${x = (1, 1, v)}$, ${C(\omega) = (2, \omega, \max\{\omega - 2,0\})}$
@@ -330,16 +338,24 @@ to either $L$ or $H$.
 This is arbitrage-free if and only we can find $d_L,d_H \ge 0$
 with $x = C(L)d_L + C(H)d_H$. Considering the bond and stock components
 we have $d_L = (Hr/R - s)/(H - L)$ and $d_H = (s - Lr/R)/(H - L)$.
-The model is arbitrage-free if and only if $L/R \le s/r \le H/R$.
+The model is arbitrage-free if and only if these are both non-negative
+so $L/R \le s/r \le H/R$.
 
 Adding an option with payoff $\nu(\omega)$ we have its arbitrage-free value is 
 $$
 v = \nu(L)d_L + \nu(H)d_H = \frac{(H\nu(L) - L\nu(H))r/R + (\nu(H) - \nu(L))s}{H - L}.
 $$
 
-__Exercise__. _Show this agrees with the 1-2-3 Model_.
+This can be simplified for call options.
 
-_Hint_: Calculate $(3\times 0 - 1\times 1)/2 + (1 - 0)\times 1)/(3 - 1)$.
+__Exercise__. _If $\nu(\omega) = \max\{\omega - K, 0\}$ where $L \le K \le H$ then
+$v = (H - K)(Hr/R - s)/(H - L)$_.
+
+__Exercise__. _Show this agrees with the 1-2-3 Model for a call option with strike 2_.
+
+Even though the option price is completely determined by the bond and stock in the
+binomial model we can use this to get bounds on the option price. Since $v = (H - K)d_H$
+we always have $v \ge 0$. 
 
 ### Interval Model
 
@@ -416,14 +432,17 @@ into the total number of shares issued and price becomes meaningless.
 When a buyer sells shares they face even more restrictions and are also
 charged a _borrow cost_ over the period of time they are short.
 Prices can also depend on the particular buyer and seller of the
-transaction due to credit issues or regulations.
+transaction due to credit issues or regulations, among other things.
 
 A more realistic model for prices in a one-period model is to replace
 $x\colon I\to\RR$ by $x\colon I\times A\to\RR$ where $A$ is the set
 of possible amounts. The cost of setting up the position $\xi\in\RR^I$
 is ${\sum_{i\in I} \xi(i) x(i, \xi(i))}$. For a fixed transaction cost
 $\tau\in\RR$ per share we have ${x(i, a) = x_0(i) + \tau a}$ where
-$x_0$ is the mid price. 
+$x_0$ is the mid price. If a limit order book is available then
+a very good approximation to the execution price is the function of
+cumulative limit order amounts versus order levels.
+
 
 ## References
 
