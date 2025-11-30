@@ -59,7 +59,7 @@ entail geometric constraints on arbitrage-free prices.
 
 ## One-Period Model
 
-The _One-Period Model_ defines a finite set of tradable _instruments_ $I$.
+The _One-Period Model_ specifies a finite set of tradable _instruments_ $I$.
 The set of possible _outcomes_ $\Omega$ represents what can happen over the period.
 The initial _prices_ are given by a vector ${x\in\RR^I}$[^2], indexed by the instruments.
 Terminal _cash flows_ are defined by a vector-valued function
@@ -92,7 +92,7 @@ In general the number of instruments is much smaller than the number of
 possible outcomes.
 
 Classical literature often specifies terminal prices as a function $X\colon\Omega\to\RR^I$
-rather than cash flows $C$. From a rigorous standdpoint,
+rather than cash flows $C$. From a rigorous standpoint,
 prices do not actually exist at the end of the period since there is no
 further economic activity available.  The classical approach implicitly
 assumes the initial position is liquidated at the end of the period
@@ -101,7 +101,7 @@ cash flows are paid proportional to position whether or not
 any trading occurs.
 
 For example, a zero coupon bond has an initial price/discount
-and pays a unit cash flow at temination. 
+and pays a unit cash flow at termination. 
 If you are uncomfortable using cash flows $C$ instead of prices $X$ when the
 instrument is a stock, $C$ may be interpreted as
 the firm's liquidation value
@@ -180,7 +180,7 @@ If $\xi$ and $\eta$ are arbitrages then so is $\xi + \eta$.
 </details>
 
 The smallest cone containing the possible cash flows $C$ is the set
-of finite linear combinations with positive coefficents
+of finite linear combinations with positive coefficients
 ${\{\sum_i C(\omega_i) d_i\mid \omega_i\in\Omega, d_i > 0\}}$.
 If $x = \sum_i C(\omega_i) d_i$ is in the cone
 and $\xi\cdot C$ is non-negative on $\Omega$ then ${\xi\cdot x\ge 0}$
@@ -269,14 +269,14 @@ We now apply the FTAP to particular models.
 
 ### Zero Coupon Bond
 
-A common misbelief is that the price of a zero coupon bond must not be greater
+A common misconception is that the price of a zero coupon bond must not be greater
 than its notional since this would imply negative interest rates.
-This actually occured in Europe between 2014 and 2020 but did not give rise
+This actually occurred in Europe between 2014 and 2020 but did not give rise
 to arbitrage opportunities.
 
-If the only instrument is a zero coupon bond then $C = 1$. In the absence of arbitage
+If the only instrument is a zero coupon bond then $C = 1$. In the absence of arbitrage
 we have $x = CD = D$ for some positive number $D$. This shows that the discount
-is not neccessarily less than 1.
+is not necessarily less than 1.
 
 __Exercise__. _If $x < 0$ find an arbitrage_.
 
@@ -371,10 +371,6 @@ for some $t\in[0,1]$.
 
 Since cones are convex, this shows the smallest cone containing $C(L)$ and
 $C(H)$ also contains $C(\omega)$ for $\omega\in[L,H]$.
-
-$0 = \int_\Omega C(\omega)\,dD(\omega)$ add to binomial model solution. Keep posititve.
-
-
 
 ## Appendix
 
