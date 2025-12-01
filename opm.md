@@ -271,7 +271,7 @@ We now apply the FTAP to particular models.
 
 A common misconception is that the price of a zero coupon bond must not be greater
 than its notional since this would imply negative interest rates.
-This actually occurred in Europe between 2014 and 2020 but did not give rise
+Negative rates actually occured in Europe between 2014 and 2020 but did not give rise
 to arbitrage opportunities.
 
 If the only instrument is a zero coupon bond then $C = 1$. In the absence of arbitrage
