@@ -12,12 +12,57 @@ relation, cosets,
 
 functions, 1-1, onto, 1-1 correspondence
 
-Let $\FF$ be a field and $\FF^I = \{x\colon I\to\FF\} = \{I\to\FF\}$ be the set of all functions
-from the set $I$ to the field.
+Let $\FF$ be a field and the set exponential ${\FF^I = \{x\colon I\to\FF\} = \{I\to\FF\}}$
+be the set of all functions from the set $I$ to the field. 
+Define scalar multiplication $\FF\times\FF^I\to\FF^I$
+where ${(a,x)\mapsto ax = xa}$ by ${(ax)(i) = a(x(i)) = (x(i))a}$ and vector addition
+${\FF^I\times\FF^I\to\FF^I}$ where ${(x,y)\mapsto x + y}$ by
+${(x + y)(i) = x(i) + y(i)}$, $i\in I$.
+
+<details><summary>Vector Space Axioms</summary>
+
+Define $\zero\in\FF^I$ by $\zero(i) = 0$ for $i\in I$.
+
+__Exercise__. _Show $0x = \zero$ for $x\in\FF^I$_.
+
+__Exercise__. _Show $x + \zero = x = \zero + x$ for all $x\in\FF^I$_.
+
+This shows $\zero$ is the _identity element_ for vector addition.
+
+__Exercise__. _Show $x + y = y + x$ for $x, y\in\FF^I_.
+
+Vector addition is commutative.
+
+__Exercise__. _Show $(a + b)x = ax + bx$ and $a(x + y) = ax + ay$ for $a,b\in\FF$ and $x,y\in\FF^I$_.
+
+_Hint_. Consider $(a + b)x(i)$ and $a(x + y)(i)$.
+
+This establishes the _distributive laws_ satisfied by scalar multiplication and vector addition.
+
+__Exercise__. _Show $-x = -1x$ satisfies $x + (-x) = \zero$_.
+
+_Hint_. Consider $x + (-x) = 1x + (-1x) = (1 + (-1))x$.
+
+This shows $-x$ is the _additive inverse_ of $x\in\FF^I$
+and vector addition is a commutative group.
+
+__Exercise__. _Show $a(bx) = (ab)x$ for $a,b\in\FF$, $x\in\FF^n$_.
+
+_Hint_: Use the fact multiplication is associative in $\FF$.
+
+</details>
+
+## Abstract Vector Space
+
+Any set $V$ with a scalar multiplication and
+vector addition satisfying 
+the above axioms is a vector space. We will eventually prove
+every vector space is isomorphic to $\FF^I$ for some set $I$
+but proofs involving only the axioms are more insightful.
 
 The _standard basis_ of $F^I$ is the set of vectors $e_i\colon I\to\FF$
 defined by $e_i(j) = 1(i = j)$, $i,j\in I$, where $1(i = j) = 1$ if $i = j$
-and $1(i = j) = 0$ if $i\not=j$.
+and $1(i = j) = 0$ if $i\not=j$. This is also called the Kronecker delta $\delta_{ij}$.
 
 __Exercise__. _Show $x = \sum_{i\in I} x(i) e_i$, $x\in\FF^I$ if $I$ is finite._
 
@@ -35,37 +80,6 @@ _Hint_: Define $(pv)(i) = p_i(v)$ and note $(pv)(i) = e_i^*(pv)$.
 
 ??? R^I iso to \Pi_i R ???
 
-Define scalar multiplication $\FF\times\FF^I\to\FF^I$ where $(a,x)\mapsto ax$ by $(ax)(i) = a(x(i))$ and
-vector addition $\FF^I\times\FF^I\to\FF^I$ where $(x,y)\mapsto x + y$ by $(x + y)(i) = x(i) + y(i)$, $i\in I$.
-
-<details><summary>Vector Space Axioms</summary>
-
-Define $\zero\in\FF^n$ by $e_i^*(\zero) = 0$ for $1\le i\le n$.
-
-__Exercise__. _Show $0x = \zero$ for $x\in\FF^n$_.
-
-__Exercise__. _Show $x + \zero = x = \zero + x$ for all $x\in\FF^n$_.
-
-This shows $\zero$ is the _identity element_ for vector addition.
-
-__Exercise__. _Show $(a + b)x = ax + bx$ and $a(x + y) = ax + ay$ for $a,b\in\FF$ and $x,y\in\FF^n$_.
-
-_Hint_. Consider $e_i^*((a + b)x)$ and $e_i^*(a(x + y))$.
-
-This establishes the _distributive laws_ satisfied by scalar multiplication and vector addition.
-
-__Exercise__. _Show $-x = -1x$ satisfies $x + (-x) = \zero$_.
-
-_Hint_. Consider $x + (-x) = 1x + (-1x) = (1 + (-1))x$.
-
-This shows $-x$ is the _additive inverse_ of $x\in\FF^n$.
-
-__Exercise__. _Show $a(bx) = (ab)x$ for $a,b\in\FF$, $x\in\FF^n$_.
-
-_Hint_: Use the fact multiplication is associative in $\FF$
-so $\pi_(a(bx)) = a(e_i^*(bx)) = a(be_i^*(x)) = (ab)\pi_(i)(x)$.
-
-</details>
 
 A _linear operator_ $T\colon\FF^I\to\FF^J$ is a function
 satisfying $T(ax + y) = aT(x) + T(y)$, $a\in\FF$, $x,y\in\FF^I$.
