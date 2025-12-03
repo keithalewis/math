@@ -7,8 +7,8 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Open index.html",
-            "file": "c:\\Users\\keith\\source\\repos\\keithalewis\\math\\sum\\doc\\index.html"
+            "name": "Open sum.html",
+            "file": "c:\\Users\\keith\\source\\repos\\keithalewis\\math\\sum\\sum.html"
         }
     ]
 }

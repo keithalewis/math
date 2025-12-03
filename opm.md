@@ -1,4 +1,4 @@
----
+--
 title: One-Period Model
 author: Keith A. Lewis
 institution: KALX, LLC
