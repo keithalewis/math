@@ -261,7 +261,8 @@ __Exercise__. _If $x = \int_\Omega C\,dD$ show $x = E^Q[C]D(\Omega)$_.
 
 This formula can be read "Prices are expected discounted cash flows."
 It is a mathematically rigorous one-period example of the method used by [@GraDod1934]
-in _Security Analysis_ for valuing equities.
+in _Security Analysis_ for valuing equities. Except Graham and Dodd only considered
+real-world probabilities, long before risk-neutal probabilities were invented.
 
 ## Examples
 
@@ -271,14 +272,9 @@ We now apply the FTAP to particular models.
 
 A common misconception is that the price of a zero coupon bond must not be greater
 than its notional since this would imply negative interest rates.
-Negative rates actually occured in Europe between 2014 and 2020 but did not give rise
-to arbitrage opportunities.
-
-If the only instrument is a zero coupon bond then $C = 1$. In the absence of arbitrage
-we have $x = CD = D$ for some positive number $D$. This shows that the discount
-is not necessarily less than 1.
-
-__Exercise__. _If $x < 0$ find an arbitrage_.
+This actually occurred in Europe between 2014 and 2020 but did not give rise
+to arbitrage opportunities. As shown above, the arbitrage-free constraint
+is only that the price is positive.
 
 ### 1-2-3 Model
 
@@ -355,7 +351,7 @@ __Exercise__. _Show this agrees with the 1-2-3 Model for a call option with stri
 
 Even though the option price is completely determined by the bond and stock in the
 binomial model we can use this to get bounds on the option price. Since $v = (H - K)d_H$
-we always have $v \ge 0$. 
+we always have $v \ge 0$ and $v\le ???$.
 
 ### Interval Model
 
