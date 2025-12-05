@@ -130,7 +130,7 @@ at the end of the period.
 Some authors define arbitrage as a portfolio satisfying ${\xi\cdot x = 0}$ and
 ${\xi\cdot C\ge0}$ is strictly positive on some set having positive probability.
 We haven't specified a probability measure so we can't use this definition.
-Moreover, no trader would consider this to be an arbitrage anyway. 
+Moreover, no trader would consider this to be an arbitrage. 
 Even though the position costs nothing other than agita to put on,
 the above definition has nothing definite to say about how much they will
 make nor how likely it is they will make it.
@@ -138,7 +138,7 @@ make nor how likely it is they will make it.
 Our stronger probability-free definition is still not good enough
 for traders and risk managers.  Even though ${\xi\cdot x}$ is strictly
 negative they will slap absolute value signs around every number and
-compute ${|\xi|\cdot|x|}$ as a proxy of how much capital will be tied
+compute ${|\xi|\cdot|x|}$ as a proxy for how much capital will be tied
 up putting on the position.  No business would approve using a million
 dollars from their funding account just to make a penny up front even though that
 technically satisfies our mathematical definition of arbitrage.
