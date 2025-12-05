@@ -35,6 +35,17 @@
             display: inline-block;
             margin: 2rem 0;
         }
+
+        .hidden-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .hidden-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 
@@ -42,8 +53,10 @@
     <h1>A Simplified Approach...</h1>
     <p>...to the valuation of risky streams [Ross 1978]<i> of cash flows</i>.</p>
 
-    <h2>I: Market</h2>
-    <p>Instruments have <i>prices</i> and <i>cash flows</i> over time.</p>
+    <div class="hidden-content">
+        <h2>I: Market</h2>
+        <p>Instruments have <i>prices</i> and <i>cash flows</i> over time.</p>
+    </div>
     <!--
     <svg id="market" class="graph" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -61,43 +74,54 @@
         </g>
     </svg>
 -->
-    <svg id="trading" class="graph" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
-                <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
-            </marker>
-        </defs>
-    </svg>
+    <div class="hidden-content">
+        <svg id="trading" class="graph" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
+                    <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
+                </marker>
+            </defs>
+        </svg>
+    </div>
 
-    <h2>II: Trading</h2>
-    <h2>III: Accounting</h2>
-    <p>Trading entails <i>amount</i>s. Cash flows are received proportional to position and
-        shares are purchased at market price.
-        \[
-        A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t
-        \]
-    <p>The <i>value</i> (mark-to-market) is the existing position plus
-        trades just done "liquidated" at market price.
-        \[
-        V_t = (\Delta_t + \Gamma_t)\cdot X_t
-        \]
-    </p>
-    <h2>IV:Arbitrage</h2>
-    <p>A trading strategy \((\tau_j, \Gamma_j)\) that makes money
-        on the first trade; never loses money; and ends with no position:
-        \[
-        A_{\tau_0} > 0;\, A_t \ge 0, t \ge \tau_0;\, \sum_j \Gamma_j = 0
-        \]
-    <h2>V: Fundamental Theorem of Asset Pricing</h2>
-    <p>If there is no arbitrage then prices are discounted future cash flows given
-        the available information.</p>
-    </p>
-    <p>
-        \[ X_t D_t = \sum_{u > t} C_u D_u|_{\mathcal{A}_t} \]
-    </p>
-    <h2>Consequences</h2>
-    <p>
-        If \(M_t = M_u|_{\mathcal{A}_t}\) then
+    <div class="hidden-content">
+        <h2>II: Trading</h2>
+    </div>
+    <div class="hidden-content">
+        <h2>III: Accounting</h2>
+        <p>Trading entails <i>amount</i>s. Cash flows are received proportional to position and
+            shares are purchased at market price.
+            \[
+            A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t
+            \]
+        <p>The <i>value</i> (mark-to-market) is the existing position plus
+            trades just done "liquidated" at market price.
+            \[
+            V_t = (\Delta_t + \Gamma_t)\cdot X_t
+            \]
+        </p>
+    </div>
+    <div class="hidden-content">
+        <h2>IV:Arbitrage</h2>
+        <p>A trading strategy \((\tau_j, \Gamma_j)\) that makes money
+            on the first trade; never loses money; and ends with no position:
+            \[
+            A_{\tau_0} > 0;\, A_t \ge 0, t \ge \tau_0;\, \sum_j \Gamma_j = 0
+            \]
+    </div>
+    <div class="hidden-content">
+        <h2>V: Fundamental Theorem of Asset Pricing</h2>
+        <p>If there is no arbitrage then prices are discounted future cash flows given
+            the available information.</p>
+        </p>
+        <p>
+            \[ X_t D_t = \sum_{u > t} C_u D_u|_{\mathcal{A}_t} \]
+        </p>
+    </div>
+    <div class="hidden-content">
+        <h2>Consequences</h2>
+        <p>
+            If \(M_t = M_u|_{\mathcal{A}_t}\) then
         \[
         X_t D_t = M_t - \sum_{t\le t} C_s D_s
         \]
@@ -118,11 +142,32 @@
         </p>
     </details>
     </p>
-    <p>
-        \[ V_t D_t = \sum_{u > t} A_u D_u|_{\mathcal{A}_t} \]
-    </p>
+    </div>
+    <div class="hidden-content">
+        <p>
+            \[ V_t D_t = \sum_{u > t} A_u D_u|_{\mathcal{A}_t} \]
+        </p>
+    </div>
 
     <script>
+        // Scroll reveal functionality
+        function revealOnScroll() {
+            const hiddenElements = document.querySelectorAll('.hidden-content');
+            
+            hiddenElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                // Reveal when element is 150px from bottom of viewport
+                if (elementTop < windowHeight - 150) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Run on page load and scroll
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
 
         function lineElement(x1, y1, x2, y2,
             { stroke = '#333', strokeWidth = 1, markerEnd = null } = {}) {
@@ -171,8 +216,18 @@
     //    <text x="110" y="0" font-size="12" fill="#333" font-style="italic" text-anchor="left"
     //            dominant-baseline="middle" transform="scale(1, -1)">time</text>
     
-            g.appendChild(lineElement(0, 0, 0, 5, { markerEnd: 'url(#arrowhead)' }))
-                .appendChild(animateElement('y2', '5', '100', { dur: '1s', begin: '1.5s' }));
+            const line2 = lineElement(0, 0, 0, 5, { markerEnd: 'url(#arrowhead)' });
+            line2.setAttribute('visibility', 'hidden');
+            
+            // Make visible when animation starts
+            const setVisible = document.createElementNS('http://www.w3.org/2000/svg', 'set');
+            setVisible.setAttribute('attributeName', 'visibility');
+            setVisible.setAttribute('to', 'visible');
+            setVisible.setAttribute('begin', '1s');
+            line2.appendChild(setVisible);
+            
+            line2.appendChild(animateElement('y2', '5', '100', { dur: '1s', begin: '1s' }));
+            g.appendChild(line2);
         }
        
         drawTrading();
