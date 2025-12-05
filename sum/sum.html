@@ -137,15 +137,32 @@
             svg.appendChild(g);
 
             // Add children to the group
-            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            line.setAttribute('x1', '0');
-            line.setAttribute('y1', '0');
-            line.setAttribute('x2', '0');
-            line.setAttribute('y2', '100');
-            line.setAttribute('stroke', '#333');
-            line.setAttribute('stroke-width', '2');
-            line.setAttribute('marker-end', 'url(#arrowhead)');
-            g.appendChild(line);
+            const xaxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            xaxis.setAttribute('x1', '0');
+            xaxis.setAttribute('y1', '0');
+            xaxis.setAttribute('x2', '0');
+            xaxis.setAttribute('y2', '0');
+            xaxis.setAttribute('stroke', '#333');
+            xaxis.setAttribute('stroke-width', '2');
+            xaxis.setAttribute('marker-end', 'url(#arrowhead)');
+           // xaxis.setAttribute('visibility', 'hidden');
+            const ax = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+            ax.setAttribute('attributeName', 'x2');
+            ax.setAttribute('from', '0');
+            ax.setAttribute('to', '100');
+            ax.setAttribute('dur', '2s');
+            ax.setAttribute('fill', 'freeze');
+            xaxis.appendChild(ax);
+            g.appendChild(xaxis);
+            const yaxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            yaxis.setAttribute('x1', '0');
+            yaxis.setAttribute('y1', '0');
+            yaxis.setAttribute('x2', '0');
+            yaxis.setAttribute('y2', '100');
+            yaxis.setAttribute('stroke', '#333');
+            yaxis.setAttribute('stroke-width', '2');
+            yaxis.setAttribute('marker-end', 'url(#arrowhead)');
+            g.appendChild(yaxis);
         }
         drawTrading();
     </script>
