@@ -1,61 +1,98 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Basic HTML</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+        integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+        integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
+        crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
         onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}]});"></script>
     <style>
-        body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin: 2rem; 
-        background-color: #f8f8f8;
-        .katex-display { text-align: left !important; margin: 1em 0; padding-left: 2em; }
-        .katex-display > .katex { text-align: left; }
-        .full-width-svg { width: 100%; height: 300px; display: block; margin: 2rem 0; }
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            margin: 2rem;
+            background-color: #f8f8f8;
+        }
+
+        .katex-display {
+            text-align: left !important;
+            margin: 1em 0;
+            padding-left: 2em;
+        }
+
+        .katex-display>.katex {
+            text-align: left;
+        }
+
+        .graph {
+            width: 100%;
+            height: 600px;
+            display: block;
+            margin: 2rem 0;
+        }
     </style>
 </head>
+
 <body>
     <h1>A Simplified Approach...</h1>
     <p>...to the valuation of risky streams [Ross 1978]<i> of cash flows</i>.</p>
 
     <h2>I: Market</h2>
     <p>Instruments have <i>prices</i> and <i>cash flows</i> over time.</p>
-    <svg class="full-width-svg" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+    <svg id="market" class="graph" viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
+                <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
+            </marker>
+        </defs>
         <g transform="translate(20, 280) scale(1, -1)">
-            <rect width="100%" height="100%" fill="#f0f0f0"/>
-            <line x1="0" y1="0" x2="100" y2="0" stroke="#333" stroke-width="2"/>
-            <line x1="0" y1="0" x2="0" y2="100" stroke="#333" stroke-width="2"/>
-            <text x="100" y="0" text-anchor="left" font-size="18" fill="#333" 
-            transform="scale(1, -1)">time</text>
-            <text x="10" y="100" text-anchor="left" font-size="18" fill="#333" 
-            transform="scale(1, -1)">price</text>
+            <line x1="0" y1="0" x2="100" y2="0" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+            <line x1="0" y1="0" x2="0" y2="100" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+            <text x="110" y="0" font-size="12" fill="#333" font-style="italic" text-anchor="left"
+                dominant-baseline="middle" transform="scale(1, -1)">time</text>
+            <text x="0" y="-110" font-size="12" fill="#333" font-style="italic" text-anchor="middle"
+                transform="scale(1, -1)">price</text>
+        </g>
+    </svg>
+    <svg id="trading" class="graph" viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
+                <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
+            </marker>
+        </defs>
+        <g transform="translate(20, 280) scale(1, -1)">
+            <line x1="0" y1="0" x2="100" y2="0" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
         </g>
     </svg>
 
     <h2>II: Trading</h2>
     <h2>III: Accounting</h2>
     <p>Trading entails <i>amount</i>s. Cash flows are received proportion to position and
-        shares are 
- at market price.
-    \[
+        shares are
+        at market price.
+        \[
         A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t
-    \]
+        \]
     <p>The <i>value</i> (mark-to-market) is the existing position plus
         trades just done "liquidated" at market price.
-    \[
+        \[
         V_t = (\Delta_t + \Gamma_t)\cdot X_t
-    \]
+        \]
     </p>
     <h2>IV:Arbitrage</h2>
     <p>A trading strategy \((\tau_j, \Gamma_j)\) that makes money
         on the first trade; never loses money; and ends with no position:
         \[
-            A_{\tau_0} > 0;\, A_t \ge 0, t \ge \tau_0;\, \sum_j \Gamma_j = 0
-        \]    
+        A_{\tau_0} > 0;\, A_t \ge 0, t \ge \tau_0;\, \sum_j \Gamma_j = 0
+        \]
     <h2>V: Fundamental Theorem of Asset Pricing</h2>
-    <p>If there is no arbitrage then prices are discounted future cash flows given 
+    <p>If there is no arbitrage then prices are discounted future cash flows given
         the available information.</p>
     </p>
     <p>
@@ -64,7 +101,9 @@
     <h2>Consequences</h2>
     <p>
         If \(M_t = M_u|_{\mathcal{A}_t}\) then
-        \(X_t D_t = M_t - \sum_{s\le t} C_s D_s\)
+        \[
+        X_t D_t = M_t - \sum_{t\le t} C_s D_s
+        \]
         is arbitrage free.
         <blockquote>
             <strong>Every arbitrage free price process has the form.</strong>
@@ -76,6 +115,7 @@
     <p>
         \[ V_t D_t = \sum_{u > t} A_u D_u|_{\mathcal{A}_t} \]
     </p>
+
     <script>
         // simple script clause
         function sum(a, b) {
@@ -84,6 +124,30 @@
         // expose to the console for quick testing
         window.sum = sum;
         console.log('Script loaded. sum(2, 3) =', sum(2, 3));
+
+        function drawTrading() {
+            const svg = document.getElementById('trading');
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+            // Set attributes
+            g.setAttribute('class', 'graph');
+            g.setAttribute('transform', 'translate(20, 280) scale(1, -1)');
+
+            // Append to SVG
+            svg.appendChild(g);
+
+            // Add children to the group
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', '0');
+            line.setAttribute('y1', '0');
+            line.setAttribute('x2', '0');
+            line.setAttribute('y2', '100');
+            line.setAttribute('stroke', '#333');
+            line.setAttribute('stroke-width', '2');
+            line.setAttribute('marker-end', 'url(#arrowhead)');
+            g.appendChild(line);
+        }
+        drawTrading();
     </script>
 </body>
 </html>
