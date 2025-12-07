@@ -17,7 +17,7 @@ abstract: Simplest formal model of a financial market.
 \newcommand\cone{\operatorname{cone}}
 \newcommand\BB{\mathcal{B}}
 \newcommand\GG{\mathcal{G}}
-
+c
 The One‑Period Model is the simplest framework for rigorously
 representing a financial market over a single time horizon. The model defines
 the initial prices of tradable instruments and their terminal cash flows

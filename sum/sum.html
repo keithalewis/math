@@ -16,6 +16,7 @@
     <style>
         body {
             font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            font-size: x-large;
             margin: 2rem;
             background-color: #f8f8f8;
         }
@@ -31,9 +32,7 @@
         }
 
         .graph {
-            width: 100%;
-            height: 600px;
-            display: block;
+            display: inline-block;
             margin: 2rem 0;
         }
     </style>
@@ -45,37 +44,33 @@
 
     <h2>I: Market</h2>
     <p>Instruments have <i>prices</i> and <i>cash flows</i> over time.</p>
-    <svg id="market" class="graph" viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
+    <svg id="market" class="graph" viewBox="0 0 400 900" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
                 <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
             </marker>
         </defs>
         <g transform="translate(20, 280) scale(1, -1)">
-            <line x1="0" y1="0" x2="100" y2="0" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
-            <line x1="0" y1="0" x2="0" y2="100" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+            <line x1="0" y1="0" x2="100" y2="0" stroke="#333" stroke-width="1" marker-end="url(#arrowhead)" />
+            <line x1="0" y1="0" x2="0" y2="100" stroke="#333" stroke-width="1" marker-end="url(#arrowhead)" />
             <text x="110" y="0" font-size="12" fill="#333" font-style="italic" text-anchor="left"
                 dominant-baseline="middle" transform="scale(1, -1)">time</text>
             <text x="0" y="-110" font-size="12" fill="#333" font-style="italic" text-anchor="middle"
                 transform="scale(1, -1)">price</text>
         </g>
     </svg>
-    <svg id="trading" class="graph" viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
+    <svg id="trading" class="graph" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
                 <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
             </marker>
         </defs>
-        <g transform="translate(20, 280) scale(1, -1)">
-            <line x1="0" y1="0" x2="100" y2="0" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
-        </g>
     </svg>
 
     <h2>II: Trading</h2>
     <h2>III: Accounting</h2>
-    <p>Trading entails <i>amount</i>s. Cash flows are received proportion to position and
-        shares are
-        at market price.
+    <p>Trading entails <i>amount</i>s. Cash flows are received proportional to position and
+        shares are purchased at market price.
         \[
         A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t
         \]
@@ -108,9 +103,16 @@
         <blockquote>
             <strong>Every arbitrage free price process has the form.</strong>
         </blockquote>
-        For example \(D_t = e^{-\rho t}P\), \(M_t = \begin{bmatrix} 1 \\ se^{\sigma B_t - \sigma^2t/2} \end{bmatrix} P\),
+        For example, the Black-Scholes/Merton model is \(D_t = e^{-\rho t}P\), \(M_t = \begin{bmatrix} 1 \\ se^{\sigma B_t - \sigma^2t/2} \end{bmatrix} P\),
         \(C_t = \begin{bmatrix} 0 \\ 0 \end{bmatrix}\)
         where \(P\) is Wiener measure is Black-Scholes/Merton.
+        <details><summary>Normal</summary>
+            <p>If \(N\) is normally distributed then
+                \[
+                E[e^{N}] = e^{E[N] + \frac{1}{2}Var(N)}
+                \]
+            </p>
+        </details>
     </p>
     <p>
         \[ V_t D_t = \sum_{u > t} A_u D_u|_{\mathcal{A}_t} \]
@@ -124,6 +126,20 @@
         // expose to the console for quick testing
         window.sum = sum;
         console.log('Script loaded. sum(2, 3) =', sum(2, 3));
+
+        function line(x1, y1, x2, y2, stroke = '#333', strokeWidth = 1, markerEnd = null) {
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', x1);
+            line.setAttribute('y1', y1);
+            line.setAttribute('x2', x2);
+            line.setAttribute('y2', y2);
+            line.setAttribute('stroke', stroke);
+            line.setAttribute('stroke-width', strokeWidth);
+            if (markerEnd) {
+                line.setAttribute('marker-end', markerEnd);
+            }
+            return line;
+        }
 
         function drawTrading() {
             const svg = document.getElementById('trading');
@@ -140,27 +156,33 @@
             const xaxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
             xaxis.setAttribute('x1', '0');
             xaxis.setAttribute('y1', '0');
-            xaxis.setAttribute('x2', '0');
+            xaxis.setAttribute('x2', '5');
             xaxis.setAttribute('y2', '0');
             xaxis.setAttribute('stroke', '#333');
-            xaxis.setAttribute('stroke-width', '2');
+            xaxis.setAttribute('stroke-width', '1');
             xaxis.setAttribute('marker-end', 'url(#arrowhead)');
-           // xaxis.setAttribute('visibility', 'hidden');
+ //           xaxis.setAttribute('visibility', 'hidden');
             const ax = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+  //          ax.setAttribute('attributeName', 'visibility');
+  //          ax.setAttribute('to', 'visible');
+  //          ax.setAttribute('begin', '0s');
+  //         xaxis.setAttribute('visibility', 'visible');
             ax.setAttribute('attributeName', 'x2');
-            ax.setAttribute('from', '0');
+            ax.setAttribute('from', '5');
             ax.setAttribute('to', '100');
             ax.setAttribute('dur', '2s');
             ax.setAttribute('fill', 'freeze');
+            ax.setAttribute('begin', '0s');
             xaxis.appendChild(ax);
             g.appendChild(xaxis);
+
             const yaxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
             yaxis.setAttribute('x1', '0');
             yaxis.setAttribute('y1', '0');
             yaxis.setAttribute('x2', '0');
             yaxis.setAttribute('y2', '100');
             yaxis.setAttribute('stroke', '#333');
-            yaxis.setAttribute('stroke-width', '2');
+            yaxis.setAttribute('stroke-width', '1');
             yaxis.setAttribute('marker-end', 'url(#arrowhead)');
             g.appendChild(yaxis);
         }
