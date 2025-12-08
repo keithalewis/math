@@ -1253,7 +1253,7 @@ Since cones are convex, this shows the smallest cone containing $C(L)$ and
 $C(H)$ also contains $C(\omega)$ for $\omega\in[L,H]$.
 
 An interesting exerise is to generlize this to multiple call options with
-strikes between the low and high stock values, ${H < K_1 < \cdots K_n < H}$.
+strikes between the low and high stock values, ${H < K_1 < \cdots < K_n < H}$.
 The above exercise shows we only need consider the cone generated
 by ${C(L), C(K_1), \ldots, C(K_n), C(H)}$.
 
