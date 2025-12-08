@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Basic HTML</title>
+    <title>Simple Unified Model</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
         integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
@@ -44,13 +44,14 @@
 
     <h2>I: Market</h2>
     <p>Instruments have <i>prices</i> and <i>cash flows</i> over time.</p>
-    <svg id="market" class="graph" viewBox="0 0 400 900" xmlns="http://www.w3.org/2000/svg">
+    <!--
+    <svg id="market" class="graph" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
                 <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
             </marker>
         </defs>
-        <g transform="translate(20, 280) scale(1, -1)">
+        <g transform="translate(20, 120) scale(1, -1)">
             <line x1="0" y1="0" x2="100" y2="0" stroke="#333" stroke-width="1" marker-end="url(#arrowhead)" />
             <line x1="0" y1="0" x2="0" y2="100" stroke="#333" stroke-width="1" marker-end="url(#arrowhead)" />
             <text x="110" y="0" font-size="12" fill="#333" font-style="italic" text-anchor="left"
@@ -59,7 +60,8 @@
                 transform="scale(1, -1)">price</text>
         </g>
     </svg>
-    <svg id="trading" class="graph" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
+-->
+    <svg id="trading" class="graph" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
                 <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
@@ -100,35 +102,32 @@
         X_t D_t = M_t - \sum_{t\le t} C_s D_s
         \]
         is arbitrage free.
-        <blockquote>
-            <strong>Every arbitrage free price process has the form.</strong>
-        </blockquote>
-        For example, the Black-Scholes/Merton model is \(D_t = e^{-\rho t}P\), \(M_t = \begin{bmatrix} 1 \\ se^{\sigma B_t - \sigma^2t/2} \end{bmatrix} P\),
-        \(C_t = \begin{bmatrix} 0 \\ 0 \end{bmatrix}\)
-        where \(P\) is Wiener measure is Black-Scholes/Merton.
-        <details><summary>Normal</summary>
-            <p>If \(N\) is normally distributed then
-                \[
-                E[e^{N}] = e^{E[N] + \frac{1}{2}Var(N)}
-                \]
-            </p>
-        </details>
+    <blockquote>
+        <strong>Every arbitrage free price process has the form.</strong>
+    </blockquote>
+    For example, the Black-Scholes/Merton model is \(D_t = e^{-\rho t}P\), \(M_t = \begin{bmatrix} 1 \\ se^{\sigma B_t -
+    \sigma^2t/2} \end{bmatrix} P\),
+    \(C_t = \begin{bmatrix} 0 \\ 0 \end{bmatrix}\)
+    where \(P\) is Wiener measure is Black-Scholes/Merton.
+    <details>
+        <summary>Normal</summary>
+        <p>If \(N\) is normally distributed then
+            \[
+            E[e^{N}] = e^{E[N] + \operatorname{Var}(N)/2}
+            \]
+        </p>
+    </details>
     </p>
     <p>
         \[ V_t D_t = \sum_{u > t} A_u D_u|_{\mathcal{A}_t} \]
     </p>
 
     <script>
-        // simple script clause
-        function sum(a, b) {
-            return a + b;
-        }
-        // expose to the console for quick testing
-        window.sum = sum;
-        console.log('Script loaded. sum(2, 3) =', sum(2, 3));
 
-        function line(x1, y1, x2, y2, stroke = '#333', strokeWidth = 1, markerEnd = null) {
+        function lineElement(x1, y1, x2, y2,
+            { stroke = '#333', strokeWidth = 1, markerEnd = null } = {}) {
             const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+
             line.setAttribute('x1', x1);
             line.setAttribute('y1', y1);
             line.setAttribute('x2', x2);
@@ -138,7 +137,21 @@
             if (markerEnd) {
                 line.setAttribute('marker-end', markerEnd);
             }
+
             return line;
+        }
+        function animateElement(attributeName, from, to,
+            { dur = '1s', fill = 'freeze', begin = '0s' } = {}) {
+            const animate = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+
+            animate.setAttribute('attributeName', attributeName);
+            animate.setAttribute('from', from);
+            animate.setAttribute('to', to);
+            animate.setAttribute('dur', dur);
+            animate.setAttribute('fill', fill);
+            animate.setAttribute('begin', begin);
+
+            return animate;
         }
 
         function drawTrading() {
@@ -153,40 +166,17 @@
             svg.appendChild(g);
 
             // Add children to the group
-            const xaxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            xaxis.setAttribute('x1', '0');
-            xaxis.setAttribute('y1', '0');
-            xaxis.setAttribute('x2', '5');
-            xaxis.setAttribute('y2', '0');
-            xaxis.setAttribute('stroke', '#333');
-            xaxis.setAttribute('stroke-width', '1');
-            xaxis.setAttribute('marker-end', 'url(#arrowhead)');
- //           xaxis.setAttribute('visibility', 'hidden');
-            const ax = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
-  //          ax.setAttribute('attributeName', 'visibility');
-  //          ax.setAttribute('to', 'visible');
-  //          ax.setAttribute('begin', '0s');
-  //         xaxis.setAttribute('visibility', 'visible');
-            ax.setAttribute('attributeName', 'x2');
-            ax.setAttribute('from', '5');
-            ax.setAttribute('to', '100');
-            ax.setAttribute('dur', '2s');
-            ax.setAttribute('fill', 'freeze');
-            ax.setAttribute('begin', '0s');
-            xaxis.appendChild(ax);
-            g.appendChild(xaxis);
-
-            const yaxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            yaxis.setAttribute('x1', '0');
-            yaxis.setAttribute('y1', '0');
-            yaxis.setAttribute('x2', '0');
-            yaxis.setAttribute('y2', '100');
-            yaxis.setAttribute('stroke', '#333');
-            yaxis.setAttribute('stroke-width', '1');
-            yaxis.setAttribute('marker-end', 'url(#arrowhead)');
-            g.appendChild(yaxis);
+            g.appendChild(lineElement(0, 0, 5, 0, { markerEnd: 'url(#arrowhead)' }))
+                .appendChild(animateElement('x2', '5', '100', { dur: '1s' }));
+    //    <text x="110" y="0" font-size="12" fill="#333" font-style="italic" text-anchor="left"
+    //            dominant-baseline="middle" transform="scale(1, -1)">time</text>
+    
+            g.appendChild(lineElement(0, 0, 0, 5, { markerEnd: 'url(#arrowhead)' }))
+                .appendChild(animateElement('y2', '5', '100', { dur: '1s', begin: '1.5s' }));
         }
+       
         drawTrading();
     </script>
 </body>
+
 </html>
