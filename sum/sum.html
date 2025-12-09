@@ -21,6 +21,10 @@
             background-color: #f8f8f8;
         }
 
+        .underline {
+            border-bottom: 1px dotted #333;
+        }
+
         .katex-display {
             text-align: left !important;
             margin: 1em 0;
@@ -33,7 +37,8 @@
 
         .graph {
             display: block;
-            width: auto;
+            width: 50%;
+            height: auto;
             margin: 1rem 0;
         }
 
@@ -59,6 +64,7 @@
             text-decoration: none;
             color: #333;
             font-size: 1.1rem;
+            opacity: 0.7;
         }
 
         .contact-float a:hover {
@@ -71,206 +77,393 @@
     <div class="contact-float">
         <a href="mailto:kal@kalx.net?subject=Simplified!">kal@kalx.net</a>
     </div>
-    <h1>A Simplified Approach...</h1>
-    <p>...to the valuation of risky streams [Ross 1978]<i> of cash flows</i>.</p>
 
     <div class="hidden-content">
-        <h2>I) Market</h2>
-        <p>Instruments have <i>prices</i> and <i>cash flows</i> over time.</p>
-    <svg id="market" class="graph" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
-                <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
-            </marker>
-        </defs>
-        <g transform="translate(20, 120) scale(1, -1)">
-            <line x1="0" y1="0" x2="100" y2="0" stroke="#333" stroke-width="1" marker-end="url(#arrowhead)" />
-            <line x1="0" y1="0" x2="0" y2="100" stroke="#333" stroke-width="1" marker-end="url(#arrowhead)" />
-            <text x="110" y="0" font-size="12" fill="#333" font-style="italic" text-anchor="left"
-                dominant-baseline="middle" transform="scale(1, -1)">time</text>
-            <text x="0" y="-110" font-size="12" fill="#333" font-style="italic" text-anchor="middle"
-                transform="scale(1, -1)">price</text>
-        </g>
-    </svg>
-    </div>
-
-    <div class="hidden-content">
-        <h2>II) Trading</h2>
-    <div class="hidden-content">
-        <svg id="trading" class="graph" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
-                    <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
-                </marker>
-            </defs>
-        </svg>
-    </div>
-    </div>
-    <div class="hidden-content">
-        <h2>III) Accounting</h2>
-        <p>Trading entails <i>amount</i>s. Cash flows are received proportional to position and
-            shares are bought at market price.
-            \[
-            A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t
-            \]
-        <p>The <i>value</i> (mark-to-market) is the amount that would be 
-            received from liquidating the existing position and
-            trades just done at the current market price.
-            \[
-            V_t = (\Delta_t + \Gamma_t)\cdot X_t
-            \]
-        </p>
-    </div>
-    <div class="hidden-content">
-        <h2>IV) Arbitrage</h2>
-        <p>A trading strategy \((\tau_j, \Gamma_j)\) that makes money
-            on the first trade; never loses money after that; and closes out:
-            \[
-            A_{\tau_0} > 0;\, A_t \ge 0, t > \tau_0;\, \sum_j \Gamma_j = 0
-            \]
-    </div>
-    <div class="hidden-content">
-        <h2>V) Fundamental Theorem of Asset Pricing</h2>
-
-        <p>If there is no arbitrage then there exist positve measures \((D_t)_{t\in T}\) with
-            \[ \underline{X_t} D_t = \sum_{u > t} \underline{\underline{C_u}} D_u|_{\mathcal{A}_t} \]
-        These are are what Ross called a "(not generally unique) positive linear operator that can be used to 
-        value all marketed assets."
-            If a funding account is available then \(D_t\) is its reciprocal.
-        </p>
-    </div>
-    <div class="hidden-content">
-        <h2>Consequences</h2>
-        
+        <h1>Black-Scholes/Merton</h1>
         <p>
-        Given the 5 easy pieces we have
-            \[ \underline{V_t} D_t = \sum_{u > t} \underline{\underline{A_u}}  D_u|_{\mathcal{A}_t} \]   
-        Note how value \(V_t\) corresponds to price \(X_t\) and
-        amount \(A_t\) corresponds to cash flow \(C_t\).
-        <blockquote>
-            <strong>Every trading strategy gives rise to a synthetic market instrument.</strong>
-        </blockquote>    
+            Myron Scholes and Robert C. Merton III shared a
+            <span title="Bank of Sweden Prize in Economic Sciences in Memory of Alfred Nobel" class="underline">Nobel
+                Prize
+                in Economics</span> in 1997 "for a new method to determine the <i>value</i> of derivatives."
+            Their 1973 <a href="#references">papers</a> showed how to <i>hedge</i> stock options by continuously
+            adjusting the
+            amount (delta) of the underlying stock using a funding account.
+            If there is no <i>arbitrage</i> then the value of an option is the cost of its initial hedge.
         </p>
-        <h3>Universal Model</h3>
         <p>
-        If \((M_t)_{t\in T}\) are vector-valued measures with 
-        \(M_t = M_u|_{\mathcal{A}_t}\) for \(t \le u\)
-        then the price process
-        \[
-        X_t D_t = M_t - \sum_{t\le t} C_s D_s
-        \]
-        is arbitrage free.
-    <blockquote>
-        <strong>Every arbitrage free price process has this form.</strong>
-    </blockquote>
-    For example, the Black-Scholes/Merton model is \(D_t = e^{-\rho t}P\), \(M_t = \begin{bmatrix} 1 \\ se^{\sigma B_t -
-    \sigma^2t/2} \end{bmatrix} P\),
-    where \(P\) is Wiener measure for Brownian motion \((B_t)_{t \ge 0}\).
-    </p>
+            By the end of the talk you will know what value, hedge, and arbitrage mean.
+        </p>
+        <h2>Examples</h2>
+        <p>
+            What is the value of a derivative contract that pays the price of Netflix (NFLX) at one year from today?
+        </p>
     </div>
     <div class="hidden-content">
-        <h3>Derivative Instrument</h3>
         <p>
-        A <i>derivative instrument</i> is a legal contract. "I will give you this on these
-        dates if you will give me that on those dates." Sign on the dotted line.
+            It is equal to the price of NFLX today. Buy one share of NFLX today and sell it in one year to fulfill the
+            contract.
         </p>
-    <p>It differs from bartering in that it involves future exchanges that either
-        counterparty mignt not be able to fulfill. Stocks and bonds are backed by
-        tangible assets owned by a company with skin in the game. Derivatives
-        are backed by collateral agreements and lawyers to mitigate risk.
-    </p> 
+        <p>
+            Of course you need to charge some vigorish for your efforts, something the Black-Scholes/Merton model does
+            not account for.
+        </p>
+        <h3>Forward</h3>
+        <p>
+            You could also hedge using a <i>forward contract</i>. A forward contract on a stock with delivery in one
+            year locks in
+            the <i>forward price</i> of purchasing one share in one year. The cost of entering into the forward contract
+            is zero.
+        </p>
+        <h3>Cost-of-carry</h3>
+        <p>
+            The current stock price is related to the forward price via the one-year <i>discount</i>, \(D\).
+            Investing \(D\) today (in a bond) will yield 1 in one year so investing \(fD\) today will yield \(f\) in one
+            year.
+            If you hold a forward contract you can buy 1 share of stock for \(f\).
+            This shows the current stock price \(S_0 = fD\) if there is no arbitrage.
+        </p>
+        <h3>Put-call parity</h3>
+        <p>
+            A common definition of a (European) <i>call option</i> is that it gives the buyer the right but not the
+            obligation
+            to purchase one share of stock at a fixed price (the<i>strike</i>) at a future date (the <i>expiration</i>).
+        </p>
+        <p>
+            In reality a call option is a contract paying at expiration the stock price minus the strike if positive and
+            zero otherwise.
+            A <i>put option</i> is a contract paying the strike minus the stock price if positive and zero otherwise.
+            Since \( \max(S_T - K, 0) + \max(K - S_T, 0) = S_T - K \) a call plus put with the same strike and
+            expiration
+            is related to a forward contract with delivery price \(K\). The price of \(S_T - f\) is zero
+            and \(S_T - K = (S_T - f) + (f - K)\) so the call plus put price is the discounted value of \(f - K\).
+            This is called <i>put-call parity</i> and it is the first thing a trader checks when you hand them a new
+            model.
+        </p>
+    </div>
+    <div class="hidden-content">
+        <p>
+            Black-Scholes/Merton used Ito processes and partial differential equations to derive a formula for the price
+            of a European option.
+            Their formula for the price of a call is
+            \[
+            C = S_0 N(d_1) - K e^{-\rho T} N(d_2)
+            \]
+            where \(S_0\) is the current stock price, \(K) is the strike price, \(\sigma\) is the <i>volatility</i>,
+            \(\rho\) is the <i>risk-free interest rate</i>, \(T\) time to maturity in years, and
+            \[
+            d_1 = \frac{\ln(S_0/K) + (\rho + \sigma^2/2)T}{\sigma \sqrt{T}}, \quad
+            d_2 = d_1 - \sigma \sqrt{T}
+            \]
+            where \(N(\cdot)\) is the cumulative distribution function of the standard normal distribution.
+        </p>
+        <p>Whew!</p>
+    </div>
+    <div class="hidden-content">
+        <h1>Stephen Ross</h1>
+        <p>
+            In 1978 Stephen Ross published "A simple approach to the valuation of risky streams" that derived the same
+            option pricing formula using purely
+            geometric arguments. It did not require stochastic calculus or partial differential equations, much less the
+            assumption of a
+            so-called "real world" measure that gets immediately discarded for a "risk-neutral" measure.
+            His theory also applies to <i>all</i> asset classes, not just a bond, stock, and option.
+        </p>
+        <p>
+            He made the physically untenable assumption that continuous time trading is possible and the category
+            error of assuming a jump in price is a cash flow.  In the equity world it is common knowledge that
+            stock prices jump down by the dividend amount immediately after the ex-dividend date. Stock prices
+            "jump" between market close and market open but do not correspond to cash flows.
+        </p>
+        <p>
+            These are easily rectified by accepting the reality that only a finite number of trades are possible and giving
+            a name to cash flows.
+        </p>
 
-        </div>  
-    <div class="hidden-content">
-        <h2>References</h2>
-        <ul>
-            <li>Ross, S. A. (1978). "A simple approach to the valuation of risky streams". Journal of Business. 51 (3): 453–475. doi:10.1086/295992.</li>
-        </ul>
     </div>
-  
-    <script>
-        // Scroll reveal functionality
-        function revealOnScroll() {
-            const hiddenElements = document.querySelectorAll('.hidden-content');
+    <div class="hidden-content">
+
+        <!--
+        <p>
+            A (European) call option with strike \(K\) pays \(\max(S_T - K, 0)\) at expiration \(T\) where \(S_T\) is the stock price at \(T\).
+            This effectively allows the buyer to purchase one share of stock for at most price \(K\) at expiration.
+        </p>
+        <p>
+            Consider a European call option on a non-dividend paying stock with
             
-            hiddenElements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                // Reveal when element is 150px from bottom of viewport
-                if (elementTop < windowHeight - 150) {
-                    element.classList.add('visible');
-                }
-            });
-        }
+            Using the Black-Scholes/Merton formula, the option price \(C\) is given by:
+            \[
+            C = S_0 N(d_1) - K e^{-\rho T} N(d_2)
+            \]
+             Plugging in the values, we find:
+            \[
+            d_1 = 0.35, \quad d_2 = 0.15
+            \]
+            Thus,
+            \[
+            C = 100 N(0.35) - 100 e^{-0.05} N(0.15) \approx 100 \times 0.6368 - 95.12 \times 0.5596 \approx
+            63.68 - 53.22 = 10.46
+            \]
+            Therefore, the price of the European call option is approximately $10.46.
+        </p>
+        -->
+        <!--
+    B-S/M 
 
-        // Run on page load and scroll
-        window.addEventListener('scroll', revealOnScroll);
-        window.addEventListener('load', revealOnScroll);
+    Measure 
+    -->
 
-        function lineElement(x1, y1, x2, y2,
-            { stroke = '#333', strokeWidth = 1, markerEnd = null } = {}) {
-            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        <h1>Simple Unified Model</h1>
+  
+        <div class="hidden-content">
+            <h2>I) Market</h2>
+            <p>Instruments have <i>prices</i> and <i>cash flows</i> over time.</p>
+            <svg id="market" class="graph" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
+                        <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
+                    </marker>
+                </defs>
+                <g transform="translate(20, 120) scale(1, -1)">
+                    <line x1="0" y1="0" x2="100" y2="0" stroke="#333" stroke-width="1" marker-end="url(#arrowhead)" />
+                    <line x1="0" y1="0" x2="0" y2="100" stroke="#333" stroke-width="1" marker-end="url(#arrowhead)" />
+                    <text x="110" y="0" font-size="12" fill="#333" font-style="italic" text-anchor="left"
+                        dominant-baseline="middle" transform="scale(1, -1)">time</text>
+                    <text x="0" y="-110" font-size="12" fill="#333" font-style="italic" text-anchor="middle"
+                        transform="scale(1, -1)">price</text>
+                </g>
+            </svg>
+        </div>
 
-            line.setAttribute('x1', x1);
-            line.setAttribute('y1', y1);
-            line.setAttribute('x2', x2);
-            line.setAttribute('y2', y2);
-            line.setAttribute('stroke', stroke);
-            line.setAttribute('stroke-width', strokeWidth);
-            if (markerEnd) {
-                line.setAttribute('marker-end', markerEnd);
+        <div class="hidden-content">
+            <h2>II) Trading</h2>
+            <div class="hidden-content">
+                <svg id="trading" class="graph" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
+                            <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+        <div class="hidden-content">
+            <h2>III) Accounting</h2>
+            <p>Trading entails <i>amount</i>s. Cash flows are received proportional to position and
+                shares are bought at market price.
+                \[
+                A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t
+                \]
+            <p>The <i>mark-to-market value</i> is the amount that would be
+                received from liquidating the existing position and
+                trades just done at the current market price.
+                \[
+                V_t = (\Delta_t + \Gamma_t)\cdot X_t
+                \]
+            </p>
+        </div>
+        <div class="hidden-content">
+            <h2>IV) Arbitrage</h2>
+            <p>A trading strategy \((\tau_j, \Gamma_j)\) that makes money
+                on the first trade; never loses money after that; and closes out:
+                \[
+                A_{\tau_0} > 0;\, A_t \ge 0, t > \tau_0;\, \sum_j \Gamma_j = 0
+                \]
+        </div>
+        <div class="hidden-content">
+            <h2>V) Fundamental Theorem of Asset Pricing</h2>
+
+            <p>If there is no arbitrage then there exist positve measures \((D_t)_{t\in T}\) with
+                \[ \underline{X_t} D_t = \sum_{u > t} \underline{\underline{C_u}} D_u|_{\mathcal{A}_t} \]
+                These are are what Ross called a "(not generally unique) positive linear operator that can be used to
+                value all marketed assets."
+                If a funding account is available then \(D_t\) is its reciprocal: the <i>stochastic discount</i>.
+            </p>
+        </div>
+        <div class="hidden-content">
+            <h2>Consequences</h2>
+
+            <p>
+                Given the 5 easy pieces we have
+                \[ \underline{V_t} D_t = \sum_{u > t} \underline{\underline{A_u}} D_u|_{\mathcal{A}_t} \]
+                Note how value \(V_t\) corresponds to price \(X_t\) and
+                amount \(A_t\) corresponds to cash flow \(C_t\).
+            <blockquote>
+                <strong>Trading strategies create synthetic market instruments.</strong>
+            </blockquote>
+        </div>
+        <div class="hidden-content">
+            <h3>Derivative</h3>
+            <p>
+                A <i>derivative instrument</i> is a contract for a risky stream of cash flows. The seller
+                agrees to pay the buyer cash flows \((\hat{A}_j)\) on dates \((\hat{\tau}_j)\).
+                A <i>hedge</i> is a trading strategy \((\tau_t, \Gamma_t)\) such that the
+                \(A_t = \hat{A}_j\) when \(t = \tau_j\) and is zero otherwise.
+            </p>
+            <h4>Value</h4>
+            <p>
+                The <i>value</i> of a derivative is the cost of setting up a hedge.
+                \[
+                V_t D_t = \sum_{\hat{\tau_j} > t} \hat{A}_j D_{\hat{\tau_j}}|_{\mathcal{A}_t}
+                \]
+                Note the value is determined the contract information and the stochastic discount.
+            </p>
+            <h4>Hedge</h4>
+            <p>How do you find the initial hedge?
+                Since \(V_0 = \Gamma_0\cdot X_0\) the derivative of the initial value \(V_0\)
+                with respect to the initial price \(X_0\) gives the initial hedge \(D_{X_0}V_0 = \Gamma_0\).
+            </p>
+            <p>How do you hedge over time?
+                Since \(V_t = (\Delta_t + \Gamma_t)\cdot X_t\) the derivative of the value \(V_t\)
+                with respect to the price \(X_t\) gives the hedge \(D_{X_t}V_t = \Delta_t + \Gamma_t\)
+                so
+                \[
+                \Gamma_t = D_{X_t}V_t - \Delta_t = D_{X_t}V_t - \sum_{s < t} \Gamma_s. \] </p>
+                    <p>When do you hedge? Continuously is the "completely correct" answer!</p>
+        </div>
+        <div class="hidden-content">
+
+            <h3>Universal Model</h3>
+            <p>
+                If \((M_t)_{t\in T}\) are vector-valued measures with
+                \(M_t = M_u|_{\mathcal{A}_t}\) for \(t \le u\)
+                then the price process
+                \[
+                X_t D_t = M_t - \sum_{t\le t} C_s D_s
+                \]
+                is arbitrage free.
+            <blockquote>
+                <strong>Every arbitrage free price process has this form.</strong>
+            </blockquote>
+            For example, the Black-Scholes/Merton model is \(D_t = e^{-\rho t}P\), \(M_t = \begin{bmatrix} 1 \\
+            se^{\sigma
+            B_t -
+            \sigma^2t/2} \end{bmatrix} P\),
+            where \(P\) is Wiener measure for Brownian motion \((B_t)_{t \ge 0}\).
+            </p>
+        </div>
+        <div class="hidden-content">
+            <h3>Derivative Instrument</h3>
+            <p>
+                A <i>derivative instrument</i> is a legal contract. "I will give you this on these
+                dates if you will give me that on those dates." Sign on the dotted line.
+            </p>
+            <p>It differs from bartering in that it involves future exchanges that either
+                counterparty mignt not be able to fulfill. Stocks and bonds are backed by
+                tangible assets owned by a company with skin in the game. Derivatives
+                are backed by collateral agreements and lawyers to mitigate risk.
+            </p>
+
+        </div>
+        <div class="hidden-content">
+            <h2 id="references">References</h2>
+            <ul>
+                <li>Black, F. and Scholes, M. (1973). "The Pricing of Options and Corporate Liabilities".
+                    <i>Journal of Political Economy</i>, 81(3): 637–654.
+                </li>
+
+                <li>Merton, R. C. (1973). "Theory of Rational Option Pricing".
+                    <i>Bell Journal of Economics and Management Science</i>, 4(1): 141–183.
+                </li>
+
+                <li>Ross, S. A. (1978). "A simple approach to the valuation of risky streams". Journal of Business. 51
+                    (3):
+                    453–475. doi:10.1086/295992.</li>
+            </ul>
+        </div>
+
+        <script>
+            // Scroll reveal functionality
+            function revealOnScroll() {
+                const hiddenElements = document.querySelectorAll('.hidden-content');
+
+                hiddenElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementBottom = element.getBoundingClientRect().bottom;
+                    const windowHeight = window.innerHeight;
+
+                    // Reveal when element is 150px from bottom of viewport
+                    if (elementTop < windowHeight - 150 && !element.classList.contains('visible')) {
+                        element.classList.add('visible');
+
+                        // Auto-scroll to show the entire element including closing tag
+                        setTimeout(() => {
+                            element.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'end',
+                                inline: 'nearest'
+                            });
+                        }, 100);
+                    }
+                });
             }
 
-            return line;
-        }
-        function animateElement(attributeName, from, to,
-            { dur = '1s', fill = 'freeze', begin = '0s' } = {}) {
-            const animate = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+            // Run on page load and scroll
+            window.addEventListener('scroll', revealOnScroll);
+            window.addEventListener('load', revealOnScroll);
 
-            animate.setAttribute('attributeName', attributeName);
-            animate.setAttribute('from', from);
-            animate.setAttribute('to', to);
-            animate.setAttribute('dur', dur);
-            animate.setAttribute('fill', fill);
-            animate.setAttribute('begin', begin);
+            function lineElement(x1, y1, x2, y2,
+                { stroke = '#333', strokeWidth = 1, markerEnd = null } = {}) {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 
-            return animate;
-        }
+                line.setAttribute('x1', x1);
+                line.setAttribute('y1', y1);
+                line.setAttribute('x2', x2);
+                line.setAttribute('y2', y2);
+                line.setAttribute('stroke', stroke);
+                line.setAttribute('stroke-width', strokeWidth);
+                if (markerEnd) {
+                    line.setAttribute('marker-end', markerEnd);
+                }
 
-        function drawTrading() {
-            const svg = document.getElementById('trading');
-            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                return line;
+            }
+            function animateElement(attributeName, from, to,
+                { dur = '1s', fill = 'freeze', begin = '0s' } = {}) {
+                const animate = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
 
-            // Set attributes
-            g.setAttribute('class', 'graph');
-            g.setAttribute('transform', 'translate(20, 280) scale(1, -1)');
+                animate.setAttribute('attributeName', attributeName);
+                animate.setAttribute('from', from);
+                animate.setAttribute('to', to);
+                animate.setAttribute('dur', dur);
+                animate.setAttribute('fill', fill);
+                animate.setAttribute('begin', begin);
 
-            // Append to SVG
-            svg.appendChild(g);
+                return animate;
+            }
 
-            // Add children to the group
-            g.appendChild(lineElement(0, 0, 5, 0, { markerEnd: 'url(#arrowhead)' }))
-                .appendChild(animateElement('x2', '5', '100', { dur: '1s' }));
-    //    <text x="110" y="0" font-size="12" fill="#333" font-style="italic" text-anchor="left"
-    //            dominant-baseline="middle" transform="scale(1, -1)">time</text>
-    
-            const line2 = lineElement(0, 0, 0, 5, { markerEnd: 'url(#arrowhead)' });
-            line2.setAttribute('visibility', 'hidden');
-            
-            // Make visible when animation starts
-            const setVisible = document.createElementNS('http://www.w3.org/2000/svg', 'set');
-            setVisible.setAttribute('attributeName', 'visibility');
-            setVisible.setAttribute('to', 'visible');
-            setVisible.setAttribute('begin', '1s');
-            line2.appendChild(setVisible);
-            
-            line2.appendChild(animateElement('y2', '5', '100', { dur: '1s', begin: '1s' }));
-            g.appendChild(line2);
-        }
-       
-        drawTrading();
-    </script>
+            function drawTrading() {
+                const svg = document.getElementById('trading');
+                const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+                // Set attributes
+                g.setAttribute('class', 'graph');
+                g.setAttribute('transform', 'translate(20, 120) scale(1, -1)');
+
+                // Append to SVG
+                svg.appendChild(g);
+
+                // Add children to the group
+                g.appendChild(lineElement(0, 0, 5, 0, { markerEnd: 'url(#arrowhead)' }))
+                    .appendChild(animateElement('x2', '5', '100', { dur: '1s' }));
+                //    <text x="110" y="0" font-size="12" fill="#333" font-style="italic" text-anchor="left"
+                //            dominant-baseline="middle" transform="scale(1, -1)">time</text>
+
+                const line2 = lineElement(0, 0, 0, 5, { markerEnd: 'url(#arrowhead)' });
+                line2.setAttribute('visibility', 'hidden');
+
+                // Make visible when animation starts
+                const setVisible = document.createElementNS('http://www.w3.org/2000/svg', 'set');
+                setVisible.setAttribute('attributeName', 'visibility');
+                setVisible.setAttribute('to', 'visible');
+                setVisible.setAttribute('begin', '1s');
+                line2.appendChild(setVisible);
+
+                line2.appendChild(animateElement('y2', '5', '100', { dur: '1s', begin: '1s' }));
+                g.appendChild(line2);
+            }
+
+            drawTrading();
+        </script>
 </body>
 
 </html>
