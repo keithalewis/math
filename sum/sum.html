@@ -32,8 +32,9 @@
         }
 
         .graph {
-            display: inline-block;
-            margin: 2rem 0;
+            display: block;
+            width: auto;
+            margin: 1rem 0;
         }
 
         .hidden-content {
@@ -46,19 +47,37 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        .contact-float {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+
+        .contact-float a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .contact-float a:hover {
+            color: #0066cc;
+        }
     </style>
 </head>
 
 <body>
+    <div class="contact-float">
+        <a href="mailto:kal@kalx.net?subject=Simplified!">kal@kalx.net</a>
+    </div>
     <h1>A Simplified Approach...</h1>
     <p>...to the valuation of risky streams [Ross 1978]<i> of cash flows</i>.</p>
 
     <div class="hidden-content">
-        <h2>I: Market</h2>
+        <h2>I) Market</h2>
         <p>Instruments have <i>prices</i> and <i>cash flows</i> over time.</p>
-    </div>
-    <!--
-    <svg id="market" class="graph" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+    <svg id="market" class="graph" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
                 <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
@@ -73,9 +92,12 @@
                 transform="scale(1, -1)">price</text>
         </g>
     </svg>
--->
+    </div>
+
     <div class="hidden-content">
-        <svg id="trading" class="graph" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+        <h2>II) Trading</h2>
+    <div class="hidden-content">
+        <svg id="trading" class="graph" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
                     <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
@@ -83,72 +105,89 @@
             </defs>
         </svg>
     </div>
-
-    <div class="hidden-content">
-        <h2>II: Trading</h2>
     </div>
     <div class="hidden-content">
-        <h2>III: Accounting</h2>
+        <h2>III) Accounting</h2>
         <p>Trading entails <i>amount</i>s. Cash flows are received proportional to position and
-            shares are purchased at market price.
+            shares are bought at market price.
             \[
             A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t
             \]
-        <p>The <i>value</i> (mark-to-market) is the existing position plus
-            trades just done "liquidated" at market price.
+        <p>The <i>value</i> (mark-to-market) is the amount that would be 
+            received from liquidating the existing position and
+            trades just done at the current market price.
             \[
             V_t = (\Delta_t + \Gamma_t)\cdot X_t
             \]
         </p>
     </div>
     <div class="hidden-content">
-        <h2>IV:Arbitrage</h2>
+        <h2>IV) Arbitrage</h2>
         <p>A trading strategy \((\tau_j, \Gamma_j)\) that makes money
-            on the first trade; never loses money; and ends with no position:
+            on the first trade; never loses money after that; and closes out:
             \[
-            A_{\tau_0} > 0;\, A_t \ge 0, t \ge \tau_0;\, \sum_j \Gamma_j = 0
+            A_{\tau_0} > 0;\, A_t \ge 0, t > \tau_0;\, \sum_j \Gamma_j = 0
             \]
     </div>
     <div class="hidden-content">
-        <h2>V: Fundamental Theorem of Asset Pricing</h2>
-        <p>If there is no arbitrage then prices are discounted future cash flows given
-            the available information.</p>
-        </p>
-        <p>
-            \[ X_t D_t = \sum_{u > t} C_u D_u|_{\mathcal{A}_t} \]
+        <h2>V) Fundamental Theorem of Asset Pricing</h2>
+
+        <p>If there is no arbitrage then there exist positve measures \((D_t)_{t\in T}\) with
+            \[ \underline{X_t} D_t = \sum_{u > t} \underline{\underline{C_u}} D_u|_{\mathcal{A}_t} \]
+        These are are what Ross called a "(not generally unique) positive linear operator that can be used to 
+        value all marketed assets."
+            If a funding account is available then \(D_t\) is its reciprocal.
         </p>
     </div>
     <div class="hidden-content">
         <h2>Consequences</h2>
+        
         <p>
-            If \(M_t = M_u|_{\mathcal{A}_t}\) then
+        Given the 5 easy pieces we have
+            \[ \underline{V_t} D_t = \sum_{u > t} \underline{\underline{A_u}}  D_u|_{\mathcal{A}_t} \]   
+        Note how value \(V_t\) corresponds to price \(X_t\) and
+        amount \(A_t\) corresponds to cash flow \(C_t\).
+        <blockquote>
+            <strong>Every trading strategy gives rise to a synthetic market instrument.</strong>
+        </blockquote>    
+        </p>
+        <h3>Universal Model</h3>
+        <p>
+        If \((M_t)_{t\in T}\) are vector-valued measures with 
+        \(M_t = M_u|_{\mathcal{A}_t}\) for \(t \le u\)
+        then the price process
         \[
         X_t D_t = M_t - \sum_{t\le t} C_s D_s
         \]
         is arbitrage free.
     <blockquote>
-        <strong>Every arbitrage free price process has the form.</strong>
+        <strong>Every arbitrage free price process has this form.</strong>
     </blockquote>
     For example, the Black-Scholes/Merton model is \(D_t = e^{-\rho t}P\), \(M_t = \begin{bmatrix} 1 \\ se^{\sigma B_t -
     \sigma^2t/2} \end{bmatrix} P\),
-    \(C_t = \begin{bmatrix} 0 \\ 0 \end{bmatrix}\)
-    where \(P\) is Wiener measure is Black-Scholes/Merton.
-    <details>
-        <summary>Normal</summary>
-        <p>If \(N\) is normally distributed then
-            \[
-            E[e^{N}] = e^{E[N] + \operatorname{Var}(N)/2}
-            \]
-        </p>
-    </details>
+    where \(P\) is Wiener measure for Brownian motion \((B_t)_{t \ge 0}\).
     </p>
     </div>
     <div class="hidden-content">
+        <h3>Derivative Instrument</h3>
         <p>
-            \[ V_t D_t = \sum_{u > t} A_u D_u|_{\mathcal{A}_t} \]
+        A <i>derivative instrument</i> is a legal contract. "I will give you this on these
+        dates if you will give me that on those dates." Sign on the dotted line.
         </p>
-    </div>
+    <p>It differs from bartering in that it involves future exchanges that either
+        counterparty mignt not be able to fulfill. Stocks and bonds are backed by
+        tangible assets owned by a company with skin in the game. Derivatives
+        are backed by collateral agreements and lawyers to mitigate risk.
+    </p> 
 
+        </div>  
+    <div class="hidden-content">
+        <h2>References</h2>
+        <ul>
+            <li>Ross, S. A. (1978). "A simple approach to the valuation of risky streams". Journal of Business. 51 (3): 453–475. doi:10.1086/295992.</li>
+        </ul>
+    </div>
+  
     <script>
         // Scroll reveal functionality
         function revealOnScroll() {
