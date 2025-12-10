@@ -126,13 +126,13 @@
         <p>
             A common definition of a (European) <i>call option</i> is that it gives the buyer the right but not the
             obligation
-            to purchase one share of stock at a fixed price (the<i>strike</i>) at a future date (the <i>expiration</i>).
+            to purchase one share of stock at a fixed price (the <i>strike</i>) at a future date (the <i>expiration</i>).
         </p>
         <p>
             In reality a call option is a contract paying at expiration the stock price minus the strike if positive and
             zero otherwise.
             A <i>put option</i> is a contract paying the strike minus the stock price if positive and zero otherwise.
-            Since \( \max(S_T - K, 0) + \max(K - S_T, 0) = S_T - K \) a call plus put with the same strike and
+            Since \({\max(S_T - K, 0) + \max(K - S_T, 0) = S_T - K}\) a call plus put with the same strike and
             expiration
             is related to a forward contract with delivery price \(K\). The price of \(S_T - f\) is zero
             and \(S_T - K = (S_T - f) + (f - K)\) so the call plus put price is the discounted value of \(f - K\).
@@ -154,7 +154,7 @@
             d_1 = \frac{\ln(S_0/K) + (\rho + \sigma^2/2)T}{\sigma \sqrt{T}}, \quad
             d_2 = d_1 - \sigma \sqrt{T}
             \]
-            where \(N(\cdot)\) is the cumulative distribution function of the standard normal distribution.
+            where \(N(x) = \int_{-\infty}^x e^{-s^2/2}\,ds/\sqrt{2\pi}\) is the cumulative distribution function of the standard normal distribution.
         </p>
         <p>Whew!</p>
     </div>
@@ -163,20 +163,25 @@
         <p>
             In 1978 Stephen Ross published "A simple approach to the valuation of risky streams" that derived the same
             option pricing formula using purely
-            geometric arguments. It did not require stochastic calculus or partial differential equations, much less the
+            geometric arguments. It does not require stochastic calculus or partial differential equations, much less the
             assumption of a
-            so-called "real world" measure that gets immediately discarded for a "risk-neutral" measure.
+            so-called "real world" measure that is immediately discarded for a "risk-neutral" measure.
             His theory also applies to <i>all</i> asset classes, not just a bond, stock, and option.
         </p>
         <p>
-            He made the physically untenable assumption that continuous time trading is possible and the category
-            error of assuming a jump in price is a cash flow.  In the equity world it is common knowledge that
-            stock prices jump down by the dividend amount immediately after the ex-dividend date. Stock prices
-            "jump" between market close and market open but do not correspond to cash flows.
+            Ross made the same physically untenable assumption as B-S/M that continuous time trading is possible. 
+            He also made the category error of assuming a jump in price is a cash flow.  
+            In the Equity world it is common knowledge that
+            stock prices jump down by the dividend amount immediately after the issuer pays a dividend.
+            But stock prices also "jump" between market close and market open where there is no corresponding cash flow.
         </p>
         <p>
-            These are easily rectified by accepting the reality that only a finite number of trades are possible and giving
-            a name to cash flows.
+            This can be rectified by accepting the reality that only a finite number of trades are possible and put
+            cash flows on an equal footing with prices.
+        </p>
+         In the Fixed Income world bonds are specified by their cash flows.
+        <p>
+
         </p>
 
     </div>
@@ -297,7 +302,7 @@
                 A <i>derivative instrument</i> is a contract for a risky stream of cash flows. The seller
                 agrees to pay the buyer cash flows \((\hat{A}_j)\) on dates \((\hat{\tau}_j)\).
                 A <i>hedge</i> is a trading strategy \((\tau_t, \Gamma_t)\) such that the
-                \(A_t = \hat{A}_j\) when \(t = \tau_j\) and is zero otherwise.
+                \(A_t = \hat{A}_j\) when \(t = \hat{\tau}_j\) and is zero otherwise.
             </p>
             <h4>Value</h4>
             <p>
@@ -305,7 +310,7 @@
                 \[
                 V_t D_t = \sum_{\hat{\tau_j} > t} \hat{A}_j D_{\hat{\tau_j}}|_{\mathcal{A}_t}
                 \]
-                Note the value is determined the contract information and the stochastic discount.
+                Note the value is determined by the contract information and the stochastic discount.
             </p>
             <h4>Hedge</h4>
             <p>How do you find the initial hedge?
