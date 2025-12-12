@@ -199,9 +199,8 @@
             </p>
 
         </div>
-        <div class="hidden-content">
 
-            <!--
+        <!--
         <p>
             A (European) call option with strike \(K\) pays \(\max(S_T - K, 0)\) at expiration \(T\) where \(S_T\) is the stock price at \(T\).
             This effectively allows the buyer to purchase one share of stock for at most price \(K\) at expiration.
@@ -225,422 +224,420 @@
             Therefore, the price of the European call option is approximately $10.46.
         </p>
         -->
-            <!--
+        <!--
     B-S/M 
 
     Measure 
     -->
 
+        <div class="hidden-content">
             <h1>Simple Unified Model</h1>
 
-            <div class="hidden-content">
-                <h2>I) Market</h2>
-                <p>Market instruments have <i>prices</i> \(X_t\) and <i>cash flows</i> \(C_t\) over time.</p>
-                <svg id="market" class="graph" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
-                            <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
-                        </marker>
-                        <marker id="arrowhead-green" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75"
-                            orient="auto-start-reverse">
-                            <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#00cc66" stroke-width="1" />
-                        </marker>
-                    </defs>
-                    <g transform="translate(20, 120) scale(1, -1)">
-                        <!-- Axes -->
-                        <line x1="0" y1="0" x2="100" y2="0" stroke="#333" stroke-width="0.5"
-                            marker-end="url(#arrowhead)" />
-                        <line x1="0" y1="0" x2="0" y2="100" stroke="#333" stroke-width="0.5"
-                            marker-end="url(#arrowhead)" />
+            <h2>I) Market</h2>
+            <p>Market instruments have <i>prices</i> \(X_t\) and <i>cash flows</i> \(C_t\) over time.</p>
+            <svg id="market" class="graph" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75" orient="auto">
+                        <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
+                    </marker>
+                    <marker id="arrowhead-green" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75"
+                        orient="auto-start-reverse">
+                        <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#00cc66" stroke-width="1" />
+                    </marker>
+                </defs>
+                <g transform="translate(20, 120) scale(1, -1)">
+                    <!-- Axes -->
+                    <line x1="0" y1="0" x2="100" y2="0" stroke="#333" stroke-width="0.5" marker-end="url(#arrowhead)" />
+                    <line x1="0" y1="0" x2="0" y2="100" stroke="#333" stroke-width="0.5" marker-end="url(#arrowhead)" />
 
-                        <!-- Right axis for cash flow -->
-                        <line x1="100" y1="0" x2="100" y2="100" stroke="#333" stroke-width="0.5"
-                            marker-end="url(#arrowhead)" />
+                    <!-- Right axis for cash flow -->
+                    <line x1="100" y1="0" x2="100" y2="100" stroke="#333" stroke-width="0.5"
+                        marker-end="url(#arrowhead)" />
 
-                        <!-- Geometric Brownian Motion path -->
-                        <path id="gbm-path" d="" fill="none" stroke="#0066cc" stroke-width="1" />
+                    <!-- Geometric Brownian Motion path -->
+                    <path id="gbm-path" d="" fill="none" stroke="#0066cc" stroke-width="1" />
 
-                        <!-- Vertical line at x=20 -->
-                        <line x1="20" y1="0" x2="20" y2="20" stroke="#00cc66" stroke-width="1" />
+                    <!-- Vertical line at x=20 -->
+                    <line x1="20" y1="0" x2="20" y2="20" stroke="#00cc66" stroke-width="1" />
 
-                        <!-- Wiggly line at x=50 -->
-                        <path d="M 50,0 Q 48,2.5 50,5 T 50,10 Q 48,12.5 50,15 T 50,20 Q 48,22.5 50,24 L 50,26"
-                            fill="none" stroke="#00cc66" stroke-width="1" />
+                    <!-- Wiggly line at x=50 -->
+                    <path d="M 50,0 Q 48,2.5 50,5 T 50,10 Q 48,12.5 50,15 T 50,20 Q 48,22.5 50,24 L 50,26" fill="none"
+                        stroke="#00cc66" stroke-width="1" />
 
-                        <text x="110" y="0" font-size="11" fill="#333" font-style="italic" text-anchor="left"
-                            dominant-baseline="middle" transform="scale(1, -1)">time</text>
-                        <text x="0" y="-110" font-size="11" fill="#0066cc" font-style="italic" text-anchor="middle"
-                            transform="scale(1, -1)">price</text>
-                        <text x="100" y="-110" font-size="11" fill="#00cc66" font-style="italic" text-anchor="middle"
-                            transform="scale(1, -1)">cash flow</text>
-                    </g>
-                </svg>
-            </div>
+                    <text x="110" y="0" font-size="11" fill="#333" font-style="italic" text-anchor="left"
+                        dominant-baseline="middle" transform="scale(1, -1)">time</text>
+                    <text x="0" y="-110" font-size="11" fill="#0066cc" font-style="italic" text-anchor="middle"
+                        transform="scale(1, -1)">price</text>
+                    <text x="100" y="-110" font-size="11" fill="#00cc66" font-style="italic" text-anchor="middle"
+                        transform="scale(1, -1)">cash flow</text>
+                </g>
+            </svg>
 
-            <div class="hidden-content">
-                <h2>II) Trading</h2>
-                <p>
-                    Traders buy <i>shares</i> \(\Gamma_j\) of instruments
-                    at times \(\tau_j\) that accumulate into <i>positions</i> \(\Delta_t = \sum_{\tau_j < t} \Gamma_j\).
-                        </p>
-                        <svg id="trading" class="graph" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75"
-                                    orient="auto">
-                                    <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
-                                </marker>
-                            </defs>
-                            <g transform="translate(20, 120) scale(1, -1)">
-                                <!-- Axes -->
-                                <line x1="0" y1="0" x2="100" y2="0" stroke="#333" stroke-width="0.5"
-                                    marker-end="url(#arrowhead)" />
-                                <text x="110" y="0" font-size="11" fill="#333" font-style="italic" text-anchor="left"
-                                    dominant-baseline="middle" transform="scale(1, -1)">time</text>
-                                <line x1="0" y1="0" x2="0" y2="100" stroke="#333" stroke-width="0.5"
-                                    marker-end="url(#arrowhead)" />
-                                <text x="0" y="-110" font-size="11" fill="#cc0066" font-style="italic"
-                                    text-anchor="middle" transform="scale(1, -1)">position</text>
-                        
-                                <!-- Trading line with closed circle -->
-                                <line x1="0" y1="0" x2="20" y2="0" stroke="#cc0066" stroke-width="1" />
-                                <circle cx="20" cy="0" r="2" fill="#cc0066" />
-                                <!-- Dashed line with open circle -->
-                                <line x1="20" y1="0" x2="20" y2="28" stroke="#cc0066" stroke-width="1"
-                                    stroke-dasharray="3,3" />
-                                <circle cx="20" cy="30" r="2" fill="none" stroke="#cc0066" stroke-width="1" />
-                                <text x="20" y="10" font-size="11" fill="#333" font-style="italic" text-anchor="middle"
-                                    transform="scale(1, -1)">τ₀</text>
-                                <text x="15" y="-12" font-size="11" fill="#cc0066" font-style="italic" text-anchor="end"
-                                    transform="scale(1, -1)">Γ₀</text>
+        </div>
+        <div class="hidden-content">
+            <h2>II) Trading</h2>
+            <p>
+                Traders buy <i>shares</i> \(\Gamma_j\) of instruments
+                at times \(\tau_j\) that accumulate into <i>positions</i> \(\Delta_t = \sum_{\tau_j < t} \Gamma_j\).
+                    </p>
+                    <svg id="trading" class="graph" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="4.5" refY="1.75"
+                                orient="auto">
+                                <polyline points="0 0, 5 1.75, 0 3.5" fill="none" stroke="#333" stroke-width="1" />
+                            </marker>
+                        </defs>
+                        <g transform="translate(20, 120) scale(1, -1)">
+                            <!-- Axes -->
+                            <line x1="0" y1="0" x2="100" y2="0" stroke="#333" stroke-width="0.5"
+                                marker-end="url(#arrowhead)" />
+                            <text x="110" y="0" font-size="11" fill="#333" font-style="italic" text-anchor="left"
+                                dominant-baseline="middle" transform="scale(1, -1)">time</text>
+                            <line x1="0" y1="0" x2="0" y2="100" stroke="#333" stroke-width="0.5"
+                                marker-end="url(#arrowhead)" />
+                            <text x="0" y="-110" font-size="11" fill="#cc0066" font-style="italic" text-anchor="middle"
+                                transform="scale(1, -1)">position</text>
 
-                                <!-- Horizontal line with closed circle -->
-                                <line x1="22" y1="30" x2="40" y2="30" stroke="#cc0066" stroke-width="1" />
-                                <circle cx="40" cy="30" r="2" fill="#cc0066" />
-                                <!-- Dashed line with open circle -->
-                                <line x1="40" y1="30" x2="40" y2="78" stroke="#cc0066" stroke-width="1"
-                                    stroke-dasharray="3,3" />
-                                <circle cx="40" cy="80" r="2" fill="none" stroke="#cc0066" stroke-width="1" />
-                                <text x="42" y="10" font-size="11" fill="#333" font-style="italic" text-anchor="middle"
-                                    transform="scale(1, -1)">τ₁</text>
-                                <text x="36" y="-52" font-size="11" fill="#cc0066" font-style="italic" text-anchor="end"
-                                    transform="scale(1, -1)">Γ₁</text>
+                            <!-- Trading line with closed circle -->
+                            <line x1="0" y1="0" x2="20" y2="0" stroke="#cc0066" stroke-width="1" />
+                            <circle cx="20" cy="0" r="2" fill="#cc0066" />
+                            <!-- Dashed line with open circle -->
+                            <line x1="20" y1="0" x2="20" y2="28" stroke="#cc0066" stroke-width="1"
+                                stroke-dasharray="3,3" />
+                            <circle cx="20" cy="30" r="2" fill="none" stroke="#cc0066" stroke-width="1" />
+                            <text x="20" y="10" font-size="11" fill="#333" font-style="italic" text-anchor="middle"
+                                transform="scale(1, -1)">τ₀</text>
+                            <text x="15" y="-12" font-size="11" fill="#cc0066" font-style="italic" text-anchor="end"
+                                transform="scale(1, -1)">Γ₀</text>
+
+                            <!-- Horizontal line with closed circle -->
+                            <line x1="22" y1="30" x2="40" y2="30" stroke="#cc0066" stroke-width="1" />
+                            <circle cx="40" cy="30" r="2" fill="#cc0066" />
+                            <!-- Dashed line with open circle -->
+                            <line x1="40" y1="30" x2="40" y2="78" stroke="#cc0066" stroke-width="1"
+                                stroke-dasharray="3,3" />
+                            <circle cx="40" cy="80" r="2" fill="none" stroke="#cc0066" stroke-width="1" />
+                            <text x="42" y="10" font-size="11" fill="#333" font-style="italic" text-anchor="middle"
+                                transform="scale(1, -1)">τ₁</text>
+                            <text x="36" y="-52" font-size="11" fill="#cc0066" font-style="italic" text-anchor="end"
+                                transform="scale(1, -1)">Γ₁</text>
 
 
-                                <!-- Horizontal line with closed circle -->
-                                <line x1="42" y1="80" x2="80" y2="80" stroke="#cc0066" stroke-width="1" />
-                                <circle cx="40" cy="30" r="2" fill="#cc0066" />
-                                <!-- Dashed line with open circle -->
-                                <line x1="40" y1="30" x2="40" y2="78" stroke="#cc0066" stroke-width="1"
-                                    stroke-dasharray="3,3" />
-                                <circle cx="40" cy="80" r="2" fill="none" stroke="#cc0066" stroke-width="1" />
-                                <text x="42" y="10" font-size="11" fill="#333" font-style="italic" text-anchor="middle"
-                                    transform="scale(1, -1)">τ₁</text>
-                                <text x="36" y="-52" font-size="11" fill="#cc0066" font-style="italic" text-anchor="end"
-                                    transform="scale(1, -1)">Γ₁</text>
+                            <!-- Horizontal line with closed circle -->
+                            <line x1="42" y1="80" x2="80" y2="80" stroke="#cc0066" stroke-width="1" />
+                            <circle cx="40" cy="30" r="2" fill="#cc0066" />
+                            <!-- Dashed line with open circle -->
+                            <line x1="40" y1="30" x2="40" y2="78" stroke="#cc0066" stroke-width="1"
+                                stroke-dasharray="3,3" />
+                            <circle cx="40" cy="80" r="2" fill="none" stroke="#cc0066" stroke-width="1" />
+                            <text x="42" y="10" font-size="11" fill="#333" font-style="italic" text-anchor="middle"
+                                transform="scale(1, -1)">τ₁</text>
+                            <text x="36" y="-52" font-size="11" fill="#cc0066" font-style="italic" text-anchor="end"
+                                transform="scale(1, -1)">Γ₁</text>
 
-                                <text x="-4" y="-28" font-size="11" fill="#cc0066" font-style="italic" text-anchor="end"
-                                    transform="scale(1, -1)">Δ₀</text>
-                                <text x="-4" y="-78" font-size="11" fill="#cc0066" font-style="italic" text-anchor="end"
-                                    transform="scale(1, -1)">Δ₁</text>
-</g>
-                        </svg>
-            </div>
-            <div class="hidden-content">
-                <h2>III) Accounting</h2>
-                <p>Accountants keep track of <i>amount</i>s. Cash flows are received proportional to position and
-                    shares are bought at market price.
-                    \[
-                    A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t
-                    \]
-                <p>The <i>mark-to-market value</i> is the amount that would be
-                    received from liquidating the existing position and
-                    trades just done at the current market price.
-                    \[
-                    V_t = (\Delta_t + \Gamma_t)\cdot X_t
-                    \]
-                </p>
-            </div>
-            <div class="hidden-content">
-                <h2>IV) Arbitrage</h2>
-                <p>A trading strategy \((\tau_j, \Gamma_j)\) that makes money
-                    on the first trade; never loses money after that; and closes out:
-                    \[
-                    A_{\tau_0} > 0;\, A_t \ge 0, t > \tau_0;\, \sum_j \Gamma_j = 0
-                    \]
-            </div>
-            <div class="hidden-content">
-                <h2>V) Fundamental Theorem of Asset Pricing</h2>
+                            <text x="-4" y="-28" font-size="11" fill="#cc0066" font-style="italic" text-anchor="end"
+                                transform="scale(1, -1)">Δ₀</text>
+                            <text x="-4" y="-78" font-size="11" fill="#cc0066" font-style="italic" text-anchor="end"
+                                transform="scale(1, -1)">Δ₁</text>
+                        </g>
+                    </svg>
+        </div>
+        <div class="hidden-content">
+            <h2>III) Accounting</h2>
+            <p>Accountants keep track of <i>amount</i>s. Cash flows are received proportional to position and
+                shares are bought at market price.
+                \[
+                A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t
+                \]
+            <p>The <i>mark-to-market value</i> is the amount that would be
+                received from liquidating the existing position and
+                trades just done at the current market price.
+                \[
+                V_t = (\Delta_t + \Gamma_t)\cdot X_t
+                \]
+            </p>
+        </div>
+        <div class="hidden-content">
+            <h2>IV) Arbitrage</h2>
+            <p>A trading strategy \((\tau_j, \Gamma_j)\) that makes money
+                on the first trade; never loses money after that; and closes out:
+                \[
+                A_{\tau_0} > 0;\, A_t \ge 0, t > \tau_0;\, \sum_j \Gamma_j = 0
+                \]
+        </div>
+        <div class="hidden-content">
+            <h2>V) Fundamental Theorem of Asset Pricing</h2>
 
-                <p>If there is no arbitrage then there exist positive measures \((D_t)_{t\in T}\) with
-                    \[
-                    \underline{X_t} D_t = \sum_{t < u \le v} \underline{\underline{C_u}} D_u + X_v D_v|_{\mathcal{A}_t}.
-                        \] <span style="color: grey;">Note \(Y=E[X|\mathcal{A}]\) if and only if
-                        \(Y(P|_\mathcal{A})=(XP)|_\mathcal{A}\).
-                        Read \(|_{\mathcal{A}_t}\) as "given information available at time \(t\)".
-                        </span> </p>
-                <p>
+            <p>If there is no arbitrage then there exist positive measures \((D_t)_{t\in T}\) with
+                \[
+                \underline{X_t} D_t = \sum_{t < u \le v} \underline{\underline{C_u}} D_u + \underline{X_v} D_v|_{\mathcal{A}_t}. \]
+                    <span style="color: grey;">Note \(Y=E[X|\mathcal{A}]\) if and only if
+                    \(Y(P|_\mathcal{A})=(XP)|_\mathcal{A}\).
+                    Read \(|_{\mathcal{A}_t}\) as "given information available at time \(t\)".
+                    </span> </p>
+            <p>
 
-                    These are are what Ross called a "(not generally unique) positive linear operator that can
-                    be
-                    used to
-                    value all marketed assets." If a funding account is available then \(D_t\) is its
-                    reciprocal:
-                    the <i> stochastic discount</i>.</p>
-                </p>
-            </div>
-            <div class="hidden-content">
-                <h2>Consequences</h2>
+                These are are what Ross called a "(not generally unique) positive linear operator that can
+                be
+                used to
+                value all marketed assets." If a funding account is available then \(D_t\) is its
+                reciprocal:
+                the <i> stochastic discount</i>.</p>
+            </p>
+        </div>
+        <div class="hidden-content">
+            <h2>Consequences</h2>
 
-                <p>
-                    Given the 5 easy pieces we have
-                    \[
-                    \underline{V_t} D_t = \sum_{t < u \le v} \underline{\underline{A_u}} D_u + A_v D_v|_{\mathcal{A}_t}
-                        \] Note how value \(V_t\) corresponds to price \(X_t\) and amount \(A_t\) corresponds to cash
-                        flow \(C_t\). <blockquote>
-                        <strong>Trading strategies create synthetic market instruments.</strong>
-                        </blockquote>
-            </div>
-            <div class="hidden-content">
-                <h3>Derivative</h3>
-                <p>
-                    A <i>derivative instrument</i> is a contract for a risky stream of cash flows. The seller
-                    agrees to pay the buyer cash flows \((\hat{A}_j)\) on dates \((\hat{\tau}_j)\).
-                    A <i>hedge</i> is a trading strategy \((\tau_t, \Gamma_t)\) such that the
-                    \(A_t = \hat{A}_j\) when \(t = \hat{\tau}_j\) and is zero otherwise.
-                </p>
-                <h4>Value</h4>
-                <p>
-                    The <i>value</i> of a derivative is the cost of setting up a hedge.
-                    \[
-                    V_t D_t = \sum_{\hat{\tau_j} > t} \hat{A}_j D_{\hat{\tau_j}}|_{\mathcal{A}_t}
-                    \]
-                    Note the value is determined by the contract information and the stochastic discount.
-                </p>
-                <h4>Hedge</h4>
-                <p>How do you find the initial hedge?
-                    Since \(V_0 = \Gamma_0\cdot X_0\) the derivative of the initial value \(V_0\)
-                    with respect to the initial price \(X_0\) gives the initial hedge \(D_{X_0}V_0 = \Gamma_0\).
-                </p>
-                <p>How do you hedge over time?
-                    Since \(V_t = (\Delta_t + \Gamma_t)\cdot X_t\) the derivative of the value \(V_t\)
-                    with respect to the price \(X_t\) gives the hedge \(D_{X_t}V_t = \Delta_t + \Gamma_t\)
-                    so
-                    \[
-                    \Gamma_t = D_{X_t}V_t - \Delta_t = D_{X_t}V_t - \sum_{s < t} \Gamma_s. \] </p>
-                        <p>When do you hedge? Continuously is the "completely correct" answer!</p>
-            </div>
-            <div class="hidden-content">
+            <p>
+                Given the 5 easy pieces we have
+                \[
+                \underline{V_t} D_t = \sum_{t < u \le v} \underline{\underline{A_u}} D_u + \underline{V_v} D_v|_{\mathcal{A}_t} \]
+                    Note how value \(V_t\) corresponds to price \(X_t\) and amount \(A_t\) corresponds to cash flow
+                    \(C_t\). <blockquote>
+                    <strong>Trading strategies create synthetic market instruments.</strong>
+                    </blockquote>
+        </div>
+        <div class="hidden-content">
+            <h3>Derivative</h3>
+            <p>
+                A <i>derivative instrument</i> is a contract for a risky stream of cash flows. The seller
+                agrees to pay the buyer cash flows \((\hat{A}_j)\) on dates \((\hat{\tau}_j)\).
+                A <i>hedge</i> is a trading strategy \((\tau_t, \Gamma_t)\) such that the
+                \(A_t = \hat{A}_j\) when \(t = \hat{\tau}_j\) and is zero otherwise.
+            </p>
+            <h4>Value</h4>
+            <p>
+                The <i>value</i> of a derivative is the cost of setting up a hedge.
+                \[
+                V_t D_t = \sum_{\hat{\tau_j} > t} \hat{A}_j D_{\hat{\tau_j}}|_{\mathcal{A}_t}
+                \]
+                Note the value is determined by the contract information and the stochastic discount.
+            </p>
+            <h4>Hedge</h4>
+            <p>How do you find the initial hedge?
+                Since \(V_0 = \Gamma_0\cdot X_0\) the derivative of the initial value \(V_0\)
+                with respect to the initial price \(X_0\) gives the initial hedge \(D_{X_0}V_0 = \Gamma_0\).
+            </p>
+            <p>How do you hedge over time?
+                Since \(V_t = (\Delta_t + \Gamma_t)\cdot X_t\) the derivative of the value \(V_t\)
+                with respect to the price \(X_t\) gives the hedge \(D_{X_t}V_t = \Delta_t + \Gamma_t\)
+                so
+                \[
+                \Gamma_t = D_{X_t}V_t - \Delta_t = D_{X_t}V_t - \sum_{s < t} \Gamma_s. \] </p>
+                    <p>When do you hedge? Continuously is the "completely correct" answer!</p>
+        </div>
+        <div class="hidden-content">
 
-                <h3>Universal Model</h3>
-                <p>
-                    If \((M_t)_{t\in T}\) are vector-valued measures with
-                    \(M_t = M_u|_{\mathcal{A}_t}\) for \(t \le u\)
-                    then the price process
-                    \[
-                    X_t D_t = M_t - \sum_{s\le t} C_s D_s
-                    \]
-                    is arbitrage free.
-                <blockquote>
-                    <strong>Every arbitrage free price process has this form.</strong>
-                </blockquote>
-                For example, the Black-Scholes/Merton model is \(D_t = e^{-\rho t}P\),
-                \(M_t = (1, se^{\sigma B_t - \sigma^2t/2}) P\),
-                where \(P\) is Wiener measure for Brownian motion \((B_t)_{t \ge 0}\).
-                </p>
-                <p>
-                    If \(F\) is lognormal then
-                    \(E[F f(N)] = E[F]E[f(Fe^{\mathrm{Var}(\log F)})]\).
-                    \[ E[(k - F)^+] = E[(k - F)1(F \le k)] = k P(F \le k) - E[F 1(F \le k)] \]
-                    \[
-                        E[F 1(F \le k)] = E[F] P(F e^{\mathrm{Var}(\log F)} \le k)= E[F] P(F \le Ke^{-\mathrm{Var}(\log F)})
-                    \]
-                </p>
-            </div>
+            <h3>Universal Model</h3>
+            <p>
+                If \((M_t)_{t\in T}\) are vector-valued measures with
+                \(M_t = M_u|_{\mathcal{A}_t}\) for \(t \le u\)
+                then the price process
+                \[
+                X_t D_t = M_t - \sum_{s\le t} C_s D_s
+                \]
+                is arbitrage free.
+            <blockquote>
+                <strong>Every arbitrage free price process has this form.</strong>
+            </blockquote>
+            For example, the Black-Scholes/Merton model is \(D_t = e^{-\rho t}P\),
+            \(M_t = (1, se^{\sigma B_t - \sigma^2t/2}) P\),
+            where \(P\) is Wiener measure for Brownian motion \((B_t)_{t \ge 0}\).
+            </p>
+            <p>
+                If \(F = fe^{sZ - s^2/2}\) where \(Z\) is standard normal then for any
+                \(E[F f(F)] = f E[f(Fe^{s^2})]\).
+                \[ E[(k - F)^+] = E[(k - F)1(F \le k)] = k P(F \le k) - E[F 1(F \le k)] \]
+                \[
+                E[F 1(F \le k)] = f P(F e^{s^2} \le k) = f P(F \le ke^{-s^2})
+                \]
+            </p>
+        </div>
 
-            <div class="hidden-content">
-                <h2 id="references">References</h2>
-                <ul>
-                    <li>Black, F. and Scholes, M. (1973). "The Pricing of Options and Corporate Liabilities".
-                        <i>Journal of Political Economy</i>, 81(3): 637–654.
-                    </li>
+        <div class="hidden-content">
+            <h2 id="references">References</h2>
+            <ul>
+                <li>Black, F. and Scholes, M. (1973). "The Pricing of Options and Corporate Liabilities".
+                    <i>Journal of Political Economy</i>, 81(3): 637–654.
+                </li>
 
-                    <li>Merton, R. C. (1973). "Theory of Rational Option Pricing".
-                        <i>Bell Journal of Economics and Management Science</i>, 4(1): 141–183.
-                    </li>
+                <li>Merton, R. C. (1973). "Theory of Rational Option Pricing".
+                    <i>Bell Journal of Economics and Management Science</i>, 4(1): 141–183.
+                </li>
 
-                    <li>Ross, S. A. (1978). "A simple approach to the valuation of risky streams". Journal of Business.
-                        51
-                        (3):
-                        453–475. doi:10.1086/295992.</li>
+                <li>Ross, S. A. (1978). "A simple approach to the valuation of risky streams". Journal of Business.
+                    51
+                    (3):
+                    453–475. doi:10.1086/295992.</li>
 
-                    <li>Lewis, K. A. (2019). "A Simple Proof of the Fundamental Theorem of Asset Pricing".
-                        <i>arXiv preprint</i> arXiv:1912.01091 [q-fin.MF].
-                        <a href="https://arxiv.org/abs/1912.01091">https://arxiv.org/abs/1912.01091</a>
-                    </li>
-                    <li>Lewis, K. A. (2025). <a href="https://keithalewis.github.io/math/sum.html">"Simple Unified
-                            Model"</a>.</li>
-                </ul>
-            </div>
+                <li>Lewis, K. A. (2019). "A Simple Proof of the Fundamental Theorem of Asset Pricing".
+                    <i>arXiv preprint</i> arXiv:1912.01091 [q-fin.MF].
+                    <a href="https://arxiv.org/abs/1912.01091">https://arxiv.org/abs/1912.01091</a>
+                </li>
+                <li>Lewis, K. A. (2025). <a href="https://keithalewis.github.io/math/sum.html">"Simple Unified
+                        Model"</a>.</li>
+            </ul>
+        </div>
 
-            <script>
+        <script>
 
-                function lineElement(x1, y1, x2, y2,
-                    { stroke = '#333', strokeWidth = 1, markerEnd = null } = {}) {
-                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            function lineElement(x1, y1, x2, y2,
+                { stroke = '#333', strokeWidth = 1, markerEnd = null } = {}) {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 
-                    line.setAttribute('x1', x1);
-                    line.setAttribute('y1', y1);
-                    line.setAttribute('x2', x2);
-                    line.setAttribute('y2', y2);
-                    line.setAttribute('stroke', stroke);
-                    line.setAttribute('stroke-width', strokeWidth);
-                    if (markerEnd) {
-                        line.setAttribute('marker-end', markerEnd);
+                line.setAttribute('x1', x1);
+                line.setAttribute('y1', y1);
+                line.setAttribute('x2', x2);
+                line.setAttribute('y2', y2);
+                line.setAttribute('stroke', stroke);
+                line.setAttribute('stroke-width', strokeWidth);
+                if (markerEnd) {
+                    line.setAttribute('marker-end', markerEnd);
+                }
+
+                return line;
+            }
+            function animateElement(attributeName, from, to,
+                { dur = '1s', fill = 'freeze', begin = '0s' } = {}) {
+                const animate = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+
+                animate.setAttribute('attributeName', attributeName);
+                animate.setAttribute('from', from);
+                animate.setAttribute('to', to);
+                animate.setAttribute('dur', dur);
+                animate.setAttribute('fill', fill);
+                animate.setAttribute('begin', begin);
+
+                return animate;
+            }
+
+            function drawTrading() {
+                const svg = document.getElementById('trading');
+                const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+                // Set attributes
+                g.setAttribute('class', 'graph');
+                g.setAttribute('transform', 'translate(20, 120) scale(1, -1)');
+
+                // Append to SVG
+                svg.appendChild(g);
+
+                // Add children to the group
+                g.appendChild(lineElement(0, 0, 5, 0, { markerEnd: 'url(#arrowhead)' }))
+                    .appendChild(animateElement('x2', '5', '100', { dur: '1s' }));
+                //    <text x="110" y="0" font-size="12" fill="#333" font-style="italic" text-anchor="left"
+                //            dominant-baseline="middle" transform="scale(1, -1)">time</text>
+
+                const line2 = lineElement(0, 0, 0, 5, { markerEnd: 'url(#arrowhead)' });
+                line2.setAttribute('visibility', 'hidden');
+
+                // Make visible when animation starts
+                const setVisible = document.createElementNS('http://www.w3.org/2000/svg', 'set');
+                setVisible.setAttribute('attributeName', 'visibility');
+                setVisible.setAttribute('to', 'visible');
+                setVisible.setAttribute('begin', '1s');
+                line2.appendChild(setVisible);
+
+                line2.appendChild(animateElement('y2', '5', '100', { dur: '1s', begin: '1s' }));
+                g.appendChild(line2);
+            }
+
+            //drawTrading();
+
+            // Draw Geometric Brownian Motion
+            function drawGBM() {
+                const path = document.getElementById('gbm-path');
+                const numPoints = 100;
+                const dt = 1 / numPoints;
+                const mu = 0.5; // drift
+                const sigma = .5; // volatility
+                const S0 = 50; // initial price
+
+                let S = S0;
+                let pathData = `M 0,${S}`;
+
+                for (let i = 1; i <= numPoints; i++) {
+                    // Generate random normal using Box-Muller transform
+                    const u1 = Math.random();
+                    const u2 = Math.random();
+                    const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+
+                    // GBM formula: S_t = S_0 * exp((mu - sigma^2/2)*t + sigma*sqrt(t)*Z)
+                    const t = i * dt;
+                    S = S0 * Math.exp((mu - sigma * sigma / 2) * t + sigma * Math.sqrt(dt) * z);
+
+                    // Scale to fit in viewBox
+                    const x = i;
+                    const y = Math.min(Math.max(S, 0), 100);
+
+                    pathData += ` L ${x},${y}`;
+                }
+
+                path.setAttribute('d', pathData);
+            }
+
+            drawGBM();
+
+            // Custom smooth scroll with controllable duration
+            function smoothScrollTo(targetY, duration = 500) {
+                const startY = window.pageYOffset;
+                const distance = targetY - startY;
+                const startTime = performance.now();
+
+                function animation(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    // Easing function (ease-in-out)
+                    const easeProgress = progress < 0.5
+                        ? 2 * progress * progress
+                        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+                    window.scrollTo(0, startY + distance * easeProgress);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animation);
                     }
-
-                    return line;
-                }
-                function animateElement(attributeName, from, to,
-                    { dur = '1s', fill = 'freeze', begin = '0s' } = {}) {
-                    const animate = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
-
-                    animate.setAttribute('attributeName', attributeName);
-                    animate.setAttribute('from', from);
-                    animate.setAttribute('to', to);
-                    animate.setAttribute('dur', dur);
-                    animate.setAttribute('fill', fill);
-                    animate.setAttribute('begin', begin);
-
-                    return animate;
                 }
 
-                function drawTrading() {
-                    const svg = document.getElementById('trading');
-                    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                requestAnimationFrame(animation);
+            }
 
-                    // Set attributes
-                    g.setAttribute('class', 'graph');
-                    g.setAttribute('transform', 'translate(20, 120) scale(1, -1)');
+            // Scroll reveal functionality
+            function revealOnScroll() {
+                const hiddenElements = document.querySelectorAll('.hidden-content');
 
-                    // Append to SVG
-                    svg.appendChild(g);
+                hiddenElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
 
-                    // Add children to the group
-                    g.appendChild(lineElement(0, 0, 5, 0, { markerEnd: 'url(#arrowhead)' }))
-                        .appendChild(animateElement('x2', '5', '100', { dur: '1s' }));
-                    //    <text x="110" y="0" font-size="12" fill="#333" font-style="italic" text-anchor="left"
-                    //            dominant-baseline="middle" transform="scale(1, -1)">time</text>
+                    // Reveal when scrolling down into view
+                    if (elementTop < windowHeight - 150 && !element.classList.contains('visible')) {
+                        element.classList.add('visible');
 
-                    const line2 = lineElement(0, 0, 0, 5, { markerEnd: 'url(#arrowhead)' });
-                    line2.setAttribute('visibility', 'hidden');
+                        // Auto-scroll to element bottom + offset
+                        setTimeout(() => {
+                            const elementRect = element.getBoundingClientRect();
+                            const absoluteElementBottom = elementRect.bottom + window.pageYOffset;
+                            const offset = 5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
 
-                    // Make visible when animation starts
-                    const setVisible = document.createElementNS('http://www.w3.org/2000/svg', 'set');
-                    setVisible.setAttribute('attributeName', 'visibility');
-                    setVisible.setAttribute('to', 'visible');
-                    setVisible.setAttribute('begin', '1s');
-                    line2.appendChild(setVisible);
-
-                    line2.appendChild(animateElement('y2', '5', '100', { dur: '1s', begin: '1s' }));
-                    g.appendChild(line2);
-                }
-
-                //drawTrading();
-
-                // Draw Geometric Brownian Motion
-                function drawGBM() {
-                    const path = document.getElementById('gbm-path');
-                    const numPoints = 100;
-                    const dt = 1 / numPoints;
-                    const mu = 0.5; // drift
-                    const sigma = .5; // volatility
-                    const S0 = 50; // initial price
-
-                    let S = S0;
-                    let pathData = `M 0,${S}`;
-
-                    for (let i = 1; i <= numPoints; i++) {
-                        // Generate random normal using Box-Muller transform
-                        const u1 = Math.random();
-                        const u2 = Math.random();
-                        const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
-
-                        // GBM formula: S_t = S_0 * exp((mu - sigma^2/2)*t + sigma*sqrt(t)*Z)
-                        const t = i * dt;
-                        S = S0 * Math.exp((mu - sigma * sigma / 2) * t + sigma * Math.sqrt(dt) * z);
-
-                        // Scale to fit in viewBox
-                        const x = i;
-                        const y = Math.min(Math.max(S, 0), 100);
-
-                        pathData += ` L ${x},${y}`;
-                    }
-
-                    path.setAttribute('d', pathData);
-                }
-
-                drawGBM();
-
-                // Custom smooth scroll with controllable duration
-                function smoothScrollTo(targetY, duration = 500) {
-                    const startY = window.pageYOffset;
-                    const distance = targetY - startY;
-                    const startTime = performance.now();
-
-                    function animation(currentTime) {
-                        const elapsed = currentTime - startTime;
-                        const progress = Math.min(elapsed / duration, 1);
-
-                        // Easing function (ease-in-out)
-                        const easeProgress = progress < 0.5
-                            ? 2 * progress * progress
-                            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-
-                        window.scrollTo(0, startY + distance * easeProgress);
-
-                        if (progress < 1) {
-                            requestAnimationFrame(animation);
-                        }
-                    }
-
-                    requestAnimationFrame(animation);
-                }
-
-                // Scroll reveal functionality
-                function revealOnScroll() {
-                    const hiddenElements = document.querySelectorAll('.hidden-content');
-
-                    hiddenElements.forEach(element => {
-                        const elementTop = element.getBoundingClientRect().top;
-                        const windowHeight = window.innerHeight;
-
-                        // Reveal when scrolling down into view
-                        if (elementTop < windowHeight - 150 && !element.classList.contains('visible')) {
-                            element.classList.add('visible');
-
-                            // Auto-scroll to element bottom + offset
-                            setTimeout(() => {
-                                const elementRect = element.getBoundingClientRect();
-                                const absoluteElementBottom = elementRect.bottom + window.pageYOffset;
-                                const offset = 5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
-
-                                smoothScrollTo(absoluteElementBottom + offset - window.innerHeight, 2000);
-                            }, 500);
-                        }
-                    });
-                }
-
-                // Run on scroll
-                window.addEventListener('scroll', revealOnScroll);
-
-                // On load, make only the first hidden-content visible
-                window.addEventListener('load', () => {
-                    const firstHidden = document.querySelector('.hidden-content');
-                    if (firstHidden) {
-                        firstHidden.classList.add('visible');
+                            smoothScrollTo(absoluteElementBottom + offset - window.innerHeight, 2000);
+                        }, 500);
                     }
                 });
-            </script>
+            }
+
+            // Run on scroll
+            window.addEventListener('scroll', revealOnScroll);
+
+            // On load, make only the first hidden-content visible
+            window.addEventListener('load', () => {
+                const firstHidden = document.querySelector('.hidden-content');
+                if (firstHidden) {
+                    firstHidden.classList.add('visible');
+                }
+            });
+        </script>
 </body>
 
 </html>
