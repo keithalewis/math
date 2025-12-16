@@ -445,12 +445,23 @@
             where \(P\) is Wiener measure for Brownian motion \((B_t)_{t \ge 0}\).
             </p>
             <p>
-                If \(F = fe^{sZ - s^2/2}\) where \(Z\) is standard normal then for any
-                \(E[F f(F)] = f E[f(Fe^{s^2})]\).
+				The Fischer Black model does not require interest rates. It
+				only considers forward values.
+                If \(F = fe^{sZ - s^2/2}\) where \(Z\) is standard normal then
+				\(E[F] = f\) since \(E[e^N] = e^{E[N] + \operatorname{Var}(N)/2}\).
+
+				For any
+				payoff \(\phi\) we have
+                \(E[F \phi(F)] = f E[\phi(Fe^{s^2})]\).
+				For a put payoff $\phi(x) = \max\{k - x, 0\}$
                 \[ E[(k - F)^+] = E[(k - F)1(F \le k)] = k P(F \le k) - E[F 1(F \le k)] \]
                 \[
                 E[F 1(F \le k)] = f P(F e^{s^2} \le k) = f P(F \le ke^{-s^2})
                 \]
+				This provides a simpler derivation of the option pricing formula
+				\[
+					E[(k - F)^+] = kP(F\le k) - fP(F\le ke^{-s^2})
+				\]
             </p>
         </div>
 
