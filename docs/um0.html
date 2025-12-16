@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-11-25" />
+  <meta name="dcterms.date" content="2025-12-16" />
   <title>Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">November 25, 2025</p>
+<p class="date">December 16, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of any instruments
@@ -326,7 +326,7 @@ class="math inline">C_t</span>.</p>
 class="math inline">(t_j)</span> we only need <span
 class="math inline">V_j D_j = (V_{j+1} +
 A_{j+1})D_{j+1}|_{{\mathcal{A}}_{j}}</span> and induction. Using <span
-class="math inline">\Delta_{j+1}\cdot C_{j+1} =  \Gamma_{j+1}\cdot
+class="math inline">\Delta_{j+1}\cdot C_{j+1} = \Gamma_{j+1}\cdot
 X_{j+1} + A_{j+1}</span> we have <span class="math display">
 \begin{aligned}
     V_j D_j &amp;= (\Delta_j + \Gamma_j)\cdot X_j D_j \\
@@ -353,10 +353,10 @@ the cost of setting up the initial hedge.</p>
 <p>Given a derivative instrument, how does one find a trading strategy
 that replicates its payments? Let’s assume trades occur at discrete
 times <span class="math inline">(t_j)</span>. Since <span
-class="math inline">{V_{t_0}
-= (\sum_{t_j &gt; t_0} A_{t_j} D_{t_j})|_{{\mathcal{A}}_t}}</span> and
-<span class="math inline">{V_{t_0} = \Gamma_{t_0}\cdot
-X_{t_0}}</span> we have <span class="math display">
+class="math inline">{V_{t_0} = (\sum_{t_j &gt; t_0} A_{t_j}
+D_{t_j})|_{{\mathcal{A}}_t}}</span> and <span
+class="math inline">{V_{t_0} = \Gamma_{t_0}\cdot X_{t_0}}</span> we have
+<span class="math display">
     \Gamma_0 = \frac{d}{dX_{0}}(\sum_{j &gt; 0} A_j
 D_j)|_{{\mathcal{A}}_0},
 </span> where <span class="math inline">d/dX_0</span> is the Fréchet
@@ -539,10 +539,9 @@ class="math inline">{C^{D(u)}_u = 1}</span> at <em>maturity</em> <span
 class="math inline">u</span>. If <span class="math inline">D_t</span> is
 a discount measure then the price at time <span
 class="math inline">t</span> of <span class="math inline">D(u)</span>
-satisfies <span class="math inline">X^{D(u)}_t D_t =
-(C^{D(u)}_u D_u)|_{{\mathcal{A}}_t} = (D_u)|_{{\mathcal{A}}_t}</span>
-for <span class="math inline">t \le u</span> so <span
-class="math display">
+satisfies <span class="math inline">X^{D(u)}_t D_t = (C^{D(u)}_u
+D_u)|_{{\mathcal{A}}_t} = (D_u)|_{{\mathcal{A}}_t}</span> for <span
+class="math inline">t \le u</span> so <span class="math display">
     D_t(u) = X^{D(u)}_t = E_t[D_u]/D_t.
 </span> We use the helpfully confusing notation <span
 class="math inline">D(u)</span> for <span class="math inline">D_0(u) =
@@ -718,9 +717,8 @@ class="math inline">A_j\subseteq\Omega</span>. If <span
 class="math inline">(A_j)</span> are pairwise disjoint this is well
 defined.</p>
 <p><strong>Exercise</strong>. <em>Show every elementary function <span
-class="math inline">\sum_j a_j 1_{A_j}
-= \sum_k b_k 1_{B_k}</span> where <span class="math inline">(B_k)</span>
-are pairwise disjoint</em>.</p>
+class="math inline">\sum_j a_j 1_{A_j} = \sum_k b_k 1_{B_k}</span> where
+<span class="math inline">(B_k)</span> are pairwise disjoint</em>.</p>
 <p><em>Hint</em>: <span class="math inline">a1_A + b1_B = a1_{A\setminus
 B} + (a + b)1_{A\cap B} + b1_{B\setminus A}</span>.</p>
 <p>If <span class="math inline">f = \sum_j a_j 1_{A_j}</span> where
@@ -784,7 +782,7 @@ href="https://arxiv.org/pdf/1912.01091.pdf">came up with one</a>.</p>
 <p>I thank Kevin Atteson, Bill Goff, Stewart Inglis, Andrew Kalotay,
 Alex Mayus, and Robert Merton III for helpful insights and feedback.</p>
 </section>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -805,6 +803,6 @@ count is the number of days from <span class="math inline">u</span> to
 <span class="math inline">v</span> divided by 360.<a href="#fnref2"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
 </body>
 </html>

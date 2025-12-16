@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-11-25" />
+  <meta name="dcterms.date" content="2025-12-16" />
   <title>Hitting Times</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Hitting Times</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">November 25, 2025</p>
+<p class="date">December 16, 2025</p>
 </header>
 <p>If <span class="math inline">B_t</span> is Brownian motion let <span
 class="math inline">\overline{B}_t = \max_{0\le s\le t}B_s</span> be the
@@ -146,15 +146,14 @@ P(\underline{X}_t &lt; a) = E[\bigl(\exp((\mu/\sigma) B_t -
 a/\sigma)].
 </span></p>
 <p><span class="math inline">E[\exp(\alpha B_t - \alpha^2t/2) 1(B_t &lt;
-a)]
-= E[1(B_t + \operatorname{Cov}(\alpha B_t,B_t) &lt; a)]
-= P(B_t &lt; a - \alpha t)</span>.</p>
+a)] = E[1(B_t + \operatorname{Cov}(\alpha B_t,B_t) &lt; a)] = P(B_t &lt;
+a - \alpha t)</span>.</p>
 <p><span class="math inline">E[\exp((\mu/\sigma) B_t -
-(\mu/\sigma)^2t/2) 1(B_t &lt; a/\sigma)]
-= P(B_t &lt; a/\sigma - (\mu/\sigma)t)</span>.</p>
+(\mu/\sigma)^2t/2) 1(B_t &lt; a/\sigma)] = P(B_t &lt; a/\sigma -
+(\mu/\sigma)t)</span>.</p>
 <p><span class="math inline">E[\exp((\mu/\sigma) (2a - B_t) -
-(\mu/\sigma)^2t/2) 1(B_t &lt; a/\sigma)]
-=\exp(2a\mu/\sigma) P(B_t &lt; a/\sigma + (\mu/\sigma)t)</span>.</p>
+(\mu/\sigma)^2t/2) 1(B_t &lt; a/\sigma)] =\exp(2a\mu/\sigma) P(B_t &lt;
+a/\sigma + (\mu/\sigma)t)</span>.</p>
 <p><span class="math display">
 E[\min\{\tau_a,T\}] = \int_0^T P(B_t &lt; a/\sigma - (\mu/\sigma)t)
     + \exp(2a\mu/\sigma) P(B_t &lt; a/\sigma + (\mu/\sigma)t)\,dt \\

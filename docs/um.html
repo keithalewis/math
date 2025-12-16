@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-11-25" />
+  <meta name="dcterms.date" content="2025-12-16" />
   <title>A Unified Model of Derivative Securities</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">A Unified Model of Derivative Securities</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">November 25, 2025</p>
+<p class="date">December 16, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage risk of any portfolio
@@ -265,9 +265,9 @@ is sufficiently small then <span class="math inline">X_t D_t = E_t[(X_u
 D_u] \\
             &amp;= E_t[(V_u + A_u)D_u],\\
 \end{aligned}
-</span> where we use <span class="math inline">\Delta_u\cdot C_u
-=  \Gamma_u\cdot X_u + A_u</span>. The displayed formula above follows
-by induction.</p>
+</span> where we use <span class="math inline">\Delta_u\cdot C_u =
+\Gamma_u\cdot X_u + A_u</span>. The displayed formula above follows by
+induction.</p>
 <p>For a trading strategy that closes out <span
 class="math inline">V_{τ_0} D_{τ_0} = E_{τ_0}[\sum_{t &gt;
 τ_{0}}{A_{t}D_{t}] \ge 0}</span>. Since <span
@@ -319,9 +319,8 @@ class="math inline">V_0 = E[\bar{A}_T D_T]</span>. Sometimes it is
 useful to compute this as <span class="math inline">E[\bar{A}_T D_T] =
 E^*[\bar{A}_T] E[D_T]</span>, where <span class="math inline">E^*</span>
 is the expected value under the probability measure defined by <span
-class="math inline">dP^*/dP =
-D_T/E[D_T]</span>. This is called the <em>forward measure</em> at time
-<span class="math inline">T</span>.</p>
+class="math inline">dP^*/dP = D_T/E[D_T]</span>. This is called the
+<em>forward measure</em> at time <span class="math inline">T</span>.</p>
 </section>
 <section id="hedge" class="level2">
 <h2>Hedge</h2>
@@ -382,8 +381,8 @@ D_{t_{j+1}}]</span>. We assume <span
 class="math inline">D_{t_{j+1}}</span> is <span
 class="math inline">\mathcal{A}_{t_j}</span> measurable so <span
 class="math inline">D_{t_j} = R_j D_{t_{j+1}}</span> and <span
-class="math inline">D_{t_j} = \Pi_{j&lt;n}
-R_j^{-1}</span> if <span class="math inline">D_{t_0} = 1</span>.</p>
+class="math inline">D_{t_j} = \Pi_{j&lt;n} R_j^{-1}</span> if <span
+class="math inline">D_{t_0} = 1</span>.</p>
 <p>Define the <em>forward repo rate</em>, <span
 class="math inline">f_j</span>, by <span class="math inline">R_j =
 \exp(f_j\,\Delta t_j)</span> where <span class="math inline">\Delta t_j
@@ -427,12 +426,12 @@ class="math inline">S</span> with strike <span
 class="math inline">k</span> expiring at time <span
 class="math inline">t</span> pays <span class="math inline">C_t =
 C_t^{S,k,t} = S_t - k</span>. It has initial value <span
-class="math inline">V_0 = E[(S_t - k)D_t]
-= S_0 - kE[D_t]</span> in an arbitrage-free model. The <em>par
-forward</em>, <span class="math inline">f</span>, is the strike that
-makes the initial value equal to zero: <span class="math inline">0 = V_0
-= E[(S_t - f)D_t]</span> so <span class="math inline">S_0 =
-fE[D_t]</span>. This formula is called the <em>cost of carry</em>.</p>
+class="math inline">V_0 = E[(S_t - k)D_t] = S_0 - kE[D_t]</span> in an
+arbitrage-free model. The <em>par forward</em>, <span
+class="math inline">f</span>, is the strike that makes the initial value
+equal to zero: <span class="math inline">0 = V_0 = E[(S_t -
+f)D_t]</span> so <span class="math inline">S_0 = fE[D_t]</span>. This
+formula is called the <em>cost of carry</em>.</p>
 </section>
 <section id="put-call-parity" class="level3">
 <h3>Put-Call Parity</h3>
@@ -460,13 +459,13 @@ class="math inline">τ\le t</span> at the discretion of the option
 holder. In the unified model this is represented by extending the sample
 space of the underlying, <span class="math inline">Ω</span>, to <span
 class="math inline">Ω\times (0,t]</span>. The outcome <span
-class="math inline">(ω,τ)\in Ω\times
-(0,t]</span> represents exercising at time <span
-class="math inline">τ</span> when <span class="math inline">ω</span>
-occurs. Note that the model does not assume the option is exercised at
-the “optimal” time. In practice, not every market participant does this.
-Models should have knobs that reflect reality and choosing the optimal
-stopping time should not be implicit.</p>
+class="math inline">(ω,τ)\in Ω\times (0,t]</span> represents exercising
+at time <span class="math inline">τ</span> when <span
+class="math inline">ω</span> occurs. Note that the model does not assume
+the option is exercised at the “optimal” time. In practice, not every
+market participant does this. Models should have knobs that reflect
+reality and choosing the optimal stopping time should not be
+implicit.</p>
 <p>American options do not satisfy put-call parity in general. The
 exercise time of the put and the call can be different.</p>
 </section>
@@ -719,11 +718,10 @@ class="math inline">Y</span> is <span
 class="math inline">\mathcal{A}</span> measurable and <span
 class="math inline">\int_A Y\,dP = \int_A X\,dP</span> for all <span
 class="math inline">A\in\mathcal{A}</span>. This is equivalent to <span
-class="math inline">Y(P|_{\mathcal{A}})
-= (XP)|_{\mathcal{A}}</span> where the vertical bar indicates
-restriction of a measure. In particular, <span
-class="math inline">E[X|\mathcal{A}](ω) = \sum \{X(α) P(α): α\subseteq
-ω, α\in\mathcal{A}\}</span></p>
+class="math inline">Y(P|_{\mathcal{A}}) = (XP)|_{\mathcal{A}}</span>
+where the vertical bar indicates restriction of a measure. In
+particular, <span class="math inline">E[X|\mathcal{A}](ω) = \sum \{X(α)
+P(α): α\subseteq ω, α\in\mathcal{A}\}</span></p>
 <p>A <em>filtration</em> indexed by <span class="math inline">T\subseteq
 [0,\infty)</span> is an increasing collection of algebras, <span
 class="math inline">(\mathcal{A}_t)_{t\in T}</span>. A process <span

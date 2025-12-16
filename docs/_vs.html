@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-12-15" />
+  <title>Vector Spaces</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Vector Spaces</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">December 15, 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#abstract-vector-space"
+id="toc-abstract-vector-space">Abstract Vector Space</a></li>
+</ul>
+</nav>
+<p>relation, cosets,</p>
+<p>functions, 1-1, onto, 1-1 correspondence</p>
+<p>Let <span class="math inline">\boldsymbol{{F}}</span> be a field and
+the <dfn>set exponential</dfn> <span
+class="math inline">{\boldsymbol{{F}}^I = \{x\colon
+I\to\boldsymbol{{F}}\} = \{I\to\boldsymbol{{F}}\}}</span> be the set of
+all functions from the set <span class="math inline">I</span> to <span
+class="math inline">\boldsymbol{{F}}</span>. Define <dfn>scalar
+multiplication</dfn> <span
+class="math inline">\boldsymbol{{F}}\times\boldsymbol{{F}}^I\to\boldsymbol{{F}}^I</span>
+where <span class="math inline">{(a,x)\mapsto ax = xa}</span> by <span
+class="math inline">{(ax)(i) = a(x(i)) = (xa)(i)}</span> and <dfn>vector
+addition</dfn> <span
+class="math inline">{\boldsymbol{{F}}^I\times\boldsymbol{{F}}^I\to\boldsymbol{{F}}^I}</span>
+where <span class="math inline">{(x,y)\mapsto x + y}</span> by <span
+class="math inline">{(x + y)(i) = x(i) + y(i)}</span>, <span
+class="math inline">i\in I</span>. We say these are defined
+<dfn>pointwise</dfn> since <span
+class="math inline">x,y\in\boldsymbol{{F}}^I</span> are equal if and
+only if <span class="math inline">x(i) = y(i)</span> for all <span
+class="math inline">i\in I</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x + y =
+y + x</span> for <span
+class="math inline">x,y\in\boldsymbol{{F}}^I</span></em>.</p>
+<p><em>Hint</em> Evaluate at <span class="math inline">i\in I</span> and
+use the fact field addition is commutative.</p>
+<details>
+<summary>
+Solution
+</summary>
+We have <span class="math inline">(x + y)(i) = x(i) + y(i) = y(i) + x(i)
+= (y + x)(i)</span> for all <span class="math inline">i\in I</span>.
+</details>
+<p>Define <span
+class="math inline">\boldsymbol{{0}}\in\boldsymbol{{F}}^I</span> by
+<span class="math inline">\boldsymbol{{0}}(i) = 0</span> for <span
+class="math inline">i\in I</span>. We write <span
+class="math inline">\boldsymbol{{0}}^I</span> to indicate the domain is
+<span class="math inline">\boldsymbol{{F}}^I</span>. Note <span
+class="math inline">{\boldsymbol{{0}}^I\not=\boldsymbol{{0}}^J}</span>
+if <span class="math inline">{I\not=J}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x +
+\boldsymbol{{0}}= x</span> for all <span
+class="math inline">x\in\boldsymbol{{F}}^I</span></em>.</p>
+<p>Define <span class="math inline">-x\in\boldsymbol{{F}}^I</span> by
+<span class="math inline">(-x)(i) = -x(i)</span> for <span
+class="math inline">x\in\boldsymbol{{F}}^I</span> and <span
+class="math inline">i\in I</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">-x =
+(-1)x</span> and <span class="math inline">x + (-x) =
+\boldsymbol{{0}}</span> for <span
+class="math inline">x\in\boldsymbol{{F}}^I</span></em>.</p>
+<p>This shows <span class="math inline">\boldsymbol{{F}}^I</span> is an
+abelian group under vector addition with additive identity <span
+class="math inline">\boldsymbol{{0}}</span>.</p>
+<p>The <dfn>standard basis</dfn> of <span
+class="math inline">\boldsymbol{{F}}^I</span> is the set of vectors
+<span class="math inline">e_i\colon I\to\boldsymbol{{F}}</span> defined
+by <span class="math inline">e_i(j) = 1(i = j)</span>, <span
+class="math inline">i,j\in I</span>, where <span class="math inline">1(i
+= j) = 1</span> if <span class="math inline">i = j</span> and <span
+class="math inline">1(i = j) = 0</span> if <span
+class="math inline">i\not=j</span>. This is also called the Kronecker
+delta <span class="math inline">\delta_{ij} = 1(i = j)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x =
+\sum_{i\in I} x(i) e_i</span>, <span
+class="math inline">x\in\boldsymbol{{F}}^I</span>, if <span
+class="math inline">I</span> is finite.</em></p>
+<p><em>Hint</em>. Compute <span class="math inline">(\sum_{i\in I} x(i)
+e_i)(j) = \sum_{i\in I} x(i) e_i(j)</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+We have <span class="math inline">(\sum_{i\in I} x(i) e_i)(j) =
+\sum_{i\in I} x(i) e_i(j) = \sum_{i\in I} x(i)1(i = j) = x(j)</span>.
+</details>
+<p>This shows every <span
+class="math inline">x\in\boldsymbol{{F}}^I</span> is a <dfn>linear
+combination</dfn> of the standard basis vectors.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">\sum_{i\in I} a_i e_i = \boldsymbol{{0}}</span> then
+<span class="math inline">a_i = 0</span> for all <span
+class="math inline">i\in I</span></em>.</p>
+<p><em>Hint</em>: Evaluate at <span class="math inline">j\in
+I</span>.</p>
+<p>Any set of vectors with this property is called
+<dfn>independent</dfn></p>
+<p>The <em>dual space</em> of <span
+class="math inline">\boldsymbol{{F}}^I</span> is <span
+class="math inline">(\boldsymbol{{F}}^I)^* =
+\boldsymbol{{F}}^{e_I}</span> where <span class="math inline">e_I =
+\{e_i\mid i\in I\}</span>. For <span
+class="math inline">x\in\boldsymbol{{F}}^I</span> define <span
+class="math inline">x^*\in\boldsymbol{{F}}^{e_I}</span> by <span
+class="math inline">x^*(e_i) = x(i)</span>, <span
+class="math inline">i\in I</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(ax)^*
+= ax^*</span> and <span class="math inline">(x + y)^* = x^* + y^*</span>
+for <span class="math inline">a\in\boldsymbol{{F}}</span>, <span
+class="math inline">x,y\in\boldsymbol{{F}}^I</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x^* =
+\boldsymbol{{0}}</span> implies <span class="math inline">x =
+\boldsymbol{{0}}</span> for <span
+class="math inline">x\in\boldsymbol{{F}}^I</span> and <span
+class="math inline">(\boldsymbol{{F}}^I)^* = \{x^*\mid
+x\in\boldsymbol{{F}}^I\}</span></em>.</p>
+<p>Any function <span
+class="math inline">T\colon\boldsymbol{{F}}^I\to\boldsymbol{{F}}^J</span>
+satisfying <span class="math inline">T(ax) = aTx</span> and <span
+class="math inline">T(x + y) = Tx + Ty</span> is called a <em>linear
+operator</em>.</p>
+<p>The set exponential <span
+class="math inline">\boldsymbol{{F}}^I</span> can be identifed with the
+cartesian product of <span class="math inline">I</span> copies of <span
+class="math inline">\boldsymbol{{F}}</span>.</p>
+<p>Define <em>projections</em> <span
+class="math inline">e_i^*\colon\boldsymbol{{F}}^I\to\boldsymbol{{F}}</span>
+by <span class="math inline">e_i^*(x) = x(i)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">p_i\colon V\to\boldsymbol{{F}}</span>, <span
+class="math inline">i\in I</span>, then there exists <span
+class="math inline">p\colon V\to\boldsymbol{{F}}^I</span> with <span
+class="math inline">p_i = e_i^*p</span>.</em></p>
+<p><em>Hint</em>: Define <span class="math inline">(pv)(i) =
+p_i(v)</span> and note <span class="math inline">(pv)(i) =
+e_i^*(pv)</span>.</p>
+<details>
+<summary>
+Vector Space Axioms
+</summary>
+<p>Define <span
+class="math inline">\boldsymbol{{0}}\in\boldsymbol{{F}}^I</span> by
+<span class="math inline">\boldsymbol{{0}}(i) = 0</span> for <span
+class="math inline">i\in I</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">0x =
+\boldsymbol{{0}}</span> for <span
+class="math inline">x\in\boldsymbol{{F}}^I</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x +
+\boldsymbol{{0}}= x = \boldsymbol{{0}}+ x</span> for all <span
+class="math inline">x\in\boldsymbol{{F}}^I</span></em>.</p>
+<p>This shows <span class="math inline">\boldsymbol{{0}}</span> is the
+<em>identity element</em> for vector addition.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x + y =
+y + x</span> for <span class="math inline">x,
+y\in\boldsymbol{{F}}^I</span></em>.</p>
+<p>Vector addition is commutative.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(a +
+b)x = ax + bx</span> and <span class="math inline">a(x + y) = ax +
+ay</span> for <span class="math inline">a,b\in\boldsymbol{{F}}</span>
+and <span class="math inline">x,y\in\boldsymbol{{F}}^I</span></em>.</p>
+<p><em>Hint</em>. Consider <span class="math inline">(a + b)x(i)</span>
+and <span class="math inline">a(x + y)(i)</span>.</p>
+<p>This establishes the <em>distributive laws</em> satisfied by scalar
+multiplication and vector addition.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">-x =
+-1x</span> satisfies <span class="math inline">x + (-x) =
+\boldsymbol{{0}}</span></em>.</p>
+<p><em>Hint</em>. Consider <span class="math inline">x + (-x) = 1x +
+(-1x) = (1 + (-1))x</span>.</p>
+<p>This shows <span class="math inline">-x</span> is the <em>additive
+inverse</em> of <span class="math inline">x\in\boldsymbol{{F}}^I</span>
+and vector addition is a commutative group.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">a(bx) =
+(ab)x</span> for <span
+class="math inline">a,b\in\boldsymbol{{F}}</span>, <span
+class="math inline">x\in\boldsymbol{{F}}^n</span></em>.</p>
+<p><em>Hint</em>: Use the fact multiplication is associative in <span
+class="math inline">\boldsymbol{{F}}</span>.</p>
+</details>
+<section id="abstract-vector-space" class="level2">
+<h2>Abstract Vector Space</h2>
+<p>Any set <span class="math inline">V</span> with a scalar
+multiplication and vector addition satisfying the above axioms is a
+vector space. We will eventually prove every vector space is isomorphic
+to <span class="math inline">\boldsymbol{{F}}^I</span> for some set
+<span class="math inline">I</span> but proofs involving only the axioms
+are more insightful.</p>
+<p>A <em>linear operator</em> <span
+class="math inline">T\colon\boldsymbol{{F}}^I\to\boldsymbol{{F}}^J</span>
+is a function satisfying <span class="math inline">T(ax + y) = aT(x) +
+T(y)</span>, <span class="math inline">a\in\boldsymbol{{F}}</span>,
+<span class="math inline">x,y\in\boldsymbol{{F}}^I</span>. The set of
+all such operators is denoted <span
+class="math inline">[\boldsymbol{{F}}^I\to\boldsymbol{{F}}^J]</span>. It
+is a vector space with scalar multiplication <span
+class="math inline">(aT)(x) = a(T(x))</span> and vector addition <span
+class="math inline">(T + U)(x) = Tx + Ux</span>, <span
+class="math inline">a\in\boldsymbol{{F}}</span>, <span
+class="math inline">x\in\boldsymbol{{F}}^I</span>, <span
+class="math inline">T,U\in[\boldsymbol{{F}}^I\to\boldsymbol{{F}}^J]</span>.</p>
+<p>Since <span class="math inline">e_i\in\boldsymbol{{F}}^I</span> we
+have <span class="math inline">Te_i = \sum_{j\in I} (Te_i)(j)e_j</span>
+and we define <span class="math inline">t(i,j) =
+Te_i(j)\in\boldsymbol{{F}}</span>.</p>
+<p>If <span
+class="math inline">T\colon\boldsymbol{{F}}^I\to\boldsymbol{{F}}^J</span>
+and <span
+class="math inline">S\colon\boldsymbol{{F}}^J\to\boldsymbol{{F}}^K</span>
+then</p>
+<p><span class="math inline">\sigma\colon I\to J</span> then <span
+class="math inline">\circ\sigma\colon\boldsymbol{{F}}^J\to\boldsymbol{{F}}^I</span>
+by <span class="math inline">x\mapsto x\circ\sigma</span>.</p>
+</section>
+</body>
+</html>

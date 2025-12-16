@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-11-25" />
+  <meta name="dcterms.date" content="2025-12-16" />
   <title>Probabilistic Reasoning</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Probabilistic Reasoning</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">November 25, 2025</p>
+<p class="date">December 16, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A calculus for uncertainty
@@ -446,7 +446,7 @@ non-decreasing, and right-continuous.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
 is uniformly distributed on <span class="math inline">[0,1)</span> then
 <span class="math inline">F(x) = \max\{0,\min\{1, x\}\}</span> for <span
-class="math inline">-\infty &lt; x &lt;  \infty</span></em>.</p>
+class="math inline">-\infty &lt; x &lt; \infty</span></em>.</p>
 <p><em>Hint</em>: If <span class="math inline">x &lt; 0</span> then
 <span class="math inline">F(x) = 0</span> and if <span
 class="math inline">x \ge 1</span> then <span class="math inline">F(x) =
@@ -649,9 +649,8 @@ is <span class="math inline">C(u,v) = P(U\le u, V\le v) = P(U\le u, U\le
 v) = P(U\le \min\{u, v\}) = \min\{u,v\} = M(u,v)</span>.</p>
 <p>If <span class="math inline">V=1-U</span> then their joint
 distribution is <span class="math inline">C(u,v) = P(U\le u, V\le v) =
-P(U\le u, 1-U\le v)
-= P(1-v\le U\le u) = \max\{u - (1 -v), 0\} = \max\{u + v - 1, 0\} =
-W(u,v)</span></p>
+P(U\le u, 1-U\le v) = P(1-v\le U\le u) = \max\{u - (1 -v), 0\} = \max\{u
++ v - 1, 0\} = W(u,v)</span></p>
 <p><strong>Exercise</strong>: (Fréchet-Hoeffding) For every copula,
 <span class="math inline">C</span>, <span class="math inline">W \le C
 \le M</span>.</p>
@@ -741,9 +740,8 @@ class="math inline">n</span>, except for <span class="math inline">n =
 <p>Suppose all moments of <span class="math inline">X</span> exist, then
 for any complex numbers, <span class="math inline">(c_i)</span>, <span
 class="math inline">{0 \le E|\sum_i c_i X^i|^2 = E[\sum_{j,k}
-c_j\bar{c}_k X^{j+k}]
-= \sum_{j,k} c_j \bar{c}_k m_{j+k}}</span>. This says the Hankel matrix
-<span class="math inline">M =
+c_j\bar{c}_k X^{j+k}] = \sum_{j,k} c_j \bar{c}_k m_{j+k}}</span>. This
+says the Hankel matrix <span class="math inline">M =
 [m_{j+k}]_{j,k}</span> is positive definite. The converse is also true:
 if the Hankel matrix is positive definite there exists a random variable
 with the corresponding moments. This is not a trivial result and the
@@ -1402,9 +1400,9 @@ Y_n)/\sqrt{n}</span>.</p>
 <p><span class="math inline">\kappa&#39;(s) = e^sp/(1 + (e^s -
 1)p)</span> so <span class="math inline">\kappa&#39;(0) = p</span></p>
 <p><span class="math inline">\kappa&#39;&#39;(s) = ((1 + (e^s - 1)p)e^sp
-- e^sp e^sp )/(1 + (e^s - 1)p)^2
-= ((1 + (e^s - 1)p - e^sp))e^sp/()^2</span> $ so <span
-class="math inline">\kappa&#39;(0) = p</span></p>
+- e^sp e^sp )/(1 + (e^s - 1)p)^2 = ((1 + (e^s - 1)p -
+e^sp))e^sp/()^2</span> $ so <span class="math inline">\kappa&#39;(0) =
+p</span></p>
 <p>Let <span class="math inline">p</span> be a random varialble with
 <span class="math inline">P(p = p_j) = q_j</span>.</p>
 <p><span class="math inline">P(X = x) = \sum_j P(X = x|p = p_j) q_j =

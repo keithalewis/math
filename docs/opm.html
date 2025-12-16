@@ -4,9 +4,8 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-11-25" />
-  <title>One-Period Model</title>
+  <meta name="dcterms.date" content="2025-12-16" />
+  <title>opm</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -26,7 +25,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -56,7 +54,7 @@
     displayMode: mathElements[i].classList.contains('display'),
     throwOnError: false,
     macros: macros,
-    fleqn: true
+    fleqn: false
    });
 }}});
   </script>
@@ -64,17 +62,10 @@
   href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
-<header id="title-block-header">
-<h1 class="title">One-Period Model</h1>
-<p class="author">Keith A. Lewis</p>
-<p class="date">November 25, 2025</p>
-<div class="abstract">
-<div class="abstract-title">Abstract</div>
-Simplest formal model of a financial market.
-</div>
-</header>
 <nav id="TOC" role="doc-toc">
 <ul>
+<li><a href="#head" id="toc-head">&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+HEAD</a></li>
 <li><a href="#one-period-model" id="toc-one-period-model">One-Period
 Model</a></li>
 <li><a href="#arbitrage" id="toc-arbitrage">Arbitrage</a></li>
@@ -83,6 +74,8 @@ id="toc-fundamental-theorem-of-asset-pricing">Fundamental Theorem of
 Asset Pricing</a></li>
 <li><a href="#examples" id="toc-examples">Examples</a>
 <ul>
+<li><a href="#zero-coupon-bond" id="toc-zero-coupon-bond">Zero Coupon
+Bond</a></li>
 <li><a href="#model" id="toc-model">1-2-3 Model</a></li>
 <li><a href="#binomial-model" id="toc-binomial-model">Binomial
 Model</a></li>
@@ -91,14 +84,36 @@ Model</a></li>
 </ul></li>
 <li><a href="#appendix" id="toc-appendix">Appendix</a></li>
 <li><a href="#references" id="toc-references">References</a></li>
+<li><a href="#section" id="toc-section">=======</a></li>
+<li><a href="#one-period-model-1" id="toc-one-period-model-1">One-Period
+Model</a></li>
+<li><a href="#arbitrage-1" id="toc-arbitrage-1">Arbitrage</a></li>
+<li><a href="#fundamental-theorem-of-asset-pricing-1"
+id="toc-fundamental-theorem-of-asset-pricing-1">Fundamental Theorem of
+Asset Pricing</a></li>
+<li><a href="#examples-1" id="toc-examples-1">Examples</a>
+<ul>
+<li><a href="#zero-coupon-bond-1" id="toc-zero-coupon-bond-1">Zero
+Coupon Bond</a></li>
+<li><a href="#model-1" id="toc-model-1">1-2-3 Model</a></li>
+<li><a href="#binomial-model-1" id="toc-binomial-model-1">Binomial
+Model</a></li>
+</ul></li>
+<li><a href="#appendix-1" id="toc-appendix-1">Appendix</a></li>
+<li><a href="#references-1" id="toc-references-1">References</a></li>
 </ul>
 </nav>
-<p>The One‑Period Model is the simplest framework for rigorously
-representing a financial market over a single time horizon. It defines
-the initial prices of tradable instruments and their terminal cash flows
-contingent on the realized outcome. In the absence of arbitrage, these
-prices are subject to geometric constraints imposed by the structure of
-the cash flows.</p>
+<section id="head" class="level2">
+<h2>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</h2>
+<p>title: One-Period Model author: Keith A. Lewis institution: KALX, LLC
+email: kal@kalx.net classoption: fleqn abstract: Simplest formal model
+of a financial market. …</p>
+<p>c The One‑Period Model is the simplest framework for rigorously
+representing a financial market over a single time horizon. The model
+defines the initial prices of tradable instruments and their terminal
+cash flows contingent on the realized outcome. In the absence of
+arbitrage prices are subject to geometric constraints determined by the
+cash flows.</p>
 <p>We make the usual unrealistic assumptions that prices are real
 numbers instead of integral multiples of each instrument’s minimum
 trading increment/tick size and there is no bid-ask spread depending on
@@ -107,40 +122,43 @@ or tax issues. We also ignore the fact instruments can only be purchased
 in integral multiples of their minimum share/lot size. The <a
 href="#appendix">Appendix</a> proposes a model that can incorporate more
 realistic assumptions.</p>
-<p>Quants turn mathematical models into software that traders use. If a
+<p>Quants turn mathematical models into software used for trading. If a
 model is deployed without ensuring it is arbitrage-free then buy-side
 clients will exploit mispricings by going long on trades that are
 undervalued and short on overpriced ones. Eventually trading reality
 catches up and the sell-side firm loses money. Even worse, a “clever”
 trader might find an internal arbitrage that gives the illusion of
-making profits.</p>
+making profits<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>.</p>
 <p>The Fundamental Theorem of Asset Pricing characterizes arbitrage-free
-models and (unlike Black, Scholes and Merton) provide an arbitrage if
-they are not. As <span class="citation" data-cites="Ros1978">(Ross
-1978)</span> showed, this is a purely geometric result having nothing to
-do with probability. Positive measures having mass one make an
-appearance, but they are not the probability of anything.</p>
+models and provide an arbitrage if they are not. As <span
+class="citation" data-cites="Ros1978">(Ross 1978)</span> showed, this is
+a purely geometric result having nothing to do with probability.
+Positive measures having mass one make an appearance, but they are not
+the probability of anything.</p>
 <p>Ross made the untenable assumption that continuous time trading is
 possible and the category error of defining a cash flow as a jump in
-price. A cash flow is a payment made by the instrument issuer to every
-instrument holder. Stocks pay dividends, bonds pay coupons, futures pay
-the change in end-of-day quotes and always have price zero. The
-Fundamental Theorem of Asset Pricing shows models of cash flows entail
-geometric constraints on arbitrage-free prices.</p>
+price. Stock prices jump between market close and market open but there
+is no associated cash flow. A cash flow is a payment made by the
+instrument issuer to each instrument holder. Stocks pay dividends, bonds
+pay coupons, futures pay the change in end-of-day quotes (and always
+have price zero). The Fundamental Theorem of Asset Pricing shows models
+of cash flows entail geometric constraints on arbitrage-free prices.</p>
+</section>
 <section id="one-period-model" class="level2">
 <h2>One-Period Model</h2>
-<p>The <em>One-Period Model</em> consists of a finite set of tradable
+<p>The <em>One-Period Model</em> specifies a finite set of tradable
 <em>instruments</em> <span class="math inline">I</span>. The set of
 possible <em>outcomes</em> <span class="math inline">\Omega</span>
 represents what can happen over the period. The initial <em>prices</em>
 are given by a vector <span
-class="math inline">{x\in\boldsymbol{R}^I}</span><a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>,
-indexed by the instruments. Terminal <em>cash flows</em> are described
-by a vector-valued function <span class="math inline">{C\colon\Omega\to
+class="math inline">{x\in\boldsymbol{R}^I}</span><a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>,
+indexed by the instruments. Terminal <em>cash flows</em> are defined by
+a vector-valued function <span class="math inline">{C\colon\Omega\to
 \boldsymbol{R}^I}</span> where <span
 class="math inline">{C(\omega)\in\boldsymbol{R}^I}</span> are the cash
-flows corresponding to each outcome <span
+flows for each instrument corresponding to outcome <span
 class="math inline">{\omega\in\Omega}</span>.</p>
 <p>A <em>position</em> <span
 class="math inline">\xi\in\boldsymbol{R}^I</span> is the number of
@@ -148,25 +166,19 @@ shares purchased in each instrument at the beginning of the period. The
 <em>cost</em> of acquiring the position is <span
 class="math inline">{\xi\cdot x = \sum_{i\in I}\xi(i) x(i)}</span> and
 results in <span class="math inline">{\xi\cdot C(\omega)}</span> at the
-end of the period for each outcome <span
-class="math inline">\omega\in\Omega</span>. The <em>realized return</em>
-of a position <span class="math inline">\xi\in\boldsymbol{R}^I</span> is
-<span class="math inline">{R_\xi = \xi\cdot C/\xi\cdot x}</span>
-provided <span class="math inline">\xi\cdot x\not=0</span>.</p>
+end of the period. The <em>realized return</em> of a position <span
+class="math inline">\xi\in\boldsymbol{R}^I</span> is <span
+class="math inline">{R_\xi = \xi\cdot C/\xi\cdot x}</span> provided
+<span class="math inline">\xi\cdot x\not=0</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">R_{t\xi} = R_{\xi}</span> for any non-zero <span
 class="math inline">t\in\boldsymbol{R}</span></em>.</p>
-<p>This is actually a deleterious feature of the model. Going long or
-short typically affects the realized return. It also implies a portfolio
-strategy can be scaled to arbitrarily large positions. At some point you
-will run out of instruments to buy and sell.</p>
-<p>A position <span class="math inline">\xi</span> is said to be
-<em>feasible</em> if the cost of acquiring it is one, in which case its
-realized return is <span class="math inline">R_\xi = \xi\cdot C</span>.
-If <span class="math inline">\xi</span> is any position with <span
-class="math inline">\xi\cdot x\not=0</span> then <span
-class="math inline">\xi/\xi\cdot x</span> is feasible. Assuming
-feasibility simplifies computations involving realized return.</p>
+<p>This is actually a deleterious feature of the model. Going long
+(<span class="math inline">t &gt; 0</span>) or short (<span
+class="math inline">t &lt; 0</span>) typically affects the realized
+return. It also implies a portfolio strategy can be scaled to
+arbitrarily large positions. At some point you will run out of
+instruments to buy and sell.</p>
 <p>We assume redundant instruments are removed from the model. If <span
 class="math inline">{\xi\cdot C = 0}</span> then one instrument is a
 linear combination of the others and can be removed. This can be
@@ -178,20 +190,18 @@ one-to-one. A model is <em>complete</em> if this map is <em>onto</em>.
 This cannot be the case if the cardinality of <span
 class="math inline">I</span> is less than the cardinality of <span
 class="math inline">\Omega</span>. In general the number of instruments
-is much smaller than the number of possible outcomes. Although complete
-markets are frequently assumed in mathematical finance books they rarely
-arise in models faithful to the real world.</p>
-<p>Classical literature often specifies terminal prices as the function
+is much smaller than the number of possible outcomes.</p>
+<p>Classical literature often specifies terminal prices as a function
 <span class="math inline">X\colon\Omega\to\boldsymbol{R}^I</span> rather
 than cash flows <span class="math inline">C</span>. From a rigorous
-standdpoint, however, prices do not truely exist at the end of the
-period since there is no further economic activity available. The
-classical approach implicitly assumes the initial position is liquidated
-at the end of the period yielding a payment of <span
+standpoint, prices do not actually exist at the end of the period since
+there is no further economic activity available. The classical approach
+implicitly assumes the initial position is liquidated at the end of the
+period at prevailing prices yielding a payment of <span
 class="math inline">\xi\cdot X</span>. In practice, cash flows are paid
 proportional to position whether or not any trading occurs.</p>
-<p>For example, a zero coupon bond has an initial price (its discount)
-and pays a unit cash flow at temination. If you are uncomfortable using
+<p>For example, a zero coupon bond has an initial price/discount and
+pays a unit cash flow at termination. If you are uncomfortable using
 cash flows <span class="math inline">C</span> instead of prices <span
 class="math inline">X</span> when the instrument is a stock, <span
 class="math inline">C</span> may be interpreted as the firm’s
@@ -213,18 +223,18 @@ class="math inline">{\omega\in\Omega}</span>: you make money acquiring
 the initial position and never lose money at the end of the period.</p>
 <p>Some authors define arbitrage as a portfolio satisfying <span
 class="math inline">{\xi\cdot x = 0}</span> and <span
-class="math inline">{\xi\cdot C}</span> is non-negative and positive on
-some set having positive probability. We haven’t specified a probability
+class="math inline">{\xi\cdot C\ge0}</span> is strictly positive on some
+set having positive probability. We haven’t specified a probability
 measure so we can’t use this definition. Moreover, no trader would
-consider this to be an arbitrage anyway. Even though the position costs
-nothing other than agita to put on, the above definition has nothing
-definite to say about how much they will make nor how likely it is they
-will make it.</p>
+consider this to be an arbitrage. Even though the position costs nothing
+other than agita to put on, the above definition has nothing definite to
+say about how much they will make nor how likely it is they will make
+it.</p>
 <p>Our stronger probability-free definition is still not good enough for
 traders and risk managers. Even though <span
 class="math inline">{\xi\cdot x}</span> is strictly negative they will
 slap absolute value signs around every number and compute <span
-class="math inline">{|\xi|\cdot|x|}</span> as a proxy of how much
+class="math inline">{|\xi|\cdot|x|}</span> as a proxy for how much
 capital will be tied up putting on the position. No business would
 approve using a million dollars from their funding account just to make
 a penny up front even though that technically satisfies our mathematical
@@ -278,7 +288,7 @@ are arbitrages then so is <span class="math inline">\xi + \eta</span>.
 </details>
 <p>The smallest cone containing the possible cash flows <span
 class="math inline">C</span> is the set of finite linear combinations
-with positive coefficents <span class="math inline">{\{\sum_i
+with positive coefficients <span class="math inline">{\{\sum_i
 C(\omega_i) d_i\mid \omega_i\in\Omega, d_i &gt; 0\}}</span>. If <span
 class="math inline">x = \sum_i C(\omega_i) d_i</span> is in the cone and
 <span class="math inline">\xi\cdot C</span> is non-negative on <span
@@ -297,12 +307,12 @@ class="math inline">\xi\cdot x_n\ge0</span> then <span
 class="math inline">\xi\cdot x\ge0</span>.
 </details>
 <p>The contrapositive is also true.</p>
-<p><strong>Theorem</strong>. <em>Arbitrage exists in the one-period
-model if <span class="math inline">x</span> does not belong to the
-smallest closed cone containing the range of <span
-class="math inline">C</span>. If <span class="math inline">x^*</span> is
-the closest point in the cone then <span class="math inline">\xi = x^* -
-x</span> is an arbitrage</em>.</p>
+<p><strong>Theorem</strong>. <em>Arbitrage exists in a one-period model
+if <span class="math inline">x</span> does not belong to the smallest
+closed cone containing the range of <span class="math inline">C</span>.
+If <span class="math inline">x^*</span> is the closest point in the cone
+then <span class="math inline">\xi = x^* - x</span> is an
+arbitrage</em>.</p>
 <p>In general the arbitrage is not unique. We will establish the theorem
 using the purely geometric</p>
 <p><strong>Lemma</strong>. <em>If <span
@@ -342,18 +352,17 @@ x) \le -\xi\cdot x}</span> we have <span class="math inline">{\xi\cdot x
 &lt; 0}</span>.</p>
 <p>The lemma proves the FTAP and that <span class="math inline">\xi =
 x^* - x</span> implements an arbitrage.</p>
-<p>If we assume prices are bounded, as they are in the real world, then
-every point in the closed convex cone generated by the range of <span
-class="math inline">C</span> can be written as an integral <span
-class="math inline">\int_\Omega C(\omega)\,dD(\omega)</span> for some
-positive, bounded, finitely additive measure <span
-class="math inline">D\in ba(\Omega)</span> on <span
-class="math inline">\Omega</span>, but this requires a bit more math to
-establish. See <span class="citation" data-cites="DunSch1958">(Dunford
-and Schwartz 1958)</span>. We call any such measure
-<em>risk-neutral</em>. Risk-neutral measures are not generally
-unique.</p>
-<p>The measure <span class="math inline">Q = D/D(\Omega)</span> is a
+<p>A <em>risk-neutral pricing measure</em> is any positive, finitely
+additive measure <span class="math inline">D</span> on <span
+class="math inline">\Omega</span> with <span class="math inline">x =
+\int_\Omega C\,dD</span>. The FTAP shows no arbitrage implies this set
+is not empty. Every such measure corresponds to a positive linear
+functional on the vector space of bounded functions on <span
+class="math inline">\Omega</span>. See <span class="citation"
+data-cites="DunSch1958">(Dunford and Schwartz 1958)</span>. Risk-neutral
+pricing measures are not generally unique.</p>
+<p>If <span class="math inline">D</span> is a risk-neutral pricing
+measure then <span class="math inline">Q = D/D(\Omega)</span> is a
 positive measure having mass 1 so it satisfies the definition of a
 probability measure. Every portfolio has the same expected realized
 return under a risk-neutral measure so perhaps this should be called a
@@ -384,14 +393,24 @@ discount</em>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">x =
 \int_\Omega C\,dD</span> show <span class="math inline">x =
 E^Q[C]D(\Omega)</span></em>.</p>
-<p>This formula can be read “Prices are discounted expected cash flows.”
-It is a mathematically rigorous instance of the method used by <span
-class="citation" data-cites="GraDod1934">(Graham and Dodd 1934)</span>
-in <em>Security Analysis</em> for valuing instruments.</p>
+<p>This formula can be read “Prices are expected discounted cash flows.”
+It is a mathematically rigorous one-period example of the method used by
+<span class="citation" data-cites="GraDod1934">(Graham and Dodd
+1934)</span> in <em>Security Analysis</em> for valuing equities. Except
+Graham and Dodd only considered real-world probabilities, long before
+risk-neutal probabilities were invented.</p>
 </section>
 <section id="examples" class="level2">
 <h2>Examples</h2>
 <p>We now apply the FTAP to particular models.</p>
+<section id="zero-coupon-bond" class="level3">
+<h3>Zero Coupon Bond</h3>
+<p>A common misconception is that the price of a zero coupon bond must
+not be greater than its notional since this would imply negative
+interest rates. This actually occurred in Europe between 2014 and 2020
+but did not give rise to arbitrage opportunities. As shown above, the
+arbitrage-free constraint is only that the price is positive.</p>
+</section>
 <section id="model" class="level3">
 <h3>1-2-3 Model</h3>
 <p>A very simple and unrealistic one-period model consists of a bond
@@ -399,21 +418,20 @@ with price 1 at the beginning of the period that has a cash flow 2 at
 the end and a stock with price 1 that has a cash flow of either 1 or 3.
 The model is <span class="math inline">x = (1, 1)</span> and <span
 class="math inline">{C(\omega) = (2, \omega)}</span> where <span
-class="math inline">{\omega\in\{1,3\}
-= \Omega}</span>. This is arbitrage-free if and only if we can find
-<span class="math inline">{d_1,d_3
-\ge0}</span> with <span class="math inline">{x = C(1)d_1 +
-C(3)d_3}</span>. The bond component implies <span class="math inline">{1
-= 2d_1 + 2d_3}</span> and the stock component implies <span
-class="math inline">{1 = 1d_1 +
-3d_3}</span> so <span class="math inline">{d_1 = d_3 = 1/4}</span>.</p>
+class="math inline">{\omega\in\{1,3\} = \Omega}</span>. This is
+arbitrage-free if and only if we can find <span
+class="math inline">{d_1,d_3 \ge0}</span> with <span
+class="math inline">{x = C(1)d_1 + C(3)d_3}</span>. The bond component
+implies <span class="math inline">{1 = 2d_1 + 2d_3}</span> and the stock
+component implies <span class="math inline">{1 = 1d_1 + 3d_3}</span> so
+<span class="math inline">{d_1 = d_3 = 1/4}</span>.</p>
 <p>This shows the risk-neutral measure is <span
 class="math inline">D(\{1\}) = D(\{3\}) = 1/4</span>. The risk-neutral
 probability measure <span class="math inline">Q = D/D(\Omega)</span> is
 <span class="math inline">Q(\{1\}) = Q(\{3\}) = 1/2</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">E^Q[C]/2 = \int_\Omega C\,dD = (1, 1)</span> is the
-initial bond and stock price</em>.</p>
+class="math inline">E^Q[C]D(\Omega) = \int_\Omega C\,dD = (1, 1)</span>
+is the initial bond and stock price</em>.</p>
 <p>If we add a call option with strike 2 and price <span
 class="math inline">v</span> then the model becomes <span
 class="math inline">{x = (1, 1, v)}</span>, <span
@@ -465,18 +483,27 @@ class="math inline">d_L,d_H \ge 0</span> with <span
 class="math inline">x = C(L)d_L + C(H)d_H</span>. Considering the bond
 and stock components we have <span class="math inline">d_L = (Hr/R -
 s)/(H - L)</span> and <span class="math inline">d_H = (s - Lr/R)/(H -
-L)</span>. The model is arbitrage-free if and only if <span
-class="math inline">L/R \le s/r \le H/R</span>.</p>
+L)</span>. The model is arbitrage-free if and only if these are both
+non-negative so <span class="math inline">L/R \le s/r \le
+H/R</span>.</p>
 <p>Adding an option with payoff <span
 class="math inline">\nu(\omega)</span> we have its arbitrage-free value
 is <span class="math display">
 v = \nu(L)d_L + \nu(H)d_H = \frac{(H\nu(L) - L\nu(H))r/R + (\nu(H) -
 \nu(L))s}{H - L}.
 </span></p>
-<p><strong>Exercise</strong>. <em>Show this agrees with the 1-2-3
-Model</em>.</p>
-<p><em>Hint</em>: Calculate <span class="math inline">(3\times 0 -
-1\times 1)/2 + (1 - 0)\times 1)/(3 - 1)</span>.</p>
+<p>This can be simplified for call options.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\nu(\omega) = \max\{\omega - K, 0\}</span> where
+<span class="math inline">L \le K \le H</span> then <span
+class="math inline">v = (H - K)(Hr/R - s)/(H - L)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show this agrees with the 1-2-3 Model
+for a call option with strike 2</em>.</p>
+<p>Even though the option price is completely determined by the bond and
+stock in the binomial model we can use this to get bounds on the option
+price. Since <span class="math inline">v = (H - K)d_H</span> we always
+have <span class="math inline">v \ge 0</span> and <span
+class="math inline">v\le ???</span>.</p>
 </section>
 <section id="interval-model" class="level3">
 <h3>Interval Model</h3>
@@ -498,9 +525,6 @@ class="math inline">C(L)</span> and <span
 class="math inline">C(H)</span> also contains <span
 class="math inline">C(\omega)</span> for <span
 class="math inline">\omega\in[L,H]</span>.</p>
-<p><span class="math inline">0 = \int_\Omega
-C(\omega)\,dD(\omega)</span> add to binomial model solution. Keep
-posititve.</p>
 </section>
 </section>
 <section id="appendix" class="level2">
@@ -542,14 +566,13 @@ whether or not to execute the transaction. For example, if a seller
 quotes Ford stock for <span class="math inline">12</span> USD per share
 then the buyer can exchange <span class="math inline">\$24</span> for 2
 shares of Ford stock. This corresponds to the transaction where <span
-class="math inline">{\eta =
-(24, \$, o)}</span> and <span class="math inline">{\eta&#39; = (2, F,
-o&#39;)}</span>. The price is <span class="math inline">{X = a/a&#39; =
-24/2}</span> and we can use <span class="math inline">12</span> USD/F to
-indicate a price of <span class="math inline">\$12</span> per share of
-Ford stock. Replacing the virgule ‘/’ by ‘<span class="math inline">=
-1</span>’ gives the mnemonic <span class="math inline">12</span> USD
-<span class="math inline">=
+class="math inline">{\eta = (24, \$, o)}</span> and <span
+class="math inline">{\eta&#39; = (2, F, o&#39;)}</span>. The price is
+<span class="math inline">{X = a/a&#39; = 24/2}</span> and we can use
+<span class="math inline">12</span> USD/F to indicate a price of <span
+class="math inline">\$12</span> per share of Ford stock. Replacing the
+virgule ‘/’ by ‘<span class="math inline">= 1</span>’ gives the mnemonic
+<span class="math inline">12</span> USD <span class="math inline">=
 1</span> F. After the transaction settles the buyer holds <span
 class="math inline">{\eta = (2, F, o)}</span> and the seller holds <span
 class="math inline">{\eta&#39; = (24, \$, o&#39;)}</span> in their
@@ -576,7 +599,8 @@ will bump into the total number of shares issued and price becomes
 meaningless. When a buyer sells shares they face even more restrictions
 and are also charged a <em>borrow cost</em> over the period of time they
 are short. Prices can also depend on the particular buyer and seller of
-the transaction due to credit issues or regulations.</p>
+the transaction due to credit issues or regulations, among other
+things.</p>
 <p>A more realistic model for prices in a one-period model is to replace
 <span class="math inline">x\colon I\to\boldsymbol{R}</span> by <span
 class="math inline">x\colon I\times A\to\boldsymbol{R}</span> where
@@ -587,7 +611,9 @@ class="math inline">{\sum_{i\in I} \xi(i) x(i, \xi(i))}</span>. For a
 fixed transaction cost <span
 class="math inline">\tau\in\boldsymbol{R}</span> per share we have <span
 class="math inline">{x(i, a) = x_0(i) + \tau a}</span> where <span
-class="math inline">x_0</span> is the mid price.</p>
+class="math inline">x_0</span> is the mid price. If a limit order book
+is available then a very good approximation to the execution price is
+the function of cumulative limit order amounts versus order levels.</p>
 </section>
 <section id="references" class="level2">
 <h2>References</h2>
@@ -1028,8 +1054,980 @@ for the option trading book at Banc of America Securities. We found the only arb
 opportunities were negative price butterfly spreads at adjacent traded strikes, but the bid/ask
 spread turned the price positive.
 -->
+</section>
+<section id="section" class="level2">
+<h2>=======</h2>
+<p>title: One-Period Model author: Keith A. Lewis institution: KALX, LLC
+email: kal@kalx.net classoption: fleqn abstract: Simplest formal model
+of a financial market. …</p>
+<p>The One‑Period Model is the simplest framework for rigorously
+representing a financial market over a single time horizon. The model
+defines the initial prices of tradable instruments and their terminal
+cash flows contingent on the realized outcome. In the absence of
+arbitrage prices are subject to geometric constraints determined by the
+cash flows.</p>
+<p>We make the usual unrealistic assumptions that prices are real
+numbers instead of integral multiples of each instrument’s minimum
+trading increment/tick size and there is no bid-ask spread depending on
+the amount being bought or sold, much less any consideration of credit
+or tax issues. We also ignore the fact instruments can only be purchased
+in integral multiples of their minimum share/lot size. The <a
+href="#appendix">Appendix</a> proposes a model that can incorporate more
+realistic assumptions.</p>
+<p>Quants turn mathematical models into software used for trading. If a
+model is deployed without ensuring it is arbitrage-free then buy-side
+clients will exploit mispricings by going long on trades that are
+undervalued and short on overpriced ones. Eventually trading reality
+catches up and the sell-side firm loses money. Even worse, a “clever”
+trader might find an internal arbitrage that gives the illusion of
+making profits<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a>.</p>
+<p>The Fundamental Theorem of Asset Pricing characterizes arbitrage-free
+models and provide an arbitrage if they are not. As <span
+class="citation" data-cites="Ros1978">(Ross 1978)</span> showed, this is
+a purely geometric result having nothing to do with probability.
+Positive measures having mass one make an appearance, but they are not
+the probability of anything.</p>
+<p>Ross made the untenable assumption that continuous time trading is
+possible and the category error of defining a cash flow as a jump in
+price. Stock prices jump between market close and market open but there
+is no associated cash flow. A cash flow is a payment made by the
+instrument issuer to each instrument holder. Stocks pay dividends, bonds
+pay coupons, futures pay the change in end-of-day quotes (and always
+have price zero). The Fundamental Theorem of Asset Pricing shows models
+of cash flows entail geometric constraints on arbitrage-free prices.</p>
+</section>
+<section id="one-period-model-1" class="level2">
+<h2>One-Period Model</h2>
+<p>The <em>One-Period Model</em> specifies a finite set of tradable
+<em>instruments</em> <span class="math inline">I</span>. The set of
+possible <em>outcomes</em> <span class="math inline">\Omega</span>
+represents what can happen over the period. The initial <em>prices</em>
+are given by a vector <span
+class="math inline">{x\in\boldsymbol{R}^I}</span><a href="#fn4"
+class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>,
+indexed by the instruments. Terminal <em>cash flows</em> are defined by
+a vector-valued function <span class="math inline">{C\colon\Omega\to
+\boldsymbol{R}^I}</span> where <span
+class="math inline">{C(\omega)\in\boldsymbol{R}^I}</span> are the cash
+flows for each instrument corresponding to outcome <span
+class="math inline">{\omega\in\Omega}</span>.</p>
+<p>A <em>position</em> <span
+class="math inline">\xi\in\boldsymbol{R}^I</span> is the number of
+shares purchased in each instrument at the beginning of the period. The
+<em>cost</em> of acquiring the position is <span
+class="math inline">{\xi\cdot x = \sum_{i\in I}\xi(i) x(i)}</span> and
+results in <span class="math inline">{\xi\cdot C(\omega)}</span> at the
+end of the period. The <em>realized return</em> of a position <span
+class="math inline">\xi\in\boldsymbol{R}^I</span> is <span
+class="math inline">{R_\xi = \xi\cdot C/\xi\cdot x}</span> provided
+<span class="math inline">\xi\cdot x\not=0</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">R_{t\xi} = R_{\xi}</span> for any non-zero <span
+class="math inline">t\in\boldsymbol{R}</span></em>.</p>
+<p>This is actually a deleterious feature of the model. Going long
+(<span class="math inline">t &gt; 0</span>) or short (<span
+class="math inline">t &lt; 0</span>) typically affects the realized
+return. It also implies a portfolio strategy can be scaled to
+arbitrarily large positions. At some point you will run out of
+instruments to buy and sell.</p>
+<p>We assume redundant instruments are removed from the model. If <span
+class="math inline">{\xi\cdot C = 0}</span> then one instrument is a
+linear combination of the others and can be removed. This can be
+repeated until <span class="math inline">{\xi\cdot C\not=0}</span> for
+any <span class="math inline">\xi\in\boldsymbol{R}^I</span>. If so, the
+map <span class="math inline">\xi\in\boldsymbol{R}^I</span> to <span
+class="math inline">\xi\cdot C\in\boldsymbol{R}^\Omega</span> is
+one-to-one. A model is <em>complete</em> if this map is <em>onto</em>.
+This cannot be the case if the cardinality of <span
+class="math inline">I</span> is less than the cardinality of <span
+class="math inline">\Omega</span>. In general the number of instruments
+is much smaller than the number of possible outcomes.</p>
+<p>Classical literature often specifies terminal prices as a function
+<span class="math inline">X\colon\Omega\to\boldsymbol{R}^I</span> rather
+than cash flows <span class="math inline">C</span>. From a rigorous
+standpoint, prices do not actually exist at the end of the period since
+there is no further economic activity available. The classical approach
+implicitly assumes the initial position is liquidated at the end of the
+period at prevailing prices yielding a payment of <span
+class="math inline">\xi\cdot X</span>. In practice, cash flows are paid
+proportional to position whether or not any trading occurs.</p>
+<p>For example, a zero coupon bond has an initial price/discount and
+pays a unit cash flow at termination. If you are uncomfortable using
+cash flows <span class="math inline">C</span> instead of prices <span
+class="math inline">X</span> when the instrument is a stock, <span
+class="math inline">C</span> may be interpreted as the firm’s
+liquidation value or the proceeds from a stock buy back by the company
+at the end of the period.</p>
+<p>The <a href="mpm.html">Multi-period model</a> clarifies the
+relationship between prices and cash flows.</p>
+<p>The <a href="capm.html">Capital Asset Pricing Model</a> is a
+one-period model where a probability measure on possible outcomes is
+specified.</p>
+</section>
+<section id="arbitrage-1" class="level2">
+<h2>Arbitrage</h2>
+<p><em>Arbitrage</em> exists in a one-period model if there is a
+position <span class="math inline">\xi\in\boldsymbol{R}^I</span> with
+<span class="math inline">{\xi\cdot x &lt; 0}</span> and <span
+class="math inline">{\xi\cdot C(\omega)\ge0}</span> for all <span
+class="math inline">{\omega\in\Omega}</span>: you make money acquiring
+the initial position and never lose money at the end of the period.</p>
+<p>Some authors define arbitrage as a portfolio satisfying <span
+class="math inline">{\xi\cdot x = 0}</span> and <span
+class="math inline">{\xi\cdot C\ge0}</span> is strictly positive on some
+set having positive probability. We haven’t specified a probability
+measure so we can’t use this definition. Moreover, no trader would
+consider this to be an arbitrage anyway. Even though the position costs
+nothing other than agita to put on, the above definition has nothing
+definite to say about how much they will make nor how likely it is they
+will make it.</p>
+<p>Our stronger probability-free definition is still not good enough for
+traders and risk managers. Even though <span
+class="math inline">{\xi\cdot x}</span> is strictly negative they will
+slap absolute value signs around every number and compute <span
+class="math inline">{|\xi|\cdot|x|}</span> as a proxy of how much
+capital will be tied up putting on the position. No business would
+approve using a million dollars from their funding account just to make
+a penny up front even though that technically satisfies our mathematical
+definition of arbitrage.</p>
+</section>
+<section id="fundamental-theorem-of-asset-pricing-1" class="level2">
+<h2>Fundamental Theorem of Asset Pricing</h2>
+<!--
+A derivative instrument is a contract: I will give you this on these dates if
+you will give me that on those dates. Derivatives differ from bartering in that they
+involve future transactions instead of immediate exchanges.
+Caveman Korg may have asked caveman Grok for as many arrowheads as the fingers on
+both hands and promised to give him a bear skin before the moon is big in the sky.
+Korg might not be able to make delivery if the bear has a say in the matter so
+Grok must take this into account when offering arrowheads.
+
+-->
+<p>The assumption of no arbitrage places constraints on initial prices
+that are determined by cash flows. The constraints involve a cone.</p>
+<p>Recall a <em>cone</em> <span class="math inline">K</span> is a subset
+of a vector space closed under positive scalar multiplication and vector
+addition: if <span class="math inline">x\in K</span> then <span
+class="math inline">tx\in K</span> for <span class="math inline">t &gt;
+0</span> and if <span class="math inline">x,y\in K</span> then <span
+class="math inline">{x + y\in K}</span>.</p>
+<p><strong>Exercise</strong>. <em>A cone is convex</em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">x,y\in K</span> implies
+<span class="math inline">{tx + (1-t)y\in K}</span> for <span
+class="math inline">{0 &lt; t &lt; 1}</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+Since <span class="math inline">t &gt; 0</span> and <span
+class="math inline">1 - t &gt; 0</span> both <span
+class="math inline">tx</span> and <span class="math inline">(1 -
+t)y</span> belong to <span class="math inline">K</span> hence <span
+class="math inline">tx + (1 - t)y\in K</span>.
+</details>
+<p><strong>Exercise</strong>. <em>The set of arbitrage positions is a
+cone</em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+If <span class="math inline">\xi</span> is an arbitrage then <span
+class="math inline">t\xi</span> is an arbitrage for <span
+class="math inline">t &gt; 0</span>. If <span
+class="math inline">\xi</span> and <span class="math inline">\eta</span>
+are arbitrages then so is <span class="math inline">\xi + \eta</span>.
+</details>
+<p>The smallest cone containing the possible cash flows <span
+class="math inline">C</span> is the set of finite linear combinations
+with positive coefficients <span class="math inline">{\{\sum_i
+C(\omega_i) d_i\mid \omega_i\in\Omega, d_i &gt; 0\}}</span>. If <span
+class="math inline">x = \sum_i C(\omega_i) d_i</span> is in the cone and
+<span class="math inline">\xi\cdot C</span> is non-negative on <span
+class="math inline">\Omega</span> then <span
+class="math inline">{\xi\cdot x\ge 0}</span> so no arbitrage exists.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">x</span>
+belongs to the smallest</em> closed <em>cone containing the range of
+<span class="math inline">C</span> then there is no arbitrage</em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+If <span class="math inline">x_n\in K</span> converge to <span
+class="math inline">x</span> in norm and <span
+class="math inline">\xi\cdot x_n\ge0</span> then <span
+class="math inline">\xi\cdot x\ge0</span>.
+</details>
+<p>The contrapositive is also true.</p>
+<p><strong>Theorem</strong>. <em>Arbitrage exists in a one-period model
+if <span class="math inline">x</span> does not belong to the smallest
+closed cone containing the range of <span class="math inline">C</span>.
+If <span class="math inline">x^*</span> is the closest point in the cone
+then <span class="math inline">\xi = x^* - x</span> is an
+arbitrage</em>.</p>
+<p>In general the arbitrage is not unique. We will establish the theorem
+using the purely geometric</p>
+<p><strong>Lemma</strong>. <em>If <span
+class="math inline">x\in\boldsymbol{R}^n</span> and <span
+class="math inline">K</span> is a closed cone in <span
+class="math inline">\boldsymbol{R}^n</span> with <span
+class="math inline">x\not\in K</span> then there exists <span
+class="math inline">{\xi\in\boldsymbol{R}^n}</span> with <span
+class="math inline">{\xi\cdot x &lt; 0}</span> and <span
+class="math inline">{\xi\cdot y \ge0}</span> for <span
+class="math inline">{y\in K}</span></em>.</p>
+<p><em>Proof.</em> Let <span class="math inline">x^*</span> be the point
+in <span class="math inline">K</span> closest to <span
+class="math inline">x</span>. It exists since <span
+class="math inline">K</span> is closed and is unique since <span
+class="math inline">K</span> is convex. Let <span
+class="math inline">\xi = x^* - x</span> and note <span
+class="math inline">\xi\not=0</span>.</p>
+<p>We have <span class="math inline">ty + x^*\in K</span> for any <span
+class="math inline">t &gt; 0</span> and <span class="math inline">y\in
+K</span> so <span class="math inline">\|x^* - x\| \le \|ty + x^* -
+x\|</span>. Simplifying gives <span class="math inline">{t^2||y||^2 +
+2ty\cdot\xi\ge0}</span>. Dividing by <span class="math inline">t &gt;
+0</span> and letting <span class="math inline">t</span> decrease to 0
+shows <span class="math inline">{\xi\cdot y\ge0}</span> for all <span
+class="math inline">y\in K</span>.</p>
+<p>We have <span class="math inline">(t + 1)x^*\in K</span> for <span
+class="math inline">t + 1 &gt; 0</span> so <span
+class="math inline">\|x^* - x\| \le \|tx^* + x^* - x\|</span>.
+Simplifying gives <span class="math inline">{t^2||x^*||^2 +
+2tx^*\cdot\xi^*\ge 0}</span> for <span class="math inline">t &gt;
+-1</span>. Dividing by <span class="math inline">t &lt; 0</span> and
+letting <span class="math inline">t</span> increase to 0 shows <span
+class="math inline">{\xi\cdot x^*\le 0}</span>.</p>
+<p>Since <span class="math inline">{0 &lt; ||\xi||^2 = \xi\cdot (x^* -
+x) \le -\xi\cdot x}</span> we have <span class="math inline">{\xi\cdot x
+&lt; 0}</span>.</p>
+<p>The lemma proves the FTAP and that <span class="math inline">\xi =
+x^* - x</span> implements an arbitrage.</p>
+<p>A <em>risk-neutral pricing measure</em> is any positive, finitely
+additive measure <span class="math inline">D</span> on <span
+class="math inline">\Omega</span> with <span class="math inline">x =
+\int_\Omega C\,dD</span>. The FTAP shows no arbitrage implies this set
+is not empty. Every such measure corresponds to a positive linear
+functional on the vector space of bounded functions on <span
+class="math inline">\Omega</span>. See <span class="citation"
+data-cites="DunSch1958">(Dunford and Schwartz 1958)</span>. Risk-neutral
+pricing measures are not generally unique.</p>
+<p>If <span class="math inline">D</span> is a risk-neutral pricing
+measure then <span class="math inline">Q = D/D(\Omega)</span> is a
+positive measure having mass 1 so it satisfies the definition of a
+probability measure. Every portfolio has the same expected realized
+return under a risk-neutral measure so perhaps this should be called a
+<em>risk-blind</em> measure.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">D</span>
+is a risk-neutral measure then the expected realized return <span
+class="math inline">R = E^Q[R_\xi] = 1/D(\Omega)</span> is constant for
+any portfolio <span class="math inline">\xi\in\boldsymbol{R}^I</span>
+with <span class="math inline">\xi\cdot x\not=0</span></em>.</p>
+<p><em>Hint</em>: The expectation is with respect to the “probability”
+measure <span class="math inline">Q = D/D(\Omega)</span>.</p>
+<p>This exercise is a wake-up call to the fact risk-neutral measures are
+useless for risk management. The variance of a realized return can be
+arbitrarily large but a risk-neutral measure cannot detect excess
+returns to compensate for this risk.</p>
+<p>A <em>zero coupon bond</em> pays 1 unit at the end of the period on
+every outcome. A portfolio <span
+class="math inline">\zeta\in\boldsymbol{R}^I</span> with <span
+class="math inline">{\zeta\cdot C(\omega) = 1}</span> for all <span
+class="math inline">{\omega\in\Omega}</span> is a zero coupon bond. The
+<em>discount</em> of a zero coupon bond is its price <span
+class="math inline">{\zeta\cdot x = \int_\Omega \zeta\cdot
+C(\omega)\,dD(\omega) = D(\Omega)}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\zeta</span> is a zero coupon bond with only one
+non-zero component then that component is equal to the
+discount</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">x =
+\int_\Omega C\,dD</span> show <span class="math inline">x =
+E^Q[C]D(\Omega)</span></em>.</p>
+<p>This formula can be read “Prices are expected discounted cash flows.”
+It is a mathematically rigorous one-period example of the method used by
+<span class="citation" data-cites="GraDod1934">(Graham and Dodd
+1934)</span> in <em>Security Analysis</em> for valuing equities.</p>
+</section>
+<section id="examples-1" class="level2">
+<h2>Examples</h2>
+<p>We now apply the FTAP to particular models.</p>
+<section id="zero-coupon-bond-1" class="level3">
+<h3>Zero Coupon Bond</h3>
+<p>A common misconception is that the price of a zero coupon bond must
+not be greater than its notional since this would imply negative
+interest rates. Negative rates actually occured in Europe between 2014
+and 2020 but did not give rise to arbitrage opportunities. As we have
+seen above, the only constraint is the price of the zero coupon bond
+must be positive.</p>
+</section>
+<section id="model-1" class="level3">
+<h3>1-2-3 Model</h3>
+<p>A very simple and unrealistic one-period model consists of a bond
+with price 1 at the beginning of the period that has a cash flow 2 at
+the end and a stock with price 1 that has a cash flow of either 1 or 3.
+The model is <span class="math inline">x = (1, 1)</span> and <span
+class="math inline">{C(\omega) = (2, \omega)}</span> where <span
+class="math inline">{\omega\in\{1,3\} = \Omega}</span>. This is
+arbitrage-free if and only if we can find <span
+class="math inline">{d_1,d_3 \ge0}</span> with <span
+class="math inline">{x = C(1)d_1 + C(3)d_3}</span>. The bond component
+implies <span class="math inline">{1 = 2d_1 + 2d_3}</span> and the stock
+component implies <span class="math inline">{1 = 1d_1 + 3d_3}</span> so
+<span class="math inline">{d_1 = d_3 = 1/4}</span>.</p>
+<p>This shows the risk-neutral measure is <span
+class="math inline">D(\{1\}) = D(\{3\}) = 1/4</span>. The risk-neutral
+probability measure <span class="math inline">Q = D/D(\Omega)</span> is
+<span class="math inline">Q(\{1\}) = Q(\{3\}) = 1/2</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">E^Q[C]D(\Omega) = \int_\Omega C\,dD = (1, 1)</span>
+is the initial bond and stock price</em>.</p>
+<p>If we add a call option with strike 2 and price <span
+class="math inline">v</span> then the model becomes <span
+class="math inline">{x = (1, 1, v)}</span>, <span
+class="math inline">{C(\omega) = (2, \omega, \max\{\omega -
+2,0\})}</span> where <span class="math inline">v</span> is the option
+value. Since the bond and stock components determine <span
+class="math inline">{d_1 = d_3 = 1/4}</span> the option component is
+<span class="math inline">{v = \max\{1 - 2, 0\}(1/4) + \max\{3 - 2,
+0\}(1/4) = 1/4}</span>.</p>
+<p>A similar argument shows any European option paying <span
+class="math inline">\nu(\omega)</span> at expiration has value <span
+class="math inline">{v = (\nu(1) + \nu(3))/4}</span>. Every option
+payoff is linear in a binomial model.</p>
+<p>Note this argument does not depend on probability. If the real-world
+probability of the stock staying at 1 is <span
+class="math inline">0.1</span> and the stock tripling to 3 is <span
+class="math inline">0.9</span> then the expected payoff is <span
+class="math inline">(0(0.1) + 1(0.9))/2 = 0.45</span>. As John Illuzi at
+Banc of America securities pointed out when I showed him this, “Do you
+mean I can buy the option for 0.25 and get 0.45 on average? I’d take
+that trade all day long!” He also identified the risk-blind nature of
+risk-neutral probability. “But not if I got shot in the head if the
+option ever finished out-of-the-money.”</p>
+<p>We have already seen every risk-neutral measure has the same expected
+realized return. This example shows even if the measure is unique it
+implies infinite risk aversion.</p>
+<!--
+We don't need the FTAP so see the value of the option is a quarter
+since we can use that to replicate the option payoff. Borrow another
+quarter using the bond and invest half a dollar in the stock.
+If the stock stays at 1 then we sell it and use the half dollar to pay back the bond
+and the option is out of the money. If the stock goes to 3 then we use
+the dollar and a half to pay half a dollar to cover the bond and
+have a dollar left to meet the call obligation.
+-->
+</section>
+<section id="binomial-model-1" class="level3">
+<h3>Binomial Model</h3>
+<p>The 1-2-3 model is a special case of the <em>binomial model</em>
+having instruments a bond and stock where <span class="math inline">{x =
+(1, s)}</span>, <span class="math inline">{C(\omega) = (R,
+\omega)}</span>, and <span class="math inline">{\Omega = \{L,
+H\}}</span> with <span class="math inline">{L &lt; H}</span>. The bond
+has realized return <span class="math inline">R</span> and the stock can
+go from price <span class="math inline">s</span> to either <span
+class="math inline">L</span> or <span class="math inline">H</span>. This
+is arbitrage-free if and only we can find <span
+class="math inline">{d_L,d_H \ge 0}</span> with <span
+class="math inline">{x = C(L)d_L + C(H)d_H}</span>. Considering the bond
+and stock components we have <span class="math inline">{d_L = (Hr/R -
+s)/(H - L)}</span> and <span class="math inline">{d_H = (s - Lr/R)/(H -
+L)}</span>. The model is arbitrage-free if and only if these are both
+non-negative so <span class="math inline">{L/R \le s \le
+H/R}</span>.</p>
+<p><strong>Exercise</strong>. <em>Find an arbitrage if <span
+class="math inline">s &lt; L/R</span> or <span class="math inline">s
+&gt; H/R</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">s &lt; L/R</span> then
+buy the stock and short the bond. If <span class="math inline">s &gt;
+H/R</span> then sell the stock and buy the bond.</p>
+<p>Adding an option with payoff <span
+class="math inline">\nu(\omega)</span> we have its arbitrage-free value
+is <span class="math display">
+v = \nu(L)d_L + \nu(H)d_H = \frac{(H\nu(L) - L\nu(H))R + (\nu(H) -
+\nu(L))s}{H - L}.
+</span></p>
+<p>This can be simplified for call options.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\nu(\omega) = \max\{\omega - K, 0\}</span> where
+<span class="math inline">L \le K \le H</span> then <span
+class="math inline">v = (H - K)(H/R - s)/(H - L)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show this agrees with the 1-2-3 Model
+for a call option with strike 2</em>.</p>
+<p>Even though the option price is completely determined by the bond and
+stock in the binomial model we can use this to get bounds on the option
+price. Since <span class="math inline">v = (H - K)d_H</span> we always
+have <span class="math inline">v \ge 0</span>.</p>
+<p>A somewhat more realistic model is the binomial model with sample
+space <span class="math inline">{\Omega = [L, H]}</span> where the final
+stock price can be any value in the interval. The arbitrage-free
+conditions are still the same.</p>
+<p><strong>Exercise</strong>. <em>The smallest cone containing <span
+class="math inline">C(L)</span> and <span
+class="math inline">C(H)</span> is the same as the smallest cone
+containing <span class="math inline">C(\omega)</span>, <span
+class="math inline">L\le\omega\le H</span></em>.</p>
+<p><em>Hint</em>: Show if <span class="math inline">L\le\omega\le
+H</span> then <span class="math inline">C(\omega) = (1 - t)C(L) +
+tC(H)</span> for some <span class="math inline">t\in[0,1]</span>.</p>
+<p>Since cones are convex, this shows the smallest cone containing <span
+class="math inline">C(L)</span> and <span
+class="math inline">C(H)</span> also contains <span
+class="math inline">C(\omega)</span> for <span
+class="math inline">\omega\in[L,H]</span>.</p>
+<p>An interesting exerise is to generlize this to multiple call options
+with strikes between the low and high stock values, <span
+class="math inline">{H &lt; K_1 &lt; \cdots &lt; K_n &lt; H}</span>. The
+above exercise shows we only need consider the cone generated by <span
+class="math inline">{C(L), C(K_1), \ldots, C(K_n), C(H)}</span>.</p>
+</section>
+</section>
+<section id="appendix-1" class="level2">
+<h2>Appendix</h2>
+<p>We can make the one-period model more realistic. The price of an
+instrument must be an integral multiple of its minimal trading
+increment, or <em>tick size</em>. Let <span
+class="math inline">\epsilon(i)\in\boldsymbol{R}</span> be the tick size
+of instrument <span class="math inline">i\in I</span>. Initial prices
+<span class="math inline">x\in\boldsymbol{Z}^I</span> correspond to
+actual prices <span class="math inline">x(i)\epsilon(i)</span>. Likewise
+for final prices <span
+class="math inline">{X\colon\Omega\to\boldsymbol{Z}^I}</span>.</p>
+<p>The amount must be an integral multiple of its minimum share size, or
+<em>lot size</em>. Let <span class="math inline">\delta(i)</span> be the
+lot size of instrument <span class="math inline">i\in I</span>. Shares
+<span class="math inline">\xi\in\boldsymbol{Z}^I</span> correspond to
+amounts <span class="math inline">\xi(i)\delta(i)</span>.</p>
+<p>The atoms of finance are <em>holdings</em>: an instrument, amount,
+and owner. Let <span class="math inline">{\eta = (a,i,o)}</span> denote
+owner <span class="math inline">o</span> holds amount <span
+class="math inline">a</span> of instrument <span
+class="math inline">i</span>. A <em>position</em> is a collection of
+holdings. A <em>transaction</em> at time <span
+class="math inline">t</span> is a triple <span
+class="math inline">{(t,\eta,\eta&#39;)}</span> where <span
+class="math inline">\eta</span> and <span
+class="math inline">\eta&#39;</span> are holdings. If the buyer <span
+class="math inline">o</span> holds <span class="math inline">\eta</span>
+and the seller <span class="math inline">o&#39;</span> holds <span
+class="math inline">\eta&#39;</span> at time <span
+class="math inline">t</span> then after the transaction settles the
+buyer holds <span class="math inline">(a&#39;,i&#39;,o)</span> and the
+seller holds <span class="math inline">(a,i,o&#39;)</span>. The
+<em>price</em> of the transaction is <span class="math inline">X =
+a/a&#39;</span>.</p>
+<p>Sellers quote prices for potential transactions. Buyers decide
+whether or not to execute the transaction. For example, if a seller
+quotes Ford stock for <span class="math inline">12</span> USD per share
+then the buyer can exchange <span class="math inline">\$24</span> for 2
+shares of Ford stock. This corresponds to the transaction where <span
+class="math inline">{\eta = (24, \$, o)}</span> and <span
+class="math inline">{\eta&#39; = (2, F, o&#39;)}</span>. The price is
+<span class="math inline">{X = a/a&#39; = 24/2}</span> and we can use
+<span class="math inline">12</span> USD/F to indicate a price of <span
+class="math inline">\$12</span> per share of Ford stock. Replacing the
+virgule ‘/’ by ‘<span class="math inline">= 1</span>’ gives the mnemonic
+<span class="math inline">12</span> USD <span class="math inline">=
+1</span> F. After the transaction settles the buyer holds <span
+class="math inline">{\eta = (2, F, o)}</span> and the seller holds <span
+class="math inline">{\eta&#39; = (24, \$, o&#39;)}</span> in their
+respective positions.</p>
+<p>After a transaction the price is a well-defined number: the amount
+the buyer exchanged with the seller divided by the amount the seller
+exchanged with the buyer. This number is recorded in the books and
+records of each counterparty.</p>
+<p>Prior to a transaction the price quoted by the seller is not a
+well-defined number. The difference between a quoted price and the
+actual price is called <em>slippage</em>. Sellers quote a bid price and
+an ask price. When a buyer buys one share they pay the seller’s ask
+price and when the buyer sells one share they only get the sellers bid
+price. The difference between the ask and the bid is the <em>bid-ask
+spread</em> and is usually positive. This is how sellers get paid for
+providing <em>liquidity</em> to buyers in the market.</p>
+<p>The quotes are only valid for transaction of a small number of
+shares. As the number of shares becomes larger sellers increase the
+bid-ask spread. On an exchange the quote only holds out to level 1 depth
+before switching to level 2. Sellers might not know why so many shares
+are being purchased, but know demand will move the price up and they
+will increase their ask. At some point the number of shares to purchase
+will bump into the total number of shares issued and price becomes
+meaningless. When a buyer sells shares they face even more restrictions
+and are also charged a <em>borrow cost</em> over the period of time they
+are short. Prices can also depend on the particular buyer and seller of
+the transaction due to credit issues or regulations, among other
+things.</p>
+<p>A more realistic model for prices in a one-period model is to replace
+<span class="math inline">x\colon I\to\boldsymbol{R}</span> by <span
+class="math inline">x\colon I\times A\to\boldsymbol{R}</span> where
+<span class="math inline">A</span> is the set of possible amounts. The
+cost of setting up the position <span
+class="math inline">\xi\in\boldsymbol{R}^I</span> is <span
+class="math inline">{\sum_{i\in I} \xi(i) x(i, \xi(i))}</span>. For a
+fixed transaction cost <span
+class="math inline">\tau\in\boldsymbol{R}</span> per share we have <span
+class="math inline">{x(i, a) = x_0(i) + \tau a}</span> where <span
+class="math inline">x_0</span> is the mid price. If a limit order book
+is available then a very good approximation to the execution price is
+the function of cumulative limit order amounts versus order levels.</p>
+</section>
+<section id="references-1" class="level2">
+<h2>References</h2>
+<!--
+### Grassmann Algebra
+
+We can also solve this using Grassmann Algebra. If $E$ is Euclidean
+space define $\GG(E)$ to be the (associative) algebra of points in $E$ with the
+condition $PQ = 0$ if and only if $P = Q$ so $PP = 0$. Note $PQ = -QP$
+since $(P + Q)(P + Q) = 0$. If $PQ = aRS$ for some scalar $a$ we
+say $PQ$ is _congruent_ to $RS$ and write $a = \frac{PQ}{RS}$. If $R = aP + bQ$ then $RPQ = 0$.
+Furthermore $PR = bPQ$ and $RQ = aPQ$ so
+$R = \frac{RQ}{PQ} P + \frac{PR}{PQ} Q$.
+
+This generalizes to any number of dimensions. If $P_0\cdots P_k = aQ_0\cdots Q_k$
+then $a = \frac{P_0\cdots P_k}{Q_0\cdots Q_k}$ and if $PP_0\cdots P_k = 0$ then
+$$
+    P = \sum_{j=0}^k \frac{P_0\cdots P\cdots P_k}{P_0\cdots P_k} P_j
+$$
+if $P_0\cdots P_k\not=0$ where $P$ in the numerator takes the $j$-th spot.
+Note if $\sum_{j=0}^k a_j P_j = 0$ then $a_j = 0$ for $0\le j\le k$
+and we say the $P_j$ are _linearly independent_.
+Note the sum of the coefficients is 1 and $P$ is in the convex hull
+of $P_0,\ldots,P_n$ if and only if all coefficients are non-negative.
+
+The _weight_ of $aP + bQ$ is $a + b$. Every point having weight 1 on the line determined
+by the points $P$ and $Q$ has the form ${R(t) = (1 - t)P + tQ = P + t(Q - P)}$.
+Note $Q - P\not= R(t)$ for any $t$. As $t$ goes to infinity $(1 - t)/t$ goes to $-1$
+and we interpret $R(\infty) = Q - P$ as the point at infinity determined by $P$ and $Q$
+and call it the _vector_ from $P$ to $Q$. As $t$ goes to negative infinity
+we get $R(-\infty) = P - Q = -R(\infty)$.
+
+In the last problem above using only the stock and option,
+let $O = (0,0)$ be the origin, $P_1 = (0,1)$, and $P_2 = (1,0)$.
+We call $E_1 = P_1 - O$ the _stock dimension and $E_2 = P_2 - O$ the _option dimension.
+Note
+${X(90) = (90, 0) = O + 90E_1 + E_2}$,
+${X(100) = (100, 0) = O + 100E_1 + E_2}$, and
+${X(110) = (110, 1) = O + 110E_1 + E_2}$.
+Since $OX(90)X(100) = 0$ we know $X(100)$ is a linear combination of $O$ and $X(90)$
+
+The smallest cone containing the range of $X$ is the set of all linear
+combinations of $X(\omega) - O$, $\omega\in\{90,100,110\}$, with non-negative
+coefficients. Since $X(90) - O = .9(X(100) - O)$ we need only
+consider $\omega\in\{90,110\}$ so the cone is
+$$
+\{O + t_{90} 90 E_1 + t_{100} 100 E_1 + t_{110}(110E_1 + 10E_2)\mid t_{90},t_{100},t_{110}\ge 0\}
+$$
+This is clearly the same a $\{O + tE_1 + u(11E_1 + E_2)\mid t,u\ge0\}$.
+Note $x = O + 100E_1 + vE_2$ if the initial option price is $v$
+and $v = \frac{OE_1x}{OE_1E_2}$.
+
+By Grassmann Algebra, $t = \frac{Ox(11E_1+E_1)}{OE_1(11E_1 + E_2)}$
+and $u = \frac{OE_1x}{OE_1(11E_1 + E_2)}$.
+Since $Ox(11E_1+E_1)
+= O(O + 100E_1 + vE_2)(11E_1+E_2)
+= 100 OE_1E_2 + 11v OE_2E_1 = (100 - 11v) OE_1E_2$ we have $t = 100 - 11v$.
+Since $O E_1 x = O E_1 (O + 100E_1 + vE_2) = v O E_1 E_2$
+we have $u = v$ so $x$ is in the cone if and only
+if $100 - 11v \ge0$ and $v\ge0$ hence $0\le v\le 100/11$.
+
+A more interesting example is the case of options at multiple strikes.
+By put-call parity we can assume they are all calls. The sample space is
+$\Omega = [L, H]$ containing all strikes and $\omega\in\Omega$ is the final stock price.
+The initial prices are $x = (1, s, v_1,\ldots,v_n)$
+and the final prices are $X(\omega) = (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)$
+The range of $X$ is $\{X(\omega)\mid L\le \omega\le H\}$.
+The smallest cone containing the range of $X$ is
+$$
+    \{tX(L) + uX(H) \sum_{j=1}^n t_n X(K_j)\mid t,u,t_j\ge0\}
+$$
+where $L < K_1 < \cdots < K_n < H$. If $E_0 = P_0 - O$ is the bond dimension
+
+## Reality
+
+If you are willing to assume prices are bounded, as they are in the real world, then
+the one-period model should require $X\colon\Omega\to\RR^I$ is bounded.
+This is not the case in the Black-Scholes/Merton continuous time model of lognormal stock prices.
+Scholes and Merton won a Nobel prize "for a new method to determine the value of derivatives."
+Their assumptions eliminated the need to measure the real-world return on a stock. 
+There is still a Nobel prize to be won by someone who can come up with a generally accepted
+way to determine the volatility of a stock.
+And perhaps multiple future prizes for those who develop theories
+not founded on the mathematical fictions of continuous time trading and unbounded prices.
+
+
+## Hedging
+
+Let $\nu\colon\RR^I\to\RR$ be the _payoff_ of a derivative instrument.
+If there exists $\gamma\in\RR^I$ with $\nu(X) = \gamma\cdot X$ then
+$E[\nu(X)/R] = \gamma\cdot x$
+so the cost of setting up the perfect hedge is $E[\nu(X)/R]$.
+
+We can always compute $\gamma = (d/dx)E[\nu(X)/R]$ and the above shows
+$E[\nu(X)/R] = \gamma\cdot X$.
+The variance $\Var(\nu(X) - \gamma\cdot X)$ is a measure of how
+good the hedge is.
+
+
+
+
+## Probability
+
+We now assume there is a probability measure $P$ on $\Omega$ representing
+the real-world event probabilities.
+
+Let $U\colon B(\Omega)\to\RR$ be a _utility function_.
+A common choice is $U(Y) = E[Y] - \alpha \Var(Y)$ for some positive risk parameter $\alpha\in\RR$.
+Note if $Y\in B(\Omega)$ then moments of all orders exist.
+
+To find a portfolio that maximizes the utility of the realized return we use Lagrange multipliers
+to solve
+$$
+    \max_\xi U(\xi\cdot X) - \lambda(\xi\cdot x - 1).
+$$
+
+We need to compute the [Fréchet Derivatives](fd.html) of $D(UM_X)$ where $M_X\xi = \xi\cdot X$ is
+the market map as above. The chain rule gives $D(UM_X)\xi = DU(M_x\xi)DM_X\xi = DU(M_x\xi)M_X\xi$
+since $DM_X = M_X$.
+Note $DU(M_x\xi)$ is in $B(\Omega)^*$ and $M_X\xi\in B(\Omega)$.
+
+The first order condition is $0 = DU(\xi\cdot X)M_X\xi - \lambda x^*$ for all $\xi\in\RR^I$.
+
+$\Var(\xi^T X - \nu(X)) = \xi^T\Var(X)\xi - 2\Cov(X^T, \nu(X))\xi + \Var(\nu(X))$.
+
+$\|A\xi - b\|^2 = \xi^T A^TA \xi - 2b^TA\xi + \|b\|^2$
+
+$\Var(X) = \Cov(X,X) = A^T A$. $\Cov(X^T, \nu(X)) = E[X^T,\nu(X)] = E[X]^TE[\nu(X)]$.
+
+## Liquidity and Risk
+
+It is possible to define a model that takes into account bid/ask spreads involving
+the amount traded and the counterparties involved.
+A _holding_ is a triple $(a,i,e)$ specifying an integer amount, instrument, and legal entity.
+It indicates $e$ is the legal owner of amount $a$ of instrument $i$.
+The amount is an integral number of (minimum fractional) shares of the instrument.
+-->
+<!--
+
+## Maximum Entropy
+
+The _entropy_ of a measure on a finite set $Ω = \{ω_j\}$ with $P(\{ω_j\}) = p_j$, $p_j \ge0$,
+is $H = -\sum_j p_j \log p_j$.
+
+$Φ = -\sum_j p_j \log p_j - λ(\sum_j p_j - 1) - μ'(E[X] - Rx)$
+
+$\partial Φ/\partial p_j = -1 - \log p_j - λp_j - μ_j X(ω_j)$
+
+$\partial Φ/\partial λ = \sum_j p_j - 1$
+
+$\partial Φ/\partial μ = E[X] - Rx$
+
+$p_j = \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+
+$1 = \sum_j p_j = \sum_j \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+
+$Rx = E[X] = \sum_j X(ω_j) \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+
+-->
+<!--
+
+The Capital Asset Pricing Model assumes that a probability measure is
+specified on the sample space of possible outcomes.
+[@Mar1952] and [@Roy1952] developed Modern
+Portfolio Theory by introducing the concept of an efficient portfolio:
+one for which no alternative portfolio offers a higher expected return
+at the same level of risk, or a lower level of risk for the same expected
+return. In their framework, risk is quantified using the variance of realized
+returns.
+
+A common parameterization is to assume returns are jointly normal.
+This reduces parameter estimation to the mean and covariance matrix.
+If we assume a multi period model where the returns are stationary and independent
+(i.e., a random walk)
+then standard linear regression can be used to estimate the parameters
+based on historical prices. There are still some practical questions
+to answer: How far back do you go? Do you use exponential weights?
+What exponent should you use?
+
+[@Ros1976] invented Arbitrage Pricing Theory as a systematic approach to estimate
+a CAPM probability distribution that depends on information other than historical prices.
+
+After reseachers noted empirical contradictions of the CAPM [@FamFre1992] introduced
+specific factors. In addition to excess return over the risk-free rate they used the excess returns
+of small‑cap stocks over large‑cap stocks (SMB) and the excess returns of value stocks
+over growth stock (HML). They also assume stationary and independent returns
+and use linear regression to estimate their model parameters.
+
+If the sample space consists of two point we get the binomial model.
+It is not at all realistic, but it can illustrate the concept of arbitrage.
+Models that are not arbitrage free are useless so we need a way of
+detecting the. The Fundamental Theorem of asset pricing for the one-period
+model states there is no arbitrage if and only if the initial prices belong
+so the smallest closed cone containing all possible final prices.
+
+-->
+<!--
+## Grassmann Algebra
+
+We now show how to use the geometric algebra [@Gra1844] invented to solve problems
+involving arbitrage free models.
+
+Let $E$ be the set of points in space. The Grassmann algebra $\GG(E)$
+is the (noncommutative) algebra over the real numbers generated by points in $E$ with the condition
+$PQ = 0$ if and only if $P = Q$ for $P,Q\in E$. In particular $PP = 0$. Multiplication is
+associative so $(PQ)R = P(QR)$ and we can write $PQR$ unambiguously.
+
+__Exercise__. _Show $PQ = -QP$_.
+
+_Hint_: $0 = (P + Q)(P + Q) = PP + PQ + QP + QQ$.
+
+__Exercise__. _Show $P(Q + R)(P + Q + R) = 0$_.
+
+<details><summary>Solution</summary>
+We have
+$$
+\begin{aligned}
+P(Q + R)(P + Q + R) &= (PQ + PR)(P + Q + R) \\
+    &= PQP + PQQ + PQR + PRP + PRQ + PRR \\
+    &= PQR + PRQ \\
+    &= PQR - PQR \\
+    &= 0 \\
+\end{aligned}
+$$
+</details>
+
+An _extensor_ is any nonzero product of points. If $P_0\cdots P_k
+= tQ_0\cdots Q_k$ for some scalar $t$ we say the extensors
+are _congruent_ and write $t = \frac{P_0\cdots P_k}{Q_0\cdots Q_k}$.
+
+If $R = \sum_{j=0}^k t_j P_j$ $P_0\cdots P_k$ for scalars $t_j$ with $\sum_j t_j = 1$
+then
+$$
+    R = \sum_{j=0}^k \frac{P_0\cdots R \cdots P_k}{P_0\cdots P_k} P_j
+$$
+where $R$ takes the place of $P_j$ in the numerator of each congruence ratio.
+
+__Exercise__. _Show $\sum_{j=0}^k \frac{P_0\cdots R \cdots P_k}{P_0\cdots P_k} = 1$_.
+
+_Hint_: $\sum_{j=0}^k t_j = 1$.
+
+
+Descartes assumed an origin for his coordinate system. Given an origin $O\in E$
+and points $P_1,\ldots,P_n\in E$ is is possible to write any point in their span
+as $P = (1 - \sum_j t_j)O + \sum_j t_j P_j$, as we will see shortly.
+The Cartesian coordinates of the $P_j$ relative to origin $O$ are
+the tuple $(t_1,\ldots,t_n)$. Note the coefficient of $O$ is determined by the tuple.
+
+If $PQ = tRS$ for some scalar $t$ (with $P\not=Q$ and $R\not=S$)
+then $PQ$ and $RS$ are _congruent_ and we write $t = \frac{PQ}{RS}$.
+If $R(t) = (1 - t)P + tQ = P + t(Q - P)$ we can think of $R(t)$ as the point $P$
+plus a scalar multiple of the _vector_ $Q - P$.
+
+__Exercise__. _Show $R(t) = Q + (1 - t)(P - Q)$_.
+
+Since $R(t)Q = (1 - t)PQ$ and $PR(t) = tPQ$.
+we have $R(t) = \frac{RQ}{PQ}P + \frac{PR}{PQ}Q$.
+
+__Exercise__. _Show $PQR = 0$_.
+
+__Exercise__. _Show $R(t) \not= Q - P$ for any $t$_.
+
+Note $PQ(Q - P) = 0$.
+
+__Exercise__. _Show $\frac{(Q - P)Q}{PQ} = -1$ and $\frac{P(Q - P)}{PQ} = 1$_.
+The _convex hull_ of points $P_0,\ldots,P_k$ in $E$ is
+$$
+    \co(P_0,\ldots,P_k) = \{\sum_{j=0}^k t_j P_j\mid t_j \ge 0, \sum_j t_j = 1\}. 
+$$
+Clearly $P_j$ is in the convex hull for all $j$.
+
+__Exercise__. _Show if $Q$ and $R$ are in the hull then
+every convex combination of $Q$ and $R$ is also in the hull_.
+
+This gives a simple way to detect if a point is in the convex hull of a set of points
+whose product is not 0. Given a candidate point $P\in E$ calculate
+$P_0\cdots P\cdots P_k$ where $P$ replaces $P_j$, $0\le j\le k$ in the product.
+The point $P\in E$ is in the convex hull if and only if
+all the congruent ratios are non-negative.
+
+Since there is no origin in Euclidean space we have to define a cone relative to some point $O\in E$.
+We say $C\subseteq\GG(E)$ is a cone with _origin_ $O$ if $C$ is convex and for every $P\in C$
+we have the ray from $O$ through $P$, $O + t(P - O)$ for $t\ge0$, is in $C$.
+
+__Exercise__. _Show the smallest cone with origin $O$ containing $P_1, \ldots, P_k$ is_
+$$
+\begin{aligned}
+    \cone_O(P_1,\ldots,P_k) &= \{O + \sum_{j=1}^k t_j (P_j - O)\mid t_j\ge0\} \\
+        &= \{(1 - \sum_{j=1}^n t_j) O + \sum_{j=0}^k t_j P_j\mid t_j\ge0\}. \\
+\end{aligned}
+$$
+Note the similarity to the convex hull, however the coefficient of $O$ might be negative.
+
+???Let's revisit the binomial model using Grassmann Algebra.
+In the binomial model we have $x = (1, s)$ and $X(\omega) = \omega$ for $\omega\in\{L,H\}$. Let
+$P_b$ be the point in the bond dimension and $P_s$ be the point in the stock dimension
+so $x = (1 - 1 - s)O + P_b + s\,P_s$,
+$X(L) = (1 - R - L )O + R\,P_b + L\,P_s$, and
+$X(H) = (1 - R - H )O + R\,P_b + H\,P_s$.
+Since
+$$
+    x = \frac{xX(L)X(H)}{OX(L)X(H)} O + \frac{OxX(H)}{OX(L)X(H)} X(L) + \frac{OX(L)x}{OX(L)X(H)} X(H)
+$$
+we can find the no arbitrage conditions by a simple, if somewhat tedious, calculation.
+$$
+\begin{aligned}
+OX(L)X(H) &= (R\,OP_b + L\,OP_s)X(H) \\
+    &= (R\,OP_b + L\,OP_s)( (1 - R - H )O + R\,P_b + H\,P_s) \\
+    &= RH\,OP_bP_s + LR\,OP_sP_b \\
+    &= R(H-L)\,OP_bP_s \\
+\end{aligned}
+$$
+The coefficient of $O$ is determined by the other two coefficient so we write $\_O$ to streamline calculations.
+For the bond coefficient we compute
+$$
+\begin{aligned}
+OxX(H) &= (OP_b + s\,OP_s)X(H) \\
+    &= (OP_b + s\,OP_s)(\_O + R\,P_b + H\,P_s) \\
+    &= H\,OP_bP_s + sR\,OP_sP_b \\
+    & = (H - sR)\,OP_bP_s \\
+\end{aligned}
+$$
+For the stock coefficient we compute
+$$
+\begin{aligned}
+OX(L)x &= (R\,OP_b + L\,OP_s)x \\
+    &= (R\,OP_b + L\,OP_s)(\_O + P_b + s\,P_s) \\
+    &= Rs\,OP_bP_s + L\,OP_sP_b \\
+    &= (Rs - L)OP_bP_s \\
+\end{aligned}
+$$
+Since $R$ and $H - L$ are positive
+the no arbitrage condition are ${H - sR\ge0}$ and ${Rs - L\ge0}$
+so $L/R \le s \le H/R$.
+
+__Exercise__. _What is the cone with origin $O$ generated by $\{X(\omega)\mid L\le\omega\le H\}$_.
+
+_Hint_: It is the same as the cone with origin $O$ generated by $X(L)$ and $X(H)$.
+
+We have already established this without using Grassmann algebra
+but generalizations to higher dimensional cases can be reduced to a calculation.
+
+We can add a call option with price $v$ and strike $K\in(L,H)$.
+The one period model is now ${x = (1, s, v)}$ and ${X(\omega) = (R, \omega, \max\{\omega - K, 0\})}$
+for ${\omega\in[L,H]}$.
+It is not obvious the no arbitrage conditions are ${s\le K}$ and ${0\le v\le\frac{(Rs - L)(H - K)}{R(H - L)}}$
+but this can be reduced to a straightforward calculation.
+
+__Exercise__. _Show the cone with origin $O$ generated by the range of $X$ is
+the same as that generated by $X(L)$, $X(K)$, and $X(H)$_.
+
+_Hint_: Every $X(\omega)$ is a convex combination of either $X(L)$ and $X(K)$
+if $L\le\omega\le K$ or $X(K)$ and $X(H)$ if $K\le\omega\le H$.
+
+If $P_o$ is a point in the option dimension then
+${x = \_O + P_b + s\,P_s + v\,P_o}$ and
+${X(\omega) = \_O + R\,P_b + \omega\,P_s + (\omega - K)^+\,P_o}$.
+
+The arbitrage free conditions are reduced to calculating congruence ratios as above.
+$$
+\begin{aligned}
+OX(L)X(K)X(H) &= (R\,OP_b + L\,OP_s)X(K)X(H) \\
+    &= (R\,OP_b + L\,OP_s)(\_O + R\,P_b + K\,P_s)X(H) \\
+    &= (RK\,OP_b P_s + LR\,OP_s P_b)(\_O + R\,P_b + H\,P_s + (H - K)\,P_o) \\
+    &= RK(H - K)\,OP_b P_s P_o + LR(H - K)\,OP_s P_b P_o \\
+    &= R(H - K)(K - L)\,OP_b P_s P_o \\
+\end{aligned}
+$$
+The coefficient of $X(L)$ is
+$$
+\begin{aligned}
+OxX(K)X(H) &= (OP_b + s\,OP_s + v\,OP_o)X(K)X(H) \\
+    &= (OP_b + s\,OP_s + v\,OP_o)(\_O + R\,P_b + K\,P_s)X(H) \\
+    &= (RK\,OP_b P_s + sR\,OP_s P_b)(\_O + R\,P_b + H\,P_s + (H - K)\,P_o) \\
+    &= RK(H - K)\,OP_b P_s P_o + sR(H - K)\,OP_s P_b P_o \\
+    &= R(H - K)(K - s)\,OP_b P_s P_o \\
+\end{aligned}
+$$
+The coefficient of $X(K)$ is
+$$
+\begin{aligned}
+OX(L)xX(H) &= (R\,OP_b + L\,OP_s)xX(H) \\
+    &= (R\,OP_b + L\,OP_s)(P_b + s\,P_s + v\,P_o)X(H) \\
+    &= (Rs\,OP_b P_s + Rv\,OP_b P_o + L\,OP_s P_b + Lv\,OP_s P_o)X(H) \\
+    &= (Rs - L)OP_b P_s + Rv\,OP_b P_o + Lv\,OP_s P_o)( R\,P_b + H\,P_s + (H - K)\,P_o) \\
+    &= ((Rs - L)(H - K) - RvH + LvR) OP_b P_s P_o \\
+    &= ((Rs - L)(H - K) - Rv(H - L)) OP_b P_s P_o \\
+\end{aligned}
+$$
+The coefficient of $X(H)$ is
+$$
+\begin{aligned}
+OX(L)X(K)x &= (R\,OP_b + L\,OP_s)X(K)x \\
+    &= (R\,OP_b + L\,OP_s)(R\,P_b + K\,P_s)x \\
+    &= (RK\,OP_b P_s + LR\,OP_sP_b)x \\
+    &= R(K - L)OP_b P_s(P_b + s\,P_s + v\,P_o) \\
+    &= (R(K - L)v\,OP_b P_s P_o \\
+\end{aligned}
+$$
+The no arbitrage conditions are ${s\le K}$ and ${0\le v\le\frac{(Rs - L)(H - K)}{R(H - L)}}$.
+Of course the condition ${L\le Rs \le H}$ holds from the model not containing the option.
+
+__Exercise__. _Consider a model with a bond having zero interest, and a stock that starts
+at 100 and can go to either 90, 100, or 110. What are the arbitrage-free values
+of an at-the-money call_?
+
+_Hint_. The model is $x = (1, 100, v)$, $X(\omega) = (1, \omega, \max\{\omega - 100, 0\})$
+where $\omega\in\{90,100,110\}$. Show $0\le v\le 5$.
+
+__Exercise__. _Remove the bond from the above model and answer the same question_.
+
+_Hint_: The answer is $0\le v\le 100/11 = 9.090\ldots$.
+
+$x = (1, s, v_1,\ldots,v_n)$, $X(\omega) = (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)$.
+
+$X(L) = \_O + R\,P_r + L\,P_s$
+
+$X(K_1) = \_O + R\,P_r + K_1\,P_s$
+
+$X(K_2) = \_O + R\,P_r + K_2\,P_s + (K_2 - K_1)\,P_1$
+
+$X(K_n) = \_O + R\,P_r + K_n\,P_s + (K_n - K_1)\,P_1 + \cdots + (K_n - K_{n-1})\,P_{n-1}$
+
+$X(H) = \_O + R\,P_r + H\,P_s + (H - K_1)\,P_1 + \cdots, (H - K_{n-1})\,P_{n-1} + (H - K_n)\,P_n$
+
+$OX(L) =  R\,OP_r + L\,OP_s$
+
+$OX(L)X(K_1) = R(K_1 - L)\,OP_rP_s
+
+Grassmann algebra can also be used to detect and find an arbitrage when it exists.
+If any of the coefficients are negative then arbitrage exists. If only one
+coefficient is negative the arbitrage is perpendicular the the hyperplane determined
+by the points having positive coefficients.
+
+We can also extend this to an arbitrary number of call options with strikes between the
+low and high values for the underlying instrument. The author implemented this
+for the option trading book at Banc of America Securities. We found the only arbitrage
+opportunities were negative price butterfly spreads at adjacent traded strikes, but the bid/ask
+spread turned the price positive.
+-->
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>94dcaca (sync)</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-DunSch1958" class="csl-entry" role="listitem">
 Dunford, Nelson, and Jacob T Schwartz. 1958. <em>Linear Operators
 i</em>. Interscience Publishers.
@@ -1046,11 +2044,14 @@ href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277
 </div>
 </div>
 </section>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Recall the <em>set exponential</em> <span
+<li id="fn1"><p>Nick Leeson used this to put 233 year old, at the time,
+Barings Bank out of business.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Recall the <em>set exponential</em> <span
 class="math inline">{B^A = \{f\colon A\to B\}}</span> is the set of all
 functions from the set <span class="math inline">A</span> to the set
 <span class="math inline">B</span>. If <span
@@ -1063,9 +2064,27 @@ class="math inline">\boldsymbol{R}^I</span> with the vector space of
 class="math inline">{\boldsymbol{R}^n = \prod_{i=1}^n\boldsymbol{R}=
 \{(x_1,\ldots,x_n)\mid x_i\in\boldsymbol{R}\}}</span> by <span
 class="math inline">x(i) = x_i</span>, <span class="math inline">1\le
-i\le n</span>.<a href="#fnref1" class="footnote-back"
+i\le n</span>.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Nick Leeson used this to put 233 year old, at the time,
+Barings Bank out of business.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Recall the <em>set exponential</em> <span
+class="math inline">{B^A = \{f\colon A\to B\}}</span> is the set of all
+functions from the set <span class="math inline">A</span> to the set
+<span class="math inline">B</span>. If <span
+class="math inline">{x\in\boldsymbol{R}^I}</span> then <span
+class="math inline">x(i)\in\boldsymbol{R}</span> is the price of
+instrument <span class="math inline">i\in I</span>. If <span
+class="math inline">I = \{1,\ldots,n\}</span> we can identify <span
+class="math inline">\boldsymbol{R}^I</span> with the vector space of
+<span class="math inline">n</span>-tuples <span
+class="math inline">{\boldsymbol{R}^n = \prod_{i=1}^n\boldsymbol{R}=
+\{(x_1,\ldots,x_n)\mid x_i\in\boldsymbol{R}\}}</span> by <span
+class="math inline">x(i) = x_i</span>, <span class="math inline">1\le
+i\le n</span>.<a href="#fnref4" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
 </body>
 </html>
