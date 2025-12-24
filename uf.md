@@ -4,65 +4,74 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: Unified Finance &ndash; positions, portfolios, exchanges, and trading
+abstract: Unified Finance &ndash; holdings, portfolios, exchanges, and transactions
 ...
 
 The financial world is a big, messy affair but its core involves trading
-instruments and bean counting: who traded how much of what when and accounting
+market instruments and bean counting: who traded how much of what when and accounting
 for that over time.
 
-The atoms of finance are _positions_: an _amount_, _instrument_, and _legal entity_.
-Positions interact via _exchanges_: swap the amount and instrument between two entities at a given _time_. 
-Instruments have _prices_ and _cash flows_ that determine
-the _values_ and _amounts_ involved with trading.
-Given a _portfolio_ of positions and a sequence of trades, the associated
-values and amounts determine the _profit and loss_ (among other
-quantities) relevant to managing portfolios.
+The atoms of finance are _holdings_: an _amount_, _instrument_,
+_legal entity_, and _use_.  Positions interact via _exchanges_: swap
+the amount and instrument between two entities at a given _time_.
+Given a _portfolio_ of holdings and a sequence of exchanges, the
+associated values and amounts determine the _profit and loss_ (among
+other quantities) relevant to managing portfolios. A _transaction_ is
+an associated collection of exchanges. Exchanges between legal entities
+often involve broker fees, collateral posting, or taxes.
 
 To properly assess risk it is necessary to include how a portfolio will
 be hedged over time.  Various hedging strategies can and should be
 used for insight on the uncertainties involved.
+Simplistic measures like VaR are no longer sufficient.
 
-Both prices and cash flows must be specified
-to determine the values and amounts associated
-with a trading strategy. 
-The [unified model](um.html) does not solve any particular problem in finance but it does specify a mathematical
-notation to rigorously discuss all aspects of trading and hedging using
-realistic assumptions.
+Market instruments have prices and cash flows.
+Trading strategies create synthetic market instruments.
+Their mark-to-market value correspond to price and 
+and the amounts involved in trading correspond to cash flow.
 
-## Position
+The [Simple Unified Model](sum.html) does not solve any particular problem
+in finance but it does specify a mathematical notation to rigorously
+discuss all aspects of trading and hedging using realistic assumptions.
 
-A position is an _amount_, _instrument_, and _legal entity_.  Examples of
-instruments are: stocks, bonds, futures, currencies, and commodities.
-They are traded in some amount: shares, notional, contracts, units,
-and physical quantity respectively.  A legal entity is an individual
-or a corporation. Corporations can subdivide positions by groups or individual
-traders. The position $(a,i,e)$ indicates entity $e$
-owns amount $a$ of instrument $i$.
+## Holding, Portfolio
 
-A _portfolio_ is a (multi) set of positions $\{(a_j,i_j,e_j)\}_{j\in J}$
-Assuming each instrument is _fungible_ we can aggregate amounts.
-The _net amount_ in instrument $i$ held by entity $e$ is
+A holding is an amount, instrument, owner, and use. 
+The _amount_ is an integral multiple of the minimum trading size of the instrument.
+Examples of
+_instruments_ are: stocks, bonds, futures, currencies, and commodities.
+An _owner_ is a legal entity such as an individual
+or a corporation. Corporations can subdivide holdings by groups or individual
+traders.
+Each holding has a _use_ such as shares or dividends for stock
+and interest or pricipal for bonds.
+The holding $(a,i,o,u)$ indicates owner $o$
+holds amount $a$ of instrument $i$ for use $u$.
+
+A _portfolio_ is a (multi) set of holdings $\{(a_j,i_j,o_j, u_j)\}_{j\in J}$
+Assuming each instrument is fungible we can aggregate amounts.
+The _net amount_ in instrument $i$ held by owner $o$ is
 $$
-	N(i,e) = \sum_j \{a_j : i_j = i, e_j = e\}.
+	N(i,o) = \sum_j \{a_j \mid i_j = i, o_j = o\}.
 $$
 
-## Exchange
+## Exchange, Transaction
 
-An _exchange_ involves a pair of positions and a _trade time_.
-The exchange $(t; a, i, e; a', i', e')$ indicates _buyer_ $e$ exchanged
+An _exchange_ involves a pair of holdings and a _trade time_.
+The exchange $(t; a, i, o; a', i', o')$ indicates _buyer_ $0$ exchanged
 amount $a$ of instrument $i$ for amount $a'$ of instrument $i'$ with
-seller $e'$ at time $t$.  The _price_ of the trade is the quotient of
+seller $o'$ at time $t$.
+The _price_ of the exchange is the quotient of
 the buyer and seller amounts, $X = a/a'$, so the trade is
-$(t; a'X, i, e; a', i', e')$. Prices are determined by the seller.
-The buyer decides when to exchange positions based on the
+$(t; a'X, i, o; a', i', o')$. Prices are determined by the seller.
+The buyer decides when to exchange holdings based on the
 seller's price, among other considerations.
 
-The exchange $(t;a,i,e;a',i',e')$ changes the
-portfolios of the buyer and seller at time $t$. The position $(a,i,e)$
-of the buyer becomes $(a',i',e)$ and the position $(a',i',e')$ of the
-seller becomes $(a,i,e')$.  We assume instruments are _divisible_ so a
-position $(a_1,i,e)$ can be split into $(a_1-a_0,i,e)$ and $(a_0,i,e)$
+The exchange $(t;a,i,o;a',i',o')$ changes the
+portfolios of the buyer and seller at time $t$. The holding $(a,i,o)$
+of the buyer becomes $(a',i',e)$ and the holding $(a',i',o')$ of the
+seller becomes $(a,i,o')$.  We assume instruments are _divisible_ so a
+holding $(a_1,i,o)$ can be split into $(a_1-a_0,i,o)$ and $(a_0,i,o)$
 for any amount $a_0$ at no cost. If $0 < a_0 < a_1$ this assumption is
 close to being true.
 
@@ -78,14 +87,16 @@ then USD/JPY is 100 where '1 = ' turns into '$/$'.
 
 Similarly, commodities are also not special. This model can be used for **all** instruments.
 
-Instruments entail _cash flows_; stocks pay dividends, bonds pays
+## Price, Cash Flow
+
+In addition to _price_, instruments entail _cash flows_; stocks pay dividends, bonds pays
 coupons, and futures have margin adjustments. Currencies and commodities do
 not have cash flows, but they may involve third-party payments to exchange
 or store them.
-Cash flows cause changes to positions.
+Cash flows cause changes to holdings.
 If instrument $i$ pays cash flow $C_t(i,i')$ per share of $i$ in instrument
 $i'$ at time $t$ then holding $(a,i,e)$ at time $t$ will cause $(a C_t(i,i'), i', e)$
-to be included in the position of $e$ soon after time $t$.  Usually $i'$ is the native
+to be included in the holding of $e$ soon after time $t$.  Usually $i'$ is the native
 currency associated with instrument $i$.  Specifying $i'$
 allows for _payment-in-kind_ cash flows.
 
@@ -106,31 +117,31 @@ the scope of this model.
 Portfolios and trades lead to some bean counting over time.
 
 Given a portfolio at time $t$, all trades and cash flows between $t$
-and $u$ determine the position at time $u$ as described above.
+and $u$ determine the holding at time $u$ as described above.
 The change in net amounts is called _profit and loss_ (P&amp;L).
 If $N_t$ is the net amount defined above
-then $N_u(i,e) - N_t(i,e)$ is the P&amp;L of entity $e$ in instrument $i$
+then $N_u(i,o) - N_t(i,o)$ is the P&amp;L of owner $o$ in instrument $i$
 over the period from $t$ to $u$.
 
 Holdings can be converted into a native currency $i_0$ for reporting
 purposes.  This does not involve actual trades, only a best guess
 of the price at time $t$, $X_t(i_0,i)$, of each instrument $i$ in terms of $i_0$.
-All positions $(a,i,e)$ are converted to $(aX(i_0,i), i_0, e)$ then netted
+All holdings $(a,i,o)$ are converted to $(aX(i_0,i), i_0, o)$ then netted
 to report the P&amp;L in terms of $i_0$.
 
-It is quite common for entities to have different best guesses of
+It is quite common for owners to have different best guesses of
 $X_t(i_0,i)$. Accountants might use "book," "market," "liquidation,"
 or "going concern" values. This model does not suggest which is the
 most appropriate in any given situation, it only makes that
 choice explicit.
 
 Other relevant quantities can be computed similarly. For example the
-_draw-down_ over the period is $N_u(i,e) - \min_{t\le s \le u} N_s(i,e)$
-and the _draw-up_ is $\max_{t\le s\le u} N_s(i,e) - N_u(i,e)$.
+_draw-down_ over the period is $N_u(i,o) - \min_{t\le s \le u} N_s(i,o)$
+and the _draw-up_ is $\max_{t\le s\le u} N_s(i,o) - N_u(i,o)$.
 
 Any instrument could be used instead of a native currency.
 A subset of instruments could also be chosen to break P&amp;L reporting
-into components.  The set of all currencies involved in a position is
+into components.  The set of all currencies involved in a portfolio is
 a common choice.
 
 ## Model
@@ -193,17 +204,17 @@ The mathematical finance literature customarily assumes a "_money market_"
 account is available to fund trade execution.  Funding trades actually
 involves many fixed income instruments.  Traders at Big Banks use their
 _funding desk_ to insulate themselves from the details, but they are
-charged for this.  Daily positions funded by _repurchase agreements_
+charged for this.  Daily holdings funded by _repurchase agreements_
 require at least as many instruments as the number of days involved in
 trading. These may not be cost effective for longer term strategies so
 forward rate agreements and swaps are often used.
 The unified model allows these to be easily accomodated.
 
-Trades accumulate into positions $\Delta_t = \sum_{\tau_j < t} \Gamma_j$.
+Trades accumulate into holdings $\Delta_t = \sum_{\tau_j < t} \Gamma_j$.
 If we write $\Gamma_t = \Gamma_j$ if $t = \tau_j$ and $\Gamma_t = 0$
 otherwise, this becomes $\Delta_t = \sum_{s < t} \Gamma_s$.  Note the
 strict inequality. A trade executed at time $t$ is not included in the
-position at $t$; it takes some time for a trade to settle.
+holding at $t$; it takes some time for a trade to settle.
 
 Trading strategies do not explicitly involve cash flows and
 the definition of $\Delta$ above does not take those into account.
@@ -218,7 +229,7 @@ The _cost_ of the initial trade in terms of $i_0$ is
 $V_0 = \Gamma_0(i) X_{\tau_0}(i)$; buying
 amount $\Gamma$ at price $X$ costs $\Gamma X$. This amount will be
 deducted from the trader's account and reported as the value of
-the initial position to risk management.
+the initial holding to risk management.
 
 If more than one instrument is traded then
 $V_0 = \sum_{i\in I}\Gamma_0(i) X_{\tau_0}(i)$.
@@ -231,7 +242,7 @@ The _value_, or _mark-to-market_, of a trading strategy at time $t$ is
 $$
 	V_t = (\Delta_t + \Gamma_t)\cdot X_t.
 $$
-It is the amount the trader would get from unwinding the existing position
+It is the amount the trader would get from unwinding the existing holding
 and trades just executed at the prevailing market price, assuming
 that were possible. Note $V_{\tau_0} = \Gamma_0\cdot X_{\tau_0}$ is
 the cost of the initial trade.
@@ -241,7 +252,7 @@ the trader's account:
 $$
 	A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t.
 $$
-At time $t$, cash flows proportional the existing position are credited
+At time $t$, cash flows proportional the existing holding are credited
 and the cost of trades just executed are debited. Note $A_{\tau_0} = -V_{\tau_0}$.
 
 Trading strategies create synthetic instruments. Amounts and values are
@@ -297,7 +308,7 @@ them into the party after 1999.
 It is common for swaps to have unwind provisions that will be exercised if
 the market moves against them. This is an example of a hedging strategy
 that can be applied to a portfolio to get a more accurate estimate of
-counterparty risk.  The CVA haircut should not be applied to a position
+counterparty risk.  The CVA haircut should not be applied to a holding
 that no longer belongs to the portfolio.
 
 DVA is just the CVA of the entity on the other side of the trades.
@@ -325,11 +336,11 @@ multiple models and more efficient reporting tools to allow risk
 managers to quickly and easily assess the effects of the assumptions
 they make.
 
-Capturing every position and transaction in a database turns historical
+Capturing every holding and transaction in a database turns historical
 reporting into a well understood technology problem.  When decorated
 with appropriate dimensions and measures, risk managers
 can use off-the-shelf tools to create dynamic reports allowing them to
-summarize data and drill down to individual positions and transactions to
+summarize data and drill down to individual holdings and transactions to
 their heart's content. It is no longer necessary to have technologists
 spend time developing custom reports.
 
@@ -356,12 +367,12 @@ coupons. The coupons are not constant but they are known at
 the beginning of each period[^5] and are usually tied to
 short-term market repo rates. A trading strategy involves many
 transactions in the market account and it is common to implicitly
-assume positions are reinvested in the account. 
+assume holdings are reinvested in the account. 
 A funding desk typically uses the _repurchase agreement_ market
 to supply the account. There are many individual transactions
 involved with funding accounts once you pull out your microscope.
 
-Transactions often involve the exchange of more than two positions, for example,
+Transactions often involve the exchange of more than two holdings, for example,
 a fee or commission to a broker or market maker that enabled the trade
 or a tax payment.
 These can be accommodated by including the associated transactions as

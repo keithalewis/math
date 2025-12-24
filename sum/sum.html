@@ -45,6 +45,7 @@
             margin: 1rem 0;
         }
 
+		/*
         .hidden-content {
             opacity: 0;
             transform: translateY(20px);
@@ -55,6 +56,7 @@
             opacity: 1;
             transform: translateY(0);
         }
+		*/
 
         .contact-float {
             position: fixed;
@@ -134,7 +136,7 @@
         </p>
         <p>
             In reality a call option is a contract paying at expiration the stock price minus the strike if positive and
-            zero otherwise.
+            zero otherwise (self-financing).
             A <i>put option</i> is a contract paying the strike minus the stock price if positive and zero otherwise.
             Since \({\max(S_T - K, 0) + \max(K - S_T, 0) = S_T - K}\) a call plus put with the same strike and
             expiration
@@ -424,7 +426,8 @@
                 so
                 \[
                 \Gamma_t = D_{X_t}V_t - \Delta_t = D_{X_t}V_t - \sum_{s < t} \Gamma_s. \] </p>
-                    <p>When do you hedge? Continuously is the "completely correct" answer!</p>
+                    <p>When do you hedge? Continuously is the wrong answer!</p>
+					<p>Now you have a mathematically rigourous framework to work on this problem.</p>
         </div>
         <div class="hidden-content">
 
@@ -637,17 +640,16 @@
                     }
                 });
             }
-
-            // Run on scroll
-            window.addEventListener('scroll', revealOnScroll);
-
-            // On load, make only the first hidden-content visible
-            window.addEventListener('load', () => {
-                const firstHidden = document.querySelector('.hidden-content');
-                if (firstHidden) {
-                    firstHidden.classList.add('visible');
-                }
-            });
+//            // Run on scroll
+//            window.addEventListener('scroll', revealOnScroll);
+//
+//            // On load, make only the first hidden-content visible
+//            window.addEventListener('load', () => {
+//                const firstHidden = document.querySelector('.hidden-content');
+//                if (firstHidden) {
+//                    firstHidden.classList.add('visible');
+//                }
+//            });
         </script>
 </body>
 
