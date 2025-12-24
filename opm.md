@@ -443,19 +443,18 @@ $$
 \begin{aligned}
 OxX(K)X(H) &= (OP_r + s\,OP_s + v\,OP_v)X(K)X(H) \\
 	&= (OP_r + s\,OP_s + v\,OP_v)(\_O + R\,P_r + K\,P_s)X(H) \\
-	&= (RK\,OP_r P_s + sR\,OP_s P_r)(\_O + R\,P_r + H\,P_s + (H - K)\,P_v) \\
-	&= RK(H - K)\,OP_r P_s P_v + sR(H - K)\,OP_s P_r P_v \\
-	&= R(H - K)(K - s)\,OP_r P_s P_v \\
+	&= R(K - s)\,OP_r P_s(\_O + R\,P_r + H\,P_s + (H - K)\,P_v) \\
+	&= R(K - s)(H - K)\,OP_r P_s P_v \\
 \end{aligned}
 $$
 The coefficient of $X(K)$ is
 $$
 \begin{aligned}
 OX(L)xX(H) &= (R\,OP_r + L\,OP_s)xX(H) \\
-	&= (R\,OP_r + L\,OP_s)(P_r + s\,P_s + v\,P_v)X(H) \\
-	&= (Rs\,OP_r P_s + Rv\,OP_r P_v + L\,OP_s P_r + Lv\,OP_s P_o)X(H) \\
-	&= (Rs - L)OP_r P_s + Rv\,OP_r P_v + Lv\,OP_s P_v)( R\,P_r + H\,P_s + (H - K)\,P_v) \\
-	&= ((Rs - L)(H - K) - RvH + LvR) OP_r P_s P_v \\
+	&= (R\,OP_r + L\,OP_s)(\_O + P_r + s\,P_s + v\,P_v)X(H) \\
+	&= (Rs\,OP_r P_s + Rv\,OP_r P_v + L\,OP_s P_r + Lv\,OP_s P_v)X(H) \\
+	&= ((Rs - L)\,OP_rP_s + Rv\,OP_rP_v + Lv\,OP_sP_v)X(H) \\
+	&= ((Rs - L)\,OP_rP_s + Rv\,OP_rP_v + Lv\,OP_sP_v)(R\,P_r + H\,P_s + (H - K)\,P_v \\
 	&= ((Rs - L)(H - K) - Rv(H - L)) OP_r P_s P_v \\
 \end{aligned}
 $$
@@ -464,8 +463,7 @@ $$
 \begin{aligned}
 OX(L)X(K)x &= (R\,OP_r + L\,OP_s)X(K)x \\
 	&= (R\,OP_r + L\,OP_s)(R\,P_r + K\,P_s)x \\
-	&= (RK\,OP_r P_s + LR\,OP_sP_r)x \\
-	&= R(K - L)OP_r P_s(P_v + s\,P_s + v\,P_v) \\
+	&= (R(K - L)OP_r P_s)(P_r + s\,P_s + v\,P_v) \\
 	&= (R(K - L)v\,OP_r P_s P_v \\
 \end{aligned}
 $$
