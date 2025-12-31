@@ -19,7 +19,7 @@ FLAGS += -t html5
 FLAGS += -s # smart quotes
 #FLAGS += --katex
 FLAGS += --katex=$(KATEX)
-#FLAGS += --katex=katex/
+#FLAGS += --mathjax/
 FLAGS += --css math.css
 #FLAGS += -A FOOTER.md
 FLAGS += --metadata date="$(shell date "+%B %e, %Y")"

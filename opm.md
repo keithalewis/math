@@ -19,40 +19,53 @@ abstract: Simplest formal model of a financial market.
 \newcommand\GG{\mathcal{G}}
 
 The One‑Period Model is the simplest framework for rigorously
-representing a financial market over a single time horizon. The model defines
-the initial prices of tradable instruments and their terminal cash flows
-contingent on the realized outcome. In the absence of arbitrage
-prices are subject to geometric constraints determined by the cash flows.
+representing a financial market over a single period of time. The
+model defines the initial prices of tradable instruments and their
+terminal cash flows contingent on the realized outcome. If there are no
+arbitrage opportunities available (in the model) then prices are subject
+to geometric constraints determined by the cash flows.
 
-We make the usual unrealistic assumptions that prices are real numbers
-instead of integral multiples of each instrument's minimum trading
-increment/tick size and there is no bid-ask spread, much less any consideration of credit or tax issues.
-We also ignore the fact instruments can only be purchased in integral
-multiples of their minimum share/lot size.  The [Appendix](#appendix)
-posits a model that can incorporate more realistic assumptions.
+We show how to apply these constraints to [zero coupon bonds](zero-coupon-bond),
+the [binomial model](binomial-model), and the [interval model](interval-model).
+The latter provides a solution to the allowable values of any collection
+of option prices.
+
+We make the usual unrealistic assumptions that prices are real
+numbers instead of integral multiples of each instrument's minimum
+trading increment/tick size and there is no bid-ask spread, much
+less any consideration of credit or tax issues.  We also ignore the
+fact instruments can only be purchased in integral multiples of their
+minimum share/lot size.  The [Appendix](#appendix) posits a model that
+can incorporate more realistic assumptions.
 
 Quants turn mathematical models into software used for trading.  If a
 model is deployed without ensuring it is arbitrage-free then buy-side
-clients will exploit mispricings by going long on trades that are undervalued
-and short on overpriced ones. Eventually trading reality catches up
+clients will exploit mispricings by buying trades that are undervalued
+and pass on overpriced ones. Eventually trading reality catches up
 and the sell-side firm loses money.  Even worse, a "clever" trader might
-find an internal arbitrage that gives the illusion of making profits[^1].
-
-[^1]: Nick Leeson used this to put 233 year old, at the time, Barings Bank out of business.
+find an internal arbitrage that gives the illusion of making profits.
 
 The Fundamental Theorem of Asset Pricing characterizes arbitrage-free
 models and provides an arbitrages if they are not. As [@Ros1978] showed,
 this is a purely geometric result having nothing to do with probability.
-Positive measures having mass one make an appearance, but they are not
+Positive measures having mass one make a showing, but they are not
 the probability of anything.
 
-Ross made the untenable assumption that continuous time trading is
+Unlike [@BlaSch1973], and [@Mer1973], Ross's
+model applies to any collection of instruments, not just a bond, stock,
+and option.  It seems to be underappreciated that Ross also showed
+there is no need for Ito processes, partial differential equations,
+or a so-called real-world measure that gets immediately thrown out for
+a risk-neutral measure.
+
+However, Ross made the untenable assumption that continuous time trading is
 possible and the category error of defining a cash flow as a jump
 in price. Stock prices jump between market close and market open but
 there is no associated cash flow.
 A cash flow is a payment made by the instrument issuer
-to each instrument holder. Stocks pay dividends, bonds pay coupons,
+to instrument holders. Stocks pay dividends, bonds pay coupons,
 futures pay the change in end-of-day quotes (and always have price zero).
+
 The Fundamental Theorem of Asset Pricing shows models of cash flows
 entail geometric constraints on arbitrage-free prices.
 
@@ -311,7 +324,7 @@ The bond has realized return $R/r$ and the stock can go from price $s$
 to either $L$ or $H$. 
 This is arbitrage-free if and only we can find ${d_L,d_H \ge 0}$
 with ${x = C(L)d_L + C(H)d_H}$. Considering the bond and stock components
-we have ${d_L = (Hr/R - s)/(H - L)}$ and ${d_H = (s - Lr/R)/(H - L)}$.
+we have ${d_L = (Hr - sR)/R(H - L)}$ and ${d_H = (sR - Lr)/R(H - L)}$.
 The model is arbitrage-free if and only if these are both non-negative
 so ${L/R \le s/r \le H/R}$.
 
@@ -320,19 +333,19 @@ __Exercise__. _Find an arbitrage if $s/r < L/R$ or $s/r > H/R$_.
 _Hint_: If $s/r < L/R$ then buy the stock and short the bond.
 If $s/r > H/R$ then sell the stock and buy the bond.
 
-Adding a call option with payoff $\max\{\omega - K,0\}$, where $L < K < H$,
+If we have a call option with payoff $\max\{\omega - K,0\}$, where $L < K < H$,
 its arbitrage-free value is 
 $$
-v = 0 d_L + (H - K) d_H = (s - Lr/R)(H - K)/(H - L)
+v = 0 d_L + (H - K) d_H = (H - K)(s - Lr/R)/(H - L)
 $$
 
 __Exercise__. _Show this agrees with the 1-2-3 Model for a call option with strike 2_.
 
-## Interval Model
+### Interval Model
 
-A somewhat more realistic model is the binomial model with sample space
-${\Omega = [L, H]}$ where the final stock price can be any value in the interval
-between the low and the hight.
+A somewhat more realistic model than the binomial model is to allow the
+final stock price to take any value between the low and the high,
+${\omega\in\Omega = [L, H]}$.
 The arbitrage-free conditions are still the same.
 
 __Exercise__. _The smallest cone containing $C(L)$ and $C(H)$ is the same
@@ -344,14 +357,84 @@ for some $t\in[0,1]$.
 Since cones are convex, this shows the smallest cone containing $C(L)$ and
 $C(H)$ also contains $C(\omega)$ for $\omega\in[L,H]$.
 
-We will use Grassman Algebra to calculate the no arbitrage conditions.
-Recall $PQ = -QP$ for any points $P$ and $Q$ in a Grassman Algebra and
-if $P_0,\ldots,P_n$ are points with $P_0\cdots P_n\not=0$ then every
+If we introduce a call option with strike $K\in (L,H)$ then the smallest
+cone containing the range of $C$ coincides the the smallest cone
+containing $C(L)$, $C(K)$, and $C(H)$.
+
+__Exercise__. _Show the smallest cone containing $C(L)$, $C(K)$, and $C(H)$ is the same
+as the smallest cone containing $C(\omega)$, $L\le\omega\le H$_.
+
+_Hint_: Show $C(\omega)$ is on the line segment from $C(L)$ to $C(K)$
+if $L \le \omega \le K$ and is on the line segment from $C(K)$ to $C(H)$
+if $K \le \omega \le H$.
+
+Unlike the binomial model, the value of the option in the interval model is not determined
+by the bond and the stock. The interval model is $x = (r, s, v)$ and
+$C(\omega) = (R, \omega, (\omega - K))$, where $\omega\in [L,H]$.
+There is no arbitrage if and only if there exist non-negative $d_L$, $d_H$, $d_K$
+with
+$$
+	x = C(L)d_L + C(H)d_H + C(K)d_K.
+$$
+
+The components of the three instruments are
+$$
+\begin{aligned}
+	r &= R d_L + R d_H + R d_K \\
+	s &= L d_L + H d_H + K d_K \\
+	v &= (H - K) d_H \\
+\end{aligned}
+$$
+Solving for $d_L$, $d_H$, and $d_K$ gives
+$$
+\begin{aligned}
+𝑑_L &= \frac{v + Kr/R - s}{K − L} \\
+d_H &= \frac{v}{H - K} \\
+d_K &= \frac{(s - Lr/R)(H − K) - v(H − L)}{(K - L)(H - K)} \\
+\end{aligned}
+$$
+The no arbitrage constraints are $v \ge s - Kr/R$,
+$v\ge 0$, and $(s - Lr/R)(H − K)/(H - L) \ge v$
+so
+$$
+\max\{0,(s - Lr/R)(H − K)/(H - L)\} \le v\le s - Kr/R.
+$$
+
+
+#### Grassmann Algebra
+
+We use [@Gra1844] Algebra to calculate the no arbitrage conditions.
+It generalizes cartesian coordinates to any number of dimensions, and much more.
+Grassmann assumed $PQ = 0$ if and only if $P = Q$ to detect incidence.
+This implies the product of points is anticommutative.
+
+__Exercise__. _Show $PQ = -QP$ for any points $P$ and $Q$_.
+
+_Hint_: $0 = (P + Q)(P + Q)$.
+
+If the points $P_0,\ldots,P_k$ are independent ($P_0\cdots P_k\not=0$) then every
 point $P$ in their span can be written
 $$
-	P = \sum_{j=0}k^n \frac{P_0\cdots P\cdots P_n}{P_0\cdots P_n}P_j
+	P = \sum_{j=0}^k \frac{P_0\cdots P\cdots P_k}{P_0\cdots P_k}P_j
 $$
-where $P_j$ in the numerator is replaced by $P$.
+where the numerator is the denominator with $P_j$ replaced by $P$.
+
+__Exercise__. _Show if $P = \sum_{j=0}^k x_j P_j$
+then $P_0\cdots P\cdots P_k = x_j P_0\cdots P_k$_.
+
+_Hint_. The only non-zero product on the left-hand side
+of the second equation after applying the distributive law is
+is $x_j P_j$.
+
+__Exercise__. _Show $1 = \sum_{j=0}^k P_0\cdots P\cdots P_k/P_0\cdots P_k$_.
+
+Using $P_0 = O$ as an _origin_,
+the cartsian product
+$(x_1,\ldots,x_k)$ corresponds to the point
+$(1 - \sum_{j=1}^k x_j)O + \sum_{j=1}^k x_j P_j$.
+We also write this as $\_O + \sum_j x_j P_j$ since the
+$(x_j)$ coordinates determine the coefficient of $O$.
+
 The point $P$ belongs to the convex hull of the points if and only if
 all coefficients are non-negative. The point $P$ belongs to the
 smallest cone with vertex $P_0$ containing $P_1,\ldots,P_n$ if and only
@@ -359,8 +442,6 @@ iff all the coefficients except the first are non-negative.
 
 Let $O$ be the vertex and ${C(\omega) = (1 - R - \omega)O + R\,P_r + \omega\,P_s}$
 where $P_r$ and $P_s$ are the bond and stock points respectively.
-Not the coefficient of $O$ is determined by the coefficients of $P_r$
-and $P_s$ so we can unambiguosly write ${C(\omega) = \_O + R\,P_r + \omega\,P_s}$.
 
 The condition $x$ is in the cone generated by $C(\Omega)$ is
 $$
@@ -370,12 +451,12 @@ $$
 We only need to check this for $\omega = L$ and $\omega = H$.
 Since
 $$
-	x = \frac{xX(L)X(H)}{OX(L)X(H)} O + \frac{OxX(H)}{OX(L)X(H)} X(L) + \frac{OX(L)x}{OX(L)X(H)} X(H)
+	x = \frac{xC(L)C(H)}{OC(L)C(H)} O + \frac{OxC(H)}{OC(L)C(H)} C(L) + \frac{OC(L)x}{OC(L)C(H)} C(H)
 $$
 we can find the no arbitrage conditions by a simple, if somewhat tedious, calculation.
 $$
 \begin{aligned}
-OX(L)X(H) &= (R\,OP_r + L\,OP_s)X(H) \\
+OX(L)C(H) &= (R\,OP_r + L\,OP_s)C(H) \\
 	&= (R\,OP_r + L\,OP_s)( \_O + R\,P_r + H\,P_s) \\
 	&= RH\,OP_rP_s + LR\,OP_sP_r \\
 	&= R(H-L)\,OP_rP_s \\
@@ -384,7 +465,7 @@ $$
 For the bond coefficient we compute
 $$
 \begin{aligned}
-OxX(H) &= (r\, OP_r + s\,OP_s)X(H) \\
+OxX(H) &= (r\, OP_r + s\,OP_s)C(H) \\
 	&= (r\,OP_r + s\,OP_s)(\_O + R\,P_r + H\,P_s) \\
 	&= rH\,OP_rP_s + sR\,OP_sP_r \\
 	& = (rH - sR)\,OP_rP_s \\
@@ -402,20 +483,6 @@ $$
 The no arbitrage condition are ${Hr - sR\ge0}$ and ${Rs - Lr\ge0}$
 so $L/R \le s/r \le H/R$ as before.
 
-If we introduce a call option with strike $K\in (L,H)$ then the smallest
-cone containing the range of $C$ coincides the the smallest cone
-containin $C(L)$, $C(K)$, and $C(H)$.
-
-__Exercise__. _The smallest cone containing $C(L)$, $C(K)$, and $C(H)$ is the same
-as the smallest cone containing $C(\omega)$, $L\le\omega\le H$_.
-
-_Hint_: Show $C(\omega)$ is on the line segment from $C(L)$ to $C(K)$
-if $L \le \omega \le K$ and is on the line segment from $C(K)$ to $C(H)$
-if $K \le \omega \le H$.
-
-Unlike the binomial model, the value of the option in the interval model is not determined
-by the bond and the stock.
-
 The model with a call option is $x = \_O + r\,P_r + s\,P_s + v\,P_v$
 where $v$ is the initial option value and
 $C(\omega) = \_O + R\,P_r + \omega\,P_s + \max\{\omega - K,0\}\,P_v$, $L\le\omega\le H$.
@@ -425,45 +492,42 @@ $C(\omega) = \_O + R\,P_r + \omega\,P_s + \max\{\omega - K,0\}\,P_v$, $L\le\omeg
 It is not obvious the no arbitrage conditions are ${s\le K}$ and ${0\le v\le\frac{(Rs - L)(H - K)}{R(H - L)}}$
 but this can be reduced to a straightforward calculation.
 
-
-
-
 The arbitrage-free conditions are reduced to a calculation:
 $$
 \begin{aligned}
-OX(L)X(K)X(H) &= (R\,OP_r + L\,OP_s)X(K)X(H) \\
-	&= (R\,OP_r + L\,OP_s)(\_O + R\,P_r + K\,P_s)X(H) \\
+OC(L)C(K)C(H) &= (R\,OP_r + L\,OP_s)C(K)C(H) \\
+	&= (R\,OP_r + L\,OP_s)(\_O + R\,P_r + K\,P_s)C(H) \\
 	&= (RK\,OP_r P_s + LR\,OP_s P_r)(\_O + R\,P_r + H\,P_s + (H - K)\,P_v) \\
 	&= RK(H - K)\,OP_r P_s P_v + LR(H - K)\,OP_s P_r P_v \\
 	&= R(H - K)(K - L)\,OP_r P_s P_v \\
 \end{aligned}
 $$
-The coefficient of $X(L)$ is
+The coefficient of $C(L)$ is
 $$
 \begin{aligned}
-OxX(K)X(H) &= (OP_r + s\,OP_s + v\,OP_v)X(K)X(H) \\
-	&= (OP_r + s\,OP_s + v\,OP_v)(\_O + R\,P_r + K\,P_s)X(H) \\
-	&= R(K - s)\,OP_r P_s(\_O + R\,P_r + H\,P_s + (H - K)\,P_v) \\
-	&= R(K - s)(H - K)\,OP_r P_s P_v \\
+OxC(K)C(H) &= (r\,OP_r + s\,OP_s + v\,OP_v)C(K)C(H) \\
+	&= (r\,OP_r + s\,OP_s + v\,OP_v)(R\,P_r + K\,P_s)C(H) \\
+	&= R(rK - s)\,OP_r P_s(\_O + R\,P_r + H\,P_s + (H - K)\,P_v) \\
+	&= R(rK - s)(H - K)\,OP_r P_s P_v \\
 \end{aligned}
 $$
-The coefficient of $X(K)$ is
+The coefficient of $C(K)$ is
 $$
 \begin{aligned}
 OX(L)xX(H) &= (R\,OP_r + L\,OP_s)xX(H) \\
-	&= (R\,OP_r + L\,OP_s)(\_O + P_r + s\,P_s + v\,P_v)X(H) \\
-	&= (Rs\,OP_r P_s + Rv\,OP_r P_v + L\,OP_s P_r + Lv\,OP_s P_v)X(H) \\
-	&= ((Rs - L)\,OP_rP_s + Rv\,OP_rP_v + Lv\,OP_sP_v)X(H) \\
-	&= ((Rs - L)\,OP_rP_s + Rv\,OP_rP_v + Lv\,OP_sP_v)(R\,P_r + H\,P_s + (H - K)\,P_v \\
-	&= ((Rs - L)(H - K) - Rv(H - L)) OP_r P_s P_v \\
+	&= (R\,OP_r + L\,OP_s)(r\,P_r + s\,P_s + v\,P_v)C(H) \\
+	&= (Rs\,OP_r P_s + Rv\,OP_r P_v + Lr\,OP_s P_r + Lv\,OP_s P_v)C(H) \\
+	&= ((Rs - Lr)\,OP_rP_s + Rv\,OP_rP_v + Lv\,OP_sP_v)C(H) \\
+	&= ((Rs - Lr)\,OP_rP_s + Rv\,OP_rP_v + Lv\,OP_sP_v)(R\,P_r + H\,P_s + (H - K)\,P_v \\
+	&= ((Rs - Lr)(H - K) - Rv(H - L)) OP_r P_s P_v \\
 \end{aligned}
 $$
-The coefficient of $X(H)$ is
+The coefficient of $C(H)$ is
 $$
 \begin{aligned}
-OX(L)X(K)x &= (R\,OP_r + L\,OP_s)X(K)x \\
+OC(L)C(K)x &= (R\,OP_r + L\,OP_s)C(K)x \\
 	&= (R\,OP_r + L\,OP_s)(R\,P_r + K\,P_s)x \\
-	&= (R(K - L)OP_r P_s)(P_r + s\,P_s + v\,P_v) \\
+	&= (R(K - L)OP_r P_s)(r\,P_r + s\,P_s + v\,P_v) \\
 	&= (R(K - L)v\,OP_r P_s P_v \\
 \end{aligned}
 $$
@@ -472,11 +536,44 @@ Of course the condition ${L\le Rs \le H}$ holds from the model not containing th
 
 Let's generalize this to multiple call options with
 strikes between the low and high stock values, ${H < K_1 < \cdots < K_n < H}$.
-The above exercise shows we only need consider the cone generated
-by ${C(L), C(K_), \ldots, C(K_n), C(H)}$.
+The initial price is 
+$$
+x = \_O + r\,P_r + \sum_{j=1}^n v_j\,P_j + s\,P_s
+$$
+and the terminal cash flow is
+$$
+C(\omega) = \_O + R\,P_r + \sum_{j=1}^n (\omega - K_j)^+\,P_j + \omega\,P_s,
+$$
+where ${K \le \omega \le H}$.
+The above exercise shows we only need to consider the cone generated
+by $C(L), C(K_1), \ldots, C(K_n), C(H)$.
+
 There is no arbitrage if and only if there exist non-negative
 ${d_L, d_1, \ldots, d_n, d_H}$ with 
-${x = C(L) d_L + C(K_1) d_1 + \cdots +  C(K_n) d_n + C(H)d_H}$.
+${x = \_O + C(L) d_L + C(K_1) d_1 + \cdots +  C(K_n) d_n + C(H)d_H}$.
+
+$$
+\begin{aligned}
+&OC(L)C(K_1)\cdots C_(K_n)C(H) \\
+&= O(R\,P_r + L\,P_s) \\
+&\quad (R\,P_r + K_1\,P_s) \\
+&\quad (R\,P_r + (K_2 - K_1)\,P_1 + K_2\,P_s) \\
+&\quad\cdots \\
+&\quad(R\,P_r + (K_n - K_1)\,P_1 + \cdots + (K_n - K_{n-1})\,P_{n-1} + K_n\,P_s) \\
+&\quad(R\,P_r + (H - K_1)\,P_1 + \cdots + (H - K_n)\,P_n + H\,P_s) \\
+&= (K_1 - L)\,OP_rP_s \\
+&\quad ((K_2 - K_1)\,P_1) \\
+&\quad\cdots \\
+&\quad((K_n - K_1)\,P_1 + \cdots + (K_n - K_{n-1})\,P_{n-1}) \\
+&\quad((H - K_1)\,P_1 + \cdots + (H - K_n)\,P_n) \\
+&= (K_1 - L)(K_2 - K_1)\cdots(K_n - K_{n-1})(H - K_n)\,OP_rP_sP_1\cdots P_n \\
+\end{aligned}
+$$
+Substituting $x$ for $C(K_j)$ gives $d_j = v_j/(K_{j+1} - K_j)$, $1\le j\le n$
+where $K_{n+1} = H$.
+<!--
+& C(H) \\
+-->
 
 <!--
 $$
@@ -853,10 +950,12 @@ implies ${1 = 2d_1 + 2d_3}$ and the stock component implies ${1 = 1d_1 +
 3d_3}$ so ${d_1 = d_3 = 1/4}$.
 
 This shows the risk-neutral measure is $D(\{1\}) = D(\{3\}) = 1/4$.
-The risk-neutral probability measure $P = D/D(\Omega)$
+The risk-neutral "probability measure" $P = D/D(\Omega)$
 is $P(\{1\}) = P(\{3\}) = 1/2$.
 
-__Exercise__. _Show $E^P[C]D(\Omega) = \int_\Omega C\,dD = (1, 1)$ is the initial bond and stock price_.
+__Exercise__. _Show $E[C]D(\Omega) = \int_\Omega C\,dD = (1, 1)$ is the initial bond and stock price_.
+
+_Hint_: Where $E$ is the expected value with respect to $P$.
 
 If we add a call option with strike 2 and price $v$ then the model becomes
 ${x = (1, 1, v)}$, ${C(\omega) = (2, \omega, \max\{\omega - 2,0\})}$
@@ -876,11 +975,9 @@ securities pointed out when I showed him this, "Do you mean I can buy the option
 He also identified the risk-blind nature of risk-neutral probability.
 "But not if I got shot in the head if the option ever finished out-of-the-money."
 
-We have already seen every risk-neutral measure has the same expected realized
-return. This example shows even if the measure is unique it implies infinite
-risk aversion.
+Not only do all risk-neutral measures have the same expected realized
+return, they imply infinite risk aversion.
 
-<!--
 We don't need the FTAP so see the value of the option is a quarter
 since we can use that to replicate the option payoff. Borrow another
 quarter using the bond and invest half a dollar in the stock.
@@ -1133,9 +1230,6 @@ the amount traded and the counterparties involved.
 A _holding_ is a triple $(a,i,e)$ specifying an integer amount, instrument, and legal entity.
 It indicates $e$ is the legal owner of amount $a$ of instrument $i$.
 The amount is an integral number of (minimum fractional) shares of the instrument.
--->
-
-<!--
 
 ## Maximum Entropy
 
@@ -1155,9 +1249,6 @@ $p_j = \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
 $1 = \sum_j p_j = \sum_j \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
 
 $Rx = E[X] = \sum_j X(ω_j) \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
-
--->
-<!--
 
 The Capital Asset Pricing Model assumes that a probability measure is
 specified on the sample space of possible outcomes.
@@ -1193,8 +1284,6 @@ detecting the. The Fundamental Theorem of asset pricing for the one-period
 model states there is no arbitrage if and only if the initial prices belong
 so the smallest closed cone containing all possible final prices.
 
--->
-<!--
 ## Grassmann Algebra
 
 We now show how to use the geometric algebra [@Gra1844] invented to solve problems

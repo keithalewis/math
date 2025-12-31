@@ -22,7 +22,7 @@ are true and specify how they can be used to rigorously derive more true stateme
 "In a plane, given a line and a point not on it, at most one line parallel to the given
 line can be drawn through the point." was John Playfair's restatement of
 Euclid's fifth postulate. A prodigious amount of work was exerted over
-two millenia to prove that was a consequence of Euclids other axioms.
+two millenia to prove that this was a consequence of Euclids other axioms.
 It is not. One way to show a statement is not true is to provide
 a counterexample.
 
@@ -33,8 +33,8 @@ in a "plane" through a "point" not on a given line where
 (Bolyai, Lobaschevsky)
 
 
-Logical systems specify _propositions_, statements that are either _true_
-or _false_, and _rules of inference_, ways of combining true propositions
+Logical systems specify _propositions_: statements that are either _true_
+or _false_, and _rules of inference_: ways of combining true propositions
 to _prove_ other true propositions.
 
 Mathematicians prove _theorems_. Typically they have the form 'if
@@ -74,7 +74,7 @@ He had to invent a different way to reason about proofs to solve this.
 ## Propositional Calculus
 
 The _propositional calculus_ is based on the common English usage of
-the words, 'not', 'and', 'or', and 'implies'.  These are represented
+the words, 'not', 'and', 'or', and 'implies' represented
 by _logical connectives_ $\neg$, $\wedge$, $\vee$, and $\supset$.
 
 _Not_
@@ -95,7 +95,9 @@ _Implies_
 
 Note that if $P$ is false then $P\supset Q$ is true no matter if $Q$
 is true or false. If you think it is peculiar that 'false implies true'
-is a true statement then you and I agree on that.
+is a true statement then you are in good company.
+
+...contraversy...
 
 __Exercise__. _Show $\neg(\neg P)$ always has the same truth value as $P$_.
 <details>

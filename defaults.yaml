@@ -1,0 +1,25 @@
+# defaults.yaml
+from: markdown
+to: html5
+standalone: true
+
+# Include the CSS file that defines IBM Plex typography
+css:
+  - math.css
+
+# Optional: make the HTML self-contained (embeds CSS/fonts)
+# self-contained: true
+
+# Recommended for math-heavy documents
+mathjax: true
+
+# Enable fenced divs, attributes, etc.
+filters:
+  - pandoc-crossref
+  - pandoc-citeproc
+
+# Allow raw HTML (needed for Google Fonts <link> tags if you embed them)
+html-math-method:
+  method: mathjax
+  url: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+

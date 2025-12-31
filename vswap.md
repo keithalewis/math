@@ -23,29 +23,14 @@ maturity of the variance swap.
 Consider an underlying with price $x$ at the beginning of a period and price $X$
 at the end of the period. Consider an option with payoff $(X - x)^2$ at the
 end of the period having price $A$ and an option with payoff
-$X^2 - x^2$ having price $B$. If a forward paying $X - x$ has price 0 then
-$A = B$. This follows from simple algebra:
+$X^2 - x^2$ having price $B$. Futures pay $X - x$ and have price 0.
+If there is no arbitrage then $A = B$. This follows from simple algebra:
 $$
 	X^2 - x^2 = 2x(X - x) + (X - x)^2.
 $$
+Either contract can be used to replicate the other using the zero price futures contract.
+
 Note this is Taylor's formula for $f(x) = x^2$ since cubic and higher order terms are 0.
-Either contract can be used to replicate the other using the at-the-money forward contract.
-
-__Exercise__. _If the price of the forward is $C$ then $B = 2xC + A$_.
-
-Note this provides a perfect hedge no matter the final value of $X$.
-
-A more realistic one period model has payoff $(\log X/x)^2$, the square of the
-realized return. Recall Taylor's formula with remainder for sufficiently differentiable $f$ is
-$$
-	f(x) = \sum_{k=0}^n f^{(k)}(a) (x-a)^k/k! + \int_a^x f^{(n+1)}(t) (x - t)^n/n!\,dt
-$$
-
-__Exercise__. _If $f(x) = \log x$ show_
-$$
-	\log X/x = \log X - \log x = (1/x)(X - x) - (1/x^2)(X - x)^2/2 + \int_x^X 2/t^3(X - t)^2/2\,dt
-$$
-This provides a perfect hedge no matter the value of $X$ so it is model independent.
 
 ## Contract
 
@@ -57,12 +42,13 @@ $$
 $$
 where $R_j$ is the realized return over $[t_j, t_{j+1}]$, $\sigma_0$ is the _par volatility_,
 and $c$ is a constant specified in the contract that is not far from the number 1.
-The par volatility makes the price of the contract at $t_0$ equal to zero.
+The par volatility is quoted to make the price of the contract at $t_0$ equal to zero.
 
-The realized return is $R_j = \log X_{j+1}/X_j = \log X_{j+1} - \log X_j =
-\Delta \log X_j$ where $\log$ is the natuaral logarithm
-with base $e \approx 2.718281828$. Real-world variance swap contracts actually specify this
-approximation.
+Most traded variance swap contracts specify the realized return as
+$R_j = \log X_{j+1}/X_j = \log X_{j+1} - \log X_j = \Delta \log X_j$
+where $\log$ is the natuaral logarithm
+with base $e \approx 2.718281828$. I confess to being surprised when
+I first saw this approximation in an actual contract.
 
 Another way of specifying realized return is 
 $R_j = (X_{j+1} - X_j)/X_j = \Delta X_j/X_j$. It does not drag in logarithms and is simpler
@@ -82,18 +68,22 @@ __Exercise__. _Show $(\Delta \log X)^2 = (\Delta X/X)^2 - (\Delta X/X)^3 + O((\D
 <summary>Solution</summary>
 </details>
 
-Continuous time mathematical treatments assume the realized variance is
-$(1/t)\int_0^t (d\log X_s)^2\,ds$. If $X$ is an Ito process satisfying
-$dX/X = \mu\,dt + \sigma\,dB$ then $d\log X = dX/X - (1/2)(dX/X)^2 = \mu\,dt + \sigma\,dB - (1/2)\sigma^2\,dt$
-so $(d\log X)^2 = \sigma^2\,dt$ and $\int_0^t (d\log X_s)^2\,ds = \int_0^t \sigma^2\,ds$.
-Under a risk-neutral measure the par variance is $\sigma_0^2 = (1/t)E[\int_0^t \sigma^2\,ds]$.
+Continuous time mathematical treatments assume the realized variance
+is approximated by ${(1/t)\int_0^t (d\log X_s)^2\,ds}$. If $X$ is an
+Ito process satisfying ${dX/X = \mu\,dt + \sigma\,dB}$ then
+${d\log X = dX/X - (1/2)(dX/X)^2 = \mu\,dt + \sigma\,dB - (1/2)\sigma^2\,dt}$
+so ${(d\log X)^2 = \sigma^2\,dt}$ and
+${\int_0^t (d\log X_s)^2\,ds = \int_0^t \sigma^2\,ds}$. 
+Under a risk-neutral measure the par variance is ${\sigma_0^2 = (1/t)E[\int_0^t \sigma^2\,ds]}$.
 
+Black, Scholes, and Merton had to work harder to show the drift of the
+underlying was irrelevant.
 The astounding thing about variance swaps is that valuing and hedging them do not require
 any assumptions on a model for the dynamics of the underlying. They only require futures and
 options traded at a sufficiently wide range of strikes on the underlying.
 
-The payoff of a variance swap can be approximately replicated by a _dynamic hedge_ in futures
-and a _static hedge_ in a calls and puts.
+The payoff of a variance swap can be approximately replicated by a
+_static hedge_ in a calls and puts and a _dynamic hedge_ in futures
 
 For any thrice differentiable function $f$ we use a telescoping sum and Taylor's theorem
 with remainder to get
@@ -106,8 +96,8 @@ $$
 where $R_j = (1/2)\int_{X_j}^{X_{j+1}} f'''(t) (X_{j+1} - t)^2\, dt$.
 Note $f(X_n) - f(X_0)$ is a European option payoff and $f'(X_j) \Delta X_j$ is the cash flow
 at time $t_{j+1}$ from purchasing $f'(X_j)$ futures on $X$ at time $t_j$.
-The quadratic term can be used to replicate a variance swap payoff.
 
+The quadratic term can be used to replicate a variance swap payoff.
 If $f''(x) = 2/x^2$ then $(1/2)f''(X_j)(\Delta X_j)^2 = (\Delta X_j/X_j)^2$ is
 the square of the realized return.
 We have $f'(x) = -2/x + c$ where $c$ is a constant, and
@@ -121,7 +111,7 @@ $$
 \sum_{0\le j < n} (\Delta X_j/X_j)^2 = -2\log X_n/X_0 + 2(X_n - X_0)/z + \sum_{0\le j < n} (2/X_j - 2/z)\Delta X_j - R_j
 $$
 This shows a variance swap can be replicated using a static hedge and
-a dynamic hedge using futures with error $R_j$. The static hedge can be
+a dynamic hedge with error $R_j$. The static hedge can be
 approximated with puts and calls using the Carr-Madan formula. If $z =
 X_0$ then the initial furtures hedge is zero.
 
