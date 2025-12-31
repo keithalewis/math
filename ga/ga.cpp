@@ -1,7 +1,0 @@
-// ga.cpp
-#include "ga.h"
-
-int main()
-{
-	return 0;
-}

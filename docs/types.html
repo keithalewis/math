@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2025-12-31" />
+  <title>Types</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Types</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">December 31, 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#set" id="toc-set">Set</a></li>
+<li><a href="#relation" id="toc-relation">Relation</a></li>
+<li><a href="#function" id="toc-function">Function</a></li>
+<li><a href="#semigroup" id="toc-semigroup">Semigroup</a></li>
+<li><a href="#monoid" id="toc-monoid">Monoid</a></li>
+</ul>
+</nav>
+<p>A <em>type</em> is a set with operations that satisfy axioms.</p>
+<section id="set" class="level2">
+<h2>Set</h2>
+<p>We start with the naive view of a set as a collection of
+<em>elements</em>. If <span class="math inline">s</span> is an element
+of the set <span class="math inline">S</span> we write <span
+class="math inline">s\in S</span>. If <span class="math inline">S</span>
+and <span class="math inline">T</span> are sets we say <span
+class="math inline">S</span> is a <em>subset</em> of <span
+class="math inline">T</span>, written <span
+class="math inline">S\subseteq T</span>, if every element of <span
+class="math inline">S</span> also in an element of <span
+class="math inline">T</span> and write <span
+class="math inline">S\subseteq T</span>. Clearly <span
+class="math inline">S\subseteq S</span> for any set <span
+class="math inline">S</span>. Two sets are <em>equal</em> if <span
+class="math inline">S\subseteq T</span> and <span
+class="math inline">T\subseteq S</span>. We say <span
+class="math inline">A</span> is a <em>strict subset</em> of <span
+class="math inline">B</span>, written <span class="math inline">A\subset
+B</span>, if <span class="math inline">A\subseteq B</span> and <span
+class="math inline">A\not=B</span>. We say <span
+class="math inline">A</span> is a <em>strict superset</em> of <span
+class="math inline">B</span>, written <span class="math inline">A\supset
+B</span>, if <span class="math inline">A\subseteq B</span> and <span
+class="math inline">A\not=B</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">S =
+S</span> for any set <span class="math inline">S</span></em>.</p>
+<p><em>Hint</em>: Equality is defined using subsets.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">S\subseteq T</span> and <span
+class="math inline">T\subseteq U</span> then <span
+class="math inline">S\subseteq U</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">v\in S</span> then <span
+class="math inline">v\in T</span> so <span class="math inline">v\in
+U</span>.</p>
+<p>…Category Theory…???</p>
+<p>Frege’s original theory was that a set is defined by
+<em>comprehension</em>: the elements of the set satisfy a
+<em>proposition</em> that is either true or false.</p>
+<p><strong>Exercise</strong>. (Russell’s Paradox) <em>Show <span
+class="math inline">S = \{s\mid s\not\in s\}</span> is not a
+set</em>.</p>
+<p><em>Hint</em>. Show <span class="math inline">S\in S</span> implies
+<span class="math inline">S\not\in S</span> and <span
+class="math inline">S\not\in S</span> implies <span
+class="math inline">S\in S</span>.</p>
+<p>This shows <span class="math inline">S\in S</span> if and only if
+<span class="math inline">S\not\in S</span>, a contradiction. To resolve
+this we need to build sets from the ground up. The <em>empty set</em>,
+<span class="math inline">\emptyset</span>, is the set containing no
+elements. The statement <span class="math inline">s\in\emptyset</span>
+is always false.</p>
+<p>pairing axiom</p>
+<p>powerset axiom</p>
+<p>cartesian product</p>
+<p>We can define <span class="math inline">S = \{s\in\Omega\mid s\not\in
+s\}</span>. Now if we ask if <span class="math inline">S\in S</span>
+then we must have <span class="math inline">S\in\Omega</span></p>
+</section>
+<section id="relation" class="level2">
+<h2>Relation</h2>
+<p>A <em>relation</em> on sets <span class="math inline">A</span> and
+<span class="math inline">B</span> is a subset <span
+class="math inline">R\subseteq A\times B</span>. We write <span
+class="math inline">aRb</span> for <span class="math inline">(a,b)\in
+R</span>, <span class="math inline">a\in A</span>, <span
+class="math inline">b\in B</span>. The <em>domain</em> of <span
+class="math inline">R</span> is <span class="math inline">A</span> and
+the <em>codomain</em> is <span class="math inline">B</span>.</p>
+<p>The <em>composition</em> of <span class="math inline">R\subseteq
+A\times B</span> with the relation <span class="math inline">S\subseteq
+B\times C</span> is defined by <span class="math inline">c(SR)a</span>
+if and only if there exists <span class="math inline">b\in B</span> with
+<span class="math inline">aRb</span> and <span
+class="math inline">bSc</span>. This is closely related to the <a
+href="https://en.wikipedia.org/wiki/Join_(SQL)"><code>JOIN</code></a> of
+relational databases. The <em>inner join</em> of <span
+class="math inline">R</span> and <span class="math inline">S</span> on
+<span class="math inline">B</span> is the set <span
+class="math inline">\{(a,b,c)\mid aRb, bSc, a\in A, b\in B, c\in
+C\}</span>.</p>
+<p>Define the <em>left coset</em> <span class="math inline">aR = \{b\in
+B\mid aRb\}</span> and the <em>right coset</em> <span
+class="math inline">Rb = \{a\in A\mid aRb\}</span>. The <em>range</em>
+of <span class="math inline">R</span> is <span class="math inline">AR =
+\cup_{a\in A} aR</span>. The set <span class="math inline">RB =
+\cup_{b\in B} Rb</span> is also called the domain of <span
+class="math inline">R</span>.</p>
+<p><strong>Exercise</strong>. _Find a relation <span
+class="math inline">R\subseteq A\times B</span> where <span
+class="math inline">RB\subset A</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">a(SR)c</span> if and only if the intersection of the
+left coset <span class="math inline">aR</span> and right coset <span
+class="math inline">Sc</span> is not empty</em>.</p>
+<p>For any set <span class="math inline">A</span> define the
+<em>diagonal</em> <span class="math inline">\Delta_A = \{(a,a)\mid a\in
+A\}\subseteq A\times A</span>.</p>
+<p><strong>Exercise</strong> <em>Show if <span
+class="math inline">R\subseteq A\times B</span> then <span
+class="math inline">\Delta_AR = R</span> and <span
+class="math inline">R\Delta_B = R</span></em>.</p>
+<p>Define the l</p>
+</section>
+<section id="function" class="level2">
+<h2>Function</h2>
+<p>A <em>function</em> <span class="math inline">f\colon A\to B</span>
+is a relation <span class="math inline">f\subseteq A\times B</span>
+where every left coset <span class="math inline">af</span> has exactly
+one element. If <span class="math inline">af = \{b\}</span> we write
+<span class="math inline">f(a) = b</span>.</p>
+<p><strong>Exercise</strong> <em>Show if <span
+class="math inline">f\colon A\to B</span> and <span
+class="math inline">g\colon B\to C</span> then <span
+class="math inline">(gf)(a) = g(f(a))</span></em>.</p>
+<p>Given functions <span class="math inline">f\colon A\to B</span> and
+<span class="math inline">g\colon B\to C</span> the <em>compostion</em>
+<span class="math inline">g\circ f</span> is defined by <span
+class="math inline">g\circ f(a) = g(f(a))</span>. we can define a binary
+operation using function compo <span class="math inline">m(f,g) = g\circ
+f</span>.</p>
+<p>Category Theory provides a way of talking about sets and functions
+without mentioning elements of sets. This dicipline clarifies essention
+structure by preventing incidental artifacts involving elements.</p>
+<p>We express this in a categorical way as an <span
+class="math inline">F</span>-algebra in the category Set with the
+functor <span class="math inline">F(S) = S\times S</span> and the
+commutative diagram</p>
+</section>
+<section id="semigroup" class="level2">
+<h2>Semigroup</h2>
+<p>For example, a <em>semigroup</em> is a set with a binary operation
+that is associative. If <span class="math inline">m\colon S\times S\to
+S</span> is the binary operation then it is associative if <span
+class="math inline">m(a,m(b,c)) = m(m(a,b),c)</span> for all <span
+class="math inline">a,b,c\in S</span>. Writing <span
+class="math inline">m(a,b)</span> as <span class="math inline">ab</span>
+we have <span class="math inline">a(bc) = (ab)c</span> so <span
+class="math inline">abc</span> reads unambiguously in a semigroup.</p>
+<p>We say <span class="math inline">e\in M</span> is an <em>identity
+element</em> if <span class="math inline">em = m = me</span> for all
+<span class="math inline">m\in M</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">e&#39;</span> satisfies <span
+class="math inline">e&#39;m = m = me&#39;</span> for all <span
+class="math inline">m\in M</span> then <span class="math inline">e&#39;
+= e</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">e&#39; =
+e&#39;e</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">em =
+m</span> for all <span class="math inline">m</span> in a monoid <span
+class="math inline">M</span> then <span class="math inline">me =
+m</span> for all <span class="math inline">m\in M</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">me = e(me) = (em)e =
+me</span>.$</p>
+</section>
+<section id="monoid" class="level2">
+<h2>Monoid</h2>
+<p>A <em>monoid</em> is a semigroup with an identity. If <span
+class="math inline">S</span> is a semigroup we can make it into a monoid
+by adjoining <span class="math inline">e\not\in S</span> and define
+<span class="math inline">ee = e</span> and <span class="math inline">se
+= s = es</span> for <span class="math inline">s\in S</span>.</p>
+</section>
+</body>
+</html>

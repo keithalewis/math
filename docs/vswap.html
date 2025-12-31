@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-12-16" />
+  <meta name="dcterms.date" content="2025-12-31" />
   <title>Variance Swaps</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Variance Swaps</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">December 16, 2025</p>
+<p class="date">December 31, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage risk of variance swaps.
@@ -75,34 +75,15 @@ class="math inline">X</span> at the end of the period. Consider an
 option with payoff <span class="math inline">(X - x)^2</span> at the end
 of the period having price <span class="math inline">A</span> and an
 option with payoff <span class="math inline">X^2 - x^2</span> having
-price <span class="math inline">B</span>. If a forward paying <span
-class="math inline">X - x</span> has price 0 then <span
-class="math inline">A = B</span>. This follows from simple algebra:
-<span class="math display">
+price <span class="math inline">B</span>. Futures pay <span
+class="math inline">X - x</span> and have price 0. If there is no
+arbitrage then <span class="math inline">A = B</span>. This follows from
+simple algebra: <span class="math display">
     X^2 - x^2 = 2x(X - x) + (X - x)^2.
-</span> Note this is Taylor’s formula for <span class="math inline">f(x)
-= x^2</span> since cubic and higher order terms are 0. Either contract
-can be used to replicate the other using the at-the-money forward
-contract.</p>
-<p><strong>Exercise</strong>. <em>If the price of the forward is <span
-class="math inline">C</span> then <span class="math inline">B = 2xC +
-A</span></em>.</p>
-<p>Note this provides a perfect hedge no matter the final value of <span
-class="math inline">X</span>.</p>
-<p>A more realistic one period model has payoff <span
-class="math inline">(\log X/x)^2</span>, the square of the realized
-return. Recall Taylor’s formula with remainder for sufficiently
-differentiable <span class="math inline">f</span> is <span
-class="math display">
-    f(x) = \sum_{k=0}^n f^{(k)}(a) (x-a)^k/k! + \int_a^x f^{(n+1)}(t) (x
-- t)^n/n!\,dt
-</span></p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">f(x) =
-\log x</span> show</em> <span class="math display">
-    \log X/x = \log X - \log x = (1/x)(X - x) - (1/x^2)(X - x)^2/2 +
-\int_x^X 2/t^3(X - t)^2/2\,dt
-</span> This provides a perfect hedge no matter the value of <span
-class="math inline">X</span> so it is model independent.</p>
+</span> Either contract can be used to replicate the other using the
+zero price futures contract.</p>
+<p>Note this is Taylor’s formula for <span class="math inline">f(x) =
+x^2</span> since cubic and higher order terms are 0.</p>
 </section>
 <section id="contract" class="level2">
 <h2>Contract</h2>
@@ -118,14 +99,15 @@ class="math display">
 return over <span class="math inline">[t_j, t_{j+1}]</span>, <span
 class="math inline">\sigma_0</span> is the <em>par volatility</em>, and
 <span class="math inline">c</span> is a constant specified in the
-contract that is not far from the number 1. The par volatility makes the
-price of the contract at <span class="math inline">t_0</span> equal to
-zero.</p>
-<p>The realized return is <span class="math inline">R_j = \log
-X_{j+1}/X_j = \log X_{j+1} - \log X_j = \Delta \log X_j</span> where
-<span class="math inline">\log</span> is the natuaral logarithm with
-base <span class="math inline">e \approx 2.718281828</span>. Real-world
-variance swap contracts actually specify this approximation.</p>
+contract that is not far from the number 1. The par volatility is quoted
+to make the price of the contract at <span
+class="math inline">t_0</span> equal to zero.</p>
+<p>Most traded variance swap contracts specify the realized return as
+<span class="math inline">R_j = \log X_{j+1}/X_j = \log X_{j+1} - \log
+X_j = \Delta \log X_j</span> where <span class="math inline">\log</span>
+is the natuaral logarithm with base <span class="math inline">e \approx
+2.718281828</span>. I confess to being surprised when I first saw this
+approximation in an actual contract.</p>
 <p>Another way of specifying realized return is <span
 class="math inline">R_j = (X_{j+1} - X_j)/X_j = \Delta X_j/X_j</span>.
 It does not drag in logarithms and is simpler to work with.</p>
@@ -148,23 +130,25 @@ Solution
 </summary>
 </details>
 <p>Continuous time mathematical treatments assume the realized variance
-is <span class="math inline">(1/t)\int_0^t (d\log X_s)^2\,ds</span>. If
-<span class="math inline">X</span> is an Ito process satisfying <span
-class="math inline">dX/X = \mu\,dt + \sigma\,dB</span> then <span
-class="math inline">d\log X = dX/X - (1/2)(dX/X)^2 = \mu\,dt +
-\sigma\,dB - (1/2)\sigma^2\,dt</span> so <span
-class="math inline">(d\log X)^2 = \sigma^2\,dt</span> and <span
-class="math inline">\int_0^t (d\log X_s)^2\,ds = \int_0^t
-\sigma^2\,ds</span>. Under a risk-neutral measure the par variance is
-<span class="math inline">\sigma_0^2 = (1/t)E[\int_0^t
-\sigma^2\,ds]</span>.</p>
-<p>The astounding thing about variance swaps is that valuing and hedging
-them do not require any assumptions on a model for the dynamics of the
-underlying. They only require futures and options traded at a
-sufficiently wide range of strikes on the underlying.</p>
+is approximated by <span class="math inline">{(1/t)\int_0^t (d\log
+X_s)^2\,ds}</span>. If <span class="math inline">X</span> is an Ito
+process satisfying <span class="math inline">{dX/X = \mu\,dt +
+\sigma\,dB}</span> then <span class="math inline">{d\log X = dX/X -
+(1/2)(dX/X)^2 = \mu\,dt + \sigma\,dB - (1/2)\sigma^2\,dt}</span> so
+<span class="math inline">{(d\log X)^2 = \sigma^2\,dt}</span> and <span
+class="math inline">{\int_0^t (d\log X_s)^2\,ds = \int_0^t
+\sigma^2\,ds}</span>. Under a risk-neutral measure the par variance is
+<span class="math inline">{\sigma_0^2 = (1/t)E[\int_0^t
+\sigma^2\,ds]}</span>.</p>
+<p>Black, Scholes, and Merton had to work harder to show the drift of
+the underlying was irrelevant. The astounding thing about variance swaps
+is that valuing and hedging them do not require any assumptions on a
+model for the dynamics of the underlying. They only require futures and
+options traded at a sufficiently wide range of strikes on the
+underlying.</p>
 <p>The payoff of a variance swap can be approximately replicated by a
-<em>dynamic hedge</em> in futures and a <em>static hedge</em> in a calls
-and puts.</p>
+<em>static hedge</em> in a calls and puts and a <em>dynamic hedge</em>
+in futures</p>
 <p>For any thrice differentiable function <span
 class="math inline">f</span> we use a telescoping sum and Taylor’s
 theorem with remainder to get <span class="math display">
@@ -180,9 +164,9 @@ and <span class="math inline">f&#39;(X_j) \Delta X_j</span> is the cash
 flow at time <span class="math inline">t_{j+1}</span> from purchasing
 <span class="math inline">f&#39;(X_j)</span> futures on <span
 class="math inline">X</span> at time <span
-class="math inline">t_j</span>. The quadratic term can be used to
-replicate a variance swap payoff.</p>
-<p>If <span class="math inline">f&#39;&#39;(x) = 2/x^2</span> then <span
+class="math inline">t_j</span>.</p>
+<p>The quadratic term can be used to replicate a variance swap payoff.
+If <span class="math inline">f&#39;&#39;(x) = 2/x^2</span> then <span
 class="math inline">(1/2)f&#39;&#39;(X_j)(\Delta X_j)^2 = (\Delta
 X_j/X_j)^2</span> is the square of the realized return. We have <span
 class="math inline">f&#39;(x) = -2/x + c</span> where <span
@@ -198,7 +182,7 @@ class="math display">
 \sum_{0\le j &lt; n} (\Delta X_j/X_j)^2 = -2\log X_n/X_0 + 2(X_n -
 X_0)/z + \sum_{0\le j &lt; n} (2/X_j - 2/z)\Delta X_j - R_j
 </span> This shows a variance swap can be replicated using a static
-hedge and a dynamic hedge using futures with error <span
+hedge and a dynamic hedge with error <span
 class="math inline">R_j</span>. The static hedge can be approximated
 with puts and calls using the Carr-Madan formula. If <span
 class="math inline">z = X_0</span> then the initial furtures hedge is

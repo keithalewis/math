@@ -388,16 +388,16 @@ $$
 Solving for $d_L$, $d_H$, and $d_K$ gives
 $$
 \begin{aligned}
-𝑑_L &= \frac{v + Kr/R - s}{K − L} \\
+d_L &= \frac{v + Kr/R - s}{K - L} \\
 d_H &= \frac{v}{H - K} \\
-d_K &= \frac{(s - Lr/R)(H − K) - v(H − L)}{(K - L)(H - K)} \\
+d_K &= \frac{(s - Lr/R)(H - K) - v(H - L)}{(K - L)(H - K)} \\
 \end{aligned}
 $$
 The no arbitrage constraints are $v \ge s - Kr/R$,
-$v\ge 0$, and $(s - Lr/R)(H − K)/(H - L) \ge v$
+$v\ge 0$, and $(s - Lr/R)(H - K)/(H - L) \ge v$
 so
 $$
-\max\{0,(s - Lr/R)(H − K)/(H - L)\} \le v\le s - Kr/R.
+\max\{0,(s - Lr/R)(H - K)/(H - L)\} \le v\le s - Kr/R.
 $$
 
 
