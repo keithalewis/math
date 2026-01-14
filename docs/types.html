@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-12-31" />
+  <meta name="dcterms.date" content="2026-01-14" />
   <title>Types</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,18 +47,200 @@
 <header id="title-block-header">
 <h1 class="title">Types</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">December 31, 2025</p>
+<p class="date">January 14, 2026</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Types - syntax for categories
+</div>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
+<li><a href="#semigroup" id="toc-semigroup">Semigroup</a></li>
+<li><a href="#monoid" id="toc-monoid">Monoid</a></li>
+<li><a href="#mono-epi-iso" id="toc-mono-epi-iso">mono, epi,
+iso</a></li>
+<li><a href="#product" id="toc-product">product</a></li>
+<li><a href="#exponential" id="toc-exponential">exponential</a></li>
 <li><a href="#set" id="toc-set">Set</a></li>
 <li><a href="#relation" id="toc-relation">Relation</a></li>
 <li><a href="#function" id="toc-function">Function</a></li>
-<li><a href="#semigroup" id="toc-semigroup">Semigroup</a></li>
-<li><a href="#monoid" id="toc-monoid">Monoid</a></li>
+<li><a href="#group" id="toc-group">Group</a></li>
+<li><a href="#vector-space" id="toc-vector-space">Vector Space</a></li>
 </ul>
 </nav>
-<p>A <em>type</em> is a set with operations that satisfy axioms.</p>
+<p>A <em>type</em> is a set with <em>operations</em> that satisfy
+<em>axioms</em>. The operations are functions between sets and axioms
+are statements that are assumed to be true.</p>
+<p>In mathematics the set <span class="math inline">\bs{N}= \{0, 1, 2,
+\ldots\}</span> of non-negative integers has operations of addition and
+multiplication that are commutative, associative, and satisfy the
+distributive law.</p>
+<p>Computers use integer types that are a finite number of bits in their
+base 2 representation. The operations on integers are addition,
+subtraction, and multiplication.</p>
+<p>This goes back to Euclid where the types are points, lines, and
+planes and the operations involve a ruler and compass. His five
+postulates, what we now call axioms, specify how to construct types from
+existing types.</p>
+<p>His first axiom is “Things that are equal to the same thing are also
+equal to one another.” Euler distinguished axioms from postulates. He
+called his five axioms “common notions” (κοιναὶ ἔννοιαι), something he
+thought every rational person would agree with.</p>
+<p>His fifth postulate was “That, if a straight line falling on two
+straight lines makes the interior angles on the same side less than two
+right angles, the two straight lines, if produced indefinitely, meet on
+that side on which the angles are less than two right angles.”</p>
+<blockquote>
+<p>Καὶ ἐὰν εὐθεῖαι δύο τῇ αὐτῇ ἐμπίπτουσαι εὐθείᾳ τὰ ἐντὸς καὶ ἐπὶ τὴν
+αὐτὴν πλευρὰν γινόμενα τῶν ἐντός γωνιῶν δύο ἔλαττον δύο ὀρθῶν ᾖ,
+ἐκβαλλομένας τὰς δύο εὐθείας ἐπ᾽ ἄπειρον συναντᾶν ἐπὶ τὴν πλευρὰν
+ἐκείνην, ἐφ᾽ ἣν εἰσὶν αἱ δύο τῶν ἐντὸς γωνιῶν ἔλαττον δύο ὀρθῶν.</p>
+</blockquote>
+<p>Two millennia later we have <a
+href="https://homotopytypetheory.org/book/">Homotopic Type Theory</a>
+invented by Fields Medal winner Vladimir Voevodsky after he regretted a
+theorem he “proved” that turned out to be wrong, but was cited by many
+other mathematicians. Math is just following your nose and thinking
+clearly. It is remarkably difficult to do that.</p>
+<p>Category Theory. Sets too simple.</p>
+<p>Some people think mathematics is abstract nonsense. Many
+mathematicians think category theory is generalized abstract nonsense.
+When I told my colleague Andy Browder at Brown I was looking into it he
+said, “Don’t waste your time on that! It doesn’t <em>do</em>
+anything.”</p>
+<section id="semigroup" class="level2">
+<h2>Semigroup</h2>
+<p>For example, a <em>semigroup</em> is a set with a binary operation
+that is associative. If <span class="math inline">m\colon S\times S\to
+S</span> is the binary operation then it is associative if <span
+class="math inline">m(a,m(b,c)) = m(m(a,b),c)</span> for all <span
+class="math inline">a,b,c\in S</span>. Writing <span
+class="math inline">m(a,b)</span> as <span class="math inline">ab</span>
+we have <span class="math inline">a(bc) = (ab)c</span> so <span
+class="math inline">abc</span> reads unambiguously in a semigroup.</p>
+<p>This may seem to be too simple to be useful, but it is the foundation
+of Google’s <a
+href="https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf">MapReduce</a>.
+Assume a semigroup product <span class="math inline">a_1\cdots
+a_n</span> takes time proportional to <span
+class="math inline">n</span>. Dividing the product into <span
+class="math inline">k</span> pieces and running each piece in parallel
+takes time proportional to <span class="math inline">n/k</span>. The
+<span class="math inline">k</span> results can be multiplied to get the
+final result. This takes time proportional to <span
+class="math inline">n/k + k</span>. Since the derivative with respect to
+<span class="math inline">k</span> is -n/k^2 + 1$ we see <span
+class="math inline">k = \sqrt{n}</span> is the optimal number of pieces
+to minimize execution time.</p>
+</section>
+<section id="monoid" class="level2">
+<h2>Monoid</h2>
+<p>A <em>monoid</em> is a semigroup with an <em>identity</em> <span
+class="math inline">e</span> satifying <span class="math inline">em = m
+= me</span> for all <span class="math inline">m</span>. If <span
+class="math inline">S</span> is a semigroup we can make it into a monoid
+by adjoining <span class="math inline">e\not\in S</span> and define
+<span class="math inline">se = s = es</span> for <span
+class="math inline">s\in M = S\cup\{e\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">e&#39;</span> satisfies <span
+class="math inline">e&#39;m = m = me&#39;</span> for all <span
+class="math inline">m\in M</span> then <span class="math inline">e&#39;
+= e</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">e&#39; =
+e&#39;e</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span class="math inline">em =
+m</span> for all <span class="math inline">m</span> in a monoid <span
+class="math inline">M</span> then <span class="math inline">me =
+m</span> for all <span class="math inline">m\in M</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">me = e(me) = (em)e =
+me</span>.$</p>
+<p>Monoids are ubiquitous. Addition and multiplication of integers,
+rational and real numbers form a monoid. Their maximum and minimum with
+identity <span class="math inline">-\infty</span> and <span
+class="math inline">+\infty</span>a, respectively also form a
+commutative monoid. String concatenation with identity the empty string
+is an example of a noncommutative monoid.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\bs{N}\times\bs{R}</span> with product <span
+class="math inline">(m,r)(n,s) = (m + n, (mr + ns)/(m + n))</span> is a
+monoid with identity <span class="math inline">(0,0)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">(1,m_1)\cdots(1,m_n) = (n, (m_1 + \cdots +
+m_n)/n)</span></em>.</p>
+<p>This is how pivot tables do averages. Monoids are essential to pivot
+tables that make large amounts of data more accessible. A monoid product
+allows arbitrarily large amounts of data to be summarized.</p>
+<p>Given a function <span class="math inline">f\colon D\to M</span>
+where <span class="math inline">M</span> is a monoid, we can define a
+function from subsets of <span class="math inline">D</span> to <span
+class="math inline">M</span>. The product of the elements of <span
+class="math inline">f(D) = \{f(d)\mid d\in D\}</span> is well-defined by
+any commutative monoid.</p>
+</section>
+<section id="mono-epi-iso" class="level2">
+<h2>mono, epi, iso</h2>
+<p><span class="math inline">f\colon A\to B</span> is <em>mono</em> if
+there exists <span class="math inline">g\colon B\to A</span> with <span
+class="math inline">gf = 1_A</span>.</p>
+<p><span class="math inline">f\colon A\to B</span> is <em>epis</em> if
+there exists <span class="math inline">g\colon B\to A</span> with <span
+class="math inline">fg = 1_B</span>.</p>
+<p>An arrow that is mono and epi is <em>iso</em>.</p>
+<p><strong>Exercise</strong>. <em>What does this mean in <span
+class="math inline">\mathbf{Set}</span>, <span
+class="math inline">\mathbf{Par}</span>, <span
+class="math inline">\mathbf{Rel}</span></em>?</p>
+</section>
+<section id="product" class="level2">
+<h2>product</h2>
+<p>The <em>product</em> of <span class="math inline">A</span> and <span
+class="math inline">B</span> is an object with two arrows <span
+class="math inline">\pi_A\colon A\boxtimes B\to A</span> and <span
+class="math inline">\pi_B\colon A\boxtimes B\to B</span> with the
+property if <span class="math inline">\alpha\colon C\to A</span> and
+<span class="math inline">\beta\colon C\to B</span> there exists <span
+class="math inline">\alpha\boxtimes\beta\colon C\to A\boxtimes B</span>
+with <span class="math inline">\pi_A(\alpha\boxtimes\beta) =
+\alpha</span> and <span class="math inline">\pi_B(\alpha\boxtimes\beta)
+= \beta</span>.</p>
+<p><strong>Exercise</strong>. <em>In <span
+class="math inline">\mathbf{Set}</span> show show <span
+class="math inline">A\times B \cong \{(a,b)\mid a\in A, b\in
+B\}</span></em>.</p>
+<p><em>Hint</em>: Let <span class="math inline">\pi_A(a,b) = a</span>
+and <span class="math inline">\pi_B(a,b) = b</span>.</p>
+<p>The <em>coproduct</em> of <span class="math inline">A</span> and
+<span class="math inline">B</span> is an object with two arrows <span
+class="math inline">\nu_A\colon A\to A\boxplus B</span> and <span
+class="math inline">\nu_B\colon B\to A\boxplus B</span> with the
+property if <span class="math inline">\alpha\colon A\to C</span> and
+<span class="math inline">\beta\colon B\to C</span> there exists <span
+class="math inline">\alpha\boxplus\beta\colon A\boxplus B\to C</span>
+with <span class="math inline">(\alpha\boxplus\beta)\nu_A =
+\alpha</span> and <span class="math inline">(\alpha\boxplus\beta)\nu_B =
+\beta</span>.</p>
+<p><strong>Exercise</strong>. <em>In <span
+class="math inline">\mathbf{Set}</span> show <span
+class="math inline">A\sqcup B \cong (\{0\}\times A)\cup (\{1\}\times
+B)</span></em>.</p>
+<p><em>Hint</em>: Let <span class="math inline">\nu_A(a) = (0, a)</span>
+and <span class="math inline">\nu_B(b) = (1, b)</span>.</p>
+</section>
+<section id="exponential" class="level2">
+<h2>exponential</h2>
+<p>The exponential <span class="math inline">B^A</span> in a category
+with products has a monomorphism <span class="math inline">e\colon
+B^A\times A\to B</span> with the property for exery <span
+class="math inline">f\colon C\times A\to B</span> there exists unique
+<span class="math inline">g\colon C\to B^A</span> with <span
+class="math inline">e(gf\times 1_A) = f</span>.</p>
+<p><span class="math inline">g\colon C\to B^A</span>, <span
+class="math inline">f\colon C\times A\to B</span>, <span
+class="math inline">1_A\colon A\to A</span>,</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">f(a,c)
+= e(g(c), a)</span></em>.</p>
+</section>
 <section id="set" class="level2">
 <h2>Set</h2>
 <p>We start with the naive view of a set as a collection of
@@ -188,40 +370,11 @@ class="math inline">F</span>-algebra in the category Set with the
 functor <span class="math inline">F(S) = S\times S</span> and the
 commutative diagram</p>
 </section>
-<section id="semigroup" class="level2">
-<h2>Semigroup</h2>
-<p>For example, a <em>semigroup</em> is a set with a binary operation
-that is associative. If <span class="math inline">m\colon S\times S\to
-S</span> is the binary operation then it is associative if <span
-class="math inline">m(a,m(b,c)) = m(m(a,b),c)</span> for all <span
-class="math inline">a,b,c\in S</span>. Writing <span
-class="math inline">m(a,b)</span> as <span class="math inline">ab</span>
-we have <span class="math inline">a(bc) = (ab)c</span> so <span
-class="math inline">abc</span> reads unambiguously in a semigroup.</p>
-<p>We say <span class="math inline">e\in M</span> is an <em>identity
-element</em> if <span class="math inline">em = m = me</span> for all
-<span class="math inline">m\in M</span>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span
-class="math inline">e&#39;</span> satisfies <span
-class="math inline">e&#39;m = m = me&#39;</span> for all <span
-class="math inline">m\in M</span> then <span class="math inline">e&#39;
-= e</span></em>.</p>
-<p><em>Hint</em>: Use <span class="math inline">e&#39; =
-e&#39;e</span>.</p>
-<p><strong>Exercise</strong>. <em>Show if <span class="math inline">em =
-m</span> for all <span class="math inline">m</span> in a monoid <span
-class="math inline">M</span> then <span class="math inline">me =
-m</span> for all <span class="math inline">m\in M</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">me = e(me) = (em)e =
-me</span>.$</p>
+<section id="group" class="level2">
+<h2>Group</h2>
 </section>
-<section id="monoid" class="level2">
-<h2>Monoid</h2>
-<p>A <em>monoid</em> is a semigroup with an identity. If <span
-class="math inline">S</span> is a semigroup we can make it into a monoid
-by adjoining <span class="math inline">e\not\in S</span> and define
-<span class="math inline">ee = e</span> and <span class="math inline">se
-= s = es</span> for <span class="math inline">s\in S</span>.</p>
+<section id="vector-space" class="level2">
+<h2>Vector Space</h2>
 </section>
 </body>
 </html>

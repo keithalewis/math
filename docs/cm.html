@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-12-31" />
+  <meta name="dcterms.date" content="2026-01-14" />
   <title>Carr-Madan Formula</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,23 +47,35 @@
 <header id="title-block-header">
 <h1 class="title">Carr-Madan Formula</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">December 31, 2025</p>
+<p class="date">January 14, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-Payoffs can be replicated with cash, a forward, and a portfolio of puts,
-and calls
+European option payoffs can be replicated with cash, a forward, and a
+portfolio of puts, and calls
 </div>
 </header>
 <p>The Carr-Madan formula is <span class="math display">
-    f(x) = f(a) + f&#39;(a)(x - a) + \int_{-\infty}^a (k - x)^+
+    f(x) = f(a) + f&#39;(a)(x - a) + \int_0^a (k - x)^+
 f&#39;&#39;(k)\,dk
-    + \int_a^\infty (x - k)^+ f&#39;&#39;(k)\,dk,
-</span> if <span
-class="math inline">f\colon\mathbf{R}\to\mathbf{R}</span> is twice
-differentiable. The import is any sufficiently smooth payoff can be
-replicated with cash, a forward, and a portfolio of puts and calls.</p>
-<p>This follows from applying the fundamental theorem of calculus twice
-<span class="math display">
+    + \int_a^\infty (x - k)^+ f&#39;&#39;(k)\,dk
+</span> for <span
+class="math inline">f\colon[0,\infty)\to\mathbf{R}</span> when <span
+class="math inline">f&#39;&#39;</span> is integrable and <span
+class="math inline">x,a\ge0</span>.</p>
+<p>A European option paying <span class="math inline">f(x)</span> when
+<span class="math inline">x</span> is the price of the underlying at
+expiration can be replicated using cash, a forward, puts with strikes
+below <span class="math inline">a</span> and calls with strikes above
+<span class="math inline">a</span>.</p>
+<p>The cash position is <span class="math inline">f(a)</span>, the
+forward with strike <span class="math inline">a</span> position is <span
+class="math inline">f&#39;(a)</span>, the put positions are <span
+class="math inline">{f&#39;&#39;(k)\,dk}</span> for <span
+class="math inline">0 &lt;= k &lt; a</span>, and the call positions are
+<span class="math inline">{f&#39;&#39;(k)\,dk}</span> for <span
+class="math inline">k &gt; a</span>.</p>
+<p>By the fundamental theorem of calculus applied twice and Fubini’s
+theorem <span class="math display">
 \begin{aligned}
     f(x) &amp;= f(a) + \int_a^x f&#39;(y)\,dy \\
     f(x) &amp;= f(a) + \int_a^x (f&#39;(a) + \int_a^y
@@ -73,16 +85,13 @@ f&#39;&#39;(z)\,dz\,dy \\
     f(x) &amp;= f(a) + f&#39;(a)(x - a) + \int_a^x \int_z^x
 f&#39;&#39;(z)\,dy\,dz \\
     f(x) &amp;= f(a) + f&#39;(a)(x - a) + \int_a^x (x - z)
-f&#39;&#39;(z)\,dz \\
+f&#39;&#39;(z)\,dz. \\
 \end{aligned}
-</span></p>
-<p>If <span class="math inline">x &gt; a</span> then <span
-class="math inline">\int_a^x (x - z) f&#39;&#39;(z)\,dz = \int_a^\infty
-(x - z)^+ f&#39;&#39;(z)\,dz</span>.</p>
-<p>If <span class="math inline">x &lt; a</span> then <span
-class="math inline">\int_a^x (x - z) f&#39;&#39;(z)\,dz = -\int_x^a (x -
-z) f&#39;&#39;(z)\,dz = \int_x^a (z - x) f&#39;&#39;(z)\,dz =
-\int_{-\infty}^a (z - x)^+ f&#39;&#39;(z)\,dz</span></p>
+</span> If <span class="math inline">x &gt; a</span> then <span
+class="math inline">1(z &gt; a)(x - z) = \max\{x - z, 0\}</span></p>
+<p>If <span class="math inline">0\le x &lt; a</span> then $x - z = {</p>
+<p><span class="math inline">\int_a^x (x - z) f&#39;&#39;(z)\,dz =
+\int_a^\infty (x - z)^+ f&#39;&#39;(z)\,dz</span>.</p>
 <p>If <span class="math inline">x &gt; a</span> then <span
 class="math inline">(z - x)^+ = 0</span> for <span class="math inline">z
 &lt; a</span> and if <span class="math inline">x &lt; a</span> then

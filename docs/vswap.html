@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-12-31" />
+  <meta name="dcterms.date" content="2026-01-13" />
   <title>Variance Swaps</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Variance Swaps</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">December 31, 2025</p>
+<p class="date">January 13, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage risk of variance swaps.
@@ -57,11 +57,12 @@ Value, hedge, and manage risk of variance swaps.
 <ul>
 <li><a href="#one-period" id="toc-one-period">One Period</a></li>
 <li><a href="#contract" id="toc-contract">Contract</a></li>
+<li><a href="#hedge" id="toc-hedge">Hedge</a></li>
 <li><a href="#static-hedge" id="toc-static-hedge">Static Hedge</a></li>
 </ul>
 </nav>
-<p>A variance swap pays the sum of the squares of realized returns over
-a period. It provides exposure to volatility no matter the level of the
+<p>A variance swap pays the sum of the squares of returns over a period.
+It provides exposure to volatility no matter the level of the
 underlying. Unlike a call or put option, it never goes out-of-the-money.
 The most remarkable fact about variance swaps is that they do not
 require a mathematical model of the underlying price, only futures on
@@ -88,87 +89,95 @@ x^2</span> since cubic and higher order terms are 0.</p>
 <section id="contract" class="level2">
 <h2>Contract</h2>
 <p>Variance swap contracts are specified by an underlying instrument and
-observation times. If the level of the underlying is <span
+observation times. If the price of the underlying is <span
 class="math inline">X_t</span> at time <span
 class="math inline">t</span> and the observation times are <span
-class="math inline">(t_j)_{0\le j\le n}</span> then the payoff on unit
-notional at time <span class="math inline">t_n</span> is <span
-class="math display">
-    (\frac{c}{t_n - t_0}\sum_{0\le j &lt; n} R_j^2) - \sigma_0^2
-</span> where <span class="math inline">R_j</span> is the realized
-return over <span class="math inline">[t_j, t_{j+1}]</span>, <span
-class="math inline">\sigma_0</span> is the <em>par volatility</em>, and
-<span class="math inline">c</span> is a constant specified in the
-contract that is not far from the number 1. The par volatility is quoted
-to make the price of the contract at <span
-class="math inline">t_0</span> equal to zero.</p>
-<p>Most traded variance swap contracts specify the realized return as
-<span class="math inline">R_j = \log X_{j+1}/X_j = \log X_{j+1} - \log
-X_j = \Delta \log X_j</span> where <span class="math inline">\log</span>
-is the natuaral logarithm with base <span class="math inline">e \approx
-2.718281828</span>. I confess to being surprised when I first saw this
-approximation in an actual contract.</p>
-<p>Another way of specifying realized return is <span
-class="math inline">R_j = (X_{j+1} - X_j)/X_j = \Delta X_j/X_j</span>.
-It does not drag in logarithms and is simpler to work with.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\Delta
-\log X = (\Delta X/X) - (1/2)(\Delta X/X)^2 + O((\Delta
-X/X)^3)</span></em>.</p>
-<details>
-<summary>
-Solution
-</summary>
-</details>
-<p>The cubic term <span class="math inline">(\Delta X/X)^3</span>
+class="math inline">{t_0 &lt; t_1 &lt; \cdots &lt; t_n}</span> then the
+payoff on unit notional at time <span class="math inline">t_n</span> is
+the average <em>realized variance</em> minus the <em>par variance</em>
+<span class="math display">
+    \frac{c}{t_n - t_0}\sum_{j = 0}^{n-1} R_j^2 - \sigma_0^2,
+</span> where <span class="math inline">c</span> is a constant specified
+in the contract that is not far from the number 1, <span
+class="math inline">R_j</span> is the return over <span
+class="math inline">[t_j, t_{j+1}]</span>, and <span
+class="math inline">\sigma_0</span> is the _par volatility The par
+volatility is quoted to make the price of the contract at <span
+class="math inline">t_0</span> equal to zero. Variance swap contracts
+are quoted using the par volatility.</p>
+<p>Almost all variance swap contracts specify the return as the <em>log
+realized return</em> <span class="math inline">{R_j = \log X_{j+1}/X_j =
+\Delta \log X_j}</span> where <span class="math inline">\log</span> is
+the natural logarithm with base <span class="math inline">e</span>
+approximately equal to <span class="math inline">2.718281828</span>. I
+confess to being surprised when I first saw this approximation in an
+actual contract.</p>
+<p>The standard way of specifying return is <span
+class="math inline">R_j = (X_{j+1} - X_j)/X_j = \Delta X_j/X_j</span>.<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> It does not drag in logarithms and
+is simpler to work with. By Taylor’s theorem <span class="math display">
+    \Delta \log X = (\Delta X/X) - (1/2)(\Delta X/X)^2 + (1/3)(\Delta
+X/X)^3 + O((\Delta X/X)^4).
+</span> The cubic term <span class="math inline">(\Delta X/X)^3</span>
 explains the P&amp;L of a variance swap hedge, as we will see later.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">(\Delta
-\log X)^2 = (\Delta X/X)^2 - (\Delta X/X)^3 + O((\Delta
+\log X)^2 = (\Delta X/X)^2 - (2/3)(\Delta X/X)^3 + O((\Delta
 X/X)^4)</span></em>.</p>
-<details>
-<summary>
-Solution
-</summary>
-</details>
+<p>The exercise shows the cubic term in the standard return contract is
+twice as sensitive in the opposite direction to the log return contract.
+When Peter Carr and I were implementing the variance swap model at Banc
+of America Securities we suggested selling two log return contracts for
+each standard return contract to minimize the risk of ignoring the cubic
+term. They (correctly) thought that clients would get confused by having
+two types of contracts and only wrote log return contracts to halve the
+effect of ignoring the cubic term.</p>
 <p>Continuous time mathematical treatments assume the realized variance
 is approximated by <span class="math inline">{(1/t)\int_0^t (d\log
 X_s)^2\,ds}</span>. If <span class="math inline">X</span> is an Ito
 process satisfying <span class="math inline">{dX/X = \mu\,dt +
-\sigma\,dB}</span> then <span class="math inline">{d\log X = dX/X -
-(1/2)(dX/X)^2 = \mu\,dt + \sigma\,dB - (1/2)\sigma^2\,dt}</span> so
-<span class="math inline">{(d\log X)^2 = \sigma^2\,dt}</span> and <span
-class="math inline">{\int_0^t (d\log X_s)^2\,ds = \int_0^t
-\sigma^2\,ds}</span>. Under a risk-neutral measure the par variance is
-<span class="math inline">{\sigma_0^2 = (1/t)E[\int_0^t
+\sigma\,dB}</span> then <span class="math display">
+    d\log X = dX/X - (1/2)(dX/X)^2 = \mu\,dt + \sigma\,dB -
+(1/2)\sigma^2\,dt
+</span> so <span class="math inline">{\int_0^t (d\log X_s)^2\,ds =
+\int_0^t \sigma^2\,ds}</span>. Under a risk-neutral measure the par
+variance is <span class="math inline">{\sigma_0^2 = (1/t)E[\int_0^t
 \sigma^2\,ds]}</span>.</p>
 <p>Black, Scholes, and Merton had to work harder to show the drift of
-the underlying was irrelevant. The astounding thing about variance swaps
+the underlying was irrelevant. The stunning thing about variance swaps
 is that valuing and hedging them do not require any assumptions on a
 model for the dynamics of the underlying. They only require futures and
 options traded at a sufficiently wide range of strikes on the
 underlying.</p>
+</section>
+<section id="hedge" class="level2">
+<h2>Hedge</h2>
 <p>The payoff of a variance swap can be approximately replicated by a
-<em>static hedge</em> in a calls and puts and a <em>dynamic hedge</em>
-in futures</p>
+<em>static hedge</em> and a <em>dynamic hedge</em>. The static hedge is
+a European log contract and the dynamic hedge uses futures at each
+observation date except the last. The options, futures, and variance
+swap expiration must be the same.</p>
 <p>For any thrice differentiable function <span
 class="math inline">f</span> we use a telescoping sum and Taylor’s
 theorem with remainder to get <span class="math display">
 \begin{aligned}
 f(X_n) - f(X_0) &amp;= \sum_{0\le j &lt; n} f(X_{j+1}) - f(X_j) \\
     &amp;= \sum_{0\le j &lt; n} f&#39;(X_j)\Delta X_j + \frac{1}{2}
-f&#39;&#39;(X_j) (\Delta X_j)^2 + R_j
+f&#39;&#39;(X_j) (\Delta X_j)^2 + S_j
 \end{aligned}
-</span> where <span class="math inline">R_j = (1/2)\int_{X_j}^{X_{j+1}}
-f&#39;&#39;&#39;(t) (X_{j+1} - t)^2\, dt</span>. Note <span
+</span> where <span class="math inline">S_j = (1/2)\int_{X_j}^{X_{j+1}}
+f&#39;&#39;&#39;(t) (X_{j+1} - t)^2\,dt</span>. Note <span
 class="math inline">f(X_n) - f(X_0)</span> is a European option payoff
-and <span class="math inline">f&#39;(X_j) \Delta X_j</span> is the cash
-flow at time <span class="math inline">t_{j+1}</span> from purchasing
-<span class="math inline">f&#39;(X_j)</span> futures on <span
+with expiration <span class="math inline">t_n</span> and <span
+class="math inline">f&#39;(X_j) \Delta X_j</span> is the cash flow at
+time <span class="math inline">t_{j+1}</span> from purchasing <span
+class="math inline">f&#39;(X_j)</span> futures on <span
 class="math inline">X</span> at time <span
 class="math inline">t_j</span>.</p>
 <p>The quadratic term can be used to replicate a variance swap payoff.
 If <span class="math inline">f&#39;&#39;(x) = 2/x^2</span> then <span
 class="math inline">(1/2)f&#39;&#39;(X_j)(\Delta X_j)^2 = (\Delta
-X_j/X_j)^2</span> is the square of the realized return. We have <span
+X_j/X_j)^2</span> is the square of the return. We have <span
 class="math inline">f&#39;(x) = -2/x + c</span> where <span
 class="math inline">c</span> is a constant, and <span
 class="math inline">f(x) = -2\log x + cx</span>. It is convenient to
@@ -176,17 +185,17 @@ choose <span class="math inline">c = 2/z</span> for some constant <span
 class="math inline">z</span> so <span class="math display">
 -2\log X_n + 2 X_n/z + 2\log X_n - 2 X_0/z
     = \sum_{0\le j &lt; n} (-2/X_j + 2/z)\Delta X_j + (\Delta X_j/X_j)^2
-+ R_j
++ S_j
 </span> Rearranging terms and simplifying gives <span
 class="math display">
 \sum_{0\le j &lt; n} (\Delta X_j/X_j)^2 = -2\log X_n/X_0 + 2(X_n -
-X_0)/z + \sum_{0\le j &lt; n} (2/X_j - 2/z)\Delta X_j - R_j
+X_0)/z + \sum_{0\le j &lt; n} (2/X_j - 2/z)\Delta X_j - S_j
 </span> This shows a variance swap can be replicated using a static
-hedge and a dynamic hedge with error <span
-class="math inline">R_j</span>. The static hedge can be approximated
-with puts and calls using the Carr-Madan formula. If <span
-class="math inline">z = X_0</span> then the initial furtures hedge is
-zero.</p>
+hedge and a dynamic hedge with error <span class="math inline">\sum
+-S_j</span>. The static hedge is a European option that can be
+approximated using the Carr-Madan formula. If <span
+class="math inline">z = X_0</span> then the initial dynamic futures
+hedge is zero.</p>
 </section>
 <section id="static-hedge" class="level2">
 <h2>Static Hedge</h2>
@@ -209,7 +218,7 @@ class="math inline">(H_j, f(H_j))</span>, <span class="math inline">H_j
 \ge K</span>. We assume linear extrapolation on the left using the two
 lowest put strikes and on the right by the two highest call strikes.
 Typically <span class="math inline">K</span> is chosen to be close to
-the at-the-money forward at option expiration.</p>
+the forward at option expiration.</p>
 <!--
 ## Cubic Term
 
@@ -227,5 +236,15 @@ $$
 $$
 -->
 </section>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Recall the <em>realized return</em> over the interval
+<span class="math inline">[t_j,t_{j+1}]</span> is <span
+class="math inline">X_{j+l}/X_j</span>.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
 </body>
 </html>

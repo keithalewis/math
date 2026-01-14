@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
-abstract: Simplest formal model of a financial market.
+abstract: The simplest formal model of a financial market.
 ...
 
 \newcommand\RR{\boldsymbol{R}}
@@ -22,17 +22,15 @@ The One‑Period Model is the simplest framework for rigorously
 representing a financial market over a single period of time. The
 model defines the initial prices of tradable instruments and their
 terminal cash flows contingent on the realized outcome. If there are no
-arbitrage opportunities available (in the model) then prices are subject
+arbitrage opportunities available then prices are subject
 to geometric constraints determined by the cash flows.
-
-We show how to apply these constraints to [zero coupon bonds](zero-coupon-bond),
-the [binomial model](binomial-model), and the [interval model](interval-model).
-The latter provides a solution to the allowable values of any collection
-of option prices.
+Arbitrage must always be defined relative to a particular model.
+These constraints are applied to [zero coupon bonds](#zero-coupon-bond),
+the [binomial model](#binomial-model), and the [interval model](#interval-model).
 
 We make the usual unrealistic assumptions that prices are real
 numbers instead of integral multiples of each instrument's minimum
-trading increment/tick size and there is no bid-ask spread, much
+trading increment/tick size and there is no bid-ask spread in prices, much
 less any consideration of credit or tax issues.  We also ignore the
 fact instruments can only be purchased in integral multiples of their
 minimum share/lot size.  The [Appendix](#appendix) posits a model that
@@ -41,9 +39,13 @@ can incorporate more realistic assumptions.
 Quants turn mathematical models into software used for trading.  If a
 model is deployed without ensuring it is arbitrage-free then buy-side
 clients will exploit mispricings by buying trades that are undervalued
-and pass on overpriced ones. Eventually trading reality catches up
+and pass on overpriced ones. They don't need to develop sophisticated
+models to do this, they just get quotes from several sell-side firms
+and take the lowest offer.
+Eventually trading reality catches up
 and the sell-side firm loses money.  Even worse, a "clever" trader might
-find an internal arbitrage that gives the illusion of making profits.
+find an internal arbitrage that gives the illusion of making profits
+until risk management figures out what is going on.
 
 The Fundamental Theorem of Asset Pricing characterizes arbitrage-free
 models and provides an arbitrages if they are not. As [@Ros1978] showed,
@@ -166,7 +168,10 @@ and if $x,y\in K$ then ${x + y\in K}$.
 
 __Exercise__. _A cone is convex_.
 
-_Hint_: Show $x,y\in K$ implies ${tx + (1-t)y\in K}$ for ${0 < t < 1}$.
+_Hint_: Recall a subset $K\subseteq\RR^n$
+is convex if and only if every point on the line between two
+points in $K$ also belongs to $K$;
+$K$, $x,y\in K$ implies ${tx + (1-t)y\in K}$ for ${0 < t < 1}$.
 
 <details><summary>Solution</summary>
 Since $t > 0$ and $1 - t > 0$ both $tx$ and $(1 - t)y$ belong to $K$
@@ -318,25 +323,25 @@ risk aversion.
 ### Binomial Model
 
 The 1-2-3 model is a special case of the  _binomial model_ having instruments
-a bond and stock where ${x = (r, s)}$,
+a bond and stock where ${x = (1, s)}$,
 ${C(\omega) = (R, \omega)}$, and ${\Omega = \{L, H\}}$ with ${L < H}$.
-The bond has realized return $R/r$ and the stock can go from price $s$
+The bond has realized return $R$ and the stock can go from price $s$
 to either $L$ or $H$. 
 This is arbitrage-free if and only we can find ${d_L,d_H \ge 0}$
 with ${x = C(L)d_L + C(H)d_H}$. Considering the bond and stock components
-we have ${d_L = (Hr - sR)/R(H - L)}$ and ${d_H = (sR - Lr)/R(H - L)}$.
+we have ${d_L = (H - sR)/R(H - L)}$ and ${d_H = (sR - L)/R(H - L)}$.
 The model is arbitrage-free if and only if these are both non-negative
-so ${L/R \le s/r \le H/R}$.
+so ${L/R \le s \le H/R}$.
 
-__Exercise__. _Find an arbitrage if $s/r < L/R$ or $s/r > H/R$_.
+__Exercise__. _Find an arbitrage if $s < L/R$ or $s > H/R$_.
 
-_Hint_: If $s/r < L/R$ then buy the stock and short the bond.
-If $s/r > H/R$ then sell the stock and buy the bond.
+_Hint_: If $s < L/R$ then buy the stock and short the bond.
+If $s > H/R$ then sell the stock and buy the bond.
 
 If we have a call option with payoff $\max\{\omega - K,0\}$, where $L < K < H$,
 its arbitrage-free value is 
 $$
-v = 0 d_L + (H - K) d_H = (H - K)(s - Lr/R)/(H - L)
+v = 0 d_L + (H - K) d_H = (H - K)(s - L/R)/(H - L)
 $$
 
 __Exercise__. _Show this agrees with the 1-2-3 Model for a call option with strike 2_.
@@ -344,7 +349,7 @@ __Exercise__. _Show this agrees with the 1-2-3 Model for a call option with stri
 ### Interval Model
 
 A somewhat more realistic model than the binomial model is to allow the
-final stock price to take any value between the low and the high,
+final stock price to take any value between a low and a high,
 ${\omega\in\Omega = [L, H]}$.
 The arbitrage-free conditions are still the same.
 
@@ -355,7 +360,7 @@ _Hint_: Show if $L\le\omega\le H$ then $C(\omega) = (1 - t)C(L) + tC(H)$
 for some $t\in[0,1]$.
 
 Since cones are convex, this shows the smallest cone containing $C(L)$ and
-$C(H)$ also contains $C(\omega)$ for $\omega\in[L,H]$.
+$C(H)$ also contains $C(\omega)$ for $\omega\in(L,H)$.
 
 If we introduce a call option with strike $K\in (L,H)$ then the smallest
 cone containing the range of $C$ coincides the the smallest cone
@@ -369,48 +374,187 @@ if $L \le \omega \le K$ and is on the line segment from $C(K)$ to $C(H)$
 if $K \le \omega \le H$.
 
 Unlike the binomial model, the value of the option in the interval model is not determined
-by the bond and the stock. The interval model is $x = (r, s, v)$ and
+by the bond and the stock. The interval model is $x = (1, s, v)$ and
 $C(\omega) = (R, \omega, (\omega - K))$, where $\omega\in [L,H]$.
-There is no arbitrage if and only if there exist non-negative $d_L$, $d_H$, $d_K$
+There is no arbitrage if and only if there exist non-negative $d_L$, $d_K$, $d_H$
 with
 $$
-	x = C(L)d_L + C(H)d_H + C(K)d_K.
+	x = C(L)d_L + C(K)d_K + C(H)d_H.
 $$
 
 The components of the three instruments are
 $$
 \begin{aligned}
-	r &= R d_L + R d_H + R d_K \\
-	s &= L d_L + H d_H + K d_K \\
+	1 &= R d_L + R d_K + R d_H \\
+	s &= L d_L + K d_K + H d_H \\
 	v &= (H - K) d_H \\
 \end{aligned}
 $$
-Solving for $d_L$, $d_H$, and $d_K$ gives
+
+Substituting $d_H = v/(H - K)$ and solving for $d_L$ and $d_K$ yields
 $$
 \begin{aligned}
-d_L &= \frac{v + Kr/R - s}{K - L} \\
-d_H &= \frac{v}{H - K} \\
-d_K &= \frac{(s - Lr/R)(H - K) - v(H - L)}{(K - L)(H - K)} \\
+d_L &= \frac{v + K/R - s}{K - L} \\
+d_K &= \frac{(s - L/R)(H - K) - v(H - L)}{(K - L)(H - K)} \\
 \end{aligned}
 $$
-The no arbitrage constraints are $v \ge s - Kr/R$,
-$v\ge 0$, and $(s - Lr/R)(H - K)/(H - L) \ge v$
-so
+The no arbitrage constraints are $v\ge 0$,
+$v \ge s - K/R$,
+and $(s - L/R)(H - K)/(H - L) \ge v$.
+Note the binomial model option value is an upper bound in the interval model.
+Fixing $R$ and $s$ we have the allowable arbitrage-free initial option value 
+must satisfy 
 $$
-\max\{0,(s - Lr/R)(H - K)/(H - L)\} \le v\le s - Kr/R.
+s - K/R \le v \le (s - L/R)(H - K)/(H - L).
 $$
 
+If we have $n$ call options with values $v_i$ and strikes $K_i$
+where $L < K_1 < \cdots K_n < H$ then
+${x = (1, s, v_1,\ldots,v_n)}$ and
+${C(\omega) = (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)}$, $\omega\in[L,H]$.
+There is no arbitrage if and only if there exist non-negative
+$d_L, d_1, d_2,\ldots,d_H$ with
+$$
+	x = C(L)d_L + \sum_{i=1}^n C(K_i)d_i  + C(H)d_H
+$$
+The components are
+$$
+\begin{aligned}
+1 &= R d_L + R d_1 + R d_2 + \cdots + R d_H \\
+s &= L d_L + K_1 d_1 + K_2 d_2 + \cdots + H d_H \\
+v_1 &= (K_2 - K_1) d_2 + \cdots + (H - K_1) d_H \\
+v_2 &= (K_3 - K_2) d_3 + \cdots + (H - K_2) d_H \\
+\cdots \\
+v_{n-1} &= (K_n - K_{n-1}) d_n + (H - K_{n-1}) d_H \\
+v_n &=  (H - K_n) d_H \\
+\end{aligned}
+$$
+Working from the last equation to the first
+$$
+\begin{aligned}
+d_H &= v_n/(H - K_n) \\
+d_n &= v_{n-1} - (H - K_{n-1})v_n/(H - K_n) \\
+\end{aligned}
+$$
 
+<!--
+\dots & & & \\
+	1 &= R d_L + L d_H \\
+	v_1 &= R d_L + K_1 d_H \\
+	v_2 &= R d_L + K_2 d_H + (K_2 - K_1) d_1 \\
+	&\dots \\
+	v_n &= R d_L + K_n d_H + (K_n - K_1) d_1 + \cdots + (K_n - K_{n-1}) d_{n-1} \\
+	s &= R d_L + H d_H + (H - K_1) d_1 + \cdots + (H - K_n)d_n \\
+-->
+
+## Appendix
+
+The classical one-period model neglects, among other things, the fact
+there are many market participants.  It assumes there is only a price
+_taker_ that decides how much to buy or sell.  There must also be price
+_makers_ exhibiting what they offer to sell or buy. 
+We only consider accurate accounting of transactions.
+
+The price of an instrument must be an integral multiple of its minimal
+trading increment, or _tick size_.  Let $\epsilon(i)\in\RR$ be the tick
+size of instrument $i\in I$. Initial prices $x\in\ZZ^I$ correspond to
+the actual prices $x(i)\epsilon(i)$.
+
+The amount purchased in each instrument must be an integral multiple
+of its minimum share size, or _lot size_.  Let $\delta(i)$ be the lot
+size of instrument $i\in I$. Shares $\xi\in\ZZ^I$ correspond to actual
+amounts $\xi(i)\delta(i)$.
+
+The atoms of finance are _holdings_: an amount, instrument, and owner.
+Let ${\eta = (a,i,o)}$ denote amount $a$ of instrument $i$ is held
+by owner $o$. 
+
+A _position_ is a collection of holdings.
+Positions are modified by _exchanges_.
+An exchange at time $t$ is a triple ${(t,\eta,\eta')}$ where 
+$\eta$ and $\eta'$ are holdings. If the taker $o$ holds $\eta$ and
+the maker $o'$ holds $\eta'$ at time $t$ then after the exchange settles
+the taker holds $(a',i',o)$ and the maker holds $(a,i,o')$.
+The _price_ of the exchange is $X = a/a'$.
+
+After an exchange, the price is a well-defined number
+recorded in the books and records of each counterparty.
+
+Makers quote prices for potential exchanges. Takers decide whether
+or not to execute the exchange. For example, if a maker quotes Ford
+stock for $12$ USD per share then the taker can exchange $\$24$ for 2
+shares of Ford stock. This corresponds to the exchange where ${\eta =
+(24, \$, o)}$ and ${\eta' = (2, F, o')}$.  The price is ${X = a/a' = 24/2}$
+and we write $12$ USD/F to indicate a price of $\$12$ per share of Ford
+stock. Replacing the virgule '/' by '$= 1$' yields the mnemonic $12$ USD $=
+1$ F.  After the exchange settles the taker holds ${\eta = (2, F, o)}$
+and the maker holds ${\eta' = (24, \$, o')}$ in their respective positions.
+
+Prior to an exchange, the price is not a well-defined number.
+Makers quote a bid price and an ask price to takers.
+When a taker buys one share they pay the maker's ask price and when
+the taker sells one share they only get the maker bid price.
+The difference between the bid and the ask is the _bid-ask spread_
+and is usually positive.[^1] This is the maker _vigorish_ to get paid for
+providing _liquidity_ to takers in the market.
+
+[^1]: The spread is not always positive. An exchange may _cross_ the quotes
+in order to get rid of or acquire specific instruments.
+
+The quotes are only valid for a small number of shares.
+As the number of shares becomes larger maker increase the bid-ask
+spread. On an exchange the quote only holds out to level 1 depth before
+switching to level 2. Sellers might not know why so many shares are being purchased, but
+know demand will move the price up and they will increase their ask.
+At some point the number of shares to purchase will bump
+into the total number of shares issued and price becomes meaningless.
+When a taker sells shares they face even more restrictions and are also
+charged a _borrow cost_ over the period of time they are short.
+Prices can also depend on the particular taker and maker of the
+exchange due to credit issues or regulations, among other things.
+
+A more realistic model for prices in a one-period model is to replace
+$x\colon I\to\RR$ by $x\colon I\times A\to\RR$ where $I$
+is the set of instruments and $A$ is the set
+of possible amounts. The cost of setting up the position $\xi\in\RR^I$
+is ${\sum_{i\in I} \xi(i) x(i, \xi(i))}$.
+If a limit order book is available then
+a very good approximation to the execution price is the function of
+cumulative limit order amounts versus order levels.
+
+__Exercise__. _Show if the order book is $(l_i,a_i)$ and
+$b(l) = \sum_i a_i 1(l > l_i)$ then the..._.
+
+Not every transaction occurs on an exchange. An _over-the-counter_
+trade involves only the taker and maker as counterparties.
+While exchange traded instruments often settle within milliseconds,
+for these sort of trades, settlement time is typically measured in days
+and often involve risk mitigation measures such as posting collateral
+instead of margin accounts.
+
+A _broker_ is an intermediary between a taker and a maker
+and charge a transaction _fee_ based on the instrument and amount transacted.
+A _dealer_ is a broker that may hold transactions from taker
+or maker over a period of time. The amount they make is
+subject to market movements and settlement times are on the order of hours.
+
+
+## References
+
+<!--
 #### Grassmann Algebra
 
 We use [@Gra1844] Algebra to calculate the no arbitrage conditions.
 It generalizes cartesian coordinates to any number of dimensions, and much more.
-Grassmann assumed $PQ = 0$ if and only if $P = Q$ to detect incidence.
+Grassmann assumed $PQ = 0$ if and only if $P = Q$.
 This implies the product of points is anticommutative.
 
 __Exercise__. _Show $PQ = -QP$ for any points $P$ and $Q$_.
 
 _Hint_: $0 = (P + Q)(P + Q)$.
+
+If $P = tQ$ for some scalar $t$ we say $P$ and $Q$ are _congruent_
+and write $t = \frac{P}{Q}$.
 
 If the points $P_0,\ldots,P_k$ are independent ($P_0\cdots P_k\not=0$) then every
 point $P$ in their span can be written
@@ -422,16 +566,14 @@ where the numerator is the denominator with $P_j$ replaced by $P$.
 __Exercise__. _Show if $P = \sum_{j=0}^k x_j P_j$
 then $P_0\cdots P\cdots P_k = x_j P_0\cdots P_k$_.
 
-_Hint_. The only non-zero product on the left-hand side
-of the second equation after applying the distributive law is
-is $x_j P_j$.
+_Hint_. Replace $P$ in the second equation
+and show the only non-zero product is $x_j P_0\cdots P_k$.
 
 __Exercise__. _Show $1 = \sum_{j=0}^k P_0\cdots P\cdots P_k/P_0\cdots P_k$_.
 
-Using $P_0 = O$ as an _origin_,
-the cartsian product
+Using $P_0 = O$ as an _origin_, the cartsian product
 $(x_1,\ldots,x_k)$ corresponds to the point
-$(1 - \sum_{j=1}^k x_j)O + \sum_{j=1}^k x_j P_j$.
+$(1 - \sum_{j=1}^k x_j)O + \sum_{j=1}^k x_j P_j$ in the Grassmann algebra.
 We also write this as $\_O + \sum_j x_j P_j$ since the
 $(x_j)$ coordinates determine the coefficient of $O$.
 
@@ -440,15 +582,11 @@ all coefficients are non-negative. The point $P$ belongs to the
 smallest cone with vertex $P_0$ containing $P_1,\ldots,P_n$ if and only
 iff all the coefficients except the first are non-negative.
 
-Let $O$ be the vertex and ${C(\omega) = (1 - R - \omega)O + R\,P_r + \omega\,P_s}$
-where $P_r$ and $P_s$ are the bond and stock points respectively.
-
-The condition $x$ is in the cone generated by $C(\Omega)$ is
-$$
-	\_O + r\,P_r + s\,P_s = \_O + R\,P_r + \omega\,P_s, \omega\in[L,H].
-$$
-
-We only need to check this for $\omega = L$ and $\omega = H$.
+Let $O$ be the origin, ${x = \_0 + 1\,P_r + s\,P_s}$ be the initial prices and
+${C(\omega) = \_O + R\,P_r + \omega\,P_s}$ the final cash flows
+where $P_r$ and $P_s$ are the bond and stock dimensions respectively.
+To show initial prices are in the cone generated by $C(\Omega)$ 
+we only need to check for $\omega = L$ and $\omega = H$.
 Since
 $$
 	x = \frac{xC(L)C(H)}{OC(L)C(H)} O + \frac{OxC(H)}{OC(L)C(H)} C(L) + \frac{OC(L)x}{OC(L)C(H)} C(H)
@@ -465,57 +603,53 @@ $$
 For the bond coefficient we compute
 $$
 \begin{aligned}
-OxX(H) &= (r\, OP_r + s\,OP_s)C(H) \\
-	&= (r\,OP_r + s\,OP_s)(\_O + R\,P_r + H\,P_s) \\
-	&= rH\,OP_rP_s + sR\,OP_sP_r \\
-	& = (rH - sR)\,OP_rP_s \\
+OxX(H) &= (1\, OP_r + s\,OP_s)C(H) \\
+	&= (1\,OP_r + s\,OP_s)(\_O + R\,P_r + H\,P_s) \\
+	&= H\,OP_rP_s + sR\,OP_sP_r \\
+	& = (H - sR)\,OP_rP_s \\
 \end{aligned}
 $$
 For the stock coefficient we compute
 $$
 \begin{aligned}
 OX(L)x &= (R\,OP_r + L\,OP_s)x \\
-	&= (R\,OP_r + L\,OP_s)(\_O + r\,P_r + s\,P_s) \\
-	&= Rs\,OP_rP_s + Lr\,OP_sP_r \\
-	&= (Rs - Lr)OP_rP_s \\
+	&= (R\,OP_r + L\,OP_s)(\_O + 1\,P_r + s\,P_s) \\
+	&= Rs\,OP_rP_s + L\,OP_sP_r \\
+	&= (Rs - L)OP_rP_s \\
 \end{aligned}
 $$
-The no arbitrage condition are ${Hr - sR\ge0}$ and ${Rs - Lr\ge0}$
-so $L/R \le s/r \le H/R$ as before.
+The no arbitrage condition are ${H - sR\ge0}$ and ${Rs - L\ge0}$
+so $L/R \le s \le H/R$ as before.
 
-The model with a call option is $x = \_O + r\,P_r + s\,P_s + v\,P_v$
+The model with a call option is ${x = \_O + 1\,P_r + s\,P_s + v\,P_v}$
 where $v$ is the initial option value and
-$C(\omega) = \_O + R\,P_r + \omega\,P_s + \max\{\omega - K,0\}\,P_v$, $L\le\omega\le H$.
-
-
-
-It is not obvious the no arbitrage conditions are ${s\le K}$ and ${0\le v\le\frac{(Rs - L)(H - K)}{R(H - L)}}$
-but this can be reduced to a straightforward calculation.
+${C(\omega) = \_O + R\,P_r + \omega\,P_s + \max\{\omega - K,0\}\,P_v}$, $L\le\omega\le H$.
 
 The arbitrage-free conditions are reduced to a calculation:
 $$
 \begin{aligned}
 OC(L)C(K)C(H) &= (R\,OP_r + L\,OP_s)C(K)C(H) \\
-	&= (R\,OP_r + L\,OP_s)(\_O + R\,P_r + K\,P_s)C(H) \\
-	&= (RK\,OP_r P_s + LR\,OP_s P_r)(\_O + R\,P_r + H\,P_s + (H - K)\,P_v) \\
-	&= RK(H - K)\,OP_r P_s P_v + LR(H - K)\,OP_s P_r P_v \\
-	&= R(H - K)(K - L)\,OP_r P_s P_v \\
+	&= (R\,OP_r + L\,OP_s)(R\,P_r + K\,P_s)C(H) \\
+	&= (RK\,OP_r P_s + LR\,OP_s P_r)C(H) \\
+	&= (R(K - L)\,OP_r P_s)(H - K)\,P_v \\
+	&= R(K - L)(H - L)\,OP_r P_s P_v \\
 \end{aligned}
 $$
 The coefficient of $C(L)$ is
 $$
 \begin{aligned}
-OxC(K)C(H) &= (r\,OP_r + s\,OP_s + v\,OP_v)C(K)C(H) \\
-	&= (r\,OP_r + s\,OP_s + v\,OP_v)(R\,P_r + K\,P_s)C(H) \\
-	&= R(rK - s)\,OP_r P_s(\_O + R\,P_r + H\,P_s + (H - K)\,P_v) \\
-	&= R(rK - s)(H - K)\,OP_r P_s P_v \\
+OxC(K)C(H) &= (1\,OP_r + s\,OP_s + v\,OP_v)C(K)C(H) \\
+	&= (1\,O P_r + s\,OP_s + v\,OP_v)(R\,P_r + K\,P_s)C(H) \\
+	&= (K\,O P_r P_s + sR\,OP_sP_r + vR\,OP_v P_r + vK\,OP_v P_s)C(H)
+	&= (K - sR)\,OP_r P_s)(H - K)\,P_v) \\
+	&= (K - sR)(H - K)\,OP_r P_s P_v \\
 \end{aligned}
 $$
 The coefficient of $C(K)$ is
 $$
 \begin{aligned}
 OX(L)xX(H) &= (R\,OP_r + L\,OP_s)xX(H) \\
-	&= (R\,OP_r + L\,OP_s)(r\,P_r + s\,P_s + v\,P_v)C(H) \\
+	&= (R\,OP_r + L\,OP_s)(1\,P_r + s\,P_s + v\,P_v)C(H) \\
 	&= (Rs\,OP_r P_s + Rv\,OP_r P_v + Lr\,OP_s P_r + Lv\,OP_s P_v)C(H) \\
 	&= ((Rs - Lr)\,OP_rP_s + Rv\,OP_rP_v + Lv\,OP_sP_v)C(H) \\
 	&= ((Rs - Lr)\,OP_rP_s + Rv\,OP_rP_v + Lv\,OP_sP_v)(R\,P_r + H\,P_s + (H - K)\,P_v \\
@@ -527,7 +661,7 @@ $$
 \begin{aligned}
 OC(L)C(K)x &= (R\,OP_r + L\,OP_s)C(K)x \\
 	&= (R\,OP_r + L\,OP_s)(R\,P_r + K\,P_s)x \\
-	&= (R(K - L)OP_r P_s)(r\,P_r + s\,P_s + v\,P_v) \\
+	&= (R(K - L)OP_r P_s)(1\,P_r + s\,P_s + v\,P_v) \\
 	&= (R(K - L)v\,OP_r P_s P_v \\
 \end{aligned}
 $$
@@ -538,7 +672,7 @@ Let's generalize this to multiple call options with
 strikes between the low and high stock values, ${H < K_1 < \cdots < K_n < H}$.
 The initial price is 
 $$
-x = \_O + r\,P_r + \sum_{j=1}^n v_j\,P_j + s\,P_s
+x = \_O + 1\,P_r + \sum_{j=1}^n v_j\,P_j + s\,P_s
 $$
 and the terminal cash flow is
 $$
@@ -571,11 +705,7 @@ $$
 $$
 Substituting $x$ for $C(K_j)$ gives $d_j = v_j/(K_{j+1} - K_j)$, $1\le j\le n$
 where $K_{n+1} = H$.
-<!--
-& C(H) \\
--->
 
-<!--
 $$
 \begin{aligned}
 1   &= R d_L &+ R d_1 &+ R d_2          &+ \cdots &+ R d_n           &+ R d_H \\
@@ -586,82 +716,7 @@ v_1 &=  0    &+   0   &+ (K_2 - K_1)d_2 &+ \cdots &+ (K_n - K_1) d_n &+ (H - K_1
 v_2 &=  0    &+   0   &+        0       &+ \cdots &+ (K_n - K__2) d_n &+ (H - K_2) d_H \\
 \cdots \\
 s   &= L d_L &+ K_1 d_1 &+ K_2 d_2 \cdots &+ K_n d_n &+ H d_H \\
--->
 
-## Appendix
-
-There is a clear trend in mathematical finance toward models that
-practitoners find more relevant to the problems they are trying to solve.
-
-We can make the one-period model more realistic. The price of an instrument must
-be an integral multiple of its minimal trading increment, or _tick size_.
-Let $\epsilon(i)\in\RR$ be the tick size 
-of instrument $i\in I$. Initial prices $x\in\ZZ^I$ correspond
-to actual prices $x(i)\epsilon(i)$. Likewise for final prices ${X\colon\Omega\to\ZZ^I}$.
-
-The amount must be an
-integral multiple of its minimum share size, or _lot size_.
-Let $\delta(i)$ be the lot size 
-of instrument $i\in I$. Shares $\xi\in\ZZ^I$ correspond
-to amounts $\xi(i)\delta(i)$.
-
-The atoms of finance are _holdings_: an instrument, amount, and owner.
-Let ${\eta = (a,i,o)}$ denote owner $o$ holds amount $a$ of instrument $i$.
-A _position_ is a collection of holdings.
-A _transaction_ at time $t$ is a triple ${(t,\eta,\eta')}$ where 
-$\eta$ and $\eta'$ are holdings. If the buyer $o$ holds $\eta$ and
-the seller $o'$ holds $\eta'$ at time $t$ then after the transaction settles
-the buyer holds $(a',i',o)$ and the seller holds $(a,i,o')$.
-The _price_ of the transaction is $X = a/a'$.
-
-Sellers quote prices for potential transactions. Buyers decide whether
-or not to execute the transaction. For example, if a seller quotes Ford
-stock for $12$ USD per share then the buyer can exchange $\$24$ for 2
-shares of Ford stock. This corresponds to the transaction where ${\eta =
-(24, \$, o)}$ and ${\eta' = (2, F, o')}$.  The price is ${X = a/a' = 24/2}$
-and we can use  $12$ USD/F to indicate a price of $\$12$ per share of Ford
-stock. Replacing the virgule '/' by '$= 1$' gives the mnemonic $12$ USD $=
-1$ F.  After the transaction settles the buyer holds ${\eta = (2, F, o)}$
-and the seller holds ${\eta' = (24, \$, o')}$ in their respective positions.
-
-After a transaction the price is a well-defined number: the amount the buyer
-exchanged with the seller divided by the amount the seller exchanged with the buyer.
-This number is recorded in the books and records of each counterparty.
-
-Prior to a transaction the price quoted by the seller is not a well-defined number.
-The difference between a quoted price and the actual price is called _slippage_.
-Sellers quote a bid price and an ask price.
-When a buyer buys one share they pay the seller's ask price and when
-the buyer sells one share they only get the sellers bid price.
-The difference between the ask and the bid is the _bid-ask spread_
-and is usually positive. This is how sellers get paid for
-providing _liquidity_ to buyers in the market.
-
-The quotes are only valid for transaction of a small number of shares.
-As the number of shares becomes larger sellers increase the bid-ask
-spread. On an exchange the quote only holds out to level 1 depth before
-switching to level 2. Sellers might not know why so many shares are being purchased, but
-know demand will move the price up and they will increase their ask.
-At some point the number of shares to purchase will bump
-into the total number of shares issued and price becomes meaningless.
-When a buyer sells shares they face even more restrictions and are also
-charged a _borrow cost_ over the period of time they are short.
-Prices can also depend on the particular buyer and seller of the
-transaction due to credit issues or regulations, among other things.
-
-A more realistic model for prices in a one-period model is to replace
-$x\colon I\to\RR$ by $x\colon I\times A\to\RR$ where $A$ is the set
-of possible amounts. The cost of setting up the position $\xi\in\RR^I$
-is ${\sum_{i\in I} \xi(i) x(i, \xi(i))}$. For a fixed transaction cost
-$\tau\in\RR$ per share we have ${x(i, a) = x_0(i) + \tau a}$ where
-$x_0$ is the mid price. If a limit order book is available then
-a very good approximation to the execution price is the function of
-cumulative limit order amounts versus order levels.
-
-
-## References
-
-<!--
 ---
 title: One-Period Model
 author: Keith A. Lewis
@@ -988,37 +1043,33 @@ have a dollar left to meet the call obligation.
 
 ### Binomial Model
 
-The 1-2-3 model is a special case of the  _binomial model_ having instruments a bond and stock where ${x = (r, s)}$,
-${C(\omega) = (R, \omega)}$, and ${\Omega = \{L, H\}}$ with ${L < H}$.
-The bond has realized return $R/r$ and the stock can go from price $s$
-to either $L$ or $H$. 
-This is arbitrage-free if and only we can find $d_L,d_H \ge 0$
+The 1-2-3 model is a special case of the  _binomial model_ having
+instruments a bond and stock where ${x = (1, s)}$,
+${C(\omega) = (R, \omega)}$, and ${\Omega = \{L, H\}}$ with ${L < H}$.  The bond has
+realized return $R$ and the stock can go from price $s$ to either $L$
+or $H$.  This is arbitrage-free if and only we can find $d_L,d_H \ge 0$
 with $x = C(L)d_L + C(H)d_H$. Considering the bond and stock components
-we have $d_L = (Hr/R - s)/(H - L)$ and $d_H = (s - Lr/R)/(H - L)$.
+we have $d_L = (H/R - s)/(H - L)$ and $d_H = (s - L/R)/(H - L)$.
 The model is arbitrage-free if and only if these are both non-negative
-so $L/R \le s/r \le H/R$.
+so $L/R \le s \le H/R$.
 
 Adding an option with payoff $\nu(\omega)$ we have its arbitrage-free value is 
 $$
-v = \nu(L)d_L + \nu(H)d_H = \frac{(H\nu(L) - L\nu(H))r/R + (\nu(H) - \nu(L))s}{H - L}.
+v = \nu(L)d_L + \nu(H)d_H = \frac{(H\nu(L) - L\nu(H))/R + (\nu(H) - \nu(L))s}{H - L}.
 $$
 
 This can be simplified for call options.
 
 __Exercise__. _If $\nu(\omega) = \max\{\omega - K, 0\}$ where $L \le K \le H$ then
-$v = (H - K)(Hr/R - s)/(H - L)$_.
+$v = (H - K)(H/R - s)/(H - L)$_.
 
 __Exercise__. _Show this agrees with the 1-2-3 Model for a call option with strike 2_.
-
-Even though the option price is completely determined by the bond and stock in the
-binomial model we can use this to get bounds on the option price. Since $v = (H - K)d_H$
-we always have $v \ge 0$ and $v\le ???$.
 
 ### Interval Model
 
 A somewhat more realistic model is the binomial model with sample space
 ${\Omega = [L, H]}$ where the final stock price can be any value in the interval.
-First we show the no arbitrage constraint is still $L/R\le s/r\le H/R$.
+First we show the no arbitrage constraint is still $L/R\le s\le H/R$.
 
 __Exercise__. _The smallest cone containing $C(L)$ and $C(H)$ is the same
 as the smallest cone containing $C(\omega)$, $L\le\omega\le H$_.
@@ -1047,44 +1098,44 @@ The atoms of finance are _holdings_: an instrument, amount, and owner.
 Let ${\eta = (a,i,o)}$ denote owner $o$ holds amount $a$ of instrument $i$.
 A _position_ is a collection of holdings.
 A _transaction_ at time $t$ is a triple ${(t,\eta,\eta')}$ where 
-$\eta$ and $\eta'$ are holdings. If the buyer $o$ holds $\eta$ and
-the seller $o'$ holds $\eta'$ at time $t$ then after the transaction settles
-the buyer holds $(a',i',o)$ and the seller holds $(a,i,o')$.
+$\eta$ and $\eta'$ are holdings. If the taker $o$ holds $\eta$ and
+the maker $o'$ holds $\eta'$ at time $t$ then after the transaction settles
+the taker holds $(a',i',o)$ and the maker holds $(a,i,o')$.
 The _price_ of the transaction is $X = a/a'$.
 
 Sellers quote prices for potential transactions. Buyers decide whether
-or not to execute the transaction. For example, if a seller quotes Ford
-stock for $12$ USD per share then the buyer can exchange $\$24$ for 2
+or not to execute the transaction. For example, if a maker quotes Ford
+stock for $12$ USD per share then the taker can exchange $\$24$ for 2
 shares of Ford stock. This corresponds to the transaction where ${\eta =
 (24, \$, o)}$ and ${\eta' = (2, F, o')}$.  The price is ${X = a/a' = 24/2}$
 and we can use  $12$ USD/F to indicate a price of $\$12$ per share of Ford
 stock. Replacing the virgule '/' by '$= 1$' gives the mnemonic $12$ USD $=
-1$ F.  After the transaction settles the buyer holds ${\eta = (2, F, o)}$
-and the seller holds ${\eta' = (24, \$, o')}$ in their respective positions.
+1$ F.  After the transaction settles the taker holds ${\eta = (2, F, o)}$
+and the maker holds ${\eta' = (24, \$, o')}$ in their respective positions.
 
-After a transaction the price is a well-defined number: the amount the buyer
-exchanged with the seller divided by the amount the seller exchanged with the buyer.
+After a transaction the price is a well-defined number: the amount the taker
+exchanged with the maker divided by the amount the maker exchanged with the taker.
 This number is recorded in the books and records of each counterparty.
 
-Prior to a transaction the price quoted by the seller is not a well-defined number.
+Prior to a transaction the price quoted by the maker is not a well-defined number.
 The difference between a quoted price and the actual price is called _slippage_.
 Sellers quote a bid price and an ask price.
-When a buyer buys one share they pay the seller's ask price and when
-the buyer sells one share they only get the sellers bid price.
+When a taker buys one share they pay the maker's ask price and when
+the taker sells one share they only get the maker bid price.
 The difference between the ask and the bid is the _bid-ask spread_
-and is usually positive. This is how sellers get paid for
-providing _liquidity_ to buyers in the market.
+and is usually positive. This is how maker get paid for
+providing _liquidity_ to taker in the market.
 
 The quotes are only valid for transaction of a small number of shares.
-As the number of shares becomes larger sellers increase the bid-ask
+As the number of shares becomes larger maker increase the bid-ask
 spread. On an exchange the quote only holds out to level 1 depth before
 switching to level 2. Sellers might not know why so many shares are being purchased, but
 know demand will move the price up and they will increase their ask.
 At some point the number of shares to purchase will bump
 into the total number of shares issued and price becomes meaningless.
-When a buyer sells shares they face even more restrictions and are also
+When a taker sells shares they face even more restrictions and are also
 charged a _borrow cost_ over the period of time they are short.
-Prices can also depend on the particular buyer and seller of the
+Prices can also depend on the particular taker and maker of the
 transaction due to credit issues or regulations, among other things.
 
 A more realistic model for prices in a one-period model is to replace
