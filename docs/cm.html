@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2026-01-14" />
+  <meta name="dcterms.date" content="2026-01-17" />
   <title>Carr-Madan Formula</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Carr-Madan Formula</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 14, 2026</p>
+<p class="date">January 17, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 European option payoffs can be replicated with cash, a forward, and a
@@ -79,30 +79,58 @@ theorem <span class="math display">
 \begin{aligned}
     f(x) &amp;= f(a) + \int_a^x f&#39;(y)\,dy \\
     f(x) &amp;= f(a) + \int_a^x (f&#39;(a) + \int_a^y
-f&#39;&#39;(z)\,dz)\,dy \\
+f&#39;&#39;(k)\,dk)\,dy \\
     f(x) &amp;= f(a) + f&#39;(a)(x - a) + \int_a^x \int_a^y
-f&#39;&#39;(z)\,dz\,dy \\
-    f(x) &amp;= f(a) + f&#39;(a)(x - a) + \int_a^x \int_z^x
-f&#39;&#39;(z)\,dy\,dz \\
-    f(x) &amp;= f(a) + f&#39;(a)(x - a) + \int_a^x (x - z)
-f&#39;&#39;(z)\,dz. \\
+f&#39;&#39;(k)\,dk\,dy \\
+    f(x) &amp;= f(a) + f&#39;(a)(x - a) + \int_a^x \int_k^x
+f&#39;&#39;(k)\,dy\,dk \\
+    f(x) &amp;= f(a) + f&#39;(a)(x - a) + \int_a^x (x - k)
+f&#39;&#39;(k)\,dk \\
 \end{aligned}
 </span> If <span class="math inline">x &gt; a</span> then <span
-class="math inline">1(z &gt; a)(x - z) = \max\{x - z, 0\}</span></p>
-<p>If <span class="math inline">0\le x &lt; a</span> then $x - z = {</p>
-<p><span class="math inline">\int_a^x (x - z) f&#39;&#39;(z)\,dz =
-\int_a^\infty (x - z)^+ f&#39;&#39;(z)\,dz</span>.</p>
-<p>If <span class="math inline">x &gt; a</span> then <span
-class="math inline">(z - x)^+ = 0</span> for <span class="math inline">z
-&lt; a</span> and if <span class="math inline">x &lt; a</span> then
-<span class="math inline">(x - z)^+ = 0</span> for <span
-class="math inline">z &gt; a</span>, hence <span class="math display">
-    \int_a^x (z - x) f&#39;&#39;(z)\,dz = \int_{-\infty}^a (z - x)^+
-f&#39;&#39;(z)\,dz + \int_a^\infty (x - z)^+ f&#39;&#39;(z)\,dz.
+class="math inline">(x - k)^+ = 0</span> for <span class="math inline">k
+&gt; x</span> so <span class="math display">
+    \int_a^x (x - k) f&#39;&#39;(k)\,dk = \int_a^\infty\ (x - k)+
+f&#39;&#39;(k)\,dk
+</span> If <span class="math inline">0\le x &lt; a</span> then <span
+class="math inline">(k - x)^+ = 0</span> for <span class="math inline">k
+&lt; x</span>, hence <span class="math display">
+\begin{aligned}
+    \int_a^x (x - k) f&#39;&#39;(k)\,dk &amp;= \int_x^a (k - x)
+f&#39;&#39;(k)\,dk \\
+        &amp;= \int_0^a (k - x)^+ f&#39;&#39;(k)\,dk.
+\end{aligned}
 </span></p>
 <p>If <span class="math inline">f</span> is piecewise linear and
 continuous then <span class="math inline">f&#39;</span> is piecewise
 constant and <span class="math inline">f&#39;&#39;</span> is a linear
-combination of delta functions.</p>
+combination of delta functions. If <span class="math inline">f(x_i) =
+y_i</span>, <span class="math inline">0\le i\le n</span> then <span
+class="math inline">f&#39;(x) = (y_{i+1} - y_i)/(x_{i + 1} - x_i) =
+m_i</span> is the right derivative on the interval <span
+class="math inline">[x_i, x_{i+1})</span>, and the left derivative on
+<span class="math inline">(x_i, x_{i+1}]</span>, <span
+class="math inline">0\le i &lt; n</span>. In both cases <span
+class="math inline">f&#39;(x) = m_0</span> if <span
+class="math inline">x &lt; x_0</span> and <span
+class="math inline">f&#39;(x) = m_{n-1}</span> if <span
+class="math inline">x &gt; x_n</span>. The second derivative is <span
+class="math inline">f&#39;&#39; = \sum_{i=1}^{n-1} (m_i - m_{i-1})
+\delta_{x_i}</span> where <span class="math inline">\delta_x</span> is a
+point mass at <span class="math inline">x</span>.</p>
+<p>For example, if <span class="math inline">(x_0,y_0) = (0, 0)</span>,
+<span class="math inline">(x_1,y_1) = (1,0)</span>, <span
+class="math inline">(x_2,y_2) = (2,1)</span> <span
+class="math inline">(x_3,x_3) = (3,0)</span> and <span
+class="math inline">(x_4,y_4) = (4,0)</span> then we have a butterfly
+spread. In this case <span class="math inline">m_0 = 0</span>, <span
+class="math inline">m_1 = 1</span>, <span class="math inline">m_2 =
+-1</span> and <span class="math inline">m3 = 0</span>. Taking <span
+class="math inline">a = 0</span> we have <span class="math inline">f(a)
+= 0</span> and <span class="math inline">f&#39;(a) = 0</span> so there
+is no cash or forward position. The Carr-Madan formula indicates to buy
+<span class="math inline">m_1 - m_0 = 1</span> call at strike 1, <span
+class="math inline">m_2 - m_1 = -1 - 1 = -2</span> calls at strike 2,
+and <span class="math inline">m_3 - m2 = 1</span> call at strike 3.</p>
 </body>
 </html>

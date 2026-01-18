@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2026-01-14" />
+  <meta name="dcterms.date" content="2026-01-17" />
   <title>One-Period Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -66,7 +66,7 @@
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 14, 2026</p>
+<p class="date">January 17, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 The simplest formal model of a financial market.
@@ -570,26 +570,42 @@ d_2,\ldots,d_H</span> with <span class="math display">
 s &amp;= L d_L + K_1 d_1 + K_2 d_2 + \cdots + H d_H \\
 v_1 &amp;= (K_2 - K_1) d_2 + \cdots + (H - K_1) d_H \\
 v_2 &amp;= (K_3 - K_2) d_3 + \cdots + (H - K_2) d_H \\
-\cdots \\
+&amp;\cdots \\
 v_{n-1} &amp;= (K_n - K_{n-1}) d_n + (H - K_{n-1}) d_H \\
 v_n &amp;=  (H - K_n) d_H \\
 \end{aligned}
-</span> Working from the last equation to the first <span
-class="math display">
-\begin{aligned}
-d_H &amp;= v_n/(H - K_n) \\
-d_n &amp;= v_{n-1} - (H - K_{n-1})v_n/(H - K_n) \\
-\end{aligned}
-</span></p>
-<!--
-\dots & & & \\
-    1 &= R d_L + L d_H \\
-    v_1 &= R d_L + K_1 d_H \\
-    v_2 &= R d_L + K_2 d_H + (K_2 - K_1) d_1 \\
-    &\dots \\
-    v_n &= R d_L + K_n d_H + (K_n - K_1) d_1 + \cdots + (K_n - K_{n-1}) d_{n-1} \\
-    s &= R d_L + H d_H + (H - K_1) d_1 + \cdots + (H - K_n)d_n \\
--->
+</span> In matrix form <span class="math display">
+\begin{bmatrix}
+1 \\ s \\ v_1 \\ \vdots \\ v_{n-1} \\ v_n
+\end{bmatrix}
+=
+\begin{bmatrix}
+R &amp; R   &amp; R         &amp; \cdots &amp; R         &amp; R \\
+L &amp; K_1 &amp; K_2       &amp; \cdots &amp; K_n       &amp; H \\
+0 &amp; 0   &amp; K_2 - K_1 &amp; \cdots &amp; K_n - K_1 &amp; H - K_1
+\\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots   &amp; \vdots &amp;
+\vdots \\
+0 &amp; 0   &amp; 0         &amp; \cdots &amp; K_n - K_{n-1} &amp; H -
+K_{n-1} \\
+0 &amp; 0   &amp; 0         &amp; \cdots &amp; 0             &amp; H -
+K_n \\
+\end{bmatrix}
+\begin{bmatrix}
+d_L \\ d_1 \\ d_2 \\ \vdots \\ d_n \\ d_H
+\end{bmatrix}
+</span> We can write this as a block matrix on the first row and first
+column as <span class="math inline">[A B; C D]</span> where <span
+class="math inline">A = [R]</span> <span class="math inline">B = [R
+\cdots R]</span>, and <span class="math inline">C = [L 0 \cdots
+0]^T</span>. If we let <span class="math inline">K_0 = L</span> and
+<span class="math inline">K_{n+1} H</span> then <span
+class="math inline">D</span> is upper triangular with <span
+class="math inline">D_ij = K_{i + j] - K_j</span> for <span
+class="math inline">0\le i &lt; j\le n1</span>. It’s inverse is upper
+bidiagonal with diagonal <span class="math inline">D_ii = 1/(K_{i+1} -
+K_i</span>, <span class="math inline">0\le i\le n</span> and upper
+diagonal <span class="math inline">D_{i,i+1} = -1/(ax ay)</span>.</p>
 </section>
 </section>
 <section id="appendix" class="level2">
