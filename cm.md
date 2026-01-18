@@ -56,7 +56,7 @@ where $\delta_x$ is a point mass at $x$.
 
 For example, if $(x_0,y_0) = (0, 0)$, $(x_1,y_1) = (1,0)$, $(x_2,y_2) = (2,1)$
 $(x_3,x_3) = (3,0)$ and $(x_4,y_4) = (4,0)$ then we have a butterfly spread.
-In this case $m_0 = 0$, $m_1 = 1$, $m_2 = -1$ and $m3 = 0$.
+In this case $m_0 = 0$, $m_1 = 1$, $m_2 = -1$ and $m_3 = 0$.
 Taking $a = 0$ we have $f(a) = 0$ and $f'(a) = 0$ so there is no cash or forward position.
 The Carr-Madan formula indicates to buy $m_1 - m_0 = 1$ call at strike 1,
 $m_2 - m_1 = -1 - 1 = -2$ calls at strike 2, and $m_3 - m2 = 1$ call at strike 3.
