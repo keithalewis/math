@@ -38,7 +38,7 @@ If $x > a$ then $(x - k)^+ = 0$ for $k > x$ so
 $$
 	\int_a^x (x - k) f''(k)\,dk = \int_a^\infty\ (x - k)+ f''(k)\,dk
 $$
-If $0\le x < a$ then $(k - x)^+ = 0$ for $k < x$, hence
+If $0\le x < a$ then $(k - x)^+ = 0$ for $k < x$ so
 $$
 \begin{aligned}
 	\int_a^x (x - k) f''(k)\,dk &= \int_x^a (k - x) f''(k)\,dk \\
