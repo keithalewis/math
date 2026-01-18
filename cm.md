@@ -21,7 +21,7 @@ at expiration can be replicated using cash, a forward, puts with
 strikes below $a$ and calls with strikes above $a$.
 
 The cash position is $f(a)$, the forward with strike $a$ position is $f'(a)$,
-the put positions are ${f''(k)\,dk}$ for $0 <= k < a$, and the 
+the put positions are ${f''(k)\,dk}$ for $0 \le k < a$, and the 
 call positions are ${f''(k)\,dk}$ for $k > a$.
 
 By the fundamental theorem of calculus applied twice and Fubini's theorem
