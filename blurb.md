@@ -1,7 +1,17 @@
 There is a clear trajectory in mathematical finance starting from Black,
-Scholes, and Merton's Nobel Prize winning work demonstrating the value of
-an option is the cost of setting up the initial hedge.  Ross showed how
-to extend this to any portfolio of instruments in a one-period setting.
+Scholes, and Merton's Nobel Economic Prize winning work demonstrating
+how to replicate an option payoff by delta hedging.
+The value of the option is the cost of setting up the initial hedge.
+Their Platonic Ideal of a bond, stock, and option with perfect
+liquidity and trading in continuous time is evolved to
+any collection of instruments and accurately model features
+relevant business needs.
+
+Ross showed how to extend this to any portfolio of instruments and should
+have won a Nobel Economic Prize for figuring out option valuation does
+not require the complicated machinery of Ito processes and partial
+differential equations.
+
 Since then, more general option payoffs and multi-period models were
 developed to extend theory to more closely align with trading reality.
 

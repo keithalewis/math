@@ -424,28 +424,37 @@ $$
 s &= L d_L + K_1 d_1 + K_2 d_2 + \cdots + H d_H \\
 v_1 &= (K_2 - K_1) d_2 + \cdots + (H - K_1) d_H \\
 v_2 &= (K_3 - K_2) d_3 + \cdots + (H - K_2) d_H \\
-\cdots \\
+&\cdots \\
 v_{n-1} &= (K_n - K_{n-1}) d_n + (H - K_{n-1}) d_H \\
 v_n &=  (H - K_n) d_H \\
 \end{aligned}
 $$
-Working from the last equation to the first
+In matrix form
 $$
-\begin{aligned}
-d_H &= v_n/(H - K_n) \\
-d_n &= v_{n-1} - (H - K_{n-1})v_n/(H - K_n) \\
-\end{aligned}
+\begin{bmatrix}
+1 \\ s \\ v_1 \\ \vdots \\ v_{n-1} \\ v_n 
+\end{bmatrix}
+=
+\begin{bmatrix}
+R & R   & R         & \cdots & R         & R \\
+L & K_1 & K_2       & \cdots & K_n       & H \\
+0 & 0   & K_2 - K_1 & \cdots & K_n - K_1 & H - K_1 \\
+\vdots & \vdots & \vdots & \ddots   & \vdots & \vdots \\
+0 & 0   & 0         & \cdots & K_n - K_{n-1} & H - K_{n-1} \\
+0 & 0   & 0         & \cdots & 0             & H - K_n \\
+\end{bmatrix}
+\begin{bmatrix}
+d_L \\ d_1 \\ d_2 \\ \vdots \\ d_n \\ d_H
+\end{bmatrix}
 $$
-
-<!--
-\dots & & & \\
-	1 &= R d_L + L d_H \\
-	v_1 &= R d_L + K_1 d_H \\
-	v_2 &= R d_L + K_2 d_H + (K_2 - K_1) d_1 \\
-	&\dots \\
-	v_n &= R d_L + K_n d_H + (K_n - K_1) d_1 + \cdots + (K_n - K_{n-1}) d_{n-1} \\
-	s &= R d_L + H d_H + (H - K_1) d_1 + \cdots + (H - K_n)d_n \\
--->
+We can write this as a block matrix on the first row and first column
+as $[A B; C D]$ where
+$A = [R]$ $B = [R \cdots R]$, and $C = [L 0 \cdots 0]^T$.
+If we let $K_0 = L$ and $K_{n+1} H$ then $D$ is upper triangular with
+$D_ij = K_{i + j] - K_j$ for
+$0\le i < j\le n1$. It's inverse is upper bidiagonal
+with diagonal $D_ii = 1/(K_{i+1} - K_i$, $0\le i\le n$
+and upper diagonal $D_{i,i+1} = -1/(ax ay)$.
 
 ## Appendix
 
