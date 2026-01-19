@@ -48,10 +48,10 @@ $$
 
 If $f$ is piecewise linear and continuous then $f'$ is piecewise constant and $f''$
 is a linear combination of delta functions. If $f(x_i) = y_i$, $0\le i\le n$
-then $f'(x) = (y_{i+1} - y_i)/(x_{i + 1} - x_i) = m_i$ is the right derivative
+then ${f'(x) = (y_{i+1} - y_i)/(x_{i + 1} - x_i) = m_i}$ is the right derivative
 on the interval $[x_i, x_{i+1})$, and the left derivative on $(x_i, x_{i+1}]$, $0\le i < n$.
 In both cases $f'(x) = m_0$ if $x < x_0$ and $f'(x) = m_{n-1}$ if $x > x_n$.
-The second derivative is $f'' = \sum_{i=1}^{n-1} (m_i - m_{i-1}) \delta_{x_i}$
+The second derivative is ${f'' = \sum_{i=1}^{n-1} (m_i - m_{i-1}) \delta_{x_i}}$
 where $\delta_x$ is a point mass at $x$.
 
 For example, if $(x_0,y_0) = (0, 0)$, $(x_1,y_1) = (1,0)$, $(x_2,y_2) = (2,1)$
@@ -59,5 +59,9 @@ $(x_3,x_3) = (3,0)$ and $(x_4,y_4) = (4,0)$ then we have a butterfly spread.
 In this case $m_0 = 0$, $m_1 = 1$, $m_2 = -1$ and $m_3 = 0$.
 Taking $a = 0$ we have $f(a) = 0$ and $f'(a) = 0$ so there is no cash or forward position.
 The Carr-Madan formula indicates to buy $m_1 - m_0 = 1$ call at strike 1,
-$m_2 - m_1 = -1 - 1 = -2$ calls at strike 2, and $m_3 - m2 = 1$ call at strike 3.
+$m_2 - m_1 = -1 - 1 = -2$ calls at strike 2, and $m_3 - m_2 = 1$ call at strike 3.
 
+__Exercise__. _Find the butterfly spread for $a = 2$_.
+
+_Hint_: Split $(x_2,y_2)$ into $(2 - \epsilon, 1 - \epsilon)$
+and  $(2 + \epsilon, 1 - \epsilon)$ so $f'(2) = 0$.

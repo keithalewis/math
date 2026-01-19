@@ -448,13 +448,26 @@ d_L \\ d_1 \\ d_2 \\ \vdots \\ d_n \\ d_H
 \end{bmatrix}
 $$
 We can write this as a block matrix on the first row and first column
-as $[A B; C D]$ where
-$A = [R]$ $B = [R \cdots R]$, and $C = [L 0 \cdots 0]^T$.
-If we let $K_0 = L$ and $K_{n+1} H$ then $D$ is upper triangular with
-$D_ij = K_{i + j] - K_j$ for
-$0\le i < j\le n1$. It's inverse is upper bidiagonal
-with diagonal $D_ii = 1/(K_{i+1} - K_i$, $0\le i\le n$
-and upper diagonal $D_{i,i+1} = -1/(ax ay)$.
+$[A\,B; C\,D]$ where
+$A = [R]$ $B = [R \cdots R]$, and $C = [L\,0 \cdots 0]^T$.
+If we let $K_0 = 0$ and $K_{n+1} = H$ then $D$ is upper triangular with
+non-zero entries ${D_{i,j} = K_j - K_{i-1}}$ for
+$1\le i \le j\le n + 1$. The symmetry can be used to show the inverse is upper bidiagonal
+with main diagonal ${D_{i,i} = 1/(K_{i+1} - K_i)}$, $0\le i\le n$
+and upper diagonal ${D_{i,i+1} = -1/(K_{i + 1} - K_i)}$.
+
+If $E = (D - CA^{-1}B)^{-1}$ is the Schur complement then
+$$
+\begin{bmatrix}
+A & B \\
+C & D \\
+\end{bmatrix}^{-1}
+=
+\begin{bmatrix}
+A^{-1} + A^{-1}BECA^{-1} & -A^{-1}BE \\
+-ECA^{-1} & E \\
+\end{bmatrix}
+$$
 
 ## Appendix
 
