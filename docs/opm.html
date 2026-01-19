@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2026-01-17" />
+  <meta name="dcterms.date" content="2026-01-19" />
   <title>One-Period Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -66,7 +66,7 @@
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 17, 2026</p>
+<p class="date">January 19, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 The simplest formal model of a financial market.
@@ -595,17 +595,30 @@ K_n \\
 d_L \\ d_1 \\ d_2 \\ \vdots \\ d_n \\ d_H
 \end{bmatrix}
 </span> We can write this as a block matrix on the first row and first
-column as <span class="math inline">[A B; C D]</span> where <span
+column <span class="math inline">[A\,B; C\,D]</span> where <span
 class="math inline">A = [R]</span> <span class="math inline">B = [R
-\cdots R]</span>, and <span class="math inline">C = [L 0 \cdots
-0]^T</span>. If we let <span class="math inline">K_0 = L</span> and
-<span class="math inline">K_{n+1} H</span> then <span
-class="math inline">D</span> is upper triangular with <span
-class="math inline">D_ij = K_{i + j] - K_j</span> for <span
-class="math inline">0\le i &lt; j\le n1</span>. It’s inverse is upper
-bidiagonal with diagonal <span class="math inline">D_ii = 1/(K_{i+1} -
-K_i</span>, <span class="math inline">0\le i\le n</span> and upper
-diagonal <span class="math inline">D_{i,i+1} = -1/(ax ay)</span>.</p>
+\cdots R]</span>, and <span class="math inline">C = [L\,0 \cdots
+0]^T</span>. If we let <span class="math inline">K_0 = 0</span> and
+<span class="math inline">K_{n+1} = H</span> then <span
+class="math inline">D</span> is upper triangular with non-zero entries
+<span class="math inline">{D_{i,j} = K_j - K_{i-1}}</span> for <span
+class="math inline">1\le i \le j\le n + 1</span>. The symmetry can be
+used to show the inverse is upper bidiagonal with main diagonal <span
+class="math inline">{D_{i,i} = 1/(K_{i+1} - K_i)}</span>, <span
+class="math inline">0\le i\le n</span> and upper diagonal <span
+class="math inline">{D_{i,i+1} = -1/(K_{i + 1} - K_i)}</span>.</p>
+<p>If <span class="math inline">E = (D - CA^{-1}B)^{-1}</span> is the
+Schur complement then <span class="math display">
+\begin{bmatrix}
+A &amp; B \\
+C &amp; D \\
+\end{bmatrix}^{-1}
+=
+\begin{bmatrix}
+A^{-1} + A^{-1}BECA^{-1} &amp; -A^{-1}BE \\
+-ECA^{-1} &amp; E \\
+\end{bmatrix}
+</span></p>
 </section>
 </section>
 <section id="appendix" class="level2">

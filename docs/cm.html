@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2026-01-17" />
+  <meta name="dcterms.date" content="2026-01-19" />
   <title>Carr-Madan Formula</title>
   <style>
     code{white-space: pre-wrap;}
@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Carr-Madan Formula</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 17, 2026</p>
+<p class="date">January 19, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 European option payoffs can be replicated with cash, a forward, and a
@@ -106,8 +106,8 @@ continuous then <span class="math inline">f&#39;</span> is piecewise
 constant and <span class="math inline">f&#39;&#39;</span> is a linear
 combination of delta functions. If <span class="math inline">f(x_i) =
 y_i</span>, <span class="math inline">0\le i\le n</span> then <span
-class="math inline">f&#39;(x) = (y_{i+1} - y_i)/(x_{i + 1} - x_i) =
-m_i</span> is the right derivative on the interval <span
+class="math inline">{f&#39;(x) = (y_{i+1} - y_i)/(x_{i + 1} - x_i) =
+m_i}</span> is the right derivative on the interval <span
 class="math inline">[x_i, x_{i+1})</span>, and the left derivative on
 <span class="math inline">(x_i, x_{i+1}]</span>, <span
 class="math inline">0\le i &lt; n</span>. In both cases <span
@@ -115,9 +115,9 @@ class="math inline">f&#39;(x) = m_0</span> if <span
 class="math inline">x &lt; x_0</span> and <span
 class="math inline">f&#39;(x) = m_{n-1}</span> if <span
 class="math inline">x &gt; x_n</span>. The second derivative is <span
-class="math inline">f&#39;&#39; = \sum_{i=1}^{n-1} (m_i - m_{i-1})
-\delta_{x_i}</span> where <span class="math inline">\delta_x</span> is a
-point mass at <span class="math inline">x</span>.</p>
+class="math inline">{f&#39;&#39; = \sum_{i=1}^{n-1} (m_i - m_{i-1})
+\delta_{x_i}}</span> where <span class="math inline">\delta_x</span> is
+a point mass at <span class="math inline">x</span>.</p>
 <p>For example, if <span class="math inline">(x_0,y_0) = (0, 0)</span>,
 <span class="math inline">(x_1,y_1) = (1,0)</span>, <span
 class="math inline">(x_2,y_2) = (2,1)</span> <span
@@ -131,6 +131,12 @@ class="math inline">a = 0</span> we have <span class="math inline">f(a)
 is no cash or forward position. The Carr-Madan formula indicates to buy
 <span class="math inline">m_1 - m_0 = 1</span> call at strike 1, <span
 class="math inline">m_2 - m_1 = -1 - 1 = -2</span> calls at strike 2,
-and <span class="math inline">m_3 - m2 = 1</span> call at strike 3.</p>
+and <span class="math inline">m_3 - m_2 = 1</span> call at strike 3.</p>
+<p><strong>Exercise</strong>. <em>Find the butterfly spread for <span
+class="math inline">a = 2</span></em>.</p>
+<p><em>Hint</em>: Split <span class="math inline">(x_2,y_2)</span> into
+<span class="math inline">(2 - \epsilon, 1 - \epsilon)</span> and <span
+class="math inline">(2 + \epsilon, 1 - \epsilon)</span> so <span
+class="math inline">f&#39;(2) = 0</span>.</p>
 </body>
 </html>
