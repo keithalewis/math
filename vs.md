@@ -38,27 +38,47 @@ typically the last thing an author wrote. He thought clearly
 about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 -->
 
-Everything in (classical) mathematics consists of sets with structure.
+Everything in classical mathematics consists of sets with structure.
 The structure is one or more functions on sets that satisfy given axioms.
+
 Vector spaces occupy a sweet spot in mathematics. A vector space
 over a field has a scalar multiplication and commutative vector addition
-that satisfy distributive laws. Two vector spaces are isomorphic (same form)
-if and only if they have the same dimension: the minimum number of independent
-vectors that span the vector space.
+that satisfy distributive laws, and a couple of other axioms.
 
 Functions between sets with structure that preserve the structure
-are homomorphisms (like form). If the function is injective (one-to-one)
+are homomorphisms (like form). If the homomorphism is injective (one-to-one)
 and surjective (onto) then it is an isomorphism.
-A linear operator is a homomorphism from one vector space to another.
-They also form a vector space since they have a scalar multiplication
-and commutative addition.
+
+Two vector spaces are isomorphic (same form) if and only if they have the same dimension.
+
+The vector space of $n$-tuples of real numbers is the $n$-fold product
+${\RR^n = \RR\times\cdots\times\RR = \{x = (x_1,\ldots,x_n)\mid x_1,\ldots,x_n\in\RR\}}$.
+If ${\bm{n} = \{1,\ldots,n\}}$ this is equivalent to the set exponential 
+${\RR^{\bm{n}} = \{\bm{n}\to\RR\} = \{\bm{x}\colon\bm{n}\to\RR\}}$, the set of all functions
+from $\bm{n}$ to the real numbers.  The tuple
+$x$ corresponds to the function $\bm{x}$
+by ${\bm{x}(i) = x_i}$, ${i\in\bm{n}}$.  Going forward, we will drop
+using bold face for the function $\bm{x}$ and distinguish this unexpected,
+but useful, coincidence by saying tuple $x$ or function $x$ when it is
+not clear from context.
+
+This can be generalized from $\bm{n}$ to any finite set I.
+The tuple version is the Cartesian product $\Pi_{i\in I} \RR$
+and the function version is $\RR^I$.
+
+A linear transformation is a function between vector spaces that preserves
+scalar multiplication and vector addition. 
+
+We work our way up to the definition of vector spaces by
+considering some simpler sets with structures.
 
 ## Semigroup
 
-For example, a _semigroup_ is a set $S$ and a binary operator
-$m\colon S\times S\to S$ that is _associative_:
-$m(a,m(b,c)) = m(m(a,b),c)$. If we write $ab$ for $m(a,b)$
-then $a(bc) = (ab)c$ so $abc$ is unambigous.
+The simplest useful set with structure is a _semigroup_. 
+A semigroup is a set $S$ and a binary operator
+$m\colon S\times S\to S$ that is _associative_, ${m(a,m(b,c)) = m(m(a,b),c)}$.
+If we write $ab$ for $m(a,b)$
+then $a(bc) = (ab)c$ so $abc$ is unambiguous.
 
 Examples of semigroups are the integral, natural, real, and rational numbers
 under multiplication and addition. They are also semigroups under
@@ -66,14 +86,14 @@ maximum and minimum values.
 
 __Exercise__. _Show $\max\{a,\max\{b,c\}\} = \max\{\max\{a,b\},c\}$_.
 
-Strings under concatenation are also a semigroup.
+Strings are a semigroup under concatenation.
 
 ## Monoid
 
 A _monoid_ is a semigroup with an _identity element_. If $M$ is a monoid then
 $e\in M$ is the identity element if $em = m = me$ for $m\in M$.
 
-__Exercise__. _Show the idenity element is unique_.
+__Exercise__. _Show the identity element is unique_.
 
 <details><summary>Solution</summary>
 If $e$ and $e'$ are identity elements then $e' = e'e = e$.
