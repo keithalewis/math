@@ -22,10 +22,10 @@ FLAGS += --katex=$(KATEX)
 #FLAGS += --mathjax/
 FLAGS += --css math.css
 #FLAGS += -A FOOTER.md
-FLAGS += --metadata date="$(shell date "+%B %e, %Y")"
+#FLAGS += --metadata date="$(shell date "+%B %e, %Y")"
 #TEXFLAGS += --metadata date="$(shell date "+%B %e, %Y")"
 TEXFLAGS += -V fontsize=12pt
-TEXFLAGS +=  -M date="$(shell date "+%B %e, %Y")"
+#TEXFLAGS +=  -M date="$(shell date "+%B %e, %Y")"
 #TEXFLAGS += --bibliography=capm.bib
 FLAGS += --toc --toc-depth=6
 #FLAGS += -B katex.tex
@@ -39,8 +39,13 @@ FLAGS += --section-divs
 FLAGS += --citeproc --bibliography=capm.bib
 DOCFLAGS = --citeproc --bibliography=capm.bib
 
+# last file modification as month day, year
+define mtime
+$(shell date -d "@$(shell stat -c %Y $(1))" +"%b %_d, %Y")
+endef
+
 %.html: %.md $(CSS)
-	pandoc $(FLAGS) $< -o $@
+	pandoc -M date="$(call mtime, $<)" $(FLAGS) $< -o $@
 
 %.pdf: %.md $(CSS)
 	pandoc $(TEXFLAGS) $(DOCFLAGS) $< -o $@

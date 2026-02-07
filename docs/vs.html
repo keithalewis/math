@@ -5,7 +5,6 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2026-01-14" />
   <title>Vector Space</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 14, 2026</p>
+<p class="date">Jan 21, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -98,36 +97,62 @@ In Derrida's "Diseminations" he pointed out a preface to a book was
 typically the last thing an author wrote. He thought clearly
 about philosopy and was fond of Husserl, as was Gian-Carlo Rota.
 -->
-<p>Everything in (classical) mathematics consists of sets with
-structure. The structure is one or more functions on sets that satisfy
-given axioms. Vector spaces occupy a sweet spot in mathematics. A vector
-space over a field has a scalar multiplication and commutative vector
-addition that satisfy distributive laws. Two vector spaces are
-isomorphic (same form) if and only if they have the same dimension: the
-minimum number of independent vectors that span the vector space.</p>
+<p>Everything in classical mathematics consists of sets with structure.
+The structure is one or more functions on sets that satisfy given
+axioms.</p>
+<p>Vector spaces occupy a sweet spot in mathematics. A vector space over
+a field has a scalar multiplication and commutative vector addition that
+satisfy distributive laws, and a couple of other axioms.</p>
 <p>Functions between sets with structure that preserve the structure are
-homomorphisms (like form). If the function is injective (one-to-one) and
-surjective (onto) then it is an isomorphism. A linear operator is a
-homomorphism from one vector space to another. They also form a vector
-space since they have a scalar multiplication and commutative
-addition.</p>
+homomorphisms (like form). If the homomorphism is injective (one-to-one)
+and surjective (onto) then it is an isomorphism.</p>
+<p>Two vector spaces are isomorphic (same form) if and only if they have
+the same dimension.</p>
+<p>The vector space of <span class="math inline">n</span>-tuples of real
+numbers is the <span class="math inline">n</span>-fold product <span
+class="math inline">{\boldsymbol{{R}}^n =
+\boldsymbol{{R}}\times\cdots\times\boldsymbol{{R}}= \{x =
+(x_1,\ldots,x_n)\mid x_1,\ldots,x_n\in\boldsymbol{{R}}\}}</span>. If
+<span class="math inline">{\bm{n} = \{1,\ldots,n\}}</span> this is
+equivalent to the set exponential <span
+class="math inline">{\boldsymbol{{R}}^{\bm{n}} =
+\{\bm{n}\to\boldsymbol{{R}}\} =
+\{\bm{x}\colon\bm{n}\to\boldsymbol{{R}}\}}</span>, the set of all
+functions from <span class="math inline">\bm{n}</span> to the real
+numbers. The tuple <span class="math inline">x</span> corresponds to the
+function <span class="math inline">\bm{x}</span> by <span
+class="math inline">{\bm{x}(i) = x_i}</span>, <span
+class="math inline">{i\in\bm{n}}</span>. Going forward, we will drop
+using bold face for the function <span class="math inline">\bm{x}</span>
+and distinguish this unexpected, but useful, coincidence by saying tuple
+<span class="math inline">x</span> or function <span
+class="math inline">x</span> when it is not clear from context.</p>
+<p>This can be generalized from <span class="math inline">\bm{n}</span>
+to any finite set I. The tuple version is the Cartesian product <span
+class="math inline">\Pi_{i\in I} \boldsymbol{{R}}</span> and the
+function version is <span
+class="math inline">\boldsymbol{{R}}^I</span>.</p>
+<p>A linear transformation is a function between vector spaces that
+preserves scalar multiplication and vector addition.</p>
+<p>We work our way up to the definition of vector spaces by considering
+some simpler sets with structures.</p>
 <section id="semigroup" class="level2">
 <h2>Semigroup</h2>
-<p>For example, a <em>semigroup</em> is a set <span
-class="math inline">S</span> and a binary operator <span
-class="math inline">m\colon S\times S\to S</span> that is
-<em>associative</em>: <span class="math inline">m(a,m(b,c)) =
-m(m(a,b),c)</span>. If we write <span class="math inline">ab</span> for
+<p>The simplest useful set with structure is a <em>semigroup</em>. A
+semigroup is a set <span class="math inline">S</span> and a binary
+operator <span class="math inline">m\colon S\times S\to S</span> that is
+<em>associative</em>, <span class="math inline">{m(a,m(b,c)) =
+m(m(a,b),c)}</span>. If we write <span class="math inline">ab</span> for
 <span class="math inline">m(a,b)</span> then <span
 class="math inline">a(bc) = (ab)c</span> so <span
-class="math inline">abc</span> is unambigous.</p>
+class="math inline">abc</span> is unambiguous.</p>
 <p>Examples of semigroups are the integral, natural, real, and rational
 numbers under multiplication and addition. They are also semigroups
 under maximum and minimum values.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">\max\{a,\max\{b,c\}\} =
 \max\{\max\{a,b\},c\}</span></em>.</p>
-<p>Strings under concatenation are also a semigroup.</p>
+<p>Strings are a semigroup under concatenation.</p>
 </section>
 <section id="monoid" class="level2">
 <h2>Monoid</h2>
@@ -136,7 +161,7 @@ If <span class="math inline">M</span> is a monoid then <span
 class="math inline">e\in M</span> is the identity element if <span
 class="math inline">em = m = me</span> for <span
 class="math inline">m\in M</span>.</p>
-<p><strong>Exercise</strong>. <em>Show the idenity element is
+<p><strong>Exercise</strong>. <em>Show the identity element is
 unique</em>.</p>
 <details>
 <summary>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Fundamental Theorem of Algebra</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Fundamental Theorem of Algebra</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Feb 6, 2026</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Every polynomial over the complex numbers is a product of monomials.
+</div>
+</header>
+<p>Let <span class="math inline">p(z) = \sum_{j=0}^n a_j z^j</span>
+where <span class="math inline">a_j</span> and <span
+class="math inline">z\in\boldsymbol{{C}}</span>, be a polynomial over
+the complex numbers. The fundamental theorem of algebra states there
+exist <span class="math inline">\alpha_j\in\boldsymbol{{C}}</span> with
+<span class="math inline">p(z) = a_n\Pi_{j=0}^n (z - \alpha_j)</span>.
+The basic idea of the proof is <span class="math inline">p(z)</span>
+behaves like <span class="math inline">a_n z^n</span> as <span
+class="math inline">z</span> gets large.</p>
+<p><strong>Lemma</strong>. <em>If a polynomial <span
+class="math inline">p(z)</span> is bounded then it is constant</em>.</p>
+<p><em>Proof</em>: Recall <span class="math inline">p</span> is bounded
+is there exists a constant <span class="math inline">M</span> with <span
+class="math inline">|p(z)| &lt; M</span> for all <span
+class="math inline">z\in\boldsymbol{{C}}</span>. If <span
+class="math inline">n=0</span> then <span class="math inline">p(z) =
+a_0</span> is constant. For <span class="math inline">n &gt; 0</span> we
+have <span class="math inline">a_n z^n = p(z) + O(|z|^{n-1})</span> as
+<span class="math inline">|z|\to\infty</span> so <span
+class="math inline">|a_n| R^n &lt; M + CR^{n-1}</span> for sufficiently
+large <span class="math inline">R</span>. Dividing by <span
+class="math inline">R^n</span> gives <span class="math inline">|a_n|
+&lt; M/R^n + C/R</span> which tends to 0 as <span
+class="math inline">R</span> increases. This shows <span
+class="math inline">a_n = 0</span> for all <span class="math inline">n
+&gt; 0</span> so <span class="math inline">p(z) = a_0</span> is
+constant.</p>
+<p><strong>Lemma</strong>. <em>If <span class="math inline">p(\alpha) =
+0</span> then <span class="math inline">p(z) = (z - \alpha)q(z)</span>
+for some polynomial <span class="math inline">q(z)</span></em>.</p>
+<p><em>Proof</em>: By Taylor’s theorem <span class="math inline">p(z -
+z_0) = \sum_{j=0}^n p^{(j)}(z_0) (z - z_0)^j/j!</span>. If <span
+class="math inline">p(z_0) = 0</span> then <span
+class="math inline">q(z) = \sum_{j=1}^n p^{(j)}(z -
+z_0)^{j-1}/j!</span>.</p>
+</body>
+</html>

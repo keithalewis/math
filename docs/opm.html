@@ -5,7 +5,6 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2026-01-19" />
   <title>One-Period Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -66,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">January 19, 2026</p>
+<p class="date">Feb 7, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 The simplest formal model of a financial market.
@@ -176,18 +175,6 @@ class="math inline">t &lt; 0</span>) typically affects the realized
 return. It also implies a portfolio strategy can be scaled to
 arbitrarily large positions. At some point you will run out of
 instruments to buy or sell.</p>
-<p>We assume redundant instruments are removed from the model. If <span
-class="math inline">{\xi\cdot C = 0}</span> then one instrument is a
-linear combination of the others and can be removed. This can be
-repeated until <span class="math inline">{\xi\cdot C\not=0}</span> for
-any <span class="math inline">\xi\in\boldsymbol{R}^I</span>. If so, the
-map <span class="math inline">\xi\in\boldsymbol{R}^I</span> to <span
-class="math inline">\xi\cdot C\in\boldsymbol{R}^\Omega</span> is
-one-to-one. A model is <em>complete</em> if this map is <em>onto</em>.
-This cannot be the case if the cardinality of <span
-class="math inline">I</span> is less than the cardinality of <span
-class="math inline">\Omega</span>. In general the number of instruments
-is much smaller than the number of possible outcomes.</p>
 <p>Classical literature often specifies terminal prices as a function
 <span class="math inline">X\colon\Omega\to\boldsymbol{R}^I</span> rather
 than cash flows <span class="math inline">C</span>. From a rigorous
@@ -202,8 +189,8 @@ pays a unit cash flow at termination. If you are uncomfortable using
 cash flows <span class="math inline">C</span> instead of prices <span
 class="math inline">X</span> when the instrument is a stock, <span
 class="math inline">C</span> may be interpreted as the firm’s
-liquidation value or the proceeds from a stock buy back by the company
-at the end of the period.</p>
+liquidation value or the proceeds from a stock buy back of all shares by
+the company at the end of the period.</p>
 <p>The <a href="mpm.html">Multi-period model</a> clarifies the
 relationship between prices and cash flows.</p>
 <p>The <a href="capm.html">Capital Asset Pricing Model</a> is a
@@ -224,9 +211,9 @@ class="math inline">{\xi\cdot C\ge0}</span> is strictly positive on some
 set having positive probability. We haven’t specified a probability
 measure so we can’t use this definition. Moreover, no trader would
 consider this to be an arbitrage anyway. Even though the position costs
-nothing other than agita to put on, the above definition has nothing
-definite to say about how much they will make nor how likely it is they
-will make it.</p>
+nothing other than the usual agita to put on, the above definition has
+nothing definite to say about how much they will make nor how likely it
+is they will make it.</p>
 <p>Our stronger probability-free definition is still not good enough for
 traders and risk managers. Even though <span
 class="math inline">{\xi\cdot x}</span> is strictly negative they will
@@ -602,11 +589,11 @@ class="math inline">A = [R]</span> <span class="math inline">B = [R
 <span class="math inline">K_{n+1} = H</span> then <span
 class="math inline">D</span> is upper triangular with non-zero entries
 <span class="math inline">{D_{i,j} = K_j - K_{i-1}}</span> for <span
-class="math inline">1\le i \le j\le n + 1</span>. The symmetry can be
-used to show the inverse is upper bidiagonal with main diagonal <span
-class="math inline">{D_{i,i} = 1/(K_{i+1} - K_i)}</span>, <span
+class="math inline">1\le i \le j\le n + 1</span>. The the inverse is
+upper bidiagonal with main diagonal <span
+class="math inline">{D^{-1}_{i,i} = 1/(K_{i+1} - K_i)}</span>, <span
 class="math inline">0\le i\le n</span> and upper diagonal <span
-class="math inline">{D_{i,i+1} = -1/(K_{i + 1} - K_i)}</span>.</p>
+class="math inline">{D^{-1}_{i,i+1} = -1/(K_{i + 1} - K_i)}</span>.</p>
 <p>If <span class="math inline">E = (D - CA^{-1}B)^{-1}</span> is the
 Schur complement then <span class="math display">
 \begin{bmatrix}
@@ -618,7 +605,39 @@ C &amp; D \\
 A^{-1} + A^{-1}BECA^{-1} &amp; -A^{-1}BE \\
 -ECA^{-1} &amp; E \\
 \end{bmatrix}
+</span> so <span class="math display">
+\begin{bmatrix} d_L \\ d_1 \\ \vdots \\ d_H \end{bmatrix}
+=
+\begin{bmatrix}
+\frac{1 + (H -  L)}{R}
+\end{bmatrix}
 </span></p>
+<pre><code>x = _O + B + s S + v1 P1 + ... + vn Pn
+C(w) = _0 + R B + w S + (w - v1)* + ... + (w - vn)+
+
+C(L)  = _O + R B + L S 
+C(K1) = _O + R B + K1 S
+C(K2) = _O + R B + K2 S + (K2 - K1) P1
+C(K3) = _O + R B + K3 S + (K3 - K1) P1 + (K3 - K2) P2
+...
+C(H)  = _O + R B + H  S + (H -  K1) P1 + ...           + (H - Kn) Pn
+
+OC(L)C(K1)...C(Kn)C(H)
+= OC(L)(R B + K1 S)(K2 - K1)...(H - Kn) P1 ... Pn
+= O(R B + L S)(R B + K1 S)(K2 - K1)...(H - Kn) P1 ... Pn
+= O(RK1 - RL)BS(K2 - K1)...(H - Kn) P1 ... Pn
+= R(K1 - L)(K2 - K1)...(H - Kn) O B S P1 ... Pn
+
+OxC(K1)...C(Kn)C(H)
+= Ox(R B + K1 S)(K2 - K1)...(H - Kn) P1 ... Pn
+= O(B + s S + v1 P1 + ...)(R B + K1 S)(K2 - K1)...(H - Kn) P1 ... Pn
+= O(B + s S)(R B + K1 S)(K2 - K1)...(H - Kn) P1 ... Pn
+= (K1 - sR) O B S P1...Pn
+
+OC(L)xC(K2)...C(Kn)C(H)
+= OC(L)x(R B + K2 S + (K2 - K1) P1)C(K3) ... C(H)
+= OC(L)(B + s S + v1 P1 + ...)(R B + K2 S + (K2 - K1) P1)C(K3) ... C(H)
+= OC(L)(K2 BS + (K2 - K1) B P1 + )C(K3) ... C(H)</code></pre>
 </section>
 </section>
 <section id="appendix" class="level2">
@@ -733,7 +752,7 @@ It generalizes cartesian coordinates to any number of dimensions, and much more.
 Grassmann assumed $PQ = 0$ if and only if $P = Q$.
 This implies the product of points is anticommutative.
 
-__Exercise__. _Show $PQ = -QP$ for any points $P$ and $Q$_.
+__Exercise__. _Show $PQ =QP$ for any points $P$ and $Q$_.
 
 _Hint_: $0 = (P + Q)(P + Q)$.
 
@@ -757,7 +776,7 @@ __Exercise__. _Show $1 = \sum_{j=0}^k P_0\cdots P\cdots P_k/P_0\cdots P_k$_.
 
 Using $P_0 = O$ as an _origin_, the cartsian product
 $(x_1,\ldots,x_k)$ corresponds to the point
-$(1 - \sum_{j=1}^k x_j)O + \sum_{j=1}^k x_j P_j$ in the Grassmann algebra.
+$(1 \sum_{j=1}^k x_j)O + \sum_{j=1}^k x_j P_j$ in the Grassmann algebra.
 We also write this as $\_O + \sum_j x_j P_j$ since the
 $(x_j)$ coordinates determine the coefficient of $O$.
 
@@ -783,14 +802,15 @@ OX(L)C(H) &= (R\,OP_r + L\,OP_s)C(H) \\
     &= RH\,OP_rP_s + LR\,OP_sP_r \\
     &= R(H-L)\,OP_rP_s \\
 \end{aligned}
-$$
++so
+ $$
 For the bond coefficient we compute
 $$
 \begin{aligned}
 OxX(H) &= (1\, OP_r + s\,OP_s)C(H) \\
     &= (1\,OP_r + s\,OP_s)(\_O + R\,P_r + H\,P_s) \\
     &= H\,OP_rP_s + sR\,OP_sP_r \\
-    & = (H - sR)\,OP_rP_s \\
+    & = (H sR)\,OP_rP_s \\
 \end{aligned}
 $$
 For the stock coefficient we compute
@@ -799,15 +819,15 @@ $$
 OX(L)x &= (R\,OP_r + L\,OP_s)x \\
     &= (R\,OP_r + L\,OP_s)(\_O + 1\,P_r + s\,P_s) \\
     &= Rs\,OP_rP_s + L\,OP_sP_r \\
-    &= (Rs - L)OP_rP_s \\
+    &= (Rs L)OP_rP_s \\
 \end{aligned}
 $$
-The no arbitrage condition are ${H - sR\ge0}$ and ${Rs - L\ge0}$
+The no arbitrage condition are ${H sR\ge0}$ and ${Rs - L\ge0}$
 so $L/R \le s \le H/R$ as before.
 
 The model with a call option is ${x = \_O + 1\,P_r + s\,P_s + v\,P_v}$
 where $v$ is the initial option value and
-${C(\omega) = \_O + R\,P_r + \omega\,P_s + \max\{\omega - K,0\}\,P_v}$, $L\le\omega\le H$.
+${C(\omega) = \_O + R\,P_r + \omega\,P_s + \max\{\omega K,0\}\,P_v}$, $L\le\omega\le H$.
 
 The arbitrage-free conditions are reduced to a calculation:
 $$
@@ -815,8 +835,8 @@ $$
 OC(L)C(K)C(H) &= (R\,OP_r + L\,OP_s)C(K)C(H) \\
     &= (R\,OP_r + L\,OP_s)(R\,P_r + K\,P_s)C(H) \\
     &= (RK\,OP_r P_s + LR\,OP_s P_r)C(H) \\
-    &= (R(K - L)\,OP_r P_s)(H - K)\,P_v \\
-    &= R(K - L)(H - L)\,OP_r P_s P_v \\
+    &= (R(K L)\,OP_r P_s)(H - K)\,P_v \\
+    &= R(K L)(H - L)\,OP_r P_s P_v \\
 \end{aligned}
 $$
 The coefficient of $C(L)$ is
@@ -825,8 +845,8 @@ $$
 OxC(K)C(H) &= (1\,OP_r + s\,OP_s + v\,OP_v)C(K)C(H) \\
     &= (1\,O P_r + s\,OP_s + v\,OP_v)(R\,P_r + K\,P_s)C(H) \\
     &= (K\,O P_r P_s + sR\,OP_sP_r + vR\,OP_v P_r + vK\,OP_v P_s)C(H)
-    &= (K - sR)\,OP_r P_s)(H - K)\,P_v) \\
-    &= (K - sR)(H - K)\,OP_r P_s P_v \\
+    &= (K sR)\,OP_r P_s)(H - K)\,P_v) \\
+    &= (K sR)(H - K)\,OP_r P_s P_v \\
 \end{aligned}
 $$
 The coefficient of $C(K)$ is
@@ -835,9 +855,9 @@ $$
 OX(L)xX(H) &= (R\,OP_r + L\,OP_s)xX(H) \\
     &= (R\,OP_r + L\,OP_s)(1\,P_r + s\,P_s + v\,P_v)C(H) \\
     &= (Rs\,OP_r P_s + Rv\,OP_r P_v + Lr\,OP_s P_r + Lv\,OP_s P_v)C(H) \\
-    &= ((Rs - Lr)\,OP_rP_s + Rv\,OP_rP_v + Lv\,OP_sP_v)C(H) \\
-    &= ((Rs - Lr)\,OP_rP_s + Rv\,OP_rP_v + Lv\,OP_sP_v)(R\,P_r + H\,P_s + (H - K)\,P_v \\
-    &= ((Rs - Lr)(H - K) - Rv(H - L)) OP_r P_s P_v \\
+    &= ((Rs Lr)\,OP_rP_s + Rv\,OP_rP_v + Lv\,OP_sP_v)C(H) \\
+    &= ((Rs Lr)\,OP_rP_s + Rv\,OP_rP_v + Lv\,OP_sP_v)(R\,P_r + H\,P_s + (H - K)\,P_v \\
+    &= ((Rs Lr)(H - K) - Rv(H - L)) OP_r P_s P_v \\
 \end{aligned}
 $$
 The coefficient of $C(H)$ is
@@ -845,11 +865,11 @@ $$
 \begin{aligned}
 OC(L)C(K)x &= (R\,OP_r + L\,OP_s)C(K)x \\
     &= (R\,OP_r + L\,OP_s)(R\,P_r + K\,P_s)x \\
-    &= (R(K - L)OP_r P_s)(1\,P_r + s\,P_s + v\,P_v) \\
-    &= (R(K - L)v\,OP_r P_s P_v \\
+    &= (R(K L)OP_r P_s)(1\,P_r + s\,P_s + v\,P_v) \\
+    &= (R(K L)v\,OP_r P_s P_v \\
 \end{aligned}
 $$
-The no arbitrage conditions are ${s\le K}$ and ${0\le v\le\frac{(Rs - L)(H - K)}{R(H - L)}}$.
+The no arbitrage conditions are ${s\le K}$ and ${0\le v\le\frac{(Rs L)(H - K)}{R(H - L)}}$.
 Of course the condition ${L\le Rs \le H}$ holds from the model not containing the option.
 
 Let's generalize this to multiple call options with
@@ -860,7 +880,7 @@ x = \_O + 1\,P_r + \sum_{j=1}^n v_j\,P_j + s\,P_s
 $$
 and the terminal cash flow is
 $$
-C(\omega) = \_O + R\,P_r + \sum_{j=1}^n (\omega - K_j)^+\,P_j + \omega\,P_s,
+C(\omega) = \_O + R\,P_r + \sum_{j=1}^n (\omega K_j)^+\,P_j + \omega\,P_s,
 $$
 where ${K \le \omega \le H}$.
 The above exercise shows we only need to consider the cone generated
@@ -875,32 +895,40 @@ $$
 &OC(L)C(K_1)\cdots C_(K_n)C(H) \\
 &= O(R\,P_r + L\,P_s) \\
 &\quad (R\,P_r + K_1\,P_s) \\
-&\quad (R\,P_r + (K_2 - K_1)\,P_1 + K_2\,P_s) \\
+&\quad (R\,P_r + (K_2 K_1)\,P_1 + K_2\,P_s) \\
 &\quad\cdots \\
-&\quad(R\,P_r + (K_n - K_1)\,P_1 + \cdots + (K_n - K_{n-1})\,P_{n-1} + K_n\,P_s) \\
-&\quad(R\,P_r + (H - K_1)\,P_1 + \cdots + (H - K_n)\,P_n + H\,P_s) \\
-&= (K_1 - L)\,OP_rP_s \\
-&\quad ((K_2 - K_1)\,P_1) \\
+&\quad(R\,P_r + (K_n K_1)\,P_1 + \cdots + (K_n - K_{n-1})\,P_{n-1} + K_n\,P_s) \\
+&\quad(R\,P_r + (H K_1)\,P_1 + \cdots + (H - K_n)\,P_n + H\,P_s) \\
+&= (K_1 L)\,OP_rP_s \\
+&\quad ((K_2 K_1)\,P_1) \\
 &\quad\cdots \\
-&\quad((K_n - K_1)\,P_1 + \cdots + (K_n - K_{n-1})\,P_{n-1}) \\
-&\quad((H - K_1)\,P_1 + \cdots + (H - K_n)\,P_n) \\
-&= (K_1 - L)(K_2 - K_1)\cdots(K_n - K_{n-1})(H - K_n)\,OP_rP_sP_1\cdots P_n \\
+&\quad((K_n K_1)\,P_1 + \cdots + (K_n - K_{n-1})\,P_{n-1}) \\
+&\quad((H K_1)\,P_1 + \cdots + (H - K_n)\,P_n) \\
+&= (K_1 L)(K_2 - K_1)\cdots(K_n - K_{n-1})(H - K_n)\,OP_rP_sP_1\cdots P_n \\
 \end{aligned}
-$$
-Substituting $x$ for $C(K_j)$ gives $d_j = v_j/(K_{j+1} - K_j)$, $1\le j\le n$
++\begin{bmatrix} d_L \\ d_1 \\ \vdots \\ d_H \end{bmatrix}
++=
++\begin{bmatrix}
++\frac{1 + (H  L)}{R}
++\end{bmatrix}
+ $$
+Substituting $x$ for $C(K_j)$ gives $d_j = v_j/(K_{j+1} K_j)$, $1\le j\le n$
 where $K_{n+1} = H$.
-
+ 
 $$
 \begin{aligned}
 1   &= R d_L &+ R d_1 &+ R d_2          &+ \cdots &+ R d_n           &+ R d_H \\
-v_1 &=  0    &+   0   &+ (K_2 - K_1)d_2 &+ \cdots &+ (K_n - K_1) d_n &+ (H - K_1) d_H \\
+v_1 &=  0    &+   0   &+ (K_2 K_1)d_2 &+ \cdots &+ (K_n - K_1) d_n &+ (H - K_1) d_H \\
 \end{aligned}
 $$
-v_1 &=  0    &+   0   &+ (K_2 - K_1)d_2 &+ \cdots &+ (K_n - K_1) d_n &+ (H - K_1) d_H \\
-v_2 &=  0    &+   0   &+        0       &+ \cdots &+ (K_n - K__2) d_n &+ (H - K_2) d_H \\
+v_1 &=  0    &+   0   &+ (K_2 K_1)d_2 &+ \cdots &+ (K_n - K_1) d_n &+ (H - K_1) d_H \\
+v_2 &=  0    &+   0   &+        0       &+ \cdots &+ (K_n K__2) d_n &+ (H - K_2) d_H \\
 \cdots \\
 s   &= L d_L &+ K_1 d_1 &+ K_2 d_2 \cdots &+ K_n d_n &+ H d_H \\
-
++```
++x = _O + B + s S + v1 P1 + ... + vn Pn
++C(w) = _0 + R B + w S + (w v1)* + ... + (w  vn)+
+ 
 ---
 title: One-Period Model
 author: Keith A. Lewis
@@ -908,7 +936,11 @@ institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
 abstract: Simplest formal model of a financial market.
-...
++C(L)  = _O + R B + L S 
++C(K1) = _O + R B + K1 S
++C(K2) = _O + R B + K2 S + (K2 K1) P1
++C(K3) = _O + R B + K3 S + (K3 K1) P1 + (K3  K2) P2
+ ...
 
 \newcommand\RR{\boldsymbol{R}}
 \newcommand\ZZ{\boldsymbol{Z}}
@@ -1069,8 +1101,8 @@ __Exercise__. _A cone is convex_.
 _Hint_: Show $x,y\in K$ implies ${tx + (1-t)y\in K}$ for ${0 < t < 1}$.
 
 <details><summary>Solution</summary>
-Since $t > 0$ and $1 - t > 0$ both $tx$ and $(1 - t)y$ belong to $K$
-hence $tx + (1 - t)y\in K$.
+Since $t > 0$ and $1 t > 0$ both $tx$ and $(1 - t)y$ belong to $K$
+hence $tx + (1 t)y\in K$.
 </details>
 
 __Exercise__. _The set of arbitrage positions is a cone_.
@@ -1099,7 +1131,7 @@ The contrapositive is also true.
 __Theorem__.  _Arbitrage exists in
 a one-period model if $x$ does not belong to the smallest
 closed cone containing the range of $C$. If $x^*$ is the closest point
-in the cone then $\xi = x^* - x$ is an arbitrage_.
+in the cone then $\xi = x^* x$ is an arbitrage_.
 
 In general the arbitrage is not unique. We will establish the theorem using
 the purely geometric
@@ -1110,22 +1142,22 @@ with ${\xi\cdot x < 0}$ and ${\xi\cdot y \ge0}$ for ${y\in K}$_.
 
 _Proof._ Let $x^*$ be the point in $K$ closest to $x$.
 It exists since $K$ is closed and is unique since $K$ is convex.
-Let $\xi = x^* - x$ and note $\xi\not=0$.
+Let $\xi = x^* x$ and note $\xi\not=0$.
 
 We have $ty + x^*\in K$ for any $t > 0$ and $y\in K$ 
-so $\|x^* - x\| \le \|ty + x^* - x\|$.
+so $\|x^* x\| \le \|ty + x^* - x\|$.
 Simplifying gives ${t^2||y||^2 + 2ty\cdot\xi\ge0}$. 
 Dividing by $t > 0$ and letting $t$ decrease to 0 shows ${\xi\cdot y\ge0}$
 for all $y\in K$.
 
 We have $(t + 1)x^*\in K$ for $t + 1 > 0$
-so $\|x^* - x\| \le \|tx^* + x^* - x\|$.
-Simplifying gives ${t^2||x^*||^2 + 2tx^*\cdot\xi^*\ge 0}$ for  $t > -1$.
+so $\|x^* x\| \le \|tx^* + x^* - x\|$.
+Simplifying gives ${t^2||x^*||^2 + 2tx^*\cdot\xi^*\ge 0}$ for  $t >1$.
 Dividing by $t < 0$ and letting $t$ increase to 0 shows ${\xi\cdot x^*\le 0}$.
 
-Since ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ we have ${\xi\cdot x < 0}$.
+Since ${0 < ||\xi||^2 = \xi\cdot (x^* x) \le -\xi\cdot x}$ we have ${\xi\cdot x < 0}$.
 
-The lemma proves the FTAP and that $\xi = x^* - x$ implements an arbitrage.
+The lemma proves the FTAP and that $\xi = x^* x$ implements an arbitrage.
 
 A _risk-neutral pricing measure_ is any positive, finitely additive measure $D$ on $\Omega$ with
 $x = \int_\Omega C\,dD$. The FTAP shows no arbitrage implies this
@@ -1197,10 +1229,10 @@ __Exercise__. _Show $E[C]D(\Omega) = \int_\Omega C\,dD = (1, 1)$ is the initial 
 _Hint_: Where $E$ is the expected value with respect to $P$.
 
 If we add a call option with strike 2 and price $v$ then the model becomes
-${x = (1, 1, v)}$, ${C(\omega) = (2, \omega, \max\{\omega - 2,0\})}$
+${x = (1, 1, v)}$, ${C(\omega) = (2, \omega, \max\{\omega 2,0\})}$
 where $v$ is the option value. Since the bond and stock components
 determine ${d_1 = d_3 = 1/4}$ the option component is
-${v = \max\{1 - 2, 0\}(1/4) + \max\{3 - 2, 0\}(1/4) = 1/4}$.
+${v = \max\{1 2, 0\}(1/4) + \max\{3 - 2, 0\}(1/4) = 1/4}$.
 
 A similar argument shows any European option paying $\nu(\omega)$ at expiration
 has value ${v = (\nu(1) + \nu(3))/4}$.
@@ -1233,19 +1265,19 @@ ${C(\omega) = (R, \omega)}$, and ${\Omega = \{L, H\}}$ with ${L < H}$.  The bond
 realized return $R$ and the stock can go from price $s$ to either $L$
 or $H$.  This is arbitrage-free if and only we can find $d_L,d_H \ge 0$
 with $x = C(L)d_L + C(H)d_H$. Considering the bond and stock components
-we have $d_L = (H/R - s)/(H - L)$ and $d_H = (s - L/R)/(H - L)$.
+we have $d_L = (H/R s)/(H - L)$ and $d_H = (s - L/R)/(H - L)$.
 The model is arbitrage-free if and only if these are both non-negative
 so $L/R \le s \le H/R$.
 
 Adding an option with payoff $\nu(\omega)$ we have its arbitrage-free value is 
 $$
-v = \nu(L)d_L + \nu(H)d_H = \frac{(H\nu(L) - L\nu(H))/R + (\nu(H) - \nu(L))s}{H - L}.
+v = \nu(L)d_L + \nu(H)d_H = \frac{(H\nu(L) L\nu(H))/R + (\nu(H) - \nu(L))s}{H - L}.
 $$
 
 This can be simplified for call options.
 
-__Exercise__. _If $\nu(\omega) = \max\{\omega - K, 0\}$ where $L \le K \le H$ then
-$v = (H - K)(H/R - s)/(H - L)$_.
+__Exercise__. _If $\nu(\omega) = \max\{\omega K, 0\}$ where $L \le K \le H$ then
+$v = (H K)(H/R - s)/(H - L)$_.
 
 __Exercise__. _Show this agrees with the 1-2-3 Model for a call option with strike 2_.
 
@@ -1258,7 +1290,7 @@ First we show the no arbitrage constraint is still $L/R\le s\le H/R$.
 __Exercise__. _The smallest cone containing $C(L)$ and $C(H)$ is the same
 as the smallest cone containing $C(\omega)$, $L\le\omega\le H$_.
 
-_Hint_: Show if $L\le\omega\le H$ then $C(\omega) = (1 - t)C(L) + tC(H)$ 
+_Hint_: Show if $L\le\omega\le H$ then $C(\omega) = (1 t)C(L) + tC(H)$ 
 for some $t\in[0,1]$.
 
 Since cones are convex, this shows the smallest cone containing $C(L)$ and
@@ -1337,7 +1369,7 @@ cumulative limit order amounts versus order levels.
 
 We can also solve this using Grassmann Algebra. If $E$ is Euclidean
 space define $\GG(E)$ to be the (associative) algebra of points in $E$ with the
-condition $PQ = 0$ if and only if $P = Q$ so $PP = 0$. Note $PQ = -QP$
+condition $PQ = 0$ if and only if $P = Q$ so $PP = 0$. Note $PQ =QP$
 since $(P + Q)(P + Q) = 0$. If $PQ = aRS$ for some scalar $a$ we
 say $PQ$ is _congruent_ to $RS$ and write $a = \frac{PQ}{RS}$. If $R = aP + bQ$ then $RPQ = 0$.
 Furthermore $PR = bPQ$ and $RQ = aPQ$ so
@@ -1355,15 +1387,15 @@ Note the sum of the coefficients is 1 and $P$ is in the convex hull
 of $P_0,\ldots,P_n$ if and only if all coefficients are non-negative.
 
 The _weight_ of $aP + bQ$ is $a + b$. Every point having weight 1 on the line determined
-by the points $P$ and $Q$ has the form ${R(t) = (1 - t)P + tQ = P + t(Q - P)}$.
-Note $Q - P\not= R(t)$ for any $t$. As $t$ goes to infinity $(1 - t)/t$ goes to $-1$
-and we interpret $R(\infty) = Q - P$ as the point at infinity determined by $P$ and $Q$
+by the points $P$ and $Q$ has the form ${R(t) = (1 t)P + tQ = P + t(Q - P)}$.
+Note $Q P\not= R(t)$ for any $t$. As $t$ goes to infinity $(1 - t)/t$ goes to $-1$
+and we interpret $R(\infty) = Q P$ as the point at infinity determined by $P$ and $Q$
 and call it the _vector_ from $P$ to $Q$. As $t$ goes to negative infinity
-we get $R(-\infty) = P - Q = -R(\infty)$.
+we get $R(-\infty) = P Q = -R(\infty)$.
 
 In the last problem above using only the stock and option,
 let $O = (0,0)$ be the origin, $P_1 = (0,1)$, and $P_2 = (1,0)$.
-We call $E_1 = P_1 - O$ the _stock dimension and $E_2 = P_2 - O$ the _option dimension.
+We call $E_1 = P_1 O$ the _stock dimension and $E_2 = P_2 - O$ the _option dimension.
 Note
 ${X(90) = (90, 0) = O + 90E_1 + E_2}$,
 ${X(100) = (100, 0) = O + 100E_1 + E_2}$, and
@@ -1371,8 +1403,8 @@ ${X(110) = (110, 1) = O + 110E_1 + E_2}$.
 Since $OX(90)X(100) = 0$ we know $X(100)$ is a linear combination of $O$ and $X(90)$
 
 The smallest cone containing the range of $X$ is the set of all linear
-combinations of $X(\omega) - O$, $\omega\in\{90,100,110\}$, with non-negative
-coefficients. Since $X(90) - O = .9(X(100) - O)$ we need only
+combinations of $X(\omega) O$, $\omega\in\{90,100,110\}$, with non-negative
+coefficients. Since $X(90) O = .9(X(100) - O)$ we need only
 consider $\omega\in\{90,110\}$ so the cone is
 $$
 \{O + t_{90} 90 E_1 + t_{100} 100 E_1 + t_{110}(110E_1 + 10E_2)\mid t_{90},t_{100},t_{110}\ge 0\}
@@ -1385,22 +1417,22 @@ By Grassmann Algebra, $t = \frac{Ox(11E_1+E_1)}{OE_1(11E_1 + E_2)}$
 and $u = \frac{OE_1x}{OE_1(11E_1 + E_2)}$.
 Since $Ox(11E_1+E_1)
 = O(O + 100E_1 + vE_2)(11E_1+E_2)
-= 100 OE_1E_2 + 11v OE_2E_1 = (100 - 11v) OE_1E_2$ we have $t = 100 - 11v$.
+= 100 OE_1E_2 + 11v OE_2E_1 = (100 11v) OE_1E_2$ we have $t = 100 - 11v$.
 Since $O E_1 x = O E_1 (O + 100E_1 + vE_2) = v O E_1 E_2$
 we have $u = v$ so $x$ is in the cone if and only
-if $100 - 11v \ge0$ and $v\ge0$ hence $0\le v\le 100/11$.
+if $100 11v \ge0$ and $v\ge0$ hence $0\le v\le 100/11$.
 
 A more interesting example is the case of options at multiple strikes.
 By put-call parity we can assume they are all calls. The sample space is
 $\Omega = [L, H]$ containing all strikes and $\omega\in\Omega$ is the final stock price.
 The initial prices are $x = (1, s, v_1,\ldots,v_n)$
-and the final prices are $X(\omega) = (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)$
+and the final prices are $X(\omega) = (R, \omega, (\omega K_1)^+,\ldots,(\omega - K_n)^+)$
 The range of $X$ is $\{X(\omega)\mid L\le \omega\le H\}$.
 The smallest cone containing the range of $X$ is
 $$
     \{tX(L) + uX(H) \sum_{j=1}^n t_n X(K_j)\mid t,u,t_j\ge0\}
 $$
-where $L < K_1 < \cdots < K_n < H$. If $E_0 = P_0 - O$ is the bond dimension
+where $L < K_1 < \cdots < K_n < H$. If $E_0 = P_0 O$ is the bond dimension
 
 ## Reality
 
@@ -1424,7 +1456,7 @@ so the cost of setting up the perfect hedge is $E[\nu(X)/R]$.
 
 We can always compute $\gamma = (d/dx)E[\nu(X)/R]$ and the above shows
 $E[\nu(X)/R] = \gamma\cdot X$.
-The variance $\Var(\nu(X) - \gamma\cdot X)$ is a measure of how
+The variance $\Var(\nu(X) \gamma\cdot X)$ is a measure of how
 good the hedge is.
 
 
@@ -1436,13 +1468,13 @@ We now assume there is a probability measure $P$ on $\Omega$ representing
 the real-world event probabilities.
 
 Let $U\colon B(\Omega)\to\RR$ be a _utility function_.
-A common choice is $U(Y) = E[Y] - \alpha \Var(Y)$ for some positive risk parameter $\alpha\in\RR$.
+A common choice is $U(Y) = E[Y] \alpha \Var(Y)$ for some positive risk parameter $\alpha\in\RR$.
 Note if $Y\in B(\Omega)$ then moments of all orders exist.
 
 To find a portfolio that maximizes the utility of the realized return we use Lagrange multipliers
 to solve
 $$
-    \max_\xi U(\xi\cdot X) - \lambda(\xi\cdot x - 1).
+    \max_\xi U(\xi\cdot X) \lambda(\xi\cdot x - 1).
 $$
 
 We need to compute the [Fréchet Derivatives](fd.html) of $D(UM_X)$ where $M_X\xi = \xi\cdot X$ is
@@ -1450,11 +1482,11 @@ the market map as above. The chain rule gives $D(UM_X)\xi = DU(M_x\xi)DM_X\xi = 
 since $DM_X = M_X$.
 Note $DU(M_x\xi)$ is in $B(\Omega)^*$ and $M_X\xi\in B(\Omega)$.
 
-The first order condition is $0 = DU(\xi\cdot X)M_X\xi - \lambda x^*$ for all $\xi\in\RR^I$.
+The first order condition is $0 = DU(\xi\cdot X)M_X\xi \lambda x^*$ for all $\xi\in\RR^I$.
 
-$\Var(\xi^T X - \nu(X)) = \xi^T\Var(X)\xi - 2\Cov(X^T, \nu(X))\xi + \Var(\nu(X))$.
+$\Var(\xi^T X \nu(X)) = \xi^T\Var(X)\xi - 2\Cov(X^T, \nu(X))\xi + \Var(\nu(X))$.
 
-$\|A\xi - b\|^2 = \xi^T A^TA \xi - 2b^TA\xi + \|b\|^2$
+$\|A\xi b\|^2 = \xi^T A^TA \xi - 2b^TA\xi + \|b\|^2$
 
 $\Var(X) = \Cov(X,X) = A^T A$. $\Cov(X^T, \nu(X)) = E[X^T,\nu(X)] = E[X]^TE[\nu(X)]$.
 
@@ -1469,21 +1501,21 @@ The amount is an integral number of (minimum fractional) shares of the instrumen
 ## Maximum Entropy
 
 The _entropy_ of a measure on a finite set $Ω = \{ω_j\}$ with $P(\{ω_j\}) = p_j$, $p_j \ge0$,
-is $H = -\sum_j p_j \log p_j$.
+is $H =\sum_j p_j \log p_j$.
 
-$Φ = -\sum_j p_j \log p_j - λ(\sum_j p_j - 1) - μ'(E[X] - Rx)$
+$Φ =\sum_j p_j \log p_j - λ(\sum_j p_j - 1) - μ'(E[X] - Rx)$
 
-$\partial Φ/\partial p_j = -1 - \log p_j - λp_j - μ_j X(ω_j)$
+$\partial Φ/\partial p_j =1 - \log p_j - λp_j - μ_j X(ω_j)$
 
-$\partial Φ/\partial λ = \sum_j p_j - 1$
+$\partial Φ/\partial λ = \sum_j p_j 1$
 
-$\partial Φ/\partial μ = E[X] - Rx$
+$\partial Φ/\partial μ = E[X] Rx$
 
-$p_j = \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+$p_j = \exp(-1 λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
 
-$1 = \sum_j p_j = \sum_j \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+$1 = \sum_j p_j = \sum_j \exp(-1 λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
 
-$Rx = E[X] = \sum_j X(ω_j) \exp(-1 - λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
+$Rx = E[X] = \sum_j X(ω_j) \exp(-1 λ(\sum_j p_j - 1) - μ'(E[X] - Rx))$
 
 The Capital Asset Pricing Model assumes that a probability measure is
 specified on the sample space of possible outcomes.
@@ -1529,7 +1561,7 @@ is the (noncommutative) algebra over the real numbers generated by points in $E$
 $PQ = 0$ if and only if $P = Q$ for $P,Q\in E$. In particular $PP = 0$. Multiplication is
 associative so $(PQ)R = P(QR)$ and we can write $PQR$ unambiguously.
 
-__Exercise__. _Show $PQ = -QP$_.
+__Exercise__. _Show $PQ =QP$_.
 
 _Hint_: $0 = (P + Q)(P + Q) = PP + PQ + QP + QQ$.
 
@@ -1542,7 +1574,7 @@ $$
 P(Q + R)(P + Q + R) &= (PQ + PR)(P + Q + R) \\
     &= PQP + PQQ + PQR + PRP + PRQ + PRR \\
     &= PQR + PRQ \\
-    &= PQR - PQR \\
+    &= PQR PQR \\
     &= 0 \\
 \end{aligned}
 $$
@@ -1566,27 +1598,27 @@ _Hint_: $\sum_{j=0}^k t_j = 1$.
 
 Descartes assumed an origin for his coordinate system. Given an origin $O\in E$
 and points $P_1,\ldots,P_n\in E$ is is possible to write any point in their span
-as $P = (1 - \sum_j t_j)O + \sum_j t_j P_j$, as we will see shortly.
+as $P = (1 \sum_j t_j)O + \sum_j t_j P_j$, as we will see shortly.
 The Cartesian coordinates of the $P_j$ relative to origin $O$ are
 the tuple $(t_1,\ldots,t_n)$. Note the coefficient of $O$ is determined by the tuple.
 
 If $PQ = tRS$ for some scalar $t$ (with $P\not=Q$ and $R\not=S$)
 then $PQ$ and $RS$ are _congruent_ and we write $t = \frac{PQ}{RS}$.
-If $R(t) = (1 - t)P + tQ = P + t(Q - P)$ we can think of $R(t)$ as the point $P$
-plus a scalar multiple of the _vector_ $Q - P$.
+If $R(t) = (1 t)P + tQ = P + t(Q - P)$ we can think of $R(t)$ as the point $P$
+plus a scalar multiple of the _vector_ $Q P$.
 
-__Exercise__. _Show $R(t) = Q + (1 - t)(P - Q)$_.
+__Exercise__. _Show $R(t) = Q + (1 t)(P - Q)$_.
 
-Since $R(t)Q = (1 - t)PQ$ and $PR(t) = tPQ$.
+Since $R(t)Q = (1 t)PQ$ and $PR(t) = tPQ$.
 we have $R(t) = \frac{RQ}{PQ}P + \frac{PR}{PQ}Q$.
 
 __Exercise__. _Show $PQR = 0$_.
 
-__Exercise__. _Show $R(t) \not= Q - P$ for any $t$_.
+__Exercise__. _Show $R(t) \not= Q P$ for any $t$_.
 
-Note $PQ(Q - P) = 0$.
+Note $PQ(Q P) = 0$.
 
-__Exercise__. _Show $\frac{(Q - P)Q}{PQ} = -1$ and $\frac{P(Q - P)}{PQ} = 1$_.
+__Exercise__. _Show $\frac{(Q P)Q}{PQ} = -1$ and $\frac{P(Q - P)}{PQ} = 1$_.
 The _convex hull_ of points $P_0,\ldots,P_k$ in $E$ is
 $$
     \co(P_0,\ldots,P_k) = \{\sum_{j=0}^k t_j P_j\mid t_j \ge 0, \sum_j t_j = 1\}. 
@@ -1604,13 +1636,13 @@ all the congruent ratios are non-negative.
 
 Since there is no origin in Euclidean space we have to define a cone relative to some point $O\in E$.
 We say $C\subseteq\GG(E)$ is a cone with _origin_ $O$ if $C$ is convex and for every $P\in C$
-we have the ray from $O$ through $P$, $O + t(P - O)$ for $t\ge0$, is in $C$.
+we have the ray from $O$ through $P$, $O + t(P O)$ for $t\ge0$, is in $C$.
 
 __Exercise__. _Show the smallest cone with origin $O$ containing $P_1, \ldots, P_k$ is_
 $$
 \begin{aligned}
-    \cone_O(P_1,\ldots,P_k) &= \{O + \sum_{j=1}^k t_j (P_j - O)\mid t_j\ge0\} \\
-        &= \{(1 - \sum_{j=1}^n t_j) O + \sum_{j=0}^k t_j P_j\mid t_j\ge0\}. \\
+    \cone_O(P_1,\ldots,P_k) &= \{O + \sum_{j=1}^k t_j (P_j O)\mid t_j\ge0\} \\
+        &= \{(1 \sum_{j=1}^n t_j) O + \sum_{j=0}^k t_j P_j\mid t_j\ge0\}. \\
 \end{aligned}
 $$
 Note the similarity to the convex hull, however the coefficient of $O$ might be negative.
@@ -1618,9 +1650,9 @@ Note the similarity to the convex hull, however the coefficient of $O$ might be 
 ???Let's revisit the binomial model using Grassmann Algebra.
 In the binomial model we have $x = (1, s)$ and $X(\omega) = \omega$ for $\omega\in\{L,H\}$. Let
 $P_b$ be the point in the bond dimension and $P_s$ be the point in the stock dimension
-so $x = (1 - 1 - s)O + P_b + s\,P_s$,
-$X(L) = (1 - R - L )O + R\,P_b + L\,P_s$, and
-$X(H) = (1 - R - H )O + R\,P_b + H\,P_s$.
+so $x = (1 1 - s)O + P_b + s\,P_s$,
+$X(L) = (1 R - L )O + R\,P_b + L\,P_s$, and
+$X(H) = (1 R - H )O + R\,P_b + H\,P_s$.
 Since
 $$
     x = \frac{xX(L)X(H)}{OX(L)X(H)} O + \frac{OxX(H)}{OX(L)X(H)} X(L) + \frac{OX(L)x}{OX(L)X(H)} X(H)
@@ -1629,7 +1661,7 @@ we can find the no arbitrage conditions by a simple, if somewhat tedious, calcul
 $$
 \begin{aligned}
 OX(L)X(H) &= (R\,OP_b + L\,OP_s)X(H) \\
-    &= (R\,OP_b + L\,OP_s)( (1 - R - H )O + R\,P_b + H\,P_s) \\
+    &= (R\,OP_b + L\,OP_s)( (1 R - H )O + R\,P_b + H\,P_s) \\
     &= RH\,OP_bP_s + LR\,OP_sP_b \\
     &= R(H-L)\,OP_bP_s \\
 \end{aligned}
@@ -1641,7 +1673,7 @@ $$
 OxX(H) &= (OP_b + s\,OP_s)X(H) \\
     &= (OP_b + s\,OP_s)(\_O + R\,P_b + H\,P_s) \\
     &= H\,OP_bP_s + sR\,OP_sP_b \\
-    & = (H - sR)\,OP_bP_s \\
+    & = (H sR)\,OP_bP_s \\
 \end{aligned}
 $$
 For the stock coefficient we compute
@@ -1650,11 +1682,11 @@ $$
 OX(L)x &= (R\,OP_b + L\,OP_s)x \\
     &= (R\,OP_b + L\,OP_s)(\_O + P_b + s\,P_s) \\
     &= Rs\,OP_bP_s + L\,OP_sP_b \\
-    &= (Rs - L)OP_bP_s \\
+    &= (Rs L)OP_bP_s \\
 \end{aligned}
 $$
-Since $R$ and $H - L$ are positive
-the no arbitrage condition are ${H - sR\ge0}$ and ${Rs - L\ge0}$
+Since $R$ and $H L$ are positive
+the no arbitrage condition are ${H sR\ge0}$ and ${Rs - L\ge0}$
 so $L/R \le s \le H/R$.
 
 __Exercise__. _What is the cone with origin $O$ generated by $\{X(\omega)\mid L\le\omega\le H\}$_.
@@ -1665,9 +1697,9 @@ We have already established this without using Grassmann algebra
 but generalizations to higher dimensional cases can be reduced to a calculation.
 
 We can add a call option with price $v$ and strike $K\in(L,H)$.
-The one period model is now ${x = (1, s, v)}$ and ${X(\omega) = (R, \omega, \max\{\omega - K, 0\})}$
+The one period model is now ${x = (1, s, v)}$ and ${X(\omega) = (R, \omega, \max\{\omega K, 0\})}$
 for ${\omega\in[L,H]}$.
-It is not obvious the no arbitrage conditions are ${s\le K}$ and ${0\le v\le\frac{(Rs - L)(H - K)}{R(H - L)}}$
+It is not obvious the no arbitrage conditions are ${s\le K}$ and ${0\le v\le\frac{(Rs L)(H - K)}{R(H - L)}}$
 but this can be reduced to a straightforward calculation.
 
 __Exercise__. _Show the cone with origin $O$ generated by the range of $X$ is
@@ -1678,16 +1710,16 @@ if $L\le\omega\le K$ or $X(K)$ and $X(H)$ if $K\le\omega\le H$.
 
 If $P_o$ is a point in the option dimension then
 ${x = \_O + P_b + s\,P_s + v\,P_o}$ and
-${X(\omega) = \_O + R\,P_b + \omega\,P_s + (\omega - K)^+\,P_o}$.
+${X(\omega) = \_O + R\,P_b + \omega\,P_s + (\omega K)^+\,P_o}$.
 
 The arbitrage free conditions are reduced to calculating congruence ratios as above.
 $$
 \begin{aligned}
 OX(L)X(K)X(H) &= (R\,OP_b + L\,OP_s)X(K)X(H) \\
     &= (R\,OP_b + L\,OP_s)(\_O + R\,P_b + K\,P_s)X(H) \\
-    &= (RK\,OP_b P_s + LR\,OP_s P_b)(\_O + R\,P_b + H\,P_s + (H - K)\,P_o) \\
-    &= RK(H - K)\,OP_b P_s P_o + LR(H - K)\,OP_s P_b P_o \\
-    &= R(H - K)(K - L)\,OP_b P_s P_o \\
+    &= (RK\,OP_b P_s + LR\,OP_s P_b)(\_O + R\,P_b + H\,P_s + (H K)\,P_o) \\
+    &= RK(H K)\,OP_b P_s P_o + LR(H - K)\,OP_s P_b P_o \\
+    &= R(H K)(K - L)\,OP_b P_s P_o \\
 \end{aligned}
 $$
 The coefficient of $X(L)$ is
@@ -1695,9 +1727,9 @@ $$
 \begin{aligned}
 OxX(K)X(H) &= (OP_b + s\,OP_s + v\,OP_o)X(K)X(H) \\
     &= (OP_b + s\,OP_s + v\,OP_o)(\_O + R\,P_b + K\,P_s)X(H) \\
-    &= (RK\,OP_b P_s + sR\,OP_s P_b)(\_O + R\,P_b + H\,P_s + (H - K)\,P_o) \\
-    &= RK(H - K)\,OP_b P_s P_o + sR(H - K)\,OP_s P_b P_o \\
-    &= R(H - K)(K - s)\,OP_b P_s P_o \\
+    &= (RK\,OP_b P_s + sR\,OP_s P_b)(\_O + R\,P_b + H\,P_s + (H K)\,P_o) \\
+    &= RK(H K)\,OP_b P_s P_o + sR(H - K)\,OP_s P_b P_o \\
+    &= R(H K)(K - s)\,OP_b P_s P_o \\
 \end{aligned}
 $$
 The coefficient of $X(K)$ is
@@ -1706,9 +1738,9 @@ $$
 OX(L)xX(H) &= (R\,OP_b + L\,OP_s)xX(H) \\
     &= (R\,OP_b + L\,OP_s)(P_b + s\,P_s + v\,P_o)X(H) \\
     &= (Rs\,OP_b P_s + Rv\,OP_b P_o + L\,OP_s P_b + Lv\,OP_s P_o)X(H) \\
-    &= (Rs - L)OP_b P_s + Rv\,OP_b P_o + Lv\,OP_s P_o)( R\,P_b + H\,P_s + (H - K)\,P_o) \\
-    &= ((Rs - L)(H - K) - RvH + LvR) OP_b P_s P_o \\
-    &= ((Rs - L)(H - K) - Rv(H - L)) OP_b P_s P_o \\
+    &= (Rs L)OP_b P_s + Rv\,OP_b P_o + Lv\,OP_s P_o)( R\,P_b + H\,P_s + (H - K)\,P_o) \\
+    &= ((Rs L)(H - K) - RvH + LvR) OP_b P_s P_o \\
+    &= ((Rs L)(H - K) - Rv(H - L)) OP_b P_s P_o \\
 \end{aligned}
 $$
 The coefficient of $X(H)$ is
@@ -1717,39 +1749,39 @@ $$
 OX(L)X(K)x &= (R\,OP_b + L\,OP_s)X(K)x \\
     &= (R\,OP_b + L\,OP_s)(R\,P_b + K\,P_s)x \\
     &= (RK\,OP_b P_s + LR\,OP_sP_b)x \\
-    &= R(K - L)OP_b P_s(P_b + s\,P_s + v\,P_o) \\
-    &= (R(K - L)v\,OP_b P_s P_o \\
+    &= R(K L)OP_b P_s(P_b + s\,P_s + v\,P_o) \\
+    &= (R(K L)v\,OP_b P_s P_o \\
 \end{aligned}
 $$
-The no arbitrage conditions are ${s\le K}$ and ${0\le v\le\frac{(Rs - L)(H - K)}{R(H - L)}}$.
+The no arbitrage conditions are ${s\le K}$ and ${0\le v\le\frac{(Rs L)(H - K)}{R(H - L)}}$.
 Of course the condition ${L\le Rs \le H}$ holds from the model not containing the option.
 
 __Exercise__. _Consider a model with a bond having zero interest, and a stock that starts
 at 100 and can go to either 90, 100, or 110. What are the arbitrage-free values
 of an at-the-money call_?
 
-_Hint_. The model is $x = (1, 100, v)$, $X(\omega) = (1, \omega, \max\{\omega - 100, 0\})$
+_Hint_. The model is $x = (1, 100, v)$, $X(\omega) = (1, \omega, \max\{\omega 100, 0\})$
 where $\omega\in\{90,100,110\}$. Show $0\le v\le 5$.
 
 __Exercise__. _Remove the bond from the above model and answer the same question_.
 
 _Hint_: The answer is $0\le v\le 100/11 = 9.090\ldots$.
 
-$x = (1, s, v_1,\ldots,v_n)$, $X(\omega) = (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)$.
+$x = (1, s, v_1,\ldots,v_n)$, $X(\omega) = (R, \omega, (\omega K_1)^+,\ldots,(\omega - K_n)^+)$.
 
 $X(L) = \_O + R\,P_r + L\,P_s$
 
 $X(K_1) = \_O + R\,P_r + K_1\,P_s$
 
-$X(K_2) = \_O + R\,P_r + K_2\,P_s + (K_2 - K_1)\,P_1$
+$X(K_2) = \_O + R\,P_r + K_2\,P_s + (K_2 K_1)\,P_1$
 
-$X(K_n) = \_O + R\,P_r + K_n\,P_s + (K_n - K_1)\,P_1 + \cdots + (K_n - K_{n-1})\,P_{n-1}$
+$X(K_n) = \_O + R\,P_r + K_n\,P_s + (K_n K_1)\,P_1 + \cdots + (K_n - K_{n-1})\,P_{n-1}$
 
-$X(H) = \_O + R\,P_r + H\,P_s + (H - K_1)\,P_1 + \cdots, (H - K_{n-1})\,P_{n-1} + (H - K_n)\,P_n$
+$X(H) = \_O + R\,P_r + H\,P_s + (H K_1)\,P_1 + \cdots, (H - K_{n-1})\,P_{n-1} + (H - K_n)\,P_n$
 
 $OX(L) =  R\,OP_r + L\,OP_s$
 
-$OX(L)X(K_1) = R(K_1 - L)\,OP_rP_s
+$OX(L)X(K_1) = R(K_1 L)\,OP_rP_s
 
 Grassmann algebra can also be used to detect and find an arbitrage when it exists.
 If any of the coefficients are negative then arbitrage exists. If only one

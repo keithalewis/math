@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>First Order Logic</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">First Order Logic</h1>
+<p class="date">Feb 4, 2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#predicate" id="toc-predicate">Predicate</a>
+<ul>
+<li><a href="#well-formed" id="toc-well-formed">Well-Formed</a></li>
+<li><a href="#proofs" id="toc-proofs">Proofs</a></li>
+</ul></li>
+<li><a href="#boolean-algebra" id="toc-boolean-algebra">Boolean
+Algebra</a></li>
+<li><a href="#first-order" id="toc-first-order">First Order</a></li>
+</ul>
+</nav>
+<p>Everything in classical mathematics is expressed in terms of first
+order logic. FOL extends propositional logic by adding statements that
+can be quantification over propositions parameterized by variables.
+There are many logics aside from first-order predicate logic but they
+all share the notion that a proof of ‘If <span
+class="math inline">P</span> then <span class="math inline">Q</span>’
+starts with the proposition ‘<span class="math inline">P</span>’ and
+uses the axioms and rules of inference for that logic to produce ‘<span
+class="math inline">Q</span>’. More precisely, the proof demonstrates
+that assuming <span class="math inline">P</span> is true then <span
+class="math inline">Q</span> is true. More compactly, we also say <span
+class="math inline">P</span> <em>implies</em> <span
+class="math inline">Q</span> and write <span
+class="math inline">P\rightarrow Q</span>.</p>
+<p>A logic is <em>sound</em> if the axioms and rules of inference cannot
+be used to produce a false statement. A logic is <em>complete</em> if
+every true statement can be proved using the axioms and rules of
+inference. A logic is not <em>consistent</em> if a statement and its
+negation can be proved. A logic is <em>decidable</em> if there is an
+algorithm to prove every true statement.</p>
+<p>If this makes you think a proof is similar to a computation <a
+href="@howard1980curryhoward">Curry and Howard</a> beat you to it.
+Howard noticed the axiom system</p>
+<ol type="1">
+<li><span class="math inline">x\rightarrow(y\rightarrow x)</span></li>
+<li><span class="math inline">x\rightarrow(y \rightarrow
+z)\rightarrow((x\rightarrow y)\rightarrow(x\rightarrow z))</span></li>
+</ol>
+<p>was in one-to-one correspondence with the <span
+class="math inline">\lambda</span>-calculus combinators</p>
+<ol type="1">
+<li><span class="math inline">Kxy = x</span></li>
+<li><span class="math inline">Sxyz = xy(xz)</span></li>
+</ol>
+<section id="predicate" class="level2">
+<h2>Predicate</h2>
+<p>Mathematicians use a vocabulary even more impoverished than that of a
+sailor. Proposition logic uses the words <em>not</em>, <em>and</em>,
+<em>or</em>, and <em>implies</em>. The mathematical symbols for these
+words are <span class="math inline">\neg</span>, <span
+class="math inline">\wedge</span>, <span
+class="math inline">\vee</span>, and <span
+class="math inline">\rightarrow</span>. If <span
+class="math inline">P</span> is a proposition then <span
+class="math inline">\neg P</span> is true if <span
+class="math inline">P</span> is false and <span class="math inline">\neg
+P</span> is false if <span class="math inline">P</span> is true. The
+words ‘and’ and ‘or’ have the usual meaning. The odd man out is
+‘implies’.</p>
+<p>The mathematical definition of <span class="math inline">P</span>
+implies <span class="math inline">Q</span> is not <span
+class="math inline">P</span> or <span class="math inline">Q</span>, so
+<span class="math inline">{P\rightarrow Q}</span> is defined as <span
+class="math inline">{(\neg P)\vee Q}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">P</span> implies <span class="math inline">Q</span>
+is true if <span class="math inline">P</span> is false</em>.</p>
+<p>You would not be the only one to think this is a bit odd.
+Mathematicians must use common words to define things. The choice of the
+word ‘implies’ should not be construed to mean <span
+class="math inline">P</span> ‘causes’ <span
+class="math inline">Q</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">P</span> is true and <span
+class="math inline">P\rightarrow Q</span> is true then <span
+class="math inline">Q</span> is true</em>.</p>
+<p>We say <span class="math inline">P</span> and <span
+class="math inline">Q</span> are <em>equivalent</em> if <span
+class="math inline">P\equiv Q</span> is true if and only if <span
+class="math inline">P</span> and <span class="math inline">Q</span> are
+both <span class="math inline">P</span> and <span
+class="math inline">Q</span> are true or both <span
+class="math inline">P</span> and <span class="math inline">Q</span> are
+false.</p>
+<p>The symbol <span class="math inline">\equiv</span> indicates a
+<em>tautology</em>. For any values of <span class="math inline">P</span>
+and <span class="math inline">Q</span> both sides are either both true
+or both false.</p>
+<p>New words can be defined it terms of these.</p>
+<p>For example we define <em>equivalent</em> by</p>
+<p>All of these word can be defined in terms of <em>nand</em>, the
+negation of <em>and</em>, <span class="math inline">P\uparrow Q \equiv
+\neg(P\wedge Q)</span>.</p>
+<p><strong>Exercise</strong>, <em>Show <span class="math inline">\neg P
+\equiv P\uparrow P</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">P</span> is true then
+<span class="math inline">P</span> and <span
+class="math inline">P</span> is true. If <span
+class="math inline">P</span> is false then <span
+class="math inline">P</span> and <span class="math inline">P</span> is
+false.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P\wedge
+Q \equiv \neg(P\uparrow Q)</span></em>.</p>
+<p><em>Hint</em>: That is the definition of nand.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">P\vee Q
+\equiv \neg(\neg P \wedge\neg Q)</span>.</em>.</p>
+<section id="well-formed" class="level3">
+<h3>Well-Formed</h3>
+<p>Here is the recipe for all <em>well-formed formulas</em>.</p>
+<ol type="1">
+<li><p>A proposition is a WFF.</p></li>
+<li><p>If <span class="math inline">\phi</span> is a WFF then <span
+class="math inline">\neg \phi</span> is a WFF.</p></li>
+<li><p>If <span class="math inline">\phi</span> and <span
+class="math inline">\psi</span> are WFFs then <span
+class="math inline">\phi\uparrow\psi</span> is a WFF.</p></li>
+</ol>
+<p>We use lower-case Greek letters for WFFs built from these rules.</p>
+<p>We use parentheses to indicate the order in which the rules were
+applied. For example, <span class="math inline">\neg P \uparrow Q</span>
+could be either <span class="math inline">(\neg P)\uparrow Q</span>
+(apply rule 2 to <span class="math inline">P</span> and rule 3 to that
+and <span class="math inline">Q</span>) or <span
+class="math inline">\neg(P\uparrow Q)</span> (apply rule 3 to <span
+class="math inline">P</span> and <span class="math inline">Q</span> then
+rule 2 to that).</p>
+<details>
+<summary>
+Polish Notation
+</summary>
+We can avoid parenthesis by assuming negation applies to the next valid
+WWF and nand applies to the next two WWFs. For example <span
+class="math inline">\uparrow\neg P Q</span> is <span
+class="math inline">(\neg P)\uparrow Q</span> and <span
+class="math inline">\neg\uparrow P Q</span> is <span
+class="math inline">\neg(P\uparrow Q)</span>.
+</details>
+</section>
+<section id="proofs" class="level3">
+<h3>Proofs</h3>
+<p>One way to establish a tautology is to evaluate both sides for all
+possible truth values of propositions. If there are <span
+class="math inline">n</span> propositions on each side then <span
+class="math inline">2^n</span> calculations are required.</p>
+<p>A more parsimonious approach is to posit <em>axioms</em> and use
+<em>rules of inference</em>. The axioms of propositional logic are</p>
+<ol type="1">
+<li><span
+class="math inline">\phi\rightarrow(\psi\rightarrow\phi)</span></li>
+<li><span
+class="math inline">\phi\rightarrow(\psi\rightarrow\chi)\rightarrow((\phi\rightarrow\psi)\rightarrow(\phi\rightarrow\chi))</span></li>
+<li><span
+class="math inline">(\neg\psi\rightarrow\neg\phi)\rightarrow(\phi\rightarrow\psi)</span></li>
+</ol>
+<p>The only rule of inference is <em>modus ponens</em> (a means to
+advance) that from <span class="math inline">\phi</span> and <span
+class="math inline">\phi\rightarrow\psi</span> we can infer <span
+class="math inline">\psi</span>. A proof of <span
+class="math inline">\phi\rightarrow\psi</span> consists of starting with
+<span class="math inline">\phi</span> we can use axioms and modus ponens
+to infer <span class="math inline">\psi</span>.</p>
+<details>
+<summary>
+Tableau
+</summary>
+Raymond Smullyan…
+</details>
+</section>
+</section>
+<section id="boolean-algebra" class="level2">
+<h2>Boolean Algebra</h2>
+<p>George Boole showed how to reduce propositional logic to algebraic
+equations, thus laying the foundation for computer science. Given a set
+<span class="math inline">S</span> we can consider the algebra of
+functions from subsets of <span class="math inline">S</span> to <span
+class="math inline">\{0,1\}</span>. Given <span
+class="math inline">\{P\colon S\to\{0, 1\}}}</span> define <span
+class="math inline">1_P(s) = 1</span> if <span class="math inline">s\in
+P</span> and <span class="math inline">1_P(s) = 0</span> if <span
+class="math inline">s\not\in P</span>.</p>
+</section>
+<section id="first-order" class="level2">
+<h2>First Order</h2>
+<p>In <em>first order logic</em> propositions can be parameterized
+variables.</p>
+</section>
+</body>
+</html>

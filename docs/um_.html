@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Simple Unified Model</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Simple Unified Model</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Jan 29, 2026</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Value, hedge, and manage the risk of any instruments
+</div>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#math" id="toc-math">Math</a></li>
+<li><a href="#simple-unified-model" id="toc-simple-unified-model">Simple
+Unified Model</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p><span class="citation" data-cites="Ros1978">(Ross 1978)</span>
+demonstrated how to replace the probabilistic theory of <span
+class="citation" data-cites="BlaSch1973">(Black and Scholes 1973)</span>
+and <span class="citation" data-cites="Mer1973">(Merton 1973)</span>
+with a much simpler geometric theory.</p>
+<blockquote>
+<p><em>If there are no arbitrage opportunities in the capital markets,
+then there exists a (not generally unique) valuation operator</em>.</p>
+</blockquote>
+<p>Ross showed there is no need for Ito processes or partial
+differential equations and generalized from a bond, stock, and option to
+any collection of instruments.</p>
+<p>Ross made the deleterious assumptions that continuous time trading is
+possible and conflated cash flows with jumps in stock price. Assuming
+only a finite number of trades are possible and introducing an explicit
+variable for cash flows leads to an even simpler theory.</p>
+<p>Every arbitrage free model can be parameterized by a vector-valued
+martingale measure and a positive adapted measure.</p>
+<section id="math" class="level2">
+<h2>Math</h2>
+<p>The vector space of bounded functions on the set <span
+class="math inline">S</span> is <span class="math inline">B(S) =
+\{f\colon S\to\boldsymbol{R}\mid \|f\| = \sup_{s\in S} |f(s)| &lt;
+\infty\}</span>. The dual of <span class="math inline">B(S)</span> can
+be identified with <span class="math inline">ba(S)</span>, the set of
+finitely additive measures on <span class="math inline">S</span>. For
+bounded <span class="math inline">L\colon B(S)\to\boldsymbol{R}</span>
+define <span class="math inline">\lambda(A) = L(1_A)</span> for <span
+class="math inline">A\subseteq S</span> where <span
+class="math inline">1_A(s) = 1</span> if <span class="math inline">s\in
+A</span> and <span class="math inline">1_A(s) = 0</span> otherwise.
+Since <span class="math inline">\lambda(A\cup B) = L(1_{A\cup B}) =
+L(1_A + 1_B - 1_{A\cap b} = \lambda(A) + \lambda(B) - \lambda(A\cap
+B)</span> and <span class="math inline">\lamba(\emptyset) =
+L(1_\emptyset) = L(0) = 0</span> we have <span
+class="math inline">\lambda</span> is a finitely additive measure.</p>
+<p>For <span class="math inline">f\in B(S)</span> define <span
+class="math inline">M_f\colon B(S)\to B(S)</span> by <span
+class="math inline">M_fg = fg</span> to be the linear operator of
+multiplication by <span class="math inline">f</span>. Its adjoint <span
+class="math inline">M_f^*\colon ba(S)\to ba(S)</span> defines how to
+multiply a finitely additive measure by a bounded function.</p>
+<p>An algebra of sets on a set <span class="math inline">S</span> is a
+collection of subsets closed under union and complement. If the algebra
+is finite then its atoms form a partition. Conditional expectation can
+be defined by restriction of measure. Given a set <span
+class="math inline">\Omega</span>, an algebra <span
+class="math inline">{\mathcal{A}}</span> of sets on <span
+class="math inline">\Omega</span>, and a probability measure <span
+class="math inline">P</span> on <span
+class="math inline">{\mathcal{A}}</span>. If <span class="math inline">Y
+= E[X\mid{\mathcal{A}}]</span> is the conditional expectation of <span
+class="math inline">X</span>, then <span
+class="math inline">Y(P|_{\mathcal{A}}) = (XP)|_{\mathcal{A}}</span>
+where the vertical bar indicates restriction.</p>
+</section>
+<section id="simple-unified-model" class="level2">
+<h2>Simple Unified Model</h2>
+<p>Let <span class="math inline">I</span> be the set of tradeable
+instruments and <span class="math inline">T\subset [0,\infty)</span> be
+possible trading times.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="list">
+<div id="ref-BlaSch1973" class="csl-entry" role="listitem">
+Black, Fischer, and Myron Scholes. 1973. <span>“The Pricing of Options
+and Corporate Liabilities.”</span> <em>Journal of Political Economy</em>
+81 (3): 637–54. <a
+href="http://www.jstor.org/stable/1831029">http://www.jstor.org/stable/1831029</a>.
+</div>
+<div id="ref-Mer1973" class="csl-entry" role="listitem">
+Merton, Robert C. 1973. <span>“Theory of Rational Option
+Pricing.”</span> <em>Bell Journal of Economics and Management
+Science</em> 4 (1): 141–83. <a
+href="https://www.jstor.org/stable/3003143">https://www.jstor.org/stable/3003143</a>.
+</div>
+<div id="ref-Ros1978" class="csl-entry" role="listitem">
+Ross, Stephen A. 1978. <span>“A Simple Approach to the Valuation of
+Risky Streams.”</span> <em>The Journal of Business</em> 51 (3): 453–75.
+<a
+href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277</a>.
+</div>
+</div>
+</section>
+</body>
+</html>

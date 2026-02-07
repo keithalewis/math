@@ -95,16 +95,6 @@ affects the realized return. It also implies a portfolio strategy can be scaled
 to arbitrarily large positions. At some point you will run out of instruments to buy
 or sell.
 
-We assume redundant instruments are removed from the model. 
-If ${\xi\cdot C = 0}$ then one instrument is a linear combination
-of the others and can be removed. This can be repeated until
-${\xi\cdot C\not=0}$ for any $\xi\in\RR^I$.
-If so, the map $\xi\in\RR^I$ to $\xi\cdot C\in\RR^\Omega$ is one-to-one.
-A model is _complete_ if this map is _onto_. This cannot be the case
-if the cardinality of $I$ is less than the cardinality of $\Omega$.
-In general the number of instruments is much smaller than the number of
-possible outcomes.
-
 Classical literature often specifies terminal prices as a function $X\colon\Omega\to\RR^I$
 rather than cash flows $C$. From a rigorous standpoint,
 prices do not actually exist at the end of the period since there is no
@@ -114,12 +104,11 @@ at prevailing prices yielding a payment of $\xi\cdot X$. In practice,
 cash flows are paid proportional to position whether or not
 any trading occurs.
 
-For example, a zero coupon bond has an initial price/discount
-and pays a unit cash flow at termination. 
-If you are uncomfortable using cash flows $C$ instead of prices $X$ when the
-instrument is a stock, $C$ may be interpreted as
-the firm's liquidation value
-or the proceeds from a stock buy back by the company at the end of the period.
+For example, a zero coupon bond has an initial price/discount and pays
+a unit cash flow at termination.  If you are uncomfortable using cash
+flows $C$ instead of prices $X$ when the instrument is a stock, $C$
+may be interpreted as the firm's liquidation value or the proceeds from
+a stock buy back of all shares by the company at the end of the period.
 
 The [Multi-period model](mpm.html) clarifies the relationship
 between prices and cash flows.
@@ -141,13 +130,13 @@ with ${\xi\cdot x < 0}$ and ${\xi\cdot C(\omega)\ge0}$ for all ${\omega\in\Omega
 you make money acquiring the initial position and never lose money
 at the end of the period.
 
-Some authors define arbitrage as a portfolio satisfying ${\xi\cdot x = 0}$ and
-${\xi\cdot C\ge0}$ is strictly positive on some set having positive probability.
-We haven't specified a probability measure so we can't use this definition.
-Moreover, no trader would consider this to be an arbitrage anyway. 
-Even though the position costs nothing other than agita to put on,
-the above definition has nothing definite to say about how much they will
-make nor how likely it is they will make it.
+Some authors define arbitrage as a portfolio satisfying ${\xi\cdot x = 0}$
+and ${\xi\cdot C\ge0}$ is strictly positive on some set having
+positive probability.  We haven't specified a probability measure so we
+can't use this definition.  Moreover, no trader would consider this to be
+an arbitrage anyway.  Even though the position costs nothing other than
+the usual agita to put on, the above definition has nothing definite to
+say about how much they will make nor how likely it is they will make it.
 
 Our stronger probability-free definition is still not good enough
 for traders and risk managers.  Even though ${\xi\cdot x}$ is strictly

@@ -21,3 +21,8 @@ for sufficiently large $R$.
 Dividing by $R^n$ gives $|a_n| < M/R^n + C/R$ which tends to 0 as $R$ increases.
 This shows $a_n = 0$ for all $n > 0$ so $p(z) = a_0$ is constant.
 
+**Lemma**. _If $p(\alpha) = 0$ then $p(z) = (z - \alpha)q(z)$ for some polynomial $q(z)$_.
+
+_Proof_:
+By Taylor's theorem $p(z - z_0) = \sum_{j=0}^n p^{(j)}(z_0) (z - z_0)^j/j!$.
+If $p(z_0) = 0$ then $q(z) = \sum_{j=1}^n p^{(j)}(z - z_0)^{j-1}/j!$.
