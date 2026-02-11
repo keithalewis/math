@@ -176,8 +176,8 @@ If $\xi$ and $\eta$ are arbitrages then so is $\xi + \eta$.
 
 The smallest cone containing the possible cash flows $C$ is the set
 of finite linear combinations with positive coefficients
-${\{\sum_i C(\omega_i) d_i\mid \omega_i\in\Omega, d_i > 0\}}$.
-If $x = \sum_i C(\omega_i) d_i$ is in the cone
+${\{\sum_i C(\omega_i) D_i\mid \omega_i\in\Omega, D_i > 0\}}$.
+If $x = \sum_i C(\omega_i) D_i$ is in the cone
 and $\xi\cdot C$ is non-negative on $\Omega$ then ${\xi\cdot x\ge 0}$
 so no arbitrage exists.
 
@@ -276,10 +276,10 @@ A very simple and unrealistic one-period model consists of a bond with
 price 1 at the beginning of the period that has a cash flow 2 at the end
 and a stock with price 1 that has a cash flow of either 1 or 3. The model
 is $x = (1, 1)$ and ${C(\omega) = (2, \omega)}$ where ${\omega\in\{1,3\}
-= \Omega}$.  This is arbitrage-free if and only if we can find ${d_1,d_3
-\ge0}$ with ${x = C(1)d_1 + C(3)d_3}$.  The bond component
-implies ${1 = 2d_1 + 2d_3}$ and the stock component implies ${1 = 1d_1 +
-3d_3}$ so ${d_1 = d_3 = 1/4}$.
+= \Omega}$.  This is arbitrage-free if and only if we can find ${D_1,D_3
+\ge0}$ with ${x = C(1)D_1 + C(3)D_3}$.  The bond component
+implies ${1 = 2D_1 + 2D_3}$ and the stock component implies ${1 = 1D_1 +
+3D_3}$ so ${D_1 = D_3 = 1/4}$.
 
 This shows the risk-neutral measure is $D(\{1\}) = D(\{3\}) = 1/4$.
 The risk-neutral probability measure $P = D/D(\Omega)$
@@ -290,7 +290,7 @@ __Exercise__. _Show $E^P[C]D(\Omega) = \int_\Omega C\,dD = (1, 1)$ is the initia
 If we add a call option with strike 2 and price $v$ then the model becomes
 ${x = (1, 1, v)}$, ${C(\omega) = (2, \omega, \max\{\omega - 2,0\})}$
 where $v$ is the option value. Since the bond and stock components
-determine ${d_1 = d_3 = 1/4}$ the option component is
+determine ${D_1 = D_3 = 1/4}$ the option component is
 ${v = \max\{1 - 2, 0\}(1/4) + \max\{3 - 2, 0\}(1/4) = 1/4}$.
 
 A similar argument shows any European option paying $\nu(\omega)$ at expiration
@@ -316,9 +316,9 @@ a bond and stock where ${x = (1, s)}$,
 ${C(\omega) = (R, \omega)}$, and ${\Omega = \{L, H\}}$ with ${L < H}$.
 The bond has realized return $R$ and the stock can go from price $s$
 to either $L$ or $H$. 
-This is arbitrage-free if and only we can find ${d_L,d_H \ge 0}$
-with ${x = C(L)d_L + C(H)d_H}$. Considering the bond and stock components
-we have ${d_L = (H - sR)/R(H - L)}$ and ${d_H = (sR - L)/R(H - L)}$.
+This is arbitrage-free if and only we can find ${D_L,D_H \ge 0}$
+with ${x = C(L)D_L + C(H)D_H}$. Considering the bond and stock components
+we have ${D_L = (H - sR)/R(H - L)}$ and ${D_H = (sR - L)/R(H - L)}$.
 The model is arbitrage-free if and only if these are both non-negative
 so ${L/R \le s \le H/R}$.
 
@@ -330,7 +330,7 @@ If $s > H/R$ then sell the stock and buy the bond.
 If we have a call option with payoff $\max\{\omega - K,0\}$, where $L < K < H$,
 its arbitrage-free value is 
 $$
-v = 0 d_L + (H - K) d_H = (H - K)(s - L/R)/(H - L)
+v = 0 D_L + (H - K) D_H = (H - K)(s - L/R)/(H - L)
 $$
 
 __Exercise__. _Show this agrees with the 1-2-3 Model for a call option with strike 2_.
@@ -365,26 +365,26 @@ if $K \le \omega \le H$.
 Unlike the binomial model, the value of the option in the interval model is not determined
 by the bond and the stock. The interval model is $x = (1, s, v)$ and
 $C(\omega) = (R, \omega, (\omega - K))$, where $\omega\in [L,H]$.
-There is no arbitrage if and only if there exist non-negative $d_L$, $d_K$, $d_H$
+There is no arbitrage if and only if there exist non-negative $D_L$, $D_K$, $D_H$
 with
 $$
-	x = C(L)d_L + C(K)d_K + C(H)d_H.
+	x = C(L)D_L + C(K)D_K + C(H)D_H.
 $$
 
 The components of the three instruments are
 $$
 \begin{aligned}
-	1 &= R d_L + R d_K + R d_H \\
-	s &= L d_L + K d_K + H d_H \\
-	v &= (H - K) d_H \\
+	1 &= R D_L + R D_K + R D_H \\
+	s &= L D_L + K D_K + H D_H \\
+	v &= (H - K) D_H \\
 \end{aligned}
 $$
 
-Substituting $d_H = v/(H - K)$ and solving for $d_L$ and $d_K$ yields
+Substituting $D_H = v/(H - K)$ and solving for $D_L$ and $D_K$ yields
 $$
 \begin{aligned}
-d_L &= \frac{v + K/R - s}{K - L} \\
-d_K &= \frac{(s - L/R)(H - K) - v(H - L)}{(K - L)(H - K)} \\
+D_L &= \frac{v + K/R - s}{K - L} \\
+D_K &= \frac{(s - L/R)(H - K) - v(H - L)}{(K - L)(H - K)} \\
 \end{aligned}
 $$
 The no arbitrage constraints are $v\ge 0$,
@@ -402,20 +402,20 @@ where $L < K_1 < \cdots K_n < H$ then
 ${x = (1, s, v_1,\ldots,v_n)}$ and
 ${C(\omega) = (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)}$, $\omega\in[L,H]$.
 There is no arbitrage if and only if there exist non-negative
-$d_L, d_1, d_2,\ldots,d_H$ with
+$D_L, D_1, D_2,\ldots,D_H$ with
 $$
-	x = C(L)d_L + \sum_{i=1}^n C(K_i)d_i  + C(H)d_H
+	x = C(L)D_L + \sum_{i=1}^n C(K_i)D_i  + C(H)D_H
 $$
 The components are
 $$
 \begin{aligned}
-1 &= R d_L + R d_1 + R d_2 + \cdots + R d_H \\
-s &= L d_L + K_1 d_1 + K_2 d_2 + \cdots + H d_H \\
-v_1 &= (K_2 - K_1) d_2 + \cdots + (H - K_1) d_H \\
-v_2 &= (K_3 - K_2) d_3 + \cdots + (H - K_2) d_H \\
+1 &= R D_L + R D_1 + R D_2 + \cdots + R D_H \\
+s &= L D_L + K_1 D_1 + K_2 D_2 + \cdots + H D_H \\
+v_1 &= (K_2 - K_1) D_2 + \cdots + (H - K_1) D_H \\
+v_2 &= (K_3 - K_2) D_3 + \cdots + (H - K_2) D_H \\
 &\cdots \\
-v_{n-1} &= (K_n - K_{n-1}) d_n + (H - K_{n-1}) d_H \\
-v_n &=  (H - K_n) d_H \\
+v_{n-1} &= (K_n - K_{n-1}) D_n + (H - K_{n-1}) D_H \\
+v_n &=  (H - K_n) D_H \\
 \end{aligned}
 $$
 In matrix form
@@ -433,7 +433,7 @@ L & K_1 & K_2       & \cdots & K_n       & H \\
 0 & 0   & 0         & \cdots & 0             & H - K_n \\
 \end{bmatrix}
 \begin{bmatrix}
-d_L \\ d_1 \\ d_2 \\ \vdots \\ d_n \\ d_H
+D_L \\ D_1 \\ D_2 \\ \vdots \\ D_n \\ D_H
 \end{bmatrix}
 $$
 We can write this as a block matrix on the first row and first column
@@ -459,7 +459,7 @@ A^{-1} + A^{-1}BECA^{-1} & -A^{-1}BE \\
 $$
 so
 $$
-\begin{bmatrix} d_L \\ d_1 \\ \vdots \\ d_H \end{bmatrix}
+\begin{bmatrix} D_L \\ D_1 \\ \vdots \\ D_H \end{bmatrix}
 =
 \begin{bmatrix}
 \frac{1 + (H -  L)}{R}
@@ -518,27 +518,27 @@ Let ${\eta = (a,i,o)}$ denote amount $a$ of instrument $i$ is held
 by owner $o$. 
 
 A _position_ is a collection of holdings.
-Positions are modified by _exchanges_.
-An exchange at time $t$ is a triple ${(t,\eta,\eta')}$ where 
+Positions are modified by _trades_.
+An trade at time $t$ is a triple ${(t,\eta,\eta')}$ where 
 $\eta$ and $\eta'$ are holdings. If the taker $o$ holds $\eta$ and
-the maker $o'$ holds $\eta'$ at time $t$ then after the exchange settles
+the maker $o'$ holds $\eta'$ at time $t$ then after the trade settles
 the taker holds $(a',i',o)$ and the maker holds $(a,i,o')$.
-The _price_ of the exchange is $X = a/a'$.
+The _price_ of the trade is $X = a/a'$.
 
-After an exchange, the price is a well-defined number
+After a trade, the price is a well-defined number
 recorded in the books and records of each counterparty.
 
-Makers quote prices for potential exchanges. Takers decide whether
-or not to execute the exchange. For example, if a maker quotes Ford
-stock for $12$ USD per share then the taker can exchange $\$24$ for 2
-shares of Ford stock. This corresponds to the exchange where ${\eta =
+Makers quote prices for potential trades. Takers decide whether
+or not to execute the trade. For example, if a maker quotes Ford
+stock for $12$ USD per share then the taker can trade $\$24$ for 2
+shares of Ford stock. This corresponds to the trade where ${\eta =
 (24, \$, o)}$ and ${\eta' = (2, F, o')}$.  The price is ${X = a/a' = 24/2}$
 and we write $12$ USD/F to indicate a price of $\$12$ per share of Ford
 stock. Replacing the virgule '/' by '$= 1$' yields the mnemonic $12$ USD $=
-1$ F.  After the exchange settles the taker holds ${\eta = (2, F, o)}$
+1$ F.  After the trade settles the taker holds ${\eta = (2, F, o)}$
 and the maker holds ${\eta' = (24, \$, o')}$ in their respective positions.
 
-Prior to an exchange, the price is not a well-defined number.
+Prior to an trade, the price is not a well-defined number.
 Makers quote a bid price and an ask price to takers.
 When a taker buys one share they pay the maker's ask price and when
 the taker sells one share they only get the maker bid price.
@@ -546,7 +546,7 @@ The difference between the bid and the ask is the _bid-ask spread_
 and is usually positive.[^1] This is the maker _vigorish_ to get paid for
 providing _liquidity_ to takers in the market.
 
-[^1]: The spread is not always positive. An exchange may _cross_ the quotes
+[^1]: The spread is not always positive. An trade may _cross_ the quotes
 in order to get rid of or acquire specific instruments.
 
 The quotes are only valid for a small number of shares.
@@ -895,7 +895,7 @@ where a probability measure on possible outcomes is specified.
 
 [^2]: Recall the _set exponential_ ${B^A = \{f\colon A\to B\}}$ is the set
 of all functions from the set $A$ to the set $B$.  If ${x\in\RR^I}$ then
-$x(i)\in\RR$ is the price of instrument $i\in I$.  If $I = \{1,\ldots,n\}$
+C:\Users\keith\Downloads\AutoCallStructuredProduct.pdfC:\Users\keith\Downloads\AutoCallStructuredProduct.pdf$x(i)\in\RR$ is the price of instrument $i\in I$.  If $I = \{1,\ldots,n\}$
 we can identify $\RR^I$ with the vector space of $n$-tuples
 ${\RR^n = \prod_{i=1}^n\RR = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
 by $x(i) = x_i$, $1\le i\le n$.
@@ -1166,7 +1166,7 @@ The _price_ of the transaction is $X = a/a'$.
 
 Sellers quote prices for potential transactions. Buyers decide whether
 or not to execute the transaction. For example, if a maker quotes Ford
-stock for $12$ USD per share then the taker can exchange $\$24$ for 2
+stock for $12$ USD per share then the taker can trade $\$24$ for 2
 shares of Ford stock. This corresponds to the transaction where ${\eta =
 (24, \$, o)}$ and ${\eta' = (2, F, o')}$.  The price is ${X = a/a' = 24/2}$
 and we can use  $12$ USD/F to indicate a price of $\$12$ per share of Ford
@@ -1175,7 +1175,7 @@ stock. Replacing the virgule '/' by '$= 1$' gives the mnemonic $12$ USD $=
 and the maker holds ${\eta' = (24, \$, o')}$ in their respective positions.
 
 After a transaction the price is a well-defined number: the amount the taker
-exchanged with the maker divided by the amount the maker exchanged with the taker.
+trades with the maker divided by the amount the maker traded with the taker.
 This number is recorded in the books and records of each counterparty.
 
 Prior to a transaction the price quoted by the maker is not a well-defined number.
@@ -1611,23 +1611,6 @@ where $\omega\in\{90,100,110\}$. Show $0\le v\le 5$.
 __Exercise__. _Remove the bond from the above model and answer the same question_.
 
 _Hint_: The answer is $0\le v\le 100/11 = 9.090\ldots$.
-
-$x = (1, s, v_1,\ldots,v_n)$, $X(\omega) = (R, \omega, (\omega K_1)^+,\ldots,(\omega - K_n)^+)$.
-
-$X(L) = \_O + R\,P_r + L\,P_s$
-
-$X(K_1) = \_O + R\,P_r + K_1\,P_s$
-
-$X(K_2) = \_O + R\,P_r + K_2\,P_s + (K_2 K_1)\,P_1$
-
-$X(K_n) = \_O + R\,P_r + K_n\,P_s + (K_n K_1)\,P_1 + \cdots + (K_n - K_{n-1})\,P_{n-1}$
-
-$X(H) = \_O + R\,P_r + H\,P_s + (H K_1)\,P_1 + \cdots, (H - K_{n-1})\,P_{n-1} + (H - K_n)\,P_n$
-
-$OX(L) =  R\,OP_r + L\,OP_s$
-
-$OX(L)X(K_1) = R(K_1 L)\,OP_rP_s
-
 Grassmann algebra can also be used to detect and find an arbitrage when it exists.
 If any of the coefficients are negative then arbitrage exists. If only one
 coefficient is negative the arbitrage is perpendicular the the hyperplane determined
@@ -1654,4 +1637,25 @@ If the stock stays at 1 then we sell it and use the half dollar to pay back the 
 and the option is out of the money. If the stock goes to 3 then we use
 the dollar and a half to pay half a dollar to cover the bond and
 have a dollar left to meet the call obligation.
+
 -->
+
+$x = (1, s, v_1,\ldots,v_n)$, $X(\omega) = (R, \omega, (\omega K_1)^+,\ldots,(\omega - K_n)^+)$.
+
+$x  =  \_O + B + s S + v1 P1 + v2 P2$
+
+$X(L) =   \_O + R\,B + L\,S$
+
+$X(K_1) = \_O + R\,B + K_1\,S$
+
+$X(K_2) = \_O + R\,B + K_2\,S + (K_2 - K_1)\,P_1$
+
+$X(H) =   \_O + R\,B + H\,S   + (H - K_1)\,P_1 + (H - K_2)\,P_2$
+
+$O X(L) X(K_1) X(K_2) X(H) = OBSP_1P_2 R(K_1 - L) (K_2 - K_1) (H - K_2)$
+
+...
+
+O x X(K1) X(K2) X(H) = 
+
+...
