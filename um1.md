@@ -17,23 +17,19 @@ abstract: A mathematically rigorous framework for valuing, hedging, and managing
 \renewcommand\o[1]{\hat{#1}}
 
 
-This note suggests improvements to Stephen Ross's paper "A Simple
-Approach to the Valuation of Risky Streams" [@Ros1978]. Ross expanded
-on the groundbreaking theory developed by Fischer Black, Myron Scholes
-[@BlaSch1973], and Robert C. Merton [@Mer1973], which originally focused
-on valuing options through dynamic trading of a bond and a stock. Ross
-greatly expanded this by showing how to value derivatives using
-any collection of instruments, referred to as risky streams.
 
-We place cash flows on equal footing with prices and assume every
-trading strategy involves only a finite number of transactions based on
-available information.
+This note proposes improvements to [Stephen Ross's][@Ros1978]
+paper "A Simple Approach to the Valuation of Risky Streams".
+Ross extended the theory invented by Fischer Black, Myron Scholes
+[@BlaSch1973] and Robert C. Merton III [@Mer1973] for valuing an option
+by dynamic trading of a bond and stock to valuing any derivative using
+any collection of instruments (risky streams).
 
 Perhaps at the time, over half a century ago, people were not prepared
 for such an audatious expansion of the B-S/M theory.
 Ross conflated cash flows with instantaneous changes in the price of the underlying.
 We put the cash flows associated with owning financial instruments on
-equal footing with prices. B-S/M and Ross assumed continuous time trading is possible.
+ShengQuan Zhouan equal footing with prices. B-S/M and Ross assumed continuous time trading is possible.
 This is a mathematical artifact of using Ito processes to model trading strategies
 that leads to untenable results[^1].
 Every trading strategy involves only a finite number of transactions
@@ -76,6 +72,12 @@ $\AA_t$ with
 $$
 	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}.
 $$
+A direct consequence using the definitions of value and amount is
+$$
+	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}.
+$$
+If a derivative instrument pays $\o{A}_k$ at $\o{\tau}_k$ and there
+exists a trading strategy $(\tau_j, \Gamma_j)$ with
 A direct consequence using the definitions of value and amount is
 $$
 	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}.
@@ -749,6 +751,3 @@ Conditional expectation is the average over each atom.
 Let $T$ be the set of trading times, $I$ the set of all market
 instruments, $\Omega$ the sample space of possible outcomes, and
 $(\AA_t)_{t\in T}$ the algebras of sets on $\Omega$ indicating the
-information available at each trading time.
-
-### TODO

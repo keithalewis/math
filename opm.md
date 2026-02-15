@@ -1640,22 +1640,31 @@ have a dollar left to meet the call obligation.
 
 -->
 
-$x = (1, s, v_1,\ldots,v_n)$, $X(\omega) = (R, \omega, (\omega K_1)^+,\ldots,(\omega - K_n)^+)$.
+$x = (1, s, v_1,\ldots,v_n)$, $X(\omega) = (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)$.
 
-$x  =  \_O + B + s S + v1 P1 + v2 P2$
+$x  =  \_O + B + s S + v_1 P_1 + v_2 P_2$
 
-$X(L) =   \_O + R\,B + L\,S$
+$X(L)   = \_O + R B +   L S$
 
-$X(K_1) = \_O + R\,B + K_1\,S$
+$X(K_1) = \_O + R B + K_1 S$
 
-$X(K_2) = \_O + R\,B + K_2\,S + (K_2 - K_1)\,P_1$
+$X(K_2) = \_O + R B + K_2 S + (K_2 - K_1) P_1$
 
-$X(H) =   \_O + R\,B + H\,S   + (H - K_1)\,P_1 + (H - K_2)\,P_2$
+$X(H)   = \_O + R B +   H S +   (H - K_1) P_1 + (H - K_2) P_2$
 
 $O X(L) X(K_1) X(K_2) X(H) = OBSP_1P_2 R(K_1 - L) (K_2 - K_1) (H - K_2)$
 
-...
 
-O x X(K1) X(K2) X(H) = 
+$O X(K_1) X(K_2) X(H) = OBSP_1 R K_2(H - K_1)
+                      + OBSP_2 R K_2(H - K_2)
+                      + OSRP_1 K_1 R(H - K_1)
+					  + OSRP_2 K_1 R(H - K_2)
 
-...
+= OBSP_1P_2 K_1(K_2 - K_1)(H - K_2)
+                        + OSBP_1P_2 sR(K_2-K_1)(H - K_2)
+						+ OP_1BP_2 v_1RK_2(H - K_2)
+						+ OP_1SBP_2 v_1K_1R(H - K_2)
+						+ OP_2BSP_1 v_2R
+
+
+
