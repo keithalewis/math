@@ -11,7 +11,7 @@ The _composition_ of $f\colon A\to B$ and $g\colon B\to C$
 is $g\circ f\colon A\to C$ defined by $(g\circ f)(a) = g(f(a))$.
 
 __Exercise__. _If $f\colon A\to B$, $g\colon B\to C$, and
-$h\colon C\to D$ then $(h\circ)g\circ f = h\circ(g\circ f)$_.
+$h\colon C\to D$ then $(h\circ g)\circ f = h\circ(g\circ f)$_.
 
 This shows composition is _associative_ so functions under
 composition form a _semigroup_.
@@ -24,6 +24,51 @@ __Exercise__. _If $f\colon A\to B$ show $1_B\circ f = f$ and $f\circ 1_A = f$_.
 This shows sets and functions form a _category_, $\cat{Set}$.
 A category is a collection of _objects_ and _arrows_ with associative
 composition that have left and right inverses.
+
+## Mono
+
+A function $f\colon A\to B$  is _one-to-one_, or _injective_ if 
+$f(a) = f(a')$, $a,a'\in A$, implies $a = a'$.
+
+__Exercise__. _Show $f\colon A\to B$ is one-to-one if and only if
+there exists $g\colon B\to A$ with $g\circ f = 1_A$_.
+
+_Hint_: If $g\circ f = 1_A$ and $f(a) = f(a')$ then $g\circ f(a) = g\circ f(a')$.
+
+This is the definition of a _mono_ arrow in a category.
+
+## Epi
+
+A function $f\colon A\to B$  is _onto_, or _surjective_ if 
+for every $b\in B$ there exists an $a\in A$ with $f(a) = b$.
+
+__Exercise__. _Show $f\colon A\to B$ is onto if and only if
+there exists $g\colon B\to A$ with $f\circ g = 1_B$_.
+
+_Hint_: If $f\circ g = 1_B$ then $f\circ g(b) = b$.
+
+This is the definition of an _epi_ arrow in a category.
+
+## Iso
+
+A function that is both one-to-one and onto is called
+a one-to-one correspondence.
+
+This is the definition of an _iso_ arrow in category.
+It generalizes the notion of equality to equivalence.
+If there exists $f\colon A\to B$ that is iso we write $A\cong B$.
+
+__Exercise__. _Show $A\cong A$_.
+
+__Exercise__. _Show if $A\cong B$ then $B\cong A$_.
+
+__Exercise__. _Show if $A\cong B$ and $B\cong C$ then
+$A\cong C$_.
+
+These exercises are the definition of $\cong$ being
+an _equivalence relation_. Two sets are equal if they
+have the same elements. Two sets are equivalent if
+they have the same number of elements.
 
 ## Product
 
@@ -43,8 +88,7 @@ if $a = c$ and $b = d$_.
 
 _Hint_: Sets are equal if and only if they have the same elements.
 It is not the case $\{a\} = \{c,d\}$ so $\{a\} = \{c\}$ and $a = c$.
-It is also not the case $\{a,b\} = \{c\}$ so $\{a,b\} = \{c,d}\}$
-so $b = d$ since $a = c$.
+It is also not the case $\{a,b\} = \{c\}$ so $\{a,b\} = \{c,d\}$.
 
 The _(cartesian) product_ of set $A$ and $B$ is $A\times B = \{(a,b)\mid a\in A, b\in B\}$.
 Define _projections_ $\pi_A\colon A\times B\to A$ by $\pi_A(a,b) = a$
@@ -99,20 +143,20 @@ $B^A = \{f\colon A\to B\}$. We also write this as $B^A = \{A\to B\}$.
 ## Evaluation
 
 Given $f\colon A\to B$ and $a\in A$ evaluation produces $f(a)\in B$:
-$e\colon B^A\times A\to B$ by $e(f,a) = f(a)$.
+$e = e_{A,B}\colon B^A\times A\to B$ by $e(f,a) = f(a)$.
 
 ## Curry
 
-Given $f\colon A\times B\to C$ define _curry_ by $f,\colon A\to C^B$
+Given $f\colon A\times B\to C$ define _curry_ $f,\colon A\to C^B$
 by $(f,a)b = f(a,b)$. This looks more natural
 if we write it as $f,\colon A\to\{B\to C\}$.
 
-Given $g\colon A\to\{B\to C\}$ define _uncurry_,
+Given $g\colon A\to\{B\to C\}$ define _uncurry_ $,g\colon A\times B\to C$
 by $,g(a,b) = (ga)b$.
 
 __Exercise__. _Show $,(f,) = f$ and $(,g),= g$_.
 
-## Variance
+## *Variance
 
 Covariance and contravariance are defined for a function $f\colon A\to B$
 by $\circ f\colon C^B\to C^A$ where $\circ f(g) = f\circ g$
