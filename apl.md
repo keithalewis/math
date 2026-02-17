@@ -48,10 +48,10 @@ of giving explicit names to the operations that can be performed
 on collections of data, what Iverson called [Notation as a Tool of
 Thought](https://www.eecg.toronto.edu/~jzhu/csc326/readings/iverson.pdf)
 
-There have been many languages inspired by APL and this writeup takes
+There have been many languages inspired by APL and this write-up takes
 liberties with the classical language. Let's agree to call it TPL, This
-Programming Languge.  Our approach is informed by category theory and
-best practices for implmementing functional languages on current computer
+Programming Language.  Our approach is informed by category theory and
+best practices for implementing functional languages on current computer
 architectures.  We take a purely functional view so no side effects are
 allowed and data cannot be mutated.  Similar to Everett's many-worlds
 interpretation of quantum mechanics, this makes it easy to reason about
@@ -61,14 +61,14 @@ techniques can help with that.
 
 The _primitive types_ are booleans, natural numbers, integers, real
 numbers, and characters.  The _types_ in TPL are [_categories_](cat.html)
-constructed from primitive types using (disjoint) unions, cartesian
+constructed from primitive types using (disjoint) unions, Cartesian
 products, and exponentials.
 
 Note the real numbers $\RR$ form a one dimensional vector space.
 _Strings_ are zero or more characters and form a _monoid_ under the
-binary operation of concatenation with the empty string as identty.
+binary operation of concatenation with the empty string as identity.
 
-The two main concepts of TPL are composition and (vector space) duality.
+The two main concepts of TPL are composition of functions and vector space duality.
 It is just a matter of providing a language to manipulate sums, products,
 and exponentials in the appropriate categories.
 
@@ -128,9 +128,9 @@ This is natural in languages where composition means function application.
 Applying a function to an element of a set causes a slight problem.
 $fgh(x) = f(g(h(x))$ but $(fg)(h(x))\not= f(g(h(x)))$.
 
-$\cat{Set}$ is _cartesian closed_ &ndash; It has products and exponentials
+$\cat{Set}$ is _Cartesian closed_ &ndash; It has products and exponentials
 that satisfy $Z^{X\times Y}\cong Z^{Y^X}$. 
-The _cartesian product_ of sets $X$ and $Y$
+The _Cartesian product_ of sets $X$ and $Y$
 $X\times Y = \{(x,y):x\in X, y\in Y\}$ is the set of all pairs of elements from each set.
 The _exponential_ $Y^X = \{f\colon X\to Y\}$ is the set of functions
 from $X$ to $Y$. We write $Y^X$ in linear notation as $X\to Y$ or $Y\leftarrow X$.
@@ -420,3 +420,49 @@ If $J\subseteq I$ and $[J]\colon J\to I$ is inclusion then $y[J]\in X_J$ project
 
 Currying: $X\times Y\to Z\cong (Z^Y)^X$ via $f(x,y) = z$ iff $(fx)y = z$.
 
+## [A History of APL in 50 functions](https://www.jsoftware.com/papers/50/)
+
+One funny thing about vector spaces is they are completely classified
+by their dimension. Two vector spaces are isomorphic if and
+only if they have the same dimiension. This is unlike any other
+mathematical type.
+
+Sxyz = xz(xz)
+
+$\RR^I = \{x\colon I\to\RR\}$. 
+
+\Pi_I \RR = \{(x_i)\mid x_i\in\RR\}$
+
+scan right to left
+if type push value on stack
+else if function execute on stack arguments
+else combinator scans for arguments to its left
+
+Numeric Types
+Bool < Char < Nat < Int < Rat < Real < Complex
+
+vector (indexed by Nat) '[' v0 v1 ... ']' vi's have common type  
+tuple (indexed by Nat)  '(' t0 t1 ... ')' ti's any type  
+map<K,V> is a partial function from K to V  
+
+
+v : [ 1 2 3 ] // vector
+w : ( 2 true "abc" )
+
+/ +/ v # v
+
+x y z S -> x z (y z)
+push z {z}
+push z {z z}
+push y {y z z}
+eval   {yz z}
+swap   {z yz}
+push x {x z yz}
+eval   {xz yz}
+eval   {xz(yz)}
+
+/ +/ # v S
+
+When does evaluation happen? Should it only eval to a certain level?
+
+R(x y)

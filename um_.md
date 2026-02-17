@@ -106,43 +106,65 @@ an explicit variable for cash flows leads to an even simpler theory.
 
 Every arbitrage free model can be parameterized by a vector-valued
 martingale measure and positive adapted measures.
-These are what Ross called valuation operator. We call them deflators.
+These are what Ross called the valuation operator. We call them deflators.
 If the model has repurchase agreements then the deflator
 is the stochastic discount.
 
 ## Math
 
+This section collects the mathematical facts required 
+to prove every arbitrage free model is parameterized
+by a vector-valued martingale measure and a deflator.
+
 The vector space of bounded functions on the set $S$ is
 $B(S) = \{f\colon S\to\RR\mid \|f\| = \sup_{s\in S} |f(s)| < \infty\}$.
-The dual of $B(S)$ can be identified with $ba(S)$,
+The vector space dual of $B(S)$ can be identified with $ba(S)$,
 the set of finitely additive measures on $S$.
-For bounded $L\colon B(S)\to\RR$ define $\lambda(A) = L(1_A)$ for $A\subseteq S$ where
+
+For any bounded linear functional $L\colon B(S)\to\RR$
+define $\lambda(A) = L(1_A)$ for $A\subseteq S$ where
 $1_A(s) = 1$ if $s\in A$ and $1_A(s) = 0$ otherwise.
 Since $\lambda(A\cup B) = L(1_{A\cup B}) = L(1_A + 1_B - 1_{A\cap b}
 = \lambda(A) + \lambda(B) - \lambda(A\cap B)$ and
-$\lamba(\emptyset) = L(1_\emptyset) = L(0) = 0$ we have $\lambda$
+$\lambda(\emptyset) = L(1_\emptyset) = L(0) = 0$ we have $\lambda$
 is a finitely additive measure.
+
+For any countably additive measure $\lambda\in ba(S)$ define
+$L\colon B(S)\to\RR$ by $L(1_A) = \lambda(A)$.
+This can be linearly extended to linearly to finite linear
+combinations of characteristic function. These are uniformly
+dense in $B(S)$.
 
 For $f\in B(S)$ define $M_f\colon B(S)\to B(S)$ by $M_fg = fg$
 to be the linear operator of multiplication by $f$. Its
 adjoint $M_f^*\colon ba(S)\to ba(S)$ defines how to multiply
 a finitely additive measure by a bounded function.
+We write $M_f^*(\lambda)$ as $f\lambda$.
 
-An algebra of sets on a set $S$ is a collection of
+An algebra of sets on the set $S$ is a collection of
 subsets closed under union and complement.
-If the algebra is finite then its atoms form a partition.
+If the algebra is finite then its atoms form a partition of $S$.
+A partition is a disjoint collection of subsets of $S$ with
+union $S$ and represents partial information. Elements
+of a partition are called atoms. Full knowledge is represented
+by the collection of singletons $\{\{s\}\mid s\in S\}$. No
+knowledge is represented by the singleton $\{S\}$.
+Partial knowledge of $s\in S$ is represented by the atom
+to which $s$ belongs $A_s = \cap\{A\mid s\in A\}$.
+
 Conditional expectation can be defined by restriction of measure.
 Given a set $\Omega$, an algebra $\AA$ of sets on $\Omega$, and
 a probability measure $P$ on $\AA$.
 If $Y = E[X\mid\AA]$ is the conditional expectation of $X$,
 then $Y(P|_\AA) = (XP)|_\AA$ where the vertical bar indicates restriction.
 
-
-
 ## Simple Unified Model
 
-Let $I$ be the set of tradable instruments and
-$T\subset [0,\infty)$ be possible trading times.
+Let $T$ be a subset of the real numbers consisting of possible trading times and
+$I$ be the set of tradeable instruments. 
+Let $\Omega$ be the set of what can happen in a market. For each
+$t\in T$ we specify $\AA_t$ to be a partition representing
+information available at time $t$.
 
 
 
