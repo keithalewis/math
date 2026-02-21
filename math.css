@@ -149,3 +149,8 @@ details > summary {
 .MathJax {
     font-size: 90% !important;
 }
+
+.define {
+	color: red;
+}
+

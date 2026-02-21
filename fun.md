@@ -58,11 +58,11 @@ This is the definition of an _iso_ arrow in category.
 It generalizes the notion of equality to equivalence.
 If there exists $f\colon A\to B$ that is iso we write $A\cong B$.
 
-__Exercise__. _Show $A\cong A$_.
+__Exercise__. _Show (reflexive) $A\cong A$_.
 
-__Exercise__. _Show if $A\cong B$ then $B\cong A$_.
+__Exercise__. _Show (symmetric) if $A\cong B$ then $B\cong A$_.
 
-__Exercise__. _Show if $A\cong B$ and $B\cong C$ then
+__Exercise__. _Show (transitive) if $A\cong B$ and $B\cong C$ then
 $A\cong C$_.
 
 These exercises are the definition of $\cong$ being
