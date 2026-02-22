@@ -296,6 +296,10 @@ A _function_ $f\colon A\to B$ is a relation with domain $A$
 where every right coset is a singleton.
 Since $af = \{b\}$ for all $a\in A$ and some $b\in B$
 we can write $f(a) = b$ since $b$ is unique.
+
+The _set exponential_ $B^A = \{f\colon A\to B\}$ is the set of all functions from $A$ to $B$.
+We also write this as $\{A\to B\}$.
+
 If we omit the condition the domain is $A$ we have
 a _partial function_. Partial functions are more ubiquitous
 than functions.
@@ -312,9 +316,29 @@ Function composition is relation composition.
 __Exercise__. _Show if $f\colon A\to B$ and $g\colon B\to C$ are functions then
 $(gf)(a) = g(f(a))$_.
 
-_Hint_: ???
+_Hint_: If $f(a) = b$ and $g(b) = c$ then $(a,c)\in gf$.
+
+### 1-1
+
+A function $f\colon A\to B$ is 1-1, or _injective_, if $f(a) = f(a')$ implies
+$a = a'$.
+
+__Exercise__. _Show $f$ is injective if and only if there exists $g\colon B\to A$ with $gf = 1_A$_.
+
+_Hint_: If $gf = 1_A$ and $f(a) = f(a')$ then $gf(a) = gf(a')$.
+
+## Onto
+
+A function $f\colon A\to B$ is onto, or _surjective_, if for every $b\in B$
+there exists $a\in A$ with $f(a) = b$.
+
+__Exercise__. _Show $f$ is surjective if and only if there exists $h\colon B\to A$ with $fh = 1_B$_.
+
+_Hint_: If $fh = 1_B$ then $f(a) = b$ when $a = h(b)$.
 
 ## Curry
+
+
 
 $\{A\times B\}\to C\} \cong \{A\to\{B\to C\}\}$.
 
