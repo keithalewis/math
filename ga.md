@@ -196,4 +196,9 @@ __Exercise__. _Show if $x\in\RR$ is transcendental then so is $\sqrt{x}$_.
 
 ## Regressive Product
 
+If $E$ has dimension $n$ and $P_0\cdots P_n\not=0$ then the _complement_
+of $\Pi_{j\in\{0,\ldots,n}$
 
+Grassmann used the notation $\overline{A}$ for the unique solution to $A\overline{A} = \Omega$
+whenever $A$ is an extensor. This can be extended linearly to $\GG(E)$.
+The regressive product is defined by $A\vee B = \overline{\overline{A}\overline{B}}
