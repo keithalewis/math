@@ -46,7 +46,7 @@
 <header id="title-block-header">
 <h1 class="title">APL</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Jul 2, 2025</p>
+<p class="date">Feb 16, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A Programming Language
@@ -78,6 +78,9 @@ A Programming Language
 <li><a href="#dimension" id="toc-dimension">Dimension</a></li>
 </ul></li>
 <li><a href="#remarks" id="toc-remarks">Remarks</a></li>
+<li><a href="#a-history-of-apl-in-50-functions"
+id="toc-a-history-of-apl-in-50-functions">A History of APL in 50
+functions</a></li>
 </ul>
 </nav>
 <blockquote>
@@ -101,10 +104,10 @@ matter of giving explicit names to the operations that can be performed
 on collections of data, what Iverson called <a
 href="https://www.eecg.toronto.edu/~jzhu/csc326/readings/iverson.pdf">Notation
 as a Tool of Thought</a></p>
-<p>There have been many languages inspired by APL and this writeup takes
-liberties with the classical language. Let’s agree to call it TPL, This
-Programming Languge. Our approach is informed by category theory and
-best practices for implmementing functional languages on current
+<p>There have been many languages inspired by APL and this write-up
+takes liberties with the classical language. Let’s agree to call it TPL,
+This Programming Language. Our approach is informed by category theory
+and best practices for implementing functional languages on current
 computer architectures. We take a purely functional view so no side
 effects are allowed and data cannot be mutated. Similar to Everett’s
 many-worlds interpretation of quantum mechanics, this makes it easy to
@@ -115,14 +118,14 @@ help with that.</p>
 <p>The <em>primitive types</em> are booleans, natural numbers, integers,
 real numbers, and characters. The <em>types</em> in TPL are <a
 href="cat.html"><em>categories</em></a> constructed from primitive types
-using (disjoint) unions, cartesian products, and exponentials.</p>
+using (disjoint) unions, Cartesian products, and exponentials.</p>
 <p>Note the real numbers <span class="math inline">\bm{R}</span> form a
 one dimensional vector space. <em>Strings</em> are zero or more
 characters and form a <em>monoid</em> under the binary operation of
-concatenation with the empty string as identty.</p>
-<p>The two main concepts of TPL are composition and (vector space)
-duality. It is just a matter of providing a language to manipulate sums,
-products, and exponentials in the appropriate categories.</p>
+concatenation with the empty string as identity.</p>
+<p>The two main concepts of TPL are composition of functions and vector
+space duality. It is just a matter of providing a language to manipulate
+sums, products, and exponentials in the appropriate categories.</p>
 <section id="categories" class="level2">
 <h2>Categories</h2>
 <p>Categories have <em>objects</em> and <em>arrows</em>. An arrow <span
@@ -208,9 +211,9 @@ languages where composition means function application. Applying a
 function to an element of a set causes a slight problem. <span
 class="math inline">fgh(x) = f(g(h(x))</span> but <span
 class="math inline">(fg)(h(x))\not= f(g(h(x)))</span>.</p>
-<p><span class="math inline">\mathbf{Set}</span> is <em>cartesian
+<p><span class="math inline">\mathbf{Set}</span> is <em>Cartesian
 closed</em> – It has products and exponentials that satisfy <span
-class="math inline">Z^{X\times Y}\cong Z^{Y^X}</span>. The <em>cartesian
+class="math inline">Z^{X\times Y}\cong Z^{Y^X}</span>. The <em>Cartesian
 product</em> of sets <span class="math inline">X</span> and <span
 class="math inline">Y</span> <span class="math inline">X\times Y =
 \{(x,y):x\in X, y\in Y\}</span> is the set of all pairs of elements from
@@ -627,6 +630,34 @@ class="math inline">X_J</span>.</p>
 <p>Currying: <span class="math inline">X\times Y\to Z\cong
 (Z^Y)^X</span> via <span class="math inline">f(x,y) = z</span> iff <span
 class="math inline">(fx)y = z</span>.</p>
+</section>
+<section id="a-history-of-apl-in-50-functions" class="level2">
+<h2><a href="https://www.jsoftware.com/papers/50/">A History of APL in
+50 functions</a></h2>
+<p>One funny thing about vector spaces is they are completely classified
+by their dimension. Two vector spaces are isomorphic if and only if they
+have the same dimiension. This is unlike any other mathematical
+type.</p>
+<p>Sxyz = xz(xz)</p>
+<p><span class="math inline">\bm{R}^I = \{x\colon
+I\to\bm{R}\}</span>.</p>
+<p>_I = {(x_i)x_i}$</p>
+<p>scan right to left if type push value on stack else if function
+execute on stack arguments else combinator scans for arguments to its
+left</p>
+<p>Numeric Types Bool &lt; Char &lt; Nat &lt; Int &lt; Rat &lt; Real
+&lt; Complex</p>
+<p>vector (indexed by Nat) ‘[’ v0 v1 … ’]’ vi’s have common type<br />
+tuple (indexed by Nat) ‘(’ t0 t1 … ‘)’ ti’s any type<br />
+map&lt;K,V&gt; is a partial function from K to V</p>
+<p>v : [ 1 2 3 ] // vector w : ( 2 true “abc” )</p>
+<p>/ +/ v # v</p>
+<p>x y z S -&gt; x z (y z) push z {z} push z {z z} push y {y z z} eval
+{yz z} swap {z yz} push x {x z yz} eval {xz yz} eval {xz(yz)}</p>
+<p>/ +/ # v S</p>
+<p>When does evaluation happen? Should it only eval to a certain
+level?</p>
+<p>R(x y)</p>
 </section>
 <aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">

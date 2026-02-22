@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Feb 7, 2026</p>
+<p class="date">Feb 14, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 The simplest formal model of a financial market.
@@ -268,8 +268,8 @@ are arbitrages then so is <span class="math inline">\xi + \eta</span>.
 <p>The smallest cone containing the possible cash flows <span
 class="math inline">C</span> is the set of finite linear combinations
 with positive coefficients <span class="math inline">{\{\sum_i
-C(\omega_i) d_i\mid \omega_i\in\Omega, d_i &gt; 0\}}</span>. If <span
-class="math inline">x = \sum_i C(\omega_i) d_i</span> is in the cone and
+C(\omega_i) D_i\mid \omega_i\in\Omega, D_i &gt; 0\}}</span>. If <span
+class="math inline">x = \sum_i C(\omega_i) D_i</span> is in the cone and
 <span class="math inline">\xi\cdot C</span> is non-negative on <span
 class="math inline">\Omega</span> then <span
 class="math inline">{\xi\cdot x\ge 0}</span> so no arbitrage exists.</p>
@@ -398,11 +398,11 @@ The model is <span class="math inline">x = (1, 1)</span> and <span
 class="math inline">{C(\omega) = (2, \omega)}</span> where <span
 class="math inline">{\omega\in\{1,3\} = \Omega}</span>. This is
 arbitrage-free if and only if we can find <span
-class="math inline">{d_1,d_3 \ge0}</span> with <span
-class="math inline">{x = C(1)d_1 + C(3)d_3}</span>. The bond component
-implies <span class="math inline">{1 = 2d_1 + 2d_3}</span> and the stock
-component implies <span class="math inline">{1 = 1d_1 + 3d_3}</span> so
-<span class="math inline">{d_1 = d_3 = 1/4}</span>.</p>
+class="math inline">{D_1,D_3 \ge0}</span> with <span
+class="math inline">{x = C(1)D_1 + C(3)D_3}</span>. The bond component
+implies <span class="math inline">{1 = 2D_1 + 2D_3}</span> and the stock
+component implies <span class="math inline">{1 = 1D_1 + 3D_3}</span> so
+<span class="math inline">{D_1 = D_3 = 1/4}</span>.</p>
 <p>This shows the risk-neutral measure is <span
 class="math inline">D(\{1\}) = D(\{3\}) = 1/4</span>. The risk-neutral
 probability measure <span class="math inline">P = D/D(\Omega)</span> is
@@ -416,7 +416,7 @@ class="math inline">{x = (1, 1, v)}</span>, <span
 class="math inline">{C(\omega) = (2, \omega, \max\{\omega -
 2,0\})}</span> where <span class="math inline">v</span> is the option
 value. Since the bond and stock components determine <span
-class="math inline">{d_1 = d_3 = 1/4}</span> the option component is
+class="math inline">{D_1 = D_3 = 1/4}</span> the option component is
 <span class="math inline">{v = \max\{1 - 2, 0\}(1/4) + \max\{3 - 2,
 0\}(1/4) = 1/4}</span>.</p>
 <p>A similar argument shows any European option paying <span
@@ -448,10 +448,10 @@ has realized return <span class="math inline">R</span> and the stock can
 go from price <span class="math inline">s</span> to either <span
 class="math inline">L</span> or <span class="math inline">H</span>. This
 is arbitrage-free if and only we can find <span
-class="math inline">{d_L,d_H \ge 0}</span> with <span
-class="math inline">{x = C(L)d_L + C(H)d_H}</span>. Considering the bond
-and stock components we have <span class="math inline">{d_L = (H -
-sR)/R(H - L)}</span> and <span class="math inline">{d_H = (sR - L)/R(H -
+class="math inline">{D_L,D_H \ge 0}</span> with <span
+class="math inline">{x = C(L)D_L + C(H)D_H}</span>. Considering the bond
+and stock components we have <span class="math inline">{D_L = (H -
+sR)/R(H - L)}</span> and <span class="math inline">{D_H = (sR - L)/R(H -
 L)}</span>. The model is arbitrage-free if and only if these are both
 non-negative so <span class="math inline">{L/R \le s \le
 H/R}</span>.</p>
@@ -465,7 +465,7 @@ H/R</span> then sell the stock and buy the bond.</p>
 class="math inline">\max\{\omega - K,0\}</span>, where <span
 class="math inline">L &lt; K &lt; H</span>, its arbitrage-free value is
 <span class="math display">
-v = 0 d_L + (H - K) d_H = (H - K)(s - L/R)/(H - L)
+v = 0 D_L + (H - K) D_H = (H - K)(s - L/R)/(H - L)
 </span></p>
 <p><strong>Exercise</strong>. <em>Show this agrees with the 1-2-3 Model
 for a call option with strike 2</em>.</p>
@@ -513,24 +513,24 @@ model is not determined by the bond and the stock. The interval model is
 class="math inline">C(\omega) = (R, \omega, (\omega - K))</span>, where
 <span class="math inline">\omega\in [L,H]</span>. There is no arbitrage
 if and only if there exist non-negative <span
-class="math inline">d_L</span>, <span class="math inline">d_K</span>,
-<span class="math inline">d_H</span> with <span class="math display">
-    x = C(L)d_L + C(K)d_K + C(H)d_H.
+class="math inline">D_L</span>, <span class="math inline">D_K</span>,
+<span class="math inline">D_H</span> with <span class="math display">
+    x = C(L)D_L + C(K)D_K + C(H)D_H.
 </span></p>
 <p>The components of the three instruments are <span
 class="math display">
 \begin{aligned}
-    1 &amp;= R d_L + R d_K + R d_H \\
-    s &amp;= L d_L + K d_K + H d_H \\
-    v &amp;= (H - K) d_H \\
+    1 &amp;= R D_L + R D_K + R D_H \\
+    s &amp;= L D_L + K D_K + H D_H \\
+    v &amp;= (H - K) D_H \\
 \end{aligned}
 </span></p>
-<p>Substituting <span class="math inline">d_H = v/(H - K)</span> and
-solving for <span class="math inline">d_L</span> and <span
-class="math inline">d_K</span> yields <span class="math display">
+<p>Substituting <span class="math inline">D_H = v/(H - K)</span> and
+solving for <span class="math inline">D_L</span> and <span
+class="math inline">D_K</span> yields <span class="math display">
 \begin{aligned}
-d_L &amp;= \frac{v + K/R - s}{K - L} \\
-d_K &amp;= \frac{(s - L/R)(H - K) - v(H - L)}{(K - L)(H - K)} \\
+D_L &amp;= \frac{v + K/R - s}{K - L} \\
+D_K &amp;= \frac{(s - L/R)(H - K) - v(H - L)}{(K - L)(H - K)} \\
 \end{aligned}
 </span> The no arbitrage constraints are <span class="math inline">v\ge
 0</span>, <span class="math inline">v \ge s - K/R</span>, and <span
@@ -548,18 +548,18 @@ K_1 &lt; \cdots K_n &lt; H</span> then <span class="math inline">{x =
 (1, s, v_1,\ldots,v_n)}</span> and <span class="math inline">{C(\omega)
 = (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)}</span>, <span
 class="math inline">\omega\in[L,H]</span>. There is no arbitrage if and
-only if there exist non-negative <span class="math inline">d_L, d_1,
-d_2,\ldots,d_H</span> with <span class="math display">
-    x = C(L)d_L + \sum_{i=1}^n C(K_i)d_i  + C(H)d_H
+only if there exist non-negative <span class="math inline">D_L, D_1,
+D_2,\ldots,D_H</span> with <span class="math display">
+    x = C(L)D_L + \sum_{i=1}^n C(K_i)D_i  + C(H)D_H
 </span> The components are <span class="math display">
 \begin{aligned}
-1 &amp;= R d_L + R d_1 + R d_2 + \cdots + R d_H \\
-s &amp;= L d_L + K_1 d_1 + K_2 d_2 + \cdots + H d_H \\
-v_1 &amp;= (K_2 - K_1) d_2 + \cdots + (H - K_1) d_H \\
-v_2 &amp;= (K_3 - K_2) d_3 + \cdots + (H - K_2) d_H \\
+1 &amp;= R D_L + R D_1 + R D_2 + \cdots + R D_H \\
+s &amp;= L D_L + K_1 D_1 + K_2 D_2 + \cdots + H D_H \\
+v_1 &amp;= (K_2 - K_1) D_2 + \cdots + (H - K_1) D_H \\
+v_2 &amp;= (K_3 - K_2) D_3 + \cdots + (H - K_2) D_H \\
 &amp;\cdots \\
-v_{n-1} &amp;= (K_n - K_{n-1}) d_n + (H - K_{n-1}) d_H \\
-v_n &amp;=  (H - K_n) d_H \\
+v_{n-1} &amp;= (K_n - K_{n-1}) D_n + (H - K_{n-1}) D_H \\
+v_n &amp;=  (H - K_n) D_H \\
 \end{aligned}
 </span> In matrix form <span class="math display">
 \begin{bmatrix}
@@ -579,7 +579,7 @@ K_{n-1} \\
 K_n \\
 \end{bmatrix}
 \begin{bmatrix}
-d_L \\ d_1 \\ d_2 \\ \vdots \\ d_n \\ d_H
+D_L \\ D_1 \\ D_2 \\ \vdots \\ D_n \\ D_H
 \end{bmatrix}
 </span> We can write this as a block matrix on the first row and first
 column <span class="math inline">[A\,B; C\,D]</span> where <span
@@ -606,7 +606,7 @@ A^{-1} + A^{-1}BECA^{-1} &amp; -A^{-1}BE \\
 -ECA^{-1} &amp; E \\
 \end{bmatrix}
 </span> so <span class="math display">
-\begin{bmatrix} d_L \\ d_1 \\ \vdots \\ d_H \end{bmatrix}
+\begin{bmatrix} D_L \\ D_1 \\ \vdots \\ D_H \end{bmatrix}
 =
 \begin{bmatrix}
 \frac{1 + (H -  L)}{R}
@@ -665,7 +665,7 @@ amount <span class="math inline">a</span> of instrument <span
 class="math inline">i</span> is held by owner <span
 class="math inline">o</span>.</p>
 <p>A <em>position</em> is a collection of holdings. Positions are
-modified by <em>exchanges</em>. An exchange at time <span
+modified by <em>trades</em>. An trade at time <span
 class="math inline">t</span> is a triple <span
 class="math inline">{(t,\eta,\eta&#39;)}</span> where <span
 class="math inline">\eta</span> and <span
@@ -673,29 +673,28 @@ class="math inline">\eta&#39;</span> are holdings. If the taker <span
 class="math inline">o</span> holds <span class="math inline">\eta</span>
 and the maker <span class="math inline">o&#39;</span> holds <span
 class="math inline">\eta&#39;</span> at time <span
-class="math inline">t</span> then after the exchange settles the taker
+class="math inline">t</span> then after the trade settles the taker
 holds <span class="math inline">(a&#39;,i&#39;,o)</span> and the maker
 holds <span class="math inline">(a,i,o&#39;)</span>. The <em>price</em>
-of the exchange is <span class="math inline">X = a/a&#39;</span>.</p>
-<p>After an exchange, the price is a well-defined number recorded in the
+of the trade is <span class="math inline">X = a/a&#39;</span>.</p>
+<p>After a trade, the price is a well-defined number recorded in the
 books and records of each counterparty.</p>
-<p>Makers quote prices for potential exchanges. Takers decide whether or
-not to execute the exchange. For example, if a maker quotes Ford stock
-for <span class="math inline">12</span> USD per share then the taker can
-exchange <span class="math inline">\$24</span> for 2 shares of Ford
-stock. This corresponds to the exchange where <span
-class="math inline">{\eta = (24, \$, o)}</span> and <span
-class="math inline">{\eta&#39; = (2, F, o&#39;)}</span>. The price is
-<span class="math inline">{X = a/a&#39; = 24/2}</span> and we write
-<span class="math inline">12</span> USD/F to indicate a price of <span
-class="math inline">\$12</span> per share of Ford stock. Replacing the
-virgule ‘/’ by ‘<span class="math inline">= 1</span>’ yields the
-mnemonic <span class="math inline">12</span> USD <span
-class="math inline">= 1</span> F. After the exchange settles the taker
-holds <span class="math inline">{\eta = (2, F, o)}</span> and the maker
-holds <span class="math inline">{\eta&#39; = (24, \$, o&#39;)}</span> in
-their respective positions.</p>
-<p>Prior to an exchange, the price is not a well-defined number. Makers
+<p>Makers quote prices for potential trades. Takers decide whether or
+not to execute the trade. For example, if a maker quotes Ford stock for
+<span class="math inline">12</span> USD per share then the taker can
+trade <span class="math inline">\$24</span> for 2 shares of Ford stock.
+This corresponds to the trade where <span class="math inline">{\eta =
+(24, \$, o)}</span> and <span class="math inline">{\eta&#39; = (2, F,
+o&#39;)}</span>. The price is <span class="math inline">{X = a/a&#39; =
+24/2}</span> and we write <span class="math inline">12</span> USD/F to
+indicate a price of <span class="math inline">\$12</span> per share of
+Ford stock. Replacing the virgule ‘/’ by ‘<span class="math inline">=
+1</span>’ yields the mnemonic <span class="math inline">12</span> USD
+<span class="math inline">= 1</span> F. After the trade settles the
+taker holds <span class="math inline">{\eta = (2, F, o)}</span> and the
+maker holds <span class="math inline">{\eta&#39; = (24, \$,
+o&#39;)}</span> in their respective positions.</p>
+<p>Prior to an trade, the price is not a well-defined number. Makers
 quote a bid price and an ask price to takers. When a taker buys one
 share they pay the maker’s ask price and when the taker sells one share
 they only get the maker bid price. The difference between the bid and
@@ -1050,7 +1049,7 @@ where a probability measure on possible outcomes is specified.
 
 [^2]: Recall the _set exponential_ ${B^A = \{f\colon A\to B\}}$ is the set
 of all functions from the set $A$ to the set $B$.  If ${x\in\RR^I}$ then
-$x(i)\in\RR$ is the price of instrument $i\in I$.  If $I = \{1,\ldots,n\}$
+C:\Users\keith\Downloads\AutoCallStructuredProduct.pdfC:\Users\keith\Downloads\AutoCallStructuredProduct.pdf$x(i)\in\RR$ is the price of instrument $i\in I$.  If $I = \{1,\ldots,n\}$
 we can identify $\RR^I$ with the vector space of $n$-tuples
 ${\RR^n = \prod_{i=1}^n\RR = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
 by $x(i) = x_i$, $1\le i\le n$.
@@ -1321,7 +1320,7 @@ The _price_ of the transaction is $X = a/a'$.
 
 Sellers quote prices for potential transactions. Buyers decide whether
 or not to execute the transaction. For example, if a maker quotes Ford
-stock for $12$ USD per share then the taker can exchange $\$24$ for 2
+stock for $12$ USD per share then the taker can trade $\$24$ for 2
 shares of Ford stock. This corresponds to the transaction where ${\eta =
 (24, \$, o)}$ and ${\eta' = (2, F, o')}$.  The price is ${X = a/a' = 24/2}$
 and we can use  $12$ USD/F to indicate a price of $\$12$ per share of Ford
@@ -1330,7 +1329,7 @@ stock. Replacing the virgule '/' by '$= 1$' gives the mnemonic $12$ USD $=
 and the maker holds ${\eta' = (24, \$, o')}$ in their respective positions.
 
 After a transaction the price is a well-defined number: the amount the taker
-exchanged with the maker divided by the amount the maker exchanged with the taker.
+trades with the maker divided by the amount the maker traded with the taker.
 This number is recorded in the books and records of each counterparty.
 
 Prior to a transaction the price quoted by the maker is not a well-defined number.
@@ -1766,23 +1765,6 @@ where $\omega\in\{90,100,110\}$. Show $0\le v\le 5$.
 __Exercise__. _Remove the bond from the above model and answer the same question_.
 
 _Hint_: The answer is $0\le v\le 100/11 = 9.090\ldots$.
-
-$x = (1, s, v_1,\ldots,v_n)$, $X(\omega) = (R, \omega, (\omega K_1)^+,\ldots,(\omega - K_n)^+)$.
-
-$X(L) = \_O + R\,P_r + L\,P_s$
-
-$X(K_1) = \_O + R\,P_r + K_1\,P_s$
-
-$X(K_2) = \_O + R\,P_r + K_2\,P_s + (K_2 K_1)\,P_1$
-
-$X(K_n) = \_O + R\,P_r + K_n\,P_s + (K_n K_1)\,P_1 + \cdots + (K_n - K_{n-1})\,P_{n-1}$
-
-$X(H) = \_O + R\,P_r + H\,P_s + (H K_1)\,P_1 + \cdots, (H - K_{n-1})\,P_{n-1} + (H - K_n)\,P_n$
-
-$OX(L) =  R\,OP_r + L\,OP_s$
-
-$OX(L)X(K_1) = R(K_1 L)\,OP_rP_s
-
 Grassmann algebra can also be used to detect and find an arbitrage when it exists.
 If any of the coefficients are negative then arbitrage exists. If only one
 coefficient is negative the arbitrage is perpendicular the the hyperplane determined
@@ -1809,7 +1791,26 @@ If the stock stays at 1 then we sell it and use the half dollar to pay back the 
 and the option is out of the money. If the stock goes to 3 then we use
 the dollar and a half to pay half a dollar to cover the bond and
 have a dollar left to meet the call obligation.
+
 -->
+<p><span class="math inline">x = (1, s, v_1,\ldots,v_n)</span>, <span
+class="math inline">X(\omega) = (R, \omega, (\omega -
+K_1)^+,\ldots,(\omega - K_n)^+)</span>.</p>
+<p><span class="math inline">x = \_O + B + s S + v_1 P_1 + v_2
+P_2</span></p>
+<p><span class="math inline">X(L) = \_O + R B + L S</span></p>
+<p><span class="math inline">X(K_1) = \_O + R B + K_1 S</span></p>
+<p><span class="math inline">X(K_2) = \_O + R B + K_2 S + (K_2 - K_1)
+P_1</span></p>
+<p><span class="math inline">X(H) = \_O + R B + H S + (H - K_1) P_1 + (H
+- K_2) P_2</span></p>
+<p><span class="math inline">O X(L) X(K_1) X(K_2) X(H) = OBSP_1P_2 R(K_1
+- L) (K_2 - K_1) (H - K_2)</span></p>
+<p>$O X(K_1) X(K_2) X(H) = OBSP_1 R K_2(H - K_1) + OBSP_2 R K_2(H - K_2)
++ OSRP_1 K_1 R(H - K_1) + OSRP_2 K_1 R(H - K_2)</p>
+<p>= OBSP_1P_2 K_1(K_2 - K_1)(H - K_2) + OSBP_1P_2 sR(K_2-K_1)(H - K_2)
++ OP_1BP_2 v_1RK_2(H - K_2) + OP_1SBP_2 v_1K_1R(H - K_2) + OP_2BSP_1
+v_2R</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 role="list">
 <div id="ref-BlaSch1973" class="csl-entry" role="listitem">
@@ -1859,7 +1860,7 @@ class="math inline">{\boldsymbol{R}^n = \prod_{i=1}^n\boldsymbol{R}=
 class="math inline">x(i) = x_i</span>, <span class="math inline">1\le
 i\le n</span>.<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>The spread is not always positive. An exchange may
+<li id="fn2"><p>The spread is not always positive. An trade may
 <em>cross</em> the quotes in order to get rid of or acquire specific
 instruments.<a href="#fnref2" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>

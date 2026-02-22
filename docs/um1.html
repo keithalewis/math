@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Feb 13, 2025</p>
+<p class="date">Feb 14, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematically rigorous framework for valuing, hedging, and managing
@@ -112,31 +112,26 @@ id="toc-forward-rate-agreement">Forward Rate Agreement</a></li>
 <ul>
 <li><a href="#integration" id="toc-integration">Integration</a></li>
 <li><a href="#probability" id="toc-probability">Probability</a></li>
-<li><a href="#todo" id="toc-todo">TODO</a></li>
 </ul></li>
 </ul>
 </nav>
-<p>This note suggests improvements to Stephen Ross’s paper “A Simple
-Approach to the Valuation of Risky Streams” <span class="citation"
-data-cites="Ros1978">(Ross 1978)</span>. Ross expanded on the
-groundbreaking theory developed by Fischer Black, Myron Scholes <span
-class="citation" data-cites="BlaSch1973">(Black and Scholes
-1973)</span>, and Robert C. Merton <span class="citation"
-data-cites="Mer1973">(Merton 1973)</span>, which originally focused on
-valuing options through dynamic trading of a bond and a stock. Ross
-greatly expanded this by showing how to value derivatives using any
-collection of instruments, referred to as risky streams.</p>
-<p>We place cash flows on equal footing with prices and assume every
-trading strategy involves only a finite number of transactions based on
-available information.</p>
+<p>This note proposes improvements to [Stephen Ross’s]<span
+class="citation" data-cites="Ros1978">(Ross 1978)</span> paper “A Simple
+Approach to the Valuation of Risky Streams”. Ross extended the theory
+invented by Fischer Black, Myron Scholes <span class="citation"
+data-cites="BlaSch1973">(Black and Scholes 1973)</span> and Robert C.
+Merton III <span class="citation" data-cites="Mer1973">(Merton
+1973)</span> for valuing an option by dynamic trading of a bond and
+stock to valuing any derivative using any collection of instruments
+(risky streams).</p>
 <p>Perhaps at the time, over half a century ago, people were not
 prepared for such an audatious expansion of the B-S/M theory. Ross
 conflated cash flows with instantaneous changes in the price of the
 underlying. We put the cash flows associated with owning financial
-instruments on equal footing with prices. B-S/M and Ross assumed
-continuous time trading is possible. This is a mathematical artifact of
-using Ito processes to model trading strategies that leads to untenable
-results<a href="#fn1" class="footnote-ref" id="fnref1"
+instruments on ShengQuan Zhouan equal footing with prices. B-S/M and
+Ross assumed continuous time trading is possible. This is a mathematical
+artifact of using Ito processes to model trading strategies that leads
+to untenable results<a href="#fn1" class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a>. Every trading strategy involves
 only a finite number of transactions based on available information. The
 Simple Unified Model does not solve the crucial problem of when to
@@ -186,6 +181,14 @@ class="math display">
 D_s)|_{{\mathcal{A}}_t}.
 </span> A direct consequence using the definitions of value and amount
 is <span class="math display">
+    V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
+D_s)|_{{\mathcal{A}}_t}.
+</span> If a derivative instrument pays <span
+class="math inline">\hat{A}_k</span> at <span
+class="math inline">\hat{\tau}_k</span> and there exists a trading
+strategy <span class="math inline">(\tau_j, \Gamma_j)</span> with A
+direct consequence using the definitions of value and amount is <span
+class="math display">
     V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
 D_s)|_{{\mathcal{A}}_t}.
 </span> If a derivative instrument pays <span
@@ -1016,11 +1019,7 @@ X\,dP/P(A)</span></em>.</p>
 <span class="math inline">\Omega</span> the sample space of possible
 outcomes, and <span class="math inline">({\mathcal{A}}_t)_{t\in
 T}</span> the algebras of sets on <span
-class="math inline">\Omega</span> indicating the information available
-at each trading time.</p>
-</section>
-<section id="todo" class="level3 unnumbered">
-<h3 class="unnumbered">TODO</h3>
+class="math inline">\Omega</span> indicating the</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 role="list">
 <div id="ref-BlaSch1973" class="csl-entry" role="listitem">

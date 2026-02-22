@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <title>Hypergeometric Functions</title>
+  <title>Hadwiger’s Theorem</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -21,7 +21,26 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="math.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
@@ -44,25 +63,22 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Hypergeometric Functions</h1>
+<h1 class="title">Hadwiger’s Theorem</h1>
 <p class="author">Keith A. Lewis</p>
 <p class="date">Feb 14, 2026</p>
 </header>
-<p>Fasten your seatbelt.</p>
-<p>By Taylor’s theorem, every sufficiently well-behaved function on the
-real numbers has a power series representation <span
-class="math inline">f(x) = \sum_{n=0}^\infty f^{n}(0) x^n/n!</span>
-around <span class="math inline">x = 0</span>, where <span
-class="math inline">f^{n}(x)</span> denotes the <span
-class="math inline">n</span>-th derivative of <span
-class="math inline">f</span>. Perhaps the most well-known is the
-exponential function with power series representation <span
-class="math inline">\exp(x) = \sum_{n=0}^\infty x^n/n!</span>.</p>
-<p>The generalized hypergeometic series is <span class="math display">
-    {}_pF_q(a_1,\ldots,a_p;b_1,\ldots,b_q,z)
-        = \sum_{n=0}^\infty \frac{(a_1)_n \cdots (a_p)_n}{(b_1)_n \cdots
-(b_q)_n}\frac{x^n}{n!},
-</span> where <span class="math inline">(a)_n = a(a + 1)\cdots(a + n -
-1)</span> is the Pochhammer symbol.</p>
+<p><span class="citation" data-cites="hadwiger1943">(Hadwiger
+1943)</span></p>
+<p>Let <span class="math inline">{\phi\colon\K^n\to R}</span> be a
+function from convex sets in <span class="math inline">R^n</span> to the
+real numbers.</p>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="list">
+<div id="ref-hadwiger1943" class="csl-entry" role="listitem">
+Hadwiger, Hugo. 1943. <span>“Über Eine Klassifikation Der Konvexen
+Körper.”</span> <em>Vierteljahrsschrift Der Naturforschenden
+Gesellschaft in Zürich</em> 88: 133–42.
+</div>
+</div>
 </body>
 </html>

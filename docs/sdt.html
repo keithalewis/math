@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Simple Difficult Things</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Simple Difficult Things</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Feb 21, 2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#set" id="toc-set">Set</a>
+<ul>
+<li><a href="#equal" id="toc-equal">Equal</a></li>
+<li><a href="#subset" id="toc-subset">Subset</a></li>
+<li><a href="#union" id="toc-union">Union</a></li>
+<li><a href="#intersection" id="toc-intersection">Intersection</a></li>
+<li><a href="#pairing" id="toc-pairing">Pairing</a></li>
+<li><a href="#natural-numbers" id="toc-natural-numbers">Natural
+Numbers</a></li>
+</ul></li>
+<li><a href="#foundation" id="toc-foundation">Foundation</a></li>
+<li><a href="#ordered-pair" id="toc-ordered-pair">Ordered Pair</a></li>
+<li><a href="#product" id="toc-product">Product</a></li>
+<li><a href="#relation" id="toc-relation">Relation</a>
+<ul>
+<li><a href="#equivalence" id="toc-equivalence">Equivalence</a></li>
+</ul></li>
+<li><a href="#function" id="toc-function">Function</a>
+<ul>
+<li><a href="#section" id="toc-section">1-1</a></li>
+</ul></li>
+<li><a href="#onto" id="toc-onto">Onto</a></li>
+<li><a href="#curry" id="toc-curry">Curry</a></li>
+</ul>
+</nav>
+<p>Mathematics is all about thinking clearly and following your nose,
+but it turns out to be remarkably difficult to do this in a rigorous
+manner.</p>
+<p>Euclid introduced the notion of <em>truth</em>. The Sophists before
+him were concerned with using language to shape reality. They figured
+out how to shut someone down by pointing out their argument was not
+<em>valid</em>.</p>
+<p>Euclid was wrong. The Sophists were right. He lead humanity on a two
+millenium wild goose chase with his fifth postulate:</p>
+<blockquote>
+<p>If a straight line falling on two straight lines makes the interior
+angles on the same side less than two right angles, then the two
+straight lines—if extended indefinitely—meet on that side on which the
+angles are less than two right angles.</p>
+</blockquote>
+<section id="set" class="level2">
+<h2>Set</h2>
+<p>In classical mathematics everything is a set, a bag of distinct
+<em>elements</em>. Logicians are wont to say “The language of set theory
+is epsilon.” If you know first order logic and what a language is, this
+makes perfect sense. So does the Tao De Jing if you are already
+enlightened.</p>
+<p>The first attempt at defining modern Set Theory is due to Frege. He
+defined a set by giving a rule for membership. Bertrand Russell showed
+that entailed a contradiction. Let <span class="math inline">S</span> be
+the set of all sets <span class="math inline">x</span> where it is not
+the case <span class="math inline">x\in x</span>, <span
+class="math inline">S = \{x\mid x\notin x\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">S\in
+S</span> implies <span class="math inline">S\notin S</span> and <span
+class="math inline">S\notin S</span> implies <span
+class="math inline">S\in S</span></em>.</p>
+<p>Some call this Russell’s Paradox but it is actually an antinomy: if
+the assumptions of a theorem lead to a contradiction <span
+class="math inline">P</span> and not <span class="math inline">P</span>
+then the theorem cannot be true. There are two ways to show a theorem is
+incorrect: go through the theorem step by step and find an error in the
+application of the axioms or rules of inferrence, or find a
+counterexample. The later is usually simpler, and more ego crushing to
+the incorrect theorem’s author.</p>
+<section id="equal" class="level3">
+<h3>Equal</h3>
+<p>It was not easy to fix up Frege’s theory. This led to various schemes
+to axiomatize what a set is, e.g., Zermelo-Fraenkel, von Neumann,
+Gödel–Bernays. But they all define two sets are <em>equal</em>, <span
+class="math inline">A = B</span>, <span class="define">if and only
+if</span> they have the same elements. <span class="math display">
+    \forall x (x\in A\color{red}\leftrightarrow\color{black} x\in B)
+</span></p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">A =
+A</span>, if <span class="math inline">A = B</span> then <span
+class="math inline">B = A</span>, and if <span class="math inline">A =
+B</span>, <span class="math inline">B = C</span> then <span
+class="math inline">A = C</span></em>.</p>
+<p>We write <span class="math inline">A\not= B</span> if it is not the
+case <span class="math inline">A = B</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">A\not=
+B</span> if and only if there exists <span class="math inline">x\in
+A</span> with <span class="math inline">x\not\in B</span> or there
+exists <span class="math inline">y\in B</span> with <span
+class="math inline">y\not\in A</span></em>.</p>
+<p><em>Hint</em>: ??? a &lt;-&gt; b iff !a &lt;-&gt; !b</p>
+</section>
+<section id="subset" class="level3">
+<h3>Subset</h3>
+<p>We say <span class="math inline">A</span> is a <em>subset</em> of
+<span class="math inline">B</span>, <span class="math inline">A\subseteq
+B</span>, if and only if <span class="math inline">x\in A</span> <span
+class="define">implies</span> <span class="math inline">x\in B</span>
+<span class="math display">
+    \forall x(x\in A\color{red}\rightarrow\color{black} x\in B)
+</span></p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">A =
+B</span> if and only if <span class="math inline">A\subseteq B</span>
+and <span class="math inline">B\subseteq A</span></em>.</p>
+<p><em>Hint</em>: For propositions <span class="math inline">P</span>
+and <span class="math inline">Q</span>, <span
+class="math inline">P\leftrightarrow Q</span> if and only if <span
+class="math inline">P\rightarrow Q</span> and <span
+class="math inline">Q\rightarrow P</span>.</p>
+</section>
+<section id="union" class="level3">
+<h3>Union</h3>
+<p>Other logical connectives can be used to define new sets from
+existing sets.</p>
+<p>The <em>union</em> of two sets <span class="math inline">A</span> and
+<span class="math inline">B</span>, <span class="math inline">A\cup
+B</span>, is the set of all elements belonging to either <span
+class="math inline">A</span> <span class="define">or</span> <span
+class="math inline">B</span> <span class="math display">
+    \exists A\cup B \forall x(x\in A\cup B\leftrightarrow x\in
+A\color{red}\vee\color{black} x\in B)    
+</span></p>
+</section>
+<section id="intersection" class="level3">
+<h3>Intersection</h3>
+<p>The <em>intersection</em> of two sets <span
+class="math inline">A</span> and <span class="math inline">B</span>,
+<span class="math inline">A\cap B</span>, is the set of all elements
+belonging to both <span class="math inline">A</span> <span
+class="define">and</span> <span class="math inline">B</span> <span
+class="math display">
+    \exists A\cap B\forall x(x\in A\cap B\leftrightarrow x\in
+A\color{red}\wedge\color{black} x\in B)
+</span> Two sets are <em>disjoint</em> if their intersection does not
+contain any elements. The <em>empty set</em> axiom states there exists a
+set with no elements, <span class="math inline">\emptyset</span>. <span
+class="math display">
+    \exists\emptyset\forall x(x\notin\emptyset)
+</span></p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">A</span> and <span class="math inline">B</span> are
+disjoint if and only if <span class="math inline">A\cap
+B=\emptyset</span></em>.</p>
+<p>The other axioms are not the first thing you might think of.</p>
+</section>
+<section id="pairing" class="level3">
+<h3>Pairing</h3>
+<p>The <em>pairing</em> axiom states if <span
+class="math inline">x</span> and <span class="math inline">y</span> are
+sets then there is a set with elements <span
+class="math inline">x</span> and <span class="math inline">y</span>,
+<span class="math inline">\{x,y\}</span>. Every element of <span
+class="math inline">\{x,y\}</span> is either <span
+class="math inline">x</span> or <span class="math inline">y</span>.
+<span class="math display">
+    \forall x\forall y\exists \{x,y\}\forall z (z\in \{x,y\}
+\leftrightarrow (z = x\vee z = y)
+</span> At this point we only have the empty set. Using pairing we get
+<span class="math inline">\{\emptyset,\emptyset\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\{\emptyset,\emptyset\
+=\{\emptyset\}</span></em>.</p>
+<p>By definition <span
+class="math inline">\emptyset\in\{\emptyset\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\emptyset\not=\{\emptyset\}</span></em>.</p>
+<p>Now we have a set with one element, the emptyset <span
+class="math inline">\emptyset</span>. For any set <span
+class="math inline">x</span> pairing gives us singleton <span
+class="math inline">\{x\} = \{x,x\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show for any set <span
+class="math inline">x</span> we have <span
+class="math inline">x\not=\{x\}</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Construct the set <span
+class="math inline">\{\{\emptyset\}\}</span></em>.</p>
+<p><em>Hint</em>. Use pairing with <span
+class="math inline">\{\emptyset\}</span>.</p>
+</section>
+<section id="natural-numbers" class="level3">
+<h3>Natural Numbers</h3>
+<p>This can be repeated to any finite level of nesting. It is possible
+to identify <span class="math inline">{\emptyset, \{\emptyset\},
+\{\{\emptyset\}\},\ldots}</span> with the natural numbers <span
+class="math inline">\boldsymbol{{N}}= {0,1,2\ldots}</span> but that is
+not the preferred encoding. The von Neumann encoding starts by
+identifying <span class="math inline">\emptyset</span> with 0 and for
+any <span class="math inline">n</span> define <span
+class="math inline">n + 1 = n\cup\{n\}</span>. We have <span
+class="math inline">1 = \{\emptyset\}</span> and <span
+class="math inline">2 = 1 + 1 =
+\{\emptyset\},\{\{\emptyset\}\}\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Write <span class="math inline">3 = (1
++ 1) + 1</span> in terms of <span
+class="math inline">\emptyset</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">n \not=
+n+1</span></em>. ???</p>
+<p><em>Hint</em>. Show <span class="math inline">n\not=
+n\cup\{n\}</span>. ???</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">n + m =
+n\cup\{m\}</span></em>.</p>
+<p><em>Hint</em>: Clearly <span class="math inline">n + 0 =
+n\cup\{0\}</span> ???</p>
+</section>
+</section>
+<section id="foundation" class="level2">
+<h2>Foundation</h2>
+<p>The axiom of <em>foundation</em> addresses the Russell
+counterexample.</p>
+<p><strong>Exercise</strong>. <em>Let <span class="math inline">S =
+\{\cdots\{\emptyset\}\cdots\}</span> be an infinite level of nesting.
+Show <span class="math inline">S\in S</span></em>.</p>
+<p><em>Hint</em>: You cannot prove or disprove this with the axioms
+discussed so far.</p>
+<p>It may seem plausible that removing the outside pairing of a
+countably infinite number of brackets leaves a countably infinite number
+of brackets, but always be wary of proofs involving <span
+class="math inline">\cdots</span>.</p>
+<p>There are some set theories where this is true, and some where it is
+not. In ZF set theory the axiom of <em>foundation</em> states every set
+has an element not in the set. <span class="math display">
+    \forall x\exists y(y\not\in x)
+</span> This unobvious axiom has several implications. First of all it
+does not tell you how to compute the element not in the set. One of them
+being <span class="math inline">x\not\in x</span> for any set <span
+class="math inline">x</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">y\not\in x</span> if and only if <span
+class="math inline">y\cap\{x\}=\emptyset</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show for every set <span
+class="math inline">x</span> we have <span class="math inline">x\not\in
+x</span></em>.</p>
+<p>We have seen an example of an infinite ascending chain <span
+class="math inline">x_0\in x_1 \in x_2\in \cdots</span>. It is not
+possible to have in infinite descending chain <span
+class="math inline">\cdot\in x_{-2}\in x_{-1} \in x_0</span>.</p>
+</section>
+<section id="ordered-pair" class="level2">
+<h2>Ordered Pair</h2>
+<p>Two ordered pairs <span class="math inline">(a,b)</span> and <span
+class="math inline">(c,d)</span> are equal if and only if <span
+class="math inline">a = c</span> and <span class="math inline">b =
+d</span>. We can’t define <span class="math inline">(a,b)</span> by the
+set <span class="math inline">\{a,b\}</span> since <span
+class="math inline">\{a,b\} = \{b,a\}</span> have the same elements.</p>
+<p>Kazimierz Kuratowski improved Norbert Wiener’s definition of an
+<em>ordered pair</em> <span class="math inline">(a,b)\in A\times
+B</span> as the set <span class="math inline">\{a,\{a,b\}\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\cap\{a,\{a,b\}\} = \{a\}</span> and <span
+class="math inline">\cup\{a,\{a,b\}\} = \{a,b\}</span></em>.</p>
+<p><em>Hint</em> For any set <span class="math inline">A</span>, <span
+class="math inline">\cap A</span> is the intersection <span
+class="math inline">\cap\{x\mid x\in A\}</span>; <span
+class="math inline">x</span> belongs to <span class="math inline">\cap
+A</span> if and only if <span class="math inline">x</span> is a member
+of every element of <span class="math inline">A</span>. For any set
+<span class="math inline">A</span>, <span class="math inline">\cup
+A</span> is the union <span class="math inline">\cup\{x\mid x\in
+A\}</span>; <span class="math inline">x</span> belongs to <span
+class="math inline">\cup A</span> if and only if <span
+class="math inline">x</span> is a member of some element of <span
+class="math inline">A</span>.</p>
+</section>
+<section id="product" class="level2">
+<h2>Product</h2>
+<p>The product of sets <span class="math inline">A</span> and <span
+class="math inline">B</span> is the set of ordered pairs of elements of
+A$ and <span class="math inline">B</span>, <span
+class="math inline">A\times B = \{(a,b)\mid a\in A, b\in B\}</span>.</p>
+<p>The product of <span class="math inline">A</span>, <span
+class="math inline">B</span>, and <span class="math inline">C</span> is
+<span class="math inline">A\times B\times C = (A\times B)\times
+C</span>. This can be extended to any finite product of sets.</p>
+<p>A simple solution to this is to only define subsets of an existing
+set that satisfy a rule. For any set <span class="math inline">S</span>
+and a predicate <span class="math inline">P</span> on <span
+class="math inline">S</span> we can stay out of trouble by defining
+<span class="math inline">\{x\in S\mid P(x)\}</span>. A
+<em>predicate</em> is a function from elements of a set that returns
+either true or false.</p>
+<p>A <em>set</em> is just a bag of things (elements) with no structure.
+Two sets are <em>equal</em> if they contain the same elements. Using
+epsilon and first order logic this is written <span
+class="math inline">A = B</span> if and only if <span
+class="math display">
+    (\forall a\in A\ a\in B)\wedge(\forall b\in B\ b\in A).
+</span></p>
+<p>If <span class="math inline">A = B</span> then they have the same
+number of elements. A weaker notion is two sets have the same
+<em>cardinality</em> if they have the same number of elements. If <span
+class="math inline">A</span> and <span class="math inline">B</span> are
+infinite this becomes a bit tricky to define. The sets <span
+class="math inline">A = \{1, 2, 3,\ldots\}</span> and <span
+class="math inline">B = \{2, 4, 6, \ldots\}</span> are both infinite and
+clearly <span class="math inline">B\subset A</span> but <span
+class="math inline">B\not=A</span>. They have the same cardinality
+because we can associate <span class="math inline">n\in A</span> with
+<span class="math inline">2n\in B</span>. The function <span
+class="math inline">f\colon A\to B</span> defined by <span
+class="math inline">f(n) = 2n</span> is one-to-on and onto.</p>
+</section>
+<section id="relation" class="level2">
+<h2>Relation</h2>
+<p>A <em>relation</em> on sets <span class="math inline">A</span> and
+<span class="math inline">B</span> is a subset of their product <span
+class="math inline">R\subseteq A\times B</span>. We write <span
+class="math inline">aRb</span> for <span class="math inline">(a,b)\in
+R</span>. The <em>domain</em> of <span class="math inline">R</span> is
+<span class="math inline">\operatorname{dom}R = A</span> and the
+<em>codomain</em> of <span class="math inline">R</span> is <span
+class="math inline">\operatorname{cod}R = B</span>. The <em>left
+coset</em> of <span class="math inline">b\in B</span> is <span
+class="math inline">Rb = \{a\in A: aRb\}\subseteq A</span>. The
+<em>right coset</em> of <span class="math inline">a\in A</span> is <span
+class="math inline">aR = \{b\in B: aRb\}\subseteq B</span>. The
+<em>transpose</em> of a relation <span class="math inline">R\subseteq
+A\times B</span> is <span class="math inline">R^T = \{(b,a)\mid (a,b)\in
+R\}\subseteq B\times A</span>.</p>
+<p>Relations can be <em>composed</em>. If <span
+class="math inline">{R\subset A\times B}</span> and <span
+class="math inline">{S\subset B\times C}</span> then <span
+class="math display">
+SR = \{(a,c)\mid aRb \text{\ and\ }bSc \text{\ for\ some\ } b\in
+B\}\subseteq A\times C.
+</span> This is closely related to the definition of the join of tables
+in a database.</p>
+<p><strong>Exercise</strong>. _Show <span class="math inline">(SR)^T =
+R^TS^T_</span>.</p>
+<p>If <span class="math inline">A = B</span> we can define properties to
+characterize a relation <span class="math inline">R\subseteq A\times
+A</span>.</p>
+<section id="equivalence" class="level3">
+<h3>Equivalence</h3>
+<p>The notion of equality can be generalize to <em>equivalence</em>.</p>
+<p><em>reflexive</em> <span class="math inline">aRa</span>, <span
+class="math inline">a\in A</span></p>
+<p><em>symmetric</em> <span class="math inline">aRb</span> implies <span
+class="math inline">bRa</span>, <span class="math inline">a,b\in
+A</span></p>
+<p><em>transitive</em> <span class="math inline">aRb</span> and <span
+class="math inline">bRc</span> imply <span
+class="math inline">aRc</span>, <span class="math inline">a,b,c\in
+A</span>.</p>
+<p>A relation with these three properties is an <em>equivalence</em>
+relation. If <span class="math inline">R</span> is an equivalence
+relations then <span class="math inline">aR = Ra</span>, <span
+class="math inline">a\in A</span>, and for <span
+class="math inline">a,b\in A</span> either <span class="math inline">aR
+= bR</span> or <span class="math inline">aR\cap bR =
+\emptyset</span>.</p>
+<p><strong>Exercise</strong>. _Show <span class="math inline">aR =
+Ra</span>, <span class="math inline">a\in A</span>, if <span
+class="math inline">R</span> is symmetric.</p>
+<p><strong>Exercise</strong>. <em>Show the cosets of an equivalence
+relation form a partition of <span
+class="math inline">A</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">\{A_i\}_{i\in I}</span> is a
+partition of <span class="math inline">A</span> if <span
+class="math inline">\cup_{i\in I} A_i = A</span> and <span
+class="math inline">A_i\cap A_j = \emptyset</span> if <span
+class="math inline">A_i\not= A_j</span>.</p>
+<p>Equivalence relations express partial information. Full information
+corresponds to the partition of singletons <span
+class="math inline">\{\{a\}\mid a\in A\}</span>. No information
+corresponds to the singleton partition <span
+class="math inline">\{A\}</span>. Partial information is knowing which
+element of the partition <span class="math inline">A_i</span> that <span
+class="math inline">a\in A</span> is an element of.</p>
+</section>
+</section>
+<section id="function" class="level2">
+<h2>Function</h2>
+<p>A <em>function</em> <span class="math inline">f\colon A\to B</span>
+is a relation with domain <span class="math inline">A</span> where every
+right coset is a singleton. Since <span class="math inline">af =
+\{b\}</span> for all <span class="math inline">a\in A</span> and some
+<span class="math inline">b\in B</span> we can write <span
+class="math inline">f(a) = b</span> since <span
+class="math inline">b</span> is unique.</p>
+<p>The <em>set exponential</em> <span class="math inline">B^A =
+\{f\colon A\to B\}</span> is the set of all functions from <span
+class="math inline">A</span> to <span class="math inline">B</span>. We
+also write this as <span class="math inline">\{A\to B\}</span>.</p>
+<p>If we omit the condition the domain is <span
+class="math inline">A</span> we have a <em>partial function</em>.
+Partial functions are more ubiquitous than functions. For example <span
+class="math inline">f\colon\boldsymbol{{R}}\to\boldsymbol{{R}}</span>
+where <span class="math inline">f(x)=1/x</span> is not defined at <span
+class="math inline">x = 0</span>. Partial functions can be turned into a
+function by defining <span class="math inline">f(a) = b</span> if <span
+class="math inline">(a,b)\in f</span> and <span class="math inline">f(a)
+= \bot</span> otherwise, where <span class="math inline">\bot</span> is
+some element not in <span class="math inline">B</span>.</p>
+<p><strong>Exercise</strong>. Show the codomain of the fixed up partial
+function is <span class="math inline">B\cup\{\bot\}</span>_.</p>
+<p>Function composition is relation composition.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">f\colon A\to B</span> and <span
+class="math inline">g\colon B\to C</span> are functions then <span
+class="math inline">(gf)(a) = g(f(a))</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">f(a) = b</span> and <span
+class="math inline">g(b) = c</span> then <span
+class="math inline">(a,c)\in gf</span>.</p>
+<section id="section" class="level3">
+<h3>1-1</h3>
+<p>A function <span class="math inline">f\colon A\to B</span> is 1-1, or
+<em>injective</em>, if <span class="math inline">f(a) = f(a&#39;)</span>
+implies <span class="math inline">a = a&#39;</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">f</span> is injective if and only if there exists
+<span class="math inline">g\colon B\to A</span> with <span
+class="math inline">gf = 1_A</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">gf = 1_A</span> and <span
+class="math inline">f(a) = f(a&#39;)</span> then <span
+class="math inline">gf(a) = gf(a&#39;)</span>.</p>
+</section>
+</section>
+<section id="onto" class="level2">
+<h2>Onto</h2>
+<p>A function <span class="math inline">f\colon A\to B</span> is onto,
+or <em>surjective</em>, if for every <span class="math inline">b\in
+B</span> there exists <span class="math inline">a\in A</span> with <span
+class="math inline">f(a) = b</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">f</span> is surjective if and only if there exists
+<span class="math inline">h\colon B\to A</span> with <span
+class="math inline">fh = 1_B</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">fh = 1_B</span> then
+<span class="math inline">f(a) = b</span> when <span
+class="math inline">a = h(b)</span>.</p>
+</section>
+<section id="curry" class="level2">
+<h2>Curry</h2>
+<p><span class="math inline">\{A\times B\}\to C\} \cong \{A\to\{B\to
+C\}\}</span>.</p>
+</section>
+</body>
+</html>

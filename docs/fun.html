@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Functions</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Functions</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Feb 17, 2026</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Giving names to operations on functions.
+</div>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#mono" id="toc-mono">Mono</a></li>
+<li><a href="#epi" id="toc-epi">Epi</a></li>
+<li><a href="#iso" id="toc-iso">Iso</a></li>
+<li><a href="#product" id="toc-product">Product</a></li>
+<li><a href="#sum" id="toc-sum">Sum</a></li>
+<li><a href="#exponential" id="toc-exponential">Exponential</a></li>
+<li><a href="#evaluation" id="toc-evaluation">Evaluation</a></li>
+<li><a href="#curry" id="toc-curry">Curry</a></li>
+<li><a href="#variance" id="toc-variance">*Variance</a></li>
+</ul>
+</nav>
+<p>A function <span class="math inline">f</span> from set <span
+class="math inline">A</span> to set <span class="math inline">B</span>,
+<span class="math inline">f\colon A\to B</span>, takes an element <span
+class="math inline">a\in A</span> and produces (somehow) an element
+<span class="math inline">f(a)\in B</span>. The <em>composition</em> of
+<span class="math inline">f\colon A\to B</span> and <span
+class="math inline">g\colon B\to C</span> is <span
+class="math inline">g\circ f\colon A\to C</span> defined by <span
+class="math inline">(g\circ f)(a) = g(f(a))</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
+A\to B</span>, <span class="math inline">g\colon B\to C</span>, and
+<span class="math inline">h\colon C\to D</span> then <span
+class="math inline">(h\circ g)\circ f = h\circ(g\circ
+f)</span></em>.</p>
+<p>This shows composition is <em>associative</em> so functions under
+composition form a <em>semigroup</em>.</p>
+<p>The <em>identity function</em> for the set <span
+class="math inline">A</span> is <span class="math inline">1_A\colon A\to
+A</span> defined by <span class="math inline">1_A(a) = a</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
+A\to B</span> show <span class="math inline">1_B\circ f = f</span> and
+<span class="math inline">f\circ 1_A = f</span></em>.</p>
+<p>This shows sets and functions form a <em>category</em>, <span
+class="math inline">\mathbf{Set}</span>. A category is a collection of
+<em>objects</em> and <em>arrows</em> with associative composition that
+have left and right inverses.</p>
+<section id="mono" class="level2">
+<h2>Mono</h2>
+<p>A function <span class="math inline">f\colon A\to B</span> is
+<em>one-to-one</em>, or <em>injective</em> if <span
+class="math inline">f(a) = f(a&#39;)</span>, <span
+class="math inline">a,a&#39;\in A</span>, implies <span
+class="math inline">a = a&#39;</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">f\colon
+A\to B</span> is one-to-one if and only if there exists <span
+class="math inline">g\colon B\to A</span> with <span
+class="math inline">g\circ f = 1_A</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">g\circ f = 1_A</span> and
+<span class="math inline">f(a) = f(a&#39;)</span> then <span
+class="math inline">g\circ f(a) = g\circ f(a&#39;)</span>.</p>
+<p>This is the definition of a <em>mono</em> arrow in a category.</p>
+</section>
+<section id="epi" class="level2">
+<h2>Epi</h2>
+<p>A function <span class="math inline">f\colon A\to B</span> is
+<em>onto</em>, or <em>surjective</em> if for every <span
+class="math inline">b\in B</span> there exists an <span
+class="math inline">a\in A</span> with <span class="math inline">f(a) =
+b</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">f\colon
+A\to B</span> is onto if and only if there exists <span
+class="math inline">g\colon B\to A</span> with <span
+class="math inline">f\circ g = 1_B</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">f\circ g = 1_B</span>
+then <span class="math inline">f\circ g(b) = b</span>.</p>
+<p>This is the definition of an <em>epi</em> arrow in a category.</p>
+</section>
+<section id="iso" class="level2">
+<h2>Iso</h2>
+<p>A function that is both one-to-one and onto is called a one-to-one
+correspondence.</p>
+<p>This is the definition of an <em>iso</em> arrow in category. It
+generalizes the notion of equality to equivalence. If there exists <span
+class="math inline">f\colon A\to B</span> that is iso we write <span
+class="math inline">A\cong B</span>.</p>
+<p><strong>Exercise</strong>. <em>Show (reflexive) <span
+class="math inline">A\cong A</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show (symmetric) if <span
+class="math inline">A\cong B</span> then <span
+class="math inline">B\cong A</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show (transitive) if <span
+class="math inline">A\cong B</span> and <span class="math inline">B\cong
+C</span> then <span class="math inline">A\cong C</span></em>.</p>
+<p>These exercises are the definition of <span
+class="math inline">\cong</span> being an <em>equivalence relation</em>.
+Two sets are equal if they have the same elements. Two sets are
+equivalent if they have the same number of elements.</p>
+</section>
+<section id="product" class="level2">
+<h2>Product</h2>
+<p>Everything in classical mathematics is a set. Two sets are equal if
+and only if they have the same elements. For example, <span
+class="math inline">\{a,b\} = \{b, a\}</span>. It is a little tricky to
+define an <em>ordered pair</em> <span class="math inline">(a, b)</span>
+by <span class="math inline">(a,b) = (c,d)</span> if and only if <span
+class="math inline">a = c</span> and <span class="math inline">b =
+d</span> using sets. It is not the case <span class="math inline">(a,b)
+= (b,a)</span>.</p>
+<p>Kazimierz Kuratowski improved Norbert Wiener’s definition of an
+<em>ordered pair</em> <span class="math inline">(a,b)\in A\times
+B</span> as the set <span
+class="math inline">\{\{a\},\{a,b\}\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\{\{a\},\{a,b\}\} = \{\{c\},\{c,d\}\}</span> if and
+only if <span class="math inline">a = c</span> and <span
+class="math inline">b = d</span></em>.</p>
+<p><em>Hint</em>: Sets are equal if and only if they have the same
+elements. It is not the case <span class="math inline">\{a\} =
+\{c,d\}</span> so <span class="math inline">\{a\} = \{c\}</span> and
+<span class="math inline">a = c</span>. It is also not the case <span
+class="math inline">\{a,b\} = \{c\}</span> so <span
+class="math inline">\{a,b\} = \{c,d\}</span>.</p>
+<p>The <em>(cartesian) product</em> of set <span
+class="math inline">A</span> and <span class="math inline">B</span> is
+<span class="math inline">A\times B = \{(a,b)\mid a\in A, b\in
+B\}</span>. Define <em>projections</em> <span
+class="math inline">\pi_A\colon A\times B\to A</span> by <span
+class="math inline">\pi_A(a,b) = a</span> and <span
+class="math inline">\pi_B\colon A\times B\to B</span> by <span
+class="math inline">\pi_B(a,b) = b</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">p_A\colon C\to A</span> and <span
+class="math inline">p_B\colon C\to B</span> then there exists <span
+class="math inline">p\colon C\to A\times B</span> with <span
+class="math inline">\pi_A p = p_A</span> and <span
+class="math inline">\pi_B p = \pi_B</span></em>.</p>
+<p><em>Hint</em>: Define <span class="math inline">p(c) = (p_A(c),
+p_B(c)</span>.</p>
+<p>This is a <em>pointwise</em> definition. It is also possible define
+the product using only sets and functions.</p>
+<p>The product of set <span class="math inline">A</span> and <span
+class="math inline">B</span> can be defined by functions <span
+class="math inline">\pi_A\colon A\times B\to A</span> and <span
+class="math inline">\pi_B\colon A\times B\to B</span> with the property
+that given functions <span class="math inline">p_A\to C</span> and <span
+class="math inline">p_B\to C</span> there exists a function <span
+class="math inline">p\colon C\to A\times B</span> with <span
+class="math inline">p\pi_A = p_A</span> and <span
+class="math inline">p\pi_B = \pi_B</span>. This is called a
+<em>pointless</em> definition, but it is anything but that.</p>
+<p>In classical mathematics a function <span class="math inline">f\colon
+A\to B</span> can be identified by its <em>graph</em> <span
+class="math inline">\{(a,f(a))\mid a\in A\}\subseteq A\times B</span>.
+This has limited usefulness if want to think of a function as something
+performing a computataion. It also leads to a contradiction that Bertand
+Russell pointed out to Frege’s proposed theory of sets. The graph of the
+identity function on sets is not a set.</p>
+</section>
+<section id="sum" class="level2">
+<h2>Sum</h2>
+<p>The <em>sum</em> of two sets is not their union. If <span
+class="math inline">c\in A\cup B</span> then <span
+class="math inline">c\in A</span> or <span class="math inline">c\in
+B</span>. If <span class="math inline">c</span> is in their intersection
+<span class="math inline">A\cap B</span> it may have come from either
+<span class="math inline">A</span> or <span
+class="math inline">B</span>. The sum is the <em>disjoin union</em> of
+<span class="math inline">A</span> and <span
+class="math inline">B</span> that preserves that information, <span
+class="math inline">A\squarecup B = (\{0\}\times A)\cup (\{\1\}\times
+B)</span>. Define <em>injections</em> <span
+class="math inline">\nu_A\colon A\to A\sqcup B</span> by <span
+class="math inline">\nu_A(a) = (0, a)</span> and <span
+class="math inline">\nu_B(b) = (1, b)</span>.</p>
+<p><strong>Exercise</strong>. _Show if <span
+class="math inline">n_A\colon A\to C</span> and <span
+class="math inline">n_B\colon B\to C</span> there exists <span
+class="math inline">n\colon A\sqcup B\to C</span> with <span
+class="math inline">n\nu_A = n_A</span> and <span
+class="math inline">n\nu_B = n_B</span>.</p>
+<p><em>Hint</em>: Define <span class="math inline">n((0, a)) = a</span>
+and n((1,b)) = b$.</p>
+<p>Note how sums are defined by reversing the arrows in products.</p>
+</section>
+<section id="exponential" class="level2">
+<h2>Exponential</h2>
+<p>The set exponential <span class="math inline">B^A</span> is the set
+of all functions from <span class="math inline">A</span> to <span
+class="math inline">B</span>: <span class="math inline">B^A = \{f\colon
+A\to B\}</span>. We also write this as <span class="math inline">B^A =
+\{A\to B\}</span>.</p>
+</section>
+<section id="evaluation" class="level2">
+<h2>Evaluation</h2>
+<p>Given <span class="math inline">f\colon A\to B</span> and <span
+class="math inline">a\in A</span> evaluation produces <span
+class="math inline">f(a)\in B</span>: <span class="math inline">e =
+e_{A,B}\colon B^A\times A\to B</span> by <span
+class="math inline">e(f,a) = f(a)</span>.</p>
+</section>
+<section id="curry" class="level2">
+<h2>Curry</h2>
+<p>Given <span class="math inline">f\colon A\times B\to C</span> define
+<em>curry</em> <span class="math inline">f,\colon A\to C^B</span> by
+<span class="math inline">(f,a)b = f(a,b)</span>. This looks more
+natural if we write it as <span class="math inline">f,\colon A\to\{B\to
+C\}</span>.</p>
+<p>Given <span class="math inline">g\colon A\to\{B\to C\}</span> define
+<em>uncurry</em> <span class="math inline">,g\colon A\times B\to
+C</span> by <span class="math inline">,g(a,b) = (ga)b</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">,(f,) =
+f</span> and <span class="math inline">(,g),= g</span></em>.</p>
+</section>
+<section id="variance" class="level2">
+<h2>*Variance</h2>
+<p>Covariance and contravariance are defined for a function <span
+class="math inline">f\colon A\to B</span> by <span
+class="math inline">\circ f\colon C^B\to C^A</span> where <span
+class="math inline">\circ f(g) = f\circ g</span> and <span
+class="math inline">f\circ\colon A^C\to B^C</span> where <span
+class="math inline">f\circ(h) = h\circ f</span>. A tensor is a function
+that transforms as a tensor can be given a rigorous definition.</p>
+</section>
+</body>
+</html>

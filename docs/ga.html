@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Grassmann Algebra</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Oct 26, 2025</p>
+<p class="date">Feb 21, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 The algebra of space.
@@ -73,15 +73,18 @@ The algebra of space.
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
+<li><a href="#exterior-product" id="toc-exterior-product">Exterior
+Product</a></li>
 <li><a href="#examples" id="toc-examples">Examples</a></li>
 <li><a href="#higher-dimensions" id="toc-higher-dimensions">Higher
 Dimensions</a>
 <ul>
 <li><a href="#congruence" id="toc-congruence">Congruence</a></li>
 </ul></li>
-<li><a href="#independence" id="toc-independence">Independence</a></li>
-<li><a href="#exterior-product" id="toc-exterior-product">Exterior
-Product</a></li>
+<li><a href="#independence" id="toc-independence">Independence</a>
+<ul>
+<li><a href="#descartes" id="toc-descartes">Descartes</a></li>
+</ul></li>
 <li><a href="#regressive-product" id="toc-regressive-product">Regressive
 Product</a></li>
 </ul>
@@ -90,13 +93,21 @@ Product</a></li>
 data-cites="Gra1844">(Grassmann 1844)</span> came up with a simple axiom
 to reduce geometric truth to algebra: the product of two points is 0 if
 and only if the points coincide. René Descartes demonstrated how to
-prove results in Euclidian geometry by associating points in space with
+prove results in Euclidean geometry by associating points in space with
 numerical coordinates, but Descartes only considered two and three
-dimensions. Grassmann predated Einstien in treating all points in space
+dimensions. Grassmann predated Einstein in treating all points in space
 on equal footing. Grassmann’s audaciously simple notion also predated
 the modern definition of a vector space. Any point in space can be
 chosen as an origin and a vector is just the difference of a point with
 the origin.</p>
+<p>Grassmann was a secondary-school teacher who wrote in an abstruse
+style that top mathematicians of the time ignored. It wasn’t until <span
+class="citation" data-cites="Peano1888">(Peano 1888)</span> wrote an
+exposition of the theory that his ideas began to gain traction. Peano,
+like Descartes, only developed the theory in two and three dimensions
+but used a notation more accessible to mathematicians of the time.</p>
+<section id="exterior-product" class="level2">
+<h2>Exterior Product</h2>
 <p>Grassmann considered the set <span class="math inline">E</span> of
 points in a space of any (finite) dimension. The <em>Grassmann
 algebra</em> of <span class="math inline">E</span>, <span
@@ -123,12 +134,19 @@ class="math inline">ax = xa\in\operatorname{Alg}(S)</span></li>
 class="math inline">xy</span> are in <span
 class="math inline">\operatorname{Alg}(S)</span></li>
 <li>If <span class="math inline">x,y,z\in\operatorname{Alg}(S)</span>
-then <span class="math inline">x(yz) = (xy)z</span>.</li>
+then <span class="math inline">x + (y + z) = (x + y) + z</span> and
+<span class="math inline">x(yz) = (xy)z</span>.</li>
+<li>If <span class="math inline">a\in\mathbf{R}</span> and <span
+class="math inline">y,z\in\operatorname{Alg}(S)</span> then <span
+class="math inline">a(y + z) = ay + az</span>.</li>
+<li>If <span class="math inline">x,y,z\in\operatorname{Alg}(S)</span>
+then <span class="math inline">x(y + z) = xy + xz</span>.</li>
 <li>If $x(S) then <span class="math inline">0x = x0 = 0</span> and <span
 class="math inline">1x = x1 = x</span>.</li>
 </ul>
 <p>Note that we do not require <span class="math inline">xy = yx</span>.
-The associativity of multliplication allows us to write <span
+The associativity of addition and multiplication allows writing <span
+class="math inline">x + y + z</span> and <span
 class="math inline">xyz</span> unambiguously.</p>
 <p><strong>Exercise</strong>. <em>Show if <span
 class="math inline">x\in\operatorname{Alg}(\{PP\mid P\in E\})</span> and
@@ -139,6 +157,16 @@ are in <span class="math inline">Alg(\{PP\mid P\in E\})</span></em>.</p>
 E\})</span> is a two-sided ideal of <span
 class="math inline">\operatorname{Alg}(S)</span> so the quotient space
 <span class="math inline">\mathcal{G}(E)</span> is well defined.</p>
+<p>The product in <span class="math inline">\mathcal{G}(E)</span> is
+Grassmann’s <em>exterior product</em>. Italian differential geometers
+decided to call it the <em>wedge product</em>, written as <span
+class="math inline">P\wedge Q</span>. This was an unfortunate historical
+accident. The exterior product is analogous to a union of sets so <span
+class="math inline">P\vee Q</span> is a more appropriate notation.
+Grassmann’s regressive product, defined below, is analogous to the
+intersection of sets so <span class="math inline">P\wedge Q</span> would
+be the natural notation for that.</p>
+</section>
 <section id="examples" class="level2">
 <h2>Examples</h2>
 <p>Before introducing the general theory let’s consider some simple
@@ -152,11 +180,11 @@ oriented line determined by <span class="math inline">P</span> and <span
 class="math inline">Q</span> when <span
 class="math inline">P\not=Q</span>. We can interpret <span
 class="math inline">aP + bQ</span> as the point having weight <span
-class="math inline">a + b</span> that is the baricenter of <span
+class="math inline">a + b</span> that is the barycentre of <span
 class="math inline">aP</span> and <span
 class="math inline">bQ</span>.</p>
-<p>Let <span class="math inline">R(t) = P + t(Q - P) = (1 - t)P +
-tQ</span>, <span class="math inline">t\in R</span>. Note <span
+<p>Let <span class="math inline">R(t) = P + t(Q - P) = (1 - t)P + t
+Q</span>, <span class="math inline">t\in R</span>. Note <span
 class="math inline">R(t)</span> has weight 1, <span
 class="math inline">R(0) = P</span>, and <span class="math inline">R(1)
 = Q</span>.</p>
@@ -191,7 +219,7 @@ class="math inline">\frac{P(Q - P)}{PQ} = 1</span></em>.</p>
 class="math inline">t\in\mathbf{R}</span> and <span
 class="math inline">P,Q,S,T\in\mathcal{G}(E)</span> we say <span
 class="math inline">PQ</span> and <span class="math inline">ST</span>
-are conguent and write <span class="math inline">{\frac{PQ}{ST}} =
+are congruent and write <span class="math inline">{\frac{PQ}{ST}} =
 t</span>.</p>
 <p><strong>Exercise</strong>. <em>For any <span
 class="math inline">R</span> with <span class="math inline">PQR =
@@ -200,42 +228,45 @@ class="math inline">R = (PR/PQ)P + (RQ/PQ)Q</span></em>.</p>
 <p><em>Hint</em>: If <span class="math inline">R = aP + bQ</span> then
 <span class="math inline">PR = bPQ</span> and <span
 class="math inline">QR = aQP</span>.</p>
-<p>This is an example of coordnate-free calculation using the Grassmann
+<p>This is an example of coordinate-free calculation using the Grassmann
 algebra.</p>
-<p>David Hilbert noticed Euclid’s axioms were insufficent to determine
-when a point lies between two points. Using Grassman algebra we can
+<p>David Hilbert noticed Euclid’s axioms were insufficient to determine
+when a point lies between two points. Using Grassmann algebra we can
 define <span class="math inline">R</span> is between <span
 class="math inline">P</span> and <span class="math inline">Q</span> if
 and only if <span class="math inline">PQR = 0</span>, <span
 class="math inline">PR/PQ &gt; 0</span>, and <span
 class="math inline">RQ/PQ &lt; 1</span>.</p>
-<p>Three points <span class="math inline">P,Q,R\in E</span> with <span
-class="math inline">PQR\not=0</span> determine an oriented plane. The
-midpoint of the side from <span class="math inline">P</span> to <span
-class="math inline">Q</span> is <span class="math inline">{(P +
-Q)/2}</span> so <span class="math inline">{(P + Q)R/2}</span> is the
-<em>median</em> from the midpoint of <span class="math inline">P</span>
-and <span class="math inline">Q</span> to <span
-class="math inline">R</span>. The <em>centroid</em> <span
-class="math inline">(P + Q + R)/3</span> lies on the median.</p>
+<p>A classical result from Euclidean geometry is the three medians of a
+triangle meet at the same point. A <em>median</em> is the line from a
+vertex of a triangle to the midpoint of the opposite side.</p>
+<p>Three points <span class="math inline">P,Q,R\in E</span> determine a
+triangle. The midpoint of <span class="math inline">PQ</span> is <span
+class="math inline">{(1/2)(P + Q)}</span> and <span
+class="math inline">{(1/2)(P + Q)R}</span> is the <em>median</em> from
+the midpoint of <span class="math inline">P</span> and <span
+class="math inline">Q</span> to <span class="math inline">R</span>. The
+<em>centroid</em> <span class="math inline">(1/3)(P + Q + R)</span> lies
+on the median.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">(P +
 Q)R(P + Q + R) = 0</span></em>.</p>
 <p>Replacing <span class="math inline">P,Q,R</span> with <span
 class="math inline">Q,R,P</span> and <span
-class="math inline">R,P,Q</span> shows all medians of a triange meet at
+class="math inline">R,P,Q</span> shows all medians of a triangle meet at
 the centroid.</p>
 </section>
 <section id="higher-dimensions" class="level2">
 <h2>Higher Dimensions</h2>
 <p>Grassmann’s algebra works in any number of dimensions. Any non-zero
-product of points is an <em>extensor</em>. The number of points is the
-<em>order</em> of the extensor.</p>
+product of points is an <em>extensor</em> (also called a <em>blade</em>,
+or <em>flag</em>). The number of points is the <em>order</em> of the
+extensor.</p>
 <section id="congruence" class="level3">
 <h3>Congruence</h3>
 <p>If <span class="math inline">P_0\cdots P_k = tQ_0\cdots Q_k</span>
 for some non-zero <span class="math inline">t\in\mathbf{R}</span> then
 write <span class="math inline">P_0\cdots P_k/Q_0\cdots Q_k = t</span>
-and say the products are <em>congruent</em>.</p>
+and say the extensor are <em>congruent</em>.</p>
 <p><strong>Exercise</strong>. <em>Show if <span
 class="math inline">P_0\cdots P_j</span> and <span
 class="math inline">Q_0\cdots Q_k</span> are congruent then <span
@@ -272,7 +303,7 @@ class="math inline">P_0\cdots P_nR = 0</span> and <span
 class="math inline">P_0\cdots P_n\not=0</span> then <span
 class="math inline">R = \sum_0^n (P_0\cdots R\cdots P_n/P_0\cdots
 P_n)P_i</span> where <span class="math inline">P_i</span> is replaced by
-<span class="math inline">R</span> in the coefficents of the
+<span class="math inline">R</span> in the coefficients of the
 sum</em>.</p>
 <p>The smallest convex set containing <span
 class="math inline">P_0,\ldots,P_n</span> is <span
@@ -280,31 +311,65 @@ class="math inline">\{\sum_i t_i P_i\mid t_i\ge0,\sum_i t_i =
 1\}</span>. The above exercise show <span class="math inline">R</span>
 belongs to the convex hull of the points if and only if all coefficients
 in the sum are non-negative.</p>
+<section id="descartes" class="level3">
+<h3>Descartes</h3>
+<p>Rene Descartes invented a method to reduce the straightedge and
+compass constructions of Euclid to algebraic computation by using a
+<em>coordinate system</em>. Although Descartes only considered two and
+three dimensional space, any point in <span
+class="math inline">n</span>-dimensional space <span
+class="math inline">\mathbf{R}^n</span> can be described by a tuple
+<span class="math inline">(x_1,\ldots,x_n)</span> where <span
+class="math inline">x_i\in\mathbf{R}</span>, <span
+class="math inline">1\le i\le n</span>. In <em>La Géométrie</em> (1637),
+Descartes showed any length constructed from a unit length must come
+from a finite sequence of additions, subtractions, multiplications,
+divisions, and square roots. A famous problem from antiquity is
+“squaring the circle”: given a circle construct a square having the same
+area. This is equivalent to constructing <span
+class="math inline">\sqrt{\pi}</span>. It took 245 years until <span
+class="citation" data-cites="Lindemann1882">(Lindemann 1882)</span>
+showed <span class="math inline">\pi</span> is not the root of any
+non-zero polynomial (transcendental) when Descartes result can be used
+to prove squaring the circle was impossible using Euclidean
+geometry.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">x\in\mathbf{R}</span> is transcendental then so is
+<span class="math inline">\sqrt{x}</span></em>.</p>
+<p><em>Hint</em>: ???</p>
 </section>
-<section id="exterior-product" class="level2">
-<h2>Exterior Product</h2>
-<p>The product of</p>
 </section>
 <section id="regressive-product" class="level2">
 <h2>Regressive Product</h2>
-<p>If <span class="math inline">A</span> and <span
-class="math inline">B</span> are extensors with <span
-class="math inline">\langle A\rangle \cap \langle B\rangle \not=
-0</span> then <span class="math inline">\langle A\wedge B\rangle =
-\langle A\rangle \oplus \langle B\rangle</span>. If <span
-class="math inline">\langle A\rangle \cap \langle B\rangle \not=
-0</span> then <span class="math inline">\langle A\vee B\rangle =
-0</span>.</p>
-<p>The <em>boundary</em> of <span class="math inline">PQ</span> is <span
-class="math inline">\partial(PQ) = Q - P</span>.</p>
+<p>If <span class="math inline">E</span> has dimension <span
+class="math inline">n</span> and <span class="math inline">P_0\cdots
+P_n\not=0</span> then the <em>complement</em> of <span
+class="math inline">\Pi_{j\in\{0,\ldots,n}</span></p>
+<p>Grassmann used the notation <span
+class="math inline">\overline{A}</span> for the unique solution to <span
+class="math inline">A\overline{A} = \Omega</span> whenever <span
+class="math inline">A</span> is an extensor.</p>
 <p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\partial(PQ) = 0</span> if and only if <span
-class="math inline">P = Q</span></em>.</p>
+class="math inline">\overline{\overline{A}} = A</span></em>.</p>
+<p>This can be extended linearly to <span
+class="math inline">\mathcal{G}(E)</span>. The regressive product is
+defined by <span class="math inline">A\vee B =
+\overline{\overline{A}\overline{B}}</span></p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 role="list">
 <div id="ref-Gra1844" class="csl-entry" role="listitem">
 Grassmann, Hermann Günther. 1844. <em>Die Ausdehnungslehre: Vollständig
 Und in Strenger Form Bearbeitet</em>. Leipzig: Otto Wigand.
+</div>
+<div id="ref-Lindemann1882" class="csl-entry" role="listitem">
+Lindemann, Ferdinand. 1882. <span>“<span>Ü</span>ber Die Zahl <span
+class="math inline">\pi</span>.”</span> <em>Mathematische Annalen</em>
+20: 213–25.
+</div>
+<div id="ref-Peano1888" class="csl-entry" role="listitem">
+Peano, Giuseppe. 1888. <em>Calcolo Geometrico Secondo l’ausdehnungslehre
+Di h. Grassmann Preceduto Dalle Operazioni Della Logica Deduttiva</em>.
+Torino: Fratelli Bocca.
 </div>
 </div>
 </section>

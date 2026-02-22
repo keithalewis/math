@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Jan 29, 2026</p>
+<p class="date">Feb 15, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of any instruments
@@ -73,59 +73,164 @@ Value, hedge, and manage the risk of any instruments
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
+<li><a href="#history" id="toc-history">History</a></li>
 <li><a href="#math" id="toc-math">Math</a></li>
 <li><a href="#simple-unified-model" id="toc-simple-unified-model">Simple
 Unified Model</a></li>
 <li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
+<p>Let’s start with a brief description of the Simple Unified Model. It
+will probably not make much sense on first reading. If you read to the
+end and come back again it will make complete sense and seem perfectly
+obvious, if I did my job right.</p>
+<p>Let <span class="math inline">T</span> be the set of possible trading
+times and <span class="math inline">I</span> be the set of tradeable
+market instruments. For <span class="math inline">t\in T</span> let
+<span class="math inline">X_t</span> be the vector of prices indexed by
+<span class="math inline">I</span>, <span class="math inline">C_t</span>
+be the vector of cash flows indexed by <span
+class="math inline">I</span>. You can buy or sell instruments at prices
+<span class="math inline">X_t</span> and receive cash flows <span
+class="math inline">C_t</span> proportional to your position in each
+instrument at time <span class="math inline">t</span>.</p>
+<p>A trading strategy is a finite number of times <span
+class="math inline">\tau_0 &lt; \cdots &lt; \tau_n</span> depending on
+information available and trading sizes <span
+class="math inline">\Gamma_j</span> at time <span
+class="math inline">\tau_j</span>. These are vectors indexed by <span
+class="math inline">I</span> indicating how much you bought or sold in
+each available instrument. Trades accumulate into positions <span
+class="math inline">\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j</span>.</p>
+<p>The value (mark-to-market) of your position at time <span
+class="math inline">t</span> is <span class="math inline">V_t =
+(\Delta_t + \Gamma_t)\cdot X_t</span>. The amount showing up in your
+brokerage account at time <span class="math inline">t</span> is <span
+class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
+X_t</span>.</p>
+<p>Arbitrage is a trading strategy with <span class="math inline">\sum_j
+\Gamma_j = 0</span> where <span class="math inline">A_{\tau_0} &gt;
+0</span> and <span class="math inline">A_t \ge 0</span> for <span
+class="math inline">t &gt; \tau_0</span>. You make money on the first
+trade and never loose money until the position is closed.</p>
+<p>Every arbitrage-free model of prices and cash flows has the form
+<span class="math display">
+    X_t D_t = M_t - \sum_{s\le t} C_s D_s
+</span> where <span class="math inline">D_t</span> are positive measures
+depending only on information available at time <span
+class="math inline">t</span> and <span class="math inline">(M_t)_{t\in
+T}</span> is a vector-valued martingale measure indexed by <span
+class="math inline">I</span>.</p>
+<p>It is trivial to show <span class="math display">
+    X_t D_t = (X_u D_u + \sum_{s\in (t, u]} C_s D_s)|_{A_t}
+</span> where <span class="math inline">|_{A_t}</span> means given
+information at time <span class="math inline">t</span>. It is less
+trivial to show <span class="math display">
+    V_t D_t = (V_u D_u + \sum_{s\in (t, u]} A_s D_s)|_{A_t}
+</span> but this is the skeleton key to pricing derivative instruments.
+Note how prices <span class="math inline">X_t</span> correspond to
+values <span class="math inline">V_t</span> and cash flows <span
+class="math inline">C_s</span> correspond to amounts <span
+class="math inline">A_s</span>.</p>
+<p><strong>Every trading strategy creates a synthetic market
+instrument.</strong></p>
+<p>Derivative instruments are specified by a contract. The buyer wants
+amounts <span class="math inline">\hat{A}_j</span> at times <span
+class="math inline">\hat{\tau}_j</span>. The seller quotes a price and
+is obligated to use that to trade available market instruments to
+satisfy the contract.</p>
+<p>The seller needs to find a trading strategy <span
+class="math inline">(\tau_j, \Gamma_j)</span> with <span
+class="math inline">A_{\hat{\tau}_j} = \hat{A}_j</span> and <span
+class="math inline">A_t = 0</span> otherwise.</p>
+<p>The SUM provides an answer for the first trade. Since <span
+class="math inline">V_0 = \Gamma_0\cdot X_0</span> the derivative with
+respect to initial prices <span class="math inline">X_0</span> is <span
+class="math inline">\Gamma_0</span>. It only provide a rigorous
+mathematical model for reasoning about the yet unsolved problem of what
+subsequent trades you can plausible suggest to traders and risk managers
+to convince them you are adding value to their business.</p>
+<section id="history" class="level2">
+<h2>History</h2>
 <p><span class="citation" data-cites="Ros1978">(Ross 1978)</span>
-demonstrated how to replace the probabilistic theory of <span
+demonstrated how to replace the untenable probabilistic theory of <span
 class="citation" data-cites="BlaSch1973">(Black and Scholes 1973)</span>
 and <span class="citation" data-cites="Mer1973">(Merton 1973)</span>
-with a much simpler geometric theory.</p>
+with a much simpler and more general geometric theory.</p>
 <blockquote>
 <p><em>If there are no arbitrage opportunities in the capital markets,
 then there exists a (not generally unique) valuation operator</em>.</p>
 </blockquote>
 <p>Ross showed there is no need for Ito processes or partial
-differential equations and generalized from a bond, stock, and option to
-any collection of instruments.</p>
+differential equations and also generalized from a bond, stock, and
+option to any collection of instruments. There is no need to require a
+so-called “real world” probability measure, only to get immediately
+thrown out for a “risk neutral” probability measure that is not the
+probability of anything. All he needed was the Hahn-Banach theorem: if a
+point is not in a convex set then there exists a hyperplane with the
+point on one side and the convex set on the other.</p>
 <p>Ross made the deleterious assumptions that continuous time trading is
 possible and conflated cash flows with jumps in stock price. Assuming
-only a finite number of trades are possible and introducing an explicit
-variable for cash flows leads to an even simpler theory.</p>
+only a finite number of trades are possible, as is the case in our
+actual real world, and introducing an explicit variable for cash flows
+leads to an even simpler theory.</p>
 <p>Every arbitrage free model can be parameterized by a vector-valued
-martingale measure and a positive adapted measure.</p>
+martingale measure and positive adapted measures. These are what Ross
+called the valuation operator. We call them deflators. If the model has
+repurchase agreements then the deflator is the stochastic discount.</p>
+</section>
 <section id="math" class="level2">
 <h2>Math</h2>
+<p>This section collects the mathematical facts required to prove every
+arbitrage free model is parameterized by a vector-valued martingale
+measure and a deflator.</p>
 <p>The vector space of bounded functions on the set <span
 class="math inline">S</span> is <span class="math inline">B(S) =
 \{f\colon S\to\boldsymbol{R}\mid \|f\| = \sup_{s\in S} |f(s)| &lt;
-\infty\}</span>. The dual of <span class="math inline">B(S)</span> can
-be identified with <span class="math inline">ba(S)</span>, the set of
-finitely additive measures on <span class="math inline">S</span>. For
-bounded <span class="math inline">L\colon B(S)\to\boldsymbol{R}</span>
-define <span class="math inline">\lambda(A) = L(1_A)</span> for <span
-class="math inline">A\subseteq S</span> where <span
-class="math inline">1_A(s) = 1</span> if <span class="math inline">s\in
-A</span> and <span class="math inline">1_A(s) = 0</span> otherwise.
-Since <span class="math inline">\lambda(A\cup B) = L(1_{A\cup B}) =
-L(1_A + 1_B - 1_{A\cap b} = \lambda(A) + \lambda(B) - \lambda(A\cap
-B)</span> and <span class="math inline">\lamba(\emptyset) =
-L(1_\emptyset) = L(0) = 0</span> we have <span
+\infty\}</span>. The vector space dual of <span
+class="math inline">B(S)</span> can be identified with <span
+class="math inline">ba(S)</span>, the set of finitely additive measures
+on <span class="math inline">S</span>.</p>
+<p>For any bounded linear functional <span class="math inline">L\colon
+B(S)\to\boldsymbol{R}</span> define <span class="math inline">\lambda(A)
+= L(1_A)</span> for <span class="math inline">A\subseteq S</span> where
+<span class="math inline">1_A(s) = 1</span> if <span
+class="math inline">s\in A</span> and <span class="math inline">1_A(s) =
+0</span> otherwise. Since <span class="math inline">\lambda(A\cup B) =
+L(1_{A\cup B}) = L(1_A + 1_B - 1_{A\cap b} = \lambda(A) + \lambda(B) -
+\lambda(A\cap B)</span> and <span class="math inline">\lambda(\emptyset)
+= L(1_\emptyset) = L(0) = 0</span> we have <span
 class="math inline">\lambda</span> is a finitely additive measure.</p>
+<p>For any countably additive measure <span
+class="math inline">\lambda\in ba(S)</span> define <span
+class="math inline">L\colon B(S)\to\boldsymbol{R}</span> by <span
+class="math inline">L(1_A) = \lambda(A)</span>. This can be linearly
+extended to linearly to finite linear combinations of characteristic
+function. These are uniformly dense in <span
+class="math inline">B(S)</span>.</p>
 <p>For <span class="math inline">f\in B(S)</span> define <span
 class="math inline">M_f\colon B(S)\to B(S)</span> by <span
 class="math inline">M_fg = fg</span> to be the linear operator of
 multiplication by <span class="math inline">f</span>. Its adjoint <span
 class="math inline">M_f^*\colon ba(S)\to ba(S)</span> defines how to
-multiply a finitely additive measure by a bounded function.</p>
-<p>An algebra of sets on a set <span class="math inline">S</span> is a
+multiply a finitely additive measure by a bounded function. We write
+<span class="math inline">M_f^*(\lambda)</span> as <span
+class="math inline">f\lambda</span>.</p>
+<p>An algebra of sets on the set <span class="math inline">S</span> is a
 collection of subsets closed under union and complement. If the algebra
-is finite then its atoms form a partition. Conditional expectation can
-be defined by restriction of measure. Given a set <span
-class="math inline">\Omega</span>, an algebra <span
+is finite then its atoms form a partition of <span
+class="math inline">S</span>. A partition is a disjoint collection of
+subsets of <span class="math inline">S</span> with union <span
+class="math inline">S</span> and represents partial information.
+Elements of a partition are called atoms. Full knowledge is represented
+by the collection of singletons <span class="math inline">\{\{s\}\mid
+s\in S\}</span>. No knowledge is represented by the singleton <span
+class="math inline">\{S\}</span>. Partial knowledge of <span
+class="math inline">s\in S</span> is represented by the atom to which
+<span class="math inline">s</span> belongs <span class="math inline">A_s
+= \cap\{A\mid s\in A\}</span>.</p>
+<p>Conditional expectation can be defined by restriction of measure.
+Given a set <span class="math inline">\Omega</span>, an algebra <span
 class="math inline">{\mathcal{A}}</span> of sets on <span
 class="math inline">\Omega</span>, and a probability measure <span
 class="math inline">P</span> on <span
@@ -137,9 +242,14 @@ where the vertical bar indicates restriction.</p>
 </section>
 <section id="simple-unified-model" class="level2">
 <h2>Simple Unified Model</h2>
-<p>Let <span class="math inline">I</span> be the set of tradeable
-instruments and <span class="math inline">T\subset [0,\infty)</span> be
-possible trading times.</p>
+<p>Let <span class="math inline">T</span> be a subset of the real
+numbers consisting of possible trading times and <span
+class="math inline">I</span> be the set of tradeable instruments. Let
+<span class="math inline">\Omega</span> be the set of what can happen in
+a market. For each <span class="math inline">t\in T</span> we specify
+<span class="math inline">{\mathcal{A}}_t</span> to be a partition
+representing information available at time <span
+class="math inline">t</span>.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
