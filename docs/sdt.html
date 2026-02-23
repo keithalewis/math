@@ -46,7 +46,7 @@
 <header id="title-block-header">
 <h1 class="title">Simple Difficult Things</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Feb 21, 2026</p>
+<p class="date">Feb 22, 2026</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -59,10 +59,10 @@
 <li><a href="#pairing" id="toc-pairing">Pairing</a></li>
 <li><a href="#natural-numbers" id="toc-natural-numbers">Natural
 Numbers</a></li>
-</ul></li>
 <li><a href="#foundation" id="toc-foundation">Foundation</a></li>
 <li><a href="#ordered-pair" id="toc-ordered-pair">Ordered Pair</a></li>
 <li><a href="#product" id="toc-product">Product</a></li>
+</ul></li>
 <li><a href="#relation" id="toc-relation">Relation</a>
 <ul>
 <li><a href="#equivalence" id="toc-equivalence">Equivalence</a></li>
@@ -70,32 +70,44 @@ Numbers</a></li>
 <li><a href="#function" id="toc-function">Function</a>
 <ul>
 <li><a href="#section" id="toc-section">1-1</a></li>
-</ul></li>
 <li><a href="#onto" id="toc-onto">Onto</a></li>
-<li><a href="#curry" id="toc-curry">Curry</a></li>
+<li><a href="#bijective" id="toc-bijective">Bijective</a></li>
+<li><a href="#equivalent" id="toc-equivalent">Equivalent</a></li>
+<li><a href="#curryuncurry" id="toc-curryuncurry">Curry/Uncurry</a></li>
+</ul></li>
 </ul>
 </nav>
 <p>Mathematics is all about thinking clearly and following your nose,
 but it turns out to be remarkably difficult to do this in a rigorous
 manner.</p>
-<p>Euclid introduced the notion of <em>truth</em>. The Sophists before
-him were concerned with using language to shape reality. They figured
-out how to shut someone down by pointing out their argument was not
-<em>valid</em>.</p>
-<p>Euclid was wrong. The Sophists were right. He lead humanity on a two
-millenium wild goose chase with his fifth postulate:</p>
+<p>Euclid introduced the notion of <em>truth</em> that could be
+<em>proved</em> from <em>axioms</em> that were assumed to be true. The
+Sophists before him were concerned with using language to shape reality.
+They figured out how to shut someone down by pointing out their argument
+was not <em>valid</em>.</p>
+<p>Euclid was wrong. The Sophists were right(er). He lead humanity on a
+two millenium wild goose chase with his fifth postulate:</p>
 <blockquote>
 <p>If a straight line falling on two straight lines makes the interior
 angles on the same side less than two right angles, then the two
 straight lines—if extended indefinitely—meet on that side on which the
 angles are less than two right angles.</p>
 </blockquote>
+<p>Perhaps in the context of Euclid’s time this was lucid. A more modern
+statement is <a
+href="https://archive.org/details/elementsgeometr05playgoog/page/n8/mode/2up">Playfair’s</a></p>
+<blockquote>
+<p>In a plane, given a line and a point not on it, at most one line
+parallel to the given line can be drawn through the point.</p>
+</blockquote>
+<p>It goes against evolution to belive humans think in terms of axioms
+and rules of inference.</p>
 <section id="set" class="level2">
 <h2>Set</h2>
 <p>In classical mathematics everything is a set, a bag of distinct
 <em>elements</em>. Logicians are wont to say “The language of set theory
 is epsilon.” If you know first order logic and what a language is, this
-makes perfect sense. So does the Tao De Jing if you are already
+makes perfect sense. So does the Dao De Jing if you are already
 enlightened.</p>
 <p>The first attempt at defining modern Set Theory is due to Frege. He
 defined a set by giving a rule for membership. Bertrand Russell showed
@@ -249,9 +261,8 @@ n\cup\{m\}</span></em>.</p>
 <p><em>Hint</em>: Clearly <span class="math inline">n + 0 =
 n\cup\{0\}</span> ???</p>
 </section>
-</section>
-<section id="foundation" class="level2">
-<h2>Foundation</h2>
+<section id="foundation" class="level3">
+<h3>Foundation</h3>
 <p>The axiom of <em>foundation</em> addresses the Russell
 counterexample.</p>
 <p><strong>Exercise</strong>. <em>Let <span class="math inline">S =
@@ -282,8 +293,8 @@ class="math inline">x_0\in x_1 \in x_2\in \cdots</span>. It is not
 possible to have in infinite descending chain <span
 class="math inline">\cdot\in x_{-2}\in x_{-1} \in x_0</span>.</p>
 </section>
-<section id="ordered-pair" class="level2">
-<h2>Ordered Pair</h2>
+<section id="ordered-pair" class="level3">
+<h3>Ordered Pair</h3>
 <p>Two ordered pairs <span class="math inline">(a,b)</span> and <span
 class="math inline">(c,d)</span> are equal if and only if <span
 class="math inline">a = c</span> and <span class="math inline">b =
@@ -309,8 +320,8 @@ class="math inline">\cup A</span> if and only if <span
 class="math inline">x</span> is a member of some element of <span
 class="math inline">A</span>.</p>
 </section>
-<section id="product" class="level2">
-<h2>Product</h2>
+<section id="product" class="level3">
+<h3>Product</h3>
 <p>The product of sets <span class="math inline">A</span> and <span
 class="math inline">B</span> is the set of ordered pairs of elements of
 A$ and <span class="math inline">B</span>, <span
@@ -347,6 +358,7 @@ because we can associate <span class="math inline">n\in A</span> with
 class="math inline">f\colon A\to B</span> defined by <span
 class="math inline">f(n) = 2n</span> is one-to-on and onto.</p>
 </section>
+</section>
 <section id="relation" class="level2">
 <h2>Relation</h2>
 <p>A <em>relation</em> on sets <span class="math inline">A</span> and
@@ -360,20 +372,21 @@ class="math inline">\operatorname{cod}R = B</span>. The <em>left
 coset</em> of <span class="math inline">b\in B</span> is <span
 class="math inline">Rb = \{a\in A: aRb\}\subseteq A</span>. The
 <em>right coset</em> of <span class="math inline">a\in A</span> is <span
-class="math inline">aR = \{b\in B: aRb\}\subseteq B</span>. The
-<em>transpose</em> of a relation <span class="math inline">R\subseteq
-A\times B</span> is <span class="math inline">R^T = \{(b,a)\mid (a,b)\in
-R\}\subseteq B\times A</span>.</p>
+class="math inline">aR = \{b\in B: aRb\}\subseteq B</span>.</p>
 <p>Relations can be <em>composed</em>. If <span
 class="math inline">{R\subset A\times B}</span> and <span
 class="math inline">{S\subset B\times C}</span> then <span
 class="math display">
 SR = \{(a,c)\mid aRb \text{\ and\ }bSc \text{\ for\ some\ } b\in
 B\}\subseteq A\times C.
-</span> This is closely related to the definition of the join of tables
-in a database.</p>
+</span> This is closely related to the definition of the SQL join of
+tables in a database.</p>
+<p>The <em>transpose</em> of a relation <span
+class="math inline">R\subseteq A\times B</span> is <span
+class="math inline">R^T = \{(b,a)\mid (a,b)\in R\}\subseteq B\times
+A</span>.</p>
 <p><strong>Exercise</strong>. _Show <span class="math inline">(SR)^T =
-R^TS^T_</span>.</p>
+R^T S^T</span>.</p>
 <p>If <span class="math inline">A = B</span> we can define properties to
 characterize a relation <span class="math inline">R\subseteq A\times
 A</span>.</p>
@@ -447,8 +460,8 @@ class="math inline">f\colon A\to B</span> and <span
 class="math inline">g\colon B\to C</span> are functions then <span
 class="math inline">(gf)(a) = g(f(a))</span></em>.</p>
 <p><em>Hint</em>: If <span class="math inline">f(a) = b</span> and <span
-class="math inline">g(b) = c</span> then <span
-class="math inline">(a,c)\in gf</span>.</p>
+class="math inline">g(b) = c</span> then the right coset <span
+class="math inline">a(gf) = \{c\}</span></p>
 <section id="section" class="level3">
 <h3>1-1</h3>
 <p>A function <span class="math inline">f\colon A\to B</span> is 1-1, or
@@ -462,9 +475,8 @@ class="math inline">gf = 1_A</span></em>.</p>
 class="math inline">f(a) = f(a&#39;)</span> then <span
 class="math inline">gf(a) = gf(a&#39;)</span>.</p>
 </section>
-</section>
-<section id="onto" class="level2">
-<h2>Onto</h2>
+<section id="onto" class="level3">
+<h3>Onto</h3>
 <p>A function <span class="math inline">f\colon A\to B</span> is onto,
 or <em>surjective</em>, if for every <span class="math inline">b\in
 B</span> there exists <span class="math inline">a\in A</span> with <span
@@ -477,10 +489,23 @@ class="math inline">fh = 1_B</span></em>.</p>
 <span class="math inline">f(a) = b</span> when <span
 class="math inline">a = h(b)</span>.</p>
 </section>
-<section id="curry" class="level2">
-<h2>Curry</h2>
+<section id="bijective" class="level3">
+<h3>Bijective</h3>
+<p>A function that is 1-1 and onto is <em>bijective</em>. It is also
+called a 1-1 correspondence.</p>
+</section>
+<section id="equivalent" class="level3">
+<h3>Equivalent</h3>
+<p>The sets are <em>eqivalent</em> if there is a bijection between
+them.</p>
+<p>Show <span class="math inline">A\cong B</span> is an equivalence
+relation.</p>
+</section>
+<section id="curryuncurry" class="level3">
+<h3>Curry/Uncurry</h3>
 <p><span class="math inline">\{A\times B\}\to C\} \cong \{A\to\{B\to
 C\}\}</span>.</p>
+</section>
 </section>
 </body>
 </html>

@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Grassmann Algebra</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Feb 21, 2026</p>
+<p class="date">Feb 22, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 The algebra of space.
@@ -301,14 +301,15 @@ class="math inline">j\not=i</span>, with <span class="math inline">P_i =
 <p><strong>Exercise</strong>. <em>Show if <span
 class="math inline">P_0\cdots P_nR = 0</span> and <span
 class="math inline">P_0\cdots P_n\not=0</span> then <span
-class="math inline">R = \sum_0^n (P_0\cdots R\cdots P_n/P_0\cdots
-P_n)P_i</span> where <span class="math inline">P_i</span> is replaced by
-<span class="math inline">R</span> in the coefficients of the
-sum</em>.</p>
+class="math inline">P = \sum_0^n (P_0\cdots P_{i-1} P P_{i + 1}\cdots
+P_n/P_0\cdots P_n)P_i</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show the coefficients sum to
+1</em>.</p>
+<p>This is essentially Cramer’s rule. TODO: ref</p>
 <p>The smallest convex set containing <span
 class="math inline">P_0,\ldots,P_n</span> is <span
 class="math inline">\{\sum_i t_i P_i\mid t_i\ge0,\sum_i t_i =
-1\}</span>. The above exercise show <span class="math inline">R</span>
+1\}</span>. The above exercise show <span class="math inline">P</span>
 belongs to the convex hull of the points if and only if all coefficients
 in the sum are non-negative.</p>
 <section id="descartes" class="level3">
@@ -337,10 +338,23 @@ geometry.</p>
 class="math inline">x\in\mathbf{R}</span> is transcendental then so is
 <span class="math inline">\sqrt{x}</span></em>.</p>
 <p><em>Hint</em>: ???</p>
+<p>Grassmann greatly generalizes cartesian geometry. If we choose any
+independent points <span class="math inline">(P_i)</span> and
+<em>origin</em> <span class="math inline">O</span> in E$ then the
+Decartes’ tuple <span class="math inline">x = (x_i)</span> corresponds
+to the point <span class="math inline">P(x) = (1 - \sum_i x_i)O + \sum_i
+x_i P_i</span>.</p>
+<p>Calculation can be greatly simplified by noting <span
+class="math inline">O\Pi_i (x_iO + P_i) = O\Pi_i P_i</span>_.</p>
 </section>
 </section>
 <section id="regressive-product" class="level2">
 <h2>Regressive Product</h2>
+<p>The <em>complement</em> of an extensor <span
+class="math inline">A</span> with respect to a volume extensor <span
+class="math inline">\Omega</span> is the unique extensor <span
+class="math inline">\overline{A}</span> for which <span
+class="math inline">A\overline{A} = \Omega</span>.</p>
 <p>If <span class="math inline">E</span> has dimension <span
 class="math inline">n</span> and <span class="math inline">P_0\cdots
 P_n\not=0</span> then the <em>complement</em> of <span

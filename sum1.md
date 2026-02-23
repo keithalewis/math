@@ -25,10 +25,12 @@ We consider the case of a money market instrument and stock $X_t = (R_t, S_t)$.
 For simplicity we also assume rates are zero so $R_t = 1$ and cash flows are zero.
 The trade $\Gamma_t = (M_t, N_t)$ is how much of the money market and stock is purchased
 at time $t$. We write $\Delta_t = (\backslash M_t, \backslash N_t)$
-where backslash is scan, the cumulative sum.
+where backslash is read as scan, the cumulative sum.
 
 An _elementary trade_ is buying $\Gamma$ shares at $\tau_0$ and selling $\Gamma$ shares at $\tau_1 > \tau_0$.
 For a bond and a stock $\Gamma_0 = (M, N)$ and $\Gamma_1 = -\Gamma_0 = (-M, -N)$.
+Money market accounts never have cash flows. We assume the stock has no divideds
+so $C_t = (0,0)$. In this case $A_t = -\Gamma_t\cdot X_t$.
 
 <table>
 <thead>
@@ -36,9 +38,9 @@ For a bond and a stock $\Gamma_0 = (M, N)$ and $\Gamma_1 = -\Gamma_0 = (-M, -N)$
 <td></td>
 <td colspan="2">$X$</th>
 <td colspan="2">$\Gamma$</th>
-<td colspan="2">$\Delta$</th>
+<td colspan="2">$\Delta = \backslash\Gamma$</th>
 <td>$(\Delta + \Gamma)\cdot X$</td>
-<td>$\Delta\cdot C - \Gamma\cdot X$</td>
+<td>$-\Gamma\cdot X$</td>
 </tr>
 <tr>
 <td>$t$</td>
@@ -111,5 +113,5 @@ For a bond and a stock $\Gamma_0 = (M, N)$ and $\Gamma_1 = -\Gamma_0 = (-M, -N)$
 </tbody>
 </table>
 
-If we let $M = -NS_0$ then the trading account has zero cash flow at $\tau_0$
+If we let $M = -NS_0$ then the trading account has zero amount at $\tau_0$
 and profit and loss $-NS_0 + NS_t = N(S_t - S_0)$ at $\tau_1$.
