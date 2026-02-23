@@ -13,86 +13,70 @@ header-includes:
 \newcommand{\ran}{\operatorname{ran}}
 \newcommand{\ker}{\operatorname{ker}}
 
-Instruments $I$, sample space $\Omega$, partitions $\AA_0$ and $\AA_1$ of $\Omega$, and
-prices ${x\in B(\AA_0, \RR^I)}$, ${X\in B(\AA_1, R^I)}$.
+```
+x = _O + B + s S + v1 P1 + ... + vn Pn
+C(w) = _0 + R B + w S + (w - v1)^+ P1 + ... + (w - vn)^+ Pn
 
-Arbitrage exists if there is a $\gamma^*\in(\RR^I)^*$
-with $\gamma^* x < 0$ and $\gamma^* X \ge0$.
+x = _O + B + s S + v1 P1 + v2 P2
+C(L)  = _O + R B + L S 
+C(K1) = _O + R B + K1 S
+C(K2) = _O + R B + K2 S + (K2 - K1) P1
+C(H)  = _O + R B + H S  +  (H - K1) P1 + (H - K2) P2
 
-Define $A\colon (\RR^I)^*\to B(\AA_0)\oplus B(\AA_1)$
-by $\gamma^*\mapsto -\gamma^* x \oplus \gamma^* X$.
+C(L)C(K1)C(K2)C(H)
+= _O + (R K1 - L R) B S C(K2) C(H)
+= _O + (R K1 - L R) B S (R B + K2 S + (K2 - K1) P1) C(H)
+= _O + (R K1 - L R) B S (K2 S + (K2 - K1)P1) C(H)
+= _O + R(K1 - L)(K2 - K1) B S P1 C(H)
+= _O + R(K1 - L)(K2 - K1) B S P1 (R B + H S  +  (H - K1) P1 + (H - K2) P2)
+= _O + R(K1 - L)(K2 - K1)(H - K2) B S P1 P2
 
-$A^*\colon ba(\AA_0)\oplus ba(\AA_1)\to\RR^I$ is defined by
-$$
-\begin{aligned}
-\langle\gamma^*, A^*(\pi\oplus\Pi)\rangle
-&= \langle A\gamma^*, \pi\oplus\Pi\rangle \\
-&= \langle -\gamma^* x\oplus\gamma^* X, \pi\oplus\Pi\rangle \\
-&= \langle -\gamma^* x, \pi\rangle + \langle\gamma^* X, \Pi\rangle \\
-&= \langle \gamma^*, \langle -x, \pi\rangle + \langle X, \Pi\rangle\rangle \\
-\end{aligned}
-$$
-so $A^*(\pi\oplus\Pi) = \langle -x, \pi\rangle + \langle X, \Pi\rangle$.
+C(K1)C(K2)C(H)
+= _O + R(K2 - K1) B S C(H)
+= _O + R(K2 - K1) B S (R B + H S  +  (H - K1) P1 + (H - K2) P2)
+= _O + R(K2 - K1) B S ((H - K1) P1 + (H - K2) P2)
+= _O + R(K2 - K1) ((H - K1) B S P1 + (H - K2) B S P2)
+xC(K1)C(K2)C(H)
+= _O + R(K2 - K1) (v2(H - K1) P2 B S P1 + v1(H - K2) P1 B S P2
+= _O + R(K2 - K1) (-v2(H - K1) + v1(H - K2) B S P1 P2
+OxC(K1)C(K2)C(H)
+= R(K2 - K1)(-v2(H - K1) + v1(H - K2) O B S P1 P2
+- v1/(H - K1) > v2/(H - K1)
 
-Define the positive cone in $ba(\AA_0)\oplus ba(\AA_1)$
-by $\PP = \{\pi\oplus\Pi\mid \pi > 0, \Pi\ge0\}$
-Arbitrage exists if and only if the range of $A$ meets $\PP$.
+C(L)C(K2)
+= _O + RK2 B S + R(K2 - K1) B P1 + LR S B + L(K2 - K1) S P2
+= _O + R(K2 - L) B S + R(K2 - K1) B P1 + L(K2 - K1) S P2
+C(L)C(K2)C(H)
+= [_O + R(K2 - L) B S + R(K2 - K1) B P1 + L(K2 - K1) S P2]C(H)
+= _O + RL(K2 - K1) S P2 B + HR(K2 - K1) B P1 S
++ [R (K2 - L) B S + R(K2 - K1) B P1 + L(K2 - K1) S P2](H - K1) P1
++ [R (K2 - L) B S + R(K2 - K1) B P1 + L(K2 - K1) S P2](H - K2) P2
+= _O + RL(K2 - K1) S P2 B + HR(K2 - K1) B P1 S
++ R(K2 - L)(H - K1) B S P1 + L(K2 - K1)(H - K1) S P2 P1
++ R(K2 - L)(H - K2) B S P2 + R(K2 - K1)(H - K2) B P1 P2
+= _O
+- L(K2 - K1)(H - K1) S P1 P2
++ R(K2 - K1)(H - K2) B P1 P2
++ (R(K2 - L)(H - K2) + RL(K2 - K1)) B S P2
++ (R(K2 - L)(H - K1) - RH(K2 - K1)) B S P1
+OxC(L)C(K2)C(H)
+= - L(K2 - K1)(H - K1) O B S P1 P2
+  + sR(K2 - K1)(H - K2) O S B P1 P2
+  + v1(R(K2 - L)(H - K2) + RL(K2 - K1)) O P1 B S P2
+  + v2(R(K2 - L)(H - K1) - RH(K2 - K1)) O P2 B S P1
+= [- L(K2 - K1)(H - K1)
+  - sR(K2 - K1)(H - K2)
+  + v1(R(K2 - L)(H - K2) + RL(K2 - K1)) 
+  - v2(R(K2 - L)(H - K1) - RH(K2 - K1))] O B S P1 P2
+= -(K2 - K1)(
+  
+x = _O + B + s S + v1 P1 + v2 P2
 
-There is no arbitrage if and only if $\ran A\cap\PP = \emptyset$.
-If so, there exists a hyperplane $H\supseteq\ran A$ with $H\cap\PP = \emptyset$.
-There exists $\pi\oplus\Pi$ with pre-annihilator ${}^\perp\{\pi\oplus\Pi\} = H$.
+C(L)C(K1)C(H)
 
-Since $(\ran A)^\perp = \ker A^*$ \subseteq H$
-
-We have $A^*(\pi\oplus\Pi) = 0$ so $\langle x, \pi\rangle = \langle X, \Pi\rangle$
+C(L)C(K1)C(K2)
 
 
-$X_j\Pi_j = (X_{j+1} + C_{j+1})|_{\AA_j}$
-
-## Trinomial American Option
-
-The sample space is the possible stock price movements over the first
-and second periods, and
-when the option is exercised.
-${\Omega = \{(\omega_1, \omega_2, t)\mid \omega_i\in\{-,+\}, t\in\{1,2\}\}}$.
-We write, e.g., $-+1$ for $(-,+,1)$.
-
-Information at time 0 is $\AA_0 = \{\Omega\}$. We assume $\Pi_0(\Omega) = 1$.
-At time one we know if the stock went up or down in the first period and whether or not the option was exercised.
-so ${\AA_1 = \{\{--1,-+1\}, \{+-1,++1\}, \{--2,-+2\}, \{+-2,+-2\}\}}$
-We write $\Pi_1(--1) = \Pi_1(-+1) = \pi_{-1}$, etc.
-Of course $\AA_2$ consists of all singletons of $\Omega$.
-We write $\Pi(--1) = \pi_{--1}$, etc.
-
-We have $X_0(\omega_1,\omega_2, t) = (1, S_0, V_0)$ where $S_0$ and $V_0$ are scalar.
-
-And $X_1(\omega_1, \omega_2, t) = (R, S_1(\omega_1), V_1(\omega_1) 1(t = 2))$ with
-$C_1 = (0, 0, \nu(S_1(\omega_1)) 1(t = 1))$.
-
-Also $X_2(\omega_1, \omega_2, t) = (R^2, S_2(\omega_1, \omega_2), 0)$ with
-$C_2(\omega_1, \omega_2, t) = (0, 0, \nu(S_2(\omega_1, \omega_2))1(t = 2))$.
-
-Since $X_0\Pi_0 = ((X_1 + C_1)\Pi_1)|_{\AA_1}$ we have
-$$
-\begin{aligned}
-1 &= R(\pi_{-1} + \pi_{-2} + \pi_{+1} + \pi_{+2}) \\
-S_0 &= S_1(-)(\pi_{-1} + \pi_{-2}) + S_1(+)(\pi_{+1} + \pi_{+2}) \\
-V_0 &= S_1(-)\pi_{-2} + S_1(+)\pi_{+2} + \nu(S_1(-))\pi_{-1} + \nu(S_1(+))\pi_{+1} \\
-\end{aligned}
-$$
-<!--
-$$
-\begin{bmatrix} 1\\ S_0\\ V_0 \\ \end{bmatrix}
-= \begin{bmatrix}
-R & R & R & R \\
-S_1(-) & S_1(+) & S_1(-) & S_1(+) \\
-\nu(S_1(-)) & \nu(S_1(+)) & S_1(-) & S_1(+) \\
-\end{bmatrix}
-\begin{bmatrix}
-\pi_{-1} \\
-\pi_{+1} \\
-\pi_{-2} \\
-\pi_{+2} \\
-\end{bmatrix}
-$$
--->
+DH = v2/(H - K1)(K2 - K1) - v1/(H - K1)(K2 - K1) - (H - L)(s - L/R)/(H - K1)(H - K2)
+D2 = v1(1/(K2 - K1) + (H - K1)/(H - K2)(K2 - K1)^2 - v2/(K2 - K1)^2 + (H - L)(s - L/R)/(H - K2)(K2 - K1)
+D1 = v2/(H - K1) - v1(H - K2)/(H - K1)(K2 - K1) 

@@ -495,6 +495,7 @@ OC(L)xC(K2)...C(Kn)C(H)
 = OC(L)(K2 BS + (K2 - K1) B P1 + )C(K3) ... C(H)
 ```
 
+
 ## Appendix
 
 The classical one-period model neglects, among other things, the fact

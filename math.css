@@ -78,6 +78,19 @@ div.definition {
   border-left: 4px solid #005bbb;
   background: #f5faff;
 }
+/*
+table {
+  border-collapse: collapse;
+}
+*/
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0em 0.5em;   /* vertical | horizontal */
+}
+
 
 @media screen and (min-width: 684px) {
 body {

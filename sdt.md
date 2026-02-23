@@ -13,12 +13,13 @@ fleqn: true
 Mathematics is all about thinking clearly and following your nose,
 but it turns out to be remarkably difficult to do this in a rigorous manner.
 
-Euclid introduced the notion of _truth_.
+Euclid introduced the notion of _truth_ that could be _proved_ from
+_axioms_ that were assumed to be true.
 The Sophists before him were concerned with using language to shape reality.
 They figured out how to shut someone down by pointing out their
 argument was not _valid_.
 
-Euclid was wrong. The Sophists were right. He lead humanity on a two
+Euclid was wrong. The Sophists were right(er). He lead humanity on a two
 millenium wild goose chase with his fifth postulate:
 
 > If a straight line falling on two straight lines makes the interior
@@ -26,12 +27,23 @@ angles on the same side less than two right angles, then the two straight
 lines—if extended indefinitely—meet on that side on which the angles
 are less than two right angles.
 
+Perhaps in the context of Euclid's time this was lucid.
+A more modern statement is
+[Playfair's](https://archive.org/details/elementsgeometr05playgoog/page/n8/mode/2up)
+
+> In a plane, given a line and a point not on it, at most one line
+parallel to the given line can be drawn through the point.
+
+It goes against evolution to belive humans think in terms of axioms and rules
+of inference. 
+
+
 ## Set
 
 In classical mathematics everything is a set, a bag of distinct _elements_.
 Logicians are wont to say "The language of set theory is epsilon."
 If you know first order logic and what a language is, this makes perfect sense.
-So does the Tao De Jing if you are already enlightened.
+So does the Dao De Jing if you are already enlightened.
 
 The first attempt at defining modern Set Theory is due to Frege. He
 defined a set by giving a rule for membership. Bertrand Russell showed
@@ -152,7 +164,7 @@ __Exercise__. _Show $n + m = n\cup\{m\}$_.
 
 _Hint_: Clearly $n + 0 = n\cup\{0\}$ ???
 
-## Foundation
+### Foundation
 
 The axiom of _foundation_ addresses the Russell counterexample.
 
@@ -182,7 +194,7 @@ __Exercise__. _Show for every set $x$ we have $x\not\in x$_.
 We have seen an example of an infinite ascending chain $x_0\in x_1 \in x_2\in \cdots$.
 It is not possible to have in infinite descending chain $\cdot\in x_{-2}\in x_{-1} \in x_0$.
 
-## Ordered Pair
+### Ordered Pair
 
 Two ordered pairs $(a,b)$ and $(c,d)$ are equal if and only
 if $a = c$ and $b = d$. We can't define $(a,b)$ by
@@ -201,15 +213,13 @@ For any set $A$, $\cup A$ is the union $\cup\{x\mid x\in A\}$;
 $x$ belongs to $\cup A$ if and only if $x$ is a member of some element of $A$.
 
 
-## Product
+### Product
 
 The product of sets $A$ and $B$ is the set of ordered pairs of elements of A$
 and $B$, $A\times B = \{(a,b)\mid a\in A, b\in B\}$.
 
 The product of $A$, $B$, and $C$ is $A\times B\times C = (A\times B)\times C$.
 This can be extended to any finite product of sets.
-
-
 
 
 
@@ -243,17 +253,18 @@ The _domain_ of $R$ is $\dom R = A$ and
 the _codomain_ of $R$ is $\cod R = B$.
 The _left coset_ of $b\in B$ is $Rb = \{a\in A: aRb\}\subseteq A$.
 The _right coset_ of $a\in A$ is $aR = \{b\in B: aRb\}\subseteq B$.
-The _transpose_ of a relation $R\subseteq A\times B$
-is $R^T = \{(b,a)\mid (a,b)\in R\}\subseteq B\times A$.
 
 Relations can be _composed_. If ${R\subset A\times B}$ and ${S\subset B\times C}$
 then
 $$
 SR = \{(a,c)\mid aRb \text{\ and\ }bSc \text{\ for\ some\ } b\in B\}\subseteq A\times C.
 $$
-This is closely related to the definition of the join of tables in a database.
+This is closely related to the definition of the SQL join of tables in a database.
 
-__Exercise__. _Show $(SR)^T = R^TS^T_$.
+The _transpose_ of a relation $R\subseteq A\times B$
+is $R^T = \{(b,a)\mid (a,b)\in R\}\subseteq B\times A$.
+
+__Exercise__. _Show $(SR)^T = R^T S^T$.
 
 If $A = B$ we can define properties to characterize a relation $R\subseteq A\times A$.
 
@@ -316,7 +327,7 @@ Function composition is relation composition.
 __Exercise__. _Show if $f\colon A\to B$ and $g\colon B\to C$ are functions then
 $(gf)(a) = g(f(a))$_.
 
-_Hint_: If $f(a) = b$ and $g(b) = c$ then $(a,c)\in gf$.
+_Hint_: If $f(a) = b$ and $g(b) = c$ then the right coset $a(gf) = \{c\}$
 
 ### 1-1
 
@@ -327,7 +338,7 @@ __Exercise__. _Show $f$ is injective if and only if there exists $g\colon B\to A
 
 _Hint_: If $gf = 1_A$ and $f(a) = f(a')$ then $gf(a) = gf(a')$.
 
-## Onto
+### Onto
 
 A function $f\colon A\to B$ is onto, or _surjective_, if for every $b\in B$
 there exists $a\in A$ with $f(a) = b$.
@@ -336,9 +347,17 @@ __Exercise__. _Show $f$ is surjective if and only if there exists $h\colon B\to 
 
 _Hint_: If $fh = 1_B$ then $f(a) = b$ when $a = h(b)$.
 
-## Curry
+### Bijective
 
+A function that is 1-1 and onto is _bijective_. It is also called a 1-1 correspondence.
 
+### Equivalent
+
+The sets are _eqivalent_ if there is a bijection between them.
+
+Show $A\cong B$ is an equivalence relation.
+
+### Curry/Uncurry
 
 $\{A\times B\}\to C\} \cong \{A\to\{B\to C\}\}$.
 

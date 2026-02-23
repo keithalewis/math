@@ -170,12 +170,15 @@ and $a_j\in\RR$, $j\not=i$, with
 $P_i = \sum_{j\not=i} a_jP_j$_.
 
 __Exercise__. _Show if $P_0\cdots P_nR = 0$ and $P_0\cdots P_n\not=0$ then
-$R = \sum_0^n (P_0\cdots R\cdots P_n/P_0\cdots P_n)P_i$ where
-$P_i$ is replaced by $R$ in the coefficients of the sum_.
+$P = \sum_0^n (P_0\cdots P_{i-1} P P_{i + 1}\cdots P_n/P_0\cdots P_n)P_i$_.
+
+__Exercise__. _Show the coefficients sum to 1_.
+
+This is essentially Cramer's rule. TODO: ref
 
 The smallest convex set containing $P_0,\ldots,P_n$
 is $\{\sum_i t_i P_i\mid t_i\ge0,\sum_i t_i = 1\}$.
-The above exercise show $R$ belongs to the convex hull of the points if and only if
+The above exercise show $P$ belongs to the convex hull of the points if and only if
 all coefficients in the sum are non-negative.
 
 ### Descartes
@@ -196,7 +199,17 @@ __Exercise__. _Show if $x\in\RR$ is transcendental then so is $\sqrt{x}$_.
 
 _Hint_: ???
 
+Grassmann greatly generalizes cartesian geometry. If we choose any independent points $(P_i)$
+and _origin_ $O$ in E$ then the Decartes' tuple $x = (x_i)$ corresponds to
+the point $P(x) = (1 - \sum_i x_i)O + \sum_i x_i P_i$.
+
+Calculation can be greatly simplified by noting
+$O\Pi_i (x_iO + P_i) = O\Pi_i P_i$_.
+
 ## Regressive Product
+
+The _complement_ of an extensor $A$ with respect to a volume extensor $\Omega$
+is the unique extensor $\overline{A}$ for which $A\overline{A} = \Omega$.
 
 If $E$ has dimension $n$ and $P_0\cdots P_n\not=0$ then the _complement_
 of $\Pi_{j\in\{0,\ldots,n}$
