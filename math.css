@@ -82,6 +82,7 @@ table {
   table-layout: fixed;
   width: 100%;
 }
+table td { border: 1px solid black; }
 table, thead {
   border: 2px solid black;
   border-collapse: collapse;
@@ -96,10 +97,10 @@ table, tbody {
   vertical-align: middle;
   padding: 0em 0.5em;   /* vertical | horizontal */
 }
-/*
 table td:nth-child(1) {
 	width: 10%;
 }
+/*
 table td:nth-child(5),
 table td:nth-child(6) {
   width: 15%;

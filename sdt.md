@@ -28,11 +28,13 @@ lines—if extended indefinitely—meet on that side on which the angles
 are less than two right angles.
 
 Perhaps in the context of Euclid's time this was lucid.
-A more modern statement is
-[Playfair's](https://archive.org/details/elementsgeometr05playgoog/page/n8/mode/2up)
+A more modern statement by
+[Playfair](https://archive.org/details/elementsgeometr05playgoog/page/n8/mode/2up)
 
 > In a plane, given a line and a point not on it, at most one line
 parallel to the given line can be drawn through the point.
+
+
 
 It goes against evolution to belive humans think in terms of axioms and rules
 of inference. 
