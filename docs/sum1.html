@@ -44,11 +44,11 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Elementary Trade</h1>
-<p class="date">Feb 23, 2026</p>
+<p class="date">Feb 25, 2026</p>
 </header>
 <p>Instruments <span class="math inline">I</span> have <span
 class="math inline">\boldsymbol{{R}}^I</span>-valued prices <span
-class="math inline">(X_t)_{t\in T}</span>, cash flows <span
+class="math inline">(X_t)_{t\in T}</span> and cash flows <span
 class="math inline">(C_t)_{t\in T}</span> at trading times <span
 class="math inline">T</span>. Only a finite number of cash flows (stock
 dividends, bond coupons, futures margin adjustments) are not zero.</p>
@@ -86,6 +86,17 @@ accounts never have cash flows. We assume the stock has no divideds so
 <span class="math inline">C_t = (0,0)</span>. In this case <span
 class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 <table>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col style="width:15%">
+<col style="width:15%">
+</colgroup>
 <thead>
 <tr>
 <td>
@@ -286,7 +297,316 @@ class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 </table>
 <p>If we let <span class="math inline">M = -NS_0</span> then the trading
 account has zero amount at <span class="math inline">\tau_0</span> and
-profit and loss <span class="math inline">-NS_0 + NS_t = N(S_t -
-S_0)</span> at <span class="math inline">\tau_1</span>.</p>
+pays <span class="math inline">-NS_0 + NS_t = N(S_t - S_0)</span> at
+<span class="math inline">\tau_1</span>.</p>
+<p>We can eliminate all but the <span class="math inline">\tau_j</span>
+rows by replacing the position <span class="math inline">\Delta</span>
+column with <span class="math inline">\Delta + \Gamma</span>, the
+position that occurs after the trade has settled.</p>
+<table>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col style="width:15%">
+<col style="width:15%">
+</colgroup>
+<thead>
+<tr>
+<td>
+</td>
+<td colspan="2">
+<span class="math inline">X</span>
+</th>
+<td colspan="2">
+<span class="math inline">\Gamma</span>
+</th>
+<td colspan="2">
+<span class="math inline">\Delta + \Gamma</span>
+</th>
+<td>
+<span class="math inline">(\Delta + \Gamma)\cdot X</span>
+</td>
+<td>
+<span class="math inline">-\Gamma\cdot X</span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="math inline">t</span>
+</td>
+<td>
+<span class="math inline">R</span>
+</td>
+<td>
+<span class="math inline">S</span>
+</td>
+<td>
+<span class="math inline">M</span>
+</td>
+<td>
+<span class="math inline">N</span>
+</td>
+<td>
+<span class="math inline">\backslash M</span>
+</td>
+<td>
+<span class="math inline">\backslash N</span>
+</td>
+<td>
+<span class="math inline">V</span>
+</td>
+<td>
+<span class="math inline">A</span>
+</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<span class="math inline">\tau_0</span>
+</td>
+<td>
+<span class="math inline">1</span>
+</td>
+<td>
+<span class="math inline">S_0</span>
+</td>
+<td>
+<span class="math inline">M</span>
+</td>
+<td>
+<span class="math inline">N</span>
+</td>
+<td>
+<span class="math inline">M</span>
+</td>
+<td>
+<span class="math inline">N</span>
+</td>
+<td>
+<span class="math inline">M + NS_0</span>
+</td>
+<td>
+<span class="math inline">-M - NS_0</span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="math inline">\tau_1</span>
+</td>
+<td>
+<span class="math inline">1</span>
+</td>
+<td>
+<span class="math inline">S_1</span>
+</td>
+<td>
+<span class="math inline">-M</span>
+</td>
+<td>
+<span class="math inline">-N</span>
+</td>
+<td>
+<span class="math inline">0</span>
+</td>
+<td>
+<span class="math inline">0</span>
+</td>
+<td>
+<span class="math inline">0</span>
+</td>
+<td>
+<span class="math inline">M + NS_1</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This can be extended to any trading strategy <span
+class="math inline">(\tau_j, \Gamma_j)</span> with <span
+class="math inline">\sum_j \Gamma_j = 0</span> and money market account
+<span class="math inline">R_t</span>:</p>
+<table>
+<colgroup>
+<col>
+<col>
+<col>
+<col style="width:12%">
+<!-- 4 -->
+<col style="width:12%">
+<!-- 5 -->
+<col style="width:11%">
+<col style="width:10%">
+<col style="width:20%">
+<col style="width:20%">
+</colgroup>
+<thead>
+<!--
+<tr>
+<td></td>
+<td colspan="2">$X$</th>
+<td colspan="2">$\Gamma$</th>
+<td colspan="2">$\Delta + \Gamma$</th>
+<td>$(\Delta + \Gamma)\cdot X$</td>
+<td>$-\Gamma\cdot X$</td>
+</tr>
+-->
+<tr>
+<th>
+<span class="math inline">t</span>
+</th>
+<th>
+<span class="math inline">R</span>
+</th>
+<th>
+<span class="math inline">S</span>
+</th>
+<th>
+<span class="math inline">M</span>
+</th>
+<th>
+<span class="math inline">N</span>
+</th>
+<th>
+<span class="math inline">\backslash M</span>
+</th>
+<th>
+<span class="math inline">\backslash N</span>
+</th>
+<th>
+<span class="math inline">V</span>
+</th>
+<th>
+<span class="math inline">A</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<span class="math inline">\tau_0</span>
+</td>
+<td>
+<span class="math inline">R_0</span>
+</td>
+<td>
+<span class="math inline">S_0</span>
+</td>
+<td>
+<span class="math inline">M_0</span>
+</td>
+<td>
+<span class="math inline">N_0</span>
+</td>
+<td>
+<span class="math inline">M_0</span>
+</td>
+<td>
+<span class="math inline">N_0</span>
+</td>
+<td>
+<span class="math inline">R_0 M_0 + N_0 S_0</span>
+</td>
+<td>
+<span class="math inline">-R_0 M_0 - N_0 S_0</span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="math inline">\tau_1</span>
+</td>
+<td>
+<span class="math inline">R_1</span>
+</td>
+<td>
+<span class="math inline">S_1</span>
+</td>
+<td>
+<span class="math inline">M_1</span>
+</td>
+<td>
+<span class="math inline">N_1</span>
+</td>
+<td>
+<span class="math inline">M_0 + M_1</span>
+</td>
+<td>
+<span class="math inline">N_0 + N_1</span>
+</td>
+<td>
+<span class="math inline">(M_0 + M_1)R_0 + (N_0 + N_1)S_1</span>
+</td>
+<td>
+<span class="math inline">-M_1 R_1 - N_1 S_1</span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="math inline">\cdots</span>
+</td>
+<td>
+<span class="math inline">\cdots</span>
+</td>
+<td>
+<span class="math inline">\cdots</span>
+</td>
+<td>
+<span class="math inline">\cdots</span>
+</td>
+<td>
+<span class="math inline">\cdots</span>
+</td>
+<td>
+<span class="math inline">\cdots</span>
+</td>
+<td>
+<span class="math inline">\cdots</span>
+</td>
+<td>
+<span class="math inline">\cdots</span>
+</td>
+<td>
+<span class="math inline">\cdots</span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="math inline">\tau_n</span>
+</td>
+<td>
+<span class="math inline">R_n</span>
+</td>
+<td>
+<span class="math inline">S_n</span>
+</td>
+<td>
+<span class="math inline">-\sum_j M_j</span>
+</td>
+<td>
+<span class="math inline">-\sum_j N_j</span>
+</td>
+<td>
+<span class="math inline">0</span>
+</td>
+<td>
+<span class="math inline">0</span>
+</td>
+<td>
+<span class="math inline">0</span>
+</td>
+<td>
+<span class="math inline">-R_n\sum_j M_j - S_n\sum_j N_j</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>A trading strategy is <em>self-financing</em> if <span
+class="math inline">A_j = 0</span> for <span class="math inline">0\le
+j&lt; n</span>. This is the case when <span class="math inline">M_j =
+-N_jS_j/R_j</span>.</p>
 </body>
 </html>
