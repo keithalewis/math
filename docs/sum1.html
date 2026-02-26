@@ -44,7 +44,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Elementary Trade</h1>
-<p class="date">Feb 25, 2026</p>
+<p class="date">Feb 26, 2026</p>
 </header>
 <p>Instruments <span class="math inline">I</span> have <span
 class="math inline">\boldsymbol{{R}}^I</span>-valued prices <span
@@ -62,14 +62,14 @@ class="math inline">\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j = \sum_{s
 for trades to settle.</p>
 <p>The value (or mark-to-market) of a trading account is the cash value
 of liquidating existing positions and trades just done at current market
-values: <span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot
+prices: <span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot
 X_t</span>. The amount appearing at time <span class="math inline">t\in
 T</span> in the account is all cash flows proportional to the existing
-position minus the cost of the trade: <span class="math inline">A_t =
-\Delta_t\cdot C_t - \Gamma_t\cdot X_t</span>.</p>
+position minus the cost of the trades just executed: <span
+class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
+X_t</span>.</p>
 <p>We consider the case of a money market instrument and stock <span
-class="math inline">X_t = (R_t, S_t)</span>. For simplicity we also
-assume rates are zero so <span class="math inline">R_t = 1</span> and
+class="math inline">X_t = (R_t, S_t)</span>. For simplicity we assume
 cash flows are zero. The trade <span class="math inline">\Gamma_t =
 (M_t, N_t)</span> is how much of the money market and stock is purchased
 at time <span class="math inline">t</span>. We write <span
@@ -94,8 +94,8 @@ class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 <col>
 <col>
 <col>
-<col style="width:15%">
-<col style="width:15%">
+<col style="width:18%">
+<col style="width:18%">
 </colgroup>
 <thead>
 <tr>
@@ -108,7 +108,7 @@ class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 <span class="math inline">\Gamma</span>
 </th>
 <td colspan="2">
-<span class="math inline">\Delta = \backslash\Gamma</span>
+<span class="math inline">\Delta</span>
 </th>
 <td>
 <span class="math inline">(\Delta + \Gamma)\cdot X</span>
@@ -153,7 +153,7 @@ class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 <span class="math inline">[0, \tau_0)</span>
 </td>
 <td>
-<span class="math inline">1</span>
+<span class="math inline">R_t</span>
 </td>
 <td>
 <span class="math inline">S_t</span>
@@ -182,7 +182,7 @@ class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 <span class="math inline">\tau_0</span>
 </td>
 <td>
-<span class="math inline">1</span>
+<span class="math inline">R_0</span>
 </td>
 <td>
 <span class="math inline">S_0</span>
@@ -200,10 +200,10 @@ class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 <span class="math inline">0</span>
 </td>
 <td>
-<span class="math inline">M + NS_0</span>
+<span class="math inline">MR_0 + NS_0</span>
 </td>
 <td>
-<span class="math inline">-M - NS_0</span>
+<span class="math inline">-MR_0 - NS_0</span>
 </td>
 </tr>
 <tr>
@@ -211,7 +211,7 @@ class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 <span class="math inline">(\tau_0, \tau_1)</span>
 </td>
 <td>
-<span class="math inline">1</span>
+<span class="math inline">R_t</span>
 </td>
 <td>
 <span class="math inline">S_t</span>
@@ -229,7 +229,7 @@ class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 <span class="math inline">N</span>
 </td>
 <td>
-<span class="math inline">M + NS_t</span>
+<span class="math inline">MR_t + NS_t</span>
 </td>
 <td>
 <span class="math inline">0</span>
@@ -240,7 +240,7 @@ class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 <span class="math inline">\tau_1</span>
 </td>
 <td>
-<span class="math inline">1</span>
+<span class="math inline">R_1</span>
 </td>
 <td>
 <span class="math inline">S_1</span>
@@ -261,7 +261,7 @@ class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 <span class="math inline">0</span>
 </td>
 <td>
-<span class="math inline">M + NS_1</span>
+<span class="math inline">MR_1 + NS_1</span>
 </td>
 </tr>
 <tr>
@@ -269,7 +269,7 @@ class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 <span class="math inline">(\tau_1, \infty)</span>
 </td>
 <td>
-<span class="math inline">1</span>
+<span class="math inline">R_t</span>
 </td>
 <td>
 <span class="math inline">S_t</span>
@@ -295,10 +295,6 @@ class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 </tr>
 </tbody>
 </table>
-<p>If we let <span class="math inline">M = -NS_0</span> then the trading
-account has zero amount at <span class="math inline">\tau_0</span> and
-pays <span class="math inline">-NS_0 + NS_t = N(S_t - S_0)</span> at
-<span class="math inline">\tau_1</span>.</p>
 <p>We can eliminate all but the <span class="math inline">\tau_j</span>
 rows by replacing the position <span class="math inline">\Delta</span>
 column with <span class="math inline">\Delta + \Gamma</span>, the
@@ -312,8 +308,8 @@ position that occurs after the trade has settled.</p>
 <col>
 <col>
 <col>
-<col style="width:15%">
-<col style="width:15%">
+<col style="width:18%">
+<col style="width:18%">
 </colgroup>
 <thead>
 <tr>
@@ -371,7 +367,7 @@ position that occurs after the trade has settled.</p>
 <span class="math inline">\tau_0</span>
 </td>
 <td>
-<span class="math inline">1</span>
+<span class="math inline">R_0</span>
 </td>
 <td>
 <span class="math inline">S_0</span>
@@ -389,10 +385,10 @@ position that occurs after the trade has settled.</p>
 <span class="math inline">N</span>
 </td>
 <td>
-<span class="math inline">M + NS_0</span>
+<span class="math inline">MR_0 + NS_0</span>
 </td>
 <td>
-<span class="math inline">-M - NS_0</span>
+<span class="math inline">-MR_0 - NS_0</span>
 </td>
 </tr>
 <tr>
@@ -400,7 +396,7 @@ position that occurs after the trade has settled.</p>
 <span class="math inline">\tau_1</span>
 </td>
 <td>
-<span class="math inline">1</span>
+<span class="math inline">R_1</span>
 </td>
 <td>
 <span class="math inline">S_1</span>
@@ -421,15 +417,23 @@ position that occurs after the trade has settled.</p>
 <span class="math inline">0</span>
 </td>
 <td>
-<span class="math inline">M + NS_1</span>
+<span class="math inline">MR_1 + NS_1</span>
 </td>
 </tr>
 </tbody>
 </table>
-<p>This can be extended to any trading strategy <span
+<p>For example, a forward contact on the stock pays <span
+class="math inline">S_1 - f</span> at <span
+class="math inline">\tau_1</span>. To replicate this using the bond and
+stock we require <span class="math inline">S_1 - f = MR_1 + NS_1</span>.
+This is statisfied by taking <span class="math inline">N = 1</span> and
+<span class="math inline">MR_1 = -f</span>. The cost of setting up this
+hedge is <span class="math inline">A_0 = fR_0/R_1 - S_0</span>. The
+initial cost is zero when <span class="math inline">f =
+S_0R_1/R_0</span>, which is the standard cost-of-carry formula.</p>
+<p>This can be extended to any closed out trading strategy <span
 class="math inline">(\tau_j, \Gamma_j)</span> with <span
-class="math inline">\sum_j \Gamma_j = 0</span> and money market account
-<span class="math inline">R_t</span>:</p>
+class="math inline">\sum_j \Gamma_j = 0</span>.</p>
 <table>
 <colgroup>
 <col>
@@ -599,14 +603,22 @@ class="math inline">\sum_j \Gamma_j = 0</span> and money market account
 <span class="math inline">0</span>
 </td>
 <td>
-<span class="math inline">-R_n\sum_j M_j - S_n\sum_j N_j</span>
+<span class="math inline">R_n\sum_j M_j + S_n\sum_j N_j</span>
 </td>
 </tr>
 </tbody>
 </table>
 <p>A trading strategy is <em>self-financing</em> if <span
-class="math inline">A_j = 0</span> for <span class="math inline">0\le
-j&lt; n</span>. This is the case when <span class="math inline">M_j =
--N_jS_j/R_j</span>.</p>
+class="math inline">A_j = 0</span> for <span class="math inline">0 &lt;
+j&lt; n</span>. For a bond and stock this is the case when <span
+class="math inline">M_j = -N_jS_j/R_j</span>. If the stock hedges <span
+class="math inline">N_j</span>, <span class="math inline">0\le j &lt;
+n</span> are fixed then then only <span class="math inline">M_0</span>
+is still to be determined. Since <span class="math inline">V_0 = M_0 R_0
++ N_0 S_0</span> we have <span class="math inline">M_0 = (V_0 - N_0
+S_0)/R_0</span>. For <span class="math inline">j &gt; 0</span> we have
+<span class="math inline">V_j = (\Gamma_j + \Delta_j)\cdot X_j</span> so
+<span class="math inline">\Gamma_j + \Delta_ = dV_j/d_X_j</span>, the
+standard delta hedge.</p>
 </body>
 </html>
