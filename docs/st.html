@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <title>Trading</title>
+  <title>Simplified Trading</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -44,40 +44,84 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Trading</h1>
+<h1 class="title">Simplified Trading</h1>
 <p class="author">Keith A. Lewis</p>
 <p class="date">Feb 27, 2026</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Market, Trading, Accounting
+</div>
 </header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#market" id="toc-market">Market</a></li>
+<li><a href="#trading" id="toc-trading">Trading</a></li>
+<li><a href="#accounting" id="toc-accounting">Accounting</a></li>
+<li><a href="#money-market-and-stock"
+id="toc-money-market-and-stock">Money Market and Stock</a></li>
+</ul>
+</nav>
+<p>Trading is buying and selling market instruments that have prices and
+cash flows associated with instrument ownership, then accounting for the
+values and amounts involved. This note only considers the simple case
+where there is perfect liquidity and prices can be any real number. In
+actual trading there is a bid-ask spread, depending on whether you are
+selling or buying, that tends to increases along with the size of the
+trade. Prices can only be integral multiples of the minimum tick size of
+the instrument. We completely ignore credit considerations of the
+counterparties involved.</p>
+<section id="market" class="level2">
+<h2>Market</h2>
 <p>Instruments <span class="math inline">I</span> have <span
 class="math inline">\boldsymbol{{R}}^I = \{x\colon
-I\to\boldsymbol{{R}}\}</span>-valued prices <span
+I\to\boldsymbol{{R}}\}</span> valued prices <span
 class="math inline">(X_t)_{t\in T}</span> and cash flows <span
 class="math inline">(C_t)_{t\in T}</span> at trading times <span
-class="math inline">T</span>. Only a finite number of cash flows (stock
-dividends, bond coupons, futures margin adjustments) are not zero.</p>
+class="math inline">T</span>. Only a finite number of cash flows (e.g.,
+stock dividends, bond coupons, futures margin adjustments) are not
+zero.</p>
+</section>
+<section id="trading" class="level2">
+<h2>Trading</h2>
 <p>A trading strategy is a finite number of increasing stopping times
 <span class="math inline">\tau_0 &lt; \cdots &lt; \tau_n</span> and
-<span class="math inline">\boldsymbol{{R}}^I</span>-valued trades <span
+<span class="math inline">\boldsymbol{{R}}^I</span> valued trades <span
 class="math inline">\Gamma_j</span> done at <span
 class="math inline">\tau_j</span>. Trades accumulate to positions <span
 class="math inline">\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j = \sum_{s
 &lt; t} \Gamma_s</span>. Note the strict inequality. It takes some time
 for trades to settle.</p>
+</section>
+<section id="accounting" class="level2">
+<h2>Accounting</h2>
 <p>The value (or mark-to-market) of a trading account is the cash value
 of liquidating existing positions and trades just done at current market
 prices: <span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot
 X_t</span>. The amount appearing at time <span class="math inline">t\in
-T</span> in the trading account is all cash flows proportional to the
+T</span> in the trading account is all cash flows proportional to
 existing position minus the cost of the trades just executed: <span
 class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
 X_t</span>.</p>
+</section>
+<section id="money-market-and-stock" class="level2">
+<h2>Money Market and Stock</h2>
 <p>We consider the case of a money market instrument and stock <span
 class="math inline">X_t = (R_t, S_t)</span>. For simplicity we assume
 cash flows are zero. The trade <span class="math inline">\Gamma_t =
 (M_t, N_t)</span> is how much of the money market and stock is purchased
 at time <span class="math inline">t</span>. We write <span
 class="math inline">\Delta_t = (\backslash M_t, \backslash N_t)</span>
-where backslash is read as scan, the cumulative sum.</p>
+where backslash is read as <a
+href="https://en.cppreference.com/w/cpp/algorithm/partial_sum.html">partial
+sum</a> or <a
+href="https://support.microsoft.com/en-us/office/scan-function-d58dfd11-9969-4439-b2dc-e7062724de29">scan</a>.
+The <a
+href="https://en.cppreference.com/w/cpp/algorithm/adjacent_difference.html">adjacent
+difference</a> of <span class="math inline">(x_0,\ldots, x_n)</span> is
+<span class="math inline">(x_0, x_1 - x_0, \ldots x_n -
+x_{n-1})</span>.</p>
+<p><strong>Excercise</strong>. <em>Show the partial sum of adjacent
+differences is the identity function</em>.</p>
 <p>An <em>elementary trade</em> is buying <span
 class="math inline">\Gamma</span> shares at <span
 class="math inline">\tau_0</span> and selling <span
@@ -298,6 +342,14 @@ class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 </tr>
 </tbody>
 </table>
+<p>There is no activity prior to the first trade. The initial trade of
+<span class="math inline">M</span> in the money market and <span
+class="math inline">N</span> in the stock costs <span
+class="math inline">MR_0 + NS_0</span> and is equal to the value of the
+position. When the trades settle the position becomes <span
+class="math inline">\Delta = (M,N)</span> and its value is <span
+class="math inline">MR_t + NS_t</span> until the position is closed out
+by trading <span class="math inline">\Gamma = (-M, -N)</span>.</p>
 <p>We can eliminate all but the <span class="math inline">\tau_j</span>
 rows by replacing the position <span class="math inline">\Delta</span>
 column with <span class="math inline">\Delta + \Gamma</span>, the
@@ -425,15 +477,15 @@ position that occurs after the trade has settled.</p>
 </tr>
 </tbody>
 </table>
-<p>For example, a forward contact on the stock pays <span
-class="math inline">S_1 - f</span> at <span
-class="math inline">\tau_1</span>. To replicate this using the bond and
-stock we require <span class="math inline">S_1 - f = MR_1 + NS_1</span>.
-This is statisfied by taking <span class="math inline">N = 1</span> and
-<span class="math inline">MR_1 = -f</span>. The cost of setting up this
-hedge is <span class="math inline">A_0 = fR_0/R_1 - S_0</span>. The
-initial cost is zero when <span class="math inline">f =
-S_0R_1/R_0</span>, which is the standard cost-of-carry formula.</p>
+<p>A forward contact on the stock pays <span class="math inline">S_1 -
+f</span> at <span class="math inline">\tau_1</span>. To replicate this
+using the bond and stock we require <span class="math inline">S_1 - f =
+MR_1 + NS_1</span>. This is satisfied by taking <span
+class="math inline">N = 1</span> and <span class="math inline">MR_1 =
+-f</span>. The cost of setting up this hedge is <span
+class="math inline">A_0 = fR_0/R_1 - S_0</span>. The initial cost is
+zero when <span class="math inline">f = S_0R_1/R_0</span>, which is the
+standard cost-of-carry formula.</p>
 <p>This can be extended to any closed out trading strategy <span
 class="math inline">(\tau_j, \Gamma_j)</span> with <span
 class="math inline">\sum_j \Gamma_j = 0</span>.</p>
@@ -611,20 +663,20 @@ class="math inline">\sum_j \Gamma_j = 0</span>.</p>
 </tr>
 </tbody>
 </table>
+<p>For <span class="math inline">j &gt; 0</span> we have <span
+class="math inline">V_j = (\Gamma_j + \Delta_j)\cdot X_j</span> so the
+positions should be <span class="math inline">\Delta_j + \Gamma_j =
+dV_j/dX_j</span>, the usual delta hedge. The trades are the adjacent
+difference of positions.</p>
 <p>A trading strategy is <em>self-financing</em> if <span
 class="math inline">A_j = 0</span> for <span class="math inline">0 &lt;
 j&lt; n</span>. For a bond and stock this is the case when <span
-class="math inline">M_j = -N_jS_j/R_j</span>. If the stock hedges <span
-class="math inline">N_j</span>, <span class="math inline">0\le j &lt;
-n</span> are given then then only <span class="math inline">M_0</span>
-is still to be determined. Since <span class="math inline">V_0 = M_0 R_0
-+ N_0 S_0</span> we have <span class="math inline">M_0 = (V_0 - N_0
-S_0)/R_0</span>. For <span class="math inline">j &gt; 0</span> we have
-<span class="math inline">V_j = (\Gamma_j + \Delta_j)\cdot X_j</span> so
-<span class="math inline">\Gamma_j + \Delta_ = dV_j/d_X_j</span>, the
-standard delta hedge.</p>
-<p>We take <span class="math inline">N_j</span> to be the option delta
-with underlying <span class="math inline">S_j</span> and time to
-expiration <span class="math inline">\tau_n - \tau_j</span>.</p>
+class="math inline">M_j = -N_jS_j/R_j</span>. Given the stock trades
+<span class="math inline">N_j</span>, <span class="math inline">0\le j
+&lt; n</span> then only <span class="math inline">M_0</span> is still to
+be determined. Since <span class="math inline">V_0 = M_0 R_0 + N_0
+S_0</span> we have <span class="math inline">M_0 = (V_0 - N_0
+S_0)/R_0</span>.</p>
+</section>
 </body>
 </html>
