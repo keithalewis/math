@@ -74,7 +74,8 @@ counterparties involved.</p>
 <h2>Market</h2>
 <p>Instruments <span class="math inline">I</span> have <span
 class="math inline">\boldsymbol{{R}}^I = \{x\colon
-I\to\boldsymbol{{R}}\}</span> valued prices <span
+I\to\boldsymbol{{R}}\}</span><a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a> valued prices <span
 class="math inline">(X_t)_{t\in T}</span> and cash flows <span
 class="math inline">(C_t)_{t\in T}</span> at trading times <span
 class="math inline">T</span>. Only a finite number of cash flows (e.g.,
@@ -479,8 +480,8 @@ position that occurs after the trade has settled.</p>
 </table>
 <p>A forward contact on the stock pays <span class="math inline">S_1 -
 f</span> at <span class="math inline">\tau_1</span>. To replicate this
-using the bond and stock we require <span class="math inline">S_1 - f =
-MR_1 + NS_1</span>. This is satisfied by taking <span
+using the bond and stock we require <span class="math inline">A_1 = S_1
+- f = MR_1 + NS_1</span>. This is satisfied by taking <span
 class="math inline">N = 1</span> and <span class="math inline">MR_1 =
 -f</span>. The cost of setting up this hedge is <span
 class="math inline">A_0 = fR_0/R_1 - S_0</span>. The initial cost is
@@ -678,5 +679,27 @@ be determined. Since <span class="math inline">V_0 = M_0 R_0 + N_0
 S_0</span> we have <span class="math inline">M_0 = (V_0 - N_0
 S_0)/R_0</span>.</p>
 </section>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Let <span class="math inline">\boldsymbol{{n}} =
+\{1,\ldots,n\}</span>. The standard definition <span
+class="math inline">\boldsymbol{{R}}^n = \{(x_1,\ldots,x_n)\mid
+x_j\in\boldsymbol{{R}}\}</span> can be identified with all functions
+<span class="math inline">{\boldsymbol{{R}}^{\boldsymbol{{n}}} =
+\{\boldsymbol{{x}}\colon \boldsymbol{{n}}\to\boldsymbol{{R}}\}}</span>
+by <span class="math inline">x_i =\boldsymbol{{x}}(i)</span>, <span
+class="math inline">i\in\boldsymbol{{n}}</span>. Here <span
+class="math inline">\boldsymbol{{R}}^n</span> is a <a
+href="https://ncatlab.org/nlab/show/cartesian+product">cartesian
+product</a> of <span class="math inline">n</span> copies of <span
+class="math inline">\boldsymbol{{R}}</span> while while <span
+class="math inline">\boldsymbol{{R}}^{\boldsymbol{{n}}}</span> is a <a
+href="https://ncatlab.org/nlab/show/exponential+object">set
+exponential</a>.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
 </body>
 </html>
