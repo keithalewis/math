@@ -6,6 +6,7 @@ abstract: Market, Trading, Accounting
 ---
 \newcommand\bs[1]{\boldsymbol{{#1}}}
 \newcommand\RR{\bs{R}}
+\newcommand\AA{\mathcal{A}}
 
 Trading is buying and selling market instruments that have prices and
 cash flows associated with instrument ownership, then accounting for the
@@ -60,9 +61,11 @@ of $(x_0,\ldots, x_n)$ is $(x_0, x_1 - x_0, \ldots x_n - x_{n-1})$.
 
 __Excercise__. _Show the partial sum of adjacent differences is the identity function_.
 
+## Application
+
 An _elementary trade_ is buying $\Gamma$ shares at $\tau_0$ and selling $\Gamma$ shares at $\tau_1 > \tau_0$.
 For a bond and a stock $\Gamma_0 = (M, N)$ and $\Gamma_1 = -\Gamma_0 = (-M, -N)$.
-Money market accounts never have cash flows. We assume the stock has no divideds
+Money market accounts never have cash flows. We assume the stock has no dividends
 so $C_t = (0,0)$. In this case $A_t = -\Gamma_t\cdot X_t$.
 
 <table>
@@ -316,13 +319,68 @@ This can be extended to any closed out trading strategy $(\tau_j, \Gamma_j)$ wit
 </tbody>
 </table>
 
-For $j > 0$ we have $V_j = (\Gamma_j + \Delta_j)\cdot X_j$ so
-the positions should be $\Delta_j + \Gamma_j = dV_j/dX_j$,
-the usual delta hedge.
-The trades are the adjacent difference of positions.
+## Derivative
 
-A trading strategy is _self-financing_ if $A_j = 0$ for $0 < j< n$.
-For a bond and stock this is the case when $M_j = -N_jS_j/R_j$.
-Given the stock trades $N_j$, $0\le j < n$
-then only $M_0$ is still to be determined.
-Since $V_0 = M_0 R_0 + N_0 S_0$ we have $M_0 = (V_0 - N_0 S_0)/R_0$.
+A _derivative instrument_ is a contract that pays amounts $\hat{A}_j$
+at times $\hat{\tau}_j$. It can be _hedged_ with the money market
+account and stock if we can find trades $\Gamma_j = (M_j, N_j)$
+with $A_j = \hat{A}_j$, $0\le j\le n$. This is usually not possible.
+The fundamental problem faced by traders and portfolio managers
+is when and how much to trade to minimize risk.
+
+Since $V_j = (\Delta_j + \Gamma_j)\cdot X_j$ a reasonable
+guess for the positions should be $\Delta_j + \Gamma_j = dV_j/dX_j$, the
+usual delta hedge. The trades are the adjacent difference of positions.
+
+The Fundamental Theorem of Asset Pricing allows us to compute $V_t$
+in terms of a linear pricing measure identified by [@Ros1978].
+
+> If there are no arbitrage opportunities in a market, then there must exist a (not generally unique)
+positive linear operator that can be used to value all marketed assets.
+
+Ross showed a market model is arbitrage free if there exist positive measures $(D_t)$
+with
+$$
+\tag{1}	X_t D_t = (\sum_{t < u \le v} C_u D_u + X_v D_v)|_{\AA_t}
+$$
+where $\AA_t$ is the information available at time $t$. Using
+the definitions of $V_t$ and $A_t$ we have
+$$
+\tag{2}	V_t D_t = (\sum_{t < u \le v} A_u D_u + V_v D_v)|_{\AA_t}.
+$$
+The proof starts with $V_t D_t = (\Delta_t + \Gamma_t)X_t D_t$
+and using equation $(1)$ to replace $X_t D_t$.
+Note how value $V_t$ corresponds to price $X_t$ and amount $A_t$
+corresponds to cash flow $C_t$. This shows __every trading
+strategy creates a synthetic market instrument__.
+
+Every arbitrage-free model is parameterized by a 
+martingale measure $(M_t)$ taking values in $\RR^I$ and positive measures $(D_t)$.
+Given cash flows $(C_t)$ the prices $(X_t)$ satisfy
+$$
+	X_t D_t = X_0 M_t - \sum_{s\le t}C_s D_s.
+$$
+For example, the Black-Scholes/Merton model is parameterized by
+the martingale measure $M_t = (1, e^{\sigma B_t - \sigma^2 t/2})P$ and
+positive measures $D_t = e^{-\rho t}P$ where $P$ is Wiener measure
+and $B_t$ is standard Brownian motion.
+Ross showed there is no need for the partial differential equations arising from Ito's formula
+and generalized their result to any collection of instruments, not just a bond, stock, and option.
+
+### European
+
+A European option has only one cash flow at expiration. 
+In this case we need $A_j = 0$ for $0 < j < n$ and
+$A_n$ equal to the option payoff. The amount for
+setting up the initial hedge is
+$A_0 = -V_0$. Since $V_0 = M_0 R_0 + N_0 S_0$ we have $M_0 = (V_0 - N_0 S_0)/R_0$.
+Given stock trades $N_j$, $0\le j < n$
+the condition $A_j = 0$ holds when  $M_j = -N_j S_j/R_j$, $0 < j < n$.
+Since the positions close out we have
+$A_n = M_n R_n + N_n S_n = (\sum_{j=0}^{n-1} M_j)R_n + (\sum_{j=0}^{n-1} N_j)S_n$.
+
+<!--
+min_M,N \|A_1 - MR_1 - NS_1\|^2
+-->
+
+## References

@@ -21,7 +21,26 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="math.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
@@ -46,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Simplified Trading</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Feb 27, 2026</p>
+<p class="date">Mar 1, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Market, Trading, Accounting
@@ -59,6 +78,12 @@ Market, Trading, Accounting
 <li><a href="#accounting" id="toc-accounting">Accounting</a></li>
 <li><a href="#money-market-and-stock"
 id="toc-money-market-and-stock">Money Market and Stock</a></li>
+<li><a href="#application" id="toc-application">Application</a></li>
+<li><a href="#derivative" id="toc-derivative">Derivative</a>
+<ul>
+<li><a href="#european" id="toc-european">European</a></li>
+</ul></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
 <p>Trading is buying and selling market instruments that have prices and
@@ -123,6 +148,9 @@ difference</a> of <span class="math inline">(x_0,\ldots, x_n)</span> is
 x_{n-1})</span>.</p>
 <p><strong>Excercise</strong>. <em>Show the partial sum of adjacent
 differences is the identity function</em>.</p>
+</section>
+<section id="application" class="level2">
+<h2>Application</h2>
 <p>An <em>elementary trade</em> is buying <span
 class="math inline">\Gamma</span> shares at <span
 class="math inline">\tau_0</span> and selling <span
@@ -130,7 +158,7 @@ class="math inline">\Gamma</span> shares at <span
 class="math inline">\tau_1 &gt; \tau_0</span>. For a bond and a stock
 <span class="math inline">\Gamma_0 = (M, N)</span> and <span
 class="math inline">\Gamma_1 = -\Gamma_0 = (-M, -N)</span>. Money market
-accounts never have cash flows. We assume the stock has no divideds so
+accounts never have cash flows. We assume the stock has no dividends so
 <span class="math inline">C_t = (0,0)</span>. In this case <span
 class="math inline">A_t = -\Gamma_t\cdot X_t</span>.</p>
 <table>
@@ -664,20 +692,98 @@ class="math inline">\sum_j \Gamma_j = 0</span>.</p>
 </tr>
 </tbody>
 </table>
-<p>For <span class="math inline">j &gt; 0</span> we have <span
-class="math inline">V_j = (\Gamma_j + \Delta_j)\cdot X_j</span> so the
-positions should be <span class="math inline">\Delta_j + \Gamma_j =
-dV_j/dX_j</span>, the usual delta hedge. The trades are the adjacent
-difference of positions.</p>
-<p>A trading strategy is <em>self-financing</em> if <span
-class="math inline">A_j = 0</span> for <span class="math inline">0 &lt;
-j&lt; n</span>. For a bond and stock this is the case when <span
-class="math inline">M_j = -N_jS_j/R_j</span>. Given the stock trades
-<span class="math inline">N_j</span>, <span class="math inline">0\le j
-&lt; n</span> then only <span class="math inline">M_0</span> is still to
-be determined. Since <span class="math inline">V_0 = M_0 R_0 + N_0
+</section>
+<section id="derivative" class="level2">
+<h2>Derivative</h2>
+<p>A <em>derivative instrument</em> is a contract that pays amounts
+<span class="math inline">\hat{A}_j</span> at times <span
+class="math inline">\hat{\tau}_j</span>. It can be <em>hedged</em> with
+the money market account and stock if we can find trades <span
+class="math inline">\Gamma_j = (M_j, N_j)</span> with <span
+class="math inline">A_j = \hat{A}_j</span>, <span
+class="math inline">0\le j\le n</span>. This is usually not possible.
+The fundamental problem faced by traders and portfolio managers is when
+and how much to trade to minimize risk.</p>
+<p>Since <span class="math inline">V_j = (\Delta_j + \Gamma_j)\cdot
+X_j</span> a reasonable guess for the positions should be <span
+class="math inline">\Delta_j + \Gamma_j = dV_j/dX_j</span>, the usual
+delta hedge. The trades are the adjacent difference of positions.</p>
+<p>The Fundamental Theorem of Asset Pricing allows us to compute <span
+class="math inline">V_t</span> in terms of a linear pricing measure
+identified by <span class="citation" data-cites="Ros1978">(Ross
+1978)</span>.</p>
+<blockquote>
+<p>If there are no arbitrage opportunities in a market, then there must
+exist a (not generally unique) positive linear operator that can be used
+to value all marketed assets.</p>
+</blockquote>
+<p>Ross showed a market model is arbitrage free if there exist positive
+measures <span class="math inline">(D_t)</span> with <span
+class="math display">
+\tag{1} X_t D_t = (\sum_{t &lt; u \le v} C_u D_u + X_v
+D_v)|_{\mathcal{A}_t}
+</span> where <span class="math inline">\mathcal{A}_t</span> is the
+information available at time <span class="math inline">t</span>. Using
+the definitions of <span class="math inline">V_t</span> and <span
+class="math inline">A_t</span> we have <span class="math display">
+\tag{2} V_t D_t = (\sum_{t &lt; u \le v} A_u D_u + V_v
+D_v)|_{\mathcal{A}_t}.
+</span> The proof starts with <span class="math inline">V_t D_t =
+(\Delta_t + \Gamma_t)X_t D_t</span> and using equation <span
+class="math inline">(1)</span> to replace <span class="math inline">X_t
+D_t</span>. Note how value <span class="math inline">V_t</span>
+corresponds to price <span class="math inline">X_t</span> and amount
+<span class="math inline">A_t</span> corresponds to cash flow <span
+class="math inline">C_t</span>. This shows <strong>every trading
+strategy creates a synthetic market instrument</strong>.</p>
+<p>Every arbitrage-free model is parameterized by a martingale measure
+<span class="math inline">(M_t)</span> taking values in <span
+class="math inline">\boldsymbol{{R}}^I</span> and positive measures
+<span class="math inline">(D_t)</span>. Given cash flows <span
+class="math inline">(C_t)</span> the prices <span
+class="math inline">(X_t)</span> satisfy <span class="math display">
+    X_t D_t = X_0 M_t - \sum_{s\le t}C_s D_s.
+</span> For example, the Black-Scholes/Merton model is parameterized by
+the martingale measure <span class="math inline">M_t = (1, e^{\sigma B_t
+- \sigma^2 t/2})P</span> and positive measures <span
+class="math inline">D_t = e^{-\rho t}P</span> where <span
+class="math inline">P</span> is Wiener measure and <span
+class="math inline">B_t</span> is standard Brownian motion. Ross showed
+there is no need for the partial differential equations arising from
+Ito’s formula and generalized their result to any collection of
+instruments, not just a bond, stock, and option.</p>
+<section id="european" class="level3">
+<h3>European</h3>
+<p>A European option has only one cash flow at expiration. In this case
+we need <span class="math inline">A_j = 0</span> for <span
+class="math inline">0 &lt; j &lt; n</span> and <span
+class="math inline">A_n</span> equal to the option payoff. The amount
+for setting up the initial hedge is <span class="math inline">A_0 =
+-V_0</span>. Since <span class="math inline">V_0 = M_0 R_0 + N_0
 S_0</span> we have <span class="math inline">M_0 = (V_0 - N_0
-S_0)/R_0</span>.</p>
+S_0)/R_0</span>. Given stock trades <span
+class="math inline">N_j</span>, <span class="math inline">0\le j &lt;
+n</span> the condition <span class="math inline">A_j = 0</span> holds
+when <span class="math inline">M_j = -N_j S_j/R_j</span>, <span
+class="math inline">0 &lt; j &lt; n</span>. Since the positions close
+out we have <span class="math inline">A_n = M_n R_n + N_n S_n =
+(\sum_{j=0}^{n-1} M_j)R_n + (\sum_{j=0}^{n-1} N_j)S_n</span>.</p>
+<!--
+min_M,N \|A_1 - MR_1 - NS_1\|^2
+-->
+</section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="list">
+<div id="ref-Ros1978" class="csl-entry" role="listitem">
+Ross, Stephen A. 1978. <span>“A Simple Approach to the Valuation of
+Risky Streams.”</span> <em>The Journal of Business</em> 51 (3): 453–75.
+<a
+href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277</a>.
+</div>
+</div>
 </section>
 <aside id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">

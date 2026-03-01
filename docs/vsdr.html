@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Vector Spaces done Righter</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Vector Spaces done Righter</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Feb 28, 2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#subspace" id="toc-subspace">Subspace</a>
+<ul>
+<li><a href="#span" id="toc-span">Span</a></li>
+<li><a href="#independence" id="toc-independence">Independence</a></li>
+<li><a href="#basis" id="toc-basis">Basis</a></li>
+</ul></li>
+<li><a href="#invariant-subspace" id="toc-invariant-subspace">Invariant
+Subspace</a></li>
+</ul>
+</nav>
+<p>Sheldon Axler wrote a book called <a
+href="https://linear.axler.net/LADR4e.pdf">Linear Algebra Done Right</a>
+that he has graciously made available under a <a
+href="https://creativecommons.org/licenses/by-nc/4.0/">creative
+commons</a> license.</p>
+<!--
+He declared he hated determinants and left those to the last chapter in his book.
+I did too in my first course on linear algebra until I learned about
+[@Gra1844] 
+-->
+<p>The usual definition of the vector space <span
+class="math inline">\boldsymbol{{R}}^n</span> is the set of all <span
+class="math inline">n</span>-tuples of real numbers <span
+class="math inline">\{(x_1,\ldots,x_n)\mid x_j\in\boldsymbol{{R}}, 1\le
+j\le n\}</span> This is equivalent to <span
+class="math inline">\boldsymbol{{R}}^{\boldsymbol{{n}}} =
+\{\boldsymbol{{x}}\colon\boldsymbol{{n}}\to\boldsymbol{{R}}\}</span>,
+where <span class="math inline">\boldsymbol{{n}} =
+\{1,\ldots,n\}</span>, by <span class="math inline">x_j =
+\boldsymbol{{x}}(j)</span>, <span
+class="math inline">j\in\boldsymbol{{n}}</span>. Scalar multiplication
+and vector addition are preserved by this equivalence so we call it an
+<em>isomorphism</em> (same form).</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">a(x_1,\ldots,x_n) = (ax_1,\ldots,ax_n)</span>
+corresponds to <span class="math inline">(a\boldsymbol{{x}})(i) =
+a(\boldsymbol{{x}}(i)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">(x_1,\ldots,x_n) + (y_1\ldots,y_n) = (x_1 +
+y_1,\ldots,x_n + y_n)</span> corresponds to <span
+class="math inline">(\boldsymbol{{x}} + \boldsymbol{{y}})(i) =
+\boldsymbol{{x}}(i) + bs{y}(i)</span></em>.</p>
+<p>This shows the function <span
+class="math inline">\iota\colon\boldsymbol{{R}}^n\to\boldsymbol{{R}}^{\boldsymbol{{n}}}</span>
+by <span class="math inline">x\mapsto\boldsymbol{{x}}</span> is a
+<em>linear operator</em> that preserves scalar multiplicaton and vector
+addition.</p>
+<p><span class="math inline">\boldsymbol{{R}}</span> to <span
+class="math inline">FF</span>?</p>
+<section id="subspace" class="level2">
+<h2>Subspace</h2>
+<p>A <em>subspace</em> of a vector space <span
+class="math inline">V</span> is a subset <span
+class="math inline">U\subseteq V</span> that is closed under scalar
+multiplication and vector addition.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">U</span>
+is a subspace of <span class="math inline">V</span> then <span
+class="math inline">\boldsymbol{{R}}U\subseteq U</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">\boldsymbol{{F}}U = \{au\mid
+a\in\boldsymbol{{F}}, u\in U\}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">U</span>
+is a subspace of <span class="math inline">V</span> then <span
+class="math inline">U + U\subseteq U</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">U + U = \{u + u&#39;\mid
+u,u&#39;\in U\}</span>.</p>
+<section id="span" class="level3">
+<h3>Span</h3>
+</section>
+<section id="independence" class="level3">
+<h3>Independence</h3>
+</section>
+<section id="basis" class="level3">
+<h3>Basis</h3>
+</section>
+</section>
+<section id="invariant-subspace" class="level2">
+<h2>Invariant Subspace</h2>
+<p>If <span class="math inline">T\colon V\to V</span> is a linear
+operator then clearly <span class="math inline">TV\subseteq V</span>. If
+<span class="math inline">U</span> is a subspace of <span
+class="math inline">V</span> and <span class="math inline">TU\subseteq
+U</span> then <span class="math inline">U</span> is an <em>invariant
+subspace</em>. How can we find all invariant subspaces of an
+operator?</p>
+<p>If <span class="math inline">Tv = \lambda v</span> for some <span
+class="math inline">v\in V</span> and <span
+class="math inline">\lambda\in\boldsymbol{{F}}</span> we say <span
+class="math inline">v</span> is an <em>eigenvector</em> of <span
+class="math inline">T</span> with <em>eigenvalue</em> <span
+class="math inline">\lambda</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">v</span>
+is an eigenvalue of <span class="math inline">T</span> then <span
+class="math inline">\boldsymbol{{F}}v = \{av\mid
+a\in\boldsymbol{{R}}\}</span> is an invariant subspace of <span
+class="math inline">T</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">Tv =
+\lambda v</span>, <span class="math inline">Tw = \mu w</span>, and <span
+class="math inline">\lambda\not=w</span> then <span
+class="math inline">v</span> and <span class="math inline">w</span> are
+independent</em>.</p>
+<p>If the eigenvectors of <span class="math inline">T</span> form a
+basis of <span class="math inline">V</span> then <span
+class="math inline">T</span> is <em>diagonalizable</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">T</span>
+is diagonalizable with eigenvalues <span
+class="math inline">\lambda_j</span> then <span
+class="math inline">\Pi_j (T - \lambda_j I) = 0</span></em>.</p>
+</section>
+</body>
+</html>
