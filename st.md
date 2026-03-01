@@ -377,7 +377,7 @@ $A_0 = -V_0$. Since $V_0 = M_0 R_0 + N_0 S_0$ we have $M_0 = (V_0 - N_0 S_0)/R_0
 Given stock trades $N_j$, $0\le j < n$
 the condition $A_j = 0$ holds when  $M_j = -N_j S_j/R_j$, $0 < j < n$.
 Since the positions close out we have
-$A_n = M_n R_n + N_n S_n = (\sum_{j=0}^{n-1} M_j)R_n + (\sum_{j=0}^{n-1} N_j)S_n$.
+$A_n = -M_n R_n - N_n S_n = (\sum_{j=0}^{n-1} M_j)R_n + (\sum_{j=0}^{n-1} N_j)S_n$.
 
 <!--
 min_M,N \|A_1 - MR_1 - NS_1\|^2

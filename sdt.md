@@ -34,10 +34,18 @@ A more modern statement by
 > In a plane, given a line and a point not on it, at most one line
 parallel to the given line can be drawn through the point.
 
+An astounding amount of human brain power went into attempts to
+prove this from Euclid's other axioms.
+One way to show a statement is not true is to provide
+a counterexample.
+
+It is possible to have no, or infinitely many, parallel "lines" 
+in a "plane" through a "point" not on a given line where
+"point", "line", and "plane" that satisfy all of Euclids other axioms.
 
 
-It goes against evolution to belive humans think in terms of axioms and rules
-of inference. 
+Human brains did not evovle to think is terms of axioms and rules
+of inference.
 
 
 ## Set
