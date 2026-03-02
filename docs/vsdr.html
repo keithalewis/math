@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <title>Vector Spaces done Righter</title>
+  <title>Vector Spaces Done Righter</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -44,9 +44,9 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Vector Spaces done Righter</h1>
+<h1 class="title">Vector Spaces Done Righter</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Feb 28, 2026</p>
+<p class="date">Mar 1, 2026</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -117,12 +117,24 @@ class="math inline">U + U\subseteq U</span></em>.</p>
 u,u&#39;\in U\}</span>.</p>
 <section id="span" class="level3">
 <h3>Span</h3>
+<p>The <em>span</em> of a set of vectors is the smallest subspace
+containing the vectors.</p>
 </section>
 <section id="independence" class="level3">
 <h3>Independence</h3>
+<p>Vectors <span class="math inline">v_1,\ldots,v_k</span> are
+<em>independent</em> if <span class="math inline">\sum_j a_j v_j =
+\boldsymbol{{0}}</span> implies <span class="math inline">a_j = 0</span>
+for all <span class="math inline">j</span>.</p>
+<p><strong>Exercise</strong>. _Show if <span
+class="math inline">v_1,\ldots,v_k</span> are not independent then there
+exists <span class="math inline">j</span> with <span
+class="math inline">v_j = \sum_{i\not=j} b_i v_i</span>.</p>
 </section>
 <section id="basis" class="level3">
 <h3>Basis</h3>
+<p>A set of independent vectors that span a vector space is a
+<em>basis</em>.</p>
 </section>
 </section>
 <section id="invariant-subspace" class="level2">
@@ -132,31 +144,35 @@ operator then clearly <span class="math inline">TV\subseteq V</span>. If
 <span class="math inline">U</span> is a subspace of <span
 class="math inline">V</span> and <span class="math inline">TU\subseteq
 U</span> then <span class="math inline">U</span> is an <em>invariant
-subspace</em>. How can we find all invariant subspaces of an
-operator?</p>
-<p>If <span class="math inline">Tv = \lambda v</span> for some <span
+subspace</em> of the operator <span class="math inline">T</span>. How
+can we find all invariant subspaces of an operator?</p>
+<p>If <span class="math inline">Tv = \alpha v</span> for some <span
 class="math inline">v\in V</span> and <span
-class="math inline">\lambda\in\boldsymbol{{F}}</span> we say <span
+class="math inline">\alpha\in\boldsymbol{{F}}</span> we say <span
 class="math inline">v</span> is an <em>eigenvector</em> of <span
 class="math inline">T</span> with <em>eigenvalue</em> <span
-class="math inline">\lambda</span>.</p>
+class="math inline">\alpha</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">v</span>
 is an eigenvalue of <span class="math inline">T</span> then <span
 class="math inline">\boldsymbol{{F}}v = \{av\mid
 a\in\boldsymbol{{R}}\}</span> is an invariant subspace of <span
 class="math inline">T</span></em>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">Tv =
-\lambda v</span>, <span class="math inline">Tw = \mu w</span>, and <span
-class="math inline">\lambda\not=w</span> then <span
+\alpha v</span>, <span class="math inline">Tw = \beta w</span>, and
+<span class="math inline">\alpha\not=\beta</span> then <span
 class="math inline">v</span> and <span class="math inline">w</span> are
 independent</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">v</span> and <span
+class="math inline">w</span> are not independent then <span
+class="math inline">v = \gamma w</span> for some <span
+class="math inline">\gamma\in\boldsymbol{{R}}</span>.</p>
 <p>If the eigenvectors of <span class="math inline">T</span> form a
 basis of <span class="math inline">V</span> then <span
 class="math inline">T</span> is <em>diagonalizable</em>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">T</span>
 is diagonalizable with eigenvalues <span
-class="math inline">\lambda_j</span> then <span
-class="math inline">\Pi_j (T - \lambda_j I) = 0</span></em>.</p>
+class="math inline">\alpha</span> then <span class="math inline">\Pi_j
+(T - \alpha I) = 0</span></em>.</p>
 </section>
 </body>
 </html>

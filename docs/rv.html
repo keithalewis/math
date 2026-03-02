@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Random Variable</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Random Variable</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Mar 2, 2026</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+A variable and the probability of the values it can have.
+</div>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#expected-value" id="toc-expected-value">Expected Value</a>
+<ul>
+<li><a href="#discrete" id="toc-discrete">Discrete</a></li>
+<li><a href="#continuous" id="toc-continuous">Continuous</a></li>
+<li><a href="#uniform" id="toc-uniform">Uniform</a></li>
+</ul></li>
+<li><a href="#moments" id="toc-moments">Moments</a>
+<ul>
+<li><a href="#normal" id="toc-normal">Normal</a></li>
+</ul></li>
+<li><a href="#cumulants" id="toc-cumulants">Cumulants</a></li>
+<li><a href="#inequalities" id="toc-inequalities">Inequalities</a>
+<ul>
+<li><a href="#concentration-inequalities"
+id="toc-concentration-inequalities">Concentration Inequalities</a></li>
+</ul></li>
+</ul>
+</nav>
+<p>A <em>random variable</em> is a variable, a symbol that takes the
+place of number in an equation or inequality, and the probability of the
+values it can have. Random variables are specified by their
+<em>cumulative distribution function</em> <span
+class="math inline">F^X(x)</span>, or just <span
+class="math inline">F(x)</span>, if <span class="math inline">X</span>
+is understood, giving the probability <span class="math inline">X\le
+x</span>.</p>
+<p>Every cdf must satisfy <span class="math inline">0\le F\le 1</span>
+since it is a probability and is nondecreasing, <span
+class="math inline">F(x) \le F(y)</span> if <span class="math inline">x
+&lt; y</span>, since <span class="math inline">X\le x</span> implies
+<span class="math inline">X\le y</span>.</p>
+<p><strong>Exercise</strong> <em>Show every cdf is right
+continuous</em>.</p>
+<p><em>Hint</em>. This means <span class="math inline">\lim_{h\downarrow
+0} F(x + h) = F(x)</span>. Use <span class="math inline">(-\infty, x] =
+\cap_{h&gt;0} (-\infty, x + h]</span>.</p>
+<p><strong>Exercise</strong> <em>Show every cdf has left
+limits</em>.</p>
+<p><em>Hint</em>. This means <span class="math inline">\lim_{h\downarrow
+0} F(x - h)</span> exists. Use <span class="math inline">(-\infty, x) =
+\cup_{h&gt;0} (-\infty, x - h]</span> and every bounded set in <span
+class="math inline">{\boldsymbol{R}}</span> has a <em>least upper
+bound</em>.</p>
+<p>Any function satsifying these properties is the cdf of a random
+variable.</p>
+<section id="expected-value" class="level2">
+<h2>Expected Value</h2>
+<p>The <em>expected value</em>, or <em>mean</em>, of <span
+class="math inline">X</span> is the Riemann-Stieljes integral <span
+class="math inline">E[X] = \int_{\boldsymbol{R}}x\,dF(x)</span>. The
+greek letter <span class="math inline">μ</span> is typically used for
+this. Expected value is a <em>measure of central tendency</em> providing
+a single number indicating the <em>location</em> of <span
+class="math inline">X</span>. The <em>median</em> of <span
+class="math inline">X</span> is the number <span
+class="math inline">m</span> with <span class="math inline">F(m) = P(X
+\le m) = 1/2</span>. It provides a more <em>robust</em> measure of
+location. Values of <span class="math inline">F(x)</span> for <span
+class="math inline">x &gt; m</span> or <span class="math inline">x &lt;
+m</span> do not change the median.</p>
+<p>The <em>expected value</em> of <span class="math inline">f(X)</span>
+for a function <span
+class="math inline">f\colon{\boldsymbol{R}}\to{\boldsymbol{R}}</span> is
+<span class="math inline">E[f(X)] =
+\int_{\boldsymbol{R}}f(x)\,dF(x)</span>.</p>
+<p>Exercise. <em>If <span class="math inline">f</span> is continuous
+show <span class="math inline">\int_{{\boldsymbol{R}}} f(x)\,dF(x) =
+f(a)</span> when <span class="math inline">F(x) = 1(x \ge
+a)</span></em>.</p>
+<p><em>Hint</em>. All terms in the Riemann-Stieljes integral are zero
+except for the interval containing <span
+class="math inline">a</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+Given increasing <span class="math inline">\{x_j\}</span>, <span
+class="math inline">x_j\in{\boldsymbol{R}}</span>, we have <span
+class="math inline">F(x_{j+1}) - F(x_j) = 0</span> if <span
+class="math inline">a &lt; x_j</span> or <span class="math inline">a
+&gt; x_{j+1}</span> and <span class="math inline">F(x_{j+1}) - F(x_j) =
+1</span> otherwise. As <span class="math inline">\Delta x_j\to 0</span>
+the minimum and maximum of <span class="math inline">f</span> on <span
+class="math inline">[x_j, x_{j+1}]</span> converge to <span
+class="math inline">f(a)</span> since <span class="math inline">f</span>
+is continuous.
+</details>
+<p>If <span class="math inline">A</span> is a set the <em>indicator
+function</em> <span class="math inline">1_A(x)</span> is <span
+class="math inline">1</span> when <span class="math inline">x\in
+A</span> and <span class="math inline">0</span> when <span
+class="math inline">x\not\in A</span>. If <span
+class="math inline">A(x)</span> is a <em>proposition</em>, a statement
+that is either true or false, involving <span
+class="math inline">x</span> then <span
+class="math inline">1(A(x))</span> is <span class="math inline">1</span>
+when <span class="math inline">A(x)</span> is true and <span
+class="math inline">0</span> when <span class="math inline">A(x)</span>
+is false.</p>
+<p>✓ <strong>Exercise</strong>. <em>If <span class="math inline">X =
+a</span> with probablity one show <span class="math inline">F(x) = 1(x
+&lt; a)</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+Since <span class="math inline">F(x) = P(X\le x)</span>, <span
+class="math inline">F(x) = 0</span> if <span class="math inline">x &lt;
+a</span> and <span class="math inline">F(x) = 1</span> if <span
+class="math inline">x\ge a</span>.
+</details>
+<p>This is also written as <span class="math inline">dF(x) =
+δ_a(x)</span>, the <em>delta function</em> with unit mass at <span
+class="math inline">a</span>. Delta functions are <em>set
+functions</em>. Given a set <span class="math inline">A</span> the delta
+“function” <span class="math inline">δ_a(A)</span> is <span
+class="math inline">1</span> if <span class="math inline">a\in A</span>
+and <span class="math inline">0</span> if <span
+class="math inline">a\not\in A</span>.</p>
+<section id="discrete" class="level3">
+<h3>Discrete</h3>
+<p>A random variable <span class="math inline">X</span> is
+<em>discrete</em> if <span class="math inline">P(X = x_j) = p_j</span>
+where <span class="math inline">p_j &gt; 0</span> and <span
+class="math inline">\sum_j p_j = 1</span>. The data <span
+class="math inline">(x_j, p_j)</span> completely specify the random
+variable.</p>
+<p>A discrete random variable that can only take on values 0 or 1 is
+called <em>Bernoulli</em>. A Bernoulli random variable is specified by a
+single number <span class="math inline">p\in(0, 1)</span> where <span
+class="math inline">P(X = 1) = p</span>. This implies <span
+class="math inline">P(X = 0) = 1 - p</span>.</p>
+</section>
+<section id="continuous" class="level3">
+<h3>Continuous</h3>
+<p>A random variable <span class="math inline">X</span> is
+<em>continuously distributed</em> if <span class="math inline">F(x) =
+\int_{-\infty}^x dF(u) = \int_{-\infty}^x F&#39;(u)\,du</span>. The
+function <span class="math inline">f(x) = F&#39;(x)</span> is the
+<em>density function</em> of the random variable.</p>
+</section>
+<section id="uniform" class="level3">
+<h3>Uniform</h3>
+<p>The random variable <span class="math inline">U</span> is
+<em>uniformly distributed</em> on the interval <span
+class="math inline">[0,1]</span> if it has density function <span
+class="math inline">f(x) = 1_{[0,1]}(x)</span>, <span
+class="math inline">-\infty &lt; x &lt; \infty</span>. A remarkable fact
+is that every random variable can be defined using this. Random
+variables have the same <em>law</em> if they have the same cumulative
+distribution function.</p>
+<p>✓ <strong>Exercise</strong>. <em>If <span
+class="math inline">X</span> has cdf <span class="math inline">F</span>
+then <span class="math inline">X</span> has the same law as <span
+class="math inline">F^{-1}(U)</span></em>.</p>
+<p><em>Hint</em>. What is <span class="math inline">P(F^{-1}(U) \le
+x)</span>? Use <span class="math inline">P(U \le u) = u</span> for <span
+class="math inline">0\le u\le 1</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math inline">P(F^{-1}(U) \le x) = P(U\le F(x)) =
+F(x)</span> since <span class="math inline">0\le F(x) \le 1</span>.
+</details>
+<p>There are no random random variables. The uniform distribution has
+enough randomness to specify any random variable.</p>
+</section>
+</section>
+<section id="moments" class="level2">
+<h2>Moments</h2>
+<p>The <span class="math inline">n</span>-th <em>moment</em> of <span
+class="math inline">X</span> is <span class="math inline">μ_n =
+E[X^n]</span> when it exists. The <em>moment generating function</em> of
+<span class="math inline">X</span> is <span class="math inline">m(s) =
+E[e^{sX}] = \sum_{n=0}^\infty μ_n s^n/n!</span>. It is possible for two
+unequal random variables to have the same moments <span class="citation"
+data-cites="cite">(<strong>cite?</strong>)</span>.</p>
+<p>The <span class="math inline">n</span>-th <em>central moment</em> of
+<span class="math inline">X</span> is <span
+class="math inline">\bar{μ}_n = E[(X - E[X])^n]</span>. The second
+central moment is the <em>variance</em>.</p>
+<p>✓ <strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{Var}(X) = E[(X - E[X])^2] = E[X^2] -
+E[X]^2</span></em>.</p>
+<p><em>Hint</em>. Expectation is an integral so it is linear, <span
+class="math inline">E[aX + b] = aE[X] + b</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math inline">\operatorname{Var}(X) = E[(X - E[X])^2] =
+E[X^2 - 2XE[X] + E[X]^2] = E[X^2] - 2E[X]E[X] + E[X]^2 = E[X^2] -
+E[X]^2</span>.
+</details>
+<p>Variance is a measure of <em>dispersion</em>, how far the random
+variable can stray from its mean. The <em>standard deviation</em> is the
+square root of the variance and has the same units as <span
+class="math inline">X</span>. The greek letter <span
+class="math inline">σ</span> is typically used for the standard
+deviation.</p>
+<p>✓ <strong>Exercise</strong>. <em>If <span
+class="math inline">\operatorname{Var}(X) = 0</span> show <span
+class="math inline">P(X = E[X]) = 1</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+If you know <span class="math inline">P(|X - E[X]| &gt; \epsilon) &lt;
+\operatorname{Var}(X)/\epsilon^2</span> then <span
+class="math inline">P(|X - E[X]| &gt; 0) = 0</span> so <span
+class="math inline">P(X = E[X]) = 1</span>.
+</details>
+<p>✓ <strong>Exercise</strong>. <em>If <span
+class="math inline">X</span> has first and second moments then <span
+class="math inline">(X - μ)/σ</span> has mean zero and variance
+one</em>.</p>
+<p><em>Hint</em>. <span class="math inline">\operatorname{Var}(X + a) =
+\operatorname{Var}(X)</span> and <span
+class="math inline">\operatorname{Var}(aX) =
+a^2\operatorname{Var}(X)</span> for <span
+class="math inline">a\in{\boldsymbol{R}}</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math inline">E[(X - \mu)/\sigma] = (E[X] - \mu)/\sigma =
+0</span>. <span class="math inline">\operatorname{Var}((X - \mu)/\sigma)
+= \operatorname{Var}(X)/\sigma^2 = 1</span>.
+</details>
+<p>Subtracting the mean and dividing by the standard deviation is called
+<em>standardizing</em> the random variable.</p>
+<p>The third moment of a standardized random variable is called
+<em>skewness</em>, a measure of how lopsided a distribution is.</p>
+<p>✓ <strong>Exercise</strong>. <em>If <span
+class="math inline">X</span> and <span class="math inline">-X</span>
+have the same distribution then its skewness is zero</em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+Note <span class="math inline">E[X^3] = E[(-X)^3] = -E[X^3]</span> so
+<span class="math inline">E[X^3] = 0</span>.
+</details>
+<p>The fourth moment of a standardized random variable is called
+<em>kurtosis</em>, a measure of how peaked a distribution is.</p>
+<section id="normal" class="level3">
+<h3>Normal</h3>
+<p>The standard normal density function is <span
+class="math inline">f(x) = e^{-x^2/2}/\sqrt{2\pi}</span>, <span
+class="math inline">-\infty &lt; x &lt; \infty</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\int_{-\infty}^\infty e^{-\pi x^2}\,dx =
+1</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+Let <span class="math inline">I = \int_{-\infty}^\infty e^{-\pi
+x^2}\,dx</span>. Using polar coordinates <span class="math inline">x =
+r\cos\theta</span> and <span class="math inline">y = r\sin\theta</span>
+we have <span class="math display">
+\begin{aligned}
+I^2 &amp;= \int_{-\infty}^\infty \int_{-\infty}^\infty e^{-\pi x^2}
+e^{-\pi y^2}\,dx\,dy \\
+    &amp;= \int_{-\infty}^\infty \int_{-\infty}^\infty e^{-\pi (x^2 +
+y^2)}\,dx\,dy \\
+    &amp;= \int_0^{2\pi} \int_0^\infty e^{-\pi r^2} r\,dr\,d\theta \\
+    &amp;= \int_0^{2\pi} -e^{-\pi r^2}/2\pi|_0^\infty\,d\theta \\
+    &amp;= \int_0^{2\pi} 1/2\pi\,d\theta \\
+    &amp;= 1 \\
+\end{aligned}
+</span>
+</details>
+<p>✓ <strong>Exercise</strong>. <em>Show <span
+class="math inline">\int_{\boldsymbol{R}}e^{-\alpha x^2}\,dx =
+\sqrt{\pi/\alpha}</span></em>.</p>
+<p>This shows <span
+class="math inline">\int_{\boldsymbol{R}}e^{-x^2/2}\,dx =
+\sqrt{2\pi}</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+If <span class="math inline">\alpha x^2 = \pi y^2</span> then <span
+class="math inline">x = \sqrt{\pi/\alpha}y</span> so <span
+class="math inline">\int_{\boldsymbol{R}}e^{-\alpha x^2}\,dx =
+\int_{\boldsymbol{R}}e^{-\pi y^2}\sqrt{\pi/\alpha}\,dy</span>.
+</details>
+<p>✓ <strong>Exercise</strong>. <em>If <span
+class="math inline">Z</span> is standard normal then <span
+class="math inline">E[e^{sZ}] = e^{s^2/2}</span></em>.</p>
+<p><em>Hint</em>. <span class="math inline">E[e^{sZ}] =
+\int_{\boldsymbol{R}}e^{sz} e^{-z^2/2}/\sqrt{2\pi}\,dz</span>. Use <span
+class="math inline">sz - z^2/2 = s^2/2 - (z - s)^2/2</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math inline">E[e^{sZ}] = \int_{\boldsymbol{R}}e^{sz}
+e^{-z^2/2}/\sqrt{2\pi}\,dz = e^{s^2/2}\int_R e^{-(z -
+s)^2/2}\sqrt{2\pi}\,dz</span> and change variable <span
+class="math inline">z \to z + s</span>.
+</details>
+<p>✓ <strong>Exercise</strong>. <em>If <span
+class="math inline">N</span> is normal show <span
+class="math inline">E[e^N] = e^{E[N] +
+\operatorname{Var}(N)/2}</span></em>.</p>
+<p><em>Hint</em>. Every normal can be written as <span
+class="math inline">N = \mu + \sigma Z</span> where <span
+class="math inline">Z</span> is standard normal.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math inline">E[e^{sN}] = E[e^{\mu + \sigma Z}] = e^\mu
+e^{\sigma^2/2}</span>.
+</details>
+<p>✓ <strong>Exercise</strong>. <em>If <span
+class="math inline">Z</span> is standard normal then <span
+class="math inline">E[e^{sZ} f(Z)] = E[e^{sZ}] E[f(Z +
+s)]</span></em>.</p>
+<p><em>Hint</em>. <span class="math inline">E[e^{sZ} f(Z)] =
+\int_{\boldsymbol{R}}e^{sz} f(z) e^{-z^2/2}/\sqrt{2\pi}\,dz =
+e^{-s^2/2}\int_{\boldsymbol{R}}f(z) e^{-(z -
+s)^2/2}/\sqrt{2\pi}\,dz</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math display">
+\begin{aligned}
+E[e^{sZ}f(Z)] &amp;= int_{\boldsymbol{R}}e^{sz}
+e^{-z^2/2}f(z)/\sqrt{2\pi}\,dz \\
+&amp;= e^{s^2/2}\int_R e^{-(z - s)^2/2}f(z)\sqrt{2\pi}\,dz \\
+&amp;= e^{s^2/2}\int_R e^{-z^2/2}f(z + s)\sqrt{2\pi}\,dz \\
+&amp;= E[e^{sZ}] E[f(Z + s)] \\
+\end{aligned}
+</span>
+</details>
+<p>✓ <strong>Exercise</strong>. <em>If <span
+class="math inline">N</span> is normal then <span
+class="math inline">E[e^N f(N)] = E[e^N] E[f(N +
+\operatorname{Var}(N))]</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math display">
+\begin{aligned}
+E[e^N f(N)] &amp;= E[e^{\mu + \sigma Z} f(\mu + \sigma Z)] \\
+&amp;= E[e^{\mu + \sigma Z}] E[f(\mu + \sigma (Z + \sigma))] \\
+&amp;= E[e^N] E[f(N + \sigma^2)] \\
+\end{aligned}
+</span>
+</details>
+<p><strong>Exercise</strong>. <em>Show the <span
+class="math inline">2n</span>-th moment of a standard normal is <span
+class="math inline">(2n)!/2^n n!</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+We have <span class="math inline">\sum_0^\infty μ_n s^n/n! = e^{s^2/2} =
+\sum_0^\infty (s^2/2)^n/n!</span>. Equating coefficients, <span
+class="math inline">μ_{2n}/(2n)! = (1/2)^n/n!</span> so <span
+class="math inline">μ_{2n} = (2n)!/2^n n!</span>.
+</details>
+</section>
+</section>
+<section id="cumulants" class="level2">
+<h2>Cumulants</h2>
+<p>The logarithm of the moment generating function is the
+<em>cumulant</em> <span class="math inline">κ(s) = \log E[e^{sX}] =
+\sum_{n=1}^\infty κ_n s^n/n!</span>. The coefficients <span
+class="math inline">(κ_n)</span> are the <em>cumulants</em>.</p>
+<p>✓ <strong>Exercise</strong>. <em>Show <span class="math inline">κ(0)
+= 0</span>, <span class="math inline">κ&#39;(0) = E[X]</span>, and <span
+class="math inline">κ&#39;&#39;(0) =
+\operatorname{Var}(X)</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<p><span class="math inline">\kappa(0) = \log E[e^0] = \log 1 =
+0</span>.</p>
+<p><span class="math inline">\kappa&#39;(s) =
+E[Xe^{sX}]/E[e^{sX}]</span> so <span class="math inline">\kappa&#39;(0)
+= E[X]</span>.</p>
+<span class="math inline">\kappa&#39;&#39;(s) = (E[e^{sX}]
+E[X^2e^{sX}])/E[e^{sX}]^2 - E[Xe^{sX}]E[Xe^{sX}]/E[e^{sX}]^2</span> so
+<span class="math inline">\kappa&#39;&#39;(0) = E[X^2] - E[X]^2 =
+\operatorname{Var}(X)</span>.
+</details>
+<p>✓ <strong>Exercise</strong>. <em>If <span
+class="math inline">Z</span> is standard normal show <span
+class="math inline">\kappa_n = 0</span> for <span class="math inline">n
+&gt; 2</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math inline">\kappa(s) = \log E[e^{sX}] = s^2/2 = \sum_{n
+&gt; 0}\kappa_n s^n/n!</span>.
+</details>
+</section>
+<section id="inequalities" class="level2">
+<h2>Inequalities</h2>
+<p>The mean of a random variable places a contraint on its upper
+tail.</p>
+<p><strong>Lemma</strong>. (Markov) <em>For any random variable <span
+class="math inline">X</span>, <span class="math inline">P(X &gt; λ) \le
+E[X]/λ</span></em>.</p>
+<p><em>Proof</em>. <span class="math inline">E[X] \ge E[X1(X\ge λ)] \ge
+\lambda E[1(X\ge\lambda)] = λ P(X\ge λ)</span>.</p>
+<p>✓ <strong>Exercise</strong>. (Chebychev) <em>Show <span
+class="math inline">P(|X - E[X]| &gt; ε) \le
+\operatorname{Var}(X)/ε^2</span></em>.</p>
+<p><em>Hint</em>. Replace <span class="math inline">X</span> by <span
+class="math inline">(X - E[X])^2</span> and <span
+class="math inline">λ</span> by <span
+class="math inline">ε^2</span>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<span class="math inline">P(|X - E[X]| &gt; ε) = P((X - E[X])^2 &gt;
+\epsilon^2) \le E[(X - E[X])^2]/\epsilon^2 =
+\operatorname{Var}(X)/ε^2</span>.
+</details>
+<section id="concentration-inequalities" class="level3">
+<h3>Concentration Inequalities</h3>
+<p>Let <span class="math inline">(X_j)</span> be independent,
+identically distributed random variables with mean <span
+class="math inline">μ</span> and standard deviation <span
+class="math inline">σ</span>. Define the average <span
+class="math inline">S_n = (1/n)\sum_{j=1}^n X_j</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">E[S_n]
+= μ</span> and <span class="math inline">\operatorname{Var}(S_n) =
+σ^2/n</span></em>.</p>
+<details>
+<summary>
+Solution
+</summary>
+<p><span class="math inline">E[S_n] = E[(1/n)\sum_{j=1}^n X_j] = nE[X]/n
+= \mu</span>.</p>
+<span class="math inline">\operatorname{Var}(S_n) =
+\operatorname{Var}((1/n)\sum_{j=1}^n X_j) =
+\operatorname{Var}(\sum_{j=1}^n X_j)/n^2 = n\operatorname{Var}(X)/n^2 =
+\sigma^2/n</span>.
+</details>
+<p><strong>Exercise</strong>. (Weak law of large numbers) <em>Show for
+any <span class="math inline">ε &gt; 0</span> that <span
+class="math inline">\lim_{n\to\infty} P(|S_n - μ| &gt; ε) =
+0</span></em>.</p>
+<p><em>Hint</em>. Show <span class="math inline">P(|S_n - μ| &gt; ε) \le
+σ^2/nε^2</span></p>
+<details>
+<summary>
+Solution
+</summary>
+By Chebyshev’s inequality <span class="math inline">P(|S_n - μ| &gt; ε)
+\le σ^2/nε^2</span> and <span class="math inline">\lim_{n\to\infty} c/n
+= 0</span> for any constant <span class="math inline">c</span>.
+</details>
+</section>
+</section>
+</body>
+</html>

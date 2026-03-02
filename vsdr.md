@@ -1,5 +1,5 @@
 ---
-title: Vector Spaces done Righter
+title: Vector Spaces Done Righter
 author: Keith A. Lewis
 classoption: fleqn
 ---
@@ -51,28 +51,42 @@ _Hint_: $U + U = \{u + u'\mid u,u'\in U\}$.
 
 ### Span
 
+The _span_ of a set of vectors is the smallest subspace containing the vectors.
+
 ### Independence
 
+Vectors $v_1,\ldots,v_k$ are _independent_ if $\sum_j a_j v_j = \bs{0}$
+implies $a_j = 0$ for all $j$.
+
+__Exercise__. _Show if $v_1,\ldots,v_k$ are not independent then there
+exists $j$ with $v_j = \sum_{i\not=j} b_i v_i$.
+
 ### Basis
+
+A set of independent vectors that span a vector space is a _basis_.
 
 ## Invariant Subspace
 
 If $T\colon V\to V$ is a linear operator then clearly $TV\subseteq V$. 
-If $U$ is a subspace of $V$ and $TU\subseteq U$ then $U$ is an _invariant subspace_.
+If $U$ is a subspace of $V$ and $TU\subseteq U$ then $U$ is an _invariant subspace_
+of the operator $T$.
 How can we find all invariant subspaces of an operator?
 
-If $Tv = \lambda v$ for some $v\in V$ and $\lambda\in\FF$
-we say $v$ is an _eigenvector_ of $T$ with _eigenvalue_ $\lambda$.
+If $Tv = \alpha v$ for some $v\in V$ and $\alpha\in\FF$
+we say $v$ is an _eigenvector_ of $T$ with _eigenvalue_ $\alpha$.
 
 __Exercise__. _If $v$ is an eigenvalue of $T$ then
 $\FF v = \{av\mid a\in\RR\}$ is an invariant subspace of $T$_.
 
-__Exercise__. _If $Tv = \lambda v$, $Tw = \mu w$, and $\lambda\not=w$ then
+__Exercise__. _If $Tv = \alpha v$, $Tw = \beta w$, and $\alpha\not=\beta$ then
 $v$ and $w$ are independent_.
+
+_Hint_: If $v$ and $w$ are not independent then $v = \gamma w$ for some
+$\gamma\in\RR$. 
 
 If the eigenvectors of $T$ form a basis of $V$ then $T$ is _diagonalizable_.
 
-__Exercise__. _If $T$ is diagonalizable with eigenvalues $\lambda_j$
-then $\Pi_j (T - \lambda_j I) = 0$_.
+__Exercise__. _If $T$ is diagonalizable with eigenvalues $\alpha$
+then $\Pi_j (T - \alpha I) = 0$_.
 
 
