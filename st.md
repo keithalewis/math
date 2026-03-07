@@ -36,8 +36,9 @@ of $n$ copies of $\RR$ while while $\RR^{\bs{n}}$ is a
 
 A trading strategy is a finite number of increasing stopping times
 $\tau_0 < \cdots < \tau_n$ and $\RR^I$ valued trades $\Gamma_j$ done at $\tau_j$.
-Trades accumulate to positions $\Delta_t = \sum_{\tau_j < t} \Gamma_j = \sum_{s < t} \Gamma_s$.
-Note the strict inequality. It takes some time for trades to settle.
+Trades accumulate to positions $\Delta_t = \sum_{\tau_j < t} \Gamma_j = \sum_{s < t} \Gamma_s$
+where $\Gamma_s = \Gamma_j$ when $s = \tau_j$ and is zero otherwise.
+Note the strict inequality. It takes some time for trades to settle into a position.
 
 ## Accounting
 
@@ -318,6 +319,15 @@ This can be extended to any closed out trading strategy $(\tau_j, \Gamma_j)$ wit
 </tr>
 </tbody>
 </table>
+
+A futures contracts always have price zero.
+The contract is specifed by an expiration $T$ on an underlying $S$
+and is marked (usually daily) at times $0 = t_0 < t_1 < \cdots < t_n = T$.
+the _quote_ $\Phi_T = S_T$ at expiration. Prior to expiration the quote $\Phi_t$,
+$t < T$, is determined by the market. Futures have cash flows
+that are differences of quotes: $C_{t_j} = \Phi_{t_j} - \Phi_{t_{j-1}}$, $j > 0$.
+In an arbitrage-free model futures quotes are a naturally occurring
+martingale.
 
 ## Derivative
 
