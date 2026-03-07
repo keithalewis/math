@@ -21,7 +21,26 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="math.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
@@ -46,41 +65,115 @@
 <header id="title-block-header">
 <h1 class="title">Vector Spaces Done Righter</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Mar 1, 2026</p>
+<p class="date">Mar 5, 2026</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#subspace" id="toc-subspace">Subspace</a>
+<li><a href="#boldsymbolrn" id="toc-boldsymbolrn"><span
+class="math inline">\boldsymbol{{R}}^n</span></a></li>
+<li><a href="#boldsymbolri" id="toc-boldsymbolri"><span
+class="math inline">\boldsymbol{{R}}^I</span></a>
+<ul>
+<li><a href="#standard-basis" id="toc-standard-basis">Standard Basis</a>
 <ul>
 <li><a href="#span" id="toc-span">Span</a></li>
 <li><a href="#independence" id="toc-independence">Independence</a></li>
+</ul></li>
+<li><a href="#standard-dual-basis" id="toc-standard-dual-basis">Standard
+Dual Basis</a></li>
+<li><a href="#curry" id="toc-curry">Curry</a></li>
+<li><a href="#subspace" id="toc-subspace">Subspace</a>
+<ul>
 <li><a href="#basis" id="toc-basis">Basis</a></li>
 </ul></li>
 <li><a href="#invariant-subspace" id="toc-invariant-subspace">Invariant
 Subspace</a></li>
+</ul></li>
 </ul>
 </nav>
 <p>Sheldon Axler wrote a book called <a
 href="https://linear.axler.net/LADR4e.pdf">Linear Algebra Done Right</a>
 that he has graciously made available under a <a
 href="https://creativecommons.org/licenses/by-nc/4.0/">creative
-commons</a> license.</p>
-<!--
-He declared he hated determinants and left those to the last chapter in his book.
-I did too in my first course on linear algebra until I learned about
-[@Gra1844] 
--->
-<p>The usual definition of the vector space <span
-class="math inline">\boldsymbol{{R}}^n</span> is the set of all <span
-class="math inline">n</span>-tuples of real numbers <span
-class="math inline">\{(x_1,\ldots,x_n)\mid x_j\in\boldsymbol{{R}}, 1\le
-j\le n\}</span> This is equivalent to <span
-class="math inline">\boldsymbol{{R}}^{\boldsymbol{{n}}} =
+commons</a> license. He declared his hatred for determinants in both his
+prefaces and left those to the last chapter in his book. I hated them
+too in my first linear algebra course. I even refused to learn them, and
+got a grade of C. Much later, I learned about <span class="citation"
+data-cites="Gra1844">(Grassmann 1844)</span>. Hermann Grassmann showed
+how determinants follow easily from his exterior product of points. His
+rule is very simple: If <span class="math inline">P</span> and <span
+class="math inline">Q</span> are points in space then <span
+class="math inline">PQ = 0</span> if and only if <span
+class="math inline">P = Q</span></p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">PQ =
+-QP</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">0 = (P + Q)(P + Q) = PQ +
+QP</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(aP +
+bQ)(cP + dQ) = (ad - bc)PQ</span></em>.</p>
+<p>The coefficient <span class="math inline">ad - bc</span> is the
+determinant of the matrix <span class="math inline">\begin{bmatrix}a
+&amp; b\\ c&amp;d\end{bmatrix}</span>. This generalizes to any number of
+dimensions.</p>
+<p>…More stuff…</p>
+<section id="boldsymbolrn" class="level1">
+<h1><span class="math inline">\boldsymbol{{R}}^n</span></h1>
+<p>The usual definition of the <em>vector space</em> <span
+class="math inline">\boldsymbol{{R}}^n</span> over the <em>real
+numbers</em> <span class="math inline">\boldsymbol{{R}}</span> is the
+set of all <span class="math inline">n</span>-tuples of real numbers
+<span class="math inline">\{x = (x_1,\ldots,x_n)\mid
+x_j\in\boldsymbol{{R}}, 1\le j\le n\}</span>. It has a <em>scalar
+multiplication</em> <span class="math inline">a(x_1,\ldots,x_n) =
+(ax_1,\ldots,ax_n)</span>, <span
+class="math inline">a\in\boldsymbol{{R}}</span> and <em>vector
+addition</em> <span class="math inline">(x_1,\ldots,x_n) +
+(y_1,\ldots,y_n) = (x_1 + y_1,\ldots,x_n + y_n)</span> that satifies the
+<em>distributed laws</em> <span class="math inline">a(x + y) = ax +
+ay</span> and <span class="math inline">(a + b)x = ax + bx</span>, <span
+class="math inline">a,b\in\boldsymbol{{R}}</span>.</p>
+<p>Vector addition is an <em>abelian group</em>. Addition is associative
+<span class="math inline">x + (y + z) = (x + y) + z</span> and
+commutative <span class="math inline">x + y = y + x</span>. It has an
+<em>identity element</em> <span class="math inline">\boldsymbol{{0}} =
+(0,\ldots,0)</span> and <em>additive inverse</em> <span
+class="math inline">-(x_1,\ldots,x_n) = (-x_1,\ldots,-x_n)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(-1)x =
+-x</span> for <span
+class="math inline">x\in\boldsymbol{{R}}^n</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x +
+(-x) = \boldsymbol{{0}}</span></em>.</p>
+<p>We write <span class="math inline">x - y</span> for <span
+class="math inline">x + (-y)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">1x =
+x</span> for <span
+class="math inline">x\in\boldsymbol{{R}}^n</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x + x =
+x</span> implies <span class="math inline">x =
+\boldsymbol{{0}}</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">x + x = x</span> then
+<span class="math inline">(x + x) - x = x - x</span>.</p>
+<p>There is a different, but equivalent, way to define <span
+class="math inline">\boldsymbol{{R}}^n</span>. Let <span
+class="math inline">\boldsymbol{{n}} = \{1,\ldots,n\}</span> and define
+<span class="math inline">\boldsymbol{{R}}^{\boldsymbol{{n}}} =
 \{\boldsymbol{{x}}\colon\boldsymbol{{n}}\to\boldsymbol{{R}}\}</span>,
-where <span class="math inline">\boldsymbol{{n}} =
-\{1,\ldots,n\}</span>, by <span class="math inline">x_j =
-\boldsymbol{{x}}(j)</span>, <span
-class="math inline">j\in\boldsymbol{{n}}</span>. Scalar multiplication
+the set of all functions from <span
+class="math inline">\boldsymbol{{n}}</span> to <span
+class="math inline">\boldsymbol{{R}}</span>. Scalar multiplication and
+vector addition are defined <em>pointwise</em>. <span
+class="math inline">(ax)(i) = a(x(i))</span> and <span
+class="math inline">(x + y)(i) = x(i) + y(i)</span>.</p>
+<p>The first definition of <span
+class="math inline">\boldsymbol{{R}}^n</span> is that it is a product of
+<span class="math inline">n</span> copies of <span
+class="math inline">\boldsymbol{{R}}</span>. The second definition uses
+the <em>set exponential</em> <span class="math inline">B^A = \{f\colon
+A\to B\}</span>, the set of all functions from <span
+class="math inline">A</span> to <span class="math inline">B</span>. They
+are in one-to-one correspondence by <span class="math inline">x_i =
+\boldsymbol{{x}}(i)</span>, <span
+class="math inline">i\in\boldsymbol{{n}}</span>. Scalar multiplication
 and vector addition are preserved by this equivalence so we call it an
 <em>isomorphism</em> (same form).</p>
 <p><strong>Exercise</strong>. <em>Show <span
@@ -90,15 +183,107 @@ a(\boldsymbol{{x}}(i)</span></em>.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">(x_1,\ldots,x_n) + (y_1\ldots,y_n) = (x_1 +
 y_1,\ldots,x_n + y_n)</span> corresponds to <span
-class="math inline">(\boldsymbol{{x}} + \boldsymbol{{y}})(i) =
-\boldsymbol{{x}}(i) + bs{y}(i)</span></em>.</p>
+class="math inline">{(\boldsymbol{{x}} + \boldsymbol{{y}})(i) =
+\boldsymbol{{x}}(i) + \boldsymbol{{y}}(i)}</span></em>.</p>
 <p>This shows the function <span
-class="math inline">\iota\colon\boldsymbol{{R}}^n\to\boldsymbol{{R}}^{\boldsymbol{{n}}}</span>
+class="math inline">\boldsymbol{{R}}^n\to\boldsymbol{{R}}^{\boldsymbol{{n}}}</span>
 by <span class="math inline">x\mapsto\boldsymbol{{x}}</span> is a
 <em>linear operator</em> that preserves scalar multiplicaton and vector
 addition.</p>
-<p><span class="math inline">\boldsymbol{{R}}</span> to <span
-class="math inline">FF</span>?</p>
+</section>
+<section id="boldsymbolri" class="level1">
+<h1><span class="math inline">\boldsymbol{{R}}^I</span></h1>
+<p>We will drop the bold face type and define <span
+class="math inline">\boldsymbol{{R}}^I = \{I \to
+\boldsymbol{{R}}\}</span> for any <em>index set</em> <span
+class="math inline">I</span> and try to convince you this is a righter
+way to think about vector spaces.</p>
+<section id="standard-basis" class="level2">
+<h2>Standard Basis</h2>
+<p>For <span class="math inline">i\in I</span> define <span
+class="math inline">e_i\in\boldsymbol{{R}}^I</span> by <span
+class="math inline">e_i(j) = \delta_{ij}</span> where <span
+class="math inline">\delta_{ij} = 1</span> if <span
+class="math inline">i = j</span> and <span
+class="math inline">\delta_{ij} = 0</span> if <span
+class="math inline">i\not=j</span> is the <em>Kronecker delta</em>.</p>
+<section id="span" class="level3">
+<h3>Span</h3>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x =
+\sum_{i\in I} x(i) e_i</span> for <span
+class="math inline">x\in\boldsymbol{{R}}^I</span>.</em></p>
+<p><em>Hint</em>: <span class="math inline">x(j) = \sum_{i\in I} x(i)
+e_i(j)</span>.</p>
+<p>This shows the standard basis spans <span
+class="math inline">\boldsymbol{{R}}^I</span>.</p>
+<p>The <em>span</em> of a set of vectors is the smallest subspace
+containing the vectors.</p>
+<p><strong>Exercise</strong>. <em>Show the span of <span
+class="math inline">x_i</span>, <span
+class="math inline">i\in\boldsymbol{{n}}</span> is the set of <em>linear
+combinations</em> <span class="math inline">\{\sum a_i, x_i\mid
+a_i\in\boldsymbol{{R}}\}</span></em>.</p>
+<p><em>Hint</em>. The set contains <span class="math inline">x_i</span>
+for <span class="math inline">i\in\boldsymbol{{n}}</span> and is a
+vector space.</p>
+</section>
+<section id="independence" class="level3">
+<h3>Independence</h3>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\sum_i
+a_i e_i = \boldsymbol{{0}}</span> implies <span class="math inline">a_i
+= 0</span> for <span class="math inline">i\in I</span></em>.</p>
+<p>This shows the standard basis in independent.</p>
+<p>Vectors <span class="math inline">x_i</span>, <span
+class="math inline">i\in\boldsymbol{{n}}</span>, are
+<em>independent</em> if <span class="math inline">\sum_i a_i v_i =
+\boldsymbol{{0}}</span> implies <span class="math inline">a_i = 0</span>
+for all <span class="math inline">i\in\boldsymbol{{n}}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">x_1,\ldots,x_n</span> are not independent then there
+exists <span class="math inline">j</span> with <span
+class="math inline">x_j = \sum_{i\not=j} b_i x_i</span> for some <span
+class="math inline">b_i\in\boldsymbol{{R}}</span></em>.</p>
+<p><em>Hint</em>: We have <span class="math inline">\sum_i a_i x_i =
+\boldsymbol{{0}}</span> with some <span
+class="math inline">a_j\not=0</span>.</p>
+</section>
+</section>
+<section id="standard-dual-basis" class="level2">
+<h2>Standard Dual Basis</h2>
+<p>The <em>dual</em> of <span
+class="math inline">\boldsymbol{{R}}^I</span> is the set of linear
+operators from <span
+class="math inline">\boldsymbol{{R}}^I\to\boldsymbol{{R}}</span>.</p>
+</section>
+<section id="curry" class="level2">
+<h2>Curry</h2>
+<p>Haskell Curry was a logician who extended Alonso Church’s lambda
+calculus.</p>
+<p><em>Currying</em> and <em>uncurrying</em> provides the connection
+between set exponential and cartesian product. The set <span
+class="math inline">{A\times B\to C}</span> is in one-to-one
+correspondence with the set <span class="math inline">\{\{A\to\{B\to
+C\}\}\}</span>. Given <span class="math inline">{f\in\{A\times B\to
+C\}}</span> define <span
+class="math inline">{\operatorname{curry}f\colon A\to\{B\to C\}}</span>
+by <span class="math inline">{((\operatorname{curry}f)(a))(b) =
+f(a,b)}</span>. The inverse is <em>uncurrying</em>. Given <span
+class="math inline">{g\in\{A\to\{B\to C\}\}}</span> define <span
+class="math inline">{\operatorname{uncurry}g\colon A\times B\to
+C}</span> by <span class="math inline">{(\operatorname{uncurry}g)(a,b) =
+(g(a))(b) = (ga)b}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{uncurry}(\operatorname{curry}f) =
+f</span> and <span
+class="math inline">\operatorname{curry}(\operatorname{uncurry}g) =
+g</span></em>.</p>
+<p>The connection between cartesion product and exponential is
+$C^{AB}<span class="math inline">C^{B^A}</span> where <span
+class="math inline">\cong</span> indicates equivalence. If we write
+<span class="math inline">B^A</span> as <span class="math inline">\{A\to
+B\}</span> this becomes <span class="math inline">\{A\times B\to C\}
+\cong \{A\to \{B\to C\}\}</span>.</p>
+</section>
 <section id="subspace" class="level2">
 <h2>Subspace</h2>
 <p>A <em>subspace</em> of a vector space <span
@@ -115,22 +300,6 @@ is a subspace of <span class="math inline">V</span> then <span
 class="math inline">U + U\subseteq U</span></em>.</p>
 <p><em>Hint</em>: <span class="math inline">U + U = \{u + u&#39;\mid
 u,u&#39;\in U\}</span>.</p>
-<section id="span" class="level3">
-<h3>Span</h3>
-<p>The <em>span</em> of a set of vectors is the smallest subspace
-containing the vectors.</p>
-</section>
-<section id="independence" class="level3">
-<h3>Independence</h3>
-<p>Vectors <span class="math inline">v_1,\ldots,v_k</span> are
-<em>independent</em> if <span class="math inline">\sum_j a_j v_j =
-\boldsymbol{{0}}</span> implies <span class="math inline">a_j = 0</span>
-for all <span class="math inline">j</span>.</p>
-<p><strong>Exercise</strong>. _Show if <span
-class="math inline">v_1,\ldots,v_k</span> are not independent then there
-exists <span class="math inline">j</span> with <span
-class="math inline">v_j = \sum_{i\not=j} b_i v_i</span>.</p>
-</section>
 <section id="basis" class="level3">
 <h3>Basis</h3>
 <p>A set of independent vectors that span a vector space is a
@@ -173,6 +342,14 @@ class="math inline">T</span> is <em>diagonalizable</em>.</p>
 is diagonalizable with eigenvalues <span
 class="math inline">\alpha</span> then <span class="math inline">\Pi_j
 (T - \alpha I) = 0</span></em>.</p>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="list">
+<div id="ref-Gra1844" class="csl-entry" role="listitem">
+Grassmann, Hermann Günther. 1844. <em>Die Ausdehnungslehre: Vollständig
+Und in Strenger Form Bearbeitet</em>. Leipzig: Otto Wigand.
+</div>
+</div>
+</section>
 </section>
 </body>
 </html>

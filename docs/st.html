@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Simplified Trading</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Mar 1, 2026</p>
+<p class="date">Mar 6, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Market, Trading, Accounting
@@ -115,8 +115,10 @@ zero.</p>
 class="math inline">\Gamma_j</span> done at <span
 class="math inline">\tau_j</span>. Trades accumulate to positions <span
 class="math inline">\Delta_t = \sum_{\tau_j &lt; t} \Gamma_j = \sum_{s
-&lt; t} \Gamma_s</span>. Note the strict inequality. It takes some time
-for trades to settle.</p>
+&lt; t} \Gamma_s</span> where <span class="math inline">\Gamma_s =
+\Gamma_j</span> when <span class="math inline">s = \tau_j</span> and is
+zero otherwise. Note the strict inequality. It takes some time for
+trades to settle into a position.</p>
 </section>
 <section id="accounting" class="level2">
 <h2>Accounting</h2>
@@ -692,6 +694,18 @@ class="math inline">\sum_j \Gamma_j = 0</span>.</p>
 </tr>
 </tbody>
 </table>
+<p>A futures contracts always have price zero. The contract is specifed
+by an expiration <span class="math inline">T</span> on an underlying
+<span class="math inline">S</span> and is marked (usually daily) at
+times <span class="math inline">0 = t_0 &lt; t_1 &lt; \cdots &lt; t_n =
+T</span>. the <em>quote</em> <span class="math inline">\Phi_T =
+S_T</span> at expiration. Prior to expiration the quote <span
+class="math inline">\Phi_t</span>, <span class="math inline">t &lt;
+T</span>, is determined by the market. Futures have cash flows that are
+differences of quotes: <span class="math inline">C_{t_j} = \Phi_{t_j} -
+\Phi_{t_{j-1}}</span>, <span class="math inline">j &gt; 0</span>. In an
+arbitrage-free model futures quotes are a naturally occurring
+martingale.</p>
 </section>
 <section id="derivative" class="level2">
 <h2>Derivative</h2>
