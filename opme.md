@@ -233,7 +233,7 @@ In general, $v_{j,j+1} = -\frac{1}{K_{j} - K_{j-1}} + \frac{1}{K_{j+1} - K_{j}}$
 $$
 \begin{aligned}
 v_{j,j+2} &= \frac{-1}{K_{j+2} - K_{j-1}} (u_{j,j+1} v_{j+1,j+2} + u_{j,j+2} v_{j+2,j+2}) \\
-	&= \frac{-1}{K_{j+2} - K_{j-1}}
+	&= \frac{-1}{K_{j+2} - K_{j-1}}(K_{j+1} - K_{j-1})(-1/(K_{j+1} - K_j) + 1/(K_{j+1} - K_{j+1}))
 \end{aligned}
 $$
 <!--
