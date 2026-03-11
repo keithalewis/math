@@ -185,60 +185,29 @@ D_n \\
 \end{bmatrix}
 $$
 
+Let $J = 1[i + 1 = j]$ so $J^k = 1[i + k = j]$.
+
+Let $\Delta = I - J$.
+
+$\Delta^{-1} = (I - J)^{-1} = \sum_{k\ge 0} J^k$.
+
+$\Delta D = \diag(K_1, \ldots, K_n)\Delta^{-1}$
+
 $u_{ij} = K_j - K_{i-1}$
 
-$U = [u_{ij}1(i\le j)]$, $V = U^{-1} = [v_{ij}1(i\le j)]$
+$D = [(K_j - K_{i-1})1(i\le j)]$, $V = D^{-1} = [v_{ij}1(i\le j)]$
 
 $v_{ii} = 1/u_{ii}$
 
 $v_{ij} = (-1/u_{ii}) \sum_{k = i + 1}^j u_{ik} v_{kj}$
 
-In general, $v_{j,j+1} = -\frac{1}{K_{j} - K_{j-1}} + \frac{1}{K_{j+1} - K_{j}}$
+$v_{i,i} = 1/(K_i - K_{i-1})$
 
-$$
-\begin{aligned}
-v_{n,n+1} &= \frac{-1}{K_n - K_{n-1}} \sum_{k=n+1}^{n+1} u_{n,k} v_{k,n+1} \\
-	&= \frac{-1}{K_n - K_{n-1}} ( u_{n,n+1} v_{n+1,n+1}) \\
-	&= \frac{-1}{K_n - K_{n-1}} \frac{K_{n+1} - K_{n-1}}{K_{n+1} - K_n} \\
-	&= -\frac{K_{n+1} - K_{n-1}}{(K_n - K_{n-1})(K_{n+1} - K_n)} \\
-	&= -\frac{K_{n+1} - K_n + K_n - K_{n-1}}{(K_n - K_{n-1})(K_{n+1} - K_n)} \\
-	&= - \frac{1}{K_{n} - K_{n-1}} + \frac{1}{K_{n+1} - K_n} \\
-\end{aligned}
-$$
+$v_{i,i+1} = -1/(K_{i} - K_{i-1}) + 1/(K_{i+1} - K_{i}}$
 
-$$
-\begin{aligned}
-v_{n-1,n} &= \frac{-1}{K_{n-1} - K_{n-2}} \sum_{k=n}^{n} u_{n-1,k} v_{k,n} \\
-	&= \frac{-1}{K_{n-1} - K_{n-2}}  u_{n-1,n} v_{n,n} \\
-	&= \frac{-1}{K_{n-1} - K_{n-2}}  \frac{K_n - K_{n-2}}{K_n - K_{n-1}} \\
-	&= -\frac{K_n - K_{n-2}}{(K_{n-1} - K_{n-2})(K_n - K_{n-1})} \\
-	&= -\frac{K_n - K_{n-1} + K_{n-1} - K_{n-2}}{(K_{n-1} - K_{n-2})(K_n - K_{n-1})} \\
-	&= -\frac{1}{K_{n-1} - K_{n-2}} + \frac{1}{K_n - K_{n-1}} \\
-\end{aligned}
-$$
+$v_{i,i+2) = 1/(K_{i+1} - K_i)$.
 
-$$
-\begin{aligned}
-v_{12} &= \frac{-1}{K_2 - K_1} \sum_{k=2}^2 u_{1,k} v_{k,2} \\
-	&= \frac{-1}{K_{2} - K_{1}}  u_{1,2} v_{2,2} \\
-	&= \frac{-1}{K_{2} - K_{1}}  \frac{K_2 - K_0}{K_2 - K_{1}} \\
-	&= -\frac{K_2 - K_{0}}{(K_{1} - K_{0})(K_2 - K_{1})} \\
-	&= -\frac{K_2 - K_{1} + K_{1} - K_{0}}{(K_{1} - K_{0})(K_2 - K_{1})} \\
-	&= -\frac{1}{K_{1} - K_{0}} + \frac{1}{K_2 - K_1} \\
-\end{aligned}
-$$
-
-In general, $v_{j,j+1} = -\frac{1}{K_{j} - K_{j-1}} + \frac{1}{K_{j+1} - K_{j}}$
-
-$$
-\begin{aligned}
-v_{j,j+2} &= \frac{-1}{K_{j+2} - K_{j-1}} (u_{j,j+1} v_{j+1,j+2} + u_{j,j+2} v_{j+2,j+2}) \\
-	&= \frac{-1}{K_{j+2} - K_{j-1}}(K_{j+1} - K_{j-1})(-1/(K_{j+1} - K_j) + 1/(K_{j+1} - K_{j+1}))
-\end{aligned}
-$$
-<!--
-	((K_{j+1} - K_{j-1}})(-\frac{1}{K_{j+1} - K_{j}} + \frac{1}{K_{j+2} - K_{j+1}})) \\
--->
+$v_{i,j} = 0$, $j > 2$.
 
 $A = [R]$, $B = [R\,R\,R\cdots R\,R]$, $C = [L\,0\,0\,0 \cdots 0\,0]^T$
 and $D = [(K_j - K_i)1(j > i)]$, $0 \le i < j \le n + 1$.
