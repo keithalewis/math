@@ -46,7 +46,7 @@
 <header id="title-block-header">
 <h1 class="title">One Period Entropy Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Mar 6, 2026</p>
+<p class="date">Mar 11, 2026</p>
 </header>
 <p><span class="math inline">x = (1, v, s)</span>, <span
 class="math inline">X(\omega) = (R, (\omega - K)^+, \omega)</span>,
@@ -234,62 +234,25 @@ D_3 \\
 D_n \\
 \end{bmatrix}
 </span></p>
+<p>Let <span class="math inline">J = 1[i + 1 = j]</span> so <span
+class="math inline">J^k = 1[i + k = j]</span>.</p>
+<p>Let <span class="math inline">\Delta = I - J</span>.</p>
+<p><span class="math inline">\Delta^{-1} = (I - J)^{-1} = \sum_{k\ge 0}
+J^k</span>.</p>
+<p><span class="math inline">\Delta D = \operatorname{diag}(K_1, \ldots,
+K_n)\Delta^{-1}</span></p>
 <p><span class="math inline">u_{ij} = K_j - K_{i-1}</span></p>
-<p><span class="math inline">U = [u_{ij}1(i\le j)]</span>, <span
-class="math inline">V = U^{-1} = [v_{ij}1(i\le j)]</span></p>
+<p><span class="math inline">D = [(K_j - K_{i-1})1(i\le j)]</span>,
+<span class="math inline">V = D^{-1} = [v_{ij}1(i\le j)]</span></p>
 <p><span class="math inline">v_{ii} = 1/u_{ii}</span></p>
 <p><span class="math inline">v_{ij} = (-1/u_{ii}) \sum_{k = i + 1}^j
 u_{ik} v_{kj}</span></p>
-<p>In general, <span class="math inline">v_{j,j+1} = -\frac{1}{K_{j} -
-K_{j-1}} + \frac{1}{K_{j+1} - K_{j}}</span></p>
-<p><span class="math display">
-\begin{aligned}
-v_{n,n+1} &amp;= \frac{-1}{K_n - K_{n-1}} \sum_{k=n+1}^{n+1} u_{n,k}
-v_{k,n+1} \\
-    &amp;= \frac{-1}{K_n - K_{n-1}} ( u_{n,n+1} v_{n+1,n+1}) \\
-    &amp;= \frac{-1}{K_n - K_{n-1}} \frac{K_{n+1} - K_{n-1}}{K_{n+1} -
-K_n} \\
-    &amp;= -\frac{K_{n+1} - K_{n-1}}{(K_n - K_{n-1})(K_{n+1} - K_n)} \\
-    &amp;= -\frac{K_{n+1} - K_n + K_n - K_{n-1}}{(K_n - K_{n-1})(K_{n+1}
-- K_n)} \\
-    &amp;= - \frac{1}{K_{n} - K_{n-1}} + \frac{1}{K_{n+1} - K_n} \\
-\end{aligned}
-</span></p>
-<p><span class="math display">
-\begin{aligned}
-v_{n-1,n} &amp;= \frac{-1}{K_{n-1} - K_{n-2}} \sum_{k=n}^{n} u_{n-1,k}
-v_{k,n} \\
-    &amp;= \frac{-1}{K_{n-1} - K_{n-2}}  u_{n-1,n} v_{n,n} \\
-    &amp;= \frac{-1}{K_{n-1} - K_{n-2}}  \frac{K_n - K_{n-2}}{K_n -
-K_{n-1}} \\
-    &amp;= -\frac{K_n - K_{n-2}}{(K_{n-1} - K_{n-2})(K_n - K_{n-1})} \\
-    &amp;= -\frac{K_n - K_{n-1} + K_{n-1} - K_{n-2}}{(K_{n-1} -
-K_{n-2})(K_n - K_{n-1})} \\
-    &amp;= -\frac{1}{K_{n-1} - K_{n-2}} + \frac{1}{K_n - K_{n-1}} \\
-\end{aligned}
-</span></p>
-<p><span class="math display">
-\begin{aligned}
-v_{12} &amp;= \frac{-1}{K_2 - K_1} \sum_{k=2}^2 u_{1,k} v_{k,2} \\
-    &amp;= \frac{-1}{K_{2} - K_{1}}  u_{1,2} v_{2,2} \\
-    &amp;= \frac{-1}{K_{2} - K_{1}}  \frac{K_2 - K_0}{K_2 - K_{1}} \\
-    &amp;= -\frac{K_2 - K_{0}}{(K_{1} - K_{0})(K_2 - K_{1})} \\
-    &amp;= -\frac{K_2 - K_{1} + K_{1} - K_{0}}{(K_{1} - K_{0})(K_2 -
-K_{1})} \\
-    &amp;= -\frac{1}{K_{1} - K_{0}} + \frac{1}{K_2 - K_1} \\
-\end{aligned}
-</span></p>
-<p>In general, <span class="math inline">v_{j,j+1} = -\frac{1}{K_{j} -
-K_{j-1}} + \frac{1}{K_{j+1} - K_{j}}</span></p>
-<p><span class="math display">
-\begin{aligned}
-v_{j,j+2} &amp;= \frac{-1}{K_{j+2} - K_{j-1}} (u_{j,j+1} v_{j+1,j+2} +
-u_{j,j+2} v_{j+2,j+2}) \\
-    &amp;= \frac{-1}{K_{j+2} - K_{j-1}}
-\end{aligned}
-</span> <!--
-    ((K_{j+1} - K_{j-1}})(-\frac{1}{K_{j+1} - K_{j}} + \frac{1}{K_{j+2} - K_{j+1}})) \\
---></p>
+<p><span class="math inline">v_{i,i} = 1/(K_i - K_{i-1})</span></p>
+<p><span class="math inline">v_{i,i+1} = -1/(K_{i} - K_{i-1}) +
+1/(K_{i+1} - K_{i})</span></p>
+<p><span class="math inline">v_{i,i+2} = 1/(K_{i+1} - K_i)</span>.</p>
+<p><span class="math inline">v_{i,j} = 0</span>, <span
+class="math inline">j &gt; 2</span>.</p>
 <p><span class="math inline">A = [R]</span>, <span class="math inline">B
 = [R\,R\,R\cdots R\,R]</span>, <span class="math inline">C = [L\,0\,0\,0
 \cdots 0\,0]^T</span> and <span class="math inline">D = [(K_j - K_i)1(j
