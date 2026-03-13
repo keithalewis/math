@@ -139,7 +139,7 @@ A start at solving this difficult and not well-understood problem is to note
 $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ and $V_t$ can be calculated
 using the contract terms $\hat{A}_t$ by equation $(3)$.
 
-The Fréchet derivative of $V_t$ with respect to $X_t$ is
+The Fréchet derivative of value $V_t$ with respect to the underlying $X_t$ is
 $D_{X_t}V_t = \Delta_t + \Gamma_t$.
 At time 0 the position is 0 so this gives us the initial trade $\Gamma_0$.
 At any time after that we have $\Gamma_t = D_{X_t}V_t - \Delta_t$. The position
@@ -147,9 +147,13 @@ $\Delta_t$ is known at time $t$ so this can be used to come up with
 candidate trading strategies. What this theory does not tell you is
 when you should trade. If you let $\tau_j = j\Delta t$
 for some time increment $\Delta t$ then this results in the usual
-Black-Scholes/Merton delta hedge as the increment goes to zero.
+Black-Scholes/Merton delta hedge as the time increment goes to zero.
 A smarter idea might be to set a price increment $\Delta X$ and
 determine the next trading time $\tau_{j+1}$ from the last trading time $\tau_j$
-by $|X_{\tau_{j+1}} - X_{\tau_j}| > \Delta X$.
+by $\|X_{\tau_{j+1}} - X_{\tau_j}\| > \Delta X$.
+
+There is no shortage of unsolved problems that can be practically applied to
+trading. This short note simply provides a rigorous mathematical foundation
+enabling such investigations.
 
 ## References
