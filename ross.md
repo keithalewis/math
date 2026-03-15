@@ -11,21 +11,19 @@ fleqn: true
 [@Ros1978] showed how to value uncertain future cash flows.
 His two main results are:
 
-1. There is no need for probability, only geometry.
+1. Valuation is a geometric result.
 
-2. The theory applies to any portfolio of instruments.
+2. The theory applies to _any_ portfolio of instruments.
 
-Perhaps this was too astonishing for people to appreciate.
+Perhaps this was too astonishing for people to appreciate at the time.
 There is no need for Brownian motion or Ito processes,
 much less partial differential equations.
-It applies to _any_ portfolio of instruments, not just
+It applies to any portfolio of instruments, not just
 the bond, stock, and option [@BlaSch1973] and [@Mer1973] considered.
 
 Ross's definition of a cash flow was a jump in stock price.
 Stock prices jump between close and open but there is no dividend payment involved.
-Fixed Income bonds are defined by their cash flows. Futures always have
-price zero with cash flows the difference of their daily quotes.
-Adding a knob for cash flows to Ross's theory leads to
+Adding an explicit knob for cash flows to Ross's theory leads to
 a model that maps more closely to practical implementation. 
 
 ## Market
@@ -37,13 +35,21 @@ simultaneously if we let $X_t$ and $C_t$ be vectors indexed by $I$.
 
 ## Arbitrage
 
-Ross showed if the there is no trading strategy that makes money on the
+Ross showed if there is no trading strategy that makes money on the
 first trade and never loses money until the trading strategy is closed out
-if and only if there exist positive measures $D_t$ with
+then there exist positive adapted measures $D_t$ with
 $$
 \tag{1}	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}
 $$
-where $\AA_t$ is the partition of information available at time $t$.
+where $\AA_t$ is the partition of information[^1] available at time $t$.
+
+[^1]: A partition of a set $\Omega$ is a collection of pairwise disjoint
+subsets of $\Omega$ having union $\Omega$. No information corresponds
+to the singleton partition $\{\Omega\}$ &mdash; we only know the outcome
+$\omega$ is a member of $\Omega$. Complete information corresponds
+to the partition of singletons $\{\{\omega\}\mid\omega\in\Omega\}$
+&mdash; know exactly which outcome occurred. Partial information corresponds
+to knowing which element of the partition the outcome belongs to.
 
 Ross used the Hahn-Banach theorem to prove their existence but there
 is no need for that. Every arbitrage-free model has a simple parameterization.
@@ -61,9 +67,8 @@ __Exercise__. _Show equation $(2)$ implies equation $(1)$_.
 _Hint_: Replace $t$ by $u$ in equation $(2)$ and plug that into the
 right-hand side of equation $(1)$.
 
-This is the so-called "easy direction" but why bother with the
-contrapositive when we have a ready supply of arbitrage-free models?
-The fun part is coming up with martingales that can fit market data.
+This reduces the problem to coming up with 
+martingale measures that can fit market data.
 
 The Black-Scholes/Merton model for the bond and stock is parameterized by
 ${M_t = (1, e^{\sigma B_t - \sigma^2t/2})P}$, ${D_t = e^{-\rho t}P}$
@@ -74,9 +79,12 @@ and $S_t = s e^{\sigma B_t + (\rho - \sigma^2/2)t}$_.
 
 _Hint_: Use equation $(2)$ with $C_t = (0, 0)$.
 
+Note there is no need to introduce a so-called "real world" measure that
+requires a Nobel Prize winning argument to show it can be thrown away.
+
 ## Trading
 
-A _trading strategy_ is a finite number of increasing stopping times
+A _trading strategy_ is a finite number of increasing stopping times[^2]
 $\tau_0 < \cdots < \tau_n$ and trades $\Gamma_j$ indexed by instruments
 that depend only on information available at time $\tau_j$.
 Trades accumulate to _positions_ 
@@ -84,12 +92,14 @@ $$
 	\Delta_t = \sum_{\tau_j < t} \Gamma_j = \sum_{s < t} \Gamma_s
 $$
 where $\Gamma_s = \Gamma_j$ when $s = \tau_j$ and is zero otherwise.
-Note the strict inequality. Trades take time to settle into
+Note the strict inequality &mdash; trades take time to settle into
 a position. A trading strategy is _closed out_ if $\sum_j \Gamma_j = 0$.
+
+[^2]: The sets $\{\tau_t = t\}$ are a union of atoms of $\AA_t$.
 
 ## Accounting
 
-Trading involves accounting. The _value_ (or mark-to-market) is
+Trading involves accounting. The _value_ (or mark-to-market) at time $t$ is
 $$
 	V_t = (\Delta_t + \Gamma_t)\cdot X_.
 $$
@@ -125,21 +135,22 @@ risk of derivative instruments.
 
 ### Derivatives
 
-A (cash settled) derivative is a contract where the buyer will
-pay the seller to cover amounts $\hat{A}_k$ at times $\hat{\tau}_k$.
-The buyer is willing to pay the seller a premium to take the risk off their hands.
-This short note provides nothing to suggest what premium, vigorish, or baksheesh
-should be charged for that service.
+A (cash settled) derivative is a contract where the buyer will pay the
+seller to cover amounts $\hat{A}_k$ at times $\hat{\tau}_k$.  The buyer
+is willing to pay the seller a premium to take the risk off their hands.
+This short note provides nothing to suggest a solution to the conundrum of
+what premium, vigorish, or baksheesh should be charged for that service.
 
 The job of a quant is to find a trading strategy $(\tau_j, \Gamma_j)$ with
-$A_{\hat{\tau}_k} = \hat{A}_{k}$ and $A_t = 0$ otherwise.
+$A_{\hat{\tau}_k} = \hat{A}_{k}$ and $A_t = 0$ otherwise. The latter condition
+is referred to as _self-financing_.
 Unless you belong to a Pythagorean cult that believes in the mathematical
 absurdity of continuous time trading, this is generally not possible.
 A start at solving this difficult and not well-understood problem is to note
 $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ and $V_t$ can be calculated
 using the contract terms $\hat{A}_t$ by equation $(3)$.
 
-The Fréchet derivative of value $V_t$ with respect to the underlying $X_t$ is
+The Fréchet derivative[^3] of value $V_t$ with respect to the underlying $X_t$ is
 $D_{X_t}V_t = \Delta_t + \Gamma_t$.
 At time 0 the position is 0 so this gives us the initial trade $\Gamma_0$.
 At any time after that we have $\Gamma_t = D_{X_t}V_t - \Delta_t$. The position
@@ -152,8 +163,18 @@ A smarter idea might be to set a price increment $\Delta X$ and
 determine the next trading time $\tau_{j+1}$ from the last trading time $\tau_j$
 by $\|X_{\tau_{j+1}} - X_{\tau_j}\| > \Delta X$.
 
-There is no shortage of unsolved problems that can be practically applied to
-trading. This short note simply provides a rigorous mathematical foundation
-enabling such investigations.
+[^3]: If $F\colon X\to Y$ is a function on normed linear spaces the
+Fréchet derivative (when it exists) is the best linear approximation
+of $F$ in a neighborhood of a point
+$$
+	F(x + h) = F(x) + DF(x)h + o(h), x,h\in X
+$$
+where $DF(x)$ is a bounded linear operator from $X$ to $Y$.
+
+This short note provides a simple but rigorous mathematical foundation
+for future research. For full details. 
+see https:/github.io/
+
+## Remarks
 
 ## References
