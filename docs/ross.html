@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Stephen Ross</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Mar 13, 2026</p>
+<p class="date">Mar 15, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Risky Streams of Cash Flows
@@ -83,28 +83,28 @@ id="toc-parameterization">Parameterization</a></li>
 <ul>
 <li><a href="#derivatives" id="toc-derivatives">Derivatives</a></li>
 </ul></li>
+<li><a href="#remarks" id="toc-remarks">Remarks</a></li>
 <li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
 <p><span class="citation" data-cites="Ros1978">(Ross 1978)</span> showed
 how to value uncertain future cash flows. His two main results are:</p>
 <ol type="1">
-<li><p>There is no need for probability, only geometry.</p></li>
-<li><p>The theory applies to any portfolio of instruments.</p></li>
+<li><p>Valuation is a geometric result.</p></li>
+<li><p>The theory applies to <em>any</em> portfolio of
+instruments.</p></li>
 </ol>
-<p>Perhaps this was too astonishing for people to appreciate. There is
-no need for Brownian motion or Ito processes, much less partial
-differential equations. It applies to <em>any</em> portfolio of
+<p>Perhaps this was too astonishing for people to appreciate at the
+time. There is no need for Brownian motion or Ito processes, much less
+partial differential equations. It applies to any portfolio of
 instruments, not just the bond, stock, and option <span class="citation"
 data-cites="BlaSch1973">(Black and Scholes 1973)</span> and <span
 class="citation" data-cites="Mer1973">(Merton 1973)</span>
 considered.</p>
 <p>Ross’s definition of a cash flow was a jump in stock price. Stock
 prices jump between close and open but there is no dividend payment
-involved. Fixed Income bonds are defined by their cash flows. Futures
-always have price zero with cash flows the difference of their daily
-quotes. Adding a knob for cash flows to Ross’s theory leads to a model
-that maps more closely to practical implementation.</p>
+involved. Adding an explicit knob for cash flows to Ross’s theory leads
+to a model that maps more closely to practical implementation.</p>
 <section id="market" class="level2">
 <h2>Market</h2>
 <p>Every <em>instrument</em> has bounded <em>price</em> <span
@@ -118,14 +118,15 @@ be vectors indexed by <span class="math inline">I</span>.</p>
 </section>
 <section id="arbitrage" class="level2">
 <h2>Arbitrage</h2>
-<p>Ross showed if the there is no trading strategy that makes money on
-the first trade and never loses money until the trading strategy is
-closed out if and only if there exist positive measures <span
+<p>Ross showed if there is no trading strategy that makes money on the
+first trade and never loses money until the trading strategy is closed
+out then there exist positive adapted measures <span
 class="math inline">D_t</span> with <span class="math display">
 \tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
 D_s)|_{\mathcal{A}_t}
 </span> where <span class="math inline">\mathcal{A}_t</span> is the
-partition of information available at time <span
+partition of information<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> available at time <span
 class="math inline">t</span>.</p>
 <p>Ross used the Hahn-Banach theorem to prove their existence but there
 is no need for that. Every arbitrage-free model has a simple
@@ -146,9 +147,8 @@ class="math inline">(1)</span></em>.</p>
 class="math inline">u</span> in equation <span
 class="math inline">(2)</span> and plug that into the right-hand side of
 equation <span class="math inline">(1)</span>.</p>
-<p>This is the so-called “easy direction” but why bother with the
-contrapositive when we have a ready supply of arbitrage-free models? The
-fun part is coming up with martingales that can fit market data.</p>
+<p>This reduces the problem to coming up with martingale measures that
+can fit market data.</p>
 <p>The Black-Scholes/Merton model for the bond and stock is
 parameterized by <span class="math inline">{M_t = (1, e^{\sigma B_t -
 \sigma^2t/2})P}</span>, <span class="math inline">{D_t = e^{-\rho
@@ -161,26 +161,32 @@ t}</span> and <span class="math inline">S_t = s e^{\sigma B_t + (\rho -
 \sigma^2/2)t}</span></em>.</p>
 <p><em>Hint</em>: Use equation <span class="math inline">(2)</span> with
 <span class="math inline">C_t = (0, 0)</span>.</p>
+<p>Note there is no need to introduce a so-called “real world” measure
+that requires a Nobel Prize winning argument to show it can be thrown
+away.</p>
 </section>
 <section id="trading" class="level2">
 <h2>Trading</h2>
 <p>A <em>trading strategy</em> is a finite number of increasing stopping
-times <span class="math inline">\tau_0 &lt; \cdots &lt; \tau_n</span>
-and trades <span class="math inline">\Gamma_j</span> indexed by
-instruments that depend only on information available at time <span
+times<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> <span class="math inline">\tau_0
+&lt; \cdots &lt; \tau_n</span> and trades <span
+class="math inline">\Gamma_j</span> indexed by instruments that depend
+only on information available at time <span
 class="math inline">\tau_j</span>. Trades accumulate to
 <em>positions</em> <span class="math display">
     \Delta_t = \sum_{\tau_j &lt; t} \Gamma_j = \sum_{s &lt; t} \Gamma_s
 </span> where <span class="math inline">\Gamma_s = \Gamma_j</span> when
 <span class="math inline">s = \tau_j</span> and is zero otherwise. Note
-the strict inequality. Trades take time to settle into a position. A
+the strict inequality — trades take time to settle into a position. A
 trading strategy is <em>closed out</em> if <span
 class="math inline">\sum_j \Gamma_j = 0</span>.</p>
 </section>
 <section id="accounting" class="level2">
 <h2>Accounting</h2>
 <p>Trading involves accounting. The <em>value</em> (or mark-to-market)
-is <span class="math display">
+at time <span class="math inline">t</span> is <span
+class="math display">
     V_t = (\Delta_t + \Gamma_t)\cdot X_.
 </span> It is the putative value of liquidating the existing position
 and trades just executed assuming that can be done at current market
@@ -217,12 +223,14 @@ of derivative instruments.</p>
 the seller to cover amounts <span class="math inline">\hat{A}_k</span>
 at times <span class="math inline">\hat{\tau}_k</span>. The buyer is
 willing to pay the seller a premium to take the risk off their hands.
-This short note provides nothing to suggest what premium, vigorish, or
-baksheesh should be charged for that service.</p>
+This short note provides nothing to suggest a solution to the conundrum
+of what premium, vigorish, or baksheesh should be charged for that
+service.</p>
 <p>The job of a quant is to find a trading strategy <span
 class="math inline">(\tau_j, \Gamma_j)</span> with <span
 class="math inline">A_{\hat{\tau}_k} = \hat{A}_{k}</span> and <span
-class="math inline">A_t = 0</span> otherwise. Unless you belong to a
+class="math inline">A_t = 0</span> otherwise. The latter condition is
+referred to as <em>self-financing</em>. Unless you belong to a
 Pythagorean cult that believes in the mathematical absurdity of
 continuous time trading, this is generally not possible. A start at
 solving this difficult and not well-understood problem is to note <span
@@ -230,25 +238,33 @@ class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span> and
 <span class="math inline">V_t</span> can be calculated using the
 contract terms <span class="math inline">\hat{A}_t</span> by equation
 <span class="math inline">(3)</span>.</p>
-<p>The Fréchet derivative of <span class="math inline">V_t</span> with
-respect to <span class="math inline">X_t</span> is <span
-class="math inline">D_{X_t}V_t = \Delta_t + \Gamma_t</span>. At time 0
-the position is 0 so this gives us the initial trade <span
-class="math inline">\Gamma_0</span>. At any time after that we have
-<span class="math inline">\Gamma_t = D_{X_t}V_t - \Delta_t</span>. The
-position <span class="math inline">\Delta_t</span> is known at time
-<span class="math inline">t</span> so this can be used to come up with
-candidate trading strategies. What this theory does not tell you is when
-you should trade. If you let <span class="math inline">\tau_j = j\Delta
-t</span> for some time increment <span class="math inline">\Delta
-t</span> then this results in the usual Black-Scholes/Merton delta hedge
-as the increment goes to zero. A smarter idea might be to set a price
-increment <span class="math inline">\Delta X</span> and determine the
-next trading time <span class="math inline">\tau_{j+1}</span> from the
-last trading time <span class="math inline">\tau_j</span> by <span
-class="math inline">|X_{\tau_{j+1}} - X_{\tau_j}| &gt; \Delta
+<p>The Fréchet derivative<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> of value <span
+class="math inline">V_t</span> with respect to the underlying <span
+class="math inline">X_t</span> is <span class="math inline">D_{X_t}V_t =
+\Delta_t + \Gamma_t</span>. At time 0 the position is 0 so this gives us
+the initial trade <span class="math inline">\Gamma_0</span>. At any time
+after that we have <span class="math inline">\Gamma_t = D_{X_t}V_t -
+\Delta_t</span>. The position <span class="math inline">\Delta_t</span>
+is known at time <span class="math inline">t</span> so this can be used
+to come up with candidate trading strategies. What this theory does not
+tell you is when you should trade. If you let <span
+class="math inline">\tau_j = j\Delta t</span> for some time increment
+<span class="math inline">\Delta t</span> then this results in the usual
+Black-Scholes/Merton delta hedge as the time increment goes to zero. A
+smarter idea might be to set a price increment <span
+class="math inline">\Delta X</span> and determine the next trading time
+<span class="math inline">\tau_{j+1}</span> from the last trading time
+<span class="math inline">\tau_j</span> by <span
+class="math inline">\|X_{\tau_{j+1}} - X_{\tau_j}\| &gt; \Delta
 X</span>.</p>
+<p>This short note provides a simple but rigorous mathematical
+foundation for future research. For full details. see
+https:/github.io/</p>
 </section>
+</section>
+<section id="remarks" class="level2">
+<h2>Remarks</h2>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
@@ -274,5 +290,36 @@ href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277
 </div>
 </div>
 </section>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>A partition of a set <span
+class="math inline">\Omega</span> is a collection of pairwise disjoint
+subsets of <span class="math inline">\Omega</span> having union <span
+class="math inline">\Omega</span>. No information corresponds to the
+singleton partition <span class="math inline">\{\Omega\}</span> — we
+only know the outcome <span class="math inline">\omega</span> is a
+member of <span class="math inline">\Omega</span>. Complete information
+corresponds to the partition of singletons <span
+class="math inline">\{\{\omega\}\mid\omega\in\Omega\}</span> — know
+exactly which outcome occurred. Partial information corresponds to
+knowing which element of the partition the outcome belongs to.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The sets <span class="math inline">\{\tau_t = t\}</span>
+are a union of atoms of <span
+class="math inline">\mathcal{A}_t</span>.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>If <span class="math inline">F\colon X\to Y</span> is a
+function on normed linear spaces the Fréchet derivative (when it exists)
+is the best linear approximation of <span class="math inline">F</span>
+in a neighborhood of a point <span class="math display">
+F(x + h) = F(x) + DF(x)h + o(h), x,h\in X
+</span> where <span class="math inline">DF(x)</span> is a bounded linear
+operator from <span class="math inline">X</span> to <span
+class="math inline">Y</span>.<a href="#fnref3" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
 </body>
 </html>
