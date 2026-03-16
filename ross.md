@@ -84,9 +84,30 @@ _Hint_: Use equation $(2)$ with $C_t = (0, 0)$.
 Note there is no need to introduce a so-called "real world" measure that
 requires a Nobel Prize winning argument to show it can be thrown away.
 
+### Lévy
+
+Another source of ready-made martingales are Lévy processes[^2].
+If $(X_t)$ is a Lévy process then $M_t e^{sX_t - t\kappa(s)}$ is a
+martingale where $\kappa$ is the cumulant $\kappa(s) = \log E[e^{s X_1}]$.
+
+Merton's jump diffusion model is a special case of this.
+
+[^2]: A Lévy process is a stochastic process that has stationary, independent increments,
+and is continuous in probability.
+Lévy processes are completely determined by their value at time 1.
+
+### Dividends
+
+A fixed dividend is a fixed cash flow $d_t$ at a dividend date $t$.
+A proportional dividend $p$ is a cash flow $p_t S_t$ at dividend date $t$.
+Many companies announce projected dividends several months in advance.
+Future dividends are assumed to be proportional to the stock price.
+Specifying a function $X$ that is one at zero and decreases to zero at infinity
+can be used to blend these two models using cash flows $X(t)d_t + (1 - X(t))p_t S_t$.
+
 ## Trading
 
-A _trading strategy_ is a finite number of increasing stopping times[^2]
+A _trading strategy_ is a finite number of increasing stopping times[^3]
 $\tau_0 < \cdots < \tau_n$ and trades $\Gamma_j$ indexed by instruments
 that depend only on information available at time $\tau_j$.
 Trades accumulate to _positions_ 
@@ -97,7 +118,7 @@ where $\Gamma_s = \Gamma_j$ when $s = \tau_j$ and is zero otherwise.
 Note the strict inequality -- trades take time to settle into
 a position. A trading strategy is _closed out_ if $\sum_j \Gamma_j = 0$.
 
-[^2]: The sets $\{\tau_t = t\}$ are a union of atoms of $\AA_t$.
+[^3]: The sets $\{\tau_t = t\}$ are a union of atoms of $\AA_t$.
 
 ## Accounting
 
@@ -152,12 +173,20 @@ A start at solving this difficult and not well-understood problem is to note
 $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ and $V_t$ can be calculated
 using the contract terms $\hat{A}_t$ by equation $(3)$.
 
-The Fréchet derivative[^3] of value $V_t$ with respect to the underlying $X_t$ is
+The Fréchet derivative[^4] of value $V_t$ with respect to the underlying $X_t$ is
 $D_{X_t}V_t = \Delta_t + \Gamma_t$.
 At time 0 the position is 0 so this gives us the initial trade $\Gamma_0$.
 At any time after that we have $\Gamma_t = D_{X_t}V_t - \Delta_t$. The position
 $\Delta_t$ is known at time $t$ so this can be used to come up with
 candidate trading strategies.
+
+[^4]: If $F\colon X\to Y$ is a function on normed linear spaces the
+Fréchet derivative (when it exists) is the best linear approximation
+of $F$ in a neighborhood of a point
+$$
+	F(x + h) = F(x) + DF(x)h + o(h), x,h\in X
+$$
+where $DF(x)$ is a bounded linear operator from $X$ to $Y$.
 
 What this theory does not tell you is
 when you should trade. If you let $\tau_j = j\Delta t$
@@ -171,14 +200,6 @@ What this theory does allow you to do is rigorously analyze any trading strategy
 For instance, the above strategy could be implemented using limit orders. At
 time $\tau_j$ place limit orders at $X_{\tau_j} \pm \Delta X$.
 If they are executed you get a cash flow of $\pm\Delta X$.
-
-[^3]: If $F\colon X\to Y$ is a function on normed linear spaces the
-Fréchet derivative (when it exists) is the best linear approximation
-of $F$ in a neighborhood of a point
-$$
-	F(x + h) = F(x) + DF(x)h + o(h), x,h\in X
-$$
-where $DF(x)$ is a bounded linear operator from $X$ to $Y$.
 
 ## Application
 
