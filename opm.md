@@ -390,11 +390,12 @@ $$
 The no arbitrage constraints are $v\ge 0$,
 $v \ge s - K/R$,
 and $(s - L/R)(H - K)/(H - L) \ge v$.
-Note the binomial model option value is an upper bound in the interval model.
+Note the binomial model option value is the upper bound of the arbitrage free
+option value in the interval model.
 Fixing $R$ and $s$ we have the allowable arbitrage-free initial option value 
 must satisfy 
 $$
-s - K/R \le v \le (s - L/R)(H - K)/(H - L).
+\max\{s - K/R,0\} \le v \le (s - L/R)(H - K)/(H - L).
 $$
 
 If we have $n$ call options with values $v_i$ and strikes $K_i$
@@ -439,13 +440,15 @@ $$
 We can write this as a block matrix on the first row and first column
 $[A\,B; C\,D]$ where
 $A = [R]$ $B = [R \cdots R]$, and $C = [L\,0 \cdots 0]^T$.
-If we let $K_0 = 0$ and $K_{n+1} = H$ then $D$ is upper triangular with
-non-zero entries ${D_{i,j} = K_j - K_{i-1}}$ for
-$1\le i \le j\le n + 1$. The the inverse is upper bidiagonal
-with main diagonal ${D^{-1}_{i,i} = 1/(K_{i+1} - K_i)}$, $0\le i\le n$
-and upper diagonal ${D^{-1}_{i,i+1} = -1/(K_{i + 1} - K_i)}$.
 
-If $E = (D - CA^{-1}B)^{-1}$ is the Schur complement then
+If we let $K_0 = 0$ and $K_{n+1} = H$ then $D$ is upper triangular with
+non-zero entries ${D_{i,j} = K_j - K_{i-1}}$ for $1\le i \le j\le n + 1$.
+Its inverse is tri-upper triangular with entries
+$D^{-1}_{i,i} = 1/D_{i,i}$,
+$D^{-1}_{i,i+1} = -1/D_{i,i} + 1/D_{i+1,i+1}$, and
+$D^{-1}_{i,i+2} = 1/D_{i+1,i+1}$.
+
+If $E = A - B D^{-1}C$ is the Schur complement then
 $$
 \begin{bmatrix}
 A & B \\
@@ -453,48 +456,12 @@ C & D \\
 \end{bmatrix}^{-1}
 =
 \begin{bmatrix}
-A^{-1} + A^{-1}BECA^{-1} & -A^{-1}BE \\
--ECA^{-1} & E \\
-\end{bmatrix}
-$$
-so
-$$
-\begin{bmatrix} D_L \\ D_1 \\ \vdots \\ D_H \end{bmatrix}
-=
-\begin{bmatrix}
-\frac{1 + (H -  L)}{R}
+E^{-1} & -E^{1}BD^{-1} \\
+-D^{-1}CE^{-1} & D^{-1} + D^{-1}C E^{-1} BD^{-1} \\
 \end{bmatrix}
 $$
 
-```
-x = _O + B + s S + v1 P1 + ... + vn Pn
-C(w) = _0 + R B + w S + (w - v1)* + ... + (w - vn)+
-
-C(L)  = _O + R B + L S 
-C(K1) = _O + R B + K1 S
-C(K2) = _O + R B + K2 S + (K2 - K1) P1
-C(K3) = _O + R B + K3 S + (K3 - K1) P1 + (K3 - K2) P2
-...
-C(H)  = _O + R B + H  S + (H -  K1) P1 + ...           + (H - Kn) Pn
-
-OC(L)C(K1)...C(Kn)C(H)
-= OC(L)(R B + K1 S)(K2 - K1)...(H - Kn) P1 ... Pn
-= O(R B + L S)(R B + K1 S)(K2 - K1)...(H - Kn) P1 ... Pn
-= O(RK1 - RL)BS(K2 - K1)...(H - Kn) P1 ... Pn
-= R(K1 - L)(K2 - K1)...(H - Kn) O B S P1 ... Pn
-
-OxC(K1)...C(Kn)C(H)
-= Ox(R B + K1 S)(K2 - K1)...(H - Kn) P1 ... Pn
-= O(B + s S + v1 P1 + ...)(R B + K1 S)(K2 - K1)...(H - Kn) P1 ... Pn
-= O(B + s S)(R B + K1 S)(K2 - K1)...(H - Kn) P1 ... Pn
-= (K1 - sR) O B S P1...Pn
-
-OC(L)xC(K2)...C(Kn)C(H)
-= OC(L)x(R B + K2 S + (K2 - K1) P1)C(K3) ... C(H)
-= OC(L)(B + s S + v1 P1 + ...)(R B + K2 S + (K2 - K1) P1)C(K3) ... C(H)
-= OC(L)(K2 BS + (K2 - K1) B P1 + )C(K3) ... C(H)
-```
-
+We have $E = R(1 - L/K_1)$ so $E^{-1} = K_1/(R(K_1 - L))$.
 
 ## Appendix
 

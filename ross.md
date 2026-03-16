@@ -45,10 +45,10 @@ where $\AA_t$ is the partition of information[^1] available at time $t$.
 
 [^1]: A partition of a set $\Omega$ is a collection of pairwise disjoint
 subsets of $\Omega$ having union $\Omega$. No information corresponds
-to the singleton partition $\{\Omega\}$ &mdash; we only know the outcome
+to the singleton partition $\{\Omega\}$ -- we only know the outcome
 $\omega$ is a member of $\Omega$. Complete information corresponds
 to the partition of singletons $\{\{\omega\}\mid\omega\in\Omega\}$
-&mdash; know exactly which outcome occurred. Partial information corresponds
+-- know exactly which outcome occurred. Partial information corresponds
 to knowing which element of the partition the outcome belongs to.
 
 Ross used the Hahn-Banach theorem to prove their existence but there
@@ -69,6 +69,8 @@ right-hand side of equation $(1)$.
 
 This reduces the problem to coming up with 
 martingale measures that can fit market data.
+
+### Black-Scholes/Merton
 
 The Black-Scholes/Merton model for the bond and stock is parameterized by
 ${M_t = (1, e^{\sigma B_t - \sigma^2t/2})P}$, ${D_t = e^{-\rho t}P}$
@@ -92,7 +94,7 @@ $$
 	\Delta_t = \sum_{\tau_j < t} \Gamma_j = \sum_{s < t} \Gamma_s
 $$
 where $\Gamma_s = \Gamma_j$ when $s = \tau_j$ and is zero otherwise.
-Note the strict inequality &mdash; trades take time to settle into
+Note the strict inequality -- trades take time to settle into
 a position. A trading strategy is _closed out_ if $\sum_j \Gamma_j = 0$.
 
 [^2]: The sets $\{\tau_t = t\}$ are a union of atoms of $\AA_t$.
@@ -155,13 +157,20 @@ $D_{X_t}V_t = \Delta_t + \Gamma_t$.
 At time 0 the position is 0 so this gives us the initial trade $\Gamma_0$.
 At any time after that we have $\Gamma_t = D_{X_t}V_t - \Delta_t$. The position
 $\Delta_t$ is known at time $t$ so this can be used to come up with
-candidate trading strategies. What this theory does not tell you is
+candidate trading strategies.
+
+What this theory does not tell you is
 when you should trade. If you let $\tau_j = j\Delta t$
 for some time increment $\Delta t$ then this results in the usual
 Black-Scholes/Merton delta hedge as the time increment goes to zero.
 A smarter idea might be to set a price increment $\Delta X$ and
 determine the next trading time $\tau_{j+1}$ from the last trading time $\tau_j$
 by $\|X_{\tau_{j+1}} - X_{\tau_j}\| > \Delta X$.
+
+What this theory does allow you to do is rigorously analyze any trading strategy.
+For instance, the above strategy could be implemented using limit orders. At
+time $\tau_j$ place limit orders at $X_{\tau_j} \pm \Delta X$.
+If they are executed you get a cash flow of $\pm\Delta X$.
 
 [^3]: If $F\colon X\to Y$ is a function on normed linear spaces the
 Fréchet derivative (when it exists) is the best linear approximation
@@ -171,10 +180,123 @@ $$
 $$
 where $DF(x)$ is a bounded linear operator from $X$ to $Y$.
 
-This short note provides a simple but rigorous mathematical foundation
-for future research. For full details. 
-see https:/github.io/
+## Application
+
+This sections shows how to use equation $(3)$ to value various instruments
+via cash flows that determine price dynamics.
+
+### Zero Coupon Bond
+
+A zero coupon bond $D(u)$ pays 1 unit at maturity $u$. Its price
+$X^{D(u)}_t = D_t(u)$
+at time $t \le u$ is determined by ${D_t(u)D_t = D_u|_{\AA_t}}$	
+so the price is the Radon-Nikodym derivative $D_t(u) = d(D_u|_{\AA_t})/dD_t$.
+
+Note $D_0(t)D_0 = D_t|_{\AA_0}$. If $\AA_0$ is $\{\Omega\}$ then
+$D_0(t) = D_t(\Omega)/D_0(\Omega) = D_t(\Omega)$ since we can and do assume
+$D_0(\Omega) = 1$. We write $D(t) = D_0(t)$ for the discount.
+If $D_t = D(t)P$ for some measure $P$ where $D(t)$ is a function of $t$
+then $D_t(u) = D(u)/D(t)$.
+
+### Cost of Carry
+
+A forward contract with strike $k$ expiring at $u$ on underlying $S$
+pays exactly one cash flow $S_t - k$ at $u$. It price $F_t$
+at time $t$ satisfies $F_t D_t = ((S_u - k)D_u)|_{\AA_t}$.
+In an arbitrage-free model the price of the underlying satisfies
+${S_t D_t = (S_u D_u)|_{\AA_t}}$ assuming it pays no cash flows.
+Hence $F_t D_t = S_t D_t - k D_t(u)D_t$
+and $F_t = S_t - k D_t(u)$. The value of $k$ making $F_0 = 0$
+is called the at-the-money, or par, forward and is denoted $f(u)$.
+This implies cost-of-carry formula $S_0 = f(u) D(u)$ showing
+the relationship between spot and par forward values.
+
+The usual way of deriving this involves considering a trading
+strategy in a bond and stock to replicate the forward contract. 
+
+<!--
+### Put-Call Parity
+
+A put option with strike $k$ expiring at $u$ on underlying $S$
+pays $\max\{k - S_u, 0\}$ at $u$. A call option pays
+$\max\{S_u - k, 0\}$ at $t$. The value of the options
+are $p D_0 = 
+Since
+$\max\{S_u - k, 0\} - \max\{k - S_u,0\} = S_u - k$ we
+-->
 
 ## Remarks
+
+This model ignores many salient features of how markets actually work.
+
+Transactions have a bid/ask spread that tends to increase with the size of the trade.
+
+Prices are not real numbers -- they are integral multiples of minimum trading increment, or tick size.
+Likewise for trading trading sizes. They are also bounded integral multiples -- at some point
+no more instruments are available for trading. This is an actual problem for some
+large hedge funds such as Citadel.
+
+The definition of arbitrage as $A_0 > 0$ and $A_j\ge 0$ thereafter is insufficient.
+Traders and risk managers will consider ${\|A_0\| = |-\Gamma_0\cdot X_0| \le \|\Gamma_0\|\|X_0\|}$.
+If the left-hand side is small compared to the right-hand side then the "arbitrage" will
+not be considered. It makes no business sense to tie up $1MM over a period of time just to make $1 now.
+
+We completely ignore the entities involved in trading. Different counterparties may have to
+pay different prices or additional side fees for the same instrument depending on their credit worthiness.
+They might even be unable to buy an instrument due to regulatory requirements.
+In the not too distant past banks were forbidden to purchase stocks.
+
+The largest lacuna, by far, in this theory is tax considerations.
+When you are in a 40\% tax bracket adding the fifth decimal point of precision
+to your valuation routines is not your biggest problem.
+
+This short note does not take default risk into consideration, but it can be used for that.
+For example a zero coupon bond $D(u)$ has a cash flow of $1$ at maturity $u$. It's price
+$X^{D(u)}_t = D^u_t$ at time $t$ is $D^u_t = D_u|_{\AA_t}$, $t\le u$. If it defaults
+at random time $T$ and pays fixed recovery $R$ at that time then it pays $R$ at $T$ if $T\le u$
+and $1$ at $u$ if $T > u$. This theory shows its price satisfies
+${D^{u,T,R}_t = (R 1(T \le u)D_T + (1(T > u)D_u)|_{\AA_t}}$.
+
+If $T$ is exponentially distributed
+with $P(T > t) = e^{-\lambda t}$ and $D_t = D(t)$ is not stochastic then
+$$
+	D^{u,T,R}_t = R(1 - e^{-\lambda t})D(t) + e^{-\lambda t}D(t) = [R + (1 - R)e^{-\lambda t}]D(t).
+$$
+If $R = 1$ or $\lambda = 0$ this is just $D(t)$.
+
+For small $\lambda$ we have
+${D^{u,T,R}_t \approx e^{(1 - R)\lambda t}D(t)}$ yielding a simple
+back-of-the-envelope approximation for the credit spread $s = (1 - R)\lambda$.
+If $R = 1$ or $\lambda = 0$ then $s = 0$.
+
+This sweeps under the rug the fact we must extend our sample space to
+include default and recovery.  We should augment the sample space by
+the product $[0,\infty)\times\{R\}$ and define information available
+at time $t$ for the default time $T\in[0,\infty)$. A natural choice for
+that is the partition ${\AA_t = \{\{s\}\mid s < t\}\cup\{[t, \infty)\}}$
+-- if default occurs prior to $t$ we know exactly when it happened,
+otherwise we only know $T\in[t,\infty)$.
+
+This is not a realistic model. For example, we may want to update the
+default rate $\lambda$ as more information becomes available.
+We also make the customary drunk-stumbling-under-the-streetlight assumption
+of an independent default time and constant recovery.
+A more accurate model should allow random recovery $R\in[0,1]$ and
+specify joint distributions for all the random variables involved.
+One possible approach would be to specify $R$ to have a beta distribution
+and define associated copulae for the joint distributions.
+This would completely define the value of a risky zero coupon bond.
+Of course the software implementation and fitting market data to model parameters
+would be challenging, to say the least.
+
+The trajectory of mathematical finance is to develop mathematical models
+that can more accurately describe the realities of trading. Advances
+in compute power, memory, and AI are in their early stages of
+application.
+
+This short note provides a rigorous mathematical
+foundation to keep moving in that direction.
+For full details see the
+[Simple Unified Model](https://keithalewis.github.io/math/sum.html).
 
 ## References
