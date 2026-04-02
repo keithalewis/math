@@ -24,7 +24,7 @@ model defines the initial prices of tradable instruments and their
 terminal cash flows contingent on the realized outcome. If there are no
 arbitrage opportunities available then prices are subject
 to geometric constraints determined by the cash flows.
-Arbitrage must always be defined relative to a particular model.
+Arbitrage must always be defined relative to a model.
 These constraints are applied to [zero coupon bonds](#zero-coupon-bond),
 the [binomial model](#binomial-model), and the [interval model](#interval-model).
 

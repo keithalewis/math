@@ -11,6 +11,7 @@ CSS = math.css
 FLAGS = -s
 FLAGS += -f markdown+definition_lists+raw_html+pipe_tables+citations
 FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
+FLAGS += --metadata link-citations=true
 #FLAGS += --citeproc capm.bib
 #TEXFLAGS = --pdf-engine=lualatex 
 #TEXFLAGS = --pdf-engine=xelatex 
@@ -24,7 +25,7 @@ FLAGS += --css math.css
 #FLAGS += -A FOOTER.md
 #FLAGS += --metadata date="$(shell date "+%B %e, %Y")"
 #TEXFLAGS += --metadata date="$(shell date "+%B %e, %Y")"
-TEXFLAGS += -V fontsize=12pt
+TEXFLAGS += -V fontsize=11pt
 #TEXFLAGS +=  -M date="$(shell date "+%B %e, %Y")"
 #TEXFLAGS += --bibliography=capm.bib
 FLAGS += --toc --toc-depth=6
