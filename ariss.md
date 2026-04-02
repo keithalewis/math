@@ -2,8 +2,10 @@
 title: Ariss
 fleqn: true
 abstract: Notes for Ariss
+header-includes:
+	- \usepackage{bm}
 ---
-\newcommand\AA{\mathcal{A}}
+\renewcommand\AA{\mathcal{A}}
 \newcommand\RR{\bm{R}}
 \newcommand{\Var}{\operatorname{Var}}
 
