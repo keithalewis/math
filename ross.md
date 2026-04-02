@@ -159,7 +159,7 @@ This short note provides nothing to suggest a solution to the conundrum of
 what premium, vigorish, or baksheesh should be charged for that service.
 
 A perfect hedge is a closed-out trading strategy $(\tau_j, \Gamma_j)$ with
-$A_{\hat\tau_k} = \hatA_{k}$ and $A_t = 0$ otherwise. The latter condition
+$A_{\hat\tau_k} = \hat A_{k}$ and $A_t = 0$ otherwise. The latter condition
 is referred to as _self-financing_.
 Unless you belong to a Pythagorean cult that believes in the mathematical
 absurdity of continuous time trading, this is generally not possible.
@@ -171,8 +171,8 @@ using the contract terms $\hat\tau_k$ and $\hat{A}_k$ by equation $(3)$.
 The Fréchet derivative[^3] of value $V_t$ with respect to the underlying $X_t$ is
 $D_{X_t}V_t = \Delta_t + \Gamma_t$.
 At time 0 the position is 0 so this gives us the initial trade $\Gamma_0$.
-At any time after that we have $\Gamma_t = D_{X_t}V_t - \Delta_t$. The position
-$\Delta_t$ is known at time $t$ so this can be used to come up with
+At any time after that we have ${\Gamma_t = D_{X_t}V_t - \Delta_t}$. The position
+$\Delta_t$ is known at time $t$ so this can be used to determine
 candidate trading strategies.
 
 [^3]: If $F\colon X\to Y$ is a function between normed linear spaces the
