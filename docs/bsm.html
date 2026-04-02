@@ -46,7 +46,7 @@
 <header id="title-block-header">
 <h1 class="title">Black-Scholes/Merton</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Oct 29, 2024</p>
+<p class="date">Apr 21, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Valuation formula.
@@ -170,15 +170,18 @@ rate of the stock.</p>
 self-financing strategy but is it also <em>sufficient</em>?</p>
 <p>Note that the PDE above involves a <span class="math inline">v_r
 Rρ</span> term. This term does not appear in the original Black and
-Scholes paper <span class="citation"
-data-cites="BlaSch73">(<strong>BlaSch73?</strong>)</span>. It does
+Scholes paper <span class="citation" data-cites="BlaSch73">(<a
+href="#ref-BlaSch73"
+role="doc-biblioref"><strong>BlaSch73?</strong></a>)</span>. It does
 appear in Merton’s original treatment <span class="citation"
-data-cites="Mer73">(<strong>Mer73?</strong>)</span>. He also assumes the
-bond has a non-zero diffusion term to derive a PDE and then takes a
-limit as the diffusion coefficient tends to zero. His later treatment
-<span class="citation"
-data-cites="Mer75">(<strong>Mer75?</strong>)</span> showed this was not
-necessary.</p>
+data-cites="Mer73">(<a href="#ref-Mer73"
+role="doc-biblioref"><strong>Mer73?</strong></a>)</span>. He also
+assumes the bond has a non-zero diffusion term to derive a PDE and then
+takes a limit as the diffusion coefficient tends to zero. His later
+treatment <span class="citation" data-cites="Mer75">(<a
+href="#ref-Mer75"
+role="doc-biblioref"><strong>Mer75?</strong></a>)</span> showed this was
+not necessary.</p>
 <p><strong>Exercise</strong>. <em>Define <span
 class="math inline">\bar{v}(t, s) = v(t, R_t, s)</span> where <span
 class="math inline">R_t = e^{ρ t}</span>. Show</em> <span
@@ -225,9 +228,9 @@ Solution
 </summary>
 Since <span class="math inline">(dR)^2 = 0</span>, <span
 class="math inline">d(1/R) = -1/R^2\,dR</span> so <span
-class="math inline">d(S/R) = dS/R + S\,d(1/R) = dS/R + S(-1/R^2\,dR) =
-dS/R - (S/R)dR/R = S(μ dt + σ dB)/R - (S/R)dR/R = (S/R)((\mu - ρ)\,dt +
-σ\,dB)</span>.
+class="math inline">d(S/R) = dS/R + S\,d(1/R) = dS/R + S(-1/R^2\,dR)
+= dS/R - (S/R)dR/R = S(μ dt + σ dB)/R - (S/R)dR/R = (S/R)((\mu - ρ)\,dt
++ σ\,dB)</span>.
 </details>
 <p><strong>Exercise</strong>. <em>If <span
 class="math inline">S/R</span> is a martingale, V = MR + NS<span
@@ -509,8 +512,8 @@ strike <span class="math display">
     \partial_k p = \partial_k E[\max\{k - F\}, 0\}] = P(F\le k),
 </span> which is the cumulative distribution of the underlying. This
 implies the distribution of the underlying can be inferred from option
-prices <span class="citation"
-data-cites="BreLin">(<strong>BreLin?</strong>)</span>.</p>
+prices <span class="citation" data-cites="BreLin">(<a href="#ref-BreLin"
+role="doc-biblioref"><strong>BreLin?</strong></a>)</span>.</p>
 <p>Note value and all greeks can be expressed in terms of the share
 distribution function <span class="math inline">P_s(X\le x)</span> and
 its derivatives with respect to <span class="math inline">x</span> and

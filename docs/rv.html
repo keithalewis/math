@@ -46,7 +46,7 @@
 <header id="title-block-header">
 <h1 class="title">Random Variable</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Mar 2, 2026</p>
+<p class="date">Mar 16, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A variable and the probability of the values it can have.
@@ -231,7 +231,8 @@ E[X^n]</span> when it exists. The <em>moment generating function</em> of
 <span class="math inline">X</span> is <span class="math inline">m(s) =
 E[e^{sX}] = \sum_{n=0}^\infty μ_n s^n/n!</span>. It is possible for two
 unequal random variables to have the same moments <span class="citation"
-data-cites="cite">(<strong>cite?</strong>)</span>.</p>
+data-cites="cite">(<a href="#ref-cite"
+role="doc-biblioref"><strong>cite?</strong></a>)</span>.</p>
 <p>The <span class="math inline">n</span>-th <em>central moment</em> of
 <span class="math inline">X</span> is <span
 class="math inline">\bar{μ}_n = E[(X - E[X])^n]</span>. The second
@@ -245,9 +246,10 @@ class="math inline">E[aX + b] = aE[X] + b</span>.</p>
 <summary>
 Solution
 </summary>
-<span class="math inline">\operatorname{Var}(X) = E[(X - E[X])^2] =
-E[X^2 - 2XE[X] + E[X]^2] = E[X^2] - 2E[X]E[X] + E[X]^2 = E[X^2] -
-E[X]^2</span>.
+<span class="math inline">\operatorname{Var}(X) = E[(X - E[X])^2]
+= E[X^2 - 2XE[X] + E[X]^2]
+= E[X^2] - 2E[X]E[X] + E[X]^2
+= E[X^2] - E[X]^2</span>.
 </details>
 <p>Variance is a measure of <em>dispersion</em>, how far the random
 variable can stray from its mean. The <em>standard deviation</em> is the
@@ -377,8 +379,8 @@ class="math inline">Z</span> is standard normal then <span
 class="math inline">E[e^{sZ} f(Z)] = E[e^{sZ}] E[f(Z +
 s)]</span></em>.</p>
 <p><em>Hint</em>. <span class="math inline">E[e^{sZ} f(Z)] =
-\int_{\boldsymbol{R}}e^{sz} f(z) e^{-z^2/2}/\sqrt{2\pi}\,dz =
-e^{-s^2/2}\int_{\boldsymbol{R}}f(z) e^{-(z -
+\int_{\boldsymbol{R}}e^{sz} f(z) e^{-z^2/2}/\sqrt{2\pi}\,dz
+= e^{-s^2/2}\int_{\boldsymbol{R}}f(z) e^{-(z -
 s)^2/2}/\sqrt{2\pi}\,dz</span>.</p>
 <details>
 <summary>
@@ -481,8 +483,8 @@ class="math inline">ε^2</span>.</p>
 Solution
 </summary>
 <span class="math inline">P(|X - E[X]| &gt; ε) = P((X - E[X])^2 &gt;
-\epsilon^2) \le E[(X - E[X])^2]/\epsilon^2 =
-\operatorname{Var}(X)/ε^2</span>.
+\epsilon^2)
+\le E[(X - E[X])^2]/\epsilon^2 = \operatorname{Var}(X)/ε^2</span>.
 </details>
 <section id="concentration-inequalities" class="level3">
 <h3>Concentration Inequalities</h3>

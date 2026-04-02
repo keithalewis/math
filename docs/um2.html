@@ -24,6 +24,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -87,9 +88,10 @@ risk of any instruments …</p>
 flaw: it assumes continous time trading is possible. Only a finite
 number of trades can be executed based on information available at the
 time of the trade.</p>
-<p><span class="citation" data-cites="Ros1978">(Ross 1978)</span>
-extended the B-S/M theory to value any collection of instruments and
-identified the condition for models to be arbitrage-free.</p>
+<p><span class="citation" data-cites="Ros1978">(<a href="#ref-Ros1978"
+role="doc-biblioref">Ross 1978</a>)</span> extended the B-S/M theory to
+value any collection of instruments and identified the condition for
+models to be arbitrage-free.</p>
 <blockquote>
 <p><em>If there are no arbitrage opportunities in the capital markets,
 then there exists a (not generally unique) valuation operator, <span
@@ -141,11 +143,12 @@ applied to mathematical finance.</p>
 <p>There is something drastically wrong with the Black-Scholes/Merton
 theory due to their assumption of continuous time trading. Merton
 provided a closed form formula for the value of barrier options in <span
-class="citation" data-cites="Mer1973">(Merton 1973)</span> using the
-reflection principal for Brownian motion. A preposterous mathematical
-artifact of using Ito’s theory is that it implies the value of a barrier
-option does not change if it knocks in (or out) the second, third, or
-even the millionth time it is hit.</p>
+class="citation" data-cites="Mer1973">(<a href="#ref-Mer1973"
+role="doc-biblioref">Merton 1973</a>)</span> using the reflection
+principal for Brownian motion. A preposterous mathematical artifact of
+using Ito’s theory is that it implies the value of a barrier option does
+not change if it knocks in (or out) the second, third, or even the
+millionth time it is hit.</p>
 <p>This untenable conclusion can be avoided by accepting the fact that
 every hedging strategy involves only a finite number of trades. There
 are no perfect hedges, something every derivative trader knows after the
@@ -155,7 +158,8 @@ replicate the derivative contract obligations. Half a century on from
 B-S/M, the mathematical finance community has not been able to come up
 with a mutually agreeable answer to this fundamental problem.</p>
 <p>Another pernicious influence of the B-S/M model that <span
-class="citation" data-cites="Ros1978">(Ross 1978)</span> pointed out was
+class="citation" data-cites="Ros1978">(<a href="#ref-Ros1978"
+role="doc-biblioref">Ross 1978</a>)</span> pointed out was
 arbitrage-free models have nothing to do with probability, they only
 involved geometry. We eliminate the use of the Hahn-Banach theorem and
 show his linear valuation operator corresponds to a collection of
@@ -434,7 +438,7 @@ class="math inline">\Gamma_j:{\mathcal{A}}_{τ_j}\to
 \boldsymbol{R}^{I}</span> indicating the number of shares to trade in
 each instrument at time <span class="math inline">τ_j</span>. If <span
 class="math inline">\tau</span> is a stopping time then <span
-class="math inline">{\mathcal{A}}_\tau = \{A\in{\mathcal{A}}_t\mid t\in
+class="math inline">{\mathcal{A}}_\tau = \{A\in{\mathcal{A}}_t\mid  t\in
 T, t\le\tau\}</span>.</p>
 <p>Trades accumulate to a <em>position</em> <span
 class="math inline">\Delta_t = \sum_{τ_j &lt; t}\Gamma_j = \sum_{s &lt;
@@ -486,7 +490,7 @@ orders.</p>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-Mer1973" class="csl-entry" role="listitem">
 Merton, Robert C. 1973. <span>“Theory of Rational Option
 Pricing.”</span> <em>Bell Journal of Economics and Management

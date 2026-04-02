@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>units</title>
+  <title>Types and Units</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -24,11 +24,29 @@
   <link rel="stylesheet" href="math.css" />
 </head>
 <body>
+<header id="title-block-header">
+<h1 class="title">Types and Units</h1>
+<p class="date">Apr 2, 2026</p>
+</header>
+<p>type := elemenary type | compound type</p>
+<p>elementary type := enum : char | bool &lt; non-neg integer &lt;
+integer &lt; rational &lt; real (??? floating point)</p>
+<p>Need to specify mapping from elementary type to computer
+representation</p>
+<p>compound type := product | disjoint union | function(exponential)</p>
 <p>numeraire: instrument with no cash flow bullet: instrument with one
 cash flow cash flow: amount * instrument * type type: principal,
 interest, dividend, fee, tax,…</p>
 <p>entity: uid</p>
 <p>exchange: time * cash flow (taker) * cash flow (maker)</p>
 <p>transaction: group of related exchanges</p>
+<p>object: value and type</p>
+<p>set: collection of distinct objects</p>
+<p>product, (disjoint union), function</p>
+<p>map: object =&gt; object</p>
+<p>function: map =&gt; map</p>
+<p>lazy evaluation, must call eval to run code</p>
+<p>vector: n = {0,…,n-1} =&gt; object of same type</p>
+<p>tuple: n =&gt; object of any type</p>
 </body>
 </html>

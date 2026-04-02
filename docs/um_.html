@@ -25,6 +25,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -65,7 +66,7 @@
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Feb 15, 2026</p>
+<p class="date">Mar 11, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Value, hedge, and manage the risk of any instruments
@@ -152,11 +153,14 @@ subsequent trades you can plausible suggest to traders and risk managers
 to convince them you are adding value to their business.</p>
 <section id="history" class="level2">
 <h2>History</h2>
-<p><span class="citation" data-cites="Ros1978">(Ross 1978)</span>
-demonstrated how to replace the untenable probabilistic theory of <span
-class="citation" data-cites="BlaSch1973">(Black and Scholes 1973)</span>
-and <span class="citation" data-cites="Mer1973">(Merton 1973)</span>
-with a much simpler and more general geometric theory.</p>
+<p><span class="citation" data-cites="Ros1978">(<a href="#ref-Ros1978"
+role="doc-biblioref">Ross 1978</a>)</span> demonstrated how to replace
+the untenable probabilistic theory of <span class="citation"
+data-cites="BlaSch1973">(<a href="#ref-BlaSch1973"
+role="doc-biblioref">Black and Scholes 1973</a>)</span> and <span
+class="citation" data-cites="Mer1973">(<a href="#ref-Mer1973"
+role="doc-biblioref">Merton 1973</a>)</span> with a much simpler and
+more general geometric theory.</p>
 <blockquote>
 <p><em>If there are no arbitrage opportunities in the capital markets,
 then there exists a (not generally unique) valuation operator</em>.</p>
@@ -197,10 +201,11 @@ B(S)\to\boldsymbol{R}</span> define <span class="math inline">\lambda(A)
 <span class="math inline">1_A(s) = 1</span> if <span
 class="math inline">s\in A</span> and <span class="math inline">1_A(s) =
 0</span> otherwise. Since <span class="math inline">\lambda(A\cup B) =
-L(1_{A\cup B}) = L(1_A + 1_B - 1_{A\cap b} = \lambda(A) + \lambda(B) -
-\lambda(A\cap B)</span> and <span class="math inline">\lambda(\emptyset)
-= L(1_\emptyset) = L(0) = 0</span> we have <span
-class="math inline">\lambda</span> is a finitely additive measure.</p>
+L(1_{A\cup B}) = L(1_A + 1_B - 1_{A\cap b}
+= \lambda(A) + \lambda(B) - \lambda(A\cap B)</span> and <span
+class="math inline">\lambda(\emptyset) = L(1_\emptyset) = L(0) =
+0</span> we have <span class="math inline">\lambda</span> is a finitely
+additive measure.</p>
 <p>For any countably additive measure <span
 class="math inline">\lambda\in ba(S)</span> define <span
 class="math inline">L\colon B(S)\to\boldsymbol{R}</span> by <span
@@ -254,7 +259,7 @@ class="math inline">t</span>.</p>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-BlaSch1973" class="csl-entry" role="listitem">
 Black, Fischer, and Myron Scholes. 1973. <span>“The Pricing of Options
 and Corporate Liabilities.”</span> <em>Journal of Political Economy</em>

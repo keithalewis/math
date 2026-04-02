@@ -5,6 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2024-05-24" />
   <meta name="keywords" content="mean-variance, CAPM, risk" />
   <title>Efficient Portfolios</title>
   <style>
@@ -26,6 +27,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -66,7 +68,7 @@
 <header id="title-block-header">
 <h1 class="title">Efficient Portfolios</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Oct 29, 2024</p>
+<p class="date">May 24, 2024</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 <p>The Capital Asset Pricing Model holds for any distribution of returns
@@ -98,17 +100,21 @@ Authors will need to provide no more than 3 ‘key points’ that summarize the 
 preferred? This is a fundamental problem in finance that has no
 definitive answer except in the case one investment always returns more
 than the other, in which case arbitrage exists. In 1952 Markowitz<span
-class="citation" data-cites="Mar1952">(Markowitz 1952)</span> and
-Roy<span class="citation" data-cites="Roy1952">(Roy 1952)</span>
-introduced a criterion for risk vs. return in portfolio selection: if
-two portfolios have the same expected realized return then prefer the
-one with smaller variance. An efficient portfolio has the least variance
-among all portfolios having the same expected realized return. This was
-developed into the Capital Asset Pricing Model by Treynor<span
-class="citation" data-cites="Tre1961">(Treynor 1961)</span>, Sharpe<span
-class="citation" data-cites="Sha1964">(Sharpe 1964)</span>, Lintner<span
-class="citation" data-cites="Lin1965">(Lintner 1965)</span>, and many
-others.</p>
+class="citation" data-cites="Mar1952">(<a href="#ref-Mar1952"
+role="doc-biblioref">Markowitz 1952</a>)</span> and Roy<span
+class="citation" data-cites="Roy1952">(<a href="#ref-Roy1952"
+role="doc-biblioref">Roy 1952</a>)</span> introduced a criterion for
+risk vs. return in portfolio selection: if two portfolios have the same
+expected realized return then prefer the one with smaller variance. An
+efficient portfolio has the least variance among all portfolios having
+the same expected realized return. This was developed into the Capital
+Asset Pricing Model by Treynor<span class="citation"
+data-cites="Tre1961">(<a href="#ref-Tre1961"
+role="doc-biblioref">Treynor 1961</a>)</span>, Sharpe<span
+class="citation" data-cites="Sha1964">(<a href="#ref-Sha1964"
+role="doc-biblioref">Sharpe 1964</a>)</span>, Lintner<span
+class="citation" data-cites="Lin1965">(<a href="#ref-Lin1965"
+role="doc-biblioref">Lintner 1965</a>)</span>, and many others.</p>
 <p>The Capital Asset Pricing Model marked the transition from the due
 diligence required for Graham-Todd security analysis to using the wisdom
 of the markets to inform investing. The “market portfolio” was assumed
@@ -131,7 +137,8 @@ not heretofore been noted in the literature. Prior work fails to
 explicitly specify a sample space and probability measure, the first
 step in any model involving probability since Kolomogorov legitimized
 probability as a branch of measure theory <span class="citation"
-data-cites="Kol1956">(Kolmogorov 1956)</span>.</p>
+data-cites="Kol1956">(<a href="#ref-Kol1956"
+role="doc-biblioref">Kolmogorov 1956</a>)</span>.</p>
 <section id="capm" class="level2">
 <h2>CAPM</h2>
 <p>The CAPM places a constraint on the excess expected realized return
@@ -195,7 +202,8 @@ case <span class="math inline">R_\xi = \xi^* X</span> is the realized
 return of the portfolio. If <span class="math inline">\xi^* x = 1</span>
 then the variance of the realized return is <span
 class="math inline">\operatorname{Var}(R_\xi) = \xi^*V\xi</span> where
-<span class="math inline">{V = E[X X^*] - E[X] E[X^*]}</span>.</p>
+<span class="math inline">{V = E[X X^*] -
+E[X] E[X^*]}</span>.</p>
 <p>For a given expected realized return <span
 class="math inline">r\in\mathbf{R}</span> we can use Lagrange
 multipliers to minimize <span class="math inline">{\frac{1}{2}\xi^* V\xi
@@ -469,11 +477,12 @@ x</span> we have <span class="math inline">\xi^* x &lt; 0</span>.</p>
 arbitrage when one exists.</p>
 <p>If <span class="math inline">X</span> is bounded, as it is in the
 real world, then there exists a positive finitely-additive measure <span
-class="citation" data-cites="DunSch1958">(Dunford and Schwartz
-1958)</span> with <span class="math inline">x = \int_\Omega
-X\,dD</span>. Since <span class="math inline">D/D(\Omega)</span> is a
-positive measure with mass 1 we have <span class="math inline">x =
-E[X]D(\Omega)</span> under this “probability” measure.</p>
+class="citation" data-cites="DunSch1958">(<a href="#ref-DunSch1958"
+role="doc-biblioref">Dunford and Schwartz 1958</a>)</span> with <span
+class="math inline">x = \int_\Omega X\,dD</span>. Since <span
+class="math inline">D/D(\Omega)</span> is a positive measure with mass 1
+we have <span class="math inline">x = E[X]D(\Omega)</span> under this
+“probability” measure.</p>
 <p>We say <span class="math inline">\zeta\in\mathbf{R}^I</span> is a
 zero coupon bond if <span class="math inline">\zeta^* X = 1</span>.
 Since <span class="math inline">\zeta^*x = \int_\Omega dD</span> the
@@ -603,7 +612,7 @@ Note this is not possible using the classical CAPM model.
 
 -->
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-DunSch1958" class="csl-entry" role="listitem">
 Dunford, Nelson, and Jacob T Schwartz. 1958. <em>Linear Operators
 i</em>. Interscience Publishers.

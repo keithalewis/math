@@ -25,6 +25,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -65,7 +66,7 @@
 <header id="title-block-header">
 <h1 class="title">Perceptrons</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Oct 16, 2025</p>
+<p class="date">Oct 17, 2025</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -74,7 +75,8 @@ id="toc-classification">Classification</a></li>
 </ul>
 </nav>
 <p><em>Perceptrons</em> were invented by <span class="citation"
-data-cites="McCPit1943">(McCulloch and Pitts 1943)</span>, two college
+data-cites="McCPit1943">(<a href="#ref-McCPit1943"
+role="doc-biblioref">McCulloch and Pitts 1943</a>)</span>, two college
 professors in the department of psychiatry and neuropsychiatricietry,
 respectively, at the University of Chicago. Their abstract starts
 with:</p>
@@ -97,15 +99,15 @@ notation of the symbolic logic of propositions.</p>
 Language II of R. Carnap (1938), augmented with various notations drawn
 from B. Russell and A. N. Whitehead (1927),</p>
 </blockquote>
-<p><span class="citation"
-data-cites="Ros1957">(<strong>Ros1957?</strong>)</span> coined the term
-<em>percepton</em> and described the model used today. The limitations
-of a single perceptron were quickly realized and Rosenblatt used layers
-containing multple perceptrons, a neural network, to build his Mark I
-Perceptron. His model assumed the output of a perceptron was 0 or 1
-corresponding to an actual neuron either not firing or not firing,
-similar to the false and true of propositional logic. Later models
-softend this to emiting a number between 0 and 1 that is a
+<p><span class="citation" data-cites="Ros1957">(<a href="#ref-Ros1957"
+role="doc-biblioref"><strong>Ros1957?</strong></a>)</span> coined the
+term <em>percepton</em> and described the model used today. The
+limitations of a single perceptron were quickly realized and Rosenblatt
+used layers containing multple perceptrons, a neural network, to build
+his Mark I Perceptron. His model assumed the output of a perceptron was
+0 or 1 corresponding to an actual neuron either not firing or not
+firing, similar to the false and true of propositional logic. Later
+models softend this to emiting a number between 0 and 1 that is a
 non-decreasing function of the inputs. These are called Rectified Linear
 Units by people who like to call them ReLUs to sound smart.</p>
 <p>“the embryo of an electronic computer that [the Navy] expects will be
@@ -117,8 +119,9 @@ existence.”</p>
 string of characters it returns a string of characters. Models are
 trained by specifying a set of input strings and the expected output
 strings then finds a function that interpolates this data.</p>
-<p>In <span class="citation" data-cites="Sea1980">(Searle 1980)</span>
-the philosophical aspects of this were were considered. He stipulated a
+<p>In <span class="citation" data-cites="Sea1980">(<a
+href="#ref-Sea1980" role="doc-biblioref">Searle 1980</a>)</span> the
+philosophical aspects of this were were considered. He stipulated a
 <em>Chinese Room</em> where English text was slipped under a door and a
 human being who did not know Chinese simply applied a set of fixed rules
 to translate it to Chinese characters.</p>
@@ -139,10 +142,11 @@ not physically possible to represent graphs of all functions in <span
 class="math inline">B^A</span> on a computer even for moderately sizes
 of <span class="math inline">A</span> and <span
 class="math inline">B</span>.</p>
-<p><span class="citation" data-cites="Chu1941">(Church 1941)</span>
-invented the lambda calculus to express any computable function. His
-student Alan Turing invented his eponymus Turing Machine that has
-equivalent computing power.</p>
+<p><span class="citation" data-cites="Chu1941">(<a href="#ref-Chu1941"
+role="doc-biblioref">Church 1941</a>)</span> invented the lambda
+calculus to express any computable function. His student Alan Turing
+invented his eponymus Turing Machine that has equivalent computing
+power.</p>
 <p>Turing considered an infinite discrete tape that could have marks
 made on it and move left and right. It’s legacy is <a
 href="https://en.wikipedia.org/wiki/Brainfuck">BrainFuck</a></p>
@@ -175,7 +179,7 @@ class="math inline">w\in\boldsymbol{{R}}^n</span> where <span
 class="math inline">\pi(x) = b + w\cdot x &gt; 0</span>.</p>
 <p><span class="math inline">w&#39; = w + r(d - f(x))x</span></p>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-Chu1941" class="csl-entry" role="listitem">
 Church, Alonzo. 1941. <em>The Calculi of Lambda-Conversion</em>. Vol. 6.
 Annals of Mathematics Studies. Princeton, NJ: Princeton University

@@ -24,6 +24,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -66,7 +67,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Valuation of Risky Streams of Cash Flows</h1>
-<p class="date">Jun 27, 2025</p>
+<p class="date">Jul 7, 2025</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Arbitrage-free prices are determined by cash flows.
@@ -115,19 +116,22 @@ Asset Pricing</a></li>
 :!pandoc -V fontsize=12pt ums.md -o ums.pdf
 -->
 <p>Fischer Black, Myron Scholes <span class="citation"
-data-cites="BlaSch1973">(Black and Scholes 1973)</span>, and Robert C.
-Merton III <span class="citation" data-cites="Mer1973">(Merton
-1973)</span>, invented a Nobel Prize winning theory showing how to value
-equity options using a money market account to finance dynamic trading
-in the underlying stock. Their model used the Ito calculus to replicate
-the option payoff hence the value of the option is the cost of setting
-up the initial hedge. As shown in Harrison and Kreps <span
-class="citation" data-cites="HarKre1979">(Harrison and Kreps
-1979)</span>, their assumption of continuous time trading leads to
-untenable results.</p>
-<p>Stephen Ross <span class="citation" data-cites="Ros1978">(Ross
-1978)</span> generalized the B-S/M model by showing how to bound the
-possible arbitrage-free values of a derivative depending on <em>any</em>
+data-cites="BlaSch1973">(<a href="#ref-BlaSch1973"
+role="doc-biblioref">Black and Scholes 1973</a>)</span>, and Robert C.
+Merton III <span class="citation" data-cites="Mer1973">(<a
+href="#ref-Mer1973" role="doc-biblioref">Merton 1973</a>)</span>,
+invented a Nobel Prize winning theory showing how to value equity
+options using a money market account to finance dynamic trading in the
+underlying stock. Their model used the Ito calculus to replicate the
+option payoff hence the value of the option is the cost of setting up
+the initial hedge. As shown in Harrison and Kreps <span class="citation"
+data-cites="HarKre1979">(<a href="#ref-HarKre1979"
+role="doc-biblioref">Harrison and Kreps 1979</a>)</span>, their
+assumption of continuous time trading leads to untenable results.</p>
+<p>Stephen Ross <span class="citation" data-cites="Ros1978">(<a
+href="#ref-Ros1978" role="doc-biblioref">Ross 1978</a>)</span>
+generalized the B-S/M model by showing how to bound the possible
+arbitrage-free values of a derivative depending on <em>any</em>
 collection of instruments. His model used the Hahn-Banach theorem to
 show the there is not generally a unique value.</p>
 <blockquote>
@@ -200,11 +204,11 @@ the sample space represents no information.</p>
 class="math inline">\Omega</span>, <span
 class="math inline">B(\Omega)^*</span>, can be identified with finitely
 additive measures on <span class="math inline">\Omega</span><span
-class="citation" data-cites="DunSch1958">(Dunford and Schwartz
-1958)</span>. We write <span
-class="math inline">B(\Omega,\boldsymbol{{R}}^I)</span> for the space of
-bounded vector-valued functions. Its dual is isomorphic to the space of
-finitely additive vector-valued measures <span
+class="citation" data-cites="DunSch1958">(<a href="#ref-DunSch1958"
+role="doc-biblioref">Dunford and Schwartz 1958</a>)</span>. We write
+<span class="math inline">B(\Omega,\boldsymbol{{R}}^I)</span> for the
+space of bounded vector-valued functions. Its dual is isomorphic to the
+space of finitely additive vector-valued measures <span
 class="math inline">ba(\Omega,\boldsymbol{{R}}^I)</span> A linear
 functional <span class="math inline">L\in B(\Omega)^*</span> defines a
 measure <span class="math inline">\lambda(A) = L1_A</span> for <span
@@ -575,8 +579,8 @@ value is <span class="math display">
 </span> where <span class="math inline">x = x(f,k,s)</span>. If <span
 class="math inline">X</span> is standard normal then <span
 class="math inline">\kappa(s) = s^2/2</span> and this reduces to the
-Black<span class="citation" data-cites="Bla1976">(Black 1976)</span>
-formula.</p>
+Black<span class="citation" data-cites="Bla1976">(<a href="#ref-Bla1976"
+role="doc-biblioref">Black 1976</a>)</span> formula.</p>
 <p><em>Delta</em> is the derivative of option value with respect to
 <span class="math inline">f</span> <span class="math display">
 \begin{aligned}
@@ -892,7 +896,7 @@ class="math inline">{D\in ba(\Omega)}</span>.</p>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-Bla1976" class="csl-entry" role="listitem">
 Black, Fischer. 1976. <span>“The Pricing of Commodity Contracts.”</span>
 <em>Journal of Financial Economics</em> 3 (1-2): 167–79.
@@ -927,7 +931,7 @@ href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277
 </div>
 </div>
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
+<section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
 <ol>
@@ -964,6 +968,6 @@ class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>Perfect hedges never exist.<a href="#fnref6"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 </body>
 </html>
