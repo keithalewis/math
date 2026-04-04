@@ -1,5 +1,5 @@
 ---
-title:  Stephen Ross
+title:  Simple Unified Model
 author: Keith A. Lewis
 abstract: A Simple Approach to the Valuation of Risky Streams
 classoption: fleqn
@@ -12,7 +12,7 @@ fleqn: true
 [@Ros1978] showed how to value uncertain future cash flows.
 His two main results are:
 
-1. Valuation is a purely geometric result, not probabilistic.
+1. Valuation is a purely geometric result that does not involve probability.
 
 2. The theory applies to _any_ portfolio of instruments.
 
@@ -26,7 +26,7 @@ the bond, stock, and option [@BlaSch1973] and [@Mer1973] considered.
 Ross's definition of a cash flow was a jump in stock price.
 Stock prices jump between close and open but there is no dividend payment involved.
 Adding an explicit knob for cash flows to Ross's theory leads to
-a model that adheres more closely to market realities.
+a simple model that adheres more closely to market realities.
 
 If you are a familiar with the classical theory see the [Appendix](#appendix)
 to scrub your brain of unnecessary mathematical accoutrements.
@@ -137,13 +137,12 @@ Equation $(1)$ and the definition of $V_t$ and $A_t$ result in
 $$
 \tag{3}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}.
 $$
-The proof starts with $V_t D_t = (\Delta_t + \Gamma_t)\cdot X_t D_t$ and
-using equation $(1)$.
+The proof starts with ${V_t D_t = (\Delta_t + \Gamma_t)\cdot X_t D_t}$ 
+then uses induction on ${X_t D_t = (X_u D_u + C_u D_u)|_{\AA_t}}$ for
+some $u > t$ sufficiently small.
 
 Note how value and amount in equation $(3)$ correspond to 
-price and cash flow in equation $(1)$ then uses induction on
-$X_t D_t = (\Delta_u\cdot A_u D_u + V_u D_u)|_{\AA_t}$ for
-some $u > t$ sufficiently small.
+price and cash flow in equation $(1)$
 
 __Trading strategies create synthetic market instruments__.
 
@@ -163,11 +162,11 @@ $A_{\hat\tau_k} = \hat A_{k}$ and $A_t = 0$ otherwise. The latter condition
 is referred to as _self-financing_.
 Unless you belong to a Pythagorean cult that believes in the mathematical
 absurdity of continuous time trading, this is generally not possible.
+
 One approach is to note
 ${V_t = (\Delta_t + \Gamma_t)\cdot X_t}$ and that
 ${V_t D_t = (\sum_{\hat\tau_k > t} \hat{A}_k D_{\hat\tau_k})|_{\AA_t}}$ can be calculated
 using the contract terms $\hat\tau_k$ and $\hat{A}_k$ by equation $(3)$.
-
 The Fréchet derivative[^3] of value $V_t$ with respect to the underlying $X_t$ is
 $D_{X_t}V_t = \Delta_t + \Gamma_t$.
 At time 0 the position is 0 so this gives us the initial trade $\Gamma_0$.
@@ -237,16 +236,16 @@ nearly constant spot rate can be arbitrarily large.
 Repurchase agreements determine a _canonical deflator_.
 A repurchase agreement over the interval from $t$ to $t + \Delta t$ is specified
 by a rate $f(t)$ known at time $t$. The price at $t$ is $1$ and
-has a cash flow of ${\exp(f(t)\Delta t)\approx 1 + f(t)\Delta t}$ at time $t + \Delta t$.
+has a cash flow of ${e^{f(t)\Delta t}\approx 1 + f(t)\Delta t}$ at time $t + \Delta t$.
 
-By equation (1) we have ${D_t = \exp(f(t)D_{t + \Delta t}|_{\AA_t}}$.
+By equation (1) we have ${D_t = e^{f(t)\Delta t}D_{t + \Delta t}|_{\AA_t}}$.
 The canonical deflator specifies $D_{t + \Delta t}$ is known
-at time $t$ so ${D_t = \exp(-f(t))D_{t + \Delta t}}$.
+at time $t$ so ${D_t = e^{-f(t)}D_{t + \Delta t}}$.
 Given back-to-back repos at times $t_j$ having rates $f_j$
-we have $D_j = \exp(-f_j\Delta t_j)D_{j+1}$ so
-${D_n = \exp(-\sum_{j < n} f_j\Delta t_j) D_0}$ is the canonical deflator at time $t_n$.
+we have ${D_j = e^{-f_j\Delta t_j}D_{j+1}}$ and
+${D_n = e^{-\sum_{j < n} f_j\Delta t_j} D_0}$ is the canonical deflator at time $t_n$.
 
-The continuous time analog is $D_t = \exp(-\int_0^t f_s\,ds)D_0$ where
+The continuous time analog is $D_t = e^{-\int_0^t f_s\,ds}D_0$ where
 $f$ is the continuously compounded instantaneous forward rate.
 This is commonly referred to as the _stochastic discount_
 and the reciprocal $R_t = 1/D_t$ is called a _money market account_.
@@ -266,15 +265,15 @@ should be added to the set of instruments $I$.
 ### Forward Rate Agreement
 
 A forward rate agreement pays $-1$ at _effective date_ $u$ and
-$1 + f\delta(u,v)$ at _termination date_ $v > u$ where $f$ is
+${1 + f\delta(u,v)}$ at _termination date_ $v > u$ where $f$ is
 the forward rate agreement coupon, $\delta$
 is the _day count basis_, and $\delta(u, v)$ is the _day count fraction_
 approximately equal to the time in years from $u$ to $v$.
 For example, the Actual/360 day count is the number of days from $u$ to $v$
 divided by $360$.
 
-The _par forward_ $F^\delta(u,v)$ is the coupon making the initial price equal to zero.
-Since $0 = (-D_u + (1 + F^\delta(u,v))D_v)|_{\AA_0}$ we have
+The _par forward_ ${F^\delta(u,v)}$ is the coupon making the initial price equal to zero.
+Since ${0 = (-D_u + (1 + F^\delta(u,v))D_v)|_{\AA_0}}$ we have
 ${F^\delta(u,v) = (D(v)/D(u) - 1)/\delta(u,v)}$.
 
 __Exercise__. _Show the par coupon at time $t\le u$ is
@@ -283,7 +282,7 @@ ${F^\delta_t(u,v) = (D_t(v)/D_t(u) - 1)/\delta(u,v)}$_.
 ### Fixed Income
 
 A fixed income bond is just a finite portfolio of zero coupon bonds
-with cash flow $c_j$ at maturity $u_j$.
+with cash flow $c_j$ at times $u_j$.
 Its _present value_ at time $t$ is ${P_t = \sum_{u_j > t} c_j D_t(u_j)}$.
 The _continuously compounded yield_ $y_t$ at time $t$ is defined by
 ${P_t = \sum_{u_j > t} c_j e^{-(u_j - t) y_t}}$.
@@ -303,6 +302,10 @@ Note that stock price jumping down by dividend value at dividend dates is not
 a consequence of a no-arbitrage strategy. If follows directly from the parameterization
 of equation $(2)$.
 
+We have implicitly expanded the original sample space of all possible stock paths
+to contain all finite sequences $(t_j, d_j)$ with increasing dividend dates $t_j$
+and dividend payments $d_j$ known at time $t_j$. Explicitly specifying this
+allows us to consider, e.g., the senitivity to dividend times and payments.
 
 ### Lévy
 
@@ -316,7 +319,7 @@ Lévy processes are completely determined by their value at time 1.
 
 The [@Mer1976] jump diffusion model[^5] is a special case of this.
 Since $X_1 = X_0 + (X_{1/n} - X_0) + \cdots + (X_1 - X_{1 - 1/n})$
-we have $X_1$ is infinitely divisible since the terms in the sum are independent
+we have $X_1$ is infinitely divisible because the terms in the sum are independent
 and have the same law as $X_{1/n}$ by stationarity. If $X_1$ has finite variance
 then a theorem of Kolmogorov states their exists
 a number $\gamma$ and a non-decreasing bounded function $G$ with
@@ -325,7 +328,7 @@ $$
 $$
 where ${K_s(x) = (e^{sx} - 1 - sx)/x^2 = \sum_{n=2}^\infty x^{n-2}s^n/n!}$.
 Note if $X_1$ has mean 0 and $G(x) = 1_{[0, \infty)}$ then $\kappa(s) = K_s(0) = s^2/2$
-so the random variable is normal. If $G(x) = 1_[a,\infty)$ for $a\not=0$ then
+so the random variable is normal. If $G(x) = 1_{[a,\infty)}$ for $a\not=0$ then
 ${\kappa(s) = K_s(a) = (e^{sa} - 1 - sa)/a^2}$ so the random variable is Poisson.
 
 [^5]: This provides another example of why Ross's definition of
@@ -336,37 +339,39 @@ approximated by a normal plus a linear combination of independent Poisson
 random variables, the case considered in Merton's jump diffusion model.
 Merton showed perfect replication is not possible even assuming
 continuous time hedging.
+
 ### Futures
 
-A futures contract on underlying $S$ is specified by mark-to-market
+A futures contract on underlying $S$ is specified by observation
 dates $t_0 < \cdots < t_n$. Its price is always zero and its _quote_
 at _expiration_ $t_n$ is $\Phi_{t_n} = S_{t_n}$. Prior to expiration the
-quotes $\Phi_{t_j}$, $j < n$ are determined by the market. Futures pay
-cash flows $C_{t_j} = \Phi_{t_j} - \Phi_{t_{j-1}}$.
+quotes $\Phi_t$, $t < t_n$, are determined by the market. Futures pay
+cash flows $C_{t_j} = \Phi_{t_j} - \Phi_{t_{j-1}}$ at $t_j$.
+By equation $(1)$, ${0 D_{t_{j-1}} = (\Phi_{t_j} - \Phi_{t_{j-1}})D_{t_j}}$
+in any arbitrage-free model.
 
-### Put-Call Parity
-
-A (European) put option with strike $k$ expiring at $u$ on underlying $S$
-pays $\max\{k - S_u, 0\}$ at $u$. A call option pays
-$\max\{S_u - k, 0\}$ at $t$. 
-Since $\max\{S_u - k, 0\} - \max\{k - S_u,0\} = S_u - k$ the
-call and put price satisfy $c - p = S_0 - k D(t)$.
+If $D_t$ is a canonical deflator then ${\Phi_{t_{j-1}} = \Phi_{t_j}|_{\AA_{t_{j-1}}}$
+so the futures quotes are a martingale.
 
 ### Cost of Carry
 
 A forward contract with strike $k$ expiring at $u$ on underlying $S$
-pays exactly one cash flow $S_t - k$ at $u$. It price $F_t$
+pays exactly one cash flow $S_u - k$ at $u$. It price $F_t$
 at time $t$ satisfies $F_t D_t = ((S_u - k)D_u)|_{\AA_t}$.
 In an arbitrage-free model the price of the underlying satisfies
 ${S_t D_t = (S_u D_u)|_{\AA_t}}$ assuming it pays no cash flows.
 Hence $F_t D_t = S_t D_t - k D_t(u)D_t$
-and $F_t = S_t - k D_t(u)$. The value of $k$ making $F_0 = 0$
-is called the at-the-money, or par, forward and is denoted $f(u)$.
-This implies cost-of-carry formula $S_0 = f(u) D(u)$ showing
+and $F_t = S_t - k D_t(u)$.
+
+The value of $k$ making $F_t = 0$
+is called the at-the-money, or par, forward and is denoted $f_t(u)$.
+This implies cost-of-carry formula $S_t = f_t(u) D_t(u)$ showing
 the relationship between spot and par forward values.
 
-The usual way of deriving this involves considering a trading
+The classical way of deriving this involves considering a trading
 strategy in a bond and stock to replicate the forward contract. 
+This, and the above examples, show the SUM provides a simple unified model
+for producing correct valuations.
 
 ## Remarks
 
@@ -374,15 +379,15 @@ This model ignores many salient features of how markets actually work.
 
 Transactions have a bid/ask spread that tends to increase with the size of the trade.
 
-Prices are not real numbers -- they are integral multiples of minimum trading increment, or tick size.
-Likewise for trading trading sizes. They are also bounded integral multiples -- at some point
-no more instruments are available for trading. This is an actual problem for some
-large hedge funds such as Citadel.
+Prices are not real numbers; they are integral multiples of minimum
+trading increment, or tick size.  Likewise for trading sizes. Also,
+at some point no more instruments are available for trading. This is an
+actual problem for some large hedge funds.
 
 The definition of arbitrage as $A_0 > 0$ and $A_j\ge 0$ thereafter is insufficient.
 Traders and risk managers will consider ${\|A_0\| = \|-\Gamma_0\cdot X_0\| \le \|\Gamma_0\|\|X_0\|}$.
 The "arbitrage" will not be considered if the left-hand side gain is small compared
-the the right-hand side cost of setting up the initial hedge.
+the the right-hand side estimated cost of setting up the initial hedge.
 
 We completely ignore the entities involved in trading. Different counterparties may have to
 pay different prices or additional side fees for the same instrument depending on their credit worthiness.
@@ -436,7 +441,6 @@ The trajectory of mathematical finance is to develop mathematical models
 that can more accurately describe the realities of trading. Advances
 in compute power, memory, and AI are in their early stages of
 application.
-
 This short note provides a rigorous mathematical
 foundation to keep moving in that direction.
 For full details see the
