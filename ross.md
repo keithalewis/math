@@ -305,7 +305,7 @@ of equation $(2)$.
 We have implicitly expanded the original sample space of all possible stock paths
 to contain all finite sequences $(t_j, d_j)$ with increasing dividend dates $t_j$
 and dividend payments $d_j$ known at time $t_j$. Explicitly specifying this
-allows us to consider, e.g., the senitivity to dividend times and payments.
+allows us to consider, e.g., the sensitivity to dividend times and payments.
 
 ### Lévy
 
@@ -346,11 +346,11 @@ A futures contract on underlying $S$ is specified by observation
 dates $t_0 < \cdots < t_n$. Its price is always zero and its _quote_
 at _expiration_ $t_n$ is $\Phi_{t_n} = S_{t_n}$. Prior to expiration the
 quotes $\Phi_t$, $t < t_n$, are determined by the market. Futures pay
-cash flows $C_{t_j} = \Phi_{t_j} - \Phi_{t_{j-1}}$ at $t_j$.
+cash flows ${C_{t_j} = \Phi_{t_j} - \Phi_{t_{j-1}}}$ at $t_j$.
 By equation $(1)$, ${0 D_{t_{j-1}} = (\Phi_{t_j} - \Phi_{t_{j-1}})D_{t_j}}$
 in any arbitrage-free model.
 
-If $D_t$ is a canonical deflator then ${\Phi_{t_{j-1}} = \Phi_{t_j}|_{\AA_{t_{j-1}}}$
+If $D_t$ is a canonical deflator then ${\Phi_{t_{j-1}} = \Phi_{t_j}|_{\AA_{t_{j-1}}}}$
 so the futures quotes are a martingale.
 
 ### Cost of Carry
@@ -387,7 +387,7 @@ actual problem for some large hedge funds.
 The definition of arbitrage as $A_0 > 0$ and $A_j\ge 0$ thereafter is insufficient.
 Traders and risk managers will consider ${\|A_0\| = \|-\Gamma_0\cdot X_0\| \le \|\Gamma_0\|\|X_0\|}$.
 The "arbitrage" will not be considered if the left-hand side gain is small compared
-the the right-hand side estimated cost of setting up the initial hedge.
+the right-hand side estimated cost of setting up the initial hedge.
 
 We completely ignore the entities involved in trading. Different counterparties may have to
 pay different prices or additional side fees for the same instrument depending on their credit worthiness.
@@ -461,7 +461,7 @@ This is an isometric isomorphism from $B(S)^*$ to $ba(S)$.
 See [@DunSch1958] Volume I, Chapter IV.
 
 Finitely additive measures can be multiplied by bounded functions.
-Define $M_g\colon B(S)\to B(S)$ for $g\in B(S)$ by $M_gf = fg$.
+Define $M_g\colon B(S)\to B(S)$ for $g\in B(S)$ by $M_g f = fg$.
 Its adjoint $M_g^*\colon ba(S)\to ba(S)$ satisfies
 $\langle M_g f,\lambda\rangle = \langle f, M_g^*\lambda\rangle$.
 We write $g\lambda$ for $M_g^*\lambda$.
@@ -474,7 +474,7 @@ This simplifies computer implementations.
 The _conditional expectation_ of a random variable $X$ given an algebra $\AA$ is defined by
 ${Y = E[X\mid\AA]}$ if and only if $Y$ is $\AA$-measurable and ${\int_A Y\,dP = \int_A X\,dP}$
 for all $A\in\AA$.
-This is equivalent to ${Y(P|_\AA) = (XP)|_\AA}$ where the vertical bar indicates restiction.
+This is equivalent to ${Y(P|_\AA) = (XP)|_\AA}$ where the vertical bar indicates restriction.
 This also simplifies computer implementations.
 
 ## References

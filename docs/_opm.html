@@ -5,7 +5,6 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2025-08-25" />
   <title>One Period Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -48,116 +47,96 @@
 <header id="title-block-header">
 <h1 class="title">One Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">August 25, 2025</p>
+<p class="date">Mar 30, 2026</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#trinomial-american-option"
-id="toc-trinomial-american-option">Trinomial American Option</a></li>
+<li><a href="#instruments" id="toc-instruments">Instruments</a></li>
 </ul>
 </nav>
-<p>Instruments <span class="math inline">I</span>, sample space <span
-class="math inline">\Omega</span>, partitions <span
-class="math inline">\mathcal{A}_0</span> and <span
-class="math inline">\mathcal{A}_1</span> of <span
-class="math inline">\Omega</span>, and prices <span
-class="math inline">{x\in B(\mathcal{A}_0, \boldsymbol{{R}}^I)}</span>,
-<span class="math inline">{X\in B(\mathcal{A}_1, R^I)}</span>.</p>
-<p>Arbitrage exists if there is a <span
-class="math inline">\gamma^*\in(\boldsymbol{{R}}^I)^*</span> with <span
-class="math inline">\gamma^* x &lt; 0</span> and <span
-class="math inline">\gamma^* X \ge0</span>.</p>
-<p>Define <span class="math inline">A\colon (\boldsymbol{{R}}^I)^*\to
-B(\mathcal{A}_0)\oplus B(\mathcal{A}_1)</span> by <span
-class="math inline">\gamma^*\mapsto -\gamma^* x \oplus \gamma^*
-X</span>.</p>
-<p><span class="math inline">A^*\colon ba(\mathcal{A}_0)\oplus
-ba(\mathcal{A}_1)\to\boldsymbol{{R}}^I</span> is defined by <span
-class="math display">
-\begin{aligned}
-\langle\gamma^*, A^*(\pi\oplus\Pi)\rangle
-&amp;= \langle A\gamma^*, \pi\oplus\Pi\rangle \\
-&amp;= \langle -\gamma^* x\oplus\gamma^* X, \pi\oplus\Pi\rangle \\
-&amp;= \langle -\gamma^* x, \pi\rangle + \langle\gamma^* X, \Pi\rangle
-\\
-&amp;= \langle \gamma^*, \langle -x, \pi\rangle + \langle X,
-\Pi\rangle\rangle \\
-\end{aligned}
-</span> so <span class="math inline">A^*(\pi\oplus\Pi) = \langle -x,
-\pi\rangle + \langle X, \Pi\rangle</span>.</p>
-<p>Define the positive cone in <span
-class="math inline">ba(\mathcal{A}_0)\oplus ba(\mathcal{A}_1)</span> by
-<span class="math inline">\mathcal{P}= \{\pi\oplus\Pi\mid \pi &gt; 0,
-\Pi\ge0\}</span> Arbitrage exists if and only if the range of <span
-class="math inline">A</span> meets <span
-class="math inline">\mathcal{P}</span>.</p>
-<p>There is no arbitrage if and only if <span
-class="math inline">\operatorname{ran}A\cap\mathcal{P}=
-\emptyset</span>. If so, there exists a hyperplane <span
-class="math inline">H\supseteq\operatorname{ran}A</span> with <span
-class="math inline">H\cap\mathcal{P}= \emptyset</span>. There exists
-<span class="math inline">\pi\oplus\Pi</span> with pre-annihilator <span
-class="math inline">{}^\perp\{\pi\oplus\Pi\} = H</span>.</p>
-<p>Since <span class="math inline">(\operatorname{ran}A)^\perp =
-\operatorname{ker}A^*</span> H$</p>
-<p>We have <span class="math inline">A^*(\pi\oplus\Pi) = 0</span> so
-<span class="math inline">\langle x, \pi\rangle = \langle X,
-\Pi\rangle</span></p>
-<p><span class="math inline">X_j\Pi_j = (X_{j+1} +
-C_{j+1})|_{\mathcal{A}_j}</span></p>
-<section id="trinomial-american-option" class="level2">
-<h2>Trinomial American Option</h2>
-<p>The sample space is the possible stock price movements over the first
-and second periods, and when the option is exercised. <span
-class="math inline">{\Omega = \{(\omega_1, \omega_2, t)\mid
-\omega_i\in\{-,+\}, t\in\{1,2\}\}}</span>. We write, e.g., <span
-class="math inline">-+1</span> for <span
-class="math inline">(-,+,1)</span>.</p>
-<p>Information at time 0 is <span class="math inline">\mathcal{A}_0 =
-\{\Omega\}</span>. We assume <span class="math inline">\Pi_0(\Omega) =
-1</span>. At time one we know if the stock went up or down in the first
-period and whether or not the option was exercised. so <span
-class="math inline">{\mathcal{A}_1 = \{\{--1,-+1\}, \{+-1,++1\},
-\{--2,-+2\}, \{+-2,+-2\}\}}</span> We write <span
-class="math inline">\Pi_1(--1) = \Pi_1(-+1) = \pi_{-1}</span>, etc. Of
-course <span class="math inline">\mathcal{A}_2</span> consists of all
-singletons of <span class="math inline">\Omega</span>. We write <span
-class="math inline">\Pi(--1) = \pi_{--1}</span>, etc.</p>
-<p>We have <span class="math inline">X_0(\omega_1,\omega_2, t) = (1,
-S_0, V_0)</span> where <span class="math inline">S_0</span> and <span
-class="math inline">V_0</span> are scalar.</p>
-<p>And <span class="math inline">X_1(\omega_1, \omega_2, t) = (R,
-S_1(\omega_1), V_1(\omega_1) 1(t = 2))</span> with <span
-class="math inline">C_1 = (0, 0, \nu(S_1(\omega_1)) 1(t =
-1))</span>.</p>
-<p>Also <span class="math inline">X_2(\omega_1, \omega_2, t) = (R^2,
-S_2(\omega_1, \omega_2), 0)</span> with <span
-class="math inline">C_2(\omega_1, \omega_2, t) = (0, 0,
-\nu(S_2(\omega_1, \omega_2))1(t = 2))</span>.</p>
-<p>Since <span class="math inline">X_0\Pi_0 = ((X_1 +
-C_1)\Pi_1)|_{\mathcal{A}_1}</span> we have <span class="math display">
-\begin{aligned}
-1 &amp;= R(\pi_{-1} + \pi_{-2} + \pi_{+1} + \pi_{+2}) \\
-S_0 &amp;= S_1(-)(\pi_{-1} + \pi_{-2}) + S_1(+)(\pi_{+1} + \pi_{+2}) \\
-V_0 &amp;= S_1(-)\pi_{-2} + S_1(+)\pi_{+2} + \nu(S_1(-))\pi_{-1} +
-\nu(S_1(+))\pi_{+1} \\
-\end{aligned}
-</span> <!--
-$$
-\begin{bmatrix} 1\\ S_0\\ V_0 \\ \end{bmatrix}
-= \begin{bmatrix}
-R & R & R & R \\
-S_1(-) & S_1(+) & S_1(-) & S_1(+) \\
-\nu(S_1(-)) & \nu(S_1(+)) & S_1(-) & S_1(+) \\
-\end{bmatrix}
-\begin{bmatrix}
-\pi_{-1} \\
-\pi_{+1} \\
-\pi_{-2} \\
-\pi_{+2} \\
-\end{bmatrix}
-$$
---></p>
+<p>See <a href="https://github.com/mpusz/mp-units">mp-units</a></p>
+<p>Let <span class="math inline">T</span> be the set of all possible
+trading times and <span class="math inline">I</span> be the set of
+market instruments.</p>
+<p>Let <span class="math inline">T(i) \subseteq T</span> be the trading
+times for instrument <span class="math inline">i\in I</span>.</p>
+<p>The <em>type</em> of the amount is dividend, interest, principal,
+fee, tax, …<br />
+The <em>kind</em> of the type is the instrument.</p>
+<p>The same instrument may trade on multiple exchanges, over the
+counter, through a broker/dealer, on a dark market, etc. This is the
+<em>type</em> of the instrument.</p>
+<section id="instruments" class="level2">
+<h2>Instruments</h2>
+<p>Stock. Has an issuer. One or more IPO’s that determine the float.</p>
+<p>An <em>amount</em> is an integral quantity of the minimum trading
+size of an <em>instrument</em> and a <em>kind</em>.<br />
+An amount also has a <em>kind</em>, such as dividend, interest, or
+principal payment.</p>
+<p>A <em>holding</em> is an <em>amount</em> and <em>owner</em> that
+decides to buy or sell the holding.</p>
+<p>A <em>position</em> is a (multi)set of holdings.</p>
+<p>We assume holdings are <em>divisible</em>. The holding <span
+class="math inline">(a, o)</span> can be split into $(a’, o),</p>
+<p>A real-valued functions takes points in a set to the real
+numbers.</p>
+<p>A real-valued measure takes subsets of a set to the real numbers,
+does not count things twice, and the measure of nothing is 0.</p>
+<p><span class="math inline">B(S)</span>, <span
+class="math inline">B(S)^*\cong ba(S)</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">\mu(A\cup
+B) = \mu(A) + \mu(B) - \mu(A\cap B)</span> then <span
+class="math inline">\nu(A) = \mu(A) - \mu(\emptyset)</span> is a
+measure</em>.</p>
+<p>Every instrument determines a type. Every type has a kind.<br />
+E.g., a $ can be a dividend, interest, principal,…</p>
+<p>How to connect real-world vs risk-neutral measures.</p>
+<p>The concept of no arbitrage. Efficient markets.</p>
+<p>Probabilities change over time.</p>
+<p><span class="math inline">\Omega</span> is all possible outcomes
+…</p>
+<p>Risk-neutral vs real-world measures.</p>
+<p>Samuelson - deflated prices are martingales (under risk-neutral
+measure) What about real world measures???</p>
+<p>Futures quotes are martingales.</p>
+<p>Ross Recovery.</p>
+<p>Neo-economics.</p>
+<p>Markowitz - stock prices (efficient markets)</p>
+<pre><code>   x = _O + s S + 1 B + v1         P1 + ... + vn         Pn
+C(w) = _O + w S + R B + (w - K1)^+ P1 + ... + (w - Kn)^+ Pn
+
+C(L)  = _O + L  S + R B 
+C(K1) = _O + K1 S + R B
+C(K2) = _O + K2 S + R B + (K2 - K1) P1
+...
+C(Kn) = _O + Kn S + R B + (Kn - K1) P1 + ... + (Kn - Kn-1) Pn-1
+C(H)  = _O + H  S + R B + (H - K1)  P1 + ... + (H - Kn-1)  Pn-1 + (H - Kn) Pn
+
+C(L)C(K1)...C(Kn)C(H) = R(K1 - L) B S (K2 - K1) ... (H - Kn) P1 ... Pn
+
+x C(K1) ... = (sR S B + K1 B S) (K2 - K1) ... (H - Kn) P1 ... Pn
+            = (K1 - sR) (K2 - K1) ... (H - Kn) B S P1 ... Pn
+
+C(L) x ...  = (L S B + sR B S) (K2 - K1) ... (H - Kn) P1 ... Pn
+            = (sR - L) (K2 - K1) ... (H - Kn) B S P1 ... Pn
+    
+
+C(L)C(K1)xC(K3)...C(H) = R(K1 - L) B S x (K3 - K2)...(H - Kn) P2 ... Pn
+                       = R(K1 - L) B S v1 P1 (K3 - K2)...(H - Kn) P2 ... Pn
+                       = R(K1 - L) v1 (K3 - K2)...(H - Kn) B S P1 P2 ... Pn
+
+C(L)C(K1)C(K2)xC(K4)...C(H) = R(K1 - L) B S C(K2) x (K4 - K3)...(H - Kn) P3 ... Pn
+    =  R(K1 - L) B S (K2 - K1) P1 x (K4 - K3)...(H - Kn) P3 ... Pn
+
+   x = _O + s S + 1 B + v1 P1 + ... + vn Pn
+
+                       B S P1
+
+   x = _O + s S + 1 B + v1         P1 + ... + vn         Pn
+
+C(L)C(K1) = R(K1 - L) B S
+C(L)C(K1)C(K2) = R(K1 - L)(K2 - K1) B S P1
+</code></pre>
 </section>
 </body>
 </html>

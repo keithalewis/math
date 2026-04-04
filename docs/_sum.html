@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>_sum</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#simple-unified-model" id="toc-simple-unified-model">Simple
+Unified Model</a>
+<ul>
+<li><a href="#market" id="toc-market">Market</a></li>
+<li><a href="#trading" id="toc-trading">Trading</a></li>
+<li><a href="#accounting" id="toc-accounting">Accounting</a></li>
+<li><a href="#arbitrage" id="toc-arbitrage">Arbitrage</a></li>
+<li><a href="#fundamental-theorem-of-asset-pricing"
+id="toc-fundamental-theorem-of-asset-pricing">Fundamental Theorem of
+Asset Pricing</a></li>
+</ul></li>
+</ul>
+</nav>
+<!--
+title: Simple Unified Model
+author: Keith A. Lewis
+email: kal@kalx.net
+-->
+<section id="simple-unified-model" class="level1">
+<h1>Simple Unified Model</h1>
+<section id="market" class="level2">
+<h2>Market</h2>
+<p><span class="math inline">X_t</span> - prices at time <span
+class="math inline">t</span> indexed by instruments<br />
+<span class="math inline">C_t</span> - discrete cash flows at time <span
+class="math inline">t</span> indexed by instruments<br />
+E.g., stock dividends, bond coupons, futures margin adjustments.</p>
+</section>
+<section id="trading" class="level2">
+<h2>Trading</h2>
+<p><span class="math inline">(\tau_j, \Gamma_j)</span> - times and
+trades indexed by instruments with <span class="math inline">\tau_0 &lt;
+\cdots &lt; \tau_n</span><br />
+<span class="math inline">\Delta_t</span> - trades accumulate to a
+position <span class="math inline">\Delta_t = \sum_{\tau_j &lt; t}
+\Gamma_j = \sum_{s &lt; t} \Gamma_s</span><br />
+It takes some time for a trade to settle into a position.</p>
+</section>
+<section id="accounting" class="level2">
+<h2>Accounting</h2>
+<p><span class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>
+- value (mark-to-market) at time <span
+class="math inline">t</span><br />
+<span class="math inline">A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
+X_t</span> - amount deposited in trading account at time <span
+class="math inline">t</span></p>
+</section>
+<section id="arbitrage" class="level2">
+<h2>Arbitrage</h2>
+<p>Trades <span class="math inline">(\tau_j, \Gamma_j)</span> with <span
+class="math inline">A_{\tau_0} &gt; 0</span>, <span
+class="math inline">A_t \ge 0</span> for <span class="math inline">t
+&gt; \tau_0</span>, and <span class="math inline">\sum_j \Gamma_j =
+0</span>.</p>
+</section>
+<section id="fundamental-theorem-of-asset-pricing" class="level2">
+<h2>Fundamental Theorem of Asset Pricing</h2>
+<p>No arbitrage iff there exist positive, adapted measures <span
+class="math inline">D_t</span> with <span class="math display">
+\tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_u
+D_s)|_{\mathcal{A}_t},
+</span> where <span class="math inline">\mathcal{A}_t</span> is
+information at time <span class="math inline">t</span>.</p>
+<p>With <span class="math inline">V_t</span> and <span
+class="math inline">A_t</span> as above, <span class="math display">
+\tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
+D_s)|_{\mathcal{A}_t}.
+</span> Values <span class="math inline">V_t</span> corresponds to
+prices <span class="math inline">X_t</span>, amounts <span
+class="math inline">A_t</span> correspond to cash flows <span
+class="math inline">C_t</span>.<br />
+<strong>Trading strategies create synthetic market
+instruments.</strong></p>
+<p>Every arbitrage-free model is parametrized by adapted vector-valued
+measures <span class="math inline">M_t</span> where <span
+class="math inline">M_t = M_u|_{\mathcal{A}_t}</span>, <span
+class="math inline">t \le u</span> and <span class="math display">
+\tag{3} X_t D_t = X_0 M_t - \sum_{s \le t} C_s D_s.
+</span></p>
+</section>
+</section>
+</body>
+</html>
