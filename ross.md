@@ -83,7 +83,12 @@ there exist _positive adapted finitely-additive measures $D_t$ with
 $$
 \tag{1}	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}
 $$
-where $\AA_t$ is the partition of information[^2] available at time $t$.
+where $\AA_t$ is the partition of information[^2] on the space of possible outcomes in $\Omega$
+available at time $t$.
+
+Note we can, and do, assume $D_0(\Omega) = 1$ since we can divide both
+sides of equation $(1)$ by any positive constant.
+
 We call such measures _deflators_. If repurchase agreements
 are available in the market then the usual stochastic discount is
 a canonical deflator.
@@ -101,8 +106,8 @@ is no need for that. Every arbitrage-free model has a simple parameterization.
 
 ## Parameterization
 
-Every arbitrage-free model is parameterized by a vector-valued
-measure $M_t$ satisfying ${M_t = M_u|_{\AA_t}, t \le u}$ (a _martingale measure_) where
+Every arbitrage-free model is parameterized by a
+measure indexed by instruments $M_t$ satisfying ${M_t = M_u|_{\AA_t}, t \le u}$ (a _martingale measure_) where
 $$
 \tag{2}	X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s.
 $$
@@ -112,24 +117,81 @@ __Exercise__. _Show equation $(2)$ implies equation $(1)$_.
 _Hint_: Replace $t$ by $u$ in equation $(2)$ and plug that into the
 right-hand side of equation $(1)$.
 
-This reduces the problem to finding martingale measures that can fit
-market data.
+This only provides a simple mathematically rigorous framework to approach the
+highly non-trivial and computationally intensive problem of finding
+martingale measures that can fit market data.
 
 ### Black-Scholes/Merton
 
 For example, the Black-Scholes/Merton model for the bond and stock with
 no dividends is parameterized by
 ${M_t = (1, e^{\sigma B_t - \sigma^2t/2})P}$, ${D_t = e^{-\rho t}P}$
-where $P$ is Weiner measure and $B_t$ is standard Brownian motion.
+where $P$ is Weiner measure on $\Omega = C([0,\infty))$, the space of
+continuous functions from $[0,\infty)$ to the real numbers, and $B_t$ is standard Brownian motion.
 
 __Exercise__. _Show $X_t = (R_t, S_t)$ where $R_t =  r e^{\rho t}$
 and $S_t = s e^{\sigma B_t + (\rho - \sigma^2/2)t}$_.
 
-_Hint_: Use equation $(2)$ with $C_t = (0, 0)$.
+_Hint_: Use equation $(2)$ with cash flows $C_t = (0, 0)$.
 
-Note there is no need to introduce a so-called "real world" measure that
+There is no need to introduce a so-called "real world" measure that
 requires a Nobel Prize winning argument involving partial differential
 equations to show it can be thrown away.
+
+### Dividends
+
+A _fixed dividend_ on a stock is a cash flow $d_t$ at dividend date $t$.
+A _proportional dividend_ $p_t$ is a cash flow $p_t S_t$ at dividend date $t$.
+They are both paid in proportion to the position held in the stock.
+Companies often announce projected dividends several months in advance.
+Future dividends after that are usually assumed to be proportional to the stock price.
+Specifying a function $X$ that is one at zero and decreases to zero at infinity
+can be used to blend these using cash flows $X(t)d_t + (1 - X(t))p_t S_t$.
+
+Ross made the category error of defining dividends from a stock as
+a jump in their price. Stock prices jump from closing price to open price
+but there is no cash flow associated with owning the stock.
+
+Note that stock price jumping down by dividend value at dividend dates is not
+a consequence of a no-arbitrage strategy. If follows directly from the parameterization
+of equation $(2)$.
+
+Considering dividends expands the original sample space of all possible stock paths
+to contain all finite sequences $(t_j, d_j)$ with increasing dividend dates $t_j$
+and dividend payments $d_j$ known at time $t_j$. Explicitly specifying this
+allows us to consider, e.g., the sensitivity to dividend times and payments.
+
+### Market Parameterization
+
+[@BreLit1978] showed the risk-neutral distribution of an underlying at
+expiration is determined by the second derivative of European call prices
+with respect to strike. In practice, out-of-the-money puts are converted
+to calls using put-call parity and option values are interpolated between
+traded strikes.
+
+If $M_t$ is a measure on $\AA_t$ then $M_s = M_{\AA_s}$, $s\le t$, is a martingale measure.
+
+__Exercise__. _Show for any function $f\colon X\to Y$ and
+$A\subseteq B\subseteq X$ then $f|_A = (f|_B)_A$_.
+
+_Hint_: $f|_B(a) = f(a)$ for $a\in A$.
+
+If the cash flows are zero we can take $M_t = S_t D_t/S_0$ where $S_t$
+is the Breeden-Litzenberger distribution derived from option prices expiring at time $t$
+and $S_0$ is the current underlying price. These are determined by market data.
+
+<!-- non zero cash flows -->
+
+Aside from interpolation methods introducing mathematical artifacts into the
+option prices, the most most difficult and important problem is coming up
+with the sample space $\Omega$ and partitions $\AA_t$ representing information at time $t$.
+
+People tend to underestimate what should be included in a sample space and not
+have enough imagination when it comes to inventing partitions sufficiently 
+flexible to allow models to be tuned to market data.
+
+The SUM only provides a framework to reason rigorously about this and a mathematical
+model that is straightforward to implement.
 
 ## Consequences
 
@@ -152,7 +214,7 @@ risk of derivative instruments.
 ### Derivatives
 
 A (cash settled) derivative is a contract where the buyer will pay the
-seller to provide amounts $\hat{A}_k$ at times $\hat\tau_k$.  The buyer
+seller cash flows $\hat{A}_k$ at times $\hat\tau_k$.  The buyer
 is willing to pay the seller a premium to take the risk off their hands.
 This short note provides nothing to suggest a solution to the conundrum of
 what premium, vigorish, or baksheesh should be charged for that service.
@@ -163,8 +225,7 @@ is referred to as _self-financing_.
 Unless you belong to a Pythagorean cult that believes in the mathematical
 absurdity of continuous time trading, this is generally not possible.
 
-One approach is to note
-${V_t = (\Delta_t + \Gamma_t)\cdot X_t}$ and that
+One approach is to note ${V_t = (\Delta_t + \Gamma_t)\cdot X_t}$ and that
 ${V_t D_t = (\sum_{\hat\tau_k > t} \hat{A}_k D_{\hat\tau_k})|_{\AA_t}}$ can be calculated
 using the contract terms $\hat\tau_k$ and $\hat{A}_k$ by equation $(3)$.
 The Fréchet derivative[^3] of value $V_t$ with respect to the underlying $X_t$ is
@@ -191,11 +252,11 @@ determine the next trading time $\tau_{j+1}$ from the last trading time $\tau_j$
 by ${\tau_{j+1} = \inf \{t > \tau_j\mid \|X_t - X_{\tau_j}\|_\infty > \Delta X\}}$.
 
 What this theory does allow us to do is rigorously analyze any trading strategy.
-For instance, the above strategy could be implemented using limit orders. At
+For instance, the above $\Delta X$ strategy could be implemented using limit orders. At
 time $\tau_j$ place limit orders at $X_{\tau_j} \pm \Delta X$ of size
 $\Gamma_{j+1}$. We do not know $\Gamma_{j+1}$ at time $\tau_j$ since it
-depends on $\tau_{j+1}$ and $X_{\tau_{j+1}}$. Limit orders
-cost nothing to put on and take off so we can keep adjusting their size
+depends on $\tau_{j+1}$ and $X_{\tau_{j+1}}$, however limit orders
+cost nothing to place and cancel so we can keep adjusting their size
 as $t\to\tau_{j+1}$.
 
 ## Application
@@ -289,57 +350,6 @@ ${P_t = \sum_{u_j > t} c_j e^{-(u_j - t) y_t}}$.
 The _duration_ of a bond is the first derivative with respect to yield
 $dP_t/dy_t$ and the _convexity_ is the second derivative $d^2P_t/dy_t^2$.
 
-### Dividends
-
-A _fixed dividend_ on a stock is a fixed cash flow $d_t$ per share at a dividend date $t$.
-A _proportional dividend_ $p_t$ gives cash flow $p_t S_t$ at dividend date $t$.
-Many companies announce projected dividends several months in advance.
-Future dividends after that are usually assumed to be proportional to the stock price.
-Specifying a function $X$ that is one at zero and decreases to zero at infinity
-can be used to blend these two models using cash flows $X(t)d_t + (1 - X(t))p_t S_t$.
-
-Note that stock price jumping down by dividend value at dividend dates is not
-a consequence of a no-arbitrage strategy. If follows directly from the parameterization
-of equation $(2)$.
-
-We have implicitly expanded the original sample space of all possible stock paths
-to contain all finite sequences $(t_j, d_j)$ with increasing dividend dates $t_j$
-and dividend payments $d_j$ known at time $t_j$. Explicitly specifying this
-allows us to consider, e.g., the sensitivity to dividend times and payments.
-
-### Lévy
-
-Another source of ready-made martingales are Lévy processes[^4].
-If $(X_t)$ is a Lévy process then $M_t = e^{s X_t - t\kappa(s)}$ is a
-martingale where $\kappa$ is the cumulant $\kappa(s) = \log E[e^{s X_1}]$.
-
-[^4]: A Lévy process is a stochastic process that has stationary, independent increments,
-and is continuous in probability.
-Lévy processes are completely determined by their value at time 1.
-
-The [@Mer1976] jump diffusion model[^5] is a special case of this.
-Since $X_1 = X_0 + (X_{1/n} - X_0) + \cdots + (X_1 - X_{1 - 1/n})$
-we have $X_1$ is infinitely divisible because the terms in the sum are independent
-and have the same law as $X_{1/n}$ by stationarity. If $X_1$ has finite variance
-then a theorem of Kolmogorov states their exists
-a number $\gamma$ and a non-decreasing bounded function $G$ with
-$$
-\kappa(s) = \log E e^{sX_1} = \gamma s + \int_{-\infty}^\infty K_s(x)\,dG(x),
-$$
-where ${K_s(x) = (e^{sx} - 1 - sx)/x^2 = \sum_{n=2}^\infty x^{n-2}s^n/n!}$.
-Note if $X_1$ has mean 0 and $G(x) = 1_{[0, \infty)}$ then $\kappa(s) = K_s(0) = s^2/2$
-so the random variable is normal. If $G(x) = 1_{[a,\infty)}$ for $a\not=0$ then
-${\kappa(s) = K_s(a) = (e^{sa} - 1 - sa)/a^2}$ so the random variable is Poisson.
-
-[^5]: This provides another example of why Ross's definition of
-a cash flow as a jump in stock prices is not valid.
-
-This theorem shows every infinitely divisible random variable can be
-approximated by a normal plus a linear combination of independent Poisson
-random variables, the case considered in Merton's jump diffusion model.
-Merton showed perfect replication is not possible even assuming
-continuous time hedging.
-
 ### Futures
 
 A futures contract on underlying $S$ is specified by observation
@@ -361,7 +371,7 @@ at time $t$ satisfies $F_t D_t = ((S_u - k)D_u)|_{\AA_t}$.
 In an arbitrage-free model the price of the underlying satisfies
 ${S_t D_t = (S_u D_u)|_{\AA_t}}$ assuming it pays no cash flows.
 Hence $F_t D_t = S_t D_t - k D_t(u)D_t$
-and $F_t = S_t - k D_t(u)$.
+so $F_t = S_t - k D_t(u)$.
 
 The value of $k$ making $F_t = 0$
 is called the at-the-money, or par, forward and is denoted $f_t(u)$.
@@ -373,16 +383,18 @@ strategy in a bond and stock to replicate the forward contract.
 This, and the above examples, show the SUM provides a simple unified model
 for producing correct valuations.
 
+### Limit Orders
+
 ## Remarks
 
 This model ignores many salient features of how markets actually work.
 
 Transactions have a bid/ask spread that tends to increase with the size of the trade.
 
-Prices are not real numbers; they are integral multiples of minimum
+Prices are not real numbers -- they are integral multiples of minimum
 trading increment, or tick size.  Likewise for trading sizes. Also,
 at some point no more instruments are available for trading. This is an
-actual problem for some large hedge funds.
+actual problem for large hedge funds.
 
 The definition of arbitrage as $A_0 > 0$ and $A_j\ge 0$ thereafter is insufficient.
 Traders and risk managers will consider ${\|A_0\| = \|-\Gamma_0\cdot X_0\| \le \|\Gamma_0\|\|X_0\|}$.
