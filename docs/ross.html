@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Apr 4, 2026</p>
+<p class="date">Apr 5, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A Simple Approach to the Valuation of Risky Streams
@@ -82,6 +82,9 @@ id="toc-parameterization">Parameterization</a>
 <ul>
 <li><a href="#black-scholesmerton"
 id="toc-black-scholesmerton">Black-Scholes/Merton</a></li>
+<li><a href="#dividends" id="toc-dividends">Dividends</a></li>
+<li><a href="#market-parameterization"
+id="toc-market-parameterization">Market Parameterization</a></li>
 </ul></li>
 <li><a href="#consequences" id="toc-consequences">Consequences</a>
 <ul>
@@ -96,11 +99,10 @@ Deflator</a></li>
 <li><a href="#forward-rate-agreement"
 id="toc-forward-rate-agreement">Forward Rate Agreement</a></li>
 <li><a href="#fixed-income" id="toc-fixed-income">Fixed Income</a></li>
-<li><a href="#dividends" id="toc-dividends">Dividends</a></li>
-<li><a href="#lévy" id="toc-lévy">Lévy</a></li>
 <li><a href="#futures" id="toc-futures">Futures</a></li>
 <li><a href="#cost-of-carry" id="toc-cost-of-carry">Cost of
 Carry</a></li>
+<li><a href="#limit-orders" id="toc-limit-orders">Limit Orders</a></li>
 </ul></li>
 <li><a href="#remarks" id="toc-remarks">Remarks</a></li>
 <li><a href="#appendix" id="toc-appendix">Appendix</a></li>
@@ -192,18 +194,23 @@ and only if there exist _positive adapted finitely-additive measures
 D_s)|_{\mathcal{A}_t}
 </span> where <span class="math inline">\mathcal{A}_t</span> is the
 partition of information<a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a> available at time <span
-class="math inline">t</span>. We call such measures <em>deflators</em>.
-If repurchase agreements are available in the market then the usual
-stochastic discount is a canonical deflator.</p>
+role="doc-noteref"><sup>2</sup></a> on the space of possible outcomes in
+<span class="math inline">\Omega</span> available at time <span
+class="math inline">t</span>.</p>
+<p>Note we can, and do, assume <span class="math inline">D_0(\Omega) =
+1</span> since we can divide both sides of equation <span
+class="math inline">(1)</span> by any positive constant.</p>
+<p>We call such measures <em>deflators</em>. If repurchase agreements
+are available in the market then the usual stochastic discount is a
+canonical deflator.</p>
 <p>Ross used the Hahn-Banach theorem to prove existence but there is no
 need for that. Every arbitrage-free model has a simple
 parameterization.</p>
 </section>
 <section id="parameterization" class="level2">
 <h2>Parameterization</h2>
-<p>Every arbitrage-free model is parameterized by a vector-valued
-measure <span class="math inline">M_t</span> satisfying <span
+<p>Every arbitrage-free model is parameterized by a measure indexed by
+instruments <span class="math inline">M_t</span> satisfying <span
 class="math inline">{M_t = M_u|_{\mathcal{A}_t}, t \le u}</span> (a
 <em>martingale measure</em>) where <span class="math display">
 \tag{2} X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s.
@@ -215,25 +222,96 @@ class="math inline">(1)</span></em>.</p>
 class="math inline">u</span> in equation <span
 class="math inline">(2)</span> and plug that into the right-hand side of
 equation <span class="math inline">(1)</span>.</p>
-<p>This reduces the problem to finding martingale measures that can fit
-market data.</p>
+<p>This only provides a simple mathematically rigorous framework to
+approach the highly non-trivial and computationally intensive problem of
+finding martingale measures that can fit market data.</p>
 <section id="black-scholesmerton" class="level3">
 <h3>Black-Scholes/Merton</h3>
 <p>For example, the Black-Scholes/Merton model for the bond and stock
 with no dividends is parameterized by <span class="math inline">{M_t =
 (1, e^{\sigma B_t - \sigma^2t/2})P}</span>, <span
 class="math inline">{D_t = e^{-\rho t}P}</span> where <span
-class="math inline">P</span> is Weiner measure and <span
-class="math inline">B_t</span> is standard Brownian motion.</p>
+class="math inline">P</span> is Weiner measure on <span
+class="math inline">\Omega = C([0,\infty))</span>, the space of
+continuous functions from <span class="math inline">[0,\infty)</span> to
+the real numbers, and <span class="math inline">B_t</span> is standard
+Brownian motion.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">X_t =
 (R_t, S_t)</span> where <span class="math inline">R_t = r e^{\rho
 t}</span> and <span class="math inline">S_t = s e^{\sigma B_t + (\rho -
 \sigma^2/2)t}</span></em>.</p>
 <p><em>Hint</em>: Use equation <span class="math inline">(2)</span> with
-<span class="math inline">C_t = (0, 0)</span>.</p>
-<p>Note there is no need to introduce a so-called “real world” measure
-that requires a Nobel Prize winning argument involving partial
-differential equations to show it can be thrown away.</p>
+cash flows <span class="math inline">C_t = (0, 0)</span>.</p>
+<p>There is no need to introduce a so-called “real world” measure that
+requires a Nobel Prize winning argument involving partial differential
+equations to show it can be thrown away.</p>
+</section>
+<section id="dividends" class="level3">
+<h3>Dividends</h3>
+<p>A <em>fixed dividend</em> on a stock is a cash flow <span
+class="math inline">d_t</span> at dividend date <span
+class="math inline">t</span>. A <em>proportional dividend</em> <span
+class="math inline">p_t</span> is a cash flow <span
+class="math inline">p_t S_t</span> at dividend date <span
+class="math inline">t</span>. They are both paid in proportion to the
+position held in the stock. Companies often announce projected dividends
+several months in advance. Future dividends after that are usually
+assumed to be proportional to the stock price. Specifying a function
+<span class="math inline">X</span> that is one at zero and decreases to
+zero at infinity can be used to blend these using cash flows <span
+class="math inline">X(t)d_t + (1 - X(t))p_t S_t</span>.</p>
+<p>Ross made the category error of defining dividends from a stock as a
+jump in their price. Stock prices jump from closing price to open price
+but there is no cash flow associated with owning the stock.</p>
+<p>Note that stock price jumping down by dividend value at dividend
+dates is not a consequence of a no-arbitrage strategy. If follows
+directly from the parameterization of equation <span
+class="math inline">(2)</span>.</p>
+<p>Considering dividends expands the original sample space of all
+possible stock paths to contain all finite sequences <span
+class="math inline">(t_j, d_j)</span> with increasing dividend dates
+<span class="math inline">t_j</span> and dividend payments <span
+class="math inline">d_j</span> known at time <span
+class="math inline">t_j</span>. Explicitly specifying this allows us to
+consider, e.g., the sensitivity to dividend times and payments.</p>
+</section>
+<section id="market-parameterization" class="level3">
+<h3>Market Parameterization</h3>
+<p><span class="citation" data-cites="BreLit1978">(<a
+href="#ref-BreLit1978" role="doc-biblioref">Breeden and Litzenberger
+1978</a>)</span> showed the risk-neutral distribution of an underlying
+at expiration is determined by the second derivative of European call
+prices with respect to strike. In practice, out-of-the-money puts are
+converted to calls using put-call parity and option values are
+interpolated between traded strikes.</p>
+<p>If <span class="math inline">M_t</span> is a measure on <span
+class="math inline">\mathcal{A}_t</span> then <span
+class="math inline">M_s = M_{\mathcal{A}_s}</span>, <span
+class="math inline">s\le t</span>, is a martingale measure.</p>
+<p><strong>Exercise</strong>. <em>Show for any function <span
+class="math inline">f\colon X\to Y</span> and <span
+class="math inline">A\subseteq B\subseteq X</span> then <span
+class="math inline">f|_A = (f|_B)_A</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">f|_B(a) = f(a)</span> for
+<span class="math inline">a\in A</span>.</p>
+<p>If the cash flows are zero we can take <span class="math inline">M_t
+= S_t D_t/S_0</span> where <span class="math inline">S_t</span> is the
+Breeden-Litzenberger distribution derived from option prices expiring at
+time <span class="math inline">t</span> and <span
+class="math inline">S_0</span> is the current underlying price. These
+are determined by market data.</p>
+<!-- non zero cash flows -->
+<p>Aside from interpolation methods introducing mathematical artifacts
+into the option prices, the most most difficult and important problem is
+coming up with the sample space <span class="math inline">\Omega</span>
+and partitions <span class="math inline">\mathcal{A}_t</span>
+representing information at time <span class="math inline">t</span>.</p>
+<p>People tend to underestimate what should be included in a sample
+space and not have enough imagination when it comes to inventing
+partitions sufficiently flexible to allow models to be tuned to market
+data.</p>
+<p>The SUM only provides a framework to reason rigorously about this and
+a mathematical model that is straightforward to implement.</p>
 </section>
 </section>
 <section id="consequences" class="level2">
@@ -258,12 +336,11 @@ of derivative instruments.</p>
 <section id="derivatives" class="level3">
 <h3>Derivatives</h3>
 <p>A (cash settled) derivative is a contract where the buyer will pay
-the seller to provide amounts <span class="math inline">\hat{A}_k</span>
-at times <span class="math inline">\hat\tau_k</span>. The buyer is
-willing to pay the seller a premium to take the risk off their hands.
-This short note provides nothing to suggest a solution to the conundrum
-of what premium, vigorish, or baksheesh should be charged for that
-service.</p>
+the seller cash flows <span class="math inline">\hat{A}_k</span> at
+times <span class="math inline">\hat\tau_k</span>. The buyer is willing
+to pay the seller a premium to take the risk off their hands. This short
+note provides nothing to suggest a solution to the conundrum of what
+premium, vigorish, or baksheesh should be charged for that service.</p>
 <p>A perfect hedge is a closed-out trading strategy <span
 class="math inline">(\tau_j, \Gamma_j)</span> with <span
 class="math inline">A_{\hat\tau_k} = \hat A_{k}</span> and <span
@@ -299,15 +376,16 @@ class="math inline">\Delta X</span> and determine the next trading time
 class="math inline">{\tau_{j+1} = \inf \{t &gt; \tau_j\mid \|X_t -
 X_{\tau_j}\|_\infty &gt; \Delta X\}}</span>.</p>
 <p>What this theory does allow us to do is rigorously analyze any
-trading strategy. For instance, the above strategy could be implemented
-using limit orders. At time <span class="math inline">\tau_j</span>
-place limit orders at <span class="math inline">X_{\tau_j} \pm \Delta
-X</span> of size <span class="math inline">\Gamma_{j+1}</span>. We do
-not know <span class="math inline">\Gamma_{j+1}</span> at time <span
+trading strategy. For instance, the above <span
+class="math inline">\Delta X</span> strategy could be implemented using
+limit orders. At time <span class="math inline">\tau_j</span> place
+limit orders at <span class="math inline">X_{\tau_j} \pm \Delta X</span>
+of size <span class="math inline">\Gamma_{j+1}</span>. We do not know
+<span class="math inline">\Gamma_{j+1}</span> at time <span
 class="math inline">\tau_j</span> since it depends on <span
 class="math inline">\tau_{j+1}</span> and <span
-class="math inline">X_{\tau_{j+1}}</span>. Limit orders cost nothing to
-put on and take off so we can keep adjusting their size as <span
+class="math inline">X_{\tau_{j+1}}</span>, however limit orders cost
+nothing to place and cancel so we can keep adjusting their size as <span
 class="math inline">t\to\tau_{j+1}</span>.</p>
 </section>
 </section>
@@ -432,70 +510,6 @@ with respect to yield <span class="math inline">dP_t/dy_t</span> and the
 <em>convexity</em> is the second derivative <span
 class="math inline">d^2P_t/dy_t^2</span>.</p>
 </section>
-<section id="dividends" class="level3">
-<h3>Dividends</h3>
-<p>A <em>fixed dividend</em> on a stock is a fixed cash flow <span
-class="math inline">d_t</span> per share at a dividend date <span
-class="math inline">t</span>. A <em>proportional dividend</em> <span
-class="math inline">p_t</span> gives cash flow <span
-class="math inline">p_t S_t</span> at dividend date <span
-class="math inline">t</span>. Many companies announce projected
-dividends several months in advance. Future dividends after that are
-usually assumed to be proportional to the stock price. Specifying a
-function <span class="math inline">X</span> that is one at zero and
-decreases to zero at infinity can be used to blend these two models
-using cash flows <span class="math inline">X(t)d_t + (1 - X(t))p_t
-S_t</span>.</p>
-<p>Note that stock price jumping down by dividend value at dividend
-dates is not a consequence of a no-arbitrage strategy. If follows
-directly from the parameterization of equation <span
-class="math inline">(2)</span>.</p>
-<p>We have implicitly expanded the original sample space of all possible
-stock paths to contain all finite sequences <span
-class="math inline">(t_j, d_j)</span> with increasing dividend dates
-<span class="math inline">t_j</span> and dividend payments <span
-class="math inline">d_j</span> known at time <span
-class="math inline">t_j</span>. Explicitly specifying this allows us to
-consider, e.g., the sensitivity to dividend times and payments.</p>
-</section>
-<section id="lévy" class="level3">
-<h3>Lévy</h3>
-<p>Another source of ready-made martingales are Lévy processes<a
-href="#fn5" class="footnote-ref" id="fnref5"
-role="doc-noteref"><sup>5</sup></a>. If <span
-class="math inline">(X_t)</span> is a Lévy process then <span
-class="math inline">M_t = e^{s X_t - t\kappa(s)}</span> is a martingale
-where <span class="math inline">\kappa</span> is the cumulant <span
-class="math inline">\kappa(s) = \log E[e^{s X_1}]</span>.</p>
-<p>The <span class="citation" data-cites="Mer1976">(<a
-href="#ref-Mer1976" role="doc-biblioref">Merton 1976</a>)</span> jump
-diffusion model<a href="#fn6" class="footnote-ref" id="fnref6"
-role="doc-noteref"><sup>6</sup></a> is a special case of this. Since
-<span class="math inline">X_1 = X_0 + (X_{1/n} - X_0) + \cdots + (X_1 -
-X_{1 - 1/n})</span> we have <span class="math inline">X_1</span> is
-infinitely divisible because the terms in the sum are independent and
-have the same law as <span class="math inline">X_{1/n}</span> by
-stationarity. If <span class="math inline">X_1</span> has finite
-variance then a theorem of Kolmogorov states their exists a number <span
-class="math inline">\gamma</span> and a non-decreasing bounded function
-<span class="math inline">G</span> with <span class="math display">
-\kappa(s) = \log E e^{sX_1} = \gamma s + \int_{-\infty}^\infty
-K_s(x)\,dG(x),
-</span> where <span class="math inline">{K_s(x) = (e^{sx} - 1 - sx)/x^2
-= \sum_{n=2}^\infty x^{n-2}s^n/n!}</span>. Note if <span
-class="math inline">X_1</span> has mean 0 and <span
-class="math inline">G(x) = 1_{[0, \infty)}</span> then <span
-class="math inline">\kappa(s) = K_s(0) = s^2/2</span> so the random
-variable is normal. If <span class="math inline">G(x) =
-1_{[a,\infty)}</span> for <span class="math inline">a\not=0</span> then
-<span class="math inline">{\kappa(s) = K_s(a) = (e^{sa} - 1 -
-sa)/a^2}</span> so the random variable is Poisson.</p>
-<p>This theorem shows every infinitely divisible random variable can be
-approximated by a normal plus a linear combination of independent
-Poisson random variables, the case considered in Merton’s jump diffusion
-model. Merton showed perfect replication is not possible even assuming
-continuous time hedging.</p>
-</section>
 <section id="futures" class="level3">
 <h3>Futures</h3>
 <p>A futures contract on underlying <span class="math inline">S</span>
@@ -527,7 +541,7 @@ class="math inline">t</span> satisfies <span class="math inline">F_t D_t
 = ((S_u - k)D_u)|_{\mathcal{A}_t}</span>. In an arbitrage-free model the
 price of the underlying satisfies <span class="math inline">{S_t D_t =
 (S_u D_u)|_{\mathcal{A}_t}}</span> assuming it pays no cash flows. Hence
-<span class="math inline">F_t D_t = S_t D_t - k D_t(u)D_t</span> and
+<span class="math inline">F_t D_t = S_t D_t - k D_t(u)D_t</span> so
 <span class="math inline">F_t = S_t - k D_t(u)</span>.</p>
 <p>The value of <span class="math inline">k</span> making <span
 class="math inline">F_t = 0</span> is called the at-the-money, or par,
@@ -540,6 +554,9 @@ strategy in a bond and stock to replicate the forward contract. This,
 and the above examples, show the SUM provides a simple unified model for
 producing correct valuations.</p>
 </section>
+<section id="limit-orders" class="level3">
+<h3>Limit Orders</h3>
+</section>
 </section>
 <section id="remarks" class="level2">
 <h2>Remarks</h2>
@@ -547,10 +564,10 @@ producing correct valuations.</p>
 work.</p>
 <p>Transactions have a bid/ask spread that tends to increase with the
 size of the trade.</p>
-<p>Prices are not real numbers; they are integral multiples of minimum
+<p>Prices are not real numbers – they are integral multiples of minimum
 trading increment, or tick size. Likewise for trading sizes. Also, at
 some point no more instruments are available for trading. This is an
-actual problem for some large hedge funds.</p>
+actual problem for large hedge funds.</p>
 <p>The definition of arbitrage as <span class="math inline">A_0 &gt;
 0</span> and <span class="math inline">A_j\ge 0</span> thereafter is
 insufficient. Traders and risk managers will consider <span
@@ -688,6 +705,11 @@ and Corporate Liabilities.”</span> <em>Journal of Political Economy</em>
 81 (3): 637–54. <a
 href="http://www.jstor.org/stable/1831029">http://www.jstor.org/stable/1831029</a>.
 </div>
+<div id="ref-BreLit1978" class="csl-entry" role="listitem">
+Breeden, Douglas T., and Robert H. Litzenberger. 1978. <span>“Prices of
+State-Contingent Claims Implicit in Option Prices.”</span> <em>Journal
+of Business</em> 51 (4): 621–51.
+</div>
 <div id="ref-DunSch1958" class="csl-entry" role="listitem">
 Dunford, Nelson, and Jacob T Schwartz. 1958. <em>Linear Operators
 i</em>. Interscience Publishers.
@@ -697,11 +719,6 @@ Merton, Robert C. 1973. <span>“Theory of Rational Option
 Pricing.”</span> <em>Bell Journal of Economics and Management
 Science</em> 4 (1): 141–83. <a
 href="https://www.jstor.org/stable/3003143">https://www.jstor.org/stable/3003143</a>.
-</div>
-<div id="ref-Mer1976" class="csl-entry" role="listitem">
-———. 1976. <span>“Option Pricing When Underlying Stock Returns Are
-Discontinuous.”</span> <em>Journal of Financial Economics</em> 3 (1–2):
-125–44.
 </div>
 <div id="ref-Ros1978" class="csl-entry" role="listitem">
 Ross, Stephen A. 1978. <span>“A Simple Approach to the Valuation of
@@ -744,13 +761,6 @@ role="doc-backlink">↩︎</a></p></li>
 class="math inline">D(t)</span> for both the zero coupon instrument and
 its discount.<a href="#fnref4" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>A Lévy process is a stochastic process that has
-stationary, independent increments, and is continuous in probability.
-Lévy processes are completely determined by their value at time 1.<a
-href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>This provides another example of why Ross’s definition
-of a cash flow as a jump in stock prices is not valid.<a href="#fnref6"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </aside>
 </body>
