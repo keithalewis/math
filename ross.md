@@ -79,18 +79,17 @@ first trade ($A_{\tau_0} > 0$) and never loses money until the trading strategy 
 ($A_t \ge 0$, $t > \tau_0$) then the model admits arbitrage.
 Note this definition does not involve probability.
 Ross showed a model has no arbitrage if and only if
-there exist _positive adapted finitely-additive measures $D_t$ with
+there exist positive adapted finitely-additive measures $D_t$ with
 $$
 \tag{1}	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}
 $$
 where $\AA_t$ is the partition of information[^2] on the space of possible outcomes in $\Omega$
-available at time $t$.
-
-Note we can, and do, assume $D_0(\Omega) = 1$ since we can divide both
+available at time $t$ and $|_{\AA}$ indicates restriction to a partition.
+We can, and do, assume $D_0(\Omega) = 1$ since we can divide both
 sides of equation $(1)$ by any positive constant.
 
 We call such measures _deflators_. If repurchase agreements
-are available in the market then the usual stochastic discount is
+are available in the market then, as we will see later, the usual stochastic discount is
 a canonical deflator.
 
 [^2]: A partition of a set $\Omega$ is a collection of pairwise disjoint
@@ -117,9 +116,9 @@ __Exercise__. _Show equation $(2)$ implies equation $(1)$_.
 _Hint_: Replace $t$ by $u$ in equation $(2)$ and plug that into the
 right-hand side of equation $(1)$.
 
-This only provides a simple mathematically rigorous framework to approach the
-highly non-trivial and computationally intensive problem of finding
-martingale measures that can fit market data.
+The Simple Unified Model only provides an elementary but mathematically
+rigorous framework to approach the highly non-trivial and computationally
+intensive problem of finding martingale measures that can fit market data.
 
 ### Black-Scholes/Merton
 
@@ -174,19 +173,12 @@ If the cash flows are zero we can take $M_t = S_t D_t/S_0$ where $S_t$
 is the Breeden-Litzenberger distribution derived from option prices expiring at time $t$
 and $S_0$ is the current underlying price.
 
-If $M_t$ is a measure on $\AA_t$ then $M_s = M_{\AA_s}$, $s\le t$, is a martingale measure.
+__Exercise__. _If $M_t$ is a measure on $\AA_t$ then $M_s = M|_{\AA_s}$, $s\le t$, is a martingale measure_.
 
-__Exercise__. _Show for any function $f\colon X\to Y$ and
-$A\subseteq B\subseteq X$ then $f|_A = (f|_B)_A$_.
-
-_Hint_: $f|_B(a) = f(a)$ for $a\in A$.
+_Hint_: For any function $f\colon X\to Y$ and
+$A\subseteq B\subseteq X$ then $f|_A = (f|_B)|_A$_.
 
 This replaces the use of conditional expectation used in classical models.
-
-__Exercise__. _Show $Y = E[X\mid\AA]$ if and only if $Y(P|_\AA) = (XP)|_\AA$_.
-
-_Hint_: Recall the definition of conditional expectation is $Y = E[X\mid\AA]$
-if and only if $Y$ is $\AA$-measurable and $E[Y1_A] = E[X1_A]$ for all $A\in\AA$.
 
 <!-- non zero cash flows -->
 
@@ -229,8 +221,9 @@ what premium, vigorish, or baksheesh should be charged for that service.
 A perfect hedge is a closed-out trading strategy $(\tau_j, \Gamma_j)$ with
 $A_{\hat\tau_k} = \hat A_{k}$ and $A_t = 0$ otherwise. The latter condition
 is referred to as _self-financing_.
-Unless you belong to a Pythagorean cult that believes in the mathematical
-absurdity of continuous time trading, this is generally not possible.
+As [@HarKre1979] showed, continuous time trading is a mathematical pathology
+of the theory of Ito processes that leads to contradictions.
+Only a finite number of trades are possible and perfect hedges do not exist.
 
 One approach is to note ${V_t = (\Delta_t + \Gamma_t)\cdot X_t}$ and that
 ${V_t D_t = (\sum_{\hat\tau_k > t} \hat{A}_k D_{\hat\tau_k})|_{\AA_t}}$ can be calculated
@@ -276,11 +269,11 @@ from their cash flows. The absence of arbitrage restricts price dynamics.
 A zero coupon bond $D(u)$ pays 1 unit at maturity $u$. Its price
 ${X^{D(u)}_t = D_t(u)}$ at time $t \le u$ is determined by
 ${D_t(u)D_t = D_u|_{\AA_t}}$ so the price is the Radon-Nikodym derivative
-${D_t(u) = d(D_u|_{\AA_t})/dD_t}$. A deflator determines the dynamics
+${D_t(u) = d(D_u|_{\AA_t})/dD_t}$. Deflators determines the dynamics
 of zero coupon bond prices.
 
-Note $D_0(u)D_0 = D_u|_{\AA_0}$ and
-$D_0(u) = D_u(\Omega)/D_0(\Omega) = D_u(\Omega)$ since we can and do assume
+Note $D_0(u)D_0 = D_u|_{\AA_0}$ so
+$D_0(u) = D_u(\Omega)/D_0(\Omega) = D_u(\Omega)$ since we assume
 $D_0(\Omega) = 1$. We write[^6] $D(u) = D_0(u)$ for the current discount.
 
 [^6]: This uses the helpfully confusing notation $D(u)$ for both the
@@ -316,8 +309,8 @@ Given back-to-back repos at times $t_j$ having rates $f_j$
 we have ${D_j = e^{-f_j\Delta t_j}D_{j+1}}$ and
 ${D_n = e^{-\sum_{j < n} f_j\Delta t_j} D_0}$ is the canonical deflator at time $t_n$.
 
-The continuous time analog is $D_t = e^{-\int_0^t f_s\,ds}D_0$ where
-$f$ is the continuously compounded instantaneous forward rate.
+The continuous time analog is $D_u = e^{-\int_0^u f_t\,dt}D_0$ where
+$f_t$ is the continuously compounded instantaneous forward rate at time $t$.
 This is commonly referred to as the _stochastic discount_
 and the reciprocal $R_t = 1/D_t$ is called a _money market account_.
 It is convenient to assume there is an instrument with price $R_t$
@@ -350,6 +343,8 @@ ${F^\delta(u,v) = (D(v)/D(u) - 1)/\delta(u,v)}$.
 
 __Exercise__. _Show the par coupon at time $t\le u$ is
 ${F^\delta_t(u,v) = (D_t(v)/D_t(u) - 1)/\delta(u,v)}$_.
+
+A repo is equivalent to a forward rate agreement having day count fraction approximately equal to one day.
 
 ### Fixed Income
 
@@ -386,7 +381,7 @@ so $F_t = S_t - k D_t(u)$.
 
 The value of $k$ making $F_t = 0$
 is called the at-the-money, or par, forward and is denoted $f_t(u)$.
-This implies cost-of-carry formula $S_t = f_t(u) D_t(u)$ showing
+This implies the _cost-of-carry formula_ $S_t = f_t(u) D_t(u)$ showing
 the relationship between spot and par forward values.
 
 The classical way of deriving this involves considering a trading
@@ -420,26 +415,25 @@ When you are in a 40\% tax bracket adding the fifth decimal point of precision
 to your valuation routines is not your biggest problem.
 
 This short note does not take default risk into consideration, but it can be used for that.
-For example a zero coupon bond $D(u)$ has a cash flow of $1$ at maturity $u$. It's price
-$X^{D(u)}_t = D_t(u)$ at time $t$ is determined by $D_t(u)D_t = D_u|_{\AA_t}$, $t\le u$.
-If it defaults at random time $T$ and pays fixed recovery $R$ at that time then it has a cash flow
+If the zero coupon bond $D(u) can default at random time $T$ and pay fixed recovery $R$
+at that time then it has a cash flow
 $R$ at $T$ if $T\le u$ or a cash flow $1$ at $u$ if $T > u$. Its price satisfies
 ${D_t(u,T,R)D_t = (R 1(T \le u)D_T + (1(T > u)D_u)|_{\AA_t}}$.
 
 If $T$ is exponentially distributed
 with $P(T > t) = e^{-\lambda t}$ and $D_t = D(t)$ is not stochastic then
 $$
-	D_0(u,T,R) = R(1 - e^{-\lambda t})D(t) + e^{-\lambda t}D(t) = [R + (1 - R)e^{-\lambda t}]D(t).
+	D_0(u,T,R) = R(1 - e^{-\lambda u})D(u) + e^{-\lambda u}D(u) = [R + (1 - R)e^{-\lambda u}]D(u).
 $$
-If $R = 1$ or $\lambda = 0$ this is just $D(t)$.
+If $R = 1$ or $\lambda = 0$ this is just $D(u)$.
 
 For small $\lambda$ we have
-${D_0(u,T,R) \approx e^{(1 - R)\lambda t}D(t)}$ yielding a simple
+${D_0(u,T,R) \approx e^{(1 - R)\lambda u}D(u)}$ yielding a simple
 back-of-the-envelope approximation for the credit spread $s = (1 - R)\lambda$.
 If $R = 1$ or $\lambda = 0$ then $s = 0$.
 
 This sweeps under the rug the fact we must extend our sample space to
-include default and recovery.  We should augment the sample space by
+include default and recovery.  To model the default time we should augment the sample space by
 the product $[0,\infty)\times\{R\}$ and define information available
 at time $t$ for the default time $T\in[0,\infty)$. A natural choice for
 this is the partition ${\AA_t = \{\{s\}\mid s < t\}\cup\{[t, \infty)\}}$
@@ -450,8 +444,6 @@ Even this is not a realistic model. For example, we may want to update the
 default rate $\lambda$ as more information becomes available.
 A more accurate model should allow random recovery $R\in[0,1]$ and
 specify joint distributions for all the random variables involved.
-One possible approach would be to specify $R$ to have a beta distribution
-and define appropriate copulae for the joint distributions.
 This would completely define the value of a risky zero coupon bond, however
 the software implementation and fitting market data to model parameters
 would be challenging, to say the least.
