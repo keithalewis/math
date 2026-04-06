@@ -14,63 +14,96 @@ header-includes:
 \newcommand{\ker}{\operatorname{ker}}
 
 ```
-   x = _O + s S + 1 B + v1         P1 + ... + vn         Pn
-C(w) = _O + w S + R B + (w - K1)^+ P1 + ... + (w - Kn)^+ Pn
+
+	a0 P0 + ... + ak Pk
+	b0 P0 + ... + bk Pk
+	=
+	sum_{i < j) (ai bk - ak bi) Pi Pj
+	
+	a0 P0 + ... + ak Pk
+	b0 P0 + ... + bk Pk + bk+1 Pk+1
+	=
+	A(B + bk+1 Pk+1)
+	=
+	AB + A bk+1 Pk+1
+	= 
+	sum_{i < j} (ai bj - aj bi) Pi Pj
+	+ a0 bk+1 P0 Pk+1 + ... + ak bk+1 Pk Pk+1
+
+	A0
+	A1 + a_11 P1
+	A2 + a_21 P1 + a_22 P2
+	=
+	A0 A1 A3 + a_11 A0 P1 A2 + a_11 a_22 A0 P1 P2
+
+
+	a_11 P1
+	a_22 P1 + a_22 P2
+	...
+	a_n1 P1 + a_n2 P2 + ... + a_nn Pn
+	=
+	a_11 a_22 ... a_nn P1 P2 ... Pn
+
+	A0
+	A1 + a_11 P1
+	A2 + a_21 P1 + a_22 P2
+	...
+	An + a_n1 P1 + a_n2 P2 + ... + a_nn Pn
+	=
+	A0 A1 + a_11 A0 P1
+	A2 + a_21 P1 + a_22 P2
+	...
+	An + a_n1 P1 + a_n2 P2 + ... + a_nn Pn
+	=
+	A0 A1 (A2 + a_21 P1 + a_22 P2) + a_11 A0 P1(A2 + a_21 P1 + a_22 P2)
+	A3 + a_31 P1 + a_32 P2 + a_33 P3
+	...
+	An + a_n1 P1 + a_n2 P2 + ... + a_nn Pn
+	=
+	A0 A1 A2 + a_21 A0 A1 P1 + a_22 A0 A1 P2 + a_11 A0 P1 A2 + a_11 a_22 A0 P1 P2
+	A3 + a_31 P1 + a_32 P2 + a_33 P3
+	...
+	An + a_n1 P1 + a_n2 P2 + ... + a_nn Pn
+	=
+	A0 A1 A2 + a_21 A0 A1 P1 + a_22 A0 A1 P2 + a_11 A0 P1 A2 + a_11 a_22 A0 P1 P2
+	A3 + a_31 P1 + a_32 P2 + a_33 P3
+	---
+	(A0 A1 A2 A3 + a_31 A0 A1 A2 P1 + a_32 A0 A1 P2 + a_33 A0 A1 P3
+	+a_21 A0 A1 P1 A3 + a_21 a_32 A0 A1 P1 P2 + a_21 a_33 A0 A1 P2 P3
+	+
+	A4 + a_41 P1 + a_42 P2 + a_43 P3 + a_44 P4
+	...
+	An + a_n1 P1 + a_n2 P2 + ... + a_nn Pn
+
+
+
+x  = _O + s S + 1 B + v1         P1 + ... + vn         Pn
+C(w)  = _O + w S + R B + (w - K1)^+ P1 + ... + (w - Kn)^+ Pn
 
 C(L)  = _O + L  S + R B 
 C(K1) = _O + K1 S + R B
 C(K2) = _O + K2 S + R B + (K2 - K1) P1
 ...
 C(Kn) = _O + Kn S + R B + (Kn - K1) P1 + ... + (Kn - Kn-1) Pn-1
-C(H)  = _O + H  S + R B + (H - K1)  P1 + ... + (H - Kn-1)  Pn-1 + (H - Kn) Pn
+C(H)  = _O + H  S + R B + (H  - K1) P1 + ... + (H  - Kn-1) Pn-1 + (H - Kn) Pn
 
-C(L)C(K1)...C(Kn)C(H) = R(K1 - L) B S (K2 - K1) ... (H - Kn) P1 ... Pn
-
-C(L)C(K1) = R(K1 - L) BS
-C(L)C(K1)C(K2) = R(K1 - L)(K2 - K1) BSP1 
-...
-C(L)C(K1)C(K2)...C(Kj-1)  = R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) BSP1...Pj-2
-
-C(L)C(K1)C(K2)...C(Kj-1)x = R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) BSP1...Pj-2
-                           (s S + 1 B + v1 P1 + ... + vn Pn)
-						  = R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) BSP1...Pj-2 (vj-1 Pj-1 + vj Pj + ... + vn Pn)
-
-C(L)C(K1)C(K2)...C(Kj-1)xC(Kj+1) = R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) BSP1...Pj-2 (vj-1 Pj-1 + vj Pj + ... + vn Pn)
-                                  (_O + Kj+1 S + R B + (Kj+1 - K1) P1 + ... + (Kj+1 - Kj-1) Pj-1 + (Kj+1 - Kj) Pj)
-	= R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) BSP1...Pj-2 (vj-1 Pj-1 + vj Pj + ... + vn Pn)
-      ((Kj+1 - Kj-1) Pj-1 + (Kj+1 - Kj) Pj)
-	= R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) BSP1...Pj-2 (vj-1 Pj-1 + vj Pj + ... + vn Pn)(Kj+1 - Kj-1)Pj-1
-	 +R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) BSP1...Pj-2 (vj-1 Pj-1 + vj Pj + ... + vn Pn)(Kj+1 - Kj)Pj
-	= R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) BSP1...Pj-2 (vj Pj     + vj+1 Pj+1 + ... + vn Pn)(Kj+1 - Kj-1)Pj-1
-	 +R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) BSP1...Pj-2 (vj-1 Pj-1 + vj+1 Pj+1 + ... + vn Pn)(Kj+1 - Kj)Pj
-	= R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) BSP1...Pj-2 ((Kj + 1) - Kj 
-	 +R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) BSP1...Pj-2 (vj-1 Pj-1 +  ... + vn Pn)(Kj+1 - Kj)Pj
-
+C(L)C(K1)...C(Kn)C(H) = R(K1 - L) B S (K2 - K1)...(H - Kn) P1...Pn
 
 x C(K1) ... = (sR S B + K1 B S) (K2 - K1) ... (H - Kn) P1 ... Pn
             = (K1 - sR) (K2 - K1) ... (H - Kn) B S P1 ... Pn
 
 C(L) x ...  = (L S B + sR B S) (K2 - K1) ... (H - Kn) P1 ... Pn
             = (sR - L) (K2 - K1) ... (H - Kn) B S P1 ... Pn
-	
+
 
 C(L)C(K1)xC(K3)...C(H) = R(K1 - L) B S x (K3 - K2) ... (H - Kn) P2 ... Pn
                        = R(K1 - L) B S v1 P1 (K3 - K2) ... (H - Kn) P2 ... Pn
                        = R(K1 - L) v1 (K3 - K2) ... (H - Kn) B S P1 P2 ... Pn
 
-C(L)C(K1)C(K2)xC(K4)...C(H) = R(K1 - L) B S C(K2) x (K4 - K3)...(H - Kn) P3 ... Pn
-	=  R(K1 - L) B S (K2 - K1) P1 x (K4 - K3)...(H - Kn) P3 ... Pn
-
-   x = _O + s S + 1 B + v1 P1 + ... + vn Pn
-
-					   B S P1
-
-   x = _O + s S + 1 B + v1         P1 + ... + vn         Pn
-
-C(L)C(K1) = R(K1 - L) B S
-C(L)C(K1)C(K2) = R(K1 - L)(K2 - K1) B S P1
-C(L)C(K1)C(K2)C(K3) = R(K1 - L)(K2 - K1)(K3 - K2) B S P1 P2
-C(L)C(K1)C(K2)C(K3)x = R(K1 - L)(K2 - K1)(K3 - K2) B S P1 P2 (s S + 1 B + v1 P1 + ... + vn Pn)
-	= R(K1 - L)(K2 - K1)(K3 - K2) B S P1 P2 (v3 P3 + ... + vn Pn)
-
-```
+C(L)C(K1)C(K2)xC(K4)...C(H) = R(K1 - L) B S C(K2) x C(K4) ... C(H)
+    =  R(K1 - L) B S (K2 - K1) P1 x C(K4) ... C(H)
+    =  R(K1 - L) B S (K2 - K1) P1 
+	   s S + B + v1 P1 + v2 P2 ... + vn Pn
+	   C(K4) ... C(H)
+    =  R(K1 - L) (K2 - K1) B S P1 (v2 P2 + v3 P3 + ... + vn Pn)
+	   C(K4) ... C(H)
