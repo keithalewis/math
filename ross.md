@@ -269,32 +269,35 @@ as $t\to\tau_{j+1}$.
 ## Application
 
 This sections shows how to use the SUM to value various instruments
-via cash flows that determine price dynamics.
+from their cash flows. The absence of arbitrage restricts price dynamics.
 
 ### Zero Coupon Bond
 
 A zero coupon bond $D(u)$ pays 1 unit at maturity $u$. Its price
 ${X^{D(u)}_t = D_t(u)}$ at time $t \le u$ is determined by
 ${D_t(u)D_t = D_u|_{\AA_t}}$ so the price is the Radon-Nikodym derivative
-${D_t(u) = d(D_u|_{\AA_t})/dD_t}$. Deflators determine the dynamics
+${D_t(u) = d(D_u|_{\AA_t})/dD_t}$. A deflator determines the dynamics
 of zero coupon bond prices.
 
-Note $D_0(t)D_0 = D_t|_{\AA_0}$. If $\AA_0$ is $\{\Omega\}$ then
-$D_0(t) = D_t(\Omega)/D_0(\Omega) = D_t(\Omega)$ since we can and do assume
-$D_0(\Omega) = 1$. We write[^6] $D(t) = D_0(t)$ for the current discount.
-If $D_t = D(t)P$ for some measure $P$ where $D(t)$ is a function of $t$
-then $D_t(u) = D(u)/D(t)$.
+Note $D_0(u)D_0 = D_u|_{\AA_0}$ and
+$D_0(u) = D_u(\Omega)/D_0(\Omega) = D_u(\Omega)$ since we can and do assume
+$D_0(\Omega) = 1$. We write[^6] $D(u) = D_0(u)$ for the current discount.
 
-[^6]: This uses the helpfully confusing notation $D(t)$ for both the
+[^6]: This uses the helpfully confusing notation $D(u)$ for both the
 zero coupon instrument and its discount.
 
-The _spot rate_ $r(t)$ is determined by $D(t) = e^{-tr(t)}$ and the
-_forward rate_ $f(t)$ by ${D(t) = e^{-\int_0^t f(s)\,ds}}$. Note
-the spot rate $r(t) = (1/t)\int_0^t f(s)\,ds$ is the average of the 
-forward rate. The forward rate $f(t) = r(t) + tr'(t)$ involves the
+The _spot rate_ $r(u)$ is determined by $D(u) = e^{-u r(u)}$ and the
+_forward rate_ $f(u)$ by ${D(u) = e^{-\int_0^u f(t)\,dt}}$. Note
+the spot rate $r(u) = (1/u)\int_0^u f(t)\,dt$ is the average of the 
+forward rate. The forward rate $f(u) = r(u) + tr'(u)$ involves the
 derivative of the spot rate.
 
-In computer implementations it is preferred to use
+The _spot rate_ at time $t \le u$, $r_t(u)$, is determined by $D_t(u) = e^{-(u - t) r_t(u)}$ and the
+_forward rate_ at $t$, $f_t(u)$, by ${D_t(u) = e^{-\int_t^u f_t(s)\,ds}}$.
+Note $r_t(u) = 1/(u - t) \int_t^u f_t(s)\,ds$ is the average of the forward
+rate at $t$ from $t$ to $u$.
+
+For computer implementations it is preferred to use
 the forward rate to define the discount and spot rate since
 averaging smooths the data, whereas the derivative of a
 nearly constant spot rate can be arbitrarily large.
@@ -334,13 +337,14 @@ should be added to the set of instruments $I$.
 
 A forward rate agreement pays $-1$ at _effective date_ $u$ and
 ${1 + f\delta(u,v)}$ at _termination date_ $v > u$ where $f$ is
-the forward rate agreement coupon, $\delta$
+the forward rate agreement _coupon_, $\delta$
 is the _day count basis_, and $\delta(u, v)$ is the _day count fraction_
 approximately equal to the time in years from $u$ to $v$.
 For example, the Actual/360 day count is the number of days from $u$ to $v$
-divided by $360$.
+divided by $360$. In practice, the payment dates are adjusted by holidays
+and rolling conventions.
 
-The _par forward_ ${F^\delta(u,v)}$ is the coupon making the initial price equal to zero.
+The _par forward coupon_ ${F^\delta(u,v)}$ is the coupon making the initial price equal to zero.
 Since ${0 = (-D_u + (1 + F^\delta(u,v))D_v)|_{\AA_0}}$ we have
 ${F^\delta(u,v) = (D(v)/D(u) - 1)/\delta(u,v)}$.
 
@@ -374,10 +378,10 @@ so the futures quotes are a martingale.
 
 A forward contract with strike $k$ expiring at $u$ on underlying $S$
 pays exactly one cash flow $S_u - k$ at $u$. It price $F_t$
-at time $t$ satisfies $F_t D_t = ((S_u - k)D_u)|_{\AA_t}$.
+at time $t$ satisfies ${F_t D_t = ((S_u - k)D_u)|_{\AA_t}}$.
 In an arbitrage-free model the price of the underlying satisfies
 ${S_t D_t = (S_u D_u)|_{\AA_t}}$ assuming it pays no cash flows.
-Hence $F_t D_t = S_t D_t - k D_t(u)D_t$
+Hence ${F_t D_t = S_t D_t - k D_t(u)D_t}$
 so $F_t = S_t - k D_t(u)$.
 
 The value of $k$ making $F_t = 0$
@@ -389,8 +393,6 @@ The classical way of deriving this involves considering a trading
 strategy in a bond and stock to replicate the forward contract. 
 This, and the above examples, show the SUM provides a simple unified model
 for producing correct valuations.
-
-### Limit Orders
 
 ## Remarks
 
@@ -419,20 +421,20 @@ to your valuation routines is not your biggest problem.
 
 This short note does not take default risk into consideration, but it can be used for that.
 For example a zero coupon bond $D(u)$ has a cash flow of $1$ at maturity $u$. It's price
-$X^{D(u)}_t = D_t(u)$ at time $t$ is $D_t(u) = D_u|_{\AA_t}$, $t\le u$. If it defaults
-at random time $T$ and pays fixed recovery $R$ at that time then it has a cash flow
+$X^{D(u)}_t = D_t(u)$ at time $t$ is determined by $D_t(u)D_t = D_u|_{\AA_t}$, $t\le u$.
+If it defaults at random time $T$ and pays fixed recovery $R$ at that time then it has a cash flow
 $R$ at $T$ if $T\le u$ or a cash flow $1$ at $u$ if $T > u$. Its price satisfies
-${D_t(u,T,R) = (R 1(T \le u)D_T + (1(T > u)D_u)|_{\AA_t}}$.
+${D_t(u,T,R)D_t = (R 1(T \le u)D_T + (1(T > u)D_u)|_{\AA_t}}$.
 
 If $T$ is exponentially distributed
 with $P(T > t) = e^{-\lambda t}$ and $D_t = D(t)$ is not stochastic then
 $$
-	D_t(u,T,R) = R(1 - e^{-\lambda t})D(t) + e^{-\lambda t}D(t) = [R + (1 - R)e^{-\lambda t}]D(t).
+	D_0(u,T,R) = R(1 - e^{-\lambda t})D(t) + e^{-\lambda t}D(t) = [R + (1 - R)e^{-\lambda t}]D(t).
 $$
 If $R = 1$ or $\lambda = 0$ this is just $D(t)$.
 
 For small $\lambda$ we have
-${D_t(u,T,R) \approx e^{(1 - R)\lambda t}D(t)}$ yielding a simple
+${D_0(u,T,R) \approx e^{(1 - R)\lambda t}D(t)}$ yielding a simple
 back-of-the-envelope approximation for the credit spread $s = (1 - R)\lambda$.
 If $R = 1$ or $\lambda = 0$ then $s = 0$.
 
@@ -440,20 +442,18 @@ This sweeps under the rug the fact we must extend our sample space to
 include default and recovery.  We should augment the sample space by
 the product $[0,\infty)\times\{R\}$ and define information available
 at time $t$ for the default time $T\in[0,\infty)$. A natural choice for
-that is the partition ${\AA_t = \{\{s\}\mid s < t\}\cup\{[t, \infty)\}}$
+this is the partition ${\AA_t = \{\{s\}\mid s < t\}\cup\{[t, \infty)\}}$
 -- if default occurs prior to $t$ we know exactly when it happened,
 otherwise we only know $T\in[t,\infty)$.
 
-This is not a realistic model. For example, we may want to update the
+Even this is not a realistic model. For example, we may want to update the
 default rate $\lambda$ as more information becomes available.
-We also make the customary drunk-stumbling-under-the-streetlight assumption
-of an independent default time and constant recovery.
 A more accurate model should allow random recovery $R\in[0,1]$ and
 specify joint distributions for all the random variables involved.
 One possible approach would be to specify $R$ to have a beta distribution
 and define appropriate copulae for the joint distributions.
-This would completely define the value of a risky zero coupon bond.
-The software implementation and fitting market data to model parameters
+This would completely define the value of a risky zero coupon bond, however
+the software implementation and fitting market data to model parameters
 would be challenging, to say the least.
 
 The trajectory of mathematical finance is to develop mathematical models
@@ -467,7 +467,7 @@ For full details see the
 
 ## Appendix
 
-We use only basic facts about finitely additive measure theory.
+We require only basic facts from finitely additive measure theory.
 The Banach space of bounded function on set $S$ is
 $$
 	B(S) = \{f\colon S\to\RR\mid \|f\| =  \sup_{s\in S} |f(s)| < \infty\}
@@ -482,13 +482,13 @@ Its adjoint $M_g^*\colon ba(S)\to ba(S)$ satisfies
 $\langle M_g f,\lambda\rangle = \langle f, M_g^*\lambda\rangle$.
 We write $g\lambda$ for $M_g^*\lambda$.
 
-If $P$ is a positive measure having mass one,
-the _conditional expectation_ of a random variable $X\colon S\to\RR$ given an algebra $\AA$ is defined by
-${Y = E[X\mid\AA]}$ if and only if $Y$ is $\AA$-measurable and ${\int_A Y\,dP = \int_A X\,dP}$
+Given a positive measure having mass one,
+the _conditional expectation_ of a random variable $X\in B(S)$ given an algebra $\AA$ is defined by
+${Y = E[X\mid\AA]}$ if and only if $Y$ is $\AA$-measurable and ${E[Y 1_A] = E[X 1_A]$
 for all $A\in\AA$.
 This is equivalent to ${Y(P|_\AA) = (XP)|_\AA}$ where the vertical bar indicates restriction.
 
-Starting from the usual sample space $\Omega$ of possible outcomes
+Given a sample space $\Omega$ of possible outcomes
 and filtration of increasing algebras $(\AA_t)_{t\in T}$ representing
 information available at times $t\in T$, we assume everything is finite.
 Classical results can be obtained from appropriate limit arguments
@@ -496,11 +496,9 @@ but we are only interested implementing the mathematics in software.
 Everything is finite on a computer.
 
 If an algebra of sets is finite then its atoms form a partition.
-The algebra is generated by its atoms so we will work directly with the partition
-instead of the algebra.
-A function is measurable with respect to an algebra if and only it
-it is constant on atoms.
-In this case it _is_ a function of the atoms
-and we write $X\colon\AA\to\RR$.
+The algebra is generated by its atoms so we will work directly with the
+partition instead of the algebra.  A function is measurable with respect
+to an algebra if and only it it is constant on atoms.  In this case it
+_is_ a function of the atoms and we write ${X\colon\AA\to\RR}$.
 
 ## References

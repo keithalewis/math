@@ -107,3 +107,20 @@ C(L)C(K1)C(K2)xC(K4)...C(H) = R(K1 - L) B S C(K2) x C(K4) ... C(H)
 	   C(K4) ... C(H)
     =  R(K1 - L) (K2 - K1) B S P1 (v2 P2 + v3 P3 + ... + vn Pn)
 	   C(K4) ... C(H)
+    =  R(K1 - L) (K2 - K1) B S P1 (v2 P2 + v3 P3 + ... + vn Pn)
+	   K4 S + R B + (K4 - K1) P1 + (K4 - K2) P2 + (K4 - K3) P3
+	   C(K5)... C(H)
+    =  R(K1 - L) (K2 - K1) B S P1 (v2 P2 + v3 P3 + ... + vn Pn)
+	    (K4 - K2) P2 + (K4 - K3) P3
+	   C(K5)... C(H)
+    =  R(K1 - L) (K2 - K1) B S P1 (v2 P2 + v3 P3 + ... + vn Pn)
+	   [v2 (K4 - K3) - v3(K4 - K2)] P2 P3
+	   C(K5)... C(H)
+	= R(K1 - L) (K2 - K1)[v2 (K4 - K3) - v3(K4 - K2)](K5 - K4) ... (H - Kn) B S P1 ... Pn
+      R(K1 - L) (K2 - K1)(K3 - K2)(K4 - K3)(K5 - K4)...(H - Kn) B S P1...Pn
+
+[v2 (K4 - K3) - v3(K4 - K2)]/(K3 - K2)(K4 - K3) > 0
+v2/(K3 - K2) > v3(K4 - K2)/(K3 - K2)(K4 - K3)
+v2(K3 - K2)/(K3 - K2) > v3(K4 - K2)/(K4 - K3)
+v2 > v3(K4 - K2)/(K4 - K3)
+v2/(K4 - K2) > v3/(K4 - K3)
