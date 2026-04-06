@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Apr 5, 2026</p>
+<p class="date">Apr 6, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A Simple Approach to the Valuation of Risky Streams
@@ -102,7 +102,6 @@ id="toc-forward-rate-agreement">Forward Rate Agreement</a></li>
 <li><a href="#futures" id="toc-futures">Futures</a></li>
 <li><a href="#cost-of-carry" id="toc-cost-of-carry">Cost of
 Carry</a></li>
-<li><a href="#limit-orders" id="toc-limit-orders">Limit Orders</a></li>
 </ul></li>
 <li><a href="#remarks" id="toc-remarks">Remarks</a></li>
 <li><a href="#appendix" id="toc-appendix">Appendix</a></li>
@@ -283,7 +282,14 @@ href="#ref-BreLit1978" role="doc-biblioref">Breeden and Litzenberger
 at expiration is determined by the second derivative of European call
 prices with respect to strike. In practice, out-of-the-money puts are
 converted to calls using put-call parity and option values are
-interpolated between traded strikes.</p>
+interpolated between traded strikes. This market data can be used to
+define a martingale measure for equation <span
+class="math inline">(2)</span>.</p>
+<p>If the cash flows are zero we can take <span class="math inline">M_t
+= S_t D_t/S_0</span> where <span class="math inline">S_t</span> is the
+Breeden-Litzenberger distribution derived from option prices expiring at
+time <span class="math inline">t</span> and <span
+class="math inline">S_0</span> is the current underlying price.</p>
 <p>If <span class="math inline">M_t</span> is a measure on <span
 class="math inline">\mathcal{A}_t</span> then <span
 class="math inline">M_s = M_{\mathcal{A}_s}</span>, <span
@@ -294,12 +300,18 @@ class="math inline">A\subseteq B\subseteq X</span> then <span
 class="math inline">f|_A = (f|_B)_A</span></em>.</p>
 <p><em>Hint</em>: <span class="math inline">f|_B(a) = f(a)</span> for
 <span class="math inline">a\in A</span>.</p>
-<p>If the cash flows are zero we can take <span class="math inline">M_t
-= S_t D_t/S_0</span> where <span class="math inline">S_t</span> is the
-Breeden-Litzenberger distribution derived from option prices expiring at
-time <span class="math inline">t</span> and <span
-class="math inline">S_0</span> is the current underlying price. These
-are determined by market data.</p>
+<p>This replaces the use of conditional expectation used in classical
+models.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">Y =
+E[X\mid\mathcal{A}]</span> if and only if <span
+class="math inline">Y(P|_\mathcal{A}) =
+(XP)|_\mathcal{A}</span></em>.</p>
+<p><em>Hint</em>: Recall the definition of conditional expectation is
+<span class="math inline">Y = E[X\mid\mathcal{A}]</span> if and only if
+<span class="math inline">Y</span> is <span
+class="math inline">\mathcal{A}</span>-measurable and <span
+class="math inline">E[Y1_A] = E[X1_A]</span> for all <span
+class="math inline">A\in\mathcal{A}</span>.</p>
 <!-- non zero cash flows -->
 <p>Aside from interpolation methods introducing mathematical artifacts
 into the option prices, the most most difficult and important problem is
@@ -307,11 +319,10 @@ coming up with the sample space <span class="math inline">\Omega</span>
 and partitions <span class="math inline">\mathcal{A}_t</span>
 representing information at time <span class="math inline">t</span>.</p>
 <p>People tend to underestimate what should be included in a sample
-space and not have enough imagination when it comes to inventing
-partitions sufficiently flexible to allow models to be tuned to market
-data.</p>
-<p>The SUM only provides a framework to reason rigorously about this and
-a mathematical model that is straightforward to implement.</p>
+space and not have sufficient imagination when it comes to inventing
+partitions sufficiently flexible to capture possible market dynamics.
+The SUM only provides a framework to reason rigorously about this and a
+mathematical model that is straightforward to implement.</p>
 </section>
 </section>
 <section id="consequences" class="level2">
@@ -392,7 +403,8 @@ class="math inline">t\to\tau_{j+1}</span>.</p>
 <section id="application" class="level2">
 <h2>Application</h2>
 <p>This sections shows how to use the SUM to value various instruments
-via cash flows that determine price dynamics.</p>
+from their cash flows. The absence of arbitrage restricts price
+dynamics.</p>
 <section id="zero-coupon-bond" class="level3">
 <h3>Zero Coupon Bond</h3>
 <p>A zero coupon bond <span class="math inline">D(u)</span> pays 1 unit
@@ -401,30 +413,34 @@ class="math inline">{X^{D(u)}_t = D_t(u)}</span> at time <span
 class="math inline">t \le u</span> is determined by <span
 class="math inline">{D_t(u)D_t = D_u|_{\mathcal{A}_t}}</span> so the
 price is the Radon-Nikodym derivative <span class="math inline">{D_t(u)
-= d(D_u|_{\mathcal{A}_t})/dD_t}</span>. Deflators determine the dynamics
-of zero coupon bond prices.</p>
-<p>Note <span class="math inline">D_0(t)D_0 =
-D_t|_{\mathcal{A}_0}</span>. If <span
-class="math inline">\mathcal{A}_0</span> is <span
-class="math inline">\{\Omega\}</span> then <span
-class="math inline">D_0(t) = D_t(\Omega)/D_0(\Omega) =
-D_t(\Omega)</span> since we can and do assume <span
-class="math inline">D_0(\Omega) = 1</span>. We write<a href="#fn4"
+= d(D_u|_{\mathcal{A}_t})/dD_t}</span>. A deflator determines the
+dynamics of zero coupon bond prices.</p>
+<p>Note <span class="math inline">D_0(u)D_0 =
+D_u|_{\mathcal{A}_0}</span> and <span class="math inline">D_0(u) =
+D_u(\Omega)/D_0(\Omega) = D_u(\Omega)</span> since we can and do assume
+<span class="math inline">D_0(\Omega) = 1</span>. We write<a href="#fn4"
 class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>
-<span class="math inline">D(t) = D_0(t)</span> for the current discount.
-If <span class="math inline">D_t = D(t)P</span> for some measure <span
-class="math inline">P</span> where <span class="math inline">D(t)</span>
-is a function of <span class="math inline">t</span> then <span
-class="math inline">D_t(u) = D(u)/D(t)</span>.</p>
-<p>The <em>spot rate</em> <span class="math inline">r(t)</span> is
-determined by <span class="math inline">D(t) = e^{-tr(t)}</span> and the
-<em>forward rate</em> <span class="math inline">f(t)</span> by <span
-class="math inline">{D(t) = e^{-\int_0^t f(s)\,ds}}</span>. Note the
-spot rate <span class="math inline">r(t) = (1/t)\int_0^t f(s)\,ds</span>
+<span class="math inline">D(u) = D_0(u)</span> for the current
+discount.</p>
+<p>The <em>spot rate</em> <span class="math inline">r(u)</span> is
+determined by <span class="math inline">D(u) = e^{-u r(u)}</span> and
+the <em>forward rate</em> <span class="math inline">f(u)</span> by <span
+class="math inline">{D(u) = e^{-\int_0^u f(t)\,dt}}</span>. Note the
+spot rate <span class="math inline">r(u) = (1/u)\int_0^u f(t)\,dt</span>
 is the average of the forward rate. The forward rate <span
-class="math inline">f(t) = r(t) + tr&#39;(t)</span> involves the
+class="math inline">f(u) = r(u) + tr&#39;(u)</span> involves the
 derivative of the spot rate.</p>
-<p>In computer implementations it is preferred to use the forward rate
+<p>The <em>spot rate</em> at time <span class="math inline">t \le
+u</span>, <span class="math inline">r_t(u)</span>, is determined by
+<span class="math inline">D_t(u) = e^{-(u - t) r_t(u)}</span> and the
+<em>forward rate</em> at <span class="math inline">t</span>, <span
+class="math inline">f_t(u)</span>, by <span class="math inline">{D_t(u)
+= e^{-\int_t^u f_t(s)\,ds}}</span>. Note <span
+class="math inline">r_t(u) = 1/(u - t) \int_t^u f_t(s)\,ds</span> is the
+average of the forward rate at <span class="math inline">t</span> from
+<span class="math inline">t</span> to <span
+class="math inline">u</span>.</p>
+<p>For computer implementations it is preferred to use the forward rate
 to define the discount and spot rate since averaging smooths the data,
 whereas the derivative of a nearly constant spot rate can be arbitrarily
 large.</p>
@@ -476,15 +492,17 @@ class="math inline">I</span>.</p>
 <em>effective date</em> <span class="math inline">u</span> and <span
 class="math inline">{1 + f\delta(u,v)}</span> at <em>termination
 date</em> <span class="math inline">v &gt; u</span> where <span
-class="math inline">f</span> is the forward rate agreement coupon, <span
-class="math inline">\delta</span> is the <em>day count basis</em>, and
-<span class="math inline">\delta(u, v)</span> is the <em>day count
-fraction</em> approximately equal to the time in years from <span
-class="math inline">u</span> to <span class="math inline">v</span>. For
-example, the Actual/360 day count is the number of days from <span
-class="math inline">u</span> to <span class="math inline">v</span>
-divided by <span class="math inline">360</span>.</p>
-<p>The <em>par forward</em> <span
+class="math inline">f</span> is the forward rate agreement
+<em>coupon</em>, <span class="math inline">\delta</span> is the <em>day
+count basis</em>, and <span class="math inline">\delta(u, v)</span> is
+the <em>day count fraction</em> approximately equal to the time in years
+from <span class="math inline">u</span> to <span
+class="math inline">v</span>. For example, the Actual/360 day count is
+the number of days from <span class="math inline">u</span> to <span
+class="math inline">v</span> divided by <span
+class="math inline">360</span>. In practice, the payment dates are
+adjusted by holidays and rolling conventions.</p>
+<p>The <em>par forward coupon</em> <span
 class="math inline">{F^\delta(u,v)}</span> is the coupon making the
 initial price equal to zero. Since <span class="math inline">{0 = (-D_u
 + (1 + F^\delta(u,v))D_v)|_{\mathcal{A}_0}}</span> we have <span
@@ -537,12 +555,13 @@ class="math inline">S</span> pays exactly one cash flow <span
 class="math inline">S_u - k</span> at <span
 class="math inline">u</span>. It price <span
 class="math inline">F_t</span> at time <span
-class="math inline">t</span> satisfies <span class="math inline">F_t D_t
-= ((S_u - k)D_u)|_{\mathcal{A}_t}</span>. In an arbitrage-free model the
-price of the underlying satisfies <span class="math inline">{S_t D_t =
-(S_u D_u)|_{\mathcal{A}_t}}</span> assuming it pays no cash flows. Hence
-<span class="math inline">F_t D_t = S_t D_t - k D_t(u)D_t</span> so
-<span class="math inline">F_t = S_t - k D_t(u)</span>.</p>
+class="math inline">t</span> satisfies <span class="math inline">{F_t
+D_t = ((S_u - k)D_u)|_{\mathcal{A}_t}}</span>. In an arbitrage-free
+model the price of the underlying satisfies <span
+class="math inline">{S_t D_t = (S_u D_u)|_{\mathcal{A}_t}}</span>
+assuming it pays no cash flows. Hence <span class="math inline">{F_t D_t
+= S_t D_t - k D_t(u)D_t}</span> so <span class="math inline">F_t = S_t -
+k D_t(u)</span>.</p>
 <p>The value of <span class="math inline">k</span> making <span
 class="math inline">F_t = 0</span> is called the at-the-money, or par,
 forward and is denoted <span class="math inline">f_t(u)</span>. This
@@ -553,9 +572,6 @@ values.</p>
 strategy in a bond and stock to replicate the forward contract. This,
 and the above examples, show the SUM provides a simple unified model for
 producing correct valuations.</p>
-</section>
-<section id="limit-orders" class="level3">
-<h3>Limit Orders</h3>
 </section>
 </section>
 <section id="remarks" class="level2">
@@ -589,27 +605,28 @@ class="math inline">D(u)</span> has a cash flow of <span
 class="math inline">1</span> at maturity <span
 class="math inline">u</span>. It’s price <span
 class="math inline">X^{D(u)}_t = D_t(u)</span> at time <span
-class="math inline">t</span> is <span class="math inline">D_t(u) =
-D_u|_{\mathcal{A}_t}</span>, <span class="math inline">t\le u</span>. If
-it defaults at random time <span class="math inline">T</span> and pays
-fixed recovery <span class="math inline">R</span> at that time then it
-has a cash flow <span class="math inline">R</span> at <span
-class="math inline">T</span> if <span class="math inline">T\le u</span>
-or a cash flow <span class="math inline">1</span> at <span
-class="math inline">u</span> if <span class="math inline">T &gt;
-u</span>. Its price satisfies <span class="math inline">{D_t(u,T,R) = (R
-1(T \le u)D_T + (1(T &gt; u)D_u)|_{\mathcal{A}_t}}</span>.</p>
+class="math inline">t</span> is determined by <span
+class="math inline">D_t(u)D_t = D_u|_{\mathcal{A}_t}</span>, <span
+class="math inline">t\le u</span>. If it defaults at random time <span
+class="math inline">T</span> and pays fixed recovery <span
+class="math inline">R</span> at that time then it has a cash flow <span
+class="math inline">R</span> at <span class="math inline">T</span> if
+<span class="math inline">T\le u</span> or a cash flow <span
+class="math inline">1</span> at <span class="math inline">u</span> if
+<span class="math inline">T &gt; u</span>. Its price satisfies <span
+class="math inline">{D_t(u,T,R)D_t = (R 1(T \le u)D_T + (1(T &gt;
+u)D_u)|_{\mathcal{A}_t}}</span>.</p>
 <p>If <span class="math inline">T</span> is exponentially distributed
 with <span class="math inline">P(T &gt; t) = e^{-\lambda t}</span> and
 <span class="math inline">D_t = D(t)</span> is not stochastic then <span
 class="math display">
-    D_t(u,T,R) = R(1 - e^{-\lambda t})D(t) + e^{-\lambda t}D(t) = [R +
+    D_0(u,T,R) = R(1 - e^{-\lambda t})D(t) + e^{-\lambda t}D(t) = [R +
 (1 - R)e^{-\lambda t}]D(t).
 </span> If <span class="math inline">R = 1</span> or <span
 class="math inline">\lambda = 0</span> this is just <span
 class="math inline">D(t)</span>.</p>
 <p>For small <span class="math inline">\lambda</span> we have <span
-class="math inline">{D_t(u,T,R) \approx e^{(1 - R)\lambda t}D(t)}</span>
+class="math inline">{D_0(u,T,R) \approx e^{(1 - R)\lambda t}D(t)}</span>
 yielding a simple back-of-the-envelope approximation for the credit
 spread <span class="math inline">s = (1 - R)\lambda</span>. If <span
 class="math inline">R = 1</span> or <span class="math inline">\lambda =
@@ -619,23 +636,21 @@ include default and recovery. We should augment the sample space by the
 product <span class="math inline">[0,\infty)\times\{R\}</span> and
 define information available at time <span class="math inline">t</span>
 for the default time <span class="math inline">T\in[0,\infty)</span>. A
-natural choice for that is the partition <span
+natural choice for this is the partition <span
 class="math inline">{\mathcal{A}_t = \{\{s\}\mid s &lt; t\}\cup\{[t,
 \infty)\}}</span> – if default occurs prior to <span
 class="math inline">t</span> we know exactly when it happened, otherwise
 we only know <span class="math inline">T\in[t,\infty)</span>.</p>
-<p>This is not a realistic model. For example, we may want to update the
-default rate <span class="math inline">\lambda</span> as more
-information becomes available. We also make the customary
-drunk-stumbling-under-the-streetlight assumption of an independent
-default time and constant recovery. A more accurate model should allow
-random recovery <span class="math inline">R\in[0,1]</span> and specify
-joint distributions for all the random variables involved. One possible
+<p>Even this is not a realistic model. For example, we may want to
+update the default rate <span class="math inline">\lambda</span> as more
+information becomes available. A more accurate model should allow random
+recovery <span class="math inline">R\in[0,1]</span> and specify joint
+distributions for all the random variables involved. One possible
 approach would be to specify <span class="math inline">R</span> to have
 a beta distribution and define appropriate copulae for the joint
 distributions. This would completely define the value of a risky zero
-coupon bond. The software implementation and fitting market data to
-model parameters would be challenging, to say the least.</p>
+coupon bond, however the software implementation and fitting market data
+to model parameters would be challenging, to say the least.</p>
 <p>The trajectory of mathematical finance is to develop mathematical
 models that can more accurately describe the realities of trading.
 Advances in compute power, memory, and AI are in their early stages of
@@ -646,22 +661,13 @@ Model</a>.</p>
 </section>
 <section id="appendix" class="level2">
 <h2>Appendix</h2>
-<p>We use only basic facts about finitely additive measure theory. The
-Banach space of bounded function on set <span
+<p>We require only basic facts from finitely additive measure theory.
+The Banach space of bounded function on set <span
 class="math inline">S</span> is <span class="math display">
     B(S) = \{f\colon S\to\boldsymbol{{R}}\mid \|f\| =  \sup_{s\in S}
 |f(s)| &lt; \infty\}
-</span> Its continuous vector space dual can be identified with <span
-class="math inline">ba(S)</span>, the Banach space of finitely additive
-measures on <span class="math inline">S</span>. Given a bounded linear
-functional <span class="math inline">L\colon
-B(S)\to\boldsymbol{{R}}</span> define <span
-class="math inline">\lambda(A) = L1_A</span>, where <span
-class="math inline">1_A(s) = 1</span> if <span class="math inline">s\in
-A</span> and <span class="math inline">1_A(s) = 0</span> if <span
-class="math inline">s\not\in A</span> is the characteristic function of
-<span class="math inline">A\subseteq S</span>. This is an isometric
-isomorphism from <span class="math inline">B(S)^*</span> to <span
+</span> Its vector space dual can be identified with the Banach space of
+finitely additive measures on <span class="math inline">S</span>, <span
 class="math inline">ba(S)</span>. See <span class="citation"
 data-cites="DunSch1958">(<a href="#ref-DunSch1958"
 role="doc-biblioref">Dunford and Schwartz 1958</a>)</span> Volume I,
@@ -674,26 +680,30 @@ ba(S)</span> satisfies <span class="math inline">\langle M_g
 f,\lambda\rangle = \langle f, M_g^*\lambda\rangle</span>. We write <span
 class="math inline">g\lambda</span> for <span
 class="math inline">M_g^*\lambda</span>.</p>
-<p>If <span class="math inline">\mathcal{A}</span> is a finite algebra
-of sets on <span class="math inline">S</span> then its atoms form a
-partition of <span class="math inline">S</span>. A function <span
-class="math inline">f\colon S\to\boldsymbol{{R}}</span> is <span
-class="math inline">\mathcal{A}</span>-measurable if and only if it is
-constant on atoms. In this case <span
-class="math inline">f\colon\mathcal{A}\to\boldsymbol{{R}}</span>
-<em>is</em> a function on atoms. This simplifies computer
-implementations.</p>
-<p>The <em>conditional expectation</em> of a random variable <span
-class="math inline">X</span> given an algebra <span
+<p>Given a positive measure having mass one, the <em>conditional
+expectation</em> of a random variable <span class="math inline">X\in
+B(S)</span> given an algebra <span
 class="math inline">\mathcal{A}</span> is defined by <span
 class="math inline">{Y = E[X\mid\mathcal{A}]}</span> if and only if
 <span class="math inline">Y</span> is <span
 class="math inline">\mathcal{A}</span>-measurable and <span
-class="math inline">{\int_A Y\,dP = \int_A X\,dP}</span> for all <span
+class="math inline">{E[Y 1_A] = E[X 1_A]</span> for all <span
 class="math inline">A\in\mathcal{A}</span>. This is equivalent to <span
 class="math inline">{Y(P|_\mathcal{A}) = (XP)|_\mathcal{A}}</span> where
-the vertical bar indicates restriction. This also simplifies computer
-implementations.</p>
+the vertical bar indicates restriction.</p>
+<p>Given a sample space <span class="math inline">\Omega</span> of
+possible outcomes and filtration of increasing algebras <span
+class="math inline">(\mathcal{A}_t)_{t\in T}</span> representing
+information available at times <span class="math inline">t\in T</span>,
+we assume everything is finite. Classical results can be obtained from
+appropriate limit arguments but we are only interested implementing the
+mathematics in software. Everything is finite on a computer.</p>
+<p>If an algebra of sets is finite then its atoms form a partition. The
+algebra is generated by its atoms so we will work directly with the
+partition instead of the algebra. A function is measurable with respect
+to an algebra if and only it it is constant on atoms. In this case it
+<em>is</em> a function of the atoms and we write <span
+class="math inline">{X\colon\mathcal{A}\to\boldsymbol{{R}}}</span>.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
@@ -758,7 +768,7 @@ operator from <span class="math inline">X</span> to <span
 class="math inline">Y</span>.<a href="#fnref3" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>This uses the helpfully confusing notation <span
-class="math inline">D(t)</span> for both the zero coupon instrument and
+class="math inline">D(u)</span> for both the zero coupon instrument and
 its discount.<a href="#fnref4" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
