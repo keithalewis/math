@@ -187,7 +187,7 @@ loses money until the trading strategy is closed out (<span
 class="math inline">A_t \ge 0</span>, <span class="math inline">t &gt;
 \tau_0</span>) then the model admits arbitrage. Note this definition
 does not involve probability. Ross showed a model has no arbitrage if
-and only if there exist _positive adapted finitely-additive measures
+and only if there exist positive adapted finitely-additive measures
 <span class="math inline">D_t</span> with <span class="math display">
 \tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
 D_s)|_{\mathcal{A}_t}
@@ -195,13 +195,14 @@ D_s)|_{\mathcal{A}_t}
 partition of information<a href="#fn2" class="footnote-ref" id="fnref2"
 role="doc-noteref"><sup>2</sup></a> on the space of possible outcomes in
 <span class="math inline">\Omega</span> available at time <span
-class="math inline">t</span>.</p>
-<p>Note we can, and do, assume <span class="math inline">D_0(\Omega) =
-1</span> since we can divide both sides of equation <span
+class="math inline">t</span> and <span
+class="math inline">|_{\mathcal{A}}</span> indicates restriction to a
+partition. We can, and do, assume <span class="math inline">D_0(\Omega)
+= 1</span> since we can divide both sides of equation <span
 class="math inline">(1)</span> by any positive constant.</p>
 <p>We call such measures <em>deflators</em>. If repurchase agreements
-are available in the market then the usual stochastic discount is a
-canonical deflator.</p>
+are available in the market then, as we will see later, the usual
+stochastic discount is a canonical deflator.</p>
 <p>Ross used the Hahn-Banach theorem to prove existence but there is no
 need for that. Every arbitrage-free model has a simple
 parameterization.</p>
@@ -221,9 +222,10 @@ class="math inline">(1)</span></em>.</p>
 class="math inline">u</span> in equation <span
 class="math inline">(2)</span> and plug that into the right-hand side of
 equation <span class="math inline">(1)</span>.</p>
-<p>This only provides a simple mathematically rigorous framework to
-approach the highly non-trivial and computationally intensive problem of
-finding martingale measures that can fit market data.</p>
+<p>The Simple Unified Model only provides an elementary but
+mathematically rigorous framework to approach the highly non-trivial and
+computationally intensive problem of finding martingale measures that
+can fit market data.</p>
 <section id="black-scholesmerton" class="level3">
 <h3>Black-Scholes/Merton</h3>
 <p>For example, the Black-Scholes/Merton model for the bond and stock
@@ -290,28 +292,16 @@ class="math inline">(2)</span>.</p>
 Breeden-Litzenberger distribution derived from option prices expiring at
 time <span class="math inline">t</span> and <span
 class="math inline">S_0</span> is the current underlying price.</p>
-<p>If <span class="math inline">M_t</span> is a measure on <span
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">M_t</span> is a measure on <span
 class="math inline">\mathcal{A}_t</span> then <span
-class="math inline">M_s = M_{\mathcal{A}_s}</span>, <span
-class="math inline">s\le t</span>, is a martingale measure.</p>
-<p><strong>Exercise</strong>. <em>Show for any function <span
-class="math inline">f\colon X\to Y</span> and <span
-class="math inline">A\subseteq B\subseteq X</span> then <span
-class="math inline">f|_A = (f|_B)_A</span></em>.</p>
-<p><em>Hint</em>: <span class="math inline">f|_B(a) = f(a)</span> for
-<span class="math inline">a\in A</span>.</p>
+class="math inline">M_s = M|_{\mathcal{A}_s}</span>, <span
+class="math inline">s\le t</span>, is a martingale measure</em>.</p>
+<p><em>Hint</em>: For any function <span class="math inline">f\colon
+X\to Y</span> and <span class="math inline">A\subseteq B\subseteq
+X</span> then <span class="math inline">f|_A = (f|_B)|_A</span>_.</p>
 <p>This replaces the use of conditional expectation used in classical
 models.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">Y =
-E[X\mid\mathcal{A}]</span> if and only if <span
-class="math inline">Y(P|_\mathcal{A}) =
-(XP)|_\mathcal{A}</span></em>.</p>
-<p><em>Hint</em>: Recall the definition of conditional expectation is
-<span class="math inline">Y = E[X\mid\mathcal{A}]</span> if and only if
-<span class="math inline">Y</span> is <span
-class="math inline">\mathcal{A}</span>-measurable and <span
-class="math inline">E[Y1_A] = E[X1_A]</span> for all <span
-class="math inline">A\in\mathcal{A}</span>.</p>
 <!-- non zero cash flows -->
 <p>Aside from interpolation methods introducing mathematical artifacts
 into the option prices, the most most difficult and important problem is
@@ -356,9 +346,12 @@ premium, vigorish, or baksheesh should be charged for that service.</p>
 class="math inline">(\tau_j, \Gamma_j)</span> with <span
 class="math inline">A_{\hat\tau_k} = \hat A_{k}</span> and <span
 class="math inline">A_t = 0</span> otherwise. The latter condition is
-referred to as <em>self-financing</em>. Unless you belong to a
-Pythagorean cult that believes in the mathematical absurdity of
-continuous time trading, this is generally not possible.</p>
+referred to as <em>self-financing</em>. As <span class="citation"
+data-cites="HarKre1979">(<a href="#ref-HarKre1979"
+role="doc-biblioref">Harrison and Kreps 1979</a>)</span> showed,
+continuous time trading is a mathematical pathology of the theory of Ito
+processes that leads to contradictions. Only a finite number of trades
+are possible and perfect hedges do not exist.</p>
 <p>One approach is to note <span class="math inline">{V_t = (\Delta_t +
 \Gamma_t)\cdot X_t}</span> and that <span class="math inline">{V_t D_t =
 (\sum_{\hat\tau_k &gt; t} \hat{A}_k
@@ -413,12 +406,12 @@ class="math inline">{X^{D(u)}_t = D_t(u)}</span> at time <span
 class="math inline">t \le u</span> is determined by <span
 class="math inline">{D_t(u)D_t = D_u|_{\mathcal{A}_t}}</span> so the
 price is the Radon-Nikodym derivative <span class="math inline">{D_t(u)
-= d(D_u|_{\mathcal{A}_t})/dD_t}</span>. A deflator determines the
+= d(D_u|_{\mathcal{A}_t})/dD_t}</span>. Deflators determines the
 dynamics of zero coupon bond prices.</p>
 <p>Note <span class="math inline">D_0(u)D_0 =
-D_u|_{\mathcal{A}_0}</span> and <span class="math inline">D_0(u) =
-D_u(\Omega)/D_0(\Omega) = D_u(\Omega)</span> since we can and do assume
-<span class="math inline">D_0(\Omega) = 1</span>. We write<a href="#fn4"
+D_u|_{\mathcal{A}_0}</span> so <span class="math inline">D_0(u) =
+D_u(\Omega)/D_0(\Omega) = D_u(\Omega)</span> since we assume <span
+class="math inline">D_0(\Omega) = 1</span>. We write<a href="#fn4"
 class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>
 <span class="math inline">D(u) = D_0(u)</span> for the current
 discount.</p>
@@ -467,10 +460,11 @@ class="math inline">{D_j = e^{-f_j\Delta t_j}D_{j+1}}</span> and <span
 class="math inline">{D_n = e^{-\sum_{j &lt; n} f_j\Delta t_j}
 D_0}</span> is the canonical deflator at time <span
 class="math inline">t_n</span>.</p>
-<p>The continuous time analog is <span class="math inline">D_t =
-e^{-\int_0^t f_s\,ds}D_0</span> where <span class="math inline">f</span>
-is the continuously compounded instantaneous forward rate. This is
-commonly referred to as the <em>stochastic discount</em> and the
+<p>The continuous time analog is <span class="math inline">D_u =
+e^{-\int_0^u f_t\,dt}D_0</span> where <span
+class="math inline">f_t</span> is the continuously compounded
+instantaneous forward rate at time <span class="math inline">t</span>.
+This is commonly referred to as the <em>stochastic discount</em> and the
 reciprocal <span class="math inline">R_t = 1/D_t</span> is called a
 <em>money market account</em>. It is convenient to assume there is an
 instrument with price <span class="math inline">R_t</span> having no
@@ -512,6 +506,8 @@ class="math inline">{F^\delta(u,v) = (D(v)/D(u) -
 class="math inline">t\le u</span> is <span
 class="math inline">{F^\delta_t(u,v) = (D_t(v)/D_t(u) -
 1)/\delta(u,v)}</span></em>.</p>
+<p>A repo is equivalent to a forward rate agreement having day count
+fraction approximately equal to one day.</p>
 </section>
 <section id="fixed-income" class="level3">
 <h3>Fixed Income</h3>
@@ -565,9 +561,9 @@ k D_t(u)</span>.</p>
 <p>The value of <span class="math inline">k</span> making <span
 class="math inline">F_t = 0</span> is called the at-the-money, or par,
 forward and is denoted <span class="math inline">f_t(u)</span>. This
-implies cost-of-carry formula <span class="math inline">S_t = f_t(u)
-D_t(u)</span> showing the relationship between spot and par forward
-values.</p>
+implies the <em>cost-of-carry formula</em> <span class="math inline">S_t
+= f_t(u) D_t(u)</span> showing the relationship between spot and par
+forward values.</p>
 <p>The classical way of deriving this involves considering a trading
 strategy in a bond and stock to replicate the forward contract. This,
 and the above examples, show the SUM provides a simple unified model for
@@ -600,18 +596,11 @@ the not too distant past banks were forbidden to purchase stocks.</p>
 When you are in a 40% tax bracket adding the fifth decimal point of
 precision to your valuation routines is not your biggest problem.</p>
 <p>This short note does not take default risk into consideration, but it
-can be used for that. For example a zero coupon bond <span
-class="math inline">D(u)</span> has a cash flow of <span
-class="math inline">1</span> at maturity <span
-class="math inline">u</span>. It’s price <span
-class="math inline">X^{D(u)}_t = D_t(u)</span> at time <span
-class="math inline">t</span> is determined by <span
-class="math inline">D_t(u)D_t = D_u|_{\mathcal{A}_t}</span>, <span
-class="math inline">t\le u</span>. If it defaults at random time <span
-class="math inline">T</span> and pays fixed recovery <span
-class="math inline">R</span> at that time then it has a cash flow <span
-class="math inline">R</span> at <span class="math inline">T</span> if
-<span class="math inline">T\le u</span> or a cash flow <span
+can be used for that. If the zero coupon bond $D(u) can default at
+random time <span class="math inline">T</span> and pay fixed recovery
+<span class="math inline">R</span> at that time then it has a cash flow
+<span class="math inline">R</span> at <span class="math inline">T</span>
+if <span class="math inline">T\le u</span> or a cash flow <span
 class="math inline">1</span> at <span class="math inline">u</span> if
 <span class="math inline">T &gt; u</span>. Its price satisfies <span
 class="math inline">{D_t(u,T,R)D_t = (R 1(T \le u)D_T + (1(T &gt;
@@ -620,37 +609,36 @@ u)D_u)|_{\mathcal{A}_t}}</span>.</p>
 with <span class="math inline">P(T &gt; t) = e^{-\lambda t}</span> and
 <span class="math inline">D_t = D(t)</span> is not stochastic then <span
 class="math display">
-    D_0(u,T,R) = R(1 - e^{-\lambda t})D(t) + e^{-\lambda t}D(t) = [R +
-(1 - R)e^{-\lambda t}]D(t).
+    D_0(u,T,R) = R(1 - e^{-\lambda u})D(u) + e^{-\lambda u}D(u) = [R +
+(1 - R)e^{-\lambda u}]D(u).
 </span> If <span class="math inline">R = 1</span> or <span
 class="math inline">\lambda = 0</span> this is just <span
-class="math inline">D(t)</span>.</p>
+class="math inline">D(u)</span>.</p>
 <p>For small <span class="math inline">\lambda</span> we have <span
-class="math inline">{D_0(u,T,R) \approx e^{(1 - R)\lambda t}D(t)}</span>
+class="math inline">{D_0(u,T,R) \approx e^{(1 - R)\lambda u}D(u)}</span>
 yielding a simple back-of-the-envelope approximation for the credit
 spread <span class="math inline">s = (1 - R)\lambda</span>. If <span
 class="math inline">R = 1</span> or <span class="math inline">\lambda =
 0</span> then <span class="math inline">s = 0</span>.</p>
 <p>This sweeps under the rug the fact we must extend our sample space to
-include default and recovery. We should augment the sample space by the
-product <span class="math inline">[0,\infty)\times\{R\}</span> and
-define information available at time <span class="math inline">t</span>
-for the default time <span class="math inline">T\in[0,\infty)</span>. A
-natural choice for this is the partition <span
-class="math inline">{\mathcal{A}_t = \{\{s\}\mid s &lt; t\}\cup\{[t,
-\infty)\}}</span> – if default occurs prior to <span
-class="math inline">t</span> we know exactly when it happened, otherwise
-we only know <span class="math inline">T\in[t,\infty)</span>.</p>
+include default and recovery. To model the default time we should
+augment the sample space by the product <span
+class="math inline">[0,\infty)\times\{R\}</span> and define information
+available at time <span class="math inline">t</span> for the default
+time <span class="math inline">T\in[0,\infty)</span>. A natural choice
+for this is the partition <span class="math inline">{\mathcal{A}_t =
+\{\{s\}\mid s &lt; t\}\cup\{[t, \infty)\}}</span> – if default occurs
+prior to <span class="math inline">t</span> we know exactly when it
+happened, otherwise we only know <span
+class="math inline">T\in[t,\infty)</span>.</p>
 <p>Even this is not a realistic model. For example, we may want to
 update the default rate <span class="math inline">\lambda</span> as more
 information becomes available. A more accurate model should allow random
 recovery <span class="math inline">R\in[0,1]</span> and specify joint
-distributions for all the random variables involved. One possible
-approach would be to specify <span class="math inline">R</span> to have
-a beta distribution and define appropriate copulae for the joint
-distributions. This would completely define the value of a risky zero
-coupon bond, however the software implementation and fitting market data
-to model parameters would be challenging, to say the least.</p>
+distributions for all the random variables involved. This would
+completely define the value of a risky zero coupon bond, however the
+software implementation and fitting market data to model parameters
+would be challenging, to say the least.</p>
 <p>The trajectory of mathematical finance is to develop mathematical
 models that can more accurately describe the realities of trading.
 Advances in compute power, memory, and AI are in their early stages of
@@ -723,6 +711,12 @@ of Business</em> 51 (4): 621–51.
 <div id="ref-DunSch1958" class="csl-entry" role="listitem">
 Dunford, Nelson, and Jacob T Schwartz. 1958. <em>Linear Operators
 i</em>. Interscience Publishers.
+</div>
+<div id="ref-HarKre1979" class="csl-entry" role="listitem">
+Harrison, Michael, and David M. Kreps. 1979. <span>“Martingales and
+Arbitrage in Multiperiod Securities Markets.”</span> <em>Journal of
+Economic Theory</em> 20: 381–408. <a
+href="https://doi.org/10.1016/0022-0531(79)90043-7">https://doi.org/10.1016/0022-0531(79)90043-7</a>.
 </div>
 <div id="ref-Mer1973" class="csl-entry" role="listitem">
 Merton, Robert C. 1973. <span>“Theory of Rational Option
