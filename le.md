@@ -1,12 +1,12 @@
 ---
 title: Logical Entropy
 author: Keith A. Lewis
-institute: New York University
+institute: KALX, LLC
 classoption: fleqn
 fleqn: true
 keywords: entropy
 abstract: |
-	An improvement over Shannon entropy
+	David Ellerman's Logical Entropy
 ---
 
 <!--
@@ -31,7 +31,7 @@ It is an even worse mistake to define the entropy of a random variable
 with density $f$ as $-\int_\RR f(x)\log f(x)\,dx$.  It is true that every
 random variable $X$ with cumulative distribution $F(x) = P(X\le x)$ can be
 modelled as the identity function on the sample space of real numbers
-with probablility measure $P((-\infty, x]) = \int_{-\infty}^x dF(x)$.
+with probability measure $P((-\infty, x]) = \int_{-\infty}^x dF(x)$.
 
 ...
 

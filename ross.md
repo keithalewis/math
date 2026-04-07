@@ -415,7 +415,7 @@ When you are in a 40\% tax bracket adding the fifth decimal point of precision
 to your valuation routines is not your biggest problem.
 
 This short note does not take default risk into consideration, but it can be used for that.
-If the zero coupon bond $D(u) can default at random time $T$ and pay fixed recovery $R$
+If the zero coupon bond $D(u)$ can default at random time $T$ and pay fixed recovery $R$
 at that time then it has a cash flow
 $R$ at $T$ if $T\le u$ or a cash flow $1$ at $u$ if $T > u$. Its price satisfies
 ${D_t(u,T,R)D_t = (R 1(T \le u)D_T + (1(T > u)D_u)|_{\AA_t}}$.
