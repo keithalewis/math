@@ -176,7 +176,7 @@ and $S_0$ is the current underlying price.
 __Exercise__. _If $M_t$ is a measure on $\AA_t$ then $M_s = M|_{\AA_s}$, $s\le t$, is a martingale measure_.
 
 _Hint_: For any function $f\colon X\to Y$ and
-$A\subseteq B\subseteq X$ then $f|_A = (f|_B)|_A$_.
+$A\subseteq B\subseteq X$ then $f|_A = (f|_B)|_A$.
 
 This replaces the use of conditional expectation used in classical models.
 

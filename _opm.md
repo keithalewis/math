@@ -13,8 +13,8 @@ header-includes:
 \newcommand{\ran}{\operatorname{ran}}
 \newcommand{\ker}{\operatorname{ker}}
 
+<!--
 ```
-
 	a0 P0 + ... + ak Pk
 	b0 P0 + ... + bk Pk
 	=
@@ -124,7 +124,8 @@ v2/(K3 - K2) > v3(K4 - K2)/(K3 - K2)(K4 - K3)
 v2(K3 - K2)/(K3 - K2) > v3(K4 - K2)/(K4 - K3)
 v2 > v3(K4 - K2)/(K4 - K3)
 v2/(K4 - K2) > v3/(K4 - K3)
-
+-->
+```
 L    S + R B 
 K1   S + R B
 K2   S + R B + (K2 - K1)   P1
@@ -135,7 +136,6 @@ Kj+1 S + R B + (Kj+1 - K1) P1 + + (Kj+1) - Kj-2) Pj-2 + (Kj+1 - Kj-1) Pj-1 + (Kj
 ...
 Kn   S + R B + (Kn - K1)   P1 + + (Kn - Kj-2)    Pj-2 + (Kn - Kj-1)   Pj-1 + (Kn - Kj)   Pj + + (Kn - Kn-1) Pn-1
 H    S + R B + (H  - K1)   P1 + + (H  - Kj-2)    Pi-2 + (H - Kj-1)    Pj-1 + (H - Kj)    Pj + + (H - Kn-1)  Pn-1 + (H - Kn) Pn
-H
 
 R(K1 - L) B S
 K2   S + R B + (K2 - K1)   P1
@@ -175,9 +175,38 @@ R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) B S P1 ... Pj-2 (vj-1 Pj-1 + vj Pj + + vn-1 P
 (Kn - Kj-1)   Pj-1 + (Kn - Kj)   Pj + + (Kn - Kn-1) Pn-1
 (H - Kj-1)    Pj-1 + (H - Kj)    Pj + + (H - Kn-1)  Pn-1 + (H - Kn) Pn  
 
-R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) B S P1 ... Pj-2 (vj-1 Pj-1 + vj Pj + + vn-1 Pn-1 + vn  Pn)
+R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) B S P1 ... Pj-2
+(vj-1 Pj-1 + vj Pj + + vn-1 Pn-1 + vn  Pn)
 (Kj+1 - Kj-1) Pj-1 + (Kj+1 - Kj) Pj
 ...
 (Kn - Kj-1)   Pj-1 + (Kn - Kj)   Pj + + (Kn - Kn-1) Pn-1
 (H - Kj-1)    Pj-1 + (H - Kj)    Pj + + (H - Kn-1)  Pn-1 + (H - Kn) Pn  
 
+R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) B S P1 ... Pj-2
+vj-1 Pj-1 + vj Pj ++ vn-1 Pn-1 + vn  Pn
+(Kj+1 - Kj-1) Pj-1 + (Kj+1 - Kj) Pj
+...
+(Kn - Kj-1)   Pj-1 + (Kn - Kj)   Pj + + (Kn - Kn-1) Pn-1
+(H - Kj-1)    Pj-1 + (H - Kj)    Pj + + (H - Kn-1)  Pn-1 + (H - Kn) Pn  
+
+R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) B S P1 ... Pj-2
+(vj-1 Pj-1 + vj Pj)     ((Kj+1 - Kj-1) Pj-1 + (Kj+1 - Kj) Pj)
+(++ vn-1 Pn-1 + vn  Pn) ((Kj+1 - Kj-1) Pj-1 + (Kj+1 - Kj) Pj)
+...
+(Kn - Kj-1)   Pj-1 + (Kn - Kj)   Pj + + (Kn - Kn-1) Pn-1
+(H - Kj-1)    Pj-1 + (H - Kj)    Pj + + (H - Kn-1)  Pn-1 + (H - Kn) Pn  
+
+R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) B S P1 ... Pj-2
+((vj-1(Kj+1 - Kj) - vj(Kj+1 - Kj-1)) Pj-1 Pj
+(++ vn-1 Pn-1 + vn  Pn) ((Kj+1 - Kj-1) Pj-1 + (Kj+1 - Kj) Pj)
+...
+(Kn - Kj-1)   Pj-1 + (Kn - Kj)   Pj + + (Kn - Kn-1) Pn-1
+(H - Kj-1)    Pj-1 + (H - Kj)    Pj + + (H - Kn-1)  Pn-1 + (H - Kn) Pn  
+
+R(K1 - L)(K2 - K1)...(Kj-1 - Kj-2) (vj-1(Kj+1 - Kj) - vj(Kj+1 - Kj-1)) B S P1 ... Pj-2 Pj-1 Pj
+(vj+1 Pj+1 ++ vn-1 Pn-1 + vn  Pn) ((Kj+1 - Kj-1) Pj-1 + (Kj+1 - Kj) Pj)
+...
+(Kn - Kj-1)   Pj-1 + (Kn - Kj)   Pj + + (Kn - Kn-1) Pn-1
+(H - Kj-1)    Pj-1 + (H - Kj)    Pj + + (H - Kn-1)  Pn-1 + (H - Kn) Pn  
+
+```
