@@ -18,9 +18,9 @@ His two main results are:
 
 Perhaps this was too astonishing for people to appreciate at the time.
 There is no need for Ito processes or partial differential equations,
-much less postulating a so-called "real-world" measure that gets immediately
+much less an otiose "real-world" measure that gets immediately
 thrown out for a "risk-neutral" measure.
-It applies to any portfolio of instruments, not just
+It also applies to _any_ portfolio of instruments, not just
 the bond, stock, and option [@BlaSch1973] and [@Mer1973] considered.
 
 Ross's definition of a cash flow was a jump in stock price.
@@ -83,7 +83,7 @@ there exist positive adapted finitely-additive measures $D_t$ with
 $$
 \tag{1}	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}
 $$
-where $\AA_t$ is the partition of information[^2] on the space of possible outcomes in $\Omega$
+where $\AA_t$ is the partition of information[^2] on the set of possible outcomes $\Omega$
 available at time $t$ and $|_{\AA}$ indicates restriction to a partition.
 We can, and do, assume $D_0(\Omega) = 1$ since we can divide both
 sides of equation $(1)$ by any positive constant.
@@ -135,17 +135,16 @@ _Hint_: Use equation $(2)$ with cash flows $C_t = (0, 0)$.
 
 There is no need to introduce a so-called "real world" measure that
 requires a Nobel Prize winning argument involving partial differential
-equations to show it can be thrown away.
+equations to show it can be tossed out.
 
 ### Dividends
 
 A _fixed dividend_ on a stock is a cash flow $d_t$ at dividend date $t$.
 A _proportional dividend_ $p_t$ is a cash flow $p_t S_t$ at dividend date $t$.
-They are both paid in proportion to the position held in the stock.
 Companies often announce projected dividends several months in advance.
 Future dividends after that are usually assumed to be proportional to the stock price.
-Specifying a function $X$ that is one at zero and decreases to zero at infinity
-can be used to blend these using cash flows $X(t)d_t + (1 - X(t))p_t S_t$.
+Specifying a function $C$ that is one at zero and decreases to zero at infinity
+can be used to blend these using cash flows $C(t)d_t + (1 - C(t))p_t S_t$.
 
 Ross made the category error of defining dividends from a stock as
 a jump in their price. Stock prices jump from closing price to open price
@@ -156,8 +155,8 @@ a consequence of a no-arbitrage strategy. If follows directly from the parameter
 of equation $(2)$.
 
 Considering dividends expands the original sample space of all possible stock paths
-to contain all finite sequences $(t_j, d_j)$ with increasing dividend dates $t_j$
-and dividend payments $d_j$ known at time $t_j$. Explicitly specifying this
+to contain all finite sequences $(t_j, C_{t_j}j)$ with increasing dividend dates $t_j$
+and dividend payments $C_{t_j}$ known at time $t_j$. Explicitly specifying this
 allows us to consider, e.g., the sensitivity to dividend times and payments.
 
 ### Market Parameterization
@@ -173,7 +172,7 @@ If the cash flows are zero we can take $M_t = S_t D_t/S_0$ where $S_t$
 is the Breeden-Litzenberger distribution derived from option prices expiring at time $t$
 and $S_0$ is the current underlying price.
 
-__Exercise__. _If $M_t$ is a measure on $\AA_t$ then $M_s = M|_{\AA_s}$, $s\le t$, is a martingale measure_.
+__Exercise__. _If $M_t$ is a measure on $\AA_t$ then $M_s = M_t|_{\AA_s}$, $s\le t$, is a martingale measure_.
 
 _Hint_: For any function $f\colon X\to Y$ and
 $A\subseteq B\subseteq X$ then $f|_A = (f|_B)|_A$.
@@ -212,8 +211,8 @@ risk of derivative instruments.
 
 ### Derivatives
 
-A (cash settled) derivative is a contract where the buyer will pay the
-seller cash flows $\hat{A}_k$ at times $\hat\tau_k$.  The buyer
+A (cash settled) derivative is a contract where the seller will pay the
+buyer cash flows $\hat{A}_k$ at times $\hat\tau_k$.  The buyer
 is willing to pay the seller a premium to take the risk off their hands.
 This short note provides nothing to suggest a solution to the conundrum of
 what premium, vigorish, or baksheesh should be charged for that service.
@@ -225,7 +224,8 @@ As [@HarKre1979] showed, continuous time trading is a mathematical pathology
 of the theory of Ito processes that leads to contradictions.
 Only a finite number of trades are possible and perfect hedges do not exist.
 
-One approach is to note ${V_t = (\Delta_t + \Gamma_t)\cdot X_t}$ and that
+One approach to finding a hedging strategy is to note
+${V_t = (\Delta_t + \Gamma_t)\cdot X_t}$ and that
 ${V_t D_t = (\sum_{\hat\tau_k > t} \hat{A}_k D_{\hat\tau_k})|_{\AA_t}}$ can be calculated
 using the contract terms $\hat\tau_k$ and $\hat{A}_k$ by equation $(3)$.
 The Fréchet derivative[^3] of value $V_t$ with respect to the underlying $X_t$ is
@@ -233,7 +233,7 @@ $D_{X_t}V_t = \Delta_t + \Gamma_t$.
 At time 0 the position is 0 so this gives us the initial trade $\Gamma_0$.
 At any time after that we have ${\Gamma_t = D_{X_t}V_t - \Delta_t}$. The position
 $\Delta_t$ is known at time $t$ so this can be used to determine
-candidate trading strategies.
+potential trading strategies.
 
 [^3]: If $F\colon X\to Y$ is a function between normed linear spaces the
 Fréchet derivative (when it exists) is the best linear approximation
@@ -284,11 +284,6 @@ _forward rate_ $f(u)$ by ${D(u) = e^{-\int_0^u f(t)\,dt}}$. Note
 the spot rate $r(u) = (1/u)\int_0^u f(t)\,dt$ is the average of the 
 forward rate. The forward rate $f(u) = r(u) + tr'(u)$ involves the
 derivative of the spot rate.
-
-The _spot rate_ at time $t \le u$, $r_t(u)$, is determined by $D_t(u) = e^{-(u - t) r_t(u)}$ and the
-_forward rate_ at $t$, $f_t(u)$, by ${D_t(u) = e^{-\int_t^u f_t(s)\,ds}}$.
-Note $r_t(u) = 1/(u - t) \int_t^u f_t(s)\,ds$ is the average of the forward
-rate at $t$ from $t$ to $u$.
 
 For computer implementations it is preferred to use
 the forward rate to define the discount and spot rate since
@@ -394,7 +389,7 @@ for producing correct valuations.
 If the zero coupon bond $D(u)$ can default at random time $T$ and pay fixed recovery $R$
 at that time then it has a cash flow
 $R$ at $T$ if $T\le u$ or a cash flow $1$ at $u$ if $T > u$. Its price satisfies
-${D_t(u,T,R)D_t = (R 1(T \le u)D_T + (1(T > u)D_u)|_{\AA_t}}$.
+${D_t(u,T,R)D_t = [R 1(T \le u)D_T + 1(T > u)D_u]|_{\AA_t}}$.
 
 If $T$ is exponentially distributed
 with $P(T > t) = e^{-\lambda t}$ and $D_t = D(t)$ is not stochastic then
@@ -409,7 +404,7 @@ back-of-the-envelope approximation for the credit spread $s = (1 - R)\lambda$.
 If $R = 1$ or $\lambda = 0$ then $s = 0$.
 
 This sweeps under the rug the fact we must extend our sample space to
-include default and recovery.  To model the default time we should augment the sample space by
+include default and recovery.  We should augment the sample space by
 the product ${[0,\infty)\times\{R\}}$ and define information available
 at time $t$ for the default time $T\in[0,\infty)$. A natural choice for
 this is the partition ${\AA_t = \{\{s\}\mid s < t\}\cup\{[t, \infty)\}}$
@@ -438,12 +433,12 @@ actual problem for large hedge funds.
 The definition of arbitrage as $A_{\tau_0} > 0$ and $A_t\ge 0$ thereafter is insufficient.
 Traders and risk managers will consider ${\|A_0\| = \|-\Gamma_0\cdot X_0\| \le \|\Gamma_0\|\|X_0\|}$.
 The "arbitrage" will not be considered if the left-hand side gain is small compared
-the ballpark estimate of the amount of capital tied for the initial hedge on the right-hand side.
+the ballpark estimate of the amount of capital tied up for the initial hedge on the right-hand side.
 
 We completely ignore the entities involved in trading. Different counterparties may have to
 pay different prices or additional side fees for the same instrument depending on their credit worthiness.
 They might even be unable to buy an instrument due to regulatory requirements.
-In the not too distant past banks were forbidden to purchase stocks.
+In the not too distant past banks were forbidden from purchasing stocks.
 
 The largest lacuna, by far, in this theory is tax considerations.
 When you are in a 40\% tax bracket adding the fifth decimal point of precision

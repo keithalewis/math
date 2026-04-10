@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Apr 9, 2026</p>
+<p class="date">Apr 10, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A Simple Approach to the Valuation of Risky Streams
@@ -120,13 +120,14 @@ instruments.</p></li>
 </ol>
 <p>Perhaps this was too astonishing for people to appreciate at the
 time. There is no need for Ito processes or partial differential
-equations, much less postulating a so-called “real-world” measure that
-gets immediately thrown out for a “risk-neutral” measure. It applies to
-any portfolio of instruments, not just the bond, stock, and option <span
-class="citation" data-cites="BlaSch1973">(<a href="#ref-BlaSch1973"
-role="doc-biblioref">Black and Scholes 1973</a>)</span> and <span
-class="citation" data-cites="Mer1973">(<a href="#ref-Mer1973"
-role="doc-biblioref">Merton 1973</a>)</span> considered.</p>
+equations, much less an otiose “real-world” measure that gets
+immediately thrown out for a “risk-neutral” measure. It also applies to
+<em>any</em> portfolio of instruments, not just the bond, stock, and
+option <span class="citation" data-cites="BlaSch1973">(<a
+href="#ref-BlaSch1973" role="doc-biblioref">Black and Scholes
+1973</a>)</span> and <span class="citation" data-cites="Mer1973">(<a
+href="#ref-Mer1973" role="doc-biblioref">Merton 1973</a>)</span>
+considered.</p>
 <p>Ross’s definition of a cash flow was a jump in stock price. Stock
 prices jump between close and open but there is no dividend payment
 involved. Adding an explicit knob for cash flows to Ross’s theory leads
@@ -194,7 +195,7 @@ and only if there exist positive adapted finitely-additive measures
 D_s)|_{\mathcal{A}_t}
 </span> where <span class="math inline">\mathcal{A}_t</span> is the
 partition of information<a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a> on the space of possible outcomes in
+role="doc-noteref"><sup>2</sup></a> on the set of possible outcomes
 <span class="math inline">\Omega</span> available at time <span
 class="math inline">t</span> and <span
 class="math inline">|_{\mathcal{A}}</span> indicates restriction to a
@@ -246,7 +247,7 @@ t}</span> and <span class="math inline">S_t = s e^{\sigma B_t + (\rho -
 cash flows <span class="math inline">C_t = (0, 0)</span>.</p>
 <p>There is no need to introduce a so-called “real world” measure that
 requires a Nobel Prize winning argument involving partial differential
-equations to show it can be thrown away.</p>
+equations to show it can be tossed out.</p>
 </section>
 <section id="dividends" class="level3">
 <h3>Dividends</h3>
@@ -255,13 +256,12 @@ class="math inline">d_t</span> at dividend date <span
 class="math inline">t</span>. A <em>proportional dividend</em> <span
 class="math inline">p_t</span> is a cash flow <span
 class="math inline">p_t S_t</span> at dividend date <span
-class="math inline">t</span>. They are both paid in proportion to the
-position held in the stock. Companies often announce projected dividends
-several months in advance. Future dividends after that are usually
-assumed to be proportional to the stock price. Specifying a function
-<span class="math inline">X</span> that is one at zero and decreases to
-zero at infinity can be used to blend these using cash flows <span
-class="math inline">X(t)d_t + (1 - X(t))p_t S_t</span>.</p>
+class="math inline">t</span>. Companies often announce projected
+dividends several months in advance. Future dividends after that are
+usually assumed to be proportional to the stock price. Specifying a
+function <span class="math inline">C</span> that is one at zero and
+decreases to zero at infinity can be used to blend these using cash
+flows <span class="math inline">C(t)d_t + (1 - C(t))p_t S_t</span>.</p>
 <p>Ross made the category error of defining dividends from a stock as a
 jump in their price. Stock prices jump from closing price to open price
 but there is no cash flow associated with owning the stock.</p>
@@ -271,9 +271,9 @@ directly from the parameterization of equation <span
 class="math inline">(2)</span>.</p>
 <p>Considering dividends expands the original sample space of all
 possible stock paths to contain all finite sequences <span
-class="math inline">(t_j, d_j)</span> with increasing dividend dates
-<span class="math inline">t_j</span> and dividend payments <span
-class="math inline">d_j</span> known at time <span
+class="math inline">(t_j, C_{t_j}j)</span> with increasing dividend
+dates <span class="math inline">t_j</span> and dividend payments <span
+class="math inline">C_{t_j}</span> known at time <span
 class="math inline">t_j</span>. Explicitly specifying this allows us to
 consider, e.g., the sensitivity to dividend times and payments.</p>
 </section>
@@ -296,7 +296,7 @@ class="math inline">S_0</span> is the current underlying price.</p>
 <p><strong>Exercise</strong>. <em>If <span
 class="math inline">M_t</span> is a measure on <span
 class="math inline">\mathcal{A}_t</span> then <span
-class="math inline">M_s = M|_{\mathcal{A}_s}</span>, <span
+class="math inline">M_s = M_t|_{\mathcal{A}_s}</span>, <span
 class="math inline">s\le t</span>, is a martingale measure</em>.</p>
 <p><em>Hint</em>: For any function <span class="math inline">f\colon
 X\to Y</span> and <span class="math inline">A\subseteq B\subseteq
@@ -337,12 +337,12 @@ instruments</strong>.</p>
 of derivative instruments.</p>
 <section id="derivatives" class="level3">
 <h3>Derivatives</h3>
-<p>A (cash settled) derivative is a contract where the buyer will pay
-the seller cash flows <span class="math inline">\hat{A}_k</span> at
-times <span class="math inline">\hat\tau_k</span>. The buyer is willing
-to pay the seller a premium to take the risk off their hands. This short
-note provides nothing to suggest a solution to the conundrum of what
-premium, vigorish, or baksheesh should be charged for that service.</p>
+<p>A (cash settled) derivative is a contract where the seller will pay
+the buyer cash flows <span class="math inline">\hat{A}_k</span> at times
+<span class="math inline">\hat\tau_k</span>. The buyer is willing to pay
+the seller a premium to take the risk off their hands. This short note
+provides nothing to suggest a solution to the conundrum of what premium,
+vigorish, or baksheesh should be charged for that service.</p>
 <p>A perfect hedge is a closed-out trading strategy <span
 class="math inline">(\tau_j, \Gamma_j)</span> with <span
 class="math inline">A_{\hat\tau_k} = \hat A_{k}</span> and <span
@@ -353,12 +353,12 @@ role="doc-biblioref">Harrison and Kreps 1979</a>)</span> showed,
 continuous time trading is a mathematical pathology of the theory of Ito
 processes that leads to contradictions. Only a finite number of trades
 are possible and perfect hedges do not exist.</p>
-<p>One approach is to note <span class="math inline">{V_t = (\Delta_t +
-\Gamma_t)\cdot X_t}</span> and that <span class="math inline">{V_t D_t =
-(\sum_{\hat\tau_k &gt; t} \hat{A}_k
-D_{\hat\tau_k})|_{\mathcal{A}_t}}</span> can be calculated using the
-contract terms <span class="math inline">\hat\tau_k</span> and <span
-class="math inline">\hat{A}_k</span> by equation <span
+<p>One approach to finding a hedging strategy is to note <span
+class="math inline">{V_t = (\Delta_t + \Gamma_t)\cdot X_t}</span> and
+that <span class="math inline">{V_t D_t = (\sum_{\hat\tau_k &gt; t}
+\hat{A}_k D_{\hat\tau_k})|_{\mathcal{A}_t}}</span> can be calculated
+using the contract terms <span class="math inline">\hat\tau_k</span> and
+<span class="math inline">\hat{A}_k</span> by equation <span
 class="math inline">(3)</span>. The Fréchet derivative<a href="#fn3"
 class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> of
 value <span class="math inline">V_t</span> with respect to the
@@ -369,7 +369,7 @@ class="math inline">\Gamma_0</span>. At any time after that we have
 <span class="math inline">{\Gamma_t = D_{X_t}V_t - \Delta_t}</span>. The
 position <span class="math inline">\Delta_t</span> is known at time
 <span class="math inline">t</span> so this can be used to determine
-candidate trading strategies.</p>
+potential trading strategies.</p>
 <p>What this theory does not tell us is when to trade. We could let
 <span class="math inline">\tau_j = j\Delta t</span> for some time
 increment <span class="math inline">\Delta t</span> and this results in
@@ -424,16 +424,6 @@ spot rate <span class="math inline">r(u) = (1/u)\int_0^u f(t)\,dt</span>
 is the average of the forward rate. The forward rate <span
 class="math inline">f(u) = r(u) + tr&#39;(u)</span> involves the
 derivative of the spot rate.</p>
-<p>The <em>spot rate</em> at time <span class="math inline">t \le
-u</span>, <span class="math inline">r_t(u)</span>, is determined by
-<span class="math inline">D_t(u) = e^{-(u - t) r_t(u)}</span> and the
-<em>forward rate</em> at <span class="math inline">t</span>, <span
-class="math inline">f_t(u)</span>, by <span class="math inline">{D_t(u)
-= e^{-\int_t^u f_t(s)\,ds}}</span>. Note <span
-class="math inline">r_t(u) = 1/(u - t) \int_t^u f_t(s)\,ds</span> is the
-average of the forward rate at <span class="math inline">t</span> from
-<span class="math inline">t</span> to <span
-class="math inline">u</span>.</p>
 <p>For computer implementations it is preferred to use the forward rate
 to define the discount and spot rate since averaging smooths the data,
 whereas the derivative of a nearly constant spot rate can be arbitrarily
@@ -580,7 +570,7 @@ class="math inline">T</span> if <span class="math inline">T\le u</span>
 or a cash flow <span class="math inline">1</span> at <span
 class="math inline">u</span> if <span class="math inline">T &gt;
 u</span>. Its price satisfies <span class="math inline">{D_t(u,T,R)D_t =
-(R 1(T \le u)D_T + (1(T &gt; u)D_u)|_{\mathcal{A}_t}}</span>.</p>
+[R 1(T \le u)D_T + 1(T &gt; u)D_u]|_{\mathcal{A}_t}}</span>.</p>
 <p>If <span class="math inline">T</span> is exponentially distributed
 with <span class="math inline">P(T &gt; t) = e^{-\lambda t}</span> and
 <span class="math inline">D_t = D(t)</span> is not stochastic then <span
@@ -597,12 +587,11 @@ spread <span class="math inline">s = (1 - R)\lambda</span>. If <span
 class="math inline">R = 1</span> or <span class="math inline">\lambda =
 0</span> then <span class="math inline">s = 0</span>.</p>
 <p>This sweeps under the rug the fact we must extend our sample space to
-include default and recovery. To model the default time we should
-augment the sample space by the product <span
-class="math inline">{[0,\infty)\times\{R\}}</span> and define
-information available at time <span class="math inline">t</span> for the
-default time <span class="math inline">T\in[0,\infty)</span>. A natural
-choice for this is the partition <span
+include default and recovery. We should augment the sample space by the
+product <span class="math inline">{[0,\infty)\times\{R\}}</span> and
+define information available at time <span class="math inline">t</span>
+for the default time <span class="math inline">T\in[0,\infty)</span>. A
+natural choice for this is the partition <span
 class="math inline">{\mathcal{A}_t = \{\{s\}\mid s &lt; t\}\cup\{[t,
 \infty)\}}</span> – if default occurs prior to <span
 class="math inline">t</span> we know exactly when it happened, otherwise
@@ -633,12 +622,14 @@ is insufficient. Traders and risk managers will consider <span
 class="math inline">{\|A_0\| = \|-\Gamma_0\cdot X_0\| \le
 \|\Gamma_0\|\|X_0\|}</span>. The “arbitrage” will not be considered if
 the left-hand side gain is small compared the ballpark estimate of the
-amount of capital tied for the initial hedge on the right-hand side.</p>
+amount of capital tied up for the initial hedge on the right-hand
+side.</p>
 <p>We completely ignore the entities involved in trading. Different
 counterparties may have to pay different prices or additional side fees
 for the same instrument depending on their credit worthiness. They might
 even be unable to buy an instrument due to regulatory requirements. In
-the not too distant past banks were forbidden to purchase stocks.</p>
+the not too distant past banks were forbidden from purchasing
+stocks.</p>
 <p>The largest lacuna, by far, in this theory is tax considerations.
 When you are in a 40% tax bracket adding the fifth decimal point of
 precision to your valuation routines is not your biggest problem.</p>
