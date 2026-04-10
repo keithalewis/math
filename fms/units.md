@@ -3,7 +3,8 @@ title: units.md
 abstract: Point, delta, absolute
 ---
 
-Quantities have associated units, e.g., `2 USD` is a quanitity of 2 units of U.S. Dollars.
+Quantities have a _number_ and associated _unit_. e.g., `2 USD` has number `2` and units of U.S. Dollars.
+
 
 
 ## Readings

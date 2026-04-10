@@ -389,32 +389,8 @@ strategy in a bond and stock to replicate the forward contract.
 This, and the above examples, show the SUM provides a simple unified model
 for producing correct valuations.
 
-## Remarks
+### Risky Zero
 
-This model ignores many salient features of how markets actually work.
-
-Transactions have a bid/ask spread that tends to increase with the size of the trade.
-
-Prices are not real numbers -- they are integral multiples of minimum
-trading increment, or tick size.  Likewise for trading sizes. Also,
-at some point no more instruments are available for trading. This is an
-actual problem for large hedge funds.
-
-The definition of arbitrage as $A_0 > 0$ and $A_j\ge 0$ thereafter is insufficient.
-Traders and risk managers will consider ${\|A_0\| = \|-\Gamma_0\cdot X_0\| \le \|\Gamma_0\|\|X_0\|}$.
-The "arbitrage" will not be considered if the left-hand side gain is small compared
-the right-hand side estimated cost of setting up the initial hedge.
-
-We completely ignore the entities involved in trading. Different counterparties may have to
-pay different prices or additional side fees for the same instrument depending on their credit worthiness.
-They might even be unable to buy an instrument due to regulatory requirements.
-In the not too distant past banks were forbidden to purchase stocks.
-
-The largest lacuna, by far, in this theory is tax considerations.
-When you are in a 40\% tax bracket adding the fifth decimal point of precision
-to your valuation routines is not your biggest problem.
-
-This short note does not take default risk into consideration, but it can be used for that.
 If the zero coupon bond $D(u)$ can default at random time $T$ and pay fixed recovery $R$
 at that time then it has a cash flow
 $R$ at $T$ if $T\le u$ or a cash flow $1$ at $u$ if $T > u$. Its price satisfies
@@ -434,7 +410,7 @@ If $R = 1$ or $\lambda = 0$ then $s = 0$.
 
 This sweeps under the rug the fact we must extend our sample space to
 include default and recovery.  To model the default time we should augment the sample space by
-the product $[0,\infty)\times\{R\}$ and define information available
+the product ${[0,\infty)\times\{R\}}$ and define information available
 at time $t$ for the default time $T\in[0,\infty)$. A natural choice for
 this is the partition ${\AA_t = \{\{s\}\mid s < t\}\cup\{[t, \infty)\}}$
 -- if default occurs prior to $t$ we know exactly when it happened,
@@ -447,6 +423,31 @@ specify joint distributions for all the random variables involved.
 This would completely define the value of a risky zero coupon bond, however
 the software implementation and fitting market data to model parameters
 would be challenging, to say the least.
+
+## Remarks
+
+This model ignores many salient features of how markets actually work.
+
+Transactions have a bid/ask spread that tends to increase with the size of the trade.
+
+Prices are not real numbers -- they are integral multiples of minimum
+trading increment, or tick size.  Likewise for trading sizes. Also,
+at some point no more instruments are available for trading. This is an
+actual problem for large hedge funds.
+
+The definition of arbitrage as $A_{\tau_0} > 0$ and $A_t\ge 0$ thereafter is insufficient.
+Traders and risk managers will consider ${\|A_0\| = \|-\Gamma_0\cdot X_0\| \le \|\Gamma_0\|\|X_0\|}$.
+The "arbitrage" will not be considered if the left-hand side gain is small compared
+the ballpark estimate of the amount of capital tied for the initial hedge on the right-hand side.
+
+We completely ignore the entities involved in trading. Different counterparties may have to
+pay different prices or additional side fees for the same instrument depending on their credit worthiness.
+They might even be unable to buy an instrument due to regulatory requirements.
+In the not too distant past banks were forbidden to purchase stocks.
+
+The largest lacuna, by far, in this theory is tax considerations.
+When you are in a 40\% tax bracket adding the fifth decimal point of precision
+to your valuation routines is not your biggest problem.
 
 The trajectory of mathematical finance is to develop mathematical models
 that can more accurately describe the realities of trading. Advances
@@ -476,9 +477,11 @@ We write $g\lambda$ for $M_g^*\lambda$.
 
 Given a positive measure having mass one
 the _conditional expectation_ of a random variable $X\in B(S)$ given an algebra $\AA$ is defined by
-${Y = E[X\mid\AA]}$ if and only if $Y$ is $\AA$-measurable and ${E[Y 1_A] = E[X 1_A]$
+${Y = E[X\mid\AA]}$ if and only if $Y$ is $\AA$-measurable and ${E[Y 1_A] = E[X 1_A]}$
 for all $A\in\AA$.
 This is equivalent to ${Y(P|_\AA) = (XP)|_\AA}$ where the vertical bar indicates restriction.
+Instead of computing conditional expectation we only need restriction of measure, which
+is trivial to implement.
 
 Given a sample space $\Omega$ of possible outcomes
 and filtration of increasing algebras $(\AA_t)_{t\in T}$ representing
@@ -488,12 +491,9 @@ but we are only interested implementing the mathematics in software.
 Everything is finite on a computer.
 
 If an algebra of sets is finite then its atoms form a partition.
-The algebra is generated by its atoms so we will work directly with the
+The algebra is generated by its atoms so we work directly with the
 partition instead of the algebra.  A function is measurable with respect
 to an algebra if and only it it is constant on atoms.  In this case it
 _is_ a function of the atoms and we write ${X\colon\AA\to\RR}$.
-
-Instead of computing conditional expectation we only need restriction of measure, which
-is trivial to implement.
 
 ## References

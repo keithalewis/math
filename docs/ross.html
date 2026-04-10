@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Apr 8, 2026</p>
+<p class="date">Apr 9, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A Simple Approach to the Valuation of Risky Streams
@@ -102,6 +102,7 @@ id="toc-forward-rate-agreement">Forward Rate Agreement</a></li>
 <li><a href="#futures" id="toc-futures">Futures</a></li>
 <li><a href="#cost-of-carry" id="toc-cost-of-carry">Cost of
 Carry</a></li>
+<li><a href="#risky-zero" id="toc-risky-zero">Risky Zero</a></li>
 </ul></li>
 <li><a href="#remarks" id="toc-remarks">Remarks</a></li>
 <li><a href="#appendix" id="toc-appendix">Appendix</a></li>
@@ -569,43 +570,17 @@ strategy in a bond and stock to replicate the forward contract. This,
 and the above examples, show the SUM provides a simple unified model for
 producing correct valuations.</p>
 </section>
-</section>
-<section id="remarks" class="level2">
-<h2>Remarks</h2>
-<p>This model ignores many salient features of how markets actually
-work.</p>
-<p>Transactions have a bid/ask spread that tends to increase with the
-size of the trade.</p>
-<p>Prices are not real numbers – they are integral multiples of minimum
-trading increment, or tick size. Likewise for trading sizes. Also, at
-some point no more instruments are available for trading. This is an
-actual problem for large hedge funds.</p>
-<p>The definition of arbitrage as <span class="math inline">A_0 &gt;
-0</span> and <span class="math inline">A_j\ge 0</span> thereafter is
-insufficient. Traders and risk managers will consider <span
-class="math inline">{\|A_0\| = \|-\Gamma_0\cdot X_0\| \le
-\|\Gamma_0\|\|X_0\|}</span>. The “arbitrage” will not be considered if
-the left-hand side gain is small compared the right-hand side estimated
-cost of setting up the initial hedge.</p>
-<p>We completely ignore the entities involved in trading. Different
-counterparties may have to pay different prices or additional side fees
-for the same instrument depending on their credit worthiness. They might
-even be unable to buy an instrument due to regulatory requirements. In
-the not too distant past banks were forbidden to purchase stocks.</p>
-<p>The largest lacuna, by far, in this theory is tax considerations.
-When you are in a 40% tax bracket adding the fifth decimal point of
-precision to your valuation routines is not your biggest problem.</p>
-<p>This short note does not take default risk into consideration, but it
-can be used for that. If the zero coupon bond <span
-class="math inline">D(u)</span> can default at random time <span
-class="math inline">T</span> and pay fixed recovery <span
-class="math inline">R</span> at that time then it has a cash flow <span
-class="math inline">R</span> at <span class="math inline">T</span> if
-<span class="math inline">T\le u</span> or a cash flow <span
-class="math inline">1</span> at <span class="math inline">u</span> if
-<span class="math inline">T &gt; u</span>. Its price satisfies <span
-class="math inline">{D_t(u,T,R)D_t = (R 1(T \le u)D_T + (1(T &gt;
-u)D_u)|_{\mathcal{A}_t}}</span>.</p>
+<section id="risky-zero" class="level3">
+<h3>Risky Zero</h3>
+<p>If the zero coupon bond <span class="math inline">D(u)</span> can
+default at random time <span class="math inline">T</span> and pay fixed
+recovery <span class="math inline">R</span> at that time then it has a
+cash flow <span class="math inline">R</span> at <span
+class="math inline">T</span> if <span class="math inline">T\le u</span>
+or a cash flow <span class="math inline">1</span> at <span
+class="math inline">u</span> if <span class="math inline">T &gt;
+u</span>. Its price satisfies <span class="math inline">{D_t(u,T,R)D_t =
+(R 1(T \le u)D_T + (1(T &gt; u)D_u)|_{\mathcal{A}_t}}</span>.</p>
 <p>If <span class="math inline">T</span> is exponentially distributed
 with <span class="math inline">P(T &gt; t) = e^{-\lambda t}</span> and
 <span class="math inline">D_t = D(t)</span> is not stochastic then <span
@@ -624,14 +599,14 @@ class="math inline">R = 1</span> or <span class="math inline">\lambda =
 <p>This sweeps under the rug the fact we must extend our sample space to
 include default and recovery. To model the default time we should
 augment the sample space by the product <span
-class="math inline">[0,\infty)\times\{R\}</span> and define information
-available at time <span class="math inline">t</span> for the default
-time <span class="math inline">T\in[0,\infty)</span>. A natural choice
-for this is the partition <span class="math inline">{\mathcal{A}_t =
-\{\{s\}\mid s &lt; t\}\cup\{[t, \infty)\}}</span> – if default occurs
-prior to <span class="math inline">t</span> we know exactly when it
-happened, otherwise we only know <span
-class="math inline">T\in[t,\infty)</span>.</p>
+class="math inline">{[0,\infty)\times\{R\}}</span> and define
+information available at time <span class="math inline">t</span> for the
+default time <span class="math inline">T\in[0,\infty)</span>. A natural
+choice for this is the partition <span
+class="math inline">{\mathcal{A}_t = \{\{s\}\mid s &lt; t\}\cup\{[t,
+\infty)\}}</span> – if default occurs prior to <span
+class="math inline">t</span> we know exactly when it happened, otherwise
+we only know <span class="math inline">T\in[t,\infty)</span>.</p>
 <p>Even this is not a realistic model. For example, we may want to
 update the default rate <span class="math inline">\lambda</span> as more
 information becomes available. A more accurate model should allow random
@@ -640,6 +615,33 @@ distributions for all the random variables involved. This would
 completely define the value of a risky zero coupon bond, however the
 software implementation and fitting market data to model parameters
 would be challenging, to say the least.</p>
+</section>
+</section>
+<section id="remarks" class="level2">
+<h2>Remarks</h2>
+<p>This model ignores many salient features of how markets actually
+work.</p>
+<p>Transactions have a bid/ask spread that tends to increase with the
+size of the trade.</p>
+<p>Prices are not real numbers – they are integral multiples of minimum
+trading increment, or tick size. Likewise for trading sizes. Also, at
+some point no more instruments are available for trading. This is an
+actual problem for large hedge funds.</p>
+<p>The definition of arbitrage as <span class="math inline">A_{\tau_0}
+&gt; 0</span> and <span class="math inline">A_t\ge 0</span> thereafter
+is insufficient. Traders and risk managers will consider <span
+class="math inline">{\|A_0\| = \|-\Gamma_0\cdot X_0\| \le
+\|\Gamma_0\|\|X_0\|}</span>. The “arbitrage” will not be considered if
+the left-hand side gain is small compared the ballpark estimate of the
+amount of capital tied for the initial hedge on the right-hand side.</p>
+<p>We completely ignore the entities involved in trading. Different
+counterparties may have to pay different prices or additional side fees
+for the same instrument depending on their credit worthiness. They might
+even be unable to buy an instrument due to regulatory requirements. In
+the not too distant past banks were forbidden to purchase stocks.</p>
+<p>The largest lacuna, by far, in this theory is tax considerations.
+When you are in a 40% tax bracket adding the fifth decimal point of
+precision to your valuation routines is not your biggest problem.</p>
 <p>The trajectory of mathematical finance is to develop mathematical
 models that can more accurately describe the realities of trading.
 Advances in compute power, memory, and AI are in their early stages of
@@ -676,10 +678,12 @@ class="math inline">\mathcal{A}</span> is defined by <span
 class="math inline">{Y = E[X\mid\mathcal{A}]}</span> if and only if
 <span class="math inline">Y</span> is <span
 class="math inline">\mathcal{A}</span>-measurable and <span
-class="math inline">{E[Y 1_A] = E[X 1_A]</span> for all <span
+class="math inline">{E[Y 1_A] = E[X 1_A]}</span> for all <span
 class="math inline">A\in\mathcal{A}</span>. This is equivalent to <span
 class="math inline">{Y(P|_\mathcal{A}) = (XP)|_\mathcal{A}}</span> where
-the vertical bar indicates restriction.</p>
+the vertical bar indicates restriction. Instead of computing conditional
+expectation we only need restriction of measure, which is trivial to
+implement.</p>
 <p>Given a sample space <span class="math inline">\Omega</span> of
 possible outcomes and filtration of increasing algebras <span
 class="math inline">(\mathcal{A}_t)_{t\in T}</span> representing
@@ -688,13 +692,11 @@ we assume everything is finite. Classical results can be obtained from
 appropriate limit arguments but we are only interested implementing the
 mathematics in software. Everything is finite on a computer.</p>
 <p>If an algebra of sets is finite then its atoms form a partition. The
-algebra is generated by its atoms so we will work directly with the
-partition instead of the algebra. A function is measurable with respect
-to an algebra if and only it it is constant on atoms. In this case it
+algebra is generated by its atoms so we work directly with the partition
+instead of the algebra. A function is measurable with respect to an
+algebra if and only it it is constant on atoms. In this case it
 <em>is</em> a function of the atoms and we write <span
 class="math inline">{X\colon\mathcal{A}\to\boldsymbol{{R}}}</span>.</p>
-<p>Instead of computing conditional expectation we only need restriction
-of measure, which is trivial to implement.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
