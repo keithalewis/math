@@ -110,8 +110,6 @@ Define $?_i\colon \sqcup_{j\in I}T_j = ?T_i$.
 If $(X_t)_{t\in T}$ is a timeseries on $\Omega$
 
 
-define $X_t R a$ to be $\{t\in T\mid X_t R a\}$ where $R$ is a relation on $\RR^2$.
-
 Define $\ast_i\colon \sqcup_{j\in I} T_j\to T_i$ by $\ast_i(t) = \ast T_i$.
 
 Concatenate in increasing order. (Zig)
