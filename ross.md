@@ -147,8 +147,8 @@ Specifying a function $C$ that is one at zero and decreases to zero at infinity
 can be used to blend these using cash flows $C(t)d_t + (1 - C(t))p_t S_t$.
 
 Ross made the category error of defining dividends from a stock as
-a jump in their price. Stock prices jump from closing price to open price
-but there is no cash flow associated with owning the stock.
+a jump in their price. Stock prices jump for reason other than
+dividend payments.
 
 Note that stock price jumping down by dividend value at dividend dates is not
 a consequence of a no-arbitrage strategy. If follows directly from the parameterization
@@ -220,9 +220,12 @@ what premium, vigorish, or baksheesh should be charged for that service.
 A perfect hedge is a closed-out trading strategy $(\tau_j, \Gamma_j)$ with
 $A_{\hat\tau_k} = \hat A_{k}$ and $A_t = 0$ otherwise. The latter condition
 is referred to as _self-financing_.
+This can be achieved by investing non-zero amounts in the money-market/funding
+account if that is available.
 As [@HarKre1979] showed, continuous time trading is a mathematical pathology
 of the theory of Ito processes that leads to contradictions.
-Only a finite number of trades are possible and perfect hedges do not exist.
+
+In reality, only a finite number of trades are possible and perfect hedges do not exist.
 
 One approach to finding a hedging strategy is to note
 ${V_t = (\Delta_t + \Gamma_t)\cdot X_t}$ and that
@@ -268,8 +271,9 @@ from their cash flows. The absence of arbitrage restricts price dynamics.
 
 A zero coupon bond $D(u)$ pays 1 unit at maturity $u$. Its price
 ${X^{D(u)}_t = D_t(u)}$ at time $t \le u$ is determined by
-${D_t(u)D_t = D_u|_{\AA_t}}$ so the price is the Radon-Nikodym derivative
-${D_t(u) = d(D_u|_{\AA_t})/dD_t}$. Deflators determines the dynamics
+${D_t(u)D_t = D_u|_{\AA_t}}$ so the price $D_t(u)\colon\AA_t\to\RR$
+is $D_t(u)(A) = D_u(A)/D_t(A)$ for $A\in\AA_t$.
+Deflators determines the dynamics
 of zero coupon bond prices.
 
 Note $D_0(u)D_0 = D_u|_{\AA_0}$ so
