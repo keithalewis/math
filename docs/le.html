@@ -66,10 +66,10 @@
 <header id="title-block-header">
 <h1 class="title">Logical Entropy</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Apr 7, 2026</p>
+<p class="date">Apr 15, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-<p>David Ellerman’s Logical Entropy</p>
+<p>You’ve been using Logical Entropy</p>
 </div>
 </header>
 <nav id="TOC" role="doc-toc">
@@ -85,13 +85,19 @@ Entropy</a></li>
 <!--
 Authors will need to provide no more than 3 ‘key points’ that summarize the key messages of their paper to be published with their article. The key points should be written with a practitioner audience in mind.
 -->
+<p>With apologies to Molière,</p>
+<blockquote>
+<p>Vous parlez d’entropie logique depuis plus de quarante ans sans le
+savoir…</p>
+</blockquote>
 <p>Entropy is a measure of information. <span class="citation"
 data-cites="Sha1948">(<a href="#ref-Sha1948"
 role="doc-biblioref">Shannon 1948</a>)</span> laid the foundations of
-Information Theory by considering the entropy of a measure. If the
-entropy of a two-stage Markov chain is the average over the first stage
-of the entropies of the second stage then there exists a unique (up to
-non-zero constant) continuous formula for entropy: <span
+Information Theory by considering the entropy of a measure. The entropy
+of a random variable is the entropy of its cumulative distribution
+function. If the entropy of a two-stage Markov chain is the average over
+the first stage of the entropies of the second stage then there exists a
+unique (up to non-zero constant) continuous formula for entropy: <span
 class="math inline">H(p) = -\sum_j p_j \log p_j</span>.</p>
 <p><span class="citation" data-cites="Ell2011">(<a href="#ref-Ell2011"
 role="doc-biblioref">Ellerman 2011</a>)</span> pointed out a simpler and
@@ -103,7 +109,7 @@ others.”</p>
 <p><strong>Exercise</strong>. <em>Plot <span class="math inline">-p\log
 p</span> and <span class="math inline">p(1 - p)</span> for <span
 class="math inline">0\le p\le 1</span></em>.</p>
-<p>Both graphs contain the point <span class="math inline">(0,0)</span>
+<p>Both graphs contain the points <span class="math inline">(0,0)</span>
 and <span class="math inline">(1,0)</span> and have negative second
 derivative. Their derivatives at <span class="math inline">p = 1</span>
 are both 1. The first has a maximum of <span
@@ -113,14 +119,15 @@ class="math inline">1/4</span> at <span class="math inline">p =
 1/2</span>.</p>
 <section id="partition" class="level2">
 <h2>Partition</h2>
-<p>Partitions represent partial information. A <em>partition</em> of a
-set <span class="math inline">S</span> is a collection of pair-wise
-disjoint subsets having union <span class="math inline">S</span>. The
-singleton partition <span class="math inline">\{S\}</span> represents no
-information. The partition of singletons <span
-class="math inline">\{\{s\}\mid s\in S\}</span> represents complete
-information. Knowing only which subset in partition an element of <span
-class="math inline">S</span> belongs to is partial information.</p>
+<p>Partitions of a set represent partial information. A
+<em>partition</em> of a set <span class="math inline">S</span> is a
+collection of pair-wise disjoint subsets having union <span
+class="math inline">S</span>. The singleton partition <span
+class="math inline">\{S\}</span> represents no information. The
+partition of singletons <span class="math inline">\{\{s\}\mid s\in
+S\}</span> represents complete information. Knowing only which subset in
+partition an element of <span class="math inline">S</span> belongs to is
+partial information.</p>
 <p>For example, if <span class="math inline">S = [0,1)</span> then <span
 class="math inline">\mathcal{A}_1 = \{[0, 1/2), [1/2, 1)\}</span>
 represents knowing the first digit in the base 2 representation of <span
@@ -146,6 +153,13 @@ set. De Morgan’s laws for logic show this is a probability measure.</p>
 </section>
 <section id="logical-entropy" class="level2">
 <h2>Logical Entropy</h2>
+<p>Logical entropy is defined on partitions of a set. For any function
+<span class="math inline">\pi\colon S\to\NN</span> define <span
+class="math inline">{A_i = \{s\in S\mid\pi(s) = i\}</span>, <span
+class="math inline">i\in\NN</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\{A_i\mid i\in\NN\}</span> is a partition of <span
+class="math inline">S</span></em>.</p>
 <p><span class="math inline">h(\pi) = \#dit(\pi)/#S^2</span></p>
 </section>
 <section id="references" class="level2 unnumbered">

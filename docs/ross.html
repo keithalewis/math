@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Apr 10, 2026</p>
+<p class="date">Apr 17, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A Simple Approach to the Valuation of Risky Streams
@@ -75,7 +75,11 @@ A Simple Approach to the Valuation of Risky Streams
 <ul>
 <li><a href="#market" id="toc-market">Market</a></li>
 <li><a href="#trading" id="toc-trading">Trading</a></li>
-<li><a href="#accounting" id="toc-accounting">Accounting</a></li>
+<li><a href="#accounting" id="toc-accounting">Accounting</a>
+<ul>
+<li><a href="#profit-and-loss" id="toc-profit-and-loss">Profit and
+Loss</a></li>
+</ul></li>
 <li><a href="#arbitrage" id="toc-arbitrage">Arbitrage</a></li>
 <li><a href="#parameterization"
 id="toc-parameterization">Parameterization</a>
@@ -138,7 +142,7 @@ mathematical accoutrements.</p>
 <section id="market" class="level2">
 <h2>Market</h2>
 <p>Every <em>instrument</em> has bounded <em>price</em> <span
-class="math inline">X_t</span> and cash flow <span
+class="math inline">X_t</span> and <em>cash flow</em> <span
 class="math inline">C_t</span> at trading time <span
 class="math inline">t</span>. The cash flow is zero except at a finite
 number of times. If <span class="math inline">I</span> is the collection
@@ -173,13 +177,30 @@ class="math display">
 and trades just executed assuming that can be done at current market
 prices. The trades just executed are not yet in the position, but they
 soon will be, <span class="math inline">\Delta_t + \Gamma_t =
-\Delta_{t+\epsilon}</span>.</p>
+\Delta_{t+}</span> for some <span class="math inline">t+ &gt; t</span>
+with <span class="math inline">t+ - t</span> sufficiently small.</p>
 <p>The <em>amounts</em> involved in trading are <span
 class="math display">
     A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t.
 </span> Cash flows proportional to the existing position are credited to
 the trading account and trades just executed are debited at the current
 market prices.</p>
+<section id="profit-and-loss" class="level3">
+<h3>Profit and Loss</h3>
+<p>The <em>profit and loss</em> of a trading strategy over an interval
+from time <span class="math inline">t</span> to time <span
+class="math inline">u</span> is the difference of its values <span
+class="math inline">V_u - V_t</span> if all amounts <span
+class="math inline">A_s = 0</span> for <span class="math inline">t \le s
+\le u</span>. If a money market account is available for financing we
+can invest any non-zero amounts in that and use the above formula.</p>
+<!--
+V_u - V_t = D_t+ (X_u -X_t)
+P&L = sum D_t dX_t ???
+$\Delta_t + \Gamma_t = \Delta_{t+}$ for some $t+ > t$ with $t+ - t$ sufficiently small.
+is not true if cash flows occur in [t, t+].
+-->
+</section>
 </section>
 <section id="arbitrage" class="level2">
 <h2>Arbitrage</h2>
@@ -211,10 +232,10 @@ parameterization.</p>
 </section>
 <section id="parameterization" class="level2">
 <h2>Parameterization</h2>
-<p>Every arbitrage-free model is parameterized by a measure indexed by
-instruments <span class="math inline">M_t</span> satisfying <span
-class="math inline">{M_t = M_u|_{\mathcal{A}_t}, t \le u}</span> (a
-<em>martingale measure</em>) where <span class="math display">
+<p>Every arbitrage-free model is parameterized by measures indexed by
+instruments, <span class="math inline">(M_t)_{t\in T}</span>, satisfying
+<span class="math inline">{M_t = M_u|_{\mathcal{A}_t}, t \le u}</span>
+(a <em>martingale measure</em>) where <span class="math display">
 \tag{2} X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s.
 </span></p>
 <p><strong>Exercise</strong>. <em>Show equation <span
@@ -263,8 +284,8 @@ function <span class="math inline">C</span> that is one at zero and
 decreases to zero at infinity can be used to blend these using cash
 flows <span class="math inline">C(t)d_t + (1 - C(t))p_t S_t</span>.</p>
 <p>Ross made the category error of defining dividends from a stock as a
-jump in their price. Stock prices jump from closing price to open price
-but there is no cash flow associated with owning the stock.</p>
+jump in their price. Stock prices jump for reason other than dividend
+payments.</p>
 <p>Note that stock price jumping down by dividend value at dividend
 dates is not a consequence of a no-arbitrage strategy. If follows
 directly from the parameterization of equation <span
@@ -340,19 +361,22 @@ of derivative instruments.</p>
 <p>A (cash settled) derivative is a contract where the seller will pay
 the buyer cash flows <span class="math inline">\hat{A}_k</span> at times
 <span class="math inline">\hat\tau_k</span>. The buyer is willing to pay
-the seller a premium to take the risk off their hands. This short note
-provides nothing to suggest a solution to the conundrum of what premium,
+the seller to take this risk off their hands. This short note provides
+nothing to suggest a solution to the conundrum of what premium,
 vigorish, or baksheesh should be charged for that service.</p>
 <p>A perfect hedge is a closed-out trading strategy <span
 class="math inline">(\tau_j, \Gamma_j)</span> with <span
 class="math inline">A_{\hat\tau_k} = \hat A_{k}</span> and <span
 class="math inline">A_t = 0</span> otherwise. The latter condition is
-referred to as <em>self-financing</em>. As <span class="citation"
-data-cites="HarKre1979">(<a href="#ref-HarKre1979"
-role="doc-biblioref">Harrison and Kreps 1979</a>)</span> showed,
-continuous time trading is a mathematical pathology of the theory of Ito
-processes that leads to contradictions. Only a finite number of trades
-are possible and perfect hedges do not exist.</p>
+referred to as <em>self-financing</em>. This can be achieved by
+investing non-zero amounts in the money-market/funding account if that
+is available. As <span class="citation" data-cites="HarKre1979">(<a
+href="#ref-HarKre1979" role="doc-biblioref">Harrison and Kreps
+1979</a>)</span> showed, continuous time trading is a mathematical
+pathology of the theory of Ito processes that leads to
+contradictions.</p>
+<p>In reality, only a finite number of trades are possible and perfect
+hedges do not exist.</p>
 <p>One approach to finding a hedging strategy is to note <span
 class="math inline">{V_t = (\Delta_t + \Gamma_t)\cdot X_t}</span> and
 that <span class="math inline">{V_t D_t = (\sum_{\hat\tau_k &gt; t}
@@ -369,7 +393,9 @@ class="math inline">\Gamma_0</span>. At any time after that we have
 <span class="math inline">{\Gamma_t = D_{X_t}V_t - \Delta_t}</span>. The
 position <span class="math inline">\Delta_t</span> is known at time
 <span class="math inline">t</span> so this can be used to determine
-potential trading strategies.</p>
+potential trading strategies. Note <span
+class="math inline">\Delta</span> is delta and <span
+class="math inline">\Gamma</span> is gamma.</p>
 <p>What this theory does not tell us is when to trade. We could let
 <span class="math inline">\tau_j = j\Delta t</span> for some time
 increment <span class="math inline">\Delta t</span> and this results in
@@ -384,9 +410,9 @@ X_{\tau_j}\|_\infty &gt; \Delta X\}}</span>.</p>
 trading strategy. For instance, the above <span
 class="math inline">\Delta X</span> strategy could be implemented using
 limit orders. At time <span class="math inline">\tau_j</span> place
-limit orders at <span class="math inline">X_{\tau_j} \pm \Delta X</span>
-of size <span class="math inline">\Gamma_{j+1}</span>. We do not know
-<span class="math inline">\Gamma_{j+1}</span> at time <span
+limit orders at <span class="math inline">{X_{\tau_j} \pm \Delta
+X}</span> of size <span class="math inline">\Gamma_{j+1}</span>. We do
+not know <span class="math inline">\Gamma_{j+1}</span> at time <span
 class="math inline">\tau_j</span> since it depends on <span
 class="math inline">\tau_{j+1}</span> and <span
 class="math inline">X_{\tau_{j+1}}</span>, however limit orders cost
@@ -406,8 +432,10 @@ at maturity <span class="math inline">u</span>. Its price <span
 class="math inline">{X^{D(u)}_t = D_t(u)}</span> at time <span
 class="math inline">t \le u</span> is determined by <span
 class="math inline">{D_t(u)D_t = D_u|_{\mathcal{A}_t}}</span> so the
-price is the Radon-Nikodym derivative <span class="math inline">{D_t(u)
-= d(D_u|_{\mathcal{A}_t})/dD_t}</span>. Deflators determines the
+price <span
+class="math inline">D_t(u)\colon\mathcal{A}_t\to\boldsymbol{{R}}</span>
+is <span class="math inline">D_t(u)(A) = D_u(A)/D_t(A)</span> for <span
+class="math inline">A\in\mathcal{A}_t</span>. Deflators determines the
 dynamics of zero coupon bond prices.</p>
 <p>Note <span class="math inline">D_0(u)D_0 =
 D_u|_{\mathcal{A}_0}</span> so <span class="math inline">D_0(u) =

@@ -33,7 +33,7 @@ to scrub your brain of unnecessary mathematical accoutrements.
 
 ## Market
 
-Every _instrument_ has bounded _price_ $X_t$ and cash flow $C_t$ at trading time $t$.
+Every _instrument_ has bounded _price_ $X_t$ and _cash flow_ $C_t$ at trading time $t$.
 The cash flow is zero except at a finite number of times.
 If $I$ is the collection of all instruments then we can model them
 simultaneously if we let $X_t$ and $C_t$ be vectors indexed by $I$.
@@ -63,7 +63,7 @@ It is the putative value
 of liquidating the existing position and trades just executed
 assuming that can be done at current market prices.
 The trades just executed are not yet in the position, but they soon will be,
-$\Delta_t + \Gamma_t = \Delta_{t+\epsilon}$.
+$\Delta_t + \Gamma_t = \Delta_{t+}$ for some $t+ > t$ with $t+ - t$ sufficiently small.
 
 The _amounts_ involved in trading are
 $$
@@ -71,6 +71,20 @@ $$
 $$
 Cash flows proportional to the existing position are credited to the trading account
 and trades just executed are debited at the current market prices.
+
+### Profit and Loss
+
+The _profit and loss_ of a trading strategy over an interval from time $t$ to time $u$
+is the difference of its values $V_u - V_t$ if all amounts $A_s = 0$ for $t \le s \le u$.
+If a money market account is available for financing we can invest any non-zero
+amounts in that and use the above formula.
+
+<!--
+V_u - V_t = D_t+ (X_u -X_t)
+P&L = sum D_t dX_t ???
+$\Delta_t + \Gamma_t = \Delta_{t+}$ for some $t+ > t$ with $t+ - t$ sufficiently small.
+is not true if cash flows occur in [t, t+].
+-->
 
 ## Arbitrage
 
@@ -105,8 +119,9 @@ is no need for that. Every arbitrage-free model has a simple parameterization.
 
 ## Parameterization
 
-Every arbitrage-free model is parameterized by a
-measure indexed by instruments $M_t$ satisfying ${M_t = M_u|_{\AA_t}, t \le u}$ (a _martingale measure_) where
+Every arbitrage-free model is parameterized by
+measures indexed by instruments, $(M_t)_{t\in T}$,
+satisfying ${M_t = M_u|_{\AA_t}, t \le u}$ (a _martingale measure_) where
 $$
 \tag{2}	X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s.
 $$
@@ -213,7 +228,7 @@ risk of derivative instruments.
 
 A (cash settled) derivative is a contract where the seller will pay the
 buyer cash flows $\hat{A}_k$ at times $\hat\tau_k$.  The buyer
-is willing to pay the seller a premium to take the risk off their hands.
+is willing to pay the seller to take this risk off their hands.
 This short note provides nothing to suggest a solution to the conundrum of
 what premium, vigorish, or baksheesh should be charged for that service.
 
@@ -236,7 +251,7 @@ $D_{X_t}V_t = \Delta_t + \Gamma_t$.
 At time 0 the position is 0 so this gives us the initial trade $\Gamma_0$.
 At any time after that we have ${\Gamma_t = D_{X_t}V_t - \Delta_t}$. The position
 $\Delta_t$ is known at time $t$ so this can be used to determine
-potential trading strategies.
+potential trading strategies. Note $\Delta$ is delta and $\Gamma$ is gamma.
 
 [^3]: If $F\colon X\to Y$ is a function between normed linear spaces the
 Fréchet derivative (when it exists) is the best linear approximation
@@ -256,7 +271,7 @@ by ${\tau_{j+1} = \inf \{t > \tau_j\mid \|X_t - X_{\tau_j}\|_\infty > \Delta X\}
 
 What this theory does allow us to do is rigorously analyze any trading strategy.
 For instance, the above $\Delta X$ strategy could be implemented using limit orders. At
-time $\tau_j$ place limit orders at $X_{\tau_j} \pm \Delta X$ of size
+time $\tau_j$ place limit orders at ${X_{\tau_j} \pm \Delta X}$ of size
 $\Gamma_{j+1}$. We do not know $\Gamma_{j+1}$ at time $\tau_j$ since it
 depends on $\tau_{j+1}$ and $X_{\tau_{j+1}}$, however limit orders
 cost nothing to place and cancel so we can keep adjusting their size

@@ -29,7 +29,7 @@ Every _entity_ should have a unique
 
 ## Instrument
 
-We make a distinction between securities and instruments.
+We make a distinction between _securities_ and _instruments_.
 
 ## Sources
 

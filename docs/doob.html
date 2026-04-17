@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Doob Upcrossing Lemma</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Doob Upcrossing Lemma</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Apr 13, 2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#notation" id="toc-notation">Notation</a>
+<ul>
+<li><a href="#disjoin-union" id="toc-disjoin-union">Disjoin
+Union</a></li>
+<li><a href="#cartesian-product" id="toc-cartesian-product">Cartesian
+Product</a></li>
+</ul></li>
+<li><a href="#totally-ordered" id="toc-totally-ordered">Totally
+Ordered</a></li>
+</ul>
+</nav>
+<p>Stop Loss/Start Gain</p>
+<p>The SL/SG strategy is to hold one share when the underlying crosses a
+lower bound and sell it when it crosses an upper bound. We develop a
+theory and notation where this can be expressed using <span
+class="math inline">(X &gt; a)&#39;(X &lt; b)</span>.</p>
+<section id="notation" class="level2">
+<h2>Notation</h2>
+<p>We use standard mathematical notation with an eye toward computer
+implemenetation. Given symbols <span class="math inline">f</span> and
+<span class="math inline">x</span> how do we indicate when we want the
+result of applying the function <span class="math inline">f\colon X\to
+Y</span> to the value <span class="math inline">x\in X</span>?</p>
+<p>Right to left parsing with parentheses for grouping.</p>
+<p>If <span class="math inline">f</span> is a function from set <span
+class="math inline">X</span> to set <span class="math inline">Y</span>
+then <span class="math inline">f(x)</span>, <span
+class="math inline">x\in X</span>, is the corresponding element in <span
+class="math inline">Y</span></p>
+<p>Evaluation <span class="math inline">e\colon Y^X \times X\to
+Y</span>.</p>
+<p>An <em>iterable</em> <span class="math inline">\iota\in I\langle
+T\rangle</span> over value type <span class="math inline">T</span> is
+defined by three primitives: <span class="math inline">\ast</span>
+(dereference), <span class="math inline">+</span> (increment), and <span
+class="math inline">\varepsilon</span> (more) where <span
+class="math inline">\ast\colon I\langle T\rangle\to T</span>, <span
+class="math inline">+\colon I\langle T\rangle\to I\langle
+T\rangle</span>, and <span class="math inline">\varepsilon\colon
+I\langle T\rangle\to\boldsymbol{{B}}</span>, the set of boolean values,
+indicating more values are available to dereference. If <span
+class="math inline">\varepsilon\iota</span> is false then <span
+class="math inline">\ast\iota</span> and <span
+class="math inline">+\iota</span> are undefined.</p>
+<p>Iterables benefit from <em>lazy evaluation</em>. Explicit dereference
+and increment cause computation.</p>
+<p>Many languages implement this under varying guises. In C# iterables
+<span class="math inline">I\langle T\rangle</span> are an interface
+<code>IEnumerator&lt;T&gt;</code> requiring methods
+<code>T Current() { get; }</code> to dereference and
+<code>bool MoveNext()</code> that combines increment and indicates
+whether more values are available.</p>
+<p>…More examples…</p>
+<p>One representation of an iterable on a computer is by an array <span
+class="math inline">{\iota = (t_1,\ldots, t_n)}</span> where <span
+class="math inline">{\ast\iota = t_1}</span>, <span
+class="math inline">{+\iota = (t_2,\ldots,t_n)}</span>, and <span
+class="math inline">\varepsilon\iota</span> is <span
+class="math inline">n\not=0</span>. Iterables are more flexible than
+arrays. They can be computed on-the-fly taking only fixed memory and can
+also be potentially unbounded. Let <span class="math inline">()</span>
+be the iterable with <span class="math inline">\varepsilon()</span>
+always false.</p>
+<p>The iterable primitives allow a large number of algorithms to be
+defined.</p>
+<p>The <em>count</em> of an iterable is <span
+class="math inline">\#\iota = 1 + \#+\iota</span> if <span
+class="math inline">\varepsilon\iota</span> and 0 otherwise.</p>
+<p>If <span class="math inline">n\in\boldsymbol{{N}}</span> is a
+non-negative integer and <span class="math inline">\iota\in I\langle
+T\rangle</span> define “<span class="math inline">n</span> take <span
+class="math inline">\iota</span>” by <span class="math inline">n\uparrow
+\iota</span> is <span class="math inline">\iota</span> if <span
+class="math inline">n = 0</span> and <span class="math inline">(n -
+1)\uparrow +\iota</span> if <span class="math inline">n &gt; 0</span>.
+Note <span class="math inline">n\uparrow() = ()</span> if <span
+class="math inline">n = 0</span>, and is undefined for <span
+class="math inline">n &gt; 0</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">(\#\iota)\uparrow\iota = ()</span></em>.</p>
+<p>If <span class="math inline">P</span> is a predicate on <span
+class="math inline">T</span> define “<span
+class="math inline">\iota</span> where <span
+class="math inline">P</span>” by <span class="math inline">\ast(\iota|P)
+= \ast\iota</span> if <span class="math inline">P(\ast\iota)</span> and
+<span class="math inline">\ast(+U|P)</span> otherwise. This filters an
+iterable based on the predicate.</p>
+<pre><code>*where(i, p) =&gt; return p(*i) ? *i : *where(+i, p);
++where(i, p) =&gt; while (!p(*+i)); return where(i, p);</code></pre>
+<p>If <span class="math inline">\iota_0,\iota_1\in I\langle
+T\rangle</span> define the concatenation <span
+class="math inline">\iota_0,\iota_1</span> by <span
+class="math inline">\ast(\iota_0,\iota_1) = *\iota_0</span> if <span
+class="math inline">\varepsilon\iota_0</span> otherwise <span
+class="math inline">\ast \iota_1</span>. Define <span
+class="math inline">+(\iota_0,\iota_1) = +\iota_0,\iota_1</span> if
+<span class="math inline">\varepsilon\iota_0</span> otherwise <span
+class="math inline">+\iota_1</span>. Define <span
+class="math inline">\varepsilon(\iota_0,\iota_1)</span> to be <span
+class="math inline">\varepsilon\iota_0</span> or <span
+class="math inline">\varepsilon\iota_1</span>.</p>
+<p>Define the cyclical comma operator by <span
+class="math inline">\iota, = \iota</span> if <span
+class="math inline">\varepsilon\iota</span> and <span
+class="math inline">(), = \iota</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\iota,\iota, = \iota,</span> for <span
+class="math inline">\iota\in I\langle T\rangle</span></em>.</p>
+<p>Given <span class="math inline">\iota_0\in I\langle T_0\rangle</span>
+and <span class="math inline">\iota_1\in I\langle T_1\rangle</span>
+define their <em>zip</em> <span class="math inline">\iota_0 ,&quot;
+\iota_1</span> by <span class="math inline">*(\iota_0 ,&quot;
+\iota_1)</span> to be the pair <span class="math inline">(*\iota_0,
+*\iota_1)</span>, <span class="math inline">+(\iota_0 ,&quot; \iota_1) =
+(+\iota_0),&quot;(+\iota_1)</span>, and <span
+class="math inline">\varepsilon(\iota_0 ,&quot; \iota_1)</span> to be
+<span class="math inline">\varepsilon\iota_0</span> and <span
+class="math inline">\varepsilon\iota_1</span>.</p>
+<section id="disjoin-union" class="level3">
+<h3>Disjoin Union</h3>
+<p>The <em>disjoint union</em> of <span class="math inline">T_i\subseteq
+T</span> is <span class="math inline">\sqcup_{i\in I} T_i = \cup_{i\in
+I} \{i\}\times T_i</span>. This has injections <span
+class="math inline">\nu_i\colon T_i\to \sqcup_i T_i</span> where <span
+class="math inline">\nu_i(t) = (i, t)</span>.</p>
+<p><strong>Exercise</strong>. <em>Given <span
+class="math inline">q_i\colon T_i\to U</span>, <span
+class="math inline">i\in I</span>, show there exists <span
+class="math inline">q\colon \sqcup_{j\in I}\to U</span> with <span
+class="math inline">q\nu_i = q_i</span>, <span class="math inline">i\in
+I</span></em>.</p>
+<p><em>Hint</em>: Define <span class="math inline">q((i, t)) =
+q_i(t)</span> for <span class="math inline">t\in T_i</span>.</p>
+</section>
+<section id="cartesian-product" class="level3">
+<h3>Cartesian Product</h3>
+<p>If <span class="math inline">T_i\subseteq T</span> are indexed by
+<span class="math inline">i\in I</span> define the <em>cartesian
+product</em> <span class="math inline">\prod_{i\in I} T_i =
+\{(t_i)_{i\in I}\in I\mid t_i\in T_i\}</span>. It has projections <span
+class="math inline">\pi_i\colon \prod_{j\in I} T_j\to T_i</span> defined
+by <span class="math inline">\pi_i((t_j)_{j\in I}) = t_i</span>.</p>
+<p><strong>Exercise</strong>. <em>Given <span
+class="math inline">p_i\colon U\to T_i</span>, <span
+class="math inline">i\in I</span>, show there exists <span
+class="math inline">p\colon U\to\prod_i T_i</span> with <span
+class="math inline">\pi_ip = p_i</span>, <span class="math inline">i\in
+I</span></em>.</p>
+<p><em>Hint</em>: Define <span class="math inline">p(u) = (p_i(u))_{i\in
+I}</span> for <span class="math inline">u\in U</span>. If <span
+class="math inline">I</span> is totally ordered define <span
+class="math inline">(i,t)&lt;(j,u)</span> to be <span
+class="math inline">i &lt; j</span> or <span class="math inline">i =
+j</span> and <span class="math inline">t &lt; u</span>. This defines a
+total order on the disjoint union in terms of the total orders on <span
+class="math inline">I</span> and <span class="math inline">T</span>.</p>
+</section>
+</section>
+<section id="totally-ordered" class="level2">
+<h2>Totally Ordered</h2>
+<p>If <span class="math inline">T</span> is a totally ordered finite set
+and <span class="math inline">U\subseteq T</span> we can make <span
+class="math inline">U</span> an iterable by defining <span
+class="math inline">\ast U = \min\{u\mid u\in U\}</span>, <span
+class="math inline">+U = U\setminus\{\ast U\}</span>, and <span
+class="math inline">\varepsilon U</span> to be <span
+class="math inline">U\not=\emptyset</span></p>
+<p>Note <span class="math inline">\sqcup_i T_i\subseteq\sqcup_i T</span>
+so the iterable primatives can be applied. The primatives also come in
+indexed version.</p>
+<p>Define <span class="math inline">\ast_i\colon\sqcup_{j\in I}
+T_j</span> by <span class="math inline">\ast_i = \ast T_i</span>.</p>
+<p>Define <span class="math inline">+_i = \sqcup +T_i \sqcup_{j\not= k}
+T_i</span>.</p>
+<p>Define <span class="math inline">\varepsilon_i\colon \sqcup_{j\in
+I}T_j = \varepsilon T_i</span>.</p>
+<p>If <span class="math inline">(X_t)_{t\in T}</span> is a timeseries on
+<span class="math inline">\Omega</span></p>
+<p>Consider <span class="math inline">I\times\cup_{i\in I} T_i</span>.
+Define <span class="math inline">\ast(i, t) = \ast T_i</span>. If <span
+class="math inline">\ast(i,t) &lt; \ast(j,t)</span> for all <span
+class="math inline">j\not=i</span> define …</p>
+<p>Define <span class="math inline">\ast_i\colon \sqcup_{j\in I} T_j\to
+T_i</span> by <span class="math inline">\ast_i(t) = \ast T_i</span>.</p>
+<p>Concatenate in increasing order. (Zig)</p>
+<p><span class="math inline">U \subseteq \sqcup_i U_i</span>.</p>
+<p>If <span class="math inline">(M_t)</span> is a (sub)martingale then
+the number of up crossings of the interval <span
+class="math inline">[a,b]</span> then <span class="math inline">(b -
+a)N_{a,b}(t) \le E[\max\{M_t - a, 0\}] - \max\{M_0 - a, 0\}</span>.</p>
+</section>
+</body>
+</html>
