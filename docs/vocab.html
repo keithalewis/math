@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Vocabulary</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Vocabulary</h1>
+<p class="date">Apr 19, 2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#finance" id="toc-finance">Finance</a></li>
+<li><a href="#math" id="toc-math">Math</a>
+<ul>
+<li><a href="#set" id="toc-set">Set</a>
+<ul>
+<li><a href="#intersection" id="toc-intersection">Intersection</a></li>
+<li><a href="#union" id="toc-union">Union</a></li>
+<li><a href="#difference" id="toc-difference">Difference</a></li>
+<li><a href="#product" id="toc-product">Product</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<p>Fischer Black was an iconoclast advocating careful thinking about the
+<a
+href="https://www.rasmusen.org/special/black/GlossaryforFinance83.pdf">vocabulary</a>
+used in finance. The next step after vocabulary is to consider how what
+is spoken about comes to be.</p>
+<p>Do you have $20 in your pocket? Do you own some shares of stock? How
+did that happen?</p>
+<p>The atoms of finance are <em>holdings</em>, an <em>amount</em> of
+some <em>instrument</em> <em>owned</em> by a person or company. The
+amount is an integral multiple of the minimal trading increment for the
+instrument. It is a mathematical fiction to assume it is a real number
+and a programming error to represent this as a floating point number. It
+is rare to find a mathematician who can give a rigorous definition of
+real numbers and even rarer to find a computer programmer who understand
+the IEEE 754 floating point standard.</p>
+<section id="finance" class="level2">
+<h2>Finance</h2>
+</section>
+<section id="math" class="level2">
+<h2>Math</h2>
+<p>We collect some mathematical facts from a naive perspective.</p>
+<section id="set" class="level3">
+<h3>Set</h3>
+<p>We use the naive defininton of a set as a collection of
+<em>elements</em> that are <em>members</em> of a set. We write <span
+class="math inline">x\in A</span> to indicate <span
+class="math inline">x</span> is an element belonging to set <span
+class="math inline">A</span>. The set with no elements is the emptyset
+<span class="math inline">\emptyset</span>. Two sets are <em>equal</em>
+if they have the same members. The set <span
+class="math inline">A</span> is a <em>subset</em> of <span
+class="math inline">B</span>, <span class="math inline">A\subseteq
+B</span>, if every element of <span class="math inline">A</span> also
+belongs to <span class="math inline">B</span> and is a <em>strict
+subset</em> of <span class="math inline">B</span>, <span
+class="math inline">A\subset B</span>, if <span
+class="math inline">A\subseteq B</span> and <span
+class="math inline">A\not=B</span>.</p>
+<section id="intersection" class="level4">
+<h4>Intersection</h4>
+<p>Given two sets, the <em>intersection</em> is the collection of
+elements belonging to both sets, <span class="math inline">A\cap B =
+\{x\mid x\in A\text{ and }x\in B\}</span>.</p>
+</section>
+<section id="union" class="level4">
+<h4>Union</h4>
+<p>The <em>union</em> is the collection of elements belonging to either
+set, <span class="math inline">A\cup B = \{x\mid x\in A\text{ or }x\in
+B\}</span>.</p>
+</section>
+<section id="difference" class="level4">
+<h4>Difference</h4>
+<p>The <em>set difference</em> is <span class="math inline">A\setminus B
+= \{x\mid x\in A\text{ and }x\not\in B\}</span>. If <span
+class="math inline">A\supseteq B</span> then <span
+class="math inline">A\setminus B</span> is the <em>complement</em> of
+<span class="math inline">B</span> with respect to <span
+class="math inline">A</span>.</p>
+<p><strong>Exericise</strong>. <em>If <span
+class="math inline">A\supseteq B</span> show <span
+class="math inline">(A\setminus B)\cap B = \emptyset</span> and <span
+class="math inline">(A\setminus B)\cup B = A</span></em>.</p>
+</section>
+<section id="product" class="level4">
+<h4>Product</h4>
+<p>The <em>cartesian product</em> of two sets is the collection of
+ordered pairs from each set. The set <span
+class="math inline">\{a,b\}</span> is equal to the set <span
+class="math inline">\{b,a\}</span> since they have the same elements.
+The <em>ordered pair</em> <span class="math inline">(a,b)</span> is
+equal to <span class="math inline">(c,d)</span> if and only if <span
+class="math inline">a = c</span> and <span class="math inline">b =
+d</span>. In particular, <span
+class="math inline">(a,b)\not=(b,a)</span>. Define <span
+class="math inline">(a,b)</span> to be <span
+class="math inline">\{\{a\},\{a,b\}\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show this is an ordered pair</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">\{\{a\},\{a,b\}\} =
+\{\{c\},\{c,d\}\}</span> then <span class="math inline">\{a\} =
+\{c\}</span> and <span class="math inline">\{a,b\} = \{c,
+d\}</span>.</p>
+<p>The <em>set exponential</em> of two set is the collection of
+functions from one set to the other.</p>
+<p>Bertrand Russell blew Frege’s defintion out of the water.</p>
+<p>complement, intersection, union, disjoint union, cartesian product,
+set exponentional.</p>
+<p>What is a type? A set together with operations. F-algebra.</p>
+<p>What is the difference between a security and an instrument?</p>
+</section>
+</section>
+</section>
+</body>
+</html>

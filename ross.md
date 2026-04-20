@@ -24,7 +24,10 @@ It also applies to _any_ portfolio of instruments, not just
 the bond, stock, and option [@BlaSch1973] and [@Mer1973] considered.
 
 Ross's definition of a cash flow was a jump in stock price.
-Stock prices jump between close and open but there is no dividend payment involved.
+It is well-known in the equity world that stock price jumps down
+by the dividend amount since you will receive that until the stock
+is sold after the ex-dividend date.
+Stock prices also jump between close and open but there is no dividend payment involved.
 Adding an explicit knob for cash flows to Ross's theory leads to
 a simple model that adheres more closely to market realities.
 
