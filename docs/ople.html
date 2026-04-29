@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Option Pricing Using Logical Entropy</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Option Pricing Using Logical Entropy</h1>
+<p class="date">Apr 24, 2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#examples" id="toc-examples">Examples</a></li>
+</ul>
+</nav>
+<p>Let <span class="math inline">X</span> be the value of an underlying
+at expiration with current price <span class="math inline">x</span>
+having put option prices <span class="math inline">p_i = E[(k_i -
+X)^+]</span> for increasing strikes <span
+class="math inline">k_i</span>, <span class="math inline">i =
+1,\ldots,m</span>. How do we use this to find a risk-neutral
+distribution of <span class="math inline">X</span>?</p>
+<p>Assume <span class="math inline">P(X = x_j) = \pi_j</span>, <span
+class="math inline">j = 1,\ldots,n</span> where <span
+class="math inline">n &gt; m</span>.</p>
+<p>Minimize the logical entropy given the constraints. <span
+class="math display">
+\begin{aligned}
+\Phi(\pi_j, \lambda, \mu_j)
+&amp;= \frac{1}{2}(1 - \sum_j \pi_j^2) - \lambda(E[X] - x) - \sum_i
+\mu_i(E[(k_i - X)^+] - p_i) \\
+&amp;= \frac{1}{2}(1 - \sum_j \pi_j^2) - \lambda(\sum_j x_j\pi_j - x) -
+\sum_i \mu_i([\sum_j (k_i - x_j)^+\pi_j] - p_i) \\
+\end{aligned}
+</span></p>
+<p><span class="math display">
+0 = \partial_{\pi_k}\Phi(\pi_j, \lambda, \mu_i) = -\pi_k - \lambda x_k -
+\sum_i \mu_i (k_i - x_k)^+
+</span> so <span class="math display">
+    \pi_j = - \lambda x_j - \sum_i \mu_i (k_i - x_j)^+
+</span> We have <span class="math display">
+\begin{aligned}
+    x &amp;= \sum_j x_j(- \lambda x_j - \sum_i \mu_i (k_i - x_j)^+) \\
+    &amp;= -\lambda\sum_j x_j^2 - \sum_i\mu_i \sum_j x_j(k_i - x_j)^+ \\
+    &amp;= -\lambda\sum_j x_j^2 - \sum_i\mu_i \sum_{x_j &lt; k_i}
+x_j(k_i - x_j) \\
+\end{aligned}
+</span> and <span class="math display">
+\begin{aligned}
+    p_i &amp;= \sum_j (k_i - x_j)^+(- \lambda x_j - \sum_l \mu_l (k_l -
+x_j)^+) \\
+    &amp;= -\lambda \sum_j (k_i - x_j)^+ x_j - \sum_l \mu_l \sum_j (k_i
+- x_j)^+(k_l - x_j)^+ \\
+    &amp;= -\lambda \sum_{x_j &lt; k_i} (k_i - x_j) x_j - \sum_l \mu_l
+\sum_{x_j &lt; \min\{k_i,k_l\}} (k_i - x_j)(k_l - x_j) \\
+\end{aligned}
+</span> Let <span class="math inline">A = \sum_j x_j^2</span>, <span
+class="math inline">B_i = \sum_{x_j &lt; k_i} x_j(k_i - x_j)</span> and
+<span class="math inline">C_{il} = \sum_{x_j &lt; \min\{k_i,k_l\}} (k_i
+- x_j)(k_l - x_j)</span>. Note <span class="math inline">C_{il} =
+C_{li}</span>. <span class="math display">
+\begin{aligned}
+    x &amp;= -\lambda A - \sum_i \mu_i B_i \\
+    p_i &amp;= -\lambda B_i - \sum_l \mu_l C_{il} \\
+\end{aligned}
+</span> and <span class="math display">
+\begin{bmatrix}
+x \\
+p_1 \\
+\vdots \\
+p_m \\
+\end{bmatrix}
+=
+-\begin{bmatrix}
+A &amp; B_1 &amp; \cdots &amp; B_m \\
+B_1 &amp; C_{11} &amp; \cdots &amp; C_{1m} \\
+\vdots &amp; \vdots &amp;\ddots &amp; \vdots\\
+B_m &amp; C_{m1} &amp; \cdots &amp; C_{mm} \\
+\end{bmatrix}
+\begin{bmatrix}
+\lambda \\
+\mu_1 \\
+\vdots \\
+\mu_m \\
+\end{bmatrix}
+</span></p>
+<section id="examples" class="level2">
+<h2>Examples</h2>
+<p>If there is only one option with strike <span
+class="math inline">k</span> then <span class="math inline">\pi_j =
+-\lambda x_j - \mu (k - x_j)^+</span>. We have <span
+class="math display">
+\begin{aligned}
+x &amp;= \sum_j x_j(-\lambda x_j - \mu (k - x_j)^+) \\
+  &amp;= \sum_{x_j &lt; k} x_j(-\lambda x_j - \mu (k - x_j))
+    +\sum_{x_j \ge k} x_j(-\lambda x_j) \\
+  &amp;= -\lambda \sum_j x_j^2 - \mu(\sum_{x_j &lt; k} x_j(k - x_j)) \\
+  &amp;= -\lambda A - \mu B \\
+\end{aligned}
+</span> where <span class="math inline">A = \sum_j x_j^2</span> and
+<span class="math inline">B = \sum_{x_j &lt; k} x_j(k - x_j)</span>. We
+also have <span class="math display">
+\begin{aligned}
+p &amp;= \sum_j (k - x_j)^+(-\lambda x_j - \mu (k - x_j)^+) \\
+  &amp;= \sum_{x_j &lt; k} (k - x_j)(-\lambda x_j - \mu (k - x_j)) \\
+  &amp;= -\lambda (\sum_{x_j &lt; k} (k - x_j)x_j) - \mu \sum_{x_j &lt;
+k} (k - x_j)^2 \\
+  &amp;= -\lambda B - \mu C \\
+\end{aligned}
+</span> where <span class="math inline">C = \sum_{x_j &lt; k} (k -
+x_j)^2</span>. Solving for <span class="math inline">\lambda</span> and
+<span class="math inline">\mu</span> <span class="math display">
+\begin{aligned}
+\lambda &amp;= (-Cx + Bp)/D \\
+\mu &amp;= (Bx - Ap)/D \\
+\end{aligned}
+</span> where <span class="math inline">D = AC - B^2</span>.</p>
+<p>We have <span class="math inline">D\pi_j = (Cx - Bp)x_j + (-Bx +
+Ap)(k - x_j)^+</span> so <span class="math inline">D\pi_j = (Cx - Bp +
+Bx - Ap)x_j + (-Bx + Ap)k</span> when <span class="math inline">x_j &lt;
+k</span> and <span class="math inline">D\pi_j = (Cx - Bp)x_j</span> if
+<span class="math inline">x_j \ge k</span>.</p>
+<p>Define <span class="math inline">\bm{x} = (x_1,\ldots,x_n)</span> and
+<span class="math inline">\bm{k} = (k - \bm{x})1(\bm{x} &lt; k)</span>
+so <span class="math inline">A = \bm{x}\cdot\bm{x}</span>, <span
+class="math inline">B = \bm{x}\cdot\bm{k}</span> and <span
+class="math inline">C = \bm{k}\cdot\bm{k}</span>. The Cauchy-Schwartz
+inequality shows <span class="math inline">D &gt; 0</span>.</p>
+<p>In vector form <span class="math display">
+\begin{aligned}
+D\bm{\pi} &amp;= (\bm{k}\cdot\bm{k} x - \bm{x}\cdot\bm{k} p) \bm{x}
++ (-\bm{x}\cdot\bm{k} x + \bm{x}\cdot\bm{x} p) \bm{k} \\
+    &amp;= (\bm{k}\cdot\bm{k}\,\bm{x} - \bm{x}\cdot\bm{k}\,\bm{k})x
+        + (- \bm{x}\cdot\bm{k}\,\bm{x} +  \bm{x}\cdot\bm{x}\,\bm{k})p \\
+\end{aligned}
+</span> <!--
+Consider $m = 1$ and $n = 3$ with $x_1 < x_2 = k_1 = k < x_3$.
+We have $A = x_1^2 + x_2^2 + x_3^2$,
+$B = B_1 = x_1(k - x_1)$ and
+$C_{11} = (k - x_1)^2$ so
+$$
+\begin{bmatrix}
+x \\
+p \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+ x_1^2 + x_2^2 + x_3^2 & x_1(k - x_1) \\
+x_1(k - x_1) & (k - x_1)^2 \\
+\end{bmatrix}
+\begin{bmatrix}
+\lambda \\
+\mu \\
+\end{bmatrix}
+$$
+The determinant is $D = A(k - x_1)^2 - x_1^2(k - x_1)^2
+= (x_2^2 + x_3^2)(k - x_1)^2$ so
+$$
+\begin{bmatrix}
+\lambda \\
+\mu \\
+\end{bmatrix}
+=
+\frac{1}{(x_2^2 + x_3^2)(k - x_1)^2}\begin{bmatrix}
+(k - x_1)^2 & -x_1(k - x_1) \\
+-x_1(k - x_1) & x_1^2 + x_2^2 + x_3^2 \\
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+p \\
+\end{bmatrix}
+$$
+so
+$$
+\begin{aligned}
+\lambda &= ((k - x_1)^2 x - x_1(k - x_1)p)/(x_2^2 + x_3^2)(k - x_1)^2 \\
+\mu &= (-x_1(k - x_1)x + (x_1^2 + x_2^2 + x_3^2)p)/(x_2^2 + x_3^2)(k - x_1)^2 \\
+\end{aligned}
+$$
+
+The probabilities are
+$$
+\begin{aligned}
+\pi_1 &= - \lambda x_1 - \mu (k - x_1)^+
+\pi_2 &= - \lambda x_2 - \mu (k - x_2)^+
+\pi_3 &= - \lambda x_3 - \mu (k - x_3)^+
+\end{aligned}
+$$
+--></p>
+</section>
+</body>
+</html>

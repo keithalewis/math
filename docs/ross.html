@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Apr 20, 2026</p>
+<p class="date">Apr 29, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A Simple Approach to the Valuation of Risky Streams
@@ -75,11 +75,7 @@ A Simple Approach to the Valuation of Risky Streams
 <ul>
 <li><a href="#market" id="toc-market">Market</a></li>
 <li><a href="#trading" id="toc-trading">Trading</a></li>
-<li><a href="#accounting" id="toc-accounting">Accounting</a>
-<ul>
-<li><a href="#profit-and-loss" id="toc-profit-and-loss">Profit and
-Loss</a></li>
-</ul></li>
+<li><a href="#accounting" id="toc-accounting">Accounting</a></li>
 <li><a href="#arbitrage" id="toc-arbitrage">Arbitrage</a></li>
 <li><a href="#parameterization"
 id="toc-parameterization">Parameterization</a>
@@ -156,13 +152,10 @@ be vectors indexed by <span class="math inline">I</span>.</p>
 <section id="trading" class="level2">
 <h2>Trading</h2>
 <p>A <em>trading strategy</em> is a finite number of increasing stopping
-times<a href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a> <span class="math inline">\tau_0
-&lt; \cdots &lt; \tau_n</span> and trades <span
-class="math inline">\Gamma_j</span> indexed by instruments that depend
-only on information available at time <span
-class="math inline">\tau_j</span>. Trades accumulate to
-<em>positions</em> <span class="math display">
+times <span class="math inline">{\tau_0 &lt; \cdots &lt; \tau_n}</span>
+that depend only on available information and trades <span
+class="math inline">\Gamma_j</span> indexed by instruments. Trades
+accumulate to <em>positions</em> <span class="math display">
     \Delta_t = \sum_{\tau_j &lt; t} \Gamma_j = \sum_{s &lt; t} \Gamma_s
 </span> where <span class="math inline">\Gamma_s = \Gamma_j</span> when
 <span class="math inline">s = \tau_j</span> and is zero otherwise. Note
@@ -173,37 +166,33 @@ class="math inline">\sum_j \Gamma_j = 0</span>.</p>
 <section id="accounting" class="level2">
 <h2>Accounting</h2>
 <p>Trading involves accounting. The <em>value</em> (or mark-to-market)
-at time <span class="math inline">t</span> is <span
-class="math display">
+at time <span class="math inline">t</span> <span class="math display">
     V_t = (\Delta_t + \Gamma_t)\cdot X_.
-</span> It is the putative value of liquidating the existing position
-and trades just executed assuming that can be done at current market
-prices. The trades just executed are not yet in the position, but they
-soon will be, <span class="math inline">\Delta_t + \Gamma_t =
-\Delta_{t+}</span> for some <span class="math inline">t+ &gt; t</span>
-with <span class="math inline">t+ - t</span> sufficiently small.</p>
+</span> is the putative value of liquidating the existing position and
+trades just executed assuming that can be done at current market prices.
+The trades just executed are not yet in the position, but they soon will
+be, <span class="math inline">{\Delta_t + \Gamma_t =
+\Delta_{t+\epsilon}}</span> for some sufficiently small <span
+class="math inline">\epsilon &gt; 0</span>.</p>
 <p>The <em>amounts</em> involved in trading are <span
 class="math display">
     A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t.
 </span> Cash flows proportional to the existing position are credited to
 the trading account and trades just executed are debited at the current
 market prices.</p>
-<section id="profit-and-loss" class="level3">
-<h3>Profit and Loss</h3>
-<p>The <em>profit and loss</em> of a trading strategy over an interval
-from time <span class="math inline">t</span> to time <span
-class="math inline">u</span> is the difference of its values <span
-class="math inline">V_u - V_t</span> if all amounts <span
-class="math inline">A_s = 0</span> for <span class="math inline">t \le s
-\le u</span>. If a money market account is available for financing we
-can invest any non-zero amounts in that and use the above formula.</p>
 <!--
+### Profit and Loss
+
+The _profit and loss_ of a trading strategy over an interval from time $t$ to time $u$
+is the difference of its values $V_u - V_t$ if all amounts $A_s = 0$ for $t \le s \le u$.
+If a money market account is available it can be used
+to invest any non-zero amounts.
+
 V_u - V_t = D_t+ (X_u -X_t)
 P&L = sum D_t dX_t ???
 $\Delta_t + \Gamma_t = \Delta_{t+}$ for some $t+ > t$ with $t+ - t$ sufficiently small.
 is not true if cash flows occur in [t, t+].
 -->
-</section>
 </section>
 <section id="arbitrage" class="level2">
 <h2>Arbitrage</h2>
@@ -214,18 +203,17 @@ class="math inline">A_t \ge 0</span>, <span class="math inline">t &gt;
 \tau_0</span>) then the model admits arbitrage. Note this definition
 does not involve probability. Ross showed a model has no arbitrage if
 and only if there exist positive adapted finitely-additive measures
-<span class="math inline">D_t</span> with <span class="math display">
+<span class="math inline">D_t</span> on <span
+class="math inline">\mathcal{A}_t</span><a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+with <span class="math display">
 \tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
 D_s)|_{\mathcal{A}_t}
-</span> where <span class="math inline">\mathcal{A}_t</span> is the
-partition of information<a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a> on the set of possible outcomes
-<span class="math inline">\Omega</span> available at time <span
-class="math inline">t</span> and <span
-class="math inline">|_{\mathcal{A}}</span> indicates restriction to a
-partition. We can, and do, assume <span class="math inline">D_0(\Omega)
-= 1</span> since we can divide both sides of equation <span
-class="math inline">(1)</span> by any positive constant.</p>
+</span> where <span class="math inline">|_{\mathcal{A}}</span> indicates
+restriction. We can, and do, assume <span
+class="math inline">D_0(\Omega) = 1</span> since we can divide both
+sides of equation <span class="math inline">(1)</span> by any positive
+constant.</p>
 <p>We call such measures <em>deflators</em>. If repurchase agreements
 are available in the market then, as we will see later, the usual
 stochastic discount is a canonical deflator.</p>
@@ -386,8 +374,8 @@ that <span class="math inline">{V_t D_t = (\sum_{\hat\tau_k &gt; t}
 \hat{A}_k D_{\hat\tau_k})|_{\mathcal{A}_t}}</span> can be calculated
 using the contract terms <span class="math inline">\hat\tau_k</span> and
 <span class="math inline">\hat{A}_k</span> by equation <span
-class="math inline">(3)</span>. The Fréchet derivative<a href="#fn3"
-class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> of
+class="math inline">(3)</span>. The Fréchet derivative<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> of
 value <span class="math inline">V_t</span> with respect to the
 underlying <span class="math inline">X_t</span> is <span
 class="math inline">D_{X_t}V_t = \Delta_t + \Gamma_t</span>. At time 0
@@ -443,8 +431,8 @@ dynamics of zero coupon bond prices.</p>
 <p>Note <span class="math inline">D_0(u)D_0 =
 D_u|_{\mathcal{A}_0}</span> so <span class="math inline">D_0(u) =
 D_u(\Omega)/D_0(\Omega) = D_u(\Omega)</span> since we assume <span
-class="math inline">D_0(\Omega) = 1</span>. We write<a href="#fn4"
-class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>
+class="math inline">D_0(\Omega) = 1</span>. We write<a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>
 <span class="math inline">D(u) = D_0(u)</span> for the current
 discount.</p>
 <p>The <em>spot rate</em> <span class="math inline">r(u)</span> is
@@ -465,17 +453,17 @@ large.</p>
 <p>Repurchase agreements determine a <em>canonical deflator</em>. A
 repurchase agreement over the interval from <span
 class="math inline">t</span> to <span class="math inline">t + \Delta
-t</span> is specified by a rate <span class="math inline">f(t)</span>
+t</span> is specified by a rate <span class="math inline">f_t</span>
 known at time <span class="math inline">t</span>. The price at <span
 class="math inline">t</span> is <span class="math inline">1</span> and
-has a cash flow of <span class="math inline">{e^{f(t)\Delta t}\approx 1
-+ f(t)\Delta t}</span> at time <span class="math inline">t + \Delta
+has a cash flow of <span class="math inline">{e^{f_t\Delta t}\approx 1 +
+f_t\Delta t}</span> at time <span class="math inline">t + \Delta
 t</span>.</p>
-<p>By equation (1) we have <span class="math inline">{D_t =
-e^{f(t)\Delta t}D_{t + \Delta t}|_{\mathcal{A}_t}}</span>. The canonical
-deflator specifies <span class="math inline">D_{t + \Delta t}</span> is
-known at time <span class="math inline">t</span> so <span
-class="math inline">{D_t = e^{-f(t)}D_{t + \Delta t}}</span>. Given
+<p>By equation (1) we have <span class="math inline">{D_t = e^{f_t\Delta
+t}D_{t + \Delta t}|_{\mathcal{A}_t}}</span>. The canonical deflator
+specifies <span class="math inline">D_{t + \Delta t}</span> is known at
+time <span class="math inline">t</span> so <span
+class="math inline">{D_t = e^{-f_t}D_{t + \Delta t}}</span>. Given
 back-to-back repos at times <span class="math inline">t_j</span> having
 rates <span class="math inline">f_j</span> we have <span
 class="math inline">{D_j = e^{-f_j\Delta t_j}D_{j+1}}</span> and <span
@@ -517,7 +505,7 @@ class="math inline">v</span>. For example, the Actual/360 day count is
 the number of days from <span class="math inline">u</span> to <span
 class="math inline">v</span> divided by <span
 class="math inline">360</span>. In practice, the payment dates are
-adjusted by holidays and rolling conventions.</p>
+adjusted by holidays and business rolling conventions.</p>
 <p>The <em>par forward coupon</em> <span
 class="math inline">{F^\delta(u,v)}</span> is the coupon making the
 initial price equal to zero. Since <span class="math inline">{0 = (-D_u
@@ -634,7 +622,7 @@ recovery <span class="math inline">R\in[0,1]</span> and specify joint
 distributions for all the random variables involved. This would
 completely define the value of a risky zero coupon bond, however the
 software implementation and fitting market data to model parameters
-would be challenging, to say the least.</p>
+would be challenging.</p>
 </section>
 </section>
 <section id="remarks" class="level2">
@@ -704,10 +692,9 @@ class="math inline">{E[Y 1_A] = E[X 1_A]}</span> for all <span
 class="math inline">A\in\mathcal{A}</span>. This is equivalent to <span
 class="math inline">{Y(P|_\mathcal{A}) = (XP)|_\mathcal{A}}</span> where
 the vertical bar indicates restriction. Instead of computing conditional
-expectation we only need restriction of measure, which is trivial to
-implement.</p>
+expectation we only need restriction of measure.</p>
 <p>Given a sample space <span class="math inline">\Omega</span> of
-possible outcomes and filtration of increasing algebras <span
+possible outcomes and a filtration of increasing algebras <span
 class="math inline">(\mathcal{A}_t)_{t\in T}</span> representing
 information available at times <span class="math inline">t\in T</span>,
 we assume everything is finite. Classical results can be obtained from
@@ -763,10 +750,7 @@ href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>A stopping time depends only on the information
-available at time <span class="math inline">t</span>.<a href="#fnref1"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>A partition of a set <span
+<li id="fn1"><p>A partition of a set <span
 class="math inline">\Omega</span> is a collection of pairwise disjoint
 subsets of <span class="math inline">\Omega</span> having union <span
 class="math inline">\Omega</span>. No information corresponds to the
@@ -777,8 +761,8 @@ corresponds to the partition of singletons <span
 class="math inline">\{\{\omega\}\mid\omega\in\Omega\}</span> – we know
 exactly which outcome occurred. Partial information corresponds to
 knowing only which atom of the partition the outcome belongs to.<a
-href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>If <span class="math inline">F\colon X\to Y</span> is a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>If <span class="math inline">F\colon X\to Y</span> is a
 function between normed linear spaces the Fréchet derivative (when it
 exists) is the best linear approximation of <span
 class="math inline">F</span> in a neighborhood of a point <span
@@ -786,11 +770,11 @@ class="math display">
 F(x + h) = F(x) + DF(x)h + o(h), x,h\in X
 </span> where <span class="math inline">DF(x)</span> is a bounded linear
 operator from <span class="math inline">X</span> to <span
-class="math inline">Y</span>.<a href="#fnref3" class="footnote-back"
+class="math inline">Y</span>.<a href="#fnref2" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>This uses the helpfully confusing notation <span
+<li id="fn3"><p>This uses the helpfully confusing notation <span
 class="math inline">D(u)</span> for both the zero coupon instrument and
-its discount.<a href="#fnref4" class="footnote-back"
+its discount.<a href="#fnref3" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
 </aside>

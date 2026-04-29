@@ -43,9 +43,9 @@ simultaneously if we let $X_t$ and $C_t$ be vectors indexed by $I$.
 
 ## Trading
 
-A _trading strategy_ is a finite number of increasing stopping times[^1]
-$\tau_0 < \cdots < \tau_n$ and trades $\Gamma_j$ indexed by instruments
-that depend only on information available at time $\tau_j$.
+A _trading strategy_ is a finite number of increasing stopping times
+${\tau_0 < \cdots < \tau_n}$ that depend only on available information
+and trades $\Gamma_j$ indexed by instruments.
 Trades accumulate to _positions_ 
 $$
 	\Delta_t = \sum_{\tau_j < t} \Gamma_j = \sum_{s < t} \Gamma_s
@@ -54,19 +54,17 @@ where $\Gamma_s = \Gamma_j$ when $s = \tau_j$ and is zero otherwise.
 Note the strict inequality -- trades take time to settle into
 a position. A trading strategy is _closed-out_ if $\sum_j \Gamma_j = 0$.
 
-[^1]: A stopping time depends only on the information available at time $t$.
-
 ## Accounting
 
-Trading involves accounting. The _value_ (or mark-to-market) at time $t$ is
+Trading involves accounting. The _value_ (or mark-to-market) at time $t$
 $$
 	V_t = (\Delta_t + \Gamma_t)\cdot X_.
 $$
-It is the putative value
+is the putative value
 of liquidating the existing position and trades just executed
 assuming that can be done at current market prices.
 The trades just executed are not yet in the position, but they soon will be,
-$\Delta_t + \Gamma_t = \Delta_{t+}$ for some $t+ > t$ with $t+ - t$ sufficiently small.
+${\Delta_t + \Gamma_t = \Delta_{t+\epsilon}}$ for some sufficiently small $\epsilon > 0$.
 
 The _amounts_ involved in trading are
 $$
@@ -75,14 +73,14 @@ $$
 Cash flows proportional to the existing position are credited to the trading account
 and trades just executed are debited at the current market prices.
 
+<!--
 ### Profit and Loss
 
 The _profit and loss_ of a trading strategy over an interval from time $t$ to time $u$
 is the difference of its values $V_u - V_t$ if all amounts $A_s = 0$ for $t \le s \le u$.
-If a money market account is available for financing we can invest any non-zero
-amounts in that and use the above formula.
+If a money market account is available it can be used
+to invest any non-zero amounts.
 
-<!--
 V_u - V_t = D_t+ (X_u -X_t)
 P&L = sum D_t dX_t ???
 $\Delta_t + \Gamma_t = \Delta_{t+}$ for some $t+ > t$ with $t+ - t$ sufficiently small.
@@ -96,12 +94,11 @@ first trade ($A_{\tau_0} > 0$) and never loses money until the trading strategy 
 ($A_t \ge 0$, $t > \tau_0$) then the model admits arbitrage.
 Note this definition does not involve probability.
 Ross showed a model has no arbitrage if and only if
-there exist positive adapted finitely-additive measures $D_t$ with
+there exist positive adapted finitely-additive measures $D_t$ on $\AA_t$[^2] with
 $$
 \tag{1}	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}
 $$
-where $\AA_t$ is the partition of information[^2] on the set of possible outcomes $\Omega$
-available at time $t$ and $|_{\AA}$ indicates restriction to a partition.
+where $|_{\AA}$ indicates restriction.
 We can, and do, assume $D_0(\Omega) = 1$ since we can divide both
 sides of equation $(1)$ by any positive constant.
 
@@ -316,12 +313,12 @@ nearly constant spot rate can be arbitrarily large.
 
 Repurchase agreements determine a _canonical deflator_.
 A repurchase agreement over the interval from $t$ to $t + \Delta t$ is specified
-by a rate $f(t)$ known at time $t$. The price at $t$ is $1$ and
-has a cash flow of ${e^{f(t)\Delta t}\approx 1 + f(t)\Delta t}$ at time $t + \Delta t$.
+by a rate $f_t$ known at time $t$. The price at $t$ is $1$ and
+has a cash flow of ${e^{f_t\Delta t}\approx 1 + f_t\Delta t}$ at time $t + \Delta t$.
 
-By equation (1) we have ${D_t = e^{f(t)\Delta t}D_{t + \Delta t}|_{\AA_t}}$.
+By equation (1) we have ${D_t = e^{f_t\Delta t}D_{t + \Delta t}|_{\AA_t}}$.
 The canonical deflator specifies $D_{t + \Delta t}$ is known
-at time $t$ so ${D_t = e^{-f(t)}D_{t + \Delta t}}$.
+at time $t$ so ${D_t = e^{-f_t}D_{t + \Delta t}}$.
 Given back-to-back repos at times $t_j$ having rates $f_j$
 we have ${D_j = e^{-f_j\Delta t_j}D_{j+1}}$ and
 ${D_n = e^{-\sum_{j < n} f_j\Delta t_j} D_0}$ is the canonical deflator at time $t_n$.
@@ -352,7 +349,7 @@ is the _day count basis_, and $\delta(u, v)$ is the _day count fraction_
 approximately equal to the time in years from $u$ to $v$.
 For example, the Actual/360 day count is the number of days from $u$ to $v$
 divided by $360$. In practice, the payment dates are adjusted by holidays
-and rolling conventions.
+and business rolling conventions.
 
 The _par forward coupon_ ${F^\delta(u,v)}$ is the coupon making the initial price equal to zero.
 Since ${0 = (-D_u + (1 + F^\delta(u,v))D_v)|_{\AA_0}}$ we have
@@ -439,7 +436,7 @@ A more accurate model should allow random recovery $R\in[0,1]$ and
 specify joint distributions for all the random variables involved.
 This would completely define the value of a risky zero coupon bond, however
 the software implementation and fitting market data to model parameters
-would be challenging, to say the least.
+would be challenging.
 
 ## Remarks
 
@@ -497,11 +494,10 @@ the _conditional expectation_ of a random variable $X\in B(S)$ given an algebra 
 ${Y = E[X\mid\AA]}$ if and only if $Y$ is $\AA$-measurable and ${E[Y 1_A] = E[X 1_A]}$
 for all $A\in\AA$.
 This is equivalent to ${Y(P|_\AA) = (XP)|_\AA}$ where the vertical bar indicates restriction.
-Instead of computing conditional expectation we only need restriction of measure, which
-is trivial to implement.
+Instead of computing conditional expectation we only need restriction of measure.
 
 Given a sample space $\Omega$ of possible outcomes
-and filtration of increasing algebras $(\AA_t)_{t\in T}$ representing
+and a filtration of increasing algebras $(\AA_t)_{t\in T}$ representing
 information available at times $t\in T$, we assume everything is finite.
 Classical results can be obtained from appropriate limit arguments
 but we are only interested implementing the mathematics in software.
