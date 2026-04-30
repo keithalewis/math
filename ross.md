@@ -44,8 +44,8 @@ simultaneously if we let $X_t$ and $C_t$ be vectors indexed by $I$.
 ## Trading
 
 A _trading strategy_ is a finite number of increasing stopping times
-${\tau_0 < \cdots < \tau_n}$ that depend only on available information
-and trades $\Gamma_j$ indexed by instruments.
+${\tau_0 < \cdots < \tau_n}$ and trades $\Gamma_j$ indexed by instruments
+that depend only on available information
 Trades accumulate to _positions_ 
 $$
 	\Delta_t = \sum_{\tau_j < t} \Gamma_j = \sum_{s < t} \Gamma_s
@@ -92,6 +92,8 @@ is not true if cash flows occur in [t, t+].
 If there exists a trading strategy that makes money on the
 first trade ($A_{\tau_0} > 0$) and never loses money until the trading strategy is closed out
 ($A_t \ge 0$, $t > \tau_0$) then the model admits arbitrage.
+The closed out condition is necessary to prevent strategies that simply borrow
+money and never pay it back.
 Note this definition does not involve probability.
 Ross showed a model has no arbitrage if and only if
 there exist positive adapted finitely-additive measures $D_t$ on $\AA_t$[^2] with
@@ -450,7 +452,8 @@ at some point no more instruments are available for trading. This is an
 actual problem for large hedge funds.
 
 The definition of arbitrage as $A_{\tau_0} > 0$ and $A_t\ge 0$ thereafter is insufficient.
-Traders and risk managers will consider ${\|A_0\| = \|-\Gamma_0\cdot X_0\| \le \|\Gamma_0\|\|X_0\|}$.
+Traders and risk managers will calculate
+${\|A_0\| = \|-\Gamma_0\cdot X_0\| \le \|\Gamma_0\|\|X_0\|}$.
 The "arbitrage" will not be considered if the left-hand side gain is small compared
 the ballpark estimate of the amount of capital tied up for the initial hedge on the right-hand side.
 

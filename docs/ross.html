@@ -153,9 +153,9 @@ be vectors indexed by <span class="math inline">I</span>.</p>
 <h2>Trading</h2>
 <p>A <em>trading strategy</em> is a finite number of increasing stopping
 times <span class="math inline">{\tau_0 &lt; \cdots &lt; \tau_n}</span>
-that depend only on available information and trades <span
-class="math inline">\Gamma_j</span> indexed by instruments. Trades
-accumulate to <em>positions</em> <span class="math display">
+and trades <span class="math inline">\Gamma_j</span> indexed by
+instruments that depend only on available information Trades accumulate
+to <em>positions</em> <span class="math display">
     \Delta_t = \sum_{\tau_j &lt; t} \Gamma_j = \sum_{s &lt; t} \Gamma_s
 </span> where <span class="math inline">\Gamma_s = \Gamma_j</span> when
 <span class="math inline">s = \tau_j</span> and is zero otherwise. Note
@@ -200,11 +200,12 @@ is not true if cash flows occur in [t, t+].
 trade (<span class="math inline">A_{\tau_0} &gt; 0</span>) and never
 loses money until the trading strategy is closed out (<span
 class="math inline">A_t \ge 0</span>, <span class="math inline">t &gt;
-\tau_0</span>) then the model admits arbitrage. Note this definition
-does not involve probability. Ross showed a model has no arbitrage if
-and only if there exist positive adapted finitely-additive measures
-<span class="math inline">D_t</span> on <span
-class="math inline">\mathcal{A}_t</span><a href="#fn1"
+\tau_0</span>) then the model admits arbitrage. The closed out condition
+is necessary to prevent strategies that simply borrow money and never
+pay it back. Note this definition does not involve probability. Ross
+showed a model has no arbitrage if and only if there exist positive
+adapted finitely-additive measures <span class="math inline">D_t</span>
+on <span class="math inline">\mathcal{A}_t</span><a href="#fn1"
 class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
 with <span class="math display">
 \tag{1} X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s
@@ -637,7 +638,7 @@ some point no more instruments are available for trading. This is an
 actual problem for large hedge funds.</p>
 <p>The definition of arbitrage as <span class="math inline">A_{\tau_0}
 &gt; 0</span> and <span class="math inline">A_t\ge 0</span> thereafter
-is insufficient. Traders and risk managers will consider <span
+is insufficient. Traders and risk managers will calculate <span
 class="math inline">{\|A_0\| = \|-\Gamma_0\cdot X_0\| \le
 \|\Gamma_0\|\|X_0\|}</span>. The “arbitrage” will not be considered if
 the left-hand side gain is small compared the ballpark estimate of the

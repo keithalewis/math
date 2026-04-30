@@ -48,43 +48,27 @@
 </header>
 <p>The Black-Scholes/Merton model assumes continuous time trading. This
 is an unrealistic artifact of the mathematical theory of Ito processes.
-Traders can only make a finite number of transactions to hedge.</p>
-<p>Sell side traders need to know when and how much to hedge to minimize
-their risk when replicating a deriviative sold to a buy side company.
-This short note proposes a generalization of the Markowitz efficient
-portfolio theory as a first step in this direction. See <a
-href="ross.html">Simple Unified Model</a> for details.</p>
-<p>Consider a European option that pays amount <span
-class="math inline">A_t</span> at expiration <span
-class="math inline">t</span>. Assume a model with sample space <span
-class="math inline">\Omega</span> and filtration <span
-class="math inline">(\mathcal{A})_{t\in T}</span> of algebras. If <span
-class="math inline">\Omega</span> is finite the atoms of an algebra are
-a partition of <span class="math inline">\Omega</span>. A function <span
-class="math inline">X\colon\Omega\to\boldsymbol{{R}}</span> is <span
-class="math inline">\mathcal{A}</span> measurable if and only if it is
-constant on atoms so we can write <span
-class="math inline">X\colon\mathcal{A}\to\boldsymbol{{R}}</span>.</p>
+Traders can only make a finite number of transactions.</p>
+<p>See <a href="ross.html">Simple Unified Model</a> for details.</p>
+<p>Sell side traders need to know when and how much to hedge in order to
+minimize risk.</p>
 <p>We assume market instruments <span class="math inline">I</span> are
 available to trade at price <span
 class="math inline">X_t\colon\mathcal{A}_t\to\boldsymbol{{R}}^I</span>
-and have no cash flows. We also assume fixed trading times <span
-class="math inline">0 = t_0 &lt; \cdots &lt; t_n = t</span>.</p>
-<p>Let <span
-class="math inline">\Gamma_j\colon\mathcal{A}_{t_j}\to\boldsymbol{{R}}^I</span>
-be the number of shares traded at time <span
-class="math inline">t_j</span> and <span class="math inline">\Delta_j =
-\sum_{i &lt; j}\Gamma_i</span> be the position settled by time <span
-class="math inline">t_j</span>. The value, or mark-to-market is <span
-class="math inline">V_j = (\Delta_j + \Gamma_j)\cdot X_j</span> and the
-amount showing up in the trading account is <span
-class="math inline">A_j = -\Gamma_j\cdot X_j</span>.</p>
-<p>As Ross showed, if there is no arbitrage then exist there exist (not
-generally unique) positive measures <span class="math inline">D_t\in
-ba(\mathcal{A}_j)</span> for <span class="math inline">t\in T</span>
-with <span class="math inline">X_t D_t = X_u
-D_u|_{\mathcal{A}_t}</span>. A consequence is <span
-class="math inline">V_0 D_0 = (V_t D_t + \sum_{j}
-A_{j})|_{\mathcal{A}_0}</span>.</p>
+and have no cash flows.</p>
+<p>A (cash settled) derivative specifies payments <span
+class="math inline">\hat{A}_j</span> at stopping times <span
+class="math inline">\hat{\tau}_j</span>. We wish to find trades <span
+class="math inline">\Gamma_t\colon\mathcal{A}_{t}\to\boldsymbol{{R}}^I</span>
+resulting in amounts <span class="math inline">A_t = \hat{A}_j</span>
+when <span class="math inline">t = \hat{\tau}_j</span> and <span
+class="math inline">A_t = 0</span> otherwise in order to satisfy the
+contract. If a money-market account is available then we can satisfy
+<span class="math inline">A_t = 0</span> when <span
+class="math inline">t\not=\tau_j</span>, but it is not obvious a
+self-financing strategy is optimal.</p>
+<p>Following Markowitz we define an <em>efficent</em> trading strategy
+as one that makes <span class="math inline">A_t -
+\hat{A}_{\tau_j}</span> white noise with minimum variance.</p>
 </body>
 </html>

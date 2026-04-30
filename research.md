@@ -7,31 +7,22 @@ title: Research
 
 The Black-Scholes/Merton model assumes continuous time trading.
 This is an unrealistic artifact of the mathematical theory of Ito processes.
-Traders can only make a finite number of transactions to hedge.
+Traders can only make a finite number of transactions.
 
-Sell side traders need to know when and how much to hedge to minimize their risk
-when replicating a deriviative sold to a buy side company.
-This short note proposes a generalization of the Markowitz efficient portfolio theory
-as a first step in this direction.
 See [Simple Unified Model](ross.html) for details.
 
-Consider a European option that pays amount $A_t$ at expiration $t$.
-Assume a model with sample space $\Omega$ and filtration $(\AA)_{t\in T}$
-of algebras. If $\Omega$ is finite the atoms of an algebra are a partition
-of $\Omega$. A function $X\colon\Omega\to\RR$ is $\AA$ measurable if and
-only if it is constant on atoms so we can write $X\colon\AA\to\RR$.
+Sell side traders need to know when and how much to hedge in order to minimize risk.
 
 We assume market instruments $I$ are available to trade at price
 $X_t\colon\AA_t\to\RR^I$ and have no cash flows.
-We also assume fixed trading times $0 = t_0 < \cdots < t_n = t$.
 
-Let $\Gamma_j\colon\AA_{t_j}\to\RR^I$ be the number of shares traded
-at time $t_j$ and $\Delta_j = \sum_{i < j}\Gamma_i$ be the position
-settled by time $t_j$. The value, or mark-to-market is
-$V_j = (\Delta_j + \Gamma_j)\cdot X_j$ and the amount showing up
-in the trading account is $A_j = -\Gamma_j\cdot X_j$.
+A (cash settled) derivative specifies payments $\hat{A}_j$ at stopping times $\hat{\tau}_j$.
+We wish to find trades
+$\Gamma_t\colon\AA_{t}\to\RR^I$ resulting in amounts $A_t = \hat{A}_j$ when $t = \hat{\tau}_j$
+and $A_t = 0$ otherwise in order to satisfy the contract.
+If a money-market account is available then we can satisfy $A_t = 0$ when $t\not=\tau_j$,
+but it is not obvious a self-financing strategy is optimal.
 
-As Ross showed, if there is no arbitrage then exist there exist
-(not generally unique) positive measures $D_t\in ba(\AA_j)$ for $t\in T$ with
-$X_t D_t = X_u D_u|_{\AA_t}$.
-A consequence is $V_0 D_0 = (V_t D_t + \sum_{j} A_{j})|_{\AA_0}$.
+Following Markowitz we define an _efficent_ trading strategy as one that
+makes $A_t - \hat{A}_{\tau_j}$ white noise with minimum variance.
+
