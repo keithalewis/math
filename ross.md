@@ -221,7 +221,7 @@ some $u > t$ sufficiently small.
 Note how value and amount in equation $(3)$ correspond to 
 price and cash flow in equation $(1)$
 
-__Trading strategies create synthetic market instruments__.
+> __Trading strategies create synthetic market instruments__.
 
 This is the skeleton key to valuing, hedging, and managing the
 risk of derivative instruments.
@@ -279,10 +279,11 @@ depends on $\tau_{j+1}$ and $X_{\tau_{j+1}}$, however limit orders
 cost nothing to place and cancel so we can keep adjusting their size
 as $t\to\tau_{j+1}$.
 
-A perfect hedge is a trading strategy with $\hat{A}_t - A_t = 0$.
-A topic for future research is to find a trading strategy
+A perfect hedge is a trading strategy with $\hat{A}_k 1(t = \hat{\tau}_k) - A_t = 0$.
+A topic for future research is to find trading strategies
 that makes this white noise with minimum variance.
-This is a generalization of the Markowitz efficient portfolio theory.
+This is a generalization of the Markowitz efficient portfolio theory
+to multiple periods that does not depend on estimating rates of returns. 
 
 ## Application
 
