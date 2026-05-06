@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <meta name="dcterms.date" content="2026-05-05" />
+  <meta name="dcterms.date" content="2026-05-06" />
   <title>Simple Unified Model</title>
   <style>
     code{white-space: pre-wrap;}
@@ -66,7 +66,7 @@
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">May 5, 2026</p>
+<p class="date">May 6, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A Simple Approach to the Valuation of Risky Streams
@@ -345,8 +345,10 @@ t</span> sufficiently small.</p>
 <p>Note how value and amount in equation <span
 class="math inline">(3)</span> correspond to price and cash flow in
 equation <span class="math inline">(1)</span></p>
+<blockquote>
 <p><strong>Trading strategies create synthetic market
 instruments</strong>.</p>
+</blockquote>
 <p>This is the skeleton key to valuing, hedging, and managing the risk
 of derivative instruments.</p>
 <section id="derivatives" class="level3">
@@ -412,10 +414,11 @@ class="math inline">X_{\tau_{j+1}}</span>, however limit orders cost
 nothing to place and cancel so we can keep adjusting their size as <span
 class="math inline">t\to\tau_{j+1}</span>.</p>
 <p>A perfect hedge is a trading strategy with <span
-class="math inline">\hat{A}_t - A_t = 0</span>. A topic for future
-research is to find a trading strategy that makes this white noise with
-minimum variance. This is a generalization of the Markowitz efficient
-portfolio theory.</p>
+class="math inline">\hat{A}_k 1(t = \hat{\tau}_k) - A_t = 0</span>. A
+topic for future research is to find trading strategies that makes this
+white noise with minimum variance. This is a generalization of the
+Markowitz efficient portfolio theory to multiple periods that does not
+depend on estimating rates of returns.</p>
 </section>
 </section>
 <section id="application" class="level2">
