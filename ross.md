@@ -279,13 +279,13 @@ depends on $\tau_{j+1}$ and $X_{\tau_{j+1}}$, however limit orders
 cost nothing to place and cancel so we can keep adjusting their size
 as $t\to\tau_{j+1}$.
 
-::: #future-research
+### Future Research
+
 A perfect hedge is a trading strategy with $\hat{A}_k 1(t = \hat{\tau}_k) - A_t = 0$.
 A topic for future research is to find trading strategies
 that makes this white noise with minimum variance.
 This is a generalization of the Markowitz efficient portfolio theory
 to multiple periods that does not depend on estimating rates of returns. 
-:::
 
 ## Application
 
