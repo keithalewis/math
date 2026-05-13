@@ -172,7 +172,7 @@ a consequence of a no-arbitrage strategy. If follows directly from the parameter
 of equation $(2)$.
 
 Considering dividends expands the original sample space of all possible stock paths
-to contain all finite sequences $(t_j, C_{t_j}j)$ with increasing dividend dates $t_j$
+to contain all finite sequences $(t_j, C_{t_j})$ with increasing dividend dates $t_j$
 and dividend payments $C_{t_j}$ known at time $t_j$. Explicitly specifying this
 allows us to consider, e.g., the sensitivity to dividend times and payments.
 
