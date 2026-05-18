@@ -5,6 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2026-05-18" />
   <title>Copulas</title>
   <style>
     code{white-space: pre-wrap;}
@@ -21,7 +22,26 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="math.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
@@ -46,10 +66,10 @@
 <header id="title-block-header">
 <h1 class="title">Copulas</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Apr 2, 2026</p>
+<p class="date">May 18, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-A copula is a probability measure on unit cubes.
+Copulas are probability measures on unit cubes having uniform marginals
 </div>
 </header>
 <nav id="TOC" role="doc-toc">
@@ -58,6 +78,7 @@ A copula is a probability measure on unit cubes.
 id="toc-fréchet-hoeffding-inequality">Fréchet-Hoeffding
 Inequality</a></li>
 <li><a href="#examples" id="toc-examples">Examples</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
 <p>Copulas glue together marginal distributions to define joint
@@ -66,17 +87,7 @@ distributions.</p>
 cumulative distribution function <span class="math inline">{F(x) =
 P(X\le x)}</span> then <span class="math inline">{F^{-1}(X)}</span> is
 uniformly distributed on the unit interval <span
-class="math inline">[0,1]</span>. Given random variables <span
-class="math inline">X_i</span>, <span class="math inline">1\le i\le
-n</span>, with cdfs <span class="math inline">F_i</span> and a measure
-<span class="math inline">C</span> on the unit cube <span
-class="math inline">[0,1]^n</span> the we can define a joint
-distribution <span class="math display">
-    P(X_1\le x_1, \ldots, X_n\le x_n) = C(F_1^{-1}(x_1), \ldots
-F_n^{-1}(x_n)),
-</span> where <span class="math inline">{C(u_1, \ldots, u_n)}</span> is
-the measure of <span class="math inline">{[0,u_1]\times\cdots\times
-[0,u_n]}</span>.</p>
+class="math inline">[0,1]</span>.</p>
 <p>In the case of two random variables the copula of <span
 class="math inline">X</span> and <span class="math inline">Y</span> is
 the joint distribution of <span class="math inline">F^{-1}(X)</span> and
@@ -92,21 +103,22 @@ the joint distribution of <span class="math inline">X</span> and <span
 class="math inline">Y</span> and <span class="math inline">F</span> and
 <span class="math inline">G</span> are the marginal distributions of
 <span class="math inline">X</span>, and <span
-class="math inline">Y</span></em>.</p>
+class="math inline">Y</span> respectively</em>.</p>
 <p><strong>Exercise</strong>: <em>Show <span class="math inline">H(x,y)
 = C(F^{-1}(x), G^{-1}(y))</span></em>.</p>
 <p>This shows how to use the copula and marginal distributions to
 recover the joint distribution.</p>
-<p>An equivalent definition is a copula is that it is a probability
-measure on <span class="math inline">[0,1]^2</span> with uniform
-marginals.</p>
+<p>An equivalent definition is a copula is a probability measure on
+<span class="math inline">[0,1]^2</span> with uniform marginals.</p>
 <p><strong>Exercise</strong>: <em>Prove this</em>.</p>
 <section id="fréchet-hoeffding-inequality" class="level2">
 <h2>Fréchet-Hoeffding Inequality</h2>
 <p>If <span class="math inline">U</span> and <span
 class="math inline">V</span> are independent, uniformly distributed
 random variables on the unit interval then <span
-class="math inline">C(u,v) = P(U\le u, V\le v) = uv</span>.</p>
+class="math inline">C(u,v) = P(U\le u, V\le v) = uv</span>. This
+corresponds to uniform measure on the square <span
+class="math inline">[0,1]^2</span>.</p>
 <p>If <span class="math inline">V=U</span> then their joint distribution
 is <span class="math display">
 \begin{aligned}
@@ -116,7 +128,9 @@ C(u,v) &amp;= P(U\le u, V\le v) \\
     &amp;= \min\{u,v\} \\
     &amp;= M(u,v)
 \end{aligned}
-</span></p>
+</span> This corresponds to uniform measure on the diagonal from <span
+class="math inline">(0,0)</span> to <span
+class="math inline">(1,1)</span>.</p>
 <p>If <span class="math inline">V=1-U</span> then their joint
 distribution is <span class="math display">
 \begin{aligned}
@@ -127,7 +141,9 @@ C(u,v) &amp;= P(U\le u, V\le v) \\
     &amp;= \max\{u + v - 1, 0\} \\
     &amp;= W(u,v)
 \end{aligned}
-</span></p>
+</span> This corresponds to uniform measure on the anti-diagonal from
+<span class="math inline">(0,1)</span> to <span class="math inline">(1,
+0)</span>.</p>
 <p><strong>Exercise</strong>: (Fréchet-Hoeffding) For every copula,
 <span class="math inline">C</span>, <span class="math inline">W \le C
 \le M</span>.</p>
@@ -142,15 +158,58 @@ class="math inline">u_1 \ge u_2</span> and <span class="math inline">v_1
 <h2>Examples</h2>
 <p>Random variables <span class="math inline">X</span> and <span
 class="math inline">Y</span> are independent if and only if their copula
-is uniform measure on <span class="math inline">[0,1]^2</span>.</p>
-<p>The extremes in the Fréchet-Hoeffding inequality are <span
-class="math inline">W</span> and <span class="math inline">M</span>. The
-copula <span class="math inline">W</span> has uniform unit mass on the
-diagonal <span class="math inline">(0,1)</span> to <span
-class="math inline">(1, 0)</span> and <span class="math inline">P(X \le
-x, Y \le y) = W(F^{-1}(x), G^{-1}(y))</span>.</p>
-<p>It is common for random variables to be nearly independend</p>
-<p>Define <span class="math inline">M_{a,b}</span> for $</p>
+is uniform measure on <span class="math inline">[0,1]^2</span>. To model
+random variables that are independent near their means but become
+perfectly correlated at extreme values we can use, e.g., uniform measure
+on <span class="math inline">[a,b] \times [a,b]</span>, <span
+class="math inline">0 &lt; a &lt; b &lt; 1</span>, and uniform measure
+the lines from <span class="math inline">(0,0)</span> to <span
+class="math inline">(a,a)</span> and from <span
+class="math inline">(b,b)</span> to <span
+class="math inline">(1,1)</span> with weights <span
+class="math inline">w_a</span> and <span class="math inline">w_b</span>
+such that <span class="math inline">w_a + (b - a)^2 + w_b = 1</span>.
+Similarly we could model perfect anti-correlation at extreme values
+using uniform measure on lines from <span
+class="math inline">(a,b)</span> to <span
+class="math inline">(0,1)</span> and from <span
+class="math inline">(b,a)</span> to <span class="math inline">(1,
+0)</span>. (Draw the picture.)</p>
+<p>An analytically tractable continuous version is provided by the
+Plackett copula <span class="math display">
+    C(u,v;\theta) = \frac{[1 + (\theta-1)(u + v)] - \sqrt{[1 + (\theta -
+1)(u + v)]^2 - 4\theta(\theta - 1)uv}}
+                         {2(\theta - 1)},
+</span> <span class="math inline">\theta &gt; 0</span>, <span
+class="math inline">\theta\not=1</span>. As <span
+class="math inline">\theta\to 1</span> we have <span
+class="math inline">C(u,v;\theta)\to uv</span>.</p>
+<p>The partial derivatives <span class="math inline">\partial C/\partial
+u</span> and <span class="math inline">\partial C/\partial v</span> and
+be inverted in closed form and be used to generate random variables
+having the Plackett distribution. <span class="citation"
+data-cites="Pla2018">(<a href="#ref-Pla2018" role="doc-biblioref">Yan,
+Singh, et al. 2018</a>)</span></p>
+<p>Copulas can be generalized to any number of random variables. A wide
+class of <span class="math inline">n</span>-dimensional copula are the
+Archimedean copulas <span class="math display">
+    C(u_1,\ldots,u_n) = \phi^{-1}(\phi(u_1) + \cdots + \phi(u_n))
+</span> where <span class="math inline">\phi\colon [0,1]\to [0,
+\infty)</span> is strictly decreasing, convex, with <span
+class="math inline">\phi(1) = 0</span>. These also have a simple
+simulation algorithm.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="list">
+<div id="ref-Pla2018" class="csl-entry" role="listitem">
+Yan, Jun, Vijay P. Singh, et al. 2018. <span>“Plackett Copula.”</span>
+In <em>Copulas and Their Applications in Water Resources
+Engineering</em>, 242–60. Cambridge University Press. <a
+href="https://doi.org/10.1017/9781108565103.007">https://doi.org/10.1017/9781108565103.007</a>.
+</div>
+</div>
 </section>
 </body>
 </html>
