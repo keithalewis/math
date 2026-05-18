@@ -4,19 +4,13 @@ author: Keith A. Lewis
 institute: KALX, LLC
 classoption: fleqn
 fleqn: true
-abstract: A copula is a probability measure on unit cubes.
+abstract: Copulas are probability measures on unit cubes having uniform marginals
 ...
 
 Copulas glue together marginal distributions to define joint distributions.
 
 If the random variable $X$ has cumulative distribution function ${F(x) = P(X\le x)}$
 then ${F^{-1}(X)}$ is uniformly distributed on the unit interval $[0,1]$.
-Given random variables $X_i$, $1\le i\le n$, with cdfs $F_i$ and a measure $C$ on the
-unit cube $[0,1]^n$ the we can define a joint distribution
-$$
-	P(X_1\le x_1, \ldots, X_n\le x_n) = C(F_1^{-1}(x_1), \ldots F_n^{-1}(x_n)),
-$$
-where ${C(u_1, \ldots, u_n)}$ is the measure of ${[0,u_1]\times\cdots\times [0,u_n]}$.
 
 In the case of two random variables the copula of $X$ and $Y$ is the
 joint distribution of $F^{-1}(X)$ and $G^{-1}(Y)$ where
@@ -25,13 +19,13 @@ ${C(u,v) = C^{X,Y}(u,v) = P(F^{-1}(X) \le u, G^{-1}(Y) \le v)}$.
 
 __Exercise__: _Show $C(u,v) = H(F(u),G(v))$ where
 and $H$ is the joint distribution of $X$ and $Y$ and $F$ and $G$ are the marginal
-distributions of $X$, and $Y$_.
+distributions of $X$, and $Y$ respectively_.
 
 __Exercise__: _Show $H(x,y) = C(F^{-1}(x), G^{-1}(y))$_.
 
 This shows how to use the copula and marginal distributions to recover the joint distribution.
 
-An equivalent definition is a copula is that it is a probability measure on $[0,1]^2$ with uniform
+An equivalent definition is a copula is a probability measure on $[0,1]^2$ with uniform
 marginals. 
 
 __Exercise__: _Prove this_.
@@ -39,7 +33,8 @@ __Exercise__: _Prove this_.
 ## Fr&#233;chet-Hoeffding Inequality
 
 If $U$ and $V$ are independent, uniformly distributed random variables on the unit interval
-then $C(u,v) = P(U\le u, V\le v) = uv$.
+then $C(u,v) = P(U\le u, V\le v) = uv$. This corresponds to uniform measure
+on the square $[0,1]^2$.
 
 If $V=U$ then their joint distribution is
 $$
@@ -51,6 +46,7 @@ C(u,v) &= P(U\le u, V\le v) \\
 	&= M(u,v)
 \end{aligned}
 $$
+This corresponds to uniform measure on the diagonal from $(0,0)$ to $(1,1)$.
 
 If $V=1-U$ then their joint distribution is
 $$
@@ -63,6 +59,7 @@ C(u,v) &= P(U\le u, V\le v) \\
 	&= W(u,v)
 \end{aligned}
 $$
+This corresponds to uniform measure on the anti-diagonal from $(0,1)$ to $(1, 0)$.
 
 __Exercise__: (Fr&#233;chet-Hoeffding) For every copula, $C$, $W \le C \le M$.
 
@@ -73,11 +70,30 @@ for $u_1 \ge u_2$ and $v_1 \ge v_2$.
 ## Examples
 
 Random variables $X$ and $Y$ are independent if and only if their copula is uniform measure on $[0,1]^2$.
+To model random variables that are independent near their means but become perfectly correlated
+at extreme values we can use, e.g., uniform measure on $[a,b] \times [a,b]$, $0 < a < b < 1$,
+and uniform measure the lines from $(0,0)$ to $(a,a)$ and from $(b,b)$ to $(1,1)$ with weights
+$w_a$ and $w_b$ such that $w_a + (b - a)^2 + w_b = 1$. Similarly we could model perfect
+anti-correlation at extreme values using uniform measure on lines from $(a,b)$ to $(0,1)$
+and from $(b,a)$ to $(1, 0)$. (Draw the picture.)
 
-The extremes in the Fr&#233;chet-Hoeffding inequality are $W$ and $M$.
-The copula $W$ has uniform unit mass on the diagonal $(0,1)$ to $(1, 0)$
-and $P(X \le x, Y \le y) = W(F^{-1}(x), G^{-1}(y))$.
+An analytically tractable continuous version is provided by the Plackett copula
+$$
+	C(u,v;\theta) = \frac{[1 + (\theta-1)(u + v)] - \sqrt{[1 + (\theta - 1)(u + v)]^2 - 4\theta(\theta - 1)uv}}
+	                     {2(\theta - 1)},
+$$
+$\theta > 0$, $\theta\not=1$.
+As $\theta\to 1$ we have $C(u,v;\theta)\to uv$.
 
-It is common for random variables to be nearly independend
+The partial derivatives $\partial C/\partial u$ and $\partial C/\partial v$ and be inverted in closed
+form and be used to generate random variables having the Plackett distribution. [@Pla2018]
 
-Define $M_{a,b}$ for $ 
+Copulas can be generalized to any number of random variables.
+A wide class of $n$-dimensional copula are the Archimedean copulas
+$$
+	C(u_1,\ldots,u_n) = \phi^{-1}(\phi(u_1) + \cdots + \phi(u_n))
+$$
+where $\phi\colon [0,1]\to [0, \infty)$ is strictly decreasing, convex, with $\phi(1) = 0$.
+These also have a simple simulation algorithm.
+
+## References
