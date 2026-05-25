@@ -19,13 +19,15 @@ abstract: The algebra of space.
 \newcommand\join{\vee}
 \newcommand\meet{\wedge}
 
-In the middle of the 19th century [@Gra1844] came up with a simple axiom
-to reduce geometric truth to algebra: the product of two points is 0
-if and only if the points coincide. René Descartes demonstrated how
+Euclidean geometry was put on an algebraic footing
+when René Descartes demonstrated how
 to prove results in Euclidean geometry by associating points in space
 with numerical coordinates, but Descartes only considered two and three
-dimensions.  Grassmann predated Einstein in treating all points in space
-on equal footing.  Grassmann's audaciously simple notion also predated the
+dimensions. Grassmann extended this to Eucliean space of any number
+of dimensions with the audaciously simple rule:
+"The product of two points is zero if and only if they coincide."
+Grassmann predated Einstein in treating all points in space
+of any dimension on equal footing.  Grassmann's audaciously simple notion also predated the
 modern definition of a vector space. Any point in space can be chosen as
 an origin and a vector is just the difference of a point with the origin.
 
@@ -69,10 +71,10 @@ The product in $\GG(E)$ is Grassmann's _exterior product_.
 Italian differential geometers decided to
 call it the _wedge product_, written as $P\wedge Q$.
 This was an unfortunate historical accident.
-The exterior product is analogous to a union of sets so $P\vee Q$ is
+The exterior product is analogous to a union of sets so $P\vee Q$ would be
 a more appropriate notation. Grassmann's regressive product, defined below,
 is analogous to the intersection of sets so $P\wedge Q$ would be
-the natural notation for that.
+the natural notation for that. We use a period for that, $P.Q$.
 
 ## Examples
 
@@ -107,10 +109,10 @@ with length $t$.
 
 Note $PQ(Q - P) = 0$.
 
-__Exercise__. _Show $\frac{(Q - P)Q}{PQ} = -1$ and $\frac{P(Q - P)}{PQ} = 1$_.
-
 If $PQ = tST$ where $t\in\RR$ and $P,Q,S,T\in\GG(E)$ we say $PQ$ and $ST$ are
-congruent and write ${\frac{PQ}{ST}} = t$.
+_congruent_ and write ${\frac{PQ}{ST}} = t$.
+
+__Exercise__. _Show $\frac{(Q - P)Q}{PQ} = -1$ and $\frac{P(Q - P)}{PQ} = 1$_.
 
 __Exercise__. _For any $R$ with $PQR = 0$ and $PQ\not=0$ we have $R = (PR/PQ)P + (RQ/PQ)Q$_.
 
@@ -119,8 +121,9 @@ _Hint_: If $R = aP + bQ$ then $PR = bPQ$ and $QR = aQP$.
 This is an example of coordinate-free calculation using the Grassmann algebra.
 
 David Hilbert noticed Euclid's axioms were insufficient to determine when
-a point lies between two points. Using Grassmann algebra we can define $R$
-is between $P$ and $Q$ if and only if $PQR = 0$, $PR/PQ > 0$, and $RQ/PQ < 1$.
+a point lies between two points. See [@RouseBall1892].
+Using Grassmann algebra we can define $R$
+is _between_ $P$ and $Q$ if and only if $PQR = 0$, $PR/PQ > 0$, and $RQ/PQ < 1$.
 
 A classical result from Euclidean geometry is the three medians of
 a triangle meet at the same point. A _median_ is the line from

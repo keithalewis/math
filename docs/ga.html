@@ -5,6 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
+  <meta name="dcterms.date" content="2026-05-25" />
   <title>Grassmann Algebra</title>
   <style>
     code{white-space: pre-wrap;}
@@ -65,7 +66,7 @@
 <header id="title-block-header">
 <h1 class="title">Grassmann Algebra</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Mar 16, 2026</p>
+<p class="date">May 25, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 The algebra of space.
@@ -89,18 +90,17 @@ Dimensions</a>
 Product</a></li>
 </ul>
 </nav>
-<p>In the middle of the 19th century <span class="citation"
-data-cites="Gra1844">(<a href="#ref-Gra1844"
-role="doc-biblioref">Grassmann 1844</a>)</span> came up with a simple
-axiom to reduce geometric truth to algebra: the product of two points is
-0 if and only if the points coincide. René Descartes demonstrated how to
-prove results in Euclidean geometry by associating points in space with
-numerical coordinates, but Descartes only considered two and three
-dimensions. Grassmann predated Einstein in treating all points in space
-on equal footing. Grassmann’s audaciously simple notion also predated
-the modern definition of a vector space. Any point in space can be
-chosen as an origin and a vector is just the difference of a point with
-the origin.</p>
+<p>Euclidean geometry was put on an algebraic footing when René
+Descartes demonstrated how to prove results in Euclidean geometry by
+associating points in space with numerical coordinates, but Descartes
+only considered two and three dimensions. Grassmann extended this to
+Eucliean space of any number of dimensions with the audaciously simple
+rule: “The product of two points is zero if and only if they coincide.”
+Grassmann predated Einstein in treating all points in space of any
+dimension on equal footing. Grassmann’s audaciously simple notion also
+predated the modern definition of a vector space. Any point in space can
+be chosen as an origin and a vector is just the difference of a point
+with the origin.</p>
 <p>Grassmann was a secondary-school teacher who wrote in an abstruse
 style that top mathematicians of the time ignored. It wasn’t until <span
 class="citation" data-cites="Peano1888">(<a href="#ref-Peano1888"
@@ -164,10 +164,11 @@ Grassmann’s <em>exterior product</em>. Italian differential geometers
 decided to call it the <em>wedge product</em>, written as <span
 class="math inline">P\wedge Q</span>. This was an unfortunate historical
 accident. The exterior product is analogous to a union of sets so <span
-class="math inline">P\vee Q</span> is a more appropriate notation.
+class="math inline">P\vee Q</span> would be a more appropriate notation.
 Grassmann’s regressive product, defined below, is analogous to the
 intersection of sets so <span class="math inline">P\wedge Q</span> would
-be the natural notation for that.</p>
+be the natural notation for that. We use a period for that, <span
+class="math inline">P.Q</span>.</p>
 </section>
 <section id="examples" class="level2">
 <h2>Examples</h2>
@@ -214,15 +215,15 @@ class="math inline">P</span> along the vector <span
 class="math inline">Q - P</span> with length <span
 class="math inline">t</span>.</p>
 <p>Note <span class="math inline">PQ(Q - P) = 0</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">\frac{(Q - P)Q}{PQ} = -1</span> and <span
-class="math inline">\frac{P(Q - P)}{PQ} = 1</span></em>.</p>
 <p>If <span class="math inline">PQ = tST</span> where <span
 class="math inline">t\in\mathbf{R}</span> and <span
 class="math inline">P,Q,S,T\in\mathcal{G}(E)</span> we say <span
 class="math inline">PQ</span> and <span class="math inline">ST</span>
-are congruent and write <span class="math inline">{\frac{PQ}{ST}} =
-t</span>.</p>
+are <em>congruent</em> and write <span
+class="math inline">{\frac{PQ}{ST}} = t</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\frac{(Q - P)Q}{PQ} = -1</span> and <span
+class="math inline">\frac{P(Q - P)}{PQ} = 1</span></em>.</p>
 <p><strong>Exercise</strong>. <em>For any <span
 class="math inline">R</span> with <span class="math inline">PQR =
 0</span> and <span class="math inline">PQ\not=0</span> we have <span
@@ -233,12 +234,14 @@ class="math inline">QR = aQP</span>.</p>
 <p>This is an example of coordinate-free calculation using the Grassmann
 algebra.</p>
 <p>David Hilbert noticed Euclid’s axioms were insufficient to determine
-when a point lies between two points. Using Grassmann algebra we can
-define <span class="math inline">R</span> is between <span
-class="math inline">P</span> and <span class="math inline">Q</span> if
-and only if <span class="math inline">PQR = 0</span>, <span
-class="math inline">PR/PQ &gt; 0</span>, and <span
-class="math inline">RQ/PQ &lt; 1</span>.</p>
+when a point lies between two points. See <span class="citation"
+data-cites="RouseBall1892">(<a href="#ref-RouseBall1892"
+role="doc-biblioref">Rouse Ball 1892</a>)</span>. Using Grassmann
+algebra we can define <span class="math inline">R</span> is
+<em>between</em> <span class="math inline">P</span> and <span
+class="math inline">Q</span> if and only if <span
+class="math inline">PQR = 0</span>, <span class="math inline">PR/PQ &gt;
+0</span>, and <span class="math inline">RQ/PQ &lt; 1</span>.</p>
 <p>A classical result from Euclidean geometry is the three medians of a
 triangle meet at the same point. A <em>median</em> is the line from a
 vertex of a triangle to the midpoint of the opposite side.</p>
@@ -374,10 +377,6 @@ defined by <span class="math inline">A\vee B =
 \overline{\overline{A}\overline{B}}</span></p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 role="list">
-<div id="ref-Gra1844" class="csl-entry" role="listitem">
-Grassmann, Hermann Günther. 1844. <em>Die Ausdehnungslehre: Vollständig
-Und in Strenger Form Bearbeitet</em>. Leipzig: Otto Wigand.
-</div>
 <div id="ref-Lindemann1882" class="csl-entry" role="listitem">
 Lindemann, Ferdinand. 1882. <span>“<span>Ü</span>ber Die Zahl <span
 class="math inline">\pi</span>.”</span> <em>Mathematische Annalen</em>
@@ -387,6 +386,10 @@ class="math inline">\pi</span>.”</span> <em>Mathematische Annalen</em>
 Peano, Giuseppe. 1888. <em>Calcolo Geometrico Secondo l’ausdehnungslehre
 Di h. Grassmann Preceduto Dalle Operazioni Della Logica Deduttiva</em>.
 Torino: Fratelli Bocca.
+</div>
+<div id="ref-RouseBall1892" class="csl-entry" role="listitem">
+Rouse Ball, W. W. 1892. <em>Mathematical Recreations and Problems</em>.
+2nd ed. London: Macmillan.
 </div>
 </div>
 </section>
