@@ -12,6 +12,7 @@ false and proofs of such statements.  While we all might agree with
 Shakespeare that "The quality of mercy is not strained.  It droppeth as
 the gentle rain from heaven upon the place beneath" it is doubtful that
 a rigorous mathematical proof of that is possible.
+Spinoza notwithstanding.
 
 It may come as a surprise that there are many different logical systems
 for mathematics that are contradictory. For two millenia Euclid's
@@ -31,7 +32,6 @@ in a "plane" through a "point" not on a given line where
 "point", "line", and "plane" that satisfy all of Euclids other axioms.
 
 (Bolyai, Lobaschevsky)
-
 
 Logical systems specify _propositions_: statements that are either _true_
 or _false_, and _rules of inference_: ways of combining true propositions
