@@ -21,7 +21,7 @@ abstract: The algebra of space.
 
 Euclidean geometry was put on an algebraic footing
 when René Descartes demonstrated how
-to prove results in Euclidean geometry by associating points in space
+to replace ruler and compass constructions in Euclidean geometry by associating points in space
 with numerical coordinates, but Descartes only considered two and three
 dimensions. Grassmann extended this to Euclidean space of any number
 of dimensions with the audaciously simple rule:

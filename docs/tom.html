@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2026-05-31" />
+  <title>Tom’s Question</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Tom’s Question</h1>
+<p class="date">May 31, 2026</p>
+</header>
+<blockquote>
+<p>“Mathematicians are like Frenchmen: whatever you say to them they
+translate into their own language and forthwith it is something entirely
+different.” ― Johann Wolfgang von Goethe</p>
+</blockquote>
+<p>Thank you for telling me exactly your definition of a constant
+maturity bond in the case of a zero coupon bond. If <span
+class="math inline">D_t(u)</span> is the price at time <span
+class="math inline">t</span> of a zero coupon bond maturing at <span
+class="math inline">u</span> then the price of a constant maturity <span
+class="math inline">u</span> zero is <span class="math inline">X_t =
+D_t(t + u)</span>.</p>
+<p>Recall the value at time <span class="math inline">t</span> of a zero
+coupon bond with maturity <span class="math inline">u</span> is <span
+class="math inline">{D_t(u) = E_t[\exp(-\int_t^u f_s\,ds)]}</span>,
+where <span class="math inline">f_t</span> is the continuously
+compounded instantaneous forward rate and <span
+class="math inline">E_t</span> denotes the conditional expectation given
+information at time <span class="math inline">t</span>. We can write
+this as <span class="math inline">D_t(u) = \exp(-\int_t^u
+f_s(t)\,ds)</span> where the implied forward as seen from time <span
+class="math inline">t</span> is <span class="math inline">s\mapsto
+f_s(t)</span>, <span class="math inline">s \ge t</span>.</p>
+<p>The (one-factor) <a
+href="https://keithalewis.github.io/math/ho-lee.html">Ho-Lee model</a>
+assumes the forward rate is <span class="math inline">f_t = \phi(t) +
+\sigma(t) B_t</span>, where <span class="math inline">B_t</span> is
+one-dimensional Brownian motion so we can find closed form solutions. In
+particular, if <span class="math inline">\phi</span> and <span
+class="math inline">\sigma</span> are constant we have <span
+class="math display">
+    D_t(u) = \exp(-(u - t)\phi + \sigma^2(u - t)^3/6 - \sigma(u -
+t)B_t).
+</span> For a constant <span class="math inline">u</span> maturity zero
+this gives <span class="math display">
+D_t(t + u) = \exp(-u\phi + \sigma^2 u^3/6 - \sigma u B_t)
+</span> Recall if <span class="math inline">N</span> is normally
+distributed then <span class="math inline">{E[\exp(N)] = \exp(E[N] +
+\operatorname{Var}(N)/2)}</span>. This implies <span
+class="math display">
+\begin{aligned}
+    E[D_t(t + u)] &amp;= \exp(-u\phi + \sigma^2 u^3/6 + \sigma^2 u^2
+t/2) \\
+        &amp;= \exp(-u\phi + \sigma^2 u^2(u + 3t)/6) \\
+\end{aligned}
+</span> since <span class="math inline">\operatorname{Var}(B_t) =
+t</span>.</p>
+<p>Note <span class="math inline">{(\partial/\partial t)E[D_t(t + u)] =
+E[D_t(t + u)]\sigma^2 u^2/2}</span> so the expected realized return does
+not depend on <span class="math inline">t</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">E[f_t(t
++ u)] = \phi - \sigma^2 u^2/2</span></em>.</p>
+<p>This shows the convexity adjustment between forwards and futures is
+the expected realized return.</p>
+<p>The realized return over the interval <span class="math inline">[t, t
++ \Delta t]</span> is <span class="math inline">{R(t, \Delta t) = (X_{t
++ \Delta t} - X_t)/X_t = X_{t + \Delta t}/X_t - 1}</span>. <!--
+If ${X_t = \exp(Y_t)}$ then ${R\approx Y_{t + \Delta t} - Y_t = \Delta Y_t}$.
+In the Ho-Lee model we have $Y_t = -u\phi + \sigma^2 u^3/6 - \sigma u B_t$ so
+$$
+    \Delta Y_t = -\sigma u \Delta B_t.
+$$
+If $N$ and $M$ are jointly normal then ${E[\exp(N)f(M)] = E[\exp(N)]E[f(M + \Cov(N,M))]}$
+for any reasonable function $f$. Taking $f(M) = \exp(-M)$ we have
+$f(M + \Cov(N,M)) = \exp(-M - \Cov(N,M))$ so
+$$
+    E[\exp(N)/\exp(M)] = E[\exp(N)] \exp(-E[M] - \Cov(N,M) + \Var(M)/2) 
+$$
+If we let $M = -N$ we get ${\Var(\exp(N)) = E[\exp(N)]^2(\exp(\Var(N)) - 1)}$.
+
+so ${E[R] = \exp(\sigma^2 u^2 \Delta t/2) - 1 \approx \sigma^2 u^2 \Delta t/2}$ and
+${\Var(R) = E[R]^2(\exp(\sigma^2 u^2 \Delta t) - 1)}$.
+--></p>
+<p>Using <span class="math inline">X_t = D_t(t + u)</span> we have <span
+class="math inline">R = X_{t + \Delta t}/X_t - 1 = \exp(-\sigma u\Delta
+B_t) - 1</span></p>
+</body>
+</html>
