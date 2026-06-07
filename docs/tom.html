@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2026-05-31" />
   <title>Tom’s Question</title>
   <style>
     code{white-space: pre-wrap;}
@@ -45,8 +44,14 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Tom’s Question</h1>
-<p class="date">May 31, 2026</p>
+<p class="date">Jun 6, 2026</p>
 </header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#ho-lee" id="toc-ho-lee">Ho-Lee</a></li>
+<li><a href="#replication" id="toc-replication">Replication</a></li>
+</ul>
+</nav>
 <blockquote>
 <p>“Mathematicians are like Frenchmen: whatever you say to them they
 translate into their own language and forthwith it is something entirely
@@ -56,7 +61,8 @@ different.” ― Johann Wolfgang von Goethe</p>
 maturity bond in the case of a zero coupon bond. If <span
 class="math inline">D_t(u)</span> is the price at time <span
 class="math inline">t</span> of a zero coupon bond maturing at <span
-class="math inline">u</span> then the price of a constant maturity <span
+class="math inline">u</span> then the arbitrage-free value at time <span
+class="math inline">t</span> of a constant maturity <span
 class="math inline">u</span> zero is <span class="math inline">X_t =
 D_t(t + u)</span>.</p>
 <p>Recall the value at time <span class="math inline">t</span> of a zero
@@ -70,6 +76,8 @@ this as <span class="math inline">D_t(u) = \exp(-\int_t^u
 f_s(t)\,ds)</span> where the implied forward as seen from time <span
 class="math inline">t</span> is <span class="math inline">s\mapsto
 f_s(t)</span>, <span class="math inline">s \ge t</span>.</p>
+<section id="ho-lee" class="level2">
+<h2>Ho-Lee</h2>
 <p>The (one-factor) <a
 href="https://keithalewis.github.io/math/ho-lee.html">Ho-Lee model</a>
 assumes the forward rate is <span class="math inline">f_t = \phi(t) +
@@ -95,15 +103,19 @@ t/2) \\
 </span> since <span class="math inline">\operatorname{Var}(B_t) =
 t</span>.</p>
 <p>Note <span class="math inline">{(\partial/\partial t)E[D_t(t + u)] =
-E[D_t(t + u)]\sigma^2 u^2/2}</span> so the expected realized return does
-not depend on <span class="math inline">t</span>.</p>
+E[D_t(t + u)]\sigma^2 u^2/2}</span> so the expected realized return,
+<span class="math inline">(\partial X_t/\partial t)/X_t = \partial \log
+X_t/\partial t</span>, does not depend on <span
+class="math inline">t</span>.</p>
 <p><strong>Exercise</strong>. <em>Show <span class="math inline">E[f_t(t
 + u)] = \phi - \sigma^2 u^2/2</span></em>.</p>
 <p>This shows the convexity adjustment between forwards and futures is
 the expected realized return.</p>
 <p>The realized return over the interval <span class="math inline">[t, t
 + \Delta t]</span> is <span class="math inline">{R(t, \Delta t) = (X_{t
-+ \Delta t} - X_t)/X_t = X_{t + \Delta t}/X_t - 1}</span>. <!--
++ \Delta t} - X_t)/X_t = X_{t + \Delta t}/X_t - 1}</span>.</p>
+<p><span class="math inline">\Delta\log X_t = \log X_{t + \Delta t} -
+\log X_t</span> <!--
 If ${X_t = \exp(Y_t)}$ then ${R\approx Y_{t + \Delta t} - Y_t = \Delta Y_t}$.
 In the Ho-Lee model we have $Y_t = -u\phi + \sigma^2 u^3/6 - \sigma u B_t$ so
 $$
@@ -122,6 +134,207 @@ ${\Var(R) = E[R]^2(\exp(\sigma^2 u^2 \Delta t) - 1)}$.
 --></p>
 <p>Using <span class="math inline">X_t = D_t(t + u)</span> we have <span
 class="math inline">R = X_{t + \Delta t}/X_t - 1 = \exp(-\sigma u\Delta
-B_t) - 1</span></p>
+B_t) - 1</span> so <span class="math inline">E[R] = \exp(\sigma^2
+u^2\Delta t/2) - 1 \approx \sigma^2 u^2\Delta t/2</span>.</p>
+<p>Assume prices <span class="math inline">(X_t)</span> and cash flows
+<span class="math inline">(C_t)</span>, <span class="math inline">t\ge
+0</span>, indexed by market tradeable instruments. Given a finite
+trading strategy <span class="math inline">(\tau_j,\Gamma_j)</span> let
+<span class="math inline">\Gamma_t = \Gamma_j 1(t = \tau_j)</span> so
+the position at time <span class="math inline">t</span> is <span
+class="math inline">\sum_{s &lt; t}\Gamma_s</span>. The trade blotter
+will show mark-to-market value <span class="math inline">V_t = (\Delta_t
++ \Gamma_t)\cdot X_t</span> and amounts <span class="math inline">A_t =
+\Delta_t\cdot C_t - \Gamma_t\cdot X_t</span>.</p>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">t</span></th>
+<th><span class="math inline">X</span></th>
+<th><span class="math inline">C</span></th>
+<th><span class="math inline">\Gamma</span></th>
+<th><span class="math inline">\Delta</span></th>
+<th><span class="math inline">V</span></th>
+<th><span class="math inline">A</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">[0, \tau_0)</span></td>
+<td><span class="math inline">X_t</span></td>
+<td><span class="math inline">C_t</span></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\tau_0</span></td>
+<td><span class="math inline">X_0</span></td>
+<td><span class="math inline">C_0</span></td>
+<td><span class="math inline">\Gamma_0</span></td>
+<td>0</td>
+<td><span class="math inline">\Gamma_0\cdot X_0</span></td>
+<td><span class="math inline">-\Gamma_0\cdot X_0</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">(\tau_0, \tau_1)</span></td>
+<td><span class="math inline">X_t</span></td>
+<td><span class="math inline">C_t</span></td>
+<td>0</td>
+<td><span class="math inline">\Gamma_0</span></td>
+<td><span class="math inline">\Gamma_0\cdot X_t</span></td>
+<td><span class="math inline">\Gamma_0\cdot C_t</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\tau_1</span></td>
+<td><span class="math inline">X_1</span></td>
+<td><span class="math inline">C_1</span></td>
+<td><span class="math inline">\Gamma_1</span></td>
+<td><span class="math inline">\Gamma_0</span></td>
+<td><span class="math inline">(\Gamma_0+\Gamma_1)\cdot X_0</span></td>
+<td><span class="math inline">\Gamma_0\cdot C_1 - \Gamma_1\cdot
+X_1</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">(\tau_1, \tau_2)</span></td>
+<td><span class="math inline">X_t</span></td>
+<td><span class="math inline">C_t</span></td>
+<td>0</td>
+<td><span class="math inline">\Gamma_0 + \Gamma_1</span></td>
+<td><span class="math inline">(\Gamma_0 + \Gamma_1)\cdot X_t</span></td>
+<td><span class="math inline">(\Gamma_0 + \Gamma_1)\cdot C_t</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\cdots</span></td>
+<td><span class="math inline">\cdots</span></td>
+<td><span class="math inline">\cdots</span></td>
+<td><span class="math inline">\cdots</span></td>
+<td><span class="math inline">\cdots</span></td>
+<td><span class="math inline">\cdots</span></td>
+<td><span class="math inline">\cdots</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\tau_n</span></td>
+<td><span class="math inline">X_n</span></td>
+<td><span class="math inline">C_n</span></td>
+<td><span class="math inline">\Gamma_n</span></td>
+<td><span class="math inline">\sum_{j &lt; n}\Gamma_j</span></td>
+<td><span class="math inline">(\sum_{j\le n}\Gamma_j)\cdot
+X_0</span></td>
+<td><span class="math inline">(\sum_{j &lt; n} \Gamma_j)\cdot C_n -
+\Gamma_n\cdot X_n</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">(\tau_n, \infty)</span></td>
+<td><span class="math inline">X_t</span></td>
+<td><span class="math inline">C_t</span></td>
+<td>0</td>
+<td><span class="math inline">\sum_{j\le n}\Gamma_j</span></td>
+<td><span class="math inline">(\sum_{j\le n} \Gamma_j)\cdot
+X_t</span></td>
+<td><span class="math inline">(\sum_{j\le n})\cdot C_t</span></td>
+</tr>
+</tbody>
+</table>
+<p>The strategy is closed out at <span class="math inline">\tau_n</span>
+if <span class="math inline">\Gamma_n = -\sum_{j &lt; n}\Gamma_j</span>
+so <span class="math inline">\sum_{j\le n}\Gamma_j = 0</span>. In this
+case the value <span class="math inline">V_{\tau_n} = 0</span> and the
+amount <span class="math inline">A_{\tau_n} = -\Gamma_n\cdot C_{\tau_n}
+- \Gamma_n\cdot X_{\tau_n}</span>. We then have <span
+class="math inline">V_t = A_t = 0</span> for <span class="math inline">t
+&gt; \tau_n</span>.</p>
+<p>This table can be simplified if we let <span
+class="math inline">\Delta_{+j}</span> at <span
+class="math inline">\tau_j</span> be the position over <span
+class="math inline">(\tau_j,\tau_{j+1}]</span> so <span
+class="math inline">{\Delta_{+j} = \Delta_{+(j-1)} + \Gamma_j}</span>.
+We now only need the <span class="math inline">t = \tau_j</span> rows.
+We can also eliminate the non-informative <span
+class="math inline">X</span> and <span class="math inline">C</span>
+columns.</p>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 11%" />
+<col style="width: 22%" />
+<col style="width: 20%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">t</span></th>
+<th><span class="math inline">\Gamma</span></th>
+<th><span class="math inline">\Delta_+</span></th>
+<th><span class="math inline">V</span></th>
+<th><span class="math inline">A</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\tau_0</span></td>
+<td><span class="math inline">\Gamma_0</span></td>
+<td><span class="math inline">\Gamma_0</span></td>
+<td><span class="math inline">\Delta_{+0}\cdot X_0</span></td>
+<td><span class="math inline">-\Gamma_0\cdot X_0</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\tau_1</span></td>
+<td><span class="math inline">\Gamma_1</span></td>
+<td><span class="math inline">\Delta_{+0} + \Gamma_1</span></td>
+<td><span class="math inline">\Delta_{+1}\cdot X_1</span></td>
+<td><span class="math inline">\Delta_{+0}\cdot C_1 - \Gamma_1\cdot
+X_1</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\cdots</span></td>
+<td><span class="math inline">\cdots</span></td>
+<td><span class="math inline">\cdots</span></td>
+<td><span class="math inline">\cdots</span></td>
+<td><span class="math inline">\cdots</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\tau_n</span></td>
+<td><span class="math inline">\Gamma_n</span></td>
+<td>0</td>
+<td>0</td>
+<td><span class="math inline">-\Gamma_n\cdot(C_n + X_n)</span></td>
+</tr>
+</tbody>
+</table>
+<p>In general, <span class="math inline">V_j = \Delta_{+j}\cdot
+X_j</span> and <span class="math inline">A_j = \Delta_{+(j-1}}\cdot C_j
+- \Gamma_j\cdot X_j</span> for <span class="math inline">0 &lt; j &lt;
+n</span>.</p>
+</section>
+<section id="replication" class="level2">
+<h2>Replication</h2>
+<p>A constant maturity <span class="math inline">u</span> zero coupon
+bond is a contract to deliver <span class="math inline">D(\tau, \tau +
+u)</span> given any stopping time <span class="math inline">\tau</span>
+at which the buyer decides to exercise.</p>
+<p>Assume the set of market tradeable instruments include a money-market
+account <span class="math inline">(R_t)</span> and zero coupon bonds of
+every maturity <span class="math inline">D(t)</span>, <span
+class="math inline">t &gt; 0</span>. To create a constant <span
+class="math inline">u</span> maturity zero coupon bond purchase <span
+class="math inline">D(u)</span> at time 0 for <span
+class="math inline">D_0(u)</span>. At time <span
+class="math inline">\Delta t</span> sell the original at <span
+class="math inline">D_{\Delta t}(u)</span> and buy <span
+class="math inline">D(\Delta t + u)</span> by borrowing <span
+class="math inline">D_{\Delta t}(\Delta t + u)</span>. Rinse and
+repeat.</p>
+</section>
 </body>
 </html>

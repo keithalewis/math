@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Things to Know</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Things to Know</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Jun 7, 2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#algebra-of-sets" id="toc-algebra-of-sets">Algebra of
+Sets</a>
+<ul>
+<li><a href="#partition" id="toc-partition">Partition</a></li>
+<li><a href="#partial-information" id="toc-partial-information">Partial
+Information</a></li>
+<li><a href="#measurable" id="toc-measurable">Measurable</a></li>
+<li><a href="#finitely-additive-measure"
+id="toc-finitely-additive-measure">Finitely Additive Measure</a></li>
+</ul></li>
+<li><a href="#fréchet-derivative" id="toc-fréchet-derivative">Fréchet
+Derivative</a></li>
+</ul>
+</nav>
+<p>Here are some things to know when reading about the <a
+href="sum.html">Simple Unified Model</a>.</p>
+<section id="algebra-of-sets" class="level2">
+<h2>Algebra of Sets</h2>
+<p>An <em>algebra of sets</em> on a set <span
+class="math inline">S</span> is a collection of subsets of <span
+class="math inline">S</span> that is closed under union and complement.
+We assume the empty set belongs to any algebra.</p>
+<p><strong>Exercise</strong>. <em>Show algebras of sets are closed under
+intersection</em>.</p>
+<p><em>Hint</em>. Use De Morgan’s law.</p>
+<section id="partition" class="level3">
+<h3>Partition</h3>
+<p>If the algebra <span class="math inline">\mathcal{A}</span> is finite
+then the atoms of the algebra form a <em>partition</em> of <span
+class="math inline">S</span>. A set <span
+class="math inline">A\in\mathcal{A}</span> is an <em>atom</em> of <span
+class="math inline">\mathcal{A}</span> if <span
+class="math inline">B\subseteq A</span> and <span
+class="math inline">B\in\mathcal{A}</span> imply <span
+class="math inline">B = \emptyset</span> or <span class="math inline">B
+= A</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">A_s =
+\cap\{A\in\mathcal{A}\mid s\in A\}</span> is an atom of <span
+class="math inline">\mathcal{A}</span></em>.</p>
+<p>For <span class="math inline">s\in S</span> the <em>atom</em>
+containing <span class="math inline">s</span> is the intersection of all
+sets in the algebra containing <span class="math inline">s</span>, <span
+class="math inline">A_s = \cap\{A\in\mathcal{A}\mid s\in A\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">B\subseteq A_s</span> and <span
+class="math inline">B\in\mathcal{A}</span> then either <span
+class="math inline">B=\emptyset</span> or <span class="math inline">B =
+A_s</span></em>.</p>
+<p><em>Hint</em>: If <span class="math inline">s\in B</span> then <span
+class="math inline">A_s\subseteq B</span>. If <span
+class="math inline">s\not\in B</span> then <span
+class="math inline">s\in A_s\setminus B</span> so <span
+class="math inline">A_s\subseteq A_s\setminus B\subseteq A_s</span>. It
+follows <span class="math inline">A_s = A_s\setminus B</span> and <span
+class="math inline">B = \emptyset</span>.</p>
+<p>Clearly <span class="math inline">S = \cup_{s\in S} A_s</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">A_s\cap
+A_t\not=\emptyset</span> implies <span class="math inline">A_s =
+A_t</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">A_s\subseteq A_t</span>
+and <span class="math inline">A_t\subseteq A_s</span> then apply the
+previous exercise.</p>
+</section>
+<section id="partial-information" class="level3">
+<h3>Partial Information</h3>
+<p>A partition models <em>partial information</em> about a sample space
+<span class="math inline">S</span>. No information corresponds to the
+singleton <span class="math inline">\{S\}</span>. Full information
+corresponds to the partition of singletons <span
+class="math inline">\{\{s\}\mid s\in S\}</span>. Partial information
+means knowing only which atom contains the element <span
+class="math inline">s</span>.</p>
+<p>For example, the partition <span
+class="math inline">\{[0,1/2),[1/2,1)\}</span> of <span
+class="math inline">[0, 1)</span> represents knowledge of the first
+digit in the base 2 expansion of <span
+class="math inline">s\in[0,1)</span>. If <span
+class="math inline">s\in[0,1/2)</span> its first binary digit is 0 and
+if <span class="math inline">s\in[1/2,1)</span> its first binary digit
+is 1.</p>
+</section>
+<section id="measurable" class="level3">
+<h3>Measurable</h3>
+<p>A function <span class="math inline">f\colon
+S\to\boldsymbol{{R}}</span> is <em>measurable</em> with respect to an
+algebra if and only if it is constant on atoms. In particular, it
+<strong>is</strong> a function on the atoms. This is useful for software
+implementation of measurable functions.</p>
+</section>
+<section id="finitely-additive-measure" class="level3">
+<h3>Finitely Additive Measure</h3>
+<p>The set of bounded functions on a set <span
+class="math inline">S</span> is <span class="math inline">{B(S) =
+\{f\colon S\to\boldsymbol{{R}}\mid \|f\| &lt; \infty \}}</span> where
+<span class="math inline">{\|f\| = \sup_{s\in S}|f(s)|}</span> is the
+norm of <span class="math inline">f</span>.</p>
+<p>The vector space dual of bounded functions, <span
+class="math inline">B(S)^*</span>, is isometrically isomorphic to <span
+class="math inline">ba(S)</span>, the space of finitely additive
+measures on <span class="math inline">S</span>. Given a linear
+functional <span class="math inline">L\colon
+B(S)\to\boldsymbol{{R}}</span> define <span
+class="math inline">{\lambda(A) = L1_A}</span>. The algebraic equality
+<span class="math inline">{1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}}</span>
+shows <span class="math inline">\lambda</span> is a finitely additive
+measure.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\lambda(\emptyset) = 0</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">1_\emptyset(s) = 0</span>
+for all <span class="math inline">s\in S</span> so <span
+class="math inline">1_\emptyset</span> is the zero function in <span
+class="math inline">B(S)</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">T\colon
+V\to W</span> is a linear operator then <span class="math inline">T0_V =
+0_W</span></em>.</p>
+<p><em>Hint</em> First show <span class="math inline">v + v = v</span>
+for any <span class="math inline">v\in V</span> implies <span
+class="math inline">v = 0_v</span>. Consider <span
+class="math inline">T(0_V) = T(0_V + 0_v)</span>.</p>
+<p>Given a finitely additive measure <span
+class="math inline">\lambda\in ba(S)</span> we can define a linear
+functional on the vector space of finite linear combinations <span
+class="math inline">{f = \sum_j a_j 1_{A_j}}</span> by <span
+class="math inline">{Lf = \sum_j a_j \lambda(A_j)}</span>. The <span
+class="math inline">A_j</span> can be chosen to be disjoint.</p>
+<p><strong>Exercise</strong>. <em>Write <span class="math inline">A\cup
+B</span> as a disjoint union</em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">A\setminus B = \{a\in
+A\mid a\not\in B\}</span>.</p>
+<p>This makes the definition well-defined. The norm of <span
+class="math inline">\lambda</span> is the supremum over all disjoint
+<span class="math inline">\{A_j\}</span> of <span
+class="math inline">{\sum_j |\lambda(A_j)|}</span>. A short argument
+shows <span class="math inline">{\|\lambda\| = \|L\|}</span>. Elementary
+functions are uniformly dense in <span class="math inline">B(S)</span>
+so we can extend <span class="math inline">L</span> to an isometry from
+<span class="math inline">B(S)</span> to <span
+class="math inline">ba(S)</span>.</p>
+<p>For <span class="math inline">g\in B(S)</span> define <span
+class="math inline">M_g\colon B(S)\to B(S)</span> by <span
+class="math inline">{M_gf = fg}</span>. Its adjoint <span
+class="math inline">{M_g^*\colon ba(S)\to ba(S)}</span> defines
+multiplication of a measure by a bounded function <span
+class="math inline">{g\lambda = M_g^*\lambda}</span>.</p>
+<p>If <span class="math inline">P</span> is a positive measure having
+mass 1 (a “probability” measure) and <span
+class="math inline">\mathcal{A}</span> is an algebra of sets on the
+sample space then the <em>conditional expectation</em> <span
+class="math inline">{Y = E[X\mid\mathcal{A}]}</span> is equivalent to
+<span class="math inline">{Y(P|_\mathcal{A}) = (XP)|_\mathcal{A}}</span>
+where <span class="math inline">|_\mathcal{A}</span> indicates
+restriction of measure. It is trivial to implement restriction of a
+function in software.</p>
+</section>
+</section>
+<section id="fréchet-derivative" class="level2">
+<h2>Fréchet Derivative</h2>
+<p>If <span class="math inline">F\colon X\to Y</span> is a function
+between normed linear spaces the Fréchet derivative <span
+class="math inline">{DF\colon X\to\mathcal{B}(X,Y)}</span> is defined by
+<span class="math display">
+    F(x + h) = F(x) + DF(x)h + o(h)
+</span> for <span class="math inline">x,h\in X</span> where <span
+class="math inline">\mathcal{B}(X,Y)</span> is the set of bounded linear
+operators from <span class="math inline">X</span> to <span
+class="math inline">Y</span>. The “little <span
+class="math inline">o</span>” notation means <span
+class="math inline">\|F(x + h) - F(x) - DF(x)h\|/\|h\| \to 0</span> as
+<span class="math inline">\|h\| \to 0</span>. The function <span
+class="math inline">F</span> can be approximated near <span
+class="math inline">x</span> by the linear operator <span
+class="math inline">DF(x)</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+is a Banach algebra and <span class="math inline">F(x) = x^2</span> show
+<span class="math inline">DF(x)h = xh + hx</span></em>.</p>
+<p><em>Hint</em>: Don’t assume multiplication is commutative and use
+<span class="math inline">h^2 = o(h)</span>.</p>
+<p>If we define left multiplication by <span class="math inline">x\in
+X</span>, <span class="math inline">L_x\colon X\to X</span>, as <span
+class="math inline">L_xy = xy</span> and right multiplication by <span
+class="math inline">x</span> as <span class="math inline">R_xy =
+yx</span> then the above exercise shows <span
+class="math inline">{DF(x^2) = L_x + R_x}</span>.</p>
+<p><strong>Exercise</strong> <em>Show <span class="math inline">D(x^n) =
+\sum_{k = 0}^n L_x^{n-k} R_x^k</span></em>.</p>
+<p>For <span class="math inline">x\in\boldsymbol{{R}}^n</span> define
+the linear functional <span
+class="math inline">x^*\colon\boldsymbol{{R}}^n\to\boldsymbol{{R}}</span>
+by <span class="math inline">x^*(y) = y\cdot x</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">x\mapsto x^*</span> is an isometric isomorphism from
+<span class="math inline">\boldsymbol{{R}}^n</span> to its dual <span
+class="math inline">(\boldsymbol{{R}}^n)^* =
+\mathcal{B}(\boldsymbol{{R}}^n,\boldsymbol{{R}})</span></em>.</p>
+<p><strong>Exercise</strong> <em>Let <span class="math inline">\|x\|^p =
+\sum_i |x_i|^p</span> for <span class="math inline">x =
+(x_1,\ldots,x_n)\in\boldsymbol{{R}}^n</span>. Show <span
+class="math inline">D\|x\|^p = p\|x\|^{p-2}x^*</span></em>.</p>
+<p><em>Hint</em>: Start with <span class="math inline">p = 2</span> and
+use <span class="math inline">\|x\|^p = \exp((p/2)\log\|x\|^2)</span>.
+Note <span class="math inline">x \mapsto \|x\|^p</span> is a function
+<span class="math inline">\boldsymbol{{R}}^n\to\boldsymbol{{R}}</span>
+so its Fréchet derivative goes from <span
+class="math inline">\boldsymbol{{R}}^n\to\mathcal{B}(\boldsymbol{{R}}^n,\boldsymbol{{R}})
+= (\boldsymbol{{R}}^n)^*</span>.</p>
+</section>
+</body>
+</html>

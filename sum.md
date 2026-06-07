@@ -38,7 +38,6 @@ calculus, much less partial differential equations.
 His insight was to realize option valuation has
 nothing to do with probability and used the Hahn-Banach theorem to show
 prices are constrained by the geometry determined by cash flows.
-We show even that is not required.
 
 Ross's theory also applies to all instruments, not just a
 bond, stock, and option that Black, Scholes, and Merton considered.
@@ -47,7 +46,8 @@ There is a clear trajectory in Mathematical Finance from simple
 closed-form models to those allowing more realistic features to be incorporated.
 Classical models assume there is no bid-ask spread (perfect liquidity)
 and prices are a real numbers (infinitely divisible). We also make that
-unrealistic assumption.
+unrealistic assumption. See [Unified Finance](uf.html) for a rigorous
+model that can incorporate these features.
 
 The Achilles Heel of the Black-Scholes/Merton model is that it assumes
 continuous-time trading. This leads to infeasible trading strategies
@@ -63,9 +63,9 @@ A derivative instrument is a contract. The seller is obligated to
 to satisfy cash flows specified in the (cash settled) contract the buyer agrees to.
 The fundamental problem every trader faces the first day on the job is
 when and how many market instruments to buy in order to manage risk.
-
-This note provides a simple universal model that provides
-a foundation for making advances on this important and poorly understood problem.
+This note provides a simple unified model that provides
+a foundation for making advances on this important problem.
+Much research still remains to be done. See [#future-research]
 
 ## Model
 
@@ -300,7 +300,6 @@ built from futures instead of repos.
 The [@HeaJarMor1992] model corresponds to using
 the continuous time forward rates.
 
-
 ### Fixed Income
 
 _Fixed income_ instruments pay fixed cash flows $c_j$ at times $t_j$.
@@ -521,3 +520,20 @@ Our definition of arbitrage is not sufficient. Recall $A_0 = -\Gamma_0\cdot X_0$
 Even if this is strictly positive traders and risk managers will compare it
 to $|\Gamma_0|\cdot|X_0|$ as a measure of how much capital will be tied up
 in the trading strategy. 
+
+## Future Research
+
+Every arbitrage-free model of prices $(X_t)$ and cash flows $(C_t)$ indexed my market instruments  
+has the form 
+$$
+  X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
+$$
+where $(D_t)$ are positive adapted measures and $(M_t)$ is a martingale measure indexed by market instruments.
+If repos are available they determine a canonical deflator so the problem reduces to finding 
+martingale measures. 
+
+If we know the distribution of an individual instrument at time $t$
+it is trivial that $M_s = (X_t/X_0\,D_0)|\AA_s$ is a martingale measure.
+If options are available with expiration $t$ then 
+ 
+## References

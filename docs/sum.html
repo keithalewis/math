@@ -64,7 +64,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model</h1>
-<p class="date">Mar 16, 2026</p>
+<p class="date">Jun 7, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Arbitrage-free prices are geometrically constrained by cash flows.
@@ -92,6 +92,9 @@ id="toc-black-scholesmerton">Black-Scholes/Merton</a></li>
 id="toc-general-european-option">General European Option</a></li>
 </ul></li>
 <li><a href="#notes" id="toc-notes">Notes</a></li>
+<li><a href="#future-research" id="toc-future-research">Future
+Research</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
 <!--
@@ -122,14 +125,16 @@ He does not require Brownian motion, the It^o calculus, much less
 partial differential equations. His insight was to realize option
 valuation has nothing to do with probability and used the Hahn-Banach
 theorem to show prices are constrained by the geometry determined by
-cash flows. We show even that is not required.</p>
+cash flows.</p>
 <p>Ross’s theory also applies to all instruments, not just a bond,
 stock, and option that Black, Scholes, and Merton considered.</p>
 <p>There is a clear trajectory in Mathematical Finance from simple
 closed-form models to those allowing more realistic features to be
 incorporated. Classical models assume there is no bid-ask spread
 (perfect liquidity) and prices are a real numbers (infinitely
-divisible). We also make that unrealistic assumption.</p>
+divisible). We also make that unrealistic assumption. See <a
+href="uf.html">Unified Finance</a> for a rigorous model that can
+incorporate these features.</p>
 <p>The Achilles Heel of the Black-Scholes/Merton model is that it
 assumes continuous-time trading. This leads to infeasible trading
 strategies and obviously incorrect valuations. The doubling strategy
@@ -151,10 +156,9 @@ role="doc-biblioref">Karatzas and Shreve 1991</a>)</span> Section
 satisfy cash flows specified in the (cash settled) contract the buyer
 agrees to. The fundamental problem every trader faces the first day on
 the job is when and how many market instruments to buy in order to
-manage risk.</p>
-<p>This note provides a simple universal model that provides a
-foundation for making advances on this important and poorly understood
-problem.</p>
+manage risk. This note provides a simple unified model that provides a
+foundation for making advances on this important problem. Much research
+still remains to be done. See [#future-research]</p>
 <section id="model" class="level2">
 <h2>Model</h2>
 <p>Let <span class="math inline">\Omega</span> be a sample space
@@ -773,6 +777,27 @@ class="math inline">A_0 = -\Gamma_0\cdot X_0</span>. Even if this is
 strictly positive traders and risk managers will compare it to <span
 class="math inline">|\Gamma_0|\cdot|X_0|</span> as a measure of how much
 capital will be tied up in the trading strategy.</p>
+</section>
+<section id="future-research" class="level2">
+<h2>Future Research</h2>
+<p>Every arbitrage-free model of prices <span
+class="math inline">(X_t)</span> and cash flows <span
+class="math inline">(C_t)</span> indexed my market instruments<br />
+has the form <span class="math display">
+  X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
+</span> where <span class="math inline">(D_t)</span> are positive
+adapted measures and <span class="math inline">(M_t)</span> is a
+martingale measure indexed by market instruments. If repos are available
+they determine a canonical deflator so the problem reduces to finding
+martingale measures.</p>
+<p>If we know the distribution of an individual instrument at time <span
+class="math inline">t</span> it is trivial that <span
+class="math inline">M_s = (X_t/X_0\,D_0)|\mathcal{A}_s</span> is a
+martingale measure. If options are available with expiration <span
+class="math inline">t</span> then</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
 role="list">
 <div id="ref-Bla1976" class="csl-entry" role="listitem">
