@@ -13,12 +13,40 @@ abstract: Fixed cash flows
 
 ## Fixed Income
 
+> Nowadays, people know the price of everything and the value of nothing. -- Oscar Wilde
+
+The stock market knows the price of everything and the value of nothing;
+the bond market knows the value of everything and the price of nothing.
+
+Stocks trade on exchanges that cultivate liquidity providers to make a
+real-time market for what price and amount their customers can instantly trade.
+
+For various reasons, there are only limited attempts in the bond market
+to provide something analogous.  Fixed income bonds are much simpler than
+stocks.  The issuer will pay you fixed amounts at fixed times. Every fixed
+income instrument is just a portfolio of zero coupon bonds.  Its value
+is just the discounted value of future cash flows. Simple, right?
+
+## Broker/Dealer
+
+You can contact a _broker_ who can hook you up with the owner
+of a bond you would like to purchase and charge you a fee much
+larger than the typical bid/ask spread in the stock market. There are
+also _broker-dealers_ who hold bonds and might be able to give
+you a better price. Unlike a broker
+dealers are in a position to offer better prices,
+but their positions are subject to the vagaries of the market.
+
+## Discount
+
 Zero coupon bonds are the basic mechanism for moving fixed cash flows
-in time. A _zero coupon bond_ pays unit cash flow at _maturity_ $u$.
-Its _price_ $D(u)$ is the _discount curve_. Paying $D(u)$ now to the bond
+in time. The bond issuer 
+A _zero coupon bond_ pays unit cash flow at _maturity_ $u$.
+Its _price_ $D(u)$ is the _discount curve_. Paying $D(u)$ now to the
+zero coupon bond
 issuer results in receiving one unit from them at $u$, assuming they
-have not defaulted. After a bond is issued it can be traded
-in the _secondary market_.
+have not defaulted and you now have to consider how much principal
+you might be able to recover.
 
 A _fixed income instrument_ is a portfolio of zero coupon bonds.
 It is specified by amounts $c_j$ paid at times $u_j$
