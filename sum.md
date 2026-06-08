@@ -27,86 +27,73 @@ and managing the risk of **all** derivative instruments. It is based on [@Ros197
 > If there are no arbitrage opportunities in a market, then there must exist a (not generally unique)
 positive linear operator that can be used to value all marketed assets.
 
-We call Ross's valuation operator a _deflator_:
-positive measures that depend only on the information available at each trading time.
-We will show the reciprocal of a money market account used to fund trading determines
-a canonical deflator.
+One such operator is the stochastic discount, the reciprocal of a money market account.
+We call any such positive linear operator a _deflator_.
 
 Unlike [@BlaSch1973] and [@Mer1973] Ross made no assumptions on the underlying
-stochastic processes for prices. He does not require Brownian motion, the It\^o
-calculus, much less partial differential equations.
+stochastic processes for prices. He does not require Brownian motion, the Itô
+calculus, or partial differential equations.
 His insight was to realize option valuation has
 nothing to do with probability and used the Hahn-Banach theorem to show
-prices are constrained by the geometry determined by cash flows.
-
-Ross's theory also applies to all instruments, not just a
-bond, stock, and option that Black, Scholes, and Merton considered.
+prices are constrained by the geometry determined by model cash flows.
 
 There is a clear trajectory in Mathematical Finance from simple 
 closed-form models to those allowing more realistic features to be incorporated.
 Classical models assume there is no bid-ask spread (perfect liquidity)
-and prices are a real numbers (infinitely divisible). We also make that
-unrealistic assumption. See [Unified Finance](uf.html) for a rigorous
+and prices are a real numbers (infinitely divisible).
+See [Unified Finance](uf.html) for a rigorous
 model that can incorporate these features.
 
 The Achilles Heel of the Black-Scholes/Merton model is that it assumes
 continuous-time trading. This leads to infeasible trading strategies
 and obviously incorrect valuations.  The doubling strategy pointed
 out by [@HarKre1979] is impossible to carry out.
-According to the B-S/M theory the value of a barrier option
-that knocks in the $n$-th time the barrier is hit is the same for all $n>0$.
+Merton derived a closed-form solution for barrier options.
+The value of a barrier option that knocks in the second time
+the barrier is hit must have a value less than or equal to
+a one-hit barrier option.
+According to the B-S/M theory, the value of a barrier option
+that knocks in the $n$-th time the barrier is hit is the same for all $n>1$.
 If Brownian motion hits level $a$ at time $\tau$ then it hits $a$ infinitely
 often in the interval $[\tau, \tau + \epsilon]$ for any $\epsilon > 0$.
-See [@KarShr1991] Section 3.2.
+See [@KarShr1991] Section 3.2. This is why Brownian motion is an 
+unrealistic model of instrument prices.
 
-A derivative instrument is a contract. The seller is obligated to
-to satisfy cash flows specified in the (cash settled) contract the buyer agrees to.
-The fundamental problem every trader faces the first day on the job is
-when and how many market instruments to buy in order to manage risk.
-This note provides a simple unified model that provides
-a foundation for making advances on this important problem.
-Much research still remains to be done. See [#future-research]
+Every hedging strategy involves only a finite number of trades.
+This remedies the untenable results above. It does not solve
+the fundamental problem every trader faces the first day
+on the job: when and how many market instruments to buy in order to
+manage risk.  This note provides a simple unified model that provides
+a rigorous mathematical foundation for addressing this problem.
+Fundamental research remains to be done. See [#future-research]
 
 ## Model
 
-Let $\Omega$ be a sample space representing everything that can happen.
-Information at time $t$ is modeled by a partition $\AA_t$ of $\Omega$. We assume
-$\AA_u$ is a refinement of $\AA_t$ whenever $u > t$.
-The possible _trading times_ $T$ are a subset of the non-negative real numbers.
-To avoid doubling strategies
-we assume $T\cap[0,t]$ is has no accumulation points.
-This is satisfied if time is modelled by a 64-bit floating point number.
-Finally, let $I$ be the set of all market instruments.
-
-We use $B(\Omega)$ to denote the space of bounded functions on $\Omega$.
-Recall its vector space dual can be identified with the space of
-finitely additive measures on $\Omega$ denoted $ba(\Omega)$.
-(If $L\colon B(\Omega)\to\RR$ is linear and bounded define $\lambda(E) = L(1_E)$ where
-$1_E$ is 1 on $E$ and zero on $\Omega\setminus E$.
-Since $1_{E\cup F} = 1_E + 1_F - 1_{E\cap F}$ and $1_\emptyset =  0$
-this defines a finitely additive measure.)
-For any $f\in B(\Omega)$ define the linear operator of multiplication by $f$,
-$M_f\colon B(\Omega)\to B(\Omega)$, by $M_fg = fg$.
-Its adjoint is the linear operator $M_f^*\colon ba(\Omega)\to ba(\Omega)$. 
-This defines multiplying a measure by a function $f\phi = M_f^*\phi$
-for $f\in B(\Omega)$ and $\phi\in ba(\Omega)$.
-We call $f$ the Radon-Nikodym derivative of $f\phi$ with respect to $\phi$.
+Let $T$ be the finite set of possible trading times and $\Omega$ be a
+sample space representing everything that can happen.  Information at
+time $t$ is modeled by a partitions $(\AA_t)_{t\in T}$ of $\Omega$.
+We assume every atom of $\AA_t$ is a union of atoms of $\AA_u$ for $t < u$.
+This is true if $A_u$ is a refinement of $A_t$.
+Finally, let $I$ be the finite set of market instruments under consideration.
 
 ## Market
 
-Instruments have prices and cash flows after purchase indexed by $T$.
+Instruments have prices and cash flows indexed by $T$.
 The _price_ at time $t\in T$ is a bounded $\RR^I$-valued function
 $X_t\in B(\Omega,\RR^I)$.
 The _cash flows_ that result from owning an instrument are
 also bounded $\RR^I$-valued functions $C_t\in B(\Omega,\RR^I)$.
 Examples of cash flows are stock dividends, bond coupons, and margin adjustments from futures.
 The price of a futures contract is always zero.
-Usually $C_t = 0$ for all but a finite number of times $t\in T$.
 
 Ross thought of prices as right-continuous functions and identified the jumps
-as the cash flow/dividend. This no longer works if the trading times are discrete.
-Also, calling the close-to-open price gap a dividend is a categorical mistake.
-It is market repricing, not a payout.
+as the cash flow/dividend.
+Calling the close-to-open price gap a dividend is a categorical mistake.
+It is market movement, not a payout.
+In fact, stocks trade at integral multiples of their minimum trading
+increment so every price change would be considered a dividend payment
+under Ross's definition.
+It also fails if the trading times are discrete.
 
 ## Trading
 
@@ -140,7 +127,7 @@ Note our definition of arbitrage does not involve a probability measure.
 [^1]: Nick Leeson used this strategy to put 233 year old, at the time, Barings Bank out of business.
 
 __Theorem__. (Fundamental Theorem of Asset Pricing) _The Simple Universal Model is
-arbitrage free if and only if there exist a_ deflator _, positive measures $D_t$ in $ba(\AA_t)$, $t\in T$, with_
+arbitrage-free if and only if there exist a_ deflator _, positive measures $D_t$ in $ba(\AA_t)$, $t\in T$, with_
 $$
 \tag{1}	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}, t\le u
 $$
@@ -151,14 +138,15 @@ The proof relies on the following two lemmas.
 __Lemma__. _Using the above definitions_
 $$
 \tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}, t\le u.
-$$
+there is no need for that. Every arbitrage-free model used in practice has the above parameterization.
+
 
 This is the skeleton key to valuing, hedging, and managing the risk
 of _any_ derivative instrument.
 
 **Trading strategies create synthetic instruments where price, $X$, corresponds
 to value, $V$, and cash flow, $C$, corresponds to amount, $A$.**
-
+-
 _Proof_: If at most one cash flow occurs in the interval $(t,u]$
 then ${X_t D_t = (X_u D_u + C_u D_u)|_{\AA_t}}$ and
 ${\Delta_t + \Gamma_t = \Delta_u}$ is $\AA_t$ measurable.
@@ -166,11 +154,11 @@ Using $\Delta_u\cdot C_u = \Gamma_u\cdot X_u + A_u$ we have
 $$
 \begin{aligned}
 V_t D_t &= (\Delta_t + \Gamma_t)\cdot X_t D_t \\
-	&= \Delta_u\cdot (X_u D_u + C_u D_u)|_{\AA_t} \\
-	&= (\Delta_u\cdot X_u D_u + \Delta_u\cdot C_u D_u)|_{\AA_t} \\
-	&= (\Delta_u\cdot X_u + (\Gamma_u\cdot X_u + A_u))D_u|_{\AA_t} \\
-	&= ((\Delta_u + \Gamma_u)\cdot X_u + A_u)D_u)|_{\AA_t} \\
-	&= (V_u + A_u)D_u|_{\AA_t} \\
+       &= \Delta_u\cdot (X_u D_u + C_u D_u)|_{\AA_t} \\
+       &= (\Delta_u\cdot X_u D_u + \Delta_u\cdot C_u D_u)|_{\AA_t} \\
+       &= (\Delta_u\cdot X_u + (\Gamma_u\cdot X_u + A_u))D_u|_{\AA_t} \\
+       &= ((\Delta_u + \Gamma_u)\cdot X_u + A_u)D_u)|_{\AA_t} \\
+       &= (V_u + A_u)D_u|_{\AA_t} \\
 \end{aligned}
 $$
 The lemma is established by finite induction since $T$ has no accumulation points.
@@ -181,31 +169,38 @@ and $M_t = M_u|_{\AA_t}$ for $u > t$.
 __Lemma__. _If $(M_t)_{t\in T}$ is an $\RR^I$-valued martingale
 measure and $D_t\in ba(\AA_t)$ are positive then_
 $$
-	X_t D_t = M_t - \sum_{s\le t} C_s D_s
+\tag{3}       X_t D_t = M_t - \sum_{s\le t} C_s D_s
 $$
 _is an arbitrage-free model of prices and cash flows_.
 
-This follows from substituting $X_u D_u = M_u - \sum_{s\le u} C_s D_s$
+For example, the Black-Scholes/Merton model for the bond and stock with
+no dividends is parameterized by
+${M_t = (1, e^{\sigma B_t - \sigma^2t/2})P}$, ${D_t = e^{-\rho t}P}$
+where $P$ is Weiner measure on $\Omega = C([0,\infty))$, the space of
+continuous functions from $[0,\infty)$ to the real numbers, and $B_t$ is standard Brownian motion.
+
+_Proof_: This follows from substituting $X_u D_u = M_u - \sum_{s\le u} C_s D_s$
 in equation (1)
 to obtain the arbitrage-free condition:
 $$
 \begin{aligned}
-	(X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t} 
-		&= (M_u - \sum_{s\le u} C_s D_s + \sum_{t < s \le u} C_s D_s)|_{\AA_t} \\
-		&= (M_u - \sum_{s\le t} C_s D_s)|_{\AA_t} \\
-		&= M_t - \sum_{s\le t} C_s D_s \\
-		&= X_t D_t \\ 
+       (X_u D_u + \sum_{t < s \le u} C_s D_s)|_{\AA_t}
+               &= (M_u - \sum_{s\le u} C_s D_s + \sum_{t < s \le u} C_s D_s)|_{\AA_t} \\
+               &= (M_u - \sum_{s\le t} C_s D_s)|_{\AA_t} \\
+               &= M_t - \sum_{s\le t} C_s D_s \\
+               &= X_t D_t \\
 \end{aligned}
 $$
 
-_Proof_ (FTAP): Since ${V_{\tau_0}D_{\tau_0} = (\sum_{u > \tau_0} A_u D_u)|_{\AA_{\tau_0}}}$ and
+_Proof_: (FTAP): Since ${V_{\tau_0}D_{\tau_0} = (\sum_{u > \tau_0} A_u D_u)|_{\AA_{\tau_0}}}$ and
 if $A_t \ge 0$ for $t > \tau_0$ then $V_{\tau_0} \ge 0$.
 Since $\Delta_{\tau_0} = 0$ we have ${V_{\tau_0} = \Gamma_{\tau_0}\cdot X_{\tau_0}}$
 and ${A_{\tau_0} = -\Gamma_{\tau_0}\cdot X_{\tau_0}}$ so ${A_{\tau_0} = -V_{\tau_0} \le 0}$.
 This shows the model is arbitrage-free and proves the "easy" direction of the FTAP.
 
-The proof of the contrapositive involves the Hahn-Banach theorem, but
-there is no need for that. Every arbitrage-free model used in practice has the above parameterization.
+Ross's proof of the contrapositive involves the Hahn-Banach theorem, but
+there is no need for that. Every arbitrage-free model used in practice is parameterized by 
+equation (3).
 
 ## Derivative
 
@@ -215,29 +210,42 @@ $(\tau_j,\Gamma_j)$ with ${\sum_j \Gamma_j = 0}$, ${A_{\hat{\tau}_j} = \hat{A}_j
 and ${A_t = 0}$ (self-financing) otherwise, then a perfect hedge exists.
 The value of the derivative instrument is determined by
 $$
-\tag{3}	V_t D_t = (\sum_{\hat{\tau}_j > t} \hat{A}_j D_{\hat{\tau}_j})|_{\AA_t}.
+\tag{4}	V_t D_t = (\sum_{\hat{\tau}_j > t} \hat{A}_j D_{\hat{\tau}_j})|_{\AA_t}.
 $$
 Note the right hand side is determined by the contract specifications and deflator.
 Assuming $\tau_0 = 0$, $V_0 = \Gamma_0\cdot X_0$ so the initial hedge $\Gamma_0$ is the Fréchet 
 derivative $D_{X_0}V_0$ with respect to $X_0$.
 Since $V_t = (\Gamma_t + \Delta_t)\cdot X_t$ we have
-$\Gamma_t = D_{X_t}V_t - \Delta_t$. Note $\Delta_t$ is settled prior to time $t$.
+$\Gamma_t = D_{X_t}V_t - \Delta_t$. Note $\Delta_t$ is known prior to time $t$.
 
-If we choose a strategy trading at every $T = \epsilon\NN$
-then as $\epsilon$ goes to zero this can be recognized as a generalization of the
-classical B-S/M model where $\Delta$ is delta and $\Gamma$ is gamma.
-<!-- ??? what is variance of hedge given epsilon -->
+> $\Delta$ is delta and $\Gamma$ is gamma.
 
-A feature of the SUM is there is no canonical choice for the trading times $(\tau_j)$. 
+What this theory does not tell us is
+when to trade. We could let $\tau_j = j\Delta t$
+for some time increment $\Delta t$ and this results in the usual
+Black-Scholes/Merton delta hedge as the time increment goes to zero.
+
+A smarter idea might be to set a price increment $\Delta X$ and
+determine the next trading time $\tau_{j+1}$ from the last trading time $\tau_j$
+by ${\tau_{j+1} = \inf \{t > \tau_j\mid \|X_t - X_{\tau_j}\|_\infty > \Delta X\}}$.
+
+What this theory does allow us to do is rigorously analyze any trading strategy.
+For instance, the above $\Delta X$ strategy could be implemented using limit orders. At
+time $\tau_j$ place limit orders at ${X_{\tau_j} \pm \Delta X}$ of size
+$\Gamma_{j+1}$. We do not know $\Gamma_{j+1}$ at time $\tau_j$ since it
+depends on $\tau_{j+1}$ and $X_{\tau_{j+1}}$, however limit orders
+cost nothing to place and cancel so we can keep adjusting their size
+as $t\to\tau_{j+1}$.
+
 The B-S/M model obscures the essential problem faced by every trader: when and
 how how much of each instrument are required to hedge. It is simply not possible
 to hedge continuously.
-The SUM forces you to consider this fundamental question.
+The SUM forces you to attune to this fundamental question.
 
-Semi-Static hedging involves finding an initial static hedge that approximately
+Semi-static hedging involves finding an initial static hedge that approximately
 replicates the option, then finding a dynamic hedge to improve on the difference.
 See [@CarEllGup1998] for early work and [@SauTou2024] for recent improvements
-of this technique.
+of this technique. The SUM can be applied to find the non-static hedge.
 
 ## Examples
 
@@ -286,7 +294,7 @@ Investors hedging derivatives must use their available funding rate.
 
 A _zero coupon bond_ maturing at time $u$ has a single unit cash flow at $u$,
 $C_u^{D(u)} = 1$ and $C_t^{D(u)} = 0$ for $t\not=u$.
-In an arbitrage free model its price at time $t\le u$, $X_t^{D(u)} = D_t(u)$,
+In an arbitrage-free model its price at time $t\le u$, $X_t^{D(u)} = D_t(u)$,
 satisfies $D_t(u) D_t = D_u|_{\AA_t}$ so
 $D_t(u)$ is the Radon-Nikodym derivative of $D_u|_{\AA_t}$ with respect to $D_t$.
 
@@ -299,6 +307,8 @@ The [@BraGatMus1997] model corresponds to using the canonical deflator
 built from futures instead of repos.
 The [@HeaJarMor1992] model corresponds to using
 the continuous time forward rates.
+Every stochastic interest rate model is a special case of these. They just
+have specific parameterizations to make calculations more convenient.
 
 ### Fixed Income
 
@@ -318,13 +328,13 @@ The original sample space must be augmented by the cartesion product with $[0,\i
 indicating the default time and recovery. At time $t$ the information we have
 about the default time is either $\tau < t$ and we know exactly when default happened,
 otherwise we only know $\tau\ge t$. This corresponds to the
-partition of $[0,\infty)$ consisting of singletons $\{s\}$, $s < t$, and
+partition of $[0,\infty)$ consisting of singleton atoms $\{s\}$, $s < t$, and
 the atom $[t,\infty)$. We assume if default occurs at time $t$ then we
 learn about it later.
 
 A risky zero coupon bond maturing at $u$ pays in full at $u$ if $\tau > u$
 and $\rho D_\tau(u)$ at $\tau$ if $t\le\tau\le u$. By equation (2) its value
-$V_t = D_t^{\tau,\rho}(u)$ satisfies
+$D_t^{\tau,\rho}(u)$ satisfies
 $$
 	D_t^{\tau,\rho}(u) D_t = (\rho D_\tau(u)1(t\le\tau\le u) D_\tau + 1(\tau >u)D_u)|_{\AA_t}.
 $$
@@ -337,22 +347,19 @@ all $(D_t)_{t\in T}$ and $\rho$ is constant then
 $$
 	D_t^{\tau,\rho}(u) D_t = (\rho P(t\le\tau\le u) + P(\tau > u))D_t(u).
 $$
-If $\rho = 1$ or $\tau = \infty$ we have
-$D_t^{\tau,\rho}(u) D_t(\{\omega\}\times [t,\infty)) = P(\tau > t)D_t(u)(\{\omega\}\times [t,\infty))$
-so $D_t^{\tau,\rho}(u) = D_t(u)$ is the same as a riskless zero coupon bond.
+If $\rho = 1$ or $\tau = \infty$ we have $D_t^{\tau,\rho}(u) = D_t(u)$.
 
-The _credit spread_ $s^{\tau,\rho}(u)$ is defined by
-$D_t^{\tau,\rho}(u) = \exp(-s^{\tau,\rho}(u)) D_t(u)$ so
+The _credit spread_ $s_t^{\tau,\rho}(u)$ is defined by
+$D_t^{\tau,\rho}(u) = \exp(-s_t^{\tau,\rho}(u)) D_t(u)$ so
 $$
-	s^{\tau,\rho}(u) = -log (\rho P(t\le\tau\le u) + P(\tau > u))
+	s_t^{\tau,\rho}(u) = -\log (\rho P(t\le\tau\le u) + P(\tau > u))
 $$
 If $\tau$ is exponentially distributed with hazard rate $\lambda$
-then for small $\lambda$ we have the approximation
+then for small $\lambda$ we have the back-of-the-envelope approximation
 $$
-	s^{\tau,\rho}(u) \approx \lambda (u - \rho(u - t))
+	s_0^{\tau,\rho}(u) \approx \lambda u(1 - \rho)
 $$
-
-!!!check
+If there is full recovery, $\rho = 1$, or no default, $\lambda = 0$, then $s_0^{\tau,rho} = 0$.
 
 ### Black-Scholes/Merton
 
@@ -408,7 +415,7 @@ The _forward_ of $S$ at time $t$ is the strike making
 the current value of the contract zero.
 In this case ${0 = E[(S_t - f)D_t] = E[S_t D_t] - fE[D_t]}$
 so ${f = E[S_t D_t]/E[D_t] = S_0/D_0}$. This formula is called the
-_cost-of-carry_. ??? revisit
+_cost-of-carry_.
 
 $F_t = fe^{\sigma B_t - \sigma^2t/2}$, where $f = se^{\rho t}$.
 The forward value is $E[\nu(F_t)]$.

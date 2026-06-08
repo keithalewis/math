@@ -16,9 +16,9 @@ abstract: Perturbation of the normal distribution
 The forward value of a European put option
 having strike \(k > 0\) on underlying \(F\) is
 \[
-E[\max\{k - F, 0\}] = E[(k - F)1(F \le k)] = k P(F\le k) - E[F] P^s(F\le k),
+E[\max\{k - F, 0\}] = E[(k - F)1(F \le k)] = k P(F\le k) - E[F] P^*(F\le k),
 \]
-where \(P^s\) is _share measure_ defined by \(dP^s/dP = F/f\).
+where \(P^*\) is _share measure_ defined by \(dP^*/dP = F/f\).
 
 Every positive random variable can be written \(F = f e^{sX -\kappa(s)} \)
 where \(X\) has mean 0, variance 1 and \(\kappa(s) = \log E[e^{s X}]\) is
@@ -58,7 +58,6 @@ work out that
 \(\kappa_1 = E[X]\) and \(\kappa_2 = \Var(X)\). Higher order
 cumulants are less intuitive but the third and fourth are
 related to skew and kurtosis.
-
 
 The cumulants of a random variable plus a constant are the 
 same except the first cumulant is increased by the constant.
@@ -183,6 +182,7 @@ If the cumulants of a random variable vanish after some some point, then it must
 be normal\cite{Luk1970} (Theorem 7.3.5). 
 
 ### Gamma
+
 A gamma distributed random variable, \(X\), has density function
 \(f(x) = x^{\alpha - 1} e^{-x/\beta}/\beta^\alpha\Gamma(\alpha)\), \(x > 0\),
 with mean \(\alpha\beta\) and variance \(\alpha\beta^2\).
