@@ -144,9 +144,9 @@ there is no need for that. Every arbitrage-free model used in practice has the a
 This is the skeleton key to valuing, hedging, and managing the risk
 of _any_ derivative instrument.
 
-**Trading strategies create synthetic instruments where price, $X$, corresponds
+> **Trading strategies create synthetic instruments where price, $X$, corresponds
 to value, $V$, and cash flow, $C$, corresponds to amount, $A$.**
--
+
 _Proof_: If at most one cash flow occurs in the interval $(t,u]$
 then ${X_t D_t = (X_u D_u + C_u D_u)|_{\AA_t}}$ and
 ${\Delta_t + \Gamma_t = \Delta_u}$ is $\AA_t$ measurable.
@@ -161,7 +161,7 @@ V_t D_t &= (\Delta_t + \Gamma_t)\cdot X_t D_t \\
        &= (V_u + A_u)D_u|_{\AA_t} \\
 \end{aligned}
 $$
-The lemma is established by finite induction since $T$ has no accumulation points.
+The lemma is established by finite induction.
 
 We say $(M_t)_{t\in T}$ is a martingale measure if $M_t\in ba(\AA_t)$
 and $M_t = M_u|_{\AA_t}$ for $u > t$.
@@ -398,6 +398,8 @@ $\kappa$ is the cumulant of $X$. This implies $\lambda = 1/a^2$, $a = c$,
 and $\gamma - 1/a = b$ so every infinitely divisible distribution can be
 approximated by a normal plus a sum of independent Poisson distributions.
 
+<!--
+
 ### General European Option
 
 A _European option_ on underlying $S$ pays $\nu(S_t)$ for some function $\nu$ at _expiration_ $t$.
@@ -486,6 +488,7 @@ Note $E_s[1(X\le x)((X - \kappa'(s))] = E_s[1(X\le x)((X - E_s[X])]
 To use these formulas with the B-S/M parameters $\rho$, $S_0$, $\sigma$, and $t$
 use $f = S_0e^{\rho t}$, and $s = \sigma\sqrt{t}$ and multiply the forward values
 by $e^{-\rho t}$.
+-->
 
 ## Notes
 
