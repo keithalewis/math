@@ -20,7 +20,7 @@ abstract: The simplest formal model of a financial market.
 
 The One‑Period Model is the simplest framework for rigorously
 representing a financial market over a single period of time. The
-model defines the initial prices of tradable instruments and their
+model defines the initial prices of tradeable instruments and their
 terminal cash flows contingent on the realized outcome. If there are no
 arbitrage opportunities available then prices are subject
 to geometric constraints determined by the cash flows.

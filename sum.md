@@ -33,14 +33,14 @@ We call any such positive linear operator a _deflator_.
 Unlike [@BlaSch1973] and [@Mer1973] Ross made no assumptions on the underlying
 stochastic processes for prices. He does not require Brownian motion, the Itô
 calculus, or partial differential equations.
-His insight was to realize option valuation has
+His insight was option valuation has
 nothing to do with probability and used the Hahn-Banach theorem to show
-prices are constrained by the geometry determined by model cash flows.
+prices are constrained by geometry.
 
 There is a clear trajectory in Mathematical Finance from simple 
 closed-form models to those allowing more realistic features to be incorporated.
 Classical models assume there is no bid-ask spread (perfect liquidity)
-and prices are a real numbers (infinitely divisible).
+and prices are a real numbers. They are integer multiples of minimum trading increments.
 See [Unified Finance](uf.html) for a rigorous
 model that can incorporate these features.
 
@@ -59,13 +59,15 @@ often in the interval $[\tau, \tau + \epsilon]$ for any $\epsilon > 0$.
 See [@KarShr1991] Section 3.2. This is why Brownian motion is an 
 unrealistic model of instrument prices.
 
+It does provide insight on how to move forward. ??? Local time. Doob upcrossing lemma.
+
 Every hedging strategy involves only a finite number of trades.
 This remedies the untenable results above. It does not solve
 the fundamental problem every trader faces the first day
 on the job: when and how many market instruments to buy in order to
 manage risk.  This note provides a simple unified model that provides
 a rigorous mathematical foundation for addressing this problem.
-Fundamental research remains to be done. See [#future-research]
+Fundamental research remains to be done. See [Future Research](#future-research)
 
 ## Model
 
@@ -138,8 +140,7 @@ The proof relies on the following two lemmas.
 __Lemma__. _Using the above definitions_
 $$
 \tag{2}	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}, t\le u.
-there is no need for that. Every arbitrage-free model used in practice has the above parameterization.
-
+$$
 
 This is the skeleton key to valuing, hedging, and managing the risk
 of _any_ derivative instrument.
@@ -248,6 +249,37 @@ See [@CarEllGup1998] for early work and [@SauTou2024] for recent improvements
 of this technique. The SUM can be applied to find the non-static hedge.
 
 ## Examples
+
+It takes some effort to abandon the sunk costs of learning about Ito processes
+and partial differential equations. Stephen Ross showed those are
+unnecessary to understand how to value, hedge, and manage the risk of
+derivative instruments. 
+
+Ross made the category error of assuming a dividend was a jump in stock price.
+Companies that issue stock decide when and how
+much to pay in dividends. 
+Companies can also issue bonds that pay regular
+coupons. The key to understanding how to value risky streams of cash
+flows is to distinguish between prices and cash flows.
+In an arbitrage-free model cash flows place constraints on prices.
+
+A European put option on a stock $S$ is a contract specifying a strike $k$
+and expiration $t$ that pays the option holder $k - S_t$ if that is positive
+at expiration. Derivatives are contracts, unlike a stock or a bond backed by
+companies with physical assets. Black, Scholes, and Merton assumed stock
+prices were geometric Brownian motion and that continuous time trading
+is possible. 
+
+People tend to underestimate sample spaces. Of course the actual sample
+space consists of the entire universe, but as Jorge Luis Borges pointed
+out in "On Exactitude in Science", that is not useful.
+They also tend to make implicit assumptions to prematurely simplify problems.
+
+An American put option on a stock $S$ is a contract specifying a strike $k$
+and expiration $t$ where the option holder can get $\max\{k - S_\tau, 0\}$
+at any time $\tau$ prior to expiration. The sample space of possible
+stock prices must be extended to allow any $\tau\in(0,t]$.
+Assuming option holders exercise optimally allows you to ignore this.
 
 ### Canonical Deflator
 

@@ -69,3 +69,12 @@ $$
 where $\nu$ is the payoff and $\AA_t$ is the information available at time $t$.
 
 __Lemma__. We have $v_j\exp(-\rho T_j) = \max\{\nu(S_{t_j}), v_{j + 1}\exp(-\rho T_{j+1})\}$.
+
+# Two Period Model
+
+The sample space is $\Omega = \{00,01,10,11\}\times\{1,2\}$ indicating the stock
+path and exercise time. The partitions are 
+$\AA_0 = \{\Omega\}$, $\AA_1 = \{\{00x1,01x1\},\{10x1,11x1\},\{00x2,01x2\},\{10x2,11x2\}\}$,
+and $\AA_2 = \Omega$. The prices are $X_j = (R^j, S_j, V_j)$ for $j = 0,1$ and $X_2 = 0$.
+and the cash flows are $C_0 = (0,0,0)$, $C_1 = (0, 0, \nu(S_1)1(\tau = 1))$
+and $C_2 = (R^2, S_2, \nu(S_2)1(\tau = 2))$ where $\nu$ is the option payoff.
