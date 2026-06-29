@@ -21,3 +21,25 @@ is _associative_.
 For any set $A$ define the _identity function_ $1_A\colon A\to A$ by $1_A(a) = a$ for $a\in A$.
 
 __Exercise__. _If $f\colon A\to B$ show $f1_A = f$ and $1_Bf = f$_.
+
+A function is _one-to-one_, or _injective_, if $f(a) = f(a')$ implies $a = a'$
+whenever $a,a'\in A$. If $f\colon A\to B$ then $B$ might be larger than $A$,
+but $f$ does not send two points in $A$ to the same value.
+
+__Exercise__. _A function $f\colon A\to B$ is injective if and only if
+there is a function $g\colon B\to A$ with $gf = 1_A$_.
+
+_Hint_: The easy direction is if $gf = 1_A$. If $f(a) = f(a')$ then $gf(a) = gf(a').
+Define $g\colon B\to A$ by $g(b) = a$ if $f(a) = b$.
+Show this is _well-defined_ if $f$ is injective, i.e., if $g(b) = a$
+and $g(b) = a'$ then $a = a'$.
+
+A function is _onto_, or _surjective_, if for every $b\in B$ there exists
+$a\in A$ with $f(a) = b$.
+
+__Exercise__. _A function $f\colon A\to B$ is surjective if and only if
+there is a function $h\colon B\to A$ with $fh = 1_B$_.
+
+_Hint_: The easy direction is if $fh = 1_B$. Given $b\in B$ then $h(b)$ satisfies the
+requirement. 
+Define $h\colon B\to A$ by $h(b) = a$ if $f(a) = b$.
