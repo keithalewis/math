@@ -38,7 +38,19 @@ Suppose an oracle could tell you whether or not a given pair $(a,b)$ belongs to
 the graph, or even tell you $b = f(a)$ given $a\in A$. There is no known
 way to convert this to an algorithmic formula for $f$.
 
-<details><summary>Zero knowlege proofs</summary>
+Injective, surjective, bijective.
+
+Two sets a equal if they have the same elements. Two sets are
+_equivalent_ if there is a bijection from one to the other.
+
+__Exercise__. (reflexive) _Show every set $A$ is equivalent to $A$_.
+
+__Exercise__. (symmetric) _Show if $A$ is equivalent to $B$ then $B$ is equivalent to $A$_.
+
+__Exercise__. (transitive) _Show if $A$ is equivalent to $B$ and $B$ is equivalent to $C$
+then $A$ is equivalent to $C$_.
+
+<details><summary>Zero knowledge proofs</summary>
 </details>
 
 ## Relation
@@ -110,6 +122,8 @@ __Exercise__. _Show $R^+$ is transitive_.
 
 An _equivalence relation_ is reflexive, symmetric, and transitive.
 
+R+ cup R+' is still transitive.
+
 They provide a weaker but more powerful abstraction than equality.
 Equality is also an equivalence relation so it is stronger, but
 equivalence relations are more powerful because they provide an
@@ -124,6 +138,8 @@ The set diagonal $1_A$ represents equality. An equivalence
 relation fattens the skinny diagonal to blocks along the diagonal.
 
 
+If $\sigma\colon I\to J$ we can define
+$f^\sigma\colon X^J\to X^I$ by $(f^\sigma g)(i) = g(\sigma(i))$.
 
 
 <!--
