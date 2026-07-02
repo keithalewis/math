@@ -9,7 +9,7 @@ that is provided by a market maker $e$.
 The liquidity provider can cancel the order at any time $u > t$.
 
 A _market order_ $\mu(t,a,e)$
-at time $t$ causes limit orders to execute execute until amount $a$ is
+at time $t$ causes limit orders to execute until amount $a$ is
 obtained by market taker $e$.
 
 Limit orders always execute at the specified level, but there is no
@@ -19,7 +19,7 @@ guarantee at what level they will be filled.
 It is the Heisenberg Uncertainty Principal of exchanges.
 
 An order book is a collection of limit orders $\{\lambda_j\}$ 
-The depth at time $t$ at level $l$ is $D(t,l) = \sum\{a_j\mid t_j < t, l_j = l\}$.
+The depth at time $t$ at level $l$ is ${D(t,l) = \sum\{a_j\mid t_j < t, l_j = l\}}$.
 When a market order appears it gobbles up limit orders like in tetris.
 
 If the market order buy amount is $a > 0$ then all limit orders

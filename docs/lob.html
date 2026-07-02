@@ -57,8 +57,8 @@ class="math inline">e</span>. The liquidity provider can cancel the
 order at any time <span class="math inline">u &gt; t</span>.</p>
 <p>A <em>market order</em> <span class="math inline">\mu(t,a,e)</span>
 at time <span class="math inline">t</span> causes limit orders to
-execute execute until amount <span class="math inline">a</span> is
-obtained by market taker <span class="math inline">e</span>.</p>
+execute until amount <span class="math inline">a</span> is obtained by
+market taker <span class="math inline">e</span>.</p>
 <p>Limit orders always execute at the specified level, but there is no
 guarantee when and if they will be filled. Market orders execute almost
 immediately, but there is no guarantee at what level they will be
@@ -66,8 +66,8 @@ filled. It is the Heisenberg Uncertainty Principal of exchanges.</p>
 <p>An order book is a collection of limit orders <span
 class="math inline">\{\lambda_j\}</span> The depth at time <span
 class="math inline">t</span> at level <span class="math inline">l</span>
-is <span class="math inline">D(t,l) = \sum\{a_j\mid t_j &lt; t, l_j =
-l\}</span>. When a market order appears it gobbles up limit orders like
+is <span class="math inline">{D(t,l) = \sum\{a_j\mid t_j &lt; t, l_j =
+l\}}</span>. When a market order appears it gobbles up limit orders like
 in tetris.</p>
 <p>If the market order buy amount is <span class="math inline">a &gt;
 0</span> then all limit orders with <span class="math inline">D(t,l)
