@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Grassmann Algebra</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Grassmann Algebra</h1>
+<p class="date">Jul 1, 2026</p>
+</header>
+<p>Your calculation is correct. Let me show you a simplifying
+technique.</p>
+<p>For example <span class="math inline">D = O + 100(X - O) + r(Y - O) =
+(1 - 100 - r)O + 100 X + r Y = d O + 100 X + r Y</span>, where <span
+class="math inline">d = 1 - 100 = r</span>.</p>
+<p><span class="math inline">D</span> is on the line determined by <span
+class="math inline">A = a O + 90 X</span> and <span
+class="math inline">B = b O + 110 X + 10 Y</span> if and only if <span
+class="math inline">A B D = 0</span>. We have <span
+class="math display">
+\begin{aligned}
+AB &amp;= (a O + 90 X)(b O + 110 X + 10 Y) \\
+AB &amp;= a O(b O + 110 X + 10 Y) + 90 X(b O + 110 X + 10 Y) \\
+   &amp;= 110a O X + 10a O Y + 90b X O + 900 X Y \\
+\end{aligned}
+</span> and <span class="math display">
+\begin{aligned}
+A B D &amp;= (110 \_O X + 10 \_O Y + 90 X\_O + 900 X Y)D \\
+      &amp;= (110 \_O X + 10 \_O Y + 90 X\_O + 900 X Y)(\_O + 100 X + r
+Y) \\
+      &amp;= 110 r \_O X Y + 1000 \_O Y X + 900 X Y \_O \\
+      &amp;= (100 r - 1000 + 900)\_O X Y \\
+\end{aligned}
+</span></p>
+</body>
+</html>

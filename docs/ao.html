@@ -46,7 +46,7 @@
 <header id="title-block-header">
 <h1 class="title">American Options</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Mar 16, 2026</p>
+<p class="date">Jun 15, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 American option pricing
@@ -55,6 +55,8 @@ American option pricing
 <nav id="TOC" role="doc-toc">
 <ul>
 <li><a href="#bermudan" id="toc-bermudan">Bermudan</a></li>
+<li><a href="#two-period-model" id="toc-two-period-model">Two Period
+Model</a></li>
 </ul>
 </nav>
 <p>An American put option with strike <span class="math inline">K</span>
@@ -115,6 +117,23 @@ available at time <span class="math inline">t</span>.</p>
 <p><strong>Lemma</strong>. We have <span
 class="math inline">v_j\exp(-\rho T_j) = \max\{\nu(S_{t_j}), v_{j +
 1}\exp(-\rho T_{j+1})\}</span>.</p>
+</section>
+<section id="two-period-model" class="level1">
+<h1>Two Period Model</h1>
+<p>The sample space is <span class="math inline">\Omega =
+\{00,01,10,11\}\times\{1,2\}</span> indicating the stock path and
+exercise time. The partitions are <span
+class="math inline">{\mathcal{A}}_0 = \{\Omega\}</span>, <span
+class="math inline">{\mathcal{A}}_1 =
+\{\{00x1,01x1\},\{10x1,11x1\},\{00x2,01x2\},\{10x2,11x2\}\}</span>, and
+<span class="math inline">{\mathcal{A}}_2 = \Omega</span>. The prices
+are <span class="math inline">X_j = (R^j, S_j, V_j)</span> for <span
+class="math inline">j = 0,1</span> and <span class="math inline">X_2 =
+0</span>. and the cash flows are <span class="math inline">C_0 =
+(0,0,0)</span>, <span class="math inline">C_1 = (0, 0, \nu(S_1)1(\tau =
+1))</span> and <span class="math inline">C_2 = (R^2, S_2, \nu(S_2)1(\tau
+= 2))</span> where <span class="math inline">\nu</span> is the option
+payoff.</p>
 </section>
 </body>
 </html>

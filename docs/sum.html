@@ -64,7 +64,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Simple Unified Model</h1>
-<p class="date">Jun 9, 2026</p>
+<p class="date">Jun 23, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Arbitrage-free prices are geometrically constrained by cash flows.
@@ -119,16 +119,16 @@ href="#ref-BlaSch1973" role="doc-biblioref">Black and Scholes
 href="#ref-Mer1973" role="doc-biblioref">Merton 1973</a>)</span> Ross
 made no assumptions on the underlying stochastic processes for prices.
 He does not require Brownian motion, the Itô calculus, or partial
-differential equations. His insight was to realize option valuation has
-nothing to do with probability and used the Hahn-Banach theorem to show
-prices are constrained by the geometry determined by model cash
-flows.</p>
+differential equations. His insight was option valuation has nothing to
+do with probability and used the Hahn-Banach theorem to show prices are
+constrained by geometry.</p>
 <p>There is a clear trajectory in Mathematical Finance from simple
 closed-form models to those allowing more realistic features to be
 incorporated. Classical models assume there is no bid-ask spread
-(perfect liquidity) and prices are a real numbers (infinitely
-divisible). See <a href="uf.html">Unified Finance</a> for a rigorous
-model that can incorporate these features.</p>
+(perfect liquidity) and prices are a real numbers. They are integer
+multiples of minimum trading increments. See <a href="uf.html">Unified
+Finance</a> for a rigorous model that can incorporate these
+features.</p>
 <p>The Achilles Heel of the Black-Scholes/Merton model is that it
 assumes continuous-time trading. This leads to infeasible trading
 strategies and obviously incorrect valuations. The doubling strategy
@@ -150,13 +150,15 @@ data-cites="KarShr1991">(<a href="#ref-KarShr1991"
 role="doc-biblioref">Karatzas and Shreve 1991</a>)</span> Section 3.2.
 This is why Brownian motion is an unrealistic model of instrument
 prices.</p>
+<p>It does provide insight on how to move forward. ??? Local time. Doob
+upcrossing lemma.</p>
 <p>Every hedging strategy involves only a finite number of trades. This
 remedies the untenable results above. It does not solve the fundamental
 problem every trader faces the first day on the job: when and how many
 market instruments to buy in order to manage risk. This note provides a
 simple unified model that provides a rigorous mathematical foundation
 for addressing this problem. Fundamental research remains to be done.
-See [#future-research]</p>
+See <a href="#future-research">Future Research</a></p>
 <section id="model" class="level2">
 <h2>Model</h2>
 <p>Let <span class="math inline">T</span> be the finite set of possible
@@ -250,10 +252,11 @@ D_s)|_{\mathcal{A}_t}, t\le u
 </span> <em>where <span class="math inline">|</span> indicates
 restriction of measure</em>.</p>
 <p>The proof relies on the following two lemmas.</p>
-<p><strong>Lemma</strong>. <em>Using the above definitions</em> $$ V_t
-D_t = (V_u D_u + <em>{t &lt; s u} A_s D_s)|</em>{_t}, tu. there is no
-need for that. Every arbitrage-free model used in practice has the above
-parameterization.</p>
+<p><strong>Lemma</strong>. <em>Using the above definitions</em> <span
+class="math display">
+\tag{2} V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s
+D_s)|_{\mathcal{A}_t}, t\le u.
+</span></p>
 <p>This is the skeleton key to valuing, hedging, and managing the risk
 of <em>any</em> derivative instrument.</p>
 <blockquote>
@@ -399,6 +402,36 @@ be applied to find the non-static hedge.</p>
 </section>
 <section id="examples" class="level2">
 <h2>Examples</h2>
+<p>It takes some effort to abandon the sunk costs of learning about Ito
+processes and partial differential equations. Stephen Ross showed those
+are unnecessary to understand how to value, hedge, and manage the risk
+of derivative instruments.</p>
+<p>Ross made the category error of assuming a dividend was a jump in
+stock price. Companies that issue stock decide when and how much to pay
+in dividends. Companies can also issue bonds that pay regular coupons.
+The key to understanding how to value risky streams of cash flows is to
+distinguish between prices and cash flows. In an arbitrage-free model
+cash flows place constraints on prices.</p>
+<p>A European put option on a stock <span class="math inline">S</span>
+is a contract specifying a strike <span class="math inline">k</span> and
+expiration <span class="math inline">t</span> that pays the option
+holder <span class="math inline">k - S_t</span> if that is positive at
+expiration. Derivatives are contracts, unlike a stock or a bond backed
+by companies with physical assets. Black, Scholes, and Merton assumed
+stock prices were geometric Brownian motion and that continuous time
+trading is possible.</p>
+<p>People tend to underestimate sample spaces. Of course the actual
+sample space consists of the entire universe, but as Jorge Luis Borges
+pointed out in “On Exactitude in Science”, that is not useful. They also
+tend to make implicit assumptions to prematurely simplify problems.</p>
+<p>An American put option on a stock <span class="math inline">S</span>
+is a contract specifying a strike <span class="math inline">k</span> and
+expiration <span class="math inline">t</span> where the option holder
+can get <span class="math inline">\max\{k - S_\tau, 0\}</span> at any
+time <span class="math inline">\tau</span> prior to expiration. The
+sample space of possible stock prices must be extended to allow any
+<span class="math inline">\tau\in(0,t]</span>. Assuming option holders
+exercise optimally allows you to ignore this.</p>
 <section id="canonical-deflator" class="level3">
 <h3>Canonical Deflator</h3>
 <p>If repurchase agreements are available they determine a <em>canonical

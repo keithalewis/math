@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Sets and Functions</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sets and Functions</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Jun 26, 2026</p>
+</header>
+<p>A set has <em>elements</em>. A <em>function</em> <span
+class="math inline">f</span> from a set <span
+class="math inline">A</span> to a set <span class="math inline">B</span>
+takes an element <span class="math inline">a\in A</span> to an element
+<span class="math inline">f(a)\in B</span>. We write this as <span
+class="math inline">f\colon A\to B</span> and <span
+class="math inline">a\in A\mapsto f(a)\in B</span>.</p>
+<p>If <span class="math inline">f\colon A\to B</span> and <span
+class="math inline">g\colon B\to C</span> are functions then their
+<em>composition</em> <span class="math inline">g\circ f\coloan A\to
+C</span> is <span class="math inline">g\circ f(a) = g(f(a)</span>. We
+can drop <span class="math inline">\circ</span> when it clear function
+composition is intended and write <span class="math inline">(gf)(a) =
+gf(a) = g(f(a))</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
+A\to B</span>, <span class="math inline">g\colon B\to C</span>, and
+<span class="math inline">h\colon C\to D</span> then <span
+class="math inline">h\circ(g\circ f) = (h\circ g)\circ
+f</span></em>.</p>
+<p>This shows we can write <span class="math inline">h\circ g\circ
+f</span> unambiguously. Function composition is
+<em>associative</em>.</p>
+<p>For any set <span class="math inline">A</span> define the
+<em>identity function</em> <span class="math inline">1_A\colon A\to
+A</span> by <span class="math inline">1_A(a) = a</span> for <span
+class="math inline">a\in A</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
+A\to B</span> show <span class="math inline">f1_A = f</span> and <span
+class="math inline">1_Bf = f</span></em>.</p>
+<p>A function is <em>one-to-one</em>, or <em>injective</em>, if <span
+class="math inline">f(a) = f(a&#39;)</span> implies <span
+class="math inline">a = a&#39;</span> whenever <span
+class="math inline">a,a&#39;\in A</span>. If <span
+class="math inline">f\colon A\to B</span> then <span
+class="math inline">B</span> might be larger than <span
+class="math inline">A</span>, but <span class="math inline">f</span>
+does not send two points in <span class="math inline">A</span> to the
+same value.</p>
+<p><strong>Exercise</strong>. <em>A function <span
+class="math inline">f\colon A\to B</span> is injective if and only if
+there is a function <span class="math inline">g\colon B\to A</span> with
+<span class="math inline">gf = 1_A</span></em>.</p>
+<p><em>Hint</em>: The easy direction is if <span class="math inline">gf
+= 1_A</span>. If <span class="math inline">f(a) = f(a&#39;)</span> then
+$gf(a) = gf(a’). Define <span class="math inline">g\colon B\to A</span>
+by <span class="math inline">g(b) = a</span> if <span
+class="math inline">f(a) = b</span>. Show this is <em>well-defined</em>
+if <span class="math inline">f</span> is injective, i.e., if <span
+class="math inline">g(b) = a</span> and <span class="math inline">g(b) =
+a&#39;</span> then <span class="math inline">a = a&#39;</span>.</p>
+<p>A function is <em>onto</em>, or <em>surjective</em>, if for every
+<span class="math inline">b\in B</span> there exists <span
+class="math inline">a\in A</span> with <span class="math inline">f(a) =
+b</span>.</p>
+<p><strong>Exercise</strong>. <em>A function <span
+class="math inline">f\colon A\to B</span> is surjective if and only if
+there is a function <span class="math inline">h\colon B\to A</span> with
+<span class="math inline">fh = 1_B</span></em>.</p>
+<p><em>Hint</em>: The easy direction is if <span class="math inline">fh
+= 1_B</span>. Given <span class="math inline">b\in B</span> then <span
+class="math inline">h(b)</span> satisfies the requirement. Define <span
+class="math inline">h\colon B\to A</span> by <span
+class="math inline">h(b) = a</span> if <span class="math inline">f(a) =
+b</span>.</p>
+</body>
+</html>

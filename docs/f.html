@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>F</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">F</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Jun 30, 2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#set" id="toc-set">Set</a></li>
+<li><a href="#relation" id="toc-relation">Relation</a>
+<ul>
+<li><a href="#composition" id="toc-composition">Composition</a></li>
+<li><a href="#properties" id="toc-properties">Properties</a></li>
+</ul></li>
+</ul>
+</nav>
+<p>A notation for computing with types.</p>
+<p>Types are sets with operations that determine the type. For example,
+the set of integers defines commutative and associative addition and
+multiplication that satisfy the distributive law, and have an additive
+identity <span class="math inline">0</span> and multiplicative identity
+<span class="math inline">1</span>.</p>
+<section id="set" class="level2">
+<h2>Set</h2>
+<p>We assume the reader is familiar with basic operations involving
+sets. Given sets <span class="math inline">A</span> and <span
+class="math inline">B</span> the union <span class="math inline">{A\cup
+B = \{c\mid c\in A\text{ or }c\in B\}}</span>, intersection <span
+class="math inline">A\cap B = {\{c\mid c\in A\text{ and }c\in
+B\}}</span>, product <span class="math inline">{A\times B = \{(a,b)\mid
+a\in A, b\in B}</span>, and exponential <span class="math inline">{B^A =
+\{f\colon A\to B\}}</span> consisting of all functions from <span
+class="math inline">A</span> to <span class="math inline">B</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">A</span> and <span class="math inline">B</span> are
+finite then the number of elements in the exponetial <span
+class="math inline">{\#B^A = \#B^{\# A}}</span></em>.</p>
+<p>Functions are typically thought of as an algorithm for taking an
+element <span class="math inline">a\in A</span> and producing an element
+<span class="math inline">f(a)\in B</span>. The <em>graph</em> of a
+function from <span class="math inline">A</span> to <span
+class="math inline">B</span> is <span class="math inline">\{(a,b)\mid
+f(a) = b\}\subseteq A\times B</span>. If <span
+class="math inline">A</span> is finite then this is a <em>map</em>,
+<em>dictionary</em>, or set of <em>key-value pairs</em>. If <span
+class="math inline">A</span> is infinite the graph hides the algorithm
+for computing <span class="math inline">f(a)</span> given <span
+class="math inline">a\in A</span>. Suppose an oracle could tell you
+whether or not a given pair <span class="math inline">(a,b)</span>
+belongs to the graph, or even tell you <span class="math inline">b =
+f(a)</span> given <span class="math inline">a\in A</span>. There is no
+known way to convert this to an algorithmic formula for <span
+class="math inline">f</span>.</p>
+<p>Injective, surjective, bijective.</p>
+<p>Two sets a equal if they have the same elements. Two sets are
+<em>equivalent</em> if there is a bijection from one to the other.</p>
+<p><strong>Exercise</strong>. (reflexive) <em>Show every set <span
+class="math inline">A</span> is equivalent to <span
+class="math inline">A</span></em>.</p>
+<p><strong>Exercise</strong>. (symmetric) <em>Show if <span
+class="math inline">A</span> is equivalent to <span
+class="math inline">B</span> then <span class="math inline">B</span> is
+equivalent to <span class="math inline">A</span></em>.</p>
+<p><strong>Exercise</strong>. (transitive) <em>Show if <span
+class="math inline">A</span> is equivalent to <span
+class="math inline">B</span> and <span class="math inline">B</span> is
+equivalent to <span class="math inline">C</span> then <span
+class="math inline">A</span> is equivalent to <span
+class="math inline">C</span></em>.</p>
+<details>
+<summary>
+Zero knowledge proofs
+</summary>
+</details>
+</section>
+<section id="relation" class="level2">
+<h2>Relation</h2>
+<p>A <em>relation</em> is a subset <span class="math inline">R\subseteq
+A\times B</span>. We write <span class="math inline">aRb</span> for
+<span class="math inline">{(a,b)\in R}</span>. Define the <em>left
+coset</em> <span class="math inline">{Rb = \{a\in A\mid aRb\}\subseteq
+A}</span> for <span class="math inline">b\in B</span> and the right
+coset <span class="math inline">{aR = \{b\in B\mid aRb\}\subseteq
+B}</span> for <span class="math inline">a\in A</span>. The
+<em>domain</em> of a relation is <span
+class="math inline">{\operatorname{dom}R = RB = \{Rb\mid b\in
+B\}\subseteq A}</span>. The <em>codomain</em> of a relation is <span
+class="math inline">{\operatorname{cod}R = AR = \{aR\mid a\in
+A\}\subseteq B}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{dom}R = \cup_{b\in B}Rb</span> and
+<span class="math inline">\operatorname{cod}R = \cup_{a\in A}
+aR</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">R</span> is a function if and only if <span
+class="math inline">\operatorname{dom}R = A</span> and <span
+class="math inline">aR</span> has exactly one element for <span
+class="math inline">{a\in A}</span></em>.</p>
+<p>A <em>partial function</em> drops the requirement <span
+class="math inline">{\operatorname{dom}f = A}</span>. Every partial
+function can be turned into a function by selecting an element <span
+class="math inline">\bot\not\in B</span> and defining <span
+class="math inline">f(a) = \bot</span> for <span
+class="math inline">a\not\in\operatorname{dom}f</span>. Partial
+functions are quite common. For instance <span
+class="math inline">f\colon\boldsymbol{{R}}\to\boldsymbol{{R}}</span> by
+<span class="math inline">f(x) = 1/x</span> is not defined at <span
+class="math inline">x = 0</span>.</p>
+<section id="composition" class="level3">
+<h3>Composition</h3>
+<p>Given relations <span class="math inline">R\subseteq A\times B</span>
+and <span class="math inline">S\subseteq B\times C</span> their
+<em>composition</em> <span class="math inline">{SR = \{(a,c)\mid
+aRb\text{ and }bRc\text{ for some }b\in B\}}</span>.</p>
+<p>This is closely related to the join operation in relational databases
+which provides <span class="math inline">(a,b,c)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">R\subseteq A\times B</span>, <span
+class="math inline">S\subseteq B\times C</span>, and <span
+class="math inline">T\subseteq C\times D</span> then $T(RS) =
+(TR)S</em>.</p>
+<p>This shows we can write <span class="math inline">TRS</span>
+unambiguously.</p>
+<p>Given a set <span class="math inline">A</span> define the
+<em>diagonal</em> <span class="math inline">1_A = \{(a,a)\mid a\in
+A\}\subseteq A\times A</span>.</p>
+<p><strong>Exercise</strong> <em>Show if <span
+class="math inline">R\subseteq A\times B</span> then <span
+class="math inline">R1_A = R = 1_BR</span></em>.</p>
+<p>This shows every relation has a left and a right identity
+relation.</p>
+<p>The <em>transpose</em> of a relation <span
+class="math inline">R\subseteq A\times B</span> is <span
+class="math inline">{R&#39; = \{(b,a)\mid aRb\}\subseteq B\times
+A}</span></p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">(SR)&#39; = R&#39;S&#39;</span> if <span
+class="math inline">R\subseteq A\times B</span> and <span
+class="math inline">S\subseteq B\times C</span></em>.</p>
+</section>
+<section id="properties" class="level3">
+<h3>Properties</h3>
+<p>Relations on <span class="math inline">R = A\times A</span> are
+classified by various properties. A relation is <em>reflexive</em> if
+<span class="math inline">aRa</span> for all <span
+class="math inline">a\in A</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">R</span> is reflexive if and only if <span
+class="math inline">1_A\subseteq R</span></em>.</p>
+<p>We can make any relation reflexive by taking its union with <span
+class="math inline">1_A</span>.</p>
+<p>A relation is <em>symmetric</em> if <span
+class="math inline">aRb</span> implies <span
+class="math inline">bRa</span> for <span class="math inline">a,b\in
+A</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">R</span> is symmetric if and only if <span
+class="math inline">R = R&#39;</span></em>.</p>
+<p>We can make any relation symmetric by taking the union with its
+transpose.</p>
+<p>A relation is <em>transitive</em> if <span
+class="math inline">aRb</span> and <span class="math inline">bRc</span>
+imply <span class="math inline">aRc</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">R</span> is transitive if and only if <span
+class="math inline">RR = R^2\subseteq R</span></em>.</p>
+<p>We can make any relation transitive by taking the union of all powers
+of <span class="math inline">R</span>. Define <span
+class="math inline">R^+ = \cup_{n &gt; 0} R^n</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">R^+</span> is transitive</em>.</p>
+<p>An <em>equivalence relation</em> is reflexive, symmetric, and
+transitive.</p>
+<p>R+ cup R+’ is still transitive.</p>
+<p>They provide a weaker but more powerful abstraction than equality.
+Equality is also an equivalence relation so it is stronger, but
+equivalence relations are more powerful because they provide an
+abstraction of equality useful for simplifying mathematics.</p>
+<p>A prime example comes from set theory. Two sets are equal if and only
+if they have the same elements. Two sets are equivalent if and only if
+they have the same number of elements. The number 3 is a succinct way of
+discussing all 3 element sets.</p>
+<p>The set diagonal <span class="math inline">1_A</span> represents
+equality. An equivalence relation fattens the skinny diagonal to blocks
+along the diagonal.</p>
+<p>If <span class="math inline">\sigma\colon I\to J</span> we can define
+<span class="math inline">f^\sigma\colon X^J\to X^I</span> by <span
+class="math inline">(f^\sigma g)(i) = g(\sigma(i))</span>.</p>
+<!--
+For example, an _array_ (or _vector_) is an exponential type $T^n$ where $T$ is a type and
+$n$ is positive integer where we identify $n$ with the set ${0,1,\ldots,n-1}$
+or $\{1,2,\ldots,n}$. A matrix is an exponential $T^{n\times m}$ where
+$n\times m$ is the product.
+
+A _tuple_ is a product type $t\in T_1\times\cdots\times T_n$ where $T_j$ are types.
+We use $t[i]$ for the projection of the $i-th$ element.
+
+__Exercise__. _If $T_i$ are all the same type then tuples correspond to arrays_.
+
+_Hint_ $x[i]$ corresponds to $x(i)$.
+
+For exponential types $Y^X$ define _evaluation_ $\epsilon\colon Y^X\times X\to Y$ by
+$e(f, x) = f(x)$.
+
+It is useful to promote functions on basic types to functions on complex types.
+(And later to general types.)
+
+For example, if $f\colon X\to Y$ is in $Y^X$ we can define
+a vectorized version
+$f^I\colon X^I\to Y^I$ by $(f^Ig)(i) = f(g(i)$ where $g\in X^I$.
+
+We can also define vectorized versions
+$f^{I\times I}\colon X^I\times Y^I\to (X\times Y)^I$ by $(f^{I\times J}(g,h)(i) = (g(i), h(i))$
+for $g\in X^I$ and $h\in Y^I$.
+
+This is a special case of if $\sigma\colon I\to J$ we can define
+$f^\sigma\colon X^J\to X^I$ by $(f^\sigma g)(i) = g(\sigma(i))$
+for $g\in X^J$. Note $f^\sigma g = g\circ\sigma$ is post composition with $\sigma$.
+(Same base.)
+
+__Exercise__. _Show vectorization is $I = J$ and $\sigma$ the identity function_.
+
+???
+
+A related construction is given $\sigma\colon J\to I$ 
+we can define $f_\sigma I^X\to I^Y$
+by $(f_\sigma g)(x) = \sigma(g(x))$ for $g\in I^X$.
+(Same exponent.)
+
+Binary function $f\colon X\times Y\to Z$ have matrix version
+$f^{I\times J}\colon Z^{X\times Y}$\to Z^{I\times J}$
+defined by $(f^{I\times J}g)(i, j) = f(g(i,j))$.
+-->
+</section>
+</section>
+</body>
+</html>
