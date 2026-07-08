@@ -1,0 +1,134 @@
+/* Springer-style Pandoc + KaTeX layout (Latin Modern, GTM/UTM-ish) */
+@import url('https://cdn.jsdelivr.net/npm/latin-modern-fonts@1.0.0/css/lmroman.css');
+@import url('https://cdn.jsdelivr.net/npm/latin-modern-fonts@1.0.0/css/lmsans.css');
+@import url('https://cdn.jsdelivr.net/npm/latin-modern-fonts@1.0.0/css/lmmono.css');
+
+/* ---------- Base font stack ---------- */
+html, body {
+  font-family: "Latin Modern Roman", "Computer Modern Roman",
+               "CMU Serif", "Times New Roman", serif;
+  font-size: 16px;          /* ~10pt–11pt Springer body */
+  margin:  10px auto;
+  line-height: 1.25;        /* Springer’s relatively tight leading */
+  color: #000;
+  background: #fff;
+}
+
+/* ---------- Page width & text block ---------- */
+body {
+  max-width: 42em;          /* narrow GTM-style measure */
+  margin: 2.5em auto;
+  padding: 4em 10em;
+  box-shadow: 0px 0px 1px red, 0px 0px 10px rgba(0, 0, 0, 0.7);
+}
+
+/* ---------- Headings (CM Sans, Springer weights) ---------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Latin Modern Sans", "Computer Modern Sans",
+               "CMU Sans Serif", "Helvetica", "Arial", sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-top: 2.0em;
+  margin-bottom: 0.8em;
+}
+
+h1 { font-size: 1.8em; letter-spacing: 0.02em; }
+h2 { font-size: 1.4em; letter-spacing: 0.01em; }
+h3 { font-size: 1.2em; }
+h4 { font-size: 1.05em; }
+h5, h6 { font-size: 1.0em; font-style: italic; }
+
+/* ---------- Paragraphs & lists ---------- */
+p {
+  margin: 0 0 0.8em 0;
+  text-align: justify;
+}
+
+ul, ol {
+  margin: 0.4em 0 0.8em 2em;
+}
+
+/* ---------- Inline code & verbatim ---------- */
+code, pre, kbd, samp {
+  font-family: "Latin Modern Mono", "Computer Modern Typewriter",
+               "CMU Typewriter Text", "Courier New", monospace;
+  font-size: 0.9em;
+}
+
+pre {
+  margin: 1em 0;
+  padding: 0.6em 0.8em;
+  border: 1px solid #ccc;
+  background: #f8f8f8;
+  overflow-x: auto;
+}
+
+/* ---------- KaTeX math fonts & sizing ---------- */
+.katex {
+  font-family: "Latin Modern Math", "Latin Modern Roman",
+               "Computer Modern Math", "CMU Serif", serif;
+  font-size: 1.0em;         /* inline math ~ body size */
+}
+
+/* Display math: slightly larger, Springer-style spacing */
+.katex-display {
+  margin: 1.2em 0 1.2em 0;
+  text-align: center;
+}
+
+.katex-display > .katex {
+  font-size: 1.1em;         /* modest bump, not huge */
+}
+
+/* Tighten operator / fraction spacing a bit (Springer feel) */
+.katex .mop { margin: 0 0.08em; }
+.katex .mfrac {
+  margin: 0 0.12em;
+}
+
+/* ---------- Section numbers & theorem-like blocks ---------- */
+h2 .header-section-number,
+h3 .header-section-number {
+  margin-right: 0.4em;
+  font-weight: 700;
+}
+
+/* Pandoc theorem/definition blocks */
+div.theorem, div.lemma, div.proposition, div.corollary,
+div.definition, div.example, div.remark {
+  margin: 1.0em 0;
+  padding: 0.6em 0.8em;
+  border-left: 2px solid #000;
+  background: #fdfdfd;
+}
+
+div.theorem > p:first-child,
+div.lemma > p:first-child,
+div.proposition > p:first-child,
+div.corollary > p:first-child,
+div.definition > p:first-child,
+div.example > p:first-child,
+div.remark > p:first-child {
+  font-weight: 700;
+}
+
+/* ---------- Footnotes ---------- */
+.footnotes {
+  margin-top: 2em;
+  font-size: 0.85em;
+  line-height: 1.2;
+}
+
+.footnotes ol {
+  margin-left: 1.5em;
+}
+
+/* ---------- Links (subtle, book-like) ---------- */
+a {
+  color: #003399;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

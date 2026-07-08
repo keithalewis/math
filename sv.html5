@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<!-- Springer-style CSS -->
+<style>
+$styles$
+</style>
+
+<!-- KaTeX assets (local paths) -->
+<link rel="stylesheet" href="$katex_css$">
+<script defer src="$katex_js$"></script>
+<script defer src="$katex_autorender$"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$',  right: '$',  display: false}
+            ],
+            throwOnError: false
+        });">
+</script>
+
+<title>$title$</title>
+</head>
+
+<body>
+$body$
+</body>
+</html>

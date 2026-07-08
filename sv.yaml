@@ -1,0 +1,11 @@
+from: markdown
+to: html5
+template: springer.html5
+
+variables:
+  katex_css: katex/katex.min.css
+  katex_js: katex/katex.min.js
+  katex_autorender: katex/contrib/auto-render.min.js
+
+css:
+  - sv.css
