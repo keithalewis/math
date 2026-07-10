@@ -6,8 +6,8 @@ DOCX = $(MKDN:.md=.docx)
 KATEX = https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/
 REVEAL = https://cdn.jsdelivr.net/reveal.js/3.0.0
 
-#CSS = math.css
-CSS = sv.css
+CSS = math.css
+#CSS = sv.css
 
 FLAGS = -s
 FLAGS += -f markdown+definition_lists+raw_html+pipe_tables+citations
@@ -22,7 +22,7 @@ FLAGS += -t html5
 #FLAGS += --katex
 FLAGS += --katex=$(KATEX)
 #FLAGS += --mathjax/
-FLAGS += --css sv.css
+FLAGS += --css $(CSS)
 #FLAGS += -A FOOTER.md
 #FLAGS += --metadata date="$(shell date "+%B %e, %Y")"
 #TEXFLAGS += --metadata date="$(shell date "+%B %e, %Y")"
