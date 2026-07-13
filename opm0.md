@@ -17,23 +17,28 @@ abstract: The simplest formal model of a financial market.
 \newcommand\cone{\operatorname{cone}}
 \newcommand\BB{\mathcal{B}}
 \newcommand\GG{\mathcal{G}}
-
+\newcommand\PP{\mathcal{P}}
 
 The one‑period model is the simplest framework for rigorously
 representing a financial market over a single period of time. The
-model defines the initial prices of tradable instruments and their
+model defines the initial prices of tradeable instruments and their
 terminal prices contingent on the realized outcome. If there are no
 arbitrage opportunities available then initial prices are subject
 to geometric constraints determined by the final prices.
 
 ## One-Period Model
 
-The _one-period model_ specifies a finite set of tradable _instruments_ $I$
-and set of possible _outcomes_ $\Omega$ representing what can happen over the period.
+The _one-period model_ specifies a finite set of tradeable _instruments_ $I$
+and the set of possible _outcomes_ $\Omega$ representing what can happen over the period.
 The initial _prices_ are given by a vector ${x\in\RR^I}$[^1], indexed by the instruments.
 Terminal prices are defined by a vector-valued function
 ${X\colon\Omega\to\RR^I}$ where ${X(\omega)\in\RR^I}$ are the prices
 for each instrument corresponding to outcome ${\omega\in\Omega}$.
+We assume $X$ is bounded, because it is, and write $X\in B(\Omega,\RR^I)$
+where
+$$
+B(\Omega,\RR^I) = \{X\colon\Omega\to\RR^I\mid \|X\| = \sup_{\omega\in\Omega}\|X(\omega)\| < \infty\}.
+$$
 
 [^1]: Recall the _set exponential_ ${B^A = \{f\colon A\to B\}}$ is the set
 of all functions from the set $A$ to the set $B$.  If ${x\in\RR^I}$ then
@@ -42,17 +47,19 @@ we can identify $\RR^I$ with the vector space of $n$-tuples
 ${\RR^n = \prod_{i=1}^n\RR = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
 by $x(i) = x_i$, $1\le i\le n$.
 
-_Arbitrage_ exists (in this model) if we can purchase $\xi\in\RR^I$ shares at the beginning
-of the period with cost $\xi\cdot x < 0$ and sell them at the end of the
-period for profit $\xi\cdot X(\omega)\ge0$ for all $\omega\in\Omega$.
-We make money putting on the position and never lose when unwound at the end.
+_Arbitrage_ exists (in this very simple and unrealistic model) if we
+can purchase $\xi\in\RR^I$ shares at the beginning of the period with
+cost $\xi\cdot x < 0$ and sell them at the end of the period for profit
+${\xi\cdot X(\omega)\ge0}$ for all $\omega\in\Omega$.  We make money
+putting on the position and never lose when unwound at the end.
 
 It is not a definition that would pass muster with traders and risk managers.
-They will compare $|\xi\cdot x|$ with $\sum_{i\in I} |\xi_i x_i|$ as a
+They will compare ${|\sum_i \xi_i x_i|}$ with ${\sum_i |\xi_i x_i|}$ as a
 measure of how much capital will be tied up.
+If the ratio is small they will take a pass on the mathematical "arbitrage."
 
-__Exercise__. _Show if $\xi$ is an arbitrage then $a\xi$ is an arbitrage
-for all $a > 0$_.
+__Exercise__. _Show if $\xi$ is an arbitrage then $t\xi$ is an arbitrage
+for any positive real number $t$_.
 
 This is a defect in the one-period model. There is only a finite amount of
 each instrument that can be traded.
@@ -67,11 +74,12 @@ There is a connection between cones and convex sets.
 
 __Exercise__. _Cones are convex_.
 
-_Hint_: A set $C\in\RR^I$ is convex if and only if for $x,y\in C$ we have
-$(1 - t)x + ty\in C$ for $0\le t \le 1$.
+_Hint_: A set $C\subseteq\RR^I$ is convex if and only if for $x,y\in C$ we have
+${(1 - t)x + ty\in C}$ for $0 < t < 1$.
 
-__Exercise__. _The small cone containing $C\subseteq\RR^I$ is the smallest
-convex set containing $C$ and the origin $\bm{0}\in\RR^I$_.
+__Exercise__. _Show if $C\subseteq\RR^I$ is convex then $\cup_{t>0} tC$ is a cone_.
+
+_Hint_: $tC = \{tx\mid x\in C\}$ for $t\in\RR$.
 
 ## Fundamental Theorem of Asset Pricing
 
@@ -89,35 +97,209 @@ This proves the "easy" direction of the FTAP.
 __Theorem__. _A one-period model is arbitrage-free if and only if
 $x$ belongs to the smallest closed cone containing the range of $X$_.
 
-_Proof_: We prove the contrapositive of the easy direction by showing
+We prove the contrapositive of the easy direction by showing
 if $x$ is not in the cone then arbitrage exists. One arbitrage is
 ${\xi = x^* - x}$ where $x^*$ is the point in the closed cone closest to $x$.
 
-TODO: include proof.
+__Lemma__. _If $x\in\RR^n$ and $K\subseteq\RR^N$ is a closed cone
+with $x\not\in K$ then there exists ${\xi\in\RR^n}$
+with ${\xi\cdot x < 0}$ and ${\xi\cdot y \ge0}$ for all ${y\in K}$_.
 
-### Examples
+_Proof._ Let $x^*$ be the point in $K$ closest to $x$.
+It exists since $K$ is closed and is unique since $K$ is convex.
+Let $\xi = x^* - x$ and note $\xi\not=0$.
 
-Let ${x = (1, s)}$ and ${X(\omega) = (R, \omega)}$ where ${\omega\in\Omega = \{L,H\}}$.
-We assume the high $H$ is greater than the low $L$.
-This is a binomial model of a bond with realized return $R$ and a stock that goes from $s$
-to either $L$ or $H$. If ${x = X(L)D_L + X(H)D_H}$
-then $1 = R D_L + R D_H$ and $s = L D_L + H D_H$
+We have $ty + x^*\in K$ for any $t > 0$ and $y\in K$ 
+so $\|x^* - x\| \le \|ty + x^* - x\|$.
+Simplifying gives ${t^2||y||^2 + 2ty\cdot\xi\ge0}$. 
+Dividing by $t > 0$ and letting $t$ decrease to 0 shows ${\xi\cdot y\ge0}$
+for all $y\in K$.
+
+We have $(t + 1)x^*\in K$ for $t + 1 > 0$
+so $\|x^* - x\| \le \|tx^* + x^* - x\|$.
+Simplifying gives ${t^2||x^*||^2 + 2tx^*\cdot\xi^*\ge 0}$ for  $t > -1$.
+Dividing by $t < 0$ and letting $t$ increase to 0 shows ${\xi\cdot x^*\le 0}$.
+
+Since ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ we have ${\xi\cdot x < 0}$.
+
+This lemma proves the FTAP and that $\xi = x^* - x$ implements an arbitrage.
+
+We now give an alternate proof that will generalize to multi-period models.
+See [@DunSch1958] Volume I, Chapter IV for the mathematical details.
+Define ${A\colon\RR^I\to\RR\oplus B(\Omega)}$
+by $A\xi = -\xi\cdot x\oplus \xi\cdot X$. The components of
+the right-hand side are the amounts associated with buying
+$\xi$ at the beginning of the period and selling $\xi$ at the end.
+
+No arbitrage is equivalent to $\ran A\cap\PP^+ = \emptyset$
+where $\PP^+ = \{p\oplus P\mid p > 0, P(\omega)\ge 0, \omega\in\Omega\}$.
+Since $\PP^+$ has an interior point the Hahn-Banach theorem
+implies there is a hyperplane ${H\supseteq\ran A}$
+with ${H\cap\PP^+ = \emptyset}$.
+Every hyperplane is the preannihilator of an element in the
+dual ${(\RR\oplus B(\Omega))^*\cong\RR\oplus ba(\Omega)}$
+where $ba(\Omega)$ is the set of finitely additive measures on $\Omega$.
+
+There exists ${d\oplus D}$ in the dual with ${H = {}^\perp\{d\oplus D\}}$.
+We can and do assume $d = 1$.
+Since ${0 = \langle -\xi\cdot x\oplus \xi\cdot X, 1\oplus D\rangle}$
+for all $\xi\in\RR^I$ we have $x = \langle X,D\rangle$.
+This shows $x$ belongs to the closed cone containing the range of $X$.
+It does not show how to find an arbitrage if one exists.
+
+## Examples
+
+Let's apply the FTAP to particular one-period models.
+
+### Bond
+
+Consider a model with a single bond having realized return $R$. In this
+case $x = 1$ and $X(\omega) = R$ for all $\omega$ no matter the sample space.
+If $R \le 0$ then $\xi = -1$ is an arbitrage since $\xi x = -1$
+and $\xi R = -R \ge 0$.
+
+__Exercise__. _Show this model is arbitrage-free if and only if $R > 0$_.
+
+_Hint_: $x = X D$ for some $D > 0$ so $D = 1/R$.
+
+Note that negative interest rates ($R < 1$) do not imply arbitrage.
+
+### Bond, Stock
+
+Consider a model with a bond having realized return $R$ and a
+stock with price $s$ at the beginning of the period that can
+go to either a low $L$ or a high $H$ at the end.
+This is modeled by ${x = (1, s)}$ and ${X(\omega) = (R, \omega)}$ where ${\omega\in\Omega = \{L,H\}}$.
+If ${x = X(L)D_L + X(H)D_H}$ then
+$1 = R D_L + R D_H$ and $s = L D_L + H D_H$
 so $D_L = (H - Rs)/R(H - L)$ and $D_H = (Rs - L)/R(H - L)$.
 
 __Exercise__. _Show the model is arbitrage-free if and only if
 $L/R \le s \le H/R$ and $R > 0$_.
 
-Note $R < 1$ (negative interest rate) is possible without admitting arbitrage.
-This is the simplest example of how end of period prices limit initial prices.
+_Hint_: We have already shown $R > 0$ is necessary. Use $D_L,D_H\ge 0$.
+
+This is the simplest example of how end of period prices constrain initial prices.
 This is a geometric result that has nothing to do with probability.
 
-If $O$ is the origin, $\rho$ is a unit vector in the bond direction, and $\sigma$ is
-a unit vector in the stock direction then $X(\omega) = O + R\rho + \omega\sigma$.
-We can write $x = O + \rho + s\sigma$ using $O$, $X(L)$, and $X(H)$ as
-${x = (xX(L)X(H) + OxX(H) + OX(L)x)/OX(L)X(H)}$.
-The computation is tedious but entirely mechanical.
-$OX(L)X(H) = R(H - L) O\rho\sigma$,
-$xX(L)X(H) = R(H - L) O\rho\sigma$,
+__Exercise__. _Show the same result holds for the slightly more realistic
+model with $\Omega = [L,H]$_.
+
+_Hint_: The smallest cone containing $X(L)$ and $X(H)$ is the same as the
+smallest cone containing $\{X(\omega)\mid L\le\omega\le H\}$ because
+cones are convex.
+
+#### Grassmann Algebra
+
+We can also establish this result using Grassmann algebra. 
+The computation is more tedious but entirely mechanical and generalizes
+to any number of instruments.
+
+Grassmann starts with Euclidean (no absolute origin) space of points $E$ and considers
+the associative algebra $\GG(E)$ generated by points in $E$ with the rule
+$PQ = 0$ if and only if $P = Q$ for $P,Q\in E$.
+
+__Exercise__. _Show $PQ = -QP$ for $P,Q\in\GG(E)$_.
+
+_Hint_: $0 = (P + Q)(P + Q)$.
+
+Points $P_0, P_1,\cdots,P_k\in\GG(E)$ are _independent_ if
+$\Pi = P_0 P_1 \cdots P_k \not= 0$. If $P\Pi = 0$ Grassmann
+showed $P = \sum_{j=0}^k (\Pi_j(P)/\Pi) P_j$ where
+$\Pi_j(P) = (\prod_{i=0}^{j-1} P_i) P (\prod_{i = j+1}^k P_i)$.
+
+__Exercise__. _Show $\Pi_j(P_i) = 0$ if $i\not=j$ and $\Pi_j(P_j) = \Pi$_.
+
+__Exercise__. _Show if $P = \sum_j x_j P_j$ then $\Pi_j(P) = x_j\Pi$_.
+
+__Exercise__. _Show $\sum_j \Pi_j(P) = \Pi$_.
+
+This shows $\sum_j x_j = 1$ so
+$$
+P = (1 - \sum_{j=1}^k x_j)P_0 + \sum_{j=1}^k x_j P_j = P_0 + \sum_{j=1}^k x_j (P_j - P_0).
+$$
+
+Given an _origin_ $P_0$ this shows how $\RR^n$ fits into Grassmann space.
+The vector $x = (x_1,\ldots,x_n)$ corresponds to the point $P(x) = O + \sum_j x_j \pi_j$
+where $\pi_j = P_j - P_0$ is the vector from the origin to $P_j$.
+
+__Exercise__. _Show the smallest cone containing $\{P_j\}_{j=1^k}$ with origin $P_0$ is
+${P(x)\mid x_j\ge 0\}}$_.
+
+To apply this to the bond and stock model we let
+$O$ be the origin, $\rho$ a vector in the bond direction, and $\sigma$
+a vector in the stock direction.
+We have $x = O + \rho + s\sigma$ and
+$X(\omega) = O + R\rho + \omega\sigma$.
+
+Using Grassmann algebra
+${x\,OX(L)X(H) = xX(L)X(H)\,O + OxX(H)\,X(L) + OX(L)x\,X(H)}$.
+$$
+\begin{aligned}
+OX(L)X(H) &= O(O + R\rho + L\sigma)(O + R\rho + H\sigma) \\
+	&= (R O\rho + L O\sigma)(O + R\rho + H\sigma) \\
+	&= RH \rho\sigma + LR O\sigma\rho \\
+	&= (RH - LR) O\rho\sigma \\
+	&= R(H - L) O\rho\sigma \\
+\end{aligned}
+$$
+$$
+\begin{aligned}
+OxX(H) &= O(O + \rho + s\sigma)(O + R\rho + H\sigma) \\
+	&= (O\rho + s O\sigma)(O + R\rho + H\sigma) \\
+	&= H\,O\rho\sigma + sR\,O\sigma\rho \\
+	&= (H - Rs)\,O\rho\sigma \\
+\end{aligned}
+$$
+$$
+\begin{aligned}
+OX(L)x &= O(O + R\rho + L\sigma)(O + \rho + s\sigma) \\
+	&= (R O\rho + L O\sigma)(O + \rho + s\sigma) \\
+	&= Rs\,O\rho\sigma + L\,O\sigma\rho \\
+	&= (Rs - L)\,O\rho\sigma \\
+\end{aligned}
+$$
+There is no arbitrage if and only if  $x$ belongs to the cone.
+This is equivalent to coefficients of
+$\rho$ and $\sigma$ are non-negative.
+Since $R(H - L)$ is positive we get $H - Rs\ge0$ and $Rs - L\ge0$ as before.
+
+### Bond, Stock, Option
+
+We model adding a call option with strike $K$ to the bond and stock by
+${x = (1,s,v)}$ and ${X(\omega) = (R, \omega, \max\{\omega - K, 0\})}$.
+
+If $\kappa$ is a vector in the option direction then $x = O + \rho + s\sigma + v\kappa$
+and ${X(\omega) = O + R\rho + \omega\sigma + \max\{\omega - K, 0\}\kappa}$.
+
+By Grassmann we know $x$ is a linear combination of $O$, $X(L), $X(H)$, and $X(K)$
+and belongs to the smallest cone containing the
+range of $X$ if and only if the coefficients of $X(L)$, $X(H)$, and $X(K)$
+are non-negative.
+
+## Remarks
+
+Prices must be integral multiples of minimum price increments of each instrument.
+Likewise, positions must be integral multiples of minimum trading increments.
+This easy to incorporate into the model.
+
+This model also ignores the bid/ask spread in pricing. This not only depends
+on the sign of the amount being traded, but also the size of the trade.
+It can also depend on the credit relationship of the counterparties involved
+in the transaction, but that is beyond the scope of this short write-up.
+
+To model bin/ask spread we can define $X\colon\Omega\times\RR\to\RR^I$ where
+$X(\omega,a)$ is the price of amount $a$ being traded.
+A simple example is $X(\omega,a) = X(\omega) + \delta\sgn(a)$ for
+some fixed transaction cost $\delta$ per share.
+
+If we are being intellectually honest then we must admit $X(\omega) = 0$ for $\omega\in\Omega$.
+At the end of the period there is no further economic activity so all prices must be zero.
+We should replace prices $X$ with cash flows $C$ that accrue to the investor
+in proportion to the position. There is no final trade equal to the negative
+of the position. This will be clarified when we consider multi-period models.
+
+## References
 
 <!--
 The _realized return_ of a position $\xi\in\RR^I$ is ${R_\xi = \xi\cdot C/\xi\cdot x}$ provided
@@ -397,15 +579,15 @@ $C(\omega) = (R, \omega, (\omega - K))$, where $\omega\in [L,H]$.
 There is no arbitrage if and only if there exist non-negative $D_L$, $D_K$, $D_H$
 with
 $$
-	x = C(L)D_L + C(K)D_K + C(H)D_H.
+x = C(L)D_L + C(K)D_K + C(H)D_H.
 $$
 
 The components of the three instruments are
 $$
 \begin{aligned}
-	1 &= R D_L + R D_K + R D_H \\
-	s &= L D_L + K D_K + H D_H \\
-	v &= (H - K) D_H \\
+1 &= R D_L + R D_K + R D_H \\
+s &= L D_L + K D_K + H D_H \\
+v &= (H - K) D_H \\
 \end{aligned}
 $$
 
@@ -434,7 +616,7 @@ ${C(\omega) = (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)}$, $\omega\i
 There is no arbitrage if and only if there exist non-negative
 $D_L, D_1, D_2,\ldots,D_H$ with
 $$
-	x = C(L)D_L + \sum_{i=1}^n C(K_i)D_i  + C(H)D_H
+x = C(L)D_L + \sum_{i=1}^n C(K_i)D_i  + C(H)D_H
 $$
 The components are
 $$
@@ -891,7 +1073,7 @@ where a probability measure on possible outcomes is specified.
 
 [^2]: Recall the _set exponential_ ${B^A = \{f\colon A\to B\}}$ is the set
 of all functions from the set $A$ to the set $B$.  If ${x\in\RR^I}$ then
-C:\Users\keith\Downloads\AutoCallStructuredProduct.pdfC:\Users\keith\Downloads\AutoCallStructuredProduct.pdf$x(i)\in\RR$ is the price of instrument $i\in I$.  If $I = \{1,\ldots,n\}$
+$x(i)\in\RR$ is the price of instrument $i\in I$.  If $I = \{1,\ldots,n\}$
 we can identify $\RR^I$ with the vector space of $n$-tuples
 ${\RR^n = \prod_{i=1}^n\RR = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
 by $x(i) = x_i$, $1\le i\le n$.
