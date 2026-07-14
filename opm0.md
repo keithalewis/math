@@ -204,8 +204,8 @@ __Exercise__. _Show $PQ = -QP$ for $P,Q\in\GG(E)$_.
 _Hint_: $0 = (P + Q)(P + Q)$.
 
 Points $P_0, P_1,\cdots,P_k\in\GG(E)$ are _independent_ if
-$\Pi = P_0 P_1 \cdots P_k \not= 0$. If $P\Pi = 0$ Grassmann
-showed $P = \sum_{j=0}^k (\Pi_j(P)/\Pi) P_j$ where
+$\Pi = P_0 P_1 \cdots P_k \not= 0$. If $P\Pi = 0$ 
+then $P = \sum_{j=0}^k (\Pi_j(P)/\Pi) P_j$ where
 $\Pi_j(P) = (\prod_{i=0}^{j-1} P_i) P (\prod_{i = j+1}^k P_i)$.
 
 __Exercise__. _Show $\Pi_j(P_i) = 0$ if $i\not=j$ and $\Pi_j(P_j) = \Pi$_.
@@ -223,7 +223,7 @@ Given an _origin_ $P_0$ this shows how $\RR^n$ fits into Grassmann space.
 The vector $x = (x_1,\ldots,x_n)$ corresponds to the point $P(x) = O + \sum_j x_j \pi_j$
 where $\pi_j = P_j - P_0$ is the vector from the origin to $P_j$.
 
-__Exercise__. _Show the smallest cone containing $\{P_j\}_{j=1^k}$ with origin $P_0$ is
+__Exercise__. _Show the smallest cone containing ${\{P_j\}_{j=1}^k}$ with origin $P_0$ is
 ${P(x)\mid x_j\ge 0\}}$_.
 
 To apply this to the bond and stock model we let
@@ -288,7 +288,7 @@ on the sign of the amount being traded, but also the size of the trade.
 It can also depend on the credit relationship of the counterparties involved
 in the transaction, but that is beyond the scope of this short write-up.
 
-To model bin/ask spread we can define $X\colon\Omega\times\RR\to\RR^I$ where
+To model bid/ask spread we can define $X\colon\Omega\times\RR\to\RR^I$ where
 $X(\omega,a)$ is the price of amount $a$ being traded.
 A simple example is $X(\omega,a) = X(\omega) + \delta\sgn(a)$ for
 some fixed transaction cost $\delta$ per share.
