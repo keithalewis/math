@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <title>Limit and Market Orders</title>
+  <title>Limit Order Book</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -44,11 +44,11 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Limit and Market Orders</h1>
+<h1 class="title">Limit Order Book</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Jul 1, 2026</p>
+<p class="date">Jul 5, 2026</p>
 </header>
-<p>A <em>limit order</em> <span class="math inline">\lambda(t, a, l,
+<p>A <em>limit order</em> <span class="math inline">\lambda(t, l, a,
 e)</span> at time <span class="math inline">t</span> is an offer to buy
 amount (<span class="math inline">a &gt; 0</span>) or sell (<span
 class="math inline">a &lt; 0</span>) at level/price <span
@@ -66,16 +66,18 @@ filled. It is the Heisenberg Uncertainty Principal of exchanges.</p>
 <p>An order book is a collection of limit orders <span
 class="math inline">\{\lambda_j\}</span> The depth at time <span
 class="math inline">t</span> at level <span class="math inline">l</span>
-is <span class="math inline">{D(t,l) = \sum\{a_j\mid t_j &lt; t, l_j =
-l\}}</span>. When a market order appears it gobbles up limit orders like
-in tetris.</p>
-<p>If the market order buy amount is <span class="math inline">a &gt;
-0</span> then all limit orders with <span class="math inline">D(t,l)
-&lt; a</span> will be filled, with perhaps a partial fill on the highest
-level.</p>
-<p>If the market order sell amount is <span class="math inline">a &lt;
+is <span class="math inline">{D(t,l) = \sum_{\lambda_j} \{a_j\mid t_j
+&lt; t, l_j = l\}}</span>. When a market order appears it gobbles up
+limit orders like in tetris.</p>
+<p>If the market buy order amount is <span class="math inline">a &gt;
+0</span> then all limit orders with <span class="math inline">0\le
+D(t,l) &lt; a</span> will be filled, with perhaps a partial fill on the
+highest level, or until there are no limit orders available.</p>
+<p>If the market sell order amount is <span class="math inline">a &lt;
 0</span> then all limit orders with <span class="math inline">D(t,l)
 &gt; a</span> will be filled, with perhaps a partial fill on the lowest
-level.</p>
+level, or until there are no limit orders available.</p>
+<p>Market order</p>
+<pre><code></code></pre>
 </body>
 </html>

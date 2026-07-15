@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>A Tale of Two Vector Spaces</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">A Tale of Two Vector Spaces</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Jul 14, 2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p>When I was getting a “C” in my first linear algebra course I was told
+<span class="math inline">\boldsymbol{{R}}^n</span> was a set of <span
+class="math inline">n</span>-tuples <span class="math inline">{\{x =
+(x_1,\ldots,x_n)\mid x_j\in\boldsymbol{{R}}, j = 1,\ldots n\}}</span>
+where <span class="math inline">\boldsymbol{{R}}</span> is the set of
+real numbers. We used <span class="citation" data-cites="Ner1964">(<a
+href="#ref-Ner1964" role="doc-biblioref">Nering 1964</a>)</span> and
+when we got to determinants I noped out. Who ordered those?</p>
+<p>Eventually I got a PhD in Operator Theory and a job at Brown by
+solving a problem about invariant subspaces of bounded linear operators
+on Hilbert spaces. <span class="citation" data-cites="Beu1949">(<a
+href="#ref-Beu1949" role="doc-biblioref">Beurling 1949</a>)</span> found
+all the invariant subspaces of the unilateral shift operator in infinite
+dimensions. If <span class="math inline">S(x_1, x_2,
+\ldots)\mapsto(0,x_1, x_2, \ldots)</span> then <span
+class="math inline">S</span> has no eigenvectors, but it has plenty of
+invariant subspaces. Arne found all of them. It inspired generations of
+mathematicians to extend his result.</p>
+<p>TODO: Gian Carlo Rota</p>
+<p>He also solved the <a
+href="https://ciphermuseum.com/ciphers/beurling.html">Geheimschreiber
+teletype cipher</a> with pencil and paper in two weeks. To this day,
+nobody knows how he did that.</p>
+<p>It wasn’t until I started implementing math on computers that I
+realized there was an equivalent, but different, definition. If <span
+class="math inline">A</span> and <span class="math inline">B</span> are
+sets, then the <em>set exponential</em> <span class="math inline">B^A =
+\{f\colon A\to B\}</span> is the set of all functions from <span
+class="math inline">A</span> to <span class="math inline">B</span>. We
+can identify <span class="math inline">\boldsymbol{{R}}^n</span> with
+<span class="math inline">\boldsymbol{{R}}^{\{1,\ldots,n\}}</span>. The
+tuple <span class="math inline">x = (x_1,\ldots,x_n)</span> can be
+identified with the function <span
+class="math inline">\boldsymbol{{x}}\colon\boldsymbol{{n}}
+\to\boldsymbol{{R}}</span> by <span class="math inline">x_i =
+\boldsymbol{{x}}(i)</span> where <span
+class="math inline">\boldsymbol{{n}} = \{1,\ldots,n\}</span> and <span
+class="math inline">i\in\boldsymbol{{n}}</span>.</p>
+<p>This can be used to show matrix multiplication is composition of
+linear operators.</p>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="list">
+<div id="ref-Beu1949" class="csl-entry" role="listitem">
+Beurling, Arne. 1949. <span>“On Two Problems Concerning Linear
+Transformations in Hilbert Space.”</span> <em>Acta Mathematica</em> 81:
+239–55.
+</div>
+<div id="ref-Ner1964" class="csl-entry" role="listitem">
+Nering, Evar D. 1964. <em>Linear Algebra and Matrix Theory</em>. New
+York: Wiley.
+</div>
+</div>
+</section>
+</body>
+</html>

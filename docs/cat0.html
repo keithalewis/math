@@ -46,34 +46,34 @@
 <header id="title-block-header">
 <h1 class="title">Sets and Functions</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Jun 26, 2026</p>
+<p class="date">Jul 7, 2026</p>
 </header>
 <p>A set has <em>elements</em>. A <em>function</em> <span
-class="math inline">f</span> from a set <span
-class="math inline">A</span> to a set <span class="math inline">B</span>
-takes an element <span class="math inline">a\in A</span> to an element
-<span class="math inline">f(a)\in B</span>. We write this as <span
-class="math inline">f\colon A\to B</span> and <span
-class="math inline">a\in A\mapsto f(a)\in B</span>.</p>
-<p>If <span class="math inline">f\colon A\to B</span> and <span
-class="math inline">g\colon B\to C</span> are functions then their
-<em>composition</em> <span class="math inline">g\circ f\coloan A\to
-C</span> is <span class="math inline">g\circ f(a) = g(f(a)</span>. We
+class="math inline">f</span> from set <span class="math inline">A</span>
+to set <span class="math inline">B</span> takes an element <span
+class="math inline">{a\in A}</span> to an element <span
+class="math inline">{f(a)\in B}</span>. We write this as <span
+class="math inline">{f\colon A\to B}</span> and <span
+class="math inline">{a\in A\mapsto f(a)\in B}</span>.</p>
+<p>If <span class="math inline">{f\colon A\to B}</span> and <span
+class="math inline">{g\colon B\to C}</span> are functions then their
+<em>composition</em> <span class="math inline">{g\circ f\colon A\to
+C}</span> is <span class="math inline">{g\circ f(a) = g(f(a)}</span>. We
 can drop <span class="math inline">\circ</span> when it clear function
-composition is intended and write <span class="math inline">(gf)(a) =
-gf(a) = g(f(a))</span>.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
-A\to B</span>, <span class="math inline">g\colon B\to C</span>, and
-<span class="math inline">h\colon C\to D</span> then <span
-class="math inline">h\circ(g\circ f) = (h\circ g)\circ
-f</span></em>.</p>
-<p>This shows we can write <span class="math inline">h\circ g\circ
-f</span> unambiguously. Function composition is
+composition is intended and write <span class="math inline">{(gf)(a) =
+gf(a) = g(f(a))}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">{f\colon
+A\to B}</span>, <span class="math inline">{g\colon B\to C}</span>, and
+<span class="math inline">{h\colon C\to D}</span> then <span
+class="math inline">{h\circ(g\circ f) = (h\circ g)\circ
+f}</span></em>.</p>
+<p>This shows we can write <span class="math inline">{h\circ g\circ f =
+hgf}</span> unambiguously. Function composition is
 <em>associative</em>.</p>
 <p>For any set <span class="math inline">A</span> define the
-<em>identity function</em> <span class="math inline">1_A\colon A\to
-A</span> by <span class="math inline">1_A(a) = a</span> for <span
-class="math inline">a\in A</span>.</p>
+<em>identity function</em> <span class="math inline">{1_A\colon A\to
+A}</span> by <span class="math inline">{1_A(a) = a}</span> for <span
+class="math inline">{a\in A}</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">f\colon
 A\to B</span> show <span class="math inline">f1_A = f</span> and <span
 class="math inline">1_Bf = f</span></em>.</p>
@@ -87,30 +87,58 @@ class="math inline">A</span>, but <span class="math inline">f</span>
 does not send two points in <span class="math inline">A</span> to the
 same value.</p>
 <p><strong>Exercise</strong>. <em>A function <span
-class="math inline">f\colon A\to B</span> is injective if and only if
-there is a function <span class="math inline">g\colon B\to A</span> with
-<span class="math inline">gf = 1_A</span></em>.</p>
-<p><em>Hint</em>: The easy direction is if <span class="math inline">gf
-= 1_A</span>. If <span class="math inline">f(a) = f(a&#39;)</span> then
-$gf(a) = gf(a’). Define <span class="math inline">g\colon B\to A</span>
-by <span class="math inline">g(b) = a</span> if <span
-class="math inline">f(a) = b</span>. Show this is <em>well-defined</em>
-if <span class="math inline">f</span> is injective, i.e., if <span
+class="math inline">{f\colon A\to B}</span> is injective if and only if
+there is a function <span class="math inline">{g\colon B\to A}</span>
+with <span class="math inline">{gf = 1_A}</span></em>.</p>
+<p><em>Hint</em>: The easy direction is when <span
+class="math inline">{gf = 1_A}</span>. If <span
+class="math inline">{f(a) = f(a&#39;)}</span> then <span
+class="math inline">{gf(a) = gf(a&#39;)}</span>. Define <span
+class="math inline">g\colon B\to A</span> by <span
+class="math inline">g(b) = a</span> if <span class="math inline">f(a) =
+b</span>. Show this is <em>well-defined</em> if <span
+class="math inline">f</span> is injective, i.e., if <span
 class="math inline">g(b) = a</span> and <span class="math inline">g(b) =
 a&#39;</span> then <span class="math inline">a = a&#39;</span>.</p>
 <p>A function is <em>onto</em>, or <em>surjective</em>, if for every
-<span class="math inline">b\in B</span> there exists <span
-class="math inline">a\in A</span> with <span class="math inline">f(a) =
-b</span>.</p>
+<span class="math inline">{b\in B}</span> there exists <span
+class="math inline">{a\in A}</span> with <span class="math inline">{f(a)
+= b}</span> so <span class="math inline">B</span> is smaller than <span
+class="math inline">A</span>.</p>
 <p><strong>Exercise</strong>. <em>A function <span
-class="math inline">f\colon A\to B</span> is surjective if and only if
-there is a function <span class="math inline">h\colon B\to A</span> with
-<span class="math inline">fh = 1_B</span></em>.</p>
-<p><em>Hint</em>: The easy direction is if <span class="math inline">fh
-= 1_B</span>. Given <span class="math inline">b\in B</span> then <span
-class="math inline">h(b)</span> satisfies the requirement. Define <span
-class="math inline">h\colon B\to A</span> by <span
-class="math inline">h(b) = a</span> if <span class="math inline">f(a) =
-b</span>.</p>
+class="math inline">{f\colon A\to B}</span> is surjective if and only if
+there is a function <span class="math inline">{h\colon B\to A}</span>
+with <span class="math inline">{fh = 1_B}</span></em>.</p>
+<p><em>Hint</em>: The easy direction is when <span
+class="math inline">{fh = 1_B}</span>. Given <span
+class="math inline">{b\in B}</span> then <span
+class="math inline">{h(b)\in A}</span> satisfies the requirement. Define
+<span class="math inline">{h\colon B\to A}</span> by <span
+class="math inline">{h(b) = a}</span> if <span class="math inline">{f(a)
+= b}</span>. Show <span class="math inline">fh = 1_B</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">f\colon A\to B</span> is surjective and for each
+<span class="math inline">b\in B</span> there exists exactly one <span
+class="math inline">{a\in A}</span> with <span class="math inline">{f(b)
+= a}</span> then <span class="math inline">f</span> is
+injective</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">f(b) = a</span> and <span
+class="math inline">f(b) = a&#39;</span> then <span
+class="math inline">a = a&#39;</span>.</p>
+<p>A function is <em>bijective</em> if and only if it is injective and
+surjective. Set <span class="math inline">A</span> is
+<em>equivalent</em> to set <span class="math inline">B</span> if there
+is a bijection from <span class="math inline">A</span> to <span
+class="math inline">B</span> and we write <span
+class="math inline">A\cong B</span>. This is the formal way of saying
+they have the same number of elements.</p>
+<p><strong>Exercise</strong>. <em>Show for sets <span
+class="math inline">A</span>, <span class="math inline">B</span>, and
+<span class="math inline">C</span> that <span class="math inline">A\cong
+A</span>, <span class="math inline">{A\cong B}</span> implies <span
+class="math inline">{B\cong A}</span>, and <span
+class="math inline">{A\cong B}</span> and <span
+class="math inline">{B\cong C}</span> implies <span
+class="math inline">{A\cong C}</span></em>.</p>
 </body>
 </html>
