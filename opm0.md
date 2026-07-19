@@ -306,26 +306,15 @@ $$
 \begin{aligned}
 OX(L)X(H)X(K) &= O(R\,\rho + L\,\sigma)(R\,\rho + H\,\sigma + (H - K)\,\kappa)X(K) \\
 	&= (RH\,O\rho\sigma + R(H - K)\,O\rho\kappa + LR\,O\sigma\rho + L(H - K)\,O\sigma\kappa)X(K) \\
-	&= (RH - LR)\,O\rho\sigma +  R(H - K)\,O\rho\kappa + L(H - K)\,O\sigma\kappa)(R\,\rho + K\,\sigma) \\
+	&= ((RH - LR)\,O\rho\sigma +  R(H - K)\,O\rho\kappa + L(H - K)\,O\sigma\kappa)(R\,\rho + K\,\sigma) \\
+	&= R(H - K)K\,\O\rho\kappa\sigma + L(H - K)R\,O\sigma\kappa\rho \\
+	&= (-R(H - K)K + L(H - K)R)\,O\rho\sigma\kappa \\
+	&= -R(H - K)(L - K)R)\,O\rho\sigma\kappa \\
 \end{aligned}
 $$
 $$
 \begin{aligned}
-OxX(K)X(H) &= O(1\,\rho + v\,\kappa + s\,\sigma) (R\,\rho + K\,\sigma)X(H) \\
-	&= (K\,O\rho\sigma + vR\,O\kappa\rho + vK\,O\kappa\rho + sR\,O\sigma\rho)X(H) \\
-	&= (K\,O\rho\sigma + (Rv - Kv)\,O\kappa\rho + sR\,O\sigma\rho)X(H) \\
-	&= (K\,O\rho\sigma + (Rv - Kv)\,O\kappa\rho + sR\,O\sigma\rho)(R\rho + (H - K)\kappa + H\,\sigma) \\
-	&= K(H - K)\,O\rho\sigma\kappa + (Rv - Kv)H\,O\kappa\rho\sigma + Rs(H - K)\,O\sigma\rho\kappa \\
-	&= (-(H - K) - (Rv - Kv)H - Rs(H - K))\,O\rho\kappa\sigma \\
-	&= H(-1 - (R - K)v - Rs) +
-\end{aligned}
-$$
-$$
-\begin{aligned}
-OX(L)xX(H) &= O(1\,\rho + s1\,\rho + s\,\sigma)(R\,\rho + K\,\sigma)X(H) \\
-	&= (K - sR)\,O\rho\sigma\,(R\rho + (H - K)\kappa + H\,\sigma) \\
-	&= (K - Rs)(H - K)\,O\rho\kappa\sigma \\
-\end{aligned}
+OxX(H)X(K) &= 
 $$
 There is no arbitrage if and only if $x$ belongs to the cone.
 
