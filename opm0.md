@@ -20,12 +20,12 @@ abstract: The simplest formal model of a financial market.
 \newcommand\PP{\mathcal{P}}
 
 The one‑period model is the simplest framework for rigorously
-representing a financial market over a single period of time. The model
-defines the initial prices of tradeable instruments and their terminal
-prices depending on what happens. If there are no arbitrage opportunities
-then initial prices are subject to a geometric constraint determined by
-the final prices: The initial prices must belong to the smallest closed
-cone containing all possible final prices.
+representing a financial market over a single period of time. The
+model specifies the initial prices of tradeable instruments and their
+terminal prices depending on what happens over the period. If there are no
+arbitrage opportunities then the initial prices are subject to a geometric
+constraint determined by the final prices: the initial prices must belong
+to the smallest closed cone containing all possible final prices.
 
 This is a well-known result but we provide two original proofs. The
 first shows how to implement an arbitrage if it exists. The second can
@@ -34,7 +34,7 @@ be generalized to multi-period models.
 We use [Grassmann Algebra](grassmann-algebra) to show how to explicitly
 calculate the case of a bond, stock, and any collection of options.
 
-The [Remarks](#remarks) section addresses some limitations of the one-period model.
+The [Remarks](#remarks) section addresses limitations of the one-period model.
 
 ## One-Period Model
 
