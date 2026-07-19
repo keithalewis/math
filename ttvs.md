@@ -47,8 +47,14 @@ ${(\bs{x} + \bs{y})(i) = \bs{x}(i) + \bs{y}(i)}$ for ${\bs{x},\bs{y}\in\RR^I}$.
 An _abstract vector space_ is any abelian (commutative) group $V$ having
 a scalar multiplication that satisfies the distributive laws
 ${a(x + y) = ax + ay}$ and ${(a + b)x = ax + bx}$ for $a,b\in\RR$ and $x,y\in V$.
-It is not trivial to show every finite dimensional abstract vector space of dimension $n$ is isomorphic
-to $\RR^n$ so why bother with the abstract definition?
+While it is true every finite-dimensional vector space is isomorphic to $\RR^n$
+for some $n$, there are many abstract vector spaces that are not.
+
+__Exercise__. _Show continuous functions on the interval $[a,b]\subseteq\RR$,
+$C([a,b])$, is a vector space_.
+
+__Exercise__. _Show the set of solutions to the differential equation
+$\sum_j a_j d^j x(t)/dt^j = 0$ is a vector space_.
 
 Every finite dimensional vector space has 
 
