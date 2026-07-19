@@ -44,11 +44,13 @@ happen over the period.  The initial _prices_ are given by a vector
 ${x\in\RR^I}$[^1], indexed by the instruments.  Terminal prices are
 defined by a vector-valued function ${X\colon\Omega\to\RR^I}$ where
 ${X(\omega)\in\RR^I}$ are the prices for each instrument corresponding
-to outcome ${\omega\in\Omega}$.  We assume $X$ is bounded, because it
-is in the real world, and write $X\in B(\Omega,\RR^I)$ where
-$$
-B(\Omega,\RR^I) = \{X\colon\Omega\to\RR^I\mid \|X\| = \sup_{\omega\in\Omega}\|X(\omega)\| < \infty\}.
-$$
+to outcome ${\omega\in\Omega}$.
+
+_Arbitrage_ exists (in this very simple and unrealistic model) if we
+can purchase $\xi\in\RR^I$ shares at the beginning of the period with
+cost $\xi\cdot x < 0$ and sell them at the end of the period for profit
+${\xi\cdot X(\omega)\ge0}$ for all $\omega\in\Omega$.  We make money
+putting on the position and never lose when unwound at the end.
 
 [^1]: Recall the _set exponential_ ${B^A = \{f\colon A\to B\}}$ is the set
 of all functions from the set $A$ to the set $B$.  If ${x\in\RR^I}$ then
@@ -56,12 +58,6 @@ $x(i)\in\RR$ is the price of instrument $i\in I$.  If $I = \{1,\ldots,n\}$
 we can identify $\RR^I$ with the vector space of $n$-tuples
 ${\RR^n = \prod_{i=1}^n\RR = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
 by $x(i) = x_i$, $1\le i\le n$.
-
-_Arbitrage_ exists (in this very simple and unrealistic model) if we
-can purchase $\xi\in\RR^I$ shares at the beginning of the period with
-cost $\xi\cdot x < 0$ and sell them at the end of the period for profit
-${\xi\cdot X(\omega)\ge0}$ for all $\omega\in\Omega$.  We make money
-putting on the position and never lose when unwound at the end.
 
 It is not a definition that would pass muster with traders and risk managers.
 They will compare ${|\sum_i \xi_i x_i|}$ with ${\sum_i |\xi_i x_i|}$ as a
@@ -141,6 +137,12 @@ Define ${A\colon\RR^I\to\RR\oplus B(\Omega)}$
 by $A\xi = -\xi\cdot x\oplus \xi\cdot X$. The components of
 the right-hand side are the amounts associated with buying
 $\xi$ at the beginning of the period and selling $\xi$ at the end.
+
+We assume $X$ is bounded, because it
+is in the real world, and write $X\in B(\Omega,\RR^I)$ where
+$$
+B(\Omega,\RR^I) = \{X\colon\Omega\to\RR^I\mid \|X\| = \sup_{\omega\in\Omega}\|X(\omega)\| < \infty\}.
+$$
 
 No arbitrage is equivalent to $\ran A\cap\PP^+ = \emptyset$
 where $\PP^+ = \{p\oplus P\mid p > 0, P(\omega)\ge 0, \omega\in\Omega\}$.
