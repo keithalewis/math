@@ -132,7 +132,7 @@ Since ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ we have ${\xi\cdot 
 This lemma proves the FTAP and that $\xi = x^* - x$ implements an arbitrage.
 
 We now give an alternate proof that will generalize to multi-period models.
-See [@DunSch1958] Volume I, Chapter IV for the mathematical details.
+See [@DunSch1958] Volume I, Chapter IV for the mathematical background.
 Define ${A\colon\RR^I\to\RR\oplus B(\Omega)}$
 by $A\xi = -\xi\cdot x\oplus \xi\cdot X$. The components of
 the right-hand side are the amounts associated with buying
