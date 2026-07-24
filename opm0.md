@@ -14,6 +14,7 @@ abstract: The simplest formal model of a financial market.
 \newcommand\Cov{\operatorname{Cov}}
 \newcommand\co{\operatorname{co}}
 \newcommand\sgn{\operatorname{sgn}}
+\newcommand\Alg{\operatorname{Alg}}
 \newcommand\cone{\operatorname{cone}}
 \newcommand\BB{\mathcal{B}}
 \newcommand\GG{\mathcal{G}}
@@ -21,36 +22,19 @@ abstract: The simplest formal model of a financial market.
 
 The one‑period model is the simplest framework for rigorously
 representing a financial market over a single period of time. The
-model specifies the initial prices of tradeable instruments and their
-terminal prices depending on what happens over the period. If there are no
-arbitrage opportunities then the initial prices are subject to a geometric
-constraint determined by the final prices: the initial prices must belong
-to the smallest closed cone containing all possible final prices.
-
-This is a well-known result but we provide two original proofs. The
-first shows how to implement an arbitrage if it exists. The second can
-be generalized to multi-period models.
-
-We use [Grassmann Algebra](grassmann-algebra) to show how to explicitly
-calculate the case of a bond, stock, and any collection of options.
-
-The [Remarks](#remarks) section addresses limitations of the one-period model.
+model defines the initial prices of tradeable instruments and their
+terminal prices contingent on the realized outcome. If there are no
+arbitrage opportunities available then initial prices are subject
+to geometric constraints determined by the final prices.
 
 ## One-Period Model
 
-The _one-period model_ specifies a finite set of tradeable _instruments_
-$I$ and the set of possible _outcomes_ $\Omega$ representing what can
-happen over the period.  The initial _prices_ are given by a vector
-${x\in\RR^I}$[^1], indexed by the instruments.  Terminal prices are
-defined by a vector-valued function ${X\colon\Omega\to\RR^I}$ where
-${X(\omega)\in\RR^I}$ are the prices for each instrument corresponding
-to outcome ${\omega\in\Omega}$.
-
-_Arbitrage_ exists (in this very simple and unrealistic model) if we
-can purchase $\xi\in\RR^I$ shares at the beginning of the period with
-cost $\xi\cdot x < 0$ and sell them at the end of the period for profit
-${\xi\cdot X(\omega)\ge0}$ for all $\omega\in\Omega$.  We make money
-putting on the position and never lose when unwound at the end.
+The _one-period model_ specifies a finite set of tradeable _instruments_ $I$
+and the set of possible _outcomes_ $\Omega$ representing what can happen over the period.
+The initial _prices_ are given by a vector ${x\in\RR^I}$[^1], indexed by the instruments.
+Terminal prices are defined by a vector-valued function
+${X\colon\Omega\to\RR^I}$ where ${X(\omega)\in\RR^I}$ are the prices
+for each instrument corresponding to outcome ${\omega\in\Omega}$.
 
 [^1]: Recall the _set exponential_ ${B^A = \{f\colon A\to B\}}$ is the set
 of all functions from the set $A$ to the set $B$.  If ${x\in\RR^I}$ then
@@ -59,17 +43,22 @@ we can identify $\RR^I$ with the vector space of $n$-tuples
 ${\RR^n = \prod_{i=1}^n\RR = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
 by $x(i) = x_i$, $1\le i\le n$.
 
+_Arbitrage_ exists (in this very simple and unrealistic model) if we
+can purchase $\xi\in\RR^I$ shares at the beginning of the period with
+cost $\xi\cdot x < 0$ and sell them at the end of the period for profit
+${\xi\cdot X(\omega)\ge0}$ for all $\omega\in\Omega$.  We make money
+putting on the position and never lose when unwound at the end.
+
 It is not a definition that would pass muster with traders and risk managers.
 They will compare ${|\sum_i \xi_i x_i|}$ with ${\sum_i |\xi_i x_i|}$ as a
 measure of how much capital will be tied up.
-If the ratio is small they will take a pass on the "mathematical arbitrage."
+If the ratio is small they will take a pass on the mathematical "arbitrage."
 
 __Exercise__. _Show if $\xi$ is an arbitrage then $t\xi$ is an arbitrage
 for any positive real number $t$_.
 
 This is a defect in the one-period model. There is only a finite amount of
-each instrument that can be traded. Large hedge funds such as Citadel,
-Millennium, and Jane street bump into this problem.
+each instrument that can be traded.
 
 __Exercise__. _If $\xi_0$ and $\xi_1$ are arbitrages then so is $\xi_0 + \xi_1$_.
 
@@ -113,7 +102,7 @@ with $x\not\in K$ then there exists ${\xi\in\RR^n}$
 with ${\xi\cdot x < 0}$ and ${\xi\cdot y \ge0}$ for all ${y\in K}$_.
 
 _Proof._ Let $x^*$ be the point in $K$ closest to $x$.
-It exists since $K$ is closed and is unique since $K$ is convex.
+It exists because $K$ is closed and unique since $K$ is convex.
 Let $\xi = x^* - x$ and note $\xi\not=0$.
 
 We have $ty + x^*\in K$ for any $t > 0$ and $y\in K$ 
@@ -132,17 +121,16 @@ Since ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ we have ${\xi\cdot 
 This lemma proves the FTAP and that $\xi = x^* - x$ implements an arbitrage.
 
 We now give an alternate proof that will generalize to multi-period models.
-See [@DunSch1958] Volume I, Chapter IV for the mathematical background.
+See [@DunSch1958] Volume I, Chapter IV for the mathematical details.
+We assume $X$ is bounded, because it is, and write $X\in B(\Omega,\RR^I)$
+where
+$$
+B(\Omega,\RR^I) = \{X\colon\Omega\to\RR^I\mid \|X\| = \sup_{\omega\in\Omega}\|X(\omega)\| < \infty\}.
+$$
 Define ${A\colon\RR^I\to\RR\oplus B(\Omega)}$
 by $A\xi = -\xi\cdot x\oplus \xi\cdot X$. The components of
 the right-hand side are the amounts associated with buying
 $\xi$ at the beginning of the period and selling $\xi$ at the end.
-
-We assume $X$ is bounded, because it
-is in the real world, and write $X\in B(\Omega,\RR^I)$ where
-$$
-B(\Omega,\RR^I) = \{X\colon\Omega\to\RR^I\mid \|X\| = \sup_{\omega\in\Omega}\|X(\omega)\| < \infty\}.
-$$
 
 No arbitrage is equivalent to $\ran A\cap\PP^+ = \emptyset$
 where $\PP^+ = \{p\oplus P\mid p > 0, P(\omega)\ge 0, \omega\in\Omega\}$.
@@ -211,14 +199,17 @@ to any number of instruments.
 
 Grassmann starts with the Euclidean (no absolute origin) space of points $E$ and considers
 the associative algebra $\GG(E)$ generated by points in $E$ with the rule
-$PQ = 0$ if and only if $P = Q$ for $P,Q\in E$.
+$PQ = 0$ if and only if $P = Q$ for $P,Q\in E$. [^2]
+
+[^2]: Since $\Alg(\{PP\mid P\in E\})$ is a two-sided ideal of $\Alg(E)$ the quotient
+space $\GG(E)$ is well defined.
 
 __Exercise__. _Show $PQ = -QP$ for $P,Q\in E$_.
 
 _Hint_: $0 = (P + Q)(P + Q)$.
 
 Given points $P_0, P_1,\cdots,P_k\in E$
-let $\Pi = P_0 \cdots P_k$ to be their product. Replacing $P_j$ by $P\in E$ in the product
+let $\Pi = P_0 \cdots P_k$ be their product. Replacing $P_j$ by $P\in E$ in the product
 define $\Pi_j(P) = (\prod_{i=0}^{j-1} P_i) P (\prod_{i = j+1}^k P_i)$.
 
 __Exercise__. _Show $\Pi_j(P_i) = 0$ if $i\not=j$ and $\Pi_j(P_j) = \Pi$_.
@@ -231,51 +222,54 @@ $$
 	P = \sum_j \frac{\Pi_j(P)}{\Pi} P_j.
 $$
 
-Since $\sum_j x_j = 1$ we have (TODO: proof)
+This provides a coordinate-free equation for expressing points in space.
+
+__Exercise__. _Show $\sum_j \Pi_j(P) = \Pi$_.
+
+$P$ belongs to the _convex hull_ of $\{P_j\}_{j=0}^k$ if and only if $x_j\ge0$ for all $0\le j\le k$.
+
+Since $\sum_j x_j = 1$ we have
 $$
 	P = (1 - \sum_{j=1}^k x_j)P_0 + \sum_{j=1}^k x_j P_j = P_0 + \sum_{j=1}^k x_j (P_j - P_0).
 $$
+
+$P$ belongs to the _cone_ with origin/vertex $P_0$ containing $\{P_j\}_{j=1}^k$ if and only if $x_j\ge0$ for
+$1\le j\le k$.
 
 Given an _origin_ $P_0$ this shows how $\RR^n$ fits into Grassmann space.
 The vector $x = (x_1,\ldots,x_n)$ corresponds to the point $P(x) = P_0 + \sum_j x_j \pi_j$
 where $\pi_j = P_j - P_0$ is the vector from the origin to $P_j$.
 
-__Exercise__. _Show the smallest cone containing ${\{P_j\}_{j=1}^k}$ with origin $P_0$ is
-${P(x)\mid x_j\ge 0\}}$_.
-
 To apply this to the bond and stock model we let
 $O$ be the origin, $\rho$ a vector in the bond direction, and $\sigma$
 a vector in the stock direction.
-We have $x = O + 1\rho + s\sigma$ and
+We have $x = O + \rho + s\sigma$ and
 $X(\omega) = O + R\rho + \omega\sigma$.
 
-Using Grassmann algebra we know
-$$
-x\,OX(L)X(H) = xX(L)X(H)\,O + OxX(H)\,X(L) + OX(L)x\,X(H)
-$$
-First we compute $OX(L)X(H)$. Note we can drop the $O$ term in $X(L)$ an $X(H)$
-since $OO = 0$.
+Using Grassmann algebra
+${xOX(L)X(H) = xX(L)X(H)\,O + OxX(H)\,X(L) + OX(L)x\,X(H)}$.
+Using $OO = 0$ we have
 $$
 \begin{aligned}
-OX(L)X(H) &= O(R\,\rho + L\,\sigma)X(H) \\
-	&= (R\,O\rho + L\,O\sigma)X(H) \\
-	&= (R\,O\rho + L\,O\sigma)(R\,\rho + H\,\sigma) \\
-	&= RH\,O\rho\sigma + LR\,O\sigma\rho \\
-	&= R(H - L)\,O\rho\sigma \\
+OX(L)X(H) &= O(R\rho + L\sigma)(R\rho + H\sigma) \\
+	&= (R O\rho + L O\sigma)(R\rho + H\sigma) \\
+	&= RH \rho\sigma + LR O\sigma\rho \\
+	&= (RH - LR) O\rho\sigma \\
+	&= R(H - L) O\rho\sigma \\
 \end{aligned}
 $$
 $$
 \begin{aligned}
-OxX(H) &= O(O + 1\,\rho + s\,\sigma)X(H) \\
-	&= (O\rho + s\,O\sigma)(R\,\rho + H\,\sigma) \\
+OxX(H) &= O(O + \rho + s\sigma)(O + R\rho + H\sigma) \\
+	&= (O\rho + s O\sigma)(O + R\rho + H\sigma) \\
 	&= H\,O\rho\sigma + sR\,O\sigma\rho \\
 	&= (H - Rs)\,O\rho\sigma \\
 \end{aligned}
 $$
 $$
 \begin{aligned}
-OX(L)x &= O(R\,\rho + L\,\sigma)x \\
-	&= (R\,O\rho + L\,O\sigma)(1\,\rho + s\,\sigma) \\
+OX(L)x &= O(O + R\rho + L\sigma)(O + \rho + s\sigma) \\
+	&= (R O\rho + L O\sigma)(O + \rho + s\sigma) \\
 	&= Rs\,O\rho\sigma + L\,O\sigma\rho \\
 	&= (Rs - L)\,O\rho\sigma \\
 \end{aligned}
@@ -290,44 +284,13 @@ Since $R(H - L)$ is positive we get $H - Rs\ge0$ and $Rs - L\ge0$ as before.
 We model adding a call option with strike $K$ to the bond and stock by
 ${x = (1,s,v)}$ and ${X(\omega) = (R, \omega, \max\{\omega - K, 0\})}$.
 
-If $\kappa$ is a vector in the option direction then $x = O + 1\,\rho + s\,\sigma + v\,\kappa$
-and ${X(\omega) = O + R\,\rho + \omega\,\sigma + \max\{\omega - K, 0\}\,\kappa}$.
+If $\kappa$ is a vector in the option direction then $x = O + \rho + s\sigma + v\kappa$
+and ${X(\omega) = O + R\rho + \omega\sigma + \max\{\omega - K, 0\}\kappa}$.
 
 By Grassmann we know $x$ is a linear combination of $O$, $X(L), $X(H)$, and $X(K)$
 and belongs to the smallest cone containing the
 range of $X$ if and only if the coefficients of $X(L)$, $X(H)$, and $X(K)$
 are non-negative.
-
-Using Grassmann algebra
-$$
-x\,OX(L)X(K)X(H) = xX(L)X(K)(H)\,O + OxX(K)X(H)\,X(L) + OX(L)xX(H)\,X(K) + OX(L)X(K)x\,X(H)
-$$
-$$
-\begin{aligned}
-OX(L)X(H)X(K) &= O(R\,\rho + L\,\sigma)(R\,\rho + H\,\sigma + (H - K)\,\kappa)X(K) \\
-	&= (RH\,O\rho\sigma + R(H - K)\,O\rho\kappa + LR\,O\sigma\rho + L(H - K)\,O\sigma\kappa)X(K) \\
-	&= (RH - LR)\,O\rho\sigma +  R(H - K)\,O\rho\kappa + L(H - K)\,O\sigma\kappa)(R\,\rho + K\,\sigma) \\
-\end{aligned}
-$$
-$$
-\begin{aligned}
-OxX(K)X(H) &= O(1\,\rho + v\,\kappa + s\,\sigma) (R\,\rho + K\,\sigma)X(H) \\
-	&= (K\,O\rho\sigma + vR\,O\kappa\rho + vK\,O\kappa\rho + sR\,O\sigma\rho)X(H) \\
-	&= (K\,O\rho\sigma + (Rv - Kv)\,O\kappa\rho + sR\,O\sigma\rho)X(H) \\
-	&= (K\,O\rho\sigma + (Rv - Kv)\,O\kappa\rho + sR\,O\sigma\rho)(R\rho + (H - K)\kappa + H\,\sigma) \\
-	&= K(H - K)\,O\rho\sigma\kappa + (Rv - Kv)H\,O\kappa\rho\sigma + Rs(H - K)\,O\sigma\rho\kappa \\
-	&= (-(H - K) - (Rv - Kv)H - Rs(H - K))\,O\rho\kappa\sigma \\
-	&= H(-1 - (R - K)v - Rs) +
-\end{aligned}
-$$
-$$
-\begin{aligned}
-OX(L)xX(H) &= O(1\,\rho + s1\,\rho + s\,\sigma)(R\,\rho + K\,\sigma)X(H) \\
-	&= (K - sR)\,O\rho\sigma\,(R\rho + (H - K)\kappa + H\,\sigma) \\
-	&= (K - Rs)(H - K)\,O\rho\kappa\sigma \\
-\end{aligned}
-$$
-There is no arbitrage if and only if $x$ belongs to the cone.
 
 ## Remarks
 

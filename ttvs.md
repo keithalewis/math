@@ -56,8 +56,6 @@ $C([a,b])$, is a vector space_.
 __Exercise__. _Show the set of solutions to the differential equation
 $\sum_j a_j d^j x(t)/dt^j = 0$ is a vector space_.
 
-Every finite dimensional vector space has 
-
 Recall a function ${T\colon\RR^n\to\RR^m}$ is a _linear operator_ if ${T(ax + y) = aTx + Ty}$
 for $a\in\RR$ and $x,y\in\RR^n$. The set of all linear operators from vector space $V$
 to vector space $W$ is denoted in various ways. The category theoretic teminology is
@@ -72,6 +70,8 @@ for $a\in\RR$ and $x,y\in V$_.
 
 Note the scalar multiplication and vector addition on the right-hand side of these equations
 is occuring in $W$.
+
+__Exercise__. _SHow linear operators are a vector space_.
 
 The _dual_ of a vector space $V$ is the space of all _linear functionals_ ${V^* = [V\to\RR]}$.
 

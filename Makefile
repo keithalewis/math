@@ -66,7 +66,7 @@ docs: $(HTML) index
 	git add -f docs/*
 
 clean:
-	rm -f *.docx *.pdf *.html docs/*.html
+	rm -f *.docx *.html docs/*.html
 
 RJS = -V theme="serif" -V revealjs-url=https://cdn.jsdelivr.net/reveal.js/3.0.0
 

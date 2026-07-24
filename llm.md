@@ -3,6 +3,23 @@ title: Large Language Models
 author: Keith A. Lewis
 ---
 
+“What I cannot create, I do not understand” 
+was found on Richard Feynman's blackboard at Caltech after he died.
+
+At this year's NYU Tandon [commencement address](https://www.youtube.com/watch?v=pFscM-Z4rCE)
+Yann LeCun said "Large Language Models do not create anything." And encouraged
+students to learn how they work and use them to create new things.
+
+The most valuable commodity in the world is trust.
+It cannot be manufacured or bought, and can vanish in an instant.
+
+You need to figure out who you can trust. It is the oldest problem in the world.
+
+Most people that were well raised just try to the right thing. 
+
+Let me take you through my current understading of how LLM's work
+
+
 https://github.com/karpathy/llm.c
 
 A large language model is a function. Given a sequence of characters it
