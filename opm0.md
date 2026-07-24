@@ -292,6 +292,26 @@ and belongs to the smallest cone containing the
 range of $X$ if and only if the coefficients of $X(L)$, $X(H)$, and $X(K)$
 are non-negative.
 
+Using Grassmann algebra
+$$
+x\,OX(L)X(K)X(H) = xX(L)X(K)(H)\,O + OxX(K)X(H)\,X(L) + OX(L)xX(H)\,X(K) + OX(L)X(K)x\,X(H)
+$$
+$$
+\begin{aligned}
+OX(L)X(H)X(K) &= O(R\,\rho + L\,\sigma)(R\,\rho + H\,\sigma + (H - K)\,\kappa)X(K) \\
+	&= (RH\,O\rho\sigma + R(H - K)\,O\rho\kappa + LR\,O\sigma\rho + L(H - K)\,O\sigma\kappa)X(K) \\
+	&= ((RH - LR)\,O\rho\sigma +  R(H - K)\,O\rho\kappa + L(H - K)\,O\sigma\kappa)(R\,\rho + K\,\sigma) \\
+	&= R(H - K)K\,\O\rho\kappa\sigma + L(H - K)R\,O\sigma\kappa\rho \\
+	&= (-R(H - K)K + L(H - K)R)\,O\rho\sigma\kappa \\
+	&= -R(H - K)(L - K)R)\,O\rho\sigma\kappa \\
+\end{aligned}
+$$
+$$
+\begin{aligned}
+OxX(H)X(K) &= 
+$$
+There is no arbitrage if and only if $x$ belongs to the cone.
+
 ## Remarks
 
 Prices must be integral multiples of minimum price increments of each instrument.
