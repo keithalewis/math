@@ -297,14 +297,15 @@ $$
 x\,OX(L)X(K)X(H) = xX(L)X(K)(H)\,O + OxX(K)X(H)\,X(L) + OX(L)xX(H)\,X(K) + OX(L)X(K)x\,X(H)
 $$
 $$
+
+First we show
 \begin{aligned}
-OX(L)X(H)X(K) &= O(R\,\rho + L\,\sigma)(R\,\rho + H\,\sigma + (H - K)\,\kappa)X(K) \\
-	&= (RH\,O\rho\sigma + R(H - K)\,O\rho\kappa + LR\,O\sigma\rho + L(H - K)\,O\sigma\kappa)X(K) \\
-	&= ((RH - LR)\,O\rho\sigma +  R(H - K)\,O\rho\kappa + L(H - K)\,O\sigma\kappa)(R\,\rho + K\,\sigma) \\
-	&= R(H - K)K\,\O\rho\kappa\sigma + L(H - K)R\,O\sigma\kappa\rho \\
-	&= (-R(H - K)K + L(H - K)R)\,O\rho\sigma\kappa \\
-	&= -R(H - K)(L - K)R)\,O\rho\sigma\kappa \\
+OX(L)X(K)X(H) &= O(R\,\rho + L\,\sigma)(R\,\rho + K\,\sigma)X(H) \\
+&= (RK\,O\rho\sigma + LR\,O\sigma\rho)X(H) \\
+&= R(K - L)\,O\rho\sigma (R\,\rho + H\,\sigma + (H - K)\,\kappa \\
+&= R(K - L)(H - K)\,O\rho\sigma\kappa \\
 \end{aligned}
+Note the coefficient of $O\rho\sigma\kappa$ is positive.
 $$
 $$
 \begin{aligned}
