@@ -297,6 +297,9 @@ $$
 x\,OX(L)X(H)X(K) = xX(L)X(K)(H)\,O + OxX(H)X(K)\,X(L) + OX(L)xX(K)\,X(H) + OX(L)X(H)x\,X(K)
 $$
 $$
+
+First we show
+$$
 \begin{aligned}
 OX(L)X(H)X(K) &= R(H - K)(L - K)R)\,O\rho\sigma\kappa \\
 \end{aligned}
