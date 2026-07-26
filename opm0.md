@@ -294,23 +294,47 @@ are non-negative.
 
 Using Grassmann algebra
 $$
-x\,OX(L)X(K)X(H) = xX(L)X(K)(H)\,O + OxX(K)X(H)\,X(L) + OX(L)xX(H)\,X(K) + OX(L)X(K)x\,X(H)
+x\,OX(L)X(H)X(K) = xX(L)X(K)(H)\,O + OxX(H)X(K)\,X(L) + OX(L)xX(K)\,X(H) + OX(L)X(H)x\,X(K)
 $$
 $$
 \begin{aligned}
-OX(L)X(H)X(K) &= O(R\,\rho + L\,\sigma)(R\,\rho + H\,\sigma + (H - K)\,\kappa)X(K) \\
-	&= (RH\,O\rho\sigma + R(H - K)\,O\rho\kappa + LR\,O\sigma\rho + L(H - K)\,O\sigma\kappa)X(K) \\
-	&= ((RH - LR)\,O\rho\sigma +  R(H - K)\,O\rho\kappa + L(H - K)\,O\sigma\kappa)(R\,\rho + K\,\sigma) \\
-	&= R(H - K)K\,\O\rho\kappa\sigma + L(H - K)R\,O\sigma\kappa\rho \\
-	&= (-R(H - K)K + L(H - K)R)\,O\rho\sigma\kappa \\
-	&= -R(H - K)(L - K)R)\,O\rho\sigma\kappa \\
+OX(L)X(H)X(K) &= R(H - K)(L - K)R)\,O\rho\sigma\kappa \\
 \end{aligned}
 $$
 $$
 \begin{aligned}
-OxX(H)X(K) &= 
+OxX(H)X(K) &= O(\rho + s\,\sigma + v\,\kappa)(R\,\rho + H\,\sigma + (H - K)\,\kappa)X(K) \\
+	&= (H\,O\rho\sigma + (H-K)\,O\rho\kappa
+		+ sR\,O\sigma\rho + s(H - K)\,O\sigma\kappa
+		+ vR\,O\kappa\rho + vH\,O\kappa\sigma)X(K) \\
+	&= ((H - sR)\,O\rho\sigma + (H - K - vR)\,O\rho\kappa + (s(H - K) - vH)\,O\sigma\kappa)
+		(R\,\rho + K\,\sigma) \\
+	&=  (s(H - K) - vH)R\,O\rho\sigma\kappa \\
 $$
-There is no arbitrage if and only if $x$ belongs to the cone.
+So $v\le s(H - K)/H$.
+$100(10)/100 = 10$.
+$$
+\begin{aligned}
+OX(L)xX(K) &= O(R\,\rho + L\,\sigma)(\rho + s\,\sigma + v\,\kappa)X(K) \\
+	&= (Rs\,O\rho\sigma + Rv\,O\rho\kappa + L\,O\sigma\rho + Lv\,O\sigma\kappa)X(K) \\
+	&= (Rs - L)\,O\rho\sigma + Rv\,O\rho\kappa + Lv\,O\sigma\kappa)
+		(R\,\rho + K\,\sigma) \\
+	&= (LvR - RvK)\,O\rho\sigma\kappa \\
+$$
+So $v\ge 0$.
+TODO: check sign
+$$
+\begin{aligned}
+OX(L)X(H)x &= O(R\,\rho + L\,\sigma)(R\,\rho + H\,\sigma + (H - K)\,\kappa)x \\
+	&= RH\,O\rho\sigma + R(H - K)\,O\rho\kappa
+		+ LR\,O\sigma\rho + L(H - K)\,O\sigma\kappa \\
+	&= ((RH - LR)\,O\rho\sigma + R(H - K)\,O\rho\kappa +  L(H - K)\,O\sigma\kappa)
+		(\rho + s\sigma + v\kappa) \\
+	&=  R(H - L)v - R(H - K)s + L(H - K)\,O\rho\sigma\kappa \\
+	&= R(H - L)v - (H - K)(Rs - L) \\
+$$
+so $v\ge (H - K)(Rs - L)/R(H - L)$.
+$v\ge 10(10)/20 = 100/20 = 10/2 = 5$.
 
 ## Remarks
 
