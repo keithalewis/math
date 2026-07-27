@@ -226,6 +226,8 @@ This provides a coordinate-free equation for expressing points in space.
 
 __Exercise__. _Show $\sum_j \Pi_j(P) = \Pi$_.
 
+__Exercise__. _Show $\sum_j x_j = 1$_.
+
 $P$ belongs to the _convex hull_ of $\{P_j\}_{j=0}^k$ if and only if $x_j\ge0$ for all $0\le j\le k$.
 
 Since $\sum_j x_j = 1$ we have
@@ -233,12 +235,12 @@ $$
 	P = (1 - \sum_{j=1}^k x_j)P_0 + \sum_{j=1}^k x_j P_j = P_0 + \sum_{j=1}^k x_j (P_j - P_0).
 $$
 
-$P$ belongs to the _cone_ with origin/vertex $P_0$ containing $\{P_j\}_{j=1}^k$ if and only if $x_j\ge0$ for
-$1\le j\le k$.
-
-Given an _origin_ $P_0$ this shows how $\RR^n$ fits into Grassmann space.
+Given an _origin $P_0$ this shows how $\RR^n$ fits into Grassmann space.
 The vector $x = (x_1,\ldots,x_n)$ corresponds to the point $P(x) = P_0 + \sum_j x_j \pi_j$
 where $\pi_j = P_j - P_0$ is the vector from the origin to $P_j$.
+
+$P$ belongs to the _cone_ with _origin_ $P_0$ containing $\{P_j\}_{j=1}^k$ if and only if $x_j\ge0$ for
+$1\le j\le k$.
 
 To apply this to the bond and stock model we let
 $O$ be the origin, $\rho$ a vector in the bond direction, and $\sigma$
@@ -248,7 +250,7 @@ $X(\omega) = O + R\rho + \omega\sigma$.
 
 Using Grassmann algebra
 ${xOX(L)X(H) = xX(L)X(H)\,O + OxX(H)\,X(L) + OX(L)x\,X(H)}$.
-Using $OO = 0$ we have
+Since $OO = 0$ we have
 $$
 \begin{aligned}
 OX(L)X(H) &= O(R\rho + L\sigma)(R\rho + H\sigma) \\
@@ -274,28 +276,31 @@ OX(L)x &= O(O + R\rho + L\sigma)(O + \rho + s\sigma) \\
 	&= (Rs - L)\,O\rho\sigma \\
 \end{aligned}
 $$
-There is no arbitrage if and only if $x$ belongs to the cone.
-This is equivalent to coefficients of
+There is no arbitrage if and only if $x$ belongs to the smallest closed
+cone containing the range of $X$.
+This is equivalent to the coefficients of
 $\rho$ and $\sigma$ being non-negative.
 Since $R(H - L)$ is positive we get $H - Rs\ge0$ and $Rs - L\ge0$ as before.
 
 ### Bond, Stock, Option
 
 We model adding a call option with strike $K$ to the bond and stock by
-${x = (1,s,v)}$ and ${X(\omega) = (R, \omega, \max\{\omega - K, 0\})}$.
+${x = (1,v,s)}$ and ${X(\omega) = (R, \max\{\omega - K, 0\}, \omega)}$.
+
+TODO: 90-100-110 problem
+Making the rounds at conferences a number of years ago.
 
 If $\kappa$ is a vector in the option direction then $x = O + \rho + s\sigma + v\kappa$
 and ${X(\omega) = O + R\rho + \omega\sigma + \max\{\omega - K, 0\}\kappa}$.
 
-By Grassmann we know $x$ is a linear combination of $O$, $X(L), $X(H)$, and $X(K)$
+By Grassmann we know $x$ is a linear combination of $O$, $X(L)$, $X(K)$, and $X(H)$
 and belongs to the smallest cone containing the
 range of $X$ if and only if the coefficients of $X(L)$, $X(H)$, and $X(K)$
 are non-negative.
 
 Using Grassmann algebra
 $$
-x\,OX(L)X(H)X(K) \\
-\quad = xX(L)X(K)(H)\,O + OxX(H)X(K)\,X(L) + OX(L)xX(K)\,X(H) + OX(L)X(H)x\,X(K)
+x = (xX(L)X(K)(H)\,O + OxX(K)X(H)\,X(L) + OX(L)xX(H)\,X(K) + OX(L)X(K)/\Pix\,X(H))/OX(L)X(K)X(H)
 $$
 First we show
 $$
