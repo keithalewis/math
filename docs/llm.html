@@ -21,28 +21,165 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Large Language Models</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Mar 16, 2026</p>
+<p class="date">Jul 28, 2026</p>
 </header>
-<p>https://github.com/karpathy/llm.c</p>
-<p>A large language model is a function. Given a sequence of characters
-it returns a sequence of characters. How does it do that?</p>
-<p>It takes training data consisting of “correct” answers and
-interpolates.</p>
-<p>Machine learning began in … with … perceptrons. They were modelled
-after neurons in the brain. Given a set of inputs they would either fire
-or not.</p>
-<p>The best prompt is “yes”. It will clue you in to the current context
-of the LLM you are using at the moment. Use the output to detect what it
-is <em>not</em> telling you.</p>
-<p>A LLM is a function from an input string <em>prompt</em> and a
-<em>context</em> to an <em>output</em> string. So called “prompt
-engineering” is really about context engineering.</p>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#people-i-trust" id="toc-people-i-trust">People I
+Trust</a></li>
+<li><a href="#a-short-history-of-machine-learning"
+id="toc-a-short-history-of-machine-learning">A Short History of Machine
+Learning</a></li>
+<li><a href="#llm" id="toc-llm">LLM</a></li>
+</ul>
+</nav>
+<blockquote>
+<p>“What I cannot create, I do not understand”</p>
+</blockquote>
+<p>was found on Richard Feynman’s blackboard at Caltech after he
+died.</p>
+<p>At this year’s NYU Tandon <a
+href="https://www.youtube.com/watch?v=pFscM-Z4rCE">commencement
+address</a> Yann LeCun said “Large Language Models do not create
+anything.” And encouraged students to learn how they work and use them
+to create new things. He emphasised you will be at a disadvantage if you
+don’t learn how to use them effectively.</p>
+<p>The most valuable commodity in the world is trust. It cannot be
+manufacured or bought, and can vanish in an instant.</p>
+<p>You need to figure out who you can trust. It is the oldest problem in
+the world.</p>
+<section id="people-i-trust" class="level3">
+<h3>People I Trust</h3>
+<p>Yann Lecun - Head of Facebook AI until starting AMIL in 2025.</p>
+<p>Andrei Karpathy - OpenAI GPT-1, GPT-2</p>
+<p>Ali Gosdsi - Founder of Databricks</p>
+</section>
+<section id="a-short-history-of-machine-learning" class="level2">
+<h2>A Short History of Machine Learning</h2>
+<p>The origins of ML began in 1805 with Gauss and Legendre inventing the
+“least squares” method. Given points <span class="math inline">(x_j,
+y_j)</span> find a line <span class="math inline">y = ax + b</span> that
+“best” fits the data. They proposed minimizing the <em>loss
+function</em> <span class="math display">
+    L(a,b) = \sum_j (ax_j + b - y_j)^2
+</span> over <span class="math inline">a</span> and <span
+class="math inline">b</span>.</p>
+<p>From 1930–1940 statisical theory advanced with more general linear
+models in higher dimensions <em>maximum likelihood</em> methods.</p>
+<p><span class="citation" data-cites="McCPit1943">(<a
+href="#ref-McCPit1943" role="doc-biblioref">McCulloch and Pitts
+1943</a>)</span> gave the first mathematical definition of a neuron.</p>
+<p><span class="citation" data-cites="Ros1958">(<a href="#ref-Ros1958"
+role="doc-biblioref">Rosenblatt 1958</a>)</span> coined the term
+<em>perceptron</em> and implemented it in hardware. Given “good” points
+<span class="math inline">(x_i,y_i)</span> and “bad” points <span
+class="math inline">(x_j&#39;,y_j&#39;)</span> find a line separating
+them.</p>
+<figure>
+<img src="gpbp.png" alt="Good points, bad points" />
+<figcaption aria-hidden="true">Good points, bad points</figcaption>
+</figure>
+<p><span class="citation" data-cites="MinPap1969">Minsky and Papert (<a
+href="#ref-MinPap1969" role="doc-biblioref">1969</a>)</span>] set the
+field back by showing a perceptron could not be trained on XOR.</p>
+<p>It wasn’t until 1980-1995 that people realized you could solve this
+with <em>neural networks</em>: layers of perceptron with output of each
+layer providing input for the next. This is also when <em>reinforcement
+learning</em> was developed.</p>
+<p>From 1995-2012 <em>statistical learning</em> was developed:
+Expectation Maximization, Hidden Markov Models, decision trees, random
+forests, … Models were small and understandable.</p>
+<p>The <em>deep learning</em> started in 2012 when Moore’s Law made
+computing power and memory available. No new techniques were invented
+until <em>transformers</em> <span class="citation"
+data-cites="Vas2017">(<a href="#ref-Vas2017"
+role="doc-biblioref">Vaswani et al. 2017</a>)</span> “Attention Is All
+You Need.” It allowed models to run in parallel instead of
+sequentially.</p>
+<p>Source code for early OpenAI model <a
+href="https://github.com/openai/gpt-2/blob/master/src/model.py">gpt-2</a></p>
+</section>
+<section id="llm" class="level2">
+<h2>LLM</h2>
+<p>A large language model is a function and a <em>context</em>. Given a
+sequence of characters it returns a sequence of characters. It takes
+training data consisting of “correct” answers and interpolates.</p>
+<p>So called “prompt engineering” is really about context
+engineering.</p>
+<p>The simple prompt “yes” will clue you in to the current context of
+the LLM you are using at the moment. Use the output to detect what it is
+<em>not</em> telling you.</p>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-McCPit1943" class="csl-entry" role="listitem">
+McCulloch, Warren S., and Walter Pitts. 1943. <span>“A Logical Calculus
+of the Ideas Immanent in Nervous Activity.”</span> <em>The Bulletin of
+Mathematical Biophysics</em> 5 (4): 115–33. <a
+href="https://doi.org/10.1007/BF02478259">https://doi.org/10.1007/BF02478259</a>.
+</div>
+<div id="ref-MinPap1969" class="csl-entry" role="listitem">
+Minsky, Marvin, and Seymour Papert. 1969. <em>Perceptrons</em>.
+Cambridge, MA: MIT Press.
+</div>
+<div id="ref-Ros1958" class="csl-entry" role="listitem">
+Rosenblatt, Frank. 1958. <span>“The Perceptron: A Probabilistic Model
+for Information Storage and Organization in the Brain.”</span>
+<em>Psychological Review</em> 65 (6): 386–408. <a
+href="https://doi.org/10.1037/h0042519">https://doi.org/10.1037/h0042519</a>.
+</div>
+<div id="ref-Vas2017" class="csl-entry" role="listitem">
+Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion
+Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017.
+<span>“Attention Is All You Need.”</span> In <em>Advances in Neural
+Information Processing Systems</em>. Vol. 30. Curran Associates, Inc. <a
+href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a>.
+</div>
+</div>
+</section>
 </body>
 </html>

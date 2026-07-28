@@ -1,5 +1,7 @@
 ---
 title: Request for Design
+classoption: fleqn
+fleqn: true
 ---
 
 \newcommand\RR{\boldsymbol{R}}
@@ -18,9 +20,9 @@ business or mathematics.
 
 ## Model
 
-Let $T$ be the set of trading times, $I$ the set of tradeable instruments,
+Let $T$ be the set of trading times, $I$ the set of tradable instruments,
 $\Omega$ the set of possible outcomes, and $(\AA_t)_{t\in T}$ partitions of $\Omega$
-where $\AA_t$ is the information available at time $t\in T$.
+where $\AA_t$ is a partition of $\Omega$ indicating the information available at time $t\in T$.
 
 _Prices_ and _cash flows_ are functions $X_t,C_t\colon\AA_t\to\RR^I$ where
 $C_t = 0$ except when there is a cash flow.
@@ -56,7 +58,7 @@ An immediate consequence is
 $$
 	X_t D_t = (X_u D_u + \sum_{t < s le u} C_s D_s)|\AA_t
 $$
-Using the defintion of value and amount
+Using the definition of value and amount
 $$
 	V_t D_t = (V_u D_u + \sum_{t < s le u} A_s D_s)|\AA_t
 $$
@@ -66,14 +68,14 @@ Trading strategies are synthetic market instruments.
 
 A (cash settled) derivative is a contract to pay amounts $(\hat{A}_j)$ at
 stopping times $(\hat{\tau}_j)$, $0\le j\le n$.
-A _perfect hedge_ is a trading strategy $(\tau_j,\Gamma_j)$  with $A_t = \hat{A}_j$ when $t = \hat{\tau_j}$
-and is zero otherwise. It almost never exists. 
+A _perfect hedge_ is a trading strategy $(\tau_j,\Gamma_j)$ with $A_t = \hat{A}_j$ when $t = \hat{\tau_j}$
+and is zero otherwise.
 
 ## When and how much to trade
 
 If a perfect hedge exists (it almost never does) then 
 $$
-	V_t D_t = (\sum_{\hat{tau}_j > t} \hat{A}_j D_{\tau_j}|\AA_t
+	V_t D_t = (\sum_{\hat{\tau}_j > t} \hat{A}_j D_{\hat{\tau}_j)}|\AA_t
 $$
 Since $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ its Frechet derivative is
 $$
@@ -84,3 +86,7 @@ $$
 ### 
 
 ## Math Prerequisites
+
+If $\AA$ is a finite algebra of sets on $\Omega$ then the atoms of $\AA$,
+$A_\omega = \cap \{B\in\AA\mid \omega\in B\}$,
+form a partition of $\Omega$.

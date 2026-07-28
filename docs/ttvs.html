@@ -25,6 +25,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -65,57 +66,136 @@
 <header id="title-block-header">
 <h1 class="title">A Tale of Two Vector Spaces</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Jul 14, 2026</p>
+<p class="date">Jul 25, 2026</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
 <li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
-<p>When I was getting a “C” in my first linear algebra course I was told
-<span class="math inline">\boldsymbol{{R}}^n</span> was a set of <span
-class="math inline">n</span>-tuples <span class="math inline">{\{x =
-(x_1,\ldots,x_n)\mid x_j\in\boldsymbol{{R}}, j = 1,\ldots n\}}</span>
-where <span class="math inline">\boldsymbol{{R}}</span> is the set of
-real numbers. We used <span class="citation" data-cites="Ner1964">(<a
+<p>When I was getting a “C” in my first linear algebra course I was
+taught <span class="math inline">\boldsymbol{{R}}^n</span> was a product
+of <span class="math inline">n</span>-copies of the real numbers <span
+class="math inline">{\Pi_{i=1}^n \boldsymbol{{R}}= \{x =
+(x_1,\ldots,x_n)\mid x_i\in\boldsymbol{{R}}, i = 1,\ldots n\}}</span>.
+We used <span class="citation" data-cites="Ner1964">(<a
 href="#ref-Ner1964" role="doc-biblioref">Nering 1964</a>)</span> and
 when we got to determinants I noped out. Who ordered those?</p>
 <p>Eventually I got a PhD in Operator Theory and a job at Brown by
-solving a problem about invariant subspaces of bounded linear operators
-on Hilbert spaces. <span class="citation" data-cites="Beu1949">(<a
-href="#ref-Beu1949" role="doc-biblioref">Beurling 1949</a>)</span> found
-all the invariant subspaces of the unilateral shift operator in infinite
-dimensions. If <span class="math inline">S(x_1, x_2,
-\ldots)\mapsto(0,x_1, x_2, \ldots)</span> then <span
-class="math inline">S</span> has no eigenvectors, but it has plenty of
-invariant subspaces. Arne found all of them. It inspired generations of
-mathematicians to extend his result.</p>
-<p>TODO: Gian Carlo Rota</p>
+solving a problem about closed invariant subspaces of bounded linear
+operators on Hilbert spaces. <span class="citation"
+data-cites="Beu1949">(<a href="#ref-Beu1949"
+role="doc-biblioref">Beurling 1949</a>)</span> found all the invariant
+subspaces of the unilateral shift operator in infinite dimensions. If
+<span class="math inline">S(x_1, x_2, \ldots)\mapsto(0,x_1, x_2,
+\ldots)</span> then <span class="math inline">S</span> has no
+eigenvectors, but it has plenty of invariant subspaces. Arne found all
+of them. Beurling inspired generations of mathematicians to extend his
+result.</p>
 <p>He also solved the <a
 href="https://ciphermuseum.com/ciphers/beurling.html">Geheimschreiber
 teletype cipher</a> with pencil and paper in two weeks. To this day,
 nobody knows how he did that.</p>
 <p>It wasn’t until I started implementing math on computers that I
-realized there was an equivalent, but different, definition. If <span
-class="math inline">A</span> and <span class="math inline">B</span> are
-sets, then the <em>set exponential</em> <span class="math inline">B^A =
-\{f\colon A\to B\}</span> is the set of all functions from <span
-class="math inline">A</span> to <span class="math inline">B</span>. We
-can identify <span class="math inline">\boldsymbol{{R}}^n</span> with
-<span class="math inline">\boldsymbol{{R}}^{\{1,\ldots,n\}}</span>. The
-tuple <span class="math inline">x = (x_1,\ldots,x_n)</span> can be
+realized there was an equivalent, but different, definition of a vector
+space. If <span class="math inline">A</span> and <span
+class="math inline">B</span> are sets, then the <em>set exponential</em>
+<span class="math inline">{B^A = \{f\colon A\to B\} = \{A\to B\}}</span>
+is the set of all functions from <span class="math inline">A</span> to
+<span class="math inline">B</span>. We can identify <span
+class="math inline">\boldsymbol{{R}}^n</span> with <span
+class="math inline">{\boldsymbol{{R}}^{\{1,\ldots,n\}}}</span>. The
+tuple <span class="math inline">{x = (x_1,\ldots,x_n)}</span> can be
 identified with the function <span
-class="math inline">\boldsymbol{{x}}\colon\boldsymbol{{n}}
-\to\boldsymbol{{R}}</span> by <span class="math inline">x_i =
-\boldsymbol{{x}}(i)</span> where <span
-class="math inline">\boldsymbol{{n}} = \{1,\ldots,n\}</span> and <span
-class="math inline">i\in\boldsymbol{{n}}</span>.</p>
+class="math inline">{\boldsymbol{{x}}\colon\boldsymbol{{n}}
+\to\boldsymbol{{R}}}</span> by <span class="math inline">{x_i =
+\boldsymbol{{x}}(i)}</span> where <span
+class="math inline">{\boldsymbol{{n}} = \{1,\ldots,n\}}</span> and <span
+class="math inline">{i\in\boldsymbol{{n}}}</span>. We use bold font to
+distinguish the product from the exponential vector space
+definitions.</p>
+<p>The <em>standard basis</em> of <span
+class="math inline">\boldsymbol{{R}}^n</span> is <span
+class="math inline">\{e_i\}_{i=1}^n</span> where <span
+class="math inline">e_i</span> is an <span
+class="math inline">n</span>-tuple of 0’s except for a 1 in the <span
+class="math inline">i</span>-th index so <span
+class="math inline">{(x_1,\ldots,x_n) = x_1 e_1 + \cdots + x_n
+e_n}</span>. The corresponding basis of <span
+class="math inline">{\boldsymbol{{R}}^{\boldsymbol{{n}}}}</span> is
+<span class="math inline">\{\boldsymbol{{e}}_i\}_{i=1}^n</span> where
+<span class="math inline">\boldsymbol{{e}}_i(j) = \delta_{ij}</span>,
+the <em>Kronecker delta</em>, so <span
+class="math inline">\boldsymbol{{x}} = \sum_{i=1}^n
+\boldsymbol{{x}}(i)\boldsymbol{{e}}_i</span>.</p>
+<p>The exponential definition is more flexible. Given any set <span
+class="math inline">I</span>, <span
+class="math inline">\boldsymbol{{R}}^I</span> is a vector space. Define
+the scalar multiplication and vector addition <em>pointwise</em> by
+<span class="math inline">{(a\boldsymbol{{x}})(i) =
+a(\boldsymbol{{x}}(i))}</span> for <span
+class="math inline">{a\in\boldsymbol{{R}}}</span> and <span
+class="math inline">{(\boldsymbol{{x}} + \boldsymbol{{y}})(i) =
+\boldsymbol{{x}}(i) + \boldsymbol{{y}}(i)}</span> for <span
+class="math inline">{\boldsymbol{{x}},\boldsymbol{{y}}\in\boldsymbol{{R}}^I}</span>.</p>
+<p>An <em>abstract vector space</em> is any abelian (commutative) group
+<span class="math inline">V</span> having a scalar multiplication that
+satisfies the distributive laws <span class="math inline">{a(x + y) = ax
++ ay}</span> and <span class="math inline">{(a + b)x = ax + bx}</span>
+for <span class="math inline">a,b\in\boldsymbol{{R}}</span> and <span
+class="math inline">x,y\in V</span>. While it is true every
+finite-dimensional vector space is isomorphic to <span
+class="math inline">\boldsymbol{{R}}^n</span> for some <span
+class="math inline">n</span>, there are many abstract vector spaces that
+are not.</p>
+<p><strong>Exercise</strong>. <em>Show continuous functions on the
+interval <span
+class="math inline">[a,b]\subseteq\boldsymbol{{R}}</span>, <span
+class="math inline">C([a,b])</span>, is a vector space</em>.</p>
+<p><strong>Exercise</strong>. <em>Show the set of solutions to the
+differential equation <span class="math inline">\sum_j a_j d^j x(t)/dt^j
+= 0</span> is a vector space</em>.</p>
+<p>Recall a function <span
+class="math inline">{T\colon\boldsymbol{{R}}^n\to\boldsymbol{{R}}^m}</span>
+is a <em>linear operator</em> if <span class="math inline">{T(ax + y) =
+aTx + Ty}</span> for <span
+class="math inline">a\in\boldsymbol{{R}}</span> and <span
+class="math inline">x,y\in\boldsymbol{{R}}^n</span>. The set of all
+linear operators from vector space <span class="math inline">V</span> to
+vector space <span class="math inline">W</span> is denoted in various
+ways. The category theoretic teminology is <span
+class="math inline">{\operatorname{Hom}(V,W)}</span> for the set of all
+<em>homomorphisms</em>. The most common is <span
+class="math inline">\mathcal{L}(V,W)</span>. If the vectors spaces have
+an associated topology then <span
+class="math inline">\mathcal{B}(V,W)</span> indicates all continuous
+operators. In finite dimensions all continuous linear operators are
+<span class="math inline">\mathcal{B}</span>ounded. We will use the
+non-standard notation <span class="math inline">{[V\to W] = \{T:V\to
+W\mid T\text{ is linear}\}}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">T\colon V\to W</span> is linear then <span
+class="math inline">T(ax) = a(Tx)</span> and <span
+class="math inline">T(x + y) = Tx + Ty</span> for <span
+class="math inline">a\in\boldsymbol{{R}}</span> and <span
+class="math inline">x,y\in V</span></em>.</p>
+<p>Note the scalar multiplication and vector addition on the right-hand
+side of these equations is occuring in <span
+class="math inline">W</span>.</p>
+<p><strong>Exercise</strong>. <em>SHow linear operators are a vector
+space</em>.</p>
+<p>The <em>dual</em> of a vector space <span
+class="math inline">V</span> is the space of all <em>linear
+functionals</em> <span class="math inline">{V^* =
+[V\to\boldsymbol{{R}}]}</span>.</p>
+<p>We can define a function <span
+class="math inline">{}^*\colon\boldsymbol{{R}}^n\to\boldsymbol{{R}}^{\boldsymbol{{n}}}</span></p>
 <p>This can be used to show matrix multiplication is composition of
 linear operators.</p>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-Beu1949" class="csl-entry" role="listitem">
 Beurling, Arne. 1949. <span>“On Two Problems Concerning Linear
 Transformations in Hilbert Space.”</span> <em>Acta Mathematica</em> 81:

@@ -62,7 +62,7 @@ index: $(MKDN)
 	./index.sh $(MKDN) > index.html
 
 docs: $(HTML) index
-	cp *.html math.css docs
+	cp *.html math.css *.png docs
 	git add -f docs/*
 
 clean:
