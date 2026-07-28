@@ -77,3 +77,6 @@ The simple prompt "yes" will clue you in to the current context
 of the LLM you are using at the moment.
 Use the output to detect what it is _not_ telling you.
 
+Prompt from general to specific. You are looking for a needle in a haystack.
+
+DO NOT TRUST LLMs! 
