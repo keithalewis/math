@@ -37,8 +37,8 @@ ${X\colon\Omega\to\RR^I}$ where ${X(\omega)\in\RR^I}$ are the prices
 for each instrument corresponding to outcome ${\omega\in\Omega}$.
 
 [^1]: Recall the _set exponential_ ${B^A = \{f\colon A\to B\}}$ is the set
-of all functions from the set $A$ to the set $B$.  If ${x\in\RR^I}$ then
-$x(i)\in\RR$ is the price of instrument $i\in I$.  If $I = \{1,\ldots,n\}$
+of all functions from the set $A$ to the set $B$.
+If $I = \{1,\ldots,n\}$
 we can identify $\RR^I$ with the vector space of $n$-tuples
 ${\RR^n = \prod_{i=1}^n\RR = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
 by $x(i) = x_i$, $1\le i\le n$.

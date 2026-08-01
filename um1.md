@@ -78,6 +78,8 @@ $$
 $$
 If a derivative instrument pays $\o{A}_k$ at $\o{\tau}_k$ and there
 exists a trading strategy $(\tau_j, \Gamma_j)$ with
+If a derivative instrument pays $\o{A}_k$ at $\o{\tau}_k$ and there
+exists a trading strategy $(\tau_j, \Gamma_j)$ with
 A direct consequence using the definitions of value and amount is
 $$
 	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|_{\AA_t}.
@@ -749,5 +751,3 @@ Conditional expectation is the average over each atom.
 </details>
 
 Let $T$ be the set of trading times, $I$ the set of all market
-instruments, $\Omega$ the sample space of possible outcomes, and
-$(\AA_t)_{t\in T}$ the algebras of sets on $\Omega$ indicating the
