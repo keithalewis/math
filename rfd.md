@@ -9,23 +9,40 @@ fleqn: true
 
 ## Objective
 
-Define a minimal rigorous mathematical model of the financial world.
-It is a more ambitious and difficult project than
-[Hilbert's 6th problem](https://en.wikipedia.org/wiki/Hilbert%27s_sixth_problem).
+Define a simple mathematical model of the financial world
+that can be implemented with existing technology to provide
+real-time valuation, hedging, and risk management tools
+that financial firms find useful.
 
 ## Context
+
+Historically, companies have tried to solve this problem in xxx
+The major unsolved problem is to understand correlations.
+
+LLM dead end
+
+CCA
+
+World Model.
 
 Financial companies need mathematical models that can be
 implemented in software by people who do not understand
 business or mathematics.
 [Programming as Theory Building](https://gwern.net/doc/cs/algorithm/1985-naur.pdf)
 
+## Initial Goal
+
+Replace the Black-Scholes/Merton model with a modern version of the Ross model.
+Ross extended their theory from a bond, stock, and option to any collection of
+instruments and that instrument valuation involves only geometry. 
+
+
 ## Model
 
-Let $T$ be the set of trading times, $I$ the set of tradable instruments,
+Let $T$ be the set of trading times, $I$ the set of tradeable instruments,
 $\Omega$ the set of possible outcomes, and $(\AA_t)_{t\in T}$ partitions of $\Omega$
 where $\AA_t$ is a partition of $\Omega$ indicating the information available at time $t\in T$.
-See [#mathematical-prerequisites].
+See [Mathematical Prerequisites](#mathematical-prerequisites).
 
 _Prices_ and _cash flows_ are functions $X_t,C_t\colon\AA_t\to\RR^I$ where
 $C_t = 0$ except when there is a cash flow.
@@ -53,7 +70,7 @@ and $\sum_j\Gamma_j = 0$ -- you make money on the first trade and never lose mon
 the position is closed out.
 
 Every arbitrage-free model is parameterized by a vector-valued martingale measure $(M_t)_{t\in T}$ indexed by
-instruments and positive adapted measures $(D_t)_{t\in T}$ satisfing
+instruments and positive adapted measures $(D_t)_{t\in T}$ satisfying
 $$
 	X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
 $$
@@ -79,16 +96,21 @@ stopping times $(\hat{\tau}_j)$, $0\le j\le n$.
 A _perfect hedge_ is a trading strategy $(\tau_j,\Gamma_j)$ with $A_t = \hat{A}_j$ when $t = \hat{\tau_j}$
 and is zero otherwise.
 
+[^2]
+[^2]:
+
 ## How much and when to trade
 
 If a perfect hedge exists (it almost never does) then 
 $$
 	V_t D_t = (\sum_{\hat{\tau}_j > t} \hat{A}_j D_{\hat{\tau}_j})|\AA_t
 $$
-Since $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ its Frechet derivative is
+Since $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ its Fréchet derivative is
 $$
 	D_{X_t} V_t = \Delta_t + \Gamma_t.
 $$
+If there is no position at $t = 0$ then $\Gamma_0 = D_{X_0} V_0$
+is the initial hedge.
 
 ## Mathematical Prerequisites
 
@@ -98,12 +120,14 @@ Computers can only represent finite data.
 If $\AA$ is a finite algebra of sets on $\Omega$ then the atoms of $\AA$,
 $A_\omega = \cap \{B\in\AA\mid \omega\in B\}$, form a partition of $\Omega$.
 
-Information is modeled by a partiion of sets on the
+Information is modeled by a partition of sets on the
 sample space $\Omega$ of all possible outcomes.
 Complete information is the partition of singletons $\{\omega\mid\omega\in\Omega\}$
-No information is singlton partition $\{\Omega\}$.
+No information is singleton partition $\{\Omega\}$.
 Partial information is knowing which atom $\omega$ belongs to.
 
 A function on $\Omega$ is _measurable_ with respect to a partition $\AA$ if and only
 if it is constant on atoms of the partition. In this case it _is_ a function
 on the atoms and we write $X\colon\AA\to\RR$.
+
+Fréchet derivative
