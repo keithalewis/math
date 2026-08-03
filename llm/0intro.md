@@ -2,4 +2,6 @@
 title: Intro
 ---
 
-Machine learning from starting from ordinary linear regression.
+Machine learning starting from ordinary linear regression.
+
+
