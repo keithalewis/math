@@ -134,6 +134,24 @@ This can be repeated with successive increasing stopping times.
 
 There is no canonical way of choosing trading times.
 
+## Instruments
+
+In this section we identify instruments with prices and cash flows.
+
+### Zero Coupon Bond
+
+The _zero coupon bond_ $D(u)$ pays a unit cash flow at maturity $u$.
+Given deflators $(D_t)$ it satisfies
+$$
+	X^{D(u)}_t D_t = (D_u|\AA_t), $u > t$.
+$$
+Writing $X^{D(u)}_t = D_t(u)$ we have $D_t(u)D_t = D_u|\AA_t$.
+
+### Risky Bond
+
+Suppose a bond can default at stopping time $\rho$ and has recovery $\rho$ as a fraction
+of the value at default.
+
 ## Mathematical Prerequisites
 
 We assume all sets are finite. Continuous time results can be recovered by taking limits.
@@ -177,17 +195,5 @@ $$
 $$
 when it exists.
 
-## Instruments
-
-In this section we identify instruments with prices and cash flows.
-
-### Zero Coupon Bond
-
-The _zero coupon bond_ $D(u)$ pays a unit cash flow at maturity $u$.
-Given deflators $(D_t)$ it satisfies
-$$
-	X^{D(u)}_t D_t = (D_u|\AA_t), $u > t$.
-$$
-Writing $X^{D(u)}_t = D_t(u)$ we have $D_t(u)D_t = D_u|\AA_t$.
 
 ## References
