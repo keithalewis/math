@@ -41,13 +41,12 @@ business or mathematics.
 
 Replace the Black-Scholes/Merton model with a modern version of the Ross model.
 Ross extended their theory from a bond, stock, and option to any collection of
-instruments and that instrument valuation involves only geometry. 
+instruments and showed instrument valuation involves only geometry. 
 There is no need for probability, much less Ito's lemma involving partial differential equations.
 The B-S/M model is a special case.
 
-He defined a cash flow as a jump in stock price. Adding a knob for cash
-flows 
-
+Ross defined a cash flow as a jump in stock price. Adding an explicit knob for cash
+flows results in a simpler theory.
 
 ## Model
 
@@ -82,15 +81,18 @@ and $\sum_j\Gamma_j = 0$ -- you make money on the first trade and never lose mon
 the position is closed out.
 
 Every arbitrage-free model is parameterized by a vector-valued martingale measure $(M_t)_{t\in T}$ indexed by
-instruments and positive adapted measures (_deflators_) $(D_t)_{t\in T}$ satisfying
+instruments and positive measures known at time $t$ (_deflators_) $(D_t)_{t\in T}$ satisfying
 $$
 	X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
 $$
-where $M_0(\Omega) = 1$ and $D_0(\Omega) = 1$[^1].
-If the model includes repurchase agreements then deflators are the stochastic discount.
+For example, the Black-Scholes/Merton model (with no dividends) is
+${M_t = (1, e^{\sigma B_t - \sigma^2t/2})P}$ and ${D_t = e^{-\rho t}P}$ where $P$
+is Wiener measure and $B_t$ is standard Brownian motion.
 
-[^1]: For example, the Black-Scholes/Merton model is $M_t = (1, e^{\sigma B_t - \sigma^2t/2})P$
-and $D_t = e^{-\rho t}P$ where $P$ is Wiener measure and $B_t$ is standard Brownian motion.
+A _martingale measure_ $(M_t)$ satisfies $M_t = M_u|\AA_t$ if $t \le u$.
+If $M$ is a measure on $\Omega$ then $M_t = M|\AA_t$ is a martingale measure.
+
+If the model includes repurchase agreements then deflators are the stochastic discount.
 
 An immediate consequence is
 $$
@@ -133,6 +135,16 @@ $\Gamma_1 = D_{X_{\tau_1}} V_{\tau_1} - \Gamma_0$ since $\Delta_{\tau_1} = \Gamm
 This can be repeated with successive increasing stopping times.
 
 There is no canonical way of choosing trading times.
+
+If you choose $\tau_j = j\Delta t$ and let $\Delta t$ go to zero then
+you get the B-S/M model.
+
+A better choice might be to specify a $\Delta X$ and only trade when
+the underlying moves by that amount. If futures are available on $X$
+this can reduce transaction costs.
+
+Going back to [@Mar1952] and [@Roy1952] one might want to find
+a trading strategy making $A_t$ white noise with minimum variance.
 
 ## Instruments
 
@@ -194,6 +206,5 @@ $$
 	F(x + h) = F(x) + DF(x)h + o(h), x,h\in X
 $$
 when it exists.
-
 
 ## References
