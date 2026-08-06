@@ -7,6 +7,7 @@ fleqn: true
 \newcommand\RR{\boldsymbol{R}}
 \renewcommand\AA{\mathcal{A}}
 
+
 ## Objective
 
 Define a simple mathematical model of the financial world
