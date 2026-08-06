@@ -20,20 +20,8 @@ Historically, companies set up departments for each
 instrument class: equities, fixed income, foreign exchange, commodities, etc.
 Ad hoc approaches have had limited success in modeling the joint distributions between these.
 
-New tools for addressing this problem are now available.
-
-The video game market made it profitable to manufacture chips specialized for
-rendering pixels on a screen. Eventually people figured out how to use them
-for cheap compute power if their problem was similar to rendering pixels.
-
-LLM dead end
-
-CCA
-
-World Model.
-
 Financial companies need mathematical models that can be
-implemented in software by people who do not understand
+implemented in software by people who are not experts in
 business or mathematics.
 [Programming as Theory Building](https://gwern.net/doc/cs/algorithm/1985-naur.pdf)
 
@@ -45,12 +33,12 @@ instruments and showed instrument valuation involves only geometry.
 There is no need for probability, much less Ito's lemma involving partial differential equations.
 The B-S/M model is a special case.
 
-Ross defined a cash flow as a jump in stock price. Adding an explicit knob for cash
-flows results in a simpler theory.
+Ross defined a cash flow as a jump in stock price. Adding an explicit knob for cash flows 
+shows how prices and cash flow correspond to values and amounts of trading strategies.
 
 ## Model
 
-Let $T$ be the set of trading times, $I$ the set of tradeable instruments,
+Let $T$ be the set of trading times, $I$ the set of tradable instruments,
 $\Omega$ the set of possible outcomes, and $(\AA_t)_{t\in T}$ partitions of $\Omega$
 where $\AA_t$ is a partition of $\Omega$ indicating the information available at time $t\in T$.
 See [Mathematical Prerequisites](#mathematical-prerequisites).
@@ -94,6 +82,9 @@ If $M$ is a measure on $\Omega$ then $M_t = M|\AA_t$ is a martingale measure.
 
 If the model includes repurchase agreements then deflators are the stochastic discount.
 
+[^1]: For example, the Black-Scholes/Merton model is $M_t = (1, e^{\sigma B_t - \sigma^2t/2})P$
+and $D_t = e^{-\rho t}P$ where $P$ is Wiener measure and $B_t$ is standard Brownian motion.
+
 An immediate consequence is
 $$
 	X_t D_t = (X_u D_u + \sum_{t < s le u} C_s D_s)|\AA_t
@@ -102,26 +93,23 @@ Using the definition of value and amount
 $$
 	V_t D_t = (V_u D_u + \sum_{t < s le u} A_s D_s)|\AA_t
 $$
-Note how prices corresponds t value and cash flows correspond to amount.
+Note how prices corresponds to value and cash flows correspond to amount.
 
 > Trading strategies are synthetic market instruments.
+
+## Derivative
 
 A (cash settled) derivative is a contract to pay amounts $(\hat{A}_j)$ at
 stopping times $(\hat{\tau}_j)$, $0\le j\le n$.
 A _perfect hedge_ is a trading strategy $(\tau_j,\Gamma_j)$ with $A_t = \hat{A}_j$ when $t = \hat{\tau_j}$
 and is zero otherwise.
 
-[^2]
-[^2]:
-
-## How much and when to trade
-
 If a perfect hedge exists (it almost never does) then 
 $$
 	V_t D_t = (\sum_{\hat{\tau}_j > t} \hat{A}_j D_{\hat{\tau}_j})|\AA_t
 $$
 Note the right-hand side depends only on the contract specifications
-and $(D_t)$.
+and deflator $(D_t)$.
 
 Since $V_t = (\Delta_t + \Gamma_t)\cdot X_t$ its Fréchet derivative is
 $$
@@ -131,10 +119,18 @@ There is no position at $\tau_0 = 0$ so $\Gamma_0 = D_{X_{\tau_0}} V_{\tau_0}$
 is a candidate for the initial hedge.
 
 Given $\tau_1 > \tau_0$ we have
-$\Gamma_1 = D_{X_{\tau_1}} V_{\tau_1} - \Gamma_0$ since $\Delta_{\tau_1} = \Gamma_0$.
+$\Gamma_1 = D_{X_{\tau_1}} V_{\tau_1} - \Gamma_0$.
 This can be repeated with successive increasing stopping times.
 
 There is no canonical way of choosing trading times.
+Choosing $\tau_j = j\Delta t$ and letting $\Delta t$ go to zero
+results in the B-S/M model.
+
+A better approach might be to choose $\Delta X$ and only trade when
+the underlying moves by $\Delta X$. This can be efficiently implemented is futures exist.
+
+A topic for future research is to find a trading strategy making $A_t - \hat{A}_t$
+white noise with minimum variance a la [@Mar1952].
 
 If you choose $\tau_j = j\Delta t$ and let $\Delta t$ go to zero then
 you get the B-S/M model.
@@ -148,14 +144,14 @@ a trading strategy making $A_t$ white noise with minimum variance.
 
 ## Instruments
 
-In this section we identify instruments with prices and cash flows.
+In this section we identify instruments by their prices and cash flows.
 
 ### Zero Coupon Bond
 
 The _zero coupon bond_ $D(u)$ pays a unit cash flow at maturity $u$.
 Given deflators $(D_t)$ it satisfies
 $$
-	X^{D(u)}_t D_t = (D_u|\AA_t), $u > t$.
+	X^{D(u)}_t D_t = D_u|\AA_t, u \ge t.
 $$
 Writing $X^{D(u)}_t = D_t(u)$ we have $D_t(u)D_t = D_u|\AA_t$.
 
@@ -163,6 +159,10 @@ Writing $X^{D(u)}_t = D_t(u)$ we have $D_t(u)D_t = D_u|\AA_t$.
 
 Suppose a bond can default at stopping time $\rho$ and has recovery $\rho$ as a fraction
 of the value at default.
+
+### Stock with Dividends
+
+### American Option
 
 ## Mathematical Prerequisites
 
