@@ -87,11 +87,11 @@ and $D_t = e^{-\rho t}P$ where $P$ is Wiener measure and $B_t$ is standard Brown
 
 An immediate consequence is
 $$
-	X_t D_t = (X_u D_u + \sum_{t < s le u} C_s D_s)|\AA_t
+	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|\AA_t
 $$
 Using the definition of value and amount
 $$
-	V_t D_t = (V_u D_u + \sum_{t < s le u} A_s D_s)|\AA_t
+	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|\AA_t
 $$
 Note how prices corresponds to value and cash flows correspond to amount.
 
