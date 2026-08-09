@@ -12,7 +12,7 @@ fleqn: true
 Define a simple mathematical model of the financial world
 that can be implemented with existing technology to provide
 real-time valuation, hedging, and risk management tools
-that financial firms find useful.
+across all asset classes.
 
 ## Context
 
@@ -22,18 +22,8 @@ Ad hoc approaches have had limited success in modeling the joint distributions b
 
 New tools for addressing this problem are now available.
 
-The video game market made it profitable to manufacture chips specialized for
-rendering pixels on a screen. Eventually people figured out how to use them
-for cheap compute power if their problem was similar to rendering pixels.
-
-LLM dead end
-
-CCA
-
-World Model.
-
 Financial companies need mathematical models that can be
-implemented in software by people who do not understand
+can be understood by people who are not experts in
 business or mathematics.
 [Programming as Theory Building](https://gwern.net/doc/cs/algorithm/1985-naur.pdf)
 
@@ -46,13 +36,13 @@ There is no need for probability, much less Ito's lemma involving partial differ
 The B-S/M model is a special case.
 
 Ross defined a cash flow as a jump in stock price. Adding an explicit knob for cash
-flows results in a simpler theory.
+flows results in a more expressive and simpler theory.
 
 ## Model
 
 Let $T$ be the set of trading times, $I$ the set of tradeable instruments,
-$\Omega$ the set of possible outcomes, and $(\AA_t)_{t\in T}$ partitions of $\Omega$
-where $\AA_t$ is a partition of $\Omega$ indicating the information available at time $t\in T$.
+$\Omega$ the set of possible outcomes, and $(\AA_t)_{t\in T}$ 
+partitions of $\Omega$ indicating the information available at time $t\in T$.
 See [Mathematical Prerequisites](#mathematical-prerequisites).
 
 _Prices_ and _cash flows_ are bounded functions $X_t,C_t\colon\AA_t\to\RR^I$ where
@@ -83,7 +73,7 @@ the position is closed out.
 Every arbitrage-free model is parameterized by a vector-valued martingale measure $(M_t)_{t\in T}$ indexed by
 instruments and positive measures known at time $t$ (_deflators_) $(D_t)_{t\in T}$ satisfying
 $$
-	X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
+\tag{1}	X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
 $$
 For example, the Black-Scholes/Merton model (with no dividends) is
 ${M_t = (1, e^{\sigma B_t - \sigma^2t/2})P}$ and ${D_t = e^{-\rho t}P}$ where $P$
@@ -96,27 +86,24 @@ If the model includes repurchase agreements then deflators are the stochastic di
 
 An immediate consequence is
 $$
-	X_t D_t = (X_u D_u + \sum_{t < s le u} C_s D_s)|\AA_t
+\tag{2}	X_t D_t = (X_u D_u + \sum_{t < s\le u} C_s D_s)|\AA_t
 $$
 Using the definition of value and amount
 $$
-	V_t D_t = (V_u D_u + \sum_{t < s le u} A_s D_s)|\AA_t
+\tag{3}	V_t D_t = (V_u D_u + \sum_{t < s\le u} A_s D_s)|\AA_t
 $$
 Note how prices corresponds t value and cash flows correspond to amount.
 
-> Trading strategies are synthetic market instruments.
+> Trading strategies create synthetic market instruments.
 
 A (cash settled) derivative is a contract to pay amounts $(\hat{A}_j)$ at
 stopping times $(\hat{\tau}_j)$, $0\le j\le n$.
 A _perfect hedge_ is a trading strategy $(\tau_j,\Gamma_j)$ with $A_t = \hat{A}_j$ when $t = \hat{\tau_j}$
 and is zero otherwise.
 
-[^2]
-[^2]:
+## Trading
 
-## How much and when to trade
-
-If a perfect hedge exists (it almost never does) then 
+If a perfect hedge exists (it almost never does) then by $(3)$
 $$
 	V_t D_t = (\sum_{\hat{\tau}_j > t} \hat{A}_j D_{\hat{\tau}_j})|\AA_t
 $$
@@ -155,9 +142,16 @@ In this section we identify instruments with prices and cash flows.
 The _zero coupon bond_ $D(u)$ pays a unit cash flow at maturity $u$.
 Given deflators $(D_t)$ it satisfies
 $$
-	X^{D(u)}_t D_t = (D_u|\AA_t), $u > t$.
+	X^{D(u)}_t D_t = (D_u|\AA_t), u \ge t.
 $$
-Writing $X^{D(u)}_t = D_t(u)$ we have $D_t(u)D_t = D_u|\AA_t$.
+Writing $X^{D(u)}_t = D_t(u)$ we have the price of a zero coupon bond at 
+time $t$ maturing at $u$ is the Radon Nykodym derivative $D_t(u) = d(D_u|\AA_t)/dD_t$,
+
+### Repurchase Agreement
+
+A _repurchase agreement_, or _repo_, is specified by and effective date $t$,
+a time interval $\Delta t$ and a rate $f$. Its price at time $t$ is 1
+and cash flow of $e^{f\Delta t} \approx 1 + f\Delta t$ at time $t + \Delta t$.
 
 ### Risky Bond
 
@@ -166,21 +160,21 @@ of the value at default.
 
 ## Mathematical Prerequisites
 
-We assume all sets are finite. Continuous time results can be recovered by taking limits.
+We assume all sets are finite since every computer implementation is finite.
+Continuous time results can be recovered by taking appropriate limits.
 
 Every finite dimensional vector space is isomorphic to $\RR^n$ but it is useful to 
 keep track of where they come from. If $S$ is finite and $B(S)$ are (necessarily) bounded functions
 from $S$ to $\RR$ then $n$ is the cardinality of $S$. The space of (finitely-additive)
 measures $ba(S)$ on $S$ is isomorphic under the same condition.
 
-Recall the dual of $B(S)$ is isometrically isomorphic to $ba(S)$ for any set $S$.
+Recall the vector space dual of $B(S)$ is isometrically isomorphic to $ba(S)$ for any set $S$.
 If $L\in B(S)^*$ define $\lambda\in ba(S)$ by $\lambda(A) = L(1_A)$ for $A\subseteq S$
 where $1_A(s) = 1$ if $s\in A$ and $1_A(s) = 0$ if $s\not\in A$.
 It is a measure since ${\lambda(A\cup B) = \lambda(A) + \lambda(B) - \lambda(A\cap B)}$
 follows from $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$
 and $\lambda(\emptyset) = 0$ since $1_\emptyset = 0$.
-See [@DunSch1958] for the proof it is an isometery.
-
+See [@DunSch1958] for the details.
 
 ### Partition
 
@@ -197,6 +191,12 @@ Partial information is knowing which atom $\omega$ belongs to.
 A function on $\Omega$ is _measurable_ with respect to an algebra $\AA$ if and only
 if it is constant on atoms of the partition. In this case it _is_ a function
 on the atoms and we write $X\colon\AA\to\RR$.
+
+A p
+
+A _stopping time_ is a function $\tau\colon\Omega\to T$ where
+$\{\omega\mid\tau(\omega) = t\}$ is in the algebra of sets generated by $\AA_t$
+for all $t\in T$.
 
 ### Fréchet Derivative
 
