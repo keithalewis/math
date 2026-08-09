@@ -64,7 +64,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Request for Design</h1>
-<p class="date">Aug 6, 2026</p>
+<p class="date">Aug 9, 2026</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -73,8 +73,11 @@
 <li><a href="#initial-goal" id="toc-initial-goal">Initial Goal</a></li>
 <li><a href="#model" id="toc-model">Model</a></li>
 <li><a href="#derivative" id="toc-derivative">Derivative</a></li>
+<li><a href="#trading" id="toc-trading">Trading</a></li>
 <li><a href="#instruments" id="toc-instruments">Instruments</a>
 <ul>
+<li><a href="#repurchase-agreement"
+id="toc-repurchase-agreement">Repurchase Agreement</a></li>
 <li><a href="#zero-coupon-bond" id="toc-zero-coupon-bond">Zero Coupon
 Bond</a></li>
 <li><a href="#risky-bond" id="toc-risky-bond">Risky Bond</a></li>
@@ -83,6 +86,8 @@ with Dividends</a></li>
 <li><a href="#american-option" id="toc-american-option">American
 Option</a></li>
 </ul></li>
+<li><a href="#implementation"
+id="toc-implementation">Implementation</a></li>
 <li><a href="#mathematical-prerequisites"
 id="toc-mathematical-prerequisites">Mathematical Prerequisites</a>
 <ul>
@@ -97,16 +102,18 @@ Derivative</a></li>
 <h2>Objective</h2>
 <p>Define a simple mathematical model of the financial world that can be
 implemented with existing technology to provide real-time valuation,
-hedging, and risk management tools that financial firms find useful.</p>
+hedging, and risk management tools across all asset classes.</p>
 </section>
 <section id="context" class="level2">
 <h2>Context</h2>
 <p>Historically, companies set up departments for each instrument class:
 equities, fixed income, foreign exchange, commodities, etc. Ad hoc
 approaches have had limited success in modeling the joint distributions
-between these.</p>
+between these. We describe a systematic approach amenable to machine
+learning.</p>
 <p>Financial companies need mathematical models that can be implemented
-in software by people who are not experts in business or mathematics. <a
+in software by people who are not experts in business or mathematics.
+See <a
 href="https://gwern.net/doc/cs/algorithm/1985-naur.pdf">Programming as
 Theory Building</a></p>
 </section>
@@ -119,30 +126,27 @@ only geometry. There is no need for probability, much less Ito’s lemma
 involving partial differential equations. The B-S/M model is a special
 case.</p>
 <p>Ross defined a cash flow as a jump in stock price. Adding an explicit
-knob for cash flows shows how prices and cash flow correspond to values
-and amounts of trading strategies.</p>
+knob for cash flows results in a more expressive and simpler theory.</p>
 </section>
 <section id="model" class="level2">
 <h2>Model</h2>
-<p>Let <span class="math inline">T</span> be the set of trading times,
-<span class="math inline">I</span> the set of tradable instruments,
-<span class="math inline">\Omega</span> the set of possible outcomes,
-and <span class="math inline">(\mathcal{A}_t)_{t\in T}</span> partitions
-of <span class="math inline">\Omega</span> where <span
-class="math inline">\mathcal{A}_t</span> is a partition of <span
-class="math inline">\Omega</span> indicating the information available
-at time <span class="math inline">t\in T</span>. See <a
-href="#mathematical-prerequisites">Mathematical Prerequisites</a>.</p>
+<p>Let <span class="math inline">T</span> be the set of totally ordered
+trading times, <span class="math inline">I</span> the set of tradeable
+instruments, <span class="math inline">\Omega</span> the set of possible
+outcomes, and <span class="math inline">(\mathcal{A}_t)_{t\in T}</span>
+partitions of <span class="math inline">\Omega</span> indicating the
+information available at time <span class="math inline">t\in T</span>.
+See <a href="#mathematical-prerequisites">Mathematical
+Prerequisites</a>.</p>
 <p><em>Prices</em> and <em>cash flows</em> are bounded functions <span
 class="math inline">X_t,C_t\colon\mathcal{A}_t\to\boldsymbol{R}^I</span>
 where <span class="math inline">C_t = 0</span> except when there is a
 cash flow.</p>
-<p>A <em>trading strategy</em> is finite collection <span
-class="math inline">(\tau_j, \Gamma_j)_{j=0}^n</span> where the <span
-class="math inline">\tau_j</span> are increasing stopping times and
-<span
+<p>A <em>trading strategy</em> is finite collection increasing stopping
+times <span class="math inline">(\tau_j)_{j=0}^n</span> and trading
+amounts <span
 class="math inline">\Gamma_j\colon\mathcal{A}_{\tau_j}\to\boldsymbol{R}^I</span>
-is the number of shares of each instrument purchased at time <span
+of the number of shares of each instrument purchased at time <span
 class="math inline">\tau_j</span>.</p>
 <p>Shares accumulate to a position <span class="math inline">\Delta_t =
 \sum_{\tau_j &lt; t} \Gamma_j</span>. Note the strict inequality – it
@@ -172,7 +176,7 @@ indexed by instruments and positive measures known at time <span
 class="math inline">t</span> (<em>deflators</em>) <span
 class="math inline">(D_t)_{t\in T}</span> satisfying <span
 class="math display">
-    X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
+\tag{1} X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
 </span> For example, the Black-Scholes/Merton model (with no dividends)
 is <span class="math inline">{M_t = (1, e^{\sigma B_t -
 \sigma^2t/2})P}</span> and <span class="math inline">{D_t = e^{-\rho
@@ -188,6 +192,10 @@ M|\mathcal{A}_t</span> is a martingale measure.</p>
 <p>If the model includes repurchase agreements then deflators are the
 stochastic discount.</p>
 <p>An immediate consequence is <span class="math display">
+\tag{2} X_t D_t = (X_u D_u + \sum_{t &lt; s\le u} C_s D_s)|\mathcal{A}_t
+</span> Using the definition of value and amount <span
+class="math display">
+\tag{3} V_t D_t = (V_u D_u + \sum_{t &lt; s\le u} A_s D_s)|\mathcal{A}_t
     X_t D_t = (X_u D_u + \sum_{t &lt; s \le u} C_s D_s)|\mathcal{A}_t
 </span> Using the definition of value and amount <span
 class="math display">
@@ -195,7 +203,7 @@ class="math display">
 </span> Note how prices corresponds to value and cash flows correspond
 to amount.</p>
 <blockquote>
-<p>Trading strategies are synthetic market instruments.</p>
+<p>Trading strategies create synthetic market instruments.</p>
 </blockquote>
 </section>
 <section id="derivative" class="level2">
@@ -207,8 +215,11 @@ class="math inline">0\le j\le n</span>. A <em>perfect hedge</em> is a
 trading strategy <span class="math inline">(\tau_j,\Gamma_j)</span> with
 <span class="math inline">A_t = \hat{A}_j</span> when <span
 class="math inline">t = \hat{\tau_j}</span> and is zero otherwise.</p>
-<p>If a perfect hedge exists (it almost never does) then <span
-class="math display">
+</section>
+<section id="trading" class="level2">
+<h2>Trading</h2>
+<p>If a perfect hedge exists (it almost never does) then by <span
+class="math inline">(3)</span> <span class="math display">
     V_t D_t = (\sum_{\hat{\tau}_j &gt; t} \hat{A}_j
 D_{\hat{\tau}_j})|\mathcal{A}_t
 </span> Note the right-hand side depends only on the contract
@@ -253,6 +264,35 @@ with minimum variance.</p>
 <h2>Instruments</h2>
 <p>In this section we identify instruments by their prices and cash
 flows.</p>
+<section id="repurchase-agreement" class="level3">
+<h3>Repurchase Agreement</h3>
+<p>A <em>repurchase agreement</em>, or <em>repo</em>, is specified by
+and effective date <span class="math inline">t</span>, a time interval
+<span class="math inline">\Delta t</span>, and a rate <span
+class="math inline">f</span>. Its price at time <span
+class="math inline">t</span> is 1 and has cash flow of <span
+class="math inline">e^{f\Delta t} \approx 1 + f\Delta t</span> at time
+<span class="math inline">t + \Delta t</span>. By (2) we have <span
+class="math display">
+    1D_t = e^{f\Delta t}D_{t + \Delta t}|\mathcal{A}_t
+</span> If we assume <span class="math inline">D_{t + \Delta t}</span>
+is known at time <span class="math inline">t</span> then <span
+class="math inline">D_t = e^{f\Delta t}D_{t + \Delta t}</span>.</p>
+<p>Given increasing times <span class="math inline">(t_j)</span> and
+repo rates <span class="math inline">(f_j)</span> known at time <span
+class="math inline">t_j</span> we have <span class="math display">
+D_{t_0} = e^{f_0 \Delta t_0}D_{t_1} = \cdots = e^{\sum_{0 \le j &lt; k}
+f_j \Delta t_j}D_{t_k}
+</span> where <span class="math inline">\Delta t_j = t_{j+1} -
+t_j</span>. This provides the <em>canonical deflator</em> <span
+class="math inline">{D_{t_k} = e^{-\sum_{0 \le j &lt; k} f_j \Delta
+t_j}D_{t_0}}</span>. The continuous time version of this is the usual
+<em>stochastic discount</em> <span class="math inline">{D_t =
+e^{-\int_0^t f_s\,ds}D_0}</span> where <span
+class="math inline">f_t</span> is the continuously compounded
+instantaneous forward rate at time <span
+class="math inline">t</span>.</p>
+</section>
 <section id="zero-coupon-bond" class="level3">
 <h3>Zero Coupon Bond</h3>
 <p>The <em>zero coupon bond</em> <span class="math inline">D(u)</span>
@@ -261,7 +301,10 @@ Given deflators <span class="math inline">(D_t)</span> it satisfies
 <span class="math display">
     X^{D(u)}_t D_t = D_u|\mathcal{A}_t, u \ge t.
 </span> Writing <span class="math inline">X^{D(u)}_t = D_t(u)</span> we
-have <span class="math inline">D_t(u)D_t = D_u|\mathcal{A}_t</span>.</p>
+have the price of a zero coupon bond at time <span
+class="math inline">t</span> maturing at <span
+class="math inline">u</span> is the Radon-Nykodym derivative <span
+class="math inline">D_t(u) = d(D_u|\mathcal{A}_t)/dD_t</span>,</p>
 </section>
 <section id="risky-bond" class="level3">
 <h3>Risky Bond</h3>
@@ -277,25 +320,35 @@ default.</p>
 <h3>American Option</h3>
 </section>
 </section>
+<section id="implementation" class="level2">
+<h2>Implementation</h2>
+</section>
 <section id="mathematical-prerequisites" class="level2">
 <h2>Mathematical Prerequisites</h2>
-<p>We assume all sets are finite. Continuous time results can be
-recovered by taking limits.</p>
+<p>We assume all sets are finite since every computer implementation is
+finite. Continuous time results can be recovered by taking appropriate
+limits.</p>
 <p>Every finite dimensional vector space is isomorphic to <span
-class="math inline">\boldsymbol{R}^n</span> but it is useful to keep
-track of where they come from. If <span class="math inline">S</span> is
-finite and <span class="math inline">B(S)</span> are (necessarily)
-bounded functions from <span class="math inline">S</span> to <span
-class="math inline">\boldsymbol{R}</span> then <span
+class="math inline">\boldsymbol{R}^n</span> for some positive integer
+<span class="math inline">n</span> but it is useful to keep track of
+where they come from. If <span class="math inline">S</span> is finite
+and <span class="math inline">B(S)</span> are (necessarily) bounded
+functions from <span class="math inline">S</span> and is isomorphic to
+<span class="math inline">\boldsymbol{R}^n</span> where <span
 class="math inline">n</span> is the cardinality of <span
 class="math inline">S</span>. The space of (finitely-additive) measures
 <span class="math inline">ba(S)</span> on <span
-class="math inline">S</span> is isomorphic under the same condition.</p>
-<p>Recall the dual of <span class="math inline">B(S)</span> is
-isometrically isomorphic to <span class="math inline">ba(S)</span> for
-any set <span class="math inline">S</span>. If <span
-class="math inline">L\in B(S)^*</span> define <span
-class="math inline">\lambda\in ba(S)</span> by <span
+class="math inline">S</span> is also isomorphic to <span
+class="math inline">\\R^n</span> where <span
+class="math inline">n</span> is the cardinality of <span
+class="math inline">S</span>.</p>
+<p>Recall the vector space dual of <span class="math inline">B(S)</span>
+is isometrically isomorphic to <span class="math inline">ba(S)</span>
+for any set <span class="math inline">S</span>. These are distict
+mathematical types even though both are isomorphic to <span
+class="math inline">\boldsymbol{R}^n</span>. If <span
+class="math inline">L\in B(S)^*</span> is a linear functional define the
+measure <span class="math inline">\lambda\in ba(S)</span> by <span
 class="math inline">\lambda(A) = L(1_A)</span> for <span
 class="math inline">A\subseteq S</span> where <span
 class="math inline">1_A(s) = 1</span> if <span class="math inline">s\in
@@ -307,8 +360,8 @@ B} = 1_A + 1_B - 1_{A\cap B}</span> and <span
 class="math inline">\lambda(\emptyset) = 0</span> since <span
 class="math inline">1_\emptyset = 0</span>. See <span class="citation"
 data-cites="DunSch1958">(<a href="#ref-DunSch1958"
-role="doc-biblioref">Dunford and Schwartz 1958</a>)</span> for the proof
-it is an isometery.</p>
+role="doc-biblioref">Dunford and Schwartz 1958</a>)</span> for the
+details.</p>
 <section id="partition" class="level3">
 <h3>Partition</h3>
 <p>If <span class="math inline">\mathcal{A}</span> is a finite algebra
@@ -329,6 +382,13 @@ class="math inline">\mathcal{A}</span> if and only if it is constant on
 atoms of the partition. In this case it <em>is</em> a function on the
 atoms and we write <span
 class="math inline">X\colon\mathcal{A}\to\boldsymbol{R}</span>.</p>
+<p>A p</p>
+<p>A <em>stopping time</em> is a function <span
+class="math inline">\tau\colon\Omega\to T</span> where <span
+class="math inline">\{\omega\mid\tau(\omega) = t\}</span> is in the
+algebra of sets generated by <span
+class="math inline">\mathcal{A}_t</span> for all <span
+class="math inline">t\in T</span>.</p>
 </section>
 <section id="fréchet-derivative" class="level3">
 <h3>Fréchet Derivative</h3>

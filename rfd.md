@@ -20,11 +20,12 @@ across all asset classes.
 Historically, companies set up departments for each
 instrument class: equities, fixed income, foreign exchange, commodities, etc.
 Ad hoc approaches have had limited success in modeling the joint distributions between these.
+We describe a systematic approach amenable to machine learning.
 
 Financial companies need mathematical models that can be
 implemented in software by people who are not experts in
 business or mathematics.
-[Programming as Theory Building](https://gwern.net/doc/cs/algorithm/1985-naur.pdf)
+See [Programming as Theory Building](https://gwern.net/doc/cs/algorithm/1985-naur.pdf)
 
 ## Initial Goal
 
@@ -39,7 +40,7 @@ flows results in a more expressive and simpler theory.
 
 ## Model
 
-Let $T$ be the set of trading times, $I$ the set of tradeable instruments,
+Let $T$ be the set of totally ordered trading times, $I$ the set of tradeable instruments,
 $\Omega$ the set of possible outcomes, and $(\AA_t)_{t\in T}$ 
 partitions of $\Omega$ indicating the information available at time $t\in T$.
 See [Mathematical Prerequisites](#mathematical-prerequisites).
@@ -47,8 +48,8 @@ See [Mathematical Prerequisites](#mathematical-prerequisites).
 _Prices_ and _cash flows_ are bounded functions $X_t,C_t\colon\AA_t\to\RR^I$ where
 $C_t = 0$ except when there is a cash flow.
 
-A _trading strategy_ is finite collection $(\tau_j, \Gamma_j)_{j=0}^n$ where the $\tau_j$ are increasing
-stopping times and $\Gamma_j\colon\AA_{\tau_j}\to\RR^I$ is the number of
+A _trading strategy_ is finite collection increasing stopping times $(\tau_j)_{j=0}^n$
+and trading amounts $\Gamma_j\colon\AA_{\tau_j}\to\RR^I$ of the number of 
 shares of each instrument purchased at time $\tau_j$.
 
 Shares accumulate to a position $\Delta_t = \sum_{\tau_j < t} \Gamma_j$. 
@@ -82,9 +83,6 @@ A _martingale measure_ $(M_t)$ satisfies $M_t = M_u|\AA_t$ if $t \le u$.
 If $M$ is a measure on $\Omega$ then $M_t = M|\AA_t$ is a martingale measure.
 
 If the model includes repurchase agreements then deflators are the stochastic discount.
-
-[^1]: For example, the Black-Scholes/Merton model is $M_t = (1, e^{\sigma B_t - \sigma^2t/2})P$
-and $D_t = e^{-\rho t}P$ where $P$ is Wiener measure and $B_t$ is standard Brownian motion.
 
 An immediate consequence is
 $$
@@ -154,6 +152,27 @@ a trading strategy making $A_t$ white noise with minimum variance.
 
 In this section we identify instruments by their prices and cash flows.
 
+### Repurchase Agreement
+
+A _repurchase agreement_, or _repo_, is specified by and effective date $t$,
+a time interval $\Delta t$, and a rate $f$. Its price at time $t$ is 1
+and has cash flow of $e^{f\Delta t} \approx 1 + f\Delta t$ at time $t + \Delta t$.
+By (2) we have
+$$
+	1D_t = e^{f\Delta t}D_{t + \Delta t}|\AA_t
+$$
+If we assume $D_{t + \Delta t}$ is known at time $t$ then $D_t = e^{f\Delta t}D_{t + \Delta t}$.
+
+Given increasing times $(t_j)$ and repo rates $(f_j)$ known at time $t_j$ we have
+$$
+D_{t_0} = e^{f_0 \Delta t_0}D_{t_1} = \cdots = e^{\sum_{0 \le j < k} f_j \Delta t_j}D_{t_k}
+$$
+where $\Delta t_j = t_{j+1} - t_j$. This provides the _canonical deflator_
+${D_{t_k} = e^{-\sum_{0 \le j < k} f_j \Delta t_j}D_{t_0}}$.
+The continuous time version of this is the usual _stochastic discount_ ${D_t = e^{-\int_0^t f_s\,ds}D_0}$
+where $f_t$ is the continuously compounded instantaneous forward rate
+at time $t$.
+
 ### Zero Coupon Bond
 
 The _zero coupon bond_ $D(u)$ pays a unit cash flow at maturity $u$.
@@ -162,13 +181,7 @@ $$
 	X^{D(u)}_t D_t = D_u|\AA_t, u \ge t.
 $$
 Writing $X^{D(u)}_t = D_t(u)$ we have the price of a zero coupon bond at 
-time $t$ maturing at $u$ is the Radon Nykodym derivative $D_t(u) = d(D_u|\AA_t)/dD_t$,
-
-### Repurchase Agreement
-
-A _repurchase agreement_, or _repo_, is specified by and effective date $t$,
-a time interval $\Delta t$ and a rate $f$. Its price at time $t$ is 1
-and cash flow of $e^{f\Delta t} \approx 1 + f\Delta t$ at time $t + \Delta t$.
+time $t$ maturing at $u$ is the Radon-Nykodym derivative $D_t(u) = d(D_u|\AA_t)/dD_t$,
 
 ### Risky Bond
 
@@ -179,29 +192,36 @@ of the value at default.
 
 ### American Option
 
+## Implementation
+
+
 ## Mathematical Prerequisites
 
 We assume all sets are finite since every computer implementation is finite.
 Continuous time results can be recovered by taking appropriate limits.
 
-Every finite dimensional vector space is isomorphic to $\RR^n$ but it is useful to 
-keep track of where they come from. If $S$ is finite and $B(S)$ are (necessarily) bounded functions
-from $S$ to $\RR$ then $n$ is the cardinality of $S$. The space of (finitely-additive)
-measures $ba(S)$ on $S$ is isomorphic under the same condition.
+Every finite dimensional vector space is isomorphic to $\RR^n$ for some positive
+integer $n$ but it is useful to keep track of where they come from.
+If $S$ is finite and $B(S)$ are (necessarily) bounded functions
+from $S$ and is isomorphic to $\RR^n$ where $n$ is the cardinality of $S$.
+The space of (finitely-additive) measures $ba(S)$ on $S$ is also isomorphic 
+to $\\R^n$ where $n$ is the cardinality of $S$.
 
-Recall the vector space dual of $B(S)$ is isometrically isomorphic to $ba(S)$ for any set $S$.
-If $L\in B(S)^*$ define $\lambda\in ba(S)$ by $\lambda(A) = L(1_A)$ for $A\subseteq S$
-where $1_A(s) = 1$ if $s\in A$ and $1_A(s) = 0$ if $s\not\in A$.
+Recall the vector space dual of $B(S)$ is isometrically isomorphic to
+$ba(S)$ for any set $S$. 
+These are distict mathematical types even though both are isomorphic to $\RR^n$.
+If $L\in B(S)^*$ is a linear functional define the measure $\lambda\in ba(S)$
+by $\lambda(A) = L(1_A)$ for $A\subseteq S$
+where $1_A(s) = 1$ if $s\in A$ and $1_A(s) = 0$ if $s\not\in A$. 
 It is a measure since ${\lambda(A\cup B) = \lambda(A) + \lambda(B) - \lambda(A\cap B)}$
-follows from $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$
-and $\lambda(\emptyset) = 0$ since $1_\emptyset = 0$.
-See [@DunSch1958] for the details.
+follows from $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$ and $\lambda(\emptyset) = 0$
+since $1_\emptyset = 0$.  See [@DunSch1958] for the details.
 
 ### Partition
 
 If $\AA$ is a finite algebra of sets on $\Omega$ then the atoms of $\AA$
 form a partition of $\Omega$ and the algebra is generated by the partition
-of its atoms.
+of its atoms. 
 
 Information is modeled by a partition of sets on the
 sample space $\Omega$ of all possible outcomes.
