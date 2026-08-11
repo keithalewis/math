@@ -216,9 +216,8 @@ where $1_A(s) = 1$ if $s\in A$ and $1_A(s) = 0$ if $s\not\in A$.
 It is a measure since ${\lambda(A\cup B) = \lambda(A) + \lambda(B) - \lambda(A\cap B)}$
 follows from $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$ and $\lambda(\emptyset) = 0$
 since $1_\emptyset = 0$. 
-We define multiplication of a bounded function $g\in B(S)$ and a finitely additive measure
-$\lambda\in ba(S)$
-by $\langle f,g\lambda\rangle = \langle fg,\lambda\rangle$ for $f\in B(S)$.
+We define multiplication of a bounded function $g$ and a finitely additive measure $\lambda$
+by $\langle f,g\lambda\rangle = \langle fg,\lambda\rangle $.
 See [@DunSch1958] for the details.
 
 ### Partition
