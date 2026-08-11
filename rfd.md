@@ -66,13 +66,20 @@ $A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t$ -- you get cash flows associated
 with the instruments you own proportional to your existing position and have to
 pay for the trades just executed.
 
+We ignore the fact prices and trading amounts are integral increments
+of minimal increments determined by the markets they trade in. 
+We also ignore the fact that the amount being traded has an effect on price.
+We totally ignore the fact that the counterparties involved in the
+trade will be quoted different prices based on their credit rating,
+among other things.
+
 Arbitrage exists if there is a trading strategy with $A_{\tau_0} > 0$, $A_t\ge0$ for $t>\tau_0$,
 and $\sum_j\Gamma_j = 0$ -- you make money on the first trade and never lose money until
 the position is closed out.
 
 Every arbitrage-free model is parameterized by
 positive adapted measures, _deflators_, $(D_t)_{t\in T}$
-and a vector-valued martingale measure $M$ on $\Omega$ indexed by
+and a vector-valued martingale measures $(M_t)$ on $\Omega$ indexed by
 instruments satisfying
 $$
 \tag{1}	X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
