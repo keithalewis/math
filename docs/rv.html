@@ -246,10 +246,9 @@ class="math inline">E[aX + b] = aE[X] + b</span>.</p>
 <summary>
 Solution
 </summary>
-<span class="math inline">\operatorname{Var}(X) = E[(X - E[X])^2]
-= E[X^2 - 2XE[X] + E[X]^2]
-= E[X^2] - 2E[X]E[X] + E[X]^2
-= E[X^2] - E[X]^2</span>.
+<span class="math inline">\operatorname{Var}(X) = E[(X - E[X])^2] =
+E[X^2 - 2XE[X] + E[X]^2] = E[X^2] - 2E[X]E[X] + E[X]^2 = E[X^2] -
+E[X]^2</span>.
 </details>
 <p>Variance is a measure of <em>dispersion</em>, how far the random
 variable can stray from its mean. The <em>standard deviation</em> is the
@@ -379,8 +378,8 @@ class="math inline">Z</span> is standard normal then <span
 class="math inline">E[e^{sZ} f(Z)] = E[e^{sZ}] E[f(Z +
 s)]</span></em>.</p>
 <p><em>Hint</em>. <span class="math inline">E[e^{sZ} f(Z)] =
-\int_{\boldsymbol{R}}e^{sz} f(z) e^{-z^2/2}/\sqrt{2\pi}\,dz
-= e^{-s^2/2}\int_{\boldsymbol{R}}f(z) e^{-(z -
+\int_{\boldsymbol{R}}e^{sz} f(z) e^{-z^2/2}/\sqrt{2\pi}\,dz =
+e^{-s^2/2}\int_{\boldsymbol{R}}f(z) e^{-(z -
 s)^2/2}/\sqrt{2\pi}\,dz</span>.</p>
 <details>
 <summary>
@@ -483,8 +482,8 @@ class="math inline">ε^2</span>.</p>
 Solution
 </summary>
 <span class="math inline">P(|X - E[X]| &gt; ε) = P((X - E[X])^2 &gt;
-\epsilon^2)
-\le E[(X - E[X])^2]/\epsilon^2 = \operatorname{Var}(X)/ε^2</span>.
+\epsilon^2) \le E[(X - E[X])^2]/\epsilon^2 =
+\operatorname{Var}(X)/ε^2</span>.
 </details>
 <section id="concentration-inequalities" class="level3">
 <h3>Concentration Inequalities</h3>

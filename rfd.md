@@ -72,12 +72,12 @@ the position is closed out.
 
 Every arbitrage-free model is parameterized by
 positive adapted measures, _deflators_, $(D_t)_{t\in T}$
-and a vector-valued measure $M$ on $\Omega$ indexed by
+and a vector-valued martingale measure $M$ on $\Omega$ indexed by
 instruments satisfying
 $$
 \tag{1}	X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
 $$
-where $M_t = M|\AA_t$ for some measure $M$.
+where $M_t = M_u|\AA_t$ for $t \le u$.
 For example, the Black-Scholes/Merton model (with no dividends) is
 ${D_t = e^{-\rho t}P}$ and ${M_t = (1, e^{\sigma B_t - \sigma^2t/2})P}$
 where $P$ is Wiener measure and $B_t$ is standard Brownian motion.
@@ -193,6 +193,12 @@ of the value at default.
 ### American Option
 
 ## Implementation
+
+We need deflators $(D_t)$ and a vector-valued martingale measure $(M_t)$
+indexed by market instruments. If repurchase agreements exist then their
+is a canonical deflator. The difficult problem is coming up with
+partitions representing partial infomation and
+martingale measures that can be tuned to market data.
 
 
 ## Mathematical Prerequisites

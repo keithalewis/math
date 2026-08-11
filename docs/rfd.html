@@ -24,7 +24,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -64,7 +63,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Request for Design</h1>
-<p class="date">Aug 9, 2026</p>
+<p class="date">Aug 10, 2026</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -119,18 +118,24 @@ Theory Building</a></p>
 </section>
 <section id="initial-goal" class="level2">
 <h2>Initial Goal</h2>
-<p>Replace the Black-Scholes/Merton model with a modern version of the
-Ross model. Ross extended their theory from a bond, stock, and option to
-any collection of instruments and showed instrument valuation involves
-only geometry. There is no need for probability, much less Ito’s lemma
-involving partial differential equations. The B-S/M model is a special
-case.</p>
-<p>Ross defined a cash flow as a jump in stock price. Adding an explicit
-knob for cash flows results in a more expressive and simpler theory.</p>
+<p>Replace the <span class="citation" data-cites="BlaSch1973">(<a
+href="#ref-BlaSch1973" role="doc-biblioref">Black and Scholes
+1973</a>)</span> and <span class="citation" data-cites="Mer1973">(<a
+href="#ref-Mer1973" role="doc-biblioref">Merton 1973</a>)</span> model
+with a modern version of the <span class="citation"
+data-cites="Ros1978">(<a href="#ref-Ros1978" role="doc-biblioref">Ross
+1978</a>)</span> model. Ross extended their theory from a bond, stock,
+and option to any collection of instruments and showed instrument
+valuation involves only geometry. There is no need for probability, much
+less Ito’s lemma or partial differential equations. The B-S/M model is a
+special case of Ross’s model.</p>
+<p>Ross defined a cash flow as a jump in stock price. Adding explicit
+notation for cash flows results in a more expressive and simpler
+theory.</p>
 </section>
 <section id="model" class="level2">
 <h2>Model</h2>
-<p>Let <span class="math inline">T</span> be the set of totally ordered
+<p>Let <span class="math inline">T</span> be a set of totally ordered
 trading times, <span class="math inline">I</span> the set of tradeable
 instruments, <span class="math inline">\Omega</span> the set of possible
 outcomes, and <span class="math inline">(\mathcal{A}_t)_{t\in T}</span>
@@ -159,8 +164,8 @@ class="math inline">s = \tau_j</span> and is zero otherwise.</p>
 class="math inline">V_t = (\Delta_t + \Gamma_t)\cdot X_t</span>. It is
 the amount you would make if it were possible to unwind your existing
 position and trades just executed at current market prices.</p>
-<p>The <em>amount</em> that will show up in your brokerage account or
-trade blotter is <span class="math inline">A_t = \Delta_t\cdot C_t -
+<p>The <em>amount</em> that shows up in your brokerage account or trade
+blotter is <span class="math inline">A_t = \Delta_t\cdot C_t -
 \Gamma_t\cdot X_t</span> – you get cash flows associated with the
 instruments you own proportional to your existing position and have to
 pay for the trades just executed.</p>
@@ -170,25 +175,19 @@ class="math inline">A_t\ge0</span> for <span
 class="math inline">t&gt;\tau_0</span>, and <span
 class="math inline">\sum_j\Gamma_j = 0</span> – you make money on the
 first trade and never lose money until the position is closed out.</p>
-<p>Every arbitrage-free model is parameterized by a vector-valued
-martingale measure <span class="math inline">(M_t)_{t\in T}</span>
-indexed by instruments and positive measures known at time <span
-class="math inline">t</span> (<em>deflators</em>) <span
-class="math inline">(D_t)_{t\in T}</span> satisfying <span
-class="math display">
+<p>Every arbitrage-free model is parameterized by positive adapted
+measures, <em>deflators</em>, <span class="math inline">(D_t)_{t\in
+T}</span> and a vector-valued martingale measure <span
+class="math inline">M</span> on <span class="math inline">\Omega</span>
+indexed by instruments satisfying <span class="math display">
 \tag{1} X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
-</span> For example, the Black-Scholes/Merton model (with no dividends)
-is <span class="math inline">{M_t = (1, e^{\sigma B_t -
-\sigma^2t/2})P}</span> and <span class="math inline">{D_t = e^{-\rho
-t}P}</span> where <span class="math inline">P</span> is Wiener measure
-and <span class="math inline">B_t</span> is standard Brownian
-motion.</p>
-<p>A <em>martingale measure</em> <span class="math inline">(M_t)</span>
-satisfies <span class="math inline">M_t = M_u|\mathcal{A}_t</span> if
-<span class="math inline">t \le u</span>. If <span
-class="math inline">M</span> is a measure on <span
-class="math inline">\Omega</span> then <span class="math inline">M_t =
-M|\mathcal{A}_t</span> is a martingale measure.</p>
+</span> where <span class="math inline">M_t = M_u|\mathcal{A}_t</span>
+for <span class="math inline">t \le u</span>. For example, the
+Black-Scholes/Merton model (with no dividends) is <span
+class="math inline">{D_t = e^{-\rho t}P}</span> and <span
+class="math inline">{M_t = (1, e^{\sigma B_t - \sigma^2t/2})P}</span>
+where <span class="math inline">P</span> is Wiener measure and <span
+class="math inline">B_t</span> is standard Brownian motion.</p>
 <p>If the model includes repurchase agreements then deflators are the
 stochastic discount.</p>
 <p>An immediate consequence is <span class="math display">
@@ -322,6 +321,12 @@ default.</p>
 </section>
 <section id="implementation" class="level2">
 <h2>Implementation</h2>
+<p>We need deflators <span class="math inline">(D_t)</span> and a
+vector-valued martingale measure <span class="math inline">(M_t)</span>
+indexed by market instruments. If repurchase agreements exist then their
+is a canonical deflator. The difficult problem is coming up with
+partitions representing partial infomation and martingale measures that
+can be tuned to market data.</p>
 </section>
 <section id="mathematical-prerequisites" class="level2">
 <h2>Mathematical Prerequisites</h2>
@@ -358,10 +363,12 @@ class="math inline">{\lambda(A\cup B) = \lambda(A) + \lambda(B) -
 \lambda(A\cap B)}</span> follows from <span class="math inline">1_{A\cup
 B} = 1_A + 1_B - 1_{A\cap B}</span> and <span
 class="math inline">\lambda(\emptyset) = 0</span> since <span
-class="math inline">1_\emptyset = 0</span>. See <span class="citation"
-data-cites="DunSch1958">(<a href="#ref-DunSch1958"
-role="doc-biblioref">Dunford and Schwartz 1958</a>)</span> for the
-details.</p>
+class="math inline">1_\emptyset = 0</span>. We define multiplication of
+a bounded function <span class="math inline">g</span> and a finitely
+additive measure <span class="math inline">\lambda</span> by $f,g= fg,$.
+See <span class="citation" data-cites="DunSch1958">(<a
+href="#ref-DunSch1958" role="doc-biblioref">Dunford and Schwartz
+1958</a>)</span> for the details.</p>
 <section id="partition" class="level3">
 <h3>Partition</h3>
 <p>If <span class="math inline">\mathcal{A}</span> is a finite algebra
@@ -370,19 +377,19 @@ of sets on <span class="math inline">\Omega</span> then the atoms of
 class="math inline">\Omega</span> and the algebra is generated by the
 partition of its atoms.</p>
 <p>Information is modeled by a partition of sets on the sample space
-<span class="math inline">\Omega</span> of all possible outcomes.
-Complete information is the partition of singletons <span
-class="math inline">\{\{\omega\}\mid\omega\in\Omega\}</span> No
-information is singleton partition <span
-class="math inline">\{\Omega\}</span>. Partial information is knowing
-which atom <span class="math inline">\omega</span> belongs to.</p>
+<span class="math inline">\Omega</span> of all possible outcomes. No
+information is the singleton partition <span
+class="math inline">\{\Omega\}</span>. Complete information is the
+partition of singletons <span
+class="math inline">\{\{\omega\}\mid\omega\in\Omega\}</span> Partial
+information is knowing which atom <span
+class="math inline">\omega</span> belongs to.</p>
 <p>A function on <span class="math inline">\Omega</span> is
 <em>measurable</em> with respect to an algebra <span
 class="math inline">\mathcal{A}</span> if and only if it is constant on
 atoms of the partition. In this case it <em>is</em> a function on the
 atoms and we write <span
 class="math inline">X\colon\mathcal{A}\to\boldsymbol{R}</span>.</p>
-<p>A p</p>
 <p>A <em>stopping time</em> is a function <span
 class="math inline">\tau\colon\Omega\to T</span> where <span
 class="math inline">\{\omega\mid\tau(\omega) = t\}</span> is in the
@@ -403,7 +410,13 @@ class="math inline">DF\colon X\to\mathcal{L}(X,Y)</span> is defined by
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
+<div id="ref-BlaSch1973" class="csl-entry" role="listitem">
+Black, Fischer, and Myron Scholes. 1973. <span>“The Pricing of Options
+and Corporate Liabilities.”</span> <em>Journal of Political Economy</em>
+81 (3): 637–54. <a
+href="http://www.jstor.org/stable/1831029">http://www.jstor.org/stable/1831029</a>.
+</div>
 <div id="ref-DunSch1958" class="csl-entry" role="listitem">
 Dunford, Nelson, and Jacob T Schwartz. 1958. <em>Linear Operators
 i</em>. Interscience Publishers.
@@ -411,6 +424,18 @@ i</em>. Interscience Publishers.
 <div id="ref-Mar1952" class="csl-entry" role="listitem">
 Markowitz, Harry. 1952. <span>“Portfolio Selection.”</span> <em>The
 Journal of Finance</em> 7 (1): 77–91.
+</div>
+<div id="ref-Mer1973" class="csl-entry" role="listitem">
+Merton, Robert C. 1973. <span>“Theory of Rational Option
+Pricing.”</span> <em>Bell Journal of Economics and Management
+Science</em> 4 (1): 141–83. <a
+href="https://www.jstor.org/stable/3003143">https://www.jstor.org/stable/3003143</a>.
+</div>
+<div id="ref-Ros1978" class="csl-entry" role="listitem">
+Ross, Stephen A. 1978. <span>“A Simple Approach to the Valuation of
+Risky Streams.”</span> <em>The Journal of Business</em> 51 (3): 453–75.
+<a
+href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277</a>.
 </div>
 <div id="ref-Roy1952" class="csl-entry" role="listitem">
 Roy, A. D. 1952. <span>“Safety First and the Holding of Assets.”</span>

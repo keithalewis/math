@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Conformal Prediction</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Conformal Prediction</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Jul 17, 2026</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Model free uncertainty measure.
+</div>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#random-variables" id="toc-random-variables">Random
+Variables</a></li>
+</ul>
+</nav>
+<p>The basic prediction problem is given samples <span
+class="math inline">(x_1,y_1), \ldots, (x_n, y_n)</span> how can we
+predict <span class="math inline">y_{n+1}</span> given <span
+class="math inline">x_{n+1}</span>? One approach is to find a function
+<span class="math inline">f</span> based on the first <span
+class="math inline">n</span> samples and let <span
+class="math inline">y_{n+1} = f(x_{n+1})</span>.</p>
+<p>Linear regression assumes <span class="math inline">f(x) = ax +
+b</span> for some constants <span class="math inline">a</span> and <span
+class="math inline">b</span> then minimizes the square error <span
+class="math inline">E = \sum_i (ax_i + b - y_i)^2</span> over <span
+class="math inline">a</span> and <span class="math inline">b</span>.
+Letting <span class="math inline">\bar{x} = (1/n)\sum_i x_i</span> <span
+class="math inline">\bar{y} = (1/n)\sum_i y_i</span> be the sample mean
+of the <span class="math inline">x</span> and the <span
+class="math inline">y</span> samples respectively we get <span
+class="math display">
+    a = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n
+(x_i - \bar{x})^2}, b = \bar{y} - a\bar{x}
+</span> One problem with this is that outliers <span
+class="math inline">\epsilon_i = ax_i + b - y_i</span> can have a big
+effect on <span class="math inline">a</span> and <span
+class="math inline">b</span>. One approach to sort <span
+class="math inline">\{\epsilon_i\}</span> and perhaps throw out low and
+high values if they they do not <em>conform</em> to the sample data.</p>
+<p>More generally, we want to find a function <span
+class="math inline">f_\theta</span> and use the data to estimate <span
+class="math inline">\theta</span>.</p>
+<section id="random-variables" class="level2">
+<h2>Random Variables</h2>
+<p>In order to make rigorous statements we need to introduce random
+variables and make some assumptions. A random variable <span
+class="math inline">X</span> is completely determined by its
+<em>cumulative distribution function</em> <span
+class="math inline">{F_X(x) = F(x) = P(X\le x)}</span>. A
+<em>probability space</em> is a set <span
+class="math inline">\Omega</span> of possible outcomes, an algebra of
+sets <span class="math inline">\mathcal{A}</span> on <span
+class="math inline">\Omega</span>, and a probability measure <span
+class="math inline">P\colon\mathcal{A}\to [0,1]</span>. A <em>random
+variable</em> is an <span
+class="math inline">\mathcal{A}</span>-measurable function <span
+class="math inline">X\colon\Omega\to\boldsymbol{{R}}</span>. Its cdf is
+<span class="math inline">{F(x) = P(\{\omega\in\Omega\mid X(\omega)\le
+x\})}</span>. The function <span class="math inline">X</span> is <span
+class="math inline">\mathcal{A}</span>-measurable if <span
+class="math inline">\{X\le x\}\in\mathcal{A}</span> for all <span
+class="math inline">x\in\boldsymbol{{R}}</span>.</p>
+<p>The <em>joint distribution</em> of two random variables <span
+class="math inline">X,Y\colon\Omega\to\boldsymbol{{R}}</span> is <span
+class="math inline">F_{X,Y}(x, y) = P(X\le x, Y\le y)</span>. The
+variables <span class="math inline">X</span> and <span
+class="math inline">Y</span> are <em>independent</em> if <span
+class="math inline">P(X\le x, Y\le y) = P(X\le x)P(Y\le y)</span>.</p>
+</section>
+</body>
+</html>
