@@ -91,7 +91,6 @@ $$
 Using the definition of value and amount
 $$
 \tag{3}	V_t D_t = (V_u D_u + \sum_{t < s\le u} A_s D_s)|\AA_t
-	X_t D_t = (X_u D_u + \sum_{t < s \le u} C_s D_s)|\AA_t
 $$
 Using the definition of value and amount
 $$
