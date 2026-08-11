@@ -77,13 +77,10 @@ instruments satisfying
 $$
 \tag{1}	X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
 $$
-where $M_t = M|\AA_t$.
+where $M_t = M|\AA_t$ for some measure $M$.
 For example, the Black-Scholes/Merton model (with no dividends) is
-${D_t = e^{-\rho t}P}$ and ${M_t = (1, e^{\sigma B_t - \sigma^2t/2})P}$ and
+${D_t = e^{-\rho t}P}$ and ${M_t = (1, e^{\sigma B_t - \sigma^2t/2})P}$
 where $P$ is Wiener measure and $B_t$ is standard Brownian motion.
-
-A _martingale measure_ $(M_t)$ satisfies $M_t = M_u|\AA_t$ if $t \le u$.
-If $M$ is a measure on $\Omega$ then $M_t = M|\AA_t$ is a martingale measure.
 
 If the model includes repurchase agreements then deflators are the stochastic discount.
 
@@ -218,7 +215,11 @@ by $\lambda(A) = L(1_A)$ for $A\subseteq S$
 where $1_A(s) = 1$ if $s\in A$ and $1_A(s) = 0$ if $s\not\in A$. 
 It is a measure since ${\lambda(A\cup B) = \lambda(A) + \lambda(B) - \lambda(A\cap B)}$
 follows from $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$ and $\lambda(\emptyset) = 0$
-since $1_\emptyset = 0$.  See [@DunSch1958] for the details.
+since $1_\emptyset = 0$. 
+We define multiplication of a bounded function $g\in B(S)$ and a finitely additive measure
+$\lambda\in ba(S)$
+by $\langle f,g\lambda\rangle = \langle fg,\lambda\rangle$ for $f\in B(S)$.
+See [@DunSch1958] for the details.
 
 ### Partition
 
@@ -228,13 +229,15 @@ of its atoms.
 
 Information is modeled by a partition of sets on the
 sample space $\Omega$ of all possible outcomes.
+No information is the singleton partition $\{\Omega\}$.
 Complete information is the partition of singletons $\{\{\omega\}\mid\omega\in\Omega\}$
-No information is singleton partition $\{\Omega\}$.
 Partial information is knowing which atom $\omega$ belongs to.
 
 A function on $\Omega$ is _measurable_ with respect to an algebra $\AA$ if and only
 if it is constant on atoms of the partition. In this case it _is_ a function
 on the atoms and we write $X\colon\AA\to\RR$.
+
+
 
 
 A _stopping time_ is a function $\tau\colon\Omega\to T$ where
