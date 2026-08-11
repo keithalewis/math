@@ -218,7 +218,7 @@ It is a measure since ${\lambda(A\cup B) = \lambda(A) + \lambda(B) - \lambda(A\c
 follows from $1_{A\cup B} = 1_A + 1_B - 1_{A\cap B}$ and $\lambda(\emptyset) = 0$
 since $1_\emptyset = 0$. 
 We define multiplication of a bounded function $g$ and a finitely additive measure $\lambda$
-by $\langle f,g\lambda\rangle = \langle fg,\lambda\rangle $.
+by $\langle f,g\lambda\rangle = \langle fg,\lambda\rangle$.
 See [@DunSch1958] for the details.
 
 ### Partition
