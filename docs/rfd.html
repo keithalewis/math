@@ -195,17 +195,19 @@ stochastic discount.</p>
 </span> Using the definition of value and amount <span
 class="math display">
 \tag{3} V_t D_t = (V_u D_u + \sum_{t &lt; s\le u} A_s D_s)|\mathcal{A}_t
-</span> Using the definition of value and amount <span
-class="math display">
-    V_t D_t = (V_u D_u + \sum_{t &lt; s \le u} A_s D_s)|\mathcal{A}_t
-</span> Note how prices corresponds to value and cash flows correspond
-to amount.</p>
+</span></p>
 <blockquote>
 <p>Trading strategies create synthetic market instruments.</p>
 </blockquote>
+<p>This is the skeleton key to understanding derivatives.</p>
 </section>
 <section id="derivative" class="level2">
 <h2>Derivative</h2>
+<p>A derivative is a synthetic market instrument. Buy side firms ask
+sell side firms to quote a price in order to hedge their future cash
+flow risks. Quants use math that gets turned into software to tell
+traders the cost of setting up a hedge to do that. Traders figure out
+how much vigorish they can get away with without losing the trade.</p>
 <p>A (cash settled) derivative is a contract to pay amounts <span
 class="math inline">(\hat{A}_j)</span> at stopping times <span
 class="math inline">(\hat{\tau}_j)</span>, <span
@@ -232,21 +234,11 @@ V_{\tau_0}</span> is a candidate for the initial hedge.</p>
 <span class="math inline">\Gamma_1 = D_{X_{\tau_1}} V_{\tau_1} -
 \Gamma_0</span>. This can be repeated with successive increasing
 stopping times.</p>
-<p>There is no canonical way of choosing trading times. Choosing <span
-class="math inline">\tau_j = j\Delta t</span> and letting <span
-class="math inline">\Delta t</span> go to zero results in the B-S/M
-model.</p>
-<p>A better approach might be to choose <span class="math inline">\Delta
-X</span> and only trade when the underlying moves by <span
-class="math inline">\Delta X</span>. This can be efficiently implemented
-is futures exist.</p>
-<p>A topic for future research is to find a trading strategy making
-<span class="math inline">A_t - \hat{A}_t</span> white noise with
-minimum variance a la <span class="citation" data-cites="Mar1952">(<a
-href="#ref-Mar1952" role="doc-biblioref">Markowitz 1952</a>)</span>.</p>
-<p>If you choose <span class="math inline">\tau_j = j\Delta t</span> and
-let <span class="math inline">\Delta t</span> go to zero then you get
-the B-S/M model.</p>
+<p>There is no canonical way of choosing trading times.</p>
+<p>Choosing <span class="math inline">\tau_j = j\Delta t</span> and
+letting <span class="math inline">\Delta t</span> go to zero results in
+the B-S/M model where <span class="math inline">\Delta</span> is delta
+and <span class="math inline">\Gamma</span> is gamma.</p>
 <p>A better choice might be to specify a <span
 class="math inline">\Delta X</span> and only trade when the underlying
 moves by that amount. If futures are available on <span
@@ -255,8 +247,8 @@ class="math inline">X</span> this can reduce transaction costs.</p>
 href="#ref-Mar1952" role="doc-biblioref">Markowitz 1952</a>)</span> and
 <span class="citation" data-cites="Roy1952">(<a href="#ref-Roy1952"
 role="doc-biblioref">Roy 1952</a>)</span> one might want to find a
-trading strategy making <span class="math inline">A_t</span> white noise
-with minimum variance.</p>
+trading strategy making <span class="math inline">A_t - \hat{A}_t</span>
+white noise with minimum variance.</p>
 </section>
 <section id="instruments" class="level2">
 <h2>Instruments</h2>

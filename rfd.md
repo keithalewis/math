@@ -92,15 +92,18 @@ Using the definition of value and amount
 $$
 \tag{3}	V_t D_t = (V_u D_u + \sum_{t < s\le u} A_s D_s)|\AA_t
 $$
-Using the definition of value and amount
-$$
-	V_t D_t = (V_u D_u + \sum_{t < s \le u} A_s D_s)|\AA_t
-$$
-Note how prices corresponds to value and cash flows correspond to amount.
 
 > Trading strategies create synthetic market instruments.
 
+This is the skeleton key to understanding derivatives.
+
 ## Derivative
+
+A derivative is a synthetic market instrument. Buy side firms ask sell
+side firms to quote a price in order to hedge their future cash flow
+risks. Quants use math that gets turned into software to tell traders
+the cost of setting up a hedge to do that.  Traders figure out how much
+vigorish they can get away with without losing the trade.
 
 A (cash settled) derivative is a contract to pay amounts $(\hat{A}_j)$ at
 stopping times $(\hat{\tau}_j)$, $0\le j\le n$.
@@ -128,24 +131,17 @@ $\Gamma_1 = D_{X_{\tau_1}} V_{\tau_1} - \Gamma_0$.
 This can be repeated with successive increasing stopping times.
 
 There is no canonical way of choosing trading times.
+
 Choosing $\tau_j = j\Delta t$ and letting $\Delta t$ go to zero
-results in the B-S/M model.
-
-A better approach might be to choose $\Delta X$ and only trade when
-the underlying moves by $\Delta X$. This can be efficiently implemented is futures exist.
-
-A topic for future research is to find a trading strategy making $A_t - \hat{A}_t$
-white noise with minimum variance a la [@Mar1952].
-
-If you choose $\tau_j = j\Delta t$ and let $\Delta t$ go to zero then
-you get the B-S/M model.
+results in the B-S/M model where $\Delta$ is delta and
+$\Gamma$ is gamma.
 
 A better choice might be to specify a $\Delta X$ and only trade when
 the underlying moves by that amount. If futures are available on $X$
 this can reduce transaction costs.
 
 Going back to [@Mar1952] and [@Roy1952] one might want to find
-a trading strategy making $A_t$ white noise with minimum variance.
+a trading strategy making $A_t - \hat{A}_t$ white noise with minimum variance.
 
 ## Instruments
 
