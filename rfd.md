@@ -15,6 +15,14 @@ that can be implemented with existing technology to provide
 real-time valuation, hedging, and risk management tools
 across all asset classes.
 
+## Scope
+
+As is customary in mathematical finance we ignore certain salient
+real-world features.  Instrument prices and not real numbers, they are
+integer multiples of tick size. Likewise for trading amounts. The amount
+being bought or sold affects the price. The price can also depend on
+credit considerations of the counterparties involved.
+
 ## Context
 
 Historically, companies set up departments for each
@@ -68,7 +76,7 @@ pay for the trades just executed.
 
 We ignore the fact prices and trading amounts are integral increments
 of minimal increments determined by the markets they trade in. 
-We also ignore the fact that the amount being traded has an effect on price.
+We also ignore the fact that the amount being traded has an affect on price.
 We totally ignore the fact that the counterparties involved in the
 trade will be quoted different prices based on their credit rating,
 among other things.
