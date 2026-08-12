@@ -10,8 +10,12 @@ for Ito processes or partial differential equations.
 
 Ross showed "If there are no arbitrage opportunities in a market, then
 there must exist a (not generally unique) positive linear operator that
-can be used to value all marketed assets." The valuation measure divided
-by its mass gives the risk-neutral measure without taking a detour
+can be used to value all marketed assets."
+Positive linear operators give rise to positive measures
+that can be divided by their total mass to give a so-called
+risk-neutral "probability measure"
+
+without taking a detour
 through a feckless real-world measure that gets immediately thrown out.
 
 
