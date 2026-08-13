@@ -59,8 +59,12 @@ $$
 $$
 Since
 $$
-\partial \Phi_s(x)/\partial s = \partial E[e^{sX - \kappa(s)} 1(X \le x)
+\partial \Phi_s(x)/\partial s = \partial E[e^{sX - \kappa(s)} 1(X \le x)]/\partial x
 	= E[e^{sX - \kappa(s)}(X - \kappa'(s)) 1(X \le x)]
 $$
-we have $\partial v/\partial x = -f$.
+we have $\partial v/\partial s = f\partial\Phi_s(x)/\partial s$.
 
+
+Delta is position, gamma is how much to trade, vega is vol sensitivity.
+
+## References
