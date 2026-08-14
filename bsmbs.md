@@ -6,18 +6,46 @@ fleqn: true
 ---
 \newcommand{\Var}{\operatorname{Var}}
 
-Many people are incognizant of the simpler and more general
-instrument valuation theory developed by [@Ros1978]. He showed the
-Black-Scholes/Merton result follows from geometry without using Ito
-processes or partial differential equations.
+[@Ros1978] came up with a simpler and more general theory than
+[@BlaSch1973] and [@Mer1973] for valuing derivatives.  He showed their
+result follows from geometry. There is no need for probability theory,
+Ito processes, or partial differential equations.  All instruments
+have prices and cash flows that are paid in proportion to the amount held.
+Cash flows place geometric constraints on arbitrage-free prices.
 
-Ross showed "If there are no arbitrage opportunities in a market, then
+Ross used the Hahn-Banach theorem to show
+
+> If there are no arbitrage opportunities in a market, then
 there must exist a (not generally unique) positive linear operator that
-can be used to value all marketed assets."
+can be used to value all marketed assets.
+
 Positive linear operators give rise to positive measures
-that can be divided by their total mass to give a "probability measure."
-The is referred to as a risk-neutral measure, but it is not the probability of anything.
-There is no need for a useless real-world measure that is immediately thrown out.
+that can be divided by their total mass resulting in a "risk-neutral probability measure."
+They are positive measures having mass 1, but are not the probability of anything.
+A better name is "risk-blind probability measure."
+
+There is no need for a so-called real world measure that gets immediately
+thrown out. Ross just gets down to the business of valuing, hedging,
+and managing the risks of _any_ instrument -- not just the bond, stock,
+and option B-S/M considered.
+
+> Let us stress again the power of these results. To begin with,
+expectational mechanisms to describe how we anticipate the index, $X_t$,
+will behave are irrelevant. Furthermore, there is no need for $X_t$ to
+follow a diffusion process to apply the usual option analysis or, for
+that matter, for the stream $c$ to follow any specific process. All that
+is necessary is the assumption that current asset values do not permit
+arbitrage. In particular, then, we do not even have to assume that the
+current index price is in equilibrium to correctly appraise the project.
+
+Defining "equilibrium" is problematic. Ross pointed out you don't
+need that for his theory. My reading of "the stream $c$"
+is the stream of stock dividends. Ross was in the equity world
+at the time and assumed a jump in stock prices corresponded
+to a dividend payment. Replacing $c$ with
+the cash flow $C_t$ received at time $t$ associated with owning an instrument leads 
+to a 
+
 
 Every positive random variable with finite expected value and log-variance
 can be written $F = fe^{sX - \kappa(s)}$ where $f = E[F]$, $s^2 = \Var(\log F)$,
