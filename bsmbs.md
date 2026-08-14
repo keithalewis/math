@@ -44,7 +44,18 @@ is the stream of stock dividends. Ross was in the equity world
 at the time and assumed a jump in stock prices corresponded
 to a dividend payment. Replacing $c$ with
 the cash flow $C_t$ received at time $t$ associated with owning an instrument leads 
-to a 
+to an even more powerful theory.
+
+Every arbitrage-free model of prices and cash flows has the form
+$$
+	X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
+$$
+where $(D_t)$ are positive measures and $(M_t)$ is a martingale
+measure indexed by market instruments.
+
+For example, the B-S/M model of a bond and a stock without dividends is
+$D_t = e^{-\rho t}P$ and $M_t = (1, e^{\sigma B_t - \sigma^2/2})P$
+where $P$ is Wiener measure and $(B_t)$ is standard Brownian motion.
 
 
 Every positive random variable with finite expected value and log-variance
@@ -57,42 +68,43 @@ $$
 \begin{aligned}
 	v &= E[\max\{k - F,0\}] \\
 		&= E[(k - F)1(F \le k)] \\
-		&= kP(F\le k) - E[F 1(F\le k)] \\
-		&= kP(F\le k) - E[F]E[F/E[F] 1(F\le k)] \\
-		&= kP(F\le k) - fP_s(F\le k) \\
+		&= k P(F\le k) - E[F 1(F\le k)] \\
+		&= k P(F\le k) - E[F]E[F/E[F] 1(F\le k)] \\
+		&= k P(F\le k) - f P_s(F\le k) \\
 \end{aligned}
 $$
 where $P_s = e^{sX - \kappa(s)}P$.
 
 Since $F\le k$ if and only if $X \le (\log k/f + \kappa(s))/s$
 $$
-	E[\max\{k - F,0\}] = k\Psi(x) - f\Psi_s(x)
+	E[\max\{k - F,0\}] = k\Psi(x,0) - f\Psi(x,s)
 $$
-where $\Psi(x) = P(X\le x)$ and $\Psi_s(x) = P_s(X\le x)$.
-The _moneyness_ is $x = x(k, f, s) =  (\log k/f + \kappa(s))/s$.
+where $\Psi(x,s) = P_s(X\le x)$.
+_Moneyness_ is $x = x(k, f, s) =  (\log k/f + \kappa(s))/s$.
 
 Option _delta_ is the derivative of value with respect to forward price
 $$
-\frac{\partial v}{\partial f} = E[-1(F\le k)\partial F/\partial f] = -E[1(F\le k)e^{sX - \kappa(s)}] = -\Psi_s(x).
+\partial_f v = E[-1(F\le k)\partial_f F] = -E[1(F\le k)e^{sX - \kappa(s)}] = -\Psi(x,s).
 $$
 
 Option _gamma_ is the second derivative of value with respect to forward price
 $$
-\frac{\partial^2 v}{\partial f^2} = -\Psi_s'(x)\partial x/\partial f = \psi_s(x)/fs.
+\partial_f^2 v = -\partial_x\Psi(x,s)\partial_f x = \partial_x\Psi(x,s)/fs.
 $$
 
 Option _vega_ is the second derivative of value with respect to $s$
 $$
-\frac{\partial v}{\partial s} = E[-1(F\le k)\partial F/\partial s] = -E[1(F\le k)F(X - \kappa'(s))]
+\partial_s v = E[-1(F\le k)\partial_s F] = -E[1(F\le k)F(X - \kappa'(s))]
 $$
 Since
 $$
-\partial \Phi_s(x)/\partial s = \partial E[e^{sX - \kappa(s)} 1(X \le x)]/\partial x
+\partial_s \Phi(x,s) = \partial_x E[e^{sX - \kappa(s)} 1(X \le x)]
 	= E[e^{sX - \kappa(s)}(X - \kappa'(s)) 1(X \le x)]
 $$
-we have $\partial v/\partial s = f\partial\Phi_s(x)/\partial s$.
+we have $\partial_s v = f\partial_s\Phi(x,s)$.
 
 
 Delta is position, gamma is how much to trade, vega is vol sensitivity.
 
 ## References
+
