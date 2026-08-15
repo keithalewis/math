@@ -6,7 +6,7 @@ fleqn: true
 ---
 \newcommand{\Var}{\operatorname{Var}}
 
-[@Ros1978] came up with a simpler and more general theory than
+Stephen [@Ros1978] came up with a simpler and more general theory than
 [@BlaSch1973] and [@Mer1973] for valuing derivatives.  He showed their
 result follows from geometry. There is no need for probability theory,
 Ito processes, or partial differential equations.  All instruments
@@ -25,9 +25,8 @@ They are positive measures having mass 1, but are not the probability of anythin
 A better name is "risk-blind probability measure."
 
 There is no need for a so-called real world measure that gets immediately
-thrown out. Ross just gets down to the business of valuing, hedging,
-and managing the risks of _any_ instrument -- not just the bond, stock,
-and option B-S/M considered.
+thrown out. Ross just gets down to the business of valuing _any_
+instrument -- not just the bond, stock, and option B-S/M considered.
 
 > Let us stress again the power of these results. To begin with,
 expectational mechanisms to describe how we anticipate the index, $X_t$,
@@ -38,24 +37,39 @@ is necessary is the assumption that current asset values do not permit
 arbitrage. In particular, then, we do not even have to assume that the
 current index price is in equilibrium to correctly appraise the project.
 
-Defining "equilibrium" is problematic. Ross pointed out you don't
-need that for his theory. My reading of "the stream $c$"
-is the stream of stock dividends. Ross was in the equity world
-at the time and assumed a jump in stock prices corresponded
-to a dividend payment. Replacing $c$ with
-the cash flow $C_t$ received at time $t$ associated with owning an instrument leads 
-to an even more powerful theory.
+My reading of "the stream $c$" is the stream of stock dividends. Ross
+was in the equity world at the time and assumed a jump in stock price
+corresponded to a dividend payment. This is an untenable definition.
+Stocks "jump" by an integral multiple of tick size and from market close
+to market open with no associated cash flow.  Fixed income instruments
+are defined by their coupon cash flows.
 
-Every arbitrage-free model of prices and cash flows has the form
+Replacing $c$ with cash flows $(C_t)$ received at time $t$ associated
+with owning an instrument leads to an even more powerful theory.
+
+Every arbitrage-free model of prices $(X_t)$ and cash flows $(C_t)$ has the form
 $$
 	X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
 $$
-where $(D_t)$ are positive measures and $(M_t)$ is a martingale
+where $(D_t)$ are positive (valuation) measures and $(M_t)$ is a martingale
 measure indexed by market instruments.
 
 For example, the B-S/M model of a bond and a stock without dividends is
 $D_t = e^{-\rho t}P$ and $M_t = (1, e^{\sigma B_t - \sigma^2/2})P$
 where $P$ is Wiener measure and $(B_t)$ is standard Brownian motion.
+
+## Value, Hedge
+
+The value of a stream of future cash flows is the cost of setting
+up the initial hedge. The value of a hedge at any point in time
+is equal to the current position times current market prices
+of hedging instruments. If the value of the option is known
+as a function of hedging instruments then the _delta_ hedge is
+the derivative of option value with respect to underlying
+instrument price(s).
+
+Scholes and Merton won the Sveriges Riksbank Prize in Economic Sciences
+in Memory of Alfred Nobel for solving this chicken and egg problem.
 
 
 Every positive random variable with finite expected value and log-variance
