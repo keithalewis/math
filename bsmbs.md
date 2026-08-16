@@ -9,7 +9,8 @@ fleqn: true
 Stephen [@Ros1978] came up with a simpler and more general theory than
 [@BlaSch1973] and [@Mer1973] for valuing derivatives.  He showed their
 result follows from geometry. There is no need for probability theory,
-Ito processes, or partial differential equations.  All instruments
+Ito processes, partial differential equations, or dicey equilibrium
+fairy tales. All you need is to recognize the fact instruments
 have prices and cash flows that are paid in proportion to the amount held.
 Cash flows place geometric constraints on arbitrage-free prices.
 
