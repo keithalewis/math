@@ -11,22 +11,20 @@ fleqn: true
 
 I am writing this polemic to convince you the
 [@BlaSch1973] and [@Mer1973] model for valuing options
-is long past its expiration date. Their assumption of
-continuous time trading is a mathematical artefact of using
-Ito process to model intrument prices. Traders can only
+is preposterous. Its many defects have been documented
+but their assumption of
+continuous time trading is particularly ridiculous.
+Traders can only
 execute a finite number of trades to hedge an option and
 need to know when, how much, and the risk involved.
-B-S/M only answers the how much question with their delta hedge.
-Their absurd answer to "when" is "continuously" and claim the risk is zero.
+B-S/M only answers the how much question.
+Telling a trader the answer to when is "continuously" and then claim the risk is zero
+is a sure-fire way to get unceremoniously booted off a trading floor.
 
 Stephen [@Ros1978] came up with a simpler and more general theory than
 B-S/M for valuing derivatives.  He showed their
 result follows from geometry. There is no need for probability theory,
-Ito processes, partial differential equations, or dicey equilibrium
-fairy tales. All you need is to recognize the fact instruments
-have prices and cash flows that are paid in proportion to the amount held.
-Cash flows place geometric constraints on arbitrage-free prices.
-
+Ito processes, or partial differential equations.
 Ross used the Hahn-Banach theorem to show
 
 > If there are no arbitrage opportunities in a market, then
@@ -36,8 +34,6 @@ can be used to value all marketed assets.
 Positive linear operators give rise to positive measures
 that can be divided by their total mass resulting in a "risk-neutral probability measure."
 They are positive measures having mass 1, but are not the probability of anything.
-A better name is "risk-blind probability measure."
-
 There is no need for a so-called real world measure that gets immediately
 thrown out. Ross just gets down to the business of valuing _any_
 instrument -- not just the bond, stock, and option B-S/M considered.
@@ -72,9 +68,18 @@ If there are no cash flows then this can be interpreted as appropriately
 discounted prices must be a martingale. This was pointed out
 by Paul [@Sam1965] prior to Black, Scholes and Merton.
 
-For example, the B-S/M model of a bond and a stock without dividends is
+For example, the B-S/M model of a bond and a stock with no dividends is
 $D_t = e^{-\rho t}P$ and $M_t = (1, e^{\sigma B_t - \sigma^2/2})P$
 where $P$ is Wiener measure and $(B_t)$ is standard Brownian motion.
+
+Every model requires a _sample space_ $\Omega$ of possible outcomes.
+B-S/M use the space of continuous functions on the interval $[0, \infty)$.
+Their notion of information available at time $u$ is given a stock
+trajectory $(S_t)_{t\ge0}$ you know $S_t$ exactly for $t < u$
+and nothing about the value of $S_t$ if $t \ge u$.
+
+_Partial information_ about a sample space is specified by a _partition_:
+a collection of pairwise disjoin subset having union equal to the sample space.
 
 B-S/M considered a dynamic hedge in the bond and stock that replicates
 an option payoff. The value, or mark-to-market, of a hedge at any time
