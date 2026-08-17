@@ -4,11 +4,23 @@ author: Keith A. Lewis
 classoption: fleqn
 fleqn: true
 ---
+\newcommand\bs[1]{\boldsymbol{{#1}}}
+\newcommand\RR{\bs{R}}
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
+I am writing this polemic to convince you the
+[@BlaSch1973] and [@Mer1973] model for valuing options
+is long past its expiration date. Their assumption of
+continuous time trading is a mathematical artefact of using
+Ito process to model intrument prices. Traders can only
+execute a finite number of trades to hedge an option and
+need to know when, how much, and the risk involved.
+B-S/M only answers the how much question with their delta hedge.
+Their absurd answer to "when" is "continuously" and claim the risk is zero.
+
 Stephen [@Ros1978] came up with a simpler and more general theory than
-[@BlaSch1973] and [@Mer1973] for valuing derivatives.  He showed their
+B-S/M for valuing derivatives.  He showed their
 result follows from geometry. There is no need for probability theory,
 Ito processes, partial differential equations, or dicey equilibrium
 fairy tales. All you need is to recognize the fact instruments
@@ -42,12 +54,12 @@ current index price is in equilibrium to correctly appraise the project.
 My reading of "the stream $c$" is the stream of stock dividends. Ross
 was in the equity world at the time and assumed a jump in stock price
 corresponded to a dividend payment. This is an untenable definition.
-Stocks "jump" by an integral multiple of tick size and from market close
+Stocks "jump" by integral multiple of tick size and from market close
 to market open with no associated cash flow.  Fixed income instruments
 are defined by their coupon cash flows.
 
 Replacing $c$ with cash flows $(C_t)$ received at time $t$ associated
-with owning an instrument leads to an even more powerful theory.
+with owning instruments leads to an even more powerful theory.
 
 Every arbitrage-free model of prices $(X_t)$ and cash flows $(C_t)$ has the form
 $$
@@ -56,28 +68,92 @@ $$
 where $(D_t)$ are positive (valuation) measures and $(M_t)$ is a
 vector-valued martingale measure indexed by market instruments.
 
+If there are no cash flows then this can be interpreted as appropriately
+discounted prices must be a martingale. This was pointed out
+by Paul [@Sam1965] prior to Black, Scholes and Merton.
+
 For example, the B-S/M model of a bond and a stock without dividends is
 $D_t = e^{-\rho t}P$ and $M_t = (1, e^{\sigma B_t - \sigma^2/2})P$
 where $P$ is Wiener measure and $(B_t)$ is standard Brownian motion.
 
 B-S/M considered a dynamic hedge in the bond and stock that replicates
-the option payoff.
-The value of a hedge at any point in time
-is equal to the current hedge position times current market prices.
+an option payoff. The value, or mark-to-market, of a hedge at any time
+is the sum of the current hedge positions times current market prices.
 If the value of the option is known
-as a function of hedging instruments then the _delta_ hedge is
-the derivative of option value with respect to underlying
-instrument price. 
+as a function of hedging instrument prices then the _delta_ hedge is
+the derivative of option value with respect to underlying prices.
 
 Scholes and Merton won the Sveriges Riksbank Prize in Economic Sciences
 in Memory of Alfred Nobel in 1997 "for a new method to determine the value of derivatives."
 They showed the value of an option is the discounted expected option payoff under
 the risk-neutral measure.
 Their formula gives the option value making it possible to compute the delta hedge.
-The value of the option is the cost of setting up the initial hedge.
+The value of the option is the cost of setting up the initial hedge, assuming
+perfect replicaton.
 
-A mathematical artefact of using Ito processes and assuming continuous time
-hedging is possible is that their theoretical hedge is perfect.
+Ross showed ...
+
+## B-S/M
+
+In this section we give a schematic review of Merton's mathematically correct
+derivation of their eponymous partial differential equation.
+
+They assume the bond price satisfies $dR_t/R_t = \rho\,dt$ and
+stock price satisifes the stochastic differential equation
+$dS_t/S_t = \mu\,dt + \sigma\,dB_t$ where
+$(B_t)$ is standard Brownian motion. Mathematical proofs require the
+SDE be expressed as an Ito integral but we will get by with
+the _Ito calculus_ $(dt)^2 = 0$, $dt\,dB_t = dB_t\,dt = 0$, and $(dB_t)^2 = dt$.
+
+Suppose $0 = t_0 < t_1 < \cdots t_n = t$. Define ${\Delta t_j = t_{j + 1} - t_j}$
+and ${\Delta t = \max_{0\le j < n} \Delta t_j}$.
+
+__Exercise__. _Show $\sum_{0\le j < n} \Delta t_j = t$_.
+
+_Hint_: It is a telescoping sum.
+
+__Exercise__. [$(dt)^2 = 0$] _Show $\sum_{0\le j < n} (\Delta t_j)^2$ 
+goes to zero as $\Delta t$ goes to zero_.
+
+_Hint_: Start with $\sum_{0\le j < n} (\Delta t_j)^2 \le \Delta t \sum_{0\le j < n} \Delta t_j$
+
+__Exercise__. [$dt\,dB_t = 0$] _Show $E[\sum_{0\le j < n} \Delta t_j\,\Delta B_j] = 0$ 
+and $\Var(\sum_{0\le j < n} \Delta t_j\,\Delta B_j)$
+goes to zero as $\Delta t$ goes to zero_.
+
+_Hint_: Use $\Var(\Delta B_j) = \Delta t_j$ and $(\Delta B_j)$ are independent.
+
+__Exercise__. [$(dB_t)^2 = dt$] _Show $E[\sum_{0\le j < n} (\Delta B_j)^2] = t$ 
+and $\Var(\sum_{0\le j < n} (\Delta B_j)^2)$
+goes to zero as $\Delta t$ goes to zero_.
+
+_Hint_: You will need to compute $\Var(\Delta B_t^2) = E[\Delta B_t^4] - E[\Delta B_t^2]^2$.
+Use $E[e^{sX}] = e^{s^2/2}$ if $X$ is standard normal and read off the
+moments using $E[e^{sX}] = \sum_0^\infty s^n E[X^n]/n!$.
+
+We need the facts that if $X$ and $Y$ are Ito processes then
+so are $aX$ for $a\in\RR$, $X + Y$, and $XY$.
+Recall ${d(XY) = (X + dX)(Y + dX) - XY = X\,dY + Y\,dX + dX\,dY}$.
+
+Ito showed that $Y_t = f(t,X_t)$ is also an Ito process that satisfies
+$$
+	dY_t = \partial_t f(t, X_t) + \partial_x f(t, X_t) + \frac{1}{2} \partial_x^2 f(t, X_t)
+$$
+if the partial derivatives of $f$ satisfy certain technical conditions.
+
+Merton considered strategies where the position held in each instrument
+depended on the time where 
+$M_t = m(t, R_t, S_t)$ is the amount held in the bond and
+$N_t = n(t, R_t, S_t)$ is the amount held in the stock at time $t$. The value of the
+position at $t$ is $V_t = M_t R_t + N_t S_t$.
+
+Dropping the $t$ subscript and using the Ito calculus
+$$
+\begin{aligned}
+$dV &= (M\,dR + R\,dM + dM\,dR) + (N\,dS + S\,dN + dN\,dS \\
+\end{aligned}
+$$
+
 
 ## Greeks
 
