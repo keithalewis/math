@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Why not Black-Scholes/Merton?</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Why not Black-Scholes/Merton?</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Aug 16, 2026</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#greeks" id="toc-greeks">Greeks</a></li>
+<li><a href="#black" id="toc-black">Black</a></li>
+<li><a href="#black-scholesmerton"
+id="toc-black-scholesmerton">Black-Scholes/Merton</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p>Stephen <span class="citation" data-cites="Ros1978">(<a
+href="#ref-Ros1978" role="doc-biblioref">Ross 1978</a>)</span> came up
+with a simpler and more general theory than <span class="citation"
+data-cites="BlaSch1973">(<a href="#ref-BlaSch1973"
+role="doc-biblioref">Black and Scholes 1973</a>)</span> and <span
+class="citation" data-cites="Mer1973">(<a href="#ref-Mer1973"
+role="doc-biblioref">Merton 1973</a>)</span> for valuing derivatives. He
+showed their result follows from geometry. There is no need for
+probability theory, Ito processes, partial differential equations, or
+dicey equilibrium fairy tales. All you need is to recognize the fact
+instruments have prices and cash flows that are paid in proportion to
+the amount held. Cash flows place geometric constraints on
+arbitrage-free prices.</p>
+<p>Ross used the Hahn-Banach theorem to show</p>
+<blockquote>
+<p>If there are no arbitrage opportunities in a market, then there must
+exist a (not generally unique) positive linear operator that can be used
+to value all marketed assets.</p>
+</blockquote>
+<p>Positive linear operators give rise to positive measures that can be
+divided by their total mass resulting in a “risk-neutral probability
+measure.” They are positive measures having mass 1, but are not the
+probability of anything. A better name is “risk-blind probability
+measure.”</p>
+<p>There is no need for a so-called real world measure that gets
+immediately thrown out. Ross just gets down to the business of valuing
+<em>any</em> instrument – not just the bond, stock, and option B-S/M
+considered.</p>
+<blockquote>
+<p>Let us stress again the power of these results. To begin with,
+expectational mechanisms to describe how we anticipate the index, <span
+class="math inline">X_t</span>, will behave are irrelevant. Furthermore,
+there is no need for <span class="math inline">X_t</span> to follow a
+diffusion process to apply the usual option analysis or, for that
+matter, for the stream <span class="math inline">c</span> to follow any
+specific process. All that is necessary is the assumption that current
+asset values do not permit arbitrage. In particular, then, we do not
+even have to assume that the current index price is in equilibrium to
+correctly appraise the project.</p>
+</blockquote>
+<p>My reading of “the stream <span class="math inline">c</span>” is the
+stream of stock dividends. Ross was in the equity world at the time and
+assumed a jump in stock price corresponded to a dividend payment. This
+is an untenable definition. Stocks “jump” by an integral multiple of
+tick size and from market close to market open with no associated cash
+flow. Fixed income instruments are defined by their coupon cash
+flows.</p>
+<p>Replacing <span class="math inline">c</span> with cash flows <span
+class="math inline">(C_t)</span> received at time <span
+class="math inline">t</span> associated with owning an instrument leads
+to an even more powerful theory.</p>
+<p>Every arbitrage-free model of prices <span
+class="math inline">(X_t)</span> and cash flows <span
+class="math inline">(C_t)</span> has the form <span
+class="math display">
+    X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
+</span> where <span class="math inline">(D_t)</span> are positive
+(valuation) measures and <span class="math inline">(M_t)</span> is a
+vector-valued martingale measure indexed by market instruments.</p>
+<p>For example, the B-S/M model of a bond and a stock without dividends
+is <span class="math inline">D_t = e^{-\rho t}P</span> and <span
+class="math inline">M_t = (1, e^{\sigma B_t - \sigma^2/2})P</span> where
+<span class="math inline">P</span> is Wiener measure and <span
+class="math inline">(B_t)</span> is standard Brownian motion.</p>
+<p>B-S/M considered a dynamic hedge in the bond and stock that
+replicates the option payoff. The value of a hedge at any point in time
+is equal to the current hedge position times current market prices. If
+the value of the option is known as a function of hedging instruments
+then the <em>delta</em> hedge is the derivative of option value with
+respect to underlying instrument price.</p>
+<p>Scholes and Merton won the Sveriges Riksbank Prize in Economic
+Sciences in Memory of Alfred Nobel in 1997 “for a new method to
+determine the value of derivatives.” They showed the value of an option
+is the discounted expected option payoff under the risk-neutral measure.
+Their formula gives the option value making it possible to compute the
+delta hedge. The value of the option is the cost of setting up the
+initial hedge.</p>
+<p>A mathematical artefact of using Ito processes and assuming
+continuous time hedging is possible is that their theoretical hedge is
+perfect.</p>
+<section id="greeks" class="level2">
+<h2>Greeks</h2>
+<p>Every positive random variable with finite expected value and
+log-variance can be written <span class="math inline">F = fe^{sX -
+\kappa(s)}</span> where <span class="math inline">f = E[F]</span>, <span
+class="math inline">s^2 = \operatorname{Var}(\log F)</span>, and <span
+class="math inline">\kappa(s) = \log E[e^{sX}]</span> is the cumulant of
+the mean 0 and variance 1 random variable <span
+class="math inline">X</span>. We call <span class="math inline">f</span>
+the <em>forward</em> and <span class="math inline">s</span> the
+<em>vol</em>.</p>
+<p>The forward value of a put option having strike <span
+class="math inline">k</span> is <span class="math display">
+\begin{aligned}
+    v &amp;= E[\max\{k - F,0\}] \\
+        &amp;= E[(k - F)1(F \le k)] \\
+        &amp;= k P(F\le k) - E[F 1(F\le k)] \\
+        &amp;= k P(F\le k) - f [(F/f) 1(F\le k)] \\
+        &amp;= k P(F\le k) - f P_s(F\le k) \\
+\end{aligned}
+</span> where <span class="math inline">P_s = e^{sX -
+\kappa(s)}P</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">P_s</span> is a probability measure</em>.</p>
+<p>Since <span class="math inline">F\le k</span> if and only if <span
+class="math inline">X \le (\log k/f + \kappa(s))/s</span> <span
+class="math display">
+    E[\max\{k - F,0\}] = k\Psi(x,0) - f\Psi(x,s)
+</span> where <span class="math inline">x = x(k, f, s) =  (\log k/f +
+\kappa(s))/s</span> is the <em>moneyness</em> and <span
+class="math inline">\Psi(x,s) = P_s(X\le x)</span>.</p>
+<p>Option <em>delta</em> is the derivative of value with respect to
+forward price <span class="math display">
+\partial_f v = E[-1(F\le k)\partial_f F] = -E[1(F\le k)e^{sX -
+\kappa(s)}] = -\Psi(x,s).
+</span></p>
+<p>Option <em>gamma</em> is the second derivative of value with respect
+to forward price <span class="math display">
+\partial_f^2 v = -\partial_x\Psi(x,s)\partial_f x =
+\partial_x\Psi(x,s)/fs.
+</span></p>
+<p>Option <em>vega</em> is the derivative of value with respect to <span
+class="math inline">s</span> <span class="math display">
+\partial_s v = E[-1(F\le k)\partial_s F] = -E[1(F\le k)F(X -
+\kappa&#39;(s))]
+</span> Since <span class="math display">
+\partial_s \Phi(x,s) = \partial_s E[e^{sX - \kappa(s)} 1(X \le x)]
+    = E[e^{sX - \kappa(s)}(X - \kappa&#39;(s)) 1(X \le x)]
+</span> we have <span class="math inline">\partial_s v =
+f\partial_s\Phi(x,s)</span>.</p>
+</section>
+<section id="black" class="level2">
+<h2>Black</h2>
+<p>The Fischer <span class="citation" data-cites="Bla1976">(<a
+href="#ref-Bla1976" role="doc-biblioref">Black 1976</a>)</span> model
+uses <span class="math inline">s = \sigma\sqrt{t}</span> and <span
+class="math inline">X</span> standard normal. Recall <span
+class="math inline">{E[\exp(N)] = \exp(E[N] +
+\operatorname{Var}(N)/2)}</span> if <span class="math inline">N</span>
+is normal.</p>
+<p><strong>Exercise</strong>. <em>Show the cumulant of a standard normal
+is <span class="math inline">s^2/2</span></em>.</p>
+<p>Recall <span class="math inline">E[\exp(N) f(M)] = E[\exp(N)] E[f(M +
+\operatorname{Cov}(N,M)]</span> if <span class="math inline">N</span>
+and <span class="math inline">M</span> are jointly normal.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">X</span>
+is standard normal show <span class="math inline">\Psi(x, s) = \Psi(x -
+s, 0)</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">\Psi(x, s) = E[e^{sX -
+s^2/2} 1(X \le x)]</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the Black forward put value is
+<span class="math inline">{v = k N(-d_-) - f N(-d_+)}</span> where <span
+class="math inline">N(x) = \Psi(x, 0)</span> and <span
+class="math inline">{d_\pm = (\log f/k \pm \sigma^2
+t/2)/\sigma\sqrt{t}}</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show the Black delta is <span
+class="math inline">-N(-d_+)</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show the Black gamma is <span
+class="math inline">N&#39;(d_+)/f\sigma\sqrt{t}</span></em>.</p>
+<p><strong>Exercise</strong>. <em>Show the Black vega is <span
+class="math inline">\partial_\sigma v = f
+N&#39;(d_+)\sqrt{t}</span></em>.</p>
+</section>
+<section id="black-scholesmerton" class="level2">
+<h2>Black-Scholes/Merton</h2>
+<p>The B-S/M model uses <span class="math inline">{f = S_0e^{\rho
+t}}</span> where <span class="math inline">S_0</span> is the initial
+stock price, <span class="math inline">{s = \sigma\sqrt{t}}</span> and
+the option value is discounted by <span class="math inline">{e^{-\rho
+t}}</span>.</p>
+<p><strong>Exercise</strong>. <em>Derive the classical B-S/M value and
+greeks</em>.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-Bla1976" class="csl-entry" role="listitem">
+Black, Fischer. 1976. <span>“The Pricing of Commodity Contracts.”</span>
+<em>Journal of Financial Economics</em> 3 (1-2): 167–79.
+</div>
+<div id="ref-BlaSch1973" class="csl-entry" role="listitem">
+Black, Fischer, and Myron Scholes. 1973. <span>“The Pricing of Options
+and Corporate Liabilities.”</span> <em>Journal of Political Economy</em>
+81 (3): 637–54. <a
+href="http://www.jstor.org/stable/1831029">http://www.jstor.org/stable/1831029</a>.
+</div>
+<div id="ref-Mer1973" class="csl-entry" role="listitem">
+Merton, Robert C. 1973. <span>“Theory of Rational Option
+Pricing.”</span> <em>Bell Journal of Economics and Management
+Science</em> 4 (1): 141–83. <a
+href="https://www.jstor.org/stable/3003143">https://www.jstor.org/stable/3003143</a>.
+</div>
+<div id="ref-Ros1978" class="csl-entry" role="listitem">
+Ross, Stephen A. 1978. <span>“A Simple Approach to the Valuation of
+Risky Streams.”</span> <em>The Journal of Business</em> 51 (3): 453–75.
+<a
+href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277</a>.
+</div>
+</div>
+</section>
+</body>
+</html>

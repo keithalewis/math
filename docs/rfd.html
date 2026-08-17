@@ -24,6 +24,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -63,11 +64,12 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Request for Design</h1>
-<p class="date">Aug 10, 2026</p>
+<p class="date">Aug 12, 2026</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
 <li><a href="#objective" id="toc-objective">Objective</a></li>
+<li><a href="#scope" id="toc-scope">Scope</a></li>
 <li><a href="#context" id="toc-context">Context</a></li>
 <li><a href="#initial-goal" id="toc-initial-goal">Initial Goal</a></li>
 <li><a href="#model" id="toc-model">Model</a></li>
@@ -102,6 +104,14 @@ Derivative</a></li>
 <p>Define a simple mathematical model of the financial world that can be
 implemented with existing technology to provide real-time valuation,
 hedging, and risk management tools across all asset classes.</p>
+</section>
+<section id="scope" class="level2">
+<h2>Scope</h2>
+<p>As is customary in mathematical finance we ignore certain salient
+real-world features. Instrument prices and not real numbers, they are
+integer multiples of tick size. Likewise for trading amounts. The amount
+being bought or sold affects the price. The price can also depend on
+credit considerations of the counterparties involved.</p>
 </section>
 <section id="context" class="level2">
 <h2>Context</h2>
@@ -169,6 +179,12 @@ blotter is <span class="math inline">A_t = \Delta_t\cdot C_t -
 \Gamma_t\cdot X_t</span> – you get cash flows associated with the
 instruments you own proportional to your existing position and have to
 pay for the trades just executed.</p>
+<p>We ignore the fact prices and trading amounts are integral increments
+of minimal increments determined by the markets they trade in. We also
+ignore the fact that the amount being traded has an affect on price. We
+totally ignore the fact that the counterparties involved in the trade
+will be quoted different prices based on their credit rating, among
+other things.</p>
 <p>Arbitrage exists if there is a trading strategy with <span
 class="math inline">A_{\tau_0} &gt; 0</span>, <span
 class="math inline">A_t\ge0</span> for <span
@@ -177,9 +193,10 @@ class="math inline">\sum_j\Gamma_j = 0</span> – you make money on the
 first trade and never lose money until the position is closed out.</p>
 <p>Every arbitrage-free model is parameterized by positive adapted
 measures, <em>deflators</em>, <span class="math inline">(D_t)_{t\in
-T}</span> and a vector-valued martingale measure <span
-class="math inline">M</span> on <span class="math inline">\Omega</span>
-indexed by instruments satisfying <span class="math display">
+T}</span> and a vector-valued martingale measures <span
+class="math inline">(M_t)</span> on <span
+class="math inline">\Omega</span> indexed by instruments satisfying
+<span class="math display">
 \tag{1} X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
 </span> where <span class="math inline">M_t = M_u|\mathcal{A}_t</span>
 for <span class="math inline">t \le u</span>. For example, the
@@ -356,10 +373,12 @@ B} = 1_A + 1_B - 1_{A\cap B}</span> and <span
 class="math inline">\lambda(\emptyset) = 0</span> since <span
 class="math inline">1_\emptyset = 0</span>. We define multiplication of
 a bounded function <span class="math inline">g</span> and a finitely
-additive measure <span class="math inline">\lambda</span> by $f,g= fg,$.
-See <span class="citation" data-cites="DunSch1958">(<a
-href="#ref-DunSch1958" role="doc-biblioref">Dunford and Schwartz
-1958</a>)</span> for the details.</p>
+additive measure <span class="math inline">\lambda</span> by <span
+class="math inline">\langle f,g\lambda\rangle = \langle
+fg,\lambda\rangle</span>. See <span class="citation"
+data-cites="DunSch1958">(<a href="#ref-DunSch1958"
+role="doc-biblioref">Dunford and Schwartz 1958</a>)</span> for the
+details.</p>
 <section id="partition" class="level3">
 <h3>Partition</h3>
 <p>If <span class="math inline">\mathcal{A}</span> is a finite algebra
@@ -401,7 +420,7 @@ class="math inline">DF\colon X\to\mathcal{L}(X,Y)</span> is defined by
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-BlaSch1973" class="csl-entry" role="listitem">
 Black, Fischer, and Myron Scholes. 1973. <span>“The Pricing of Options
 and Corporate Liabilities.”</span> <em>Journal of Political Economy</em>

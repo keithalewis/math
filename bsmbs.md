@@ -63,11 +63,11 @@ where $P$ is Wiener measure and $(B_t)$ is standard Brownian motion.
 B-S/M considered a dynamic hedge in the bond and stock that replicates
 the option payoff.
 The value of a hedge at any point in time
-is equal to the current position times current market prices.
+is equal to the current hedge position times current market prices.
 If the value of the option is known
 as a function of hedging instruments then the _delta_ hedge is
 the derivative of option value with respect to underlying
-instrument price.
+instrument price. 
 
 Scholes and Merton won the Sveriges Riksbank Prize in Economic Sciences
 in Memory of Alfred Nobel in 1997 "for a new method to determine the value of derivatives."
