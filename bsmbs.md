@@ -6,8 +6,9 @@ fleqn: true
 ---
 \newcommand\bs[1]{\boldsymbol{{#1}}}
 \newcommand\RR{\bs{R}}
-\newcommand{\Var}{\operatorname{Var}}
-\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand\Var{\operatorname{Var}}
+\newcommand\Cov{\operatorname{Cov}}
+\newcommand\AA{\mathcal{A}}
 
 I am writing this polemic to convince you the
 [@BlaSch1973] and [@Mer1973] model for valuing options
@@ -36,7 +37,7 @@ that can be divided by their total mass resulting in a "risk-neutral probability
 They are positive measures having mass 1, but are not the probability of anything.
 There is no need for a so-called real world measure that gets immediately
 thrown out. Ross just gets down to the business of valuing _any_
-instrument -- not just the bond, stock, and option B-S/M considered.
+instrument, not just the bond, stock, and option B-S/M considered.
 
 > Let us stress again the power of these results. To begin with,
 expectational mechanisms to describe how we anticipate the index, $X_t$,
@@ -50,8 +51,8 @@ current index price is in equilibrium to correctly appraise the project.
 My reading of "the stream $c$" is the stream of stock dividends. Ross
 was in the equity world at the time and assumed a jump in stock price
 corresponded to a dividend payment. This is an untenable definition.
-Stocks "jump" by integral multiple of tick size and from market close
-to market open with no associated cash flow.  Fixed income instruments
+Stocks "jump" between market close
+and market open with no associated cash flow.  Fixed income instruments
 are defined by their coupon cash flows.
 
 Replacing $c$ with cash flows $(C_t)$ received at time $t$ associated
@@ -72,14 +73,27 @@ For example, the B-S/M model of a bond and a stock with no dividends is
 $D_t = e^{-\rho t}P$ and $M_t = (1, e^{\sigma B_t - \sigma^2/2})P$
 where $P$ is Wiener measure and $(B_t)$ is standard Brownian motion.
 
-Every model requires a _sample space_ $\Omega$ of possible outcomes.
+Every model specifies a _sample space_ $\Omega$ of possible outcomes.
 B-S/M use the space of continuous functions on the interval $[0, \infty)$.
-Their notion of information available at time $u$ is given a stock
+Their notion of information available at time $u$ is that given a stock
 trajectory $(S_t)_{t\ge0}$ you know $S_t$ exactly for $t < u$
 and nothing about the value of $S_t$ if $t \ge u$.
 
 _Partial information_ about a sample space is specified by a _partition_:
-a collection of pairwise disjoin subset having union equal to the sample space.
+a collection of pairwise disjoin subsets having union equal to the sample space.
+No information is the singleton partition $\{\Omega\}$. Complete information
+is the partition of singletons ${\{\{\omega\}\mid\omega\in\Omega\}}$.
+Partial information is knowing which _atom_ in the partition $\omega\in\Omega$
+belongs to.
+
+If $\AA$ is a partition of $\Omega$ and $X\colon\Omega\to\RR$ is a function,
+then $X$ is $\AA$-_measurable_ if and only if it is constant on each
+element of the partition.
+
+__Exercise__. _Show $X\colon\AA\to\RR$ is a well-defined function_.
+
+_Hint_: Show if $\omega$ and $\omega'$ belong to the same element
+of the partition then $X(\omega) = X(\omega')$.
 
 B-S/M considered a dynamic hedge in the bond and stock that replicates
 an option payoff. The value, or mark-to-market, of a hedge at any time
