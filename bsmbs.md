@@ -80,7 +80,7 @@ trajectory $(S_t)_{t\ge0}$ you know $S_t$ exactly for $t < u$
 and nothing about the value of $S_t$ if $t \ge u$.
 
 _Partial information_ about a sample space is specified by a _partition_:
-a collection of pairwise disjoin subsets having union equal to the sample space.
+a collection of pairwise disjoint subsets having union equal to the sample space.
 No information is the singleton partition $\{\Omega\}$. Complete information
 is the partition of singletons ${\{\{\omega\}\mid\omega\in\Omega\}}$.
 Partial information is knowing which _atom_ in the partition $\omega\in\Omega$
