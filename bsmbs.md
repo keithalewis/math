@@ -10,17 +10,15 @@ fleqn: true
 \newcommand\Cov{\operatorname{Cov}}
 \newcommand\AA{\mathcal{A}}
 
-I am writing this polemic to convince you the
-[@BlaSch1973] and [@Mer1973] model for valuing options
-is preposterous. Its many defects have been documented
-but their assumption of
-continuous time trading is particularly ridiculous.
-Traders can only
-execute a finite number of trades to hedge an option and
-need to know when, how much, and the risk involved.
-B-S/M only answers the how much question.
-Telling a trader the answer to when is "continuously" and then claim the risk is zero
-is a sure-fire way to get unceremoniously booted off a trading floor.
+I am writing this piece to convince you the [@BlaSch1973] and [@Mer1973]
+model for valuing options is untenable for describing actual trading.
+Its many limitations and defects have been extensively documented but
+their assumption of continuous time trading is particularly problematic.
+Traders can only execute a finite number of trades to hedge an option
+and want to know when, how much, and the risk involved.  B-S/M only
+answers the how much question.  Telling a trader the answer to when is
+"continuously" and then claim the risk is zero
+undermines academic credibility.
 
 Stephen [@Ros1978] came up with a simpler and more general theory than
 B-S/M for valuing derivatives.  He showed their
@@ -32,12 +30,13 @@ Ross used the Hahn-Banach theorem to show
 there must exist a (not generally unique) positive linear operator that
 can be used to value all marketed assets.
 
-Positive linear operators give rise to positive measures
-that can be divided by their total mass resulting in a "risk-neutral probability measure."
-They are positive measures having mass 1, but are not the probability of anything.
-There is no need for a so-called real world measure that gets immediately
-thrown out. Ross just gets down to the business of valuing _any_
-instrument, not just the bond, stock, and option B-S/M considered.
+Positive linear operators give rise to positive measures that can be
+divided by their total mass resulting in a "risk-neutral probability
+measure."  They are positive measures having mass 1, but are not the
+probability of anything.  There is no need for a so-called real world
+measure that gets immediately thrown out. Ross just gets down to the
+business of valuing, hedging, and managing the risk of _any_ instrument,
+not just the bond, stock, and option B-S/M considered.
 
 > Let us stress again the power of these results. To begin with,
 expectational mechanisms to describe how we anticipate the index, $X_t$,
@@ -86,13 +85,13 @@ is the partition of singletons ${\{\{\omega\}\mid\omega\in\Omega\}}$.
 Partial information is knowing which _atom_ in the partition $\omega\in\Omega$
 belongs to.
 
-If $\AA$ is a partition of $\Omega$ and $X\colon\Omega\to\RR$ is a function,
-then $X$ is $\AA$-_measurable_ if and only if it is constant on each
-element of the partition.
+If $X\colon\Omega\to\RR$ is a function and If $\AA$ is a partition
+of$\Omega$ then $X$ is $\AA$-_measurable_ if and only if it is constant
+on each element of the partition.
 
 __Exercise__. _Show $X\colon\AA\to\RR$ is a well-defined function_.
 
-_Hint_: Show if $\omega$ and $\omega'$ belong to the same element
+_Hint_: Show if $\omega$ and $\omega'$ belong to the same atom
 of the partition then $X(\omega) = X(\omega')$.
 
 B-S/M considered a dynamic hedge in the bond and stock that replicates
