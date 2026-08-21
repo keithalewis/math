@@ -111,7 +111,7 @@ The value of the option is the cost of setting up the initial hedge, assuming
 perfect replicaton.
 
 Ross showed ...
-
+<!--
 ## B-S/M
 
 In this section we give a schematic review of Merton's mathematically correct
@@ -172,7 +172,7 @@ $$
 $dV &= (M\,dR + R\,dM + dM\,dR) + (N\,dS + S\,dN + dN\,dS \\
 \end{aligned}
 $$
-
+-->
 
 ## Greeks
 
