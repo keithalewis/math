@@ -8,19 +8,17 @@ fleqn: true
 \newcommand\RR{\bs{R}}
 \newcommand\Var{\operatorname{Var}}
 \newcommand\Cov{\operatorname{Cov}}
-\newcommand\AA{\mathcal{A}}
+\renewcommand\AA{\mathcal{A}}
 
-I am writing this polemic to convince you the
-[@BlaSch1973] and [@Mer1973] model for valuing options
-is preposterous. Its many defects have been documented
-but their assumption of
-continuous time trading is particularly ridiculous.
-Traders can only
-execute a finite number of trades to hedge an option and
-need to know when, how much, and the risk involved.
-B-S/M only answers the how much question.
-Telling a trader the answer to when is "continuously" and then claim the risk is zero
-is a sure-fire way to get unceremoniously booted off a trading floor.
+I am writing this piece to convince you the [@BlaSch1973] and [@Mer1973]
+model for valuing options is untenable for describing actual trading.
+Its many limitations and defects have been extensively documented but
+their assumption of continuous time trading is particularly problematic.
+Traders can only execute a finite number of trades to hedge an option
+and want to know when, how much, and the risk involved.  B-S/M only
+answers the how much question.  Telling a trader the answer to when is
+"continuously" and then claim the risk is zero
+undermines academic credibility.
 
 Stephen [@Ros1978] came up with a simpler and more general theory than
 B-S/M for valuing derivatives.  He showed their
@@ -32,12 +30,13 @@ Ross used the Hahn-Banach theorem to show
 there must exist a (not generally unique) positive linear operator that
 can be used to value all marketed assets.
 
-Positive linear operators give rise to positive measures
-that can be divided by their total mass resulting in a "risk-neutral probability measure."
-They are positive measures having mass 1, but are not the probability of anything.
-There is no need for a so-called real world measure that gets immediately
-thrown out. Ross just gets down to the business of valuing _any_
-instrument, not just the bond, stock, and option B-S/M considered.
+Positive linear operators give rise to positive measures that can be
+divided by their total mass resulting in a "risk-neutral probability
+measure."  They are positive measures having mass 1, but are not the
+probability of anything.  There is no need for a so-called real world
+measure that gets immediately thrown out. Ross just gets down to the
+business of valuing, hedging, and managing the risk of _any_ instrument,
+not just the bond, stock, and option B-S/M considered.
 
 > Let us stress again the power of these results. To begin with,
 expectational mechanisms to describe how we anticipate the index, $X_t$,
@@ -69,9 +68,63 @@ If there are no cash flows then this can be interpreted as appropriately
 discounted prices must be a martingale. This was pointed out
 by Paul [@Sam1965] prior to Black, Scholes and Merton.
 
-For example, the B-S/M model of a bond and a stock with no dividends is
+For example, the B-S/M model of a bond and a stock having prices
+$X_t = (R_t,S_t)$ and no dividends is
 $D_t = e^{-\rho t}P$ and $M_t = (1, e^{\sigma B_t - \sigma^2/2})P$
 where $P$ is Wiener measure and $(B_t)$ is standard Brownian motion.
+
+__Exercise__. _Show $R_t = e^{\rho t}$ and $S_t = S_0e^{\rho_t + \sigma B_t - \sigma^2 t/2}$
+where we assume $X_0 = (1, S_0)$_.
+
+B-S/M considered a dynamic hedge in the bond and stock that replicates
+a European option payoff. If the option pays $\nu(S_T)$
+at expiration $T$ we need to find a trading strategy with value
+$\nu(S_T)$ at $T$ and has no intermediate cash flows (_self-financing_).
+
+Let $\Delta_t = (M_t, N_t)$ be the amount held in the bond and stock
+so ${V_t = \Delta_t\cdot X_t = M_t R_t + N_t S_t}$ is the value of the position at time $t$.
+By the Ito calculus (dropping the $t$ subscript for now)
+${dV = M\, dR + R\,dM + dM\, dR + N\,dS + S\,dN + dN\,dS}$.
+Since $dR$ has no $dB$ term $dM\,dR = 0$.
+Rearranging terms give
+$$
+	dV = M(R + dR) + N(S + dS) - MR - NS + N\,dS.
+$$
+
+we wish to find self-financing positions
+with $V_T = \nu(S_T)$. The value of the option at time $t = 0$ is
+the cost of setting up the initial hedge $V_0$.
+
+When we change position $(M_t,N_t)$ at time $t$ to
+${(M_t + dM_t, N_t + dN_t)}$ at time ${t + dt}$ the cost
+is ${dM_t (R_t + dR_t) + dN_t (S_t + dS_t)}$ since
+we must purchase the changes in position at time $t + dt$ prices.
+The position is self-financing if this is 0.
+
+Let's further suppose $M_t = m(t, R_t, S_t)$ and $N_t = n(t, R_t, S_t)$
+are Ito diffusions for some sufficiently differentiable functions
+$m,n\colon [0,\infty)\times\RR\times\RR\to\RR$.
+The Ito formula allows us to compute $dV_t$.
+
+The value, or mark-to-market, of a hedge at any time
+is the sum of the current hedge positions times current market prices.
+If the value of the option is known
+as a function of hedging instrument prices then the _delta_ hedge is
+the derivative of option value with respect to underlying prices.
+
+By the definition of derivative, this gives an approximate hedge over
+a short period of time. 
+
+Scholes and Merton won the Sveriges Riksbank Prize in Economic Sciences
+in Memory of Alfred Nobel in 1997 "for a new method to determine the value of derivatives."
+They showed the value of an option is the discounted expected option payoff under
+the risk-neutral measure.
+Their formula gives the option value making it possible to compute the delta hedge.
+The value of the option is the cost of setting up the initial hedge, assuming
+perfect replicaton.
+
+
+
 
 Every model specifies a _sample space_ $\Omega$ of possible outcomes.
 B-S/M use the space of continuous functions on the interval $[0, \infty)$.
@@ -86,29 +139,15 @@ is the partition of singletons ${\{\{\omega\}\mid\omega\in\Omega\}}$.
 Partial information is knowing which _atom_ in the partition $\omega\in\Omega$
 belongs to.
 
-If $\AA$ is a partition of $\Omega$ and $X\colon\Omega\to\RR$ is a function,
-then $X$ is $\AA$-_measurable_ if and only if it is constant on each
-element of the partition.
+If $X\colon\Omega\to\RR$ is a function and If $\AA$ is a partition
+of $\Omega$ then $X$ is $\AA$-_measurable_ if and only if it is constant
+on each element of the partition.
 
 __Exercise__. _Show $X\colon\AA\to\RR$ is a well-defined function_.
 
-_Hint_: Show if $\omega$ and $\omega'$ belong to the same element
+_Hint_: Show if $\omega$ and $\omega'$ belong to the same atom
 of the partition then $X(\omega) = X(\omega')$.
 
-B-S/M considered a dynamic hedge in the bond and stock that replicates
-an option payoff. The value, or mark-to-market, of a hedge at any time
-is the sum of the current hedge positions times current market prices.
-If the value of the option is known
-as a function of hedging instrument prices then the _delta_ hedge is
-the derivative of option value with respect to underlying prices.
-
-Scholes and Merton won the Sveriges Riksbank Prize in Economic Sciences
-in Memory of Alfred Nobel in 1997 "for a new method to determine the value of derivatives."
-They showed the value of an option is the discounted expected option payoff under
-the risk-neutral measure.
-Their formula gives the option value making it possible to compute the delta hedge.
-The value of the option is the cost of setting up the initial hedge, assuming
-perfect replicaton.
 
 Ross showed ...
 <!--
