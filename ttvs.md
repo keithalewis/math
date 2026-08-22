@@ -5,6 +5,24 @@ author: Keith A. Lewis
 \newcommand\bs[1]{\boldsymbol{{#1}}}
 \newcommand\RR{\bs{R}}
 
+If you studied Linear Algebra from Gilbert Strang @cite you
+learned about the vector space ${\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
+of $n$-tuples of real numbers. After the first week of class it may
+have dawned on you that are doomed to spending the rest of the
+semester doing tedious calculations involving "row" and "column" vectors.
+
+If you found that unsatisfying you might pick up the pompously titled
+"Vector Spaces Done Right" by Sheldon Axler. @cite It takes a modern axiomatic approach 
+that clarifies how scalar multiplication, vector addition, and
+their connection through distibutive laws clarify their structure. 
+There are many vector spaces that are not just $n$-tuples of numbers.
+
+Unlike Dicken's tale, there is a second vector space that has the same form as the first.
+If $\bs{n} = \{1,\ldots,n\}$ define
+$\RR^{\bs{n}} = \{x\colon\bs{n}\to\RR\}$.
+This is _isomorphic_ to $\RR^n$.
+Every $x = (x_1,\ldots,x_n)$ corresponds to $\bs{x}\colon\bs{n}\to\RR$ where $\bs{x}(i) = x_i$, $i\in\bs{n}$.
+
 When I was getting a "C" in my first linear algebra course I was taught
 $\RR^n$ was a product of $n$-copies of the real numbers
 ${\Pi_{i=1}^n \RR = \{x = (x_1,\ldots,x_n)\mid x_i\in\RR, i = 1,\ldots n\}}$.
