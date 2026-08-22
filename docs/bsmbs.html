@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Why not Black-Scholes/Merton?</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Aug 19, 2026</p>
+<p class="date">Aug 21, 2026</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -76,18 +76,18 @@ id="toc-black-scholesmerton">Black-Scholes/Merton</a></li>
 <li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
-<p>I am writing this polemic to convince you the <span class="citation"
+<p>I am writing this piece to convince you the <span class="citation"
 data-cites="BlaSch1973">(<a href="#ref-BlaSch1973"
 role="doc-biblioref">Black and Scholes 1973</a>)</span> and <span
 class="citation" data-cites="Mer1973">(<a href="#ref-Mer1973"
 role="doc-biblioref">Merton 1973</a>)</span> model for valuing options
-is preposterous. Its many defects have been documented but their
-assumption of continuous time trading is particularly ridiculous.
-Traders can only execute a finite number of trades to hedge an option
-and need to know when, how much, and the risk involved. B-S/M only
-answers the how much question. Telling a trader the answer to when is
-“continuously” and then claim the risk is zero is a sure-fire way to get
-unceremoniously booted off a trading floor.</p>
+is untenable for describing actual trading. Its many limitations and
+defects have been extensively documented but their assumption of
+continuous time trading is particularly problematic. Traders can only
+execute a finite number of trades to hedge an option and want to know
+when, how much, and the risk involved. B-S/M only answers the how much
+question. Telling a trader the answer to when is “continuously” and then
+claim the risk is zero undermines academic credibility.</p>
 <p>Stephen <span class="citation" data-cites="Ros1978">(<a
 href="#ref-Ros1978" role="doc-biblioref">Ross 1978</a>)</span> came up
 with a simpler and more general theory than B-S/M for valuing
@@ -104,8 +104,8 @@ divided by their total mass resulting in a “risk-neutral probability
 measure.” They are positive measures having mass 1, but are not the
 probability of anything. There is no need for a so-called real world
 measure that gets immediately thrown out. Ross just gets down to the
-business of valuing <em>any</em> instrument, not just the bond, stock,
-and option B-S/M considered.</p>
+business of valuing, hedging, and managing the risk of <em>any</em>
+instrument, not just the bond, stock, and option B-S/M considered.</p>
 <blockquote>
 <p>Let us stress again the power of these results. To begin with,
 expectational mechanisms to describe how we anticipate the index, <span
@@ -141,11 +141,67 @@ appropriately discounted prices must be a martingale. This was pointed
 out by Paul <span class="citation" data-cites="Sam1965">(<a
 href="#ref-Sam1965" role="doc-biblioref">Samuelson 1965</a>)</span>
 prior to Black, Scholes and Merton.</p>
-<p>For example, the B-S/M model of a bond and a stock with no dividends
-is <span class="math inline">D_t = e^{-\rho t}P</span> and <span
+<p>For example, the B-S/M model of a bond and a stock having prices
+<span class="math inline">X_t = (R_t,S_t)</span> and no dividends is
+<span class="math inline">D_t = e^{-\rho t}P</span> and <span
 class="math inline">M_t = (1, e^{\sigma B_t - \sigma^2/2})P</span> where
 <span class="math inline">P</span> is Wiener measure and <span
 class="math inline">(B_t)</span> is standard Brownian motion.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">R_t =
+e^{\rho t}</span> and <span class="math inline">S_t = S_0e^{\rho_t +
+\sigma B_t - \sigma^2 t/2}</span> where we assume <span
+class="math inline">X_0 = (1, S_0)</span></em>.</p>
+<p>B-S/M considered a dynamic hedge in the bond and stock that
+replicates a European option payoff. If the option pays <span
+class="math inline">\nu(S_T)</span> at expiration <span
+class="math inline">T</span> we need to find a trading strategy with
+value <span class="math inline">\nu(S_T)</span> at <span
+class="math inline">T</span> and has no intermediate cash flows
+(<em>self-financing</em>).</p>
+<p>Let <span class="math inline">\Delta_t = (M_t, N_t)</span> be the
+amount held in the bond and stock so <span class="math inline">{V_t =
+\Delta_t\cdot X_t = M_t R_t + N_t S_t}</span> is the value of the
+position at time <span class="math inline">t</span>. By the Ito calculus
+(dropping the <span class="math inline">t</span> subscript for now)
+<span class="math inline">{dV = M\, dR + R\,dM + dM\, dR + N\,dS + S\,dN
++ dN\,dS}</span>. Since <span class="math inline">dR</span> has no <span
+class="math inline">dB</span> term <span class="math inline">dM\,dR =
+0</span>. Rearranging terms give <span class="math display">
+    dV = M(R + dR) + N(S + dS) - MR - NS + N\,dS.
+</span></p>
+<p>we wish to find self-financing positions with <span
+class="math inline">V_T = \nu(S_T)</span>. The value of the option at
+time <span class="math inline">t = 0</span> is the cost of setting up
+the initial hedge <span class="math inline">V_0</span>.</p>
+<p>When we change position <span class="math inline">(M_t,N_t)</span> at
+time <span class="math inline">t</span> to <span
+class="math inline">{(M_t + dM_t, N_t + dN_t)}</span> at time <span
+class="math inline">{t + dt}</span> the cost is <span
+class="math inline">{dM_t (R_t + dR_t) + dN_t (S_t + dS_t)}</span> since
+we must purchase the changes in position at time <span
+class="math inline">t + dt</span> prices. The position is self-financing
+if this is 0.</p>
+<p>Let’s further suppose <span class="math inline">M_t = m(t, R_t,
+S_t)</span> and <span class="math inline">N_t = n(t, R_t, S_t)</span>
+are Ito diffusions for some sufficiently differentiable functions <span
+class="math inline">m,n\colon
+[0,\infty)\times\boldsymbol{{R}}\times\boldsymbol{{R}}\to\boldsymbol{{R}}</span>.
+The Ito formula allows us to compute <span
+class="math inline">dV_t</span>.</p>
+<p>The value, or mark-to-market, of a hedge at any time is the sum of
+the current hedge positions times current market prices. If the value of
+the option is known as a function of hedging instrument prices then the
+<em>delta</em> hedge is the derivative of option value with respect to
+underlying prices.</p>
+<p>By the definition of derivative, this gives an approximate hedge over
+a short period of time.</p>
+<p>Scholes and Merton won the Sveriges Riksbank Prize in Economic
+Sciences in Memory of Alfred Nobel in 1997 “for a new method to
+determine the value of derivatives.” They showed the value of an option
+is the discounted expected option payoff under the risk-neutral measure.
+Their formula gives the option value making it possible to compute the
+delta hedge. The value of the option is the cost of setting up the
+initial hedge, assuming perfect replicaton.</p>
 <p>Every model specifies a <em>sample space</em> <span
 class="math inline">\Omega</span> of possible outcomes. B-S/M use the
 space of continuous functions on the interval <span
@@ -164,32 +220,19 @@ information is the partition of singletons <span
 class="math inline">{\{\{\omega\}\mid\omega\in\Omega\}}</span>. Partial
 information is knowing which <em>atom</em> in the partition <span
 class="math inline">\omega\in\Omega</span> belongs to.</p>
-<p>If <span class="math inline">\mathcal{A}</span> is a partition of
-<span class="math inline">\Omega</span> and <span
-class="math inline">X\colon\Omega\to\boldsymbol{{R}}</span> is a
-function, then <span class="math inline">X</span> is <span
+<p>If <span class="math inline">X\colon\Omega\to\boldsymbol{{R}}</span>
+is a function and If <span class="math inline">\mathcal{A}</span> is a
+partition of <span class="math inline">\Omega</span> then <span
+class="math inline">X</span> is <span
 class="math inline">\mathcal{A}</span>-<em>measurable</em> if and only
 if it is constant on each element of the partition.</p>
 <p><strong>Exercise</strong>. <em>Show <span
 class="math inline">X\colon\mathcal{A}\to\boldsymbol{{R}}</span> is a
 well-defined function</em>.</p>
 <p><em>Hint</em>: Show if <span class="math inline">\omega</span> and
-<span class="math inline">\omega&#39;</span> belong to the same element
-of the partition then <span class="math inline">X(\omega) =
+<span class="math inline">\omega&#39;</span> belong to the same atom of
+the partition then <span class="math inline">X(\omega) =
 X(\omega&#39;)</span>.</p>
-<p>B-S/M considered a dynamic hedge in the bond and stock that
-replicates an option payoff. The value, or mark-to-market, of a hedge at
-any time is the sum of the current hedge positions times current market
-prices. If the value of the option is known as a function of hedging
-instrument prices then the <em>delta</em> hedge is the derivative of
-option value with respect to underlying prices.</p>
-<p>Scholes and Merton won the Sveriges Riksbank Prize in Economic
-Sciences in Memory of Alfred Nobel in 1997 “for a new method to
-determine the value of derivatives.” They showed the value of an option
-is the discounted expected option payoff under the risk-neutral measure.
-Their formula gives the option value making it possible to compute the
-delta hedge. The value of the option is the cost of setting up the
-initial hedge, assuming perfect replicaton.</p>
 <p>Ross showed … <!--
 ## B-S/M
 
