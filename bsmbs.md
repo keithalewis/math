@@ -47,6 +47,12 @@ is necessary is the assumption that current asset values do not permit
 arbitrage. In particular, then, we do not even have to assume that the
 current index price is in equilibrium to correctly appraise the project.
 
+You may question whether "expectational mechanisms" are "irrelevant",
+"there is no need" for prices "to follow a diffusion process", "all
+that is necessary is the assumption that current asset values do not
+permit arbitrage", and "we do not even have to assume that the current
+index price is in equilibrium" is correct.
+
 My reading of "the stream $c$" is the stream of stock dividends. Ross
 was in the equity world at the time and assumed a jump in stock price
 corresponded to a dividend payment. This is an untenable definition.
@@ -79,33 +85,13 @@ where we assume $X_0 = (1, S_0)$_.
 B-S/M considered a dynamic hedge in the bond and stock that replicates
 a European option payoff. If the option pays $\nu(S_T)$
 at expiration $T$ we need to find a trading strategy with value
-$\nu(S_T)$ at $T$ and has no intermediate cash flows (_self-financing_).
-
-Let $\Delta_t = (M_t, N_t)$ be the amount held in the bond and stock
-so ${V_t = \Delta_t\cdot X_t = M_t R_t + N_t S_t}$ is the value of the position at time $t$.
-By the Ito calculus (dropping the $t$ subscript for now)
-${dV = M\, dR + R\,dM + dM\, dR + N\,dS + S\,dN + dN\,dS}$.
-Since $dR$ has no $dB$ term $dM\,dR = 0$.
-Rearranging terms give
-$$
-	dV = M(R + dR) + N(S + dS) - MR - NS + N\,dS.
-$$
-
-we wish to find self-financing positions
-with $V_T = \nu(S_T)$. The value of the option at time $t = 0$ is
-the cost of setting up the initial hedge $V_0$.
-
-When we change position $(M_t,N_t)$ at time $t$ to
-${(M_t + dM_t, N_t + dN_t)}$ at time ${t + dt}$ the cost
-is ${dM_t (R_t + dR_t) + dN_t (S_t + dS_t)}$ since
-we must purchase the changes in position at time $t + dt$ prices.
-The position is self-financing if this is 0.
-
-Let's further suppose $M_t = m(t, R_t, S_t)$ and $N_t = n(t, R_t, S_t)$
-are Ito diffusions for some sufficiently differentiable functions
-$m,n\colon [0,\infty)\times\RR\times\RR\to\RR$.
-The Ito formula allows us to compute $dV_t$.
-
+$\nu(S_T)$ at $T$ having no intermediate cash flows (_self-financing_).
+The value of the option is the cost of setting up the initial hedge
+which they show to be $E[\nu(S_T)D_T]$.
+See the Appendix for the derivation.
+In the Ross model $D_T$ is a measure and multiplying a
+measure by a function $\nu(S_T)D_T$ is also a measure
+and shows the value is $\nu(S_T)D_T(\Omega)$.
 The value, or mark-to-market, of a hedge at any time
 is the sum of the current hedge positions times current market prices.
 If the value of the option is known
@@ -291,6 +277,65 @@ The B-S/M model uses ${f = S_0e^{\rho t}}$ where $S_0$ is the initial stock pric
 ${s = \sigma\sqrt{t}}$ and the option value is discounted by ${e^{-\rho t}}$.
 
 __Exercise__. _Derive the classical B-S/M value and greeks_.
+
+## Appendix
+
+The original Black and Scholes paper had some mathematical mistakes.
+Robert Merton learned about Ito processes at Cal Tech and graciously
+waited to publish his mathematically correct version.
+
+Standard Brownian motion $(B_t)_{t\ge}$ is a stochastic
+process that is stationary, has independent increments, and
+$B_t$ is normal with mean 0 and variance $t$.
+
+__Exercise__. _Show if $B_1$ is standard normal then $B_t$
+is normal with mean 0 and variance 1_.
+
+The allowed trajectories of Brownian motion are the _sample space_ $\Omega = C[0,\infty)$,
+the set of continuous functions from $[0,\infty)$ to $\RR$.
+
+The stochastic differential equation $dX = \alpha\,dt + \beta\,dB$
+is shorthand for the _Ito process_ $dX_t(\omega) = \alpha(t,\omega)\,dt + \beta(t,\omega)\,dB_t(\omega)$
+where $\omega\mapsto \alpha(t,\omega)$ and $\omega\mapsto\beta(t,\omega)$
+depends only on the information available at time $t$: the trajectory
+$\omega([0,t])$.
+
+As with ordinary differential equations, we need an initial condition $X_0 = x_0$
+to determine the solution:
+$$
+	X_t(\omega) = x_0 + \int_0^t \alpha(s,\omega)\,ds
+		+ \int_0^t \beta(s,\omega)\,dB_s(\omega)
+$$
+The first integral is just the usual Riemann integral defined pointwise for each $\omega$.
+Let $\Delta t$ be a partition $0 = t_0 < t_1 < \cdots < t_n = t$ of $[0,t]$.
+$\int_0^t \alpha(s,\omega)\,ds = \
+
+The second integral is the Ito integral.
+
+
+Let $\Delta_t = (M_t, N_t)$ be the amount held in the bond and stock at time $t$
+so ${V_t = \Delta_t\cdot X_t = M_t R_t + N_t S_t}$ is the value of the position at time $t$.
+By the Ito calculus (dropping the $t$ subscript for now)
+${dV = M\, dR + R\,dM + dM\, dR + N\,dS + S\,dN + dN\,dS}$.
+Rearranging terms give
+$$
+	dV = dM(R + dR) + dN(S + dS) + M\,dR + N\,dS.
+$$
+
+we wish to find self-financing positions
+with $V_T = \nu(S_T)$. The value of the option at time $t = 0$ is
+the cost of setting up the initial hedge $V_0$.
+
+When we change position $(M_t,N_t)$ at time $t$ to
+${(M_t + dM_t, N_t + dN_t)}$ at time ${t + dt}$ the cost
+is ${dM_t (R_t + dR_t) + dN_t (S_t + dS_t)}$ since
+we must purchase the changes in position at time $t + dt$ prices.
+The position is self-financing if this is 0.
+
+Let's further suppose $M_t = m(t, R_t, S_t)$ and $N_t = n(t, R_t, S_t)$
+are Ito diffusions for some sufficiently differentiable functions
+$m,n\colon [0,\infty)\times\RR\times\RR\to\RR$.
+The Ito formula allows us to compute $dV_t$.
 
 
 ## References

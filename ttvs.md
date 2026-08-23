@@ -8,13 +8,23 @@ author: Keith A. Lewis
 If you studied Linear Algebra from Gilbert Strang @cite you
 learned about the vector space ${\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
 of $n$-tuples of real numbers. After the first week of class it may
-have dawned on you that are doomed to spending the rest of the
+have dawned on you that are now doomed to spending the rest of the
 semester doing tedious calculations involving "row" and "column" vectors.
 
 If you found that unsatisfying you might pick up the pompously titled
 "Vector Spaces Done Right" by Sheldon Axler. @cite It takes a modern axiomatic approach 
 that clarifies how scalar multiplication, vector addition, and
-their connection through distibutive laws clarify their structure. 
+their connection through distibutive laws clarify the structure
+of vector spaces and linear operators between them.
+
+Banchoff Wermer
+
+Halmos
+
+Peano
+
+Euclid
+
 There are many vector spaces that are not just $n$-tuples of numbers.
 
 Unlike Dicken's tale, there is a second vector space that has the same form as the first.
