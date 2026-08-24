@@ -34,8 +34,8 @@ Positive linear operators give rise to positive measures that can be
 divided by their total mass resulting in a "risk-neutral probability
 measure."  They are positive measures having mass 1, but are not the
 probability of anything.  There is no need for a so-called real world
-measure that gets immediately thrown out. Ross just gets down to the
-business of valuing, hedging, and managing the risk of _any_ instrument,
+measure that gets immediately thrown out. 
+His model works for _any_ collection of instruments,
 not just the bond, stock, and option B-S/M considered.
 
 > Let us stress again the power of these results. To begin with,
@@ -47,11 +47,13 @@ is necessary is the assumption that current asset values do not permit
 arbitrage. In particular, then, we do not even have to assume that the
 current index price is in equilibrium to correctly appraise the project.
 
-You may question whether "expectational mechanisms" are "irrelevant",
+Many experts in the field seem to have trouble casting off their cognitive anchor
+in the classical theory.
+Ross's claims "expectational mechanisms" are "irrelevant",
 "there is no need" for prices "to follow a diffusion process", "all
 that is necessary is the assumption that current asset values do not
 permit arbitrage", and "we do not even have to assume that the current
-index price is in equilibrium" is correct.
+index price is in equilibrium" follow from simple math.
 
 My reading of "the stream $c$" is the stream of stock dividends. Ross
 was in the equity world at the time and assumed a jump in stock price
@@ -77,7 +79,8 @@ by Paul [@Sam1965] prior to Black, Scholes and Merton.
 For example, the B-S/M model of a bond and a stock having prices
 $X_t = (R_t,S_t)$ and no dividends is
 $D_t = e^{-\rho t}P$ and $M_t = (1, e^{\sigma B_t - \sigma^2/2})P$
-where $P$ is Wiener measure and $(B_t)$ is standard Brownian motion.
+where $P$ is Wiener measure on $\Omega = C[0,\infty)$
+and $(B_t)$ is standard Brownian motion, $B_t(\omega) = \omega(t)$.
 
 __Exercise__. _Show $R_t = e^{\rho t}$ and $S_t = S_0e^{\rho_t + \sigma B_t - \sigma^2 t/2}$
 where we assume $X_0 = (1, S_0)$_.
@@ -85,13 +88,16 @@ where we assume $X_0 = (1, S_0)$_.
 B-S/M considered a dynamic hedge in the bond and stock that replicates
 a European option payoff. If the option pays $\nu(S_T)$
 at expiration $T$ we need to find a trading strategy with value
-$\nu(S_T)$ at $T$ having no intermediate cash flows (_self-financing_).
+$\nu(S_T)$ at $T$ having no intermediate cash flows.
 The value of the option is the cost of setting up the initial hedge
 which they show to be $E[\nu(S_T)D_T]$.
-See the Appendix for the derivation.
-In the Ross model $D_T$ is a measure and multiplying a
-measure by a function $\nu(S_T)D_T$ is also a measure
-and shows the value is $\nu(S_T)D_T(\Omega)$.
+See the [B-S/M](#b-sm) appendix for the derivation.
+
+Ross does not use probability measures.
+In the Ross model $D_T$ is just a positive measure. Multiplying a
+measure by a function, $\nu(S_T)D_T$, is also a measure
+and he shows the option value is $\nu(S_T)D_T(\Omega)$.
+
 The value, or mark-to-market, of a hedge at any time
 is the sum of the current hedge positions times current market prices.
 If the value of the option is known
@@ -99,18 +105,12 @@ as a function of hedging instrument prices then the _delta_ hedge is
 the derivative of option value with respect to underlying prices.
 
 By the definition of derivative, this gives an approximate hedge over
-a short period of time. 
+a short period of time. Traders only care about delta hedges. Their
+P\&L is the difference between the model value and the actual value
+produced by their hedge. Risk managers use higher order derivatives
+to empirically verify Taylor's formula.
 
-Scholes and Merton won the Sveriges Riksbank Prize in Economic Sciences
-in Memory of Alfred Nobel in 1997 "for a new method to determine the value of derivatives."
-They showed the value of an option is the discounted expected option payoff under
-the risk-neutral measure.
-Their formula gives the option value making it possible to compute the delta hedge.
-The value of the option is the cost of setting up the initial hedge, assuming
-perfect replicaton.
-
-
-
+## Simple Unified Model
 
 Every model specifies a _sample space_ $\Omega$ of possible outcomes.
 B-S/M use the space of continuous functions on the interval $[0, \infty)$.
@@ -134,70 +134,53 @@ __Exercise__. _Show $X\colon\AA\to\RR$ is a well-defined function_.
 _Hint_: Show if $\omega$ and $\omega'$ belong to the same atom
 of the partition then $X(\omega) = X(\omega')$.
 
+### Model
 
-Ross showed ...
-<!--
-## B-S/M
+Let $I$ be the set of market _instruments_ and $T$ be the set of _trading times_.
+We use $\AA_t$ for the partition of $\Omega$ representing information available at time $t\in T$.
+We assume $\AA_u$ is a _refinement_ of $\AA_t$ when $u > t$.
+This means every $A\in\AA_t$ is the union of atoms in $\AA_u$
+contained in $A$, $u > t$.
+Information increases over time.
 
-In this section we give a schematic review of Merton's mathematically correct
-derivation of their eponymous partial differential equation.
+### Market
 
-They assume the bond price satisfies $dR_t/R_t = \rho\,dt$ and
-stock price satisifes the stochastic differential equation
-$dS_t/S_t = \mu\,dt + \sigma\,dB_t$ where
-$(B_t)$ is standard Brownian motion. Mathematical proofs require the
-SDE be expressed as an Ito integral but we will get by with
-the _Ito calculus_ $(dt)^2 = 0$, $dt\,dB_t = dB_t\,dt = 0$, and $(dB_t)^2 = dt$.
+Every instrument has _prices_ and _cash flows_. We assume any amount
+can be bought or sold at the given price and cash flows accrue
+in proportion to the amount of the instrument held.
 
-Suppose $0 = t_0 < t_1 < \cdots t_n = t$. Define ${\Delta t_j = t_{j + 1} - t_j}$
-and ${\Delta t = \max_{0\le j < n} \Delta t_j}$.
+Prices and cash flows are functions $X_t,C_t\colon\AA_t\to\RR^I$ with
+values indexed by the set of market instruments. We assume prices
+are bounded and that cash flows are 0 except at a finite number of times,
+just like in the real world.
 
-__Exercise__. _Show $\sum_{0\le j < n} \Delta t_j = t$_.
+### Trading
 
-_Hint_: It is a telescoping sum.
+A _trading strategy_ is a sequence of stopping times 
+$\tau_0 < \tau_1 < \cdots \tau_n$ and trading sizes
+$\Gamma_j\colon\AA_{\tau_j}\colon\RR^I$.
+A stopping time is a function $\tau\colon\Omega\to T$ satisfying
+${\{\omega\mid\tau(\omega) = t\}}$ is a union of atoms of $\AA_t$ for all $t\in T$.
+Stopping at time $t$ depends only on the information available at time $t$.
+The partition corresponding to a stopping time is ${\AA_\tau = \cup\{\{\tau = t\}\mid t\in T\}}$.
 
-__Exercise__. [$(dt)^2 = 0$] _Show $\sum_{0\le j < n} (\Delta t_j)^2$ 
-goes to zero as $\Delta t$ goes to zero_.
+__Exercise__. _Show $\AA_\tau$ is a partition of $\Omega$ for any stopping time $\tau$_.
 
-_Hint_: Start with $\sum_{0\le j < n} (\Delta t_j)^2 \le \Delta t \sum_{0\le j < n} \Delta t_j$
+Trading sizes accumulate to positions $\Delta_t = \sum_{\tau_j < t} \Gamma_j$.
+Note the strict inequality. It takes some time for a trade executed at $t$ to settle.
+To simplify formulas we write ${\Delta_t = \sum_{s < t} \Gamma_s}$ where
+$\Gamma_s = \Gamma_j$ when $s = \tau_j$ and is zero otherwise.
 
-__Exercise__. [$dt\,dB_t = 0$] _Show $E[\sum_{0\le j < n} \Delta t_j\,\Delta B_j] = 0$ 
-and $\Var(\sum_{0\le j < n} \Delta t_j\,\Delta B_j)$
-goes to zero as $\Delta t$ goes to zero_.
+The trading account accrues cash flows proportional to the current
+position and debit the amount paid for trades just executed.
+The _amount_ showing up in the trading account at time $t$ is
+${A_t = \Delta_t\cdot X_t - \Gamma_t\cdot X_t}$.
 
-_Hint_: Use $\Var(\Delta B_j) = \Delta t_j$ and $(\Delta B_j)$ are independent.
+The _value_, or _mark-to-market_, is the amount that could
+be obtained from liquidating the existing position and trades just done
+at current market prices: ${V_t = (\Delta + \Gamma_t)\cdot X_t}$.
 
-__Exercise__. [$(dB_t)^2 = dt$] _Show $E[\sum_{0\le j < n} (\Delta B_j)^2] = t$ 
-and $\Var(\sum_{0\le j < n} (\Delta B_j)^2)$
-goes to zero as $\Delta t$ goes to zero_.
 
-_Hint_: You will need to compute $\Var(\Delta B_t^2) = E[\Delta B_t^4] - E[\Delta B_t^2]^2$.
-Use $E[e^{sX}] = e^{s^2/2}$ if $X$ is standard normal and read off the
-moments using $E[e^{sX}] = \sum_0^\infty s^n E[X^n]/n!$.
-
-We need the facts that if $X$ and $Y$ are Ito processes then
-so are $aX$ for $a\in\RR$, $X + Y$, and $XY$.
-Recall ${d(XY) = (X + dX)(Y + dX) - XY = X\,dY + Y\,dX + dX\,dY}$.
-
-Ito showed that $Y_t = f(t,X_t)$ is also an Ito process that satisfies
-$$
-	dY_t = \partial_t f(t, X_t) + \partial_x f(t, X_t) + \frac{1}{2} \partial_x^2 f(t, X_t)
-$$
-if the partial derivatives of $f$ satisfy certain technical conditions.
-
-Merton considered strategies where the position held in each instrument
-depended on the time where 
-$M_t = m(t, R_t, S_t)$ is the amount held in the bond and
-$N_t = n(t, R_t, S_t)$ is the amount held in the stock at time $t$. The value of the
-position at $t$ is $V_t = M_t R_t + N_t S_t$.
-
-Dropping the $t$ subscript and using the Ito calculus
-$$
-\begin{aligned}
-$dV &= (M\,dR + R\,dM + dM\,dR) + (N\,dS + S\,dN + dN\,dS \\
-\end{aligned}
-$$
--->
 
 ## Greeks
 
@@ -237,7 +220,7 @@ $$
 \partial_f^2 v = -\partial_x\Psi(x,s)\partial_f x = \partial_x\Psi(x,s)/fs.
 $$
 
-Option _vega_ is the derivative of value with respect to $s$
+Option _vega_ is the derivative of value with respect to vol
 $$
 \partial_s v = E[-1(F\le k)\partial_s F] = -E[1(F\le k)F(X - \kappa'(s))]
 $$
@@ -337,6 +320,89 @@ are Ito diffusions for some sufficiently differentiable functions
 $m,n\colon [0,\infty)\times\RR\times\RR\to\RR$.
 The Ito formula allows us to compute $dV_t$.
 
+## B-S/M
+
+In this section we give a schematic review of Merton's mathematically correct
+derivation of their eponymous partial differential equation.
+
+They assume the bond price satisfies $dR_t/R_t = \rho\,dt$ and
+stock price satisfies the stochastic differential equation
+$dS_t/S_t = \mu\,dt + \sigma\,dB_t$ where $\rho$, $\mu$, and $\sigma$ are constant and
+$(B_t)$ is standard Brownian motion. Mathematically rigorous proofs require the
+SDE be expressed as an Ito integral.
+but we will get by with
+the _Ito calculus_ $(dt)^2 = 0$, $dt\,dB_t = dB_t\,dt = 0$, and $(dB_t)^2 = dt$.
+
+Suppose $0 = t_0 < t_1 < \cdots t_n = t$. Define ${\Delta t_j = t_{j + 1} - t_j}$
+and ${\Delta t = \max_{0\le j < n} \Delta t_j}$.
+
+__Exercise__. _Show $\sum_{0\le j < n} \Delta t_j = t$_.
+
+_Hint_: It is a telescoping sum.
+
+__Exercise__. [$(dt)^2 = 0$] _Show $\sum_{0\le j < n} (\Delta t_j)^2$ 
+goes to zero as $\Delta t$ goes to zero_.
+
+_Hint_: Start with $\sum_{0\le j < n} (\Delta t_j)^2 \le \Delta t \sum_{0\le j < n} \Delta t_j$
+
+__Exercise__. [$dt\,dB_t = 0$] _Show $E[\sum_{0\le j < n} \Delta t_j\,\Delta B_j] = 0$ 
+and $\Var(\sum_{0\le j < n} \Delta t_j\,\Delta B_j)$
+goes to zero as $\Delta t$ goes to zero_.
+
+_Hint_: Use $\Var(\Delta B_j) = \Delta t_j$ and $(\Delta B_j)$ are independent.
+
+__Exercise__. [$(dB_t)^2 = dt$] _Show $E[\sum_{0\le j < n} (\Delta B_j)^2] = t$ 
+and $\Var(\sum_{0\le j < n} (\Delta B_j)^2)$
+goes to zero as $\Delta t$ goes to zero_.
+
+_Hint_: You will need to compute $\Var(\Delta B_t^2) = E[\Delta B_t^4] - E[\Delta B_t^2]^2$.
+Use $E[e^{sX}] = e^{s^2/2}$ if $X$ is standard normal and read off the
+moments using $E[e^{sX}] = \sum_{n=0}^\infty s^n E[X^n]/n!$.
+
+We need the facts that if $X$ and $Y$ are Ito processes then
+so are $aX$ for $a\in\RR$, $X + Y$, and $XY$.
+Recall ${d(XY) = (X + dX)(Y + dX) - XY = X\,dY + Y\,dX + dX\,dY}$.
+
+Ito showed that $Y_t = f(t,X_t)$ is an Ito diffusion that satisfies
+$$
+	dY_t = f_t(t, X_t) + f_x(t, X_t) + \frac{1}{2} f_{xx}(t, X_t)
+$$
+if the partial derivatives of $f$ satisfy certain technical conditions.
+This can be generalized to vector valued processes $X = (X_i)$.
+$$
+	dY_t = f_t(t, X_t) + \sum_i f_{x_i}(t, X_t) + \sum_{i,j} \frac{1}{2} f_{x_ix_j}(t, X_t)
+$$
+
+Merton considered strategies where the position held in each instrument
+depended on the time where 
+$M_t = m(t, R_t, S_t)$ is the amount held in the bond and
+$N_t = n(t, R_t, S_t)$ is the amount held in the stock at time $t$. The value of the
+position at $t$ is $V_t = M_t R_t + N_t S_t$.
+
+Dropping the $t$ subscript and using the Ito calculus
+$$
+\begin{aligned}
+dV &= (M\,dR + R\,dM + dM\,dR) + (N\,dS + S\,dN + dN\,dS \\
+	&= dM(R + dR) + dN(S + dS) + M\,dR + N\,dS \\
+\end{aligned}
+$$
+The first two terms in the last equation are the cost of adjusting the
+bond and stock hedge at time $t + dt$. A trading strategy is
+_self-financing_ if this is 0.
+
+Note $M\,dR = (V - NS)\rho\,dt$ since $M = (V - NS)/R$.
+Using the Ito formula for $V_t = v(r, R_t, S_t)$ we have
+$$
+\begin{aligned}
+	dV_t &= (V_t - N_t S_t)\rho\,dt + N_t\,dS_t \\
+		&= V_t\,dt + v_r\,dR + v_s\,dS + \frac{1}{2}v_{ss} (dS_t)^2 \\
+		&= (v_t + \rho R_t v_r + \frac{1}{2}\sigma^2 S_t^2 v_{ss})\,dt + v_s\,dS_t. \\
+\end{aligned}
+$$
+Equating the $dS_t$ terms gives the stock hedge $N_t = v_s$ and equating the $dt$ terms gives
+$$
+	(v - s v_s)\rho = v_t + \rho r v_r + \frac{1}{2}\sigma^2 s^2 v_{ss}.
+$$
 
 ## References
 
