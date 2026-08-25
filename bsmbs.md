@@ -23,7 +23,7 @@ undermines academic credibility.
 Stephen [@Ros1978] came up with a simpler and more general theory than
 B-S/M for valuing derivatives.  He showed their
 result follows from geometry. There is no need for probability theory,
-Ito processes, or partial differential equations.
+Itô processes, or partial differential equations.
 Ross used the Hahn-Banach theorem to show
 
 > If there are no arbitrage opportunities in a market, then
@@ -67,14 +67,27 @@ with owning instruments leads to an even more powerful theory.
 
 Every arbitrage-free model of prices $(X_t)$ and cash flows $(C_t)$ has the form
 $$
-	X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
+\tag{1}	X_t D_t = X_0 M_t - \sum_{s\le t} C_s D_s
 $$
 where $(D_t)$ are positive (valuation) measures and $(M_t)$ is a
 vector-valued martingale measure indexed by market instruments.
 
-If there are no cash flows then this can be interpreted as appropriately
+__Exercise__. _Show_
+$$
+\tag{2}	X_t D_t = (X_u D_u + \sum_{t < s\le u} C_s D_s)|\AA_t.
+$$
+
+_Hint_: Replace $X_u D_u$ by (1) and cancel terms in the sum.
+Use the martingale measure condition $M_u|\AA_t = M_t$, $u \ge t$.
+
+If there are no cash flows then (2) can be interpreted as appropriately
 discounted prices must be a martingale. This was pointed out
 by Paul [@Sam1965] prior to Black, Scholes and Merton.
+
+If $X_u D_u$ goes to 0 as $u$ goes to infinity then (2) can be
+interpreted as price is the present value of appropriately
+discounted future cash flows. This was pointed out
+in _Securities Analysis_ by [@GraDod1934].
 
 For example, the B-S/M model of a bond and a stock having prices
 $X_t = (R_t,S_t)$ and no dividends is
@@ -97,6 +110,13 @@ Ross does not use probability measures.
 In the Ross model $D_T$ is just a positive measure. Multiplying a
 measure by a function, $\nu(S_T)D_T$, is also a measure
 and he shows the option value is $\nu(S_T)D_T(\Omega)$.
+
+Instead of conditional expectation we use the simpler notion of
+restriction of measure.
+
+__Exercise__. _Show $Y = E[X|\AA]$ if and only if $Y(P|\AA) = (XP)|\AA$_.
+
+??? Define terms !!!
 
 The value, or mark-to-market, of a hedge at any time
 is the sum of the current hedge positions times current market prices.
@@ -177,9 +197,18 @@ The _amount_ showing up in the trading account at time $t$ is
 ${A_t = \Delta_t\cdot X_t - \Gamma_t\cdot X_t}$.
 
 The _value_, or _mark-to-market_, is the amount that could
-be obtained from liquidating the existing position and trades just done
+be obtained from liquidating the existing positions and trades just done
 at current market prices: ${V_t = (\Delta + \Gamma_t)\cdot X_t}$.
+No actual trading is involved with calculating the value. 
+The profit and loss over a period is the diffenence in values.
 
+### Arbitrage
+
+Arbitrage is a trading strategy the makes money on the first trade and never
+loses money until it is closed out (position is zero).
+This means $A_{\tau_0} > 0$, $A_t \ge0$ for $t > \tau_0$, and $\sum_{j=0}^n \Gamma_j = 0$.
+
+If $(D_t)$ are positive measures on $\AA_t$, $t\in T$, then
 
 
 ## Greeks
@@ -261,77 +290,26 @@ ${s = \sigma\sqrt{t}}$ and the option value is discounted by ${e^{-\rho t}}$.
 
 __Exercise__. _Derive the classical B-S/M value and greeks_.
 
-## Appendix
-
-The original Black and Scholes paper had some mathematical mistakes.
-Robert Merton learned about Ito processes at Cal Tech and graciously
-waited to publish his mathematically correct version.
-
-Standard Brownian motion $(B_t)_{t\ge}$ is a stochastic
-process that is stationary, has independent increments, and
-$B_t$ is normal with mean 0 and variance $t$.
-
-__Exercise__. _Show if $B_1$ is standard normal then $B_t$
-is normal with mean 0 and variance 1_.
-
-The allowed trajectories of Brownian motion are the _sample space_ $\Omega = C[0,\infty)$,
-the set of continuous functions from $[0,\infty)$ to $\RR$.
-
-The stochastic differential equation $dX = \alpha\,dt + \beta\,dB$
-is shorthand for the _Ito process_ $dX_t(\omega) = \alpha(t,\omega)\,dt + \beta(t,\omega)\,dB_t(\omega)$
-where $\omega\mapsto \alpha(t,\omega)$ and $\omega\mapsto\beta(t,\omega)$
-depends only on the information available at time $t$: the trajectory
-$\omega([0,t])$.
-
-As with ordinary differential equations, we need an initial condition $X_0 = x_0$
-to determine the solution:
-$$
-	X_t(\omega) = x_0 + \int_0^t \alpha(s,\omega)\,ds
-		+ \int_0^t \beta(s,\omega)\,dB_s(\omega)
-$$
-The first integral is just the usual Riemann integral defined pointwise for each $\omega$.
-Let $\Delta t$ be a partition $0 = t_0 < t_1 < \cdots < t_n = t$ of $[0,t]$.
-$\int_0^t \alpha(s,\omega)\,ds = \
-
-The second integral is the Ito integral.
-
-
-Let $\Delta_t = (M_t, N_t)$ be the amount held in the bond and stock at time $t$
-so ${V_t = \Delta_t\cdot X_t = M_t R_t + N_t S_t}$ is the value of the position at time $t$.
-By the Ito calculus (dropping the $t$ subscript for now)
-${dV = M\, dR + R\,dM + dM\, dR + N\,dS + S\,dN + dN\,dS}$.
-Rearranging terms give
-$$
-	dV = dM(R + dR) + dN(S + dS) + M\,dR + N\,dS.
-$$
-
-we wish to find self-financing positions
-with $V_T = \nu(S_T)$. The value of the option at time $t = 0$ is
-the cost of setting up the initial hedge $V_0$.
-
-When we change position $(M_t,N_t)$ at time $t$ to
-${(M_t + dM_t, N_t + dN_t)}$ at time ${t + dt}$ the cost
-is ${dM_t (R_t + dR_t) + dN_t (S_t + dS_t)}$ since
-we must purchase the changes in position at time $t + dt$ prices.
-The position is self-financing if this is 0.
-
-Let's further suppose $M_t = m(t, R_t, S_t)$ and $N_t = n(t, R_t, S_t)$
-are Ito diffusions for some sufficiently differentiable functions
-$m,n\colon [0,\infty)\times\RR\times\RR\to\RR$.
-The Ito formula allows us to compute $dV_t$.
-
 ## B-S/M
 
-In this section we give a schematic review of Merton's mathematically correct
+The original Black and Scholes paper had some mathematical mistakes
+and unnecessary assumptions.
+Robert Merton learned about Itô processes as a student at Caltech and
+graciously waited to publish, back in the day when gentlemen scholars
+respected priority.
+
+We give a schematic review of Merton's mathematically correct
 derivation of their eponymous partial differential equation.
 
 They assume the bond price satisfies $dR_t/R_t = \rho\,dt$ and
 stock price satisfies the stochastic differential equation
 $dS_t/S_t = \mu\,dt + \sigma\,dB_t$ where $\rho$, $\mu$, and $\sigma$ are constant and
-$(B_t)$ is standard Brownian motion. Mathematically rigorous proofs require the
-SDE be expressed as an Ito integral.
+$(B_t)$ is standard Brownian motion.
+
+Mathematically rigorous proofs require the SDE be expressed as an Itô integral.
+
 but we will get by with
-the _Ito calculus_ $(dt)^2 = 0$, $dt\,dB_t = dB_t\,dt = 0$, and $(dB_t)^2 = dt$.
+the _Itô calculus_ $(dt)^2 = 0$, $dt\,dB_t = dB_t\,dt = 0$, and $(dB_t)^2 = dt$.
 
 Suppose $0 = t_0 < t_1 < \cdots t_n = t$. Define ${\Delta t_j = t_{j + 1} - t_j}$
 and ${\Delta t = \max_{0\le j < n} \Delta t_j}$.
@@ -359,11 +337,11 @@ _Hint_: You will need to compute $\Var(\Delta B_t^2) = E[\Delta B_t^4] - E[\Delt
 Use $E[e^{sX}] = e^{s^2/2}$ if $X$ is standard normal and read off the
 moments using $E[e^{sX}] = \sum_{n=0}^\infty s^n E[X^n]/n!$.
 
-We need the facts that if $X$ and $Y$ are Ito processes then
+We need the facts that if $X$ and $Y$ are Itô processes then
 so are $aX$ for $a\in\RR$, $X + Y$, and $XY$.
 Recall ${d(XY) = (X + dX)(Y + dX) - XY = X\,dY + Y\,dX + dX\,dY}$.
 
-Ito showed that $Y_t = f(t,X_t)$ is an Ito diffusion that satisfies
+Itô showed that $Y_t = f(t,X_t)$ is an Itô diffusion that satisfies
 $$
 	dY_t = f_t(t, X_t) + f_x(t, X_t) + \frac{1}{2} f_{xx}(t, X_t)
 $$
@@ -379,7 +357,7 @@ $M_t = m(t, R_t, S_t)$ is the amount held in the bond and
 $N_t = n(t, R_t, S_t)$ is the amount held in the stock at time $t$. The value of the
 position at $t$ is $V_t = M_t R_t + N_t S_t$.
 
-Dropping the $t$ subscript and using the Ito calculus
+Dropping the $t$ subscript and using the Itô calculus
 $$
 \begin{aligned}
 dV &= (M\,dR + R\,dM + dM\,dR) + (N\,dS + S\,dN + dN\,dS \\
@@ -391,7 +369,7 @@ bond and stock hedge at time $t + dt$. A trading strategy is
 _self-financing_ if this is 0.
 
 Note $M\,dR = (V - NS)\rho\,dt$ since $M = (V - NS)/R$.
-Using the Ito formula for $V_t = v(r, R_t, S_t)$ we have
+Using the Itô formula for $V_t = v(r, R_t, S_t)$ we have
 $$
 \begin{aligned}
 	dV_t &= (V_t - N_t S_t)\rho\,dt + N_t\,dS_t \\
