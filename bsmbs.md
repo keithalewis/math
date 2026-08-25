@@ -16,9 +16,14 @@ Its many limitations and defects have been extensively documented but
 their assumption of continuous time trading is particularly problematic.
 Traders can only execute a finite number of trades to hedge an option
 and want to know when, how much, and the risk involved.  B-S/M only
-answers the how much question.  Telling a trader the answer to when is
+answers the 'how much' question.  Telling a trader the answer to 'when' is
 "continuously" and then claim the risk is zero
 undermines academic credibility.
+
+The good news is that there is a simple and mathematically rigorous 
+model to enable progress on these fundamental issues.
+
+## Ross
 
 Stephen [@Ros1978] came up with a simpler and more general theory than
 B-S/M for valuing derivatives.  He showed their
@@ -60,7 +65,8 @@ was in the equity world at the time and assumed a jump in stock price
 corresponded to a dividend payment. This is an untenable definition.
 Stocks "jump" between market close
 and market open with no associated cash flow.  Fixed income instruments
-are defined by their coupon cash flows.
+are defined by their cash flows. Futures always have price 0 and
+periodic cash flows determined by the change in market quotes.
 
 Replacing $c$ with cash flows $(C_t)$ received at time $t$ associated
 with owning instruments leads to an even more powerful theory.
@@ -114,10 +120,6 @@ and he shows the option value is $\nu(S_T)D_T(\Omega)$.
 Instead of conditional expectation we use the simpler notion of
 restriction of measure.
 
-__Exercise__. _Show $Y = E[X|\AA]$ if and only if $Y(P|\AA) = (XP)|\AA$_.
-
-??? Define terms !!!
-
 The value, or mark-to-market, of a hedge at any time
 is the sum of the current hedge positions times current market prices.
 If the value of the option is known
@@ -153,6 +155,14 @@ __Exercise__. _Show $X\colon\AA\to\RR$ is a well-defined function_.
 
 _Hint_: Show if $\omega$ and $\omega'$ belong to the same atom
 of the partition then $X(\omega) = X(\omega')$.
+
+Instead of using conditional expectation as in the classical theory
+we use the much simple concept of restriction of measure.
+
+__Exercise__. _Show $Y = E[X|\AA]$ if and only if $Y(P|\AA) = (XP)|\AA$_.
+
+_Hint_: Recall $Y = E[X|\AA]$ if and only if $Y$ is $\AA$-measurable and
+$E[Y1_A] = E[X1_A]$ for all $A\in\AA$.
 
 ### Model
 
