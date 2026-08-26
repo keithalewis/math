@@ -1,5 +1,5 @@
 ---
-title: Why not Black-Scholes/Merton?
+title: Better than Black-Scholes
 author: Keith A. Lewis
 classoption: fleqn
 fleqn: true
@@ -9,6 +9,32 @@ fleqn: true
 \newcommand\Var{\operatorname{Var}}
 \newcommand\Cov{\operatorname{Cov}}
 \renewcommand\AA{\mathcal{A}}
+
+There is a theory for valuing, hedging, and measuring the risk of
+any collection of instruments that generalize the [@BlaSch1973] and
+[@Mer1973] model. Using the Hahn-Banach theorem [@Ros1978] showed
+
+> If there are no arbitrage opportunities in a market, then
+there must exist a (not generally unique) positive linear operator that
+can be used to value all marketed assets.
+
+He used this result to establish the Modigliani-Miller theorem
+and a resolution to the closed-end mutual fund paradox among
+other results.
+
+> Let us stress again the power of these results. To begin with,
+expectational mechanisms to describe how we anticipate the index, $X_t$,
+will behave are irrelevant. Furthermore, there is no need for $X_t$ to
+follow a diffusion process to apply the usual option analysis or, for
+that matter, for the stream $c$ to follow any specific process. All that
+is necessary is the assumption that current asset values do not permit
+arbitrage. In particular, then, we do not even have to assume that the
+current index price is in equilibrium to correctly appraise the project.
+
+Ross seemed to realize the difficulty he faced communicating this.
+
+> I believe that most of these are well known (at least at some level of consciousness),
+but the failure to understand either their universality or their applicability is endemic.
 
 I am writing this piece to convince you the [@BlaSch1973] and [@Mer1973]
 model for valuing options is untenable for describing actual trading.
@@ -299,6 +325,10 @@ The B-S/M model uses ${f = S_0e^{\rho t}}$ where $S_0$ is the initial stock pric
 ${s = \sigma\sqrt{t}}$ and the option value is discounted by ${e^{-\rho t}}$.
 
 __Exercise__. _Derive the classical B-S/M value and greeks_.
+
+## Remarks
+
+Commodity contracts -- storage costs
 
 ## B-S/M
 
