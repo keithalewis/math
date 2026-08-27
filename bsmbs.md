@@ -18,9 +18,8 @@ any collection of instruments that generalize the [@BlaSch1973] and
 there must exist a (not generally unique) positive linear operator that
 can be used to value all marketed assets.
 
-He used this result to establish the Modigliani-Miller theorem
-and a resolution to the closed-end mutual fund paradox among
-other results.
+He used this result to establish the Modigliani-Miller capital structure theorem
+and a resolution to the closed-end mutual fund paradox, among other results.
 
 > Let us stress again the power of these results. To begin with,
 expectational mechanisms to describe how we anticipate the index, $X_t$,
@@ -36,31 +35,24 @@ Ross seemed to realize the difficulty he faced communicating this.
 > I believe that most of these are well known (at least at some level of consciousness),
 but the failure to understand either their universality or their applicability is endemic.
 
-I am writing this piece to convince you the [@BlaSch1973] and [@Mer1973]
-model for valuing options is untenable for describing actual trading.
-Its many limitations and defects have been extensively documented but
-their assumption of continuous time trading is particularly problematic.
-Traders can only execute a finite number of trades to hedge an option
-and want to know when, how much, and the risk involved.  B-S/M only
-answers the 'how much' question.  Telling a trader the answer to 'when' is
-"continuously" and then claim the risk is zero
-undermines academic credibility.
+My reading of "the stream $c$" is the stream of stock dividends. Ross
+was in the equity world at the time and assumed a jump in stock price
+corresponded to a dividend payment. This is an untenable definition.
+Stocks "jump" between market close
+and market open with no associated cash flow.  Fixed income instruments
+are defined by their cash flows. Futures always have price 0 and
+periodic cash flows determined by the change in market quotes.
+A derivative is a contract specifying the cash flows the seller
+is obligated to make to the buyer.
 
-The good news is that there is a simple and mathematically rigorous 
+Identifying $c$ with cash flows $(C_t)$ received at time $t$ associated
+with owning instruments leads to a simple and mathematically rigorous 
 model to enable progress on these fundamental issues.
 
 ## Ross
 
-Stephen [@Ros1978] came up with a simpler and more general theory than
-B-S/M for valuing derivatives.  He showed their
-result follows from geometry. There is no need for probability theory,
+Stephen [@Ros1978] showed is no need for probability theory,
 Itô processes, or partial differential equations.
-Ross used the Hahn-Banach theorem to show
-
-> If there are no arbitrage opportunities in a market, then
-there must exist a (not generally unique) positive linear operator that
-can be used to value all marketed assets.
-
 Positive linear operators give rise to positive measures that can be
 divided by their total mass resulting in a "risk-neutral probability
 measure."  They are positive measures having mass 1, but are not the
@@ -85,17 +77,6 @@ Ross's claims "expectational mechanisms" are "irrelevant",
 that is necessary is the assumption that current asset values do not
 permit arbitrage", and "we do not even have to assume that the current
 index price is in equilibrium" follow from simple math.
-
-My reading of "the stream $c$" is the stream of stock dividends. Ross
-was in the equity world at the time and assumed a jump in stock price
-corresponded to a dividend payment. This is an untenable definition.
-Stocks "jump" between market close
-and market open with no associated cash flow.  Fixed income instruments
-are defined by their cash flows. Futures always have price 0 and
-periodic cash flows determined by the change in market quotes.
-
-Replacing $c$ with cash flows $(C_t)$ received at time $t$ associated
-with owning instruments leads to an even more powerful theory.
 
 Every arbitrage-free model of prices $(X_t)$ and cash flows $(C_t)$ has the form
 $$
