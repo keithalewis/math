@@ -335,11 +335,50 @@ Commodity contracts -- storage costs
 The original Black and Scholes paper had some mathematical mistakes
 and unnecessary assumptions.
 Robert Merton learned about Itô processes as a student at Caltech and
-graciously waited to publish, back in the day when gentlemen scholars
+graciously waited to publish his rigorous derivation, back in the day when gentlemen scholars
 respected priority.
 
 We give a schematic review of Merton's mathematically correct
-derivation of their eponymous partial differential equation.
+derivation of their eponymous partial differential equation
+to compare with Ross's theory.
+
+We assume you have spent some time learning about the sample
+space of continuous functions
+$\Omega = C[0,\infty) = \{\omega\colon[0,\infty)\to\RR\}$
+and Wiener measure on that space.
+
+Wiener's original definition of Brownian motion was
+$$
+	B_t = \sum_{n = 1}^\infty \xi_n \frac{\sin nt\pi}{n\pi}
+$$
+where $(\xi_n)$ are independent standard normal random variables.
+It was a mathematical feat to prove $B_t$ is almost everywhere
+continuous. [@cite]
+
+Standard Brownian motion is defined by $B_t\colon\Omega\to\RR$ by $B_t(\omega) = \omega(t)$.
+Paul Lévy proved every stochastic process that is stationary with independent increments
+that are normally distributed has the form $X_t = \mu + \sigma B_t$ for some
+constants $\mu,\sigma\in\RR$.
+
+A stochastic process $(X_t)_{t\ge0}$ is determined by its
+joint cumulative distribution function
+$F_{t_0,\ldots,t_n)(x_0,\ldots, x_n) = P(X_{t_0} \le x_0,\ldots, X_{t_n}\le t_n)$.
+It is astounding Lévy found simple criteria for showing this can be reduced to two real numbers.
+
+He also showed if a stochastic process is stationary with independent increments
+it is completely determined by its distribution at a single time and its
+distribution is infinitely divisible
+
+A random variable $X$ is _infinitely divisible_ if for any $n\in\NN$
+$X$ has the same law as X_1 + \cdots + X_n$ where $(X_i)$ are independent have have
+the same law.
+
+Kolmogorov showed if for any $n\in\NN$ $X = X_1 + \cdots + X_n$
+where $X_i$ have finite variance, have the same distribution, and are independent then
+$$
+	\log E[e^{sX}] = \gamma s + \int_{-\infty}^\infty K_x(s)\,dG(s)
+$$
+where $K_x(s) = (e^{sx} - 1 - sx)/s^2 = \sum_{k=2}^\infty s^{n-2}x^n/n!$.
 
 They assume the bond price satisfies $dR_t/R_t = \rho\,dt$ and
 stock price satisfies the stochastic differential equation
