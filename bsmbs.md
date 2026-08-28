@@ -18,7 +18,7 @@ any collection of instruments that generalize the [@BlaSch1973] and
 there must exist a (not generally unique) positive linear operator that
 can be used to value all marketed assets.
 
-He used this result to establish the Modigliani-Miller capital structure theorem
+He used this to establish the Modigliani-Miller capital structure theorem
 and a resolution to the closed-end mutual fund paradox, among other results.
 
 > Let us stress again the power of these results. To begin with,
@@ -30,24 +30,35 @@ is necessary is the assumption that current asset values do not permit
 arbitrage. In particular, then, we do not even have to assume that the
 current index price is in equilibrium to correctly appraise the project.
 
-Ross seemed to realize the difficulty he faced communicating this.
+Ross seemed to realize the difficulty he would face trying to communicating this.
 
 > I believe that most of these are well known (at least at some level of consciousness),
 but the failure to understand either their universality or their applicability is endemic.
 
-My reading of "the stream $c$" is the stream of stock dividends. Ross
-was in the equity world at the time and assumed a jump in stock price
-corresponded to a dividend payment. This is an untenable definition.
-Stocks "jump" between market close
-and market open with no associated cash flow.  Fixed income instruments
+Expectation mechanisms are irrelevant? No need for prices to follow a
+diffusion process? No need for equilibrium?
+Experts in the field seem to have trouble casting off their cognitive anchor
+in the classical theory.
+
+Ross assumed a jump in stock price corresponded to a dividend payment.
+This is an untenable definition.  Stocks "jump" between market close
+and market open with no associated cash flow, not to mention they
+"jump" by an integral multiple of the tick size every time their
+price moves. Fixed income instruments
 are defined by their cash flows. Futures always have price 0 and
 periodic cash flows determined by the change in market quotes.
 A derivative is a contract specifying the cash flows the seller
 is obligated to make to the buyer.
 
-Identifying $c$ with cash flows $(C_t)$ received at time $t$ associated
-with owning instruments leads to a simple and mathematically rigorous 
-model to enable progress on these fundamental issues.
+We use $(C_t)$ to denote the cash flows received at time $t$ associated
+with owning an instrument. This leads to a simple and mathematically rigorous 
+model to enable progress on the issues of when and how much to trade,
+and how risky that is.
+
+B-S/M answers the question of how much to trade. Their answer to
+when to trade is "continuously" and claim the hedge is riskless.
+This note in an attempt to provide a not obviously wrong answer
+and exhort readers to impove upon it.
 
 ## Ross
 
@@ -60,23 +71,6 @@ probability of anything.  There is no need for a so-called real world
 measure that gets immediately thrown out. 
 His model works for _any_ collection of instruments,
 not just the bond, stock, and option B-S/M considered.
-
-> Let us stress again the power of these results. To begin with,
-expectational mechanisms to describe how we anticipate the index, $X_t$,
-will behave are irrelevant. Furthermore, there is no need for $X_t$ to
-follow a diffusion process to apply the usual option analysis or, for
-that matter, for the stream $c$ to follow any specific process. All that
-is necessary is the assumption that current asset values do not permit
-arbitrage. In particular, then, we do not even have to assume that the
-current index price is in equilibrium to correctly appraise the project.
-
-Many experts in the field seem to have trouble casting off their cognitive anchor
-in the classical theory.
-Ross's claims "expectational mechanisms" are "irrelevant",
-"there is no need" for prices "to follow a diffusion process", "all
-that is necessary is the assumption that current asset values do not
-permit arbitrage", and "we do not even have to assume that the current
-index price is in equilibrium" follow from simple math.
 
 Every arbitrage-free model of prices $(X_t)$ and cash flows $(C_t)$ has the form
 $$
@@ -91,10 +85,11 @@ $$
 $$
 
 _Hint_: Replace $X_u D_u$ by (1) and cancel terms in the sum.
-Use the martingale measure condition $M_u|\AA_t = M_t$, $u \ge t$.
+Use the martingale measure condition $M_u|\AA_t = M_t$, $u \ge t$
+where the vertical bar indicates restriction of a measure.
 
 If there are no cash flows then (2) can be interpreted as appropriately
-discounted prices must be a martingale. This was pointed out
+discounted prices are a martingale. This was pointed out
 by Paul [@Sam1965] prior to Black, Scholes and Merton.
 
 If $X_u D_u$ goes to 0 as $u$ goes to infinity then (2) can be
@@ -108,8 +103,8 @@ $D_t = e^{-\rho t}P$ and $M_t = (1, e^{\sigma B_t - \sigma^2/2})P$
 where $P$ is Wiener measure on $\Omega = C[0,\infty)$
 and $(B_t)$ is standard Brownian motion, $B_t(\omega) = \omega(t)$.
 
-__Exercise__. _Show $R_t = e^{\rho t}$ and $S_t = S_0e^{\rho_t + \sigma B_t - \sigma^2 t/2}$
-where we assume $X_0 = (1, S_0)$_.
+__Exercise__. _Show $R_t = e^{\rho t}$ and $S_t = S_0e^{\rho t + \sigma B_t - \sigma^2 t/2}$
+where we assume initial prices ${X_0 = (1, S_0)}$_.
 
 B-S/M considered a dynamic hedge in the bond and stock that replicates
 a European option payoff. If the option pays $\nu(S_T)$
@@ -127,17 +122,22 @@ and he shows the option value is $\nu(S_T)D_T(\Omega)$.
 Instead of conditional expectation we use the simpler notion of
 restriction of measure.
 
-The value, or mark-to-market, of a hedge at any time
-is the sum of the current hedge positions times current market prices.
+__Exercise__. _Show $Y = E[X|\AA]$ if and only if ${Y(P|\AA) = (XP)|\AA}$_.
+
+_Hint_: The definition of conditional expectation $Y = E[X|\AA]$ is
+$Y$ is $\AA$-measurable and ${E[Y1_A] = E[X1_A]}$ for all $A\in\AA$.
+
+The value, or mark-to-market, of a hedge at any time is
+the amount that could potentially be obtained by liquidating
+the position at current market prices.
 If the value of the option is known
 as a function of hedging instrument prices then the _delta_ hedge is
-the derivative of option value with respect to underlying prices.
-
-By the definition of derivative, this gives an approximate hedge over
+the mathematical derivative of option value with respect to underlying prices.
+This gives an approximate hedge over
 a short period of time. Traders only care about delta hedges. Their
 P\&L is the difference between the model value and the actual value
 produced by their hedge. Risk managers use higher order derivatives
-to empirically verify Taylor's formula.
+to empirically verify Taylor's formula every trading day at market close.
 
 ## Simple Unified Model
 
@@ -154,22 +154,14 @@ is the partition of singletons ${\{\{\omega\}\mid\omega\in\Omega\}}$.
 Partial information is knowing which _atom_ in the partition $\omega\in\Omega$
 belongs to.
 
-If $X\colon\Omega\to\RR$ is a function and If $\AA$ is a partition
+If $X\colon\Omega\to\RR$ is a function and $\AA$ is a partition
 of $\Omega$ then $X$ is $\AA$-_measurable_ if and only if it is constant
 on each element of the partition.
 
-__Exercise__. _Show $X\colon\AA\to\RR$ is a well-defined function_.
+__Exercise__. _Show $X\colon\AA\to\RR$ is a well-defined function on the atoms of $\AA$_.
 
 _Hint_: Show if $\omega$ and $\omega'$ belong to the same atom
 of the partition then $X(\omega) = X(\omega')$.
-
-Instead of using conditional expectation as in the classical theory
-we use the much simple concept of restriction of measure.
-
-__Exercise__. _Show $Y = E[X|\AA]$ if and only if $Y(P|\AA) = (XP)|\AA$_.
-
-_Hint_: Recall $Y = E[X|\AA]$ if and only if $Y$ is $\AA$-measurable and
-$E[Y1_A] = E[X1_A]$ for all $A\in\AA$.
 
 ### Model
 
@@ -182,8 +174,9 @@ Information increases over time.
 
 ### Market
 
-Every instrument has _prices_ and _cash flows_. We assume any amount
-can be bought or sold at the given price and cash flows accrue
+Every instrument has _prices_ and _cash flows_. We make the usual idealized
+assumption that any amount
+can be bought or sold at the given price and the unequivocal fact cash flows accrue
 in proportion to the amount of the instrument held.
 
 Prices and cash flows are functions $X_t,C_t\colon\AA_t\to\RR^I$ with
@@ -196,9 +189,10 @@ just like in the real world.
 A _trading strategy_ is a sequence of stopping times 
 $\tau_0 < \tau_1 < \cdots \tau_n$ and trading sizes
 $\Gamma_j\colon\AA_{\tau_j}\colon\RR^I$.
-A stopping time is a function $\tau\colon\Omega\to T$ satisfying
+
+A stopping time is a function $\tau\colon\Omega\to T$ where 
+$\tau = t$ is known at time $t$, i.e.,
 ${\{\omega\mid\tau(\omega) = t\}}$ is a union of atoms of $\AA_t$ for all $t\in T$.
-Stopping at time $t$ depends only on the information available at time $t$.
 The partition corresponding to a stopping time is ${\AA_\tau = \cup\{\{\tau = t\}\mid t\in T\}}$.
 
 __Exercise__. _Show $\AA_\tau$ is a partition of $\Omega$ for any stopping time $\tau$_.
@@ -209,23 +203,52 @@ To simplify formulas we write ${\Delta_t = \sum_{s < t} \Gamma_s}$ where
 $\Gamma_s = \Gamma_j$ when $s = \tau_j$ and is zero otherwise.
 
 The trading account accrues cash flows proportional to the current
-position and debit the amount paid for trades just executed.
+position and debit the amount paid for trades just executed at
+the current market price.
 The _amount_ showing up in the trading account at time $t$ is
 ${A_t = \Delta_t\cdot X_t - \Gamma_t\cdot X_t}$.
 
 The _value_, or _mark-to-market_, is the amount that could
-be obtained from liquidating the existing positions and trades just done
+be putatively obtained from liquidating the existing positions and trades just done
 at current market prices: ${V_t = (\Delta + \Gamma_t)\cdot X_t}$.
 No actual trading is involved with calculating the value. 
-The profit and loss over a period is the diffenence in values.
+Figuring out what prices to use for thinly traded instruments is problematic.
+
+The profit and loss over a period is the difference in values.
+
+Trading strategies create synthetic market instruments. Using the definitions
+of $V_t$ and $A_t$
+$$
+\tag{3}	V_t D_t = (V_u D_u + \sum_{t < s\le u} A_s D_s)|\AA_t.
+$$
+Compare this to equation (2) and note how prices $(X_t)$ and cash flows $(C_t)$
+correspond to values $(V_t)$ and amounts $(A_t)$.
+This is the skeleton key to valuing derivatives.
+
+__Exercise__. _Prove equation (3) from equation (2) using the definitions
+of $V_t$ and $A_t$_.
+
+_Hint_: Start with $V_t D_t = (\Delta_t + \Gamma_t)\cdot X_t D_t$ then equation (2)
+with $u - t$ sufficiently small so $X_t D_t = (X_u D_u + C_u D_u)|\AA_t$.
+Replace the $\Delta_t\cdot C_t$ term with $A_t + \Gamma_t\cdot X_t$
+and use finite induction.
 
 ### Arbitrage
 
-Arbitrage is a trading strategy the makes money on the first trade and never
+Arbitrage is a trading strategy that makes money on the first trade and never
 loses money until it is closed out (position is zero).
-This means $A_{\tau_0} > 0$, $A_t \ge0$ for $t > \tau_0$, and $\sum_{j=0}^n \Gamma_j = 0$.
+Mathematically, $A_{\tau_0} > 0$, $A_t \ge0$ for $t > \tau_0$, and $\sum_{j=0}^n \Gamma_j = 0$.
+Note this definition does not require probability.
 
 If $(D_t)$ are positive measures on $\AA_t$, $t\in T$, then
+$$
+	V_{\tau_0} D_{\tau_0} = \sum_{j = 1}^n A_
+$$
+
+???
+
+
+No need for Hahn-Banach.
 
 
 ## Greeks
@@ -323,28 +346,18 @@ We give a schematic review of Merton's mathematically correct
 derivation of their eponymous partial differential equation
 to compare with Ross's theory.
 
-We assume you have spent some time learning about the sample
-space of continuous functions
-$\Omega = C[0,\infty) = \{\omega\colon[0,\infty)\to\RR\}$
-and Wiener measure on that space.
+Every stochastic process $(X_t)_{t\ge0}$ is determined by its
+_joint cumulative distribution function_
+$F_{t_0,\ldots,t_n}(x_0,\ldots,x_n) = P(X_{t_0} \le x_0,\ldots, X_{t_n}\le t_n)$.
+Given samples from a stochastic process 
 
-Wiener's original definition of Brownian motion was
-$$
-	B_t = \sum_{n = 1}^\infty \xi_n \frac{\sin nt\pi}{n\pi}
-$$
-where $(\xi_n)$ are independent standard normal random variables.
-It was a mathematical feat to prove $B_t$ is almost everywhere
-continuous. [@cite]
+A process is _stationary_ if $(X_t)$ and $X_{t + s} - X_s$ have the same 
+joint cumulative distribution. The mathematical import is that you can start sampling
+at any time and get the same statistics. The reality is that this is
+rare in financial time series. 
 
-Standard Brownian motion is defined by $B_t\colon\Omega\to\RR$ by $B_t(\omega) = \omega(t)$.
-Paul Lévy proved every stochastic process that is stationary with independent increments
-that are normally distributed has the form $X_t = \mu + \sigma B_t$ for some
-constants $\mu,\sigma\in\RR$.
-
-A stochastic process $(X_t)_{t\ge0}$ is determined by its
-joint cumulative distribution function
-$F_{t_0,\ldots,t_n)(x_0,\ldots, x_n) = P(X_{t_0} \le x_0,\ldots, X_{t_n}\le t_n)$.
-It is astounding Lévy found simple criteria for showing this can be reduced to two real numbers.
+A process has _independent increments_ if given $t_0 < t_1 < \cdots t_n$
+then $X_{t_0}, X_{t_1} - X_{t_0}, \ldots, X_{t_n} - X_{t_{n-1}}$ are independent.
 
 He also showed if a stochastic process is stationary with independent increments
 it is completely determined by its distribution at a single time and its
