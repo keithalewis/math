@@ -6,13 +6,14 @@ fleqn: true
 ---
 \newcommand\bs[1]{\boldsymbol{{#1}}}
 \newcommand\RR{\bs{R}}
+\newcommand\NN{\bs{N}}
 \newcommand\Var{\operatorname{Var}}
 \newcommand\Cov{\operatorname{Cov}}
 \renewcommand\AA{\mathcal{A}}
 
 There is a theory for valuing, hedging, and measuring the risk of
-any collection of instruments that generalize the [@BlaSch1973] and
-[@Mer1973] model. Using the Hahn-Banach theorem [@Ros1978] showed
+any collection of instruments that generalizes the [@BlaSch1973] and
+[@Mer1973] models. [@Ros1978] showed
 
 > If there are no arbitrage opportunities in a market, then
 there must exist a (not generally unique) positive linear operator that
@@ -30,35 +31,45 @@ is necessary is the assumption that current asset values do not permit
 arbitrage. In particular, then, we do not even have to assume that the
 current index price is in equilibrium to correctly appraise the project.
 
-Ross seemed to realize the difficulty he would face trying to communicating this.
-
-> I believe that most of these are well known (at least at some level of consciousness),
-but the failure to understand either their universality or their applicability is endemic.
-
 Expectation mechanisms are irrelevant? No need for prices to follow a
-diffusion process? No need for equilibrium?
-Experts in the field seem to have trouble casting off their cognitive anchor
-in the classical theory.
+diffusion process? No need for equilibrium?  Experts in the academic
+field seem to have trouble realizing they can cast off their cognitive
+anchor in the unnecessary accoutrements of the classical Black-Scholes
+and Merton theory.
 
-Ross assumed a jump in stock price corresponded to a dividend payment.
-This is an untenable definition.  Stocks "jump" between market close
-and market open with no associated cash flow, not to mention they
-"jump" by an integral multiple of the tick size every time their
-price moves. Fixed income instruments
-are defined by their cash flows. Futures always have price 0 and
-periodic cash flows determined by the change in market quotes.
-A derivative is a contract specifying the cash flows the seller
-is obligated to make to the buyer.
+If your career involves writing papers, the only thing you need to deal
+with is a referee pointing out an error that might delay publication.
+If you are a quant responsible for turning mathematics into software
+that will be used to run a business, there can be more serious
+consequences. The first time a trader shows up at your desk and says,
+"Gee, the P\&L seems a little off" you better have a good answer.
+If you don't, the second visit might include the head of the trading
+floor and angry questions, "You told me this position was hedged! Are
+you lying to me now or were lying to me then?"
 
-We use $(C_t)$ to denote the cash flows received at time $t$ associated
-with owning an instrument. This leads to a simple and mathematically rigorous 
-model to enable progress on the issues of when and how much to trade,
-and how risky that is.
+This is a verbatim transcription of what I have heard on a trading floor.
+Fortunately, this was not directed at me.
+
+
+There is no need to assume stocks involve a "real world" measure that
+gets immediately thrown out for a "risk neutral" measure.  Ross showed
+how to get the same results as B-S/M and how to generalize those from a
+bond, stock, and option to any collection of instruments.  He seemed to
+realize the difficulty he would face trying to communicating that.
+
+> I believe that most of these are well known (at least at some level of
+consciousness), but the failure to understand either their universality
+or their applicability is endemic.
 
 B-S/M answers the question of how much to trade. Their answer to
 when to trade is "continuously" and claim the hedge is riskless.
 This note in an attempt to provide a not obviously wrong answer
-and exhort readers to impove upon it.
+and exhort readers to improve upon it.
+
+We use $(C_t)$ to denote the cash flow received at time $t$ associated
+with owning an instrument. This leads to a simple and mathematically
+rigorous model to enable progress on the fundamental issues of when and
+how much to trade, and how risky that is.
 
 ## Ross
 
@@ -206,7 +217,7 @@ The trading account accrues cash flows proportional to the current
 position and debit the amount paid for trades just executed at
 the current market price.
 The _amount_ showing up in the trading account at time $t$ is
-${A_t = \Delta_t\cdot X_t - \Gamma_t\cdot X_t}$.
+${A_t = \Delta_t\cdot C_t - \Gamma_t\cdot X_t}$.
 
 The _value_, or _mark-to-market_, is the amount that could
 be putatively obtained from liquidating the existing positions and trades just done
@@ -242,10 +253,9 @@ Note this definition does not require probability.
 
 If $(D_t)$ are positive measures on $\AA_t$, $t\in T$, then
 $$
-	V_{\tau_0} D_{\tau_0} = \sum_{j = 1}^n A_
+	V_{\tau_0} D_{\tau_0} = (\sum_{j = 1}^n A_{\tau_j} D_{\tau_j}) \mid \AA_{\tau_0}
 $$
 
-???
 
 
 No need for Hahn-Banach.
@@ -364,7 +374,7 @@ it is completely determined by its distribution at a single time and its
 distribution is infinitely divisible
 
 A random variable $X$ is _infinitely divisible_ if for any $n\in\NN$
-$X$ has the same law as X_1 + \cdots + X_n$ where $(X_i)$ are independent have have
+$X$ has the same law as $X_1 + \cdots + X_n$ where $(X_i)$ are independent have have
 the same law.
 
 Kolmogorov showed if for any $n\in\NN$ $X = X_1 + \cdots + X_n$

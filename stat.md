@@ -13,11 +13,41 @@ abstract: Observations of outcomes
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\given}{\mid}
 
-<blockquote>
-_Probability all the things_!
-</blockquote>
+If you have had a course in statistics you have learned about turning
+a bunch of number $x_1, \ldots, x_n$ into a couple of numbers
+that the pound and a half of grey matter on top of your chimpanzee brain
+can use to make up a plausible story to tell 
 
-## Statistics
+The first thing you want to know is most
+
+A _random variable_ $X$ is a variable, a symbol taking the place of
+a number in an equation or inequation, with additional information
+about the probability of the values it can have.
+
+A _discrete_ random variable can take on only values $X = x_j$
+with probability $P(X = x_j) = p_j$ where $p_j > 0$ and $\sum_j p_j = 1$.
+
+A _continuously distributed_ random variable has a _density function_
+$f(x)\ge0$ where the probablity $X$ is less than or equal to $x$
+is ${P(X\le x) = \int_{-\infty}^x f(t)\,dt}$ and ${\int_{-\infty}^\infty f(t)\,dt = 1}$.
+
+Every random variable is completely determined by its
+_cumulative distribution function_ $F(x) = P(X\le x)$
+where $F(x)\le F(y)$ if $x < y$, $0\le F(x) \le 1$, $\lim_{x\to-\infty}F(x) = 0$,
+and $\lim_{x\to\infty} F(x) = 1$
+
+__Exercise__. _Show if $X$ is discrete then $F(x) = \sum_{x_j\le x} p_j$ is a cdf_.
+
+__Exercise__. _Show if $X$ is continuously distributed then ${F(x) = \int_{-\infty}^x f(t)\,dt}$
+is a cdf_.
+
+__Exercise__. _Show every cdf is right continuous_.
+
+_Hint_: $\cap_{y>x} [y,\infty) = [x,\infty)$.
+
+__Exercise__. _Show every cdf has left limits_.
+
+_Hint_: $\cup_{w<x} (-\infty,w] = (-\infty,x)$.
 
 Statistics is the study of finding _estimators_ for a _statistic_.
 
