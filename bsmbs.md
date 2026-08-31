@@ -135,7 +135,8 @@ restriction of measure.
 
 __Exercise__. _Show $Y = E[X|\AA]$ if and only if ${Y(P|\AA) = (XP)|\AA}$_.
 
-_Hint_: The definition of conditional expectation $Y = E[X|\AA]$ is
+_Hint_: The definition of conditional expectation $Y = E[X|\AA]$ where
+$\AA$ is an algebra of sets on $\Omega$ is
 $Y$ is $\AA$-measurable and ${E[Y1_A] = E[X1_A]}$ for all $A\in\AA$.
 
 The value, or mark-to-market, of a hedge at any time is
