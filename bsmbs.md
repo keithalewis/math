@@ -11,6 +11,12 @@ fleqn: true
 \newcommand\Cov{\operatorname{Cov}}
 \renewcommand\AA{\mathcal{A}}
 
+Praise B-S/M
+
+Point out shortcommings.
+
+Provide solution.
+
 There is a theory for valuing, hedging, and measuring the risk of
 any collection of instruments that generalizes the [@BlaSch1973] and
 [@Mer1973] models. [@Ros1978] showed
