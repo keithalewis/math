@@ -1,5 +1,5 @@
 ---
-title: Better than Black-Scholes
+title: Black to the Future
 author: Keith A. Lewis
 classoption: fleqn
 fleqn: true
@@ -11,9 +11,60 @@ fleqn: true
 \newcommand\Cov{\operatorname{Cov}}
 \renewcommand\AA{\mathcal{A}}
 
-Praise B-S/M
+There in no question the theory developed by [@BlaSch1973] and [@Mer1973]
+for valuing derivative instruments has had a profound effect in the
+financial world over the past half century. Scholes and Merton won 
+The Sveriges Riksbank Prize in Economic Sciences in Memory of Alfred Nobel 
+for their contributions.
+Their eponymous partial differential equation is required study
+in every mathematical finance program.
 
-Point out shortcommings.
+Few traders could write it down, much less derive it,
+but they fully understand how _delta_ is the position they
+need for their hedge and _gamma_ is what they need to buy to adjust their
+hedge. They know the definition of _vega_ as the derivative of the value
+of the position with respect to the multifarious word _volatility_.
+
+There are other _greeks_ defined as derivatives with respect to
+model parameters, but trader hedging is delta hedging.  That is
+what shows up in their trade blotter and determines their P\&L.
+Risk managers seem to take comfort in using higher order derivatives
+produced by models built by quants to empirically verify
+Taylor's formula after market close.
+
+B-S/M used the mathematical theory of Itô processes to show a position in
+a bond and a stock could perfectly hedge an option over an infinitesimal
+period of time.  As a consequence the portfolio is risk-free and must
+grow at the risk-free rate[^1] if there are no arbitrage opportunities.
+That is what they won the Nobel Prize for. Earlier models assumed
+you needed to estimate the risk premium of the stock return.
+
+[^1]: Actually, the funding rate available to the trader
+implementing the hedge.
+The funding desk at a bank charges a spread over their
+cost of using repurchase agreements to provide this.
+If you are a guy named Barney sitting in his underwear in
+a trailer in New Mexico using your VISA card to fund
+your day trading, you should use your APR.
+
+Black, Scholes, and Merton were well aware of the shortcomings of their
+model. Volatility is not constant.
+My friend Peter Carr (rightly) insisted the word "volatility" should
+never be used without an adjective. The _implied volatility_ is
+the constant to be plugged into B-S/M pricing formula that
+recovers the option price. Traders use implied volatility as a
+proxy for price. This is a chicken and egg problem.
+
+Traders know how to use their funding rate to get the implied volatility
+given the option price. The question the B-S/M theory has no answer to
+is how to get a price given the strike and expiration of an option.
+
+Suppose you are a trader and your boss tells you to make a market
+for a three month at-the-money call option on stock XYZ.
+Further suppose the stock is very liquid but has no traded options.
+Should we use historical _realized volatility_?
+If there are other stocks in the same sector that have traded options
+how do we incorporate that information?
 
 Provide solution.
 
@@ -349,7 +400,11 @@ __Exercise__. _Derive the classical B-S/M value and greeks_.
 
 ## Remarks
 
+Risk-free vs risk-neutral. Funding rate for strategies.
+
 Commodity contracts -- storage costs
+
+Continuous dividend rate. Hah!
 
 ## B-S/M
 
