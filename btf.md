@@ -29,17 +29,26 @@ There are other _greeks_ defined as derivatives with respect to
 model parameters, but trader hedging is delta hedging.  That is
 what shows up in their trade blotter and determines their P\&L.
 Risk managers seem to take comfort in using higher order derivatives
-produced by models built by quants to empirically verify
-Taylor's formula after market close.
+produced by models to empirically verify
+Taylor's[^1] formula after market close.
+
+[^1]: If $f\colon\RR^m\to\RR$ is sufficiently smooth near $x\in\RR^m$ then
+$$
+    f(x + h) = \sum_{n=0}^\infty \sum_{|\alpha| = n} \frac{D^\alpha f(x)}{\alpha!}h^\alpha,
+$$
+where $\alpha = (\alpha_1,\ldots,\alpha_m)$ with $\alpha_j\in\NN$,
+$|\alpha| = \alpha_1 + \cdots + \alpha_m$,
+$D^\alpha f(x) = \partial^{|\alpha|}f(x)/\partial_{x_1}^{\alpha_1}\ldots \partial_{x_m}^{\alpha_m}$,
+$\alpha! = \alpha_1!\cdots\alpha_m!$, and
+${h^\alpha = h_1^{\alpha_1}\cdots h_m^{\alpha_m}}$.
 
 B-S/M used the mathematical theory of Itô processes to show a position in
 a bond and a stock could perfectly hedge an option over an infinitesimal
-period of time.  As a consequence the portfolio is risk-free and must
-grow at the risk-free rate[^1] if there are no arbitrage opportunities.
-That is what they won the Nobel Prize for. Earlier models assumed
-you needed to estimate the risk premium of the stock return.
+period of time.  As a consequence, the portfolio is risk-free and must
+grow at the risk-free rate[^2] if there are no arbitrage opportunities.
+Earlier models assumed you needed to estimate the risk premium of the stock return.
 
-[^1]: Actually, the funding rate available to the trader
+[^2]: Actually, the funding rate available to the trader
 implementing the hedge.
 The funding desk at a bank charges a spread over their
 cost of using repurchase agreements to provide this.
@@ -49,14 +58,16 @@ your day trading, you should use your APR.
 
 Black, Scholes, and Merton were well aware of the shortcomings of their
 model. Volatility is not constant.
-My friend Peter Carr (rightly) insisted the word "volatility" should
-never be used without an adjective. The _implied volatility_ is
+Peter Carr (rightly) insisted the word "volatility" should
+always be used with an adjective. The _implied volatility_ is
 the constant to be plugged into B-S/M pricing formula that
 recovers the option price. Traders use implied volatility as a
-proxy for price. This is a chicken and egg problem.
+proxy for price.
 
-Traders know how to use their funding rate to get the implied volatility
-given the option price. The question the B-S/M theory has no answer to
+This is a chicken and egg problem.
+Traders know how to use the Black-Scholes formula to get the implied volatility
+given the option price.
+The question the B-S/M theory has no answer to
 is how to get a price given the strike and expiration of an option.
 
 Suppose you are a trader and your boss tells you to make a market
@@ -66,7 +77,14 @@ Should we use historical _realized volatility_?
 If there are other stocks in the same sector that have traded options
 how do we incorporate that information?
 
-Provide solution.
+This is not unlike the issue of finding the price of a bond that
+is thinly traded. How do you incorporate the limited data you have to
+estimate its price?
+
+What follows is a simple and rigorous mathematical theory that
+provides a framework for tackling this difficult problem.
+
+## Ross
 
 There is a theory for valuing, hedging, and measuring the risk of
 any collection of instruments that generalizes the [@BlaSch1973] and
@@ -94,19 +112,18 @@ field seem to have trouble realizing they can cast off their cognitive
 anchor in the unnecessary accoutrements of the classical Black-Scholes
 and Merton theory.
 
-If your career involves writing papers, the only thing you need to deal
-with is a referee pointing out an error that might delay publication.
+If your career involves publishing papers, you may need to deal
+with a referee pointing out an error that might delay publication.
 If you are a quant responsible for turning mathematics into software
 that will be used to run a business, there can be more serious
-consequences. The first time a trader shows up at your desk and says,
-"Gee, the P\&L seems a little off" you better have a good answer.
+issues. The first time a trader shows up at your desk and says,
+"The P\&L seems a little off." you better have a good explanation.
 If you don't, the second visit might include the head of the trading
-floor and angry questions, "You told me this position was hedged! Are
-you lying to me now or were lying to me then?"
+floor and angry questions like, "You told me this position was hedged! 
+Were you lying to me then or are you lying to me now?"[^3]
 
-This is a verbatim transcription of what I have heard on a trading floor.
-Fortunately, this was not directed at me.
-
+[^3]: This is a verbatim transcription of what I have heard on a trading floor.
+Fortunately, it was not directed at me.
 
 There is no need to assume stocks involve a "real world" measure that
 gets immediately thrown out for a "risk neutral" measure.  Ross showed
@@ -118,19 +135,20 @@ realize the difficulty he would face trying to communicating that.
 consciousness), but the failure to understand either their universality
 or their applicability is endemic.
 
-B-S/M answers the question of how much to trade. Their answer to
+B-S/M answers the question of how much to trade but their answer to
 when to trade is "continuously" and claim the hedge is riskless.
-This note in an attempt to provide a not obviously wrong answer
-and exhort readers to improve upon it.
+This note presents a model that does not give an obviously wrong answer
+and exhorts readers to improve upon it.
 
-We use $(C_t)$ to denote the cash flow received at time $t$ associated
-with owning an instrument. This leads to a simple and mathematically
+We reify Ross's stream of cash flows $c$ to a stochastic process $(C_t)$
+that is 0 except at a finite number of times.
+This leads to a simple and mathematically
 rigorous model to enable progress on the fundamental issues of when and
-how much to trade, and how risky that is.
+how much to trade, and how to manage the associated risk.
 
-## Ross
+## Overview
 
-Stephen [@Ros1978] showed is no need for probability theory,
+Stephen [@Ros1978] showed there is no need for probability theory,
 Itô processes, or partial differential equations.
 Positive linear operators give rise to positive measures that can be
 divided by their total mass resulting in a "risk-neutral probability
@@ -203,10 +221,7 @@ If the value of the option is known
 as a function of hedging instrument prices then the _delta_ hedge is
 the mathematical derivative of option value with respect to underlying prices.
 This gives an approximate hedge over
-a short period of time. Traders only care about delta hedges. Their
-P\&L is the difference between the model value and the actual value
-produced by their hedge. Risk managers use higher order derivatives
-to empirically verify Taylor's formula every trading day at market close.
+a short period of time.
 
 ## Simple Unified Model
 
