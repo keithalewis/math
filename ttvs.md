@@ -9,7 +9,7 @@ If you studied Linear Algebra from Gilbert Strang @cite you learned
 about the vector space ${\RR^n = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
 of $n$-tuples of real numbers. After the first week of class it may have
 dawned on you that you are now doomed to spending the rest of the semester
-doing tedious exercises of numerical calculations involving "row"
+doing tedious numerical exercises involving "row"
 and "column" vectors.
 
 If you found that unsatisfying you might have come across the pompously titled

@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Keith A. Lewis" />
-  <title>Better than Black, Scholes, and Merton???</title>
+  <title>Black to the Future</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -63,13 +63,14 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Better than Black, Scholes, and Merton???</h1>
+<h1 class="title">Black to the Future</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Aug 30, 2026</p>
+<p class="date">Sep 4, 2026</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
 <li><a href="#ross" id="toc-ross">Ross</a></li>
+<li><a href="#overview" id="toc-overview">Overview</a></li>
 <li><a href="#simple-unified-model" id="toc-simple-unified-model">Simple
 Unified Model</a>
 <ul>
@@ -87,15 +88,67 @@ id="toc-black-scholesmerton">Black-Scholes/Merton</a></li>
 <li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
-<p>There is a theory for valuing, hedging, and measuring the risk of any
-collection of instruments that generalize the <span class="citation"
+<p>There in no question the theory developed by <span class="citation"
 data-cites="BlaSch1973">(<a href="#ref-BlaSch1973"
 role="doc-biblioref">Black and Scholes 1973</a>)</span> and <span
 class="citation" data-cites="Mer1973">(<a href="#ref-Mer1973"
-role="doc-biblioref">Merton 1973</a>)</span> model. Using the
-Hahn-Banach theorem <span class="citation" data-cites="Ros1978">(<a
-href="#ref-Ros1978" role="doc-biblioref">Ross 1978</a>)</span>
-showed</p>
+role="doc-biblioref">Merton 1973</a>)</span> for valuing derivative
+instruments has had a profound effect in the financial world over the
+past half century. Scholes and Merton won The Sveriges Riksbank Prize in
+Economic Sciences in Memory of Alfred Nobel for their contributions.
+Their eponymous partial differential equation is required study in every
+mathematical finance program.</p>
+<p>Few traders could write it down, much less derive it, but they fully
+understand how <em>delta</em> is the position they need for their hedge
+and <em>gamma</em> is what they need to buy to adjust their hedge. They
+know the definition of <em>vega</em> as the derivative of the value of
+the position with respect to the multifarious word
+<em>volatility</em>.</p>
+<p>There are other <em>greeks</em> defined as derivatives with respect
+to model parameters, but trader hedging is delta hedging. That is what
+shows up in their trade blotter and determines their P&amp;L. Risk
+managers seem to take comfort in using higher order derivatives produced
+by models to empirically verify Taylor’s<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+formula after market close.</p>
+<p>B-S/M used the mathematical theory of Itô processes to show a
+position in a bond and a stock could perfectly hedge an option over an
+infinitesimal period of time. As a consequence, the portfolio is
+risk-free and must grow at the risk-free rate<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> if
+there are no arbitrage opportunities. Earlier models assumed you needed
+to estimate the risk premium of the stock return.</p>
+<p>Black, Scholes, and Merton were well aware of the shortcomings of
+their model. Volatility is not constant. Peter Carr (rightly) insisted
+the word “volatility” should always be used with an adjective. The
+<em>implied volatility</em> is the constant to be plugged into B-S/M
+pricing formula that recovers the option price. Traders use implied
+volatility as a proxy for price.</p>
+<p>This is a chicken and egg problem. Traders know how to use the
+Black-Scholes formula to get the implied volatility given the option
+price. The question the B-S/M theory has no answer to is how to get a
+price given the strike and expiration of an option.</p>
+<p>Suppose you are a trader and your boss tells you to make a market for
+a three month at-the-money call option on stock XYZ. Further suppose the
+stock is very liquid but has no traded options. Should we use historical
+<em>realized volatility</em>? If there are other stocks in the same
+sector that have traded options how do we incorporate that
+information?</p>
+<p>This is not unlike the issue of finding the price of a bond that is
+thinly traded. How do you incorporate the limited data you have to
+estimate its price?</p>
+<p>What follows is a simple and rigorous mathematical theory that
+provides a framework for tackling this difficult problem.</p>
+<section id="ross" class="level2">
+<h2>Ross</h2>
+<p>There is a theory for valuing, hedging, and measuring the risk of any
+collection of instruments that generalizes the <span class="citation"
+data-cites="BlaSch1973">(<a href="#ref-BlaSch1973"
+role="doc-biblioref">Black and Scholes 1973</a>)</span> and <span
+class="citation" data-cites="Mer1973">(<a href="#ref-Mer1973"
+role="doc-biblioref">Merton 1973</a>)</span> models. <span
+class="citation" data-cites="Ros1978">(<a href="#ref-Ros1978"
+role="doc-biblioref">Ross 1978</a>)</span> showed</p>
 <blockquote>
 <p>If there are no arbitrage opportunities in a market, then there must
 exist a (not generally unique) positive linear operator that can be used
@@ -116,51 +169,54 @@ asset values do not permit arbitrage. In particular, then, we do not
 even have to assume that the current index price is in equilibrium to
 correctly appraise the project.</p>
 </blockquote>
-<p>Ross seemed to realize the difficulty he would face trying to
-communicating this.</p>
+<p>Expectation mechanisms are irrelevant? No need for prices to follow a
+diffusion process? No need for equilibrium? Experts in the academic
+field seem to have trouble realizing they can cast off their cognitive
+anchor in the unnecessary accoutrements of the classical Black-Scholes
+and Merton theory.</p>
+<p>If your career involves publishing papers, you may need to deal with
+a referee pointing out an error that might delay publication. If you are
+a quant responsible for turning mathematics into software that will be
+used to run a business, there can be more serious issues. The first time
+a trader shows up at your desk and says, “The P&amp;L seems a little
+off.” you better have a good explanation. If you don’t, the second visit
+might include the head of the trading floor and angry questions like,
+“You told me this position was hedged! Were you lying to me then or are
+you lying to me now?”<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a></p>
+<p>There is no need to assume stocks involve a “real world” measure that
+gets immediately thrown out for a “risk neutral” measure. Ross showed
+how to get the same results as B-S/M and how to generalize those from a
+bond, stock, and option to any collection of instruments. He seemed to
+realize the difficulty he would face trying to communicating that.</p>
 <blockquote>
 <p>I believe that most of these are well known (at least at some level
 of consciousness), but the failure to understand either their
 universality or their applicability is endemic.</p>
 </blockquote>
-<p>Expectation mechanisms are irrelevant? No need for prices to follow a
-diffusion process? No need for equilibrium?<br />
-Experts in the academic field seem to have trouble realizing they can
-cast off their cognitive anchor in the unnecessary accoutrements of the
-classical theory. There is no need to assume stocks have a “real world”
-measure that gets immediately thrown out for a “risk neutral” measure.
-Ross showed how to get the same results as B-S/M without assuming stock
-prices were geometric Brownian motion and how to generalize that from a
-bond, stock, and option to any collection of instruments.</p>
-<p>Ross assumed a jump in stock price corresponded to a dividend
-payment. This is an untenable definition. Stocks “jump” between market
-close and market open with no associated cash flow, not to mention they
-“jump” by an integral multiple of the tick size every time their price
-moves. Fixed income instruments are defined by their cash flows. Futures
-always have price 0 and periodic cash flows determined by the change in
-market quotes. A derivative is a contract specifying the cash flows the
-seller is obligated to make to the buyer.</p>
-<p>We use <span class="math inline">(C_t)</span> to denote the cash
-flows received at time <span class="math inline">t</span> associated
-with owning an instrument. This leads to a simple and mathematically
-rigorous model to enable progress on the issues of when and how much to
-trade, and how risky that is.</p>
-<p>B-S/M answers the question of how much to trade. Their answer to when
-to trade is “continuously” and claim the hedge is riskless. This note in
-an attempt to provide a not obviously wrong answer and exhort readers to
-impove upon it.</p>
-<section id="ross" class="level2">
-<h2>Ross</h2>
+<p>B-S/M answers the question of how much to trade but their answer to
+when to trade is “continuously” and claim the hedge is riskless. This
+note presents a model that does not give an obviously wrong answer and
+exhorts readers to improve upon it.</p>
+<p>We reify Ross’s stream of cash flows <span
+class="math inline">c</span> to a stochastic process <span
+class="math inline">(C_t)</span> that is 0 except at a finite number of
+times. This leads to a simple and mathematically rigorous model to
+enable progress on the fundamental issues of when and how much to trade,
+and how to manage the associated risk.</p>
+</section>
+<section id="overview" class="level2">
+<h2>Overview</h2>
 <p>Stephen <span class="citation" data-cites="Ros1978">(<a
-href="#ref-Ros1978" role="doc-biblioref">Ross 1978</a>)</span> showed is
-no need for probability theory, Itô processes, or partial differential
-equations. Positive linear operators give rise to positive measures that
-can be divided by their total mass resulting in a “risk-neutral
-probability measure.” They are positive measures having mass 1, but are
-not the probability of anything. There is no need for a so-called real
-world measure that gets immediately thrown out. His model works for
-<em>any</em> collection of instruments, not just the bond, stock, and
-option B-S/M considered.</p>
+href="#ref-Ros1978" role="doc-biblioref">Ross 1978</a>)</span> showed
+there is no need for probability theory, Itô processes, or partial
+differential equations. Positive linear operators give rise to positive
+measures that can be divided by their total mass resulting in a
+“risk-neutral probability measure.” They are positive measures having
+mass 1, but are not the probability of anything. There is no need for a
+so-called real world measure that gets immediately thrown out. His model
+works for <em>any</em> collection of instruments, not just the bond,
+stock, and option B-S/M considered.</p>
 <p>Every arbitrage-free model of prices <span
 class="math inline">(X_t)</span> and cash flows <span
 class="math inline">(C_t)</span> has the form <span
@@ -223,9 +279,10 @@ E[X|\mathcal{A}]</span> if and only if <span
 class="math inline">{Y(P|\mathcal{A}) =
 (XP)|\mathcal{A}}</span></em>.</p>
 <p><em>Hint</em>: The definition of conditional expectation <span
-class="math inline">Y = E[X|\mathcal{A}]</span> is <span
-class="math inline">Y</span> is <span
-class="math inline">\mathcal{A}</span>-measurable and <span
+class="math inline">Y = E[X|\mathcal{A}]</span> where <span
+class="math inline">\mathcal{A}</span> is an algebra of sets on <span
+class="math inline">\Omega</span> is <span class="math inline">Y</span>
+is <span class="math inline">\mathcal{A}</span>-measurable and <span
 class="math inline">{E[Y1_A] = E[X1_A]}</span> for all <span
 class="math inline">A\in\mathcal{A}</span>.</p>
 <p>The value, or mark-to-market, of a hedge at any time is the amount
@@ -233,11 +290,7 @@ that could potentially be obtained by liquidating the position at
 current market prices. If the value of the option is known as a function
 of hedging instrument prices then the <em>delta</em> hedge is the
 mathematical derivative of option value with respect to underlying
-prices. This gives an approximate hedge over a short period of time.
-Traders only care about delta hedges. Their P&amp;L is the difference
-between the model value and the actual value produced by their hedge.
-Risk managers use higher order derivatives to empirically verify
-Taylor’s formula every trading day at market close.</p>
+prices. This gives an approximate hedge over a short period of time.</p>
 </section>
 <section id="simple-unified-model" class="level2">
 <h2>Simple Unified Model</h2>
@@ -332,7 +385,7 @@ zero otherwise.</p>
 position and debit the amount paid for trades just executed at the
 current market price. The <em>amount</em> showing up in the trading
 account at time <span class="math inline">t</span> is <span
-class="math inline">{A_t = \Delta_t\cdot X_t - \Gamma_t\cdot
+class="math inline">{A_t = \Delta_t\cdot C_t - \Gamma_t\cdot
 X_t}</span>.</p>
 <p>The <em>value</em>, or <em>mark-to-market</em>, is the amount that
 could be putatively obtained from liquidating the existing positions and
@@ -476,7 +529,9 @@ greeks</em>.</p>
 </section>
 <section id="remarks" class="level2">
 <h2>Remarks</h2>
+<p>Risk-free vs risk-neutral. Funding rate for strategies.</p>
 <p>Commodity contracts – storage costs</p>
+<p>Continuous dividend rate. Hah!</p>
 </section>
 <section id="b-sm" class="level2">
 <h2>B-S/M</h2>
@@ -509,12 +564,14 @@ increments it is completely determined by its distribution at a single
 time and its distribution is infinitely divisible</p>
 <p>A random variable <span class="math inline">X</span> is
 <em>infinitely divisible</em> if for any <span
-class="math inline">n\in\NN</span> <span class="math inline">X</span>
-has the same law as X_1 + + X_n$ where <span
+class="math inline">n\in\boldsymbol{{N}}</span> <span
+class="math inline">X</span> has the same law as <span
+class="math inline">X_1 + \cdots + X_n</span> where <span
 class="math inline">(X_i)</span> are independent have have the same
 law.</p>
-<p>Kolmogorov showed if for any <span class="math inline">n\in\NN</span>
-<span class="math inline">X = X_1 + \cdots + X_n</span> where <span
+<p>Kolmogorov showed if for any <span
+class="math inline">n\in\boldsymbol{{N}}</span> <span
+class="math inline">X = X_1 + \cdots + X_n</span> where <span
 class="math inline">X_i</span> have finite variance, have the same
 distribution, and are independent then <span class="math display">
     \log E[e^{sX}] = \gamma s + \int_{-\infty}^\infty K_x(s)\,dG(s)
@@ -658,5 +715,38 @@ Fluctuate Randomly.”</span> <em>Industrial Management Review</em> 6 (2):
 </div>
 </div>
 </section>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>If <span
+class="math inline">f\colon\boldsymbol{{R}}^m\to\boldsymbol{{R}}</span>
+is sufficiently smooth near <span
+class="math inline">x\in\boldsymbol{{R}}^m</span> then <span
+class="math display">
+f(x + h) = \sum_{n=0}^\infty \sum_{|\alpha| = n} \frac{D^\alpha
+f(x)}{\alpha!}h^\alpha,
+</span> where <span class="math inline">\alpha =
+(\alpha_1,\ldots,\alpha_m)</span> with <span
+class="math inline">\alpha_j\in\boldsymbol{{N}}</span>, <span
+class="math inline">|\alpha| = \alpha_1 + \cdots + \alpha_m</span>,
+<span class="math inline">D^\alpha f(x) =
+\partial^{|\alpha|}f(x)/\partial_{x_1}^{\alpha_1}\ldots
+\partial_{x_m}^{\alpha_m}</span>, <span class="math inline">\alpha! =
+\alpha_1!\cdots\alpha_m!</span>, and <span class="math inline">{h^\alpha
+= h_1^{\alpha_1}\cdots h_m^{\alpha_m}}</span>.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Actually, the funding rate available to the trader
+implementing the hedge. The funding desk at a bank charges a spread over
+their cost of using repurchase agreements to provide this. If you are a
+guy named Barney sitting in his underwear in a trailer in New Mexico
+using your VISA card to fund your day trading, you should use your
+APR.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This is a verbatim transcription of what I have heard on
+a trading floor. Fortunately, it was not directed at me.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
 </body>
 </html>

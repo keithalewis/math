@@ -46,7 +46,7 @@
 <header id="title-block-header">
 <h1 class="title">Statistics</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Mar 16, 2026</p>
+<p class="date">Aug 30, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Observations of outcomes
@@ -54,24 +54,58 @@ Observations of outcomes
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#statistics" id="toc-statistics">Statistics</a>
-<ul>
 <li><a href="#bias" id="toc-bias">Bias</a></li>
 <li><a href="#efficient" id="toc-efficient">Efficient</a></li>
 <li><a href="#complete" id="toc-complete">Complete</a></li>
 <li><a href="#sufficient" id="toc-sufficient">Sufficient</a></li>
-</ul></li>
 <li><a href="#statistic" id="toc-statistic">Statistic</a></li>
 <li><a href="#population" id="toc-population">Population</a></li>
 <li><a href="#hypothesis-testing" id="toc-hypothesis-testing">Hypothesis
 Testing</a></li>
 </ul>
 </nav>
-<blockquote>
-<em>Probability all the things</em>!
-</blockquote>
-<section id="statistics" class="level2">
-<h2>Statistics</h2>
+<p>If you have had a course in statistics you have learned about turning
+a bunch of number <span class="math inline">x_1, \ldots, x_n</span> into
+a couple of numbers that the pound and a half of grey matter on top of
+your chimpanzee brain can use to make up a plausible story to tell</p>
+<p>The first thing you want to know is most</p>
+<p>A <em>random variable</em> <span class="math inline">X</span> is a
+variable, a symbol taking the place of a number in an equation or
+inequation, with additional information about the probability of the
+values it can have.</p>
+<p>A <em>discrete</em> random variable can take on only values <span
+class="math inline">X = x_j</span> with probability <span
+class="math inline">P(X = x_j) = p_j</span> where <span
+class="math inline">p_j &gt; 0</span> and <span
+class="math inline">\sum_j p_j = 1</span>.</p>
+<p>A <em>continuously distributed</em> random variable has a <em>density
+function</em> <span class="math inline">f(x)\ge0</span> where the
+probablity <span class="math inline">X</span> is less than or equal to
+<span class="math inline">x</span> is <span class="math inline">{P(X\le
+x) = \int_{-\infty}^x f(t)\,dt}</span> and <span
+class="math inline">{\int_{-\infty}^\infty f(t)\,dt = 1}</span>.</p>
+<p>Every random variable is completely determined by its <em>cumulative
+distribution function</em> <span class="math inline">F(x) = P(X\le
+x)</span> where <span class="math inline">F(x)\le F(y)</span> if <span
+class="math inline">x &lt; y</span>, <span class="math inline">0\le F(x)
+\le 1</span>, <span class="math inline">\lim_{x\to-\infty}F(x) =
+0</span>, and <span class="math inline">\lim_{x\to\infty} F(x) =
+1</span></p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">X</span> is discrete then <span
+class="math inline">F(x) = \sum_{x_j\le x} p_j</span> is a cdf</em>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">X</span> is continuously distributed then <span
+class="math inline">{F(x) = \int_{-\infty}^x f(t)\,dt}</span> is a
+cdf</em>.</p>
+<p><strong>Exercise</strong>. <em>Show every cdf is right
+continuous</em>.</p>
+<p><em>Hint</em>: <span class="math inline">\cap_{y&gt;x} [y,\infty) =
+[x,\infty)</span>.</p>
+<p><strong>Exercise</strong>. <em>Show every cdf has left
+limits</em>.</p>
+<p><em>Hint</em>: <span class="math inline">\cup_{w&lt;x} (-\infty,w] =
+(-\infty,x)</span>.</p>
 <p>Statistics is the study of finding <em>estimators</em> for a
 <em>statistic</em>.</p>
 <p>A statistic is a function <span class="math inline">s</span> from
@@ -151,7 +185,6 @@ class="math inline">1\le j\le n</span> can be replaced by one condition
 <span class="math inline">t(X_1,\ldots,X_n) = t(x_1,\ldots,x_n)</span>,
 i.e., <span class="math inline">E_\theta[g(X)\mid X_j = x_j] =
 E_\theta[g(X)\mid s(X_1,\ldots,X_n) = s(x_1,\ldots,x_n)]</span>.</p>
-</section>
 </section>
 <section id="statistic" class="level2">
 <h2>Statistic</h2>

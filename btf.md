@@ -36,7 +36,8 @@ Taylor's[^1] formula after market close.
 $$
     f(x + h) = \sum_{n=0}^\infty \sum_{|\alpha| = n} \frac{D^\alpha f(x)}{\alpha!}h^\alpha,
 $$
-where $\alpha = (\alpha_1,\ldots,\alpha_m)$ with $\alpha_j\in\NN$,
+where $\alpha = (\alpha_1,\ldots,\alpha_m)$ where $\alpha_j$ are non-negative
+integers,
 $|\alpha| = \alpha_1 + \cdots + \alpha_m$,
 $D^\alpha f(x) = \partial^{|\alpha|}f(x)/\partial_{x_1}^{\alpha_1}\ldots \partial_{x_m}^{\alpha_m}$,
 $\alpha! = \alpha_1!\cdots\alpha_m!$, and
@@ -46,7 +47,8 @@ B-S/M used the mathematical theory of Itô processes to show a position in
 a bond and a stock could perfectly hedge an option over an infinitesimal
 period of time.  As a consequence, the portfolio is risk-free and must
 grow at the risk-free rate[^2] if there are no arbitrage opportunities.
-Earlier models assumed you needed to estimate the risk premium of the stock return.
+Earlier models assumed you needed to estimate the risk premium of the 
+uncertainty in stock returns.
 
 [^2]: Actually, the funding rate available to the trader
 implementing the hedge.
@@ -62,13 +64,12 @@ Peter Carr (rightly) insisted the word "volatility" should
 always be used with an adjective. The _implied volatility_ is
 the constant to be plugged into B-S/M pricing formula that
 recovers the option price. Traders use implied volatility as a
-proxy for price.
+proxy for price just as they use yield as a proxy for
+the price of a bond: a constant that is not constant to plug into
+a mutually agreed upon formula.
 
-This is a chicken and egg problem.
-Traders know how to use the Black-Scholes formula to get the implied volatility
-given the option price.
 The question the B-S/M theory has no answer to
-is how to get a price given the strike and expiration of an option.
+is how to provide a price given the strike and expiration of an option.
 
 Suppose you are a trader and your boss tells you to make a market
 for a three month at-the-money call option on stock XYZ.
@@ -82,7 +83,7 @@ is thinly traded. How do you incorporate the limited data you have to
 estimate its price?
 
 What follows is a simple and rigorous mathematical theory that
-provides a framework for tackling this difficult problem.
+provides a framework for tackling this fundamental problem.
 
 ## Ross
 
