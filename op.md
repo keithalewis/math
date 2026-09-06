@@ -70,17 +70,17 @@ $$
 	v &= E[\max\{k - F\}] \\
 	  &= E[(k - F)1(F \le k)] \\
 	  &= kP(F\le k) - E[F 1(F \le k)] \\
-	  &= kP(F\le k) - E[F]E[F/E[F] 1(F \le k)] \\
+	  &= kP(F\le k) - f E[(F/f) 1(F \le k)] \\
 	  &= kP(F\le k) - fP^s(F \le k)] \\
 \end{aligned}
 $$
-where $f = E[F]$ and $P^s$ is defined by $dP^s/dP = F/E[F]$.
+where $f = E[F]$ and $P^s = (F/f)P$.
 
 __Exercise__.  _If $F > 0$ then $P^s$ is a probability measure_.
 
 The (forward) value of an option paying $\nu(F)$ at expiration is $v = E[\nu(F)]$.
 If the option pays shares instead of currency its value is
-$E[F\nu(F)] = E[F]E[F/E[F] \nu(F)] = f E^s[\nu(F)]$, where
+$E[F\nu(F)] = fE[(F/f) \nu(F)] = f E^s[\nu(F)]$, where
 $E^s$ is the expectation under _share measure_ $P^s$.
 
 Recall the _moment generating function_ of a random variable $X$ is $E[e^{sX}]$
