@@ -18,12 +18,59 @@ abstract: The simplest formal model of a financial market.
 \newcommand\BB{\mathcal{B}}
 \newcommand\GG{\mathcal{G}}
 
-The One‑Period Model is the simplest framework for rigorously
-representing a financial market over a single period of time. The
-model defines the initial prices of tradeable instruments and their
+The One‑Period Model is the most naive framework for rigorously
+representing a financial market over a single period of time.  It
+ignores crucial features of actual markets.
+It assumes there is no bid/ask spread, instruments can be
+bought or sold in any amount with no effect on the price, and has nothing
+whatsoever to say about taking counterparty risk into consideration.
+
+The model defines the initial prices of tradeable instruments and their
 terminal cash flows contingent on the realized outcome. If there are no
 arbitrage opportunities available then prices are subject
-to geometric constraints determined by the cash flows.
+to a geometric constraint determined by the final prices.
+
+Let $I$ be the set of _market instruments_ and $x\in\RR^I$
+be their initial _prices_. The _sample space_ $\Omega$ is the set of
+what can happen over the period. The function $X\colon\Omega\to\RR^I$
+determines the final prices $X(\omega)\in\RR^I$ given $\omega\in\Omega$ occurs.
+
+_Arbitrage_ (in this model) exists if we can find a _position_
+$\xi\in\RR^I$ to purchase at the beginning of the period at
+cost $\xi\cdot x < 0$ and then liquidate at the end of the
+period to receive $\xi\cdot X(\omega) \ge0$ for all $\omega\in\Omega$.
+We make money putting on the position and never lose money unwinding it.
+
+This mathematical definition of arbitrage is not good enough for traders or
+risk managers. They will compare $|xi\cdot x|$ with $|xi|\cdot |x|$
+to determine their _return on investment_. It makes no financial sense
+to tie up a million bucks to make one buck.
+
+The Fundamental Theorem of Asset Pricing for this one-period model is
+there are no arbitrage opportunities if and only if
+the initial prices belong to the smallest closed cone containing
+the final prices.
+
+A _cone_ in a vector space is a subset that is closed under multiplication
+by positive scalars and vector addition.
+
+__Exercise__. _Show the set of all arbitrages is a cone_.
+
+_Hint_: Show if $\xi\in\RR^I$ is an arbitrage then so is $t x$ for all positive $t\in\RR$
+and if $\xi,\eta\in\RR^I$ are arbitrages then so is $\xi + \eta$.
+
+This is another example of where the mathematical definition of arbitrage
+does not accurately model reality. You will eventually run out of
+instruments to purchase as $t > 0$ gets large.
+
+## Examples
+
+1-2-3
+
+90-100-110
+
+${L,H}$ to $[L,H]$.
+
 Arbitrage must always be defined relative to a model.
 These constraints are applied to [zero coupon bonds](#zero-coupon-bond),
 the [binomial model](#binomial-model), and the [interval model](#interval-model).
@@ -1607,32 +1654,3 @@ the dollar and a half to pay half a dollar to cover the bond and
 have a dollar left to meet the call obligation.
 
 -->
-
-$x = (1, s, v_1,\ldots,v_n)$, $X(\omega) = (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)$.
-
-$x  =  \_O + B + s S + v_1 P_1 + v_2 P_2$
-
-$X(L)   = \_O + R B +   L S$
-
-$X(K_1) = \_O + R B + K_1 S$
-
-$X(K_2) = \_O + R B + K_2 S + (K_2 - K_1) P_1$
-
-$X(H)   = \_O + R B +   H S +   (H - K_1) P_1 + (H - K_2) P_2$
-
-$O X(L) X(K_1) X(K_2) X(H) = OBSP_1P_2 R(K_1 - L) (K_2 - K_1) (H - K_2)$
-
-
-$O X(K_1) X(K_2) X(H) = OBSP_1 R K_2(H - K_1)
-                      + OBSP_2 R K_2(H - K_2)
-                      + OSRP_1 K_1 R(H - K_1)
-					  + OSRP_2 K_1 R(H - K_2)
-
-= OBSP_1P_2 K_1(K_2 - K_1)(H - K_2)
-                        + OSBP_1P_2 sR(K_2-K_1)(H - K_2)
-						+ OP_1BP_2 v_1RK_2(H - K_2)
-						+ OP_1SBP_2 v_1K_1R(H - K_2)
-						+ OP_2BSP_1 v_2R
-
-
-
