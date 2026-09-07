@@ -20,13 +20,13 @@ abstract: The simplest formal model of a financial market.
 
 The One‑Period Model is the most naive framework for rigorously
 representing a financial market over a single period of time.  It
-ignores crucial features of actual markets.
-It assumes there is no bid/ask spread, instruments can be
+ignores crucial features of actual markets:
+tt assumes there is no bid/ask spread, instruments can be
 bought or sold in any amount with no effect on the price, and has nothing
 whatsoever to say about taking counterparty risk into consideration.
 
-The model defines the initial prices of tradeable instruments and their
-terminal cash flows contingent on the realized outcome. If there are no
+The model defines the initial vector of prices of tradable instruments and their
+terminal prices contingent on the realized outcome. If there are no
 arbitrage opportunities available then prices are subject
 to a geometric constraint determined by the final prices.
 
@@ -37,17 +37,17 @@ determines the final prices $X(\omega)\in\RR^I$ given $\omega\in\Omega$ occurs.
 
 _Arbitrage_ (in this model) exists if we can find a _position_
 $\xi\in\RR^I$ to purchase at the beginning of the period at
-cost $\xi\cdot x < 0$ and then liquidate at the end of the
-period to receive $\xi\cdot X(\omega) \ge0$ for all $\omega\in\Omega$.
-We make money putting on the position and never lose money unwinding it.
+negative cost $\xi\cdot x < 0$ and then liquidate at the end of the
+period to receive non-negative $\xi\cdot X(\omega) \ge0$ for all $\omega\in\Omega$ --
+we make money putting on the position and never lose money unwinding it.
 
 This mathematical definition of arbitrage is not good enough for traders or
-risk managers. They will compare $|xi\cdot x|$ with $|xi|\cdot |x|$
+risk managers. They will compare $|\xi\cdot x|$ with $|\xi|\cdot |x|$
 to determine their _return on investment_. It makes no financial sense
 to tie up a million bucks to make one buck.
 
 The Fundamental Theorem of Asset Pricing for this one-period model is
-there are no arbitrage opportunities if and only if
+that there are no arbitrage opportunities if and only if
 the initial prices belong to the smallest closed cone containing
 the final prices.
 
@@ -63,9 +63,81 @@ This is another example of where the mathematical definition of arbitrage
 does not accurately model reality. You will eventually run out of
 instruments to purchase as $t > 0$ gets large.
 
+There is a connection between cones and convex sets. 
+
+__Exercise__. _Show cones are convex_.
+
+_Hint_: A set $C\subseteq\RR^I$ is convex if and only if for $x,y\in C$ we have
+${(1 - t)x + ty\in C}$ for $0 < t < 1$.
+
+__Exercise__. _Show if $C\subseteq\RR^I$ is convex then $\cup_{t>0} tC$ is a cone_.
+
+_Hint_: $tC = \{t x\mid x\in C\}$ for $t\in\RR$.
+
+Note any finite linear combination ${x = \sum_{\omega_j\in\Omega} X(\omega_j) D_j}$,
+$D_j > 0$ is in any cone containing the range of $X$, ${X(\Omega) = \{X(\omega)\mid\omega\in\Omega\}}$.
+
+__Exercise__. _Show for any such $x$ that $\xi\cdot X(\omega)\ge0$ for all $\omega\in\Omega$
+implies $\xi\cdot x\ge0$_.
+
+Since $x_n\to x$ and $\xi\cdot x_n\ge0$ imply $\xi\cdot x\ge0$ we have the "easy"
+direction of the FTAP.
+
+__Theorem__. _If $x$ belongs to the smallest closed cone containing the range of $X$
+then there are no arbitrage opportunities._
+
+The converse is also true but requires more mathematical machinery. The proof given
+below also shows how to find an arbitrage when one exists.
+
 ## Examples
 
-1-2-3
+Before proving the one-period FTAP let's consider some examples of one-period models.
+
+### Bond
+
+The simplest possible model has one instrument with initial price $x = (1)$
+and final price $X(\omega) = (R)$ for all $\omega$. Since $X$ is constant
+we can let $\Omega$ be any one element set.
+This is a riskless zero coupon bond having realized return $R$.
+
+A common misconception is the lack of arbitrage implies the realized
+return $R\ge 1$ since $R < 1$ implies negative interest rates.
+Interest rates have been negative in many financial markets.
+For example, from
+2016 to 2024 the Bank of Japan had a negative interest rate policy.
+
+We can use elementary algebra to prove the no-arbitrage condition is $R > 0$.
+If $R\le0$ and $\xi=-1$ then $\xi\cdot x = \xi x = -1$
+and $\xi R \ge0$ so arbitrage exists. If $R > 0$ and $\xi\cdot x = \xi < 0$
+then $\xi R < 0$ so there is no arbitrage.
+
+In terms of cones there is no arbitrage if and only if $x$ belongs
+to the smallest closed cone containing the range of $X$.
+This is equivalent to $1 = tR$ for some $t > 0$ which
+is equivalent to $R > 0$.
+
+# 1-2-3
+
+Consider a model with a bond and stock where their initial prices are both $1$,
+the bond always goes to $2$, and the stock can go to either $1$ or $3$.
+The model is $x = (1,1)$, $X(\omega) = (2, \omega)$ where $\omega\in\{1,3\} = \Omega$.
+Note how the sample space models in the most direct fashion "what can happen"
+over the interval. 
+If $x = X(1)D_1 + X(3)D_3$ for some $D_1,D_3\in\RR$
+then $D_1 = D_3 = 1/4$ so the model is arbitrage free.
+
+What are the arbitrage-free models given initial stock price $s$ instead of $1$?
+In this case $D_1 = (3 - 2s)/4$ and $D_3 = (-1 + 2s)/4$ so $D_1,D_3\ge0$ imply
+$s\le 3/2$ and $s\ge 1/2$. This is intuitively obvious. If $s > 3/2$ then
+the stock is expensive so we should short the stock and buy the bond to finance that.
+If $s < 1/2$ then the stock is cheap so we should buy that and invest in the bond.
+
+__Exercise__. _If $s > 3/2$ then $\xi = (-2,3)$ is an arbitrage_.
+
+__Exercise__. _If $s < 1/2$ then $\xi = (2,-1)$ is an arbitrage_.
+
+Do you notice a pattern here?
+
 
 90-100-110
 
@@ -1654,3 +1726,7 @@ the dollar and a half to pay half a dollar to cover the bond and
 have a dollar left to meet the call obligation.
 
 -->
+
+__Exercise__. _Show if $C\subseteq\RR^I$ is convex then $\cup_{t>0} tC$ is a cone_.
+
+_Hint_: $tC = \{tx\mid x\in C\}$ for $t\in\RR$.
