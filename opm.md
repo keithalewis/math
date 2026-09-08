@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
-abstract: The simplest formal model of a financial market.
+abstract: The simplest (unrealistic) model of a financial market.
 ...
 
 \newcommand\RR{\boldsymbol{R}}
@@ -20,31 +20,117 @@ abstract: The simplest formal model of a financial market.
 
 The One‑Period Model is the most naive framework for rigorously
 representing a financial market over a single period of time.  It
-ignores crucial features of actual markets:
-tt assumes there is no bid/ask spread, instruments can be
+ignores salient features of actual markets by
+assuming there is no bid/ask spread, instruments can be
 bought or sold in any amount with no effect on the price, and has nothing
-whatsoever to say about taking counterparty risk into consideration.
+whatsoever to say about counterparty risk.
 
-The model defines the initial vector of prices of tradable instruments and their
+The model defines the initial vector of prices of tradeable instruments and their
 terminal prices contingent on the realized outcome. If there are no
 arbitrage opportunities available then prices are subject
-to a geometric constraint determined by the final prices.
+to a geometric constraint determined by the final prices:
+the initial price vector must belong to the smallest closed cone
+containing all possible terminal prices. This is equivalent to
+what [@Ros1976] calls a "(not generally unique)
+positive linear operator that can be used to value all marketed assets."
+We will show such operators correspond to positive, finitely-additive measures
+on the space of outcomes and call them _valuation measures_.
+
+> __There is no need for probability. Everything follows from geometry.__
+
+The [Model](#model) section defines the (unrealistic) one-period model
+and proves the "easy" direction of the Fundamental Theorem of Asset Pricing.
+This motivates why cones make a showing. In the [Examples](#exampls) section we consider
+various models and how the FTAP can be usefully applied.
+The [FTAP](#fundamental-theorem-of-asset-pricing) section proves the
+"hard" direction and shows how to find an arbitrage if it exists.
+
+## Model
 
 Let $I$ be the set of _market instruments_ and $x\in\RR^I$
-be their initial _prices_. The _sample space_ $\Omega$ is the set of
+be an element of the _set exponential_[^1]
+denoting initial prices. The _sample space_ $\Omega$ is the set of
 what can happen over the period. The function $X\colon\Omega\to\RR^I$
 determines the final prices $X(\omega)\in\RR^I$ given $\omega\in\Omega$ occurs.
 
+[^1]: Recall the set exponential ${B^A = \{f\colon A\to B\}}$ is the set
+of all functions from the set $A$ to the set $B$.  If ${x\in\RR^I}$ then
+$x(i)\in\RR$ is the price of instrument $i\in I$.  If $I = \{1,\ldots,n\}$
+we can identify $\RR^I$ with the vector space of $n$-tuples
+${\RR^n = \prod_{i=1}^n\RR = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
+by $x(i) = x_i$, $1\le i\le n$. There is no need for the circumlocution
+of defining the set of instruments $I = \{i_1,\ldots,i_n\}$
+and letting $x = (x_1,\ldots,x_n)\in\RR^n$ be the instrument prices
+where $x_j$ is the price of instrument $i_j$, $1\le j\le n$.
+
 _Arbitrage_ (in this model) exists if we can find a _position_
-$\xi\in\RR^I$ to purchase at the beginning of the period at
-negative cost $\xi\cdot x < 0$ and then liquidate at the end of the
-period to receive non-negative $\xi\cdot X(\omega) \ge0$ for all $\omega\in\Omega$ --
-we make money putting on the position and never lose money unwinding it.
+$\xi\in\RR^I$ that makes money when you put it on and
+never loses money when you unwind it.
+In math speak, $\xi\cdot x < 0$ and $\xi\cdot X(\omega)\ge0$ for all $\omega\in\Omega$.
+Note that this definition does not involve probability.
 
 This mathematical definition of arbitrage is not good enough for traders or
 risk managers. They will compare $|\xi\cdot x|$ with $|\xi|\cdot |x|$
 to determine their _return on investment_. It makes no financial sense
 to tie up a million bucks to make one buck.
+
+A common definition of arbitrage in mathematical finance literature
+is to assume, by hook or by crook, there is a probability measure $P$ on $\Omega$
+and define arbitrage to be a portfolio ${\xi\in\RR^I}$ with
+${\xi\cdot x = 0}$ and ${\xi\cdot X\ge0}$ where ${\xi\cdot X > 0}$
+on some set ${A\subseteq\Omega}$ with ${P(A) > 0}$.
+This mathematical definition of arbitrage is ridiculous.
+
+Q(uant):
+:	Hey, I've got an arbitrage for you!
+
+T(rader):
+:	Great! How much do I make on the front end?
+
+Q:
+:	You make 0.
+
+T:
+:	Oh. Well how much do I make on the back end?
+
+Q:
+:	A positive amount.
+
+T:
+:	How "positive" are we talking here?
+
+Q:
+:	All I can tell you is that it is greater than 0.
+
+Assuming the trader is still talking to you...
+
+T:
+:	What is the probability of making this positive non-zero amount?
+
+Q:
+:	A strictly positive probability.
+
+T:
+:	More than 1\%?
+
+Q:
+:	All I can tell you is that it is greater than 0.
+
+...at this point it is only a matter of how far away the quant
+will land after getting kicked off the trading floor.
+
+Quants turn mathematical models into software used for trading.  If a
+model is deployed without ensuring it is arbitrage-free then buy-side
+clients will exploit mispricing by buying trades that are undervalued
+and pass on overvalued ones. They don't need to develop sophisticated
+models to do this, they just get quotes from several sell-side firms
+and take the lowest offer.
+Eventually trading reality catches up
+and the sell-side firm has to take losses when changing to
+the latest and greatest new model.
+Even worse, a "clever" sell-side trader might
+find an internal arbitrage that gives the illusion of making profits
+until risk management figures out what is going on.
 
 The Fundamental Theorem of Asset Pricing for this one-period model is
 that there are no arbitrage opportunities if and only if
@@ -59,20 +145,26 @@ __Exercise__. _Show the set of all arbitrages is a cone_.
 _Hint_: Show if $\xi\in\RR^I$ is an arbitrage then so is $t x$ for all positive $t\in\RR$
 and if $\xi,\eta\in\RR^I$ are arbitrages then so is $\xi + \eta$.
 
-This is another example of where the mathematical definition of arbitrage
-does not accurately model reality. You will eventually run out of
+Another reason this mathematical definition of arbitrage
+does not accurately model reality is that you will eventually run out of
 instruments to purchase as $t > 0$ gets large.
+Every instrument has a finite float. Just ask any large
+hedge fund.
 
 There is a connection between cones and convex sets. 
 
 __Exercise__. _Show cones are convex_.
 
-_Hint_: A set $C\subseteq\RR^I$ is convex if and only if for $x,y\in C$ we have
-${(1 - t)x + ty\in C}$ for $0 < t < 1$.
+_Hint_: A set $C\subseteq\RR^I$ is convex if and only if the line segment
+connecting two points in the set is contained in the set.
+For $x,y\in C$ we have
+${(1 - t)x + ty\in C}$ for ${0 \le t \le 1}$.
 
 __Exercise__. _Show if $C\subseteq\RR^I$ is convex then $\cup_{t>0} tC$ is a cone_.
 
 _Hint_: $tC = \{t x\mid x\in C\}$ for $t\in\RR$.
+If $y\in tC$ then $sy\in (st)C$ and $st > 0$ if $s > 0$ and $t > 0$.
+If $y\in tC$ and $z\in uC$ the $y + z \in (t + u)C$ and $t + u > 0$ if $t > 0$ and $u > 0$.
 
 Note any finite linear combination ${x = \sum_{\omega_j\in\Omega} X(\omega_j) D_j}$,
 $D_j > 0$ is in any cone containing the range of $X$, ${X(\Omega) = \{X(\omega)\mid\omega\in\Omega\}}$.
@@ -95,16 +187,18 @@ Before proving the one-period FTAP let's consider some examples of one-period mo
 
 ### Bond
 
-The simplest possible model has one instrument with initial price $x = (1)$
+The simplest possible one-period model has one instrument with initial price $x = (1)$
 and final price $X(\omega) = (R)$ for all $\omega$. Since $X$ is constant
 we can let $\Omega$ be any one element set.
-This is a riskless zero coupon bond having realized return $R$.
+This is a riskless zero coupon bond/cash deposit having realized return $R$.
 
 A common misconception is the lack of arbitrage implies the realized
 return $R\ge 1$ since $R < 1$ implies negative interest rates.
 Interest rates have been negative in many financial markets.
-For example, from
-2016 to 2024 the Bank of Japan had a negative interest rate policy.
+For example, from 2016 to 2024 the Bank of Japan had a negative interest rate policy.
+This was only available to large corporations depositing in the
+central bank, not the general public, but we are ignoring counterparty
+considerations.
 
 We can use elementary algebra to prove the no-arbitrage condition is $R > 0$.
 If $R\le0$ and $\xi=-1$ then $\xi\cdot x = \xi x = -1$
@@ -113,10 +207,12 @@ then $\xi R < 0$ so there is no arbitrage.
 
 In terms of cones there is no arbitrage if and only if $x$ belongs
 to the smallest closed cone containing the range of $X$.
-This is equivalent to $1 = tR$ for some $t > 0$ which
-is equivalent to $R > 0$.
+If $R > 0$ the cone is $[0,\infty)$. Since
+$1\in[0,\infty)$ there is no arbitrage.
+If $R\le 0$ the cone is $(-\infty, 0]$.
+Since $1\not\in(-\infty, 0]$ there is arbitrage.
 
-# 1-2-3
+### 1-2-3
 
 Consider a model with a bond and stock where their initial prices are both $1$,
 the bond always goes to $2$, and the stock can go to either $1$ or $3$.
@@ -143,29 +239,6 @@ Do you notice a pattern here?
 
 ${L,H}$ to $[L,H]$.
 
-Arbitrage must always be defined relative to a model.
-These constraints are applied to [zero coupon bonds](#zero-coupon-bond),
-the [binomial model](#binomial-model), and the [interval model](#interval-model).
-
-We make the usual unrealistic assumptions that prices are real
-numbers instead of integral multiples of each instrument's minimum
-trading increment/tick size and there is no bid-ask spread in prices, much
-less any consideration of credit or tax issues.  We also ignore the
-fact instruments can only be purchased in integral multiples of their
-minimum share/lot size.  The [Appendix](#appendix) posits a model that
-can incorporate more realistic assumptions.
-
-Quants turn mathematical models into software used for trading.  If a
-model is deployed without ensuring it is arbitrage-free then buy-side
-clients will exploit mispricings by buying trades that are undervalued
-and pass on overpriced ones. They don't need to develop sophisticated
-models to do this, they just get quotes from several sell-side firms
-and take the lowest offer.
-Eventually trading reality catches up
-and the sell-side firm loses money.  Even worse, a "clever" trader might
-find an internal arbitrage that gives the illusion of making profits
-until risk management figures out what is going on.
-
 The Fundamental Theorem of Asset Pricing characterizes arbitrage-free
 models and provides an arbitrages if they are not. As [@Ros1978] showed,
 this is a purely geometric result having nothing to do with probability.
@@ -190,128 +263,20 @@ futures pay the change in end-of-day quotes (and always have price zero).
 The Fundamental Theorem of Asset Pricing shows models of cash flows
 entail geometric constraints on arbitrage-free prices.
 
-## One-Period Model
-
-The _One-Period Model_ specifies a finite set of tradable _instruments_ $I$.
-The set of possible _outcomes_ $\Omega$ represents what can happen over the period.
-The initial _prices_ are given by a vector ${x\in\RR^I}$[^2], indexed by the instruments.
-Terminal _cash flows_ are defined by a vector-valued function
-${C\colon\Omega\to \RR^I}$ where ${C(\omega)\in\RR^I}$ are the cash
-flows for each instrument corresponding to outcome ${\omega\in\Omega}$.
-
-A _position_ $\xi\in\RR^I$ is the number of shares purchased in each
-instrument at the beginning of the period.  The _cost_ of acquiring the
-position is ${\xi\cdot x = \sum_{i\in I}\xi(i) x(i)}$ and results in
-${\xi\cdot C(\omega)}$ at the end of the period.
-The _realized return_ of a position $\xi\in\RR^I$ is ${R_\xi = \xi\cdot C/\xi\cdot x}$ provided
-$\xi\cdot x\not=0$.
-
-__Exercise__. _Show $R_{t\xi} = R_{\xi}$ for any non-zero $t\in\RR$_.
-
-This is actually a deleterious feature of the model. Going long ($t > 0$)
-or short ($t < 0$) typically
-affects the realized return. It also implies a portfolio strategy can be scaled
-to arbitrarily large positions. At some point you will run out of instruments to buy
-or sell.
-
-Classical literature often specifies terminal prices as a function $X\colon\Omega\to\RR^I$
-rather than cash flows $C$. From a rigorous standpoint,
-prices do not actually exist at the end of the period since there is no
-further economic activity available.  The classical approach implicitly
-assumes the initial position is liquidated at the end of the period
-at prevailing prices yielding a payment of $\xi\cdot X$. In practice,
-cash flows are paid proportional to position whether or not
-any trading occurs.
-
-For example, a zero coupon bond has an initial price/discount and pays
-a unit cash flow at termination.  If you are uncomfortable using cash
-flows $C$ instead of prices $X$ when the instrument is a stock, $C$
-may be interpreted as the firm's liquidation value or the proceeds from
-a stock buy back of all shares by the company at the end of the period.
-
 The [Multi-period model](mpm.html) clarifies the relationship
 between prices and cash flows.
 
 The [Capital Asset Pricing Model](capm.html) is a one-period model
 where a probability measure on possible outcomes is specified.
 
-[^2]: Recall the _set exponential_ ${B^A = \{f\colon A\to B\}}$ is the set
-of all functions from the set $A$ to the set $B$.  If ${x\in\RR^I}$ then
-$x(i)\in\RR$ is the price of instrument $i\in I$.  If $I = \{1,\ldots,n\}$
-we can identify $\RR^I$ with the vector space of $n$-tuples
-${\RR^n = \prod_{i=1}^n\RR = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
-by $x(i) = x_i$, $1\le i\le n$.
-
-## Arbitrage
-
-_Arbitrage_ exists in a one-period model if there is a position $\xi\in\RR^I$
-with ${\xi\cdot x < 0}$ and ${\xi\cdot C(\omega)\ge0}$ for all ${\omega\in\Omega}$:
-you make money acquiring the initial position and never lose money
-at the end of the period.
-
-Some authors define arbitrage as a portfolio satisfying ${\xi\cdot x = 0}$
-and ${\xi\cdot C\ge0}$ is strictly positive on some set having
-positive probability.  We haven't specified a probability measure so we
-can't use this definition.  Moreover, no trader would consider this to be
-an arbitrage anyway.  Even though the position costs nothing other than
-the usual agita to put on, the above definition has nothing definite to
-say about how much they will make nor how likely it is they will make it.
-
-Our stronger probability-free definition is still not good enough
-for traders and risk managers.  Even though ${\xi\cdot x}$ is strictly
-negative they will slap absolute value signs around every number and
-compute ${|\xi|\cdot|x|}$ as a proxy of how much capital will be tied
-up putting on the position.  No business would approve using a million
-dollars from their funding account just to make a penny up front even though that
-technically satisfies our mathematical definition of arbitrage.
-
 ## Fundamental Theorem of Asset Pricing
 
 The assumption of no arbitrage places constraints on initial prices
-that are determined by cash flows. The constraints involve a cone.
-
-Recall a _cone_ $K$ is a subset of a vector space closed under positive scalar
-multiplication and vector addition: if $x\in K$ then $tx\in K$ for $t > 0$
-and if $x,y\in K$ then ${x + y\in K}$.
-
-__Exercise__. _A cone is convex_.
-
-_Hint_: Recall a subset $K\subseteq\RR^n$
-is convex if and only if every point on the line between two
-points in $K$ also belongs to $K$;
-$K$, $x,y\in K$ implies ${tx + (1-t)y\in K}$ for ${0 < t < 1}$.
-
-<details><summary>Solution</summary>
-Since $t > 0$ and $1 - t > 0$ both $tx$ and $(1 - t)y$ belong to $K$
-hence $tx + (1 - t)y\in K$.
-</details>
-
-__Exercise__. _The set of arbitrage positions is a cone_.
-
-<details><summary>Solution</summary>
-If $\xi$ is an arbitrage then $t\xi$ is an arbitrage for $t > 0$.
-If $\xi$ and $\eta$ are arbitrages then so is $\xi + \eta$.
-</details>
-
-The smallest cone containing the possible cash flows $C$ is the set
-of finite linear combinations with positive coefficients
-${\{\sum_i C(\omega_i) D_i\mid \omega_i\in\Omega, D_i > 0\}}$.
-If $x = \sum_i C(\omega_i) D_i$ is in the cone
-and $\xi\cdot C$ is non-negative on $\Omega$ then ${\xi\cdot x\ge 0}$
-so no arbitrage exists.
-
-__Exercise__. _If $x$ belongs to the smallest_ closed _cone containing
-the range of $C$ then there is no arbitrage_.
-
-<details><summary>Solution</summary>
-If $x_n\in K$ converge to $x$ in norm and $\xi\cdot x_n\ge0$ then $\xi\cdot x\ge0$.
-</details>
-
-The contrapositive is also true.
+determined by possible final prices. The constraints involve a cone.
 
 __Theorem__.  _Arbitrage exists in
 a one-period model if $x$ does not belong to the smallest
-closed cone containing the range of $C$. If $x^*$ is the closest point
+closed cone containing the range of $X$. If $x^*$ is the closest point
 in the cone then $\xi = x^* - x$ is an arbitrage_.
 
 In general the arbitrage is not unique. We will establish the theorem using
@@ -340,7 +305,7 @@ Since ${0 < ||\xi||^2 = \xi\cdot (x^* - x) \le -\xi\cdot x}$ we have ${\xi\cdot 
 
 The lemma proves the FTAP and that $\xi = x^* - x$ implements an arbitrage.
 
-A _risk-neutral pricing measure_ is any positive, finitely additive measure $D$ on $\Omega$ with
+A _valuation measure_ is any positive, finitely additive measure $D$ on $\Omega$ with
 $x = \int_\Omega C\,dD$. The FTAP shows no arbitrage implies this
 set is not empty. Every such measure corresponds to a positive linear functional
 on the vector space of bounded functions on $\Omega$.  See [@DunSch1958].
@@ -427,6 +392,8 @@ He also identified the risk-blind nature of risk-neutral probability.
 We have already seen every risk-neutral measure has the same expected realized
 return. This example shows even if the measure is unique it implies infinite
 risk aversion.
+
+<!--
 
 ### Binomial Model
 
@@ -672,6 +639,7 @@ and charge a transaction _fee_ based on the instrument and amount transacted.
 A _dealer_ is a broker that may hold transactions from taker
 or maker over a period of time. The amount they make is
 subject to market movements and settlement times are on the order of hours.
+-->
 
 
 ## References
@@ -1726,7 +1694,3 @@ the dollar and a half to pay half a dollar to cover the bond and
 have a dollar left to meet the call obligation.
 
 -->
-
-__Exercise__. _Show if $C\subseteq\RR^I$ is convex then $\cup_{t>0} tC$ is a cone_.
-
-_Hint_: $tC = \{tx\mid x\in C\}$ for $t\in\RR$.
