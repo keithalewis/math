@@ -25,7 +25,7 @@ assuming there is no bid/ask spread, instruments can be
 bought or sold in any amount with no effect on the price, and has nothing
 whatsoever to say about counterparty risk.
 
-The model defines the initial vector of prices of tradeable instruments and their
+The model defines the initial vector of tradeable instruments prices and their
 terminal prices contingent on the realized outcome. If there are no
 arbitrage opportunities available then prices are subject
 to a geometric constraint determined by the final prices:
@@ -117,7 +117,7 @@ Q:
 :	All I can tell you is that it is greater than 0.
 
 ...at this point it is only a matter of how far away the quant
-will land after getting kicked off the trading floor.
+will land after getting booted off the trading floor.
 
 Quants turn mathematical models into software used for trading.  If a
 model is deployed without ensuring it is arbitrage-free then buy-side
@@ -132,7 +132,7 @@ Even worse, a "clever" sell-side trader might
 find an internal arbitrage that gives the illusion of making profits
 until risk management figures out what is going on.
 
-The Fundamental Theorem of Asset Pricing for this one-period model is
+The Fundamental Theorem of Asset Pricing for the one-period model is
 that there are no arbitrage opportunities if and only if
 the initial prices belong to the smallest closed cone containing
 the final prices.
