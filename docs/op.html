@@ -46,7 +46,7 @@
 <header id="title-block-header">
 <h1 class="title">Option Pricing</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Jun 12, 2026</p>
+<p class="date">Sep 7, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 European option pricing and greeks
@@ -141,12 +141,11 @@ class="math inline">x\in A</span> and <span class="math inline">1_A(x) =
     v &amp;= E[\max\{k - F\}] \\
       &amp;= E[(k - F)1(F \le k)] \\
       &amp;= kP(F\le k) - E[F 1(F \le k)] \\
-      &amp;= kP(F\le k) - E[F]E[F/E[F] 1(F \le k)] \\
+      &amp;= kP(F\le k) - f E[(F/f) 1(F \le k)] \\
       &amp;= kP(F\le k) - fP^s(F \le k)] \\
 \end{aligned}
 </span> where <span class="math inline">f = E[F]</span> and <span
-class="math inline">P^s</span> is defined by <span
-class="math inline">dP^s/dP = F/E[F]</span>.</p>
+class="math inline">P^s = (F/f)P</span>.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">F &gt;
 0</span> then <span class="math inline">P^s</span> is a probability
 measure</em>.</p>
@@ -154,7 +153,7 @@ measure</em>.</p>
 class="math inline">\nu(F)</span> at expiration is <span
 class="math inline">v = E[\nu(F)]</span>. If the option pays shares
 instead of currency its value is <span class="math inline">E[F\nu(F)] =
-E[F]E[F/E[F] \nu(F)] = f E^s[\nu(F)]</span>, where <span
+fE[(F/f) \nu(F)] = f E^s[\nu(F)]</span>, where <span
 class="math inline">E^s</span> is the expectation under <em>share
 measure</em> <span class="math inline">P^s</span>.</p>
 <p>Recall the <em>moment generating function</em> of a random variable

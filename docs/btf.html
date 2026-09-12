@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">Black to the Future</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Sep 4, 2026</p>
+<p class="date">Sep 5, 2026</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -117,16 +117,16 @@ infinitesimal period of time. As a consequence, the portfolio is
 risk-free and must grow at the risk-free rate<a href="#fn2"
 class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> if
 there are no arbitrage opportunities. Earlier models assumed you needed
-to estimate the risk premium of the stock return.</p>
+to estimate the risk premium of the uncertainty in stock returns.</p>
 <p>Black, Scholes, and Merton were well aware of the shortcomings of
 their model. Volatility is not constant. Peter Carr (rightly) insisted
 the word “volatility” should always be used with an adjective. The
 <em>implied volatility</em> is the constant to be plugged into B-S/M
 pricing formula that recovers the option price. Traders use implied
-volatility as a proxy for price.</p>
-<p>This is a chicken and egg problem. Traders know how to use the
-Black-Scholes formula to get the implied volatility given the option
-price. The question the B-S/M theory has no answer to is how to get a
+volatility as a proxy for price just as they use yield as a proxy for
+the price of a bond: a constant that is not constant to plug into a
+mutually agreed upon formula.</p>
+<p>The question the B-S/M theory has no answer to is how to provide a
 price given the strike and expiration of an option.</p>
 <p>Suppose you are a trader and your boss tells you to make a market for
 a three month at-the-money call option on stock XYZ. Further suppose the
@@ -138,7 +138,7 @@ information?</p>
 thinly traded. How do you incorporate the limited data you have to
 estimate its price?</p>
 <p>What follows is a simple and rigorous mathematical theory that
-provides a framework for tackling this difficult problem.</p>
+provides a framework for tackling this fundamental problem.</p>
 <section id="ross" class="level2">
 <h2>Ross</h2>
 <p>There is a theory for valuing, hedging, and measuring the risk of any
@@ -727,8 +727,8 @@ class="math display">
 f(x + h) = \sum_{n=0}^\infty \sum_{|\alpha| = n} \frac{D^\alpha
 f(x)}{\alpha!}h^\alpha,
 </span> where <span class="math inline">\alpha =
-(\alpha_1,\ldots,\alpha_m)</span> with <span
-class="math inline">\alpha_j\in\boldsymbol{{N}}</span>, <span
+(\alpha_1,\ldots,\alpha_m)</span> where <span
+class="math inline">\alpha_j</span> are non-negative integers, <span
 class="math inline">|\alpha| = \alpha_1 + \cdots + \alpha_m</span>,
 <span class="math inline">D^\alpha f(x) =
 \partial^{|\alpha|}f(x)/\partial_{x_1}^{\alpha_1}\ldots

@@ -75,11 +75,11 @@ to determine their _return on investment_. It makes no financial sense
 to tie up a million bucks to make one buck.
 
 A common definition of arbitrage in mathematical finance literature
-is to assume, by hook or by crook, there is a probability measure $P$ on $\Omega$
+is to superfluously assume there is a probability measure $P$ on $\Omega$
 and define arbitrage to be a portfolio ${\xi\in\RR^I}$ with
 ${\xi\cdot x = 0}$ and ${\xi\cdot X\ge0}$ where ${\xi\cdot X > 0}$
 on some set ${A\subseteq\Omega}$ with ${P(A) > 0}$.
-This mathematical definition of arbitrage is ridiculous.
+This mathematical definition of arbitrage is fatuous.
 
 Q(uant):
 :	Hey, I've got an arbitrage for you!
@@ -160,11 +160,9 @@ connecting two points in the set is contained in the set.
 For $x,y\in C$ we have
 ${(1 - t)x + ty\in C}$ for ${0 \le t \le 1}$.
 
-__Exercise__. _Show if $C\subseteq\RR^I$ is convex then $\cup_{t>0} tC$ is a cone_.
+__Exercise__. _Show if $C\subseteq\RR^I$ is convex then $\RR^+ C$ is a cone_.
 
-_Hint_: $tC = \{t x\mid x\in C\}$ for $t\in\RR$.
-If $y\in tC$ then $sy\in (st)C$ and $st > 0$ if $s > 0$ and $t > 0$.
-If $y\in tC$ and $z\in uC$ the $y + z \in (t + u)C$ and $t + u > 0$ if $t > 0$ and $u > 0$.
+_Hint_: Where $\RR^+C = \{t x\mid t > 0, x\in C\}$.
 
 Note any finite linear combination ${x = \sum_{\omega_j\in\Omega} X(\omega_j) D_j}$,
 $D_j > 0$ is in any cone containing the range of $X$, ${X(\Omega) = \{X(\omega)\mid\omega\in\Omega\}}$.
@@ -172,13 +170,15 @@ $D_j > 0$ is in any cone containing the range of $X$, ${X(\Omega) = \{X(\omega)\
 __Exercise__. _Show for any such $x$ that $\xi\cdot X(\omega)\ge0$ for all $\omega\in\Omega$
 implies $\xi\cdot x\ge0$_.
 
+This shows there is no arbitrage for such $x$.
+
 Since $x_n\to x$ and $\xi\cdot x_n\ge0$ imply $\xi\cdot x\ge0$ we have the "easy"
 direction of the FTAP.
 
-__Theorem__. _If $x$ belongs to the smallest closed cone containing the range of $X$
+__Theorem__. (FTAP "easy") _If $x$ belongs to the smallest closed cone containing the range of $X$
 then there are no arbitrage opportunities._
 
-The converse is also true but requires more mathematical machinery. The proof given
+The converse is also true but requires more mathematical machinery. The elementary proof given
 below also shows how to find an arbitrage when one exists.
 
 ## Examples
@@ -225,19 +225,24 @@ then $D_1 = D_3 = 1/4$ so the model is arbitrage free.
 What are the arbitrage-free models given initial stock price $s$ instead of $1$?
 In this case $D_1 = (3 - 2s)/4$ and $D_3 = (-1 + 2s)/4$ so $D_1,D_3\ge0$ imply
 $s\le 3/2$ and $s\ge 1/2$. This is intuitively obvious. If $s > 3/2$ then
-the stock is expensive so we should short the stock and buy the bond to finance that.
+the stock is rich so we should short the stock and buy the bond to finance that.
 If $s < 1/2$ then the stock is cheap so we should buy that and invest in the bond.
 
-__Exercise__. _If $s > 3/2$ then $\xi = (-2,3)$ is an arbitrage_.
+__Exercise__. _If $s > 3/2$ then $\xi = (2,-3)$ is an arbitrage_.
 
-__Exercise__. _If $s < 1/2$ then $\xi = (2,-1)$ is an arbitrage_.
+__Exercise__. _If $s < 1/2$ then $\xi = (-2,1)$ is an arbitrage_.
 
 Do you notice a pattern here?
 
+__Stop reading here.__
+
+Option with strike 2. $R > 0$, $1/2 \le s \le 3/2$. 
+
+Logical entropy 1 - sum p_i^2 vs Shannon entropy -sum p_i log p_i.
 
 90-100-110
 
-${L,H}$ to $[L,H]$.
+${L,H}$ to $[L,H]$. Same no-arbitrage condition but non-unique measure.
 
 The Fundamental Theorem of Asset Pricing characterizes arbitrage-free
 models and provides an arbitrages if they are not. As [@Ros1978] showed,
@@ -279,8 +284,13 @@ a one-period model if $x$ does not belong to the smallest
 closed cone containing the range of $X$. If $x^*$ is the closest point
 in the cone then $\xi = x^* - x$ is an arbitrage_.
 
-In general the arbitrage is not unique. We will establish the theorem using
-the purely geometric
+In general the arbitrage is not unique. We establish the theorem by
+a purely geometric lemma residing between Farkas' Lemma and the Hahn-Banach theorem.
+The Hahn-Banach theorem
+states this holds for locally convex topological vector spaces 
+when $K$ has an interior point [@cite].
+Every finite dimensional vector space is a locally convex topological
+vector space[@cite]. In this case we do not require $K$ have an interior point.
 
 __Lemma__. _If $x\in\RR^n$ and $K$ is a closed cone in
 $\RR^n$ with $x\not\in K$ then there exists ${\xi\in\RR^n}$

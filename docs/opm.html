@@ -65,60 +65,298 @@
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Jun 16, 2026</p>
+<p class="date">Sep 12, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
-The simplest formal model of a financial market.
+The simplest (unrealistic) model of a financial market.
 </div>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#one-period-model" id="toc-one-period-model">One-Period
-Model</a></li>
-<li><a href="#arbitrage" id="toc-arbitrage">Arbitrage</a></li>
+<li><a href="#model" id="toc-model">Model</a></li>
+<li><a href="#examples" id="toc-examples">Examples</a>
+<ul>
+<li><a href="#bond" id="toc-bond">Bond</a></li>
+<li><a href="#section" id="toc-section">1-2-3</a></li>
+</ul></li>
 <li><a href="#fundamental-theorem-of-asset-pricing"
 id="toc-fundamental-theorem-of-asset-pricing">Fundamental Theorem of
 Asset Pricing</a></li>
-<li><a href="#examples" id="toc-examples">Examples</a>
+<li><a href="#examples-1" id="toc-examples-1">Examples</a>
 <ul>
 <li><a href="#zero-coupon-bond" id="toc-zero-coupon-bond">Zero Coupon
 Bond</a></li>
-<li><a href="#model" id="toc-model">1-2-3 Model</a></li>
-<li><a href="#binomial-model" id="toc-binomial-model">Binomial
-Model</a></li>
-<li><a href="#interval-model" id="toc-interval-model">Interval
-Model</a></li>
+<li><a href="#model-1" id="toc-model-1">1-2-3 Model</a></li>
 </ul></li>
-<li><a href="#appendix" id="toc-appendix">Appendix</a></li>
 <li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
-<p>The One‑Period Model is the simplest framework for rigorously
-representing a financial market over a single period of time. The model
-defines the initial prices of tradeable instruments and their terminal
-cash flows contingent on the realized outcome. If there are no arbitrage
-opportunities available then prices are subject to geometric constraints
-determined by the cash flows. Arbitrage must always be defined relative
-to a model. These constraints are applied to <a
-href="#zero-coupon-bond">zero coupon bonds</a>, the <a
-href="#binomial-model">binomial model</a>, and the <a
-href="#interval-model">interval model</a>.</p>
-<p>We make the usual unrealistic assumptions that prices are real
-numbers instead of integral multiples of each instrument’s minimum
-trading increment/tick size and there is no bid-ask spread in prices,
-much less any consideration of credit or tax issues. We also ignore the
-fact instruments can only be purchased in integral multiples of their
-minimum share/lot size. The <a href="#appendix">Appendix</a> posits a
-model that can incorporate more realistic assumptions.</p>
+<p>The One‑Period Model is the most naive framework for rigorously
+representing a financial market over a single period of time. It ignores
+salient features of actual markets by assuming there is no bid/ask
+spread, instruments can be bought or sold in any amount with no effect
+on the price, and has nothing whatsoever to say about counterparty
+risk.</p>
+<p>The model defines the initial vector of tradeable instruments prices
+and their terminal prices contingent on the realized outcome. If there
+are no arbitrage opportunities available then prices are subject to a
+geometric constraint determined by the final prices: the initial price
+vector must belong to the smallest closed cone containing all possible
+terminal prices. This is equivalent to what <span class="citation"
+data-cites="Ros1976">(<a href="#ref-Ros1976" role="doc-biblioref">Ross
+1976</a>)</span> calls a “(not generally unique) positive linear
+operator that can be used to value all marketed assets.” We will show
+such operators correspond to positive, finitely-additive measures on the
+space of outcomes and call them <em>valuation measures</em>.</p>
+<blockquote>
+<p><strong>There is no need for probability. Everything follows from
+geometry.</strong></p>
+</blockquote>
+<p>The <a href="#model">Model</a> section defines the (unrealistic)
+one-period model and proves the “easy” direction of the Fundamental
+Theorem of Asset Pricing. This motivates why cones make a showing. In
+the <a href="#exampls">Examples</a> section we consider various models
+and how the FTAP can be usefully applied. The <a
+href="#fundamental-theorem-of-asset-pricing">FTAP</a> section proves the
+“hard” direction and shows how to find an arbitrage if it exists.</p>
+<section id="model" class="level2">
+<h2>Model</h2>
+<p>Let <span class="math inline">I</span> be the set of <em>market
+instruments</em> and <span
+class="math inline">x\in\boldsymbol{R}^I</span> be an element of the
+<em>set exponential</em><a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> denoting initial prices. The
+<em>sample space</em> <span class="math inline">\Omega</span> is the set
+of what can happen over the period. The function <span
+class="math inline">X\colon\Omega\to\boldsymbol{R}^I</span> determines
+the final prices <span
+class="math inline">X(\omega)\in\boldsymbol{R}^I</span> given <span
+class="math inline">\omega\in\Omega</span> occurs.</p>
+<p><em>Arbitrage</em> (in this model) exists if we can find a
+<em>position</em> <span
+class="math inline">\xi\in\boldsymbol{R}^I</span> that makes money when
+you put it on and never loses money when you unwind it. In math speak,
+<span class="math inline">\xi\cdot x &lt; 0</span> and <span
+class="math inline">\xi\cdot X(\omega)\ge0</span> for all <span
+class="math inline">\omega\in\Omega</span>. Note that this definition
+does not involve probability.</p>
+<p>This mathematical definition of arbitrage is not good enough for
+traders or risk managers. They will compare <span
+class="math inline">|\xi\cdot x|</span> with <span
+class="math inline">|\xi|\cdot |x|</span> to determine their <em>return
+on investment</em>. It makes no financial sense to tie up a million
+bucks to make one buck.</p>
+<p>A common definition of arbitrage in mathematical finance literature
+is to superfluously assume there is a probability measure <span
+class="math inline">P</span> on <span class="math inline">\Omega</span>
+and define arbitrage to be a portfolio <span
+class="math inline">{\xi\in\boldsymbol{R}^I}</span> with <span
+class="math inline">{\xi\cdot x = 0}</span> and <span
+class="math inline">{\xi\cdot X\ge0}</span> where <span
+class="math inline">{\xi\cdot X &gt; 0}</span> on some set <span
+class="math inline">{A\subseteq\Omega}</span> with <span
+class="math inline">{P(A) &gt; 0}</span>. This mathematical definition
+of arbitrage is fatuous.</p>
+<dl>
+<dt>Q(uant):</dt>
+<dd>
+Hey, I’ve got an arbitrage for you!
+</dd>
+<dt>T(rader):</dt>
+<dd>
+Great! How much do I make on the front end?
+</dd>
+<dt>Q:</dt>
+<dd>
+You make 0.
+</dd>
+<dt>T:</dt>
+<dd>
+Oh. Well how much do I make on the back end?
+</dd>
+<dt>Q:</dt>
+<dd>
+A positive amount.
+</dd>
+<dt>T:</dt>
+<dd>
+How “positive” are we talking here?
+</dd>
+<dt>Q:</dt>
+<dd>
+All I can tell you is that it is greater than 0.
+</dd>
+</dl>
+<p>Assuming the trader is still talking to you…</p>
+<dl>
+<dt>T:</dt>
+<dd>
+What is the probability of making this positive non-zero amount?
+</dd>
+<dt>Q:</dt>
+<dd>
+A strictly positive probability.
+</dd>
+<dt>T:</dt>
+<dd>
+More than 1%?
+</dd>
+<dt>Q:</dt>
+<dd>
+All I can tell you is that it is greater than 0.
+</dd>
+</dl>
+<p>…at this point it is only a matter of how far away the quant will
+land after getting booted off the trading floor.</p>
 <p>Quants turn mathematical models into software used for trading. If a
 model is deployed without ensuring it is arbitrage-free then buy-side
-clients will exploit mispricings by buying trades that are undervalued
-and pass on overpriced ones. They don’t need to develop sophisticated
+clients will exploit mispricing by buying trades that are undervalued
+and pass on overvalued ones. They don’t need to develop sophisticated
 models to do this, they just get quotes from several sell-side firms and
 take the lowest offer. Eventually trading reality catches up and the
-sell-side firm loses money. Even worse, a “clever” trader might find an
-internal arbitrage that gives the illusion of making profits until risk
-management figures out what is going on.</p>
+sell-side firm has to take losses when changing to the latest and
+greatest new model. Even worse, a “clever” sell-side trader might find
+an internal arbitrage that gives the illusion of making profits until
+risk management figures out what is going on.</p>
+<p>The Fundamental Theorem of Asset Pricing for the one-period model is
+that there are no arbitrage opportunities if and only if the initial
+prices belong to the smallest closed cone containing the final
+prices.</p>
+<p>A <em>cone</em> in a vector space is a subset that is closed under
+multiplication by positive scalars and vector addition.</p>
+<p><strong>Exercise</strong>. <em>Show the set of all arbitrages is a
+cone</em>.</p>
+<p><em>Hint</em>: Show if <span
+class="math inline">\xi\in\boldsymbol{R}^I</span> is an arbitrage then
+so is <span class="math inline">t x</span> for all positive <span
+class="math inline">t\in\boldsymbol{R}</span> and if <span
+class="math inline">\xi,\eta\in\boldsymbol{R}^I</span> are arbitrages
+then so is <span class="math inline">\xi + \eta</span>.</p>
+<p>Another reason this mathematical definition of arbitrage does not
+accurately model reality is that you will eventually run out of
+instruments to purchase as <span class="math inline">t &gt; 0</span>
+gets large. Every instrument has a finite float. Just ask any large
+hedge fund.</p>
+<p>There is a connection between cones and convex sets.</p>
+<p><strong>Exercise</strong>. <em>Show cones are convex</em>.</p>
+<p><em>Hint</em>: A set <span
+class="math inline">C\subseteq\boldsymbol{R}^I</span> is convex if and
+only if the line segment connecting two points in the set is contained
+in the set. For <span class="math inline">x,y\in C</span> we have <span
+class="math inline">{(1 - t)x + ty\in C}</span> for <span
+class="math inline">{0 \le t \le 1}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">C\subseteq\boldsymbol{R}^I</span> is convex then
+<span class="math inline">\boldsymbol{R}^+ C</span> is a cone</em>.</p>
+<p><em>Hint</em>: Where <span class="math inline">\boldsymbol{R}^+C =
+\{t x\mid t &gt; 0, x\in C\}</span>.</p>
+<p>Note any finite linear combination <span class="math inline">{x =
+\sum_{\omega_j\in\Omega} X(\omega_j) D_j}</span>, <span
+class="math inline">D_j &gt; 0</span> is in any cone containing the
+range of <span class="math inline">X</span>, <span
+class="math inline">{X(\Omega) =
+\{X(\omega)\mid\omega\in\Omega\}}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show for any such <span
+class="math inline">x</span> that <span class="math inline">\xi\cdot
+X(\omega)\ge0</span> for all <span
+class="math inline">\omega\in\Omega</span> implies <span
+class="math inline">\xi\cdot x\ge0</span></em>.</p>
+<p>This shows there is no arbitrage for such <span
+class="math inline">x</span>.</p>
+<p>Since <span class="math inline">x_n\to x</span> and <span
+class="math inline">\xi\cdot x_n\ge0</span> imply <span
+class="math inline">\xi\cdot x\ge0</span> we have the “easy” direction
+of the FTAP.</p>
+<p><strong>Theorem</strong>. (FTAP “easy”) <em>If <span
+class="math inline">x</span> belongs to the smallest closed cone
+containing the range of <span class="math inline">X</span> then there
+are no arbitrage opportunities.</em></p>
+<p>The converse is also true but requires more mathematical machinery.
+The elementary proof given below also shows how to find an arbitrage
+when one exists.</p>
+</section>
+<section id="examples" class="level2">
+<h2>Examples</h2>
+<p>Before proving the one-period FTAP let’s consider some examples of
+one-period models.</p>
+<section id="bond" class="level3">
+<h3>Bond</h3>
+<p>The simplest possible one-period model has one instrument with
+initial price <span class="math inline">x = (1)</span> and final price
+<span class="math inline">X(\omega) = (R)</span> for all <span
+class="math inline">\omega</span>. Since <span
+class="math inline">X</span> is constant we can let <span
+class="math inline">\Omega</span> be any one element set. This is a
+riskless zero coupon bond/cash deposit having realized return <span
+class="math inline">R</span>.</p>
+<p>A common misconception is the lack of arbitrage implies the realized
+return <span class="math inline">R\ge 1</span> since <span
+class="math inline">R &lt; 1</span> implies negative interest rates.
+Interest rates have been negative in many financial markets. For
+example, from 2016 to 2024 the Bank of Japan had a negative interest
+rate policy. This was only available to large corporations depositing in
+the central bank, not the general public, but we are ignoring
+counterparty considerations.</p>
+<p>We can use elementary algebra to prove the no-arbitrage condition is
+<span class="math inline">R &gt; 0</span>. If <span
+class="math inline">R\le0</span> and <span
+class="math inline">\xi=-1</span> then <span
+class="math inline">\xi\cdot x = \xi x = -1</span> and <span
+class="math inline">\xi R \ge0</span> so arbitrage exists. If <span
+class="math inline">R &gt; 0</span> and <span
+class="math inline">\xi\cdot x = \xi &lt; 0</span> then <span
+class="math inline">\xi R &lt; 0</span> so there is no arbitrage.</p>
+<p>In terms of cones there is no arbitrage if and only if <span
+class="math inline">x</span> belongs to the smallest closed cone
+containing the range of <span class="math inline">X</span>. If <span
+class="math inline">R &gt; 0</span> the cone is <span
+class="math inline">[0,\infty)</span>. Since <span
+class="math inline">1\in[0,\infty)</span> there is no arbitrage. If
+<span class="math inline">R\le 0</span> the cone is <span
+class="math inline">(-\infty, 0]</span>. Since <span
+class="math inline">1\not\in(-\infty, 0]</span> there is arbitrage.</p>
+</section>
+<section id="section" class="level3">
+<h3>1-2-3</h3>
+<p>Consider a model with a bond and stock where their initial prices are
+both <span class="math inline">1</span>, the bond always goes to <span
+class="math inline">2</span>, and the stock can go to either <span
+class="math inline">1</span> or <span class="math inline">3</span>. The
+model is <span class="math inline">x = (1,1)</span>, <span
+class="math inline">X(\omega) = (2, \omega)</span> where <span
+class="math inline">\omega\in\{1,3\} = \Omega</span>. Note how the
+sample space models in the most direct fashion “what can happen” over
+the interval. If <span class="math inline">x = X(1)D_1 + X(3)D_3</span>
+for some <span class="math inline">D_1,D_3\in\boldsymbol{R}</span> then
+<span class="math inline">D_1 = D_3 = 1/4</span> so the model is
+arbitrage free.</p>
+<p>What are the arbitrage-free models given initial stock price <span
+class="math inline">s</span> instead of <span
+class="math inline">1</span>? In this case <span class="math inline">D_1
+= (3 - 2s)/4</span> and <span class="math inline">D_3 = (-1 +
+2s)/4</span> so <span class="math inline">D_1,D_3\ge0</span> imply <span
+class="math inline">s\le 3/2</span> and <span class="math inline">s\ge
+1/2</span>. This is intuitively obvious. If <span class="math inline">s
+&gt; 3/2</span> then the stock is rich so we should short the stock and
+buy the bond to finance that. If <span class="math inline">s &lt;
+1/2</span> then the stock is cheap so we should buy that and invest in
+the bond.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">s &gt;
+3/2</span> then <span class="math inline">\xi = (2,-3)</span> is an
+arbitrage</em>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">s &lt;
+1/2</span> then <span class="math inline">\xi = (-2,1)</span> is an
+arbitrage</em>.</p>
+<p>Do you notice a pattern here?</p>
+<p><strong>Stop reading here.</strong></p>
+<p>Option with strike 2. <span class="math inline">R &gt; 0</span>,
+<span class="math inline">1/2 \le s \le 3/2</span>.</p>
+<p>Logical entropy 1 - sum p_i^2 vs Shannon entropy -sum p_i log
+p_i.</p>
+<p>90-100-110</p>
+<p><span class="math inline">{L,H}</span> to <span
+class="math inline">[L,H]</span>. Same no-arbitrage condition but
+non-unique measure.</p>
 <p>The Fundamental Theorem of Asset Pricing characterizes arbitrage-free
 models and provides an arbitrages if they are not. As <span
 class="citation" data-cites="Ros1978">(<a href="#ref-Ros1978"
@@ -144,159 +382,35 @@ pay coupons, futures pay the change in end-of-day quotes (and always
 have price zero).</p>
 <p>The Fundamental Theorem of Asset Pricing shows models of cash flows
 entail geometric constraints on arbitrage-free prices.</p>
-<section id="one-period-model" class="level2">
-<h2>One-Period Model</h2>
-<p>The <em>One-Period Model</em> specifies a finite set of tradable
-<em>instruments</em> <span class="math inline">I</span>. The set of
-possible <em>outcomes</em> <span class="math inline">\Omega</span>
-represents what can happen over the period. The initial <em>prices</em>
-are given by a vector <span
-class="math inline">{x\in\boldsymbol{R}^I}</span><a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>,
-indexed by the instruments. Terminal <em>cash flows</em> are defined by
-a vector-valued function <span class="math inline">{C\colon\Omega\to
-\boldsymbol{R}^I}</span> where <span
-class="math inline">{C(\omega)\in\boldsymbol{R}^I}</span> are the cash
-flows for each instrument corresponding to outcome <span
-class="math inline">{\omega\in\Omega}</span>.</p>
-<p>A <em>position</em> <span
-class="math inline">\xi\in\boldsymbol{R}^I</span> is the number of
-shares purchased in each instrument at the beginning of the period. The
-<em>cost</em> of acquiring the position is <span
-class="math inline">{\xi\cdot x = \sum_{i\in I}\xi(i) x(i)}</span> and
-results in <span class="math inline">{\xi\cdot C(\omega)}</span> at the
-end of the period. The <em>realized return</em> of a position <span
-class="math inline">\xi\in\boldsymbol{R}^I</span> is <span
-class="math inline">{R_\xi = \xi\cdot C/\xi\cdot x}</span> provided
-<span class="math inline">\xi\cdot x\not=0</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span
-class="math inline">R_{t\xi} = R_{\xi}</span> for any non-zero <span
-class="math inline">t\in\boldsymbol{R}</span></em>.</p>
-<p>This is actually a deleterious feature of the model. Going long
-(<span class="math inline">t &gt; 0</span>) or short (<span
-class="math inline">t &lt; 0</span>) typically affects the realized
-return. It also implies a portfolio strategy can be scaled to
-arbitrarily large positions. At some point you will run out of
-instruments to buy or sell.</p>
-<p>Classical literature often specifies terminal prices as a function
-<span class="math inline">X\colon\Omega\to\boldsymbol{R}^I</span> rather
-than cash flows <span class="math inline">C</span>. From a rigorous
-standpoint, prices do not actually exist at the end of the period since
-there is no further economic activity available. The classical approach
-implicitly assumes the initial position is liquidated at the end of the
-period at prevailing prices yielding a payment of <span
-class="math inline">\xi\cdot X</span>. In practice, cash flows are paid
-proportional to position whether or not any trading occurs.</p>
-<p>For example, a zero coupon bond has an initial price/discount and
-pays a unit cash flow at termination. If you are uncomfortable using
-cash flows <span class="math inline">C</span> instead of prices <span
-class="math inline">X</span> when the instrument is a stock, <span
-class="math inline">C</span> may be interpreted as the firm’s
-liquidation value or the proceeds from a stock buy back of all shares by
-the company at the end of the period.</p>
 <p>The <a href="mpm.html">Multi-period model</a> clarifies the
 relationship between prices and cash flows.</p>
 <p>The <a href="capm.html">Capital Asset Pricing Model</a> is a
 one-period model where a probability measure on possible outcomes is
 specified.</p>
 </section>
-<section id="arbitrage" class="level2">
-<h2>Arbitrage</h2>
-<p><em>Arbitrage</em> exists in a one-period model if there is a
-position <span class="math inline">\xi\in\boldsymbol{R}^I</span> with
-<span class="math inline">{\xi\cdot x &lt; 0}</span> and <span
-class="math inline">{\xi\cdot C(\omega)\ge0}</span> for all <span
-class="math inline">{\omega\in\Omega}</span>: you make money acquiring
-the initial position and never lose money at the end of the period.</p>
-<p>Some authors define arbitrage as a portfolio satisfying <span
-class="math inline">{\xi\cdot x = 0}</span> and <span
-class="math inline">{\xi\cdot C\ge0}</span> is strictly positive on some
-set having positive probability. We haven’t specified a probability
-measure so we can’t use this definition. Moreover, no trader would
-consider this to be an arbitrage anyway. Even though the position costs
-nothing other than the usual agita to put on, the above definition has
-nothing definite to say about how much they will make nor how likely it
-is they will make it.</p>
-<p>Our stronger probability-free definition is still not good enough for
-traders and risk managers. Even though <span
-class="math inline">{\xi\cdot x}</span> is strictly negative they will
-slap absolute value signs around every number and compute <span
-class="math inline">{|\xi|\cdot|x|}</span> as a proxy of how much
-capital will be tied up putting on the position. No business would
-approve using a million dollars from their funding account just to make
-a penny up front even though that technically satisfies our mathematical
-definition of arbitrage.</p>
 </section>
 <section id="fundamental-theorem-of-asset-pricing" class="level2">
 <h2>Fundamental Theorem of Asset Pricing</h2>
 <p>The assumption of no arbitrage places constraints on initial prices
-that are determined by cash flows. The constraints involve a cone.</p>
-<p>Recall a <em>cone</em> <span class="math inline">K</span> is a subset
-of a vector space closed under positive scalar multiplication and vector
-addition: if <span class="math inline">x\in K</span> then <span
-class="math inline">tx\in K</span> for <span class="math inline">t &gt;
-0</span> and if <span class="math inline">x,y\in K</span> then <span
-class="math inline">{x + y\in K}</span>.</p>
-<p><strong>Exercise</strong>. <em>A cone is convex</em>.</p>
-<p><em>Hint</em>: Recall a subset <span
-class="math inline">K\subseteq\boldsymbol{R}^n</span> is convex if and
-only if every point on the line between two points in <span
-class="math inline">K</span> also belongs to <span
-class="math inline">K</span>; <span class="math inline">K</span>, <span
-class="math inline">x,y\in K</span> implies <span
-class="math inline">{tx + (1-t)y\in K}</span> for <span
-class="math inline">{0 &lt; t &lt; 1}</span>.</p>
-<details>
-<summary>
-Solution
-</summary>
-Since <span class="math inline">t &gt; 0</span> and <span
-class="math inline">1 - t &gt; 0</span> both <span
-class="math inline">tx</span> and <span class="math inline">(1 -
-t)y</span> belong to <span class="math inline">K</span> hence <span
-class="math inline">tx + (1 - t)y\in K</span>.
-</details>
-<p><strong>Exercise</strong>. <em>The set of arbitrage positions is a
-cone</em>.</p>
-<details>
-<summary>
-Solution
-</summary>
-If <span class="math inline">\xi</span> is an arbitrage then <span
-class="math inline">t\xi</span> is an arbitrage for <span
-class="math inline">t &gt; 0</span>. If <span
-class="math inline">\xi</span> and <span class="math inline">\eta</span>
-are arbitrages then so is <span class="math inline">\xi + \eta</span>.
-</details>
-<p>The smallest cone containing the possible cash flows <span
-class="math inline">C</span> is the set of finite linear combinations
-with positive coefficients <span class="math inline">{\{\sum_i
-C(\omega_i) D_i\mid \omega_i\in\Omega, D_i &gt; 0\}}</span>. If <span
-class="math inline">x = \sum_i C(\omega_i) D_i</span> is in the cone and
-<span class="math inline">\xi\cdot C</span> is non-negative on <span
-class="math inline">\Omega</span> then <span
-class="math inline">{\xi\cdot x\ge 0}</span> so no arbitrage exists.</p>
-<p><strong>Exercise</strong>. <em>If <span class="math inline">x</span>
-belongs to the smallest</em> closed <em>cone containing the range of
-<span class="math inline">C</span> then there is no arbitrage</em>.</p>
-<details>
-<summary>
-Solution
-</summary>
-If <span class="math inline">x_n\in K</span> converge to <span
-class="math inline">x</span> in norm and <span
-class="math inline">\xi\cdot x_n\ge0</span> then <span
-class="math inline">\xi\cdot x\ge0</span>.
-</details>
-<p>The contrapositive is also true.</p>
+determined by possible final prices. The constraints involve a cone.</p>
 <p><strong>Theorem</strong>. <em>Arbitrage exists in a one-period model
 if <span class="math inline">x</span> does not belong to the smallest
-closed cone containing the range of <span class="math inline">C</span>.
+closed cone containing the range of <span class="math inline">X</span>.
 If <span class="math inline">x^*</span> is the closest point in the cone
 then <span class="math inline">\xi = x^* - x</span> is an
 arbitrage</em>.</p>
-<p>In general the arbitrage is not unique. We will establish the theorem
-using the purely geometric</p>
+<p>In general the arbitrage is not unique. We establish the theorem by a
+purely geometric lemma residing between Farkas’ Lemma and the
+Hahn-Banach theorem. The Hahn-Banach theorem states this holds for
+locally convex topological vector spaces when <span
+class="math inline">K</span> has an interior point <span
+class="citation" data-cites="cite">(<a href="#ref-cite"
+role="doc-biblioref"><strong>cite?</strong></a>)</span>. Every finite
+dimensional vector space is a locally convex topological vector
+space<span class="citation" data-cites="cite">(<a href="#ref-cite"
+role="doc-biblioref"><strong>cite?</strong></a>)</span>. In this case we
+do not require <span class="math inline">K</span> have an interior
+point.</p>
 <p><strong>Lemma</strong>. <em>If <span
 class="math inline">x\in\boldsymbol{R}^n</span> and <span
 class="math inline">K</span> is a closed cone in <span
@@ -334,8 +448,8 @@ x) \le -\xi\cdot x}</span> we have <span class="math inline">{\xi\cdot x
 &lt; 0}</span>.</p>
 <p>The lemma proves the FTAP and that <span class="math inline">\xi =
 x^* - x</span> implements an arbitrage.</p>
-<p>A <em>risk-neutral pricing measure</em> is any positive, finitely
-additive measure <span class="math inline">D</span> on <span
+<p>A <em>valuation measure</em> is any positive, finitely additive
+measure <span class="math inline">D</span> on <span
 class="math inline">\Omega</span> with <span class="math inline">x =
 \int_\Omega C\,dD</span>. The FTAP shows no arbitrage implies this set
 is not empty. Every such measure corresponds to a positive linear
@@ -382,7 +496,7 @@ It is a mathematically rigorous one-period example of the method used by
 href="#ref-GraDod1934" role="doc-biblioref">Graham and Dodd
 1934</a>)</span> in <em>Security Analysis</em> for valuing equities.</p>
 </section>
-<section id="examples" class="level2">
+<section id="examples-1" class="level2">
 <h2>Examples</h2>
 <p>We now apply the FTAP to particular models.</p>
 <section id="zero-coupon-bond" class="level3">
@@ -394,7 +508,7 @@ and 2020 but did not give rise to arbitrage opportunities. As we have
 seen above, the only constraint is the price of the zero coupon bond
 must be positive.</p>
 </section>
-<section id="model" class="level3">
+<section id="model-1" class="level3">
 <h3>1-2-3 Model</h3>
 <p>A very simple and unrealistic one-period model consists of a bond
 with price 1 at the beginning of the period that has a cash flow 2 at
@@ -441,282 +555,254 @@ option ever finished out-of-the-money.”</p>
 <p>We have already seen every risk-neutral measure has the same expected
 realized return. This example shows even if the measure is unique it
 implies infinite risk aversion.</p>
-</section>
-<section id="binomial-model" class="level3">
-<h3>Binomial Model</h3>
-<p>The 1-2-3 model is a special case of the <em>binomial model</em>
-having instruments a bond and stock where <span class="math inline">{x =
-(1, s)}</span>, <span class="math inline">{C(\omega) = (R,
-\omega)}</span>, and <span class="math inline">{\Omega = \{L,
-H\}}</span> with <span class="math inline">{L &lt; H}</span>. The bond
-has realized return <span class="math inline">R</span> and the stock can
-go from price <span class="math inline">s</span> to either <span
-class="math inline">L</span> or <span class="math inline">H</span>. This
-is arbitrage-free if and only we can find <span
-class="math inline">{D_L,D_H \ge 0}</span> with <span
-class="math inline">{x = C(L)D_L + C(H)D_H}</span>. Considering the bond
-and stock components we have <span class="math inline">{D_L = (H -
-sR)/R(H - L)}</span> and <span class="math inline">{D_H = (sR - L)/R(H -
-L)}</span>. The model is arbitrage-free if and only if these are both
-non-negative so <span class="math inline">{L/R \le s \le
-H/R}</span>.</p>
-<p><strong>Exercise</strong>. <em>Find an arbitrage if <span
-class="math inline">s &lt; L/R</span> or <span class="math inline">s
-&gt; H/R</span></em>.</p>
-<p><em>Hint</em>: If <span class="math inline">s &lt; L/R</span> then
-buy the stock and short the bond. If <span class="math inline">s &gt;
-H/R</span> then sell the stock and buy the bond.</p>
-<p>If we have a call option with payoff <span
-class="math inline">\max\{\omega - K,0\}</span>, where <span
-class="math inline">L &lt; K &lt; H</span>, its arbitrage-free value is
-<span class="math display">
+<!--
+
+### Binomial Model
+
+The 1-2-3 model is a special case of the  _binomial model_ having instruments
+a bond and stock where ${x = (1, s)}$,
+${C(\omega) = (R, \omega)}$, and ${\Omega = \{L, H\}}$ with ${L < H}$.
+The bond has realized return $R$ and the stock can go from price $s$
+to either $L$ or $H$. 
+This is arbitrage-free if and only we can find ${D_L,D_H \ge 0}$
+with ${x = C(L)D_L + C(H)D_H}$. Considering the bond and stock components
+we have ${D_L = (H - sR)/R(H - L)}$ and ${D_H = (sR - L)/R(H - L)}$.
+The model is arbitrage-free if and only if these are both non-negative
+so ${L/R \le s \le H/R}$.
+
+__Exercise__. _Find an arbitrage if $s < L/R$ or $s > H/R$_.
+
+_Hint_: If $s < L/R$ then buy the stock and short the bond.
+If $s > H/R$ then sell the stock and buy the bond.
+
+If we have a call option with payoff $\max\{\omega - K,0\}$, where $L < K < H$,
+its arbitrage-free value is 
+$$
 v = 0 D_L + (H - K) D_H = (H - K)(s - L/R)/(H - L)
-</span></p>
-<p><strong>Exercise</strong>. <em>Show this agrees with the 1-2-3 Model
-for a call option with strike 2</em>.</p>
-</section>
-<section id="interval-model" class="level3">
-<h3>Interval Model</h3>
-<p>A somewhat more realistic model than the binomial model is to allow
-the final stock price to take any value between a low and a high, <span
-class="math inline">{\omega\in\Omega = [L, H]}</span>. The
-arbitrage-free conditions are still the same.</p>
-<p><strong>Exercise</strong>. <em>The smallest cone containing <span
-class="math inline">C(L)</span> and <span
-class="math inline">C(H)</span> is the same as the smallest cone
-containing <span class="math inline">C(\omega)</span>, <span
-class="math inline">L\le\omega\le H</span></em>.</p>
-<p><em>Hint</em>: Show if <span class="math inline">L\le\omega\le
-H</span> then <span class="math inline">C(\omega) = (1 - t)C(L) +
-tC(H)</span> for some <span class="math inline">t\in[0,1]</span>.</p>
-<p>Since cones are convex, this shows the smallest cone containing <span
-class="math inline">C(L)</span> and <span
-class="math inline">C(H)</span> also contains <span
-class="math inline">C(\omega)</span> for <span
-class="math inline">\omega\in(L,H)</span>.</p>
-<p>If we introduce a call option with strike <span
-class="math inline">K\in (L,H)</span> then the smallest cone containing
-the range of <span class="math inline">C</span> coincides the the
-smallest cone containing <span class="math inline">C(L)</span>, <span
-class="math inline">C(K)</span>, and <span
-class="math inline">C(H)</span>.</p>
-<p><strong>Exercise</strong>. <em>Show the smallest cone containing
-<span class="math inline">C(L)</span>, <span
-class="math inline">C(K)</span>, and <span
-class="math inline">C(H)</span> is the same as the smallest cone
-containing <span class="math inline">C(\omega)</span>, <span
-class="math inline">L\le\omega\le H</span></em>.</p>
-<p><em>Hint</em>: Show <span class="math inline">C(\omega)</span> is on
-the line segment from <span class="math inline">C(L)</span> to <span
-class="math inline">C(K)</span> if <span class="math inline">L \le
-\omega \le K</span> and is on the line segment from <span
-class="math inline">C(K)</span> to <span class="math inline">C(H)</span>
-if <span class="math inline">K \le \omega \le H</span>.</p>
-<p>Unlike the binomial model, the value of the option in the interval
-model is not determined by the bond and the stock. The interval model is
-<span class="math inline">x = (1, s, v)</span> and <span
-class="math inline">C(\omega) = (R, \omega, (\omega - K))</span>, where
-<span class="math inline">\omega\in [L,H]</span>. There is no arbitrage
-if and only if there exist non-negative <span
-class="math inline">D_L</span>, <span class="math inline">D_K</span>,
-<span class="math inline">D_H</span> with <span class="math display">
+$$
+
+__Exercise__. _Show this agrees with the 1-2-3 Model for a call option with strike 2_.
+
+### Interval Model
+
+A somewhat more realistic model than the binomial model is to allow the
+final stock price to take any value between a low and a high,
+${\omega\in\Omega = [L, H]}$.
+The arbitrage-free conditions are still the same.
+
+__Exercise__. _The smallest cone containing $C(L)$ and $C(H)$ is the same
+as the smallest cone containing $C(\omega)$, $L\le\omega\le H$_.
+
+_Hint_: Show if $L\le\omega\le H$ then $C(\omega) = (1 - t)C(L) + tC(H)$ 
+for some $t\in[0,1]$.
+
+Since cones are convex, this shows the smallest cone containing $C(L)$ and
+$C(H)$ also contains $C(\omega)$ for $\omega\in(L,H)$.
+
+If we introduce a call option with strike $K\in (L,H)$ then the smallest
+cone containing the range of $C$ coincides the the smallest cone
+containing $C(L)$, $C(K)$, and $C(H)$.
+
+__Exercise__. _Show the smallest cone containing $C(L)$, $C(K)$, and $C(H)$ is the same
+as the smallest cone containing $C(\omega)$, $L\le\omega\le H$_.
+
+_Hint_: Show $C(\omega)$ is on the line segment from $C(L)$ to $C(K)$
+if $L \le \omega \le K$ and is on the line segment from $C(K)$ to $C(H)$
+if $K \le \omega \le H$.
+
+Unlike the binomial model, the value of the option in the interval model is not determined
+by the bond and the stock. The interval model is $x = (1, s, v)$ and
+$C(\omega) = (R, \omega, (\omega - K))$, where $\omega\in [L,H]$.
+There is no arbitrage if and only if there exist non-negative $D_L$, $D_K$, $D_H$
+with
+$$
     x = C(L)D_L + C(K)D_K + C(H)D_H.
-</span></p>
-<p>The components of the three instruments are <span
-class="math display">
+$$
+
+The components of the three instruments are
+$$
 \begin{aligned}
-    1 &amp;= R D_L + R D_K + R D_H \\
-    s &amp;= L D_L + K D_K + H D_H \\
-    v &amp;= (H - K) D_H \\
+    1 &= R D_L + R D_K + R D_H \\
+    s &= L D_L + K D_K + H D_H \\
+    v &= (H - K) D_H \\
 \end{aligned}
-</span></p>
-<p>Substituting <span class="math inline">D_H = v/(H - K)</span> and
-solving for <span class="math inline">D_L</span> and <span
-class="math inline">D_K</span> yields <span class="math display">
+$$
+
+Substituting $D_H = v/(H - K)$ and solving for $D_L$ and $D_K$ yields
+$$
 \begin{aligned}
-D_L &amp;= \frac{v + K/R - s}{K - L} \\
-D_K &amp;= \frac{(s - L/R)(H - K) - v(H - L)}{(K - L)(H - K)} \\
+D_L &= \frac{v + K/R - s}{K - L} \\
+D_K &= \frac{(s - L/R)(H - K) - v(H - L)}{(K - L)(H - K)} \\
 \end{aligned}
-</span> The no arbitrage constraints are <span class="math inline">v\ge
-0</span>, <span class="math inline">v \ge s - K/R</span>, and <span
-class="math inline">(s - L/R)(H - K)/(H - L) \ge v</span>. Note the
-binomial model option value is the upper bound of the arbitrage free
-option value in the interval model. Fixing <span
-class="math inline">R</span> and <span class="math inline">s</span> we
-have the allowable arbitrage-free initial option value must satisfy
-<span class="math display">
+$$
+The no arbitrage constraints are $v\ge 0$,
+$v \ge s - K/R$,
+and $(s - L/R)(H - K)/(H - L) \ge v$.
+Note the binomial model option value is the upper bound of the arbitrage free
+option value in the interval model.
+Fixing $R$ and $s$ we have the allowable arbitrage-free initial option value 
+must satisfy 
+$$
 \max\{s - K/R,0\} \le v \le (s - L/R)(H - K)/(H - L).
-</span></p>
-<p>If we have <span class="math inline">n</span> call options with
-values <span class="math inline">v_i</span> and strikes <span
-class="math inline">K_i</span> where <span class="math inline">L &lt;
-K_1 &lt; \cdots K_n &lt; H</span> then <span class="math inline">{x =
-(1, s, v_1,\ldots,v_n)}</span> and <span class="math inline">{C(\omega)
-= (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)}</span>, <span
-class="math inline">\omega\in[L,H]</span>. There is no arbitrage if and
-only if there exist non-negative <span class="math inline">D_L, D_1,
-D_2,\ldots,D_H</span> with <span class="math display">
+$$
+
+If we have $n$ call options with values $v_i$ and strikes $K_i$
+where $L < K_1 < \cdots K_n < H$ then
+${x = (1, s, v_1,\ldots,v_n)}$ and
+${C(\omega) = (R, \omega, (\omega - K_1)^+,\ldots,(\omega - K_n)^+)}$, $\omega\in[L,H]$.
+There is no arbitrage if and only if there exist non-negative
+$D_L, D_1, D_2,\ldots,D_H$ with
+$$
     x = C(L)D_L + \sum_{i=1}^n C(K_i)D_i  + C(H)D_H
-</span> The components are <span class="math display">
+$$
+The components are
+$$
 \begin{aligned}
-1 &amp;= R D_L + R D_1 + R D_2 + \cdots + R D_H \\
-s &amp;= L D_L + K_1 D_1 + K_2 D_2 + \cdots + H D_H \\
-v_1 &amp;= (K_2 - K_1) D_2 + \cdots + (H - K_1) D_H \\
-v_2 &amp;= (K_3 - K_2) D_3 + \cdots + (H - K_2) D_H \\
-&amp;\cdots \\
-v_{n-1} &amp;= (K_n - K_{n-1}) D_n + (H - K_{n-1}) D_H \\
-v_n &amp;=  (H - K_n) D_H \\
+1 &= R D_L + R D_1 + R D_2 + \cdots + R D_H \\
+s &= L D_L + K_1 D_1 + K_2 D_2 + \cdots + H D_H \\
+v_1 &= (K_2 - K_1) D_2 + \cdots + (H - K_1) D_H \\
+v_2 &= (K_3 - K_2) D_3 + \cdots + (H - K_2) D_H \\
+&\cdots \\
+v_{n-1} &= (K_n - K_{n-1}) D_n + (H - K_{n-1}) D_H \\
+v_n &=  (H - K_n) D_H \\
 \end{aligned}
-</span> In matrix form <span class="math display">
+$$
+In matrix form
+$$
 \begin{bmatrix}
-1 \\ s \\ v_1 \\ \vdots \\ v_{n-1} \\ v_n
+1 \\ s \\ v_1 \\ \vdots \\ v_{n-1} \\ v_n 
 \end{bmatrix}
 =
 \begin{bmatrix}
-R &amp; R   &amp; R         &amp; \cdots &amp; R         &amp; R \\
-L &amp; K_1 &amp; K_2       &amp; \cdots &amp; K_n       &amp; H \\
-0 &amp; 0   &amp; K_2 - K_1 &amp; \cdots &amp; K_n - K_1 &amp; H - K_1
-\\
-\vdots &amp; \vdots &amp; \vdots &amp; \ddots   &amp; \vdots &amp;
-\vdots \\
-0 &amp; 0   &amp; 0         &amp; \cdots &amp; K_n - K_{n-1} &amp; H -
-K_{n-1} \\
-0 &amp; 0   &amp; 0         &amp; \cdots &amp; 0             &amp; H -
-K_n \\
+R & R   & R         & \cdots & R         & R \\
+L & K_1 & K_2       & \cdots & K_n       & H \\
+0 & 0   & K_2 - K_1 & \cdots & K_n - K_1 & H - K_1 \\
+\vdots & \vdots & \vdots & \ddots   & \vdots & \vdots \\
+0 & 0   & 0         & \cdots & K_n - K_{n-1} & H - K_{n-1} \\
+0 & 0   & 0         & \cdots & 0             & H - K_n \\
 \end{bmatrix}
 \begin{bmatrix}
 D_L \\ D_1 \\ D_2 \\ \vdots \\ D_n \\ D_H
 \end{bmatrix}
-</span> We can write this as a block matrix on the first row and first
-column <span class="math inline">[A\,B; C\,D]</span> where <span
-class="math inline">A = [R]</span> <span class="math inline">B = [R
-\cdots R]</span>, and <span class="math inline">C = [L\,0 \cdots
-0]^T</span>.</p>
-<p>If we let <span class="math inline">K_0 = 0</span> and <span
-class="math inline">K_{n+1} = H</span> then <span
-class="math inline">D</span> is upper triangular with non-zero entries
-<span class="math inline">{D_{i,j} = K_j - K_{i-1}}</span> for <span
-class="math inline">1\le i \le j\le n + 1</span>. Its inverse is
-tri-upper triangular with entries <span class="math inline">D^{-1}_{i,i}
-= 1/D_{i,i}</span>, <span class="math inline">D^{-1}_{i,i+1} =
--1/D_{i,i} + 1/D_{i+1,i+1}</span>, and <span
-class="math inline">D^{-1}_{i,i+2} = 1/D_{i+1,i+1}</span>.</p>
-<p>If <span class="math inline">E = A - B D^{-1}C</span> is the Schur
-complement then <span class="math display">
+$$
+We can write this as a block matrix on the first row and first column
+$[A\,B; C\,D]$ where
+$A = [R]$ $B = [R \cdots R]$, and $C = [L\,0 \cdots 0]^T$.
+
+If we let $K_0 = 0$ and $K_{n+1} = H$ then $D$ is upper triangular with
+non-zero entries ${D_{i,j} = K_j - K_{i-1}}$ for $1\le i \le j\le n + 1$.
+Its inverse is tri-upper triangular with entries
+$D^{-1}_{i,i} = 1/D_{i,i}$,
+$D^{-1}_{i,i+1} = -1/D_{i,i} + 1/D_{i+1,i+1}$, and
+$D^{-1}_{i,i+2} = 1/D_{i+1,i+1}$.
+
+If $E = A - B D^{-1}C$ is the Schur complement then
+$$
 \begin{bmatrix}
-A &amp; B \\
-C &amp; D \\
+A & B \\
+C & D \\
 \end{bmatrix}^{-1}
 =
 \begin{bmatrix}
-E^{-1} &amp; -E^{1}BD^{-1} \\
--D^{-1}CE^{-1} &amp; D^{-1} + D^{-1}C E^{-1} BD^{-1} \\
+E^{-1} & -E^{1}BD^{-1} \\
+-D^{-1}CE^{-1} & D^{-1} + D^{-1}C E^{-1} BD^{-1} \\
 \end{bmatrix}
-</span></p>
-<p>We have <span class="math inline">E = R(1 - L/K_1)</span> so <span
-class="math inline">E^{-1} = K_1/(R(K_1 - L))</span>.</p>
+$$
+
+We have $E = R(1 - L/K_1)$ so $E^{-1} = K_1/(R(K_1 - L))$.
+
+## Appendix
+
+The classical one-period model neglects, among other things, the fact
+there are many market participants.  It assumes there is only a price
+_taker_ that decides how much to buy or sell.  There must also be price
+_makers_ exhibiting what they offer to sell or buy. 
+We only consider accurate accounting of transactions.
+
+The price of an instrument must be an integral multiple of its minimal
+trading increment, or _tick size_.  Let $\epsilon(i)\in\RR$ be the tick
+size of instrument $i\in I$. Initial prices $x\in\ZZ^I$ correspond to
+the actual prices $x(i)\epsilon(i)$.
+
+The amount purchased in each instrument must be an integral multiple
+of its minimum share size, or _lot size_.  Let $\delta(i)$ be the lot
+size of instrument $i\in I$. Shares $\xi\in\ZZ^I$ correspond to actual
+amounts $\xi(i)\delta(i)$.
+
+The atoms of finance are _holdings_: an amount, instrument, and owner.
+Let ${\eta = (a,i,o)}$ denote amount $a$ of instrument $i$ is held
+by owner $o$. 
+
+A _position_ is a collection of holdings.
+Positions are modified by _trades_.
+An trade at time $t$ is a triple ${(t,\eta,\eta')}$ where 
+$\eta$ and $\eta'$ are holdings. If the taker $o$ holds $\eta$ and
+the maker $o'$ holds $\eta'$ at time $t$ then after the trade settles
+the taker holds $(a',i',o)$ and the maker holds $(a,i,o')$.
+The _price_ of the trade is $X = a/a'$.
+
+After a trade, the price is a well-defined number
+recorded in the books and records of each counterparty.
+
+Makers quote prices for potential trades. Takers decide whether
+or not to execute the trade. For example, if a maker quotes Ford
+stock for $12$ USD per share then the taker can trade $\$24$ for 2
+shares of Ford stock. This corresponds to the trade where ${\eta =
+(24, \$, o)}$ and ${\eta' = (2, F, o')}$.  The price is ${X = a/a' = 24/2}$
+and we write $12$ USD/F to indicate a price of $\$12$ per share of Ford
+stock. Replacing the virgule '/' by '$= 1$' yields the mnemonic $12$ USD $=
+1$ F.  After the trade settles the taker holds ${\eta = (2, F, o)}$
+and the maker holds ${\eta' = (24, \$, o')}$ in their respective positions.
+
+Prior to an trade, the price is not a well-defined number.
+Makers quote a bid price and an ask price to takers.
+When a taker buys one share they pay the maker's ask price and when
+the taker sells one share they only get the maker bid price.
+The difference between the bid and the ask is the _bid-ask spread_
+and is usually positive.[^1] This is the maker _vigorish_ to get paid for
+providing _liquidity_ to takers in the market.
+
+[^1]: The spread is not always positive. An trade may _cross_ the quotes
+in order to get rid of or acquire specific instruments.
+
+The quotes are only valid for a small number of shares.
+As the number of shares becomes larger maker increase the bid-ask
+spread. On an exchange the quote only holds out to level 1 depth before
+switching to level 2. Sellers might not know why so many shares are being purchased, but
+know demand will move the price up and they will increase their ask.
+At some point the number of shares to purchase will bump
+into the total number of shares issued and price becomes meaningless.
+When a taker sells shares they face even more restrictions and are also
+charged a _borrow cost_ over the period of time they are short.
+Prices can also depend on the particular taker and maker of the
+exchange due to credit issues or regulations, among other things.
+
+A more realistic model for prices in a one-period model is to replace
+$x\colon I\to\RR$ by $x\colon I\times A\to\RR$ where $I$
+is the set of instruments and $A$ is the set
+of possible amounts. The cost of setting up the position $\xi\in\RR^I$
+is ${\sum_{i\in I} \xi(i) x(i, \xi(i))}$.
+If a limit order book is available then
+a very good approximation to the execution price is the function of
+cumulative limit order amounts versus order levels.
+
+__Exercise__. _Show if the order book is $(l_i,a_i)$ and
+$b(l) = \sum_i a_i 1(l > l_i)$ then the..._.
+
+Not every transaction occurs on an exchange. An _over-the-counter_
+trade involves only the taker and maker as counterparties.
+While exchange traded instruments often settle within milliseconds,
+for these sort of trades, settlement time is typically measured in days
+and often involve risk mitigation measures such as posting collateral
+instead of margin accounts.
+
+A _broker_ is an intermediary between a taker and a maker
+and charge a transaction _fee_ based on the instrument and amount transacted.
+A _dealer_ is a broker that may hold transactions from taker
+or maker over a period of time. The amount they make is
+subject to market movements and settlement times are on the order of hours.
+-->
 </section>
-</section>
-<section id="appendix" class="level2">
-<h2>Appendix</h2>
-<p>The classical one-period model neglects, among other things, the fact
-there are many market participants. It assumes there is only a price
-<em>taker</em> that decides how much to buy or sell. There must also be
-price <em>makers</em> exhibiting what they offer to sell or buy. We only
-consider accurate accounting of transactions.</p>
-<p>The price of an instrument must be an integral multiple of its
-minimal trading increment, or <em>tick size</em>. Let <span
-class="math inline">\epsilon(i)\in\boldsymbol{R}</span> be the tick size
-of instrument <span class="math inline">i\in I</span>. Initial prices
-<span class="math inline">x\in\boldsymbol{Z}^I</span> correspond to the
-actual prices <span class="math inline">x(i)\epsilon(i)</span>.</p>
-<p>The amount purchased in each instrument must be an integral multiple
-of its minimum share size, or <em>lot size</em>. Let <span
-class="math inline">\delta(i)</span> be the lot size of instrument <span
-class="math inline">i\in I</span>. Shares <span
-class="math inline">\xi\in\boldsymbol{Z}^I</span> correspond to actual
-amounts <span class="math inline">\xi(i)\delta(i)</span>.</p>
-<p>The atoms of finance are <em>holdings</em>: an amount, instrument,
-and owner. Let <span class="math inline">{\eta = (a,i,o)}</span> denote
-amount <span class="math inline">a</span> of instrument <span
-class="math inline">i</span> is held by owner <span
-class="math inline">o</span>.</p>
-<p>A <em>position</em> is a collection of holdings. Positions are
-modified by <em>trades</em>. An trade at time <span
-class="math inline">t</span> is a triple <span
-class="math inline">{(t,\eta,\eta&#39;)}</span> where <span
-class="math inline">\eta</span> and <span
-class="math inline">\eta&#39;</span> are holdings. If the taker <span
-class="math inline">o</span> holds <span class="math inline">\eta</span>
-and the maker <span class="math inline">o&#39;</span> holds <span
-class="math inline">\eta&#39;</span> at time <span
-class="math inline">t</span> then after the trade settles the taker
-holds <span class="math inline">(a&#39;,i&#39;,o)</span> and the maker
-holds <span class="math inline">(a,i,o&#39;)</span>. The <em>price</em>
-of the trade is <span class="math inline">X = a/a&#39;</span>.</p>
-<p>After a trade, the price is a well-defined number recorded in the
-books and records of each counterparty.</p>
-<p>Makers quote prices for potential trades. Takers decide whether or
-not to execute the trade. For example, if a maker quotes Ford stock for
-<span class="math inline">12</span> USD per share then the taker can
-trade <span class="math inline">\$24</span> for 2 shares of Ford stock.
-This corresponds to the trade where <span class="math inline">{\eta =
-(24, \$, o)}</span> and <span class="math inline">{\eta&#39; = (2, F,
-o&#39;)}</span>. The price is <span class="math inline">{X = a/a&#39; =
-24/2}</span> and we write <span class="math inline">12</span> USD/F to
-indicate a price of <span class="math inline">\$12</span> per share of
-Ford stock. Replacing the virgule ‘/’ by ‘<span class="math inline">=
-1</span>’ yields the mnemonic <span class="math inline">12</span> USD
-<span class="math inline">= 1</span> F. After the trade settles the
-taker holds <span class="math inline">{\eta = (2, F, o)}</span> and the
-maker holds <span class="math inline">{\eta&#39; = (24, \$,
-o&#39;)}</span> in their respective positions.</p>
-<p>Prior to an trade, the price is not a well-defined number. Makers
-quote a bid price and an ask price to takers. When a taker buys one
-share they pay the maker’s ask price and when the taker sells one share
-they only get the maker bid price. The difference between the bid and
-the ask is the <em>bid-ask spread</em> and is usually positive.<a
-href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a> This is the maker <em>vigorish</em>
-to get paid for providing <em>liquidity</em> to takers in the
-market.</p>
-<p>The quotes are only valid for a small number of shares. As the number
-of shares becomes larger maker increase the bid-ask spread. On an
-exchange the quote only holds out to level 1 depth before switching to
-level 2. Sellers might not know why so many shares are being purchased,
-but know demand will move the price up and they will increase their ask.
-At some point the number of shares to purchase will bump into the total
-number of shares issued and price becomes meaningless. When a taker
-sells shares they face even more restrictions and are also charged a
-<em>borrow cost</em> over the period of time they are short. Prices can
-also depend on the particular taker and maker of the exchange due to
-credit issues or regulations, among other things.</p>
-<p>A more realistic model for prices in a one-period model is to replace
-<span class="math inline">x\colon I\to\boldsymbol{R}</span> by <span
-class="math inline">x\colon I\times A\to\boldsymbol{R}</span> where
-<span class="math inline">I</span> is the set of instruments and <span
-class="math inline">A</span> is the set of possible amounts. The cost of
-setting up the position <span
-class="math inline">\xi\in\boldsymbol{R}^I</span> is <span
-class="math inline">{\sum_{i\in I} \xi(i) x(i, \xi(i))}</span>. If a
-limit order book is available then a very good approximation to the
-execution price is the function of cumulative limit order amounts versus
-order levels.</p>
-<p><strong>Exercise</strong>. <em>Show if the order book is <span
-class="math inline">(l_i,a_i)</span> and <span class="math inline">b(l)
-= \sum_i a_i 1(l &gt; l_i)</span> then the…</em>.</p>
-<p>Not every transaction occurs on an exchange. An
-<em>over-the-counter</em> trade involves only the taker and maker as
-counterparties. While exchange traded instruments often settle within
-milliseconds, for these sort of trades, settlement time is typically
-measured in days and often involve risk mitigation measures such as
-posting collateral instead of margin accounts.</p>
-<p>A <em>broker</em> is an intermediary between a taker and a maker and
-charge a transaction <em>fee</em> based on the instrument and amount
-transacted. A <em>dealer</em> is a broker that may hold transactions
-from taker or maker over a period of time. The amount they make is
-subject to market movements and settlement times are on the order of
-hours.</p>
 </section>
 <section id="references" class="level2">
 <h2>References</h2>
@@ -1770,24 +1856,6 @@ the dollar and a half to pay half a dollar to cover the bond and
 have a dollar left to meet the call obligation.
 
 -->
-<p><span class="math inline">x = (1, s, v_1,\ldots,v_n)</span>, <span
-class="math inline">X(\omega) = (R, \omega, (\omega -
-K_1)^+,\ldots,(\omega - K_n)^+)</span>.</p>
-<p><span class="math inline">x = \_O + B + s S + v_1 P_1 + v_2
-P_2</span></p>
-<p><span class="math inline">X(L) = \_O + R B + L S</span></p>
-<p><span class="math inline">X(K_1) = \_O + R B + K_1 S</span></p>
-<p><span class="math inline">X(K_2) = \_O + R B + K_2 S + (K_2 - K_1)
-P_1</span></p>
-<p><span class="math inline">X(H) = \_O + R B + H S + (H - K_1) P_1 + (H
-- K_2) P_2</span></p>
-<p><span class="math inline">O X(L) X(K_1) X(K_2) X(H) = OBSP_1P_2 R(K_1
-- L) (K_2 - K_1) (H - K_2)</span></p>
-<p>$O X(K_1) X(K_2) X(H) = OBSP_1 R K_2(H - K_1) + OBSP_2 R K_2(H - K_2)
-+ OSRP_1 K_1 R(H - K_1) + OSRP_2 K_1 R(H - K_2)</p>
-<p>= OBSP_1P_2 K_1(K_2 - K_1)(H - K_2) + OSBP_1P_2 sR(K_2-K_1)(H - K_2)
-+ OP_1BP_2 v_1RK_2(H - K_2) + OP_1SBP_2 v_1K_1R(H - K_2) + OP_2BSP_1
-v_2R</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 role="list">
 <div id="ref-BlaSch1973" class="csl-entry" role="listitem">
@@ -1810,10 +1878,14 @@ Pricing.”</span> <em>Bell Journal of Economics and Management
 Science</em> 4 (1): 141–83. <a
 href="https://www.jstor.org/stable/3003143">https://www.jstor.org/stable/3003143</a>.
 </div>
+<div id="ref-Ros1976" class="csl-entry" role="listitem">
+Ross, Stephen A. 1976. <span>“The Arbitrage Theory of Capital Asset
+Pricing.”</span> <em>Journal of Economic Theory</em> 13 (3): 341–60. <a
+href="https://doi.org/10.1016/0022-0531(76)90046-6">https://doi.org/10.1016/0022-0531(76)90046-6</a>.
+</div>
 <div id="ref-Ros1978" class="csl-entry" role="listitem">
-Ross, Stephen A. 1978. <span>“A Simple Approach to the Valuation of
-Risky Streams.”</span> <em>The Journal of Business</em> 51 (3): 453–75.
-<a
+———. 1978. <span>“A Simple Approach to the Valuation of Risky
+Streams.”</span> <em>The Journal of Business</em> 51 (3): 453–75. <a
 href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277</a>.
 </div>
 </div>
@@ -1822,7 +1894,7 @@ href="https://www.jstor.org/stable/2352277">https://www.jstor.org/stable/2352277
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Recall the <em>set exponential</em> <span
+<li id="fn1"><p>Recall the set exponential <span
 class="math inline">{B^A = \{f\colon A\to B\}}</span> is the set of all
 functions from the set <span class="math inline">A</span> to the set
 <span class="math inline">B</span>. If <span
@@ -1835,11 +1907,13 @@ class="math inline">\boldsymbol{R}^I</span> with the vector space of
 class="math inline">{\boldsymbol{R}^n = \prod_{i=1}^n\boldsymbol{R}=
 \{(x_1,\ldots,x_n)\mid x_i\in\boldsymbol{R}\}}</span> by <span
 class="math inline">x(i) = x_i</span>, <span class="math inline">1\le
-i\le n</span>.<a href="#fnref1" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>The spread is not always positive. An trade may
-<em>cross</em> the quotes in order to get rid of or acquire specific
-instruments.<a href="#fnref2" class="footnote-back"
+i\le n</span>. There is no need for the circumlocution of defining the
+set of instruments <span class="math inline">I =
+\{i_1,\ldots,i_n\}</span> and letting <span class="math inline">x =
+(x_1,\ldots,x_n)\in\boldsymbol{R}^n</span> be the instrument prices
+where <span class="math inline">x_j</span> is the price of instrument
+<span class="math inline">i_j</span>, <span class="math inline">1\le
+j\le n</span>.<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
 </aside>
