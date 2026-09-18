@@ -23,10 +23,10 @@ representing a financial market over a single period of time.  It
 ignores salient features of actual markets by
 assuming there is no bid/ask spread, instruments can be
 bought or sold in any amount with no effect on the price, and has nothing
-whatsoever to say about counterparty risk.
+to say about counterparty risk.
 
-The model defines the initial vector of tradeable instruments prices and their
-terminal prices contingent on the realized outcome. If there are no
+The model defines the initial vector of tradable instruments prices and their
+terminal prices contingent on the realized outcome. If no
 arbitrage opportunities available then prices are subject
 to a geometric constraint determined by the final prices:
 the initial price vector must belong to the smallest closed cone
@@ -81,47 +81,40 @@ ${\xi\cdot x = 0}$ and ${\xi\cdot X\ge0}$ where ${\xi\cdot X > 0}$
 on some set ${A\subseteq\Omega}$ with ${P(A) > 0}$.
 This mathematical definition of arbitrage is fatuous.
 
-Q(uant):
-:	Hey, I've got an arbitrage for you!
+```
+Q(uant): Hey, I've got an arbitrage for you!
 
-T(rader):
-:	Great! How much do I make on the front end?
+T(rader): Great! How much do I make on the front end?
 
-Q:
-:	You make 0.
+Q: You make 0.
 
-T:
-:	Oh. Well how much do I make on the back end?
+T: Oh. Well how much do I make on the back end?
 
-Q:
-:	A positive amount.
+Q: A positive amount.
 
-T:
-:	How "positive" are we talking here?
+T: How "positive" are we talking here?
 
-Q:
-:	All I can tell you is that it is greater than 0.
+Q: All I can tell you is that it is greater than 0.
+```
 
 Assuming the trader is still talking to you...
 
-T:
-:	What is the probability of making this positive non-zero amount?
+```
+T: What is the probability of making this positive non-zero amount?
 
-Q:
-:	A strictly positive probability.
+Q: A strictly positive probability.
 
-T:
-:	More than 1\%?
+T: More than 1%?
 
-Q:
-:	All I can tell you is that it is greater than 0.
+Q: All I can tell you is that it is greater than 0.
+```
 
 ...at this point it is only a matter of how far away the quant
 will land after getting booted off the trading floor.
 
 Quants turn mathematical models into software used for trading.  If a
-model is deployed without ensuring it is arbitrage-free then buy-side
-clients will exploit mispricing by buying trades that are undervalued
+model is deployed without ensuring it is arbitrage-free then savvy buy-side
+clients will exploit mispricing and lift trades that are undervalued
 and pass on overvalued ones. They don't need to develop sophisticated
 models to do this, they just get quotes from several sell-side firms
 and take the lowest offer.
@@ -147,9 +140,8 @@ and if $\xi,\eta\in\RR^I$ are arbitrages then so is $\xi + \eta$.
 
 Another reason this mathematical definition of arbitrage
 does not accurately model reality is that you will eventually run out of
-instruments to purchase as $t > 0$ gets large.
-Every instrument has a finite float. Just ask any large
-hedge fund.
+instruments to purchase or sell as $t$ gets large.
+Every instrument has a finite float.
 
 There is a connection between cones and convex sets. 
 
@@ -187,22 +179,20 @@ Before proving the one-period FTAP let's consider some examples of one-period mo
 
 ### Bond
 
-The simplest possible one-period model has one instrument with initial price $x = (1)$
-and final price $X(\omega) = (R)$ for all $\omega$. Since $X$ is constant
-we can let $\Omega$ be any one element set.
-This is a riskless zero coupon bond/cash deposit having realized return $R$.
-
-A common misconception is the lack of arbitrage implies the realized
-return $R\ge 1$ since $R < 1$ implies negative interest rates.
+A zero coupon pays one unit at the end of the period.
+We can let $\Omega$ be any one element set $\Omega = \{\omega\}$
+and let $x = D$ be the price of the zero coupon bond.
+A common misconception is the lack of arbitrage implies
+$D\le 1$ since $D > 1$ implies negative interest rates.
 Interest rates have been negative in many financial markets.
 For example, from 2016 to 2024 the Bank of Japan had a negative interest rate policy.
 This was only available to large corporations depositing in the
 central bank, not the general public, but we are ignoring counterparty
 considerations.
 
-We can use elementary algebra to prove the no-arbitrage condition is $R > 0$.
-If $R\le0$ and $\xi=-1$ then $\xi\cdot x = \xi x = -1$
-and $\xi R \ge0$ so arbitrage exists. If $R > 0$ and $\xi\cdot x = \xi < 0$
+We can use elementary algebra to prove the no-arbitrage condition is $D > 0$.
+If $D\le0$ and $\xi=-1$ then $\xi\cdot D = \xi D = < 0$
+and $\xi\cdot 1 = \xi  \ge0$ so arbitrage exists. If $R > 0$ and $\xi\cdot x = \xi < 0$
 then $\xi R < 0$ so there is no arbitrage.
 
 In terms of cones there is no arbitrage if and only if $x$ belongs
