@@ -111,6 +111,12 @@ Q: All I can tell you is that it is greater than 0.
 
 ...at this point it is only a matter of how far away the quant
 will land after getting booted off the trading floor.
+Polemic ???
+It is high time for academics to stop spouting mathematically correct, but
+totally useless statements. Not only have I seen similar in person
+on trading floors, I am also guilty of this[^2]!
+
+[^2]: Second knock in barrier option. !!!
 
 Quants turn mathematical models into software used for trading.  If a
 model is deployed without ensuring it is arbitrage-free then savvy buy-side
