@@ -219,14 +219,16 @@ Solving $x = X(1)D_1 + X(3)D_3$ gives
 $D_1 = (3 - 2s)/4$ and $D_3 = (-1 + 2s)/4$
 where we write $D_\omega$ for Ross's linear pricing measure $D(\{omega\})$, $\omega\in\{1,3\}$.
 If $x$ is in the smallest closed cone containing the range of $X$
-then $D_1,D_3\ge0$ so $s\le 3/2$ and $s\ge 1/2$. If $s > 3/2$ then
-the stock is rich so we should short it and buy the bond to finance that.
-
-__Exercise__. _If $s > 3/2$ then $\xi = (2,-3)$ is an arbitrage_.
+then $D_1,D_3\ge0$ so $s\ge 1/2$ and $s\le 3/2$.
 
 If $s < 1/2$ then the stock is cheap so we should buy that and invest in the bond.
 
 __Exercise__. _If $s < 1/2$ then $\xi = (-2,1)$ is an arbitrage_.
+
+If $s > 3/2$ then
+the stock is rich so we should short it and buy the bond to finance that.
+
+__Exercise__. _If $s > 3/2$ then $\xi = (2,-3)$ is an arbitrage_.
 
 Do you notice a pattern here?
 A line perpendicular to a line with slope $m$ has
@@ -245,22 +247,59 @@ $D_1 = 1/4$ and $D_3 = 1/4$.
 This implies the arbitrage-free option price is
 ${v = \max\{1 - 2, 0\}/4 + \max\{3 - 1, 0\}/4 = .25}$.
 
-Notice this result does not involve probability, only geometery.
+Notice this result does not involve probability, only geometry.
 
-Notice this result does not make sense to traders if they
+Also notice this result does not make sense to traders if they
 think the price goes to $3$ with probability $.9$
 and to $1$ with probability $.1$. For a quarter they can
 get a dollar 90\% of the time. Discounted by $1/2$ that
 works out to $45$ cents. The one-period model is oblivious
-to the the reality of multiple trading opportunities.
+to the possibility of multiple trading opportunities.
 
-As John Illuzi pointed out to me, back when we worked at Banc of America Secuities
-while the Glass-Steagal Act was being dismantled but they still
-had to spell the equity group they acquire from Montgomery Securities with a 'c',
+As John Illuzi pointed out to me back when we worked at Banc of America Securities
+while the Glass-Steagall legislation was being dismantled in the 90's
+and Bank of America still had to spell the equity group they acquired from
+Montgomery Securities with a 'c',
 this only makes sense if someone puts a gun to your head if you ever
-lose money. Risk-neutral pricing is risk blind.
+lose money over a period. Risk-neutral pricing is risk blind.
 
-${L,H}$ to $[L,H]$. Same no-arbitrage condition but non-unique measure.
+### Binomial
+
+The binomial model generalizes the 1-2-3 model by assuming the
+bond has realized return $R$ and
+the stock can go to two values $\Omega = \{L, H\}$.
+It specifies $x = (1, s)$ and $X(\omega) = (R, \omega)$.
+
+The model is arbitrage-free if and only if
+$x = X(L) D_L + X(H) D_H$ for some non-negative $D_L$ and $D_H$.
+The general solution is $D_L = (H - Rs)/R(H - L)$
+and $D_H = (-L + Rs)/R(H - l)$ and the no arbitrage condition
+holds if and only if $L/R \le s \le H/R$.
+
+__Exercise__. _Find an arbitrage if $s < L/R$ or $s > H/R$_.
+
+_Hint_. Consider $-R/L$ and $R/-H$.
+
+A somewhat more realistic model would allow the stock price to be
+any value between the low and the high, $\Omega = [L,H]$.
+
+__Exercise__. _Show the smallest closed cone containing $X([L,H])$
+is the same as the smallest closed cone containing $X(L)$ and $X(H)$_.
+
+_Hint_: $X(\omega) = (1 - t) X(L) + t X(H)$ for some $t\in[0,1]$
+when $L\le\omega\le H$.
+
+This shows the no arbitrage condition $L/R\le s\le H/R$ is the same as for the more general model.
+
+### Binomial Option
+
+If we add a call option with strike $k$ the model is
+${x = (1, s, v)}$ and ${X(\omega) = (R, \omega, \max\{\omega - k, 0\})}$,
+${\omega\in\{L,H\}}$.
+The bond and stock determine the linear pricing operator and
+the arbitrage-free price of the option is 
+
+## FTAP
 
 The Fundamental Theorem of Asset Pricing characterizes arbitrage-free
 models and provides an arbitrages if they are not. As [@Ros1978] showed,
