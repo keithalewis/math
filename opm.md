@@ -111,7 +111,6 @@ Q: All I can tell you is that it is greater than 0.
 
 ...at this point it is only a matter of how far away the quant
 will land after getting booted off the trading floor.
-Polemic ???
 It is high time for academics to stop spouting mathematically correct, but
 totally useless statements. Not only have I seen similar in person
 on trading floors, I am also guilty of this[^2]!
@@ -186,8 +185,8 @@ Before proving the one-period FTAP let's consider some examples of one-period mo
 ### Bond
 
 A zero coupon pays one unit at the end of the period.
-We can let $\Omega$ be any one element set $\Omega = \{\omega\}$
-and let $x = D$ be the price of the zero coupon bond.
+Let $x = D$ and $X(\omega) = 1$ be the prices of the zero coupon bond
+at the beginning and end of the period.
 A common misconception is the lack of arbitrage implies
 $D\le 1$ since $D > 1$ implies negative interest rates.
 Interest rates have been negative in many financial markets.
@@ -196,47 +195,70 @@ This was only available to large corporations depositing in the
 central bank, not the general public, but we are ignoring counterparty
 considerations.
 
-We can use elementary algebra to prove the no-arbitrage condition is $D > 0$.
-If $D\le0$ and $\xi=-1$ then $\xi\cdot D = \xi D = < 0$
-and $\xi\cdot 1 = \xi  \ge0$ so arbitrage exists. If $R > 0$ and $\xi\cdot x = \xi < 0$
-then $\xi R < 0$ so there is no arbitrage.
+The smallest closed cone containg the range of $X$ is $[0,\infty)$
+so there is no arbitrage if and only if $D\ge 0$.
 
-In terms of cones there is no arbitrage if and only if $x$ belongs
-to the smallest closed cone containing the range of $X$.
-If $R > 0$ the cone is $[0,\infty)$. Since
-$1\in[0,\infty)$ there is no arbitrage.
-If $R\le 0$ the cone is $(-\infty, 0]$.
-Since $1\not\in(-\infty, 0]$ there is arbitrage.
+__Exercise__. _If $D < 0$ find an arbitrage_.
 
 ### 1-2-3
 
 Consider a model with a bond and stock where their initial prices are both $1$,
 the bond always goes to $2$, and the stock can go to either $1$ or $3$.
 The model is $x = (1,1)$, $X(\omega) = (2, \omega)$ where $\omega\in\{1,3\} = \Omega$.
-Note how the sample space models in the most direct fashion "what can happen"
+Note how the sample space models directly "what can happen"
 over the interval. 
-If $x = X(1)D_1 + X(3)D_3$ for some $D_1,D_3\in\RR$
-then $D_1 = D_3 = 1/4$ so the model is arbitrage free.
 
-What are the arbitrage-free models given initial stock price $s$ instead of $1$?
-In this case $D_1 = (3 - 2s)/4$ and $D_3 = (-1 + 2s)/4$ so $D_1,D_3\ge0$ imply
-$s\le 3/2$ and $s\ge 1/2$. This is intuitively obvious. If $s > 3/2$ then
-the stock is rich so we should short the stock and buy the bond to finance that.
-If $s < 1/2$ then the stock is cheap so we should buy that and invest in the bond.
+__Exercise__. _Show $x = X(1)/2 + X(3)/2$_.
+
+This shows $x$ belongs to the cone determined by the range of $X$ so there
+is no arbitrage.
+
+Suppose the initial stock price is $s$ instead of 1.
+What are the arbitrage-free values for $s$?
+Solving $x = X(1)D_1 + X(3)D_3$ gives
+$D_1 = (3 - 2s)/4$ and $D_3 = (-1 + 2s)/4$
+where we write $D_\omega$ for Ross's linear pricing measure $D(\{omega\})$, $\omega\in\{1,3\}$.
+If $x$ is in the smallest closed cone containing the range of $X$
+then $D_1,D_3\ge0$ so $s\le 3/2$ and $s\ge 1/2$. If $s > 3/2$ then
+the stock is rich so we should short it and buy the bond to finance that.
 
 __Exercise__. _If $s > 3/2$ then $\xi = (2,-3)$ is an arbitrage_.
+
+If $s < 1/2$ then the stock is cheap so we should buy that and invest in the bond.
 
 __Exercise__. _If $s < 1/2$ then $\xi = (-2,1)$ is an arbitrage_.
 
 Do you notice a pattern here?
+A line perpendicular to a line with slope $m$ has
+slope $m^\perp = -1/m$.
+A line perpendicular to a line with slope $3/2$ has slope $2/-3$
+and a line perpendicular to a line with slope $1/2$ has slope $-2/1$.
 
-__Stop reading here.__
+### 1-2-3 Option
 
-Option with strike 2. $R > 0$, $1/2 \le s \le 3/2$. 
+Now let's add a call option with strike 2 to the model.
+We have $x = (1, 1, v)$, where $v$ is the value of the option,
+and $X(\omega) = (2, \omega, \max\{\omega - 2, 0\})$ for $\omega\in\{1,3\}$.
 
-Logical entropy 1 - sum p_i^2 vs Shannon entropy -sum p_i log p_i.
+As we've already seen, the bond and the stock determine the linear pricing measure
+$D_1 = 1/4$ and $D_3 = 1/4$.
+This implies the arbitrage-free option price is
+${v = \max\{1 - 2, 0\}/4 + \max\{3 - 1, 0\}/4 = .25}$.
 
-90-100-110
+Notice this result does not involve probability, only geometery.
+
+Notice this result does not make sense to traders if they
+think the price goes to $3$ with probability $.9$
+and to $1$ with probability $.1$. For a quarter they can
+get a dollar 90\% of the time. Discounted by $1/2$ that
+works out to $45$ cents. The one-period model is oblivious
+to the the reality of multiple trading opportunities.
+
+As John Illuzi pointed out to me, back when we worked at Banc of America Secuities
+while the Glass-Steagal Act was being dismantled but they still
+had to spell the equity group they acquire from Montgomery Securities with a 'c',
+this only makes sense if someone puts a gun to your head if you ever
+lose money. Risk-neutral pricing is risk blind.
 
 ${L,H}$ to $[L,H]$. Same no-arbitrage condition but non-unique measure.
 

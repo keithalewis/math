@@ -65,7 +65,7 @@
 <header id="title-block-header">
 <h1 class="title">One-Period Model</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Sep 12, 2026</p>
+<p class="date">Sep 19, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 The simplest (unrealistic) model of a financial market.
@@ -78,6 +78,7 @@ The simplest (unrealistic) model of a financial market.
 <ul>
 <li><a href="#bond" id="toc-bond">Bond</a></li>
 <li><a href="#section" id="toc-section">1-2-3</a></li>
+<li><a href="#option" id="toc-option">1-2-3 Option</a></li>
 </ul></li>
 <li><a href="#fundamental-theorem-of-asset-pricing"
 id="toc-fundamental-theorem-of-asset-pricing">Fundamental Theorem of
@@ -95,14 +96,13 @@ Bond</a></li>
 representing a financial market over a single period of time. It ignores
 salient features of actual markets by assuming there is no bid/ask
 spread, instruments can be bought or sold in any amount with no effect
-on the price, and has nothing whatsoever to say about counterparty
-risk.</p>
-<p>The model defines the initial vector of tradeable instruments prices
-and their terminal prices contingent on the realized outcome. If there
-are no arbitrage opportunities available then prices are subject to a
-geometric constraint determined by the final prices: the initial price
-vector must belong to the smallest closed cone containing all possible
-terminal prices. This is equivalent to what <span class="citation"
+on the price, and has nothing to say about counterparty risk.</p>
+<p>The model defines the initial vector of tradable instruments prices
+and their terminal prices contingent on the realized outcome. If no
+arbitrage opportunities available then prices are subject to a geometric
+constraint determined by the final prices: the initial price vector must
+belong to the smallest closed cone containing all possible terminal
+prices. This is equivalent to what <span class="citation"
 data-cites="Ros1976">(<a href="#ref-Ros1976" role="doc-biblioref">Ross
 1976</a>)</span> calls a “(not generally unique) positive linear
 operator that can be used to value all marketed assets.” We will show
@@ -157,67 +157,43 @@ class="math inline">{\xi\cdot X &gt; 0}</span> on some set <span
 class="math inline">{A\subseteq\Omega}</span> with <span
 class="math inline">{P(A) &gt; 0}</span>. This mathematical definition
 of arbitrage is fatuous.</p>
-<dl>
-<dt>Q(uant):</dt>
-<dd>
-Hey, I’ve got an arbitrage for you!
-</dd>
-<dt>T(rader):</dt>
-<dd>
-Great! How much do I make on the front end?
-</dd>
-<dt>Q:</dt>
-<dd>
-You make 0.
-</dd>
-<dt>T:</dt>
-<dd>
-Oh. Well how much do I make on the back end?
-</dd>
-<dt>Q:</dt>
-<dd>
-A positive amount.
-</dd>
-<dt>T:</dt>
-<dd>
-How “positive” are we talking here?
-</dd>
-<dt>Q:</dt>
-<dd>
-All I can tell you is that it is greater than 0.
-</dd>
-</dl>
+<pre><code>Q(uant): Hey, I&#39;ve got an arbitrage for you!
+
+T(rader): Great! How much do I make on the front end?
+
+Q: You make 0.
+
+T: Oh. Well how much do I make on the back end?
+
+Q: A positive amount.
+
+T: How &quot;positive&quot; are we talking here?
+
+Q: All I can tell you is that it is greater than 0.</code></pre>
 <p>Assuming the trader is still talking to you…</p>
-<dl>
-<dt>T:</dt>
-<dd>
-What is the probability of making this positive non-zero amount?
-</dd>
-<dt>Q:</dt>
-<dd>
-A strictly positive probability.
-</dd>
-<dt>T:</dt>
-<dd>
-More than 1%?
-</dd>
-<dt>Q:</dt>
-<dd>
-All I can tell you is that it is greater than 0.
-</dd>
-</dl>
+<pre><code>T: What is the probability of making this positive non-zero amount?
+
+Q: A strictly positive probability.
+
+T: More than 1%?
+
+Q: All I can tell you is that it is greater than 0.</code></pre>
 <p>…at this point it is only a matter of how far away the quant will
-land after getting booted off the trading floor.</p>
+land after getting booted off the trading floor. It is high time for
+academics to stop spouting mathematically correct, but totally useless
+statements. Not only have I seen similar in person on trading floors, I
+am also guilty of this<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>!</p>
 <p>Quants turn mathematical models into software used for trading. If a
-model is deployed without ensuring it is arbitrage-free then buy-side
-clients will exploit mispricing by buying trades that are undervalued
-and pass on overvalued ones. They don’t need to develop sophisticated
-models to do this, they just get quotes from several sell-side firms and
-take the lowest offer. Eventually trading reality catches up and the
-sell-side firm has to take losses when changing to the latest and
-greatest new model. Even worse, a “clever” sell-side trader might find
-an internal arbitrage that gives the illusion of making profits until
-risk management figures out what is going on.</p>
+model is deployed without ensuring it is arbitrage-free then savvy
+buy-side clients will exploit mispricing and lift trades that are
+undervalued and pass on overvalued ones. They don’t need to develop
+sophisticated models to do this, they just get quotes from several
+sell-side firms and take the lowest offer. Eventually trading reality
+catches up and the sell-side firm has to take losses when changing to
+the latest and greatest new model. Even worse, a “clever” sell-side
+trader might find an internal arbitrage that gives the illusion of
+making profits until risk management figures out what is going on.</p>
 <p>The Fundamental Theorem of Asset Pricing for the one-period model is
 that there are no arbitrage opportunities if and only if the initial
 prices belong to the smallest closed cone containing the final
@@ -234,9 +210,8 @@ class="math inline">\xi,\eta\in\boldsymbol{R}^I</span> are arbitrages
 then so is <span class="math inline">\xi + \eta</span>.</p>
 <p>Another reason this mathematical definition of arbitrage does not
 accurately model reality is that you will eventually run out of
-instruments to purchase as <span class="math inline">t &gt; 0</span>
-gets large. Every instrument has a finite float. Just ask any large
-hedge fund.</p>
+instruments to purchase or sell as <span class="math inline">t</span>
+gets large. Every instrument has a finite float.</p>
 <p>There is a connection between cones and convex sets.</p>
 <p><strong>Exercise</strong>. <em>Show cones are convex</em>.</p>
 <p><em>Hint</em>: A set <span
@@ -281,40 +256,23 @@ when one exists.</p>
 one-period models.</p>
 <section id="bond" class="level3">
 <h3>Bond</h3>
-<p>The simplest possible one-period model has one instrument with
-initial price <span class="math inline">x = (1)</span> and final price
-<span class="math inline">X(\omega) = (R)</span> for all <span
-class="math inline">\omega</span>. Since <span
-class="math inline">X</span> is constant we can let <span
-class="math inline">\Omega</span> be any one element set. This is a
-riskless zero coupon bond/cash deposit having realized return <span
-class="math inline">R</span>.</p>
-<p>A common misconception is the lack of arbitrage implies the realized
-return <span class="math inline">R\ge 1</span> since <span
-class="math inline">R &lt; 1</span> implies negative interest rates.
+<p>A zero coupon pays one unit at the end of the period. Let <span
+class="math inline">x = D</span> and <span class="math inline">X(\omega)
+= 1</span> be the prices of the zero coupon bond at the beginning and
+end of the period. A common misconception is the lack of arbitrage
+implies <span class="math inline">D\le 1</span> since <span
+class="math inline">D &gt; 1</span> implies negative interest rates.
 Interest rates have been negative in many financial markets. For
 example, from 2016 to 2024 the Bank of Japan had a negative interest
 rate policy. This was only available to large corporations depositing in
 the central bank, not the general public, but we are ignoring
 counterparty considerations.</p>
-<p>We can use elementary algebra to prove the no-arbitrage condition is
-<span class="math inline">R &gt; 0</span>. If <span
-class="math inline">R\le0</span> and <span
-class="math inline">\xi=-1</span> then <span
-class="math inline">\xi\cdot x = \xi x = -1</span> and <span
-class="math inline">\xi R \ge0</span> so arbitrage exists. If <span
-class="math inline">R &gt; 0</span> and <span
-class="math inline">\xi\cdot x = \xi &lt; 0</span> then <span
-class="math inline">\xi R &lt; 0</span> so there is no arbitrage.</p>
-<p>In terms of cones there is no arbitrage if and only if <span
-class="math inline">x</span> belongs to the smallest closed cone
-containing the range of <span class="math inline">X</span>. If <span
-class="math inline">R &gt; 0</span> the cone is <span
-class="math inline">[0,\infty)</span>. Since <span
-class="math inline">1\in[0,\infty)</span> there is no arbitrage. If
-<span class="math inline">R\le 0</span> the cone is <span
-class="math inline">(-\infty, 0]</span>. Since <span
-class="math inline">1\not\in(-\infty, 0]</span> there is arbitrage.</p>
+<p>The smallest closed cone containg the range of <span
+class="math inline">X</span> is <span
+class="math inline">[0,\infty)</span> so there is no arbitrage if and
+only if <span class="math inline">D\ge 0</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span class="math inline">D &lt;
+0</span> find an arbitrage</em>.</p>
 </section>
 <section id="section" class="level3">
 <h3>1-2-3</h3>
@@ -325,35 +283,69 @@ class="math inline">1</span> or <span class="math inline">3</span>. The
 model is <span class="math inline">x = (1,1)</span>, <span
 class="math inline">X(\omega) = (2, \omega)</span> where <span
 class="math inline">\omega\in\{1,3\} = \Omega</span>. Note how the
-sample space models in the most direct fashion “what can happen” over
-the interval. If <span class="math inline">x = X(1)D_1 + X(3)D_3</span>
-for some <span class="math inline">D_1,D_3\in\boldsymbol{R}</span> then
-<span class="math inline">D_1 = D_3 = 1/4</span> so the model is
-arbitrage free.</p>
-<p>What are the arbitrage-free models given initial stock price <span
-class="math inline">s</span> instead of <span
-class="math inline">1</span>? In this case <span class="math inline">D_1
-= (3 - 2s)/4</span> and <span class="math inline">D_3 = (-1 +
-2s)/4</span> so <span class="math inline">D_1,D_3\ge0</span> imply <span
-class="math inline">s\le 3/2</span> and <span class="math inline">s\ge
-1/2</span>. This is intuitively obvious. If <span class="math inline">s
-&gt; 3/2</span> then the stock is rich so we should short the stock and
-buy the bond to finance that. If <span class="math inline">s &lt;
-1/2</span> then the stock is cheap so we should buy that and invest in
-the bond.</p>
+sample space models directly “what can happen” over the interval.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x =
+X(1)/2 + X(3)/2</span></em>.</p>
+<p>This shows <span class="math inline">x</span> belongs to the cone
+determined by the range of <span class="math inline">X</span> so there
+is no arbitrage.</p>
+<p>Suppose the initial stock price is <span class="math inline">s</span>
+instead of 1. What are the arbitrage-free values for <span
+class="math inline">s</span>? Solving <span class="math inline">x =
+X(1)D_1 + X(3)D_3</span> gives <span class="math inline">D_1 = (3 -
+2s)/4</span> and <span class="math inline">D_3 = (-1 + 2s)/4</span>
+where we write <span class="math inline">D_\omega</span> for Ross’s
+linear pricing measure <span class="math inline">D(\{omega\})</span>,
+<span class="math inline">\omega\in\{1,3\}</span>. If <span
+class="math inline">x</span> is in the smallest closed cone containing
+the range of <span class="math inline">X</span> then <span
+class="math inline">D_1,D_3\ge0</span> so <span class="math inline">s\le
+3/2</span> and <span class="math inline">s\ge 1/2</span>. If <span
+class="math inline">s &gt; 3/2</span> then the stock is rich so we
+should short it and buy the bond to finance that.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">s &gt;
 3/2</span> then <span class="math inline">\xi = (2,-3)</span> is an
 arbitrage</em>.</p>
+<p>If <span class="math inline">s &lt; 1/2</span> then the stock is
+cheap so we should buy that and invest in the bond.</p>
 <p><strong>Exercise</strong>. <em>If <span class="math inline">s &lt;
 1/2</span> then <span class="math inline">\xi = (-2,1)</span> is an
 arbitrage</em>.</p>
-<p>Do you notice a pattern here?</p>
-<p><strong>Stop reading here.</strong></p>
-<p>Option with strike 2. <span class="math inline">R &gt; 0</span>,
-<span class="math inline">1/2 \le s \le 3/2</span>.</p>
-<p>Logical entropy 1 - sum p_i^2 vs Shannon entropy -sum p_i log
-p_i.</p>
-<p>90-100-110</p>
+<p>Do you notice a pattern here? A line perpendicular to a line with
+slope <span class="math inline">m</span> has slope <span
+class="math inline">m^\perp = -1/m</span>. A line perpendicular to a
+line with slope <span class="math inline">3/2</span> has slope <span
+class="math inline">2/-3</span> and a line perpendicular to a line with
+slope <span class="math inline">1/2</span> has slope <span
+class="math inline">-2/1</span>.</p>
+</section>
+<section id="option" class="level3">
+<h3>1-2-3 Option</h3>
+<p>Now let’s add a call option with strike 2 to the model. We have <span
+class="math inline">x = (1, 1, v)</span>, where <span
+class="math inline">v</span> is the value of the option, and <span
+class="math inline">X(\omega) = (2, \omega, \max\{\omega - 2,
+0\})</span> for <span class="math inline">\omega\in\{1,3\}</span>.</p>
+<p>As we’ve already seen, the bond and the stock determine the linear
+pricing measure <span class="math inline">D_1 = 1/4</span> and <span
+class="math inline">D_3 = 1/4</span>. This implies the arbitrage-free
+option price is <span class="math inline">{v = \max\{1 - 2, 0\}/4 +
+\max\{3 - 1, 0\}/4 = .25}</span>.</p>
+<p>Notice this result does not involve probability, only geometery.</p>
+<p>Notice this result does not make sense to traders if they think the
+price goes to <span class="math inline">3</span> with probability <span
+class="math inline">.9</span> and to <span class="math inline">1</span>
+with probability <span class="math inline">.1</span>. For a quarter they
+can get a dollar 90% of the time. Discounted by <span
+class="math inline">1/2</span> that works out to <span
+class="math inline">45</span> cents. The one-period model is oblivious
+to the the reality of multiple trading opportunities.</p>
+<p>As John Illuzi pointed out to me, back when we worked at Banc of
+America Secuities while the Glass-Steagal Act was being dismantled but
+they still had to spell the equity group they acquire from Montgomery
+Securities with a ‘c’, this only makes sense if someone puts a gun to
+your head if you ever lose money. Risk-neutral pricing is risk
+blind.</p>
 <p><span class="math inline">{L,H}</span> to <span
 class="math inline">[L,H]</span>. Same no-arbitrage condition but
 non-unique measure.</p>
@@ -1915,6 +1907,8 @@ where <span class="math inline">x_j</span> is the price of instrument
 <span class="math inline">i_j</span>, <span class="math inline">1\le
 j\le n</span>.<a href="#fnref1" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Second knock in barrier option. !!!<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </aside>
 </body>
