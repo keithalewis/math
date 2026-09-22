@@ -34,7 +34,7 @@ containing all possible terminal prices. This is equivalent to
 what [@Ros1976] calls a "(not generally unique)
 positive linear operator that can be used to value all marketed assets."
 We will show such operators correspond to positive, finitely-additive measures
-on the space of outcomes and call them _valuation measures_.
+on the space of outcomes and call them _risk-neutral valuation measures_.
 
 > __There is no need for probability. Everything follows from geometry.__
 
