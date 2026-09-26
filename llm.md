@@ -4,31 +4,16 @@ author: Keith A. Lewis
 e-mail: kal@kalx.net
 ---
 
-> “What I cannot create, I do not understand” 
-
-was found on Richard Feynman's blackboard at Caltech after he died.
+> “What I cannot create, I do not understand” -- Richard Feynman
 
 At this year's NYU Tandon [commencement address](https://www.youtube.com/watch?v=pFscM-Z4rCE)
-Yann LeCun said "Large Language Models do not create anything." And encouraged
-students to learn how they work and use them to create new things.
-He emphasised you will be at a disadvantage if you don't learn how to use them effectively.
-
-The most valuable commodity in the world is trust.
-It cannot be manufacured or bought, and can vanish in an instant.
-
-You need to figure out who you can trust. It is the oldest problem in the world.
-
-### People I Trust
-
-Yann Lecun - Head of Facebook AI until starting AMIL in 2025.
-
-Andrei Karpathy - OpenAI GPT-1, GPT-2
-
-Ali Gosdsi - Founder of Databricks
+Yann LeCun pointed out "Large Language Models do not create anything."
+He exhorted students to learn how they work and use them to create new things,
+and emphasized they will be at a disadvantage if they don't learn how to use them effectively.
 
 ## A Short History of Machine Learning
 
-The origins of ML began in 1805 with Gauss and Legendre inventing the
+The origins of ML arguably began in 1805 with Gauss and Legendre inventing the
 "least squares" method. 
 Given points $(x_j, y_j)$ find a line $y = ax + b$ that "best" fits the data.
 They proposed minimizing the _loss function_
@@ -37,9 +22,11 @@ $$
 $$
 over $a$ and $b$.
 
-From 1930--1940 statisical theory advanced with more general linear models in
-higher dimensions _maximum likelihood_ methods.
+> The continuing theme is reducing large amounts of data to something
+humans can understand and use to make decisions.
 
+From 1930--1940 statisical theory advanced with more general linear models in
+higher dimensions using _maximum likelihood_ methods.
 
 [@McCPit1943] gave the first mathematical definition of a neuron.
 
@@ -78,5 +65,8 @@ of the LLM you are using at the moment.
 Use the output to detect what it is _not_ telling you.
 
 Prompt from general to specific. You are looking for a needle in a haystack.
+
+Forward/Backward propagation.
+
 
 DO NOT TRUST LLMs! 

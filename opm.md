@@ -26,7 +26,7 @@ bought or sold in any amount with no effect on the price, and has nothing
 to say about counterparty risk.
 
 The model defines the initial vector of tradable instruments prices and their
-terminal prices contingent on the realized outcome. If no
+terminal prices contingent on the realized outcome. If there are no
 arbitrage opportunities available then prices are subject
 to a geometric constraint determined by the final prices:
 the initial price vector must belong to the smallest closed cone
@@ -35,15 +35,16 @@ what [@Ros1976] calls a "(not generally unique)
 positive linear operator that can be used to value all marketed assets."
 We will show such operators correspond to positive, finitely-additive measures
 on the space of outcomes and call them _risk-neutral valuation measures_.
-
-> __There is no need for probability. Everything follows from geometry.__
+Positive measures having mass 1 make a showing, but it is 
+a mistake to assume they are the actual probability of anything.
 
 The [Model](#model) section defines the (unrealistic) one-period model
 and proves the "easy" direction of the Fundamental Theorem of Asset Pricing.
-This motivates why cones make a showing. In the [Examples](#exampls) section we consider
+This motivates why cones show up. In the [Examples](#exampls) section we consider
 various models and how the FTAP can be usefully applied.
 The [FTAP](#fundamental-theorem-of-asset-pricing) section proves the
 "hard" direction and shows how to find an arbitrage if it exists.
+We conclude with some remarks about the Capital Asset Pricing Model.
 
 ## Model
 
@@ -51,22 +52,26 @@ Let $I$ be the set of _market instruments_ and $x\in\RR^I$
 be an element of the _set exponential_[^1]
 denoting initial prices. The _sample space_ $\Omega$ is the set of
 what can happen over the period. The function $X\colon\Omega\to\RR^I$
-determines the final prices $X(\omega)\in\RR^I$ given $\omega\in\Omega$ occurs.
+determines the final prices ${X(\omega)\in\RR^I}$ given ${\omega\in\Omega}$ occurs.
+For ${x\in\RR^I}$ we define the Euclidean norm by ${\|x\|^2 = \sum_i x(i)^2}$
+and for ${X\colon\Omega\to\RR^I}$ the supremum norm is
+${\|X\| = \sup_{omega\in\Omega} \|X(\omega)\|}$.
+We assume the final prices are bounded, as they are in the real world.
 
 [^1]: Recall the set exponential ${B^A = \{f\colon A\to B\}}$ is the set
 of all functions from the set $A$ to the set $B$.  If ${x\in\RR^I}$ then
 $x(i)\in\RR$ is the price of instrument $i\in I$.  If $I = \{1,\ldots,n\}$
 we can identify $\RR^I$ with the vector space of $n$-tuples
 ${\RR^n = \prod_{i=1}^n\RR = \{(x_1,\ldots,x_n)\mid x_i\in\RR\}}$
-by $x(i) = x_i$, $1\le i\le n$. There is no need for the circumlocution
+by $x(i) = x_i$, $1\le i\le n$. There is more direct than the circumlocution
 of defining the set of instruments $I = \{i_1,\ldots,i_n\}$
 and letting $x = (x_1,\ldots,x_n)\in\RR^n$ be the instrument prices
 where $x_j$ is the price of instrument $i_j$, $1\le j\le n$.
 
 _Arbitrage_ (in this model) exists if we can find a _position_
 $\xi\in\RR^I$ that makes money when you put it on and
-never loses money when you unwind it.
-In math speak, $\xi\cdot x < 0$ and $\xi\cdot X(\omega)\ge0$ for all $\omega\in\Omega$.
+never loses money when you unwind it -- 
+$\xi\cdot x < 0$ and $\xi\cdot X(\omega)\ge0$ for all $\omega\in\Omega$.
 Note that this definition does not involve probability.
 
 This mathematical definition of arbitrage is not good enough for traders or
@@ -84,7 +89,7 @@ This mathematical definition of arbitrage is fatuous.
 ```
 Q(uant): Hey, I've got an arbitrage for you!
 
-T(rader): Great! How much do I make on the front end?
+T(rader): Bring it on! How much do I make on the front end?
 
 Q: You make 0.
 
@@ -100,7 +105,7 @@ Q: All I can tell you is that it is greater than 0.
 Assuming the trader is still talking to you...
 
 ```
-T: What is the probability of making this positive non-zero amount?
+T: What is the probability of making this positive amount?
 
 Q: A strictly positive probability.
 
@@ -111,11 +116,25 @@ Q: All I can tell you is that it is greater than 0.
 
 ...at this point it is only a matter of how far away the quant
 will land after getting booted off the trading floor.
+
 It is high time for academics to stop spouting mathematically correct, but
 totally useless statements. Not only have I seen similar in person
 on trading floors, I am also guilty of this[^2]!
 
-[^2]: Second knock in barrier option. !!!
+[^2]: As a fledgling quant at Bankers Trust in the early 90's a trader, Charlie Minton, came to
+me with an idea for a new product.  He wanted to value a barrier option
+that knocked in/out the second time the underlying hit the barrier instead of the
+first time. His trader intuition told him the price must be lower. 
+[@Mer1973] showed how to price barrier options
+using the reflection principle of Brownian motion.
+I was familiar with his result
+and had studied Brownian Motion from [@ItoMcK1965]
+in graduate school so immediately blurted out, "It has the exact same value!"
+I was so please with myself at being able to answer a trader's question that
+did not notice his increasingly dubious look when I started babbling
+about unbounded variation on any finite interval and how the answer
+is the same even for the millionth time it hit the barrier.
+Charlie didn't talk to me for three months after that.
 
 Quants turn mathematical models into software used for trading.  If a
 model is deployed without ensuring it is arbitrage-free then savvy buy-side
@@ -267,7 +286,7 @@ lose money over a period. Risk-neutral pricing is risk blind.
 
 The binomial model generalizes the 1-2-3 model by assuming the
 bond has realized return $R$ and
-the stock can go to two values $\Omega = \{L, H\}$.
+the stock can go to either a low or high value $\Omega = \{L, H\}$.
 It specifies $x = (1, s)$ and $X(\omega) = (R, \omega)$.
 
 The model is arbitrage-free if and only if
@@ -280,8 +299,12 @@ __Exercise__. _Find an arbitrage if $s < L/R$ or $s > H/R$_.
 
 _Hint_. Consider $-R/L$ and $R/-H$.
 
+### Interval
+
 A somewhat more realistic model would allow the stock price to be
 any value between the low and the high, $\Omega = [L,H]$.
+There seems to be no common name for this so we will 
+call it the _interval model_.
 
 __Exercise__. _Show the smallest closed cone containing $X([L,H])$
 is the same as the smallest closed cone containing $X(L)$ and $X(H)$_.
@@ -291,7 +314,7 @@ when $L\le\omega\le H$.
 
 This shows the no arbitrage condition $L/R\le s\le H/R$ is the same as for the more general model.
 
-### Binomial Option
+### Interval Option
 
 If we add a call option with strike $k$ the model is
 ${x = (1, s, v)}$ and ${X(\omega) = (R, \omega, \max\{\omega - k, 0\})}$,
@@ -299,39 +322,20 @@ ${\omega\in\{L,H\}}$.
 The bond and stock determine the linear pricing operator and
 the arbitrage-free price of the option is 
 
-## FTAP
+## Fundamental Theorem of Asset Pricing
 
 The Fundamental Theorem of Asset Pricing characterizes arbitrage-free
-models and provides an arbitrages if they are not. As [@Ros1978] showed,
-this is a purely geometric result having nothing to do with probability.
-Positive measures having mass one make a showing, but they are not
-the probability of anything.
+models and provides an arbitrages if they are not.
 
-Unlike [@BlaSch1973], and [@Mer1973], Ross's
-model applies to any collection of instruments, not just a bond, stock,
-and option.  It seems to be underappreciated that Ross also showed
-there is no need for Ito processes, partial differential equations,
-or a so-called real-world measure that gets immediately thrown out for
-a risk-neutral measure.
-
-However, Ross made the untenable assumption that continuous time trading is
-possible and the category error of defining a cash flow as a jump
-in price. Stock prices jump between market close and market open but
-there is no associated cash flow.
-A cash flow is a payment made by the instrument issuer
-to instrument holders. Stocks pay dividends, bonds pay coupons,
-futures pay the change in end-of-day quotes (and always have price zero).
-
-The Fundamental Theorem of Asset Pricing shows models of cash flows
-entail geometric constraints on arbitrage-free prices.
-
+If we were being intellectually honest about the one-period
+model we would have to acknowledge the final prices must
+be zero since there is no further economic activity.
+The final prices are really _cash flows_ that accrue in proportion
+to the position held, just like for stock dividends and bond coupons.
+The assumption we liquidate the position at the end of the
+period obscures this.
 The [Multi-period model](mpm.html) clarifies the relationship
 between prices and cash flows.
-
-The [Capital Asset Pricing Model](capm.html) is a one-period model
-where a probability measure on possible outcomes is specified.
-
-## Fundamental Theorem of Asset Pricing
 
 The assumption of no arbitrage places constraints on initial prices
 determined by possible final prices. The constraints involve a cone.
