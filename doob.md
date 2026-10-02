@@ -11,6 +11,52 @@ email: kal@kalx.net
 \newcommand{\it}[2]{#1\langle #2\rangle}
 \newcommand{\more}{\varepsilon}
 
+Joe Doob's upcrossing Lemma [@Doo1953] for a martingale $(M_t)$
+is the number of upcrossings of the interval $[a,b]$
+times $(b - a)$ is less than $E[\max\{M_t - a, 0\}] - \max\{M_0 - a, 0\}$.
+It is just a lemma because Doob needed it for his proof of
+the martingale convergence theorem.
+
+His proof has a simple financial interpretation. 
+The number of upcrossings can be used to find an option premium.
+
+Suppose a money-market account $R_t$ is available for
+hedging and $S_t$ is the price of a stock at time $t$.
+To hedge a call option with strike $K$ and expiration $T$
+you need to find a self-financing trading strategy that pays
+$\max\{S_T - K,0}$ at time $T$.
+
+For now, lets assume zero interest rates so $R_t = 1$.
+A naive approach is to borrow $K$ and buy one share of stock when it
+is at level $K$. If the stock remains above $K$ until
+expiration $T$ then sell the stock for $S_T$ and use that
+to pay back the $K$ you borrowed. Use the remaining $S_T - K$ to provide
+the option payoff.
+If the stock goes back down to level $K$ then sell it
+at $K$ to preserve self-financing. Rinse and repeat.
+
+If you try to implment this strategy you will find out that is not how
+markets work. Stock prices bounce around their current level and you will
+have to pay the bid/ask spread on every transaction. Even the untenable
+continuous time math suggests there is more to it. If your position at
+time $t$ is $\Delta_t$ in a stock with price $X_t$ then your P\&L over
+$[0,t]$ is $\int_0^t \Delta_s\,dX_s$. If you hold
+$\Delta_s$ at time $s$ you get $\Delta_s(X_{s + ds} - X_s)$ at time $s + ds$. 
+A well-known formula is
+$$
+	\int_0^t 1(X_s > a)\,dX_s == local vol.
+$$
+
+Trading strategy. Buy when $S_t > b$, sell when $S_t < a$.
+
+If you buy one share of stock when it hits level $a$ and the
+stock price keeps increasing then it is a perfect hedge.
+Sell the stock at expiration $t$ and your P&L is $M_t - a$
+which covers your call obligation.
+
+Joe used the lemma to prove the martingale convergence theorem.
+
+
 Stop Loss/Start Gain
 
 The SL/SG strategy is to hold one share when the underlying crosses a lower bound

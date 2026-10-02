@@ -9,18 +9,27 @@ abstract: Associative binary operation with an identity
 
 \newcommand\cat[1]{\mathbf{#1}}
 \newcommand\RR{\boldsymbol{R}}
+\newcommand\NN{\boldsymbol{N}}
 \newcommand\o[1]{\overline{#1}}
 \newcommand\u[1]{\underline{#1}}
 \newcommand\dom{\operatorname{dom}}
 \newcommand\cod{\operatorname{cod}}
 
-Monoids show up everywhere once you are aware of them. 
+Monoids show up everywhere once you are aware of them. [^1]
 They can be used to reduce large amounts of data to a small amount of
-data that can be understood by humans to make decisions.
+data that can be used to make decisions.
+It is no surprise they show up in statistics and pivot tables.
+
+[^1]: Not to be confused with a monad being a category having an endofuctor with the monoid
+product replaced by composition and identity element being the identity endofunctor.
 
 A _monoid_ is a set $M$ with an associative binary operation $m$ that has an identity element $e$.
 The binary operation is a function $m\colon M\times M\to M$ satisfying
 the associative law $m(m(a,b),c) = m(a, m(b, c))$.
+
+If we write $ab$ for the monoid product $m(a,b)$ then the associative law is $(ab)c = a(bc)$.
+This allows us to write $abc$ unambiguously.
+
 The identity element $e$ satisfies $ea = a = ae$ for all $a\in M$.
 
 __Exercise__. _Show the identity element is unique_.
@@ -34,14 +43,17 @@ for $s\in S$, and $m(a,b) = s(a,b)$ for $a,b\in S$.
 
 __Exercise__. _Show this is a monoid_.
 
+It is easy to fix up a semigroup into a monoid.
+
 A _group_ is a monoid where every element has an _inverse_. Let $g\colon G\times G\to G$
 be the binary operation. Every $a\in G$ has an inverse $a^{-1}\in G$ with
 $g(a,a^{-1}) = e$.
 
 __Exercise__. _Show $g(a^{-1},a) = e$ for all $a\in G_.
 
-If we write $ab$ for the monoid product $m(a,b)$ then the associative law is $(ab)c = a(bc)$.
-This allows us to write $abc$ unambiguously. This can be generalized.
+Note that it is not neccesary to assume $G$ is _abelian_, $ab = ba$ for $a,b\in G$.
+
+Not only $abc$ is unambiguous, so is any product $a_1\cdots a_n$.
 
 Define $m^n\colon M^n\to M$ for $n\ge0$ by
 $m^0(()) = e$ and ${m^{n+1}((a_0,\ldots, a_n)) = m(a_0, m^n((a_1,\ldots,a_n))}$.
@@ -57,7 +69,8 @@ $m^*(a_1, \dots, a_n) = m^n((a_1,\ldots,a_n))$.
 Addition and multiplication of numbers are the most well known examples
 of monoids with respective identities 0 and 1.
 
-They are also monoids when restricted to non-negative numbers.
+They are also monoids, but not groups, when restricted to non-negative numbers.
+They are semigroups when restricted to positive numbers.
 
 The maximum and minimum of numbers are also a monoid with respective
 identities $-\infty$ and $+\infty$.
@@ -97,6 +110,11 @@ A _statistic_ is a function from a lot of numbers to one number.
 The _(sample) mean_ of ${x_1,\ldots,x_n}$ is ${\mu = \mu(x_1,\ldots,x_n)
 = (x_1 + \cdots + x_n)/n = \sum_{i=1}^n x_i/n$. It is a number giving an indication
 of _location_. If all $x_i$ are equal to $x$ then the mean is $x$.
+
+The mean is not a monoid but $\RR\times\NN$ is with the binary operation
+$m((x,i),(y,j)} = (ix + jy, i+j)$ with identity $(0,0)$.
+
+__Exercise__. _Prove this_.
 
 The _(sample) variance_ is ${\sigma^2 = \sigma^2(x_1,\ldots,x_n) = \sum_{i=1}^n (x_i - \mu)^2/n}$.
 It is a number indicating the _spread_ of how far samples are from the average.
