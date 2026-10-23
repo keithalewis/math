@@ -34,9 +34,21 @@ ${\Sigma_t^2 = (1/t)\int_0^t (dS/S)^2}$. The volatility $\Sigma$ is the average
 of the realized volatility. Unfortunately, this is not a good model since
 it implies $\Sigma$ is constant.
 Since $t\Sigma_t^2 = \int_0^t (dS/S)^2 = \int_0^t \Sigma_s^2\,ds$
-we have $d(t\Sigma_t^2) = \Sigma_t^2$. By the Ito calculus we
+we have $d(t\Sigma_t^2) = \Sigma_t^2\,dt$. By the Ito calculus we
 also have $d(t\Sigma_t^2) = t\,d\Sigma^2_t + \Sigma_t^2\,dt$ so
 $0 = t\,d\Sigma_t^2$ and $\Sigma_t$ must be constant.
+
+<!--
+A funny thing happened on the way to stochastic volatility.
+Suppose a stock price process S_t satisfies dS_t/S_t = μ dt + Σ_t dB where
+Σ_t^2 = (1/t) ∫_0^t (dB/B)^2 dt is the average variance up to time t. 
+This is the payoff of a variance swap contract.
+Seems reasonable, right?
+Since t Σ_t^2 = ∫_0^t (dB/B)^2 dt we have d(t Σ_t^2) = (dB/B)^2 = Σ_t^2 dt$.
+We also have d(t Σ_t^2) = t d(Σ_t^2) + Σ_t^2 dt.
+This shows t d(Σ_t^2) = 0 so Σ_t is constant.
+Oops!
+-->
 
 The average realized volatility assigns equal weight to each observation.
 If $K$ is a function on the positive real numbers then we can consider

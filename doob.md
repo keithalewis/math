@@ -2,58 +2,93 @@
 title: Doob Upcrossing Lemma
 author: Keith A. Lewis
 email: kal@kalx.net
+classoption: fleqn
+fleqn: true
 ---
 \newcommand\bs[1]{\boldsymbol{{#1}}}
 \newcommand\RR{\bs{R}}
 \newcommand\NN{\bs{N}}
 \newcommand\BB{\bs{B}}
 \newcommand\PP{\mathcal{P}}
-\newcommand{\it}[2]{#1\langle #2\rangle}
 \newcommand{\more}{\varepsilon}
 
 Joe Doob's upcrossing Lemma [@Doo1953] for a martingale $(M_t)$
-is the number of upcrossings of the interval $[a,b]$
-times $(b - a)$ is less than $E[\max\{M_t - a, 0\}] - \max\{M_0 - a, 0\}$.
-It is just a lemma because Doob needed it for his proof of
-the martingale convergence theorem.
+states the number of upcrossings of the interval $[a,b]$ over $[0,t]$
+times $(b - a)$ is less than ${E[\max\{M_t - a, 0\}] - \max\{M_0 - a, 0\}}$.
+It is just a lemma because Doob needed it to prove
+martingale convergence theorems -- generalizations to stochastic
+processes of the fact bounded, monotone sequences converge.
 
-His proof has a simple financial interpretation. 
-The number of upcrossings can be used to find an option premium.
+His proof has a simple financial interpretation:
+the number of upcrossings can be used to find an option premium,
+its value minus the intrinsic, using historical data.
+This is mentioned in mathematical finance literature but
+there does not seem to be any detailed analysis.
+This short note begins to rectifying that.
 
 Suppose a money-market account $R_t$ is available for
 hedging and $S_t$ is the price of a stock at time $t$.
 To hedge a call option with strike $K$ and expiration $T$
 you need to find a self-financing trading strategy that pays
-$\max\{S_T - K,0}$ at time $T$.
+$\max\{S_T - K,0\}$ at time $T$.
 
-For now, lets assume zero interest rates so $R_t = 1$.
+For now, lets assume zero interest rates so $R_t = 1$, $S_0 < K$,
+and the stock pays no dividends.
 A naive approach is to borrow $K$ and buy one share of stock when it
-is at level $K$. If the stock remains above $K$ until
-expiration $T$ then sell the stock for $S_T$ and use that
-to pay back the $K$ you borrowed. Use the remaining $S_T - K$ to provide
-the option payoff.
+hits level $K$. If the stock remains above $K$ until
+expiration $T$ then sell the stock for $S_T$, use that
+to pay back the $K$ you borrowed, and the remaining $S_T - K$ to cover
+the option obligation
 If the stock goes back down to level $K$ then sell it
 at $K$ to preserve self-financing. Rinse and repeat.
 
-If you try to implment this strategy you will find out that is not how
-markets work. Stock prices bounce around their current level and you will
-have to pay the bid/ask spread on every transaction. Even the untenable
-continuous time math suggests there is more to it. If your position at
-time $t$ is $\Delta_t$ in a stock with price $X_t$ then your P\&L over
-$[0,t]$ is $\int_0^t \Delta_s\,dX_s$. If you hold
-$\Delta_s$ at time $s$ you get $\Delta_s(X_{s + ds} - X_s)$ at time $s + ds$. 
-A well-known formula is
+__Exercise__. _If $S_0 > K$ immediately buy one share. 
+Show the P&L is $\max\{S_T - K,0\} - \max\{S_0 - K,0\}$_. 
+
+_Hint_: $S_T - S_0 = S_T - K - (S_0 - K)$.
+
+Note this is true for every stock trajectory and does not
+involve probability.
+
+When I showed this argument to Peter Carr he laughed and
+said, "That can't be right!" It isn't.
+He eventually turned this into the paper [@CarMah2010].
+If you try to implement this strategy you will find out that local time
+is a mathematical fiction.
+
+In reality stocks trade at integer multiples of their minimum tick size.
+To hedge a call option with strike $K$
+and expiration $T$ specify possible levels $a < K$ and $b > K$,
+buy one share when $S_t > b$, then sell it when $S_t < a$.
+If limit orders exist they can be used to execute at exact levels
+with no slippage.
+What is not clear is how small $b - a$ can be and still
+result in a practical hedging strategy.
+
+Define trading times
 $$
-	\int_0^t 1(X_s > a)\,dX_s == local vol.
+\begin{aligned}
+\tau_0 &= \inf\{t > 0\mid S_t > b\} \\
+\tau_1 &= \inf\{t > \tau_1\mid S_t < a\} \\
+&\cdots \\
+\tau_{2n} &= \inf\{t > \tau_{2n-1}\mid S_t > b\} \\
+\tau_{2n+1} &= \inf\{t > \tau_{2n}\mid S_t < a\} \\
+\end{aligned}
 $$
+for $n > 0$.
+The trading strategy is to buy 1 share at $\tau_{2n}$
+and sell it at $\tau_{2n+1}$.
 
-Trading strategy. Buy when $S_t > b$, sell when $S_t < a$.
+For simplicity assume $a = K$.
+Assuming $S_0 < b$ this results in cash flows $-b$ at $\tau_0$,
+$K$ at $\tau_1$, $\ldots$, that alternate until expiration $T$.
+We pay $b - K$ at each down crossing.
+This costs $(b - a)N_T(a,b)$ where
+$N_t(a,b) = \sum_j 1(\tau_j \le t)$, the number of _crossings_
+of $[a,b]$ at time $t$.
 
-If you buy one share of stock when it hits level $a$ and the
-stock price keeps increasing then it is a perfect hedge.
-Sell the stock at expiration $t$ and your P&L is $M_t - a$
-which covers your call obligation.
 
+<!--
 Joe used the lemma to prove the martingale convergence theorem.
 
 
@@ -65,7 +100,7 @@ this can be expressed using $(X > a)'(X < b)$.
 
 ## Notation
 
-We use standard mathematical notation with an eye toward computer implemenetation.
+We use standard mathematical notation with an eye toward computer implementation.
 Given symbols $f$ and $x$ how do we indicate when we want the result of applying the
 function $f\colon X\to Y$ to the value $x\in X$?
 
@@ -195,3 +230,4 @@ $U \subseteq \sqcup_i U_i$.
 
 If $(M_t)$ is a (sub)martingale then the number of up crossings of the interval $[a,b]$
 then $(b - a)N_{a,b}(t) \le E[\max\{M_t - a, 0\}] - \max\{M_0 - a, 0\}$.
+-->

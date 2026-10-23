@@ -4,7 +4,7 @@ author: Keith A. Lewis
 institution: KALX, LLC
 email: kal@kalx.net
 classoption: fleqn
-abstract: The simplest (unrealistic) model of a financial market.
+abstract: The simplest (and unrealistic) model of a financial market.
 ...
 
 \newcommand\RR{\boldsymbol{R}}
@@ -53,9 +53,9 @@ be an element of the _set exponential_[^1]
 denoting initial prices. The _sample space_ $\Omega$ is the set of
 what can happen over the period. The function $X\colon\Omega\to\RR^I$
 determines the final prices ${X(\omega)\in\RR^I}$ given ${\omega\in\Omega}$ occurs.
-For ${x\in\RR^I}$ we define the Euclidean norm by ${\|x\|^2 = \sum_i x(i)^2}$
+For ${x\in\RR^I}$ we define the Euclidean norm by ${\|x\|_2^2 = \sum_i x(i)^2}$
 and for ${X\colon\Omega\to\RR^I}$ the supremum norm is
-${\|X\| = \sup_{omega\in\Omega} \|X(\omega)\|}$.
+${\|X\|_\infty = \sup_{\omega\in\Omega} \|X(\omega)\|_2}$.
 We assume the final prices are bounded, as they are in the real world.
 
 [^1]: Recall the set exponential ${B^A = \{f\colon A\to B\}}$ is the set
@@ -69,8 +69,8 @@ and letting $x = (x_1,\ldots,x_n)\in\RR^n$ be the instrument prices
 where $x_j$ is the price of instrument $i_j$, $1\le j\le n$.
 
 _Arbitrage_ (in this model) exists if we can find a _position_
-$\xi\in\RR^I$ that makes money when you put it on and
-never loses money when you unwind it -- 
+$\xi\in\RR^I$ that makes money when put on and
+never loses money when unwound: 
 $\xi\cdot x < 0$ and $\xi\cdot X(\omega)\ge0$ for all $\omega\in\Omega$.
 Note that this definition does not involve probability.
 
@@ -118,8 +118,8 @@ Q: All I can tell you is that it is greater than 0.
 will land after getting booted off the trading floor.
 
 It is high time for academics to stop spouting mathematically correct, but
-totally useless statements. Not only have I seen similar in person
-on trading floors, I am also guilty of this[^2]!
+totally useless statements. Not only have I seen this happen in person
+on trading floors, I am also guilty of this![^2]
 
 [^2]: As a fledgling quant at Bankers Trust in the early 90's a trader, Charlie Minton, came to
 me with an idea for a new product.  He wanted to value a barrier option
@@ -130,7 +130,7 @@ using the reflection principle of Brownian motion.
 I was familiar with his result
 and had studied Brownian Motion from [@ItoMcK1965]
 in graduate school so immediately blurted out, "It has the exact same value!"
-I was so please with myself at being able to answer a trader's question that
+I was so pleased with myself at being able to answer a trader's question that
 did not notice his increasingly dubious look when I started babbling
 about unbounded variation on any finite interval and how the answer
 is the same even for the millionth time it hit the barrier.
@@ -147,7 +147,10 @@ and the sell-side firm has to take losses when changing to
 the latest and greatest new model.
 Even worse, a "clever" sell-side trader might
 find an internal arbitrage that gives the illusion of making profits
-until risk management figures out what is going on.
+until risk management figures out what is going on. Or their
+233-year old bank goes out of business. [@bbs1995]
+[Board of Banking Supervision Report](
+https://assets.publishing.service.gov.uk/media/5a7ca783ed915d6969f46688/0673.pdf)
 
 The Fundamental Theorem of Asset Pricing for the one-period model is
 that there are no arbitrage opportunities if and only if
@@ -164,8 +167,9 @@ and if $\xi,\eta\in\RR^I$ are arbitrages then so is $\xi + \eta$.
 
 Another reason this mathematical definition of arbitrage
 does not accurately model reality is that you will eventually run out of
-instruments to purchase or sell as $t$ gets large.
+instruments to buy or sell as $t$ gets large.
 Every instrument has a finite float.
+This is a real problem for large hedge funds.
 
 There is a connection between cones and convex sets. 
 
@@ -181,7 +185,7 @@ __Exercise__. _Show if $C\subseteq\RR^I$ is convex then $\RR^+ C$ is a cone_.
 _Hint_: Where $\RR^+C = \{t x\mid t > 0, x\in C\}$.
 
 Note any finite linear combination ${x = \sum_{\omega_j\in\Omega} X(\omega_j) D_j}$,
-$D_j > 0$ is in any cone containing the range of $X$, ${X(\Omega) = \{X(\omega)\mid\omega\in\Omega\}}$.
+$D_j > 0$ is in any cone containing the range of $X$: ${X(\Omega) = \{X(\omega)\mid\omega\in\Omega\}}$.
 
 __Exercise__. _Show for any such $x$ that $\xi\cdot X(\omega)\ge0$ for all $\omega\in\Omega$
 implies $\xi\cdot x\ge0$_.
@@ -204,9 +208,8 @@ Before proving the one-period FTAP let's consider some examples of one-period mo
 ### Bond
 
 A zero coupon pays one unit at the end of the period.
-Let $x = D$ and $X(\omega) = 1$ be the prices of the zero coupon bond
-at the beginning and end of the period.
-A common misconception is the lack of arbitrage implies
+Let its initial price/discount be $x = D$ and $X(\omega) = 1$ for all $\omega\in\Omega$.
+A common misconception is the absence of arbitrage implies
 $D\le 1$ since $D > 1$ implies negative interest rates.
 Interest rates have been negative in many financial markets.
 For example, from 2016 to 2024 the Bank of Japan had a negative interest rate policy.
@@ -214,8 +217,8 @@ This was only available to large corporations depositing in the
 central bank, not the general public, but we are ignoring counterparty
 considerations.
 
-The smallest closed cone containg the range of $X$ is $[0,\infty)$
-so there is no arbitrage if and only if $D\ge 0$.
+The smallest closed cone containing the range of $X$ is $[0,\infty)$
+so there is no arbitrage if and only if $D\ge0$.
 
 __Exercise__. _If $D < 0$ find an arbitrage_.
 
@@ -223,22 +226,24 @@ __Exercise__. _If $D < 0$ find an arbitrage_.
 
 Consider a model with a bond and stock where their initial prices are both $1$,
 the bond always goes to $2$, and the stock can go to either $1$ or $3$.
-The model is $x = (1,1)$, $X(\omega) = (2, \omega)$ where $\omega\in\{1,3\} = \Omega$.
+The model is $x = (1,1)$, ${X(\omega) = (2, \omega)}$ where ${\omega\in\{1,3\} = \Omega}$.
 Note how the sample space models directly "what can happen"
 over the interval. 
 
-__Exercise__. _Show $x = X(1)/2 + X(3)/2$_.
+__Exercise__. _Show $x = X(1)/4 + X(3)/4$_.
+
+_Hint_. Solve ${x = X(1)D_1 + X(3)D_3}$ for $D_1$ and $D_3$.
 
 This shows $x$ belongs to the cone determined by the range of $X$ so there
 is no arbitrage.
 
 Suppose the initial stock price is $s$ instead of 1.
 What are the arbitrage-free values for $s$?
-Solving $x = X(1)D_1 + X(3)D_3$ gives
-$D_1 = (3 - 2s)/4$ and $D_3 = (-1 + 2s)/4$
-where we write $D_\omega$ for Ross's linear pricing measure $D(\{omega\})$, $\omega\in\{1,3\}$.
+Solving ${x = X(1)D_1 + X(3)D_3}$ gives
+${D_1 = (3 - 2s)/4}$ and ${D_3 = (-1 + 2s)/4}$
+where we write ${D_\omega}$ for Ross's linear pricing measure ${D(\{\omega\})}$, ${\omega\in\{1,3\}}$.
 If $x$ is in the smallest closed cone containing the range of $X$
-then $D_1,D_3\ge0$ so $s\ge 1/2$ and $s\le 3/2$.
+then ${D_1,D_3\ge0}$ so ${1/2\le s\le 3/2}$.
 
 If $s < 1/2$ then the stock is cheap so we should buy that and invest in the bond.
 
@@ -251,15 +256,17 @@ __Exercise__. _If $s > 3/2$ then $\xi = (2,-3)$ is an arbitrage_.
 
 Do you notice a pattern here?
 A line perpendicular to a line with slope $m$ has
-slope $m^\perp = -1/m$.
-A line perpendicular to a line with slope $3/2$ has slope $2/-3$
-and a line perpendicular to a line with slope $1/2$ has slope $-2/1$.
+slope ${m^\perp = -1/m}$.
+A line perpendicular to a line with slope $1/2$ has slope $-2/1$.
+A line perpendicular to a line with slope $3/2$ has slope $2/-3$.
+
+We will see later how this generalizes to finding arbitrage in any one-period model.
 
 ### 1-2-3 Option
 
 Now let's add a call option with strike 2 to the model.
-We have $x = (1, 1, v)$, where $v$ is the value of the option,
-and $X(\omega) = (2, \omega, \max\{\omega - 2, 0\})$ for $\omega\in\{1,3\}$.
+We have ${x = (1, 1, v)}$, where $v$ is the value of the option,
+and ${X(\omega) = (2, \omega, \max\{\omega - 2, 0\})}$ for ${\omega\in\{1,3\}}$.
 
 As we've already seen, the bond and the stock determine the linear pricing measure
 $D_1 = 1/4$ and $D_3 = 1/4$.
@@ -268,31 +275,39 @@ ${v = \max\{1 - 2, 0\}/4 + \max\{3 - 1, 0\}/4 = .25}$.
 
 Notice this result does not involve probability, only geometry.
 
+__Exercise__: _What is the no-arbitrage value of the call option
+if the initial stock price is $s$_?
+
 Also notice this result does not make sense to traders if they
 think the price goes to $3$ with probability $.9$
 and to $1$ with probability $.1$. For a quarter they can
 get a dollar 90\% of the time. Discounted by $1/2$ that
-works out to $45$ cents. The one-period model is oblivious
+works out to $45$ cents.
+The mathematical theory gives the same call option price
+if it goes to 3 with probability $.99$ and to 1 with probability $.01$.
+The one-period model is oblivious
 to the possibility of multiple trading opportunities.
 
 As John Illuzi pointed out to me back when we worked at Banc of America Securities
-while the Glass-Steagall legislation was being dismantled in the 90's
+after the Glass-Steagall legislation was dismantled in the 90's
 and Bank of America still had to spell the equity group they acquired from
 Montgomery Securities with a 'c',
 this only makes sense if someone puts a gun to your head if you ever
-lose money over a period. Risk-neutral pricing is risk blind.
+lose money on the call option over a period.
+
+> Risk-neutral pricing is risk blind.
 
 ### Binomial
 
 The binomial model generalizes the 1-2-3 model by assuming the
 bond has realized return $R$ and
-the stock can go to either a low or high value $\Omega = \{L, H\}$.
-It specifies $x = (1, s)$ and $X(\omega) = (R, \omega)$.
+the stock can go to either a low or high value ${\Omega = \{L, H\}}$.
+It specifies ${x = (1, s)}$ and ${X(\omega) = (R, \omega)}$.
 
 The model is arbitrage-free if and only if
 $x = X(L) D_L + X(H) D_H$ for some non-negative $D_L$ and $D_H$.
 The general solution is $D_L = (H - Rs)/R(H - L)$
-and $D_H = (-L + Rs)/R(H - l)$ and the no arbitrage condition
+and $D_H = (-L + Rs)/R(H - L)$ and the no arbitrage condition
 holds if and only if $L/R \le s \le H/R$.
 
 __Exercise__. _Find an arbitrage if $s < L/R$ or $s > H/R$_.
@@ -312,7 +327,8 @@ is the same as the smallest closed cone containing $X(L)$ and $X(H)$_.
 _Hint_: $X(\omega) = (1 - t) X(L) + t X(H)$ for some $t\in[0,1]$
 when $L\le\omega\le H$.
 
-This shows the no arbitrage condition $L/R\le s\le H/R$ is the same as for the more general model.
+This shows the binomial no-arbitrage condition $L/R\le s\le H/R$ is the same as
+the more general interval model.
 
 ### Interval Option
 
@@ -346,12 +362,7 @@ closed cone containing the range of $X$. If $x^*$ is the closest point
 in the cone then $\xi = x^* - x$ is an arbitrage_.
 
 In general the arbitrage is not unique. We establish the theorem by
-a purely geometric lemma residing between Farkas' Lemma and the Hahn-Banach theorem.
-The Hahn-Banach theorem
-states this holds for locally convex topological vector spaces 
-when $K$ has an interior point [@cite].
-Every finite dimensional vector space is a locally convex topological
-vector space[@cite]. In this case we do not require $K$ have an interior point.
+a purely geometric lemma. 
 
 __Lemma__. _If $x\in\RR^n$ and $K$ is a closed cone in
 $\RR^n$ with $x\not\in K$ then there exists ${\xi\in\RR^n}$
