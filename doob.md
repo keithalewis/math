@@ -94,6 +94,22 @@ Joe used the lemma to prove the martingale convergence theorem.
 
 Stop Loss/Start Gain
 
+Suppose an underlying has price $(S_t)$ at time $t$.
+To hedge a call option with strike $K$ and expiration $T$ choose $a \le b$
+with $a \le K\le b$.
+The general idea is to hold 1 share when $S_t > b$ and 0 shares
+when $S_t < a$. If $a = b = K$ this would provide a perfect hedge for the call option,
+however this strategy cannot be implemented in practice.
+The minimum value of $b - a$ must be a positive integral value of
+the tick size of the underlying.
+
+Buy $\max\{S_0 - b, 0\}$ shares at time 0.
+Hold one share when $S_t > b$ and zero shares when $S_t < a$.
+If $S_T > b$ sell 1 share and cover the option obligation for a
+cash flow of $S_T - b - (S_T - K) = K - b$.
+If $S_T < a$ then your position is zero and the call payoff is zero.
+If $a \le S_T \le b$ 
+
 The SL/SG strategy is to hold one share when the underlying crosses a lower bound
 and sell it when it crosses an upper bound. We develop a theory and notation where
 this can be expressed using $(X > a)'(X < b)$.

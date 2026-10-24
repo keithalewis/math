@@ -6,10 +6,23 @@ e-mail: kal@kalx.net
 
 > “What I cannot create, I do not understand” -- Richard Feynman
 
-At this year's NYU Tandon [commencement address](https://www.youtube.com/watch?v=pFscM-Z4rCE)
-Yann LeCun pointed out "Large Language Models do not create anything."
-He exhorted students to learn how they work and use them to create new things,
-and emphasized they will be at a disadvantage if they don't learn how to use them effectively.
+At the 2026 NYU Tandon [commencement address](https://www.youtube.com/watch?v=pFscM-Z4rCE)
+Yann LeCun said "Large Language Models do not create anything." And encouraged
+students to learn how they work and use them to create _new_ things.
+He emphasised you will be at a disadvantage if you don't learn how to use them effectively.
+
+> The most valuable commodity in the world is trust.
+It cannot be manufactured or bought, and can vanish in an instant.
+
+You should to figure out who you can trust. It is the oldest problem in the world.
+
+### People I Trust
+
+Yann LeCun - Head of Facebook AI until starting AMIL in 2025.
+
+Andrei Karpathy - OpenAI GPT-1, GPT-2
+
+Ali Gosdsi - Founder of Databricks
 
 ## A Short History of Machine Learning
 

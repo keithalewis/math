@@ -88,4 +88,4 @@ find a function
 A perceptron is a function $\pi\colon\RR^n\to\{0,1\}$ defined by $b\in\RR$ and $w\in\RR^n$
 where $\pi(x) = b + w\cdot x > 0$.
 
-$w' = w + r(d - f(x))x$
+w' = w + r(d - f(x))x$
