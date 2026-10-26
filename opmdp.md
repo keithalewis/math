@@ -84,7 +84,7 @@ Its existence is equivalent to the geometric fact
 $x$ belongs to the smallest closed cone containing the range of $X$.
 
 The _realized return_ on $\xi\in\RR^I$
-is $R_\xi = \xi\cdot X/\xi\dot x$: investing 1 unit at the beginning
+is $R_\xi = \xi\cdot X/\xi\cdot x$: investing 1 unit at the beginning
 of the period results in a payoff of $R_\xi$.
 
 __Exercise__: _Show for any risk-neutral probability measure
