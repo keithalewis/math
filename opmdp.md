@@ -83,7 +83,7 @@ but it is a mistake to assume it is the probability of anything.
 Its existence is equivalent to the geometric fact
 $x$ belongs to the smallest closed cone containing the range of $X$.
 
-The _realized return_ on $\xi\in\RR^I$
+The _realized return_ on a portfolio $\xi\in\RR^I$
 is $R_\xi = \xi\cdot X/\xi\cdot x$: investing 1 unit at the beginning
 of the period results in a payoff of $R_\xi$.
 
@@ -97,16 +97,49 @@ of a portfolio.
 
 ## Estimation
 
+$$
+\min_{\xi\in(\RR^I)^*} \frac{1}{2}\Var(\xi^*X) - \lambda(\xi^* x - 1)
+$$
+The minium satsifies
+$$
+    0 = \xi^* V - \lambda x^*
+$$
+where $V = E[XX^*] - E[X]E[X]^*$. 
+
 There is a long history of parametrizing real-world $P$-measures on $\Omega$
 that can be estimated using available information.
 Historical market prices were originally used for this. 
 As futures and option markets developed they were incorporated
 to peek into future instrument prices. Recently, more information
-such as social media and prediction market are being used.
+such as social media and prediction markets are being used.
 
 [@Mar1952] limited candidate measures to jointly normal prices.  Classical
 statistics could then be applied to historical data to estimate the mean
 and covariance matrix assuming stationary, independent, and normally
 distributed price increments.
+
+## Appendix
+
+Let $B(S)$ be the vector space of all bounded functions on the set $S$.
+Its dual can be identified with the vector space of finitely additive measures
+on $S$. A bounded linear functional $L\colon B(S)\to\RR$ gives rise to a
+measure $\lambda\in ba(S)$ with $\lambda(E) = L(1_E)$.
+
+__Exerecise__: _Use $1_{E\cup F} = 1_E + 1_F - 1_{E\cap F}$ and $1_\emptyset = \zero$
+to show $lambda$ is a measure_.
+
+_Hint_: Show $\lambda(E\cup F) = \lambda(E) + \lambda(F) - \lambda(E\cap F)$
+and $\lambda(\emptyset) = 0$.
+
+Given a measure $\lambda\in ba(S)$ define
+$$
+\int_S \sum_i a_i 1_{A_i} = \sum_i a_i \lambda(A_i)
+$$
+for finite linear combinations of indicator functions.
+
+__Exercise__: _Show this is well defined_.
+
+_Hint_: For any sets $E$ and $F$ we can write $E\cup F$ as the disjoint
+union $(E\setminus F)\cup(E\cap F)\cup F\setminus E$.
 
 ## References
