@@ -9,6 +9,7 @@ abstract: The simplest formal model of a financial market.
 
 \newcommand\RR{\boldsymbol{R}}
 \newcommand\ZZ{\boldsymbol{Z}}
+\newcommand\zero{\boldsymbol{0}}
 \newcommand\ran{\operatorname{ran}}
 \newcommand\Var{\operatorname{Var}}
 \newcommand\Cov{\operatorname{Cov}}
@@ -131,15 +132,23 @@ to show $lambda$ is a measure_.
 _Hint_: Show $\lambda(E\cup F) = \lambda(E) + \lambda(F) - \lambda(E\cap F)$
 and $\lambda(\emptyset) = 0$.
 
-Given a measure $\lambda\in ba(S)$ define
+A _simple function_ is a finite linear combinations of indicator functions:
+$f = \sum_i a_i 1_{A_i}$ where $A_i\subseteq S$.
+Given a measure $\lambda\in ba(S)$ define the _integral_
 $$
-\int_S \sum_i a_i 1_{A_i} = \sum_i a_i \lambda(A_i)
+    \int_S f\,d\lambda = \sum_i a_i \lambda(A_i).
 $$
-for finite linear combinations of indicator functions.
 
-__Exercise__: _Show this is well defined_.
+__Exercise__: _Show integration is well defined_.
 
-_Hint_: For any sets $E$ and $F$ we can write $E\cup F$ as the disjoint
+_Hint_: This is clearly true if the sets are pairwise disjoint.
+Show for any sets $E$ and $F$ we can write $E\cup F$ as the disjoint
 union $(E\setminus F)\cup(E\cap F)\cup F\setminus E$.
+
+$x = (1, s)$, $X = (R, S)$.
+
+$E[XX^*] - E[X]E[X^*] = \Cov(X_i, X_j)$
+
+If $S$ is finite then $B(S)$ can be identified with $\RR^n$ where $n$ is the cardinality of $S$.
 
 ## References
