@@ -16,6 +16,9 @@ header-includes:
 \newcommand\NN{\bs{N}}
 \newcommand\ZZ{\bs{Z}}
 \newcommand\QQ{\bs{Q}}
+\newcommand\nn{\bs{n}}
+\newcommand\xx{\bs{x}}
+\renewcommand\ss{\bs{s}}
 \newcommand\LL{\mathcal{L}}
 \newcommand\TT{\mathcal{T}}
 \newcommand\PP{\mathcal{P}}
@@ -53,16 +56,16 @@ Two vector spaces are isomorphic (same form) if and only if they have the same d
 
 The vector space of $n$-tuples of real numbers is the $n$-fold product
 ${\RR^n = \RR\times\cdots\times\RR = \{x = (x_1,\ldots,x_n)\mid x_1,\ldots,x_n\in\RR\}}$.
-If ${\bm{n} = \{1,\ldots,n\}}$ this is equivalent to the set exponential 
-${\RR^{\bm{n}} = \{\bm{n}\to\RR\} = \{\bm{x}\colon\bm{n}\to\RR\}}$, the set of all functions
-from $\bm{n}$ to the real numbers.  The tuple
-$x$ corresponds to the function $\bm{x}$
-by ${\bm{x}(i) = x_i}$, ${i\in\bm{n}}$.  Going forward, we will drop
-using bold face for the function $\bm{x}$ and distinguish this unexpected,
+If ${\nn = \{1,\ldots,n\}}$ this is equivalent to the set exponential 
+${\RR^{\nn} = \{\nn\to\RR\} = \{\xx\colon\nn\to\RR\}}$, the set of all functions
+from $\nn$ to the real numbers.  The tuple
+$x$ corresponds to the function $\xx$
+by ${\xx(i) = x_i}$, ${i\in\nn}$.  Going forward, we will drop
+using bold face for the function $\xx$ and distinguish this unexpected,
 but useful, coincidence by saying tuple $x$ or function $x$ when it is
 not clear from context.
 
-This can be generalized from $\bm{n}$ to any finite set I.
+This can be generalized from $\nn$ to any finite set I.
 The tuple version is the Cartesian product $\Pi_{i\in I} \RR$
 and the function version is $\RR^I$.
 
@@ -1714,7 +1717,7 @@ A suggestive way to write this is $D(x^2) = x(Dx) + (Dx)x$.
 _Hint_: $(x + h)^2 = x^2 + xh + hx + h^2$ and $h^2 = o(\|h\|)$.
 
 <details><summary>Solution</summary>
-Since $(x + h)^2 = xx + xh + hx + hh$ and $\|h^2\| = o(\|h\})$ we have
+Since $(x + h)^2 = x + xh + hx + hh$ and $\|h^2\| = o(\|h\|)$ we have
 $D(x^2)h = L_x h + R_x h$.
 </details>
 
@@ -2031,4 +2034,3 @@ $\hat\beta V\otimes W \to X$.
 $\nu_V\colon I\to **$ is a natural transformation.
 
 $x[J_1,\ldots,J_k]$
-
