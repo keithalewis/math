@@ -23,7 +23,7 @@ abstract: Quickest route through Linear Algebra
 \newcommand\GG{\mathcal{G}}
 \newcommand\PP{\mathcal{P}}
 
-We assume you know about vector space scalar multiplication, vector addition,
+I assume you know about vector space scalar multiplication, vector addition,
 and the laws they satisfy. The scalars must be a _field_ such as the
 _real numbers_ $\RR$ or _complex numbers_ $\CC$.
 Another example is $\ZZ_p = \ZZ/p\ZZ$ of integers modulo a prime $p$.
@@ -34,7 +34,7 @@ We will use $\FF$ to denote a generic field of scalars.
 A _linear operator_ is a function $T\colon V\to W$ between two vector spaces
 that preserves the vector space structure: $T(ax + y) = a(Tx) + Ty$ for scalar $a\in\FF$
 and vectors $x,y\in V$. Note the scalar multiplication and vector addition
-an the left-hand side are those for $V$ and
+on the left-hand side are those for $V$ and
 on the right-hand side are those for $W$.
 
 We write $\zero_V$ for the zero of vector addition in $V$: $\zero_V + v = v = v + \zero_V$.
@@ -55,7 +55,7 @@ v &= \zero \\
 $$
 </details>
 
-__Exercise__: _Show $T\zero_V = \zero_W$_.
+__Exercise__: _Show for any linear operator $T\colon V\to W$ that $T\zero_V = \zero_W$_.
 
 _Hint_: $T(\zero + \zero) = T\zero$.
 
@@ -72,6 +72,19 @@ _Hint_: Use $T(\zero_V) = \zero_W$.
 A _subspace_ of a vector space $V$ is a subset $U\subseteq V$ that is closed under scalar multiplication
 and vector addition. We can write this as ${\FF U \subseteq U}$ and ${U + U\subseteq U}$
 where ${\FF U = \{au\mid a\in\FF, u\in U\}}$ and ${U + U = \{u + u'\mid u,u'\in U\}}$.
+
+__Exercise__: _If $U$ and $U'$ are subspaces show $U\cap U'$ and $U + U'$ are subspaces_.
+
+_Hint_. Show they are closed under scalar multiplication and vector addition.
+
+The subspaces of a vector space are a _lattice_.
+They are a partial order where $U\subseteq U$, $U\subseteq U' and $U'\subseteq U$
+implies $U = U'$ and $U
+
+__Exercise__ (Extra Credit): _If $U$, $U'$ and ,$U''$ are subspaces then ${U\cap(U' + U'') = 
+(U\cap U') + (U\cap U'')}$_.
+
+The subspaces of a vector space are a _distributive lattice_.
 
 ### Quotient
 

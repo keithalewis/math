@@ -25,6 +25,137 @@ header-includes:
 \newcommand\graph{\operatorname{graph}}
 \renewcommand\span{\operatorname{span}}
 
+<!--
+In the computer science community a tensor is
+a vector space $\RR^{n_1\times\cdots\times n_k}$
+where $\RR$ is the field of real numbers
+and $n_j, k\in\NN$ are natural numbers, $1\le j\le k$.
+
+an $n$-dimensional
+array of numbers. In the mathematical community a tensor
+is a (certain type of) product of vector spaces.
+
+Dual spaces explain covariance and contravariance.
+
+The product of sets $A$ and $B$ is the set of ordered pairs
+${A\times B = \{(a,b)\mid a\in A, b\in B\}}$
+with _projections_ $\alpha\colon A\times B\to A$ where $(a,b)\mapsto a$
+and $\beta\colon A\times B\to B$ where $(a,b)\mapsto b$.
+
+If $a\colon C\to A$ and $b\colon C\to B$ 
+then $\gamma\colon C\to A\times B$ where $\gamma(c) = (a(c), b(c))$ satisfies $\alpha\gamma = a$
+and $\beta\gamma = b$.
+
+The tensor product of vectos spaces $V$ and $W$, $V\otimes W$, has linear projections
+$\nu\colon V\otimes W\to V$ and $\omega\colon V\otimes W\to W$
+satisfying a similar conditions. If $v\colon U\to V$ and
+$w\colon U\to W$ are linear transformations then there exists
+$u\colon W\to U\otimes V$ with $\nu\circ u = $
+
+$V\otimes W\cong [V\to W]$.
+-->
+
+Every finite dimensional vector space over the field of real numbers
+$\RR$ is isomorphic to
+the _set exponetial_ of functions
+$\RR^I = \{x\colon I\to\RR\}$ for some set $I$.
+The scalar multiplication and vector addition are defined _pointwise_ by
+$(ax)(i) = a(x(i))$ and $(x + y)(i) = x(i) + y(i)$, ${a\in\RR}$, ${x,y\in\RR^I}$.
+
+An equivalent, but different, definition is the vector space of _tuples_
+${\Pi_{i\in I}\RR = \{(x_i)_{i\in I}\mid x_i\in\RR\}}$ where
+$x_i$ corresponds to $x(i)$.
+The scalar multiplication and vector addition are defined by
+${(ax)_i = ax_i}$ and ${(x + y)_i = x_i + y_i}$.
+
+There is no commonly accepted notation for the _isomorphism_
+$\Pi\colon\RR^I\to\Pi_I \RR$$ where
+$(\Pi x)_i = x(i)$ for $x\in\RR^I$.
+
+__Exercise__: _Show $\Pi(ax + y) = a(\Pi x) + \Pi(y)$ for
+$a\in\RR$ and $x, y\in\RR^I$_.
+
+This shows $\Pi$ is a _linear operator_.
+
+__Exercise__: _Show $\Pi(ax) = a(\Pi x)$ and $\Pi(x + y) = \Pi x + \Pi y$
+for $a\in\RR$, $x,y\in\RR^I$_.
+
+_Hint_: Show $\Pi(\zero) = \zero$ and $1x = x$.
+
+The _standard basis_ of $\RR^I$ is $\{e_i\}_{i\in I}$ where
+$e_i\colon I\to\RR$ is defined by
+$e_i(j) = \delta_{ij} = 1(i = j)$ is the Kronecker delta.
+
+__Exercise__. _Show $x = \sum_{i\in I} x(i) e_i$ for $x\in\RR^I$_.
+
+_Hint_: What is $x(j)$ for $j\in I$?
+
+The _dual_ of a vector space $V$, denoted $V^*$, is the set of _linear functionals_
+from $V$ to $\RR$. A linear functional is a function to the underlying
+field of the vector space that respects
+the vector space stucture.
+
+These X-rays through a vector space are also a vector space.
+If $a\in\RR$ and $x^*,y^*\in V^*$
+then $(ax^*)(z) = a(x^*(z))$ and $(x^* + y^*)z = x^*(z) + y^*(z)$
+for $z\in V$.
+
+The _standard dual basis_ of $({\RR^I})^*$ is $\{e_j^*\}_{i\in I}$
+where $e_j^*\colon \RR^I\to\RR$
+is defined by $e_j^*(e_j) = \delta_{ji}$.
+
+__Exercise__: _Show $x^* = \sum_{j\in I} x^*(e_j) e^*_j$ for $x^*\in(\RR^I)^*$_.
+
+_Hint_: What is $x^*(e_i)$ for $i\in I$?
+
+The _dual pairing_ is $\langle x,y^*\rangle = y^*(x)\in\RR$
+for $x\in\RR^I$ and $y^*\in(\RR^I)^*$.
+
+Note the function composition $x^*x\colon I\to\(RR^I)^*$.
+
+The _adjoint_ of a linear operator $T\colon V\to W$ between vector spaces
+is defined by $
+
+
+This shows $\RR^I$ and $(\RR^I)^*$ are isomorphic.
+Define $*\colon\RR^I\to (\RR^I)^*$ by $e_i\mapsto e_i^*$
+so $x = \sum_{i\in I} x(i) e_i\mapsto x^* = \sum_{i\in I} x(i) e_i^*$.
+
+If you know what a set and a function is, you can use the above shell game
+to understand everything there is to know about tensors.
+As John von Neumann said, "You don't understand math, you just get used to it."
+
+Row and column vectors do not generalize to higher dimensions. 
+They are just the two dimensional version of covariance and contravariance
+that can be completely explained by dual spaces.
+This is not new. In any number of dimensions there are
+only two orientations.
+
+
+
+
+
+If $\sigma\colon I\to J$ then $\RR^J\to\RR^I$ by the compostion
+$\circ\sigma(x) = x\circ\sigma$.
+
+Every tediously typeset wiggly diagram in the tensor cookbook is just a special case
+of this with extra confusing steps.
+
+A key fact to understand is that there are two different, but equivalent,
+ways to represent vector spaces. The tuple ${\RR^n = \{(x_1,\ldots,n)\mid x_i\in \RR\}}$
+can be identified with all functions ${\bm{x}\colon\{1,\ldots,n\}\to\RR}$ by
+${x_i = \bm{x}(i)}$ for ${i\in\{1,\ldots,n\}}$.
+The former is a _product of sets_, the latter is a _set exponential_.
+
+The product and exponential are connected via _currying_.
+Every function $f\colon A\times B\to C$ corresponds to the function
+$\curry f\colon A\to (B\to C)$ by $(\curry f(a))b = f(a,b)$.
+Every function $g\colon A\to(B\to C)$ corresponds to the function
+$\uncurry g(a,b) = (g(a))b$.
+
+__Exercise__: _Show $\uncurry (\curry f) = f$ and
+$\curry(\uncurry g) = g$_.
+
 There seems to be some uncertainty in the computer science community
 about exactly what a tensor is. The only things involved are
 functions and their composition.
