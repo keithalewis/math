@@ -1,6 +1,7 @@
 ---
 title: Vector Spaces Done Righter
 author: Keith A. Lewis
+
 classoption: fleqn
 ---
 \newcommand\bs[1]{\boldsymbol{{#1}}}
