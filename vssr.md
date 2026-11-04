@@ -22,37 +22,41 @@ https://wikihack.netlify.app/a/1451/apl-programming-language
 
 Karpathy
 
-
-
 Fasten your seatbelt.
 
 If you don't know what a vector space is, just assume it
-is the set of $n$-tuples $\RR^n = \{(x_1,\ldots,x_n)\mid x_j\in\RR, 1\le j\le n\}$
-where $\RR$ is the _field_ of _real numbers_.
+is the set of $n$-tuples ${\RR^n = \{\bs{x} = (x_1,\ldots,x_n)\mid x_j\in\RR, 1\le j\le n\}}$
+where $\RR$ is the _field_ of _real numbers_. We use bold face $\bs{x}$ to indicate
+a vector tuple.
 Any field will do, e.g., the _complex numbers_ $\CC$ or _finite
 fields_ $\ZZ_p = \ZZ/p\ZZ$ of integers modulo a prime number $p$.
 We will use $\FF$ to denote any field.
 
 Vector spaces have a _scalar multiplication_ and _vector addition_.
-For $a\in\FF$ and $x,y\in\FF^n$ the scalar multiplication is $a(x_i) = (ax_i)$
-and the vector addition is $(x + y)_i = x_i + y_i$, $1\le i\le n$.
+For $a\in\FF$ and $x,y\in\FF^n$ the scalar multiplication and vector addtion are defined _pointwise_ by
+$a(x_i) = (ax_i)$ and the vector addition is $(x + y)_i = (x_i + y_i)$, $1\le i\le n$.
 
 A different, but equivalent, way to represent $\FF^n$ is
 the set of all functions $x\colon\{1,\ldots,n\}\to\FF$
 where $x_i$ corresponds to $x(i)$.
-There seems to be no generally accepted notation
-to distinguish them other than what Alan Iverson invented and every
-major hedge fund pays Aurthur Whitney a pile of money to use.
+There seems to be no generally accepted mathematical notation
+to distinguish them.
 
-Tools of thought
+This was figured out long ago by [@Ive1980] when he was dissatisfied
+with the expressive power of Fortran two decades earlier.
+His brilliant APL: A Programming Language is still 
+alive and kicking in its latest incarnation: kdb.
 
-Natural number $n\in\NN$ are not special. We can use any set $I$
-and define the _set product_ $\Pi_I\FF = \Pi_{i\in I}\FF = \{(x_i)\mid x_i\in\FF, i\in I\}$.
-The _set exponential_ $\FF^I = \{x\colon I\to\FF\}$ is equivalent
-by identifying $x_i$ with $x(i)$, $i\in I$.
+For any set $I$ define the _set product_
+${\Pi_I\FF = \Pi_{i\in I}\FF = \{\bs{x} = (x_i)\mid x_i\in\FF, i\in I\}}$.
+The _set exponential_ ${\FF^I = \{x\colon I\to\FF\}}$ is equivalent by identifying $x_i$ with $x(i)$,
+$i\in I$.
 
-Let's give an explicit name to this implicit correspondence 
-$\Pi = \Pi_{\FF,I}\colon\Pi_I\FF\to\FF^I$ where $(\Pi x)(i) = x_i$.
+Let's give an explicit name to this implicit correspondence:
+$\Pi = \Pi_{\FF,I}\colon\FF^I\to \Pi_I\FF$ where $(\Pi\bs{x})_i = x(i)$.
+
+It is a set _isomorphism_. It is injective (one-to-one) because
+$\Pi x = \bm{x}$
 
 This is our first example of a _linear operator_.
 
