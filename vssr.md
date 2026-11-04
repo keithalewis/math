@@ -29,12 +29,12 @@ is the set of $n$-tuples ${\RR^n = \{\bs{x} = (x_1,\ldots,x_n)\mid x_j\in\RR, 1\
 where $\RR$ is the _field_ of _real numbers_. We use bold face $\bs{x}$ to indicate
 a vector tuple.
 Any field will do, e.g., the _complex numbers_ $\CC$ or _finite
-fields_ $\ZZ_p = \ZZ/p\ZZ$ of integers modulo a prime number $p$.
+fields_ ${\ZZ_p = \ZZ/p\ZZ}$ of integers modulo a prime number $p$.
 We will use $\FF$ to denote any field.
 
 Vector spaces have a _scalar multiplication_ and _vector addition_.
-For $a\in\FF$ and $x,y\in\FF^n$ the scalar multiplication and vector addtion are defined _pointwise_ by
-$a(x_i) = (ax_i)$ and the vector addition is $(x + y)_i = (x_i + y_i)$, $1\le i\le n$.
+For $a\in\FF$ and $\bs{x},\bs{y}\in\FF^n$ the scalar multiplication is $a(x_i) = (ax_i)$
+and the vector addition is $(\bs{x} + \bs{y})_i = x_i + y_i$, $1\le i\le n$.
 
 A different, but equivalent, way to represent $\FF^n$ is
 the set of all functions $x\colon\{1,\ldots,n\}\to\FF$
@@ -52,11 +52,8 @@ ${\Pi_I\FF = \Pi_{i\in I}\FF = \{\bs{x} = (x_i)\mid x_i\in\FF, i\in I\}}$.
 The _set exponential_ ${\FF^I = \{x\colon I\to\FF\}}$ is equivalent by identifying $x_i$ with $x(i)$,
 $i\in I$.
 
-Let's give an explicit name to this implicit correspondence:
-$\Pi = \Pi_{\FF,I}\colon\FF^I\to \Pi_I\FF$ where $(\Pi\bs{x})_i = x(i)$.
-
-It is a set _isomorphism_. It is injective (one-to-one) because
-$\Pi x = \bm{x}$
+Let's give an explicit name to this implicit correspondence 
+$\Pi = \Pi_{\FF,I}\colon\FF^I\to\Pi_I\FF$ where $(\Pi x)(i) = x_i$.
 
 This is our first example of a _linear operator_.
 
