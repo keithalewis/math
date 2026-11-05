@@ -171,6 +171,9 @@ instruments to buy or sell as $t$ gets large.
 Every instrument has a finite float.
 This is a real problem for large hedge funds.
 
+Another real-world consideration is that shorting an instrument ($t < 0$) may incur
+_borrow costs_ to implement a bearish strategy.
+
 There is a connection between cones and convex sets. 
 
 __Exercise__. _Show cones are convex_.

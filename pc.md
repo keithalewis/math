@@ -1,3 +1,11 @@
+I have been getting great feedback from last year's talk in honor of Peter Carr.
+Cindy Lawrence gave me her usual great advice to stick to the theme of "simplicity".
+
+One of many lessons I learned from Peter is to encourage others to share his passion.
+I endeavor to do that with the students I have the privilege to teach
+after he encouraged me to get back into the academic world.
+
+
 I am still in shock and unable to post coherent thoughts about losing
 Peter.  However, there have been some rumors floating around, fortunately
 not in this thread. Peter's wife has requested privacy and I pray I do not
