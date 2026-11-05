@@ -48,7 +48,7 @@
 <header id="title-block-header">
 <h1 class="title">Tensor</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Mar 16, 2026</p>
+<p class="date">Nov 1, 2026</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -71,6 +71,151 @@ Operator</a></li>
 <li><a href="#iterable" id="toc-iterable">Iterable</a></li>
 </ul>
 </nav>
+<!--
+In the computer science community a tensor is
+a vector space $\RR^{n_1\times\cdots\times n_k}$
+where $\RR$ is the field of real numbers
+and $n_j, k\in\NN$ are natural numbers, $1\le j\le k$.
+
+an $n$-dimensional
+array of numbers. In the mathematical community a tensor
+is a (certain type of) product of vector spaces.
+
+Dual spaces explain covariance and contravariance.
+
+The product of sets $A$ and $B$ is the set of ordered pairs
+${A\times B = \{(a,b)\mid a\in A, b\in B\}}$
+with _projections_ $\alpha\colon A\times B\to A$ where $(a,b)\mapsto a$
+and $\beta\colon A\times B\to B$ where $(a,b)\mapsto b$.
+
+If $a\colon C\to A$ and $b\colon C\to B$ 
+then $\gamma\colon C\to A\times B$ where $\gamma(c) = (a(c), b(c))$ satisfies $\alpha\gamma = a$
+and $\beta\gamma = b$.
+
+The tensor product of vectos spaces $V$ and $W$, $V\otimes W$, has linear projections
+$\nu\colon V\otimes W\to V$ and $\omega\colon V\otimes W\to W$
+satisfying a similar conditions. If $v\colon U\to V$ and
+$w\colon U\to W$ are linear transformations then there exists
+$u\colon W\to U\otimes V$ with $\nu\circ u = $
+
+$V\otimes W\cong [V\to W]$.
+-->
+<p>Every finite dimensional vector space over the field of real numbers
+<span class="math inline">\bm{R}</span> is isomorphic to the <em>set
+exponetial</em> of functions <span class="math inline">\bm{R}^I =
+\{x\colon I\to\bm{R}\}</span> for some set <span
+class="math inline">I</span>. The scalar multiplication and vector
+addition are defined <em>pointwise</em> by <span
+class="math inline">(ax)(i) = a(x(i))</span> and <span
+class="math inline">(x + y)(i) = x(i) + y(i)</span>, <span
+class="math inline">{a\in\bm{R}}</span>, <span
+class="math inline">{x,y\in\bm{R}^I}</span>.</p>
+<p>An equivalent, but different, definition is the vector space of
+<em>tuples</em> <span class="math inline">{\Pi_{i\in I}\bm{R}=
+\{(x_i)_{i\in I}\mid x_i\in\bm{R}\}}</span> where <span
+class="math inline">x_i</span> corresponds to <span
+class="math inline">x(i)</span>. The scalar multiplication and vector
+addition are defined by <span class="math inline">{(ax)_i = ax_i}</span>
+and <span class="math inline">{(x + y)_i = x_i + y_i}</span>.</p>
+<p>There is no commonly accepted notation for the <em>isomorphism</em>
+<span class="math inline">\Pi\colon\bm{R}^I\to\Pi_I \bm{R}</span>$ where
+<span class="math inline">(\Pi x)_i = x(i)</span> for <span
+class="math inline">x\in\bm{R}^I</span>.</p>
+<p><strong>Exercise</strong>: <em>Show <span class="math inline">\Pi(ax
++ y) = a(\Pi x) + \Pi(y)</span> for <span
+class="math inline">a\in\bm{R}</span> and <span class="math inline">x,
+y\in\bm{R}^I</span></em>.</p>
+<p>This shows <span class="math inline">\Pi</span> is a <em>linear
+operator</em>.</p>
+<p><strong>Exercise</strong>: <em>Show <span class="math inline">\Pi(ax)
+= a(\Pi x)</span> and <span class="math inline">\Pi(x + y) = \Pi x + \Pi
+y</span> for <span class="math inline">a\in\bm{R}</span>, <span
+class="math inline">x,y\in\bm{R}^I</span></em>.</p>
+<p><em>Hint</em>: Show <span class="math inline">\Pi(\bm{0}) =
+\bm{0}</span> and <span class="math inline">1x = x</span>.</p>
+<p>The <em>standard basis</em> of <span
+class="math inline">\bm{R}^I</span> is <span
+class="math inline">\{e_i\}_{i\in I}</span> where <span
+class="math inline">e_i\colon I\to\bm{R}</span> is defined by <span
+class="math inline">e_i(j) = \delta_{ij} = 1(i = j)</span> is the
+Kronecker delta.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">x =
+\sum_{i\in I} x(i) e_i</span> for <span
+class="math inline">x\in\bm{R}^I</span></em>.</p>
+<p><em>Hint</em>: What is <span class="math inline">x(j)</span> for
+<span class="math inline">j\in I</span>?</p>
+<p>The <em>dual</em> of a vector space <span
+class="math inline">V</span>, denoted <span
+class="math inline">V^*</span>, is the set of <em>linear
+functionals</em> from <span class="math inline">V</span> to <span
+class="math inline">\bm{R}</span>. A linear functional is a function to
+the underlying field of the vector space that respects the vector space
+stucture.</p>
+<p>These X-rays through a vector space are also a vector space. If <span
+class="math inline">a\in\bm{R}</span> and <span
+class="math inline">x^*,y^*\in V^*</span> then <span
+class="math inline">(ax^*)(z) = a(x^*(z))</span> and <span
+class="math inline">(x^* + y^*)z = x^*(z) + y^*(z)</span> for <span
+class="math inline">z\in V</span>.</p>
+<p>The <em>standard dual basis</em> of <span
+class="math inline">({\bm{R}^I})^*</span> is <span
+class="math inline">\{e_j^*\}_{i\in I}</span> where <span
+class="math inline">e_j^*\colon \bm{R}^I\to\bm{R}</span> is defined by
+<span class="math inline">e_j^*(e_j) = \delta_{ji}</span>.</p>
+<p><strong>Exercise</strong>: <em>Show <span class="math inline">x^* =
+\sum_{j\in I} x^*(e_j) e^*_j</span> for <span
+class="math inline">x^*\in(\bm{R}^I)^*</span></em>.</p>
+<p><em>Hint</em>: What is <span class="math inline">x^*(e_i)</span> for
+<span class="math inline">i\in I</span>?</p>
+<p>The <em>dual pairing</em> is <span class="math inline">\langle
+x,y^*\rangle = y^*(x)\in\bm{R}</span> for <span
+class="math inline">x\in\bm{R}^I</span> and <span
+class="math inline">y^*\in(\bm{R}^I)^*</span>.</p>
+<p>Note the function composition <span class="math inline">x^*x\colon
+I\to\(RR^I)^*</span>.</p>
+<p>The <em>adjoint</em> of a linear operator <span
+class="math inline">T\colon V\to W</span> between vector spaces is
+defined by $</p>
+<p>This shows <span class="math inline">\bm{R}^I</span> and <span
+class="math inline">(\bm{R}^I)^*</span> are isomorphic. Define <span
+class="math inline">*\colon\bm{R}^I\to (\bm{R}^I)^*</span> by <span
+class="math inline">e_i\mapsto e_i^*</span> so <span
+class="math inline">x = \sum_{i\in I} x(i) e_i\mapsto x^* = \sum_{i\in
+I} x(i) e_i^*</span>.</p>
+<p>If you know what a set and a function is, you can use the above shell
+game to understand everything there is to know about tensors. As John
+von Neumann said, “You don’t understand math, you just get used to
+it.”</p>
+<p>Row and column vectors do not generalize to higher dimensions. They
+are just the two dimensional version of covariance and contravariance
+that can be completely explained by dual spaces. This is not new. In any
+number of dimensions there are only two orientations.</p>
+<p>If <span class="math inline">\sigma\colon I\to J</span> then <span
+class="math inline">\bm{R}^J\to\bm{R}^I</span> by the compostion <span
+class="math inline">\circ\sigma(x) = x\circ\sigma</span>.</p>
+<p>Every tediously typeset wiggly diagram in the tensor cookbook is just
+a special case of this with extra confusing steps.</p>
+<p>A key fact to understand is that there are two different, but
+equivalent, ways to represent vector spaces. The tuple <span
+class="math inline">{\bm{R}^n = \{(x_1,\ldots,n)\mid x_i\in
+\bm{R}\}}</span> can be identified with all functions <span
+class="math inline">{\bm{x}\colon\{1,\ldots,n\}\to\bm{R}}</span> by
+<span class="math inline">{x_i = \bm{x}(i)}</span> for <span
+class="math inline">{i\in\{1,\ldots,n\}}</span>. The former is a
+<em>product of sets</em>, the latter is a <em>set exponential</em>.</p>
+<p>The product and exponential are connected via <em>currying</em>.
+Every function <span class="math inline">f\colon A\times B\to C</span>
+corresponds to the function <span
+class="math inline">\operatorname{curry}f\colon A\to (B\to C)</span> by
+<span class="math inline">(\operatorname{curry}f(a))b = f(a,b)</span>.
+Every function <span class="math inline">g\colon A\to(B\to C)</span>
+corresponds to the function <span
+class="math inline">\operatorname{uncurry}g(a,b) = (g(a))b</span>.</p>
+<p><strong>Exercise</strong>: <em>Show <span
+class="math inline">\operatorname{uncurry}(\operatorname{curry}f) =
+f</span> and <span
+class="math inline">\operatorname{curry}(\operatorname{uncurry}g) =
+g</span></em>.</p>
 <p>There seems to be some uncertainty in the computer science community
 about exactly what a tensor is. The only things involved are functions
 and their composition. This short note gives names to functions then

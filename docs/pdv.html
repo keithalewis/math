@@ -46,7 +46,7 @@
 <header id="title-block-header">
 <h1 class="title">Path Dependent Volatility</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Mar 16, 2026</p>
+<p class="date">Oct 18, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 Volatility is path dependent.
@@ -75,11 +75,22 @@ volatility. Unfortunately, this is not a good model since it implies
 <span class="math inline">\Sigma</span> is constant. Since <span
 class="math inline">t\Sigma_t^2 = \int_0^t (dS/S)^2 = \int_0^t
 \Sigma_s^2\,ds</span> we have <span class="math inline">d(t\Sigma_t^2) =
-\Sigma_t^2</span>. By the Ito calculus we also have <span
+\Sigma_t^2\,dt</span>. By the Ito calculus we also have <span
 class="math inline">d(t\Sigma_t^2) = t\,d\Sigma^2_t +
 \Sigma_t^2\,dt</span> so <span class="math inline">0 =
 t\,d\Sigma_t^2</span> and <span class="math inline">\Sigma_t</span> must
 be constant.</p>
+<!--
+A funny thing happened on the way to stochastic volatility.
+Suppose a stock price process S_t satisfies dS_t/S_t = μ dt + Σ_t dB where
+Σ_t^2 = (1/t) ∫_0^t (dB/B)^2 dt is the average variance up to time t. 
+This is the payoff of a variance swap contract.
+Seems reasonable, right?
+Since t Σ_t^2 = ∫_0^t (dB/B)^2 dt we have d(t Σ_t^2) = (dB/B)^2 = Σ_t^2 dt$.
+We also have d(t Σ_t^2) = t d(Σ_t^2) + Σ_t^2 dt.
+This shows t d(Σ_t^2) = 0 so Σ_t is constant.
+Oops!
+-->
 <p>The average realized volatility assigns equal weight to each
 observation. If <span class="math inline">K</span> is a function on the
 positive real numbers then we can consider <span class="math display">

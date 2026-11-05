@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Linear Algebra Speedrun</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: true
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Linear Algebra Speedrun</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Oct 27, 2026</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Quickest route through Linear Algebra
+</div>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#linear-operator" id="toc-linear-operator">Linear
+Operator</a></li>
+<li><a href="#subspace" id="toc-subspace">Subspace</a>
+<ul>
+<li><a href="#quotient" id="toc-quotient">Quotient</a></li>
+</ul></li>
+<li><a href="#structure" id="toc-structure">Structure</a></li>
+<li><a href="#eigenvectors" id="toc-eigenvectors">Eigenvectors</a></li>
+</ul>
+</nav>
+<p>I assume you know about vector space scalar multiplication, vector
+addition, and the laws they satisfy. The scalars must be a
+<em>field</em> such as the <em>real numbers</em> <span
+class="math inline">\boldsymbol{R}</span> or <em>complex numbers</em>
+<span class="math inline">\boldsymbol{C}</span>. Another example is
+<span class="math inline">\boldsymbol{Z}_p =
+\boldsymbol{Z}/p\boldsymbol{Z}</span> of integers modulo a prime <span
+class="math inline">p</span>. We will use <span
+class="math inline">\boldsymbol{F}</span> to denote a generic field of
+scalars.</p>
+<section id="linear-operator" class="level2">
+<h2>Linear Operator</h2>
+<p>A <em>linear operator</em> is a function <span
+class="math inline">T\colon V\to W</span> between two vector spaces that
+preserves the vector space structure: <span class="math inline">T(ax +
+y) = a(Tx) + Ty</span> for scalar <span
+class="math inline">a\in\boldsymbol{F}</span> and vectors <span
+class="math inline">x,y\in V</span>. Note the scalar multiplication and
+vector addition on the left-hand side are those for <span
+class="math inline">V</span> and on the right-hand side are those for
+<span class="math inline">W</span>.</p>
+<p>We write <span class="math inline">\boldsymbol{0}_V</span> for the
+zero of vector addition in <span class="math inline">V</span>: <span
+class="math inline">\boldsymbol{0}_V + v = v = v +
+\boldsymbol{0}_V</span>.</p>
+<p><strong>Exercise</strong>: <em>Show <span class="math inline">v + v =
+v</span> implies <span class="math inline">v =
+\boldsymbol{0}_V</span></em>.</p>
+<p><em>Hint</em>: Add <span class="math inline">-v</span> to both
+sides.</p>
+<details>
+<summary>
+Solution
+</summary>
+If <span class="math inline">v + v = v</span> then <span
+class="math display">
+\begin{aligned}
+(v + v) - v &amp;= v - v \\
+v + (v - v) &amp;= v - v \\
+v + \boldsymbol{0}&amp;= \boldsymbol{0}\\
+v &amp;= \boldsymbol{0}\\
+\end{aligned}
+</span>
+</details>
+<p><strong>Exercise</strong>: <em>Show for any linear operator <span
+class="math inline">T\colon V\to W</span> that <span
+class="math inline">T\boldsymbol{0}_V =
+\boldsymbol{0}_W</span></em>.</p>
+<p><em>Hint</em>: <span class="math inline">T(\boldsymbol{0}+
+\boldsymbol{0}) = T\boldsymbol{0}</span>.</p>
+<p><strong>Exercise</strong>: <em>Show <span class="math inline">T(x +
+y) = Tx + Ty</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">1x = x</span>.</p>
+<p><strong>Exercise</strong>: <em>Show <span class="math inline">T(ax) =
+a(Tx)</span></em>.</p>
+<p><em>Hint</em>: Use <span class="math inline">T(\boldsymbol{0}_V) =
+\boldsymbol{0}_W</span>.</p>
+</section>
+<section id="subspace" class="level2">
+<h2>Subspace</h2>
+<p>A <em>subspace</em> of a vector space <span
+class="math inline">V</span> is a subset <span
+class="math inline">U\subseteq V</span> that is closed under scalar
+multiplication and vector addition. We can write this as <span
+class="math inline">{\boldsymbol{F}U \subseteq U}</span> and <span
+class="math inline">{U + U\subseteq U}</span> where <span
+class="math inline">{\boldsymbol{F}U = \{au\mid a\in\boldsymbol{F}, u\in
+U\}}</span> and <span class="math inline">{U + U = \{u + u&#39;\mid
+u,u&#39;\in U\}}</span>.</p>
+<p><strong>Exercise</strong>: <em>If <span class="math inline">U</span>
+and <span class="math inline">U&#39;</span> are subspaces show <span
+class="math inline">U\cap U&#39;</span> and <span class="math inline">U
++ U&#39;</span> are subspaces</em>.</p>
+<p><em>Hint</em>. Show they are closed under scalar multiplication and
+vector addition.</p>
+<p>The subspaces of a vector space are a <em>lattice</em>. They are a
+partial order where <span class="math inline">U\subseteq U</span>, $UU’
+and <span class="math inline">U&#39;\subseteq U</span> implies <span
+class="math inline">U = U&#39;</span> and $U</p>
+<p><strong>Exercise</strong> (Extra Credit): <em>If <span
+class="math inline">U</span>, <span class="math inline">U&#39;</span>
+and ,<span class="math inline">U&#39;&#39;</span> are subspaces then
+<span class="math inline">{U\cap(U&#39; + U&#39;&#39;) = (U\cap U&#39;)
++ (U\cap U&#39;&#39;)}</span></em>.</p>
+<p>The subspaces of a vector space are a <em>distributive
+lattice</em>.</p>
+<section id="quotient" class="level3">
+<h3>Quotient</h3>
+<p>The <em>quotient</em> of a vector space <span
+class="math inline">V</span> by a subspace <span
+class="math inline">U</span> is <span class="math inline">{V/U = \{v +
+U\mid v\in V\}}</span>.</p>
+<p><strong>Exercise</strong>: <em>Show <span class="math inline">v + U =
+v&#39; + U</span> if and only if <span class="math inline">v - v&#39;\in
+U</span></em>.</p>
+<p><em>Hint</em>: Note <span class="math inline">w\in v + U</span> if
+and only if <span class="math inline">w = v + u</span> for some <span
+class="math inline">u\in U</span> and <span class="math inline">w\in
+v&#39; + U</span> if and only if <span class="math inline">w = v&#39; +
+u&#39;</span> for some <span class="math inline">u&#39;\in U</span>.
+This shows <span class="math inline">\boldsymbol{0}= w - w = v - v&#39;
++ (u - u&#39;)</span>.</p>
+<p>…</p>
+<p>The quotient space is also a vector space with scalar multiplication
+<span class="math inline">a(v + U) = av + U</span> for <span
+class="math inline">a\in\boldsymbol{R}</span>, <span
+class="math inline">v\in V</span>, and vector addition <span
+class="math inline">(v + U) + (v&#39; + U) = (v + v&#39;) + U</span> for
+<span class="math inline">v, v&#39;\in V</span>.</p>
+<p><strong>Exercise</strong>. <em>Show these are</em> well-defined.</p>
+<p><em>Hint</em>: Show <span class="math inline">v + U = v&#39; +
+U</span> implies <span class="math inline">av + U = av&#39; + U</span>
+and</p>
+<p>…</p>
+</section>
+</section>
+<section id="structure" class="level2">
+<h2>Structure</h2>
+<p>The <em>kernel</em> of a linear operator <span
+class="math inline">T\colon V\to W</span> is <span
+class="math inline">{\ker T = \{v\in V\mid Tv =
+\boldsymbol{0}\}\subseteq V}</span> and the <em>range</em> is <span
+class="math inline">{\operatorname{ran}T = \{Tv\mid v\in V\}\subseteq
+W}</span>.</p>
+<p><strong>Exercise</strong> <em>Show <span class="math inline">\ker
+T</span> is a subspace of <span class="math inline">V</span> and <span
+class="math inline">\operatorname{ran}T</span> is a subspace of <span
+class="math inline">W</span></em>.</p>
+<p>The first fundamental fact about the structure of a linear operator
+<span class="math inline">{T\colon V\to W}</span> is there are linear
+operators <span class="math inline">{V \to V/\ker T \to
+\operatorname{ran}T \to W}</span>. The first linear operator is
+onto/surjective, the second linear operator is one-to-one and
+onto/bijective and the third linear operater is
+one-to-one/injective.</p>
+<p>The second operator demystifies the various pseudo inverse notions
+people still stuck in the Gilbert Strang row and column vector
+tediousness suffer through. Every linear operator from <span
+class="math inline">{V/\ker T\to\operatorname{ran}T}</span> is
+invertible.</p>
+<p><strong>Exercise</strong> <em>Show <span class="math inline">V\to
+V/\ker V</span> where <span class="math inline">v\mapsto v + \ker
+T</span> is onto</em>.</p>
+<p><strong>Exercise</strong> <em>Show <span class="math inline">V/\ker
+T\to\operatorname{ran}T</span> where <span class="math inline">v + \ker
+T\mapsto Tv</span> is well-defined, onto, and one-to-one</em>.</p>
+<p><em>Hint</em>. It is well-defined if <span class="math inline">v +
+\ker T = v&#39; + \ker T</span> implies <span class="math inline">Tv =
+Tv&#39;</span>. It is clearly onto. Show if <span class="math inline">Tv
+= Tv&#39;</span> then <span class="math inline">v + \ker T = v&#39; +
+\ker T</span> using the previous exercises.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\operatorname{ran}T\to W</span> where <span
+class="math inline">Tv\to Tv</span> is one-to-one</em>.</p>
+<p><em>Hint</em>. Duh!</p>
+<p>If <span class="math inline">S\colon U\to V</span> and <span
+class="math inline">T\colon V\to W</span> are linear operators we say
+they are <em>exact</em> if <span class="math inline">\operatorname{ran}S
+= \ker T</span>, <span class="math inline">S</span> is injective, and
+<span class="math inline">T</span> is surjective.</p>
+</section>
+<section id="eigenvectors" class="level2">
+<h2>Eigenvectors</h2>
+</section>
+</body>
+</html>

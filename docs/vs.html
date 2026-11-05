@@ -47,7 +47,7 @@
 <header id="title-block-header">
 <h1 class="title">Vector Space</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Mar 16, 2026</p>
+<p class="date">Oct 30, 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 A mathematical sweet spot
@@ -113,22 +113,25 @@ numbers is the <span class="math inline">n</span>-fold product <span
 class="math inline">{\boldsymbol{{R}}^n =
 \boldsymbol{{R}}\times\cdots\times\boldsymbol{{R}}= \{x =
 (x_1,\ldots,x_n)\mid x_1,\ldots,x_n\in\boldsymbol{{R}}\}}</span>. If
-<span class="math inline">{\bm{n} = \{1,\ldots,n\}}</span> this is
-equivalent to the set exponential <span
-class="math inline">{\boldsymbol{{R}}^{\bm{n}} =
-\{\bm{n}\to\boldsymbol{{R}}\} =
-\{\bm{x}\colon\bm{n}\to\boldsymbol{{R}}\}}</span>, the set of all
-functions from <span class="math inline">\bm{n}</span> to the real
-numbers. The tuple <span class="math inline">x</span> corresponds to the
-function <span class="math inline">\bm{x}</span> by <span
-class="math inline">{\bm{x}(i) = x_i}</span>, <span
-class="math inline">{i\in\bm{n}}</span>. Going forward, we will drop
-using bold face for the function <span class="math inline">\bm{x}</span>
-and distinguish this unexpected, but useful, coincidence by saying tuple
-<span class="math inline">x</span> or function <span
+<span class="math inline">{\boldsymbol{{n}}= \{1,\ldots,n\}}</span> this
+is equivalent to the set exponential <span
+class="math inline">{\boldsymbol{{R}}^{\boldsymbol{{n}}} =
+\{\boldsymbol{{n}}\to\boldsymbol{{R}}\} =
+\{\boldsymbol{{x}}\colon\boldsymbol{{n}}\to\boldsymbol{{R}}\}}</span>,
+the set of all functions from <span
+class="math inline">\boldsymbol{{n}}</span> to the real numbers. The
+tuple <span class="math inline">x</span> corresponds to the function
+<span class="math inline">\boldsymbol{{x}}</span> by <span
+class="math inline">{\boldsymbol{{x}}(i) = x_i}</span>, <span
+class="math inline">{i\in\boldsymbol{{n}}}</span>. Going forward, we
+will drop using bold face for the function <span
+class="math inline">\boldsymbol{{x}}</span> and distinguish this
+unexpected, but useful, coincidence by saying tuple <span
+class="math inline">x</span> or function <span
 class="math inline">x</span> when it is not clear from context.</p>
-<p>This can be generalized from <span class="math inline">\bm{n}</span>
-to any finite set I. The tuple version is the Cartesian product <span
+<p>This can be generalized from <span
+class="math inline">\boldsymbol{{n}}</span> to any finite set I. The
+tuple version is the Cartesian product <span
 class="math inline">\Pi_{i\in I} \boldsymbol{{R}}</span> and the
 function version is <span
 class="math inline">\boldsymbol{{R}}^I</span>.</p>
@@ -2120,7 +2123,7 @@ A suggestive way to write this is $D(x^2) = x(Dx) + (Dx)x$.
 _Hint_: $(x + h)^2 = x^2 + xh + hx + h^2$ and $h^2 = o(\|h\|)$.
 
 <details><summary>Solution</summary>
-Since $(x + h)^2 = xx + xh + hx + hh$ and $\|h^2\| = o(\|h\})$ we have
+Since $(x + h)^2 = x + xh + hx + hh$ and $\|h^2\| = o(\|h\|)$ we have
 $D(x^2)h = L_x h + R_x h$.
 </details>
 

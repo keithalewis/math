@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>e</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">e</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Oct 19, 2026</p>
+</header>
+<p>The number <span class="math inline">e</span> is the unique number
+<span class="math inline">a &gt; 0</span> satisfying <span
+class="math inline">1 + x \le a^x</span> for all <span
+class="math inline">x</span>.</p>
+<p>If <span class="math inline">y = a^x</span> for some <span
+class="math inline">a &gt; 0</span> then its graph meets the line <span
+class="math inline">y = 1 + x</span> exactly once if and only if <span
+class="math inline">a = e</span>.</p>
+<p>We can show <span class="math inline">e\in[2,3]</span> with simple
+calculations.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">2^{1/2}
+&gt; 1 + 1/2</span></em>.</p>
+<p>Since <span class="math inline">1 + x \le e^x</span> we have <span
+class="math inline">1 - x \le e^x</span> so <span
+class="math inline">1+x \le e^x \le 1/(1 - x)</span> when <span
+class="math inline">1 - x &gt; 0</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">(1 +
+x/n)^n \le e^x</span> for all <span class="math inline">x</span> and
+<span class="math inline">e^x \le (1 - x/n)^{-n}</span> if <span
+class="math inline">x &lt; 1</span></em>.</p>
+<p>Newton’s binomial formula is <span class="math display">
+\begin{aligned}
+    (1 + x)^a &amp;= 1 + ax + a(a - 1) x^2/2 + \dots \\
+        &amp;= \sum_{k = 0}^\infty (a)_n x^n/n! \\
+\end{aligned}
+</span> when <span class="math inline">|x| &lt; 1</span> and <span
+class="math inline">(a)_n = a(a - 1)\cdots(a - n + 1)</span> is the
+(decreasing) Pochhammer symbol.</p>
+<p><strong>Exercise</strong>. _Show <span class="math inline">(n)_n =
+n!</span>.</p>
+<p><strong>Exercise</strong>. _Show $(m)<em>n = 0 if <span
+class="math inline">m &gt; n</span></em>.</p>
+<p>This gives a lower bound for computing <span
+class="math inline">e^x</span>: <span class="math display">
+\begin{aligned}
+    e^x &amp;\ge \sum_{k=0}^n n(n - 1)\cdots(n - k + 1)x^k/k! \\
+        &amp;= \sum_{k=0}^n C(n,k) x^k
+\end{aligned}
+</span> where <span class="math inline">C(n,k) = n!/(n - k)!k!</span> is
+the number of ways to choose <span class="math inline">k</span> items
+from a collection of <span class="math inline">n</span> items.</p>
+</body>
+</html>

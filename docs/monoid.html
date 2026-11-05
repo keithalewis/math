@@ -21,7 +21,26 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="math.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
@@ -35,7 +54,7 @@
     displayMode: mathElements[i].classList.contains('display'),
     throwOnError: false,
     macros: macros,
-    fleqn: false
+    fleqn: true
    });
 }}});
   </script>
@@ -46,61 +65,305 @@
 <header id="title-block-header">
 <h1 class="title">Monoid</h1>
 <p class="author">Keith A. Lewis</p>
-<p class="date">Mar 16, 2026</p>
+<p class="date">Sep 28, 2026</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+Associative binary operation with an identity
+</div>
 </header>
-<p>A <em>semigroup</em> is a set with an associative binary operation.
-If we write <span class="math inline">ab</span> for the binary operation
-then <span class="math inline">a(bc) = (ab)c</span> is the associative
-law. This allows us to write <span class="math inline">abc</span>
-unambiguously. A semigroup is <em>commutative</em>, or <em>abelian</em>,
-if <span class="math inline">ab = ba</span> for every element of the
-semigroup.</p>
-<p>The binary operation for a semigroup is a function <span
-class="math inline">m\colon S\times S\to S</span> on the cartesian
-product of the set of elements satisfying <span
-class="math inline">m(a,m(b,c)) = m(m(a,b),c)</span> whenever <span
-class="math inline">a,b,c\in S</span>. If we write <span
-class="math inline">ab</span> for <span
-class="math inline">m(a,b)</span> this becomes <span
-class="math inline">a(bc) = (ab)c</span>.</p>
-<p>A <em>monoid</em> is a semigroup <span class="math inline">\langle
-M,m\rangle</span> with an identity element <span
-class="math inline">e\in M</span> satisfying <span
-class="math inline">me = m = em</span> for <span
-class="math inline">m\in M</span>.</p>
-<p><strong>Exercise</strong>. <em>Show the identity element of a monoid
-is unique</em>.</p>
-<p><em>Hint</em>: If <span class="math inline">e&#39;</span> is another
-identity element then <span class="math inline">e = ee&#39; =
-e&#39;</span>.</p>
-<!-- ??? Every left identity is a right identity ??? -->
-<p>Every semigroup can be turned into a monoid by adjoining an identity
-element.</p>
-<p>If <span class="math inline">\langle S,m\rangle</span> is a semigroup
-pick any <span class="math inline">e\not\in S</span> and define <span
-class="math inline">m^e(a,b) = m(a,b)</span> and <span
-class="math inline">m^e(e,c) = c = m^e(c,e)</span> for <span
-class="math inline">a,b,c\in S</span>.</p>
-<p><strong>Exercise</strong>. <em>Show <span class="math inline">\langle
-S\cup\{e\}, m^e\rangle</span> is a monoid</em>.</p>
-<p>Semigroups and monoids are ubiquitous. Addition and multiplication of
-numbers are all abelian semigroups. Strings under concatenation are a
-non-abelian monoids with identity the empty string.</p>
-<p><strong>Exercise</strong>. <em>Show subtraction and division over the
-rational numbers is not associative</em>.</p>
-<p>Monoids might seem to be too trivial to be useful, but they are the
-foundation of <a
-href="https://en.wikipedia.org/wiki/MapReduce">MapReduce</a>. You can
-chop <span class="math inline">a_1\cdots a_n</span> into <span
-class="math inline">k</span> pieces and run their product in parallel on
-<span class="math inline">k</span> computers. Each piece has <span
-class="math inline">n/k</span> elements so the total parallel
-computation time is <span class="math inline">O(n/k)</span>. The <span
-class="math inline">k</span> partial products can be computed in <span
-class="math inline">O(k)</span> time. The value of <span
-class="math inline">k</span> that minimizes <span
-class="math inline">n/k + k</span> is <span class="math inline">k =
-\sqrt{n}</span> so the total computation time is <span
-class="math inline">2\sqrt{n}</span>.</p>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#examples" id="toc-examples">Examples</a>
+<ul>
+<li><a href="#mapreduce" id="toc-mapreduce">MapReduce</a></li>
+</ul></li>
+<li><a href="#statistics" id="toc-statistics">Statistics</a>
+<ul>
+<li><a href="#aggregation" id="toc-aggregation">Aggregation</a></li>
+<li><a href="#equivalence-relation"
+id="toc-equivalence-relation">Equivalence Relation</a></li>
+</ul></li>
+<li><a href="#pivot-tables" id="toc-pivot-tables">Pivot Tables</a></li>
+</ul>
+</nav>
+<p>Monoids show up everywhere once you are aware of them. <a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+They can be used to reduce large amounts of data to a small amount of
+data that can be used to make decisions. It is no surprise they show up
+in statistics and pivot tables.</p>
+<p>A <em>monoid</em> is a set <span class="math inline">M</span> with an
+associative binary operation <span class="math inline">m</span> that has
+an identity element <span class="math inline">e</span>. The binary
+operation is a function <span class="math inline">m\colon M\times M\to
+M</span> satisfying the associative law <span
+class="math inline">m(m(a,b),c) = m(a, m(b, c))</span>.</p>
+<p>If we write <span class="math inline">ab</span> for the monoid
+product <span class="math inline">m(a,b)</span> then the associative law
+is <span class="math inline">(ab)c = a(bc)</span>. This allows us to
+write <span class="math inline">abc</span> unambiguously.</p>
+<p>The identity element <span class="math inline">e</span> satisfies
+<span class="math inline">ea = a = ae</span> for all <span
+class="math inline">a\in M</span>.</p>
+<p><strong>Exercise</strong>. <em>Show the identity element is
+unique</em>.</p>
+<p><em>Hint</em>: If <span class="math inline">e&#39;a = a =
+ae&#39;</span> for all <span class="math inline">a\in M</span> show
+<span class="math inline">e = e&#39;</span>.</p>
+<p>A <em>semigroup</em> has an associative binary operation but not
+necessarily an identity element. If <span class="math inline">s\colon
+S\time S\to S</span> is the semigroup binary operation we can define
+<span class="math inline">M = S\cup\{e\}</span> where <span
+class="math inline">e\not\in S</span> and <span
+class="math inline">m\colon M\times M\to M</span> by <span
+class="math inline">m(e,e) = e</span>, <span class="math inline">m(e, s)
+= s = m(s, e)</span> for <span class="math inline">s\in S</span>, and
+<span class="math inline">m(a,b) = s(a,b)</span> for <span
+class="math inline">a,b\in S</span>.</p>
+<p><strong>Exercise</strong>. <em>Show this is a monoid</em>.</p>
+<p>It is easy to fix up a semigroup into a monoid.</p>
+<p>A <em>group</em> is a monoid where every element has an
+<em>inverse</em>. Let <span class="math inline">g\colon G\times G\to
+G</span> be the binary operation. Every <span class="math inline">a\in
+G</span> has an inverse <span class="math inline">a^{-1}\in G</span>
+with <span class="math inline">g(a,a^{-1}) = e</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">g(a^{-1},a) = e</span> for all $aG</em>.</p>
+<p>Note that it is not neccesary to assume <span
+class="math inline">G</span> is <em>abelian</em>, <span
+class="math inline">ab = ba</span> for <span class="math inline">a,b\in
+G</span>.</p>
+<p>Not only <span class="math inline">abc</span> is unambiguous, so is
+any product <span class="math inline">a_1\cdots a_n</span>.</p>
+<p>Define <span class="math inline">m^n\colon M^n\to M</span> for <span
+class="math inline">n\ge0</span> by <span class="math inline">m^0(()) =
+e</span> and <span class="math inline">{m^{n+1}((a_0,\ldots, a_n)) =
+m(a_0, m^n((a_1,\ldots,a_n))}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">m^1((a)) = a</span> and <span
+class="math inline">m^2((a,b)) = m(a,b)</span></em>.</p>
+<p>Define the Kleene star <span class="math inline">M^* = \cup_{n\ge0}
+M^n</span> and <span class="math inline">m^*\colon M^*\to M</span> by
+<span class="math inline">m^*(a_1, \dots, a_n) =
+m^n((a_1,\ldots,a_n))</span>.</p>
+<section id="examples" class="level2">
+<h2>Examples</h2>
+<p>Addition and multiplication of numbers are the most well known
+examples of monoids with respective identities 0 and 1.</p>
+<p>They are also monoids, but not groups, when restricted to
+non-negative numbers. They are semigroups when restricted to positive
+numbers.</p>
+<p>The maximum and minimum of numbers are also a monoid with respective
+identities <span class="math inline">-\infty</span> and <span
+class="math inline">+\infty</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\max\{x,-\infty\} = x</span> and <span
+class="math inline">\min\{x,+\infty\} = x</span></em>.</p>
+<p>String concatenation is another example of a monoid where the empty
+string is the identity element.</p>
+<section id="mapreduce" class="level3">
+<h3>MapReduce</h3>
+<p><span class="citation" data-cites="DeaGhe2004">(<a
+href="#ref-DeaGhe2004" role="doc-biblioref">Dean and Ghemawat
+2004</a>)</span> made a breakthrough in distributed computing using
+monoids. Calculating a monoid product <span
+class="math inline">a_1\cdots a_n</span> sequentially takes order <span
+class="math inline">O(n)</span> time. Breaking it into <span
+class="math inline">k</span> pieces of size <span
+class="math inline">n/k</span> allows the computation to be
+<em>mapped</em> over <span class="math inline">k</span> computers that
+can run simultaneously in time <span class="math inline">O(n/k)</span>.
+The results can then be <em>reduced</em> in <span
+class="math inline">O(k)</span> time.</p>
+<p>The total time is <span class="math inline">O(n/k) + O(k)</span> and
+we can can use a back-of-the-envelope calculation to find the optimal
+number of pieces by pretending we can take a derivative with respect to
+<span class="math inline">k</span>. If <span class="math inline">{0 =
+(d/dk)(O(n/k) + O(k)) = O(-n/k^2) + O(1)}</span> then <span
+class="math inline">{k = \sqrt{n}}</span> is optimal.</p>
+<p>We can also break the computation into <span
+class="math inline">k_1</span> pieces and each <span
+class="math inline">n/k_1</span> computation into <span
+class="math inline">k_2</span> pieces.</p>
+<p><strong>Exercise</strong>. (Due to Bill Goff) <em>What are the
+optimal values of <span class="math inline">k_1</span> and <span
+class="math inline">k_2</span></em>?</p>
+<p><em>Hint</em>: $O(n/k_1 k_2) + O(n/k_1) + O(k_1) = ? $</p>
+</section>
+</section>
+<section id="statistics" class="level2">
+<h2>Statistics</h2>
+<p>A <em>statistic</em> is a function from a lot of numbers to one
+number. The <em>(sample) mean</em> of <span
+class="math inline">{x_1,\ldots,x_n}</span> is <span
+class="math inline">{\mu = \mu(x_1,\ldots,x_n) = (x_1 + \cdots + x_n)/n
+= \sum_{i=1}^n x_i/n</span>. It is a number giving an indication of
+<em>location</em>. If all <span class="math inline">x_i</span> are equal
+to <span class="math inline">x</span> then the mean is <span
+class="math inline">x</span>.</p>
+<p>The mean is not a monoid but <span
+class="math inline">\boldsymbol{R}\times\boldsymbol{N}</span> is with
+the binary operation <span class="math inline">m((x,i),(y,j)} = (ix +
+jy, i+j)</span> with identity <span
+class="math inline">(0,0)</span>.</p>
+<p><strong>Exercise</strong>. <em>Prove this</em>.</p>
+<p>The <em>(sample) variance</em> is <span class="math inline">{\sigma^2
+= \sigma^2(x_1,\ldots,x_n) = \sum_{i=1}^n (x_i - \mu)^2/n}</span>. It is
+a number indicating the <em>spread</em> of how far samples are from the
+average. If all <span class="math inline">x_i</span> are equal to <span
+class="math inline">x</span> then the variance is <span
+class="math inline">0</span>.</p>
+<p>This can be repeated to come up with a measure of how good the
+variance statistic is.</p>
+<p>Categories with a single object form a monoid. A (small)
+<em>category</em> is a partial monoid with left and right identities. A
+category <span class="math inline">\mathbf{C}</span> has a partial
+binary operation <span
+class="math inline">\circ\colon\mathbf{C}\times\mathbf{C}\rightharpoonup\mathbf{C}</span>
+and for every <span class="math inline">f\in\mathbf{C}</span> there
+exist right and left identities <span class="math inline">{}_f
+e\in\mathbf{C}</span> with <span class="math inline">f\circ {}_f e =
+f</span> and <span class="math inline">e_f\in\mathbf{C}</span> with
+<span class="math inline">e_f\circ f = f</span>. Using the usual
+category theory notation <span class="math inline">f\colon A\to B</span>
+where <span class="math inline">A</span> and <span
+class="math inline">B</span> are <em>objects</em> with <em>arrow</em>
+<span class="math inline">f</span> we can identify <span
+class="math inline">{_f}e</span> with <span class="math inline">A =
+\operatorname{dom}f</span> and <span class="math inline">e_f</span> with
+<span class="math inline">B = \operatorname{cod}f</span>. Objects are
+determined by arrows in category theory.</p>
+<section id="aggregation" class="level3">
+<h3>Aggregation</h3>
+<p>If <span class="math inline">M</span> is a commutative monoid let
+<span class="math inline">M^+</span> be the collection of all finite
+subsets of <span class="math inline">M</span>. Define a function <span
+class="math inline">m^+\colon M^+\to M</span> by <span
+class="math inline">m^+(\{m_1,\ldots,m_n\}) = m_1 \cdots m_n</span> when
+<span class="math inline">m_j</span> are distinct and <span
+class="math inline">m^+(\emptyset) = e</span>, the monoid identity.</p>
+<p><strong>Exercise</strong>. <em>Show this is well-defined</em>.</p>
+<p><em>Hint</em>: This requires <span class="math inline">M</span> to be
+commutative.</p>
+<p>We can define a binary operation on disjoint finite subsets of <span
+class="math inline">M</span> to <span class="math inline">M</span> by
+<span class="math inline">{m^+(A,B) = m^+(A\cup B)}</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">A,B\subseteq M</span> are finite disjoint subsets
+show <span class="math inline">{m^+(A,B) =
+m^+(A)m^+(B)}</span></em>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">A,B,C\subseteq M</span> are finite pairwise-disjoint
+subsets show <span class="math inline">m^+(m^+(A, B), C) = m^+(A,
+m^+(B,C))</span></em>.</p>
+<p>Since <span class="math inline">m^+(\emptyset, A) = A = m^+(A,
+\emptyset)</span> this shows finite disjoint subsets of a monoid form a
+monoid with identity <span class="math inline">\emptyset</span>.</p>
+<p>The Kleene star of <span class="math inline">M</span> is the union of
+all finite sequences of elements of <span class="math inline">M</span>,
+<span class="math inline">M^* = \cup_{n\ge0} M^n</span> where <span
+class="math inline">M^n = \{(m_1,\dots,m_n)\mid m_j\in M\}</span>.
+Define <span class="math inline">m^*\colon M^*\to M</span> by <span
+class="math inline">m^*((m_1,\ldots,m_n)) = m_1 \cdots m_n</span> and
+<span class="math inline">m^*(()) = e</span>, the monoid identity.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">M^*</span> is a monoid under <span
+class="math inline">m^*</span> with identity <span
+class="math inline">(())</span></em>.</p>
+</section>
+<section id="equivalence-relation" class="level3">
+<h3>Equivalence Relation</h3>
+<p>Equivalence relations are a generalization of equality. Equality
+satisfied <span class="math inline">a = a</span>, if <span
+class="math inline">a = b</span> then <span class="math inline">b =
+a</span> and if <span class="math inline">a = b</span> and <span
+class="math inline">b = c</span> then <span class="math inline">a =
+c</span>.</p>
+<p>An <em>equivalence relation</em> on a set <span
+class="math inline">S</span> is a subset <span
+class="math inline">R\subseteq S\times S</span> with <span
+class="math inline">(s,s)\in R</span>, <span
+class="math inline">(s,t)\in R</span> implies <span
+class="math inline">(t,s)\in R</span>, and if <span
+class="math inline">(s,t)\in R</span> and <span
+class="math inline">(t,u)\in R</span> then <span
+class="math inline">(s,u)\in R</span>. We write <span
+class="math inline">sRt</span> for <span class="math inline">(s,t)\in
+R</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">aRa</span>, <span class="math inline">aRb</span>
+implies <span class="math inline">bRa</span>, and if <span
+class="math inline">aRb</span> and <span class="math inline">bRc</span>
+then <span class="math inline">aRc</span> if <span
+class="math inline">R</span> is an equivalence relation</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">I =
+\{(s,s)\mid s\in S\}</span> is an equivalence relation</em>.</p>
+<p>The <em>equivalence class</em> of <span class="math inline">s\in
+S</span> is <span class="math inline">\overline{s} = \{s&#39;\in S\mid
+sRs&#39;\}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show <span
+class="math inline">\overline{S} = \{\overline{s}\mid s\in S\}</span> is
+a a <em>partition</em> of <span class="math inline">S</span></em>.</p>
+<p><em>Hint</em>: A partition of <span class="math inline">S</span> is a
+collection of pairwise disjoint sets whose union is <span
+class="math inline">S</span>.</p>
+<p><strong>Exercise</strong>. <em>If <span
+class="math inline">\overline{S} = \{S_i\}_{i\in I}</span> is a
+partition of <span class="math inline">S</span> show <span
+class="math inline">sRs&#39;</span> if and only if <span
+class="math inline">s,s&#39;\in S_i</span> for some <span
+class="math inline">i\in I</span> is an equivalence relation</em>.</p>
+<p>This shows equivalence relations on <span
+class="math inline">S</span> are in 1-1 correspondence with partitions
+of <span class="math inline">S</span>.</p>
+</section>
+</section>
+<section id="pivot-tables" class="level2">
+<h2>Pivot Tables</h2>
+<p>Pivot tables use monoids to aggregate data. Suppose we have tick data
+for stock prices <span class="math inline">(t_j, s_j)</span>. We can
+partition the trading times <span class="math inline">\{t_j\}</span> by
+years, months, days, etc. The <em>high</em> and <em>low</em> price apply
+max and min to all stock prices falling in a given partition. The
+<em>open</em> and <em>close</em> price apply min and max to the times in
+a given partition and return the corresponding stock price.</p>
+<p>The first step in creating a pivot table is to specify a function.
+For the example above define <span class="math inline">S\colon T\to
+\boldsymbol{R}</span> by <span class="math inline">S(t_j) = s_j</span>.
+If <span class="math inline">\overline{T}</span> is a partition of <span
+class="math inline">T</span> and <span class="math inline">\mu</span> is
+a commutative binary opreration on <span
+class="math inline">\boldsymbol{R}</span> define <span
+class="math inline">\overline{S}\colon
+\overline{T}\to\boldsymbol{R}</span> by <span
+class="math inline">\overline{S}(\overline{t}) =
+\mu^+(S(\overline{t}))</span>. This is how high and low are defined
+using max and min on <span class="math inline">\boldsymbol{R}</span>
+respectively. We can also define <span
+class="math inline">\underline{S}\colon
+\overline{T}\to\boldsymbol{R}</span> by <span
+class="math inline">\underline{S}(\overline{t}) =
+S(\mu^+(\overline{t}))</span>. This is how open and close are defined
+using min and max on <span class="math inline">T</span>
+respectively.</p>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="list">
+<div id="ref-DeaGhe2004" class="csl-entry" role="listitem">
+Dean, Jeffrey, and Sanjay Ghemawat. 2004. <span>“MapReduce: Simplified
+Data Processing on Large Clusters.”</span> In <em>Proceedings of the 6th
+Symposium on Operating Systems Design and Implementation (OSDI
+2004)</em>, 137–50. San Francisco, CA: USENIX Association.
+</div>
+</div>
+</section>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Not to be confused with a monad being a category having
+an endofuctor with the monoid product replaced by composition and
+identity element being the identity endofunctor.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
 </body>
 </html>

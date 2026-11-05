@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>bsmr</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+</head>
+<body>
+<p>Many people are familiar with the Black-Scholes and Merton model for
+valuing options but not many people seem to be familiar with Stephen
+Ross’ generalization. His model can handle any collection of
+instruments, not just a bond, stock, and European option.</p>
+<p>“A Simple Approach to the Valuation of Risky Streams”
+https://www.jstor.org/stable/2352277</p>
+<p>Maybe Ross blew people’s minds when he then used it to “unify a
+number of topics in financial economics, including project valuation,
+Modigliani-Miller theory, forward pricing, the closed-end mutual fund
+paradox, and efficient market theories.”</p>
+<p>It does not require Ito calculus or partial differential equations.
+Although positive measures of mass 1 show up, it is a categorical error
+to assume they are the probability of anything. Every model is just a
+stochastic process. Instead choosing a particular parameterization then
+fitting market data, why not use the market data directly?</p>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Vector Space Speed Run</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="math.css" />
+  
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Vector Space Speed Run</h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Nov 4, 2026</p>
+</header>
+<p>https://wikihack.netlify.app/a/1451/apl-programming-language</p>
+<p>Karpathy</p>
+<p>Fasten your seatbelt.</p>
+<p>If you don’t know what a vector space is, just assume it is the set
+of <span class="math inline">n</span>-tuples <span
+class="math inline">{\boldsymbol{{R}}^n = \{\boldsymbol{{x}} =
+(x_1,\ldots,x_n)\mid x_j\in\boldsymbol{{R}}, 1\le j\le n\}}</span> where
+<span class="math inline">\boldsymbol{{R}}</span> is the <em>field</em>
+of <em>real numbers</em>. We use bold face <span
+class="math inline">\boldsymbol{{x}}</span> to indicate a vector tuple.
+Any field will do, e.g., the <em>complex numbers</em> <span
+class="math inline">\boldsymbol{{C}}</span> or <em>finite fields</em>
+<span class="math inline">{\boldsymbol{{Z}}_p =
+\boldsymbol{{Z}}/p\boldsymbol{{Z}}}</span> of integers modulo a prime
+number <span class="math inline">p</span>. We will use <span
+class="math inline">\boldsymbol{{F}}</span> to denote any field.</p>
+<p>Vector spaces have a <em>scalar multiplication</em> and <em>vector
+addition</em>. For <span class="math inline">a\in\boldsymbol{{F}}</span>
+and <span
+class="math inline">\boldsymbol{{x}},\boldsymbol{{y}}\in\boldsymbol{{F}}^n</span>
+the scalar multiplication is <span class="math inline">a(x_i) =
+(ax_i)</span> and the vector addition is <span
+class="math inline">(\boldsymbol{{x}} + \boldsymbol{{y}})_i = x_i +
+y_i</span>, <span class="math inline">1\le i\le n</span>.</p>
+<p>A different, but equivalent, way to represent <span
+class="math inline">\boldsymbol{{F}}^n</span> is the set of all
+functions <span
+class="math inline">x\colon\{1,\ldots,n\}\to\boldsymbol{{F}}</span>
+where <span class="math inline">x_i</span> corresponds to <span
+class="math inline">x(i)</span>. There seems to be no generally accepted
+mathematical notation to distinguish them.</p>
+<p>This was figured out long ago by <span class="citation"
+data-cites="Ive1980">(<a href="#ref-Ive1980"
+role="doc-biblioref">Iverson 1980</a>)</span> when he was dissatisfied
+with the expressive power of Fortran two decades earlier. His brilliant
+APL: A Programming Language is still alive and kicking in its latest
+incarnation: kdb.</p>
+<p>For any set <span class="math inline">I</span> define the <em>set
+product</em> <span class="math inline">{\Pi_I\boldsymbol{{F}}= \Pi_{i\in
+I}\boldsymbol{{F}}= \{\boldsymbol{{x}} = (x_i)\mid
+x_i\in\boldsymbol{{F}}, i\in I\}}</span>. The <em>set exponential</em>
+<span class="math inline">{\boldsymbol{{F}}^I = \{x\colon
+I\to\boldsymbol{{F}}\}}</span> is equivalent by identifying <span
+class="math inline">x_i</span> with <span
+class="math inline">x(i)</span>, <span class="math inline">i\in
+I</span>.</p>
+<p>Let’s give an explicit name to this implicit correspondence <span
+class="math inline">\Pi =
+\Pi_{\boldsymbol{{F}},I}\colon\boldsymbol{{F}}^I\to\Pi_I\boldsymbol{{F}}</span>
+where <span class="math inline">(\Pi x)(i) = x_i</span>.</p>
+<p>This is our first example of a <em>linear operator</em>.</p>
+<p><strong>Exercise</strong>. <em>Show <span class="math inline">\Pi(a x
++ y) = a\Pi(x) + \Pi(y)</span></em>.</p>
+<p>Hint: This follows from the laws satisfied by the field.</p>
+<p><strong>Exercise</strong>. _Show <span class="math inline">\Pi(ax) =
+aPi(x)</span> and <span class="math inline">\Pi(x + y) = \Pi(x) +
+\Pi(y)</span>, <span class="math inline">a\in\boldsymbol{{F}}</span>,
+<span class="math inline">x,y\in \Pi_I \boldsymbol{{F}}</span>.</p>
+<p><em>Hint</em>: Use <span class="math inline">\Pi(0) = 0</span> and
+<span class="math inline">1x = x</span>.</p>
+<p>If <span class="math inline">V</span> is a vector space then a subset
+<span class="math inline">U\subseteq V</span> is a <em>subspace</em> if
+it is closed under scalar multiplication and vector addition. We can
+write this as <span class="math inline">\boldsymbol{{F}}U\subseteq
+U</span> and <span class="math inline">U + U\subseteq U</span> where
+<span class="math inline">{\boldsymbol{{F}}U = \{au\mid
+a\in\boldsymbol{{F}}, u\in U\}}</span> and <span class="math inline">{U
++ U = \{u + v\mid u,v\in U\}}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show if <span
+class="math inline">V</span> and <span class="math inline">W</span> are
+vector spaces show their intersection <span class="math inline">V\cap
+W</span> and sum <span class="math inline">V + W</span> are vector
+spaces</em>.</p>
+<p><em>Hint</em>: Show they are closed under scalar addition and vector
+multiplication.</p>
+<p>Given a subspace <span class="math inline">U\subseteq V</span> define
+the <em>quotient</em> space <span class="math inline">{V/U = \{v + U\mid
+v\in V\}}</span> with scalar multiplication <span
+class="math inline">{a(v + U) = av + U}</span> and vector addition <span
+class="math inline">{(v + U) + (w + U) = (v + w) + U}</span>.</p>
+<p><strong>Exercise</strong>. <em>Show scalar multiplication and vector
+addition are well-defined</em>.</p>
+<p><em>Hint</em>: This means if <span class="math inline">v + U = w +
+U</span> then <span class="math inline">a(v + U) = a(w + U)</span>
+and</p>
+<p>Let <span class="math inline">{\operatorname{L}(V,W) = \{T\colon V\to
+W\mid T\text{ is linear}\}}</span> be the set of all linear operators
+from the vector space <span class="math inline">V</span> to the vector
+space <span class="math inline">W</span>. It is also a vector space with
+scalar prodcut <span class="math inline">(aT)(v) = a(T(v))</span> and
+vector addition <span class="math inline">(T + U)(v) = T(v) +
+U(v)</span>, <span class="math inline">a\in\boldsymbol{{F}}</span>,
+<span class="math inline">v\in V</span>. This is also written as <span
+class="math inline">\operatorname{Hom}(V,W)</span> for the set of
+<em>homomorphism</em>: functions that preserve the vector space
+structure.</p>
+<p>The <em>kernel</em> of a linear oprator <span
+class="math inline">T\in\operatorname{L}(V,W)</span> is <span
+class="math inline">\operatorname{ker}T = \{v\in V\mid Tv = 0\}</span>
+and the <em>range</em> is <span
+class="math inline">\operatorname{ran}T\{Tv\mid v\in V\}\subseteq
+W</span>.</p>
+<p>If <span class="math inline">V = W</span> we write <span
+class="math inline">\operatorname{End}(V)</span> for <span
+class="math inline">\operatorname{Hom}(V,V)</span>, the set of
+<em>endomorphisms</em> for a vectorspace to itself.</p>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="list">
+<div id="ref-Ive1980" class="csl-entry" role="listitem">
+Iverson, Kenneth E. 1980. <span>“Notation as a Tool of Thought.”</span>
+<em>Communications of the ACM</em> 23 (8): 444–65.
+</div>
+</div>
+</body>
+</html>

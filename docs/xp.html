@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Keith A. Lewis" />
+  <title>Derivative of \|x\|^p</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="math.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Derivative of <span
+class="math inline">\|x\|^p</span></h1>
+<p class="author">Keith A. Lewis</p>
+<p class="date">Oct 16, 2026</p>
+</header>
+<p>What is the derivative of the function <span
+class="math inline">x\mapsto\|x\|^p</span> where <span
+class="math inline">x\in\boldsymbol{{R}}^n</span>? It was the last
+question my friend Peter Carr asked me before he left for the math
+conference in the sky.</p>
+<p>The answer is <span class="math inline">D\|x\|^p = p\|x\|^{p -
+2}x^*</span>, but the notation needs some explaining. It looks similar
+to <span class="math inline">dx^p/dx = px^{p-1}</span> but the definiton
+of derivative of a function from a vector space to a vector space is the
+Frechet derivative.</p>
+<p>If <span
+class="math inline">f\colon\boldsymbol{{R}}\to\boldsymbol{{R}}</span>
+then its derivative is <span class="math inline">Df(x) = f&#39;(x) =
+df(x)/dx = \lim_{h\to 0} (f(x + h) - f(x))/h</span> when it exists. If
+<span
+class="math inline">F\colon\boldsymbol{{R}}^n\to\boldsymbol{{R}}^m</span>
+then we cannot use this definition <span class="math inline">f(x + h) -
+f(x)\in\boldsymbol{{R}}^m</span> and <span
+class="math inline">h\in\boldsymbol{{R}}^n</span> so we cannot “divide”
+the two vectors.</p>
+</body>
+</html>
