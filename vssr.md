@@ -6,10 +6,11 @@ header-includes:
 ---
 
 \newcommand\bs[1]{\boldsymbol{{#1}}}
-\newcommand\FF{\bs{F}}
+\newcommand\BB{\bs{B}}
 \newcommand\CC{\bs{C}}
-\newcommand\RR{\bs{R}}
+\newcommand\FF{\bs{F}}
 \newcommand\NN{\bs{N}}
+\newcommand\RR{\bs{R}}
 \newcommand\ZZ{\bs{Z}}
 \newcommand\QQ{\bs{Q}}
 \renewcommand\ker{\operatorname{ker}}
@@ -26,43 +27,46 @@ Fasten your seatbelt.
 
 If you don't know what a vector space is, just assume it
 is the set of $n$-tuples ${\RR^n = \{\bs{x} = (x_1,\ldots,x_n)\mid x_j\in\RR, 1\le j\le n\}}$
-where $\RR$ is the _field_ of _real numbers_. We use bold face $\bs{x}$ to indicate
-a vector tuple.
-Any field will do, e.g., the _complex numbers_ $\CC$ or _finite
+where $\RR$ is the _field_ of _real numbers_.
+Any field[^1] will do, e.g., the _complex numbers_ $\CC$ or _finite
 fields_ ${\ZZ_p = \ZZ/p\ZZ}$ of integers modulo a prime number $p$.
 We will use $\FF$ to denote any field.
 
+[^1]: Mathematicians have to pick words to describe mathematical objects.
+Richard Feynman said, "I learned very early the difference between knowing the name
+of something and knowing something."
+
 Vector spaces have a _scalar multiplication_ and _vector addition_.
-For $a\in\FF$ and $\bs{x},\bs{y}\in\FF^n$ the scalar multiplication is $a(x_i) = (ax_i)$
-and the vector addition is $(\bs{x} + \bs{y})_i = x_i + y_i$, $1\le i\le n$.
+For $a\in\FF$ and $\bs{x},\bs{y}\in\FF^n$ the scalar multiplication
+and vector addition are defined _pointwise_ by
+$(a\bs{x})_i = ax_i$
+and ${(\bs{x} + \bs{y})_i = x_i + y_i}$, ${1\le i\le n}$.
 
 A different, but equivalent, way to represent $\FF^n$ is
 the set of all functions $x\colon\{1,\ldots,n\}\to\FF$
 where $x_i$ corresponds to $x(i)$.
-There seems to be no generally accepted mathematical notation
-to distinguish them.
 
-This was figured out long ago by [@Ive1980] when he was dissatisfied
-with the expressive power of Fortran two decades earlier.
-His brilliant APL: A Programming Language is still 
-alive and kicking in its latest incarnation: kdb.
+We now have two different, but equivalent, ways of
+expressing the underlying field $\FF$.
+It can be identifies with the 1-tuple $\FF^1 = \{\{a\}\}\mid a\in\FF\}$ and the
+set of all functions ${1}\to\FF$.
 
 For any set $I$ define the _set product_
 ${\Pi_I\FF = \Pi_{i\in I}\FF = \{\bs{x} = (x_i)\mid x_i\in\FF, i\in I\}}$.
 The _set exponential_ ${\FF^I = \{x\colon I\to\FF\}}$ is equivalent by identifying $x_i$ with $x(i)$,
 $i\in I$.
 
-Let's give an explicit name to this implicit correspondence 
-$\Pi = \Pi_{\FF,I}\colon\FF^I\to\Pi_I\FF$ where $(\Pi x)(i) = x_i$.
+Let's give an explicit name to this implicit correspondence.
+${\Pi = \Pi_{\FF,I}\colon\FF^I\to\Pi_I\FF}$ where ${(\Pi x)_i = x(i)}$.
 
 This is our first example of a _linear operator_.
 
 __Exercise__. _Show $\Pi(a x + y) = a\Pi(x) + \Pi(y)$_.
 
-Hint: This follows from the laws satisfied by the field.
+Hint: If $u,v\in\Pi_I\FF$ then $u = v$ if and only if $u_i = v_i$ for all $i\in I$.
 
 __Exercise__. _Show $\Pi(ax) = aPi(x)$ and $\Pi(x + y) = \Pi(x) + \Pi(y)$,
-$a\in\FF$, $x,y\in \Pi_I \FF$.
+$a\in\FF$, $x,y\in \Pi_I \FF$_.
 
 _Hint_: Use $\Pi(0) = 0$ and $1x = x$.
 
@@ -82,11 +86,15 @@ ${V/U = \{v + U\mid v\in V\}}$ with scalar multiplication
 ${a(v + U) = av + U}$ and vector addition ${(v + U) + (w + U)
 = (v + w) + U}$.
 
+__Exercise__. _Show $v + U = w + U$ if and only if $v - w\in U$_.
+
+_Hint_: If $v + u = w + u'$ for some $u, u'\in U$ then $v - w = u' - u$.
+
 __Exercise__. _Show scalar multiplication and vector addition
 are well-defined_.
 
-_Hint_: This means if $v + U = w + U$ then $a(v + U) = a(w + U)$
-and 
+_Hint_: This means if ${v + U = w + U}$ then ${av + U = aw + U}$
+and if ${v' + U = w' + U}$ then ${(v + v') + U = (w + w') + U}$.
 
 Let ${\LL(V,W) = \{T\colon V\to W\mid T\text{ is linear}\}}$ be the set of all
 linear operators from the vector space $V$ to the vector space $W$.
@@ -94,10 +102,32 @@ It is also a vector space with scalar prodcut $(aT)(v) = a(T(v))$
 and vector addition $(T + U)(v) = T(v) + U(v)$, $a\in\FF$, $v\in V$.
 This is also written as $\Hom(V,W)$ for the set of _homomorphism_:
 functions that preserve the vector space structure.
+If $V = W$ we write $\End(V)$ for $\Hom(V,V)$, the set of _endomorphisms_
+for a vectorspace to itself.
 
 The _kernel_ of a linear oprator $T\in\LL(V,W)$ is
 $\ker T = \{v\in V\mid Tv = 0\}$ and the _range_
 is $\ran T\{Tv\mid v\in V\}\subseteq W$.
 
-If $V = W$ we write $\End(V)$ for $\Hom(V,V)$, the set of _endomorphisms_
-for a vectorspace to itself.
+
+## TODO
+
+$\sigma\colon\nn\to\nn$ premutation. $\sigma(i j \ldots)$ is $0\to i$, $1\to j$, $\ldots$.
+
+_Curry_ pre $,\colon(A\times B)^C\to A^{(B^C)}$ by $(,f(a))(b) = f(a,b)$.
+
+_Uncurry_ post $,\colon A^{(B^C)}\to(A\times B)^C$ by $g,(a,b) = (g(a))b$
+
+__Exercise__. _Show $(,f), = f$ and $,(g,) = g$_.
+
+If $J\subseteq I$ and $x\in\FF^I$ then $x(J)\colon\FF^I\to\FF^J$
+
+$()\colon\FF^I\times 2^I\to\FF^J$ by $()(x,J) = x(J)$ with $x(J)(j) = x(j)$, $j\in J$.
+
+$R$ a relation on $\FF$ then $R\colon\FF^I\times\FF^I\to\BB^I$ is
+defined by $(x R y)(i) = x(i) R y(i)$ for $i\in I$.
+
+_mask_/_replicate_ $/\colon\NN^I\times\FF^I\to\FF^J$
+For $m\in\NN^I$ and $x\in\FF^I$ repeats $x(i)$ $m(i)$ times.
+
+$\FF^{I_\le}$
