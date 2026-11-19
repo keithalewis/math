@@ -47,15 +47,31 @@ A function times a measure is a measure.
 Real-valued functions take elements of a set to a real number.
 Measures take subsets of a set to a number, don't count things twice,
 and the measure of the emptyset is $0$.
-The random variable $X$ gives rise to the linear functional
-${f\mapsto E[f(X)]}$ for any bounded function $f$.
+Measures give rise to linear functionals by integration.
+The measure $XP$ gives rise to the linear functional
+${f\mapsto E[f(X)] = \int_\Omega f(X(\omega))\,dP(\omega)}$ for any bounded function $f$.
 
 ## $B(S)^*\cong ba(S)$
 
-Let $S$ be a set and $B(S)$ the set of bounded real-valued functions on $S$,
-$\sum_{s\in S} |f(s)| < \infty$ for all $f\in B(S)$.
+The vector space dual of bounded functions on a set is isometrically
+isomorphic to the space of bounded finitely-additive measures on $S$.
+This means there is a one-to-one and onto correspondence
+${L\in B(S)^*\leftrightarrow\lambda\in ba(S)}$ with ${\|L\| = \|\lambda\|}$
+that preserves the vector space structure.
+
+Let $S$ be a set and $B(S)$ the set of bounded real-valued functions on $S$:
+for every $f\in B(S)$ there exists $M\in\RR$ with $|f(s)|\le M$ for all $s\in S$.
+
+__Exercise__. _Show if $f\in B(S)$ then $af\in B(S)$ for $a\in\RR$_.
+
+_Hint_: If $|f|\le M$ then $|af|\le |a|M$.
+
+__Exercise__ _Show if $f,g\in B(S)$ then $f + g\in B(S)$_.
+
+_Hint_: If $|f| \le M$ and $|g| \le N$ then $|f + g|\le M+N$.
+
 The vector space dual of the set of bounded functions can be identified
-with the space of finitely-additive measures on $S$, $ba(S)$.
+with the vector space of finitely-additive measures on $S$, $ba(S)$.
 Given a linear functional $L\colon B(S)\to\RR$ in the dual define
 $\lambda(E) = L(1_E)$ for $E\subseteq S$, where $1_E(s) = 1$ if $s\in E$
 and 0 otherwise is the _indicator function_ of $E$.
@@ -65,16 +81,33 @@ __Exercise__. _Show $\lambda$ is a finitely-additive measure on $S$_.
 _Hint_: Use $1_{E\cup F} = 1_E + 1_F - 1_{E\cap F}$ (measures don't count
 things twice) and $1_\emptyset = 0$ (the measure of the emptyset is 0)
 
-Given a finitely-additive measure $\lambda$ on $S$ define the
-linear functional ${L\in B(S)^*}$ by ${L(\sum_i a_i 1_{E_i})
-= \sum_i a_i \lambda(E_i)}$ for any elementary linear combination
-of indicator functions.
+Given a finitely-additive measure $\lambda$ on $S$ define
+${L(\sum_i a_i 1_{E_i}) = \sum_i a_i \lambda(E_i)}$ for any linear combination
+of indicator functions, $a_i\in\RR$, $E_i\subseteq S$.
 
-__Exercise__. _Show $L$ is well-defined_.
+There are many ways ${\sum_i a_i 1_{E_i}}$ can be equal to
+${\sum_j b_j 1_{F_j}}$. We just saw one: ${1_{E\cup F} + 1_{E\cap F} = 1_E + 1_F}$.
+We must show ${\sum_i a_i 1_{E_i} = \sum_j b_j 1{F_j}}$
+implies ${\sum_i a_i \lambda(E_i) = \sum_i b_j \lambda(F_j)}$
+for $L$ to be _well-defined_.
 
-_Hint_: This is clearly true if the $E_i$ are pairwise-disjoint.
-Show $E\cup F$ can be written as the
-pairwise-disjoint union ${(E\setminus F)\cup(E\cap F)\cup(F\setminus E)}$.
+__Exercise__. _If $L$ is linear then $L\bs{0} = 0$_.
+
+_Hint_: We write $\bs{0}$ for the vector space additive identity.
+Note $L(\bs{0}) = L(\bs{0} + \bs{0}) = L(\bs{0}) + L(\bs{0})$
+and $L(\bs{0})\in\RR$.
+
+Since $L$ is linear we only need show $\sum_k c_k 1_{G_k} = \bs{0} = 1_\emptyset$
+implies $\sum_k c_k \lambda(G_k) = 0$.
+If the $\{G_k\}$ are pairwise disjoint we can pick $s_k\in G_k$ for each $k$
+to get $c_k = 0$ for all $k$.
+
+__Exercise__. _Show we can write $\sum_i a_i 1_{E_i} = \sum_j b_j 1_{F_j}$
+where $\{F_j\}$ are pairwise disjoint_.
+
+_Hint_: $1_{E\cup F} = 1_{E\setminus F} + 1_{E\cap F} + 1_{F\setminus E}$
+where the _set difference_ $A\setminus B$ is the set of elments in $A$
+that are not in $B$.
 
 A norm can be defined on $ba(S)$ by $\|\lambda\| = \sup_{\{E_i\}}\sum_{E_i} |\lambda(E_i)|$
 where $\{E_i\}$ range over partitions of $S$. 
@@ -93,11 +126,10 @@ is $M_g^*\colon ba(S)\to ba(S)$ where the dual pairing
 ${\langle M_g(f),\lambda\rangle = \langle f, M_g^*(\lambda)\rangle}$.
 This defines multiplication of a measure by a bounded function.
 
-## Irving Segal
+## Algebraic Integration
 
 My NYU colleague, William Segal, is the son of Irving Segal who had a
 profound impact on my thoughts about integration.
-
 
 He was motivated by John von Neumann's
 dissatisfaction with the theory of quantum mechanics at the time.
