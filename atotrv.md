@@ -181,7 +181,6 @@ __Exercise__: _Show $\Hom(\RR^I,\RR^J)$ is isomorphic to $\RR^{I\times J}$_.
 
 Iverson figured that out long ago. He was unhappy about the lack
 of expressive power of Fortran
--->
 
 
 The mathematician definition starts with "What is P?"
@@ -206,3 +205,4 @@ $1 = 1'q = (-\lambda n - \mu 1'k - 1'\nu'A)$.
 $f = k'q = (-\lambda k'1 - mu k'k - \nu 1'A$.
 
 $p = Aq = ... $
+-->
