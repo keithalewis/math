@@ -23,11 +23,16 @@ abstract: The simplest formal model of a financial market.
 
 Notation $B^A$, $\RR^I$, $(\RR^I)^* = \RR_I$
 
-The _one-period model_ is specified by the vector of initial _prices_
+A _one-period model_ is specified by the vector of initial _prices_
 indexed by market _instruments_ $I$, $x\in\RR^I$, and their final prices
 $X\colon\Omega\to\RR^I$ where $\Omega$ is the set of possible outcomes
 over the period.
-A _position_ is a linear functional from prices to _values_:
+A _position_ is a function from prices to the _value_ of the position:
+$\xi^*\colon\RR^I\to\RR$. By the _law of one price_ it must
+satisfy $\xi^*(tx + y) = t\xi^*x + \xi^*y$, $t\in\RR$, $x,y\in\RR^I$.
+This implies $\xi^*$ so is a linear functional belonging
+to the dual space $(\RR^I)^*$ which we write as $\RR_I$.
+
 $\xi^*\colon\RR^I\to\RR$ so $\xi^*\in(\RR^I)^* = \RR_I$.
 The _return_ on position $\xi^*$ is the value $\xi^*X(\omega)$
 given $\omega\in\Omega$ occurred.
