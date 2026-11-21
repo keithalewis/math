@@ -125,8 +125,12 @@ by $M_g(f) = gf$, $f\in B(S)$. The adjoint of multiplication by $g$
 is $M_g^*\colon ba(S)\to ba(S)$ where the dual pairing
 ${\langle M_g(f),\lambda\rangle = \langle f, M_g^*(\lambda)\rangle}$.
 This defines multiplication of a measure by a bounded function.
+We write $g\lambda$ for $M_t^*(\lambda)$ so ${\langle gf,\lambda\rangle = \langle f,g\lambda\rangle}$
+for $f,g\in B(S)$ and $\lambda\in ba(S)$.
 
 ## Algebraic Integration
+
+This is not new. [@Sea1954]
 
 My NYU colleague, William Segal, is the son of Irving Segal who had a
 profound impact on my thoughts about integration.
