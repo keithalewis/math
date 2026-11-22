@@ -19,18 +19,12 @@ header-includes:
 \newcommand\Hom{\operatorname{Hom}}
 \newcommand\End{\operatorname{End}}
 
-https://wikihack.netlify.app/a/1451/apl-programming-language
-
-Karpathy
-
-Fasten your seatbelt.
-
-If you don't know what a vector space is, just assume it
-is the set of $n$-tuples ${\RR^n = \{\bs{x} = (x_1,\ldots,x_n)\mid x_j\in\RR, 1\le j\le n\}}$
+I assume you are familiar with the vector
+space of $n$-tuples ${\RR^n = \{\bs{x} = (x_1,\ldots,x_n)\mid x_j\in\RR, 1\le j\le n\}}$
 where $\RR$ is the _field_ of _real numbers_.
 Any field[^1] will do, e.g., the _complex numbers_ $\CC$ or _finite
 fields_ ${\ZZ_p = \ZZ/p\ZZ}$ of integers modulo a prime number $p$.
-We will use $\FF$ to denote any field.
+We will use $\FF$ to denote an arbitrary field.
 
 [^1]: Mathematicians have to pick words to describe mathematical objects.
 Richard Feynman said, "I learned very early the difference between knowing the name
@@ -48,8 +42,9 @@ where $x_i$ corresponds to $x(i)$.
 
 We now have two different, but equivalent, ways of
 expressing the underlying field $\FF$.
-It can be identifies with the 1-tuple $\FF^1 = \{\{a\}\}\mid a\in\FF\}$ and the
-set of all functions ${1}\to\FF$.
+
+__Exercise__: Show the field $\FF$ can be identified with the 1-tuple $\FF^1 = \{\{a\}\}\mid a\in\FF\}$ and the
+set of all functions ${1}\to\FF$_.
 
 For any set $I$ define the _set product_
 ${\Pi_I\FF = \Pi_{i\in I}\FF = \{\bs{x} = (x_i)\mid x_i\in\FF, i\in I\}}$.
@@ -131,3 +126,57 @@ _mask_/_replicate_ $/\colon\NN^I\times\FF^I\to\FF^J$
 For $m\in\NN^I$ and $x\in\FF^I$ repeats $x(i)$ $m(i)$ times.
 
 $\FF^{I_\le}$
+
+https://wikihack.netlify.app/a/1451/apl-programming-language
+
+Karpathy
+
+$\FF^n$ and $\FF^{\bs{n}}$
+
+Replace $\bs{n}$ by any index set $I$.
+$\FF^I$ for any index set $I$. $\Pi_I\FF$.
+
+Products have _projections_.  
+$\pi_i\colon\Pi_I\FF$ by $\pi_i(x_1,\ldots,x_n) = x_i$ projections.
+
+How do we write this without dots?  
+Products are mathematically problematical.
+
+Aside: $(a,b) = \{\{a\},\{a,b\}\}$
+
+$\pi_A\colon A\times B\to A$, $\pi_B\colon A\times B\to B$.  
+If $p_A\colon C\to A$ and $p_B\colon C\to B$ then there
+exists $p\colon C\to A\times B$ with $p_A = \pi_A p$
+and $p_B = \pi_B p$.
+
+Exercise. Any set with this property is isomorphic to the product.
+
+Exercise. $x = y$ if and only if $\pi_i(x) = \pi_i(y)$ for all $i\in I$.
+
+Hint: Use abstract definition???
+
+Set exponentials have _evaluations_.  
+$e_i\colon\FF^I\to\FF$ by $e_i(x) = x(i)$.
+
+Exercise. $x = y$ iff $e_i(x) = e_i(y)$ for all $i\in I$.
+
+Hint: This is just function equality.
+
+One reason to prefer exp to prod.
+
+Define $\Pi_I\colon\FF^I\to\Pi_{i\in I}\FF$ by
+$\pi_i\Pi_I = e_i$ on $\FF^I$.
+
+Exercise: $x = \sum_i x(i) e_i$.
+
+span, independent
+
+Euclidean norm. Sup-norm, $p$-norm $(\FF^I)_p$ ?
+
+Every norm gives same topology. $x_n\to x$ on one topology implies all topologies..
+
+$\|x\|_1 \le \|x\|_p \le \|x\|_\infty$.
+
+$(\FF^I)^* \cong \FF^I$$
+
+Define $*\colon (\FF^I)^*\to\FF^I$ by $(*x)(i) = x(e_i)$.
