@@ -1,0 +1,232 @@
+---
+title: Set Product
+author: Keith A. Lewis
+classoption: fleqn
+fleqn: true
+---
+\renewcommand\ker{\operatorname{ker}}
+\renewcommand\coker{\operatorname{coker}}
+\renewcommand\dom{\operatorname{dom}}
+\renewcommand\cod{\operatorname{cod}}
+
+What is the product of sets? We look at two different
+ways to define this. The first is the messy classical definition using
+only sets, the second is the elegant Category Theory definition where you have
+to tie one arm behind your back and use only sets and functions.
+
+## Set
+
+Everything in (classical) mathematics is a set. Logicians like to
+say, "The language of set theory is epsilon."
+What they mean is set theory is defined using first-order predicate logic
+and the symbol (language) '$\in$' indicating set membership.
+
+The set with _members_/_elements_ $a$ and $b$ can be written as $\{a,b\}$
+so $a\in\{a,b\}$ and $b\in\{a,b\}$. If $c$ is different from $a$ and $b$
+then $c\not\in\{a,b\}$.  Two sets are equal if and only if they have
+the same elements so $\{a,b\} = \{b,a\}$.
+
+Set products are defined using _ordered pairs_ $(a,b)$ where
+$(a,b) = (c,d)$ if and only if $a = c$ and $b = d$.
+
+__Exercise__. _Show $(a,b)\not=(b,a)$ if $a\not=b$_. 
+
+__Exercise__. _Show $(a,b) = (b,a)$ if $a = b$_.
+
+Norbert Wiener [@] defined an ordered pair using set theory by
+$$
+	(a, b) := \{\{\{a\},\emptyset\}, \{\{b\}\}\}
+$$
+It looks overly complicated, and it is, but you need to understand
+the context of the times. Gottlob Frege's [@] theory of sets was that
+a set is determined by a rule for membership. 
+Bertrand Russell [@] cooked Frege's definition by pointing out
+the set of all sets that were not an element of themselves:
+$S = \{x\mid x\not\in x\}$. If $S\in S$ then it satisfies the
+rule $S\not\in S$. If $S\not\in S$ then it it is not the case
+$S\not\in S$ so $S\in S$, assuming the law of the excluded middle.
+
+Russell and Alfred North Whitehead [@] set about fixing this contradiction.
+They defined an ordered pair in terms of a relation. Wiener showed a
+relation could be defined by the more primitive notion of a set.
+This led the way to the modern definition
+of a relation as a subset of the product of sets. [@SQL]
+
+Unlike Euclid's The Elements [@], that some regard as the second best
+selling book after the Bible, only 750 copies of [@Pri] were printed.
+Even fewer were purchased and it is anybody's guess how many
+people made their way through the n pages of their three weighty tombs.
+Nevertheless, their work had a profound influence on the future
+of mathematics. They introduced the notion of _types_ and _classes_
+to account for sets that got too big for their britches.
+
+These ideas have modern expression...
+
+
+Felix Hausdorff proposed the definition
+$$
+	(a, b) := \{\{a,1\}, \{a,2\}\}
+$$
+where $1$ and $2$ are distinct from $a$ and $b$ and from each other.
+
+Kazimierz Kuratowski [@] showed there was no need to drag 1 and 2 into the definition.
+$$
+	(a, b) := \{\{a\}, \{a,b\}\}.
+$$
+
+__Exercise__. _Show $(a,a) = \{\{a\}\}$_.
+
+_Hint_. $\{a,a\} = \{a\}$.
+
+__Exercise__. _Show $\{\{a\}, \{a,b\}\} = \{\{c\}, \{c,d\}\}$ if
+and only if $a = b$ and $c = d$_.
+
+_Hint_: Two sets are equal if and only if they have the same elements.
+If $x\in\{\{a\}, \{a,b\}\}$ and has one element then $x = \{a\}$.
+If $\{a\}\in\{\{c\}, \{c,d\}\}$ the $\{a\} = \{c\}$ or $\{a\} = \{c,d\}$.
+
+TODO: $a = b$ ?
+
+## Product
+
+The _Cartesian product_ of sets $A$ and $B$
+is the set of ordered pairs $A\times B = \{(a,b)\mid a\in A, b\in B\}$.
+Define _projections_ $\pi_A\colon A\times B\to A$ by $\pi_A(a,b) = b$
+and  $\pi_B\colon A\times B\to B$ by $\pi_A(a,b) = b$
+
+__Exercise__. _Show if $p_A\colon C\to A$ and $p_B\colon C\to B$ there
+exists $p\colon C\to A\times B$ with $p_A = \pi_A p$ and $p_B = \pi_B p$_.
+
+_Hint_: Let $p(c) = (p_A(c), p_B(c))$.
+
+This is the key to understanding the category theory definition of the product of sets.
+
+## Relation 
+
+A _relation_ is a subset of a product ${R\subseteq A\times B}$.
+It is convenient to write $aRb$ for ${(a,b)\in R}$.
+The _left coset_ of $a\in A$ is $aR = \{b\in B\mid aRb\}$.
+The _right coset_ of $b\in B$ is $Rb = \{a\in A\mid aRb\}$.
+
+The _domain_ of a relation $R\subseteq A\times B$
+is $\dom R = \pi_A R = \{a\in A\mid aRb\text{ for some }b\in B\}$.
+The _codomain_ of a relation $R\subseteq A\times B$
+is $\cod R = \pi_B R = \{b\in B\mid aRb\text{ for some }a\in A\}$.
+
+__Exercise__. _Show $\dom R = \cup_{b\in B} Rb$ and $\cod R = \cup_{a\in A} aR$_.
+
+Relations $R\subseteq A\times B$ and $S\subseteq B\times C$
+can be _composed_ 
+$$
+	SR = \{(a,c)\in A\times C\mid aRb\text{ and } bRc\text{ for some }b\in B\}.
+$$
+This is used to define the the various joins in relational databases.
+
+The _diagonal_ relation on a set $A$ is ${\Delta_A = \{(a,a)\mid a\in A\}\subseteq A\times A}$.
+
+__Exercise__. _Show if $R\subseteq A\times B$ then $R\Delta_A = R = \Delta_BR$_.
+
+This shows the diagonal is an identity for relational composition.
+
+__Exercise__. _Show if $R\subseteq A\times B$, $S\subseteq B\times C$,
+and $T\subset C\times D$ then $(TS)R = T(SR)$_.
+
+_Hint_: If $d((TS))Ra$ then $d(TS)b$ and $bRa$ for some $b\in B$.
+If $d(TS)b$ then $dTc$ and $cSb$ for some $c\in C$.
+
+This shows relational composition is _associative_ so we can write $TSR$
+unambiguously. 
+
+The _transpose_ of a relation $R\subseteq A\times B$
+is $R^* = \{(b,a)\mid b\in B, a\in A\}\subseteq B\times A$.
+
+__Exercise__. _Show if $R\subseteq A\times B$ then $(R^*)^* = R$_.
+
+__Exercise__. _Show if $R\subseteq A\times B$ and $S\subseteq B\times C$
+then $(SR)^* = R^*S^*$_.
+
+The _kernel_ of a relation $R\subseteq A\times B$ is the
+set of right cosets $\ker R = \{Rb\mid b\in B\}$.
+The _cokernel_ of a relation $R\subseteq A\times B$ is the
+set of left cosets $\coker R = \{aR\mid a\in A\}$.
+
+Define the relations $\sim_R\subseteq A\times A$ by
+$a \sim_R a'$ if and only if $aR = a'R$
+and ${}_R\!\sim\subseteq B\times B$ by
+$b {}_R\!\sim b'$ if and only if $Rb = Rb'$
+
+__Exercise__. _Show $a\sim_R a$, $a\sim_R a'$ implies $a'\sim_R a$, 
+and $a\sim_R a'$, $a'\sim_R a''$ implies $a\sim_R a''$ for $a,a',a''\in A$_.
+
+_Hint_: $aR = aR$, $aR = a'R$ implies $a'R = aR$, and $aR = a'R$, $a'R = a''R$
+implies $a = a''R$.
+
+This shows $\sim_R$ is an _equivalence relation_. It satisfies the same
+properties as equality, but it is a weaker and more powerful notion.
+
+
+## Function
+
+A relation is a _function_ if its left coset is $A$ and
+every right coset contains exactly one element.
+In this case we write $R(a) = b$ for the unique element $b\in B$ with $aRb$
+and use the notation $R\colon A\to B$.
+
+The _kernel_ of a function $R\colon A\to B$ is the collection of
+right cosets $\ker R = \{Rb\mid b\in B\}$.
+
+Every set $A$ has an _identity function_ $1_A\colon A\to A$ defined
+by $1_A(a) = a$ for all $a\in A$.
+
+__Exercise__. _Show if $f\colon A\to B$ is a function then
+$f1_A = 1_Bf$_.
+
+_Hint_: Fill in the dots $f1_A(a) = f(a) = \cdots = 1_Bf(a)$.
+
+A function $f\colon A\to B$ is _injective_ (_one-to-one_) if $f(x) = f(y)$
+implies $x = y$.
+
+__Exercise__. _Show $f\colon A\to B$ is injective if and only
+if there exists $g\colon B\to A$ with $fg = 1_B$_.
+
+_Hint_: $1_B\colon B\to B$ by $1_B(b) = b$ for all $b\in B$.
+
+A function is _surjective_ (_onto_) if for every $y\in B$
+there exists $x\in A$ with $f(x) = y$.
+A function is _bijective_ (one-to-one and onto) if it is injective and surjective.
+
+Two sets are _equal_ if and only if they have the same elements. Two
+sets are _equivalent_ if and only if they have the same number of elements.
+This is defined by the existence of a bijective function $f\colon A\to B$.
+
+__Exercise__. _Show $A$ is equivalent to $A$ for any set $A$_.
+
+_Hint_: Show $1_A\colon A\to A$ by $1_A(a) = a$, $a\in A$ is a bijection.
+
+__Exercise__. _Show if $A$ is equivalent to $B$ then $B$ is equivalent to $A$_.
+
+_Hint_: Show if $f\colon A\to B$ is a bijection then $f^{-1}\colon B\to A$
+exists and is a bijection.
+
+__Exercise__. _Show if $A$ is equivalent to $B$ and $B$ is equivalent to $C$
+then $A$ is equivalent to $C$_.
+
+_Hint_: Show composition of bijections is a bijection.
+
+The _powerset_ of a set $A$ is the set of all subsets.
+
+Set equivalence in a category
+
+Objects and arrows.
+
+The product $A\times B$ is defined by two arrows
+$\pi_A\colon A\times B\to A$ and $\pi_B\colon A\times B\to B$.
+Given two arrows $p_A\colon C\to A$ and $p_B\colon C\to B$ with
+
+Set -> Category
+
+p_A: C -> A, p_B:C -> B$, exists initial element.
+
+## Category
+
+A _category_ has objects and arrows.
