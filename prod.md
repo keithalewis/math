@@ -40,8 +40,8 @@ $$
 It looks overly complicated, and it is, but you need to understand
 the context of the times. Gottlob Frege's [@] theory of sets was that
 a set is determined by a rule for membership. 
-Bertrand Russell [@] cooked Frege's definition by pointing out
-the set of all sets that were not an element of themselves:
+Bertrand Russell [@] cooked Frege's definition with the example
+where the rule is a set is not an element of itself:
 $S = \{x\mid x\not\in x\}$. If $S\in S$ then it satisfies the
 rule $S\not\in S$. If $S\not\in S$ then it it is not the case
 $S\not\in S$ so $S\in S$, assuming the law of the excluded middle.
@@ -81,13 +81,13 @@ _Hint_. $\{a,a\} = \{a\}$.
 __Exercise__. _Show $\{\{a\}, \{a,b\}\} = \{\{c\}, \{c,d\}\}$ if
 and only if $a = b$ and $c = d$_.
 
-_Hint_: Two sets are equal if and only if they have the same elements.
-If $x\in\{\{a\}, \{a,b\}\}$ and has one element then $x = \{a\}$.
-If $\{a\}\in\{\{c\}, \{c,d\}\}$ the $\{a\} = \{c\}$ or $\{a\} = \{c,d\}$.
+_Hint_: If $a = b$ then $(a,b) = \{\{a\}\}$ and $(c,d) = \{\{c\}\} = \{\{a\}\}$.
+If $a\not=b$ and
+$x\in\{\{a\}, \{a,b\}\}$ then $x = \{a\}$ or $x = \{a,b\}$.
 
 TODO: $a = b$ ?
 
-## Product
+## Product (Set)
 
 The _Cartesian product_ of sets $A$ and $B$
 is the set of ordered pairs $A\times B = \{(a,b)\mid a\in A, b\in B\}$.
@@ -100,6 +100,42 @@ exists $p\colon C\to A\times B$ with $p_A = \pi_A p$ and $p_B = \pi_B p$_.
 _Hint_: Let $p(c) = (p_A(c), p_B(c))$.
 
 This is the key to understanding the category theory definition of the product of sets.
+
+## Product (Category)
+
+A category has _objects_ and _arrows_ where compatible arrows between objects
+$f\colon A\to B$ and $g\colon B\to C$ can be _composed_ $gf\colon A\to C$.
+Composition is associative. If $h\colon C\to D$ then $h(gf) = (hg)f$.
+This allows us to write $hgf$ unambiguously.
+Every object in a category has an _identity_ arrow $1_B\colon B\to B$ satisfying
+$1_B f = f$ and $h 1_B = h$.
+
+Categories are similar to monoids where the binary operation is partially defined. 
+They are different because a monoid is defined in terms of a set.
+
+In the category of sets, the objects are sets and the arrows are functions.
+A funny thing happened when mathematicians tried to replace set
+theory with category theory. Math is following your nose and
+obeying the rules of logic no matter where they lead.
+
+Category theory cannot be used to define set membership.
+It lead to Topos Theory and subobject classifiers as a substitute.
+
+The Category Theory definition of a product of $A$ and $B$ is a set
+$D$ with functions $d_A\colon D\to A$ and $d_B\colon D\to B$ 
+having the property if $p_A\colon C\to A$ and $p_B\colon C\to D$ then
+there exists $d\colon C\to D$ with $p_A = d_A d$ and $p_B = d_B d$.
+
+Since $\pi_A\colon A\times B\to B$ and $\pi_B\colon A\times B\to B$ there
+exists $d\colon A\times B\to D$ with $\pi_A = d_A d$ and $\pi_B = d_B d$.
+
+Since $d_A\colon D\to A$ and $d_B\colon D\to B$ the previous exercise shows
+there is a function $p\colon D\to A\times B$ with $d_A = \pi_A p$ and $d_B = \pi_B p$.
+
+Note $pd\colon A\times B\to A\times B$ and $dp\colon D\to D$. We will show
+$pd = 1_{A\times B}$ and $dp = 1_D$ so $A\times B$ and $D$ are isomorphic.
+
+$\pi_A p d = $
 
 ## Relation 
 
