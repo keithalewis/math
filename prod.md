@@ -8,6 +8,7 @@ fleqn: true
 \renewcommand\coker{\operatorname{coker}}
 \renewcommand\dom{\operatorname{dom}}
 \renewcommand\cod{\operatorname{cod}}
+\newcommand\cat[1]{\mathsf{#1}}
 
 What is the product of sets? We look at two different
 ways to define this. The first is the messy classical definition using
@@ -23,8 +24,10 @@ and the symbol (language) '$\in$' indicating set membership.
 
 The set with _members_/_elements_ $a$ and $b$ can be written as $\{a,b\}$
 so $a\in\{a,b\}$ and $b\in\{a,b\}$. If $c$ is different from $a$ and $b$
-then $c\not\in\{a,b\}$.  Two sets are equal if and only if they have
+then $c\not\in\{a,b\}$.  Two sets are equal[^1] if and only if they have
 the same elements so $\{a,b\} = \{b,a\}$.
+
+[^1]: We will not attempt to define the words "equal" or "same."
 
 Set products are defined using _ordered pairs_ $(a,b)$ where
 $(a,b) = (c,d)$ if and only if $a = c$ and $b = d$.
@@ -41,7 +44,7 @@ It looks overly complicated, and it is, but you need to understand
 the context of the times. Gottlob Frege's [@] theory of sets was that
 a set is determined by a rule for membership. 
 Bertrand Russell [@] cooked Frege's definition with the example
-where the rule is a set is not an element of itself:
+where the rule for membership is a set is not an element of itself:
 $S = \{x\mid x\not\in x\}$. If $S\in S$ then it satisfies the
 rule $S\not\in S$. If $S\not\in S$ then it it is not the case
 $S\not\in S$ so $S\in S$, assuming the law of the excluded middle.
@@ -60,7 +63,13 @@ Nevertheless, their work had a profound influence on the future
 of mathematics. They introduced the notion of _types_ and _classes_
 to account for sets that got too big for their britches.
 
-These ideas have modern expression...
+These ideas are very much alive and well in modern formal languages for
+expressing mathematics such as AUTOMATH, Coq, HOL, Isabelle, HoTT, and Lean.
+They are based on the type theory of Church and Martin-Löf that led to
+Curry and Howard observing a type and a proof are equivalent[^2].
+
+[^2]: We will also not attempt to define the word "equivalent" except
+for the case of sets.
 
 
 Felix Hausdorff proposed the definition
@@ -79,13 +88,12 @@ __Exercise__. _Show $(a,a) = \{\{a\}\}$_.
 _Hint_. $\{a,a\} = \{a\}$.
 
 __Exercise__. _Show $\{\{a\}, \{a,b\}\} = \{\{c\}, \{c,d\}\}$ if
-and only if $a = b$ and $c = d$_.
+and only if $a = c$ and $b = d$_.
 
-_Hint_: If $a = b$ then $(a,b) = \{\{a\}\}$ and $(c,d) = \{\{c\}\} = \{\{a\}\}$.
-If $a\not=b$ and
-$x\in\{\{a\}, \{a,b\}\}$ then $x = \{a\}$ or $x = \{a,b\}$.
-
-TODO: $a = b$ ?
+_Hint_: If $a = b$ then $(a,b) = \{\{a\}\}$. If $\{\{a\}\} = \{\{c\}, \{c,d\}\}$
+then $a = c$ and $c = d$.
+If $a\not=b$ then $\{a\} = \{c\}$ and $\{a,b\} = \{c,d\}$.
+Conclude $a = c$ and $b = d$.
 
 ## Product (Set)
 
@@ -109,6 +117,19 @@ Composition is associative. If $h\colon C\to D$ then $h(gf) = (hg)f$.
 This allows us to write $hgf$ unambiguously.
 Every object in a category has an _identity_ arrow $1_B\colon B\to B$ satisfying
 $1_B f = f$ and $h 1_B = h$.
+This holds where objects are sets and arrows are functions giving us
+the category $\cat{Set}$.
+There are many subcategories of $\cat{Set}$ where the set has operations
+and the arrows are required to preserve the operations.
+
+For example, a monoid is a set with a binary operation that is associative
+and has an identity element: $m\colon M\times M\to M$ where
+$m(a,m(b,c)) = m(m(a,b),c)$, $a,b,c\in M$ and $e\in M$
+with $ea = a = ae$, $a\in M$.
+
+__Exercise__. _Show a category with one object is a monoid_.
+
+_Hint_: The arrows are the elements of the monoid.
 
 Categories are similar to monoids where the binary operation is partially defined. 
 They are different because a monoid is defined in terms of a set.
