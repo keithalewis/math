@@ -1,19 +1,21 @@
 ---
-title: Set Product
+title: Product
 author: Keith A. Lewis
 classoption: fleqn
 fleqn: true
+header-includes:
+ - \usepackage{fontspec}
 ---
 \renewcommand\ker{\operatorname{ker}}
-\renewcommand\coker{\operatorname{coker}}
-\renewcommand\dom{\operatorname{dom}}
-\renewcommand\cod{\operatorname{cod}}
+\newcommand\coker{\operatorname{coker}}
+\newcommand\dom{\operatorname{dom}}
+\newcommand\cod{\operatorname{cod}}
 \newcommand\cat[1]{\mathsf{#1}}
 
-What is the product of sets? We look at two different
+What is the product of two sets? We look at two different
 ways to define this. The first is the messy classical definition using
-only sets, the second is the elegant Category Theory definition where you have
-to tie one arm behind your back and use only sets and functions.
+sets and their members/elements, the second is the elegant category theory definition where you have
+to tie one arm behind your back and use only objects and arrows.
 
 ## Set
 
@@ -44,16 +46,14 @@ It looks overly complicated, and it is, but you need to understand
 the context of the times. Gottlob Frege's [@] theory of sets was that
 a set is determined by a rule for membership. 
 Bertrand Russell [@] cooked Frege's definition with the example
-where the rule for membership is a set is not an element of itself:
+where the rule for membership is _all sets that are not an element of themselves_:
 $S = \{x\mid x\not\in x\}$. If $S\in S$ then it satisfies the
 rule $S\not\in S$. If $S\not\in S$ then it it is not the case
 $S\not\in S$ so $S\in S$, assuming the law of the excluded middle.
 
 Russell and Alfred North Whitehead [@] set about fixing this contradiction.
 They defined an ordered pair in terms of a relation. Wiener showed a
-relation could be defined by the more primitive notion of a set.
-This led the way to the modern definition
-of a relation as a subset of the product of sets. [@SQL]
+relation could be defined more primitively as a subset of the product of sets.
 
 Unlike Euclid's The Elements [@], that some regard as the second best
 selling book after the Bible, only 750 copies of [@Pri] were printed.
@@ -64,19 +64,15 @@ of mathematics. They introduced the notion of _types_ and _classes_
 to account for sets that got too big for their britches.
 
 These ideas are very much alive and well in modern formal languages for
-expressing mathematics such as AUTOMATH, Coq, HOL, Isabelle, HoTT, and Lean.
+expressing mathematical proofs such as AUTOMATH, Coq, HOL, Isabelle, HoTT, and Lean.
 They are based on the type theory of Church and Martin-Löf that led to
-Curry and Howard observing a type and a proof are equivalent[^2].
-
-[^2]: We will also not attempt to define the word "equivalent" except
-for the case of sets.
-
+Curry and Howard showing a type and a proof are two sides of the same coin.
 
 Felix Hausdorff proposed the definition
 $$
-	(a, b) := \{\{a,1\}, \{a,2\}\}
+	(a, b) := \{\{a,1\}, \{b,2\}\}
 $$
-where $1$ and $2$ are distinct from $a$ and $b$ and from each other.
+where $1$ and $2$ are distinct from $a$ and $b$, and from each other.
 
 Kazimierz Kuratowski [@] showed there was no need to drag 1 and 2 into the definition.
 $$
@@ -95,68 +91,166 @@ then $a = c$ and $c = d$.
 If $a\not=b$ then $\{a\} = \{c\}$ and $\{a,b\} = \{c,d\}$.
 Conclude $a = c$ and $b = d$.
 
-## Product (Set)
+### Product
 
 The _Cartesian product_ of sets $A$ and $B$
 is the set of ordered pairs $A\times B = \{(a,b)\mid a\in A, b\in B\}$.
-Define _projections_ $\pi_A\colon A\times B\to A$ by $\pi_A(a,b) = b$
-and  $\pi_B\colon A\times B\to B$ by $\pi_A(a,b) = b$
+Define _projections_ $\pi_A\colon A\times B\to A$ by $\pi_B(a,b) = b$
+and $\pi_B\colon A\times B\to B$ by $\pi_A(a,b) = b$.
 
 __Exercise__. _Show if $p_A\colon C\to A$ and $p_B\colon C\to B$ there
 exists $p\colon C\to A\times B$ with $p_A = \pi_A p$ and $p_B = \pi_B p$_.
 
 _Hint_: Let $p(c) = (p_A(c), p_B(c))$.
 
-This is the key to understanding the category theory definition of the product of sets.
+Next we show there is only one such function.
 
-## Product (Category)
+__Exercise__. _Show if $q_A\colon C\to A$, $q_B\colon C\to B$
+and $q\colon C\to A\times B$ with $q_A = \pi_A q$ and $q_B = \pi_B q$
+then $q = p$_.
 
-A category has _objects_ and _arrows_ where compatible arrows between objects
-$f\colon A\to B$ and $g\colon B\to C$ can be _composed_ $gf\colon A\to C$.
+_Hint_: If $q(c) = (a,b)$ then $a = \pi_A q(c) = (\pi_A q)(c)c = q_A(c) = p_A(c)$.
+Similarly, $b = p_B(c)$ so $q(c) = (p_A(c), p_B(c)) = p(c)$ for all $c\in C$
+and $q = p$.
+
+This shows $p$ is unique and motivates the category theory definition of product.
+
+## Category
+
+Category theory provide a foundation for mathematics quite different from set theory.
+Instead of sets with elements category theory uses objects and arrows.
+The prototypical category $\cat{Set}$ has sets as objects and functions as arrows.
+Many categories are defined as sets with structure where the arrows are
+functions that preserve the structure: _homomorphisms_.
+
+If $f\colon A\to B$ is an arrow from
+object $A$ to object $B$, define the _domain_ $\dom f = A$ and _codomain_
+$\cod f = B$.
+If $g\colon B\to C$ is an arrow then $g$ can be _composed_
+with $f$ to get an arrow $gf = g\circ f\colon A\to C$.
+Any arrows $f$ and $g$ with $\cod f = \dom g$ can be composed.
+
 Composition is associative. If $h\colon C\to D$ then $h(gf) = (hg)f$.
-This allows us to write $hgf$ unambiguously.
-Every object in a category has an _identity_ arrow $1_B\colon B\to B$ satisfying
-$1_B f = f$ and $h 1_B = h$.
-This holds where objects are sets and arrows are functions giving us
-the category $\cat{Set}$.
-There are many subcategories of $\cat{Set}$ where the set has operations
-and the arrows are required to preserve the operations.
+This allows us to write $hgf$ unambiguously. This should remind you
+of a semigroup. A _semigroup_ has a binary associative operation.
 
-For example, a monoid is a set with a binary operation that is associative
-and has an identity element: $m\colon M\times M\to M$ where
-$m(a,m(b,c)) = m(m(a,b),c)$, $a,b,c\in M$ and $e\in M$
-with $ea = a = ae$, $a\in M$.
+__Exercise__. _Show a category with one object is a semigroup_.
+
+_Hint_: Show any two arrows are composable and the arrows satisfy
+the axioms of a semigroup.
+
+The final requirement for the definition of a category is that every
+object $A$ has an _identity arrow_ $1_A\colon A\to A$ with
+$f_1A = f = 1_Bf$ for any arrow $f\colon A\to B$.
+
+__Exercise__. _Show $cat{Set}$ is a category_.
+
+A _monoid_ is a semigroup that has an identity element $e$ with 
+$em = m = me$ for every element $m$ of the monoid.
 
 __Exercise__. _Show a category with one object is a monoid_.
 
-_Hint_: The arrows are the elements of the monoid.
+_Hint_: The arrows are the elements of the monoid and the identity
+is $1_A$ where $A$ is the only object in the category.
 
-Categories are similar to monoids where the binary operation is partially defined. 
-They are different because a monoid is defined in terms of a set.
+Categories are monoids where the binary operation is partially defined. 
 
-In the category of sets, the objects are sets and the arrows are functions.
-A funny thing happened when mathematicians tried to replace set
-theory with category theory. Math is following your nose and
-obeying the rules of logic no matter where they lead.
+### Product
+
+The category theory definition of a product of objects $A$ and $B$ is an
+object $A\times B$ having _projections_ $\pi_A\colon A\times B\to A$
+and $\pi_B\colon B\times A\to B$ having the property that
+for any object $C$ and arrows $p_A\colon C\to A$ and
+$p_B\colon C\to B$ there exists a unique arrow
+$p\colon C\to A\times B$ with $p_A = \pi_A p$ and $p_B = \pi_B p$.
+
+<!--
+Given
+```
+       C
+ p_A ↙   ↘ p_B
+    A     B
+```
+there exists unique $p$
+```
+       C
+       ⇣ p
+      A×B
+ π_A ↙   ↘ π_B
+    A     B
+
+```
+with $p_A = \pi_A p$ and $p_B = \pi_B p$.
+Informally, $p_A$ and $p_B$ factor through $\pi_A$ and $\pi_B$ by $p$.
+
+For example, a function on sets $f\colon A\to B$ is _injective_(_one-to-one_) if
+$f(a) = f(a')$ implies $a = a'$, $a,a'\in A$.
+In category theory an arrow $f\colon A\to B$ is a _monomorphism_ if
+$f$ has a _left inverse_ arrow $g\colon B\to A$ with $g f = 1_A$.
+
+__Exercise__. _Show in the category $\cat{Set}$ that $f$ is injective if and only if
+it is a monomorphism_.
+
+_Hint_: If $f$ is mono then there exists $g\colon B\to A$ with $g f = 1_A$ so
+$f(a) = f(a')$ implies $a = g f(a) = g f(a') = a'$.
+If $f$ is injective define $g\colon B\to A$ by $g(b) = a$ if $f(a) = b$
+when $b\in\cod f = f(A) = $\{f(a)\mid a\in A\}$.
+For $b\in B\setminus\cod f$ pick any $a\in A$ and let $g(b) = a$.
+Show $g$ is well-defined ($b = b'$ implies $g(b) = g(b')$) and
+$gf(a) = a$ for $a\in A$.
+
+Let $\#A$ denote the number of elements in set $A$.
+
+__Exercise__. _Show the injective function $f\colon A\to B$ has $(\#B - \#A)^{\#A}$ left inverses_.
+
+_Hint_: Count the functions from $B\setminus f(A)$ to $A$.
+
+A function on sets $f\colon A\to B$ is _surjective_(_onto_) if and only if
+for every $b\in B$ there exists $a\in A$ with $f(a) = b$.
+In category theory an arrow $f\colon A\to B$ is an _epimorphism_ if 
+$f$ has a _right inverse_ arrow $g\colon B\to A$ with $fg = 1_B$.
+
+__Exercise__. _Show in the category $\cat{Set}$ that $f$ is surjective if and only if
+it is a epimorphism_.
+
+_Hint_: If $f$ is epi then there exists $g\colon B\to A$ with $fg = 1_B$.
+Given $b\in B$ we have $f(a) = b$ where $a = g(b)$.
+If $f$ is surjective define $g\colon B\to A$ by $g(b) = a$ for any $a\in A$
+with $f(a) = b$. Conclude $fg = 1_B$.
+
+A function is _bijective_ if it is injective and surjective.
+An arrow is an _isomorphism_ if it is mono and epi.
+
+__Exercise__. _Show $a\sim_R a$, $a\sim_R a'$ implies $a'\sim_R a$, 
+and $a\sim_R a'$, $a'\sim_R a''$ implies $a\sim_R a''$ for $a,a',a''\in A$_.
+
+_Hint_: $aR = aR$, $aR = a'R$ implies $a'R = aR$, and $aR = a'R$, $a'R = a''R$
+implies $a = a''R$.
+
+This shows $\sim_R$ is an _equivalence relation_. It satisfies the same
+properties as equality, but it is a weaker and more powerful notion.
+
+
+
+The category $\set{Poset}$ is motivated by sets as objects and inclusion as arrows.
+If
+Every pair of objects has exactly one arrow $A\to B$ and
+satisfies $A\to A$, $A\to B$ then $B\to A$, and $A\to B$ and $B\to C$
+implies $A\to C$.
+
+In the category $\cat{Set}$ a function is mono if and only if it is
+A funny thing happened when people tried to use category theory to
+define set theory. In set theory we can define membership using
+the _characteristic function_ $\xi_A\colon A\to\{0,1\}$ where
+$\xi_A(a) = 1$ if $a\in A$ and $\xi_A(a) = 0$ if $a\not\in A$
+
+__Exercise__. _Show $a\in A$ if and only if $\xi_A(a) = 1$_.
 
 Category theory cannot be used to define set membership.
-It lead to Topos Theory and subobject classifiers as a substitute.
+It lead to Topos Theory and subobject classifiers as a substitute for 
 
-The Category Theory definition of a product of $A$ and $B$ is a set
-$D$ with functions $d_A\colon D\to A$ and $d_B\colon D\to B$ 
-having the property if $p_A\colon C\to A$ and $p_B\colon C\to D$ then
-there exists $d\colon C\to D$ with $p_A = d_A d$ and $p_B = d_B d$.
+We define _category_ and show how they can be used to define _product_.
 
-Since $\pi_A\colon A\times B\to B$ and $\pi_B\colon A\times B\to B$ there
-exists $d\colon A\times B\to D$ with $\pi_A = d_A d$ and $\pi_B = d_B d$.
-
-Since $d_A\colon D\to A$ and $d_B\colon D\to B$ the previous exercise shows
-there is a function $p\colon D\to A\times B$ with $d_A = \pi_A p$ and $d_B = \pi_B p$.
-
-Note $pd\colon A\times B\to A\times B$ and $dp\colon D\to D$. We will show
-$pd = 1_{A\times B}$ and $dp = 1_D$ so $A\times B$ and $D$ are isomorphic.
-
-$\pi_A p d = $
 
 ## Relation 
 
@@ -287,3 +381,4 @@ p_A: C -> A, p_B:C -> B$, exists initial element.
 ## Category
 
 A _category_ has objects and arrows.
+-->

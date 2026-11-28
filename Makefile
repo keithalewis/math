@@ -15,8 +15,8 @@ FLAGS += -f markdown+tex_math_single_backslash+auto_identifiers+definition_lists
 FLAGS += --metadata link-citations=true
 #FLAGS += --citeproc capm.bib
 #TEXFLAGS = --pdf-engine=lualatex 
-#TEXFLAGS = --pdf-engine=xelatex 
-TEXFLAGS = --pdf-engine=pdflatex 
+TEXFLAGS = --pdf-engine=xelatex 
+#TEXFLAGS = --pdf-engine=pdflatex 
 TEXFLAGS += -f markdown+definition_lists+raw_html+pipe_tables+citations
 FLAGS += -t html5
 #FLAGS += --katex
